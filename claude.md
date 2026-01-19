@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This repository is a centralized dumping ground for everything across my life and work. It's an **ingestion and retrieval system** - I dump information here, and Claude should be able to organize, categorize, and retrieve whatever I need.
+This repository is a centralized dumping ground for everything across my life and work. The primary goal is to provide **at-a-glance status** of projects, meetings, and ongoing work. It's an **ingestion and convergent organization system** - I dump information here continuously, and automated loops progressively organize it.
 
 ## What Goes Here
 
@@ -13,15 +13,25 @@ This repository is a centralized dumping ground for everything across my life an
 - **Data**: Snow data, metrics, any data I want to track
 - **Anything else**: If I need to remember it or reference it later, it goes here
 
-## How Claude Should Use This
+## How This Works
 
-### On Ingestion (when I dump something)
-- Help organize into appropriate folders/files
-- Tag or categorize the content
-- Link related information if connections exist
-- Suggest structure improvements when patterns emerge
+### The Loop Model
 
-### On Retrieval (when I ask for something)
+A CI/cron job runs Claude Code periodically to organize content. The key principles:
+
+1. **Incremental organization** - Each run does a little bit of work, not everything
+2. **Convergence** - The system should stabilize over time
+3. **Change detection** - If nothing has changed since last run, or max iterations reached, stop
+4. **Progressive refinement** - More dumps = more updates = better organization
+
+### On Each Loop Run
+- Check what's new or changed since last run
+- Do a small amount of organization work
+- Update status summaries and cross-references
+- Track iteration count and changes made
+- Exit early if converged (no changes) or max iterations hit
+
+### On Manual Retrieval (when I ask for something)
 - Search across all content to find relevant information
 - Synthesize answers from multiple sources if needed
 - Provide context about when/where information came from
@@ -42,6 +52,7 @@ This repository is a centralized dumping ground for everything across my life an
 
 ## Notes
 
-- Don't worry about perfect organization on first dump - use `/inbox` for quick captures
-- Claude should help refine structure as patterns emerge
+- Just dump into `/inbox` or relevant directories - don't worry about perfect organization
+- The loop will progressively organize and refine
 - Cross-reference liberally - information often relates across categories
+- Status summaries should bubble up to make "at a glance" review easy
