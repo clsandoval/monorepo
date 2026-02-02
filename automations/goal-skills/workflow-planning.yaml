@@ -1,0 +1,156 @@
+# Goal Skill: Workflow Planning
+# Meta-skill that creates execution plans for multi-stage workflows
+# Output: EXECUTION_PLAN.md that can be reviewed and then executed
+
+goal_skill:
+  name: "workflow-planning"
+  version: "1.0"
+  mode: "planning"  # Special mode: outputs execution plan, not findings
+
+  goal: |
+    Given a high-level objective, decompose it into a sequence of
+    atomic stages, where each stage is a self-contained Ralph loop
+    that can be executed independently.
+
+    Output an EXECUTION_PLAN.md that specifies:
+    - Each stage with clear goal, inputs, outputs
+    - Convergence criteria for each stage
+    - Dependencies between stages
+    - Estimated iterations per stage
+
+    The plan should be:
+    - COMPLETE: All steps needed to achieve the objective
+    - ATOMIC: Each stage does one thing well
+    - EXECUTABLE: Each stage can run as its own Ralph loop
+    - REVIEWABLE: Human can understand and approve before execution
+
+  completion_criteria:
+    - "All stages identified to achieve objective"
+    - "Each stage has clear goal, inputs, outputs"
+    - "Each stage has convergence criteria"
+    - "Dependencies between stages are explicit"
+    - "Plan is written to EXECUTION_PLAN.md"
+
+  approach:
+    scope_per_iteration: |
+      This is typically a single-iteration skill:
+      1. Understand the objective deeply
+      2. Identify all the types of work needed
+      3. Break into atomic stages
+      4. Define each stage's properties
+      5. Write the complete plan
+
+      If complex, iterate:
+      - First iteration: rough stage outline
+      - Second iteration: refine inputs/outputs
+      - Third iteration: add convergence criteria
+
+    stage_design_principles: |
+      Each stage should be:
+
+      ATOMIC:
+      - One clear goal
+      - One type of work (investigation OR experimentation OR building)
+      - Can be described in one sentence without "and"
+
+      INDEPENDENT:
+      - Can run as its own Ralph loop
+      - Doesn't require context from previous stage's execution
+      - Only needs the OUTPUT files from previous stages
+
+      BOUNDED:
+      - Has clear convergence criteria
+      - Will eventually terminate
+      - Progress is measurable
+
+      CONNECTED:
+      - Inputs come from previous stage outputs
+      - Outputs feed into next stage
+      - Chain is traceable
+
+    common_stage_types: |
+      INVESTIGATION:
+      - Find problems, enumerate items, audit access
+      - Output: list of findings
+
+      ANALYSIS:
+      - Quantify, prioritize, assess impact
+      - Output: analysis document
+
+      PROPOSAL:
+      - Propose solutions, designs, experiments
+      - Output: proposal document
+
+      VALIDATION (small scale):
+      - Test on subset before full run
+      - Output: validation report
+
+      EXECUTION (full scale):
+      - Run the actual thing
+      - Output: results
+
+      VERIFICATION:
+      - Check results are valid (no leakage, etc.)
+      - Output: verification report
+
+      SYNTHESIS:
+      - Combine findings into dashboard/report
+      - Output: dashboard or summary
+
+      DEPLOYMENT:
+      - Make results accessible
+      - Output: deployed URL
+
+  output:
+    primary_file: "EXECUTION_PLAN.md"
+    format: "markdown"
+
+    template: |
+      # EXECUTION_PLAN.md
+
+      ## Objective
+      [What we're trying to achieve]
+
+      ## Stages
+
+      ### Stage 1: [Name]
+      - **Goal**: [Clear, atomic goal]
+      - **Mode**: [investigation | analysis | proposal | validation | execution | verification | synthesis | deployment]
+      - **Input**: [Files or context needed]
+      - **Output**: [Files produced]
+      - **Convergence**: [How do we know this stage is done?]
+      - **Estimated iterations**: [Rough guess]
+
+      ### Stage 2: [Name]
+      ...
+
+      ## Dependencies
+      [Which stages depend on which]
+
+      ## Checkpoints
+      [Where human review is recommended]
+
+      ## Risk Assessment
+      [What could go wrong, how to detect it]
+
+  context:
+    domain_knowledge: |
+      Common workflow patterns:
+
+      INVESTIGATE → ANALYZE → PROPOSE → VALIDATE → EXECUTE → VERIFY → PRESENT
+      (for problem-solving workflows)
+
+      ENUMERATE → PRIORITIZE → IMPLEMENT → TEST
+      (for implementation workflows)
+
+      AUDIT → REMEDIATE → VERIFY
+      (for compliance workflows)
+
+      RESEARCH → SYNTHESIZE → DOCUMENT
+      (for research workflows)
+
+  # This skill is typically used interactively, not in a loop
+  progress:
+    tracking_file: null  # Not needed for single-shot planning
+    completion_threshold: 100
+    max_iterations: 3  # Usually done in 1, max 3 for complex objectives

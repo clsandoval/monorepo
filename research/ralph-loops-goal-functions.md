@@ -22,9 +22,10 @@
 8. [The Goal Skill Format](#the-goal-skill-format)
 9. [Test Case: Email Investigation](#test-case-email-investigation)
 10. [Test Case: User Story Generation](#test-case-user-story-generation)
-11. [Failure Modes & Vectors](#failure-modes--vectors)
-12. [Implementation: Loop Scripts & File Structure](#implementation-loop-scripts--file-structure)
-13. [Enhancements from the Playbook](#enhancements-from-the-playbook)
+11. [Multi-Stage Workflows: Planning Ralph + Execution Ralph](#multi-stage-workflows-planning-ralph--execution-ralph)
+12. [Failure Modes & Vectors](#failure-modes--vectors)
+13. [Implementation: Loop Scripts & File Structure](#implementation-loop-scripts--file-structure)
+14. [Enhancements from the Playbook](#enhancements-from-the-playbook)
 
 ---
 
@@ -1126,6 +1127,269 @@ FINAL STATE:
 ├── Feature areas covered: 12
 ├── Edge cases documented: 34
 └── Coverage confidence: 96%
+```
+
+---
+
+## Multi-Stage Workflows: Planning Ralph + Execution Ralph
+
+### The Problem with Upfront Specification
+
+For complex workflows, you don't know all the stages upfront:
+
+```
+"Find email problems, propose solutions, run experiments, validate,
+ create dashboard, deploy results"
+```
+
+Trying to specify goal skills for each stage before knowing what you'll find is backwards. The investigation itself reveals what stages are needed.
+
+### The Solution: Two-Phase Pattern
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    PLANNING RALPH + EXECUTION RALPH                          │
+│                                                                              │
+│  PHASE 1: PLANNING RALPH                                                    │
+│  ├── Input: High-level objective ("fix email problems, prove it works")    │
+│  ├── Output: Execution plan with stages                                     │
+│  ├── Each stage = one goal skill to run                                    │
+│  └── Exits with: EXECUTION_PLAN.md                                         │
+│                                                                              │
+│  ────────────────── HUMAN CHECKPOINT ──────────────────                     │
+│  │                                                                          │
+│  │  You read the plan. Thumbs up or adjust.                                │
+│  │                                                                          │
+│  ──────────────────────────────────────────────────────                     │
+│                                                                              │
+│  PHASE 2: EXECUTION RALPH                                                   │
+│  ├── Reads EXECUTION_PLAN.md                                               │
+│  ├── Runs each stage as its own Ralph loop                                 │
+│  ├── Each stage exits when done, next stage starts                         │
+│  └── Final output: whatever the plan specified                             │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Example: Email Investigation → Experiment → Dashboard
+
+**You say:**
+> "Our client emails aren't working well. Investigate, propose fixes,
+> run experiments to prove they work, and deploy a dashboard with results."
+
+**Planning Ralph produces:**
+
+```markdown
+# EXECUTION_PLAN.md
+
+## Objective
+Investigate email context problems, propose and validate solutions,
+present findings in deployed dashboard.
+
+## Stages
+
+### Stage 1: Investigation
+- **Goal**: Identify all context access issues in email automations
+- **Output**: findings/issues.md with list of problems
+- **Convergence**: 3 iterations with no new issues found
+
+### Stage 2: Impact Analysis
+- **Goal**: Quantify impact of each issue (% of emails affected)
+- **Input**: findings/issues.md
+- **Output**: findings/impact-analysis.md
+- **Convergence**: All issues have impact quantified
+
+### Stage 3: Solution Proposal
+- **Goal**: For each issue, propose solution with implementation approach
+- **Input**: findings/issues.md, findings/impact-analysis.md
+- **Output**: findings/proposed-solutions.md
+- **Convergence**: All issues have proposed solutions
+
+### Stage 4: Experiment Design
+- **Goal**: Design experiments to validate each solution
+- **Input**: findings/proposed-solutions.md
+- **Output**: experiments/design.md (metrics, baselines, test data)
+- **Convergence**: All solutions have experiment designs
+
+### Stage 5: Experiment Validation (Small Subset)
+- **Goal**: Run experiments on 100-sample subset to validate setup
+- **Input**: experiments/design.md
+- **Output**: experiments/validation-run.md
+- **Convergence**: All experiments run without errors
+
+### Stage 6: Full Experiment Run
+- **Goal**: Run experiments on full dataset
+- **Input**: experiments/design.md
+- **Output**: experiments/results.md (hit rates, acceptance rates)
+- **Convergence**: All experiments complete with results
+
+### Stage 7: Results Validation
+- **Goal**: Validate experiment results (no data leakage, statistical significance)
+- **Input**: experiments/results.md
+- **Output**: experiments/validation.md
+- **Convergence**: All results validated or flagged
+
+### Stage 8: Dashboard Generation
+- **Goal**: Create dashboard summarizing all findings and results
+- **Input**: All findings/* and experiments/* files
+- **Output**: dashboard/index.html
+- **Convergence**: Dashboard renders correctly with all data
+
+### Stage 9: Deployment
+- **Goal**: Deploy dashboard to accessible URL
+- **Input**: dashboard/
+- **Output**: Deployed URL
+- **Convergence**: Dashboard accessible and verified
+
+## Dependencies
+Stage 2 depends on Stage 1
+Stage 3 depends on Stage 2
+Stage 4 depends on Stage 3
+Stage 5 depends on Stage 4
+Stage 6 depends on Stage 5
+Stage 7 depends on Stage 6
+Stage 8 depends on Stage 7
+Stage 9 depends on Stage 8
+
+## Estimated Iterations
+~50-80 total across all stages
+```
+
+**You review, approve. Execution Ralph runs.**
+
+### Each Stage = Atomic Ralph Loop
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    STAGE EXECUTION                                           │
+│                                                                              │
+│  Stage 1: Investigation                                                     │
+│  ├── Ralph loop runs with investigation goal skill                          │
+│  ├── Converges when no new issues found                                     │
+│  ├── Writes: findings/issues.md                                             │
+│  └── Exits                                                                  │
+│           │                                                                  │
+│           ▼                                                                  │
+│  Stage 2: Impact Analysis                                                   │
+│  ├── Ralph loop reads findings/issues.md                                    │
+│  ├── For each issue, calculates % of emails affected                        │
+│  ├── Converges when all issues quantified                                   │
+│  ├── Writes: findings/impact-analysis.md                                    │
+│  └── Exits                                                                  │
+│           │                                                                  │
+│           ▼                                                                  │
+│  Stage 3: Solution Proposal                                                 │
+│  ├── Ralph loop reads issues + impact                                       │
+│  ├── Proposes solutions with implementation approach                        │
+│  └── Exits                                                                  │
+│           │                                                                  │
+│           ▼                                                                  │
+│  ... stages 4-9 continue ...                                                │
+│           │                                                                  │
+│           ▼                                                                  │
+│  COMPLETE: Dashboard deployed at https://results.example.com               │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Goal Skill: Workflow Planning
+
+```yaml
+goal_skill:
+  name: "workflow-planning"
+  version: "1.0"
+  mode: "planning"  # Special mode: outputs execution plan, not findings
+
+  goal: |
+    Given a high-level objective, decompose it into a sequence of
+    atomic stages, where each stage is a self-contained Ralph loop
+    that can be executed independently.
+
+    Output an EXECUTION_PLAN.md that specifies:
+    - Each stage with clear goal, inputs, outputs
+    - Convergence criteria for each stage
+    - Dependencies between stages
+    - Estimated iterations per stage
+
+  approach:
+    scope_per_iteration: |
+      Each iteration should:
+      1. Understand the overall objective
+      2. Identify what needs to happen (investigation, experimentation, etc.)
+      3. Break into atomic stages (one concern per stage)
+      4. Define inputs/outputs for each stage
+      5. Specify convergence criteria
+
+    stage_principles: |
+      Each stage should be:
+      - ATOMIC: One clear goal, one type of work
+      - INDEPENDENT: Can run as its own Ralph loop
+      - BOUNDED: Has clear convergence criteria
+      - CONNECTED: Inputs come from previous stage outputs
+
+  output:
+    primary_file: "EXECUTION_PLAN.md"
+    format: "markdown"
+```
+
+### The Orchestrator Script
+
+```bash
+#!/bin/bash
+# ralph-workflow.sh - Multi-stage workflow executor
+
+OBJECTIVE="$1"
+
+# Phase 1: Planning
+echo "=== PHASE 1: PLANNING ==="
+cat > /tmp/planning-prompt.md << EOF
+Objective: $OBJECTIVE
+
+Create an EXECUTION_PLAN.md breaking this into atomic stages.
+Each stage should be a self-contained Ralph loop.
+EOF
+
+cat /tmp/planning-prompt.md | claude -p --model opus
+
+# Human checkpoint
+echo ""
+echo "=== EXECUTION PLAN READY ==="
+echo "Review: EXECUTION_PLAN.md"
+echo "Press Enter to execute, or Ctrl+C to abort"
+read
+
+# Phase 2: Execution
+echo "=== PHASE 2: EXECUTION ==="
+
+# Parse stages from plan and execute each
+stage=1
+while [ -f "goals/stage-${stage}.yaml" ]; do
+    echo "--- Stage $stage ---"
+    ./ralph-investigate.sh "stage-${stage}"
+    ((stage++))
+done
+
+echo "=== WORKFLOW COMPLETE ==="
+```
+
+### Why This Works
+
+1. **Planning is cheap**: One Ralph loop to create the plan
+2. **Human stays in control**: You approve before execution
+3. **Stages are atomic**: Each can fail/retry independently
+4. **Progress is visible**: Check after each stage
+5. **Dynamic adaptation**: Plan reflects what investigation reveals
+
+### Integration with Investigation Ralph
+
+The multi-stage pattern builds on Investigation Ralph:
+
+```
+INVESTIGATION RALPH          →    MULTI-STAGE RALPH
+├── Single goal skill             ├── Multiple goal skills (stages)
+├── Single output                 ├── Chained outputs
+├── Convergence: plateau          ├── Convergence: all stages complete
+└── One overnight run             └── May span multiple nights
 ```
 
 ---
