@@ -1,0 +1,72 @@
+# Goal Skill Template
+# Copy this file and fill in the sections for your specific goal
+
+goal_skill:
+  name: "your-skill-name"
+  version: "1.0"
+
+  # The goal in plain English - be specific and measurable
+  goal: |
+    [What are you trying to achieve? Be specific enough that:
+    - The LLM can assess progress toward it
+    - There's a natural "done" state
+    - Two different loops would agree on what counts as progress]
+
+  # What does "done" look like? List explicit criteria
+  completion_criteria:
+    - "[Criterion 1 - something checkable]"
+    - "[Criterion 2 - something checkable]"
+    - "[Criterion N - something checkable]"
+
+  # How should the agent approach this?
+  approach:
+    # CRITICAL: Limit scope per iteration to ONE focused thing
+    scope_per_iteration: |
+      Each iteration should focus on ONE of:
+      - [Option A]
+      - [Option B]
+      - [Option C]
+
+      Do NOT try to cover everything. Do ONE focused thing well.
+
+    # How to find things to work on
+    exploration_strategy: |
+      1. [First phase - what to do first]
+      2. [Second phase - what to do next]
+      3. [Third phase - how to find edge cases]
+      4. [Final phase - how to verify completeness]
+
+    # How to record findings
+    output_format: |
+      [Describe the format for output. Be specific about structure.]
+
+  # Convergence detection settings
+  progress:
+    tracking_file: "[path to progress tracking file]"
+
+    # The self-assessment question for each iteration
+    progress_question: |
+      After this iteration:
+      1. What specifically did you work on?
+      2. What did you add/discover/fix?
+      3. What areas remain unexplored?
+      4. Confidence that goal is satisfied: __%
+
+    # When to stop
+    completion_threshold: 95   # % confidence to auto-stop
+    plateau_threshold: 3       # consecutive NO-progress iterations to stop
+    max_iterations: 50         # safety cap
+
+  # What context does the agent need?
+  context:
+    files_to_read:
+      - "[path/pattern1]"
+      - "[path/pattern2]"
+
+    domain_knowledge: |
+      [Any background info the agent needs to do this well]
+
+  # Where output goes
+  output:
+    primary_file: "[path to main output file]"
+    format: "markdown"  # or yaml, json, etc.

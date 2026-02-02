@@ -1,0 +1,158 @@
+# Goal Skill: Email Automation User Stories
+# Generates exhaustive user stories and journeys from codebase analysis
+
+goal_skill:
+  name: "email-automation-user-stories"
+  version: "1.0"
+
+  goal: |
+    Generate a comprehensive, exhaustive list of user stories and user journeys
+    for the email automation software. This should cover:
+
+    - All user types (admin, marketer, developer, end recipient, etc.)
+    - All features (campaign creation, scheduling, analytics, integrations, etc.)
+    - All edge cases (errors, rate limits, bounces, unsubscribes, etc.)
+    - All workflows (onboarding, daily use, troubleshooting, etc.)
+
+    The goal is to have a complete picture of every way a user might interact
+    with the system, every problem they might encounter, and every outcome
+    they might want.
+
+  completion_criteria:
+    - "All user types identified and have stories"
+    - "All major features covered from each relevant user's perspective"
+    - "Edge cases and error scenarios documented"
+    - "User journeys show end-to-end flows, not just isolated actions"
+    - "Stories follow format: As a [user], I want [action], so that [benefit]"
+    - "No obvious gaps when reviewing against codebase/docs"
+
+  approach:
+    scope_per_iteration: |
+      Each iteration should focus on ONE of:
+      - A new user type not yet covered
+      - A new feature area not yet covered
+      - Edge cases for a feature already covered
+      - Connecting existing stories into journeys
+      - Reviewing for gaps and adding missing stories
+
+      Do NOT try to cover everything. Do ONE focused thing well.
+
+    exploration_strategy: |
+      Phase 1 - Foundation (iterations 1-5):
+        - Identify user types from codebase (roles, permissions, models)
+        - Map feature areas from routes, controllers, UI components
+
+      Phase 2 - Core Coverage (iterations 6-25):
+        - For each (user type, feature) pair, generate stories
+        - Work systematically: complete one user type before moving to next
+
+      Phase 3 - Edge Cases (iterations 26-35):
+        - Look at error handling code to find edge cases
+        - Review retry logic, fallbacks, error messages
+        - Document failure scenarios and recovery paths
+
+      Phase 4 - Journeys (iterations 36-40):
+        - Connect stories into end-to-end user journeys
+        - Common journeys: onboarding, first campaign, troubleshooting
+
+      Phase 5 - Gap Review (iterations 41+):
+        - Compare against README, docs, any existing specs
+        - Final codebase scan for untouched areas
+        - Iterate until no new gaps found
+
+    output_format: |
+      Add stories to the output file in this format:
+
+      ## [User Type]: [Persona Name]
+
+      Brief description of this user type and their goals.
+
+      ### [Feature Area]
+
+      - **US-XXX**: As a [user], I want [action], so that [benefit]
+        - Acceptance criteria:
+          - [criterion 1]
+          - [criterion 2]
+        - Edge cases:
+          - [edge case 1]
+          - [edge case 2]
+
+      ### User Journey: [Journey Name]
+
+      **Goal**: [What the user is trying to accomplish]
+
+      1. [Step 1] → US-XXX
+      2. [Step 2] → US-YYY
+      3. [Step 3] → US-ZZZ
+      ...
+
+      **Success criteria**: [How we know journey succeeded]
+      **Failure paths**: [What could go wrong, links to error handling stories]
+
+  progress:
+    tracking_file: "docs/user-stories/_progress.md"
+
+    progress_question: |
+      After this iteration:
+      1. What user type or feature area did you cover?
+      2. How many new user stories did you add?
+      3. What areas are still unexplored?
+      4. Confidence that we have exhaustive coverage: __%
+
+    completion_threshold: 95
+    plateau_threshold: 5   # large scope needs more patience
+    max_iterations: 100    # this is a big task
+
+  context:
+    files_to_read:
+      - "src/routes/**/*.ts"
+      - "src/controllers/**/*.ts"
+      - "src/models/**/*.ts"
+      - "src/services/**/*.ts"
+      - "src/middleware/**/*.ts"
+      - "docs/**/*.md"
+      - "README.md"
+      - "package.json"
+
+    domain_knowledge: |
+      Email automation systems typically handle:
+
+      Core Features:
+      - Campaign management (create, schedule, send, track)
+      - Contact/list management (import, segment, clean, suppress)
+      - Template management (design, personalize, test, version)
+      - Analytics (opens, clicks, conversions, bounces, revenue)
+      - A/B testing (subject lines, content, send times)
+
+      Integrations:
+      - CRM systems (Salesforce, HubSpot)
+      - E-commerce (Shopify, WooCommerce)
+      - Webhooks (custom integrations)
+      - Data warehouses (exports, syncs)
+
+      Compliance & Deliverability:
+      - Unsubscribe handling (one-click, preference centers)
+      - GDPR/CCPA compliance (consent, data deletion)
+      - CAN-SPAM compliance (physical address, opt-out)
+      - Deliverability (SPF, DKIM, DMARC, reputation)
+      - IP/domain warming
+
+      Common User Types:
+      - Marketing Manager: strategy, oversight, reporting
+      - Campaign Operator: day-to-day execution, scheduling
+      - Developer: integrations, API usage, custom logic
+      - Admin: settings, users, billing, permissions
+      - Email Recipient: the person receiving emails (implicit user)
+      - Support: troubleshooting, customer issues
+
+      Common Failure Modes:
+      - Bounces (hard/soft)
+      - Spam complaints
+      - Rate limiting (ESP limits, sending throttling)
+      - Import failures (bad data, duplicates)
+      - Template rendering errors
+      - Integration sync failures
+
+  output:
+    primary_file: "docs/user-stories/email-automation-complete.md"
+    format: "markdown"
