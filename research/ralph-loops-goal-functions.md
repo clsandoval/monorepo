@@ -6,22 +6,128 @@
 **Created**: 2026-02-02
 **Related**: [[knowledge-expansion-loop]], [[ingestion-pipeline-plan]]
 **Origin**: Geoffrey Huntley's Ralph Wiggum Technique
+**Source**: [The Ralph Playbook](https://github.com/ghuntley/how-to-ralph-wiggum)
 
 ---
 
 ## Table of Contents
 
-1. [The Core Insight](#the-core-insight)
-2. [Goal Functions: Plain English Loss Functions](#goal-functions-plain-english-loss-functions)
-3. [Convergence Detection](#convergence-detection)
-4. [The Goal Skill Format](#the-goal-skill-format)
-5. [Test Case: Email Automation User Stories](#test-case-email-automation-user-stories)
-6. [Failure Modes & Vectors](#failure-modes--vectors)
-7. [Implementation Considerations](#implementation-considerations)
+1. [The Huntley Playbook Foundation](#the-huntley-playbook-foundation)
+2. [The Core Insight: ML Meets Ralph](#the-core-insight-ml-meets-ralph)
+3. [Goal Functions: Plain English Loss Functions](#goal-functions-plain-english-loss-functions)
+4. [Convergence Detection](#convergence-detection)
+5. [Steering & Backpressure](#steering--backpressure)
+6. [Subagent Patterns](#subagent-patterns)
+7. [The Goal Skill Format](#the-goal-skill-format)
+8. [Test Case: Email Automation User Stories](#test-case-email-automation-user-stories)
+9. [Failure Modes & Vectors](#failure-modes--vectors)
+10. [Implementation: Loop Scripts & File Structure](#implementation-loop-scripts--file-structure)
+11. [Enhancements from the Playbook](#enhancements-from-the-playbook)
 
 ---
 
-## The Core Insight
+## The Huntley Playbook Foundation
+
+### 3 Phases, 2 Prompts, 1 Loop
+
+The canonical Ralph pattern from Geoffrey Huntley:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    THE RALPH WORKFLOW                                        │
+│                                                                              │
+│  PHASE 1: REQUIREMENTS                                                      │
+│  ├── Human + LLM conversation                                               │
+│  ├── Identify Jobs-to-be-Done (JTBD)                                        │
+│  ├── Break into Topics of Concern                                           │
+│  └── Output: specs/*.md (one per topic)                                     │
+│                                                                              │
+│  PHASE 2: PLANNING (same loop, different prompt)                            │
+│  ├── Gap analysis: specs vs existing code                                   │
+│  ├── Generate prioritized task list                                         │
+│  ├── NO implementation                                                       │
+│  └── Output: IMPLEMENTATION_PLAN.md                                         │
+│                                                                              │
+│  PHASE 3: BUILDING (same loop, different prompt)                            │
+│  ├── Pick highest-priority task from plan                                   │
+│  ├── Implement with test validation                                         │
+│  ├── Update plan, commit changes                                            │
+│  └── Output: Working code + updated plan                                    │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### The Elegantly Simple Loop
+
+```bash
+while :; do cat PROMPT.md | claude ; done
+```
+
+That's it. The magic is in:
+- **Disk-resident state**: `IMPLEMENTATION_PLAN.md` persists between iterations
+- **Fresh context each loop**: Agent reads updated plan from disk
+- **File-based coordination**: No sophisticated orchestration needed
+
+### Core File Structure
+
+```
+project-root/
+├── loop.sh                    # Orchestration script
+├── PROMPT_plan.md             # Planning mode instructions
+├── PROMPT_build.md            # Building mode instructions
+├── AGENTS.md                  # Operational how-to guide (~60 lines)
+├── IMPLEMENTATION_PLAN.md     # Prioritized tasks (shared state)
+├── specs/                     # Requirements (one per topic)
+│   ├── authentication.md
+│   ├── campaign-management.md
+│   └── analytics.md
+└── src/                       # Application code
+```
+
+### The AGENTS.md File
+
+Single canonical operational guide - concise (~60 lines):
+- How to build/run the project
+- Test commands (targeted + full suite)
+- Typecheck/lint commands
+- Codebase patterns to discover
+
+**NOT** a changelog or progress diary. Status belongs in `IMPLEMENTATION_PLAN.md`.
+
+```markdown
+# AGENTS.md - Operational Guide
+
+## Build & Run
+npm install
+npm run dev
+
+## Test Commands
+npm test                    # Full suite
+npm test -- --grep "auth"   # Targeted
+
+## Typecheck & Lint
+npm run typecheck
+npm run lint
+
+## Codebase Patterns
+- Controllers in src/controllers/
+- Services handle business logic
+- Use existing error patterns in src/lib/errors.ts
+```
+
+### Key Language Patterns
+
+| Pattern | Purpose |
+|---------|---------|
+| "study" (not "read") | Deep contextual analysis, not just file reading |
+| "don't assume not implemented" | Prevent hallucinating new code when it exists |
+| "using parallel subagents" | Spawn subagents for expensive exploration |
+| "only 1 subagent for build/tests" | Control backpressure at validation |
+| "capture the why" | Emphasize tests and implementation purpose |
+
+---
+
+## The Core Insight: ML Meets Ralph
 
 ### The Analogy
 
@@ -189,6 +295,166 @@ Progress per Iteration (conceptual)
        1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16  iterations
 
 When 3 consecutive iterations show ~0% new progress, stop.
+```
+
+---
+
+## Steering & Backpressure
+
+### Two Directions of Control
+
+From the Huntley Playbook: Ralph is steered in two directions.
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      STEERING RALPH                                          │
+│                                                                              │
+│  UPSTREAM (Deterministic Setup)                                             │
+│  ├── First ~5,000 tokens: specs, consistent file loading                   │
+│  ├── Existing code patterns guide generation                                │
+│  ├── AGENTS.md operational learnings                                        │
+│  └── "Signs" Ralph discovers in the codebase                               │
+│                                                                              │
+│  DOWNSTREAM (Backpressure)                                                  │
+│  ├── Tests reject invalid work                                              │
+│  ├── Lints catch style violations                                          │
+│  ├── Build failures block progress                                         │
+│  └── LLM-as-judge for subjective criteria                                  │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Observational Tuning
+
+> "Tune it like a guitar—instead of prescribing everything upfront, observe and adjust."
+
+When Ralph fails a specific way:
+1. **Don't rewrite the agent**
+2. **Refine the signals**: adjust prompts, add utility functions
+3. **Update AGENTS.md** with operational patterns
+4. **Regenerate the plan** if needed (cheap: one planning loop)
+
+The plan is disposable. If it's wrong, throw it out and start over.
+
+### Backpressure Mechanisms
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      BACKPRESSURE TYPES                                      │
+│                                                                              │
+│  1. DETERMINISTIC BACKPRESSURE                                              │
+│     ├── Tests: must pass before commit                                      │
+│     ├── Types: typecheck must succeed                                       │
+│     ├── Lints: style rules enforced                                         │
+│     └── Build: compilation must work                                        │
+│                                                                              │
+│  2. NON-DETERMINISTIC BACKPRESSURE (LLM-as-Judge)                          │
+│     ├── Tone: "warm, conversational, professional"                         │
+│     ├── Aesthetics: "clear visual hierarchy"                               │
+│     ├── UX feel: "intuitive primary action"                                │
+│     └── Quality: subjective criteria as binary pass/fail                   │
+│                                                                              │
+│  3. CONVERGENCE BACKPRESSURE (Our Addition)                                 │
+│     ├── Progress plateau: K iterations with no meaningful delta            │
+│     ├── Confidence threshold: agent reports goal satisfied                 │
+│     └── Diminishing returns: progress per iteration dropping               │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### LLM-as-Judge Pattern
+
+For subjective criteria that resist programmatic checks:
+
+```typescript
+// src/lib/llm-review.ts
+interface ReviewResult {
+  pass: boolean;
+  feedback?: string;
+}
+
+function createReview(config: {
+  criteria: string;        // What to evaluate
+  artifact: string;        // Text content OR screenshot path
+  intelligence?: "fast" | "smart";
+}): Promise<ReviewResult>;
+```
+
+Example usage in tests:
+
+```typescript
+// Text evaluation
+test("welcome tone", async () => {
+  const result = await createReview({
+    criteria: "warm, conversational, appropriate for professionals",
+    artifact: welcomeMessage,
+  });
+  expect(result.pass).toBe(true);
+});
+
+// Vision evaluation
+test("visual hierarchy", async () => {
+  await page.screenshot({ path: "./tmp/dashboard.png" });
+  const result = await createReview({
+    criteria: "clear hierarchy with obvious primary action",
+    artifact: "./tmp/dashboard.png",
+  });
+  expect(result.pass).toBe(true);
+});
+```
+
+Ralph discovers these patterns in test examples during codebase exploration.
+
+---
+
+## Subagent Patterns
+
+### Context Efficiency
+
+With ~176K usable tokens from a 200K budget:
+- **Tight tasks + 1 task per loop = 100% smart zone utilization**
+- **Spawn subagents for expensive work** rather than polluting main context
+- Each subagent gets ~156KB that's garbage-collected after use
+
+### The Pattern: Parallel Reads, Sequential Writes
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      SUBAGENT SPAWNING                                       │
+│                                                                              │
+│  EXPLORATION (Parallel)                                                     │
+│  ├── "Spawn up to 250 Sonnet subagents to study specs"                     │
+│  ├── "Use parallel subagents to read codebase"                             │
+│  └── Context is cheap; throw it away after                                 │
+│                                                                              │
+│  VALIDATION (Sequential)                                                    │
+│  ├── "Only 1 subagent for build/tests"                                     │
+│  ├── Bottleneck prevents divergent implementations                         │
+│  └── Forces correctness before proceeding                                  │
+│                                                                              │
+│  KEY INSIGHT                                                                │
+│  └── "Use the main agent/context as a scheduler;                           │
+│       spawn subagents whenever possible instead"                           │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### In Prompt Language
+
+From the Huntley playbook prompts:
+
+**Planning mode:**
+```
+Phase 0a - study the specifications using up to 250 parallel Sonnet subagents
+Phase 0b - study the existing IMPLEMENTATION_PLAN.md
+Phase 0c - study src/lib/* for utilities
+Phase 0d - understand source code location
+```
+
+**Building mode:**
+```
+- Use up to 500 Sonnet subagents to read specs/code in parallel
+- Use only 1 subagent for build/tests (backpressure bottleneck)
 ```
 
 ---
@@ -610,9 +876,68 @@ FINAL STATE:
 
 ---
 
-## Implementation Considerations
+## Implementation: Loop Scripts & File Structure
 
-### The Orchestration Layer
+### The Huntley loop.sh
+
+Enhanced loop script from the playbook:
+
+```bash
+#!/bin/bash
+# loop.sh - Ralph Loop Orchestrator
+
+set -e
+
+MODE=${1:-build}  # "plan" or "build" (default: build)
+MAX_ITERATIONS=${2:-999}
+
+# Select prompt based on mode
+case $MODE in
+  plan)
+    PROMPT_FILE="PROMPT_plan.md"
+    ;;
+  build|*)
+    PROMPT_FILE="PROMPT_build.md"
+    ;;
+esac
+
+iteration=0
+
+while [ $iteration -lt $MAX_ITERATIONS ]; do
+    echo "=== Iteration $iteration (mode: $MODE) ==="
+
+    # Run Claude with full autonomy (requires sandbox!)
+    cat "$PROMPT_FILE" | claude \
+        -p \
+        --dangerously-skip-permissions \
+        --output-format=stream-json \
+        --model opus
+
+    # Git push after each iteration
+    git push origin HEAD 2>/dev/null || true
+
+    ((iteration++))
+done
+
+echo "Completed $iteration iterations"
+```
+
+**Critical flags:**
+- `-p` (headless mode)
+- `--dangerously-skip-permissions` (full autonomy - REQUIRES SANDBOX)
+- `--model opus` (complex reasoning)
+
+### Sandbox Requirements
+
+> "It's not if it gets popped, it's when. What's the blast radius?"
+
+Running with `--dangerously-skip-permissions` requires isolation:
+- **Local**: Docker container
+- **Production**: Fly Sprites, E2B, or similar
+- **Credentials**: Minimum viable set only
+- **Network**: Restricted access
+
+### The Orchestration Layer (Goal Skill Integration)
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -766,19 +1091,137 @@ echo "Completed after $iteration iterations"
 
 ---
 
+## Enhancements from the Playbook
+
+### 1. Acceptance-Driven Backpressure
+
+Connect acceptance criteria (in specs) directly to test requirements (in plan):
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    ACCEPTANCE → TEST FLOW                                    │
+│                                                                              │
+│  SPECS (acceptance criteria)                                                │
+│  └── "User can reset password via email"                                   │
+│                     ↓                                                        │
+│  PLANNING (derive required tests)                                           │
+│  └── "Task: Implement password reset"                                       │
+│      └── Required tests: reset_email_sent, reset_link_works, ...           │
+│                     ↓                                                        │
+│  BUILDING (implement + test)                                                │
+│  └── All required tests must pass before commit                            │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+Criteria should specify WHAT to verify (behavioral outcomes), not HOW to implement.
+
+### 2. Ralph-Friendly Work Branches
+
+Scope planning at branch creation, not task selection:
+
+```bash
+# Create scoped plan on work branch
+./loop.sh plan-work "user authentication with OAuth"
+
+# Build from already-scoped plan
+./loop.sh 20
+```
+
+Each branch gets one `IMPLEMENTATION_PLAN.md`. Ralph picks "most important" with zero filtering.
+
+**Why this works**: Scoping at plan creation (deterministic) vs task selection (probabilistic).
+
+### 3. JTBD → Story Map → SLC Release
+
+Ground activities in audience context:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    JTBD → SLC FLOW                                           │
+│                                                                              │
+│  1. DEFINE AUDIENCE & JTBD                                                  │
+│     └── AUDIENCE_JTBD.md: WHO and their desired OUTCOMES                   │
+│                                                                              │
+│  2. DEFINE ACTIVITIES                                                       │
+│     └── specs/*: WHAT users do, capability depths                          │
+│                                                                              │
+│  3. SEQUENCE INTO JOURNEY MAP                                               │
+│     └── Visualize activities flowing into each other                       │
+│                                                                              │
+│  4. DETERMINE SLC SLICE                                                     │
+│     ├── Simple: Narrow, achievable                                         │
+│     ├── Lovable: People want to use it                                     │
+│     └── Complete: Fully accomplishes a job (not broken preview)            │
+│                                                                              │
+│  5. CREATE RELEASE PLAN                                                     │
+│     └── IMPLEMENTATION_PLAN.md scoped to SLC slice                         │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 4. AskUserQuestionTool for Requirements
+
+During Phase 1, use Claude's built-in questioning:
+
+```
+"Interview me using AskUserQuestion to understand [topic/acceptance criteria]"
+```
+
+Claude asks targeted questions until clear, then writes specs. No code changes needed.
+
+### 5. Goal Functions + Convergence (Our Addition)
+
+This document's contribution: applying ML training intuitions to Ralph:
+
+| ML Concept | Ralph Application |
+|------------|-------------------|
+| Loss function | Goal function (plain English) |
+| Gradient descent | Iterative agent execution |
+| Early stopping | Convergence detection |
+| Learning rate | Scope per iteration |
+| Batch training | Multiple loops with shared state |
+
+**Key addition**: Explicit convergence criteria based on:
+- Progress plateau (K consecutive NO-progress iterations)
+- Confidence threshold (agent self-reports goal satisfied)
+- Diminishing returns (progress per iteration declining)
+
+---
+
+## Terminology Reference
+
+| Term | Definition |
+|------|-----------|
+| **JTBD** | Job to be Done - high-level user outcome |
+| **Topic of Concern** | Distinct aspect within a JTBD |
+| **Spec** | Requirements for one topic (`specs/FILENAME.md`) |
+| **Task** | Unit of work from specs-vs-code gap analysis |
+| **Goal Function** | Plain English "loss function" for non-code Ralph |
+| **Goal Skill** | Structured template defining goal + approach + convergence |
+| **Backpressure** | Forces that reject invalid work (tests, lints, LLM-judge) |
+| **Convergence** | State where further iterations yield no meaningful progress |
+
+**Scope Test**: Describe a topic in one sentence without "and". If you need "and", it's multiple topics.
+
+---
+
 ## Next Steps
 
-1. **Test the goal skill format** - Run the email automation user stories skill on a real codebase
+1. **Test the goal skill format** - Run email automation user stories on a real codebase
 2. **Tune convergence parameters** - Find right plateau_threshold and confidence_threshold
 3. **Build progress parser** - Extract structured data from agent output
 4. **Create skill library** - Common goal skills for documentation, bug finding, etc.
-5. **Metrics dashboard** - Visualize convergence across runs
+5. **Integrate with Huntley loop.sh** - Combine goal skills with standard Ralph prompts
+6. **Add LLM-as-judge backpressure** - For subjective quality criteria
 
 ---
 
 ## References
 
-- [Ralph Wiggum Technique - ghuntley.com](https://ghuntley.com/loop/)
-- [Everything is a Ralph Loop - ghuntley.com](https://ghuntley.com/ralph/)
+- [The Ralph Playbook - github.com/ghuntley](https://github.com/ghuntley/how-to-ralph-wiggum)
+- [Everything is a Ralph Loop - ghuntley.com](https://ghuntley.com/loop/)
+- [Ralph Wiggum Technique - ghuntley.com](https://ghuntley.com/ralph/)
+- [Inventing the Ralph Wiggum Loop - Dev Interrupted](https://linearb.io/dev-interrupted/podcast/inventing-the-ralph-wiggum-loop)
 - [[knowledge-expansion-loop]] - Related fixed-point iteration concept
-- Gradient Descent, Early Stopping, Loss Plateaus - ML training concepts
+- ML Concepts: Gradient Descent, Early Stopping, Loss Plateaus, Convergence
