@@ -12,17 +12,114 @@
 
 ## Table of Contents
 
-1. [The Huntley Playbook Foundation](#the-huntley-playbook-foundation)
-2. [The Core Insight: ML Meets Ralph](#the-core-insight-ml-meets-ralph)
-3. [Goal Functions: Plain English Loss Functions](#goal-functions-plain-english-loss-functions)
-4. [Convergence Detection](#convergence-detection)
-5. [Steering & Backpressure](#steering--backpressure)
-6. [Subagent Patterns](#subagent-patterns)
-7. [The Goal Skill Format](#the-goal-skill-format)
-8. [Test Case: Email Automation User Stories](#test-case-email-automation-user-stories)
-9. [Failure Modes & Vectors](#failure-modes--vectors)
-10. [Implementation: Loop Scripts & File Structure](#implementation-loop-scripts--file-structure)
-11. [Enhancements from the Playbook](#enhancements-from-the-playbook)
+1. [Building Ralph vs Investigation Ralph](#building-ralph-vs-investigation-ralph)
+2. [The Huntley Playbook Foundation](#the-huntley-playbook-foundation)
+3. [The Core Insight: ML Meets Ralph](#the-core-insight-ml-meets-ralph)
+4. [Goal Functions: Plain English Loss Functions](#goal-functions-plain-english-loss-functions)
+5. [Convergence Detection](#convergence-detection)
+6. [Steering & Backpressure](#steering--backpressure)
+7. [Subagent Patterns](#subagent-patterns)
+8. [The Goal Skill Format](#the-goal-skill-format)
+9. [Test Case: Email Investigation](#test-case-email-investigation)
+10. [Test Case: User Story Generation](#test-case-user-story-generation)
+11. [Failure Modes & Vectors](#failure-modes--vectors)
+12. [Implementation: Loop Scripts & File Structure](#implementation-loop-scripts--file-structure)
+13. [Enhancements from the Playbook](#enhancements-from-the-playbook)
+
+---
+
+## Building Ralph vs Investigation Ralph
+
+### The Key Distinction
+
+The Huntley playbook is optimized for **Building Ralph**:
+- Test → commit → test → commit
+- Backpressure via test failures
+- Output: working code
+
+But there's another mode: **Investigation Ralph**:
+- Search → record → search → record
+- Backpressure via "nothing new found"
+- Output: exhaustive findings
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    TWO MODES OF RALPH                                        │
+│                                                                              │
+│  BUILDING RALPH (Huntley Playbook)                                          │
+│  ├── When: Writing code, implementing features                              │
+│  ├── Loop: Pick task → implement → test → commit                           │
+│  ├── Backpressure: Tests must pass                                          │
+│  ├── Convergence: All tasks complete, tests green                          │
+│  └── You: Watching it (interactive)                                        │
+│                                                                              │
+│  INVESTIGATION RALPH (This Extension)                                       │
+│  ├── When: Finding problems, exhaustive enumeration                        │
+│  ├── Loop: Pick area → investigate → record findings → move on             │
+│  ├── Backpressure: "Did you find something new?"                           │
+│  ├── Convergence: Nothing new to find (plateau)                            │
+│  └── You: Sleeping (async background)                                      │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### When to Use Investigation Ralph
+
+**You're not coding** - If you're coding, you're watching. Ralph is for async work.
+
+**Exhaustive search over a space:**
+- "What's broken in our client email integrations?"
+- "What user stories are we missing?"
+- "What edge cases exist in this flow?"
+- "What context does this client have access to?"
+
+**Product-style work engineers miss:**
+- Gap analysis
+- Problem identification
+- Coverage enumeration
+- Access/permission audits
+
+### Investigation Ralph: The Pattern
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    INVESTIGATION RALPH LOOP                                  │
+│                                                                              │
+│  EACH ITERATION:                                                            │
+│  1. Read progress file (what's been checked)                                │
+│  2. Pick ONE unexplored area                                                │
+│  3. Investigate via tool calls:                                             │
+│     ├── API calls to check access                                           │
+│     ├── File reads to understand context                                    │
+│     ├── Web fetches for external state                                      │
+│     └── Database queries if available                                       │
+│  4. Record findings:                                                        │
+│     ├── If problem found → write to issues file                            │
+│     ├── If working → mark as checked                                        │
+│     └── If new areas discovered → add to frontier                          │
+│  5. Update progress file                                                    │
+│  6. Self-assess: "Did I find something new?"                               │
+│                                                                              │
+│  CONVERGENCE:                                                               │
+│  └── K iterations with "nothing new" → search space exhausted              │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Async Background Execution
+
+The power of Investigation Ralph: **run overnight, get results in morning**.
+
+```bash
+# Before bed
+./ralph-investigate.sh "email-integration-audit" &
+
+# Morning: check results
+cat findings/email-integration-audit/issues.md
+cat findings/email-integration-audit/progress.md
+```
+
+This fills gaps in your own abilities - systematic investigation that humans skip.
 
 ---
 
@@ -572,18 +669,242 @@ This is how we detect convergence.
 
 ---
 
-## Test Case: Email Automation User Stories
+## Test Case: Email Investigation
+
+### The Scenario
+
+Your clients have email automations set up, but they're not working well. You want Ralph to:
+1. Go through each email → context mapping
+2. Check if the tool calls have access
+3. If access works → move on
+4. If access fails → write it down
+5. Continue until all mappings checked
+
+**You go to sleep. Morning: exhaustive list of issues.**
+
+### Goal Skill: Email Integration Audit
+
+```yaml
+goal_skill:
+  name: "email-integration-audit"
+  version: "1.0"
+  mode: "investigation"  # NOT building
+
+  goal: |
+    Audit all email automations for a client to identify integration issues.
+    For each email automation:
+    1. Identify what context/data it needs
+    2. Attempt to access that context via tool calls
+    3. Record whether access succeeds or fails
+    4. If fails, document the specific error and likely cause
+
+    The goal is an exhaustive list of every integration issue preventing
+    emails from working correctly.
+
+  completion_criteria:
+    - "All email automations have been checked"
+    - "All required context sources have been tested"
+    - "Every failure is documented with error and likely cause"
+    - "Working integrations are marked as verified"
+    - "No untested automations remain"
+
+  approach:
+    scope_per_iteration: |
+      Each iteration should check ONE email automation:
+      1. Identify the automation and its context requirements
+      2. Attempt tool calls to access each required context
+      3. Record results (success or failure with details)
+      4. Move on to next untested automation
+
+      Do NOT try to fix anything. Just investigate and record.
+
+    exploration_strategy: |
+      1. First iteration: List all email automations from config/database
+      2. For each automation:
+         - Parse what context it needs (CRM data, user info, etc.)
+         - Make tool calls to fetch that context
+         - Record success/failure
+      3. If you discover new automations during investigation, add to list
+      4. Mark each automation as: WORKING, FAILING, or PARTIAL
+
+    output_format: |
+      ## Issues Found
+
+      ### [Automation Name]
+      - **Status**: FAILING
+      - **Required context**: [what it needs]
+      - **Tool call attempted**: [the call made]
+      - **Error**: [exact error message]
+      - **Likely cause**: [your assessment]
+      - **Suggested fix**: [brief suggestion]
+
+      ## Verified Working
+
+      - [Automation A] - all context accessible
+      - [Automation B] - all context accessible
+
+      ## Unchecked (for next iteration)
+
+      - [Automation X]
+      - [Automation Y]
+
+  progress:
+    tracking_file: "findings/email-audit/_progress.md"
+
+    progress_question: |
+      After this iteration:
+      1. Which automation did you check?
+      2. What issues did you find (if any)?
+      3. How many automations remain unchecked?
+      4. Confidence that audit is complete: __%
+
+    completion_threshold: 95
+    plateau_threshold: 3   # 3 iterations finding nothing new
+    max_iterations: 50
+
+  context:
+    files_to_read:
+      - "config/email-automations.yaml"
+      - "src/integrations/**/*.ts"
+      - "docs/client-setup.md"
+
+    tools_available: |
+      You have access to:
+      - CRM API (check via crm.getContact())
+      - Email service (check via email.getTemplates())
+      - Database (check via db.query())
+      - Client context store (check via context.get())
+
+    domain_knowledge: |
+      Common email integration issues:
+      - Missing API credentials
+      - Expired OAuth tokens
+      - Permission scope insufficient
+      - Rate limiting
+      - Data format mismatches
+      - Missing required fields
+
+  output:
+    primary_file: "findings/email-audit/issues.md"
+    secondary_file: "findings/email-audit/verified.md"
+    format: "markdown"
+```
+
+### What the Investigation Loop Looks Like
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    INVESTIGATION: EMAIL AUDIT                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+ITERATION 1:
+├── Focus: List all email automations
+├── Action: Read config/email-automations.yaml
+├── Found: 12 automations configured
+├── Output: Created checklist in _progress.md
+├── Progress: YES - foundational discovery
+├── Confidence: 5%
+└── No issues yet (just cataloging)
+
+ITERATION 2:
+├── Focus: Check "welcome-sequence" automation
+├── Context needed: user.email, user.name, account.plan
+├── Tool calls:
+│   ├── context.get("user.email") → SUCCESS
+│   ├── context.get("user.name") → SUCCESS
+│   └── context.get("account.plan") → FAILED (403 Forbidden)
+├── Output: Added to issues.md:
+│   └── welcome-sequence: Missing permission for account.plan
+├── Progress: YES - found issue
+├── Confidence: 15%
+└── Remaining: 11 automations
+
+ITERATION 3:
+├── Focus: Check "weekly-digest" automation
+├── Context needed: user.email, analytics.weekly_stats
+├── Tool calls:
+│   ├── context.get("user.email") → SUCCESS
+│   └── analytics.getWeeklyStats() → FAILED (token expired)
+├── Output: Added to issues.md:
+│   └── weekly-digest: OAuth token expired for analytics
+├── Progress: YES - found issue
+├── Confidence: 25%
+└── Remaining: 10 automations
+
+ITERATION 4:
+├── Focus: Check "abandoned-cart" automation
+├── Context needed: user.email, cart.items, cart.total
+├── Tool calls:
+│   ├── context.get("user.email") → SUCCESS
+│   ├── context.get("cart.items") → SUCCESS
+│   └── context.get("cart.total") → SUCCESS
+├── Output: Added to verified.md:
+│   └── abandoned-cart: WORKING
+├── Progress: YES - verified working
+├── Confidence: 35%
+└── Remaining: 9 automations
+
+... iterations 5-11 check remaining automations ...
+
+ITERATION 12:
+├── Focus: Final review - any untested paths?
+├── Action: Re-read all automations, check for missed contexts
+├── Found: 2 automations have conditional contexts not tested
+├── Output: Added 2 items to unchecked list
+├── Progress: YES - found gaps
+├── Confidence: 85%
+└── Remaining: 2 conditional paths
+
+ITERATION 13:
+├── Focus: Check conditional context in "upsell-trigger"
+├── Tool calls: Tested all conditional branches
+├── Progress: YES - all branches verified
+├── Confidence: 92%
+└── Remaining: 1
+
+ITERATION 14:
+├── Focus: Check conditional context in "renewal-reminder"
+├── Progress: YES - found 1 more issue (missing permission)
+├── Confidence: 96%
+└── Remaining: 0
+
+ITERATION 15:
+├── Focus: Verify completeness
+├── Progress: NO - nothing new
+├── Confidence: 96%
+
+ITERATION 16:
+├── Progress: NO - nothing new
+
+ITERATION 17:
+├── Progress: NO - nothing new
+└── CONVERGED: 3 consecutive NO-progress iterations
+
+FINAL OUTPUT:
+├── Issues found: 4
+│   ├── welcome-sequence: permission for account.plan
+│   ├── weekly-digest: expired OAuth token
+│   ├── monthly-report: rate limit on analytics API
+│   └── renewal-reminder: missing billing.status permission
+├── Verified working: 8
+└── Time: Ran overnight, results ready at 7am
+```
+
+---
+
+## Test Case: User Story Generation
 
 ### The Goal
 
 Generate a completely exhaustive list of user stories and user journeys for an email automation software project.
 
-### Goal Skill: Email Automation User Stories
+### Goal Skill: User Story Enumeration
 
 ```yaml
 goal_skill:
-  name: "email-automation-user-stories"
+  name: "user-story-enumeration"
   version: "1.0"
+  mode: "investigation"  # Finding stories, not writing code
 
   goal: |
     Generate a comprehensive, exhaustive list of user stories and user journeys

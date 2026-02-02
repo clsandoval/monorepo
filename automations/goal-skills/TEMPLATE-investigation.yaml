@@ -1,0 +1,93 @@
+# Goal Skill Template: Investigation Mode
+# Use this for problem-finding, auditing, enumeration - NOT code writing
+# Copy and fill in for your specific investigation
+
+goal_skill:
+  name: "your-investigation-name"
+  version: "1.0"
+  mode: "investigation"  # NOT building - finding/enumerating, not implementing
+
+  goal: |
+    [What are you trying to find/enumerate/audit?]
+
+    Be specific about:
+    - What space are you searching? (automations, features, users, etc.)
+    - What are you checking for each item? (access, correctness, completeness)
+    - What counts as a "finding"? (issue, gap, verification)
+
+  completion_criteria:
+    - "[Everything in scope has been checked]"
+    - "[All findings are documented]"
+    - "[No unchecked items remain]"
+    - "[Each item is marked as: OK | ISSUE | NEEDS-REVIEW]"
+
+  approach:
+    scope_per_iteration: |
+      Each iteration should check ONE item:
+      1. Pick next unchecked item from list
+      2. Investigate via tool calls
+      3. Record findings (issue or verified-OK)
+      4. Mark as checked, move on
+
+      Do NOT try to fix anything. Just investigate and record.
+
+    exploration_strategy: |
+      Phase 1: Discovery
+        - Enumerate all items in scope
+        - Create checklist
+
+      Phase 2: Systematic Checking
+        - For each item, run investigation
+        - Record results
+
+      Phase 3: Gap Finding
+        - Look for items discovered during investigation
+        - Check edge cases and conditional paths
+
+      Phase 4: Verification
+        - Final pass for completeness
+
+    output_format: |
+      [Describe how findings should be formatted]
+
+      Typically:
+      - Issues section with details
+      - Verified-OK section with brief confirmations
+      - Unchecked section for next iteration
+
+  progress:
+    tracking_file: "[path to progress file]"
+
+    progress_question: |
+      After this iteration:
+      1. Which item did you check?
+      2. What did you find (if anything)?
+      3. How many items remain unchecked?
+      4. Confidence that investigation is complete: __%
+
+    completion_threshold: 95   # % confidence to auto-stop
+    plateau_threshold: 3       # consecutive no-finding iterations to stop
+    max_iterations: 50         # safety cap
+
+  context:
+    files_to_read:
+      - "[relevant config files]"
+      - "[relevant source files]"
+
+    tools_available: |
+      [List what tools/APIs the agent can use to investigate]
+      - API calls
+      - Database queries
+      - File reads
+      - Web fetches
+
+    domain_knowledge: |
+      [Common issues/patterns in this domain that help the investigation]
+
+  output:
+    primary_file: "[path to main findings file]"
+    format: "markdown"
+
+  # Optional: variables to substitute at runtime
+  variables:
+    - VARIABLE_NAME  # Description

@@ -1,0 +1,139 @@
+# Goal Skill: Email Integration Audit
+# Investigation Ralph - runs async overnight, finds integration issues
+
+goal_skill:
+  name: "email-integration-audit"
+  version: "1.0"
+  mode: "investigation"  # NOT building - finding problems
+
+  goal: |
+    Audit all email automations for a client to identify integration issues.
+    For each email automation:
+    1. Identify what context/data it needs
+    2. Attempt to access that context via tool calls
+    3. Record whether access succeeds or fails
+    4. If fails, document the specific error and likely cause
+
+    The goal is an exhaustive list of every integration issue preventing
+    emails from working correctly.
+
+  completion_criteria:
+    - "All email automations have been checked"
+    - "All required context sources have been tested"
+    - "Every failure is documented with error and likely cause"
+    - "Working integrations are marked as verified"
+    - "No untested automations remain"
+
+  approach:
+    scope_per_iteration: |
+      Each iteration should check ONE email automation:
+      1. Identify the automation and its context requirements
+      2. Attempt tool calls to access each required context
+      3. Record results (success or failure with details)
+      4. Move on to next untested automation
+
+      Do NOT try to fix anything. Just investigate and record.
+
+    exploration_strategy: |
+      Phase 1: Discovery
+        - List all email automations from config/database
+        - Create checklist of automations to audit
+
+      Phase 2: Systematic Checking
+        - For each automation:
+          - Parse what context it needs (CRM data, user info, etc.)
+          - Make tool calls to fetch that context
+          - Record success/failure with details
+
+      Phase 3: Gap Finding
+        - If you discover new automations during investigation, add to list
+        - Check conditional contexts (paths that only trigger sometimes)
+        - Mark each automation as: WORKING, FAILING, or PARTIAL
+
+      Phase 4: Verification
+        - Re-check any PARTIAL items
+        - Verify nothing was missed
+
+    output_format: |
+      ## Issues Found
+
+      ### [Automation Name]
+      - **Status**: FAILING | PARTIAL
+      - **Required context**: [what it needs]
+      - **Tool call attempted**: [the call made]
+      - **Error**: [exact error message]
+      - **Likely cause**: [your assessment]
+      - **Suggested fix**: [brief suggestion, not implementation]
+
+      ## Verified Working
+
+      - [x] [Automation A] - all context accessible
+      - [x] [Automation B] - all context accessible
+
+      ## Unchecked (for next iteration)
+
+      - [ ] [Automation X]
+      - [ ] [Automation Y]
+
+  progress:
+    tracking_file: "findings/${CLIENT_ID}/email-audit/_progress.md"
+
+    progress_question: |
+      After this iteration:
+      1. Which automation did you check?
+      2. What issues did you find (if any)?
+      3. How many automations remain unchecked?
+      4. Confidence that audit is complete: __%
+
+    completion_threshold: 95
+    plateau_threshold: 3   # 3 iterations finding nothing new = done
+    max_iterations: 50     # safety cap
+
+  context:
+    files_to_read:
+      - "config/email-automations.yaml"
+      - "config/clients/${CLIENT_ID}.yaml"
+      - "src/integrations/**/*.ts"
+
+    tools_available: |
+      You have access to:
+      - CRM API: crm.getContact(id), crm.getCompany(id)
+      - Email service: email.getTemplates(), email.getAutomations()
+      - Context store: context.get(key), context.list()
+      - Database: db.query(sql)
+      - OAuth status: oauth.checkToken(service)
+
+    domain_knowledge: |
+      Common email integration issues:
+
+      Permission/Access:
+      - Missing API credentials
+      - Expired OAuth tokens
+      - Insufficient permission scopes
+      - Wrong API key for environment
+
+      Data Issues:
+      - Required field missing in source
+      - Data format mismatch (date formats, etc.)
+      - Null values where required
+      - Encoding issues
+
+      Rate/Limits:
+      - Rate limiting by external API
+      - Batch size too large
+      - Concurrent request limits
+
+      Configuration:
+      - Wrong endpoint URL
+      - Missing environment variables
+      - Incorrect mapping between systems
+
+  output:
+    primary_file: "findings/${CLIENT_ID}/email-audit/issues.md"
+    secondary_file: "findings/${CLIENT_ID}/email-audit/verified.md"
+    progress_file: "findings/${CLIENT_ID}/email-audit/_progress.md"
+    format: "markdown"
+
+  # Variables to substitute when running
+  variables:
+    - CLIENT_ID  # Which client to audit
