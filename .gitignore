@@ -26,3 +26,4 @@ entities/people/
 # OS files
 .DS_Store
 *.Zone.Identifier
+.worktrees/
