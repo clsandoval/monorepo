@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 7
-- **Current**: 8
+- **Completed**: 8
+- **Current**: 9
 
 ## Current Stage
 
-**Stage 8** — (next stage)
+**Stage 9** — (next stage)
 
 ## Stage Log
 
@@ -21,3 +21,4 @@
 | 5 | done | 2026-03-07 | React Hook Form + Zod integration |
 | 6 | done | 2026-03-07 | Vitest + Testing Library infrastructure |
 | 7 | done | 2026-03-07 | ESLint + Prettier configuration |
+| 8 | done | 2026-03-07 | all 28 enum types (SQL + TypeScript) |
