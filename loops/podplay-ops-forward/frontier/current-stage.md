@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 8
-- **Current**: 9
+- **Completed**: 9
+- **Current**: 10
 
 ## Current Stage
 
-**Stage 9** — (next stage)
+**Stage 10** — (next stage)
 
 ## Stage Log
 
@@ -22,3 +22,4 @@
 | 6 | done | 2026-03-07 | Vitest + Testing Library infrastructure |
 | 7 | done | 2026-03-07 | ESLint + Prettier configuration |
 | 8 | done | 2026-03-07 | all 28 enum types (SQL + TypeScript) |
+| 9 | done | 2026-03-07 | enum value tests for all 21 types |
