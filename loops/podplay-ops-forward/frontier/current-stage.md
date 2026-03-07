@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 6
-- **Current**: 7
+- **Completed**: 7
+- **Current**: 8
 
 ## Current Stage
 
-**Stage 7** — (next stage)
+**Stage 8** — (next stage)
 
 ## Stage Log
 
@@ -20,3 +20,4 @@
 | 4 | done | 2026-03-07 | Supabase client + local Docker setup |
 | 5 | done | 2026-03-07 | React Hook Form + Zod integration |
 | 6 | done | 2026-03-07 | Vitest + Testing Library infrastructure |
+| 7 | done | 2026-03-07 | ESLint + Prettier configuration |
