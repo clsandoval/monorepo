@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 9
-- **Current**: 10
+- **Completed**: 10
+- **Current**: 11
 
 ## Current Stage
 
-**Stage 10** — (next stage)
+**Stage 11** — (next stage)
 
 ## Stage Log
 
@@ -23,3 +23,4 @@
 | 7 | done | 2026-03-07 | ESLint + Prettier configuration |
 | 8 | done | 2026-03-07 | all 28 enum types (SQL + TypeScript) |
 | 9 | done | 2026-03-07 | enum value tests for all 21 types |
+| 10 | done | 2026-03-07 | core tables (projects, installers, settings) |
