@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 38
-- **Current**: 39
+- **Completed**: 39
+- **Current**: 40
 
 ## Current Stage
 
-**Stage 39** — (next stage)
+**Stage 40** — (next stage)
 
 ## Stage Log
 
@@ -52,3 +52,4 @@
 | 36 | done | 2026-03-08 | dashboard query tests (mount call, loading, data, error) |
 | 37 | done | 2026-03-08 | project list table with status pills and tier badges |
 | 38 | done | 2026-03-08 | status pill and tier badge tests (21 tests: 6 labels, 6 badge classes, 4 tiers, date/pct formatting) |
+| 39 | done | 2026-03-08 | dashboard filters and search (status/tier dropdowns, text search, count display, AND logic) |
