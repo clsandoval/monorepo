@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 66
-- **Current**: 67
+- **Completed**: 67
+- **Current**: 68
 
 ## Current Stage
 
-**Stage 67** — (next stage)
+**Stage 68** — (next stage)
 
 ## Stage Log
 
@@ -80,3 +80,4 @@
 | 64 | done | 2026-03-08 | tests for BOM generation per tier (42 tests: all 4 tiers, SSD/switch/NVR sizing, conditional items, quantity scaling) |
 | 65 | done | 2026-03-08 | SSD/switch sizing logic (already implemented in stage 63; build verified) |
 | 66 | done | 2026-03-08 | tests for sizing edge cases (8 tests: SSD 4→5, 8→9 courts; switch 8→9, 16→17 courts) |
+| 67 | done | 2026-03-08 | cost chain calculation (calculateCostChain with CostChainResult, all 6 formulas, round to 2dp at output) |
