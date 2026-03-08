@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 25
-- **Current**: 26
+- **Completed**: 26
+- **Current**: 27
 
 ## Current Stage
 
-**Stage 26** — (next stage)
+**Stage 27** — (next stage)
 
 ## Stage Log
 
@@ -39,3 +39,4 @@
 | 23 | done | 2026-03-08 | auth hook tests (loading, session, signOut, signIn, signUp) |
 | 24 | done | 2026-03-08 | login page with email/password and magic link |
 | 25 | done | 2026-03-08 | auth callback with PKCE exchange |
+| 26 | done | 2026-03-08 | route guards with ProtectedRoute component |
