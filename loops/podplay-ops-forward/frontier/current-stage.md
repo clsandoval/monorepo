@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 142
-- **Current**: 143
+- **Completed**: 143
+- **Current**: 144
 
 ## Current Stage
 
-**Stage 143** — (next stage)
+**Stage 144** — (next stage)
 
 ## Stage Log
 
@@ -156,3 +156,4 @@
 | 140 | done | 2026-03-08 | tests for team settings |
 | 141 | done | 2026-03-08 | travel settings with rate defaults |
 | 142 | done | 2026-03-08 | tests for travel settings |
+| 143 | done | 2026-03-08 | empty states generic component + 19 configs wired into all views |
