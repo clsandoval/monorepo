@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 128
-- **Current**: 129
+- **Completed**: 129
+- **Current**: 130
 
 ## Current Stage
 
-**Stage 129** — (next stage)
+**Stage 130** — (next stage)
 
 ## Stage Log
 
@@ -142,3 +142,4 @@
 | 126 | done | 2026-03-08 | tests for movement history |
 | 127 | done | 2026-03-08 | financials overview route with 3 sections |
 | 128 | done | 2026-03-08 | tests for financials page sections |
+| 129 | done | 2026-03-08 | revenue funnel with stage counts and amounts |
