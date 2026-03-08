@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 65
-- **Current**: 66
+- **Completed**: 66
+- **Current**: 67
 
 ## Current Stage
 
-**Stage 66** — (next stage)
+**Stage 67** — (next stage)
 
 ## Stage Log
 
@@ -79,3 +79,4 @@
 | 63 | done | 2026-03-08 | BOM generation function (pure TypeScript, static data, all 4 tiers, SSD/switch/NVR substitutions, conditional front desk + WiFi items) |
 | 64 | done | 2026-03-08 | tests for BOM generation per tier (42 tests: all 4 tiers, SSD/switch/NVR sizing, conditional items, quantity scaling) |
 | 65 | done | 2026-03-08 | SSD/switch sizing logic (already implemented in stage 63; build verified) |
+| 66 | done | 2026-03-08 | tests for sizing edge cases (8 tests: SSD 4→5, 8→9 courts; switch 8→9, 16→17 courts) |
