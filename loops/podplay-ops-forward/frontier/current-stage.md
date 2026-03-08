@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 114
-- **Current**: 115
+- **Completed**: 115
+- **Current**: 116
 
 ## Current Stage
 
-**Stage 115** — (next stage)
+**Stage 116** — (next stage)
 
 ## Stage Log
 
@@ -128,3 +128,4 @@
 | 112 | done | 2026-03-08 | tests for final invoice form (10 tests: balance calc, summary panel, loading, disabled/enabled, go-live gate, completed status unlock, type=final insert, type filter, status badges) |
 | 113 | done | 2026-03-08 | expense tracker with CRUD and category filter (ExpenseTracker.tsx: table + add form + inline edit + delete confirm, 12-category enum dropdown, category filter, total footer) |
 | 114 | done | 2026-03-08 | tests for expense CRUD operations (12 tests: loading, 3 rows render, insert payload, new row added, update id, updated row, delete id, row removed, category filter, total sum, total filtered, total after delete) |
+| 115 | done | 2026-03-08 | P&L summary with monthly breakdown (PnlSummary.tsx: revenue/COGS/expenses sections, gross margin %, monthly breakdown table, wired to P&L Summary tab) |
