@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 73
-- **Current**: 74
+- **Completed**: 74
+- **Current**: 75
 
 ## Current Stage
 
-**Stage 74** — (next stage)
+**Stage 75** — (next stage)
 
 ## Stage Log
 
@@ -87,3 +87,4 @@
 | 71 | done | 2026-03-08 | BOM review table with inline editing and SKU swap |
 | 72 | done | 2026-03-08 | tests for BOM review inline editing (7 tests: 3 items render, SKUs, vendors, totals, qty change, cost override, SKU swap) |
 | 73 | done | 2026-03-08 | wire cost chain recalculation into BOM review (landed cost + customer price columns, subtotal + grand total footer) |
+| 74 | done | 2026-03-08 | tests for BOM cost recalculation (6 tests: qty change updates total/landed/customer price, subtotal, grand total, cost override) |
