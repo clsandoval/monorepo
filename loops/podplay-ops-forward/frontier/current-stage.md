@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 15
-- **Current**: 16
+- **Completed**: 16
+- **Current**: 17
 
 ## Current Stage
 
-**Stage 16** — (next stage)
+**Stage 17** — (next stage)
 
 ## Stage Log
 
@@ -29,3 +29,4 @@
 | 13 | done | 2026-03-08 | hardware tables integration tests |
 | 14 | done | 2026-03-08 | inventory tables (inventory, movements) |
 | 15 | done | 2026-03-08 | inventory tables integration tests |
+| 16 | done | 2026-03-08 | financial tables (invoices, expenses, cc_terminals, replay_signs) |
