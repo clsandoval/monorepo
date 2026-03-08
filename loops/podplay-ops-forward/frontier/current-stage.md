@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 126
-- **Current**: 127
+- **Completed**: 127
+- **Current**: 128
 
 ## Current Stage
 
-**Stage 127** — (next stage)
+**Stage 128** — (next stage)
 
 ## Stage Log
 
@@ -140,3 +140,4 @@
 | 124 | done | 2026-03-08 | tests for stock levels table |
 | 125 | done | 2026-03-08 | inventory movement history timeline |
 | 126 | done | 2026-03-08 | tests for movement history |
+| 127 | done | 2026-03-08 | financials overview route with 3 sections |
