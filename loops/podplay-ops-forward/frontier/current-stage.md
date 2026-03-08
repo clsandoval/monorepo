@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 105
-- **Current**: 106
+- **Completed**: 106
+- **Current**: 107
 
 ## Current Stage
 
-**Stage 106** — (next stage)
+**Stage 107** — (next stage)
 
 ## Stage Log
 
@@ -119,3 +119,4 @@
 | 103 | done | 2026-03-08 | troubleshooting tips component (16 entries, accordion UI, tier badges, severity borders, phase filtering) |
 | 104 | done | 2026-03-08 | tests for troubleshooting tips (18 tests: 16 entries, symptom/solution present, phase filtering, phase-to-entry correctness) |
 | 105 | done | 2026-03-08 | progress engine and status machine (calculateDeploymentProgress, calculatePhaseProgress, isPhaseComplete, getPhaseStatus, calculateAllPhasesSummary, getDeploymentStatusLabel, calculateOverallProjectProgress, getProjectStageIndex, getProjectStageLabel, status machine helpers) |
+| 106 | done | 2026-03-08 | tests for progress engine (70 tests: 0/50/100% states, phase progress, status labels, overall project progress, stage index/label, status machine) |
