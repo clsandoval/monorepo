@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 103
-- **Current**: 104
+- **Completed**: 104
+- **Current**: 105
 
 ## Current Stage
 
-**Stage 104** — (next stage)
+**Stage 105** — (next stage)
 
 ## Stage Log
 
@@ -117,3 +117,4 @@
 | 101 | done | 2026-03-08 | phase warnings component (PhaseWarnings.tsx + power.ts: PoE budget, UPS runtime, circuit load warnings) |
 | 102 | done | 2026-03-08 | tests for phase warnings (12 tests: no warnings, PoE threshold trigger, UPS yellow/critical, circuit mock, multi-warning) |
 | 103 | done | 2026-03-08 | troubleshooting tips component (16 entries, accordion UI, tier badges, severity borders, phase filtering) |
+| 104 | done | 2026-03-08 | tests for troubleshooting tips (18 tests: 16 entries, symptom/solution present, phase filtering, phase-to-entry correctness) |
