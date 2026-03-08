@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 85
-- **Current**: 86
+- **Completed**: 86
+- **Current**: 87
 
 ## Current Stage
 
-**Stage 86** — (next stage)
+**Stage 87** — (next stage)
 
 ## Stage Log
 
@@ -99,3 +99,4 @@
 | 83 | done | 2026-03-08 | CC terminal ordering (CcTerminalOrder.tsx: serial number, model, status dropdown ordered/received/configured/deployed/returned, notes, insert cc_terminals, list with inline status update) |
 | 84 | done | 2026-03-08 | tests for CC terminal (10 tests: loading, serial/model render, add form opens, insert payload with status=ordered, serial validation, model validation, 5 status options, inline status update, deployed_date set on deployed) |
 | 85 | done | 2026-03-08 | replay sign fulfillment (ReplaySignFulfillment.tsx: qty=court_count×2, status staged/shipped/delivered/installed with guards, save form, inventory decrement on install) |
+| 86 | done | 2026-03-08 | tests for replay signs (10 tests: loading, auto-calc qty text, staged badge, channel options, shipped disabled w/o outreach_date, shipped transition payload, delivered button, installed button, inventory movement qty_delta, save update payload) |
