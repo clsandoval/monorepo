@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 35
-- **Current**: 36
+- **Completed**: 36
+- **Current**: 37
 
 ## Current Stage
 
-**Stage 36** — (next stage)
+**Stage 37** — (next stage)
 
 ## Stage Log
 
@@ -49,3 +49,4 @@
 | 33 | done | 2026-03-08 | toast system with all 65 operation constants |
 | 34 | done | 2026-03-08 | toast message tests with 10 spot-checks |
 | 35 | done | 2026-03-08 | dashboard route with Supabase query and ProjectList stub |
+| 36 | done | 2026-03-08 | dashboard query tests (mount call, loading, data, error) |
