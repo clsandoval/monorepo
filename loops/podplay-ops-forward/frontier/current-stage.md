@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 61
-- **Current**: 62
+- **Completed**: 62
+- **Current**: 63
 
 ## Current Stage
 
-**Stage 62** — (next stage)
+**Stage 63** — (next stage)
 
 ## Stage Log
 
@@ -75,3 +75,4 @@
 | 59 | done | 2026-03-08 | review & submit step (intake step 7): ReviewStep with card-based read-only summary for all 6 steps, Edit ↑ buttons, Submit button placeholder |
 | 60 | done | 2026-03-08 | tests for review step (23 tests: all field values render, 6 Edit buttons, Edit callbacks with correct step indices 0-5) |
 | 61 | done | 2026-03-08 | intake submit logic (update project, generateBom service, status → procurement, success/error toast, navigate to project detail) |
+| 62 | done | 2026-03-08 | tests for intake submit (5 tests: project row update payload, generateBom call, status procurement, success toast, error toast) |
