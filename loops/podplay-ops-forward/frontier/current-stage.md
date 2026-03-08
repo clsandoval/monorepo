@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 139
-- **Current**: 140
+- **Completed**: 140
+- **Current**: 141
 
 ## Current Stage
 
-**Stage 140** — (next stage)
+**Stage 141** — (next stage)
 
 ## Stage Log
 
@@ -153,3 +153,4 @@
 | 137 | done | 2026-03-08 | catalog settings with CRUD and search |
 | 138 | done | 2026-03-08 | tests for catalog settings CRUD |
 | 139 | done | 2026-03-08 | team settings with member CRUD |
+| 140 | done | 2026-03-08 | tests for team settings |
