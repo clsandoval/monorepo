@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 159
-- **Current**: 160
+- **Completed**: 160
+- **Current**: 161
 
 ## Current Stage
 
-**Stage 160** — (next stage)
+**Stage 161** — (next stage)
 
 ## Stage Log
 
@@ -173,3 +173,4 @@
 | 157 | done | 2026-03-08 | desktop verify /auth/callback graceful handling - redirects to /login, no crash |
 | 158 | done | 2026-03-08 | desktop verify /projects dashboard - sidebar, metrics, filters, empty state CTA, no errors |
 | 159 | done | 2026-03-08 | desktop verify /projects/new - form with name, customer, venue fields, submit button, no errors |
+| 160 | done | 2026-03-08 | desktop verify /projects/$id/intake - 7-step stepper, Step 1 customer form, all steps navigable, no errors |
