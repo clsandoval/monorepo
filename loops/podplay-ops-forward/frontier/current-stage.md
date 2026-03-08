@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 117
-- **Current**: 118
+- **Completed**: 118
+- **Current**: 119
 
 ## Current Stage
 
-**Stage 118** — (next stage)
+**Stage 119** — (next stage)
 
 ## Stage Log
 
@@ -131,3 +131,4 @@
 | 115 | done | 2026-03-08 | P&L summary with monthly breakdown (PnlSummary.tsx: revenue/COGS/expenses sections, gross margin %, monthly breakdown table, wired to P&L Summary tab) |
 | 116 | done | 2026-03-08 | tests for P&L calculations |
 | 117 | done | 2026-03-08 | HER calculation with color-coded display |
+| 118 | done | 2026-03-08 | tests for HER calculation and thresholds |
