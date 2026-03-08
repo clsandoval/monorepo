@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 95
-- **Current**: 96
+- **Completed**: 96
+- **Current**: 97
 
 ## Current Stage
 
-**Stage 96** — (next stage)
+**Stage 97** — (next stage)
 
 ## Stage Log
 
@@ -109,3 +109,4 @@
 | 93 | done | 2026-03-08 | deployment phases 4-6: VlanReferencePanel (Phase 4), IspConfigMethodPanel (Phase 5), migration for isp_config_method, wired into deployment route |
 | 94 | done | 2026-03-08 | tests for deployment phases 4-6 (10 tests: step counts phase 4/5/6, sidebar badges, Supabase update payload, eq filter, VLAN panel, ISP config panel with 3 radio options) |
 | 95 | done | 2026-03-08 | deployment phases 7-9: ReplayServiceVersionPanel for Phase 9 (V1/V2 radio, V2 disabled), replay_service_version field wired into deployment route |
+| 96 | done | 2026-03-08 | tests for deployment phases 7-9 (10 tests: step counts phase 7/5, phase 8/8, phase 9/10, sidebar badges, Supabase update payload, eq filter, Phase 9 Replay Service Version panel with 2 radio options) |
