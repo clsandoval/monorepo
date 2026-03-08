@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 92
-- **Current**: 93
+- **Completed**: 93
+- **Current**: 94
 
 ## Current Stage
 
-**Stage 93** — (next stage)
+**Stage 94** — (next stage)
 
 ## Stage Log
 
@@ -106,3 +106,4 @@
 | 90 | done | 2026-03-08 | tests for checklist tokens (15 tests: all 6 tokens replaced, multi-token, null→not yet set, unset flags, no duplicate keys, no raw tokens) |
 | 91 | done | 2026-03-08 | deployment phases 1-3: wired SmartChecklist with Supabase toggle (is_completed + completed_at), fetching all token fields from project |
 | 92 | done | 2026-03-08 | tests for deployment phases 1-3 (10 tests: step counts phase 1/2/3, sidebar badges, Supabase update payload, completed_at, eq filter, phase icon) |
+| 93 | done | 2026-03-08 | deployment phases 4-6: VlanReferencePanel (Phase 4), IspConfigMethodPanel (Phase 5), migration for isp_config_method, wired into deployment route |
