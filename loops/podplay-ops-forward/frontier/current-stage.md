@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 136
-- **Current**: 137
+- **Completed**: 137
+- **Current**: 138
 
 ## Current Stage
 
-**Stage 137** — (next stage)
+**Stage 138** — (next stage)
 
 ## Stage Log
 
@@ -150,3 +150,4 @@
 | 134 | done | 2026-03-08 | tests for settings tab navigation |
 | 135 | done | 2026-03-08 | pricing settings with 4 tiers |
 | 136 | done | 2026-03-08 | tests for pricing settings |
+| 137 | done | 2026-03-08 | catalog settings with CRUD and search |
