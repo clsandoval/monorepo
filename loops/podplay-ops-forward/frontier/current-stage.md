@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 24
-- **Current**: 25
+- **Completed**: 25
+- **Current**: 26
 
 ## Current Stage
 
-**Stage 25** — (next stage)
+**Stage 26** — (next stage)
 
 ## Stage Log
 
@@ -38,3 +38,4 @@
 | 22 | done | 2026-03-08 | auth context, provider, and useAuth hook |
 | 23 | done | 2026-03-08 | auth hook tests (loading, session, signOut, signIn, signUp) |
 | 24 | done | 2026-03-08 | login page with email/password and magic link |
+| 25 | done | 2026-03-08 | auth callback with PKCE exchange |
