@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 144
-- **Current**: 145
+- **Completed**: 145
+- **Current**: 146
 
 ## Current Stage
 
-**Stage 145** — (next stage)
+**Stage 146** — (next stage)
 
 ## Stage Log
 
@@ -158,3 +158,4 @@
 | 142 | done | 2026-03-08 | tests for travel settings |
 | 143 | done | 2026-03-08 | empty states generic component + 19 configs wired into all views |
 | 144 | done | 2026-03-08 | tests for 19 empty state configs |
+| 145 | done | 2026-03-08 | 10 skeleton variants + 35 form-submit loader configs |
