@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 163
-- **Current**: 164
+- **Completed**: 164
+- **Current**: 165
 
 ## Current Stage
 
-**Stage 164** — (next stage)
+**Stage 165** — (next stage)
 
 ## Stage Log
 
@@ -177,3 +177,4 @@
 | 161 | done | 2026-03-08 | desktop verify /projects/$id/procurement - 6 tabs, BOM empty state, no console errors (fixed column name mismatches) |
 | 162 | done | 2026-03-08 | desktop verify /projects/$id/deployment - 16 phases, progress bar, Phase 0 checklist visible, no console errors |
 | 163 | done | 2026-03-08 | desktop verify /projects/$id/financials - 4 tabs, deposit form accessible, no console errors (fixed invoice_type→type column, wired DepositInvoice/FinalInvoice into Invoicing tab) |
+| 164 | done | 2026-03-08 | desktop verify /inventory - empty state renders, no console errors (fixed column names: item_id, quantity_on_hand, quantity_allocated, reorder_point) |
