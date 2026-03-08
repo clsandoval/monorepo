@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 44
-- **Current**: 45
+- **Completed**: 45
+- **Current**: 46
 
 ## Current Stage
 
-**Stage 45** — (next stage)
+**Stage 46** — (next stage)
 
 ## Stage Log
 
@@ -58,3 +58,4 @@
 | 42 | done | 2026-03-08 | new project creation form (project_name, customer_name, venue_name, insert with status=intake, redirect to intake) |
 | 43 | done | 2026-03-08 | project creation tests (6 tests: renders fields, validation errors, insert payload, redirect, error toast, cancel nav) |
 | 44 | done | 2026-03-08 | full project creation with checklist seeding (migration 00008, token substitution, graceful error handling) |
+| 45 | done | 2026-03-08 | intake route shell + stepper UI (7 steps, clickable, check indicator for completed) |
