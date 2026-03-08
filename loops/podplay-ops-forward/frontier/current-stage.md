@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 111
-- **Current**: 112
+- **Completed**: 112
+- **Current**: 113
 
 ## Current Stage
 
-**Stage 112** — (next stage)
+**Stage 113** — (next stage)
 
 ## Stage Log
 
@@ -125,3 +125,4 @@
 | 109 | done | 2026-03-08 | deposit invoice form (amount pre-filled, invoice_date, payment_method dropdown, notes, inserts with type=deposit, status tracking) |
 | 110 | done | 2026-03-08 | tests for deposit invoice form (10 tests: amount pre-filled, loading state, type=deposit insert, status badges Draft/Sent/Paid, payment methods, type filter, PodPlay Card label) |
 | 111 | done | 2026-03-08 | final invoice form with go-live gate (balance = total_price - deposit_amount, gate on go_live_date or status=completed, inserts type=final) |
+| 112 | done | 2026-03-08 | tests for final invoice form (10 tests: balance calc, summary panel, loading, disabled/enabled, go-live gate, completed status unlock, type=final insert, type filter, status badges) |
