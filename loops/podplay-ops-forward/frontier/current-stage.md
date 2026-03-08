@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 98
-- **Current**: 99
+- **Completed**: 99
+- **Current**: 100
 
 ## Current Stage
 
-**Stage 99** — (next stage)
+**Stage 100** — (next stage)
 
 ## Stage Log
 
@@ -112,3 +112,4 @@
 | 96 | done | 2026-03-08 | tests for deployment phases 7-9 (10 tests: step counts phase 7/5, phase 8/8, phase 9/10, sidebar badges, Supabase update payload, eq filter, Phase 9 Replay Service Version panel with 2 radio options) |
 | 97 | done | 2026-03-08 | deployment phases 10-12 (iPad Setup, Apple TV Setup, Physical Installation; AppLockWarningBanner for Phase 12 step 108) |
 | 98 | done | 2026-03-08 | tests for deployment phases 10-12 (10 tests: step counts phase 10/11, phase 12/10, sidebar badges, Supabase update payload, eq filter, AppLockWarningBanner) |
+| 99 | done | 2026-03-08 | deployment phases 13-15 (Testing & Verification 8 steps, Health Monitoring 3 steps, Packaging & Shipping 6 steps; all wired to SmartChecklist + Supabase toggle) |
