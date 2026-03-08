@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 50
-- **Current**: 51
+- **Completed**: 51
+- **Current**: 52
 
 ## Current Stage
 
-**Stage 51** — (next stage)
+**Stage 52** — (next stage)
 
 ## Stage Log
 
@@ -64,3 +64,4 @@
 | 48 | done | 2026-03-08 | tests for customer info validation (5 tests: required name, email, invalid email, optional phone, valid submit) |
 | 49 | done | 2026-03-08 | venue config form (intake step 2): VenueConfigStep with Zod schema, react-hook-form, inline errors, wired to intake route |
 | 50 | done | 2026-03-08 | tests for venue config validation (10 tests: court_count min, valid court_count, venue_address required, numeric inputs, boolean toggles) |
+| 51 | done | 2026-03-08 | service tier selection (intake step 3): TierSelectionStep with 4 radio cards, descriptions, features, disabled Next until selected |
