@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 68
-- **Current**: 69
+- **Completed**: 69
+- **Current**: 70
 
 ## Current Stage
 
-**Stage 69** — (next stage)
+**Stage 70** — (next stage)
 
 ## Stage Log
 
@@ -82,3 +82,4 @@
 | 66 | done | 2026-03-08 | tests for sizing edge cases (8 tests: SSD 4→5, 8→9 courts; switch 8→9, 16→17 courts) |
 | 67 | done | 2026-03-08 | cost chain calculation (calculateCostChain with CostChainResult, all 6 formulas, round to 2dp at output) |
 | 68 | done | 2026-03-08 | tests for cost chain (11 tests: known values 6 assertions, qty=1, zero tax, zero shipping, zero margin, 2dp rounding) |
+| 69 | done | 2026-03-08 | procurement route shell with 6-tab layout (BOM Review, Inventory Check, Purchase Orders, Packing List, CC Terminals, Replay Signs) |
