@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 120
-- **Current**: 121
+- **Completed**: 121
+- **Current**: 122
 
 ## Current Stage
 
-**Stage 121** — (next stage)
+**Stage 122** — (next stage)
 
 ## Stage Log
 
@@ -134,3 +134,4 @@
 | 118 | done | 2026-03-08 | tests for HER calculation and thresholds |
 | 119 | done | 2026-03-08 | go-live checklist and project close |
 | 120 | done | 2026-03-08 | tests for project close flow |
+| 121 | done | 2026-03-08 | inventory route with Supabase query |
