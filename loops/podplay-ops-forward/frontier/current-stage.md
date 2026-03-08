@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 77
-- **Current**: 78
+- **Completed**: 78
+- **Current**: 79
 
 ## Current Stage
 
-**Stage 78** — (next stage)
+**Stage 79** — (next stage)
 
 ## Stage Log
 
@@ -91,3 +91,4 @@
 | 75 | done | 2026-03-08 | inventory check panel with stock level indicators (low-stock red flag, surplus green, delta column, wired to Inventory Check tab) |
 | 76 | done | 2026-03-08 | tests for inventory check (10 tests: item names, SKUs, needed qty, on_hand qty, low-stock flag, surplus indicator, positive delta, negative delta, zero delta, loading state) |
 | 77 | done | 2026-03-08 | PO creation form (vendor dropdown from BOM vendors, shortage-based item multi-select, qty/unit cost inputs, expected_delivery_date, inserts purchase_orders + purchase_order_items) |
+| 78 | done | 2026-03-08 | tests for PO creation (8 tests: vendor options, default vendor, item listing, shortfall pre-check, PO insert payload, PO items insert, inventory movements, no-items error) |
