@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 130
-- **Current**: 131
+- **Completed**: 131
+- **Current**: 132
 
 ## Current Stage
 
-**Stage 131** — (next stage)
+**Stage 132** — (next stage)
 
 ## Stage Log
 
@@ -144,3 +144,4 @@
 | 128 | done | 2026-03-08 | tests for financials page sections |
 | 129 | done | 2026-03-08 | revenue funnel with stage counts and amounts |
 | 130 | done | 2026-03-08 | tests for revenue funnel |
+| 131 | done | 2026-03-08 | P&L and HER charts with monthly breakdown |
