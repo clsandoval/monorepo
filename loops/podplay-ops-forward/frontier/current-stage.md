@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 113
-- **Current**: 114
+- **Completed**: 114
+- **Current**: 115
 
 ## Current Stage
 
-**Stage 114** — (next stage)
+**Stage 115** — (next stage)
 
 ## Stage Log
 
@@ -127,3 +127,4 @@
 | 111 | done | 2026-03-08 | final invoice form with go-live gate (balance = total_price - deposit_amount, gate on go_live_date or status=completed, inserts type=final) |
 | 112 | done | 2026-03-08 | tests for final invoice form (10 tests: balance calc, summary panel, loading, disabled/enabled, go-live gate, completed status unlock, type=final insert, type filter, status badges) |
 | 113 | done | 2026-03-08 | expense tracker with CRUD and category filter (ExpenseTracker.tsx: table + add form + inline edit + delete confirm, 12-category enum dropdown, category filter, total footer) |
+| 114 | done | 2026-03-08 | tests for expense CRUD operations (12 tests: loading, 3 rows render, insert payload, new row added, update id, updated row, delete id, row removed, category filter, total sum, total filtered, total after delete) |
