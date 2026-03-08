@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 102
-- **Current**: 103
+- **Completed**: 103
+- **Current**: 104
 
 ## Current Stage
 
-**Stage 103** — (next stage)
+**Stage 104** — (next stage)
 
 ## Stage Log
 
@@ -116,3 +116,4 @@
 | 100 | done | 2026-03-08 | tests for deployment phases 13-15 (10 tests: step counts phase 13/8, phase 14/3, phase 15/6, sidebar badges, Supabase update payload, eq filter, completed_at, all-complete badge update) |
 | 101 | done | 2026-03-08 | phase warnings component (PhaseWarnings.tsx + power.ts: PoE budget, UPS runtime, circuit load warnings) |
 | 102 | done | 2026-03-08 | tests for phase warnings (12 tests: no warnings, PoE threshold trigger, UPS yellow/critical, circuit mock, multi-warning) |
+| 103 | done | 2026-03-08 | troubleshooting tips component (16 entries, accordion UI, tier badges, severity borders, phase filtering) |
