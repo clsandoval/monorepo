@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 96
-- **Current**: 97
+- **Completed**: 97
+- **Current**: 98
 
 ## Current Stage
 
-**Stage 97** — (next stage)
+**Stage 98** — (next stage)
 
 ## Stage Log
 
@@ -110,3 +110,4 @@
 | 94 | done | 2026-03-08 | tests for deployment phases 4-6 (10 tests: step counts phase 4/5/6, sidebar badges, Supabase update payload, eq filter, VLAN panel, ISP config panel with 3 radio options) |
 | 95 | done | 2026-03-08 | deployment phases 7-9: ReplayServiceVersionPanel for Phase 9 (V1/V2 radio, V2 disabled), replay_service_version field wired into deployment route |
 | 96 | done | 2026-03-08 | tests for deployment phases 7-9 (10 tests: step counts phase 7/5, phase 8/8, phase 9/10, sidebar badges, Supabase update payload, eq filter, Phase 9 Replay Service Version panel with 2 radio options) |
+| 97 | done | 2026-03-08 | deployment phases 10-12 (iPad Setup, Apple TV Setup, Physical Installation; AppLockWarningBanner for Phase 12 step 108) |
