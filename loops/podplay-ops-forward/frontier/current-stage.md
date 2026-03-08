@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 135
-- **Current**: 136
+- **Completed**: 136
+- **Current**: 137
 
 ## Current Stage
 
-**Stage 136** — (next stage)
+**Stage 137** — (next stage)
 
 ## Stage Log
 
@@ -149,3 +149,4 @@
 | 133 | done | 2026-03-08 | settings layout with 4-tab subnav |
 | 134 | done | 2026-03-08 | tests for settings tab navigation |
 | 135 | done | 2026-03-08 | pricing settings with 4 tiers |
+| 136 | done | 2026-03-08 | tests for pricing settings |
