@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 36
-- **Current**: 37
+- **Completed**: 37
+- **Current**: 38
 
 ## Current Stage
 
-**Stage 37** — (next stage)
+**Stage 38** — (next stage)
 
 ## Stage Log
 
@@ -50,3 +50,4 @@
 | 34 | done | 2026-03-08 | toast message tests with 10 spot-checks |
 | 35 | done | 2026-03-08 | dashboard route with Supabase query and ProjectList stub |
 | 36 | done | 2026-03-08 | dashboard query tests (mount call, loading, data, error) |
+| 37 | done | 2026-03-08 | project list table with status pills and tier badges |
