@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 46
-- **Current**: 47
+- **Completed**: 47
+- **Current**: 48
 
 ## Current Stage
 
-**Stage 47** — (next stage)
+**Stage 48** — (next stage)
 
 ## Stage Log
 
@@ -60,3 +60,4 @@
 | 44 | done | 2026-03-08 | full project creation with checklist seeding (migration 00008, token substitution, graceful error handling) |
 | 45 | done | 2026-03-08 | intake route shell + stepper UI (7 steps, clickable, check indicator for completed) |
 | 46 | done | 2026-03-08 | intake stepper tests (10 tests: labels, click callbacks, aria-current, completed/upcoming/current CSS) |
+| 47 | done | 2026-03-08 | customer info form (intake step 1): CustomerInfoStep with Zod schema, react-hook-form, inline errors |
