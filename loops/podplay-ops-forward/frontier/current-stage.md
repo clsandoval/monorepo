@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 69
-- **Current**: 70
+- **Completed**: 70
+- **Current**: 71
 
 ## Current Stage
 
-**Stage 70** — (next stage)
+**Stage 71** — (next stage)
 
 ## Stage Log
 
@@ -83,3 +83,4 @@
 | 67 | done | 2026-03-08 | cost chain calculation (calculateCostChain with CostChainResult, all 6 formulas, round to 2dp at output) |
 | 68 | done | 2026-03-08 | tests for cost chain (11 tests: known values 6 assertions, qty=1, zero tax, zero shipping, zero margin, 2dp rounding) |
 | 69 | done | 2026-03-08 | procurement route shell with 6-tab layout (BOM Review, Inventory Check, Purchase Orders, Packing List, CC Terminals, Replay Signs) |
+| 70 | done | 2026-03-08 | tests for procurement tab rendering (8 tests: all 6 labels, default tab, 5 tab switches, project name load) |
