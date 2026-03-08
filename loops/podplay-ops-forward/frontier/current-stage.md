@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 80
-- **Current**: 81
+- **Completed**: 81
+- **Current**: 82
 
 ## Current Stage
 
-**Stage 81** — (next stage)
+**Stage 82** — (next stage)
 
 ## Stage Log
 
@@ -94,3 +94,4 @@
 | 78 | done | 2026-03-08 | tests for PO creation (8 tests: vendor options, default vendor, item listing, shortfall pre-check, PO insert payload, PO items insert, inventory movements, no-items error) |
 | 79 | done | 2026-03-08 | PO receiving workflow (list open POs, mark items received partial/full, inventory_movement purchase_order_received, increment qty_on_hand via RPC, PO status update) |
 | 80 | done | 2026-03-08 | tests for PO receiving (10 tests: loading, PO selector, item rows, partial update, RPC delta, partial status, full status received, movement type, no-qty error, empty state) |
+| 81 | done | 2026-03-08 | packing list generation (PackingList.tsx: BOM items grouped by category, item name/SKU/qty, @media print layout, wired to Packing List tab) |
