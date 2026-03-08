@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 153
-- **Current**: 154
+- **Completed**: 154
+- **Current**: 155
 
 ## Current Stage
 
-**Stage 154** — (next stage)
+**Stage 155** — (next stage)
 
 ## Stage Log
 
@@ -167,3 +167,4 @@
 | 151 | done | 2026-03-08 | keyboard nav, ARIA regions, focus management, skip-to-content |
 | 152 | done | 2026-03-08 | tests for keyboard nav, focus trap, skip link |
 | 153 | done | 2026-03-08 | responsive sidebar with hamburger + Sheet drawer |
+| 154 | done | 2026-03-08 | responsive tables with overflow scroll + card-view at sm |
