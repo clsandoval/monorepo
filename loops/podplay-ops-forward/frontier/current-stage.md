@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 88
-- **Current**: 89
+- **Completed**: 89
+- **Current**: 90
 
 ## Current Stage
 
-**Stage 89** — (next stage)
+**Stage 90** — (next stage)
 
 ## Stage Log
 
@@ -102,3 +102,4 @@
 | 86 | done | 2026-03-08 | tests for replay signs (10 tests: loading, auto-calc qty text, staged badge, channel options, shipped disabled w/o outreach_date, shipped transition payload, delivered button, installed button, inventory movement qty_delta, save update payload) |
 | 87 | done | 2026-03-08 | deployment route shell with phase list (16 phases in spec order), progress bar, checklist items panel, toggle completion |
 | 88 | done | 2026-03-08 | tests for deployment shell (10 tests: loading state, 16 phases, progress bar 0%, aria attrs, Phase 0 default, checklist items, phase click, aria-current update, overall progress text, Phase 15) |
+| 89 | done | 2026-03-08 | smart checklist component with token substitution (renderStepDescription, orange unset tokens, critical/warning banner styles) |
