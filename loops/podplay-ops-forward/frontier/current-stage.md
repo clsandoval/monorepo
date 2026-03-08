@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 150
-- **Current**: 151
+- **Completed**: 151
+- **Current**: 152
 
 ## Current Stage
 
-**Stage 151** — (next stage)
+**Stage 152** — (next stage)
 
 ## Stage Log
 
@@ -164,3 +164,4 @@
 | 148 | done | 2026-03-08 | tests for 140+ validation message constants |
 | 149 | done | 2026-03-08 | ConfirmDialog component + 17 destructive action configs |
 | 150 | done | 2026-03-08 | tests for 17 confirmation dialog configs |
+| 151 | done | 2026-03-08 | keyboard nav, ARIA regions, focus management, skip-to-content |
