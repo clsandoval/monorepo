@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 67
-- **Current**: 68
+- **Completed**: 68
+- **Current**: 69
 
 ## Current Stage
 
-**Stage 68** — (next stage)
+**Stage 69** — (next stage)
 
 ## Stage Log
 
@@ -81,3 +81,4 @@
 | 65 | done | 2026-03-08 | SSD/switch sizing logic (already implemented in stage 63; build verified) |
 | 66 | done | 2026-03-08 | tests for sizing edge cases (8 tests: SSD 4→5, 8→9 courts; switch 8→9, 16→17 courts) |
 | 67 | done | 2026-03-08 | cost chain calculation (calculateCostChain with CostChainResult, all 6 formulas, round to 2dp at output) |
+| 68 | done | 2026-03-08 | tests for cost chain (11 tests: known values 6 assertions, qty=1, zero tax, zero shipping, zero margin, 2dp rounding) |
