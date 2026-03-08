@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 148
-- **Current**: 149
+- **Completed**: 149
+- **Current**: 150
 
 ## Current Stage
 
-**Stage 149** — (next stage)
+**Stage 150** — (next stage)
 
 ## Stage Log
 
@@ -162,3 +162,4 @@
 | 146 | done | 2026-03-08 | tests for 10 skeletons + 5 form-submit loaders |
 | 147 | done | 2026-03-08 | 140+ validation message constants wired into all Zod schemas |
 | 148 | done | 2026-03-08 | tests for 140+ validation message constants |
+| 149 | done | 2026-03-08 | ConfirmDialog component + 17 destructive action configs |
