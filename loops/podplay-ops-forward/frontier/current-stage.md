@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 109
-- **Current**: 110
+- **Completed**: 110
+- **Current**: 111
 
 ## Current Stage
 
-**Stage 110** — (next stage)
+**Stage 111** — (next stage)
 
 ## Stage Log
 
@@ -123,3 +123,4 @@
 | 107 | done | 2026-03-08 | financials route shell with 4 tabs (Invoicing, Expenses, P&L Summary, Go-Live) and Supabase data loading |
 | 108 | done | 2026-03-08 | tests for financials tab navigation (6 tests: all 4 tabs render, default Invoicing, 3 tab switches, project name load) |
 | 109 | done | 2026-03-08 | deposit invoice form (amount pre-filled, invoice_date, payment_method dropdown, notes, inserts with type=deposit, status tracking) |
+| 110 | done | 2026-03-08 | tests for deposit invoice form (10 tests: amount pre-filled, loading state, type=deposit insert, status badges Draft/Sent/Paid, payment methods, type filter, PodPlay Card label) |
