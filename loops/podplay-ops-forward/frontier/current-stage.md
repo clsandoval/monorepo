@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 90
-- **Current**: 91
+- **Completed**: 91
+- **Current**: 92
 
 ## Current Stage
 
-**Stage 91** — (next stage)
+**Stage 92** — (next stage)
 
 ## Stage Log
 
@@ -104,3 +104,4 @@
 | 88 | done | 2026-03-08 | tests for deployment shell (10 tests: loading state, 16 phases, progress bar 0%, aria attrs, Phase 0 default, checklist items, phase click, aria-current update, overall progress text, Phase 15) |
 | 89 | done | 2026-03-08 | smart checklist component with token substitution (renderStepDescription, orange unset tokens, critical/warning banner styles) |
 | 90 | done | 2026-03-08 | tests for checklist tokens (15 tests: all 6 tokens replaced, multi-token, null→not yet set, unset flags, no duplicate keys, no raw tokens) |
+| 91 | done | 2026-03-08 | deployment phases 1-3: wired SmartChecklist with Supabase toggle (is_completed + completed_at), fetching all token fields from project |
