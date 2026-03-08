@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 70
-- **Current**: 71
+- **Completed**: 71
+- **Current**: 72
 
 ## Current Stage
 
-**Stage 71** — (next stage)
+**Stage 72** — (next stage)
 
 ## Stage Log
 
@@ -84,3 +84,4 @@
 | 68 | done | 2026-03-08 | tests for cost chain (11 tests: known values 6 assertions, qty=1, zero tax, zero shipping, zero margin, 2dp rounding) |
 | 69 | done | 2026-03-08 | procurement route shell with 6-tab layout (BOM Review, Inventory Check, Purchase Orders, Packing List, CC Terminals, Replay Signs) |
 | 70 | done | 2026-03-08 | tests for procurement tab rendering (8 tests: all 6 labels, default tab, 5 tab switches, project name load) |
+| 71 | done | 2026-03-08 | BOM review table with inline editing and SKU swap |
