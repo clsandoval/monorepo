@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 115
-- **Current**: 116
+- **Completed**: 116
+- **Current**: 117
 
 ## Current Stage
 
-**Stage 116** — (next stage)
+**Stage 117** — (next stage)
 
 ## Stage Log
 
@@ -129,3 +129,4 @@
 | 113 | done | 2026-03-08 | expense tracker with CRUD and category filter (ExpenseTracker.tsx: table + add form + inline edit + delete confirm, 12-category enum dropdown, category filter, total footer) |
 | 114 | done | 2026-03-08 | tests for expense CRUD operations (12 tests: loading, 3 rows render, insert payload, new row added, update id, updated row, delete id, row removed, category filter, total sum, total filtered, total after delete) |
 | 115 | done | 2026-03-08 | P&L summary with monthly breakdown (PnlSummary.tsx: revenue/COGS/expenses sections, gross margin %, monthly breakdown table, wired to P&L Summary tab) |
+| 116 | done | 2026-03-08 | tests for P&L calculations |
