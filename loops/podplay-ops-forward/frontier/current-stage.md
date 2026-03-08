@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 152
-- **Current**: 153
+- **Completed**: 153
+- **Current**: 154
 
 ## Current Stage
 
-**Stage 153** — (next stage)
+**Stage 154** — (next stage)
 
 ## Stage Log
 
@@ -166,3 +166,4 @@
 | 150 | done | 2026-03-08 | tests for 17 confirmation dialog configs |
 | 151 | done | 2026-03-08 | keyboard nav, ARIA regions, focus management, skip-to-content |
 | 152 | done | 2026-03-08 | tests for keyboard nav, focus trap, skip link |
+| 153 | done | 2026-03-08 | responsive sidebar with hamburger + Sheet drawer |
