@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 146
-- **Current**: 147
+- **Completed**: 147
+- **Current**: 148
 
 ## Current Stage
 
-**Stage 147** — (next stage)
+**Stage 148** — (next stage)
 
 ## Stage Log
 
@@ -160,3 +160,4 @@
 | 144 | done | 2026-03-08 | tests for 19 empty state configs |
 | 145 | done | 2026-03-08 | 10 skeleton variants + 35 form-submit loader configs |
 | 146 | done | 2026-03-08 | tests for 10 skeletons + 5 form-submit loaders |
+| 147 | done | 2026-03-08 | 140+ validation message constants wired into all Zod schemas |
