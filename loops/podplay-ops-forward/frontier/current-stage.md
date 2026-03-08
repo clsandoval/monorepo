@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 14
-- **Current**: 15
+- **Completed**: 15
+- **Current**: 16
 
 ## Current Stage
 
-**Stage 15** — (next stage)
+**Stage 16** — (next stage)
 
 ## Stage Log
 
@@ -28,3 +28,4 @@
 | 12 | done | 2026-03-08 | hardware tables (catalog, BOM templates, project BOM) |
 | 13 | done | 2026-03-08 | hardware tables integration tests |
 | 14 | done | 2026-03-08 | inventory tables (inventory, movements) |
+| 15 | done | 2026-03-08 | inventory tables integration tests |
