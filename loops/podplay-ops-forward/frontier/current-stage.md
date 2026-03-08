@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 108
-- **Current**: 109
+- **Completed**: 109
+- **Current**: 110
 
 ## Current Stage
 
-**Stage 109** — (next stage)
+**Stage 110** — (next stage)
 
 ## Stage Log
 
@@ -122,3 +122,4 @@
 | 106 | done | 2026-03-08 | tests for progress engine (70 tests: 0/50/100% states, phase progress, status labels, overall project progress, stage index/label, status machine) |
 | 107 | done | 2026-03-08 | financials route shell with 4 tabs (Invoicing, Expenses, P&L Summary, Go-Live) and Supabase data loading |
 | 108 | done | 2026-03-08 | tests for financials tab navigation (6 tests: all 4 tabs render, default Invoicing, 3 tab switches, project name load) |
+| 109 | done | 2026-03-08 | deposit invoice form (amount pre-filled, invoice_date, payment_method dropdown, notes, inserts with type=deposit, status tracking) |
