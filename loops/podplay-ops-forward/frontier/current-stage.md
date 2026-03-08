@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 30
-- **Current**: 31
+- **Completed**: 31
+- **Current**: 32
 
 ## Current Stage
 
-**Stage 31** — (next stage)
+**Stage 32** — (next stage)
 
 ## Stage Log
 
@@ -44,3 +44,4 @@
 | 28 | done | 2026-03-08 | layout nav link tests (7 tests: sidebar, title, 4 nav links, sign-out) |
 | 29 | done | 2026-03-08 | enum label utilities for all 21 enum types |
 | 30 | done | 2026-03-08 | enum label tests for all 21 enum types |
+| 31 | done | 2026-03-08 | all 13 formatter utilities |
