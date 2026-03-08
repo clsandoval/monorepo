@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 56
-- **Current**: 57
+- **Completed**: 57
+- **Current**: 58
 
 ## Current Stage
 
-**Stage 57** — (next stage)
+**Stage 58** — (next stage)
 
 ## Stage Log
 
@@ -70,3 +70,4 @@
 | 54 | done | 2026-03-08 | tests for ISP validation (10 tests: Starlink banner, lowercase starlink, non-Starlink, disabled button, upload/download warnings with exact messages, required field, court threshold scaling) |
 | 55 | done | 2026-03-08 | installer selection (intake step 5): InstallerSelectionStep with Supabase fetch, dropdown with location, loading/empty states, disabled Next until selected |
 | 56 | done | 2026-03-08 | tests for installer selection (7 tests: loading state, 3 installer names, location in option, installer_id form state, disabled/enabled button, empty state) |
+| 57 | done | 2026-03-08 | financial setup form (intake step 6): FinancialSetupStep with target_go_live_date (future date) and deposit_amount (currency > 0), wired to intake route |
