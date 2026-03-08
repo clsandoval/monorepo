@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 10
-- **Current**: 11
+- **Completed**: 11
+- **Current**: 12
 
 ## Current Stage
 
-**Stage 11** — (next stage)
+**Stage 12** — (next stage)
 
 ## Stage Log
 
@@ -24,3 +24,4 @@
 | 8 | done | 2026-03-07 | all 28 enum types (SQL + TypeScript) |
 | 9 | done | 2026-03-07 | enum value tests for all 21 types |
 | 10 | done | 2026-03-07 | core tables (projects, installers, settings) |
+| 11 | done | 2026-03-08 | core tables integration tests |
