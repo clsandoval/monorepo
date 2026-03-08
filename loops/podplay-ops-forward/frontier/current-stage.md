@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 57
-- **Current**: 58
+- **Completed**: 58
+- **Current**: 59
 
 ## Current Stage
 
-**Stage 58** — (next stage)
+**Stage 59** — (next stage)
 
 ## Stage Log
 
@@ -71,3 +71,4 @@
 | 55 | done | 2026-03-08 | installer selection (intake step 5): InstallerSelectionStep with Supabase fetch, dropdown with location, loading/empty states, disabled Next until selected |
 | 56 | done | 2026-03-08 | tests for installer selection (7 tests: loading state, 3 installer names, location in option, installer_id form state, disabled/enabled button, empty state) |
 | 57 | done | 2026-03-08 | financial setup form (intake step 6): FinancialSetupStep with target_go_live_date (future date) and deposit_amount (currency > 0), wired to intake route |
+| 58 | done | 2026-03-08 | tests for financial setup validation (6 tests: past date, today rejected, future date, deposit 0, negative deposit, positive deposit) |
