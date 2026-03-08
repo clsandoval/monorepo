@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 17
-- **Current**: 18
+- **Completed**: 18
+- **Current**: 19
 
 ## Current Stage
 
-**Stage 18** — (next stage)
+**Stage 19** — (next stage)
 
 ## Stage Log
 
@@ -31,3 +31,4 @@
 | 15 | done | 2026-03-08 | inventory tables integration tests |
 | 16 | done | 2026-03-08 | financial tables (invoices, expenses, cc_terminals, replay_signs) |
 | 17 | done | 2026-03-08 | financial tables integration tests |
+| 18 | done | 2026-03-08 | seed 47 hardware catalog items (spec has 47, stage said 50) |
