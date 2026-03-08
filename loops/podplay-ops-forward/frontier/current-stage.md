@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 53
-- **Current**: 54
+- **Completed**: 54
+- **Current**: 55
 
 ## Current Stage
 
-**Stage 54** — (next stage)
+**Stage 55** — (next stage)
 
 ## Stage Log
 
@@ -67,3 +67,4 @@
 | 51 | done | 2026-03-08 | service tier selection (intake step 3): TierSelectionStep with 4 radio cards, descriptions, features, disabled Next until selected |
 | 52 | done | 2026-03-08 | tests for tier selection (9 tests: 4 cards render, 4 service_tier values, mutual exclusion, button disabled/enabled) |
 | 53 | done | 2026-03-08 | ISP info form (intake step 4): IspInfoStep with Zod schema, Starlink hard block, speed warnings from court_count thresholds |
+| 54 | done | 2026-03-08 | tests for ISP validation (10 tests: Starlink banner, lowercase starlink, non-Starlink, disabled button, upload/download warnings with exact messages, required field, court threshold scaling) |
