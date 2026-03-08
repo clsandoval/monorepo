@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 45
-- **Current**: 46
+- **Completed**: 46
+- **Current**: 47
 
 ## Current Stage
 
-**Stage 46** — (next stage)
+**Stage 47** — (next stage)
 
 ## Stage Log
 
@@ -59,3 +59,4 @@
 | 43 | done | 2026-03-08 | project creation tests (6 tests: renders fields, validation errors, insert payload, redirect, error toast, cancel nav) |
 | 44 | done | 2026-03-08 | full project creation with checklist seeding (migration 00008, token substitution, graceful error handling) |
 | 45 | done | 2026-03-08 | intake route shell + stepper UI (7 steps, clickable, check indicator for completed) |
+| 46 | done | 2026-03-08 | intake stepper tests (10 tests: labels, click callbacks, aria-current, completed/upcoming/current CSS) |
