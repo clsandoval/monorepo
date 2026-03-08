@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 110
-- **Current**: 111
+- **Completed**: 111
+- **Current**: 112
 
 ## Current Stage
 
-**Stage 111** — (next stage)
+**Stage 112** — (next stage)
 
 ## Stage Log
 
@@ -124,3 +124,4 @@
 | 108 | done | 2026-03-08 | tests for financials tab navigation (6 tests: all 4 tabs render, default Invoicing, 3 tab switches, project name load) |
 | 109 | done | 2026-03-08 | deposit invoice form (amount pre-filled, invoice_date, payment_method dropdown, notes, inserts with type=deposit, status tracking) |
 | 110 | done | 2026-03-08 | tests for deposit invoice form (10 tests: amount pre-filled, loading state, type=deposit insert, status badges Draft/Sent/Paid, payment methods, type filter, PodPlay Card label) |
+| 111 | done | 2026-03-08 | final invoice form with go-live gate (balance = total_price - deposit_amount, gate on go_live_date or status=completed, inserts type=final) |
