@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 29
-- **Current**: 30
+- **Completed**: 30
+- **Current**: 31
 
 ## Current Stage
 
-**Stage 30** — (next stage)
+**Stage 31** — (next stage)
 
 ## Stage Log
 
@@ -43,3 +43,4 @@
 | 27 | done | 2026-03-08 | app shell with sidebar layout |
 | 28 | done | 2026-03-08 | layout nav link tests (7 tests: sidebar, title, 4 nav links, sign-out) |
 | 29 | done | 2026-03-08 | enum label utilities for all 21 enum types |
+| 30 | done | 2026-03-08 | enum label tests for all 21 enum types |
