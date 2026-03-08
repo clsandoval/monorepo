@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 79
-- **Current**: 80
+- **Completed**: 80
+- **Current**: 81
 
 ## Current Stage
 
-**Stage 80** — (next stage)
+**Stage 81** — (next stage)
 
 ## Stage Log
 
@@ -93,3 +93,4 @@
 | 77 | done | 2026-03-08 | PO creation form (vendor dropdown from BOM vendors, shortage-based item multi-select, qty/unit cost inputs, expected_delivery_date, inserts purchase_orders + purchase_order_items) |
 | 78 | done | 2026-03-08 | tests for PO creation (8 tests: vendor options, default vendor, item listing, shortfall pre-check, PO insert payload, PO items insert, inventory movements, no-items error) |
 | 79 | done | 2026-03-08 | PO receiving workflow (list open POs, mark items received partial/full, inventory_movement purchase_order_received, increment qty_on_hand via RPC, PO status update) |
+| 80 | done | 2026-03-08 | tests for PO receiving (10 tests: loading, PO selector, item rows, partial update, RPC delta, partial status, full status received, movement type, no-qty error, empty state) |
