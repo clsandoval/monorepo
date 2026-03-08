@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 74
-- **Current**: 75
+- **Completed**: 75
+- **Current**: 76
 
 ## Current Stage
 
-**Stage 75** — (next stage)
+**Stage 76** — (next stage)
 
 ## Stage Log
 
@@ -88,3 +88,4 @@
 | 72 | done | 2026-03-08 | tests for BOM review inline editing (7 tests: 3 items render, SKUs, vendors, totals, qty change, cost override, SKU swap) |
 | 73 | done | 2026-03-08 | wire cost chain recalculation into BOM review (landed cost + customer price columns, subtotal + grand total footer) |
 | 74 | done | 2026-03-08 | tests for BOM cost recalculation (6 tests: qty change updates total/landed/customer price, subtotal, grand total, cost override) |
+| 75 | done | 2026-03-08 | inventory check panel with stock level indicators (low-stock red flag, surplus green, delta column, wired to Inventory Check tab) |
