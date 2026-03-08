@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 60
-- **Current**: 61
+- **Completed**: 61
+- **Current**: 62
 
 ## Current Stage
 
-**Stage 61** — (next stage)
+**Stage 62** — (next stage)
 
 ## Stage Log
 
@@ -74,3 +74,4 @@
 | 58 | done | 2026-03-08 | tests for financial setup validation (6 tests: past date, today rejected, future date, deposit 0, negative deposit, positive deposit) |
 | 59 | done | 2026-03-08 | review & submit step (intake step 7): ReviewStep with card-based read-only summary for all 6 steps, Edit ↑ buttons, Submit button placeholder |
 | 60 | done | 2026-03-08 | tests for review step (23 tests: all field values render, 6 Edit buttons, Edit callbacks with correct step indices 0-5) |
+| 61 | done | 2026-03-08 | intake submit logic (update project, generateBom service, status → procurement, success/error toast, navigate to project detail) |
