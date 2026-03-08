@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 119
-- **Current**: 120
+- **Completed**: 120
+- **Current**: 121
 
 ## Current Stage
 
-**Stage 120** — (next stage)
+**Stage 121** — (next stage)
 
 ## Stage Log
 
@@ -133,3 +133,4 @@
 | 117 | done | 2026-03-08 | HER calculation with color-coded display |
 | 118 | done | 2026-03-08 | tests for HER calculation and thresholds |
 | 119 | done | 2026-03-08 | go-live checklist and project close |
+| 120 | done | 2026-03-08 | tests for project close flow |
