@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 134
-- **Current**: 135
+- **Completed**: 135
+- **Current**: 136
 
 ## Current Stage
 
-**Stage 135** — (next stage)
+**Stage 136** — (next stage)
 
 ## Stage Log
 
@@ -148,3 +148,4 @@
 | 132 | done | 2026-03-08 | tests for P&L and HER charts |
 | 133 | done | 2026-03-08 | settings layout with 4-tab subnav |
 | 134 | done | 2026-03-08 | tests for settings tab navigation |
+| 135 | done | 2026-03-08 | pricing settings with 4 tiers |
