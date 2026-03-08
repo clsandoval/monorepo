@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 122
-- **Current**: 123
+- **Completed**: 123
+- **Current**: 124
 
 ## Current Stage
 
-**Stage 123** — (next stage)
+**Stage 124** — (next stage)
 
 ## Stage Log
 
@@ -136,3 +136,4 @@
 | 120 | done | 2026-03-08 | tests for project close flow |
 | 121 | done | 2026-03-08 | inventory route with Supabase query |
 | 122 | done | 2026-03-08 | tests for inventory page rendering |
+| 123 | done | 2026-03-08 | stock levels table grouped by category |
