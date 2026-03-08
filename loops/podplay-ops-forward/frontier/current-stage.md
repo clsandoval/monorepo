@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 107
-- **Current**: 108
+- **Completed**: 108
+- **Current**: 109
 
 ## Current Stage
 
-**Stage 108** — (next stage)
+**Stage 109** — (next stage)
 
 ## Stage Log
 
@@ -121,3 +121,4 @@
 | 105 | done | 2026-03-08 | progress engine and status machine (calculateDeploymentProgress, calculatePhaseProgress, isPhaseComplete, getPhaseStatus, calculateAllPhasesSummary, getDeploymentStatusLabel, calculateOverallProjectProgress, getProjectStageIndex, getProjectStageLabel, status machine helpers) |
 | 106 | done | 2026-03-08 | tests for progress engine (70 tests: 0/50/100% states, phase progress, status labels, overall project progress, stage index/label, status machine) |
 | 107 | done | 2026-03-08 | financials route shell with 4 tabs (Invoicing, Expenses, P&L Summary, Go-Live) and Supabase data loading |
+| 108 | done | 2026-03-08 | tests for financials tab navigation (6 tests: all 4 tabs render, default Invoicing, 3 tab switches, project name load) |
