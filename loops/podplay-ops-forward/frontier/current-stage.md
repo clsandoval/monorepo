@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 23
-- **Current**: 24
+- **Completed**: 24
+- **Current**: 25
 
 ## Current Stage
 
-**Stage 24** — (next stage)
+**Stage 25** — (next stage)
 
 ## Stage Log
 
@@ -37,3 +37,4 @@
 | 21 | done | 2026-03-08 | seed data completeness verification tests (17 tests: BOM tiers, checklist phases, settings) |
 | 22 | done | 2026-03-08 | auth context, provider, and useAuth hook |
 | 23 | done | 2026-03-08 | auth hook tests (loading, session, signOut, signIn, signUp) |
+| 24 | done | 2026-03-08 | login page with email/password and magic link |
