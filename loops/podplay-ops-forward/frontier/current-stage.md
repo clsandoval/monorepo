@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 104
-- **Current**: 105
+- **Completed**: 105
+- **Current**: 106
 
 ## Current Stage
 
-**Stage 105** — (next stage)
+**Stage 106** — (next stage)
 
 ## Stage Log
 
@@ -118,3 +118,4 @@
 | 102 | done | 2026-03-08 | tests for phase warnings (12 tests: no warnings, PoE threshold trigger, UPS yellow/critical, circuit mock, multi-warning) |
 | 103 | done | 2026-03-08 | troubleshooting tips component (16 entries, accordion UI, tier badges, severity borders, phase filtering) |
 | 104 | done | 2026-03-08 | tests for troubleshooting tips (18 tests: 16 entries, symptom/solution present, phase filtering, phase-to-entry correctness) |
+| 105 | done | 2026-03-08 | progress engine and status machine (calculateDeploymentProgress, calculatePhaseProgress, isPhaseComplete, getPhaseStatus, calculateAllPhasesSummary, getDeploymentStatusLabel, calculateOverallProjectProgress, getProjectStageIndex, getProjectStageLabel, status machine helpers) |
