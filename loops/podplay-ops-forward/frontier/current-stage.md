@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 64
-- **Current**: 65
+- **Completed**: 65
+- **Current**: 66
 
 ## Current Stage
 
-**Stage 65** — (next stage)
+**Stage 66** — (next stage)
 
 ## Stage Log
 
@@ -78,3 +78,4 @@
 | 62 | done | 2026-03-08 | tests for intake submit (5 tests: project row update payload, generateBom call, status procurement, success toast, error toast) |
 | 63 | done | 2026-03-08 | BOM generation function (pure TypeScript, static data, all 4 tiers, SSD/switch/NVR substitutions, conditional front desk + WiFi items) |
 | 64 | done | 2026-03-08 | tests for BOM generation per tier (42 tests: all 4 tiers, SSD/switch/NVR sizing, conditional items, quantity scaling) |
+| 65 | done | 2026-03-08 | SSD/switch sizing logic (already implemented in stage 63; build verified) |
