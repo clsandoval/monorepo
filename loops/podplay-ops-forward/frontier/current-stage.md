@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 89
-- **Current**: 90
+- **Completed**: 90
+- **Current**: 91
 
 ## Current Stage
 
-**Stage 90** — (next stage)
+**Stage 91** — (next stage)
 
 ## Stage Log
 
@@ -103,3 +103,4 @@
 | 87 | done | 2026-03-08 | deployment route shell with phase list (16 phases in spec order), progress bar, checklist items panel, toggle completion |
 | 88 | done | 2026-03-08 | tests for deployment shell (10 tests: loading state, 16 phases, progress bar 0%, aria attrs, Phase 0 default, checklist items, phase click, aria-current update, overall progress text, Phase 15) |
 | 89 | done | 2026-03-08 | smart checklist component with token substitution (renderStepDescription, orange unset tokens, critical/warning banner styles) |
+| 90 | done | 2026-03-08 | tests for checklist tokens (15 tests: all 6 tokens replaced, multi-token, null→not yet set, unset flags, no duplicate keys, no raw tokens) |
