@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 48
-- **Current**: 49
+- **Completed**: 49
+- **Current**: 50
 
 ## Current Stage
 
-**Stage 49** — (next stage)
+**Stage 50** — (next stage)
 
 ## Stage Log
 
@@ -62,3 +62,4 @@
 | 46 | done | 2026-03-08 | intake stepper tests (10 tests: labels, click callbacks, aria-current, completed/upcoming/current CSS) |
 | 47 | done | 2026-03-08 | customer info form (intake step 1): CustomerInfoStep with Zod schema, react-hook-form, inline errors |
 | 48 | done | 2026-03-08 | tests for customer info validation (5 tests: required name, email, invalid email, optional phone, valid submit) |
+| 49 | done | 2026-03-08 | venue config form (intake step 2): VenueConfigStep with Zod schema, react-hook-form, inline errors, wired to intake route |
