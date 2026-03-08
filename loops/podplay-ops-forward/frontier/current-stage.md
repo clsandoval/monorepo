@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 27
-- **Current**: 28
+- **Completed**: 28
+- **Current**: 29
 
 ## Current Stage
 
-**Stage 28** — (next stage)
+**Stage 29** — (next stage)
 
 ## Stage Log
 
@@ -41,3 +41,4 @@
 | 25 | done | 2026-03-08 | auth callback with PKCE exchange |
 | 26 | done | 2026-03-08 | route guards with ProtectedRoute component |
 | 27 | done | 2026-03-08 | app shell with sidebar layout |
+| 28 | done | 2026-03-08 | layout nav link tests (7 tests: sidebar, title, 4 nav links, sign-out) |
