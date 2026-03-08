@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 28
-- **Current**: 29
+- **Completed**: 29
+- **Current**: 30
 
 ## Current Stage
 
-**Stage 29** — (next stage)
+**Stage 30** — (next stage)
 
 ## Stage Log
 
@@ -42,3 +42,4 @@
 | 26 | done | 2026-03-08 | route guards with ProtectedRoute component |
 | 27 | done | 2026-03-08 | app shell with sidebar layout |
 | 28 | done | 2026-03-08 | layout nav link tests (7 tests: sidebar, title, 4 nav links, sign-out) |
+| 29 | done | 2026-03-08 | enum label utilities for all 21 enum types |
