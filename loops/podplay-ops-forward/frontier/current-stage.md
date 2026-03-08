@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 11
-- **Current**: 12
+- **Completed**: 12
+- **Current**: 13
 
 ## Current Stage
 
-**Stage 12** — (next stage)
+**Stage 13** — (next stage)
 
 ## Stage Log
 
@@ -25,3 +25,4 @@
 | 9 | done | 2026-03-07 | enum value tests for all 21 types |
 | 10 | done | 2026-03-07 | core tables (projects, installers, settings) |
 | 11 | done | 2026-03-08 | core tables integration tests |
+| 12 | done | 2026-03-08 | hardware tables (catalog, BOM templates, project BOM) |
