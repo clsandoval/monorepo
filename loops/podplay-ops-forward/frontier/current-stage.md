@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 54
-- **Current**: 55
+- **Completed**: 55
+- **Current**: 56
 
 ## Current Stage
 
-**Stage 55** — (next stage)
+**Stage 56** — (next stage)
 
 ## Stage Log
 
@@ -68,3 +68,4 @@
 | 52 | done | 2026-03-08 | tests for tier selection (9 tests: 4 cards render, 4 service_tier values, mutual exclusion, button disabled/enabled) |
 | 53 | done | 2026-03-08 | ISP info form (intake step 4): IspInfoStep with Zod schema, Starlink hard block, speed warnings from court_count thresholds |
 | 54 | done | 2026-03-08 | tests for ISP validation (10 tests: Starlink banner, lowercase starlink, non-Starlink, disabled button, upload/download warnings with exact messages, required field, court threshold scaling) |
+| 55 | done | 2026-03-08 | installer selection (intake step 5): InstallerSelectionStep with Supabase fetch, dropdown with location, loading/empty states, disabled Next until selected |
