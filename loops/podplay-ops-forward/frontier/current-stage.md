@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 156
-- **Current**: 157
+- **Completed**: 157
+- **Current**: 158
 
 ## Current Stage
 
-**Stage 157** — (next stage)
+**Stage 158** — (next stage)
 
 ## Stage Log
 
@@ -170,3 +170,4 @@
 | 154 | done | 2026-03-08 | responsive tables with overflow scroll + card-view at sm |
 | 155 | done | 2026-03-08 | responsive forms with full-width inputs, touch targets, mobile padding |
 | 156 | done | 2026-03-08 | desktop verify /login - email + password form, magic link, no errors |
+| 157 | done | 2026-03-08 | desktop verify /auth/callback graceful handling - redirects to /login, no crash |
