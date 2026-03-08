@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 26
-- **Current**: 27
+- **Completed**: 27
+- **Current**: 28
 
 ## Current Stage
 
-**Stage 27** — (next stage)
+**Stage 28** — (next stage)
 
 ## Stage Log
 
@@ -40,3 +40,4 @@
 | 24 | done | 2026-03-08 | login page with email/password and magic link |
 | 25 | done | 2026-03-08 | auth callback with PKCE exchange |
 | 26 | done | 2026-03-08 | route guards with ProtectedRoute component |
+| 27 | done | 2026-03-08 | app shell with sidebar layout |
