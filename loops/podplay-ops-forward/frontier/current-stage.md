@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 164
-- **Current**: 165
+- **Completed**: 165
+- **Current**: 166
 
 ## Current Stage
 
-**Stage 165** — (next stage)
+**Stage 166** — (next stage)
 
 ## Stage Log
 
@@ -178,3 +178,4 @@
 | 162 | done | 2026-03-08 | desktop verify /projects/$id/deployment - 16 phases, progress bar, Phase 0 checklist visible, no console errors |
 | 163 | done | 2026-03-08 | desktop verify /projects/$id/financials - 4 tabs, deposit form accessible, no console errors (fixed invoice_type→type column, wired DepositInvoice/FinalInvoice into Invoicing tab) |
 | 164 | done | 2026-03-08 | desktop verify /inventory - empty state renders, no console errors (fixed column names: item_id, quantity_on_hand, quantity_allocated, reorder_point) |
+| 165 | done | 2026-03-08 | desktop verify /financials - revenue funnel, P&L, HER sections visible, no console errors (fixed invoices column names, removed invalid est_total_cost, stubbed monthly_opex_snapshots) |
