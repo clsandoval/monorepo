@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 161
-- **Current**: 162
+- **Completed**: 162
+- **Current**: 163
 
 ## Current Stage
 
-**Stage 162** — (next stage)
+**Stage 163** — (next stage)
 
 ## Stage Log
 
@@ -175,3 +175,4 @@
 | 159 | done | 2026-03-08 | desktop verify /projects/new - form with name, customer, venue fields, submit button, no errors |
 | 160 | done | 2026-03-08 | desktop verify /projects/$id/intake - 7-step stepper, Step 1 customer form, all steps navigable, no errors |
 | 161 | done | 2026-03-08 | desktop verify /projects/$id/procurement - 6 tabs, BOM empty state, no console errors (fixed column name mismatches) |
+| 162 | done | 2026-03-08 | desktop verify /projects/$id/deployment - 16 phases, progress bar, Phase 0 checklist visible, no console errors |
