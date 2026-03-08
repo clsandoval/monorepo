@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 83
-- **Current**: 84
+- **Completed**: 84
+- **Current**: 85
 
 ## Current Stage
 
-**Stage 84** — (next stage)
+**Stage 85** — (next stage)
 
 ## Stage Log
 
@@ -97,3 +97,4 @@
 | 81 | done | 2026-03-08 | packing list generation (PackingList.tsx: BOM items grouped by category, item name/SKU/qty, @media print layout, wired to Packing List tab) |
 | 82 | done | 2026-03-08 | tests for packing list (10 tests: loading state, all item names, SKUs, qty matching, category group headers, grouping, total units, line item count, print button) |
 | 83 | done | 2026-03-08 | CC terminal ordering (CcTerminalOrder.tsx: serial number, model, status dropdown ordered/received/configured/deployed/returned, notes, insert cc_terminals, list with inline status update) |
+| 84 | done | 2026-03-08 | tests for CC terminal (10 tests: loading, serial/model render, add form opens, insert payload with status=ordered, serial validation, model validation, 5 status options, inline status update, deployed_date set on deployed) |
