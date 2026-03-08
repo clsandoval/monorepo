@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 141
-- **Current**: 142
+- **Completed**: 142
+- **Current**: 143
 
 ## Current Stage
 
-**Stage 142** — (next stage)
+**Stage 143** — (next stage)
 
 ## Stage Log
 
@@ -155,3 +155,4 @@
 | 139 | done | 2026-03-08 | team settings with member CRUD |
 | 140 | done | 2026-03-08 | tests for team settings |
 | 141 | done | 2026-03-08 | travel settings with rate defaults |
+| 142 | done | 2026-03-08 | tests for travel settings |
