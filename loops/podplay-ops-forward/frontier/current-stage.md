@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 42
-- **Current**: 43
+- **Completed**: 43
+- **Current**: 44
 
 ## Current Stage
 
-**Stage 43** — (next stage)
+**Stage 44** — (next stage)
 
 ## Stage Log
 
@@ -56,3 +56,4 @@
 | 40 | done | 2026-03-08 | dashboard filter tests (10 tests: status filter, tier filter, name search, customer search, AND logic, reset, count label) |
 | 41 | done | 2026-03-08 | dashboard metrics bar (4 cards: total projects, active deployments, revenue pipeline, by status breakdown) |
 | 42 | done | 2026-03-08 | new project creation form (project_name, customer_name, venue_name, insert with status=intake, redirect to intake) |
+| 43 | done | 2026-03-08 | project creation tests (6 tests: renders fields, validation errors, insert payload, redirect, error toast, cancel nav) |
