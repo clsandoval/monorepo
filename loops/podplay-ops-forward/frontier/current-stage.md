@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 40
-- **Current**: 41
+- **Completed**: 41
+- **Current**: 42
 
 ## Current Stage
 
-**Stage 41** — (next stage)
+**Stage 42** — (next stage)
 
 ## Stage Log
 
@@ -54,3 +54,4 @@
 | 38 | done | 2026-03-08 | status pill and tier badge tests (21 tests: 6 labels, 6 badge classes, 4 tiers, date/pct formatting) |
 | 39 | done | 2026-03-08 | dashboard filters and search (status/tier dropdowns, text search, count display, AND logic) |
 | 40 | done | 2026-03-08 | dashboard filter tests (10 tests: status filter, tier filter, name search, customer search, AND logic, reset, count label) |
+| 41 | done | 2026-03-08 | dashboard metrics bar (4 cards: total projects, active deployments, revenue pipeline, by status breakdown) |
