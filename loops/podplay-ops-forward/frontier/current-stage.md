@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 181
-- **Current**: 182
+- **Completed**: 182
+- **Current**: 183
 
 ## Current Stage
 
-**Stage 182** — (next stage)
+**Stage 183** — (next stage)
 
 ## Stage Log
 
@@ -195,3 +195,4 @@
 | 179 | done | 2026-03-09 | mobile verify full wizard flow end-to-end (375x812: new project → intake 7 steps → procurement BOM cards → deployment phases → financials tabs, 5 screenshots, no console errors, no horizontal overflow) |
 | 180 | done | 2026-03-09 | orphan component sweep: removed form-helpers.ts, keyboard-nav.ts, schemas/example.ts (3 dead code files, build exits 0) |
 | 181 | done | 2026-03-09 | schema mismatch audit: migration 00012 adds purchase_orders, purchase_order_items, monthly_opex_snapshots tables; renames inventory_movements.item_id→hardware_catalog_id, quantity→qty_delta, adds project_id+reference; fixed InventoryCheckPanel+PoCreateForm inventory queries; updated 3 test files |
+| 182 | done | 2026-03-09 | replace all placeholders and stubs with real content: updated dashboard test to assert real rows, removed stale placeholder/stub comments from database.ts, DeploymentWizardSkeleton.tsx, new.tsx, loading-states.test.ts, catalog.test.ts |
