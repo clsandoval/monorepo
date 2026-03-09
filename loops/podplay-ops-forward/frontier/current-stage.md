@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 179
-- **Current**: 180
+- **Completed**: 180
+- **Current**: 181
 
 ## Current Stage
 
-**Stage 180** — (next stage)
+**Stage 181** — (next stage)
 
 ## Stage Log
 
@@ -193,3 +193,4 @@
 | 177 | done | 2026-03-09 | mobile verify inventory and global financials (375x812: hamburger visible, empty state centered, revenue funnel table, P&L cards stack, no console errors) |
 | 178 | done | 2026-03-09 | mobile verify all settings pages (375x812: pricing/team/catalog/travel - full-width inputs, tabs readable, no horizontal overflow, touch targets adequate) |
 | 179 | done | 2026-03-09 | mobile verify full wizard flow end-to-end (375x812: new project → intake 7 steps → procurement BOM cards → deployment phases → financials tabs, 5 screenshots, no console errors, no horizontal overflow) |
+| 180 | done | 2026-03-09 | orphan component sweep: removed form-helpers.ts, keyboard-nav.ts, schemas/example.ts (3 dead code files, build exits 0) |
