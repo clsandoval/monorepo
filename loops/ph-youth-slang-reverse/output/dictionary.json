@@ -544,6 +544,40 @@
     "antonyms": []
   },
   {
+    "term": "anyare",
+    "definitions": [
+      "Contraction of 'anong nangyari?' meaning 'What happened?' Used as a quick expression of shock, concern, or bemused confusion upon hearing unexpected news or witnessing a surprising turn of events."
+    ],
+    "etymology": "Phonetic contraction of 'anong nangyari?' (literally 'what happened?'). Follows the Filipino Gen Z pattern of clipping commonly used phrases into single tokens for faster digital communication — parallel to 'naol' (from 'sana all'). Studied in the RSIS 2025 academic paper on Filipino TikTok slang as an example of abbreviation morphology in digital communication.",
+    "examples": [
+      {
+        "text": "Hala, anyare?! Bakit ka umiiyak?",
+        "source": "Filipino group chat / TikTok comment sections, 2023–2025"
+      },
+      {
+        "text": "May intern na lumabas ng office ni boss na umiiyak. — Hala, anyare?",
+        "source": "PEP.ph Gen Z slang guide, Aug 2023"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "naol",
+      "luh",
+      "aray ko"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "exclamations-and-hype"
+    ],
+    "sources": [
+      "PEP.ph — Gen Z slang terms you need to know, August 2023",
+      "RSIS International Journal of Research and Innovation — Digital Identity and Linguistic Play: Filipino TikTok Slang among Gen Z, March 2025",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
     "term": "arat",
     "definitions": [
       "'Let's go!'; a call to action or invitation to get moving or do something together."
@@ -10425,6 +10459,46 @@
       "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
     ],
     "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "warla",
+    "definitions": [
+      "Fight, brawl, or confrontation; used when challenging someone to a conflict or warning of incoming drama — 'Gusto mo ba ng warla?' (Do you want to fight?)",
+      "(Secondary usage) Going crazy, acting unhinged, or losing one's composure due to overwhelming emotion — often used humorously: 'Warla na ako!' (I'm losing my mind!)"
+    ],
+    "etymology": "From swardspeak/Filipino gay lingo; a creative respelling/play on the English word 'war' fused with the Tagalog concept of 'away' (fight). Documented in Filipino beki lingo collections and has since crossed into mainstream Gen Z usage. Verb forms include 'warlahin' (to fight/confront someone) and compound 'ka-warla' (the person you're fighting with).",
+    "examples": [
+      {
+        "text": "Gusto mo bang mag-warla? Sige, handa na ako.",
+        "source": "Filipino social media / swardspeak in mainstream use, 2024–2025"
+      },
+      {
+        "text": "O, warla ka nanaman kasi iniwan ka ng jowawis mo ever?",
+        "source": "Philippine Slanguages forum, documented swardspeak usage"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "gera",
+      "warlahin",
+      "ka-warla",
+      "kinaladkad",
+      "supalpal"
+    ],
+    "categories": [
+      "conflict-and-drama",
+      "lgbtq-and-beki-lingo"
+    ],
+    "sources": [
+      "FastForward MR Gen Z Dictionary 2024–2025",
+      "Spot.ph 10 Beki Slang Terms",
+      "Philippine Slanguages (SkyscraperCity Forum)",
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023–2026"
+    ],
+    "synonyms": [
+      "gera"
+    ],
     "antonyms": []
   },
   {

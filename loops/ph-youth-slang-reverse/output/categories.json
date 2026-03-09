@@ -1,5 +1,8 @@
 {
   "internet-and-social-media": {
+    "label": "Internet And Social Media",
+    "description": "",
+    "term_count": 96,
     "terms": [
       "6-7",
       "AFAM",
@@ -12,6 +15,7 @@
       "alam na this",
       "ammacana",
       "ang lala mo",
+      "anyare",
       "ate girl",
       "aura farming",
       "baha ka lang, pinoy kami",
@@ -96,10 +100,12 @@
       "wew",
       "what hafen vella",
       "yarn"
-    ],
-    "term_count": 95
+    ]
   },
   "gen-z-and-imported-slang": {
+    "label": "Gen Z And Imported Slang",
+    "description": "",
+    "term_count": 69,
     "terms": [
       "247",
       "6-7",
@@ -135,9 +141,11 @@
       "ghostlighting",
       "go getta",
       "gorgy",
+      "green flag",
       "halaka",
       "hard launch",
       "hypebeast",
+      "ick",
       "kengkoy",
       "korique",
       "laylow",
@@ -154,6 +162,7 @@
       "parak",
       "periodt",
       "pi",
+      "red flag",
       "rizz",
       "situationship",
       "slay",
@@ -167,73 +176,12 @@
       "unc",
       "unli",
       "yawa"
-    ],
-    "term_count": 66
-  },
-  "wordplay-and-linguistic-forms": {
-    "terms": [
-      "SKL",
-      "aketch",
-      "akis",
-      "ala me pakels",
-      "alam na this",
-      "amats",
-      "ammacana",
-      "anetch",
-      "arat",
-      "awoj",
-      "banat",
-      "bb",
-      "bnk",
-      "char",
-      "chika",
-      "chos",
-      "crayola",
-      "drip ko mala-gripo",
-      "eabab",
-      "echoz",
-      "eme",
-      "forda",
-      "gandara",
-      "gege",
-      "gento",
-      "gigil",
-      "gng",
-      "hatdog",
-      "kilig",
-      "lambing",
-      "lodi",
-      "low key",
-      "lutang",
-      "marecakes",
-      "matik",
-      "matsala",
-      "olats",
-      "omsim",
-      "on-game",
-      "pakels",
-      "pangga",
-      "petiks",
-      "petmalu",
-      "rapsa",
-      "sabog",
-      "sagad",
-      "salang na",
-      "shutacca",
-      "tae",
-      "talksick",
-      "tropa",
-      "ulti",
-      "unli",
-      "walwal",
-      "watash",
-      "werpa",
-      "yarn",
-      "yosi"
-    ],
-    "term_count": 58
+    ]
   },
   "personality-and-character": {
+    "label": "Personality And Character",
+    "description": "",
+    "term_count": 58,
     "terms": [
       "angas",
       "asta",
@@ -293,13 +241,81 @@
       "unc",
       "vaklush",
       "walang ebas"
-    ],
-    "term_count": 58
+    ]
+  },
+  "wordplay-and-linguistic-forms": {
+    "label": "Wordplay And Linguistic Forms",
+    "description": "",
+    "term_count": 58,
+    "terms": [
+      "SKL",
+      "aketch",
+      "akis",
+      "ala me pakels",
+      "alam na this",
+      "amats",
+      "ammacana",
+      "anetch",
+      "arat",
+      "awoj",
+      "banat",
+      "bb",
+      "bnk",
+      "char",
+      "chika",
+      "chos",
+      "crayola",
+      "drip ko mala-gripo",
+      "eabab",
+      "echoz",
+      "eme",
+      "forda",
+      "gandara",
+      "gege",
+      "gento",
+      "gigil",
+      "gng",
+      "hatdog",
+      "kilig",
+      "lambing",
+      "lodi",
+      "low key",
+      "lutang",
+      "marecakes",
+      "matik",
+      "matsala",
+      "olats",
+      "omsim",
+      "on-game",
+      "pakels",
+      "pangga",
+      "petiks",
+      "petmalu",
+      "rapsa",
+      "sabog",
+      "sagad",
+      "salang na",
+      "shutacca",
+      "tae",
+      "talksick",
+      "tropa",
+      "ulti",
+      "unli",
+      "walwal",
+      "watash",
+      "werpa",
+      "yarn",
+      "yosi"
+    ]
   },
   "exclamations-and-hype": {
+    "label": "Exclamations And Hype",
+    "description": "",
+    "term_count": 54,
     "terms": [
       "ang lala mo",
       "aning sayo",
+      "anyare",
       "arat",
       "aray ko",
       "aray mo",
@@ -351,10 +367,12 @@
       "wew",
       "what hafen vella",
       "yawa"
-    ],
-    "term_count": 53
+    ]
   },
   "lgbtq-and-beki-lingo": {
+    "label": "Lgbtq And Beki Lingo",
+    "description": "",
+    "term_count": 53,
     "terms": [
       "AFAM",
       "achoo",
@@ -407,11 +425,14 @@
       "teh",
       "vaklush",
       "vungga",
+      "warla",
       "watash"
-    ],
-    "term_count": 52
+    ]
   },
   "romance-and-relationships": {
+    "label": "Romance And Relationships",
+    "description": "",
+    "term_count": 50,
     "terms": [
       "AFAM",
       "awoj",
@@ -427,10 +448,12 @@
       "dyosa",
       "gaga",
       "ghostlighting",
+      "green flag",
       "haliparot",
       "hard launch",
       "hugot",
       "huli na",
+      "ick",
       "jowa",
       "kabet",
       "kalat",
@@ -450,6 +473,7 @@
       "pabebe",
       "pakipot",
       "pangga",
+      "red flag",
       "rizz",
       "sana all",
       "seenzone",
@@ -460,10 +484,12 @@
       "talking stage",
       "topak",
       "wasak"
-    ],
-    "term_count": 47
+    ]
   },
   "street-and-hustle": {
+    "label": "Street And Hustle",
+    "description": "",
+    "term_count": 43,
     "terms": [
       "247",
       "DTQ",
@@ -508,10 +534,12 @@
       "unli",
       "walang ebas",
       "yosi"
-    ],
-    "term_count": 43
+    ]
   },
   "emotions-and-feelings": {
+    "label": "Emotions And Feelings",
+    "description": "",
+    "term_count": 42,
     "terms": [
       "BV",
       "agit",
@@ -555,10 +583,12 @@
       "wasak",
       "werpa",
       "wew"
-    ],
-    "term_count": 42
+    ]
   },
   "hip-hop-and-rap-culture": {
+    "label": "Hip Hop And Rap Culture",
+    "description": "",
+    "term_count": 34,
     "terms": [
       "DTQ",
       "amaccana accla",
@@ -594,10 +624,12 @@
       "tagilid",
       "tsepay",
       "tus"
-    ],
-    "term_count": 34
+    ]
   },
   "friendship-and-social-bonds": {
+    "label": "Friendship And Social Bonds",
+    "description": "",
+    "term_count": 33,
     "terms": [
       "aning sayo",
       "asta",
@@ -632,10 +664,12 @@
       "teh",
       "tol",
       "tropa"
-    ],
-    "term_count": 33
+    ]
   },
   "conflict-and-drama": {
+    "label": "Conflict And Drama",
+    "description": "",
+    "term_count": 32,
     "terms": [
       "ala me pakels",
       "babatain",
@@ -667,11 +701,14 @@
       "tagilid",
       "talksick",
       "toyo",
-      "tsepay"
-    ],
-    "term_count": 31
+      "tsepay",
+      "warla"
+    ]
   },
   "humor-and-wit": {
+    "label": "Humor And Wit",
+    "description": "",
+    "term_count": 27,
     "terms": [
       "IJBOL",
       "asset",
@@ -700,10 +737,12 @@
       "trentahin",
       "tsaa",
       "what hafen vella"
-    ],
-    "term_count": 27
+    ]
   },
   "fashion-and-style": {
+    "label": "Fashion And Style",
+    "description": "",
+    "term_count": 18,
     "terms": [
       "asset",
       "awra",
@@ -723,10 +762,12 @@
       "slay",
       "sobrang latina",
       "vungga"
-    ],
-    "term_count": 18
+    ]
   },
   "party-and-nightlife": {
+    "label": "Party And Nightlife",
+    "description": "",
+    "term_count": 15,
     "terms": [
       "amats",
       "bato",
@@ -743,10 +784,12 @@
       "walwal",
       "wasak",
       "yosi"
-    ],
-    "term_count": 15
+    ]
   },
   "unbothered-and-chill": {
+    "label": "Unbothered And Chill",
+    "description": "",
+    "term_count": 9,
     "terms": [
       "bnk",
       "bounce",
@@ -757,17 +800,18 @@
       "patola",
       "petiks",
       "shushhh"
-    ],
-    "term_count": 9
+    ]
   },
   "gaming-and-e-sports": {
+    "label": "Gaming And E Sports",
+    "description": "",
+    "term_count": 5,
     "terms": [
       "lakas tama",
       "normalin",
       "peenoise",
       "ssob",
       "ulti"
-    ],
-    "term_count": 5
+    ]
   }
 }

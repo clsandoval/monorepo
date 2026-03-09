@@ -97,6 +97,12 @@
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: green flag, ick, red flag)"
+    },
+    {
+      "iteration": "refinement pass 18 — eighteenth raw-gap audit (2 new terms, 296→298)",
+      "new_terms": 2,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (2 new terms found: warla, anyare)"
     }
   ]
 }
