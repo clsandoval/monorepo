@@ -1,7 +1,7 @@
 # PodPlay Ops QA Forward Loop — Stage Tracker
 
 **Total stages**: 46
-**Current stage**: 039
+**Current stage**: 040
 
 ## Stages
 
@@ -45,7 +45,7 @@
 | 036 | Playwright: /inventory (F06 + F07) | done |
 | 037 | Playwright: Intake ISP Dropdown (F03) | done |
 | 038 | Playwright: Intake Installer Selection (F01 + F08) | done |
-| 039 | Playwright: Financials Recurring Fees Tab (F12) | pending |
+| 039 | Playwright: Financials Recurring Fees Tab (F12) | done |
 | 040 | Playwright: Global Financials Recurring Summary (F12) | pending |
 | 041 | Playwright: Procurement SKU Swap (F08) | pending |
 | 042 | Playwright: Dashboard Status-Based Routing (F04) | pending |
