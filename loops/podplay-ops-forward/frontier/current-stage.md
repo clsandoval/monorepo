@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 174
-- **Current**: 175
+- **Completed**: 175
+- **Current**: 176
 
 ## Current Stage
 
-**Stage 175** — (next stage)
+**Stage 176** — (next stage)
 
 ## Stage Log
 
@@ -188,3 +188,4 @@
 | 172 | done | 2026-03-09 | mobile verify login and dashboard (375x812: login form centered/full-width, dashboard sidebar hidden, hamburger visible, cards no overflow) |
 | 173 | done | 2026-03-09 | mobile verify new project and intake wizard (375x812: single column form, full-width inputs, stepper readable, touch targets visible) |
 | 174 | done | 2026-03-09 | mobile verify procurement view (375x812: tabs overflow-x-auto scrollable, BOM card layout on mobile, no console errors) |
+| 175 | done | 2026-03-09 | mobile verify deployment view (375x812: phase list stacked on top vertically scrollable, checklist readable, checkboxes >=44px min-height, no horizontal overflow) |
