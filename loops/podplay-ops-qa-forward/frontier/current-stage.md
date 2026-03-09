@@ -1,7 +1,7 @@
 # PodPlay Ops QA Forward Loop — Stage Tracker
 
 **Total stages**: 46
-**Current stage**: 026
+**Current stage**: 027
 
 ## Stages
 
@@ -32,7 +32,7 @@
 | 023 | Replace Installer Select with SearchableSelect (F08) | done |
 | 024 | SearchableSelect Integration Tests (F08) | done |
 | 025 | VendorSettings Component (F11) | done |
-| 026 | Vendors Route + Settings Nav (F11) | pending |
+| 026 | Vendors Route + Settings Nav (F11) | done |
 | 027 | VendorSettings Tests (F11) | pending |
 | 028 | RecurringFeesTab Component (F12) | pending |
 | 029 | Add Recurring Fees Tab to Financials Wizard (F12) | pending |
