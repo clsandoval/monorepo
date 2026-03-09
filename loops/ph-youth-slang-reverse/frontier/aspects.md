@@ -2,11 +2,12 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 24
-- Pending: 1
+- Analyzed: 25
+- Pending: 0
 - Convergence counter: 0/3
 - Raw terms gathered: 306
 - Terms defined: 158
+- Categories discovered: 16
 
 ---
 
@@ -45,7 +46,7 @@
 ## Wave 3: Thesaurus & Taxonomy
 
 - [x] Synonym/antonym linking — connect related entries across the dictionary
-- [ ] Category discovery — cluster terms by organic usage domains
+- [x] Category discovery — cluster terms by organic usage domains
 
 ## Wave 4: Synthesis
 
