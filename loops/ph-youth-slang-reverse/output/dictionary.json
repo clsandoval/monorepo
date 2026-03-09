@@ -3062,6 +3062,44 @@
     "antonyms": []
   },
   {
+    "term": "fr",
+    "definitions": [
+      "For real; seriously — used to affirm a statement, intensify agreement, or signal that something is not a joke. Borrowed from American internet slang and now embedded in Filipino Gen Z speech, especially in captions, comment sections, and group chats."
+    ],
+    "etymology": "Abbreviation of English 'for real.' Entered Filipino youth vocabulary via hip-hop culture and social media platforms; widely used alongside Taglish code-switching.",
+    "examples": [
+      {
+        "text": "Fr naman, bakit ganyan yung ending?",
+        "source": "Filipino TikTok comments, 2024"
+      },
+      {
+        "text": "Kinain na lahat fr — walang natira.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "no cap",
+      "peksman",
+      "bet"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "canonical-og-list"
+    ],
+    "synonyms": [
+      "no cap",
+      "peksman"
+    ],
+    "antonyms": [
+      "cap",
+      "char"
+    ]
+  },
+  {
     "term": "gaga",
     "definitions": [
       "A foolish, flaky, or self-sabotaging woman; feminine form of 'gago' (idiot/fool). Used to describe a woman who repeatedly makes poor romantic choices or behaves irrationally.",
@@ -3311,6 +3349,43 @@
       "batugan",
       "petiks"
     ]
+  },
+  {
+    "term": "gora",
+    "definitions": [
+      "Let's go; go ahead; I'm down — a casual call to action or expression of willingness. Widely used among Filipino youth as an energetic equivalent of 'tara' (let's go)."
+    ],
+    "etymology": "From Filipino gay lingo (Bekimon/swardspeak): an alteration of the English word 'go,' with the suffix pattern common in queer lingo. Compare 'gorabels.' Crossed over from LGBTQ+ community into mainstream youth slang. Distinct from the older Spanish-derived 'gorra' (cap/headwear) which has the same spelling in Filipino.",
+    "examples": [
+      {
+        "text": "Gora na sa mall mamaya!",
+        "source": "Filipino Reddit/r/CasualPH, 2024"
+      },
+      {
+        "text": "Gora tayo — wala pang tao doon.",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "gorabels",
+      "tara",
+      "lavarn",
+      "laban lang"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "exclamations-and-hype"
+    ],
+    "sources": [
+      "reddit-ph-casualph"
+    ],
+    "synonyms": [
+      "gorabels",
+      "tara",
+      "lavarn"
+    ],
+    "antonyms": []
   },
   {
     "term": "gorabels",
@@ -3639,6 +3714,46 @@
     "antonyms": []
   },
   {
+    "term": "hustlin",
+    "definitions": [
+      "Working hard; grinding relentlessly to earn money and achieve success — especially through street hustle, side businesses, or non-traditional means. Borrowed from American hip-hop and used extensively in Filipino OPM rap to glorify resourcefulness and determination."
+    ],
+    "etymology": "From American English 'hustling' (working hard, especially through entrepreneurial or street-smart means), absorbed into Filipino hip-hop lexicon. The dropped 'g' spelling ('hustlin') is a deliberate rap/hip-hop stylization signaling authenticity and street credibility.",
+    "examples": [
+      {
+        "text": "247 na 'yung hustlin niya — wala siyang pahinga.",
+        "source": "Filipino OPM rap fan community, 2024"
+      },
+      {
+        "text": "Hustlin para sa pamilya, walang bawas.",
+        "source": "Canonical OPM slang compilation, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "247",
+      "go getta",
+      "diskarte",
+      "boss na",
+      "galing kalye"
+    ],
+    "categories": [
+      "street-and-hustle",
+      "hip-hop-and-rap-culture"
+    ],
+    "sources": [
+      "canonical-og-list"
+    ],
+    "synonyms": [
+      "247",
+      "go getta"
+    ],
+    "antonyms": [
+      "batugan",
+      "petiks"
+    ]
+  },
+  {
     "term": "IJBOL",
     "definitions": [
       "Acronym for 'I Just Burst Out Laughing' — used to express something is extremely funny."
@@ -3670,6 +3785,42 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "imbyerna",
+    "definitions": [
+      "To be deeply annoyed, irritated, or exasperated — often used as an exclamation when something or someone is infuriating. Also used as an adjective: 'nakakaimbyerna' (so irritating/infuriating)."
+    ],
+    "etymology": "From Filipino gay lingo (Bekimon/swardspeak), derived from Spanish 'infierno' (hell). The Spanish word entered Filipino via colonial influence; the LGBTQ+ community repurposed it as an expression of extreme annoyance — effectively 'this is hellish' — before it crossed into mainstream Filipino youth slang.",
+    "examples": [
+      {
+        "text": "Imbyerna ako sa kanya, ang kulit!",
+        "source": "Filipino TikTok, 2024"
+      },
+      {
+        "text": "Nakakaimbyerna 'yung internet connection namin — grabe.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "agit",
+      "gigil",
+      "praning"
+    ],
+    "categories": [
+      "emotions-and-feelings",
+      "lgbtq-and-beki-lingo"
+    ],
+    "sources": [
+      "beki-gay-lingo"
+    ],
+    "synonyms": [
+      "agit"
+    ],
+    "antonyms": [
+      "kilig"
+    ]
   },
   {
     "term": "inch",
@@ -3849,6 +4000,45 @@
     "antonyms": [
       "tsepay",
       "panis"
+    ]
+  },
+  {
+    "term": "kalat",
+    "definitions": [
+      "1. Literally: messy, scattered, or in disarray. 2. In slang: openly flirtatious or promiscuous in public; spreading one's romantic or sexual availability conspicuously. 3. Used online to describe someone spreading drama, oversharing, or behaving chaotically on social media. 'Ang kalat mo!' can mean anything from 'you're so messy!' to 'you're being publicly thirsty!'"
+    ],
+    "etymology": "From standard Tagalog 'kalat' (scattered, widespread, messy). The slang meanings evolved from the metaphorical extension of physical mess to behavioral mess — someone whose romantic behavior or social media presence is 'scattered everywhere.'",
+    "examples": [
+      {
+        "text": "Ang kalat mo naman sa comment section — may jowa ka pa!",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Kumalat na 'yung chismis niya — alam na ng lahat.",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "maharot",
+      "malandi",
+      "chismis",
+      "marupok"
+    ],
+    "categories": [
+      "romance-and-relationships",
+      "personality-and-character"
+    ],
+    "sources": [
+      "tus-brothers"
+    ],
+    "synonyms": [
+      "maharot",
+      "malandi"
+    ],
+    "antonyms": [
+      "pakipot",
+      "dedma"
     ]
   },
   {
@@ -4063,6 +4253,45 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "laban lang",
+    "definitions": [
+      "Just keep fighting; don't give up — a battle cry of encouragement used to cheer on someone facing difficulty. Literally 'fight only/just,' the phrase captures the Filipino spirit of perseverance (lakas ng loob). Widely used in academic, romantic, professional, and athletic contexts."
+    ],
+    "etymology": "From Tagalog 'laban' (fight, contest) + 'lang' (just/only). While 'laban' itself has deep roots in Filipino political history (notably the Aquino-era LABAN coalition), 'laban lang' as an everyday youth encouragement cry is a contemporary adaptation. Related to the Gen Z spinoff 'lavarn.'",
+    "examples": [
+      {
+        "text": "Laban lang pare — malapit ka na sa graduation.",
+        "source": "Reddit r/Philippines, 2024"
+      },
+      {
+        "text": "Laban lang kahit mahirap — kaya mo 'yan!",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": "Used across Tagalog, Bisaya, and other regional dialects. In Bisaya, 'laban lang dai' means 'keep fighting, sis.'",
+    "related_terms": [
+      "lavarn",
+      "diskarte",
+      "247",
+      "werpa"
+    ],
+    "categories": [
+      "exclamations-and-hype",
+      "street-and-hustle"
+    ],
+    "sources": [
+      "reddit-ph-casualph"
+    ],
+    "synonyms": [
+      "lavarn",
+      "werpa"
+    ],
+    "antonyms": [
+      "pahinga na",
+      "ayoko na"
+    ]
   },
   {
     "term": "lagabog",
@@ -4425,6 +4654,44 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "maangas",
+    "definitions": [
+      "Fierce, tough, and swaggering — exuding a powerful, badass presence. While the root word 'angas' can carry negative connotations of arrogance, 'maangas' is most often used admiringly in youth and hip-hop contexts to describe someone with undeniable attitude, confidence, and commanding energy."
+    ],
+    "etymology": "From Tagalog root 'angas' (edge, attitude, fierce confidence) + prefix 'ma-' (having the quality of). The word exists on a spectrum: negatively it means arrogant/boastful; positively (and more commonly in youth contexts) it means impressively fierce or badass. Frequent synonym of 'astig' in OPM rap vocabulary.",
+    "examples": [
+      {
+        "text": "Maangas na maangas 'yung dating niya — parang artista.",
+        "source": "Filipino TikTok, 2024"
+      },
+      {
+        "text": "Ang suot niyang jacket — super maangas, parang nasa music video.",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "angas",
+      "mog",
+      "boss na",
+      "drip"
+    ],
+    "categories": [
+      "personality-and-character",
+      "hip-hop-and-rap-culture"
+    ],
+    "sources": [
+      "hev-abi"
+    ],
+    "synonyms": [
+      "angas"
+    ],
+    "antonyms": [
+      "pabebe",
+      "batugan"
+    ]
   },
   {
     "term": "maarte",
@@ -4845,6 +5112,40 @@
       "tsepay",
       "panis"
     ]
+  },
+  {
+    "term": "mogged",
+    "definitions": [
+      "Outclassed, outshined, or completely dominated by someone else — usually in terms of looks, height, physique, or overall presence. If someone 'mogged' you, they made you look inferior by comparison simply by being near you. Used both seriously (looksmaxxing/incel culture origin) and humorously in everyday Filipino Gen Z and Gen Alpha speech."
+    ],
+    "etymology": "From internet slang 'mog' / 'mogging,' which derives from 'AMOG' (Alpha Male of the Group), a term from early-2000s pickup-artist forums. Spread through TikTok and YouTube in 2023-2024 alongside related terms like 'looksmaxxing' and 'mewmaxing.' Filipino TikTok users adopted it enthusiastically, often in Taglish.",
+    "examples": [
+      {
+        "text": "Nag-mog siya sa amin sa gym — mas matangkad pa at mas fit.",
+        "source": "Filipino TikTok, 2024"
+      },
+      {
+        "text": "Namogged ako sa PE — lahat sila athletic tapos ako nandoon lang.",
+        "source": "Filipino social media, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "mog",
+      "kabog",
+      "diff"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "urban-dictionary"
+    ],
+    "synonyms": [
+      "kabog"
+    ],
+    "antonyms": []
   },
   {
     "term": "mudra",
@@ -5454,6 +5755,43 @@
     "antonyms": []
   },
   {
+    "term": "pakipot",
+    "definitions": [
+      "Playing hard to get; deliberately acting shy, coy, or disinterested to appear more desirable in romantic pursuit — even when one is secretly interested. Often said with mild exasperation: 'Huwag kang pakipot' (don't play hard to get)."
+    ],
+    "etymology": "From Tagalog 'kipot' (tight/narrow) + prefix 'pa-' (to feign/perform the quality of). The prefix 'pa-' indicating performed behavior is common in Filipino: pa-cute, pabebe, pa-cool. 'Pakipot' literally means 'performing tightness/restrictiveness,' metaphorically acting closed off.",
+    "examples": [
+      {
+        "text": "Naku, pakipot ka pa rin — alam ko gustong-gusto mo siya!",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Huwag kang pakipot, mag-reply ka na!",
+        "source": "Filipino TikTok comment, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "malandi",
+      "maharot",
+      "kabet",
+      "marupok"
+    ],
+    "categories": [
+      "romance-and-relationships",
+      "personality-and-character"
+    ],
+    "sources": [
+      "hev-abi"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "malandi",
+      "kalat",
+      "maharot"
+    ]
+  },
+  {
     "term": "pangga",
     "definitions": [
       "A term of endearment meaning 'sweetheart,' 'darling,' or 'dear' — used for a romantic partner or a close loved one."
@@ -5527,6 +5865,42 @@
     ]
   },
   {
+    "term": "pasaway",
+    "definitions": [
+      "Disobedient, hard-headed, stubborn — someone who refuses to follow rules or instructions, often with a mischievous or rebellious edge. Can be used affectionately (a naughty child or a friend who won't listen) or critically (a genuinely reckless troublemaker). Gained heightened prominence during COVID-19 when quarantine violators were publicly labeled 'pasaway.'"
+    ],
+    "etymology": "From Tagalog 'saway' (to reprimand, to correct someone's behavior) + prefix 'pa-' (continuing to). 'Pasaway' literally means 'continuing to do what you've been told not to do' — inherently implying someone has already been corrected and still doesn't listen.",
+    "examples": [
+      {
+        "text": "Grabe 'yung batang 'yan — super pasaway, ayaw makinig!",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Ikaw talaga, pasaway ka eh — sinabi ko nang huwag.",
+        "source": "Filipino TikTok, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "suplada",
+      "topak",
+      "praning",
+      "agit"
+    ],
+    "categories": [
+      "personality-and-character",
+      "conflict-and-drama"
+    ],
+    "sources": [
+      "hev-abi"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "dedma",
+      "laylow"
+    ]
+  },
+  {
     "term": "patola",
     "definitions": [
       "Choosing not to engage with drama, trolls, or haters; being unbothered and not reacting to provocation.",
@@ -5565,6 +5939,43 @@
     ],
     "antonyms": [
       "mapagpatol"
+    ]
+  },
+  {
+    "term": "peksman",
+    "definitions": [
+      "I swear; cross my heart; I promise on my life — a strong oath used to assert sincerity or the truth of a statement. Functions like 'I swear to God' in English. Often paired with 'mamatay man' (even if I die) for maximum emphasis."
+    ],
+    "etymology": "Clipped from 'pekado man' (even if it be a sin), where 'pekado' derives from Spanish 'pecado' (sin). Popularized by the hit song 'Peksman' by Filipino rock band Siakol. The oath invokes personal moral consequence — swearing even at the risk of sin — as a guarantee of honesty.",
+    "examples": [
+      {
+        "text": "Peksman, hindi ako 'yun! Bakit ka maniniwala sa tsismis?",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Peksman mamatay man, hindi ako nagsinungaling sa'yo.",
+        "source": "Filipino gaming community, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "no cap",
+      "fr"
+    ],
+    "categories": [
+      "exclamations-and-hype",
+      "humor-and-wit"
+    ],
+    "sources": [
+      "gaming-ph"
+    ],
+    "synonyms": [
+      "no cap",
+      "fr"
+    ],
+    "antonyms": [
+      "cap",
+      "char"
     ]
   },
   {
@@ -5715,6 +6126,45 @@
     "antonyms": []
   },
   {
+    "term": "presko",
+    "definitions": [
+      "Brazenly bold; acting with unearned confidence or audacity; cocky in a way that ignores social norms. 'Ang presko mo!' (You're so fresh/bold!) is used to call out someone's cheek or nerve. The slang meaning layers the literal 'fresh/cool' sense with social transgression — acting 'refreshingly unbothered' in a way that crosses into disrespect."
+    ],
+    "etymology": "From Spanish 'fresco' (fresh, cool, also 'cheeky/bold' — the Spanish expression 'qué fresco' means 'what nerve!'). The double meaning (literally fresh + socially bold/brazen) carried directly into Filipino usage, mirroring Spanish colloquial use.",
+    "examples": [
+      {
+        "text": "Ang presko naman niya — kumain pa siya ng pagkain namin!",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Ay, presko ka ha — walang pasensya!",
+        "source": "Filipino TikTok, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "angas",
+      "maangas",
+      "pasaway",
+      "suplada"
+    ],
+    "categories": [
+      "personality-and-character",
+      "exclamations-and-hype"
+    ],
+    "sources": [
+      "hev-abi"
+    ],
+    "synonyms": [
+      "angas",
+      "maangas"
+    ],
+    "antonyms": [
+      "pabebe",
+      "dedma"
+    ]
+  },
+  {
     "term": "pudra",
     "definitions": [
       "Swardspeak/Bekimon term for 'father' or 'dad.'",
@@ -5745,6 +6195,41 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "rapsa",
+    "definitions": [
+      "Delicious; mouthwateringly good — an exclamation of culinary or figurative delight. Part of the Filipino 'binaliktad' (syllable-reversal) slang tradition, alongside 'petmalu' and 'lodi.' Can also be used to express that something non-edible is excellent or attractive, though that use can tip into catcalling when directed at a person."
+    ],
+    "etymology": "Syllable reversal ('binaliktad') of 'sarap' (delicious, wonderful). The Filipino tradition of reversing syllables to create slang — producing 'rapsa' from 'sarap,' 'lodi' from 'idol,' 'petmalu' from 'malupit' — is a well-established feature of Filipino wordplay culture (Bekimon and mainstream).",
+    "examples": [
+      {
+        "text": "Rapsa ng ulam mo — saan mo natutunang magluto?",
+        "source": "Filipino gaming community chat, 2024"
+      },
+      {
+        "text": "Nag-try ng bagong restaurant — rapsa!!",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "chibog",
+      "petmalu",
+      "lodi",
+      "omsim"
+    ],
+    "categories": [
+      "wordplay-and-linguistic-forms",
+      "exclamations-and-hype"
+    ],
+    "sources": [
+      "gaming-ph"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "olats"
+    ]
   },
   {
     "term": "ratio",
@@ -5926,6 +6411,42 @@
       "arat",
       "bounce",
       "gege"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "sanaol",
+    "definitions": [
+      "I wish everyone (could have this/experience this) — an expression of longing or wistful envy directed at someone else's good fortune. Said when witnessing something enviable: a great relationship, an amazing trip, good luck. A portmanteau blending Tagalog 'sana' (I hope/I wish) and English 'all.' Also spelled 'sana all' (two words)."
+    ],
+    "etymology": "Taglish portmanteau of 'sana' (Tagalog: I hope/I wish) + 'all' (English: everyone). Emerged circa 2019 on Filipino social media and became a defining Gen Z expression, now included in academic studies of Filipino internet language. The condensed form 'sanaol' reflects the Filipino tendency to compress multi-word expressions into compact units. 'Naol' is a further reduction.",
+    "examples": [
+      {
+        "text": "May surprise dinner date sila — sanaol!",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Nagbabakasyon pa sa abroad — sanaol ang buhay niya.",
+        "source": "ALLMO$T fan community, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "naol",
+      "kilig",
+      "marupok",
+      "hugot"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "emotions-and-feelings"
+    ],
+    "sources": [
+      "allmost",
+      "urban-dictionary"
+    ],
+    "synonyms": [
+      "naol"
     ],
     "antonyms": []
   },
@@ -6220,6 +6741,44 @@
     "antonyms": [
       "bibo",
       "lambing"
+    ]
+  },
+  {
+    "term": "sure ball",
+    "definitions": [
+      "1. (Basketball) A reliable scorer; a player guaranteed to make the shot. 2. (Everyday slang) Absolutely certain; a done deal; no doubt about it — used to express complete confidence in a plan, outcome, or person."
+    ],
+    "etymology": "From Filipino basketball culture: 'sure' (English: certain) + 'ball' (basketball shot). 'Sure ball' or 'surebol' originally described a dependably accurate shooter in Philippine basketball (PBA), with players like Allan Caidic being the archetypal 'surebol.' The expression spread to everyday speech as a general guarantee of certainty.",
+    "examples": [
+      {
+        "text": "Sure ball 'yan — hindi siya magpapalya sa inyo.",
+        "source": "Matthaios-associated OPM community, 2024"
+      },
+      {
+        "text": "Sure ball na ba yung pupuntahan natin bukas?",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "bet",
+      "matik",
+      "no cap"
+    ],
+    "categories": [
+      "exclamations-and-hype",
+      "hip-hop-and-rap-culture"
+    ],
+    "sources": [
+      "matthaios"
+    ],
+    "synonyms": [
+      "bet",
+      "matik"
+    ],
+    "antonyms": [
+      "baka",
+      "olats"
     ]
   },
   {
