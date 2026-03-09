@@ -2,11 +2,11 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 20
-- Pending: 5
+- Analyzed: 21
+- Pending: 4
 - Convergence counter: 0/3
 - Raw terms gathered: 306
-- Terms defined: 50
+- Terms defined: 100
 
 ---
 
@@ -38,7 +38,7 @@
 ## Wave 2: Define & Validate
 
 - [x] Define batch 1 — first 50 raw terms gathered from Wave 1
-- [ ] Define batch 2 — next 50 raw terms
+- [x] Define batch 2 — next 50 raw terms
 - [ ] Define batch 3 — remaining raw terms + any new discoveries
 - [ ] Cross-reference pass — terms found in multiple sources, verify consistency
 

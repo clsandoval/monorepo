@@ -7,13 +7,30 @@
     ],
     "etymology": "Borrowed from African American slang 'drip' (excellent, eye-catching style), popularized globally through US hip-hop and absorbed into Filipino youth speech by 2020. Related to the metaphor of style 'dripping' off a person.",
     "examples": [
-      { "text": "Drip ko natural", "source": "O Side Mafia, Get Low (2023)" },
-      { "text": "Ayan na ang drip niya — legit na legit", "source": "Filipino Gen Z social media, 2024" }
+      {
+        "text": "Drip ko natural",
+        "source": "O Side Mafia, Get Low (2023)"
+      },
+      {
+        "text": "Ayan na ang drip niya — legit na legit",
+        "source": "Filipino Gen Z social media, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["drip set", "drip ko mala-gripo", "angas", "swabe"],
-    "categories": ["fashion-and-style", "borrowed-slang", "hip-hop-culture"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "drip set",
+      "drip ko mala-gripo",
+      "angas",
+      "swabe"
+    ],
+    "categories": [
+      "fashion-and-style",
+      "borrowed-slang",
+      "hip-hop-culture"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "drip ko mala-gripo",
@@ -22,12 +39,26 @@
     ],
     "etymology": "Hybrid coinage: US hip-hop 'drip' (style) + Tagalog 'gripo' (faucet, from Spanish 'grifo'). A signature example of Filipino bilingual rap wordplay where English slang is fused with a Tagalog noun to create a pun.",
     "examples": [
-      { "text": "Drip ko, mala-gripo", "source": "O Side Mafia, My Thang (2023)" }
+      {
+        "text": "Drip ko, mala-gripo",
+        "source": "O Side Mafia, My Thang (2023)"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["drip", "mala-[X]", "angas"],
-    "categories": ["wordplay", "bilingual-humor", "fashion-and-style", "hip-hop-culture"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "drip",
+      "mala-[X]",
+      "angas"
+    ],
+    "categories": [
+      "wordplay",
+      "bilingual-humor",
+      "fashion-and-style",
+      "hip-hop-culture"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "drip set",
@@ -36,12 +67,23 @@
     ],
     "etymology": "Taglish compound: US hip-hop 'drip' (style/fashion) + English 'set' (matching ensemble). Used to describe a complete, well-coordinated fashion look.",
     "examples": [
-      { "text": "drip set", "source": "O Side Mafia, GO GETTA" }
+      {
+        "text": "drip set",
+        "source": "O Side Mafia, GO GETTA"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["drip", "angas"],
-    "categories": ["fashion-and-style", "hip-hop-culture"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "drip",
+      "angas"
+    ],
+    "categories": [
+      "fashion-and-style",
+      "hip-hop-culture"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "salang na",
@@ -51,13 +93,28 @@
     ],
     "etymology": "From Tagalog 'salang' (to place food on a fire/stove, to start cooking). Figuratively extended: once something is 'salang' (on the fire), it's in motion and can't easily be stopped. Used in rap as a hype call.",
     "examples": [
-      { "text": "Salang na!", "source": "O Side Mafia, My Thang (2023)" },
-      { "text": "Salang na tayo, walang atras", "source": "Filipino Gen Z social media, 2024" }
+      {
+        "text": "Salang na!",
+        "source": "O Side Mafia, My Thang (2023)"
+      },
+      {
+        "text": "Salang na tayo, walang atras",
+        "source": "Filipino Gen Z social media, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["tara", "go getta"],
-    "categories": ["exclamations", "hype-culture", "situational-slang"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "tara",
+      "go getta"
+    ],
+    "categories": [
+      "exclamations",
+      "hype-culture",
+      "situational-slang"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "gera",
@@ -67,13 +124,29 @@
     ],
     "etymology": "Derived from Spanish 'guerra' (war); common in Filipino street and rap parlance. Not to be confused with the standard Tagalog 'digmaan' (war); 'gera' is specifically the informal street register.",
     "examples": [
-      { "text": "Sa side ko walang bluff, ta's sanay kami sa gera", "source": "O Side Mafia, GO GETTA" },
-      { "text": "May gera na naman silang dalawa", "source": "Filipino street/rap community, 2023" }
+      {
+        "text": "Sa side ko walang bluff, ta's sanay kami sa gera",
+        "source": "O Side Mafia, GO GETTA"
+      },
+      {
+        "text": "May gera na naman silang dalawa",
+        "source": "Filipino street/rap community, 2023"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["beef", "banat", "lagabog", "tagilid"],
-    "categories": ["conflict-and-beef", "street-slang"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "beef",
+      "banat",
+      "lagabog",
+      "tagilid"
+    ],
+    "categories": [
+      "conflict-and-beef",
+      "street-slang"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "tagilid",
@@ -83,13 +156,29 @@
     ],
     "etymology": "Standard Tagalog 'tagilid' (tilted sideways, off-balance); repurposed in rap diss culture to mean knocked out of contention or given an L.",
     "examples": [
-      { "text": "Used to describe a rival who has been knocked out of contention", "source": "O Side Mafia, GO GETTA" },
-      { "text": "Tagilid ka na pagkatapos ng track na 'to", "source": "Filipino rap diss culture, 2023-2024" }
+      {
+        "text": "Used to describe a rival who has been knocked out of contention",
+        "source": "O Side Mafia, GO GETTA"
+      },
+      {
+        "text": "Tagilid ka na pagkatapos ng track na 'to",
+        "source": "Filipino rap diss culture, 2023-2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["gera", "olats", "payuko", "malaglag"],
-    "categories": ["conflict-and-beef", "diss-culture"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "gera",
+      "olats",
+      "payuko",
+      "malaglag"
+    ],
+    "categories": [
+      "conflict-and-beef",
+      "diss-culture"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "galing kalye",
@@ -99,13 +188,30 @@
     ],
     "etymology": "Tagalog: 'galing' (coming from/originating from) + 'kalye' (street; from Spanish 'calle'). In Filipino rap culture, this phrase asserts authenticity and distinguishes oneself from manufactured or privileged backgrounds.",
     "examples": [
-      { "text": "Galing kalye", "source": "O Side Mafia, GO GETTA" },
-      { "text": "Galing kalye kami kaya alam namin ang tunay na buhay", "source": "OPM rap community, 2023-2024" }
+      {
+        "text": "Galing kalye",
+        "source": "O Side Mafia, GO GETTA"
+      },
+      {
+        "text": "Galing kalye kami kaya alam namin ang tunay na buhay",
+        "source": "OPM rap community, 2023-2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["hood", "DTQ", "diskarte", "go getta"],
-    "categories": ["identity-and-authenticity", "street-slang", "hip-hop-culture"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "hood",
+      "DTQ",
+      "diskarte",
+      "go getta"
+    ],
+    "categories": [
+      "identity-and-authenticity",
+      "street-slang",
+      "hip-hop-culture"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "panis",
@@ -115,13 +221,28 @@
     ],
     "etymology": "Standard Tagalog 'panis' (spoiled/rotten food, especially cooked rice or fish left out too long); extended metaphorically to describe people, ideas, or music that have gone stale.",
     "examples": [
-      { "text": "Panis na yan, 'pre", "source": "O Side Mafia, My Thang (2023) — used to dismiss rivals" },
-      { "text": "Panis na 'yung style niya, nag-iba na lahat", "source": "Filipino rap commentary, 2024" }
+      {
+        "text": "Panis na yan, 'pre",
+        "source": "O Side Mafia, My Thang (2023) — used to dismiss rivals"
+      },
+      {
+        "text": "Panis na 'yung style niya, nag-iba na lahat",
+        "source": "Filipino rap commentary, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["deds", "balagbag", "tsepay"],
-    "categories": ["insults", "diss-culture"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "deds",
+      "balagbag",
+      "tsepay"
+    ],
+    "categories": [
+      "insults",
+      "diss-culture"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "no cap",
@@ -131,13 +252,31 @@
     ],
     "etymology": "Borrowed from African American Vernacular English (AAVE) 'no cap' (no lies/capping). Entered Filipino youth speech via US hip-hop and social media; fully integrated into Taglish conversation and rap by 2021-2023.",
     "examples": [
-      { "text": "No cap, pinakamagandang track nila ito", "source": "O Side Mafia, SMD (2023) fan commentary" },
-      { "text": "No cap, top rapper siya ng Pilipinas", "source": "Filipino Gen Z social media, 2023-2024" }
+      {
+        "text": "No cap, pinakamagandang track nila ito",
+        "source": "O Side Mafia, SMD (2023) fan commentary"
+      },
+      {
+        "text": "No cap, top rapper siya ng Pilipinas",
+        "source": "Filipino Gen Z social media, 2023-2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["walang ebas", "rekta", "fr", "omsim"],
-    "categories": ["truth-and-authenticity", "borrowed-slang", "gen-z-expressions"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026", "canonical OG list (native speaker)"]
+    "related_terms": [
+      "walang ebas",
+      "rekta",
+      "fr",
+      "omsim"
+    ],
+    "categories": [
+      "truth-and-authenticity",
+      "borrowed-slang",
+      "gen-z-expressions"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026",
+      "canonical OG list (native speaker)"
+    ]
   },
   {
     "term": "go getta",
@@ -147,13 +286,30 @@
     ],
     "etymology": "From US hip-hop 'go-getter'; the Filipino usage drops the second 'e' and contextualizes it within OPM rap's rags-to-riches narrative. O Side Mafia dedicated two tracks to the term (GO GETTA, 2022; GO GETTA 2, 2023).",
     "examples": [
-      { "text": "Go getta na si kuya", "source": "O Side Mafia, GO GETTA (2022) / GO GETTA 2 (2023)" },
-      { "text": "Hindi kami titigil, go getta hanggang dulo", "source": "OPM rap fan culture, 2023" }
+      {
+        "text": "Go getta na si kuya",
+        "source": "O Side Mafia, GO GETTA (2022) / GO GETTA 2 (2023)"
+      },
+      {
+        "text": "Hindi kami titigil, go getta hanggang dulo",
+        "source": "OPM rap fan culture, 2023"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["hustle", "galing sa wala", "rapstar", "boss na"],
-    "categories": ["hustle-culture", "identity-and-authenticity", "borrowed-slang"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "hustle",
+      "galing sa wala",
+      "rapstar",
+      "boss na"
+    ],
+    "categories": [
+      "hustle-culture",
+      "identity-and-authenticity",
+      "borrowed-slang"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "kunan mong pic",
@@ -162,12 +318,24 @@
     ],
     "etymology": "Taglish blend: Tagalog 'kunan' (to take/capture; from 'kuha' with -an suffix) + English 'pic' (photo). Reflects the Filipino Gen Z social media flex culture where moments must be photographed and posted.",
     "examples": [
-      { "text": "Kunan mong pic kapag bumaba 'yung gang", "source": "O Side Mafia, Kunan Mong Pic (2024)" }
+      {
+        "text": "Kunan mong pic kapag bumaba 'yung gang",
+        "source": "O Side Mafia, Kunan Mong Pic (2024)"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["bumaba 'yung gang", "flex", "FYP"],
-    "categories": ["social-media", "flex-culture"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "bumaba 'yung gang",
+      "flex",
+      "FYP"
+    ],
+    "categories": [
+      "social-media",
+      "flex-culture"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "bumaba 'yung gang",
@@ -177,12 +345,26 @@
     ],
     "etymology": "Tagalog 'bumaba' (went down/arrived/descended) + English 'gang' (crew/squad). A social media-era phrase capturing the event of a group arrival, typically preceding a 'kunan mong pic' moment.",
     "examples": [
-      { "text": "Kapag bumaba 'yung gang, kunan mong pic", "source": "O Side Mafia, Kunan Mong Pic (2024)" }
+      {
+        "text": "Kapag bumaba 'yung gang, kunan mong pic",
+        "source": "O Side Mafia, Kunan Mong Pic (2024)"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["kunan mong pic", "gang", "day ones", "tropa"],
-    "categories": ["social-media", "group-dynamics", "flex-culture"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "kunan mong pic",
+      "gang",
+      "day ones",
+      "tropa"
+    ],
+    "categories": [
+      "social-media",
+      "group-dynamics",
+      "flex-culture"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "big boy whip",
@@ -191,12 +373,24 @@
     ],
     "etymology": "Taglish: English 'big boy' (large/serious/impressive) + US slang 'whip' (car; derived from the image of a whipping motion like a steering wheel). 'Whip' as car slang is fully absorbed into Filipino youth vocabulary.",
     "examples": [
-      { "text": "Mayro'ng big boy whip", "source": "O Side Mafia, Ashtray (2024)" }
+      {
+        "text": "Mayro'ng big boy whip",
+        "source": "O Side Mafia, Ashtray (2024)"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["flex", "boss na", "burgis"],
-    "categories": ["flex-culture", "material-wealth"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "flex",
+      "boss na",
+      "burgis"
+    ],
+    "categories": [
+      "flex-culture",
+      "material-wealth"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "bish",
@@ -206,13 +400,30 @@
     ],
     "etymology": "Euphemistic respelling of English 'bitch'; the '-sh' softens the term for social media use. Adopted from US internet culture and fully embedded in Filipino Gen Z speech and rap.",
     "examples": [
-      { "text": "BRGR on the beat, bish", "source": "O Side Mafia, SHAKE (2025)" },
-      { "text": "Siyempre, bish, magugustuhan mo 'to", "source": "Filipino Gen Z social media, 2024" }
+      {
+        "text": "BRGR on the beat, bish",
+        "source": "O Side Mafia, SHAKE (2025)"
+      },
+      {
+        "text": "Siyempre, bish, magugustuhan mo 'to",
+        "source": "Filipino Gen Z social media, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["mane", "beshie", "teh", "cuh"],
-    "categories": ["forms-of-address", "borrowed-slang", "gen-z-expressions"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "mane",
+      "beshie",
+      "teh",
+      "cuh"
+    ],
+    "categories": [
+      "forms-of-address",
+      "borrowed-slang",
+      "gen-z-expressions"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "mane",
@@ -221,13 +432,31 @@
     ],
     "etymology": "Filipino phonetic pronunciation of English 'man'; reflects Filipino phonological tendency to elongate vowels. Common in Manila rap vocabulary and everyday Taglish speech.",
     "examples": [
-      { "text": "Mane, 'di mo naman 'yan alam", "source": "O Side Mafia, SHAKE (2025)" },
-      { "text": "Sabi ng mane ko, layaw mo lang yan", "source": "Filipino street/rap culture, 2023" }
+      {
+        "text": "Mane, 'di mo naman 'yan alam",
+        "source": "O Side Mafia, SHAKE (2025)"
+      },
+      {
+        "text": "Sabi ng mane ko, layaw mo lang yan",
+        "source": "Filipino street/rap culture, 2023"
+      }
     ],
     "regional_notes": "Sometimes spelled 'man'; distinct from the Bisaya 'mane/manong' address.",
-    "related_terms": ["bro", "beshie", "tol", "cuh", "sah"],
-    "categories": ["forms-of-address", "street-slang"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026", "canonical OG list (native speaker)"]
+    "related_terms": [
+      "bro",
+      "beshie",
+      "tol",
+      "cuh",
+      "sah"
+    ],
+    "categories": [
+      "forms-of-address",
+      "street-slang"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026",
+      "canonical OG list (native speaker)"
+    ]
   },
   {
     "term": "day ones",
@@ -237,13 +466,32 @@
     ],
     "etymology": "From US hip-hop slang 'day ones' (people who have been with you from day one). Fully absorbed into Filipino youth and rap vocabulary; used naturally in Taglish alongside 'tropa' and 'barkada'.",
     "examples": [
-      { "text": "Kasama ng day ones ko, ganito na from the start", "source": "O Side Mafia, My Thang (2023)" },
-      { "text": "Homies, close friends who've been around", "source": "canonical OG list (native speaker)" }
+      {
+        "text": "Kasama ng day ones ko, ganito na from the start",
+        "source": "O Side Mafia, My Thang (2023)"
+      },
+      {
+        "text": "Homies, close friends who've been around",
+        "source": "canonical OG list (native speaker)"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["day zeroes", "tropa", "barkada", "gang", "beshie"],
-    "categories": ["loyalty-and-crew", "borrowed-slang", "friendship"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026", "canonical OG list (native speaker)"]
+    "related_terms": [
+      "day zeroes",
+      "tropa",
+      "barkada",
+      "gang",
+      "beshie"
+    ],
+    "categories": [
+      "loyalty-and-crew",
+      "borrowed-slang",
+      "friendship"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026",
+      "canonical OG list (native speaker)"
+    ]
   },
   {
     "term": "slide (sa gig)",
@@ -253,13 +501,29 @@
     ],
     "etymology": "From US slang 'slide' (to go to a place, often used casually or in a low-key manner). 'Gig' is standard English for an event/concert. The Taglish construction 'slide sa gig' became common in Filipino Gen Z and rap contexts 2023+.",
     "examples": [
-      { "text": "Slide sa gig, let's go", "source": "O Side Mafia, Get Low (2023)" },
-      { "text": "Slide muna tayo mamaya sa concert nila", "source": "Filipino Gen Z social media, 2024" }
+      {
+        "text": "Slide sa gig, let's go",
+        "source": "O Side Mafia, Get Low (2023)"
+      },
+      {
+        "text": "Slide muna tayo mamaya sa concert nila",
+        "source": "Filipino Gen Z social media, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["tara", "gora", "gorabels"],
-    "categories": ["social-activities", "borrowed-slang", "gen-z-expressions"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "tara",
+      "gora",
+      "gorabels"
+    ],
+    "categories": [
+      "social-activities",
+      "borrowed-slang",
+      "gen-z-expressions"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "kengkoy",
@@ -269,13 +533,31 @@
     ],
     "etymology": "From the Filipino comic strip character 'Kenkoy' created by Tony Velasquez in 1929 — a bumbling, lovable fool. The term slipped into Filipino slang as a synonym for a clown or idiot. Experiencing revival in 2023+ rap diss culture.",
     "examples": [
-      { "text": "Kengkoy ka talaga, 'pre", "source": "O Side Mafia, SMD (2023) — used to dismiss rivals" },
-      { "text": "Huwag mong pakinggan, kengkoy lang yan", "source": "Filipino rap fan commentary, 2023" }
+      {
+        "text": "Kengkoy ka talaga, 'pre",
+        "source": "O Side Mafia, SMD (2023) — used to dismiss rivals"
+      },
+      {
+        "text": "Huwag mong pakinggan, kengkoy lang yan",
+        "source": "Filipino rap fan commentary, 2023"
+      }
     ],
     "regional_notes": "A heritage slang revival: the term is nearly 100 years old but younger Filipinos are reactivating it via rap.",
-    "related_terms": ["gago", "bobo", "tsepay", "balagbag", "tolongges"],
-    "categories": ["insults", "diss-culture", "heritage-slang-revival"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "gago",
+      "bobo",
+      "tsepay",
+      "balagbag",
+      "tolongges"
+    ],
+    "categories": [
+      "insults",
+      "diss-culture",
+      "heritage-slang-revival"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "nadikit",
@@ -285,13 +567,29 @@
     ],
     "etymology": "From Tagalog 'dikit' (to stick or cling; adhesion). The 'na-' prefix indicates completed action/state: 'nadikit' = has become stuck/attached. Used in rap to dismiss rivals as pathetically fixated.",
     "examples": [
-      { "text": "Nadikit ka ba sa kanila?", "source": "O Side Mafia, SMD (2023)" },
-      { "text": "Nadikit na naman ang mga bashers sa comment section", "source": "Filipino social media, 2024" }
+      {
+        "text": "Nadikit ka ba sa kanila?",
+        "source": "O Side Mafia, SMD (2023)"
+      },
+      {
+        "text": "Nadikit na naman ang mga bashers sa comment section",
+        "source": "Filipino social media, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["epektado", "praning", "agit"],
-    "categories": ["relationship-dynamics", "insults", "emotional-states"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "epektado",
+      "praning",
+      "agit"
+    ],
+    "categories": [
+      "relationship-dynamics",
+      "insults",
+      "emotional-states"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "naka-focus sa cake",
@@ -301,12 +599,26 @@
     ],
     "etymology": "Taglish construction: 'naka-focus sa' (focused on; from English 'focus' with Tagalog 'naka-' prefix indicating a state) + English 'cake' (money, from US slang). Demonstrates how Filipino youth adopt English money slang into Tagalog grammatical structures.",
     "examples": [
-      { "text": "Naka-focus lang sa cake, walang oras sa drama", "source": "O Side Mafia, My Thang (2023)" }
+      {
+        "text": "Naka-focus lang sa cake, walang oras sa drama",
+        "source": "O Side Mafia, My Thang (2023)"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["hustle", "patabain ang bulsa", "pumera", "p's", "boss na"],
-    "categories": ["hustle-culture", "money-slang"],
-    "sources": ["O Side Mafia — full discography, focus on tracks 2023-2026"]
+    "related_terms": [
+      "hustle",
+      "patabain ang bulsa",
+      "pumera",
+      "p's",
+      "boss na"
+    ],
+    "categories": [
+      "hustle-culture",
+      "money-slang"
+    ],
+    "sources": [
+      "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ]
   },
   {
     "term": "patola",
@@ -316,13 +628,30 @@
     ],
     "etymology": "From Tagalog 'patola' (the sponge/loofah gourd, Luffa acutangula). Extended metaphorically: unlike a sponge, a smart person doesn't absorb or react to every negative thing thrown at them. Popularized by Ex Battalion's 'Hayaan Mo Sila' (2017, massively revived 2023-2024).",
     "examples": [
-      { "text": "Maging patola sa kanila — hayaan mo na sila", "source": "Ex Battalion, Hayaan Mo Sila (viral revival 2023-2024)" },
-      { "text": "Patola ako? Hindi. Hayaan ko na lang sila", "source": "Filipino social media, 2023" }
+      {
+        "text": "Maging patola sa kanila — hayaan mo na sila",
+        "source": "Ex Battalion, Hayaan Mo Sila (viral revival 2023-2024)"
+      },
+      {
+        "text": "Patola ako? Hindi. Hayaan ko na lang sila",
+        "source": "Filipino social media, 2023"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["hindi ako epektado", "dedma", "shushhh", "mapagpatol"],
-    "categories": ["unbothered-culture", "self-protection", "anti-drama"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "hindi ako epektado",
+      "dedma",
+      "shushhh",
+      "mapagpatol"
+    ],
+    "categories": [
+      "unbothered-culture",
+      "self-protection",
+      "anti-drama"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "agit",
@@ -332,13 +661,29 @@
     ],
     "etymology": "Clipped from English 'agitated'; in Filipino youth slang, the meaning narrowed to jealousy and irritation in response to another's success (not just general agitation). First widely popularized through Ex Battalion's 'Hayaan Mo Sila'.",
     "examples": [
-      { "text": "Agit na agit sila sa 'kin, pero hayaan ko na lang", "source": "Ex Battalion, Hayaan Mo Sila (viral revival 2023-2024)" },
-      { "text": "Bakit agit? Dahil hindi siya kasama sa line-up?", "source": "Filipino Twitter/X fan commentary, 2024" }
+      {
+        "text": "Agit na agit sila sa 'kin, pero hayaan ko na lang",
+        "source": "Ex Battalion, Hayaan Mo Sila (viral revival 2023-2024)"
+      },
+      {
+        "text": "Bakit agit? Dahil hindi siya kasama sa line-up?",
+        "source": "Filipino Twitter/X fan commentary, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["nadikit", "epektado", "jealous", "selos"],
-    "categories": ["emotions", "jealousy-and-envy"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "nadikit",
+      "epektado",
+      "jealous",
+      "selos"
+    ],
+    "categories": [
+      "emotions",
+      "jealousy-and-envy"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "lagabog",
@@ -348,13 +693,29 @@
     ],
     "etymology": "Filipino street slang; possibly onomatopoeic for the sound of a heavy thud or crash ('lagabog' suggests the sound of something crashing heavily). Used in street culture and adopted into OPM trap vocabulary.",
     "examples": [
-      { "text": "Lagabog ang track nila — walang katalo", "source": "Skusta Clee x Illest Morena, Lagabog (2023) — track title" },
-      { "text": "Lagabog na lagabog ang concert nila", "source": "Filipino rap fan commentary, 2023" }
+      {
+        "text": "Lagabog ang track nila — walang katalo",
+        "source": "Skusta Clee x Illest Morena, Lagabog (2023) — track title"
+      },
+      {
+        "text": "Lagabog na lagabog ang concert nila",
+        "source": "Filipino rap fan commentary, 2023"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["gera", "angas", "lakas tama"],
-    "categories": ["intensity-and-energy", "street-slang", "hip-hop-culture"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "gera",
+      "angas",
+      "lakas tama"
+    ],
+    "categories": [
+      "intensity-and-energy",
+      "street-slang",
+      "hip-hop-culture"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "dyosa",
@@ -364,13 +725,29 @@
     ],
     "etymology": "From Spanish 'diosa' (goddess; feminine of 'dios'/god). Long present in Filipino vocabulary but active in OPM trap love rap and social media hype culture 2023-2024. Distinct from 'idol' — implies divine, otherworldly beauty.",
     "examples": [
-      { "text": "Dyosa — Skusta Clee (2024)", "source": "Skusta Clee, Dyosa (2024) — track title and compliment" },
-      { "text": "Dyosa talaga si ate sa lahat ng pics niya", "source": "Filipino social media comment, 2024" }
+      {
+        "text": "Dyosa — Skusta Clee (2024)",
+        "source": "Skusta Clee, Dyosa (2024) — track title and compliment"
+      },
+      {
+        "text": "Dyosa talaga si ate sa lahat ng pics niya",
+        "source": "Filipino social media comment, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["angas", "nakakatunaw", "bongga"],
-    "categories": ["compliments", "romance-and-attraction", "beauty"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "angas",
+      "nakakatunaw",
+      "bongga"
+    ],
+    "categories": [
+      "compliments",
+      "romance-and-attraction",
+      "beauty"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "huli na",
@@ -380,13 +757,30 @@
     ],
     "etymology": "From standard Tagalog 'huli' (late; also: caught/apprehended). As youth slang, 'huli na' carries emotional finality — the moment when something is irreversibly over or discovered.",
     "examples": [
-      { "text": "Huli na kung huli na", "source": "Ex Battalion feat. Skusta Clee, Huli Na (2023)" },
-      { "text": "Huli na tayo — wala na tayong magagawa pa", "source": "Filipino romantic discourse, 2023-2024" }
+      {
+        "text": "Huli na kung huli na",
+        "source": "Ex Battalion feat. Skusta Clee, Huli Na (2023)"
+      },
+      {
+        "text": "Huli na tayo — wala na tayong magagawa pa",
+        "source": "Filipino romantic discourse, 2023-2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["ayoko na", "BNK", "kalimutan ka", "wasak"],
-    "categories": ["breakup-and-heartbreak", "relationship-dynamics", "finality-expressions"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "ayoko na",
+      "BNK",
+      "kalimutan ka",
+      "wasak"
+    ],
+    "categories": [
+      "breakup-and-heartbreak",
+      "relationship-dynamics",
+      "finality-expressions"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "jowa",
@@ -396,13 +790,30 @@
     ],
     "etymology": "Etymology uncertain; possibly derived from a reversal or clipping of 'asawa' (Tagalog for spouse/partner), or from prison/street slang. Widely used across Filipino youth demographics regardless of origin. Far more casual and colloquial than 'nobyo/nobya' (boyfriend/girlfriend).",
     "examples": [
-      { "text": "Jowa ko siya", "source": "Multiple Ex Battalion tracks (2022-2024)" },
-      { "text": "Meron na bang bago jowa si kuya?", "source": "Filipino social media, 2023" }
+      {
+        "text": "Jowa ko siya",
+        "source": "Multiple Ex Battalion tracks (2022-2024)"
+      },
+      {
+        "text": "Meron na bang bago jowa si kuya?",
+        "source": "Filipino social media, 2023"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["ebeb", "bb", "beh", "MU (mutual understanding)"],
-    "categories": ["romance-and-attraction", "relationship-terms"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026", "Because — discography 2023-2026"]
+    "related_terms": [
+      "ebeb",
+      "bb",
+      "beh",
+      "MU (mutual understanding)"
+    ],
+    "categories": [
+      "romance-and-attraction",
+      "relationship-terms"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026",
+      "Because — discography 2023-2026"
+    ]
   },
   {
     "term": "tsepay",
@@ -412,13 +823,29 @@
     ],
     "etymology": "Filipino slang derived from English 'cheap'; the '-pay' ending is a Filipino phonetic adaptation. Used in rap diss culture and social media callouts to dismiss a rival's credibility or quality.",
     "examples": [
-      { "text": "Tsepay ka, 'pre — wala kang substance", "source": "Ex Battalion / Hayaan Mo Sila era discourse (revived 2023-2024)" },
-      { "text": "Tsepay ang moves niya sa showbiz", "source": "Filipino online commentary, 2024" }
+      {
+        "text": "Tsepay ka, 'pre — wala kang substance",
+        "source": "Ex Battalion / Hayaan Mo Sila era discourse (revived 2023-2024)"
+      },
+      {
+        "text": "Tsepay ang moves niya sa showbiz",
+        "source": "Filipino online commentary, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["panis", "balagbag", "tolongges", "kengkoy"],
-    "categories": ["insults", "diss-culture"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "panis",
+      "balagbag",
+      "tolongges",
+      "kengkoy"
+    ],
+    "categories": [
+      "insults",
+      "diss-culture"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "awit",
@@ -428,13 +855,30 @@
     ],
     "etymology": "Portmanteau or phonetic blend of 'aw' (English exclamation of pain/sympathy) + '-it' (from Tagalog 'sakit' — pain/hurt). The clipping creates a casual, punchy sympathy expression. Widely used in OPM rap comment sections and social media 2023+.",
     "examples": [
-      { "text": "Awit naman, talagang ganoon ang ending?", "source": "Ex Battalion fan culture and social media (2023-2024)" },
-      { "text": "Awit sa 'yo — natanggal pa sa trabaho", "source": "Filipino social media, 2023" }
+      {
+        "text": "Awit naman, talagang ganoon ang ending?",
+        "source": "Ex Battalion fan culture and social media (2023-2024)"
+      },
+      {
+        "text": "Awit sa 'yo — natanggal pa sa trabaho",
+        "source": "Filipino social media, 2023"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["aray ko", "aray mo", "awit sayo"],
-    "categories": ["emotions", "expressions-of-sympathy", "commiseration"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026", "canonical OG list (native speaker)"]
+    "related_terms": [
+      "aray ko",
+      "aray mo",
+      "awit sayo"
+    ],
+    "categories": [
+      "emotions",
+      "expressions-of-sympathy",
+      "commiseration"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026",
+      "canonical OG list (native speaker)"
+    ]
   },
   {
     "term": "omsim",
@@ -444,13 +888,31 @@
     ],
     "etymology": "Reversal (syllable-swap ludling) of 'mismo' (Tagalog/Spanish for 'exactly/same/right'). Part of the broader Filipino youth reverse-syllable wordplay pattern (bekimon/swardspeak tradition extended into mainstream Gen Z speech).",
     "examples": [
-      { "text": "Omsim! Ganyan talaga ang nangyari", "source": "Filipino rap community discourse (2023-2024)" },
-      { "text": "Omsim, mismo ang sabi ko sa kanya", "source": "Filipino social media, 2024" }
+      {
+        "text": "Omsim! Ganyan talaga ang nangyari",
+        "source": "Filipino rap community discourse (2023-2024)"
+      },
+      {
+        "text": "Omsim, mismo ang sabi ko sa kanya",
+        "source": "Filipino social media, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["mismo", "fr", "no cap", "rekta", "efas"],
-    "categories": ["agreement-expressions", "wordplay", "ludling"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "mismo",
+      "fr",
+      "no cap",
+      "rekta",
+      "efas"
+    ],
+    "categories": [
+      "agreement-expressions",
+      "wordplay",
+      "ludling"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "rekta",
@@ -460,13 +922,29 @@
     ],
     "etymology": "From Tagalog/Spanish 'recto' (straight/direct; Spanish 'recto'). In Filipino youth speech, 'rekta' means someone who speaks their mind without sugarcoating — a valued trait in rap authenticity discourse.",
     "examples": [
-      { "text": "Rekta lang, kaya ko siyang talunin", "source": "OPM rap context (2023-2024)" },
-      { "text": "Rekta na 'ko — hindi ako satisfied sa ginawa mo", "source": "Filipino youth speech, 2024" }
+      {
+        "text": "Rekta lang, kaya ko siyang talunin",
+        "source": "OPM rap context (2023-2024)"
+      },
+      {
+        "text": "Rekta na 'ko — hindi ako satisfied sa ginawa mo",
+        "source": "Filipino youth speech, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["walang ebas", "no cap", "fr", "omsim"],
-    "categories": ["truth-and-authenticity", "personality-traits"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "walang ebas",
+      "no cap",
+      "fr",
+      "omsim"
+    ],
+    "categories": [
+      "truth-and-authenticity",
+      "personality-traits"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "beshie",
@@ -476,13 +954,31 @@
     ],
     "etymology": "Diminutive of English 'bestie' (best friend). Filipino youth adaptations of English friendship terms tend to soften and elongate: 'best' → 'bestie' → 'beshie'. Widely used on TikTok PH and in OPM fan communities. Has roots in gay lingo that spread to mainstream Filipino speech.",
     "examples": [
-      { "text": "Beshie ko siya — may utang loob ako sa kanya", "source": "Ex Battalion social media / fan community (2023-2024)" },
-      { "text": "Ano na beshie, kumusta ka na?", "source": "Filipino social media, 2024" }
+      {
+        "text": "Beshie ko siya — may utang loob ako sa kanya",
+        "source": "Ex Battalion social media / fan community (2023-2024)"
+      },
+      {
+        "text": "Ano na beshie, kumusta ka na?",
+        "source": "Filipino social media, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["teh", "ghorl", "day ones", "tropa", "barkada"],
-    "categories": ["forms-of-address", "friendship", "lgbtq-lingo-crossover"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "teh",
+      "ghorl",
+      "day ones",
+      "tropa",
+      "barkada"
+    ],
+    "categories": [
+      "forms-of-address",
+      "friendship",
+      "lgbtq-lingo-crossover"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "budol",
@@ -493,13 +989,29 @@
     ],
     "etymology": "From Tagalog 'budol-budol' (a traditional confidence scam where fake items are swapped for real money). Evolved playfully in Gen Z and online Filipino culture into a softer meaning: being peer-pressured or fomo'd into a purchase you didn't plan to make.",
     "examples": [
-      { "text": "Nabudol na naman ako sa live selling niya — binili ko na ang bag", "source": "Filipino online community (2023-2024)" },
-      { "text": "Budol energy ni [artist] — lahat gusto kong bilhin na merch", "source": "Ex Battalion fan culture, 2023" }
+      {
+        "text": "Nabudol na naman ako sa live selling niya — binili ko na ang bag",
+        "source": "Filipino online community (2023-2024)"
+      },
+      {
+        "text": "Budol energy ni [artist] — lahat gusto kong bilhin na merch",
+        "source": "Ex Battalion fan culture, 2023"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["pa-mine", "FYP", "live selling"],
-    "categories": ["consumer-culture", "social-media", "humor"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "pa-mine",
+      "FYP",
+      "live selling"
+    ],
+    "categories": [
+      "consumer-culture",
+      "social-media",
+      "humor"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "walang ebas",
@@ -509,12 +1021,26 @@
     ],
     "etymology": "Taglish: 'walang' (none/no/without) + 'ebas' (likely from English slang for BS/bullshit, or a reversal/clipping of a Tagalog term for nonsense). Precise etymology of 'ebas' uncertain; in the canonical OG list it also means 'to talk/speak'.",
     "examples": [
-      { "text": "Walang ebas, straight facts lang — mas magaling siya kaysa lahat sa scene ngayon", "source": "Filipino Gen Z rap slang (2023-2024)" }
+      {
+        "text": "Walang ebas, straight facts lang — mas magaling siya kaysa lahat sa scene ngayon",
+        "source": "Filipino Gen Z rap slang (2023-2024)"
+      }
     ],
     "regional_notes": "Note: 'ebas' in some street contexts also means 'to speak/talk' (canonical list), making 'walang ebas' a potential double meaning.",
-    "related_terms": ["no cap", "rekta", "fr", "omsim"],
-    "categories": ["truth-and-authenticity", "street-slang"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026", "canonical OG list (native speaker)"]
+    "related_terms": [
+      "no cap",
+      "rekta",
+      "fr",
+      "omsim"
+    ],
+    "categories": [
+      "truth-and-authenticity",
+      "street-slang"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026",
+      "canonical OG list (native speaker)"
+    ]
   },
   {
     "term": "pak ganern",
@@ -524,13 +1050,30 @@
     ],
     "etymology": "'Pak' (an expressive shot/impact sound, possibly from the sound of a slap or a gun's report) + 'ganern' (clipped from 'ganoon' — like that/in that manner). Originated in Filipino LGBTQ+ community (swardspeak/bakla culture) and spread into mainstream Filipino youth speech via social media.",
     "examples": [
-      { "text": "Pak ganern! Ang ganda ng performance niya!", "source": "Filipino youth culture (2023-2024)" },
-      { "text": "Pak ganern ang look mo ngayon, ate!", "source": "Filipino social media, 2024" }
+      {
+        "text": "Pak ganern! Ang ganda ng performance niya!",
+        "source": "Filipino youth culture (2023-2024)"
+      },
+      {
+        "text": "Pak ganern ang look mo ngayon, ate!",
+        "source": "Filipino social media, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["bongga", "angas", "kabog", "slay"],
-    "categories": ["exclamations", "hype-culture", "lgbtq-lingo-crossover"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "bongga",
+      "angas",
+      "kabog",
+      "slay"
+    ],
+    "categories": [
+      "exclamations",
+      "hype-culture",
+      "lgbtq-lingo-crossover"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "praning",
@@ -540,13 +1083,32 @@
     ],
     "etymology": "From English 'paranoid'. Historically linked to drug-induced paranoia popularized by Francis Magalona's 'Mga Praning' (1992), which depicted drug addicts' hallucinations. In modern Filipino youth usage (Flow G, 2023+), the drug connotation has been largely stripped — it now describes anyone acting irrationally anxious or unhinged.",
     "examples": [
-      { "text": "Praning ka ba? Wala naman siyang ginagawa sa'yo", "source": "Flow G, Praning (viral 2023+)" },
-      { "text": "Para kang praning, lagi kang nag-iisip ng masama", "source": "Filipino social media/rap fan commentary, 2024" }
+      {
+        "text": "Praning ka ba? Wala naman siyang ginagawa sa'yo",
+        "source": "Flow G, Praning (viral 2023+)"
+      },
+      {
+        "text": "Para kang praning, lagi kang nag-iisip ng masama",
+        "source": "Filipino social media/rap fan commentary, 2024"
+      }
     ],
     "regional_notes": "The drug-use association is historically present but generally absent in contemporary Gen Z usage — context matters.",
-    "related_terms": ["napapraning", "topak", "nadikit", "aning sayo"],
-    "categories": ["personality-traits", "mental-states", "street-slang"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026", "Flow G — solo and featured verses 2023-2026", "Tus Brothers — discography 2023-2026"]
+    "related_terms": [
+      "napapraning",
+      "topak",
+      "nadikit",
+      "aning sayo"
+    ],
+    "categories": [
+      "personality-traits",
+      "mental-states",
+      "street-slang"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026",
+      "Flow G — solo and featured verses 2023-2026",
+      "Tus Brothers — discography 2023-2026"
+    ]
   },
   {
     "term": "laya",
@@ -556,13 +1118,30 @@
     ],
     "etymology": "Standard Tagalog 'laya' (freedom/liberty). In OPM rap and youth culture, 'laya' is specifically used in the romantic context of gaining freedom from a controlling partner or emotionally draining relationship — a liberation anthem concept.",
     "examples": [
-      { "text": "Isinuko ko na 'yung laya ko para sa'yo", "source": "Skusta Clee x Flow G, Laya (2024)" },
-      { "text": "Laya na ako sa lahat ng 'yan", "source": "Filipino breakup/healing discourse, 2024" }
+      {
+        "text": "Isinuko ko na 'yung laya ko para sa'yo",
+        "source": "Skusta Clee x Flow G, Laya (2024)"
+      },
+      {
+        "text": "Laya na ako sa lahat ng 'yan",
+        "source": "Filipino breakup/healing discourse, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["kalimutan ka", "ayoko na", "pahinga na", "huli na"],
-    "categories": ["breakup-and-heartbreak", "empowerment", "emotional-states"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "kalimutan ka",
+      "ayoko na",
+      "pahinga na",
+      "huli na"
+    ],
+    "categories": [
+      "breakup-and-heartbreak",
+      "empowerment",
+      "emotional-states"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "dasurv",
@@ -572,13 +1151,29 @@
     ],
     "etymology": "Filipinized phonetic respelling of English 'deserve'. The '-urv' ending reflects Filipino phonological patterns in adapting English words. Represents the broader Taglish pattern where English words are respelled to match Filipino phonetics.",
     "examples": [
-      { "text": "Dasurv niya 'yung glow-up!", "source": "Filipino Gen Z internet/rap community (2023-2024)" },
-      { "text": "Dasurv ang success niya — ilang taon na siyang nagtatrabaho nang husto", "source": "Filipino social media, 2024" }
+      {
+        "text": "Dasurv niya 'yung glow-up!",
+        "source": "Filipino Gen Z internet/rap community (2023-2024)"
+      },
+      {
+        "text": "Dasurv ang success niya — ilang taon na siyang nagtatrabaho nang husto",
+        "source": "Filipino social media, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["karma", "kabog", "panalo"],
-    "categories": ["reactions", "karma-and-justice", "borrowed-slang"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026"]
+    "related_terms": [
+      "karma",
+      "kabog",
+      "panalo"
+    ],
+    "categories": [
+      "reactions",
+      "karma-and-justice",
+      "borrowed-slang"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026"
+    ]
   },
   {
     "term": "char",
@@ -588,13 +1183,31 @@
     ],
     "etymology": "Shortened from 'charot' (just kidding), which itself evolved through Filipino youth slang and possibly swardspeak. The word has further shortened variants: 'charot' → 'char' → 'chariz' → 'charicature'. Used as a joke marker in Taglish conversation.",
     "examples": [
-      { "text": "Panget mo. Char lang!", "source": "OPM rap banter (2023-2024)" },
-      { "text": "Ayaw ko na sa kanya. Char!", "source": "Filipino social media, 2023" }
+      {
+        "text": "Panget mo. Char lang!",
+        "source": "OPM rap banter (2023-2024)"
+      },
+      {
+        "text": "Ayaw ko na sa kanya. Char!",
+        "source": "Filipino social media, 2023"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["charot", "chariz", "eme", "echoz"],
-    "categories": ["humor", "softeners", "expressions"],
-    "sources": ["Ex Battalion — recent releases and features 2023-2026", "YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage"]
+    "related_terms": [
+      "charot",
+      "chariz",
+      "eme",
+      "echoz"
+    ],
+    "categories": [
+      "humor",
+      "softeners",
+      "expressions"
+    ],
+    "sources": [
+      "Ex Battalion — recent releases and features 2023-2026",
+      "YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage"
+    ]
   },
   {
     "term": "angas",
@@ -604,13 +1217,29 @@
     ],
     "etymology": "Standard Tagalog/Filipino 'angas' (overconfidence or arrogance). Recontextualized in youth slang to have both positive (fierce/badass) and negative (arrogant/overbearing) meanings depending on tone and context. Trending via Skusta Clee x Flow G 'Angas' track (2024) and the TikTok 'Tanggal Angas' challenge.",
     "examples": [
-      { "text": "Ang angas mo ngayon — bagong haircut ba?", "source": "Skusta Clee x Flow G, Angas (Trifecta EP, March 2024)" },
-      { "text": "Tanggal angas mo — nabasted ka naman pala", "source": "TikTok PH 'Tanggal Angas' challenge trend, 2023-2024" }
+      {
+        "text": "Ang angas mo ngayon — bagong haircut ba?",
+        "source": "Skusta Clee x Flow G, Angas (Trifecta EP, March 2024)"
+      },
+      {
+        "text": "Tanggal angas mo — nabasted ka naman pala",
+        "source": "TikTok PH 'Tanggal Angas' challenge trend, 2023-2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["presko", "maangas", "ere", "pak ganern"],
-    "categories": ["attitude-and-swagger", "personality-traits"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "presko",
+      "maangas",
+      "ere",
+      "pak ganern"
+    ],
+    "categories": [
+      "attitude-and-swagger",
+      "personality-traits"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
   },
   {
     "term": "topak",
@@ -620,13 +1249,29 @@
     ],
     "etymology": "Filipino slang of debated origin; possibly from 'batok' (nape of neck, where someone might be struck to knock sense into them) or an independent coinage. Means someone who acts irrationally or erratically.",
     "examples": [
-      { "text": "'Yung tamang topak ka ta's kukunsintihin kita", "source": "Lo Ki x Skusta Clee, Sadista (2024)" },
-      { "text": "May topak ka ba? Bakit ganyan ka mag-react?", "source": "Filipino youth speech, 2024" }
+      {
+        "text": "'Yung tamang topak ka ta's kukunsintihin kita",
+        "source": "Lo Ki x Skusta Clee, Sadista (2024)"
+      },
+      {
+        "text": "May topak ka ba? Bakit ganyan ka mag-react?",
+        "source": "Filipino youth speech, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["praning", "lala", "nagwawala"],
-    "categories": ["personality-traits", "mental-states", "relationship-dynamics"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "praning",
+      "lala",
+      "nagwawala"
+    ],
+    "categories": [
+      "personality-traits",
+      "mental-states",
+      "relationship-dynamics"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
   },
   {
     "term": "epektado",
@@ -636,13 +1281,30 @@
     ],
     "etymology": "From Tagalog 'epekto' (effect/impact); the '-ado' suffix creates an adjectival state form: 'the state of having been affected'. Used in OPM rap clapbacks to accuse someone of being triggered by a diss or criticism.",
     "examples": [
-      { "text": "Bakit ka epektado? Hindi naman sa'yo sinabi 'yun", "source": "Skusta Clee, Hindi Ako Epektado (2024)" },
-      { "text": "Epektado agad — malinaw na guilty siya", "source": "Filipino social media, 2024" }
+      {
+        "text": "Bakit ka epektado? Hindi naman sa'yo sinabi 'yun",
+        "source": "Skusta Clee, Hindi Ako Epektado (2024)"
+      },
+      {
+        "text": "Epektado agad — malinaw na guilty siya",
+        "source": "Filipino social media, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["hindi ako epektado", "nadikit", "agit", "patola"],
-    "categories": ["emotional-states", "diss-culture", "unbothered-culture"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "hindi ako epektado",
+      "nadikit",
+      "agit",
+      "patola"
+    ],
+    "categories": [
+      "emotional-states",
+      "diss-culture",
+      "unbothered-culture"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
   },
   {
     "term": "hindi ako epektado",
@@ -652,13 +1314,30 @@
     ],
     "etymology": "Standard Tagalog negation: 'hindi' (not) + 'ako' (I) + 'epektado' (affected). The full phrase became a cultural catchphrase in Filipino Gen Z speech after Skusta Clee's 2024 track, paralleling English 'I'm not pressed' or 'unbothered'.",
     "examples": [
-      { "text": "Bastusin mo man ako — hindi ako epektado", "source": "Skusta Clee, Hindi Ako Epektado (2024) — track title and refrain" },
-      { "text": "Hindi ako epektado sa lahat ng sinasabi nila", "source": "Filipino social media clapback, 2024" }
+      {
+        "text": "Bastusin mo man ako — hindi ako epektado",
+        "source": "Skusta Clee, Hindi Ako Epektado (2024) — track title and refrain"
+      },
+      {
+        "text": "Hindi ako epektado sa lahat ng sinasabi nila",
+        "source": "Filipino social media clapback, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["epektado", "patola", "dedma", "shushhh"],
-    "categories": ["unbothered-culture", "attitude-and-swagger", "catchphrases"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "epektado",
+      "patola",
+      "dedma",
+      "shushhh"
+    ],
+    "categories": [
+      "unbothered-culture",
+      "attitude-and-swagger",
+      "catchphrases"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
   },
   {
     "term": "shushhh",
@@ -668,13 +1347,30 @@
     ],
     "etymology": "Extended from English onomatopoeic 'shush' (silence gesture). The triple-h spelling ('shushhh') is a deliberate Pinoy trap aesthetic choice — spelling that performs the extended, dismissive exhale. Popularized by Skusta Clee's 2024 collab track.",
     "examples": [
-      { "text": "Shushhh na kayo — tapos na ang drama ninyo", "source": "Skusta Clee x Jnske x Yuridope, Shushhh (2024-2025)" },
-      { "text": "Shushhh lang ang sagot ko sa lahat ng bashing", "source": "Filipino social media, 2024" }
+      {
+        "text": "Shushhh na kayo — tapos na ang drama ninyo",
+        "source": "Skusta Clee x Jnske x Yuridope, Shushhh (2024-2025)"
+      },
+      {
+        "text": "Shushhh lang ang sagot ko sa lahat ng bashing",
+        "source": "Filipino social media, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["hindi ako epektado", "patola", "dedma", "pahinga na"],
-    "categories": ["dismissal", "unbothered-culture", "exclamations"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "hindi ako epektado",
+      "patola",
+      "dedma",
+      "pahinga na"
+    ],
+    "categories": [
+      "dismissal",
+      "unbothered-culture",
+      "exclamations"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
   },
   {
     "term": "gaga",
@@ -684,12 +1380,25 @@
     ],
     "etymology": "Standard Tagalog/Filipino: feminine form of 'gago' (fool/idiot). Has been in Tagalog vocabulary for generations but saw a major revival through Flow G x Skusta Clee x Yuridope's 'Gaga' (2022, viral 2024), which used it in a breakup/relationship context.",
     "examples": [
-      { "text": "Kung di ka lang gaga, kasama ka sana", "source": "Flow G x Skusta Clee x Yuridope, Gaga (2022, viral 2024)" }
+      {
+        "text": "Kung di ka lang gaga, kasama ka sana",
+        "source": "Flow G x Skusta Clee x Yuridope, Gaga (2022, viral 2024)"
+      }
     ],
     "regional_notes": "Note: despite sharing a name with Lady Gaga, in Filipino slang this term predates the pop star and has entirely different etymology. The masculine counterpart is 'gago'.",
-    "related_terms": ["gago", "topak", "praning"],
-    "categories": ["insults", "gender-specific-terms", "relationship-dynamics"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "gago",
+      "topak",
+      "praning"
+    ],
+    "categories": [
+      "insults",
+      "gender-specific-terms",
+      "relationship-dynamics"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
   },
   {
     "term": "mapagpatol",
@@ -699,13 +1408,29 @@
     ],
     "etymology": "From Tagalog 'patol' (to engage with or respond to a provocation). 'Mapa-' prefix indicates being susceptible to or driven to do something; '-gpatol' = getting baited. The noun form 'mapagpatol' describes someone with the tendency to engage.",
     "examples": [
-      { "text": "Huwag kang mapagpatol sa mga trolls online", "source": "Flow G x Skusta Clee x Yuridope, Gaga (viral 2024)" },
-      { "text": "Mapagpatol ka kasi sa lahat ng nagsasalita — hayaan mo na sila", "source": "Filipino online advice culture, 2023-2024" }
+      {
+        "text": "Huwag kang mapagpatol sa mga trolls online",
+        "source": "Flow G x Skusta Clee x Yuridope, Gaga (viral 2024)"
+      },
+      {
+        "text": "Mapagpatol ka kasi sa lahat ng nagsasalita — hayaan mo na sila",
+        "source": "Filipino online advice culture, 2023-2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["patola", "epektado", "nadikit"],
-    "categories": ["drama-culture", "personality-traits", "advice-phrases"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "patola",
+      "epektado",
+      "nadikit"
+    ],
+    "categories": [
+      "drama-culture",
+      "personality-traits",
+      "advice-phrases"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
   },
   {
     "term": "lulutang",
@@ -715,13 +1440,30 @@
     ],
     "etymology": "From Tagalog 'lutang' (to float; rising to the surface). 'Lulutang' is the future tense: 'will float up/resurface'. Metaphor: like a piece of debris that sinks during a storm and floats back up when calm returns. Distinct from 'lutang' (spaced out/disconnected, from Shanti Dope file).",
     "examples": [
-      { "text": "Lulutang siya kapag okay na ulit — ganoon lang siya", "source": "Flow G x Skusta Clee x Yuridope, Gaga (viral 2024)" },
-      { "text": "Lulutang na naman siya ngayon na sikat ka na", "source": "Filipino social media, 2024" }
+      {
+        "text": "Lulutang siya kapag okay na ulit — ganoon lang siya",
+        "source": "Flow G x Skusta Clee x Yuridope, Gaga (viral 2024)"
+      },
+      {
+        "text": "Lulutang na naman siya ngayon na sikat ka na",
+        "source": "Filipino social media, 2024"
+      }
     ],
     "regional_notes": "Note: 'lutang' has two related but distinct meanings in youth slang — fair-weather behavior ('lulutang') and spacey/not paying attention ('lutang ka').",
-    "related_terms": ["lutang", "patola", "jowa", "beshie"],
-    "categories": ["relationship-dynamics", "friendship", "fairweather-behavior"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "lutang",
+      "patola",
+      "jowa",
+      "beshie"
+    ],
+    "categories": [
+      "relationship-dynamics",
+      "friendship",
+      "fairweather-behavior"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
   },
   {
     "term": "low key",
@@ -732,13 +1474,29 @@
     ],
     "etymology": "Borrowed directly from English Gen Z slang 'low key' (secretly, quietly, modestly). Fully integrated into Filipino Taglish speech and rap lyrics — appearing naturally alongside Tagalog words without adaptation.",
     "examples": [
-      { "text": "Low key gusto ko 'yung track na 'to", "source": "Skusta Clee, Low Key EP (2024)" },
-      { "text": "Low key nagseselos ako — char lang", "source": "Filipino TikTok PH caption, 2024" }
+      {
+        "text": "Low key gusto ko 'yung track na 'to",
+        "source": "Skusta Clee, Low Key EP (2024)"
+      },
+      {
+        "text": "Low key nagseselos ako — char lang",
+        "source": "Filipino TikTok PH caption, 2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["high key", "no cap", "fr"],
-    "categories": ["borrowed-slang", "qualifying-expressions", "gen-z-expressions"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "high key",
+      "no cap",
+      "fr"
+    ],
+    "categories": [
+      "borrowed-slang",
+      "qualifying-expressions",
+      "gen-z-expressions"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
   },
   {
     "term": "kalimutan ka",
@@ -748,13 +1506,31 @@
     ],
     "etymology": "Standard Tagalog: 'kalimutan' (to forget) + 'ka' (you). While grammatically standard, the specific phrase has evolved into a cultural touchstone for Filipino youth breakup culture in 2025, driven by Skusta Clee's Billboard chart hit.",
     "examples": [
-      { "text": "Kalimutan ka — wala na tayong balikan", "source": "Skusta Clee, Kalimutan Ka (February 2025, Billboard Philippines Top Philippine Songs #5)" },
-      { "text": "New status: Kalimutan ka era", "source": "Filipino social media caption, 2025" }
+      {
+        "text": "Kalimutan ka — wala na tayong balikan",
+        "source": "Skusta Clee, Kalimutan Ka (February 2025, Billboard Philippines Top Philippine Songs #5)"
+      },
+      {
+        "text": "New status: Kalimutan ka era",
+        "source": "Filipino social media caption, 2025"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["ayoko na", "BNK", "pahinga na", "laya", "huli na"],
-    "categories": ["breakup-and-heartbreak", "catchphrases", "empowerment"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "ayoko na",
+      "BNK",
+      "pahinga na",
+      "laya",
+      "huli na"
+    ],
+    "categories": [
+      "breakup-and-heartbreak",
+      "catchphrases",
+      "empowerment"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
   },
   {
     "term": "pahinga na",
@@ -764,13 +1540,30 @@
     ],
     "etymology": "Standard Tagalog 'pahinga' (rest/take a break; imperative 'pahinga' = rest now) + 'na' (already/now/intensifier). In youth slang, 'pahinga na' evolved beyond literal rest to mean 'knock it off / you're done / give it a rest'.",
     "examples": [
-      { "text": "Pahinga na, 'pre — talo ka na naman", "source": "Skusta Clee x Yuridope, Pahinga Na (August 2025)" },
-      { "text": "Pahinga na sa drama — lahat na kayo nakakaod", "source": "Filipino social media, 2025" }
+      {
+        "text": "Pahinga na, 'pre — talo ka na naman",
+        "source": "Skusta Clee x Yuridope, Pahinga Na (August 2025)"
+      },
+      {
+        "text": "Pahinga na sa drama — lahat na kayo nakakaod",
+        "source": "Filipino social media, 2025"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["shushhh", "hindi ako epektado", "kalimutan ka", "ayoko na"],
-    "categories": ["dismissal", "conflict-de-escalation", "expressions"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "shushhh",
+      "hindi ako epektado",
+      "kalimutan ka",
+      "ayoko na"
+    ],
+    "categories": [
+      "dismissal",
+      "conflict-de-escalation",
+      "expressions"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
   },
   {
     "term": "chismis",
@@ -780,12 +1573,1618 @@
     ],
     "etymology": "From Spanish 'chismes' (gossip/rumors). Deep-rooted in Filipino culture for centuries. The personified form is 'Marites' (a gossipy character archetype). The slang is reinforced by a 2024 collaborative rap track titled 'Chismis' by multiple OPM artists.",
     "examples": [
-      { "text": "Anong chismis? — May bago bang issue?", "source": "Flow G x Skusta Clee et al., Chismis (2024)" },
-      { "text": "Chismis ka ba? Huwag mong ipamigay ang mga kwento namin", "source": "Filipino youth speech, 2023-2024" }
+      {
+        "text": "Anong chismis? — May bago bang issue?",
+        "source": "Flow G x Skusta Clee et al., Chismis (2024)"
+      },
+      {
+        "text": "Chismis ka ba? Huwag mong ipamigay ang mga kwento namin",
+        "source": "Filipino youth speech, 2023-2024"
+      }
     ],
     "regional_notes": null,
-    "related_terms": ["marites", "tsismis (alternate spelling)", "SKL", "chika"],
-    "categories": ["social-dynamics", "gossip-culture"],
-    "sources": ["Skusta Clee — solo tracks and collaborations 2023-2026"]
+    "related_terms": [
+      "marites",
+      "tsismis (alternate spelling)",
+      "SKL",
+      "chika"
+    ],
+    "categories": [
+      "social-dynamics",
+      "gossip-culture"
+    ],
+    "sources": [
+      "Skusta Clee — solo tracks and collaborations 2023-2026"
+    ]
+  },
+  {
+    "term": "247",
+    "definitions": [
+      "Always; all the time; around the clock — used to describe constant devotion, hustle, or availability. Compressed written form of '24/7' used in Filipino texting, social media, and rap."
+    ],
+    "etymology": "Compressed form of '24/7' (24 hours, 7 days a week), borrowed from English. Elevated as a concept by Flow G's debut album '247' (August 2025), which explored relentless hustle as a life philosophy.",
+    "examples": [
+      {
+        "text": "Nandito ako para sa'yo 247",
+        "source": "Filipino Gen Z social media, 2024"
+      },
+      {
+        "text": "247 na 'yung hustle niya — walang pahinga",
+        "source": "OPM rap fan community, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "hustlin",
+      "go getta",
+      "boss na"
+    ],
+    "categories": [
+      "hustle-culture",
+      "borrowed-slang",
+      "lifestyle"
+    ],
+    "sources": [
+      "Flow G — solo and featured verses 2023-2026"
+    ]
+  },
+  {
+    "term": "6-7",
+    "definitions": [
+      "A versatile near-meaningless slang expression conveying ambivalence, a nonchalant 'whatever' vibe, or playful nonsense; often accompanied by a hand gesture where both palms face up and move alternately.",
+      "Sometimes used as a casual response meaning 'so-so,' 'maybe,' or 'I don't know.'"
+    ],
+    "etymology": "Inspired by the song 'Doot Doot (6 7)' by rapper Skrilla, which went viral via TikTok in 2025. Earned Dictionary.com's Word of the Year 2025 for its infectious, multi-purpose usage.",
+    "examples": [
+      {
+        "text": "Kumain ka na ba? 6-7 lang",
+        "source": "Filipino TikTok meme, 2025"
+      },
+      {
+        "text": "Paano ang lovelife mo? 6-7",
+        "source": "Viral social media usage, Philippines, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "mid lang",
+      "eme",
+      "meh"
+    ],
+    "categories": [
+      "internet-meme",
+      "viral-slang",
+      "imported-trends"
+    ],
+    "sources": [
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
+    ]
+  },
+  {
+    "term": "achoo",
+    "definitions": [
+      "(Beki/swardspeak) A gay man who initially appears or presents as heterosexual; someone whose queer identity is not immediately apparent. An evolved replacement for the older beki term 'paminta.'"
+    ],
+    "etymology": "Swardspeak coinage documented by SPOT.ph (2024) as 'the newest iteration of the classic beki term paminta.' The sneeze metaphor — paminta (pepper) makes you sneeze → achoo — suggests someone whose queer identity surfaces unexpectedly.",
+    "examples": [
+      {
+        "text": "Achoo 'yung kapitbahay ko — straight daw pero... alam na natin",
+        "source": "Filipino LGBTQ+ TikTok community, 2024"
+      },
+      {
+        "text": "Pag nakita mo na sa kabila ng GNC behavior, achoo na 'yon",
+        "source": "SPOT.ph, beki slang guide 2024"
+      }
+    ],
+    "regional_notes": "Primarily circulates in Metro Manila LGBTQ+ digital communities.",
+    "related_terms": [
+      "paminta",
+      "vaklush",
+      "badesh"
+    ],
+    "categories": [
+      "beki-swardspeak",
+      "lgbtq-culture",
+      "covert-identity"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ]
+  },
+  {
+    "term": "ala me pakels",
+    "definitions": [
+      "'I don't care'; a dismissive expression of complete indifference to gossip, drama, or criticism."
+    ],
+    "etymology": "Taglish mashup: 'ala' from 'wala' (nothing/none) + 'me' (English) + 'pakels' from 'pakialam' (concern/interest). Urban Dictionary documents this as a distinctly Filipino construction signaling unbothered detachment.",
+    "examples": [
+      {
+        "text": "Hey, they were talking shit about you. — No way? Oh well, ala me pakels.",
+        "source": "Urban Dictionary example, 2024"
+      },
+      {
+        "text": "Ala me pakels sa drama niyo, busy ako",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "pakels",
+      "patola",
+      "hindi ako epektado",
+      "dedma"
+    ],
+    "categories": [
+      "dismissal",
+      "internet-slang",
+      "taglish-mashup"
+    ],
+    "sources": [
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
+    ]
+  },
+  {
+    "term": "alam na this",
+    "definitions": [
+      "'We already know'; used to signal shared implicit understanding — everyone already knows what's meant or what will happen without it needing to be stated explicitly."
+    ],
+    "etymology": "Taglish phrase: 'alam' (Tagalog: known/to know) + 'na' (already) + 'this' (English). Widely circulated in Filipino meme pages, Reddit, and group chats since 2023. A marker of in-group knowledge.",
+    "examples": [
+      {
+        "text": "Alam na this — kapag nag-text ang ex mo, babalik ka",
+        "source": "Filipino meme pages / Twitter, 2024"
+      },
+      {
+        "text": "'Di na kailangang sabihin, alam na this",
+        "source": "Reddit r/CasualPH, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "omsim",
+      "korique",
+      "gets"
+    ],
+    "categories": [
+      "internet-slang",
+      "in-group-knowledge",
+      "taglish-mashup"
+    ],
+    "sources": [
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang",
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "amaccana accla",
+    "definitions": [
+      "(Beki/swardspeak) A phrase used to call out someone for problematic, inappropriate, or excessive behavior. Roughly: 'stop it already, you bakla!'"
+    ],
+    "etymology": "Documented by PEP.ph: 'amaccana' derives from reversed syllables of 'Tama Ka Na' (That's enough / Stop it), and 'accla' derives from 'bakla' (gay/effeminate). A compound callout phrase in Filipino LGBTQ+ slang.",
+    "examples": [
+      {
+        "text": "Amaccana accla ka, grabe naman ang ginawa mo!",
+        "source": "PEP.ph Gen Z lingo guide, 2024"
+      },
+      {
+        "text": "Amaccana accla, sobra ka na!",
+        "source": "Filipino LGBTQ+ social media, 2024"
+      }
+    ],
+    "regional_notes": "Primarily used in LGBTQ+ Filipino digital spaces.",
+    "related_terms": [
+      "ammacana",
+      "badesh",
+      "shutacca"
+    ],
+    "categories": [
+      "beki-swardspeak",
+      "lgbtq-culture",
+      "callout-language"
+    ],
+    "sources": [
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
+    ]
+  },
+  {
+    "term": "amats",
+    "definitions": [
+      "Tipsy; mildly drunk; the pleasant buzz of early intoxication — not fully wasted but visibly affected by alcohol."
+    ],
+    "etymology": "Backslang formed by reversing the syllables of 'tama' (Tagalog: enough/already). Part of the Filipino tradition of syllable-inversion slang. Given new life by Shanti Dope's 'Amatz' (2019) and DRUGS EP (2024), which recontextualized it in rap culture.",
+    "examples": [
+      {
+        "text": "Lakas ng amats ko, sobrang natural, walang halong kemikal",
+        "source": "Shanti Dope, Amatz (2019)"
+      },
+      {
+        "text": "May amats na si tol — dalawang bote lang",
+        "source": "Filipino youth speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "walwal",
+      "sabog",
+      "arat"
+    ],
+    "categories": [
+      "drinking-culture",
+      "backslang",
+      "street-slang"
+    ],
+    "sources": [
+      "Shanti Dope — recent releases 2023-2026"
+    ]
+  },
+  {
+    "term": "ammacana",
+    "definitions": [
+      "'Stop it' / 'That's enough' — an exclamation telling someone to cut out their behavior."
+    ],
+    "etymology": "Derived from reversed/scrambled syllables of 'Tama Ka Na' (That's enough / Stop it). Documented in JMara/emerging rap communities (2023-2025) as a Gen Z digital exclamation. Standalone version of 'amaccana accla.'",
+    "examples": [
+      {
+        "text": "Ammacana ka na! Tigilan mo na 'yon!",
+        "source": "JMara / emerging PH rap social media, 2024"
+      },
+      {
+        "text": "Ammacana, paulit-ulit ka na lang",
+        "source": "Filipino Gen Z group chats, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "amaccana accla",
+      "chos",
+      "tama ka na"
+    ],
+    "categories": [
+      "backslang",
+      "callout-language",
+      "internet-slang"
+    ],
+    "sources": [
+      "JMara / Locos Only / other emerging PH rap acts 2023-2026"
+    ]
+  },
+  {
+    "term": "ang lala mo",
+    "definitions": [
+      "'You're terrible / You're the worst / You're so bad' — an expression of exasperation, mock-outrage, or genuine disappointment at someone's behavior."
+    ],
+    "etymology": "Standard Tagalog: 'ang' (how/the) + 'lala' (severe/bad/awful) + 'mo' (you/your). Adopted as a Gen Z reaction phrase for wild, outrageous, or deeply disappointing behavior. Used playfully between friends or seriously in confrontations.",
+    "examples": [
+      {
+        "text": "Ang lala mo, iniwan mo siya sa restaurant!",
+        "source": "Filipino Gen Z social media, 2024"
+      },
+      {
+        "text": "Ang lala mo naman, seryoso ka ba?",
+        "source": "Filipino youth casual speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "over naman sa",
+      "topak",
+      "aning sayo"
+    ],
+    "categories": [
+      "expressions",
+      "social-commentary"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ]
+  },
+  {
+    "term": "aning sayo",
+    "definitions": [
+      "'You're being paranoid' / 'What's gotten into you?' — an expression of disbelief at someone's odd, suspicious, or over-the-top behavior."
+    ],
+    "etymology": "Possibly clipped from 'ano 'yan sa 'yo?' (what is that with you?) or 'ano na sa iyo?' (what's with you now?). The canonical OG list documents it as 'you're paranoid; calling someone out for overthinking or being suspicious.' Used in both street and digital youth contexts.",
+    "examples": [
+      {
+        "text": "Aning sa'yo? Kalma lang, 'di ka naman pinag-uusapan",
+        "source": "Canonical OG list, native speaker, 2024"
+      },
+      {
+        "text": "Aning sa'yo, bigla ka na lang nag-MIA",
+        "source": "Filipino youth casual speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "ang lala mo",
+      "praning",
+      "topak"
+    ],
+    "categories": [
+      "expressions",
+      "social-dynamics"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "arat",
+    "definitions": [
+      "'Let's go!'; a call to action or invitation to get moving or do something together."
+    ],
+    "etymology": "Backslang formed by reversing the syllables of 'tara' (Tagalog: let's go). Part of the Filipino tradition of syllable-inversion slang. Widely used in Filipino rap commentary, fan culture, and everyday youth speech.",
+    "examples": [
+      {
+        "text": "Arat na mga lods! Malalate na tayo!",
+        "source": "JMara / emerging PH rap social media, 2024"
+      },
+      {
+        "text": "Arat, kain muna tayo bago ang gig",
+        "source": "Filipino youth casual speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "tara",
+      "gora",
+      "bounce"
+    ],
+    "categories": [
+      "backslang",
+      "call-to-action"
+    ],
+    "sources": [
+      "JMara / Locos Only / other emerging PH rap acts 2023-2026"
+    ]
+  },
+  {
+    "term": "aray ko",
+    "definitions": [
+      "'Ouch (for me)' — an exclamation of sudden pain, surprise, or (colloquially) dismay at finding oneself in a bad situation."
+    ],
+    "etymology": "Standard Tagalog: 'aray' (ouch) + 'ko' (my/me). Extended in modern Gen Z usage to cover emotional pain and bad circumstances, not just physical pain.",
+    "examples": [
+      {
+        "text": "Aray ko, nata-toasted na ulit ang budget ko",
+        "source": "Filipino youth social media, 2024"
+      },
+      {
+        "text": "Aray ko — pinalabas ba talaga niya?",
+        "source": "Filipino Gen Z casual speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "aray mo",
+      "awit",
+      "awit sayo"
+    ],
+    "categories": [
+      "expressions",
+      "pain-sympathy"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "aray mo",
+    "definitions": [
+      "'Ouch (for you)' — a sympathetic or sometimes sarcastic exclamation directed at someone else experiencing an unfortunate situation. Companion to 'aray ko,' directed outward."
+    ],
+    "etymology": "Standard Tagalog: 'aray' (ouch) + 'mo' (your/you). Documented in the canonical OG list as 'that's unfortunate for you.'",
+    "examples": [
+      {
+        "text": "Aray mo, binawian ka ng gig payment",
+        "source": "Filipino youth casual speech, 2024"
+      },
+      {
+        "text": "Hindi ka natanggap sa trabaho? Aray mo naman.",
+        "source": "Filipino Gen Z social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "aray ko",
+      "awit sayo",
+      "dasurv"
+    ],
+    "categories": [
+      "expressions",
+      "pain-sympathy"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "asset",
+    "definitions": [
+      "(Showbiz/mainstream) A person whose physical attractiveness is their most notable quality — their looks are their 'asset.'",
+      "(Street/OG slang) A useful person; a connect, resource, or someone with valuable information or leverage — a 'plug.'"
+    ],
+    "etymology": "Borrowed from English 'asset' (a valuable resource). In showbiz/mainstream usage the metaphor frames beauty as one's greatest asset. In street usage (canonical OG list) it describes a useful contact with leverage.",
+    "examples": [
+      {
+        "text": "Ang ganda-ganda niya — asset talaga siya ng grupo!",
+        "source": "Filipino youth social media, 2024"
+      },
+      {
+        "text": "Siya 'yung asset namin sa loob — may alam siya",
+        "source": "Canonical OG list, native speaker, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "dyosa",
+      "angas",
+      "s (source)"
+    ],
+    "categories": [
+      "physical-appearance",
+      "street-slang",
+      "dual-meaning"
+    ],
+    "sources": [
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
+    ]
+  },
+  {
+    "term": "asta",
+    "definitions": [
+      "Demeanor, attitude, bearing, or the way someone carries themselves. Often used in 'Ang asta mo!' to call out someone's manner — especially if seen as arrogant, affected, or otherwise notable."
+    ],
+    "etymology": "From Tagalog 'asta' (pose/bearing/demeanor). In modern youth usage, evolved into a near-synonym for 'attitude' — the way someone acts or carries themselves, positive or negative.",
+    "examples": [
+      {
+        "text": "Ang asta mo, parang ikaw lang ang may alam",
+        "source": "Filipino youth casual speech, 2024"
+      },
+      {
+        "text": "May asta ka — bet namin 'yan",
+        "source": "Canonical OG list, native speaker, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "ere",
+      "maarte",
+      "swabe",
+      "angas"
+    ],
+    "categories": [
+      "social-dynamics",
+      "attitude-behavior"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "ate girl",
+    "definitions": [
+      "(Twitter/online) A relatable, down-to-earth, sisterly, girl-next-door type — someone warm, accessible, and genuinely lovable.",
+      "(General usage) A person who acts overly cute, childish, or performs innocence in an exaggerated 'pabebe' way. Can be affectionate or mocking."
+    ],
+    "etymology": "Literally 'older sister girl' — 'ate' is the Filipino respectful address for an older sister or woman. On Twitter/X PH the term describes a wholesome relatable archetype. In broader usage it merges with the 'pabebe wave' trend of the 2010s.",
+    "examples": [
+      {
+        "text": "Ate girl energy — laging andoon para sa lahat, walang arte",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Ang ate girl naman niya, parang kindergarten pa ang dating",
+        "source": "Filipino youth social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "pabebe",
+      "pacute",
+      "beshie",
+      "mudra"
+    ],
+    "categories": [
+      "social-archetypes",
+      "gender-performance",
+      "digital-identity"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ]
+  },
+  {
+    "term": "aura farming",
+    "definitions": [
+      "The act of deliberately doing cool, admirable, or memorable things specifically to build up one's image of effortless charisma — curating a reputation for being impressively magnetic."
+    ],
+    "etymology": "Compound of 'aura' (charisma/presence, viral in global internet slang ca. 2023-2024) + 'farming' (gaming term for grinding to accumulate resources). Widely used in Filipino Twitter/X and TikTok by 2024.",
+    "examples": [
+      {
+        "text": "Nag-aura farming siya nang mag-post ng fit check",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Solid aura farming ang entrance niya — alam niya sinasabi niya",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "rizz",
+      "awra",
+      "main character energy",
+      "estetik"
+    ],
+    "categories": [
+      "internet-culture",
+      "social-media-behavior",
+      "imported-trends"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ]
+  },
+  {
+    "term": "awit sayo",
+    "definitions": [
+      "'That sucks for you'; an expression of light sympathy (often tinged with sarcasm) at someone else's misfortune."
+    ],
+    "etymology": "Compound of 'awit' (from 'aw, sakit' = ouch, used to express a bad situation) + 'sa iyo' (for you). Documents in multiple 2024 Filipino slang guides as an expression of sympathy for someone's bad situation.",
+    "examples": [
+      {
+        "text": "Awit sa'yo na hindi ka natanggap",
+        "source": "Filipino youth casual speech, 2024"
+      },
+      {
+        "text": "Binalian ng susi, awit sa'yo lods",
+        "source": "Canonical OG list, native speaker, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "awit",
+      "aray mo",
+      "aray ko"
+    ],
+    "categories": [
+      "expressions",
+      "sympathy-irony"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "awra",
+    "definitions": [
+      "To show off; to slay; to dramatically command attention through one's appearance or energy; to put your absolute best foot forward.",
+      "(Evolved 2024-2025 usage) To slay an outfit, look, or performance."
+    ],
+    "etymology": "Beki/swardspeak phonetic play on 'aura' — the presence or charisma someone projects. Originally from the LGBTQ+ Filipino community, now fully mainstream in youth social media. Documented in the beki-gay-lingo raw source as having evolved 'in 2024-2025 TikTok culture to specifically mean to slay.'",
+    "examples": [
+      {
+        "text": "Nag-awra ka talaga sa event kanina!",
+        "source": "Filipino TikTok / beki lingo, 2024"
+      },
+      {
+        "text": "Mag-awra ka naman, huwag kang mahiyain",
+        "source": "Filipino fashion/beauty content, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "aura farming",
+      "bongga",
+      "shontis",
+      "drip"
+    ],
+    "categories": [
+      "beki-swardspeak",
+      "fashion-and-style",
+      "self-expression"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ]
+  },
+  {
+    "term": "ayoko na",
+    "definitions": [
+      "'I don't want this anymore'; 'I'm done'; 'I give up' — an expression of exhaustion, resignation, or burnout. Used both sincerely and humorously online."
+    ],
+    "etymology": "Standard Tagalog: 'ayoko' (I don't want / I'm unwilling) + 'na' (already/anymore). Though grammatically conventional, it has become a meme-level expression of exasperation in Filipino digital culture — particularly for academic pressure, toxic relationships, or overwhelming drama.",
+    "examples": [
+      {
+        "text": "Ayoko na, four exams in one week tapos thesis pa",
+        "source": "Filipino student social media, 2024"
+      },
+      {
+        "text": "Ayoko na. Wala na akong masasabi.",
+        "source": "Filipino Gen Z meme culture, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "pahinga na",
+      "laya",
+      "kalimutan ka",
+      "huli na"
+    ],
+    "categories": [
+      "expressions",
+      "burnout-culture",
+      "relatable-struggle"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ]
+  },
+  {
+    "term": "babaero",
+    "definitions": [
+      "A womanizer; a man who pursues or romantically involves himself with many women simultaneously; a philanderer."
+    ],
+    "etymology": "From Tagalog 'babae' (woman) + '-ro' agentive suffix (from Spanish, indicating one who pursues). Billboard PH chart-topper 'Babaero' by gins&melodies feat. Hev Abi (2024, #1 for 5 weeks) amplified the term's currency significantly.",
+    "examples": [
+      {
+        "text": "Huwag kang maniwala sa kanya — babaero 'yan!",
+        "source": "Filipino youth speech, 2024"
+      },
+      {
+        "text": "Babaero ka na naman, ilang jowa na 'yan?",
+        "source": "Fan commentary on gins&melodies feat. Hev Abi, Babaero (2024)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "maharot",
+      "malandi",
+      "kabet"
+    ],
+    "categories": [
+      "relationship-culture",
+      "gender-dynamics",
+      "negative-traits"
+    ],
+    "sources": [
+      "Hev Abi — discography 2023-2026"
+    ]
+  },
+  {
+    "term": "babain",
+    "definitions": [
+      "To visit; to go to (a place or person). A coded street-slang verb meaning to head somewhere, particularly to visit a person's territory or location."
+    ],
+    "etymology": "Documented in the canonical OG native speaker list as meaning 'puntahan' (to go to/visit). Possibly derived from 'baba' (to descend/come down) applied in street contexts to mean visiting someone's spot.",
+    "examples": [
+      {
+        "text": "Babain kita mamaya, nandoon ka ba?",
+        "source": "Filipino street slang / canonical OG list, 2024"
+      },
+      {
+        "text": "Ba-babain namin ang lugar ninyo ngayong gabi",
+        "source": "Filipino youth casual speech, 2024"
+      }
+    ],
+    "regional_notes": "Primarily used in Manila street/youth contexts.",
+    "related_terms": [
+      "rekta",
+      "slide (sa gig)",
+      "bounce"
+    ],
+    "categories": [
+      "street-slang",
+      "coded-language"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "babatain",
+    "definitions": [
+      "To disrespect, insult, or publicly drag someone — to call someone out with harsh words in a public or social media context."
+    ],
+    "etymology": "Extracted from Shanti Dope's Bad Type (Guns and Roses, 2023). Possibly from 'bato' (stone) used causatively — pelting someone with insults — or from 'bata' (to endure). Used in Filipino rap as a verb for verbal takedowns.",
+    "examples": [
+      {
+        "text": "Babatain namin ang mga tolongges — straight facts lang",
+        "source": "Shanti Dope, Bad Type / Guns and Roses (2023)"
+      },
+      {
+        "text": "Huwag kang bumanat kung ayaw mong babatain",
+        "source": "Filipino rap fan community, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "banat",
+      "dogshow",
+      "talksick"
+    ],
+    "categories": [
+      "conflict-language",
+      "rap-culture",
+      "callout-language"
+    ],
+    "sources": [
+      "Shanti Dope — recent releases 2023-2026"
+    ]
+  },
+  {
+    "term": "badesh",
+    "definitions": [
+      "(Beki/swardspeak) A playful, affectionate self-referential term used by younger LGBTQ+ Filipinos; a softened, stylized variant of 'bakla' (gay man) formed with the swardspeak '-esh' suffix."
+    ],
+    "etymology": "From 'bakla' (Filipino for gay/effeminate man) + Swardspeak suffix '-esh' (a productive suffix in Filipino queer language — compare 'gandesh' from 'ganda'). Documented in a 2024 academic study on Filipino queer language word formation (Cogent Arts & Humanities).",
+    "examples": [
+      {
+        "text": "Badesh ka ba? — Oo naman, proud!",
+        "source": "Filipino LGBTQ+ social media, 2024"
+      },
+      {
+        "text": "Kami na mga badesh, wag kayong matakot",
+        "source": "Filipino TikTok LGBTQ+ content, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "vaklush",
+      "achoo",
+      "bakla",
+      "shontis"
+    ],
+    "categories": [
+      "beki-swardspeak",
+      "lgbtq-culture",
+      "identity-terms"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ]
+  },
+  {
+    "term": "bagay",
+    "definitions": [
+      "Suitable; fitting; looks good; a compatible match. As an exclamation ('Bagay kayo!'), used to say two people look great together or are a perfect match, especially romantically."
+    ],
+    "etymology": "Standard Tagalog 'bagay' (suitable/fitting). In modern Gen Z usage, it has become a high-energy compliment or ship declaration. Reinforced by ALLMO$T's track 'Bagay Tayo' (2018) which remains widely referenced in 2023-2026 fan culture.",
+    "examples": [
+      {
+        "text": "Bagay tayo — magkapareho ang vibe natin",
+        "source": "ALLMO$T, Bagay Tayo (2018), referenced in Gen Z fan culture 2023-2026"
+      },
+      {
+        "text": "Bagay kayo ni kuya! Sana all!",
+        "source": "Filipino social media comment, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "jowa",
+      "sana all",
+      "marupok"
+    ],
+    "categories": [
+      "relationship-culture",
+      "compliment",
+      "compatibility"
+    ],
+    "sources": [
+      "ALLMO$T — tracks 2023-2026"
+    ]
+  },
+  {
+    "term": "baha ka lang, pinoy kami",
+    "definitions": [
+      "'You're just a flood — we're Filipinos'; a defiant, humorous rallying cry used during typhoon season, asserting Filipino resilience and dark-comedy invincibility in the face of natural disasters."
+    ],
+    "etymology": "Emerged as a disaster meme trend on Filipino Facebook and TikTok, resurfacing every typhoon season. Went viral during Typhoon Carina (July 2024). Embodies Filipino dark humor and 'bahala na' (come what may) resilience — turning catastrophe into a flexed identity claim.",
+    "examples": [
+      {
+        "text": "Baha ka lang, Pinoy kami! *proceeds to swim to school*",
+        "source": "Filipino Facebook meme pages, Typhoon Carina aftermath, July 2024"
+      },
+      {
+        "text": "Ilang taon na ba tayong surviving? Baha ka lang, Pinoy kami",
+        "source": "Filipino TikTok disaster humor trend, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "bahala na",
+      "diskarte",
+      "galing sa wala"
+    ],
+    "categories": [
+      "disaster-humor",
+      "national-identity",
+      "resilience-culture",
+      "internet-meme"
+    ],
+    "sources": [
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
+    ]
+  },
+  {
+    "term": "balagbag",
+    "definitions": [
+      "(Hev Abi/rap usage) Fake; a poser; someone who puts on a front or acts inauthentic.",
+      "(Standard Tagalog root) Placed crosswise; blocking the way. Colloquially: something that went wrong, fell apart, or was derailed."
+    ],
+    "etymology": "Standard Tagalog 'balagbag' means crosswise or crossbeam. In Hev Abi's WELCOME2DTQ (2023), it is used to mean 'fake/poser' — someone not aligned with truth, placed 'across' reality. In youth slang, it extends to mean something derailed or failed.",
+    "examples": [
+      {
+        "text": "Totoo lang ako, 'di ako balagbag",
+        "source": "Hev Abi, WELCOME2DTQ (2023)"
+      },
+      {
+        "text": "Balagbag na ang plano nila — sira lahat",
+        "source": "Filipino youth casual speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "tolongges",
+      "rekta",
+      "patola"
+    ],
+    "categories": [
+      "authenticity-inauthenticity",
+      "conflict-language",
+      "street-slang"
+    ],
+    "sources": [
+      "Hev Abi — discography 2023-2026"
+    ]
+  },
+  {
+    "term": "banat",
+    "definitions": [
+      "A witty punchline, joke, pick-up line, or cutting remark — verbal content meant to hit hard.",
+      "(Street/OG usage) To fight or challenge someone; to confront physically or verbally.",
+      "Emotionally resonant hugot-style quotes or one-liners shared widely on social media."
+    ],
+    "etymology": "Tagalog 'banat' (to stretch/snap). The metaphor of something snapping evolved into a verbal snap — a cutting line or challenge. The canonical OG list documents it as 'palag' (confrontational). In social media culture, 'banat quotes' are widely shared hugot content.",
+    "examples": [
+      {
+        "text": "Sa mga banat ko'y hindi ka makasabay",
+        "source": "OPM rap/hip-hop lyric, 2024"
+      },
+      {
+        "text": "Ang banat naman ng hugot line na 'yan, nasaktan ako",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "babatain",
+      "talksick",
+      "hugot",
+      "gera"
+    ],
+    "categories": [
+      "wordplay",
+      "conflict-language",
+      "humor",
+      "rap-culture"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "bato",
+    "definitions": [
+      "(Street slang) Crystal methamphetamine (shabu/ice) — the most widely used Filipino street term for the drug.",
+      "(Standard Tagalog) Stone; rock."
+    ],
+    "etymology": "Standard Tagalog 'bato' (stone/rock). In street slang, the metaphor of a hard, crystalline stone was applied to methamphetamine. Shanti Dope's 'Amatz' (2019) and DRUGS EP (2024) use 'bato' as the thematic centerpiece of narco-narrative rap.",
+    "examples": [
+      {
+        "text": "Makinang na bato, mapadamuhang mabango",
+        "source": "Shanti Dope, Amatz (2019)"
+      },
+      {
+        "text": "'Yung bato, parak, kamatayan — trilogy ng kalye",
+        "source": "Shanti Dope, Amatz (2019), lyric analysis"
+      }
+    ],
+    "regional_notes": "Dual meaning nationally understood. The drug connotation is the primary slang meaning in street and rap contexts.",
+    "related_terms": [
+      "parak",
+      "tulak",
+      "sabog",
+      "amats"
+    ],
+    "categories": [
+      "drug-culture",
+      "street-slang",
+      "dual-meaning"
+    ],
+    "sources": [
+      "Shanti Dope — recent releases 2023-2026"
+    ]
+  },
+  {
+    "term": "batugan",
+    "definitions": [
+      "Lazy; a lazy person; someone who avoids work, effort, or responsibility."
+    ],
+    "etymology": "From Tagalog 'bato' (stone/inert) + '-ugan' suffix (tendency). Literally 'stone-natured' or 'inert by habit.' Flow G's track 'Batugan' uses it as a foil to hustle culture narratives.",
+    "examples": [
+      {
+        "text": "Ang sipag magtututulog, kaya pitaka puyat",
+        "source": "Flow G, Batugan (2023-2024)"
+      },
+      {
+        "text": "Batugan ka talaga — gising ka lang pag kumain",
+        "source": "Filipino youth casual speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "petiks",
+      "bisyo",
+      "go getta",
+      "hustlin"
+    ],
+    "categories": [
+      "character-traits",
+      "negative-traits",
+      "hustle-culture"
+    ],
+    "sources": [
+      "Flow G — solo and featured verses 2023-2026"
+    ]
+  },
+  {
+    "term": "bb",
+    "definitions": [
+      "'Baby' or 'babe' — a term of endearment used between romantic partners, close friends, or as an affectionate address in online communication."
+    ],
+    "etymology": "Abbreviated from English 'baby' or 'babe.' Universal in Filipino texting and online culture since the early 2000s, with continued heavy use through Messenger, Viber, and social media platforms in 2023-2026.",
+    "examples": [
+      {
+        "text": "Bb, kumain ka na ba?",
+        "source": "Filipino texting/Messenger, 2024"
+      },
+      {
+        "text": "Miss na kita bb",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "beh",
+      "ebeb",
+      "pangga",
+      "jowa"
+    ],
+    "categories": [
+      "terms-of-endearment",
+      "texting-culture",
+      "relationship-culture"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ]
+  },
+  {
+    "term": "beh",
+    "definitions": [
+      "A term of endearment used between close friends, roughly equivalent to 'babe,' 'sis,' 'bro,' or 'bestie.' Signals closeness and familiarity."
+    ],
+    "etymology": "Likely derived from 'best' (as in 'best friend') — a syllabic variant alongside 'bes' and 'beshie.' Widely used in Filipino Facebook group chats and social media. Has influence from beki/gay lingo registers.",
+    "examples": [
+      {
+        "text": "Beh, grabe yung nangyari kanina!",
+        "source": "Filipino Facebook meme pages, 2024"
+      },
+      {
+        "text": "Beh! May jowa ka na pala — chika!",
+        "source": "Filipino group chat, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "bes",
+      "beshie",
+      "mumshie",
+      "teh"
+    ],
+    "categories": [
+      "terms-of-endearment",
+      "social-address",
+      "friend-culture"
+    ],
+    "sources": [
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
+    ]
+  },
+  {
+    "term": "benchwarmer",
+    "definitions": [
+      "A person kept as a backup romantic option — held in reserve in case the primary relationship or talking stage doesn't work out. The 'Plan B' in someone's romantic life."
+    ],
+    "etymology": "Borrowed from sports terminology (a reserve player who rarely gets playing time). Applied to modern Filipino dating culture by the FastForward MR Filipino Gen Z Dictionary (2024) as a descriptor for the practice of maintaining multiple romantic options.",
+    "examples": [
+      {
+        "text": "Benchwarmer lang pala siya sa lovelife ni kuya — may primary siya",
+        "source": "FastForward MR Filipino Gen Z Dictionary, 2024"
+      },
+      {
+        "text": "Huwag kang maging benchwarmer — kausapin mo na siya directly",
+        "source": "Filipino dating advice social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "kabet",
+      "jowa",
+      "seenzone"
+    ],
+    "categories": [
+      "relationship-culture",
+      "dating-terms",
+      "borrowed-slang"
+    ],
+    "sources": [
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
+    ]
+  },
+  {
+    "term": "bes",
+    "definitions": [
+      "Best friend; a close friend. Used as a direct form of address between close friends, equivalent to 'bestie,' 'bro,' or 'sis.'"
+    ],
+    "etymology": "Clipped from English 'best' (as in best friend). One of several related terms of endearment (bes, beh, beshie) in Filipino youth culture. Documented widely in Filipino meme pages and group chat culture.",
+    "examples": [
+      {
+        "text": "Bes, tingnan mo ito — grabe!",
+        "source": "Filipino Facebook meme pages, 2024"
+      },
+      {
+        "text": "Libre kita, bes — kain tayo!",
+        "source": "Filipino youth casual speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "beh",
+      "beshie",
+      "teh",
+      "mane"
+    ],
+    "categories": [
+      "terms-of-endearment",
+      "friend-culture",
+      "social-address"
+    ],
+    "sources": [
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
+    ]
+  },
+  {
+    "term": "beterano",
+    "definitions": [
+      "Veteran; a seasoned, experienced person who carries themselves with the confidence and wisdom of long experience — even if they appear young."
+    ],
+    "etymology": "Adapted Filipino spelling/pronunciation of English/Spanish 'veteran' (or 'veterano'). Used as a street credibility descriptor in Filipino rap. Documented in Shanti Dope feat. Skinny G of Acdmnd$ 'Peekaboo!' (2021, active in lexicon 2023-2025).",
+    "examples": [
+      {
+        "text": "Ano kamo baguhan pero kilos beterano",
+        "source": "Shanti Dope feat. Skinny G of Acdmnd$, Peekaboo! (2021)"
+      },
+      {
+        "text": "Beterano na siya sa game — walang makakatalo",
+        "source": "Filipino rap community, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "gods",
+      "day ones",
+      "galing kalye"
+    ],
+    "categories": [
+      "credibility-identity",
+      "rap-culture",
+      "street-slang"
+    ],
+    "sources": [
+      "Shanti Dope — recent releases 2023-2026"
+    ]
+  },
+  {
+    "term": "bibo",
+    "definitions": [
+      "Lively; vivacious; energetic; bright and sharp-minded; the life of the group. Describes someone full of enthusiasm, social energy, and quick wit."
+    ],
+    "etymology": "Standard Tagalog adjective meaning lively/vivacious. In Gen Z usage, it compliments the extroverted, always-on personality type — the person who brings energy to any room or group chat.",
+    "examples": [
+      {
+        "text": "Bibo siya sa klase — laging may tanong",
+        "source": "Filipino youth speech, 2024"
+      },
+      {
+        "text": "Sobrang bibo ng bagong miyembro ng grupo",
+        "source": "Filipino casual speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "kengkoy",
+      "maarte"
+    ],
+    "categories": [
+      "character-traits",
+      "positive-traits",
+      "energy"
+    ],
+    "sources": [
+      "ALLMO$T — tracks 2023-2026"
+    ]
+  },
+  {
+    "term": "bigla kang sumakses",
+    "definitions": [
+      "'You suddenly became successful/famous'; used to congratulate someone who unexpectedly went viral, achieved recognition, or leveled up — sincerely (celebratory) or ironically (mocking someone acting too big after minor success)."
+    ],
+    "etymology": "Phrase from a viral speech by TikTok personality Niña (December 2024), addressing someone who unexpectedly succeeded. 'Bigla' (suddenly) + 'sumakses' (became successful, from 'success'). Rapidly spread as a TikTok sound and meme template.",
+    "examples": [
+      {
+        "text": "Bigla kang sumakses! Proud na proud kami sa'yo!",
+        "source": "TikTok PH viral clips, December 2024 (Niña speech)"
+      },
+      {
+        "text": "Bigla kang sumakses tapos hindi ka na makilala ng dati mong tropa",
+        "source": "Filipino TikTok / social media, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "boss na",
+      "galing sa wala",
+      "ere"
+    ],
+    "categories": [
+      "success-culture",
+      "viral-phrases",
+      "internet-meme"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ]
+  },
+  {
+    "term": "bisyo",
+    "definitions": [
+      "Vice; a bad habit; a sinful or indulgent activity one repeatedly engages in.",
+      "(Gen Z casual) A guilty pleasure or recurring addiction — from late-night scrolling to compulsive online shopping."
+    ],
+    "etymology": "From Spanish 'vicio' (vice/bad habit) via Tagalog. Standard Tagalog for generations. In modern Gen Z usage, often used humorously to describe harmless obsessions (K-drama binging, Shopee hauls, TikTok scrolling) alongside the original negative connotation.",
+    "examples": [
+      {
+        "text": "Bisyo ko na ang Shopee — hindi na maka-itigil",
+        "source": "Filipino Gen Z social media, 2024"
+      },
+      {
+        "text": "Ang bisyo niya sa pag-inom — bawat weekend nandoon na siya",
+        "source": "Flow G x Hev Abi, Burgis (2024), lyric context"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "batugan",
+      "walwal",
+      "budol"
+    ],
+    "categories": [
+      "vices-habits",
+      "lifestyle",
+      "self-deprecating-humor"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "bitaw",
+    "definitions": [
+      "(Cebuano-origin, adopted nationally) 'I know, right!' / 'Exactly!' / 'That's true!' — an affirmative particle agreeing with what was just said.",
+      "(Tagalog root/street usage) Release; what someone can deliver or give; capability to come through."
+    ],
+    "etymology": "Cebuano/Visayan affirmative particle. Widely adopted into mainstream Filipino speech through social media and cross-regional youth exchange (2023-2025). The Tagalog root 'bitaw' (release of grip) informs the street meaning of delivering or giving.",
+    "examples": [
+      {
+        "text": "Mahal ra kaáyu. — Bitaw.",
+        "source": "Cebuano usage: 'It's too expensive.' — 'It sure is.'"
+      },
+      {
+        "text": "Bitaw nga — ganyan talaga siya",
+        "source": "Filipino youth mainstream usage, 2024"
+      },
+      {
+        "text": "Dami mong sabi, wala ka namang bitaw!",
+        "source": "Canonical OG list, native speaker, 2024"
+      }
+    ],
+    "regional_notes": "Originally Cebuano/Visayan. Now adopted nationally through social media and youth culture.",
+    "related_terms": [
+      "omsim",
+      "korique",
+      "alam na this"
+    ],
+    "categories": [
+      "agreement-affirmation",
+      "bisaya-crossover",
+      "regional-adoption"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "bnk",
+    "definitions": [
+      "Shorthand for 'banat na ko' — used in chat/texting to signal one is done, leaving, or calling it quits on a conversation or situation."
+    ],
+    "etymology": "Abbreviation of 'banat na ko' (I'm done / I'm out), using consonant-only compression common in Filipino text slang. Used in group chats when wrapping up or disengaging.",
+    "examples": [
+      {
+        "text": "BNK na, matutulog na ko",
+        "source": "Filipino group chat / youth texting culture, 2024"
+      },
+      {
+        "text": "BNK, wala na ko lakas sa argument na 'to",
+        "source": "Filipino online chat, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "bounce",
+      "patay na",
+      "banat",
+      "ayoko na"
+    ],
+    "categories": [
+      "texting-culture",
+      "abbreviation",
+      "disengagement"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ]
+  },
+  {
+    "term": "bongga",
+    "definitions": [
+      "Fabulous; extravagant; impressive; over-the-top in the best possible way — grand, spectacular, or delightfully excessive."
+    ],
+    "etymology": "Filipino gay lingo (swardspeak) from at least the 1980s, now universally adopted across all demographics. One of the most mainstream beki words. NYLON Manila (2025) confirmed it as one of the beki-origin words that Filipinos now use without thinking about the LGBTQ+ origin.",
+    "examples": [
+      {
+        "text": "Bongga ng outfit mo today!",
+        "source": "Filipino Gen Z social media, 2024"
+      },
+      {
+        "text": "Ang bongga ng setup ng party!",
+        "source": "Filipino youth casual speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "boogsh",
+      "awra",
+      "shontis",
+      "pak ganern"
+    ],
+    "categories": [
+      "beki-swardspeak",
+      "fashion-and-style",
+      "hype-expressions"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "boogsh",
+    "definitions": [
+      "An exclamation used when reacting to something extravagant, over-the-top, or impressively excessive — a Gen Z phonetic evolution of 'bongga.'"
+    ],
+    "etymology": "Documented in Filipino meme pages (2024-2025) and JMara/emerging rap fan communities as a modern evolution of 'bongga.' The phonetic spelling captures a gasping, explosive exclamation quality — heightening the theatrical fabulousness of the original term.",
+    "examples": [
+      {
+        "text": "Ang boogsh ng party ni Maria, ang daming ilaw!",
+        "source": "Filipino Facebook meme pages, 2024"
+      },
+      {
+        "text": "Boogsh! Ang laki ng drip!",
+        "source": "JMara / emerging PH rap fan community, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "bongga",
+      "awra",
+      "pak ganern",
+      "shontis"
+    ],
+    "categories": [
+      "beki-swardspeak",
+      "hype-expressions",
+      "internet-meme",
+      "generational-evolution"
+    ],
+    "sources": [
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang",
+      "JMara / Locos Only / other emerging PH rap acts 2023-2026"
+    ]
+  },
+  {
+    "term": "booking",
+    "definitions": [
+      "(LGBTQ+ origin) A romantic or sexual date arrangement; the act of setting up or going on a date.",
+      "(General youth usage) 'Claiming' or reserving a romantic interest — calling dibs on someone."
+    ],
+    "etymology": "From beki/gay lingo dating vocabulary. Documented in the Vibal Foundation Philippine Slang and Gay Dictionary (2024). Borrows from English 'booking' (reserving a slot/appointment) applied to romantic or physical encounters.",
+    "examples": [
+      {
+        "text": "May booking ka ba ngayon?",
+        "source": "Beki/gay lingo, Vibal Foundation Philippine Slang and Gay Dictionary (2024)"
+      },
+      {
+        "text": "Booking na kita — ikaw na jowa ko",
+        "source": "Filipino youth flirting culture, 2024"
+      }
+    ],
+    "regional_notes": "Originates in LGBTQ+ Filipino community; widely understood across youth demographics.",
+    "related_terms": [
+      "jowa",
+      "kabet",
+      "babaero",
+      "pa-mine"
+    ],
+    "categories": [
+      "beki-swardspeak",
+      "relationship-culture",
+      "dating-terms"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ]
+  },
+  {
+    "term": "boss na",
+    "definitions": [
+      "Already a boss; having achieved success, status, or mastery. A declaration that someone has 'made it' — risen from nothing to a position of confidence and achievement."
+    ],
+    "etymology": "Filipino hip-hop phrase popularized by Flow G in 'Mala SV' (March 2025): 'Galing sa wala, ngayon boss na' (From nothing, now already a boss). 'Boss' borrowed from English but used as a status marker; 'na' (already) adds the sense of having arrived.",
+    "examples": [
+      {
+        "text": "Galing sa wala, ngayon boss na",
+        "source": "Flow G, Mala SV (March 2025)"
+      },
+      {
+        "text": "Boss na ang dating niya ngayon — layo ng journey",
+        "source": "OPM fan commentary, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "galing sa wala",
+      "bigla kang sumakses",
+      "burgis",
+      "go getta"
+    ],
+    "categories": [
+      "success-culture",
+      "hustle-culture",
+      "rap-culture",
+      "aspirational-language"
+    ],
+    "sources": [
+      "Flow G — solo and featured verses 2023-2026"
+    ]
+  },
+  {
+    "term": "bounce",
+    "definitions": [
+      "To leave; to depart; to head out. Used to signal one is about to go or to suggest the group should move on."
+    ],
+    "etymology": "Borrowed from US English slang 'bounce' (to leave). Documented in the canonical OG native speaker list as meaning 'goodbye/leaving / I'm out.'",
+    "examples": [
+      {
+        "text": "Bounce na tayo — late na",
+        "source": "Canonical OG list, native speaker, 2024"
+      },
+      {
+        "text": "Bounce na ko, may pasok pa ako bukas",
+        "source": "Filipino youth casual speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "arat",
+      "tara",
+      "bnk",
+      "slide (sa gig)"
+    ],
+    "categories": [
+      "borrowed-slang",
+      "departure-language",
+      "street-slang"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "brain rot",
+    "definitions": [
+      "The mental degradation or numbness caused by consuming large quantities of low-quality, repetitive, or mindless content — particularly through endless social media scrolling.",
+      "The state of being so immersed in internet/meme culture that one's thinking and references become dominated by online content."
+    ],
+    "etymology": "Global internet slang named Oxford's Word of the Year 2024. Adopted rapidly by Filipino youth on Twitter/X and TikTok PH, where it became a self-aware term for the effects of overconsuming content.",
+    "examples": [
+      {
+        "text": "Grabe, sobrang daming brain rot content sa FYP ko",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Tatlong oras na ako nasa TikTok — full brain rot na 'ko",
+        "source": "Filipino Gen Z social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "FYP",
+      "lutang",
+      "touch grass"
+    ],
+    "categories": [
+      "internet-culture",
+      "digital-wellness",
+      "imported-trends"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ]
+  },
+  {
+    "term": "burgis",
+    "definitions": [
+      "Wealthy; high-class; bourgeois; living lavishly or with upper-class affectations. Used aspirationally ('going burgis') or critically ('burgis ka — hindi mo naiintindihan')."
+    ],
+    "etymology": "From French 'bourgeois' via Filipino revolutionary-era 'burgesya.' The Commission on Filipino Language prescribes 'burgés' as standard spelling (2018). Flow G and Hev Abi's collab 'Burgis' (2024) reclaimed it aspirationally — celebrating making it from poverty to comfort.",
+    "examples": [
+      {
+        "text": "Burgis na yung lifestyle niya — layo ng pinangalingan",
+        "source": "Flow G x Hev Abi, Burgis (2024)"
+      },
+      {
+        "text": "Saan ka kumain? May white tablecloth? Burgis!",
+        "source": "Filipino Gen Z social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "boss na",
+      "galing sa wala",
+      "ere",
+      "mala-[x]"
+    ],
+    "categories": [
+      "class-wealth",
+      "aspirational-language",
+      "borrowed-slang",
+      "rap-culture"
+    ],
+    "sources": [
+      "Flow G — solo and featured verses 2023-2026"
+    ]
+  },
+  {
+    "term": "cancel",
+    "definitions": [
+      "To publicly withdraw support from a person, brand, or group — typically after a controversy, scandal, or perceived moral failing.",
+      "(Cancel culture) The broader online practice of boycotting and public shaming of perceived wrongdoers."
+    ],
+    "etymology": "Borrowed from US English internet culture ('cancel culture'). Over 4 in 5 Filipinos have heard the term, and the practice is embedded in Filipino social media discourse. The Filipino-language analog is 'kuyog' (collective antagonism/mobbing).",
+    "examples": [
+      {
+        "text": "Kinansela na siya ng mga tao — nawalan ng mga sponsors",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Na-cancel ka na ba? Masama 'yon para sa career",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "kuyog",
+      "ratio",
+      "dogshow"
+    ],
+    "categories": [
+      "internet-culture",
+      "cancel-culture",
+      "social-accountability",
+      "borrowed-slang"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ]
+  },
+  {
+    "term": "cappin",
+    "definitions": [
+      "Lying; boasting falsely; making claims that aren't true. From 'capping' (to cap = to lie)."
+    ],
+    "etymology": "From AAVE 'cap' (a lie) + '-in' (gerund). Popularized globally through hip-hop and platforms like Twitter, TikTok, and Snapchat. Adopted into Filipino youth speech and rap by 2023-2024 alongside the broader 'cap/no cap' construction.",
+    "examples": [
+      {
+        "text": "Sabi niya may jowa siya? Cappin 'yan!",
+        "source": "Filipino youth casual speech, 2024"
+      },
+      {
+        "text": "Wag kang magcappin dito — alam namin totoo",
+        "source": "Canonical OG list, native speaker, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "no cap",
+      "walang ebas",
+      "rekta",
+      "omsim"
+    ],
+    "categories": [
+      "borrowed-slang",
+      "honesty-deception",
+      "hip-hop-culture"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH"
+    ]
+  },
+  {
+    "term": "chariz",
+    "definitions": [
+      "'Just kidding!' / 'I'm joking!' — used after a bold or provocative statement to signal it was meant in jest. The most widely used online variation of the 'charot' family of Filipino joke markers."
+    ],
+    "etymology": "Swardspeak variation of 'charot' (just kidding), formed through affixation — adding a stylized suffix. Documented as the most commonly encountered charot variant on the internet by 2024. The family includes: char, chos, chariz, charot, echoz/echos, eme.",
+    "examples": [
+      {
+        "text": "Uy crush kita! Chariz!",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Alis na kita sa buhay ko. Chariz!",
+        "source": "Filipino youth casual speech / social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "char",
+      "chos",
+      "eme",
+      "echoz",
+      "charot"
+    ],
+    "categories": [
+      "beki-swardspeak",
+      "humor",
+      "joke-markers",
+      "generational-evolution"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ]
   }
 ]
