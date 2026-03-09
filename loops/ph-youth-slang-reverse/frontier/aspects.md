@@ -2,10 +2,10 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 7
-- Pending: 18
+- Analyzed: 8
+- Pending: 17
 - Convergence counter: 0/3
-- Raw terms gathered: 113
+- Raw terms gathered: 128
 
 ---
 
@@ -18,7 +18,7 @@
 - [x] Hev Abi — discography 2023-2026
 - [x] Matthaios — tracks and features 2023-2026
 - [x] Because — discography 2023-2026
-- [ ] ALLMO$T — tracks 2023-2026
+- [x] ALLMO$T — tracks 2023-2026
 - [ ] Shanti Dope — recent releases 2023-2026
 - [ ] Tus Brothers — discography 2023-2026
 - [ ] JMara / Locos Only / other emerging PH rap acts 2023-2026

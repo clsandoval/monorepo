@@ -10,6 +10,7 @@
 | 6 | 2026-03-09 | Matthaios — tracks and features 2023-2026 | 1 (Gather) | 15 | Romance/R&B slang cluster: smitten interjections from "Catriona" ("patay na", "finish ka"); informal certainty expressions ("sure ball", "sure na sure", "matik na", "panalo ka na 'matic"); hype interjections including Matthaios trademark ("yes sir", "yuh-yeet"); descriptive informal expressions ("nakakatunaw", "win na win"); Bisaya crossover endearment/exclamation ("pangga", "halaka"); classical Tagalog revival in modern OPM ("nararahuyo"); 2025 single-linked youth expression ("ang lala mo"); affection culture term ("lambing"); sources: Catriona, Pangga, Nararahuyo, Lala (2025) |
 
 | 7 | 2026-03-09 | Because — discography 2023-2026 | 1 (Gather) | 15 | Heartbreak/breakup lexicon cluster ("BNK", "wasak", "jowa", "ayoko na"); trap-soul lifestyle terms ("yosi", "pausok", "hipak", "SZN"); personality/attitude ("suplada", "babaero", "grabe"); Taglish portmanteau ("talksick"); borrowed English slang fully integrated ("no shade", "bb", "SZN"); source: Heartbreak SZN 3 (2024) — 15 tracks; cross-confirmed babaero with Hev Abi file |
+| 8 | 2026-03-09 | ALLMO$T — tracks 2023-2026 | 1 (Gather) | 15 | Romantic/flirtatious cluster ("maharot", "mailap", "malandi", "kiri", "haliparot", "talandi"); internet/TikTok era terms ("FYP", "sanaol", "lodicakes"); personality descriptors ("pabebe", "maarte", "bibo"); community language ("naks", "teh"); compatibility term from viral hit ("bagay"); primary sources: Maharot (2024), Mailap (2025), FYP LUV (2024); note: ALLMO$T leans romantic R&B — vocabulary skews toward flirtation and relationship compatibility themes |
 
 ## Iteration 1 Detail — 2026-03-09
 
@@ -141,6 +142,38 @@
 - "Ere" and "paos" are specifically Filipino vocabulary not well-documented in earlier files
 - "Ibong Adarna" represents cultural reference-as-slang: the epic poem gives youth a romantic metaphor
 - Collaboration "Burgis" with Hev Abi (next aspect on list) provides lexical bridge to next gather iteration
+
+## Iteration 8 Detail — 2026-03-09
+
+**Aspect:** ALLMO$T — tracks 2023-2026
+**Wave:** 1 (Gather)
+**Raw file:** raw/allmost.json (15 terms)
+
+### Terms Gathered
+1. maharot — flirtatious/mischievous/naughty; ALLMO$T "Maharot" (Dec 2024): "Baby, sorry kung masyadong maharot"
+2. mailap — elusive/hard to get romantically; Clien × ALLMO$T "Mailap" (Jan 2025): song title
+3. FYP — For You Page (TikTok); ALLMO$T "FYP LUV" (Oct 2024): song title using viral internet slang
+4. naks — playful exclamation of impressed surprise; fan comment on "BoYFRieND" video: "Naks gangsta!!"
+5. bagay — compatible/suited for each other; ALLMO$T "Bagay Tayo" (2018, still referenced 2023-2026)
+6. sanaol — "I wish everyone had this"; Gen Z envy/admiration expression in ALLMO$T fan comment culture
+7. lodicakes — cutesy variant of "lodi" (idol); Gen Z affectionate term for someone admired
+8. pabebe — acting cute/baby-like; sometimes diva-like behavior; found in ALLMO$T demographic research
+9. malandi — flirtatious/promiscuous; synonym of maharot found in Tagalog dictionary research
+10. haliparot — flirtatious/promiscuous; synonym of maharot from HiNative; slightly more vulgar register
+11. kiri — coquettish/flirtatious; synonym of maharot, often used affectionately
+12. maarte — overly fussy/high-maintenance/diva complex; common descriptor in ALLMO$T fanbase demographics
+13. bibo — lively/energetic/quick-witted; found in ALLMO$T OPM hip-hop research context
+14. teh — informal address for girl/sis; shortened from "ate"; associated with gay lingo origins; common in fan culture
+15. talandi — flirtatious/sexually mischievous; synonym of maharot from HiNative
+
+### Notes
+- ALLMO$T occupies romantic R&B-hip-hop niche — vocabulary clusters around flirtation, compatibility, and modern love
+- "Maharot" and its synonyms (malandi, haliparot, kiri, talandi) form a rich flirtation cluster — unique to this iteration
+- "FYP" and "sanaol" confirm TikTok-era internet slang penetrating OPM song titles and fan commentary
+- "Bagay" as modern youth slang: while a standard Tagalog word, its specific use as a youth compatibility/aesthetic term ("bagay sila", "bagay ka sa kanya") has evolved in 2023-2026 context
+- ALLMO$T has ~1.7M Spotify monthly listeners; their romantic vocabulary has mainstream reach across PH youth
+- "Naks" is an older Filipino exclamation but seeing renewed use in youth/fan contexts alongside ALLMO$T's fanbase
+- Cross-artist potential: "maharot" appeared in Hev Abi "Alam Mo Ba Girl" context as well — validation for Wave 2
 
 ## Iteration 7 Detail — 2026-03-09
 
