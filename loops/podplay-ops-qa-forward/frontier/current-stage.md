@@ -1,0 +1,55 @@
+# PodPlay Ops QA Forward Loop — Stage Tracker
+
+**Total stages**: 46
+**Current stage**: 001
+
+## Stages
+
+| # | Description | Status |
+|---|-------------|--------|
+| 001 | Migration: Seed Installers (F01) | pending |
+| 002 | Migration: wizard_step Column (F04) | pending |
+| 003 | Migration: Seed Inventory (F06) | pending |
+| 004 | Migration: Replace Team Contacts (F09) | pending |
+| 005 | Migration: Vendors Table + Seed (F11) | pending |
+| 006 | Migration: Recurring Fees (F12) | pending |
+| 007 | SearchableSelect Component (F08) | pending |
+| 008 | SearchableSelect Tests (F08) | pending |
+| 009 | InstallerSettings Component (F01) | pending |
+| 010 | Installers Route + Settings Nav (F01) | pending |
+| 011 | InstallerSettings Tests (F01) | pending |
+| 012 | ISP Provider Dropdown (F03) | pending |
+| 013 | ISP Dropdown Tests (F03) | pending |
+| 014 | Wizard Step Persistence: Save on Transition (F04) | pending |
+| 015 | Status-Based Routing from Dashboard (F04) | pending |
+| 016 | Redirect Non-Intake Projects from Intake Route (F04) | pending |
+| 017 | Project State Persistence Tests (F04) | pending |
+| 018 | AdjustmentModal Component (F07) | pending |
+| 019 | Wire AdjustmentModal to /inventory Page (F07) | pending |
+| 020 | Wire AdjustmentModal to Procurement Inventory Check (F07) | pending |
+| 021 | Inventory Adjustment Tests (F07) | pending |
+| 022 | Replace SKU Swap Select with SearchableSelect (F08) | pending |
+| 023 | Replace Installer Select with SearchableSelect (F08) | pending |
+| 024 | SearchableSelect Integration Tests (F08) | pending |
+| 025 | VendorSettings Component (F11) | pending |
+| 026 | Vendors Route + Settings Nav (F11) | pending |
+| 027 | VendorSettings Tests (F11) | pending |
+| 028 | RecurringFeesTab Component (F12) | pending |
+| 029 | Add Recurring Fees Tab to Financials Wizard (F12) | pending |
+| 030 | Global Financials Recurring Summary (F12) | pending |
+| 031 | Recurring Fees Tests (F12) | pending |
+| 032 | Full Build + Test Suite Check | pending |
+| 033 | Playwright: /settings/installers (F01) | pending |
+| 034 | Playwright: /settings/vendors (F11) | pending |
+| 035 | Playwright: /settings/team (F09) | pending |
+| 036 | Playwright: /inventory (F06 + F07) | pending |
+| 037 | Playwright: Intake ISP Dropdown (F03) | pending |
+| 038 | Playwright: Intake Installer Selection (F01 + F08) | pending |
+| 039 | Playwright: Financials Recurring Fees Tab (F12) | pending |
+| 040 | Playwright: Global Financials Recurring Summary (F12) | pending |
+| 041 | Playwright: Procurement SKU Swap (F08) | pending |
+| 042 | Playwright: Dashboard Status-Based Routing (F04) | pending |
+| 043 | Discovery: Hunt for Gaps | pending |
+| 044 | Discovery: Verify All 9 Findings | pending |
+| 045 | Update QA-FINDINGS.md | pending |
+| 046 | CONVERGE: Convergence Gate | pending |

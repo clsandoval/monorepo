@@ -236,6 +236,13 @@ loops:
     status: converged
     created: "2026-03-07"
     converged_at: "2026-03-09"
+  podplay-ops-qa-forward:
+    description: "Fix 9 open QA findings for PodPlay Ops (46 stages, targeted fixes against existing app)"
+    type: forward
+    max_iterations: 46
+    timeout_minutes: 30
+    status: active
+    created: "2026-03-09"
   ph-youth-slang-reverse:
     description: "Comprehensive dictionary & thesaurus of Filipino youth slang (2024-2026) from rap lyrics, TikTok, social media"
     type: reverse
