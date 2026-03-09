@@ -241,8 +241,9 @@ loops:
     type: forward
     max_iterations: 46
     timeout_minutes: 30
-    status: active
+    status: converged
     created: "2026-03-09"
+    converged_at: "2026-03-09"
   ph-youth-slang-reverse:
     description: "Comprehensive dictionary & thesaurus of Filipino youth slang (2024-2026) from rap lyrics, TikTok, social media"
     type: reverse
