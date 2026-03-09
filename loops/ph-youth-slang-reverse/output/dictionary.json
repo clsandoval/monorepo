@@ -1072,7 +1072,8 @@
       "lgbtq-lingo-crossover"
     ],
     "sources": [
-      "Ex Battalion — recent releases and features 2023-2026"
+      "Ex Battalion — recent releases and features 2023-2026",
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
     ]
   },
   {
@@ -1172,7 +1173,8 @@
       "borrowed-slang"
     ],
     "sources": [
-      "Ex Battalion — recent releases and features 2023-2026"
+      "Ex Battalion — recent releases and features 2023-2026",
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
     ]
   },
   {
@@ -2249,6 +2251,7 @@
       "negative-traits"
     ],
     "sources": [
+      "Because — discography 2023-2026",
       "Hev Abi — discography 2023-2026"
     ]
   },
@@ -3318,6 +3321,7 @@
       "emotional-expression"
     ],
     "sources": [
+      "Tus Brothers — discography 2023-2026",
       "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
     ]
   },
@@ -3891,6 +3895,8 @@
       "tadbalik"
     ],
     "sources": [
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang",
+      "JMara / Locos Only / other emerging PH rap acts 2023-2026",
       "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
     ]
   },
@@ -4415,6 +4421,8 @@
       "borrowed-slang"
     ],
     "sources": [
+      "JMara / Locos Only / other emerging PH rap acts 2023-2026",
+      "YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage",
       "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
     ]
   },
@@ -4863,6 +4871,205 @@
       "ironic-humor"
     ],
     "sources": [
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads, 'what does X mean' posts"
+    ]
+  },
+  {
+    "term": "dogshow",
+    "definitions": [
+      "The act of publicly mocking or satirizing someone through humorous memes, exaggerated jokes, or piled-on comments — particularly on social media. Distinct from trolling in its communal, playful quality.",
+      "To be made fun of or memed by a crowd; to be the target of satirical online ridicule."
+    ],
+    "etymology": "Coined by Filipino content creator Sassa Gurl (2021), who used it to describe how her followers were making memes out of her in the comment section ('ginagawan ako meme, tinawag kong pandodogshow'). Derived from the English 'dog show' metaphor, implying someone is being paraded and judged. Achieved academic recognition in a 2025 Sage journal study on TikTok and online incivility among PH Gen Z influencers.",
+    "examples": [
+      {
+        "text": "Ginawang dogshow ka nila online — meme na meme ka na sa comment section.",
+        "source": "JMara/Locos Only fan community, 2024"
+      },
+      {
+        "text": "Huwag masyadong dogshow, baka magalit siya!",
+        "source": "Filipino internet culture, documented 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "ratio",
+      "cancel",
+      "rage bait",
+      "babatain"
+    ],
+    "categories": [
+      "internet-culture",
+      "social-media-behavior",
+      "humor-and-satire"
+    ],
+    "sources": [
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang",
+      "JMara / Locos Only / other emerging PH rap acts 2023-2026"
+    ]
+  },
+  {
+    "term": "estetik",
+    "definitions": [
+      "Visually attractive, aesthetically pleasing, or on-brand; used to compliment a person, outfit, place, or content as beautifully curated or stylish."
+    ],
+    "etymology": "Tagalog phonetic adaptation of English 'aesthetic', following Filipino phonological patterns (th→t; final consonant cluster simplified). Popularized on TikTok and Instagram by Filipino youth around 2021-2022; still widely used in 2024-2026. Subject of an academic NSM (Natural Semantic Metalanguage) study published in 2025.",
+    "examples": [
+      {
+        "text": "Ang ganda ng outfit mo, sobrang estetik!",
+        "source": "Filipino social media comment section, 2024"
+      },
+      {
+        "text": "Estetik na estetik ang drip niya.",
+        "source": "JMara fan post, Young Gods Records context, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "drip",
+      "angas",
+      "shontis",
+      "bongga"
+    ],
+    "categories": [
+      "fashion-and-style",
+      "internet-culture",
+      "borrowed-slang"
+    ],
+    "sources": [
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang",
+      "JMara / Locos Only / other emerging PH rap acts 2023-2026"
+    ]
+  },
+  {
+    "term": "lavarn",
+    "definitions": [
+      "An encouraging exclamation meaning 'keep going,' 'keep fighting,' or 'you've got this' — a swardspeak/bekimon evolution of 'laban' (fight)."
+    ],
+    "etymology": "Swardspeak/Bekimon transformation of Tagalog 'laban' (fight/keep going). The '-varn' suffix is characteristic of Bekimon word mutation, where familiar words are phonetically altered with additional syllables or letter substitutions to create a distinct LGBTQ+ register. Now mainstreamed into Filipino Gen Z speech.",
+    "examples": [
+      {
+        "text": "Kaya mo 'yan! Lavarn lang!",
+        "source": "Filipino Gen Z community, Reddit/social media, 2024"
+      },
+      {
+        "text": "Kahit di ka na mag-champion sis, i-lavarn mo pa din.",
+        "source": "PEP.ph Gen Z lingo guide, documented 2023"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "laban lang",
+      "werpa",
+      "keri",
+      "keriboom"
+    ],
+    "categories": [
+      "encouragement-and-motivation",
+      "swardspeak-bekimon",
+      "lgbtq-crossover"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads, 'what does X mean' posts",
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
+    ]
+  },
+  {
+    "term": "naks",
+    "definitions": [
+      "An exclamation of playful impressed surprise, admiration, or mock-admiration — equivalent to 'Wow!', 'Ooooh!', or 'Look at you!' Often used sincerely to praise, or ironically/sarcastically to tease.",
+      "Often extended as 'naks naman' for added emphasis."
+    ],
+    "etymology": "Likely derived from 'ay naku naman' (Oh my goodness / Oh come on) — a classic Filipino exclamation. The clipping 'naks' retains the admiring/surprised connotation. Long-established in Filipino speech but seeing renewed vitality in 2023-2026 Gen Z fan culture and social media comments. A Gen Z variant 'nuks' has also emerged.",
+    "examples": [
+      {
+        "text": "Naks gangsta!!",
+        "source": "Fan comment on ALLMO\\$T 'BoYFRieND' video, 2024"
+      },
+      {
+        "text": "Naks may boyfriend na pala!",
+        "source": "Filipino meme page caption, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "grabe",
+      "bongga",
+      "pak ganern",
+      "kabog"
+    ],
+    "categories": [
+      "exclamations-and-interjections",
+      "admiration-and-praise"
+    ],
+    "sources": [
+      "ALLMO$T — tracks 2023-2026",
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
+    ]
+  },
+  {
+    "term": "unc",
+    "definitions": [
+      "Shortened form of 'uncle'; used to describe a person (of any age) who is out of touch, uncool, outdated, or acting older than they are. The Filipino equivalent of calling someone a 'tito' (uncle) for being behind the times."
+    ],
+    "etymology": "Global Gen Alpha slang, originally from AAVE (African American Vernacular English) where 'unc' referred to an older male figure. Adopted into Filipino youth speech via TikTok and internet culture, intersecting with the Filipino concept of 'tito/tita' as descriptors for people acting old-fashioned. Documented in Manila Bulletin Jan 2026 slang guide.",
+    "examples": [
+      {
+        "text": "He still says 'YOLO.' Unc behavior.",
+        "source": "Filipino Gen Z social media, 2025"
+      },
+      {
+        "text": "Totally unc 'yan — hindi na uso 'yung ginagawa niya.",
+        "source": "Reddit r/Philippines, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "6-7",
+      "brain rot",
+      "main character energy"
+    ],
+    "categories": [
+      "gen-alpha-crossover",
+      "social-archetypes",
+      "internet-culture"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads, 'what does X mean' posts",
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
+    ]
+  },
+  {
+    "term": "yarn",
+    "definitions": [
+      "Slang/expressive respelling of 'yan' (from 'iyan', meaning 'that'); used at the end of a word or phrase to tease, express sarcasm, or emphasize in a playful or sassy way.",
+      "Often used in rhetorical taunts: 'Ganda yarn?' ('That beautiful?'), 'Kilig yarn' (someone experiencing kilig, said mockingly)."
+    ],
+    "etymology": "Phonetic respelling of Tagalog 'iyan/yan' ('that'), influenced by the Filipino tendency toward creative internet orthography. The 'r' insertion gives it a more drawn-out, playful pronunciation. Documented on The Smart Local PH (2024) and analyzed in RSIS International Journal study on Filipino TikTok Gen Z slang as an example of 'recontextualization' word formation.",
+    "examples": [
+      {
+        "text": "Kilig yarn — as in, ginagawang tanga ng feelings niya!",
+        "source": "Filipino internet, Reddit/group chats, 2024"
+      },
+      {
+        "text": "Parang ganyan yarn eh.",
+        "source": "Filipino internet slang guide, thesmartlocal.ph, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "chariz",
+      "chos",
+      "naur",
+      "eme"
+    ],
+    "categories": [
+      "wordplay",
+      "internet-culture",
+      "tagalog-phonetic-play"
+    ],
+    "sources": [
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang",
       "Reddit r/Philippines and r/CasualPH — slang discussion threads, 'what does X mean' posts"
     ]
   }
