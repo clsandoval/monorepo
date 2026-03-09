@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 172
-- **Current**: 173
+- **Completed**: 173
+- **Current**: 174
 
 ## Current Stage
 
-**Stage 173** — (next stage)
+**Stage 174** — (next stage)
 
 ## Stage Log
 
@@ -186,3 +186,4 @@
 | 170 | done | 2026-03-09 | desktop verify full wizard flow end-to-end (fixed bom.ts column names, intake venue_address/go_live_date/deposit_amount, deposit invoice creation, navigation to procurement) |
 | 171 | done | 2026-03-09 | desktop verify dashboard after project creation (project row with Procurement status pill, PRO tier badge, metrics bar updated: 1 total, 1 active deployment) |
 | 172 | done | 2026-03-09 | mobile verify login and dashboard (375x812: login form centered/full-width, dashboard sidebar hidden, hamburger visible, cards no overflow) |
+| 173 | done | 2026-03-09 | mobile verify new project and intake wizard (375x812: single column form, full-width inputs, stepper readable, touch targets visible) |
