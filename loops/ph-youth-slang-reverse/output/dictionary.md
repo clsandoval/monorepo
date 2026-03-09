@@ -8,29 +8,29 @@
 
 | Metric | Count |
 |--------|-------|
-| Total terms | 158 |
+| Total terms | 167 |
 | Categories | 16 |
-| Terms with synonyms | 73 |
-| Terms with antonyms | 27 |
+| Terms with synonyms | 76 |
+| Terms with antonyms | 28 |
 
 ### Terms by Category
 
-- **Internet & Social Media** — 39 terms
+- **Internet & Social Media** — 47 terms
 - **Personality & Character** — 37 terms
-- **Wordplay & Linguistic Forms** — 37 terms
-- **Gen Z & Imported Slang** — 36 terms
-- **Hip-Hop & Rap Culture** — 26 terms
-- **LGBTQ+ & Bekimon / Swardspeak** — 26 terms
-- **Romance & Relationships** — 26 terms
+- **Wordplay & Linguistic Forms** — 39 terms
+- **Gen Z & Imported Slang** — 38 terms
+- **Hip-Hop & Rap Culture** — 27 terms
+- **LGBTQ+ & Bekimon / Swardspeak** — 28 terms
+- **Romance & Relationships** — 27 terms
 - **Street & Hustle Culture** — 26 terms
-- **Emotions & Feelings** — 25 terms
-- **Exclamations & Hype** — 25 terms
-- **Friendship & Social Bonds** — 19 terms
+- **Emotions & Feelings** — 26 terms
+- **Exclamations & Hype** — 28 terms
+- **Friendship & Social Bonds** — 22 terms
 - **Conflict & Drama** — 18 terms
-- **Humor & Wit** — 16 terms
+- **Humor & Wit** — 17 terms
 - **Fashion & Style** — 10 terms
 - **Unbothered & Chill Culture** — 8 terms
-- **Party & Nightlife** — 6 terms
+- **Party & Nightlife** — 7 terms
 
 ### Top Sources
 
@@ -49,22 +49,22 @@
 
 ## Table of Contents
 
-- [Internet & Social Media](#internet-and-social-media) (39 terms)
+- [Internet & Social Media](#internet-and-social-media) (47 terms)
 - [Personality & Character](#personality-and-character) (37 terms)
-- [Wordplay & Linguistic Forms](#wordplay-and-linguistic-forms) (37 terms)
-- [Gen Z & Imported Slang](#gen-z-and-imported-slang) (36 terms)
-- [Hip-Hop & Rap Culture](#hip-hop-and-rap-culture) (26 terms)
-- [LGBTQ+ & Bekimon / Swardspeak](#lgbtq-and-beki-lingo) (26 terms)
-- [Romance & Relationships](#romance-and-relationships) (26 terms)
+- [Wordplay & Linguistic Forms](#wordplay-and-linguistic-forms) (39 terms)
+- [Gen Z & Imported Slang](#gen-z-and-imported-slang) (38 terms)
+- [Hip-Hop & Rap Culture](#hip-hop-and-rap-culture) (27 terms)
+- [LGBTQ+ & Bekimon / Swardspeak](#lgbtq-and-beki-lingo) (28 terms)
+- [Romance & Relationships](#romance-and-relationships) (27 terms)
 - [Street & Hustle Culture](#street-and-hustle) (26 terms)
-- [Emotions & Feelings](#emotions-and-feelings) (25 terms)
-- [Exclamations & Hype](#exclamations-and-hype) (25 terms)
-- [Friendship & Social Bonds](#friendship-and-social-bonds) (19 terms)
+- [Emotions & Feelings](#emotions-and-feelings) (26 terms)
+- [Exclamations & Hype](#exclamations-and-hype) (28 terms)
+- [Friendship & Social Bonds](#friendship-and-social-bonds) (22 terms)
 - [Conflict & Drama](#conflict-and-drama) (18 terms)
-- [Humor & Wit](#humor-and-wit) (16 terms)
+- [Humor & Wit](#humor-and-wit) (17 terms)
 - [Fashion & Style](#fashion-and-style) (10 terms)
 - [Unbothered & Chill Culture](#unbothered-and-chill) (8 terms)
-- [Party & Nightlife](#party-and-nightlife) (6 terms)
+- [Party & Nightlife](#party-and-nightlife) (7 terms)
 
 ---
 
@@ -6156,6 +6156,180 @@
 
 **Related:** [sabog](#sabog), [amats](#amats), inuman, [bisyo](#bisyo)
 
+
+---
+
+## Post-Synthesis Additions
+
+*9 terms discovered during post-Wave 4 raw-file gap audit (2026-03-09). Added to their respective category sections above in statistics; listed here for reference.*
+
+---
+
+### **AFAM**
+
+*Also in: [LGBTQ+ & Bekimon / Swardspeak](#lgbtq-and-beki-lingo) · [Romance & Relationships](#romance-and-relationships)*
+
+1. Acronym for "A Foreigner Assigned to Manila" (also: A Foreigner Around Manila); a foreigner living in or visiting the Philippines.
+2. Often used specifically for an attractive foreign man as a potential romantic interest.
+3. Can carry a teasing or joking tone; rooted in Filipino gay lingo and women's informal speech, now in general online use.
+
+> **Etymology:** Acronym that emerged in Filipino gay lingo and women's informal speech, later spreading to general online culture. Reflects the Philippines' long history of foreign presence in Manila (colonial legacy, expat communities). Resurged in Gen Z social media discourse 2023–2025 via viral TikToks.
+
+**Examples:**
+- *"Ang cute ng AFAM na nakita ko sa mall!"* — Filipino social media / Tagalog.com (2024)
+- *"May AFAM daw siyang jowa — lucky nga siya"* — Filipino Twitter/X, 2025
+
+**Related:** [jowa](#jowa), [booking](#booking), [organic encounter](#organic-encounter)
+
+**Regional note:** While 'AFAM' technically refers to Manila, it has evolved to mean any foreigner in the Philippines regardless of location. Primarily used in Metro Manila, Cebu, and urban centers.
+
+---
+
+### **bet**
+
+*Also in: [Gen Z & Imported Slang](#gen-z-and-imported-slang) · [LGBTQ+ & Bekimon / Swardspeak](#lgbtq-and-beki-lingo)*
+
+1. Agreement or approval — equivalent to "I'm down," "sounds good," or "I agree."
+2. Like / type / preference — "bet ko siya" means "I like them / they're my type." (gay lingo origin)
+3. Intensified as "bet na bet" — extreme approval: "I love it / I'm totally into it."
+
+> **Etymology:** Borrowed from English/AAVE slang 'bet' (affirmation, like 'agreed' or 'done deal'). In Filipino youth usage it also absorbed a gay lingo sense of 'like/type' (finding someone attractive), which is distinct from the English original. Fully embedded in Filipino Gen Z digital speech by 2023.
+
+**Examples:**
+- *"Gusto mo bang magmovie mamaya? Bet!"* — Filipino youth conversation / ling-app.com (2024)
+- *"Bet na bet ko 'yung bagong track ni Flow G — top-tier talaga"* — Filipino Twitter/X, 2025
+- *"Bet ko siya — ang gwapo niya, pre"* — Filipino group chat, 2024
+
+**Synonyms:** [gege](#gege), [korique](#korique)
+**Related:** [arat](#arat), [salang na](#salang-na)
+
+---
+
+### **chibog**
+
+*Also in: [Friendship & Social Bonds](#friendship-and-social-bonds) · [Party & Nightlife](#party-and-nightlife)*
+
+1. Food; mealtime; the act of eating — used as a call to eat or a label for food-related content.
+2. As a verb: "mag-chibog" means to eat.
+
+> **Etymology:** Military-origin slang (Philippine Armed Forces mess hall vocabulary) that entered civilian youth speech. Also spelled 'tsibog'. Active in Filipino YouTube mukbang and food vlog culture 2023–2026.
+
+**Examples:**
+- *"Chibog time na, mga beshies!"* — Filipino food vlogger intro, YouTube PH (2024)
+- *"Mag-chibog muna tayo bago ang gig"* — Filipino youth group chat, 2023–2025
+
+**Related:** [mukbang](#mukbang), [beshie](#beshie), [tropa](#tropa)
+
+---
+
+### **diff**
+
+*Also in: [Gen Z & Imported Slang](#gen-z-and-imported-slang)*
+
+1. The skill or performance gap between two players in the same role — used post-game to explain a loss.
+2. Format: "[role] diff" (e.g., "mid diff," "support diff," "jungle diff") attributes the loss to one player's underperformance vs. their counterpart.
+3. Extended beyond gaming: "diff talaga" = there's clearly a gap in quality/ability between two things or people.
+
+> **Etymology:** Clipped from English 'difference'. Originated in global competitive gaming (League of Legends, Dota 2, Valorant) and entrenched in PH MOBA/FPS communities. Crossed into general Filipino Gen Z speech by 2023.
+
+**Examples:**
+- *"Jungler diff eh, kaya tayo natalo — sila mas aggressive"* — Filipino MLBB post-game chat (2024)
+- *"Mid diff talaga sa auditions — parehong ganda ng voices pero isa mas trained"* — Filipino Twitter/X fan commentary, 2025
+
+**Related:** [olats](#olats), [lakad matatag](#lakad-matatag)
+
+---
+
+### **inch**
+
+*Also in: [Friendship & Social Bonds](#friendship-and-social-bonds)*
+
+1. Short for "interest check" — a seller's post gauging buyer demand before committing to a listing.
+2. Also used as a buyer's reply meaning "interested" — a deliberate dual meaning embraced by Filipino online buy-and-sell communities.
+3. Posting "inch!" in a comment signals purchasing intent.
+
+> **Etymology:** Portmanteau/abbreviation of 'interest check'. Emerged in Filipino online buy-and-sell Facebook groups, fan merchandise drops, and YouTube/Twitter community tabs 2023–2026. The deliberate dual meaning (seller tool + buyer reply) is a uniquely Filipino community coinage.
+
+**Examples:**
+- *"Inch! Magkano 'yan, ate?"* — Filipino Facebook buy-and-sell group comment (2024)
+- *"Doing an inch for merch — drop a comment if gusto mo!"* — Filipino content creator YouTube post, 2023
+
+**Related:** [budol](#budol), [pa-mine](#pa-mine)
+
+---
+
+### **marecakes**
+
+*Also in: [Wordplay & Linguistic Forms](#wordplay-and-linguistic-forms) · [Friendship & Social Bonds](#friendship-and-social-bonds)*
+
+1. Affectionate address for a female friend; a playful, sisterly endearment used especially among women online and in vlog communities.
+2. Part of a broader "-cakes" suffix trend (lodicakes, beshiecakes) where "-cakes" adds softness and cuteness to any address.
+
+> **Etymology:** From 'mare' (shortened from Spanish 'comadre', used informally as 'sis/girlfriend') + '-cakes' suffix (Gen Z endearment intensifier borrowed from English online culture). Common in Filipino female YouTuber/vlogger communities 2023–2026.
+
+**Examples:**
+- *"Kumain ka na ba, marecakes?"* — Filipino female lifestyle vlogger, YouTube PH (2024)
+- *"Marecakes, may chika ako sa'yo!"* — Filipino group chat / TikTok comment, 2025
+
+**Synonyms:** [beshie](#beshie), [teh](#teh)
+**Related:** [lodicakes](#lodicakes), [mare](#mare)
+
+---
+
+### **olats**
+
+*Also in: [Wordplay & Linguistic Forms](#wordplay-and-linguistic-forms) · [Hip-Hop & Rap Culture](#hip-hop-and-rap-culture)*
+
+1. Loss; defeat; we/I lost — used to concede a game, argument, or situation.
+2. As an exclamation after a defeat: "Olats na tayo" (We've lost / we're cooked).
+
+> **Etymology:** Backslang/tadbalik of 'talo' (Tagalog for 'defeated/loser') with syllables reversed: ta-lo → lo-ta → respelled 'olats'. Part of the strong Filipino ludling (syllable-inversion) tradition. Originated in gaming communities (MOBA/Dota PH) and now used in everyday youth speech. NoypiGeeks, Codashop PH, 2023–2026.
+
+**Examples:**
+- *"Olats na tayo, pre — mag-rematch tayo bukas"* — Filipino MLBB gaming community chat (2024)
+- *"Olats! Di ko nga natake ang freebie"* — Filipino Twitter/X, 2025
+
+**Synonyms:** [deds](#deds), [tagilid](#tagilid)
+**Antonyms:** [rapsa](#rapsa)
+**Related:** [diff](#diff)
+
+---
+
+### **pa more**
+
+*Also in: [Exclamations & Hype](#exclamations-and-hype) · [Humor & Wit](#humor-and-wit)*
+
+1. Sarcastic expression meaning "keep doing that (to your own detriment)" or "yeah, sure, keep it up" — said ironically when someone is making a bad situation worse.
+2. Light mockery: "pa more naman" = you're really overdoing it, aren't you.
+3. Occasionally used sincerely as encouragement: "pa more ka ng hustle!" (keep grinding!) — though sarcastic usage dominates.
+
+> **Etymology:** From 'pa-' (Filipino causative/continuative prefix) + English 'more'. Originated in Philippine MOBA gaming communities (MLBB, Dota) as trash talk. Crossed into general Filipino youth speech by 2023.
+
+**Examples:**
+- *"Solo pa more, di naman tayo nananalo!"* — Filipino MLBB in-game chat, Codashop PH / NoypiGeeks (2023–2025)
+- *"Pa more ng pag-iyak over sa kanya — tapos na 'yan, bes"* — Filipino TikTok comment, 2024
+
+**Synonyms:** [over naman sa](#over-naman-sa)
+**Related:** [ammacana](#ammacana), [tama ka na ante](#tama-ka-na-ante)
+
+---
+
+### **wew**
+
+*Also in: [Emotions & Feelings](#emotions-and-feelings)*
+
+1. A Filipino expression of disappointment, disbelief, mild frustration, or ironic surprise — versatile in tone depending on context.
+2. Can express dismay ("wew, di ka talaga marunong"), bewilderment, or resignation after a poor outcome.
+3. Also used as understated amazement, similar to "wow" but flatter in energy.
+
+> **Etymology:** Uniquely Filipino onomatopoeia/expression with no clear external source. Widespread in PH gaming communities (NoypiGeeks, talkpal.ai) but extends into everyday Taglish digital speech. The flat, drawn-out vowel quality gives it a distinctly underwhelmed register not covered by 'wow' or 'grabe'. Active 2023–2026.
+
+**Examples:**
+- *"Wew, feed pa more — di ba sabi ko mag-back na?"* — Filipino MLBB gamer, gaming Discord PH (2024)
+- *"Wew... ganoon na pala kami niya tinitingnan"* — Filipino Twitter/X, 2025
+
+**Synonyms:** [awit](#awit), [deds](#deds)
+**Related:** [naur](#naur)
 
 ---
 
