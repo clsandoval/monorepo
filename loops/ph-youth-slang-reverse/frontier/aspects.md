@@ -2,10 +2,10 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 2
-- Pending: 23
+- Analyzed: 3
+- Pending: 22
 - Convergence counter: 0/3
-- Raw terms gathered: 38
+- Raw terms gathered: 53
 
 ---
 
@@ -13,7 +13,7 @@
 
 - [x] O Side Mafia — full discography, focus on tracks 2023-2026
 - [x] Ex Battalion — recent releases and features 2023-2026
-- [ ] Skusta Clee — solo tracks and collaborations 2023-2026
+- [x] Skusta Clee — solo tracks and collaborations 2023-2026
 - [ ] Flow G — solo and featured verses 2023-2026
 - [ ] Hev Abi — discography 2023-2026
 - [ ] Matthaios — tracks and features 2023-2026

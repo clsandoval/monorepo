@@ -4,6 +4,7 @@
 |---|-----------|--------|------|-------|--------------|
 | 1 | 2026-03-09 | O Side Mafia — full discography 2023-2026 | 1 (Gather) | 20 | Bilingual wordplay ("drip ko mala-gripo"), social media flex terms ("kunan mong pic", "bumaba 'yung gang"), borrowed US hip-hop terms now entrenched in PH youth speech ("no cap", "day ones", "slide", "drip"); unique Tagalog repurposings ("salang na", "tagilid", "panis") |
 | 2 | 2026-03-09 | Ex Battalion — recent releases and features 2023-2026 | 1 (Gather) | 18 | Skusta Clee solo terms ("lagabog", "dyosa", "laya"); Hayaan Mo Sila revival vocab ("patola", "agit", "tsepay"); Gen Z internet slang in Ex B fan culture ("awit", "omsim", "dasurv", "budol"); reversal/ludling pattern continues ("omsim" from "mismo"); note: group on hiatus late 2023–early 2025, terms gathered from solo members and cultural impact |
+| 3 | 2026-03-09 | Skusta Clee — solo tracks and collaborations 2023-2026 | 1 (Gather) | 15 | Attitude/unbothered cluster ("angas", "epektado", "hindi ako epektado", "shushhh"); relationship damage vocab ("sadista", "topak", "gaga", "testing"); drama-engagement terms ("mapagpatol", "lulutang", "chismis"); embedded English ("low key"); 2025 breakup declarations ("kalimutan ka", "pahinga na"); Taglish phonetic borrowing ("enimine"); deduplicated against Ex B file |
 
 ## Iteration 1 Detail — 2026-03-09
 
@@ -71,3 +72,35 @@
 - Yuridope's "Brrt Pow!" (Jan 1, 2024) diss track was the group's main 2024 activity
 - Ex B established ludling/reversal pattern ("omsim") consistent with broader PH youth slang trend
 - Several terms overlap with LGBTQ+ Filipino slang origins ("pak ganern", "beshie") showing cross-community borrowing
+
+## Iteration 3 Detail — 2026-03-09
+
+**Aspect:** Skusta Clee — solo tracks and collaborations 2023-2026
+**Wave:** 1 (Gather)
+**Raw file:** raw/skusta-clee.json (15 terms)
+
+### Terms Gathered
+1. angas — swagger/cool-with-attitude (dual: admirable confidence OR arrogance), Trifecta EP (2024)
+2. sadista — Filipinized "sadist"; cruel/emotionally hurtful in romantic relationships, Lo Ki x Skusta Clee (2024)
+3. topak — crazy/unhinged/erratic behavior, Sadista (2024)
+4. epektado — emotionally triggered/visibly affected by a diss or situation, Hindi Ako Epektado (2024)
+5. hindi ako epektado — "I'm unbothered/not fazed"; defiant attitude flex phrase, Hindi Ako Epektado (2024)
+6. shushhh — dismissing/silencing drama (extended onomatopoeia as stylistic slang), Shushhh with Yuridope (2024-2025)
+7. gaga — foolish/flaky woman (female form of gago); revival in OPM rap, Gaga with Flow G x Yuridope (2022, viral 2024)
+8. mapagpatol — easily baited into drama/provocation; 'wag kang mapagpatol = don't engage, Gaga (viral 2024)
+9. lulutang — fair-weather person who resurfaces when convenient; from 'lutang' (to float), Gaga (viral 2024)
+10. low key — secretly/subtly; fully embedded English borrowing in Pinoy youth speech, Low Key EP (2024)
+11. kalimutan ka — "forget you" breakup proclamation; phrase-as-cultural-meme, Kalimutan Ka (2025, Billboard PH #5)
+12. pahinga na — "give it a rest / enough / stop now"; beyond standard Tagalog meaning, Pahinga Na (2025)
+13. chismis — gossip/rumors; Spanish-derived, reinforced via collab track, Chismis (2024 collab)
+14. testing — testing limits/pushing buttons in a relationship; English word used in rap, Testing (2023)
+15. enimine — phonetic Filipinization of "enemy"; Taglish pattern, Enimine with Emcee Rhenn (2024)
+
+### Notes
+- Skusta Clee is the pioneer of Pinoy trap; his vocabulary has outsized influence on 2023-2026 youth speech
+- Several terms from Ex B era already captured (lagabog, dyosa, laya, dasurv) — excluded as duplicates
+- "Gaga" (2022) included despite release date due to continued viral traction and linguistic impact through 2024
+- Strong "unbothered" theme: angas, epektado, hindi ako epektado, patola (Ex B), shushhh form a cluster
+- "Sadista" and "topak" represent emerging emotional vocabulary for toxic relationship dynamics
+- "Enimine" demonstrates ongoing Taglish phonetic borrowing — English words respelled in Filipino phonology
+- "Low key" and "gaga" are English/pre-existing terms fully absorbed and now integral to Pinoy trap register
