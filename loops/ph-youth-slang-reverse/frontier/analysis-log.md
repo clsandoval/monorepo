@@ -14,6 +14,7 @@
 | 9 | 2026-03-09 | Shanti Dope — recent releases 2023-2026 | 1 (Gather) | 13 | Drug culture lexicon cluster ("amats", "bato", "sabog", "pariwara", "lutang"); street/police slang ("tulak", "parak"); survival/loyalty terms ("tropa", "laylow", "diskarte"); diss/disrespect vocab ("babatain", "deds"); credibility descriptor ("beterano"); primary sources: Bad Type (Guns and Roses 2023), DRUGS EP (2024), Rehab (2025), Amatz (2019 active 2023-2025), Peekaboo! (2021 active 2023-2025) |
 | 10 | 2026-03-09 | Tus Brothers — discography 2023-2026 | 1 (Gather) | 14 | Substance/intoxication cluster ("naka-carts", "bisyo", "sagad"); caught/street danger vocab ("tus" — getting busted, the group's namesake slang); emotional vulnerability ("marupok", "nabagantsa", "lulong"); body slang ("lonta"); utility terms ("matik", "ubra", "kalat"); back slang ("eabab" — tadbalik of babae); casual address ("tol"); paranoia extended form ("napapraning"); primary sources: Lulong (2023), CBR (2023), Drugs in tha Club (O Side Mafia feat. Tu$ Brother$, 2023), Bawal Tus EP (2023) |
 | 12 | 2026-03-09 | TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang | 1b (Gather) | 17 | TikTok-native viral slang cluster: platform-origin phrases ("okay na 'to" from Mommy Grace Tanfelix cooking videos, "bigla kang sumakses" from viral Niña speech Dec 2024, "what hafen vella" from It's Showtime skit, "mekus mekus" from Filipino-Indian TikToker); Gen Z descriptors ("trentahin" — 2025 FTTM Word of the Year, "over naman sa" — calling out excess, "mid lang" — mediocre); borrowed/adapted global internet slang fully integrated ("IJBOL", "mid lang", "gorgy", "lodi"); queer lingo crossover ("soafer" — rooted in Swardspeak, now mainstream TikTok intensifier); political satire adoption ("nepo baby" for PH politician heirs); romance culture ("organic encounter" — pre-app natural meetup); agreement slang ("korique"); address softening ("pi" as cuter "po"); community gossip archetype ("maritess" — short for "Mare, anong latest?"); sources: SPOT.ph 2025 Filipino Slang roundup, ling-app.com Tagalog internet slang, RSIS International Journal Filipino TikTok Slang Gen Z study |
+| 13 | 2026-03-09 | Twitter/X Filipino — slang threads, viral tweets, stan/fan community language | 1b (Gather) | 18 | Twitter-native community slang cluster: platform mechanics terms ("oomf" — one of my followers, "ratio" — reply outperforming OP, "QRT" — quote retweet as verb, "twt" — Twitter-only disclaimer); stan culture ("fancam", "cancel"); global internet slang adopted by PH ("mog/mogging" — outshine, "brain rot", "touch grass", "rage bait", "main character energy"); viral 2025 catchphrases not yet in dataset ("sobrang latina" — fabulous compliment from Sesable makeup video, "kabog" — unbeatable/impressive, "SKL" — Share Ko Lang intro for tea); character archetypes ("ate girl", "naol" — sana all shortened); emotional vulnerability term with strong Twitter meme life ("marupok" — multi-source confirmation, also in Tus Brothers file) |
 | 11 | 2026-03-09 | JMara / Locos Only / other emerging PH rap acts 2023-2026 | 1 (Gather) | 16 | Gen Z digital slang cluster: ludling/reversal terms ("arat", "petmalu", "ammacana"); gossip culture ("marites", "tolits"); social media reaction vocab ("dogshow", "boogsh", "naur"); romantic/digital pain ("seenzone"); aesthetic/style terms ("estetik", "forda"); charisma term borrowed from Western internet culture ("rizz"); drinking scene slang ("shot puno"); rap crew identity ("gods" — elite peers, Young Gods Records context HELLMERRY 2024); softening interjection ("eme"); overwhelmed emotion ("gigil"); Wave 1a complete — all 11 lyrics sources gathered; sources: HELLMERRY (4:AM 2023, My Day 2024, Gangsta Baby 2024), Young Blood Neet (PLAYAZ SZN 2024), JMara (Wala, Hunghang, Gapos — Def Jam Philippines), Filipino Gen Z/TikTok youth culture 2023-2025 |
 
 ## Iteration 1 Detail — 2026-03-09
@@ -244,3 +245,41 @@
 - "Diskarte" is the most widely used practical life-strategy term in Filipino youth speech — spans all social classes
 - Cross-connections: "praning" already in Flow G file (drug-adjacent context); "lulutang" already in Skusta Clee file (metaphorical)
 - Excluded: "matibay" (standard Tagalog for strong), "kapit" (standard Tagalog for hold on), "sabik" (standard Tagalog for eager)
+
+## Iteration 13 Detail — 2026-03-09
+
+**Aspect:** Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language
+**Wave:** 1b (Gather)
+**Raw file:** raw/twitter-x-filipino.json (18 terms)
+
+### Terms Gathered
+1. kabog — amazing/unbeatable; "Ang kabog ng performance niya, walang katalo!"
+2. SKL (Share Ko Lang) — intro phrase before sharing tea/gossip; "SKL lang, may nakita akong bagay"
+3. sobrang latina — fabulous/stunning compliment; viral from creator Sesable's makeup video (2025)
+4. aura farming — deliberately building a cool/impressive image through curated moments
+5. oomf — "one of my followers"; refers to a mutual or follower on Twitter/X
+6. ratio — when a reply outperforms original tweet in engagement; "Naratio ka na naman"
+7. QRT — quote retweet used as verb; "QRT mo na 'yan para mapansin"
+8. mog — to outshine/outperform someone in appearance, skill, or presence; from AMOG
+9. brain rot — mental fog from excessive low-quality content consumption
+10. touch grass — telling someone to go outside/disconnect from the internet
+11. rage bait — content deliberately designed to provoke anger and drive viral engagement
+12. main character energy — the aura of someone acting as the protagonist of their own story
+13. ate girl — relatable, down-to-earth, sisterly social archetype in Filipino online culture
+14. naol — shortened form of "sana all"; light envy expression
+15. fancam — fan-edited tribute video of an idol; used as noun and verb in PH stan culture
+16. twt — "Twitter only" disclaimer; separates online persona from real life
+17. cancel — to publicly withdraw support from a person/brand after controversy
+18. marupok — easily emotionally affected in romance; "fragile-hearted" (multi-source confirm: also Tus Brothers)
+
+### Notes
+- Twitter/X Filipino is the primary distribution vector for meme-phrases that start elsewhere (TikTok, TV) and go viral
+- Strong platform-mechanics vocabulary ("oomf", "ratio", "QRT", "twt") that is unique to Twitter culture
+- "Sobrang latina" and "aura farming" confirm 2025 virality pattern: TikTok origin → Twitter amplification → group chats
+- "mog/mogging" entered Filipino youth speech via Western incel/sigma male meme culture before being detoxified into general flex slang
+- "brain rot", "touch grass", "rage bait" are global internet terms now embedded in Filipino youth speech — included as adopted slang
+- "naol" confirmed abbreviation of "sana all"; "sanaol" (fused version) already in ALLMO$T file — different orthographic variant
+- "marupok" now has multi-source confirmation (Tus Brothers + Twitter/X) — strong Wave 2 priority term
+- Philippine K-pop stan culture on Twitter blends English stan terms with Tagalog — "fancam" and "cancel" are now part of the Filipino youth lexicon
+- Excluded: "sana all" (duplicate of sanaol), "stan" as verb (English base form, not distinctively Filipino), "mutuals" (too standard English)
+- Sources: spot.ph, ling-app.com, talkpal.ai, fastforward.life, mb.com.ph (2026 slang guide), Tribune.net.ph 2025 review
