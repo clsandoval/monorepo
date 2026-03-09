@@ -2,15 +2,16 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 0
-- Pending: 25
+- Analyzed: 1
+- Pending: 24
 - Convergence counter: 0/3
+- Raw terms gathered: 20
 
 ---
 
 ## Wave 1a: Lyrics Sources
 
-- [ ] O Side Mafia — full discography, focus on tracks 2023-2026
+- [x] O Side Mafia — full discography, focus on tracks 2023-2026
 - [ ] Ex Battalion — recent releases and features 2023-2026
 - [ ] Skusta Clee — solo tracks and collaborations 2023-2026
 - [ ] Flow G — solo and featured verses 2023-2026
