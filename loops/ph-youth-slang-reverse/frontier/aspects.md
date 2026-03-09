@@ -2,10 +2,10 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 4
-- Pending: 21
+- Analyzed: 5
+- Pending: 20
 - Convergence counter: 0/3
-- Raw terms gathered: 68
+- Raw terms gathered: 83
 
 ---
 
@@ -15,7 +15,7 @@
 - [x] Ex Battalion — recent releases and features 2023-2026
 - [x] Skusta Clee — solo tracks and collaborations 2023-2026
 - [x] Flow G — solo and featured verses 2023-2026
-- [ ] Hev Abi — discography 2023-2026
+- [x] Hev Abi — discography 2023-2026
 - [ ] Matthaios — tracks and features 2023-2026
 - [ ] Because — discography 2023-2026
 - [ ] ALLMO$T — tracks 2023-2026
