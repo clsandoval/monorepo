@@ -43,6 +43,12 @@
       "new_terms": 2,
       "refined_entries": 0,
       "counter_action": "reset to 0 (2 new terms found: mekus-mekus, luh)"
+    },
+    {
+      "iteration": "refinement pass 9 — ninth raw-gap audit + new term batch",
+      "new_terms": 9,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (9 new terms found: crayola, shutacca, gorgy, DTQ, talksick, mumshie, gandara, pala-desisyon, ghorl)"
     }
   ]
 }
