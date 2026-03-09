@@ -1,7 +1,7 @@
 # PodPlay Ops QA Forward Loop — Stage Tracker
 
 **Total stages**: 46
-**Current stage**: 016
+**Current stage**: 017
 
 ## Stages
 
@@ -22,7 +22,7 @@
 | 013 | ISP Dropdown Tests (F03) | done |
 | 014 | Wizard Step Persistence: Save on Transition (F04) | done |
 | 015 | Status-Based Routing from Dashboard (F04) | done |
-| 016 | Redirect Non-Intake Projects from Intake Route (F04) | pending |
+| 016 | Redirect Non-Intake Projects from Intake Route (F04) | done |
 | 017 | Project State Persistence Tests (F04) | pending |
 | 018 | AdjustmentModal Component (F07) | pending |
 | 019 | Wire AdjustmentModal to /inventory Page (F07) | pending |
