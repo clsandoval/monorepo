@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 166
-- **Current**: 167
+- **Completed**: 167
+- **Current**: 168
 
 ## Current Stage
 
-**Stage 167** — (next stage)
+**Stage 168** — (next stage)
 
 ## Stage Log
 
@@ -180,3 +180,4 @@
 | 164 | done | 2026-03-08 | desktop verify /inventory - empty state renders, no console errors (fixed column names: item_id, quantity_on_hand, quantity_allocated, reorder_point) |
 | 165 | done | 2026-03-08 | desktop verify /financials - revenue funnel, P&L, HER sections visible, no console errors (fixed invoices column names, removed invalid est_total_cost, stubbed monthly_opex_snapshots) |
 | 166 | done | 2026-03-09 | desktop verify /settings/pricing - 4 tier prices, tax, shipping fields visible, no console errors (fixed settings query id=1→'default') |
+| 167 | done | 2026-03-09 | desktop verify /settings/catalog - 47 catalog items (spec has 47, stage said 50), add button, search/filter visible, no console errors |
