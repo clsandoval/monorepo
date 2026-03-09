@@ -38,7 +38,7 @@
 | 029 | Add Recurring Fees Tab to Financials Wizard (F12) | done |
 | 030 | Global Financials Recurring Summary (F12) | done |
 | 031 | Recurring Fees Tests (F12) | done |
-| 032 | Full Build + Test Suite Check | pending |
+| 032 | Full Build + Test Suite Check | done |
 | 033 | Playwright: /settings/installers (F01) | pending |
 | 034 | Playwright: /settings/vendors (F11) | pending |
 | 035 | Playwright: /settings/team (F09) | pending |
