@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 168
-- **Current**: 169
+- **Completed**: 169
+- **Current**: 170
 
 ## Current Stage
 
-**Stage 169** — (next stage)
+**Stage 170** — (next stage)
 
 ## Stage Log
 
@@ -182,3 +182,4 @@
 | 166 | done | 2026-03-09 | desktop verify /settings/pricing - 4 tier prices, tax, shipping fields visible, no console errors (fixed settings query id=1→'default') |
 | 167 | done | 2026-03-09 | desktop verify /settings/catalog - 47 catalog items (spec has 47, stage said 50), add button, search/filter visible, no console errors |
 | 168 | done | 2026-03-09 | desktop verify /settings/team - 7 team contacts, salary fields (Annual Rent, Indirect Salaries), add contact button visible, no console errors |
+| 169 | done | 2026-03-09 | desktop verify /settings/travel - lodging/airfare/hours fields visible, no console errors (mileage_rate/per_diem not in spec - noted in spec-gaps.md) |

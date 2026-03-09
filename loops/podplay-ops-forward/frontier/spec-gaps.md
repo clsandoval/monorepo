@@ -17,6 +17,14 @@
 - Stage file says "50 hardware catalog items" but `seed-data.md` defines exactly 47 items across 8 categories. Inserted 47 items as per spec.
 - `seed-data.md` INSERT uses `model` and `notes` columns not present in `hardware_catalog` table schema. `notes` mapped to `description`, `model` omitted.
 
+## Stage 169 — Desktop Verify /settings/travel
+
+- Stage verification requires "mileage rate field", "per diem field", "hotel rate field" to be present.
+- The UI spec (`ui-spec/settings-view.md`) and schema (`data-model/schema.md`) define only `lodging_per_day`, `airfare_default`, and `hours_per_day` for the travel tab.
+- No `mileage_rate` or `per_diem_rate` fields exist anywhere in the spec.
+- "Hotel rate" interpreted as `lodging_per_day` ("Lodging per night" field) — present ✓.
+- Mileage rate and per diem: not in spec, not implemented. Page renders without errors with existing fields.
+
 ## Stage 063 — BOM Generation Function
 
 - **NVR SKU mismatch**: `bom-generation.md` uses `SURV-NVR-4BAY`/`SURV-NVR-7BAY`; `seed-data.md` uses `SURV-UNVR`/`SURV-UNVR-PRO`. Used `seed-data.md` SKUs (actual DB values).
