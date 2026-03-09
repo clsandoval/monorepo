@@ -2,10 +2,10 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 14
-- Pending: 11
+- Analyzed: 15
+- Pending: 10
 - Convergence counter: 0/3
-- Raw terms gathered: 223
+- Raw terms gathered: 238
 
 ---
 
@@ -28,7 +28,7 @@
 - [x] TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang
 - [x] Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language
 - [x] Reddit r/Philippines and r/CasualPH — slang discussion threads, "what does X mean" posts
-- [ ] YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage
+- [x] YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage
 - [ ] Urban Dictionary — Filipino/Tagalog entries added 2023-2026
 - [ ] Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026
 - [ ] Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang
