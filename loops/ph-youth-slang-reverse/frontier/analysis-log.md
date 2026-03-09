@@ -5,6 +5,7 @@
 | 1 | 2026-03-09 | O Side Mafia — full discography 2023-2026 | 1 (Gather) | 20 | Bilingual wordplay ("drip ko mala-gripo"), social media flex terms ("kunan mong pic", "bumaba 'yung gang"), borrowed US hip-hop terms now entrenched in PH youth speech ("no cap", "day ones", "slide", "drip"); unique Tagalog repurposings ("salang na", "tagilid", "panis") |
 | 2 | 2026-03-09 | Ex Battalion — recent releases and features 2023-2026 | 1 (Gather) | 18 | Skusta Clee solo terms ("lagabog", "dyosa", "laya"); Hayaan Mo Sila revival vocab ("patola", "agit", "tsepay"); Gen Z internet slang in Ex B fan culture ("awit", "omsim", "dasurv", "budol"); reversal/ludling pattern continues ("omsim" from "mismo"); note: group on hiatus late 2023–early 2025, terms gathered from solo members and cultural impact |
 | 3 | 2026-03-09 | Skusta Clee — solo tracks and collaborations 2023-2026 | 1 (Gather) | 15 | Attitude/unbothered cluster ("angas", "epektado", "hindi ako epektado", "shushhh"); relationship damage vocab ("sadista", "topak", "gaga", "testing"); drama-engagement terms ("mapagpatol", "lulutang", "chismis"); embedded English ("low key"); 2025 breakup declarations ("kalimutan ka", "pahinga na"); Taglish phonetic borrowing ("enimine"); deduplicated against Ex B file |
+| 4 | 2026-03-09 | Flow G — solo and featured verses 2023-2026 | 1 (Gather) | 15 | Hustle/success cluster ("rapstar", "247", "high score", "galing sa wala", "boss na"); aspirational wealth ("burgis", "mala-[X]"); personality traits ("praning", "batugan", "ere"); emotional vocab ("ebeb", "ibong adarna"); utility slang ("tara", "unli", "paos"); note: "praning" and "mala-[X]" also appear in earlier files but with new Flow G context; avoided duplicating Ex B/Skusta entries |
 
 ## Iteration 1 Detail — 2026-03-09
 
@@ -104,3 +105,35 @@
 - "Sadista" and "topak" represent emerging emotional vocabulary for toxic relationship dynamics
 - "Enimine" demonstrates ongoing Taglish phonetic borrowing — English words respelled in Filipino phonology
 - "Low key" and "gaga" are English/pre-existing terms fully absorbed and now integral to Pinoy trap register
+
+## Iteration 4 Detail — 2026-03-09
+
+**Aspect:** Flow G — solo and featured verses 2023-2026
+**Wave:** 1 (Gather)
+**Raw file:** raw/flow-g.json (15 terms)
+
+### Terms Gathered
+1. praning — paranoid/crazy/overly anxious; from drug subculture (F. Magalona 1992) but now general, Praning (viral 2023+)
+2. mala-[X] — "like/giving [X] energy"; classical Tagalog prefix supercharged by Gen Z, Mala SV (2025)
+3. burgis — wealthy/upper-class/bougie; from French "bourgeois", Burgis ft. Hev Abi (2024)
+4. batugan — lazy person; opposite of hustle culture, Batugan (solo track)
+5. unli — unlimited; from mobile plan slang, now general aspirational/romantic descriptor, Unli (solo track)
+6. ebeb — term of endearment for girlfriend; warmer than "beh", Ebeb (solo track)
+7. galing sa wala — "coming from nothing"; rags-to-riches declaration, Mala SV (2025)
+8. ere — acting arrogant/high and mighty; from "aire" (air), Rapstar (2023)
+9. paos — hoarse voice; badge of rap credibility and non-stop grind, Rapstar (2023)
+10. rapstar — self-made rap success story from humble origins; aspirational identity, Rapstar (2023)
+11. 247 — 24/7 hustle; written without slash in text; from album "247" (August 2025)
+12. high score — metaphor for maximum life achievement; gaming terminology applied to success, High Score (2023)
+13. ibong adarna — magical/enchanting person; reference to Philippine folk epic; used as romantic compliment, Ibong Adarna (solo)
+14. boss na — "already a boss / has made it"; arrival declaration, Mala SV (2025)
+15. tara — "let's go!"; energetic call to action; one of most versatile Tagalog youth expressions, Rapstar and multiple tracks
+
+### Notes
+- Flow G is the biggest solo Filipino rap star 2023-2025 (171M views on Rapstar, 3 Wish Music Awards 2024)
+- "Praning" was already in Ex Battalion file but added here with distinct Flow G context and primary song attribution
+- "Mala-[X]" was in O Side Mafia file (mala-gripo) but now documented as a full generative prefix pattern
+- Strong hustle narrative cluster: rapstar, galing sa wala, boss na, 247, high score, batugan (as cautionary foil)
+- "Ere" and "paos" are specifically Filipino vocabulary not well-documented in earlier files
+- "Ibong Adarna" represents cultural reference-as-slang: the epic poem gives youth a romantic metaphor
+- Collaboration "Burgis" with Hev Abi (next aspect on list) provides lexical bridge to next gather iteration
