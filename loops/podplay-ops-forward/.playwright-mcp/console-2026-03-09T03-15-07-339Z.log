@@ -1,0 +1,3 @@
+[   31441ms] [ERROR] [vite] ReferenceError: FileText is not defined
+    at http://localhost:5175/src/components/layout/AppLayout.tsx?t=1773026138726:46:62 @ http://localhost:5175/@vite/client:808
+[   31441ms] [ERROR] [vite] Failed to reload /src/components/layout/AppLayout.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:5175/@vite/client:808
