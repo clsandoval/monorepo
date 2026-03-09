@@ -31,6 +31,12 @@
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: pa-mine, shot puno, organic encounter, over naman sa, pi, chour, nepo baby, kimmy)"
+    },
+    {
+      "iteration": "refinement pass 7 \u2014 seventh raw-gap audit + new term batch",
+      "new_terms": 6,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (6 new terms found: okay na 'to, what hafen vella, delulu, slay, sobrang lit, hypebeast)"
     }
   ]
 }
