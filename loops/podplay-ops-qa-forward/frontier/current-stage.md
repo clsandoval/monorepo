@@ -1,7 +1,7 @@
 # PodPlay Ops QA Forward Loop — Stage Tracker
 
 **Total stages**: 46
-**Current stage**: 004
+**Current stage**: 005
 
 ## Stages
 
@@ -10,7 +10,7 @@
 | 001 | Migration: Seed Installers (F01) | done |
 | 002 | Migration: wizard_step Column (F04) | done |
 | 003 | Migration: Seed Inventory (F06) | done |
-| 004 | Migration: Replace Team Contacts (F09) | pending |
+| 004 | Migration: Replace Team Contacts (F09) | done |
 | 005 | Migration: Vendors Table + Seed (F11) | pending |
 | 006 | Migration: Recurring Fees (F12) | pending |
 | 007 | SearchableSelect Component (F08) | pending |
