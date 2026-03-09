@@ -73,6 +73,12 @@
       "new_terms": 12,
       "refined_entries": 34,
       "counter_action": "reset to 0 (12 new terms found: tolongges, ssob, normalin, lakas tama, nabagantsa, naka-carts, nakakatunaw, kinaladkad, mala-[X], pariwara, lala, sumasabay sa flow; 34 category assignments normalized)"
+    },
+    {
+      "iteration": "refinement pass 14 \u2014 fourteenth raw-gap audit (internet culture, mood/emotion vocabulary, sports crossover)",
+      "new_terms": 3,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (3 new terms found: rage bait, toyo, supalpal)"
     }
   ]
 }

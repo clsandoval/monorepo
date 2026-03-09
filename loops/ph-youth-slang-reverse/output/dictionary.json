@@ -10257,5 +10257,118 @@
       "lumalaban",
       "pasaway"
     ]
+  },
+  {
+    "term": "rage bait",
+    "definitions": [
+      "Content (posts, videos, or comments) deliberately designed to provoke strong emotional reactions — especially anger or outrage — to drive engagement, shares, and virality; inflammatory content engineered to elicit rage rather than inform or entertain."
+    ],
+    "etymology": "From English 'rage' (intense anger) + 'bait' (a lure); coined in global internet culture circa 2022-2023; adopted into Filipino youth digital vocabulary by 2024-2025 on TikTok, Twitter/X, and Facebook as a descriptor for intentionally provocative content. Recognized in Manila Bulletin January 2026 as one of 7 essential words every Filipino parent should know.",
+    "examples": [
+      {
+        "text": "Huwag mong i-click 'yan — pure rage bait yan para lang magets ng likes.",
+        "source": "Filipino Twitter/X discourse, 2024-2025"
+      },
+      {
+        "text": "Yung headline pa lang, halata nang rage bait na ginawa para mag-away sa comments.",
+        "source": "Manila Bulletin Jan 2026 kids and teens slang guide"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "dogshow",
+      "ratio",
+      "brain rot",
+      "epep"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "conflict-and-drama"
+    ],
+    "sources": [
+      "Manila Bulletin Jan 2026 kids and teens slang guide",
+      "global internet culture adopted by Filipino Gen Z 2024-2025"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "toyo",
+    "definitions": [
+      "Acting crazy, moody, or erratic — unpredictable behavior resulting from lack of sleep, a random mood swing, or emotional volatility. Used as an adjective (may toyo; nagtoyo) or in verb constructions: tinotoyo (currently acting up/moody), toyoin (to be made to act crazy).",
+      "Extended Gen Z usage: describing a person whose behavior in relationships is temperamental, overdramatic, or emotionally manipulative — especially popularized by the TikTok 'Toyo Culture' discourse around toxic/moody relationship dynamics."
+    ],
+    "etymology": "From standard Tagalog 'toyo' (soy sauce); the slang evolved through wordplay on 'saltiness' — just as English 'salty' means upset or petty, having 'toyo' (soy sauce) = acting salty/erratic. The vivid phrase 'may toyo sa utak' (soy sauce in the brain) captures the full meaning. Documented in contemporary Gen Z usage on TikTok PH, tagalogslang.com (November 2025), and HiNative.",
+    "examples": [
+      {
+        "text": "Grabe, may toyo ka ba ngayon? Bakit ka bigla na lang sumigaw!",
+        "source": "tagalogslang.com / TikTok PH usage"
+      },
+      {
+        "text": "Tinotoyo na naman siya every time na late ako ng isang minuto.",
+        "source": "HiNative Filipino language documentation"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "topak",
+      "praning",
+      "epektado",
+      "imbyerna"
+    ],
+    "categories": [
+      "emotions-and-feelings",
+      "conflict-and-drama",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "tagalogslang.com November 2025",
+      "TikTok PH Toyo Culture trend 2023-2025",
+      "HiNative Filipino documentation"
+    ],
+    "synonyms": [
+      "topak"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "supalpal",
+    "definitions": [
+      "A savage verbal comeback or clapback that utterly shuts down an opponent, leaving them humiliated and speechless; to counter someone's statement or argument with such force and wit that they have no response.",
+      "In Filipino basketball: a forceful blocked shot — physically swatting away the ball when an opponent attempts to shoot, often accompanied by trash talk from onlookers."
+    ],
+    "etymology": "From Filipino basketball culture; the physical act of blocking a shot was dramatized into 'supalpal' in PBA (Philippine Basketball Association) fan culture, where the league historically gave 'Hari ng Tapal' (King of Blocked Shots) awards. The basketball metaphor transferred to internet discourse as the verbal equivalent — shutting someone down cold. Documented by Spin.ph, TrueID PH, and HiNative.",
+    "examples": [
+      {
+        "text": "Supalpal ng comment niya sa basher — walang nakabalik na sagot.",
+        "source": "Filipino Twitter/X clapback culture, 2024"
+      },
+      {
+        "text": "Sinupalpal niya ang buong argument niya sa isang screenshot lang.",
+        "source": "HiNative Filipino / social media usage"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "banat",
+      "nabagantsa",
+      "dogshow",
+      "ratio"
+    ],
+    "categories": [
+      "conflict-and-drama",
+      "internet-and-social-media",
+      "hip-hop-and-rap-culture"
+    ],
+    "sources": [
+      "TrueID PH basketball slang guide",
+      "Spin.ph basketball trash talk article",
+      "tagalogslang.com",
+      "HiNative Filipino"
+    ],
+    "synonyms": [
+      "banat"
+    ],
+    "antonyms": []
   }
 ]
