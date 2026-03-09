@@ -1,0 +1,27 @@
+[
+  {
+    "term": "tsaa",
+    "raw_context": "Filipino phonetic spelling of English 'tea' (gossip/insider info). Documented in ling-app.com Tagalog internet slang guide (2024), remotestaff.ph '15 Common Gen Z Internet Slang' (2024), snapmagazine '15 Slang Words Filipino Gen-Zs use Everyday'. Used in phrases like 'Spill the tsaa!' and 'Ano ang tsaa?' — distinct from 'chika' in carrying the internet-culture 'spill the tea' connotation. Active on Filipino TikTok and Twitter/X 2023-2025.",
+    "source_aspect": "refinement pass 11 — eleventh raw-gap audit"
+  },
+  {
+    "term": "soft launch",
+    "raw_context": "Filipino Gen Z romance/social media practice of hinting at a new partner without fully revealing who they are — cropped photos, ambiguous Instagram captions, suggestive dinner setups. Documented by Manila Bulletin Balita (August 2025 Gen Z slang article), Rappler 'Decoding the Social Media Soft Launch' (2024), Cosmopolitan Philippines '9 Relationship Trends That Defined How Filipinos Dated in 2025', and pinkbunny.ph PH Modern Dating Guide.",
+    "source_aspect": "refinement pass 11 — eleventh raw-gap audit"
+  },
+  {
+    "term": "hard launch",
+    "raw_context": "The public, unambiguous announcement of a new romantic partner on social media — clearly showing their face, tagging them, or using explicit relationship captions. Opposite of 'soft launch.' Documented alongside 'soft launch' in Rappler (2024), Cosmopolitan Philippines (2025), and pinkbunny.ph PH Modern Dating Guide.",
+    "source_aspect": "refinement pass 11 — eleventh raw-gap audit"
+  },
+  {
+    "term": "situationship",
+    "raw_context": "Romantic/physical connection without official labels — more intimate than friends but not an exclusive couple. Filipino Gen Z use it as a modern replacement for the older Filipino-specific 'MU' (Mutual Understanding) concept. Documented by Cosmopolitan Philippines 'The 9 Relationship Trends That Defined How Filipinos (And The World) Dated in 2025' (December 2025), pinkbunny.ph PH Modern Dating A-Z Guide, and Young Pilipinas Gen Z dating terms article.",
+    "source_aspect": "refinement pass 11 — eleventh raw-gap audit"
+  },
+  {
+    "term": "ghostlighting",
+    "raw_context": "2025 dating portmanteau of 'ghosting' + 'gaslighting': the behavior of disappearing from a relationship without explanation, then reappearing as if nothing happened — sometimes implying the other person is overreacting. Named one of 'The 9 Relationship Trends That Defined How Filipinos (And The World) Dated in 2025' by Cosmopolitan Philippines (December 2025). Also documented by pinkbunny.ph PH Modern Dating Guide as a 2025-specific term.",
+    "source_aspect": "refinement pass 11 — eleventh raw-gap audit"
+  }
+]

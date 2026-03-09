@@ -30,8 +30,10 @@
       "estetik",
       "fancam",
       "fr",
+      "ghostlighting",
       "go getta",
       "gorgy",
+      "hard launch",
       "hypebeast",
       "kengkoy",
       "korique",
@@ -48,16 +50,18 @@
       "periodt",
       "pi",
       "rizz",
+      "situationship",
       "slay",
       "slide (sa gig)",
       "sobrang lit",
+      "soft launch",
       "touch grass",
       "trentahin",
       "unc",
       "unli",
       "yawa"
     ],
-    "term_count": 54
+    "term_count": 58
   },
   "street-and-hustle": {
     "count": 37,
@@ -142,6 +146,7 @@
       "gandara",
       "gng",
       "gorgy",
+      "hard launch",
       "hugot",
       "inch",
       "kabog",
@@ -176,18 +181,20 @@
       "seenzone",
       "soafer",
       "sobrang latina",
+      "soft launch",
       "tabogo",
       "talksick",
       "tangalog",
       "tolits",
       "touch grass",
       "trentahin",
+      "tsaa",
       "unc",
       "wew",
       "what hafen vella",
       "yarn"
     ],
-    "term_count": 80
+    "term_count": 83
   },
   "lgbtq-and-beki-lingo": {
     "count": 35,
@@ -258,7 +265,9 @@
       "diskarte",
       "dyosa",
       "gaga",
+      "ghostlighting",
       "haliparot",
+      "hard launch",
       "hugot",
       "huli na",
       "jowa",
@@ -281,12 +290,14 @@
       "rizz",
       "sana all",
       "seenzone",
+      "situationship",
+      "soft launch",
       "suplada",
       "talandi",
       "topak",
       "wasak"
     ],
-    "term_count": 39
+    "term_count": 43
   },
   "emotions-and-feelings": {
     "count": 34,
@@ -341,6 +352,7 @@
       "dasurv",
       "gaga",
       "gera",
+      "ghostlighting",
       "hanash",
       "kabet",
       "kengkoy",
@@ -358,7 +370,7 @@
       "talksick",
       "tsepay"
     ],
-    "term_count": 25
+    "term_count": 26
   },
   "wordplay-and-linguistic-forms": {
     "count": 43,
@@ -668,9 +680,10 @@
       "tabogo",
       "tolits",
       "trentahin",
+      "tsaa",
       "what hafen vella"
     ],
-    "term_count": 25
+    "term_count": 26
   },
   "unbothered-and-chill": {
     "count": 9,

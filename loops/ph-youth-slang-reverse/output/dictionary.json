@@ -173,6 +173,70 @@
     "antonyms": []
   },
   {
+    "term": "aketch",
+    "definitions": [
+      "First-person pronoun 'I' or 'me'; a playful swardspeak transformation of 'ako' using the swardspeak suffix '-etch'."
+    ],
+    "etymology": "Mutation of 'ako' (Tagalog: 'I/me') using the swardspeak suffix '-etch', characteristic of Filipino gay lingo word formation where standard pronouns are reshaped for in-group identity and playful tone.",
+    "examples": [
+      {
+        "text": "Aketch na ang bahala sa lahat!",
+        "source": "Filipino social media / beki speak community"
+      }
+    ],
+    "regional_notes": "Widely used in Metro Manila and urban LGBTQ+ spaces; documented in 2024 academic research on Filipino queer language.",
+    "related_terms": [
+      "akis",
+      "watash",
+      "anetch",
+      "beki"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "wordplay-and-linguistic-forms"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [
+      "akis",
+      "watash"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "akis",
+    "definitions": [
+      "First-person pronoun 'I' or 'me'; a swardspeak variant of 'ako' using the '-is' suffix ending."
+    ],
+    "etymology": "Mutation of 'ako' (Tagalog: 'I/me') using the swardspeak suffix '-is', one of several interchangeable endings (-is, -etch, -ash) applied in Filipino gay lingo to base words.",
+    "examples": [
+      {
+        "text": "Akis na mag-aayos ng buhay ko.",
+        "source": "Filipino LGBTQ+ community speech / social media"
+      }
+    ],
+    "regional_notes": "Documented in both Metro Manila and regional urban Filipino queer communities alongside variants 'aketch' and 'akeno'.",
+    "related_terms": [
+      "aketch",
+      "watash",
+      "anetch",
+      "beki"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "wordplay-and-linguistic-forms"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [
+      "aketch",
+      "watash"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "ala me pakels",
     "definitions": [
       "'I don't care'; a dismissive expression of complete indifference to gossip, drama, or criticism."
@@ -341,6 +405,38 @@
     ],
     "sources": [
       "JMara / Locos Only / other emerging PH rap acts 2023-2026"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "anetch",
+    "definitions": [
+      "'What?' or 'What is that?'; a swardspeak transformation of 'ano' (Tagalog: 'what') using the '-etch' suffix."
+    ],
+    "etymology": "Mutation of 'ano' (Tagalog: 'what?') using the swardspeak suffix '-etch', creating a playful, more expressive version of the standard question word.",
+    "examples": [
+      {
+        "text": "Anetch yung ginawa mo?",
+        "source": "Filipino social media / beki speak community"
+      },
+      {
+        "text": "Anetch ba ang suot mo, siz?",
+        "source": "Filipino LGBTQ+ Twitter/X / group chats"
+      }
+    ],
+    "regional_notes": "none",
+    "related_terms": [
+      "aketch",
+      "akis",
+      "beki"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "wordplay-and-linguistic-forms"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
     ],
     "synonyms": [],
     "antonyms": []
@@ -1322,6 +1418,42 @@
     "synonyms": [
       "beshie",
       "beh"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "besh",
+    "definitions": [
+      "A close friend; a casual shortened form of address for someone you are close with."
+    ],
+    "etymology": "Clipped form of 'beshie' (from 'bestie' / 'best friend'), used as a standalone term of endearment for close friends. Part of Filipino beki/swardspeak vocabulary that entered mainstream Gen Z speech.",
+    "examples": [
+      {
+        "text": "Besh, nandyan ka pa ba?",
+        "source": "Filipino group chats / TikTok comments"
+      },
+      {
+        "text": "Uy besh, anong balita?",
+        "source": "Filipino social media / casual conversation"
+      }
+    ],
+    "regional_notes": "none",
+    "related_terms": [
+      "beshie",
+      "teh",
+      "ghorl",
+      "mudra"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "friendship-and-social-bonds"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [
+      "beshie",
+      "bestie"
     ],
     "antonyms": []
   },
@@ -2333,6 +2465,45 @@
     "antonyms": []
   },
   {
+    "term": "crayola",
+    "definitions": [
+      "Beki/Swardspeak slang meaning 'to cry'; used as a verb or noun to describe crying, especially over heartbreak or emotional distress. Often used dramatically or humorously."
+    ],
+    "etymology": "Formed by expanding the English verb 'cry' using the recognizable brand name Crayola (a popular crayon brand in the Philippines), a hallmark of Swardspeak's affixation and brand-name wordplay strategy. Documented in the 2024 Cogent Arts & Humanities academic study on Filipino queer language by Ulla, Macaraeg & Ferrera.",
+    "examples": [
+      {
+        "text": "'Wag ka ngang mag-crayola diyan, gurl.",
+        "source": "Common Filipino gay lingo / Beki speech, documented 2024"
+      },
+      {
+        "text": "Break na kami. Crayola na naman akesh!",
+        "source": "Beelinguapp.com Beki words guide, 2024"
+      }
+    ],
+    "regional_notes": "Originates from the Philippine LGBTQ+ Swardspeak community; now widely used by Gen Z even outside queer circles.",
+    "related_terms": [
+      "hugot",
+      "marupok",
+      "wasak",
+      "kilig",
+      "kalurkey"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "emotions-and-feelings",
+      "wordplay-and-linguistic-forms"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [
+      "hugot"
+    ],
+    "antonyms": [
+      "kilig"
+    ]
+  },
+  {
     "term": "dasurv",
     "definitions": [
       "Deserves it; celebrating that someone is getting what they earned — praise, reward, or karma.",
@@ -2721,6 +2892,40 @@
     ],
     "sources": [
       "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "DTQ",
+    "definitions": [
+      "Acronym for 'Downtown Quezon City'; used as a term of area pride and local identity, especially within Filipino hip-hop culture. Evokes street credibility, authenticity, and neighborhood loyalty."
+    ],
+    "etymology": "Popularized by Quezon City rapper Hev Abi through his breakout 2023 TikTok-viral track 'WELCOME2DTQ,' which celebrated his roots in the streets of Downtown Quezon City, particularly around Tomas Morato Avenue. Also the name of his record label, Downtown Q Entertainment.",
+    "examples": [
+      {
+        "text": "DTQ represent! Galing kami dito, hindi kayo.",
+        "source": "Hev Abi, WELCOME2DTQ (2023), Filipino hip-hop cultural reference"
+      },
+      {
+        "text": "Pag DTQ ka, alam mo na kung saan patungo.",
+        "source": "Filipino hip-hop fan community, Twitter/X Philippines, 2023-2025"
+      }
+    ],
+    "regional_notes": "Specific to Quezon City, Metro Manila; comparable to neighborhood-pride acronyms in US hip-hop (e.g., BX for The Bronx). Outside of QC, the term is understood through Hev Abi's music.",
+    "related_terms": [
+      "galing kalye",
+      "go getta",
+      "angas",
+      "beterano",
+      "kinaladkad"
+    ],
+    "categories": [
+      "hip-hop-and-rap-culture",
+      "street-and-hustle"
+    ],
+    "sources": [
+      "Hev Abi — discography 2023-2026"
     ],
     "synonyms": [],
     "antonyms": []
@@ -3244,6 +3449,46 @@
     "antonyms": []
   },
   {
+    "term": "gandara",
+    "definitions": [
+      "An elongated, emphatic form of 'ganda' (beauty/beautiful); used as an exclamation of admiration or to call someone beautiful, with more flair and drama than the plain 'ganda.' Often used in compliments about appearance or aesthetic."
+    ],
+    "etymology": "Formed by appending the suffix '-ra' (a common Swardspeak/Beki extension) or as a phonological elongation of 'ganda,' following the Filipino Gen Z pattern of stretching root words for expressiveness. Documented in the FastForward MR Filipino Gen Z Dictionary (2025) and Beelinguapp Beki words guide.",
+    "examples": [
+      {
+        "text": "Gandara naman ng OOTD mo, pare!",
+        "source": "Filipino TikTok/Instagram usage, 2024-2025"
+      },
+      {
+        "text": "Gandara! Sino ba nagpaabot sa iyo ng genes na yan?",
+        "source": "Filipino Twitter/X compliment thread, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "bongga",
+      "gorgy",
+      "pak ganern",
+      "awra"
+    ],
+    "categories": [
+      "wordplay-and-linguistic-forms",
+      "internet-and-social-media",
+      "lgbtq-and-beki-lingo"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [
+      "bongga",
+      "gorgy"
+    ],
+    "antonyms": [
+      "tsepay",
+      "panis"
+    ]
+  },
+  {
     "term": "gege",
     "definitions": [
       "Yes, sure, okay, got it — a casual affirmative often used in quick replies.",
@@ -3310,6 +3555,77 @@
     ],
     "sources": [
       "O Side Mafia — full discography, focus on tracks 2023-2026"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "ghorl",
+    "definitions": [
+      "A Beki/Swardspeak and Gen Z variant spelling of 'girl,' used as an affectionate term of address for a close friend regardless of gender. Can relay different emotions (excitement, concern, shade, solidarity) depending on tone, duration, and pitch."
+    ],
+    "etymology": "Phonetic respelling of English 'girl,' following the Swardspeak tradition of altering standard English spellings for in-group identity. Related variants include 'gurl' and 'ghurl.' Documented in the FastForward MR Filipino Gen Z Dictionary (2025) and featured in coverage of Beki language evolution.",
+    "examples": [
+      {
+        "text": "Ghorl, may chika ako — dito ka muna.",
+        "source": "Filipino TikTok / group chat, 2024"
+      },
+      {
+        "text": "Ghooorl, hindi mo ba nakita ang nangyari?",
+        "source": "Filipino Twitter/X thread, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "teh",
+      "beshie",
+      "mumshie",
+      "mudra"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "friendship-and-social-bonds"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [
+      "teh",
+      "beshie"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "ghostlighting",
+    "definitions": [
+      "A toxic dating behavior where someone disappears from contact without explanation (ghosting), then reappears acting as if nothing happened — or implies that you are overreacting to their absence (gaslighting). A 2025 portmanteau combining the worst elements of both behaviors."
+    ],
+    "etymology": "Portmanteau of 'ghosting' (suddenly disappearing from a relationship without explanation) and 'gaslighting' (psychological manipulation that makes someone question their reality). Emerged in global Gen Z dating vocabulary c. 2024-2025. Named by Cosmopolitan Philippines as one of 'The 9 Relationship Trends That Defined How Filipinos (And The World) Dated in 2025' (December 2025). Also documented in pinkbunny.ph's PH Modern Dating Guide.",
+    "examples": [
+      {
+        "text": "Ghostlighting ang pinakamasama — nawala for two weeks, biglang nag-reply as if wala nang nangyari",
+        "source": "Filipino TikTok, 2025"
+      },
+      {
+        "text": "Pinagdudahan mo pa sarili mo sa ghostlighting — parang ikaw pa ang may sala",
+        "source": "Cosmopolitan Philippines, December 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "situationship",
+      "benchwarmer",
+      "seenzone",
+      "marupok"
+    ],
+    "categories": [
+      "romance-and-relationships",
+      "gen-z-and-imported-slang",
+      "conflict-and-drama"
+    ],
+    "sources": [
+      "refinement pass 11 — eleventh raw-gap audit"
     ],
     "synonyms": [],
     "antonyms": []
@@ -3506,6 +3822,47 @@
     "antonyms": []
   },
   {
+    "term": "gorgy",
+    "definitions": [
+      "A playful, compressed form of 'gorgeous'; used as a casual compliment for a person, outfit, or anything visually stunning. Carries an enthusiastic, over-the-top energy."
+    ],
+    "etymology": "Clipped from English 'gorgeous,' following the Filipino Gen Z trend of shortening or respelling English words for a cuter, more informal effect. Popularized on Filipino TikTok and group chats, especially in fashion and beauty contexts.",
+    "examples": [
+      {
+        "text": "OMG, gorgy mo today!",
+        "source": "Filipino TikTok comment section, 2024"
+      },
+      {
+        "text": "Gorgy naman ng OOTD mo!",
+        "source": "Filipino Instagram and group chat usage, 2024-2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "bongga",
+      "pak ganern",
+      "awra",
+      "shontis",
+      "drip"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "fashion-and-style",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [
+      "bongga",
+      "pak ganern"
+    ],
+    "antonyms": [
+      "tsepay",
+      "panis"
+    ]
+  },
+  {
     "term": "grabe",
     "definitions": [
       "Versatile intensifier expressing awe, shock, exasperation, or admiration — roughly equivalent to 'wow,' 'oh my,' 'that's too much,' or 'unbelievable' depending on context.",
@@ -3683,6 +4040,42 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "hard launch",
+    "definitions": [
+      "To officially and publicly announce a romantic partner on social media — a clear post featuring their face, name, or unambiguous relationship context. The more vulnerable, fully-committed counterpart to 'soft launch.'"
+    ],
+    "etymology": "Repurposed from tech and marketing jargon ('hard launch' = full public product release). Entered Filipino Gen Z dating vocabulary in tandem with 'soft launch.' Documented by the same sources: Manila Bulletin Balita (August 2025), Rappler (2024), Cosmopolitan Philippines (December 2025), and pinkbunny.ph PH Modern Dating A-Z Guide.",
+    "examples": [
+      {
+        "text": "Ayaw ko pa mag-hard launch, baka jinx pa 'to",
+        "source": "Filipino Twitter/X, 2025"
+      },
+      {
+        "text": "Hard launch na niya yung new boyfriend — may fam pic na sa Instagram",
+        "source": "Filipino TikTok, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "soft launch",
+      "organic encounter",
+      "situationship",
+      "jowa"
+    ],
+    "categories": [
+      "romance-and-relationships",
+      "internet-and-social-media",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "refinement pass 11 — eleventh raw-gap audit"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "soft launch"
+    ]
   },
   {
     "term": "hatdog",
@@ -4344,6 +4737,72 @@
     "antonyms": []
   },
   {
+    "term": "keri",
+    "definitions": [
+      "'Okay,' 'I can handle it,' 'It's fine,' or 'That works'; a casual affirmative or 'no problem' expression."
+    ],
+    "etymology": "Derived from English 'carry' (as in 'I can carry/handle it'), adapted into Filipino swardspeak/gay lingo and later spread to mainstream youth usage. The elaborated form 'keribels' is also used for emphasis.",
+    "examples": [
+      {
+        "text": "Keri ko 'to, wag kang mag-alala.",
+        "source": "Filipino social media / everyday casual conversation"
+      },
+      {
+        "text": "Keri lang kahit mahirap, sige na.",
+        "source": "Filipino TikTok / YouTube comments"
+      }
+    ],
+    "regional_notes": "Originated in LGBTQ+ community speech, now mainstream across all demographics in the Philippines.",
+    "related_terms": [
+      "keribels",
+      "okay na 'to",
+      "beki"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "expressions-and-reactions"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [
+      "keribels",
+      "okay na 'to"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "keribels",
+    "definitions": [
+      "'Okay,' 'I can handle it,' or 'That's manageable'; an amplified and playful swardspeak extension of 'keri'."
+    ],
+    "etymology": "Extended form of 'keri' (from English 'carry': 'I can carry/handle it') using the swardspeak suffix '-bels', a common elongation pattern in Filipino gay lingo that adds emphasis and personality.",
+    "examples": [
+      {
+        "text": "Keribels naman yung trabaho, wag kang mag-alala.",
+        "source": "Filipino social media / beki speak community"
+      }
+    ],
+    "regional_notes": "Used mainly in urban Filipino LGBTQ+ and Gen Z communities; documented in 2024 research on Filipino queer language.",
+    "related_terms": [
+      "keri",
+      "beki",
+      "okay na 'to"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "expressions-and-reactions"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [
+      "keri",
+      "okay na 'to"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "kilig",
     "definitions": [
       "Giddy, butterflies-in-the-stomach romantic excitement; the feeling of being swept away by a romantic moment or encounter.",
@@ -4844,6 +5303,43 @@
       "Skusta Clee — solo tracks and collaborations 2023-2026"
     ],
     "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "luh",
+    "definitions": [
+      "Gen Z Filipino exclamation expressing shock, disbelief, or mild alarm; the Filipino equivalent of \"What?!\" or \"Oh no!\" — often used as a reaction to absurd, unexpected, or unwelcome news, sometimes with a reprimanding undertone."
+    ],
+    "etymology": "Clipped form of the Filipino exclamation \"hala\" or the phrase \"hala ka!\" (meaning \"you are in trouble\" or \"oh no!\"), shortened for quick digital communication by Gen Z speakers on social media and chat platforms.",
+    "examples": [
+      {
+        "text": "Luh! Anong ibig mong sabihin, ako pa ang may kasalanan?",
+        "source": "Filipino Twitter/X exchange, 2024"
+      },
+      {
+        "text": "Luh naman, bakit di mo sinabi agad?",
+        "source": "Filipino group chat screenshot, TikTok Philippines, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "grabe",
+      "aray ko",
+      "haggardo versoza",
+      "huli na"
+    ],
+    "categories": [
+      "exclamations-and-hype",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "grabe",
+      "aray ko"
+    ],
     "antonyms": []
   },
   {
@@ -5379,6 +5875,38 @@
     ]
   },
   {
+    "term": "mekus-mekus",
+    "definitions": [
+      "Playful Filipino internet slang meaning \"mix mix,\" pronounced with an exaggerated Indian accent; used as a viral comedic catchphrase in social media comments, memes, and casual conversation, often without literal meaning beyond comedic effect."
+    ],
+    "etymology": "From English \"mix mix\" as pronounced by Indian-Filipino Facebook/TikTok vlogger Mr. Nobodydudy (Navhot Singh), who popularized it in October 2023 through comedic reaction videos of Indian street food vendors. Went viral on Filipino social media as meme fodder.",
+    "examples": [
+      {
+        "text": "\"Mekus mekus!\" sabi niya habang hinahalo ang ulam",
+        "source": "TikTok Philippines comment section, 2023"
+      },
+      {
+        "text": "Pag may bagong recipe si ate, mekus mekus na agad ang lahat",
+        "source": "Filipino Facebook meme group, 2023-2024"
+      }
+    ],
+    "regional_notes": "Originated from a cross-cultural Filipino-Indian internet context; its humor partly comes from the linguistic blending of cultures, which resonates with the Philippines's multicultural history.",
+    "related_terms": [
+      "boogsh",
+      "for today's videyow",
+      "dogshow"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "humor-and-wit"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
     "term": "mid lang",
     "definitions": [
       "Just average / mediocre / not impressive — used to describe something that fails to meet expectations or is unremarkable. The Tagalog particle 'lang' (only/just) softens or emphasizes the mid judgment."
@@ -5556,6 +6084,44 @@
       "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
     ],
     "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "mumshie",
+    "definitions": [
+      "An affectionate form of address for one's mother, a maternal figure, or a close friend who takes on a nurturing, motherly role in the group. Also used as a general warm greeting between female friends, similar to 'beshie' or 'teh.'"
+    ],
+    "etymology": "Beki/Swardspeak formation from 'mommy/mum' with the playful '-shie' suffix common in Filipino gay lingo (cf. 'mamsh', 'mamsht'). Documented in the Vibal Foundation Philippine Slang and Gay Dictionary (2024) and by SPOT.ph beki slang coverage. Now mainstream across Filipino Gen Z social media.",
+    "examples": [
+      {
+        "text": "Kumusta ka na, mumshie? Miss na kita!",
+        "source": "Filipino social media/group chat, 2024"
+      },
+      {
+        "text": "Si ate ang mumshie ng barkada — lagi siyang may merienda.",
+        "source": "Filipino TikTok/Instagram caption, 2024-2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "mudra",
+      "teh",
+      "beshie",
+      "marecakes",
+      "pangga"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "friendship-and-social-bonds"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [
+      "teh",
+      "beshie",
+      "marecakes"
+    ],
     "antonyms": []
   },
   {
@@ -6308,6 +6874,42 @@
       "kalat",
       "maharot"
     ]
+  },
+  {
+    "term": "pala-desisyon",
+    "definitions": [
+      "Describes a person who is overly opinionated, quick to judge, or habitually makes unsolicited decisive pronouncements about others. Essentially a judgmental busybody who constantly passes verdict without being asked."
+    ],
+    "etymology": "Tagalog construction using the prefix 'pala-' (denoting a habitual tendency, e.g., pala-away = prone to fighting) + 'desisyon' (decision, from Spanish 'decisión'). The compound means 'one who is habitually decisive/judging.' Documented on Wiktionary (paladesisyon), HiNative, and in Urban Dictionary Filipino entries.",
+    "examples": [
+      {
+        "text": "Wag kang pala-desisyon, beh — hindi mo naman alam ang buong kwento.",
+        "source": "HiNative.com Filipino language query, 2024"
+      },
+      {
+        "text": "Huwag tularan si aling pala-desisyon — may komento sa lahat.",
+        "source": "Filipino social media commentary, 2024-2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "chismis",
+      "marites",
+      "tolits",
+      "dogshow",
+      "epektado"
+    ],
+    "categories": [
+      "personality-and-character",
+      "conflict-and-drama"
+    ],
+    "sources": [
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
+    ],
+    "synonyms": [
+      "marites"
+    ],
+    "antonyms": []
   },
   {
     "term": "pangga",
@@ -7367,6 +7969,81 @@
     "antonyms": []
   },
   {
+    "term": "shutacca",
+    "definitions": [
+      "A softened phonetic mutation of the Filipino expletive 'puta ka' (roughly 'you're a bitch' or 'fuck you'), used to express frustration, surprise, or teasing without the full force of the original profanity. Can be affectionate or exasperated depending on tone."
+    ],
+    "etymology": "Formed by mutation: the initial consonant 'p' is changed to 'sh,' and the final 'k' is replaced by double 'c' — transforming two words 'puta ka' into one slang unit 'shutacca.' Documented as an example of 'mutation' word-formation in Filipino queer language by Cogent Arts & Humanities 2024 study.",
+    "examples": [
+      {
+        "text": "Shutacca, grabe naman ang ginawa mo!",
+        "source": "Filipino social media / Swardspeak usage, 2023-2024"
+      },
+      {
+        "text": "Shutacca ka talaga, bakit ngayon ka lang nag-text?",
+        "source": "Filipino Gen Z group chat, TikTok Philippines context, 2024"
+      }
+    ],
+    "regional_notes": "Originates from Philippine LGBTQ+ Swardspeak; widely adopted into mainstream Filipino Gen Z speech as a playful expletive. The shorter form 'shuta' is also commonly used.",
+    "related_terms": [
+      "kalurkey",
+      "grabe",
+      "luh",
+      "imbyerna",
+      "tae"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "wordplay-and-linguistic-forms",
+      "exclamations-and-hype"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [
+      "grabe",
+      "tae",
+      "luh"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "situationship",
+    "definitions": [
+      "A romantic or physical connection without official labels — more than friends but not an exclusive couple. Characterized by emotional intimacy, sometimes physical involvement, and the persistent unresolved question 'ano ba tayo?' ('what are we?'). Used by Filipino Gen Z as a modern replacement for the older Filipino-specific 'MU' (Mutual Understanding) concept.",
+      "By extension: any ambiguous commitment-adjacent relationship that resists definition or labeling."
+    ],
+    "etymology": "Global Gen Z portmanteau of 'situation' + '-ship' (relationship suffix). Oxford University Press spotlighted 'situationship' in 2023 as part of modern dating vocabulary. Filipino Gen Z adopted it as the successor to the older local term 'MU' (Mutual Understanding), reflecting a shift toward global English dating terminology. Documented by Cosmopolitan Philippines in '9 Relationship Trends That Defined How Filipinos (And The World) Dated in 2025' (December 2025), pinkbunny.ph PH Modern Dating A-Z Guide, Young Pilipinas Gen Z dating terms article, and Rappler Filipino relationship culture reporting.",
+    "examples": [
+      {
+        "text": "Hindi kami official. Situationship lang kami — hindi din kami ganun.",
+        "source": "Filipino TikTok comment, 2024"
+      },
+      {
+        "text": "Tapos na ako sa situationship, gusto ko na ng label",
+        "source": "Filipino Twitter/X, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "benchwarmer",
+      "organic encounter",
+      "marupok",
+      "jowa",
+      "soft launch",
+      "hard launch"
+    ],
+    "categories": [
+      "romance-and-relationships",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "refinement pass 11 — eleventh raw-gap audit"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
     "term": "SKL",
     "definitions": [
       "Abbreviation for 'Share Ko Lang' — meaning 'just sharing' or 'just putting this out there'; used to introduce gossip, an announcement, or a personal story."
@@ -7594,6 +8271,43 @@
     "antonyms": [
       "mid lang",
       "tsepay"
+    ]
+  },
+  {
+    "term": "soft launch",
+    "definitions": [
+      "To hint at a new romantic partner on social media without explicitly revealing who they are — showing a cropped hand, a dinner-for-two setup, or a suggestive caption, to signal a new relationship while maintaining plausible ambiguity. A cautious, low-risk way of testing public reaction before a full relationship reveal.",
+      "As a noun: the act or an instance of this behavior ('nag-soft launch siya')."
+    ],
+    "etymology": "Repurposed from tech and marketing jargon ('soft launch' = limited product release before a full public rollout). Applied to Filipino Gen Z dating culture c. 2024 to describe social media relationship hinting. Documented by Manila Bulletin Balita (August 2025 Gen Z slang article), Rappler 'Decoding the Social Media Soft Launch' (2024), Cosmopolitan Philippines '9 Relationship Trends That Defined How Filipinos Dated in 2025,' and pinkbunny.ph PH Modern Dating Guide.",
+    "examples": [
+      {
+        "text": "Soft launch muna, baka jinx pa namin to",
+        "source": "Filipino TikTok, 2024"
+      },
+      {
+        "text": "Nakapansin kayo ng bagong soft launch niya sa IG? Yung cropped na kamay sa dinner?",
+        "source": "Filipino Twitter/X, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "hard launch",
+      "organic encounter",
+      "situationship",
+      "benchwarmer"
+    ],
+    "categories": [
+      "romance-and-relationships",
+      "internet-and-social-media",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "refinement pass 11 — eleventh raw-gap audit"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "hard launch"
     ]
   },
   {
@@ -7848,6 +8562,43 @@
       "mahinhin",
       "mahiyain"
     ]
+  },
+  {
+    "term": "talksick",
+    "definitions": [
+      "A portmanteau of 'talk' and 'sick' that sounds like 'toxic' when spoken aloud; describes a person who talks excessively, with little substance, in a poisonous or draining way. Used to call out toxic conversationalists or gossips."
+    ],
+    "etymology": "Portmanteau wordplay: 'talk' + 'sick' = phonetically identical to 'toxic.' A hallmark example of Filipino Gen Z bilingual pun construction. Appears as a track title in the Because discography (Heartbreak SZN series), reflecting the group's lyrical style of embedding puns in Taglish.",
+    "examples": [
+      {
+        "text": "Talksick ka talaga — walang katapusang kwento pero wala namang point.",
+        "source": "Because, Heartbreak SZN lyrical context, 2023-2024"
+      },
+      {
+        "text": "Mag-ingat ka sa mga talksick na tao, nakaka-drain.",
+        "source": "Filipino social media usage, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "chismis",
+      "hanash",
+      "gera",
+      "imbyerna",
+      "epektado"
+    ],
+    "categories": [
+      "wordplay-and-linguistic-forms",
+      "conflict-and-drama",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "Because — discography 2023-2026"
+    ],
+    "synonyms": [
+      "hanash"
+    ],
+    "antonyms": []
   },
   {
     "term": "tangalog",
@@ -8133,6 +8884,43 @@
     "antonyms": []
   },
   {
+    "term": "tsaa",
+    "definitions": [
+      "The Filipino phonetic spelling of English internet slang 'tea' (gossip/insider info). Used to ask for or share juicy, scandalous, or exciting information — distinct from 'chika' (general gossip) in specifically carrying the 'spill the tea' internet-culture connotation."
+    ],
+    "etymology": "Tagalog phonetic transliteration of English slang 'tea' (gossip), which originated in Black American drag culture ('T' for truth/shade) and was popularized globally via TikTok c. 2018-2020. Filipino Gen Z adopted the Filipinized spelling 'tsaa' to match the standard Tagalog pronunciation of the letter t-s-a-a. Documented in ling-app.com's Tagalog internet slang guide (2024), remotestaff.ph's Common Gen Z Internet Slang list (2024), and snapmagazine's Filipino Gen Z slang compilation.",
+    "examples": [
+      {
+        "text": "Uy, spill the tsaa! Anong nangyari sa kanila?",
+        "source": "Filipino Gen Z group chat, 2024"
+      },
+      {
+        "text": "Ano ang tsaa sa latest drama? Ikukwento mo ba?",
+        "source": "Filipino TikTok comment section, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "chika",
+      "chismis",
+      "SKL",
+      "marites",
+      "tolits"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "humor-and-wit"
+    ],
+    "sources": [
+      "refinement pass 11 — eleventh raw-gap audit"
+    ],
+    "synonyms": [
+      "chika",
+      "chismis"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "tsepay",
     "definitions": [
       "Cheap, low-value, fake, or unimpressive; used as an insult for someone who lacks quality, authenticity, or substance.",
@@ -8354,6 +9142,44 @@
     "antonyms": []
   },
   {
+    "term": "vungga",
+    "definitions": [
+      "Extravagant, fabulous, over-the-top, or showy; an exclamation of admiration for something impressive or glamorous. A swardspeak mutation of 'bongga'."
+    ],
+    "etymology": "Phonetic mutation of 'bongga' (extravagant/fabulous), one of the oldest swardspeak terms dating to the 1970s. The initial 'b' mutates to 'v' and vowels shift — a textbook example of swardspeak phonetic mutation for in-group identity.",
+    "examples": [
+      {
+        "text": "Ang vungga ng damit mo, siz!",
+        "source": "Filipino swardspeak / beki community, social media"
+      },
+      {
+        "text": "Vungga! Hindi ko inaasahan 'yan!",
+        "source": "Filipino LGBTQ+ online community"
+      }
+    ],
+    "regional_notes": "More commonly heard in Metro Manila queer communities; the root word 'bongga' is nationwide but 'vungga' is a more specifically urban swardspeak form.",
+    "related_terms": [
+      "bongga",
+      "gorgy",
+      "estetik",
+      "beki"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "exclamations-and-hype",
+      "fashion-and-style"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [
+      "bongga",
+      "gorgy",
+      "estetik"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "walang ebas",
     "definitions": [
       "No lies; no BS; straight facts only — asserting that what is being said is completely truthful.",
@@ -8462,6 +9288,38 @@
     "antonyms": [
       "kilig"
     ]
+  },
+  {
+    "term": "watash",
+    "definitions": [
+      "First-person pronoun 'I' or 'me'; a humorous swardspeak borrowing from Japanese 'watashi' (I/me in Japanese)."
+    ],
+    "etymology": "Borrowed from Japanese 'watashi' meaning 'I/me' and adopted into Filipino swardspeak as a playful first-person pronoun. Illustrates swardspeak's pattern of borrowing from global languages for in-group expression.",
+    "examples": [
+      {
+        "text": "Watash ang pinaka-fabulous dito!",
+        "source": "Filipino TikTok / swardspeak social media usage"
+      }
+    ],
+    "regional_notes": "Widespread in urban Filipino gay communities and increasingly in online Gen Z circles.",
+    "related_terms": [
+      "aketch",
+      "akis",
+      "anetch",
+      "beki"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "wordplay-and-linguistic-forms"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [
+      "aketch",
+      "akis"
+    ],
+    "antonyms": []
   },
   {
     "term": "werpa",
@@ -8677,684 +9535,6 @@
       "Because — discography 2023-2026"
     ],
     "synonyms": [],
-    "antonyms": []
-  },
-  {
-    "term": "mekus-mekus",
-    "definitions": [
-      "Playful Filipino internet slang meaning \"mix mix,\" pronounced with an exaggerated Indian accent; used as a viral comedic catchphrase in social media comments, memes, and casual conversation, often without literal meaning beyond comedic effect."
-    ],
-    "etymology": "From English \"mix mix\" as pronounced by Indian-Filipino Facebook/TikTok vlogger Mr. Nobodydudy (Navhot Singh), who popularized it in October 2023 through comedic reaction videos of Indian street food vendors. Went viral on Filipino social media as meme fodder.",
-    "examples": [
-      {
-        "text": "\"Mekus mekus!\" sabi niya habang hinahalo ang ulam",
-        "source": "TikTok Philippines comment section, 2023"
-      },
-      {
-        "text": "Pag may bagong recipe si ate, mekus mekus na agad ang lahat",
-        "source": "Filipino Facebook meme group, 2023-2024"
-      }
-    ],
-    "regional_notes": "Originated from a cross-cultural Filipino-Indian internet context; its humor partly comes from the linguistic blending of cultures, which resonates with the Philippines's multicultural history.",
-    "related_terms": [
-      "boogsh",
-      "for today's videyow",
-      "dogshow"
-    ],
-    "categories": [
-      "internet-and-social-media",
-      "humor-and-wit"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
-    ],
-    "synonyms": [],
-    "antonyms": []
-  },
-  {
-    "term": "luh",
-    "definitions": [
-      "Gen Z Filipino exclamation expressing shock, disbelief, or mild alarm; the Filipino equivalent of \"What?!\" or \"Oh no!\" — often used as a reaction to absurd, unexpected, or unwelcome news, sometimes with a reprimanding undertone."
-    ],
-    "etymology": "Clipped form of the Filipino exclamation \"hala\" or the phrase \"hala ka!\" (meaning \"you are in trouble\" or \"oh no!\"), shortened for quick digital communication by Gen Z speakers on social media and chat platforms.",
-    "examples": [
-      {
-        "text": "Luh! Anong ibig mong sabihin, ako pa ang may kasalanan?",
-        "source": "Filipino Twitter/X exchange, 2024"
-      },
-      {
-        "text": "Luh naman, bakit di mo sinabi agad?",
-        "source": "Filipino group chat screenshot, TikTok Philippines, 2024"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "grabe",
-      "aray ko",
-      "haggardo versoza",
-      "huli na"
-    ],
-    "categories": [
-      "exclamations-and-hype",
-      "internet-and-social-media"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
-      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
-    ],
-    "synonyms": [
-      "grabe",
-      "aray ko"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "crayola",
-    "definitions": [
-      "Beki/Swardspeak slang meaning 'to cry'; used as a verb or noun to describe crying, especially over heartbreak or emotional distress. Often used dramatically or humorously."
-    ],
-    "etymology": "Formed by expanding the English verb 'cry' using the recognizable brand name Crayola (a popular crayon brand in the Philippines), a hallmark of Swardspeak's affixation and brand-name wordplay strategy. Documented in the 2024 Cogent Arts & Humanities academic study on Filipino queer language by Ulla, Macaraeg & Ferrera.",
-    "examples": [
-      {
-        "text": "'Wag ka ngang mag-crayola diyan, gurl.",
-        "source": "Common Filipino gay lingo / Beki speech, documented 2024"
-      },
-      {
-        "text": "Break na kami. Crayola na naman akesh!",
-        "source": "Beelinguapp.com Beki words guide, 2024"
-      }
-    ],
-    "regional_notes": "Originates from the Philippine LGBTQ+ Swardspeak community; now widely used by Gen Z even outside queer circles.",
-    "related_terms": [
-      "hugot",
-      "marupok",
-      "wasak",
-      "kilig",
-      "kalurkey"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "emotions-and-feelings",
-      "wordplay-and-linguistic-forms"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
-    ],
-    "synonyms": [
-      "hugot"
-    ],
-    "antonyms": [
-      "kilig"
-    ]
-  },
-  {
-    "term": "shutacca",
-    "definitions": [
-      "A softened phonetic mutation of the Filipino expletive 'puta ka' (roughly 'you're a bitch' or 'fuck you'), used to express frustration, surprise, or teasing without the full force of the original profanity. Can be affectionate or exasperated depending on tone."
-    ],
-    "etymology": "Formed by mutation: the initial consonant 'p' is changed to 'sh,' and the final 'k' is replaced by double 'c' — transforming two words 'puta ka' into one slang unit 'shutacca.' Documented as an example of 'mutation' word-formation in Filipino queer language by Cogent Arts & Humanities 2024 study.",
-    "examples": [
-      {
-        "text": "Shutacca, grabe naman ang ginawa mo!",
-        "source": "Filipino social media / Swardspeak usage, 2023-2024"
-      },
-      {
-        "text": "Shutacca ka talaga, bakit ngayon ka lang nag-text?",
-        "source": "Filipino Gen Z group chat, TikTok Philippines context, 2024"
-      }
-    ],
-    "regional_notes": "Originates from Philippine LGBTQ+ Swardspeak; widely adopted into mainstream Filipino Gen Z speech as a playful expletive. The shorter form 'shuta' is also commonly used.",
-    "related_terms": [
-      "kalurkey",
-      "grabe",
-      "luh",
-      "imbyerna",
-      "tae"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "wordplay-and-linguistic-forms",
-      "exclamations-and-hype"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
-    ],
-    "synonyms": [
-      "grabe",
-      "tae",
-      "luh"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "gorgy",
-    "definitions": [
-      "A playful, compressed form of 'gorgeous'; used as a casual compliment for a person, outfit, or anything visually stunning. Carries an enthusiastic, over-the-top energy."
-    ],
-    "etymology": "Clipped from English 'gorgeous,' following the Filipino Gen Z trend of shortening or respelling English words for a cuter, more informal effect. Popularized on Filipino TikTok and group chats, especially in fashion and beauty contexts.",
-    "examples": [
-      {
-        "text": "OMG, gorgy mo today!",
-        "source": "Filipino TikTok comment section, 2024"
-      },
-      {
-        "text": "Gorgy naman ng OOTD mo!",
-        "source": "Filipino Instagram and group chat usage, 2024-2025"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "bongga",
-      "pak ganern",
-      "awra",
-      "shontis",
-      "drip"
-    ],
-    "categories": [
-      "gen-z-and-imported-slang",
-      "fashion-and-style",
-      "internet-and-social-media"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
-    ],
-    "synonyms": [
-      "bongga",
-      "pak ganern"
-    ],
-    "antonyms": [
-      "tsepay",
-      "panis"
-    ]
-  },
-  {
-    "term": "DTQ",
-    "definitions": [
-      "Acronym for 'Downtown Quezon City'; used as a term of area pride and local identity, especially within Filipino hip-hop culture. Evokes street credibility, authenticity, and neighborhood loyalty."
-    ],
-    "etymology": "Popularized by Quezon City rapper Hev Abi through his breakout 2023 TikTok-viral track 'WELCOME2DTQ,' which celebrated his roots in the streets of Downtown Quezon City, particularly around Tomas Morato Avenue. Also the name of his record label, Downtown Q Entertainment.",
-    "examples": [
-      {
-        "text": "DTQ represent! Galing kami dito, hindi kayo.",
-        "source": "Hev Abi, WELCOME2DTQ (2023), Filipino hip-hop cultural reference"
-      },
-      {
-        "text": "Pag DTQ ka, alam mo na kung saan patungo.",
-        "source": "Filipino hip-hop fan community, Twitter/X Philippines, 2023-2025"
-      }
-    ],
-    "regional_notes": "Specific to Quezon City, Metro Manila; comparable to neighborhood-pride acronyms in US hip-hop (e.g., BX for The Bronx). Outside of QC, the term is understood through Hev Abi's music.",
-    "related_terms": [
-      "galing kalye",
-      "go getta",
-      "angas",
-      "beterano",
-      "kinaladkad"
-    ],
-    "categories": [
-      "hip-hop-and-rap-culture",
-      "street-and-hustle"
-    ],
-    "sources": [
-      "Hev Abi — discography 2023-2026"
-    ],
-    "synonyms": [],
-    "antonyms": []
-  },
-  {
-    "term": "talksick",
-    "definitions": [
-      "A portmanteau of 'talk' and 'sick' that sounds like 'toxic' when spoken aloud; describes a person who talks excessively, with little substance, in a poisonous or draining way. Used to call out toxic conversationalists or gossips."
-    ],
-    "etymology": "Portmanteau wordplay: 'talk' + 'sick' = phonetically identical to 'toxic.' A hallmark example of Filipino Gen Z bilingual pun construction. Appears as a track title in the Because discography (Heartbreak SZN series), reflecting the group's lyrical style of embedding puns in Taglish.",
-    "examples": [
-      {
-        "text": "Talksick ka talaga — walang katapusang kwento pero wala namang point.",
-        "source": "Because, Heartbreak SZN lyrical context, 2023-2024"
-      },
-      {
-        "text": "Mag-ingat ka sa mga talksick na tao, nakaka-drain.",
-        "source": "Filipino social media usage, 2024"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "chismis",
-      "hanash",
-      "gera",
-      "imbyerna",
-      "epektado"
-    ],
-    "categories": [
-      "wordplay-and-linguistic-forms",
-      "conflict-and-drama",
-      "internet-and-social-media"
-    ],
-    "sources": [
-      "Because — discography 2023-2026"
-    ],
-    "synonyms": [
-      "hanash"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "mumshie",
-    "definitions": [
-      "An affectionate form of address for one's mother, a maternal figure, or a close friend who takes on a nurturing, motherly role in the group. Also used as a general warm greeting between female friends, similar to 'beshie' or 'teh.'"
-    ],
-    "etymology": "Beki/Swardspeak formation from 'mommy/mum' with the playful '-shie' suffix common in Filipino gay lingo (cf. 'mamsh', 'mamsht'). Documented in the Vibal Foundation Philippine Slang and Gay Dictionary (2024) and by SPOT.ph beki slang coverage. Now mainstream across Filipino Gen Z social media.",
-    "examples": [
-      {
-        "text": "Kumusta ka na, mumshie? Miss na kita!",
-        "source": "Filipino social media/group chat, 2024"
-      },
-      {
-        "text": "Si ate ang mumshie ng barkada — lagi siyang may merienda.",
-        "source": "Filipino TikTok/Instagram caption, 2024-2025"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "mudra",
-      "teh",
-      "beshie",
-      "marecakes",
-      "pangga"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "friendship-and-social-bonds"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
-    ],
-    "synonyms": [
-      "teh",
-      "beshie",
-      "marecakes"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "gandara",
-    "definitions": [
-      "An elongated, emphatic form of 'ganda' (beauty/beautiful); used as an exclamation of admiration or to call someone beautiful, with more flair and drama than the plain 'ganda.' Often used in compliments about appearance or aesthetic."
-    ],
-    "etymology": "Formed by appending the suffix '-ra' (a common Swardspeak/Beki extension) or as a phonological elongation of 'ganda,' following the Filipino Gen Z pattern of stretching root words for expressiveness. Documented in the FastForward MR Filipino Gen Z Dictionary (2025) and Beelinguapp Beki words guide.",
-    "examples": [
-      {
-        "text": "Gandara naman ng OOTD mo, pare!",
-        "source": "Filipino TikTok/Instagram usage, 2024-2025"
-      },
-      {
-        "text": "Gandara! Sino ba nagpaabot sa iyo ng genes na yan?",
-        "source": "Filipino Twitter/X compliment thread, 2025"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "bongga",
-      "gorgy",
-      "pak ganern",
-      "awra"
-    ],
-    "categories": [
-      "wordplay-and-linguistic-forms",
-      "internet-and-social-media",
-      "lgbtq-and-beki-lingo"
-    ],
-    "sources": [
-      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
-    ],
-    "synonyms": [
-      "bongga",
-      "gorgy"
-    ],
-    "antonyms": [
-      "tsepay",
-      "panis"
-    ]
-  },
-  {
-    "term": "pala-desisyon",
-    "definitions": [
-      "Describes a person who is overly opinionated, quick to judge, or habitually makes unsolicited decisive pronouncements about others. Essentially a judgmental busybody who constantly passes verdict without being asked."
-    ],
-    "etymology": "Tagalog construction using the prefix 'pala-' (denoting a habitual tendency, e.g., pala-away = prone to fighting) + 'desisyon' (decision, from Spanish 'decisión'). The compound means 'one who is habitually decisive/judging.' Documented on Wiktionary (paladesisyon), HiNative, and in Urban Dictionary Filipino entries.",
-    "examples": [
-      {
-        "text": "Wag kang pala-desisyon, beh — hindi mo naman alam ang buong kwento.",
-        "source": "HiNative.com Filipino language query, 2024"
-      },
-      {
-        "text": "Huwag tularan si aling pala-desisyon — may komento sa lahat.",
-        "source": "Filipino social media commentary, 2024-2025"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "chismis",
-      "marites",
-      "tolits",
-      "dogshow",
-      "epektado"
-    ],
-    "categories": [
-      "personality-and-character",
-      "conflict-and-drama"
-    ],
-    "sources": [
-      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
-    ],
-    "synonyms": [
-      "marites"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "ghorl",
-    "definitions": [
-      "A Beki/Swardspeak and Gen Z variant spelling of 'girl,' used as an affectionate term of address for a close friend regardless of gender. Can relay different emotions (excitement, concern, shade, solidarity) depending on tone, duration, and pitch."
-    ],
-    "etymology": "Phonetic respelling of English 'girl,' following the Swardspeak tradition of altering standard English spellings for in-group identity. Related variants include 'gurl' and 'ghurl.' Documented in the FastForward MR Filipino Gen Z Dictionary (2025) and featured in coverage of Beki language evolution.",
-    "examples": [
-      {
-        "text": "Ghorl, may chika ako — dito ka muna.",
-        "source": "Filipino TikTok / group chat, 2024"
-      },
-      {
-        "text": "Ghooorl, hindi mo ba nakita ang nangyari?",
-        "source": "Filipino Twitter/X thread, 2025"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "teh",
-      "beshie",
-      "mumshie",
-      "mudra"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "friendship-and-social-bonds"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026",
-      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
-    ],
-    "synonyms": [
-      "teh",
-      "beshie"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "aketch",
-    "definitions": [
-      "First-person pronoun 'I' or 'me'; a playful swardspeak transformation of 'ako' using the swardspeak suffix '-etch'."
-    ],
-    "etymology": "Mutation of 'ako' (Tagalog: 'I/me') using the swardspeak suffix '-etch', characteristic of Filipino gay lingo word formation where standard pronouns are reshaped for in-group identity and playful tone.",
-    "examples": [
-      {
-        "text": "Aketch na ang bahala sa lahat!",
-        "source": "Filipino social media / beki speak community"
-      }
-    ],
-    "regional_notes": "Widely used in Metro Manila and urban LGBTQ+ spaces; documented in 2024 academic research on Filipino queer language.",
-    "related_terms": [
-      "akis",
-      "watash",
-      "anetch",
-      "beki"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "wordplay-and-linguistic-forms"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
-    ],
-    "synonyms": [
-      "akis",
-      "watash"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "akis",
-    "definitions": [
-      "First-person pronoun 'I' or 'me'; a swardspeak variant of 'ako' using the '-is' suffix ending."
-    ],
-    "etymology": "Mutation of 'ako' (Tagalog: 'I/me') using the swardspeak suffix '-is', one of several interchangeable endings (-is, -etch, -ash) applied in Filipino gay lingo to base words.",
-    "examples": [
-      {
-        "text": "Akis na mag-aayos ng buhay ko.",
-        "source": "Filipino LGBTQ+ community speech / social media"
-      }
-    ],
-    "regional_notes": "Documented in both Metro Manila and regional urban Filipino queer communities alongside variants 'aketch' and 'akeno'.",
-    "related_terms": [
-      "aketch",
-      "watash",
-      "anetch",
-      "beki"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "wordplay-and-linguistic-forms"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
-    ],
-    "synonyms": [
-      "aketch",
-      "watash"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "watash",
-    "definitions": [
-      "First-person pronoun 'I' or 'me'; a humorous swardspeak borrowing from Japanese 'watashi' (I/me in Japanese)."
-    ],
-    "etymology": "Borrowed from Japanese 'watashi' meaning 'I/me' and adopted into Filipino swardspeak as a playful first-person pronoun. Illustrates swardspeak's pattern of borrowing from global languages for in-group expression.",
-    "examples": [
-      {
-        "text": "Watash ang pinaka-fabulous dito!",
-        "source": "Filipino TikTok / swardspeak social media usage"
-      }
-    ],
-    "regional_notes": "Widespread in urban Filipino gay communities and increasingly in online Gen Z circles.",
-    "related_terms": [
-      "aketch",
-      "akis",
-      "anetch",
-      "beki"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "wordplay-and-linguistic-forms"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
-    ],
-    "synonyms": [
-      "aketch",
-      "akis"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "anetch",
-    "definitions": [
-      "'What?' or 'What is that?'; a swardspeak transformation of 'ano' (Tagalog: 'what') using the '-etch' suffix."
-    ],
-    "etymology": "Mutation of 'ano' (Tagalog: 'what?') using the swardspeak suffix '-etch', creating a playful, more expressive version of the standard question word.",
-    "examples": [
-      {
-        "text": "Anetch yung ginawa mo?",
-        "source": "Filipino social media / beki speak community"
-      },
-      {
-        "text": "Anetch ba ang suot mo, siz?",
-        "source": "Filipino LGBTQ+ Twitter/X / group chats"
-      }
-    ],
-    "regional_notes": "none",
-    "related_terms": [
-      "aketch",
-      "akis",
-      "beki"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "wordplay-and-linguistic-forms"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
-    ],
-    "synonyms": [],
-    "antonyms": []
-  },
-  {
-    "term": "keribels",
-    "definitions": [
-      "'Okay,' 'I can handle it,' or 'That's manageable'; an amplified and playful swardspeak extension of 'keri'."
-    ],
-    "etymology": "Extended form of 'keri' (from English 'carry': 'I can carry/handle it') using the swardspeak suffix '-bels', a common elongation pattern in Filipino gay lingo that adds emphasis and personality.",
-    "examples": [
-      {
-        "text": "Keribels naman yung trabaho, wag kang mag-alala.",
-        "source": "Filipino social media / beki speak community"
-      }
-    ],
-    "regional_notes": "Used mainly in urban Filipino LGBTQ+ and Gen Z communities; documented in 2024 research on Filipino queer language.",
-    "related_terms": [
-      "keri",
-      "beki",
-      "okay na 'to"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "expressions-and-reactions"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
-    ],
-    "synonyms": [
-      "keri",
-      "okay na 'to"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "keri",
-    "definitions": [
-      "'Okay,' 'I can handle it,' 'It's fine,' or 'That works'; a casual affirmative or 'no problem' expression."
-    ],
-    "etymology": "Derived from English 'carry' (as in 'I can carry/handle it'), adapted into Filipino swardspeak/gay lingo and later spread to mainstream youth usage. The elaborated form 'keribels' is also used for emphasis.",
-    "examples": [
-      {
-        "text": "Keri ko 'to, wag kang mag-alala.",
-        "source": "Filipino social media / everyday casual conversation"
-      },
-      {
-        "text": "Keri lang kahit mahirap, sige na.",
-        "source": "Filipino TikTok / YouTube comments"
-      }
-    ],
-    "regional_notes": "Originated in LGBTQ+ community speech, now mainstream across all demographics in the Philippines.",
-    "related_terms": [
-      "keribels",
-      "okay na 'to",
-      "beki"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "expressions-and-reactions"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
-    ],
-    "synonyms": [
-      "keribels",
-      "okay na 'to"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "besh",
-    "definitions": [
-      "A close friend; a casual shortened form of address for someone you are close with."
-    ],
-    "etymology": "Clipped form of 'beshie' (from 'bestie' / 'best friend'), used as a standalone term of endearment for close friends. Part of Filipino beki/swardspeak vocabulary that entered mainstream Gen Z speech.",
-    "examples": [
-      {
-        "text": "Besh, nandyan ka pa ba?",
-        "source": "Filipino group chats / TikTok comments"
-      },
-      {
-        "text": "Uy besh, anong balita?",
-        "source": "Filipino social media / casual conversation"
-      }
-    ],
-    "regional_notes": "none",
-    "related_terms": [
-      "beshie",
-      "teh",
-      "ghorl",
-      "mudra"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "friendship-and-social-bonds"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
-    ],
-    "synonyms": [
-      "beshie",
-      "bestie"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "vungga",
-    "definitions": [
-      "Extravagant, fabulous, over-the-top, or showy; an exclamation of admiration for something impressive or glamorous. A swardspeak mutation of 'bongga'."
-    ],
-    "etymology": "Phonetic mutation of 'bongga' (extravagant/fabulous), one of the oldest swardspeak terms dating to the 1970s. The initial 'b' mutates to 'v' and vowels shift — a textbook example of swardspeak phonetic mutation for in-group identity.",
-    "examples": [
-      {
-        "text": "Ang vungga ng damit mo, siz!",
-        "source": "Filipino swardspeak / beki community, social media"
-      },
-      {
-        "text": "Vungga! Hindi ko inaasahan 'yan!",
-        "source": "Filipino LGBTQ+ online community"
-      }
-    ],
-    "regional_notes": "More commonly heard in Metro Manila queer communities; the root word 'bongga' is nationwide but 'vungga' is a more specifically urban swardspeak form.",
-    "related_terms": [
-      "bongga",
-      "gorgy",
-      "estetik",
-      "beki"
-    ],
-    "categories": [
-      "lgbtq-and-beki-lingo",
-      "exclamations-and-hype",
-      "fashion-and-style"
-    ],
-    "sources": [
-      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
-    ],
-    "synonyms": [
-      "bongga",
-      "gorgy",
-      "estetik"
-    ],
     "antonyms": []
   }
 ]
