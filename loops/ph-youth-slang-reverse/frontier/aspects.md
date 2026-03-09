@@ -2,10 +2,10 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 11
-- Pending: 14
+- Analyzed: 12
+- Pending: 13
 - Convergence counter: 0/3
-- Raw terms gathered: 171
+- Raw terms gathered: 188
 
 ---
 
@@ -25,7 +25,7 @@
 
 ## Wave 1b: Social & Community Sources
 
-- [ ] TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang
+- [x] TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang
 - [ ] Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language
 - [ ] Reddit r/Philippines and r/CasualPH — slang discussion threads, "what does X mean" posts
 - [ ] YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage
