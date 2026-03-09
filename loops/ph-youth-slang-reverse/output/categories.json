@@ -1,0 +1,450 @@
+{
+  "let's-go-expressions": {
+    "description": "Calls to action, invitations to move or start something",
+    "term_count": 7,
+    "terms": [
+      "arat",
+      "salang na",
+      "bounce",
+      "gege",
+      "slide (sa gig)",
+      "forda",
+      "forda ferson"
+    ]
+  },
+  "unbothered-culture": {
+    "description": "Expressions of being unaffected, dismissive, or emotionally detached from drama",
+    "term_count": 7,
+    "terms": [
+      "patola",
+      "hindi ako epektado",
+      "dedma",
+      "shushhh",
+      "ala me pakels",
+      "pakels",
+      "laylow"
+    ]
+  },
+  "truth-and-authenticity": {
+    "description": "Slang asserting honesty, directness, or genuine expression",
+    "term_count": 5,
+    "terms": [
+      "no cap",
+      "walang ebas",
+      "rekta",
+      "omsim",
+      "fr",
+      "alam na this"
+    ]
+  },
+  "humor-and-softeners": {
+    "description": "Markers of jest, sarcasm, or joke signals",
+    "term_count": 6,
+    "terms": [
+      "char",
+      "chariz",
+      "chos",
+      "echoz",
+      "eme",
+      "naks"
+    ]
+  },
+  "insults-and-diss-culture": {
+    "description": "Terms used to insult, dismiss, or put down rivals and posers",
+    "term_count": 9,
+    "terms": [
+      "panis",
+      "deds",
+      "tsepay",
+      "balagbag",
+      "kengkoy",
+      "tae",
+      "babatain",
+      "banat",
+      "dogshow",
+      "tolongges (ref)"
+    ]
+  },
+  "fashion-and-style": {
+    "description": "Slang about personal style, fashion, and looking good",
+    "term_count": 7,
+    "terms": [
+      "drip",
+      "drip ko mala-gripo",
+      "drip set",
+      "awra",
+      "angas",
+      "estetik",
+      "big boy whip"
+    ]
+  },
+  "hustle-culture": {
+    "description": "Slang about grinding, ambition, and relentless pursuit of success",
+    "term_count": 6,
+    "terms": [
+      "go getta",
+      "247",
+      "naka-focus sa cake",
+      "boss na",
+      "galing sa wala (ref)",
+      "diskarte",
+      "beterano"
+    ]
+  },
+  "conflict-and-beef": {
+    "description": "Terms for disputes, rivalries, and rap confrontations",
+    "term_count": 7,
+    "terms": [
+      "gera",
+      "lagabog",
+      "tagilid",
+      "banat",
+      "babatain",
+      "dogshow",
+      "galing kalye"
+    ]
+  },
+  "hype-and-excellence": {
+    "description": "Exclamations and terms for something impressive, fierce, or outstanding",
+    "term_count": 6,
+    "terms": [
+      "bongga",
+      "pak ganern",
+      "werpa",
+      "lagabog",
+      "salang na",
+      "kabog (ref)",
+      "angas"
+    ]
+  },
+  "breakup-and-heartbreak": {
+    "description": "Slang about endings, moving on, and emotional exits from relationships",
+    "term_count": 8,
+    "terms": [
+      "kalimutan ka",
+      "bnk",
+      "ayoko na",
+      "laya",
+      "huli na",
+      "pahinga na",
+      "wasak (ref)",
+      "hugot",
+      "marupok"
+    ]
+  },
+  "romance-and-attraction": {
+    "description": "Terms for romantic feelings, attraction, and coupling",
+    "term_count": 9,
+    "terms": [
+      "jowa",
+      "bb",
+      "pangga",
+      "kilig",
+      "lambing",
+      "gigil",
+      "bagay",
+      "dyosa",
+      "ebeb (ref)",
+      "beh",
+      "MU (ref)"
+    ]
+  },
+  "relationship-dynamics": {
+    "description": "Terms describing relationship behaviors and patterns",
+    "term_count": 9,
+    "terms": [
+      "lulutang",
+      "nadikit",
+      "mapagpatol",
+      "babaero",
+      "benchwarmer",
+      "marupok",
+      "topak",
+      "praning",
+      "seenzone"
+    ]
+  },
+  "forms-of-address": {
+    "description": "Terms used to address or refer to peers, friends, and intimates",
+    "term_count": 9,
+    "terms": [
+      "mane",
+      "lodi",
+      "bish",
+      "beshie",
+      "beh",
+      "bes",
+      "teh (ref)",
+      "mudra",
+      "pudra",
+      "unc",
+      "ghorl (ref)",
+      "cuh (ref)",
+      "sah (ref)"
+    ]
+  },
+  "loyalty-and-crew": {
+    "description": "Terms for loyal friends, squads, and chosen family",
+    "term_count": 5,
+    "terms": [
+      "day ones",
+      "tropa",
+      "gng",
+      "beshie",
+      "bumaba 'yung gang"
+    ]
+  },
+  "emotional-states": {
+    "description": "Slang describing emotional and mental states",
+    "term_count": 12,
+    "terms": [
+      "agit",
+      "epektado",
+      "nadikit",
+      "praning",
+      "topak",
+      "kilig",
+      "gigil",
+      "hugot",
+      "lutang",
+      "marupok",
+      "laya",
+      "ayoko na"
+    ]
+  },
+  "sympathy-and-commiseration": {
+    "description": "Expressions of shared pain, empathy, or ironic consolation",
+    "term_count": 5,
+    "terms": [
+      "awit",
+      "awit sayo",
+      "aray ko",
+      "aray mo",
+      "dasurv"
+    ]
+  },
+  "social-media-culture": {
+    "description": "Slang originating from or primarily used on social media platforms",
+    "term_count": 10,
+    "terms": [
+      "kunan mong pic",
+      "bumaba 'yung gang",
+      "aura farming",
+      "estetik",
+      "for today's videyow",
+      "mukbang",
+      "FYP (ref)",
+      "dogshow",
+      "aura farming",
+      "budol",
+      "cancel"
+    ]
+  },
+  "internet-slang-and-memes": {
+    "description": "Viral internet phrases, meme formats, and imported online trends",
+    "term_count": 14,
+    "terms": [
+      "brain rot",
+      "IJBOL",
+      "naur",
+      "ratio",
+      "touch grass",
+      "6-7",
+      "oomf",
+      "alam na this",
+      "baha ka lang, pinoy kami",
+      "bigla kang sumakses",
+      "forda",
+      "forda ferson",
+      "periodt",
+      "JOMO"
+    ]
+  },
+  "street-slang": {
+    "description": "Terms rooted in Manila street culture and OPM rap's street register",
+    "term_count": 12,
+    "terms": [
+      "galing kalye",
+      "lagabog",
+      "diskarte",
+      "amats",
+      "walwal",
+      "sabog",
+      "bato",
+      "babain",
+      "laylow",
+      "gera",
+      "lodi",
+      "beterano"
+    ]
+  },
+  "drug-and-substance-culture": {
+    "description": "Terms related to drug use and intoxication in street/rap contexts",
+    "term_count": 5,
+    "terms": [
+      "bato",
+      "amats",
+      "walwal",
+      "sabog",
+      "bisyo"
+    ]
+  },
+  "beki-swardspeak-lgbtq": {
+    "description": "Terms from Filipino LGBTQ+ language (swardspeak/beki lingo) that have entered broader youth use",
+    "term_count": 14,
+    "terms": [
+      "pak ganern",
+      "awra",
+      "bongga",
+      "beshie",
+      "badesh",
+      "vaklush",
+      "achoo",
+      "shontis",
+      "petmalu",
+      "kalurkey",
+      "mudra",
+      "lavarn",
+      "amaccana accla",
+      "ammacana"
+    ]
+  },
+  "wordplay-and-backslang": {
+    "description": "Terms formed through syllable reversal, respelling, or linguistic play",
+    "term_count": 10,
+    "terms": [
+      "omsim",
+      "arat",
+      "amats",
+      "petmalu",
+      "amaccana accla",
+      "ammacana",
+      "drip ko mala-gripo",
+      "boogsh",
+      "eabab",
+      "epip"
+    ]
+  },
+  "borrowed-slang": {
+    "description": "Terms adopted from English, AAVE, or other languages into Filipino youth speech",
+    "term_count": 12,
+    "terms": [
+      "drip",
+      "go getta",
+      "no cap",
+      "day ones",
+      "low key",
+      "rizz",
+      "aura farming",
+      "brain rot",
+      "benchwarmer",
+      "dasurv",
+      "budol (evolved)",
+      "slide (sa gig)",
+      "bounce"
+    ]
+  },
+  "identity-and-credibility": {
+    "description": "Slang asserting authentic identity, origins, or credibility",
+    "term_count": 6,
+    "terms": [
+      "galing kalye",
+      "beterano",
+      "boss na",
+      "go getta",
+      "diskarte",
+      "baha ka lang, pinoy kami"
+    ]
+  },
+  "gossip-and-drama-culture": {
+    "description": "Terms about gossiping, drama, and social information sharing",
+    "term_count": 6,
+    "terms": [
+      "chismis",
+      "chika",
+      "SKL",
+      "marites",
+      "mapagpatol",
+      "nadikit"
+    ]
+  },
+  "attitude-and-swagger": {
+    "description": "Terms for how someone carries themselves — confidence, arrogance, or effortless cool",
+    "term_count": 4,
+    "terms": [
+      "angas",
+      "asta",
+      "ere (ref)",
+      "swabe (ref)",
+      "hindi ako epektado",
+      "main character energy"
+    ]
+  },
+  "consumer-and-flex-culture": {
+    "description": "Slang about spending, flexing wealth, or social media-driven purchasing",
+    "term_count": 6,
+    "terms": [
+      "budol",
+      "burgis",
+      "big boy whip",
+      "kunan mong pic",
+      "boss na",
+      "naka-focus sa cake"
+    ]
+  },
+  "character-traits": {
+    "description": "Adjectives and nouns describing personality types",
+    "term_count": 12,
+    "terms": [
+      "bibo",
+      "batugan",
+      "petiks",
+      "praning",
+      "topak",
+      "marupok",
+      "beterano",
+      "mapagpatol",
+      "lulutang",
+      "babaero",
+      "diskarte",
+      "bisyo"
+    ]
+  },
+  "disaster-resilience-humor": {
+    "description": "Dark-comedy slang expressing Filipino resilience in the face of adversity",
+    "term_count": 2,
+    "terms": [
+      "baha ka lang, pinoy kami",
+      "diskarte",
+      "bahala na (ref)"
+    ]
+  },
+  "gaming-and-online-culture": {
+    "description": "Slang originating in online gaming communities and esports culture",
+    "term_count": 7,
+    "terms": [
+      "boogsh",
+      "booking",
+      "ratio",
+      "touch grass",
+      "brain rot",
+      "JOMO",
+      "gng"
+    ]
+  },
+  "taglish-constructions": {
+    "description": "Novel compounds and phrases that blend Tagalog and English syntax",
+    "term_count": 9,
+    "terms": [
+      "drip ko mala-gripo",
+      "naka-focus sa cake",
+      "ala me pakels",
+      "alam na this",
+      "bumaba 'yung gang",
+      "kunan mong pic",
+      "bigla kang sumakses",
+      "forda ferson",
+      "for today's videyow"
+    ]
+  }
+}
