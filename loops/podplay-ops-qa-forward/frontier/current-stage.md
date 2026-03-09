@@ -1,7 +1,7 @@
 # PodPlay Ops QA Forward Loop — Stage Tracker
 
 **Total stages**: 46
-**Current stage**: 010
+**Current stage**: 011
 
 ## Stages
 
@@ -16,7 +16,7 @@
 | 007 | SearchableSelect Component (F08) | done |
 | 008 | SearchableSelect Tests (F08) | done |
 | 009 | InstallerSettings Component (F01) | done |
-| 010 | Installers Route + Settings Nav (F01) | pending |
+| 010 | Installers Route + Settings Nav (F01) | done |
 | 011 | InstallerSettings Tests (F01) | pending |
 | 012 | ISP Provider Dropdown (F03) | pending |
 | 013 | ISP Dropdown Tests (F03) | pending |
