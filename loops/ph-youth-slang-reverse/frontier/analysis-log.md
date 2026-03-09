@@ -11,6 +11,7 @@
 
 | 7 | 2026-03-09 | Because — discography 2023-2026 | 1 (Gather) | 15 | Heartbreak/breakup lexicon cluster ("BNK", "wasak", "jowa", "ayoko na"); trap-soul lifestyle terms ("yosi", "pausok", "hipak", "SZN"); personality/attitude ("suplada", "babaero", "grabe"); Taglish portmanteau ("talksick"); borrowed English slang fully integrated ("no shade", "bb", "SZN"); source: Heartbreak SZN 3 (2024) — 15 tracks; cross-confirmed babaero with Hev Abi file |
 | 8 | 2026-03-09 | ALLMO$T — tracks 2023-2026 | 1 (Gather) | 15 | Romantic/flirtatious cluster ("maharot", "mailap", "malandi", "kiri", "haliparot", "talandi"); internet/TikTok era terms ("FYP", "sanaol", "lodicakes"); personality descriptors ("pabebe", "maarte", "bibo"); community language ("naks", "teh"); compatibility term from viral hit ("bagay"); primary sources: Maharot (2024), Mailap (2025), FYP LUV (2024); note: ALLMO$T leans romantic R&B — vocabulary skews toward flirtation and relationship compatibility themes |
+| 9 | 2026-03-09 | Shanti Dope — recent releases 2023-2026 | 1 (Gather) | 13 | Drug culture lexicon cluster ("amats", "bato", "sabog", "pariwara", "lutang"); street/police slang ("tulak", "parak"); survival/loyalty terms ("tropa", "laylow", "diskarte"); diss/disrespect vocab ("babatain", "deds"); credibility descriptor ("beterano"); primary sources: Bad Type (Guns and Roses 2023), DRUGS EP (2024), Rehab (2025), Amatz (2019 active 2023-2025), Peekaboo! (2021 active 2023-2025) |
 
 ## Iteration 1 Detail — 2026-03-09
 
@@ -207,3 +208,36 @@
 - "yosi" has historical depth (1970s backslang from sigarilyo) but remains actively used by 2024 youth
 - "babaero" confirmed in two Wave 1 sources (Hev Abi + Because) — strong candidate for dictionary entry
 - Excluded: "minahal aagad" (standard Tagalog phrase, not slang), "dopamina" (scientific term used as aesthetic title), "pausok" song context around "Allison Shore" — primarily standard vocabulary
+
+## Iteration 9 Detail — 2026-03-09
+
+**Aspect:** Shanti Dope — recent releases 2023-2026
+**Wave:** 1 (Gather)
+**Raw file:** raw/shanti-dope.json (13 terms)
+
+### Terms Gathered
+1. amats — reversed "tama"; the kick/high from drugs or alcohol; Amatz (2019 iconic, DRUGS EP 2024 callbacks)
+2. lutang — spaced out / mentally floating / disconnected (adj.); Shanti Dope feat. Bry Mnzno et al., Lutang (2020, active in DRUGS EP 2024 thematic context)
+3. deds — dead / hopeless / a lost cause; Bad Type, Guns and Roses (2023)
+4. tropa — close friends / crew; "Yung sabi ko sa tropa" — Bad Type (2023); also in Rehab (2025) interview context
+5. tulak — drug pusher / dealer; "Tulak sa'min si 2Pac tingin sakin" — Bad Type (2023)
+6. laylow — stay low / keep a low profile; "Laylow sh gulat ka noh" — Peekaboo! (2021, lexically active 2023-2025)
+7. parak — police; "kamatayan o parak" — Amatz (2019, culturally active 2023-2025)
+8. pariwara — lost / going astray / reckless; Rehab (2025) narrative backdrop
+9. sabog — wasted / high / chaotic mental state; Rehab (2025) pre-recovery descriptive
+10. diskarte — street smarts / resourcefulness / clever strategy; core Shanti Dope identity term in interviews and catalog 2023-2025
+11. babatain — to disrespect / publicly insult / drag; Bad Type, Guns and Roses (2023)
+12. beterano — veteran (adapted Filipino spelling); "kilos beterano" — Peekaboo! (2021, active 2023-2025)
+13. bato — crystal methamphetamine / shabu (drug slang); "makinang na bato" — Amatz (2019); structural theme of DRUGS EP (2024)
+
+### Notes
+- Shanti Dope is the most confessional PH rapper regarding drug culture — uniquely rich source for addiction-adjacent slang
+- "Amatz" (2019) remains culturally live: PDEA controversy and DRUGS EP (2024) continually resurface it in discourse
+- "Lutang" here is the adjectival/noun form; "lulutang" in Skusta Clee file is a different metaphorical usage (fair-weather person)
+- "deds" confirms emergence of English-derived Gen Z finality terms (similar to "patay na" from Matthaios file but Gen Z register)
+- "Tropa" is older slang but actively used in 2023-2025 Shanti Dope corpus — included with specific citations
+- "Laylow" is from Peekaboo! (2021) but remains lexically active in 2023-2025 PH rap, appearing in newer context
+- "Bato/shabu/parak/tulak" form a street-level drug-and-police cluster distinct from other artists' vocabulary
+- "Diskarte" is the most widely used practical life-strategy term in Filipino youth speech — spans all social classes
+- Cross-connections: "praning" already in Flow G file (drug-adjacent context); "lulutang" already in Skusta Clee file (metaphorical)
+- Excluded: "matibay" (standard Tagalog for strong), "kapit" (standard Tagalog for hold on), "sabik" (standard Tagalog for eager)
