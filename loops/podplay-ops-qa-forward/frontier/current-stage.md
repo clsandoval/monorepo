@@ -1,7 +1,7 @@
 # PodPlay Ops QA Forward Loop — Stage Tracker
 
 **Total stages**: 46
-**Current stage**: 020
+**Current stage**: 021
 
 ## Stages
 
@@ -26,7 +26,7 @@
 | 017 | Project State Persistence Tests (F04) | done |
 | 018 | AdjustmentModal Component (F07) | done |
 | 019 | Wire AdjustmentModal to /inventory Page (F07) | done |
-| 020 | Wire AdjustmentModal to Procurement Inventory Check (F07) | pending |
+| 020 | Wire AdjustmentModal to Procurement Inventory Check (F07) | done |
 | 021 | Inventory Adjustment Tests (F07) | pending |
 | 022 | Replace SKU Swap Select with SearchableSelect (F08) | pending |
 | 023 | Replace Installer Select with SearchableSelect (F08) | pending |
