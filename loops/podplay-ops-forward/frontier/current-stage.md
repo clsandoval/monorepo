@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 182
-- **Current**: 183
+- **Completed**: 183
+- **Current**: 184
 
 ## Current Stage
 
-**Stage 183** — (next stage)
+**Stage 184** — (next stage)
 
 ## Stage Log
 
@@ -196,3 +196,4 @@
 | 180 | done | 2026-03-09 | orphan component sweep: removed form-helpers.ts, keyboard-nav.ts, schemas/example.ts (3 dead code files, build exits 0) |
 | 181 | done | 2026-03-09 | schema mismatch audit: migration 00012 adds purchase_orders, purchase_order_items, monthly_opex_snapshots tables; renames inventory_movements.item_id→hardware_catalog_id, quantity→qty_delta, adds project_id+reference; fixed InventoryCheckPanel+PoCreateForm inventory queries; updated 3 test files |
 | 182 | done | 2026-03-09 | replace all placeholders and stubs with real content: updated dashboard test to assert real rows, removed stale placeholder/stub comments from database.ts, DeploymentWizardSkeleton.tsx, new.tsx, loading-states.test.ts, catalog.test.ts |
+| 183 | done | 2026-03-09 | build and full test suite green: 971 tests pass, 0 failures; fixed responsive layout duplicate element issues in 8 test files, fixed mock chain issues in financials/procurement tabs tests, fixed invoice field name mismatches, fixed validation message assertions, fixed COGS/HER calculations |
