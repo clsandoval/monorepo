@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 178
-- **Current**: 179
+- **Completed**: 179
+- **Current**: 180
 
 ## Current Stage
 
-**Stage 179** — (next stage)
+**Stage 180** — (next stage)
 
 ## Stage Log
 
@@ -192,3 +192,4 @@
 | 176 | done | 2026-03-09 | mobile verify project financials (375x812: tabs overflow-x-auto scrollable, forms full-width, P&L table overflow-x-auto, no horizontal overflow) |
 | 177 | done | 2026-03-09 | mobile verify inventory and global financials (375x812: hamburger visible, empty state centered, revenue funnel table, P&L cards stack, no console errors) |
 | 178 | done | 2026-03-09 | mobile verify all settings pages (375x812: pricing/team/catalog/travel - full-width inputs, tabs readable, no horizontal overflow, touch targets adequate) |
+| 179 | done | 2026-03-09 | mobile verify full wizard flow end-to-end (375x812: new project → intake 7 steps → procurement BOM cards → deployment phases → financials tabs, 5 screenshots, no console errors, no horizontal overflow) |
