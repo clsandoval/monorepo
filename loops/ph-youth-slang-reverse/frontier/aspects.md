@@ -2,10 +2,10 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 6
-- Pending: 19
+- Analyzed: 7
+- Pending: 18
 - Convergence counter: 0/3
-- Raw terms gathered: 98
+- Raw terms gathered: 113
 
 ---
 
@@ -17,7 +17,7 @@
 - [x] Flow G — solo and featured verses 2023-2026
 - [x] Hev Abi — discography 2023-2026
 - [x] Matthaios — tracks and features 2023-2026
-- [ ] Because — discography 2023-2026
+- [x] Because — discography 2023-2026
 - [ ] ALLMO$T — tracks 2023-2026
 - [ ] Shanti Dope — recent releases 2023-2026
 - [ ] Tus Brothers — discography 2023-2026

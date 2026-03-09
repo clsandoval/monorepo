@@ -9,6 +9,8 @@
 | 5 | 2026-03-09 | Hev Abi — discography 2023-2026 | 1 (Gather) | 15 | Hood identity/area pride ("DTQ", "kinaladkad ang QC"); authenticity vs fakeness cluster ("balagbag", "tolongges", "presko"); rivalry/beef vocab ("malaglag", "payuko", "mantitrip"); romance/relationship terms ("kabet", "pakipot", "pasulyap-sulyap", "babaero"); lifestyle terms ("walwal", "pasaway"); swagger descriptor ("maangas"); sources: WELCOME2DTQ, Headshot, Julie Pakipot, pasulyap-sulyap, Babaero, Lil Kasalanan Shortie |
 | 6 | 2026-03-09 | Matthaios — tracks and features 2023-2026 | 1 (Gather) | 15 | Romance/R&B slang cluster: smitten interjections from "Catriona" ("patay na", "finish ka"); informal certainty expressions ("sure ball", "sure na sure", "matik na", "panalo ka na 'matic"); hype interjections including Matthaios trademark ("yes sir", "yuh-yeet"); descriptive informal expressions ("nakakatunaw", "win na win"); Bisaya crossover endearment/exclamation ("pangga", "halaka"); classical Tagalog revival in modern OPM ("nararahuyo"); 2025 single-linked youth expression ("ang lala mo"); affection culture term ("lambing"); sources: Catriona, Pangga, Nararahuyo, Lala (2025) |
 
+| 7 | 2026-03-09 | Because — discography 2023-2026 | 1 (Gather) | 15 | Heartbreak/breakup lexicon cluster ("BNK", "wasak", "jowa", "ayoko na"); trap-soul lifestyle terms ("yosi", "pausok", "hipak", "SZN"); personality/attitude ("suplada", "babaero", "grabe"); Taglish portmanteau ("talksick"); borrowed English slang fully integrated ("no shade", "bb", "SZN"); source: Heartbreak SZN 3 (2024) — 15 tracks; cross-confirmed babaero with Hev Abi file |
+
 ## Iteration 1 Detail — 2026-03-09
 
 **Aspect:** O Side Mafia — full discography, focus on tracks 2023-2026
@@ -139,3 +141,36 @@
 - "Ere" and "paos" are specifically Filipino vocabulary not well-documented in earlier files
 - "Ibong Adarna" represents cultural reference-as-slang: the epic poem gives youth a romantic metaphor
 - Collaboration "Burgis" with Hev Abi (next aspect on list) provides lexical bridge to next gather iteration
+
+## Iteration 7 Detail — 2026-03-09
+
+**Aspect:** Because — discography 2023-2026
+**Wave:** 1 (Gather)
+**Raw file:** raw/because.json (15 terms)
+
+### Terms Gathered
+1. BNK — "Break Na Kami" / we broke up; text/internet acronym, track title Heartbreak SZN 3
+2. jowa — gender-neutral slang for romantic partner; Marlboro Black 3
+3. wasak — heartbroken/emotionally destroyed; also wrecked/drunk; Marlboro Black 3
+4. yosi — cigarette; syllable inversion of sigarilyo; Marlboro Black 3
+5. suplada — cold/aloof/snobbish girl; track title Heartbreak SZN 3
+6. talksick — Taglish portmanteau for rapping impressively; track title Heartbreak SZN 3
+7. SZN — abbreviated "season"; stylized youth shorthand, album title series
+8. hipak — to take a drag/puff from cigarette or vape; PAUSOK track context
+9. grabe — intensifier meaning extreme/unbelievable; Marlboro Black 3
+10. no shade — borrowed English/AAVE for "no ill intent"; track title Heartbreak SZN 3
+11. pausok — smoking/vaping; from pa- + usok (smoke); track title Heartbreak SZN 3
+12. bb — "baby/babe"; text abbreviation for term of endearment; BB GANG track title
+13. swerte — lucky/luck; Spanish-derived, romanticized youth usage; track title Heartbreak SZN 3
+14. babaero — womanizer/playboy; from babae + -ero; Swerte (also in Hev Abi file — cross-confirmed)
+15. ayoko na — "I don't want to / I give up"; emotional resignation phrase; track title Heartbreak SZN 3
+
+### Notes
+- Because (BJ Castillano) operates in trap-soul register — vocabulary skews toward heartbreak/romance themes
+- Heartbreak SZN 3 (August 2024) is primary source — 15 tracks, 49 minutes, 2.3M monthly Spotify listeners
+- Key innovation: BNK is a perfect example of how Filipino youth compress emotional declarations into acronyms
+- "Talksick" = rare Filipino portmanteau blending English hip-hop slang ("sick" = excellent) with "talk" (rap)
+- "SZN" and "no shade" confirm full adoption of English internet slang into Filipino youth vocabulary
+- "yosi" has historical depth (1970s backslang from sigarilyo) but remains actively used by 2024 youth
+- "babaero" confirmed in two Wave 1 sources (Hev Abi + Because) — strong candidate for dictionary entry
+- Excluded: "minahal aagad" (standard Tagalog phrase, not slang), "dopamina" (scientific term used as aesthetic title), "pausok" song context around "Allison Shore" — primarily standard vocabulary
