@@ -3,7 +3,7 @@
     "id": "internet-and-social-media",
     "label": "Internet & Social Media",
     "description": "Terms native to or popularized by Filipino social media platforms, meme culture, viral content, and online communities (TikTok, Twitter/X, Facebook).",
-    "term_count": 47,
+    "term_count": 56,
     "terms": [
       "6-7",
       "AFAM",
@@ -30,17 +30,21 @@
       "ebas",
       "epip",
       "estetik",
+      "fancam",
       "for today's videyow",
       "forda",
       "forda ferson",
       "gng",
       "hugot",
       "inch",
+      "kabog",
       "kunan mong pic",
       "main character energy",
       "marecakes",
       "marites",
+      "mog",
       "mukbang",
+      "naol",
       "naur",
       "olats",
       "oomf",
@@ -48,7 +52,12 @@
       "periodt",
       "ratio",
       "seenzone",
+      "soafer",
+      "sobrang latina",
+      "tabogo",
+      "tolits",
       "touch grass",
+      "trentahin",
       "unc",
       "wew",
       "yarn"
@@ -58,7 +67,7 @@
     "id": "personality-and-character",
     "label": "Personality & Character",
     "description": "Terms describing personal traits, social archetypes, behavioral patterns, identity markers, and admiration or criticism of character.",
-    "term_count": 37,
+    "term_count": 41,
     "terms": [
       "angas",
       "asta",
@@ -81,10 +90,12 @@
       "laylow",
       "lodi",
       "lutang",
+      "maharot",
       "main character energy",
       "mapagpatol",
       "marites",
       "marupok",
+      "mog",
       "naks",
       "no cap",
       "pabebe",
@@ -93,6 +104,8 @@
       "praning",
       "rekta",
       "rizz",
+      "suplada",
+      "tolits",
       "topak",
       "unc",
       "vaklush",
@@ -103,7 +116,7 @@
     "id": "wordplay-and-linguistic-forms",
     "label": "Wordplay & Linguistic Forms",
     "description": "Terms notable for their linguistic construction — puns, bilingual mashups (Taglish), reduplication, abbreviations, back-slang (tadbalik/bekimon), filler words, and structural wordplay.",
-    "term_count": 39,
+    "term_count": 40,
     "terms": [
       "SKL",
       "ala me pakels",
@@ -143,14 +156,15 @@
       "tropa",
       "walwal",
       "werpa",
-      "yarn"
+      "yarn",
+      "yosi"
     ]
   },
   {
     "id": "gen-z-and-imported-slang",
     "label": "Gen Z & Imported Slang",
     "description": "Terms borrowed from global (primarily AAVE/US hip-hop) slang, Korean-wave influences, and Gen Z/Gen Alpha crossovers adopted into Filipino youth speech.",
-    "term_count": 38,
+    "term_count": 41,
     "terms": [
       "247",
       "6-7",
@@ -176,11 +190,13 @@
       "drip",
       "epip",
       "estetik",
+      "fancam",
       "go getta",
       "kengkoy",
       "laylow",
       "low key",
       "main character energy",
+      "mog",
       "mukbang",
       "naur",
       "no cap",
@@ -188,6 +204,7 @@
       "rizz",
       "slide (sa gig)",
       "touch grass",
+      "trentahin",
       "unc",
       "yawa"
     ]
@@ -196,7 +213,7 @@
     "id": "hip-hop-and-rap-culture",
     "label": "Hip-Hop & Rap Culture",
     "description": "Terms originating from or strongly associated with Filipino rap, OPM hip-hop, rap battles, diss tracks, and hype/flex culture.",
-    "term_count": 27,
+    "term_count": 28,
     "terms": [
       "amaccana accla",
       "ammacana",
@@ -224,14 +241,15 @@
       "panis",
       "salang na",
       "tagilid",
-      "tsepay"
+      "tsepay",
+      "tus"
     ]
   },
   {
     "id": "lgbtq-and-beki-lingo",
     "label": "LGBTQ+ & Bekimon / Swardspeak",
     "description": "Terms from Filipino gay lingo, swardspeak (bekimon), and LGBTQ+ community language — a major generative force in Filipino slang.",
-    "term_count": 28,
+    "term_count": 30,
     "terms": [
       "AFAM",
       "achoo",
@@ -254,12 +272,14 @@
       "echoz",
       "eme",
       "gaga",
+      "kabog",
       "kalurkey",
       "lavarn",
       "mudra",
       "pak ganern",
       "pudra",
       "shontis",
+      "soafer",
       "vaklush"
     ]
   },
@@ -267,7 +287,7 @@
     "id": "romance-and-relationships",
     "label": "Romance & Relationships",
     "description": "Terms covering dating, romantic attraction, relationship dynamics, heartbreak, terms of endearment, and situationship culture.",
-    "term_count": 27,
+    "term_count": 31,
     "terms": [
       "AFAM",
       "babaero",
@@ -283,11 +303,13 @@
       "hugot",
       "huli na",
       "jowa",
+      "kabet",
       "kalimutan ka",
       "kilig",
       "lambing",
       "laya",
       "lulutang",
+      "maharot",
       "marupok",
       "nadikit",
       "oomf",
@@ -295,14 +317,16 @@
       "pangga",
       "rizz",
       "seenzone",
-      "topak"
+      "suplada",
+      "topak",
+      "wasak"
     ]
   },
   {
     "id": "street-and-hustle",
     "label": "Street & Hustle Culture",
     "description": "Terms from street life, grind culture, ambition, money language, and the aspiration for success and wealth.",
-    "term_count": 26,
+    "term_count": 28,
     "terms": [
       "247",
       "JOMO",
@@ -329,14 +353,16 @@
       "naka-focus sa cake",
       "petiks",
       "praning",
-      "walang ebas"
+      "tus",
+      "walang ebas",
+      "yosi"
     ]
   },
   {
     "id": "emotions-and-feelings",
     "label": "Emotions & Feelings",
     "description": "Terms expressing emotional states, sympathy, mental wellbeing, psychological experiences, and feelings like jealousy, pain, or empowerment.",
-    "term_count": 26,
+    "term_count": 28,
     "terms": [
       "agit",
       "aray ko",
@@ -358,10 +384,12 @@
       "lutang",
       "marupok",
       "nadikit",
+      "naol",
       "praning",
       "sabog",
       "shontis",
       "topak",
+      "wasak",
       "werpa",
       "wew"
     ]
@@ -370,7 +398,7 @@
     "id": "exclamations-and-hype",
     "label": "Exclamations & Hype",
     "description": "Interjections, hype phrases, battle cries, affirmations, reaction words, and expletives used for emphasis and energy.",
-    "term_count": 28,
+    "term_count": 31,
     "terms": [
       "ang lala mo",
       "aning sayo",
@@ -387,6 +415,7 @@
       "deds",
       "epip",
       "gege",
+      "kabog",
       "kalurkey",
       "lagabog",
       "naks",
@@ -397,6 +426,8 @@
       "periodt",
       "salang na",
       "shushhh",
+      "soafer",
+      "sobrang latina",
       "tae",
       "wew",
       "yawa"
@@ -436,7 +467,7 @@
     "id": "conflict-and-drama",
     "label": "Conflict & Drama",
     "description": "Terms related to beef, callouts, shade-throwing, social conflict, cancel culture, and confrontation.",
-    "term_count": 18,
+    "term_count": 20,
     "terms": [
       "ala me pakels",
       "babatain",
@@ -447,6 +478,7 @@
       "dasurv",
       "gaga",
       "gera",
+      "kabet",
       "kengkoy",
       "mapagpatol",
       "nadikit",
@@ -454,6 +486,7 @@
       "panis",
       "ratio",
       "shushhh",
+      "tabogo",
       "tagilid",
       "tsepay"
     ]
@@ -462,7 +495,7 @@
     "id": "humor-and-wit",
     "label": "Humor & Wit",
     "description": "Terms deployed for comedic effect, irony, sarcasm, joke markers, and playful banter.",
-    "term_count": 17,
+    "term_count": 20,
     "terms": [
       "IJBOL",
       "asset",
@@ -480,14 +513,17 @@
       "hindi ako epektado",
       "kalimutan ka",
       "naur",
-      "pa more"
+      "pa more",
+      "tabogo",
+      "tolits",
+      "trentahin"
     ]
   },
   {
     "id": "fashion-and-style",
     "label": "Fashion & Style",
     "description": "Terms related to clothing, personal aesthetic, drip culture, visual self-presentation, and material status symbols.",
-    "term_count": 10,
+    "term_count": 11,
     "terms": [
       "asset",
       "awra",
@@ -498,7 +534,8 @@
       "drip ko mala-gripo",
       "drip set",
       "dyosa",
-      "estetik"
+      "estetik",
+      "sobrang latina"
     ]
   },
   {
@@ -521,7 +558,7 @@
     "id": "party-and-nightlife",
     "label": "Party & Nightlife",
     "description": "Terms related to partying, drinking, intoxication, social gatherings, vices, and nightlife.",
-    "term_count": 7,
+    "term_count": 9,
     "terms": [
       "amats",
       "bato",
@@ -529,7 +566,9 @@
       "chibog",
       "mukbang",
       "sabog",
-      "walwal"
+      "walwal",
+      "wasak",
+      "yosi"
     ]
   }
 ]

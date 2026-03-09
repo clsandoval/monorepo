@@ -1,5 +1,12 @@
 {
   "counter": 0,
   "last_updated": "2026-03-09",
-  "history": []
+  "history": [
+    {
+      "iteration": "refinement pass 2 — second raw-gap audit + new term batch",
+      "new_terms": 15,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (15 new terms found)"
+    }
+  ]
 }
