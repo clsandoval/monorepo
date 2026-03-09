@@ -1,7 +1,7 @@
 # PodPlay Ops QA Forward Loop — Stage Tracker
 
 **Total stages**: 46
-**Current stage**: 032
+**Current stage**: 034
 
 ## Stages
 
@@ -39,7 +39,7 @@
 | 030 | Global Financials Recurring Summary (F12) | done |
 | 031 | Recurring Fees Tests (F12) | done |
 | 032 | Full Build + Test Suite Check | done |
-| 033 | Playwright: /settings/installers (F01) | pending |
+| 033 | Playwright: /settings/installers (F01) | done |
 | 034 | Playwright: /settings/vendors (F11) | pending |
 | 035 | Playwright: /settings/team (F09) | pending |
 | 036 | Playwright: /inventory (F06 + F07) | pending |
