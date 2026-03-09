@@ -1,0 +1,18 @@
+[     409ms] [ERROR] Failed to load resource: the server responded with a status of 406 (Not Acceptable) @ http://127.0.0.1:54321/rest/v1/settings?select=*&id=eq.1:0
+[     465ms] [ERROR] %o
+
+%s
+
+%s
+ {code: PGRST116, details: The result contains 0 rows, hint: null, message: Cannot coerce the result to a single JSON object} The above error occurred in the <MatchInnerImpl> component. React will try to recreate this component tree from scratch using the error boundary you provided, CatchBoundaryImpl. @ http://localhost:5175/node_modules/.vite/deps/react-dom_client.js?v=998e3ce5:7000
+[     466ms] [WARNING] Warning: The following error wasn't caught by any route! At the very least, consider setting an 'errorComponent' in your RootRoute! @ http://localhost:5175/node_modules/.vite/deps/@tanstack_react-router.js?v=998e3ce5:6861
+[     466ms] [WARNING] Warning: Cannot coerce the result to a single JSON object @ http://localhost:5175/node_modules/.vite/deps/@tanstack_react-router.js?v=998e3ce5:6861
+[   39489ms] [ERROR] Failed to load resource: the server responded with a status of 406 (Not Acceptable) @ http://127.0.0.1:54321/rest/v1/settings?select=*&id=eq.1:0
+[   39525ms] [ERROR] %o
+
+%s
+
+%s
+ {code: PGRST116, details: The result contains 0 rows, hint: null, message: Cannot coerce the result to a single JSON object} The above error occurred in the <MatchInnerImpl> component. React will try to recreate this component tree from scratch using the error boundary you provided, CatchBoundaryImpl. @ http://localhost:5175/node_modules/.vite/deps/react-dom_client.js?v=998e3ce5:7000
+[   39526ms] [WARNING] Warning: The following error wasn't caught by any route! At the very least, consider setting an 'errorComponent' in your RootRoute! @ http://localhost:5175/node_modules/.vite/deps/@tanstack_react-router.js?v=998e3ce5:6861
+[   39526ms] [WARNING] Warning: Cannot coerce the result to a single JSON object @ http://localhost:5175/node_modules/.vite/deps/@tanstack_react-router.js?v=998e3ce5:6861
