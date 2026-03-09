@@ -3,52 +3,58 @@
   "last_updated": "2026-03-09",
   "history": [
     {
-      "iteration": "refinement pass 2 — second raw-gap audit + new term batch",
+      "iteration": "refinement pass 2 \u2014 second raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 0,
       "counter_action": "reset to 0 (15 new terms found)"
     },
     {
-      "iteration": "refinement pass 3 — third raw-gap audit + new term batch",
+      "iteration": "refinement pass 3 \u2014 third raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 0,
       "counter_action": "reset to 0 (15 new terms found)"
     },
     {
-      "iteration": "refinement pass 4 — fourth raw-gap audit + new term batch",
+      "iteration": "refinement pass 4 \u2014 fourth raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 0,
       "counter_action": "reset to 0 (15 new terms found)"
     },
     {
-      "iteration": "refinement pass 5 — fifth raw-gap audit + new term batch",
+      "iteration": "refinement pass 5 \u2014 fifth raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 14,
       "counter_action": "reset to 0 (15 new terms found, 14 category assignments normalized)"
     },
     {
-      "iteration": "refinement pass 6 — sixth raw-gap audit + new term batch",
+      "iteration": "refinement pass 6 \u2014 sixth raw-gap audit + new term batch",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: pa-mine, shot puno, organic encounter, over naman sa, pi, chour, nepo baby, kimmy)"
     },
     {
-      "iteration": "refinement pass 7 — seventh raw-gap audit + new term batch",
+      "iteration": "refinement pass 7 \u2014 seventh raw-gap audit + new term batch",
       "new_terms": 6,
       "refined_entries": 0,
       "counter_action": "reset to 0 (6 new terms found: okay na 'to, what hafen vella, delulu, slay, sobrang lit, hypebeast)"
     },
     {
-      "iteration": "refinement pass 8 — eighth raw-gap audit + new term batch",
+      "iteration": "refinement pass 8 \u2014 eighth raw-gap audit + new term batch",
       "new_terms": 2,
       "refined_entries": 0,
       "counter_action": "reset to 0 (2 new terms found: mekus-mekus, luh)"
     },
     {
-      "iteration": "refinement pass 9 — ninth raw-gap audit + new term batch",
+      "iteration": "refinement pass 9 \u2014 ninth raw-gap audit + new term batch",
       "new_terms": 9,
       "refined_entries": 0,
       "counter_action": "reset to 0 (9 new terms found: crayola, shutacca, gorgy, DTQ, talksick, mumshie, gandara, pala-desisyon, ghorl)"
+    },
+    {
+      "iteration": "refinement pass 10 \u2014 tenth raw-gap audit (swardspeak/beki expansion)",
+      "new_terms": 8,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (8 new terms found: aketch, akis, watash, anetch, keribels, keri, besh, vungga)"
     }
   ]
 }

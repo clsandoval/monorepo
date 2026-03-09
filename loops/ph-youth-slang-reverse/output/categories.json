@@ -194,13 +194,17 @@
     "terms": [
       "AFAM",
       "achoo",
+      "aketch",
+      "akis",
       "alam na this",
       "amaccana accla",
+      "anetch",
       "ate girl",
       "awra",
       "babaero",
       "babain",
       "badesh",
+      "besh",
       "beshie",
       "bet",
       "bongga",
@@ -222,6 +226,8 @@
       "imbyerna",
       "kabog",
       "kalurkey",
+      "keri",
+      "keribels",
       "lavarn",
       "mudra",
       "mumshie",
@@ -231,9 +237,11 @@
       "shutacca",
       "soafer",
       "teh",
-      "vaklush"
+      "vaklush",
+      "vungga",
+      "watash"
     ],
-    "term_count": 40
+    "term_count": 48
   },
   "romance-and-relationships": {
     "count": 39,
@@ -356,10 +364,13 @@
     "count": 43,
     "terms": [
       "SKL",
+      "aketch",
+      "akis",
       "ala me pakels",
       "alam na this",
       "amats",
       "ammacana",
+      "anetch",
       "arat",
       "banat",
       "bb",
@@ -399,11 +410,12 @@
       "talksick",
       "tropa",
       "walwal",
+      "watash",
       "werpa",
       "yarn",
       "yosi"
     ],
-    "term_count": 47
+    "term_count": 51
   },
   "hip-hop-and-rap-culture": {
     "count": 31,
@@ -506,11 +518,12 @@
       "sobrang lit",
       "sure ball",
       "tae",
+      "vungga",
       "wew",
       "what hafen vella",
       "yawa"
     ],
-    "term_count": 46
+    "term_count": 47
   },
   "personality-and-character": {
     "count": 54,
@@ -580,6 +593,7 @@
       "asta",
       "beh",
       "bes",
+      "besh",
       "beshie",
       "bish",
       "bumaba 'yung gang",
@@ -604,7 +618,7 @@
       "tol",
       "tropa"
     ],
-    "term_count": 27
+    "term_count": 28
   },
   "fashion-and-style": {
     "count": 13,
@@ -622,9 +636,10 @@
       "gorgy",
       "hypebeast",
       "slay",
-      "sobrang latina"
+      "sobrang latina",
+      "vungga"
     ],
-    "term_count": 14
+    "term_count": 15
   },
   "humor-and-wit": {
     "count": 24,
@@ -715,9 +730,11 @@
   "expressions-and-reactions": {
     "count": 1,
     "terms": [
+      "keri",
+      "keribels",
       "over naman sa"
     ],
-    "term_count": 1
+    "term_count": 3
   },
   "commerce-and-live-selling": {
     "count": 1,
