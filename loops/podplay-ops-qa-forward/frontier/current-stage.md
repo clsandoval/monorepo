@@ -1,7 +1,7 @@
 # PodPlay Ops QA Forward Loop — Stage Tracker
 
 **Total stages**: 46
-**Current stage**: 027
+**Current stage**: 028
 
 ## Stages
 
@@ -33,7 +33,7 @@
 | 024 | SearchableSelect Integration Tests (F08) | done |
 | 025 | VendorSettings Component (F11) | done |
 | 026 | Vendors Route + Settings Nav (F11) | done |
-| 027 | VendorSettings Tests (F11) | pending |
+| 027 | VendorSettings Tests (F11) | done |
 | 028 | RecurringFeesTab Component (F12) | pending |
 | 029 | Add Recurring Fees Tab to Financials Wizard (F12) | pending |
 | 030 | Global Financials Recurring Summary (F12) | pending |
