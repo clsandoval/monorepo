@@ -4213,6 +4213,44 @@
     "antonyms": []
   },
   {
+    "term": "green flag",
+    "definitions": [
+      "A positive trait, behavior, or quality that indicates someone is a good, healthy, or compatible romantic partner; the opposite of red flag.",
+      "By extension, any reassuring sign in a friendship, workplace, or social situation that signals trustworthiness, warmth, or effort."
+    ],
+    "etymology": "Borrowed from global English Gen Z dating vocabulary, originally adapting the sports/road-safety metaphor of a green signal meaning safety. Entered Filipino mainstream 2022-2023 via TikTok, fully embedded by 2024-2025. The Knorr Philippines × Tinder #UnlockYourGreenFlag campaign (January 2025) — surveying 4,228 Filipino Gen Z singles — confirmed mainstream commercial adoption.",
+    "examples": [
+      {
+        "text": "Green flag kachat mo! Laging nagtatanong kung kumain ka na.",
+        "source": "Filipino TikTok dating content, 2024"
+      },
+      {
+        "text": "95% ng Filipino singles: cooking ability = ultimate green flag.",
+        "source": "Knorr Philippines × Tinder survey, January 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "red flag",
+      "ick",
+      "situationship",
+      "soft launch",
+      "talking stage"
+    ],
+    "categories": [
+      "romance-and-relationships",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "red flag"
+    ]
+  },
+  {
     "term": "haggardo versoza",
     "definitions": [
       "Extremely haggard, exhausted, or worn out — beyond mere tiredness; visually depleted and drained."
@@ -4649,6 +4687,42 @@
     ],
     "sources": [
       "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "ick",
+    "definitions": [
+      "A sudden, visceral feeling of revulsion or loss of attraction toward someone you were previously interested in, triggered by a specific behavior, habit, or trait.",
+      "The trigger itself — the behavior that causes this loss of attraction. \"That is such an ick.\""
+    ],
+    "etymology": "Global English slang popularized via Western TikTok and Twitter/X circa 2021-2022; adopted by Filipino Gen Z by 2023-2024. Fully nativized into Filipino using the Tagalog prefix \"na-\" to create the verb form \"na-ick\" (past tense: to have gotten the ick from someone). Listed in the FastForward MR Filipino Gen Z Dictionary (2024) as \"something someone does that is an instant turn-off for you.\"",
+    "examples": [
+      {
+        "text": "Na-ick ako sa kanya when he chewed loudly.",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Instant ick ang lalaki na nagpa-pamosa sa harap ng lahat.",
+        "source": "Filipino TikTok, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "red flag",
+      "green flag",
+      "situationship",
+      "ghostlighting",
+      "talking stage"
+    ],
+    "categories": [
+      "romance-and-relationships",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
     ],
     "synonyms": [],
     "antonyms": []
@@ -8359,6 +8433,44 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "red flag",
+    "definitions": [
+      "A warning sign or behavior indicating someone may be a toxic, harmful, or incompatible romantic partner; a deal-breaker.",
+      "By extension, any alarming signal in a friendship, job offer, or social situation worth taking seriously."
+    ],
+    "etymology": "Borrowed from global English dating vocabulary, originally from sports/road-safety signaling (a red flag meaning danger or stop). Became mainstream in Filipino dating discourse 2022-2025, amplified by TikTok series such as How to Spot a Red Flag (VIU Philippines) and widely paired with its counterpart green flag.",
+    "examples": [
+      {
+        "text": "Laging pang future, pero in reality wala — red flag yan.",
+        "source": "Filipino TikTok, 2024"
+      },
+      {
+        "text": "Sobrang daming red flags pero pinagbibigyan pa rin — classic marupok move.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "green flag",
+      "ick",
+      "situationship",
+      "ghostlighting",
+      "marupok"
+    ],
+    "categories": [
+      "romance-and-relationships",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "green flag"
+    ]
   },
   {
     "term": "rekta",

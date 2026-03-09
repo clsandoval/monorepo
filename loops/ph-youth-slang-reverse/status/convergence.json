@@ -91,6 +91,12 @@
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: benta, dump account, g na g, talking stage)"
+    },
+    {
+      "iteration": "refinement pass 17 — seventeenth raw-gap audit (3 new terms, 293→296)",
+      "new_terms": 3,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (3 new terms found: green flag, ick, red flag)"
     }
   ]
 }
