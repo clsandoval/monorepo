@@ -85,6 +85,12 @@
       "new_terms": 2,
       "refined_entries": 0,
       "counter_action": "reset to 0 (2 new terms found: matsala, gento)"
+    },
+    {
+      "iteration": "refinement pass 16 — sixteenth raw-gap audit (4 new terms, 289→293)",
+      "new_terms": 4,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (4 new terms found: benta, dump account, g na g, talking stage)"
     }
   ]
 }
