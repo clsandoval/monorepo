@@ -2294,6 +2294,45 @@
     "antonyms": []
   },
   {
+    "term": "chour",
+    "definitions": [
+      "Playful respelling of 'char' — used at the end of a statement to mean 'just kidding' or 'not serious'; part of the Gen Z creative respelling trend in Filipino internet language."
+    ],
+    "etymology": "Variant spelling of 'char' (itself derived from 'charot'), following the Filipino Gen Z trend of whimsical respellings (e.g., 'po' → 'pi', 'keme' → 'kimmy'). Documented by ling-app.com (2025).",
+    "examples": [
+      {
+        "text": "Gusto kita... chour! Haha.",
+        "source": "Filipino social media, 2025"
+      },
+      {
+        "text": "Siyempre ikaw pa rin ang paborito ko, chour.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "char",
+      "charot",
+      "chariz",
+      "chos",
+      "echoz"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "gay-lingo-and-beki-speak"
+    ],
+    "sources": [
+      "TikTok PH",
+      "Twitter/X Filipino"
+    ],
+    "synonyms": [
+      "char",
+      "charot",
+      "chos"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "dasurv",
     "definitions": [
       "Deserves it; celebrating that someone is getting what they earned — praise, reward, or karma.",
@@ -4269,6 +4308,42 @@
     ]
   },
   {
+    "term": "kimmy",
+    "definitions": [
+      "Playful respelling of 'keme' — used as a vague filler meaning 'something,' 'et cetera,' 'that thing,' or 'whatever'; part of the Gen Z creative respelling trend in Filipino internet language."
+    ],
+    "etymology": "Variant spelling of 'keme' (also spelled 'kemi'), itself from gay lingo/bekimon. Follows the broader Filipino Gen Z trend of reimagining slang words with new phonetic or whimsical spellings for online use. Documented by ling-app.com (2025).",
+    "examples": [
+      {
+        "text": "Yung kimmy niya talaga, 'di ko gets.",
+        "source": "Filipino Gen Z social media, 2025"
+      },
+      {
+        "text": "Wala kang kimmy sa akin, wag kang mag-assume.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "keme",
+      "eme",
+      "echoz"
+    ],
+    "categories": [
+      "gay-lingo-and-beki-speak",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "TikTok PH",
+      "Twitter/X Filipino"
+    ],
+    "synonyms": [
+      "keme",
+      "eme"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "kiri",
     "definitions": [
       "Coquettishly flirtatious; describes someone who acts coy or demure while actually being very flirtatious. Often said affectionately about someone playfully teasing in romantic contexts."
@@ -5578,6 +5653,39 @@
     "antonyms": []
   },
   {
+    "term": "nepo baby",
+    "definitions": [
+      "A person who gains career opportunities, wealth, or political power through family connections rather than personal merit; in the Philippine context, specifically used as a political term or slur for children of politicians or contractors who flaunt wealth allegedly derived from government corruption."
+    ],
+    "etymology": "Shortened from 'nepotism baby' — popularized internationally by New York Magazine in 2022 for celebrity children. In the Philippines, the term gained additional political weight in 2025 when netizens used it to call out contractors' children who flaunted lavish lifestyles linked to the ₱118-billion flood control corruption scandal.",
+    "examples": [
+      {
+        "text": "Mga nepo babies nila dito — lahat ng project pampamilya.",
+        "source": "Filipino Twitter/X, Senate investigation coverage, 2025"
+      },
+      {
+        "text": "Nagdelete na ng socials ang mga nepo babies nung nag-viral ang investigation.",
+        "source": "UNTV News, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "padrino system",
+      "political dynasty",
+      "lifestyle check"
+    ],
+    "categories": [
+      "politics-and-social-commentary",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "Twitter/X Filipino",
+      "TikTok PH"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
     "term": "no cap",
     "definitions": [
       "No lie; I'm being completely serious and truthful; an assertion of sincerity.",
@@ -5760,6 +5868,74 @@
     "antonyms": []
   },
   {
+    "term": "organic encounter",
+    "definitions": [
+      "A naturally occurring meeting or connection with someone — without the use of dating apps, social media, or deliberate setup; a serendipitous real-life meeting romanticized by Filipino Gen Z as a counter-reaction to app-based dating fatigue."
+    ],
+    "etymology": "English phrase adopted into Filipino digital culture; 'organic' borrowed from health/food marketing (natural, unprocessed) applied to human connection. Went viral on TikTok PH in 2024-2025 as a trending romantic concept.",
+    "examples": [
+      {
+        "text": "Nagkita kayo sa café dahil pareho kayong mahilig sa kape, hindi dahil sa dating app — iyan ang organic encounter.",
+        "source": "Threads/@dnssjvr, 2025"
+      },
+      {
+        "text": "Manifesting an organic encounter sa commute ko bukas.",
+        "source": "TikTok PH comment, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "kilig",
+      "manifesting",
+      "third space"
+    ],
+    "categories": [
+      "relationships-and-romance",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "TikTok PH",
+      "Twitter/X Filipino"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "over naman sa",
+    "definitions": [
+      "A phrase calling out someone for overdoing, oversharing, or overreacting about something; '[that is] way too much with the ___.' The phrase is followed by the thing being overdone."
+    ],
+    "etymology": "Tagalog: 'over' (from English 'over the top') + 'naman' (Tagalog softening/mild rebuke particle) + 'sa' (Tagalog preposition). A native Filipino intensifier phrase that went viral via TikTok PH and Komisyon ng Wikang Filipino recognition in 2025.",
+    "examples": [
+      {
+        "text": "Over naman sa ask! Relax ka lang.",
+        "source": "TikTok PH, 2025 Gen Z slang compilation"
+      },
+      {
+        "text": "Over naman sa story niya — daily updates pa ng drama.",
+        "source": "Filipino Twitter/X, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "OA",
+      "arte",
+      "extra"
+    ],
+    "categories": [
+      "expressions-and-reactions",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "TikTok PH",
+      "Twitter/X Filipino"
+    ],
+    "synonyms": [
+      "OA"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "pa more",
     "definitions": [
       "Sarcastic expression meaning 'keep doing that (to your own detriment)' or 'yeah, sure, keep it up' — said ironically when someone is clearly making a bad situation worse.",
@@ -5794,6 +5970,40 @@
     "synonyms": [
       "over naman sa"
     ],
+    "antonyms": []
+  },
+  {
+    "term": "pa-mine",
+    "definitions": [
+      "A call to action in live-selling streams asking viewers to comment 'mine' to claim an item being shown; by extension, used colloquially to express desire or claim over anything shown on screen."
+    ],
+    "etymology": "Taglish blend: 'pa-' (Filipino causative/request prefix, short for 'pakisabi' or used as 'please do __') + 'mine' (English). Originated from Philippine Facebook/TikTok live-selling culture in the early 2020s.",
+    "examples": [
+      {
+        "text": "Pa-mine na lang po ng white crop top!",
+        "source": "Filipino live-selling stream, Facebook, 2024"
+      },
+      {
+        "text": "Pa-mine na 'to, obvious naman na gusto ko!",
+        "source": "Filipino social media, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "mine",
+      "SB",
+      "HM",
+      "sis"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "commerce-and-live-selling"
+    ],
+    "sources": [
+      "Twitter/X Filipino",
+      "TikTok PH"
+    ],
+    "synonyms": [],
     "antonyms": []
   },
   {
@@ -6421,6 +6631,41 @@
     "antonyms": []
   },
   {
+    "term": "pi",
+    "definitions": [
+      "Gen Z respelling of 'po' — the formal Tagalog honorific particle used to show respect when speaking to elders or authority figures; used in text and online for a cuter, softer feel."
+    ],
+    "etymology": "Playful phonetic respelling of Tagalog 'po' (formal respectful particle). Part of a broader Gen Z trend of creatively respelling words for online personality: 'po' → 'pi', similar to 'char' → 'chour'. Documented by ling-app.com (January 2025).",
+    "examples": [
+      {
+        "text": "Salamat pi! Mahal kita pi.",
+        "source": "Filipino Gen Z group chat, 2025"
+      },
+      {
+        "text": "Opo pi, andito naman pi.",
+        "source": "TikTok PH comment section, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "po",
+      "opo",
+      "ho"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "TikTok PH",
+      "Twitter/X Filipino"
+    ],
+    "synonyms": [
+      "po"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "praning",
     "definitions": [
       "Paranoid, anxious, or irrationally fearful; acting crazy or excessively worried without clear cause.",
@@ -6928,6 +7173,40 @@
     ],
     "sources": [
       "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "shot puno",
+    "definitions": [
+      "Bottoms up; a drinking call to down an entire shot or full glass; used before drinking, equivalent to 'Cheers!' with the implication of finishing the drink completely."
+    ],
+    "etymology": "Taglish: 'shot' (English, a measure of alcohol) + 'puno' (Tagalog for 'full'). Popularized in Filipino inuman (drinking session) culture and gained international attention when Filipino fans taught the term to K-pop idol GOT7's BamBam (~2022).",
+    "examples": [
+      {
+        "text": "Mark, arat, shot puno!",
+        "source": "Urban Dictionary: shot puno, Filipino drinking culture"
+      },
+      {
+        "text": "Shot puno tayo! Heartbreak time.",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "walwal",
+      "inuman",
+      "arat",
+      "lasing"
+    ],
+    "categories": [
+      "partying-and-nightlife",
+      "drinking-culture"
+    ],
+    "sources": [
+      "Twitter/X Filipino",
+      "Urban Dictionary"
     ],
     "synonyms": [],
     "antonyms": []
