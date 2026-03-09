@@ -50,4 +50,4 @@
 
 ## Wave 4: Synthesis
 
-- [ ] Generate dictionary.md from final dictionary.json
+- [x] Generate dictionary.md from final dictionary.json
