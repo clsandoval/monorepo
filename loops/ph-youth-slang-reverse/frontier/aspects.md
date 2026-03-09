@@ -2,10 +2,10 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 10
-- Pending: 15
+- Analyzed: 11
+- Pending: 14
 - Convergence counter: 0/3
-- Raw terms gathered: 155
+- Raw terms gathered: 171
 
 ---
 
@@ -21,7 +21,7 @@
 - [x] ALLMO$T — tracks 2023-2026
 - [x] Shanti Dope — recent releases 2023-2026
 - [x] Tus Brothers — discography 2023-2026
-- [ ] JMara / Locos Only / other emerging PH rap acts 2023-2026
+- [x] JMara / Locos Only / other emerging PH rap acts 2023-2026
 
 ## Wave 1b: Social & Community Sources
 
