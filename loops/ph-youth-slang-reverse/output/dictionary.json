@@ -2451,7 +2451,7 @@
     ],
     "categories": [
       "internet-and-social-media",
-      "gay-lingo-and-beki-speak"
+      "lgbtq-and-beki-lingo"
     ],
     "sources": [
       "TikTok PH",
@@ -3955,7 +3955,7 @@
     ],
     "categories": [
       "exclamations-and-hype",
-      "bisaya-loanwords"
+      "gen-z-and-imported-slang"
     ],
     "sources": [
       "Matthaios — tracks and features 2023-2026"
@@ -4760,7 +4760,7 @@
     ],
     "categories": [
       "lgbtq-and-beki-lingo",
-      "expressions-and-reactions"
+      "exclamations-and-hype"
     ],
     "sources": [
       "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
@@ -4791,7 +4791,7 @@
     ],
     "categories": [
       "lgbtq-and-beki-lingo",
-      "expressions-and-reactions"
+      "exclamations-and-hype"
     ],
     "sources": [
       "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
@@ -4865,7 +4865,7 @@
       "echoz"
     ],
     "categories": [
-      "gay-lingo-and-beki-speak",
+      "lgbtq-and-beki-lingo",
       "internet-and-social-media"
     ],
     "sources": [
@@ -5857,7 +5857,7 @@
       "sigurado"
     ],
     "categories": [
-      "slang-modifiers-and-intensifiers",
+      "wordplay-and-linguistic-forms",
       "gen-z-and-imported-slang"
     ],
     "sources": [
@@ -6317,7 +6317,6 @@
       "lifestyle check"
     ],
     "categories": [
-      "politics-and-social-commentary",
       "internet-and-social-media"
     ],
     "sources": [
@@ -6571,7 +6570,7 @@
       "third space"
     ],
     "categories": [
-      "relationships-and-romance",
+      "romance-and-relationships",
       "internet-and-social-media"
     ],
     "sources": [
@@ -6604,7 +6603,7 @@
       "extra"
     ],
     "categories": [
-      "expressions-and-reactions",
+      "exclamations-and-hype",
       "internet-and-social-media"
     ],
     "sources": [
@@ -6677,8 +6676,7 @@
       "sis"
     ],
     "categories": [
-      "internet-and-social-media",
-      "commerce-and-live-selling"
+      "internet-and-social-media"
     ],
     "sources": [
       "Twitter/X Filipino",
@@ -7008,7 +7006,7 @@
     ],
     "categories": [
       "street-and-hustle",
-      "bisaya-loanwords"
+      "gen-z-and-imported-slang"
     ],
     "sources": [
       "Shanti Dope — recent releases 2023-2026"
@@ -7120,7 +7118,7 @@
       "puff"
     ],
     "categories": [
-      "substances-and-nightlife"
+      "party-and-nightlife"
     ],
     "sources": [
       "Because — discography 2023-2026"
@@ -7192,9 +7190,8 @@
       "report"
     ],
     "categories": [
-      "gaming-and-esports",
-      "internet-and-social-media",
-      "identity-and-cultural-commentary"
+      "gaming-and-e-sports",
+      "internet-and-social-media"
     ],
     "sources": [
       "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang"
@@ -7699,8 +7696,8 @@
       "unli"
     ],
     "categories": [
-      "slang-modifiers-and-intensifiers",
-      "substances-and-nightlife",
+      "wordplay-and-linguistic-forms",
+      "party-and-nightlife",
       "street-and-hustle"
     ],
     "sources": [
@@ -7918,8 +7915,7 @@
       "lasing"
     ],
     "categories": [
-      "partying-and-nightlife",
-      "drinking-culture"
+      "party-and-nightlife"
     ],
     "sources": [
       "Twitter/X Filipino",
@@ -8624,7 +8620,6 @@
       "tanga"
     ],
     "categories": [
-      "identity-and-cultural-commentary",
       "internet-and-social-media"
     ],
     "sources": [
@@ -9020,8 +9015,8 @@
       "gank"
     ],
     "categories": [
-      "gaming-and-esports",
-      "slang-modifiers-and-intensifiers"
+      "gaming-and-e-sports",
+      "wordplay-and-linguistic-forms"
     ],
     "sources": [
       "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang"
@@ -9089,7 +9084,7 @@
       "sagad"
     ],
     "categories": [
-      "slang-modifiers-and-intensifiers",
+      "wordplay-and-linguistic-forms",
       "street-and-hustle",
       "gen-z-and-imported-slang"
     ],
@@ -9640,7 +9635,7 @@
     ],
     "categories": [
       "internet-and-social-media",
-      "expressions-and-exclamations"
+      "exclamations-and-hype"
     ],
     "sources": [
       "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
@@ -9674,7 +9669,7 @@
       "cancel"
     ],
     "categories": [
-      "social-dynamics-and-status",
+      "personality-and-character",
       "internet-and-social-media"
     ],
     "sources": [
@@ -9716,8 +9711,8 @@
       "mumshie"
     ],
     "categories": [
-      "terms-of-address-and-endearment",
-      "beki-and-swardspeak"
+      "friendship-and-social-bonds",
+      "lgbtq-and-beki-lingo"
     ],
     "sources": [
       "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026",
@@ -9796,8 +9791,8 @@
       "hypebeast"
     ],
     "categories": [
-      "appearance-and-style",
-      "beki-and-swardspeak"
+      "fashion-and-style",
+      "lgbtq-and-beki-lingo"
     ],
     "sources": [
       "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026",
@@ -9808,6 +9803,459 @@
       "bongga",
       "dyosa",
       "estetik"
+    ]
+  },
+  {
+    "term": "tolongges",
+    "definitions": [
+      "Stupid, gullible, or dim-witted; someone easily fooled or acting clueless.",
+      "As a verb: to deceive, fool, or scam someone. ('Huwag mo akong tolonggesin' — Don't you dare fool me.)"
+    ],
+    "etymology": "From the title character of the 1981 Filipino action-comedy film 'A Man Called Tolongges'. The character's name became synonymous with buffoonery and naivety, eventually entering everyday Filipino slang as a synonym for tanga (stupid) or being duped.",
+    "examples": [
+      {
+        "text": "Puro tolongges na manggi — puro bravado wala namang substance.",
+        "source": "Hev Abi — Headshot (discography 2023-2026)"
+      },
+      {
+        "text": "Grabe, tolongges 'to! Hindi niya alam na niloloko na siya.",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "tanga",
+      "bobo",
+      "ate/kuya tangina",
+      "mannequin"
+    ],
+    "categories": [
+      "personality-and-character",
+      "street-and-hustle"
+    ],
+    "sources": [
+      "Hev Abi — discography 2023-2026"
+    ],
+    "synonyms": [
+      "tanga",
+      "bobo"
+    ],
+    "antonyms": [
+      "matalino",
+      "lodi"
+    ]
+  },
+  {
+    "term": "ssob",
+    "definitions": [
+      "Boss spelled backwards; a playful, respectful address for someone you admire, look up to, or hold in high regard. Used in fandom, e-sports, and creator communities."
+    ],
+    "etymology": "Filipino internet slang tradition of spelling words backwards (cf. lodi from 'idol', retsam/retmas from 'master'). 'Ssob' reverses 'boss' and carries the same connotation of respect and admiration, but in a casual, playful register.",
+    "examples": [
+      {
+        "text": "Grabe ang galing mo, ssob! Clutch play talaga.",
+        "source": "Filipino gaming/e-sports community, YouTube PH, 2024"
+      },
+      {
+        "text": "Salamat, ssob! Hindi ko to magagawa kung wala ka.",
+        "source": "Filipino P-pop fan community Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "lodi",
+      "retsam",
+      "boss",
+      "idol"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "gaming-and-e-sports",
+      "friendship-and-social-bonds"
+    ],
+    "sources": [
+      "YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage"
+    ],
+    "synonyms": [
+      "lodi",
+      "retsam"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "normalin",
+    "definitions": [
+      "Gaming slang: to perform a basic/normal attack without using special skills or abilities. Often instructed in MOBA callouts (e.g., 'normalin mo muna para mag-lifesteal' — use normal attacks first to lifesteal).",
+      "General Gen Z usage: to normalize something; to make a behavior, idea, or experience accepted as normal. Mirrors the global 'let's normalize...' discourse on social media."
+    ],
+    "etymology": "Formed by attaching the Filipino object-focus verb suffix '-in' to the English word 'normal'. This is a standard Tagalog morphological pattern applied to English loanwords, producing an informal but grammatically consistent verb form.",
+    "examples": [
+      {
+        "text": "Normalin mo muna para mag-lifesteal bago mag-ulti.",
+        "source": "Filipino Mobile Legends/MOBA community callout, NoypiGeeks gaming terms guide 2023-2025"
+      },
+      {
+        "text": "Normalin natin ang paghingi ng tulong pagdating sa mental health.",
+        "source": "Filipino Twitter/X advocacy post, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "sumasabay sa flow",
+      "game na",
+      "clutch"
+    ],
+    "categories": [
+      "gaming-and-e-sports",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "lakas tama",
+    "definitions": [
+      "Heavily intoxicated — drunk, high, or strongly affected by alcohol, drugs, or substances. Literally 'strong hit/strike'.",
+      "In gaming: exclamation for a powerful hit, play, or decisive moment — 'What a hit!'",
+      "Figuratively: having an overwhelming crush or infatuation on someone, as if intoxicated by them."
+    ],
+    "etymology": "Compound of 'lakas' (strength/strongly) and 'tama' (hit/strike; also slang for intoxication). Parallel to 'amats' (reverse slang for 'tama'). The gaming usage extends the literal 'strong hit' meaning to notable in-game plays.",
+    "examples": [
+      {
+        "text": "Lakas tama ni bro kagabi, natulog na sa labas.",
+        "source": "Filipino social media / night-out commentary, 2024"
+      },
+      {
+        "text": "Lakas tama! Wala silang kalaban sa teamfight na 'yon!",
+        "source": "Mobile Legends PH commentator / gaming community, 2023-2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "amats",
+      "basag",
+      "tama",
+      "high score"
+    ],
+    "categories": [
+      "street-and-hustle",
+      "gaming-and-e-sports",
+      "emotions-and-feelings"
+    ],
+    "sources": [
+      "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang",
+      "canonical OG list (native speaker)"
+    ],
+    "synonyms": [
+      "amats",
+      "basag"
+    ],
+    "antonyms": [
+      "malinaw",
+      "sober"
+    ]
+  },
+  {
+    "term": "nabagantsa",
+    "definitions": [
+      "To be humiliated, disrespected, or made to feel small/low; to be played, dissed, or put in your place by someone.",
+      "Broader use: to be betrayed or let down in a degrading way."
+    ],
+    "etymology": "Derives from 'bagansya' (also 'bagantsa'), a Filipino adaptation of the Spanish/English 'vacancy' — meaning vagrancy, truancy, or being left empty. With the past-passive prefix 'na-', it takes on the figurative sense of being emptied out of dignity or left hollow by humiliation.",
+    "examples": [
+      {
+        "text": "Na parang nabagantsa — from 'Lulong'; used to describe the feeling of being degraded or disrespected.",
+        "source": "Tus Brothers — Lulong (2023-2026)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "niloko",
+      "binastos",
+      "niyari",
+      "patay na"
+    ],
+    "categories": [
+      "conflict-and-drama",
+      "emotions-and-feelings"
+    ],
+    "sources": [
+      "Tus Brothers — discography 2023-2026"
+    ],
+    "synonyms": [
+      "niloko",
+      "binastos"
+    ],
+    "antonyms": [
+      "pinuri",
+      "pinagmalaki"
+    ]
+  },
+  {
+    "term": "naka-carts",
+    "definitions": [
+      "High or intoxicated from THC vape cartridges; being in a stoned/euphoric state from cannabis vape. Derived from 'carts' (cartridges), the slang term for THC vape pens."
+    ],
+    "etymology": "Taglish: 'naka-' (Filipino prefix indicating a state of being) + 'carts' (English slang for THC vape cartridges). Common in Filipino underground/street culture and rap, particularly in tracks discussing substance use.",
+    "examples": [
+      {
+        "text": "High as fuck si naka-carts — from 'Drugs in tha Club'",
+        "source": "O Side Mafia feat. Tus Brothers — Drugs in tha Club (2023-2026)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "amats",
+      "lakas tama",
+      "puff",
+      "basag"
+    ],
+    "categories": [
+      "street-and-hustle",
+      "party-and-nightlife"
+    ],
+    "sources": [
+      "Tus Brothers — discography 2023-2026"
+    ],
+    "synonyms": [
+      "amats",
+      "lakas tama"
+    ],
+    "antonyms": [
+      "malinaw",
+      "sober"
+    ]
+  },
+  {
+    "term": "nakakatunaw",
+    "definitions": [
+      "Heart-melting; so adorable, sweet, or endearing that it figuratively makes your heart dissolve. Used to describe people, animals, gestures, or moments that are overwhelmingly cute."
+    ],
+    "etymology": "Tagalog morphology: 'nakaka-' (prefix indicating the quality of causing a feeling) + 'tunaw' (to melt). Literally: 'causes melting'. The 'nakaka-' prefix family also produces nakakatawa (makes you laugh), nakakagigil (makes you want to squeeze), nakakairita (irritating).",
+    "examples": [
+      {
+        "text": "Pag tumawa ka (ooh), nakakatunaw na (yes sir) parang sorbetes na iniwan sa labas",
+        "source": "Matthaios — Catriona (tracks and features 2023-2026)"
+      },
+      {
+        "text": "Nakakatunaw 'yung baby, ang cute-cute!",
+        "source": "Filipino TikTok / social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "gigil",
+      "kilig",
+      "cute",
+      "wholesome"
+    ],
+    "categories": [
+      "emotions-and-feelings",
+      "romance-and-relationships"
+    ],
+    "sources": [
+      "Matthaios — tracks and features 2023-2026"
+    ],
+    "synonyms": [
+      "nakakagigil",
+      "kilig"
+    ],
+    "antonyms": [
+      "chaka",
+      "umay"
+    ]
+  },
+  {
+    "term": "kinaladkad",
+    "definitions": [
+      "Was forcefully dragged or pulled; used figuratively to mean being unwillingly involved or implicated in someone else's drama, conflict, or problem.",
+      "In rap/street context: to have dominated or pulled territory — with connotations of control and ownership."
+    ],
+    "etymology": "Past-completed form of 'kaladkarin' — to drag. Root: 'kaladkad' (a forceful, struggling pull or drag). The figurative 'dragged into drama' usage is widely attested in Filipino social media and everyday speech.",
+    "examples": [
+      {
+        "text": "Downtown kinaladkad ang QC, kami may ari nito",
+        "source": "Hev Abi — WELCOME2DTQ (discography 2023-2026)"
+      },
+      {
+        "text": "Bakit ako kinaladkad sa inyo drama? Wala akong kinalaman dito.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "involved",
+      "drama",
+      "pakialaman",
+      "chismis"
+    ],
+    "categories": [
+      "conflict-and-drama",
+      "street-and-hustle"
+    ],
+    "sources": [
+      "Hev Abi — discography 2023-2026"
+    ],
+    "synonyms": [
+      "involved",
+      "nadamay"
+    ],
+    "antonyms": [
+      "malayo",
+      "dedma"
+    ]
+  },
+  {
+    "term": "mala-[X]",
+    "definitions": [
+      "Prefix construction meaning 'resembling [X]', 'giving [X] energy/vibes', or 'in the style of [X]'. Applied to any noun — person, place, pop culture reference, or aesthetic — to describe something that evokes it.",
+      "Gen Z usage supercharges the classical Tagalog 'mala-' prefix by attaching it to contemporary pop culture references: celebrities, movies, aesthetics, lifestyles."
+    ],
+    "etymology": "Classical Tagalog prefix 'mala-' meaning 'resembling' or 'semi-', used in standard language (e.g., mala-sipun — resembling snot; Malabanias — resembling a banias tree). Filipino Gen Z and social media culture turbocharged its use by pairing it with pop culture nouns, making it a productive slang construction. Flow G's song 'Mala SV' (March 2025) cemented its currency in OPM.",
+    "examples": [
+      {
+        "text": "Mala SV — Gusto kong yumaman mala-Sam Verzosa",
+        "source": "Flow G — Mala SV (March 2025)"
+      },
+      {
+        "text": "Ang OOTDmo is giving mala-artista vibes, grabe!",
+        "source": "Filipino TikTok, 2023-2025"
+      },
+      {
+        "text": "Mala-teleserye 'yung nangyari kanina, dramatic af.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "vibes",
+      "aesthetic",
+      "giving",
+      "main character energy"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "internet-and-social-media",
+      "fashion-and-style"
+    ],
+    "sources": [
+      "Flow G — solo and featured verses 2023-2026"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "pariwara",
+    "definitions": [
+      "Wayward, reckless, or going astray; living without direction or discipline. Describes a person who has lost their way or is carelessly destructive in their lifestyle.",
+      "Someone who brings misfortune to others; a bad-luck figure. (Classical Tagalog meaning preserved in modern usage.)"
+    ],
+    "etymology": "Standard Tagalog word meaning 'to go astray', 'negligent', or 'causing misfortune to others'. The Shanti Dope track 'Rehab' (2025) used it to describe a reckless, substance-influenced lifestyle, bringing the word back into Gen Z rap/street vocabulary.",
+    "examples": [
+      {
+        "text": "Used in Shanti Dope's Rehab (2025) to describe a lost/reckless lifestyle — 'pariwara' as the state of being consumed by vices.",
+        "source": "Shanti Dope — Rehab (2025), reviewed in Bandwagon Asia / Rolling Stone PH"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "salbaheng buhay",
+      "patay na",
+      "lost cause",
+      "walang direksyon"
+    ],
+    "categories": [
+      "street-and-hustle",
+      "personality-and-character"
+    ],
+    "sources": [
+      "Shanti Dope — recent releases 2023-2026"
+    ],
+    "synonyms": [
+      "walang direksyon",
+      "pabaya"
+    ],
+    "antonyms": [
+      "matatag",
+      "boss na"
+    ]
+  },
+  {
+    "term": "lala",
+    "definitions": [
+      "Crazy, wild, intense, or out of control; used as an exclamation or adjective to describe something shocking, unbelievable, or over-the-top. Closely paired with 'ang lala' (so crazy) or 'ang lala mo' (you're wild/too much).",
+      "Also: serious, bad, or bad in scale — 'lala na 'to' means 'this is getting serious now'."
+    ],
+    "etymology": "Repurposing of the standard Tagalog 'lala' (comparative form meaning 'more/worse' from 'malala' — serious/severe), now used by Gen Z in a colloquial exclamation register to mean something wild or intense. The shift from 'serious/severe' to 'crazy/wild' reflects the generation's tendency to repurpose formal words into casual exclamations.",
+    "examples": [
+      {
+        "text": "Ang lala mo naman, 'di mo kinaya!",
+        "source": "Filipino social media / canonical OG list (native speaker)"
+      },
+      {
+        "text": "Lala na 'to, parang malalim na ang problema.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "grabe",
+      "sobra",
+      "malala",
+      "intense"
+    ],
+    "categories": [
+      "exclamations-and-hype",
+      "emotions-and-feelings"
+    ],
+    "sources": [
+      "canonical OG list (native speaker)"
+    ],
+    "synonyms": [
+      "grabe",
+      "sobra"
+    ],
+    "antonyms": [
+      "okay lang",
+      "chill"
+    ]
+  },
+  {
+    "term": "sumasabay sa flow",
+    "definitions": [
+      "Going with the flow; adapting to the vibe, plan, or group energy without resistance. Describes someone who smoothly aligns themselves with whatever is happening."
+    ],
+    "etymology": "Taglish phrase combining 'sumasabay' (joining in, going along with) and 'flow' (English, borrowed from music/hip-hop). The phrase mirrors the English idiom 'go with the flow' but with a distinctly Filipino group-harmony (pakikisama) cultural undertone.",
+    "examples": [
+      {
+        "text": "Sabay sa trip — sumasabay sa flow, kahit hindi trip niya, nag-adjust pa rin siya.",
+        "source": "Filipino canonical native speaker usage"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "chill",
+      "game na",
+      "pakikisama",
+      "bet"
+    ],
+    "categories": [
+      "friendship-and-social-bonds",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "canonical OG list (native speaker)"
+    ],
+    "synonyms": [
+      "chill",
+      "game na"
+    ],
+    "antonyms": [
+      "lumalaban",
+      "pasaway"
     ]
   }
 ]

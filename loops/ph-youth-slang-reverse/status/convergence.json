@@ -67,6 +67,12 @@
       "new_terms": 7,
       "refined_entries": 0,
       "counter_action": "reset to 0 (7 new terms found: awoj, BV, na para bang, epal, mars, umay, chaka)"
+    },
+    {
+      "iteration": "refinement pass 13 \u2014 thirteenth raw-gap audit (rap/street vocab, gaming terms, emotional expressions)",
+      "new_terms": 12,
+      "refined_entries": 34,
+      "counter_action": "reset to 0 (12 new terms found: tolongges, ssob, normalin, lakas tama, nabagantsa, naka-carts, nakakatunaw, kinaladkad, mala-[X], pariwara, lala, sumasabay sa flow; 34 category assignments normalized)"
     }
   ]
 }
