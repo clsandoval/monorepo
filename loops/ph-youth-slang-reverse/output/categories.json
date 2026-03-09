@@ -1,6 +1,238 @@
 {
+  "appearance-and-style": "Terms describing physical appearance, attractiveness, fashion sense, or visual aesthetics. Includes compliments and insults about looks.",
+  "beki-and-swardspeak": "Terms originating in Filipino gay/queer (beki/swardspeak) communities that have crossed into mainstream Gen Z usage. Overlaps with lgbtq-and-beki-lingo.",
+  "bisaya-loanwords": {
+    "count": 2,
+    "term_count": 2,
+    "terms": [
+      "halaka",
+      "parak"
+    ]
+  },
+  "commerce-and-live-selling": {
+    "count": 1,
+    "term_count": 1,
+    "terms": [
+      "pa-mine"
+    ]
+  },
+  "conflict-and-drama": {
+    "count": 23,
+    "term_count": 26,
+    "terms": [
+      "ala me pakels",
+      "babatain",
+      "balagbag",
+      "banat",
+      "cancel",
+      "cappin",
+      "dasurv",
+      "gaga",
+      "gera",
+      "ghostlighting",
+      "hanash",
+      "kabet",
+      "kengkoy",
+      "mapagpatol",
+      "nadikit",
+      "pahinga na",
+      "pala-desisyon",
+      "panis",
+      "pasaway",
+      "payuko",
+      "ratio",
+      "shushhh",
+      "tabogo",
+      "tagilid",
+      "talksick",
+      "tsepay"
+    ]
+  },
+  "drinking-culture": {
+    "count": 1,
+    "term_count": 1,
+    "terms": [
+      "shot puno"
+    ]
+  },
+  "emotions-and-feelings": {
+    "count": 34,
+    "term_count": 35,
+    "terms": [
+      "agit",
+      "aray ko",
+      "aray mo",
+      "awit",
+      "awit sayo",
+      "ayoko na",
+      "baha ka lang, pinoy kami",
+      "bisyo",
+      "crayola",
+      "dedma",
+      "epektado",
+      "gigil",
+      "grabe",
+      "hugot",
+      "imbyerna",
+      "kalimutan ka",
+      "kilig",
+      "lambing",
+      "lavarn",
+      "laya",
+      "lulong",
+      "lutang",
+      "marupok",
+      "nadikit",
+      "naol",
+      "okay na 'to",
+      "praning",
+      "sabog",
+      "sana all",
+      "sanaol",
+      "shontis",
+      "topak",
+      "wasak",
+      "werpa",
+      "wew"
+    ]
+  },
+  "exclamations-and-hype": {
+    "count": 44,
+    "term_count": 47,
+    "terms": [
+      "ang lala mo",
+      "aning sayo",
+      "arat",
+      "aray ko",
+      "aray mo",
+      "awit sayo",
+      "ayoko na",
+      "bet",
+      "bibo",
+      "bitaw",
+      "char",
+      "dasurv",
+      "deds",
+      "epip",
+      "gege",
+      "gora",
+      "gorabels",
+      "grabe",
+      "halaka",
+      "kabog",
+      "kalurkey",
+      "korique",
+      "laban lang",
+      "lagabog",
+      "luh",
+      "naks",
+      "omsim",
+      "pa more",
+      "pahinga na",
+      "pak ganern",
+      "peksman",
+      "periodt",
+      "presko",
+      "rapsa",
+      "salang na",
+      "shushhh",
+      "shutacca",
+      "slay",
+      "soafer",
+      "sobrang latina",
+      "sobrang lit",
+      "sure ball",
+      "tae",
+      "vungga",
+      "wew",
+      "what hafen vella",
+      "yawa"
+    ]
+  },
+  "expressions-and-exclamations": "Phrase-level expressions, meme formats, and exclamatory constructions used as reaction templates or conversational devices.",
+  "expressions-and-reactions": {
+    "count": 1,
+    "term_count": 3,
+    "terms": [
+      "keri",
+      "keribels",
+      "over naman sa"
+    ]
+  },
+  "fashion-and-style": {
+    "count": 13,
+    "term_count": 15,
+    "terms": [
+      "asset",
+      "awra",
+      "big boy whip",
+      "bongga",
+      "budol",
+      "drip",
+      "drip ko mala-gripo",
+      "drip set",
+      "dyosa",
+      "estetik",
+      "gorgy",
+      "hypebeast",
+      "slay",
+      "sobrang latina",
+      "vungga"
+    ]
+  },
+  "friendship-and-social-bonds": {
+    "count": 25,
+    "term_count": 28,
+    "terms": [
+      "aning sayo",
+      "asta",
+      "beh",
+      "bes",
+      "besh",
+      "beshie",
+      "bish",
+      "bumaba 'yung gang",
+      "chibog",
+      "chika",
+      "chismis",
+      "day ones",
+      "ghorl",
+      "gng",
+      "inch",
+      "lodicakes",
+      "lulutang",
+      "mane",
+      "mapagpatol",
+      "marecakes",
+      "marites",
+      "mudra",
+      "mumshie",
+      "pudra",
+      "slide (sa gig)",
+      "teh",
+      "tol",
+      "tropa"
+    ]
+  },
+  "gaming-and-esports": {
+    "count": 2,
+    "term_count": 2,
+    "terms": [
+      "peenoise",
+      "ulti"
+    ]
+  },
+  "gay-lingo-and-beki-speak": {
+    "count": 2,
+    "term_count": 2,
+    "terms": [
+      "chour",
+      "kimmy"
+    ]
+  },
   "gen-z-and-imported-slang": {
     "count": 53,
+    "term_count": 58,
     "terms": [
       "247",
       "6-7",
@@ -60,55 +292,89 @@
       "unc",
       "unli",
       "yawa"
-    ],
-    "term_count": 58
+    ]
   },
-  "street-and-hustle": {
-    "count": 37,
+  "hip-hop-and-rap-culture": {
+    "count": 31,
+    "term_count": 32,
     "terms": [
-      "247",
       "DTQ",
-      "JOMO",
-      "amats",
-      "asset",
-      "babain",
-      "baha ka lang, pinoy kami",
-      "balagbag",
-      "bato",
-      "batugan",
+      "amaccana accla",
+      "ammacana",
+      "babatain",
+      "banat",
       "beterano",
-      "bigla kang sumakses",
-      "bisyo",
+      "big boy whip",
+      "bongga",
+      "boogsh",
       "boss na",
-      "bounce",
+      "bumaba 'yung gang",
       "burgis",
-      "diskarte",
+      "cappin",
+      "drip",
+      "drip ko mala-gripo",
+      "drip set",
+      "ebas",
+      "epektado",
       "galing kalye",
-      "gera",
-      "go getta",
-      "hipak",
       "hustlin",
-      "laban lang",
+      "kengkoy",
+      "kunan mong pic",
       "lagabog",
-      "laylow",
-      "lulong",
-      "mane",
-      "naka-focus sa cake",
-      "parak",
-      "payuko",
-      "petiks",
-      "praning",
-      "sagad",
-      "tol",
-      "tus",
-      "unli",
-      "walang ebas",
-      "yosi"
-    ],
-    "term_count": 38
+      "maangas",
+      "olats",
+      "pak ganern",
+      "panis",
+      "salang na",
+      "sure ball",
+      "tagilid",
+      "tsepay",
+      "tus"
+    ]
+  },
+  "humor-and-wit": {
+    "count": 24,
+    "term_count": 26,
+    "terms": [
+      "IJBOL",
+      "asset",
+      "banat",
+      "bato",
+      "budol",
+      "char",
+      "chariz",
+      "chos",
+      "deds",
+      "dogshow",
+      "echoz",
+      "for today's videyow",
+      "gigil",
+      "haggardo versoza",
+      "hatdog",
+      "hindi ako epektado",
+      "kalimutan ka",
+      "mekus-mekus",
+      "naur",
+      "pa more",
+      "peksman",
+      "tabogo",
+      "tolits",
+      "trentahin",
+      "tsaa",
+      "what hafen vella"
+    ]
+  },
+  "identity-and-cultural-commentary": {
+    "count": 2,
+    "term_count": 2,
+    "terms": [
+      "peenoise",
+      "tangalog"
+    ]
   },
   "internet-and-social-media": {
     "count": 75,
+    "term_count": 83,
     "terms": [
       "6-7",
       "AFAM",
@@ -193,11 +459,11 @@
       "wew",
       "what hafen vella",
       "yarn"
-    ],
-    "term_count": 83
+    ]
   },
   "lgbtq-and-beki-lingo": {
     "count": 35,
+    "term_count": 48,
     "terms": [
       "AFAM",
       "achoo",
@@ -247,228 +513,11 @@
       "vaklush",
       "vungga",
       "watash"
-    ],
-    "term_count": 48
-  },
-  "romance-and-relationships": {
-    "count": 39,
-    "terms": [
-      "AFAM",
-      "babaero",
-      "bagay",
-      "bb",
-      "beh",
-      "benchwarmer",
-      "bes",
-      "booking",
-      "delulu",
-      "diskarte",
-      "dyosa",
-      "gaga",
-      "ghostlighting",
-      "haliparot",
-      "hard launch",
-      "hugot",
-      "huli na",
-      "jowa",
-      "kabet",
-      "kalat",
-      "kalimutan ka",
-      "kilig",
-      "kiri",
-      "lambing",
-      "laya",
-      "lulutang",
-      "maharot",
-      "malandi",
-      "marupok",
-      "nadikit",
-      "oomf",
-      "pabebe",
-      "pakipot",
-      "pangga",
-      "rizz",
-      "sana all",
-      "seenzone",
-      "situationship",
-      "soft launch",
-      "suplada",
-      "talandi",
-      "topak",
-      "wasak"
-    ],
-    "term_count": 43
-  },
-  "emotions-and-feelings": {
-    "count": 34,
-    "terms": [
-      "agit",
-      "aray ko",
-      "aray mo",
-      "awit",
-      "awit sayo",
-      "ayoko na",
-      "baha ka lang, pinoy kami",
-      "bisyo",
-      "crayola",
-      "dedma",
-      "epektado",
-      "gigil",
-      "grabe",
-      "hugot",
-      "imbyerna",
-      "kalimutan ka",
-      "kilig",
-      "lambing",
-      "lavarn",
-      "laya",
-      "lulong",
-      "lutang",
-      "marupok",
-      "nadikit",
-      "naol",
-      "okay na 'to",
-      "praning",
-      "sabog",
-      "sana all",
-      "sanaol",
-      "shontis",
-      "topak",
-      "wasak",
-      "werpa",
-      "wew"
-    ],
-    "term_count": 35
-  },
-  "conflict-and-drama": {
-    "count": 23,
-    "terms": [
-      "ala me pakels",
-      "babatain",
-      "balagbag",
-      "banat",
-      "cancel",
-      "cappin",
-      "dasurv",
-      "gaga",
-      "gera",
-      "ghostlighting",
-      "hanash",
-      "kabet",
-      "kengkoy",
-      "mapagpatol",
-      "nadikit",
-      "pahinga na",
-      "pala-desisyon",
-      "panis",
-      "pasaway",
-      "payuko",
-      "ratio",
-      "shushhh",
-      "tabogo",
-      "tagilid",
-      "talksick",
-      "tsepay"
-    ],
-    "term_count": 26
-  },
-  "wordplay-and-linguistic-forms": {
-    "count": 43,
-    "terms": [
-      "SKL",
-      "aketch",
-      "akis",
-      "ala me pakels",
-      "alam na this",
-      "amats",
-      "ammacana",
-      "anetch",
-      "arat",
-      "banat",
-      "bb",
-      "bnk",
-      "char",
-      "chika",
-      "chos",
-      "crayola",
-      "drip ko mala-gripo",
-      "eabab",
-      "echoz",
-      "eme",
-      "forda",
-      "gandara",
-      "gege",
-      "gigil",
-      "gng",
-      "hatdog",
-      "kilig",
-      "lambing",
-      "lodi",
-      "low key",
-      "lutang",
-      "marecakes",
-      "olats",
-      "omsim",
-      "on-game",
-      "pakels",
-      "pangga",
-      "petiks",
-      "petmalu",
-      "rapsa",
-      "sabog",
-      "salang na",
-      "shutacca",
-      "tae",
-      "talksick",
-      "tropa",
-      "walwal",
-      "watash",
-      "werpa",
-      "yarn",
-      "yosi"
-    ],
-    "term_count": 51
-  },
-  "hip-hop-and-rap-culture": {
-    "count": 31,
-    "terms": [
-      "DTQ",
-      "amaccana accla",
-      "ammacana",
-      "babatain",
-      "banat",
-      "beterano",
-      "big boy whip",
-      "bongga",
-      "boogsh",
-      "boss na",
-      "bumaba 'yung gang",
-      "burgis",
-      "cappin",
-      "drip",
-      "drip ko mala-gripo",
-      "drip set",
-      "ebas",
-      "epektado",
-      "galing kalye",
-      "hustlin",
-      "kengkoy",
-      "kunan mong pic",
-      "lagabog",
-      "maangas",
-      "olats",
-      "pak ganern",
-      "panis",
-      "salang na",
-      "sure ball",
-      "tagilid",
-      "tsepay",
-      "tus"
-    ],
-    "term_count": 32
+    ]
   },
   "party-and-nightlife": {
     "count": 11,
+    "term_count": 11,
     "terms": [
       "amats",
       "bato",
@@ -481,64 +530,18 @@
       "walwal",
       "wasak",
       "yosi"
-    ],
-    "term_count": 11
+    ]
   },
-  "exclamations-and-hype": {
-    "count": 44,
+  "partying-and-nightlife": {
+    "count": 1,
+    "term_count": 1,
     "terms": [
-      "ang lala mo",
-      "aning sayo",
-      "arat",
-      "aray ko",
-      "aray mo",
-      "awit sayo",
-      "ayoko na",
-      "bet",
-      "bibo",
-      "bitaw",
-      "char",
-      "dasurv",
-      "deds",
-      "epip",
-      "gege",
-      "gora",
-      "gorabels",
-      "grabe",
-      "halaka",
-      "kabog",
-      "kalurkey",
-      "korique",
-      "laban lang",
-      "lagabog",
-      "luh",
-      "naks",
-      "omsim",
-      "pa more",
-      "pahinga na",
-      "pak ganern",
-      "peksman",
-      "periodt",
-      "presko",
-      "rapsa",
-      "salang na",
-      "shushhh",
-      "shutacca",
-      "slay",
-      "soafer",
-      "sobrang latina",
-      "sobrang lit",
-      "sure ball",
-      "tae",
-      "vungga",
-      "wew",
-      "what hafen vella",
-      "yawa"
-    ],
-    "term_count": 47
+      "shot puno"
+    ]
   },
   "personality-and-character": {
     "count": 54,
+    "term_count": 55,
     "terms": [
       "angas",
       "asta",
@@ -595,98 +598,138 @@
       "unc",
       "vaklush",
       "walang ebas"
-    ],
-    "term_count": 55
+    ]
   },
-  "friendship-and-social-bonds": {
-    "count": 25,
+  "politics-and-social-commentary": {
+    "count": 1,
+    "term_count": 1,
     "terms": [
-      "aning sayo",
-      "asta",
+      "nepo baby"
+    ]
+  },
+  "relationships-and-romance": {
+    "count": 1,
+    "term_count": 1,
+    "terms": [
+      "organic encounter"
+    ]
+  },
+  "romance-and-relationships": {
+    "count": 39,
+    "term_count": 43,
+    "terms": [
+      "AFAM",
+      "babaero",
+      "bagay",
+      "bb",
       "beh",
+      "benchwarmer",
       "bes",
-      "besh",
-      "beshie",
-      "bish",
-      "bumaba 'yung gang",
-      "chibog",
-      "chika",
-      "chismis",
-      "day ones",
-      "ghorl",
-      "gng",
-      "inch",
-      "lodicakes",
-      "lulutang",
-      "mane",
-      "mapagpatol",
-      "marecakes",
-      "marites",
-      "mudra",
-      "mumshie",
-      "pudra",
-      "slide (sa gig)",
-      "teh",
-      "tol",
-      "tropa"
-    ],
-    "term_count": 28
-  },
-  "fashion-and-style": {
-    "count": 13,
-    "terms": [
-      "asset",
-      "awra",
-      "big boy whip",
-      "bongga",
-      "budol",
-      "drip",
-      "drip ko mala-gripo",
-      "drip set",
+      "booking",
+      "delulu",
+      "diskarte",
       "dyosa",
-      "estetik",
-      "gorgy",
-      "hypebeast",
-      "slay",
-      "sobrang latina",
-      "vungga"
-    ],
-    "term_count": 15
-  },
-  "humor-and-wit": {
-    "count": 24,
-    "terms": [
-      "IJBOL",
-      "asset",
-      "banat",
-      "bato",
-      "budol",
-      "char",
-      "chariz",
-      "chos",
-      "deds",
-      "dogshow",
-      "echoz",
-      "for today's videyow",
-      "gigil",
-      "haggardo versoza",
-      "hatdog",
-      "hindi ako epektado",
+      "gaga",
+      "ghostlighting",
+      "haliparot",
+      "hard launch",
+      "hugot",
+      "huli na",
+      "jowa",
+      "kabet",
+      "kalat",
       "kalimutan ka",
-      "mekus-mekus",
-      "naur",
-      "pa more",
-      "peksman",
-      "tabogo",
-      "tolits",
-      "trentahin",
-      "tsaa",
-      "what hafen vella"
-    ],
-    "term_count": 26
+      "kilig",
+      "kiri",
+      "lambing",
+      "laya",
+      "lulutang",
+      "maharot",
+      "malandi",
+      "marupok",
+      "nadikit",
+      "oomf",
+      "pabebe",
+      "pakipot",
+      "pangga",
+      "rizz",
+      "sana all",
+      "seenzone",
+      "situationship",
+      "soft launch",
+      "suplada",
+      "talandi",
+      "topak",
+      "wasak"
+    ]
   },
+  "slang-modifiers-and-intensifiers": {
+    "count": 4,
+    "term_count": 4,
+    "terms": [
+      "matik",
+      "sagad",
+      "ulti",
+      "unli"
+    ]
+  },
+  "social-dynamics-and-status": "Terms describing social positioning, attention-seeking behavior, group dynamics, and how people relate to or insert themselves into social spaces.",
+  "street-and-hustle": {
+    "count": 37,
+    "term_count": 38,
+    "terms": [
+      "247",
+      "DTQ",
+      "JOMO",
+      "amats",
+      "asset",
+      "babain",
+      "baha ka lang, pinoy kami",
+      "balagbag",
+      "bato",
+      "batugan",
+      "beterano",
+      "bigla kang sumakses",
+      "bisyo",
+      "boss na",
+      "bounce",
+      "burgis",
+      "diskarte",
+      "galing kalye",
+      "gera",
+      "go getta",
+      "hipak",
+      "hustlin",
+      "laban lang",
+      "lagabog",
+      "laylow",
+      "lulong",
+      "mane",
+      "naka-focus sa cake",
+      "parak",
+      "payuko",
+      "petiks",
+      "praning",
+      "sagad",
+      "tol",
+      "tus",
+      "unli",
+      "walang ebas",
+      "yosi"
+    ]
+  },
+  "substances-and-nightlife": {
+    "count": 2,
+    "term_count": 2,
+    "terms": [
+      "pausok",
+      "sagad"
+    ]
+  },
+  "terms-of-address-and-endearment": "Words used to directly address or refer to a friend, partner, or person — terms of endearment, nicknames, and casual address forms.",
   "unbothered-and-chill": {
     "count": 9,
+    "term_count": 9,
     "terms": [
       "bnk",
       "bounce",
@@ -697,101 +740,63 @@
       "patola",
       "petiks",
       "shushhh"
-    ],
-    "term_count": 9
+    ]
   },
-  "gay-lingo-and-beki-speak": {
-    "count": 2,
+  "wordplay-and-linguistic-forms": {
+    "count": 43,
+    "term_count": 51,
     "terms": [
-      "chour",
-      "kimmy"
-    ],
-    "term_count": 2
-  },
-  "bisaya-loanwords": {
-    "count": 2,
-    "terms": [
-      "halaka",
-      "parak"
-    ],
-    "term_count": 2
-  },
-  "slang-modifiers-and-intensifiers": {
-    "count": 4,
-    "terms": [
-      "matik",
-      "sagad",
-      "ulti",
-      "unli"
-    ],
-    "term_count": 4
-  },
-  "politics-and-social-commentary": {
-    "count": 1,
-    "terms": [
-      "nepo baby"
-    ],
-    "term_count": 1
-  },
-  "relationships-and-romance": {
-    "count": 1,
-    "terms": [
-      "organic encounter"
-    ],
-    "term_count": 1
-  },
-  "expressions-and-reactions": {
-    "count": 1,
-    "terms": [
-      "keri",
-      "keribels",
-      "over naman sa"
-    ],
-    "term_count": 3
-  },
-  "commerce-and-live-selling": {
-    "count": 1,
-    "terms": [
-      "pa-mine"
-    ],
-    "term_count": 1
-  },
-  "substances-and-nightlife": {
-    "count": 2,
-    "terms": [
-      "pausok",
-      "sagad"
-    ],
-    "term_count": 2
-  },
-  "gaming-and-esports": {
-    "count": 2,
-    "terms": [
-      "peenoise",
-      "ulti"
-    ],
-    "term_count": 2
-  },
-  "identity-and-cultural-commentary": {
-    "count": 2,
-    "terms": [
-      "peenoise",
-      "tangalog"
-    ],
-    "term_count": 2
-  },
-  "partying-and-nightlife": {
-    "count": 1,
-    "terms": [
-      "shot puno"
-    ],
-    "term_count": 1
-  },
-  "drinking-culture": {
-    "count": 1,
-    "terms": [
-      "shot puno"
-    ],
-    "term_count": 1
+      "SKL",
+      "aketch",
+      "akis",
+      "ala me pakels",
+      "alam na this",
+      "amats",
+      "ammacana",
+      "anetch",
+      "arat",
+      "banat",
+      "bb",
+      "bnk",
+      "char",
+      "chika",
+      "chos",
+      "crayola",
+      "drip ko mala-gripo",
+      "eabab",
+      "echoz",
+      "eme",
+      "forda",
+      "gandara",
+      "gege",
+      "gigil",
+      "gng",
+      "hatdog",
+      "kilig",
+      "lambing",
+      "lodi",
+      "low key",
+      "lutang",
+      "marecakes",
+      "olats",
+      "omsim",
+      "on-game",
+      "pakels",
+      "pangga",
+      "petiks",
+      "petmalu",
+      "rapsa",
+      "sabog",
+      "salang na",
+      "shutacca",
+      "tae",
+      "talksick",
+      "tropa",
+      "walwal",
+      "watash",
+      "werpa",
+      "yarn",
+      "yosi"
+    ]
   }
 }
