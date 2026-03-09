@@ -2,10 +2,10 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 17
-- Pending: 8
+- Analyzed: 18
+- Pending: 7
 - Convergence counter: 0/3
-- Raw terms gathered: 271
+- Raw terms gathered: 289
 
 ---
 
@@ -31,7 +31,7 @@
 - [x] YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage
 - [x] Urban Dictionary — Filipino/Tagalog entries added 2023-2026
 - [x] Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026
-- [ ] Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang
+- [x] Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang
 - [ ] Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang
 
 ## Wave 2: Define & Validate

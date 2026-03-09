@@ -2,6 +2,7 @@
 
 | # | Timestamp | Aspect | Wave | Terms | Key Findings |
 |---|-----------|--------|------|-------|--------------|
+| 18 | 2026-03-09 | Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang | 1b (Gather) | 18 | MOBA mechanics cluster: uniquely Filipino verb-formations ("normalin" — basic attack verb via -in suffix; "pugak" — split push from competitive esports legend; "isabato" — to engage/charge from sabat+i-prefix); result/outcome terms ("olats" — backslang of talo/defeated; "rapsa" — satisfaction exclamation from reversed sarap; "wew" — disappointment expression); social/team dynamics ("pabuhat" — dead weight/burden; "peenoise" — toxic PH gamer archetype portmanteau; "on-game" — playing/do-not-disturb declaration); battle cries and hype ("rak na itu" — let's rock this!; "lakad matatag" — globally memed Dota 2 shoutcaster phrase still in use 2023-2026; "lakas tama" — powerful hit exclamation); damage/ability terms ("makati" — high-damage build; "ulti" — clipped ultimate ability; "wanshatan" — one-shot/sniper playstyle); cross-over into general slang ("diff" — skill gap term now in everyday PH youth speech; "peksman" — sworn promise from gaming now general); sources: NoypiGeeks, Codashop PH, adobo Esports Guide, talkpal.ai, fluent filipino, 8list.ph, ONE Esports PH, SEA Gaming Slang Dictionary 2026 |
 | 1 | 2026-03-09 | O Side Mafia — full discography 2023-2026 | 1 (Gather) | 20 | Bilingual wordplay ("drip ko mala-gripo"), social media flex terms ("kunan mong pic", "bumaba 'yung gang"), borrowed US hip-hop terms now entrenched in PH youth speech ("no cap", "day ones", "slide", "drip"); unique Tagalog repurposings ("salang na", "tagilid", "panis") |
 | 2 | 2026-03-09 | Ex Battalion — recent releases and features 2023-2026 | 1 (Gather) | 18 | Skusta Clee solo terms ("lagabog", "dyosa", "laya"); Hayaan Mo Sila revival vocab ("patola", "agit", "tsepay"); Gen Z internet slang in Ex B fan culture ("awit", "omsim", "dasurv", "budol"); reversal/ludling pattern continues ("omsim" from "mismo"); note: group on hiatus late 2023–early 2025, terms gathered from solo members and cultural impact |
 | 3 | 2026-03-09 | Skusta Clee — solo tracks and collaborations 2023-2026 | 1 (Gather) | 15 | Attitude/unbothered cluster ("angas", "epektado", "hindi ako epektado", "shushhh"); relationship damage vocab ("sadista", "topak", "gaga", "testing"); drama-engagement terms ("mapagpatol", "lulutang", "chismis"); embedded English ("low key"); 2025 breakup declarations ("kalimutan ka", "pahinga na"); Taglish phonetic borrowing ("enimine"); deduplicated against Ex B file |
@@ -288,3 +289,41 @@
 - Philippine K-pop stan culture on Twitter blends English stan terms with Tagalog — "fancam" and "cancel" are now part of the Filipino youth lexicon
 - Excluded: "sana all" (duplicate of sanaol), "stan" as verb (English base form, not distinctively Filipino), "mutuals" (too standard English)
 - Sources: spot.ph, ling-app.com, talkpal.ai, fastforward.life, mb.com.ph (2026 slang guide), Tribune.net.ph 2025 review
+
+## Iteration 18 Detail — 2026-03-09
+
+**Aspect:** Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang
+**Wave:** 1b (Gather)
+**Raw file:** raw/gaming-ph.json (18 terms)
+
+### Terms Gathered
+1. makati — high-damage character/build in MOBA; repurposed place name as gaming adjective
+2. normalin — to execute a basic attack; Filipino -in verb suffix applied to English "normal"
+3. pugak — to split push in MOBA; named after legendary competitive Dota player Pugak Divinagracia
+4. olats — defeat/loss concession; backslang of "talo" (defeated, reversed)
+5. pabuhat — dead weight/burden to team; gaming reuse of "buhat" (to carry/lift)
+6. pa more — sarcastic "keep doing that (badly)"; gaming phrase now in general PH youth speech
+7. peenoise — portmanteau (Pinoy + noise); toxic Filipino online gamer archetype; self-aware community critique
+8. peksman — sworn in-game promise/guarantee; from contraction of "pangako ko man"
+9. rapsa — exclamation of gaming satisfaction; from "sarap" (delicious) respelled/reversed
+10. rak na itu — "let's rock this!" battle cry before pushing enemy base; uniquely Filipino MOBA call
+11. wanshatan — one-shot/sniper-only playstyle; Filipino -an suffix on "wanshota"; Counter-Strike era term still used
+12. ulti — ultimate ability; Filipino clipping of "ultimate"; used in MLBB, Valorant, Genshin PH
+13. lakas tama — "strong hit" Taglish exclamation; satisfaction at powerful in-game attack
+14. lakad matatag — "walk steadily / march on"; Filipino Dota 2 shoutcaster meme (Lon, 2018) adopted globally; still active in PH gaming 2023-2026
+15. wew — Filipino-unique disappointment/disbelief expression; versatile tonal register
+16. diff — skill/role gap between teams; "mid diff", "support diff"; from global gaming → entrenched in PH
+17. on-game — status declaration "I'm playing, don't disturb"; grammatically non-standard Taglish; uniquely Filipino
+18. isabato — to initiate combat / engage enemy; from i- causative prefix + sabat (to clash/interrupt)
+
+### Notes
+- Filipino gaming language is dominated by MOBA-derived vocabulary (MLBB as #1 game in PH)
+- Strong word-formation pattern: English terms + Filipino grammar suffixes (-in for verbs, -an for noun-actions) → normalin, wanshatan
+- Backslang/reversal is present ("olats" from "talo") — consistent with broader PH youth ludling pattern seen across all Wave 1 sources
+- "Peenoise" is a self-aware community coinage: Filipinos naming their own toxic archetype — rare metacognitive slang
+- "Lakad matatag" represents PH gaming's peak cultural export: a Filipino shoutcaster's phrase adopted globally and validated by Gabe Newell at The International 2018; still active in PH Discord servers 2023-2026
+- "pa more" has crossed over from gaming into general Gen Z youth speech — important Wave 2 term for etymology tracking
+- "peksman" likewise crossed from gaming into everyday Taglish speech — a key gaming→general slang crossover
+- Cross-game overlap: "ulti" appears in MLBB, Valorant, Genshin; "diff" appeared in Valorant communities but spread to ML and general PH youth speech
+- Excluded: "GG" (global universal term), "AFK" (global universal), "noob" (global universal), "feed/feeding" (global universal), "carry" (global universal but noted in MLBB context), "clutch" (global universal), "tilted" (global universal), "EZ" (global universal), "OP" (global universal)
+- Sources: NoypiGeeks 50+ Pinoy gaming words, Codashop PH MLBB slang guide, adobo Esports Guide to MLBB, talkpal.ai gaming slang Tagalog, fluent filipino gaming guide, 8list.ph Patently Pinoy Gamer Words, ONE Esports PH Valorant terms, SEA Gaming Slang Dictionary 2026 (talesbytravel.com)
