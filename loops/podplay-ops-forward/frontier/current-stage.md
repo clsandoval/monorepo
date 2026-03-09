@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 185
-- **Completed**: 170
-- **Current**: 171
+- **Completed**: 171
+- **Current**: 172
 
 ## Current Stage
 
-**Stage 171** — (next stage)
+**Stage 172** — (next stage)
 
 ## Stage Log
 
@@ -184,3 +184,4 @@
 | 168 | done | 2026-03-09 | desktop verify /settings/team - 7 team contacts, salary fields (Annual Rent, Indirect Salaries), add contact button visible, no console errors |
 | 169 | done | 2026-03-09 | desktop verify /settings/travel - lodging/airfare/hours fields visible, no console errors (mileage_rate/per_diem not in spec - noted in spec-gaps.md) |
 | 170 | done | 2026-03-09 | desktop verify full wizard flow end-to-end (fixed bom.ts column names, intake venue_address/go_live_date/deposit_amount, deposit invoice creation, navigation to procurement) |
+| 171 | done | 2026-03-09 | desktop verify dashboard after project creation (project row with Procurement status pill, PRO tier badge, metrics bar updated: 1 total, 1 active deployment) |
