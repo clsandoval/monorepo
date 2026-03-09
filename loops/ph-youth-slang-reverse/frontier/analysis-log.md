@@ -3,6 +3,7 @@
 | # | Timestamp | Aspect | Wave | Terms | Key Findings |
 |---|-----------|--------|------|-------|--------------|
 | 1 | 2026-03-09 | O Side Mafia — full discography 2023-2026 | 1 (Gather) | 20 | Bilingual wordplay ("drip ko mala-gripo"), social media flex terms ("kunan mong pic", "bumaba 'yung gang"), borrowed US hip-hop terms now entrenched in PH youth speech ("no cap", "day ones", "slide", "drip"); unique Tagalog repurposings ("salang na", "tagilid", "panis") |
+| 2 | 2026-03-09 | Ex Battalion — recent releases and features 2023-2026 | 1 (Gather) | 18 | Skusta Clee solo terms ("lagabog", "dyosa", "laya"); Hayaan Mo Sila revival vocab ("patola", "agit", "tsepay"); Gen Z internet slang in Ex B fan culture ("awit", "omsim", "dasurv", "budol"); reversal/ludling pattern continues ("omsim" from "mismo"); note: group on hiatus late 2023–early 2025, terms gathered from solo members and cultural impact |
 
 ## Iteration 1 Detail — 2026-03-09
 
@@ -37,3 +38,36 @@
 - "kengkoy" is technically old slang (1920s Kenkoy comic strip) but seeing revival in 2023+ rap
 - Several US hip-hop borrowings ("drip", "no cap", "day ones", "slide") now entrenched in Filipino youth speech
 - O Side Mafia's signature: bilingual wordplay — a notable Filipino rap contribution
+
+## Iteration 2 Detail — 2026-03-09
+
+**Aspect:** Ex Battalion — recent releases and features 2023-2026
+**Wave:** 1 (Gather)
+**Raw file:** raw/ex-battalion.json (18 terms)
+
+### Terms Gathered
+1. patola — unbothered/not engaging drama, Hayaan Mo Sila (revived 2023-2024)
+2. agit — jealous/annoyed (short for agitated), Hayaan Mo Sila (revived 2023-2024)
+3. lagabog — hard-hitting energy/impact, Skusta Clee x Illest Morena (2023)
+4. dyosa — goddess; beautiful woman compliment, Skusta Clee (2024)
+5. huli na — it's too late; finality in breakup, Huli Na feat. Skusta Clee (2023)
+6. jowa — casual term for boyfriend/girlfriend, multiple Ex B tracks
+7. tsepay — cheap, fake, low-value person, Hayaan Mo Sila era slang (revived 2023-2024)
+8. awit — that hurts/that sucks, sympathy expression (fan culture 2023-2024)
+9. omsim — reverse of "mismo" (exactly/same), Pinoy hip-hop community
+10. rekta — direct/straight to the point/honest, OPM rap authenticity discourse
+11. beshie — best friend/term of endearment, Ex B social media community
+12. budol — peer-pressured into buying; FOMO purchases, fan culture 2023-2024
+13. walang ebas — no lies/no BS/straight facts, Filipino rap authenticity slang
+14. pak ganern — fierce hype/approval expression, fan culture (LGBTQ+ origin)
+15. praning — paranoid/anxious/overthinking, OPM rap dismissal context
+16. laya — freedom; leaving a toxic situation, Skusta Clee x Flow G (2024)
+17. dasurv — Filipinized "deserve"; celebrating earned wins, Ex B diss drama 2024
+18. char — just kidding (shortened charot), OPM rap Taglish banter
+
+### Notes
+- Ex Battalion was on hiatus late 2023–early 2025; terms sourced from solo members (Skusta Clee, Flow G) and the cultural echo of their catalog
+- "Hayaan Mo Sila" (2017) had massive streaming revival 2023-2024, keeping its vocabulary active
+- Yuridope's "Brrt Pow!" (Jan 1, 2024) diss track was the group's main 2024 activity
+- Ex B established ludling/reversal pattern ("omsim") consistent with broader PH youth slang trend
+- Several terms overlap with LGBTQ+ Filipino slang origins ("pak ganern", "beshie") showing cross-community borrowing
