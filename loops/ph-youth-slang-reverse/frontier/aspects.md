@@ -2,10 +2,10 @@
 
 ## Statistics
 - Total aspects: 25
-- Analyzed: 5
-- Pending: 20
+- Analyzed: 6
+- Pending: 19
 - Convergence counter: 0/3
-- Raw terms gathered: 83
+- Raw terms gathered: 98
 
 ---
 
@@ -16,7 +16,7 @@
 - [x] Skusta Clee — solo tracks and collaborations 2023-2026
 - [x] Flow G — solo and featured verses 2023-2026
 - [x] Hev Abi — discography 2023-2026
-- [ ] Matthaios — tracks and features 2023-2026
+- [x] Matthaios — tracks and features 2023-2026
 - [ ] Because — discography 2023-2026
 - [ ] ALLMO$T — tracks 2023-2026
 - [ ] Shanti Dope — recent releases 2023-2026
