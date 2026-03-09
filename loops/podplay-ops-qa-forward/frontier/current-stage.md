@@ -1,7 +1,7 @@
 # PodPlay Ops QA Forward Loop — Stage Tracker
 
 **Total stages**: 46
-**Current stage**: 012
+**Current stage**: 013
 
 ## Stages
 
@@ -18,7 +18,7 @@
 | 009 | InstallerSettings Component (F01) | done |
 | 010 | Installers Route + Settings Nav (F01) | done |
 | 011 | InstallerSettings Tests (F01) | done |
-| 012 | ISP Provider Dropdown (F03) | pending |
+| 012 | ISP Provider Dropdown (F03) | done |
 | 013 | ISP Dropdown Tests (F03) | pending |
 | 014 | Wizard Step Persistence: Save on Transition (F04) | pending |
 | 015 | Status-Based Routing from Dashboard (F04) | pending |
