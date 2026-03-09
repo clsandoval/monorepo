@@ -19,6 +19,12 @@
       "new_terms": 15,
       "refined_entries": 0,
       "counter_action": "reset to 0 (15 new terms found)"
+    },
+    {
+      "iteration": "refinement pass 5 — fifth raw-gap audit + new term batch",
+      "new_terms": 15,
+      "refined_entries": 14,
+      "counter_action": "reset to 0 (15 new terms found, 14 category assignments normalized)"
     }
   ]
 }

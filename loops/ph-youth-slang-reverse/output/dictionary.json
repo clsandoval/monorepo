@@ -3496,6 +3496,83 @@
     "antonyms": []
   },
   {
+    "term": "halaka",
+    "definitions": [
+      "Exclamation of amazement, shock, or impressed disbelief — roughly equivalent to 'whoa!', 'damn!', or 'oh my God!' Used to react to something surprising, impressive, or outrageous."
+    ],
+    "etymology": "From Bisaya/Cebuano; crossed into Filipino Gen Z speech via Mindanaoan rap acts, social media, and the blending of regional dialects in OPM. Part of the broader regionalization of Filipino youth slang.",
+    "examples": [
+      {
+        "text": "Halaka, ang ganda niya!",
+        "source": "Matthaios ft. Soulthrll/Ken/Michael Pacquiao — 'Pangga', 2024"
+      },
+      {
+        "text": "Halaka! Nanalo siya sa lotto?",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": "Bisaya/Cebuano origin. Increasingly used in Tagalog-dominant social media, especially in OPM rap circles with Mindanaoan influences.",
+    "related_terms": [
+      "grabe",
+      "OMG",
+      "nako"
+    ],
+    "categories": [
+      "exclamations-and-hype",
+      "bisaya-loanwords"
+    ],
+    "sources": [
+      "Matthaios — tracks and features 2023-2026"
+    ],
+    "synonyms": [
+      "grabe",
+      "hala"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "haliparot",
+    "definitions": [
+      "Flirtatious, promiscuous, or sexually mischievous — describes a person (often a woman) who flirts excessively or is perceived as loose in behavior. Slightly more vulgar in register than 'maharot' or 'malandi'."
+    ],
+    "etymology": "Standard Tagalog term; part of the broader synonym cluster for flirtatious behavior (maharot, malandi, kiri, talandi, haliparot). Re-circulated in youth slang via ALLMO$T's 'Maharot' (2024) discourse on social media.",
+    "examples": [
+      {
+        "text": "Haliparot daw siya pero sweet naman siya",
+        "source": "HiNative Filipino language forum, 2024"
+      },
+      {
+        "text": "Maharot, malandi, haliparot — same cluster",
+        "source": "ALLMO$T — Maharot fan discussion, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "maharot",
+      "malandi",
+      "kiri",
+      "talandi",
+      "maarte"
+    ],
+    "categories": [
+      "personality-and-character",
+      "romance-and-relationships"
+    ],
+    "sources": [
+      "ALLMO$T — tracks 2023-2026"
+    ],
+    "synonyms": [
+      "maharot",
+      "malandi",
+      "kiri",
+      "talandi"
+    ],
+    "antonyms": [
+      "mahiyain",
+      "mahinhin"
+    ]
+  },
+  {
     "term": "hanash",
     "definitions": [
       "Talking too much; rambling or oversharing beyond what is needed. Used to call out someone who won't stop talking, or to describe excessive chatter."
@@ -4192,6 +4269,43 @@
     ]
   },
   {
+    "term": "kiri",
+    "definitions": [
+      "Coquettishly flirtatious; describes someone who acts coy or demure while actually being very flirtatious. Often said affectionately about someone playfully teasing in romantic contexts."
+    ],
+    "etymology": "Standard Tagalog term re-circulated among Gen Z via the 'maharot' synonym cluster discourse around ALLMO$T's track (2024). Softer connotation than 'haliparot'.",
+    "examples": [
+      {
+        "text": "Kiri siya pero hindi naman siya masama, ganun lang talaga siya",
+        "source": "HiNative Filipino language forum, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "maharot",
+      "malandi",
+      "haliparot",
+      "talandi"
+    ],
+    "categories": [
+      "personality-and-character",
+      "romance-and-relationships"
+    ],
+    "sources": [
+      "ALLMO$T — tracks 2023-2026"
+    ],
+    "synonyms": [
+      "maharot",
+      "malandi",
+      "haliparot",
+      "talandi"
+    ],
+    "antonyms": [
+      "mahiyain",
+      "mahinhin"
+    ]
+  },
+  {
     "term": "korique",
     "definitions": [
       "That's correct / you're right — a playful phonetic Filipino twist on the English word 'correct,' used as an affirmation or agreement signal."
@@ -4512,6 +4626,38 @@
     ],
     "synonyms": [
       "mane"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "lodicakes",
+    "definitions": [
+      "Affectionate, cutesy term for someone you admire or idolize — a playful evolution of 'lodi' (idol spelled backwards) with the endearing suffix '-cakes'.",
+      "Used as a term of address for a close friend, role model, or someone you look up to."
+    ],
+    "etymology": "From 'lodi' (Filipino back-slang for 'idol', created by reversing the spelling) + English suffix '-cakes' (affectionate/cute intensifier, borrowed from English slang like 'cupcakes'). Represents layered Filipino slang construction.",
+    "examples": [
+      {
+        "text": "Lodicakes, selfie tayo mamaya!",
+        "source": "Filipino Gen Z social media / ALLMO$T fan community, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "lodi",
+      "idol",
+      "bet"
+    ],
+    "categories": [
+      "friendship-and-social-bonds",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "ALLMO$T — tracks 2023-2026"
+    ],
+    "synonyms": [
+      "lodi",
+      "idol"
     ],
     "antonyms": []
   },
@@ -5032,6 +5178,53 @@
     "antonyms": [
       "laya",
       "hindi ako epektado"
+    ]
+  },
+  {
+    "term": "matik",
+    "definitions": [
+      "Automatic; certain; inevitable — describes something that is a given, will definitely happen, or is done out of habit without needing to think twice about it.",
+      "Used as affirmation: 'matik!' = 'for sure!', 'obviously!', 'no doubt!'",
+      "Can also describe an automatic, formulaic, or habitual response — doing something on autopilot."
+    ],
+    "etymology": "Clipping of English 'automatic'. Deeply embedded in Filipino casual speech, from texting culture through to rap lyrics. The Tus Brothers' 'matik wasak' usage emphasizes the certainty of a messy outcome.",
+    "examples": [
+      {
+        "text": "Matik na sa tropa; matik wasak na agad",
+        "source": "Tus Brothers — 'Drugs in tha Club', 2023"
+      },
+      {
+        "text": "'Pag tiningnan ka pa n'ya, sure na sure na finish ka — matik!",
+        "source": "Matthaios — Catriona, 2023"
+      },
+      {
+        "text": "Matik kang lalait nyan",
+        "source": "tagalogslang.com confirmed usage"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "sure",
+      "sure na sure",
+      "tiyak",
+      "sigurado"
+    ],
+    "categories": [
+      "slang-modifiers-and-intensifiers",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "Tus Brothers — discography 2023-2026",
+      "Matthaios — tracks and features 2023-2026"
+    ],
+    "synonyms": [
+      "sure",
+      "tiyak",
+      "sigurado"
+    ],
+    "antonyms": [
+      "hindi sigurado",
+      "baka"
     ]
   },
   {
@@ -5865,6 +6058,40 @@
     ]
   },
   {
+    "term": "parak",
+    "definitions": [
+      "Police officer; cop — informal street slang for law enforcement. Can carry a tone of distrust, wariness, or humor depending on context."
+    ],
+    "etymology": "Borrowed from Cebuano 'parak' (fat and round person; police officer). Spread nationally through street culture, rap lyrics, and urban youth speech. Represents the northward flow of Bisaya slang into Tagalog youth vocabulary.",
+    "examples": [
+      {
+        "text": "Kamatayan o parak — death or police",
+        "source": "Shanti Dope — Amatz (2019, culturally active 2023-2025)"
+      },
+      {
+        "text": "Mag-ingat ka, may mga parak sa kanto!",
+        "source": "Filipino street speech, widely used"
+      }
+    ],
+    "regional_notes": "Cebuano origin, now widely used in Metro Manila and urban youth speech nationwide. Tagalog equivalent: 'pulis'.",
+    "related_terms": [
+      "pulis",
+      "buwaya",
+      "respeto"
+    ],
+    "categories": [
+      "street-and-hustle",
+      "bisaya-loanwords"
+    ],
+    "sources": [
+      "Shanti Dope — recent releases 2023-2026"
+    ],
+    "synonyms": [
+      "pulis"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "pasaway",
     "definitions": [
       "Disobedient, hard-headed, stubborn — someone who refuses to follow rules or instructions, often with a mischievous or rebellious edge. Can be used affectionately (a naughty child or a friend who won't listen) or critically (a genuinely reckless troublemaker). Gained heightened prominence during COVID-19 when quarantine violators were publicly labeled 'pasaway.'"
@@ -5940,6 +6167,113 @@
     "antonyms": [
       "mapagpatol"
     ]
+  },
+  {
+    "term": "pausok",
+    "definitions": [
+      "Smoking or causing smoke; colloquial term for a smoking or vaping session. From the causative prefix 'pa-' + 'usok' (smoke).",
+      "Used as a verb ('pausok tayo') meaning 'let's smoke/vape' or as a noun for the act of smoking."
+    ],
+    "etymology": "Tagalog causative construction: 'pa-' (causative prefix) + 'usok' (smoke). Elevated in youth slang by Because's track 'PAUSOK' (Heartbreak SZN 3, 2024) and the 2025 Filipino film of the same name.",
+    "examples": [
+      {
+        "text": "Pausok muna bago mag-party",
+        "source": "Because — PAUSOK feat. Allison Shore, Heartbreak SZN 3, 2024"
+      },
+      {
+        "text": "Pausok tayo sandali, pagod na ako",
+        "source": "Filipino Gen Z casual speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "hipak",
+      "usok",
+      "vape",
+      "puff"
+    ],
+    "categories": [
+      "substances-and-nightlife"
+    ],
+    "sources": [
+      "Because — discography 2023-2026"
+    ],
+    "synonyms": [
+      "hipak",
+      "puff"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "payuko",
+    "definitions": [
+      "Walking or standing with one's head bowed down — in youth/rap slang, signifies defeat, shame, or humiliation. Used as a diss: 'you left with your head down'.",
+      "Can also describe someone who is submissive or overly yielding in a situation."
+    ],
+    "etymology": "From Tagalog 'yuko' (to bow the head) with the prefix 'pa-' indicating manner or state. The image of walking with a bowed head as a sign of defeat is a recurring motif in Filipino rap diss culture.",
+    "examples": [
+      {
+        "text": "Headshot naglakad payuko",
+        "source": "Hev Abi — Headshot, 2024"
+      },
+      {
+        "text": "Palakad-lakad payuko kasi natalo",
+        "source": "Filipino rap battle commentary, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "diss",
+      "kalaban",
+      "malaglag",
+      "tapusin"
+    ],
+    "categories": [
+      "conflict-and-drama",
+      "street-and-hustle"
+    ],
+    "sources": [
+      "Hev Abi — discography 2023-2026"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "proud",
+      "nakanguso"
+    ]
+  },
+  {
+    "term": "peenoise",
+    "definitions": [
+      "Portmanteau insult for toxic Filipino online gamers known for disruptive trash talk, excessive noise, and poor sportsmanship — typically in Southeast Asian game servers.",
+      "Used as self-critique within Filipino gaming communities to call out cringe behavior."
+    ],
+    "etymology": "Portmanteau of 'Pinoy' (Filipino) + 'noise'. Originated in SEA gaming server discourse; spread through NoypiGeeks, 8list.ph, and Reddit discussions. Used both as an external critique and internal community self-awareness.",
+    "examples": [
+      {
+        "text": "Grabe 'yung peenoise sa server namin kanina",
+        "source": "Filipino gaming Discord/Reddit, 2024"
+      },
+      {
+        "text": "Baka naman maging peenoise tayo sa international server",
+        "source": "8list.ph — Filipino gaming culture article, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "toxic",
+      "tryhard",
+      "report"
+    ],
+    "categories": [
+      "gaming-and-esports",
+      "internet-and-social-media",
+      "identity-and-cultural-commentary"
+    ],
+    "sources": [
+      "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang"
+    ],
+    "synonyms": [],
+    "antonyms": []
   },
   {
     "term": "peksman",
@@ -6378,6 +6712,48 @@
     "antonyms": []
   },
   {
+    "term": "sagad",
+    "definitions": [
+      "Maxed out; to the absolute limit; fully used up — describes something completely exhausted, spent, or pushed to its extreme.",
+      "Can be positive: at the peak or height of something (fame, greatness). Or negative: completely broke, drained, or exhausted.",
+      "In substance/nightlife context: deeply immersed, wasted, all-in."
+    ],
+    "etymology": "Standard Tagalog word from Proto-Philippine *sagád ('to reach the limit'), from Proto-Malayo-Polynesian *saʀad ('heavily loaded'). Adopted into youth slang with intensified usage, especially doubled: 'sagad na sagad' = to the absolute extreme.",
+    "examples": [
+      {
+        "text": "Sagad sa alak — from 'Drugs in tha Club'",
+        "source": "Tus Brothers, 2023"
+      },
+      {
+        "text": "Sagad na sagad ang pagod ko!",
+        "source": "Filipino social media, common phrase"
+      }
+    ],
+    "regional_notes": "Standard Tagalog root, but the slang intensification 'sagad na sagad' is Gen Z/youth speech.",
+    "related_terms": [
+      "todo",
+      "sunog",
+      "lulong",
+      "unli"
+    ],
+    "categories": [
+      "slang-modifiers-and-intensifiers",
+      "substances-and-nightlife",
+      "street-and-hustle"
+    ],
+    "sources": [
+      "Tus Brothers — discography 2023-2026"
+    ],
+    "synonyms": [
+      "todo",
+      "puno"
+    ],
+    "antonyms": [
+      "kulang",
+      "konti"
+    ]
+  },
+  {
     "term": "salang na",
     "definitions": [
       "It's on; let's go; things are underway or heating up — signaling that a situation has started or reached a critical point.",
@@ -6411,6 +6787,45 @@
       "arat",
       "bounce",
       "gege"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "sana all",
+    "definitions": [
+      "I hope everyone (has/feels/experiences) this — used to express lighthearted envy or admiration when witnessing someone else's good fortune. Conveys 'I wish that were true for everyone (especially me).'",
+      "Used as a reaction to seeing something desirable (a happy couple, a great vacation, a big flex), implying wistful longing without bitterness."
+    ],
+    "etymology": "From Tagalog 'sana' (I hope/I wish) + English 'all'. The compact Taglish construction went viral on Filipino social media circa 2018-2019 and remains a staple expression in 2024-2026. KWF (Komisyon ng Wikang Filipino) acknowledged this generation's coinages for potential inclusion in the national dictionary.",
+    "examples": [
+      {
+        "text": "May boyfriend na siya, sana all!",
+        "source": "Foodega 2024 — common social media caption format"
+      },
+      {
+        "text": "Your vacation photos are amazing, sana all!",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "naol",
+      "sabaol",
+      "sanaol"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "emotions-and-feelings",
+      "romance-and-relationships"
+    ],
+    "sources": [
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026",
+      "Twitter/X Filipino",
+      "TikTok PH"
+    ],
+    "synonyms": [
+      "naol",
+      "sabaol"
     ],
     "antonyms": []
   },
@@ -6915,6 +7330,80 @@
     "antonyms": []
   },
   {
+    "term": "talandi",
+    "definitions": [
+      "Flirtatious or sexually mischievous; describes someone who flirts excessively or is promiscuous. Slightly edgier connotation than 'kiri', often paired with 'maharot' or 'malandi' for emphasis."
+    ],
+    "etymology": "Standard Tagalog term re-circulated among Gen Z via ALLMO$T's 'Maharot' (2024) social media discourse. Part of the five-term synonym cluster for flirtatious behavior.",
+    "examples": [
+      {
+        "text": "Talandi yan, ingatan mo na sarili mo",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Maharot, kiri, talandi — lahat yan",
+        "source": "HiNative discussion thread, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "maharot",
+      "malandi",
+      "kiri",
+      "haliparot"
+    ],
+    "categories": [
+      "personality-and-character",
+      "romance-and-relationships"
+    ],
+    "sources": [
+      "ALLMO$T — tracks 2023-2026"
+    ],
+    "synonyms": [
+      "maharot",
+      "malandi",
+      "kiri",
+      "haliparot"
+    ],
+    "antonyms": [
+      "mahinhin",
+      "mahiyain"
+    ]
+  },
+  {
+    "term": "tangalog",
+    "definitions": [
+      "Portmanteau of 'tanga' (stupid/idiotic) + 'Tagalog' — mockingly describes Tagalog-speaking Filipinos, originally used on international imageboards to troll.",
+      "'Tangalog Syndrome' (2025 variant): describes native Luzon Filipinos who code-switch excessively to English mid-sentence to appear sophisticated or educated, seen as performative and inauthentic."
+    ],
+    "etymology": "Portmanteau of Tagalog 'tanga' (stupid) + 'Tagalog' (the language/ethnolinguistic group). Used on anonymous imageboards and later picked up on Filipino social media as both self-deprecating humor and cultural critique.",
+    "examples": [
+      {
+        "text": "Classic tangalog syndrome — English pag may audience, Tagalog pag kasama",
+        "source": "Urban Dictionary Filipino entry, 2025"
+      },
+      {
+        "text": "Tangalog ka ba? — used mockingly on imageboards toward obnoxious Filipino posters",
+        "source": "Urban Dictionary, 2024"
+      }
+    ],
+    "regional_notes": "Primarily Luzon/Metro Manila critique; Visayan and Mindanaoan Filipinos sometimes use it to push back against Tagalog-centric Philippine culture.",
+    "related_terms": [
+      "taglish",
+      "code-switching",
+      "tanga"
+    ],
+    "categories": [
+      "identity-and-cultural-commentary",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
     "term": "teh",
     "definitions": [
       "Casual address term for a girl, woman, or close friend — equivalent to 'sis' in English. Gender-neutral in modern use but historically feminine in origin."
@@ -7240,6 +7729,42 @@
     "antonyms": []
   },
   {
+    "term": "ulti",
+    "definitions": [
+      "Ultimate ability — the most powerful or game-changing move a character can use in a MOBA or action game. In context: 'Use your ulti now!'",
+      "By extension in casual speech: one's most powerful move, trump card, or final ace in any situation."
+    ],
+    "etymology": "Filipino clipping of English 'ultimate'. Originated in MLBB (Mobile Legends: Bang Bang) and Valorant gaming communities in PH; spread to casual speech as a metaphor for a decisive action.",
+    "examples": [
+      {
+        "text": "Ulti na! Lahat sumali!",
+        "source": "MLBB Filipino team fight callout, 2024"
+      },
+      {
+        "text": "Ginagamit niya na yung ulti niya sa pakikipag-argue",
+        "source": "Filipino Reddit r/CasualPH, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "ult",
+      "skill",
+      "spell",
+      "gank"
+    ],
+    "categories": [
+      "gaming-and-esports",
+      "slang-modifiers-and-intensifiers"
+    ],
+    "sources": [
+      "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang"
+    ],
+    "synonyms": [
+      "ult"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "unc",
     "definitions": [
       "Shortened form of 'uncle'; used to describe a person (of any age) who is out of touch, uncool, outdated, or acting older than they are. The Filipino equivalent of calling someone a 'tito' (uncle) for being behind the times."
@@ -7272,6 +7797,47 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "unli",
+    "definitions": [
+      "Unlimited — used as an adjective to describe something boundless, ceaseless, or unrestricted. From mobile data/call plan marketing that permeated everyday Filipino speech.",
+      "Used in rap to describe infinite hustle, loyalty, or love: 'unli ang pagmamahal ko' = my love for you is limitless."
+    ],
+    "etymology": "Clipping of English 'unlimited'. Popularized by Philippine telecom companies' 'unli call', 'unli text', and 'unli rice' (restaurant) promos; fully absorbed into colloquial Filipino.",
+    "examples": [
+      {
+        "text": "Unli ang hustle ko",
+        "source": "Flow G — lyrical usage, solo tracks 2023-2025"
+      },
+      {
+        "text": "Unli ang pagmamahal ko sa'yo",
+        "source": "Filipino social media / relationship captions, 2024"
+      }
+    ],
+    "regional_notes": "Nationwide usage; deeply embedded across all age groups, not limited to Gen Z.",
+    "related_terms": [
+      "247",
+      "todo",
+      "sagad"
+    ],
+    "categories": [
+      "slang-modifiers-and-intensifiers",
+      "street-and-hustle",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "Flow G — solo and featured verses 2023-2026",
+      "Reddit r/Philippines and r/CasualPH"
+    ],
+    "synonyms": [
+      "unlimited",
+      "walang hanggan"
+    ],
+    "antonyms": [
+      "limited",
+      "kulang"
+    ]
   },
   {
     "term": "vaklush",
