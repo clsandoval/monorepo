@@ -23154,5 +23154,325 @@
       "totoo",
       "authentic"
     ]
+  },
+  {
+    "term": "kunsumisyon",
+    "definitions": [
+      "The feeling of being inwardly consumed by frustration, stress, or irritation caused by someone's behavior or an aggravating situation — a slow burn of suppressed emotional distress.",
+      "Used colloquially to describe the toll a difficult person or situation takes on your emotional and mental wellbeing."
+    ],
+    "etymology": "Derived from Spanish 'consumición' (consumption). In Filipino vernacular, it evolved to describe the specific experience of being emotionally 'consumed' or eaten up alive by frustration, particularly from people you can't directly confront.",
+    "examples": [
+      {
+        "text": "Baka mamatay ka sa kunsumisyon sa mga ganyan",
+        "source": "Common Filipino expression, widely circulated online"
+      },
+      {
+        "text": "Hindi mo nararamdaman? Mataas na ang kunsumisyon ko sa kanya",
+        "source": "Filipino social media usage, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "naaasar",
+      "naiirita",
+      "stress",
+      "badtrip"
+    ],
+    "categories": [
+      "emotional-expression",
+      "everyday-colloquial"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations",
+      "Filipino social media 2025"
+    ],
+    "synonyms": [
+      "stress",
+      "badtrip"
+    ],
+    "antonyms": [
+      "chill",
+      "kalma"
+    ]
+  },
+  {
+    "term": "kupad",
+    "definitions": [
+      "Slow, sluggish, or lacking energy — used to describe someone who moves or works at a frustratingly slow pace.",
+      "Can describe a person, internet connection, or process that is performing below expected speed."
+    ],
+    "etymology": "Tagalog root word meaning slow or sluggish. Elevated in youth usage as an insult or playful teasing term for someone who is lethargic or unresponsive.",
+    "examples": [
+      {
+        "text": "Ang kupad mo naman, bilis ka diyan!",
+        "source": "Common Filipino colloquial usage"
+      },
+      {
+        "text": "Kupad na internet ko ngayon, hindi makapaglaro",
+        "source": "Filipino gaming community usage, 2024"
+      }
+    ],
+    "regional_notes": "Used across the Philippines; also used in gaming communities to describe lag or slow performance.",
+    "related_terms": [
+      "tamad",
+      "batugan",
+      "petiks",
+      "bata"
+    ],
+    "categories": [
+      "insult-and-roast",
+      "everyday-colloquial"
+    ],
+    "sources": [
+      "Gaming PH — Discord, Facebook gaming groups",
+      "Reddit r/Philippines"
+    ],
+    "synonyms": [
+      "tamad",
+      "batugan"
+    ],
+    "antonyms": [
+      "mabilis",
+      "sipag"
+    ]
+  },
+  {
+    "term": "palabas",
+    "definitions": [
+      "A theatrical show or performance put on for attention; used to call out someone who is being unnecessarily dramatic or making a scene for an audience.",
+      "Describes behavior that is performative or exaggerated, implying the person is acting rather than being genuine."
+    ],
+    "etymology": "From Filipino 'palabas' literally meaning 'a show/something going out,' repurposed colloquially to describe a person putting on a dramatic performance. Related to the concept of 'OA' (over-acting).",
+    "examples": [
+      {
+        "text": "Huwag kang magpapanggap, palabas ka lang doon",
+        "source": "Filipino social media comment sections, 2024"
+      },
+      {
+        "text": "Ay nako, palabas lang 'yan para mapansin",
+        "source": "Common Filipino expression online"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "OA",
+      "epal",
+      "papansin",
+      "arte",
+      "pa-drama"
+    ],
+    "categories": [
+      "personality-and-character",
+      "insult-and-roast"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "Filipino meme pages"
+    ],
+    "synonyms": [
+      "OA",
+      "pa-drama",
+      "epal"
+    ],
+    "antonyms": [
+      "totoo",
+      "natural"
+    ]
+  },
+  {
+    "term": "pusong mamon",
+    "definitions": [
+      "Literally 'heart of mamon (sponge cake)' — describes someone who is soft-hearted, overly sensitive, or easily moved to emotion.",
+      "Used affectionately or teasingly to describe a person who is too kind-hearted, easily hurt, or cries easily."
+    ],
+    "etymology": "Filipino idiomatic expression combining 'puso' (heart) with 'mamon,' a soft Filipino sponge cake. The softness and sponginess of mamon metaphorically describe someone whose heart absorbs and feels everything intensely.",
+    "examples": [
+      {
+        "text": "Pusong mamon talaga 'tong si kuya, umiyak sa pelikula",
+        "source": "Filipino social media usage"
+      },
+      {
+        "text": "Huwag kang pusong mamon sa buhay — matibay ka!",
+        "source": "Filipino Twitter/X encouragement posts, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "marupok",
+      "senti",
+      "feeling",
+      "bitin"
+    ],
+    "categories": [
+      "personality-and-character",
+      "emotional-expression",
+      "food-metaphors"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "Filipino meme pages"
+    ],
+    "synonyms": [
+      "marupok"
+    ],
+    "antonyms": [
+      "manhid",
+      "deadma"
+    ]
+  },
+  {
+    "term": "nagmumurang kamatis",
+    "definitions": [
+      "Literally 'a ripening tomato' — describes an older person who is trying to look, act, or dress younger than their actual age.",
+      "Used humorously or teasingly when someone is clearly past their youth but refusing to act their age."
+    ],
+    "etymology": "Filipino idiomatic expression where 'nagmumurang kamatis' (a tomato that is ripening/trying to look unripe) metaphorically depicts someone who is trying to pass themselves off as younger. A tomato ripening is literally getting older, yet the idiom captures the futility of trying to reverse the aging process.",
+    "examples": [
+      {
+        "text": "Nagmumurang kamatis ka na naman, 'Tay — croptop pa more!",
+        "source": "Filipino social media, TikTok commentary"
+      },
+      {
+        "text": "Eto na naman 'tong mga nagmumurang kamatis sa dance floor",
+        "source": "Filipino meme pages, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "arte",
+      "trentahin",
+      "OA"
+    ],
+    "categories": [
+      "personality-and-character",
+      "humor-and-meme-language",
+      "age-related"
+    ],
+    "sources": [
+      "Filipino meme pages",
+      "TikTok PH — trending slang compilations"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "talaga naman",
+    "definitions": [
+      "An expression of exasperation, mild disbelief, or resigned annoyance — equivalent to 'Oh come on!', 'Seriously?!', or 'For real?!' in English.",
+      "Can also express genuine awe or impressed disbelief when said with a different intonation."
+    ],
+    "etymology": "Combination of 'talaga' (really/truly) and 'naman' (a Filipino particle that softens or intensifies depending on context). When combined, the phrase expresses a heightened reaction — either disbelief, exasperation, or emphatic confirmation.",
+    "examples": [
+      {
+        "text": "Talaga naman, 'di ba nakakahiya 'yun?",
+        "source": "Filipino casual conversation and social media, 2024"
+      },
+      {
+        "text": "Talaga naman sila, araw-araw ganyan",
+        "source": "Filipino Twitter/X reaction posts, 2025"
+      }
+    ],
+    "regional_notes": "Universal across Filipino regions; intonation determines whether the expression conveys awe or exasperation.",
+    "related_terms": [
+      "naaasar",
+      "kunsumisyon",
+      "badtrip",
+      "grabe",
+      "grabeh"
+    ],
+    "categories": [
+      "interjections-and-exclamations",
+      "emotional-expression"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "Reddit r/Philippines"
+    ],
+    "synonyms": [
+      "grabe",
+      "hay nako"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "kainggit",
+    "definitions": [
+      "Enviable; making one feel jealous — used to describe a person, situation, or thing that inspires envy or admiration.",
+      "Derived from 'inggit' (envy), the 'ka-' prefix intensifies it into an adjective meaning 'how enviable!' Often used admiringly rather than bitterly."
+    ],
+    "etymology": "From Tagalog 'inggit' (envy/jealousy) with the intensifying prefix 'ka-', which in Filipino grammar expresses a high degree of a quality (similar to 'how [adjective]!'). The word carries a mix of admiration and longing.",
+    "examples": [
+      {
+        "text": "Kainggit ang buhay mo, lagi kang nasa beach!",
+        "source": "Filipino Instagram/TikTok comments, 2024"
+      },
+      {
+        "text": "Kainggit siya, pare — ganda ng ganda at matalino pa",
+        "source": "Filipino youth conversation, social media 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "selos",
+      "inggit",
+      "sana all",
+      "goals"
+    ],
+    "categories": [
+      "emotional-expression",
+      "everyday-colloquial"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations",
+      "Twitter/X Filipino"
+    ],
+    "synonyms": [
+      "sana all"
+    ],
+    "antonyms": [
+      "walang inggit"
+    ]
+  },
+  {
+    "term": "saktong",
+    "definitions": [
+      "Just right; exactly; perfectly timed — used to indicate that something arrived or happened at the most precise moment possible.",
+      "Can intensify 'sakto' (exact/just right) to emphasize the perfect fit or timing of something."
+    ],
+    "etymology": "From Tagalog 'sakto' (exactly right, just enough, on time) + the linker '-ng'. Functions as an adjective or adverb to emphasize perfect timing, a perfect fit, or an exact match.",
+    "examples": [
+      {
+        "text": "Saktong dating mo! Kakain pa lang kami",
+        "source": "Filipino everyday conversation"
+      },
+      {
+        "text": "Saktong-sakto ang sukat niya sa damit",
+        "source": "Filipino social media post, 2025"
+      }
+    ],
+    "regional_notes": "Used across Filipino dialects; closely related to the Bisayan 'sakto' with similar meaning.",
+    "related_terms": [
+      "husto",
+      "tama",
+      "timing",
+      "perfect"
+    ],
+    "categories": [
+      "everyday-colloquial",
+      "compliment-and-affirmation"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH",
+      "Filipino everyday speech"
+    ],
+    "synonyms": [
+      "husto",
+      "tama na"
+    ],
+    "antonyms": [
+      "kulang",
+      "sobra"
+    ]
   }
 ]
