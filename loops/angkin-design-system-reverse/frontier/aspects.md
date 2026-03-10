@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects:** 27
-- **Analyzed:** 5
-- **Pending:** 22
-- **Convergence:** 19%
+- **Analyzed:** 6
+- **Pending:** 21
+- **Convergence:** 22%
 
 ---
 
@@ -18,7 +18,7 @@
 | 3 | Audit PodPlay Frontend | done | `analysis/audit-podplay.md` |
 | 4 | Benchmark Wise | done | `analysis/benchmark-wise.md` |
 | 5 | Benchmark TurboTax / H&R Block | done | `analysis/benchmark-tax-calculators.md` |
-| 6 | Benchmark gov.uk | pending | `analysis/benchmark-govuk.md` |
+| 6 | Benchmark gov.uk | done | `analysis/benchmark-govuk.md` |
 | 7 | Benchmark SmartAsset / NerdWallet / Bankrate | pending | `analysis/benchmark-calculator-content.md` |
 | 8 | Benchmark Canva / Notion | pending | `analysis/benchmark-simple-powerful.md` |
 | 9 | Benchmark Stripe / Linear | pending | `analysis/benchmark-dev-design-systems.md` |
