@@ -672,3 +672,35 @@ Searched for gaps in beki/swardspeak coverage (foundation terms missing), Gen Z-
 
 **Convergence counter:** reset to 0 (10 new terms found)
 **Dictionary total:** 721 terms
+
+---
+
+## Refinement Pass 90 — 2026-03-10
+
+**Focus:** Ninetieth raw-gap audit — Taglish compliment vocabulary, traditional Tagalog colloquial slang, and Filipino Hallyu (K-pop/K-drama) fandom vocabulary
+
+**Search vectors:**
+- Filipino Gen Z slang 2025-2026 general survey (Spot.ph, Tribune, Ling-app, Talkpal, WokeWaves)
+- Specific K-drama/K-pop fandom vocabulary adopted by Filipino youth
+- Taglish compound expressions common in everyday youth speech
+- Traditional Tagalog colloquial/slang terms still active in Gen Z usage
+
+**New terms added (4):**
+
+1. **ibang level** — Taglish compound meaning "on another level"; superlative compliment for anything extraordinarily impressive. Uses "ibang" (Tagalog: different/another) + "level" (English). Extremely common in TikTok captions, Twitter/X reactions, and casual Filipino youth speech.
+
+2. **bulilyaso** — Filipino/Tagalog colloquial slang for a thwarted or failed plan. Listed in Wiktionary's Tagalog slang appendix as "foiled; thwarted." Active in Gen Z meme culture when plans go unexpectedly wrong. Possibly borrowed from Spanish "bolillazo."
+
+3. **second lead syndrome** — K-drama fandom term for the heartache of rooting for the second male lead over the main lead. Abbreviated "SLS." One of the most widely shared Filipino K-drama fan expressions on Twitter/X, Facebook fan groups, and TikTok. The Philippines has one of Asia's largest K-drama fandoms.
+
+4. **aegyo** — From Korean (cute/charming behavior). Deeply embedded in Filipino K-pop/K-drama fan vocabulary. Used to describe exaggeratedly cute behavior, childlike mannerisms, or ironic over-sweetness. Active in Filipino stan communities and TikTok culture.
+
+**Rejected candidates:**
+- "laslas" — traditional Tagalog for "slash/cut," not a Gen Z coinage; skip
+- "day zeroes" — no documented Filipino youth slang usage found
+- "simp era" — insufficient documentation as specifically Filipino slang
+- "oppa" — Korean loan word used by Filipino fans but not a Filipino coinage; hallyu-adjacent terms like "aegyo" are more distinctly adopted
+- "sana all/naol" — already in dictionary
+
+**Convergence counter:** reset to 0 (4 new terms found)
+**Dictionary total:** 735 terms
