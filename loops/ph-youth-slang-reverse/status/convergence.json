@@ -3,6 +3,12 @@
   "last_updated": "2026-03-10",
   "history": [
     {
+      "iteration": "refinement pass 93 — ninety-third raw-gap audit (3 new terms, 744→747)",
+      "new_terms": 3,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (3 new terms found: 67, opp, mewing — Gen Alpha terms documented in Manila Bulletin Jan 2026 slang guide and 8list.ph Dec 2025; 67 is Dictionary.com's 2025 Word of the Year, actively used by Filipino youth)"
+    },
+    {
       "iteration": "refinement pass 92 — ninety-second raw-gap audit (5 new terms, 739→744)",
       "new_terms": 5,
       "refined_entries": 0,

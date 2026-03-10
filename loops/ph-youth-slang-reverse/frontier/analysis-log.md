@@ -763,3 +763,33 @@ Searched for gaps in beki/swardspeak coverage (foundation terms missing), Gen Z-
 
 **Convergence counter:** reset to 0 (5 new terms found)
 **Dictionary total:** 744 terms
+
+---
+
+## Pass 93 — Ninety-third raw-gap audit (3 new terms, 744→747)
+
+**Date:** 2026-03-10
+**New terms:** 3
+**Refined entries:** 0
+
+### Search Strategy
+
+Focused on Gen Alpha slang documented in Philippine media (Manila Bulletin Jan 2026 slang guide, 8list.ph Gen Alpha guide Dec 2025, Dictionary.com Word of the Year 2025). Verified all Spot.ph 2025 roundup terms were already in dictionary (trentahin, sobrang latina, soafer, okay na 'to, bigla kang sumakses, forda ferson, organic encounter, maritess, seenzoned, luh). Also verified naur, GNG, korique, yarn, aura farming, brainrot, rizz, pabebe already present.
+
+### Terms Added
+
+1. **67** — nonsensical Gen Alpha brainrot slang from Skrilla's "Doot Doot (6 7)"; Dictionary.com Word of the Year 2025; used as meaningless filler/exclamation or response; viral via "67 Kid" basketball clip; Manila Bulletin documented Philippine Gen Alpha usage Jan 2026; "Teacher: Ano 'yung sagot? Student: 67!"; categories: brainrot & absurdist humor, Gen Alpha slang, filler expressions; related: doot doot, skibidi, brainrot
+
+2. **opp** — short for opponent/opposition; refers to enemies, rivals, or anyone working against you; from US hip-hop/drill music via TikTok; adopted by Filipino Gen Alpha in school and online contexts; tone ranges from serious to playful; "Mag-ingat ka, opp 'yan sa grupo namin"; categories: conflict & rivalry, Gen Alpha slang, social dynamics; related: lait, okray, bitter
+
+3. **mewing** — pressing tongue to roof of mouth as jawline exercise; popularized by Dr. Mike Mew, went viral as Gen Alpha meme; used humorously as excuse for silence ("Can't talk, mewing"); documented in 8list.ph Gen Alpha guide 2025; "Bakit hindi ka sumasagot? — Mewing ako"; categories: beauty & appearance, Gen Alpha slang, brainrot & absurdist humor; related: sigma, aura farming, pogi points
+
+### Candidates Rejected
+
+- "unc" — already in dictionary (entry confirmed via grep)
+- "rizz lord" — already in dictionary as "rizz lord" (confirmed present)
+- "soafer" — already in dictionary (confirmed via grep)
+- "trentahin" — already in dictionary (confirmed via grep)
+
+**Convergence counter:** reset to 0 (3 new terms found)
+**Dictionary total:** 747 terms
