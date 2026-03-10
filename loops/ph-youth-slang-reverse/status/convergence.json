@@ -223,6 +223,12 @@
       "new_terms": 9,
       "refined_entries": 0,
       "counter_action": "reset to 0 (9 new terms found: LSS, swabe, barkada, kuyawa, lowkey, baddie, level up, nag-assume, OOTD)"
+    },
+    {
+      "iteration": "refinement pass 39 \u2014 thirty-ninth raw-gap audit (5 new terms, 380\u2192385)",
+      "new_terms": 5,
+      "refined_entries": 1,
+      "counter_action": "reset to 0 (5 new terms found: budots, linta, jologs, tara, gago; 1 cross-reference update: ulol related_terms)"
     }
   ]
 }

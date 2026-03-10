@@ -12550,7 +12550,8 @@
       "gaga",
       "topak",
       "bangag",
-      "sabog"
+      "sabog",
+      "gago"
     ],
     "categories": [
       "exclamations-and-hype",
@@ -14014,6 +14015,202 @@
       "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
     ],
     "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "budots",
+    "definitions": [
+      "A Filipino electronic dance music (EDM) genre originating from street culture in Davao City, characterized by aggressive percussion, high-pitched whistle hooks, repetitive vocal samples, and off-beat basslines at ~140 BPM.",
+      "The accompanying street dance style, featuring worm-like motions, gyrating hips, and shimmying elbows and knees — originating from poorer urban communities in Davao.",
+      "As Bisaya slang: a 'slacker' or tambay (someone who lounges around unproductively)."
+    ],
+    "etymology": "From Bisaya/Cebuano slang 'burot' (to inflate), originally a euphemism for glue-sniffing juvenile delinquents ('rugby boys'). The genre was pioneered by DJ Love (Sherwin Calumpang Tuna) in Davao City's internet cafe scene in the late 2000s. Went globally viral in 2024 when DJ Johnrey's 'Emergency Budots' remix of Gloria Estefan's 'Dr. Beat' spread across TikTok, garnering over 500,000 videos and 22M+ views on the first viral post.",
+    "examples": [
+      {
+        "text": "Emergency Budots is everywhere on TikTok — kahit yung mga foreigners nagdadance na!",
+        "source": "Filipino TikTok comments, 2024"
+      },
+      {
+        "text": "Budots vibes lang tayo ngayon — pure Pinoy energy!",
+        "source": "Filipino social media caption, 2024"
+      }
+    ],
+    "regional_notes": "Originates from Davao City and the Bisaya/Cebuano-speaking Mindanao region. The dance style has been linked to art forms of the indigenous Badjao people. Gained national and global recognition through the 2024 TikTok 'Emergency Budots' phenomenon, covered by NBC News, CNN, and Washington Post.",
+    "related_terms": [
+      "barkada",
+      "walwal",
+      "on-game",
+      "LSS"
+    ],
+    "categories": [
+      "media-and-entertainment",
+      "cultural-pride-and-identity",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "linta",
+    "definitions": [
+      "Slang for a freeloader or parasite — someone who constantly exploits others for money, favors, or resources without reciprocating.",
+      "Used as a character criticism: calling someone who persistently takes advantage of people's generosity a 'leech.'"
+    ],
+    "etymology": "Direct metaphor from Tagalog 'linta' (leech, the bloodsucking aquatic worm). The semantic extension from literal animal to social parasite mirrors similar idioms in English ('leech') and other languages. Actively used in Filipino youth social commentary, especially in discussions about toxic friendships and relationships.",
+    "examples": [
+      {
+        "text": "Grabe ang linta niya — nakatira sa bahay ko for months, walang kontribusyon!",
+        "source": "Filipino social media complaint post, 2024"
+      },
+      {
+        "text": "Huwag kang maging linta sa mga kaibigan mo.",
+        "source": "Filipino advice content / group chat warning, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "paasa",
+      "epal",
+      "plastik",
+      "KSP"
+    ],
+    "categories": [
+      "call-out-and-criticism",
+      "social-commentary-and-shade",
+      "personality-and-character"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "jologs",
+    "definitions": [
+      "Adjective/noun describing someone or something as tacky, low-class, cheap in taste, or unsophisticated — often used in a teasing or self-deprecating way.",
+      "A label for mass-market, 'baduy' (corny/uncool) culture or aesthetics — associated with loud colors, over-accessorizing, and mainstream pop taste.",
+      "Self-deprecating usage: 'Jologs tayo!' = We're so basic/low-rent (said with affection among close friends)."
+    ],
+    "etymology": "Origin disputed; popularized in Filipino pop culture commentary from the early 2000s. Closely related to 'baduy.' Remains actively used in Gen Z online discourse as a social class marker and aesthetic critique, increasingly reclaimed as self-aware humor.",
+    "examples": [
+      {
+        "text": "Jologs ang outfit ko ngayon pero okay lang, comfortable naman.",
+        "source": "Filipino TikTok caption / fashion commentary, 2024"
+      },
+      {
+        "text": "Anong jologs ng place na 'yan — puro plastik na palamuti.",
+        "source": "Filipino Twitter/X reaction, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "korni",
+      "benta",
+      "clout",
+      "baddie"
+    ],
+    "categories": [
+      "aesthetics-and-looks",
+      "social-commentary-and-shade",
+      "personality-and-character"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [
+      "korni"
+    ],
+    "antonyms": [
+      "benta",
+      "slay",
+      "angas"
+    ]
+  },
+  {
+    "term": "tara",
+    "definitions": [
+      "Invitation or call to action: 'Let's go!' / 'Come on!' — used to prompt movement or action.",
+      "Extended as 'tara na!' (let's go already!) or 'tara, kain tayo' (let's go eat) — a versatile action-initiator in Filipino youth speech."
+    ],
+    "etymology": "From Tagalog 'tara' — a colloquial shortening of 'halika na' (come on, let's go). Its reversed backslang form 'arat' is common in Gen Z speech and is documented separately in this dictionary. Both forms co-exist in Filipino youth speech.",
+    "examples": [
+      {
+        "text": "Tara na! Late na tayo!",
+        "source": "Filipino everyday speech and group chat, 2024"
+      },
+      {
+        "text": "Tara, sumabay sa amin — may bagong kainan kami.",
+        "source": "Filipino TikTok vlog / social media invitation, 2024"
+      }
+    ],
+    "regional_notes": "Pan-Philippine; universally understood across all regions and age groups. Among the most frequently used words in Filipino casual speech.",
+    "related_terms": [
+      "arat",
+      "gora",
+      "barkada"
+    ],
+    "categories": [
+      "everyday-expressions",
+      "exclamations-and-hype"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang"
+    ],
+    "synonyms": [
+      "arat",
+      "gora"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "gago",
+    "definitions": [
+      "A strong Filipino expletive/insult meaning 'stupid,' 'foolish,' or 'idiotic' — one of the most common Filipino profanities alongside 'ulol,' 'tanga,' and 'bobo.'",
+      "Among close friends and in Gen Z barkada culture: partially de-fanged as affectionate teasing — 'gago ka talaga!' said while laughing = 'you're such an idiot!' (fondly).",
+      "Derivatives: 'kagaguhan' (a foolish act/blunder), 'nakakagago' (makes you feel stupid/humiliated), 'ogag' (reversal/variant with same meaning)."
+    ],
+    "etymology": "From Spanish 'gago' (stutterer). The meaning shifted in Filipino to 'stupid/foolish,' likely through association with incompetence. One of the foundational Filipino expletives; documented in academic studies of Filipino profanity and a 2025 ResearchGate paper on Filipino swear words noting Gen Z's ironic/affectionate reuse in meme culture and group chats.",
+    "examples": [
+      {
+        "text": "Gago ka! Bakit mo ginawa 'yan?!",
+        "source": "Filipino casual speech, 2024 (genuine or affectionate exasperation)"
+      },
+      {
+        "text": "Kagaguhan nito — sino nag-isip ng ganito?",
+        "source": "Filipino social media commentary, 2024"
+      }
+    ],
+    "regional_notes": "Female equivalent: 'gaga.' Gender-neutral in Gen Z usage among close friends. Generally considered profanity — register shifts from genuine insult to affectionate banter depending on relationship and tone.",
+    "related_terms": [
+      "ulol",
+      "tanga",
+      "bobo",
+      "topak",
+      "ogag"
+    ],
+    "categories": [
+      "exclamations-and-hype",
+      "personality-and-character"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang"
+    ],
+    "synonyms": [
+      "ulol",
+      "tanga",
+      "ogag"
+    ],
     "antonyms": []
   }
 ]
