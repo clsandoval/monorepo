@@ -463,6 +463,12 @@
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: amaccana, accla, efas, swerve, unalive)"
+    },
+    {
+      "iteration": "refinement pass 79 — seventy-ninth raw-gap audit (5 new terms, 668→673)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: apir, sirit, bangkay, buraot, taympers)"
     }
   ]
 }
