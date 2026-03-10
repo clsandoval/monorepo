@@ -187,6 +187,12 @@
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: scoobs, flex, clout, glow up, highkey)"
+    },
+    {
+      "iteration": "refinement pass 33 — thirty-third raw-gap audit (5 new terms, 345→350)",
+      "new_terms": 5,
+      "refined_entries": 1,
+      "counter_action": "reset to 0 (5 new terms found: G, sawi, bangag, basted, badtrip; 1 entry refined: chos related_terms updated to include echos)"
     }
   ]
 }

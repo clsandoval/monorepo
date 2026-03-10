@@ -683,6 +683,52 @@
     "antonyms": []
   },
   {
+    "term": "arte",
+    "definitions": [
+      "Overly dramatic, fussy, picky, or high-maintenance — used to call out someone being unnecessarily difficult, demanding, or pretentious.",
+      "Being 'extra' or making a big deal out of something trivial. Synonymous with OA (overacting) in some contexts but specifically implies fussiness."
+    ],
+    "etymology": "From Spanish 'arte' (art/craft), borrowed into Tagalog and semantically repurposed. The original sense of artistry or skill was inverted colloquially to mean 'theatrical behavior' or 'putting on airs.' Used colloquially for generations but has remained strongly present in Filipino Gen Z vocabulary.",
+    "examples": [
+      {
+        "text": "Arte mo naman, masustansya naman yung pagkain!",
+        "source": "Filipino everyday conversation / social media, 2024"
+      },
+      {
+        "text": "Arte-arte ka pa rin, boss — simpleng tanong lang naman.",
+        "source": "Filipino TikTok comment section, 2025"
+      },
+      {
+        "text": "Ang arte ng customer na 'yun, binago pa ang order tatlong beses.",
+        "source": "Filipino service industry / social media rant, 2024"
+      }
+    ],
+    "regional_notes": "Nationwide usage. The phrase 'artista ka ba?' (Are you an actor?) is a sarcastic cousin expression used when someone is being dramatically theatrical. Can be affectionate teasing or a genuine criticism depending on tone.",
+    "related_terms": [
+      "OA",
+      "over naman sa",
+      "epal",
+      "praning"
+    ],
+    "categories": [
+      "personality-and-character",
+      "everyday-expressions",
+      "call-out-and-criticism"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads, 'what does X mean' posts"
+    ],
+    "synonyms": [
+      "OA",
+      "over naman sa"
+    ],
+    "antonyms": [
+      "chill",
+      "dedma"
+    ]
+  },
+  {
     "term": "asset",
     "definitions": [
       "(Showbiz/mainstream) A person whose physical attractiveness is their most notable quality — their looks are their 'asset.'",
@@ -1142,6 +1188,55 @@
     "antonyms": []
   },
   {
+    "term": "badtrip",
+    "definitions": [
+      "Annoying, frustrating, or unpleasant — used to describe either a situation or a person causing irritation. As an exclamation: expression of frustration, disappointment, or displeasure (equivalent to \"That sucks!\" or \"Ugh!\").",
+      "Used as an adjective: describing someone who is in a bad mood, easily irritated, or no fun."
+    ],
+    "etymology": "Borrowed from English 'bad trip' (originally referring to a frightening drug experience). In Filipino slang, it has completely detached from its drug context and simply means 'annoying' or 'unpleasant.' Documented in Filipino slang literature since at least 1993.",
+    "examples": [
+      {
+        "text": "Badtrip ako sayo. Bakit mo ginawa yun?",
+        "source": "Filipino social media, 2024 (I'm so annoyed at you. Why did you do that?)"
+      },
+      {
+        "text": "Badtrip naman! Nawala na naman yung susi ko.",
+        "source": "Filipino everyday speech, 2024 (Ugh! I lost my keys again.)"
+      },
+      {
+        "text": "Ang badtrip ng sitwasyon. Hindi na ako makapag-focus.",
+        "source": "Filipino Twitter/X, 2024 (The situation is so frustrating. I can't focus anymore.)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "toyo",
+      "BV",
+      "bwiset",
+      "agit",
+      "umay",
+      "inis"
+    ],
+    "categories": [
+      "emotional-expressions",
+      "reactions-and-exclamations"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [
+      "bwiset",
+      "toyo",
+      "inis"
+    ],
+    "antonyms": [
+      "bet",
+      "G",
+      "ayos lang"
+    ]
+  },
+  {
     "term": "bagay",
     "definitions": [
       "Suitable; fitting; looks good; a compatible match. As an exclamation ('Bagay kayo!'), used to say two people look great together or are a perfect match, especially romantically."
@@ -1281,6 +1376,99 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "bangag",
+    "definitions": [
+      "Intoxicated, stoned, or high on drugs or alcohol; severely impaired.",
+      "Dazed, disoriented, or mentally foggy — extended colloquially to describe extreme exhaustion, sleep deprivation, or being spaced out even without substance use."
+    ],
+    "etymology": "Established Filipino/Tagalog slang of uncertain origin. Wiktionary notes it as a Tagalog adjective meaning intoxicated. In youth usage it has expanded beyond substance contexts to describe anyone who seems mentally absent or out of it.",
+    "examples": [
+      {
+        "text": "Grabe, bangag na bangag siya galing sa inuman kagabi.",
+        "source": "Filipino social media, 2024 (Wow, he was completely out of it after last night's drinking session.)"
+      },
+      {
+        "text": "Bangag na ako sa pagod. Dalawang araw na akong walang tulog.",
+        "source": "Filipino Twitter/X, 2024 (I'm totally out of it from exhaustion. I haven't slept for two days.)"
+      },
+      {
+        "text": "Anong bangag mo dyan? Paulit-ulit kang nagtatanong ng parehong bagay.",
+        "source": "Filipino group chat, 2024 (Why are you so out of it? You keep asking the same question over and over.)"
+      }
+    ],
+    "regional_notes": "In Bisaya (Visayan languages), bangag means hole — an entirely different meaning. Use carefully in mixed regional contexts.",
+    "related_terms": [
+      "lutang",
+      "walwal",
+      "lasing",
+      "wasak",
+      "amats"
+    ],
+    "categories": [
+      "substance-and-nightlife",
+      "emotional-expressions",
+      "states-of-being"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "lutang",
+      "wasak",
+      "amats"
+    ],
+    "antonyms": [
+      "sober",
+      "malinaw ang isip"
+    ]
+  },
+  {
+    "term": "basted",
+    "definitions": [
+      "Rejected romantically; turned down by a romantic interest or potential partner. Also used as a verb: to be basted = to get rejected; to basted someone = to reject them."
+    ],
+    "etymology": "Derived from the English word 'busted.' First attested in Filipino slang in the late 1960s. The pronunciation and spelling shifted to 'basted' in Filipino vernacular usage.",
+    "examples": [
+      {
+        "text": "Basted ako kay Anna nang hingian ko siya ng second date.",
+        "source": "Filipino social media, 2024 (I got rejected when I asked Anna for a second date.)"
+      },
+      {
+        "text": "Grabe, binasted ako sa chat pa. Hindi man lang face to face.",
+        "source": "Filipino Twitter/X, 2024 (Wow, I got rejected over chat. Not even face-to-face.)"
+      },
+      {
+        "text": "Takot akong umamin kasi baka mabasted ako.",
+        "source": "Filipino youth, 2024 (I'm scared to confess because I might get rejected.)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "sawi",
+      "torpe",
+      "pa-fall",
+      "paasa",
+      "talking stage",
+      "LQ"
+    ],
+    "categories": [
+      "romance-and-relationships"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [
+      "rejected",
+      "sawi"
+    ],
+    "antonyms": [
+      "MU",
+      "in a relationship"
+    ]
   },
   {
     "term": "bato",
@@ -1965,6 +2153,48 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "bitin",
+    "definitions": [
+      "Not enough; too short; leaving one wanting more — used when something ends prematurely or fails to fully satisfy.",
+      "The feeling that an experience (episode, concert, food, conversation, date) was cut short or insufficient in quantity or duration."
+    ],
+    "etymology": "From Tagalog 'bitin' — literally 'to hang' or 'to leave suspended/dangling.' The figurative leap is: something left 'hanging' is incomplete, unsatisfying, wanting more. Widely used in media reactions and everyday expressions.",
+    "examples": [
+      {
+        "text": "Bitin naman yung episode, 20 minutes lang?!",
+        "source": "Filipino social media / K-drama/OPM fan reactions, 2024"
+      },
+      {
+        "text": "Ang bitin ng concert nila — dapat mas matagal!",
+        "source": "Filipino concert-goer social media post, 2025"
+      },
+      {
+        "text": "Bitin yung date namin, sana hindi pa nag-ulan.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": "Used nationwide. Extremely common in media consumption culture — reactions to K-dramas, local teleseryes (soap operas), OPM concerts, and food reviews. Can also be used in romantic contexts ('bitin ang usap namin' = our conversation ended too soon).",
+    "related_terms": [
+      "pa-fall",
+      "kilig",
+      "sana all"
+    ],
+    "categories": [
+      "emotions-and-mental-state",
+      "everyday-expressions",
+      "media-and-entertainment"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "sagad",
+      "sana all"
+    ]
   },
   {
     "term": "bnk",
@@ -2813,7 +3043,8 @@
     "related_terms": [
       "echoz",
       "char",
-      "joke lang"
+      "joke lang",
+      "echos"
     ],
     "categories": [
       "gen-z-and-imported-slang",
@@ -2870,6 +3101,46 @@
       "chos"
     ],
     "antonyms": []
+  },
+  {
+    "term": "clout",
+    "definitions": [
+      "Social influence or fame, especially online. Often used negatively to describe actions taken purely for attention or popularity — 'para sa clout' (just for the clout)."
+    ],
+    "etymology": "Borrowed from English, where 'clout' originally meant political power or influence. In internet culture it shifted to mean online fame/follower count. Filipino youth widely adopted it by 2023-2024.",
+    "examples": [
+      {
+        "text": "Para lang sa clout 'yan! Peke yung sinabi niya.",
+        "source": "Filipino Facebook comment section, 2024 (That's just for clout! What he said was fake.)"
+      },
+      {
+        "text": "Clout chaser siya, wag kang mabola.",
+        "source": "Filipino Reddit r/CasualPH, 2024 (He's a clout chaser, don't be fooled.)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "flex",
+      "aura farming",
+      "ratio",
+      "cancel",
+      "rage bait"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "digital-culture",
+      "status-and-identity"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "aura farming"
+    ],
+    "antonyms": [
+      "low key",
+      "dedma"
+    ]
   },
   {
     "term": "crash out",
@@ -3922,6 +4193,46 @@
     "antonyms": []
   },
   {
+    "term": "flex",
+    "definitions": [
+      "To show off; to brag about one's possessions, achievements, looks, or lifestyle — often on social media. Also used as a noun: 'a flex' meaning something brag-worthy."
+    ],
+    "etymology": "Borrowed from American English internet slang, where 'flexing' originally referred to showing off muscles. In Filipino youth use it extends to any form of bragging or displaying wealth/status.",
+    "examples": [
+      {
+        "text": "Nag-fle-flex ka na naman ng bagong shoes mo!",
+        "source": "Foodega Filipino slang guide, 2024 (You're showing off your new shoes again!)"
+      },
+      {
+        "text": "Malaking flex 'yun, pre. Congratulations.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "clout",
+      "aura farming",
+      "awra",
+      "bongga",
+      "angas"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "status-and-identity"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [
+      "awra",
+      "bongga"
+    ],
+    "antonyms": [
+      "low key",
+      "dedma"
+    ]
+  },
+  {
     "term": "for today's videyow",
     "definitions": [
       "Intentional misspelling of 'for today's video' — a viral phrase mimicking Filipino vlogger speech with a playful phonetic twist.",
@@ -4088,6 +4399,53 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "G",
+    "definitions": [
+      "Short for 'game' — used to confirm willingness, readiness, or agreement. Equivalent to 'I'm in,' 'sure,' 'let's go,' or 'sounds good.' One of the most versatile and widely-used affirmatives in Filipino youth speech."
+    ],
+    "etymology": "Shortened from English 'game' (as in 'are you game?'). Related to Filipino 'ge' (shortened from 'sige', meaning 'okay'). Both 'G' and 'ge' function as casual affirmatives; 'G' has strong gaming and group-activity connotations.",
+    "examples": [
+      {
+        "text": "\"Kain tayo mamaya?\" \"G!\"",
+        "source": "Filipino group chat, 2024 (\"Shall we eat later?\" \"Sure!\")"
+      },
+      {
+        "text": "G na tayo, bro. Pumunta na tayo.",
+        "source": "Filipino youth conversation, 2024 (We're good, bro. Let's go.)"
+      },
+      {
+        "text": "Pre, G ka ba bukas?",
+        "source": "Filipino social media, 2024 (Bro, are you free tomorrow?)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "ge",
+      "keri",
+      "bet",
+      "sige",
+      "tropa"
+    ],
+    "categories": [
+      "discourse-modifiers",
+      "affirmatives-and-reactions",
+      "gaming-lingo"
+    ],
+    "sources": [
+      "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "bet",
+      "keri",
+      "sige"
+    ],
+    "antonyms": [
+      "hindi",
+      "ayoko"
+    ]
   },
   {
     "term": "g na g",
@@ -4497,6 +4855,47 @@
       "lambing"
     ],
     "antonyms": []
+  },
+  {
+    "term": "glow up",
+    "definitions": [
+      "A dramatic improvement or transformation in one's physical appearance, lifestyle, confidence, or overall quality of life — often compared to a before-and-after. Can refer to personal growth, fashion evolution, or career success."
+    ],
+    "etymology": "Borrowed from English internet slang (popularized globally c. 2015-2018). Fully absorbed into Filipino youth vocabulary by 2023, frequently used in TikTok transformation videos and social media captions.",
+    "examples": [
+      {
+        "text": "Grabe ang glow up niya! Hindi ko siya nakilala.",
+        "source": "Filipino social media, 2024 (Her transformation is amazing! I didn't recognize her.)"
+      },
+      {
+        "text": "Glow up era ko na 'to. Mag-gym na ako.",
+        "source": "Filipino TikTok caption, 2024 (This is my glow-up era. I'm going to the gym now.)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "era",
+      "main character energy",
+      "slay",
+      "serve",
+      "aura farming"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "self-improvement",
+      "physical-appearance"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [
+      "slay",
+      "serve"
+    ],
+    "antonyms": [
+      "olats",
+      "haggardo versoza"
+    ]
   },
   {
     "term": "gng",
@@ -5058,6 +5457,44 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "highkey",
+    "definitions": [
+      "Very obviously; openly; without hiding or downplaying — the emphatic opposite of 'lowkey'. Used to express something done or felt in full view, without trying to conceal it."
+    ],
+    "etymology": "Borrowed from English internet slang as the antonym to 'lowkey'. Entered Filipino youth vocabulary through social media and became common in Taglish conversations by 2023-2024.",
+    "examples": [
+      {
+        "text": "Highkey crush ko 'yan. Hindi ko na kaya itago.",
+        "source": "Filipino Twitter/X, 2024 (I obviously have a crush on them. I can't hide it anymore.)"
+      },
+      {
+        "text": "Highkey todo-todo na ang buhay ko ngayon.",
+        "source": "Filipino TikTok comment, 2024 (My life is very obviously going full force now.)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "low key",
+      "no cap",
+      "OA",
+      "charot"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "discourse-modifiers"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "no cap"
+    ],
+    "antonyms": [
+      "low key",
+      "charot"
+    ]
   },
   {
     "term": "hindi ako epektado",
@@ -5979,6 +6416,43 @@
     ]
   },
   {
+    "term": "KJ",
+    "definitions": [
+      "Killjoy; someone who spoils the fun, dampens the mood, or refuses to participate in something enjoyable. Used as a label for a person who is overly serious, negative, or party-pooping in a social situation."
+    ],
+    "etymology": "Abbreviation of English 'killjoy'. Widely used in Filipino group chats, comment sections, and barkada (friend group) banter. Particularly common among youth calling out a friend who won't join an activity.",
+    "examples": [
+      {
+        "text": "Sama ka na! Wag kang KJ diyan.",
+        "source": "Filipino group chat / casual speech, 2024"
+      },
+      {
+        "text": "Bakit KJ ka lagi? Enjoy ka naman minsan!",
+        "source": "Filipino TikTok reaction video, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "OA",
+      "umay",
+      "petiks",
+      "dedma"
+    ],
+    "categories": [
+      "character-and-personality",
+      "social-commentary-and-shade"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "bibo",
+      "gora"
+    ]
+  },
+  {
     "term": "korique",
     "definitions": [
       "That's correct / you're right — a playful phonetic Filipino twist on the English word 'correct,' used as an affirmation or agreement signal."
@@ -6012,6 +6486,46 @@
       "omsim"
     ],
     "antonyms": []
+  },
+  {
+    "term": "KSP",
+    "definitions": [
+      "Attention-seeker; someone starving for attention and validation. Acronym for 'Kulang Sa Pansin' (literally: lacking in attention/notice). Used to call out dramatic, over-the-top, or clout-chasing behavior."
+    ],
+    "etymology": "Acronym from Tagalog 'Kulang Sa Pansin' — 'kulang' (lacking), 'sa' (in), 'pansin' (attention/notice). A staple of Filipino group chat and social media vocabulary, particularly active in youth digital spaces.",
+    "examples": [
+      {
+        "text": "KSP talaga 'yan — kahit walang may pakialam, nag-post pa rin siya.",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Huwag maging KSP. Itigil mo na ang drama.",
+        "source": "Filipino TikTok comment section, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "epal",
+      "OA",
+      "rage bait",
+      "cancel",
+      "fancam"
+    ],
+    "categories": [
+      "social-commentary-and-shade",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
+    ],
+    "synonyms": [
+      "epal"
+    ],
+    "antonyms": [
+      "dedma",
+      "JOMO"
+    ]
   },
   {
     "term": "kunan mong pic",
@@ -6899,6 +7413,43 @@
     ]
   },
   {
+    "term": "mamser",
+    "definitions": [
+      "Gender-neutral portmanteau of 'ma'am' and 'sir,' used to address anyone regardless of gender — customers, strangers, or any person in a service or social setting.",
+      "By extension, a warm and informal way to address someone in any context, reflecting Filipino hospitality and its characteristically inclusive approach to gendered address."
+    ],
+    "etymology": "Portmanteau of English 'ma'am' and 'sir.' Also spelled 'mamsir.' Originated in Filipino customer service settings where staff address patrons without knowing their gender, then adopted widely by Gen Z. Went viral internationally on TikTok as audiences discovered it as a uniquely Filipino contribution to gender-neutral language.",
+    "examples": [
+      {
+        "text": "Welcome po, mamser! Anong order niyo?",
+        "source": "Filipino customer service, widely used 2023-2025"
+      },
+      {
+        "text": "'Mamser' is the greatest invention of the Filipino language.",
+        "source": "Twitter/X viral post, 2020 (recirculated 2024-2025)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "teh",
+      "bes",
+      "unc",
+      "ate girl",
+      "mudra"
+    ],
+    "categories": [
+      "everyday-expressions",
+      "gen-z-and-imported-slang",
+      "identity-and-self-expression"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
     "term": "mane",
     "definitions": [
       "Buddy; friend; casual term of address equivalent to 'man' or 'bro' in Filipino street speech."
@@ -7390,6 +7941,46 @@
     "antonyms": []
   },
   {
+    "term": "momol",
+    "definitions": [
+      "Acronym for 'Make Out Make Out Lang' — a casual, commitment-free physical arrangement where two people kiss or engage in physical intimacy with no romantic strings attached.",
+      "As a verb: to engage in casual making out or physical intimacy without the context of a relationship."
+    ],
+    "etymology": "Acronym coined from the English phrase 'make out, make out lang' (make out, just making out). 'Lang' (Tagalog for 'only/just') emphasizes the no-strings-attached nature. Part of a cluster of Filipino youth relationship acronyms (cf. FUBU, MU) that give informal labels to ambiguous romantic arrangements.",
+    "examples": [
+      {
+        "text": "Momol lang kami, wala namang seryosuhan.",
+        "source": "Filipino social media, widely attested"
+      },
+      {
+        "text": "Sa momol, lahat talo — pero bakit pa rin tayo pumapasok?",
+        "source": "Filipino Twitter/X commentary, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "FUBU",
+      "situationship",
+      "talking stage",
+      "pa-fall",
+      "marupok",
+      "soft launch"
+    ],
+    "categories": [
+      "relationships-and-romance",
+      "internet-and-social-media",
+      "acronyms-and-abbreviations"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [
+      "FUBU"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "mudra",
     "definitions": [
       "Swardspeak/Bekimon term for 'mother' or 'mom.'",
@@ -7742,6 +8333,48 @@
     "antonyms": []
   },
   {
+    "term": "naloka",
+    "definitions": [
+      "To be shocked, stunned, or mind-blown — used when something is so unexpected it leaves you speechless or overwhelmed.",
+      "Can be positive (naloka sa ganda = blown away by the beauty) or negative (naloka sa kapal ng mukha = shocked by the audacity)."
+    ],
+    "etymology": "From Tagalog 'na-' prefix (indicating a completed state or sudden reaction) + 'loka'/'loko' (crazy). Literally: 'went/became crazy [from the shock].' Related to the exclamation 'kaloka!' The verb form is more personal and narrative, while 'kaloka!' is purely exclamatory.",
+    "examples": [
+      {
+        "text": "Naloka ako dun, hindi ko akalaing ganon pala siya.",
+        "source": "Filipino Twitter/X reaction post, 2024"
+      },
+      {
+        "text": "Naloka ang buong opisina namin nung biglang nag-resign yung boss.",
+        "source": "Filipino social media, 2025"
+      },
+      {
+        "text": "Naloka ako sa ganda ng concept — sobrang hanga.",
+        "source": "Filipino TikTok comment section, 2024"
+      }
+    ],
+    "regional_notes": "Nationwide usage. Close relative: 'kaloka' (exclamatory form). Both derive from 'loka/loko' but serve different grammatical roles.",
+    "related_terms": [
+      "kaloka",
+      "shookt",
+      "nakakatunaw",
+      "warla"
+    ],
+    "categories": [
+      "emotions-and-mental-state",
+      "exclamations-and-reactions"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads, 'what does X mean' posts"
+    ],
+    "synonyms": [
+      "shookt",
+      "warla"
+    ],
+    "antonyms": []
+  },
+  {
     "term": "naol",
     "definitions": [
       "Abbreviated form of 'sana all' — expresses light envy or admiration when you see someone with something desirable. Means 'I wish I had that / must be nice / lucky you.'"
@@ -7944,6 +8577,42 @@
     ],
     "sources": [
       "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "nosebleed",
+    "definitions": [
+      "A humorous, self-deprecating expression for when someone struggles to understand or speak English — especially when the other person's English is perceived as too advanced, too fast, or too formal. Metaphor: the mental strain of processing 'high-level' English causes a nosebleed.",
+      "By extension: anything mentally taxing or incomprehensible."
+    ],
+    "etymology": "English 'nosebleed' repurposed as Filipino slang. The metaphor draws on the notion that intensive concentration or social pressure causes nosebleeds. Has circulated in Filipino internet culture since at least the 2010s and remains very active in Gen Z usage.",
+    "examples": [
+      {
+        "text": "Nosebleed ako sa presentation — puro English tapos mabilis pa!",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Huwag kang mag-nosebleed, Tagalog na lang tayo.",
+        "source": "Filipino TikTok, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "eme",
+      "praning",
+      "tangalog",
+      "peenoise"
+    ],
+    "categories": [
+      "wordplay-and-linguistic-forms",
+      "internet-and-social-media",
+      "emotional-expressions"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
     ],
     "synonyms": [],
     "antonyms": []
@@ -9267,6 +9936,44 @@
     "antonyms": []
   },
   {
+    "term": "plastik",
+    "definitions": [
+      "Two-faced; fake; insincere. Describes a person who acts kind and friendly to your face but speaks ill of you or behaves differently behind your back.",
+      "As a noun: a plastic/fake person — someone whose friendliness is a performance."
+    ],
+    "etymology": "From English 'plastic' — the metaphor of a material that can be molded into any shape, applied to a person whose personality changes depending on who is watching. Widely used in Philippine schools and social media.",
+    "examples": [
+      {
+        "text": "Plastic ang kaibigan mo — sweet sa harap, tsismis sa likod.",
+        "source": "Filipino Twitter/X viral thread, 2024"
+      },
+      {
+        "text": "Alam ko na plastik siya kaya wala na akong trust sa kanya.",
+        "source": "Filipino youth social media, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "epal",
+      "chismis",
+      "marites",
+      "cancel",
+      "okray"
+    ],
+    "categories": [
+      "social-commentary-and-shade",
+      "character-and-personality"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "totoo",
+      "day ones"
+    ]
+  },
+  {
     "term": "praning",
     "definitions": [
       "Paranoid, anxious, or irrationally fearful; acting crazy or excessively worried without clear cause.",
@@ -9782,6 +10489,91 @@
       "naol"
     ],
     "antonyms": []
+  },
+  {
+    "term": "sawi",
+    "definitions": [
+      "Ill-fated or unlucky in love; heartbroken; the state of being romantically unfortunate. Describes someone who has been rejected, dumped, or stuck in unrequited love. Can also extend to general misfortune."
+    ],
+    "etymology": "From the Tagalog root 'saw' (to fall/fail). The adjective 'sawî' means ill-fated or unfortunate. In youth slang usage, it has narrowed specifically to romantic misfortune, often used humorously or dramatically.",
+    "examples": [
+      {
+        "text": "Sawi na naman ako. Binasted ako ng girl na gusto ko.",
+        "source": "Filipino social media, 2024 (Heartbroken again. The girl I liked rejected me.)"
+      },
+      {
+        "text": "Kapalaran ko yata ang maging sawi sa pag-ibig.",
+        "source": "Filipino Twitter/X, 2024 (I guess it's my fate to be unlucky in love.)"
+      },
+      {
+        "text": "Team sawi kayo diyan, hayaan ninyo ako mag-inarte.",
+        "source": "Filipino meme/social media, 2024 (You all are on Team Heartbroken, let me just be dramatic.)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "basted",
+      "pa-fall",
+      "paasa",
+      "talking stage",
+      "LQ",
+      "torpe"
+    ],
+    "categories": [
+      "romance-and-relationships",
+      "emotional-expressions"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
+    ],
+    "synonyms": [
+      "basted",
+      "broken-hearted"
+    ],
+    "antonyms": [
+      "kilig",
+      "MU"
+    ]
+  },
+  {
+    "term": "scoobs",
+    "definitions": [
+      "Absolutely not; no way; an emphatic refusal or denial. Stronger than a plain 'no' — conveys disbelief, disgust, or firm rejection."
+    ],
+    "etymology": "A multi-step Filipino linguistic chain: the word 'deins' (Filipino slang for 'no') sounds like 'Dane' → Great Dane → Scooby-Doo → 'scoobs'. Documented by Filipino academics as one of the most creatively indirect slang etymologies in Gen Z language.",
+    "examples": [
+      {
+        "text": "Scoobs, bro! Alaws arep.",
+        "source": "GMA News Online Gen Z slang feature, 2021 (still widely used through 2024)"
+      },
+      {
+        "text": "Pupunta ka ba roon? Scoobs! Malayo 'yun eh.",
+        "source": "Filipino TikTok comment section, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "deins",
+      "dedma",
+      "kebs",
+      "naur"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "expressive-reactions"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "naur"
+    ],
+    "antonyms": [
+      "bet",
+      "keri",
+      "oo naman"
+    ]
   },
   {
     "term": "seenzone",
@@ -11102,6 +11894,44 @@
     "antonyms": []
   },
   {
+    "term": "torpe",
+    "definitions": [
+      "Too shy or timid to confess romantic feelings; unable to make a move on one's crush despite liking them. Describes someone who pines from afar, paralyzed by fear of rejection.",
+      "By extension: cowardly or hesitant in any bold action (less common usage)."
+    ],
+    "etymology": "From Spanish 'torpe' (clumsy, slow-witted). Adopted into Filipino as a specific term for romantic timidity, especially applied to men in traditional courtship contexts.",
+    "examples": [
+      {
+        "text": "Torpe ka talaga! Kausapin mo na siya!",
+        "source": "Filipino social media / everyday speech, 2024"
+      },
+      {
+        "text": "Mahal ko siya pero torpe ako — hindi ko masabi sa kanya.",
+        "source": "Filipino TikTok relationship content, 2025"
+      }
+    ],
+    "regional_notes": "Used across the Philippines. In Cebuano-speaking regions, similar concept expressed as 'luod' (shy/embarrassed).",
+    "related_terms": [
+      "marupok",
+      "pa-fall",
+      "paasa",
+      "pakipot",
+      "talking stage"
+    ],
+    "categories": [
+      "relationships-and-romance",
+      "emotional-expressions"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "rizz",
+      "diskarte"
+    ]
+  },
+  {
     "term": "touch grass",
     "definitions": [
       "A phrase telling someone to go outside and disconnect from the internet; to get a real life outside of social media.",
@@ -11543,6 +12373,43 @@
     "antonyms": []
   },
   {
+    "term": "vibe check",
+    "definitions": [
+      "An assessment of someone's personality, energy, or attitude to determine if they are likeable, cool, or compatible — essentially asking 'do they have the right vibe?'",
+      "Used casually to evaluate whether a person, place, or situation meets a desired social standard; passing a vibe check means approval, failing means rejection."
+    ],
+    "etymology": "Borrowed from global English internet slang, where 'vibe check' emerged around 2019-2020 as a meme and casual social evaluation. Filipino Gen Z adopted it and code-switches it freely into Tagalog sentences. Documented in Filipino Gen Z workplace and social media guides as an active expression in 2024-2025.",
+    "examples": [
+      {
+        "text": "Pasado siya sa vibe check ko — mukha siyang masaya kasama.",
+        "source": "Filipino Gen Z informal speech, 2024"
+      },
+      {
+        "text": "Vibe check muna bago kita i-add sa grupo namin.",
+        "source": "Filipino TikTok PH, 2024-2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "aura farming",
+      "main character energy",
+      "rizz",
+      "estetik",
+      "bet"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "social-commentary-and-shade",
+      "reactions-and-responses"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
     "term": "vungga",
     "definitions": [
       "Extravagant, fabulous, over-the-top, or showy; an exclamation of admiration for something impressive or glamorous. A swardspeak mutation of 'bongga'."
@@ -11977,636 +12844,5 @@
     ],
     "synonyms": [],
     "antonyms": []
-  },
-  {
-    "term": "torpe",
-    "definitions": [
-      "Too shy or timid to confess romantic feelings; unable to make a move on one's crush despite liking them. Describes someone who pines from afar, paralyzed by fear of rejection.",
-      "By extension: cowardly or hesitant in any bold action (less common usage)."
-    ],
-    "etymology": "From Spanish 'torpe' (clumsy, slow-witted). Adopted into Filipino as a specific term for romantic timidity, especially applied to men in traditional courtship contexts.",
-    "examples": [
-      {
-        "text": "Torpe ka talaga! Kausapin mo na siya!",
-        "source": "Filipino social media / everyday speech, 2024"
-      },
-      {
-        "text": "Mahal ko siya pero torpe ako — hindi ko masabi sa kanya.",
-        "source": "Filipino TikTok relationship content, 2025"
-      }
-    ],
-    "regional_notes": "Used across the Philippines. In Cebuano-speaking regions, similar concept expressed as 'luod' (shy/embarrassed).",
-    "related_terms": [
-      "marupok",
-      "pa-fall",
-      "paasa",
-      "pakipot",
-      "talking stage"
-    ],
-    "categories": [
-      "relationships-and-romance",
-      "emotional-expressions"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
-    ],
-    "synonyms": [],
-    "antonyms": [
-      "rizz",
-      "diskarte"
-    ]
-  },
-  {
-    "term": "plastik",
-    "definitions": [
-      "Two-faced; fake; insincere. Describes a person who acts kind and friendly to your face but speaks ill of you or behaves differently behind your back.",
-      "As a noun: a plastic/fake person — someone whose friendliness is a performance."
-    ],
-    "etymology": "From English 'plastic' — the metaphor of a material that can be molded into any shape, applied to a person whose personality changes depending on who is watching. Widely used in Philippine schools and social media.",
-    "examples": [
-      {
-        "text": "Plastic ang kaibigan mo — sweet sa harap, tsismis sa likod.",
-        "source": "Filipino Twitter/X viral thread, 2024"
-      },
-      {
-        "text": "Alam ko na plastik siya kaya wala na akong trust sa kanya.",
-        "source": "Filipino youth social media, 2025"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "epal",
-      "chismis",
-      "marites",
-      "cancel",
-      "okray"
-    ],
-    "categories": [
-      "social-commentary-and-shade",
-      "character-and-personality"
-    ],
-    "sources": [
-      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
-    ],
-    "synonyms": [],
-    "antonyms": [
-      "totoo",
-      "day ones"
-    ]
-  },
-  {
-    "term": "KSP",
-    "definitions": [
-      "Attention-seeker; someone starving for attention and validation. Acronym for 'Kulang Sa Pansin' (literally: lacking in attention/notice). Used to call out dramatic, over-the-top, or clout-chasing behavior."
-    ],
-    "etymology": "Acronym from Tagalog 'Kulang Sa Pansin' — 'kulang' (lacking), 'sa' (in), 'pansin' (attention/notice). A staple of Filipino group chat and social media vocabulary, particularly active in youth digital spaces.",
-    "examples": [
-      {
-        "text": "KSP talaga 'yan — kahit walang may pakialam, nag-post pa rin siya.",
-        "source": "Filipino Twitter/X, 2024"
-      },
-      {
-        "text": "Huwag maging KSP. Itigil mo na ang drama.",
-        "source": "Filipino TikTok comment section, 2025"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "epal",
-      "OA",
-      "rage bait",
-      "cancel",
-      "fancam"
-    ],
-    "categories": [
-      "social-commentary-and-shade",
-      "internet-and-social-media"
-    ],
-    "sources": [
-      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
-      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
-    ],
-    "synonyms": [
-      "epal"
-    ],
-    "antonyms": [
-      "dedma",
-      "JOMO"
-    ]
-  },
-  {
-    "term": "nosebleed",
-    "definitions": [
-      "A humorous, self-deprecating expression for when someone struggles to understand or speak English — especially when the other person's English is perceived as too advanced, too fast, or too formal. Metaphor: the mental strain of processing 'high-level' English causes a nosebleed.",
-      "By extension: anything mentally taxing or incomprehensible."
-    ],
-    "etymology": "English 'nosebleed' repurposed as Filipino slang. The metaphor draws on the notion that intensive concentration or social pressure causes nosebleeds. Has circulated in Filipino internet culture since at least the 2010s and remains very active in Gen Z usage.",
-    "examples": [
-      {
-        "text": "Nosebleed ako sa presentation — puro English tapos mabilis pa!",
-        "source": "Filipino social media, 2024"
-      },
-      {
-        "text": "Huwag kang mag-nosebleed, Tagalog na lang tayo.",
-        "source": "Filipino TikTok, 2025"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "eme",
-      "praning",
-      "tangalog",
-      "peenoise"
-    ],
-    "categories": [
-      "wordplay-and-linguistic-forms",
-      "internet-and-social-media",
-      "emotional-expressions"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
-      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
-    ],
-    "synonyms": [],
-    "antonyms": []
-  },
-  {
-    "term": "KJ",
-    "definitions": [
-      "Killjoy; someone who spoils the fun, dampens the mood, or refuses to participate in something enjoyable. Used as a label for a person who is overly serious, negative, or party-pooping in a social situation."
-    ],
-    "etymology": "Abbreviation of English 'killjoy'. Widely used in Filipino group chats, comment sections, and barkada (friend group) banter. Particularly common among youth calling out a friend who won't join an activity.",
-    "examples": [
-      {
-        "text": "Sama ka na! Wag kang KJ diyan.",
-        "source": "Filipino group chat / casual speech, 2024"
-      },
-      {
-        "text": "Bakit KJ ka lagi? Enjoy ka naman minsan!",
-        "source": "Filipino TikTok reaction video, 2025"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "OA",
-      "umay",
-      "petiks",
-      "dedma"
-    ],
-    "categories": [
-      "character-and-personality",
-      "social-commentary-and-shade"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
-      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
-    ],
-    "synonyms": [],
-    "antonyms": [
-      "bibo",
-      "gora"
-    ]
-  },
-  {
-    "term": "mamser",
-    "definitions": [
-      "Gender-neutral portmanteau of 'ma'am' and 'sir,' used to address anyone regardless of gender — customers, strangers, or any person in a service or social setting.",
-      "By extension, a warm and informal way to address someone in any context, reflecting Filipino hospitality and its characteristically inclusive approach to gendered address."
-    ],
-    "etymology": "Portmanteau of English 'ma'am' and 'sir.' Also spelled 'mamsir.' Originated in Filipino customer service settings where staff address patrons without knowing their gender, then adopted widely by Gen Z. Went viral internationally on TikTok as audiences discovered it as a uniquely Filipino contribution to gender-neutral language.",
-    "examples": [
-      {
-        "text": "Welcome po, mamser! Anong order niyo?",
-        "source": "Filipino customer service, widely used 2023-2025"
-      },
-      {
-        "text": "'Mamser' is the greatest invention of the Filipino language.",
-        "source": "Twitter/X viral post, 2020 (recirculated 2024-2025)"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "teh",
-      "bes",
-      "unc",
-      "ate girl",
-      "mudra"
-    ],
-    "categories": [
-      "everyday-expressions",
-      "gen-z-and-imported-slang",
-      "identity-and-self-expression"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
-      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
-    ],
-    "synonyms": [],
-    "antonyms": []
-  },
-  {
-    "term": "momol",
-    "definitions": [
-      "Acronym for 'Make Out Make Out Lang' — a casual, commitment-free physical arrangement where two people kiss or engage in physical intimacy with no romantic strings attached.",
-      "As a verb: to engage in casual making out or physical intimacy without the context of a relationship."
-    ],
-    "etymology": "Acronym coined from the English phrase 'make out, make out lang' (make out, just making out). 'Lang' (Tagalog for 'only/just') emphasizes the no-strings-attached nature. Part of a cluster of Filipino youth relationship acronyms (cf. FUBU, MU) that give informal labels to ambiguous romantic arrangements.",
-    "examples": [
-      {
-        "text": "Momol lang kami, wala namang seryosuhan.",
-        "source": "Filipino social media, widely attested"
-      },
-      {
-        "text": "Sa momol, lahat talo — pero bakit pa rin tayo pumapasok?",
-        "source": "Filipino Twitter/X commentary, 2024"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "FUBU",
-      "situationship",
-      "talking stage",
-      "pa-fall",
-      "marupok",
-      "soft launch"
-    ],
-    "categories": [
-      "relationships-and-romance",
-      "internet-and-social-media",
-      "acronyms-and-abbreviations"
-    ],
-    "sources": [
-      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
-      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
-    ],
-    "synonyms": [
-      "FUBU"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "vibe check",
-    "definitions": [
-      "An assessment of someone's personality, energy, or attitude to determine if they are likeable, cool, or compatible — essentially asking 'do they have the right vibe?'",
-      "Used casually to evaluate whether a person, place, or situation meets a desired social standard; passing a vibe check means approval, failing means rejection."
-    ],
-    "etymology": "Borrowed from global English internet slang, where 'vibe check' emerged around 2019-2020 as a meme and casual social evaluation. Filipino Gen Z adopted it and code-switches it freely into Tagalog sentences. Documented in Filipino Gen Z workplace and social media guides as an active expression in 2024-2025.",
-    "examples": [
-      {
-        "text": "Pasado siya sa vibe check ko — mukha siyang masaya kasama.",
-        "source": "Filipino Gen Z informal speech, 2024"
-      },
-      {
-        "text": "Vibe check muna bago kita i-add sa grupo namin.",
-        "source": "Filipino TikTok PH, 2024-2025"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "aura farming",
-      "main character energy",
-      "rizz",
-      "estetik",
-      "bet"
-    ],
-    "categories": [
-      "gen-z-and-imported-slang",
-      "social-commentary-and-shade",
-      "reactions-and-responses"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
-      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
-    ],
-    "synonyms": [],
-    "antonyms": []
-  },
-  {
-    "term": "naloka",
-    "definitions": [
-      "To be shocked, stunned, or mind-blown — used when something is so unexpected it leaves you speechless or overwhelmed.",
-      "Can be positive (naloka sa ganda = blown away by the beauty) or negative (naloka sa kapal ng mukha = shocked by the audacity)."
-    ],
-    "etymology": "From Tagalog 'na-' prefix (indicating a completed state or sudden reaction) + 'loka'/'loko' (crazy). Literally: 'went/became crazy [from the shock].' Related to the exclamation 'kaloka!' The verb form is more personal and narrative, while 'kaloka!' is purely exclamatory.",
-    "examples": [
-      {
-        "text": "Naloka ako dun, hindi ko akalaing ganon pala siya.",
-        "source": "Filipino Twitter/X reaction post, 2024"
-      },
-      {
-        "text": "Naloka ang buong opisina namin nung biglang nag-resign yung boss.",
-        "source": "Filipino social media, 2025"
-      },
-      {
-        "text": "Naloka ako sa ganda ng concept — sobrang hanga.",
-        "source": "Filipino TikTok comment section, 2024"
-      }
-    ],
-    "regional_notes": "Nationwide usage. Close relative: 'kaloka' (exclamatory form). Both derive from 'loka/loko' but serve different grammatical roles.",
-    "related_terms": [
-      "kaloka",
-      "shookt",
-      "nakakatunaw",
-      "warla"
-    ],
-    "categories": [
-      "emotions-and-mental-state",
-      "exclamations-and-reactions"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
-      "Reddit r/Philippines and r/CasualPH — slang discussion threads, 'what does X mean' posts"
-    ],
-    "synonyms": [
-      "shookt",
-      "warla"
-    ],
-    "antonyms": []
-  },
-  {
-    "term": "arte",
-    "definitions": [
-      "Overly dramatic, fussy, picky, or high-maintenance — used to call out someone being unnecessarily difficult, demanding, or pretentious.",
-      "Being 'extra' or making a big deal out of something trivial. Synonymous with OA (overacting) in some contexts but specifically implies fussiness."
-    ],
-    "etymology": "From Spanish 'arte' (art/craft), borrowed into Tagalog and semantically repurposed. The original sense of artistry or skill was inverted colloquially to mean 'theatrical behavior' or 'putting on airs.' Used colloquially for generations but has remained strongly present in Filipino Gen Z vocabulary.",
-    "examples": [
-      {
-        "text": "Arte mo naman, masustansya naman yung pagkain!",
-        "source": "Filipino everyday conversation / social media, 2024"
-      },
-      {
-        "text": "Arte-arte ka pa rin, boss — simpleng tanong lang naman.",
-        "source": "Filipino TikTok comment section, 2025"
-      },
-      {
-        "text": "Ang arte ng customer na 'yun, binago pa ang order tatlong beses.",
-        "source": "Filipino service industry / social media rant, 2024"
-      }
-    ],
-    "regional_notes": "Nationwide usage. The phrase 'artista ka ba?' (Are you an actor?) is a sarcastic cousin expression used when someone is being dramatically theatrical. Can be affectionate teasing or a genuine criticism depending on tone.",
-    "related_terms": [
-      "OA",
-      "over naman sa",
-      "epal",
-      "praning"
-    ],
-    "categories": [
-      "personality-and-character",
-      "everyday-expressions",
-      "call-out-and-criticism"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
-      "Reddit r/Philippines and r/CasualPH — slang discussion threads, 'what does X mean' posts"
-    ],
-    "synonyms": [
-      "OA",
-      "over naman sa"
-    ],
-    "antonyms": [
-      "chill",
-      "dedma"
-    ]
-  },
-  {
-    "term": "bitin",
-    "definitions": [
-      "Not enough; too short; leaving one wanting more — used when something ends prematurely or fails to fully satisfy.",
-      "The feeling that an experience (episode, concert, food, conversation, date) was cut short or insufficient in quantity or duration."
-    ],
-    "etymology": "From Tagalog 'bitin' — literally 'to hang' or 'to leave suspended/dangling.' The figurative leap is: something left 'hanging' is incomplete, unsatisfying, wanting more. Widely used in media reactions and everyday expressions.",
-    "examples": [
-      {
-        "text": "Bitin naman yung episode, 20 minutes lang?!",
-        "source": "Filipino social media / K-drama/OPM fan reactions, 2024"
-      },
-      {
-        "text": "Ang bitin ng concert nila — dapat mas matagal!",
-        "source": "Filipino concert-goer social media post, 2025"
-      },
-      {
-        "text": "Bitin yung date namin, sana hindi pa nag-ulan.",
-        "source": "Filipino Twitter/X, 2024"
-      }
-    ],
-    "regional_notes": "Used nationwide. Extremely common in media consumption culture — reactions to K-dramas, local teleseryes (soap operas), OPM concerts, and food reviews. Can also be used in romantic contexts ('bitin ang usap namin' = our conversation ended too soon).",
-    "related_terms": [
-      "pa-fall",
-      "kilig",
-      "sana all"
-    ],
-    "categories": [
-      "emotions-and-mental-state",
-      "everyday-expressions",
-      "media-and-entertainment"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
-      "YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage"
-    ],
-    "synonyms": [],
-    "antonyms": [
-      "sagad",
-      "sana all"
-    ]
-  },
-  {
-    "term": "scoobs",
-    "definitions": [
-      "Absolutely not; no way; an emphatic refusal or denial. Stronger than a plain 'no' — conveys disbelief, disgust, or firm rejection."
-    ],
-    "etymology": "A multi-step Filipino linguistic chain: the word 'deins' (Filipino slang for 'no') sounds like 'Dane' → Great Dane → Scooby-Doo → 'scoobs'. Documented by Filipino academics as one of the most creatively indirect slang etymologies in Gen Z language.",
-    "examples": [
-      {
-        "text": "Scoobs, bro! Alaws arep.",
-        "source": "GMA News Online Gen Z slang feature, 2021 (still widely used through 2024)"
-      },
-      {
-        "text": "Pupunta ka ba roon? Scoobs! Malayo 'yun eh.",
-        "source": "Filipino TikTok comment section, 2024"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "deins",
-      "dedma",
-      "kebs",
-      "naur"
-    ],
-    "categories": [
-      "gen-z-and-imported-slang",
-      "expressive-reactions"
-    ],
-    "sources": [
-      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
-    ],
-    "synonyms": [
-      "naur"
-    ],
-    "antonyms": [
-      "bet",
-      "keri",
-      "oo naman"
-    ]
-  },
-  {
-    "term": "flex",
-    "definitions": [
-      "To show off; to brag about one's possessions, achievements, looks, or lifestyle — often on social media. Also used as a noun: 'a flex' meaning something brag-worthy."
-    ],
-    "etymology": "Borrowed from American English internet slang, where 'flexing' originally referred to showing off muscles. In Filipino youth use it extends to any form of bragging or displaying wealth/status.",
-    "examples": [
-      {
-        "text": "Nag-fle-flex ka na naman ng bagong shoes mo!",
-        "source": "Foodega Filipino slang guide, 2024 (You're showing off your new shoes again!)"
-      },
-      {
-        "text": "Malaking flex 'yun, pre. Congratulations.",
-        "source": "Filipino Twitter/X, 2024"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "clout",
-      "aura farming",
-      "awra",
-      "bongga",
-      "angas"
-    ],
-    "categories": [
-      "gen-z-and-imported-slang",
-      "status-and-identity"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
-    ],
-    "synonyms": [
-      "awra",
-      "bongga"
-    ],
-    "antonyms": [
-      "low key",
-      "dedma"
-    ]
-  },
-  {
-    "term": "clout",
-    "definitions": [
-      "Social influence or fame, especially online. Often used negatively to describe actions taken purely for attention or popularity — 'para sa clout' (just for the clout)."
-    ],
-    "etymology": "Borrowed from English, where 'clout' originally meant political power or influence. In internet culture it shifted to mean online fame/follower count. Filipino youth widely adopted it by 2023-2024.",
-    "examples": [
-      {
-        "text": "Para lang sa clout 'yan! Peke yung sinabi niya.",
-        "source": "Filipino Facebook comment section, 2024 (That's just for clout! What he said was fake.)"
-      },
-      {
-        "text": "Clout chaser siya, wag kang mabola.",
-        "source": "Filipino Reddit r/CasualPH, 2024 (He's a clout chaser, don't be fooled.)"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "flex",
-      "aura farming",
-      "ratio",
-      "cancel",
-      "rage bait"
-    ],
-    "categories": [
-      "gen-z-and-imported-slang",
-      "digital-culture",
-      "status-and-identity"
-    ],
-    "sources": [
-      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
-    ],
-    "synonyms": [
-      "aura farming"
-    ],
-    "antonyms": [
-      "low key",
-      "dedma"
-    ]
-  },
-  {
-    "term": "glow up",
-    "definitions": [
-      "A dramatic improvement or transformation in one's physical appearance, lifestyle, confidence, or overall quality of life — often compared to a before-and-after. Can refer to personal growth, fashion evolution, or career success."
-    ],
-    "etymology": "Borrowed from English internet slang (popularized globally c. 2015-2018). Fully absorbed into Filipino youth vocabulary by 2023, frequently used in TikTok transformation videos and social media captions.",
-    "examples": [
-      {
-        "text": "Grabe ang glow up niya! Hindi ko siya nakilala.",
-        "source": "Filipino social media, 2024 (Her transformation is amazing! I didn't recognize her.)"
-      },
-      {
-        "text": "Glow up era ko na 'to. Mag-gym na ako.",
-        "source": "Filipino TikTok caption, 2024 (This is my glow-up era. I'm going to the gym now.)"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "era",
-      "main character energy",
-      "slay",
-      "serve",
-      "aura farming"
-    ],
-    "categories": [
-      "gen-z-and-imported-slang",
-      "self-improvement",
-      "physical-appearance"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
-    ],
-    "synonyms": [
-      "slay",
-      "serve"
-    ],
-    "antonyms": [
-      "olats",
-      "haggardo versoza"
-    ]
-  },
-  {
-    "term": "highkey",
-    "definitions": [
-      "Very obviously; openly; without hiding or downplaying — the emphatic opposite of 'lowkey'. Used to express something done or felt in full view, without trying to conceal it."
-    ],
-    "etymology": "Borrowed from English internet slang as the antonym to 'lowkey'. Entered Filipino youth vocabulary through social media and became common in Taglish conversations by 2023-2024.",
-    "examples": [
-      {
-        "text": "Highkey crush ko 'yan. Hindi ko na kaya itago.",
-        "source": "Filipino Twitter/X, 2024 (I obviously have a crush on them. I can't hide it anymore.)"
-      },
-      {
-        "text": "Highkey todo-todo na ang buhay ko ngayon.",
-        "source": "Filipino TikTok comment, 2024 (My life is very obviously going full force now.)"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "low key",
-      "no cap",
-      "OA",
-      "charot"
-    ],
-    "categories": [
-      "gen-z-and-imported-slang",
-      "discourse-modifiers"
-    ],
-    "sources": [
-      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
-    ],
-    "synonyms": [
-      "no cap"
-    ],
-    "antonyms": [
-      "low key",
-      "charot"
-    ]
   }
 ]
