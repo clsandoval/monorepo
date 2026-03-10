@@ -3,6 +3,12 @@
   "last_updated": "2026-03-10",
   "history": [
     {
+      "iteration": "refinement pass 84 — eighty-fourth raw-gap audit (5 new terms, 693→698)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: roksi, ebu, eka, aning sayo, tatagos ba — all from Young Stunna vocabulary gaps)"
+    },
+    {
       "iteration": "refinement pass 83 — eighty-third raw-gap audit (5 new terms, 688→693)",
       "new_terms": 5,
       "refined_entries": 0,
