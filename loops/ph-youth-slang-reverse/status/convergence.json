@@ -325,6 +325,12 @@
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: lutang, hipon, lodi, siga, kirot, kalat, gulay, bawi)"
+    },
+    {
+      "iteration": "refinement pass 56 — fifty-sixth raw-gap audit (8 new terms + 3 dupes removed, 508→513)",
+      "new_terms": 8,
+      "refined_entries": 3,
+      "counter_action": "reset to 0 (8 new terms found: luto, pikot, sablay, atake, tameme, ibang klase, panalo, libre; 3 duplicate entries removed: lutang, lodi, kalat)"
     }
   ]
 }

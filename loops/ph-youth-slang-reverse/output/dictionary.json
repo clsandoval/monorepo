@@ -18732,46 +18732,6 @@
     "antonyms": []
   },
   {
-    "term": "lutang",
-    "definitions": [
-      "Spaced out, mentally floating, or out of it; describes someone who is absentminded, ditzy, or unable to think straight.",
-      "To be disconnected from the present moment due to lack of sleep, stress, or daydreaming."
-    ],
-    "etymology": "From Tagalog 'lutang' (to float); the literal act of floating applied metaphorically to a drifting, unfocused mental state.",
-    "examples": [
-      {
-        "text": "Lutang ka na naman, hindi ka nakinig sa lesson!",
-        "source": "Filipino classroom slang, widely cited in Gen Z slang guides 2024"
-      },
-      {
-        "text": "Bro you're so lutang na, what the fuck.",
-        "source": "Urban Dictionary, 2023"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "sabog",
-      "topak",
-      "praning",
-      "naloka"
-    ],
-    "categories": [
-      "personality-descriptors",
-      "mental-state-and-emotional-responses"
-    ],
-    "sources": [
-      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026",
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
-    ],
-    "synonyms": [
-      "sabog",
-      "topak"
-    ],
-    "antonyms": [
-      "naka-focus sa cake"
-    ]
-  },
-  {
     "term": "hipon",
     "definitions": [
       "Someone with an attractive body but an unattractive face; the Filipino equivalent of 'butterface'.",
@@ -18807,45 +18767,6 @@
     "antonyms": [
       "facecard"
     ]
-  },
-  {
-    "term": "lodi",
-    "definitions": [
-      "Idol; someone you greatly admire or look up to.",
-      "Used to praise or address someone who has done something impressive; the original Filipino internet reversal term that popularized the ludling trend."
-    ],
-    "etymology": "Reversal of the English word 'idol'; one of the earliest and most iconic Filipino internet ludlings, documented circa 2014-2015 and still in active use through 2024-2026; the base word behind the clipped form 'lods'.",
-    "examples": [
-      {
-        "text": "Lodi talaga siya sa coding — walang makakatalo!",
-        "source": "Filipino social media, widely cited in Gen Z slang compilations"
-      },
-      {
-        "text": "Ikaw ang lodi ko sa rap game.",
-        "source": "Filipino YouTube comment section, 2024"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "lods",
-      "petmalu",
-      "werpa",
-      "ogag",
-      "omsim"
-    ],
-    "categories": [
-      "word-reversal-and-ludling",
-      "terms-of-address-and-endearment",
-      "hype-and-admiration-language"
-    ],
-    "sources": [
-      "Reddit r/Philippines and r/CasualPH — slang discussion threads",
-      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
-    ],
-    "synonyms": [
-      "lods"
-    ],
-    "antonyms": []
   },
   {
     "term": "siga",
@@ -18929,49 +18850,6 @@
     "antonyms": []
   },
   {
-    "term": "kalat",
-    "definitions": [
-      "Messy, chaotic, or embarrassing behavior; describes someone who is making a scene or causing drama.",
-      "Used to describe something that has spread everywhere in an embarrassing or controversial way (gone viral negatively).",
-      "Can also be used positively to mean extremely prolific or active ('ang kalat ng content niya' = their content is everywhere)."
-    ],
-    "etymology": "From Tagalog 'kalat' (scattered, messy, spread out); the literal meaning of mess/scattering applied to social behavior and online spread.",
-    "examples": [
-      {
-        "text": "Ang kalat naman ng ginawa niya sa party kagabi!",
-        "source": "Filipino social media, cited in slang guides 2024"
-      },
-      {
-        "text": "Ang kalat ng kanyang posts sa timeline, paulit-ulit na.",
-        "source": "Filipino Twitter/X, 2025"
-      }
-    ],
-    "regional_notes": null,
-    "related_terms": [
-      "epal",
-      "OA",
-      "extra",
-      "charot",
-      "pasaway"
-    ],
-    "categories": [
-      "social-behavior-and-attitudes",
-      "callout-culture"
-    ],
-    "sources": [
-      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
-      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
-    ],
-    "synonyms": [
-      "OA",
-      "extra"
-    ],
-    "antonyms": [
-      "dedma",
-      "keber"
-    ]
-  },
-  {
     "term": "gulay",
     "definitions": [
       "Mild euphemistic expletive expressing shock, frustration, or disbelief; a safe substitute for stronger curses.",
@@ -19052,6 +18930,318 @@
     "antonyms": [
       "L",
       "supalpal"
+    ]
+  },
+  {
+    "term": "luto",
+    "definitions": [
+      "Rigged; fixed; pre-determined outcome — used when a competition, election, or contest is suspected of being manipulated. Short for 'lutong makaw' (literally 'Macao-cooked'), implying something is stacked in someone's favor."
+    ],
+    "etymology": "Slang meaning derived from 'lutong makaw' (literally 'cooked Macao-style'), a longer expression implying something is rigged. The word 'luto' (to cook) takes on the metaphorical sense of results being 'cooked up' in advance.",
+    "examples": [
+      {
+        "text": "Luto ang contest na 'yan, alam nating lahat sino mananalo.",
+        "source": "Filipino social media comment, 2024"
+      },
+      {
+        "text": "Luto 'to — obvious na obvious na predetermined ang result.",
+        "source": "Philippine Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "lutong makaw",
+      "daya",
+      "balimbing"
+    ],
+    "categories": [
+      "street-and-hustle",
+      "social-commentary"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "legit",
+      "patas"
+    ]
+  },
+  {
+    "term": "pikot",
+    "definitions": [
+      "A shotgun wedding; a forced or rushed marriage — typically because of an unplanned pregnancy. By extension, being trapped or cornered into a commitment one didn't fully choose."
+    ],
+    "etymology": "From Tagalog 'pikot' (to be cornered, trapped). Used in Filipino informal speech to describe the social pressure of marrying because of an unexpected pregnancy.",
+    "examples": [
+      {
+        "text": "Pikot sila — nagmamadali pa ngang mag-asawa bago pa lumaki ang tiyan.",
+        "source": "Filipino casual conversation, 2024"
+      },
+      {
+        "text": "Baka mapikot ka diyan if hindi mo siya iiwan agad.",
+        "source": "Philippine social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "jowa",
+      "MU",
+      "talking stage",
+      "syota"
+    ],
+    "categories": [
+      "relationships-and-dating"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "sablay",
+    "definitions": [
+      "A fail; a blunder; falling short of the mark — used when someone makes a mistake, misses an opportunity, or fumbles something important. The informal version of 'failed' in a social or everyday context."
+    ],
+    "etymology": "From Filipino/Tagalog 'sablay' (to miss, to fail to reach, to be askew). Originally used in formal contexts (e.g., academic failure), now widely used as casual slang for any kind of blunder or flop.",
+    "examples": [
+      {
+        "text": "Naka-sablay ka ulit — buti na lang hindi siya nakakita.",
+        "source": "Filipino youth speech, 2024"
+      },
+      {
+        "text": "Sablay 'yung joke niya, walang tumawa.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "badtrip",
+      "fail",
+      "cringe",
+      "OA"
+    ],
+    "categories": [
+      "reactions-and-expressions",
+      "street-and-hustle"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms",
+      "Filipino meme pages"
+    ],
+    "synonyms": [
+      "fail",
+      "bobo move"
+    ],
+    "antonyms": [
+      "panalo",
+      "astig"
+    ]
+  },
+  {
+    "term": "atake",
+    "definitions": [
+      "An exclamation of being overwhelmed, shook, or having an intense emotional reaction — as if one's heart is 'under attack' from something too cute, shocking, exciting, or impressive to handle. Similar to English 'I'm dead' or 'I can't even.'"
+    ],
+    "etymology": "From Filipino/Spanish-derived 'atake' (attack). The literal medical sense (heart attack, seizure) is extended metaphorically to describe any overwhelming emotional response — kilig, shock, or intense admiration.",
+    "examples": [
+      {
+        "text": "Atake naman ako sa 'yan — ang cute ng baby niya!",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Very all about me ang atake — panalo siya nang panalo.",
+        "source": "Filipino TikTok comment section, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "kilig",
+      "shookt",
+      "gigil",
+      "nakakakilig"
+    ],
+    "categories": [
+      "reactions-and-expressions",
+      "emotions-and-feelings"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations",
+      "Twitter/X Filipino — slang threads"
+    ],
+    "synonyms": [
+      "shookt",
+      "gigil"
+    ],
+    "antonyms": [
+      "dedma",
+      "manhid"
+    ]
+  },
+  {
+    "term": "tameme",
+    "definitions": [
+      "Speechless; dumbfounded; struck silent — used when someone is so surprised, embarrassed, or overwhelmed that they cannot respond. Can imply stunned admiration, shock, or being caught off guard."
+    ],
+    "etymology": "From Tagalog root 'tame' (to go silent, to become mute). The reduplicated form 'tameme' intensifies the meaning. Used in formal Filipino but widely adopted as informal slang to describe speechlessness.",
+    "examples": [
+      {
+        "text": "Natameme ako sa ganda ng performance niya — sobrang galing.",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Tameme na lang siya nung nalaman niya ang totoo.",
+        "source": "Filipino youth speech, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "shookt",
+      "atake",
+      "naol",
+      "ansabe"
+    ],
+    "categories": [
+      "reactions-and-expressions",
+      "emotions-and-feelings"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations",
+      "Twitter/X Filipino — slang threads"
+    ],
+    "synonyms": [
+      "shookt"
+    ],
+    "antonyms": [
+      "epal",
+      "hanash"
+    ]
+  },
+  {
+    "term": "ibang klase",
+    "definitions": [
+      "On another level; exceptional; extraordinary — a phrase of admiration describing someone or something as remarkable, incomparable, or unexpectedly impressive. Can be used sincerely or sarcastically."
+    ],
+    "etymology": "Literally 'different class/kind' in Tagalog/Filipino. Used colloquially to signal that someone or something surpasses the usual standard — either in a positive sense (truly exceptional) or ironic sense (outrageously over the top).",
+    "examples": [
+      {
+        "text": "Ibang klase talaga siya kumanta — lahat napatigil.",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Ibang klase ang gising niya ngayon — 4am pa lang nag-workout na.",
+        "source": "Filipino Twitter/X, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "astig",
+      "lupet",
+      "panalo",
+      "mala-[X]",
+      "hits different"
+    ],
+    "categories": [
+      "reactions-and-expressions",
+      "compliments-and-aesthetics"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "TikTok PH — trending slang compilations"
+    ],
+    "synonyms": [
+      "lupet",
+      "astig",
+      "panalo"
+    ],
+    "antonyms": [
+      "sablay",
+      "mid",
+      "korni"
+    ]
+  },
+  {
+    "term": "panalo",
+    "definitions": [
+      "Awesome; a total win; impressive — used as an exclamation of enthusiastic approval. Can describe anything from a joke to an outfit to a performance. Often dropped as a one-word reaction.",
+      "Funny; hilarious — used to compliment someone's humor or wit, similar to 'you're on fire' or 'you're killing it.'"
+    ],
+    "etymology": "From Filipino/Tagalog 'panalo' (winner, victory). The literal meaning of winning has been extended in youth slang to express general approval, excellence, or admiration for anything impressive or entertaining.",
+    "examples": [
+      {
+        "text": "Panalo ang outfit mo ngayon — talaga kang may drip!",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Panalo ka naman, diyan ka pa dumating sa ganoong oras.",
+        "source": "Filipino casual conversation, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "lupet",
+      "astig",
+      "ibang klase",
+      "W",
+      "left no crumbs"
+    ],
+    "categories": [
+      "reactions-and-expressions",
+      "compliments-and-aesthetics"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "TikTok PH — trending slang compilations"
+    ],
+    "synonyms": [
+      "astig",
+      "lupet",
+      "ibang klase"
+    ],
+    "antonyms": [
+      "sablay",
+      "L",
+      "mid"
+    ]
+  },
+  {
+    "term": "libre",
+    "definitions": [
+      "To treat; to pay for someone else — used when one person covers the expenses for others, typically food, drinks, or an outing. Shouted in demand after someone shares good news (promotion, new relationship, etc.)."
+    ],
+    "etymology": "From Spanish 'libre' (free). In Filipino usage, it specifically refers to treating or paying for others — not just meaning 'free of charge.' A deeply embedded cultural expression tied to Filipino generosity and communal eating customs.",
+    "examples": [
+      {
+        "text": "May boyfriend na si ate, libre tayo!",
+        "source": "Filipino casual speech, 2024"
+      },
+      {
+        "text": "Libre mo na kami ngayon — sinisingil ka na namin ha.",
+        "source": "Filipino group chat / social media, 2024"
+      }
+    ],
+    "regional_notes": "Used nationwide. A cornerstone of Filipino social culture — 'libre' is expected when someone receives good news, gets a raise, or celebrates a milestone.",
+    "related_terms": [
+      "gimik",
+      "barkada",
+      "kainan",
+      "unli"
+    ],
+    "categories": [
+      "social-and-community",
+      "party-and-nightlife"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "Filipino meme pages"
+    ],
+    "synonyms": [
+      "treat"
+    ],
+    "antonyms": [
+      "KJ",
+      "bitter"
     ]
   }
 ]
