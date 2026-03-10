@@ -205,6 +205,12 @@
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: chamba, chorva, petsa de peligro, tripping, ulol)"
+    },
+    {
+      "iteration": "refinement pass 36 — thirty-sixth raw-gap audit (5 new terms, 360→365)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: taray, korni, maldita, harot, low bat)"
     }
   ]
 }
