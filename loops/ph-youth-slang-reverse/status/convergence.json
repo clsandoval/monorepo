@@ -3,6 +3,12 @@
   "last_updated": "2026-03-10",
   "history": [
     {
+      "iteration": "refinement pass 87 — eighty-seventh raw-gap audit (10 new terms, 711→721)",
+      "new_terms": 10,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (10 new terms found: lakad matatag, gandara park, sunkist, alicia keys, baboosh, itech, antokyo japan, jinit jackson, shelemet, starbuko — focused on beki/swardspeak celebrity-name wordplay vocabulary and viral gaming phrases)"
+    },
+    {
       "iteration": "refinement pass 86 — eighty-sixth raw-gap audit (9 new terms, 702→711)",
       "new_terms": 9,
       "refined_entries": 0,

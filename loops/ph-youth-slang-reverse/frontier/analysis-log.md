@@ -645,3 +645,28 @@ Searched for gaps in beki/swardspeak coverage (foundation terms missing), Gen Z-
 
 **Convergence counter:** reset to 0 (9 new terms found)
 **Dictionary total:** 711 terms
+
+---
+
+## Refinement Pass 87 — 2026-03-10
+
+**Focus:** Beki/swardspeak celebrity-name wordplay vocabulary and viral gaming phrases
+
+**Method:** Web search for uncovered Filipino youth slang terms (2024-2026), cross-referencing 39 candidates against the existing 711-term dictionary.
+
+**New terms added (10):** lakad matatag, gandara park, sunkist, alicia keys, baboosh, itech, antokyo japan, jinit jackson, shelemet, starbuko
+
+**Term highlights:**
+- `lakad matatag` — viral Dota 2 shoutcaster rallying cry by Marlon Marcelo; referenced by Gabe Newell at TI 2018; adopted as general motivational expression
+- `gandara park` — beki celebrity-name compound: 'ganda' + Sandara Park (K-pop idol); distinguishes from 'gandara' (already in dict)
+- `sunkist` — beki beauty compliment for glowing, fresh complexion; brand-name wordplay
+- `alicia keys` — beki farewell prompt: 'Alicia Keys' → 'alis na kayo' (you all leave now)
+- `antokyo japan` — beki sleepiness expression: 'antok' (drowsy) + 'Tokyo Japan'
+- `jinit jackson` — beki heat expression: 'init' (heat) + 'Janet Jackson'
+- `shelemet` — beki thank-you: phonetic mutation of 'salamat'; shares root with matsala/matsalove
+- `starbuko` — beki rename of Starbucks: 'Starbucks' + 'buko' (young coconut)
+
+**Candidates still unprocessed (~15):** safe (street affirmation), day zeroes, pogi gaming, tiktok gaming, paldo, indiana jones (beki), anaconda (beki), lupita kashiwahara, tommy lee jones, mariah carrey, sunshine dizon, bahamas, antibiotic (beki), sayoncé, oscar crayola
+
+**Convergence counter:** reset to 0 (10 new terms found)
+**Dictionary total:** 721 terms
