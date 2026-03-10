@@ -20503,5 +20503,300 @@
     "sources": [
       "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang"
     ]
+  },
+  {
+    "term": "pugak",
+    "definitions": [
+      "In Filipino gaming (especially MOBA/DOTA), to split push — to push a separate lane alone while teammates hold elsewhere, pressuring the enemy team and gaining map control.",
+      "By extension, used colloquially to mean going off alone or diverging from the group plan."
+    ],
+    "etymology": "Believed to originate from former competitive Warcraft III/DOTA player Joseph Agojo Divinagracia, nicknamed Pugak, who was known for his split-pushing tactics in early Philippine esports.",
+    "examples": [
+      {
+        "text": "Pugak ka na sa mid, tatayo tayo sa bottom!",
+        "source": "Filipino MOBA gaming chat, 2023"
+      },
+      {
+        "text": "Pugak strategy pa rin si carry natin — kinakalimutan na mag-teamfight.",
+        "source": "Filipino gaming Discord, 2024"
+      }
+    ],
+    "regional_notes": "Primarily used in Metro Manila and Visayas gaming communities; stronger presence in MOBA communities (MLBB, DOTA2).",
+    "related_terms": [
+      "normalin",
+      "basag",
+      "carry",
+      "inting"
+    ],
+    "categories": [
+      "gaming-culture",
+      "street-and-hustle"
+    ],
+    "synonyms": [],
+    "antonyms": [],
+    "sources": [
+      "NoypiGeeks — 50+ Words Pinoy Gamers Say"
+    ]
+  },
+  {
+    "term": "comsat",
+    "definitions": [
+      "The act of screen-watching or peeking at an opponent's monitor during a LAN game to gain an unfair tactical advantage.",
+      "Used as a verb: 'comsating' means actively spying on another player's screen in real-time."
+    ],
+    "etymology": "Named after the Comsat Station unit in StarCraft, which had a Scanner Sweep ability to reveal hidden enemies. Filipino internet cafe gamers adopted the term for the real-life equivalent: peeking at another player's screen.",
+    "examples": [
+      {
+        "text": "Huwag kang comsat, loloka! Laruin mo nang tapat!",
+        "source": "Filipino internet cafe, cited in NoypiGeeks 2023"
+      },
+      {
+        "text": "Nanalo ka lang kasi nagcocomsat ka — wala kang skill!",
+        "source": "Filipino gaming community, 2023"
+      }
+    ],
+    "regional_notes": "Legacy term from internet cafe era; still understood by millennial and older Gen Z Filipino gamers.",
+    "related_terms": [
+      "olats",
+      "gg",
+      "pugak"
+    ],
+    "categories": [
+      "gaming-culture",
+      "internet-and-social-media"
+    ],
+    "synonyms": [],
+    "antonyms": [],
+    "sources": [
+      "NoypiGeeks — 50+ Words Pinoy Gamers Say",
+      "Patently Pinoy Gamer Words — 8List.ph"
+    ]
+  },
+  {
+    "term": "wanshatan",
+    "definitions": [
+      "A very powerful, long-range weapon (especially a sniper rifle) capable of killing in one shot.",
+      "The act of fighting using only one-shot weapons; a playstyle built around one-shot kills."
+    ],
+    "etymology": "From English 'one shot' + Filipino suffix '-an' that converts nouns into verbs describing the act of using that item. Word formation follows Filipino grammar rules.",
+    "examples": [
+      {
+        "text": "Puro wanshatan si lods — sniper lang palagi, walang sportsmanship!",
+        "source": "Filipino Counter-Strike / FPS gaming, cited in NoypiGeeks 2023"
+      },
+      {
+        "text": "Wanshatan tayo ngayong round — AWP lang ang gagamitin natin.",
+        "source": "Filipino gaming chat, 2023"
+      }
+    ],
+    "regional_notes": "Common in Filipino FPS gaming communities (Counter-Strike, Valorant); especially prevalent in internet cafe culture.",
+    "related_terms": [
+      "gg",
+      "pugak",
+      "comsat",
+      "olats"
+    ],
+    "categories": [
+      "gaming-culture",
+      "wordplay-and-linguistic-forms"
+    ],
+    "synonyms": [],
+    "antonyms": [],
+    "sources": [
+      "NoypiGeeks — 50+ Words Pinoy Gamers Say",
+      "Patently Pinoy Gamer Words — 8List.ph"
+    ]
+  },
+  {
+    "term": "makati",
+    "definitions": [
+      "In Filipino gaming, describes a character or player with very high damage output — one that 'stings' or 'itches' with every hit.",
+      "Literally means 'itchy' in Tagalog, repurposed in gaming to mean hitting hard or dealing massive damage."
+    ],
+    "etymology": "From standard Tagalog 'makati' (itchy). In gaming slang, the sensation of being repeatedly hit hard was likened to itching, giving rise to using this word for high-damage characters.",
+    "examples": [
+      {
+        "text": "Makati na si carry — full items na, iwas nalang kayo!",
+        "source": "Filipino MOBA gaming chat, 2024"
+      },
+      {
+        "text": "Bakit ganyan ka ka-makati? Ano bang build mo?",
+        "source": "Filipino gaming Discord, 2023"
+      }
+    ],
+    "regional_notes": "Used across Filipino gaming communities; particularly common in MOBA games (Mobile Legends, DOTA2).",
+    "related_terms": [
+      "pugak",
+      "carry",
+      "normalin",
+      "inting"
+    ],
+    "categories": [
+      "gaming-culture",
+      "wordplay-and-linguistic-forms"
+    ],
+    "synonyms": [],
+    "antonyms": [],
+    "sources": [
+      "NoypiGeeks — 50+ Words Pinoy Gamers Say",
+      "Gaming Slang in Tagalog Language — Talkpal"
+    ]
+  },
+  {
+    "term": "pabuhat",
+    "definitions": [
+      "A deadweight or burden on the team — a player who contributes nothing and forces teammates to carry the load.",
+      "Used as an insult for poor or inactive teammates in online multiplayer games."
+    ],
+    "etymology": "From Tagalog 'buhat' (to carry/lift) + prefix 'pa-' (causative, meaning 'to cause/make'). Literally 'causing others to carry' — i.e., someone who makes you carry them.",
+    "examples": [
+      {
+        "text": "Ang daming pabuhat sa team ko today — lahat sila negative KDA!",
+        "source": "Filipino gaming Twitter/X, 2024"
+      },
+      {
+        "text": "Wag ka maging pabuhat sa ranked, mag-practice ka muna bago maglaro.",
+        "source": "Filipino gaming Discord, 2023"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "inting",
+      "carry",
+      "gg",
+      "toxic"
+    ],
+    "categories": [
+      "gaming-culture",
+      "insults-and-call-outs"
+    ],
+    "synonyms": [
+      "inting"
+    ],
+    "antonyms": [
+      "carry"
+    ],
+    "sources": [
+      "NoypiGeeks — 50+ Words Pinoy Gamers Say",
+      "Gaming Slang in Tagalog Language — Talkpal"
+    ]
+  },
+  {
+    "term": "basag",
+    "definitions": [
+      "In gaming, the command to attack and destroy enemy structures (towers, inhibitors, base buildings).",
+      "In everyday youth slang, means completely wrecked, broken, or finished — used for people, plans, or situations that have fallen apart.",
+      "Also used to describe being severely drunk or exhausted to the point of dysfunction."
+    ],
+    "etymology": "Standard Tagalog 'basag' (broken/shattered). Repurposed in gaming to mean the act of destroying enemy structures, and absorbed into everyday youth slang for anything or anyone completely broken.",
+    "examples": [
+      {
+        "text": "Basag na natin yung towers — push na!",
+        "source": "Filipino MOBA gaming chat, 2023"
+      },
+      {
+        "text": "Basag na si pre galing sa last night — hindi pa makaalis sa kama.",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "pugak",
+      "wasak",
+      "olats",
+      "tumba"
+    ],
+    "categories": [
+      "gaming-culture",
+      "street-and-hustle",
+      "party-and-nightlife"
+    ],
+    "synonyms": [
+      "wasak"
+    ],
+    "antonyms": [],
+    "sources": [
+      "NoypiGeeks — 50+ Words Pinoy Gamers Say",
+      "Patently Pinoy Gamer Words — 8List.ph"
+    ]
+  },
+  {
+    "term": "feeling main character",
+    "definitions": [
+      "Acting as if one is the protagonist of a story or movie — overly self-important, dramatic, or attention-seeking behavior.",
+      "Used to tease or call out someone who acts like everything revolves around them. Often paired with 'wag' (don't): 'wag feeling main character.'"
+    ],
+    "etymology": "Derived from the 'main character energy' TikTok trend, where users romanticized living as their own story's protagonist. In Filipino usage it shifted into a criticism of people who take this to an entitled extreme.",
+    "examples": [
+      {
+        "text": "Bakit feeling main character ka? Lahat ka naman gustong perahan.",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Wag maging feeling main character sa grupo — shared decision 'to!",
+        "source": "Filipino TikTok comment, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "main character energy",
+      "villain era",
+      "understood the assignment",
+      "glow up"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "internet-and-social-media",
+      "personality-and-character"
+    ],
+    "synonyms": [
+      "feeling",
+      "epal"
+    ],
+    "antonyms": [],
+    "sources": [
+      "RepublicAsia Media — New Filipino and the Gen-Z Slangs",
+      "Woke Waves — 14 Filipino Gen Z Slang Phrases"
+    ]
+  },
+  {
+    "term": "sumakses",
+    "definitions": [
+      "To succeed, achieve something meaningful, or visibly come up in life.",
+      "'Bigla kang sumakses' = 'You suddenly made it / You're thriving now' — used as a congratulation or observation that someone has had a major glow-up or life improvement."
+    ],
+    "etymology": "From English 'success' converted into a Filipino verb using the infix '-um-' (sumakses), following Filipino verb morphology. A playful Taglish coinage meaning 'to become successful.'",
+    "examples": [
+      {
+        "text": "Bigla kang sumakses, ha? Grabe ang promotion mo!",
+        "source": "Spot.ph — Filipino slang roundup, 2025"
+      },
+      {
+        "text": "Gusto ko rin sumakses — sana maging ganyan din ako someday.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "glow up",
+      "sana all",
+      "level up",
+      "werpa"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "internet-and-social-media",
+      "exclamations-and-hype"
+    ],
+    "synonyms": [
+      "glow up",
+      "level up"
+    ],
+    "antonyms": [
+      "olats"
+    ],
+    "sources": [
+      "Spot.ph — 10 Filipino Slang Words That Took Over Our Group Chats in 2025"
+    ]
   }
 ]
