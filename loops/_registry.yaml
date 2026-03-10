@@ -261,3 +261,11 @@ loops:
     status: converged
     created: 2026-03-06
     converged_at: "2026-03-07"
+  angkin-design-system-reverse:
+    description: "Explore 10 exhaustive frontend design system options for the Angkin suite — 148 PH compliance tools, each with competitive benchmarking, full spec, live HTML mockup, and visual QA"
+    type: reverse
+    schedule: "*/30 * * * *"
+    max_iterations: 60
+    timeout_minutes: 30
+    status: active
+    created: 2026-03-10
