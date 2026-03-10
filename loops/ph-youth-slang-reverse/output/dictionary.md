@@ -1,8 +1,8 @@
 # Filipino Youth Slang Dictionary & Thesaurus
 
-**Total terms:** 317  
+**Total terms:** 321  
 **Categories:** 21  
-**Last updated:** 2026-03-10 (refinement pass 25)
+**Last updated:** 2026-03-10 (refinement pass 26)
 
 ---
 
@@ -16,13 +16,13 @@
 - [friendship-and-social-bonds](#friendship-and-social-bonds) (22 terms)
 - [gaming-and-e-sports](#gaming-and-e-sports) (3 terms)
 - [gaming-and-internet-culture](#gaming-and-internet-culture) (4 terms)
-- [gen-z-and-imported-slang](#gen-z-and-imported-slang) (38 terms)
+- [gen-z-and-imported-slang](#gen-z-and-imported-slang) (39 terms)
 - [hip-hop-and-rap-culture](#hip-hop-and-rap-culture) (10 terms)
 - [humor-and-wit](#humor-and-wit) (9 terms)
 - [internet-and-social-media](#internet-and-social-media) (33 terms)
-- [lgbtq-and-beki-lingo](#lgbtq-and-beki-lingo) (28 terms)
+- [lgbtq-and-beki-lingo](#lgbtq-and-beki-lingo) (30 terms)
 - [party-and-nightlife](#party-and-nightlife) (5 terms)
-- [personality-and-character](#personality-and-character) (21 terms)
+- [personality-and-character](#personality-and-character) (22 terms)
 - [reactions-and-responses](#reactions-and-responses) (1 terms)
 - [relationships-and-romance](#relationships-and-romance) (4 terms)
 - [romance-and-relationships](#romance-and-relationships) (22 terms)
@@ -1555,6 +1555,14 @@
   - *Synonyms:* aura farming, awra
   - *Related:* diskarte, aura farming, main character energy
 
+
+### **shookt**
+1. Shocked, surprised, or emotionally shaken — conveys a heightened, dramatic sense of being caught off-guard beyond ordinary surprise.
+  - *Etymology:* Filipino Gen Z adaptation of the English slang shook (past participle/adjective of shake, meaning shocked). The added -t creates a distinctively Filipino phonetic intensifier, amplifying the reaction. Emerged in Philippine internet culture mid-2010s, still active in Gen Z usage.
+  - *Examples:*
+    - "Shookt ako sa plot twist ng K-drama!" — *Filipino social media, common usage*
+    - "Ang shookt ko nung sinabi niya yun sa harap ng lahat." — *Filipino Twitter/X, 2024*
+  - *Related:* warla, BV, nakakatunaw
 ### **sigma**
 1. An independent, self-sufficient, and unbothered person who operates outside social hierarchies — a "lone wolf" archetype admired for confidence and individuality. Often used admiringly.
 2. Used ironically or as Gen Alpha/Gen Z humor — often in the phrase "What the sigma?" as a meme equivalent of "What the heck?" or as a nonsense intensifier.
@@ -2306,6 +2314,24 @@
   - *Synonyms:* keme, eme
   - *Related:* keme, eme, echoz
 
+
+### **lupet**
+1. Awesome, amazing, or exceptional — used as high praise for skill, style, or presence.
+2. Cruel, harsh, or brutal (original/literal sense; still used in traditional contexts).
+  - *Etymology:* Filipino swardspeak/bekimon variant of the Tagalog word lupit (cruelty/harshness). In gay lingo, the harsh meaning was flipped to express admiration — the same semantic flip seen in petmalu and similar terms. Closely related to malupet and its reverse form petmalu.
+  - *Examples:*
+    - "Wala kang kasing lupet sumayaw!" — *Filipino social media, common usage ("No one dances as amazingly as you!")*
+    - "Lupet ng performance niya sa concert!" — *Filipino Twitter/X fan comment, 2024*
+  - *Synonyms:* petmalu, kabog, werpa
+  - *Related:* petmalu, werpa, kabog, lodi
+
+### **okray**
+1. To mock, roast, insult, or criticize someone — often in a sharp, witty, or cutting way. Can range from playful teasing among friends to genuinely hurtful public shaming.
+  - *Etymology:* Filipino swardspeak/bekimon term rooted in gay lingo, meaning paninirang puri (damaging someone's reputation). Entered mainstream Filipino slang from LGBTQ+ community speech. Now widely used on social media for roasting and callouts.
+  - *Examples:*
+    - "Wag ka ngang mang-okray!" — *Filipino social media, common usage ("Stop roasting/dissing me!")*
+    - "Ang lakas ng pang-okray ng comments section niya." — *Filipino Twitter/X, 2024*
+  - *Related:* dogshow, umay, epal, chaka, supalpal
 ### **mumshie**
 1. An affectionate form of address for one's mother, a maternal figure, or a close friend who takes on a nurturing, motherly role in the group. Also used as a general warm greeting between female friends, similar to 'beshie' or 'teh.'
   - *Etymology:* Beki/Swardspeak formation from 'mommy/mum' with the playful '-shie' suffix common in Filipino gay lingo (cf. 'mamsh', 'mamsht'). Documented in the Vibal Foundation Philippine Slang and Gay Dictionary (2024) and by SPOT.ph beki slang coverage. Now mainstream across Filipino Gen Z social media.
@@ -2515,6 +2541,16 @@
   - *Synonyms:* pabebe
   - *Related:* pabebe, OA, sosyal, ere
 
+
+### **OA**
+1. Short for overacting — behaving in an exaggerated, overdramatic, or excessive manner. Used to call out someone for being theatrical, extra, or doing too much.
+  - *Etymology:* Filipino abbreviation of the English word overacting, rooted in Philippine entertainment industry criticism of bad/hammy acting. Now used far beyond entertainment to describe any over-the-top behavior in everyday life and online.
+  - *Examples:*
+    - "Ang OA mo naman, isang maliit na bagay lang yun!" — *Filipino social media, common usage ("You're so overdramatic, it's just a small thing!")*
+    - "Huwag kang mag-OA, okay lang naman yan." — *Filipino TikTok comment, 2024*
+  - *Synonyms:* extra
+  - *Antonyms:* chill
+  - *Related:* over naman sa, extra, epal, eksena
 ### **pabebe**
 1. Acting cute, childish, or babyish to get attention or sympathy; putting on an exaggerated innocent or cute demeanor.
   - *Etymology:* From Tagalog prefix 'pa-' (pretending to be) + 'bebe' (from English 'baby'). Popularized in 2015 by the 'AlDub' love team's 'pabebe wave' on Eat Bulaga, but has remained in youth slang as a descriptor for coy or attention-seeking cute behavior.
