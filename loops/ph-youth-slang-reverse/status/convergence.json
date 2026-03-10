@@ -301,6 +301,12 @@
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: korek, pare, tsong, buti nga, nyek, selos, basta, ewan)"
+    },
+    {
+      "iteration": "refinement pass 52 — fifty-second raw-gap audit (8 new terms, 476→484)",
+      "new_terms": 8,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (8 new terms found: tsupogi, feel trip, moots, ampotah, kuryente, labyu, FYP, tibo)"
     }
   ]
 }

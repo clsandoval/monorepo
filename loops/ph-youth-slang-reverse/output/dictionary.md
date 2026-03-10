@@ -1,6 +1,6 @@
 # Filipino Youth Slang Dictionary & Thesaurus
 
-> **Total terms:** 468 | **Categories:** 71 | **Last updated:** 2026-03-10
+> **Total terms:** 484 | **Categories:** 102 | **Last updated:** 2026-03-10
 
 
 ---
