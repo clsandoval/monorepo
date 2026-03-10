@@ -566,3 +566,20 @@ Searched for gaps in beki/swardspeak coverage (foundation terms missing), Gen Z-
 **New categories added (2):** digital-culture, brainrot-and-absurdist-humor
 
 **Convergence counter:** reset to 0 (5 new terms found)
+
+---
+
+## Refinement Pass 74 — 2026-03-10
+
+**Action:** Seventy-fourth raw-gap audit — searched for new Filipino youth slang via Spot.ph 2025 roundup, Manila Bulletin 2026 teen slang guide, and beki/Swardspeak linguistic resources.
+
+**New terms added (5, dictionary: 643→648):**
+- **wapakels** — "I don't care"; contraction of "Wala akong pakialam" + -els suffix; part of Filipino slang tradition of compressing phrases
+- **hardashian** — Beki lingo for "hard"; classic Bekinese celebrity-name coding (hard + Kardashian)
+- **shuta** — Beki expletive blend of "shit" + "puta"; versatile curse used among friends or in confrontation
+- **borta** — Gay lingo/Filipino slang for muscular/buff man; likely from back-formation of "katawan" (body) or "heartthrob"
+- **maboka** — Talkative, loudmouthed, gossiper; or "all talk no action"; from Spanish "boca" (mouth) + Tagalog ma- prefix
+
+**Entries refined:** 0
+
+**Convergence counter:** reset to 0 (5 new terms found)

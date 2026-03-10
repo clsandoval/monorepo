@@ -433,6 +433,12 @@
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: slop, gurt, parasocial, lore, pressed)"
+    },
+    {
+      "iteration": "refinement pass 74 — seventy-fourth raw-gap audit (5 new terms, 643→648)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: wapakels, hardashian, shuta, borta, maboka)"
     }
   ]
 }
