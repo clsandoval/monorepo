@@ -411,3 +411,43 @@
 - Talkpal.ai teen slang in Tagalog
 - wordhippo.com Filipino term definitions
 - tagaloglang.com Bisaya/Tagalog entries
+
+---
+
+## Refinement Pass 48
+
+**Date:** 2026-03-10
+**Pass:** Refinement pass 48 — forty-eighth raw-gap audit
+**New terms:** 8 (444→452)
+**Refined entries:** 0
+**Convergence counter:** reset to 0
+
+### Terms Added
+1. **lods** — clipped form of lodi (reversed "idol"); casual, admiring term of address; common in gaming communities and informal chats
+2. **paps** — casual male address term (buddy/pal); Filipinized endearment from pare/papa; active in text and online chat since early 2010s
+3. **sulit** — "worth it"; exclamation of value/satisfaction; heavily used in food TikTok, online shopping reviews, and everyday Taglish
+4. **lait** — to insult, mock, or belittle; standard Tagalog but central to youth callout culture, rap battle discourse, and online conflict vocabulary
+5. **kulit** — annoyingly persistent/pestering (often affectionate); distinguished from kulet (already in dictionary) which is the softer beki/swardspeak variant
+6. **angkas** — to give/get a ride pillion on motorcycle; colloquial commuting term popularized via habal-habal culture and commuting meme discourse
+7. **pakners** — Filipinized "partners"; casual group address for friends; common in gaming Discords and barkada group chats
+8. **jejemon** — Filipino internet subculture with heavily stylized text (letter/number substitutions, random caps); KWF-recognized term; still cited as cultural touchstone in 2024–2025 discourse
+
+### Rejected this pass
+- **husay** — standard Tagalog for "skill/neatness"; no evidence of specific new slang meaning post-2023
+- **gising** — standard Tagalog for "awake"; informal use exists but not a novel youth coinage
+- **angkas** — accepted (standard Tagalog but integral to Filipino youth commuting culture and meme discourse)
+
+### New Categories Introduced
+- **transportation-and-mobility** (from angkas)
+- **text-communication** (from jejemon)
+- **subcultures** (from jejemon)
+
+### Sources Consulted
+- ling-app.com Filipino Gen Z slang guide
+- fastforward.life Filipino Gen Z dictionary
+- wokewaves.com Filipino Gen Z slang phrases
+- theculturetrip.com Filipino slang words
+- tagalog.com dictionary (sulit, angkas)
+- wiktionary.org Tagalog slang appendix
+- filipinopod101.com internet slang in Filipino
+- yourdictionary.com Filipino slang expressions

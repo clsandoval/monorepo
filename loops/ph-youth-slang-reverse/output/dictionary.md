@@ -1,8 +1,8 @@
 # Filipino Youth Slang Dictionary & Thesaurus
 
 ## Summary Statistics
-- **Total terms:** 444
-- **Categories:** 93
+- **Total terms:** 452
+- **Categories:** 104
 - **Last updated:** 2026-03-10
 
 ## Categories
@@ -16112,5 +16112,140 @@
 **Antonyms:** [swabe](#swabe)
 
 **Regional notes:** The 'very difficult' sense is distinctly Filipino and differs from standard English usage; a semantic false friend for Filipino learners of English.
+
+---
+## address-terms
+
+### **lods**
+
+1. Short form of lodi (itself a reversal of idol); used as a casual, admiring term of address for someone cool or impressive.
+2. Also used as a friendly greeting between peers, similar to bro or beshie, without necessarily implying someone is an idol.
+
+**Etymology:** Clipped from lodi, which is the syllabic reversal of idol. Common Filipino back-slang pattern. Used in online gaming communities, barkada chat groups, and social media.
+
+**Examples:**
+> "Lods, tara na! Hihintay na sila sa atin." — *Filipino Facebook gaming group, 2024*
+> "Ay lods, petmalu yung ginawa mo ah!" — *Filipino Twitter/X comment, 2024*
+
+**Synonyms:** [lodi](#lodi), [tol](#tol), [pare](#pare), [bossing](#bossing)
+
+---
+
+### **paps**
+
+1. Casual male term of address equivalent to buddy, pal, or bro; used in text messages, group chats, and informal online conversations.
+2. Derived from a phonetic softening of pare/papa, used affectionately between male friends.
+
+**Etymology:** Shortened endearment form, likely from pare (buddy, from kumpare) or papa; used in Tagalog internet and text slang circles since the early 2010s and still active in 2024–2025 chats.
+
+**Examples:**
+> "Paps pautang naman 200, balik ko sa iyo bukas." — *Filipino HiNative language forum example, 2024*
+> "Ay paps, san ka na? Nag-iintay na kami!" — *Filipino group chat screenshot shared on Twitter/X, 2024*
+
+**Synonyms:** [pare](#pare), [tol](#tol), [pards](#pards)
+
+---
+
+### **pakners**
+
+1. Filipinized form of partners; used as a casual, friendly term of address for a group of close friends or companions.
+2. Often used in group chat openers, barkada contexts, or as a collective term for one's squad. Can be singular or plural.
+
+**Etymology:** Phonetic Filipinization of English partners, with typical Filipino consonant softening and informal spelling. Common in text messaging, group chats, and social media since the 2010s.
+
+**Examples:**
+> "Pakners, free na ba kayo mamaya? Gusto ko kumain sa labas." — *Filipino group chat screenshot, Reddit r/CasualPH, 2024*
+> "Eto na mga pakners, game na tayo!" — *Filipino online gaming Discord, 2024*
+
+**Synonyms:** [tropa](#tropa), [barkada](#barkada), [pards](#pards)
+
+---
+
+## value-and-approval
+
+### **sulit**
+
+1. Worth it; describes something that gives value, satisfaction, or benefit equal to or greater than the effort, time, or money spent.
+2. Used as an exclamation of positive endorsement, similar to saying something was a great deal or totally worth the effort.
+
+**Etymology:** Standard Tagalog sulit (to be worth, to yield value), repopularized in youth internet slang as a standalone exclamation of approval. Widely used across social media, food reviews, and online shopping communities.
+
+**Examples:**
+> "Ang sulit naman ng pagkain dito — sobrang dami for only 150 pesos!" — *Filipino food TikTok comment, 2024*
+> "Sulit na sulit yung binili ko, worth every peso." — *Filipino Shopee/online shopping review, 2024*
+
+**Synonyms:** [benta](#benta)
+**Antonyms:** [mid](#mid)
+
+---
+
+## confrontation-and-conflict
+
+### **lait**
+
+1. To insult, mock, belittle, or put someone down; an act of derision directed at a person's appearance, ability, background, or choices.
+2. As a noun: an insult or mocking remark. As a verb (nilait, nanlait): to have insulted or talked trash about someone.
+
+**Etymology:** Standard Tagalog lait (insult, derision), widely used in informal Filipino speech and consistently present in street and youth slang contexts. Commonly appears in rap battle culture, online callout culture, and everyday banter.
+
+**Examples:**
+> "Bakit mo naman nilait ang trabaho niya? Hindi naman siya gumawa ng masama." — *Filipino Reddit r/CasualPH post, 2024*
+> "Huwag kang nanlait, baka maagawan ka rin niya later." — *Filipino Facebook comment, 2024*
+
+**Synonyms:** [okray](#okray)
+**Antonyms:** [solid](#solid)
+
+---
+
+## behavior-and-attitude
+
+### **kulit**
+
+1. Annoyingly persistent, pestering, or clingy — often used in an affectionate or teasing tone between friends.
+2. Can also describe something that is cutely or frustratingly stubborn; used to call out someone who won't let up.
+
+**Etymology:** Standard Tagalog kulit (persistent nuisance or pestering behavior), heavily used in informal youth speech and social media. Distinguished from kulet, which is a swardspeak/beki softened variant with a more playfully affectionate tone.
+
+**Examples:**
+> "Ang kulit mo naman! Sagutin mo na lang kasi yung message niya." — *Filipino TikTok comment, 2024*
+> "Kulit talaga nitong kaibigan ko, kahit anong oras tumawag." — *Filipino Twitter/X post, 2024*
+
+**Synonyms:** [kulet](#kulet), [harot](#harot)
+**Antonyms:** [KJ](#kj)
+
+---
+
+## transportation-and-mobility
+
+### **angkas**
+
+1. To give someone a ride pillion on a motorcycle or bicycle; to hitch a ride behind a driver.
+2. Used colloquially to ask for or offer a ride, especially on two-wheeled transport; very common in everyday Filipino informal speech.
+
+**Etymology:** Standard Tagalog angkas (to ride behind, to carry as passenger on a vehicle); repopularized in digital spaces through ride-hailing culture, habal-habal (motorcycle taxi) discourse, and meme content about commuting.
+
+**Examples:**
+> "Angkas mo naman ako papunta sa MRT, nalelate na ako!" — *Filipino Twitter/X commuting complaint thread, 2024*
+> "Libre angkas for beshies, bayad ang mga ex." — *Filipino meme, Facebook, 2024*
+
+**Regional notes:** Particularly common in Visayas and Mindanao where habal-habal (motorcycle taxis) are a primary transport mode. Usage in these regions extends to formal transport contexts.
+
+---
+
+## internet-culture
+
+### **jejemon**
+
+1. A Filipino internet subculture and associated text style characterized by heavily stylized spelling with number/letter substitutions (e.g., 3 for e, 4 for a), excessive special characters, random capitalization, and extreme abbreviations.
+2. As a noun: a person who communicates in this style. As an adjective: describing text, content, or a person associated with this heavily stylized, deliberately illegible typing pattern.
+3. Emerged prominently in the early 2010s on Filipino SMS and social media; still referenced in 2024–2025 discourse as a cultural touchstone, term of derision, or nostalgic reference.
+
+**Etymology:** Blend of Filipino internet exclamation jeje (used for laughter/expression) and Pokémon, coined around 2010 to describe a Filipino subculture whose members sent incomprehensible text messages. The KWF (Komisyon ng Wikang Filipino) officially recognized it as a word.
+
+**Examples:**
+> "Jejemon typing example: h3Llo p0w3h!!! mUsZta Na kAuH??! (= Hello! How are you?)" — *Filipino internet culture documentation, multiple sources*
+> "Grabe yung post niya, parang jejemon lang ang sulat — hindi ko mabasa!" — *Filipino Twitter/X post, 2024*
+
+**Related terms:** [jologs](#jologs), [baduy](#baduy), [cringe](#cringe), [tangalog](#tangalog)
 
 ---

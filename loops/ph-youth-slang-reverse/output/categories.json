@@ -1,35 +1,187 @@
 {
-  "acronyms-and-abbreviations": {
+  "gen-z-and-imported-slang": {
+    "term_count": 126,
+    "count": 126
+  },
+  "street-and-hustle": {
+    "term_count": 47,
+    "count": 47
+  },
+  "internet-and-social-media": {
+    "term_count": 125,
+    "count": 125
+  },
+  "lgbtq-and-beki-lingo": {
+    "term_count": 60,
+    "count": 60
+  },
+  "romance-and-relationships": {
+    "term_count": 59,
+    "count": 59
+  },
+  "emotions-and-feelings": {
+    "term_count": 50,
+    "count": 50
+  },
+  "wordplay-and-linguistic-forms": {
+    "term_count": 64,
+    "count": 64
+  },
+  "conflict-and-drama": {
+    "term_count": 34,
+    "count": 34
+  },
+  "hip-hop-and-rap-culture": {
+    "term_count": 34,
+    "count": 34
+  },
+  "party-and-nightlife": {
+    "term_count": 15,
+    "count": 15
+  },
+  "social-identity": {
     "term_count": 2,
     "count": 2
   },
-  "address-terms-and-honorifics": {
-    "term_count": 1,
-    "count": 1
+  "cultural-commentary": {
+    "term_count": 2,
+    "count": 2
+  },
+  "exclamations-and-hype": {
+    "term_count": 65,
+    "count": 65
+  },
+  "personality-and-character": {
+    "term_count": 79,
+    "count": 79
+  },
+  "friendship-and-social-bonds": {
+    "term_count": 36,
+    "count": 36
+  },
+  "everyday-expressions": {
+    "term_count": 13,
+    "count": 13
+  },
+  "call-out-and-criticism": {
+    "term_count": 2,
+    "count": 2
+  },
+  "fashion-and-style": {
+    "term_count": 19,
+    "count": 19
+  },
+  "humor-and-wit": {
+    "term_count": 36,
+    "count": 36
   },
   "admiration-and-praise": {
     "term_count": 3,
     "count": 3
   },
+  "back-slang-inversions": {
+    "term_count": 3,
+    "count": 3
+  },
+  "expressions-and-exclamations": {
+    "term_count": 5,
+    "count": 5
+  },
   "aesthetics-and-looks": {
     "term_count": 4,
     "count": 4
   },
-  "affirmatives-and-reactions": {
+  "appearance-and-attractiveness": {
+    "term_count": 3,
+    "count": 3
+  },
+  "identity-and-self-expression": {
+    "term_count": 4,
+    "count": 4
+  },
+  "emotional-expressions": {
+    "term_count": 5,
+    "count": 5
+  },
+  "reactions-and-exclamations": {
+    "term_count": 2,
+    "count": 2
+  },
+  "insults-and-put-downs": {
     "term_count": 1,
     "count": 1
   },
-  "agreement-and-affirmation": {
+  "fashion-and-aesthetics": {
+    "term_count": 2,
+    "count": 2
+  },
+  "relationships-and-social-dynamics": {
+    "term_count": 2,
+    "count": 2
+  },
+  "substance-and-nightlife": {
     "term_count": 1,
     "count": 1
+  },
+  "states-of-being": {
+    "term_count": 1,
+    "count": 1
+  },
+  "cultural-pride-and-identity": {
+    "term_count": 3,
+    "count": 3
   },
   "appearance-and-aesthetics": {
     "term_count": 1,
     "count": 1
   },
-  "appearance-and-attractiveness": {
+  "emotions-and-mental-state": {
     "term_count": 3,
     "count": 3
+  },
+  "media-and-entertainment": {
+    "term_count": 3,
+    "count": 3
+  },
+  "unbothered-and-chill": {
+    "term_count": 9,
+    "count": 9
+  },
+  "food-and-lifestyle": {
+    "term_count": 2,
+    "count": 2
+  },
+  "exclamations-and-reactions": {
+    "term_count": 4,
+    "count": 4
+  },
+  "reactions-and-responses": {
+    "term_count": 9,
+    "count": 9
+  },
+  "gaming-and-e-sports": {
+    "term_count": 6,
+    "count": 6
+  },
+  "digital-culture": {
+    "term_count": 1,
+    "count": 1
+  },
+  "status-and-identity": {
+    "term_count": 2,
+    "count": 2
+  },
+  "emotions-and-mental-states": {
+    "term_count": 2,
+    "count": 2
+  },
+  "gaming-and-internet-culture": {
+    "term_count": 6,
+    "count": 6
+  },
+  "family-and-social-roles": {
+    "term_count": 2,
+    "count": 2
   },
   "appearance-and-style": {
     "term_count": 1,
@@ -39,215 +191,23 @@
     "term_count": 2,
     "count": 2
   },
-  "attitude-and-character": {
-    "term_count": 5,
-    "count": 5
-  },
-  "attitudes-and-behavior": {
-    "term_count": 1,
-    "count": 1
-  },
-  "back-slang-inversions": {
-    "term_count": 3,
-    "count": 3
-  },
-  "beki-and-lgbtq-lingo": {
-    "term_count": 1,
-    "count": 1
-  },
-  "call-out-and-criticism": {
-    "term_count": 2,
-    "count": 2
-  },
-  "character-and-personality": {
-    "term_count": 2,
-    "count": 2
-  },
-  "conflict-and-drama": {
-    "term_count": 34,
-    "count": 34
-  },
-  "cultural-pride-and-identity": {
-    "term_count": 3,
-    "count": 3
-  },
-  "digital-culture": {
-    "term_count": 1,
-    "count": 1
+  "relationships-and-romance": {
+    "term_count": 10,
+    "count": 10
   },
   "discourse-modifiers": {
     "term_count": 3,
     "count": 3
   },
-  "emotional-expressions": {
-    "term_count": 5,
-    "count": 5
-  },
-  "emotional-states": {
-    "term_count": 3,
-    "count": 3
-  },
-  "emotions-and-feelings": {
-    "term_count": 50,
-    "count": 50
-  },
-  "emotions-and-feels": {
+  "affirmatives-and-reactions": {
     "term_count": 1,
     "count": 1
-  },
-  "emotions-and-mental-state": {
-    "term_count": 3,
-    "count": 3
-  },
-  "emotions-and-mental-states": {
-    "term_count": 2,
-    "count": 2
-  },
-  "everyday-expressions": {
-    "term_count": 13,
-    "count": 13
-  },
-  "exclamations-and-hype": {
-    "term_count": 65,
-    "count": 65
-  },
-  "exclamations-and-reactions": {
-    "term_count": 4,
-    "count": 4
-  },
-  "expressions-and-exclamations": {
-    "term_count": 5,
-    "count": 5
-  },
-  "expressive-reactions": {
-    "term_count": 1,
-    "count": 1
-  },
-  "family-and-social-roles": {
-    "term_count": 2,
-    "count": 2
-  },
-  "fashion-and-aesthetics": {
-    "term_count": 2,
-    "count": 2
-  },
-  "fashion-and-style": {
-    "term_count": 19,
-    "count": 19
-  },
-  "food-and-lifestyle": {
-    "term_count": 2,
-    "count": 2
-  },
-  "friendship-and-barkada": {
-    "term_count": 1,
-    "count": 1
-  },
-  "friendship-and-social-bonds": {
-    "term_count": 35,
-    "count": 35
-  },
-  "gaming-and-e-sports": {
-    "term_count": 6,
-    "count": 6
-  },
-  "gaming-and-esports": {
-    "term_count": 3,
-    "count": 3
-  },
-  "gaming-and-internet-culture": {
-    "term_count": 6,
-    "count": 6
-  },
-  "gaming-and-online-culture": {
-    "term_count": 3,
-    "count": 3
   },
   "gaming-lingo": {
     "term_count": 1,
     "count": 1
   },
-  "gen-z-and-imported-slang": {
-    "term_count": 117,
-    "count": 117
-  },
-  "gender-and-identity": {
-    "term_count": 1,
-    "count": 1
-  },
-  "hip-hop-and-rap-culture": {
-    "term_count": 34,
-    "count": 34
-  },
-  "humor-and-wit": {
-    "term_count": 36,
-    "count": 36
-  },
-  "identity-and-self-expression": {
-    "term_count": 4,
-    "count": 4
-  },
-  "insults-and-put-downs": {
-    "term_count": 1,
-    "count": 1
-  },
-  "internet-and-digital-culture": {
-    "term_count": 2,
-    "count": 2
-  },
-  "internet-and-social-media": {
-    "term_count": 124,
-    "count": 124
-  },
-  "lgbtq-and-beki-lingo": {
-    "term_count": 60,
-    "count": 60
-  },
-  "media-and-entertainment": {
-    "term_count": 3,
-    "count": 3
-  },
-  "party-and-nightlife": {
-    "term_count": 15,
-    "count": 15
-  },
-  "personality-and-character": {
-    "term_count": 74,
-    "count": 74
-  },
-  "physical-appearance": {
-    "term_count": 1,
-    "count": 1
-  },
-  "reactions-and-exclamations": {
-    "term_count": 2,
-    "count": 2
-  },
-  "reactions-and-expressions": {
-    "term_count": 1,
-    "count": 1
-  },
-  "reactions-and-responses": {
-    "term_count": 9,
-    "count": 9
-  },
-  "relationships-and-romance": {
-    "term_count": 8,
-    "count": 8
-  },
-  "relationships-and-social-dynamics": {
-    "term_count": 2,
-    "count": 2
-  },
-  "romance-and-dating": {
-    "term_count": 2,
-    "count": 2
-  },
-  "romance-and-relationships": {
-    "term_count": 59,
-    "count": 59
-  },
-  "self-image-and-identity": {
+  "social-life-and-hangout": {
     "term_count": 1,
     "count": 1
   },
@@ -255,36 +215,204 @@
     "term_count": 2,
     "count": 2
   },
+  "physical-appearance": {
+    "term_count": 1,
+    "count": 1
+  },
+  "romance-and-dating": {
+    "term_count": 2,
+    "count": 2
+  },
+  "attitude-and-character": {
+    "term_count": 5,
+    "count": 5
+  },
+  "emotional-states": {
+    "term_count": 3,
+    "count": 3
+  },
+  "internet-and-digital-culture": {
+    "term_count": 2,
+    "count": 2
+  },
   "social-commentary-and-shade": {
     "term_count": 7,
     "count": 7
   },
-  "social-life-and-hangout": {
+  "friendship-and-barkada": {
     "term_count": 1,
     "count": 1
   },
-  "states-of-being": {
-    "term_count": 1,
-    "count": 1
-  },
-  "status-and-identity": {
+  "character-and-personality": {
     "term_count": 2,
     "count": 2
   },
-  "street-and-hustle": {
-    "term_count": 46,
-    "count": 46
-  },
-  "substance-and-nightlife": {
+  "reactions-and-expressions": {
     "term_count": 1,
     "count": 1
   },
-  "unbothered-and-chill": {
-    "term_count": 9,
-    "count": 9
+  "gaming-and-esports": {
+    "term_count": 3,
+    "count": 3
   },
-  "wordplay-and-linguistic-forms": {
-    "term_count": 64,
-    "count": 64
+  "self-image-and-identity": {
+    "term_count": 1,
+    "count": 1
+  },
+  "gender-and-identity": {
+    "term_count": 1,
+    "count": 1
+  },
+  "attitudes-and-behavior": {
+    "term_count": 1,
+    "count": 1
+  },
+  "acronyms-and-abbreviations": {
+    "term_count": 2,
+    "count": 2
+  },
+  "gaming-and-online-culture": {
+    "term_count": 3,
+    "count": 3
+  },
+  "approval-and-hype": {
+    "term_count": 1,
+    "count": 1
+  },
+  "address-terms-and-honorifics": {
+    "term_count": 1,
+    "count": 1
+  },
+  "agreement-and-affirmation": {
+    "term_count": 1,
+    "count": 1
+  },
+  "expressive-reactions": {
+    "term_count": 1,
+    "count": 1
+  },
+  "beki-and-lgbtq-lingo": {
+    "term_count": 1,
+    "count": 1
+  },
+  "school-and-academic-life": {
+    "term_count": 1,
+    "count": 1
+  },
+  "work-and-hustle": {
+    "term_count": 1,
+    "count": 1
+  },
+  "intensifiers": {
+    "term_count": 1,
+    "count": 1
+  },
+  "emotions-and-feels": {
+    "term_count": 1,
+    "count": 1
+  },
+  "expressions-and-reactions": {
+    "term_count": 1,
+    "count": 1
+  },
+  "digital-communication": {
+    "term_count": 1,
+    "count": 1
+  },
+  "affirmation-and-praise": {
+    "term_count": 3,
+    "count": 3
+  },
+  "identity-and-character": {
+    "term_count": 1,
+    "count": 1
+  },
+  "address-and-endearment": {
+    "term_count": 2,
+    "count": 2
+  },
+  "internet-culture-and-memes": {
+    "term_count": 2,
+    "count": 2
+  },
+  "personality-and-behavior": {
+    "term_count": 1,
+    "count": 1
+  },
+  "mood-and-emotion": {
+    "term_count": 1,
+    "count": 1
+  },
+  "fan-culture-and-identity": {
+    "term_count": 1,
+    "count": 1
+  },
+  "social-commentary": {
+    "term_count": 3,
+    "count": 3
+  },
+  "lifestyle-and-flexing": {
+    "term_count": 1,
+    "count": 1
+  },
+  "affection-and-endearment": {
+    "term_count": 1,
+    "count": 1
+  },
+  "internet-culture": {
+    "term_count": 2,
+    "count": 2
+  },
+  "conflict-and-confrontation": {
+    "term_count": 1,
+    "count": 1
+  },
+  "behavior-and-attitude": {
+    "term_count": 3,
+    "count": 3
+  },
+  "address-terms": {
+    "term_count": 3,
+    "count": 3
+  },
+  "forms-of-address": {
+    "term_count": 3,
+    "count": 3
+  },
+  "value-and-approval": {
+    "term_count": 1,
+    "count": 1
+  },
+  "positive-affirmation": {
+    "term_count": 1,
+    "count": 1
+  },
+  "confrontation-and-conflict": {
+    "term_count": 1,
+    "count": 1
+  },
+  "verbal-aggression": {
+    "term_count": 1,
+    "count": 1
+  },
+  "transportation-and-mobility": {
+    "term_count": 1,
+    "count": 1
+  },
+  "everyday-actions": {
+    "term_count": 1,
+    "count": 1
+  },
+  "social-groups": {
+    "term_count": 1,
+    "count": 1
+  },
+  "text-communication": {
+    "term_count": 1,
+    "count": 1
+  },
+  "subcultures": {
+    "term_count": 1,
+    "count": 1
   }
 }
