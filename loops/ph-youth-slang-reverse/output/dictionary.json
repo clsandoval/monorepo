@@ -24949,5 +24949,223 @@
       "starter",
       "solid"
     ]
+  },
+  {
+    "term": "orbiting",
+    "definitions": [
+      "When someone who has cut off direct communication continues to passively engage with your social media — watching stories, liking posts, viewing TikToks — without actually reaching out. They've ghosted you but remain hovering in your notifications.",
+      "The digital-age behavior of staying present in someone's peripheral vision without making real contact: close enough to be noticed, too distant for real connection."
+    ],
+    "etymology": "Named for the way the moon orbits the Earth — always present, never landing. The term emerged in global online dating discourse around 2018–2019 and spread widely in Filipino Gen Z digital dating conversations by 2024–2025, documented by cosmo.ph, spot.ph, and pinkbunny.ph alongside related terms like ghosting and ghostlighting.",
+    "examples": [
+      {
+        "text": "Nagghihost ka sakin tapos nag-oorbiting ka pa rin — nakita ko na na nag-view ka ng story ko.",
+        "source": "Filipino TikTok dating discourse, 2025"
+      },
+      {
+        "text": "Orbiting siya — wala nang text pero lagi siyang first viewer ng stories ko.",
+        "source": "pinkbunny.ph / Filipino online dating community, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "ghosting",
+      "na-ghosted",
+      "ghostlighting",
+      "seenzoned",
+      "situationship",
+      "haunting"
+    ],
+    "categories": [
+      "dating-slang",
+      "modern-relationships",
+      "social-media-behavior",
+      "digital-romance"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "ghosting",
+      "hard launch"
+    ]
+  },
+  {
+    "term": "breadcrumbing",
+    "definitions": [
+      "The act of giving just enough intermittent attention — a like, a late-night 'you up?' text, an occasional compliment — to keep someone interested without any intention of committing to a real relationship. Emotional baiting that leaves the other person perpetually hopeful.",
+      "Sending sporadic, low-effort signals of interest specifically to maintain someone's attention as a backup option."
+    ],
+    "etymology": "From the Hansel and Gretel fairy-tale trail of breadcrumbs — just enough to lead someone along the path but never enough to satisfy. Entered English internet dating vocabulary around 2017 and became widely used in Filipino Gen Z dating discourse by 2024–2025, recognized by pinkbunny.ph and spot.ph as a defining modern PH dating behavior. Closely parallels the Filipino concept of 'paasa' (giving false hope).",
+    "examples": [
+      {
+        "text": "Classic breadcrumbing — nagtetext kapag bored siya, pero pag may nangyayari sa buhay mo, wala.",
+        "source": "pinkbunny.ph / Filipino dating community, 2025"
+      },
+      {
+        "text": "Grabe, paasa talaga siya. Breadcrumbing ka na naman — naglilike sa lahat ng posts mo pero hindi ka tinatawagan.",
+        "source": "Filipino Twitter/X dating discourse, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "paasa",
+      "ghosting",
+      "situationship",
+      "talking stage",
+      "orbiting",
+      "soft launch"
+    ],
+    "categories": [
+      "dating-slang",
+      "modern-relationships",
+      "digital-romance",
+      "emotional-manipulation"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [
+      "paasa"
+    ],
+    "antonyms": [
+      "hard launch",
+      "solid"
+    ]
+  },
+  {
+    "term": "throning",
+    "definitions": [
+      "Dating someone primarily for their social clout, influence, follower count, or online status rather than genuine romantic connection. The relationship is treated as a social media asset — a way to elevate one's own image.",
+      "Putting a partner on a metaphorical 'throne' — showcasing them publicly to boost one's own clout while the actual emotional investment is shallow."
+    ],
+    "etymology": "From the metaphor of placing a partner on a throne as a status symbol. Emerged in global Gen Z dating discourse in late 2024 and was recognized by cosmo.ph as one of the nine defining Filipino dating trends of 2025. Covered by philstarlife.com and described as the digital-age evolution of gold-digging, where the currency is social capital rather than financial wealth.",
+    "examples": [
+      {
+        "text": "Throning siya — pag nasa crowd kami, ineenjoy niya ako, pero pag wala kaming kasama, parang hindi niya ako kilala.",
+        "source": "cosmo.ph / Filipino dating community discussion, 2025"
+      },
+      {
+        "text": "Alam mo ba na throning ka na? Ang daming posts niya kasama ka pero sa messages, hindi ka niya sinasagot.",
+        "source": "Filipino TikTok dating content, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "clout",
+      "facecard",
+      "pick me",
+      "soft launch",
+      "hard launch",
+      "situationship",
+      "toxic"
+    ],
+    "categories": [
+      "dating-slang",
+      "modern-relationships",
+      "clout-chasing",
+      "social-media-behavior"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [
+      "clout chasing"
+    ],
+    "antonyms": [
+      "solid",
+      "wagas"
+    ]
+  },
+  {
+    "term": "benching",
+    "definitions": [
+      "Keeping someone as a romantic backup or reserve option — maintaining just enough contact to keep them interested while focusing primary attention on other romantic prospects. The 'benched' person is never given a clear answer about where the relationship stands.",
+      "The dating equivalent of keeping a player on the bench: you're on the team but never given real playing time."
+    ],
+    "etymology": "From basketball — a bench player is on the team's roster but rarely given playing time. Applied to modern dating culture circa 2016 and widely adopted in Filipino Gen Z relationship discourse by 2024–2025, documented by pinkbunny.ph. Distinct from 'bangko' (the Filipino basketball term for bench player) in that benching emphasizes the deliberate power dynamic of keeping someone in emotional limbo.",
+    "examples": [
+      {
+        "text": "Benching ka niya — hindi kayo official pero hindi rin siya nagpapaalam pag may iba siyang katawagan.",
+        "source": "pinkbunny.ph / Filipino dating discourse, 2025"
+      },
+      {
+        "text": "Nakaka-awit na 'to, sobrang tagal na akong benched. Mag-move on na lang ako.",
+        "source": "Filipino Twitter/X dating community, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "bangko",
+      "talking stage",
+      "situationship",
+      "FUBU",
+      "ghosting",
+      "paasa",
+      "orbiting"
+    ],
+    "categories": [
+      "dating-slang",
+      "modern-relationships",
+      "digital-romance",
+      "sports-culture"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "hard launch",
+      "official"
+    ]
+  },
+  {
+    "term": "fading",
+    "definitions": [
+      "The act of gradually reducing communication — fewer messages, delayed replies, shorter responses, fewer plans — until contact eventually ceases entirely. A 'softer' alternative to ghosting that avoids direct confrontation but achieves the same result.",
+      "Also called 'soft ghosting.' The slow dimming of interest until the other person is left in silence with no clear ending."
+    ],
+    "etymology": "From the literal sense of fading away — diminishing gradually rather than switching off abruptly. Also widely called 'soft ghosting' in Filipino online dating discourse. Documented by pinkbunny.ph (December 2025) as one of the defining modern dating behaviors in the Philippines, where avoidance of direct confrontation ('ayaw makipag-away') makes fading a culturally common exit strategy.",
+    "examples": [
+      {
+        "text": "Hindi ka niya ni-ghost — fading siya. Dati araw-araw nagtetext, ngayon 3 araw bago sumagot.",
+        "source": "pinkbunny.ph / Filipino dating community, 2025"
+      },
+      {
+        "text": "Grabe 'yung fading niya — nawala na lang parang usok, walang paliwanag.",
+        "source": "Filipino Twitter/X, 2025"
+      }
+    ],
+    "regional_notes": "Fading is considered particularly prevalent in Filipino digital dating culture due to the cultural value of avoiding direct confrontation or 'pakikisama.' The gradual withdrawal allows the fader to avoid an awkward breakup conversation.",
+    "related_terms": [
+      "ghosting",
+      "na-ghosted",
+      "ghostlighting",
+      "orbiting",
+      "situationship",
+      "seenzoned"
+    ],
+    "categories": [
+      "dating-slang",
+      "modern-relationships",
+      "digital-romance",
+      "emotional-intelligence"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [
+      "soft ghosting"
+    ],
+    "antonyms": [
+      "ghosting",
+      "hard launch"
+    ]
   }
 ]

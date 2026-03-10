@@ -445,6 +445,12 @@
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: palpak, subok, bakaw, sultan, bangko)"
+    },
+    {
+      "iteration": "refinement pass 76 — seventy-sixth raw-gap audit (5 new terms, 653→658)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: orbiting, breadcrumbing, throning, benching, fading)"
     }
   ]
 }
