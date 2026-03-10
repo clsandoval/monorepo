@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects:** 27
-- **Analyzed:** 8
-- **Pending:** 19
-- **Convergence:** 30%
+- **Analyzed:** 9
+- **Pending:** 18
+- **Convergence:** 33%
 
 ---
 
@@ -21,7 +21,7 @@
 | 6 | Benchmark gov.uk | done | `analysis/benchmark-govuk.md` |
 | 7 | Benchmark SmartAsset / NerdWallet / Bankrate | done | `analysis/benchmark-calculator-content.md` |
 | 8 | Benchmark Canva / Notion | done | `analysis/benchmark-simple-powerful.md` |
-| 9 | Benchmark Stripe / Linear | pending | `analysis/benchmark-dev-design-systems.md` |
+| 9 | Benchmark Stripe / Linear | done | `analysis/benchmark-dev-design-systems.md` |
 | 10 | Survey Design System Architectures | pending | `analysis/design-system-architectures.md` |
 | 11 | Catalog 148 Tools by UI Archetype | pending | `analysis/tool-archetypes.md` |
 | 12 | Filipino Digital Design Landscape | pending | `analysis/filipino-design-landscape.md` |
