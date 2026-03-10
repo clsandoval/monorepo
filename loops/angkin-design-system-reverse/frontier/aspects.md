@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects:** 27
-- **Analyzed:** 1
-- **Pending:** 26
-- **Convergence:** 4%
+- **Analyzed:** 2
+- **Pending:** 25
+- **Convergence:** 7%
 
 ---
 
@@ -14,7 +14,7 @@
 | # | Aspect | Status | Output File |
 |---|--------|--------|-------------|
 | 1 | Audit TaxKlaro Frontend | done | `analysis/audit-taxklaro.md` |
-| 2 | Audit Inheritance Frontend | pending | `analysis/audit-inheritance.md` |
+| 2 | Audit Inheritance Frontend | done | `analysis/audit-inheritance.md` |
 | 3 | Audit PodPlay Frontend | pending | `analysis/audit-podplay.md` |
 | 4 | Benchmark Wise | pending | `analysis/benchmark-wise.md` |
 | 5 | Benchmark TurboTax / H&R Block | pending | `analysis/benchmark-tax-calculators.md` |
