@@ -2,7 +2,7 @@
 
 ## Summary Statistics
 
-- **Total terms:** 406
+- **Total terms:** 414
 - **Categories:** 45
 - **Last updated:** 2026-03-10
 
@@ -881,6 +881,21 @@
 
 ---
 
+### **hugot line**
+
+1. A specific deeply emotional, relatable quote or statement — typically about love, heartbreak, longing, or everyday Filipino life struggles — that resonates with personal experience.
+2. A cultural Filipino practice of inserting dramatically relatable one-liners into casual conversation, often as humor disguising real feelings.
+
+*Etymology:* From Tagalog 'hugot' (to pull out/draw from) + English 'line' (a quote or statement). 'Hugot lines' became a major online trend following the 2014 film 'That Thing Called Tadhana' and exploded on social media as a way for Filipinos to express unsolicited but deeply relatable emotional truths. The format has since evolved into a meme genre.
+
+**Examples:**
+- "My relationship status? Taken... taken for granted. #hugot" — *Filipino Twitter/X viral hugot line, 2023*
+- "Pinaglaban ko, hanggang wala na akong mapaglaban-an. Hugot line ng taon." — *Filipino TikTok comment, 2024*
+
+**Related:** hugot, feels, marupok, bitter, walang forever, awit
+
+---
+
 ### **imbyerna**
 
 1. To be deeply annoyed, irritated, or exasperated — often used as an exclamation when something or someone is infuriating. Also used as an adjective: 'nakakaimbyerna' (so irritating/infuriating).
@@ -1273,6 +1288,23 @@
 **Synonyms:** arat, gora
 **Related:** arat, gora, barkada
 **Regional notes:** Pan-Philippine; universally understood across all regions and age groups. Among the most frequently used words in Filipino casual speech.
+
+---
+
+### **cge**
+
+1. Informal text/chat spelling of 'sige' — meaning 'okay,' 'alright,' 'go ahead,' or 'sure.' The most common single-word affirmation in Filipino digital communication.
+2. Also used as a goodbye/sign-off: 'cge, bye' = 'okay, bye.'
+
+*Etymology:* Phonetic respelling of Tagalog 'sige' (okay/go ahead), itself derived from Spanish 'sigue' (follow/continue). 'Cge' emerged in early Filipino SMS and chat culture as a fast typing shortcut, and has remained dominant in Filipino text slang. Variants include 'geh' and 'ge lang.'
+
+**Examples:**
+- "Cge, oo nga. Meet tayo mamaya." — *Filipino group chat, 2024*
+- "Cge na, pumunta ka na dito." — *Filipino TikTok live chat, 2025*
+
+**Synonyms:** bet, sure ball
+**Related:** bet, sure ball, sige
+**Regional notes:** Used universally across all Philippine regions in digital/text communication. Variants: 'geh' (equally common), 'ge na' (hurried okay), 'cge lang' (casual okay/whatever).
 
 ---
 
@@ -1819,6 +1851,23 @@
 
 **Synonyms:** hala, wew
 **Related:** hala, shookt, wew, aray ko
+
+---
+
+### **pucha**
+
+1. A mild Filipino expletive expressing frustration, surprise, or exasperation — the toned-down version of stronger Tagalog curse words. Socially acceptable in casual settings where heavier expletives would be inappropriate.
+2. Also used as a general exclamation of disbelief or when something unexpected happens.
+
+*Etymology:* Likely derived from the Spanish/Tagalog 'puta' — softened through phonetic modification to create a milder, more socially acceptable variant. Common alternative spellings: 'putcha,' 'putcha naman.'
+
+**Examples:**
+- "Pucha, nalimutin ko na naman!" — *Filipino everyday speech / social media, 2024*
+- "Pucha naman, ang galing niya talaga." — *Filipino TikTok comment, 2025*
+
+**Synonyms:** bwiset, tae
+**Related:** bwiset, gago, tae, aray ko, hala
+**Regional notes:** Used nationwide. More acceptable in public than stronger expletives. 'Pucha naman' is a frequent construction for exasperated disbelief.
 
 ---
 
@@ -2755,6 +2804,39 @@
 
 ---
 
+### **bruh**
+
+1. Expression of disbelief, disappointment, exasperation, or mild shock — used as a standalone exclamation or prefix.
+2. Used as a term of address (like 'dude' or 'bro'), often in reaction memes and social media commentary.
+
+*Etymology:* English slang derived from 'bro' (brother), popularized globally through African American Vernacular English and internet meme culture. Widely adopted into Filipino Gen Z speech via TikTok and Twitter by 2020. Filipinos use it alongside 'bro,' 'pre,' and 'tol' — but 'bruh' specifically carries the meme-reaction meaning.
+
+**Examples:**
+- "Bruh, bakit ganyan?" — *Filipino Twitter/X reaction meme, 2024*
+- "Bruh moment talaga ito." — *Filipino TikTok comment section, 2025*
+
+**Synonyms:** pre, tol
+**Related:** pre, tol, sus, shookt
+
+---
+
+### **cringe**
+
+1. Something that evokes secondhand embarrassment or extreme awkwardness — used to describe people, content, or behavior that is painfully uncool.
+2. As a verb: to feel embarrassed or uncomfortable watching something awkward.
+
+*Etymology:* Standard English verb/adjective adopted wholesale into Filipino Gen Z speech and digital culture. Often paired with 'sobrang' (very) — 'sobrang cringe niya' — or used as a noun: 'ang cringe ng ginawa mo.' Became common in PH internet spaces c. 2018-2019 and remains core Gen Z vocabulary.
+
+**Examples:**
+- "Sobrang cringe nung ginawa niya sa harap ng lahat." — *Filipino Twitter/X, 2024*
+- "Ayaw ko panoorin — cringe vibes." — *Filipino TikTok comment, 2025*
+
+**Synonyms:** korni, baduy
+**Antonyms:** slay, bussin, lupet
+**Related:** baduy, korni, jologs, OA
+
+---
+
 ### **burgis**
 
 1. Wealthy; high-class; bourgeois; living lavishly or with upper-class affectations. Used aspirationally ('going burgis') or critically ('burgis ka — hindi mo naiintindihan').
@@ -2845,6 +2927,22 @@
 
 **Synonyms:** char, chariz, echoz
 **Related:** echoz, char, joke lang, echos
+
+---
+
+### **echos**
+
+1. Used at the end of a statement to signal 'just kidding' or 'not serious' — the older/original form that gave rise to the shortened 'chos.'
+2. An expression of playful insincerity, deployed after a bold or potentially offensive statement to soften it.
+
+*Etymology:* Gay lingo / swardspeak term from the 'jokes lang' tradition. 'Echos' is the older form that was eventually shortened to 'choz' then 'chos' in mainstream youth slang. Still used in its full form, especially in LGBTQ+ spaces and among older millennials.
+
+**Examples:**
+- "Pakialamera ka. Echos! Nag-jojoke lang." — *Filipino social media, 2024*
+- "Crush ko siya... echos, wala akong nararamdaman." — *Filipino Twitter/X, 2024*
+
+**Synonyms:** chos, char, charot
+**Related:** chos, char, chariz, charot, joke lang
 
 ---
 
@@ -3322,6 +3420,24 @@
 **Synonyms:** walang ebas, rekta
 **Antonyms:** cappin
 **Related:** walang ebas, rekta, fr, omsim
+
+---
+
+### **ngl**
+
+1. Abbreviation for 'not gonna lie' — used to preface a candid, potentially controversial, or unexpectedly honest opinion.
+2. Signals vulnerability or rare transparency: 'ngl, nasaktan ako' = 'honestly, I got hurt.'
+
+*Etymology:* English internet acronym ('not gonna lie') adopted into Filipino Gen Z digital communication from global social media culture c. 2019-2021. Used in Taglish sentences at the beginning: 'ngl, [honest statement].' Closely related to 'lowkey' in that both soften admissions.
+
+**Examples:**
+- "Ngl, gusto ko rin siya." — *Filipino Twitter/X, 2024*
+- "Ngl, hits different pag gabi." — *Filipino TikTok caption, 2025*
+
+**Synonyms:** no cap, lowkey
+**Antonyms:** cap
+**Related:** lowkey, no cap, fr fr, alam na this
+**Regional notes:** Often stacked with other softeners: 'lowkey ngl,' 'tbh ngl.'
 
 ---
 
@@ -4417,6 +4533,23 @@
 
 **Synonyms:** chika, chismis
 **Related:** chika, chismis, SKL, marites, tolits
+
+---
+
+### **tea**
+
+1. Gossip, insider information, or juicy/scandalous news — used in 'spill the tea' (share the gossip) or 'what's the tea?' (what's the latest?).
+2. The unfiltered truth about a situation or person, especially when drama is involved.
+
+*Etymology:* English slang from Black American drag culture ('T' for truth/truth-telling), popularized globally via TikTok c. 2018-2020. Filipino Gen Z adopted both 'tea' (English form) and 'tsaa' (Tagalog phonetic form) in parallel. 'Tea' appears in English-dominant Taglish; 'tsaa' in Tagalog-dominant speech.
+
+**Examples:**
+- "Spill the tea — anong nangyari sa kanila?" — *Filipino Twitter/X, 2024*
+- "What's the tea? May bago ba?" — *Filipino TikTok comment, 2025*
+
+**Synonyms:** tsaa, chika, chismis
+**Related:** tsaa, chika, chismis, marites, skl
+**Regional notes:** Used alongside 'tsaa' (the Filipinized form). 'Spill the tea' and 'what's the tea' are fixed phrases used as-is.
 
 ---
 
