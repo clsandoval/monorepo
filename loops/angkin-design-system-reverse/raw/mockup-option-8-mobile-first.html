@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#3B5BDB">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="RetireMath">
+  <meta name="description" content="I-compute ang iyong retirement pay ayon sa RA 7641. Libre, mabilis, at tumpak.">
+  <title>RetireMath by Angkin — Retirement Pay Calculator (RA 7641)</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+
+  <style>
+    /* ================================================================
+       DESIGN TOKENS — Option 8: Mobile-First Micro-App
+       ================================================================ */
+    :root {
+      --color-primary:        #3B5BDB;
+      --color-primary-light:  #E7EDFF;
+      --color-primary-dark:   #2845B8;
+      --color-accent:         #F59E0B;
+      --color-accent-light:   #FEF3C7;
+      --color-success:        #059669;
+      --color-success-mid:    #10B981;
+      --color-success-light:  #D1FAE5;
+      --color-warning:        #D97706;
+      --color-error:          #DC2626;
+      --color-error-light:    #FEE2E2;
+      --color-bg:             #F0F4FF;
+      --color-surface:        #FFFFFF;
+      --color-surface-raised: #FAFCFF;
+      --color-text-primary:   #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-tertiary:  #94A3B8;
+      --color-border:         #E2E8F0;
+
+      --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+      --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+
+      --space-1: 4px;  --space-2: 8px;   --space-3: 12px;
+      --space-4: 16px; --space-5: 20px;  --space-6: 24px;
+      --space-8: 32px; --space-10: 40px;
+
+      --radius-sm:   8px;
+      --radius-md:   12px;
+      --radius-lg:   20px;
+      --radius-pill: 100px;
+
+      --shadow-card:        0 2px 8px rgba(0,0,0,0.06), 0 0 1px rgba(0,0,0,0.04);
+      --shadow-button:      0 4px 14px rgba(59,91,219,0.35);
+      --shadow-sheet:       0 -8px 40px rgba(0,0,0,0.14);
+      --shadow-input-focus: 0 0 0 3px rgba(59,91,219,0.18);
+      --shadow-error-focus: 0 0 0 3px rgba(220,38,38,0.15);
+
+      --nav-height:    64px;
+      --header-height: 56px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-bg:             #0F172A;
+        --color-surface:        #1E293B;
+        --color-surface-raised: #263548;
+        --color-text-primary:   #F1F5F9;
+        --color-text-secondary: #94A3B8;
+        --color-text-tertiary:  #64748B;
+        --color-border:         #334155;
+        --color-primary-light:  #1E3A8A;
+        --color-success-light:  #064E3B;
+        --color-error-light:    #7F1D1D;
+        --color-accent-light:   #451A03;
+        --shadow-card:    0 2px 8px rgba(0,0,0,0.24), 0 0 1px rgba(0,0,0,0.1);
+        --shadow-button:  0 4px 14px rgba(59,91,219,0.5);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ================================================================
+       RESET
+       ================================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+
+    /* ================================================================
+       BODY & DESKTOP LAYOUT
+       ================================================================ */
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    /* Desktop: dark bg, phone frame look */
+    @media (min-width: 768px) {
+      body {
+        background: #1A1F36;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 32px 20px 60px;
+        gap: 20px;
+      }
+      .desktop-meta-top {
+        color: rgba(255,255,255,0.45);
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-align: center;
+      }
+      .desktop-meta-bottom {
+        color: rgba(255,255,255,0.35);
+        font-family: var(--font-body);
+        font-size: 11px;
+        text-align: center;
+        line-height: 1.8;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .desktop-meta-top,
+      .desktop-meta-bottom { display: none; }
+    }
+
+    /* ================================================================
+       APP SHELL
+       ================================================================ */
+    .app-shell {
+      width: 100%;
+      background: var(--color-bg);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @media (max-width: 767px) {
+      .app-shell {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .app-shell {
+        width: 393px;
+        height: 852px;
+        overflow: hidden;
+        border-radius: 48px;
+        box-shadow:
+          0 0 0 1px rgba(255,255,255,0.06) inset,
+          0 0 0 12px #1E2433,
+          0 0 0 14px #2A3050,
+          0 40px 120px rgba(0,0,0,0.65),
+          0 20px 60px rgba(59,91,219,0.18);
+      }
+      /* Dynamic island notch */
+      .app-shell::before {
+        content: '';
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 126px;
+        height: 36px;
+        background: #1E2433;
+        border-radius: 20px;
+        z-index: 200;
+      }
+    }
+
+    /* ================================================================
+       APP HEADER
+       ================================================================ */
+    .app-header {
+      height: var(--header-height);
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-4);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    @media (min-width: 768px) {
+      .app-header { margin-top: 50px; }
+    }
+
+    .header-back {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      background: transparent; border: none;
+      transition: background 150ms, color 150ms;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .header-back:hover, .header-back:focus-visible {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+    .header-back:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+    .header-title {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 600;
+      color: var(--color-text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .angkin-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-family: var(--font-body);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: lowercase;
+      padding: 4px 10px 4px 8px;
+      border-radius: var(--radius-pill);
+      height: 24px;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--color-primary);
+      border-radius: 50%;
+    }
+
+    /* ================================================================
+       MAIN SCROLL AREA
+       ================================================================ */
+    .main-content {
+      flex: 1;
+      padding: var(--space-5) var(--space-4);
+      padding-bottom: calc(var(--nav-height) + var(--space-8));
+      overflow-y: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .main-content::-webkit-scrollbar { display: none; }
+
+    @media (min-width: 768px) {
+      .main-content {
+        height: calc(852px - var(--header-height) - var(--nav-height) - 50px);
+        overflow-y: scroll;
+      }
+    }
+
+    /* ================================================================
+       TOOL INTRO
+       ================================================================ */
+    .tool-intro { margin-bottom: var(--space-6); }
+
+    .tool-category {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: var(--radius-pill);
+      margin-bottom: var(--space-3);
+    }
+
+    .tool-headline {
+      font-family: var(--font-display);
+      font-size: 26px; font-weight: 700;
+      color: var(--color-text-primary);
+      line-height: 1.2; letter-spacing: -0.02em;
+      margin-bottom: var(--space-2);
+    }
+
+    .tool-subline {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.55;
+    }
+    .tool-subline strong { color: var(--color-primary); font-weight: 600; }
+
+    /* ================================================================
+       ELIGIBILITY BANNER
+       ================================================================ */
+    .eligibility-banner {
+      display: flex; align-items: flex-start; gap: var(--space-3);
+      background: var(--color-accent-light);
+      border: 1px solid #FDE68A;
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+    .eligibility-banner-icon { color: var(--color-accent); flex-shrink: 0; margin-top: 1px; }
+    .eligibility-banner-text { font-size: 13px; color: #92400E; line-height: 1.5; }
+    .eligibility-banner-text strong { font-weight: 600; display: block; margin-bottom: 2px; }
+
+    /* ================================================================
+       SECTION TITLE
+       ================================================================ */
+    .section-title {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-3);
+      padding-left: var(--space-1);
+    }
+
+    /* ================================================================
+       FORM CARD
+       ================================================================ */
+    .form-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-5);
+      margin-bottom: var(--space-5);
+    }
+
+    .form-card-title {
+      font-family: var(--font-display);
+      font-size: 15px; font-weight: 600;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-5);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card-icon {
+      width: 32px; height: 32px;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ================================================================
+       FIELD
+       ================================================================ */
+    .field { margin-bottom: var(--space-5); }
+    .field:last-of-type { margin-bottom: 0; }
+
+    .field-label {
+      display: block;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .field-helper {
+      display: block; font-size: 12px;
+      color: var(--color-text-tertiary);
+      margin-top: 6px; line-height: 1.4;
+    }
+
+    .field-error {
+      display: none; font-size: 12px;
+      color: var(--color-error);
+      margin-top: 6px;
+      align-items: center; gap: 4px;
+    }
+    .field-error.visible { display: flex; }
+
+    /* ================================================================
+       INPUT
+       ================================================================ */
+    .input-wrapper { position: relative; display: flex; align-items: center; }
+
+    .input-prefix {
+      position: absolute; left: 16px;
+      font-size: 16px; font-weight: 600;
+      color: var(--color-primary);
+      pointer-events: none; z-index: 1; user-select: none;
+    }
+
+    .input-suffix {
+      position: absolute; right: 16px;
+      font-size: 13px; font-weight: 500;
+      color: var(--color-text-tertiary);
+      pointer-events: none; z-index: 1; user-select: none;
+    }
+
+    .input {
+      width: 100%; height: 56px;
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 16px; font-weight: 500;
+      color: var(--color-text-primary);
+      padding: 0 48px 0 40px;
+      -webkit-appearance: none; appearance: none;
+      transition: border-color 150ms, box-shadow 150ms, background 150ms;
+      outline: none;
+    }
+    .input:focus {
+      border-color: var(--color-primary);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-input-focus);
+    }
+    .input.has-error { border-color: var(--color-error); }
+    .input.has-error:focus { box-shadow: var(--shadow-error-focus); }
+    .input::placeholder { color: var(--color-text-tertiary); font-weight: 400; }
+    .input.no-prefix { padding-left: 16px; }
+    .input[type="number"]::-webkit-inner-spin-button,
+    .input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .input[type="number"] { -moz-appearance: textfield; }
+
+    /* SELECT */
+    .select-wrapper { position: relative; }
+    .select-wrapper::after {
+      content: '';
+      position: absolute; right: 16px; top: 55%;
+      transform: translateY(-60%) rotate(45deg);
+      width: 8px; height: 8px;
+      border-right: 2px solid var(--color-text-secondary);
+      border-bottom: 2px solid var(--color-text-secondary);
+      pointer-events: none;
+    }
+    .select {
+      width: 100%; height: 56px;
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 16px; font-weight: 500;
+      color: var(--color-text-primary);
+      padding: 0 40px 0 16px;
+      -webkit-appearance: none; appearance: none;
+      cursor: pointer; outline: none;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .select:focus {
+      border-color: var(--color-primary);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-input-focus);
+    }
+
+    /* ================================================================
+       INFO BOX
+       ================================================================ */
+    .info-box {
+      background: var(--color-primary-light);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      display: flex; gap: var(--space-3); align-items: flex-start;
+      margin-bottom: var(--space-5);
+    }
+    .info-box-icon { color: var(--color-primary); flex-shrink: 0; margin-top: 1px; }
+    .info-box-text { font-size: 13px; color: var(--color-primary-dark); line-height: 1.55; }
+    .info-box-text strong { font-weight: 600; }
+
+    /* ================================================================
+       COMPUTE BUTTON
+       ================================================================ */
+    .btn-compute {
+      width: 100%; height: 56px;
+      background: var(--color-primary);
+      color: white;
+      border: none; border-radius: 14px;
+      font-family: var(--font-body);
+      font-size: 16px; font-weight: 700;
+      letter-spacing: 0.01em;
+      box-shadow: var(--shadow-button);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: background 150ms, box-shadow 150ms, transform 80ms;
+      -webkit-tap-highlight-color: transparent;
+      position: relative; overflow: hidden;
+    }
+    .btn-compute:hover { background: var(--color-primary-dark); box-shadow: 0 6px 20px rgba(59,91,219,0.45); }
+    .btn-compute:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(59,91,219,0.25); }
+    .btn-compute:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+
+    .btn-compute.loading .btn-text { display: none; }
+    .btn-compute.loading .btn-spinner { display: block; }
+    .btn-compute .btn-spinner { display: none; }
+
+    .btn-spinner {
+      width: 20px; height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .btn-compute .ripple {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      transform: scale(0);
+      animation: ripple 400ms linear;
+      pointer-events: none;
+    }
+    @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+    .legal-note {
+      text-align: center; font-size: 11px;
+      color: var(--color-text-tertiary);
+      margin-top: var(--space-3); line-height: 1.5;
+    }
+    .legal-note a { color: var(--color-primary); text-decoration: none; }
+
+    /* ================================================================
+       RESULT OVERLAY
+       ================================================================ */
+    .result-overlay {
+      position: fixed; inset: 0;
+      background: rgba(15,23,42,0.65);
+      z-index: 80;
+      opacity: 0; pointer-events: none;
+      transition: opacity 300ms ease;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+    .result-overlay.visible { opacity: 1; pointer-events: all; }
+
+    @media (min-width: 768px) {
+      .result-overlay {
+        position: absolute;
+        border-radius: 48px;
+      }
+    }
+
+    /* ================================================================
+       RESULT BOTTOM SHEET
+       ================================================================ */
+    .result-sheet {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      box-shadow: var(--shadow-sheet);
+      z-index: 90;
+      transform: translateY(100%);
+      transition: transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow-y: auto;
+      max-height: 90vh;
+      padding-bottom: calc(var(--nav-height) + 20px);
+      scrollbar-width: none;
+    }
+    .result-sheet::-webkit-scrollbar { display: none; }
+    .result-sheet.visible { transform: translateY(0); }
+
+    @media (min-width: 768px) {
+      .result-sheet {
+        position: absolute;
+        left: 0; right: 0;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        max-height: 80%;
+      }
+    }
+
+    .sheet-handle {
+      width: 36px; height: 4px;
+      background: var(--color-border);
+      border-radius: var(--radius-pill);
+      margin: 12px auto 0;
+    }
+
+    /* RESULT HERO */
+    .result-hero {
+      margin: 16px var(--space-4) var(--space-4);
+      background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-mid) 100%);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6) var(--space-5);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .result-hero::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 120px; height: 120px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+    }
+    .result-hero::after {
+      content: '';
+      position: absolute; bottom: -30px; left: -30px;
+      width: 90px; height: 90px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+
+    .result-check {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      margin-bottom: var(--space-3);
+      color: white;
+    }
+
+    .result-amount {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 48px; font-weight: 800;
+      color: white; letter-spacing: -0.03em; line-height: 1;
+      margin-bottom: var(--space-2);
+    }
+
+    .result-label {
+      display: block;
+      font-size: 12px; font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .result-subtext {
+      display: block; font-size: 13px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* BREAKDOWN TABLE */
+    .breakdown-card {
+      margin: 0 var(--space-4) var(--space-4);
+      background: var(--color-surface-raised);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .breakdown-header {
+      padding: 12px var(--space-4);
+      border-bottom: 1px solid var(--color-border);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--color-text-secondary);
+    }
+
+    .breakdown-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px var(--space-4);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .breakdown-row:last-child { border-bottom: none; }
+
+    .breakdown-key {
+      font-size: 13px; color: var(--color-text-secondary);
+      flex: 1; padding-right: var(--space-3);
+    }
+
+    .breakdown-value {
+      font-size: 13px; font-weight: 600;
+      color: var(--color-text-primary);
+      font-family: var(--font-display);
+      text-align: right;
+    }
+    .breakdown-value.highlight { color: var(--color-success); }
+
+    /* SHEET ACTION BUTTONS */
+    .sheet-actions {
+      padding: 0 var(--space-4);
+      display: flex; flex-direction: column; gap: var(--space-3);
+    }
+
+    .btn-share {
+      width: 100%; height: 52px;
+      background: var(--color-accent); color: var(--color-text-primary);
+      border: none; border-radius: 14px;
+      font-family: var(--font-body); font-size: 15px; font-weight: 700;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: background 150ms, transform 80ms;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-share:hover { background: #DC8C00; }
+    .btn-share:active { transform: scale(0.97); }
+    .btn-share:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+    .btn-new-calc {
+      width: 100%; height: 48px;
+      background: transparent; color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+      border-radius: 14px;
+      font-family: var(--font-body); font-size: 15px; font-weight: 600;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: background 150ms, transform 80ms;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-new-calc:hover { background: var(--color-primary-light); }
+    .btn-new-calc:active { transform: scale(0.97); }
+    .btn-new-calc:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+    .sheet-disclaimer {
+      padding: 0 var(--space-4);
+      margin-top: var(--space-3);
+      font-size: 11px; color: var(--color-text-tertiary);
+      text-align: center; line-height: 1.55;
+    }
+
+    /* ================================================================
+       BOTTOM NAVIGATION
+       ================================================================ */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      display: flex; align-items: center; justify-content: space-around;
+      padding: 0 var(--space-3);
+      z-index: 60;
+    }
+
+    @media (max-width: 767px) {
+      .bottom-nav {
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        padding-bottom: env(safe-area-inset-bottom, 0);
+      }
+    }
+
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      padding: 6px 12px;
+      border-radius: var(--radius-md);
+      cursor: pointer; min-width: 60px;
+      transition: background 150ms;
+      background: none; border: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nav-item:hover { background: var(--color-bg); }
+    .nav-item:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+    .nav-icon-wrap { position: relative; }
+    .nav-icon { color: var(--color-text-tertiary); transition: color 150ms; font-size: 22px; }
+    .nav-label { font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); transition: color 150ms; }
+
+    .nav-item.active .nav-icon { color: var(--color-primary); }
+    .nav-item.active .nav-label { color: var(--color-primary); font-weight: 700; }
+    .nav-item.active .nav-icon-wrap::after {
+      content: '';
+      position: absolute; bottom: -7px; left: 50%;
+      transform: translateX(-50%);
+      width: 20px; height: 3px;
+      background: var(--color-primary);
+      border-radius: var(--radius-pill);
+    }
+
+    /* ================================================================
+       ERROR TOAST
+       ================================================================ */
+    .toast {
+      position: fixed;
+      bottom: calc(var(--nav-height) + 12px);
+      left: 50%; transform: translateX(-50%) translateY(24px);
+      background: var(--color-text-primary); color: white;
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      font-size: 13px; font-weight: 500; white-space: nowrap;
+      z-index: 300;
+      opacity: 0; pointer-events: none;
+      transition: opacity 200ms, transform 200ms;
+      display: flex; align-items: center; gap: 8px;
+      max-width: calc(100% - 32px);
+    }
+    .toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (min-width: 768px) {
+      .toast {
+        position: absolute;
+        bottom: calc(var(--nav-height) + 12px);
+        left: 50%; transform: translateX(-50%) translateY(24px);
+      }
+      .toast.visible { transform: translateX(-50%) translateY(0); }
+    }
+
+    /* ================================================================
+       SHAKE ERROR ANIMATION
+       ================================================================ */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%       { transform: translateX(-4px); }
+      40%       { transform: translateX(4px); }
+      60%       { transform: translateX(-4px); }
+      80%       { transform: translateX(4px); }
+    }
+    .shake { animation: shake 300ms ease-out; }
+
+    /* ================================================================
+       DEMO BUTTON (mockup only)
+       ================================================================ */
+    .demo-controls {
+      position: fixed;
+      bottom: 80px; right: 0;
+      z-index: 400;
+    }
+    @media (min-width: 768px) {
+      .demo-controls {
+        position: static;
+        display: flex; gap: 8px;
+      }
+    }
+
+    .demo-btn {
+      background: var(--color-primary);
+      color: white; border: none;
+      font-family: var(--font-body);
+      font-size: 12px; font-weight: 600;
+      cursor: pointer;
+      transition: background 150ms;
+      letter-spacing: 0.02em;
+    }
+    @media (max-width: 767px) {
+      .demo-btn {
+        border-radius: 8px 0 0 8px;
+        padding: 12px 14px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        height: 110px;
+        display: flex; align-items: center; justify-content: center;
+      }
+    }
+    @media (min-width: 768px) {
+      .demo-btn {
+        border-radius: 8px;
+        padding: 10px 18px;
+      }
+    }
+    .demo-btn:hover { background: var(--color-primary-dark); }
+  </style>
+</head>
+<body>
+
+<!-- Desktop label top -->
+<p class="desktop-meta-top">Option 8 — Mobile-First Micro-App &nbsp;•&nbsp; RetireMath by Angkin</p>
+
+<!-- ================================================================
+     APP SHELL
+     ================================================================ -->
+<div class="app-shell">
+
+  <!-- RESULT OVERLAY (inside shell for desktop containment) -->
+  <div class="result-overlay" id="resultOverlay" onclick="closeResult()" aria-hidden="true"></div>
+
+  <!-- APP HEADER -->
+  <header class="app-header" role="banner">
+    <button class="header-back" aria-label="Bumalik sa listahan ng mga tool">
+      <i class="ph ph-arrow-left" style="font-size:20px;" aria-hidden="true"></i>
+    </button>
+    <h1 class="header-title">RetireMath</h1>
+    <div class="angkin-badge" role="img" aria-label="RetireMath by Angkin">
+      <span class="badge-dot" aria-hidden="true"></span>
+      by angkin
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content" id="mainContent" role="main">
+
+    <!-- Tool intro -->
+    <div class="tool-intro">
+      <div class="tool-category" aria-label="Labor and Employment tools category">
+        <i class="ph ph-briefcase" style="font-size:12px;" aria-hidden="true"></i>
+        Labor &amp; Employment
+      </div>
+      <h2 class="tool-headline">Magkano ang iyong<br>Retirement Pay?</h2>
+      <p class="tool-subline">
+        Ayon sa <strong>RA 7641</strong> (Retirement Pay Law). I-enter ang iyong salary at taon ng serbisyo para malaman agad.
+      </p>
+    </div>
+
+    <!-- Eligibility note -->
+    <div class="eligibility-banner" role="note" aria-label="Eligibility requirements">
+      <i class="ph ph-warning-circle eligibility-banner-icon" style="font-size:20px;" aria-hidden="true"></i>
+      <div class="eligibility-banner-text">
+        <strong>Eligible ka ba?</strong>
+        Dapat ay 60 taong gulang na at nagtatrabaho ng hindi bababa sa <strong>5 taon</strong> sa iisang employer para maapply ang RA 7641.
+      </div>
+    </div>
+
+    <!-- Form -->
+    <p class="section-title">Iyong Impormasyon</p>
+    <div class="form-card" role="form" aria-label="Retirement pay calculator">
+
+      <div class="form-card-title">
+        <div class="card-icon" aria-hidden="true">
+          <i class="ph ph-user" style="font-size:16px;"></i>
+        </div>
+        Detalye ng Trabaho
+      </div>
+
+      <!-- Monthly Salary -->
+      <div class="field" id="field-salary">
+        <label class="field-label" for="salary">Basic Monthly Salary</label>
+        <div class="input-wrapper">
+          <span class="input-prefix" aria-hidden="true">₱</span>
+          <input
+            type="number" class="input"
+            id="salary" name="salary"
+            inputmode="decimal" placeholder="0.00"
+            aria-describedby="salary-helper salary-error"
+            min="0" step="any"
+          >
+        </div>
+        <span class="field-helper" id="salary-helper">Ang iyong pinakabagong basic na buwanang sahod (walang allowance)</span>
+        <span class="field-error" id="salary-error" role="alert">
+          <i class="ph ph-x-circle" style="font-size:14px;" aria-hidden="true"></i>
+          Pakienter ang iyong monthly salary
+        </span>
+      </div>
+
+      <!-- Years of Service -->
+      <div class="field" id="field-years">
+        <label class="field-label" for="years">Taon ng Serbisyo</label>
+        <div class="input-wrapper">
+          <input
+            type="number" class="input no-prefix"
+            id="years" name="years"
+            inputmode="numeric" placeholder="0"
+            aria-describedby="years-helper years-error"
+            min="5" max="50" step="1"
+          >
+          <span class="input-suffix" aria-hidden="true">taon</span>
+        </div>
+        <span class="field-helper" id="years-helper">Minimum 5 taon ayon sa RA 7641 — i-round down ang fractions</span>
+        <span class="field-error" id="years-error" role="alert">
+          <i class="ph ph-x-circle" style="font-size:14px;" aria-hidden="true"></i>
+          Minimum 5 taon ng serbisyo para sa RA 7641
+        </span>
+      </div>
+
+      <!-- Employment type -->
+      <div class="field">
+        <label class="field-label" for="employment-type">Klase ng Trabaho</label>
+        <div class="select-wrapper">
+          <select class="select" id="employment-type" name="employment-type">
+            <option value="private">Private Sector (RA 7641)</option>
+            <option value="government">Gobyerno / Government</option>
+            <option value="ofw">Overseas Filipino Worker</option>
+          </select>
+        </div>
+        <span class="field-helper">Para sa gobyerno, nag-apply ang ibang batas (GSIS)</span>
+      </div>
+
+    </div><!-- /form-card -->
+
+    <!-- Formula info box -->
+    <div class="info-box" role="note">
+      <i class="ph ph-info info-box-icon" style="font-size:20px;" aria-hidden="true"></i>
+      <p class="info-box-text">
+        <strong>Formula:</strong> Daily Rate (Monthly Salary ÷ 26) × 22.5 days × Taon ng Serbisyo = Retirement Pay
+      </p>
+    </div>
+
+    <!-- Compute button -->
+    <button
+      class="btn-compute" id="computeBtn"
+      onclick="handleCompute(event)"
+      aria-label="I-compute ang aking retirement pay"
+    >
+      <span class="btn-text">
+        <i class="ph ph-calculator" style="font-size:18px;" aria-hidden="true"></i>
+        I-compute ang Retirement Pay
+      </span>
+      <span class="btn-spinner" aria-hidden="true"></span>
+    </button>
+
+    <p class="legal-note">
+      Para sa impormasyon lamang. Kumonsulta sa iyong HR o abugado para sa opisyal na kalkulasyon.<br>
+      <a href="javascript:void(0)" onclick="return false;">Basahin ang RA 7641 →</a>
+    </p>
+
+  </main><!-- /main-content -->
+
+  <!-- RESULT BOTTOM SHEET -->
+  <div
+    class="result-sheet" id="resultSheet"
+    role="dialog" aria-modal="true"
+    aria-label="Resulta ng Kalkulasyon ng Retirement Pay"
+    aria-hidden="true"
+  >
+    <div class="sheet-handle" aria-hidden="true"></div>
+
+    <div class="result-hero" role="region" aria-label="Resulta">
+      <div class="result-check" aria-hidden="true">
+        <i class="ph ph-check-circle" style="font-size:22px;"></i>
+      </div>
+      <span class="result-amount" id="resultAmount" aria-live="polite" aria-atomic="true">₱0.00</span>
+      <span class="result-label">Retirement Pay (RA 7641)</span>
+      <span class="result-subtext" id="resultSubtext">Batay sa iyong mga sinagot</span>
+    </div>
+
+    <div class="breakdown-card" role="table" aria-label="Breakdown ng kalkulasyon">
+      <div class="breakdown-header" role="rowgroup">Paano nakwenta ito</div>
+      <div class="breakdown-row" role="row">
+        <span class="breakdown-key" role="cell">Basic Monthly Salary</span>
+        <span class="breakdown-value" id="bd-salary" role="cell">—</span>
+      </div>
+      <div class="breakdown-row" role="row">
+        <span class="breakdown-key" role="cell">Daily Rate (÷ 26 na araw)</span>
+        <span class="breakdown-value" id="bd-daily" role="cell">—</span>
+      </div>
+      <div class="breakdown-row" role="row">
+        <span class="breakdown-key" role="cell">Taon ng Serbisyo</span>
+        <span class="breakdown-value" id="bd-years" role="cell">—</span>
+      </div>
+      <div class="breakdown-row" role="row">
+        <span class="breakdown-key" role="cell">Daily Rate × 22.5 × Taon</span>
+        <span class="breakdown-value highlight" id="bd-total" role="cell">—</span>
+      </div>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn-share" onclick="handleShare()">
+        <i class="ph ph-share-network" style="font-size:18px;" aria-hidden="true"></i>
+        I-share ang Resulta
+      </button>
+      <button class="btn-new-calc" onclick="closeResult()">
+        <i class="ph ph-arrow-counter-clockwise" style="font-size:16px;" aria-hidden="true"></i>
+        Bago na Kalkulasyon
+      </button>
+    </div>
+
+    <p class="sheet-disclaimer">
+      Para sa impormasyon lamang. Ang aktwal na retirement pay ay maaaring mag-iba depende sa CBA, company policy, at iba pang benepisyo.
+    </p>
+  </div><!-- /result-sheet -->
+
+  <!-- ERROR TOAST -->
+  <div class="toast" id="errorToast" role="alert" aria-live="assertive">
+    <i class="ph ph-warning" style="font-size:16px;" aria-hidden="true"></i>
+    <span id="toastMessage">Pakienter ang lahat ng kinakailangang impormasyon.</span>
+  </div>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav" aria-label="Pangunahing navigation">
+    <button class="nav-item" aria-label="Home">
+      <span class="nav-icon-wrap">
+        <i class="ph ph-house nav-icon" aria-hidden="true"></i>
+      </span>
+      <span class="nav-label">Home</span>
+    </button>
+    <button class="nav-item active" aria-current="page" aria-label="Mga Tool">
+      <span class="nav-icon-wrap">
+        <i class="ph ph-calculator nav-icon" aria-hidden="true"></i>
+      </span>
+      <span class="nav-label">Mga Tool</span>
+    </button>
+    <button class="nav-item" aria-label="Na-save">
+      <span class="nav-icon-wrap">
+        <i class="ph ph-bookmark-simple nav-icon" aria-hidden="true"></i>
+      </span>
+      <span class="nav-label">Na-save</span>
+    </button>
+    <button class="nav-item" aria-label="Tulong">
+      <span class="nav-icon-wrap">
+        <i class="ph ph-question nav-icon" aria-hidden="true"></i>
+      </span>
+      <span class="nav-label">Tulong</span>
+    </button>
+  </nav>
+
+</div><!-- /app-shell -->
+
+<!-- Desktop footer label -->
+<p class="desktop-meta-bottom">
+  Bricolage Grotesque + Plus Jakarta Sans &nbsp;•&nbsp; Indigo #3B5BDB &nbsp;•&nbsp; Independent PWA<br>
+  Mobile-First &nbsp;•&nbsp; Offline-Capable &nbsp;•&nbsp; One-Thumb Operation
+</p>
+
+<!-- Demo controls -->
+<div class="demo-controls" role="complementary" aria-label="Mockup demo controls">
+  <button class="demo-btn" onclick="demoResult()" title="Show result state">Show Result</button>
+</div>
+
+<!-- ================================================================
+     JAVASCRIPT
+     ================================================================ -->
+<script>
+  // ── HELPERS ──────────────────────────────────────────────────
+  function formatPeso(n) {
+    return '₱' + n.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  // ── VALIDATION ───────────────────────────────────────────────
+  function clearError(fieldId, inputId, errorId) {
+    document.getElementById(fieldId)?.classList.remove('error');
+    document.getElementById(inputId)?.classList.remove('has-error');
+    document.getElementById(errorId)?.classList.remove('visible');
+  }
+
+  function showError(fieldId, inputId, errorId) {
+    document.getElementById(fieldId)?.classList.add('error');
+    const input = document.getElementById(inputId);
+    input?.classList.add('has-error');
+    document.getElementById(errorId)?.classList.add('visible');
+    input?.classList.add('shake');
+    setTimeout(() => input?.classList.remove('shake'), 300);
+  }
+
+  function validateInputs(salary, years) {
+    let valid = true;
+    if (!salary || salary <= 0) {
+      showError('field-salary', 'salary', 'salary-error');
+      valid = false;
+    } else {
+      clearError('field-salary', 'salary', 'salary-error');
+    }
+    if (!years || years < 5) {
+      showError('field-years', 'years', 'years-error');
+      valid = false;
+    } else {
+      clearError('field-years', 'years', 'years-error');
+    }
+    return valid;
+  }
+
+  // ── COMPUTE ──────────────────────────────────────────────────
+  function handleCompute(event) {
+    const btn = document.getElementById('computeBtn');
+    const salary = parseFloat(document.getElementById('salary').value);
+    const years  = parseInt(document.getElementById('years').value);
+
+    if (!validateInputs(salary, years)) {
+      showToast('Pakienter ang lahat ng kinakailangang impormasyon.');
+      return;
+    }
+
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    // Ripple effect
+    if (event) {
+      const rect = btn.getBoundingClientRect();
+      const cx = (event.clientX || rect.left + rect.width / 2) - rect.left;
+      const cy = (event.clientY || rect.top + rect.height / 2) - rect.top;
+      const r = document.createElement('span');
+      r.className = 'ripple';
+      r.style.cssText = `left:${cx - 30}px;top:${cy - 30}px;width:60px;height:60px;`;
+      btn.appendChild(r);
+      setTimeout(() => r.remove(), 400);
+    }
+
+    setTimeout(() => {
+      // RA 7641: Daily Rate = Monthly / 26, Retirement = DR × 22.5 × years
+      const dailyRate     = salary / 26;
+      const retirementPay = dailyRate * 22.5 * years;
+
+      document.getElementById('bd-salary').textContent = formatPeso(salary);
+      document.getElementById('bd-daily').textContent  = formatPeso(dailyRate);
+      document.getElementById('bd-years').textContent  = years + (years === 1 ? ' taon' : ' taon');
+      document.getElementById('bd-total').textContent  = formatPeso(retirementPay);
+      document.getElementById('resultSubtext').textContent = 'Para sa ' + years + ' taon ng serbisyo';
+
+      showResult(retirementPay);
+
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }, 700);
+  }
+
+  // ── RESULT SHEET ─────────────────────────────────────────────
+  function showResult(amount) {
+    const sheet   = document.getElementById('resultSheet');
+    const overlay = document.getElementById('resultOverlay');
+    overlay.classList.add('visible');
+    overlay.setAttribute('aria-hidden', 'false');
+    sheet.classList.add('visible');
+    sheet.setAttribute('aria-hidden', 'false');
+    animateCounter(amount);
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => sheet.querySelector('button')?.focus(), 400);
+  }
+
+  function closeResult() {
+    const sheet   = document.getElementById('resultSheet');
+    const overlay = document.getElementById('resultOverlay');
+    overlay.classList.remove('visible');
+    overlay.setAttribute('aria-hidden', 'true');
+    sheet.classList.remove('visible');
+    sheet.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    document.getElementById('computeBtn')?.focus();
+  }
+
+  // ── COUNTER ANIMATION ────────────────────────────────────────
+  function animateCounter(target) {
+    const el = document.getElementById('resultAmount');
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = formatPeso(target);
+      return;
+    }
+    const dur = 700, t0 = performance.now();
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    function frame(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      el.textContent = formatPeso(target * ease(p));
+      if (p < 1) requestAnimationFrame(frame);
+      else el.textContent = formatPeso(target);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ── TOAST ────────────────────────────────────────────────────
+  let _toastTimer;
+  function showToast(msg) {
+    const toast = document.getElementById('errorToast');
+    document.getElementById('toastMessage').textContent = msg;
+    toast.classList.add('visible');
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(() => toast.classList.remove('visible'), 3000);
+  }
+
+  // ── SHARE ────────────────────────────────────────────────────
+  function handleShare() {
+    const amount = document.getElementById('resultAmount')?.textContent || '';
+    const years  = document.getElementById('years')?.value || '';
+    const text   = `Ang aking retirement pay (RA 7641) ay ${amount} para sa ${years} taon ng serbisyo. I-compute mo rin sa Angkin!`;
+    if (navigator.share) {
+      navigator.share({ title: 'RetireMath by Angkin', text, url: location.href }).catch(() => {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text + ' ' + location.href)
+        .then(() => showToast('Na-copy ang resulta sa clipboard!'))
+        .catch(() => showToast('I-screenshot ang page para i-share!'));
+    }
+  }
+
+  // ── KEYBOARD ─────────────────────────────────────────────────
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeResult(); });
+
+  // ── DEMO ─────────────────────────────────────────────────────
+  function demoResult() {
+    document.getElementById('salary').value = '28000';
+    document.getElementById('years').value  = '7';
+    const salary = 28000, years = 7;
+    const dailyRate = salary / 26;
+    const total     = dailyRate * 22.5 * years;
+    document.getElementById('bd-salary').textContent  = formatPeso(salary);
+    document.getElementById('bd-daily').textContent   = formatPeso(dailyRate);
+    document.getElementById('bd-years').textContent   = years + ' taon';
+    document.getElementById('bd-total').textContent   = formatPeso(total);
+    document.getElementById('resultSubtext').textContent = 'Para sa ' + years + ' taon ng serbisyo';
+    showResult(total);
+  }
+</script>
+
+</body>
+</html>
