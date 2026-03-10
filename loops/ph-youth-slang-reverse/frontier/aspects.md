@@ -5,9 +5,9 @@
 - Analyzed: 25
 - Pending: 0
 - Convergence counter: 0/3
-- Raw terms gathered: 325
-- Terms defined: 325
-- Categories discovered: 26
+- Raw terms gathered: 329
+- Terms defined: 329
+- Categories discovered: 32
 
 ---
 
