@@ -265,6 +265,12 @@
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: weh, amboy, promdi, patok, toxic)"
+    },
+    {
+      "iteration": "refinement pass 46 — forty-sixth raw-gap audit (9 new terms, 427→436)",
+      "new_terms": 9,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (9 new terms found: solid, bossing, pards, let him cook, understood the assignment, caught in 4k, maritess, vibe, stan)"
     }
   ]
 }
