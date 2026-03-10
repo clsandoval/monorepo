@@ -19243,5 +19243,330 @@
       "KJ",
       "bitter"
     ]
+  },
+  {
+    "term": "ghosting",
+    "definitions": [
+      "Suddenly and completely cutting off all communication with someone — no calls, no texts, no replies — without any explanation or warning. Used in the context of dating, friendships, or even professional relationships."
+    ],
+    "etymology": "English loanword from global internet/dating culture (from 'ghost' — to disappear like a ghost). Fully integrated into Filipino casual speech through code-switching and social media. Distinct from 'ghostlighting' (ghosting + gaslighting, a Filipino-coined portmanteau).",
+    "examples": [
+      {
+        "text": "Ang sama niya, bigla na lang siya nag-ghost sa'kin — walang text, walang tawag.",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Na-ghosting na naman ako. Bakit ganito palagi?",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "ghostlighting",
+      "seenzone",
+      "situationship",
+      "talking stage",
+      "MU"
+    ],
+    "categories": [
+      "dating-and-relationships",
+      "digital-and-internet-culture"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "TikTok PH — trending slang compilations"
+    ],
+    "synonyms": [
+      "seenzone"
+    ],
+    "antonyms": [
+      "hard launch",
+      "soft launch"
+    ]
+  },
+  {
+    "term": "chismosa",
+    "definitions": [
+      "A person — typically female — who loves to gossip, spread rumors, and pry into other people's business. Can be used playfully among friends or as a genuine insult depending on context.",
+      "As an adjective: excessively nosy or gossipy behavior."
+    ],
+    "etymology": "From Spanish 'chisme' (gossip), via Filipino 'chismis.' The '-osa' suffix is the Spanish/Filipino feminine adjectival form (cf. 'chismoso' for males). Long-established in Filipino vocabulary but remains highly active in Gen Z social media commentary, meme culture, and online banter.",
+    "examples": [
+      {
+        "text": "Huwag mo siyang sabihin, chismosa siya — bukas alam na ng lahat.",
+        "source": "Filipino casual speech, 2024"
+      },
+      {
+        "text": "Ang chismosa mo naman, bakit alam mo lahat ng nangyayari sa buhay niya?",
+        "source": "Filipino social media, 2025"
+      }
+    ],
+    "regional_notes": "Used nationwide. The masculine form is 'chismoso.' In online culture, 'chismosa' is often used self-deprecatingly and playfully among friends (e.g., 'chismosa gang').",
+    "related_terms": [
+      "chismis",
+      "tea",
+      "maritess",
+      "marites",
+      "tsaa"
+    ],
+    "categories": [
+      "personality-and-character",
+      "social-and-community"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "Filipino meme pages"
+    ],
+    "synonyms": [
+      "maritess",
+      "marites"
+    ],
+    "antonyms": [
+      "dedma"
+    ]
+  },
+  {
+    "term": "lason",
+    "definitions": [
+      "Slang for someone dangerously attractive, irresistibly charming, or so beautiful it feels threatening — metaphorically 'poisonous' in their appeal. Used as an extreme compliment."
+    ],
+    "etymology": "From Tagalog/Filipino 'lason' (poison). The metaphor of beauty or charm as something toxic and irresistible draws on the broader Filipino tradition of using danger/poison imagery as hyperbole for attractiveness (cf. 'nakaka-adik,' 'nakaka-addict').",
+    "examples": [
+      {
+        "text": "Ang lason ng ganda niya — hindi ka makatingin nang diretso.",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Lason na lason talaga ang bagong music video niya — dinig na ng lahat.",
+        "source": "Filipino Twitter/X, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "dyosa",
+      "facecard",
+      "apakaganda",
+      "hipon",
+      "tsupogi"
+    ],
+    "categories": [
+      "compliments-and-aesthetics",
+      "attractiveness-and-appearance"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "TikTok PH — trending slang compilations"
+    ],
+    "synonyms": [
+      "apakaganda",
+      "dyosa"
+    ],
+    "antonyms": [
+      "chaka"
+    ]
+  },
+  {
+    "term": "bestie",
+    "definitions": [
+      "Best friend; a very close, trusted companion. Used as both a noun and a term of address, often with warmth or affection.",
+      "Used ironically online to gently correct someone — e.g., 'Bestie, hindi ganyan yun…' — a soft but pointed way of calling someone out."
+    ],
+    "etymology": "English loanword. Fully absorbed into Filipino youth vocabulary through global social media culture (TikTok, Twitter/X). Functions alongside native Filipino equivalents like 'beshie,' 'besh,' 'bes,' and 'tropa.'",
+    "examples": [
+      {
+        "text": "Bestie, hindi ka nag-iisa. Nandito lang kami.",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Bestie, ang layo naman ng assumption mo doon.",
+        "source": "Filipino Twitter/X, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "beshie",
+      "besh",
+      "bes",
+      "tropa",
+      "barkada",
+      "moots"
+    ],
+    "categories": [
+      "friendship-and-camaraderie",
+      "terms-of-address"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "TikTok PH — trending slang compilations"
+    ],
+    "synonyms": [
+      "beshie",
+      "besh",
+      "bes"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "yaiks",
+    "definitions": [
+      "A Filipino adaptation of the English 'yikes' — an exclamation expressing disgust, shock, embarrassment, cringe, or discomfort. Used as a reaction to something awkward, gross, or surprising."
+    ],
+    "etymology": "Phonetic Filipinization of English 'yikes.' The spelling retained but pronunciation adapted to Filipino phonology. Represents the natural code-switching process where English exclamations get respelled for Filipino casual text communication.",
+    "examples": [
+      {
+        "text": "Yaiks! Nakita niya ang screenshots ng chat.",
+        "source": "Filipino group chat / social media, 2024"
+      },
+      {
+        "text": "Yaiks, grabe naman ang ginawa niya — how embarrassing.",
+        "source": "Filipino Twitter/X, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "cringe",
+      "hala",
+      "grabe",
+      "sheesh",
+      "awts"
+    ],
+    "categories": [
+      "reactions-and-expressions",
+      "exclamations"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "TikTok PH — trending slang compilations"
+    ],
+    "synonyms": [
+      "hala",
+      "grabe"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "pabibo",
+    "definitions": [
+      "Someone who tries too hard to impress, show off, or get attention — especially in a group or classroom setting. Often described as a 'teacher's pet' or 'attention-seeker.' The behavior itself, or the label for someone who exhibits it."
+    ],
+    "etymology": "From Filipino 'bibo' (lively, smart, eager) with the 'pa-' prefix indicating performance or pretense (cf. 'pa-cute,' 'pa-gets,' 'pa-fall'). So 'pabibo' = acting lively/eager in a performative, showy way to attract attention or praise.",
+    "examples": [
+      {
+        "text": "Lagi siyang nagtatanong para mapansin ng teacher — pabibo talaga siya.",
+        "source": "Filipino casual speech, 2024"
+      },
+      {
+        "text": "Huwag kang pabibo, walang nagbibigay ng award doon.",
+        "source": "Filipino social media, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "pa-cute",
+      "epal",
+      "KSP",
+      "pick me",
+      "pa-gets"
+    ],
+    "categories": [
+      "personality-and-character",
+      "social-and-community"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "TikTok PH — trending slang compilations"
+    ],
+    "synonyms": [
+      "epal",
+      "KSP",
+      "pick me"
+    ],
+    "antonyms": [
+      "dedma",
+      "kebs"
+    ]
+  },
+  {
+    "term": "neks taiym",
+    "definitions": [
+      "A sarcastic taunt directed at someone who just lost a game, competition, or argument — a phonetically Filipino-spelled version of 'next time,' meaning 'better luck next time (loser).' Often said in a mocking, triumphant tone.",
+      "Used self-deprecatingly to joke about one's own failure."
+    ],
+    "etymology": "Phonetic Filipinization of English 'next time.' The respelling exaggerates the taunting quality — making it clearly a slang term rather than a sincere phrase. Common in online gaming banter, competitive contexts, and social media clap-backs.",
+    "examples": [
+      {
+        "text": "Talo ka na naman, neks taiym na lang!",
+        "source": "Filipino gaming Discord, 2024"
+      },
+      {
+        "text": "Neks taiym na lang tayo sa finals — hindi na makuha ngayon.",
+        "source": "Filipino social media, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "L",
+      "sablay",
+      "olats",
+      "gg",
+      "W"
+    ],
+    "categories": [
+      "gaming-and-esports",
+      "reactions-and-expressions",
+      "taunts-and-trash-talk"
+    ],
+    "sources": [
+      "Gaming PH — Discord and Facebook gaming groups",
+      "Twitter/X Filipino — slang threads"
+    ],
+    "synonyms": [
+      "L",
+      "sablay"
+    ],
+    "antonyms": [
+      "W",
+      "panalo",
+      "gg"
+    ]
+  },
+  {
+    "term": "chareng",
+    "definitions": [
+      "A more playful or exaggerated variant of 'charot' — said after a statement to indicate you're only joking. Carries the same meaning but with additional comedic flair, often used to soften a sharp or bold claim."
+    ],
+    "etymology": "Derived from 'charot' (itself from gay lingo / swardspeak). The '-eng' suffix is a common Filipino slang augmentation (cf. 'keribels,' 'chareng') that adds emphasis or playfulness. Also related to 'char' and 'chos' — all part of the same family of Tagalog joking disclaimers.",
+    "examples": [
+      {
+        "text": "Crush ko siya, chareng! Pero sana naman.",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Ikaw na ang maganda dito — chareng! Pero totoo naman.",
+        "source": "Filipino group chat, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "charot",
+      "char",
+      "chos",
+      "echos",
+      "joke lang"
+    ],
+    "categories": [
+      "humor-and-sarcasm",
+      "beki-lingo-and-swardspeak"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads",
+      "TikTok PH — trending slang compilations"
+    ],
+    "synonyms": [
+      "charot",
+      "char",
+      "chos"
+    ],
+    "antonyms": []
   }
 ]
