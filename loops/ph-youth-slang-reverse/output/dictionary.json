@@ -11655,5 +11655,150 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "paasa",
+    "definitions": [
+      "A person who gives false hope, especially in a romantic context — someone who flirts or acts interested but has no real intentions. Also used as a verb: 'pinapaasa' (to lead someone on).",
+      "Broadly, anyone who creates an expectation they have no intention of fulfilling."
+    ],
+    "etymology": "From Tagalog 'pag-asa' (hope), with the prefix 'pa-' indicating causation — literally 'one who causes hope (where there is none).' Long-standing Filipino slang that has intensified in Gen Z usage through hugot culture and social media.",
+    "examples": [
+      {
+        "text": "Huwag mo akong paasahin pa — sabihin mo na kung wala kang balak.",
+        "source": "Filipino Twitter/X, relationship discourse, 2024"
+      },
+      {
+        "text": "Classic paasa 'yan — sweet kapag kailangan ka niya, absent kapag kailangan mo siya.",
+        "source": "Filipino TikTok comment section, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "FUBU",
+      "situationship",
+      "talking stage",
+      "pa-fall",
+      "ghostlighting",
+      "marupok"
+    ],
+    "categories": [
+      "relationships-and-romance",
+      "emotions-and-feelings"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "green flag"
+    ]
+  },
+  {
+    "term": "mema",
+    "definitions": [
+      "Saying something just for the sake of saying it — a comment or statement that is irrelevant, empty, or without substance. Short for 'may masabi lang' (just to have something to say).",
+      "Used as a noun/adjective to describe a person who talks without contributing meaningful content."
+    ],
+    "etymology": "Contraction of the Tagalog phrase 'may masabi lang' (lit. 'just to have something to say'). Has been in Filipino internet culture since at least the late 2010s but remains in active use among Gen Z and millennials.",
+    "examples": [
+      {
+        "text": "Wag kang mema — kung walang maidudulot ang sinasabi mo, 'wag na.",
+        "source": "Filipino social media, general usage, 2024"
+      },
+      {
+        "text": "Mema lang 'yun niya — puro salita, walang action.",
+        "source": "Filipino Twitter/X thread, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "epal",
+      "hanash",
+      "chika",
+      "walang ebas"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "attitudes-and-behavior"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "edi wow",
+    "definitions": [
+      "A sarcastic Taglish expression meaning 'so what?' or 'well, good for you — nobody cares.' Used to dismiss a boast or deflect an argument with ironic faux-admiration.",
+      "Can also signal a conversation dead-end: used when someone has run out of counterarguments but refuses to concede."
+    ],
+    "etymology": "Taglish blend: 'edi' (Tagalog particle meaning 'then/so') + 'wow' (English exclamation). The combination inverts the sincerity of 'wow,' turning it into a sarcastic shrug. Popularized in Filipino internet culture through memes and Twitter exchanges.",
+    "examples": [
+      {
+        "text": "A: 'Nag-perfect score ako sa exam!' B: 'Edi wow.'",
+        "source": "Classic Filipino meme / internet usage, widely circulated 2023-2025"
+      },
+      {
+        "text": "Nagmamayabang na naman — edi wow na lang.",
+        "source": "Filipino TikTok comment, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "OA",
+      "epal",
+      "okray",
+      "char"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "expressions-and-exclamations"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "simp",
+    "definitions": [
+      "Someone who shows excessive attention, flattery, or devotion toward a crush or love interest — usually to the point of embarrassing themselves or receiving nothing in return.",
+      "Used as a verb: 'simping' — the act of being excessively devoted, often at the cost of one's own dignity."
+    ],
+    "etymology": "Adopted from English/American internet slang (popularized via Twitch and Twitter c. 2019-2020). Integrated into Filipino Gen Z vocabulary through TikTok and meme culture; fully localized in Tagalog sentence structures by 2023.",
+    "examples": [
+      {
+        "text": "Ang simp mo naman sa kanya — kahit anong gawin niya okay na okay ka.",
+        "source": "Filipino TikTok comment section, 2024"
+      },
+      {
+        "text": "Simping na rin siya — lagi nalang naka-standby kapag nag-text yung crush.",
+        "source": "Filipino Gen Z group chat, reported via Twitter/X, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "pa-fall",
+      "marupok",
+      "paasa",
+      "kilig",
+      "situationship"
+    ],
+    "categories": [
+      "relationships-and-romance",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": []
   }
 ]
