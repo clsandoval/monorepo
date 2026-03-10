@@ -887,7 +887,8 @@
     "related_terms": [
       "aray ko",
       "aray mo",
-      "awit sayo"
+      "awit sayo",
+      "awts"
     ],
     "categories": [
       "emotions-and-feelings"
@@ -5777,7 +5778,10 @@
       "marupok",
       "kilig",
       "awit",
-      "lambing"
+      "lambing",
+      "bitter",
+      "walang forever",
+      "feels"
     ],
     "categories": [
       "emotions-and-feelings",
@@ -6099,7 +6103,9 @@
       "ebeb",
       "bb",
       "beh",
-      "MU (mutual understanding)"
+      "MU (mutual understanding)",
+      "syota",
+      "jowable"
     ],
     "categories": [
       "romance-and-relationships"
@@ -6466,7 +6472,8 @@
       "hugot",
       "marupok",
       "lambing",
-      "nakakatunaw"
+      "nakakatunaw",
+      "feels"
     ],
     "categories": [
       "emotions-and-feelings",
@@ -7880,7 +7887,8 @@
       "pakipot",
       "kilig",
       "hugot",
-      "lambing"
+      "lambing",
+      "feels"
     ],
     "categories": [
       "emotions-and-feelings",
@@ -8222,7 +8230,8 @@
       "talking stage",
       "jowa",
       "pa-fall",
-      "paasa"
+      "paasa",
+      "syota"
     ],
     "categories": [
       "romance-and-relationships"
@@ -10809,7 +10818,9 @@
       "paasa",
       "talking stage",
       "LQ",
-      "torpe"
+      "torpe",
+      "bitter",
+      "walang forever"
     ],
     "categories": [
       "romance-and-relationships",
@@ -11180,7 +11191,8 @@
       "marupok",
       "jowa",
       "soft launch",
-      "hard launch"
+      "hard launch",
+      "syota"
     ],
     "categories": [
       "romance-and-relationships",
@@ -13406,6 +13418,246 @@
     "antonyms": [
       "on-game",
       "gora"
+    ]
+  },
+  {
+    "term": "syota",
+    "definitions": [
+      "An unofficial romantic partner; someone you're dating but not formally committed to — the Filipino precursor to the English term 'situationship.' Can also refer loosely to a boyfriend or girlfriend.",
+      "Historically, from 'short time,' implying a non-serious or transient relationship."
+    ],
+    "etymology": "Condensed from the English phrase 'short time,' popularized in the Philippines during the 1970s–1990s, originally referencing short-duration motel stays. Evolved to mean an unofficial romantic partner.",
+    "examples": [
+      {
+        "text": "Syota lang namin kami, hindi pa kami official.",
+        "source": "Filipino everyday conversation, widely documented on Inquirer USA, 2024"
+      },
+      {
+        "text": "Ano'ng pangalan ng syota mo?",
+        "source": "Wiktionary Filipino example sentence"
+      },
+      {
+        "text": "Hindi pa ko ready mag-jowa, syota muna.",
+        "source": "Filipino social media comment section, 2024"
+      }
+    ],
+    "regional_notes": "Used nationwide; the term carries a slightly informal or non-serious connotation, contrasting with 'jowa' which implies a more committed relationship.",
+    "related_terms": [
+      "jowa",
+      "MU",
+      "talking stage",
+      "situationship",
+      "marupok",
+      "pa-fall"
+    ],
+    "categories": [
+      "romance-and-relationships"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "MU"
+    ],
+    "antonyms": [
+      "jowa"
+    ]
+  },
+  {
+    "term": "jowable",
+    "definitions": [
+      "Describes someone who is boyfriend or girlfriend material; romantically desirable in a committed-relationship sense."
+    ],
+    "etymology": "Derived from 'jowa' (Filipino slang for romantic partner) + the English adjectival suffix '-able.' A portmanteau construction typical of Filipino slang wordplay.",
+    "examples": [
+      {
+        "text": "Ang jowable niya! Sana maging jowa ko.",
+        "source": "Filipino social media, documented on Inquirer USA slang guide, 2024"
+      },
+      {
+        "text": "Grabe, jowable talaga siya — sweet pa.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "jowa",
+      "kilig",
+      "marupok",
+      "pa-fall",
+      "rizz"
+    ],
+    "categories": [
+      "romance-and-relationships"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "torpe"
+    ]
+  },
+  {
+    "term": "walang forever",
+    "definitions": [
+      "Literally 'there is no forever'; a humorous or cynical expression used to brush off romantic idealism, comment on a relationship ending, or laugh off heartbreak."
+    ],
+    "etymology": "Filipino phrase combining 'walang' (there is no/none) + 'forever' (English loanword). Emerged from widespread meme and social media culture as a sardonic take on romantic permanence.",
+    "examples": [
+      {
+        "text": "Naghiwalay na rin pala sila. Walang forever talaga.",
+        "source": "Filipino social media reaction, documented in Filipino slang guides, 2024"
+      },
+      {
+        "text": "Walang forever, may NLEX pa.",
+        "source": "Popular Filipino meme format referencing NLEX toll road as a comic extension"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "sawi",
+      "hugot",
+      "bitter",
+      "LQ",
+      "badtrip",
+      "awit"
+    ],
+    "categories": [
+      "romance-and-relationships",
+      "expressions-and-exclamations",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "bitter",
+    "definitions": [
+      "Feeling resentful, sour, or envious — especially in romantic contexts, e.g., being bitter over an ex or about someone else's relationship success.",
+      "Used as both adjective and noun; to describe or label someone who reacts poorly to rejection or another's happiness."
+    ],
+    "etymology": "Direct English loanword. Used in Filipino Gen Z speech as a standalone term without translation, reflecting the direct code-switching common in Filipino informal language.",
+    "examples": [
+      {
+        "text": "Bitter ka lang kasi hindi ka niya pinili.",
+        "source": "Filipino social media, widely cited in Gen Z slang guides, 2024"
+      },
+      {
+        "text": "Huwag maging bitter, bro. Move on na.",
+        "source": "Filipino Twitter/X conversation, 2024"
+      },
+      {
+        "text": "Ang bitter ng mga comments niya sa post ng ex niya.",
+        "source": "Filipino social media observation, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "sawi",
+      "basted",
+      "marupok",
+      "hugot",
+      "walang forever",
+      "umay"
+    ],
+    "categories": [
+      "emotions-and-feelings",
+      "romance-and-relationships"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "sawi"
+    ],
+    "antonyms": [
+      "sana all",
+      "kilig"
+    ]
+  },
+  {
+    "term": "awts",
+    "definitions": [
+      "An exclamation expressing sympathy, disappointment, or commiseration — used when reacting to someone's misfortune or bad news. Variant of 'awit.'"
+    ],
+    "etymology": "Variant form of 'awit' (from 'aw, sakit' — 'aw, that hurts'). The shift from 'awit' to 'awts' reflects Filipino Gen Z's tendency to alter endings of slang for variation or emphasis.",
+    "examples": [
+      {
+        "text": "Awts, hindi ka natanggap sa trabaho?",
+        "source": "Filipino social media, documented in Gen Z slang compilations, 2024"
+      },
+      {
+        "text": "Awts naman, ang sakit nun.",
+        "source": "Filipino Twitter/X reaction, 2024"
+      },
+      {
+        "text": "Naghiwalay na sila? Awts.",
+        "source": "Filipino comment section reaction, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "awit",
+      "aray ko",
+      "sawi",
+      "badtrip"
+    ],
+    "categories": [
+      "emotions-and-feelings",
+      "expressions-and-exclamations"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "awit"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "feels",
+    "definitions": [
+      "Strong emotions or emotional intensity; the raw feeling evoked by a situation, song, or memory. Often used as 'ang feels' (the feelings/emotions are hitting).",
+      "Also used adjectivally as 'feeling' — to describe someone acting presumptuous or assuming something without basis (e.g., assuming a relationship that does not exist)."
+    ],
+    "etymology": "Direct English borrowing. 'The feels' as a Gen Z/millennial internet term became absorbed into Filipino youth speech through code-switching and social media.",
+    "examples": [
+      {
+        "text": "Ang feels nung kanta niya, parang para sa akin.",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Sobrang feels nito, hindi ako makapag-move on.",
+        "source": "Filipino TikTok comment, 2024"
+      },
+      {
+        "text": "Feeling niya jowa na niya si Maria — syota lang naman sila.",
+        "source": "Filipino Twitter/X, widely cited in slang guides, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "hugot",
+      "kilig",
+      "marupok",
+      "awit",
+      "awts",
+      "naloka"
+    ],
+    "categories": [
+      "emotions-and-feelings",
+      "gen-z-and-imported-slang"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "dedma"
     ]
   }
 ]

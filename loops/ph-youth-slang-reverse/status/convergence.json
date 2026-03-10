@@ -211,6 +211,12 @@
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: taray, korni, maldita, harot, low bat)"
+    },
+    {
+      "iteration": "refinement pass 37 — thirty-seventh raw-gap audit (6 new terms, 365→371)",
+      "new_terms": 6,
+      "refined_entries": 12,
+      "counter_action": "reset to 0 (6 new terms found: syota, jowable, walang forever, bitter, awts, feels; 12 cross-reference additions)"
     }
   ]
 }
