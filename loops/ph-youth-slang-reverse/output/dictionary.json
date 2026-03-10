@@ -15128,6 +15128,7 @@
     ],
     "regional_notes": null,
     "related_terms": [
+      "vakla",
       "badesh",
       "bakla",
       "beki-lingo",
@@ -25167,5 +25168,223 @@
       "ghosting",
       "hard launch"
     ]
+  },
+  {
+    "term": "keme",
+    "definitions": [
+      "A vague filler word meaning \"whatever,\" \"that thing,\" \"et cetera,\" or \"something\" — used to avoid being specific or to brush off a topic casually.",
+      "Used in beki/gay lingo as a flexible placeholder that can stand in for almost any noun or concept, often delivered with dismissive flair."
+    ],
+    "etymology": "From Filipino gay lingo (Swardspeak/Bekimon); believed to be an alteration of the English word \"came\" or derived from the Spanish \"que me\" (what me/whatever). Its variant spellings — kemi, kimmy — reflect the Gen Z practice of phonetic respelling for internet use. Has been in use since at least the 2000s but gained mainstream youth usage through TikTok and Twitter/X by 2024.",
+    "examples": [
+      {
+        "text": "Keme lang 'yan, wag mong pansinin.",
+        "source": "Filipino gay lingo / everyday usage, 2024"
+      },
+      {
+        "text": "Kumain kami ng keme — basta masustansya.",
+        "source": "Filipino TikTok comment section, 2025"
+      },
+      {
+        "text": "\"Anong nangyari?\" \"Keme lang, basta okay na.\"",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": "Originates from Manila gay lingo but now widely used across Filipino youth regardless of gender or sexual orientation. Variant spellings kemi and kimmy are common online.",
+    "related_terms": [
+      "kimmy",
+      "eme",
+      "chorva",
+      "echoz",
+      "charot"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "internet-and-social-media",
+      "filler-expressions"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026"
+    ],
+    "synonyms": [
+      "kimmy",
+      "eme"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "koket",
+    "definitions": [
+      "Filipinized spelling of \"coquette\" — refers to the hyper-feminine aesthetic style characterized by lace, ruffles, bows, ribbons, pastels, and floral patterns.",
+      "Used as an adjective to describe someone or something embodying the soft, dainty, playfully flirtatious aesthetic that went viral on TikTok and Instagram in 2023-2024."
+    ],
+    "etymology": "Direct Filipinization of the English/French word \"coquette\" — following the standard Filipino Gen Z practice of phonetically respelling foreign words to sound more Tagalog. The coquette aesthetic went globally viral in 2023 and was quickly adopted by Filipino Gen Z content creators who localized it as \"koket.\"",
+    "examples": [
+      {
+        "text": "Grabe yung OOTD mo, sobrang koket!",
+        "source": "Filipino Instagram/TikTok, 2024"
+      },
+      {
+        "text": "Koket vibes lang ngayon — ribbons, lace, the whole thing.",
+        "source": "Filipino TikTok creator, 2024"
+      },
+      {
+        "text": "Ang koket ng aesthetic niya, parang lumabas sa Bridgerton.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": "Used nationwide among Filipino Gen Z, especially on visual platforms like TikTok and Instagram. Closely associated with the global \"coquette aesthetic\" trend but has been distinctly localized in Filipino fashion and content culture.",
+    "related_terms": [
+      "OOTD",
+      "baddie",
+      "era",
+      "glow up",
+      "it's giving"
+    ],
+    "categories": [
+      "aesthetics-and-fashion",
+      "internet-and-social-media",
+      "loanwords-and-adaptations"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "coquette"
+    ],
+    "antonyms": [
+      "baddie"
+    ]
+  },
+  {
+    "term": "tadbalik",
+    "definitions": [
+      "The Filipino linguistic practice of reversing, rearranging, or inverting syllables or letters of a word to create a new slang term — the defining mechanism behind many Filipino slang words.",
+      "Also used as a noun to refer to any word formed through this reversal technique (e.g., lodi, arat, petmalu, werpa, ermat are all tadbalik words)."
+    ],
+    "etymology": "Itself a tadbalik (reversal) of the Filipino word \"baliktad\" (meaning \"reversed\" or \"upside-down\"). The practice has roots in 19th-century Philippine revolutionary culture, where revolutionaries used coded reversed words to hide identities — writer Marcelo H. del Pilar used the pseudonym \"Plaridel\" from a rearrangement of his surname. The term was popularized in academic and popular discourse by University of the Philippines linguist Prof. Jay-ar Igno.",
+    "examples": [
+      {
+        "text": "\"Lodi\" is a tadbalik of \"idol\" — it's been used since the 90s but went viral again around 2017-2018.",
+        "source": "Philippine linguistic writing, multiple sources"
+      },
+      {
+        "text": "Tadbalik ang \"arat\" sa \"tara\" — gamitin mo na sa grupo chat.",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Maraming Filipino slang ang tadbalik — werpa, petmalu, ermat, dehins.",
+        "source": "ResearchGate / linguistic analysis of Filipino tadbalik, 2023"
+      }
+    ],
+    "regional_notes": "The technique is pan-Philippine and appears in Tagalog-dominant areas, though examples exist in Cebuano and other regional languages too. The term \"tadbalik\" itself is used primarily in Filipino/Tagalog linguistic discourse; the practice in other Philippine languages may be referred to differently.",
+    "related_terms": [
+      "lodi",
+      "petmalu",
+      "werpa",
+      "ermat",
+      "erpat",
+      "arat",
+      "dehins"
+    ],
+    "categories": [
+      "linguistic-technique",
+      "word-formation",
+      "historical-slang"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads",
+      "Urban Dictionary — Filipino/Tagalog entries added 2023-2026"
+    ],
+    "synonyms": [
+      "baliktad-words"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "vakla",
+    "definitions": [
+      "A playful mutation of \"bakla\" (Filipino word for a gay or gender-nonconforming man); used in gay lingo as a lighter, more affectionate alternative.",
+      "Can refer to any gay or effeminate man; used with warmth in LGBTQ+ circles and increasingly mainstream Filipino youth spaces."
+    ],
+    "etymology": "Mutation of the Filipino word \"bakla\" through the swardspeak/gay lingo process of syllable alteration and letter substitution. Related forms include \"vaklush,\" \"vaklushii,\" \"beki,\" and \"beks.\" The mutation softens the sometimes-stigmatizing original term. Part of the broader tradition of Filipino gay lingo (Swardspeak) word formation.",
+    "examples": [
+      {
+        "text": "Ay vakla ka talaga, ang ganda mo mag-pose!",
+        "source": "Filipino gay lingo / social media, 2024"
+      },
+      {
+        "text": "Yung mga vakla sa barkada namin lagi may style.",
+        "source": "Filipino TikTok comment, 2025"
+      }
+    ],
+    "regional_notes": "Primarily used in Metro Manila gay lingo circles, now spreading to general Filipino youth slang. Sister terms vaklush and vaklushii are more elaborate variants carrying the same meaning.",
+    "related_terms": [
+      "vaklush",
+      "beki",
+      "beks",
+      "bakla",
+      "swardspeak"
+    ],
+    "categories": [
+      "lgbtq-and-beki-lingo",
+      "identity-and-expression"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026",
+      "TikTok PH — trending slang compilations"
+    ],
+    "synonyms": [
+      "vaklush",
+      "beki",
+      "beks"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "push",
+    "definitions": [
+      "Used as an encouragement expression meaning \"go for it!\", \"keep going!\", or \"you can do it!\" — often heard as \"push mo 'yan!\" or \"push lang!\"",
+      "As an interjection: signals enthusiastic agreement or support for someone's decision or plan."
+    ],
+    "etymology": "From the English word \"push\" adapted into Taglish (Tagalog-English code-switching). The expression \"push mo 'yan\" (literally \"push that\") evolved as a natural motivational phrase born from Filipino bayanihan culture — the deep communal spirit of encouraging and supporting one another. Widely used in everyday Filipino speech and social media since the early 2010s, with renewed viral energy on TikTok and Twitter/X.",
+    "examples": [
+      {
+        "text": "\"Sasali ka ba sa singing contest?\" \"Push mo 'yan!\"",
+        "source": "Common Filipino everyday expression, documented by multiple sources"
+      },
+      {
+        "text": "Push lang! Kaya mo 'yan.",
+        "source": "Filipino social media motivational content, 2024"
+      },
+      {
+        "text": "Nag-apply siya sa dream company niya — push!",
+        "source": "Filipino Twitter/X, 2025"
+      }
+    ],
+    "regional_notes": "Used across all regions of the Philippines in Taglish contexts. \"Push mo 'yan\" is considered a timeless Filipino encouragement phrase. \"Push lang\" is often used as a standalone rallying cry.",
+    "related_terms": [
+      "kaya mo 'yan",
+      "laban",
+      "G",
+      "sige"
+    ],
+    "categories": [
+      "expressions-and-interjections",
+      "motivation-and-encouragement",
+      "taglish"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms"
+    ],
+    "synonyms": [
+      "laban",
+      "kaya mo"
+    ],
+    "antonyms": []
   }
 ]

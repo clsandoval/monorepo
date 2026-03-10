@@ -451,6 +451,12 @@
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: orbiting, breadcrumbing, throning, benching, fading)"
+    },
+    {
+      "iteration": "refinement pass 77 — seventy-seventh raw-gap audit (5 new terms, 658→663)",
+      "new_terms": 5,
+      "refined_entries": 2,
+      "counter_action": "reset to 0 (5 new terms found: keme, koket, tadbalik, vakla, push; 2 cross-reference updates: kimmy related_terms, vaklush related_terms)"
     }
   ]
 }
