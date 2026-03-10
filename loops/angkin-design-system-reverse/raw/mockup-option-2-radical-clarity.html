@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retirement Pay Calculator (RA 7641) — Angkin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Overpass+Mono:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================
+       DESIGN TOKENS
+       Option 2: Gov.uk Radical Clarity
+    ============================ */
+    :root {
+      --color-bg:           #FFFFFF;
+      --color-surface:      #F7F7F6;
+      --color-text:         #1A1918;
+      --color-text-2:       #5A5856;
+      --color-text-3:       #8C8A88;
+      --color-accent:       #00766A;
+      --color-accent-dark:  #005C52;
+      --color-focus:        #FFD000;
+      --color-error:        #C62828;
+      --color-success:      #2E7D32;
+      --color-border-input: #1A1918;
+      --color-border-ui:    #D0CECC;
+      --color-muted:        #EDECEB;
+
+      --font-body: 'Public Sans', -apple-system, sans-serif;
+      --font-mono: 'Overpass Mono', 'Courier New', monospace;
+
+      --space-1: 5px;
+      --space-2: 10px;
+      --space-3: 15px;
+      --space-4: 20px;
+      --space-5: 25px;
+      --space-6: 30px;
+      --space-7: 40px;
+      --space-8: 50px;
+      --space-9: 60px;
+
+      --max-width: 640px;
+      --gutter: 40px;
+    }
+
+    /* ============================
+       RESET & BASE
+    ============================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 19px;
+      line-height: 28px;
+      color: var(--color-text);
+      background: var(--color-bg);
+      animation: fadeIn 150ms ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ============================
+       FOCUS — UNMISSABLE YELLOW
+    ============================ */
+    *:focus {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+    *:focus:not(:focus-visible) {
+      outline: none;
+    }
+    *:focus-visible {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    /* ============================
+       LAYOUT
+    ============================ */
+    .page-wrapper {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--gutter) var(--space-9);
+    }
+
+    /* ============================
+       HEADER / NAV
+    ============================ */
+    .site-header {
+      border-bottom: 4px solid var(--color-accent);
+      padding: var(--space-4) var(--gutter);
+      margin: 0 calc(-1 * var(--gutter));
+      margin-bottom: var(--space-7);
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .brand:focus-visible {
+      outline-offset: 4px;
+    }
+
+    /* ============================
+       BACK LINK
+    ============================ */
+    .back-link {
+      display: inline-block;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-accent-dark);
+      text-decoration: underline;
+      margin-bottom: var(--space-5);
+    }
+
+    .back-link:hover {
+      color: var(--color-text);
+    }
+
+    /* ============================
+       TYPOGRAPHY
+    ============================ */
+    .heading-xl {
+      font-size: 36px;
+      line-height: 44px;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+    }
+
+    .heading-l {
+      font-size: 26px;
+      line-height: 34px;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-3);
+    }
+
+    .heading-m {
+      font-size: 20px;
+      line-height: 28px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: var(--space-3);
+    }
+
+    .body-l {
+      font-size: 19px;
+      line-height: 28px;
+      color: var(--color-text);
+    }
+
+    .body-s {
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-text-2);
+    }
+
+    .caption {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--color-text-3);
+    }
+
+    /* ============================
+       STEP INDICATOR
+    ============================ */
+    .step-indicator {
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-text-2);
+      margin-bottom: var(--space-4);
+    }
+
+    /* ============================
+       LAW CITATION CALLOUT
+    ============================ */
+    .law-callout {
+      border-left: 4px solid var(--color-accent);
+      padding: var(--space-4) var(--space-5);
+      background: var(--color-surface);
+      margin-bottom: var(--space-7);
+    }
+
+    .law-callout__title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .law-callout__text {
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-text-2);
+    }
+
+    /* ============================
+       FORM ELEMENTS
+    ============================ */
+    .form-group {
+      margin-bottom: var(--space-7);
+    }
+
+    .form-group + .form-group {
+      margin-top: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+
+    .form-label__sub {
+      display: block;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--color-text-2);
+      margin-top: 2px;
+    }
+
+    .form-hint {
+      display: block;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-text-2);
+      margin-bottom: var(--space-2);
+    }
+
+    .form-input {
+      display: block;
+      width: 100%;
+      height: 52px;
+      padding: 10px 14px;
+      font-family: var(--font-body);
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--color-text);
+      background: var(--color-bg);
+      border: 2px solid var(--color-border-input);
+      border-radius: 0;
+      appearance: none;
+      transition: none;
+    }
+
+    .form-input:focus {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 0;
+      border-color: var(--color-border-input);
+    }
+
+    .form-input.error {
+      border-left: 4px solid var(--color-error);
+    }
+
+    .form-select {
+      display: block;
+      width: 100%;
+      height: 52px;
+      padding: 10px 40px 10px 14px;
+      font-family: var(--font-body);
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--color-text);
+      background: var(--color-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M1 1l7 7 7-7' stroke='%231A1918' stroke-width='2' fill='none'/%3E%3C/svg%3E") right 14px center no-repeat;
+      border: 2px solid var(--color-border-input);
+      border-radius: 0;
+      appearance: none;
+    }
+
+    .form-select:focus {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 0;
+    }
+
+    .input-prefix-wrap {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .input-prefix {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      background: var(--color-muted);
+      border: 2px solid var(--color-border-input);
+      border-right: none;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--color-text-2);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .input-prefix + .form-input {
+      flex: 1;
+    }
+
+    /* Error message */
+    .error-message {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-error);
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    /* ============================
+       RADIO GROUPS
+    ============================ */
+    .radio-group {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .radio-group legend {
+      display: block;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+
+    .radio-group legend + .form-hint {
+      margin-top: 4px;
+    }
+
+    .radio-item {
+      display: flex;
+      align-items: center;
+      margin-top: var(--space-3);
+      position: relative;
+    }
+
+    .radio-input {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--color-border-input);
+      border-radius: 50%;
+      appearance: none;
+      flex-shrink: 0;
+      cursor: pointer;
+      position: relative;
+      background: var(--color-bg);
+    }
+
+    .radio-input:checked {
+      background: var(--color-text);
+    }
+
+    .radio-input:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--color-bg);
+    }
+
+    .radio-input:focus {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    .radio-label {
+      font-size: 19px;
+      line-height: 28px;
+      color: var(--color-text);
+      padding-left: var(--space-3);
+      cursor: pointer;
+    }
+
+    .radio-label small {
+      display: block;
+      font-size: 15px;
+      color: var(--color-text-2);
+    }
+
+    /* ============================
+       BUTTON
+    ============================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 20px;
+      font-family: var(--font-body);
+      font-size: 19px;
+      font-weight: 600;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 100ms ease;
+    }
+
+    .btn-primary {
+      background: var(--color-accent);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent-dark);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    .btn-secondary {
+      background: var(--color-bg);
+      color: var(--color-accent);
+      border: 2px solid var(--color-accent);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-surface);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    /* ============================
+       SECTION DIVIDERS
+    ============================ */
+    .section-divider {
+      border: none;
+      border-top: 2px solid var(--color-border-ui);
+      margin: var(--space-8) 0;
+    }
+
+    /* ============================
+       RESULT PANEL (hidden by default)
+    ============================ */
+    .result-panel {
+      display: none;
+      animation: resultReveal 200ms ease forwards;
+    }
+
+    .result-panel.visible {
+      display: block;
+    }
+
+    @keyframes resultReveal {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-callout {
+      border: 2px solid var(--color-border-ui);
+      background: var(--color-surface);
+      padding: var(--space-6) var(--space-5);
+      margin-bottom: var(--space-6);
+    }
+
+    .result-label {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .result-amount {
+      font-family: var(--font-mono);
+      font-size: 52px;
+      line-height: 60px;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+    }
+
+    .result-sublabel {
+      font-size: 15px;
+      color: var(--color-text-2);
+      margin-top: var(--space-2);
+    }
+
+    /* Breakdown table */
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: var(--space-5);
+    }
+
+    .breakdown-table tr {
+      border-bottom: 1px solid var(--color-border-ui);
+    }
+
+    .breakdown-table tr:first-child {
+      border-top: 1px solid var(--color-border-ui);
+    }
+
+    .breakdown-table td {
+      padding: var(--space-3) 0;
+      font-size: 16px;
+      line-height: 24px;
+      vertical-align: top;
+    }
+
+    .breakdown-table td:first-child {
+      color: var(--color-text-2);
+      width: 55%;
+    }
+
+    .breakdown-table td:last-child {
+      color: var(--color-text);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .breakdown-total td {
+      font-size: 19px !important;
+      font-weight: 700 !important;
+      color: var(--color-text) !important;
+      padding-top: var(--space-4) !important;
+    }
+
+    /* Success banner */
+    .success-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      background: #E8F5E9;
+      border: 2px solid var(--color-success);
+      padding: var(--space-4) var(--space-5);
+      margin-bottom: var(--space-6);
+    }
+
+    .success-icon {
+      font-size: 20px;
+      color: var(--color-success);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .success-text {
+      font-size: 16px;
+      line-height: 24px;
+      color: #1B5E20;
+    }
+
+    /* Warning banner */
+    .warning-banner {
+      border-left: 4px solid #F57F17;
+      background: #FFFDE7;
+      padding: var(--space-4) var(--space-5);
+      margin-bottom: var(--space-5);
+    }
+
+    .warning-banner p {
+      font-size: 16px;
+      line-height: 24px;
+      color: #4E3B00;
+    }
+
+    /* Next steps */
+    .next-steps {
+      margin-top: var(--space-6);
+    }
+
+    .next-steps ol {
+      padding-left: var(--space-5);
+      margin-top: var(--space-3);
+    }
+
+    .next-steps li {
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+    }
+
+    /* Action row */
+    .action-row {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .link-action {
+      font-size: 16px;
+      color: var(--color-accent-dark);
+      text-decoration: underline;
+    }
+
+    /* ============================
+       TAB SWITCHER (state demo)
+    ============================ */
+    .demo-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--color-border-ui);
+      margin-bottom: var(--space-7);
+    }
+
+    .demo-tab {
+      padding: var(--space-3) var(--space-5);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-text-2);
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      margin-bottom: -2px;
+    }
+
+    .demo-tab.active {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+    }
+
+    .demo-tab:focus-visible {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 2px;
+    }
+
+    .demo-pane {
+      display: none;
+    }
+
+    .demo-pane.active {
+      display: block;
+    }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    .site-footer {
+      border-top: 2px solid var(--color-border-ui);
+      margin-top: var(--space-9);
+      padding-top: var(--space-5);
+    }
+
+    .site-footer p {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--color-text-3);
+    }
+
+    .site-footer a {
+      color: var(--color-text-3);
+      text-decoration: underline;
+    }
+
+    /* ============================
+       SUMMARY LIST (check answers)
+    ============================ */
+    .summary-list {
+      border-top: 1px solid var(--color-border-ui);
+      margin-bottom: var(--space-6);
+    }
+
+    .summary-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: var(--space-4);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border-ui);
+      align-items: start;
+    }
+
+    .summary-key {
+      font-size: 16px;
+      color: var(--color-text-2);
+    }
+
+    .summary-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .summary-action a {
+      font-size: 14px;
+      color: var(--color-accent-dark);
+      text-decoration: underline;
+    }
+
+    /* ============================
+       RESPONSIVE: MOBILE (< 640px)
+    ============================ */
+    @media (max-width: 639px) {
+      :root {
+        --gutter: 20px;
+      }
+
+      .heading-xl {
+        font-size: 26px;
+        line-height: 34px;
+      }
+
+      .heading-l {
+        font-size: 20px;
+        line-height: 28px;
+      }
+
+      body {
+        font-size: 17px;
+        line-height: 26px;
+      }
+
+      .form-input,
+      .form-select {
+        font-size: 17px;
+      }
+
+      .form-label {
+        font-size: 17px;
+      }
+
+      .result-amount {
+        font-size: 38px;
+        line-height: 46px;
+      }
+
+      .demo-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .demo-tab {
+        white-space: nowrap;
+      }
+
+      .action-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .summary-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-1);
+      }
+
+      .summary-action {
+        padding-bottom: var(--space-1);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SITE HEADER -->
+  <header class="site-header">
+    <div class="page-wrapper" style="margin-bottom:0; padding-top:0; padding-bottom:0;">
+      <a href="#" class="brand">Angkin</a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="page-wrapper">
+
+      <!-- DEMO STATE SWITCHER -->
+      <nav aria-label="Demo states" class="demo-tabs">
+        <button class="demo-tab active" onclick="switchTab('input')" id="tab-input">
+          Input state
+        </button>
+        <button class="demo-tab" onclick="switchTab('result')" id="tab-result">
+          Result state
+        </button>
+      </nav>
+
+      <!-- ========== INPUT STATE ========== -->
+      <div class="demo-pane active" id="pane-input">
+
+        <!-- Back link -->
+        <a href="#" class="back-link">← Bumalik sa listahan ng mga kalkulador</a>
+
+        <!-- Page heading -->
+        <p class="step-indicator">Hakbang 1 ng 1 (Single screen calculator)</p>
+        <h1 class="heading-xl">
+          Kalkulador ng Retirement Pay
+          <span class="form-label__sub">Retirement Pay Calculator (RA 7641)</span>
+        </h1>
+
+        <!-- Law citation -->
+        <div class="law-callout" role="note" aria-label="Legal basis">
+          <p class="law-callout__title">Batayan sa batas · Legal basis</p>
+          <p class="law-callout__text">
+            Republic Act No. 7641 — Retirement Pay Law — nagbibigay ng karapatan sa mga empleyadong
+            pribadong sektor na makatanggap ng retirement pay pagkatapos ng <strong>5 taon ng serbisyo</strong>
+            at sa edad na <strong>60 pataas</strong>.
+            <br><br>
+            <em>Private sector employees who have served at least 5 years are entitled to retirement pay
+            equivalent to at least 1/2 month salary per year of service.</em>
+          </p>
+        </div>
+
+        <!-- FORM -->
+        <form id="calculator-form" novalidate onsubmit="computeResult(event)">
+
+          <!-- Monthly basic pay -->
+          <div class="form-group">
+            <label class="form-label" for="monthly-pay">
+              Gaano ang iyong buwanang basic na sahod?
+              <span class="form-label__sub">What is your monthly basic pay?</span>
+            </label>
+            <span class="form-hint" id="hint-pay">
+              Huwag isama ang overtime, allowances, o bonuses —
+              basic pay lang (Do not include overtime, allowances, or bonuses — basic pay only)
+            </span>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix" aria-hidden="true">₱</span>
+              <input
+                type="text"
+                id="monthly-pay"
+                name="monthly-pay"
+                class="form-input"
+                inputmode="numeric"
+                aria-describedby="hint-pay"
+                autocomplete="off"
+                value="28000"
+              >
+            </div>
+          </div>
+
+          <!-- Years of service -->
+          <div class="form-group">
+            <label class="form-label" for="years">
+              Ilang taon ka nang nagtatrabaho dito?
+              <span class="form-label__sub">How many years have you worked here?</span>
+            </label>
+            <span class="form-hint" id="hint-years">
+              I-round up kung higit sa 6 buwan ang natitirang bahagi
+              (Round up if the remaining fraction is more than 6 months)
+            </span>
+            <input
+              type="text"
+              id="years"
+              name="years"
+              class="form-input"
+              style="max-width: 120px;"
+              inputmode="numeric"
+              aria-describedby="hint-years"
+              value="38"
+            >
+          </div>
+
+          <!-- Employment type -->
+          <fieldset class="form-group radio-group">
+            <legend class="form-label">
+              Anong uri ng empleyadong ikaw?
+              <span class="form-label__sub">What type of employee are you?</span>
+            </legend>
+            <span class="form-hint">
+              Ito ay para matukoy ang tamang formula (This determines which formula applies)
+            </span>
+            <div class="radio-item">
+              <input type="radio" id="type-regular" name="employment-type" class="radio-input" value="regular" checked>
+              <label for="type-regular" class="radio-label">
+                Regular employee (regular na empleyado)
+                <small>Hired directly, not project-based or seasonal</small>
+              </label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" id="type-project" name="employment-type" class="radio-input" value="project">
+              <label for="type-project" class="radio-label">
+                Project-based or seasonal (pana-panahon o proyekto)
+                <small>Fixed-term, project, or seasonal worker</small>
+              </label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" id="type-corporate" name="employment-type" class="radio-input" value="corporate">
+              <label for="type-corporate" class="radio-label">
+                May sariling retirement plan ang kumpanya
+                <small>Company has a DOLE-registered retirement plan (may use different formula)</small>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Age -->
+          <div class="form-group">
+            <label class="form-label" for="age">
+              Ilang taon ka na?
+              <span class="form-label__sub">How old are you?</span>
+            </label>
+            <span class="form-hint" id="hint-age">
+              Kailangan ay 60 pataas para sa optional retirement, 65 para sa compulsory
+              (Must be at least 60 for optional retirement, 65 for compulsory)
+            </span>
+            <input
+              type="text"
+              id="age"
+              name="age"
+              class="form-input"
+              style="max-width: 100px;"
+              inputmode="numeric"
+              aria-describedby="hint-age"
+              value="57"
+            >
+            <p class="error-message" style="display:none;" id="age-error" role="alert">
+              ⚠ Hindi pa karapat-dapat — kailangan maging 60 ang edad para sa optional retirement
+            </p>
+          </div>
+
+          <!-- Note on eligibility -->
+          <div class="warning-banner" role="note">
+            <p>
+              <strong>Tandaan:</strong> Si Mang Rolly ay <strong>57 taong gulang</strong>.
+              Sa ilalim ng RA 7641, ang optional retirement ay para sa edad 60+.
+              Ang kalkulasyon na ito ay para sa <em>pagtatantya</em> lamang.
+              <br><br>
+              <em>Note: This person is under 60. The calculation below is an estimate for planning
+              purposes only. Eligibility for actual retirement requires age 60 or above under RA 7641.</em>
+            </p>
+          </div>
+
+          <!-- Submit -->
+          <div class="form-group" style="margin-top: 40px;">
+            <button type="submit" class="btn btn-primary" id="compute-btn">
+              Kalkulahin ang aking retirement pay
+            </button>
+          </div>
+
+          <p class="body-s" style="margin-top: var(--space-3);">
+            Lahat ng kalkulasyon ay batay sa RA 7641 at ang pinakabagong DOLE guidelines.
+            Para sa eksaktong halaga, kumonsulta sa inyong HR o isang abogado.
+          </p>
+
+        </form>
+      </div><!-- /input pane -->
+
+      <!-- ========== RESULT STATE ========== -->
+      <div class="demo-pane" id="pane-result">
+
+        <!-- Back link -->
+        <a href="#" class="back-link" onclick="switchTab('input'); return false;">
+          ← Bumalik at baguhin ang mga sagot (Go back and change answers)
+        </a>
+
+        <p class="step-indicator">Resulta · Result</p>
+        <h1 class="heading-xl">
+          Ang inyong retirement pay
+          <span class="form-label__sub">Your estimated retirement pay under RA 7641</span>
+        </h1>
+
+        <!-- Success banner -->
+        <div class="success-banner" role="status">
+          <span class="success-icon" aria-hidden="true">✓</span>
+          <p class="success-text">
+            <strong>Karapat-dapat ka.</strong> Ang iyong employer ay obligado sa ilalim ng batas
+            na bayaran ka ng retirement pay.
+            <br>
+            <em>You are eligible. Your employer is legally required to pay you retirement pay.</em>
+          </p>
+        </div>
+
+        <!-- Check your answers summary -->
+        <div style="margin-bottom: var(--space-6);">
+          <h2 class="heading-m">Ang iyong mga sagot · Your inputs</h2>
+          <dl class="summary-list">
+            <div class="summary-row">
+              <dt class="summary-key">Buwanang basic pay</dt>
+              <dd class="summary-value">₱ 28,000.00</dd>
+              <dd class="summary-action"><a href="#" onclick="switchTab('input'); return false;">Baguhin</a></dd>
+            </div>
+            <div class="summary-row">
+              <dt class="summary-key">Taon ng serbisyo</dt>
+              <dd class="summary-value">38 taon</dd>
+              <dd class="summary-action"><a href="#" onclick="switchTab('input'); return false;">Baguhin</a></dd>
+            </div>
+            <div class="summary-row">
+              <dt class="summary-key">Uri ng empleyado</dt>
+              <dd class="summary-value">Regular</dd>
+              <dd class="summary-action"><a href="#" onclick="switchTab('input'); return false;">Baguhin</a></dd>
+            </div>
+            <div class="summary-row">
+              <dt class="summary-key">Edad</dt>
+              <dd class="summary-value">57 taon</dd>
+              <dd class="summary-action"><a href="#" onclick="switchTab('input'); return false;">Baguhin</a></dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- RESULT CALLOUT — THE MAIN MOMENT -->
+        <div class="result-callout" role="region" aria-label="Computed retirement pay">
+          <p class="result-label">Ang iyong retirement pay · Your retirement pay</p>
+          <p class="result-amount">₱&nbsp;641,250.00</p>
+          <p class="result-sublabel">
+            Ito ang minimum na halaga na kinakailangan sa ilalim ng batas.
+            <br>
+            <em>This is the minimum legally required amount.</em>
+          </p>
+        </div>
+
+        <!-- Breakdown -->
+        <h2 class="heading-m">Paano nakuha ang halagang ito · How this was computed</h2>
+
+        <table class="breakdown-table" aria-label="Computation breakdown">
+          <tbody>
+            <tr>
+              <td>Buwanang basic pay</td>
+              <td>₱ 28,000.00</td>
+            </tr>
+            <tr>
+              <td>Kalahating buwan (½ month salary)</td>
+              <td>₱ 14,000.00</td>
+            </tr>
+            <tr>
+              <td>1/12 ng 13th month pay</td>
+              <td>₱ 2,333.33</td>
+            </tr>
+            <tr>
+              <td>1/12 ng cash equivalent ng SIL<br><small style="color: var(--color-text-2);">Service Incentive Leave (5 days)</small></td>
+              <td>₱ 541.67</td>
+            </tr>
+            <tr style="border-top: 2px solid var(--color-border-input);">
+              <td style="font-weight: 700; padding-top: 12px;">Kabuuang "½ month salary" per year</td>
+              <td style="font-weight: 700; padding-top: 12px;">₱ 16,875.00</td>
+            </tr>
+            <tr>
+              <td>× Taon ng serbisyo</td>
+              <td>× 38</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="breakdown-total" style="border-top: 3px solid var(--color-text);">
+              <td style="font-size: 19px; font-weight: 700; color: var(--color-text); padding-top: 16px;">
+                Kabuuang retirement pay
+              </td>
+              <td style="font-size: 19px; font-weight: 700; color: var(--color-text); padding-top: 16px; text-align: right;">
+                ₱ 641,250.00
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <p class="body-s" style="margin-bottom: var(--space-5);">
+          <strong>Formula:</strong> (½ basic + 1/12 thirteenth-month + 1/12 SIL cash equivalent) × years of service
+          <br>
+          Isinabatas ng RA 7641 at tiniyak ng 2015 DOLE Explanatory Bulletin
+        </p>
+
+        <!-- Note on minimum vs actual -->
+        <div class="warning-banner" role="note" style="margin-bottom: var(--space-6);">
+          <p>
+            <strong>Paalala:</strong> Kung ang kumpanya mo ay may sariling retirement plan,
+            ang babayaran ay kung alin ang mas malaki — ang batas o ang company plan.
+            <br><br>
+            <em>If your company has a DOLE-registered retirement plan, you receive whichever is higher —
+            the law's minimum or the company plan.</em>
+          </p>
+        </div>
+
+        <!-- Next steps -->
+        <div class="next-steps">
+          <h2 class="heading-m">Ano ang iyong gagawin ngayon? · Next steps</h2>
+          <ol>
+            <li>
+              Ipakita ang resulta na ito sa inyong HR department o employer.
+              <em>(Show this result to your HR department or employer.)</em>
+            </li>
+            <li>
+              Humingi ng written computation mula sa HR.
+              <em>(Request a written computation from HR.)</em>
+            </li>
+            <li>
+              Kung hindi sumasang-ayon ang employer, makipag-ugnayan sa pinakamalapit na DOLE Regional Office.
+              <em>(If your employer disputes this, contact the nearest DOLE Regional Office.)</em>
+            </li>
+          </ol>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- Action row -->
+        <div class="action-row">
+          <button class="btn btn-primary" onclick="window.print()">
+            I-print o i-save ang resulta
+          </button>
+          <a href="#" class="link-action" onclick="switchTab('input'); return false;">
+            Kalkulahin muli
+          </a>
+        </div>
+
+        <!-- Law citation footer -->
+        <div class="law-callout" style="margin-top: var(--space-7);" role="note">
+          <p class="law-callout__title">Legal na batayan · Legal basis</p>
+          <p class="law-callout__text">
+            Republic Act No. 7641 (Retirement Pay Law), as amended by RA 8558.
+            2015 DOLE Explanatory Bulletin on Retirement Pay.
+            Department Order No. 9, Series of 1997.
+          </p>
+        </div>
+
+      </div><!-- /result pane -->
+
+    </div><!-- /page-wrapper -->
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="page-wrapper" style="padding-top: 0;">
+      <p>
+        Isang kasangkapan ng <a href="#">Angkin</a> · angkin.ph
+        &nbsp;·&nbsp;
+        <a href="#">Patakaran sa Privacy</a>
+        &nbsp;·&nbsp;
+        <a href="#">Tungkol sa Batas</a>
+      </p>
+      <p style="margin-top: 8px;">
+        Para sa impormasyon lamang. Hindi ito legal na payo.
+        <em>(For informational purposes only. This is not legal advice.)</em>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Tab switcher for demo states
+    function switchTab(pane) {
+      document.querySelectorAll('.demo-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.demo-tab').forEach(el => el.classList.remove('active'));
+      document.getElementById('pane-' + pane).classList.add('active');
+      document.getElementById('tab-' + pane).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Compute result
+    function computeResult(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById('compute-btn');
+      const originalText = btn.textContent;
+      btn.textContent = 'Kinakalkula...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        switchTab('result');
+      }, 350);
+    }
+  </script>
+
+</body>
+</html>

@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects:** 27
-- **Analyzed:** 13
-- **Pending:** 14
-- **Convergence:** 48%
+- **Analyzed:** 14
+- **Pending:** 13
+- **Convergence:** 52%
 
 ---
 
@@ -33,7 +33,7 @@ Each aspect produces: spec file + HTML mockup + visual QA pass.
 | # | Option | Status | Spec File | Mockup | QA |
 |---|--------|--------|-----------|--------|----|
 | 13 | Option 1: Wise-Inspired Trust Minimalism | done | `analysis/option-1-trust-minimalism.md` | `raw/mockup-option-1-trust-minimalism.html` | `analysis/qa-option-1.md` |
-| 14 | Option 2: Gov.uk Radical Clarity | pending | `analysis/option-2-radical-clarity.md` | `raw/mockup-option-2-radical-clarity.html` | `analysis/qa-option-2.md` |
+| 14 | Option 2: Gov.uk Radical Clarity | done | `analysis/option-2-radical-clarity.md` | `raw/mockup-option-2-radical-clarity.html` | `analysis/qa-option-2.md` |
 | 15 | Option 3: Filipino Warmth | pending | `analysis/option-3-filipino-warmth.md` | `raw/mockup-option-3-filipino-warmth.html` | `analysis/qa-option-3.md` |
 | 16 | Option 4: Stripe-Grade Developer System | pending | `analysis/option-4-stripe-grade.md` | `raw/mockup-option-4-stripe-grade.html` | `analysis/qa-option-4.md` |
 | 17 | Option 5: Playful Utility | pending | `analysis/option-5-playful-utility.md` | `raw/mockup-option-5-playful-utility.html` | `analysis/qa-option-5.md` |
