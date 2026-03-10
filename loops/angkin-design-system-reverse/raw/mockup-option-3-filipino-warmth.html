@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="fil" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulahin ang Retirement Pay (RA 7641) — by Angkin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js" defer></script>
+  <style>
+    /* =============================================
+       ANGKIN DESIGN SYSTEM — OPTION 3: FILIPINO WARMTH
+       Yeseva One (display) + Nunito (body)
+       Warm terracotta + palay amber + antique cream
+    ============================================= */
+
+    /* --- CSS Custom Properties / Tokens --- */
+    :root {
+      /* Colors */
+      --color-primary: #C4552A;
+      --color-primary-dark: #9E3F1A;
+      --color-primary-light: #F2E0D8;
+      --color-secondary: #E8943A;
+      --color-secondary-light: #FBE9CF;
+      --color-accent: #C8A84B;
+      --color-success: #2E7D52;
+      --color-success-light: #D4EDE0;
+      --color-warning: #D97706;
+      --color-warning-light: #FEF3C7;
+      --color-error: #B91C1C;
+      --color-error-light: #FEE2E2;
+      --color-bg: #FEF9F2;
+      --color-surface: #FFFFFF;
+      --color-surface-warm: #FFF6E8;
+      --color-border: #E8D5BC;
+      --color-text: #2D1B0E;
+      --color-text-secondary: #7A5C46;
+      --color-text-muted: #B09880;
+      --color-muted-bg: #F5EDE1;
+
+      /* Typography */
+      --font-display: 'Yeseva One', Georgia, serif;
+      --font-body: 'Nunito', system-ui, sans-serif;
+
+      /* Spacing */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-7: 48px;
+      --space-8: 64px;
+
+      /* Radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-card: 0 2px 12px rgba(196, 85, 42, 0.08);
+      --shadow-card-hover: 0 6px 24px rgba(196, 85, 42, 0.15);
+      --shadow-button: 0 4px 12px rgba(196, 85, 42, 0.30);
+
+      /* Transitions */
+      --ease-warm: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-out: ease-out;
+      --duration-micro: 150ms;
+      --duration-component: 200ms;
+      --duration-section: 350ms;
+      --duration-reveal: 450ms;
+    }
+
+    /* --- Dark Mode --- */
+    [data-theme="dark"] {
+      --color-bg: #1A1008;
+      --color-surface: #2A1D10;
+      --color-surface-warm: #321F10;
+      --color-primary: #E8794F;
+      --color-primary-dark: #C4552A;
+      --color-primary-light: #3D1F10;
+      --color-secondary: #F5A858;
+      --color-secondary-light: #3A2208;
+      --color-accent: #E0C06A;
+      --color-text: #F5EDE1;
+      --color-text-secondary: #C4A885;
+      --color-text-muted: #8A7060;
+      --color-border: #4A3520;
+      --color-muted-bg: #261508;
+      --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.30);
+    }
+
+    /* --- Reset & Base --- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      min-height: 100vh;
+      transition: background-color var(--duration-section) var(--ease-out),
+                  color var(--duration-section) var(--ease-out);
+    }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .nav {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 var(--space-5);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background-color var(--duration-section) var(--ease-out);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .nav-tool-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      font-size: 18px;
+    }
+
+    .nav-tool-name {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--color-text);
+      line-height: 1.2;
+    }
+
+    .nav-tool-subtitle {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      font-weight: 400;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .nav-angkin-badge {
+      font-family: var(--font-display);
+      font-size: 14px;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-angkin-badge .sun-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+    }
+
+    .nav-angkin-badge .sun-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-text-secondary);
+      font-size: 16px;
+      transition: all var(--duration-micro) var(--ease-out);
+    }
+
+    .theme-toggle:hover {
+      background: var(--color-primary-light);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* =============================================
+       MAIN LAYOUT
+    ============================================= */
+    .page-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: var(--space-7) var(--space-5) var(--space-8);
+    }
+
+    /* =============================================
+       PAGE HEADER
+    ============================================= */
+    .page-header {
+      margin-bottom: var(--space-7);
+      animation: fadeSlideDown 0.5s var(--ease-warm) both;
+    }
+
+    .page-header-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+
+    .law-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--color-secondary-light);
+      color: var(--color-secondary);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+    }
+
+    .dole-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--color-muted-bg);
+      color: var(--color-text-muted);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 40px);
+      color: var(--color-text);
+      line-height: 1.2;
+      margin-bottom: var(--space-3);
+    }
+
+    .page-description {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    /* =============================================
+       TAB SWITCHER (Input vs Result states)
+    ============================================= */
+    .state-tabs {
+      display: flex;
+      gap: var(--space-2);
+      margin-bottom: var(--space-5);
+      background: var(--color-muted-bg);
+      padding: 4px;
+      border-radius: var(--radius-full);
+      width: fit-content;
+    }
+
+    .state-tab {
+      background: none;
+      border: none;
+      padding: 8px 20px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      transition: all var(--duration-component) var(--ease-warm);
+    }
+
+    .state-tab.active {
+      background: var(--color-surface);
+      color: var(--color-primary);
+      box-shadow: 0 1px 6px rgba(196, 85, 42, 0.12);
+    }
+
+    /* =============================================
+       FORM CARD
+    ============================================= */
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-card);
+      margin-bottom: var(--space-5);
+      transition: box-shadow var(--duration-component) var(--ease-out);
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-5);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--color-text);
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    /* =============================================
+       FORM FIELDS
+    ============================================= */
+    .form-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .field-label-tagalog {
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .field-label-english {
+      font-weight: 400;
+      color: var(--color-text-muted);
+      font-size: 12px;
+    }
+
+    .field-helper {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-prefix {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      font-size: 16px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .input-prefix::after {
+      content: '';
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 18px;
+      background: var(--color-border);
+    }
+
+    .input-suffix {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      height: 52px;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--color-text);
+      background: var(--color-surface);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: border-color var(--duration-component) var(--ease-out),
+                  background var(--duration-component) var(--ease-out),
+                  box-shadow var(--duration-component) var(--ease-out);
+      -webkit-appearance: none;
+    }
+
+    .has-prefix input[type="number"],
+    .has-prefix input[type="text"] {
+      padding-left: 44px;
+    }
+
+    .has-suffix input[type="number"],
+    .has-suffix input[type="text"] {
+      padding-right: 64px;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+
+    input::placeholder { color: var(--color-text-muted); }
+
+    input:focus,
+    select:focus {
+      border-color: var(--color-secondary);
+      background: var(--color-surface-warm);
+      box-shadow: 0 0 0 3px rgba(232, 148, 58, 0.15);
+      outline: none;
+    }
+
+    input.valid {
+      border-color: var(--color-success);
+    }
+
+    input.error {
+      border-color: var(--color-error);
+      background: var(--color-error-light);
+    }
+
+    .field-error {
+      font-size: 12px;
+      color: var(--color-error);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Select dropdown */
+    select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 256 256'%3E%3Cpath d='M213.66 101.66l-80 80a8 8 0 01-11.32 0l-80-80A8 8 0 0153.66 90.34L128 164.69l74.34-74.35a8 8 0 0111.32 11.32z' fill='%237A5C46'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 44px;
+    }
+
+    /* Radio group */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: 14px var(--space-4);
+      background: var(--color-bg);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--duration-component) var(--ease-out);
+    }
+
+    .radio-option:hover {
+      border-color: var(--color-secondary);
+      background: var(--color-secondary-light);
+    }
+
+    .radio-option.selected {
+      border-color: var(--color-primary);
+      background: var(--color-primary-light);
+    }
+
+    .radio-dot {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-border);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--duration-component) var(--ease-warm);
+    }
+
+    .radio-option.selected .radio-dot {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+    }
+
+    .radio-option.selected .radio-dot::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .radio-label-main {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+
+    .radio-label-sub {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+
+    /* =============================================
+       COMPUTE BUTTON
+    ============================================= */
+    .btn-compute {
+      width: 100%;
+      height: 56px;
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      box-shadow: var(--shadow-button);
+      transition: all var(--duration-micro) var(--ease-warm);
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-compute:hover {
+      background: var(--color-primary-dark);
+      box-shadow: 0 6px 20px rgba(196, 85, 42, 0.40);
+      transform: translateY(-1px);
+    }
+
+    .btn-compute:active {
+      transform: scale(0.97) translateY(0);
+      box-shadow: 0 2px 8px rgba(196, 85, 42, 0.25);
+    }
+
+    /* Shimmer effect */
+    .btn-compute::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn-compute:hover::after {
+      left: 140%;
+    }
+
+    .btn-compute.loading {
+      background: var(--color-primary-dark);
+      cursor: wait;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--color-primary);
+      color: var(--color-primary);
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 24px;
+      cursor: pointer;
+      transition: all var(--duration-micro) var(--ease-out);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-primary-light);
+    }
+
+    .btn-ghost {
+      background: none;
+      border: none;
+      color: var(--color-text-muted);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      transition: color var(--duration-micro) var(--ease-out);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .btn-ghost:hover { color: var(--color-primary); }
+
+    /* =============================================
+       RESULT DISPLAY
+    ============================================= */
+    .result-section {
+      display: none;
+      animation: slideUpReveal var(--duration-reveal) var(--ease-warm) both;
+    }
+
+    .result-section.visible {
+      display: block;
+    }
+
+    @keyframes slideUpReveal {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Warm pulse on result reveal */
+    @keyframes warmPulse {
+      0% { box-shadow: var(--shadow-card), 0 0 0 0 rgba(196, 85, 42, 0.3); }
+      50% { box-shadow: var(--shadow-card), 0 0 0 12px rgba(196, 85, 42, 0); }
+      100% { box-shadow: var(--shadow-card), 0 0 0 0 rgba(196, 85, 42, 0); }
+    }
+
+    .result-card {
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-border);
+      border-left: 4px solid var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-bottom: var(--space-5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-card.just-revealed {
+      animation: warmPulse 1s ease-out both;
+    }
+
+    /* Decorative sun watermark */
+    .result-card::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(196, 85, 42, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .result-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .result-amount {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 8vw, 56px);
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .result-currency {
+      font-size: 0.45em;
+      align-self: flex-start;
+      margin-top: 0.2em;
+      opacity: 0.8;
+    }
+
+    .result-sublabel {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+    }
+
+    .angkin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(196, 85, 42, 0.1);
+      color: var(--color-primary);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      margin-top: var(--space-3);
+      border: 1px solid rgba(196, 85, 42, 0.2);
+    }
+
+    /* Breakdown table */
+    .breakdown-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      margin-bottom: var(--space-5);
+      box-shadow: var(--shadow-card);
+    }
+
+    .breakdown-title {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .breakdown-table tr {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .breakdown-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .breakdown-table td {
+      padding: 10px 4px;
+      font-size: 14px;
+    }
+
+    .breakdown-table td:first-child {
+      color: var(--color-text-secondary);
+      font-weight: 600;
+    }
+
+    .breakdown-table td:last-child {
+      text-align: right;
+      color: var(--color-text);
+      font-weight: 700;
+    }
+
+    .breakdown-table .total-row td {
+      font-size: 16px;
+      padding-top: var(--space-3);
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    /* Note card */
+    .note-card {
+      background: var(--color-warning-light);
+      border: 1px solid rgba(217, 119, 6, 0.2);
+      border-left: 3px solid var(--color-warning);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+
+    .note-title {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--color-warning);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .note-text {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Share row */
+    .result-actions {
+      display: flex;
+      gap: var(--space-3);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* =============================================
+       INFO FOOTER
+    ============================================= */
+    .info-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-3);
+      margin-bottom: var(--space-7);
+    }
+
+    .info-chip {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px var(--space-3);
+      font-size: 12px;
+    }
+
+    .info-chip-icon {
+      color: var(--color-secondary);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .info-chip-text strong {
+      display: block;
+      color: var(--color-text);
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    .info-chip-text span {
+      color: var(--color-text-muted);
+      font-size: 11px;
+    }
+
+    /* =============================================
+       SITE FOOTER
+    ============================================= */
+    .site-footer {
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-7) var(--space-5) var(--space-8);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+    }
+
+    .footer-tools-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-3);
+    }
+
+    .footer-tool-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      justify-content: center;
+      margin-bottom: var(--space-5);
+    }
+
+    .footer-tool-link {
+      background: var(--color-muted-bg);
+      color: var(--color-text-secondary);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      transition: all var(--duration-micro) var(--ease-out);
+    }
+
+    .footer-tool-link:hover {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+    }
+
+    .footer-legal {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* =============================================
+       ANIMATIONS
+    ============================================= */
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-card-wrapper {
+      animation: fadeSlideDown 0.5s var(--ease-warm) 0.1s both;
+    }
+
+    .info-strip {
+      animation: fadeSlideDown 0.5s var(--ease-warm) 0.2s both;
+    }
+
+    /* Spinner */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    /* Focus visible */
+    :focus-visible {
+      outline: 3px solid var(--color-secondary);
+      outline-offset: 3px;
+    }
+
+    /* =============================================
+       RESPONSIVE — MOBILE
+    ============================================= */
+    @media (max-width: 600px) {
+      .page-wrapper {
+        padding: var(--space-5) var(--space-4) var(--space-7);
+      }
+
+      .nav {
+        padding: 0 var(--space-4);
+        height: 56px;
+      }
+
+      .nav-tool-subtitle { display: none; }
+
+      .card { padding: var(--space-5); }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .info-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .result-amount {
+        font-size: 40px;
+      }
+
+      .result-actions {
+        flex-direction: column;
+      }
+
+      .result-actions .btn-secondary,
+      .result-actions .btn-ghost {
+        width: 100%;
+        text-align: center;
+      }
+
+      .state-tabs { width: 100%; }
+      .state-tab { flex: 1; text-align: center; }
+    }
+
+    /* =============================================
+       HIDDEN STATE MANAGEMENT
+    ============================================= */
+    [data-state="input"] .result-section { display: none; }
+    [data-state="result"] .form-section { display: none; }
+    [data-state="result"] .result-section {
+      display: block;
+      animation: slideUpReveal var(--duration-reveal) var(--ease-warm) both;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" role="navigation" aria-label="Pangunahing navigation">
+    <div class="nav-left">
+      <div class="nav-tool-icon" aria-hidden="true">
+        <i class="ph ph-calculator"></i>
+      </div>
+      <div>
+        <div class="nav-tool-name">RetireMath</div>
+        <div class="nav-tool-subtitle">Retirement Pay Calculator</div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="I-toggle ang dark mode">
+        <i class="ph ph-moon" id="themeIcon"></i>
+      </button>
+      <a href="#" class="nav-angkin-badge" aria-label="Angkin — Philippine Compliance Tools">
+        <!-- Philippine Sun icon, stylized -->
+        <span class="sun-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.5" fill="currentColor"/>
+            <line x1="12" y1="2" x2="12" y2="5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="12" y1="19" x2="12" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="2" y1="12" x2="5" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="19" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="4.93" y1="4.93" x2="7.05" y2="7.05" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="16.95" y1="16.95" x2="19.07" y2="19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="4.93" y1="19.07" x2="7.05" y2="16.95" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="16.95" y1="7.05" x2="19.07" y2="4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        by Angkin
+      </a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="page-wrapper" id="mainContent" data-state="input">
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <div class="page-header-meta">
+        <span class="law-badge"><i class="ph ph-scales"></i> RA 7641</span>
+        <span class="dole-badge">DOLE</span>
+      </div>
+      <h1 class="page-title">Kalkulahin ang<br>Retirement Pay</h1>
+      <p class="page-description">
+        I-compute ang tamang halaga ng iyong retirement pay ayon sa Republic Act 7641 (Retirement Pay Law). Libre, walang login, mabilis.
+      </p>
+    </header>
+
+    <!-- STATE TABS (for demo purposes) -->
+    <div class="state-tabs" role="tablist" aria-label="Tingnan ang input o resulta">
+      <button class="state-tab active" role="tab" aria-selected="true" id="inputTab" onclick="showState('input')">
+        Ilagay ang Data
+      </button>
+      <button class="state-tab" role="tab" aria-selected="false" id="resultTab" onclick="showState('result')">
+        Tingnan ang Resulta
+      </button>
+    </div>
+
+    <!-- FORM SECTION -->
+    <section class="form-section" id="formSection" aria-labelledby="formHeading">
+
+      <!-- CARD 1: Employee Info -->
+      <div class="form-card-wrapper">
+        <div class="card" role="group" aria-labelledby="employeeInfoHeading">
+          <div class="card-header">
+            <div class="card-icon" aria-hidden="true"><i class="ph ph-user"></i></div>
+            <div>
+              <div class="card-title" id="employeeInfoHeading">Impormasyon ng Empleyado</div>
+              <div class="card-subtitle">Employee Information</div>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-row">
+              <div class="field">
+                <label class="field-label" for="employeeName">
+                  <span class="field-label-tagalog">Pangalan</span>
+                  <span class="field-label-english">— Full Name</span>
+                </label>
+                <input
+                  type="text"
+                  id="employeeName"
+                  name="employeeName"
+                  placeholder="hal. Maria Santos"
+                  value="Maria Santos"
+                  autocomplete="name"
+                >
+              </div>
+              <div class="field">
+                <label class="field-label" for="employmentDate">
+                  <span class="field-label-tagalog">Petsa ng Simula</span>
+                  <span class="field-label-english">— Date of Hire</span>
+                </label>
+                <input
+                  type="text"
+                  id="employmentDate"
+                  name="employmentDate"
+                  placeholder="hal. 2018-03-15"
+                  value="2019-06-01"
+                >
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="yearsOfService">
+                <span class="field-label-tagalog">Taon ng Serbisyo</span>
+                <span class="field-label-english">— Years of Service</span>
+              </label>
+              <div class="input-wrapper has-suffix">
+                <input
+                  type="number"
+                  id="yearsOfService"
+                  name="yearsOfService"
+                  placeholder="hal. 5"
+                  value="6"
+                  min="5"
+                  max="50"
+                  aria-describedby="yearsHelper"
+                >
+                <span class="input-suffix">taon</span>
+              </div>
+              <span class="field-helper" id="yearsHelper">
+                Minimum na 5 taon ng serbisyo ang kailangan sa ilalim ng RA 7641. Ang buwanan (fraction) ay bibilangin kung ≥ 6 na buwan.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Salary Info -->
+      <div class="form-card-wrapper" style="animation-delay: 0.15s">
+        <div class="card" role="group" aria-labelledby="salaryInfoHeading">
+          <div class="card-header">
+            <div class="card-icon" aria-hidden="true"><i class="ph ph-money"></i></div>
+            <div>
+              <div class="card-title" id="salaryInfoHeading">Impormasyon ng Sahod</div>
+              <div class="card-subtitle">Salary Information</div>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field-label" for="monthlySalary">
+                <span class="field-label-tagalog">Buwanang Sahod</span>
+                <span class="field-label-english">— Monthly Salary</span>
+              </label>
+              <div class="input-wrapper has-prefix">
+                <span class="input-prefix" aria-hidden="true">₱</span>
+                <input
+                  type="number"
+                  id="monthlySalary"
+                  name="monthlySalary"
+                  placeholder="hal. 45,000"
+                  value="38500"
+                  min="0"
+                  step="500"
+                  aria-describedby="salaryHelper"
+                >
+              </div>
+              <span class="field-helper" id="salaryHelper">
+                Gamitin ang kasalukuyang basic monthly salary. Huwag isama ang allowances o OT.
+              </span>
+            </div>
+
+            <div class="field">
+              <div class="field-label">
+                <span class="field-label-tagalog">Batayan ng Sahod</span>
+                <span class="field-label-english">— Salary Basis</span>
+              </div>
+              <div class="radio-group" role="radiogroup" aria-label="Pumili ng batayan ng sahod">
+                <label class="radio-option selected" onclick="selectRadio(this, 'salaryBasis', 'latest')">
+                  <input type="radio" name="salaryBasis" value="latest" checked style="display:none">
+                  <div class="radio-dot"></div>
+                  <div>
+                    <div class="radio-label-main">Huling Sahod</div>
+                    <div class="radio-label-sub">Latest salary — pinaka-karaniwan</div>
+                  </div>
+                </label>
+                <label class="radio-option" onclick="selectRadio(this, 'salaryBasis', 'average')">
+                  <input type="radio" name="salaryBasis" value="average" style="display:none">
+                  <div class="radio-dot"></div>
+                  <div>
+                    <div class="radio-label-main">Average ng 12 Buwan</div>
+                    <div class="radio-label-sub">12-month average — kung mas mataas</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: Compute -->
+      <div class="form-card-wrapper" style="animation-delay: 0.25s">
+        <div class="card" style="padding: var(--space-5);">
+          <button class="btn-compute" id="computeBtn" onclick="compute()" aria-describedby="computeNote">
+            <i class="ph ph-calculator-fill" aria-hidden="true"></i>
+            Kalkulahin ang Retirement Pay
+          </button>
+          <p style="text-align:center; margin-top: var(--space-3); font-size: 12px; color: var(--color-text-muted);" id="computeNote">
+            Libre at walang kinakailangang login. Ang mga datos ay hindi namin ino-store.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- RESULT SECTION -->
+    <section class="result-section" id="resultSection" aria-live="polite" aria-label="Resulta ng Kalkulasyon">
+
+      <!-- PRIMARY RESULT -->
+      <div class="result-card" id="resultCard">
+        <div class="result-label">
+          <i class="ph ph-check-circle-fill" aria-hidden="true"></i>
+          Kabuuang Retirement Pay
+        </div>
+        <div class="result-amount" id="resultAmount">
+          <span class="result-currency" aria-hidden="true">₱</span>
+          <span id="resultNumber">0</span>
+        </div>
+        <div class="result-sublabel">para kay <strong id="resultName">Maria Santos</strong></div>
+        <div class="angkin-badge">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2" x2="12" y2="6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="12" y1="18" x2="12" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="2" y1="12" x2="6" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          Kalkulasyon ni Angkin
+        </div>
+      </div>
+
+      <!-- BREAKDOWN -->
+      <div class="breakdown-card">
+        <div class="breakdown-title">
+          <i class="ph ph-list-numbers" aria-hidden="true" style="color: var(--color-secondary); font-size: 20px;"></i>
+          Detalye ng Kalkulasyon
+          <span style="font-size: 12px; color: var(--color-text-muted); margin-left: auto; font-weight: 400;">RA 7641 Formula</span>
+        </div>
+        <table class="breakdown-table">
+          <tbody>
+            <tr>
+              <td>Buwanang Basic Salary</td>
+              <td id="bd-salary">₱38,500.00</td>
+            </tr>
+            <tr>
+              <td>Taon ng Serbisyo</td>
+              <td id="bd-years">6 taon</td>
+            </tr>
+            <tr>
+              <td>Applicable Rate</td>
+              <td>½ buwan bawat taon</td>
+            </tr>
+            <tr>
+              <td>Equivalent na Buwan</td>
+              <td id="bd-months">3.0 buwan</td>
+            </tr>
+            <tr class="total-row">
+              <td>Kabuuang Retirement Pay</td>
+              <td id="bd-total">₱115,500.00</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size: 11px; color: var(--color-text-muted); margin-top: var(--space-4); line-height: 1.5;">
+          Formula: ½ × Monthly Salary × Years of Service<br>
+          = ½ × ₱38,500 × 6 = <strong>₱115,500.00</strong>
+        </p>
+      </div>
+
+      <!-- NOTE -->
+      <div class="note-card" role="note">
+        <div class="note-title">
+          <i class="ph ph-warning" aria-hidden="true"></i>
+          Tandaan / Note
+        </div>
+        <div class="note-text">
+          Ang resultang ito ay batay sa RA 7641 (ang minimum). Kung ang CBA o Company Policy ng iyong employer ay nagbibigay ng mas mataas na retirement pay, ang mas mataas na halaga ang dapat bayaran.
+          <br><br>
+          <em>This result is based on RA 7641 minimums. Company policy or CBA may provide higher benefits.</em>
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="breakdown-card" style="padding: var(--space-5);">
+        <div class="result-actions">
+          <button class="btn-secondary" onclick="showState('input')" style="flex: 1;">
+            <i class="ph ph-pencil-simple" aria-hidden="true"></i> Baguhin ang Data
+          </button>
+          <button class="btn-secondary" onclick="printResult()" style="flex: 1;">
+            <i class="ph ph-printer" aria-hidden="true"></i> I-print
+          </button>
+          <button class="btn-ghost" onclick="clearAll()">Limasin lahat</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- INFO CHIPS -->
+    <div class="info-strip" aria-label="Karagdagang impormasyon">
+      <div class="info-chip">
+        <span class="info-chip-icon"><i class="ph ph-scales"></i></span>
+        <div class="info-chip-text">
+          <strong>Batas na Batayan</strong>
+          <span>Republic Act No. 7641 (1992)</span>
+        </div>
+      </div>
+      <div class="info-chip">
+        <span class="info-chip-icon"><i class="ph ph-check-circle"></i></span>
+        <div class="info-chip-text">
+          <strong>Libre at Tama</strong>
+          <span>Walang ads, walang login</span>
+        </div>
+      </div>
+      <div class="info-chip">
+        <span class="info-chip-icon"><i class="ph ph-device-mobile"></i></span>
+        <div class="info-chip-text">
+          <strong>Gumagana sa Mobile</strong>
+          <span>Android at iOS, offline-ready</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer">
+    <div style="max-width: 720px; margin: 0 auto;">
+      <div class="footer-logo">Angkin</div>
+      <div class="footer-tagline">148 Philippine Compliance Calculators — Libre at Tapat</div>
+      <div class="footer-tools-label">Iba Pang Tools</div>
+      <div class="footer-tool-links">
+        <a href="#" class="footer-tool-link">SSS Contribution</a>
+        <a href="#" class="footer-tool-link">PhilHealth Premium</a>
+        <a href="#" class="footer-tool-link">Pag-IBIG Fund</a>
+        <a href="#" class="footer-tool-link">13th Month Pay</a>
+        <a href="#" class="footer-tool-link">Separation Pay</a>
+        <a href="#" class="footer-tool-link">Withholding Tax</a>
+        <a href="#" class="footer-tool-link">Maternity Benefit</a>
+        <a href="#" class="footer-tool-link">Lahat ng Tools →</a>
+      </div>
+      <div class="footer-legal">
+        © 2026 Angkin. Para lamang sa impormasyon. Konsultahin ang inyong abogado o DOLE para sa opisyal na payo.<br>
+        Hindi ito kapalit ng opisyal na legal na payo. For informational purposes only.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // =============================================
+    // STATE MANAGEMENT
+    // =============================================
+
+    function showState(state) {
+      const main = document.getElementById('mainContent');
+      const inputTab = document.getElementById('inputTab');
+      const resultTab = document.getElementById('resultTab');
+
+      main.setAttribute('data-state', state);
+
+      if (state === 'input') {
+        inputTab.classList.add('active');
+        inputTab.setAttribute('aria-selected', 'true');
+        resultTab.classList.remove('active');
+        resultTab.setAttribute('aria-selected', 'false');
+        document.getElementById('formSection').style.display = '';
+        document.getElementById('resultSection').classList.remove('visible');
+      } else {
+        resultTab.classList.add('active');
+        resultTab.setAttribute('aria-selected', 'true');
+        inputTab.classList.remove('active');
+        inputTab.setAttribute('aria-selected', 'false');
+        document.getElementById('formSection').style.display = 'none';
+        const rs = document.getElementById('resultSection');
+        rs.classList.add('visible');
+        // Re-trigger animation by removing and re-adding class
+        rs.style.animation = 'none';
+        rs.offsetHeight; // reflow
+        rs.style.animation = '';
+      }
+    }
+
+    // =============================================
+    // RADIO SELECTION
+    // =============================================
+
+    function selectRadio(labelEl, name, value) {
+      // Deselect all
+      document.querySelectorAll(`.radio-option`).forEach(opt => opt.classList.remove('selected'));
+      // Select clicked
+      labelEl.classList.add('selected');
+      // Update radio input
+      const radio = labelEl.querySelector('input[type="radio"]');
+      if (radio) radio.checked = true;
+    }
+
+    // =============================================
+    // COMPUTE LOGIC
+    // =============================================
+
+    function compute() {
+      const btn = document.getElementById('computeBtn');
+      const salary = parseFloat(document.getElementById('monthlySalary').value) || 38500;
+      const years = parseFloat(document.getElementById('yearsOfService').value) || 6;
+      const name = document.getElementById('employeeName').value || 'Empleyado';
+
+      // Show loading
+      btn.classList.add('loading');
+      btn.innerHTML = '<div class="spinner"></div> Kinakalkula...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        // Restore button
+        btn.classList.remove('loading');
+        btn.innerHTML = '<i class="ph ph-calculator-fill" aria-hidden="true"></i> Kalkulahin ang Retirement Pay';
+        btn.disabled = false;
+
+        // Calculate RA 7641: ½ × monthly salary × years
+        const retirementPay = 0.5 * salary * years;
+        const months = years * 0.5;
+
+        // Update result display
+        document.getElementById('resultName').textContent = name;
+        document.getElementById('bd-salary').textContent = '₱' + salary.toLocaleString('en-PH', {minimumFractionDigits: 2});
+        document.getElementById('bd-years').textContent = years + ' taon';
+        document.getElementById('bd-months').textContent = months.toFixed(1) + ' buwan';
+        document.getElementById('bd-total').textContent = '₱' + retirementPay.toLocaleString('en-PH', {minimumFractionDigits: 2});
+
+        // Switch to result state
+        showState('result');
+
+        // Animate result number count-up
+        countUp('resultNumber', retirementPay);
+
+        // Warm pulse on card
+        const card = document.getElementById('resultCard');
+        card.classList.remove('just-revealed');
+        void card.offsetWidth; // reflow
+        card.classList.add('just-revealed');
+
+        // Focus result section for screen readers
+        document.getElementById('resultSection').focus();
+
+      }, 700);
+    }
+
+    // =============================================
+    // COUNT-UP ANIMATION
+    // =============================================
+
+    function countUp(elementId, target) {
+      const el = document.getElementById(elementId);
+      const duration = 900;
+      const startTime = performance.now();
+
+      function easeOutQuart(t) {
+        return 1 - Math.pow(1 - t, 4);
+      }
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOutQuart(progress);
+        const current = Math.round(easedProgress * target);
+        el.textContent = current.toLocaleString('en-PH');
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          el.textContent = target.toLocaleString('en-PH', { minimumFractionDigits: 2 });
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // =============================================
+    // CLEAR ALL
+    // =============================================
+
+    function clearAll() {
+      document.getElementById('monthlySalary').value = '';
+      document.getElementById('yearsOfService').value = '';
+      document.getElementById('employeeName').value = '';
+      document.getElementById('employmentDate').value = '';
+      showState('input');
+    }
+
+    // =============================================
+    // PRINT
+    // =============================================
+
+    function printResult() {
+      window.print();
+    }
+
+    // =============================================
+    // DARK MODE TOGGLE
+    // =============================================
+
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('angkin-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('angkin-theme', next);
+      updateThemeIcon(next);
+    });
+
+    function updateThemeIcon(theme) {
+      themeIcon.className = theme === 'dark' ? 'ph ph-sun' : 'ph ph-moon';
+      themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Ibalik sa light mode' : 'I-toggle ang dark mode');
+    }
+
+    // =============================================
+    // KEYBOARD ACCESSIBILITY
+    // =============================================
+
+    // Allow Enter key to submit
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && document.getElementById('formSection').style.display !== 'none') {
+        const focused = document.activeElement;
+        if (focused && (focused.tagName === 'INPUT' || focused.tagName === 'SELECT')) {
+          compute();
+        }
+      }
+    });
+
+    // Pre-fill demo state: show result tab is viewable
+    // (Keep input state as default)
+  </script>
+
+</body>
+</html>
