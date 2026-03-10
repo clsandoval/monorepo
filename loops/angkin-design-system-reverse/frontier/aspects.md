@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects:** 27
-- **Analyzed:** 6
-- **Pending:** 21
-- **Convergence:** 22%
+- **Analyzed:** 7
+- **Pending:** 20
+- **Convergence:** 26%
 
 ---
 
@@ -19,7 +19,7 @@
 | 4 | Benchmark Wise | done | `analysis/benchmark-wise.md` |
 | 5 | Benchmark TurboTax / H&R Block | done | `analysis/benchmark-tax-calculators.md` |
 | 6 | Benchmark gov.uk | done | `analysis/benchmark-govuk.md` |
-| 7 | Benchmark SmartAsset / NerdWallet / Bankrate | pending | `analysis/benchmark-calculator-content.md` |
+| 7 | Benchmark SmartAsset / NerdWallet / Bankrate | done | `analysis/benchmark-calculator-content.md` |
 | 8 | Benchmark Canva / Notion | pending | `analysis/benchmark-simple-powerful.md` |
 | 9 | Benchmark Stripe / Linear | pending | `analysis/benchmark-dev-design-systems.md` |
 | 10 | Survey Design System Architectures | pending | `analysis/design-system-architectures.md` |
