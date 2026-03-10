@@ -259,6 +259,12 @@
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: pikon, pikron, sheesh, mid, facecard, balimbing, wagas, kalog)"
+    },
+    {
+      "iteration": "refinement pass 45 — forty-fifth raw-gap audit (5 new terms, 422→427)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: weh, amboy, promdi, patok, toxic)"
     }
   ]
 }
