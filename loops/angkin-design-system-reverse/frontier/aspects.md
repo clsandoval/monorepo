@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects:** 27
-- **Analyzed:** 10
-- **Pending:** 17
-- **Convergence:** 37%
+- **Analyzed:** 11
+- **Pending:** 16
+- **Convergence:** 41%
 
 ---
 
@@ -23,7 +23,7 @@
 | 8 | Benchmark Canva / Notion | done | `analysis/benchmark-simple-powerful.md` |
 | 9 | Benchmark Stripe / Linear | done | `analysis/benchmark-dev-design-systems.md` |
 | 10 | Survey Design System Architectures | done | `analysis/design-system-architectures.md` |
-| 11 | Catalog 148 Tools by UI Archetype | pending | `analysis/tool-archetypes.md` |
+| 11 | Catalog 148 Tools by UI Archetype | done | `analysis/tool-archetypes.md` |
 | 12 | Filipino Digital Design Landscape | pending | `analysis/filipino-design-landscape.md` |
 
 ## Wave 2 — Generate 10 Options (10 aspects)
