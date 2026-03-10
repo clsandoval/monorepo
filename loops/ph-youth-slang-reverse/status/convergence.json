@@ -469,6 +469,12 @@
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: apir, sirit, bangkay, buraot, taympers)"
+    },
+    {
+      "iteration": "refinement pass 80 — eightieth raw-gap audit (5 new terms, 673→678)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: nakakaloka, taena, yassify, for the plot, pogi points)"
     }
   ]
 }
