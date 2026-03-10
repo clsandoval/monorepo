@@ -181,6 +181,12 @@
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: naloka, arte, bitin; tambay and kaloka explicitly rejected in pass 49 log — not re-added)"
+    },
+    {
+      "iteration": "refinement pass 32 — thirty-second raw-gap audit (5 new terms, 340→345)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: scoobs, flex, clout, glow up, highkey)"
     }
   ]
 }
