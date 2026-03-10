@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects:** 27
-- **Analyzed:** 24
-- **Pending:** 3
-- **Convergence:** 89%
+- **Analyzed:** 25
+- **Pending:** 2
+- **Convergence:** 93%
 
 ---
 
@@ -49,6 +49,6 @@ Each aspect produces: spec file + HTML mockup + visual QA pass.
 |---|--------|--------|-------------|
 | 23 | Side-by-Side Comparison Matrix | done | `analysis/comparison-matrix.md` |
 | 24 | Audience-Fit Analysis | done | `analysis/audience-fit.md` |
-| 25 | Developer Experience Comparison | pending | `analysis/developer-experience.md` |
+| 25 | Developer Experience Comparison | done | `analysis/developer-experience.md` |
 | 26 | Brand Strength Analysis | pending | `analysis/brand-strength.md` |
 | 27 | Final Ranked Recommendation | pending | `analysis/final-recommendation.md` |
