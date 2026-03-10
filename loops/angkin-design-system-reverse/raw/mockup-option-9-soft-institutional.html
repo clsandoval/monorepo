@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RetireMath by Angkin — Retirement Pay Calculator (RA 7641)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   SOFT INSTITUTIONAL — ANGKIN OPTION 9
+   Cormorant Garamond + Atkinson Hyperlegible
+   Coastal teal, amber, warm cream paper
+   ============================================ */
+
+:root {
+  /* Color tokens */
+  --color-primary: #2E6D80;
+  --color-primary-dark: #1D4F5E;
+  --color-primary-light: #D4EAF0;
+  --color-secondary: #4A7C6F;
+  --color-secondary-light: #D6EBE5;
+  --color-accent: #C4822A;
+  --color-accent-dark: #9A5A10;
+  --color-accent-light: #F5E5CC;
+  --color-success: #2D7A5F;
+  --color-success-light: #D4EDE4;
+  --color-warning: #B5760F;
+  --color-warning-light: #F7EACC;
+  --color-error: #A03030;
+  --color-error-light: #F5DADA;
+
+  /* Text */
+  --color-text-primary: #1A2E35;
+  --color-text-secondary: #4A6470;
+  --color-text-muted: #7A9099;
+
+  /* Surfaces */
+  --color-bg: #F8F6F1;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #F2EFE8;
+  --color-border: #C8D4D9;
+  --color-border-light: #E4EBEE;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'Atkinson Hyperlegible', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Border radius */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  /* Shadows */
+  --shadow-card: 0 2px 8px rgba(46, 109, 128, 0.08), 0 1px 2px rgba(26, 46, 53, 0.06);
+  --shadow-card-hover: 0 6px 20px rgba(46, 109, 128, 0.14), 0 2px 6px rgba(26, 46, 53, 0.08);
+  --shadow-elevated: 0 12px 36px rgba(46, 109, 128, 0.16);
+}
+
+[data-theme="dark"] {
+  --color-bg: #0F1E24;
+  --color-surface: #162A32;
+  --color-surface-raised: #1D3540;
+  --color-text-primary: #E8F2F5;
+  --color-text-secondary: #9BBBC6;
+  --color-text-muted: #5E8A99;
+  --color-primary: #5BA8BF;
+  --color-primary-dark: #3F8099;
+  --color-primary-light: #1A3A45;
+  --color-accent: #E09C42;
+  --color-accent-light: #3A2510;
+  --color-success: #4BAF8A;
+  --color-success-light: #0F2E22;
+  --color-border: #2D4A55;
+  --color-border-light: #1E3540;
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-card-hover: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  /* Subtle noise texture */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   SITE HEADER
+   ============================================ */
+
+.site-header {
+  background: var(--color-surface);
+  border-bottom: 2px solid var(--color-primary);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.breadcrumb {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.breadcrumb a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.breadcrumb a:hover { color: var(--color-primary); }
+
+.breadcrumb-sep {
+  color: var(--color-border);
+  font-size: 10px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.angkin-wordmark {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.angkin-wordmark span {
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-right: 2px;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  transition: all 150ms ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ============================================
+   TOOL HERO
+   ============================================ */
+
+.tool-hero {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-light);
+  padding: var(--space-7) 0 var(--space-6);
+}
+
+.tool-hero-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.tool-category {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin-bottom: var(--space-3);
+}
+
+.tool-category svg {
+  width: 12px;
+  height: 12px;
+}
+
+.tool-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.tool-subtitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-5);
+}
+
+.tool-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.tool-meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.tool-meta-item svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   MAIN LAYOUT
+   ============================================ */
+
+.main-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-6);
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* ============================================
+   CALCULATOR CARD
+   ============================================ */
+
+.calculator-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+}
+
+.calc-section-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+/* Form */
+.form-group {
+  margin-bottom: var(--space-5);
+}
+
+.form-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.form-label.required::after {
+  content: ' *';
+  color: var(--color-error);
+  font-size: 12px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-prefix,
+.input-suffix {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  user-select: none;
+}
+
+.input-prefix { left: 14px; }
+.input-suffix { right: 14px; }
+
+.form-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  transition: border-color 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  box-shadow: 0 0 0 3px rgba(46, 109, 128, 0.12);
+}
+
+.form-input.has-prefix { padding-left: 32px; }
+.form-input.has-suffix { padding-right: 40px; }
+
+.form-input::placeholder { color: var(--color-text-muted); }
+
+.form-select {
+  width: 100%;
+  height: 48px;
+  padding: 0 40px 0 16px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237A9099' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color 200ms ease;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(46, 109, 128, 0.12);
+}
+
+.form-helper {
+  display: block;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+  line-height: 1.5;
+}
+
+.form-error {
+  display: block;
+  font-size: 13px;
+  color: var(--color-error);
+  margin-top: var(--space-2);
+  display: none;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+/* Checkbox group */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  transition: all 150ms ease;
+}
+
+.checkbox-item:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.checkbox-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  margin-top: 2px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.checkbox-item-label {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+
+.checkbox-item-label strong {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.checkbox-item-label span {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   COMPUTE BUTTON
+   ============================================ */
+
+.btn-compute {
+  width: 100%;
+  height: 52px;
+  background: var(--color-accent);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  transition: background-color 150ms ease, transform 100ms ease, box-shadow 150ms ease;
+  margin-top: var(--space-6);
+}
+
+.btn-compute:hover {
+  background: var(--color-accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(196, 130, 42, 0.3);
+}
+
+.btn-compute:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn-compute:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.btn-compute svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ============================================
+   RESULT SECTION (inline, after form)
+   ============================================ */
+
+.result-section {
+  margin-top: var(--space-6);
+  display: none;
+}
+
+.result-section.visible {
+  display: block;
+  animation: fadeInUp 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-divider {
+  border: none;
+  border-top: 1px solid var(--color-border-light);
+  margin-bottom: var(--space-6);
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.result-header-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--color-success-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.result-header-icon svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-success);
+}
+
+.result-header-text h3 {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.result-header-text p {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* Primary result card */
+.result-primary-card {
+  background: var(--color-success-light);
+  border-left: 4px solid var(--color-success);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-5) var(--space-5);
+  margin-bottom: var(--space-5);
+  position: relative;
+  overflow: hidden;
+}
+
+.result-primary-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 120px;
+  background: linear-gradient(to left, rgba(45, 122, 95, 0.05), transparent);
+  pointer-events: none;
+}
+
+.result-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-success);
+  margin-bottom: var(--space-2);
+}
+
+.result-amount {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-primary-dark);
+  letter-spacing: -0.02em;
+}
+
+.result-amount-note {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-2);
+  font-style: italic;
+  font-family: var(--font-display);
+}
+
+/* Result glow animation */
+@keyframes resultGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(45, 122, 95, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(45, 122, 95, 0.12); }
+}
+
+.result-primary-card.glow {
+  animation: resultGlow 1.5s ease-in-out 2;
+}
+
+/* Breakdown table */
+.breakdown-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.breakdown-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.breakdown-table tr {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.breakdown-table tr:last-child {
+  border-bottom: none;
+}
+
+.breakdown-table tr:nth-child(even) td {
+  background: var(--color-surface-raised);
+}
+
+.breakdown-table td {
+  padding: var(--space-3) var(--space-3);
+  color: var(--color-text-secondary);
+  vertical-align: middle;
+}
+
+.breakdown-table td:last-child {
+  text-align: right;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.breakdown-table .total-row td {
+  font-weight: 700;
+  color: var(--color-text-primary);
+  border-top: 2px solid var(--color-border);
+  background: none;
+  font-size: 15px;
+}
+
+.breakdown-table .total-row td:last-child {
+  color: var(--color-success);
+  font-family: var(--font-display);
+  font-size: 18px;
+}
+
+/* Actions */
+.result-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.btn-secondary {
+  flex: 1;
+  height: 44px;
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  transition: all 150ms ease;
+}
+
+.btn-secondary:hover {
+  background: var(--color-primary-light);
+}
+
+.btn-secondary svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Loading state */
+.computing-state {
+  display: none;
+  text-align: center;
+  padding: var(--space-7) var(--space-5);
+}
+
+.computing-state.visible {
+  display: block;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 3px;
+  background: var(--color-border-light);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border-radius: 2px;
+  animation: progressFill 600ms ease-out forwards;
+}
+
+@keyframes progressFill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.computing-text {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.sidebar-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+}
+
+.sidebar-card-title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+/* Context note */
+.context-note {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  margin-bottom: var(--space-4);
+}
+
+.context-formula {
+  background: var(--color-surface-raised);
+  border-left: 3px solid var(--color-primary);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.context-formula strong {
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* Legal cite */
+.legal-cite {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.legal-cite p {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.legal-cite a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* FAQ mini */
+.faq-list {
+  list-style: none;
+  padding: 0;
+}
+
+.faq-item {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.faq-question {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.faq-answer {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* Related tools */
+.related-tools {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.related-tool-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  transition: all 150ms ease;
+  border: 1px solid transparent;
+}
+
+.related-tool-link:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.related-tool-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--color-surface-raised);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.related-tool-icon svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-primary);
+}
+
+/* ============================================
+   FOOTNOTE / LEGAL BASIS
+   ============================================ */
+
+.legal-footnote {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-6) var(--space-8);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.legal-footnote-inner {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.legal-footnote-inner strong {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.legal-footnote-inner a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.site-footer {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-7) 0;
+}
+
+.footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.footer-nav {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+}
+
+.footer-nav-group h4 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.footer-nav-group ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.footer-nav-group ul li a {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.footer-nav-group ul li a:hover {
+  color: var(--color-primary);
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border-light);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.footer-bottom-brand {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.footer-bottom-copy {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   ANIMATIONS — PAGE LOAD
+   ============================================ */
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 500ms ease forwards;
+}
+
+.fade-in-up:nth-child(1) { animation-delay: 0ms; }
+.fade-in-up:nth-child(2) { animation-delay: 80ms; }
+.fade-in-up:nth-child(3) { animation-delay: 160ms; }
+.fade-in-up:nth-child(4) { animation-delay: 240ms; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 767px) {
+  .header-inner {
+    padding: 0 var(--space-4);
+  }
+
+  .breadcrumb {
+    display: none;
+  }
+
+  .tool-hero-inner,
+  .legal-footnote {
+    padding: 0 var(--space-4);
+  }
+
+  .tool-title {
+    font-size: 1.875rem;
+  }
+
+  .main-container {
+    grid-template-columns: 1fr;
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-5);
+  }
+
+  .result-amount {
+    font-size: 2.25rem;
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .footer-inner {
+    padding: 0 var(--space-4);
+  }
+
+  .footer-nav {
+    gap: var(--space-5);
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .tool-hero {
+    padding: var(--space-5) 0 var(--space-4);
+  }
+
+  .tool-title {
+    font-size: 1.625rem;
+  }
+
+  .calculator-card {
+    padding: var(--space-4);
+  }
+}
+
+/* ============================================
+   NOTICE BANNER
+   ============================================ */
+
+.notice-banner {
+  background: var(--color-accent-light);
+  border-bottom: 1px solid rgba(196, 130, 42, 0.2);
+  padding: var(--space-3) 0;
+}
+
+.notice-banner-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 13px;
+  color: var(--color-accent-dark);
+}
+
+.notice-banner svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+  .notice-banner-inner {
+    padding: 0 var(--space-4);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NOTICE BANNER -->
+<div class="notice-banner">
+  <div class="notice-banner-inner">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+      <path d="M228.88,169.53,156.9,36.8a32.14,32.14,0,0,0-57.8,0L27.12,169.53a30.54,30.54,0,0,0,0,29.67A29.29,29.29,0,0,0,53.92,216H202.08a29.29,29.29,0,0,0,26.8-16.8A30.54,30.54,0,0,0,228.88,169.53ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z"/>
+    </svg>
+    <span>This calculator is for guidance only. Verify results with a licensed HR professional or DOLE for official computation.</span>
+  </div>
+</div>
+
+<!-- SITE HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="#">Angkin</a>
+      <span class="breadcrumb-sep">›</span>
+      <a href="#">Labor &amp; Employment</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>RetireMath</span>
+    </nav>
+    <div class="header-right">
+      <a href="#" class="angkin-wordmark">
+        <span>by</span>Angkin
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor" id="themeIcon">
+          <path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- TOOL HERO -->
+<div class="tool-hero">
+  <div class="tool-hero-inner">
+    <div class="tool-category">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+        <path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM80,128a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H88A8,8,0,0,1,80,128Zm0,32a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H88A8,8,0,0,1,80,160ZM80,96a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H88A8,8,0,0,1,80,96Z"/>
+      </svg>
+      Labor &amp; Employment
+    </div>
+    <h1 class="tool-title">RetireMath</h1>
+    <p class="tool-subtitle">Retirement Pay Calculator under Republic Act No. 7641</p>
+    <div class="tool-meta">
+      <div class="tool-meta-item">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+          <path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,176H48V48H72v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V208Z"/>
+        </svg>
+        Effective: RA 7641 (Jan 7, 1993)
+      </div>
+      <div class="tool-meta-item">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+          <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a16,16,0,1,1,16,16A16,16,0,0,1,112,84Z"/>
+        </svg>
+        Last verified: March 2025
+      </div>
+      <div class="tool-meta-item">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+          <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28,29.14,29.14,0,0,1-4-.28V192a8,8,0,0,1-16,0V132.28A28,28,0,1,1,168,148Zm-28,12a12,12,0,1,0-12-12A12,12,0,0,0,140,160Z"/>
+        </svg>
+        For private sector employees
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main>
+  <div class="main-container">
+
+    <!-- CALCULATOR PANEL -->
+    <div class="fade-in-up">
+      <div class="calculator-card">
+        <h2 class="calc-section-title">Compute Retirement Pay</h2>
+
+        <form id="retirementForm" novalidate>
+
+          <!-- Employee Details -->
+          <div class="form-group">
+            <label class="form-label required" for="employeeName">Employee Name</label>
+            <input
+              type="text"
+              id="employeeName"
+              class="form-input"
+              placeholder="e.g., Maria Santos"
+              autocomplete="name"
+            >
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label required" for="dateHired">Date Hired</label>
+              <input type="date" id="dateHired" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label required" for="dateRetired">Date of Retirement</label>
+              <input type="date" id="dateRetired" class="form-input" value="2025-03-10">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required" for="basicPay">Monthly Basic Pay</label>
+            <div class="input-wrapper">
+              <span class="input-prefix">₱</span>
+              <input
+                type="number"
+                id="basicPay"
+                class="form-input has-prefix"
+                placeholder="30,000"
+                min="1"
+                step="1"
+              >
+            </div>
+            <span class="form-helper">Regular monthly basic salary, excluding allowances and overtime.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regularAllowances">Fixed Monthly Allowances</label>
+            <div class="input-wrapper">
+              <span class="input-prefix">₱</span>
+              <input
+                type="number"
+                id="regularAllowances"
+                class="form-input has-prefix"
+                placeholder="0"
+                min="0"
+                step="1"
+                value="0"
+              >
+            </div>
+            <span class="form-helper">Regular monthly allowances granted as part of compensation (ECOLA, rice subsidy, etc.). Leave blank if none.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required" for="retirementType">Basis of Retirement</label>
+            <select id="retirementType" class="form-select">
+              <option value="" disabled selected>Select retirement basis</option>
+              <option value="optional">Optional Retirement (60 years old, 5+ years service)</option>
+              <option value="compulsory">Compulsory Retirement (65 years old)</option>
+              <option value="illness">Retirement Due to Illness / Disability</option>
+            </select>
+            <span class="form-helper">The minimum benefit under RA 7641 applies to optional and compulsory retirement.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Additional Retirement Benefits Paid</label>
+            <div class="checkbox-group">
+              <label class="checkbox-item">
+                <input type="checkbox" id="thirteenthMonth">
+                <div class="checkbox-item-label">
+                  <strong>13th Month Pay</strong>
+                  <span>Include proportionate 13th month pay in total package</span>
+                </div>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" id="servicePay">
+                <div class="checkbox-item-label">
+                  <strong>Service Incentive Leave Conversion</strong>
+                  <span>Unused SIL days converted to cash (up to 5 days/year)</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <button type="button" class="btn-compute" id="computeBtn" onclick="computeRetirement()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+              <path d="M200,48H56A16,16,0,0,0,40,64V192a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V64A16,16,0,0,0,200,48ZM96,168a8,8,0,0,1-8,8H72a8,8,0,0,1,0-16H88A8,8,0,0,1,96,168Zm0-40a8,8,0,0,1-8,8H72a8,8,0,0,1,0-16H88A8,8,0,0,1,96,128Zm0-40a8,8,0,0,1-8,8H72a8,8,0,0,1,0-16H88A8,8,0,0,1,96,88Zm72,80H136a8,8,0,0,1,0-16h32a8,8,0,0,1,0,16Zm0-40H136a8,8,0,0,1,0-16h32a8,8,0,0,1,0,16Zm0-40H136a8,8,0,0,1,0-16h32a8,8,0,0,1,0,16Z"/>
+            </svg>
+            Compute Retirement Pay
+          </button>
+        </form>
+
+        <!-- COMPUTING STATE -->
+        <div class="computing-state" id="computingState">
+          <div class="progress-bar">
+            <div class="progress-bar-fill"></div>
+          </div>
+          <p class="computing-text">Computing retirement pay…</p>
+        </div>
+
+        <!-- RESULT SECTION -->
+        <div class="result-section" id="resultSection">
+          <hr class="result-divider">
+
+          <div class="result-header">
+            <div class="result-header-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+                <path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/>
+              </svg>
+            </div>
+            <div class="result-header-text">
+              <h3>Computation Complete</h3>
+              <p id="resultEmployeeName">Maria Santos · 22 years and 4 months of service</p>
+            </div>
+          </div>
+
+          <div class="result-primary-card" id="resultPrimaryCard">
+            <div class="result-label">Total Retirement Pay Due</div>
+            <div class="result-amount" id="resultAmount">₱0</div>
+            <div class="result-amount-note" id="resultNote">Based on RA 7641 minimum benefit formula</div>
+          </div>
+
+          <div class="breakdown-title">Breakdown</div>
+          <table class="breakdown-table" aria-label="Retirement pay breakdown">
+            <tbody id="breakdownBody">
+              <!-- populated by JS -->
+            </tbody>
+          </table>
+
+          <div class="result-actions">
+            <button class="btn-secondary" onclick="window.print()">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+                <path d="M224,152a8,8,0,0,1-8,8H192v40a8,8,0,0,1-8,8H72a8,8,0,0,1-8-8V160H40a8,8,0,0,1-8-8V104A32,32,0,0,1,64,72h8V40a8,8,0,0,1,8-8H176a8,8,0,0,1,8,8V72h8a32,32,0,0,1,32,32ZM88,72h80V48H88Zm80,128V160H88v40Zm40-96a16,16,0,1,0-16,16A16,16,0,0,0,208,104Z"/>
+              </svg>
+              Print Result
+            </button>
+            <button class="btn-secondary" onclick="copyResult()">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+                <path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32Zm-56,176H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/>
+              </svg>
+              Copy Summary
+            </button>
+            <button class="btn-secondary" onclick="resetForm()">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+                <path d="M224,128a96,96,0,1,1-21.95-61.09,8,8,0,1,1-12.33,10.18A80,80,0,1,0,207.6,136H184a8,8,0,0,1,0-16h48a8,8,0,0,1,8,8Z"/>
+              </svg>
+              New Computation
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- What the law says -->
+      <div class="sidebar-card fade-in-up">
+        <h3 class="sidebar-card-title">What the Law Provides</h3>
+        <p class="context-note">Under <strong>Republic Act 7641</strong>, private sector employees who retire at age 60 (optional) or 65 (compulsory) after at least five (5) years of service are entitled to a retirement pay of:</p>
+        <blockquote class="context-formula">
+          <strong>½ month salary × years of service</strong>, with a fraction of at least 6 months counted as one whole year
+        </blockquote>
+        <p class="context-note">The "½ month salary" means <strong>22.5 days</strong>: 15 days basic pay + 1/12 of the 13th month pay + 5 days SIL. This is the statutory minimum; individual employment contracts may provide higher benefits.</p>
+        <aside class="legal-cite" aria-label="Legal basis citation">
+          <p>Source: <a href="#" tabindex="0">RA 7641 — The Retirement Pay Law (1992)</a> and <a href="#" tabindex="0">Department of Labor and Employment Advisory No. 06-2020</a>.</p>
+        </aside>
+      </div>
+
+      <!-- FAQ -->
+      <div class="sidebar-card fade-in-up">
+        <h3 class="sidebar-card-title">Common Questions</h3>
+        <ul class="faq-list">
+          <li class="faq-item">
+            <p class="faq-question">Does this cover government employees?</p>
+            <p class="faq-answer">No. Government employees are covered under the GSIS Act (RA 8291). This calculator applies to private sector employees only.</p>
+          </li>
+          <li class="faq-item">
+            <p class="faq-question">What if my CBA provides higher benefits?</p>
+            <p class="faq-answer">The CBA provision applies. RA 7641 is the floor, not the ceiling. Always use the more favorable provision for the employee.</p>
+          </li>
+          <li class="faq-item">
+            <p class="faq-question">Is retirement pay taxable?</p>
+            <p class="faq-answer">Generally exempt from income tax under NIRC Section 32(B)(6)(a), provided the employee is at least 50 years old and has been employed for 10+ years with the same employer.</p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Related Tools -->
+      <div class="sidebar-card fade-in-up">
+        <h3 class="sidebar-card-title">Related Labor Tools</h3>
+        <div class="related-tools">
+          <a href="#" class="related-tool-link">
+            <div class="related-tool-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+                <path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm24,88H88a8,8,0,0,1,0-16h32a8,8,0,0,1,0,16Z"/>
+              </svg>
+            </div>
+            SepPay — Separation Pay Calculator
+          </a>
+          <a href="#" class="related-tool-link">
+            <div class="related-tool-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+                <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm-80,96a8,8,0,0,1-8-8V96a8,8,0,0,1,16,0v24A8,8,0,0,1,128,128Zm8,32a8,8,0,1,1-8-8A8,8,0,0,1,136,160Z"/>
+              </svg>
+            </div>
+            13thPay — 13th Month Pay Calculator
+          </a>
+          <a href="#" class="related-tool-link">
+            <div class="related-tool-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+                <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a48,48,0,0,1-40,47.25V184a8,8,0,0,1-16,0v-8.75A48,48,0,1,1,176,128Zm-48,32a32,32,0,1,0-32-32A32,32,0,0,0,128,160Z"/>
+              </svg>
+            </div>
+            SSSBenefits — SSS Retirement Pension Estimator
+          </a>
+          <a href="#" class="related-tool-link">
+            <div class="related-tool-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor">
+                <path d="M244,104a8,8,0,0,1-8,8H224v80a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V112H20a8,8,0,0,1,0-16l104-80a8,8,0,0,1,9.92,0l104,80A8,8,0,0,1,244,104Z"/>
+              </svg>
+            </div>
+            PhilHealthCont — Monthly Contributions Calculator
+          </a>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</main>
+
+<!-- LEGAL FOOTNOTE -->
+<div class="legal-footnote" role="contentinfo" aria-label="Legal basis and disclaimer">
+  <div class="legal-footnote-inner">
+    <strong>Legal basis:</strong> <em>Republic Act No. 7641, An Act Amending Article 287 of Presidential Decree No. 442, as Amended, Otherwise Known as the Labor Code of the Philippines, by Providing for Retirement Pay to Qualified Private Sector Employees in the Absence of Any Retirement Plan in the Establishment.</em> Signed into law by President Corazon C. Aquino on January 7, 1993. Implementing rules per <a href="#">DOLE Department Order No. 132-2013</a>. Computations are based on the minimum statutory benefit and should not be construed as legal advice. For disputes or clarifications, consult the <a href="#">Department of Labor and Employment (DOLE)</a> or a licensed labor law practitioner.
+  </div>
+</div>
+
+<!-- SITE FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <nav class="footer-nav" aria-label="Tool categories">
+      <div class="footer-nav-group">
+        <h4>Tax Tools</h4>
+        <ul>
+          <li><a href="#">TaxKlaro — Income Tax</a></li>
+          <li><a href="#">VATCalc — VAT Calculator</a></li>
+          <li><a href="#">WHoldCalc — Withholding Tax</a></li>
+          <li><a href="#">EstTax — Estate Tax</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-group">
+        <h4>Labor &amp; Employment</h4>
+        <ul>
+          <li><a href="#">RetireMath — Retirement Pay</a></li>
+          <li><a href="#">SepPay — Separation Pay</a></li>
+          <li><a href="#">13thPay — 13th Month</a></li>
+          <li><a href="#">OTCalc — Overtime Pay</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-group">
+        <h4>Government Contributions</h4>
+        <ul>
+          <li><a href="#">SSSCalc — SSS Contributions</a></li>
+          <li><a href="#">PhilHealthCont — PhilHealth</a></li>
+          <li><a href="#">PagIBIGCalc — Pag-IBIG</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-group">
+        <h4>About Angkin</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">All 148 Tools</a></li>
+          <li><a href="#">Legal Disclaimer</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="footer-bottom">
+      <span class="footer-bottom-brand">Angkin</span>
+      <span class="footer-bottom-copy">
+        Philippine Compliance Calculator Suite · For informational use only · Not legal or financial advice · © 2025 Angkin
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================
+// THEME TOGGLE
+// ============================================
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+
+function updateThemeIcon(isDark) {
+  if (isDark) {
+    themeIcon.innerHTML = '<path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/>';
+  } else {
+    themeIcon.innerHTML = '<path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23Z"/>';
+  }
+}
+
+themeToggle.addEventListener('click', () => {
+  const html = document.documentElement;
+  const isDark = html.dataset.theme === 'dark';
+  html.dataset.theme = isDark ? 'light' : 'dark';
+  updateThemeIcon(!isDark);
+});
+
+// ============================================
+// UTILITY FUNCTIONS
+// ============================================
+function formatPeso(amount) {
+  return '₱' + amount.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function animateCounter(element, target, duration) {
+  const start = 0;
+  const startTime = performance.now();
+
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3); // cubic ease out
+    const current = Math.round(start + (target - start) * eased);
+    element.textContent = formatPeso(current);
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      element.textContent = formatPeso(target);
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+function calculateYearsOfService(dateHired, dateRetired) {
+  const hired = new Date(dateHired);
+  const retired = new Date(dateRetired);
+  const diffMs = retired - hired;
+  const diffDays = diffMs / (1000 * 60 * 60 * 24);
+  const years = diffDays / 365.25;
+  // Fraction of at least 6 months = round up
+  const wholeYears = Math.floor(years);
+  const fraction = years - wholeYears;
+  return fraction >= 0.5 ? wholeYears + 1 : wholeYears;
+}
+
+function getServiceDescription(dateHired, dateRetired) {
+  const hired = new Date(dateHired);
+  const retired = new Date(dateRetired);
+  let years = retired.getFullYear() - hired.getFullYear();
+  let months = retired.getMonth() - hired.getMonth();
+  if (months < 0) { years--; months += 12; }
+  const yearStr = years === 1 ? '1 year' : `${years} years`;
+  const monthStr = months === 1 ? '1 month' : `${months} months`;
+  return months > 0 ? `${yearStr} and ${monthStr} of service` : `${yearStr} of service`;
+}
+
+// ============================================
+// COMPUTE RETIREMENT
+// ============================================
+function computeRetirement() {
+  const employeeName = document.getElementById('employeeName').value.trim() || 'Employee';
+  const dateHired = document.getElementById('dateHired').value;
+  const dateRetired = document.getElementById('dateRetired').value;
+  const basicPay = parseFloat(document.getElementById('basicPay').value) || 0;
+  const allowances = parseFloat(document.getElementById('regularAllowances').value) || 0;
+  const retirementType = document.getElementById('retirementType').value;
+  const include13th = document.getElementById('thirteenthMonth').checked;
+  const includeSIL = document.getElementById('servicePay').checked;
+
+  if (!dateHired || !dateRetired || basicPay <= 0 || !retirementType) {
+    alert('Please fill in all required fields: date hired, date of retirement, basic pay, and retirement basis.');
+    return;
+  }
+
+  // Show computing state
+  const computingState = document.getElementById('computingState');
+  const resultSection = document.getElementById('resultSection');
+  computingState.classList.add('visible');
+  resultSection.classList.remove('visible');
+
+  setTimeout(() => {
+    computingState.classList.remove('visible');
+
+    // Calculation
+    const yearsRounded = calculateYearsOfService(dateHired, dateRetired);
+    const dailyRate = (basicPay + allowances) / 26; // 26 working days per month
+
+    // RA 7641: ½ month salary = 22.5 days
+    // 15 days basic + 5 days SIL (if applicable) + 1/12 of 13th month (if applicable)
+    let halfMonthDays = 15;
+    if (includeSIL) halfMonthDays += 5;
+    const thirteenthMonthFraction = include13th ? ((basicPay + allowances) / 12) : 0;
+
+    const halfMonthValue = (dailyRate * halfMonthDays) + thirteenthMonthFraction;
+    const retirementPay = halfMonthValue * yearsRounded;
+
+    // Build breakdown
+    const breakdownData = [
+      ['Monthly Basic Pay', formatPeso(basicPay)],
+      ['Regular Monthly Allowances', formatPeso(allowances)],
+      ['Daily Rate (÷ 26 days)', formatPeso(dailyRate)],
+      ['15-Day Basic Pay Component', formatPeso(dailyRate * 15)],
+    ];
+
+    if (includeSIL) {
+      breakdownData.push(['5-Day SIL Conversion Component', formatPeso(dailyRate * 5)]);
+    }
+
+    if (include13th) {
+      breakdownData.push([
+        '1/12 of 13th Month Pay Component',
+        formatPeso(thirteenthMonthFraction)
+      ]);
+    }
+
+    const halfMonthLabel = `"½ Month Salary" Under RA 7641 (${halfMonthDays} days${include13th ? ' + 1/12 13th month' : ''})`;
+    breakdownData.push([halfMonthLabel, formatPeso(halfMonthValue)]);
+    breakdownData.push([`Credited Years of Service (RA 7641 rounding)`, `${yearsRounded} years`]);
+    breakdownData.push(['TOTAL RETIREMENT PAY DUE', formatPeso(retirementPay)]);
+
+    const tbody = document.getElementById('breakdownBody');
+    tbody.innerHTML = '';
+    breakdownData.forEach((row, i) => {
+      const tr = document.createElement('tr');
+      if (i === breakdownData.length - 1) tr.className = 'total-row';
+      tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td>`;
+      tbody.appendChild(tr);
+    });
+
+    // Update result display
+    const serviceDesc = getServiceDescription(dateHired, dateRetired);
+    document.getElementById('resultEmployeeName').textContent = `${employeeName} · ${serviceDesc}`;
+    document.getElementById('resultNote').textContent =
+      `Based on RA 7641 minimum benefit · ${retirementType === 'optional' ? 'Optional' : retirementType === 'compulsory' ? 'Compulsory' : 'Illness/Disability'} retirement`;
+
+    // Show result
+    resultSection.classList.add('visible');
+
+    // Animate counter
+    const amountEl = document.getElementById('resultAmount');
+    amountEl.textContent = '₱0';
+    animateCounter(amountEl, retirementPay, 800);
+
+    // Glow effect
+    const card = document.getElementById('resultPrimaryCard');
+    card.classList.add('glow');
+    setTimeout(() => card.classList.remove('glow'), 3000);
+
+    // Scroll to result
+    setTimeout(() => {
+      resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+
+  }, 700);
+}
+
+// ============================================
+// COPY RESULT
+// ============================================
+function copyResult() {
+  const employeeName = document.getElementById('resultEmployeeName').textContent;
+  const amount = document.getElementById('resultAmount').textContent;
+  const text = `RetireMath by Angkin — Retirement Pay Computation\n${employeeName}\nEstimated Retirement Pay: ${amount}\n\nComputed using RA 7641 minimum benefit formula.\nFor reference only. Visit angkin.ph for full details.`;
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => alert('Result copied to clipboard!'));
+  } else {
+    alert('Copy not supported in this browser. Please select and copy manually.');
+  }
+}
+
+// ============================================
+// RESET
+// ============================================
+function resetForm() {
+  document.getElementById('retirementForm').reset();
+  document.getElementById('resultSection').classList.remove('visible');
+  document.getElementById('computingState').classList.remove('visible');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Set default dates for demo
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('employeeName').value = 'Maria Santos';
+  document.getElementById('dateRetired').value = '2025-03-10';
+  document.getElementById('dateHired').value = '2003-01-15';
+  document.getElementById('basicPay').value = '45000';
+  document.getElementById('regularAllowances').value = '3000';
+  document.getElementById('retirementType').value = 'optional';
+  document.getElementById('thirteenthMonth').checked = true;
+  document.getElementById('servicePay').checked = true;
+
+  // Auto-compute on load for demo
+  setTimeout(() => computeRetirement(), 800);
+});
+</script>
+
+</body>
+</html>

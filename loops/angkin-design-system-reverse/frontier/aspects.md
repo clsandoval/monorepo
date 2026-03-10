@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects:** 27
-- **Analyzed:** 20
-- **Pending:** 7
-- **Convergence:** 74%
+- **Analyzed:** 21
+- **Pending:** 6
+- **Convergence:** 78%
 
 ---
 
@@ -40,7 +40,7 @@ Each aspect produces: spec file + HTML mockup + visual QA pass.
 | 18 | Option 6: Editorial Calculator | done | `analysis/option-6-editorial-calculator.md` | `raw/mockup-option-6-editorial-calculator.html` | `analysis/qa-option-6.md` |
 | 19 | Option 7: Dashboard-Native Power Tool | done | `analysis/option-7-dashboard-native.md` | `raw/mockup-option-7-dashboard-native.html` | `analysis/qa-option-7.md` |
 | 20 | Option 8: Mobile-First Micro-App | done | `analysis/option-8-mobile-first.md` | `raw/mockup-option-8-mobile-first.html` | `analysis/qa-option-8.md` |
-| 21 | Option 9: Soft Institutional | pending | `analysis/option-9-soft-institutional.md` | `raw/mockup-option-9-soft-institutional.html` | `analysis/qa-option-9.md` |
+| 21 | Option 9: Soft Institutional | done | `analysis/option-9-soft-institutional.md` | `raw/mockup-option-9-soft-institutional.html` | `analysis/qa-option-9.md` |
 | 22 | Option 10: Bold Geometric | pending | `analysis/option-10-bold-geometric.md` | `raw/mockup-option-10-bold-geometric.html` | `analysis/qa-option-10.md` |
 
 ## Wave 3 — Synthesis & Comparison (5 aspects)
