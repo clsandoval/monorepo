@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetireMath — Retirement Pay Calculator · by Angkin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────────────────── */
+    :root {
+      --color-primary:       #1A5C3A;
+      --color-primary-hover: #15492F;
+      --color-accent:        #7AE08D;
+      --color-bg:            #FAFAF9;
+      --color-surface:       #FFFFFF;
+      --color-border:        #DDE5DF;
+      --color-border-focus:  #1A5C3A;
+      --color-text:          #0D1F14;
+      --color-text-secondary:#3D5E49;
+      --color-text-tertiary: #7A9B84;
+      --color-success-bg:    #E8F5EE;
+      --color-success-deep:  #0F2B1D;
+      --color-warning:       #A06B00;
+      --color-warning-bg:    #FDF3DC;
+      --color-error:         #B83B2A;
+      --color-error-bg:      #FDECEA;
+      --color-muted:         #F2F5F3;
+
+      --font-body: 'Figtree', system-ui, sans-serif;
+      --font-display: 'Instrument Serif', Georgia, serif;
+
+      --space-xs:  8px;
+      --space-sm:  16px;
+      --space-md:  24px;
+      --space-lg:  40px;
+      --space-xl:  64px;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+
+      --transition-fast: 150ms ease-out;
+      --transition-mid:  250ms ease-out;
+      --transition-slow: 400ms ease-out;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-bg:            #0A1510;
+        --color-surface:       #111F17;
+        --color-border:        #1E3028;
+        --color-border-focus:  #3A9E65;
+        --color-text:          #E8F2EC;
+        --color-text-secondary:#8CB89A;
+        --color-text-tertiary: #4D7A5D;
+        --color-primary:       #3A9E65;
+        --color-primary-hover: #4DB878;
+        --color-accent:        #5AD476;
+        --color-success-bg:    #0F2B1D;
+        --color-muted:         #0D1C12;
+      }
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: var(--color-primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ─── Nav ────────────────────────────────────────────────────────── */
+    .nav {
+      height: 56px;
+      background: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--space-md);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .angkin-badge {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border);
+      padding: 5px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+      transition: border-color var(--transition-fast), color var(--transition-fast);
+    }
+    .angkin-badge:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .nav-breadcrumb {
+      font-size: 13px;
+      color: var(--color-text-tertiary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-breadcrumb span { color: var(--color-text-secondary); }
+    .nav-domain-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-tertiary);
+    }
+
+    /* ─── Page Layout ────────────────────────────────────────────────── */
+    .page {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-md) var(--space-xl);
+    }
+    @media (max-width: 640px) {
+      .page {
+        padding: var(--space-lg) 20px var(--space-xl);
+      }
+    }
+
+    /* ─── Tool Header ────────────────────────────────────────────────── */
+    .tool-header {
+      margin-bottom: var(--space-lg);
+    }
+    .tool-domain-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tool-domain-label svg { width: 14px; height: 14px; }
+    .tool-title {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    .tool-subtitle {
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      max-width: 480px;
+    }
+    .tool-subtitle a {
+      color: var(--color-primary);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition-fast);
+    }
+    .tool-subtitle a:hover {
+      border-color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    /* ─── View Toggle (Input / Result) ──────────────────────────────── */
+    .view-toggle {
+      display: flex;
+      gap: 0;
+      background: var(--color-muted);
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: var(--space-lg);
+      width: fit-content;
+    }
+    .toggle-btn {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      background: transparent;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+    .toggle-btn.active {
+      background: var(--color-surface);
+      color: var(--color-text);
+      box-shadow: 0 1px 3px rgba(13,31,20,0.08);
+    }
+    .toggle-btn:hover:not(.active) { color: var(--color-text); }
+
+    /* ─── Calculator Card ────────────────────────────────────────────── */
+    .calc-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+    }
+    @media (max-width: 640px) {
+      .calc-card { padding: 24px 20px; }
+    }
+
+    /* ─── Form ────────────────────────────────────────────────────────── */
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .form-section + .form-section {
+      margin-top: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--color-border);
+    }
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      line-height: 1;
+    }
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-prefix {
+      position: absolute;
+      left: 14px;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      pointer-events: none;
+      user-select: none;
+    }
+    .field input, .field select {
+      width: 100%;
+      height: 48px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--color-text);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 0 14px;
+      outline: none;
+      transition: border-color var(--transition-fast), background var(--transition-fast);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .field input.has-prefix { padding-left: 32px; }
+    .field input:focus, .field select:focus {
+      border-color: var(--color-border-focus);
+      border-width: 2px;
+      background: var(--color-surface);
+    }
+    .field input:focus.has-prefix { padding-left: 31px; }
+    .field input::placeholder { color: var(--color-text-tertiary); }
+    .field input.error { border-color: var(--color-error); }
+    .field-helper {
+      font-size: 13px;
+      color: var(--color-text-tertiary);
+      line-height: 1.4;
+    }
+    .field-error {
+      font-size: 13px;
+      color: var(--color-error);
+      display: none;
+      align-items: center;
+      gap: 4px;
+    }
+    .field-error.visible { display: flex; }
+    .field-error svg { flex-shrink: 0; }
+
+    /* Select styling */
+    .select-wrapper {
+      position: relative;
+    }
+    .select-wrapper::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid var(--color-text-tertiary);
+      pointer-events: none;
+    }
+    .field select { padding-right: 36px; }
+
+    /* Radio group */
+    .radio-group {
+      display: flex;
+      gap: 10px;
+    }
+    @media (max-width: 400px) { .radio-group { flex-direction: column; } }
+    .radio-option {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: border-color var(--transition-fast), background var(--transition-fast);
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+    .radio-option:hover { border-color: var(--color-primary); }
+    .radio-option input[type="radio"] { accent-color: var(--color-primary); width: 16px; height: 16px; }
+    .radio-option.selected {
+      border-color: var(--color-primary);
+      background: var(--color-success-bg);
+      color: var(--color-text);
+      font-weight: 500;
+    }
+
+    /* ─── Compute Button ──────────────────────────────────────────────── */
+    .compute-section {
+      margin-top: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .btn-primary {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: #FFFFFF;
+      background: var(--color-primary);
+      border: none;
+      border-radius: var(--radius-sm);
+      height: 52px;
+      width: 100%;
+      cursor: pointer;
+      transition: background var(--transition-fast), transform 100ms ease;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--color-border-focus);
+      outline-offset: 2px;
+    }
+    .btn-primary.loading { opacity: 0.7; cursor: not-allowed; }
+    .btn-ghost {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px 0;
+      transition: color var(--transition-fast);
+      text-align: center;
+    }
+    .btn-ghost:hover { color: var(--color-text); }
+    .btn-ghost:focus-visible {
+      outline: 2px solid var(--color-border-focus);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* ─── Disclaimer ──────────────────────────────────────────────────── */
+    .disclaimer {
+      font-size: 12px;
+      color: var(--color-text-tertiary);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ─── Result Card ─────────────────────────────────────────────────── */
+    .result-card {
+      background: var(--color-success-bg);
+      border: 1px solid rgba(26, 92, 58, 0.15);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      animation: resultReveal 400ms ease-out forwards;
+    }
+    @keyframes resultReveal {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 640px) { .result-card { padding: 24px 20px; } }
+
+    .result-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .result-check-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: checkAppear 300ms 200ms ease-out both;
+    }
+    @keyframes checkAppear {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .result-check-icon svg { color: white; }
+    .result-check-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .result-hero {
+      margin-bottom: 24px;
+    }
+    .result-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .result-amount {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 8vw, 56px);
+      font-weight: 400;
+      color: var(--color-primary);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+    }
+    .result-amount-counter {
+      display: inline-block;
+    }
+
+    /* Breakdown */
+    .result-breakdown {
+      border-top: 1px solid rgba(26, 92, 58, 0.12);
+      padding-top: 20px;
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(26, 92, 58, 0.08);
+      animation: fadeInRow 300ms ease-out both;
+    }
+    .breakdown-row:last-child { border-bottom: none; }
+    .breakdown-row:nth-child(1) { animation-delay: 100ms; }
+    .breakdown-row:nth-child(2) { animation-delay: 175ms; }
+    .breakdown-row:nth-child(3) { animation-delay: 250ms; }
+    .breakdown-row:nth-child(4) { animation-delay: 325ms; }
+    .breakdown-row:nth-child(5) { animation-delay: 400ms; }
+    @keyframes fadeInRow {
+      from { opacity: 0; transform: translateX(-8px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .breakdown-key {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+    .breakdown-val {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text);
+      text-align: right;
+    }
+    .breakdown-val.highlight {
+      font-family: var(--font-display);
+      font-size: 16px;
+      color: var(--color-primary);
+    }
+
+    /* Result note */
+    .result-note {
+      margin-top: 20px;
+      padding: 14px 16px;
+      background: rgba(26, 92, 58, 0.06);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+    .result-note strong { color: var(--color-text); font-weight: 600; }
+
+    /* Result actions */
+    .result-actions {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .btn-result-action {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-primary);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 9px 16px;
+      cursor: pointer;
+      transition: border-color var(--transition-fast), background var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-result-action:hover {
+      border-color: var(--color-primary);
+      background: var(--color-success-bg);
+    }
+    .btn-result-action:focus-visible {
+      outline: 2px solid var(--color-border-focus);
+      outline-offset: 2px;
+    }
+    .btn-result-action svg { flex-shrink: 0; }
+
+    /* ─── Info Section ────────────────────────────────────────────────── */
+    .info-section {
+      margin-top: var(--space-lg);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--color-border);
+    }
+    .info-section h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--color-text);
+      margin-bottom: var(--space-sm);
+    }
+    .info-section p {
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-sm);
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: var(--space-md);
+    }
+    @media (max-width: 480px) { .info-grid { grid-template-columns: 1fr; } }
+    .info-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+    }
+    .info-card-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .info-card-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    .info-card-note {
+      font-size: 12px;
+      color: var(--color-text-tertiary);
+      margin-top: 4px;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-lg) var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    .footer-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .footer-left { font-size: 13px; color: var(--color-text-tertiary); }
+    .footer-left a { color: var(--color-text-secondary); }
+    .footer-right {
+      display: flex;
+      gap: var(--space-sm);
+      font-size: 13px;
+    }
+    .footer-right a { color: var(--color-text-secondary); }
+    .footer-right a:hover { color: var(--color-primary); }
+
+    /* ─── View System ─────────────────────────────────────────────────── */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* ─── Skeleton Loading ────────────────────────────────────────────── */
+    .skeleton {
+      background: var(--color-muted);
+      border-radius: 4px;
+      animation: skeletonPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes skeletonPulse {
+      0%, 100% { opacity: 0.6; }
+      50%       { opacity: 1; }
+    }
+
+    /* ─── Warning Banner ──────────────────────────────────────────────── */
+    .warning-banner {
+      background: var(--color-warning-bg);
+      border: 1px solid rgba(160, 107, 0, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--color-warning);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: var(--space-md);
+    }
+    .warning-banner svg { flex-shrink: 0; margin-top: 1px; }
+
+    /* ─── Related Tools ────────────────────────────────────────────────── */
+    .related-tools {
+      margin-top: var(--space-lg);
+    }
+    .related-tools h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-sm);
+    }
+    .related-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .related-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: border-color var(--transition-fast), background var(--transition-fast);
+    }
+    .related-item:hover {
+      border-color: var(--color-primary);
+      background: var(--color-success-bg);
+      text-decoration: none;
+    }
+    .related-item-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+    .related-item-type {
+      font-size: 12px;
+      color: var(--color-text-tertiary);
+    }
+    .related-item svg { color: var(--color-text-tertiary); }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Site navigation">
+    <div class="nav-inner">
+      <a href="https://angkin.ph" class="angkin-badge" aria-label="Angkin home">angkin</a>
+      <div class="nav-right">
+        <nav class="nav-breadcrumb" aria-label="Breadcrumb">
+          <a href="https://angkin.ph/labor" style="color: var(--color-text-tertiary); font-size:13px;">Labor</a>
+          <span aria-hidden="true">›</span>
+          <span>RetireMath</span>
+        </nav>
+        <div class="nav-domain-icon" aria-hidden="true">
+          <!-- Handshake icon for labor -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <div class="page">
+
+      <!-- Tool Header -->
+      <header class="tool-header">
+        <p class="tool-domain-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Labor &amp; Employment
+        </p>
+        <h1 class="tool-title">Retirement Pay Calculator</h1>
+        <p class="tool-subtitle">
+          Compute the retirement pay an employee is entitled to under
+          <a href="#about-ra7641" aria-describedby="ra7641-desc">Republic Act No. 7641</a>.
+          No account needed — enter your numbers, see your result.
+        </p>
+      </header>
+
+      <!-- View Toggle -->
+      <div class="view-toggle" role="tablist" aria-label="Calculator views">
+        <button class="toggle-btn active" role="tab" aria-selected="true" aria-controls="view-input" id="tab-input" onclick="switchView('input')">
+          Compute
+        </button>
+        <button class="toggle-btn" role="tab" aria-selected="false" aria-controls="view-result" id="tab-result" onclick="switchView('result')">
+          See Result
+        </button>
+      </div>
+
+      <!-- INPUT VIEW -->
+      <div id="view-input" class="view active" role="tabpanel" aria-labelledby="tab-input">
+        <div class="calc-card">
+          <form id="calc-form" novalidate>
+
+            <fieldset class="form-section" style="border:none;">
+              <legend class="section-label">Employee information</legend>
+
+              <div class="field">
+                <label for="monthly-salary">Monthly basic salary</label>
+                <div class="input-wrapper">
+                  <span class="input-prefix" aria-hidden="true">₱</span>
+                  <input
+                    type="number"
+                    id="monthly-salary"
+                    name="monthly-salary"
+                    class="has-prefix"
+                    placeholder="e.g. 35,000"
+                    inputmode="decimal"
+                    min="0"
+                    aria-describedby="salary-helper salary-error"
+                  >
+                </div>
+                <span class="field-helper" id="salary-helper">Your gross monthly basic pay, excluding overtime and allowances</span>
+                <span class="field-error" id="salary-error" role="alert">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  Please enter your monthly salary
+                </span>
+              </div>
+
+              <div class="field">
+                <label for="years-service">Years of service</label>
+                <div class="input-wrapper">
+                  <input
+                    type="number"
+                    id="years-service"
+                    name="years-service"
+                    placeholder="e.g. 6"
+                    inputmode="decimal"
+                    min="0"
+                    max="50"
+                    aria-describedby="years-helper years-error"
+                  >
+                </div>
+                <span class="field-helper" id="years-helper">Total years employed by this employer. Use decimals for partial years (e.g. 5.5 for 5 years, 6 months)</span>
+                <span class="field-error" id="years-error" role="alert">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  Please enter years of service (minimum 5 years)
+                </span>
+              </div>
+
+            </fieldset>
+
+            <fieldset class="form-section" style="border:none; margin-top:24px; padding-top:24px; border-top: 1px solid var(--color-border);">
+              <legend class="section-label">Retirement basis</legend>
+
+              <div class="field">
+                <label>Reason for retirement</label>
+                <div class="radio-group" id="retirement-type" role="group" aria-label="Reason for retirement">
+                  <label class="radio-option selected" id="option-optional">
+                    <input type="radio" name="retirement-type" value="optional" checked onchange="updateRadio(this)">
+                    <span>Optional (age 60+)</span>
+                  </label>
+                  <label class="radio-option" id="option-compulsory">
+                    <input type="radio" name="retirement-type" value="compulsory" onchange="updateRadio(this)">
+                    <span>Compulsory (age 65)</span>
+                  </label>
+                </div>
+                <span class="field-helper">RA 7641 applies when: employer has no retirement plan, or plan provides less than the law's minimum</span>
+              </div>
+
+              <div class="field">
+                <label for="daily-rate-basis">Daily rate basis</label>
+                <div class="select-wrapper">
+                  <select id="daily-rate-basis" name="daily-rate-basis" aria-describedby="rate-helper">
+                    <option value="22.5">22.5 working days (standard — private sector)</option>
+                    <option value="26">26 working days (6-day work week)</option>
+                    <option value="30">30 calendar days</option>
+                  </select>
+                </div>
+                <span class="field-helper" id="rate-helper">Most private sector employees use 22.5 days per month</span>
+              </div>
+
+            </fieldset>
+
+            <div class="compute-section">
+              <button type="submit" class="btn-primary" id="compute-btn" aria-label="Compute retirement pay">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+                Compute Retirement Pay
+              </button>
+              <button type="button" class="btn-ghost" onclick="clearForm()">Clear form</button>
+              <p class="disclaimer">Results are estimates for reference only. Consult a labor lawyer for disputes.</p>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- RESULT VIEW -->
+      <div id="view-result" class="view" role="tabpanel" aria-labelledby="tab-result" aria-live="polite">
+
+        <div class="warning-banner" role="note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>This is a sample result. Fill in the form and click <strong>Compute Retirement Pay</strong> to see your actual calculation.</span>
+        </div>
+
+        <div class="result-card" id="result-card" aria-label="Retirement pay calculation result">
+          <div class="result-check">
+            <div class="result-check-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span class="result-check-label">Minimum retirement pay under RA 7641</span>
+          </div>
+
+          <div class="result-hero">
+            <p class="result-label">Retirement Pay</p>
+            <p class="result-amount" id="result-amount" aria-label="Computed retirement pay amount">
+              ₱<span class="result-amount-counter" id="result-counter">210,000</span>
+            </p>
+          </div>
+
+          <div class="result-breakdown" role="table" aria-label="Calculation breakdown">
+            <div class="breakdown-row" role="row">
+              <span class="breakdown-key" role="cell">Monthly basic salary</span>
+              <span class="breakdown-val" role="cell" id="bd-salary">₱35,000.00</span>
+            </div>
+            <div class="breakdown-row" role="row">
+              <span class="breakdown-key" role="cell">Daily rate <span style="color:var(--color-text-tertiary); font-size:12px;">(÷ 22.5 days)</span></span>
+              <span class="breakdown-val" role="cell" id="bd-daily">₱1,555.56 / day</span>
+            </div>
+            <div class="breakdown-row" role="row">
+              <span class="breakdown-key" role="cell">Years of service</span>
+              <span class="breakdown-val" role="cell" id="bd-years">6 years</span>
+            </div>
+            <div class="breakdown-row" role="row">
+              <span class="breakdown-key" role="cell">RA 7641 multiplier</span>
+              <span class="breakdown-val" role="cell">22.5 days × years of service</span>
+            </div>
+            <div class="breakdown-row" role="row">
+              <span class="breakdown-key" role="cell">Formula</span>
+              <span class="breakdown-val highlight" role="cell" id="bd-formula">₱1,555.56 × 22.5 × 6 = ₱210,000</span>
+            </div>
+          </div>
+
+          <div class="result-note" role="note">
+            <strong>Note:</strong> This is the <em>minimum</em> retirement pay under RA 7641. If your employer has a company retirement plan or CBA that provides more, you are entitled to the higher amount. Retirement pay is generally <strong>tax-exempt</strong> under NIRC Section 32(B)(6)(a).
+          </div>
+
+          <div class="result-actions">
+            <button class="btn-result-action" onclick="copyResult()" aria-label="Copy result to clipboard">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+            <button class="btn-result-action" onclick="recalculate()" aria-label="Recalculate with different values">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5"/></svg>
+              Recalculate
+            </button>
+          </div>
+        </div>
+
+        <!-- Info cards -->
+        <div class="info-grid" style="margin-top: var(--space-lg);">
+          <div class="info-card">
+            <p class="info-card-label">Computation basis</p>
+            <p class="info-card-value">22.5 days</p>
+            <p class="info-card-note">Standard for 5-day work week</p>
+          </div>
+          <div class="info-card">
+            <p class="info-card-label">Minimum service</p>
+            <p class="info-card-value">5 years</p>
+            <p class="info-card-note">Required to qualify under RA 7641</p>
+          </div>
+          <div class="info-card">
+            <p class="info-card-label">Optional retirement</p>
+            <p class="info-card-value">Age 60</p>
+            <p class="info-card-note">Employee may choose to retire</p>
+          </div>
+          <div class="info-card">
+            <p class="info-card-label">Compulsory retirement</p>
+            <p class="info-card-value">Age 65</p>
+            <p class="info-card-note">Employer may require retirement</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- About RA 7641 -->
+      <section class="info-section" id="about-ra7641" aria-labelledby="about-heading">
+        <h2 id="about-heading">About Republic Act No. 7641</h2>
+        <p>
+          RA 7641, the <em>Retirement Pay Act</em>, requires Philippine private sector employers to pay retiring employees a minimum benefit of <strong>one-half month salary for every year of service</strong> (equivalent to 22.5 days). This applies when the employer has no existing retirement plan, or when the company plan provides less than the legal minimum.
+        </p>
+        <p>
+          Under DOLE guidelines, "one-half month salary" means: 15 days salary + 1/12 of 13th month pay + 5 days service incentive leave — totaling 22.5 days when added together. The benefit applies to all employees except those covered by the Government Service Insurance System (GSIS).
+        </p>
+        <p id="ra7641-desc">
+          <a href="https://laborlaw.ph/ra-7641" target="_blank" rel="noopener">Read the full text of RA 7641 →</a>
+        </p>
+      </section>
+
+      <!-- Related Tools -->
+      <div class="related-tools">
+        <h3>Related labor calculators</h3>
+        <div class="related-list">
+          <a href="https://separationpay.angkin.ph" class="related-item" aria-label="Separation Pay Calculator">
+            <div>
+              <p class="related-item-name">Separation Pay Calculator</p>
+              <p class="related-item-type">RA 6715 · Single-form calculator</p>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <a href="https://thirteenthmonth.angkin.ph" class="related-item" aria-label="13th Month Pay Calculator">
+            <div>
+              <p class="related-item-name">13th Month Pay Calculator</p>
+              <p class="related-item-type">PD 851 · Single-form calculator</p>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <a href="https://sss.angkin.ph" class="related-item" aria-label="SSS Contribution Calculator">
+            <div>
+              <p class="related-item-name">SSS Contribution Calculator</p>
+              <p class="related-item-type">SSS 2024 table · Single-form calculator</p>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /.page -->
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <a href="https://angkin.ph" class="angkin-badge" style="display:inline-flex; align-items:center; gap:6px; font-size:12px; text-decoration:none;">
+          angkin
+        </a>
+        <span style="margin-left:8px;">RetireMath · RA 7641 · Updated March 2026</span>
+      </div>
+      <div class="footer-right">
+        <a href="https://angkin.ph/feedback">Feedback</a>
+        <a href="https://angkin.ph/about">About</a>
+        <a href="https://angkin.ph/tools">All 148 tools</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── State ─────────────────────────────────────────────────────────
+    let computed = false;
+    let currentView = 'input';
+
+    // ─── View Switching ────────────────────────────────────────────────
+    function switchView(view) {
+      currentView = view;
+      document.getElementById('view-input').classList.toggle('active', view === 'input');
+      document.getElementById('view-result').classList.toggle('active', view === 'result');
+      document.getElementById('tab-input').classList.toggle('active', view === 'input');
+      document.getElementById('tab-result').classList.toggle('active', view === 'result');
+      document.getElementById('tab-input').setAttribute('aria-selected', view === 'input');
+      document.getElementById('tab-result').setAttribute('aria-selected', view === 'result');
+    }
+
+    // ─── Radio update ──────────────────────────────────────────────────
+    function updateRadio(input) {
+      document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+      input.closest('.radio-option').classList.add('selected');
+    }
+
+    // ─── Number counter animation ──────────────────────────────────────
+    function animateCounter(el, from, to, duration) {
+      const start = performance.now();
+      const update = (time) => {
+        const elapsed = time - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // ease out cubic
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(from + (to - from) * ease);
+        el.textContent = current.toLocaleString('en-PH');
+        if (progress < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+
+    // ─── Validation ────────────────────────────────────────────────────
+    function validate() {
+      let valid = true;
+      const salary = parseFloat(document.getElementById('monthly-salary').value);
+      const years = parseFloat(document.getElementById('years-service').value);
+
+      const salaryInput = document.getElementById('monthly-salary');
+      const salaryError = document.getElementById('salary-error');
+      if (!salary || salary <= 0) {
+        salaryInput.classList.add('error');
+        salaryError.classList.add('visible');
+        valid = false;
+      } else {
+        salaryInput.classList.remove('error');
+        salaryError.classList.remove('visible');
+      }
+
+      const yearsInput = document.getElementById('years-service');
+      const yearsError = document.getElementById('years-error');
+      if (!years || years < 5) {
+        yearsInput.classList.add('error');
+        yearsError.classList.add('visible');
+        valid = false;
+      } else {
+        yearsInput.classList.remove('error');
+        yearsError.classList.remove('visible');
+      }
+
+      return valid;
+    }
+
+    // ─── Calculation ───────────────────────────────────────────────────
+    function compute() {
+      const salary = parseFloat(document.getElementById('monthly-salary').value);
+      const years  = parseFloat(document.getElementById('years-service').value);
+      const basis  = parseFloat(document.getElementById('daily-rate-basis').value);
+
+      // RA 7641 formula: (monthly salary / divisor) × 22.5 × years of service
+      // "one-half month salary" = 22.5 days = 15 days + 1/12 13th month + 5 days SIL
+      const dailyRate = salary / basis;
+      const retirementPay = dailyRate * 22.5 * years;
+
+      // Update result display
+      document.getElementById('bd-salary').textContent = '₱' + salary.toLocaleString('en-PH', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('bd-daily').textContent  = '₱' + dailyRate.toLocaleString('en-PH', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' / day';
+      document.getElementById('bd-years').textContent  = years + (years === 1 ? ' year' : ' years');
+      document.getElementById('bd-formula').textContent = '₱' + dailyRate.toLocaleString('en-PH', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' × 22.5 × ' + years;
+
+      // Animate counter
+      const counterEl = document.getElementById('result-counter');
+      document.getElementById('result-amount').setAttribute('aria-label', 'Computed retirement pay: ₱' + retirementPay.toLocaleString('en-PH', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
+      animateCounter(counterEl, 0, retirementPay, 700);
+
+      // Remove warning banner on real compute
+      const warning = document.querySelector('.warning-banner');
+      if (warning) warning.style.display = 'none';
+
+      computed = true;
+    }
+
+    // ─── Form Submit ───────────────────────────────────────────────────
+    document.getElementById('calc-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!validate()) return;
+
+      const btn = document.getElementById('compute-btn');
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      // Tiny artificial delay for feel (not needed computationally, but gives weight)
+      setTimeout(() => {
+        compute();
+        switchView('result');
+
+        // Re-enable button
+        btn.classList.remove('loading');
+        btn.disabled = false;
+
+        // Scroll to top of result
+        document.getElementById('view-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    });
+
+    // ─── Utility actions ──────────────────────────────────────────────
+    function clearForm() {
+      document.getElementById('calc-form').reset();
+      document.querySelectorAll('.field input').forEach(i => i.classList.remove('error'));
+      document.querySelectorAll('.field-error').forEach(e => e.classList.remove('visible'));
+      switchView('input');
+      computed = false;
+    }
+
+    function recalculate() {
+      switchView('input');
+    }
+
+    function copyResult() {
+      const amount = document.getElementById('result-counter').textContent;
+      const text = `Retirement Pay (RA 7641): ₱${amount}\nComputed with RetireMath by Angkin — angkin.ph`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = event.currentTarget;
+        const original = btn.innerHTML;
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+        setTimeout(() => { btn.innerHTML = original; }, 2000);
+      });
+    }
+
+    // ─── Demo: Populate with example data for screenshot ──────────────
+    // (Remove this in production)
+    document.addEventListener('DOMContentLoaded', () => {
+      // Pre-fill for demo purposes
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('demo') === 'result') {
+        document.getElementById('monthly-salary').value = 35000;
+        document.getElementById('years-service').value = 6;
+        document.getElementById('calc-form').dispatchEvent(new Event('submit'));
+      }
+    });
+  </script>
+
+</body>
+</html>
