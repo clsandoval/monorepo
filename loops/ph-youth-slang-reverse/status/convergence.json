@@ -3,382 +3,388 @@
   "last_updated": "2026-03-10",
   "history": [
     {
-      "iteration": "refinement pass 2 — second raw-gap audit + new term batch",
+      "iteration": "refinement pass 2 \u2014 second raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 0,
       "counter_action": "reset to 0 (15 new terms found)"
     },
     {
-      "iteration": "refinement pass 3 — third raw-gap audit + new term batch",
+      "iteration": "refinement pass 3 \u2014 third raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 0,
       "counter_action": "reset to 0 (15 new terms found)"
     },
     {
-      "iteration": "refinement pass 4 — fourth raw-gap audit + new term batch",
+      "iteration": "refinement pass 4 \u2014 fourth raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 0,
       "counter_action": "reset to 0 (15 new terms found)"
     },
     {
-      "iteration": "refinement pass 5 — fifth raw-gap audit + new term batch",
+      "iteration": "refinement pass 5 \u2014 fifth raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 14,
       "counter_action": "reset to 0 (15 new terms found, 14 category assignments normalized)"
     },
     {
-      "iteration": "refinement pass 6 — sixth raw-gap audit + new term batch",
+      "iteration": "refinement pass 6 \u2014 sixth raw-gap audit + new term batch",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: pa-mine, shot puno, organic encounter, over naman sa, pi, chour, nepo baby, kimmy)"
     },
     {
-      "iteration": "refinement pass 7 — seventh raw-gap audit + new term batch",
+      "iteration": "refinement pass 7 \u2014 seventh raw-gap audit + new term batch",
       "new_terms": 6,
       "refined_entries": 0,
       "counter_action": "reset to 0 (6 new terms found: okay na 'to, what hafen vella, delulu, slay, sobrang lit, hypebeast)"
     },
     {
-      "iteration": "refinement pass 8 — eighth raw-gap audit + new term batch",
+      "iteration": "refinement pass 8 \u2014 eighth raw-gap audit + new term batch",
       "new_terms": 2,
       "refined_entries": 0,
       "counter_action": "reset to 0 (2 new terms found: mekus-mekus, luh)"
     },
     {
-      "iteration": "refinement pass 9 — ninth raw-gap audit + new term batch",
+      "iteration": "refinement pass 9 \u2014 ninth raw-gap audit + new term batch",
       "new_terms": 9,
       "refined_entries": 0,
       "counter_action": "reset to 0 (9 new terms found: crayola, shutacca, gorgy, DTQ, talksick, mumshie, gandara, pala-desisyon, ghorl)"
     },
     {
-      "iteration": "refinement pass 10 — tenth raw-gap audit (swardspeak/beki expansion)",
+      "iteration": "refinement pass 10 \u2014 tenth raw-gap audit (swardspeak/beki expansion)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: aketch, akis, watash, anetch, keribels, keri, besh, vungga)"
     },
     {
-      "iteration": "refinement pass 11 — eleventh raw-gap audit (modern dating & social media vocabulary)",
+      "iteration": "refinement pass 11 \u2014 eleventh raw-gap audit (modern dating & social media vocabulary)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: tsaa, soft launch, hard launch, situationship, ghostlighting)"
     },
     {
-      "iteration": "refinement pass 12 — twelfth raw-gap audit (Gen Z reversals, beki crossovers, digital emotion vocabulary)",
+      "iteration": "refinement pass 12 \u2014 twelfth raw-gap audit (Gen Z reversals, beki crossovers, digital emotion vocabulary)",
       "new_terms": 7,
       "refined_entries": 0,
       "counter_action": "reset to 0 (7 new terms found: awoj, BV, na para bang, epal, mars, umay, chaka)"
     },
     {
-      "iteration": "refinement pass 13 — thirteenth raw-gap audit (rap/street vocab, gaming terms, emotional expressions)",
+      "iteration": "refinement pass 13 \u2014 thirteenth raw-gap audit (rap/street vocab, gaming terms, emotional expressions)",
       "new_terms": 12,
       "refined_entries": 34,
       "counter_action": "reset to 0 (12 new terms found: tolongges, ssob, normalin, lakas tama, nabagantsa, naka-carts, nakakatunaw, kinaladkad, mala-[X], pariwara, lala, sumasabay sa flow; 34 category assignments normalized)"
     },
     {
-      "iteration": "refinement pass 14 — fourteenth raw-gap audit (internet culture, mood/emotion vocabulary, sports crossover)",
+      "iteration": "refinement pass 14 \u2014 fourteenth raw-gap audit (internet culture, mood/emotion vocabulary, sports crossover)",
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: rage bait, toyo, supalpal)"
     },
     {
-      "iteration": "refinement pass 15 — fifteenth raw-gap audit (2 new terms, 287→289)",
+      "iteration": "refinement pass 15 \u2014 fifteenth raw-gap audit (2 new terms, 287\u2192289)",
       "new_terms": 2,
       "refined_entries": 0,
       "counter_action": "reset to 0 (2 new terms found: matsala, gento)"
     },
     {
-      "iteration": "refinement pass 16 — sixteenth raw-gap audit (4 new terms, 289→293)",
+      "iteration": "refinement pass 16 \u2014 sixteenth raw-gap audit (4 new terms, 289\u2192293)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: benta, dump account, g na g, talking stage)"
     },
     {
-      "iteration": "refinement pass 17 — seventeenth raw-gap audit (3 new terms, 293→296)",
+      "iteration": "refinement pass 17 \u2014 seventeenth raw-gap audit (3 new terms, 293\u2192296)",
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: green flag, ick, red flag)"
     },
     {
-      "iteration": "refinement pass 18 — eighteenth raw-gap audit (2 new terms, 296→298)",
+      "iteration": "refinement pass 18 \u2014 eighteenth raw-gap audit (2 new terms, 296\u2192298)",
       "new_terms": 2,
       "refined_entries": 0,
       "counter_action": "reset to 0 (2 new terms found: warla, anyare)"
     },
     {
-      "iteration": "refinement pass 19 — nineteenth raw-gap audit (1 new term, 298→299)",
+      "iteration": "refinement pass 19 \u2014 nineteenth raw-gap audit (1 new term, 298\u2192299)",
       "new_terms": 1,
       "refined_entries": 0,
       "counter_action": "reset to 0 (1 new term found: charot)"
     },
     {
-      "iteration": "refinement pass 20 — twentieth raw-gap audit (4 new terms, 299→303)",
+      "iteration": "refinement pass 20 \u2014 twentieth raw-gap audit (4 new terms, 299\u2192303)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: NPC, beige flag, sigma, skibidi)"
     },
     {
-      "iteration": "refinement pass 21 — twenty-first raw-gap audit (2 new terms, 303→305)",
+      "iteration": "refinement pass 21 \u2014 twenty-first raw-gap audit (2 new terms, 303\u2192305)",
       "new_terms": 2,
       "refined_entries": 0,
       "counter_action": "reset to 0 (2 new terms found: demure, brat)"
     },
     {
-      "iteration": "refinement pass 22 — twenty-second raw-gap audit (2 new terms, 305→307)",
+      "iteration": "refinement pass 22 \u2014 twenty-second raw-gap audit (2 new terms, 305\u2192307)",
       "new_terms": 2,
       "refined_entries": 1,
       "counter_action": "reset to 0 (2 new terms found: gar, pak na pak; 1 entry refined: pak ganern related_terms updated)"
     },
     {
-      "iteration": "refinement pass 23 — twenty-third raw-gap audit (3 new terms, 307→310)",
+      "iteration": "refinement pass 23 \u2014 twenty-third raw-gap audit (3 new terms, 307\u2192310)",
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: kebs, sus, crash out)"
     },
     {
-      "iteration": "refinement pass 24 — twenty-fourth raw-gap audit (3 new terms, 310→313)",
+      "iteration": "refinement pass 24 \u2014 twenty-fourth raw-gap audit (3 new terms, 310\u2192313)",
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: fanum tax, ohio, gyat)"
     },
     {
-      "iteration": "refinement pass 25 — twenty-fifth raw-gap audit (4 new terms, 313→317)",
+      "iteration": "refinement pass 25 \u2014 twenty-fifth raw-gap audit (4 new terms, 313\u2192317)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: LQ, FUBU, NBSB, pa-fall)"
     },
     {
-      "iteration": "refinement pass 26 — twenty-sixth raw-gap audit (4 new terms, 317→321)",
+      "iteration": "refinement pass 26 \u2014 twenty-sixth raw-gap audit (4 new terms, 317\u2192321)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: lupet, shookt, OA, okray)"
     },
     {
-      "iteration": "refinement pass 27 — twenty-seventh raw-gap audit (4 new terms, 321→325)",
+      "iteration": "refinement pass 27 \u2014 twenty-seventh raw-gap audit (4 new terms, 321\u2192325)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: paasa, mema, edi wow, simp)"
     },
     {
-      "iteration": "refinement pass 28 — twenty-eighth raw-gap audit (4 new terms, 325→329)",
+      "iteration": "refinement pass 28 \u2014 twenty-eighth raw-gap audit (4 new terms, 325\u2192329)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: bebot, hala, bwiset, era)"
     },
     {
-      "iteration": "refinement pass 29 — twenty-ninth raw-gap audit (5 new terms, 329→334)",
+      "iteration": "refinement pass 29 \u2014 twenty-ninth raw-gap audit (5 new terms, 329\u2192334)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: torpe, plastik, KSP, nosebleed, KJ)"
     },
     {
-      "iteration": "refinement pass 30 — thirtieth raw-gap audit (3 new terms, 334→337)",
+      "iteration": "refinement pass 30 \u2014 thirtieth raw-gap audit (3 new terms, 334\u2192337)",
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: mamser, momol, vibe check)"
     },
     {
-      "iteration": "refinement pass 31 — thirty-first raw-gap audit (3 new terms, 337→340)",
+      "iteration": "refinement pass 31 \u2014 thirty-first raw-gap audit (3 new terms, 337\u2192340)",
       "new_terms": 3,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (3 new terms found: naloka, arte, bitin; tambay and kaloka explicitly rejected in pass 49 log — not re-added)"
+      "counter_action": "reset to 0 (3 new terms found: naloka, arte, bitin; tambay and kaloka explicitly rejected in pass 49 log \u2014 not re-added)"
     },
     {
-      "iteration": "refinement pass 32 — thirty-second raw-gap audit (5 new terms, 340→345)",
+      "iteration": "refinement pass 32 \u2014 thirty-second raw-gap audit (5 new terms, 340\u2192345)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: scoobs, flex, clout, glow up, highkey)"
     },
     {
-      "iteration": "refinement pass 33 — thirty-third raw-gap audit (5 new terms, 345→350)",
+      "iteration": "refinement pass 33 \u2014 thirty-third raw-gap audit (5 new terms, 345\u2192350)",
       "new_terms": 5,
       "refined_entries": 1,
       "counter_action": "reset to 0 (5 new terms found: G, sawi, bangag, basted, badtrip; 1 entry refined: chos related_terms updated to include echos)"
     },
     {
-      "iteration": "refinement pass 34 — thirty-fourth raw-gap audit (5 new terms, 350→355)",
+      "iteration": "refinement pass 34 \u2014 thirty-fourth raw-gap audit (5 new terms, 350\u2192355)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: based, canon event, glazing, manifesting, MU)"
     },
     {
-      "iteration": "refinement pass 35 — thirty-fifth raw-gap audit (5 new terms, 355→360)",
+      "iteration": "refinement pass 35 \u2014 thirty-fifth raw-gap audit (5 new terms, 355\u2192360)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: chamba, chorva, petsa de peligro, tripping, ulol)"
     },
     {
-      "iteration": "refinement pass 36 — thirty-sixth raw-gap audit (5 new terms, 360→365)",
+      "iteration": "refinement pass 36 \u2014 thirty-sixth raw-gap audit (5 new terms, 360\u2192365)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: taray, korni, maldita, harot, low bat)"
     },
     {
-      "iteration": "refinement pass 37 — thirty-seventh raw-gap audit (6 new terms, 365→371)",
+      "iteration": "refinement pass 37 \u2014 thirty-seventh raw-gap audit (6 new terms, 365\u2192371)",
       "new_terms": 6,
       "refined_entries": 12,
       "counter_action": "reset to 0 (6 new terms found: syota, jowable, walang forever, bitter, awts, feels; 12 cross-reference additions)"
     },
     {
-      "iteration": "refinement pass 38 — thirty-eighth raw-gap audit (9 new terms, 371→380)",
+      "iteration": "refinement pass 38 \u2014 thirty-eighth raw-gap audit (9 new terms, 371\u2192380)",
       "new_terms": 9,
       "refined_entries": 0,
       "counter_action": "reset to 0 (9 new terms found: LSS, swabe, barkada, kuyawa, lowkey, baddie, level up, nag-assume, OOTD)"
     },
     {
-      "iteration": "refinement pass 39 — thirty-ninth raw-gap audit (5 new terms, 380→385)",
+      "iteration": "refinement pass 39 \u2014 thirty-ninth raw-gap audit (5 new terms, 380\u2192385)",
       "new_terms": 5,
       "refined_entries": 1,
       "counter_action": "reset to 0 (5 new terms found: budots, linta, jologs, tara, gago; 1 cross-reference update: ulol related_terms)"
     },
     {
-      "iteration": "refinement pass 40 — fortieth raw-gap audit (5 new terms, 385→390)",
+      "iteration": "refinement pass 40 \u2014 fortieth raw-gap audit (5 new terms, 385\u2192390)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: pog, W, L, yapping, cap)"
     },
     {
-      "iteration": "refinement pass 41 — forty-first raw-gap audit (8 new terms, 390→398)",
+      "iteration": "refinement pass 41 \u2014 forty-first raw-gap audit (8 new terms, 390\u2192398)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: ermat, erpat, astig, main character, hayup, hits different, bussin, left no crumbs)"
     },
     {
-      "iteration": "refinement pass 42 — forty-second raw-gap audit (8 new terms, 398→406)",
+      "iteration": "refinement pass 42 \u2014 forty-second raw-gap audit (8 new terms, 398\u2192406)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: senti, gimik, baduy, villain era, it's giving, say less, iykyk, pre)"
     },
     {
-      "iteration": "refinement pass 43 — forty-third raw-gap audit (8 new terms, 406→414)",
+      "iteration": "refinement pass 43 \u2014 forty-third raw-gap audit (8 new terms, 406\u2192414)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: hugot line, cge, echos, cringe, bruh, ngl, pucha, tea)"
     },
     {
-      "iteration": "refinement pass 44 — forty-fourth raw-gap audit (8 new terms, 414→422)",
+      "iteration": "refinement pass 44 \u2014 forty-fourth raw-gap audit (8 new terms, 414\u2192422)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: pikon, pikron, sheesh, mid, facecard, balimbing, wagas, kalog)"
     },
     {
-      "iteration": "refinement pass 45 — forty-fifth raw-gap audit (5 new terms, 422→427)",
+      "iteration": "refinement pass 45 \u2014 forty-fifth raw-gap audit (5 new terms, 422\u2192427)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: weh, amboy, promdi, patok, toxic)"
     },
     {
-      "iteration": "refinement pass 46 — forty-sixth raw-gap audit (9 new terms, 427→436)",
+      "iteration": "refinement pass 46 \u2014 forty-sixth raw-gap audit (9 new terms, 427\u2192436)",
       "new_terms": 9,
       "refined_entries": 0,
       "counter_action": "reset to 0 (9 new terms found: solid, bossing, pards, let him cook, understood the assignment, caught in 4k, maritess, vibe, stan)"
     },
     {
-      "iteration": "refinement pass 47 — forty-seventh raw-gap audit (8 new terms, 436→444)",
+      "iteration": "refinement pass 47 \u2014 forty-seventh raw-gap audit (8 new terms, 436\u2192444)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: pookie, pick me, bougie, suplado, kulet, padaog, savage, pa-cute)"
     },
     {
-      "iteration": "refinement pass 48 — forty-eighth raw-gap audit (8 new terms, 444→452)",
+      "iteration": "refinement pass 48 \u2014 forty-eighth raw-gap audit (8 new terms, 444\u2192452)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: lods, paps, sulit, lait, kulit, angkas, pakners, jejemon)"
     },
     {
-      "iteration": "refinement pass 49 — forty-ninth raw-gap audit (8 new terms, 452→460)",
+      "iteration": "refinement pass 49 \u2014 forty-ninth raw-gap audit (8 new terms, 452\u2192460)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: tampo, tanga, utol, kupal, manhid, kalma, halata, pasosyal)"
     },
     {
-      "iteration": "refinement pass 50 — fiftieth raw-gap audit (8 new terms, 460→468)",
+      "iteration": "refinement pass 50 \u2014 fiftieth raw-gap audit (8 new terms, 460\u2192468)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: dyahe, havey, waley, stress drilon, pusuan mo, extra, baliw, keber)"
     },
     {
-      "iteration": "refinement pass 51 — fifty-first raw-gap audit (8 new terms, 468→476)",
+      "iteration": "refinement pass 51 \u2014 fifty-first raw-gap audit (8 new terms, 468\u2192476)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: korek, pare, tsong, buti nga, nyek, selos, basta, ewan)"
     },
     {
-      "iteration": "refinement pass 52 — fifty-second raw-gap audit (8 new terms, 476→484)",
+      "iteration": "refinement pass 52 \u2014 fifty-second raw-gap audit (8 new terms, 476\u2192484)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: tsupogi, feel trip, moots, ampotah, kuryente, labyu, FYP, tibo)"
     },
     {
-      "iteration": "refinement pass 53 — fifty-third raw-gap audit (8 new terms, 484→492)",
+      "iteration": "refinement pass 53 \u2014 fifty-third raw-gap audit (8 new terms, 484\u2192492)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: beki, beks, peg, fomo, gg, mogging, sliving, on god)"
     },
     {
-      "iteration": "refinement pass 54 — fifty-fourth raw-gap audit (8 new terms, 492→500)",
+      "iteration": "refinement pass 54 \u2014 fifty-fourth raw-gap audit (8 new terms, 492\u2192500)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: shunga, pa-gets, gets, bwisit, leche, apakaganda, ogag, ambabaw)"
     },
     {
-      "iteration": "refinement pass 55 — fifty-fifth raw-gap audit (8 new terms, 500→508)",
+      "iteration": "refinement pass 55 \u2014 fifty-fifth raw-gap audit (8 new terms, 500\u2192508)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: lutang, hipon, lodi, siga, kirot, kalat, gulay, bawi)"
     },
     {
-      "iteration": "refinement pass 56 — fifty-sixth raw-gap audit (8 new terms + 3 dupes removed, 508→513)",
+      "iteration": "refinement pass 56 \u2014 fifty-sixth raw-gap audit (8 new terms + 3 dupes removed, 508\u2192513)",
       "new_terms": 8,
       "refined_entries": 3,
       "counter_action": "reset to 0 (8 new terms found: luto, pikot, sablay, atake, tameme, ibang klase, panalo, libre; 3 duplicate entries removed: lutang, lodi, kalat)"
     },
     {
-      "iteration": "refinement pass 57 — fifty-seventh raw-gap audit (8 new terms, 513→521)",
+      "iteration": "refinement pass 57 \u2014 fifty-seventh raw-gap audit (8 new terms, 513\u2192521)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: ghosting, chismosa, lason, bestie, yaiks, pabibo, neks taiym, chareng)"
     },
     {
-      "iteration": "refinement pass 58 — fifty-eighth raw-gap audit (8 new terms, 521→529)",
+      "iteration": "refinement pass 58 \u2014 fifty-eighth raw-gap audit (8 new terms, 521\u2192529)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: gagi, as a friend, modus, palengkera, jeje, pa-gigil, pop off, gising bata)"
     },
     {
-      "iteration": "refinement pass 59 — fifty-ninth raw-gap audit (8 new terms, 529→537)",
+      "iteration": "refinement pass 59 \u2014 fifty-ninth raw-gap audit (8 new terms, 529\u2192537)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: churva, landi, hambog, balato, sipsip, makulit, kuripot, papansin)"
     },
     {
-      "iteration": "refinement pass 60 — sixtieth raw-gap audit (8 new terms, 537→545)",
+      "iteration": "refinement pass 60 \u2014 sixtieth raw-gap audit (8 new terms, 537\u2192545)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: anik-anik, ningas-kugon, bangis, papet, todo, salbahe, mare, bogo)"
     },
     {
-      "iteration": "refinement pass 61 — sixty-first raw-gap audit (8 new gaming + social media terms, 545→553)",
+      "iteration": "refinement pass 61 \u2014 sixty-first raw-gap audit (8 new gaming + social media terms, 545\u2192553)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: pugak, comsat, wanshatan, makati, pabuhat, basag, feeling main character, sumakses)"
     },
     {
-      "iteration": "refinement pass 62 — sixty-second raw-gap audit (8 new terms, 553→561)",
+      "iteration": "refinement pass 62 \u2014 sixty-second raw-gap audit (8 new terms, 553\u2192561)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: satsat, laglagan, laspag, bukol, salbabida, pa-drama, naka-relate, ulyanin)"
     },
     {
-      "iteration": "refinement pass 63 — sixty-third raw-gap audit (8 new terms, 561→569)",
+      "iteration": "refinement pass 63 \u2014 sixty-third raw-gap audit (8 new terms, 561\u2192569)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: kyeme, deadma, left on read, na-ghosted, uso, hay nako, engot, abnoy)"
     },
     {
-      "iteration": "refinement pass 64 — sixty-fourth raw-gap audit (8 new terms, 569→577)",
+      "iteration": "refinement pass 64 \u2014 sixty-fourth raw-gap audit (8 new terms, 569\u2192577)",
       "new_terms": 8,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (8 new terms found: sah, kosa, plar, lespu, cuh, matsalove, deins, egul — all from the Young Stunna street dialect that went viral in 2025)"
+      "counter_action": "reset to 0 (8 new terms found: sah, kosa, plar, lespu, cuh, matsalove, deins, egul \u2014 all from the Young Stunna street dialect that went viral in 2025)"
+    },
+    {
+      "iteration": "refinement pass 65 \u2014 sixty-fifth raw-gap audit (8 new terms, 577\u2192585)",
+      "new_terms": 8,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (8 new terms found: tsismis, grabeh, jusko, pak, bagets, kaladkarin, potek, hopia)"
     }
   ]
 }
