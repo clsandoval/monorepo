@@ -3,6 +3,12 @@
   "last_updated": "2026-03-10",
   "history": [
     {
+      "iteration": "refinement pass 83 — eighty-third raw-gap audit (5 new terms, 688→693)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: landian, bida bida, layogenic, talikodgenic, pabebe wave)"
+    },
+    {
       "iteration": "refinement pass 2 — second raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 0,
