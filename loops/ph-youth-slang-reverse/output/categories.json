@@ -37,7 +37,7 @@
     ]
   },
   "emotions-and-feelings": {
-    "count": 42,
+    "count": 43,
     "terms": [
       "BV",
       "agit",
@@ -64,6 +64,7 @@
       "laya",
       "lulong",
       "lutang",
+      "manifesting",
       "marupok",
       "nabagantsa",
       "nadikit",
@@ -84,7 +85,7 @@
     ]
   },
   "exclamations-and-hype": {
-    "count": 54,
+    "count": 55,
     "terms": [
       "ang lala mo",
       "aning sayo",
@@ -94,6 +95,7 @@
       "aray mo",
       "awit sayo",
       "ayoko na",
+      "based",
       "bet",
       "bibo",
       "bitaw",
@@ -222,7 +224,7 @@
     ]
   },
   "gen-z-and-imported-slang": {
-    "count": 74,
+    "count": 78,
     "terms": [
       "247",
       "6-7",
@@ -231,6 +233,7 @@
       "SZN",
       "aura farming",
       "awra",
+      "based",
       "beige flag",
       "benchwarmer",
       "benta",
@@ -242,6 +245,7 @@
       "brain rot",
       "burgis",
       "cancel",
+      "canon event",
       "cappin",
       "chariz",
       "charot",
@@ -259,6 +263,7 @@
       "fr",
       "g na g",
       "ghostlighting",
+      "glazing",
       "go getta",
       "gorgy",
       "green flag",
@@ -272,6 +277,7 @@
       "low key",
       "main character energy",
       "mala-[X]",
+      "manifesting",
       "matik",
       "mid lang",
       "mog",
@@ -373,7 +379,7 @@
     ]
   },
   "internet-and-social-media": {
-    "count": 96,
+    "count": 100,
     "terms": [
       "6-7",
       "AFAM",
@@ -390,12 +396,14 @@
       "ate girl",
       "aura farming",
       "baha ka lang, pinoy kami",
+      "based",
       "bigla kang sumakses",
       "boogsh",
       "brain rot",
       "budol",
       "bumaba 'yung gang",
       "cancel",
+      "canon event",
       "chibog",
       "chour",
       "deds",
@@ -413,6 +421,7 @@
       "forda ferson",
       "fr",
       "gandara",
+      "glazing",
       "gng",
       "gorgy",
       "hard launch",
@@ -425,6 +434,7 @@
       "luh",
       "main character energy",
       "mala-[X]",
+      "manifesting",
       "marecakes",
       "marites",
       "mekus-mekus",
@@ -553,7 +563,7 @@
     ]
   },
   "personality-and-character": {
-    "count": 60,
+    "count": 61,
     "terms": [
       "NPC",
       "angas",
@@ -573,6 +583,7 @@
       "forda",
       "forda ferson",
       "galing kalye",
+      "glazing",
       "go getta",
       "haliparot",
       "hanash",
@@ -618,9 +629,10 @@
     ]
   },
   "romance-and-relationships": {
-    "count": 51,
+    "count": 52,
     "terms": [
       "AFAM",
+      "MU",
       "awoj",
       "babaero",
       "bagay",
