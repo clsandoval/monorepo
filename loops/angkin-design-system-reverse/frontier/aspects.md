@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects:** 27
-- **Analyzed:** 15
-- **Pending:** 12
-- **Convergence:** 56%
+- **Analyzed:** 16
+- **Pending:** 11
+- **Convergence:** 59%
 
 ---
 
@@ -35,7 +35,7 @@ Each aspect produces: spec file + HTML mockup + visual QA pass.
 | 13 | Option 1: Wise-Inspired Trust Minimalism | done | `analysis/option-1-trust-minimalism.md` | `raw/mockup-option-1-trust-minimalism.html` | `analysis/qa-option-1.md` |
 | 14 | Option 2: Gov.uk Radical Clarity | done | `analysis/option-2-radical-clarity.md` | `raw/mockup-option-2-radical-clarity.html` | `analysis/qa-option-2.md` |
 | 15 | Option 3: Filipino Warmth | done | `analysis/option-3-filipino-warmth.md` | `raw/mockup-option-3-filipino-warmth.html` | `analysis/qa-option-3.md` |
-| 16 | Option 4: Stripe-Grade Developer System | pending | `analysis/option-4-stripe-grade.md` | `raw/mockup-option-4-stripe-grade.html` | `analysis/qa-option-4.md` |
+| 16 | Option 4: Stripe-Grade Developer System | done | `analysis/option-4-stripe-grade.md` | `raw/mockup-option-4-stripe-grade.html` | `analysis/qa-option-4.md` |
 | 17 | Option 5: Playful Utility | pending | `analysis/option-5-playful-utility.md` | `raw/mockup-option-5-playful-utility.html` | `analysis/qa-option-5.md` |
 | 18 | Option 6: Editorial Calculator | pending | `analysis/option-6-editorial-calculator.md` | `raw/mockup-option-6-editorial-calculator.html` | `analysis/qa-option-6.md` |
 | 19 | Option 7: Dashboard-Native Power Tool | pending | `analysis/option-7-dashboard-native.md` | `raw/mockup-option-7-dashboard-native.html` | `analysis/qa-option-7.md` |

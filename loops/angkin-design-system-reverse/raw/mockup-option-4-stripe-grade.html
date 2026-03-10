@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetireMath by Angkin — Retirement Pay Calculator (RA 7641)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* =========================================
+       ANGKIN SYSTEM TOKENS — @angkin/system v1.0
+       Domain: Labor/Employment (LBR)
+       ========================================= */
+    :root {
+      /* Background */
+      --bg-canvas:           #080e1a;
+      --bg-surface:          #0e1626;
+      --bg-surface-raised:   #162035;
+      --bg-surface-overlay:  #1c2c46;
+
+      /* Borders */
+      --border-subtle:       #1e2d47;
+      --border-default:      #2a4060;
+      --border-strong:       #3a5580;
+
+      /* Text */
+      --text-primary:        #e2eaf8;
+      --text-secondary:      #8fa8cc;
+      --text-muted:          #4d6b96;
+      --text-inverse:        #080e1a;
+
+      /* Primary — Labor domain: teal */
+      --color-primary:       #2dd4bf;
+      --color-primary-hover: #14b8a6;
+      --color-primary-subtle:#0e2f2b;
+
+      /* Accent — result values */
+      --color-accent:        #fbbf24;
+
+      /* Semantic */
+      --color-success:       #22c55e;
+      --color-success-subtle:#052e16;
+      --color-warning:       #f59e0b;
+      --color-error:         #f87171;
+      --color-error-subtle:  #2d0f0f;
+
+      /* Typography */
+      --font-sans: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Spacing (4px base) */
+      --space-1:  4px;
+      --space-2:  8px;
+      --space-3:  12px;
+      --space-4:  16px;
+      --space-5:  20px;
+      --space-6:  24px;
+      --space-8:  32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+
+      /* Border radius */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+    }
+
+    /* ========= RESET & BASE ========= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-canvas);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ========= HEADER ========= */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-surface-raised);
+      border-bottom: 1px solid var(--border-subtle);
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 0 var(--space-6);
+    }
+    .header-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .brand-monogram {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--color-primary);
+      color: var(--text-inverse);
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .tool-name {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-primary);
+      line-height: 1.1;
+    }
+    .suite-name {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .tool-code-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.03em;
+    }
+    .settings-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 120ms ease-out, color 120ms ease-out;
+    }
+    .settings-btn:hover { border-color: var(--border-default); color: var(--text-secondary); }
+
+    /* ========= MAIN LAYOUT ========= */
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-6);
+    }
+
+    /* Tool intro */
+    .tool-intro {
+      margin-bottom: var(--space-8);
+    }
+    .law-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-primary);
+      background: var(--color-primary-subtle);
+      border: 1px solid rgba(45, 212, 191, 0.2);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+    }
+    .tool-heading {
+      font-family: var(--font-sans);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: var(--space-3);
+    }
+    .tool-description {
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      max-width: 640px;
+    }
+
+    /* Two-panel layout */
+    .calculator-panels {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: var(--space-6);
+      align-items: start;
+    }
+
+    /* ========= INPUT PANEL ========= */
+    .input-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .panel-title {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .panel-body {
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    /* Field groups */
+    .field-group-title {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: var(--space-1);
+    }
+
+    /* Form field */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .field-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .field-label span {
+      color: var(--color-error);
+      margin-left: 2px;
+    }
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-prefix {
+      position: absolute;
+      left: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-muted);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .input-suffix {
+      position: absolute;
+      right: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .field-input {
+      width: 100%;
+      height: 40px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      padding: 0 var(--space-4);
+      transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+      outline: none;
+      -moz-appearance: textfield;
+    }
+    .field-input::-webkit-inner-spin-button,
+    .field-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .field-input.has-prefix { padding-left: var(--space-8); }
+    .field-input.has-suffix { padding-right: 72px; }
+    .field-input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.12);
+    }
+    .field-input::placeholder { color: var(--text-muted); font-weight: 400; }
+    .field-input.error { border-color: var(--color-error); }
+    .field-input.error:focus { box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.12); }
+    .field-helper {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .field-helper.error-msg { color: var(--color-error); }
+
+    /* Select */
+    .field-select {
+      width: 100%;
+      height: 40px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--text-primary);
+      padding: 0 var(--space-4);
+      cursor: pointer;
+      outline: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234d6b96' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+      transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+    }
+    .field-select:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.12);
+    }
+    .field-select option { background: var(--bg-surface-raised); }
+
+    /* Two-column field row */
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border-subtle);
+    }
+
+    /* Compute button */
+    .compute-btn {
+      width: 100%;
+      height: 40px;
+      background: var(--color-primary);
+      color: var(--text-inverse);
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      transition: background-color 120ms ease-out, box-shadow 120ms ease-out;
+      box-shadow: 0 0 16px rgba(45, 212, 191, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .compute-btn:hover {
+      background: var(--color-primary-hover);
+      box-shadow: 0 0 24px rgba(45, 212, 191, 0.35);
+    }
+    .compute-btn:active { transform: scale(0.99); }
+    .compute-btn.loading { opacity: 0.8; cursor: wait; }
+
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(8, 14, 26, 0.4);
+      border-top-color: var(--text-inverse);
+      border-radius: 50%;
+      animation: spin 600ms linear infinite;
+      display: none;
+    }
+    .compute-btn.loading .spinner { display: block; }
+    .compute-btn.loading .btn-text { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Clear link */
+    .clear-link {
+      text-align: center;
+      margin-top: var(--space-3);
+    }
+    .clear-link button {
+      background: none;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 120ms;
+    }
+    .clear-link button:hover { color: var(--text-secondary); }
+
+    /* ========= RESULT PANEL ========= */
+    .result-panel {
+      position: relative;
+    }
+
+    /* Placeholder state */
+    .result-placeholder {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-10) var(--space-8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: var(--space-4);
+      min-height: 320px;
+    }
+    .placeholder-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-raised);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+    }
+    .placeholder-text {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .placeholder-subtext {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      opacity: 0.6;
+    }
+
+    /* Result card */
+    .result-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 240ms ease-out, transform 240ms ease-out;
+    }
+    .result-card.visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Result header */
+    .result-header {
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .result-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .result-actions {
+      display: flex;
+      gap: var(--space-2);
+    }
+    .action-btn {
+      height: 28px;
+      padding: 0 var(--space-3);
+      background: transparent;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: border-color 120ms, color 120ms;
+    }
+    .action-btn:hover { border-color: var(--border-strong); color: var(--text-primary); }
+    .action-btn svg { width: 12px; height: 12px; }
+
+    /* Hero result value */
+    .result-hero {
+      padding: var(--space-8) var(--space-6) var(--space-6);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .result-amount-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-3);
+    }
+    .result-amount {
+      font-family: var(--font-mono);
+      font-size: 2.75rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-3);
+    }
+    .result-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+    .result-meta-item {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .result-meta-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--border-default);
+    }
+
+    /* Breakdown */
+    .result-breakdown {
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .breakdown-title {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-4);
+    }
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .breakdown-table tr {
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .breakdown-table tr:last-child { border-bottom: none; }
+    .breakdown-table td {
+      padding: var(--space-3) 0;
+      font-family: var(--font-mono);
+    }
+    .breakdown-table .bd-label {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .breakdown-table .bd-value {
+      text-align: right;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .breakdown-table .bd-value.total {
+      color: var(--color-accent);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .breakdown-table .bd-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      padding-bottom: 2px;
+    }
+
+    /* Formula */
+    .result-formula {
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .formula-toggle {
+      background: none;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 0;
+      transition: color 120ms;
+    }
+    .formula-toggle:hover { color: var(--text-secondary); }
+    .formula-toggle svg {
+      width: 12px; height: 12px;
+      transition: transform 200ms;
+    }
+    .formula-toggle.open svg { transform: rotate(180deg); }
+    .formula-body {
+      display: none;
+      margin-top: var(--space-4);
+      padding: var(--space-4);
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }
+    .formula-body.open { display: block; }
+    .formula-code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--color-primary);
+      line-height: 1.6;
+    }
+    .formula-ref {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: var(--space-3);
+    }
+
+    /* Disclaimer */
+    .result-disclaimer {
+      padding: var(--space-4) var(--space-6);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+    .disclaimer-icon {
+      color: var(--text-muted);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .disclaimer-text {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ========= STAT STRIP ========= */
+    .stat-strip {
+      margin-top: var(--space-8);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-6);
+    }
+    .stat-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-2);
+    }
+    .stat-value {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .stat-sub {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: var(--space-1);
+    }
+
+    /* ========= FOOTER ========= */
+    .app-footer {
+      border-top: 1px solid var(--border-subtle);
+      margin-top: var(--space-16);
+      padding: var(--space-6);
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-left {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .footer-right {
+      display: flex;
+      gap: var(--space-6);
+    }
+    .footer-link {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 120ms;
+    }
+    .footer-link:hover { color: var(--text-secondary); }
+
+    /* ========= RESPONSIVE ========= */
+    @media (max-width: 900px) {
+      .calculator-panels {
+        grid-template-columns: 1fr;
+      }
+      .stat-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 600px) {
+      .main {
+        padding: var(--space-5) var(--space-4);
+      }
+      .tool-heading { font-size: 1.375rem; }
+      .result-amount { font-size: 2rem; }
+      .field-row { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: var(--space-4); align-items: flex-start; }
+      .header-right .settings-btn { display: none; }
+    }
+
+    /* ========= ANIMATIONS ========= */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Live state indicator */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--color-success);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--color-success);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Validation states */
+    .field-input.valid {
+      border-color: var(--color-success);
+    }
+    .field-input.valid:focus {
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+    }
+
+    /* Number formatting in input */
+    .field-input[data-formatted] { font-weight: 500; }
+  </style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-monogram">A</div>
+        <div class="brand-text">
+          <span class="tool-name">RetireMath</span>
+          <span class="suite-name">by angkin</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <span class="tool-code-badge">LBR-RT-7641</span>
+        <button class="settings-btn" aria-label="Settings">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <!-- Tool intro -->
+    <div class="tool-intro">
+      <div class="law-tag">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Republic Act 7641 · Labor Code Art. 287
+      </div>
+      <h1 class="tool-heading">Retirement Pay Calculator</h1>
+      <p class="tool-description">Compute mandatory retirement pay entitlement under RA 7641. Covers regular and OFW employees. Inputs are not stored or transmitted.</p>
+    </div>
+
+    <!-- Two-panel calculator -->
+    <div class="calculator-panels">
+
+      <!-- INPUT PANEL -->
+      <div class="input-panel">
+        <div class="panel-header">
+          <span class="panel-title">Input Parameters</span>
+          <span class="live-badge">
+            <span class="live-dot"></span>
+            Local compute
+          </span>
+        </div>
+        <div class="panel-body">
+
+          <div class="field-group-title">Employee Information</div>
+
+          <div class="field">
+            <label class="field-label" for="emp-name">Employee Name <span aria-hidden="true">*</span></label>
+            <input type="text" id="emp-name" class="field-input" placeholder="e.g. Juan dela Cruz" autocomplete="off" />
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label" for="employment-type">Employment Type <span>*</span></label>
+              <select class="field-select" id="employment-type">
+                <option value="regular">Regular</option>
+                <option value="probationary">Probationary</option>
+                <option value="ofw">OFW / Contract</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label" for="retirement-cause">Cause <span>*</span></label>
+              <select class="field-select" id="retirement-cause">
+                <option value="optional">Optional (60+)</option>
+                <option value="compulsory">Compulsory (65)</option>
+                <option value="early">Early Retirement</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="field-group-title">Compensation</div>
+
+          <div class="field">
+            <label class="field-label" for="monthly-salary">Last Drawn Monthly Salary <span>*</span></label>
+            <div class="input-wrapper">
+              <span class="input-prefix">₱</span>
+              <input type="number" id="monthly-salary" class="field-input has-prefix" placeholder="0.00" step="0.01" min="0" />
+            </div>
+            <span class="field-helper">Basic salary only. Exclude OT, allowances, de minimis.</span>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="daily-rate">Daily Rate (if daily-paid)</label>
+            <div class="input-wrapper">
+              <span class="input-prefix">₱</span>
+              <input type="number" id="daily-rate" class="field-input has-prefix" placeholder="Leave blank if monthly" step="0.01" min="0" />
+            </div>
+            <span class="field-helper">If daily-paid, enter rate here — monthly will be computed (× 26 days).</span>
+          </div>
+
+          <div class="divider"></div>
+          <div class="field-group-title">Service Period</div>
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label" for="years-service">Years of Service <span>*</span></label>
+              <div class="input-wrapper">
+                <input type="number" id="years-service" class="field-input has-suffix" placeholder="0" min="0" max="60" step="1" />
+                <span class="input-suffix">yrs</span>
+              </div>
+              <span class="field-helper">Round up ≥6 months.</span>
+            </div>
+            <div class="field">
+              <label class="field-label" for="months-service">Remaining Months</label>
+              <div class="input-wrapper">
+                <input type="number" id="months-service" class="field-input has-suffix" placeholder="0" min="0" max="11" step="1" />
+                <span class="input-suffix">mos</span>
+              </div>
+              <span class="field-helper">0–11 months.</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="has-retirement-plan">Existing Retirement Plan</label>
+            <select class="field-select" id="has-retirement-plan">
+              <option value="none">No existing plan</option>
+              <option value="higher">Company plan (higher benefit)</option>
+              <option value="lower">Company plan (lower benefit — RA 7641 applies)</option>
+            </select>
+            <span class="field-helper">If company plan gives more, RA 7641 does not apply.</span>
+          </div>
+
+          <button class="compute-btn" id="compute-btn" onclick="compute()">
+            <span class="btn-text">Compute Retirement Pay</span>
+            <span class="spinner"></span>
+          </button>
+          <div class="clear-link">
+            <button onclick="clearForm()">Clear all fields</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RESULT PANEL -->
+      <div class="result-panel">
+
+        <!-- Placeholder -->
+        <div class="result-placeholder" id="result-placeholder">
+          <div class="placeholder-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+            </svg>
+          </div>
+          <p class="placeholder-text">Fill in the parameters and click Compute to see the result.</p>
+          <p class="placeholder-subtext">LBR-RT-7641 · No data transmitted</p>
+        </div>
+
+        <!-- Result card (hidden until computed) -->
+        <div class="result-card" id="result-card">
+          <div class="result-header">
+            <span class="result-label">Computation Result</span>
+            <div class="result-actions">
+              <button class="action-btn" onclick="copyResult()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+              <button class="action-btn" onclick="window.print()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                Print
+              </button>
+            </div>
+          </div>
+
+          <div class="result-hero">
+            <div class="result-amount-label">Retirement Pay Entitlement</div>
+            <div class="result-amount" id="result-amount" role="status" aria-live="polite">₱0.00</div>
+            <div class="result-meta">
+              <span class="result-meta-item" id="result-basis">RA 7641 · ½ month salary × years</span>
+              <span class="result-meta-sep"></span>
+              <span class="result-meta-item" id="result-timestamp"></span>
+              <span class="result-meta-sep"></span>
+              <span class="result-meta-item" id="result-tool-code">LBR-RT-7641</span>
+            </div>
+          </div>
+
+          <div class="result-breakdown">
+            <div class="breakdown-title">Computation Breakdown</div>
+            <table class="breakdown-table" id="breakdown-table">
+              <!-- filled by JS -->
+            </table>
+          </div>
+
+          <div class="result-formula">
+            <button class="formula-toggle" id="formula-toggle" onclick="toggleFormula()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              Show statutory formula
+            </button>
+            <div class="formula-body" id="formula-body">
+              <div class="formula-code" id="formula-text"></div>
+              <div class="formula-ref">Source: Republic Act No. 7641 (1992), amending Art. 287 of the Labor Code. Retirement pay = ½ month salary × years of service. "½ month salary" includes: 15 days salary + 1/12 of 13th month pay + 5 days SIL (if applicable). Fraction ≥ 6 months counts as one year.</div>
+            </div>
+          </div>
+
+          <div class="result-disclaimer">
+            <svg class="disclaimer-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p class="disclaimer-text">This computation is for reference only. It does not constitute legal or professional advice. For disputes, consult DOLE or a licensed labor relations practitioner.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="stat-strip" id="stat-strip" style="display:none;">
+      <div class="stat-card">
+        <div class="stat-label">Effective Monthly Rate</div>
+        <div class="stat-value" id="stat-monthly">₱0.00</div>
+        <div class="stat-sub">Last drawn salary basis</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">½-Month Salary Unit</div>
+        <div class="stat-value" id="stat-half-month">₱0.00</div>
+        <div class="stat-sub">Per year of service</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Qualifying Service</div>
+        <div class="stat-value" id="stat-service">0 yrs</div>
+        <div class="stat-sub">After rounding (≥6 mos = 1 yr)</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <span class="footer-left">© 2025 Angkin · LBR-RT-7641 · v1.0.0</span>
+      <div class="footer-right">
+        <a href="#" class="footer-link">All 148 Tools</a>
+        <a href="#" class="footer-link">Statutory References</a>
+        <a href="#" class="footer-link">Feedback</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ======================================================
+    // ANGKIN RETIREMATH — COMPUTATION ENGINE
+    // Tool: LBR-RT-7641 · RA 7641 Retirement Pay Calculator
+    // All computation runs client-side. Zero data transmitted.
+    // ======================================================
+
+    let resultData = null;
+
+    function animateCounter(el, target, prefix, decimals, durationMs) {
+      const start = performance.now();
+      const formatter = new Intl.NumberFormat('en-PH', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / durationMs, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = eased * target;
+        el.textContent = prefix + formatter.format(current);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function formatPeso(val) {
+      return '₱' + new Intl.NumberFormat('en-PH', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(val);
+    }
+
+    function compute() {
+      const btn = document.getElementById('compute-btn');
+
+      // Get values
+      const monthlySalaryRaw = parseFloat(document.getElementById('monthly-salary').value) || 0;
+      const dailyRate = parseFloat(document.getElementById('daily-rate').value) || 0;
+      const years = parseInt(document.getElementById('years-service').value) || 0;
+      const months = parseInt(document.getElementById('months-service').value) || 0;
+      const hasPlan = document.getElementById('has-retirement-plan').value;
+      const empName = document.getElementById('emp-name').value.trim() || 'Employee';
+      const cause = document.getElementById('retirement-cause').value;
+
+      // Validate
+      let valid = true;
+      const salaryInput = document.getElementById('monthly-salary');
+      const yearsInput = document.getElementById('years-service');
+
+      salaryInput.classList.remove('error', 'valid');
+      yearsInput.classList.remove('error', 'valid');
+
+      const effectiveMonthly = monthlySalaryRaw > 0 ? monthlySalaryRaw : (dailyRate > 0 ? dailyRate * 26 : 0);
+
+      if (effectiveMonthly <= 0) {
+        salaryInput.classList.add('error');
+        valid = false;
+      } else {
+        salaryInput.classList.add('valid');
+      }
+      if (years <= 0 && months < 6) {
+        yearsInput.classList.add('error');
+        valid = false;
+      } else {
+        yearsInput.classList.add('valid');
+      }
+      if (!valid) return;
+
+      if (hasPlan === 'higher') {
+        alert('Company retirement plan provides higher benefit. RA 7641 minimum does not apply — employee receives company plan amount.');
+        return;
+      }
+
+      // Show loading state
+      btn.classList.add('loading');
+
+      setTimeout(() => {
+        // RA 7641 Computation
+        // ½ month salary = 15 days salary + 1/12 of 13th month pay + 5 days SIL
+        // Simplified: ½ month salary ≈ (monthly / 2) * 1.08333 (includes 13th + SIL)
+        // For this calculator, we compute the standard ½ month unit
+        const dailySalary = effectiveMonthly / 26; // 26 working days/month standard
+        const fifteenDays = dailySalary * 15;
+        const thirteenthPortion = effectiveMonthly / 12; // 1/12 of annual 13th month
+        const silPortion = dailySalary * 5; // 5 days Service Incentive Leave
+        const halfMonthUnit = fifteenDays + thirteenthPortion + silPortion;
+
+        // Round years (≥6 months counts as 1 year)
+        const totalMonths = years * 12 + months;
+        const effectiveYears = Math.floor(totalMonths / 12) + (totalMonths % 12 >= 6 ? 1 : 0);
+        if (effectiveYears < 5) {
+          btn.classList.remove('loading');
+          alert('RA 7641 applies only to employees with at least 5 years of service. This employee does not qualify based on the entered service period.');
+          return;
+        }
+
+        const retirementPay = halfMonthUnit * effectiveYears;
+
+        resultData = {
+          empName,
+          effectiveMonthly,
+          dailySalary,
+          fifteenDays,
+          thirteenthPortion,
+          silPortion,
+          halfMonthUnit,
+          effectiveYears,
+          retirementPay,
+          cause
+        };
+
+        btn.classList.remove('loading');
+        showResult(resultData);
+      }, 180);
+    }
+
+    function showResult(data) {
+      const placeholder = document.getElementById('result-placeholder');
+      const card = document.getElementById('result-card');
+
+      placeholder.style.display = 'none';
+      card.style.display = 'block';
+
+      // Trigger animation
+      requestAnimationFrame(() => {
+        card.classList.add('visible');
+      });
+
+      // Animate counter
+      const amountEl = document.getElementById('result-amount');
+      amountEl.textContent = '₱0.00';
+      animateCounter(amountEl, data.retirementPay, '₱', 2, 400);
+
+      // Timestamp
+      const now = new Date();
+      document.getElementById('result-timestamp').textContent =
+        now.toLocaleDateString('en-PH', {month:'short', day:'numeric', year:'numeric'}) + ' ' +
+        now.toLocaleTimeString('en-PH', {hour:'2-digit', minute:'2-digit'});
+
+      // Basis
+      const causeLbl = data.cause === 'compulsory' ? 'Compulsory (65)' : data.cause === 'early' ? 'Early Retirement' : 'Optional (60+)';
+      document.getElementById('result-basis').textContent = `RA 7641 · ${causeLbl} · ${data.effectiveYears} yrs service`;
+
+      // Breakdown
+      const table = document.getElementById('breakdown-table');
+      table.innerHTML = `
+        <tr>
+          <td class="bd-label">Last drawn monthly salary</td>
+          <td class="bd-value">${formatPeso(data.effectiveMonthly)}</td>
+        </tr>
+        <tr>
+          <td class="bd-label">Daily rate (÷ 26 days)</td>
+          <td class="bd-value">${formatPeso(data.dailySalary)}</td>
+        </tr>
+        <tr>
+          <td class="bd-label" style="padding-top:12px;color:var(--text-muted);font-size:11px;">½-month salary components:</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="bd-label bd-sub">  15 days salary (÷26 × 15)</td>
+          <td class="bd-value" style="color:var(--text-secondary)">${formatPeso(data.fifteenDays)}</td>
+        </tr>
+        <tr>
+          <td class="bd-label bd-sub">  1/12 of 13th month pay</td>
+          <td class="bd-value" style="color:var(--text-secondary)">${formatPeso(data.thirteenthPortion)}</td>
+        </tr>
+        <tr>
+          <td class="bd-label bd-sub">  5 days Service Incentive Leave</td>
+          <td class="bd-value" style="color:var(--text-secondary)">${formatPeso(data.silPortion)}</td>
+        </tr>
+        <tr>
+          <td class="bd-label" style="font-weight:600;color:var(--text-primary);">½-month salary unit</td>
+          <td class="bd-value" style="font-weight:600;">${formatPeso(data.halfMonthUnit)}</td>
+        </tr>
+        <tr>
+          <td class="bd-label">× Years of qualifying service</td>
+          <td class="bd-value">${data.effectiveYears} years</td>
+        </tr>
+        <tr style="border-top: 1px solid var(--border-default);">
+          <td class="bd-label" style="font-weight:700;color:var(--color-accent);padding-top:12px;">RETIREMENT PAY</td>
+          <td class="bd-value total" style="padding-top:12px;">${formatPeso(data.retirementPay)}</td>
+        </tr>
+      `;
+
+      // Formula
+      document.getElementById('formula-text').innerHTML =
+        `Retirement Pay = ½-month salary × Years of Service\n` +
+        `½-month salary = (15/26 × Monthly) + (Monthly/12) + (5/26 × Monthly)\n` +
+        `= ${formatPeso(data.fifteenDays)} + ${formatPeso(data.thirteenthPortion)} + ${formatPeso(data.silPortion)}\n` +
+        `= ${formatPeso(data.halfMonthUnit)} × ${data.effectiveYears} years\n` +
+        `= ${formatPeso(data.retirementPay)}`;
+
+      // Stats strip
+      document.getElementById('stat-monthly').textContent = formatPeso(data.effectiveMonthly);
+      document.getElementById('stat-half-month').textContent = formatPeso(data.halfMonthUnit);
+      document.getElementById('stat-service').textContent = `${data.effectiveYears} yrs`;
+      document.getElementById('stat-strip').style.display = 'grid';
+    }
+
+    function toggleFormula() {
+      const toggle = document.getElementById('formula-toggle');
+      const body = document.getElementById('formula-body');
+      toggle.classList.toggle('open');
+      body.classList.toggle('open');
+    }
+
+    function copyResult() {
+      if (!resultData) return;
+      const text = [
+        'ANGKIN RetireMath · LBR-RT-7641',
+        '=============================',
+        `Employee: ${resultData.empName}`,
+        `Monthly Salary: ${formatPeso(resultData.effectiveMonthly)}`,
+        `Service: ${resultData.effectiveYears} years (qualifying)`,
+        `½-Month Unit: ${formatPeso(resultData.halfMonthUnit)}`,
+        '─────────────────────────────',
+        `RETIREMENT PAY: ${formatPeso(resultData.retirementPay)}`,
+        '─────────────────────────────',
+        `Computed: ${new Date().toLocaleString('en-PH')}`,
+        'Basis: Republic Act No. 7641'
+      ].join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.action-btn');
+        const orig = btn.textContent.trim();
+        btn.textContent = '✓ Copied';
+        setTimeout(() => btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`, 1500);
+      });
+    }
+
+    function clearForm() {
+      document.querySelectorAll('.field-input, .field-select').forEach(el => {
+        if (el.tagName === 'SELECT') el.selectedIndex = 0;
+        else el.value = '';
+        el.classList.remove('error', 'valid');
+      });
+      document.getElementById('result-placeholder').style.display = 'flex';
+      const card = document.getElementById('result-card');
+      card.style.display = 'none';
+      card.classList.remove('visible');
+      document.getElementById('stat-strip').style.display = 'none';
+      resultData = null;
+    }
+
+    // Pre-fill demo values on page load (to show both states in static view)
+    window.addEventListener('DOMContentLoaded', () => {
+      // Pre-fill the form with a realistic example
+      document.getElementById('emp-name').value = 'Juan dela Cruz';
+      document.getElementById('monthly-salary').value = '32000';
+      document.getElementById('years-service').value = '14';
+      document.getElementById('months-service').value = '7';
+      document.getElementById('employment-type').value = 'regular';
+      document.getElementById('retirement-cause').value = 'optional';
+
+      // Auto-compute to show result state
+      setTimeout(() => compute(), 300);
+    });
+  </script>
+
+</body>
+</html>
