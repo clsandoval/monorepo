@@ -24734,5 +24734,220 @@
       "deadma",
       "wapakels"
     ]
+  },
+  {
+    "term": "palpak",
+    "definitions": [
+      "A failure, flop, or something/someone that doesn't work as expected. Used broadly for any plan, performance, product, or person that falls short.",
+      "A mistake or unsuccessful attempt; something botched or poorly executed."
+    ],
+    "etymology": "Possibly derived from 'lagpak' (to fail, fall flat — often used in academic contexts). Over time, 'palpak' broadened in scope to cover all types of failures, and became the dominant Gen Z term for flopping.",
+    "examples": [
+      {
+        "text": "Palpak naman ang plano natin!",
+        "source": "Common Filipino social media expression; widely circulated in memes and everyday conversation, 2023–2025"
+      },
+      {
+        "text": "Ang palpak ng event, walang dumating.",
+        "source": "Twitter/X PH, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "sablay",
+      "bobo",
+      "fail",
+      "L",
+      "mid"
+    ],
+    "categories": [
+      "negative-evaluation",
+      "expression-of-failure",
+      "everyday-expression"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [
+      "sablay",
+      "fail",
+      "L"
+    ],
+    "antonyms": [
+      "panalo",
+      "lupet",
+      "subok"
+    ]
+  },
+  {
+    "term": "subok",
+    "definitions": [
+      "Tested, tried-and-true, proven reliable — used as a Gen Z stamp of approval for someone or something that has been verified to work or deliver consistently.",
+      "Battle-tested; confirmed effective through experience. Often used to endorse a recommendation."
+    ],
+    "etymology": "Standard Tagalog 'subok' (to test, probe, try out), repurposed by Gen Z as a trustworthiness endorsement. Shifted from a verb describing the act of testing to an adjective meaning 'already proven.'",
+    "examples": [
+      {
+        "text": "Subok na 'yan, hindi ka mabibigo!",
+        "source": "Common Filipino endorsement phrase on social media and everyday conversation, 2023–2025"
+      },
+      {
+        "text": "Subok na si Ate sa pagpapayo, lagi siyang tama.",
+        "source": "Filipino group chat/Facebook, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "solid",
+      "G",
+      "legit",
+      "based",
+      "panalo"
+    ],
+    "categories": [
+      "approval-and-validation",
+      "reliability",
+      "everyday-expression"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms"
+    ],
+    "synonyms": [
+      "solid",
+      "legit",
+      "based"
+    ],
+    "antonyms": [
+      "palpak",
+      "sablay",
+      "malabo"
+    ]
+  },
+  {
+    "term": "bakaw",
+    "definitions": [
+      "A ball hog; a player who monopolizes the ball and takes all the shots without passing to teammates. Used to call out selfish play on the basketball court.",
+      "By extension: someone who hoards resources, credit, or attention in a group setting, refusing to share."
+    ],
+    "etymology": "Filipino basketball slang of unclear exact origin. Some link it to the 'bakaw' mangrove tree — rooted in place, unmoving — as a metaphor for a player who clings to the ball. Widely used in Philippine streetball culture.",
+    "examples": [
+      {
+        "text": "Ang bakaw mo naman bro, tira ka nang tira, pumasa ka naman.",
+        "source": "TrueID PH — Pinoy basketball slang article, 2024"
+      },
+      {
+        "text": "Huwag kang maging bakaw sa grupo, ibahagi mo rin sa iba.",
+        "source": "Filipino social media / basketball culture, 2024"
+      }
+    ],
+    "regional_notes": "Widely used across the Philippines wherever streetball ('larong kalye') is played. Also occasionally used outside of sports contexts to describe people who hoard credit or attention.",
+    "related_terms": [
+      "buwaya",
+      "KSP",
+      "hambog",
+      "epal"
+    ],
+    "categories": [
+      "basketball-slang",
+      "sports-culture",
+      "negative-personality-trait"
+    ],
+    "sources": [
+      "YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage"
+    ],
+    "synonyms": [
+      "buwaya"
+    ],
+    "antonyms": [
+      "playmaker",
+      "team player"
+    ]
+  },
+  {
+    "term": "sultan",
+    "definitions": [
+      "In gaming (especially Mobile Legends: Bang Bang), a player with a maxed-out account, rare and expensive skins, and premium cosmetics — a high-spending 'whale' player.",
+      "By extension: someone who flexes wealth, status, or premium possessions in any context; a big spender."
+    ],
+    "etymology": "From the Arabic/Malay honorific 'sultan' (ruling monarch), applied to players who dominate through spending power rather than just skill. Coined in the MLBB Philippine gaming community and widely adopted in Filipino gaming culture.",
+    "examples": [
+      {
+        "text": "Sultan talaga 'yung bago naming teammate, puro rare skins lahat.",
+        "source": "Codashop PH gaming community / MLBB Philippine player base, 2024"
+      },
+      {
+        "text": "Gusto ko maging sultan sa ML pero wala akong budget.",
+        "source": "Filipino gaming Discord/Facebook group, 2025"
+      }
+    ],
+    "regional_notes": "Primarily used in the Philippine gaming community, where MLBB is a dominant cultural force. The Philippines ranks as SEA's top revenue market for mobile gaming.",
+    "related_terms": [
+      "flex",
+      "clout",
+      "highkey",
+      "bougie",
+      "hypebeast"
+    ],
+    "categories": [
+      "gaming-slang",
+      "mobile-legends",
+      "spending-and-status",
+      "flex-culture"
+    ],
+    "sources": [
+      "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang"
+    ],
+    "synonyms": [
+      "flex",
+      "loaded"
+    ],
+    "antonyms": [
+      "broke",
+      "libre-seeker"
+    ]
+  },
+  {
+    "term": "bangko",
+    "definitions": [
+      "A bench player or second-string player who rarely gets playing time; a benchwarmer. Someone sidelined, overlooked, or not given a real role.",
+      "By extension: anyone in a group, workplace, or social circle who is kept on the sidelines — present but not included or utilized."
+    ],
+    "etymology": "From the Spanish 'banco' (bench), directly referencing the player's bench in basketball. Filipino basketball culture coined the term, and it has since extended metaphorically to social and professional contexts.",
+    "examples": [
+      {
+        "text": "Bangko lang ako sa team na 'to, hindi ko alam kung bakit nandito pa ko.",
+        "source": "Philippine basketball culture / common everyday expression, 2024"
+      },
+      {
+        "text": "Feeling bangko sa sariling friendgroup, hindi na kasama sa plans.",
+        "source": "Filipino Twitter/X, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "sideliner",
+      "L",
+      "KJ",
+      "bitter",
+      "deadma"
+    ],
+    "categories": [
+      "basketball-slang",
+      "sports-culture",
+      "being-excluded",
+      "social-dynamics"
+    ],
+    "sources": [
+      "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang",
+      "YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage"
+    ],
+    "synonyms": [
+      "sideliner"
+    ],
+    "antonyms": [
+      "main character",
+      "starter",
+      "solid"
+    ]
   }
 ]

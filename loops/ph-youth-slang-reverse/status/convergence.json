@@ -439,6 +439,12 @@
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: wapakels, hardashian, shuta, borta, maboka)"
+    },
+    {
+      "iteration": "refinement pass 75 — seventy-fifth raw-gap audit (5 new terms, 648→653)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: palpak, subok, bakaw, sultan, bangko)"
     }
   ]
 }
