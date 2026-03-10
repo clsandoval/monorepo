@@ -797,5 +797,47 @@
       "yarn",
       "yosi"
     ]
+  },
+  "appearance-and-attractiveness": {
+    "description": "Terms related to physical looks, attractiveness, and body commentary used in Gen Z/Gen Alpha online spaces.",
+    "example_terms": [
+      "gyat"
+    ],
+    "notes": "Often originates in streaming/gaming culture before crossing into general youth speech."
+  },
+  "emotions-and-mental-states": {
+    "description": "Slang describing emotional states, mental reactions, and psychological conditions — particularly meltdowns, overwhelm, and mood swings.",
+    "example_terms": [
+      "crash out"
+    ],
+    "notes": "Overlaps with emotions-and-feelings; this subcategory focuses on dramatic or erratic emotional behavior."
+  },
+  "food-and-lifestyle": {
+    "description": "Terms related to food, eating, and everyday lifestyle habits adopted as Gen Z slang.",
+    "example_terms": [
+      "fanum tax"
+    ],
+    "notes": "Small but growing category as streaming culture coins food-related terminology."
+  },
+  "gaming-and-internet-culture": {
+    "description": "Terms originating in gaming, Twitch streaming, and general internet/meme culture that have crossed into everyday Filipino youth speech.",
+    "example_terms": [
+      "sus",
+      "fanum tax",
+      "ohio",
+      "gyat",
+      "crash out"
+    ],
+    "notes": "Distinguished from gaming-and-e-sports (which covers in-game vocabulary) and gaming-and-online-culture (NPC/sigma/skibidi); this category covers cross-platform viral terms."
+  },
+  "reactions-and-responses": {
+    "description": "Interjections, exclamations, and short responses used to react to situations in conversation or online comments.",
+    "example_terms": [
+      "kebs",
+      "sus",
+      "ohio",
+      "gyat"
+    ],
+    "notes": "Overlaps with exclamations-and-hype; this subcategory emphasizes reactive/response usage patterns."
   }
 }
