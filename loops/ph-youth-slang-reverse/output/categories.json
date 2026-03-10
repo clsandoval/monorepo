@@ -1,7 +1,8 @@
 {
   "conflict-and-drama": {
-    "count": 32,
+    "count": 34,
     "terms": [
+      "OA",
       "ala me pakels",
       "babatain",
       "balagbag",
@@ -19,6 +20,7 @@
       "mapagpatol",
       "nabagantsa",
       "nadikit",
+      "okray",
       "pahinga na",
       "pala-desisyon",
       "panis",
@@ -34,10 +36,11 @@
       "toyo",
       "tsepay",
       "warla"
-    ]
+    ],
+    "term_count": 34
   },
   "emotions-and-feelings": {
-    "count": 44,
+    "count": 49,
     "terms": [
       "BV",
       "agit",
@@ -45,12 +48,15 @@
       "aray mo",
       "awit",
       "awit sayo",
+      "awts",
       "ayoko na",
       "baha ka lang, pinoy kami",
       "bisyo",
+      "bitter",
       "crayola",
       "dedma",
       "epektado",
+      "feels",
       "gigil",
       "grabe",
       "hugot",
@@ -71,11 +77,13 @@
       "nakakatunaw",
       "naol",
       "okay na 'to",
+      "paasa",
       "praning",
       "sabog",
       "sana all",
       "sanaol",
       "shontis",
+      "shookt",
       "topak",
       "toyo",
       "tripping",
@@ -83,10 +91,11 @@
       "wasak",
       "werpa",
       "wew"
-    ]
+    ],
+    "term_count": 49
   },
   "exclamations-and-hype": {
-    "count": 56,
+    "count": 62,
     "terms": [
       "ang lala mo",
       "aning sayo",
@@ -105,6 +114,7 @@
       "deds",
       "epip",
       "g na g",
+      "gago",
       "gege",
       "gora",
       "gorabels",
@@ -119,6 +129,7 @@
       "lagabog",
       "lala",
       "luh",
+      "lupet",
       "na para bang",
       "naks",
       "omsim",
@@ -126,11 +137,14 @@
       "pa more",
       "pahinga na",
       "pak ganern",
+      "pak na pak",
       "peksman",
       "periodt",
+      "pog",
       "presko",
       "rapsa",
       "salang na",
+      "shookt",
       "shushhh",
       "shutacca",
       "slay",
@@ -139,16 +153,19 @@
       "sobrang lit",
       "sure ball",
       "tae",
+      "tara",
       "ulol",
       "vungga",
       "wew",
       "what hafen vella",
       "yawa"
-    ]
+    ],
+    "term_count": 62
   },
   "fashion-and-style": {
-    "count": 18,
+    "count": 19,
     "terms": [
+      "OOTD",
       "asset",
       "awra",
       "big boy whip",
@@ -167,13 +184,15 @@
       "slay",
       "sobrang latina",
       "vungga"
-    ]
+    ],
+    "term_count": 19
   },
   "friendship-and-social-bonds": {
-    "count": 33,
+    "count": 35,
     "terms": [
       "aning sayo",
       "asta",
+      "barkada",
       "beh",
       "bes",
       "besh",
@@ -185,6 +204,7 @@
       "chismis",
       "day ones",
       "g na g",
+      "gar",
       "ghorl",
       "gng",
       "inch",
@@ -205,7 +225,8 @@
       "teh",
       "tol",
       "tropa"
-    ]
+    ],
+    "term_count": 35
   },
   "gaming-and-e-sports": {
     "count": 6,
@@ -216,7 +237,8 @@
       "peenoise",
       "ssob",
       "ulti"
-    ]
+    ],
+    "term_count": 6
   },
   "gaming-and-online-culture": {
     "count": 3,
@@ -224,16 +246,21 @@
       "NPC",
       "sigma",
       "skibidi"
-    ]
+    ],
+    "term_count": 3
   },
   "gen-z-and-imported-slang": {
-    "count": 78,
+    "count": 106,
     "terms": [
       "247",
       "6-7",
       "JOMO",
+      "L",
+      "LQ",
+      "NBSB",
       "NPC",
       "SZN",
+      "W",
       "aura farming",
       "awra",
       "based",
@@ -246,54 +273,75 @@
       "boogsh",
       "bounce",
       "brain rot",
+      "brat",
       "burgis",
+      "bussin",
       "cancel",
       "canon event",
+      "cap",
       "cappin",
       "chariz",
       "charot",
       "chos",
+      "clout",
       "dasurv",
       "day ones",
       "dedma",
       "delulu",
+      "demure",
       "diff",
       "drip",
       "dump account",
       "epip",
+      "era",
       "estetik",
       "fancam",
+      "feels",
+      "flex",
       "fr",
       "g na g",
       "ghostlighting",
       "glazing",
+      "glow up",
       "go getta",
       "gorgy",
       "green flag",
       "halaka",
       "hard launch",
+      "highkey",
+      "hits different",
       "hypebeast",
       "ick",
       "kengkoy",
       "korique",
       "laylow",
+      "left no crumbs",
+      "level up",
       "low key",
+      "lowkey",
+      "main character",
       "main character energy",
       "mala-[X]",
+      "mamser",
       "manifesting",
       "matik",
       "mid lang",
       "mog",
       "mogged",
       "mukbang",
+      "nag-assume",
       "naur",
       "no cap",
       "parak",
       "periodt",
       "pi",
+      "pog",
       "red flag",
       "rizz",
+      "scoobs",
+      "shookt",
       "sigma",
+      "simp",
       "situationship",
       "skibidi",
       "slay",
@@ -304,10 +352,14 @@
       "talking stage",
       "touch grass",
       "trentahin",
+      "tripping",
       "unc",
       "unli",
+      "vibe check",
+      "yapping",
       "yawa"
-    ]
+    ],
+    "term_count": 106
   },
   "hip-hop-and-rap-culture": {
     "count": 34,
@@ -346,10 +398,11 @@
       "tagilid",
       "tsepay",
       "tus"
-    ]
+    ],
+    "term_count": 34
   },
   "humor-and-wit": {
-    "count": 30,
+    "count": 31,
     "terms": [
       "IJBOL",
       "asset",
@@ -373,6 +426,7 @@
       "kalimutan ka",
       "mekus-mekus",
       "naur",
+      "okray",
       "pa more",
       "peksman",
       "petsa de peligro",
@@ -381,16 +435,21 @@
       "trentahin",
       "tsaa",
       "what hafen vella"
-    ]
+    ],
+    "term_count": 31
   },
   "internet-and-social-media": {
-    "count": 102,
+    "count": 117,
     "terms": [
       "6-7",
       "AFAM",
       "BV",
       "IJBOL",
       "JOMO",
+      "KSP",
+      "LSS",
+      "OA",
+      "OOTD",
       "SKL",
       "SZN",
       "ala me pakels",
@@ -402,23 +461,30 @@
       "aura farming",
       "baha ka lang, pinoy kami",
       "based",
+      "bebot",
       "bigla kang sumakses",
       "boogsh",
       "brain rot",
+      "brat",
       "budol",
+      "budots",
       "bumaba 'yung gang",
       "cancel",
       "canon event",
+      "cap",
       "chibog",
       "chour",
       "deds",
       "delulu",
+      "demure",
       "diff",
       "dogshow",
       "dump account",
       "ebas",
+      "edi wow",
       "epal",
       "epip",
+      "era",
       "estetik",
       "fancam",
       "for today's videyow",
@@ -443,14 +509,17 @@
       "marecakes",
       "marites",
       "mekus-mekus",
+      "mema",
       "mog",
       "mogged",
+      "momol",
       "mukbang",
       "na para bang",
       "naol",
       "naur",
       "nepo baby",
       "normalin",
+      "nosebleed",
       "okay na 'to",
       "olats",
       "on-game",
@@ -481,17 +550,19 @@
       "touch grass",
       "toyo",
       "trentahin",
-      "tripping",
       "tsaa",
       "umay",
       "unc",
+      "walang forever",
       "wew",
       "what hafen vella",
+      "yapping",
       "yarn"
-    ]
+    ],
+    "term_count": 117
   },
   "lgbtq-and-beki-lingo": {
-    "count": 55,
+    "count": 59,
     "terms": [
       "AFAM",
       "achoo",
@@ -531,14 +602,18 @@
       "imbyerna",
       "kabog",
       "kalurkey",
+      "kebs",
       "keri",
       "keribels",
       "kimmy",
       "lavarn",
+      "lupet",
       "mars",
       "mudra",
       "mumshie",
+      "okray",
       "pak ganern",
+      "pak na pak",
       "pudra",
       "shontis",
       "shutacca",
@@ -548,7 +623,8 @@
       "vungga",
       "warla",
       "watash"
-    ]
+    ],
+    "term_count": 59
   },
   "party-and-nightlife": {
     "count": 15,
@@ -568,13 +644,16 @@
       "walwal",
       "wasak",
       "yosi"
-    ]
+    ],
+    "term_count": 15
   },
   "personality-and-character": {
-    "count": 62,
+    "count": 70,
     "terms": [
       "NPC",
+      "OA",
       "angas",
+      "arte",
       "asta",
       "ate girl",
       "babaero",
@@ -584,12 +663,15 @@
       "batugan",
       "beterano",
       "bibo",
+      "brat",
       "dedma",
+      "demure",
       "dyosa",
       "ebas",
       "epal",
       "forda",
       "forda ferson",
+      "gago",
       "galing kalye",
       "glazing",
       "go getta",
@@ -597,9 +679,11 @@
       "hanash",
       "hindi ako epektado",
       "hypebeast",
+      "jologs",
       "kalat",
       "kiri",
       "laylow",
+      "linta",
       "lodi",
       "lutang",
       "maangas",
@@ -634,22 +718,26 @@
       "ulol",
       "unc",
       "vaklush",
-      "walang ebas"
-    ]
+      "walang ebas",
+      "yapping"
+    ],
+    "term_count": 70
   },
   "romance-and-relationships": {
-    "count": 52,
+    "count": 58,
     "terms": [
       "AFAM",
       "MU",
       "awoj",
       "babaero",
       "bagay",
+      "basted",
       "bb",
       "beh",
       "beige flag",
       "benchwarmer",
       "bes",
+      "bitter",
       "booking",
       "delulu",
       "diskarte",
@@ -663,6 +751,7 @@
       "huli na",
       "ick",
       "jowa",
+      "jowable",
       "kabet",
       "kalat",
       "kalimutan ka",
@@ -684,24 +773,29 @@
       "red flag",
       "rizz",
       "sana all",
+      "sawi",
       "seenzone",
       "situationship",
       "soft launch",
       "suplada",
+      "syota",
       "talandi",
       "talking stage",
       "topak",
+      "walang forever",
       "wasak"
-    ]
+    ],
+    "term_count": 58
   },
   "street-and-hustle": {
-    "count": 44,
+    "count": 46,
     "terms": [
       "247",
       "DTQ",
       "JOMO",
       "amats",
       "asset",
+      "astig",
       "babain",
       "baha ka lang, pinoy kami",
       "balagbag",
@@ -717,6 +811,7 @@
       "galing kalye",
       "gera",
       "go getta",
+      "hayup",
       "hipak",
       "hustlin",
       "kinaladkad",
@@ -741,7 +836,8 @@
       "unli",
       "walang ebas",
       "yosi"
-    ]
+    ],
+    "term_count": 46
   },
   "unbothered-and-chill": {
     "count": 9,
@@ -755,10 +851,11 @@
       "patola",
       "petiks",
       "shushhh"
-    ]
+    ],
+    "term_count": 9
   },
   "wordplay-and-linguistic-forms": {
-    "count": 59,
+    "count": 62,
     "terms": [
       "SKL",
       "aketch",
@@ -784,6 +881,7 @@
       "eme",
       "forda",
       "gandara",
+      "gar",
       "gege",
       "gento",
       "gigil",
@@ -793,10 +891,12 @@
       "lambing",
       "lodi",
       "low key",
+      "lupet",
       "lutang",
       "marecakes",
       "matik",
       "matsala",
+      "nosebleed",
       "olats",
       "omsim",
       "on-game",
@@ -819,28 +919,48 @@
       "werpa",
       "yarn",
       "yosi"
-    ]
+    ],
+    "term_count": 62
   },
   "appearance-and-attractiveness": {
     "description": "Terms related to physical looks, attractiveness, and body commentary used in Gen Z/Gen Alpha online spaces.",
     "example_terms": [
       "gyat"
     ],
-    "notes": "Often originates in streaming/gaming culture before crossing into general youth speech."
+    "notes": "Often originates in streaming/gaming culture before crossing into general youth speech.",
+    "count": 3,
+    "terms": [
+      "baddie",
+      "gyat",
+      "swabe"
+    ],
+    "term_count": 3
   },
   "emotions-and-mental-states": {
     "description": "Slang describing emotional states, mental reactions, and psychological conditions — particularly meltdowns, overwhelm, and mood swings.",
     "example_terms": [
       "crash out"
     ],
-    "notes": "Overlaps with emotions-and-feelings; this subcategory focuses on dramatic or erratic emotional behavior."
+    "notes": "Overlaps with emotions-and-feelings; this subcategory focuses on dramatic or erratic emotional behavior.",
+    "count": 2,
+    "terms": [
+      "crash out",
+      "low bat"
+    ],
+    "term_count": 2
   },
   "food-and-lifestyle": {
     "description": "Terms related to food, eating, and everyday lifestyle habits adopted as Gen Z slang.",
     "example_terms": [
       "fanum tax"
     ],
-    "notes": "Small but growing category as streaming culture coins food-related terminology."
+    "notes": "Small but growing category as streaming culture coins food-related terminology.",
+    "count": 2,
+    "terms": [
+      "bussin",
+      "fanum tax"
+    ],
+    "term_count": 2
   },
   "gaming-and-internet-culture": {
     "description": "Terms originating in gaming, Twitch streaming, and general internet/meme culture that have crossed into everyday Filipino youth speech.",
@@ -851,7 +971,17 @@
       "gyat",
       "crash out"
     ],
-    "notes": "Distinguished from gaming-and-e-sports (which covers in-game vocabulary) and gaming-and-online-culture (NPC/sigma/skibidi); this category covers cross-platform viral terms."
+    "notes": "Distinguished from gaming-and-e-sports (which covers in-game vocabulary) and gaming-and-online-culture (NPC/sigma/skibidi); this category covers cross-platform viral terms.",
+    "count": 6,
+    "terms": [
+      "crash out",
+      "fanum tax",
+      "gyat",
+      "level up",
+      "ohio",
+      "sus"
+    ],
+    "term_count": 6
   },
   "reactions-and-responses": {
     "description": "Interjections, exclamations, and short responses used to react to situations in conversation or online comments.",
@@ -861,6 +991,428 @@
       "ohio",
       "gyat"
     ],
-    "notes": "Overlaps with exclamations-and-hype; this subcategory emphasizes reactive/response usage patterns."
+    "notes": "Overlaps with exclamations-and-hype; this subcategory emphasizes reactive/response usage patterns.",
+    "count": 8,
+    "terms": [
+      "L",
+      "W",
+      "cap",
+      "gyat",
+      "kebs",
+      "ohio",
+      "sus",
+      "vibe check"
+    ],
+    "term_count": 8
+  },
+  "everyday-expressions": {
+    "count": 6,
+    "terms": [
+      "arte",
+      "bitin",
+      "bwiset",
+      "hala",
+      "mamser",
+      "tara"
+    ],
+    "label": "Everyday Expressions",
+    "description": "",
+    "term_count": 6
+  },
+  "call-out-and-criticism": {
+    "count": 2,
+    "terms": [
+      "arte",
+      "linta"
+    ],
+    "label": "Call Out And Criticism",
+    "description": "",
+    "term_count": 2
+  },
+  "emotional-expressions": {
+    "count": 5,
+    "terms": [
+      "badtrip",
+      "bangag",
+      "nosebleed",
+      "sawi",
+      "torpe"
+    ],
+    "label": "Emotional Expressions",
+    "description": "",
+    "term_count": 5
+  },
+  "reactions-and-exclamations": {
+    "count": 2,
+    "terms": [
+      "badtrip",
+      "kuyawa"
+    ],
+    "label": "Reactions And Exclamations",
+    "description": "",
+    "term_count": 2
+  },
+  "substance-and-nightlife": {
+    "count": 1,
+    "terms": [
+      "bangag"
+    ],
+    "label": "Substance And Nightlife",
+    "description": "",
+    "term_count": 1
+  },
+  "states-of-being": {
+    "count": 1,
+    "terms": [
+      "bangag"
+    ],
+    "label": "States Of Being",
+    "description": "",
+    "term_count": 1
+  },
+  "appearance-and-aesthetics": {
+    "count": 1,
+    "terms": [
+      "bebot"
+    ],
+    "label": "Appearance And Aesthetics",
+    "description": "",
+    "term_count": 1
+  },
+  "cultural-pride-and-identity": {
+    "count": 3,
+    "terms": [
+      "barkada",
+      "bebot",
+      "budots"
+    ],
+    "label": "Cultural Pride And Identity",
+    "description": "",
+    "term_count": 3
+  },
+  "emotions-and-mental-state": {
+    "count": 3,
+    "terms": [
+      "bitin",
+      "bwiset",
+      "naloka"
+    ],
+    "label": "Emotions And Mental State",
+    "description": "",
+    "term_count": 3
+  },
+  "media-and-entertainment": {
+    "count": 3,
+    "terms": [
+      "LSS",
+      "bitin",
+      "budots"
+    ],
+    "label": "Media And Entertainment",
+    "description": "",
+    "term_count": 3
+  },
+  "exclamations-and-reactions": {
+    "count": 4,
+    "terms": [
+      "bwiset",
+      "hala",
+      "hayup",
+      "naloka"
+    ],
+    "label": "Exclamations And Reactions",
+    "description": "",
+    "term_count": 4
+  },
+  "digital-culture": {
+    "count": 1,
+    "terms": [
+      "clout"
+    ],
+    "label": "Digital Culture",
+    "description": "",
+    "term_count": 1
+  },
+  "status-and-identity": {
+    "count": 2,
+    "terms": [
+      "clout",
+      "flex"
+    ],
+    "label": "Status And Identity",
+    "description": "",
+    "term_count": 2
+  },
+  "expressions-and-exclamations": {
+    "count": 5,
+    "terms": [
+      "LSS",
+      "awts",
+      "edi wow",
+      "kuyawa",
+      "walang forever"
+    ],
+    "label": "Expressions And Exclamations",
+    "description": "",
+    "term_count": 5
+  },
+  "identity-and-self-expression": {
+    "count": 3,
+    "terms": [
+      "baddie",
+      "era",
+      "mamser"
+    ],
+    "label": "Identity And Self Expression",
+    "description": "",
+    "term_count": 3
+  },
+  "relationships-and-romance": {
+    "count": 8,
+    "terms": [
+      "FUBU",
+      "LQ",
+      "NBSB",
+      "momol",
+      "pa-fall",
+      "paasa",
+      "simp",
+      "torpe"
+    ],
+    "label": "Relationships And Romance",
+    "description": "",
+    "term_count": 8
+  },
+  "discourse-modifiers": {
+    "count": 3,
+    "terms": [
+      "G",
+      "highkey",
+      "lowkey"
+    ],
+    "label": "Discourse Modifiers",
+    "description": "",
+    "term_count": 3
+  },
+  "affirmatives-and-reactions": {
+    "count": 1,
+    "terms": [
+      "G"
+    ],
+    "label": "Affirmatives And Reactions",
+    "description": "",
+    "term_count": 1
+  },
+  "gaming-lingo": {
+    "count": 1,
+    "terms": [
+      "G"
+    ],
+    "label": "Gaming Lingo",
+    "description": "",
+    "term_count": 1
+  },
+  "self-improvement": {
+    "count": 2,
+    "terms": [
+      "glow up",
+      "level up"
+    ],
+    "label": "Self Improvement",
+    "description": "",
+    "term_count": 2
+  },
+  "physical-appearance": {
+    "count": 1,
+    "terms": [
+      "glow up"
+    ],
+    "label": "Physical Appearance",
+    "description": "",
+    "term_count": 1
+  },
+  "character-and-personality": {
+    "count": 2,
+    "terms": [
+      "KJ",
+      "plastik"
+    ],
+    "label": "Character And Personality",
+    "description": "",
+    "term_count": 2
+  },
+  "social-commentary-and-shade": {
+    "count": 7,
+    "terms": [
+      "KJ",
+      "KSP",
+      "jologs",
+      "linta",
+      "nag-assume",
+      "plastik",
+      "vibe check"
+    ],
+    "label": "Social Commentary And Shade",
+    "description": "",
+    "term_count": 7
+  },
+  "attitudes-and-behavior": {
+    "count": 1,
+    "terms": [
+      "mema"
+    ],
+    "label": "Attitudes And Behavior",
+    "description": "",
+    "term_count": 1
+  },
+  "acronyms-and-abbreviations": {
+    "count": 2,
+    "terms": [
+      "OOTD",
+      "momol"
+    ],
+    "label": "Acronyms And Abbreviations",
+    "description": "",
+    "term_count": 2
+  },
+  "expressive-reactions": {
+    "count": 1,
+    "terms": [
+      "scoobs"
+    ],
+    "label": "Expressive Reactions",
+    "description": "",
+    "term_count": 1
+  },
+  "aesthetics-and-looks": {
+    "count": 4,
+    "terms": [
+      "baddie",
+      "jologs",
+      "swabe",
+      "taray"
+    ],
+    "label": "Aesthetics And Looks",
+    "description": "",
+    "term_count": 4
+  },
+  "attitude-and-character": {
+    "count": 5,
+    "terms": [
+      "harot",
+      "korni",
+      "maldita",
+      "swabe",
+      "taray"
+    ],
+    "label": "Attitude And Character",
+    "description": "",
+    "term_count": 5
+  },
+  "beki-and-lgbtq-lingo": {
+    "count": 1,
+    "terms": [
+      "taray"
+    ],
+    "label": "Beki And Lgbtq Lingo",
+    "description": "",
+    "term_count": 1
+  },
+  "reactions-and-expressions": {
+    "count": 1,
+    "terms": [
+      "korni"
+    ],
+    "label": "Reactions And Expressions",
+    "description": "",
+    "term_count": 1
+  },
+  "gender-and-identity": {
+    "count": 1,
+    "terms": [
+      "maldita"
+    ],
+    "label": "Gender And Identity",
+    "description": "",
+    "term_count": 1
+  },
+  "romance-and-dating": {
+    "count": 2,
+    "terms": [
+      "harot",
+      "nag-assume"
+    ],
+    "label": "Romance And Dating",
+    "description": "",
+    "term_count": 2
+  },
+  "internet-and-digital-culture": {
+    "count": 1,
+    "terms": [
+      "low bat"
+    ],
+    "label": "Internet And Digital Culture",
+    "description": "",
+    "term_count": 1
+  },
+  "gaming-and-esports": {
+    "count": 3,
+    "terms": [
+      "L",
+      "W",
+      "pog"
+    ],
+    "label": "Gaming And Esports",
+    "description": "",
+    "term_count": 3
+  },
+  "family-and-social-roles": {
+    "count": 2,
+    "terms": [
+      "ermat",
+      "erpat"
+    ],
+    "label": "Family And Social Roles",
+    "description": "",
+    "term_count": 2
+  },
+  "back-slang-inversions": {
+    "count": 3,
+    "terms": [
+      "astig",
+      "ermat",
+      "erpat"
+    ],
+    "label": "Back Slang Inversions",
+    "description": "",
+    "term_count": 3
+  },
+  "admiration-and-praise": {
+    "count": 2,
+    "terms": [
+      "astig",
+      "left no crumbs"
+    ],
+    "label": "Admiration And Praise",
+    "description": "",
+    "term_count": 2
+  },
+  "self-image-and-identity": {
+    "count": 1,
+    "terms": [
+      "main character"
+    ],
+    "label": "Self Image And Identity",
+    "description": "",
+    "term_count": 1
+  },
+  "emotional-states": {
+    "count": 1,
+    "terms": [
+      "hits different"
+    ],
+    "label": "Emotional States",
+    "description": "",
+    "term_count": 1
   }
 }

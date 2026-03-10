@@ -14417,5 +14417,299 @@
       "no cap",
       "fr"
     ]
+  },
+  {
+    "term": "ermat",
+    "definitions": [
+      "Mom; mother. Informal colloquial term for one's mother used across Filipino generations but firmly entrenched in youth and street vocabulary."
+    ],
+    "etymology": "Inverted syllables of Latin 'mater' (mother). Part of the same back-slang family as erpat, astig, and petmalu — a Filipino tradition of reversing or inverting root words to create slang. Dates to the 1970s–1980s but remains in active youth use.",
+    "examples": [
+      {
+        "text": "Tanungin mo sa ermat mo kung pwede kang lumabas.",
+        "source": "Everyday Filipino conversation, widely attested"
+      },
+      {
+        "text": "Sabi ng ermat ko, uwi na raw.",
+        "source": "Filipino social media / text messaging, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "erpat",
+      "lodi",
+      "astig",
+      "petmalu"
+    ],
+    "categories": [
+      "family-and-social-roles",
+      "back-slang-inversions"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "erpat"
+    ]
+  },
+  {
+    "term": "erpat",
+    "definitions": [
+      "Dad; father. Informal colloquial term for one's father used across Filipino generations but entrenched in youth and street vocabulary."
+    ],
+    "etymology": "Inverted syllables of Latin 'pater' (father). Same back-slang tradition as ermat, astig, petmalu. Dates to the 1970s–1980s but still widely used.",
+    "examples": [
+      {
+        "text": "Nagasgasan ko 'yung tsikot kagabi. Galit si erpat!",
+        "source": "Everyday Filipino conversation, widely attested"
+      },
+      {
+        "text": "Humingi na ko kay erpat ng pera para sa lakad.",
+        "source": "Filipino social media / text messaging, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "ermat",
+      "lodi",
+      "astig",
+      "petmalu"
+    ],
+    "categories": [
+      "family-and-social-roles",
+      "back-slang-inversions"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "ermat"
+    ]
+  },
+  {
+    "term": "astig",
+    "definitions": [
+      "Cool; tough; impressive; badass. Used to describe a person, experience, film, or thing that commands respect or admiration."
+    ],
+    "etymology": "Inverted syllables of 'tigas' (hardness/toughness). Originated as street slang in the 1970s–1980s and crossed over into mainstream Filipino youth speech. Still in active Gen Z use.",
+    "examples": [
+      {
+        "text": "Nakita mo ba yung bagong pelikula? Sobrang astig!",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Astig ng moves niya sa kanto.",
+        "source": "Filipino rap fan community, 2023"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "lodi",
+      "petmalu",
+      "bongga",
+      "slay",
+      "lupet"
+    ],
+    "categories": [
+      "admiration-and-praise",
+      "back-slang-inversions",
+      "street-and-hustle"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "lupet",
+      "slay",
+      "bongga",
+      "lodi"
+    ],
+    "antonyms": [
+      "korni",
+      "badtrip"
+    ]
+  },
+  {
+    "term": "main character",
+    "definitions": [
+      "A person who acts with the confidence and centrality of a story's protagonist — charismatic, dramatic, or seemingly destined for special things.",
+      "Often used as 'main character energy' to describe someone who commands attention or lives unapologetically, for better or worse. Can also be used sarcastically for someone making an unnecessary scene."
+    ],
+    "etymology": "From English 'main character' (protagonist of a story). Popularized globally via TikTok 'main character syndrome' trend; adopted widely by Filipino Gen Z on social media and in Taglish conversation.",
+    "examples": [
+      {
+        "text": "Main character energy niya talaga — lahat ng tao napapatingin sa kanya.",
+        "source": "Filipino TikTok / social media, 2024"
+      },
+      {
+        "text": "Huwag maging main character sa wrong story.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "aura farming",
+      "era",
+      "NPC",
+      "slay",
+      "rizz"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "self-image-and-identity"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [
+      "aura farming"
+    ],
+    "antonyms": [
+      "NPC"
+    ]
+  },
+  {
+    "term": "hayup",
+    "definitions": [
+      "Exclamation expressing shock, admiration, or disbelief — roughly equivalent to 'Wow!', 'Damn!', or 'No way!' Used when something is impressive, surprising, or outrageous.",
+      "Can also carry playful scolding: calling someone 'hayup' to tease them for doing something ridiculous."
+    ],
+    "etymology": "From Tagalog 'hayop' (animal). The vulgar edge of the literal meaning ('you animal!') was softened over time into a general exclamation. Similar transformation to English 'beast' being used as a compliment.",
+    "examples": [
+      {
+        "text": "Hayup! Pumasa ka sa bar exam?!",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Hayup 'tong kanta — hindi ko inexpect 'yan!",
+        "source": "Filipino TikTok comment section, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "hala",
+      "shookt",
+      "wew",
+      "aray ko"
+    ],
+    "categories": [
+      "exclamations-and-reactions",
+      "street-and-hustle"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "hala",
+      "wew"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "hits different",
+    "definitions": [
+      "Describes something that feels uniquely special, emotionally resonant, or better than usual — especially in a context-specific way (e.g., music at night, food when nostalgic)."
+    ],
+    "etymology": "From English internet slang 'hits different', widely used on TikTok and Twitter. Adopted into Filipino Taglish speech, often blended with Tagalog context markers.",
+    "examples": [
+      {
+        "text": "Yung kanta niya hits different pag gabing-gabi.",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Iba talaga kapag umuulan — hits different.",
+        "source": "Filipino social media, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "LSS",
+      "kilig",
+      "feels"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "emotional-states"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "bussin",
+    "definitions": [
+      "Extremely good, especially referring to food. A high-praise compliment for something that exceeds expectations."
+    ],
+    "etymology": "From African American Vernacular English (AAVE) 'bussin' (extremely delicious). Popularized globally via TikTok food reviews; adopted by Filipino Gen Z in Taglish contexts.",
+    "examples": [
+      {
+        "text": "Yung ulam ni lola, bussin talaga!",
+        "source": "Filipino TikTok, 2024"
+      },
+      {
+        "text": "Ang bussin ng pancit doon — sulit na sulit.",
+        "source": "Filipino social media food review, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "chibog",
+      "swabe",
+      "bet",
+      "bongga"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "food-and-lifestyle"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [
+      "swabe"
+    ],
+    "antonyms": [
+      "panis"
+    ]
+  },
+  {
+    "term": "left no crumbs",
+    "definitions": [
+      "Did something so flawlessly that nothing was left to criticize — used to praise an outstanding performance, look, or action. Synonymous with 'ate/served/slayed.'"
+    ],
+    "etymology": "From English internet/AAVE slang 'left no crumbs' (as in 'cleaned up so well there's nothing left'). Popularized on TikTok performance reaction videos; adopted by Filipino entertainment fans and social media users.",
+    "examples": [
+      {
+        "text": "Siya left no crumbs sa performance niya!",
+        "source": "Filipino Twitter/X fan account, 2024"
+      },
+      {
+        "text": "Ang ganda ng outfit niya, left no crumbs.",
+        "source": "Filipino TikTok comment section, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "slay",
+      "ate girl",
+      "pak na pak",
+      "bongga"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "admiration-and-praise"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [
+      "slay",
+      "pak na pak"
+    ],
+    "antonyms": []
   }
 ]
