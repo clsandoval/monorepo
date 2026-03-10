@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-domain="labor">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retirement Pay Calculator (RA 7641) · Angkin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   ANGKIN EDITORIAL — CSS TOKENS & BASE
+   ============================================================ */
+:root {
+  /* Colors */
+  --color-bg: #FAF7F0;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #1A1208;
+  --color-text-secondary: #5C5040;
+  --color-text-muted: #9A8E7C;
+  --color-accent-red: #C4302B;
+  --color-accent-navy: #1C3557;
+  --color-accent-gold: #B8860B;
+  --color-success: #2D6A4F;
+  --color-warning: #7B4F12;
+  --color-error: #8B1A1A;
+  --color-border: #DDD5C8;
+  --color-rule: #C4302B;
+  --color-input-bg: #F5F0E8;
+  --color-law-bg: #EEF4F8;
+  --color-domain: #1C3557; /* labor domain = navy */
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Source Serif 4', Georgia, serif;
+  --font-ui: 'Libre Franklin', 'Helvetica Neue', sans-serif;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 80px;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0F0C08;
+  --color-surface: #1C1810;
+  --color-text-primary: #F0EAD8;
+  --color-text-secondary: #B0A080;
+  --color-text-muted: #7A6C58;
+  --color-accent-red: #E05550;
+  --color-accent-navy: #4A7FB5;
+  --color-accent-gold: #D4A820;
+  --color-border: #3A3020;
+  --color-input-bg: #2A2418;
+  --color-law-bg: #1A2030;
+  --color-surface: #1C1810;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.75;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.masthead {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-3) 0;
+  position: sticky;
+  top: 0;
+  background-color: var(--color-bg);
+  z-index: 100;
+  transition: background-color 0.3s;
+}
+
+.masthead-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.masthead-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.masthead-wordmark {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.masthead-tagline {
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.masthead-breadcrumb {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.masthead-breadcrumb span {
+  color: var(--color-accent-gold);
+}
+
+.masthead-breadcrumb .sep {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.masthead-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.dark-toggle {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: 0.875rem;
+  padding: 4px 10px;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  transition: border-color 0.2s, color 0.2s;
+  line-height: 1.6;
+}
+
+.dark-toggle:hover {
+  border-color: var(--color-text-secondary);
+  color: var(--color-text-primary);
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.page-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+.content-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: var(--space-7);
+  padding: var(--space-7) 0;
+  align-items: start;
+}
+
+.article-column {
+  min-width: 0;
+}
+
+.calculator-column {
+  position: sticky;
+  top: 72px;
+}
+
+/* ============================================================
+   ARTICLE HERO
+   ============================================================ */
+.article-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-red);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.article-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-accent-red);
+  flex-shrink: 0;
+}
+
+.article-headline {
+  font-family: var(--font-display);
+  font-size: 3.25rem;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--color-accent-navy);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-4);
+}
+
+.article-deck {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+  font-style: italic;
+}
+
+.article-byline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 3px solid var(--color-accent-red);
+  margin-bottom: var(--space-5);
+}
+
+.byline-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-accent-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  color: white;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.byline-meta {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.byline-meta strong {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  display: block;
+}
+
+.byline-actions {
+  margin-left: auto;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.btn-outline-sm {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-border);
+  background: none;
+  color: var(--color-text-secondary);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+}
+
+.btn-outline-sm:hover {
+  border-color: var(--color-accent-red);
+  color: var(--color-accent-red);
+}
+
+.btn-jump {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-accent-red);
+  background: var(--color-accent-red);
+  color: #fff;
+  padding: 6px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.15s;
+}
+
+.btn-jump:hover {
+  background: #9E2520;
+}
+
+/* ============================================================
+   ARTICLE BODY
+   ============================================================ */
+.article-body > * + * {
+  margin-top: var(--space-4);
+}
+
+.article-body p {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--color-text-primary);
+}
+
+/* Drop cap */
+.article-body p.drop-cap::first-letter {
+  font-family: var(--font-display);
+  font-size: 4.25rem;
+  font-weight: 700;
+  color: var(--color-accent-red);
+  float: left;
+  line-height: 0.75;
+  margin-right: 8px;
+  margin-top: 6px;
+  letter-spacing: -0.02em;
+}
+
+/* Pull quote */
+.pull-quote {
+  border-left: 4px solid var(--color-accent-red);
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-5) 0;
+}
+
+.pull-quote p {
+  font-family: var(--font-display) !important;
+  font-size: 1.625rem !important;
+  font-style: italic;
+  line-height: 1.35 !important;
+  color: var(--color-accent-navy) !important;
+}
+
+/* Section heading */
+.section-heading {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-top: var(--space-6) !important;
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
+/* Law box */
+.law-box {
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-domain);
+  margin: var(--space-5) 0;
+  background: var(--color-law-bg);
+}
+
+.law-box-header {
+  background: var(--color-domain);
+  padding: 10px var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.law-box-header h3 {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+}
+
+.law-box-badge {
+  font-family: var(--font-ui);
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.9);
+  padding: 2px 8px;
+  margin-left: auto;
+}
+
+.law-box-body {
+  padding: var(--space-4);
+}
+
+.law-box-body p {
+  font-family: var(--font-body) !important;
+  font-size: 0.9375rem !important;
+  line-height: 1.65 !important;
+  color: var(--color-text-primary) !important;
+}
+
+.law-cite {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-gold);
+  margin-top: var(--space-2) !important;
+}
+
+/* ============================================================
+   CALCULATOR CARD (SIDEBAR)
+   ============================================================ */
+.calculator-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-accent-red);
+  animation: fadeSlideIn 0.4s 0.3s both;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.calc-header {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.calc-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-red);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.calc-eyebrow::before {
+  content: '✦';
+  color: var(--color-accent-gold);
+  font-size: 0.5rem;
+}
+
+.calc-title {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--color-accent-navy);
+  line-height: 1.2;
+}
+
+.calc-subtitle {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.calc-body {
+  padding: var(--space-4);
+}
+
+.form-group {
+  margin-bottom: var(--space-3);
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: 6px;
+}
+
+.tooltip-icon {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--color-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5625rem;
+  color: var(--color-text-muted);
+  cursor: help;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  flex-shrink: 0;
+  transition: border-color 0.15s, color 0.15s;
+  position: relative;
+}
+
+.tooltip-icon:hover {
+  border-color: var(--color-accent-navy);
+  color: var(--color-accent-navy);
+}
+
+.tooltip-icon:hover .tooltip-text {
+  display: block;
+}
+
+.tooltip-text {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-text-primary);
+  color: var(--color-bg);
+  font-size: 0.625rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  white-space: nowrap;
+  padding: 5px 8px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.form-input {
+  width: 100%;
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 10px 12px;
+  outline: none;
+  border-radius: 0;
+  transition: border-color 0.2s, background-color 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-input:focus {
+  border-color: var(--color-accent-navy);
+  background-color: var(--color-surface);
+}
+
+.form-input::placeholder {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.input-prefix-wrap {
+  position: relative;
+}
+
+.input-prefix {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.input-prefix-wrap .form-input {
+  padding-left: 28px;
+}
+
+.form-helper {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.form-error {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--color-error);
+  margin-top: 4px;
+  display: none;
+}
+
+.form-error.visible {
+  display: block;
+}
+
+.form-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-3) 0;
+}
+
+.btn-compute {
+  width: 100%;
+  background: var(--color-accent-red);
+  color: #fff;
+  border: none;
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px var(--space-4);
+  cursor: pointer;
+  transition: background-color 0.15s;
+  border-radius: 0;
+  margin-top: var(--space-3);
+}
+
+.btn-compute:hover {
+  background: #9E2520;
+}
+
+.btn-compute:active {
+  background: #7D1C17;
+}
+
+.btn-compute:disabled {
+  background: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.btn-reset {
+  display: block;
+  margin: 8px auto 0;
+  background: none;
+  border: none;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+
+.btn-reset:hover {
+  color: var(--color-text-secondary);
+}
+
+/* ============================================================
+   RESULT CARD
+   ============================================================ */
+.result-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-accent-red);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.result-card.visible {
+  max-height: 600px;
+}
+
+.result-main {
+  padding: var(--space-4);
+  text-align: center;
+  position: relative;
+}
+
+.result-label-top {
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.result-number-wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.result-currency {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-accent-navy);
+  line-height: 1;
+  margin-top: 10px;
+}
+
+.result-number {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--color-accent-navy);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.result-label-bottom {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-red);
+}
+
+.result-rule {
+  height: 2px;
+  background: var(--color-accent-red);
+  margin: var(--space-3) var(--space-4);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.result-card.visible .result-rule {
+  transform: scaleX(1);
+}
+
+.result-breakdown {
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--color-border);
+  gap: var(--space-3);
+}
+
+.breakdown-row:last-child {
+  border-bottom: none;
+}
+
+.breakdown-label {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  line-height: 1.3;
+}
+
+.breakdown-value {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.result-disclaimer {
+  background: var(--color-input-bg);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.result-disclaimer p {
+  font-family: var(--font-body) !important;
+  font-size: 0.75rem !important;
+  font-style: italic;
+  color: var(--color-text-muted) !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* ============================================================
+   ARTICLE MIDDLE STATE — inline calculator (mobile/tablet)
+   ============================================================ */
+.inline-calc-note {
+  display: none;
+  background: var(--color-law-bg);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent-red);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  gap: var(--space-2);
+  align-items: center;
+}
+
+/* ============================================================
+   ARTICLE INLINE CALCULATOR (used in mobile flow)
+   ============================================================ */
+.article-calculator-section {
+  margin: var(--space-6) 0;
+  display: none;
+}
+
+.article-calculator-section .calc-section-marker {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-red);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.article-calculator-section .calc-section-marker::before,
+.article-calculator-section .calc-section-marker::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.article-calculator-section .calc-section-marker::before {
+  max-width: 24px;
+  background: var(--color-accent-red);
+}
+
+/* ============================================================
+   "WHAT TO DO NEXT" SECTION
+   ============================================================ */
+.next-steps {
+  margin-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-5);
+}
+
+.next-steps-heading {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.next-steps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.next-step-card {
+  border: 1px solid var(--color-border);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  transition: border-color 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+
+.next-step-card:hover {
+  border-color: var(--color-accent-navy);
+}
+
+.next-step-tag {
+  font-family: var(--font-ui);
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-red);
+  margin-bottom: 4px;
+}
+
+.next-step-title {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-accent-navy);
+  line-height: 1.3;
+  font-weight: 400;
+}
+
+/* ============================================================
+   RELATED TOOLS
+   ============================================================ */
+.related-tools {
+  margin-top: var(--space-5);
+  border-top: 3px solid var(--color-border);
+  padding-top: var(--space-4);
+}
+
+.related-tools-heading {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.related-tools-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--color-border);
+}
+
+.related-tool-item {
+  background: var(--color-surface);
+  padding: 10px var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+.related-tool-item:hover {
+  background: var(--color-input-bg);
+}
+
+.related-tool-name {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-accent-navy);
+}
+
+.related-tool-law {
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--color-text-primary);
+  color: var(--color-bg);
+  padding: var(--space-6) 0;
+  margin-top: var(--space-7);
+}
+
+.footer-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-bg);
+}
+
+.footer-meta {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  color: rgba(250, 247, 240, 0.5);
+  text-align: right;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1023px) {
+  .content-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .calculator-column {
+    position: static;
+    display: none; /* Hidden on mobile; show inline calc instead */
+  }
+
+  .article-calculator-section {
+    display: block;
+  }
+
+  .inline-calc-note {
+    display: flex;
+  }
+
+  .next-steps-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .page-container {
+    padding: 0 var(--space-3);
+  }
+
+  .masthead-inner {
+    padding: 0 var(--space-3);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .masthead-breadcrumb {
+    display: none;
+  }
+
+  .article-headline {
+    font-size: 2.25rem;
+  }
+
+  .article-deck {
+    font-size: 1.0625rem;
+  }
+
+  .content-layout {
+    padding: var(--space-4) 0;
+  }
+
+  .byline-actions {
+    display: none;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    padding: 0 var(--space-3);
+  }
+
+  .footer-meta {
+    text-align: center;
+  }
+}
+
+/* ============================================================
+   FOCUS STATES
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--color-accent-red);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--color-accent-navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--color-accent-red);
+}
+
+/* Reading progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-accent-red);
+  z-index: 1000;
+  width: 0%;
+  transition: width 0.1s;
+}
+
+/* ============================================================
+   SELECT ELEMENT
+   ============================================================ */
+select.form-input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' viewBox='0 0 10 6'%3E%3Cpath stroke='%235C5040' stroke-width='1.5' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- Reading Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ============================================================
+     MASTHEAD
+     ============================================================ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <a href="#" class="masthead-brand" style="text-decoration:none;">
+      <span class="masthead-wordmark">Angkin</span>
+      <span class="masthead-tagline">Philippine Compliance Tools</span>
+    </a>
+
+    <nav class="masthead-breadcrumb" aria-label="Breadcrumb">
+      <span style="color:var(--color-text-muted)">Labor Law</span>
+      <span class="sep">·</span>
+      <span>Retirement</span>
+      <span class="sep">·</span>
+      <span style="color:var(--color-accent-gold);">RA 7641</span>
+    </nav>
+
+    <div class="masthead-actions">
+      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">☾ Dark</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<main>
+  <div class="page-container">
+    <div class="content-layout">
+
+      <!-- ===== ARTICLE COLUMN ===== -->
+      <article class="article-column" aria-labelledby="article-headline">
+
+        <!-- Article Header -->
+        <header>
+          <div class="article-eyebrow">Labor Rights · Retirement</div>
+
+          <h1 class="article-headline" id="article-headline">
+            After Years of Service,<br>Here's What the Law<br>Guarantees You
+          </h1>
+
+          <p class="article-deck">
+            Republic Act 7641 mandates retirement pay for qualifying private-sector employees. We break down exactly who qualifies, how the formula works, and what your employer is legally required to pay.
+          </p>
+
+          <div class="article-byline">
+            <div class="byline-avatar" aria-hidden="true">A</div>
+            <div class="byline-meta">
+              <strong>Angkin Research</strong>
+              March 2026 · 9 min read · Calculator included
+            </div>
+            <div class="byline-actions">
+              <a href="#calculator-section" class="btn-jump">↓ Jump to Calculator</a>
+              <button class="btn-outline-sm" onclick="window.print()">Print</button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Article Body -->
+        <div class="article-body">
+
+          <p class="drop-cap">
+            Every employed Filipino who has worked for at least five years with the same employer has a right that many don't know they have: a mandatory retirement benefit, guaranteed by the State. Republic Act 7641 — the Retirement Pay Law — was signed in 1992, but three decades later, many workers still leave their jobs without collecting what the law promises them.
+          </p>
+
+          <p>
+            The formula is deceptively simple: one-half month's salary for every year of service, with a fraction of at least six months counted as one full year. But "one-half month's salary" is not what most people think it is. It includes more than just your basic pay.
+          </p>
+
+          <!-- Pull Quote -->
+          <blockquote class="pull-quote" cite="https://lawphil.net/statutes/repacts/ra1992/ra_7641_1992.html">
+            <p>"The law does not ask your employer for a favor. It mandates a minimum. Your employer may give more — but never less."</p>
+          </blockquote>
+
+          <!-- Law Box -->
+          <div class="law-box" role="complementary" aria-label="Legal text from Republic Act 7641">
+            <div class="law-box-header">
+              <h3>Republic Act No. 7641</h3>
+              <span class="law-box-badge">As Amended</span>
+            </div>
+            <div class="law-box-body">
+              <p>
+                <strong>Section 1.</strong> In the absence of a retirement plan or agreement providing for retirement benefits of employees in the establishment, an employee upon reaching the age of sixty (60) years or more, but not beyond sixty-five (65) years which is hereby declared the compulsory retirement age, who has served at least five (5) years in the said establishment, may retire and shall be entitled to retirement pay equivalent to at least one-half (½) month salary for every year of service, a fraction of at least six (6) months being considered as one whole year.
+              </p>
+              <p class="law-cite">Source: RA 7641 § 1 · DOLE Advisory No. 06 Series of 2020</p>
+            </div>
+          </div>
+
+          <h2 class="section-heading">What "One-Half Month's Salary" Actually Means</h2>
+
+          <p>
+            Under DOLE's implementing rules, "one-half month salary" for purposes of RA 7641 is computed as: <strong>15 days of basic salary</strong> plus <strong>1/12 of the 13th month pay</strong> plus <strong>1/12 of cash equivalents of unused service incentive leaves</strong>. This is commonly abbreviated as 22.5 days of basic pay — a number that surprises most workers.
+          </p>
+
+          <p>
+            If your company has a CBA (collective bargaining agreement) or a company retirement plan that provides <em>at least equal</em> retirement benefits, that plan governs. If the company plan provides <em>less</em> than what RA 7641 mandates, RA 7641 prevails. You are always entitled to the higher of the two.
+          </p>
+
+          <!-- Inline calculator marker for mobile -->
+          <div class="article-calculator-section" id="calculator-section">
+            <div class="calc-section-marker">Calculate Your Retirement Pay</div>
+
+            <!-- This is the mobile version of the calculator — same markup, different position -->
+            <div class="calculator-card" style="animation: none;" id="mobileCalcCard">
+              <div class="calc-header">
+                <div class="calc-eyebrow">Interactive Tool</div>
+                <h2 class="calc-title" id="calc-title-mobile">Retirement Pay<br>Calculator</h2>
+                <p class="calc-subtitle">RA 7641 · Minimum statutory benefit</p>
+              </div>
+
+              <div class="calc-body">
+                <div class="form-group">
+                  <label class="form-label" for="basic-salary-m">
+                    Monthly Basic Salary
+                    <span class="tooltip-icon" tabindex="0" aria-label="Basic salary only — do not include allowances, overtime, or bonuses">
+                      ?
+                      <span class="tooltip-text">Basic pay only — exclude allowances</span>
+                    </span>
+                  </label>
+                  <div class="input-prefix-wrap">
+                    <span class="input-prefix">₱</span>
+                    <input type="number" class="form-input" id="basic-salary-m" placeholder="0.00" min="0" step="0.01"
+                      aria-label="Monthly basic salary in Philippine pesos" aria-describedby="salary-helper-m">
+                  </div>
+                  <p class="form-helper" id="salary-helper-m">Basic pay only — exclude allowances</p>
+                  <p class="form-error" id="salary-error-m">Please enter a valid salary amount.</p>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="years-service-m">
+                    Years of Service
+                    <span class="tooltip-icon" tabindex="0" aria-label="Continuous service with the same employer">
+                      ?
+                      <span class="tooltip-text">Years with the same employer</span>
+                    </span>
+                  </label>
+                  <input type="number" class="form-input" id="years-service-m" placeholder="0" min="5" max="50"
+                    aria-label="Years of continuous service" aria-describedby="years-helper-m">
+                  <p class="form-helper" id="years-helper-m">Minimum 5 years required under RA 7641</p>
+                  <p class="form-error" id="years-error-m">Minimum 5 years of service required.</p>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="months-partial-m">
+                    Additional Months (if any)
+                    <span class="tooltip-icon" tabindex="0" aria-label="Months beyond complete years — 6+ months count as a full year">
+                      ?
+                      <span class="tooltip-text">6+ months = counted as 1 full year</span>
+                    </span>
+                  </label>
+                  <select class="form-input" id="months-partial-m" aria-label="Additional months of service beyond complete years">
+                    <option value="0">0 months</option>
+                    <option value="1">1 month</option>
+                    <option value="2">2 months</option>
+                    <option value="3">3 months</option>
+                    <option value="4">4 months</option>
+                    <option value="5">5 months</option>
+                    <option value="6">6 months (counted as 1 year)</option>
+                    <option value="7">7 months (counted as 1 year)</option>
+                    <option value="8">8 months (counted as 1 year)</option>
+                    <option value="9">9 months (counted as 1 year)</option>
+                    <option value="10">10 months (counted as 1 year)</option>
+                    <option value="11">11 months (counted as 1 year)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="monthly-sil-m">
+                    Unused SIL (days/year)
+                    <span class="tooltip-icon" tabindex="0" aria-label="Service Incentive Leave — 5 days mandated by law. Enter unused days per year.">
+                      ?
+                      <span class="tooltip-text">Unused service incentive leave days</span>
+                    </span>
+                  </label>
+                  <input type="number" class="form-input" id="monthly-sil-m" placeholder="5" min="0" max="30" value="5"
+                    aria-label="Unused service incentive leave days per year">
+                </div>
+
+                <div class="form-divider"></div>
+
+                <button class="btn-compute" id="computeBtnMobile" onclick="computeRetirementPay('mobile')" type="button">
+                  Compute Retirement Pay
+                </button>
+                <button class="btn-reset" onclick="resetCalculator('mobile')" type="button">Reset</button>
+              </div>
+            </div>
+
+            <!-- Mobile Result Card -->
+            <div class="result-card" id="resultCardMobile" aria-live="polite" aria-label="Retirement pay calculation results" style="margin-top: 16px;">
+              <div class="result-main">
+                <p class="result-label-top">Minimum Retirement Pay</p>
+                <div class="result-number-wrap">
+                  <span class="result-currency">₱</span>
+                  <span class="result-number" id="resultNumberMobile">0</span>
+                </div>
+                <p class="result-label-bottom">Under RA 7641</p>
+              </div>
+              <div class="result-rule" id="resultRuleMobile"></div>
+              <div class="result-breakdown" id="resultBreakdownMobile"></div>
+              <div class="result-disclaimer">
+                <p>Based on minimum statutory benefit under RA 7641 and DOLE's implementing rules. Actual entitlement may be higher if a company retirement plan exists. Consult a labor lawyer or DOLE for disputes.</p>
+              </div>
+            </div>
+          </div>
+
+          <h2 class="section-heading">Who Qualifies — And Who Does Not</h2>
+
+          <p>
+            The law covers all <em>regular employees</em> in the private sector who are at least 60 years old and have rendered at least five continuous years of service to the same employer. "Continuous" here has nuance: brief interruptions (illness, authorized leave) generally do not break continuity, but significant gaps might. When in doubt, DOLE's NLRC regional arbitration branches accept clarification requests.
+          </p>
+
+          <p>
+            Not covered: government employees (they have GSIS), household helpers (kasambahays have their own law under RA 10361), and employees of retail/service establishments regularly employing not more than ten workers, unless a CBA or company policy applies. Overseas Filipino Workers employed abroad are governed by their host country's law and POEA contracts — RA 7641 applies to Philippine-based employment.
+          </p>
+
+          <div class="pull-quote">
+            <p>"Rodel had worked 19 years. His employer offered ₱45,000. The calculator said ₱186,000. He printed both numbers and walked back into HR."</p>
+          </div>
+
+          <h2 class="section-heading">What To Do If Your Employer Refuses</h2>
+
+          <p>
+            File a complaint with the nearest DOLE Regional Office. Bring: your employment contract or appointment letter, your most recent payslips (or any proof of salary), and any documentation of your tenure (IDs, pay records, 13th month pay stubs). DOLE mediation under Single Entry Approach (SEnA) is free and typically resolves within 30 days. If mediation fails, the case proceeds to NLRC arbitration.
+          </p>
+
+          <p>
+            The prescriptive period for money claims under the Labor Code is three years from the date the claim became due. Do not wait.
+          </p>
+
+          <!-- What to Do Next -->
+          <div class="next-steps">
+            <h2 class="next-steps-heading">What to Do Next</h2>
+            <div class="next-steps-grid">
+              <a href="#" class="next-step-card">
+                <div class="next-step-tag">DOLE · Government</div>
+                <div class="next-step-title">File a Complaint at Your Nearest DOLE Regional Office</div>
+              </a>
+              <a href="#" class="next-step-card">
+                <div class="next-step-tag">Related Calculator</div>
+                <div class="next-step-title">Separation Pay Calculator (RA 7641 § 4 + Labor Code Art. 298)</div>
+              </a>
+              <a href="#" class="next-step-card">
+                <div class="next-step-tag">Guide · Labor Law</div>
+                <div class="next-step-title">RA 7641 vs. Company Retirement Plan: Which Governs?</div>
+              </a>
+              <a href="#" class="next-step-card">
+                <div class="next-step-tag">Related Calculator</div>
+                <div class="next-step-title">13th Month Pay Calculator (PD 851)</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Related Tools -->
+          <div class="related-tools">
+            <h3 class="related-tools-heading">More Labor Law Calculators</h3>
+            <div class="related-tools-list">
+              <a href="#" class="related-tool-item">
+                <span class="related-tool-name">Separation Pay Calculator</span>
+                <span class="related-tool-law">RA 7641 · Art. 298</span>
+              </a>
+              <a href="#" class="related-tool-item">
+                <span class="related-tool-name">13th Month Pay Calculator</span>
+                <span class="related-tool-law">PD 851</span>
+              </a>
+              <a href="#" class="related-tool-item">
+                <span class="related-tool-name">Night Differential Pay Calculator</span>
+                <span class="related-tool-law">Labor Code Art. 86</span>
+              </a>
+              <a href="#" class="related-tool-item">
+                <span class="related-tool-name">SSS Monthly Pension Estimator</span>
+                <span class="related-tool-law">RA 11199</span>
+              </a>
+            </div>
+          </div>
+
+        </div><!-- /article-body -->
+      </article>
+
+      <!-- ===== CALCULATOR SIDEBAR (desktop) ===== -->
+      <aside class="calculator-column" aria-label="Retirement pay calculator">
+
+        <div class="calculator-card" id="desktopCalcCard">
+          <div class="calc-header">
+            <div class="calc-eyebrow">Interactive Tool</div>
+            <h2 class="calc-title" id="calc-title">Retirement Pay<br>Calculator</h2>
+            <p class="calc-subtitle">RA 7641 · Minimum statutory benefit</p>
+          </div>
+
+          <div class="calc-body">
+            <div class="form-group">
+              <label class="form-label" for="basic-salary">
+                Monthly Basic Salary
+                <span class="tooltip-icon" tabindex="0" aria-label="Basic salary only — do not include allowances, overtime, or bonuses">
+                  ?
+                  <span class="tooltip-text">Basic pay only — exclude allowances</span>
+                </span>
+              </label>
+              <div class="input-prefix-wrap">
+                <span class="input-prefix">₱</span>
+                <input type="number" class="form-input" id="basic-salary" placeholder="0.00" min="0" step="0.01"
+                  aria-label="Monthly basic salary in Philippine pesos" aria-describedby="salary-helper">
+              </div>
+              <p class="form-helper" id="salary-helper">Basic pay only — exclude allowances</p>
+              <p class="form-error" id="salary-error">Please enter a valid salary amount.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="years-service">
+                Years of Service
+                <span class="tooltip-icon" tabindex="0" aria-label="Continuous service with the same employer">
+                  ?
+                  <span class="tooltip-text">Years with the same employer</span>
+                </span>
+              </label>
+              <input type="number" class="form-input" id="years-service" placeholder="0" min="5" max="50"
+                aria-label="Years of continuous service" aria-describedby="years-helper">
+              <p class="form-helper" id="years-helper">Minimum 5 years required under RA 7641</p>
+              <p class="form-error" id="years-error">Minimum 5 years of service required.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="months-partial">
+                Additional Months (if any)
+                <span class="tooltip-icon" tabindex="0" aria-label="Months beyond complete years — 6+ months count as a full year">
+                  ?
+                  <span class="tooltip-text">6+ months = counted as 1 full year</span>
+                </span>
+              </label>
+              <select class="form-input" id="months-partial" aria-label="Additional months of service beyond complete years">
+                <option value="0">0 months</option>
+                <option value="1">1 month</option>
+                <option value="2">2 months</option>
+                <option value="3">3 months</option>
+                <option value="4">4 months</option>
+                <option value="5">5 months</option>
+                <option value="6">6 months (counted as 1 year)</option>
+                <option value="7">7 months (counted as 1 year)</option>
+                <option value="8">8 months (counted as 1 year)</option>
+                <option value="9">9 months (counted as 1 year)</option>
+                <option value="10">10 months (counted as 1 year)</option>
+                <option value="11">11 months (counted as 1 year)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="monthly-sil">
+                Unused SIL (days/year)
+                <span class="tooltip-icon" tabindex="0" aria-label="Service Incentive Leave — 5 days mandated by law. Enter unused days per year.">
+                  ?
+                  <span class="tooltip-text">Unused service incentive leave days</span>
+                </span>
+              </label>
+              <input type="number" class="form-input" id="monthly-sil" placeholder="5" min="0" max="30" value="5"
+                aria-label="Unused service incentive leave days per year">
+            </div>
+
+            <div class="form-divider"></div>
+
+            <button class="btn-compute" id="computeBtn" onclick="computeRetirementPay('desktop')" type="button"
+              aria-label="Compute retirement pay">
+              Compute Retirement Pay
+            </button>
+            <button class="btn-reset" onclick="resetCalculator('desktop')" type="button">Reset</button>
+          </div>
+        </div>
+
+        <!-- Result Card -->
+        <div class="result-card" id="resultCard" aria-live="polite" aria-label="Retirement pay calculation results" style="margin-top: 12px;">
+          <div class="result-main">
+            <p class="result-label-top">Minimum Retirement Pay</p>
+            <div class="result-number-wrap">
+              <span class="result-currency">₱</span>
+              <span class="result-number" id="resultNumber">0</span>
+            </div>
+            <p class="result-label-bottom">Under RA 7641</p>
+          </div>
+          <div class="result-rule" id="resultRule"></div>
+          <div class="result-breakdown" id="resultBreakdown"></div>
+          <div class="result-disclaimer">
+            <p>Based on minimum statutory benefit under RA 7641 and DOLE's implementing rules. Actual entitlement may be higher if a company retirement plan exists. Consult a labor lawyer or DOLE for disputes.</p>
+          </div>
+        </div>
+
+        <!-- Related Tools (sidebar) -->
+        <div class="related-tools" style="margin-top: 16px; background: var(--color-surface); border: 1px solid var(--color-border); padding: 16px;">
+          <h3 class="related-tools-heading">Related Calculators</h3>
+          <div class="related-tools-list">
+            <a href="#" class="related-tool-item" style="background: transparent;">
+              <span class="related-tool-name" style="font-size:0.875rem;">Separation Pay</span>
+              <span class="related-tool-law">Art. 298</span>
+            </a>
+            <a href="#" class="related-tool-item" style="background: transparent;">
+              <span class="related-tool-name" style="font-size:0.875rem;">13th Month Pay</span>
+              <span class="related-tool-law">PD 851</span>
+            </a>
+            <a href="#" class="related-tool-item" style="background: transparent;">
+              <span class="related-tool-name" style="font-size:0.875rem;">SSS Pension Estimate</span>
+              <span class="related-tool-law">RA 11199</span>
+            </a>
+          </div>
+        </div>
+
+      </aside>
+
+    </div><!-- /content-layout -->
+  </div><!-- /page-container -->
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Angkin</div>
+      <div style="font-family: var(--font-ui); font-size: 0.625rem; color: rgba(250,247,240,0.4); margin-top: 4px; letter-spacing: 0.08em; text-transform: uppercase;">Philippine Compliance Tools</div>
+    </div>
+    <div class="footer-meta">
+      <div>148 compliance calculators · Free, no account required</div>
+      <div style="margin-top: 4px;">Content is for informational purposes only — not legal advice.</div>
+      <div style="margin-top: 4px; color: rgba(250,247,240,0.3);">© 2026 Angkin</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ---- Dark Mode ---- */
+const darkToggle = document.getElementById('darkToggle');
+const html = document.documentElement;
+
+// Load saved preference
+if (localStorage.getItem('angkin-theme') === 'dark') {
+  html.setAttribute('data-theme', 'dark');
+  darkToggle.textContent = '☀ Light';
+}
+
+darkToggle.addEventListener('click', () => {
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  darkToggle.textContent = isDark ? '☾ Dark' : '☀ Light';
+  localStorage.setItem('angkin-theme', isDark ? 'light' : 'dark');
+});
+
+/* ---- Reading Progress Bar ---- */
+const progressBar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = progress + '%';
+});
+
+/* ---- Calculation Logic ---- */
+function formatPeso(n) {
+  return new Intl.NumberFormat('en-PH', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(n);
+}
+
+function animateNumber(element, start, end, duration) {
+  const startTime = performance.now();
+  const diff = end - start;
+
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease-out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = start + diff * eased;
+    element.textContent = formatPeso(current);
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      element.textContent = formatPeso(end);
+    }
+  }
+  requestAnimationFrame(update);
+}
+
+function computeRetirementPay(variant) {
+  // Determine which set of inputs to use
+  const suffix = variant === 'mobile' ? '-m' : '';
+  const salaryInput = document.getElementById('basic-salary' + suffix);
+  const yearsInput = document.getElementById('years-service' + suffix);
+  const monthsInput = document.getElementById('months-partial' + suffix);
+  const silInput = document.getElementById('monthly-sil' + suffix);
+
+  const salaryError = document.getElementById('salary-error' + suffix);
+  const yearsError = document.getElementById('years-error' + suffix);
+
+  const salary = parseFloat(salaryInput ? salaryInput.value : 0) || 0;
+  const years = parseInt(yearsInput ? yearsInput.value : 0) || 0;
+  const months = parseInt(monthsInput ? monthsInput.value : 0) || 0;
+  const silDays = parseFloat(silInput ? silInput.value : 5) || 5;
+
+  // Validation
+  let hasError = false;
+
+  if (salary <= 0) {
+    if (salaryError) { salaryError.classList.add('visible'); }
+    if (salaryInput) { salaryInput.style.borderColor = 'var(--color-error)'; }
+    hasError = true;
+  } else {
+    if (salaryError) { salaryError.classList.remove('visible'); }
+    if (salaryInput) { salaryInput.style.borderColor = ''; }
+  }
+
+  if (years < 5) {
+    if (yearsError) { yearsError.classList.add('visible'); }
+    if (yearsInput) { yearsInput.style.borderColor = 'var(--color-error)'; }
+    hasError = true;
+  } else {
+    if (yearsError) { yearsError.classList.remove('visible'); }
+    if (yearsInput) { yearsInput.style.borderColor = ''; }
+  }
+
+  if (hasError) return;
+
+  // RA 7641 calculation
+  // "One-half month salary" = 15 days basic + 1/12 of 13th month + 1/12 of SIL cash equivalent
+  const dailyRate = salary / 26; // 26 working days per month (standard)
+  const halfMonthBasic = dailyRate * 15;
+  const thirteenthMonthPortion = salary / 12; // 1/12 of annual 13th month
+  const silCashEquiv = dailyRate * silDays;
+  const silPortion = silCashEquiv / 12; // 1/12 annual SIL
+
+  const halfMonthSalary = halfMonthBasic + thirteenthMonthPortion + silPortion;
+
+  // Years of service: months >= 6 = +1 year
+  const effectiveYears = years + (months >= 6 ? 1 : 0);
+
+  const totalRetirementPay = halfMonthSalary * effectiveYears;
+
+  // Display result
+  const resultCardId = variant === 'mobile' ? 'resultCardMobile' : 'resultCard';
+  const resultNumberId = variant === 'mobile' ? 'resultNumberMobile' : 'resultNumber';
+  const resultBreakdownId = variant === 'mobile' ? 'resultBreakdownMobile' : 'resultBreakdown';
+  const resultRuleId = variant === 'mobile' ? 'resultRuleMobile' : 'resultRule';
+
+  const resultCard = document.getElementById(resultCardId);
+  const resultNumber = document.getElementById(resultNumberId);
+  const resultBreakdown = document.getElementById(resultBreakdownId);
+
+  resultCard.classList.add('visible');
+
+  // Animate number
+  animateNumber(resultNumber, 0, totalRetirementPay, 700);
+
+  // Breakdown
+  resultBreakdown.innerHTML = `
+    <div class="breakdown-row">
+      <span class="breakdown-label">Daily rate (÷ 26 working days)</span>
+      <span class="breakdown-value">₱ ${formatPeso(dailyRate)}</span>
+    </div>
+    <div class="breakdown-row">
+      <span class="breakdown-label">15 days basic pay component</span>
+      <span class="breakdown-value">₱ ${formatPeso(halfMonthBasic)}</span>
+    </div>
+    <div class="breakdown-row">
+      <span class="breakdown-label">1/12 of 13th month pay</span>
+      <span class="breakdown-value">₱ ${formatPeso(thirteenthMonthPortion)}</span>
+    </div>
+    <div class="breakdown-row">
+      <span class="breakdown-label">1/12 of SIL cash equivalent (${silDays} days)</span>
+      <span class="breakdown-value">₱ ${formatPeso(silPortion)}</span>
+    </div>
+    <div class="breakdown-row" style="border-top: 2px solid var(--color-border); margin-top: 4px; padding-top: 8px;">
+      <span class="breakdown-label" style="font-weight:600; color: var(--color-text-primary);">½ month salary = </span>
+      <span class="breakdown-value" style="color: var(--color-accent-red);">₱ ${formatPeso(halfMonthSalary)}</span>
+    </div>
+    <div class="breakdown-row">
+      <span class="breakdown-label">Effective years of service</span>
+      <span class="breakdown-value">${effectiveYears} year${effectiveYears !== 1 ? 's' : ''}</span>
+    </div>
+    <div class="breakdown-row" style="border-top: 2px solid var(--color-accent-navy); margin-top: 4px; padding-top: 8px;">
+      <span class="breakdown-label" style="font-weight:600; color: var(--color-accent-navy);">Total (₱${formatPeso(halfMonthSalary)} × ${effectiveYears})</span>
+      <span class="breakdown-value" style="color: var(--color-accent-navy);">₱ ${formatPeso(totalRetirementPay)}</span>
+    </div>
+  `;
+
+  // Scroll to result on mobile
+  if (variant === 'mobile') {
+    setTimeout(() => {
+      document.getElementById(resultCardId).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  }
+}
+
+function resetCalculator(variant) {
+  const suffix = variant === 'mobile' ? '-m' : '';
+
+  const inputs = ['basic-salary', 'years-service', 'months-partial', 'monthly-sil'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id + suffix);
+    if (el) {
+      if (el.tagName === 'SELECT') {
+        el.value = '0';
+      } else if (id === 'monthly-sil') {
+        el.value = '5';
+      } else {
+        el.value = '';
+      }
+      el.style.borderColor = '';
+    }
+  });
+
+  const errors = ['salary-error', 'years-error'];
+  errors.forEach(id => {
+    const el = document.getElementById(id + suffix);
+    if (el) el.classList.remove('visible');
+  });
+
+  const resultCardId = variant === 'mobile' ? 'resultCardMobile' : 'resultCard';
+  const card = document.getElementById(resultCardId);
+  if (card) card.classList.remove('visible');
+}
+
+/* ---- Pre-fill demo scenario ---- */
+window.addEventListener('load', () => {
+  // Pre-fill desktop with Rodel's scenario (19 years, ₱28,000/month)
+  const salaryEl = document.getElementById('basic-salary');
+  const yearsEl = document.getElementById('years-service');
+  if (salaryEl) salaryEl.value = '28000';
+  if (yearsEl) yearsEl.value = '19';
+
+  // Auto-compute after load to show result state immediately for demo
+  setTimeout(() => {
+    computeRetirementPay('desktop');
+  }, 800);
+});
+</script>
+
+</body>
+</html>

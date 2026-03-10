@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects:** 27
-- **Analyzed:** 17
-- **Pending:** 10
-- **Convergence:** 63%
+- **Analyzed:** 18
+- **Pending:** 9
+- **Convergence:** 67%
 
 ---
 
@@ -37,7 +37,7 @@ Each aspect produces: spec file + HTML mockup + visual QA pass.
 | 15 | Option 3: Filipino Warmth | done | `analysis/option-3-filipino-warmth.md` | `raw/mockup-option-3-filipino-warmth.html` | `analysis/qa-option-3.md` |
 | 16 | Option 4: Stripe-Grade Developer System | done | `analysis/option-4-stripe-grade.md` | `raw/mockup-option-4-stripe-grade.html` | `analysis/qa-option-4.md` |
 | 17 | Option 5: Playful Utility | done | `analysis/option-5-playful-utility.md` | `raw/mockup-option-5-playful-utility.html` | `analysis/qa-option-5.md` |
-| 18 | Option 6: Editorial Calculator | pending | `analysis/option-6-editorial-calculator.md` | `raw/mockup-option-6-editorial-calculator.html` | `analysis/qa-option-6.md` |
+| 18 | Option 6: Editorial Calculator | done | `analysis/option-6-editorial-calculator.md` | `raw/mockup-option-6-editorial-calculator.html` | `analysis/qa-option-6.md` |
 | 19 | Option 7: Dashboard-Native Power Tool | pending | `analysis/option-7-dashboard-native.md` | `raw/mockup-option-7-dashboard-native.html` | `analysis/qa-option-7.md` |
 | 20 | Option 8: Mobile-First Micro-App | pending | `analysis/option-8-mobile-first.md` | `raw/mockup-option-8-mobile-first.html` | `analysis/qa-option-8.md` |
 | 21 | Option 9: Soft Institutional | pending | `analysis/option-9-soft-institutional.md` | `raw/mockup-option-9-soft-institutional.html` | `analysis/qa-option-9.md` |
