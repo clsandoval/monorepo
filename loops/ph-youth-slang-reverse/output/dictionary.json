@@ -12280,5 +12280,135 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "naloka",
+    "definitions": [
+      "To be shocked, stunned, or mind-blown — used when something is so unexpected it leaves you speechless or overwhelmed.",
+      "Can be positive (naloka sa ganda = blown away by the beauty) or negative (naloka sa kapal ng mukha = shocked by the audacity)."
+    ],
+    "etymology": "From Tagalog 'na-' prefix (indicating a completed state or sudden reaction) + 'loka'/'loko' (crazy). Literally: 'went/became crazy [from the shock].' Related to the exclamation 'kaloka!' The verb form is more personal and narrative, while 'kaloka!' is purely exclamatory.",
+    "examples": [
+      {
+        "text": "Naloka ako dun, hindi ko akalaing ganon pala siya.",
+        "source": "Filipino Twitter/X reaction post, 2024"
+      },
+      {
+        "text": "Naloka ang buong opisina namin nung biglang nag-resign yung boss.",
+        "source": "Filipino social media, 2025"
+      },
+      {
+        "text": "Naloka ako sa ganda ng concept — sobrang hanga.",
+        "source": "Filipino TikTok comment section, 2024"
+      }
+    ],
+    "regional_notes": "Nationwide usage. Close relative: 'kaloka' (exclamatory form). Both derive from 'loka/loko' but serve different grammatical roles.",
+    "related_terms": [
+      "kaloka",
+      "shookt",
+      "nakakatunaw",
+      "warla"
+    ],
+    "categories": [
+      "emotions-and-mental-state",
+      "exclamations-and-reactions"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads, 'what does X mean' posts"
+    ],
+    "synonyms": [
+      "shookt",
+      "warla"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "arte",
+    "definitions": [
+      "Overly dramatic, fussy, picky, or high-maintenance — used to call out someone being unnecessarily difficult, demanding, or pretentious.",
+      "Being 'extra' or making a big deal out of something trivial. Synonymous with OA (overacting) in some contexts but specifically implies fussiness."
+    ],
+    "etymology": "From Spanish 'arte' (art/craft), borrowed into Tagalog and semantically repurposed. The original sense of artistry or skill was inverted colloquially to mean 'theatrical behavior' or 'putting on airs.' Used colloquially for generations but has remained strongly present in Filipino Gen Z vocabulary.",
+    "examples": [
+      {
+        "text": "Arte mo naman, masustansya naman yung pagkain!",
+        "source": "Filipino everyday conversation / social media, 2024"
+      },
+      {
+        "text": "Arte-arte ka pa rin, boss — simpleng tanong lang naman.",
+        "source": "Filipino TikTok comment section, 2025"
+      },
+      {
+        "text": "Ang arte ng customer na 'yun, binago pa ang order tatlong beses.",
+        "source": "Filipino service industry / social media rant, 2024"
+      }
+    ],
+    "regional_notes": "Nationwide usage. The phrase 'artista ka ba?' (Are you an actor?) is a sarcastic cousin expression used when someone is being dramatically theatrical. Can be affectionate teasing or a genuine criticism depending on tone.",
+    "related_terms": [
+      "OA",
+      "over naman sa",
+      "epal",
+      "praning"
+    ],
+    "categories": [
+      "personality-and-character",
+      "everyday-expressions",
+      "call-out-and-criticism"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads, 'what does X mean' posts"
+    ],
+    "synonyms": [
+      "OA",
+      "over naman sa"
+    ],
+    "antonyms": [
+      "chill",
+      "dedma"
+    ]
+  },
+  {
+    "term": "bitin",
+    "definitions": [
+      "Not enough; too short; leaving one wanting more — used when something ends prematurely or fails to fully satisfy.",
+      "The feeling that an experience (episode, concert, food, conversation, date) was cut short or insufficient in quantity or duration."
+    ],
+    "etymology": "From Tagalog 'bitin' — literally 'to hang' or 'to leave suspended/dangling.' The figurative leap is: something left 'hanging' is incomplete, unsatisfying, wanting more. Widely used in media reactions and everyday expressions.",
+    "examples": [
+      {
+        "text": "Bitin naman yung episode, 20 minutes lang?!",
+        "source": "Filipino social media / K-drama/OPM fan reactions, 2024"
+      },
+      {
+        "text": "Ang bitin ng concert nila — dapat mas matagal!",
+        "source": "Filipino concert-goer social media post, 2025"
+      },
+      {
+        "text": "Bitin yung date namin, sana hindi pa nag-ulan.",
+        "source": "Filipino Twitter/X, 2024"
+      }
+    ],
+    "regional_notes": "Used nationwide. Extremely common in media consumption culture — reactions to K-dramas, local teleseryes (soap operas), OPM concerts, and food reviews. Can also be used in romantic contexts ('bitin ang usap namin' = our conversation ended too soon).",
+    "related_terms": [
+      "pa-fall",
+      "kilig",
+      "sana all"
+    ],
+    "categories": [
+      "emotions-and-mental-state",
+      "everyday-expressions",
+      "media-and-entertainment"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "sagad",
+      "sana all"
+    ]
   }
 ]
