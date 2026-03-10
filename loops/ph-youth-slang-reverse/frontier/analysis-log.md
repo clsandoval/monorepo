@@ -451,3 +451,33 @@
 - wiktionary.org Tagalog slang appendix
 - filipinopod101.com internet slang in Filipino
 - yourdictionary.com Filipino slang expressions
+
+---
+
+## Refinement Pass 49 — Forty-ninth raw-gap audit (8 new terms, 452→460)
+
+**Date:** 2026-03-10
+**Method:** Systematic gap audit — identified missing terms from core Filipino cultural vocabulary and common youth insults/address terms still absent from the dictionary.
+**New terms added:** 8
+**Counter action:** Reset to 0
+
+### Terms Added
+
+1. **tampo** — Filipino cultural concept of emotional withdrawal/sulking; widely active in Gen Z relationship TikTok/Twitter discourse
+2. **tanga** — Stupid/foolish; one of the most common youth insults in digital communication; playful among close friends
+3. **utol** — Bro/sis (from kaputol = sibling); casual address term widely used among friend groups; also contracted as 'tol
+4. **kupal** — Vulgar insult (jerk/scumbag); from anatomical term; dominant in online call-outs and reaction content
+5. **manhid** — Emotionally numb/insensitive; literal meaning is physical numbness; metaphorical use dominates in youth relationship discourse
+6. **kalma** — Calm down; Filipinized form of English calm; used in de-escalation, both sincere and dismissive
+7. **halata** — Obvious/noticeable; native Tagalog word activated in Gen Z call-out discourse ("it's so obvious that...")
+8. **pasosyal** — Acting fancy/classy/high-class; pa- prefix + sosyal; part of productive pa- construction family
+
+### Sources Consulted
+- oreateai.com blog (tampo, manhid)
+- docmckee.com (tampo cultural analysis)
+- tagalogslang.com (manhid)
+- lingopie.com (tagalog swear words — tanga, kupal)
+- fastforward.life Filipino Gen Z Dictionary
+- wokewaves.com Filipino Gen Z slang guide
+- talkpal.ai (halata, kalma, Gen Z terms)
+- tagaloglang.com (paasa/pasosyal)

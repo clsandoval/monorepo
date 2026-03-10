@@ -283,6 +283,12 @@
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: lods, paps, sulit, lait, kulit, angkas, pakners, jejemon)"
+    },
+    {
+      "iteration": "refinement pass 49 — forty-ninth raw-gap audit (8 new terms, 452→460)",
+      "new_terms": 8,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (8 new terms found: tampo, tanga, utol, kupal, manhid, kalma, halata, pasosyal)"
     }
   ]
 }

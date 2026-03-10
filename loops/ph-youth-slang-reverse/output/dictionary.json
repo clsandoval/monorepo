@@ -16834,5 +16834,331 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "tampo",
+    "definitions": [
+      "A distinctly Filipino emotional state of sulking, silent withdrawal, or quietly expressed hurt — used when a person feels slighted, neglected, or unappreciated and pulls back emotionally rather than confronting the issue directly.",
+      "Not simple sulking: tampo implies a vulnerability-based withdrawal where the person hopes the other party will notice and make amends without being asked. Widely used in youth relationship discourse on social media and TikTok."
+    ],
+    "etymology": "Native Tagalog term with deep cultural roots, reflecting the Filipino value of pakikisama (social harmony) and indirect emotional expression. Predates modern slang but continues to be a living concept actively discussed and memed by Gen Z.",
+    "examples": [
+      {
+        "text": "Nagtatampo siya kasi hindi ko siya sinabihan na aalis ako — ngayon hindi na siya nagrereply.",
+        "source": "Filipino Twitter/X relationship thread, 2024"
+      },
+      {
+        "text": "Alam mo naman ako, kapag tampo, tahimik lang ako. Hindi kita kakausapin hanggang hindi ka nagso-sorry.",
+        "source": "Filipino TikTok comment section, 2025"
+      }
+    ],
+    "regional_notes": "Universal across Philippine regions; concept appears across Tagalog, Bisaya, and other Filipino languages under different terms, but tampo is the most widely recognized form.",
+    "related_terms": [
+      "bitter",
+      "marupok",
+      "feels",
+      "sawi",
+      "hugot line",
+      "kilig"
+    ],
+    "categories": [
+      "emotions",
+      "relationships",
+      "cultural-concepts",
+      "passive-aggression"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms"
+    ],
+    "synonyms": [
+      "bitter",
+      "sawi"
+    ],
+    "antonyms": [
+      "kilig"
+    ]
+  },
+  {
+    "term": "tanga",
+    "definitions": [
+      "Stupid, foolish, or lacking common sense. Used as an insult directed at someone's intelligence or a bad decision.",
+      "Among close friends, can be used playfully as light banter without genuine malice, similar to calling someone a dummy. In hostile contexts, it is a genuine insult."
+    ],
+    "etymology": "Native Tagalog word; long-standing in the language but remains one of the most frequently used youth insults in digital communication, memes, and everyday speech.",
+    "examples": [
+      {
+        "text": "Tanga ka ba? Sinabi ko na sayo na huwag gagawin yun!",
+        "source": "Filipino meme page, Facebook, 2024"
+      },
+      {
+        "text": "Ang tanga ko naman, nakalimutan ko yung bag ko sa jeep.",
+        "source": "Filipino Twitter/X self-deprecating post, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "bobo",
+      "ulol",
+      "gago",
+      "kupal",
+      "bruh"
+    ],
+    "categories": [
+      "insults",
+      "intelligence-judgment",
+      "self-deprecation"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms",
+      "Filipino meme pages — Facebook meme groups, IG meme accounts"
+    ],
+    "synonyms": [
+      "bobo",
+      "ulol"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "utol",
+    "definitions": [
+      "Contraction of kaputol (sibling). Used as a casual term of address meaning \"bro,\" \"sis,\" or \"dude\" among close friends, regardless of actual blood relation.",
+      "Often shortened further to \"'tol.\" Expresses closeness and camaraderie; used across genders though historically more common among male friend groups."
+    ],
+    "etymology": "From Tagalog kaputol (one cut from the same source, i.e., sibling). The shortened form utol and further contracted 'tol became widespread youth address terms in the 2010s and remain in heavy use.",
+    "examples": [
+      {
+        "text": "Uy, utol! Tara na, late na tayo!",
+        "source": "Filipino street conversation, documented on Reddit r/CasualPH, 2024"
+      },
+      {
+        "text": "'Tol, grabe yung nangyari kahapon — kwento kita later.",
+        "source": "Filipino TikTok comment exchange, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "pre",
+      "tropa",
+      "beshie",
+      "pards",
+      "lods",
+      "paps",
+      "barkada"
+    ],
+    "categories": [
+      "address-terms",
+      "forms-of-address",
+      "social-groups",
+      "friendship"
+    ],
+    "sources": [
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads",
+      "TikTok PH — trending slang compilations, comment sections"
+    ],
+    "synonyms": [
+      "pre",
+      "pards",
+      "lods"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "kupal",
+    "definitions": [
+      "A vulgar insult equivalent to \"jerk,\" \"scumbag,\" or \"asshole.\" Describes someone behaving in an extremely unpleasant, selfish, or despicable manner.",
+      "Literal meaning refers to smegma (bodily secretion), amplifying its vulgarity. Commonly used in heated online arguments, reaction content, and call-out posts."
+    ],
+    "etymology": "From Tagalog anatomical term. The metaphorical extension as a personality insult is long-established in colloquial Filipino; has maintained and expanded its usage in online discourse and Filipino YouTube/TikTok commentary.",
+    "examples": [
+      {
+        "text": "Grabe, kupal talaga yung ginawa niya — nang-gaslight pa ng partner niya!",
+        "source": "Filipino Twitter/X callout post, 2024"
+      },
+      {
+        "text": "Yung mga kupal sa comment section, blocked na kayo lahat.",
+        "source": "Filipino content creator Instagram Story, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "gago",
+      "tanga",
+      "ulol",
+      "manyak",
+      "OA"
+    ],
+    "categories": [
+      "insults",
+      "vulgar",
+      "personality-judgments"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms",
+      "YouTube PH — slang explainer videos, reaction videos"
+    ],
+    "synonyms": [
+      "gago",
+      "ulol"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "manhid",
+    "definitions": [
+      "Emotionally numb, insensitive, or unresponsive. Used to describe someone who fails to acknowledge or respond to another person's feelings, pain, or emotional needs.",
+      "Literal meaning is physical numbness (as in a limb that has fallen asleep), but the emotional/metaphorical usage dominates in youth slang. \"Manhid ka ba?\" (Are you numb?) is a common accusation in arguments and relationship conflicts."
+    ],
+    "etymology": "Native Tagalog word for physical numbness; the figurative extension to emotional numbness has become the dominant youth usage. Extensively used on social media to describe emotionally unavailable partners or indifferent people.",
+    "examples": [
+      {
+        "text": "Manhid ka ba? Hindi mo ba nakikita na mahal kita?",
+        "source": "Filipino hugot meme, Facebook, 2024"
+      },
+      {
+        "text": "Sana maging manhid na ako para hindi na masaktan.",
+        "source": "Filipino Twitter/X, viral tweet, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "tampo",
+      "bitter",
+      "marupok",
+      "sawi",
+      "feels"
+    ],
+    "categories": [
+      "emotions",
+      "relationships",
+      "emotional-unavailability"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections",
+      "Twitter/X Filipino — slang threads, viral tweets"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "kilig",
+      "marupok"
+    ]
+  },
+  {
+    "term": "kalma",
+    "definitions": [
+      "Calm down; chill out. Used to tell someone to relax when they are being overly reactive, anxious, or worked up.",
+      "Filipinized spelling and pronunciation of the English word calm. Often paired with dismissive or de-escalating language. Can be sincere advice or a slightly dismissive/condescending response depending on tone."
+    ],
+    "etymology": "Filipinization of English calm; the -a ending and the k-spelling reflect standard Filipino phonetic adaptation of English words. Widely used in text messaging, social media comments, and casual speech.",
+    "examples": [
+      {
+        "text": "Kalma ka lang, hindi naman siya ganon kaseryoso.",
+        "source": "Filipino group chat screenshot, Reddit r/CasualPH, 2024"
+      },
+      {
+        "text": "Kalma. Tanghali pa lang. May time pa tayo.",
+        "source": "Filipino Twitter/X reply, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "chill",
+      "relax",
+      "OA",
+      "arte"
+    ],
+    "categories": [
+      "commands",
+      "de-escalation",
+      "emotional-regulation"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "OA",
+      "arte"
+    ]
+  },
+  {
+    "term": "halata",
+    "definitions": [
+      "Obvious; apparent; noticeable. Used when something is painfully or embarrassingly clear — especially when someone's feelings, intentions, or actions are showing despite attempts to hide them.",
+      "Gen Z usage often functions as a call-out or teasing remark: \"Halata namang...\" (It's so obvious that...). Equivalent in feel to English Gen Z phrases like \"It's giving...\" or \"We can all see you.\""
+    ],
+    "etymology": "Native Tagalog word meaning visible/apparent; the term has been heavily activated in Gen Z online discourse as a punchy one-word call-out or reaction.",
+    "examples": [
+      {
+        "text": "Halata namang may gusto ka sa kanya — hindi mo na kailangang ilihim.",
+        "source": "Filipino TikTok comment section, 2024"
+      },
+      {
+        "text": "Ayaw niyang mag-react sa post ko pero halata naman.",
+        "source": "Filipino Twitter/X subtweet, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "caught in 4k",
+      "sus",
+      "epal",
+      "KSP"
+    ],
+    "categories": [
+      "obviousness",
+      "call-outs",
+      "social-observation"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "pasosyal",
+    "definitions": [
+      "Acting fancy, classy, or high-class; pretending to have a more luxurious or sophisticated lifestyle than one actually has. Often used teasingly.",
+      "Constructed from the Filipino prefix pa- (acting like / pretending to be) + sosyal (social/high-class/sophisticated). Part of the productive pa- slang construction pattern also seen in pabebe, pa-cute, pa-fall, etc."
+    ],
+    "etymology": "Pa- prefix (Filipino derivational prefix indicating pretense or performance of a quality) + sosyal (from Spanish social, adopted into Filipino to mean high-class or sophisticated). Common since the 2010s; thrives in Gen Z social media teasing.",
+    "examples": [
+      {
+        "text": "Pasosyal ka naman, Starbucks ka agad paguwi ng sahod!",
+        "source": "Filipino Facebook meme, 2024"
+      },
+      {
+        "text": "Hala, pasosyal na — bag pa lang niya ay naghahanap ng instagrammable angle.",
+        "source": "Filipino Twitter/X post, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "pa-cute",
+      "pabebe",
+      "sosyal",
+      "flex",
+      "clout",
+      "baddie",
+      "bougie"
+    ],
+    "categories": [
+      "pretense",
+      "social-performance",
+      "class-signaling",
+      "pa-constructions"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms",
+      "Filipino meme pages — Facebook meme groups, IG meme accounts"
+    ],
+    "synonyms": [
+      "bougie",
+      "flex"
+    ],
+    "antonyms": []
   }
 ]
