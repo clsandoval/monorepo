@@ -484,3 +484,37 @@
 - wokewaves.com Filipino Gen Z slang guide
 - talkpal.ai (halata, kalma, Gen Z terms)
 - tagaloglang.com (paasa/pasosyal)
+
+---
+
+## Refinement Pass 53 — 2026-03-10
+
+**Aspect:** Fifty-third raw-gap audit — swardspeak/beki foundation, Gen Z imported terms, gaming crossovers
+**New terms:** 8 (484 → 492)
+**Refined entries:** 0
+**Convergence counter:** reset to 0
+
+### Research Strategy
+Searched for gaps in beki/swardspeak coverage (foundation terms missing), Gen Z-imported global slang actively used by Filipino youth, and gaming terms that crossed into everyday speech. Cross-referenced against existing 484-term dictionary to avoid duplicates.
+
+### Terms Added
+
+1. **beki** — Foundation term for gay man in Filipino LGBTQ+/swardspeak culture; also used as informal address among friends; documented in 2024 Vibal Foundation Philippine Slang & Gay Dictionary; missing despite related variants (besh, aketch, etc.) being present
+2. **beks** — Clipped affectionate form of beki; used as casual greeting by Filipino youth regardless of orientation; common in group chats and social media
+3. **peg** — Style reference/mood inspiration from swardspeak; widely adopted by mainstream Filipino Gen Z; from English 'peg' (reference point) repurposed in LGBTQ+ fashion circles
+4. **fomo** — Fear Of Missing Out; well-documented in Filipino Gen Z language studies; notably absent despite its antonym 'jomo' being in the dictionary
+5. **gg** — 'Good game'; gaming origin (DOTA, ML, Valorant) that crossed into everyday Filipino speech; used sarcastically (gg na = it's over) or sincerely (well done)
+6. **mogging** — To effortlessly outshine others in appearance/style/performance; from AMOG (Alpha Male Of Group); viral on Filipino TikTok 2024-2025; base verb 'mog' already in dictionary
+7. **sliving** — Paris Hilton's 'slay' + 'living' portmanteau; actively used by Filipino Gen Z in motivational/post-breakup content; documented in Philippine lifestyle media
+8. **on god** — AAVE emphatic affirmation ('I swear'/'for real'); adopted by Filipino Gen Z via US rap and TikTok; written as 'ong' in some Filipino digital spaces
+
+### Sources Consulted
+- fastforward.life Filipino Gen Z Dictionary
+- mb.com.ph 2026 kids/teens slang guide
+- spot.ph 10 Filipino slang words of 2025
+- philstarlife.com Gen Z slang brain rot article
+- tagaloglang.com (peg, petmalu)
+- vice.com Filipino beki language article
+- talkpal.ai Filipino Gen Z slang
+- remotestaff.ph Gen Z internet slang guide
+- rsisinternational.org TikTok slang study

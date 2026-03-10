@@ -307,6 +307,12 @@
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: tsupogi, feel trip, moots, ampotah, kuryente, labyu, FYP, tibo)"
+    },
+    {
+      "iteration": "refinement pass 53 — fifty-third raw-gap audit (8 new terms, 484→492)",
+      "new_terms": 8,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (8 new terms found: beki, beks, peg, fomo, gg, mogging, sliving, on god)"
     }
   ]
 }
