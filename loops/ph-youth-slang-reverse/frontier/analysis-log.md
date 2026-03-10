@@ -616,3 +616,32 @@ Searched for gaps in beki/swardspeak coverage (foundation terms missing), Gen Z-
 
 **Convergence counter:** remains 0 (5 new terms found)
 **Dictionary total:** 693 terms
+
+## Refinement Pass 86 — 2026-03-10
+
+**Aspect detected:** Post-synthesis refinement (all waves complete, convergence counter at 0)
+**Action:** Raw-gap audit — searched for missing Filipino youth slang with focus on swardspeak crossovers, sound-gesture text slang, cultural acronyms, and pop-culture-derived expressions
+
+**Search strategy:**
+- Queried "Filipino Gen Z slang 2025 2026 new terms trending Philippines"
+- Queried "bagong Filipino slang words 2025 youth internet viral"
+- Queried "Filipino slang aura farming budol forda ferson trentahin soafer meaning 2025"
+- Queried "Filipino youth slang pangga chenes hayyy bes amf tss" — identified 4 new terms
+- Queried "Filipino internet slang ate g abangan grabe naman hayaan mo sila marupok" — identified 4 more new terms
+- Cross-referenced all candidates against dictionary; most well-known terms already documented
+
+**New terms added (702 → 711):**
+1. `chenes` — swardspeak-origin vague filler/substitute word; mainstream youth usage via LGBTQ+ crossover
+2. `hayyy` — elongated text sigh of exhaustion/longing; more 'y's = deeper emotion
+3. `amf` — acronym "Aba, Mahal pa rin Kita"; hugot-culture shorthand for lingering love/dramatic reaction
+4. `tss` — text representation of dismissive teeth-suck scoff; sarcasm/deadpan reaction
+5. `tulfo` — to report/expose someone publicly; verb derived from journalist Raffy Tulfo's show
+6. `hayaan mo sila` — "let them be"; resilience expression from Ex Battalion song, now hater-dismissal motto
+7. `abangan` — "stay tuned"; telenovela-derived teaser phrase for upcoming content
+8. `grabe naman` — exaggerated reaction exclamation; "oh wow / that's crazy / unbelievable"
+9. `ate g` — "Ate + G (game)"; affectionate address for an older-sister-figure who is always ready/fun
+
+**Notable:** Most mainstream 2025 terms (trentahin, soafer, forda ferson, aura farming, budol, dasurv, lavarn, sobrang latina, 6-7) already documented in previous passes. The dictionary is becoming highly comprehensive.
+
+**Convergence counter:** reset to 0 (9 new terms found)
+**Dictionary total:** 711 terms
