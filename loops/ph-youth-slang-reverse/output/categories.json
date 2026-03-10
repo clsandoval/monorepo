@@ -37,7 +37,7 @@
     ]
   },
   "emotions-and-feelings": {
-    "count": 43,
+    "count": 44,
     "terms": [
       "BV",
       "agit",
@@ -78,6 +78,7 @@
       "shontis",
       "topak",
       "toyo",
+      "tripping",
       "umay",
       "wasak",
       "werpa",
@@ -85,7 +86,7 @@
     ]
   },
   "exclamations-and-hype": {
-    "count": 55,
+    "count": 56,
     "terms": [
       "ang lala mo",
       "aning sayo",
@@ -138,6 +139,7 @@
       "sobrang lit",
       "sure ball",
       "tae",
+      "ulol",
       "vungga",
       "wew",
       "what hafen vella",
@@ -206,8 +208,9 @@
     ]
   },
   "gaming-and-e-sports": {
-    "count": 5,
+    "count": 6,
     "terms": [
+      "chamba",
       "lakas tama",
       "normalin",
       "peenoise",
@@ -346,7 +349,7 @@
     ]
   },
   "humor-and-wit": {
-    "count": 28,
+    "count": 30,
     "terms": [
       "IJBOL",
       "asset",
@@ -354,6 +357,7 @@
       "bato",
       "benta",
       "budol",
+      "chamba",
       "char",
       "chariz",
       "charot",
@@ -371,6 +375,7 @@
       "naur",
       "pa more",
       "peksman",
+      "petsa de peligro",
       "tabogo",
       "tolits",
       "trentahin",
@@ -379,7 +384,7 @@
     ]
   },
   "internet-and-social-media": {
-    "count": 100,
+    "count": 102,
     "terms": [
       "6-7",
       "AFAM",
@@ -456,6 +461,7 @@
       "pa-mine",
       "peenoise",
       "periodt",
+      "petsa de peligro",
       "pi",
       "rage bait",
       "ratio",
@@ -475,6 +481,7 @@
       "touch grass",
       "toyo",
       "trentahin",
+      "tripping",
       "tsaa",
       "umay",
       "unc",
@@ -484,7 +491,7 @@
     ]
   },
   "lgbtq-and-beki-lingo": {
-    "count": 54,
+    "count": 55,
     "terms": [
       "AFAM",
       "achoo",
@@ -507,6 +514,7 @@
       "chaka",
       "chariz",
       "charot",
+      "chorva",
       "chos",
       "chour",
       "crayola",
@@ -563,7 +571,7 @@
     ]
   },
   "personality-and-character": {
-    "count": 61,
+    "count": 62,
     "terms": [
       "NPC",
       "angas",
@@ -623,6 +631,7 @@
       "tolits",
       "tolongges",
       "topak",
+      "ulol",
       "unc",
       "vaklush",
       "walang ebas"
@@ -686,7 +695,7 @@
     ]
   },
   "street-and-hustle": {
-    "count": 43,
+    "count": 44,
     "terms": [
       "247",
       "DTQ",
@@ -723,6 +732,7 @@
       "pariwara",
       "payuko",
       "petiks",
+      "petsa de peligro",
       "praning",
       "sagad",
       "tol",
@@ -748,7 +758,7 @@
     ]
   },
   "wordplay-and-linguistic-forms": {
-    "count": 58,
+    "count": 59,
     "terms": [
       "SKL",
       "aketch",
@@ -765,6 +775,7 @@
       "bnk",
       "char",
       "chika",
+      "chorva",
       "chos",
       "crayola",
       "drip ko mala-gripo",
