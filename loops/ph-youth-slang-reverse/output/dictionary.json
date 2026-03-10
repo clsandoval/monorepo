@@ -7823,7 +7823,8 @@
       "bongga",
       "angas",
       "kabog",
-      "slay"
+      "slay",
+      "pak na pak"
     ],
     "categories": [
       "exclamations-and-hype",
@@ -7837,7 +7838,8 @@
     "synonyms": [
       "bongga",
       "lagabog",
-      "werpa"
+      "werpa",
+      "pak na pak"
     ],
     "antonyms": [
       "tsepay",
@@ -11068,5 +11070,88 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "gar",
+    "definitions": [
+      "A term of endearment for a close peer, buddy, or someone from the same neighborhood or background. Equivalent to 'homie,' 'bro,' or 'besh' but with a localized neighborhood connotation.",
+      "Short form of 'kalugar' or 'ka-lugar' (meaning 'from the same place'). Used to address someone you share a strong local connection with."
+    ],
+    "etymology": "Clipped from 'kalugar' / 'ka-lugar' (Tagalog compound: 'ka-' = fellow/co- + 'lugar' = place/neighborhood). The abbreviation '-gar' gained traction as Filipino Gen Z attached it as a suffix or used it standalone as a casual address term. Documented in mainstream Gen Z slang sources by early 2025.",
+    "examples": [
+      {
+        "text": "Saan na kayo, gar?",
+        "source": "Filipino Gen Z casual speech, 2024-2025"
+      },
+      {
+        "text": "Eto ang mga gar ko sa kabila.",
+        "source": "FastForward MR — The Filipino Gen Z Dictionary, March 2025"
+      }
+    ],
+    "regional_notes": "The regional variant 'kosa' carries similar meaning in Davao and Mindanao (short for 'ka-kosa'), reflecting how the concept of neighborhood solidarity is expressed differently by region.",
+    "related_terms": [
+      "tropa",
+      "besh",
+      "tol",
+      "bro",
+      "ka-lugar"
+    ],
+    "categories": [
+      "wordplay-and-linguistic-forms",
+      "friendship-and-social-bonds"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "tropa",
+      "besh",
+      "tol"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "pak na pak",
+    "definitions": [
+      "Superlative form of 'pak'; used to say someone absolutely nailed something, did an outstanding job, or is completely on point. Translates roughly to 'Good job!' or 'You nailed it!'",
+      "An intensified expression of approval or praise, doubling 'pak' for emphasis. More focused on praising effort, achievement, or quality than the aesthetic-hype of 'pak ganern.'"
+    ],
+    "etymology": "Reduplication of 'pak' (exclamatory approval, from Filipino LGBTQ+/swardspeak culture) following common Filipino intensification pattern of word-doubling (similar to 'sobra-sobra,' 'haba-haba'). The doubling signals a superlative degree: if 'pak' is perfect, 'pak na pak' is beyond perfect.",
+    "examples": [
+      {
+        "text": "Pak na pak ang performance mo kanina!",
+        "source": "Filipino Gen Z social media, 2024"
+      },
+      {
+        "text": "Mga salitang pak na pak sa mga kabataan ngayon.",
+        "source": "Bandera (Inquirer), Gen Z 101 slang feature, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "pak ganern",
+      "slay",
+      "bongga",
+      "kabog",
+      "lagabog"
+    ],
+    "categories": [
+      "exclamations-and-hype",
+      "lgbtq-and-beki-lingo"
+    ],
+    "sources": [
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang",
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [
+      "pak ganern",
+      "slay",
+      "bongga"
+    ],
+    "antonyms": [
+      "fail",
+      "tsepay"
+    ]
   }
 ]
