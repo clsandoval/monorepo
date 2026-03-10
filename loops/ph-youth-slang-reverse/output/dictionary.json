@@ -11977,5 +11977,194 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "torpe",
+    "definitions": [
+      "Too shy or timid to confess romantic feelings; unable to make a move on one's crush despite liking them. Describes someone who pines from afar, paralyzed by fear of rejection.",
+      "By extension: cowardly or hesitant in any bold action (less common usage)."
+    ],
+    "etymology": "From Spanish 'torpe' (clumsy, slow-witted). Adopted into Filipino as a specific term for romantic timidity, especially applied to men in traditional courtship contexts.",
+    "examples": [
+      {
+        "text": "Torpe ka talaga! Kausapin mo na siya!",
+        "source": "Filipino social media / everyday speech, 2024"
+      },
+      {
+        "text": "Mahal ko siya pero torpe ako — hindi ko masabi sa kanya.",
+        "source": "Filipino TikTok relationship content, 2025"
+      }
+    ],
+    "regional_notes": "Used across the Philippines. In Cebuano-speaking regions, similar concept expressed as 'luod' (shy/embarrassed).",
+    "related_terms": [
+      "marupok",
+      "pa-fall",
+      "paasa",
+      "pakipot",
+      "talking stage"
+    ],
+    "categories": [
+      "relationships-and-romance",
+      "emotional-expressions"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "rizz",
+      "diskarte"
+    ]
+  },
+  {
+    "term": "plastik",
+    "definitions": [
+      "Two-faced; fake; insincere. Describes a person who acts kind and friendly to your face but speaks ill of you or behaves differently behind your back.",
+      "As a noun: a plastic/fake person — someone whose friendliness is a performance."
+    ],
+    "etymology": "From English 'plastic' — the metaphor of a material that can be molded into any shape, applied to a person whose personality changes depending on who is watching. Widely used in Philippine schools and social media.",
+    "examples": [
+      {
+        "text": "Plastic ang kaibigan mo — sweet sa harap, tsismis sa likod.",
+        "source": "Filipino Twitter/X viral thread, 2024"
+      },
+      {
+        "text": "Alam ko na plastik siya kaya wala na akong trust sa kanya.",
+        "source": "Filipino youth social media, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "epal",
+      "chismis",
+      "marites",
+      "cancel",
+      "okray"
+    ],
+    "categories": [
+      "social-commentary-and-shade",
+      "character-and-personality"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "totoo",
+      "day ones"
+    ]
+  },
+  {
+    "term": "KSP",
+    "definitions": [
+      "Attention-seeker; someone starving for attention and validation. Acronym for 'Kulang Sa Pansin' (literally: lacking in attention/notice). Used to call out dramatic, over-the-top, or clout-chasing behavior."
+    ],
+    "etymology": "Acronym from Tagalog 'Kulang Sa Pansin' — 'kulang' (lacking), 'sa' (in), 'pansin' (attention/notice). A staple of Filipino group chat and social media vocabulary, particularly active in youth digital spaces.",
+    "examples": [
+      {
+        "text": "KSP talaga 'yan — kahit walang may pakialam, nag-post pa rin siya.",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Huwag maging KSP. Itigil mo na ang drama.",
+        "source": "Filipino TikTok comment section, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "epal",
+      "OA",
+      "rage bait",
+      "cancel",
+      "fancam"
+    ],
+    "categories": [
+      "social-commentary-and-shade",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang"
+    ],
+    "synonyms": [
+      "epal"
+    ],
+    "antonyms": [
+      "dedma",
+      "JOMO"
+    ]
+  },
+  {
+    "term": "nosebleed",
+    "definitions": [
+      "A humorous, self-deprecating expression for when someone struggles to understand or speak English — especially when the other person's English is perceived as too advanced, too fast, or too formal. Metaphor: the mental strain of processing 'high-level' English causes a nosebleed.",
+      "By extension: anything mentally taxing or incomprehensible."
+    ],
+    "etymology": "English 'nosebleed' repurposed as Filipino slang. The metaphor draws on the notion that intensive concentration or social pressure causes nosebleeds. Has circulated in Filipino internet culture since at least the 2010s and remains very active in Gen Z usage.",
+    "examples": [
+      {
+        "text": "Nosebleed ako sa presentation — puro English tapos mabilis pa!",
+        "source": "Filipino social media, 2024"
+      },
+      {
+        "text": "Huwag kang mag-nosebleed, Tagalog na lang tayo.",
+        "source": "Filipino TikTok, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "eme",
+      "praning",
+      "tangalog",
+      "peenoise"
+    ],
+    "categories": [
+      "wordplay-and-linguistic-forms",
+      "internet-and-social-media",
+      "emotional-expressions"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "KJ",
+    "definitions": [
+      "Killjoy; someone who spoils the fun, dampens the mood, or refuses to participate in something enjoyable. Used as a label for a person who is overly serious, negative, or party-pooping in a social situation."
+    ],
+    "etymology": "Abbreviation of English 'killjoy'. Widely used in Filipino group chats, comment sections, and barkada (friend group) banter. Particularly common among youth calling out a friend who won't join an activity.",
+    "examples": [
+      {
+        "text": "Sama ka na! Wag kang KJ diyan.",
+        "source": "Filipino group chat / casual speech, 2024"
+      },
+      {
+        "text": "Bakit KJ ka lagi? Enjoy ka naman minsan!",
+        "source": "Filipino TikTok reaction video, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "OA",
+      "umay",
+      "petiks",
+      "dedma"
+    ],
+    "categories": [
+      "character-and-personality",
+      "social-commentary-and-shade"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "bibo",
+      "gora"
+    ]
   }
 ]

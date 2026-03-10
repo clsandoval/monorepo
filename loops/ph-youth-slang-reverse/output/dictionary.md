@@ -1,7 +1,7 @@
 # Filipino Youth Slang Dictionary & Thesaurus
 
 ## Summary Statistics
-- **Total terms**: 329
+- **Total terms**: 334
 - **Categories**: 32
 - **Top sources**: TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang, Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language, Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026, O Side Mafia — full discography, focus on tracks 2023-2026, Filipino meme pages — Facebook meme groups, IG meme accounts, emerging meme slang
 
@@ -9874,5 +9874,85 @@
 > "'Kala mo mahika kaha ng yosi" — *Because, Marlboro Black 3 (Heartbreak SZN 3, 2024)*
 
 **Related:** hipak, pausok, bisyo
+
+---
+
+## character-and-personality
+
+### **KJ**
+*Etymology: Abbreviation of English 'killjoy'. Widely used in Filipino group chats, comment sections, and barkada banter; particularly common among youth calling out a friend who won't join an activity.*
+
+1. Killjoy; someone who spoils the fun, dampens the mood, or refuses to participate in something enjoyable. Used as a label for a person who is overly serious, negative, or party-pooping in a social situation.
+
+**Examples:**
+> "Sama ka na! Wag kang KJ diyan." — *Filipino group chat / casual speech, 2024*
+> "Bakit KJ ka lagi? Enjoy ka naman minsan!" — *Filipino TikTok reaction video, 2025*
+
+**Related:** OA, umay, petiks, dedma
+
+---
+
+### **plastik**
+*Etymology: From English 'plastic' — the metaphor of a material that can be molded into any shape, applied to a person whose personality changes depending on who is watching.*
+
+1. Two-faced; fake; insincere. Describes a person who acts kind and friendly to your face but speaks ill of you or behaves differently behind your back.
+2. As a noun: a plastic/fake person — someone whose friendliness is a performance.
+
+**Examples:**
+> "Plastic ang kaibigan mo — sweet sa harap, tsismis sa likod." — *Filipino Twitter/X viral thread, 2024*
+> "Alam ko na plastik siya kaya wala na akong trust sa kanya." — *Filipino youth social media, 2025*
+
+**Antonyms:** totoo, day ones
+**Related:** epal, chismis, marites, cancel, okray
+
+---
+
+## social-commentary-and-shade
+
+### **KSP**
+*Etymology: Acronym from Tagalog 'Kulang Sa Pansin' — kulang (lacking), sa (in), pansin (attention/notice). A staple of Filipino group chat and social media vocabulary.*
+
+1. Attention-seeker; someone starving for attention and validation. Used to call out dramatic, over-the-top, or clout-chasing behavior.
+
+**Examples:**
+> "KSP talaga 'yan — kahit walang may pakialam, nag-post pa rin siya." — *Filipino Twitter/X, 2024*
+> "Huwag maging KSP. Itigil mo na ang drama." — *Filipino TikTok comment section, 2025*
+
+**Synonyms:** epal
+**Antonyms:** dedma, JOMO
+**Related:** epal, OA, rage bait, cancel, fancam
+
+---
+
+## relationships-and-romance
+
+### **torpe**
+*Etymology: From Spanish 'torpe' (clumsy, slow-witted). Adopted into Filipino as a specific term for romantic timidity, especially applied to men in traditional courtship contexts.*
+
+1. Too shy or timid to confess romantic feelings; unable to make a move on one's crush despite liking them. Describes someone who pines from afar, paralyzed by fear of rejection.
+2. By extension: cowardly or hesitant in any bold action (less common usage).
+
+**Examples:**
+> "Torpe ka talaga! Kausapin mo na siya!" — *Filipino social media / everyday speech, 2024*
+> "Mahal ko siya pero torpe ako — hindi ko masabi sa kanya." — *Filipino TikTok relationship content, 2025*
+
+**Antonyms:** rizz, diskarte
+**Related:** marupok, pa-fall, paasa, pakipot, talking stage
+
+---
+
+## wordplay-and-linguistic-forms
+
+### **nosebleed**
+*Etymology: English 'nosebleed' repurposed as Filipino slang. The metaphor draws on the notion that intensive concentration or social pressure causes nosebleeds. Active in Filipino internet culture and Gen Z TikTok.*
+
+1. A humorous, self-deprecating expression for when someone struggles to understand or speak English — especially when the other person's English is perceived as too advanced, too fast, or too formal.
+2. By extension: anything mentally taxing or incomprehensible.
+
+**Examples:**
+> "Nosebleed ako sa presentation — puro English tapos mabilis pa!" — *Filipino social media, 2024*
+> "Huwag kang mag-nosebleed, Tagalog na lang tayo." — *Filipino TikTok, 2025*
+
+**Related:** eme, praning, tangalog, peenoise
 
 ---
