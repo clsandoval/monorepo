@@ -28485,5 +28485,188 @@
       "Wave 1b: YouTube PH",
       "Wave 1b: Twitter/X Filipino"
     ]
+  },
+  {
+    "term": "jojowain",
+    "definitions": [
+      "To court, pursue, or officially make someone your romantic partner; derived from jowa (boyfriend/girlfriend) + the Tagalog verb suffix -in.",
+      "Used colloquially to ask or state whether one intends to date someone, often appearing in the phrase 'jojowain o totropahin?' (will you date them or friend-zone them?)."
+    ],
+    "etymology": "Portmanteau of 'jowa' (slang for boyfriend/girlfriend, from 'jowang' meaning to court) + the Tagalog agentive suffix '-in'. Represents the playful verbification of youth romance vocabulary.",
+    "examples": [
+      {
+        "text": "Wag mo akong pakiligin kung hindi mo ako jojowain.",
+        "source": "Filipino social media; widely circulated romantic quote, 2024"
+      },
+      {
+        "text": "Jojowain kita talaga, I promise.",
+        "source": "Filipino Twitter confession post, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "jowa",
+      "jowable",
+      "totropahin",
+      "MU",
+      "talking stage",
+      "situationship",
+      "pa-fall"
+    ],
+    "categories": [
+      "romantic culture",
+      "dating slang",
+      "relationship vocabulary",
+      "verb formation"
+    ],
+    "sources": [
+      "Wave 1b: Twitter/X Filipino",
+      "Wave 1b: TikTok PH"
+    ]
+  },
+  {
+    "term": "sabaw",
+    "definitions": [
+      "Spaced out, dull-minded, or mentally unfocused; used to describe someone who is not thinking clearly, is confused, or seems mentally absent.",
+      "Of poor quality or lacking substance; used figuratively for content, ideas, or conversations that are hollow or make no sense."
+    ],
+    "etymology": "From the literal Tagalog word 'sabaw' (broth/soup). The metaphor draws on the image of watery soup mostly empty liquid to describe a person's mind or output as similarly thin and lacking substance. The phrase 'sabaw ang utak' (broth-brain) is a common extension.",
+    "examples": [
+      {
+        "text": "Sobrang sabaw ko ngayon, hindi ko maisip yung sagot.",
+        "source": "Filipino Twitter student post, 2024"
+      },
+      {
+        "text": "Yung script nila, super sabaw. Walang sense.",
+        "source": "Filipino online review comment, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "lutang",
+      "sabog",
+      "engot",
+      "abnoy"
+    ],
+    "categories": [
+      "mental state",
+      "insults & teasing",
+      "food-derived slang",
+      "everyday expressions"
+    ],
+    "sources": [
+      "Wave 1b: Twitter/X Filipino",
+      "Wave 1b: Reddit r/Philippines"
+    ]
+  },
+  {
+    "term": "hala siya",
+    "definitions": [
+      "An exclamation of surprise, shock, or concern directed at someone's action or situation; roughly equivalent to 'oh no!' or 'look at them!' with a tone of alarm, disbelief, or dramatic reaction.",
+      "Used by observers when someone does something unexpected, risky, or noteworthy, often with a facial expression of wide-eyed concern or secondhand embarrassment."
+    ],
+    "etymology": "From 'hala' (a general Tagalog exclamation of surprise) + 'siya' (him/her/it). The combination specifies the target of the reaction. Variants include 'hala ka!' (directed at a second person).",
+    "examples": [
+      {
+        "text": "Hala siya, nahulog sa harap ng lahat!",
+        "source": "Filipino TikTok comment section, 2024"
+      },
+      {
+        "text": "Hala siya, nagpaka-bibo sa harap ng crush niya.",
+        "source": "Filipino Twitter thread, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "hala",
+      "hala bira",
+      "hay nako",
+      "grabe naman",
+      "jusko"
+    ],
+    "categories": [
+      "exclamations",
+      "reaction vocabulary",
+      "everyday expressions",
+      "secondhand embarrassment"
+    ],
+    "sources": [
+      "Wave 1b: TikTok PH",
+      "Wave 1b: Twitter/X Filipino"
+    ]
+  },
+  {
+    "term": "ambis",
+    "definitions": [
+      "Bisaya/Cebuano slang for someone who is overly ambitious, a try-hard, or pushy in pursuing their goals to the point of being off-putting.",
+      "Used nationally in Gen Z online discourse (especially TikTok) to describe someone who overreaches, shows off effort, or acts above their station."
+    ],
+    "etymology": "Shortened form of 'ambisyoso/ambisyosa' (ambitious, from Spanish 'ambicioso'). The Bisaya contraction stripped it to a snappier insult/descriptor. Gained national crossover through TikTok and Filipino social media.",
+    "examples": [
+      {
+        "text": "Ambis kaayo niya, pirmi ra mo-volunteer para mapansin.",
+        "source": "Bisaya Twitter post, 2024"
+      },
+      {
+        "text": "Ang ambis naman ng tao, di pa yan qualified nag-apply na sa top position.",
+        "source": "Filipino Facebook comment, 2025"
+      }
+    ],
+    "regional_notes": "Bisaya/Cebuano origin; has spread to national usage through TikTok. The Tagalog equivalent is 'ambisyoso/ambisyosa' but 'ambis' carries a more derogatory, Gen Z casual tone.",
+    "related_terms": [
+      "hambog",
+      "papansin",
+      "bida bida",
+      "KSP",
+      "epal"
+    ],
+    "categories": [
+      "insults & teasing",
+      "personality descriptors",
+      "regional crossover",
+      "Bisaya slang"
+    ],
+    "sources": [
+      "Wave 1b: TikTok PH",
+      "Wave 1b: Reddit r/Philippines"
+    ]
+  },
+  {
+    "term": "bahala na si batman",
+    "definitions": [
+      "A humorous modern riff on the traditional Filipino expression 'bahala na' (leave it to God/fate), substituting 'Batman' for alliterative comic effect; expresses carefree resignation to fate, especially in situations of unpreparedness or uncertainty.",
+      "Used when one gives up planning or worrying and simply lets events unfold, often said with a mix of humor and genuine acceptance of the outcome."
+    ],
+    "etymology": "'Bahala' derives from 'Bathala,' the supreme deity in pre-colonial Filipino mythology, making 'bahala na' an ancient expression of divine trust. 'Batman' was substituted as a modern humorous play on the same Ba- initial sound, giving the phrase a light, Gen Z self-aware irony. The phrase reflects Filipino humor blending traditional fatalism with pop culture.",
+    "examples": [
+      {
+        "text": "Hindi ako nag-aral, bahala na si Batman sa bukas na exam.",
+        "source": "Filipino Twitter student meme, 2024"
+      },
+      {
+        "text": "Wala na akong magagawa sa situation na to, bahala na si Batman.",
+        "source": "Filipino TikTok caption, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "bahala na",
+      "ewan",
+      "kebs",
+      "keber",
+      "wapakels"
+    ],
+    "categories": [
+      "fatalism",
+      "humor & wordplay",
+      "everyday expressions",
+      "Filipino philosophy",
+      "pop culture references"
+    ],
+    "sources": [
+      "Wave 1b: Twitter/X Filipino",
+      "Wave 1b: TikTok PH",
+      "Wave 1b: Reddit r/Philippines"
+    ]
   }
 ]

@@ -3,6 +3,12 @@
   "last_updated": "2026-03-10",
   "history": [
     {
+      "iteration": "refinement pass 92 — ninety-second raw-gap audit (5 new terms, 739→744)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: jojowain, sabaw, hala siya, ambis, bahala na si batman — covering verbified romance vocabulary, food-metaphor mental-state slang, targeted exclamation variants, Bisaya try-hard descriptor with national crossover, and Filipino fatalist humor phrase)"
+    },
+    {
       "iteration": "refinement pass 91 — ninety-first raw-gap audit (4 new terms, 735→739)",
       "new_terms": 4,
       "refined_entries": 0,

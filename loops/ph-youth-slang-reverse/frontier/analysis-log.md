@@ -734,3 +734,32 @@ Searched for gaps in beki/swardspeak coverage (foundation terms missing), Gen Z-
 
 **Convergence counter:** reset to 0 (4 new terms found)
 **Dictionary total:** 739 terms
+
+---
+
+## Pass 92 — Ninety-second raw-gap audit (5 new terms, 739→744)
+
+**Date:** 2026-03-10
+**New terms:** 5
+**Refined entries:** 0
+
+### Terms Added
+
+1. **jojowain** — to court/pursue someone romantically; verbification of "jowa" (bf/gf) via Tagalog -in suffix; "Wag mo akong pakiligin kung hindi mo ako jojowain"; categories: romantic culture, dating slang, relationship vocabulary, verb formation; synonyms: MU, pa-fall, talking stage
+
+2. **sabaw** — spaced out, dull-minded, mentally unfocused; from literal "sabaw" (broth/soup) metaphor — thin, watery, empty; also used for low-quality content; "Sobrang sabaw ko ngayon, hindi ko maisip yung sagot"; categories: mental state, insults & teasing, food-derived slang; synonyms: lutang, sabog, engot
+
+3. **hala siya** — exclamation of surprise/concern/shock directed at someone's action; "oh no!" / "look at them!"; from hala (surprise) + siya (him/her/it); used with wide-eyed concern or secondhand embarrassment; "Hala siya, nahulog sa harap ng lahat!"; categories: exclamations, reaction vocabulary, secondhand embarrassment; synonyms: hala, hay nako, jusko
+
+4. **ambis** — Bisaya/Cebuano slang for overly ambitious, try-hard, or pushy; shortened from "ambisyoso/ambisyosa" (from Spanish "ambicioso"); gained national crossover via TikTok; "Ambis kaayo niya, pirmi ra mo-volunteer para mapansin"; categories: insults & teasing, personality descriptors, Bisaya slang, regional crossover; synonyms: hambog, papansin, KSP, epal
+
+5. **bahala na si batman** — humorous modern riff on "bahala na" (leave it to fate/God), substituting Batman for alliterative comic effect; expresses carefree resignation especially in unpreparedness; "Hindi ako nag-aral, bahala na si Batman sa bukas na exam"; categories: fatalism, humor & wordplay, Filipino philosophy, pop culture references; synonyms: ewan, kebs, keber, wapakels
+
+### Candidates Rejected
+
+- "yeet" — fundamentally American English slang; Filipino youth use it but it lacks distinct Filipino semantic shift
+- "walang laban" — standard Tagalog phrase; no distinct slang layer
+- "hala ka" — variant of hala siya (already in as related term); not distinct enough for a separate entry
+
+**Convergence counter:** reset to 0 (5 new terms found)
+**Dictionary total:** 744 terms
