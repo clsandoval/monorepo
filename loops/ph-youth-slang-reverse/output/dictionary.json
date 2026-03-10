@@ -12166,5 +12166,119 @@
       "bibo",
       "gora"
     ]
+  },
+  {
+    "term": "mamser",
+    "definitions": [
+      "Gender-neutral portmanteau of 'ma'am' and 'sir,' used to address anyone regardless of gender — customers, strangers, or any person in a service or social setting.",
+      "By extension, a warm and informal way to address someone in any context, reflecting Filipino hospitality and its characteristically inclusive approach to gendered address."
+    ],
+    "etymology": "Portmanteau of English 'ma'am' and 'sir.' Also spelled 'mamsir.' Originated in Filipino customer service settings where staff address patrons without knowing their gender, then adopted widely by Gen Z. Went viral internationally on TikTok as audiences discovered it as a uniquely Filipino contribution to gender-neutral language.",
+    "examples": [
+      {
+        "text": "Welcome po, mamser! Anong order niyo?",
+        "source": "Filipino customer service, widely used 2023-2025"
+      },
+      {
+        "text": "'Mamser' is the greatest invention of the Filipino language.",
+        "source": "Twitter/X viral post, 2020 (recirculated 2024-2025)"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "teh",
+      "bes",
+      "unc",
+      "ate girl",
+      "mudra"
+    ],
+    "categories": [
+      "everyday-expressions",
+      "gen-z-and-imported-slang",
+      "identity-and-self-expression"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "momol",
+    "definitions": [
+      "Acronym for 'Make Out Make Out Lang' — a casual, commitment-free physical arrangement where two people kiss or engage in physical intimacy with no romantic strings attached.",
+      "As a verb: to engage in casual making out or physical intimacy without the context of a relationship."
+    ],
+    "etymology": "Acronym coined from the English phrase 'make out, make out lang' (make out, just making out). 'Lang' (Tagalog for 'only/just') emphasizes the no-strings-attached nature. Part of a cluster of Filipino youth relationship acronyms (cf. FUBU, MU) that give informal labels to ambiguous romantic arrangements.",
+    "examples": [
+      {
+        "text": "Momol lang kami, wala namang seryosuhan.",
+        "source": "Filipino social media, widely attested"
+      },
+      {
+        "text": "Sa momol, lahat talo — pero bakit pa rin tayo pumapasok?",
+        "source": "Filipino Twitter/X commentary, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "FUBU",
+      "situationship",
+      "talking stage",
+      "pa-fall",
+      "marupok",
+      "soft launch"
+    ],
+    "categories": [
+      "relationships-and-romance",
+      "internet-and-social-media",
+      "acronyms-and-abbreviations"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language",
+      "Reddit r/Philippines and r/CasualPH — slang discussion threads"
+    ],
+    "synonyms": [
+      "FUBU"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "vibe check",
+    "definitions": [
+      "An assessment of someone's personality, energy, or attitude to determine if they are likeable, cool, or compatible — essentially asking 'do they have the right vibe?'",
+      "Used casually to evaluate whether a person, place, or situation meets a desired social standard; passing a vibe check means approval, failing means rejection."
+    ],
+    "etymology": "Borrowed from global English internet slang, where 'vibe check' emerged around 2019-2020 as a meme and casual social evaluation. Filipino Gen Z adopted it and code-switches it freely into Tagalog sentences. Documented in Filipino Gen Z workplace and social media guides as an active expression in 2024-2025.",
+    "examples": [
+      {
+        "text": "Pasado siya sa vibe check ko — mukha siyang masaya kasama.",
+        "source": "Filipino Gen Z informal speech, 2024"
+      },
+      {
+        "text": "Vibe check muna bago kita i-add sa grupo namin.",
+        "source": "Filipino TikTok PH, 2024-2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "aura farming",
+      "main character energy",
+      "rizz",
+      "estetik",
+      "bet"
+    ],
+    "categories": [
+      "gen-z-and-imported-slang",
+      "social-commentary-and-shade",
+      "reactions-and-responses"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": []
   }
 ]
