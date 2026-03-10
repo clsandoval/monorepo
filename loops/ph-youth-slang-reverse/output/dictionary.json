@@ -11153,5 +11153,115 @@
       "fail",
       "tsepay"
     ]
+  },
+  {
+    "term": "kebs",
+    "definitions": [
+      "Expression of indifference; 'I don't care,' 'whatever,' or 'it's fine.' Used to signal that something doesn't affect the speaker or to dismiss a concern.",
+      "Can also function as a noun meaning 'care' or 'concern' (synonymous with pakialam), used in constructions like 'wala akong kebs' (I have no care/concern about it)."
+    ],
+    "etymology": "Clipped form of 'keber,' which is borrowed from Spanish 'nada que ver' (nothing to see/nothing to do with it). Originated in Filipino gay language (swardspeak/bekimon) and crossed over into mainstream Gen Z usage. Variant forms: 'keber,' 'kiber.' Despite a popular folk etymology linking it to 'Care Bear,' the documented origin is Spanish.",
+    "examples": [
+      {
+        "text": "Kebs ko na kung ano masabi nila.",
+        "source": "Filipino Gen Z social media, widely attested 2023–2025"
+      },
+      {
+        "text": "Wala akong kebs sa drama niya, basta tama ako.",
+        "source": "Twitter/X Filipino, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "dedma",
+      "keber",
+      "walang pakialam",
+      "char"
+    ],
+    "categories": [
+      "reactions-and-responses",
+      "lgbtq-and-beki-lingo"
+    ],
+    "sources": [
+      "Beki/gay lingo evolution — new terms from LGBTQ+ Filipino community 2023-2026",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "dedma",
+      "keber"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "sus",
+    "definitions": [
+      "Suspicious; used to call out someone whose behavior or actions seem untrustworthy, shady, or questionable.",
+      "Can also be used playfully among friends to accuse someone of being the 'impostor' in a social situation, referencing the game Among Us."
+    ],
+    "etymology": "Short for 'suspicious.' Popularized globally by the online multiplayer social deduction game 'Among Us' (InnerSloth, 2018), in which players must identify an 'Impostor' among crewmates. The game achieved viral status in 2020 and the slang carried into everyday Filipino youth speech by 2021–2022, remaining in common use through 2025.",
+    "examples": [
+      {
+        "text": "Sus ka talaga, bakit ka nagtatago sa sulok?",
+        "source": "Filipino Gen Z casual speech, 2023–2025"
+      },
+      {
+        "text": "Sus yung galaw niya, parang may tinatago.",
+        "source": "Twitter/X Filipino comment, 2024"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "toyo",
+      "epal",
+      "chaka"
+    ],
+    "categories": [
+      "gaming-and-internet-culture",
+      "reactions-and-responses"
+    ],
+    "sources": [
+      "Gaming PH — Discord, Facebook gaming groups, ML/Valorant/Genshin PH community slang",
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "crash out",
+    "definitions": [
+      "To overreact dramatically or throw a tantrum over something minor; to completely lose one's composure or self-control in response to a relatively small trigger.",
+      "Used to describe someone spiraling emotionally, acting erratically, or making a scene. Can be used sympathetically or mockingly."
+    ],
+    "etymology": "Borrowed from global English Gen Z/Gen Alpha internet slang, where 'crash out' describes an intense emotional breakdown or erratic behavior. Adopted by Filipino youth through TikTok and Twitter/X by 2024–2025. An intensified variant 'D1 crash out' (referring to a 'Division 1'-level meltdown) is also used.",
+    "examples": [
+      {
+        "text": "Nag-crash out siya sa group chat dahil lang sa isang comment.",
+        "source": "Twitter/X Filipino, 2025"
+      },
+      {
+        "text": "Bakit ka nag-crash out? Joke lang naman yun!",
+        "source": "Filipino Gen Z TikTok comment section, 2024–2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "topak",
+      "sabog",
+      "BV",
+      "warla"
+    ],
+    "categories": [
+      "emotions-and-mental-states",
+      "gaming-and-internet-culture"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [
+      "topak",
+      "nagwala"
+    ],
+    "antonyms": []
   }
 ]
