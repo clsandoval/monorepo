@@ -704,3 +704,33 @@ Searched for gaps in beki/swardspeak coverage (foundation terms missing), Gen Z-
 
 **Convergence counter:** reset to 0 (4 new terms found)
 **Dictionary total:** 735 terms
+
+---
+
+## Refinement Pass 91 — Ninety-First Raw-Gap Audit (2026-03-10)
+
+**Focus:** TikTok platform workaround vocabulary, Filipino text-speak abbreviations with slang meanings, and Philippine entertainment/fandom culture terminology
+
+**Sources consulted:**
+- Spot.ph: "10 Filipino Slang Words That Took Over Our Group Chats in 2025"
+- Manila Bulletin: "2026 Kids and Teens Slang Guide: 7 Words Every Parent Should Know"
+- FastForward MR: "The Filipino Gen Z Dictionary"
+- RSIS International Journal: "Digital Identity and Linguistic Play: A Study of Filipino TikTok Slang among Generation Z"
+- HiNative: ACM/Asim Filipino slang discussion
+- TikTok PH: Orange App Philippines hashtag documentation
+
+**New terms added (4):**
+1. **orange app** — Filipino Gen Z euphemism for Shopee, coined to bypass TikTok's content filter restrictions on brand names; widely used with #orangeapp hashtag; reflects the creative linguistic adaptation of Filipino youth to platform algorithms
+2. **acm** — Filipino text-speak abbreviation for "asim" (sour); used in social media meme culture to label photos of people who appear sweaty, unwashed, or disheveled; documented in WikaGenZ linguistic research
+3. **anw** — Filipino internet abbreviation for "anyway"; a common transition filler in casual online messaging and social media captions; part of broader Filipino text-speak abbreviation culture
+4. **loveteam** — Filipino entertainment industry and fandom term for a promoted romantic on-screen pairing; Gen Z usage extends this to shipping non-celebrity couples; deeply embedded in contemporary Filipino youth fan culture; loveteam names are portmanteaus (KathNiel, JaDine, LizQuen)
+
+**Terms considered but rejected:**
+- "who is this diva" — global internet meme phrase used by Filipinos but not a Filipino coinage; too broad
+- "kontrabida" / "bida" — well-established standard Filipino terms pre-dating 2023
+- "mama mo" — classic clapback, not emergent youth slang
+- "yeet" — global English slang; minimal Filipino-specific usage
+- "annus horribilis" — Latin phrase used in showbiz context, not youth slang
+
+**Convergence counter:** reset to 0 (4 new terms found)
+**Dictionary total:** 739 terms

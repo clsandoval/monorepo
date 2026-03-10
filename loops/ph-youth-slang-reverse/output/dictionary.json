@@ -28347,5 +28347,143 @@
       "suplado",
       "maldita"
     ]
+  },
+  {
+    "term": "orange app",
+    "definitions": [
+      "A Gen Z workaround term referring to Shopee, the e-commerce platform known for its orange branding. Coined to bypass TikTok content filters that restrict direct mention of competitor app names.",
+      "By extension, used loosely to refer to any app with a prominent orange icon, but overwhelmingly used to mean Shopee in Filipino online contexts."
+    ],
+    "etymology": "Descriptive reference to Shopee's signature orange color scheme; emerged on TikTok Philippines circa 2023-2024 as a way to evade platform restrictions on brand mentions.",
+    "examples": [
+      {
+        "text": "Nakita ko sa orange app, mas mura doon!",
+        "source": "Filipino TikTok comment section"
+      },
+      {
+        "text": "Bibilhin ko sa orange app para libre shipping.",
+        "source": "Filipino social media, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "FYP",
+      "budol"
+    ],
+    "categories": [
+      "internet culture",
+      "e-commerce slang",
+      "platform workaround",
+      "consumer culture"
+    ],
+    "sources": [
+      "Wave 1b: TikTok PH",
+      "Wave 1b: Filipino meme pages"
+    ]
+  },
+  {
+    "term": "acm",
+    "definitions": [
+      "Filipino text-speak abbreviation for \"asim\" (sour/sweaty/unpleasant). Used in social media to describe someone whose appearance suggests poor hygiene or an unpleasant physical vibe — specifically implying they look sweaty, unwashed, or have a sour smell.",
+      "More broadly, used to caption or describe photos shared as memes where the subject looks disheveled, grimy, or slovenly — not as a direct personal insult but as a humorous meme label."
+    ],
+    "etymology": "Phonetic/abbreviated text-speak rendering of \"asim\" (Tagalog for \"sour\"); mirrors other Filipino text abbreviations. The slang usage extends the literal meaning of sour to describe physical uncleanliness.",
+    "examples": [
+      {
+        "text": "Huy grabe yung picture, acm ampota.",
+        "source": "Filipino Facebook meme comments"
+      },
+      {
+        "text": "Bakit ganyan mug mo, acm!",
+        "source": "Filipino social media, documented in WikaGenZ research"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "asim",
+      "jejemon",
+      "ogag"
+    ],
+    "categories": [
+      "text-speak",
+      "internet slang",
+      "meme culture",
+      "insult/ribbing"
+    ],
+    "sources": [
+      "Wave 1b: Twitter/X Filipino",
+      "Wave 1b: Filipino meme pages"
+    ]
+  },
+  {
+    "term": "anw",
+    "definitions": [
+      "Filipino internet abbreviation for \"anyway,\" used to transition between topics in casual online chat, messages, and social media captions.",
+      "Often used to pivot away from an awkward topic, end a thought, or casually redirect a conversation — the same function as the English word \"anyway\" but in abbreviated form."
+    ],
+    "etymology": "Straightforward phonetic abbreviation of the English word \"anyway\"; widely adopted in Filipino SMS and social media messaging culture.",
+    "examples": [
+      {
+        "text": "Anw, kumain ka na ba?",
+        "source": "Filipino group chat text messages"
+      },
+      {
+        "text": "Anw, let's not talk about that anymore haha.",
+        "source": "Filipino Twitter/X, common usage"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "cge",
+      "say less",
+      "ngl"
+    ],
+    "categories": [
+      "text-speak",
+      "abbreviation",
+      "digital communication",
+      "filler expression"
+    ],
+    "sources": [
+      "Wave 1b: Twitter/X Filipino",
+      "Wave 1b: Reddit r/Philippines"
+    ]
+  },
+  {
+    "term": "loveteam",
+    "definitions": [
+      "A Filipino entertainment industry and fan culture term for a pair of (typically young) actors who are romantically paired on screen and promoted together as a tandem — usually by a management company — to maximize combined fan engagement and commercial appeal.",
+      "In Gen Z online usage, extended beyond showbiz to refer to any real or perceived romantic pairing being \"shipped\" by fans, including non-celebrity couples and even fictional characters in K-drama or anime."
+    ],
+    "etymology": "Portmanteau of \"love\" and \"team\"; a uniquely Filipino entertainment marketing concept that emerged in the 1980s-90s but remains deeply embedded in contemporary youth fan culture. Loveteam names are typically portmanteaus of the pair's names (e.g., KathNiel, JaDine, LizQuen).",
+    "examples": [
+      {
+        "text": "Sana may loveteam sila, grabe ang chemistry nila!",
+        "source": "Filipino Twitter fan discussion, 2025"
+      },
+      {
+        "text": "Ang loveteam nila ay nagkatotoo — reel to real!",
+        "source": "Filipino celebrity news commentary"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "kilig",
+      "second lead syndrome",
+      "MU",
+      "situationship",
+      "stan"
+    ],
+    "categories": [
+      "fandom culture",
+      "K-drama/Hallyu fandom",
+      "Philippine showbiz",
+      "romantic culture",
+      "celebrity culture"
+    ],
+    "sources": [
+      "Wave 1b: YouTube PH",
+      "Wave 1b: Twitter/X Filipino"
+    ]
   }
 ]
