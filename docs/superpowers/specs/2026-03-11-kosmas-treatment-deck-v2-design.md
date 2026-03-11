@@ -9,7 +9,14 @@ Expand the Kosmas UI treatment deck from 6 sections to 13, transforming it from 
 - Single self-contained HTML file (no build step, no framework)
 - Only external dependency: Google Fonts CDN (Rajdhani)
 - All images base64-embedded
+- Vanilla JavaScript allowed for interactivity (tabs, toggles, scroll-spy)
+- Icons: inline SVG only (no icon fonts, no external CDN)
 - Open the file in a browser and it works
+
+## Implementation Notes
+
+- All existing sections must be renumbered (current 01-06 becomes 03-06, 09, 13) and their `id` attributes + TOC `href` values updated accordingly
+- The TOC nav should implement scroll-spy: highlight the active section link in gold as the user scrolls
 
 ## Sport Focus
 
@@ -36,18 +43,22 @@ Each pillar: short paragraph + visual motif (color bar or icon treatment). Brief
 ### 02 — Logo System (NEW)
 
 Two marks:
-- **Full logotype** — "KOSMAS / ATHLETIC VENTURES CO." with runner icon (existing)
-- **Icon mark** — runner silhouette only (extract from existing logo PNG)
+- **Full logotype** — "KOSMAS / ATHLETIC VENTURES CO." with runner icon (existing base64 PNG)
+- **Icon mark** — runner silhouette only. Use CSS `clip-path` or `object-position` + `overflow:hidden` to crop the existing logo PNG to just the runner portion. No separate image file needed.
 
-For each mark, show:
-- Light-on-dark variant
-- Dark-on-light variant
-- Monochrome variant
+For each mark, show in a 2×3 grid:
+- Light-on-dark variant (default — white/gold on dark bg)
+- Dark-on-light variant (CSS `filter: invert(1)` on light bg)
+- Monochrome variant (CSS `filter: grayscale(1)`)
 
 Additional specs:
-- Safe zone diagram (1x padding rule)
-- Minimum size spec
-- "Don't do this" row: no rotation, no gradient fills, no stretching, no recoloring
+- Safe zone diagram: dashed border showing 1x padding rule around each mark
+- Minimum size: "Full logotype: min 120px wide. Icon mark: min 32px."
+- "Don't do this" row: 4 examples, each in a card with a red ✕ SVG overlay and caption:
+  1. Rotated (CSS `transform: rotate(15deg)`)
+  2. Gradient-filled (CSS gradient overlay)
+  3. Stretched (CSS `transform: scaleX(1.5)`)
+  4. Wrong colors (CSS `filter: hue-rotate(90deg)`)
 
 ### 03 — Color Palette (EXISTS — enhance)
 
@@ -73,7 +84,7 @@ Keep current button grid. No structural changes.
 ### 07 — Tags & Badges (NEW)
 
 Five tag variants:
-1. **Sport tags** — "PICKLEBALL", "VOLLEYBALL", "FOOTBALL", "GOLF" — plum bg, gold text
+1. **Sport tags** — "PICKLEBALL", "VOLLEYBALL", "FOOTBALL", "GOLF" — each uses its sport-color mapping as the background with dark text (e.g., pickleball tag = gold bg + black text, volleyball tag = peri bg + black text)
 2. **Status badges** — "ACTIVE", "SOLD OUT", "UPCOMING" — color-coded (gold/red/peri)
 3. **Location tags** — "MANILA", "CEBU", "DAVAO" — ghost style with border
 4. **Category labels** — "PREMIUM", "GROUP", "PRIVATE" — small caps, subtle bg
@@ -83,16 +94,18 @@ Each shown at default + compact size with specs (padding, font-size, border-radi
 
 ### 08 — Form Inputs (NEW)
 
-Styled form elements consistent with dark theme:
-- Text input
+Styled form elements consistent with dark theme. Layout: one row per input type, 4 columns showing each state side by side. Each cell has a small label above ("Default", "Focus", "Error", "Disabled").
+
+Input types:
+- Text input (with label above)
 - Textarea
 - Select dropdown
 - Toggle switch (plum/gold active state)
 - Checkbox and radio (custom styled)
-- Search input with icon
+- Search input with inline SVG magnifying glass icon
 - Date picker field
 
-Each shown in four states: default, focus, error, disabled.
+States per input: default, focus (gold border), error (red border + message), disabled (50% opacity).
 
 ### 09 — Cards & Containers (EXISTS — keep as-is)
 
@@ -100,13 +113,21 @@ No changes needed.
 
 ### 10 — Navigation (NEW)
 
-Full nav bar spec:
-- Desktop: 64px height, logo left, links center, CTA button right
-- Mobile: 56px height, hamburger menu icon, full-screen overlay
+Show two mockups stacked: desktop and mobile.
+
+**Desktop mockup:**
+- 64px height, logo (icon mark) left, links center, CTA button right
 - Sticky positioning, dark background (`--gray-900`) with subtle border
 - Active link: gold underline (2px)
 - Specs: link gap 24px, font 13px weight 600, letter-spacing 2px
 - Hover: color transition to `--gray-300`
+- Links: HOME, EXPERIENCES, SCHEDULE, ABOUT, CONTACT
+
+**Mobile mockup (shown as static open state):**
+- 56px header with icon mark left, hamburger SVG icon right
+- Below: full-screen overlay rendered inline (not interactive toggle)
+- Overlay: `--black-deep` background at 95% opacity, links stacked vertically centered, 24px gap, same font specs as desktop
+- CTA button at bottom of overlay
 
 ### 11 — Footer (NEW)
 
@@ -119,7 +140,7 @@ Multi-column footer:
 
 ### 12 — Page Treatments (NEW — 6 sub-layouts)
 
-Each is a self-contained mockup rendered inside a frame (like the existing sample layout), showing the brand applied to a real page type.
+Each is a self-contained mockup rendered inside a `sample-frame` div (like the existing sample layout section). All 6 are stacked vertically, each with a sub-header label (12a, 12b, etc.) and a brief description above the frame. Use a tab bar at the top of section 12 to show/hide sub-layouts via vanilla JS (only one visible at a time to avoid excessive page length). Default: 12a visible.
 
 #### 12a: Marketing Landing Page
 - Hero: gradient background (plum → dark), headline "PREMIER ATHLETIC EXPERIENCES"
@@ -148,7 +169,7 @@ Each is a self-contained mockup rendered inside a frame (like the existing sampl
 - Context: "Manage Bookings" or "Manage Members"
 
 #### 12e: ERP Dashboard
-- Left sidebar nav (collapsed icon style): Dashboard, Bookings, Members, Reports, Settings
+- Left sidebar nav (collapsed icon style, using inline SVG icons): Dashboard (grid), Bookings (calendar), Members (people), Reports (chart), Settings (gear)
 - Top row: 4 KPI cards (Revenue, Bookings, Utilization %, NPS Score)
 - Chart placeholder areas (2 across)
 - Data table below: recent transactions or bookings
@@ -158,7 +179,7 @@ Each is a self-contained mockup rendered inside a frame (like the existing sampl
 - Day/Week/Month toggle at top
 - Week calendar grid with time slots (rows) and days (columns)
 - Event cards placed in grid, color-coded by sport
-- Booking modal mockup (overlay or inline): sport, date, time, court/field, participants
+- Booking modal: rendered as a static visible overlay (CSS positioned, no JS toggle needed) showing form fields for sport, date, time, court/field, participants. Semi-transparent backdrop behind it.
 - Context: court/field scheduling
 
 ### 13 — Sample Layout (EXISTS — keep as closing showcase)
@@ -167,10 +188,12 @@ Existing sample layout stays as the final section. No changes.
 
 ## Logo Variant Creation
 
-Extract the runner icon from `docs/brand/kosmas/kosmas-logo.png`:
-- Create a cropped version with just the runner silhouette (no text)
-- Base64-encode and embed alongside the full logotype
-- Both used throughout the deck (icon mark in footer, nav; full logotype in hero, logo system section)
+The icon-only mark is created via CSS cropping of the existing base64-embedded logo PNG:
+- Use `object-fit: cover` + `object-position` to show only the runner portion
+- Wrap in a fixed-size container with `overflow: hidden`
+- No separate image file or image editing needed
+- The full logotype remains as-is (existing base64 data)
+- Both used throughout the deck (icon mark in footer, nav, logo system; full logotype in hero, logo system)
 
 ## TOC Navigation Update
 
