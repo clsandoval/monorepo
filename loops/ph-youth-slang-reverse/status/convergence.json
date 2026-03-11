@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 97 — ninety-seventh raw-gap audit (5 new terms, 763→768)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: nega, ows, alaws, arep, gurl — covering clipping 'nega' from 'negative' (pessimistic attitude descriptor), Filipino internet reaction expression 'ows' meaning 'Really?', tadbalik pair 'alaws'/'arep' (wala/pera reversed), and swardspeak/Gen Z address term 'gurl'; all 5 confirmed via multiple independent Filipino slang sources including tagaloglang.com, kaikki.org, thesmartlocal.ph, and FastForward MR Gen Z Dictionary)"
+    },
+    {
       "iteration": "refinement pass 96 — ninety-sixth raw-gap audit (5 new terms, 758→763)",
       "new_terms": 5,
       "refined_entries": 0,
