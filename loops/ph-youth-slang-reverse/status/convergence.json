@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 108 — hundred-and-eighth raw-gap audit (5 new terms, 818→823)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: borlogs, ditey, waz, cheka, majubis — covering documented but previously missing swardspeak/beki vocabulary: 'borlogs' (mutation of tulog/sleep; documented in Tandfonline 2024 academic paper on Filipino queer language as primary morphological example); 'ditey' (affixation of dito/here using beki '-ey' suffix; documented in LaSallian 'Knows mo itey?' 2022 and academic studies on swardspeak morphology); 'waz' (phonological respelling of 'what?'; listed as common swardspeak word in Wikipedia Swardspeak and Tandfonline 2024 paper; companion to 'watash' and 'anetch'); 'cheka' (newer addition to the charot/chos/echos cluster meaning 'just kidding'; also used to mean delusional/echosera; documented in Spot.ph '10 Beki Slang Terms, Translated' and Beelinguapp beki guide); 'majubis' (from beki root 'juba' with intensifying ma- prefix meaning fat/chubby; increasingly reclaimed body-positive; documented in Spot.ph beki terms, Beelinguapp beki words guide, Wikipedia Swardspeak; antonym in beki: Payatola Khomeini))"
+    },
+    {
       "iteration": "refinement pass 107 — hundred-and-seventh raw-gap audit (5 new terms, 813→818)",
       "new_terms": 5,
       "refined_entries": 0,

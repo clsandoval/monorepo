@@ -31582,5 +31582,178 @@
       "Wave 1b: Twitter/X Filipino",
       "Wave 1b: TikTok PH"
     ]
+  },
+  {
+    "term": "borlogs",
+    "definitions": [
+      "Swardspeak/beki word meaning 'to sleep' or 'sleepy'; used to express drowsiness, to say goodnight, or to announce going to bed."
+    ],
+    "etymology": "Mutation of Tagalog 'tulog' (sleep): the syllable 'tu' was replaced with 'bor', and the suffix '-s' was affixed at the end — a hallmark morphological transformation of Filipino queer language. Documented in the 2024 Tandfonline academic paper 'What's the word? That's the word!: linguistic features of Filipino queer language' (Cogent Arts & Humanities) as a primary example of swardspeak mutation.",
+    "examples": [
+      {
+        "text": "Borlogs na sis, antok na ako!",
+        "source": "Filipino queer social media; common online usage"
+      },
+      {
+        "text": "Ang borlogs ko ngayon, wala akong tulog kagabi.",
+        "source": "Illustrative example of swardspeak usage"
+      }
+    ],
+    "regional_notes": "Nationwide; most active in Metro Manila LGBTQ+ communities, beauty parlors, and among bekimon speakers. Has crossover appeal into mainstream youth speech.",
+    "related_terms": [
+      "beki",
+      "swardspeak",
+      "beks",
+      "gora",
+      "keribels"
+    ],
+    "categories": [
+      "swardspeak-and-beki-lingo",
+      "everyday-life-and-lifestyle",
+      "lgbtq-language",
+      "mutation-wordplay"
+    ],
+    "sources": [
+      "Wave 1b: Beki/gay lingo evolution"
+    ]
+  },
+  {
+    "term": "ditey",
+    "definitions": [
+      "Swardspeak/beki affixation form of 'dito' (Tagalog: 'here'/'in this place'); used to indicate location or to invite someone over."
+    ],
+    "etymology": "Formed by replacing the final vowel of Tagalog 'dito' with the diminutive beki suffix '-ey'; a standard affixation technique in swardspeak. The partner form 'itey' transforms 'ito' (this) the same way. Documented in The LaSallian 2022 article 'Knows mo itey?: Dissecting the ins and outs of Filipino gayspeak' and in multiple academic studies on Filipino queer language morphology.",
+    "examples": [
+      {
+        "text": "More lovelya na lang tayel ditey. Wititit na mag-away.",
+        "source": "The LaSallian, illustrative swardspeak example"
+      },
+      {
+        "text": "Halika ditey, may chismis akong sasabihin sa 'yo!",
+        "source": "Common beki conversational usage"
+      }
+    ],
+    "regional_notes": "Nationwide; associated with Metro Manila beki/gay community speech. The '-ey' suffix is highly productive in swardspeak, generating similar forms: 'mamshey', 'lolshey', etc.",
+    "related_terms": [
+      "itey",
+      "beki",
+      "beks",
+      "swardspeak",
+      "gora"
+    ],
+    "categories": [
+      "swardspeak-and-beki-lingo",
+      "lgbtq-language",
+      "affixation-wordplay",
+      "everyday-life-and-lifestyle"
+    ],
+    "sources": [
+      "Wave 1b: Beki/gay lingo evolution"
+    ]
+  },
+  {
+    "term": "waz",
+    "definitions": [
+      "Swardspeak/beki transformation of the English 'what?'; used as an exclamation of surprise, disbelief, or to ask for clarification — equivalent to 'ano?' in standard Tagalog."
+    ],
+    "etymology": "Phonological transformation of English 'what' into 'waz', characteristic of swardspeak's creative respelling and sound-play. Part of a cluster of beki 'what?' expressions alongside 'watash' (from Japanese 'watashi') and 'anetch' (from Tagalog 'ano'). Listed as a common swardspeak word in Wikipedia's Swardspeak article and in the 2024 Tandfonline academic paper on linguistic features of Filipino queer language.",
+    "examples": [
+      {
+        "text": "Waz?! Totoo ba 'yan?",
+        "source": "Common Filipino swardspeak exclamation"
+      },
+      {
+        "text": "Waz ang nangyari dito habang wala ako?",
+        "source": "Illustrative beki usage"
+      }
+    ],
+    "regional_notes": "Nationwide usage in Filipino LGBTQ+ communities; mainstream crossover particularly among Gen Z Filipinos familiar with beki lingo.",
+    "related_terms": [
+      "watash",
+      "anetch",
+      "beki",
+      "beks",
+      "swardspeak"
+    ],
+    "categories": [
+      "swardspeak-and-beki-lingo",
+      "lgbtq-language",
+      "exclamations-and-reactions",
+      "phonological-wordplay"
+    ],
+    "sources": [
+      "Wave 1b: Beki/gay lingo evolution"
+    ]
+  },
+  {
+    "term": "cheka",
+    "definitions": [
+      "Beki/swardspeak word used in place of 'just kidding' — a follow-up to a statement to signal that it was a joke or not meant to be taken seriously.",
+      "Alternatively used as a noun/adjective to describe someone who is delusional, an echosera — a person who fantasizes or exaggerates their own situation."
+    ],
+    "etymology": "Part of the swardspeak family of 'just kidding' markers alongside 'charot', 'chos', 'echos', and 'char'. The precise origin is debated but follows the swardspeak pattern of creating new variants of existing expressions. Documented in Spot.ph '10 Beki Slang Terms, Translated' and the Beelinguapp beki tutorial blog as a newer addition to the charot/chos cluster.",
+    "examples": [
+      {
+        "text": "Sis, I love your bag — cheka!",
+        "source": "Spot.ph, '10 Beki Slang Terms, Translated' (2018), still active"
+      },
+      {
+        "text": "Cheka siya if she thinks I care what she posts on IG.",
+        "source": "Filipino social media usage"
+      }
+    ],
+    "regional_notes": "Metro Manila and broader Filipino urban youth usage; common in beki communities and mainstream Gen Z online interactions.",
+    "related_terms": [
+      "charot",
+      "chos",
+      "echos",
+      "char",
+      "chariz",
+      "eme",
+      "keme"
+    ],
+    "categories": [
+      "swardspeak-and-beki-lingo",
+      "humor-and-irony",
+      "lgbtq-language",
+      "discourse-markers"
+    ],
+    "sources": [
+      "Wave 1b: Beki/gay lingo evolution"
+    ]
+  },
+  {
+    "term": "majubis",
+    "definitions": [
+      "Beki/swardspeak adjective meaning 'fat' or 'chubby'; a spinoff of the classic beki root term 'juba'; increasingly reclaimed with body-positive pride within the Filipino LGBTQ+ community."
+    ],
+    "etymology": "Derived from beki root 'juba' (fat/chubby) with the intensifying prefix 'ma-' (a standard Tagalog prefix forming adjectives of quality). Documented in Spot.ph '10 Beki Slang Terms, Translated', the Beelinguapp beki words guide, and Swardspeak - Wikipedia, where it appears alongside body-descriptive beki vocabulary. The antonym in beki is 'Payatola Khomeini' (celebrity-name wordplay for a skinny person).",
+    "examples": [
+      {
+        "text": "Do I look majubis in this crop top?",
+        "source": "Spot.ph, '10 Beki Slang Terms, Translated'"
+      },
+      {
+        "text": "Let's be body positive — I'm majubis and proud!",
+        "source": "Illustrative beki usage reflecting community reclamation"
+      }
+    ],
+    "regional_notes": "Metro Manila-based beki community; also used in broad Filipino Gen Z online spaces via swardspeak crossover. Some use it self-referentially with humor.",
+    "related_terms": [
+      "beki",
+      "swardspeak",
+      "borta",
+      "daks",
+      "juts"
+    ],
+    "categories": [
+      "swardspeak-and-beki-lingo",
+      "appearance-and-aesthetics",
+      "lgbtq-language",
+      "body-image-vocabulary"
+    ],
+    "sources": [
+      "Wave 1b: Beki/gay lingo evolution"
+    ]
   }
 ]
