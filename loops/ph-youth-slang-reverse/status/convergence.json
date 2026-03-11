@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 98 — ninety-eighth raw-gap audit (5 new terms, 768→773)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: ganern, character development, chika chika, senglot, anda — covering standalone internet reaction slang 'ganern' distinct from existing 'pak ganern', narrative-identity metaphor 'character development' widely used in Filipino K-drama/anime fan culture, reduplicated intensifier 'chika chika', tadbalik drinking vocabulary 'senglot' (reversal of laseng), and street money term 'anda'; all 5 confirmed via multiple independent Filipino slang sources including tagaloglang.com, HiNative, Urban Dictionary, GMA News, fastforward.life/Filipino-gen-z-dictionary, Wiktionary, kaikki.org, FilipiKnow, HubPages, YourDictionary, Cebu Daily News)"
+    },
+    {
       "iteration": "refinement pass 97 — ninety-seventh raw-gap audit (5 new terms, 763→768)",
       "new_terms": 5,
       "refined_entries": 0,
