@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 103 — hundred-and-third raw-gap audit (5 new terms, 793→798)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: langga, palangga, pakal, pakyas, libog — covering Bisaya/Cebuano regional vocabulary with national crossover through TikTok virality: 'langga' and 'palangga' (endearment pair meaning 'my love/beloved'; shortened from palangga; 1.6M+ TikTok posts; documented in usa.inquirer.net terms of endearment guide, HiNative, viral TikTok @teacherg1967 and IDGAF PH Facebook); 'pakal' (Cebuano all-out feast with friends, 'Pakal ta!' = Let's feast uninhibited; documented in southpolecentralhotel.com 2025 Bisaya slang guide, binisaya.com Cebuano dictionary, sunstar.com.ph); 'pakyas' (Filipino slang for complete failure/flop, parallel to 'bokya' and 'palpak'; documented in Wiktionary Tagalog slang appendix, binisaya.com, Scribd Filipino slang collection); and 'libog' (Bisaya/Cebuano: confused/bewildered — famous cross-language false friend with Tagalog 'libog' meaning lust; Proto-Philippine *libeg root; documented in bisdakwords.com, 8list.ph Bisayan-Tagalog false friends, Wiktionary Cebuano entry, viral TikTok @monicaneeman 7.1M plays))"
+    },
+    {
       "iteration": "refinement pass 102 — hundred-and-second raw-gap audit (5 new terms, 788→793)",
       "new_terms": 5,
       "refined_entries": 0,
