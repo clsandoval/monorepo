@@ -1,8 +1,8 @@
 # Filipino Youth Slang Dictionary & Thesaurus
 
-**Total terms:** 569  
-**Total categories:** 223  
-**Last updated:** 2026-03-10
+**Total terms:** 870
+**Total categories:** 228
+**Last updated:** 2026-03-11
 
 ---
 
@@ -9347,6 +9347,28 @@
 **Categories:** internet-and-social-media
 
 **Regional notes:** Primarily Luzon/Metro Manila critique; Visayan and Mindanaoan Filipinos sometimes use it to push back against Tagalog-centric Philippine culture.
+
+---
+
+### tambaloslos
+
+1. A shameless, inept, or all-talk person; someone who is thick-faced, untrustworthy, or all mouth with no substance — used as a Cebuano/Bisaya insult.
+2. A mythological creature from Visayan, Bicolano, and Mindanao folklore: a grotesque forest-dwelling prankster with a large mouth and oversized genitals, said to disorient travelers and lead them in circles.
+
+**Etymology:** From Cebuano/Bisaya regional folklore and slang. The suffix 'loslos' is Cebuano slang for male genitals, and the creature is characterized by having disproportionate anatomy. Documented in pre-colonial oral tradition across the Visayas, Bicol, and Mindanao. Entered mainstream national Filipino consciousness on May 21, 2023, when VP Sara Duterte posted a cryptic Instagram message: 'Sa imong ambisyon, do not be tambaloslos,' sparking viral national discourse. President Marcos Jr. subsequently used it in a birthday greeting to VP Duterte, cementing it in contemporary Filipino political vocabulary.
+
+**Examples:**
+- *"Sa imong ambisyon, do not be tambaloslos."* — VP Sara Duterte, Instagram, May 21, 2023 — the viral post that brought this Bisaya term to national attention
+- *"BBM greets b-day girl Sara: Ignore the tambaloslos"* — OneNews.ph headline, June 1, 2023
+- *"Tambaloslos kang daku! — roughly 'You're such a shameless, inept fool!'"* — Cebuano colloquial speech, documented tagaloglang.com, tagalog.com, Aswang Project
+
+**Related:** hambog, pabibo, plastik, OA, bangag
+
+**Synonyms:** hambog, pabibo
+
+**Categories:** insults-and-shade, regional-vocabulary, mythology-and-folklore, political-vocabulary, bisaya-crossover
+
+**Regional notes:** Cebuano/Bisaya origin (Visayas, Bicol, Mindanao). No direct Tagalog or English translation — nearest equivalents are 'thick-faced,' 'shameless,' or 'all talk no action' (puro pagbubunganga lang). Considered vulgar in formal settings. Rarely applied to women. Was largely unknown outside the Visayas before VP Duterte's May 2023 Instagram post.
 
 ---
 

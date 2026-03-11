@@ -1102,3 +1102,45 @@ Focused on Gen Alpha slang documented in Philippine media (Manila Bulletin Jan 2
 **Dictionary total:** 867 → 869 terms
 
 | 121 | 2026-03-11 | Refinement pass 121 — Sesable 'Sobrang Latina' extended vocabulary audit (2 new terms, 867→869) | Post-Wave 4 | +2 new | Systematic gap audit searching for terms from viral Filipino cultural moments not yet captured. Checked: 2025 Spot.ph slang roundup, Tribune.net.ph words of 2025, Manila Bulletin 2026 guide, and Sesable Sobrang Latina viral cluster. Most terms already in dictionary. Discovered 2 confirmed new terms: monyeka (Cebuano for 'doll', adopted as mainstream Filipino internet compliment for someone strikingly beautiful; from Sesable viral video 5.5M views, documented pop.inquirer.net/GMA News/philstarlife.com/simpol.ph/wordhippo.com); gorjuice (phonetic respelling of 'gorgeous', campy exaggerated compliment 'gorjuice gorjuice gorlz' from same Sesable Sobrang Latina TikTok era, documented TikTok discovery pages/simpol.ph/spot.ph). Both terms relate to the February 2025 Sobrang Latina trend and demonstrate how one viral moment spawns a cluster of related vocabulary. Convergence counter reset to 0. |
+
+---
+
+## Refinement Pass 122 — 2026-03-11
+
+**Aspect:** Post-Wave 4 refinement — Cebuano/Bisaya crossover slang and regional vocabulary gap audit
+
+**Method:** Multi-angle web research targeting underexplored areas: (1) Filipino Wattpad/fan fiction vocabulary, (2) Filipino beauty TikTok/ulzzang terms, (3) early 2026 viral Filipino slang, (4) swardspeak gap audit, (5) Filipino political slang 2025-2026, (6) regional crossover terms not yet captured. Cross-referenced all candidates against the 869-entry dictionary before adding.
+
+**Search strategy:**
+- Searched Filipino Wattpad/fanfic slang 2025-2026 — found mostly established terms (stan, smut, sneaky link); all in dictionary
+- Searched Filipino Gen Z slang 2026 new viral terms — found boogsh, korique, ammacana, beshie, gora — all already in dictionary
+- Searched Filipino P-pop SB19 BINI fan vocabulary — found "A'TIN" and "BLOOMs" as fandom names, but these are proper nouns not qualifying as slang
+- Searched Filipino political slang 2025 — found tambaloslos (Sara Duterte viral May 2023), kain-suka, dilawan, DDS, kakampink; checked: dilawan and DDS are pre-2023 well-established; kakampink formed 2021-2022; kain-suka insufficient documentation as distinct slang
+- Searched February 2026 TikTok Filipino viral trends — found bebot girl trend but bebot already comprehensively documented in dictionary
+- Searched swardspeak 2024 academic paper — found tukling (bakla variant), kyumbakers, shudi abas; tukling has some documentation but seems pre-2023 in origin; kyumbakers and shudi abas too niche
+- Searched "tambaloslos" across multiple sources — confirmed strong candidate: Cebuano/Bisaya mythological creature; entered mainstream Filipino national slang May 2023 via VP Sara Duterte's viral Instagram post; documented across GMA News, Manila Bulletin, PEP.ph, Philstar, OneNews, tagaloglang.com, tagalog.com, Wiktionary, Aswang Project, kaikki.org
+
+**Terms verified as already in dictionary (not re-added):**
+- boogsh, korique, ammacana, beshie, gora, gorabels, mare, pa-mine, pala-desisyon, bebot, bangag, borlogs, alam na this, dehins, lavarn, accla, besh, pi, over naman sa, kaladkarin
+
+### Terms Added
+
+1. **tambaloslos** — Cebuano/Bisaya slang insult meaning "a shameless, inept, or all-talk person; someone who is thick-faced, untrustworthy, or all mouth with no substance"; also the name of a grotesque Visayan/Bicolano/Mindanao folkloric creature with a large mouth and oversized genitals, said to disorient travelers and lead them in circles; the term was largely unknown outside the Visayas until VP Sara Duterte's May 21, 2023 Instagram post ("Sa imong ambisyon, do not be tambaloslos") went viral nationally; President Marcos Jr. subsequently used it in a birthday greeting to VP Duterte; documented GMA News/PEP.ph/Manila Bulletin/Philstar/OneNews/tagaloglang.com/tagalog.com/Wiktionary/Aswang Project/dictionary.pilipinaz.com; categories: insults-and-shade, regional-vocabulary, mythology-and-folklore, political-vocabulary, bisaya-crossover; related: hambog, pabibo, plastik
+
+### Candidates Considered and Rejected
+
+- **dilawan** — pre-2023 well-established political term for Liberal Party supporters; too established
+- **DDS** — Diehard Duterte Supporters; pre-2023 well-established acronym
+- **kakampink** — portmanteau of "kakampi" + "pink" from 2022 Robredo campaign; pre-2023 established
+- **kain-suka** — political expression for flip-flopping; insufficient independent documentation as distinct stable slang
+- **tukling** — swardspeak variant of "bakla" from academic sources; likely pre-2023 origin, too niche
+- **kyumbakers** / **shudi abas** — swardspeak terms documented only in one academic paper; insufficient evidence of mainstream youth usage
+- **gosu** — Korean gaming term (고수, "skilled player") used in PH gaming communities; primarily Korean-origin, predates 2023 significantly
+- **albor** — slang for "borrow"; from Spanish "robar" back-slang; pre-2023 well-established (documented 2017+)
+- **tsang** — feminine form of tsong (term of address for female friend); pre-2023 established term (documented 1993 Tagalog Slang Dictionary); too established to qualify
+- **tambaloslos** was the only term meeting all criteria
+
+**Convergence counter:** reset to 0 (1 new term found)
+**Dictionary total:** 869 → 870 terms
+
+| 122 | 2026-03-11 | Refinement pass 122 — Cebuano/Bisaya crossover slang and regional vocabulary gap audit (1 new term, 869→870) | Post-Wave 4 | +1 new | Extensive multi-angle web research across Filipino Wattpad vocabulary, beauty TikTok terms, 2026 viral slang, swardspeak academic literature, political vocabulary, and regional crossover terms. Most candidates already in dictionary or too established. Found tambaloslos (Cebuano/Bisaya folkloric creature used as mainstream Filipino political insult; viral May 2023 via Sara Duterte Instagram; documented GMA News/PEP.ph/Manila Bulletin/Philstar/OneNews/tagaloglang.com/tagalog.com/Wiktionary/Aswang Project). Convergence counter reset to 0. |
