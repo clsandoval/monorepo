@@ -250,8 +250,9 @@ loops:
     schedule: "*/30 * * * *"
     max_iterations: 40
     timeout_minutes: 30
-    status: active
+    status: converged
     created: 2026-03-09
+    converged_at: "2026-03-11"
   podplay-ops-reverse:
     description: "Extract complete spec from PodPlay MRP docs → ops wizard webapp mega-spec (68 aspects, Wave 7: QA-readiness)"
     type: reverse
