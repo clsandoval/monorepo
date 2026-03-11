@@ -3,6 +3,12 @@
   "last_updated": "2026-03-10",
   "history": [
     {
+      "iteration": "refinement pass 94 — ninety-fourth raw-gap audit (6 new terms, 747→753)",
+      "new_terms": 6,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (6 new terms found: blooming, daldal, panganay, panganay tax, hayuk, chz — covering Filipino compliment culture, personality descriptors, eldest-child meme archetypes, gaming community crossover vocabulary, and chat abbreviations; all 6 absent from 747-entry dictionary despite active documented usage)"
+    },
+    {
       "iteration": "refinement pass 93 — ninety-third raw-gap audit (3 new terms, 744→747)",
       "new_terms": 3,
       "refined_entries": 0,
