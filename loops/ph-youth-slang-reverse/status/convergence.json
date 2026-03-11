@@ -1,7 +1,13 @@
 {
-  "counter": 0,
+  "counter": 1,
   "last_updated": "2026-03-11",
   "history": [
+    {
+      "iteration": "refinement pass 125 \u2014 Drag Race PH vocabulary, Gen Z mental health slang, election vocabulary, Gen Alpha terms, year-end 2025 roundups (0 new terms, 872\u2192872)",
+      "new_terms": 0,
+      "refined_entries": 0,
+      "counter_action": "incremented to 1 (no new terms found after 8 research angles: Drag Race PH vocab/pakak rejected as documented-since-2012 swardspeak; nakaupo rejected as insufficient independent documentation as distinct slang; election vocab/Gen Alpha terms/university slang/year-end roundups all already in dictionary)"
+    },
     {
       "iteration": "refinement pass 124 \u2014 tito/tita symmetry gap audit and Filipino political slang 2025 research (1 new term, 871\u2192872)",
       "new_terms": 1,

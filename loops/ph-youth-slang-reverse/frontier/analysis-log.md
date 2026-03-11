@@ -1229,3 +1229,39 @@ Focused on Gen Alpha slang documented in Philippine media (Manila Bulletin Jan 2
 **Dictionary total:** 871 → 872 terms
 
 | 124 | 2026-03-11 | Refinement pass 124 — tito/tita symmetry gap audit and multi-angle slang research (1 new term, 871→872) | Post-Wave 4 | +1 new | Multi-angle research across financial/crypto slang, dating vocabulary, hugot evolution, political slang (Disney princess), and tito/tita symmetry. Most candidates already in dictionary or pre-2023. Found tito (male counterpart to tita; explicitly cited as trending Gen Z usage in Balita/MB August 2025; documented tagaloglang.com/ling-app.com/unbox.ph). Convergence counter reset to 0. |
+
+---
+
+## Refinement Pass 125 — 2026-03-11
+
+**Aspect:** Post-Wave 4 refinement — Drag Race PH vocabulary, Gen Z mental health slang, election vocabulary, Gen Alpha terms, year-end roundup gap audit
+
+**Method:** Multi-angle web research targeting 8 unexplored areas: (1) Drag Race Philippines Season 3 catchphrases and slang, (2) Filipino Gen Z mental health language, (3) Filipino commuter/urban slang, (4) Filipino university org slang 2024-2025, (5) Philippines 2025 midterm election vocabulary, (6) Filipino Gen Alpha vocabulary, (7) Tribune 2025 year-end slang roundup, (8) Filipino beki lingo evolution 2024-2025.
+
+**Search strategy:**
+- Drag Race Philippines S3 vocabulary (Vantage/The Guidon article, fandom wikis) → found "nakaupo" used as drag slang equivalent of "seated," "pakak" as swardspeak exclamatory; tsibog (already in dictionary); forda (already in dictionary); nakaupo rejected (insufficient independent docs as distinct slang vs standard Tagalog word); pakak rejected (documented in mainstream media since 2012 via PhilStar Beckinese guide, too established)
+- Filipino Gen Z mental health slang → estetik, boogsh, ammacana, JOMO, forda ferson (all already in dictionary); no genuinely new mental-health-specific Filipino slang found
+- Filipino commuter slang → no specific new Filipino-coined youth terms found
+- University org slang → petmalu, werpa, mumshie, charot, sana all, dasurv (all already in dictionary)
+- 2025 Philippines election vocabulary → nepo baby, lavarn, na para bang, soafer (all already in dictionary); no specifically-coined 2025 election slang found beyond existing terms
+- Filipino Gen Alpha vocab (Manila Bulletin 2026 guide) → 6-7, brain rot, unc, mog, trentahin, soafer, over naman sa (all already in dictionary)
+- Tribune 2025 year-end roundup (fetched) → trentahin, rage bait only (both already in dictionary)
+- Filipino beki lingo evolution → borlogs, shutacca, keribels, vungga, waz, imbyerna, ditey (all already in dictionary); "ganda ka" as newer beki term — rejected as standard Tagalog phrase used sarcastically
+
+**All terms verified as already in dictionary (not re-added):**
+- estetik, ammacana, boogsh, JOMO, forda, forda ferson, okay na 'to, soafer, what hafen vella, tsibog, gar (covers ka-lugar), borlogs, shutacca, keribels, vungga, waz, imbyerna, ditey, trentahin, rage bait, brain rot, unc, mog, 6-7, nepo baby, lavarn, na para bang, over naman sa, SKL, awit, lodi, arat, amaccana, dasurv, organic encounter, petmalu, werpa, mumshie
+
+### Terms Added
+
+None.
+
+### Candidates Considered and Rejected
+
+- **pakak** — swardspeak exclamatory meaning "perfect/flawless/slay"; used in DRPH since Season 1 (2022) and mainstreamed further via "Dapat Pakak" S3 song (August 2024); however, documented in mainstream Filipino media (PhilStar) since 2012 as established Beckinese — too established to qualify as emergent post-2023 slang
+- **nakaupo** (drag slang) — Filipino localization of drag/queer slang "seated" (meaning stunned/ready for drama); documented in Vantage/The Guidon article on DRPH S3 catchphrases; rejected due to: (a) insufficient independent documentation beyond one source, (b) standard Tagalog word used in extended metaphorical sense rather than truly new coinage; mainstream documentation too sparse
+- **ganda ka** (beki ironic use) — standard Tagalog phrase "you're beautiful" used sarcastically/ironically; too close to standard meaning to qualify as emergent slang
+
+**Convergence counter:** incremented to 1/3 (⚠️ WARNING — convergence approaching)
+**Dictionary total:** 872 terms (unchanged)
+
+| 125 | 2026-03-11 | Refinement pass 125 — Drag Race PH vocabulary, Gen Z mental health, election vocab, Gen Alpha terms, year-end roundup gap audit (0 new terms, 872→872) | Post-Wave 4 | +0 new | 8 research angles across DRPH slang, mental health language, election vocabulary, Gen Alpha terms, university slang, beki lingo evolution, and year-end roundups. All candidates either already in dictionary or rejected (pakak: too established since 2012; nakaupo: insufficient independent sources as distinct slang). Convergence counter incremented to 1/3. |
