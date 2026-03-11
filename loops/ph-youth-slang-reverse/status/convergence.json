@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 105 — hundred-and-fifth raw-gap audit (5 new terms, 803→808)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: chugi, CR, KKB, load, ngek — covering swardspeak komiks-origin cancellation vocabulary 'chugi' (from tsuk/tsak stabbing onomatopoeia in Filipino komiks; FilipiKnow documented origin; used for fired/cancelled/bankrupt); Philippine English OED March 2025 batch entries 'CR' (comfort room, toilet; first attested 1987) and 'load' (mobile phone prepaid credit; defines Filipino micro-economy of sari-sari store load culture); social billing acronym 'KKB' kanya-kanyang bayad (going Dutch, each person pays their own; documented in YourDictionary, theculturetrip.com, superstaff.com); and onomatopoeic reaction word 'ngek' (yikes/eek; variant spellings nyek/nye/nge; believed from quiz game show buzzer sounds; documented in yourdictionary.com, hubpages.com, theculturetrip.com, filipiknow.net))"
+    },
+    {
       "iteration": "refinement pass 104 — hundred-and-fourth raw-gap audit (5 new terms, 798→803)",
       "new_terms": 5,
       "refined_entries": 0,
