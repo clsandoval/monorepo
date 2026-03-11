@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 101 — hundred-and-first raw-gap audit (5 new terms, 783→788)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: ampaw, bet na bet, slay queen, mej, bawal umasa — covering the original Tagalog/Bisaya spelling of the hollow-person metaphor 'ampaw' (Proto-Malayo-Polynesian origin, distinct from Chinese-borrowed ampao spelling; documented on Wiktionary, kaikki.org, tagalog.com, pinoydictionary.com, Grokipedia), reduplicated intensifier 'bet na bet' (\"I really like it\" / \"Gustong-gusto\"; X na X pattern; from swardspeak bet; documented on HiNative, tagaloglang.com, tagalog-dictionary.com, tripzilla.com), Filipino Gen Z/LGBTQ+ compound 'slay queen' (confident stylish woman; adopted from global ballroom culture; widely used on Filipino TikTok/Instagram; documented with ironic Tagalog observation that slay = pumatay), Gen Z clipping 'mej' of medyo (\"somewhat/kinda\"; Wiktionary-listed clipping; documented in IJRISS 2024 academic paper on Filipino TikTok slang), and modern dating phrase 'bawal umasa' (\"don't get your hopes up\"; describes MU/situationship emotional unavailability; documented in usa.inquirer.net romance slang guide and pinkbunny.ph modern dating terms))"
+    },
+    {
       "iteration": "refinement pass 100 — hundredth raw-gap audit (5 new terms, 778→783)",
       "new_terms": 5,
       "refined_entries": 0,
