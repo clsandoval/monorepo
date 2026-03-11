@@ -32195,5 +32195,178 @@
     "antonyms": [
       "chopped"
     ]
+  },
+  {
+    "term": "for today's videow",
+    "definitions": [
+      "A playful TikTok-born phrase derived from vlogging culture, used to introduce what you are doing for the day; the creative spelling \"videow\" (adding a silent \"w\" to \"video\") is an intentional affectation that adds humor and personality"
+    ],
+    "etymology": "Borrowing from vlogger vernacular; the \"-w\" suffix is a phonetic exaggeration popular in Filipino internet humor, similar to how \"hahaha\" becomes \"hahahaw\"",
+    "examples": [
+      {
+        "text": "For today's videow, magsho-shopping tayo!",
+        "source": "Filipino TikTok/YouTube vlogging culture 2024-2025"
+      },
+      {
+        "text": "For today's videow, tutulungan natin ang nanay ko magluto!",
+        "source": "Tagalog internet slang, ling-app.com 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "forda ferson",
+      "vlog",
+      "FYP"
+    ],
+    "categories": [
+      "internet culture",
+      "TikTok slang",
+      "vlogging",
+      "digital humor"
+    ],
+    "sources": [
+      "Wave 1b: YouTube PH",
+      "Wave 1b: TikTok PH"
+    ]
+  },
+  {
+    "term": "lagot",
+    "definitions": [
+      "Exclamation or warning meaning \"You're in trouble!\" / \"You're dead meat!\"; used to signal that someone is about to face consequences, punishment, or a scolding",
+      "Adjective: being in a tight spot or liable to get in trouble; \"Lagot na ako\" = I'm going to get it"
+    ],
+    "etymology": "From Tagalog root \"lagot\" meaning \"to snap/break\" (as in a cord breaking) — colloquially extended to mean a situation breaking bad for someone",
+    "examples": [
+      {
+        "text": "Lagot ka, sinabi ko kay mama lahat ng kabalastugan mo. Charot!",
+        "source": "tagaloglang.com / common Filipino conversational slang"
+      },
+      {
+        "text": "Lagot tayo pag nalaman ni sir na wala tayong homework.",
+        "source": "Filipino school culture / everyday slang"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "hala",
+      "badtrip",
+      "buking",
+      "bwiset"
+    ],
+    "categories": [
+      "exclamation",
+      "warning",
+      "consequence",
+      "everyday slang"
+    ],
+    "sources": [
+      "Wave 1b: TikTok PH",
+      "Wave 1b: Reddit r/Philippines"
+    ]
+  },
+  {
+    "term": "buking",
+    "definitions": [
+      "Slang for being exposed, caught, or found out; to have a secret revealed; \"Nabuking ka!\" = You got caught!/You've been exposed!"
+    ],
+    "etymology": "Derived from Tagalog \"buko\" (coconut) via the verb \"bukin\" (to open/split open a coconut) — metaphorically, to crack someone open and expose what's inside; the slang form drops the final \"-in\" to give \"buking\" as a state",
+    "examples": [
+      {
+        "text": "Nabuking ka na! Nakita ka niya sa SM kasama yung iba.",
+        "source": "Filipino conversational slang / thesmartlocal.ph"
+      },
+      {
+        "text": "Buking ang cheat code mo, pare — nakita ng lahat sa stream.",
+        "source": "Filipino gaming community slang"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "caught in 4k",
+      "lagot",
+      "hala"
+    ],
+    "categories": [
+      "exposure",
+      "social drama",
+      "everyday slang",
+      "Gen Z"
+    ],
+    "sources": [
+      "Wave 1b: TikTok PH",
+      "Wave 1b: Gaming PH"
+    ]
+  },
+  {
+    "term": "kulelat",
+    "definitions": [
+      "Loser; the person in last place; someone who finishes or ranks last in a competition, test, or ranking",
+      "By extension: a hopeless underperformer; someone perpetually behind or failing"
+    ],
+    "etymology": "Origin unclear; possibly a creative compound or derived coinage in Filipino informal language; documented in multiple Filipino slang dictionaries as slang",
+    "examples": [
+      {
+        "text": "Ngayon lang sila naging kulelat sa paglalaro ng basketball.",
+        "source": "tagaloglang.com example sentence"
+      },
+      {
+        "text": "Hindi niya alam kung paano ipapaliwanag sa kaniyang mga magulang na siya ang kulelat sa klase.",
+        "source": "buhayofw.com Filipino slang dictionary"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "palpak",
+      "basted",
+      "L",
+      "supalpal",
+      "bokya"
+    ],
+    "categories": [
+      "competition",
+      "failure",
+      "sports",
+      "everyday slang"
+    ],
+    "sources": [
+      "Wave 1b: Reddit r/Philippines",
+      "Wave 1a: Filipino rap culture"
+    ]
+  },
+  {
+    "term": "asar",
+    "definitions": [
+      "Feeling annoyed, irritated, or vexed; being pissed off at someone or something",
+      "As a verb (mang-asar): to deliberately tease, irritate, or provoke someone; \"Huwag mo akong asarin\" = Don't annoy me"
+    ],
+    "etymology": "Borrowed from Spanish \"asar\" (to roast) or \"azar\" (misfortune/obstacle); the roasting metaphor extended to the sensation of being \"roasted\" with irritation",
+    "examples": [
+      {
+        "text": "Grabe ka! Ang asar mo talaga ngayon!",
+        "source": "tagalogslang.com / Filipino daily conversation"
+      },
+      {
+        "text": "Nakakaasar yung tao na yan, lagi kang ginagawa niyang joke.",
+        "source": "Filipino social media / everyday youth speech"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "badtrip",
+      "bwiset",
+      "inis",
+      "toyo",
+      "pikon"
+    ],
+    "categories": [
+      "emotion",
+      "frustration",
+      "everyday slang",
+      "interpersonal"
+    ],
+    "sources": [
+      "Wave 1b: TikTok PH",
+      "Wave 1b: Twitter/X Filipino"
+    ]
   }
 ]
