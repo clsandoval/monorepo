@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 112 — hundred-and-twelfth raw-gap audit (5 new terms, 838→843)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: mekus mekus, tsimay, obob, tambay, tambayan — covering viral TikTok catchphrase 'mekus mekus' (Filipino-Indian creator Mr. Nobodydudy's 'mix mix' with Indian accent; went viral 2023; documented on noypigeeks.com, philnews.ph, mb.com.ph, timeinmanila.com); domestic worker slang 'tsimay' (female housemaid/katulong; also spelled chimay; carries derogatory connotations; documented on philippinelanguages.com, tagalog.com); back-slang insult 'obob' (syllabic reversal of 'bobo' = stupid; follows baliktad tradition; documented in kaikki.org Tagalog dictionary, tagalog.com, Tagalog profanity Wikipedia); urban culture archetype 'tambay' (person who loiters/hangs around aimlessly; from English 'stand by' → istambay; documented in tagalog.com, HiNative, lingvanex, Urban Dictionary, talkpal.ai; represents recognizable figure in Filipino urban life); and barkada culture concept 'tambayan' (favorite hangout spot; tambay + -an locative suffix; documented in Filipino dictionaries and cultural writing as central to barkada group dynamics))"
+    },
+    {
       "iteration": "refinement pass 111 — hundred-and-eleventh raw-gap audit (5 new terms, 833→838)",
       "new_terms": 5,
       "refined_entries": 0,
