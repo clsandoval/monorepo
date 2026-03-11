@@ -1144,3 +1144,48 @@ Focused on Gen Alpha slang documented in Philippine media (Manila Bulletin Jan 2
 **Dictionary total:** 869 → 870 terms
 
 | 122 | 2026-03-11 | Refinement pass 122 — Cebuano/Bisaya crossover slang and regional vocabulary gap audit (1 new term, 869→870) | Post-Wave 4 | +1 new | Extensive multi-angle web research across Filipino Wattpad vocabulary, beauty TikTok terms, 2026 viral slang, swardspeak academic literature, political vocabulary, and regional crossover terms. Most candidates already in dictionary or too established. Found tambaloslos (Cebuano/Bisaya folkloric creature used as mainstream Filipino political insult; viral May 2023 via Sara Duterte Instagram; documented GMA News/PEP.ph/Manila Bulletin/Philstar/OneNews/tagaloglang.com/tagalog.com/Wiktionary/Aswang Project). Convergence counter reset to 0. |
+
+---
+
+## Refinement Pass 123 — 2026-03-11
+
+**Aspect:** Post-Wave 4 refinement — OPM/P-pop fandom vocabulary, Filipino internet acronyms, and unexplored youth slang gap audit
+
+**Method:** Multi-angle web research targeting 8 unexplored areas: (1) Filipino OPM/P-pop fandom vocabulary 2024-2025, (2) Filipino PBA basketball slang, (3) early 2026 viral Filipino trends, (4) Filipino esports gaming slang (MLBB/Valorant), (5) Filipino Kpop/Ppop fandom exclusive vocabulary, (6) 2025 word-of-year roundup articles (Spot.ph, MB, Tribune), (7) Filipino internet acronyms, (8) BPO/call center vocabulary crossovers. Cross-referenced all candidates against the 870-entry dictionary before adding.
+
+**Search strategy:**
+- Spot.ph 2025 group chat slang roundup → all 7 listed terms already in dictionary (trentahin, over naman sa, bigla kang sumakses, sobrang latina, organic encounter, what hafen vella, na para bang)
+- MB January 2026 kids/teens slang guide → all 7 terms already in dictionary (6-7, aura farming, unc, brain rot, mog, rage bait)
+- Filipino esports gaming terms → normalin, pugak, peenoise, sultan, makati all already in dictionary; "funnel" is a standard English gaming term, not Filipino slang
+- Filipino P-pop/K-pop fandom vocabulary (Philippine Graphic June 2025, Ateneo Katipunan 2024 paper) → found "kaps" (A'TIN fandom term of address, rooted in kapamilya/kapwa) NOT in dictionary; fancam, ULT, comeback, seenzone already in dictionary; BLOOM/A'TIN are proper noun fandom names (not standalone slang)
+- tagalogslang.com search for "kaps" → also documented as short for "kape" (coffee), quick caffeine fix
+- Filipino internet acronyms → OMCM (alternate spelling of omsim) — omsim already in dictionary; OMCM is just a written variant
+- Filipino BPO slang → sked, prod, aux, TL, QA, RDOT — mostly pre-2023 workplace jargon
+- bigatin → pre-2023 established Tagalog term (derived from "bigat"/weight); rejected
+- kulang sa pansin/KSP → KSP already in dictionary; "kulang sa pansin" is standard Tagalog phrase, too established
+
+**Terms verified as already in dictionary (not re-added):**
+- trentahin, over naman sa, bigla kang sumakses, sobrang latina, organic encounter, what hafen vella, na para bang, 6-7, aura farming, unc, brain rot, mog, rage bait, normalin, pugak, peenoise, sultan, makati, fancam, ULT, comeback, seenzone, omsim, KSP, bangis, diskarte, swabe, patapon, dump account, dogshow, shot puno
+
+### Terms Added
+
+1. **kaps** — Filipino slang with dual documented etymology: (1) clipped form of "kape" (coffee), used casually to mean a quick coffee break or caffeine fix ("Mag-kaps muna tayo bago mag-trabaho" — Let's grab a quick coffee before work), documented on tagalogslang.com; (2) P-pop fandom term of address used within SB19's A'TIN community, shortening of "kapamilya" (lit. 'of the family') or "kapwa" (fellow/shared identity), both deeply rooted Filipino cultural concepts — being called "kaps" signals membership and belonging in the fandom, documented in Ateneo de Manila University Katipunan journal (2024) academic paper studying SB19 fandom language on social media and Philippine Graphic (June 2025) article on K-pop fandom vocabulary; categories: food-culture, P-pop culture, fan community slang, filipinisms-and-local-vocabulary, fandom-and-stan-culture
+
+### Candidates Considered and Rejected
+
+- **bigatin** — pre-2023 established Tagalog adjective meaning "big shot/heavyweight"; derived from root "bigat" (weight); documented in tagaloglang.com, tagalog.com, answers.com as standard vocabulary since at least early 2010s; rejected
+- **jolens** — primarily the Tagalog word for "marbles" (children's game); only tangentially connected to jologs etymology; not emergent youth slang
+- **OMCM** — written variant of "omsim" (backspelling of "mismo"); omsim already in dictionary; OMCM is an alternate written form, not a separate term
+- **kulang sa pansin** — established standard Tagalog/Filipino phrase for "attention-seeker"; KSP already in dictionary; long predates 2023
+- **fanchant** — general K-pop terminology (synchronized fan shout-outs during concerts); widely used in PH K-pop/P-pop communities but primarily Korean-originated international fandom vocabulary, not Filipino-specific emergent slang
+- **bloom/blooms** — BINI's fandom name (stylized BL∞M); proper noun fandom name, not standalone slang
+- **A'TIN** — SB19's fandom name meaning "ours"; proper noun fandom name, not standalone slang
+- **normalin** — already in dictionary
+- **pugak** — already in dictionary
+- **funnel** (MLBB strategy) — standard English gaming term; not Filipino-specific emergent slang
+- **lakas ng loob** — established standard Tagalog phrase for "courage/boldness"; pre-2023 standard expression
+
+**Convergence counter:** reset to 0 (1 new term found)
+**Dictionary total:** 870 → 871 terms
+
+| 123 | 2026-03-11 | Refinement pass 123 — OPM/P-pop fandom vocabulary and Filipino internet slang gap audit (1 new term, 870→871) | Post-Wave 4 | +1 new | Multi-angle web research across P-pop/K-pop fandom vocabulary (Philippine Graphic June 2025, Ateneo Katipunan 2024), 2025 word-of-year roundups (Spot.ph, MB, Tribune), esports gaming slang, BPO vocabulary, and internet acronyms. Most terms already in dictionary. Found kaps (dual meaning: short for kape/coffee via tagalogslang.com; SB19 A'TIN fandom term of address from kapamilya/kapwa via Ateneo paper 2024 and Philippine Graphic June 2025). Convergence counter reset to 0. |

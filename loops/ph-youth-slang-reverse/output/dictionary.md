@@ -1,6 +1,6 @@
 # Filipino Youth Slang Dictionary & Thesaurus
 
-**Total terms:** 870
+**Total terms:** 871
 **Total categories:** 228
 **Last updated:** 2026-03-11
 
@@ -4613,6 +4613,23 @@
 **Related:** kaloka, grabe, vaklush, crayola
 
 **Categories:** exclamations-and-hype, lgbtq-and-beki-lingo
+
+---
+
+### kaps
+
+1. Short for kape (coffee); a quick coffee or caffeine fix — used casually when suggesting a coffee break.
+2. Fandom term of address used within SB19's A'TIN community to call fellow fans; derived from kapamilya (family member) or kapwa (fellow/shared identity), invoking Filipino cultural values of togetherness and community inclusion.
+
+**Etymology:** Dual etymology: (1) Clipped form of Tagalog 'kape' (coffee, from Spanish 'café'), with casual -s suffix; (2) Shortening of 'kapamilya' (lit. 'of the family', ka- + pamilya) or 'kapwa' (fellow, shared identity) — both deeply rooted Filipino cultural concepts; coined in SB19's A'TIN fandom community on X (Twitter); documented in Ateneo de Manila University Katipunan journal (2024) and Philippine Graphic (June 2025).
+
+**Examples:**
+- *"Mag-kaps muna tayo bago mag-trabaho."* — tagalogslang.com example (Let's grab a quick coffee before work.)
+- *"When someone called me 'kaps' online, I immediately felt like I was already part of the fandom."* — A'TIN fan testimonial, Ateneo de Manila University Katipunan (2024)
+
+**Related:** kape, kapwa, kapamilya, ULT, stan, A'TIN
+
+**Categories:** food-culture, P-pop culture, fan community slang, filipinisms-and-local-vocabulary, fandom-and-stan-culture
 
 ---
 

@@ -14899,6 +14899,45 @@
     ]
   },
   {
+    "term": "kaps",
+    "definitions": [
+      "Short for kape (coffee); a quick coffee or caffeine fix; used casually when suggesting a coffee break.",
+      "Fandom term of address used within SB19's A'TIN community to address fellow fans; derived from kapamilya (family member) or kapwa (fellow/shared identity), invoking Filipino cultural values of togetherness and community inclusion; being called 'kaps' signals membership and belonging in the fandom."
+    ],
+    "etymology": "Dual etymology: (1) Clipped form of Tagalog 'kape' (coffee, from Spanish 'café'), with casual -s suffix; (2) Shortening of 'kapamilya' (lit. 'of the family', ka- + pamilya) or 'kapwa' (fellow, shared identity) — both deeply rooted Filipino cultural concepts; coined in SB19's A'TIN fandom community on X (Twitter) and studied in Ateneo de Manila University Katipunan academic paper (2024); documented in Philippine Graphic (June 2025).",
+    "examples": [
+      {
+        "text": "Mag-kaps muna tayo bago mag-trabaho.",
+        "source": "tagalogslang.com example (coffee usage) — Let's grab a quick coffee before work."
+      },
+      {
+        "text": "When someone called me 'kaps' online, I immediately felt like I was already part of the fandom.",
+        "source": "A'TIN fan testimonial, Ateneo de Manila University Katipunan journal (2024), study of SB19 fandom language"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "kape",
+      "kapwa",
+      "kapamilya",
+      "ULT",
+      "A'TIN",
+      "stan"
+    ],
+    "categories": [
+      "food-culture",
+      "P-pop culture",
+      "fan community slang",
+      "filipinisms-and-local-vocabulary",
+      "fandom-and-stan-culture"
+    ],
+    "sources": [
+      "Twitter/X Filipino — slang threads, viral tweets using new terms, stan/fan community language"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
     "term": "kaway kaway",
     "definitions": [
       "A viral Filipino internet phrase used to call out or address a specific group of people in a post: 'Kaway kaway sa mga [group]' (wave wave to all the [group]).",

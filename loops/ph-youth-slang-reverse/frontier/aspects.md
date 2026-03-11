@@ -4,9 +4,9 @@
 - Total aspects: 25
 - Analyzed: 25
 - Pending: 0
-- Convergence counter: 0/3
+- Convergence counter: 0/3 (reset — 1 new term found in pass 123)
 - Raw terms gathered: 553
-- Terms defined: 870
+- Terms defined: 871
 - Categories discovered: 228
 
 ---
