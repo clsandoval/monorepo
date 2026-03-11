@@ -6,8 +6,8 @@
 - Pending: 0
 - Convergence counter: 0/3
 - Raw terms gathered: 548
-- Terms defined: 773
-- Categories discovered: 217
+- Terms defined: 778
+- Categories discovered: 220
 
 ---
 
