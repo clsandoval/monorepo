@@ -32671,5 +32671,94 @@
     ],
     "synonyms": [],
     "antonyms": []
+  },
+  {
+    "term": "kanal humor",
+    "definitions": [
+      "A style of humor that is crude, vulgar, lowbrow, or unrefined — the Filipino equivalent of 'gutter humor.' Named after 'kanal' (Tagalog/Filipino: sewer, drainage canal), implying comedy that comes from the 'bottom of the barrel.'",
+      "By extension, humor that is raw, unapologetically crass, and associated with the masa (masses) rather than the elite — sometimes worn as a badge of pride by Filipinos who embrace their unfiltered comedic sensibility."
+    ],
+    "etymology": "Compound of Tagalog 'kanal' (sewer/drainage canal, from Spanish 'canal') + English 'humor.' Coined as part of a Filipino TikTok-born taxonomy opposing 'kanal' (lowbrow) and 'aircon' (highbrow) styles of comedy. Popularized by creator Justine Luzares whose 'Kanal and Aircon Humor' TikTok videos garnered hundreds of thousands of likes (c. 2022–2023), then became a nationally recognized framework discussed on ABS-CBN's It's Showtime and across Filipino social media through 2024–2025.",
+    "examples": [
+      {
+        "text": "Kanal humor 'yung mga jokes namin — walang filter, lahat natatawa.",
+        "source": "Filipino TikTok comment section, 2023–2024"
+      },
+      {
+        "text": "Kanal humor vs aircon humor — which side are you on?",
+        "source": "TikTok @justineluzares viral video, 450K+ likes"
+      },
+      {
+        "text": "Proud naman akong kanal — at least totoo.",
+        "source": "Filipino social media, 2025"
+      }
+    ],
+    "regional_notes": "Used nationally across all Philippine regions. The 'kanal vs aircon' framework has become a widely understood cultural shorthand for class-inflected humor differences, touching on real divisions between masa and elite Filipino comedy.",
+    "related_terms": [
+      "aircon humor",
+      "conyo",
+      "masa",
+      "jologs",
+      "baduy",
+      "bastos"
+    ],
+    "categories": [
+      "humor-and-comedy",
+      "class-and-social-dynamics",
+      "internet-and-social-media",
+      "identity-and-self-expression"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "aircon humor"
+    ]
+  },
+  {
+    "term": "aircon humor",
+    "definitions": [
+      "A style of humor perceived as highbrow, elitist, or sophisticated — the opposite of 'kanal humor.' Named after the air conditioner, a symbol of affluence in the Philippines where many households lack one.",
+      "Often associated with 'conyo' culture: code-switching, upper-class humor involving elaborate vocabulary, dry wit, or references that require a certain social or educational background to appreciate. Can be self-deprecating (used by posh people laughing at their own privilege) or used externally as a mild critique."
+    ],
+    "etymology": "Compound of 'aircon' (air conditioner — in PH slang, a marker of middle-to-upper class status since many households only have electric fans) + English 'humor.' Emerged as the contrasting label to 'kanal humor' in the Filipino TikTok humor taxonomy popularized c. 2022–2023 by creator Justine Luzares and others, later crossing over to mainstream TV on It's Showtime.",
+    "examples": [
+      {
+        "text": "Ayaw nila sa amin — sabi nila aircon daw ang humor namin. Pero proud naman.",
+        "source": "Filipino TikTok, 2024"
+      },
+      {
+        "text": "Aircon humor kasi ito — hindi mo maiintindihan kung hindi ka nakapag-aral sa Ateneo.",
+        "source": "Filipino social media joke, 2023–2024"
+      },
+      {
+        "text": "Kanal at aircon humor — ano ang kaibahan? Justine Luzares explains.",
+        "source": "TikTok @justineluzares, 2023"
+      }
+    ],
+    "regional_notes": "Used nationally, but the 'aircon' label is most relatable in urban contexts where class signifiers like aircon ownership are well understood. Associated particularly with Metro Manila elite school culture (Ateneo, La Salle, UP). The humor type itself is linked to 'conyo' speech, which is predominantly a Metro Manila phenomenon.",
+    "related_terms": [
+      "kanal humor",
+      "conyo",
+      "burgis",
+      "sosyal",
+      "elit"
+    ],
+    "categories": [
+      "humor-and-comedy",
+      "class-and-social-dynamics",
+      "internet-and-social-media",
+      "identity-and-self-expression"
+    ],
+    "sources": [
+      "TikTok PH — trending slang compilations, comment sections, Filipino TikTok creators explaining slang",
+      "YouTube PH — slang explainer videos, reaction videos, vlogs with heavy slang usage"
+    ],
+    "synonyms": [],
+    "antonyms": [
+      "kanal humor"
+    ]
   }
 ]
