@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 100 — hundredth raw-gap audit (5 new terms, 778→783)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: ambot, kapoy, tsibog, susmaryosep, alabuton — covering Bisaya/Ilonggo expression of cluelessness/indifference 'ambot' (equivalent to Tagalog ewan; versatile tone-dependent delivery; documented on bisdakwords.com, HiNative, binisaya.com, tagaloglang.com, TikTok #learnbisaya), Bisaya/Cebuano exhaustion descriptor 'kapoy' (equivalent to Tagalog pagod; viral on TikTok #bisdak; documented on bisayacebuano.com, bisdakwords.com, binisaya.com), classic Filipino food slang 'tsibog' (food/mealtime; verb 'tsumibog'; popularly spelled chibog; documented on tagaloglang.com, kaikki.org, tagalog.com, hubpages.com; still heavily used in YouTube vlogging culture), Catholic-rooted exclamation 'susmaryosep' (portmanteau of Jesus+Maria+Josep; equivalent to 'Oh my God!'; Gen Z shortened to 'Susme'; documented on tagalogslang.com, untranslatable.co, HiNative, thesmartlocal.ph, Wikipedia), and Bisaya/Cebuano irritability descriptor 'alabuton' (easily annoyed/short-fused; equivalent to Tagalog pikon; spreading nationally via TikTok Bisaya culture; documented on Quora Cebuano slang thread, TikTok #learncebuano))"
+    },
+    {
       "iteration": "refinement pass 99 — ninety-ninth raw-gap audit (5 new terms, 773→778)",
       "new_terms": 5,
       "refined_entries": 0,
