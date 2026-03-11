@@ -1,7 +1,13 @@
 {
   "counter": 0,
-  "last_updated": "2026-03-10",
+  "last_updated": "2026-03-11",
   "history": [
+    {
+      "iteration": "refinement pass 95 — ninety-fifth raw-gap audit (5 new terms, 753→758)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: daks, juts, SLR, bespren, krung-krung — covering swardspeak Bisaya-origin size antonym pair, Filipino digital text-speak abbreviation, friendship vocabulary phonetic compound, and reduplicative personality descriptor; all 5 absent from 753-entry dictionary despite active documented usage in swardspeak, digital culture, and Gen Z vocabulary sources)"
+    },
     {
       "iteration": "refinement pass 94 — ninety-fourth raw-gap audit (6 new terms, 747→753)",
       "new_terms": 6,

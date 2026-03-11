@@ -794,3 +794,46 @@ Focused on Gen Alpha slang documented in Philippine media (Manila Bulletin Jan 2
 
 **Convergence counter:** reset to 0 (3 new terms found)
 **Dictionary total:** 747 terms
+
+---
+
+## Refinement Pass 95 — 2026-03-11
+
+**Aspect:** Post-Wave 4 raw-gap audit (refinement pass 95)
+**Method:** Multi-angle web search targeting swardspeak vocabulary gaps, digital text-speak abbreviations, friendship vocabulary, and documented Gen Z personality descriptors.
+
+**Search strategy:**
+- Searched for new terms in 2025–2026 Filipino youth slang roundups (spot.ph, mb.com.ph, ling-app.com, fastforward.life)
+- Verified all major 2025 viral terms (soafer, trentahin, aura farming, forda ferson, dasurv, sobrang latina) — all already in dictionary
+- Targeted swardspeak/gay lingo vocabulary gaps: discovered `daks` and `juts` (Bisaya-origin size descriptors) were absent despite being well-documented swardspeak antonym pair
+- Searched digital text-speak: discovered `SLR` (Sorry Late Reply) absent despite wide Filipino youth usage
+- Searched friendship vocabulary: discovered `bespren` absent despite distinct history from `beshie`/`besh`
+- Searched personality descriptors: discovered `krung-krung` (crazy/nutty) absent
+
+**Terms verified as already in dictionary (not re-added):**
+- arat, aura farming, dasurv, forda ferson, SKL, soafer, sobrang latina, trentahin
+- naur, boogsh, lavarn, accla, deds, eme, werpa, AFAM
+- chariz, budol, forda ferson, maritess, tolits, estetik, korique
+- hanash, booking, naks, petiks, walwal, beshie
+
+### Terms Added
+
+1. **daks** — swardspeak/gay lingo for "big/well-endowed"; from Cebuano 'dako' (big); antonym of 'juts'; documented in Urban Dictionary, tagaloglang.com, kaikki.org, academic research on Filipino queer language; "Daks ka ba?"; categories: swardspeak, gay lingo, body descriptor, size vocabulary, Bisaya crossover; related: juts, beki, accla
+
+2. **juts** — swardspeak/gay lingo for "small/not well-endowed"; also 'jutay'; from Cebuano 'diyutay' (small); direct antonym of 'daks'; documented in Wiktionary, kaikki.org, philippinelanguages.com; "Si Paulo ay jutay"; categories: swardspeak, gay lingo, body descriptor, size vocabulary, Bisaya crossover; related: daks, beki, accla
+
+3. **SLR** — acronym for "Sorry Late Reply"; Filipino digital/text abbreviation used to apologize for delayed responses in messaging apps; documented on TikTok PH, Brainly.ph, AcronymFinder; "SLR besh, natulog ako kagabi"; categories: internet abbreviation, text speak, digital etiquette, messaging culture; related: IYKYK, FYP, anw, SKL
+
+4. **bespren** — Filipino phonetic spelling of "best friend"; documented since 1980s, resurged on social media; distinct from 'beshie' in being the full compound rather than casual address; "Bespren! Anong nangyari?"; categories: friendship vocabulary, terms of address, internet slang, phonetic borrowing; related: besh, beshie, pare, barkada
+
+5. **krung-krung** — adjective meaning "crazy/nutty/wacky"; reduplicative formation; used playfully within friend groups; documented in HubPages Tagalog slang guide, Talkpal Gen Z dictionary, FastForward MR 2025; "Wag mong pakinggan si Jessa, krung-krung 'yan"; categories: personality descriptor, playful insult, reduplication, mental state; related: baliw, sira, abnoy, ogag, ulol
+
+### Candidates Rejected
+
+- **pers na pers** — insufficient direct sourcing; AI-generated explanation without dedicated articles confirming it as a documented slang term
+- **parekoy** — overlaps heavily with `pare` already in dictionary; primarily a friendly address variant rather than distinct slang
+- **marisol/marissa/maris** — niche variants of the 'marites' archetype without sufficient independent documentation
+- **lamig ng weather** — cultural phrase/meme trope rather than distinct slang vocabulary item
+
+**Convergence counter:** reset to 0 (5 new terms found: daks, juts, SLR, bespren, krung-krung — covering swardspeak Bisaya-origin antonym pair, Filipino digital text-speak, friendship vocabulary, and playful personality descriptor)
+**Dictionary total:** 753 → 758 terms
