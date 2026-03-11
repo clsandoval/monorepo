@@ -33267,5 +33267,130 @@
       "Inquirer USA",
       "HiNative"
     ]
+  },
+  {
+    "term": "pasabog",
+    "definitions": [
+      "A bombshell announcement, shocking reveal, or show-stopping moment; something that blows you away with its impact",
+      "Used as an adjective to describe something stunning, jaw-dropping, or overwhelmingly impressive"
+    ],
+    "etymology": "From root word 'sabog' (to explode/scatter) + causative prefix 'pa-'; literally 'to cause an explosion.' The figurative extension from literal explosive to shocking social announcement mirrors the English use of 'bomb' or 'dropping a bombshell.'",
+    "examples": [
+      {
+        "text": "Ang pasabog naman ng announcement niya!",
+        "source": "Filipino social media / HiNative usage example"
+      },
+      {
+        "text": "Abangan ang pasabog na reveal bukas!",
+        "source": "Filipino social media / ling-app.com Tagalog internet slang"
+      },
+      {
+        "text": "Pasabog na look niya sa red carpet!",
+        "source": "Filipino entertainment commentary"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "sabog",
+      "bongga",
+      "gigil",
+      "shookt"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "entertainment-and-pop-culture",
+      "exclamations-and-reactions",
+      "everyday-slang"
+    ],
+    "sources": [
+      "Wiktionary pasabog entry",
+      "tagalog.com pasabog",
+      "wordhippo.com pasabog",
+      "HiNative Filipino slang",
+      "thesmartlocal.ph Filipino internet slang",
+      "ling-app.com Tagalog internet slang"
+    ]
+  },
+  {
+    "term": "sapaw",
+    "definitions": [
+      "To upstage, overshadow, or outshine someone; to steal the spotlight from another person",
+      "To layer or overlap something on top of another (literal: wearing two garments at once)"
+    ],
+    "etymology": "Original Tagalog literal meaning refers to water spreading over a surface or layering something on top of something else. The slang extension to social situations — being outshone or upstaged — is a modern colloquial development, parallel to how Cebuano uses the word to mean 'wearing two things layered.'",
+    "examples": [
+      {
+        "text": "Nasapawan mo ako sa suot mo!",
+        "source": "tagaloglang.com usage example — 'You upstaged me with what you were wearing!'"
+      },
+      {
+        "text": "Sinапаwan siya ng bagong contestant — nawala siya sa excitement.",
+        "source": "Filipino social media commentary"
+      }
+    ],
+    "regional_notes": "Word has parallel usage in Cebuano (meaning to layer/overlap garments) which may have influenced the slang extension to mean being overshadowed.",
+    "related_terms": [
+      "bongga",
+      "pasabog",
+      "mog",
+      "mogged"
+    ],
+    "categories": [
+      "internet-and-social-media",
+      "insults-and-shade",
+      "entertainment-and-pop-culture",
+      "everyday-slang",
+      "fashion-and-aesthetics"
+    ],
+    "sources": [
+      "tagaloglang.com sapaw",
+      "cebuano.pinoydictionary.com sapaw",
+      "kaikki.org Tagalog sapaw entry",
+      "Filipino youth slang TikTok 2023–2024"
+    ]
+  },
+  {
+    "term": "okay na 'to",
+    "definitions": [
+      "A catchphrase and mindset meaning 'this is good enough' or 'I'll make do with what I have'; signals acceptance, contentment, and moving forward without over-perfecting",
+      "Used to end a task, accept a situation, or express that something is finished/sufficient, even if imperfect"
+    ],
+    "etymology": "Standard Filipino phrase: 'okay na' (already okay) + ''to' (contraction of 'ito' = this). Went viral in 2025 through the cooking videos of Grace Tanfelix (Mommy Grace), mother of Sparkle actor Miguel Tanfelix, who ended each video with this casual sign-off. Adopted as a broad life meme — the Filipino version of 'good enough' or 'done is better than perfect.'",
+    "examples": [
+      {
+        "text": "Okay na 'to!",
+        "source": "Grace Tanfelix signature sign-off on viral Filipino TikTok/Facebook cooking videos"
+      },
+      {
+        "text": "Applied to: terrible haircuts, breakups, minimal work effort — anything where you just accept it and move on.",
+        "source": "spot.ph — 'Why Is Everyone Saying Okay Na 'To All of a Sudden?' (Feb 2025)"
+      },
+      {
+        "text": "Shoutout sayo Mommy Grace Tanfelix, sana okay na to ang buhay ko.",
+        "source": "Filipino TikTok comment / @meisrandomsm"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "mekus mekus",
+      "bigla kang sumakses",
+      "organic encounter",
+      "ewan ko"
+    ],
+    "categories": [
+      "viral-catchphrases",
+      "tiktok-culture",
+      "everyday-slang",
+      "food-culture",
+      "life-philosophy-and-mindset"
+    ],
+    "sources": [
+      "spot.ph — 10 Filipino Slang 2025",
+      "pop.inquirer.net — Grace Tanfelix viral catchphrase",
+      "pep.ph — Mommy Grace Tanfelix profile",
+      "mb.com.ph — Manila Bulletin okay na to article",
+      "philnews.ph — Mommy Grace Tanfelix",
+      "grokipedia.com Grace Tanfelix"
+    ]
   }
 ]

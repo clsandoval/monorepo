@@ -1012,3 +1012,44 @@ Focused on Gen Alpha slang documented in Philippine media (Manila Bulletin Jan 2
 **Dictionary total:** 853 → 861 terms
 
 | 118 | 2026-03-11 | Refinement pass 118 — Filipino basketball fan culture and social endearment gap audit (8 new terms, 853→861) | Post-Wave 4 | +8 new | Identified coverage gap in Filipino basketball-specific street slang not previously captured. Web-searched TrueID, Spin.ph, 8list.ph, The POST, IBN-PH basketball forum, Urban Dictionary, tagaloglang.com. Found 8 confirmed new terms: boom panes (emphatic 'in your face!' trash-talk exclamation, compound boom + panes/panis, viral via Vice Ganda/TV); surebol (accurate long-range shooter, from sure + bol/bola); butata (emphatic shot block, synonymous with supalpal, coined ~2011, referenced in PABLO song 'Butata' and Twitter discourse); nangangalabaw (excessively physical brute-force play, wordplay on kalabaw/carabao); pektus (wrist-flick technique for impossible-angle shots in basketball/siyato/billiards, referenced in Francis Magalona song); rebanse (demand for a rematch in pickup basketball, likely from Spanish revancha); takbong mayaman (jogging backwards with swagger after a play, 'rich man's run', recent Instagram Reel March 2026 confirms currency); mhie (term of endearment for female friend or nurturing figure, texting-era phonetic respelling of 'mommy', documented Inquirer USA, TikTok, used across gender in LGBTQ+ Filipino communities). |
+
+---
+
+## Refinement Pass 119 — 2026-03-11
+
+**Aspect:** Post-Wave 4 refinement — Filipino social-media vocabulary and viral catchphrase gap audit
+
+**Method:** Multi-angle web search targeting slang terms absent from the 861-entry dictionary. Focused on: (1) Filipino commute/transport culture vocabulary for emergent slang, (2) BPO/call center workplace slang, (3) Filipino social media vocabulary with figurative extensions, (4) viral catchphrases from TikTok/Facebook content creators. Cross-referenced all candidates against dictionary before adding.
+
+**Search strategy:**
+- Searched Filipino jeepney/commute slang and transport vocabulary — found mostly standard/established Tagalog (para, bayad, sakay, etc.) not qualifying as emergent slang
+- Searched Filipino BPO/call center slang — found mostly Filipinisms or standard terms already covered
+- Searched "sapaw" Filipino slang youth context — confirmed slang extension to "upstage/outshine" via tagaloglang.com with usage example
+- Searched "pasabog" Filipino slang — confirmed via Wiktionary, tagalog.com, wordhippo.com, HiNative, thesmartlocal.ph, ling-app.com as well-documented social media bombshell term
+- Searched "okay na 'to" Mommy Grace Tanfelix — confirmed massive viral spread via spot.ph, pop.inquirer.net, pep.ph, mb.com.ph, philnews.ph
+- Cross-checked 2026 Manila Bulletin slang guide and Spot.ph 2025 roundup for any uncaptured terms — found trentahin, aura farming, rage bait, unc already in dictionary
+- Checked WokeWaves Filipino Gen Z slang guide — rekta, sobrang lit already in dictionary
+
+**Terms verified as already in dictionary (not re-added):**
+- trentahin, aura farming, rage bait, unc, touch grass, brain rot, 6-7, bias, rekta, sobrang lit, soafer, what hafen, basted, praning, sabit, pabebe, palaman, tambay, tambayan, mog, mogged
+
+### Terms Added
+
+1. **pasabog** — bombshell announcement or shocking reveal on Filipino social media; derived from 'sabog' (explode) + causative prefix 'pa-'; figurative extension from literal explosive to jaw-dropping social announcement; widely used to hype celebrity reveals, surprise news, and show-stopping moments; 'Ang pasabog naman ng announcement niya!' ('What a bombshell announcement!'); documented in Wiktionary (full conjugation entry with Baybayin ᜉᜐᜊᜓᜄ᜔), tagalog.com (monolingual Tagalog definition), wordhippo.com, HiNative (multiple Filipino native speaker answers), thesmartlocal.ph Filipino internet slang guide, ling-app.com 37+ Tagalog internet slang; categories: internet-and-social-media, entertainment-and-pop-culture, exclamations-and-reactions, everyday-slang; related: sabog, bongga, gigil, shookt
+
+2. **sapaw** — to upstage, overshadow, or outshine someone; slang extension of the Tagalog word for layering/covering one thing on top of another; modern colloquial use in social situations of being outshone or upstaged in fashion, talent, or general presence; 'Nasapawan mo ako sa suot mo!' ('You upstaged me with what you were wearing!'); documented in tagaloglang.com (explicit usage example), kaikki.org Tagalog dictionary, cebuano.pinoydictionary.com (parallel Cebuano usage for wearing two things layered), lingvanex.com Tagalog dictionary, tagalog.com; categories: internet-and-social-media, insults-and-shade, entertainment-and-pop-culture, everyday-slang, fashion-and-aesthetics; related: bongga, pasabog, mog, mogged
+
+3. **okay na 'to** — Filipino viral catchphrase and mindset from 2025 meaning 'this is good enough / I'll make do'; originated from Grace Tanfelix (Mommy Grace), mother of Sparkle actor Miguel Tanfelix, who ends every home-cooking video with this casual sign-off in the most easygoing tone; adopted by millions beyond cooking — used to accept a bad haircut, move on from a breakup, or embrace minimal effort at work; 'Okay na 'to' captures the Filipino spirit of contentment and resourcefulness; Grace reached 3M followers by March 2025; documented in spot.ph ('10 Filipino Slang Words That Took Over Our Group Chats in 2025'), pop.inquirer.net ('Content creator Grace Tanfelix captivates Filipino social media users with signature line'), pep.ph (Mommy Grace profile), mb.com.ph Manila Bulletin (okay na to article), philnews.ph, grokipedia.com; categories: viral-catchphrases, tiktok-culture, everyday-slang, food-culture, life-philosophy-and-mindset; related: mekus mekus, bigla kang sumakses, organic encounter
+
+### Candidates Considered and Rejected
+
+- **singit** — standard Tagalog word for cutting in line / squeezing in; too established as pre-2023 standard vocabulary; does not meet the emergent slang criterion
+- **para** / **bayad** — standard jeepney commuter vocabulary; not slang
+- **linyahan** — insufficient independent web documentation as a distinct slang term
+- **naloko** — conjugated form of standard Tagalog 'loko' (crazy/tricky); too established as standard vocabulary
+- **pasikot** — not independently documented as slang in current usage
+
+**Convergence counter:** reset to 0 (3 new terms found)
+**Dictionary total:** 861 → 864 terms
+
+| 119 | 2026-03-11 | Refinement pass 119 — Filipino social-media vocabulary and viral catchphrase gap audit (3 new terms, 861→864) | Post-Wave 4 | +3 new | Multi-angle web research across Filipino transport slang, BPO vocabulary, social media figurative extensions, and 2025 viral catchphrases. Found pasabog (bombshell announcement; documented Wiktionary, tagalog.com, wordhippo.com, HiNative, thesmartlocal.ph, ling-app.com); sapaw (upstage/outshine; documented tagaloglang.com example, kaikki.org, cebuano.pinoydictionary.com); okay na 'to (Mommy Grace Tanfelix 2025 viral catchphrase meaning 'good enough'; documented spot.ph, pop.inquirer.net, pep.ph, mb.com.ph, philnews.ph). Convergence counter reset to 0. |
