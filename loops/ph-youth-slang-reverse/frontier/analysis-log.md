@@ -967,3 +967,42 @@ Focused on Gen Alpha slang documented in Philippine media (Manila Bulletin Jan 2
 **Dictionary total:** 845 → 846 terms
 
 | 114 | 2026-03-11 | Refinement pass 114 — Filipino internet personality archetypes and fan culture slang audit (1 new term, 845→846) | Post-Wave 4 | +1 new | Broad search across spot.ph, Manila Bulletin, Philippine Tribune, FastForward MR, Rappler music profiles. Found hev abi enjoyer — a well-documented Filipino TikTok personality archetype for fans of Hev Abi, supported by multiple TikTok discovery pages, Rappler Spotify RADAR profile, NylonManila 2024 coverage, and viral TikTok videos with 10K+ likes. No new categories needed (fits existing identity-and-self-expression, fan-culture, music-and-pop-culture). Convergence counter reset to 0. |
+
+---
+
+## Refinement Pass 117 — 2026-03-11
+
+**Aspect:** Post-Wave 4 refinement — Filipino fandom/teleserye culture and swardspeak gap audit
+
+**Method:** Multi-angle web search targeting fandom-specific and entertainment-culture slang absent from the 850-entry dictionary. Queried Filipino K-pop stan slang, teleserye fan culture terminology, loveteam vocabulary, swardspeak gap terms, and Filipino entertainment-specific phrases.
+
+**Search strategy:**
+- Searched Philippines Graphic K-pop fandom lingo guide, allkpop stan glossary, Spot.ph 2025 slang roundup
+- Searched Filipino teleserye/Kapamilya fan culture: loveteam history, fandom terms, OTP shipper vocabulary
+- Queried tagalogslang.com for kontrabida, tagaloglang.com for paminta, Wiktionary for kontrabida
+- Verified paminta slang meaning via Urban Dictionary, HiNative, kaikki.org, slangdefine.org, and Mikey Bustos tweet
+- Searched reel to real: OneDown Media, UST College of Science Journal, PEP.ph, Gulf News, candymag.com
+- Verified all candidates absent from 850-entry dictionary via Python grep before adding
+
+**Terms verified as already in dictionary (not re-added):**
+- loveteam, kilig, sasaeng, bet, marupok, charot, seenzoned, forda ferson, lodi, shipper, OTP, stan, marites, dogshow, estetik
+
+### Terms Added
+
+1. **paminta** — Swardspeak/gay lingo term for a closeted gay man who acts straight (pa-men + paminta/pepper pun); 'pamintang bulo' = gay man so convincingly masculine even women can't tell; the metaphor mirrors the pepper plant: unassuming exterior, intensely spicy inside; documented in Urban Dictionary, HiNative (Filipino language section), tagaloglang.com, slangdefine.org, kaikki.org (Tagalog dictionary with Baybayin entry), Mikey Bustos public tweet; categories: swardspeak-and-beki-lingo, lgbtq-language, identity-and-expression, wordplay-and-back-slang; related: beki, bading, tomboy, bakla, closeted
+
+2. **kontrabida** — the villain/antagonist in Philippine teleseryes and cinema; extended everyday slang for real-life scheming, dramatic, or antagonistic people; from Philippine Spanish contra + bida (against the lead); Bella Flores immortalized the phrase 'Walang bida kung walang kontrabida!'; documented in Wiktionary (full Tagalog entry with Baybayin), tagalog.com, tagalogslang.com ('contrabida' entry), wordhippo.com, tagaloglang.com, popgeeks.com (Netflix Kontrabida Academy 2024 context), PEP.ph; categories: entertainment-and-pop-culture, classic-filipino-slang, teleserye-culture, personality-descriptors, insults-and-shade; related: bida, teleserye, loveteam, villain era, main character
+
+3. **reel to real** — uniquely Filipino showbiz phrase for a loveteam transitioning from fictional scripted romance to genuine real-life relationship; the Holy Grail of Filipino fan culture ('Sana maging reel to real sila!'); gained heightened meaning during 2023 'Annus Horribilis' when KathNiel, JaDine, KimXi all announced breakups; documented in OneDown Media (loveteam obsession piece), UST College of Science Journal (Medium, loveteam culture parts 1 & 2), PEP.ph (multiple loveteam coverage articles), Gulf News (popular Filipino love teams), candymag.com (celebrity couples starting as love teams); categories: teleserye-culture, fan-culture, romance-vocabulary, filipinisms-and-local-vocabulary, entertainment-and-pop-culture; related: loveteam, kilig, shipper, OTP, kontrabida, teleserye
+
+### Candidates Considered and Rejected
+
+- **bida** — direct counterpart to kontrabida (the protagonist); while complementary, bida is more standard Tagalog vocabulary than youth slang; its slang extension ('bida ka naman' = acting heroic/grandiose) is captured better by kontrabida + main character entries already in dictionary
+- **teleserye** — uniquely Filipino portmanteau (tele + serye) but coined in 2001 by ABS-CBN and well-established; not emergent youth slang
+- **idol** — while distinctly Filipino as a term of casual address to strangers ('Idol, magkano?'), it's too established as a standard loanword; its slang reversal 'lodi' is already in the dictionary
+- **palaban** — standard Tagalog word (fighter/one who fights) that has crossed into slang usage; however, it lacks the distinct new slang meaning required; primarily describes a personality type using standard vocabulary
+
+**Convergence counter:** reset to 0 (3 new terms found)
+**Dictionary total:** 850 → 853 terms
+
+| 117 | 2026-03-11 | Refinement pass 117 — Filipino fandom/teleserye culture and swardspeak gap audit (3 new terms, 850→853) | Post-Wave 4 | +3 new | Conducted multi-angle web research across Filipino K-pop stan culture, loveteam fan culture, swardspeak vocab, and teleserye-specific terminology. Found paminta (straight-acting closeted gay man; pa-men pun; documented Urban Dictionary, HiNative, tagaloglang.com, kaikki.org, slangdefine.org, Mikey Bustos tweet); kontrabida (Filipino villain archetype extended to real-life scheming people; documented Wiktionary, tagalog.com, tagalogslang.com, wordhippo.com, tagaloglang.com, PEP.ph, Netflix Kontrabida Academy 2024); reel to real (Filipino showbiz phrase for loveteam becoming real couple; documented OneDown, UST Journal, PEP.ph, Gulf News, candymag). Convergence counter reset to 0. |
