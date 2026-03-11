@@ -32760,5 +32760,88 @@
     "antonyms": [
       "kanal humor"
     ]
+  },
+  {
+    "term": "young stunna",
+    "definitions": [
+      "A cultural identity label and lifestyle archetype used by Filipino youth to describe someone who embodies street confidence, hip-hop-influenced style, and hustle mentality — someone who is bold, self-assured, and represents the 'come up' from humble origins.",
+      "Also refers to the Filipino youth street-slang vocabulary system/dialect associated with this identity, which has its own lexicon (sah, matsalove, roksi, deins, egul, etc.) blending hip-hop English terms with Tagalog and coded street language."
+    ],
+    "etymology": "From English 'young' + 'stunna' (hip-hop pronunciation of 'stunner' — someone with great presence, style, and confidence). Popularized in the Philippines through a viral Facebook vocabulary list that spread to TikTok in 2024–2025. Parallels the global rise of South African Amapiano artist Young Stunna whose TikTok presence amplified the label. Analyzed by Pinoy Weekly (November 2025) as a socio-political language of resistance and identity among Filipino working-class youth.",
+    "examples": [
+      {
+        "text": "Dami Young Stunna sa BGC na hindi pinapapasok — class discrimination ito.",
+        "source": "Filipino TikTok discourse on class and exclusion, 2025"
+      },
+      {
+        "text": "Kami ng barkada, Young Stunnas 'to — sasabay sa paglipad ng eroplano.",
+        "source": "Filipino youth social media, 2024–2025"
+      }
+    ],
+    "regional_notes": "Most strongly associated with urban working-class youth communities in Metro Manila and Visayas. The vocabulary list spread nationally through social media. The Pinoy Weekly framing presents Young Stunna language as part of a youth resistance identity, particularly among youth in poverty navigating a class-stratified Philippines.",
+    "related_terms": [
+      "sah",
+      "matsalove",
+      "roksi",
+      "hustlin",
+      "hood",
+      "cuh",
+      "day ones",
+      "cappin",
+      "lespu",
+      "deins"
+    ],
+    "categories": [
+      "street-and-hustle",
+      "identity-and-persona",
+      "hip-hop-and-rap-culture",
+      "internet-and-social-media"
+    ],
+    "sources": [
+      "refinement-pass-116 — Filipino youth street identity culture audit 2025"
+    ],
+    "synonyms": [],
+    "antonyms": []
+  },
+  {
+    "term": "healing era",
+    "definitions": [
+      "A declared personal phase of deliberate emotional recovery, self-prioritization, and mental health focus — typically announced after a difficult period (breakup, burnout, toxic relationship, trauma) to signal that one is consciously choosing growth over staying stuck.",
+      "Used broadly to describe a period of cutting off negativity, doing self-care, going to therapy, journaling, or doing anything that nurtures one's well-being."
+    ],
+    "etymology": "English compound: 'healing' (emotional/psychological recovery) + 'era' (a TikTok-popularized suffix for naming personal life phases as story arcs). Part of the 'era' slang family popularized on TikTok globally circa 2022–2023 (alongside 'villain era', 'main character era', 'slay era') and deeply embedded in Filipino youth culture by 2024–2025. Used in Taglish code-switching: 'Nasa healing era na ako.'",
+    "examples": [
+      {
+        "text": "Nasa healing era na ako — wala na sa listahan ko 'yung mga toxic.",
+        "source": "Filipino TikTok, 2024–2025"
+      },
+      {
+        "text": "Healing era muna bago mag-move on. 'Di ako papayag na mag-settle sa wala.",
+        "source": "Filipino social media, 2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "villain era",
+      "main character energy",
+      "slay era",
+      "glow up",
+      "self-love era"
+    ],
+    "categories": [
+      "relationships-and-romance",
+      "mental-health-and-wellness",
+      "tiktok-era-language",
+      "identity-and-self-expression"
+    ],
+    "sources": [
+      "refinement-pass-116 — Filipino TikTok self-care era language audit 2025"
+    ],
+    "synonyms": [
+      "glow up era"
+    ],
+    "antonyms": [
+      "villain era"
+    ]
   }
 ]
