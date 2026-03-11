@@ -937,3 +937,31 @@ Focused on Gen Alpha slang documented in Philippine media (Manila Bulletin Jan 2
 **Dictionary total:** 838 → 843 terms
 
 | 112 | 2026-03-11 | Hundred-and-twelfth raw-gap audit — viral TikTok catchphrases + domestic vocabulary + back-slang + Filipino urban archetypes (5 new terms, 838→843) | Post-Wave 4 | +5 new | Conducted multi-source web research across viral TikTok culture, domestic-worker vocabulary, back-slang tradition, and classic Filipino urban culture terms. Found mekus mekus (viral Filipino-Indian TikToker Mr. Nobodydudy catchphrase; documented noypigeeks.com, philnews.ph, mb.com.ph); tsimay (female housemaid slang; documented philippinelanguages.com, tagalog.com); obob (back-slang of bobo; documented kaikki.org Baybayin entry, Wikipedia Tagalog profanity); tambay (loitering archetype; documented tagalog.com, HiNative, lingvanex, Urban Dictionary); tambayan (hangout spot; tambay + -an locative). Five new categories: viral-catchphrases, cross-cultural, places-and-spaces (3 new distinct categories added). Convergence counter reset to 0. |
+
+---
+
+## Iteration 114 — 2026-03-11
+
+**Pass type:** Post-Wave 4 refinement — Filipino internet personality archetypes and fan culture slang audit
+
+**Approach:** Broad web search for Filipino youth slang 2025–2026 not yet in dictionary. Queried spot.ph Top 10 slang of 2025, Manila Bulletin 2026 guide, Philippine Tribune end-of-year viral words, FastForward MR Gen Z dictionary, Rappler music profiles. Cross-checked all discovered candidates against 845-entry dictionary via Python.
+
+**Terms verified as already in dictionary (not re-added):**
+- trentahin, bigla kang sumakses, sobrang latina, okay na 'to, organic encounter, over naman, doot doot, what hafen, dogshow, estetik, boogsh, shot puno, amaccana/ammacana, soafer, mog, mogging, touch grass, brain rot, awoj, unc, aura farming, rage bait, luh, mej, naol, sanaol, lodicakes, gg, ggss, gigil, soft launch, tita, tita mode, era, villain era, dtq, ekalal, gar, gorabels, eklavu, ijbol, kosa, acm, naur
+
+### Terms Added
+
+1. **hev abi enjoyer** — Filipino internet slang personality archetype/label for devoted fans of Quezon City rapper Hev Abi (Gabriel Abilla). Emerged on Filipino TikTok following the viral success of WELCOME2DTQ (2023), which charted on Billboard Philippines and amassed millions of TikTok clips. The label is documented via multiple TikTok discovery pages ('What Is The Meaning of Hev Abi Enjoyer,' 'Hev Abi Enjoyer Meaning'), viral videos (@jikamarie's 'hev abi enjoyer era' with 10,300+ likes, @faelitezz 'yan ang hev abi enjoyer,' @batuts7 'Understanding the Meaning of Hev Abi Enjoyer and Trust'), Rappler/Spotify RADAR profile ("what the internet hilariously calls 'Hev Abi enjoyers'"), and NylonManila's 2024 Breakout Stars coverage. Signals identification with authentic Pinoy hip-hop, downtown QC street culture, and Hev Abi's laid-back-yet-emotionally-real musical style. Follows the global '[X] enjoyer' internet meme suffix. TikTok trend 'hanapin natin mga hev abi enjoyers sa La Salle' shows it was used to spot personality-type peers on university campuses. Categories: identity-and-self-expression, fan-culture, internet-and-social-media, music-and-pop-culture, gen-z-and-imported-slang
+
+### Candidates Considered and Rejected
+
+- **sakre/sakred** — Hev Abi's spelling of 'Sacred' (as in Sacred Heart, QC neighborhood). Place abbreviation rather than standalone slang term; not independently documented as a common expression. Already referenced via DTQ entry.
+- **balbal/balabal** — The Tagalog word *for* slang itself; standard/formal vocabulary, not youth slang.
+- **alalik** — No independent web documentation found; may have been a hallucination in AI-generated search response. Rejected.
+- **mamaru** — Some documentation as Gen Z slang for 'overreact/dramatic' but insufficient independent usage examples with source citations found to validate.
+- **asim** (as attitude slang) — Standard Tagalog/Filipino (sour) with colloquial uses; pre-2023 established term, does not qualify.
+
+**Convergence counter:** reset to 0 (1 new term found)
+**Dictionary total:** 845 → 846 terms
+
+| 114 | 2026-03-11 | Refinement pass 114 — Filipino internet personality archetypes and fan culture slang audit (1 new term, 845→846) | Post-Wave 4 | +1 new | Broad search across spot.ph, Manila Bulletin, Philippine Tribune, FastForward MR, Rappler music profiles. Found hev abi enjoyer — a well-documented Filipino TikTok personality archetype for fans of Hev Abi, supported by multiple TikTok discovery pages, Rappler Spotify RADAR profile, NylonManila 2024 coverage, and viral TikTok videos with 10K+ likes. No new categories needed (fits existing identity-and-self-expression, fan-culture, music-and-pop-culture). Convergence counter reset to 0. |
