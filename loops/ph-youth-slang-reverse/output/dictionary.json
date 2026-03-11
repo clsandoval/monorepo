@@ -30350,5 +30350,232 @@
       "may forever",
       "may pag-asa"
     ]
+  },
+  {
+    "term": "yass",
+    "definitions": [
+      "An emphatic, exaggerated exclamation of enthusiastic agreement, approval, or celebration — more expressive and camp than a simple 'yes.'",
+      "Used to celebrate someone's fabulousness, style, or achievement, often in combination with 'kween': 'Yass, kween!'"
+    ],
+    "etymology": "Originates from Black and Latino ballroom/drag culture in the United States (1980s–1990s), popularized globally through internet culture and shows like RuPaul's Drag Race. Absorbed into Filipino swardspeak (beki/gay lingo) as part of the community's engagement with Western LGBTQ+ pop culture, then spread to mainstream Filipino Gen Z vocabulary.",
+    "examples": [
+      {
+        "text": "Yass! Ganyan talaga dapat — slay mo 'yan!",
+        "source": "Filipino Twitter/X, 2024"
+      },
+      {
+        "text": "Yass, kween! Lumakas ka na!",
+        "source": "Filipino swardspeak TikTok comment section, 2025"
+      }
+    ],
+    "regional_notes": "National usage; especially prominent in Metro Manila LGBTQ+ communities and mainstream Gen Z social media. Mentioned as bekimon/gay lingo crossover in multiple Filipino Gen Z slang guides including Talkpal and ling-app.com.",
+    "related_terms": [
+      "kween",
+      "slay",
+      "beki",
+      "swardspeak",
+      "pak",
+      "pak na pak"
+    ],
+    "categories": [
+      "swardspeak-and-beki-lingo",
+      "exclamations-and-reactions",
+      "affirmations-and-hype",
+      "lgbtq-language"
+    ],
+    "sources": [
+      "Filipino swardspeak/beki lingo",
+      "Filipino Gen Z slang",
+      "LGBTQ+ Filipino community"
+    ],
+    "synonyms": [
+      "pak",
+      "slay",
+      "oo naman"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "kween",
+    "definitions": [
+      "A deliberately stylized spelling of 'queen' used as a term of empowerment, endearment, or high praise directed at a friend or someone admired for their confidence, fabulousness, or resilience.",
+      "Used to hype up or celebrate a person — often combined with 'yass': 'Yass, kween!'"
+    ],
+    "etymology": "Stylized respelling of the English word 'queen,' rooted in Black and Latino ballroom/drag culture. Absorbed into Filipino swardspeak (bekimon/gay lingo) as part of the community's deep engagement with global LGBTQ+ pop culture, then spread to mainstream Filipino Gen Z vocabulary. The dramatized spelling is characteristic of swardspeak's playful, expressive orthography.",
+    "examples": [
+      {
+        "text": "Yass, kween! Alam mo na ang halaga mo!",
+        "source": "Filipino swardspeak social media, 2024"
+      },
+      {
+        "text": "Slay mo 'yang outfit, kween!",
+        "source": "Filipino TikTok comment section, 2025"
+      }
+    ],
+    "regional_notes": "National usage; particularly associated with Metro Manila LGBTQ+ communities and swardspeak. Documented in Wikipedia's entry on Swardspeak as an example of global LGBTQ+ vocabulary absorbed into Filipino gay lingo, and in the Beelinguapp guide to beki words.",
+    "related_terms": [
+      "yass",
+      "slay",
+      "beki",
+      "swardspeak",
+      "bongga",
+      "pak na pak"
+    ],
+    "categories": [
+      "swardspeak-and-beki-lingo",
+      "terms-of-address",
+      "affirmations-and-hype",
+      "lgbtq-language",
+      "compliments-and-affirmations"
+    ],
+    "sources": [
+      "Filipino swardspeak/beki lingo",
+      "Filipino Gen Z slang",
+      "LGBTQ+ Filipino community"
+    ],
+    "synonyms": [
+      "queen",
+      "reyna"
+    ],
+    "antonyms": []
+  },
+  {
+    "term": "pakboy",
+    "definitions": [
+      "A Filipino adaptation of the English 'fuckboy': a man who pursues sexual or romantic relationships without genuine emotional commitment, often leading partners on and disappearing.",
+      "More broadly, any womanizer or player who treats romantic partners as disposable."
+    ],
+    "etymology": "Tagalog phonetic adaptation of the English slang 'fuckboy' (or 'fuckboi'), softening the profanity for casual use in Filipino conversation and social media. Listed in Wiktionary's Tagalog slang appendix with its Baybayin spelling (ᜉᜃ᜔ᜊᜓᜌ᜔). Also spelled 'pakboi.'",
+    "examples": [
+      {
+        "text": "Sino 'yang kasama mo? Mukhang pakboy!",
+        "source": "Wiktionary Tagalog slang appendix, documented usage"
+      },
+      {
+        "text": "Ingat ka sa kanya, pakboy 'yan — lipad agad pagkatapos.",
+        "source": "Filipino Twitter/X dating discourse, 2024"
+      }
+    ],
+    "regional_notes": "National usage, widely used among Filipino youth in Metro Manila and online. Documented in Wiktionary (Tagalog), Urban Dictionary, and Esquire Philippines' feature on Filipino slang through the decades.",
+    "related_terms": [
+      "FUBU",
+      "MU",
+      "situationship",
+      "paasa",
+      "landi",
+      "player"
+    ],
+    "categories": [
+      "romance-vocabulary",
+      "dating-culture",
+      "personality-descriptors",
+      "insults-and-shade"
+    ],
+    "sources": [
+      "Filipino internet slang",
+      "Filipino dating culture",
+      "Tagalog slang"
+    ],
+    "synonyms": [
+      "player",
+      "manliligaw na walang intensyon"
+    ],
+    "antonyms": [
+      "jowable",
+      "green flag"
+    ]
+  },
+  {
+    "term": "bulakbol",
+    "definitions": [
+      "A slacker or truant; someone who habitually avoids school, work, or responsibilities, preferring to wander aimlessly or do nothing.",
+      "As a verb: to play truant, goof off, or skip one's obligations."
+    ],
+    "etymology": "Historically derived from the English word 'blackball' — during American colonial rule, Filipinos who were blacklisted/blackballed for resisting U.S. troops were unable to work and became known as 'bulakbol,' a term that later broadened to describe anyone avoiding work or school. Documented in tagalogslang.com, kaikki.org, tagaloglang.com, tagalog.com, and pinoydictionary.com.",
+    "examples": [
+      {
+        "text": "Huy, 'wag kang mag-bulakbol sa trabaho mo ngayon!",
+        "source": "tagalog.com documented example"
+      },
+      {
+        "text": "Yung kapatid ko, bulakbol siya — palaging natutulog sa bahay.",
+        "source": "Filipino everyday speech, widely documented"
+      }
+    ],
+    "regional_notes": "National usage across all Filipino generations; still heavily used by Gen Z in school/workplace contexts and in meme culture about procrastination. Documented on tagalogslang.com, kaikki.org, tagaloglang.com, tagalog.com, pinoydictionary.com, buhayofw.com, wordhippo.com.",
+    "related_terms": [
+      "tiamtiam",
+      "pabebe",
+      "tamad",
+      "tambay",
+      "lakwatsa"
+    ],
+    "categories": [
+      "personality-descriptors",
+      "school-and-student-life",
+      "work-culture",
+      "classic-filipino-slang"
+    ],
+    "sources": [
+      "Tagalog slang",
+      "Filipino Gen Z usage",
+      "classic Filipino vocabulary"
+    ],
+    "synonyms": [
+      "tamad",
+      "istambay"
+    ],
+    "antonyms": [
+      "sipag",
+      "seryoso"
+    ]
+  },
+  {
+    "term": "pabida",
+    "definitions": [
+      "Someone who always tries to be the center of attention or steal the spotlight; an attention-seeker who inserts themselves into situations to gain recognition or credit.",
+      "Someone who acts like the main character or lead ('bida') of every situation, even when uninvited."
+    ],
+    "etymology": "From 'pa-' (a prefix indicating acting as or pretending to be) + 'bida' (the Tagalog word for the protagonist, hero, or lead actor/actress, from Spanish 'vida'). A compound meaning 'acting like the lead/star.' Related to 'epal' (from 'papel') — butting in to steal the spotlight.",
+    "examples": [
+      {
+        "text": "Ang pabida niya talaga — ikukuwento niya lagi ang sarili kahit hindi siya ang tinatanong.",
+        "source": "HiNative Filipino language explanation, documented"
+      },
+      {
+        "text": "Wag kang maging pabida sa group project namin, team effort ito.",
+        "source": "Filipino school/work culture discourse, 2024"
+      }
+    ],
+    "regional_notes": "National usage, widely used in school, workplace, and social media contexts. Related but distinct from 'epal' (someone who butts in inappropriately) — 'pabida' specifically emphasizes wanting to be the star/protagonist.",
+    "related_terms": [
+      "epal",
+      "hambog",
+      "KSP",
+      "papansin",
+      "bida",
+      "main character"
+    ],
+    "categories": [
+      "personality-descriptors",
+      "social-behavior",
+      "insults-and-shade",
+      "classic-filipino-slang"
+    ],
+    "sources": [
+      "Filipino slang",
+      "Filipino Gen Z usage",
+      "Tagalog colloquial vocabulary"
+    ],
+    "synonyms": [
+      "epal",
+      "KSP",
+      "papansin",
+      "hambog"
+    ],
+    "antonyms": [
+      "deadma",
+      "tahimik"
+    ]
   }
 ]

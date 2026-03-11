@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 102 — hundred-and-second raw-gap audit (5 new terms, 788→793)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: yass, kween, pakboy, bulakbol, pabida — covering swardspeak/bekimon LGBTQ+ affirmation vocabulary 'yass' (enthusiastic 'yes!' from ballroom culture absorbed into Filipino gay lingo; documented in Wikipedia Swardspeak, NCCA Filipino Gayspeak article, Vice PH, Talkpal, ling-app.com gen z guides) and 'kween' (stylized 'queen' term of empowerment; documented in Wikipedia Swardspeak, Beelinguapp beki words guide, swardspeak academic papers); Filipino dating culture 'pakboy' (Tagalog adaptation of English 'fuckboy'/womanizer; listed in Wiktionary Tagalog slang appendix with Baybayin spelling, Urban Dictionary, Esquire Philippines decades-of-slang feature, TikTok language videos); classic Filipino slang 'bulakbol' (slacker/truant; etymology from English 'blackball'; documented on tagalogslang.com, kaikki.org, tagaloglang.com, tagalog.com, pinoydictionary.com, buhayofw.com, wordhippo.com); and attention-seeker vocabulary 'pabida' (pa-+bida, acting like the protagonist/spotlight-stealer; documented on HiNative Filipino explanation, Teen Slang Talkpal guide, general Filipino slang guides)"
+    },
+    {
       "iteration": "refinement pass 101 — hundred-and-first raw-gap audit (5 new terms, 783→788)",
       "new_terms": 5,
       "refined_entries": 0,
