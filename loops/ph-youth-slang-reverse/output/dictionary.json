@@ -29180,5 +29180,190 @@
       "Gen Z Slang in Tagalog Language — Talkpal",
       "The Filipino Gen Z Dictionary — FastForward MR 2025"
     ]
+  },
+  {
+    "term": "gi-ghost",
+    "definitions": [
+      "Bisaya/Cebuano slang for 'got ghosted' — when someone suddenly cuts off all communication without explanation, especially in a romantic or personal context.",
+      "Formed by combining the Cebuano past passive prefix 'gi-' (indicating an action was done to someone) with the English slang verb 'to ghost'. Part of a productive Bisaya code-switching pattern: gi-block, gi-seen, gi-friend zone."
+    ],
+    "etymology": "Bisaya grammatical construction: 'gi-' (Cebuano past passive prefix, equivalent of Tagalog 'na-') + English 'ghost' (verb). Demonstrates the creative application of Visayan verbal morphology to borrowed English slang. The pattern is widespread in Bisalog (Bisaya-Tagalog code-switching).",
+    "examples": [
+      {
+        "text": "Gi-ghost ko niya uy! Wala na siyang nagtext sa akoa.",
+        "source": "Filipino social media — Cebuano Gen Z usage, 2024–2025"
+      },
+      {
+        "text": "Gi-Ghost sa Gugma",
+        "source": "Song title by Bisaya Ni Vibes — Anghami streaming platform, 2024"
+      }
+    ],
+    "regional_notes": "Predominantly Bisaya/Cebuano-speaking regions (Visayas, Mindanao — Cebu, Davao, Cagayan de Oro). Has crossover usage in Taglish communities through social media. The Tagalog equivalent is 'na-ghosted' (already in dictionary). Both forms coexist in national Filipino youth culture.",
+    "related_terms": [
+      "na-ghosted",
+      "ghosting",
+      "left on read",
+      "seenzoned",
+      "silayzoned"
+    ],
+    "categories": [
+      "relationships",
+      "digital communication",
+      "Bisaya slang",
+      "code-switching",
+      "regional variant"
+    ],
+    "sources": [
+      "Bisaya Ni Vibes — 'Gi-Ghost sa Gugma' song (Anghami, 2024)",
+      "TikTok PH — Gen Z Bisaya slang compilation",
+      "Bisalog linguistic analysis — Wikipedia",
+      "Quora — Cebu/Bisaya unique slang expressions"
+    ]
+  },
+  {
+    "term": "endo",
+    "definitions": [
+      "Filipino slang for 'end of contract' — the labor practice of hiring workers on successive short-term contracts (typically 5 months) to avoid regularization and prevent workers from accruing benefits.",
+      "Used by Filipino youth to describe precarious employment, job insecurity, and the frustration of contractual work. Often used as a verb: 'ma-endo' (to be let go at contract end)."
+    ],
+    "etymology": "Clipping/truncation of 'end of contract'; also referenced as '5-5-5' for the 5-month contract cycle. Emerged as labor slang when contractualization became a major social issue in the Philippines, prominently discussed during the 2016 election campaign and beyond. Explicitly categorized as 'Filipino slang' in multiple Philippine labor and educational sources.",
+    "examples": [
+      {
+        "text": "Limang buwan na ang trabaho ko sa kompanya, baka ma-endo na naman ako.",
+        "source": "Kalibrr Philippines — labor culture blog, 2023"
+      },
+      {
+        "text": "Ayaw ko nang mag-apply doon, endo lang ang mangyayari.",
+        "source": "Reddit r/Philippines — job hunting discussion, 2024"
+      }
+    ],
+    "regional_notes": "Used nationwide across the Philippines, particularly common in Metro Manila and other urban centers with high BPO and manufacturing employment. Deeply embedded in Filipino youth labor vocabulary.",
+    "related_terms": [
+      "raket",
+      "regular"
+    ],
+    "categories": [
+      "labor culture",
+      "workplace vocabulary",
+      "youth economic vocabulary",
+      "social issues"
+    ],
+    "sources": [
+      "Course Hero / Kalibrr Philippines — 'Endo' explicitly labeled as Filipino slang",
+      "Rappler Philippines — 'Endo not entirely bad' (Joel Villanueva)",
+      "Philippine Tribune — May 2025 labor commentary",
+      "Reddit r/Philippines — Gen Z worker discussions"
+    ]
+  },
+  {
+    "term": "add to cart",
+    "definitions": [
+      "Filipino internet slang used as an enthusiastic recommendation or expression of desire — 'I-add to cart mo na yan!' (You have to get that!). Transcends its literal e-commerce meaning to express wanting something.",
+      "Also used figuratively to express attraction or interest in a person: 'I-add to cart na kita.' Reflects the normalization of online shopping culture (Lazada, Shopee) in Filipino everyday speech."
+    ],
+    "etymology": "Borrowed from the e-commerce interface action of adding items to an online shopping cart (Shopee, Lazada). In the Philippines, where online shopping boomed during and after the COVID-19 pandemic, 'add to cart' became a cultural shorthand for desire, recommendation, and impulsive wanting. Documented as a distinct Filipino internet slang expression by ling-app.com and other sources.",
+    "examples": [
+      {
+        "text": "I-add to cart mo na yan, dali! Sulit na sulit siya!",
+        "source": "ling-app.com — Tagalog internet slang documentation, 2024"
+      },
+      {
+        "text": "Nakita ko yung jacket na yan — I-add to cart ko na talaga.",
+        "source": "Filipino TikTok live selling comment culture, 2024–2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "budol",
+      "na-budol",
+      "pa-mine",
+      "sulit",
+      "libre"
+    ],
+    "categories": [
+      "online shopping culture",
+      "internet slang",
+      "desire expression",
+      "consumerism"
+    ],
+    "sources": [
+      "ling-app.com — 37+ Latest Tagalog Internet Slang Words",
+      "nabudolako.com — Filipino online shopping slang",
+      "Cebu Daily News — understanding online shopping lingos"
+    ]
+  },
+  {
+    "term": "na-budol",
+    "definitions": [
+      "Past tense / passive conjugation of 'budol' — 'I was persuaded/tricked into buying something impulsively.' The verbified form used to confess an impulse purchase.",
+      "Commonly used in the phrase 'Na-budol nanaman ako!' (I got budol'd again!) to express humorous self-awareness about impulsive buying behavior, usually triggered by social media or live selling."
+    ],
+    "etymology": "Tagalog verbal formation: 'na-' (past passive marker indicating something happened to the subject) + 'budol' (the impulsive buying slang). Follows the standard Filipino verb conjugation pattern used widely for borrowed slang (na-ghosted, na-left on read, na-seenzoned). The prefix 'na-' turns the noun/concept into an experienced action.",
+    "examples": [
+      {
+        "text": "Na-budol nanaman akong bumili ng bagong gamit dahil sa TikTok.",
+        "source": "nabudolako.com — Filipino online shopping community, 2024"
+      },
+      {
+        "text": "Na-budol kita! Nag-order ka rin pala ng sapatos na iyon.",
+        "source": "Filipino social media comment culture, 2024–2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "budol",
+      "add to cart",
+      "pa-mine",
+      "sulit"
+    ],
+    "categories": [
+      "online shopping culture",
+      "consumerism",
+      "internet slang",
+      "verbal conjugation"
+    ],
+    "sources": [
+      "nabudolako.com — Filipino impulse buying community",
+      "TaasNooPilipino — 'Budol: The Slang for Impulsive Buying'",
+      "ling-app.com — Tagalog internet slang documentation"
+    ]
+  },
+  {
+    "term": "aura points",
+    "definitions": [
+      "The figurative score of a person's coolness, charisma, or social presence — gained or lost through actions and behavior. A gamified metaphor for social status and impression.",
+      "Used to evaluate someone's actions: impressive or 'cool' behavior earns aura points; cringe, embarrassing, or uncool behavior costs aura points (also: 'bad aura')."
+    ],
+    "etymology": "Combines 'aura' (charisma/presence/vibe — established Filipino/Gen Z slang) with 'points' (gaming term for score accumulation). Developed alongside 'aura farming' (act of cultivating aura) as part of the 2024–2025 global Gen Alpha/Gen Z internet trend that went viral via the 'Pacu Jalur boy' meme. Manila Bulletin Jan 2026 guide notes 'aura farming' as a key teens/kids term, with 'aura points' as its metric.",
+    "examples": [
+      {
+        "text": "Grabe, sobrang laki ng aura points ni kuya — hindi siya kinindatan kahit umuulan.",
+        "source": "Filipino TikTok comments on 'aura farming' trend, 2024–2025"
+      },
+      {
+        "text": "Hala, -100 aura points! Nahulog ka pa sa harap ng crush mo.",
+        "source": "Filipino social media meme culture, 2024–2025"
+      }
+    ],
+    "regional_notes": null,
+    "related_terms": [
+      "aura farming",
+      "awra",
+      "rizz",
+      "pogi points",
+      "main character"
+    ],
+    "categories": [
+      "gaming crossover",
+      "Gen Alpha slang",
+      "social media vocabulary",
+      "charisma / social capital"
+    ],
+    "sources": [
+      "Manila Bulletin — '2026 kids and teens slang guide' (Jan 2026)",
+      "Know Your Meme — Aura Farming",
+      "Dictionary.com — Aura Farming slang entry",
+      "Khaleej Times — 'From Ragebait to Aura Farming: Gen Z slang that defined 2025'"
+    ]
   }
 ]
