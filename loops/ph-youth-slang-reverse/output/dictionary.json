@@ -30595,14 +30595,27 @@
       }
     ],
     "regional_notes": "Primarily Cebuano/Bisaya and Ilonggo (Hiligaynon) in origin. Now widely recognized across the Philippines through TikTok virality. Related forms: 'palangga' (full form), 'pangga' (alternate shortening), 'ga' (most reduced form).",
-    "related_terms": ["palangga", "pangga", "mahal", "pookie"],
-    "categories": ["terms-of-endearment", "bisaya-regional-crossover", "romance-and-relationships"],
+    "related_terms": [
+      "palangga",
+      "pangga",
+      "mahal",
+      "pookie"
+    ],
+    "categories": [
+      "terms-of-endearment",
+      "bisaya-regional-crossover",
+      "romance-and-relationships"
+    ],
     "sources": [
       "TikTok PH — trending slang compilations, comment sections",
       "usa.inquirer.net — 6 Filipino terms of endearment you can call your significant other",
       "HiNative — Filipino language questions on 'langga' and 'palangga'"
     ],
-    "synonyms": ["pangga", "palangga", "mahal"],
+    "synonyms": [
+      "pangga",
+      "palangga",
+      "mahal"
+    ],
     "antonyms": []
   },
   {
@@ -30622,14 +30635,26 @@
       }
     ],
     "regional_notes": "Cebuano/Bisaya and Ilonggo (Hiligaynon) in origin. Has gone viral nationally through TikTok, with Filipinos from all regions now recognizing it as a Bisaya endearment. Shortened to 'langga,' 'pangga,' or 'ga.'",
-    "related_terms": ["langga", "pangga", "mahal"],
-    "categories": ["terms-of-endearment", "bisaya-regional-crossover", "romance-and-relationships"],
+    "related_terms": [
+      "langga",
+      "pangga",
+      "mahal"
+    ],
+    "categories": [
+      "terms-of-endearment",
+      "bisaya-regional-crossover",
+      "romance-and-relationships"
+    ],
     "sources": [
       "Facebook IDGAF PH — viral post on Bisaya endearments",
       "usa.inquirer.net — Filipino terms of endearment",
       "TikTok PH — #langga #palangga trending content"
     ],
-    "synonyms": ["langga", "pangga", "mahal"],
+    "synonyms": [
+      "langga",
+      "pangga",
+      "mahal"
+    ],
     "antonyms": []
   },
   {
@@ -30650,14 +30675,25 @@
       }
     ],
     "regional_notes": "Primarily Cebuano/Bisaya, centered in Cebu food culture. Recognized nationally by Filipinos who engage with Bisaya TikTok and food content. Associated with Cebu's famous lechon, Larsian BBQ, and street food scene.",
-    "related_terms": ["tsibog", "kainan", "lutong bahay"],
-    "categories": ["bisaya-regional-crossover", "food-and-eating", "lifestyle"],
+    "related_terms": [
+      "tsibog",
+      "kainan",
+      "lutong bahay"
+    ],
+    "categories": [
+      "bisaya-regional-crossover",
+      "food-and-eating",
+      "lifestyle"
+    ],
     "sources": [
       "southpolecentralhotel.com — 50+ Funny Bisaya Words & Slang Phrases (2025 Street Guide)",
       "binisaya.com — Cebuano to English Dictionary",
       "sunstar.com.ph — 10 iconic Cebuano words that spice up your Binisaya"
     ],
-    "synonyms": ["tsibog", "kainan"],
+    "synonyms": [
+      "tsibog",
+      "kainan"
+    ],
     "antonyms": []
   },
   {
@@ -30678,15 +30714,33 @@
       }
     ],
     "regional_notes": null,
-    "related_terms": ["bokya", "sablay", "palpak", "supalpal", "L"],
-    "categories": ["failure-and-disappointment", "insults-and-shade", "classic-filipino-slang"],
+    "related_terms": [
+      "bokya",
+      "sablay",
+      "palpak",
+      "supalpal",
+      "L"
+    ],
+    "categories": [
+      "failure-and-disappointment",
+      "insults-and-shade",
+      "classic-filipino-slang"
+    ],
     "sources": [
       "Wiktionary — Appendix:Tagalog slang",
       "binisaya.com — Cebuano dictionary",
       "Scribd — Essential Filipino Slang Terms"
     ],
-    "synonyms": ["bokya", "palpak", "sablay"],
-    "antonyms": ["panalo", "lupet", "slay"]
+    "synonyms": [
+      "bokya",
+      "palpak",
+      "sablay"
+    ],
+    "antonyms": [
+      "panalo",
+      "lupet",
+      "slay"
+    ]
   },
   {
     "term": "libog",
@@ -30706,16 +30760,31 @@
       }
     ],
     "regional_notes": "A Bisaya/Cebuano word widely known across the Philippines as a famous cross-language false friend. Filipino youth — especially in cross-regional online spaces — use the humor of this word in memes, TikTok, and social media. Knowing this distinction is a staple of Filipino cross-cultural literacy.",
-    "related_terms": ["nalilito", "ambot", "nosebleed", "confused"],
-    "categories": ["bisaya-regional-crossover", "cross-language-humor", "emotions-and-states"],
+    "related_terms": [
+      "nalilito",
+      "ambot",
+      "nosebleed",
+      "confused"
+    ],
+    "categories": [
+      "bisaya-regional-crossover",
+      "cross-language-humor",
+      "emotions-and-states"
+    ],
     "sources": [
       "bisdakwords.com — Bisaya words humorously different in Tagalog",
       "8list.ph — 8 Bisayan Words that Mean Totally Different Things in Tagalog",
       "Wiktionary — libog (Cebuano entry)",
       "TikTok @monicaneeman — viral Libog in Bisaya vs Tagalog (7.1M plays)"
     ],
-    "synonyms": ["nalilito", "nag-aalangan"],
-    "antonyms": ["gets", "naiintindihan"]
+    "synonyms": [
+      "nalilito",
+      "nag-aalangan"
+    ],
+    "antonyms": [
+      "gets",
+      "naiintindihan"
+    ]
   },
   {
     "term": "looksmaxxing",
@@ -31128,5 +31197,195 @@
       "nyek"
     ],
     "antonyms": []
+  },
+  {
+    "term": "inlab",
+    "definitions": [
+      "To be in love or to have fallen in love with someone; the state of being infatuated or romantically attracted.",
+      "A casual way to announce one's romantic feelings, often used teasingly or playfully on social media."
+    ],
+    "etymology": "Taglish phonetic clipping of English 'in love'; absorbed into Filipino informal speech and internet slang by the mid-2010s, widely popularized on TikTok and Twitter/X by Gen Z.",
+    "examples": [
+      {
+        "text": "Na-inlab na siya sa kanya pagkatapos ng isang linggo.",
+        "source": "Tagalog.com root word entry; tagalogslang.com Filipino slang guide"
+      },
+      {
+        "text": "Mukhang inlab ka na, lagi ka na lang nakaSmile.",
+        "source": "usa.inquirer.net Filipino romance slang guide"
+      }
+    ],
+    "regional_notes": "Used nationwide across all major Philippine cities; especially prevalent on Filipino social media platforms TikTok, Facebook, and Twitter/X.",
+    "related_terms": [
+      "jowable",
+      "kilig",
+      "MU",
+      "pa-fall",
+      "syota",
+      "inlababo",
+      "labyu"
+    ],
+    "categories": [
+      "romance & relationships",
+      "Taglish",
+      "millennial slang",
+      "Gen Z slang",
+      "internet slang"
+    ],
+    "sources": [
+      "Wave 1b: Twitter/X Filipino",
+      "Wave 1b: TikTok PH"
+    ]
+  },
+  {
+    "term": "lablab",
+    "definitions": [
+      "To be lovey-dovey or overly affectionate; to shower someone with love, sweetness, or attention.",
+      "A playful expression of affection — doting on a partner, close friend, or pet with exaggerated sweetness."
+    ],
+    "etymology": "Reduplicated form of 'lab', itself a clipping of 'love' (from English). The reduplication adds intensity and cuteness, a common morphological feature in Filipino slang.",
+    "examples": [
+      {
+        "text": "Ang lablab nila sa isa't isa, hindi ka maka-relate!",
+        "source": "tagalog.com Philippine slang dictionary"
+      },
+      {
+        "text": "Lablab ko ang aso ko every single day.",
+        "source": "wordhippo.com Filipino word definition; tagalogtranslate.com"
+      }
+    ],
+    "regional_notes": "Widespread in Filipino internet and social media; heavy use on Twitter/X and TikTok comment sections.",
+    "related_terms": [
+      "inlab",
+      "kilig",
+      "labyu",
+      "pa-sweet",
+      "lambingin",
+      "sinta"
+    ],
+    "categories": [
+      "romance & relationships",
+      "affection vocabulary",
+      "reduplication",
+      "internet slang",
+      "social media"
+    ],
+    "sources": [
+      "Wave 1b: Twitter/X Filipino",
+      "Wave 1b: TikTok PH"
+    ]
+  },
+  {
+    "term": "eklavu",
+    "definitions": [
+      "Swardspeak expression for nonsense, lies, or something untrue; used to dismiss an absurd claim or call out exaggeration.",
+      "Can also function as a filler word when the speaker cannot recall the exact word they want — standing in for an unspecified noun."
+    ],
+    "etymology": "From Filipino gay lingo (swardspeak/bekimon); the exact construction is unclear but may derive from 'ekla' with -vu suffix, a common decorative suffix in swardspeak borrowed from French-sounding affectations.",
+    "examples": [
+      {
+        "text": "Eklavu yan! Wala kang alam!",
+        "source": "fastforward.life Filipino Gen Z Dictionary; mylot.com Philippine slang community discussion"
+      },
+      {
+        "text": "Ano ba yung... yung eklavu na... basta yung kinain natin kahapon.",
+        "source": "fastforward.life Filipino Gen Z Dictionary (filler usage example)"
+      }
+    ],
+    "regional_notes": "Primarily an LGBTQ+ community / swardspeak term that has crossed over into mainstream Filipino Gen Z speech.",
+    "related_terms": [
+      "chorva",
+      "churva",
+      "echos",
+      "chos",
+      "eme",
+      "beki"
+    ],
+    "categories": [
+      "swardspeak",
+      "bekimon",
+      "LGBTQ+ language",
+      "filler words",
+      "internet slang",
+      "dismissal expressions"
+    ],
+    "sources": [
+      "Wave 1b: Beki/gay lingo evolution"
+    ]
+  },
+  {
+    "term": "elbow",
+    "definitions": [
+      "To escape, sneak away, or leave a situation — to make an exit, often without fanfare or announcement.",
+      "The act of ducking out; slipping away from a gathering, conversation, or responsibility."
+    ],
+    "etymology": "Creative borrowing of the English anatomical word 'elbow', repurposed in Filipino slang to mean slipping past or making an exit — possibly evoking the image of elbowing one's way out through a crowd.",
+    "examples": [
+      {
+        "text": "Bago pa humarap si boss, nag-elbow na ako.",
+        "source": "fastforward.life Filipino Gen Z Dictionary"
+      },
+      {
+        "text": "Uy, elbow na tayo dito, maingay na.",
+        "source": "Philippine online slang community usage documented in fastforward.life"
+      }
+    ],
+    "regional_notes": "Used mostly in Metro Manila and urban online Filipino communities; Gen Z and millennial slang.",
+    "related_terms": [
+      "alis na",
+      "sige na",
+      "tara na",
+      "bawi",
+      "takbo"
+    ],
+    "categories": [
+      "movement vocabulary",
+      "internet slang",
+      "Gen Z slang",
+      "escape/exit vocabulary",
+      "creative English borrowing"
+    ],
+    "sources": [
+      "Wave 1b: Twitter/X Filipino",
+      "Wave 1b: TikTok PH"
+    ]
+  },
+  {
+    "term": "ekalal",
+    "definitions": [
+      "Man, male, guy — the swardspeak/tadbalik reversal of 'lalake' (the Tagalog word for man).",
+      "Used in gay lingo and among Filipino Gen Z in a casual, often playful or coded way to refer to men."
+    ],
+    "etymology": "Tadbalik (syllabic/phonetic reversal) of 'lalake' → 'ekalal'; part of the broader swardspeak tradition of reversing Tagalog words to create gay lingo vocabulary. The tadbalik technique has been documented since at least the 1990s in Filipino queer communities.",
+    "examples": [
+      {
+        "text": "Ang gwapo ng ekalal na 'yun, saan mo pa nakita?",
+        "source": "fastforward.life Filipino Gen Z Dictionary; journalixm.com Gen Z slang academic article"
+      },
+      {
+        "text": "Yung ekalal sa tabi mo, sino yun?",
+        "source": "Malaysian Gazette article 'From Ludlings to Skibiidi' (2024); fastforward.life Gen Z Dictionary"
+      }
+    ],
+    "regional_notes": "Nationwide usage across Filipino LGBTQ+ communities; increasingly adopted by mainstream Gen Z. Parallel female equivalent is 'bababae' → reversed or 'ebabab'.",
+    "related_terms": [
+      "tadbalik",
+      "beki",
+      "beks",
+      "vakla",
+      "swardspeak",
+      "awoj"
+    ],
+    "categories": [
+      "swardspeak",
+      "tadbalik",
+      "bekimon",
+      "LGBTQ+ language",
+      "word reversal",
+      "Gen Z slang"
+    ],
+    "sources": [
+      "Wave 1b: Beki/gay lingo evolution"
+    ]
   }
 ]

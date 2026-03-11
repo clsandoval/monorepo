@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 106 — hundred-and-sixth raw-gap audit (5 new terms, 808→813)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: inlab, lablab, eklavu, elbow, ekalal — covering Taglish romantic vocabulary 'inlab' (phonetic clipping of English 'in love'; documented on tagalog.com, theculturetrip.com, usa.inquirer.net; widespread Gen Z/millennial romantic slang); reduplicated affection term 'lablab' (from 'lab' shortening of love; lovey-dovey/showering with affection; documented on tagalog.com, wordhippo.com, tagalogtranslate.com); swardspeak filler/dismissal term 'eklavu' (nonsense/lies, or verbal filler; from gay lingo; documented in fastforward.life Filipino Gen Z Dictionary and Philippine online community discussions); Filipino slang for escaping/leaving 'elbow' (creative reuse of English anatomical word to mean slipping away; documented in fastforward.life Gen Z Dictionary); and tadbalik reversal 'ekalal' (reversal of 'lalake' meaning man/male; swardspeak/bekimon technique; documented in fastforward.life Gen Z Dictionary, journalixm.com, malaysiagazette.com 2024 ludlings article))"
+    },
+    {
       "iteration": "refinement pass 105 — hundred-and-fifth raw-gap audit (5 new terms, 803→808)",
       "new_terms": 5,
       "refined_entries": 0,
