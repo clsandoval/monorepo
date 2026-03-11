@@ -1189,3 +1189,43 @@ Focused on Gen Alpha slang documented in Philippine media (Manila Bulletin Jan 2
 **Dictionary total:** 870 → 871 terms
 
 | 123 | 2026-03-11 | Refinement pass 123 — OPM/P-pop fandom vocabulary and Filipino internet slang gap audit (1 new term, 870→871) | Post-Wave 4 | +1 new | Multi-angle web research across P-pop/K-pop fandom vocabulary (Philippine Graphic June 2025, Ateneo Katipunan 2024), 2025 word-of-year roundups (Spot.ph, MB, Tribune), esports gaming slang, BPO vocabulary, and internet acronyms. Most terms already in dictionary. Found kaps (dual meaning: short for kape/coffee via tagalogslang.com; SB19 A'TIN fandom term of address from kapamilya/kapwa via Ateneo paper 2024 and Philippine Graphic June 2025). Convergence counter reset to 0. |
+
+---
+
+## Refinement Pass 124 — 2026-03-11
+
+**Aspect:** Post-Wave 4 refinement — tito/tita symmetry gap audit, Filipino political slang 2025, and multi-angle vocabulary research
+
+**Method:** Multi-angle web research targeting unexplored areas: (1) Filipino youth financial/crypto slang, (2) Gen Z dating app vocabulary (Filipino-coined terms), (3) hugot evolution 2024-2025, (4) "Disney princess" as Philippine political slang, (5) tito/tita Gen Z usage symmetry gap, (6) patama/palengkera/arte as youth slang, (7) Tribune 2025 year-end vocabulary roundup.
+
+**Search strategy:**
+- Filipino youth financial/crypto slang — no specific new Filipino-coined terms; "budol" already in dictionary; no emergent crypto vocabulary unique to PH youth found
+- Gen Z dating Filipino terms — "MU," "landi," "soft launch," "hard launch," "organic encounter," "situationship" all already in dictionary; "basag" after breakup is usage of standard Tagalog word
+- Hugot evolution 2024-2025 — "hugot," "sana all," "hugot lines" already in dictionary; no new hugot-derived terms found
+- "Disney princess" as Philippine political slang — term used in 2024-2025 flood control scandal to mock children of wealthy contractors (Claudine Co, Lemuel Lubiano); documented in Asian Journal/Tribune/BWorld/TikTok; Spot.ph 2025 roundup mentions "nepo baby" (already in dict) alongside "Disney princess"; however, "Disney princess" as stable slang term is less well-documented than "nepo baby" and is primarily a political label rather than emergent youth slang
+- patama — well-established pre-2023 Filipino term (indirect jab/subtweet); rejected
+- palengkera/arte/kaartehan — established traditional Filipino vocabulary; not emergent post-2023 slang
+- Tribune 2025 year-end roundup (fetched) — only "trentahin" and "rage bait" mentioned; both already in dictionary
+- MB 2026 slang guide (fetched) — all 7 terms already in dictionary (6-7, aura farming, unc, brain rot, mog, touch grass, rage bait)
+- **tito vs tita symmetry** — dictionary has "tita" entry (young adult acting old-fashioned/aunt-like) but NOT "tito" (male equivalent); Balita/Manila Bulletin August 2025 explicitly lists "Tito/Tita (Gen Z usage)" as trending 2025 terms; "tito" already appears as related_term in "tita" entry but lacks its own definition; documented on tagaloglang.com; asymmetry confirmed
+
+**Terms verified as already in dictionary (not re-added):**
+- MU, landi, soft launch, hard launch, organic encounter, situationship, hugot, sana all, tita, nepo baby, touch grass, rage bait, 6-7, aura farming, unc, brain rot, mog, marites, chika, kilig, manhid, balato, kaps, tambaloslos
+
+### Terms Added
+
+1. **tito** — Gen Z/millennial slang (beyond its literal meaning of "uncle"): describes a young adult man who has adopted old-fashioned, comfort-oriented, traditional traits stereotypically associated with Filipino uncles — sleeping early, loving menthol ointment (Katinko), being annoyed by noise, preferring practical over trendy. Used both self-referentially ("Tito na ako") and to describe others. Male counterpart to the already-documented "tita." Balita/Manila Bulletin August 2025 explicitly lists "Tito/Tita (Gen Z usage)" as trending slang terms. Documented at tagaloglang.com, ling-app.com, unbox.ph, multiple 2024-2025 sources. Related to "tita core" aesthetic movement.
+
+### Candidates Considered and Rejected
+
+- **Disney princess** (Philippine political slang) — used in 2024-2025 flood control scandal to mock children of wealthy contractors who flaunt luxury online; documented in Asian Journal/Tribune/BWorld; however, it's borrowed global terminology applied to a specific scandal context rather than a stable emergent Filipino youth slang term; less independently documented as stable vocabulary than "nepo baby"; rejected
+- **patama** — established pre-2023 Filipino term for indirect jab/subtweet; well-documented since early 2010s; too established to qualify
+- **palengkera** — traditional Filipino vocabulary (market woman → crass/loud person); pre-2023 established; rejected
+- **arte/kaartehan** — traditional Filipino terms for being fussy/dramatic; pre-2023 well-established; rejected
+- **basag** (post-breakup) — standard Tagalog word for "broken" used informally after heartbreak; too standard, not an emergent slang coinage
+- **tita core** — the aesthetic/lifestyle movement; already documented within the "tita" dictionary entry as a sub-definition; doesn't need separate entry
+
+**Convergence counter:** reset to 0 (1 new term found)
+**Dictionary total:** 871 → 872 terms
+
+| 124 | 2026-03-11 | Refinement pass 124 — tito/tita symmetry gap audit and multi-angle slang research (1 new term, 871→872) | Post-Wave 4 | +1 new | Multi-angle research across financial/crypto slang, dating vocabulary, hugot evolution, political slang (Disney princess), and tito/tita symmetry. Most candidates already in dictionary or pre-2023. Found tito (male counterpart to tita; explicitly cited as trending Gen Z usage in Balita/MB August 2025; documented tagaloglang.com/ling-app.com/unbox.ph). Convergence counter reset to 0. |

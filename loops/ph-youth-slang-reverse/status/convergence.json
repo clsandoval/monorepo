@@ -3,736 +3,742 @@
   "last_updated": "2026-03-11",
   "history": [
     {
-      "iteration": "refinement pass 123 — OPM/P-pop fandom vocabulary and Filipino internet slang gap audit (1 new term, 870→871)",
+      "iteration": "refinement pass 124 \u2014 tito/tita symmetry gap audit and Filipino political slang 2025 research (1 new term, 871\u2192872)",
       "new_terms": 1,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (1 new term found: kaps — Filipino slang with dual etymology: (1) clipped form of 'kape' (coffee) used casually for a quick coffee break, documented tagalogslang.com; (2) A'TIN fandom (SB19 P-pop group) term of address for fellow fans, from 'kapamilya'/'kapwa', documented Ateneo de Manila University Katipunan academic paper 2024 and Philippine Graphic June 2025)"
+      "counter_action": "reset to 0 (1 new term found: tito \u2014 male counterpart to 'tita' slang, describing a young adult who acts old-fashioned/uncle-like; explicitly listed as trending Gen Z usage in Balita/Manila Bulletin August 2025; documented alongside tita usage in tagaloglang.com and multiple Filipino culture sources)"
     },
     {
-      "iteration": "refinement pass 122 — Cebuano/Bisaya crossover and regional slang gap audit (1 new term, 869→870)",
+      "iteration": "refinement pass 123 \u2014 OPM/P-pop fandom vocabulary and Filipino internet slang gap audit (1 new term, 870\u2192871)",
       "new_terms": 1,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (1 new term found: tambaloslos — Cebuano/Bisaya mythological creature turned national insult meaning 'shameless, inept, all-talk person'; entered mainstream Filipino vocabulary May 2023 when VP Sara Duterte used it in a viral cryptic Instagram post; documented GMA News/PEP.ph/Manila Bulletin/Philstar/OneNews/tagaloglang.com/tagalog.com/Wiktionary/Aswang Project)"
+      "counter_action": "reset to 0 (1 new term found: kaps \u2014 Filipino slang with dual etymology: (1) clipped form of 'kape' (coffee) used casually for a quick coffee break, documented tagalogslang.com; (2) A'TIN fandom (SB19 P-pop group) term of address for fellow fans, from 'kapamilya'/'kapwa', documented Ateneo de Manila University Katipunan academic paper 2024 and Philippine Graphic June 2025)"
     },
     {
-      "iteration": "refinement pass 121 — Sesable 'Sobrang Latina' extended vocabulary audit (2 new terms, 867→869)",
+      "iteration": "refinement pass 122 \u2014 Cebuano/Bisaya crossover and regional slang gap audit (1 new term, 869\u2192870)",
+      "new_terms": 1,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (1 new term found: tambaloslos \u2014 Cebuano/Bisaya mythological creature turned national insult meaning 'shameless, inept, all-talk person'; entered mainstream Filipino vocabulary May 2023 when VP Sara Duterte used it in a viral cryptic Instagram post; documented GMA News/PEP.ph/Manila Bulletin/Philstar/OneNews/tagaloglang.com/tagalog.com/Wiktionary/Aswang Project)"
+    },
+    {
+      "iteration": "refinement pass 121 \u2014 Sesable 'Sobrang Latina' extended vocabulary audit (2 new terms, 867\u2192869)",
       "new_terms": 2,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (2 new terms found: monyeka — Cebuano word for doll, adopted as viral Filipino internet slang compliment for someone strikingly beautiful, from Sesable's 'Sobrang Latina' TikTok (5.5M views, early 2025), documented pop.inquirer.net/GMA News/philstarlife.com/simpol.ph/wordhippo.com; gorjuice — phonetic respelling of gorgeous used as campy exaggerated compliment ('gorjuice gorjuice gorlz'), emerged from same Sesable Sobrang Latina viral moment, documented TikTok discovery pages/simpol.ph/spot.ph)"
+      "counter_action": "reset to 0 (2 new terms found: monyeka \u2014 Cebuano word for doll, adopted as viral Filipino internet slang compliment for someone strikingly beautiful, from Sesable's 'Sobrang Latina' TikTok (5.5M views, early 2025), documented pop.inquirer.net/GMA News/philstarlife.com/simpol.ph/wordhippo.com; gorjuice \u2014 phonetic respelling of gorgeous used as campy exaggerated compliment ('gorjuice gorjuice gorlz'), emerged from same Sesable Sobrang Latina viral moment, documented TikTok discovery pages/simpol.ph/spot.ph)"
     },
     {
-      "iteration": "refinement pass 119 — Filipino social-media vocabulary and viral catchphrase gap audit (3 new terms, 861→864)",
+      "iteration": "refinement pass 119 \u2014 Filipino social-media vocabulary and viral catchphrase gap audit (3 new terms, 861\u2192864)",
       "new_terms": 3,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (3 new terms found: pasabog — bombshell announcement/surprise reveal, from sabog (explode) + pa- prefix, documented Wiktionary/tagalog.com/wordhippo/HiNative/thesmartlocal.ph/ling-app.com; sapaw — to upstage/outshine someone, slang extension of Tagalog word for layering/overlapping, documented tagaloglang.com/kaikki.org/cebuano.pinoydictionary.com; okay na 'to — viral 2025 catchphrase/mindset meaning 'good enough/I'll make do', from Grace Tanfelix Mommy Grace cooking videos on TikTok/Facebook, documented spot.ph/pop.inquirer.net/pep.ph/mb.com.ph/philnews.ph)"
+      "counter_action": "reset to 0 (3 new terms found: pasabog \u2014 bombshell announcement/surprise reveal, from sabog (explode) + pa- prefix, documented Wiktionary/tagalog.com/wordhippo/HiNative/thesmartlocal.ph/ling-app.com; sapaw \u2014 to upstage/outshine someone, slang extension of Tagalog word for layering/overlapping, documented tagaloglang.com/kaikki.org/cebuano.pinoydictionary.com; okay na 'to \u2014 viral 2025 catchphrase/mindset meaning 'good enough/I'll make do', from Grace Tanfelix Mommy Grace cooking videos on TikTok/Facebook, documented spot.ph/pop.inquirer.net/pep.ph/mb.com.ph/philnews.ph)"
     },
     {
-      "iteration": "refinement pass 118 — Filipino basketball fan culture and social endearment gap audit (8 new terms, 853→861)",
+      "iteration": "refinement pass 118 \u2014 Filipino basketball fan culture and social endearment gap audit (8 new terms, 853\u2192861)",
       "new_terms": 8,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (8 new terms found: boom panes — emphatic 'in your face!' exclamation from Filipino basketball/trash-talk culture, compound of boom + panes/panis; viral via Vice Ganda; surebol — accurate long-range shooter, from 'sure' + 'bol' (bola), documented TrueID/Spin.ph/8list.ph; butata — emphatic shot block, synonymous with supalpal, coined ~2011, referenced in PABLO song and Twitter; nangangalabaw — excessively physical brute-force basketball play, wordplay on kalabaw (carabao), TrueID documented; pektus — wrist-flick technique for impossible-angle shots, arcane Filipino basketball/street sports term also used in siyato/ping-pong/billiards, referenced in Francis Magalona song; rebanse — demand for a rematch in pickup basketball, likely from Spanish revancha, TrueID/8list.ph documented; takbong mayaman — jogging backwards with swagger after a play, 'rich man's run', The POST/IBN-PH forum documented, recent Instagram Reel March 2026; mhie — term of endearment for female friend or nurturing older figure, texting-era phonetic respelling of 'mommy', used across gender in LGBTQ+ Filipino communities, Inquirer USA documented)"
+      "counter_action": "reset to 0 (8 new terms found: boom panes \u2014 emphatic 'in your face!' exclamation from Filipino basketball/trash-talk culture, compound of boom + panes/panis; viral via Vice Ganda; surebol \u2014 accurate long-range shooter, from 'sure' + 'bol' (bola), documented TrueID/Spin.ph/8list.ph; butata \u2014 emphatic shot block, synonymous with supalpal, coined ~2011, referenced in PABLO song and Twitter; nangangalabaw \u2014 excessively physical brute-force basketball play, wordplay on kalabaw (carabao), TrueID documented; pektus \u2014 wrist-flick technique for impossible-angle shots, arcane Filipino basketball/street sports term also used in siyato/ping-pong/billiards, referenced in Francis Magalona song; rebanse \u2014 demand for a rematch in pickup basketball, likely from Spanish revancha, TrueID/8list.ph documented; takbong mayaman \u2014 jogging backwards with swagger after a play, 'rich man's run', The POST/IBN-PH forum documented, recent Instagram Reel March 2026; mhie \u2014 term of endearment for female friend or nurturing older figure, texting-era phonetic respelling of 'mommy', used across gender in LGBTQ+ Filipino communities, Inquirer USA documented)"
     },
     {
-      "iteration": "refinement pass 117 — Filipino fandom/teleserye culture and swardspeak gap audit (3 new terms, 850→853)",
+      "iteration": "refinement pass 117 \u2014 Filipino fandom/teleserye culture and swardspeak gap audit (3 new terms, 850\u2192853)",
       "new_terms": 3,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (3 new terms found: paminta — swardspeak term for closeted/straight-acting gay man; from wordplay on pa-men + Filipino word for pepper; documented Urban Dictionary, HiNative, tagaloglang.com, kaikki.org, slangdefine.org; Mikey Bustos tweet confirms broad public awareness; kontrabida — Filipino villain/antagonist archetype extended from teleserye culture into everyday slang to describe real-life scheming or dramatic people; documented Wiktionary, tagalog.com, tagalogslang.com, wordhippo.com, tagaloglang.com, popgeeks.com, PEP.ph; Netflix Kontrabida Academy 2024 revival; reel to real — uniquely Filipino showbiz phrase for loveteam transitioning from scripted fiction to real-life romance; documented OneDown Media, UST Journal, PEP.ph, Gulf News, candymag.com; gained resonance in 2023 'Annus Horribilis' loveteam splits)"
+      "counter_action": "reset to 0 (3 new terms found: paminta \u2014 swardspeak term for closeted/straight-acting gay man; from wordplay on pa-men + Filipino word for pepper; documented Urban Dictionary, HiNative, tagaloglang.com, kaikki.org, slangdefine.org; Mikey Bustos tweet confirms broad public awareness; kontrabida \u2014 Filipino villain/antagonist archetype extended from teleserye culture into everyday slang to describe real-life scheming or dramatic people; documented Wiktionary, tagalog.com, tagalogslang.com, wordhippo.com, tagaloglang.com, popgeeks.com, PEP.ph; Netflix Kontrabida Academy 2024 revival; reel to real \u2014 uniquely Filipino showbiz phrase for loveteam transitioning from scripted fiction to real-life romance; documented OneDown Media, UST Journal, PEP.ph, Gulf News, candymag.com; gained resonance in 2023 'Annus Horribilis' loveteam splits)"
     },
     {
-      "iteration": "refinement pass 116 — Filipino youth street culture and TikTok era language audit (2 new terms, 848→850)",
+      "iteration": "refinement pass 116 \u2014 Filipino youth street culture and TikTok era language audit (2 new terms, 848\u2192850)",
       "new_terms": 2,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (2 new terms found: young stunna — Filipino youth street culture identity label for someone embodying hip-hop-influenced street confidence and hustle mentality; also refers to the associated viral vocabulary system with its own lexicon (sah, matsalove, roksi, etc.); viral Facebook vocabulary list spread to TikTok 2024–2025; analyzed by Pinoy Weekly November 2025 as youth resistance language; linked to class discourse around urban working-class identity in Philippines; healing era — TikTok self-care phrase widely adopted in Filipino Gen Z Taglish context; used to declare a personal phase of emotional recovery and self-prioritization after difficult periods; part of the '-era' slang family (villain era, slay era, main character era) embedded in Filipino youth culture by 2024–2025; documented in multiple Filipino sources with Taglish usage examples)"
+      "counter_action": "reset to 0 (2 new terms found: young stunna \u2014 Filipino youth street culture identity label for someone embodying hip-hop-influenced street confidence and hustle mentality; also refers to the associated viral vocabulary system with its own lexicon (sah, matsalove, roksi, etc.); viral Facebook vocabulary list spread to TikTok 2024\u20132025; analyzed by Pinoy Weekly November 2025 as youth resistance language; linked to class discourse around urban working-class identity in Philippines; healing era \u2014 TikTok self-care phrase widely adopted in Filipino Gen Z Taglish context; used to declare a personal phase of emotional recovery and self-prioritization after difficult periods; part of the '-era' slang family (villain era, slay era, main character era) embedded in Filipino youth culture by 2024\u20132025; documented in multiple Filipino sources with Taglish usage examples)"
     },
     {
-      "iteration": "refinement pass 115 — Filipino humor taxonomy slang audit (2 new terms, 846→848)",
+      "iteration": "refinement pass 115 \u2014 Filipino humor taxonomy slang audit (2 new terms, 846\u2192848)",
       "new_terms": 2,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (2 new terms found: kanal humor — lowbrow/crude comedy style named after 'kanal' (sewer), the Filipino equivalent of gutter humor; contrasted with aircon humor; popularized by TikTok creator Justine Luzares c. 2022–2023, crossed over to ABS-CBN It's Showtime; widely used class-inflected humor taxonomy by Filipino Gen Z; aircon humor — highbrow/elitist comedy style named after air conditioner as symbol of Philippine affluence; associated with conyo culture and elite school humor; the established antonym pair kanal/aircon forms a recognized cultural framework for discussing class and comedy in Filipino digital culture)"
+      "counter_action": "reset to 0 (2 new terms found: kanal humor \u2014 lowbrow/crude comedy style named after 'kanal' (sewer), the Filipino equivalent of gutter humor; contrasted with aircon humor; popularized by TikTok creator Justine Luzares c. 2022\u20132023, crossed over to ABS-CBN It's Showtime; widely used class-inflected humor taxonomy by Filipino Gen Z; aircon humor \u2014 highbrow/elitist comedy style named after air conditioner as symbol of Philippine affluence; associated with conyo culture and elite school humor; the established antonym pair kanal/aircon forms a recognized cultural framework for discussing class and comedy in Filipino digital culture)"
     },
     {
-      "iteration": "refinement pass 114 — Filipino internet personality archetypes and fan culture slang audit (1 new term, 845→846)",
+      "iteration": "refinement pass 114 \u2014 Filipino internet personality archetypes and fan culture slang audit (1 new term, 845\u2192846)",
       "new_terms": 1,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (1 new term found: hev abi enjoyer — Filipino internet slang personality archetype/label for devoted fans of Quezon City rapper Hev Abi; emerged on Filipino TikTok following the viral success of WELCOME2DTQ in 2023; documented via multiple TikTok discovery pages, Rappler Spotify RADAR profile, NylonManila 2024 breakout stars article; signals identification with authentic Pinoy hip-hop and downtown QC street culture; follows global '[X] enjoyer' meme format)"
+      "counter_action": "reset to 0 (1 new term found: hev abi enjoyer \u2014 Filipino internet slang personality archetype/label for devoted fans of Quezon City rapper Hev Abi; emerged on Filipino TikTok following the viral success of WELCOME2DTQ in 2023; documented via multiple TikTok discovery pages, Rappler Spotify RADAR profile, NylonManila 2024 breakout stars article; signals identification with authentic Pinoy hip-hop and downtown QC street culture; follows global '[X] enjoyer' meme format)"
     },
     {
-      "iteration": "refinement pass 113 — 2025-2026 viral phrase audit (2 new terms, 843→845)",
+      "iteration": "refinement pass 113 \u2014 2025-2026 viral phrase audit (2 new terms, 843\u2192845)",
       "new_terms": 2,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (2 new terms found: what hafen — viral mispronunciation of 'What happened, Bella?' by Cristopher Diwata on It's Showtime, used as a reaction meme for confusion/disbelief, went viral December 2024 and dominated Filipino social media through 2025, documented by Spot.ph, Philippine Tribune, PEP Alerts; doot doot — rhythmic catchphrase from Skrilla's drill rap song 'Doot Doot (6 7)' (2025), adopted by Filipino Gen Alpha as nonsensical exclamation, listed in Manila Bulletin's January 2026 guide as one of 7 key teen slang terms every parent should know, related to existing entry '6-7')"
+      "counter_action": "reset to 0 (2 new terms found: what hafen \u2014 viral mispronunciation of 'What happened, Bella?' by Cristopher Diwata on It's Showtime, used as a reaction meme for confusion/disbelief, went viral December 2024 and dominated Filipino social media through 2025, documented by Spot.ph, Philippine Tribune, PEP Alerts; doot doot \u2014 rhythmic catchphrase from Skrilla's drill rap song 'Doot Doot (6 7)' (2025), adopted by Filipino Gen Alpha as nonsensical exclamation, listed in Manila Bulletin's January 2026 guide as one of 7 key teen slang terms every parent should know, related to existing entry '6-7')"
     },
     {
-      "iteration": "refinement pass 112 — hundred-and-twelfth raw-gap audit (5 new terms, 838→843)",
+      "iteration": "refinement pass 112 \u2014 hundred-and-twelfth raw-gap audit (5 new terms, 838\u2192843)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: mekus mekus, tsimay, obob, tambay, tambayan — covering viral TikTok catchphrase 'mekus mekus' (Filipino-Indian creator Mr. Nobodydudy's 'mix mix' with Indian accent; went viral 2023; documented on noypigeeks.com, philnews.ph, mb.com.ph, timeinmanila.com); domestic worker slang 'tsimay' (female housemaid/katulong; also spelled chimay; carries derogatory connotations; documented on philippinelanguages.com, tagalog.com); back-slang insult 'obob' (syllabic reversal of 'bobo' = stupid; follows baliktad tradition; documented in kaikki.org Tagalog dictionary, tagalog.com, Tagalog profanity Wikipedia); urban culture archetype 'tambay' (person who loiters/hangs around aimlessly; from English 'stand by' → istambay; documented in tagalog.com, HiNative, lingvanex, Urban Dictionary, talkpal.ai; represents recognizable figure in Filipino urban life); and barkada culture concept 'tambayan' (favorite hangout spot; tambay + -an locative suffix; documented in Filipino dictionaries and cultural writing as central to barkada group dynamics))"
+      "counter_action": "reset to 0 (5 new terms found: mekus mekus, tsimay, obob, tambay, tambayan \u2014 covering viral TikTok catchphrase 'mekus mekus' (Filipino-Indian creator Mr. Nobodydudy's 'mix mix' with Indian accent; went viral 2023; documented on noypigeeks.com, philnews.ph, mb.com.ph, timeinmanila.com); domestic worker slang 'tsimay' (female housemaid/katulong; also spelled chimay; carries derogatory connotations; documented on philippinelanguages.com, tagalog.com); back-slang insult 'obob' (syllabic reversal of 'bobo' = stupid; follows baliktad tradition; documented in kaikki.org Tagalog dictionary, tagalog.com, Tagalog profanity Wikipedia); urban culture archetype 'tambay' (person who loiters/hangs around aimlessly; from English 'stand by' \u2192 istambay; documented in tagalog.com, HiNative, lingvanex, Urban Dictionary, talkpal.ai; represents recognizable figure in Filipino urban life); and barkada culture concept 'tambayan' (favorite hangout spot; tambay + -an locative suffix; documented in Filipino dictionaries and cultural writing as central to barkada group dynamics))"
     },
     {
-      "iteration": "refinement pass 111 — hundred-and-eleventh raw-gap audit (5 new terms, 833→838)",
+      "iteration": "refinement pass 111 \u2014 hundred-and-eleventh raw-gap audit (5 new terms, 833\u2192838)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: for today's videow, lagot, buking, kulelat, asar — covering TikTok vlogging culture phrase 'for today's videow' (creative '-w' suffix on video; used to introduce daily vlog content even off-camera; documented in ling-app.com tagalog internet slang words guide); Filipino consequence exclamation 'lagot' (you're in trouble/dead meat; from Tagalog lagot = to snap; documented on tagaloglang.com, theculturetrip.com, multiple Filipino slang guides); exposure slang 'buking' (caught/found out/exposed; from buko + -in verb form; used in gaming, school, social media; documented on thesmartlocal.ph and Filipino slang collections); competition loser vocabulary 'kulelat' (last place/loser; documented in tagaloglang.com, buhayofw.com, hubpages.com, talkpal Filipino teen slang guide); and common annoyance expression 'asar' (annoyed/irritated; Spanish loanword from asar/azar; documented in tagalogslang.com, tagalog.com, kaikki.org, lingq.com with full morphological paradigm mang-asar/nakakaasar))"
+      "counter_action": "reset to 0 (5 new terms found: for today's videow, lagot, buking, kulelat, asar \u2014 covering TikTok vlogging culture phrase 'for today's videow' (creative '-w' suffix on video; used to introduce daily vlog content even off-camera; documented in ling-app.com tagalog internet slang words guide); Filipino consequence exclamation 'lagot' (you're in trouble/dead meat; from Tagalog lagot = to snap; documented on tagaloglang.com, theculturetrip.com, multiple Filipino slang guides); exposure slang 'buking' (caught/found out/exposed; from buko + -in verb form; used in gaming, school, social media; documented on thesmartlocal.ph and Filipino slang collections); competition loser vocabulary 'kulelat' (last place/loser; documented in tagaloglang.com, buhayofw.com, hubpages.com, talkpal Filipino teen slang guide); and common annoyance expression 'asar' (annoyed/irritated; Spanish loanword from asar/azar; documented in tagalogslang.com, tagalog.com, kaikki.org, lingq.com with full morphological paradigm mang-asar/nakakaasar))"
     },
     {
-      "iteration": "refinement pass 110 — hundred-and-tenth raw-gap audit (5 new terms, 828→833)",
+      "iteration": "refinement pass 110 \u2014 hundred-and-tenth raw-gap audit (5 new terms, 828\u2192833)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: mamshie, chopped, cracked, washed, huzz — covering swardspeak/beki term of endearment 'mamshie' (mama+shie suffix; term for mother or motherly friend; documented in FastForward Gen Z Dictionary, Ling-app.com, Beelinguapp, USA Inquirer; variants mamsh/mhie; related to mudra/ermat already in dictionary); Gen Alpha appearance insult 'chopped' (ugly/unattractive; 59,000+ searches in 2025; documented in FoxNews 2025 most-searched Gen Z slang, sheknows.com 2026 teen slang guide, yourteenmag.com; opposite of 'served'; Filipino youth use via TikTok); gaming/Gen Alpha praise term 'cracked' (extremely skilled; adopted by Filipino gaming community and school youth; documented in genppt.com, sheknows.com, Manila Bulletin 2026 kids slang guide; pairs with washed as antonym); Gen Z/Alpha decline term 'washed' (past prime, no longer relevant; adopted from English-speaking TikTok; documented in HuffPost UK, Yahoo News, grammar.com Gen Alpha slang 2025; Filipino usage 'Washed na 'yan'); and Gen Alpha attractiveness term 'huzz' (attractive girl; 61,000+ searches 2025; from '-uzz' slang family; documented in FoxNews, skibiditimes.com, yourteenmag.com; adopted by Filipino youth via TikTok))"
+      "counter_action": "reset to 0 (5 new terms found: mamshie, chopped, cracked, washed, huzz \u2014 covering swardspeak/beki term of endearment 'mamshie' (mama+shie suffix; term for mother or motherly friend; documented in FastForward Gen Z Dictionary, Ling-app.com, Beelinguapp, USA Inquirer; variants mamsh/mhie; related to mudra/ermat already in dictionary); Gen Alpha appearance insult 'chopped' (ugly/unattractive; 59,000+ searches in 2025; documented in FoxNews 2025 most-searched Gen Z slang, sheknows.com 2026 teen slang guide, yourteenmag.com; opposite of 'served'; Filipino youth use via TikTok); gaming/Gen Alpha praise term 'cracked' (extremely skilled; adopted by Filipino gaming community and school youth; documented in genppt.com, sheknows.com, Manila Bulletin 2026 kids slang guide; pairs with washed as antonym); Gen Z/Alpha decline term 'washed' (past prime, no longer relevant; adopted from English-speaking TikTok; documented in HuffPost UK, Yahoo News, grammar.com Gen Alpha slang 2025; Filipino usage 'Washed na 'yan'); and Gen Alpha attractiveness term 'huzz' (attractive girl; 61,000+ searches 2025; from '-uzz' slang family; documented in FoxNews, skibiditimes.com, yourteenmag.com; adopted by Filipino youth via TikTok))"
     },
     {
-      "iteration": "refinement pass 109 — hundred-and-ninth raw-gap audit (5 new terms, 823→828)",
+      "iteration": "refinement pass 109 \u2014 hundred-and-ninth raw-gap audit (5 new terms, 823\u2192828)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: sabit, palikero, hanep, tomboy, maporma — covering documented but previously missing Filipino slang vocabulary: 'sabit' (from Tagalog 'hang/hook'; slang for uninvited third-wheel tag-along or being caught in unwanted situation; documented on tagaloglang.com, tagalog.pinoydictionary.com, tagalogslang.com, wordhippo.com); 'palikero' (from Philippine Spanish 'paliquero'; slang for womanizer/playboy/flirt who pursues multiple women; documented in Wiktionary, tagaloglang.com, wordhippo.com, kaikki.org — one of the older Spanish-derived Filipino slang terms still actively used by Gen Z); 'hanep' (Filipino slang exclamation of amazement 'Wow!/Awesome!/Sick!'; peer term to astig and lupit; documented on tagalogslang.com, tagaloglang.com, tagalog.com, HiNative, hubpages.com); 'tomboy' (Filipino-specific usage for lesbian woman or masculine-presenting woman — distinct from English meaning of temporary childhood phase; part of traditional Filipino gender taxonomy 'girl, boy, bakla, tomboy'; documented in SAGE Encyclopedia Trans Studies Philippines, Wikipedia Bakla, ling-app.com LGBTQ Tagalog guide); 'maporma' (from Spanish forma + ma- prefix; stylish/fashionable/well-dressed; documented in Filipino Times, tagaloglang.com, theculturetrip.com, tagalog.com; colloquial variant maporms; antonym baduy))"
+      "counter_action": "reset to 0 (5 new terms found: sabit, palikero, hanep, tomboy, maporma \u2014 covering documented but previously missing Filipino slang vocabulary: 'sabit' (from Tagalog 'hang/hook'; slang for uninvited third-wheel tag-along or being caught in unwanted situation; documented on tagaloglang.com, tagalog.pinoydictionary.com, tagalogslang.com, wordhippo.com); 'palikero' (from Philippine Spanish 'paliquero'; slang for womanizer/playboy/flirt who pursues multiple women; documented in Wiktionary, tagaloglang.com, wordhippo.com, kaikki.org \u2014 one of the older Spanish-derived Filipino slang terms still actively used by Gen Z); 'hanep' (Filipino slang exclamation of amazement 'Wow!/Awesome!/Sick!'; peer term to astig and lupit; documented on tagalogslang.com, tagaloglang.com, tagalog.com, HiNative, hubpages.com); 'tomboy' (Filipino-specific usage for lesbian woman or masculine-presenting woman \u2014 distinct from English meaning of temporary childhood phase; part of traditional Filipino gender taxonomy 'girl, boy, bakla, tomboy'; documented in SAGE Encyclopedia Trans Studies Philippines, Wikipedia Bakla, ling-app.com LGBTQ Tagalog guide); 'maporma' (from Spanish forma + ma- prefix; stylish/fashionable/well-dressed; documented in Filipino Times, tagaloglang.com, theculturetrip.com, tagalog.com; colloquial variant maporms; antonym baduy))"
     },
     {
-      "iteration": "refinement pass 108 — hundred-and-eighth raw-gap audit (5 new terms, 818→823)",
+      "iteration": "refinement pass 108 \u2014 hundred-and-eighth raw-gap audit (5 new terms, 818\u2192823)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: borlogs, ditey, waz, cheka, majubis — covering documented but previously missing swardspeak/beki vocabulary: 'borlogs' (mutation of tulog/sleep; documented in Tandfonline 2024 academic paper on Filipino queer language as primary morphological example); 'ditey' (affixation of dito/here using beki '-ey' suffix; documented in LaSallian 'Knows mo itey?' 2022 and academic studies on swardspeak morphology); 'waz' (phonological respelling of 'what?'; listed as common swardspeak word in Wikipedia Swardspeak and Tandfonline 2024 paper; companion to 'watash' and 'anetch'); 'cheka' (newer addition to the charot/chos/echos cluster meaning 'just kidding'; also used to mean delusional/echosera; documented in Spot.ph '10 Beki Slang Terms, Translated' and Beelinguapp beki guide); 'majubis' (from beki root 'juba' with intensifying ma- prefix meaning fat/chubby; increasingly reclaimed body-positive; documented in Spot.ph beki terms, Beelinguapp beki words guide, Wikipedia Swardspeak; antonym in beki: Payatola Khomeini))"
+      "counter_action": "reset to 0 (5 new terms found: borlogs, ditey, waz, cheka, majubis \u2014 covering documented but previously missing swardspeak/beki vocabulary: 'borlogs' (mutation of tulog/sleep; documented in Tandfonline 2024 academic paper on Filipino queer language as primary morphological example); 'ditey' (affixation of dito/here using beki '-ey' suffix; documented in LaSallian 'Knows mo itey?' 2022 and academic studies on swardspeak morphology); 'waz' (phonological respelling of 'what?'; listed as common swardspeak word in Wikipedia Swardspeak and Tandfonline 2024 paper; companion to 'watash' and 'anetch'); 'cheka' (newer addition to the charot/chos/echos cluster meaning 'just kidding'; also used to mean delusional/echosera; documented in Spot.ph '10 Beki Slang Terms, Translated' and Beelinguapp beki guide); 'majubis' (from beki root 'juba' with intensifying ma- prefix meaning fat/chubby; increasingly reclaimed body-positive; documented in Spot.ph beki terms, Beelinguapp beki words guide, Wikipedia Swardspeak; antonym in beki: Payatola Khomeini))"
     },
     {
-      "iteration": "refinement pass 107 — hundred-and-seventh raw-gap audit (5 new terms, 813→818)",
+      "iteration": "refinement pass 107 \u2014 hundred-and-seventh raw-gap audit (5 new terms, 813\u2192818)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: ULT, bias wrecker, comeback, photocard, pasabuy — covering K-pop/P-pop fandom vocabulary adopted by Filipino youth: 'ULT' (clipping of 'ultimate'; one's absolute favorite idol/group across all groups; documented in Philippines Graphic June 2025 'Decoding K-pop Fandom Lingo' and Globe.com.ph K-pop terms guide; used in Filipino fan speech as 'ULT ko ang SB19'); 'bias wrecker' (K-pop compound for the idol who disrupts your loyalty to your main bias; documented in Philippines Graphic June 2025; Taglish usage 'Pinawreck niya yung bias list ko!'); 'comeback' (K-pop term for a new release/promotional cycle; adopted into mainstream Filipino Gen Z speech beyond fandom; documented in Philippines Graphic June 2025); 'photocard' (K-pop collectible idol photo card found inside albums; documented in UP Linguistics research on K-pop BNS Twitter Philippines 2022; Filipino variant 'papels' from Tagalog papel + English -s); 'pasabuy' (proxy/on-behalf purchasing service; Tagalog portmanteau pasabay + English buy; documented in Rappler, Lifestyle Inquirer 'Pasabuy ticket: A dark side of K-pop fandom', TikTok PH; exploded during COVID-19 lockdowns and cemented in K-pop fandom culture))"
+      "counter_action": "reset to 0 (5 new terms found: ULT, bias wrecker, comeback, photocard, pasabuy \u2014 covering K-pop/P-pop fandom vocabulary adopted by Filipino youth: 'ULT' (clipping of 'ultimate'; one's absolute favorite idol/group across all groups; documented in Philippines Graphic June 2025 'Decoding K-pop Fandom Lingo' and Globe.com.ph K-pop terms guide; used in Filipino fan speech as 'ULT ko ang SB19'); 'bias wrecker' (K-pop compound for the idol who disrupts your loyalty to your main bias; documented in Philippines Graphic June 2025; Taglish usage 'Pinawreck niya yung bias list ko!'); 'comeback' (K-pop term for a new release/promotional cycle; adopted into mainstream Filipino Gen Z speech beyond fandom; documented in Philippines Graphic June 2025); 'photocard' (K-pop collectible idol photo card found inside albums; documented in UP Linguistics research on K-pop BNS Twitter Philippines 2022; Filipino variant 'papels' from Tagalog papel + English -s); 'pasabuy' (proxy/on-behalf purchasing service; Tagalog portmanteau pasabay + English buy; documented in Rappler, Lifestyle Inquirer 'Pasabuy ticket: A dark side of K-pop fandom', TikTok PH; exploded during COVID-19 lockdowns and cemented in K-pop fandom culture))"
     },
     {
-      "iteration": "refinement pass 106 — hundred-and-sixth raw-gap audit (5 new terms, 808→813)",
+      "iteration": "refinement pass 106 \u2014 hundred-and-sixth raw-gap audit (5 new terms, 808\u2192813)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: inlab, lablab, eklavu, elbow, ekalal — covering Taglish romantic vocabulary 'inlab' (phonetic clipping of English 'in love'; documented on tagalog.com, theculturetrip.com, usa.inquirer.net; widespread Gen Z/millennial romantic slang); reduplicated affection term 'lablab' (from 'lab' shortening of love; lovey-dovey/showering with affection; documented on tagalog.com, wordhippo.com, tagalogtranslate.com); swardspeak filler/dismissal term 'eklavu' (nonsense/lies, or verbal filler; from gay lingo; documented in fastforward.life Filipino Gen Z Dictionary and Philippine online community discussions); Filipino slang for escaping/leaving 'elbow' (creative reuse of English anatomical word to mean slipping away; documented in fastforward.life Gen Z Dictionary); and tadbalik reversal 'ekalal' (reversal of 'lalake' meaning man/male; swardspeak/bekimon technique; documented in fastforward.life Gen Z Dictionary, journalixm.com, malaysiagazette.com 2024 ludlings article))"
+      "counter_action": "reset to 0 (5 new terms found: inlab, lablab, eklavu, elbow, ekalal \u2014 covering Taglish romantic vocabulary 'inlab' (phonetic clipping of English 'in love'; documented on tagalog.com, theculturetrip.com, usa.inquirer.net; widespread Gen Z/millennial romantic slang); reduplicated affection term 'lablab' (from 'lab' shortening of love; lovey-dovey/showering with affection; documented on tagalog.com, wordhippo.com, tagalogtranslate.com); swardspeak filler/dismissal term 'eklavu' (nonsense/lies, or verbal filler; from gay lingo; documented in fastforward.life Filipino Gen Z Dictionary and Philippine online community discussions); Filipino slang for escaping/leaving 'elbow' (creative reuse of English anatomical word to mean slipping away; documented in fastforward.life Gen Z Dictionary); and tadbalik reversal 'ekalal' (reversal of 'lalake' meaning man/male; swardspeak/bekimon technique; documented in fastforward.life Gen Z Dictionary, journalixm.com, malaysiagazette.com 2024 ludlings article))"
     },
     {
-      "iteration": "refinement pass 105 — hundred-and-fifth raw-gap audit (5 new terms, 803→808)",
+      "iteration": "refinement pass 105 \u2014 hundred-and-fifth raw-gap audit (5 new terms, 803\u2192808)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: chugi, CR, KKB, load, ngek — covering swardspeak komiks-origin cancellation vocabulary 'chugi' (from tsuk/tsak stabbing onomatopoeia in Filipino komiks; FilipiKnow documented origin; used for fired/cancelled/bankrupt); Philippine English OED March 2025 batch entries 'CR' (comfort room, toilet; first attested 1987) and 'load' (mobile phone prepaid credit; defines Filipino micro-economy of sari-sari store load culture); social billing acronym 'KKB' kanya-kanyang bayad (going Dutch, each person pays their own; documented in YourDictionary, theculturetrip.com, superstaff.com); and onomatopoeic reaction word 'ngek' (yikes/eek; variant spellings nyek/nye/nge; believed from quiz game show buzzer sounds; documented in yourdictionary.com, hubpages.com, theculturetrip.com, filipiknow.net))"
+      "counter_action": "reset to 0 (5 new terms found: chugi, CR, KKB, load, ngek \u2014 covering swardspeak komiks-origin cancellation vocabulary 'chugi' (from tsuk/tsak stabbing onomatopoeia in Filipino komiks; FilipiKnow documented origin; used for fired/cancelled/bankrupt); Philippine English OED March 2025 batch entries 'CR' (comfort room, toilet; first attested 1987) and 'load' (mobile phone prepaid credit; defines Filipino micro-economy of sari-sari store load culture); social billing acronym 'KKB' kanya-kanyang bayad (going Dutch, each person pays their own; documented in YourDictionary, theculturetrip.com, superstaff.com); and onomatopoeic reaction word 'ngek' (yikes/eek; variant spellings nyek/nye/nge; believed from quiz game show buzzer sounds; documented in yourdictionary.com, hubpages.com, theculturetrip.com, filipiknow.net))"
     },
     {
-      "iteration": "refinement pass 104 — hundred-and-fourth raw-gap audit (5 new terms, 798→803)",
+      "iteration": "refinement pass 104 \u2014 hundred-and-fourth raw-gap audit (5 new terms, 798\u2192803)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: looksmaxxing, coquette, videoke, sando weather, terror — covering OED March 2025 Philippine English additions and Filipino TikTok Gen Z aesthetic terms: 'looksmaxxing' (practice of maximizing physical appearance; Filipino TikTok content #looksmaxxing #filipino #mogging documented by @henrywillsjr and @yothird; Philstar published dedicated article April 2025); 'coquette' (hyper-feminine ribbon/bow aesthetic; PhilSTAR Life Gen Z slang guide 2024; TikTok 'Coquette Filipino' discovery page); 'videoke' (Filipino karaoke variant; OED March 2025 Philippine English addition; national pastime first documented 1990); 'sando weather' (colloquial term for extremely hot weather, so hot you only wear a sando/sleeveless shirt; OED sando entry explicitly notes this colloquial use); 'terror' (Philippine English adjective for strict/intimidating teacher; OED March 2025 addition documented since 1967; viral on Filipino student TikTok #terrorteacher))"
+      "counter_action": "reset to 0 (5 new terms found: looksmaxxing, coquette, videoke, sando weather, terror \u2014 covering OED March 2025 Philippine English additions and Filipino TikTok Gen Z aesthetic terms: 'looksmaxxing' (practice of maximizing physical appearance; Filipino TikTok content #looksmaxxing #filipino #mogging documented by @henrywillsjr and @yothird; Philstar published dedicated article April 2025); 'coquette' (hyper-feminine ribbon/bow aesthetic; PhilSTAR Life Gen Z slang guide 2024; TikTok 'Coquette Filipino' discovery page); 'videoke' (Filipino karaoke variant; OED March 2025 Philippine English addition; national pastime first documented 1990); 'sando weather' (colloquial term for extremely hot weather, so hot you only wear a sando/sleeveless shirt; OED sando entry explicitly notes this colloquial use); 'terror' (Philippine English adjective for strict/intimidating teacher; OED March 2025 addition documented since 1967; viral on Filipino student TikTok #terrorteacher))"
     },
     {
-      "iteration": "refinement pass 103 — hundred-and-third raw-gap audit (5 new terms, 793→798)",
+      "iteration": "refinement pass 103 \u2014 hundred-and-third raw-gap audit (5 new terms, 793\u2192798)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: langga, palangga, pakal, pakyas, libog — covering Bisaya/Cebuano regional vocabulary with national crossover through TikTok virality: 'langga' and 'palangga' (endearment pair meaning 'my love/beloved'; shortened from palangga; 1.6M+ TikTok posts; documented in usa.inquirer.net terms of endearment guide, HiNative, viral TikTok @teacherg1967 and IDGAF PH Facebook); 'pakal' (Cebuano all-out feast with friends, 'Pakal ta!' = Let's feast uninhibited; documented in southpolecentralhotel.com 2025 Bisaya slang guide, binisaya.com Cebuano dictionary, sunstar.com.ph); 'pakyas' (Filipino slang for complete failure/flop, parallel to 'bokya' and 'palpak'; documented in Wiktionary Tagalog slang appendix, binisaya.com, Scribd Filipino slang collection); and 'libog' (Bisaya/Cebuano: confused/bewildered — famous cross-language false friend with Tagalog 'libog' meaning lust; Proto-Philippine *libeg root; documented in bisdakwords.com, 8list.ph Bisayan-Tagalog false friends, Wiktionary Cebuano entry, viral TikTok @monicaneeman 7.1M plays))"
+      "counter_action": "reset to 0 (5 new terms found: langga, palangga, pakal, pakyas, libog \u2014 covering Bisaya/Cebuano regional vocabulary with national crossover through TikTok virality: 'langga' and 'palangga' (endearment pair meaning 'my love/beloved'; shortened from palangga; 1.6M+ TikTok posts; documented in usa.inquirer.net terms of endearment guide, HiNative, viral TikTok @teacherg1967 and IDGAF PH Facebook); 'pakal' (Cebuano all-out feast with friends, 'Pakal ta!' = Let's feast uninhibited; documented in southpolecentralhotel.com 2025 Bisaya slang guide, binisaya.com Cebuano dictionary, sunstar.com.ph); 'pakyas' (Filipino slang for complete failure/flop, parallel to 'bokya' and 'palpak'; documented in Wiktionary Tagalog slang appendix, binisaya.com, Scribd Filipino slang collection); and 'libog' (Bisaya/Cebuano: confused/bewildered \u2014 famous cross-language false friend with Tagalog 'libog' meaning lust; Proto-Philippine *libeg root; documented in bisdakwords.com, 8list.ph Bisayan-Tagalog false friends, Wiktionary Cebuano entry, viral TikTok @monicaneeman 7.1M plays))"
     },
     {
-      "iteration": "refinement pass 102 — hundred-and-second raw-gap audit (5 new terms, 788→793)",
+      "iteration": "refinement pass 102 \u2014 hundred-and-second raw-gap audit (5 new terms, 788\u2192793)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: yass, kween, pakboy, bulakbol, pabida — covering swardspeak/bekimon LGBTQ+ affirmation vocabulary 'yass' (enthusiastic 'yes!' from ballroom culture absorbed into Filipino gay lingo; documented in Wikipedia Swardspeak, NCCA Filipino Gayspeak article, Vice PH, Talkpal, ling-app.com gen z guides) and 'kween' (stylized 'queen' term of empowerment; documented in Wikipedia Swardspeak, Beelinguapp beki words guide, swardspeak academic papers); Filipino dating culture 'pakboy' (Tagalog adaptation of English 'fuckboy'/womanizer; listed in Wiktionary Tagalog slang appendix with Baybayin spelling, Urban Dictionary, Esquire Philippines decades-of-slang feature, TikTok language videos); classic Filipino slang 'bulakbol' (slacker/truant; etymology from English 'blackball'; documented on tagalogslang.com, kaikki.org, tagaloglang.com, tagalog.com, pinoydictionary.com, buhayofw.com, wordhippo.com); and attention-seeker vocabulary 'pabida' (pa-+bida, acting like the protagonist/spotlight-stealer; documented on HiNative Filipino explanation, Teen Slang Talkpal guide, general Filipino slang guides)"
+      "counter_action": "reset to 0 (5 new terms found: yass, kween, pakboy, bulakbol, pabida \u2014 covering swardspeak/bekimon LGBTQ+ affirmation vocabulary 'yass' (enthusiastic 'yes!' from ballroom culture absorbed into Filipino gay lingo; documented in Wikipedia Swardspeak, NCCA Filipino Gayspeak article, Vice PH, Talkpal, ling-app.com gen z guides) and 'kween' (stylized 'queen' term of empowerment; documented in Wikipedia Swardspeak, Beelinguapp beki words guide, swardspeak academic papers); Filipino dating culture 'pakboy' (Tagalog adaptation of English 'fuckboy'/womanizer; listed in Wiktionary Tagalog slang appendix with Baybayin spelling, Urban Dictionary, Esquire Philippines decades-of-slang feature, TikTok language videos); classic Filipino slang 'bulakbol' (slacker/truant; etymology from English 'blackball'; documented on tagalogslang.com, kaikki.org, tagaloglang.com, tagalog.com, pinoydictionary.com, buhayofw.com, wordhippo.com); and attention-seeker vocabulary 'pabida' (pa-+bida, acting like the protagonist/spotlight-stealer; documented on HiNative Filipino explanation, Teen Slang Talkpal guide, general Filipino slang guides)"
     },
     {
-      "iteration": "refinement pass 101 — hundred-and-first raw-gap audit (5 new terms, 783→788)",
+      "iteration": "refinement pass 101 \u2014 hundred-and-first raw-gap audit (5 new terms, 783\u2192788)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: ampaw, bet na bet, slay queen, mej, bawal umasa — covering the original Tagalog/Bisaya spelling of the hollow-person metaphor 'ampaw' (Proto-Malayo-Polynesian origin, distinct from Chinese-borrowed ampao spelling; documented on Wiktionary, kaikki.org, tagalog.com, pinoydictionary.com, Grokipedia), reduplicated intensifier 'bet na bet' (\"I really like it\" / \"Gustong-gusto\"; X na X pattern; from swardspeak bet; documented on HiNative, tagaloglang.com, tagalog-dictionary.com, tripzilla.com), Filipino Gen Z/LGBTQ+ compound 'slay queen' (confident stylish woman; adopted from global ballroom culture; widely used on Filipino TikTok/Instagram; documented with ironic Tagalog observation that slay = pumatay), Gen Z clipping 'mej' of medyo (\"somewhat/kinda\"; Wiktionary-listed clipping; documented in IJRISS 2024 academic paper on Filipino TikTok slang), and modern dating phrase 'bawal umasa' (\"don't get your hopes up\"; describes MU/situationship emotional unavailability; documented in usa.inquirer.net romance slang guide and pinkbunny.ph modern dating terms))"
+      "counter_action": "reset to 0 (5 new terms found: ampaw, bet na bet, slay queen, mej, bawal umasa \u2014 covering the original Tagalog/Bisaya spelling of the hollow-person metaphor 'ampaw' (Proto-Malayo-Polynesian origin, distinct from Chinese-borrowed ampao spelling; documented on Wiktionary, kaikki.org, tagalog.com, pinoydictionary.com, Grokipedia), reduplicated intensifier 'bet na bet' (\"I really like it\" / \"Gustong-gusto\"; X na X pattern; from swardspeak bet; documented on HiNative, tagaloglang.com, tagalog-dictionary.com, tripzilla.com), Filipino Gen Z/LGBTQ+ compound 'slay queen' (confident stylish woman; adopted from global ballroom culture; widely used on Filipino TikTok/Instagram; documented with ironic Tagalog observation that slay = pumatay), Gen Z clipping 'mej' of medyo (\"somewhat/kinda\"; Wiktionary-listed clipping; documented in IJRISS 2024 academic paper on Filipino TikTok slang), and modern dating phrase 'bawal umasa' (\"don't get your hopes up\"; describes MU/situationship emotional unavailability; documented in usa.inquirer.net romance slang guide and pinkbunny.ph modern dating terms))"
     },
     {
-      "iteration": "refinement pass 100 — hundredth raw-gap audit (5 new terms, 778→783)",
+      "iteration": "refinement pass 100 \u2014 hundredth raw-gap audit (5 new terms, 778\u2192783)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: ambot, kapoy, tsibog, susmaryosep, alabuton — covering Bisaya/Ilonggo expression of cluelessness/indifference 'ambot' (equivalent to Tagalog ewan; versatile tone-dependent delivery; documented on bisdakwords.com, HiNative, binisaya.com, tagaloglang.com, TikTok #learnbisaya), Bisaya/Cebuano exhaustion descriptor 'kapoy' (equivalent to Tagalog pagod; viral on TikTok #bisdak; documented on bisayacebuano.com, bisdakwords.com, binisaya.com), classic Filipino food slang 'tsibog' (food/mealtime; verb 'tsumibog'; popularly spelled chibog; documented on tagaloglang.com, kaikki.org, tagalog.com, hubpages.com; still heavily used in YouTube vlogging culture), Catholic-rooted exclamation 'susmaryosep' (portmanteau of Jesus+Maria+Josep; equivalent to 'Oh my God!'; Gen Z shortened to 'Susme'; documented on tagalogslang.com, untranslatable.co, HiNative, thesmartlocal.ph, Wikipedia), and Bisaya/Cebuano irritability descriptor 'alabuton' (easily annoyed/short-fused; equivalent to Tagalog pikon; spreading nationally via TikTok Bisaya culture; documented on Quora Cebuano slang thread, TikTok #learncebuano))"
+      "counter_action": "reset to 0 (5 new terms found: ambot, kapoy, tsibog, susmaryosep, alabuton \u2014 covering Bisaya/Ilonggo expression of cluelessness/indifference 'ambot' (equivalent to Tagalog ewan; versatile tone-dependent delivery; documented on bisdakwords.com, HiNative, binisaya.com, tagaloglang.com, TikTok #learnbisaya), Bisaya/Cebuano exhaustion descriptor 'kapoy' (equivalent to Tagalog pagod; viral on TikTok #bisdak; documented on bisayacebuano.com, bisdakwords.com, binisaya.com), classic Filipino food slang 'tsibog' (food/mealtime; verb 'tsumibog'; popularly spelled chibog; documented on tagaloglang.com, kaikki.org, tagalog.com, hubpages.com; still heavily used in YouTube vlogging culture), Catholic-rooted exclamation 'susmaryosep' (portmanteau of Jesus+Maria+Josep; equivalent to 'Oh my God!'; Gen Z shortened to 'Susme'; documented on tagalogslang.com, untranslatable.co, HiNative, thesmartlocal.ph, Wikipedia), and Bisaya/Cebuano irritability descriptor 'alabuton' (easily annoyed/short-fused; equivalent to Tagalog pikon; spreading nationally via TikTok Bisaya culture; documented on Quora Cebuano slang thread, TikTok #learncebuano))"
     },
     {
-      "iteration": "refinement pass 99 — ninety-ninth raw-gap audit (5 new terms, 773→778)",
+      "iteration": "refinement pass 99 \u2014 ninety-ninth raw-gap audit (5 new terms, 773\u2192778)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: kangkong, kangkonatics, laysho, kulbahinam, hidlaw — covering PBA/basketball fan trash-talk vocabulary 'kangkong' (loser team, from 'sa kangkungan ka pupulutin') and its compound 'kangkonatics' (devoted fans of a losing team), plus three underrepresented Bisaya/Cebuano regional terms: Bisaya bekimon/gay-lingo 'laysho' (fancy/extravagant, documented on Wiktionary Cebuano and kaikki.org), Cebuano compound 'kulbahinam' (thrilling nervous excitement, kulba+hinam; documented on bisdakwords.com and sugbo.ph 2024), and 'hidlaw' (deep aching longing/yearning beyond simple 'miss'; documented on philippinelanguages.com, cebuano.pinoydictionary.com, kaikki.org); all 5 confirmed via multiple independent Filipino slang sources including Spin.ph, southpolecentralhotel.com, Wiktionary, kaikki.org, sugbo.ph, bisdakwords.com, cebuano.pinoydictionary.com, philippinelanguages.com)"
+      "counter_action": "reset to 0 (5 new terms found: kangkong, kangkonatics, laysho, kulbahinam, hidlaw \u2014 covering PBA/basketball fan trash-talk vocabulary 'kangkong' (loser team, from 'sa kangkungan ka pupulutin') and its compound 'kangkonatics' (devoted fans of a losing team), plus three underrepresented Bisaya/Cebuano regional terms: Bisaya bekimon/gay-lingo 'laysho' (fancy/extravagant, documented on Wiktionary Cebuano and kaikki.org), Cebuano compound 'kulbahinam' (thrilling nervous excitement, kulba+hinam; documented on bisdakwords.com and sugbo.ph 2024), and 'hidlaw' (deep aching longing/yearning beyond simple 'miss'; documented on philippinelanguages.com, cebuano.pinoydictionary.com, kaikki.org); all 5 confirmed via multiple independent Filipino slang sources including Spin.ph, southpolecentralhotel.com, Wiktionary, kaikki.org, sugbo.ph, bisdakwords.com, cebuano.pinoydictionary.com, philippinelanguages.com)"
     },
     {
-      "iteration": "refinement pass 98 — ninety-eighth raw-gap audit (5 new terms, 768→773)",
+      "iteration": "refinement pass 98 \u2014 ninety-eighth raw-gap audit (5 new terms, 768\u2192773)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: ganern, character development, chika chika, senglot, anda — covering standalone internet reaction slang 'ganern' distinct from existing 'pak ganern', narrative-identity metaphor 'character development' widely used in Filipino K-drama/anime fan culture, reduplicated intensifier 'chika chika', tadbalik drinking vocabulary 'senglot' (reversal of laseng), and street money term 'anda'; all 5 confirmed via multiple independent Filipino slang sources including tagaloglang.com, HiNative, Urban Dictionary, GMA News, fastforward.life/Filipino-gen-z-dictionary, Wiktionary, kaikki.org, FilipiKnow, HubPages, YourDictionary, Cebu Daily News)"
+      "counter_action": "reset to 0 (5 new terms found: ganern, character development, chika chika, senglot, anda \u2014 covering standalone internet reaction slang 'ganern' distinct from existing 'pak ganern', narrative-identity metaphor 'character development' widely used in Filipino K-drama/anime fan culture, reduplicated intensifier 'chika chika', tadbalik drinking vocabulary 'senglot' (reversal of laseng), and street money term 'anda'; all 5 confirmed via multiple independent Filipino slang sources including tagaloglang.com, HiNative, Urban Dictionary, GMA News, fastforward.life/Filipino-gen-z-dictionary, Wiktionary, kaikki.org, FilipiKnow, HubPages, YourDictionary, Cebu Daily News)"
     },
     {
-      "iteration": "refinement pass 97 — ninety-seventh raw-gap audit (5 new terms, 763→768)",
+      "iteration": "refinement pass 97 \u2014 ninety-seventh raw-gap audit (5 new terms, 763\u2192768)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: nega, ows, alaws, arep, gurl — covering clipping 'nega' from 'negative' (pessimistic attitude descriptor), Filipino internet reaction expression 'ows' meaning 'Really?', tadbalik pair 'alaws'/'arep' (wala/pera reversed), and swardspeak/Gen Z address term 'gurl'; all 5 confirmed via multiple independent Filipino slang sources including tagaloglang.com, kaikki.org, thesmartlocal.ph, and FastForward MR Gen Z Dictionary)"
+      "counter_action": "reset to 0 (5 new terms found: nega, ows, alaws, arep, gurl \u2014 covering clipping 'nega' from 'negative' (pessimistic attitude descriptor), Filipino internet reaction expression 'ows' meaning 'Really?', tadbalik pair 'alaws'/'arep' (wala/pera reversed), and swardspeak/Gen Z address term 'gurl'; all 5 confirmed via multiple independent Filipino slang sources including tagaloglang.com, kaikki.org, thesmartlocal.ph, and FastForward MR Gen Z Dictionary)"
     },
     {
-      "iteration": "refinement pass 96 — ninety-sixth raw-gap audit (5 new terms, 758→763)",
+      "iteration": "refinement pass 96 \u2014 ninety-sixth raw-gap audit (5 new terms, 758\u2192763)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: gi-ghost, endo, add to cart, na-budol, aura points — covering Bisaya ghosting construction with gi- passive prefix and documented song 'Gi-Ghost sa Gugma', Filipino labor culture endo slang explicitly labeled as Filipino slang in multiple sources, online shopping culture expression 'add to cart' as enthusiastic recommendation/desire marker, verbified na-budol past passive of budol, and gaming-influenced aura points social capital metric confirmed in Manila Bulletin Jan 2026 kids/teens slang guide)"
+      "counter_action": "reset to 0 (5 new terms found: gi-ghost, endo, add to cart, na-budol, aura points \u2014 covering Bisaya ghosting construction with gi- passive prefix and documented song 'Gi-Ghost sa Gugma', Filipino labor culture endo slang explicitly labeled as Filipino slang in multiple sources, online shopping culture expression 'add to cart' as enthusiastic recommendation/desire marker, verbified na-budol past passive of budol, and gaming-influenced aura points social capital metric confirmed in Manila Bulletin Jan 2026 kids/teens slang guide)"
     },
     {
-      "iteration": "refinement pass 95 — ninety-fifth raw-gap audit (5 new terms, 753→758)",
+      "iteration": "refinement pass 95 \u2014 ninety-fifth raw-gap audit (5 new terms, 753\u2192758)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: daks, juts, SLR, bespren, krung-krung — covering swardspeak Bisaya-origin size antonym pair, Filipino digital text-speak abbreviation, friendship vocabulary phonetic compound, and reduplicative personality descriptor; all 5 absent from 753-entry dictionary despite active documented usage in swardspeak, digital culture, and Gen Z vocabulary sources)"
+      "counter_action": "reset to 0 (5 new terms found: daks, juts, SLR, bespren, krung-krung \u2014 covering swardspeak Bisaya-origin size antonym pair, Filipino digital text-speak abbreviation, friendship vocabulary phonetic compound, and reduplicative personality descriptor; all 5 absent from 753-entry dictionary despite active documented usage in swardspeak, digital culture, and Gen Z vocabulary sources)"
     },
     {
-      "iteration": "refinement pass 94 — ninety-fourth raw-gap audit (6 new terms, 747→753)",
+      "iteration": "refinement pass 94 \u2014 ninety-fourth raw-gap audit (6 new terms, 747\u2192753)",
       "new_terms": 6,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (6 new terms found: blooming, daldal, panganay, panganay tax, hayuk, chz — covering Filipino compliment culture, personality descriptors, eldest-child meme archetypes, gaming community crossover vocabulary, and chat abbreviations; all 6 absent from 747-entry dictionary despite active documented usage)"
+      "counter_action": "reset to 0 (6 new terms found: blooming, daldal, panganay, panganay tax, hayuk, chz \u2014 covering Filipino compliment culture, personality descriptors, eldest-child meme archetypes, gaming community crossover vocabulary, and chat abbreviations; all 6 absent from 747-entry dictionary despite active documented usage)"
     },
     {
-      "iteration": "refinement pass 93 — ninety-third raw-gap audit (3 new terms, 744→747)",
+      "iteration": "refinement pass 93 \u2014 ninety-third raw-gap audit (3 new terms, 744\u2192747)",
       "new_terms": 3,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (3 new terms found: 67, opp, mewing — Gen Alpha terms documented in Manila Bulletin Jan 2026 slang guide and 8list.ph Dec 2025; 67 is Dictionary.com's 2025 Word of the Year, actively used by Filipino youth)"
+      "counter_action": "reset to 0 (3 new terms found: 67, opp, mewing \u2014 Gen Alpha terms documented in Manila Bulletin Jan 2026 slang guide and 8list.ph Dec 2025; 67 is Dictionary.com's 2025 Word of the Year, actively used by Filipino youth)"
     },
     {
-      "iteration": "refinement pass 92 — ninety-second raw-gap audit (5 new terms, 739→744)",
+      "iteration": "refinement pass 92 \u2014 ninety-second raw-gap audit (5 new terms, 739\u2192744)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: jojowain, sabaw, hala siya, ambis, bahala na si batman — covering verbified romance vocabulary, food-metaphor mental-state slang, targeted exclamation variants, Bisaya try-hard descriptor with national crossover, and Filipino fatalist humor phrase)"
+      "counter_action": "reset to 0 (5 new terms found: jojowain, sabaw, hala siya, ambis, bahala na si batman \u2014 covering verbified romance vocabulary, food-metaphor mental-state slang, targeted exclamation variants, Bisaya try-hard descriptor with national crossover, and Filipino fatalist humor phrase)"
     },
     {
-      "iteration": "refinement pass 91 — ninety-first raw-gap audit (4 new terms, 735→739)",
+      "iteration": "refinement pass 91 \u2014 ninety-first raw-gap audit (4 new terms, 735\u2192739)",
       "new_terms": 4,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (4 new terms found: orange app, acm, anw, loveteam — focused on TikTok platform workaround vocabulary, Filipino text-speak abbreviations with slang meanings, and Filipino entertainment/fandom culture terminology actively used by Gen Z youth)"
+      "counter_action": "reset to 0 (4 new terms found: orange app, acm, anw, loveteam \u2014 focused on TikTok platform workaround vocabulary, Filipino text-speak abbreviations with slang meanings, and Filipino entertainment/fandom culture terminology actively used by Gen Z youth)"
     },
     {
-      "iteration": "refinement pass 90 — ninetieth raw-gap audit (4 new terms, 731→735)",
+      "iteration": "refinement pass 90 \u2014 ninetieth raw-gap audit (4 new terms, 731\u2192735)",
       "new_terms": 4,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (4 new terms found: ibang level, bulilyaso, second lead syndrome, aegyo — focused on Taglish compliment vocabulary, traditional Tagalog colloquial slang, and Filipino K-drama/K-pop Hallyu fandom vocabulary widely used by Gen Z; all 4 absent from the 731-entry dictionary despite active documented usage)"
+      "counter_action": "reset to 0 (4 new terms found: ibang level, bulilyaso, second lead syndrome, aegyo \u2014 focused on Taglish compliment vocabulary, traditional Tagalog colloquial slang, and Filipino K-drama/K-pop Hallyu fandom vocabulary widely used by Gen Z; all 4 absent from the 731-entry dictionary despite active documented usage)"
     },
     {
-      "iteration": "refinement pass 89 — eighty-ninth raw-gap audit (4 new terms, 727→731)",
+      "iteration": "refinement pass 89 \u2014 eighty-ninth raw-gap audit (4 new terms, 727\u2192731)",
       "new_terms": 4,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (4 new terms found: lami, pastilan, amaw, chuy — focused on Bisaya/Cebuano regional vocabulary with documented national crossover through TikTok (#BisayaSlang: 16.8M posts) and Filipino online culture; all 4 absent from the 727-entry dictionary despite active national usage)"
+      "counter_action": "reset to 0 (4 new terms found: lami, pastilan, amaw, chuy \u2014 focused on Bisaya/Cebuano regional vocabulary with documented national crossover through TikTok (#BisayaSlang: 16.8M posts) and Filipino online culture; all 4 absent from the 727-entry dictionary despite active national usage)"
     },
     {
-      "iteration": "refinement pass 88 — eighty-eighth raw-gap audit (6 new terms, 721→727)",
+      "iteration": "refinement pass 88 \u2014 eighty-eighth raw-gap audit (6 new terms, 721\u2192727)",
       "new_terms": 6,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (6 new terms found: bora, gulang, nganga, tita mode, side quest, lore drop — focused on Filipino sports/basketball culture crossover vocabulary, Gen Z comfort-persona slang 'tita mode', and gaming life-narrative vocabulary adopted in everyday youth speech)"
+      "counter_action": "reset to 0 (6 new terms found: bora, gulang, nganga, tita mode, side quest, lore drop \u2014 focused on Filipino sports/basketball culture crossover vocabulary, Gen Z comfort-persona slang 'tita mode', and gaming life-narrative vocabulary adopted in everyday youth speech)"
     },
     {
-      "iteration": "refinement pass 87 — eighty-seventh raw-gap audit (10 new terms, 711→721)",
+      "iteration": "refinement pass 87 \u2014 eighty-seventh raw-gap audit (10 new terms, 711\u2192721)",
       "new_terms": 10,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (10 new terms found: lakad matatag, gandara park, sunkist, alicia keys, baboosh, itech, antokyo japan, jinit jackson, shelemet, starbuko — focused on beki/swardspeak celebrity-name wordplay vocabulary and viral gaming phrases)"
+      "counter_action": "reset to 0 (10 new terms found: lakad matatag, gandara park, sunkist, alicia keys, baboosh, itech, antokyo japan, jinit jackson, shelemet, starbuko \u2014 focused on beki/swardspeak celebrity-name wordplay vocabulary and viral gaming phrases)"
     },
     {
-      "iteration": "refinement pass 86 — eighty-sixth raw-gap audit (9 new terms, 702→711)",
+      "iteration": "refinement pass 86 \u2014 eighty-sixth raw-gap audit (9 new terms, 702\u2192711)",
       "new_terms": 9,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (9 new terms found: chenes, hayyy, amf, tss, tulfo, hayaan mo sila, abangan, grabe naman, ate g — drawn from swardspeak crossover, sound-gesture text slang, cultural acronyms, and pop-culture-derived expressions)"
+      "counter_action": "reset to 0 (9 new terms found: chenes, hayyy, amf, tss, tulfo, hayaan mo sila, abangan, grabe naman, ate g \u2014 drawn from swardspeak crossover, sound-gesture text slang, cultural acronyms, and pop-culture-derived expressions)"
     },
     {
-      "iteration": "refinement pass 84 — eighty-fourth raw-gap audit (5 new terms, 693→698)",
+      "iteration": "refinement pass 84 \u2014 eighty-fourth raw-gap audit (5 new terms, 693\u2192698)",
       "new_terms": 5,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (5 new terms found: roksi, ebu, eka, aning sayo, tatagos ba — all from Young Stunna vocabulary gaps)"
+      "counter_action": "reset to 0 (5 new terms found: roksi, ebu, eka, aning sayo, tatagos ba \u2014 all from Young Stunna vocabulary gaps)"
     },
     {
-      "iteration": "refinement pass 83 — eighty-third raw-gap audit (5 new terms, 688→693)",
+      "iteration": "refinement pass 83 \u2014 eighty-third raw-gap audit (5 new terms, 688\u2192693)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: landian, bida bida, layogenic, talikodgenic, pabebe wave)"
     },
     {
-      "iteration": "refinement pass 2 — second raw-gap audit + new term batch",
+      "iteration": "refinement pass 2 \u2014 second raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 0,
       "counter_action": "reset to 0 (15 new terms found)"
     },
     {
-      "iteration": "refinement pass 3 — third raw-gap audit + new term batch",
+      "iteration": "refinement pass 3 \u2014 third raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 0,
       "counter_action": "reset to 0 (15 new terms found)"
     },
     {
-      "iteration": "refinement pass 4 — fourth raw-gap audit + new term batch",
+      "iteration": "refinement pass 4 \u2014 fourth raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 0,
       "counter_action": "reset to 0 (15 new terms found)"
     },
     {
-      "iteration": "refinement pass 5 — fifth raw-gap audit + new term batch",
+      "iteration": "refinement pass 5 \u2014 fifth raw-gap audit + new term batch",
       "new_terms": 15,
       "refined_entries": 14,
       "counter_action": "reset to 0 (15 new terms found, 14 category assignments normalized)"
     },
     {
-      "iteration": "refinement pass 6 — sixth raw-gap audit + new term batch",
+      "iteration": "refinement pass 6 \u2014 sixth raw-gap audit + new term batch",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: pa-mine, shot puno, organic encounter, over naman sa, pi, chour, nepo baby, kimmy)"
     },
     {
-      "iteration": "refinement pass 7 — seventh raw-gap audit + new term batch",
+      "iteration": "refinement pass 7 \u2014 seventh raw-gap audit + new term batch",
       "new_terms": 6,
       "refined_entries": 0,
       "counter_action": "reset to 0 (6 new terms found: okay na 'to, what hafen vella, delulu, slay, sobrang lit, hypebeast)"
     },
     {
-      "iteration": "refinement pass 8 — eighth raw-gap audit + new term batch",
+      "iteration": "refinement pass 8 \u2014 eighth raw-gap audit + new term batch",
       "new_terms": 2,
       "refined_entries": 0,
       "counter_action": "reset to 0 (2 new terms found: mekus-mekus, luh)"
     },
     {
-      "iteration": "refinement pass 9 — ninth raw-gap audit + new term batch",
+      "iteration": "refinement pass 9 \u2014 ninth raw-gap audit + new term batch",
       "new_terms": 9,
       "refined_entries": 0,
       "counter_action": "reset to 0 (9 new terms found: crayola, shutacca, gorgy, DTQ, talksick, mumshie, gandara, pala-desisyon, ghorl)"
     },
     {
-      "iteration": "refinement pass 10 — tenth raw-gap audit (swardspeak/beki expansion)",
+      "iteration": "refinement pass 10 \u2014 tenth raw-gap audit (swardspeak/beki expansion)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: aketch, akis, watash, anetch, keribels, keri, besh, vungga)"
     },
     {
-      "iteration": "refinement pass 11 — eleventh raw-gap audit (modern dating & social media vocabulary)",
+      "iteration": "refinement pass 11 \u2014 eleventh raw-gap audit (modern dating & social media vocabulary)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: tsaa, soft launch, hard launch, situationship, ghostlighting)"
     },
     {
-      "iteration": "refinement pass 12 — twelfth raw-gap audit (Gen Z reversals, beki crossovers, digital emotion vocabulary)",
+      "iteration": "refinement pass 12 \u2014 twelfth raw-gap audit (Gen Z reversals, beki crossovers, digital emotion vocabulary)",
       "new_terms": 7,
       "refined_entries": 0,
       "counter_action": "reset to 0 (7 new terms found: awoj, BV, na para bang, epal, mars, umay, chaka)"
     },
     {
-      "iteration": "refinement pass 13 — thirteenth raw-gap audit (rap/street vocab, gaming terms, emotional expressions)",
+      "iteration": "refinement pass 13 \u2014 thirteenth raw-gap audit (rap/street vocab, gaming terms, emotional expressions)",
       "new_terms": 12,
       "refined_entries": 34,
       "counter_action": "reset to 0 (12 new terms found: tolongges, ssob, normalin, lakas tama, nabagantsa, naka-carts, nakakatunaw, kinaladkad, mala-[X], pariwara, lala, sumasabay sa flow; 34 category assignments normalized)"
     },
     {
-      "iteration": "refinement pass 14 — fourteenth raw-gap audit (internet culture, mood/emotion vocabulary, sports crossover)",
+      "iteration": "refinement pass 14 \u2014 fourteenth raw-gap audit (internet culture, mood/emotion vocabulary, sports crossover)",
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: rage bait, toyo, supalpal)"
     },
     {
-      "iteration": "refinement pass 15 — fifteenth raw-gap audit (2 new terms, 287→289)",
+      "iteration": "refinement pass 15 \u2014 fifteenth raw-gap audit (2 new terms, 287\u2192289)",
       "new_terms": 2,
       "refined_entries": 0,
       "counter_action": "reset to 0 (2 new terms found: matsala, gento)"
     },
     {
-      "iteration": "refinement pass 16 — sixteenth raw-gap audit (4 new terms, 289→293)",
+      "iteration": "refinement pass 16 \u2014 sixteenth raw-gap audit (4 new terms, 289\u2192293)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: benta, dump account, g na g, talking stage)"
     },
     {
-      "iteration": "refinement pass 17 — seventeenth raw-gap audit (3 new terms, 293→296)",
+      "iteration": "refinement pass 17 \u2014 seventeenth raw-gap audit (3 new terms, 293\u2192296)",
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: green flag, ick, red flag)"
     },
     {
-      "iteration": "refinement pass 18 — eighteenth raw-gap audit (2 new terms, 296→298)",
+      "iteration": "refinement pass 18 \u2014 eighteenth raw-gap audit (2 new terms, 296\u2192298)",
       "new_terms": 2,
       "refined_entries": 0,
       "counter_action": "reset to 0 (2 new terms found: warla, anyare)"
     },
     {
-      "iteration": "refinement pass 19 — nineteenth raw-gap audit (1 new term, 298→299)",
+      "iteration": "refinement pass 19 \u2014 nineteenth raw-gap audit (1 new term, 298\u2192299)",
       "new_terms": 1,
       "refined_entries": 0,
       "counter_action": "reset to 0 (1 new term found: charot)"
     },
     {
-      "iteration": "refinement pass 20 — twentieth raw-gap audit (4 new terms, 299→303)",
+      "iteration": "refinement pass 20 \u2014 twentieth raw-gap audit (4 new terms, 299\u2192303)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: NPC, beige flag, sigma, skibidi)"
     },
     {
-      "iteration": "refinement pass 21 — twenty-first raw-gap audit (2 new terms, 303→305)",
+      "iteration": "refinement pass 21 \u2014 twenty-first raw-gap audit (2 new terms, 303\u2192305)",
       "new_terms": 2,
       "refined_entries": 0,
       "counter_action": "reset to 0 (2 new terms found: demure, brat)"
     },
     {
-      "iteration": "refinement pass 22 — twenty-second raw-gap audit (2 new terms, 305→307)",
+      "iteration": "refinement pass 22 \u2014 twenty-second raw-gap audit (2 new terms, 305\u2192307)",
       "new_terms": 2,
       "refined_entries": 1,
       "counter_action": "reset to 0 (2 new terms found: gar, pak na pak; 1 entry refined: pak ganern related_terms updated)"
     },
     {
-      "iteration": "refinement pass 23 — twenty-third raw-gap audit (3 new terms, 307→310)",
+      "iteration": "refinement pass 23 \u2014 twenty-third raw-gap audit (3 new terms, 307\u2192310)",
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: kebs, sus, crash out)"
     },
     {
-      "iteration": "refinement pass 24 — twenty-fourth raw-gap audit (3 new terms, 310→313)",
+      "iteration": "refinement pass 24 \u2014 twenty-fourth raw-gap audit (3 new terms, 310\u2192313)",
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: fanum tax, ohio, gyat)"
     },
     {
-      "iteration": "refinement pass 25 — twenty-fifth raw-gap audit (4 new terms, 313→317)",
+      "iteration": "refinement pass 25 \u2014 twenty-fifth raw-gap audit (4 new terms, 313\u2192317)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: LQ, FUBU, NBSB, pa-fall)"
     },
     {
-      "iteration": "refinement pass 26 — twenty-sixth raw-gap audit (4 new terms, 317→321)",
+      "iteration": "refinement pass 26 \u2014 twenty-sixth raw-gap audit (4 new terms, 317\u2192321)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: lupet, shookt, OA, okray)"
     },
     {
-      "iteration": "refinement pass 27 — twenty-seventh raw-gap audit (4 new terms, 321→325)",
+      "iteration": "refinement pass 27 \u2014 twenty-seventh raw-gap audit (4 new terms, 321\u2192325)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: paasa, mema, edi wow, simp)"
     },
     {
-      "iteration": "refinement pass 28 — twenty-eighth raw-gap audit (4 new terms, 325→329)",
+      "iteration": "refinement pass 28 \u2014 twenty-eighth raw-gap audit (4 new terms, 325\u2192329)",
       "new_terms": 4,
       "refined_entries": 0,
       "counter_action": "reset to 0 (4 new terms found: bebot, hala, bwiset, era)"
     },
     {
-      "iteration": "refinement pass 29 — twenty-ninth raw-gap audit (5 new terms, 329→334)",
+      "iteration": "refinement pass 29 \u2014 twenty-ninth raw-gap audit (5 new terms, 329\u2192334)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: torpe, plastik, KSP, nosebleed, KJ)"
     },
     {
-      "iteration": "refinement pass 30 — thirtieth raw-gap audit (3 new terms, 334→337)",
+      "iteration": "refinement pass 30 \u2014 thirtieth raw-gap audit (3 new terms, 334\u2192337)",
       "new_terms": 3,
       "refined_entries": 0,
       "counter_action": "reset to 0 (3 new terms found: mamser, momol, vibe check)"
     },
     {
-      "iteration": "refinement pass 31 — thirty-first raw-gap audit (3 new terms, 337→340)",
+      "iteration": "refinement pass 31 \u2014 thirty-first raw-gap audit (3 new terms, 337\u2192340)",
       "new_terms": 3,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (3 new terms found: naloka, arte, bitin; tambay and kaloka explicitly rejected in pass 49 log — not re-added)"
+      "counter_action": "reset to 0 (3 new terms found: naloka, arte, bitin; tambay and kaloka explicitly rejected in pass 49 log \u2014 not re-added)"
     },
     {
-      "iteration": "refinement pass 32 — thirty-second raw-gap audit (5 new terms, 340→345)",
+      "iteration": "refinement pass 32 \u2014 thirty-second raw-gap audit (5 new terms, 340\u2192345)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: scoobs, flex, clout, glow up, highkey)"
     },
     {
-      "iteration": "refinement pass 33 — thirty-third raw-gap audit (5 new terms, 345→350)",
+      "iteration": "refinement pass 33 \u2014 thirty-third raw-gap audit (5 new terms, 345\u2192350)",
       "new_terms": 5,
       "refined_entries": 1,
       "counter_action": "reset to 0 (5 new terms found: G, sawi, bangag, basted, badtrip; 1 entry refined: chos related_terms updated to include echos)"
     },
     {
-      "iteration": "refinement pass 34 — thirty-fourth raw-gap audit (5 new terms, 350→355)",
+      "iteration": "refinement pass 34 \u2014 thirty-fourth raw-gap audit (5 new terms, 350\u2192355)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: based, canon event, glazing, manifesting, MU)"
     },
     {
-      "iteration": "refinement pass 35 — thirty-fifth raw-gap audit (5 new terms, 355→360)",
+      "iteration": "refinement pass 35 \u2014 thirty-fifth raw-gap audit (5 new terms, 355\u2192360)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: chamba, chorva, petsa de peligro, tripping, ulol)"
     },
     {
-      "iteration": "refinement pass 36 — thirty-sixth raw-gap audit (5 new terms, 360→365)",
+      "iteration": "refinement pass 36 \u2014 thirty-sixth raw-gap audit (5 new terms, 360\u2192365)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: taray, korni, maldita, harot, low bat)"
     },
     {
-      "iteration": "refinement pass 37 — thirty-seventh raw-gap audit (6 new terms, 365→371)",
+      "iteration": "refinement pass 37 \u2014 thirty-seventh raw-gap audit (6 new terms, 365\u2192371)",
       "new_terms": 6,
       "refined_entries": 12,
       "counter_action": "reset to 0 (6 new terms found: syota, jowable, walang forever, bitter, awts, feels; 12 cross-reference additions)"
     },
     {
-      "iteration": "refinement pass 38 — thirty-eighth raw-gap audit (9 new terms, 371→380)",
+      "iteration": "refinement pass 38 \u2014 thirty-eighth raw-gap audit (9 new terms, 371\u2192380)",
       "new_terms": 9,
       "refined_entries": 0,
       "counter_action": "reset to 0 (9 new terms found: LSS, swabe, barkada, kuyawa, lowkey, baddie, level up, nag-assume, OOTD)"
     },
     {
-      "iteration": "refinement pass 39 — thirty-ninth raw-gap audit (5 new terms, 380→385)",
+      "iteration": "refinement pass 39 \u2014 thirty-ninth raw-gap audit (5 new terms, 380\u2192385)",
       "new_terms": 5,
       "refined_entries": 1,
       "counter_action": "reset to 0 (5 new terms found: budots, linta, jologs, tara, gago; 1 cross-reference update: ulol related_terms)"
     },
     {
-      "iteration": "refinement pass 40 — fortieth raw-gap audit (5 new terms, 385→390)",
+      "iteration": "refinement pass 40 \u2014 fortieth raw-gap audit (5 new terms, 385\u2192390)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: pog, W, L, yapping, cap)"
     },
     {
-      "iteration": "refinement pass 41 — forty-first raw-gap audit (8 new terms, 390→398)",
+      "iteration": "refinement pass 41 \u2014 forty-first raw-gap audit (8 new terms, 390\u2192398)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: ermat, erpat, astig, main character, hayup, hits different, bussin, left no crumbs)"
     },
     {
-      "iteration": "refinement pass 42 — forty-second raw-gap audit (8 new terms, 398→406)",
+      "iteration": "refinement pass 42 \u2014 forty-second raw-gap audit (8 new terms, 398\u2192406)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: senti, gimik, baduy, villain era, it's giving, say less, iykyk, pre)"
     },
     {
-      "iteration": "refinement pass 43 — forty-third raw-gap audit (8 new terms, 406→414)",
+      "iteration": "refinement pass 43 \u2014 forty-third raw-gap audit (8 new terms, 406\u2192414)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: hugot line, cge, echos, cringe, bruh, ngl, pucha, tea)"
     },
     {
-      "iteration": "refinement pass 44 — forty-fourth raw-gap audit (8 new terms, 414→422)",
+      "iteration": "refinement pass 44 \u2014 forty-fourth raw-gap audit (8 new terms, 414\u2192422)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: pikon, pikron, sheesh, mid, facecard, balimbing, wagas, kalog)"
     },
     {
-      "iteration": "refinement pass 45 — forty-fifth raw-gap audit (5 new terms, 422→427)",
+      "iteration": "refinement pass 45 \u2014 forty-fifth raw-gap audit (5 new terms, 422\u2192427)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: weh, amboy, promdi, patok, toxic)"
     },
     {
-      "iteration": "refinement pass 46 — forty-sixth raw-gap audit (9 new terms, 427→436)",
+      "iteration": "refinement pass 46 \u2014 forty-sixth raw-gap audit (9 new terms, 427\u2192436)",
       "new_terms": 9,
       "refined_entries": 0,
       "counter_action": "reset to 0 (9 new terms found: solid, bossing, pards, let him cook, understood the assignment, caught in 4k, maritess, vibe, stan)"
     },
     {
-      "iteration": "refinement pass 47 — forty-seventh raw-gap audit (8 new terms, 436→444)",
+      "iteration": "refinement pass 47 \u2014 forty-seventh raw-gap audit (8 new terms, 436\u2192444)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: pookie, pick me, bougie, suplado, kulet, padaog, savage, pa-cute)"
     },
     {
-      "iteration": "refinement pass 48 — forty-eighth raw-gap audit (8 new terms, 444→452)",
+      "iteration": "refinement pass 48 \u2014 forty-eighth raw-gap audit (8 new terms, 444\u2192452)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: lods, paps, sulit, lait, kulit, angkas, pakners, jejemon)"
     },
     {
-      "iteration": "refinement pass 49 — forty-ninth raw-gap audit (8 new terms, 452→460)",
+      "iteration": "refinement pass 49 \u2014 forty-ninth raw-gap audit (8 new terms, 452\u2192460)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: tampo, tanga, utol, kupal, manhid, kalma, halata, pasosyal)"
     },
     {
-      "iteration": "refinement pass 50 — fiftieth raw-gap audit (8 new terms, 460→468)",
+      "iteration": "refinement pass 50 \u2014 fiftieth raw-gap audit (8 new terms, 460\u2192468)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: dyahe, havey, waley, stress drilon, pusuan mo, extra, baliw, keber)"
     },
     {
-      "iteration": "refinement pass 51 — fifty-first raw-gap audit (8 new terms, 468→476)",
+      "iteration": "refinement pass 51 \u2014 fifty-first raw-gap audit (8 new terms, 468\u2192476)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: korek, pare, tsong, buti nga, nyek, selos, basta, ewan)"
     },
     {
-      "iteration": "refinement pass 52 — fifty-second raw-gap audit (8 new terms, 476→484)",
+      "iteration": "refinement pass 52 \u2014 fifty-second raw-gap audit (8 new terms, 476\u2192484)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: tsupogi, feel trip, moots, ampotah, kuryente, labyu, FYP, tibo)"
     },
     {
-      "iteration": "refinement pass 53 — fifty-third raw-gap audit (8 new terms, 484→492)",
+      "iteration": "refinement pass 53 \u2014 fifty-third raw-gap audit (8 new terms, 484\u2192492)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: beki, beks, peg, fomo, gg, mogging, sliving, on god)"
     },
     {
-      "iteration": "refinement pass 54 — fifty-fourth raw-gap audit (8 new terms, 492→500)",
+      "iteration": "refinement pass 54 \u2014 fifty-fourth raw-gap audit (8 new terms, 492\u2192500)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: shunga, pa-gets, gets, bwisit, leche, apakaganda, ogag, ambabaw)"
     },
     {
-      "iteration": "refinement pass 55 — fifty-fifth raw-gap audit (8 new terms, 500→508)",
+      "iteration": "refinement pass 55 \u2014 fifty-fifth raw-gap audit (8 new terms, 500\u2192508)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: lutang, hipon, lodi, siga, kirot, kalat, gulay, bawi)"
     },
     {
-      "iteration": "refinement pass 56 — fifty-sixth raw-gap audit (8 new terms + 3 dupes removed, 508→513)",
+      "iteration": "refinement pass 56 \u2014 fifty-sixth raw-gap audit (8 new terms + 3 dupes removed, 508\u2192513)",
       "new_terms": 8,
       "refined_entries": 3,
       "counter_action": "reset to 0 (8 new terms found: luto, pikot, sablay, atake, tameme, ibang klase, panalo, libre; 3 duplicate entries removed: lutang, lodi, kalat)"
     },
     {
-      "iteration": "refinement pass 57 — fifty-seventh raw-gap audit (8 new terms, 513→521)",
+      "iteration": "refinement pass 57 \u2014 fifty-seventh raw-gap audit (8 new terms, 513\u2192521)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: ghosting, chismosa, lason, bestie, yaiks, pabibo, neks taiym, chareng)"
     },
     {
-      "iteration": "refinement pass 58 — fifty-eighth raw-gap audit (8 new terms, 521→529)",
+      "iteration": "refinement pass 58 \u2014 fifty-eighth raw-gap audit (8 new terms, 521\u2192529)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: gagi, as a friend, modus, palengkera, jeje, pa-gigil, pop off, gising bata)"
     },
     {
-      "iteration": "refinement pass 59 — fifty-ninth raw-gap audit (8 new terms, 529→537)",
+      "iteration": "refinement pass 59 \u2014 fifty-ninth raw-gap audit (8 new terms, 529\u2192537)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: churva, landi, hambog, balato, sipsip, makulit, kuripot, papansin)"
     },
     {
-      "iteration": "refinement pass 60 — sixtieth raw-gap audit (8 new terms, 537→545)",
+      "iteration": "refinement pass 60 \u2014 sixtieth raw-gap audit (8 new terms, 537\u2192545)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: anik-anik, ningas-kugon, bangis, papet, todo, salbahe, mare, bogo)"
     },
     {
-      "iteration": "refinement pass 61 — sixty-first raw-gap audit (8 new gaming + social media terms, 545→553)",
+      "iteration": "refinement pass 61 \u2014 sixty-first raw-gap audit (8 new gaming + social media terms, 545\u2192553)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: pugak, comsat, wanshatan, makati, pabuhat, basag, feeling main character, sumakses)"
     },
     {
-      "iteration": "refinement pass 62 — sixty-second raw-gap audit (8 new terms, 553→561)",
+      "iteration": "refinement pass 62 \u2014 sixty-second raw-gap audit (8 new terms, 553\u2192561)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: satsat, laglagan, laspag, bukol, salbabida, pa-drama, naka-relate, ulyanin)"
     },
     {
-      "iteration": "refinement pass 63 — sixty-third raw-gap audit (8 new terms, 561→569)",
+      "iteration": "refinement pass 63 \u2014 sixty-third raw-gap audit (8 new terms, 561\u2192569)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: kyeme, deadma, left on read, na-ghosted, uso, hay nako, engot, abnoy)"
     },
     {
-      "iteration": "refinement pass 64 — sixty-fourth raw-gap audit (8 new terms, 569→577)",
+      "iteration": "refinement pass 64 \u2014 sixty-fourth raw-gap audit (8 new terms, 569\u2192577)",
       "new_terms": 8,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (8 new terms found: sah, kosa, plar, lespu, cuh, matsalove, deins, egul — all from the Young Stunna street dialect that went viral in 2025)"
+      "counter_action": "reset to 0 (8 new terms found: sah, kosa, plar, lespu, cuh, matsalove, deins, egul \u2014 all from the Young Stunna street dialect that went viral in 2025)"
     },
     {
-      "iteration": "refinement pass 65 — sixty-fifth raw-gap audit (8 new terms, 577→585)",
+      "iteration": "refinement pass 65 \u2014 sixty-fifth raw-gap audit (8 new terms, 577\u2192585)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: tsismis, grabeh, jusko, pak, bagets, kaladkarin, potek, hopia)"
     },
     {
-      "iteration": "refinement pass 66 — sixty-sixth raw-gap audit (8 new terms, 585→593)",
+      "iteration": "refinement pass 66 \u2014 sixty-sixth raw-gap audit (8 new terms, 585\u2192593)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: GOAT, bop, salty, hala bira, palaman, sayang, biruan, malagkit)"
     },
     {
-      "iteration": "refinement pass 67 — sixty-seventh raw-gap audit (8 new terms, 593→601)",
+      "iteration": "refinement pass 67 \u2014 sixty-seventh raw-gap audit (8 new terms, 593\u2192601)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: ampao, buko, labas ng labas, tinik, kenkoy, naka-lock, lock in, panget)"
     },
     {
-      "iteration": "refinement pass 68 — sixty-eighth raw-gap audit (8 new terms, 601→609)",
+      "iteration": "refinement pass 68 \u2014 sixty-eighth raw-gap audit (8 new terms, 601\u2192609)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: seenzoned, raket, silayzoned, sasaeng, hwaiting, bias, petix, feeling)"
     },
     {
-      "iteration": "refinement pass 69 — sixty-ninth raw-gap audit (8 new terms, 609→617)",
+      "iteration": "refinement pass 69 \u2014 sixty-ninth raw-gap audit (8 new terms, 609\u2192617)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: kunsumisyon, kupad, palabas, pusong mamon, nagmumurang kamatis, talaga naman, kainggit, saktong)"
     },
     {
-      "iteration": "refinement pass 70 — seventieth raw-gap audit (8 new terms, 617→625)",
+      "iteration": "refinement pass 70 \u2014 seventieth raw-gap audit (8 new terms, 617\u2192625)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: rizzler, grindset, cooked, omisim, clutch, pasan, brainrot, chat)"
     },
     {
-      "iteration": "refinement pass 71 — seventy-first raw-gap audit (8 new terms, 625→633)",
+      "iteration": "refinement pass 71 \u2014 seventy-first raw-gap audit (8 new terms, 625\u2192633)",
       "new_terms": 8,
       "refined_entries": 0,
       "counter_action": "reset to 0 (8 new terms found: TOTGA, GGSS, tanders, tita, lutong macau, Maldives, yorme, dehins)"
     },
     {
-      "iteration": "refinement pass 72 — seventy-second raw-gap audit (5 new terms, 633→638)",
+      "iteration": "refinement pass 72 \u2014 seventy-second raw-gap audit (5 new terms, 633\u2192638)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: gorjus, basagan ng trip, naks naman, shet, pa-senti)"
     },
     {
-      "iteration": "refinement pass 73 — seventy-third raw-gap audit (5 new terms, 638→643)",
+      "iteration": "refinement pass 73 \u2014 seventy-third raw-gap audit (5 new terms, 638\u2192643)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: slop, gurt, parasocial, lore, pressed)"
     },
     {
-      "iteration": "refinement pass 74 — seventy-fourth raw-gap audit (5 new terms, 643→648)",
+      "iteration": "refinement pass 74 \u2014 seventy-fourth raw-gap audit (5 new terms, 643\u2192648)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: wapakels, hardashian, shuta, borta, maboka)"
     },
     {
-      "iteration": "refinement pass 75 — seventy-fifth raw-gap audit (5 new terms, 648→653)",
+      "iteration": "refinement pass 75 \u2014 seventy-fifth raw-gap audit (5 new terms, 648\u2192653)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: palpak, subok, bakaw, sultan, bangko)"
     },
     {
-      "iteration": "refinement pass 76 — seventy-sixth raw-gap audit (5 new terms, 653→658)",
+      "iteration": "refinement pass 76 \u2014 seventy-sixth raw-gap audit (5 new terms, 653\u2192658)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: orbiting, breadcrumbing, throning, benching, fading)"
     },
     {
-      "iteration": "refinement pass 77 — seventy-seventh raw-gap audit (5 new terms, 658→663)",
+      "iteration": "refinement pass 77 \u2014 seventy-seventh raw-gap audit (5 new terms, 658\u2192663)",
       "new_terms": 5,
       "refined_entries": 2,
       "counter_action": "reset to 0 (5 new terms found: keme, koket, tadbalik, vakla, push; 2 cross-reference updates: kimmy related_terms, vaklush related_terms)"
     },
     {
-      "iteration": "refinement pass 78 — seventy-eighth raw-gap audit (5 new terms, 663→668)",
+      "iteration": "refinement pass 78 \u2014 seventy-eighth raw-gap audit (5 new terms, 663\u2192668)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: amaccana, accla, efas, swerve, unalive)"
     },
     {
-      "iteration": "refinement pass 79 — seventy-ninth raw-gap audit (5 new terms, 668→673)",
+      "iteration": "refinement pass 79 \u2014 seventy-ninth raw-gap audit (5 new terms, 668\u2192673)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: apir, sirit, bangkay, buraot, taympers)"
     },
     {
-      "iteration": "refinement pass 80 — eightieth raw-gap audit (5 new terms, 673→678)",
+      "iteration": "refinement pass 80 \u2014 eightieth raw-gap audit (5 new terms, 673\u2192678)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: nakakaloka, taena, yassify, for the plot, pogi points)"
     },
     {
-      "iteration": "refinement pass 81 — eighty-first raw-gap audit (5 new terms, 678→683)",
+      "iteration": "refinement pass 81 \u2014 eighty-first raw-gap audit (5 new terms, 678\u2192683)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: kaway kaway, pa-sweet, pakyu, kolokoy, kapit)"
     },
     {
-      "iteration": "refinement pass 82 — eighty-second raw-gap audit (5 new terms, 683→688)",
+      "iteration": "refinement pass 82 \u2014 eighty-second raw-gap audit (5 new terms, 683\u2192688)",
       "new_terms": 5,
       "refined_entries": 0,
       "counter_action": "reset to 0 (5 new terms found: kalokalike, pagoda, kiligness, patapon, nag-aapply)"
     },
     {
-      "iteration": "refinement pass 85 — eighty-fifth raw-gap audit (4 new terms, 698→702)",
+      "iteration": "refinement pass 85 \u2014 eighty-fifth raw-gap audit (4 new terms, 698\u2192702)",
       "new_terms": 4,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (4 new terms found: valid, fr fr, ngl naman, no diddy — English-origin Gen Z sincerity/affirmation markers adopted and hybridized by Filipino youth; ngl naman is specifically Taglish)"
+      "counter_action": "reset to 0 (4 new terms found: valid, fr fr, ngl naman, no diddy \u2014 English-origin Gen Z sincerity/affirmation markers adopted and hybridized by Filipino youth; ngl naman is specifically Taglish)"
     },
     {
-      "iteration": "refinement pass 120 — Filipino Gen Alpha school slang, dating app vocabulary, and viral 2025 TikTok trends gap audit (3 new terms, 864→867)",
+      "iteration": "refinement pass 120 \u2014 Filipino Gen Alpha school slang, dating app vocabulary, and viral 2025 TikTok trends gap audit (3 new terms, 864\u2192867)",
       "new_terms": 3,
       "refined_entries": 0,
-      "counter_action": "reset to 0 (3 new terms found: ikaw muna era — Filipino self-priority dating phase; wabi sabi — viral Nov 2025 KotH TikTok trend, backhanded compliment; affordating — Filipino portmanteau for budget-friendly dates)"
+      "counter_action": "reset to 0 (3 new terms found: ikaw muna era \u2014 Filipino self-priority dating phase; wabi sabi \u2014 viral Nov 2025 KotH TikTok trend, backhanded compliment; affordating \u2014 Filipino portmanteau for budget-friendly dates)"
     }
   ]
 }
