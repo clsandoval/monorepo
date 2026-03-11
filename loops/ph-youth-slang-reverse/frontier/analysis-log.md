@@ -1053,3 +1053,47 @@ Focused on Gen Alpha slang documented in Philippine media (Manila Bulletin Jan 2
 **Dictionary total:** 861 → 864 terms
 
 | 119 | 2026-03-11 | Refinement pass 119 — Filipino social-media vocabulary and viral catchphrase gap audit (3 new terms, 861→864) | Post-Wave 4 | +3 new | Multi-angle web research across Filipino transport slang, BPO vocabulary, social media figurative extensions, and 2025 viral catchphrases. Found pasabog (bombshell announcement; documented Wiktionary, tagalog.com, wordhippo.com, HiNative, thesmartlocal.ph, ling-app.com); sapaw (upstage/outshine; documented tagaloglang.com example, kaikki.org, cebuano.pinoydictionary.com); okay na 'to (Mommy Grace Tanfelix 2025 viral catchphrase meaning 'good enough'; documented spot.ph, pop.inquirer.net, pep.ph, mb.com.ph, philnews.ph). Convergence counter reset to 0. |
+
+---
+
+## Refinement Pass 120 — 2026-03-11
+
+**Aspect:** Post-Wave 4 refinement — Filipino Gen Alpha / school youth slang, dating app culture, and viral 2025 TikTok trends gap audit
+
+**Method:** Multi-angle web research targeting underexplored areas. Searched: (1) Filipino Gen Alpha school slang 2025–2026, (2) Filipino dating app vocabulary on Bumble/Tinder PH, (3) pinkbunny.ph A-Z modern dating terms for PH (December 2025), (4) Manila Bulletin 2026 kids/teens slang guide, (5) wabi sabi viral TikTok trend in Philippines context. Cross-referenced all candidates against the 864-entry dictionary before adding.
+
+**Search strategy:**
+- Searched Filipino Gen Alpha school slang 2025–2026 → found MB article with 7 terms (6-7, aura farming, unc, brain rot, mog, touch grass, rage bait — all already in dictionary)
+- Searched Filipino dating app vocabulary → found pinkbunny.ph comprehensive A-Z guide (Dec 2025) with 40+ terms; most established ones already in dictionary
+- Checked: backburner, slow fade, DTR, cushioning, pocketing, wokefishing, future faking — all pre-2023 Western terms or too established; rejected
+- Found **ikaw muna era** (self-priority phase; Tagalog ikaw muna + Gen Z era suffix) — NOT in dictionary; confirmed via cosmo.ph, GMA News, Bumble PH data, pinkbunny.ph
+- Found **affordating** (budget-friendly dating; Filipino portmanteau afford + dating) — NOT in dictionary; confirmed via pinkbunny.ph Dec 2025 and cosmo.ph Dec 2025
+- Searched wabi sabi Filipino youth viral Nov 2025 → confirmed KotH clip spread, dual positive/backhanded usage; confirmed via Know Your Meme, sheknows, thetab, Manila Bulletin Jan 2026
+- Confirmed parausan is established pre-2023 Tagalog derogatory term (from daos root, Wiktionary-documented) — rejected
+
+**Terms verified as already in dictionary (not re-added):**
+- 6-7, aura farming, unc, brain rot, mog, touch grass, rage bait, beige flag, situationship, orbiting, soft launch, hard launch, breadcrumbing, ghosting, rizz, sigma, organic encounter, soafer, bet, bet na bet, jowable, healing era, villain era, era, fubu, momol
+
+### Terms Added
+
+1. **ikaw muna era** — Filipino Gen Z phrase for a self-priority personal phase; declaring oneself in a phase of prioritizing growth, happiness, and mental health over romantic pursuits; Tagalog "ikaw muna" (you/yourself first) + Gen Z "era" suffix; the Filipino localization of the global "self-love era" concept; documented in pinkbunny.ph (Dec 2025), cosmo.ph (Dec 2025), GMA News (2025 dating trends), Bumble Philippines research 2024; categories: relationships-and-romance, identity-and-self-expression, tiktok-era-language, mental-health-and-wellness; related: healing era, villain era, era, glow up
+
+2. **wabi sabi** — Originally Japanese aesthetic philosophy (beauty of imperfection); adopted by Filipino youth via TikTok November 2025 after King of the Hill Bobby Hill clip went viral; positive usage (celebrating quirky flaws as charming) and evolved passive-aggressive usage (backhanded compliment disguised as praise); documented in Know Your Meme, sheknows.com, thetab.com, Manila Bulletin Jan 2026; categories: tiktok-culture, gen-z-and-imported-slang, internet-and-social-media, insults-and-shade, fashion-and-aesthetics; related: estetik, shade, negging
+
+3. **affordating** — Filipino portmanteau of "afford" + "dating"; the practice of budget-friendly dates prioritizing genuine effort over expensive gestures; frames tapsilog/pares/coffee-walk dates as romantic; carries the Filipino ethos "effort over gastos"; documented in pinkbunny.ph (Dec 2025) and cosmo.ph (Dec 2025); categories: relationships-and-romance, everyday-slang, filipinisms-and-local-vocabulary, food-culture; related: jowa, ligaw, kilig, torpe, MU
+
+### Candidates Considered and Rejected
+
+- **parausan** — Established pre-2023 standard Tagalog derogatory term (from root 'daos', circumfix pa- -an); Wiktionary-documented with Baybayin; not emergent slang
+- **cushioning** — Pre-2023 Western dating slang coined ~2016–2018; used in PH but not Filipino-originated emergent slang
+- **slow fade** — Pre-2023 Western dating term; too established
+- **DTR** — Pre-2023 acronym; long-established globally
+- **pocketing** — Pre-2023 Western term (~2021); documented in PH context but not Filipino-originated
+- **bet kita** — Just "bet" + object pronoun "kita"; "bet" already in dictionary; "bet na bet kita" also already in dictionary; insufficient novelty for separate entry
+- **backburner** — Pre-2023 Western dating term
+- **zombieing** — Pre-2023 term; not Filipino-originated
+
+**Convergence counter:** reset to 0 (3 new terms found)
+**Dictionary total:** 864 → 867 terms
+
+| 120 | 2026-03-11 | Refinement pass 120 — Filipino Gen Alpha school slang, dating app vocabulary, and viral 2025 TikTok trends gap audit (3 new terms, 864→867) | Post-Wave 4 | +3 new | Multi-angle research targeting Gen Alpha school slang (MB 2026 article — all 7 already in dictionary), Filipino dating vocabulary (pinkbunny.ph A-Z guide Dec 2025 — found ikaw muna era, affordating as new; most dating terms pre-2023 or already captured), and viral TikTok trends (wabi sabi — viral Nov 2025 KotH clip, dual positive/passive-aggressive usage). Convergence counter reset to 0. |
