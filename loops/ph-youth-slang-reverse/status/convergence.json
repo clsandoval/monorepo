@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 107 — hundred-and-seventh raw-gap audit (5 new terms, 813→818)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: ULT, bias wrecker, comeback, photocard, pasabuy — covering K-pop/P-pop fandom vocabulary adopted by Filipino youth: 'ULT' (clipping of 'ultimate'; one's absolute favorite idol/group across all groups; documented in Philippines Graphic June 2025 'Decoding K-pop Fandom Lingo' and Globe.com.ph K-pop terms guide; used in Filipino fan speech as 'ULT ko ang SB19'); 'bias wrecker' (K-pop compound for the idol who disrupts your loyalty to your main bias; documented in Philippines Graphic June 2025; Taglish usage 'Pinawreck niya yung bias list ko!'); 'comeback' (K-pop term for a new release/promotional cycle; adopted into mainstream Filipino Gen Z speech beyond fandom; documented in Philippines Graphic June 2025); 'photocard' (K-pop collectible idol photo card found inside albums; documented in UP Linguistics research on K-pop BNS Twitter Philippines 2022; Filipino variant 'papels' from Tagalog papel + English -s); 'pasabuy' (proxy/on-behalf purchasing service; Tagalog portmanteau pasabay + English buy; documented in Rappler, Lifestyle Inquirer 'Pasabuy ticket: A dark side of K-pop fandom', TikTok PH; exploded during COVID-19 lockdowns and cemented in K-pop fandom culture))"
+    },
+    {
       "iteration": "refinement pass 106 — hundred-and-sixth raw-gap audit (5 new terms, 808→813)",
       "new_terms": 5,
       "refined_entries": 0,
