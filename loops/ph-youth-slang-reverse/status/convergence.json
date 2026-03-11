@@ -3,6 +3,12 @@
   "last_updated": "2026-03-11",
   "history": [
     {
+      "iteration": "refinement pass 109 — hundred-and-ninth raw-gap audit (5 new terms, 823→828)",
+      "new_terms": 5,
+      "refined_entries": 0,
+      "counter_action": "reset to 0 (5 new terms found: sabit, palikero, hanep, tomboy, maporma — covering documented but previously missing Filipino slang vocabulary: 'sabit' (from Tagalog 'hang/hook'; slang for uninvited third-wheel tag-along or being caught in unwanted situation; documented on tagaloglang.com, tagalog.pinoydictionary.com, tagalogslang.com, wordhippo.com); 'palikero' (from Philippine Spanish 'paliquero'; slang for womanizer/playboy/flirt who pursues multiple women; documented in Wiktionary, tagaloglang.com, wordhippo.com, kaikki.org — one of the older Spanish-derived Filipino slang terms still actively used by Gen Z); 'hanep' (Filipino slang exclamation of amazement 'Wow!/Awesome!/Sick!'; peer term to astig and lupit; documented on tagalogslang.com, tagaloglang.com, tagalog.com, HiNative, hubpages.com); 'tomboy' (Filipino-specific usage for lesbian woman or masculine-presenting woman — distinct from English meaning of temporary childhood phase; part of traditional Filipino gender taxonomy 'girl, boy, bakla, tomboy'; documented in SAGE Encyclopedia Trans Studies Philippines, Wikipedia Bakla, ling-app.com LGBTQ Tagalog guide); 'maporma' (from Spanish forma + ma- prefix; stylish/fashionable/well-dressed; documented in Filipino Times, tagaloglang.com, theculturetrip.com, tagalog.com; colloquial variant maporms; antonym baduy))"
+    },
+    {
       "iteration": "refinement pass 108 — hundred-and-eighth raw-gap audit (5 new terms, 818→823)",
       "new_terms": 5,
       "refined_entries": 0,
