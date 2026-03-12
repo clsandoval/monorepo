@@ -1,0 +1,2 @@
+[     614ms] Error: Missing Supabase environment variables. Check .env.local
+    at http://localhost:5175/src/lib/supabase.ts:5:9
