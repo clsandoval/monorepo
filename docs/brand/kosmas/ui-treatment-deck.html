@@ -1496,6 +1496,70 @@
       </div>
     </div>
   </div>
+
+  <!-- 12d: CRUD Interface -->
+  <div class="page-panel" id="panel-crud">
+    <div class="page-frame">
+      <div class="page-frame-label">12D — CRUD Interface (Manage Bookings)</div>
+      <div class="page-frame-body">
+        <div style="padding:24px 32px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:20px;font-weight:700;letter-spacing:3px;color:var(--white);text-transform:uppercase;">MANAGE BOOKINGS</div>
+          <button class="btn btn-primary">+ NEW BOOKING</button>
+        </div>
+        <div style="padding:0 32px 16px;display:flex;gap:12px;">
+          <div class="search-wrap" style="flex:1;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg><input type="text" placeholder="Search bookings..." readonly style="width:100%;padding:10px 14px 10px 36px;background:var(--gray-900);border:1px solid var(--gray-700);border-radius:4px;color:var(--white);font-family:var(--font);font-size:14px;"></div>
+          <select style="padding:10px 14px;background:var(--gray-900);border:1px solid var(--gray-700);border-radius:4px;color:var(--white);font-family:var(--font);font-size:14px;"><option>All Sports</option></select>
+          <select style="padding:10px 14px;background:var(--gray-900);border:1px solid var(--gray-700);border-radius:4px;color:var(--white);font-family:var(--font);font-size:14px;"><option>All Status</option></select>
+        </div>
+        <div style="padding:0 32px;">
+          <table class="mock-table">
+            <thead><tr><th>Name</th><th>Sport</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>Carlos Sandoval</td>
+                <td><span class="tag compact" style="background:var(--gold);color:var(--black);">PICKLEBALL</span></td>
+                <td>Mar 15, 2026</td>
+                <td><span class="tag compact" style="background:var(--gold);color:var(--black);">ACTIVE</span></td>
+                <td><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" style="cursor:pointer;margin-right:8px;"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E53E3E" stroke-width="2" style="cursor:pointer;"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14H7L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></td>
+              </tr>
+              <tr>
+                <td>Maria Santos</td>
+                <td><span class="tag compact" style="background:var(--peri);color:var(--black);">VOLLEYBALL</span></td>
+                <td>Mar 16, 2026</td>
+                <td><span class="tag compact" style="background:var(--peri);color:var(--black);">UPCOMING</span></td>
+                <td><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" style="cursor:pointer;margin-right:8px;"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E53E3E" stroke-width="2" style="cursor:pointer;"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14H7L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></td>
+              </tr>
+              <tr>
+                <td>Team Bravo</td>
+                <td><span class="tag compact" style="background:var(--plum);color:var(--gold);">FOOTBALL</span></td>
+                <td>Mar 17, 2026</td>
+                <td><span class="tag compact" style="background:var(--gold);color:var(--black);">ACTIVE</span></td>
+                <td><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" style="cursor:pointer;margin-right:8px;"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E53E3E" stroke-width="2" style="cursor:pointer;"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14H7L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></td>
+              </tr>
+              <tr>
+                <td>Jun Reyes</td>
+                <td><span class="tag compact" style="background:var(--gray-300);color:var(--black);">GOLF</span></td>
+                <td>Mar 18, 2026</td>
+                <td><span class="tag compact" style="background:var(--gray-700);color:var(--gray-300);">CLOSED</span></td>
+                <td><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" style="cursor:pointer;margin-right:8px;"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E53E3E" stroke-width="2" style="cursor:pointer;"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14H7L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="padding:16px 32px 24px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:13px;color:var(--gray-500);">Showing 1-4 of 128 bookings</span>
+          <div style="display:flex;gap:4px;">
+            <button style="padding:6px 12px;background:var(--gray-900);border:1px solid var(--gray-800);border-radius:4px;color:var(--gray-500);font-family:var(--font);font-size:13px;cursor:pointer;">←</button>
+            <button style="padding:6px 12px;background:var(--plum);border:1px solid var(--plum);border-radius:4px;color:var(--gold);font-family:var(--font);font-size:13px;cursor:pointer;">1</button>
+            <button style="padding:6px 12px;background:var(--gray-900);border:1px solid var(--gray-800);border-radius:4px;color:var(--gray-500);font-family:var(--font);font-size:13px;cursor:pointer;">2</button>
+            <button style="padding:6px 12px;background:var(--gray-900);border:1px solid var(--gray-800);border-radius:4px;color:var(--gray-500);font-family:var(--font);font-size:13px;cursor:pointer;">3</button>
+            <button style="padding:6px 12px;background:var(--gray-900);border:1px solid var(--gray-800);border-radius:4px;color:var(--gray-500);font-family:var(--font);font-size:13px;cursor:pointer;">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ==================== 13. SAMPLE LAYOUT ==================== -->
