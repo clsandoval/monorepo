@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 33
+current: 34
 total: 85
 
 ## Completed
@@ -36,3 +36,4 @@ total: 85
 - 030: Inventory On-Order PO Auto-Update — PoCreateForm.tsx: after PO items inserted, fetch current qty_on_order per inventory row and update with incremented value + order_status 'ordered'; PoReceiving.tsx: after incrementing qty_on_hand via RPC, fetch current qty_on_order, decrement by received qty, set order_status 'received' (if 0) or 'partial' (if >0); tsc --noEmit passes
 - 031: Inventory On-Order Manual Adjustment UI — created SetOnOrderModal.tsx with SKU name (read-only), current on-order qty (read-only), new qty input, optional notes; added qty_on_order + order_status to inventory select query; added On Order column to table; added Set On-Order button per row; order_status set to 'ordered' if qty>0, 'not_ordered' if 0; tsc --noEmit passes
 - 032: Inventory On-Order Display Columns — added orderStatusLabels/orderStatusBadgeClass to enum-labels.ts (not_ordered/ordered/partial/received); added order_status to label/badge maps; updated inventory table Available formula to on_hand - allocated + on_order (projected); added Status column with colored badge; tsc --noEmit passes
+- 033: Inventory On-Order Tests — created on-order.test.tsx with 17 tests: OO-01–09 covering On Order/Status column headers, qty_on_order display (value vs dash), order status badge labels (Ordered/Not Ordered), available formula (on_hand - allocated + on_order), Set On-Order button render; OOM-01–08 covering SetOnOrderModal title, current qty display, input default, negative qty validation, update with ordered/not_ordered status, onSuccess callback, cancel; 1003 tests pass
