@@ -327,6 +327,84 @@
     text-transform: uppercase;
   }
 
+  /* ==================== 8. FORM INPUTS ==================== */
+  .form-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+  .form-cell label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--gray-500);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .form-cell input[type="text"],
+  .form-cell input[type="date"],
+  .form-cell textarea,
+  .form-cell select {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--gray-900);
+    border: 1px solid var(--gray-700);
+    border-radius: 4px;
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 14px;
+    outline: none;
+  }
+  .form-cell input.focus-demo { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(240,223,160,0.15); }
+  .form-cell input.error-demo, .form-cell textarea.error-demo, .form-cell select.error-demo { border-color: #E53E3E; }
+  .form-cell .error-msg { font-size: 11px; color: #E53E3E; margin-top: 4px; letter-spacing: 0.5px; }
+  .form-cell input:disabled, .form-cell textarea:disabled, .form-cell select:disabled { opacity: 0.5; cursor: not-allowed; }
+  .form-row-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--gray-300);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .toggle-track {
+    width: 44px; height: 24px;
+    background: var(--gray-700);
+    border-radius: 12px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .toggle-track.on { background: var(--plum); }
+  .toggle-thumb {
+    width: 20px; height: 20px;
+    background: var(--white);
+    border-radius: 50%;
+    position: absolute;
+    top: 2px; left: 2px;
+    transition: left 0.2s;
+  }
+  .toggle-track.on .toggle-thumb { left: 22px; background: var(--gold); }
+  .checkbox-custom {
+    width: 18px; height: 18px;
+    border: 2px solid var(--gray-700);
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .checkbox-custom.checked { background: var(--plum); border-color: var(--plum); }
+  .radio-custom {
+    width: 18px; height: 18px;
+    border: 2px solid var(--gray-700);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .radio-custom.checked { border-color: var(--gold); }
+  .radio-custom.checked::after { content: ''; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; }
+  .search-wrap { position: relative; }
+  .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); }
+  .search-wrap input { padding-left: 36px; }
+
   /* ==================== 9. CARDS ==================== */
   .card-grid {
     display: grid;
@@ -987,6 +1065,98 @@
       <span class="tag compact" style="background:var(--gray-900);color:var(--gold);border:1px solid var(--gray-800);font-family:monospace;">4.8★</span>
       <span class="tag compact" style="background:var(--gray-900);color:var(--peri);border:1px solid var(--gray-800);font-family:monospace;">12 SPOTS LEFT</span>
       <span class="tag compact" style="background:var(--gray-900);color:var(--gold);border:1px solid var(--gray-800);font-family:monospace;">₱2,500/HR</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 8. FORM INPUTS ==================== -->
+<div class="section" id="forms">
+  <div class="section-number">08</div>
+  <div class="section-title">Form Inputs</div>
+  <div class="section-desc">Styled form elements on the dark theme. Each shown in four states: default, focus, error, disabled.</div>
+
+  <div style="margin-bottom:32px;">
+    <div class="form-row-label">Text Input</div>
+    <div class="form-grid">
+      <div class="form-cell"><label>Default</label><input type="text" placeholder="Enter name" readonly></div>
+      <div class="form-cell"><label>Focus</label><input type="text" value="Carlos Sandoval" class="focus-demo" readonly></div>
+      <div class="form-cell"><label>Error</label><input type="text" value="" class="error-demo" readonly><div class="error-msg">Name is required</div></div>
+      <div class="form-cell"><label>Disabled</label><input type="text" placeholder="Enter name" disabled></div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px;">
+    <div class="form-row-label">Textarea</div>
+    <div class="form-grid">
+      <div class="form-cell"><label>Default</label><textarea rows="3" placeholder="Add notes..." readonly></textarea></div>
+      <div class="form-cell"><label>Focus</label><textarea rows="3" class="focus-demo" readonly>Looking forward to the match!</textarea></div>
+      <div class="form-cell"><label>Error</label><textarea rows="3" class="error-demo" readonly></textarea><div class="error-msg">Notes required</div></div>
+      <div class="form-cell"><label>Disabled</label><textarea rows="3" placeholder="Add notes..." disabled></textarea></div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px;">
+    <div class="form-row-label">Select</div>
+    <div class="form-grid">
+      <div class="form-cell"><label>Default</label><select><option>Select sport...</option></select></div>
+      <div class="form-cell"><label>Focus</label><select class="focus-demo"><option>Pickleball</option></select></div>
+      <div class="form-cell"><label>Error</label><select class="error-demo"><option>Select sport...</option></select><div class="error-msg">Selection required</div></div>
+      <div class="form-cell"><label>Disabled</label><select disabled><option>Select sport...</option></select></div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px;">
+    <div class="form-row-label">Search Input</div>
+    <div class="form-grid">
+      <div class="form-cell"><label>Default</label><div class="search-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg><input type="text" placeholder="Search bookings..." readonly></div></div>
+      <div class="form-cell"><label>Focus</label><div class="search-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F0DFA0" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg><input type="text" value="Manila courts" class="focus-demo" readonly></div></div>
+      <div class="form-cell"><label>Error</label><div class="search-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E53E3E" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg><input type="text" class="error-demo" readonly></div><div class="error-msg">No results found</div></div>
+      <div class="form-cell"><label>Disabled</label><div class="search-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" opacity="0.5"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg><input type="text" placeholder="Search bookings..." disabled></div></div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px;">
+    <div class="form-row-label">Toggle / Checkbox / Radio</div>
+    <div style="display:flex;gap:48px;align-items:flex-start;">
+      <div>
+        <label style="font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);display:block;margin-bottom:12px;">TOGGLES</label>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+          <div class="toggle-track on"><div class="toggle-thumb"></div></div>
+          <div class="toggle-track" style="opacity:0.5;cursor:not-allowed;"><div class="toggle-thumb"></div></div>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:4px;font-size:11px;color:var(--gray-500);letter-spacing:1px;">
+          <span style="width:44px;text-align:center;">OFF</span>
+          <span style="width:44px;text-align:center;">ON</span>
+          <span style="width:44px;text-align:center;">OFF</span>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);display:block;margin-bottom:12px;">CHECKBOXES</label>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <div class="checkbox-custom"></div>
+          <div class="checkbox-custom checked"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F0DFA0" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="checkbox-custom" style="opacity:0.5;"></div>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);display:block;margin-bottom:12px;">RADIO BUTTONS</label>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <div class="radio-custom"></div>
+          <div class="radio-custom checked"></div>
+          <div class="radio-custom" style="opacity:0.5;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="form-row-label">Date Input</div>
+    <div class="form-grid">
+      <div class="form-cell"><label>Default</label><input type="text" placeholder="YYYY-MM-DD" readonly></div>
+      <div class="form-cell"><label>Focus</label><input type="text" value="2026-03-15" class="focus-demo" readonly></div>
+      <div class="form-cell"><label>Error</label><input type="text" value="invalid" class="error-demo" readonly><div class="error-msg">Invalid date</div></div>
+      <div class="form-cell"><label>Disabled</label><input type="text" placeholder="YYYY-MM-DD" disabled></div>
     </div>
   </div>
 </div>
