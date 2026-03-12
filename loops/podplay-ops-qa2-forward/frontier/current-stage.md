@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 14
+current: 15
 total: 85
 
 ## Completed
@@ -17,3 +17,4 @@ total: 85
 - 011: Fix Vendor Add Failure — added 00019_vendors_rls.sql: ENABLE ROW LEVEL SECURITY + authenticated full access policy on vendors table; db reset clean; 985 tests pass
 - 012: Fix Inventory Seed Migration — db reset applies all 19 migrations cleanly; inventory table has exactly 47 rows matching 47 active hardware_catalog items; 985 tests pass
 - 013: Fix "(tier)" Literal in Advance to Deployment — changed procurement.tsx select from wrong column `service_tier` to `tier`; added serviceTierLabels import to show human-readable label in dialog; tsc --noEmit passes
+- 014: Fix Customer Name Pre-fill — expanded fetchWizardStep select to include customer_name, contact_email, contact_phone; seed wizardData.customerInfo from DB on load so form pre-fills when returning to existing project; 985 tests pass
