@@ -271,3 +271,10 @@ loops:
     status: converged
     created: 2026-03-10
     converged_at: "2026-03-10"
+  podplay-ops-qa2-forward:
+    description: "QA round 2: 21 findings from Marco — removals (CC/replay/travel/WiFi), bug fixes, UX improvements, new features (guide, PDF export, on-order inventory, wizard nav). 85 stages, real Supabase."
+    type: forward
+    max_iterations: 90
+    timeout_minutes: 30
+    status: active
+    created: "2026-03-12"
