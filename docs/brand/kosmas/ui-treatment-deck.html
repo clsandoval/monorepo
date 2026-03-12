@@ -1047,6 +1047,301 @@
   .badge-metric--compact {
     font-size: 10px;
   }
+
+  /* ==================== FORM INPUTS ==================== */
+  .form-input {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--black);
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+  }
+
+  .form-input:focus,
+  .form-input.focus {
+    border-color: var(--cyan);
+  }
+
+  .form-input.error {
+    border-color: var(--error);
+  }
+
+  .form-input:disabled,
+  .form-input.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .input-error-msg {
+    color: var(--error);
+    font-size: 12px;
+    margin-top: 4px;
+    font-family: var(--font-body);
+    font-weight: 300;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr 1fr 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  .form-grid-header {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .form-grid-row-label {
+    padding: 20px 16px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--charcoal);
+    background: var(--cream);
+    border-bottom: 1px solid var(--stone);
+    display: flex;
+    align-items: flex-start;
+    padding-top: 18px;
+  }
+
+  .form-grid-row-label.last {
+    border-bottom: none;
+  }
+
+  .form-grid-cell {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    border-left: 1px solid var(--stone);
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .form-grid-cell.last {
+    border-bottom: none;
+  }
+
+  /* Toggle switch */
+  .toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .toggle {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  .toggle-track {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    background: var(--stone);
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+
+  .toggle-track::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--white);
+    transition: transform 0.15s;
+  }
+
+  .toggle input:checked + .toggle-track {
+    background: var(--black);
+  }
+
+  .toggle input:checked + .toggle-track::after {
+    transform: translateX(16px);
+  }
+
+  .toggle-label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--charcoal);
+  }
+
+  /* Toggle disabled */
+  .toggle.disabled .toggle-track {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Checkbox & Radio */
+  .check-wrap,
+  .radio-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .check-wrap:last-child,
+  .radio-wrap:last-child {
+    margin-bottom: 0;
+  }
+
+  .custom-checkbox,
+  .custom-radio {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .custom-checkbox input,
+  .custom-radio input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  .checkbox-box {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--stone);
+    border-radius: 3px;
+    background: var(--white);
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .custom-checkbox input:checked + .checkbox-box {
+    background: var(--black);
+    border-color: var(--black);
+  }
+
+  .checkbox-box::after {
+    content: '';
+    width: 8px;
+    height: 5px;
+    border-left: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+    transform: rotate(-45deg) translateY(-1px);
+    opacity: 0;
+  }
+
+  .custom-checkbox input:checked + .checkbox-box::after {
+    opacity: 1;
+  }
+
+  .radio-circle {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--stone);
+    border-radius: 50%;
+    background: var(--white);
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .custom-radio input:checked + .radio-circle {
+    border-color: var(--black);
+  }
+
+  .radio-circle::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--black);
+    opacity: 0;
+  }
+
+  .custom-radio input:checked + .radio-circle::after {
+    opacity: 1;
+  }
+
+  .check-radio-label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--charcoal);
+  }
+
+  /* Disabled check/radio */
+  .check-wrap.disabled .checkbox-box,
+  .radio-wrap.disabled .radio-circle {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Search input */
+  .search-wrap {
+    position: relative;
+  }
+
+  .search-wrap .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--charcoal);
+    opacity: 0.6;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-wrap .form-input {
+    padding-left: 32px;
+  }
+
+  /* Error state for checkbox/radio rows */
+  .check-wrap.error .checkbox-box,
+  .radio-wrap.error .radio-circle {
+    border-color: var(--error);
+  }
+
+  /* Focus state for checkbox/radio rows */
+  .check-wrap.focus .checkbox-box,
+  .radio-wrap.focus .radio-circle {
+    border-color: var(--cyan);
+  }
 </style>
 </head>
 <body>
@@ -1794,6 +2089,245 @@
   <div class="container">
     <p class="section-number">08</p>
     <h2 class="section-title">FORM INPUTS</h2>
+
+    <div class="form-grid">
+      <!-- Header row -->
+      <div class="form-grid-header">Input Type</div>
+      <div class="form-grid-header">Default</div>
+      <div class="form-grid-header">Focus</div>
+      <div class="form-grid-header">Error</div>
+      <div class="form-grid-header">Disabled</div>
+
+      <!-- Row 1: Text Input -->
+      <div class="form-grid-row-label">Text</div>
+      <div class="form-grid-cell">
+        <input class="form-input" type="text" placeholder="Full name">
+      </div>
+      <div class="form-grid-cell">
+        <input class="form-input focus" type="text" placeholder="Full name" value="Carlos Santos">
+      </div>
+      <div class="form-grid-cell">
+        <input class="form-input error" type="text" placeholder="Full name" value="Car">
+        <p class="input-error-msg">Name is too short</p>
+      </div>
+      <div class="form-grid-cell">
+        <input class="form-input" type="text" placeholder="Full name" disabled>
+      </div>
+
+      <!-- Row 2: Textarea -->
+      <div class="form-grid-row-label">Textarea</div>
+      <div class="form-grid-cell">
+        <textarea class="form-input" placeholder="Message..." rows="3" style="resize:none;"></textarea>
+      </div>
+      <div class="form-grid-cell">
+        <textarea class="form-input focus" rows="3" style="resize:none;">Looking to join the Monday pickleball group...</textarea>
+      </div>
+      <div class="form-grid-cell">
+        <textarea class="form-input error" rows="3" style="resize:none;">Hi</textarea>
+        <p class="input-error-msg">Message is too short</p>
+      </div>
+      <div class="form-grid-cell">
+        <textarea class="form-input" placeholder="Message..." rows="3" style="resize:none;" disabled></textarea>
+      </div>
+
+      <!-- Row 3: Select -->
+      <div class="form-grid-row-label">Select</div>
+      <div class="form-grid-cell">
+        <select class="form-input">
+          <option value="">Select sport</option>
+          <option>Pickleball</option>
+          <option>Volleyball</option>
+          <option>Football</option>
+          <option>Golf</option>
+        </select>
+      </div>
+      <div class="form-grid-cell">
+        <select class="form-input focus">
+          <option>Pickleball</option>
+          <option>Volleyball</option>
+          <option>Football</option>
+          <option>Golf</option>
+        </select>
+      </div>
+      <div class="form-grid-cell">
+        <select class="form-input error">
+          <option value="">Select sport</option>
+          <option>Pickleball</option>
+        </select>
+        <p class="input-error-msg">Please select a sport</p>
+      </div>
+      <div class="form-grid-cell">
+        <select class="form-input" disabled>
+          <option>Pickleball</option>
+        </select>
+      </div>
+
+      <!-- Row 4: Toggle -->
+      <div class="form-grid-row-label">Toggle</div>
+      <div class="form-grid-cell">
+        <div class="toggle-wrap">
+          <label class="toggle">
+            <input type="checkbox">
+            <span class="toggle-track"></span>
+          </label>
+          <span class="toggle-label">Off</span>
+        </div>
+      </div>
+      <div class="form-grid-cell">
+        <div class="toggle-wrap">
+          <label class="toggle">
+            <input type="checkbox" checked>
+            <span class="toggle-track"></span>
+          </label>
+          <span class="toggle-label">On</span>
+        </div>
+      </div>
+      <div class="form-grid-cell">
+        <div class="toggle-wrap">
+          <label class="toggle">
+            <input type="checkbox">
+            <span class="toggle-track" style="border: 1px solid var(--error);"></span>
+          </label>
+          <span class="toggle-label" style="color: var(--error);">Required</span>
+        </div>
+        <p class="input-error-msg">Must accept terms</p>
+      </div>
+      <div class="form-grid-cell">
+        <div class="toggle-wrap">
+          <label class="toggle disabled">
+            <input type="checkbox" disabled>
+            <span class="toggle-track"></span>
+          </label>
+          <span class="toggle-label" style="opacity:0.5;">Disabled</span>
+        </div>
+      </div>
+
+      <!-- Row 5: Checkbox & Radio -->
+      <div class="form-grid-row-label">Check / Radio</div>
+      <div class="form-grid-cell">
+        <div class="check-wrap">
+          <label class="custom-checkbox">
+            <input type="checkbox">
+            <span class="checkbox-box"></span>
+          </label>
+          <span class="check-radio-label">Unchecked</span>
+        </div>
+        <div class="radio-wrap">
+          <label class="custom-radio">
+            <input type="radio" name="r-default">
+            <span class="radio-circle"></span>
+          </label>
+          <span class="check-radio-label">Unselected</span>
+        </div>
+      </div>
+      <div class="form-grid-cell">
+        <div class="check-wrap focus">
+          <label class="custom-checkbox">
+            <input type="checkbox" checked>
+            <span class="checkbox-box"></span>
+          </label>
+          <span class="check-radio-label">Checked</span>
+        </div>
+        <div class="radio-wrap focus">
+          <label class="custom-radio">
+            <input type="radio" name="r-focus" checked>
+            <span class="radio-circle"></span>
+          </label>
+          <span class="check-radio-label">Selected</span>
+        </div>
+      </div>
+      <div class="form-grid-cell">
+        <div class="check-wrap error">
+          <label class="custom-checkbox">
+            <input type="checkbox">
+            <span class="checkbox-box"></span>
+          </label>
+          <span class="check-radio-label">Required</span>
+        </div>
+        <p class="input-error-msg">Must check to proceed</p>
+      </div>
+      <div class="form-grid-cell">
+        <div class="check-wrap disabled">
+          <label class="custom-checkbox">
+            <input type="checkbox" disabled>
+            <span class="checkbox-box" style="opacity:0.5;cursor:not-allowed;"></span>
+          </label>
+          <span class="check-radio-label" style="opacity:0.5;">Disabled</span>
+        </div>
+        <div class="radio-wrap disabled">
+          <label class="custom-radio">
+            <input type="radio" disabled>
+            <span class="radio-circle" style="opacity:0.5;cursor:not-allowed;"></span>
+          </label>
+          <span class="check-radio-label" style="opacity:0.5;">Disabled</span>
+        </div>
+      </div>
+
+      <!-- Row 6: Search -->
+      <div class="form-grid-row-label">Search</div>
+      <div class="form-grid-cell">
+        <div class="search-wrap">
+          <span class="search-icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="9.5" y1="9.5" x2="13" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <input class="form-input" type="text" placeholder="Search sessions...">
+        </div>
+      </div>
+      <div class="form-grid-cell">
+        <div class="search-wrap">
+          <span class="search-icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="9.5" y1="9.5" x2="13" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <input class="form-input focus" type="text" value="Pickleball Monday">
+        </div>
+      </div>
+      <div class="form-grid-cell">
+        <div class="search-wrap">
+          <span class="search-icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="9.5" y1="9.5" x2="13" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <input class="form-input error" type="text" value="???">
+        </div>
+        <p class="input-error-msg">No results found</p>
+      </div>
+      <div class="form-grid-cell">
+        <div class="search-wrap">
+          <span class="search-icon">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="9.5" y1="9.5" x2="13" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <input class="form-input" type="text" placeholder="Search sessions..." disabled>
+        </div>
+      </div>
+
+      <!-- Row 7: Date Picker -->
+      <div class="form-grid-row-label last">Date</div>
+      <div class="form-grid-cell last">
+        <input class="form-input" type="date">
+      </div>
+      <div class="form-grid-cell last">
+        <input class="form-input focus" type="date" value="2026-03-15">
+      </div>
+      <div class="form-grid-cell last">
+        <input class="form-input error" type="date">
+        <p class="input-error-msg">Please select a date</p>
+      </div>
+      <div class="form-grid-cell last">
+        <input class="form-input" type="date" disabled>
+      </div>
+    </div>
+
   </div>
 </section>
 
