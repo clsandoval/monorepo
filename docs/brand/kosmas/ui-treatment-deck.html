@@ -517,6 +517,121 @@
     letter-spacing: 1px;
   }
 
+  /* ==================== BUTTONS ==================== */
+  .btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 10px 28px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-block;
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  .btn-primary {
+    background: var(--black);
+    color: var(--cream);
+  }
+
+  .btn-primary:hover {
+    background: var(--charcoal);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    border: 2px solid var(--black);
+    color: var(--black);
+  }
+
+  .btn-secondary:hover {
+    background: var(--black);
+    color: var(--cream);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--charcoal);
+    border: none;
+  }
+
+  .btn-ghost:hover {
+    background: var(--stone);
+  }
+
+  .btn-accent {
+    background: var(--cyan);
+    color: var(--black);
+  }
+
+  .btn-accent:hover {
+    background: #0A9AB3;
+  }
+
+  .btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-grid {
+    display: grid;
+    grid-template-columns: 140px repeat(5, 1fr);
+    gap: 0;
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .btn-grid-header {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-grid-cell {
+    padding: 20px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid var(--stone);
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .btn-grid-cell:nth-child(-n+6) {
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .btn-grid-row-label {
+    padding: 20px 16px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--charcoal);
+    background: var(--cream);
+    border-bottom: 1px solid var(--stone);
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-grid-row-label.last,
+  .btn-grid-cell.last {
+    border-bottom: none;
+  }
+
   /* ==================== PHILOSOPHY PILLARS ==================== */
   .pillars-grid {
     display: grid;
@@ -1310,6 +1425,70 @@
   <div class="container">
     <p class="section-number">06</p>
     <h2 class="section-title">BUTTONS</h2>
+
+    <!-- Button grid: 5 variants × 2 states -->
+    <div class="btn-grid">
+      <!-- Header row -->
+      <div class="btn-grid-header">State</div>
+      <div class="btn-grid-header" style="border-left:1px solid rgba(255,255,255,0.15);">Primary</div>
+      <div class="btn-grid-header" style="border-left:1px solid rgba(255,255,255,0.15);">Secondary</div>
+      <div class="btn-grid-header" style="border-left:1px solid rgba(255,255,255,0.15);">Ghost</div>
+      <div class="btn-grid-header" style="border-left:1px solid rgba(255,255,255,0.15);">Accent</div>
+      <div class="btn-grid-header" style="border-left:1px solid rgba(255,255,255,0.15);">Disabled</div>
+
+      <!-- Default row -->
+      <div class="btn-grid-row-label">Default</div>
+      <div class="btn-grid-cell" style="background:var(--white);">
+        <button class="btn btn-primary">Action</button>
+      </div>
+      <div class="btn-grid-cell" style="background:var(--white);">
+        <button class="btn btn-secondary">Action</button>
+      </div>
+      <div class="btn-grid-cell" style="background:var(--white);">
+        <button class="btn btn-ghost">Action</button>
+      </div>
+      <div class="btn-grid-cell" style="background:var(--white);">
+        <button class="btn btn-accent">Action</button>
+      </div>
+      <div class="btn-grid-cell" style="background:var(--white);">
+        <button class="btn btn-primary btn-disabled" disabled>Action</button>
+      </div>
+
+      <!-- Hover row (static simulation) -->
+      <div class="btn-grid-row-label last">Hover</div>
+      <div class="btn-grid-cell last" style="background:var(--white);">
+        <!-- Primary hover: charcoal bg -->
+        <button class="btn" style="background:var(--charcoal); color:var(--cream); pointer-events:none;">Action</button>
+      </div>
+      <div class="btn-grid-cell last" style="background:var(--white);">
+        <!-- Secondary hover: black bg, cream text -->
+        <button class="btn" style="background:var(--black); color:var(--cream); border:2px solid var(--black); pointer-events:none;">Action</button>
+      </div>
+      <div class="btn-grid-cell last" style="background:var(--white);">
+        <!-- Ghost hover: stone bg -->
+        <button class="btn" style="background:var(--stone); color:var(--charcoal); pointer-events:none;">Action</button>
+      </div>
+      <div class="btn-grid-cell last" style="background:var(--white);">
+        <!-- Accent hover: darker cyan -->
+        <button class="btn" style="background:#0A9AB3; color:var(--black); pointer-events:none;">Action</button>
+      </div>
+      <div class="btn-grid-cell last" style="background:var(--white);">
+        <!-- Disabled hover: same as default, no-op -->
+        <button class="btn btn-primary btn-disabled" style="pointer-events:none;" disabled>Action</button>
+      </div>
+    </div>
+
+    <!-- Spec notes -->
+    <div style="margin-top:24px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px;">
+      <div style="background:var(--white); border:1px solid var(--stone); border-radius:6px; padding:18px 20px;">
+        <p style="font-family:var(--font-body); font-weight:500; font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--charcoal); margin-bottom:10px;">Button Anatomy</p>
+        <p style="font-family:var(--font-body); font-weight:300; font-size:13px; color:var(--charcoal); line-height:1.6;">Padding: 10px top/bottom · 28px left/right<br>Font: Outfit 600 · 12px · 1.5px letter-spacing<br>Border-radius: 4px · Transition: 150ms ease</p>
+      </div>
+      <div style="background:var(--white); border:1px solid var(--stone); border-radius:6px; padding:18px 20px;">
+        <p style="font-family:var(--font-body); font-weight:500; font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--charcoal); margin-bottom:10px;">Usage Guidance</p>
+        <p style="font-family:var(--font-body); font-weight:300; font-size:13px; color:var(--charcoal); line-height:1.6;">One primary per view. Accent (Cyan) for promotional or metric actions only. Ghost for low-priority or tertiary actions.</p>
+      </div>
+    </div>
   </div>
 </section>
 
