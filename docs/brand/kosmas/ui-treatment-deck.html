@@ -319,6 +319,106 @@
     line-height: 1.6;
   }
 
+  /* ==================== TYPOGRAPHY ==================== */
+  .type-scale-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 48px;
+  }
+
+  .type-scale-row {
+    border-bottom: 1px solid var(--stone);
+    display: grid;
+    grid-template-columns: 120px 1fr 200px;
+    align-items: center;
+    padding: 16px 0;
+    gap: 16px;
+  }
+
+  .type-scale-row:first-child {
+    border-top: 1px solid var(--stone);
+  }
+
+  .type-level-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--charcoal);
+    align-self: center;
+  }
+
+  .type-sample-display {
+    overflow: hidden;
+  }
+
+  .type-specs {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--charcoal);
+    line-height: 1.5;
+    align-self: center;
+  }
+
+  .weight-showcase {
+    margin-bottom: 48px;
+  }
+
+  .weight-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .weight-row:first-child {
+    border-top: 1px solid var(--stone);
+  }
+
+  .weight-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .weight-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--charcoal);
+  }
+
+  .pairing-guidance {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--charcoal);
+    line-height: 1.6;
+  }
+
+  .pairing-guidance strong {
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  .body-text-sample {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    padding: 28px 32px;
+  }
+
   /* ==================== PHILOSOPHY PILLARS ==================== */
   .pillars-grid {
     display: grid;
@@ -920,6 +1020,120 @@
   <div class="container">
     <p class="section-number">04</p>
     <h2 class="section-title">TYPOGRAPHY</h2>
+
+    <!-- Type scale -->
+    <p class="subsection-label">Type Scale</p>
+    <div style="margin-bottom:48px;">
+      <div class="type-scale-row">
+        <div class="type-level-label">Display</div>
+        <div class="type-sample-display">
+          <span style="font-family:'Josefin Sans',sans-serif; font-weight:300; font-size:48px; letter-spacing:3px; line-height:1.1; color:var(--black);">Kosmas Athletic</span>
+        </div>
+        <div class="type-specs">48px / Josefin Sans<br>Weight 300 / LS 3px / LH 1.1</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-level-label">H1</div>
+        <div class="type-sample-display">
+          <span style="font-family:'Josefin Sans',sans-serif; font-weight:600; font-size:36px; letter-spacing:2px; line-height:1.2; color:var(--black);">Kosmas Athletic</span>
+        </div>
+        <div class="type-specs">36px / Josefin Sans<br>Weight 600 / LS 2px / LH 1.2</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-level-label">H2</div>
+        <div class="type-sample-display">
+          <span style="font-family:'Josefin Sans',sans-serif; font-weight:600; font-size:28px; letter-spacing:2px; line-height:1.2; color:var(--black);">Kosmas Athletic</span>
+        </div>
+        <div class="type-specs">28px / Josefin Sans<br>Weight 600 / LS 2px / LH 1.2</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-level-label">H3</div>
+        <div class="type-sample-display">
+          <span style="font-family:'Josefin Sans',sans-serif; font-weight:600; font-size:20px; letter-spacing:1px; line-height:1.3; color:var(--black);">Kosmas Athletic Ventures</span>
+        </div>
+        <div class="type-specs">20px / Josefin Sans<br>Weight 600 / LS 1px / LH 1.3</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-level-label">H4</div>
+        <div class="type-sample-display">
+          <span style="font-family:'Josefin Sans',sans-serif; font-weight:600; font-size:16px; letter-spacing:1px; line-height:1.3; color:var(--black);">Kosmas Athletic Ventures</span>
+        </div>
+        <div class="type-specs">16px / Josefin Sans<br>Weight 600 / LS 1px / LH 1.3</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-level-label">Body</div>
+        <div class="type-sample-display">
+          <span style="font-family:'Outfit',sans-serif; font-weight:300; font-size:15px; letter-spacing:0; line-height:1.6; color:var(--black);">Premium sports management for pickleball, volleyball, football and golf.</span>
+        </div>
+        <div class="type-specs">15px / Outfit<br>Weight 300 / LS 0 / LH 1.6</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-level-label">Label</div>
+        <div class="type-sample-display">
+          <span style="font-family:'Outfit',sans-serif; font-weight:500; font-size:10px; letter-spacing:2px; line-height:1.0; text-transform:uppercase; color:var(--charcoal);">Section Label — Metadata</span>
+        </div>
+        <div class="type-specs">10px / Outfit<br>Weight 500 / LS 2px / LH 1.0</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-level-label">Caption</div>
+        <div class="type-sample-display">
+          <span style="font-family:'Outfit',sans-serif; font-weight:300; font-size:12px; letter-spacing:0; line-height:1.4; color:var(--charcoal);">Supporting detail, image captions, helper text</span>
+        </div>
+        <div class="type-specs">12px / Outfit<br>Weight 300 / LS 0 / LH 1.4</div>
+      </div>
+    </div>
+
+    <!-- Weight showcase -->
+    <p class="subsection-label">Weight Showcase</p>
+    <div class="weight-showcase">
+      <div class="weight-row">
+        <div class="weight-item">
+          <span class="weight-label">300</span>
+          <span style="font-family:'Josefin Sans',sans-serif; font-weight:300; font-size:24px; letter-spacing:1px; color:var(--black);">Kosmas Athletic</span>
+        </div>
+        <div class="weight-item">
+          <span class="weight-label">400</span>
+          <span style="font-family:'Josefin Sans',sans-serif; font-weight:400; font-size:24px; letter-spacing:1px; color:var(--black);">Kosmas Athletic</span>
+        </div>
+        <div class="weight-item">
+          <span class="weight-label">600</span>
+          <span style="font-family:'Josefin Sans',sans-serif; font-weight:600; font-size:24px; letter-spacing:1px; color:var(--black);">Kosmas Athletic</span>
+        </div>
+        <div class="weight-item">
+          <span class="weight-label">700</span>
+          <span style="font-family:'Josefin Sans',sans-serif; font-weight:700; font-size:24px; letter-spacing:1px; color:var(--black);">Kosmas Athletic</span>
+        </div>
+      </div>
+      <div class="weight-row">
+        <div class="weight-item">
+          <span class="weight-label">300</span>
+          <span style="font-family:'Outfit',sans-serif; font-weight:300; font-size:20px; color:var(--black);">Premium Sports Management</span>
+        </div>
+        <div class="weight-item">
+          <span class="weight-label">400</span>
+          <span style="font-family:'Outfit',sans-serif; font-weight:400; font-size:20px; color:var(--black);">Premium Sports Management</span>
+        </div>
+        <div class="weight-item">
+          <span class="weight-label">500</span>
+          <span style="font-family:'Outfit',sans-serif; font-weight:500; font-size:20px; color:var(--black);">Premium Sports Management</span>
+        </div>
+        <div class="weight-item">
+          <span class="weight-label">600</span>
+          <span style="font-family:'Outfit',sans-serif; font-weight:600; font-size:20px; color:var(--black);">Premium Sports Management</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pairing guidance -->
+    <div class="pairing-guidance">
+      <strong>Josefin Sans</strong> — Headlines, section titles, display numbers, brand moments.<br>
+      <strong>Outfit</strong> — Body text, labels, buttons, navigation, captions, and all UI copy.
+    </div>
+
+    <!-- Body text sample -->
+    <p class="subsection-label">Body Text Sample</p>
+    <div class="body-text-sample">
+      <p style="font-family:'Outfit',sans-serif; font-weight:300; font-size:15px; line-height:1.6; color:var(--black);">Kosmas Athletic Ventures manages elite athletes and sports organizations across pickleball, volleyball, football, and golf. Our approach combines data-driven insights with personalized coaching to maximize performance and career longevity. Every decision is made with precision, every relationship built with integrity.</p>
+    </div>
   </div>
 </section>
 
