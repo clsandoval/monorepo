@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 38
+current: 39
 total: 85
 
 ## Completed
@@ -41,3 +41,4 @@ total: 85
 - 035: Wizard Navigation: Wire Into Intake — replaced WizardStepper with WizardNavigation in intake.tsx; added optional formRef prop to all 6 step components (CustomerInfo/VenueConfig/Tier/Isp/Installer/Financial); onNext triggers stepFormRef.current?.requestSubmit() for steps 0-5, handleIntakeSubmit for last step; onPrevious decrements step; onStepClick guards with isStepAccessible; tsc --noEmit passes
 - 036: Wizard Navigation: Wire Into Procurement — replaced manual tab row + "Advance to Deployment" button with WizardNavigation; activeTabIdx (number) replaces activeTab (string); getStepStates('procurement', activeTabIdx) drives step states; onNext on last step triggers advance dialog; nextLabel='Advance to Deployment' on last step; tsc --noEmit passes
 - 037: Wizard Navigation: Wire Into Deployment + Financials — deployment.tsx: replaced sidebar phase list with WizardNavigation; activeDisplayIdx derived from PHASE_DISPLAY_ORDER.indexOf(selectedPhase); navigation prev/next/step-click handlers; last step triggers advance dialog (guarded by allItemsChecked toast); financials.tsx: replaced tab row with WizardNavigation; activeTabIdx (number) replaces activeTab (string); both use getStepStates/WIZARD_STEPS; tsc --noEmit passes
+- 038: Wizard Navigation Tests — created navigation.test.tsx with 13 tests: all step labels render, completed steps not disabled, locked steps disabled, current step has aria-current, Previous hidden on first step, Previous visible otherwise, Next shows Complete on last step, Next shows Next otherwise, nextLabel override, onPrevious/onNext/onStepClick callbacks fire correctly, onStepClick does not fire for locked steps; 13 tests pass
