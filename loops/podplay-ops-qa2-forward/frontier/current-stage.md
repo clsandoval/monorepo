@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 70
+current: 71
 total: 85
 
 ## Completed
@@ -73,3 +73,4 @@ total: 85
 - 067: Mobile Verify /projects/:id/procurement — procurement page renders at 375x812 with "Procurement — Brooklyn Padel Courts" heading, 4 tabs (BOM Review, Inventory Check, Purchase Orders, Packing List); BOM Review tab active with Regenerate BOM button; no horizontal overflow (scrollWidth=375); tab buttons 36px, nav buttons 32px (noted below 44px, consistent with prior stages); screenshot saved
 - 068: Mobile Verify /projects/:id/deployment — deployment page renders at 375x812 with "Deployment — LA Fitness Hub West" heading, 16 phase steps in wizard nav (Phase 1 active, 2-16 locked), Phase 0: Pre-Purchase & Planning checklist with 8 steps; no horizontal overflow (scrollWidth=375); checkbox touch targets 86-234px height × 243px width (well above 44px); Next button accessible; screenshot saved
 - 069: Mobile Verify /projects/:id/financials — financials page renders at 375x812 with "Financials — LA Fitness Hub West" heading, 5-step wizard (Invoicing active, steps 2-5 locked), Deposit Invoice form with Amount/Invoice Date/Payment Method fields, Export Invoice as PDF button; no horizontal overflow (scrollWidth=375); wizard/nav buttons 28-36px (noted below 44px, consistent with prior stages); screenshot saved
+- 070: Mobile Verify /inventory — inventory page renders at 375x812 with "Inventory" heading, 47 items count, table with Item/On Hand/Allocated columns visible; item names, LOW badges, SKU/vendor info shown; no horizontal overflow (scrollWidth=375); Adjust buttons 26px (noted below 44px, consistent with prior stages); screenshot saved
