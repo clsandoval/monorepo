@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 50
+current: 51
 total: 85
 
 ## Completed
@@ -53,3 +53,4 @@ total: 85
 - 047: Desktop Verify /login — created .env.local with local Supabase URL+anon key; login page renders at 1280x800 with PodPlay Ops title, Email/Password fields, Sign In button, and Send magic link button; no console errors; screenshot saved
 - 048: Desktop Verify /projects — seeded 3 test projects (Ace Tennis Club NYC/intake/PRO, Brooklyn Padel Courts/procurement/AUTO, LA Fitness Hub West/deployment/A+); projects table renders with real content, status badges, tier badges, delete buttons on all rows; "Showing 3 of 3 projects"; screenshot saved
 - 049: Desktop Verify /projects/new — New Project form renders at 1280x800 with Project Name, Customer Name, Venue Name (optional) fields, Create Project + Cancel buttons; no console errors; screenshot saved
+- 050: Desktop Verify /projects/:id/intake — intake wizard renders at 1280x800 with 7 steps (Customer Info → Review & Submit); steps 2-7 disabled/locked; InstallerSelectionStep uses MultiSelect with installer_ids; no PingPod WiFi field in intake UI; screenshot saved
