@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 49
+current: 50
 total: 85
 
 ## Completed
@@ -52,3 +52,4 @@ total: 85
 - 046: PDF Export: Add to BOM, Packing List, Invoices — added PdfExportButton ("Export BOM as PDF") to BomReviewTable.tsx header; replaced Print/Save PDF button with PdfExportButton ("Export Packing List as PDF") in PackingList.tsx; added PdfExportButton ("Export Invoice as PDF") to DepositInvoice.tsx and FinalInvoice.tsx section headers; tsc --noEmit passes
 - 047: Desktop Verify /login — created .env.local with local Supabase URL+anon key; login page renders at 1280x800 with PodPlay Ops title, Email/Password fields, Sign In button, and Send magic link button; no console errors; screenshot saved
 - 048: Desktop Verify /projects — seeded 3 test projects (Ace Tennis Club NYC/intake/PRO, Brooklyn Padel Courts/procurement/AUTO, LA Fitness Hub West/deployment/A+); projects table renders with real content, status badges, tier badges, delete buttons on all rows; "Showing 3 of 3 projects"; screenshot saved
+- 049: Desktop Verify /projects/new — New Project form renders at 1280x800 with Project Name, Customer Name, Venue Name (optional) fields, Create Project + Cancel buttons; no console errors; screenshot saved
