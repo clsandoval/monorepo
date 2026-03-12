@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 28
+current: 29
 total: 85
 
 ## Completed
@@ -31,3 +31,4 @@ total: 85
 - 025: iPad 128GB Price Fix — updated 00006_seed_hardware.sql DISPLAY-IPAD entry: name iPad 64GB → iPad 128GB WiFi+Cellular, unit_cost $600 → $729; db reset clean; verified DB row shows 128GB at $729
 - 026: Project Name in Headers — procurement.tsx h1 updated to "Procurement — [Project Name]" with customer_name as subtitle; intake.tsx added project_name to select query + projectName state, h1 updated to "Intake — [Project Name]"; tsc --noEmit passes
 - 027: Deposit Minimum: Settings Schema + UI — created 00021_minimum_deposit.sql: added minimum_deposit numeric column (default 500.00) to settings table; added minimum_deposit to Settings type; added to pricingFormSchema (z.number().min(0)); added to defaultValues (500); added "Minimum Deposit" CurrencyInput field in Cost Chain Rates section with help text; db reset clean; tsc --noEmit passes
+- 028: Deposit Minimum Enforcement + Deployment Advance Gate — DepositInvoice.tsx fetches minimum_deposit from settings, validates in onSubmit with setError showing "Minimum deposit is $X.XX"; deployment.tsx computes allItemsChecked (totalSteps===0 || completedSteps===totalSteps), disables "Advance to Financial Close" button when not all checked, adds title tooltip message; tsc --noEmit passes
