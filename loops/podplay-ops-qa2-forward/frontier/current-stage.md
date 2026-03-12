@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 46
+current: 47
 total: 85
 
 ## Completed
@@ -49,3 +49,4 @@ total: 85
 - 043: Operations Guide: Financials & Settings Section — filled in Financial Close section (deposit invoice, expense tracking, final invoicing, P&L summary, recurring fees, project close), Inventory Management section (stock tracking, on-order quantities, manual adjustments, movement history, common workflows), and Settings section (team contacts, installers, vendors, pricing tiers & minimum deposit, hardware catalog); updated TOC with 2 new entries; tsc --noEmit passes
 - 044: Operations Guide: Print CSS + Styling — added @media print block to index.css (hide sidebar/header, fix overflow constraints, page margins, section page breaks, keep headings with content, tables/code blocks avoid splitting); added Print Guide button (Printer icon, window.print(), guide-print-button hidden on print) to OperationsGuide.tsx header; tsc --noEmit passes
 - 045: PDF Export Utility Component — created PdfExportButton.tsx with Printer icon, label prop (default "Export PDF"), targetRef prop for future use, uses window.print(); tsc --noEmit passes (no new errors)
+- 046: PDF Export: Add to BOM, Packing List, Invoices — added PdfExportButton ("Export BOM as PDF") to BomReviewTable.tsx header; replaced Print/Save PDF button with PdfExportButton ("Export Packing List as PDF") in PackingList.tsx; added PdfExportButton ("Export Invoice as PDF") to DepositInvoice.tsx and FinalInvoice.tsx section headers; tsc --noEmit passes
