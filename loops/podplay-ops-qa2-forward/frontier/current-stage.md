@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 13
+current: 14
 total: 85
 
 ## Completed
@@ -16,3 +16,4 @@ total: 85
 - 010: Remove PingPod WiFi Field — removed has_pingpod_wifi from VenueConfigStep.tsx schema+UI, ReviewStep.tsx row, intake.tsx update payload, venue-config.test.tsx (2 tests), review.test.ts fixture+test 9, submit.test.ts toMatchObject expectation; 985 tests pass
 - 011: Fix Vendor Add Failure — added 00019_vendors_rls.sql: ENABLE ROW LEVEL SECURITY + authenticated full access policy on vendors table; db reset clean; 985 tests pass
 - 012: Fix Inventory Seed Migration — db reset applies all 19 migrations cleanly; inventory table has exactly 47 rows matching 47 active hardware_catalog items; 985 tests pass
+- 013: Fix "(tier)" Literal in Advance to Deployment — changed procurement.tsx select from wrong column `service_tier` to `tier`; added serviceTierLabels import to show human-readable label in dialog; tsc --noEmit passes
