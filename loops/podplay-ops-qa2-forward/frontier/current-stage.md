@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 76
+current: 77
 total: 85
 
 ## Completed
@@ -79,3 +79,4 @@ total: 85
 - 073: Mobile Verify /settings/vendors + /settings/pricing — both pages render at 375x812; /settings/vendors shows 7 real vendors (APC/Apple/Generic/Kisi/Replay/Samsung/Ubiquiti) + "+ Add Vendor" button + Actions menus per row; /settings/pricing shows Service Tier Fees (Pro $5000/$2500, Autonomous $7500/$2500, A+ $7500/$2500, PBK $0), Cost Chain Rates, Minimum Deposit field at $500, Labor/Operational Defaults sections + Save Changes button; no horizontal overflow on either page (scrollWidth=375); tab links 38px, buttons 24-36px (noted below 44px, consistent with prior stages); screenshots saved
 - 074: Mobile Verify /settings/catalog — catalog page renders at 375x812 with "Hardware Catalog" heading, 47 items shown, table with SKU/Name/Category columns (SKUs truncated for mobile), iPad 128GB WiFi+Cellular at $729.00 visible (DISPLAY-IPAD), "+ Add Item" button, Search/Category filter/Show inactive controls; no horizontal overflow (scrollWidth=375); tab links 38px, action buttons 24-36px (noted below 44px, consistent with prior stages); screenshot saved
 - 075: Mobile Verify /guide — Operations Guide renders at 375x812 with "PodPlay Operations Guide" heading, "Complete deployment operations manual" subtitle, Print Guide button, 7-section TOC (Overview/Customer Onboarding/Procurement & Hardware Ordering/Deployment/Financial Close/Inventory Management/Settings), real content in Overview section visible; no horizontal overflow (scrollWidth=375); Print Guide button 28px, TOC links 18px (noted below 44px, consistent with prior stages); screenshot saved
+- 076: Flow QA: Create Project + Complete Intake — created "QA Test Project - Stage 076" (QA Test Customer/AUTO) at /projects/new; redirected to intake; completed all 7 steps in order (Customer Info/Venue Config/Service Tier/ISP Info/Installer x2/Financial Setup/Review); step locking verified (steps 5+6 locked until prior steps complete); multi-select: selected PodPlay Install Team + External Installer; submitted intake → redirected to /procurement with BOM auto-generated (30 line items, subtotal $10277); dashboard shows project with Procurement status/AUTO tier/Jun 1 2026 go-live; screenshots saved
