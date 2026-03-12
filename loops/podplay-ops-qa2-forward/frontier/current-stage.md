@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 26
+current: 27
 total: 85
 
 ## Completed
@@ -29,3 +29,4 @@ total: 85
 - 023: Wizard Step Locking: Procurement, Deployment, Financials — applied same visual locking pattern to all 3 tab/phase wizards: completed tabs/phases show Check icon + muted hover style, current tab highlighted with border-b-2/border-l-2, locked (future) tabs/phases get opacity-50 + cursor-not-allowed; procurement.tsx and financials.tsx map tab index vs activeTab; deployment.tsx compares displayIdx vs selectedPhase's display index; tsc --noEmit passes
 - 024: Door/Camera Count Conditional Validation — added superRefine to venueConfigSchema: when has_front_desk=false, door_count and camera_count must be > 0; added no_front_desk_required messages to validation-messages.ts; updated UI labels to show * (required) or (optional) based on hasFrontDesk watch; updated venue-config tests + added 3 new conditional validation tests; fixed pre-existing intake-stepper tests (locked steps); fixed submit.test.ts navigation helper and expected values; 997 tests pass
 - 025: iPad 128GB Price Fix — updated 00006_seed_hardware.sql DISPLAY-IPAD entry: name iPad 64GB → iPad 128GB WiFi+Cellular, unit_cost $600 → $729; db reset clean; verified DB row shows 128GB at $729
+- 026: Project Name in Headers — procurement.tsx h1 updated to "Procurement — [Project Name]" with customer_name as subtitle; intake.tsx added project_name to select query + projectName state, h1 updated to "Intake — [Project Name]"; tsc --noEmit passes
