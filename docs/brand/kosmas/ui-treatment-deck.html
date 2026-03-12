@@ -1612,6 +1612,577 @@
     font-size: 12px;
     color: var(--charcoal);
   }
+
+  /* ==================== PAGE TREATMENTS (SECTION 12) ==================== */
+  .treatment-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--stone);
+    margin-bottom: 32px;
+    overflow-x: auto;
+  }
+
+  .treatment-tab {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 16px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--charcoal);
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+    margin-bottom: -1px;
+  }
+
+  .treatment-tab.active {
+    color: var(--black);
+    border-bottom: 2px solid var(--black);
+  }
+
+  .treatment-tab:hover:not(.active) {
+    color: var(--black);
+  }
+
+  /* 12a Landing */
+  .pt-hero {
+    background: var(--cream);
+    text-align: center;
+    padding: 48px 32px;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .pt-hero-headline {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 36px;
+    letter-spacing: 3px;
+    color: var(--black);
+    margin-bottom: 12px;
+  }
+
+  .pt-hero-subtitle {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--charcoal);
+    margin-bottom: 24px;
+  }
+
+  .pt-hero-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .pt-sport-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 32px;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .pt-sport-card {
+    border-radius: 6px;
+    padding: 20px;
+    border: 1px solid transparent;
+  }
+
+  .pt-sport-name {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+
+  .pt-sport-count {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+  }
+
+  .pt-sport-link {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--cyan);
+    text-decoration: none;
+    cursor: default;
+  }
+
+  .pt-testimonial {
+    text-align: center;
+    padding: 40px 64px;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .pt-testimonial-quote {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--black);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .pt-testimonial-attr {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--charcoal);
+  }
+
+  .pt-cta {
+    text-align: center;
+    padding: 40px 32px;
+    background: var(--cream);
+  }
+
+  .pt-cta-heading {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-bottom: 20px;
+  }
+
+  /* 12b Dashboard */
+  .pt-dash-inner {
+    padding: 24px;
+    background: var(--cream);
+  }
+
+  .pt-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .pt-kpi-card {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    padding: 20px;
+  }
+
+  .pt-kpi-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .pt-kpi-value {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: var(--black);
+  }
+
+  .pt-activity-feed {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .pt-activity-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .pt-activity-row:last-child {
+    border-bottom: none;
+  }
+
+  .pt-activity-time {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--charcoal);
+    flex-shrink: 0;
+    width: 72px;
+  }
+
+  .pt-activity-desc {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--black);
+    flex: 1;
+  }
+
+  .pt-quick-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  /* 12c Content */
+  .pt-content-inner {
+    padding: 40px;
+    background: var(--white);
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .pt-content-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--black);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .pt-content-meta {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--charcoal);
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .pt-content-body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--charcoal);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .pt-content-blockquote {
+    border-left: 3px solid var(--black);
+    padding-left: 20px;
+    font-style: italic;
+    margin: 24px 0;
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--charcoal);
+    line-height: 1.6;
+  }
+
+  .pt-related-heading {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  .pt-related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .pt-related-card {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    padding: 20px;
+  }
+
+  .pt-related-card-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: var(--black);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .pt-related-card-date {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--charcoal);
+    margin-top: 8px;
+  }
+
+  /* 12d CRUD */
+  .pt-crud-inner {
+    padding: 24px;
+    background: var(--white);
+  }
+
+  .pt-crud-topbar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+  .pt-crud-search {
+    flex: 1;
+    max-width: 300px;
+  }
+
+  .pt-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .pt-table th {
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  .pt-table td {
+    padding: 12px 16px;
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--black);
+    border-bottom: 1px solid var(--stone);
+    background: var(--white);
+  }
+
+  .pt-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .pt-table-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .pt-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--charcoal);
+    display: flex;
+    align-items: center;
+    padding: 2px;
+  }
+
+  .pt-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .pt-pagination-info {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--charcoal);
+  }
+
+  .pt-pagination-btns {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-sm {
+    padding: 6px 16px;
+    font-size: 11px;
+  }
+
+  /* 12e ERP */
+  .pt-erp-layout {
+    display: flex;
+    background: var(--cream);
+  }
+
+  .pt-erp-sidebar {
+    width: 56px;
+    background: var(--black);
+    padding: 12px 8px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .pt-erp-sidebar-icon {
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+  }
+
+  .pt-erp-sidebar-icon.active-icon {
+    color: var(--cyan);
+  }
+
+  .pt-erp-main {
+    flex: 1;
+    padding: 24px;
+    overflow: hidden;
+  }
+
+  .pt-chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .pt-chart-placeholder {
+    border: 2px dashed var(--stone);
+    border-radius: 6px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--charcoal);
+  }
+
+  /* 12f Schedule */
+  .pt-schedule-inner {
+    padding: 24px;
+    background: var(--white);
+  }
+
+  .pt-toggle-bar {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+  }
+
+  .pt-calendar-grid {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0;
+    table-layout: fixed;
+  }
+
+  .pt-calendar-grid th {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    padding: 8px;
+    border-bottom: 1px solid var(--stone);
+    text-align: center;
+    background: var(--cream);
+  }
+
+  .pt-calendar-grid td {
+    border: 1px solid var(--stone);
+    padding: 4px;
+    vertical-align: top;
+    height: 60px;
+  }
+
+  .pt-time-cell {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 11px;
+    color: var(--charcoal);
+    padding: 8px 4px;
+    text-align: right;
+    white-space: nowrap;
+    background: var(--cream);
+    width: 56px;
+  }
+
+  .pt-event-card {
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--black);
+    line-height: 1.4;
+  }
+
+  .pt-modal-backdrop {
+    position: relative;
+    background: rgba(26,26,26,0.4);
+    border-radius: 6px;
+    padding: 40px;
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pt-modal-card {
+    background: var(--white);
+    border-radius: 6px;
+    padding: 32px;
+    max-width: 480px;
+    width: 100%;
+  }
+
+  .pt-modal-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-bottom: 24px;
+  }
+
+  .pt-form-field {
+    margin-bottom: 16px;
+  }
+
+  .pt-form-label {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+
+  .pt-modal-btns {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
 </style>
 </head>
 <body>
@@ -2772,6 +3343,504 @@
   <div class="container">
     <p class="section-number">12</p>
     <h2 class="section-title">PAGE TREATMENTS</h2>
+
+    <!-- Tab bar -->
+    <div class="treatment-tabs">
+      <button class="treatment-tab active" onclick="showTreatment('treatment-12a', this)">12A: LANDING</button>
+      <button class="treatment-tab" onclick="showTreatment('treatment-12b', this)">12B: DASHBOARD</button>
+      <button class="treatment-tab" onclick="showTreatment('treatment-12c', this)">12C: CONTENT</button>
+      <button class="treatment-tab" onclick="showTreatment('treatment-12d', this)">12D: CRUD</button>
+      <button class="treatment-tab" onclick="showTreatment('treatment-12e', this)">12E: ERP</button>
+      <button class="treatment-tab" onclick="showTreatment('treatment-12f', this)">12F: SCHEDULE</button>
+    </div>
+
+    <!-- 12a: Marketing Landing Page -->
+    <div class="page-treatment" id="treatment-12a" style="display:block">
+      <div class="mockup-frame">
+        <!-- Hero band -->
+        <div class="pt-hero">
+          <p class="pt-hero-headline">PREMIER ATHLETIC EXPERIENCES</p>
+          <p class="pt-hero-subtitle">World-class sports management for athletes and coaches</p>
+          <div class="pt-hero-btns">
+            <button class="btn btn-primary">Get Started</button>
+            <button class="btn btn-secondary">Learn More</button>
+          </div>
+        </div>
+        <!-- Sport cards grid -->
+        <div class="pt-sport-grid">
+          <div class="pt-sport-card" style="background: var(--tint-pickleball); border-color: var(--border-pickleball);">
+            <p class="pt-sport-name">PICKLEBALL</p>
+            <p class="pt-sport-count">14 active sessions</p>
+            <a class="pt-sport-link">Explore →</a>
+          </div>
+          <div class="pt-sport-card" style="background: var(--tint-volleyball); border-color: var(--border-volleyball);">
+            <p class="pt-sport-name">VOLLEYBALL</p>
+            <p class="pt-sport-count">8 active sessions</p>
+            <a class="pt-sport-link">Explore →</a>
+          </div>
+          <div class="pt-sport-card" style="background: var(--tint-football); border-color: var(--border-football);">
+            <p class="pt-sport-name">FOOTBALL</p>
+            <p class="pt-sport-count">11 active sessions</p>
+            <a class="pt-sport-link">Explore →</a>
+          </div>
+          <div class="pt-sport-card" style="background: var(--tint-golf); border-color: var(--border-golf);">
+            <p class="pt-sport-name">GOLF</p>
+            <p class="pt-sport-count">6 active sessions</p>
+            <a class="pt-sport-link">Explore →</a>
+          </div>
+        </div>
+        <!-- Testimonial -->
+        <div class="pt-testimonial">
+          <p class="pt-testimonial-quote">"The best athletic management platform in Southeast Asia."</p>
+          <p class="pt-testimonial-attr">— Marco Reyes, Head Coach, Manila Athletics Club</p>
+        </div>
+        <!-- CTA section -->
+        <div class="pt-cta">
+          <p class="pt-cta-heading">Ready to Play?</p>
+          <button class="btn btn-primary">Book a Session</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12b: App Dashboard -->
+    <div class="page-treatment" id="treatment-12b" style="display:none">
+      <div class="mockup-frame">
+        <div class="pt-dash-inner">
+          <!-- KPI cards -->
+          <div class="pt-kpi-grid">
+            <div class="pt-kpi-card">
+              <span class="pt-kpi-label">Active Members</span>
+              <span class="pt-kpi-value">186</span>
+            </div>
+            <div class="pt-kpi-card">
+              <span class="pt-kpi-label">Upcoming Sessions</span>
+              <span class="pt-kpi-value">24</span>
+            </div>
+            <div class="pt-kpi-card">
+              <span class="pt-kpi-label">Revenue</span>
+              <span class="pt-kpi-value">$12,400</span>
+            </div>
+            <div class="pt-kpi-card">
+              <span class="pt-kpi-label">Utilization</span>
+              <span class="pt-kpi-value">78%</span>
+            </div>
+          </div>
+          <!-- Activity feed -->
+          <div class="pt-activity-feed">
+            <div class="pt-activity-row">
+              <span class="pt-activity-time">9:15 AM</span>
+              <span class="pt-activity-desc">Court 3 booked for Mixed Doubles</span>
+              <span class="tag-sport">Pickleball</span>
+            </div>
+            <div class="pt-activity-row">
+              <span class="pt-activity-time">10:00 AM</span>
+              <span class="pt-activity-desc">New member registration: Maria Santos</span>
+              <span class="tag-sport">Volleyball</span>
+            </div>
+            <div class="pt-activity-row">
+              <span class="pt-activity-time">11:30 AM</span>
+              <span class="pt-activity-desc">Group session cancelled</span>
+              <span class="tag-sport">Football</span>
+            </div>
+            <div class="pt-activity-row">
+              <span class="pt-activity-time">1:00 PM</span>
+              <span class="pt-activity-desc">Payment received: ₱2,400</span>
+              <span class="tag-sport">Golf</span>
+            </div>
+            <div class="pt-activity-row">
+              <span class="pt-activity-time">2:45 PM</span>
+              <span class="pt-activity-desc">Court maintenance scheduled</span>
+              <span class="tag-sport">Pickleball</span>
+            </div>
+          </div>
+          <!-- Quick actions -->
+          <div class="pt-quick-actions">
+            <button class="btn btn-primary">Book Session</button>
+            <button class="btn btn-secondary">Add Member</button>
+            <button class="btn btn-ghost">View Reports</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12c: Content Page -->
+    <div class="page-treatment" id="treatment-12c" style="display:none">
+      <div class="mockup-frame">
+        <div class="pt-content-inner">
+          <h1 class="pt-content-title">Pickleball Courts: Our Top 5 in Manila</h1>
+          <p class="pt-content-meta">By Sarah Chen · March 10, 2026 · 5 min read</p>
+          <p class="pt-content-body">Manila's sporting scene has transformed dramatically over the past few years, and nowhere is that more evident than on the pickleball courts. From Bonifacio Global City to Quezon City, dedicated facilities are springing up across the metro, catering to players of all skill levels—from beginners picking up a paddle for the first time to seasoned competitors chasing regional titles.</p>
+          <p class="pt-content-body">Whether you're looking for a casual weekend game with friends or serious training sessions with a certified coach, Manila now offers court options that rival those found in major sporting capitals. Here are the five venues we consider essential playing grounds for anyone serious about the sport.</p>
+          <blockquote class="pt-content-blockquote">Manila's pickleball scene has exploded in the last two years, with court bookings up over 300% and a growing community of dedicated players pushing the sport into the mainstream.</blockquote>
+          <p class="pt-content-body">Each of these venues has been evaluated on court quality, coaching availability, equipment rental, booking ease, and overall atmosphere. We visited every location multiple times across different times of day to give you an honest, well-rounded assessment of what to expect.</p>
+          <!-- Related articles -->
+          <h2 class="pt-related-heading">Related Articles</h2>
+          <div class="pt-related-grid">
+            <div class="pt-related-card">
+              <p class="pt-related-card-title">Volleyball Beach Courts in Cebu</p>
+              <span class="tag-sport">Volleyball</span>
+              <p class="pt-related-card-date">Mar 8, 2026</p>
+            </div>
+            <div class="pt-related-card">
+              <p class="pt-related-card-title">Golf Driving Ranges: A Guide</p>
+              <span class="tag-sport">Golf</span>
+              <p class="pt-related-card-date">Mar 5, 2026</p>
+            </div>
+            <div class="pt-related-card">
+              <p class="pt-related-card-title">Football Youth Leagues 2026</p>
+              <span class="tag-sport">Football</span>
+              <p class="pt-related-card-date">Mar 1, 2026</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12d: CRUD Interface -->
+    <div class="page-treatment" id="treatment-12d" style="display:none">
+      <div class="mockup-frame">
+        <div class="pt-crud-inner">
+          <!-- Top bar -->
+          <div class="pt-crud-topbar">
+            <div class="pt-crud-search search-wrap" style="flex:1;max-width:300px;">
+              <span class="search-icon">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><line x1="10.5" y1="10.5" x2="14.5" y2="14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </span>
+              <input type="text" class="form-input" placeholder="Search bookings..." style="padding-left:32px;">
+            </div>
+            <select class="form-input" style="width:auto;">
+              <option>All Sports</option>
+              <option>Pickleball</option>
+              <option>Volleyball</option>
+              <option>Football</option>
+              <option>Golf</option>
+            </select>
+            <select class="form-input" style="width:auto;">
+              <option>All Statuses</option>
+              <option>Active</option>
+              <option>Upcoming</option>
+              <option>Sold Out</option>
+            </select>
+            <button class="btn btn-primary" style="margin-left:auto;white-space:nowrap;">Create Booking</button>
+          </div>
+          <!-- Data table -->
+          <table class="pt-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Sport</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Maria Santos</td>
+                <td><span class="tag-sport">Pickleball</span></td>
+                <td>Mar 15, 2026</td>
+                <td><span class="badge-active">Active</span></td>
+                <td>
+                  <div class="pt-table-actions">
+                    <button class="pt-icon-btn" title="Edit">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.5 2.5L13.5 4.5L5.5 12.5H3.5V10.5L11.5 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="9.5" y1="4.5" x2="11.5" y2="6.5" stroke="currentColor" stroke-width="1.5"/></svg>
+                    </button>
+                    <button class="pt-icon-btn" title="Delete">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="3,5 13,5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6 5V3h4v2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 5l1 9h6l1-9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Juan Cruz</td>
+                <td><span class="tag-sport">Volleyball</span></td>
+                <td>Mar 16, 2026</td>
+                <td><span class="badge-upcoming">Upcoming</span></td>
+                <td>
+                  <div class="pt-table-actions">
+                    <button class="pt-icon-btn" title="Edit">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.5 2.5L13.5 4.5L5.5 12.5H3.5V10.5L11.5 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="9.5" y1="4.5" x2="11.5" y2="6.5" stroke="currentColor" stroke-width="1.5"/></svg>
+                    </button>
+                    <button class="pt-icon-btn" title="Delete">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="3,5 13,5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6 5V3h4v2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 5l1 9h6l1-9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Ana Reyes</td>
+                <td><span class="tag-sport">Football</span></td>
+                <td>Mar 14, 2026</td>
+                <td><span class="badge-active">Active</span></td>
+                <td>
+                  <div class="pt-table-actions">
+                    <button class="pt-icon-btn" title="Edit">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.5 2.5L13.5 4.5L5.5 12.5H3.5V10.5L11.5 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="9.5" y1="4.5" x2="11.5" y2="6.5" stroke="currentColor" stroke-width="1.5"/></svg>
+                    </button>
+                    <button class="pt-icon-btn" title="Delete">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="3,5 13,5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6 5V3h4v2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 5l1 9h6l1-9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Carlos Tan</td>
+                <td><span class="tag-sport">Golf</span></td>
+                <td>Mar 17, 2026</td>
+                <td><span class="badge-upcoming">Upcoming</span></td>
+                <td>
+                  <div class="pt-table-actions">
+                    <button class="pt-icon-btn" title="Edit">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.5 2.5L13.5 4.5L5.5 12.5H3.5V10.5L11.5 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="9.5" y1="4.5" x2="11.5" y2="6.5" stroke="currentColor" stroke-width="1.5"/></svg>
+                    </button>
+                    <button class="pt-icon-btn" title="Delete">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="3,5 13,5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6 5V3h4v2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 5l1 9h6l1-9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Lisa Park</td>
+                <td><span class="tag-sport">Pickleball</span></td>
+                <td>Mar 13, 2026</td>
+                <td><span class="badge-soldout">Sold Out</span></td>
+                <td>
+                  <div class="pt-table-actions">
+                    <button class="pt-icon-btn" title="Edit">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.5 2.5L13.5 4.5L5.5 12.5H3.5V10.5L11.5 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><line x1="9.5" y1="4.5" x2="11.5" y2="6.5" stroke="currentColor" stroke-width="1.5"/></svg>
+                    </button>
+                    <button class="pt-icon-btn" title="Delete">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="3,5 13,5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6 5V3h4v2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 5l1 9h6l1-9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Pagination -->
+          <div class="pt-pagination">
+            <span class="pt-pagination-info">Showing 1–5 of 24</span>
+            <div class="pt-pagination-btns">
+              <button class="btn btn-secondary btn-sm">Previous</button>
+              <button class="btn btn-secondary btn-sm">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12e: ERP Dashboard -->
+    <div class="page-treatment" id="treatment-12e" style="display:none">
+      <div class="mockup-frame">
+        <div class="pt-erp-layout">
+          <!-- Sidebar -->
+          <div class="pt-erp-sidebar">
+            <!-- Grid / Home icon (active) -->
+            <span class="pt-erp-sidebar-icon active-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="2" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="11" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="11" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+            </span>
+            <!-- Calendar icon -->
+            <span class="pt-erp-sidebar-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="18" y2="8" stroke="currentColor" stroke-width="1.5"/><line x1="6" y1="2" x2="6" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="14" y1="2" x2="14" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <!-- People icon -->
+            <span class="pt-erp-sidebar-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M1 17c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="14" cy="6" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M17 16c0-2.761-1.343-5-3-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <!-- Chart icon -->
+            <span class="pt-erp-sidebar-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="10" width="3" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="8.5" y="6" width="3" height="11" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="14" y="3" width="3" height="14" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+            </span>
+            <!-- Gear icon -->
+            <span class="pt-erp-sidebar-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.222 4.222l1.414 1.414M14.364 14.364l1.414 1.414M4.222 15.778l1.414-1.414M14.364 5.636l1.414-1.414" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+          </div>
+          <!-- Main content -->
+          <div class="pt-erp-main">
+            <!-- KPI cards -->
+            <div class="pt-kpi-grid" style="margin-bottom:20px;">
+              <div class="pt-kpi-card">
+                <span class="pt-kpi-label">Revenue</span>
+                <span class="pt-kpi-value">$48.2K</span>
+              </div>
+              <div class="pt-kpi-card">
+                <span class="pt-kpi-label">Bookings</span>
+                <span class="pt-kpi-value">312</span>
+              </div>
+              <div class="pt-kpi-card">
+                <span class="pt-kpi-label">Utilization</span>
+                <span class="pt-kpi-value">82%</span>
+              </div>
+              <div class="pt-kpi-card">
+                <span class="pt-kpi-label">NPS</span>
+                <span class="pt-kpi-value">4.6</span>
+              </div>
+            </div>
+            <!-- Chart placeholders -->
+            <div class="pt-chart-row">
+              <div class="pt-chart-placeholder">Revenue Chart</div>
+              <div class="pt-chart-placeholder">Booking Trends</div>
+            </div>
+            <!-- Recent transactions table -->
+            <table class="pt-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mar 12, 2026</td>
+                  <td>Pickleball Court Booking — Mixed Doubles</td>
+                  <td>₱2,400</td>
+                  <td><span class="badge-active">Active</span></td>
+                </tr>
+                <tr>
+                  <td>Mar 12, 2026</td>
+                  <td>Volleyball Open Practice — Group Session</td>
+                  <td>₱1,800</td>
+                  <td><span class="badge-upcoming">Upcoming</span></td>
+                </tr>
+                <tr>
+                  <td>Mar 11, 2026</td>
+                  <td>Golf Private Lesson — 1 Hour</td>
+                  <td>₱3,200</td>
+                  <td><span class="badge-active">Active</span></td>
+                </tr>
+                <tr>
+                  <td>Mar 11, 2026</td>
+                  <td>Football Youth League Registration</td>
+                  <td>₱5,000</td>
+                  <td><span class="badge-active">Active</span></td>
+                </tr>
+                <tr>
+                  <td>Mar 10, 2026</td>
+                  <td>Pickleball Tournament Entry — Singles</td>
+                  <td>₱1,200</td>
+                  <td><span class="badge-soldout">Sold Out</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12f: Scheduling View -->
+    <div class="page-treatment" id="treatment-12f" style="display:none">
+      <div class="mockup-frame">
+        <div class="pt-schedule-inner">
+          <!-- Toggle bar -->
+          <div class="pt-toggle-bar" style="margin-bottom:20px;">
+            <button class="btn btn-secondary btn-sm">DAY</button>
+            <button class="btn btn-primary btn-sm">WEEK</button>
+            <button class="btn btn-secondary btn-sm">MONTH</button>
+          </div>
+          <!-- Calendar grid -->
+          <table class="pt-calendar-grid">
+            <thead>
+              <tr>
+                <th style="width:56px;"></th>
+                <th>MON</th>
+                <th>TUE</th>
+                <th>WED</th>
+                <th>THU</th>
+                <th>FRI</th>
+                <th>SAT</th>
+                <th>SUN</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="pt-time-cell">8AM</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              </tr>
+              <tr>
+                <td class="pt-time-cell">10AM</td>
+                <td><div class="pt-event-card" style="background:var(--tint-pickleball);border-left:3px solid var(--border-pickleball);">Pickleball — Mixed Doubles</div></td>
+                <td></td>
+                <td><div class="pt-event-card" style="background:var(--tint-football);border-left:3px solid var(--border-football);">Football — Youth League</div></td>
+                <td></td><td></td><td></td><td></td>
+              </tr>
+              <tr>
+                <td class="pt-time-cell">12PM</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              </tr>
+              <tr>
+                <td class="pt-time-cell">2PM</td>
+                <td></td>
+                <td><div class="pt-event-card" style="background:var(--tint-volleyball);border-left:3px solid var(--border-volleyball);">Volleyball — Open Practice</div></td>
+                <td></td><td></td><td></td><td></td><td></td>
+              </tr>
+              <tr>
+                <td class="pt-time-cell">4PM</td>
+                <td></td><td></td><td></td><td></td>
+                <td><div class="pt-event-card" style="background:var(--tint-golf);border-left:3px solid var(--border-golf);">Golf — Private Lesson</div></td>
+                <td></td><td></td>
+              </tr>
+              <tr>
+                <td class="pt-time-cell">6PM</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Booking modal -->
+          <div class="pt-modal-backdrop">
+            <div class="pt-modal-card">
+              <h3 class="pt-modal-title">Book a Session</h3>
+              <div class="pt-form-field">
+                <label class="pt-form-label">Sport</label>
+                <select class="form-input">
+                  <option>Pickleball</option>
+                  <option>Volleyball</option>
+                  <option>Football</option>
+                  <option>Golf</option>
+                </select>
+              </div>
+              <div class="pt-form-field">
+                <label class="pt-form-label">Date</label>
+                <input type="date" class="form-input" value="2026-03-15">
+              </div>
+              <div class="pt-form-field">
+                <label class="pt-form-label">Time</label>
+                <select class="form-input">
+                  <option>10:00 AM</option>
+                  <option>11:00 AM</option>
+                  <option>12:00 PM</option>
+                  <option>1:00 PM</option>
+                  <option>2:00 PM</option>
+                  <option>3:00 PM</option>
+                  <option>4:00 PM</option>
+                </select>
+              </div>
+              <div class="pt-form-field">
+                <label class="pt-form-label">Court / Field</label>
+                <select class="form-input">
+                  <option>Court 1</option>
+                  <option>Court 2</option>
+                  <option>Court 3</option>
+                  <option>Field A</option>
+                  <option>Field B</option>
+                </select>
+              </div>
+              <div class="pt-form-field">
+                <label class="pt-form-label">Participants</label>
+                <input type="number" class="form-input" value="2" min="1" max="20">
+              </div>
+              <div class="pt-modal-btns">
+                <button class="btn btn-primary">Confirm Booking</button>
+                <button class="btn btn-ghost">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -2782,6 +3851,16 @@
     <h2 class="section-title">SAMPLE LAYOUT</h2>
   </div>
 </section>
+
+<script>
+  // Page treatment tab switching
+  function showTreatment(id, clickedTab) {
+    document.querySelectorAll('.page-treatment').forEach(el => el.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+    document.querySelectorAll('.treatment-tab').forEach(el => el.classList.remove('active'));
+    clickedTab.classList.add('active');
+  }
+</script>
 
 <script>
   // Scroll-spy for TOC links
