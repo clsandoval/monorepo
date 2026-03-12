@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 74
+current: 75
 total: 85
 
 ## Completed
@@ -77,3 +77,4 @@ total: 85
 - 071: Mobile Verify /financials (global) — financials overview page renders at 375x812 with "Financials" heading, "Cross-project financial overview" subtitle, Revenue Funnel table (3 projects/Proposal/$0.00), P&L Overview metric cards (Revenue/COGS/Expenses/Gross Profit), HER section; no horizontal overflow (scrollWidth=375); nav buttons 28-32px (noted below 44px, consistent with prior stages); screenshot saved
 - 072: Mobile Verify /settings + /settings/team + /settings/installers — all three pages render at 375x812; /settings shows Pricing tab with real tier fees; /settings/team shows HER/OpEx section + 6 real contacts (Chad/Andy/Carlos/Ernesto/Marco/Niko) + "+ Add Contact" button; /settings/installers shows 2 installers (PodPlay Install Team, External Installer (TBD)) + "+ Add Installer" button; no horizontal overflow on any page (scrollWidth=375); tab links 38px, action buttons 24-36px (noted below 44px, consistent with prior stages); screenshots saved
 - 073: Mobile Verify /settings/vendors + /settings/pricing — both pages render at 375x812; /settings/vendors shows 7 real vendors (APC/Apple/Generic/Kisi/Replay/Samsung/Ubiquiti) + "+ Add Vendor" button + Actions menus per row; /settings/pricing shows Service Tier Fees (Pro $5000/$2500, Autonomous $7500/$2500, A+ $7500/$2500, PBK $0), Cost Chain Rates, Minimum Deposit field at $500, Labor/Operational Defaults sections + Save Changes button; no horizontal overflow on either page (scrollWidth=375); tab links 38px, buttons 24-36px (noted below 44px, consistent with prior stages); screenshots saved
+- 074: Mobile Verify /settings/catalog — catalog page renders at 375x812 with "Hardware Catalog" heading, 47 items shown, table with SKU/Name/Category columns (SKUs truncated for mobile), iPad 128GB WiFi+Cellular at $729.00 visible (DISPLAY-IPAD), "+ Add Item" button, Search/Category filter/Show inactive controls; no horizontal overflow (scrollWidth=375); tab links 38px, action buttons 24-36px (noted below 44px, consistent with prior stages); screenshot saved
