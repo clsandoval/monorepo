@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 40
+current: 41
 total: 85
 
 ## Completed
@@ -43,3 +43,4 @@ total: 85
 - 037: Wizard Navigation: Wire Into Deployment + Financials — deployment.tsx: replaced sidebar phase list with WizardNavigation; activeDisplayIdx derived from PHASE_DISPLAY_ORDER.indexOf(selectedPhase); navigation prev/next/step-click handlers; last step triggers advance dialog (guarded by allItemsChecked toast); financials.tsx: replaced tab row with WizardNavigation; activeTabIdx (number) replaces activeTab (string); both use getStepStates/WIZARD_STEPS; tsc --noEmit passes
 - 038: Wizard Navigation Tests — created navigation.test.tsx with 13 tests: all step labels render, completed steps not disabled, locked steps disabled, current step has aria-current, Previous hidden on first step, Previous visible otherwise, Next shows Complete on last step, Next shows Next otherwise, nextLabel override, onPrevious/onNext/onStepClick callbacks fire correctly, onStepClick does not fire for locked steps; 13 tests pass
 - 039: Operations Guide Route + Shell + Nav — created OperationsGuide.tsx with title/subtitle/TOC/section placeholders; created /_auth/guide.tsx route; added Guide link (BookMarked icon) under Resources section in AppLayout nav; updated routeTree.gen.ts; tsc --noEmit passes
+- 040: Operations Guide: Intake & Onboarding Section — filled in Overview section (what PodPlay Ops manages, 4-phase lifecycle with numbered steps) and Customer Onboarding section (8-step intake wizard guide with headings, bullet points, and callout boxes for tips/notes); tsc --noEmit passes
