@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 36
+current: 37
 total: 85
 
 ## Completed
@@ -39,3 +39,4 @@ total: 85
 - 033: Inventory On-Order Tests — created on-order.test.tsx with 17 tests: OO-01–09 covering On Order/Status column headers, qty_on_order display (value vs dash), order status badge labels (Ordered/Not Ordered), available formula (on_hand - allocated + on_order), Set On-Order button render; OOM-01–08 covering SetOnOrderModal title, current qty display, input default, negative qty validation, update with ordered/not_ordered status, onSuccess callback, cancel; 1003 tests pass
 - 034: Wizard Navigation Component — created WizardNavigation.tsx with steps prop (id/label/status), onStepClick/onPrevious/onNext/isFirstStep/isLastStep/nextLabel props; top section shows step indicators (completed=checkmark+clickable, current=highlighted, locked=greyed+disabled); bottom section shows Previous (hidden on first step) and Next/Complete buttons; tsc --noEmit passes
 - 035: Wizard Navigation: Wire Into Intake — replaced WizardStepper with WizardNavigation in intake.tsx; added optional formRef prop to all 6 step components (CustomerInfo/VenueConfig/Tier/Isp/Installer/Financial); onNext triggers stepFormRef.current?.requestSubmit() for steps 0-5, handleIntakeSubmit for last step; onPrevious decrements step; onStepClick guards with isStepAccessible; tsc --noEmit passes
+- 036: Wizard Navigation: Wire Into Procurement — replaced manual tab row + "Advance to Deployment" button with WizardNavigation; activeTabIdx (number) replaces activeTab (string); getStepStates('procurement', activeTabIdx) drives step states; onNext on last step triggers advance dialog; nextLabel='Advance to Deployment' on last step; tsc --noEmit passes
