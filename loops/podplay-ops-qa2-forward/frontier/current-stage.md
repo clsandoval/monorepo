@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 42
+current: 43
 total: 85
 
 ## Completed
@@ -45,3 +45,4 @@ total: 85
 - 039: Operations Guide Route + Shell + Nav — created OperationsGuide.tsx with title/subtitle/TOC/section placeholders; created /_auth/guide.tsx route; added Guide link (BookMarked icon) under Resources section in AppLayout nav; updated routeTree.gen.ts; tsc --noEmit passes
 - 040: Operations Guide: Intake & Onboarding Section — filled in Overview section (what PodPlay Ops manages, 4-phase lifecycle with numbered steps) and Customer Onboarding section (8-step intake wizard guide with headings, bullet points, and callout boxes for tips/notes); tsc --noEmit passes
 - 041: Operations Guide: Procurement Section — filled in Procurement & Hardware Ordering section with 7 subsections: Procurement Overview, BOM Review (swap SKUs, adjust quantities, PDF export tip), Creating Purchase Orders (vendor selection, line items, on-order tracking, PDF export tip), Receiving Inventory (full/partial receive, on-hand update), Packing List (PDF export tip), Inventory Check (available formula, status badges), Advancing to Deployment (confirmation dialog, one-way action note); tsc --noEmit passes
+- 042: Operations Guide: Deployment Section — filled in Deployment section with Deployment Overview, 5 phase groups covering all 16 phases (Pre-Purchase & Planning through Health Monitoring Setup), per-phase descriptions with key checklist items and responsibilities, Troubleshooting section (5 common issues), and Advancing to Financial Close; tsc --noEmit passes
