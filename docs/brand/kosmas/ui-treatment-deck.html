@@ -874,6 +874,179 @@
     mix-blend-mode: color;
     pointer-events: none;
   }
+
+  /* ==================== TAGS & BADGES ==================== */
+  .tag-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .tag-row:first-child {
+    border-top: 1px solid var(--stone);
+  }
+
+  .tag-row-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--charcoal);
+    width: 140px;
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+
+  .tag-row-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    flex: 1;
+  }
+
+  .tag-example-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tag-size-label {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 10px;
+    color: var(--charcoal);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .tag-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  /* Sport tags */
+  .tag-sport {
+    border: 1px solid var(--stone);
+    color: var(--black);
+    background: transparent;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+  }
+
+  .tag-sport--compact {
+    padding: 2px 7px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+
+  /* Status badges */
+  .badge-active {
+    color: var(--cyan);
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+  }
+
+  .badge-active--compact {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+
+  .badge-soldout {
+    color: var(--charcoal);
+    text-decoration: line-through;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+  }
+
+  .badge-soldout--compact {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+
+  .badge-upcoming {
+    background: var(--black);
+    color: var(--cream);
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+  }
+
+  .badge-upcoming--compact {
+    padding: 2px 7px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+
+  /* Location tags */
+  .tag-location {
+    color: var(--charcoal);
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+  }
+
+  .tag-location--compact {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+
+  /* Category labels */
+  .tag-category {
+    background: rgba(212, 207, 196, 0.3);
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: var(--font-body);
+    font-variant: small-caps;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--black);
+    display: inline-block;
+  }
+
+  .tag-category--compact {
+    padding: 2px 7px;
+    font-size: 10px;
+  }
+
+  /* Metric badges */
+  .badge-metric {
+    color: var(--cyan);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 11px;
+    display: inline-block;
+  }
+
+  .badge-metric--compact {
+    font-size: 10px;
+  }
 </style>
 </head>
 <body>
@@ -1497,6 +1670,122 @@
   <div class="container">
     <p class="section-number">07</p>
     <h2 class="section-title">TAGS &amp; BADGES</h2>
+
+    <!-- Row 1: Sport Tags -->
+    <div class="tag-row">
+      <div class="tag-row-label">Sport Tags</div>
+      <div class="tag-row-examples">
+        <div class="tag-example-group">
+          <span class="tag-size-label">Default</span>
+          <div class="tag-items">
+            <span class="tag-sport">Pickleball</span>
+            <span class="tag-sport">Volleyball</span>
+            <span class="tag-sport">Football</span>
+            <span class="tag-sport">Golf</span>
+          </div>
+        </div>
+        <div class="tag-example-group">
+          <span class="tag-size-label">Compact</span>
+          <div class="tag-items">
+            <span class="tag-sport tag-sport--compact">Pickleball</span>
+            <span class="tag-sport tag-sport--compact">Volleyball</span>
+            <span class="tag-sport tag-sport--compact">Football</span>
+            <span class="tag-sport tag-sport--compact">Golf</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Status Badges -->
+    <div class="tag-row">
+      <div class="tag-row-label">Status Badges</div>
+      <div class="tag-row-examples">
+        <div class="tag-example-group">
+          <span class="tag-size-label">Default</span>
+          <div class="tag-items">
+            <span class="badge-active">Active</span>
+            <span class="badge-soldout">Sold Out</span>
+            <span class="badge-upcoming">Upcoming</span>
+          </div>
+        </div>
+        <div class="tag-example-group">
+          <span class="tag-size-label">Compact</span>
+          <div class="tag-items">
+            <span class="badge-active badge-active--compact">Active</span>
+            <span class="badge-soldout badge-soldout--compact">Sold Out</span>
+            <span class="badge-upcoming badge-upcoming--compact">Upcoming</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Location Tags -->
+    <div class="tag-row">
+      <div class="tag-row-label">Location Tags</div>
+      <div class="tag-row-examples">
+        <div class="tag-example-group">
+          <span class="tag-size-label">Default</span>
+          <div class="tag-items">
+            <span class="tag-location">Manila</span>
+            <span class="tag-location">Cebu</span>
+            <span class="tag-location">Davao</span>
+          </div>
+        </div>
+        <div class="tag-example-group">
+          <span class="tag-size-label">Compact</span>
+          <div class="tag-items">
+            <span class="tag-location tag-location--compact">Manila</span>
+            <span class="tag-location tag-location--compact">Cebu</span>
+            <span class="tag-location tag-location--compact">Davao</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 4: Category Labels -->
+    <div class="tag-row">
+      <div class="tag-row-label">Category Labels</div>
+      <div class="tag-row-examples">
+        <div class="tag-example-group">
+          <span class="tag-size-label">Default</span>
+          <div class="tag-items">
+            <span class="tag-category">Premium</span>
+            <span class="tag-category">Group</span>
+            <span class="tag-category">Private</span>
+          </div>
+        </div>
+        <div class="tag-example-group">
+          <span class="tag-size-label">Compact</span>
+          <div class="tag-items">
+            <span class="tag-category tag-category--compact">Premium</span>
+            <span class="tag-category tag-category--compact">Group</span>
+            <span class="tag-category tag-category--compact">Private</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 5: Metric Badges -->
+    <div class="tag-row">
+      <div class="tag-row-label">Metric Badges</div>
+      <div class="tag-row-examples">
+        <div class="tag-example-group">
+          <span class="tag-size-label">Default</span>
+          <div class="tag-items">
+            <span class="badge-metric">4.8★</span>
+            <span class="badge-metric">12 Spots Left</span>
+          </div>
+        </div>
+        <div class="tag-example-group">
+          <span class="tag-size-label">Compact</span>
+          <div class="tag-items">
+            <span class="badge-metric badge-metric--compact">4.8★</span>
+            <span class="badge-metric badge-metric--compact">12 Spots Left</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
