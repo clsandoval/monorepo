@@ -2183,6 +2183,59 @@
     gap: 12px;
     margin-top: 20px;
   }
+
+  /* ==================== RESPONSIVE ==================== */
+  @media (max-width: 768px) {
+    /* TOC nav: already has overflow-x:auto from base style; ensure no wrap */
+    .toc-nav { white-space: nowrap; }
+
+    /* Stack multi-column grids to single column */
+    .pillars-grid,
+    .sport-tints-row,
+    .donts-grid,
+    .logo-row,
+    .cards-grid,
+    .cards-grid-3,
+    .footer-grid,
+    .pt-sport-grid,
+    .pt-kpi-grid,
+    .pt-related-grid,
+    .pt-chart-row,
+    .sport-cards-grid,
+    [style*="grid-template-columns"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Button showcase grid: 2 cols on mobile */
+    .btn-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+    /* Form inputs grid: stack */
+    .form-grid { grid-template-columns: 1fr !important; }
+
+    /* Type scale rows: collapse to single col */
+    .type-scale-row {
+      grid-template-columns: 1fr !important;
+      gap: 8px;
+    }
+
+    /* Reduce hero text sizes */
+    .sample-hero h2 { font-size: 32px !important; }
+    .pt-hero-headline { font-size: 24px !important; }
+
+    /* Container padding */
+    .container { padding: 0 16px; }
+
+    /* Section padding */
+    .section { padding: 40px 0; }
+
+    /* Palette row: 2 cols */
+    .palette-row { flex-wrap: wrap; }
+    .swatch-card { min-width: 140px; }
+
+    /* ERP layout: stack sidebar */
+    .pt-erp-layout { flex-direction: column; }
+    .pt-erp-sidebar { width: 100%; flex-direction: row; height: auto; padding: 8px 16px; }
+  }
 </style>
 </head>
 <body>
