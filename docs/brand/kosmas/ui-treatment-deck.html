@@ -1342,6 +1342,140 @@
   .radio-wrap.focus .radio-circle {
     border-color: var(--cyan);
   }
+
+  /* ==================== CARDS & CONTAINERS ==================== */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    padding: 24px;
+    transition: all 0.15s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .cards-section-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+    margin-top: 40px;
+  }
+
+  .cards-section-label:first-child {
+    margin-top: 0;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 0;
+  }
+
+  .cards-grid-3 {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .card-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+
+  .card-body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--charcoal);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .card-link {
+    color: var(--cyan);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 13px;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+
+  .card-link:hover {
+    text-decoration: underline;
+  }
+
+  .card-sport-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+
+  .card-sport-count {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--charcoal);
+  }
+
+  .card-stat-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .card-stat-number {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 30px;
+    letter-spacing: 1px;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .card-img-placeholder {
+    height: 120px;
+    background: var(--stone);
+    opacity: 0.3;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+
+  .card-img-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+
+  .card-img-desc {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
 </style>
 </head>
 <body>
@@ -2336,6 +2470,65 @@
   <div class="container">
     <p class="section-number">09</p>
     <h2 class="section-title">CARDS &amp; CONTAINERS</h2>
+
+    <!-- Basic card + Stat card + Image card -->
+    <p class="cards-section-label">Basic · Stat · Image</p>
+    <div class="cards-grid-3">
+
+      <!-- 1. Basic card -->
+      <div class="card">
+        <h3 class="card-title">Session Overview</h3>
+        <p class="card-body">Monday morning pickleball group — open to all skill levels. Meet at Court 3, Ayala Sports Hub. Equipment provided for new members.</p>
+        <a href="#" class="card-link">View Details</a>
+      </div>
+
+      <!-- 3. Stat card -->
+      <div class="card" style="display:flex;flex-direction:column;justify-content:center;">
+        <span class="card-stat-label">Active Members</span>
+        <span class="card-stat-number">186</span>
+      </div>
+
+      <!-- 4. Image placeholder card -->
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div class="card-img-placeholder" style="border-radius:4px 4px 0 0;margin:0;opacity:0.3;"></div>
+        <div style="padding:20px 20px 20px;">
+          <h4 class="card-img-title">Volleyball Clinic</h4>
+          <p class="card-img-desc">Intermediate-level clinic covering serve, receive, and blocking fundamentals.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sport tint cards -->
+    <p class="cards-section-label" style="margin-top:32px;">Sport Tint Cards</p>
+    <div class="cards-grid">
+
+      <!-- Pickleball -->
+      <div class="card" style="background:var(--tint-pickleball);border-color:var(--border-pickleball);">
+        <h3 class="card-sport-title">Pickleball</h3>
+        <p class="card-sport-count">12 active sessions</p>
+      </div>
+
+      <!-- Volleyball -->
+      <div class="card" style="background:var(--tint-volleyball);border-color:var(--border-volleyball);">
+        <h3 class="card-sport-title">Volleyball</h3>
+        <p class="card-sport-count">8 active sessions</p>
+      </div>
+
+      <!-- Football -->
+      <div class="card" style="background:var(--tint-football);border-color:var(--border-football);">
+        <h3 class="card-sport-title">Football</h3>
+        <p class="card-sport-count">6 active sessions</p>
+      </div>
+
+      <!-- Golf -->
+      <div class="card" style="background:var(--tint-golf);border-color:var(--border-golf);">
+        <h3 class="card-sport-title">Golf</h3>
+        <p class="card-sport-count">4 active sessions</p>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
