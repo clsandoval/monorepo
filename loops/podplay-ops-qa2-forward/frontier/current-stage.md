@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 21
+current: 22
 total: 85
 
 ## Completed
@@ -24,3 +24,4 @@ total: 85
 - 018: Installer Multi-Select Component — created MultiSelect.tsx with chips/remove; updated InstallerSelectionStep.tsx to installer_ids: string[]; updated intake.tsx to use installer_ids[0] for DB write; updated ReviewStep.tsx to join installer_ids; updated tests; 989 tests pass
 - 019: Installer Multi-Select Types & Schema — created migration 00020_project_installer_ids.sql: added installer_ids UUID[] column, migrated data from installer_id, dropped installer_id; updated intake.tsx to write installer_ids array; updated submit.test.ts; db reset clean; 989 tests pass
 - 020: Installer Multi-Select Tests — updated installer-selection.test.ts: added 4 new tests (chip renders, multi-select both chips, remove chip disables Continue, submit with 2 IDs); added review test 24 for multiple installer_ids joined without installerName; 994 tests pass
+- 021: Wizard Step Locking Logic — created wizard-steps.ts with WIZARD_STEPS definitions for all 4 wizards, getStepStates() returning completed/current/locked per step, isStepAccessible(), and getIntakeCurrentStep() for deriving intake step from project data; tsc --noEmit passes
