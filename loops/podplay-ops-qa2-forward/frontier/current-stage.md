@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 16
+current: 17
 total: 85
 
 ## Completed
@@ -19,3 +19,4 @@ total: 85
 - 013: Fix "(tier)" Literal in Advance to Deployment — changed procurement.tsx select from wrong column `service_tier` to `tier`; added serviceTierLabels import to show human-readable label in dialog; tsc --noEmit passes
 - 014: Fix Customer Name Pre-fill — expanded fetchWizardStep select to include customer_name, contact_email, contact_phone; seed wizardData.customerInfo from DB on load so form pre-fills when returning to existing project; 985 tests pass
 - 015: Delete Project Confirmation Dialog — updated deleteProjectDialog signature to take single projectName param; title "Delete Project", spec message, confirm label "Delete Project", destructive true; updated test to use getByRole('heading'); 17 tests pass
+- 016: Delete Project Dashboard UI + Handler — added TOAST_DELETE_PROJECT_SUCCESS/ERROR to toast-messages.ts; added onDelete prop + Trash2 button to ProjectList (table + card views); added handleDeleteClick/handleDeleteConfirm + ConfirmDialog to projects/index.tsx; all FK cascade so single delete suffices; tsc --noEmit passes
