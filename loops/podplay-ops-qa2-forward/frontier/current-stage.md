@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 23
+current: 24
 total: 85
 
 ## Completed
@@ -26,3 +26,4 @@ total: 85
 - 020: Installer Multi-Select Tests — updated installer-selection.test.ts: added 4 new tests (chip renders, multi-select both chips, remove chip disables Continue, submit with 2 IDs); added review test 24 for multiple installer_ids joined without installerName; 994 tests pass
 - 021: Wizard Step Locking Logic — created wizard-steps.ts with WIZARD_STEPS definitions for all 4 wizards, getStepStates() returning completed/current/locked per step, isStepAccessible(), and getIntakeCurrentStep() for deriving intake step from project data; tsc --noEmit passes
 - 022: Wizard Step Locking: Intake Wizard UI — updated WizardStepper.tsx: locked steps (index > currentStep) get opacity-50 + cursor-not-allowed + disabled; completed steps show Check icon, remain clickable; updated intake.tsx to import getStepStates/isStepAccessible and guard onStepClick; tsc --noEmit passes
+- 023: Wizard Step Locking: Procurement, Deployment, Financials — applied same visual locking pattern to all 3 tab/phase wizards: completed tabs/phases show Check icon + muted hover style, current tab highlighted with border-b-2/border-l-2, locked (future) tabs/phases get opacity-50 + cursor-not-allowed; procurement.tsx and financials.tsx map tab index vs activeTab; deployment.tsx compares displayIdx vs selectedPhase's display index; tsc --noEmit passes
