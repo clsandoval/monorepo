@@ -571,6 +571,27 @@
 .pillar-card:nth-child(2) h3 { color: var(--gold); }
 .pillar-card:nth-child(3) h3 { color: var(--peri); }
 .pillar-card p { font-size: 15px; color: var(--gray-300); line-height: 1.7; }
+
+  /* ==================== 10. NAVIGATION ==================== */
+  .nav-mockup { background:var(--gray-900);border:1px solid var(--gray-800);border-radius:8px;overflow:hidden;margin-bottom:24px; }
+  .nav-mockup-bar {
+    height:64px;display:flex;align-items:center;padding:0 24px;border-bottom:1px solid var(--gray-800);
+  }
+  .nav-mockup-links { display:flex;gap:24px;margin:0 auto; }
+  .nav-mockup-links a {
+    font-size:13px;font-weight:600;letter-spacing:2px;color:var(--gray-500);text-decoration:none;
+    padding-bottom:4px;
+  }
+  .nav-mockup-links a.active { color:var(--gold);border-bottom:2px solid var(--gold); }
+  .mobile-mockup { max-width:375px; }
+  .mobile-mockup-bar { height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid var(--gray-800); }
+  .mobile-overlay {
+    background:rgba(17,17,17,0.95);padding:48px 24px;display:flex;flex-direction:column;align-items:center;gap:24px;
+  }
+  .mobile-overlay a {
+    font-size:18px;font-weight:600;letter-spacing:3px;color:var(--gray-300);text-decoration:none;text-transform:uppercase;
+  }
+  .mobile-overlay a.active { color:var(--gold); }
 </style>
 </head>
 <body>
@@ -1194,6 +1215,45 @@
         <h4>Premium Venues</h4>
         <p>World-class facilities with cutting-edge technology across Asia.</p>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 10. NAVIGATION ==================== -->
+<div class="section" id="nav">
+  <div class="section-number">10</div>
+  <div class="section-title">Navigation</div>
+  <div class="section-desc">Shared nav component. Desktop: 64px, logo left, links center, CTA right. Mobile: 56px header with full-screen overlay.</div>
+
+  <div style="margin-bottom:16px;font-size:12px;font-weight:600;letter-spacing:2px;color:var(--gray-500);">DESKTOP — 64PX</div>
+  <div class="nav-mockup">
+    <div class="nav-mockup-bar">
+      <div class="icon-crop" style="width:32px;height:32px;margin-right:16px;"><img class="logo-nav-desktop" alt="Kosmas" style="height:32px;filter:invert(1);mix-blend-mode:screen;"></div>
+      <div class="nav-mockup-links">
+        <a href="#" class="active">HOME</a>
+        <a href="#">EXPERIENCES</a>
+        <a href="#">SCHEDULE</a>
+        <a href="#">ABOUT</a>
+        <a href="#">CONTACT</a>
+      </div>
+      <button class="btn btn-primary" style="padding:8px 20px;font-size:12px;margin-left:auto;">BOOK NOW</button>
+    </div>
+  </div>
+  <div style="font-size:12px;color:var(--gray-500);letter-spacing:1px;margin-bottom:32px;">Active link: gold + 2px underline · Hover: color → gray-300 · Sticky · z-index: 100</div>
+
+  <div style="margin-bottom:16px;font-size:12px;font-weight:600;letter-spacing:2px;color:var(--gray-500);">MOBILE — 56PX + OVERLAY</div>
+  <div class="nav-mockup mobile-mockup">
+    <div class="mobile-mockup-bar">
+      <div class="icon-crop" style="width:28px;height:28px;"><img class="logo-nav-mobile" alt="Kosmas" style="height:28px;filter:invert(1);mix-blend-mode:screen;"></div>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </div>
+    <div class="mobile-overlay">
+      <a href="#" class="active">HOME</a>
+      <a href="#">EXPERIENCES</a>
+      <a href="#">SCHEDULE</a>
+      <a href="#">ABOUT</a>
+      <a href="#">CONTACT</a>
+      <button class="btn btn-primary" style="margin-top:16px;width:100%;max-width:280px;">BOOK NOW</button>
     </div>
   </div>
 </div>
