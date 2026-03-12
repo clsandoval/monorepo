@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 27
+current: 28
 total: 85
 
 ## Completed
@@ -30,3 +30,4 @@ total: 85
 - 024: Door/Camera Count Conditional Validation — added superRefine to venueConfigSchema: when has_front_desk=false, door_count and camera_count must be > 0; added no_front_desk_required messages to validation-messages.ts; updated UI labels to show * (required) or (optional) based on hasFrontDesk watch; updated venue-config tests + added 3 new conditional validation tests; fixed pre-existing intake-stepper tests (locked steps); fixed submit.test.ts navigation helper and expected values; 997 tests pass
 - 025: iPad 128GB Price Fix — updated 00006_seed_hardware.sql DISPLAY-IPAD entry: name iPad 64GB → iPad 128GB WiFi+Cellular, unit_cost $600 → $729; db reset clean; verified DB row shows 128GB at $729
 - 026: Project Name in Headers — procurement.tsx h1 updated to "Procurement — [Project Name]" with customer_name as subtitle; intake.tsx added project_name to select query + projectName state, h1 updated to "Intake — [Project Name]"; tsc --noEmit passes
+- 027: Deposit Minimum: Settings Schema + UI — created 00021_minimum_deposit.sql: added minimum_deposit numeric column (default 500.00) to settings table; added minimum_deposit to Settings type; added to pricingFormSchema (z.number().min(0)); added to defaultValues (500); added "Minimum Deposit" CurrencyInput field in Cost Chain Rates section with help text; db reset clean; tsc --noEmit passes
