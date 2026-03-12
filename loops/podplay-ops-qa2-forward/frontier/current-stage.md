@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 8
+current: 9
 total: 85
 
 ## Completed
@@ -11,3 +11,4 @@ total: 85
 - 005: Remove CC Terminal Tests — updated tabs.test.ts: renamed "all 6" to "all 5", removed CC Terminals button assertion and tab click test; FD-CC-TERMINAL BOM SKU references in generation.test.ts left intact (hardware item, not procurement tab); 1011 tests pass
 - 006: Remove Replay Sign Component — deleted ReplaySignFulfillment.tsx, removed 'Replay Signs' tab from PROCUREMENT_TABS and import from procurement.tsx; tsc --noEmit passes
 - 007: Remove Replay Sign Types & Labels — removed 7 TOAST_REPLAY_SIGNS_* constants from toast-messages.ts; removed replay_signs block from procurement validation, replay_signs from advance checklist, replay_save_success/error from procurementToast, and replay_sign_multiplier from settings.system in validation-messages.ts; tsc --noEmit passes
+- 008: Remove Replay Sign Tests — deleted replay-signs.test.ts; removed Replay Signs tab assertion + test from tabs.test.ts (now "all 4"); removed replay_signs describe block and FK cascade replay_sign section from financial-tables.test.ts; removed replay_sign_multiplier from 3 settings test fixtures; removed replay_signs tests from validation-messages.test.ts; removed replay_sign_count assertion from core-tables.test.ts; also removed replay_sign_multiplier from PricingSettings.tsx schema/defaultValues/form field and Settings type; 998 tests pass
