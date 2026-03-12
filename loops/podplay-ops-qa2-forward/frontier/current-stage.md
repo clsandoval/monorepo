@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 85
+current: DONE (converged)
 total: 85
 
 ## Completed
@@ -88,3 +88,4 @@ total: 85
 - 082: Discovery: Orphaned Components + Dead Imports — CC Terminal FD-CC-TERMINAL/DESK-CC-TERMINAL SKUs in bom-generation.ts/bom.ts: hardware items, intentionally kept (stage 005 note); Replay Sign REPLAY-SIGN SKUs in bom-generation.ts: hardware items, intentionally kept; PingPod WiFi has_pingpod_wifi in bom-generation.ts/services/bom.ts: DB column still exists in schema, active code; ORPHAN FOUND: LOADER_PROCUREMENT_UPDATE_SIGN_STATUS constant and procurementUpdateSignStatus LOADERS map entry in loading.ts — dead code from removed Replay Signs tab, never imported/used by any component; removed 4 dead lines from loading.ts, updated comment from "all 35 configs" to "all 34 configs"; tsc --noEmit passes
 - 083: Discovery: DB Query Column Name Audit
 - 084: Discovery: Route Completeness — audited all 18 routes; ZERO stubs found; all routes render real content: /login(→/projects auth redirect), /projects(dashboard), /projects/new(form), /projects/:id/intake(7-step wizard), /projects/:id/procurement(4-tab wizard), /projects/:id/deployment(16-phase wizard), /projects/:id/financials(5-step wizard), /financials(global dashboard), /inventory(47 items), /guide(7-section ops manual), /settings→/settings/pricing(real fees), /settings/catalog(47 items), /settings/team(6 contacts), /settings/installers(2 installers), /settings/vendors(7 vendors); screenshot saved to screenshots/084-route-audit.png — audited all Supabase .from() calls in src/ against migration schemas; TWO mismatches found and fixed: (1) GoLive.tsx line 67: 'deployment_checklist' → 'deployment_checklist_items' (wrong table name, checklist query returned no data causing allPhasesComplete to always be false); (2) GoLive.tsx lines 59/137/144/165: completed_at column referenced on projects table but not in schema — created 00024_projects_completed_at.sql to add completed_at TIMESTAMPTZ column; all other column names verified correct (inventory_movements uses hardware_catalog_id/qty_delta per migration 00012, project_bom_items uses catalog_item_id/quantity, etc.); db reset clean (24 migrations); build passes with 4 pre-existing type errors unrelated to column names
+- 085: Convergence Gate — BUILD: PASS (2195 modules, no errors); TESTS: PASS (1027 tests, 77 files); DB RESET: PASS (all 24 migrations clean); 50 screenshots showing real content; all stage 082/083/084 findings resolved; wrote status/converged.txt; CONVERGED
