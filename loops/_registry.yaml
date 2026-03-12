@@ -276,5 +276,6 @@ loops:
     type: forward
     max_iterations: 90
     timeout_minutes: 30
-    status: active
+    status: converged
     created: "2026-03-12"
+    converged_at: "2026-03-12"
