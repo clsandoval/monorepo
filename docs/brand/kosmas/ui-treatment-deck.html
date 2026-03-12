@@ -1476,6 +1476,142 @@
     color: var(--charcoal);
     line-height: 1.5;
   }
+
+  /* ==================== NAVIGATION ==================== */
+  .mockup-frame {
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .nav-desktop {
+    height: 64px;
+    background: var(--cream);
+    border-bottom: 2px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    gap: 0;
+  }
+
+  .nav-desktop-left {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .nav-desktop-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex: 1 1 auto;
+  }
+
+  .nav-link {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--charcoal);
+    text-decoration: none;
+    cursor: default;
+  }
+
+  .nav-link.active {
+    color: var(--black);
+    border-bottom: 2px solid var(--black);
+    padding-bottom: 2px;
+  }
+
+  .nav-desktop-right {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .nav-specs {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--charcoal);
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+  }
+
+  .nav-mobile-header {
+    height: 56px;
+    background: var(--cream);
+    border-bottom: 2px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  .nav-mobile-panel {
+    background: var(--cream);
+    padding: 32px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  /* ==================== FOOTER ==================== */
+  .footer-mockup {
+    border-top: 2px solid var(--black);
+    background: var(--cream);
+    padding: 48px 32px 0;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .footer-col-tagline {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 13px;
+    color: var(--charcoal);
+    line-height: 1.6;
+    margin-top: 12px;
+  }
+
+  .footer-col-heading {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--black);
+    margin-bottom: 12px;
+  }
+
+  .footer-col-link {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--charcoal);
+    line-height: 2;
+    text-decoration: none;
+    cursor: default;
+  }
+
+  .footer-copyright {
+    border-top: 1px solid var(--stone);
+    padding: 16px 0;
+    margin-top: 40px;
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--charcoal);
+  }
 </style>
 </head>
 <body>
@@ -2537,6 +2673,49 @@
   <div class="container">
     <p class="section-number">10</p>
     <h2 class="section-title">NAVIGATION</h2>
+
+    <!-- Desktop nav mockup -->
+    <div class="mockup-frame">
+      <div class="nav-desktop">
+        <div class="nav-desktop-left">
+          <svg width="32" height="32" style="color: var(--cyan)"><use href="#kosmas-star"/></svg>
+        </div>
+        <nav class="nav-desktop-center">
+          <a class="nav-link" href="#">HOME</a>
+          <a class="nav-link" href="#">EXPERIENCES</a>
+          <a class="nav-link active" href="#">SCHEDULE</a>
+          <a class="nav-link" href="#">ABOUT</a>
+          <a class="nav-link" href="#">CONTACT</a>
+        </nav>
+        <div class="nav-desktop-right">
+          <button class="btn btn-primary" style="padding: 8px 20px; font-size: 11px;">BOOK NOW</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Specs annotation -->
+    <p class="nav-specs">Height: 64px | Link gap: 24px | Font: Outfit 500 / 11px | Letter-spacing: 1px</p>
+
+    <!-- Mobile nav mockup -->
+    <div class="mockup-frame" style="max-width: 375px;">
+      <div class="nav-mobile-header">
+        <svg width="24" height="24" style="color: var(--cyan)"><use href="#kosmas-star"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="3" y1="6" x2="21" y2="6" stroke="var(--black)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="3" y1="12" x2="21" y2="12" stroke="var(--black)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="3" y1="18" x2="21" y2="18" stroke="var(--black)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="nav-mobile-panel">
+        <a class="nav-link" href="#">HOME</a>
+        <a class="nav-link" href="#">EXPERIENCES</a>
+        <a class="nav-link active" href="#">SCHEDULE</a>
+        <a class="nav-link" href="#">ABOUT</a>
+        <a class="nav-link" href="#">CONTACT</a>
+        <button class="btn btn-primary" style="width: 100%; margin-top: 8px;">BOOK NOW</button>
+      </div>
+    </div>
+
   </div>
 </section>
 
