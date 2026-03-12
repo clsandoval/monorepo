@@ -613,6 +613,37 @@
   .footer-social { display:flex;gap:16px; }
   .footer-social a { color:var(--gray-500);text-decoration:none;font-size:13px;letter-spacing:1px; }
   .footer-social a:hover { color:var(--gold); }
+  .page-tabs { display:flex;gap:8px;margin:24px 0 16px;flex-wrap:wrap; }
+  .page-tab {
+    padding:8px 16px;font-size:12px;font-weight:600;letter-spacing:2px;
+    background:var(--gray-900);border:1px solid var(--gray-800);border-radius:4px;
+    color:var(--gray-500);cursor:pointer;text-transform:uppercase;transition:all 0.2s;
+  }
+  .page-tab.active { background:var(--plum);border-color:var(--plum);color:var(--gold); }
+  .page-tab:hover:not(.active) { border-color:var(--gray-700);color:var(--gray-300); }
+  .page-panel { display:none; }
+  .page-panel.active { display:block; }
+  .page-frame {
+    background:var(--black-deep);border:1px solid var(--gray-800);border-radius:8px;
+    overflow:hidden;margin-top:16px;
+  }
+  .page-frame-label {
+    font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);
+    padding:12px 24px;border-bottom:1px solid var(--gray-800);text-transform:uppercase;
+  }
+  .page-frame-body { padding:0; }
+  .mock-hero { padding:48px 32px;text-align:center; }
+  .mock-grid { display:grid;gap:16px;padding:24px 32px; }
+  .mock-stat { background:var(--gray-900);border:1px solid var(--gray-800);border-radius:8px;padding:20px;text-align:center; }
+  .mock-stat .stat-value { font-size:28px;font-weight:700;color:var(--gold); }
+  .mock-stat .stat-label { font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);margin-top:4px;text-transform:uppercase; }
+  .mock-table { width:100%;border-collapse:collapse; }
+  .mock-table th {
+    text-align:left;padding:10px 16px;font-size:11px;font-weight:600;letter-spacing:2px;
+    color:var(--gray-500);border-bottom:1px solid var(--gray-800);text-transform:uppercase;
+  }
+  .mock-table td { padding:12px 16px;font-size:14px;color:var(--gray-300);border-bottom:1px solid var(--gray-800); }
+  .mock-table tr:hover td { background:rgba(74,25,66,0.1); }
 </style>
 </head>
 <body>
@@ -1323,6 +1354,71 @@
   </div>
 </div>
 
+<!-- ==================== 12. PAGE TREATMENTS ==================== -->
+<div class="section" id="pages">
+  <div class="section-number">12</div>
+  <div class="section-title">Page Treatments</div>
+  <div class="section-desc">Six page mockups showing the brand applied to real contexts. Click tabs to switch.</div>
+
+  <div class="page-tabs">
+    <div class="page-tab active" onclick="switchPageTab('landing')">12A LANDING</div>
+    <div class="page-tab" onclick="switchPageTab('dashboard')">12B DASHBOARD</div>
+    <div class="page-tab" onclick="switchPageTab('content')">12C CONTENT</div>
+    <div class="page-tab" onclick="switchPageTab('crud')">12D CRUD</div>
+    <div class="page-tab" onclick="switchPageTab('erp')">12E ERP</div>
+    <div class="page-tab" onclick="switchPageTab('schedule')">12F SCHEDULE</div>
+  </div>
+
+  <!-- 12a: Marketing Landing Page -->
+  <div class="page-panel active" id="panel-landing">
+    <div class="page-frame">
+      <div class="page-frame-label">12A — Marketing Landing Page</div>
+      <div class="page-frame-body">
+        <div class="mock-hero" style="background:linear-gradient(135deg,var(--plum),var(--black-deep));padding:64px 32px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:4px;color:var(--gold-dim);margin-bottom:16px;">KOSMAS ATHLETIC VENTURES</div>
+          <div style="font-size:36px;font-weight:700;letter-spacing:6px;color:var(--gold);text-transform:uppercase;">PREMIER ATHLETIC<br>EXPERIENCES</div>
+          <p style="font-size:15px;color:rgba(255,255,255,0.6);margin-top:16px;max-width:500px;margin-left:auto;margin-right:auto;">World-class sports facilities across Southeast Asia. Pickleball, volleyball, football, and golf.</p>
+          <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;">
+            <button class="btn btn-primary">BOOK NOW</button>
+            <button class="btn btn-secondary">EXPLORE</button>
+          </div>
+        </div>
+        <div class="mock-grid" style="grid-template-columns:repeat(4,1fr);padding:32px;">
+          <div style="background:var(--gray-900);border:1px solid var(--gray-800);border-radius:8px;overflow:hidden;">
+            <div style="height:80px;background:linear-gradient(135deg,var(--gold),#C4B580);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;letter-spacing:3px;color:var(--black);">PICKLEBALL</div>
+            <div style="padding:16px;"><p style="font-size:13px;color:var(--gray-300);">Courts in Manila, Cebu & Davao. Book by the hour.</p></div>
+          </div>
+          <div style="background:var(--gray-900);border:1px solid var(--gray-800);border-radius:8px;overflow:hidden;">
+            <div style="height:80px;background:linear-gradient(135deg,var(--peri),#8A9ABB);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;letter-spacing:3px;color:var(--black);">VOLLEYBALL</div>
+            <div style="padding:16px;"><p style="font-size:13px;color:var(--gray-300);">Indoor & beach courts. Team leagues available.</p></div>
+          </div>
+          <div style="background:var(--gray-900);border:1px solid var(--gray-800);border-radius:8px;overflow:hidden;">
+            <div style="height:80px;background:linear-gradient(135deg,var(--plum),var(--plum-light));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;letter-spacing:3px;color:var(--gold);">FOOTBALL</div>
+            <div style="padding:16px;"><p style="font-size:13px;color:var(--gray-300);">5-a-side & full pitch. Premium turf facilities.</p></div>
+          </div>
+          <div style="background:var(--gray-900);border:1px solid var(--gray-800);border-radius:8px;overflow:hidden;">
+            <div style="height:80px;background:linear-gradient(135deg,var(--gray-300),var(--gray-500));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;letter-spacing:3px;color:var(--black);">GOLF</div>
+            <div style="padding:16px;"><p style="font-size:13px;color:var(--gray-300);">Driving ranges & simulator bays. All skill levels.</p></div>
+          </div>
+        </div>
+        <div style="background:var(--plum);padding:32px;text-align:center;">
+          <p style="font-size:18px;font-weight:400;color:var(--white);font-style:italic;max-width:600px;margin:0 auto;">"The best sports facilities I've experienced in Southeast Asia. Kosmas sets a new standard."</p>
+          <p style="font-size:13px;font-weight:600;letter-spacing:2px;color:var(--gold);margin-top:16px;">— MARCO REYES, ATHLETE</p>
+        </div>
+        <div style="padding:32px;text-align:center;">
+          <div style="font-size:24px;font-weight:700;letter-spacing:4px;color:var(--white);text-transform:uppercase;">READY TO PLAY?</div>
+          <div style="margin-top:16px;display:flex;gap:12px;justify-content:center;">
+            <button class="btn btn-accent">GET STARTED</button>
+            <button class="btn btn-ghost">CONTACT US</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Remaining panels: 12b-12f will be added in subsequent tasks -->
+</div>
+
 <!-- ==================== 13. SAMPLE LAYOUT ==================== -->
 <div class="section" id="sample">
   <div class="section-number">13</div>
@@ -1383,6 +1479,16 @@ document.querySelectorAll('.logo-sys-dont').forEach(function(img) { img.src = LO
 document.querySelector('.logo-sys-safe').src = LOGO_SRC;
 // Nav and footer logos
 document.querySelectorAll('.logo-nav-desktop, .logo-nav-mobile, .logo-footer').forEach(function(img) { img.src = LOGO_SRC; });
+function switchPageTab(tabId) {
+  document.querySelectorAll('.page-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.page-panel').forEach(function(p) { p.classList.remove('active'); });
+  // Find the clicked tab by matching its text content
+  document.querySelectorAll('.page-tab').forEach(function(t) {
+    if (t.getAttribute('onclick').indexOf(tabId) !== -1) t.classList.add('active');
+  });
+  var panel = document.getElementById('panel-' + tabId);
+  if (panel) panel.classList.add('active');
+}
 </script>
 
 </body>
