@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 63
+current: 64
 total: 85
 
 ## Completed
@@ -66,3 +66,4 @@ total: 85
 - 060: Desktop Verify /settings/pricing — Pricing settings page renders at 1280x800 with "Settings" heading and Pricing tab active; Service Tier Fees section (Pro $5000/$2500, Autonomous $7500/$2500, A+ $7500/$2500, PBK $0); Cost Chain Rates section (Shipping 10%, Target Margin 10%, Sales Tax 10.25%, Deposit 50%); Minimum Deposit field shows $500 and is editable; Labor & Invoicing and Operational Defaults sections with real values; Save Changes button; screenshot saved
 - 061: Desktop Verify /settings/catalog — Hardware Catalog page renders at 1280x800 with "Settings" heading and Catalog tab active; 47 items shown; iPad 128GB WiFi+Cellular at $729.00 (DISPLAY-IPAD) visible; SKU/Name/Category badge/Vendor/Cost columns with real data; Search/Category filter/Show inactive controls; "+ Add Item" button; screenshot saved
 - 062: Desktop Verify /guide — Operations Guide page renders at 1280x800 with "PodPlay Operations Guide" heading, "Complete deployment operations manual" subtitle, Print Guide button, 7-section TOC (Overview/Customer Onboarding/Procurement/Deployment/Financial Close/Inventory/Settings), real content in Overview section; no placeholder text; screenshot saved
+- 063: Mobile Verify /login — login page renders at 375x812 with PodPlay Ops heading, Email/Password fields, Sign In button, Send magic link button; no horizontal overflow (scrollWidth=375); button widths 343px (≥44px); screenshot saved
