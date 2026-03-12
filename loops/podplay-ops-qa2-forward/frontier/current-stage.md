@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 19
+current: 20
 total: 85
 
 ## Completed
@@ -22,3 +22,4 @@ total: 85
 - 016: Delete Project Dashboard UI + Handler — added TOAST_DELETE_PROJECT_SUCCESS/ERROR to toast-messages.ts; added onDelete prop + Trash2 button to ProjectList (table + card views); added handleDeleteClick/handleDeleteConfirm + ConfirmDialog to projects/index.tsx; all FK cascade so single delete suffices; tsc --noEmit passes
 - 017: Delete Project Test — added 4 tests to dashboard.test.ts: delete button renders, clicking opens dialog, confirming calls supabase.delete().eq('id'), canceling does not delete; extended mock to include mockDelete/mockEq; 989 tests pass
 - 018: Installer Multi-Select Component — created MultiSelect.tsx with chips/remove; updated InstallerSelectionStep.tsx to installer_ids: string[]; updated intake.tsx to use installer_ids[0] for DB write; updated ReviewStep.tsx to join installer_ids; updated tests; 989 tests pass
+- 019: Installer Multi-Select Types & Schema — created migration 00020_project_installer_ids.sql: added installer_ids UUID[] column, migrated data from installer_id, dropped installer_id; updated intake.tsx to write installer_ids array; updated submit.test.ts; db reset clean; 989 tests pass
