@@ -419,6 +419,104 @@
     padding: 28px 32px;
   }
 
+  /* ==================== SPACING & GRID ==================== */
+  .spacing-scale {
+    margin-bottom: 48px;
+  }
+
+  .spacing-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .spacing-row:first-child {
+    border-top: 1px solid var(--stone);
+  }
+
+  .spacing-bar-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 11px;
+    color: var(--charcoal);
+    width: 96px;
+    flex-shrink: 0;
+  }
+
+  .spacing-bar-track {
+    flex: 1;
+    height: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .spacing-bar-fill {
+    height: 8px;
+    background: var(--black);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .grid-demo {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .grid-demo-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    background: var(--cream);
+    border: 1px dashed var(--stone);
+    border-radius: 4px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .grid-annotation {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--charcoal);
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  .grid-annotation strong {
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  .grid-padding-indicator {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    background: rgba(12,180,206,0.12);
+    border: 1px dashed var(--cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .grid-padding-indicator span {
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--cyan);
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    letter-spacing: 1px;
+  }
+
   /* ==================== PHILOSOPHY PILLARS ==================== */
   .pillars-grid {
     display: grid;
@@ -1142,6 +1240,68 @@
   <div class="container">
     <p class="section-number">05</p>
     <h2 class="section-title">SPACING &amp; GRID</h2>
+
+    <!-- Spacing scale -->
+    <p class="subsection-label">Spacing Scale (base unit: 8px)</p>
+    <div class="spacing-scale">
+      <div class="spacing-row">
+        <div class="spacing-bar-label">4px — 0.5×</div>
+        <div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:4px;"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar-label">8px — 1×</div>
+        <div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:8px;"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar-label">12px — 1.5×</div>
+        <div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:12px;"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar-label">16px — 2×</div>
+        <div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:16px;"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar-label">24px — 3×</div>
+        <div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:24px;"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar-label">32px — 4×</div>
+        <div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:32px;"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar-label">48px — 6×</div>
+        <div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:48px;"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar-label">64px — 8×</div>
+        <div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:64px;"></div></div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-bar-label">80px — 10×</div>
+        <div class="spacing-bar-track"><div class="spacing-bar-fill" style="width:80px;"></div></div>
+      </div>
+    </div>
+
+    <!-- Grid example -->
+    <p class="subsection-label">Layout Grid</p>
+    <div class="grid-demo">
+      <div style="font-family:var(--font-body); font-size:11px; font-weight:500; color:var(--charcoal); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:16px; text-align:center;">Max-width 1080px container with 32px side padding</div>
+      <div style="position:relative;">
+        <div class="grid-demo-inner">
+          <div class="grid-padding-indicator" style="left:0;">
+            <span>32px</span>
+          </div>
+          <span style="font-family:var(--font-body); font-weight:500; font-size:12px; color:var(--charcoal); letter-spacing:1px;">Content Area — max-width 1080px</span>
+          <div class="grid-padding-indicator" style="right:0;">
+            <span>32px</span>
+          </div>
+        </div>
+      </div>
+      <p class="grid-annotation">
+        <strong>Container:</strong> max-width 1080px — centered — 32px padding each side<br>
+        Mobile: 16px padding · Tablet: 24px padding · Desktop: 32px padding
+      </p>
+    </div>
   </div>
 </section>
 
