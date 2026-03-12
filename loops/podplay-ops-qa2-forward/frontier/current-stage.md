@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 78
+current: 79
 total: 85
 
 ## Completed
@@ -81,3 +81,4 @@ total: 85
 - 075: Mobile Verify /guide — Operations Guide renders at 375x812 with "PodPlay Operations Guide" heading, "Complete deployment operations manual" subtitle, Print Guide button, 7-section TOC (Overview/Customer Onboarding/Procurement & Hardware Ordering/Deployment/Financial Close/Inventory Management/Settings), real content in Overview section visible; no horizontal overflow (scrollWidth=375); Print Guide button 28px, TOC links 18px (noted below 44px, consistent with prior stages); screenshot saved
 - 076: Flow QA: Create Project + Complete Intake — created "QA Test Project - Stage 076" (QA Test Customer/AUTO) at /projects/new; redirected to intake; completed all 7 steps in order (Customer Info/Venue Config/Service Tier/ISP Info/Installer x2/Financial Setup/Review); step locking verified (steps 5+6 locked until prior steps complete); multi-select: selected PodPlay Install Team + External Installer; submitted intake → redirected to /procurement with BOM auto-generated (30 line items, subtotal $10277); dashboard shows project with Procurement status/AUTO tier/Jun 1 2026 go-live; screenshots saved
 - 077: Flow QA: Procurement to Financial Close — on QA Test Project (Stage 076): BOM loaded (30 items, $10277 subtotal/$12435 customer price); PO created for Amazon vendor (7 items, delivery 2026-04-01); Advance to Deployment dialog confirmed → redirected to /deployment; 121 checklist items marked complete (100% progress bar); Advance to Financial Close button enabled (all items checked); confirmed dialog → redirected to /financials with "Project advanced to Financial Close" toast; screenshots saved (077-flow-procurement.png, 077-flow-deployment.png, 077-flow-financial-close.png)
+- 078: Flow QA: Inventory Management — fixed AdjustmentModal bug (wrong column names item_id→hardware_catalog_id and quantity→qty_delta in inventory_movements insert); stock adjust +10 on iPad Kiosk Case with Lock (0→10 on hand/available, toast confirmed); set on-order qty=5 on Kisi Reader Pro 2 (—→5 on order, status Not Ordered→Ordered, toast confirmed); both changes persisted after full page refresh from Supabase; screenshots saved (078-flow-inventory-before.png, 078-flow-inventory-after.png)
