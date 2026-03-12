@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 34
+current: 35
 total: 85
 
 ## Completed
@@ -37,3 +37,4 @@ total: 85
 - 031: Inventory On-Order Manual Adjustment UI — created SetOnOrderModal.tsx with SKU name (read-only), current on-order qty (read-only), new qty input, optional notes; added qty_on_order + order_status to inventory select query; added On Order column to table; added Set On-Order button per row; order_status set to 'ordered' if qty>0, 'not_ordered' if 0; tsc --noEmit passes
 - 032: Inventory On-Order Display Columns — added orderStatusLabels/orderStatusBadgeClass to enum-labels.ts (not_ordered/ordered/partial/received); added order_status to label/badge maps; updated inventory table Available formula to on_hand - allocated + on_order (projected); added Status column with colored badge; tsc --noEmit passes
 - 033: Inventory On-Order Tests — created on-order.test.tsx with 17 tests: OO-01–09 covering On Order/Status column headers, qty_on_order display (value vs dash), order status badge labels (Ordered/Not Ordered), available formula (on_hand - allocated + on_order), Set On-Order button render; OOM-01–08 covering SetOnOrderModal title, current qty display, input default, negative qty validation, update with ordered/not_ordered status, onSuccess callback, cancel; 1003 tests pass
+- 034: Wizard Navigation Component — created WizardNavigation.tsx with steps prop (id/label/status), onStepClick/onPrevious/onNext/isFirstStep/isLastStep/nextLabel props; top section shows step indicators (completed=checkmark+clickable, current=highlighted, locked=greyed+disabled); bottom section shows Previous (hidden on first step) and Next/Complete buttons; tsc --noEmit passes
