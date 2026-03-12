@@ -1560,6 +1560,64 @@
     </div>
   </div>
 
+  <!-- 12e: ERP Dashboard -->
+  <div class="page-panel" id="panel-erp">
+    <div class="page-frame">
+      <div class="page-frame-label">12E — ERP Dashboard (Operations Overview)</div>
+      <div class="page-frame-body" style="display:flex;min-height:500px;">
+        <div style="width:56px;background:var(--gray-900);border-right:1px solid var(--gray-800);display:flex;flex-direction:column;align-items:center;padding-top:16px;gap:20px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0DFA0" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </div>
+        <div style="flex:1;padding:24px;">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;">
+            <div class="mock-stat"><div class="stat-value">₱3.4M</div><div class="stat-label">Revenue (MTD)</div></div>
+            <div class="mock-stat"><div class="stat-value">1,247</div><div class="stat-label">Total Bookings</div></div>
+            <div class="mock-stat"><div class="stat-value" style="color:var(--peri);">91%</div><div class="stat-label">Utilization</div></div>
+            <div class="mock-stat"><div class="stat-value" style="color:var(--gold);">4.7</div><div class="stat-label">NPS Score</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+            <div style="background:var(--gray-900);border:1px solid var(--gray-800);border-radius:8px;padding:20px;min-height:150px;">
+              <div style="font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);margin-bottom:12px;">REVENUE TREND</div>
+              <div style="display:flex;align-items:flex-end;gap:8px;height:100px;">
+                <div style="flex:1;background:var(--plum);border-radius:2px;height:40%;"></div>
+                <div style="flex:1;background:var(--plum);border-radius:2px;height:55%;"></div>
+                <div style="flex:1;background:var(--plum);border-radius:2px;height:45%;"></div>
+                <div style="flex:1;background:var(--plum);border-radius:2px;height:70%;"></div>
+                <div style="flex:1;background:var(--plum);border-radius:2px;height:65%;"></div>
+                <div style="flex:1;background:var(--gold);border-radius:2px;height:85%;"></div>
+              </div>
+            </div>
+            <div style="background:var(--gray-900);border:1px solid var(--gray-800);border-radius:8px;padding:20px;min-height:150px;">
+              <div style="font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);margin-bottom:12px;">BOOKINGS BY SPORT</div>
+              <div style="display:flex;gap:16px;align-items:center;margin-top:24px;">
+                <div style="width:80px;height:80px;border-radius:50%;background:conic-gradient(var(--gold) 0% 40%,var(--peri) 40% 65%,var(--plum) 65% 85%,var(--gray-300) 85% 100%);"></div>
+                <div style="font-size:12px;color:var(--gray-500);line-height:2;">
+                  <span style="color:var(--gold);">■</span> Pickleball 40%<br>
+                  <span style="color:var(--peri);">■</span> Volleyball 25%<br>
+                  <span style="color:var(--plum-light);">■</span> Football 20%<br>
+                  <span style="color:var(--gray-300);">■</span> Golf 15%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);margin-bottom:8px;">RECENT TRANSACTIONS</div>
+          <table class="mock-table">
+            <thead><tr><th>Booking</th><th>Sport</th><th>Amount</th><th>Date</th></tr></thead>
+            <tbody>
+              <tr><td>Court 3 — 2hr</td><td><span class="tag compact" style="background:var(--gold);color:var(--black);">PICKLEBALL</span></td><td style="color:var(--gold);">₱1,200</td><td>Mar 12</td></tr>
+              <tr><td>Pitch A — 1hr</td><td><span class="tag compact" style="background:var(--plum);color:var(--gold);">FOOTBALL</span></td><td style="color:var(--gold);">₱3,500</td><td>Mar 12</td></tr>
+              <tr><td>Bay 7 — 1hr</td><td><span class="tag compact" style="background:var(--gray-300);color:var(--black);">GOLF</span></td><td style="color:var(--gold);">₱800</td><td>Mar 11</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ==================== 13. SAMPLE LAYOUT ==================== -->
