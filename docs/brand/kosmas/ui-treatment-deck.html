@@ -1788,6 +1788,23 @@ function switchPageTab(tabId) {
   var panel = document.getElementById('panel-' + tabId);
   if (panel) panel.classList.add('active');
 }
+
+// Scroll-spy for TOC
+var tocLinks = document.querySelectorAll('.toc-link');
+var spySections = document.querySelectorAll('.section[id]');
+function updateScrollSpy() {
+  var current = '';
+  spySections.forEach(function(section) {
+    var top = section.offsetTop - 80;
+    if (window.scrollY >= top) current = section.getAttribute('id');
+  });
+  tocLinks.forEach(function(link) {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+}
+window.addEventListener('scroll', updateScrollSpy);
+updateScrollSpy();
 </script>
 
 </body>
