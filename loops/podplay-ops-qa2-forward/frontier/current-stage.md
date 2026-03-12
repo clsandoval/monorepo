@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 39
+current: 40
 total: 85
 
 ## Completed
@@ -42,3 +42,4 @@ total: 85
 - 036: Wizard Navigation: Wire Into Procurement — replaced manual tab row + "Advance to Deployment" button with WizardNavigation; activeTabIdx (number) replaces activeTab (string); getStepStates('procurement', activeTabIdx) drives step states; onNext on last step triggers advance dialog; nextLabel='Advance to Deployment' on last step; tsc --noEmit passes
 - 037: Wizard Navigation: Wire Into Deployment + Financials — deployment.tsx: replaced sidebar phase list with WizardNavigation; activeDisplayIdx derived from PHASE_DISPLAY_ORDER.indexOf(selectedPhase); navigation prev/next/step-click handlers; last step triggers advance dialog (guarded by allItemsChecked toast); financials.tsx: replaced tab row with WizardNavigation; activeTabIdx (number) replaces activeTab (string); both use getStepStates/WIZARD_STEPS; tsc --noEmit passes
 - 038: Wizard Navigation Tests — created navigation.test.tsx with 13 tests: all step labels render, completed steps not disabled, locked steps disabled, current step has aria-current, Previous hidden on first step, Previous visible otherwise, Next shows Complete on last step, Next shows Next otherwise, nextLabel override, onPrevious/onNext/onStepClick callbacks fire correctly, onStepClick does not fire for locked steps; 13 tests pass
+- 039: Operations Guide Route + Shell + Nav — created OperationsGuide.tsx with title/subtitle/TOC/section placeholders; created /_auth/guide.tsx route; added Guide link (BookMarked icon) under Resources section in AppLayout nav; updated routeTree.gen.ts; tsc --noEmit passes
