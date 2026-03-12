@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 80
+current: 81
 total: 85
 
 ## Completed
@@ -83,3 +83,4 @@ total: 85
 - 077: Flow QA: Procurement to Financial Close — on QA Test Project (Stage 076): BOM loaded (30 items, $10277 subtotal/$12435 customer price); PO created for Amazon vendor (7 items, delivery 2026-04-01); Advance to Deployment dialog confirmed → redirected to /deployment; 121 checklist items marked complete (100% progress bar); Advance to Financial Close button enabled (all items checked); confirmed dialog → redirected to /financials with "Project advanced to Financial Close" toast; screenshots saved (077-flow-procurement.png, 077-flow-deployment.png, 077-flow-financial-close.png)
 - 078: Flow QA: Inventory Management — fixed AdjustmentModal bug (wrong column names item_id→hardware_catalog_id and quantity→qty_delta in inventory_movements insert); stock adjust +10 on iPad Kiosk Case with Lock (0→10 on hand/available, toast confirmed); set on-order qty=5 on Kisi Reader Pro 2 (—→5 on order, status Not Ordered→Ordered, toast confirmed); both changes persisted after full page refresh from Supabase; screenshots saved (078-flow-inventory-before.png, 078-flow-inventory-after.png)
 - 079: Flow QA: Settings Management — Team: add QA Test Contact (7 contacts, "Contact saved"), edit role to QA Lead ("Contact saved"), deactivate ("Contact deactivated", back to 6); Installers: add QA Test Installer (3, "Installer saved"), deactivate (back to 2); Vendors: add QA Test Vendor (8, "Vendor saved", no crash), deactivate (back to 7); Pricing: discovered settings table missing 20 columns (autonomous_plus fees, deposit_pct, BOM thresholds, ISP thresholds, operational defaults); created 00023_settings_extended_columns.sql; db reset clean; minimum_deposit updated 500→750, "Settings saved" toast, persisted after page reload; screenshots saved (079-flow-settings-team.png, 079-flow-settings-vendors.png, 079-flow-settings-pricing.png)
+- 080: Flow QA: Delete Project — started from 0 projects (clean state); created "QA Delete Test - Stage 080" via /projects/new (redirected to intake); dashboard showed "Showing 1 of 1 projects"; clicked delete button → confirmation dialog appeared ("Delete Project" title, destructive button); confirmed deletion → "Project deleted" toast; dashboard returned to "Showing 0 of 0 projects"; navigating to deleted project URL shows empty "Intake Wizard" (project data fully removed from DB); screenshots saved (080-flow-delete-before.png, 080-flow-delete-confirm.png, 080-flow-delete-after.png)
