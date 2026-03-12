@@ -146,6 +146,179 @@
     border-bottom: 2px solid var(--black);
   }
 
+  /* ==================== COLOR PALETTE ==================== */
+  .palette-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .swatch-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .swatch-block {
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.08);
+    flex-shrink: 0;
+  }
+
+  .swatch-name {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--black);
+  }
+
+  .swatch-hex {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+    color: var(--black);
+    font-family: monospace;
+  }
+
+  .swatch-rgb {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 11px;
+    color: var(--charcoal);
+  }
+
+  .usage-bar-wrap {
+    margin-bottom: 40px;
+  }
+
+  .usage-bar-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+  }
+
+  .usage-bar {
+    display: flex;
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--stone);
+    margin-bottom: 8px;
+  }
+
+  .usage-bar-segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .usage-bar-legend {
+    display: flex;
+    gap: 24px;
+  }
+
+  .usage-bar-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--charcoal);
+  }
+
+  .usage-bar-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .cyan-callout {
+    border-left: 4px solid var(--cyan);
+    background: var(--white);
+    border-radius: 0 6px 6px 0;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+  }
+
+  .cyan-callout-rule {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--charcoal);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .cyan-callout-rule:last-child {
+    margin-bottom: 0;
+  }
+
+  .cyan-callout-rule strong {
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  .sport-tints-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .sport-tint-card {
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--stone);
+  }
+
+  .sport-tint-swatch {
+    height: 64px;
+    width: 100%;
+  }
+
+  .sport-tint-info {
+    background: var(--white);
+    padding: 12px 14px;
+    border-top: 1px solid var(--stone);
+  }
+
+  .sport-tint-name {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+
+  .sport-tint-hex {
+    font-family: monospace;
+    font-size: 11px;
+    color: var(--charcoal);
+    display: block;
+    line-height: 1.6;
+  }
+
   /* ==================== PHILOSOPHY PILLARS ==================== */
   .pillars-grid {
     display: grid;
@@ -625,6 +798,120 @@
   <div class="container">
     <p class="section-number">03</p>
     <h2 class="section-title">COLOR PALETTE</h2>
+
+    <!-- Main palette swatches -->
+    <p class="subsection-label">Core Palette</p>
+    <div class="palette-row">
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#1A1A1A;"></div>
+        <span class="swatch-name">Black</span>
+        <span class="swatch-hex">#1A1A1A</span>
+        <span class="swatch-rgb">RGB 26, 26, 26</span>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#F5F0E8; border:1px solid #D4CFC4;"></div>
+        <span class="swatch-name">Cream</span>
+        <span class="swatch-hex">#F5F0E8</span>
+        <span class="swatch-rgb">RGB 245, 240, 232</span>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#0CB4CE;"></div>
+        <span class="swatch-name">Cyan</span>
+        <span class="swatch-hex">#0CB4CE</span>
+        <span class="swatch-rgb">RGB 12, 180, 206</span>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#D4CFC4;"></div>
+        <span class="swatch-name">Stone</span>
+        <span class="swatch-hex">#D4CFC4</span>
+        <span class="swatch-rgb">RGB 212, 207, 196</span>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#3D3D3D;"></div>
+        <span class="swatch-name">Charcoal</span>
+        <span class="swatch-hex">#3D3D3D</span>
+        <span class="swatch-rgb">RGB 61, 61, 61</span>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#FFFFFF; border:1px solid #D4CFC4;"></div>
+        <span class="swatch-name">White</span>
+        <span class="swatch-hex">#FFFFFF</span>
+        <span class="swatch-rgb">RGB 255, 255, 255</span>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#B33A3A;"></div>
+        <span class="swatch-name">Error</span>
+        <span class="swatch-hex">#B33A3A</span>
+        <span class="swatch-rgb">RGB 179, 58, 58</span>
+      </div>
+    </div>
+
+    <!-- Usage ratio bar -->
+    <div class="usage-bar-wrap">
+      <p class="usage-bar-label">Typical Usage Ratio</p>
+      <div class="usage-bar">
+        <div class="usage-bar-segment" style="width:65%; background:#F5F0E8; color:#3D3D3D;">65% Cream</div>
+        <div class="usage-bar-segment" style="width:30%; background:#1A1A1A; color:#F5F0E8;">30% Dark</div>
+        <div class="usage-bar-segment" style="width:5%; background:#0CB4CE; color:#1A1A1A;">5%</div>
+      </div>
+      <div class="usage-bar-legend">
+        <div class="usage-bar-legend-item">
+          <div class="usage-bar-legend-dot" style="background:#F5F0E8; border-color:#D4CFC4;"></div>
+          <span>65% — Cream (backgrounds, surfaces)</span>
+        </div>
+        <div class="usage-bar-legend-item">
+          <div class="usage-bar-legend-dot" style="background:#1A1A1A;"></div>
+          <span>30% — Black / Charcoal (text, UI structure)</span>
+        </div>
+        <div class="usage-bar-legend-item">
+          <div class="usage-bar-legend-dot" style="background:#0CB4CE;"></div>
+          <span>5% — Cyan (accent only)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cyan usage rules -->
+    <div class="cyan-callout">
+      <p class="cyan-callout-rule"><strong>Cyan is an accent only.</strong> Never use for backgrounds, large surfaces, or primary buttons.</p>
+      <p class="cyan-callout-rule"><strong>Use for:</strong> logo mark, text links, focus rings, hover highlights, metric callouts.</p>
+    </div>
+
+    <!-- Sport tints -->
+    <p class="subsection-label">Sport Tints</p>
+    <div class="sport-tints-row">
+      <div class="sport-tint-card">
+        <div class="sport-tint-swatch" style="background:#FDF8F0; border-bottom:2px solid #E8DFD0;"></div>
+        <div class="sport-tint-info">
+          <p class="sport-tint-name">Pickleball</p>
+          <span class="sport-tint-hex">BG: #FDF8F0</span>
+          <span class="sport-tint-hex">Border: #E8DFD0</span>
+        </div>
+      </div>
+      <div class="sport-tint-card">
+        <div class="sport-tint-swatch" style="background:#F5F8F4; border-bottom:2px solid #D8E0D5;"></div>
+        <div class="sport-tint-info">
+          <p class="sport-tint-name">Volleyball</p>
+          <span class="sport-tint-hex">BG: #F5F8F4</span>
+          <span class="sport-tint-hex">Border: #D8E0D5</span>
+        </div>
+      </div>
+      <div class="sport-tint-card">
+        <div class="sport-tint-swatch" style="background:#F6F4F8; border-bottom:2px solid #DDD8E2;"></div>
+        <div class="sport-tint-info">
+          <p class="sport-tint-name">Football</p>
+          <span class="sport-tint-hex">BG: #F6F4F8</span>
+          <span class="sport-tint-hex">Border: #DDD8E2</span>
+        </div>
+      </div>
+      <div class="sport-tint-card">
+        <div class="sport-tint-swatch" style="background:#F2F5F8; border-bottom:2px solid #D5DCE3;"></div>
+        <div class="sport-tint-info">
+          <p class="sport-tint-name">Golf</p>
+          <span class="sport-tint-hex">BG: #F2F5F8</span>
+          <span class="sport-tint-hex">Border: #D5DCE3</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
