@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 67
+current: 68
 total: 85
 
 ## Completed
@@ -70,3 +70,4 @@ total: 85
 - 064: Mobile Verify /projects — projects page renders at 375x812 in stacked card layout; 3 real projects (Ace Tennis Club NYC/PRO/Intake, Brooklyn Padel Courts/AUTO/Procurement, LA Fitness Hub West/A+/Deployment); "Showing 3 of 3 projects"; no horizontal overflow (scrollWidth=375); delete buttons visible per card (24x24px, noted below 44px); screenshot saved
 - 065: Mobile Verify /projects/new — New Project form renders at 375x812 with "New Project" heading, Project Name/Customer Name/Venue Name (optional) inputs (all 44px height × 343px full-width), Create Project + Cancel buttons; no horizontal overflow (scrollWidth=375); action buttons 32px tall (noted below 44px, consistent with prior stages); screenshot saved
 - 066: Mobile Verify /projects/:id/intake — intake wizard renders at 375x812 with "Intake — Ace Tennis Club NYC" heading, 7 wizard steps (step 1 Customer Info active, steps 2-7 disabled/locked), Customer Info form with Customer Name/Contact Email/Contact Phone inputs, Next and Continue buttons; no horizontal overflow (scrollWidth=375); wizard step buttons 36px, nav buttons 32px (noted below 44px, consistent with prior stages); screenshot saved
+- 067: Mobile Verify /projects/:id/procurement — procurement page renders at 375x812 with "Procurement — Brooklyn Padel Courts" heading, 4 tabs (BOM Review, Inventory Check, Purchase Orders, Packing List); BOM Review tab active with Regenerate BOM button; no horizontal overflow (scrollWidth=375); tab buttons 36px, nav buttons 32px (noted below 44px, consistent with prior stages); screenshot saved
