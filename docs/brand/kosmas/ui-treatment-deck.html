@@ -306,6 +306,27 @@
   }
   .btn-col { display: flex; flex-direction: column; align-items: center; }
 
+  /* ==================== 7. TAGS & BADGES ==================== */
+  .tag-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+  .tag {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .tag.compact { padding: 4px 10px; font-size: 11px; }
+  .tag-row-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--gray-500);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
   /* ==================== 9. CARDS ==================== */
   .card-grid {
     display: grid;
@@ -885,6 +906,87 @@
     <div class="btn-col">
       <button class="btn btn-peri">INFO</button>
       <div class="btn-label">Info<br>periwinkle bg</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 7. TAGS & BADGES ==================== -->
+<div class="section" id="tags">
+  <div class="section-number">07</div>
+  <div class="section-title">Tags & Badges</div>
+  <div class="section-desc">Five variants for categorization, status, location, category, and metrics. Each available in default and compact sizes.</div>
+
+  <div style="margin-bottom:32px;">
+    <div class="tag-row-label">Sport Tags</div>
+    <div class="tag-grid">
+      <span class="tag" style="background:var(--gold);color:var(--black);">PICKLEBALL</span>
+      <span class="tag" style="background:var(--peri);color:var(--black);">VOLLEYBALL</span>
+      <span class="tag" style="background:var(--plum);color:var(--gold);">FOOTBALL</span>
+      <span class="tag" style="background:var(--gray-300);color:var(--black);">GOLF</span>
+    </div>
+    <div class="tag-grid">
+      <span class="tag compact" style="background:var(--gold);color:var(--black);">PICKLEBALL</span>
+      <span class="tag compact" style="background:var(--peri);color:var(--black);">VOLLEYBALL</span>
+      <span class="tag compact" style="background:var(--plum);color:var(--gold);">FOOTBALL</span>
+      <span class="tag compact" style="background:var(--gray-300);color:var(--black);">GOLF</span>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px;">
+    <div class="tag-row-label">Status Badges</div>
+    <div class="tag-grid">
+      <span class="tag" style="background:var(--gold);color:var(--black);">ACTIVE</span>
+      <span class="tag" style="background:#E53E3E;color:var(--white);">SOLD OUT</span>
+      <span class="tag" style="background:var(--peri);color:var(--black);">UPCOMING</span>
+      <span class="tag" style="background:var(--gray-700);color:var(--gray-300);">CLOSED</span>
+    </div>
+    <div class="tag-grid">
+      <span class="tag compact" style="background:var(--gold);color:var(--black);">ACTIVE</span>
+      <span class="tag compact" style="background:#E53E3E;color:var(--white);">SOLD OUT</span>
+      <span class="tag compact" style="background:var(--peri);color:var(--black);">UPCOMING</span>
+      <span class="tag compact" style="background:var(--gray-700);color:var(--gray-300);">CLOSED</span>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px;">
+    <div class="tag-row-label">Location Tags</div>
+    <div class="tag-grid">
+      <span class="tag" style="background:transparent;color:var(--gray-300);border:1px solid var(--gray-700);">MANILA</span>
+      <span class="tag" style="background:transparent;color:var(--gray-300);border:1px solid var(--gray-700);">CEBU</span>
+      <span class="tag" style="background:transparent;color:var(--gray-300);border:1px solid var(--gray-700);">DAVAO</span>
+    </div>
+    <div class="tag-grid">
+      <span class="tag compact" style="background:transparent;color:var(--gray-300);border:1px solid var(--gray-700);">MANILA</span>
+      <span class="tag compact" style="background:transparent;color:var(--gray-300);border:1px solid var(--gray-700);">CEBU</span>
+      <span class="tag compact" style="background:transparent;color:var(--gray-300);border:1px solid var(--gray-700);">DAVAO</span>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px;">
+    <div class="tag-row-label">Category Labels</div>
+    <div class="tag-grid">
+      <span class="tag" style="background:var(--gray-900);color:var(--gray-300);border:1px solid var(--gray-800);">PREMIUM</span>
+      <span class="tag" style="background:var(--gray-900);color:var(--gray-300);border:1px solid var(--gray-800);">GROUP</span>
+      <span class="tag" style="background:var(--gray-900);color:var(--gray-300);border:1px solid var(--gray-800);">PRIVATE</span>
+    </div>
+    <div class="tag-grid">
+      <span class="tag compact" style="background:var(--gray-900);color:var(--gray-300);border:1px solid var(--gray-800);">PREMIUM</span>
+      <span class="tag compact" style="background:var(--gray-900);color:var(--gray-300);border:1px solid var(--gray-800);">GROUP</span>
+      <span class="tag compact" style="background:var(--gray-900);color:var(--gray-300);border:1px solid var(--gray-800);">PRIVATE</span>
+    </div>
+  </div>
+
+  <div>
+    <div class="tag-row-label">Metric Badges</div>
+    <div class="tag-grid">
+      <span class="tag" style="background:var(--gray-900);color:var(--gold);border:1px solid var(--gray-800);font-family:monospace;">4.8★</span>
+      <span class="tag" style="background:var(--gray-900);color:var(--peri);border:1px solid var(--gray-800);font-family:monospace;">12 SPOTS LEFT</span>
+      <span class="tag" style="background:var(--gray-900);color:var(--gold);border:1px solid var(--gray-800);font-family:monospace;">₱2,500/HR</span>
+    </div>
+    <div class="tag-grid">
+      <span class="tag compact" style="background:var(--gray-900);color:var(--gold);border:1px solid var(--gray-800);font-family:monospace;">4.8★</span>
+      <span class="tag compact" style="background:var(--gray-900);color:var(--peri);border:1px solid var(--gray-800);font-family:monospace;">12 SPOTS LEFT</span>
+      <span class="tag compact" style="background:var(--gray-900);color:var(--gold);border:1px solid var(--gray-800);font-family:monospace;">₱2,500/HR</span>
     </div>
   </div>
 </div>
