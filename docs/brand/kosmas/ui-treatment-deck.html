@@ -644,6 +644,18 @@
   }
   .mock-table td { padding:12px 16px;font-size:14px;color:var(--gray-300);border-bottom:1px solid var(--gray-800); }
   .mock-table tr:hover td { background:rgba(74,25,66,0.1); }
+.sched-grid { display:grid;grid-template-columns:60px repeat(5,1fr);border:1px solid var(--gray-800);border-radius:8px;overflow:hidden; }
+.sched-header { background:var(--gray-900);padding:10px 8px;font-size:11px;font-weight:600;letter-spacing:1px;color:var(--gray-500);text-align:center;border-bottom:1px solid var(--gray-800);text-transform:uppercase; }
+.sched-time { padding:8px;font-size:11px;color:var(--gray-500);text-align:right;border-right:1px solid var(--gray-800);border-bottom:1px solid var(--gray-800); }
+.sched-cell { border-right:1px solid var(--gray-800);border-bottom:1px solid var(--gray-800);padding:4px;min-height:48px;position:relative; }
+.sched-event { border-radius:4px;padding:4px 8px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px; }
+.sched-toggle { display:flex;gap:4px;margin-bottom:16px; }
+.sched-toggle button {
+  padding:6px 16px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  background:var(--gray-900);border:1px solid var(--gray-800);border-radius:4px;
+  color:var(--gray-500);font-family:var(--font);cursor:pointer;
+}
+.sched-toggle button.active { background:var(--plum);border-color:var(--plum);color:var(--gold); }
 </style>
 </head>
 <body>
@@ -1613,6 +1625,92 @@
               <tr><td>Bay 7 — 1hr</td><td><span class="tag compact" style="background:var(--gray-300);color:var(--black);">GOLF</span></td><td style="color:var(--gold);">₱800</td><td>Mar 11</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12f: Scheduling View -->
+  <div class="page-panel" id="panel-schedule">
+    <div class="page-frame">
+      <div class="page-frame-label">12F — Scheduling View (Court &amp; Field Booking)</div>
+      <div class="page-frame-body" style="padding:24px 32px;position:relative;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <div style="font-size:18px;font-weight:700;letter-spacing:3px;color:var(--white);text-transform:uppercase;">MARCH 10–14, 2026</div>
+          <div class="sched-toggle">
+            <button>DAY</button>
+            <button class="active">WEEK</button>
+            <button>MONTH</button>
+          </div>
+        </div>
+        <div class="sched-grid">
+          <div class="sched-header"></div>
+          <div class="sched-header">MON 10</div>
+          <div class="sched-header">TUE 11</div>
+          <div class="sched-header">WED 12</div>
+          <div class="sched-header">THU 13</div>
+          <div class="sched-header">FRI 14</div>
+          <div class="sched-time">8 AM</div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--gold);color:var(--black);">PB Court 1</div></div>
+          <div class="sched-cell"></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--peri);color:var(--black);">VB Court A</div></div>
+          <div class="sched-cell"></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--gold);color:var(--black);">PB Court 3</div></div>
+          <div class="sched-time">9 AM</div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--gold);color:var(--black);">PB Court 1</div></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--plum);color:var(--gold);">FB Pitch A</div></div>
+          <div class="sched-cell"></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--gray-300);color:var(--black);">Golf Bay 2</div></div>
+          <div class="sched-cell"></div>
+          <div class="sched-time">10 AM</div>
+          <div class="sched-cell"></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--plum);color:var(--gold);">FB Pitch A</div></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--gold);color:var(--black);">PB Court 2</div></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--peri);color:var(--black);">VB Court B</div></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--gray-300);color:var(--black);">Golf Bay 5</div></div>
+          <div class="sched-time">11 AM</div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--peri);color:var(--black);">VB League</div></div>
+          <div class="sched-cell"></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--gold);color:var(--black);">PB Court 2</div></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--peri);color:var(--black);">VB Court B</div></div>
+          <div class="sched-cell"></div>
+          <div class="sched-time">12 PM</div>
+          <div class="sched-cell"></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--gold);color:var(--black);">PB Court 3</div></div>
+          <div class="sched-cell"></div>
+          <div class="sched-cell"></div>
+          <div class="sched-cell"><div class="sched-event" style="background:var(--plum);color:var(--gold);">FB Pitch B</div></div>
+        </div>
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;border-radius:8px;">
+          <div style="background:var(--gray-900);border:1px solid var(--gray-800);border-radius:8px;padding:32px;width:360px;">
+            <div style="font-size:16px;font-weight:700;letter-spacing:2px;color:var(--white);text-transform:uppercase;margin-bottom:20px;">NEW BOOKING</div>
+            <div style="margin-bottom:12px;">
+              <label style="font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);display:block;margin-bottom:6px;">SPORT</label>
+              <select style="width:100%;padding:10px 14px;background:var(--black);border:1px solid var(--gray-700);border-radius:4px;color:var(--white);font-family:var(--font);font-size:14px;"><option>Pickleball</option></select>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+              <div>
+                <label style="font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);display:block;margin-bottom:6px;">DATE</label>
+                <input type="text" value="2026-03-12" readonly style="width:100%;padding:10px 14px;background:var(--black);border:1px solid var(--gold);border-radius:4px;color:var(--white);font-family:var(--font);font-size:14px;box-shadow:0 0 0 2px rgba(240,223,160,0.15);">
+              </div>
+              <div>
+                <label style="font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);display:block;margin-bottom:6px;">TIME</label>
+                <input type="text" value="10:00 AM" readonly style="width:100%;padding:10px 14px;background:var(--black);border:1px solid var(--gray-700);border-radius:4px;color:var(--white);font-family:var(--font);font-size:14px;">
+              </div>
+            </div>
+            <div style="margin-bottom:12px;">
+              <label style="font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);display:block;margin-bottom:6px;">COURT / FIELD</label>
+              <select style="width:100%;padding:10px 14px;background:var(--black);border:1px solid var(--gray-700);border-radius:4px;color:var(--white);font-family:var(--font);font-size:14px;"><option>Court 2 — BGC</option></select>
+            </div>
+            <div style="margin-bottom:20px;">
+              <label style="font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gray-500);display:block;margin-bottom:6px;">PARTICIPANTS</label>
+              <input type="text" value="4" readonly style="width:100%;padding:10px 14px;background:var(--black);border:1px solid var(--gray-700);border-radius:4px;color:var(--white);font-family:var(--font);font-size:14px;">
+            </div>
+            <div style="display:flex;gap:12px;">
+              <button class="btn btn-primary" style="flex:1;">CONFIRM</button>
+              <button class="btn btn-ghost" style="flex:1;">CANCEL</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
