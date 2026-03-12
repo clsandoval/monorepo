@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 9
+current: 10
 total: 85
 
 ## Completed
@@ -12,3 +12,4 @@ total: 85
 - 006: Remove Replay Sign Component — deleted ReplaySignFulfillment.tsx, removed 'Replay Signs' tab from PROCUREMENT_TABS and import from procurement.tsx; tsc --noEmit passes
 - 007: Remove Replay Sign Types & Labels — removed 7 TOAST_REPLAY_SIGNS_* constants from toast-messages.ts; removed replay_signs block from procurement validation, replay_signs from advance checklist, replay_save_success/error from procurementToast, and replay_sign_multiplier from settings.system in validation-messages.ts; tsc --noEmit passes
 - 008: Remove Replay Sign Tests — deleted replay-signs.test.ts; removed Replay Signs tab assertion + test from tabs.test.ts (now "all 4"); removed replay_signs describe block and FK cascade replay_sign section from financial-tables.test.ts; removed replay_sign_multiplier from 3 settings test fixtures; removed replay_signs tests from validation-messages.test.ts; removed replay_sign_count assertion from core-tables.test.ts; also removed replay_sign_multiplier from PricingSettings.tsx schema/defaultValues/form field and Settings type; 998 tests pass
+- 009: Remove Travel Tab — deleted travel.tsx route, TravelSettings.tsx component, travel.test.ts; removed Travel from SETTINGS_TABS in settings.tsx and navSections in AppLayout.tsx; removed Plane import; removed travel block from validation-messages.ts, TOAST_TRAVEL_DEFAULTS_* from toast-messages.ts, LOADER_SETTINGS_SAVE_TRAVEL from loading.ts; updated routeTree.gen.ts; updated nav.test.ts to assert 5 tabs (removed Travel, added Installers/Vendors); 988 tests pass
