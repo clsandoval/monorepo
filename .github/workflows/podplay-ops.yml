@@ -1,4 +1,4 @@
-name: PodPlay Ops Forward Loop
+name: PodPlay Ops QA2 Forward Loop
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
       max_iterations:
         description: "Max iterations (default 50)"
         required: false
-        default: "50"
+        default: "90"
 
 jobs:
   check:
@@ -21,7 +21,7 @@ jobs:
       - name: Check loop status
         id: status
         run: |
-          LOOP_DIR="loops/podplay-ops-forward"
+          LOOP_DIR="loops/podplay-ops-qa2-forward"
           if [ -f "$LOOP_DIR/status/converged.txt" ]; then
             echo "Loop already converged. Skipping."
             echo "skip=true" >> "$GITHUB_OUTPUT"
@@ -78,10 +78,10 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          cd "loops/podplay-ops-forward"
+          cd "loops/podplay-ops-qa2-forward"
           FAILURES=0
           ITERATION=0
-          MAX_ITERATIONS=${{ github.event.inputs.max_iterations || '50' }}
+          MAX_ITERATIONS=${{ github.event.inputs.max_iterations || '90' }}
 
           while true; do
             if [ -f status/converged.txt ]; then
@@ -117,12 +117,12 @@ jobs:
             # Push any local commits
             cd "$(git rev-parse --show-toplevel)"
             git add -A
-            git diff --cached --quiet || git commit -m "loop(podplay-ops-forward): iteration $ITERATION"
+            git diff --cached --quiet || git commit -m "loop(podplay-ops-qa2-forward): iteration $ITERATION"
             if git log origin/${{ github.ref_name }}..HEAD --oneline | grep -q .; then
               git pull --rebase origin "${{ github.ref_name }}" || true
               git push || echo "WARNING: Push failed"
             fi
-            cd "loops/podplay-ops-forward"
+            cd "loops/podplay-ops-qa2-forward"
 
             sleep 5
           done
@@ -133,23 +133,23 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          LOOP_DIR="loops/podplay-ops-forward"
+          LOOP_DIR="loops/podplay-ops-qa2-forward"
           if [ -f "$LOOP_DIR/status/converged.txt" ]; then
             echo "PodPlay Ops forward loop has converged!"
 
-            ITER_COUNT=$(git log --oneline --grep="podplay(forward)" | wc -l)
+            ITER_COUNT=$(git log --oneline --grep="podplay(qa2-forward)" | wc -l)
 
             gh issue create \
-              --title "[ralph] podplay-ops-forward converged ($ITER_COUNT iterations)" \
+              --title "[ralph] podplay-ops-qa2-forward converged ($ITER_COUNT iterations)" \
               --label "ralph-converged" \
               --body "$(cat <<ISSUEEOF
           ## Loop Converged
 
-          **Loop:** podplay-ops-forward
+          **Loop:** podplay-ops-qa2-forward
           **Iterations:** ~$ITER_COUNT
           **Output:** \`apps/podplay/\`
 
-          The forward loop has built the full PodPlay Ops Wizard. Review and deploy.
+          QA round 2 complete — 21 findings from Marco addressed. Review and deploy.
 
           ### Convergence Summary
           \`\`\`
@@ -161,9 +161,9 @@ jobs:
             # Update registry
             cd "$(git rev-parse --show-toplevel)"
             if command -v yq &> /dev/null; then
-              yq -i '.loops.podplay-ops-forward.status = "converged" | .loops.podplay-ops-forward.converged_at = "'"$(date -u +%Y-%m-%d)"'"' loops/_registry.yaml
+              yq -i '.loops.podplay-ops-qa2-forward.status = "converged" | .loops.podplay-ops-qa2-forward.converged_at = "'"$(date -u +%Y-%m-%d)"'"' loops/_registry.yaml
             fi
             git add loops/_registry.yaml
-            git commit -m "loop(podplay-ops-forward): mark converged in registry" || true
+            git commit -m "loop(podplay-ops-qa2-forward): mark converged in registry" || true
             git push || true
           fi
