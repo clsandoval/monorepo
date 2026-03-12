@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 55
+current: 56
 total: 85
 
 ## Completed
@@ -58,3 +58,4 @@ total: 85
 - 052: Desktop Verify /projects/:id/deployment — deployment page renders at 1280x800 with header "Deployment — LA Fitness Hub West"; 0% complete (0/121 steps); Phase 0: Pre-Purchase & Planning with checkable items; warnings render; Next button present; screenshot saved
 - 053: Desktop Verify /projects/:id/financials — financials page renders at 1280x800 with header "Financials — LA Fitness Hub West"; 5-step wizard (Invoicing/Expenses/P&L Summary/Go-Live/Recurring Fees); Deposit Invoice form with Amount/Date/Payment Method/Notes fields; Export Invoice as PDF button; deposit minimum enforcement active on form submit; screenshot saved
 - 054: Desktop Verify /inventory — inventory page renders at 1280x800 with "Inventory" heading; 47 items shown; columns: Item/On Hand/Allocated/Available/Reorder At/On Order/Status; "Not Ordered" status badges; Adjust and Set On-Order buttons per row; screenshot saved
+- 055: Desktop Verify /financials (global) — financials overview page renders at 1280x800 with "Financials" heading; Revenue Funnel table (3 projects, Proposal stage); P&L Overview metric cards (Revenue/COGS/Expenses/Gross Profit); HER — Hardware Efficiency Ratio section with gauge; Recurring Fees section; screenshot saved
