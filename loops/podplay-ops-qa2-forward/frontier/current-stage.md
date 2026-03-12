@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 15
+current: 16
 total: 85
 
 ## Completed
@@ -18,3 +18,4 @@ total: 85
 - 012: Fix Inventory Seed Migration — db reset applies all 19 migrations cleanly; inventory table has exactly 47 rows matching 47 active hardware_catalog items; 985 tests pass
 - 013: Fix "(tier)" Literal in Advance to Deployment — changed procurement.tsx select from wrong column `service_tier` to `tier`; added serviceTierLabels import to show human-readable label in dialog; tsc --noEmit passes
 - 014: Fix Customer Name Pre-fill — expanded fetchWizardStep select to include customer_name, contact_email, contact_phone; seed wizardData.customerInfo from DB on load so form pre-fills when returning to existing project; 985 tests pass
+- 015: Delete Project Confirmation Dialog — updated deleteProjectDialog signature to take single projectName param; title "Delete Project", spec message, confirm label "Delete Project", destructive true; updated test to use getByRole('heading'); 17 tests pass
