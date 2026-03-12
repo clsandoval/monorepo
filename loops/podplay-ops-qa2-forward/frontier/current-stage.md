@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 54
+current: 55
 total: 85
 
 ## Completed
@@ -57,3 +57,4 @@ total: 85
 - 051: Desktop Verify /projects/:id/procurement — procurement page renders at 1280x800 with header "Procurement — Brooklyn Padel Courts"; 4 tabs (BOM Review, Inventory Check, Purchase Orders, Packing List); no CC Terminal or Replay Sign references; screenshot saved
 - 052: Desktop Verify /projects/:id/deployment — deployment page renders at 1280x800 with header "Deployment — LA Fitness Hub West"; 0% complete (0/121 steps); Phase 0: Pre-Purchase & Planning with checkable items; warnings render; Next button present; screenshot saved
 - 053: Desktop Verify /projects/:id/financials — financials page renders at 1280x800 with header "Financials — LA Fitness Hub West"; 5-step wizard (Invoicing/Expenses/P&L Summary/Go-Live/Recurring Fees); Deposit Invoice form with Amount/Date/Payment Method/Notes fields; Export Invoice as PDF button; deposit minimum enforcement active on form submit; screenshot saved
+- 054: Desktop Verify /inventory — inventory page renders at 1280x800 with "Inventory" heading; 47 items shown; columns: Item/On Hand/Allocated/Available/Reorder At/On Order/Status; "Not Ordered" status badges; Adjust and Set On-Order buttons per row; screenshot saved
