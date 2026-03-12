@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 12
+current: 13
 total: 85
 
 ## Completed
@@ -15,3 +15,4 @@ total: 85
 - 009: Remove Travel Tab — deleted travel.tsx route, TravelSettings.tsx component, travel.test.ts; removed Travel from SETTINGS_TABS in settings.tsx and navSections in AppLayout.tsx; removed Plane import; removed travel block from validation-messages.ts, TOAST_TRAVEL_DEFAULTS_* from toast-messages.ts, LOADER_SETTINGS_SAVE_TRAVEL from loading.ts; updated routeTree.gen.ts; updated nav.test.ts to assert 5 tabs (removed Travel, added Installers/Vendors); 988 tests pass
 - 010: Remove PingPod WiFi Field — removed has_pingpod_wifi from VenueConfigStep.tsx schema+UI, ReviewStep.tsx row, intake.tsx update payload, venue-config.test.tsx (2 tests), review.test.ts fixture+test 9, submit.test.ts toMatchObject expectation; 985 tests pass
 - 011: Fix Vendor Add Failure — added 00019_vendors_rls.sql: ENABLE ROW LEVEL SECURITY + authenticated full access policy on vendors table; db reset clean; 985 tests pass
+- 012: Fix Inventory Seed Migration — db reset applies all 19 migrations cleanly; inventory table has exactly 47 rows matching 47 active hardware_catalog items; 985 tests pass
