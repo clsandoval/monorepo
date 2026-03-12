@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 11
+current: 12
 total: 85
 
 ## Completed
@@ -14,3 +14,4 @@ total: 85
 - 008: Remove Replay Sign Tests — deleted replay-signs.test.ts; removed Replay Signs tab assertion + test from tabs.test.ts (now "all 4"); removed replay_signs describe block and FK cascade replay_sign section from financial-tables.test.ts; removed replay_sign_multiplier from 3 settings test fixtures; removed replay_signs tests from validation-messages.test.ts; removed replay_sign_count assertion from core-tables.test.ts; also removed replay_sign_multiplier from PricingSettings.tsx schema/defaultValues/form field and Settings type; 998 tests pass
 - 009: Remove Travel Tab — deleted travel.tsx route, TravelSettings.tsx component, travel.test.ts; removed Travel from SETTINGS_TABS in settings.tsx and navSections in AppLayout.tsx; removed Plane import; removed travel block from validation-messages.ts, TOAST_TRAVEL_DEFAULTS_* from toast-messages.ts, LOADER_SETTINGS_SAVE_TRAVEL from loading.ts; updated routeTree.gen.ts; updated nav.test.ts to assert 5 tabs (removed Travel, added Installers/Vendors); 988 tests pass
 - 010: Remove PingPod WiFi Field — removed has_pingpod_wifi from VenueConfigStep.tsx schema+UI, ReviewStep.tsx row, intake.tsx update payload, venue-config.test.tsx (2 tests), review.test.ts fixture+test 9, submit.test.ts toMatchObject expectation; 985 tests pass
+- 011: Fix Vendor Add Failure — added 00019_vendors_rls.sql: ENABLE ROW LEVEL SECURITY + authenticated full access policy on vendors table; db reset clean; 985 tests pass
