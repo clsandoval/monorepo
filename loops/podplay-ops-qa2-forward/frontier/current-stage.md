@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 44
+current: 45
 total: 85
 
 ## Completed
@@ -47,3 +47,4 @@ total: 85
 - 041: Operations Guide: Procurement Section — filled in Procurement & Hardware Ordering section with 7 subsections: Procurement Overview, BOM Review (swap SKUs, adjust quantities, PDF export tip), Creating Purchase Orders (vendor selection, line items, on-order tracking, PDF export tip), Receiving Inventory (full/partial receive, on-hand update), Packing List (PDF export tip), Inventory Check (available formula, status badges), Advancing to Deployment (confirmation dialog, one-way action note); tsc --noEmit passes
 - 042: Operations Guide: Deployment Section — filled in Deployment section with Deployment Overview, 5 phase groups covering all 16 phases (Pre-Purchase & Planning through Health Monitoring Setup), per-phase descriptions with key checklist items and responsibilities, Troubleshooting section (5 common issues), and Advancing to Financial Close; tsc --noEmit passes
 - 043: Operations Guide: Financials & Settings Section — filled in Financial Close section (deposit invoice, expense tracking, final invoicing, P&L summary, recurring fees, project close), Inventory Management section (stock tracking, on-order quantities, manual adjustments, movement history, common workflows), and Settings section (team contacts, installers, vendors, pricing tiers & minimum deposit, hardware catalog); updated TOC with 2 new entries; tsc --noEmit passes
+- 044: Operations Guide: Print CSS + Styling — added @media print block to index.css (hide sidebar/header, fix overflow constraints, page margins, section page breaks, keep headings with content, tables/code blocks avoid splitting); added Print Guide button (Printer icon, window.print(), guide-print-button hidden on print) to OperationsGuide.tsx header; tsc --noEmit passes
