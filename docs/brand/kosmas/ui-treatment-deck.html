@@ -92,7 +92,7 @@
     max-width: 600px;
   }
 
-  /* ==================== 1. COLOR PALETTE ==================== */
+  /* ==================== 3. COLOR PALETTE ==================== */
   .color-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -136,7 +136,7 @@
     line-height: 1.5;
   }
 
-  /* ==================== 2. TYPOGRAPHY ==================== */
+  /* ==================== 4. TYPOGRAPHY ==================== */
   .type-scale { margin-bottom: 40px; }
   .type-row {
     display: grid;
@@ -152,7 +152,7 @@
     line-height: 1.8;
   }
 
-  /* ==================== 3. SPACING ==================== */
+  /* ==================== 5. SPACING ==================== */
   .spacing-row {
     display: flex;
     align-items: center;
@@ -181,7 +181,7 @@
     font-family: monospace;
   }
 
-  /* ==================== 4. BUTTONS ==================== */
+  /* ==================== 6. BUTTONS ==================== */
   .btn-grid {
     display: flex;
     flex-wrap: wrap;
@@ -239,7 +239,7 @@
   }
   .btn-col { display: flex; flex-direction: column; align-items: center; }
 
-  /* ==================== 5. CARDS ==================== */
+  /* ==================== 9. CARDS ==================== */
   .card-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -278,7 +278,7 @@
     line-height: 1.5;
   }
 
-  /* ==================== 6. SAMPLE LAYOUT ==================== */
+  /* ==================== 13. SAMPLE LAYOUT ==================== */
   .sample-frame {
     background: var(--black);
     border: 1px solid var(--gray-800);
@@ -360,6 +360,18 @@
     letter-spacing: 2px;
   }
 
+  .toc-link {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--gray-500);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+  .toc-link:hover { color: var(--gray-300); }
+  .toc-link.active { color: var(--gold); }
+
   /* ==================== UTILITIES ==================== */
   .token {
     display: inline-block;
@@ -381,22 +393,29 @@
   <div class="brand-statement">Premium sports experiences across Southeast Asia. Bold, defined, confident.</div>
 </div>
 
-<nav style="background:var(--gray-900);border-bottom:1px solid var(--gray-800);padding:12px 0;position:sticky;top:0;z-index:100;">
-  <div style="max-width:1080px;margin:0 auto;padding:0 32px;display:flex;gap:24px;overflow-x:auto;">
-    <a href="#colors" style="font-size:13px;font-weight:600;letter-spacing:2px;color:var(--gray-500);text-decoration:none;white-space:nowrap;">COLORS</a>
-    <a href="#typography" style="font-size:13px;font-weight:600;letter-spacing:2px;color:var(--gray-500);text-decoration:none;white-space:nowrap;">TYPOGRAPHY</a>
-    <a href="#spacing" style="font-size:13px;font-weight:600;letter-spacing:2px;color:var(--gray-500);text-decoration:none;white-space:nowrap;">SPACING</a>
-    <a href="#buttons" style="font-size:13px;font-weight:600;letter-spacing:2px;color:var(--gray-500);text-decoration:none;white-space:nowrap;">BUTTONS</a>
-    <a href="#cards" style="font-size:13px;font-weight:600;letter-spacing:2px;color:var(--gray-500);text-decoration:none;white-space:nowrap;">CARDS</a>
-    <a href="#sample" style="font-size:13px;font-weight:600;letter-spacing:2px;color:var(--gray-500);text-decoration:none;white-space:nowrap;">SAMPLE LAYOUT</a>
+<nav id="toc-nav" style="background:var(--gray-900);border-bottom:1px solid var(--gray-800);padding:12px 0;position:sticky;top:0;z-index:100;">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px;display:flex;gap:20px;overflow-x:auto;">
+    <a href="#philosophy" class="toc-link">PHILOSOPHY</a>
+    <a href="#logo" class="toc-link">LOGO</a>
+    <a href="#colors" class="toc-link">COLORS</a>
+    <a href="#typography" class="toc-link">TYPE</a>
+    <a href="#spacing" class="toc-link">SPACING</a>
+    <a href="#buttons" class="toc-link">BUTTONS</a>
+    <a href="#tags" class="toc-link">TAGS</a>
+    <a href="#forms" class="toc-link">FORMS</a>
+    <a href="#cards" class="toc-link">CARDS</a>
+    <a href="#nav" class="toc-link">NAV</a>
+    <a href="#footer" class="toc-link">FOOTER</a>
+    <a href="#pages" class="toc-link">PAGES</a>
+    <a href="#sample" class="toc-link">SAMPLE</a>
   </div>
 </nav>
 
 <div class="container">
 
-<!-- ==================== 1. COLOR PALETTE ==================== -->
+<!-- ==================== 3. COLOR PALETTE ==================== -->
 <div class="section" id="colors">
-  <div class="section-number">01</div>
+  <div class="section-number">03</div>
   <div class="section-title">Color Palette</div>
   <div class="section-desc">Four core colors. Dark plum leads, gold accents, periwinkle softens, near-black grounds.</div>
 
@@ -460,9 +479,9 @@
   </div>
 </div>
 
-<!-- ==================== 2. TYPOGRAPHY ==================== -->
+<!-- ==================== 4. TYPOGRAPHY ==================== -->
 <div class="section" id="typography">
-  <div class="section-number">02</div>
+  <div class="section-number">04</div>
   <div class="section-title">Typography</div>
   <div class="section-desc">Rajdhani across all weights. Angular, geometric, sporty. Wide letter-spacing for headlines, tighter for body.</div>
 
@@ -498,9 +517,9 @@
   </div>
 </div>
 
-<!-- ==================== 3. SPACING ==================== -->
+<!-- ==================== 5. SPACING ==================== -->
 <div class="section" id="spacing">
-  <div class="section-number">03</div>
+  <div class="section-number">05</div>
   <div class="section-title">Spacing & Grid</div>
   <div class="section-desc">8px base unit. All spacing is a multiple of the base. Max content width: 1080px.</div>
 
@@ -548,9 +567,9 @@
   </div>
 </div>
 
-<!-- ==================== 4. BUTTONS ==================== -->
+<!-- ==================== 6. BUTTONS ==================== -->
 <div class="section" id="buttons">
-  <div class="section-number">04</div>
+  <div class="section-number">06</div>
   <div class="section-title">Buttons</div>
   <div class="section-desc">Five variants. Radius 4px. Padding 14px 32px. All caps, 700 weight, 3px letter-spacing.</div>
 
@@ -578,9 +597,9 @@
   </div>
 </div>
 
-<!-- ==================== 5. CARDS ==================== -->
+<!-- ==================== 9. CARDS ==================== -->
 <div class="section" id="cards">
-  <div class="section-number">05</div>
+  <div class="section-number">09</div>
   <div class="section-title">Cards & Containers</div>
   <div class="section-desc">Background #252525, border 1px #333, radius 8px. Hover: border shifts to plum-light.</div>
 
@@ -615,9 +634,9 @@
   </div>
 </div>
 
-<!-- ==================== 6. SAMPLE LAYOUT ==================== -->
+<!-- ==================== 13. SAMPLE LAYOUT ==================== -->
 <div class="section" id="sample">
-  <div class="section-number">06</div>
+  <div class="section-number">13</div>
   <div class="section-title">Sample Layout</div>
   <div class="section-desc">Everything together. A representative page showing nav, hero, content cards, and footer.</div>
 
