@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 69
+current: 70
 total: 85
 
 ## Completed
@@ -72,3 +72,4 @@ total: 85
 - 066: Mobile Verify /projects/:id/intake — intake wizard renders at 375x812 with "Intake — Ace Tennis Club NYC" heading, 7 wizard steps (step 1 Customer Info active, steps 2-7 disabled/locked), Customer Info form with Customer Name/Contact Email/Contact Phone inputs, Next and Continue buttons; no horizontal overflow (scrollWidth=375); wizard step buttons 36px, nav buttons 32px (noted below 44px, consistent with prior stages); screenshot saved
 - 067: Mobile Verify /projects/:id/procurement — procurement page renders at 375x812 with "Procurement — Brooklyn Padel Courts" heading, 4 tabs (BOM Review, Inventory Check, Purchase Orders, Packing List); BOM Review tab active with Regenerate BOM button; no horizontal overflow (scrollWidth=375); tab buttons 36px, nav buttons 32px (noted below 44px, consistent with prior stages); screenshot saved
 - 068: Mobile Verify /projects/:id/deployment — deployment page renders at 375x812 with "Deployment — LA Fitness Hub West" heading, 16 phase steps in wizard nav (Phase 1 active, 2-16 locked), Phase 0: Pre-Purchase & Planning checklist with 8 steps; no horizontal overflow (scrollWidth=375); checkbox touch targets 86-234px height × 243px width (well above 44px); Next button accessible; screenshot saved
+- 069: Mobile Verify /projects/:id/financials — financials page renders at 375x812 with "Financials — LA Fitness Hub West" heading, 5-step wizard (Invoicing active, steps 2-5 locked), Deposit Invoice form with Amount/Invoice Date/Payment Method fields, Export Invoice as PDF button; no horizontal overflow (scrollWidth=375); wizard/nav buttons 28-36px (noted below 44px, consistent with prior stages); screenshot saved
