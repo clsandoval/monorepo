@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" fill="#000000">
+  <!-- Kosmas Athletic Ventures - Runner Icon Mark -->
+  <!-- Traced from official runner.jpg - bold angular Z-shaped running figure -->
+
+  <!-- Head - small tilted parallelogram at upper right -->
+  <polygon points="158,18 178,10 185,35 165,42"/>
+
+  <!-- Upper body + front arm reaching forward-right -->
+  <polygon points="148,38 168,34 185,35 190,24 198,28 188,44 172,48 160,54 140,50"/>
+
+  <!-- Torso core - thick angular shard, strong forward lean -->
+  <polygon points="140,48 160,44 158,70 146,82 118,78 124,56"/>
+
+  <!-- Front leg - large angular shape with sharp lightning-bolt spike going lower-left -->
+  <polygon points="124,72 146,76 134,100 118,110 80,130 42,168 28,162 70,126 96,108 110,96 118,82"/>
+
+  <!-- Back upper leg - angular piece going right from hip -->
+  <polygon points="146,80 158,74 178,98 172,112 150,108 140,92"/>
+
+  <!-- Back lower leg + foot - angular shape with sharp trailing point going right -->
+  <polygon points="152,106 172,108 188,118 202,126 210,122 214,130 196,134 176,126 158,118 146,112"/>
+</svg>
