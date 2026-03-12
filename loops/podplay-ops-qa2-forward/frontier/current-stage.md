@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 59
+current: 60
 total: 85
 
 ## Completed
@@ -62,3 +62,4 @@ total: 85
 - 056: Desktop Verify /settings — settings page renders at 1280x800 with "Settings" heading; navigation tabs for Pricing, Catalog, Team, Installers, Vendors all visible; real pricing data shown (Service Tier Fees, Cost Chain Rates); not a stub; screenshot saved
 - 057: Desktop Verify /settings/team — Team tab renders at 1280x800 with "Team Contacts" heading; 6 real contacts (Chad, Andy, Carlos, Ernesto, Marco, Niko) with Name/Role/Dept/Email columns; "+ Add Contact" button and per-row Actions menu visible; screenshot saved
 - 058: Desktop Verify /settings/installers — Installers tab renders at 1280x800 with "Installers" heading; 2 real installers (PodPlay Install Team, External Installer (TBD)) with Name/Company/Type/Regions/Hourly Rate/Active columns; "+ Add Installer" button and per-row Actions menu visible; screenshot saved
+- 059: Desktop Verify /settings/vendors — Vendors tab renders at 1280x800 with "Vendors" heading; 7 real vendors (APC, Apple, Generic, Kisi, Replay, Samsung, Ubiquiti) with Name/Contact/Email/Phone/Website/Lead Time/Active columns; "+ Add Vendor" button and per-row Actions menu visible; all Active badges shown; screenshot saved
