@@ -279,3 +279,11 @@ loops:
     status: converged
     created: "2026-03-12"
     converged_at: "2026-03-12"
+  kosmas-ui-qa-reverse:
+    description: "QA the Kosmas UI treatment deck across 5 viewports (375/430/768/1024/1440) — Playwright screenshots + CSS audit → prioritized findings report"
+    type: reverse
+    schedule: "*/30 * * * *"
+    max_iterations: 90
+    timeout_minutes: 30
+    status: active
+    created: 2026-03-12
