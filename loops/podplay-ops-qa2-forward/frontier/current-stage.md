@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 30
+current: 31
 total: 85
 
 ## Completed
@@ -33,3 +33,4 @@ total: 85
 - 027: Deposit Minimum: Settings Schema + UI — created 00021_minimum_deposit.sql: added minimum_deposit numeric column (default 500.00) to settings table; added minimum_deposit to Settings type; added to pricingFormSchema (z.number().min(0)); added to defaultValues (500); added "Minimum Deposit" CurrencyInput field in Cost Chain Rates section with help text; db reset clean; tsc --noEmit passes
 - 028: Deposit Minimum Enforcement + Deployment Advance Gate — DepositInvoice.tsx fetches minimum_deposit from settings, validates in onSubmit with setError showing "Minimum deposit is $X.XX"; deployment.tsx computes allItemsChecked (totalSteps===0 || completedSteps===totalSteps), disables "Advance to Financial Close" button when not all checked, adds title tooltip message; tsc --noEmit passes
 - 029: Inventory On-Order Schema Migration — created 00022_inventory_on_order.sql: order_status enum (not_ordered/ordered/partial/received), qty_on_order integer (default 0) and order_status column added to inventory table; db reset clean; columns verified in DB
+- 030: Inventory On-Order PO Auto-Update — PoCreateForm.tsx: after PO items inserted, fetch current qty_on_order per inventory row and update with incremented value + order_status 'ordered'; PoReceiving.tsx: after incrementing qty_on_hand via RPC, fetch current qty_on_order, decrement by received qty, set order_status 'received' (if 0) or 'partial' (if >0); tsc --noEmit passes
