@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 24
+current: 25
 total: 85
 
 ## Completed
@@ -27,3 +27,4 @@ total: 85
 - 021: Wizard Step Locking Logic — created wizard-steps.ts with WIZARD_STEPS definitions for all 4 wizards, getStepStates() returning completed/current/locked per step, isStepAccessible(), and getIntakeCurrentStep() for deriving intake step from project data; tsc --noEmit passes
 - 022: Wizard Step Locking: Intake Wizard UI — updated WizardStepper.tsx: locked steps (index > currentStep) get opacity-50 + cursor-not-allowed + disabled; completed steps show Check icon, remain clickable; updated intake.tsx to import getStepStates/isStepAccessible and guard onStepClick; tsc --noEmit passes
 - 023: Wizard Step Locking: Procurement, Deployment, Financials — applied same visual locking pattern to all 3 tab/phase wizards: completed tabs/phases show Check icon + muted hover style, current tab highlighted with border-b-2/border-l-2, locked (future) tabs/phases get opacity-50 + cursor-not-allowed; procurement.tsx and financials.tsx map tab index vs activeTab; deployment.tsx compares displayIdx vs selectedPhase's display index; tsc --noEmit passes
+- 024: Door/Camera Count Conditional Validation — added superRefine to venueConfigSchema: when has_front_desk=false, door_count and camera_count must be > 0; added no_front_desk_required messages to validation-messages.ts; updated UI labels to show * (required) or (optional) based on hasFrontDesk watch; updated venue-config tests + added 3 new conditional validation tests; fixed pre-existing intake-stepper tests (locked steps); fixed submit.test.ts navigation helper and expected values; 997 tests pass
