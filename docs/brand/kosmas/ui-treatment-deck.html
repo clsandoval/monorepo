@@ -145,6 +145,76 @@
     color: var(--black);
     border-bottom: 2px solid var(--black);
   }
+
+  /* ==================== PHILOSOPHY PILLARS ==================== */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .pillar-card {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    padding: 24px;
+  }
+
+  .pillar-motif {
+    height: 60px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .pillar-motif--precision {
+    background: repeating-linear-gradient(
+      0deg,
+      var(--black) 0px,
+      var(--black) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+  }
+
+  .pillar-motif--premium {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pillar-motif--energy {
+    background: var(--black);
+    position: relative;
+  }
+
+  .pillar-motif--energy::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--cyan);
+  }
+
+  .pillar-name {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-bottom: 12px;
+  }
+
+  .pillar-desc {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--charcoal);
+    line-height: 1.6;
+  }
 </style>
 </head>
 <body>
@@ -202,6 +272,28 @@
   <div class="container">
     <p class="section-number">01</p>
     <h2 class="section-title">DESIGN PHILOSOPHY</h2>
+
+    <div class="pillars-grid">
+
+      <div class="pillar-card">
+        <div class="pillar-motif pillar-motif--precision"></div>
+        <h3 class="pillar-name">ATHLETIC PRECISION</h3>
+        <p class="pillar-desc">Clean lines, geometric structure, the star's sharp angles. Sports demand exactness — our design reflects that discipline in every pixel.</p>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-motif pillar-motif--premium"></div>
+        <h3 class="pillar-name">PREMIUM CONFIDENCE</h3>
+        <p class="pillar-desc">Warm editorial palette, generous whitespace, restrained color. This is not budget athletics — it's a premium experience from first glance.</p>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-motif pillar-motif--energy"></div>
+        <h3 class="pillar-name">SOUTHEAST ASIAN ENERGY</h3>
+        <p class="pillar-desc">Warm cream undertones, bold black contrasts, movement implied through typography and spacing. Reflecting the energy and culture of our market.</p>
+      </div>
+
+    </div>
   </div>
 </section>
 
