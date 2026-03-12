@@ -1,6 +1,6 @@
 # Current Stage
 
-current: 66
+current: 67
 total: 85
 
 ## Completed
@@ -69,3 +69,4 @@ total: 85
 - 063: Mobile Verify /login — login page renders at 375x812 with PodPlay Ops heading, Email/Password fields, Sign In button, Send magic link button; no horizontal overflow (scrollWidth=375); button widths 343px (≥44px); screenshot saved
 - 064: Mobile Verify /projects — projects page renders at 375x812 in stacked card layout; 3 real projects (Ace Tennis Club NYC/PRO/Intake, Brooklyn Padel Courts/AUTO/Procurement, LA Fitness Hub West/A+/Deployment); "Showing 3 of 3 projects"; no horizontal overflow (scrollWidth=375); delete buttons visible per card (24x24px, noted below 44px); screenshot saved
 - 065: Mobile Verify /projects/new — New Project form renders at 375x812 with "New Project" heading, Project Name/Customer Name/Venue Name (optional) inputs (all 44px height × 343px full-width), Create Project + Cancel buttons; no horizontal overflow (scrollWidth=375); action buttons 32px tall (noted below 44px, consistent with prior stages); screenshot saved
+- 066: Mobile Verify /projects/:id/intake — intake wizard renders at 375x812 with "Intake — Ace Tennis Club NYC" heading, 7 wizard steps (step 1 Customer Info active, steps 2-7 disabled/locked), Customer Info form with Customer Name/Contact Email/Contact Phone inputs, Next and Continue buttons; no horizontal overflow (scrollWidth=375); wizard step buttons 36px, nav buttons 32px (noted below 44px, consistent with prior stages); screenshot saved
