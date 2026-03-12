@@ -383,6 +383,28 @@
     font-family: monospace;
     color: var(--peri);
   }
+
+.pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 24px; }
+.pillar-card {
+  background: var(--gray-900);
+  border: 1px solid var(--gray-800);
+  border-radius: 8px;
+  padding: 32px 24px;
+  border-top: 3px solid var(--plum);
+}
+.pillar-card:nth-child(2) { border-top-color: var(--gold); }
+.pillar-card:nth-child(3) { border-top-color: var(--peri); }
+.pillar-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.pillar-card:nth-child(1) h3 { color: var(--plum-light); }
+.pillar-card:nth-child(2) h3 { color: var(--gold); }
+.pillar-card:nth-child(3) h3 { color: var(--peri); }
+.pillar-card p { font-size: 15px; color: var(--gray-300); line-height: 1.7; }
 </style>
 </head>
 <body>
@@ -412,6 +434,28 @@
 </nav>
 
 <div class="container">
+
+<!-- ==================== 1. DESIGN PHILOSOPHY ==================== -->
+<div class="section" id="philosophy">
+  <div class="section-number">01</div>
+  <div class="section-title">Design Philosophy</div>
+  <div class="section-desc">Three pillars define every Kosmas interface. Together they create a visual language that is athletic, premium, and distinctly Southeast Asian.</div>
+
+  <div class="pillar-grid">
+    <div class="pillar-card">
+      <h3>Athletic Precision</h3>
+      <p>Sharp geometry, tight letter-spacing, structured grids. Every pixel earns its place. The sports world demands exactness — our interfaces deliver it.</p>
+    </div>
+    <div class="pillar-card">
+      <h3>Premium Confidence</h3>
+      <p>Plum and gold palette, bold weight typography, generous whitespace. This is not budget athletics. Every element communicates quality without saying it.</p>
+    </div>
+    <div class="pillar-card">
+      <h3>Southeast Asian Energy</h3>
+      <p>Warm undertones, dynamic contrast, movement in layout. Our market is vibrant — Manila, Cebu, Davao. The design reflects that energy.</p>
+    </div>
+  </div>
+</div>
 
 <!-- ==================== 3. COLOR PALETTE ==================== -->
 <div class="section" id="colors">
