@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 70
-- **Current**: 70
+- **Completed**: 71
+- **Current**: 71
 
 ## Current Stage
 
-**Stage 071** — (next stage)
+**Stage 072** — (next stage)
 
 ## Stage Log
 
@@ -84,3 +84,4 @@
 | 068 | done | 2026-03-14T06:00:00Z | Billing page plan comparison + upgrade: PlanComparisonGrid client component (monthly/annual slide toggle, 3-col plan cards, aqua border on current plan, feature lists, upgrade/downgrade CTAs, downgrade confirmation dialog, discord connection count in page fetch); build passes |
 | 069 | done | 2026-03-14T06:15:00Z | Billing page Stripe checkout flow: CheckoutReturnBanner client component (reads ?success=1/?canceled=1, shows success toast, cleans URL via router.replace); wired into billing page with Suspense; fixed plan-comparison-grid handleUpgrade to use query params (plan+cycle) instead of JSON body to match API route; build passes |
 | 070 | done | 2026-03-14T06:30:00Z | Billing page API key management: ApiKeySection client component with ApiKeyRow (masked key hint, valid/invalid/revoked status, REQUIRED/OPTIONAL badge, empty states, action buttons), ApiKeyModal (add/update, client-side validation, discard warning, loading note), DeleteKeyDialog (confirmation with amber warning box); wired into billing page with parallel API keys fetch; build passes |
+| 071 | done | 2026-03-14T06:45:00Z | Billing page subscription states: BillingAlertBanners component (suspended=error banner, past_due=warning banner with portal action, canceled=error banner with reactivate CTA); incomplete state added to BillingPeriodLine + CTA button; BillingAlertBanners wired into billing page above page header; build passes |

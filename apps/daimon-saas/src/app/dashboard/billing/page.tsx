@@ -7,6 +7,7 @@ import { CurrentPlanCard } from '@/components/billing/current-plan-card'
 import { PlanComparisonGrid } from '@/components/billing/plan-comparison-grid'
 import { CheckoutReturnBanner } from '@/components/billing/checkout-return-banner'
 import { ApiKeySection } from '@/components/billing/api-key-section'
+import { BillingAlertBanners } from '@/components/billing/billing-alert-banners'
 
 export const metadata = {
   title: 'Billing & Keys — Daimon',
@@ -128,6 +129,23 @@ export default async function BillingPage() {
       <Suspense fallback={null}>
         <CheckoutReturnBanner />
       </Suspense>
+
+      {/* Subscription state banners (past_due, canceled, suspended) */}
+      <BillingAlertBanners
+        tenantStatus={
+          (tenant.status as 'pending' | 'configured' | 'active' | 'suspended') ?? 'pending'
+        }
+        subscription={
+          subscription
+            ? {
+                status: subscription.status ?? null,
+                current_period_end: subscription.current_period_end ?? null,
+              }
+            : null
+        }
+        userRole={userRole}
+        plan={(tenant.plan as 'free' | 'starter' | 'pro') ?? 'free'}
+      />
 
       {/* Page header */}
       <div style={{ marginBottom: '32px' }}>

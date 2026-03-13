@@ -126,6 +126,20 @@ function BillingPeriodLine({
     )
   }
 
+  if (status === 'incomplete') {
+    return (
+      <p style={{ fontSize: '13px', color: '#D97706', fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
+        Payment incomplete ·{' '}
+        <button
+          onClick={onPortalClick}
+          style={{ color: '#D97706', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px', padding: 0 }}
+        >
+          Complete Payment →
+        </button>
+      </p>
+    )
+  }
+
   if (cancelAtEnd) {
     return (
       <p style={{ fontSize: '13px', color: '#D97706', fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
@@ -249,7 +263,7 @@ export function CurrentPlanCard({
       )
     }
 
-    if (stripeStatus === 'past_due') {
+    if (stripeStatus === 'past_due' || stripeStatus === 'incomplete') {
       return (
         <button
           onClick={handlePortal}
