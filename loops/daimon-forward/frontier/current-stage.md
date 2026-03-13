@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 41
-- **Current**: 42
+- **Completed**: 42
+- **Current**: 43
 
 ## Current Stage
 
-**Stage 042** — (next stage)
+**Stage 043** — (next stage)
 
 ## Stage Log
 
@@ -55,3 +55,4 @@
 | 039 | done | 2026-03-14T00:50:00Z | FormInput (label, error icon, hint, required star, all states, forwardRef/register-compatible); PasswordInput (show/hide toggle, PasswordStrengthMeter sub-component with 5 levels, forwardRef/register-compatible); lucide-react installed; build passes |
 | 040 | done | 2026-03-14T00:55:00Z | Select (native select + custom chevron, placeholder, hint, error, disabled states); Toggle (pill track, sm/md sizes, label left/right, description, all states); Checkbox (hidden native input, custom box, indeterminate, error, links-in-label support); build passes |
 | 041 | done | 2026-03-14T01:00:00Z | ApiKeyInput (entry + existing modes, show/hide, copy-to-clipboard, save/delete with loading, validation badge); SearchInput (search icon, clear button, sm/md sizes, loading spinner, disabled state); build passes |
+| 042 | done | 2026-03-14T01:05:00Z | AlertBanner component: 4 spec-defined variants (error/warning/success/info), icon + title + description + optional action link + dismissible with fade-out animation; "tip" variant not in spec (noted as gap); build passes |
