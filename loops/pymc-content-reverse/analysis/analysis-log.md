@@ -2,6 +2,27 @@
 
 ---
 
+## 2026-03-13 — discord-general
+
+**Aspect**: discord-general
+**Sources**: input/discord/channels/745261710088339499.jsonl (3,095 messages, 2020-08-18 → 2026-03-09)
+**Output**: analysis/discord-general-extraction.md
+
+**Key findings:**
+- Company founding: 2020-08-18, Discord as founding comms platform
+- Original positioning (Ravin Kumar): "the missing puzzle piece" between Bayesian theory/code and real-world industry use
+- Core value: "more valuable than a FTE" — diverse international collective beats a single hire
+- Open-source + commercial "Win Win Win" model articulated from day 1
+- 5 strong client testimonials: Erisyon ("couldn't have done in a year what you did in a month"), HelloFresh ("best model on the market right now"), Indigo ("love working with you"), Roche's Eoin ("wow, great amount covered in short time"), Erisyon CEO ("we're already buying, you don't need to sell us")
+- 15+ named clients with first-mention dates: Everysk, Roche, Redhawk, Empyrical, Indigo, Civiqs, HelloFresh, Mercado Libre, Deliveroo, Netflix, Gates Foundation, Erisyon, Akili Interactive, Schwab, KBC Financials
+- 15+ team member intro quotes documented
+- YouTube channel: Dec 2021; Newsletter: Sep 2022; Online Meetup series: Jul 2022+; Intuitive Bayes course: beta 2022
+- VC outreach: Tony (VC interested in open-core commercial plays) engaged May–Jun 2021
+- Pricing signals: 5-figure+ projects by Jan 2021; workshops $6-25k range
+- Conference appearances: Insurance Data Science 2021 (Wiecki keynote), PyData Virginia 2025, Bayesian Mixer London 2025
+
+---
+
 ## 2026-03-13 — github-org-scan
 
 **Aspect**: github-org-scan

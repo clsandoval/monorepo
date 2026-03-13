@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 20
-- Pending: 54
-- Convergence: 27%
+- Analyzed: 21
+- Pending: 53
+- Convergence: 28%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -36,7 +36,7 @@ Map all sources before extracting. These must complete before Wave 2.
 Read each relevant channel and extract content tagged by sitemap page. One aspect per channel/cluster.
 These aspects will be **self-expanded** after discord-category-triage completes. Initial set based on known channel names:
 
-- [ ] discord-general — Read #general, extract company-wide announcements, positioning, vision
+- [x] discord-general — Read #general, extract company-wide announcements, positioning, vision
 - [ ] discord-website — Read #website channel(s), extract previous website discussions, content decisions
 - [ ] discord-marketing — Read marketing-related channels, extract brand messaging, positioning, campaigns
 - [ ] discord-sales — Read sales/leads channels, extract client pain points, value props, objections
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] discord-general (2026-03-13) — 3,095 messages mined (2020-08-18 → 2026-03-09). Company founding story documented, original positioning (Ravin Kumar "missing puzzle piece"), 5 client testimonials (Erisyon/HelloFresh/Indigo/Roche), 15+ named clients first-mention dates, 15+ team intro quotes, "Win Win Win" OSS+commercial model, VC engagement (Tony, May 2021), pricing signals (5-figure+), YouTube/newsletter/meetup launch dates, conference appearances. Output: analysis/discord-general-extraction.md
 - [x] brand-deck-course-ai-assisted (2026-03-13) — Course renamed from "AI-Assisted Data Science" → "Agentic Data Science". LIVE but hidden at https://www.pymc-labs.com/courses/agentic-ai-data-science (no nav, no indexing — awaiting announcement). Final price: $1,900 (went through $2,000 → $2,500 → $1,900). Format: 4 sessions, 12 hrs, May 12–21 2026, cohort cap 20. Co-branded PyMC Labs × Vanishing Gradients (Hugo Bowne-Anderson). Instructors: Hugo (The Educator), Thomas Wiecki (The Scientist), Luca Fiaschi (The Strategist). Dual-track curriculum: Data Science ladder (descriptive→Bayesian) + Agent Skills (spec-driven dev, adversarial QA, orchestration). Full page content scraped + Discord thread (142 msgs) mined. Output: analysis/course-ai-assisted.md
 - [x] press-mentions (2026-03-13) — WebSearch for press, interviews, podcasts. Key findings: Thomas Wiecki on ODSC Ai X Podcast (May 2025, 48min), Vanishing Gradients Ep 58 (Sep 2025, 1h45m w/ Hugo Bowne-Anderson), AigoraCast (Dec 2025, future-of-work). Luca Fiaschi on Retailgentic (Dec 2025, synthetic consumers paper), Mobile Dev Memo (Nov 2025, LLM ad creative). Alexandre Andorra hosts Learning Bayesian Statistics (12K listeners, top 1.5% global, sponsored by PyMC Labs). Conference talks: PyData London/NYC/Berlin/London 2024-2025, ODSC East 2025, Databricks Data+AI Summit 2025. No major press (TechCrunch/Forbes/Wired). ODSC blog article May 2025 w/ 3 Wiecki quotes. Output: analysis/public/press.md
 - [x] social-media-scan (2026-03-13) — WebSearch + WebFetch PyMC Labs social presence. LinkedIn: 7,519 followers, "The Bayesian AI Consultancy", founded 2020, specialties: data science/Bayesian modeling/Python. Twitter: @pymc_labs — workshop promos, OSS milestones (1M PyMC-Marketing downloads, 1K★), event/partnership announcements. YouTube: @PyMCLabs — meetup recordings (Agentic Data Science Feb 2026, State of Marketing Measurement Dec 2025, Synthetic Consumers Nov 2025, MMM vs. Meridian benchmark Oct 2025). Other: Bluesky (pymc-labs.bsky.social), Meetup Pro network. Twitter/YouTube subscriber counts not scrapable (JS-rendered). Output: analysis/public/social-media.md
