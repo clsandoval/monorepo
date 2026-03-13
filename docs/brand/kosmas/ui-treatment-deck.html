@@ -1656,6 +1656,890 @@
       flex-wrap: wrap;
       gap: 8px;
     }
+
+    /* ===== SECTION 12: PAGE TREATMENTS — TAB SYSTEM ===== */
+    .treatment-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      scrollbar-width: none;
+    }
+
+    .treatment-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .treatment-tab {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 8px 16px;
+      white-space: nowrap;
+      min-height: 44px;
+      transition: color 0.15s ease;
+      position: relative;
+    }
+
+    .treatment-tab:hover {
+      color: var(--text);
+    }
+
+    .treatment-tab.active {
+      color: var(--text);
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .treatment-panel {
+      display: none;
+    }
+
+    .treatment-panel.active {
+      display: block;
+    }
+
+    /* ===== 12a: LANDING PAGE ===== */
+    .lp-hero {
+      background: var(--plum);
+      border-radius: 8px;
+      padding: 48px 32px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .lp-hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .lp-hero-headline {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    @media (min-width: 768px) {
+      .lp-hero-headline {
+        font-size: 52px;
+      }
+    }
+
+    .lp-hero-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      max-width: 480px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+
+    .lp-hero-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .lp-sport-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .lp-sport-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .lp-sport-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .lp-sport-card-top {
+      height: 6px;
+    }
+
+    .lp-sport-card-body {
+      padding: 20px 16px;
+    }
+
+    .lp-sport-card-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .lp-sport-card-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .lp-sport-card-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .lp-testimonial {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .lp-testimonial-quote {
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--text);
+      max-width: 560px;
+      margin: 0 auto 20px;
+      line-height: 1.7;
+    }
+
+    .lp-testimonial-attr {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .lp-cta {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    .lp-cta-headline {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    /* ===== 12b: DASHBOARD ===== */
+    .db-stats {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .db-stats {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .db-kpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .db-kpi-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .db-kpi-value {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .db-kpi-delta {
+      font-size: 12px;
+      color: #2e7d32;
+    }
+
+    .db-kpi-delta.down {
+      color: var(--error);
+    }
+
+    .db-feed {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+
+    .db-feed-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .db-feed-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .db-feed-item:last-child {
+      border-bottom: none;
+    }
+
+    .db-feed-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      min-width: 48px;
+    }
+
+    .db-feed-name {
+      font-size: 14px;
+      color: var(--text);
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .db-quick-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ===== 12c: CONTENT PAGE ===== */
+    .cp-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+      margin-bottom: 24px;
+    }
+
+    .cp-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    @media (min-width: 768px) {
+      .cp-title {
+        font-size: 36px;
+      }
+    }
+
+    .cp-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cp-meta-item {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .cp-meta-sep {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .cp-body {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text);
+      max-width: 65ch;
+      margin-bottom: 32px;
+    }
+
+    .cp-body p {
+      margin-bottom: 16px;
+    }
+
+    .cp-body h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin: 28px 0 12px;
+    }
+
+    .cp-blockquote {
+      border-left: 4px solid var(--plum);
+      padding: 16px 20px;
+      margin: 24px 0;
+      background: color-mix(in srgb, var(--plum) 6%, transparent);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .cp-blockquote p {
+      font-style: italic;
+      color: var(--text);
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .cp-related-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .cp-related-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .cp-related-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .cp-related-card-thumb {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cp-related-card-body {
+      padding: 16px;
+    }
+
+    .cp-related-card-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .cp-related-card-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    /* ===== 12d: CRUD TABLE ===== */
+    .crud-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .crud-search {
+      flex: 1;
+      min-width: 160px;
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+    }
+
+    .crud-search::placeholder {
+      color: var(--text-muted);
+    }
+
+    .crud-select {
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .crud-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .crud-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    .crud-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .crud-table td {
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .crud-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .crud-table tr:hover td {
+      background: color-mix(in srgb, var(--border) 30%, transparent);
+    }
+
+    .crud-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .crud-icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      padding: 4px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      transition: color 0.15s;
+    }
+
+    .crud-icon-btn:hover {
+      color: var(--text);
+    }
+
+    .crud-icon-btn.delete:hover {
+      color: var(--error);
+    }
+
+    .crud-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .crud-page-btn {
+      min-width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 0 8px;
+    }
+
+    .crud-page-btn.active {
+      background: var(--plum);
+      color: #FFFFFF;
+      border-color: var(--plum);
+    }
+
+    /* ===== 12e: ERP DASHBOARD ===== */
+    .erp-layout {
+      display: flex;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      min-height: 480px;
+    }
+
+    .erp-sidebar {
+      width: 56px;
+      flex-shrink: 0;
+      background: var(--plum);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 0;
+      gap: 4px;
+    }
+
+    .erp-sidebar-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      cursor: pointer;
+      color: rgba(255,255,255,0.5);
+      transition: all 0.15s;
+    }
+
+    .erp-sidebar-icon:hover {
+      color: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .erp-sidebar-icon.active {
+      color: var(--gold);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .erp-main {
+      flex: 1;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .erp-header {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .erp-kpis {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .erp-kpis {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .erp-kpi {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px;
+    }
+
+    .erp-kpi-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .erp-kpi-value {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .erp-charts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .erp-chart-placeholder {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .erp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .erp-table th {
+      text-align: left;
+      padding: 8px 10px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .erp-table td {
+      padding: 8px 10px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .erp-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ===== 12f: SCHEDULING VIEW ===== */
+    .sched-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .sched-view-toggle {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .sched-view-btn {
+      padding: 8px 16px;
+      background: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      border-right: 1px solid var(--border);
+    }
+
+    .sched-view-btn:last-child {
+      border-right: none;
+    }
+
+    .sched-view-btn.active {
+      background: var(--plum);
+      color: #FFFFFF;
+    }
+
+    .sched-grid-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+
+    .sched-grid {
+      min-width: 600px;
+      display: grid;
+      grid-template-columns: 56px repeat(7, 1fr);
+    }
+
+    .sched-day-header {
+      padding: 10px 6px;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+
+    .sched-day-header.today {
+      color: var(--gold);
+    }
+
+    .sched-time-label {
+      padding: 10px 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-align: right;
+    }
+
+    .sched-cell {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      padding: 3px;
+      min-height: 52px;
+      position: relative;
+    }
+
+    .sched-cell:last-child {
+      border-right: none;
+    }
+
+    .sched-event {
+      border-radius: 4px;
+      padding: 4px 6px;
+      font-size: 10px;
+      font-weight: 500;
+      color: #FFFFFF;
+      line-height: 1.3;
+      cursor: pointer;
+    }
+
+    .sched-event.gold { background: var(--gold); color: var(--plum); }
+    .sched-event.peri { background: var(--peri); color: #FFFFFF; }
+    .sched-event.plum { background: var(--plum); color: #FFFFFF; }
+    .sched-event.golf { background: var(--golf); color: #FFFFFF; }
+
+    .sched-modal-backdrop {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .sched-modal-overlay {
+      background: rgba(0,0,0,0.5);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sched-modal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .sched-modal-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .sched-form-group {
+      margin-bottom: 14px;
+    }
+
+    .sched-form-label {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .sched-form-input,
+    .sched-form-select {
+      width: 100%;
+      padding: 9px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+    }
+
+    .sched-modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -2946,7 +3830,636 @@
       <div class="container">
         <div class="section-number">12</div>
         <h1 class="section-title">PAGE TREATMENTS</h1>
-        <p class="section-desc">Coming soon — 6 sub-layouts with tab navigation.</p>
+        <p class="section-desc">Six application layouts demonstrating the brand system in context.</p>
+
+        <div class="treatment-tabs">
+          <button class="treatment-tab active" onclick="showTreatment('12a', event)">LANDING</button>
+          <button class="treatment-tab" onclick="showTreatment('12b', event)">DASHBOARD</button>
+          <button class="treatment-tab" onclick="showTreatment('12c', event)">CONTENT</button>
+          <button class="treatment-tab" onclick="showTreatment('12d', event)">CRUD</button>
+          <button class="treatment-tab" onclick="showTreatment('12e', event)">ERP</button>
+          <button class="treatment-tab" onclick="showTreatment('12f', event)">SCHEDULE</button>
+        </div>
+
+        <div class="treatment-panels">
+
+          <!-- 12a: Marketing Landing Page -->
+          <div class="treatment-panel active" id="t12a">
+            <div class="mockup-frame">
+              <div class="mockup-label">12a — Marketing Landing Page</div>
+
+              <!-- Hero Band -->
+              <div class="lp-hero">
+                <p class="lp-hero-eyebrow">Kosmas Athletic Ventures</p>
+                <h2 class="lp-hero-headline">Premier Athletic<br>Experiences</h2>
+                <p class="lp-hero-sub">Discover world-class sports venues and expert coaching across Manila. From pickleball courts to football fields — we bring the game to you.</p>
+                <div class="lp-hero-actions">
+                  <button class="btn btn-primary">Explore Sports</button>
+                  <button class="btn btn-secondary" style="border-color:rgba(255,255,255,0.3);color:#FFFFFF;">Learn More</button>
+                </div>
+              </div>
+
+              <!-- Sport Cards Grid -->
+              <div class="lp-sport-grid">
+                <div class="lp-sport-card">
+                  <div class="lp-sport-card-top" style="background:var(--gold);"></div>
+                  <div class="lp-sport-card-body">
+                    <div class="lp-sport-card-name">Pickleball</div>
+                    <p class="lp-sport-card-desc">Fast-growing racket sport for all skill levels. Indoor and outdoor courts available.</p>
+                    <div class="lp-sport-card-meta">12 courts · BGC &amp; Makati</div>
+                  </div>
+                </div>
+                <div class="lp-sport-card">
+                  <div class="lp-sport-card-top" style="background:var(--peri);"></div>
+                  <div class="lp-sport-card-body">
+                    <div class="lp-sport-card-name">Volleyball</div>
+                    <p class="lp-sport-card-desc">Competitive and recreational leagues. Professional nets, premium flooring.</p>
+                    <div class="lp-sport-card-meta">8 courts · Ortigas &amp; BGC</div>
+                  </div>
+                </div>
+                <div class="lp-sport-card">
+                  <div class="lp-sport-card-top" style="background:var(--plum);"></div>
+                  <div class="lp-sport-card-body">
+                    <div class="lp-sport-card-name">Football</div>
+                    <p class="lp-sport-card-desc">5-a-side and 11-a-side pitches. Floodlit fields for evening sessions.</p>
+                    <div class="lp-sport-card-meta">5 fields · Alabang &amp; Pasig</div>
+                  </div>
+                </div>
+                <div class="lp-sport-card">
+                  <div class="lp-sport-card-top" style="background:var(--golf);"></div>
+                  <div class="lp-sport-card-body">
+                    <div class="lp-sport-card-name">Golf</div>
+                    <p class="lp-sport-card-desc">Driving ranges and putting greens. PGA-certified instructors on site.</p>
+                    <div class="lp-sport-card-meta">3 venues · South Metro</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Testimonial Band -->
+              <div class="lp-testimonial">
+                <p class="lp-testimonial-quote">"Kosmas completely changed how our corporate team engages with sports. The booking experience is seamless, and the facilities are first-class."</p>
+                <div class="lp-testimonial-attr">Marco Reyes &middot; Corporate Member &middot; Pickleball</div>
+              </div>
+
+              <!-- CTA Section -->
+              <div class="lp-cta">
+                <h2 class="lp-cta-headline">Ready to Play?</h2>
+                <button class="btn btn-primary">Book a Session</button>
+              </div>
+
+            </div>
+          </div><!-- /t12a -->
+
+          <!-- 12b: App Dashboard -->
+          <div class="treatment-panel" id="t12b">
+            <div class="mockup-frame">
+              <div class="mockup-label">12b — App Dashboard</div>
+
+              <!-- KPI Stats Bar -->
+              <div class="db-stats">
+                <div class="db-kpi">
+                  <div class="db-kpi-label">Active Members</div>
+                  <div class="db-kpi-value">248</div>
+                  <div class="db-kpi-delta">↑ +12 this week</div>
+                </div>
+                <div class="db-kpi">
+                  <div class="db-kpi-label">Upcoming Sessions</div>
+                  <div class="db-kpi-value">12</div>
+                  <div class="db-kpi-delta">↑ +3 today</div>
+                </div>
+                <div class="db-kpi">
+                  <div class="db-kpi-label">Revenue</div>
+                  <div class="db-kpi-value" style="font-size:24px;">₱1.2M</div>
+                  <div class="db-kpi-delta">↑ +8.4% MoM</div>
+                </div>
+                <div class="db-kpi">
+                  <div class="db-kpi-label">Utilization</div>
+                  <div class="db-kpi-value">78%</div>
+                  <div class="db-kpi-delta down">↓ -2% vs last week</div>
+                </div>
+              </div>
+
+              <!-- Activity Feed -->
+              <div class="db-feed">
+                <div class="db-feed-header">Recent Activity</div>
+                <div class="db-feed-item">
+                  <span class="db-feed-time">09:14</span>
+                  <span class="db-feed-name">Maria Santos</span>
+                  <span class="tag" style="background:color-mix(in srgb,var(--gold) 15%,transparent);color:var(--gold);border-color:var(--gold);">Pickleball</span>
+                  <span class="tag" style="background:color-mix(in srgb,#2e7d32 12%,transparent);color:#2e7d32;border-color:#2e7d32;">Confirmed</span>
+                </div>
+                <div class="db-feed-item">
+                  <span class="db-feed-time">09:02</span>
+                  <span class="db-feed-name">James Uy</span>
+                  <span class="tag" style="background:color-mix(in srgb,var(--peri) 15%,transparent);color:var(--peri);border-color:var(--peri);">Volleyball</span>
+                  <span class="tag" style="background:color-mix(in srgb,var(--gold) 12%,transparent);color:var(--gold);border-color:var(--gold);">Pending</span>
+                </div>
+                <div class="db-feed-item">
+                  <span class="db-feed-time">08:47</span>
+                  <span class="db-feed-name">Ana Reyes</span>
+                  <span class="tag" style="background:color-mix(in srgb,var(--plum) 15%,transparent);color:var(--plum);border-color:var(--plum);">Football</span>
+                  <span class="tag" style="background:color-mix(in srgb,#2e7d32 12%,transparent);color:#2e7d32;border-color:#2e7d32;">Confirmed</span>
+                </div>
+                <div class="db-feed-item">
+                  <span class="db-feed-time">08:30</span>
+                  <span class="db-feed-name">Paolo Cruz</span>
+                  <span class="tag" style="background:color-mix(in srgb,var(--golf) 15%,transparent);color:var(--golf);border-color:var(--golf);">Golf</span>
+                  <span class="tag" style="background:color-mix(in srgb,#2e7d32 12%,transparent);color:#2e7d32;border-color:#2e7d32;">Confirmed</span>
+                </div>
+                <div class="db-feed-item">
+                  <span class="db-feed-time">08:15</span>
+                  <span class="db-feed-name">Sofia Lim</span>
+                  <span class="tag" style="background:color-mix(in srgb,var(--gold) 15%,transparent);color:var(--gold);border-color:var(--gold);">Pickleball</span>
+                  <span class="tag" style="background:color-mix(in srgb,var(--error) 12%,transparent);color:var(--error);border-color:var(--error);">Cancelled</span>
+                </div>
+              </div>
+
+              <!-- Quick Actions -->
+              <div class="db-quick-actions">
+                <button class="btn btn-primary">+ New Booking</button>
+                <button class="btn btn-secondary">Add Member</button>
+                <button class="btn btn-secondary">View Reports</button>
+              </div>
+
+            </div>
+          </div><!-- /t12b -->
+
+          <!-- 12c: Content Page -->
+          <div class="treatment-panel" id="t12c">
+            <div class="mockup-frame">
+              <div class="mockup-label">12c — Content / Article Page</div>
+
+              <!-- Article Header -->
+              <div class="cp-header">
+                <div style="margin-bottom:10px;">
+                  <span class="tag" style="background:color-mix(in srgb,var(--gold) 15%,transparent);color:var(--gold);border-color:var(--gold);">Pickleball</span>
+                </div>
+                <h2 class="cp-title">Pickleball Courts: Our Top 5 in Manila</h2>
+                <div class="cp-meta">
+                  <span class="cp-meta-item" style="font-weight:500;color:var(--text);">By Sarah Chen</span>
+                  <span class="cp-meta-sep"></span>
+                  <span class="cp-meta-item">March 10, 2026</span>
+                  <span class="cp-meta-sep"></span>
+                  <span class="cp-meta-item">5 min read</span>
+                </div>
+              </div>
+
+              <!-- Article Body -->
+              <div class="cp-body">
+                <p>Pickleball has taken Metro Manila by storm. What started as a niche import from the United States has become one of the fastest-growing sports in the country, drawing players of all ages from BGC to Alabang. If you're looking for the best courts to hone your dink game or just trying to find a place to play on short notice, this guide has you covered.</p>
+
+                <h2>Why Court Quality Matters</h2>
+
+                <p>Not all pickleball surfaces are created equal. The bounce characteristics of a paddle court differ significantly from a converted tennis surface, and proper line markings can mean the difference between a clean rally and endless disputes. We evaluated each facility on surface quality, lighting, amenities, and booking ease.</p>
+
+                <div class="cp-blockquote">
+                  <p>"The best pickleball experience isn't just about the court — it's about the community. Kosmas courts consistently deliver both."</p>
+                </div>
+
+                <p>After visiting over a dozen facilities across Metro Manila, we narrowed the list to five venues that excel across all dimensions. Whether you're a competitive player preparing for tournaments or a casual enthusiast looking for a fun weekend game, these courts represent the pinnacle of Manila's pickleball scene.</p>
+              </div>
+
+              <!-- Related Articles -->
+              <div style="margin-top:32px;">
+                <div style="font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;">Related Articles</div>
+                <div class="cp-related-grid">
+                  <div class="cp-related-card">
+                    <div class="cp-related-card-thumb" style="background:color-mix(in srgb,var(--gold) 12%,transparent);"></div>
+                    <div class="cp-related-card-body">
+                      <div class="cp-related-card-tag">Pickleball</div>
+                      <div class="cp-related-card-title">Beginner's Guide to Dinking and the Kitchen</div>
+                    </div>
+                  </div>
+                  <div class="cp-related-card">
+                    <div class="cp-related-card-thumb" style="background:color-mix(in srgb,var(--peri) 12%,transparent);"></div>
+                    <div class="cp-related-card-body">
+                      <div class="cp-related-card-tag">Volleyball</div>
+                      <div class="cp-related-card-title">Setting Up Your First Recreational League in BGC</div>
+                    </div>
+                  </div>
+                  <div class="cp-related-card">
+                    <div class="cp-related-card-thumb" style="background:color-mix(in srgb,var(--plum) 12%,transparent);"></div>
+                    <div class="cp-related-card-body">
+                      <div class="cp-related-card-tag">Football</div>
+                      <div class="cp-related-card-title">5-a-Side Formats: Everything You Need to Know</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- /t12c -->
+
+          <!-- 12d: CRUD Interface -->
+          <div class="treatment-panel" id="t12d">
+            <div class="mockup-frame">
+              <div class="mockup-label">12d — Bookings CRUD Interface</div>
+
+              <!-- Toolbar -->
+              <div class="crud-toolbar">
+                <input type="text" class="crud-search" placeholder="Search bookings…" value="Maria" readonly>
+                <select class="crud-select">
+                  <option>All Sports</option>
+                  <option>Pickleball</option>
+                  <option>Volleyball</option>
+                  <option>Football</option>
+                  <option>Golf</option>
+                </select>
+                <select class="crud-select">
+                  <option>All Statuses</option>
+                  <option>Confirmed</option>
+                  <option>Pending</option>
+                  <option>Cancelled</option>
+                </select>
+                <button class="btn btn-primary" style="margin-left:auto;">+ Create Booking</button>
+              </div>
+
+              <!-- Table -->
+              <div class="crud-table-wrap">
+                <table class="crud-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Sport</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Maria Santos</td>
+                      <td><span class="tag" style="background:color-mix(in srgb,var(--gold) 15%,transparent);color:var(--gold);border-color:var(--gold);">Pickleball</span></td>
+                      <td>Mar 15, 2026 · 9:00 AM</td>
+                      <td><span class="tag" style="background:color-mix(in srgb,#2e7d32 12%,transparent);color:#2e7d32;border-color:#2e7d32;">Confirmed</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="crud-icon-btn" title="Edit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                          </button>
+                          <button class="crud-icon-btn delete" title="Delete">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>James Uy</td>
+                      <td><span class="tag" style="background:color-mix(in srgb,var(--peri) 15%,transparent);color:var(--peri);border-color:var(--peri);">Volleyball</span></td>
+                      <td>Mar 15, 2026 · 11:00 AM</td>
+                      <td><span class="tag" style="background:color-mix(in srgb,var(--gold) 12%,transparent);color:var(--gold);border-color:var(--gold);">Pending</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="crud-icon-btn" title="Edit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                          </button>
+                          <button class="crud-icon-btn delete" title="Delete">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ana Reyes</td>
+                      <td><span class="tag" style="background:color-mix(in srgb,var(--plum) 15%,transparent);color:var(--plum);border-color:var(--plum);">Football</span></td>
+                      <td>Mar 16, 2026 · 6:00 PM</td>
+                      <td><span class="tag" style="background:color-mix(in srgb,#2e7d32 12%,transparent);color:#2e7d32;border-color:#2e7d32;">Confirmed</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="crud-icon-btn" title="Edit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                          </button>
+                          <button class="crud-icon-btn delete" title="Delete">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Paolo Cruz</td>
+                      <td><span class="tag" style="background:color-mix(in srgb,var(--golf) 15%,transparent);color:var(--golf);border-color:var(--golf);">Golf</span></td>
+                      <td>Mar 17, 2026 · 7:30 AM</td>
+                      <td><span class="tag" style="background:color-mix(in srgb,#2e7d32 12%,transparent);color:#2e7d32;border-color:#2e7d32;">Confirmed</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="crud-icon-btn" title="Edit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                          </button>
+                          <button class="crud-icon-btn delete" title="Delete">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Sofia Lim</td>
+                      <td><span class="tag" style="background:color-mix(in srgb,var(--gold) 15%,transparent);color:var(--gold);border-color:var(--gold);">Pickleball</span></td>
+                      <td>Mar 18, 2026 · 3:00 PM</td>
+                      <td><span class="tag" style="background:color-mix(in srgb,var(--error) 12%,transparent);color:var(--error);border-color:var(--error);">Cancelled</span></td>
+                      <td>
+                        <div class="crud-actions">
+                          <button class="crud-icon-btn" title="Edit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                          </button>
+                          <button class="crud-icon-btn delete" title="Delete">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Pagination -->
+              <div class="crud-pagination">
+                <button class="crud-page-btn">←</button>
+                <button class="crud-page-btn active">1</button>
+                <button class="crud-page-btn">2</button>
+                <button class="crud-page-btn">3</button>
+                <button class="crud-page-btn">4</button>
+                <button class="crud-page-btn">5</button>
+                <button class="crud-page-btn">→</button>
+              </div>
+
+            </div>
+          </div><!-- /t12d -->
+
+          <!-- 12e: ERP Dashboard -->
+          <div class="treatment-panel" id="t12e">
+            <div class="mockup-frame">
+              <div class="mockup-label">12e — ERP Dashboard</div>
+
+              <div class="erp-layout">
+                <!-- Sidebar -->
+                <div class="erp-sidebar">
+                  <!-- Dashboard icon (active) -->
+                  <div class="erp-sidebar-icon active" title="Dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  </div>
+                  <!-- Calendar icon -->
+                  <div class="erp-sidebar-icon" title="Schedule">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  </div>
+                  <!-- People icon -->
+                  <div class="erp-sidebar-icon" title="Members">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <!-- Chart icon -->
+                  <div class="erp-sidebar-icon" title="Reports">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                  </div>
+                  <!-- Gear icon -->
+                  <div class="erp-sidebar-icon" title="Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="erp-main">
+                  <div class="erp-header">Overview</div>
+
+                  <!-- KPIs -->
+                  <div class="erp-kpis">
+                    <div class="erp-kpi">
+                      <div class="erp-kpi-label">Revenue</div>
+                      <div class="erp-kpi-value">₱2.4M</div>
+                    </div>
+                    <div class="erp-kpi">
+                      <div class="erp-kpi-label">Bookings</div>
+                      <div class="erp-kpi-value">1,847</div>
+                    </div>
+                    <div class="erp-kpi">
+                      <div class="erp-kpi-label">Utilization</div>
+                      <div class="erp-kpi-value">82%</div>
+                    </div>
+                    <div class="erp-kpi">
+                      <div class="erp-kpi-label">NPS</div>
+                      <div class="erp-kpi-value">67</div>
+                    </div>
+                  </div>
+
+                  <!-- Chart Placeholders -->
+                  <div class="erp-charts">
+                    <div class="erp-chart-placeholder">Revenue · Bar Chart</div>
+                    <div class="erp-chart-placeholder">Utilization · Line Chart</div>
+                  </div>
+
+                  <!-- Recent Transactions Table -->
+                  <div style="font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Recent Transactions</div>
+                  <table class="erp-table">
+                    <thead>
+                      <tr>
+                        <th>Member</th>
+                        <th>Sport</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Maria Santos</td>
+                        <td>Pickleball</td>
+                        <td>₱1,200</td>
+                        <td style="color:#2e7d32;">Paid</td>
+                      </tr>
+                      <tr>
+                        <td>James Uy</td>
+                        <td>Volleyball</td>
+                        <td>₱800</td>
+                        <td style="color:var(--gold);">Pending</td>
+                      </tr>
+                      <tr>
+                        <td>Ana Reyes</td>
+                        <td>Football</td>
+                        <td>₱2,500</td>
+                        <td style="color:#2e7d32;">Paid</td>
+                      </tr>
+                      <tr>
+                        <td>Paolo Cruz</td>
+                        <td>Golf</td>
+                        <td>₱4,000</td>
+                        <td style="color:#2e7d32;">Paid</td>
+                      </tr>
+                      <tr>
+                        <td>Sofia Lim</td>
+                        <td>Pickleball</td>
+                        <td>₱1,200</td>
+                        <td style="color:var(--error);">Refunded</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- /t12e -->
+
+          <!-- 12f: Scheduling View -->
+          <div class="treatment-panel" id="t12f">
+            <div class="mockup-frame">
+              <div class="mockup-label">12f — Scheduling View</div>
+
+              <!-- View Toggle -->
+              <div class="sched-toolbar">
+                <div class="sched-view-toggle">
+                  <button class="sched-view-btn">DAY</button>
+                  <button class="sched-view-btn active">WEEK</button>
+                  <button class="sched-view-btn">MONTH</button>
+                </div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-muted);margin-left:8px;">Mar 10 – 16, 2026</span>
+                <button class="btn btn-primary" style="margin-left:auto;">+ New Booking</button>
+              </div>
+
+              <!-- Week Grid -->
+              <div class="sched-grid-wrap">
+                <div class="sched-grid">
+                  <!-- Header row -->
+                  <div class="sched-day-header"></div>
+                  <div class="sched-day-header">MON<br><small>10</small></div>
+                  <div class="sched-day-header today">TUE<br><small>11</small></div>
+                  <div class="sched-day-header">WED<br><small>12</small></div>
+                  <div class="sched-day-header">THU<br><small>13</small></div>
+                  <div class="sched-day-header">FRI<br><small>14</small></div>
+                  <div class="sched-day-header">SAT<br><small>15</small></div>
+                  <div class="sched-day-header">SUN<br><small>16</small></div>
+
+                  <!-- 8 AM -->
+                  <div class="sched-time-label">8 AM</div>
+                  <div class="sched-cell"><div class="sched-event gold">Pickleball<br>Court A</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event golf">Golf<br>Range</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event gold">Pickleball<br>Court B</div></div>
+                  <div class="sched-cell"></div>
+
+                  <!-- 9 AM -->
+                  <div class="sched-time-label">9 AM</div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event peri">Volleyball<br>Hall 1</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event gold">Pickleball<br>Court A</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event peri">Volleyball<br>Hall 2</div></div>
+
+                  <!-- 10 AM -->
+                  <div class="sched-time-label">10 AM</div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event plum">Football<br>Field 1</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event plum">Football<br>Field 2</div></div>
+
+                  <!-- 11 AM -->
+                  <div class="sched-time-label">11 AM</div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event peri">Volleyball<br>Hall 1</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event golf">Golf<br>Range</div></div>
+                  <div class="sched-cell"></div>
+
+                  <!-- 12 PM -->
+                  <div class="sched-time-label">12 PM</div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+
+                  <!-- 1 PM -->
+                  <div class="sched-time-label">1 PM</div>
+                  <div class="sched-cell"><div class="sched-event plum">Football<br>Field 1</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event gold">Pickleball<br>Court A</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+
+                  <!-- 2 PM -->
+                  <div class="sched-time-label">2 PM</div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event golf">Golf<br>Range</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event peri">Volleyball<br>Hall 2</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event gold">Pickleball<br>Court B</div></div>
+
+                  <!-- 3 PM -->
+                  <div class="sched-time-label">3 PM</div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event gold">Pickleball<br>Court A</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event plum">Football<br>Field 2</div></div>
+                  <div class="sched-cell"></div>
+
+                  <!-- 4 PM -->
+                  <div class="sched-time-label">4 PM</div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event peri">Volleyball<br>Hall 1</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"><div class="sched-event plum">Football<br>Field 1</div></div>
+                  <div class="sched-cell"></div>
+                  <div class="sched-cell"></div>
+                </div>
+              </div>
+
+              <!-- Booking Modal Overlay -->
+              <div class="sched-modal-backdrop">
+                <div class="sched-modal-overlay">
+                  <div class="sched-modal-card">
+                    <div class="sched-modal-title">New Booking</div>
+
+                    <div class="sched-form-group">
+                      <label class="sched-form-label">Sport</label>
+                      <select class="sched-form-select">
+                        <option>Pickleball</option>
+                        <option>Volleyball</option>
+                        <option>Football</option>
+                        <option>Golf</option>
+                      </select>
+                    </div>
+                    <div class="sched-form-group">
+                      <label class="sched-form-label">Date</label>
+                      <input type="text" class="sched-form-input" value="Mar 14, 2026" readonly>
+                    </div>
+                    <div class="sched-form-group">
+                      <label class="sched-form-label">Time</label>
+                      <input type="text" class="sched-form-input" value="10:00 AM" readonly>
+                    </div>
+                    <div class="sched-form-group">
+                      <label class="sched-form-label">Court / Field</label>
+                      <input type="text" class="sched-form-input" value="Court A" readonly>
+                    </div>
+                    <div class="sched-form-group">
+                      <label class="sched-form-label">Participants</label>
+                      <input type="text" class="sched-form-input" value="4" readonly>
+                    </div>
+
+                    <div class="sched-modal-actions">
+                      <button class="btn btn-primary" style="flex:1;">Confirm Booking</button>
+                      <button class="btn btn-secondary">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- /t12f -->
+
+        </div><!-- /treatment-panels -->
       </div>
     </section>
 
@@ -2960,6 +4473,13 @@
   </main>
 
   <script>
+    function showTreatment(id, evt) {
+      document.querySelectorAll('.treatment-panel').forEach(function(p) { p.classList.remove('active'); });
+      document.querySelectorAll('.treatment-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.getElementById('t' + id).classList.add('active');
+      evt.currentTarget.classList.add('active');
+    }
+
     function toggleTheme() {
       var html = document.documentElement;
       var isDark = html.getAttribute('data-theme') === 'dark';
