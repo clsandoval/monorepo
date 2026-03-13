@@ -2,10 +2,10 @@
 
 ## Statistics
 
-- **Total aspects**: 81
-- **Analyzed**: 80
-- **Pending**: 1
-- **Convergence**: 99%
+- **Total aspects**: 93
+- **Analyzed**: 84
+- **Pending**: 9
+- **Convergence**: 90%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -106,7 +106,7 @@
 - [x] 8.2.3 — Update multi-tenant/adaptation-plan.md: add tenant_messages and tenant_tool_calls to new-tables section; add fire-and-forget INSERT notes to modified-files section (services/execution.py + message handler)
 - [x] 8.2.4 — Create missing required spec files: legal/disclaimers.md (platform disclaimers + liability limits text), ui/design-system.md (Tailwind config reference + design tokens), seo-and-growth/landing-page.md (hero copy + value prop + social proof + CTAs)
 
-## Wave 8 Gap Remediation (9 aspects — discovered during reconciliation)
+## Wave 8 Gap Remediation (17 aspects — discovered during reconciliation + audit)
 
 - [x] 8.1.1 — Complete `database/schema.md`: add `tenant_subscriptions` table (all columns, indexes, RLS) + `stripe_webhook_events` table (idempotency store for Stripe webhooks)
 - [x] 8.1.2 — Add cross-reference notes to `database/schema.md` for existing bot tables (`messages`, `tool_calls`) read by dashboard; specify RLS extensions needed for website user reads
@@ -117,3 +117,11 @@
 - [x] 8.1.7 — Write `database/triggers.md` — extract all trigger SQL from migrations.md into standalone reference: update_updated_at triggers, sync_tenant_plan trigger, any cascade triggers
 - [x] 8.1.8 — Write `database/indexes.md` — extract all CREATE INDEX statements from schema.md into standalone query-pattern reference with rationale per index
 - [x] 8.1.9 — Write `database/retention.md` — data retention policy per table: account data, tenant config, billing records, audit log, operational metrics; cleanup job SQL/schedules; PITR + snapshot policy
+- [ ] 8.1.10 — Reconcile pricing: pick ONE pricing scheme ($9/$29 from `premium/pricing.md`), update `frontend/landing-page.md` (currently $12/$39), `frontend/copy.md` (currently $19/$49), and `README.md` (currently $12/$39) to match. Remove "50 messages/day" and "500 messages/day" rate limits from `copy.md` — this is BYOK, there are no platform-imposed message limits.
+- [ ] 8.1.11 — Reconcile copy divergence: `frontend/copy.md` and `frontend/landing-page.md` have different hero headlines, subheadlines, How It Works steps, and feature card lists. Make `landing-page.md` canonical — update `copy.md` to match it exactly (hero, features, how-it-works). Ensure feature card count and names are identical.
+- [ ] 8.1.12 — Fix email provider TBD: replace "Postmark / Resend (TBD — select one at implementation)" in `legal/privacy-policy.md` with Resend. Update any other files that reference email provider selection.
+- [ ] 8.1.13 — Verify cross-references fixed: 8.2.4 created ui/design-system.md, legal/disclaimers.md, seo-and-growth/landing-page.md. Verify all 7 previously-dead cross-references now resolve. If any remain broken, fix them.
+- [ ] 8.1.14 — Spec phantom pages: the footer links to `/changelog`, `/about`, `/blog`, `/legal/cookies` but none have page specs. Write specs for each in `frontend/` — at minimum: route, layout, content structure, responsive behavior, loading/empty states. `/changelog` can be a simple reverse-chronological list. `/about` needs company description + team. `/blog` needs index layout + post layout. `/legal/cookies` needs actual cookie policy text.
+- [ ] 8.1.15 — Page/state screenshot manifest: create `final-mega-spec/qa/screenshot-manifest.md`. Enumerate EVERY unique visual state across EVERY route at desktop (1280px) and mobile (375px). Include: page load, empty state, populated state, loading skeleton, error state, every modal open, every dropdown open, every form validation error, every toast, every confirmation dialog, scroll positions for long pages (above-fold + below-fold). Format as a numbered checklist the forward loop can use as a Playwright screenshot task list. Target: 200+ screenshots minimum.
+- [ ] 8.1.16 — Playwright verification template: create `final-mega-spec/qa/playwright-verification.md`. Spec the Playwright test structure the forward loop must generate — test file organization, viewport configs, screenshot naming convention, visual regression setup, action sequences (click, fill, submit, wait for toast, screenshot). Include example test code for: landing page scroll, auth flow, dashboard with bot online vs offline, integration OAuth mock, billing upgrade flow.
+- [ ] 8.1.17 — Local Supabase CI setup: rewrite `deployment/ci-cd.md` E2E section to use `supabase start` (Docker) instead of a remote Supabase project. Spec: (1) GitHub Actions service or `supabase start` step that boots local Postgres + Auth + Realtime + Storage on `localhost:54321`, (2) a `supabase/seed.sql` file that creates test tenants in every state (onboarding, active-free, active-starter, active-pro, suspended, cancelled) with test Discord connections, API keys, service connections, and subscriptions, (3) teardown via `supabase stop` after tests, (4) update `playwright.config.ts` env vars to point at local Supabase (`NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` from `supabase status`), (5) update E2E auth fixture to use seeded test users instead of manually-created ones, (6) document the complete `seed.sql` with INSERT statements for every table including Vault-encrypted API keys. The forward loop must be able to run `supabase start && pnpm test:e2e` with zero manual setup. Reference: `apps/podplay/supabase/config.toml` and `.github/workflows/podplay-ops.yml` for the proven pattern.
