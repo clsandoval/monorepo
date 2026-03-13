@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 42
-- **Current**: 43
+- **Completed**: 43
+- **Current**: 44
 
 ## Current Stage
 
-**Stage 043** — (next stage)
+**Stage 044** — (next stage)
 
 ## Stage Log
 
@@ -56,3 +56,4 @@
 | 040 | done | 2026-03-14T00:55:00Z | Select (native select + custom chevron, placeholder, hint, error, disabled states); Toggle (pill track, sm/md sizes, label left/right, description, all states); Checkbox (hidden native input, custom box, indeterminate, error, links-in-label support); build passes |
 | 041 | done | 2026-03-14T01:00:00Z | ApiKeyInput (entry + existing modes, show/hide, copy-to-clipboard, save/delete with loading, validation badge); SearchInput (search icon, clear button, sm/md sizes, loading spinner, disabled state); build passes |
 | 042 | done | 2026-03-14T01:05:00Z | AlertBanner component: 4 spec-defined variants (error/warning/success/info), icon + title + description + optional action link + dismissible with fade-out animation; "tip" variant not in spec (noted as gap); build passes |
+| 043 | done | 2026-03-14T01:10:00Z | Toast system: ToastContext + useToast hook (lib/toast.ts), ToastCard with 4 variants + progress bar + pause-on-hover + enter/exit animations, ToastProvider with maxToasts=5 stacking, ToastViewport (desktop bottom-right 360px / mobile full-width), wired into root layout; build passes |

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Archivo, Lora } from "next/font/google";
 import { AuthProvider } from "@/lib/auth/auth-context";
+import { ToastProvider } from "@/components/ui/toast";
 import "./globals.css";
 
 const inter = Inter({
@@ -45,7 +46,9 @@ export default function RootLayout({
       className={`${inter.variable} ${archivo.variable} ${lora.variable}`}
     >
       <body className="font-body text-navy bg-white antialiased">
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </AuthProvider>
       </body>
     </html>
   );
