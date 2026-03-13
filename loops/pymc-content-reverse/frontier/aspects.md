@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 69
-- Analyzed: 4
-- Pending: 65
-- Convergence: 6%
+- Analyzed: 5
+- Pending: 64
+- Convergence: 7%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -15,7 +15,7 @@ Map all sources before extracting. These must complete before Wave 2.
 - [x] discord-category-triage — Read the channel map, classify each category as relevant/irrelevant to the sitemap, write analysis/discord-relevant-channels.md
 - [x] website-home — WebFetch https://www.pymc-labs.com/, save to analysis/website-scrape/home.md
 - [x] website-about — WebFetch the about page, save to analysis/website-scrape/about.md
-- [ ] website-team-individual-pages — WebFetch /team/{slug}/ for all 32 team members; save bios to analysis/website-scrape/team-members.md
+- [x] website-team-individual-pages — WebFetch /team/{slug}/ for all 32 team members; save bios to analysis/website-scrape/team-members.md
 - [ ] website-services — WebFetch the services page(s), save to analysis/website-scrape/services.md
 - [ ] website-case-studies — WebFetch case studies page(s), save to analysis/website-scrape/case-studies.md
 - [ ] website-courses — WebFetch courses/training page(s), save to analysis/website-scrape/courses.md
@@ -103,6 +103,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] website-team-individual-pages (2026-03-13) — Fetched all 32 /team/{slug}/ pages. 30/32 have full bios. Benjamin Maier and Erik Ringen have specializations only (no bio). Slug notes: kusti-skyten, teemu-saeilynoja. Wrote 32 content/about/team-members/{name}.md files (30 complete, 2 partial). Output: analysis/website-scrape/team-members.md
 - [x] website-about (2026-03-13) — Scraped /about/ and /team/. Found 32 team members (5 Partners: Wiecki, Luhmann, Fiaschi, Oulton, Wilkinson + 27 team members). Captured bios for ~20 members; 12 have no bio text available in HTML. Company story: "inventors of PyMC... launched a consultancy." No founding year found. Individual pages exist at /team/{slug}/. Discovered new aspect: website-team-individual-pages. Output: analysis/website-scrape/about.md
 
 - [x] discord-index (2026-03-13) — Mapped 309 channels across 18 categories, 443 users. Identified 10 priority-1 channels (website, marketing, org, strategy, inbound-leads, pymc-marketing, simba, decision-ai, synthetic-consumers, readystate). Discovered 14 industries from client roster. Output: analysis/discord-channel-map.md
