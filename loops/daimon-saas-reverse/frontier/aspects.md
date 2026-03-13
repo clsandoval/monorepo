@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 54
-- **Pending**: 9
-- **Convergence**: 86%
+- **Analyzed**: 55
+- **Pending**: 8
+- **Convergence**: 87%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -78,7 +78,7 @@
 - [x] 6.1 — Vercel deployment — config, env vars (every single one with description + example), build commands, domains
 - [x] 6.2 — CI/CD pipeline — GitHub Actions workflow, test suite, deploy triggers, preview deployments
 - [x] 6.3 — Monitoring & alerting — health checks, error tracking, Langfuse integration, alert thresholds
-- [ ] 6.4a — Legal: Terms of Service — actual complete ToS text ready to publish
+- [x] 6.4a — Legal: Terms of Service — actual complete ToS text ready to publish
 - [ ] 6.4b — Legal: Privacy Policy — actual complete privacy policy text ready to publish
 - [ ] 6.5a — SEO — meta tags for every page, OG image specs, schema.org markup per page
 - [ ] 6.5b — Content strategy — blog topics, comparison pages, landing page keyword targeting

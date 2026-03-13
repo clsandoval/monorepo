@@ -99,7 +99,7 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 
 | File | Description | Status |
 |------|-------------|--------|
-| legal/terms-of-service.md | Actual ToS text | Pending |
+| [legal/terms-of-service.md](legal/terms-of-service.md) | Complete Terms of Service: 18 sections covering eligibility, BYOK model, Discord bot token responsibilities, subscription plans and pricing (Free/$9/$29), uptime SLA (Pro only, 99.9%), acceptable use policy, credential security, IP rights, privacy, termination, disclaimer (AI output + third-party), liability cap (12-month fees or $100), indemnification, arbitration + class action waiver, two appendices (Discord developer compliance, Anthropic/OpenAI compliance) | ✅ Done |
 | legal/privacy-policy.md | Actual privacy policy text | Pending |
 | legal/disclaimers.md | Platform disclaimers, liability limits | Pending |
 
