@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 37
-- **Pending**: 26
-- **Convergence**: 59%
+- **Analyzed**: 38
+- **Pending**: 25
+- **Convergence**: 60%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -55,7 +55,7 @@
 - [x] 4.8g — Docs: FAQ page — complete Q&A (billing, security, bot setup, troubleshooting, limits)
 - [x] 4.8h — Docs: Billing & Plans docs page — plan comparison, feature gating rules, upgrade/downgrade flows explained
 - [x] 4.9a — Component library: Layout components — Sidebar, TopBar, MobileNav, AuthCard, PageShell, DashboardLayout (props, variants, states)
-- [ ] 4.9b — Component library: Form components — FormInput, PasswordInput, Select, Toggle, Checkbox, ApiKeyInput, SearchInput (props, variants, states)
+- [x] 4.9b — Component library: Form components — FormInput, PasswordInput, Select, Toggle, Checkbox, ApiKeyInput, SearchInput (props, variants, states)
 - [ ] 4.9c — Component library: Feedback components — AlertBanner, Toast, ConfirmDialog, Modal, EmptyState, ErrorState, SkeletonLoader (props, variants, states)
 - [ ] 4.9d — Component library: Data display components — Badge, StatusIndicator, Table, Pagination, StatCard, ActivityFeed, CopyToClipboard (props, variants, states)
 - [ ] 4.9e — Component library: Action components — Button, IconButton, Link, DropdownMenu, Tabs + brand compliance matrix for all components

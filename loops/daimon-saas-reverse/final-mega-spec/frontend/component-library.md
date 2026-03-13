@@ -1219,3 +1219,1067 @@ Note on Peach use: The admin badge uses `#F6AE72` (Peach Orange) to signal speci
 ---
 
 *Next section: [Form Components](#2-form-components) — aspect 4.9b*
+
+---
+
+## 2. Form Components
+
+All form components follow a shared anatomy: a wrapper `<div>`, an optional `<label>`, the input element, and an optional hint/error `<p>`. This consistent structure ensures predictable spacing and ARIA wiring across the entire application.
+
+### Shared Form Component Tokens
+
+All form inputs share these base tokens unless overridden:
+
+| Token | Value | Notes |
+|-------|-------|-------|
+| Input height | `44px` | Minimum touch target per WCAG |
+| Border color (default) | `rgba(12,31,64,0.20)` | 20% Navy |
+| Border color (hover) | `rgba(12,31,64,0.40)` | 40% Navy |
+| Border color (focus) | Navy (`#0C1F40`) | Full Navy — clearly visible |
+| Border color (error) | `#DC2626` (red-600) | System error red — only exception to brand palette for errors |
+| Border color (disabled) | `rgba(12,31,64,0.10)` | Washed out |
+| Border width | `1px` (default/hover/disabled), `1.5px` (focus) | Focus ring weight |
+| Border radius | `0` | PyMC sharp corners — no rounding |
+| Background (default) | White (`#FFFFFF`) | |
+| Background (disabled) | `#F7F7F7` | White Soft — visually muted |
+| Background (error) | `#FEF2F2` | `red-50` — light red tint |
+| Text color | Navy (`#0C1F40`) | |
+| Placeholder color | `rgba(12,31,64,0.35)` | |
+| Font | Inter, `15px`, weight `400` | |
+| Label font | Inter, `13px`, weight `500`, Navy (`#0C1F40`) | |
+| Label margin-bottom | `6px` | Gap between label and input |
+| Hint font | Inter, `13px`, weight `400`, `rgba(12,31,64,0.55)` | Below input when no error |
+| Error font | Inter, `13px`, weight `400`, `#DC2626` | Below input on error |
+| Hint/Error margin-top | `4px` | Gap between input and hint/error |
+| Transition | `border-color 0.15s ease, box-shadow 0.15s ease` | All interactive transitions |
+
+**Focus ring convention:** PyMC brand uses a 1.5px solid Navy border on focus (not an outline ring). Additionally, `box-shadow: 0 0 0 3px rgba(180,231,221,0.30)` (30% Aqua) is applied as a soft glow for visibility.
+
+**Error state convention:** Error text replaces hint text (not appended). The input border turns red and the background turns light-red. A Lucide `AlertCircle` icon (14px, `#DC2626`) appears inline in the right of the input where space allows.
+
+---
+
+### 2.1 FormInput
+
+**File:** `components/ui/FormInput.tsx`
+
+**Purpose:** Base text input used for email, name, URL, and other single-line text fields across all forms.
+
+**Props interface:**
+
+```typescript
+interface FormInputProps {
+  id: string                        // Links label `htmlFor` to input `id`
+  label: string                     // Label text above the input
+  type?: 'text' | 'email' | 'url' | 'tel' | 'number'  // HTML input type, default: 'text'
+  value: string                     // Controlled value
+  onChange: (value: string) => void // Called with new value string (not raw event)
+  placeholder?: string              // Input placeholder text
+  hint?: string                     // Helper text below input (shown when no error)
+  error?: string                    // Error message (shown instead of hint; triggers error state)
+  disabled?: boolean                // Default: false
+  required?: boolean                // Adds `*` to label; default: false
+  autoComplete?: string             // HTML autocomplete attribute, e.g. "email", "off"
+  autoFocus?: boolean               // Focus on mount; default: false
+  maxLength?: number                // Max character length
+  readOnly?: boolean                // Read-only but not disabled; default: false
+  className?: string                // Additional Tailwind classes on wrapper div
+  inputRef?: React.RefObject<HTMLInputElement>  // External ref for programmatic focus
+}
+```
+
+**Markup structure:**
+
+```tsx
+<div className={`form-field ${error ? 'form-field--error' : ''} ${disabled ? 'form-field--disabled' : ''} ${className}`}>
+  <label htmlFor={id}>
+    {label}
+    {required && <span aria-hidden="true" className="required-star">*</span>}
+  </label>
+  <div className="input-wrapper">
+    <input
+      id={id}
+      type={type}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      disabled={disabled}
+      required={required}
+      autoComplete={autoComplete}
+      autoFocus={autoFocus}
+      maxLength={maxLength}
+      readOnly={readOnly}
+      aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
+      aria-invalid={error ? 'true' : undefined}
+      ref={inputRef}
+    />
+    {error && <AlertCircleIcon className="input-error-icon" size={14} />}
+  </div>
+  {error && <p id={`${id}-error`} role="alert" className="field-error">{error}</p>}
+  {!error && hint && <p id={`${id}-hint`} className="field-hint">{hint}</p>}
+</div>
+```
+
+**CSS classes:**
+
+| Class | Tailwind | Description |
+|-------|----------|-------------|
+| `.form-field` | `flex flex-col` | Root wrapper |
+| `label` | `text-[13px] font-[500] text-[#0C1F40] mb-[6px]` | Label above input |
+| `.required-star` | `text-[#DC2626] ml-[2px]` | Red asterisk for required |
+| `.input-wrapper` | `relative flex items-center` | Wraps input + error icon |
+| `input` | See state table below | The actual input element |
+| `.input-error-icon` | `absolute right-[12px] text-[#DC2626] pointer-events-none` | Error icon, right-aligned |
+| `.field-error` | `text-[13px] text-[#DC2626] mt-[4px]` | Error message |
+| `.field-hint` | `text-[13px] text-[rgba(12,31,64,0.55)] mt-[4px]` | Hint text |
+
+**Input element states:**
+
+| State | Border | Background | Text color | Box-shadow |
+|-------|--------|-----------|-----------|------------|
+| Default | `1px solid rgba(12,31,64,0.20)` | `#FFFFFF` | `#0C1F40` | None |
+| Hover | `1px solid rgba(12,31,64,0.40)` | `#FFFFFF` | `#0C1F40` | None |
+| Focus | `1.5px solid #0C1F40` | `#FFFFFF` | `#0C1F40` | `0 0 0 3px rgba(180,231,221,0.30)` |
+| Error | `1px solid #DC2626` | `#FEF2F2` | `#0C1F40` | None |
+| Error + Focus | `1.5px solid #DC2626` | `#FEF2F2` | `#0C1F40` | `0 0 0 3px rgba(220,38,38,0.15)` |
+| Disabled | `1px solid rgba(12,31,64,0.10)` | `#F7F7F7` | `rgba(12,31,64,0.35)` | None |
+| Read-only | `1px solid rgba(12,31,64,0.15)` | `#F7F7F7` | `rgba(12,31,64,0.70)` | None |
+
+**Input element dimensions:**
+
+| Property | Value |
+|----------|-------|
+| Height | `44px` |
+| Width | `100%` |
+| Padding | `0 12px` (default) |
+| Padding with error icon | `0 36px 0 12px` (right padding reserves icon space) |
+| Font | Inter, `15px`, weight `400` |
+| Outline | `none` (outline handled by border + box-shadow) |
+| Border-radius | `0` |
+
+**Required label asterisk:**
+- Font: Inter, `13px`, weight `500`
+- Color: `#DC2626`
+- Margin-left: `2px`
+- `aria-hidden="true"` — screen readers rely on `required` attribute on input
+
+**Disabled state details:**
+- `pointer-events: none` on the entire field
+- Cursor: `not-allowed` on input
+- Label opacity: `0.50`
+
+**Read-only state details:**
+- Input is focusable but not editable
+- Cursor: `default`
+- No hover border change
+- Used for: displaying API keys before reveal, non-editable tenant slug, etc.
+
+---
+
+### 2.2 PasswordInput
+
+**File:** `components/ui/PasswordInput.tsx`
+
+**Purpose:** Password field with show/hide toggle button. Used on login, signup, and change-password forms.
+
+**Props interface:**
+
+```typescript
+interface PasswordInputProps {
+  id: string
+  label: string
+  value: string
+  onChange: (value: string) => void
+  placeholder?: string
+  hint?: string
+  error?: string
+  disabled?: boolean
+  required?: boolean
+  autoComplete?: 'current-password' | 'new-password'  // Default: 'current-password'
+  autoFocus?: boolean
+  showStrengthMeter?: boolean    // Show password strength bar below input; default: false
+  minLength?: number             // Used for strength meter calculation; default: 8
+}
+```
+
+**State:**
+
+```typescript
+// Internal state
+const [showPassword, setShowPassword] = useState(false)
+```
+
+**Markup structure:**
+
+```tsx
+<div className={`form-field ${error ? 'form-field--error' : ''}`}>
+  <label htmlFor={id}>
+    {label}
+    {required && <span aria-hidden="true" className="required-star">*</span>}
+  </label>
+  <div className="input-wrapper">
+    <input
+      id={id}
+      type={showPassword ? 'text' : 'password'}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      disabled={disabled}
+      required={required}
+      autoComplete={autoComplete}
+      autoFocus={autoFocus}
+      aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
+      aria-invalid={error ? 'true' : undefined}
+    />
+    <button
+      type="button"
+      className="password-toggle"
+      onClick={() => setShowPassword(!showPassword)}
+      aria-label={showPassword ? 'Hide password' : 'Show password'}
+      tabIndex={0}
+      disabled={disabled}
+    >
+      {showPassword ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+    </button>
+  </div>
+  {showStrengthMeter && value.length > 0 && (
+    <PasswordStrengthMeter value={value} minLength={minLength} />
+  )}
+  {error && <p id={`${id}-error`} role="alert" className="field-error">{error}</p>}
+  {!error && hint && <p id={`${id}-hint`} className="field-hint">{hint}</p>}
+</div>
+```
+
+**Toggle button spec:**
+
+| Property | Value |
+|----------|-------|
+| Position | `absolute`, `right: 0`, vertically centered |
+| Width | `44px` |
+| Height | `44px` |
+| Display | `flex`, `align-items: center`, `justify-content: center` |
+| Background | `transparent` |
+| Border | None |
+| Icon | Lucide `Eye` (show) / `EyeOff` (hide), `16px` |
+| Icon color (default) | `rgba(12,31,64,0.45)` |
+| Icon color (hover) | `rgba(12,31,64,0.80)` |
+| Icon color (disabled) | `rgba(12,31,64,0.20)` |
+| Cursor | `pointer` (enabled), `not-allowed` (disabled) |
+| Transition | `color 0.15s ease` |
+| Focus-visible | `outline: 2px solid #B4E7DD`, `outline-offset: -2px` |
+
+**Input padding with toggle button:**
+- Right padding: `44px` (reserves space for toggle button)
+
+**PasswordStrengthMeter sub-component:**
+
+Rendered only when `showStrengthMeter=true` AND `value.length > 0`.
+
+```typescript
+// Strength scoring logic
+function getPasswordStrength(password: string, minLength: number): {
+  score: 0 | 1 | 2 | 3 | 4,  // 0=too short, 1=weak, 2=fair, 3=good, 4=strong
+  label: string,
+  color: string
+} {
+  if (password.length < minLength) return { score: 0, label: 'Too short', color: '#DC2626' }
+  let score = 0
+  if (password.length >= 12) score++
+  if (/[A-Z]/.test(password)) score++
+  if (/[0-9]/.test(password)) score++
+  if (/[^A-Za-z0-9]/.test(password)) score++
+  const levels = [
+    { score: 1, label: 'Weak',   color: '#DC2626' },
+    { score: 2, label: 'Fair',   color: '#F59E0B' },
+    { score: 3, label: 'Good',   color: '#10B981' },
+    { score: 4, label: 'Strong', color: '#059669' },
+  ]
+  return levels[Math.min(score, 4) - 1] ?? levels[0]
+}
+```
+
+Strength meter bar visual:
+
+| Property | Value |
+|----------|-------|
+| Container height | `4px` |
+| Container background | `rgba(12,31,64,0.08)` |
+| Container margin-top | `6px` |
+| Bar width | `score / 4 * 100%` |
+| Bar color | Per strength level (see scoring logic) |
+| Bar transition | `width 0.3s ease, background-color 0.3s ease` |
+| Label | `12px` Inter weight `400`, same color as bar, aligned right, `margin-top: 3px` |
+
+Strength labels and colors:
+| Score | Label | Color |
+|-------|-------|-------|
+| 0 | `Too short` | `#DC2626` |
+| 1 | `Weak` | `#DC2626` |
+| 2 | `Fair` | `#F59E0B` |
+| 3 | `Good` | `#10B981` |
+| 4 | `Strong` | `#059669` |
+
+**All other states:** Identical to `FormInput` (border colors, focus ring, disabled, error, etc.)
+
+---
+
+### 2.3 Select
+
+**File:** `components/ui/Select.tsx`
+
+**Purpose:** Styled single-select dropdown. Used for timezone selection, plan selection, and other enumerated choices. Implemented as a native `<select>` element with custom CSS overlay for brand consistency. No custom JavaScript dropdown library — native for accessibility.
+
+**Props interface:**
+
+```typescript
+interface SelectOption {
+  value: string
+  label: string
+  disabled?: boolean
+}
+
+interface SelectProps {
+  id: string
+  label: string
+  value: string
+  onChange: (value: string) => void
+  options: SelectOption[]
+  placeholder?: string           // Disabled, empty-value option shown first; e.g. "Select a timezone..."
+  hint?: string
+  error?: string
+  disabled?: boolean
+  required?: boolean
+  className?: string
+}
+```
+
+**Markup structure:**
+
+```tsx
+<div className={`form-field ${error ? 'form-field--error' : ''} ${disabled ? 'form-field--disabled' : ''} ${className}`}>
+  <label htmlFor={id}>
+    {label}
+    {required && <span aria-hidden="true" className="required-star">*</span>}
+  </label>
+  <div className="select-wrapper">
+    <select
+      id={id}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      disabled={disabled}
+      required={required}
+      aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
+      aria-invalid={error ? 'true' : undefined}
+    >
+      {placeholder && (
+        <option value="" disabled>
+          {placeholder}
+        </option>
+      )}
+      {options.map((opt) => (
+        <option key={opt.value} value={opt.value} disabled={opt.disabled}>
+          {opt.label}
+        </option>
+      ))}
+    </select>
+    <ChevronDownIcon className="select-chevron" size={16} />
+  </div>
+  {error && <p id={`${id}-error`} role="alert" className="field-error">{error}</p>}
+  {!error && hint && <p id={`${id}-hint`} className="field-hint">{hint}</p>}
+</div>
+```
+
+**Select wrapper:**
+
+| Property | Value |
+|----------|-------|
+| Position | `relative` |
+| Display | `block` |
+
+**Native `<select>` styling:**
+
+| Property | Value |
+|----------|-------|
+| Width | `100%` |
+| Height | `44px` |
+| Padding | `0 40px 0 12px` (right padding reserves chevron space) |
+| Appearance | `none` (removes native arrow) |
+| Background | White (`#FFFFFF`) |
+| Border | `1px solid rgba(12,31,64,0.20)` |
+| Border-radius | `0` |
+| Font | Inter, `15px`, weight `400` |
+| Color | Navy (`#0C1F40`) |
+| Cursor | `pointer` |
+| Outline | `none` |
+| Transition | `border-color 0.15s ease, box-shadow 0.15s ease` |
+
+**Placeholder option styling:**
+- Color: `rgba(12,31,64,0.35)` (use `color` CSS on the option, and CSS `color` on select when value is "")
+- Technique: `select:has(option:checked:disabled) { color: rgba(12,31,64,0.35) }` — CSS-only
+
+**Custom chevron icon:**
+
+| Property | Value |
+|----------|-------|
+| Position | `absolute`, `right: 12px`, vertically centered |
+| Size | `16px` |
+| Color | `rgba(12,31,64,0.55)` |
+| Pointer-events | `none` (click passes through to select) |
+| Transition | `transform 0.15s ease` (rotate on open — browser-dependent) |
+
+**States:**
+
+| State | Border | Background | Chevron color |
+|-------|--------|-----------|---------------|
+| Default | `1px solid rgba(12,31,64,0.20)` | `#FFFFFF` | `rgba(12,31,64,0.55)` |
+| Hover | `1px solid rgba(12,31,64,0.40)` | `#FFFFFF` | `rgba(12,31,64,0.80)` |
+| Focus | `1.5px solid #0C1F40` + `box-shadow: 0 0 0 3px rgba(180,231,221,0.30)` | `#FFFFFF` | `#0C1F40` |
+| Error | `1px solid #DC2626` | `#FEF2F2` | `#DC2626` |
+| Disabled | `1px solid rgba(12,31,64,0.10)` | `#F7F7F7` | `rgba(12,31,64,0.20)` |
+
+**Disabled state:**
+- `pointer-events: none`
+- `opacity: 0.60` on wrapper
+- Cursor: `not-allowed` on select
+- Label opacity: `0.50`
+
+---
+
+### 2.4 Toggle
+
+**File:** `components/ui/Toggle.tsx`
+
+**Purpose:** Binary on/off switch control. Used for feature flags, notification preferences, and boolean settings. Visually distinct from Checkbox — Toggle is for settings, Checkbox is for multi-select/agreement forms.
+
+**Props interface:**
+
+```typescript
+interface ToggleProps {
+  id: string
+  label: string
+  description?: string             // Secondary text below label
+  checked: boolean
+  onChange: (checked: boolean) => void
+  disabled?: boolean
+  size?: 'sm' | 'md'               // Default: 'md'
+  labelPosition?: 'left' | 'right' // Default: 'right' (label right of toggle)
+  className?: string
+}
+```
+
+**Markup structure:**
+
+```tsx
+<div className={`toggle-field ${disabled ? 'toggle-field--disabled' : ''} ${className}`}>
+  <label htmlFor={id} className="toggle-label-wrapper">
+    {labelPosition === 'left' && (
+      <span className="toggle-label-text">
+        <span className="toggle-label">{label}</span>
+        {description && <span className="toggle-description">{description}</span>}
+      </span>
+    )}
+    <button
+      type="button"
+      id={id}
+      role="switch"
+      aria-checked={checked}
+      onClick={() => !disabled && onChange(!checked)}
+      disabled={disabled}
+      className={`toggle-track ${checked ? 'toggle-track--on' : ''} toggle-track--${size}`}
+    >
+      <span className="toggle-thumb" aria-hidden="true" />
+    </button>
+    {labelPosition === 'right' && (
+      <span className="toggle-label-text">
+        <span className="toggle-label">{label}</span>
+        {description && <span className="toggle-description">{description}</span>}
+      </span>
+    )}
+  </label>
+</div>
+```
+
+Note: Using `role="switch"` on a `<button>` rather than a native `<input type="checkbox">` for better styling control while preserving ARIA semantics.
+
+**Sizes:**
+
+| Size | Track Width | Track Height | Thumb Size | Thumb Travel |
+|------|-------------|-------------|-----------|-------------|
+| `sm` | `32px` | `18px` | `14px` | `14px` (from left 2px to right 16px) |
+| `md` | `44px` | `24px` | `18px` | `20px` (from left 3px to right 23px) |
+
+**Track styling:**
+
+| Property | Off State | On State |
+|----------|-----------|---------|
+| Background | `rgba(12,31,64,0.15)` | Aqua (`#B4E7DD`) |
+| Border | `1px solid rgba(12,31,64,0.15)` | `1px solid #B4E7DD` |
+| Border-radius | `9999px` (fully rounded pill — exception: toggles are always pill-shaped) | Same |
+| Transition | `background 0.2s ease, border-color 0.2s ease` | Same |
+
+Note: Toggle tracks are the one PyMC exception to the no-border-radius rule. Pill-shaped tracks are a universal UI convention for binary switches; sharp corners on a toggle would be confusing and non-standard. All other components remain sharp-cornered.
+
+**Thumb styling:**
+
+| Property | Value |
+|----------|-------|
+| Shape | Circle (border-radius: `9999px`) |
+| Background | White (`#FFFFFF`) |
+| Box-shadow | `0 1px 3px rgba(0,0,0,0.20)` |
+| Transition | `transform 0.2s ease` |
+| Transform (off) | `translateX(2px)` for md, `translateX(2px)` for sm |
+| Transform (on) | `translateX(23px)` for md, `translateX(16px)` for sm |
+
+**States:**
+
+| State | Track BG | Thumb | Track Border | Focus |
+|-------|---------|-------|-------------|-------|
+| Off default | `rgba(12,31,64,0.15)` | White | `rgba(12,31,64,0.15)` | — |
+| Off hover | `rgba(12,31,64,0.25)` | White | `rgba(12,31,64,0.25)` | — |
+| Off focus | `rgba(12,31,64,0.15)` | White | `rgba(12,31,64,0.15)` | `outline: 2px solid #B4E7DD; outline-offset: 2px` |
+| On default | Aqua `#B4E7DD` | White | `#B4E7DD` | — |
+| On hover | `#9DDDD2` (10% darker aqua) | White | `#9DDDD2` | — |
+| On focus | Aqua | White | Aqua | `outline: 2px solid #0C1F40; outline-offset: 2px` |
+| Disabled off | `rgba(12,31,64,0.08)` | White (60% opacity) | `rgba(12,31,64,0.08)` | None |
+| Disabled on | `rgba(180,231,221,0.40)` | White (60% opacity) | `rgba(180,231,221,0.40)` | None |
+
+**Label text:**
+
+| Property | Value |
+|----------|-------|
+| `.toggle-label` font | Inter, `14px`, weight `500`, Navy |
+| `.toggle-description` font | Inter, `13px`, weight `400`, `rgba(12,31,64,0.55)` |
+| `.toggle-description` margin-top | `2px` |
+| `.toggle-label-wrapper` display | `flex`, `align-items: center`, `gap: 10px`, `cursor: pointer` |
+| Disabled cursor | `not-allowed` (on wrapper) |
+
+**Keyboard behavior:**
+- `Space` or `Enter` toggles when focused
+- `role="switch"` with `aria-checked` provides proper screen reader announcement: "Toggle [label], [on/off], switch"
+
+---
+
+### 2.5 Checkbox
+
+**File:** `components/ui/Checkbox.tsx`
+
+**Purpose:** Single checkbox with label. Used for agreement checkboxes (ToS acceptance), multi-select lists, and individual boolean options. Distinct from Toggle: Checkboxes appear in forms and lists; Toggles appear in settings panels.
+
+**Props interface:**
+
+```typescript
+interface CheckboxProps {
+  id: string
+  label: React.ReactNode   // Allows JSX for links (e.g., "I agree to the <a>Terms</a>")
+  checked: boolean
+  onChange: (checked: boolean) => void
+  disabled?: boolean
+  error?: string           // Error message below checkbox (e.g., "You must accept the terms")
+  className?: string
+  indeterminate?: boolean  // Visual indeterminate state (used in admin select-all); default: false
+}
+```
+
+**Markup structure:**
+
+```tsx
+<div className={`checkbox-field ${error ? 'checkbox-field--error' : ''} ${className}`}>
+  <label className="checkbox-label-wrapper">
+    <input
+      type="checkbox"
+      id={id}
+      checked={checked}
+      onChange={(e) => onChange(e.target.checked)}
+      disabled={disabled}
+      aria-describedby={error ? `${id}-error` : undefined}
+      aria-invalid={error ? 'true' : undefined}
+      ref={(el) => {
+        if (el) el.indeterminate = indeterminate ?? false
+      }}
+      className="checkbox-input"
+    />
+    <span className="checkbox-box" aria-hidden="true">
+      {checked && !indeterminate && <CheckIcon size={11} />}
+      {indeterminate && <MinusIcon size={11} />}
+    </span>
+    <span className="checkbox-label-text">{label}</span>
+  </label>
+  {error && <p id={`${id}-error`} role="alert" className="field-error mt-[4px] ml-[26px]">{error}</p>}
+</div>
+```
+
+**Visually-hidden native input:**
+The native `<input type="checkbox">` is visually hidden but remains in DOM for accessibility (keyboard, screen reader). The custom `.checkbox-box` `<span>` provides the visual representation.
+
+```css
+.checkbox-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+```
+
+**Custom checkbox box (`.checkbox-box`) dimensions:**
+
+| Property | Value |
+|----------|-------|
+| Width | `18px` |
+| Height | `18px` |
+| Flex-shrink | `0` |
+| Display | `flex`, `align-items: center`, `justify-content: center` |
+| Border-radius | `0` (PyMC sharp corners) |
+| Transition | `background 0.15s ease, border-color 0.15s ease` |
+
+**Custom checkbox box states:**
+
+| State | Background | Border | Icon color |
+|-------|-----------|--------|-----------|
+| Unchecked default | White | `1px solid rgba(12,31,64,0.30)` | N/A |
+| Unchecked hover | White | `1px solid rgba(12,31,64,0.60)` | N/A |
+| Unchecked focus (parent label focus-within) | White | `1.5px solid #0C1F40` + `box-shadow: 0 0 0 3px rgba(180,231,221,0.30)` | N/A |
+| Checked default | Navy (`#0C1F40`) | `1px solid #0C1F40` | White (`#FFFFFF`), `CheckIcon` 11px |
+| Checked hover | `rgba(12,31,64,0.85)` | Same | White |
+| Checked focus | Navy | `1.5px solid #0C1F40` + `box-shadow: 0 0 0 3px rgba(180,231,221,0.30)` | White |
+| Indeterminate | Navy | `1px solid #0C1F40` | White, `MinusIcon` 11px |
+| Disabled unchecked | `#F7F7F7` | `1px solid rgba(12,31,64,0.10)` | N/A |
+| Disabled checked | `rgba(12,31,64,0.30)` | `1px solid rgba(12,31,64,0.10)` | White (60% opacity) |
+| Error unchecked | White | `1px solid #DC2626` | N/A |
+
+**Focus detection:** Focus is detected via `.checkbox-input:focus-visible ~ .checkbox-box` CSS selector since the native input is visually hidden.
+
+**Label wrapper:**
+
+| Property | Value |
+|----------|-------|
+| Display | `flex`, `align-items: flex-start`, `gap: 8px` |
+| Cursor | `pointer` (enabled), `not-allowed` (disabled) |
+
+**Label text (`.checkbox-label-text`):**
+
+| Property | Value |
+|----------|-------|
+| Font | Inter, `14px`, weight `400`, Navy |
+| Line-height | `1.5` |
+| User-select | `none` |
+| Disabled color | `rgba(12,31,64,0.45)` |
+
+**Error message:**
+
+| Property | Value |
+|----------|-------|
+| Font | Inter, `13px`, weight `400`, `#DC2626` |
+| Margin-top | `4px` |
+| Margin-left | `26px` (aligns with label text, accounting for checkbox width + gap) |
+
+**`label` containing links:**
+When the `label` prop contains links (e.g., "I agree to the Terms"), the link styling within the label:
+- Color: Aqua → Navy (since on white background; standard link pattern)
+- Actually use: `color: #0C1F40`, `text-decoration: underline`, underline-color: `#B4E7DD`
+- Hover: `color: rgba(12,31,64,0.80)`, underline-color: `rgba(180,231,221,0.80)`
+- The link must have `tabIndex={0}` and proper `href`
+
+---
+
+### 2.6 ApiKeyInput
+
+**File:** `components/ui/ApiKeyInput.tsx`
+
+**Purpose:** Specialized input for API key entry and management. Displays the key masked by default; allows reveal on demand, inline copy to clipboard, and inline validation status badge. Used on the billing page (Anthropic/OpenAI key fields) and integrations page (Toggl and other API key services).
+
+**Props interface:**
+
+```typescript
+interface ApiKeyInputProps {
+  id: string
+  label: string
+  value: string               // The actual key value (may be masked from server, e.g. "sk-ant-...••••••••")
+  onChange?: (value: string) => void  // Omit if readOnly (existing key display mode)
+  onSave?: (value: string) => Promise<void>  // Async save handler; triggers loading state
+  onDelete?: () => Promise<void>      // Async delete handler; triggers confirmation + loading
+  placeholder?: string        // e.g. "sk-ant-api03-..."
+  hint?: string
+  error?: string
+  isValidating?: boolean      // Show spinner instead of action buttons during validation
+  validationStatus?: 'valid' | 'invalid' | 'unknown'  // Badge shown after validation
+  isMasked?: boolean          // If true, value is masked (server returned redacted key); default: false
+  hasExistingValue?: boolean  // If true, key already saved — show edit/delete mode; default: false
+  disabled?: boolean
+  required?: boolean
+  keyPrefix?: string          // Expected prefix for format hint, e.g. "sk-ant-" for Anthropic
+}
+```
+
+**Modes:**
+
+The ApiKeyInput operates in two distinct modes based on `hasExistingValue`:
+
+**Mode 1: Entry mode** (`hasExistingValue = false`)
+- Standard input field with masked display (`type="password"`)
+- Show/hide toggle
+- "Save" action button appears when `value.length > 0`
+- On Save: calls `onSave(value)`, shows spinner, then shows validation badge
+
+**Mode 2: Existing key mode** (`hasExistingValue = true`)
+- Read-only display showing masked key (e.g., `sk-ant-api03-••••••••••••••••••••`)
+- Copy button (copies full key if available, or shows "Key cannot be copied after saving")
+- Edit button → switches to entry mode with cleared input
+- Delete button → shows confirmation dialog then calls `onDelete()`
+
+**Markup structure (entry mode):**
+
+```tsx
+<div className={`form-field api-key-field ${error ? 'form-field--error' : ''}`}>
+  <label htmlFor={id}>
+    {label}
+    {required && <span aria-hidden="true" className="required-star">*</span>}
+  </label>
+  <div className="api-key-input-row">
+    <div className="input-wrapper">
+      <input
+        id={id}
+        type={showKey ? 'text' : 'password'}
+        value={value}
+        onChange={(e) => onChange?.(e.target.value)}
+        placeholder={placeholder}
+        disabled={disabled || isValidating}
+        spellCheck={false}
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
+        aria-invalid={error ? 'true' : undefined}
+        className="api-key-text-input"
+      />
+      <button
+        type="button"
+        className="password-toggle"
+        onClick={() => setShowKey(!showKey)}
+        aria-label={showKey ? 'Hide key' : 'Show key'}
+        disabled={disabled || isValidating}
+      >
+        {showKey ? <EyeOffIcon size={14} /> : <EyeIcon size={14} />}
+      </button>
+    </div>
+    {value.length > 0 && !isValidating && (
+      <button type="button" className="api-key-save-btn" onClick={() => handleSave()}>
+        Save
+      </button>
+    )}
+    {isValidating && (
+      <Loader2Icon size={16} className="animate-spin text-[rgba(12,31,64,0.45)]" />
+    )}
+  </div>
+  {validationStatus && (
+    <ApiKeyValidationBadge status={validationStatus} />
+  )}
+  {error && <p id={`${id}-error`} role="alert" className="field-error">{error}</p>}
+  {!error && hint && <p id={`${id}-hint`} className="field-hint">{hint}</p>}
+</div>
+```
+
+**Markup structure (existing key mode):**
+
+```tsx
+<div className="form-field api-key-field api-key-field--existing">
+  <label>{label}</label>
+  <div className="api-key-existing-row">
+    <code className="api-key-masked-display">{maskedValue}</code>
+    <div className="api-key-actions">
+      <button type="button" className="icon-btn" onClick={handleCopy} aria-label="Copy API key">
+        {copied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
+      </button>
+      <button type="button" className="icon-btn" onClick={switchToEditMode} aria-label="Edit API key">
+        <PencilIcon size={14} />
+      </button>
+      <button type="button" className="icon-btn icon-btn--danger" onClick={handleDelete} aria-label="Delete API key">
+        <Trash2Icon size={14} />
+      </button>
+    </div>
+  </div>
+  {validationStatus && <ApiKeyValidationBadge status={validationStatus} />}
+  {hint && <p className="field-hint">{hint}</p>}
+</div>
+```
+
+**Masked value display format:**
+- Full key pattern: `[prefix][first-4-chars]••••••••••••••••` (never reveals full key from server)
+- Example Anthropic: `sk-ant-api03-aBcD••••••••••••••••••••••`
+- Example Toggl: `••••••••••••••••••••••••••••••••` (completely masked if no prefix available)
+
+**`.api-key-masked-display` (code element):**
+
+| Property | Value |
+|----------|-------|
+| Font | `font-mono`, Inter Mono fallback, `14px` |
+| Color | `rgba(12,31,64,0.65)` |
+| Background | `rgba(12,31,64,0.04)` |
+| Padding | `8px 12px` |
+| Border | `1px solid rgba(12,31,64,0.10)` |
+| Border-radius | `0` |
+| Flex | `1` |
+| Overflow | `hidden`, `text-overflow: ellipsis`, `white-space: nowrap` |
+| User-select | `none` |
+
+**Action icon buttons (`.icon-btn`):**
+
+| Property | Value |
+|----------|-------|
+| Width | `32px` |
+| Height | `32px` |
+| Display | `flex`, `align-items: center`, `justify-content: center` |
+| Background | `transparent` |
+| Border | `1px solid rgba(12,31,64,0.15)` |
+| Border-radius | `0` |
+| Icon size | `14px` |
+| Icon color | `rgba(12,31,64,0.55)` |
+| Hover background | `rgba(12,31,64,0.05)` |
+| Hover icon color | `rgba(12,31,64,0.90)` |
+| Hover border | `rgba(12,31,64,0.30)` |
+| Focus-visible | `outline: 2px solid #B4E7DD`, `outline-offset: 2px` |
+| Transition | `background 0.15s ease, border-color 0.15s ease, color 0.15s ease` |
+
+**Delete button (`.icon-btn--danger`):**
+
+| Property | Value |
+|----------|-------|
+| Icon color | `#DC2626` |
+| Hover background | `#FEF2F2` |
+| Hover border | `#DC2626` |
+
+**Copy success state:**
+- Icon swaps from `CopyIcon` to `CheckIcon` for 2 seconds, then back
+- Icon color changes to `#059669` (green) on success
+- No toast (the inline icon change is sufficient feedback)
+
+**"Save" button:**
+
+| Property | Value |
+|----------|-------|
+| Height | `44px` |
+| Padding | `0 16px` |
+| Background | Aqua (`#B4E7DD`) |
+| Text | `"Save"`, Inter `14px` weight `600`, Navy |
+| Border | `1.5px solid #B4E7DD` |
+| Border-radius | `0` |
+| Flex-shrink | `0` |
+| Hover | `opacity: 0.85` |
+| Disabled | `opacity: 0.50`, `cursor: not-allowed` |
+| Focus-visible | `outline: 2px solid #0C1F40`, `outline-offset: 2px` |
+
+**ApiKeyValidationBadge sub-component:**
+
+```typescript
+interface ApiKeyValidationBadgeProps {
+  status: 'valid' | 'invalid' | 'unknown'
+}
+```
+
+| Status | Icon | Text | Background | Text color |
+|--------|------|------|-----------|-----------|
+| `valid` | `CheckCircleIcon` 14px | `"Key verified"` | `rgba(16,185,129,0.10)` | `#059669` |
+| `invalid` | `XCircleIcon` 14px | `"Invalid key — check and try again"` | `rgba(220,38,38,0.10)` | `#DC2626` |
+| `unknown` | `AlertCircleIcon` 14px | `"Could not verify key"` | `rgba(245,158,11,0.10)` | `#D97706` |
+
+Badge sizing:
+| Property | Value |
+|----------|-------|
+| Display | `flex`, `align-items: center`, `gap: 6px` |
+| Padding | `6px 10px` |
+| Margin-top | `6px` |
+| Font | Inter, `13px`, weight `500` |
+| Border | `1px solid currentColor` (at 20% opacity) |
+| Border-radius | `0` |
+
+**Row layout (`.api-key-input-row`, `.api-key-existing-row`):**
+
+| Property | Value |
+|----------|-------|
+| Display | `flex`, `align-items: center`, `gap: 8px` |
+
+The input wrapper within the row takes `flex: 1`; the Save button and icon buttons are `flex-shrink: 0`.
+
+---
+
+### 2.7 SearchInput
+
+**File:** `components/ui/SearchInput.tsx`
+
+**Purpose:** Search field with magnifying glass icon on the left and a clear button on the right when the field has a value. Used in the admin tenant list, integration service search, and tool reference search.
+
+**Props interface:**
+
+```typescript
+interface SearchInputProps {
+  value: string
+  onChange: (value: string) => void
+  onClear?: () => void           // Called when X button clicked; if omitted, onChange('') is used
+  placeholder?: string           // Default: "Search..."
+  disabled?: boolean
+  isLoading?: boolean            // Show spinner instead of search icon
+  autoFocus?: boolean
+  className?: string
+  size?: 'sm' | 'md'             // Default: 'md'. sm = 36px height, md = 44px height
+  id?: string                    // Optional; auto-generated if omitted
+  'aria-label'?: string          // Default: "Search"
+}
+```
+
+**No `label` prop:** SearchInput has no visible label by default — the placeholder and aria-label are sufficient. If a visible label is needed, wrap with `FormInput` instead.
+
+**Markup structure:**
+
+```tsx
+<div className={`search-input-wrapper search-input-wrapper--${size} ${disabled ? 'search-input-wrapper--disabled' : ''} ${className}`}>
+  <span className="search-icon" aria-hidden="true">
+    {isLoading
+      ? <Loader2Icon size={size === 'sm' ? 14 : 16} className="animate-spin" />
+      : <SearchIcon size={size === 'sm' ? 14 : 16} />
+    }
+  </span>
+  <input
+    type="search"
+    id={id}
+    value={value}
+    onChange={(e) => onChange(e.target.value)}
+    placeholder={placeholder ?? 'Search...'}
+    disabled={disabled}
+    autoFocus={autoFocus}
+    aria-label={ariaLabel ?? 'Search'}
+    className="search-text-input"
+    autoComplete="off"
+    autoCorrect="off"
+    spellCheck={false}
+  />
+  {value.length > 0 && !disabled && (
+    <button
+      type="button"
+      className="search-clear-btn"
+      onClick={() => onClear ? onClear() : onChange('')}
+      aria-label="Clear search"
+      tabIndex={0}
+    >
+      <XIcon size={size === 'sm' ? 12 : 14} />
+    </button>
+  )}
+</div>
+```
+
+**Wrapper dimensions:**
+
+| Size | Height | Left padding (for icon) | Right padding (for clear) |
+|------|--------|------------------------|--------------------------|
+| `sm` | `36px` | `32px` | `32px` (when value present), `12px` (no value) |
+| `md` | `44px` | `40px` | `40px` (when value present), `12px` (no value) |
+
+**Wrapper styling:**
+
+| Property | Value |
+|----------|-------|
+| Position | `relative` |
+| Display | `flex`, `align-items: center` |
+| Width | `100%` |
+| Background | White (`#FFFFFF`) |
+| Border | `1px solid rgba(12,31,64,0.20)` |
+| Border-radius | `0` |
+| Transition | `border-color 0.15s ease, box-shadow 0.15s ease` |
+
+**Wrapper focus-within state:**
+```css
+.search-input-wrapper:focus-within {
+  border: 1.5px solid #0C1F40;
+  box-shadow: 0 0 0 3px rgba(180,231,221,0.30);
+}
+```
+
+**Wrapper hover state:**
+```css
+.search-input-wrapper:hover:not(:focus-within):not(.search-input-wrapper--disabled) {
+  border-color: rgba(12,31,64,0.40);
+}
+```
+
+**Input element:**
+
+| Property | Value |
+|----------|-------|
+| Background | `transparent` |
+| Border | None |
+| Outline | None |
+| Width | `100%` |
+| Height | `100%` |
+| Font | Inter, `14px` (sm) / `15px` (md), weight `400` |
+| Color | Navy (`#0C1F40`) |
+| Placeholder color | `rgba(12,31,64,0.35)` |
+| Padding | `0` (handled by wrapper left/right padding) |
+
+**Hide native search clear button (browser default):**
+```css
+input[type="search"]::-webkit-search-cancel-button { display: none; }
+input[type="search"]::-ms-clear { display: none; }
+```
+
+**Search icon (`.search-icon`):**
+
+| Property | Value |
+|----------|-------|
+| Position | `absolute`, `left: 12px`, vertically centered |
+| Color | `rgba(12,31,64,0.40)` |
+| Pointer-events | `none` |
+| Transition | `color 0.15s ease` |
+
+When focus-within:
+- Icon color → `rgba(12,31,64,0.65)`
+
+**Loading spinner (`.search-icon` with `isLoading`):**
+- Replaces `SearchIcon` with `Loader2Icon` + `animate-spin`
+- Color: `rgba(12,31,64,0.45)`
+
+**Clear button (`.search-clear-btn`):**
+
+| Property | Value |
+|----------|-------|
+| Position | `absolute`, `right: 0`, vertically centered |
+| Width | `32px` (sm) / `40px` (md) |
+| Height | `100%` |
+| Display | `flex`, `align-items: center`, `justify-content: center` |
+| Background | `transparent` |
+| Border | None |
+| Cursor | `pointer` |
+| Icon color | `rgba(12,31,64,0.45)` |
+| Hover icon color | `rgba(12,31,64,0.80)` |
+| Focus-visible | `outline: 2px solid #B4E7DD`, `outline-offset: -2px` |
+| Transition | `color 0.15s ease` |
+
+**Disabled state (`.search-input-wrapper--disabled`):**
+
+| Property | Value |
+|----------|-------|
+| Background | `#F7F7F7` |
+| Border | `1px solid rgba(12,31,64,0.10)` |
+| Input cursor | `not-allowed` |
+| Input color | `rgba(12,31,64,0.35)` |
+| Opacity | `0.60` |
+
+**Debounce note:** `SearchInput` itself does NOT debounce — it calls `onChange` on every keystroke. Callers are responsible for debouncing if needed (typically 300ms debounce on the API query triggered by the value change).
+
+---
+
+### Summary Table — Form Components
+
+| Component | File | Usage |
+|-----------|------|-------|
+| `FormInput` | `components/ui/FormInput.tsx` | Email, name, URL, tel, general text fields |
+| `PasswordInput` | `components/ui/PasswordInput.tsx` | Login, signup, change-password forms |
+| `Select` | `components/ui/Select.tsx` | Timezone, plan selection, enum fields |
+| `Toggle` | `components/ui/Toggle.tsx` | Settings panels, feature flags, boolean preferences |
+| `Checkbox` | `components/ui/Checkbox.tsx` | ToS agreement, multi-select lists |
+| `ApiKeyInput` | `components/ui/ApiKeyInput.tsx` | Anthropic/OpenAI keys on billing; Toggl etc. on integrations |
+| `SearchInput` | `components/ui/SearchInput.tsx` | Admin tenant search, integration grid search, tool reference search |
+
+*Next section: [Feedback Components](#3-feedback-components) — aspect 4.9c*
