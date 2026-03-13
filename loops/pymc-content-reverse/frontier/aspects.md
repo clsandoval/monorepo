@@ -1,10 +1,10 @@
 # Frontier — PyMC Content Gathering
 
 ## Statistics
-- Total aspects discovered: 69
-- Analyzed: 5
+- Total aspects discovered: 70
+- Analyzed: 6
 - Pending: 64
-- Convergence: 7%
+- Convergence: 9%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -16,7 +16,7 @@ Map all sources before extracting. These must complete before Wave 2.
 - [x] website-home — WebFetch https://www.pymc-labs.com/, save to analysis/website-scrape/home.md
 - [x] website-about — WebFetch the about page, save to analysis/website-scrape/about.md
 - [x] website-team-individual-pages — WebFetch /team/{slug}/ for all 32 team members; save bios to analysis/website-scrape/team-members.md
-- [ ] website-services — WebFetch the services page(s), save to analysis/website-scrape/services.md
+- [x] website-services — WebFetch the services page(s), save to analysis/website-scrape/services.md
 - [ ] website-case-studies — WebFetch case studies page(s), save to analysis/website-scrape/case-studies.md
 - [ ] website-courses — WebFetch courses/training page(s), save to analysis/website-scrape/courses.md
 - [ ] website-blog-index — WebFetch the blog listing page, save to analysis/website-scrape/blog-index.md
@@ -24,6 +24,7 @@ Map all sources before extracting. These must complete before Wave 2.
 - [ ] website-contact — WebFetch the contact page, save to analysis/website-scrape/contact.md
 - [ ] website-crawl-remaining — Check for any pages not yet scraped (sitemap.xml, nav links), scrape them
 - [ ] halah-draft-scrape — WebFetch https://loyal-growth-093412.framer.app/, save to analysis/halah-draft-scrape.md
+- [ ] halah-draft-pricing — Playwright: navigate to https://loyal-growth-093412.framer.app/pricing, extract all pricing/engagement-model content, save to analysis/halah-draft-pricing.md
 - [ ] brand-deck-scrape — WebFetch https://pymc-brand-deck.netlify.app/, save to analysis/brand-deck-scrape.md
 - [ ] github-org-scan — WebSearch/WebFetch PyMC Labs GitHub org, list repos + descriptions, save to analysis/public/github-org.md
 - [ ] social-media-scan — WebSearch PyMC Labs on LinkedIn, Twitter/X, YouTube. Save to analysis/public/social-media.md
@@ -103,6 +104,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] website-services (2026-03-13) — No dedicated /services/* pages on pymc-labs.com (all 404). Services content exists only on home page (5 tiles) + Halah draft /services (5 services with full descriptions, features, approach, FAQs). Mapped old site → Halah draft → new sitemap. Discovered: halah-draft-pricing aspect. Output: analysis/website-scrape/services.md
 - [x] website-team-individual-pages (2026-03-13) — Fetched all 32 /team/{slug}/ pages. 30/32 have full bios. Benjamin Maier and Erik Ringen have specializations only (no bio). Slug notes: kusti-skyten, teemu-saeilynoja. Wrote 32 content/about/team-members/{name}.md files (30 complete, 2 partial). Output: analysis/website-scrape/team-members.md
 - [x] website-about (2026-03-13) — Scraped /about/ and /team/. Found 32 team members (5 Partners: Wiecki, Luhmann, Fiaschi, Oulton, Wilkinson + 27 team members). Captured bios for ~20 members; 12 have no bio text available in HTML. Company story: "inventors of PyMC... launched a consultancy." No founding year found. Individual pages exist at /team/{slug}/. Discovered new aspect: website-team-individual-pages. Output: analysis/website-scrape/about.md
 
