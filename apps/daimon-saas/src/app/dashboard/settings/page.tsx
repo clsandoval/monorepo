@@ -115,6 +115,8 @@ export default async function SettingsPage() {
         tenantId={tenantId}
         userRole={userRole}
         discordConnections={discordConnections}
+        userEmail={user.email ?? ''}
+        userDisplayName={(user.user_metadata?.full_name as string) ?? ''}
       />
     </DashboardLayout>
   )

@@ -6,6 +6,7 @@ import { useToast } from '@/lib/toast'
 import { useRouter } from 'next/navigation'
 import { Copy, Check } from 'lucide-react'
 import { SettingsDiscordSection } from '@/components/settings/discord-section'
+import { SettingsAccountSection } from '@/components/settings/account-section'
 import type { DiscordConnection } from '@/components/integrations/discord-connection-card'
 
 interface WorkspaceSectionProps {
@@ -391,9 +392,11 @@ interface SettingsContentProps {
   tenantId: string
   userRole: 'owner' | 'admin' | 'member'
   discordConnections: DiscordConnection[]
+  userEmail: string
+  userDisplayName: string
 }
 
-export function SettingsContent({ tenant, tenantId, userRole, discordConnections }: SettingsContentProps) {
+export function SettingsContent({ tenant, tenantId, userRole, discordConnections, userEmail, userDisplayName }: SettingsContentProps) {
   const [activeTab, setActiveTab] = React.useState('workspace')
 
   const tabs = [
@@ -424,18 +427,7 @@ export function SettingsContent({ tenant, tenantId, userRole, discordConnections
       )}
 
       {activeTab === 'account' && (
-        <div
-          style={{
-            background: '#FFFFFF',
-            border: '1px solid #E5E7EB',
-            padding: '32px',
-            color: '#6B7280',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '14px',
-          }}
-        >
-          Account settings coming in the next stage.
-        </div>
+        <SettingsAccountSection userEmail={userEmail} userDisplayName={userDisplayName} />
       )}
 
       {activeTab === 'danger' && (

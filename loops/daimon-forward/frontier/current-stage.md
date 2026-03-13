@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 73
-- **Current**: 73
+- **Completed**: 74
+- **Current**: 74
 
 ## Current Stage
 
-**Stage 074** — (next stage)
+**Stage 075** — (next stage)
 
 ## Stage Log
 
@@ -87,3 +87,4 @@
 | 071 | done | 2026-03-14T06:45:00Z | Billing page subscription states: BillingAlertBanners component (suspended=error banner, past_due=warning banner with portal action, canceled=error banner with reactivate CTA); incomplete state added to BillingPeriodLine + CTA button; BillingAlertBanners wired into billing page above page header; build passes |
 | 072 | done | 2026-03-14T07:00:00Z | Settings page layout + workspace tab: /dashboard/settings Server Component with tenant+membership fetch, SettingsContent client component with Tabs (Workspace/Discord/Account/Danger Zone), WorkspaceSection (name form with save/validation/toast, metadata with workspace ID copy button + created date); build passes |
 | 073 | done | 2026-03-14T07:15:00Z | Settings page Discord tab: discord_connections fetched in parallel on page load, SettingsDiscordSection wraps integrations DiscordSection in settings card chrome; SettingsContent updated with tenantId+discordConnections props; build passes |
+| 074 | done | 2026-03-14T07:30:00Z | Settings page Account tab: SettingsAccountSection with display name form (save + error/hint), read-only email display, section divider, change password form (current/new/confirm with show/hide toggles, inline validation, API calls); page passes userEmail+userDisplayName from auth session; build passes |
