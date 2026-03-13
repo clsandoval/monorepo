@@ -686,7 +686,680 @@ After this query, the bot calls `get_decrypted_secret()` for each `vault_secret_
 
 ---
 
-*Next tables to spec: `tenant_service_connections` (aspect 3.4), `tenant_subscriptions` (aspect 3.5)*
+---
+
+## Table: `tenant_service_connections`
+
+**Purpose:** One row per third-party service connected at the tenant level. Stores encrypted credentials (OAuth access/refresh tokens or API keys) via Supabase Vault. Powers the Integrations page. The bot reads this table at startup to populate per-tenant optional `ToolContext` fields (e.g., `linear_api_key`, `linear_team_id`) and to inject tenant-level credentials into `UserContext.credentials` as fallback when a Discord user has no personal credentials for a service.
+
+**Created by migration:** `20260400000004_create_tenant_service_connections.sql` (to be created)
+
+**Services covered at launch:** `github` (OAuth), `google` (OAuth), `linear` (OAuth), `toggl` (API key)
+
+### New Enum Types Required
+
+#### `service_auth_type`
+
+```sql
+CREATE TYPE public.service_auth_type AS ENUM ('oauth', 'api_key');
+```
+
+| Value | Description |
+|-------|-------------|
+| `oauth` | OAuth 2.0 flow. Has access token + optional refresh token + optional expiry. |
+| `api_key` | API key or personal access token pasted by user. No expiry management. |
+
+#### `service_connection_status`
+
+```sql
+CREATE TYPE public.service_connection_status AS ENUM (
+    'connected',
+    'expired',
+    'revoked',
+    'error'
+);
+```
+
+| Value | Description | Who Sets It |
+|-------|-------------|-------------|
+| `connected` | Credentials are active and should be usable. | Website sets on successful OAuth callback or API key validation. Bot keeps if still working. |
+| `expired` | OAuth access token has expired and refresh either failed or is not available. | Website sets if refresh attempt fails. Bot sets if API call returns 401 and refresh fails. |
+| `revoked` | User explicitly disconnected the service from the integrations page. | Website only. `vault.delete_secret()` called at same time. |
+| `error` | Credential returned an unexpected error (not a 401 expiry). E.g., scope removed, app de-authorized, API key invalidated. | Bot sets when tool call returns auth error that is not a standard expiry. |
+
+### Table DDL
+
+```sql
+CREATE TABLE public.tenant_service_connections (
+    -- Primary identification
+    id                      UUID            NOT NULL DEFAULT gen_random_uuid(),
+    tenant_id               UUID            NOT NULL,
+
+    -- Service identity
+    service                 TEXT            NOT NULL,
+    auth_type               public.service_auth_type NOT NULL,
+
+    -- Vault references (never store plaintext tokens)
+    vault_secret_id         UUID            NOT NULL,   -- access_token (OAuth) or api_key (API key)
+    refresh_vault_secret_id UUID            NULL,       -- refresh_token (OAuth only; NULL for api_key and non-refreshable OAuth)
+
+    -- OAuth token management
+    token_expires_at        TIMESTAMPTZ     NULL,       -- NULL for api_key and non-expiring OAuth tokens
+    scopes                  TEXT[]          NOT NULL DEFAULT '{}',   -- OAuth scopes granted (empty for api_key)
+
+    -- Service-specific metadata (see per-service schemas below)
+    metadata                JSONB           NOT NULL DEFAULT '{}',
+
+    -- Status
+    status                  public.service_connection_status NOT NULL DEFAULT 'connected',
+    error_message           TEXT            NULL,       -- Only when status = 'error'; NULL otherwise
+
+    -- Audit
+    connected_by_user_id    UUID            NULL,       -- auth.users.id of the team member who connected this (nullable: legacy rows)
+    connected_at            TIMESTAMPTZ     NOT NULL DEFAULT NOW(),
+    last_used_at            TIMESTAMPTZ     NULL,       -- Set by bot when credential is read
+    updated_at              TIMESTAMPTZ     NOT NULL DEFAULT NOW(),
+
+    -- Constraints
+    CONSTRAINT tenant_service_connections_pkey
+        PRIMARY KEY (id),
+    CONSTRAINT tenant_service_connections_tenant_id_fkey
+        FOREIGN KEY (tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE,
+    CONSTRAINT tenant_service_connections_unique_per_tenant
+        UNIQUE (tenant_id, service),
+    CONSTRAINT tenant_service_connections_service_check
+        CHECK (service IN ('github', 'google', 'linear', 'toggl')),
+    CONSTRAINT tenant_service_connections_auth_type_service_check
+        CHECK (
+            (service IN ('github', 'google', 'linear') AND auth_type = 'oauth')
+            OR
+            (service = 'toggl' AND auth_type = 'api_key')
+        ),
+    CONSTRAINT tenant_service_connections_refresh_token_oauth_only
+        CHECK (
+            (auth_type = 'api_key' AND refresh_vault_secret_id IS NULL)
+            OR (auth_type = 'oauth')
+        ),
+    CONSTRAINT tenant_service_connections_expires_api_key_null
+        CHECK (
+            (auth_type = 'api_key' AND token_expires_at IS NULL)
+            OR (auth_type = 'oauth')
+        )
+);
+```
+
+### Constraint Rationale
+
+| Constraint | Rationale |
+|------------|-----------|
+| `UNIQUE (tenant_id, service)` | One connection per service per tenant. If a tenant wants to reconnect, they must disconnect first (which sets status='revoked'), then reconnect. Reconnecting replaces the row via UPSERT. |
+| `CHECK service IN (...)` | Prevents insertion of unsupported service strings. Adding a new service (e.g., `'notion'`) requires an `ALTER TABLE ... DROP CONSTRAINT ... ADD CONSTRAINT ...`. |
+| `auth_type_service_check` | Enforces that GitHub/Google/Linear always use OAuth and Toggl always uses API key. This matches the OAuth app configuration — no Toggl OAuth app is registered. |
+| `refresh_token_oauth_only` | API key services never have a refresh token. For OAuth, `refresh_vault_secret_id` can be NULL (GitHub OAuth App tokens don't expire by default; Linear tokens don't expire). |
+| `expires_api_key_null` | API keys don't have expiry timestamps. `token_expires_at` is only meaningful for OAuth services that issue expiring tokens (Google). |
+
+### Column Specifications
+
+| Column | Type | Nullable | Default | Constraints | Notes |
+|--------|------|----------|---------|-------------|-------|
+| `id` | UUID | NOT NULL | `gen_random_uuid()` | PK | Row identifier. Used in Vault secret names. |
+| `tenant_id` | UUID | NOT NULL | — | FK → `tenants(id)` CASCADE | Owner tenant. |
+| `service` | TEXT | NOT NULL | — | CHECK, UNIQUE with tenant_id | Service name. Enum-like. See service check constraint. |
+| `auth_type` | `service_auth_type` | NOT NULL | — | CHECK with service | Determines which credential management path is used. |
+| `vault_secret_id` | UUID | NOT NULL | — | — | `vault.secrets.id` for the access token (OAuth) or API key. Never NULL — every connected service has a primary secret. |
+| `refresh_vault_secret_id` | UUID | NULL | NULL | CHECK: only non-NULL for oauth | `vault.secrets.id` for the OAuth refresh token. NULL for API key services and OAuth services that don't issue refresh tokens (GitHub App OAuth, Linear). |
+| `token_expires_at` | TIMESTAMPTZ | NULL | NULL | CHECK: only non-NULL for oauth | When the OAuth access token expires. NULL for API key, GitHub (tokens don't expire by default), and Linear (tokens don't expire). Set for Google (expires in 3600 seconds). |
+| `scopes` | TEXT[] | NOT NULL | `'{}'` | — | OAuth scopes granted at time of authorization. Empty array for API key. For GitHub: `['repo', 'read:user']`. For Google: `['openid', 'email', 'profile', 'https://www.googleapis.com/auth/calendar.readonly']`. For Linear: `['read', 'write', 'issues:create', 'comments:create']`. |
+| `metadata` | JSONB | NOT NULL | `'{}'` | — | Service-specific data. See per-service metadata schemas below. |
+| `status` | `service_connection_status` | NOT NULL | `'connected'` | — | Current connection health. |
+| `error_message` | TEXT | NULL | NULL | — | Human-readable error. Set when status='error'. NULL when status='connected'. Cleared on reconnection. Max 500 characters. |
+| `connected_by_user_id` | UUID | NULL | NULL | — | `auth.users.id` of the user who connected the service. Display only — for "Connected by @username on date" in the integrations UI. |
+| `connected_at` | TIMESTAMPTZ | NOT NULL | `NOW()` | — | When the service was first connected (or most recently reconnected after revocation). |
+| `last_used_at` | TIMESTAMPTZ | NULL | NULL | — | When the bot last successfully used this credential. Updated by bot asynchronously. Not critical-path. |
+| `updated_at` | TIMESTAMPTZ | NOT NULL | `NOW()` | — | Updated on any column change (via trigger). |
+
+### Per-Service Metadata Schemas
+
+The `metadata` JSONB column stores service-specific information that is safe to store in plaintext (no secrets). This data is used by the bot to populate `ToolContext` fields and by the website to display connection details in the integrations UI.
+
+#### `service = 'github'`
+
+```json
+{
+  "github_login": "octocat",
+  "github_user_id": 1,
+  "github_name": "The Octocat",
+  "github_avatar_url": "https://github.com/images/error/octocat_happy.gif",
+  "github_email": "octocat@github.com"
+}
+```
+
+| Field | Type | Source | Used By |
+|-------|------|--------|---------|
+| `github_login` | string | `GET /user` → `.login` | UI: "Connected as @octocat" |
+| `github_user_id` | integer | `GET /user` → `.id` | Identity tracking |
+| `github_name` | string \| null | `GET /user` → `.name` | UI: display name |
+| `github_avatar_url` | string \| null | `GET /user` → `.avatar_url` | UI: avatar |
+| `github_email` | string \| null | `GET /user` → `.email` | Audit trail |
+
+**Bot usage:** The bot uses the decrypted `vault_secret_id` (GitHub OAuth access token) as the value for `GITHUB_TOKEN` environment variable when running `gh` CLI commands via `github_run_gh` tool. The `metadata` fields are not used by the bot directly — only the token.
+
+#### `service = 'google'`
+
+```json
+{
+  "google_email": "user@gmail.com",
+  "google_user_id": "116620468923013920116",
+  "google_name": "Jane Doe",
+  "google_picture": "https://lh3.googleusercontent.com/..."
+}
+```
+
+| Field | Type | Source | Used By |
+|-------|------|--------|---------|
+| `google_email` | string | `GET /oauth2/v2/userinfo` → `.email` | UI: "Connected as user@gmail.com" |
+| `google_user_id` | string | `GET /oauth2/v2/userinfo` → `.id` | Identity tracking |
+| `google_name` | string \| null | `GET /oauth2/v2/userinfo` → `.name` | UI: display name |
+| `google_picture` | string \| null | `GET /oauth2/v2/userinfo` → `.picture` | UI: avatar |
+
+**Bot usage:** Google tools are scoped to specific Google APIs. The access token is used for Google Calendar, Google Docs, Google Drive depending on what tools are enabled. `token_expires_at` is set (Google tokens expire in 3600 seconds). The website refreshes tokens proactively via `/api/integrations/google/refresh` when `token_expires_at < NOW() + INTERVAL '5 minutes'`.
+
+#### `service = 'linear'`
+
+```json
+{
+  "linear_team_id": "abc123def456",
+  "linear_team_name": "Engineering",
+  "linear_viewer_id": "xyz789uvw012",
+  "linear_viewer_name": "Jane Doe",
+  "linear_viewer_email": "jane@example.com",
+  "linear_organization_id": "org-abc-123",
+  "linear_organization_name": "Acme Corp"
+}
+```
+
+| Field | Type | Source | Used By |
+|-------|------|--------|---------|
+| `linear_team_id` | string | Linear OAuth callback → team selection step | Bot: `TenantConfig.linear_team_id`, passed into `ToolContext.linear_team_id` |
+| `linear_team_name` | string | Linear API → team query | UI: "Connected to Engineering team" |
+| `linear_viewer_id` | string | Linear API `viewer { id }` | Identity tracking |
+| `linear_viewer_name` | string | Linear API `viewer { name }` | UI display |
+| `linear_viewer_email` | string | Linear API `viewer { email }` | Audit trail |
+| `linear_organization_id` | string | Linear API `organization { id }` | Audit trail |
+| `linear_organization_name` | string | Linear API `organization { name }` | UI: "Connected to Acme Corp" |
+
+**Bot usage:** `linear_api_key` (decrypted) is passed as `TenantConfig.linear_api_key`. `linear_team_id` (from metadata) is passed as `TenantConfig.linear_team_id`. These populate `ToolContext.linear_api_key` and `ToolContext.linear_team_id` for all Linear tools. Linear OAuth tokens do NOT expire — `token_expires_at` is NULL and `refresh_vault_secret_id` is NULL.
+
+#### `service = 'toggl'`
+
+```json
+{
+  "toggl_user_id": 9876543,
+  "toggl_email": "user@example.com",
+  "toggl_full_name": "Jane Doe",
+  "toggl_workspace_id": 1234567,
+  "toggl_workspace_name": "My Workspace",
+  "toggl_organization_id": 2345678,
+  "toggl_organization_name": "My Organization",
+  "toggl_workspace_role": "admin"
+}
+```
+
+| Field | Type | Source | Used By |
+|-------|------|--------|---------|
+| `toggl_user_id` | integer | `GET https://api.track.toggl.com/api/v9/me` → `.id` | Identity tracking |
+| `toggl_email` | string | `/me` → `.email` | UI: "Connected as user@example.com" |
+| `toggl_full_name` | string | `/me` → `.fullname` | UI: display name |
+| `toggl_workspace_id` | integer | Validated at key submission → workspace query | **Bot: fallback workspace scope for Toggl tools** (when no per-user workspace override) |
+| `toggl_workspace_name` | string | Workspace query | UI: "Connected to My Workspace" |
+| `toggl_organization_id` | integer | Workspace query → `.organization_id` | Bot: `ToolContext.toggl_organization_id` fallback |
+| `toggl_organization_name` | string | Organization query | UI display |
+| `toggl_workspace_role` | string (`"admin"` \| `"member"`) | Workspace member query | Bot: injected into `UserContext.credential_metadata[TOGGL]` for `Scope.TOGGL_WORKSPACE_ADMIN` gate |
+
+**Bot usage:** The Toggl API key is injected into `UserContext.credentials[CredentialPlatform.TOGGL]` as the tenant-level fallback when the Discord user has no personal Toggl credential in `user_credentials`. The `toggl_workspace_id` and `toggl_organization_id` from metadata override `ToolContext.toggl_workspace_id` / `toggl_organization_id` (which are platform-level defaults — the PyMC workspace). The `toggl_workspace_role` is injected into `UserContext.credential_metadata[CredentialPlatform.TOGGL]` for admin scope gating.
+
+### Indexes
+
+```sql
+-- Primary lookup: get all connections for a tenant (integrations page, bot startup)
+CREATE INDEX idx_tenant_service_connections_tenant_id
+    ON public.tenant_service_connections (tenant_id);
+
+-- Filter by status for bot: find connected services per tenant
+CREATE INDEX idx_tenant_service_connections_tenant_status
+    ON public.tenant_service_connections (tenant_id, status);
+
+-- Token expiry scan: find Google tokens expiring soon (refresh job)
+CREATE INDEX idx_tenant_service_connections_token_expires_at
+    ON public.tenant_service_connections (token_expires_at)
+    WHERE token_expires_at IS NOT NULL AND status = 'connected';
+```
+
+**Index rationale:**
+
+| Index | Query Pattern | Estimated Access Pattern |
+|-------|--------------|--------------------------|
+| `tenant_id` | Integrations page load: `SELECT * FROM tenant_service_connections WHERE tenant_id = $1` | Per page view — O(1) per tenant, 1–4 rows returned |
+| `(tenant_id, status)` | Bot startup: `SELECT * FROM tenant_service_connections WHERE tenant_id = $1 AND status = 'connected'` | Per tenant at startup, O(connections) |
+| `token_expires_at WHERE NOT NULL AND connected` | Scheduled refresh job: `SELECT * WHERE token_expires_at < NOW() + INTERVAL '5 minutes' AND status = 'connected'` | Runs every minute, scans only Google OAuth rows |
+
+### Triggers
+
+#### `updated_at` Auto-Update Trigger
+
+```sql
+CREATE OR REPLACE FUNCTION public.update_tenant_service_connections_updated_at()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER trg_tenant_service_connections_updated_at
+    BEFORE UPDATE ON public.tenant_service_connections
+    FOR EACH ROW
+    EXECUTE FUNCTION public.update_tenant_service_connections_updated_at();
+```
+
+**Note:** A shared `set_updated_at()` trigger function may be used if one already exists in the migration history. The pattern is the same as used on `tenants`, `tenant_api_keys`, `discord_connections`.
+
+### RLS Policies
+
+```sql
+ALTER TABLE public.tenant_service_connections ENABLE ROW LEVEL SECURITY;
+
+-- Tenant owners and admins can SELECT their own service connections
+CREATE POLICY "Tenant members can read own service connections"
+    ON public.tenant_service_connections
+    FOR SELECT
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tenant_service_connections.tenant_id
+              AND tm.user_id = auth.uid()
+        )
+    );
+
+-- Only tenant owners and admins can INSERT (connect a new service)
+CREATE POLICY "Tenant owners/admins can insert service connections"
+    ON public.tenant_service_connections
+    FOR INSERT
+    WITH CHECK (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tenant_service_connections.tenant_id
+              AND tm.user_id = auth.uid()
+              AND tm.role IN ('owner', 'admin')
+        )
+    );
+
+-- Only tenant owners and admins can UPDATE (update status, metadata)
+CREATE POLICY "Tenant owners/admins can update service connections"
+    ON public.tenant_service_connections
+    FOR UPDATE
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tenant_service_connections.tenant_id
+              AND tm.user_id = auth.uid()
+              AND tm.role IN ('owner', 'admin')
+        )
+    );
+
+-- Only tenant owners and admins can DELETE (disconnect a service)
+-- Note: website uses status='revoked' soft-delete, not hard DELETE
+-- Hard DELETE only happens on full tenant deletion (CASCADE from tenants)
+CREATE POLICY "Tenant owners/admins can delete service connections"
+    ON public.tenant_service_connections
+    FOR DELETE
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tenant_service_connections.tenant_id
+              AND tm.user_id = auth.uid()
+              AND tm.role IN ('owner', 'admin')
+        )
+    );
+```
+
+**Note:** The bot accesses this table via the service role key (bypasses RLS). The website uses the authenticated user's JWT (RLS-enforced). The `vault_secret_id` column values are UUIDs only — browsers never receive decrypted tokens.
+
+### Vault Patterns for Service Connections
+
+#### Vault Secret Names
+
+| Service | Auth Type | Secret Type | Name Pattern | Example |
+|---------|-----------|-------------|-------------|---------|
+| `github` | `oauth` | access_token | `tenant_service_connections:{id}:github:access` | `tenant_service_connections:a1b2c3...:github:access` |
+| `google` | `oauth` | access_token | `tenant_service_connections:{id}:google:access` | `tenant_service_connections:b2c3d4...:google:access` |
+| `google` | `oauth` | refresh_token | `tenant_service_connections:{id}:google:refresh` | `tenant_service_connections:b2c3d4...:google:refresh` |
+| `linear` | `oauth` | access_token | `tenant_service_connections:{id}:linear:access` | `tenant_service_connections:c3d4e5...:linear:access` |
+| `toggl` | `api_key` | api_key | `tenant_service_connections:{id}:toggl:key` | `tenant_service_connections:d4e5f6...:toggl:key` |
+
+**Rules:**
+- `{id}` = the `tenant_service_connections.id` UUID (NOT the tenant_id)
+- Names contain no sensitive data (only the row ID and service name — not the token itself)
+- GitHub does NOT have a refresh token (GitHub OAuth App tokens don't expire by default; no refresh needed)
+- Linear does NOT have a refresh token (Linear OAuth tokens don't expire)
+- Toggl does NOT have a refresh token (API key with no expiry)
+
+#### Vault Creation on OAuth Callback
+
+```typescript
+// In: /api/integrations/[service]/callback
+// After receiving OAuth tokens from provider, store in Vault:
+
+// 1. Create access token secret
+const { data: accessSecretId } = await supabase.rpc('create_tenant_secret', {
+  p_tenant_id: tenantId,
+  p_secret_type: `${service}_access`,   // e.g., 'github_access'
+  p_secret: accessToken,
+  p_hint: buildTokenHint(accessToken),
+})
+
+// 2. Create refresh token secret (if present)
+let refreshSecretId: string | null = null
+if (refreshToken) {
+  const { data } = await supabase.rpc('create_tenant_secret', {
+    p_tenant_id: tenantId,
+    p_secret_type: `${service}_refresh`,
+    p_secret: refreshToken,
+    p_hint: buildTokenHint(refreshToken),
+  })
+  refreshSecretId = data
+}
+
+// 3. UPSERT the connection row
+const { data: connection } = await supabase
+  .from('tenant_service_connections')
+  .upsert({
+    tenant_id: tenantId,
+    service,
+    auth_type: 'oauth',
+    vault_secret_id: accessSecretId,
+    refresh_vault_secret_id: refreshSecretId,
+    token_expires_at: expiresAt,    // null for GitHub, Linear; ISO timestamp for Google
+    scopes: grantedScopes,
+    metadata: buildServiceMetadata(service, userInfo),
+    status: 'connected',
+    error_message: null,
+    connected_by_user_id: userId,
+  }, {
+    onConflict: 'tenant_id,service',  // UNIQUE constraint field
+  })
+  .select()
+  .single()
+```
+
+**On UPSERT conflict (reconnecting a previously connected service):**
+1. The old `vault_secret_id` is overwritten in the row. The old Vault secret becomes orphaned.
+2. After UPSERT completes: `vault.delete_secret(old_vault_secret_id)` and `vault.delete_secret(old_refresh_vault_secret_id)` if applicable.
+3. If Vault deletion fails (non-fatal): log the orphan, it will be cleaned up by the weekly orphan cleanup job.
+
+#### Vault Deletion on Disconnect
+
+When a tenant clicks "Disconnect" on the integrations page:
+
+```typescript
+// In: /api/integrations/[service]/disconnect (DELETE method)
+
+// 1. Read current vault IDs before update
+const { data: existing } = await supabase
+  .from('tenant_service_connections')
+  .select('vault_secret_id, refresh_vault_secret_id')
+  .eq('tenant_id', tenantId)
+  .eq('service', service)
+  .single()
+
+// 2. Mark as revoked (soft delete — preserves metadata row for audit)
+await supabase
+  .from('tenant_service_connections')
+  .update({
+    status: 'revoked',
+    error_message: null,
+    updated_at: new Date().toISOString(),
+  })
+  .eq('tenant_id', tenantId)
+  .eq('service', service)
+
+// 3. Delete Vault secrets (permanent — key material destroyed)
+await supabase.rpc('delete_tenant_secret', {
+  p_vault_secret_id: existing.vault_secret_id,
+})
+if (existing.refresh_vault_secret_id) {
+  await supabase.rpc('delete_tenant_secret', {
+    p_vault_secret_id: existing.refresh_vault_secret_id,
+  })
+}
+```
+
+**Why soft-delete (status='revoked') not hard DELETE:**
+- Preserves metadata row for audit trail ("GitHub was disconnected on YYYY-MM-DD by @username")
+- Preserves `connected_at`, `scopes`, `metadata` for the admin panel
+- Prevents accidental re-read of stale credentials by the bot (status check filters out revoked)
+- Hard DELETE happens only on full tenant account deletion (CASCADE from `tenants`)
+
+### Token Refresh Logic (Google OAuth Only)
+
+Google OAuth access tokens expire after 3600 seconds (1 hour). The platform must refresh them proactively.
+
+**Refresh trigger:** Token is considered "near-expiry" when `token_expires_at < NOW() + INTERVAL '5 minutes'`.
+
+**Refresh happens in two places:**
+
+1. **Website API route** — `/api/integrations/google/refresh` — triggered by:
+   - Frontend detecting near-expiry before a page load (client-side check)
+   - Scheduled Supabase Edge Function cron (see below)
+
+2. **Bot side** — If the bot attempts to use a Google token and gets a 401 response, the bot:
+   - Sets `status = 'expired'` on the row (does NOT attempt refresh — bot cannot call Google OAuth refresh endpoint without the client_secret which is only in Vercel env vars)
+   - Sets `error_message = 'Google token expired. Visit your Daimon dashboard to reconnect Google.'`
+   - Tool call returns: `ToolError("Google connection expired. Reconnect Google in your Daimon dashboard at daimon.so/dashboard/integrations")`
+
+**Refresh logic in `/api/integrations/google/refresh`:**
+
+```typescript
+// Step 1: Load the current refresh token from Vault
+const refreshToken = await getDecryptedSecret(connection.refresh_vault_secret_id)
+if (!refreshToken) {
+  // No refresh token stored → user must re-authorize
+  await markConnectionExpired(tenantId, 'google', 'No refresh token available. Please reconnect Google.')
+  return { error: 'no_refresh_token' }
+}
+
+// Step 2: Call Google Token endpoint
+const response = await fetch('https://oauth2.googleapis.com/token', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  body: new URLSearchParams({
+    grant_type: 'refresh_token',
+    refresh_token: refreshToken,
+    client_id: process.env.GOOGLE_OAUTH_CLIENT_ID!,
+    client_secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET!,
+  }),
+})
+
+const tokens = await response.json()
+
+if (!response.ok || tokens.error) {
+  // Refresh failed — token revoked or expired
+  await markConnectionExpired(tenantId, 'google', `Token refresh failed: ${tokens.error_description}`)
+  return { error: 'refresh_failed', description: tokens.error_description }
+}
+
+// Step 3: Create new Vault secret for new access token
+const newAccessSecretId = await createTenantSecret(tenantId, 'google_access', tokens.access_token)
+
+// Step 4: Delete old Vault secret
+await deleteTenantSecret(connection.vault_secret_id)
+
+// Step 5: Update connection row with new vault_secret_id and extended expiry
+await supabase.from('tenant_service_connections').update({
+  vault_secret_id: newAccessSecretId,
+  token_expires_at: new Date(Date.now() + tokens.expires_in * 1000).toISOString(),
+  status: 'connected',
+  error_message: null,
+  updated_at: new Date().toISOString(),
+}).eq('tenant_id', tenantId).eq('service', 'google')
+```
+
+**Scheduled refresh job:** A Supabase Edge Function `refresh-google-tokens` is invoked by pg_cron every 30 minutes. It queries `tenant_service_connections WHERE service = 'google' AND status = 'connected' AND token_expires_at < NOW() + INTERVAL '10 minutes'` and refreshes each one. This proactive refresh ensures the bot always has a valid Google token without the need for the user to visit the dashboard.
+
+**pg_cron schedule:**
+```sql
+SELECT cron.schedule(
+    'refresh-google-tokens',
+    '*/30 * * * *',  -- every 30 minutes
+    $$ SELECT net.http_post(
+        url := current_setting('app.supabase_functions_url') || '/refresh-google-tokens',
+        headers := '{"Authorization": "Bearer ' || current_setting('app.service_role_key') || '"}',
+        body := '{}'
+    ) $$
+);
+```
+
+### Status Transition Diagram
+
+```
+                     ┌─────────────────────────────────┐
+                     │         (initial connect)         │
+                     ▼                                   │
+                ┌─────────┐   OAuth token expired    ┌───┴──────┐
+                │connected├──────────────────────────▶│ expired  │
+                └────┬────┘                           └────┬─────┘
+                     │                                     │
+                     │ user disconnects                     │ refresh succeeds
+                     ▼                                     ▼
+                ┌─────────┐                          ┌─────────┐
+                │ revoked │                          │connected│
+                └─────────┘                          └─────────┘
+                     │
+                     │ (reconnect replaces row, status → connected)
+
+                ┌─────────┐
+                │  error  │◀── unexpected API error (non-401)
+                └─────────┘
+                     │
+                     │ user reconnects (new OAuth flow)
+                     ▼
+                ┌─────────┐
+                │connected│
+                └─────────┘
+```
+
+**Transition rules:**
+- `connected → expired`: Bot sets when API call returns 401 AND refresh fails (or no refresh token). Website sets if scheduled refresh fails.
+- `connected → error`: Bot sets when API call returns non-401 auth error (scope removed, app de-authorized, API key invalidated by provider).
+- `connected → revoked`: User clicks "Disconnect" on integrations page. Vault secrets deleted permanently.
+- `expired → connected`: User re-authorizes via OAuth flow (new tokens replace old row).
+- `error → connected`: User reconnects (new OAuth flow or new API key).
+- `revoked → connected`: User reconnects (new OAuth flow). Row is UPSERTed.
+
+### Bot Read Pattern at Startup
+
+At startup, the bot includes `tenant_service_connections` in its multi-tenant config load query:
+
+```sql
+-- Extended startup query (adds to the query in tenant_api_keys spec)
+SELECT
+    tsc_linear.vault_secret_id  AS linear_vault_secret_id,
+    tsc_linear.metadata         AS linear_metadata,
+    tsc_toggl.vault_secret_id   AS toggl_vault_secret_id,
+    tsc_toggl.metadata          AS toggl_metadata,
+    tsc_github.vault_secret_id  AS github_vault_secret_id,
+    tsc_google.vault_secret_id  AS google_vault_secret_id,
+    tsc_google.token_expires_at AS google_token_expires_at
+FROM public.tenants t
+-- ... (discord_connections and tenant_api_keys JOINs from prior spec) ...
+LEFT JOIN public.tenant_service_connections tsc_linear
+    ON tsc_linear.tenant_id = t.id
+    AND tsc_linear.service = 'linear'
+    AND tsc_linear.status = 'connected'
+LEFT JOIN public.tenant_service_connections tsc_toggl
+    ON tsc_toggl.tenant_id = t.id
+    AND tsc_toggl.service = 'toggl'
+    AND tsc_toggl.status = 'connected'
+LEFT JOIN public.tenant_service_connections tsc_github
+    ON tsc_github.tenant_id = t.id
+    AND tsc_github.service = 'github'
+    AND tsc_github.status = 'connected'
+LEFT JOIN public.tenant_service_connections tsc_google
+    ON tsc_google.tenant_id = t.id
+    AND tsc_google.service = 'google'
+    AND tsc_google.status = 'connected'
+```
+
+**After the query, TenantConfig construction decrypts each `vault_secret_id` and maps to fields:**
+
+```python
+# Decrypt service connection tokens (all via get_decrypted_secret())
+linear_api_key = await decrypt(row.linear_vault_secret_id) if row.linear_vault_secret_id else None
+linear_team_id = row.linear_metadata.get('linear_team_id') if row.linear_metadata else None
+toggl_api_key  = await decrypt(row.toggl_vault_secret_id) if row.toggl_vault_secret_id else None
+toggl_workspace_id   = row.toggl_metadata.get('toggl_workspace_id') if row.toggl_metadata else None
+toggl_organization_id = row.toggl_metadata.get('toggl_organization_id') if row.toggl_metadata else None
+toggl_workspace_role = row.toggl_metadata.get('toggl_workspace_role') if row.toggl_metadata else 'member'
+github_token   = await decrypt(row.github_vault_secret_id) if row.github_vault_secret_id else None
+google_token   = await decrypt(row.google_vault_secret_id) if row.google_vault_secret_id else None
+```
+
+**Google token expiry check at startup:**
+```python
+if row.google_token_expires_at:
+    expires_at = datetime.fromisoformat(row.google_token_expires_at)
+    if expires_at < datetime.now(tz=UTC) + timedelta(minutes=5):
+        # Token is near-expiry or already expired
+        # Bot does NOT refresh here (no client_secret in bot env)
+        # Log warning, set google_token = None (tools will fail gracefully)
+        logger.warning(f"Tenant {tenant_id} Google token near/past expiry. Bot will skip Google tools.")
+        google_token = None
+```
+
+### Supabase Realtime Events
+
+The bot subscribes to changes on `tenant_service_connections` via Realtime:
+
+**Channel:** `tenant:{tenant_id}:service_connections`
+
+**Filter:** `tenant_id=eq.{tenant_id}`
+
+**Events handled:**
+
+| Event | Trigger | Bot Action |
+|-------|---------|-----------|
+| `INSERT` (status='connected') | User connected a new service | Bot hot-reloads `TenantConfig` for that tenant: decrypts new credential, updates `UserContext.credentials` fallback map and `ToolContext` optional fields. Logs: `INFO: Tenant {id} connected {service} — credential hot-loaded.` |
+| `UPDATE` (status='connected' → 'revoked') | User disconnected a service | Bot removes credential from in-memory `TenantConfig`. Clears the relevant `ToolContext` field. Logs: `INFO: Tenant {id} disconnected {service} — credential removed.` |
+| `UPDATE` (status='connected' → 'expired') | Token expired / refresh failed | Bot removes credential from in-memory `TenantConfig`. Tools that used this credential will now return `ToolError`. Logs: `WARNING: Tenant {id} {service} token expired — tools disabled.` |
+| `UPDATE` (status='expired' → 'connected') | User reconnected after expiry | Bot hot-reloads credential same as INSERT. Logs: `INFO: Tenant {id} {service} reconnected — credential hot-reloaded.` |
+
+### Notes
+
+1. **One row per service per tenant:** The `UNIQUE (tenant_id, service)` constraint means each tenant can have at most one GitHub connection, one Google connection, one Linear connection, one Toggl connection. If a tenant wants to switch their GitHub account, they must disconnect first (status='revoked'), then reconnect with the new account. On reconnect, the row is UPSERTed — the old Vault secret is deleted and a new one is created.
+
+2. **Revoked rows persist:** Unlike deletion, revocation preserves the metadata row. This gives the admin panel visibility into which services were historically connected and when they were disconnected. The Vault secrets (actual token material) are destroyed on revocation — only non-sensitive metadata (user IDs, email addresses, workspace IDs) and audit columns persist.
+
+3. **service_connection_status is PostgreSQL ENUM, not TEXT + CHECK:** Unlike `tenant_api_keys.status` which uses TEXT + CHECK (for easy value addition), service connections use a proper ENUM. The rationale is that service connection states are architecturally stable — 'connected', 'expired', 'revoked', 'error' cover all cases. If a new state is needed, a migration is required regardless (new handling logic would be needed anyway).
+
+4. **Scopes array for security auditing:** The `scopes` TEXT[] column records exactly which permissions were granted at OAuth authorization time. If the required scopes change in a future version (e.g., adding Google Calendar write scope), the website can detect that an existing connection has insufficient scopes by comparing `connection.scopes` against `REQUIRED_SCOPES[service]`. If insufficient, the integrations page shows "Reconnect needed — new permissions required" rather than "Connected."
+
+5. **metadata is server-set only:** The `metadata` column is populated by the OAuth callback API route (server-side) by calling the provider's user info endpoints. It is never user-set. RLS allows tenant members to READ metadata but the UPDATE path is controlled via the API route (not direct Supabase client calls). The `connected_by_user_id` is set server-side from the authenticated session JWT.
+
+6. **Google token expiry and the 5-minute buffer:** The 5-minute buffer (refresh when `token_expires_at < NOW() + INTERVAL '5 minutes'`) accounts for clock skew and network latency. Google tokens expire at exactly 3600 seconds; refreshing at 3595 seconds ensures a valid token is always available for tool calls.
+
+7. **GitHub token type:** GitHub OAuth App tokens (classic) do not expire. The `token_expires_at` will always be NULL for GitHub. If the platform later switches to GitHub Fine-Grained Personal Access Tokens (PATs) with expiry, this column already supports it. For now: GitHub = no expiry, no refresh token, `token_expires_at = NULL`, `refresh_vault_secret_id = NULL`.
+
+8. **Linear token type:** Linear OAuth tokens do not expire. `token_expires_at = NULL`, `refresh_vault_secret_id = NULL`. Linear's API docs confirm: "Access tokens do not expire." If Linear ever changes this policy, the schema already supports it.
+
+9. **Toggl API key rotation:** Users can rotate their Toggl API key in the Toggl settings page. If they do, the stored token becomes invalid. There is no automatic detection — the bot will encounter 403 errors on Toggl tool calls. The bot sets `status = 'error'` and `error_message = 'Toggl API key is invalid. Update your Toggl connection in the Daimon dashboard.'` The user must paste their new Toggl API key via the integrations page (same flow as initial connection).
+
+10. **Orphan cleanup includes service_connection secrets:** The orphan cleanup query in `vault-encryption.md` section 8 must be updated to include `tenant_service_connections.vault_secret_id` and `tenant_service_connections.refresh_vault_secret_id` in the "referenced secrets" union.
+
+---
+
+*Next tables to spec: `tenant_subscriptions` (aspect 3.5)*
 
 ---
 

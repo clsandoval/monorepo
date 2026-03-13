@@ -277,6 +277,19 @@ REVOKE EXECUTE ON FUNCTION public.delete_tenant_secret(UUID) FROM anon;
 - **Key hint:** `key[:8] + '...' + key[-4:]` for Anthropic; `key[:7] + '...' + key[-4:]` for OpenAI
 - **Bot access path:** Bot startup and hot-reload → `get_decrypted_secret(tenant_api_keys.vault_secret_id)` → plaintext key → injected into `TenantConfig.anthropic_api_key` → injected as env var into Fly.io session Machine
 
+### 5.3 `tenant_service_connections.vault_secret_id` and `refresh_vault_secret_id`
+
+- **What is stored in `vault_secret_id`:** OAuth access token (for GitHub, Google, Linear) or API key (for Toggl).
+- **What is stored in `refresh_vault_secret_id`:** OAuth refresh token (Google only at launch; GitHub, Linear, Toggl have NULL).
+- **When created:** Website OAuth callback route or API key submission route calls `vault.create_secret()` for each token and stores the returned UUID(s) in `tenant_service_connections`.
+- **When updated (token refresh):** Google token refresh creates a new Vault secret for the new access token, updates `vault_secret_id` to the new UUID, deletes the old Vault secret. The `refresh_vault_secret_id` is NOT replaced on refresh — the refresh token remains valid unless Google explicitly rotates it.
+- **When deleted:** On disconnect (`status = 'revoked'`), both `vault_secret_id` and `refresh_vault_secret_id` secrets are permanently deleted via `vault.delete_secret()`. On tenant account deletion, CASCADE deletes the row, but application code must delete Vault secrets BEFORE the CASCADE (database CASCADE does not delete Vault secrets automatically — Vault is separate from application tables).
+- **Vault secret name patterns:**
+  - Access token: `'tenant_service_connections:{connection_id}:{service}:access'` (e.g., `'tenant_service_connections:a1b2...:github:access'`)
+  - Refresh token: `'tenant_service_connections:{connection_id}:{service}:refresh'` (e.g., `'tenant_service_connections:b2c3...:google:refresh'`)
+  - API key: `'tenant_service_connections:{connection_id}:{service}:key'` (e.g., `'tenant_service_connections:c3d4...:toggl:key'`)
+- **Bot access path:** Bot startup query reads `vault_secret_id` for each connected service, calls `get_decrypted_secret()` for each, and stores in `TenantConfig`. GitHub token → `TenantConfig.github_token`. Linear token → `TenantConfig.linear_api_key`. Toggl token → `TenantConfig.toggl_api_key`. Google token → `TenantConfig.google_token` (plus expiry check before use).
+
 ---
 
 ## 6. Edge Functions That Use Vault
@@ -386,7 +399,9 @@ interface RevokeTenantApiKeyRequest {
 | Discord bot token | `discord_connections:{connection_id}:{guild_id}` | `discord_connections:a1b2c3...:813258688680919040` |
 | Anthropic API key | `tenant_api_keys:{tenant_id}:anthropic` | `tenant_api_keys:550e8400...:anthropic` |
 | OpenAI API key | `tenant_api_keys:{tenant_id}:openai` | `tenant_api_keys:550e8400...:openai` |
-| OAuth token (future) | `tenant_service_connections:{connection_id}:{service}` | `tenant_service_connections:b2c3d4...:github` |
+| OAuth access token | `tenant_service_connections:{id}:{service}:access` | `tenant_service_connections:b2c3d4...:github:access` |
+| OAuth refresh token | `tenant_service_connections:{id}:{service}:refresh` | `tenant_service_connections:b2c3d4...:google:refresh` |
+| API key (Toggl, etc.) | `tenant_service_connections:{id}:{service}:key` | `tenant_service_connections:c3d4e5...:toggl:key` |
 
 **Rules:**
 1. Names are NOT unique in Vault (Vault does not enforce name uniqueness)
@@ -412,7 +427,12 @@ WHERE vs.id NOT IN (
     UNION ALL
     SELECT vault_secret_id FROM public.tenant_api_keys
     WHERE vault_secret_id IS NOT NULL
-    -- Add tenant_service_connections when implemented
+    UNION ALL
+    SELECT vault_secret_id FROM public.tenant_service_connections
+    WHERE vault_secret_id IS NOT NULL
+    UNION ALL
+    SELECT refresh_vault_secret_id FROM public.tenant_service_connections
+    WHERE refresh_vault_secret_id IS NOT NULL
 )
 AND vs.created_at < NOW() - INTERVAL '1 hour'  -- grace period for in-progress writes
 ORDER BY vs.created_at DESC;
