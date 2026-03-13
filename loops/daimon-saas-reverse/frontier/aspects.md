@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 46
-- **Pending**: 17
-- **Convergence**: 73%
+- **Analyzed**: 49
+- **Pending**: 14
+- **Convergence**: 78%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -67,9 +67,9 @@
 
 - [x] 5.1 — Stripe integration — products, prices, Checkout Sessions, webhooks, Customer Portal, subscription lifecycle
 - [x] 5.2 — Discord token handling — format validation, storage, error scenarios, what happens on invalid token
-- [ ] 5.3 — GitHub OAuth — scopes, redirect URI, token exchange, refresh, revocation
-- [ ] 5.4 — Google OAuth — scopes, redirect URI, token exchange, refresh, revocation
-- [ ] 5.5 — Linear OAuth — scopes, redirect URI, token exchange, refresh, revocation
+- [x] 5.3 — GitHub OAuth — scopes, redirect URI, token exchange, refresh, revocation
+- [x] 5.4 — Google OAuth — scopes, redirect URI, token exchange, refresh, revocation
+- [x] 5.5 — Linear OAuth — scopes, redirect URI, token exchange, refresh, revocation
 - [ ] 5.6 — API key services (Toggl, etc.) — validation endpoints, key format, error handling per service
 - [ ] 5.7 — Supabase Realtime contract — exact channel config, row filters, payload shapes, reconnection
 
