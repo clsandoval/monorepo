@@ -30,8 +30,162 @@ export default function LandingPage() {
   return (
     <PublicLayout>
       <HeroSection />
+      <HowItWorksSection />
       <FeaturesSection />
     </PublicLayout>
+  )
+}
+
+const HOW_IT_WORKS_STEPS = [
+  {
+    number: '01',
+    heading: 'Create your Discord bot',
+    body: 'Head to the Discord Developer Portal and create a new application. Enable the Message Content Intent. Copy your bot token and your server (guild) ID.',
+  },
+  {
+    number: '02',
+    heading: 'Paste your keys',
+    body: 'Sign up for Daimon, then paste your Discord bot token, guild ID, and Anthropic API key into the dashboard. That\'s it — Daimon stores them encrypted. Your keys never leave our database unencrypted.',
+  },
+  {
+    number: '03',
+    heading: 'Your bot goes live',
+    body: 'Within seconds, your bot connects to your server. Mention it in any channel and it picks the right tools automatically — no commands, no configuration. Claude handles the rest.',
+  },
+] as const
+
+function HowItWorksSection() {
+  return (
+    <section id="how-it-works" style={{ scrollMarginTop: '80px' }}>
+      <style>{`
+        .hiw-root {
+          background-color: #FFFFFF;
+          padding: 96px 0;
+        }
+        .hiw-container {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 32px;
+        }
+        .hiw-section-label {
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: rgba(12, 31, 64, 0.5);
+          margin-bottom: 12px;
+          font-family: var(--font-body);
+          text-align: center;
+        }
+        .hiw-heading {
+          font-size: clamp(28px, 3.5vw, 44px);
+          font-weight: 500;
+          color: #0C1F40;
+          text-align: center;
+          margin-bottom: 16px;
+        }
+        .hiw-divider {
+          width: 48px;
+          height: 3px;
+          background-color: #B4E7DD;
+          border-radius: 2px;
+          margin: 24px auto;
+        }
+        .hiw-subheadline {
+          font-size: 18px;
+          font-weight: 400;
+          color: rgba(12, 31, 64, 0.7);
+          line-height: 1.6;
+          max-width: 560px;
+          margin: 0 auto 64px;
+          text-align: center;
+          font-family: var(--font-body);
+        }
+        .hiw-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+          align-items: start;
+        }
+        .hiw-step-card {
+          position: relative;
+          overflow: hidden;
+          padding: 24px;
+          background-color: #FFFFFF;
+          border-radius: 0;
+        }
+        .hiw-step-stripe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 6px;
+          height: 100%;
+          background: linear-gradient(
+            to bottom,
+            #B4E7DD 30%,
+            #9FAAE2 35%,
+            #B4E7DD 60%
+          );
+        }
+        .hiw-step-content {
+          padding-left: 12px;
+        }
+        .hiw-step-number {
+          font-size: 80px;
+          font-weight: 700;
+          color: #B4E7DD;
+          line-height: 1;
+          display: block;
+        }
+        .hiw-step-heading {
+          font-size: 22px;
+          font-weight: 400;
+          color: #0C1F40;
+          margin-top: 16px;
+          margin-bottom: 12px;
+          font-family: var(--font-body);
+        }
+        .hiw-step-body {
+          font-size: 16px;
+          font-weight: 400;
+          color: rgba(12, 31, 64, 0.7);
+          line-height: 1.7;
+          font-family: var(--font-body);
+        }
+        @media (max-width: 900px) {
+          .hiw-grid { grid-template-columns: 1fr; }
+          .hiw-step-number { font-size: 60px; }
+        }
+      `}</style>
+
+      <div className="hiw-root">
+        <div className="hiw-container">
+          {/* Section header */}
+          <p className="hiw-section-label">Setup</p>
+          <h2 className="hiw-heading font-headline-semi-expanded">
+            Live in three steps.
+          </h2>
+          <div className="hiw-divider" />
+          <p className="hiw-subheadline">
+            No infrastructure to manage. No workflows to configure. Just connect your keys and go.
+          </p>
+
+          {/* Step grid */}
+          <div className="hiw-grid">
+            {HOW_IT_WORKS_STEPS.map((step) => (
+              <div key={step.number} className="hiw-step-card">
+                <div className="hiw-step-stripe" />
+                <div className="hiw-step-content">
+                  <span className="hiw-step-number font-headline-expanded">{step.number}</span>
+                  <h3 className="hiw-step-heading font-headline-semi-expanded">{step.heading}</h3>
+                  <p className="hiw-step-body">{step.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
