@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 61
-- **Current**: 62
+- **Completed**: 62
+- **Current**: 63
 
 ## Current Stage
 
-**Stage 063** — (next stage)
+**Stage 064** — (next stage)
 
 ## Stage Log
 
@@ -76,3 +76,4 @@
 | 060 | done | 2026-03-14T04:00:00Z | OnboardingChecklist component: 4-step vertical list (create bot/connect server/add API key/wait for online), completed/current/pending step icons, aqua progress bar, fade-out on all complete; visibility gated on tenant.status pending|configured; wired into dashboard page; build passes |
 | 061 | done | 2026-03-14T04:15:00Z | QuickStatsRow component: 3-card grid (Messages Today/Tool Uses Today/Uptime), metrics queries (tenant_messages + tenant_tool_calls today count), uptime derived from discord created_at; wired into dashboard page; build passes |
 | 062 | done | 2026-03-14T04:30:00Z | Integrations page at /dashboard/integrations: Server Component data fetch (tenant_service_connections), ServiceGrid + ServiceCard + StatusBadge client components, 4 services (GitHub/Google/Linear/Toggl), SERVICE_META constant, inline brand-color service logos, connection details section, error banner, footer actions (Connect/Reconnect/Disconnect stubs); responsive 2→1 col; build passes |
+| 063 | done | 2026-03-14T04:45:00Z | Discord connection flow: DiscordSection + DiscordConnectionModal (Add/Replace modes) + DiscordCardItem + DisconnectConfirm components; token regex /^[A-Za-z0-9_-]{24,}\.[A-Za-z0-9_-]{4,8}\.[A-Za-z0-9_-]{27}$/ + guild ID regex /^[0-9]{17,20}$/; show/hide token toggle; status badges (connected/connecting/pending/error/disconnected); integrations page fetches discord_connections in parallel; build passes |
