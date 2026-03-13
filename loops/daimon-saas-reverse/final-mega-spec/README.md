@@ -66,7 +66,7 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 
 | File | Description | Status |
 |------|-------------|--------|
-| api/routes.md | Every Next.js API route, method, request/response shape | Pending |
+| [api/routes.md](api/routes.md) | All 25 Next.js API routes with full request/response shapes: billing/checkout, billing/portal, billing/downgrade, billing/api-keys (POST+DELETE), discord-connections (POST+PATCH+DELETE), integrations/oauth/start, integrations/oauth/callback, integrations/api-key, integrations/[service] DELETE, settings/workspace (POST+DELETE), settings/account/display-name, settings/account/password, 8 admin routes, middleware spec, Supabase client factories (browser/server/service-role), shared auth guard patterns, error handling conventions, timeout pattern | ✅ Done (8.1.3) |
 | api/auth.md | Supabase Auth integration, session management | Pending |
 | [api/webhooks.md](api/webhooks.md) | Stripe webhook handler: route config, middleware exclusion, signature verification, idempotency (stripe_webhook_events INSERT ON CONFLICT DO NOTHING pattern), DB client, logging, retry behavior. Note: "v1 decision" against deduplication table superseded — table IS implemented. | ✅ Done (updated aspect 8.1.1) |
 | api/rate-limiting.md | Rate limits per endpoint, error responses | Pending |

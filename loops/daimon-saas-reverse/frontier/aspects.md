@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 74
-- **Analyzed**: 68
-- **Pending**: 6
-- **Convergence**: 92%
+- **Analyzed**: 69
+- **Pending**: 5
+- **Convergence**: 93%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -103,7 +103,7 @@
 
 - [x] 8.1.1 — Complete `database/schema.md`: add `tenant_subscriptions` table (all columns, indexes, RLS) + `stripe_webhook_events` table (idempotency store for Stripe webhooks)
 - [x] 8.1.2 — Add cross-reference notes to `database/schema.md` for existing bot tables (`messages`, `tool_calls`) read by dashboard; specify RLS extensions needed for website user reads
-- [ ] 8.1.3 — Write `api/routes.md` — consolidate ALL 18+ Next.js API routes (Discord CRUD, Stripe checkout/portal, OAuth start/callback, Toggl validate, admin routes) with full request/response shapes
+- [x] 8.1.3 — Write `api/routes.md` — consolidate ALL 18+ Next.js API routes (Discord CRUD, Stripe checkout/portal, OAuth start/callback, Toggl validate, admin routes) with full request/response shapes
 - [ ] 8.1.4 — Write `api/auth.md` — Supabase Auth session management: middleware spec, getUser vs getSession distinction, createClient patterns (browser/server/service-role/admin), JWT claims, session refresh, server action auth guard
 - [ ] 8.1.5 — Write `multi-tenant/adaptation-plan.md` — top-level overview of all bot changes (synthesize from connection-manager, tenant-scoping, byok-key-routing, tenant-isolation into a single change manifest)
 - [ ] 8.1.6 — Write `api/rate-limiting.md` — rate limits per endpoint (Supabase Auth built-in limits + custom limits for validate-token/OAuth/admin routes), error responses, retry-after headers
