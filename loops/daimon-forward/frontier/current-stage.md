@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 19
-- **Current**: 20
+- **Completed**: 20
+- **Current**: 21
 
 ## Current Stage
 
-**Stage 020** — (next stage)
+**Stage 021** — (next stage)
 
 ## Stage Log
 
@@ -33,3 +33,4 @@
 | 017 | done | 2026-03-13T16:00:00Z | AuthProvider (auth-context.tsx) with client-only Supabase init in useEffect; useAuth hook re-exporting useAuthContext; AuthProvider wired into root layout; build passes |
 | 018 | done | 2026-03-13T17:00:00Z | Login page at /login with email+password form, zod validation, password visibility toggle, server error banner, forgot password link, sign up link; Suspense wrapper for useSearchParams; build passes |
 | 019 | done | 2026-03-13T18:00:00Z | Signup page at /signup with fullName+email+password+confirmPassword+agreeTerms form; password strength bar (4 segments); show/hide toggles on both password fields; server error banner; createTenantForUser server action; build passes |
+| 020 | done | 2026-03-13T19:00:00Z | Reset password request page (/reset-password) with email form, success state (check email + 60s resend cooldown); confirm page (/reset-password/confirm) with token validation states (loading/valid/invalid), new password form with strength bar; build passes |
