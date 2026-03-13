@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { Code2, Clock, BookOpen, Calendar, FileText, Brain, MessageSquare, ImageIcon, Key } from 'lucide-react'
 import { PublicLayout } from '@/components/layout/public-layout'
+import { PricingSection } from '@/components/landing/pricing-section'
 
 export const metadata: Metadata = {
   title: 'Daimon — AI Discord Bot, Bring Your Own Keys',
@@ -32,6 +33,7 @@ export default function LandingPage() {
       <HeroSection />
       <HowItWorksSection />
       <FeaturesSection />
+      <PricingSection />
     </PublicLayout>
   )
 }
