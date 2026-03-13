@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 16
-- **Current**: 17
+- **Completed**: 17
+- **Current**: 18
 
 ## Current Stage
 
-**Stage 017** — (next stage)
+**Stage 018** — (next stage)
 
 ## Stage Log
 
@@ -30,3 +30,4 @@
 | 014 | done | 2026-03-13T13:00:00Z | seed.sql with 3 users, 3 tenants (free/starter/pro), discord connections (connected/disconnected/error), API keys (Anthropic+OpenAI), service connections (GitHub/Google/Linear/Toggl), subscriptions (active/trialing); plan cascade confirmed; db reset passes |
 | 015 | done | 2026-03-13T14:00:00Z | @supabase/supabase-js + @supabase/ssr installed; browser client (client.ts), server client with cookies (server.ts), generated database.types.ts, convenience re-exports in types.ts; build passes |
 | 016 | done | 2026-03-13T15:00:00Z | supabase auth configured: site_url=localhost:3000, redirect URLs include localhost:3000/**, minimum_password_length=8, password_requirements=lower_upper_letters_digits, enable_confirmations=true; db reset passes |
+| 017 | done | 2026-03-13T16:00:00Z | AuthProvider (auth-context.tsx) with client-only Supabase init in useEffect; useAuth hook re-exporting useAuthContext; AuthProvider wired into root layout; build passes |
