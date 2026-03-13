@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 78
-- **Current**: 78
+- **Completed**: 79
+- **Current**: 79
 
 ## Current Stage
 
-**Stage 079** — (next stage)
+**Stage 080** — (next stage)
 
 ## Stage Log
 
@@ -92,3 +92,4 @@
 | 076 | done | 2026-03-14T08:00:00Z | Admin panel layout + tenant list: /admin redirects to /admin/tenants; /admin/tenants Server Component with 4 stat cards (total/active/paying/suspended), FiltersBar client component (search debounced 300ms, plan/status/sort selects, reset button), tenant table (name+email, plan badge, status badge, discord column, relative created_at with ISO tooltip, View button), pagination (50/page, URL params); use-debounce installed; build passes |
 | 077 | done | 2026-03-14T08:15:00Z | Admin panel tenant detail: /admin/tenants/[id] Server Component fetches tenant+ownerEmail+discordConnections+apiKeys+serviceConnections+subscription+auditLog+memberCount in parallel; TenantDetailClient with header (badges, Impersonate/Suspend/Unsuspend/Override Plan actions), TenantInfo section, DiscordConnections table, ApiKeys table, ServiceConnections table, Subscription section, RecentAdminActions table, DangerZone (multi-step delete confirm); all modals with loading states; build passes |
 | 078 | done | 2026-03-14T08:30:00Z | Admin panel actions: Suspend/Unsuspend/Override Plan already wired (stage 077); Impersonate fixed (impersonation_url key + window.location.href redirect); redirectTo now includes ?impersonated=1&tenant_name=...&tenant_id=... params; ImpersonationBanner added to DashboardLayout (fixed top #FEF9C3 48px banner with End Impersonation button, Suspense wrapper for useSearchParams); build passes |
+| 079 | done | 2026-03-14T09:00:00Z | Admin panel audit log page at /admin/audit-log: Server Component fetches audit entries + tenant names + admin emails; AuditLogClient with filters (tenant_id input, action/admin dropdowns, date range), expandable rows showing full metadata JSON, pagination (100/page); loading.tsx with 10 skeleton rows; build passes |
