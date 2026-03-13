@@ -135,8 +135,8 @@ jobs:
               [ $FAILURES -ge 3 ] && echo "3 consecutive failures — stopping." && break
             fi
 
-            # Push any local commits
-            git add -A
+            # Push any local commits (exclude input/discord/ — downloaded at runtime, never committed)
+            git add -A --ignore-errors
             git diff --cached --quiet || git commit -m "loop(pymc-content-reverse): iteration $ITERATION"
             if git log origin/main..HEAD --oneline | grep -q .; then
               git pull --rebase origin main || true
