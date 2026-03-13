@@ -2,6 +2,32 @@
 
 ---
 
+## 2026-03-13 — website-courses
+
+**Aspect**: website-courses
+**Source**: https://www.pymc-labs.com/courses/ + /applied-bayesian-modeling/ + /bayesian-marketing-analytics/ + /applied-bayesian-regression-modeling/
+**Output**: analysis/website-scrape/courses.md
+
+### What was found
+
+- **3 live courses** + Custom Workshops offering
+- **ABM (Applied Bayesian Modeling)** — $1,499 (was $1,699); Jan–Feb 2026 cohort; instructors: Chris Fonnesbeck, Allen Downey, Vianey Leos Barajas; no prior Bayesian experience required
+- **BMA (Bayesian Marketing Analytics)** — $2,249 (was $2,499); Feb 2026 cohort; instructors: Timothy McWilliams (lead), Colt Allen, Ben Vincent, Carlos Trujillo; intermediate Python + marketing domain required
+- **ABR (Applied Bayesian Regression Modeling)** — $1,499 (was $1,699); Mar 2026 cohort; instructors: Juan Orduz, Ben Vincent, Nathaniel Forde; introductory Bayesian exposure required
+- **CI Course from sitemap** — No /causal-inference/ course page found (404); CI likely maps to ABR (contains causal inference module in Week 4)
+- **Shared format** — 4 weeks, 8×2h live sessions, recordings, private GitHub repo (8-week access post-course), Discord instructor support, LinkedIn certificate
+- **Pricing contact**: [email protected] for invoices, [email protected] for team/corporate rates
+- **Tools taught**: PyMC (ABM+ABR), Bambi (ABR), PyMC-Marketing (BMA), CausalPy (BMA+ABR), ArviZ (ABR)
+
+### Key observations
+
+- Full week-by-week curriculum captured for all 3 courses — sufficient for content/courses/ pages
+- Course instructors overlap with team roster (all are PyMC Labs employees or close collaborators)
+- Vianey Leos Barajas (ABM) is listed as U of Toronto professor — not on team page; may be guest instructor
+- Custom Workshops section has no separate URL — content for that section must come from Discord or Halah draft
+
+---
+
 ## 2026-03-13 — website-case-studies
 
 **Aspect**: website-case-studies
