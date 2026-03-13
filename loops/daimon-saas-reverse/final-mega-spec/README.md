@@ -80,11 +80,11 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 
 | File | Description | Status |
 |------|-------------|--------|
-| deployment/infrastructure.md | Vercel config, Fly.io bot, Supabase | Pending |
+| [deployment/infrastructure.md](deployment/infrastructure.md) | Vercel config (next.config.ts, middleware.ts, settings, Ignored Build Step, tier), Fly.io fly.toml + Dockerfile + deploy commands + health server, Supabase Pro setup (9 one-time steps), architecture diagram, cost estimates, Edge Function deployment | ✅ Done (6.1) |
 | deployment/ci-cd.md | Build, test, deploy pipeline | Pending |
 | deployment/monitoring.md | Alerts, health checks, error tracking | Pending |
-| deployment/environment.md | Every env var: name, description, example | Pending |
-| deployment/domains.md | DNS, SSL, routing | Pending |
+| [deployment/environment.md](deployment/environment.md) | All 17 website env vars (Supabase/Stripe/OAuth/Admin) + complete .env.local template + Vercel scoping table; all 10 bot env vars + fly.toml [env] block + fly secrets command; lib/env.ts Zod validation schema; 5 secret rotation procedures; Stripe CLI local webhook testing | ✅ Done (6.1) |
+| [deployment/domains.md](deployment/domains.md) | Domain table, DNS records (A/AAAA/CNAME), Cloudflare notes, SSL properties, 28-route URL→file map, 7 redirect rules, CORS policy, 5 cookies with scope/SameSite/TTL, Supabase Auth redirect URLs, preview deployment OAuth handling, email DNS (SPF/DKIM/DMARC) | ✅ Done (6.1) |
 
 ### ui/ — How It Looks
 
