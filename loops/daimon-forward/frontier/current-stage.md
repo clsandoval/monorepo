@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 80
-- **Current**: 80
+- **Completed**: 81
+- **Current**: 81
 
 ## Current Stage
 
-**Stage 081** — (next stage)
+**Stage 082** — (next stage)
 
 ## Stage Log
 
@@ -94,3 +94,4 @@
 | 078 | done | 2026-03-14T08:30:00Z | Admin panel actions: Suspend/Unsuspend/Override Plan already wired (stage 077); Impersonate fixed (impersonation_url key + window.location.href redirect); redirectTo now includes ?impersonated=1&tenant_name=...&tenant_id=... params; ImpersonationBanner added to DashboardLayout (fixed top #FEF9C3 48px banner with End Impersonation button, Suspense wrapper for useSearchParams); build passes |
 | 079 | done | 2026-03-14T09:00:00Z | Admin panel audit log page at /admin/audit-log: Server Component fetches audit entries + tenant names + admin emails; AuditLogClient with filters (tenant_id input, action/admin dropdowns, date range), expandable rows showing full metadata JSON, pagination (100/page); loading.tsx with 10 skeleton rows; build passes |
 | 080 | done | 2026-03-14T09:15:00Z | Docs layout + navigation: DocsLayout with fixed 260px sidebar (logo, 3 nav sections, active-state highlight), DocsTopbar (breadcrumb, Sign up free CTA), /docs redirect to /docs/quick-start; build passes |
+| 081 | done | 2026-03-14T09:30:00Z | Docs quick start guide: 8-step guide (create account, create Discord bot, get Anthropic key, add key to Daimon, connect Discord bot, verify live, talk to bot, connect integrations); callouts, step circles, code blocks, tables; static page; build passes |
