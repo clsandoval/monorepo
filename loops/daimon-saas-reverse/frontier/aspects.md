@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 49
-- **Analyzed**: 14
-- **Pending**: 35
-- **Convergence**: 29%
+- **Analyzed**: 15
+- **Pending**: 34
+- **Convergence**: 31%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -29,7 +29,7 @@
 
 ## Wave 3: Exhaustive Data Model (7 aspects)
 
-- [ ] 3.1 — Spec `tenants` + `tenant_members` tables — every column, type, constraint, default, unique constraints
+- [x] 3.1 — Spec `tenants` + `tenant_members` tables — every column, type, constraint, default, unique constraints
 - [ ] 3.2 — Spec `discord_connections` table — every column, connection lifecycle states, unique constraints
 - [ ] 3.3 — Spec `tenant_api_keys` table — encryption via Vault, validation logic, unique constraints
 - [ ] 3.4 — Spec `tenant_service_connections` table — OAuth vs API key variants, token refresh logic
