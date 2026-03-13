@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 24
-- Pending: 50
-- Convergence: 32%
+- Analyzed: 25
+- Pending: 49
+- Convergence: 34%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -40,7 +40,7 @@ These aspects will be **self-expanded** after discord-category-triage completes.
 - [x] discord-website — Read #website channel(s), extract previous website discussions, content decisions
 - [x] discord-marketing — Read marketing-related channels, extract brand messaging, positioning, campaigns
 - [x] discord-sales — Read sales/leads channels, extract client pain points, value props, objections
-- [ ] discord-case-studies-threads — Read client project channels (arc-brown, roche, hellofresh, appodeal, indigo, etc.), extract case study material per client
+- [x] discord-case-studies-threads — Read client project channels (arc-brown, roche, hellofresh, appodeal, indigo, etc.), extract case study material per client
 - [ ] discord-decision-ai — Read #decision-ai and related channels, extract product descriptions, features, roadmap
 - [ ] discord-simba — Read #simba channel, extract product descriptions, features, use cases
 - [ ] discord-courses-workshops — Read workshop/course channels (bayesian-mktg-analytics, applied-bayesian-regression, etc.), extract course descriptions, curriculum, outcomes
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] discord-case-studies-threads (2026-03-13) — 25 client channels mined: hellofresh-mmm, indigo, akili, appodeal, erisyon, gain-theory-mmm, roche, syngenta, supercell, alva-labs, swarovski, wegmans, nuernberger, fox-broadcasting-company, haleon, ll-bean, fabletics, real-madrid, dodgers, visualvest, live-nation, colgate-shelf-optim, colgate-cannibalization, takeda, hellofresh-se. Hard metrics: Swarovski MAE -20%, Roche 34K params/250K obs/~1hr, Wegmans MAPE 13-14%, Colgate GPU 10+hr/chain→6hr total. Client quotes: Fox "feels like part of their team", VisualVest "not so common in consulting to challenge". Summary table + cross-cutting tech themes documented. Output: analysis/discord-case-studies-extraction.md
 - [x] discord-sales (2026-03-13) — 4,858 messages mined across inbound-leads (3,815 msgs, 2020-08-27→2026-03-12) + sales channel (1,043 msgs, 2023-01-11→2026-03-09). Company revenue: $8M in 2025 (vs $5.5M in 2024), 20–40% growth targets. Bain engagement at $550–600k/month. Pricing documented: EAP $5k–$14k/month, project staffing $37k–$90k/month by level, workshops $10k/8hrs, MMM Agent pilots $10k–$50k/month. ICP confirmed: companies with in-house DS capability hitting limits; CMO/VP Data buyers; $10M+ marketing budgets. Competition = Excel/intuition (not ML). Tested pitches: Halah's Sept 2025 version (3 variants). 13 service descriptions. Objection handling: Meridian (red herring), Accenture ("back in 2 years to fix the mess"), SLA scope ($385/hr hands-on). 5 partners active: Bain (primary), Databricks, Fivetran, Serviceplan, BCG, Snowflake (applied). 70+ named prospects. Top 5 inbound questions documented. Lead sources ranked. Output: analysis/discord-sales-extraction.md
 - [x] discord-marketing (2026-03-13) — 5,956 messages mined (2020-08-19 → 2026-03-13). Full brand evolution: "Bespoke Bayesian modeling" (2020) → "The Bayesian Consultancy" (2022) → "Bayesian AI Consultancy" (2024) → 2026 tagline brainstorm (16 options including "Where rigor meets the frontier", "Science first. Always."). ICP: two verticals (marketing/ad-tech, pharma/biotech), buyer personas (VP Data, CMO, Lead DS). 10 differentiators documented. Full campaign copy: Sep 2025 newsletter, Fivetran announcement, Meridian benchmark LinkedIn posts, "Bayesian Booth" confession campaign. 8 verbatim social posts. Top-10 blog posts by sessions (from Dec 2025 analytics). 14-tab keyword research (Thomas). Meridian competitive intel: 2x–20x speed advantage, Luca's "no scenario I would recommend Meridian." Decision Hub launch (1,463 downloads). EAP launch copy. 18 pull-quote-ready testimonials. Output: analysis/discord-marketing-extraction.md
 - [x] discord-website (2026-03-13) — 3,477 messages mined (2020-08-25 → 2026-03-13). Full evolution of website copy: early 2020 placeholders → "Better models. Better decisions." (2021) → "Probabilistic AI Consultancy" (Jun 2025) → "Bayesian AI" pivot (Nov 2025, Thomas/Halah/Christian). Site stack: Lektor → Next.js+Strapi+Tailwind. Services page deprecated Oct 2025; EAP landing page vibe-coded Mar 2026. Client logo approvals documented (P&G/Schwab require prior written consent). Named testimonials: Iraklis Pappas (Colgate), Nathan Kafi (Haleon), Tim MacWilliams (Ovative). SEO engagement (Stephan Reiss), 15+ technical SEO issues catalogued. New website design requirements (Halah, Mar 2026) confirmed. 16 thread topics indexed. Output: analysis/discord-website-extraction.md
