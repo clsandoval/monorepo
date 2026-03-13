@@ -1,0 +1,129 @@
+CONVERGED
+=========
+
+Date: 2026-03-13
+Aspects analyzed: 93 / 93
+Convergence: 100%
+
+## Summary
+
+The Daimon SaaS reverse loop has fully converged. The final-mega-spec/ directory
+contains a complete, exhaustive product specification for building and shipping the
+Daimon self-serve SaaS platform.
+
+## Spec Coverage
+
+### Source Documentation (Wave 1 — 7 files)
+- existing-schema.md: Complete current Supabase schema (10 tables, 1 view, 1 bucket)
+- existing-auth.md: Full auth model, Vault decrypt, admin impersonation
+- existing-tools.md: 95 tools (89 direct + 6 remote Linear), every input model
+- existing-bot-architecture.md: 19 env vars, 4 client factories, 10-step startup, 11-step pipeline
+- existing-orm-models.md: 9 SQLAlchemy models, 9 repository modules, Pydantic schemas
+- brand-guidelines.md: 6 colors, type scale with clamp(), spacing, Tailwind config mapping
+- design-spec.md: Product decisions, tech stack, user flows, bot integration contract
+
+### Multi-Tenant Adaptation (Wave 2 — 7 files)
+- adaptation-plan.md: 14-section change manifest, 4 new files, 8 modified files, 3-phase migration
+- connection-manager.md: TenantConnectionManager, supervisor task, reconnect backoff
+- tenant-scoping.md: ToolContext partitioning, plan gating (FREE/STARTER/PRO), ToolRegistry per tenant
+- byok-key-routing.md: Vault storage, TenantConfig, Fly Machine env injection, hot-reload
+- realtime-contract.md: 4 channels, 8 event types, all JSON payload shapes
+- health-monitoring.md: 4-state machine, 30s heartbeat, 10-attempt backoff, FastAPI health server
+- tenant-isolation.md: 11-row isolation dimension table, failure isolation, 12-row boundary checklist
+
+### Database (Wave 3 — 9 files)
+- schema.md: 13 tables (7 existing bot tables + 6 new SaaS tables), 7 enum types, all columns/constraints
+- rls-policies.md: Exact CREATE POLICY SQL for all 10 tables, 5-operation policy matrix
+- triggers.md: 7 trigger functions (5 updated_at, sync_tenant_plan, suspend_on_unpaid)
+- migrations.md: 10 ordered SQL migrations (000–009), complete DDL, rollback procedure
+- indexes.md: 26 named indexes, query patterns, P0/P1/P2/P3 tiers
+- vault-encryption.md: 3 Vault functions, 3 SECURITY DEFINER wrappers, naming conventions
+- retention.md: Per-table retention policies, 6 pg_cron cleanup jobs, account deletion cascade
+- data-model-reconciliation.md: Coverage verification across frontend, API, integrations, bot
+- cross-reference-audit.md: All cross-references verified valid
+
+### Frontend (Wave 4 — 14 files)
+- landing-page.md: 9 sections, complete copy, blob CSS, pricing ($0/$9/$29), 12 FAQs
+- auth-pages.md: 5 routes, all fields/validation/errors, PKCE callback, 18 edge cases
+- dashboard.md: Status cards, metrics, onboarding checklist, data queries, all states
+- integrations-page.md: Service grid, OAuth flows, API key modals, disconnect flows
+- billing-page.md: Stripe Checkout, Customer Portal, API key management, all states
+- settings-page.md: Tenant config, Discord connection mgmt, danger zone, all states
+- admin-panel.md: Tenant list, detail view, impersonation, audit log, all states
+- docs-pages.md: Quick Start, Tool Reference (95 tools), FAQ, Billing guide — full content
+- phantom-pages.md: /changelog, /about, /blog, /blog/[slug], /legal/cookies — complete specs
+- component-library.md: Layout, form, feedback, data display, action components — all props/states
+- copy.md: Every user-facing string, labels, tooltips, errors, empty states, CTAs
+- validation-rules.md: Every form field, client-side validation, specific error messages
+- responsive-behavior.md: Every page at 375px/768px/1280px
+
+### API (Wave 5 — 4 files)
+- routes.md: 18+ Next.js API routes, all request/response shapes with field types
+- auth.md: Supabase Auth middleware, getUser/getSession distinction, 4 client patterns
+- webhooks.md: Stripe webhook handler, signature verification, all event processing
+- rate-limiting.md: Per-endpoint limits, error responses, retry-after headers
+
+### Integrations (Wave 5 — 5 files)
+- stripe.md: Products/prices, Checkout Sessions, webhooks, Customer Portal, lifecycle state machine
+- discord.md: Token format validation, guild ID validation, error scenarios, storage flow
+- oauth-services.md: GitHub/Google/Linear — scopes, redirect URIs, token exchange, refresh, revocation
+- api-key-services.md: Toggl — key format, validation endpoint, error handling
+- supabase-realtime.md: Channel config, row filters, payload shapes, reconnection
+
+### Deployment (Wave 6 — 5 files)
+- infrastructure.md: Vercel config, Fly.io bot deployment, Supabase setup, Resend SMTP
+- ci-cd.md: GitHub Actions workflow, local Supabase CI (supabase start), seed.sql, E2E job
+- monitoring.md: Health checks, error tracking, Langfuse integration, alert thresholds
+- environment.md: Every env var with name, description, example, required/optional
+- domains.md: DNS records, SSL, routing, Resend DKIM/SPF
+
+### UI (Wave 6 — 1 file + frontend aliases)
+- design-system.md: Tailwind config, 50+ CSS custom properties, font loading, blob keyframes
+- (component-specs.md → frontend/component-library.md)
+- (responsive.md → frontend/responsive-behavior.md)
+
+### Legal (Wave 6 — 3 files)
+- terms-of-service.md: Full publishable ToS text
+- privacy-policy.md: Full publishable Privacy Policy (Resend as email provider)
+- disclaimers.md: Platform disclaimers, liability limits, /legal/disclaimers page spec
+
+### Premium (Wave 5 — 3 files)
+- tiers.md: Free/Starter/Pro feature comparison
+- pricing.md: $0/$9/$29 pricing, billing cycles, trial logic
+- features-by-tier.md: Complete feature matrix with exact gating rules
+
+### SEO & Growth (Wave 6 — 3 files)
+- landing-page.md: Keywords, verbatim copy, OG image spec, Schema.org JSON-LD
+- seo-strategy.md: Meta tags for every page, OG images, schema.org markup per page
+- content-strategy.md: Blog topics, comparison pages, keyword targeting
+
+### QA (Wave 8 — 2 files)
+- screenshot-manifest.md: 260 numbered visual states across all routes (desktop + mobile)
+- playwright-verification.md: Test file structure, fixtures, mocks, 5 complete example tests
+
+## Convergence Checklist (16/16 PASS)
+
+[x] Every existing bot component relevant to multi-tenancy documented with exact file paths
+[x] Every new database table has every column with type, constraint, and default
+[x] Every RLS policy is written as exact SQL
+[x] Every API route has request/response shapes with field types
+[x] Every frontend page has every field specified with label, type, validation, error message
+[x] Every integration (Stripe, Discord, OAuth services) has complete flow documentation
+[x] Every premium tier has an exact feature list with gating rules
+[x] Deployment section has exact commands and env vars, not conceptual descriptions
+[x] All user-facing copy is written (not "add appropriate text here")
+[x] Brand guidelines fully extracted with every hex value, font spec, and component rule
+[x] Every cross-reference between files is valid
+[x] No file contains "TODO", "TBD", "placeholder", "etc.", or "similar to above"
+[x] Every page has loading states, empty states, and error states documented
+[x] Every form has complete validation with specific error messages
+[x] Responsive behavior specified for every page at every breakpoint
+[x] Accessibility requirements are concrete (specific ARIA labels)
+
+## Forward Loop Instructions
+
+A forward loop can build the entire Daimon SaaS platform by reading ONLY the
+final-mega-spec/ directory. No external research, no codebase exploration, no
+judgment calls required.
+
+Start with: final-mega-spec/README.md for the complete file index.
