@@ -1,0 +1,3 @@
+-- Seed data for daimon-saas local development
+-- This file is intentionally empty for now.
+-- Migration data will be added in later stages.
