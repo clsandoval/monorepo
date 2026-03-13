@@ -42,8 +42,8 @@ export default async function SettingsPage() {
   const tenantId = membership.tenant_id
   const userRole = membership.role as 'owner' | 'admin' | 'member'
 
-  // Fetch tenant metadata + discord connections in parallel
-  const [tenantResult, discordResult] = await Promise.all([
+  // Fetch tenant metadata, discord connections, and member count in parallel
+  const [tenantResult, discordResult, membersResult] = await Promise.all([
     supabase
       .from('tenants')
       .select('id, name, plan, created_at')
@@ -54,6 +54,10 @@ export default async function SettingsPage() {
       .select('id, guild_id, bot_username, bot_user_id, status, last_heartbeat, error_message, created_at')
       .eq('tenant_id', tenantId)
       .order('created_at', { ascending: true }),
+    supabase
+      .from('tenant_members')
+      .select('id', { count: 'exact', head: true })
+      .eq('tenant_id', tenantId),
   ])
 
   const { data: tenant, error: tenantError } = tenantResult
@@ -71,6 +75,7 @@ export default async function SettingsPage() {
   }
 
   const discordConnections = (discordResult.data ?? []) as DiscordConnection[]
+  const memberCount = membersResult.count ?? 1
 
   return (
     <DashboardLayout
@@ -117,6 +122,7 @@ export default async function SettingsPage() {
         discordConnections={discordConnections}
         userEmail={user.email ?? ''}
         userDisplayName={(user.user_metadata?.full_name as string) ?? ''}
+        memberCount={memberCount}
       />
     </DashboardLayout>
   )

@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 74
-- **Current**: 74
+- **Completed**: 75
+- **Current**: 75
 
 ## Current Stage
 
-**Stage 075** — (next stage)
+**Stage 076** — (next stage)
 
 ## Stage Log
 
@@ -88,3 +88,4 @@
 | 072 | done | 2026-03-14T07:00:00Z | Settings page layout + workspace tab: /dashboard/settings Server Component with tenant+membership fetch, SettingsContent client component with Tabs (Workspace/Discord/Account/Danger Zone), WorkspaceSection (name form with save/validation/toast, metadata with workspace ID copy button + created date); build passes |
 | 073 | done | 2026-03-14T07:15:00Z | Settings page Discord tab: discord_connections fetched in parallel on page load, SettingsDiscordSection wraps integrations DiscordSection in settings card chrome; SettingsContent updated with tenantId+discordConnections props; build passes |
 | 074 | done | 2026-03-14T07:30:00Z | Settings page Account tab: SettingsAccountSection with display name form (save + error/hint), read-only email display, section divider, change password form (current/new/confirm with show/hide toggles, inline validation, API calls); page passes userEmail+userDisplayName from auth session; build passes |
+| 075 | done | 2026-03-14T07:45:00Z | Settings page Danger Zone tab: red-bordered card (#FCA5A5), Delete Workspace row, confirmation modal with warning banner + consequences list (discord count + member count) + name-match input (case-sensitive, focus border #DC2626); on confirm calls DELETE /api/settings/workspace, signs out, redirects to /?deleted=1; page fetches memberCount via count query; build passes |

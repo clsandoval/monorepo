@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { Copy, Check } from 'lucide-react'
 import { SettingsDiscordSection } from '@/components/settings/discord-section'
 import { SettingsAccountSection } from '@/components/settings/account-section'
+import { SettingsDangerZoneSection } from '@/components/settings/danger-zone-section'
 import type { DiscordConnection } from '@/components/integrations/discord-connection-card'
 
 interface WorkspaceSectionProps {
@@ -394,9 +395,10 @@ interface SettingsContentProps {
   discordConnections: DiscordConnection[]
   userEmail: string
   userDisplayName: string
+  memberCount: number
 }
 
-export function SettingsContent({ tenant, tenantId, userRole, discordConnections, userEmail, userDisplayName }: SettingsContentProps) {
+export function SettingsContent({ tenant, tenantId, userRole, discordConnections, userEmail, userDisplayName, memberCount }: SettingsContentProps) {
   const [activeTab, setActiveTab] = React.useState('workspace')
 
   const tabs = [
@@ -430,19 +432,12 @@ export function SettingsContent({ tenant, tenantId, userRole, discordConnections
         <SettingsAccountSection userEmail={userEmail} userDisplayName={userDisplayName} />
       )}
 
-      {activeTab === 'danger' && (
-        <div
-          style={{
-            background: '#FFFFFF',
-            border: '1px solid #E5E7EB',
-            padding: '32px',
-            color: '#6B7280',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '14px',
-          }}
-        >
-          Danger zone settings coming in the next stage.
-        </div>
+      {activeTab === 'danger' && userRole === 'owner' && (
+        <SettingsDangerZoneSection
+          tenantName={tenant.name}
+          discordConnectionCount={discordConnections.length}
+          memberCount={memberCount}
+        />
       )}
     </div>
   )
