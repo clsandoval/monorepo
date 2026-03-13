@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 70
-- Analyzed: 9
-- Pending: 61
-- Convergence: 13%
+- Analyzed: 10
+- Pending: 60
+- Convergence: 14%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -20,7 +20,7 @@ Map all sources before extracting. These must complete before Wave 2.
 - [x] website-case-studies — WebFetch case studies page(s), save to analysis/website-scrape/case-studies.md
 - [x] website-courses — WebFetch courses/training page(s), save to analysis/website-scrape/courses.md
 - [x] website-blog-index — WebFetch the blog listing page, save to analysis/website-scrape/blog-index.md
-- [ ] website-resources — WebFetch any resources/open-source pages, save to analysis/website-scrape/resources.md
+- [x] website-resources — WebFetch any resources/open-source pages, save to analysis/website-scrape/resources.md
 - [ ] website-contact — WebFetch the contact page, save to analysis/website-scrape/contact.md
 - [ ] website-crawl-remaining — Check for any pages not yet scraped (sitemap.xml, nav links), scrape them
 - [ ] halah-draft-scrape — WebFetch https://loyal-growth-093412.framer.app/, save to analysis/halah-draft-scrape.md
@@ -104,6 +104,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] website-resources (2026-03-13) — No /resources/ page exists (404). "Resources" nav item links to /benchmark/LLMPriceIsRight — PyMC Labs' novel LLM benchmark inspired by "The Price Is Right". Captured full benchmark content: game mechanics, 3 evaluation metrics (Elo/MAPE/Overbid Rate), top-5 leaderboard for each metric (last updated Sep 25 2025), methodology (820 products, 50-100 showcases per model), business applications, caveats. Blog post: "LLMs and Price Reasoning" by Maxim Laletin + Allen Downey (Sep 17 2025). GitHub: pymc-labs/PriceIsRightLLM. Also captured model submission form details. OSS section: 3 projects on home page (PyMC Marketing, CausalPy, PyMC) — no dedicated OSS page. GAP: no industry benchmarks page, richer OSS descriptions needed from Discord. Output: analysis/website-scrape/resources.md
 - [x] website-blog-index (2026-03-13) — Blog listing page requires Playwright (JS-rendered). Found 69 visible posts across 2 pages (47 + 20 + 2 featured). 75 total in sitemap (6 unlisted). 11 category filters. Full post index with themes: MMM (~15), Synthetic Consumers (~8), Case Studies (~11), Sports Analytics (~5), Causal (~6), Tutorials (~12), Company/About (~4). Featured post slot shows title + date + excerpt. Grid cards show image + title only (no date/author). Output: analysis/website-scrape/blog-index.md + content/blog/template.md
 - [x] website-courses (2026-03-13) — Fetched /courses/ + 3 individual course pages. Found: ABM ($1,499, Jan cohort, instructors: Fonnesbeck/Downey/Leos Barajas), BMA ($2,249, Feb cohort, instructors: McWilliams/Allen/Vincent/Trujillo), ABR ($1,499, Mar cohort, instructors: Orduz/Vincent/Forde). No /causal-inference/ course page (CI in sitemap likely = ABR). Custom Workshops listed but no separate URL. Output: analysis/website-scrape/courses.md
 - [x] website-case-studies (2026-03-13) — No /case-studies/ page (404). Case studies live as blog posts. Discovered full sitemap (92 URLs via sitemap-0.xml). Extracted 10 confirmed case studies: Akili (cognitive modeling), Salk (survey data), HelloFresh×3 (MMM + A/B tests), Alva Labs (IRT), Indigo Ag (spatial GP), Everysk (PE index), Colgate-Palmolive×2 (synthetic consumers + causal sales). Clients without case study posts: Roche, Netflix, Deliveroo, SpaceX, Ovative Group, Haleon. Output: analysis/website-scrape/case-studies.md
