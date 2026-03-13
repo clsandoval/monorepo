@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 50
-- **Pending**: 13
-- **Convergence**: 79%
+- **Analyzed**: 51
+- **Pending**: 12
+- **Convergence**: 81%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -71,7 +71,7 @@
 - [x] 5.4 — Google OAuth — scopes, redirect URI, token exchange, refresh, revocation
 - [x] 5.5 — Linear OAuth — scopes, redirect URI, token exchange, refresh, revocation
 - [x] 5.6 — API key services (Toggl, etc.) — validation endpoints, key format, error handling per service
-- [ ] 5.7 — Supabase Realtime contract — exact channel config, row filters, payload shapes, reconnection
+- [x] 5.7 — Supabase Realtime contract — exact channel config, row filters, payload shapes, reconnection
 
 ## Wave 6: Deployment, Legal, SEO (7 aspects)
 
