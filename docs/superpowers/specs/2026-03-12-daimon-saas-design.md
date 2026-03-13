@@ -72,12 +72,14 @@ created_at: timestamptz
 updated_at: timestamptz
 ```
 
-### tenant_members (future: team access)
+### tenant_members
 ```
 tenant_id: uuid → tenants
 user_id: uuid → auth.users
 role: enum('owner', 'admin', 'member')
 ```
+
+At launch, a single `owner` row is created when the tenant is created. Team invite functionality is deferred, but the table exists from day one so RLS policies work correctly.
 
 ### discord_connections
 ```
@@ -127,20 +129,22 @@ status: enum('active', 'past_due', 'canceled')
 current_period_end: timestamptz
 ```
 
+**Plan source of truth:** `tenant_subscriptions.plan` is authoritative, updated by Stripe webhooks. `tenants.plan` is a denormalized cache updated by a Postgres trigger on `tenant_subscriptions` changes. The website reads from `tenants.plan` for display; the bot reads from `tenants.plan` for access decisions.
+
 ## User Flows
 
 ### Flow 1: Sign Up → Bot Live
 1. **Sign Up** — Email/password via Supabase Auth. Creates user + tenant (status: `pending`).
 2. **Paste Bot Token + Guild ID** — User creates a bot in Discord Developer Portal, copies token and guild ID, pastes into Daimon. Website validates token format, stores encrypted. Tenant status → `configured`.
 3. **Add Anthropic API Key** — Paste API key. Website validates with a test API call. Stored encrypted.
-4. **Bot Goes Live** — Bot picks up new tenant via Supabase Realtime subscription on `discord_connections`. Connects with token to specified guild. Writes heartbeat. Dashboard shows "Connected."
+4. **Bot Goes Live** — Bot picks up new tenant via Supabase Realtime subscription on `discord_connections`. Connects with token to specified guild. Writes heartbeat. Dashboard shows "Connected." Fallback: bot scans all `discord_connections` with status `disconnected` or `connecting` on startup and every 60 seconds, ensuring no tenant is missed if a Realtime event is dropped.
 
 ### Flow 2: Connect a Third-Party Service
-- **OAuth services** (GitHub, Google, Linear): Click "Connect" → OAuth redirect → callback stores tokens → service shows as connected. Automatic token refresh on expiry.
+- **OAuth services** (GitHub, Google, Linear): Click "Connect" → OAuth redirect to provider → provider redirects to `/api/integrations/[service]/callback` with auth code → Next.js API route exchanges code for tokens → stores encrypted in `tenant_service_connections` → redirects back to `/dashboard/integrations` with success state. OAuth `state` parameter stored in a short-lived Supabase row or encrypted cookie to prevent CSRF. Automatic token refresh on expiry via bot-side refresh logic.
 - **API key services** (Toggl, smaller APIs): Click "Connect" → modal with key input → paste API key → validation call → stored encrypted.
 
 ### Flow 3: Billing / Subscription
-- **Free tier:** No payment needed. Sign up + connect Discord + Anthropic key. Rate-limited or limited tool set.
+- **Free tier:** No payment needed. Sign up + connect Discord + Anthropic key. All tools available (user pays Anthropic directly). Platform fee waived. No rate limiting from Daimon — Anthropic's own rate limits apply.
 - **Paid tiers:** Upgrade via Stripe Checkout. Stripe webhook updates `tenant_subscriptions` in Supabase. Stripe Customer Portal for invoices/cancellation/payment method changes.
 
 ### Flow 4: Dashboard (Day-to-Day)
@@ -157,7 +161,7 @@ current_period_end: timestamptz
 | Route | Page | Description |
 |-------|------|-------------|
 | `/` | Landing | Hero with Tier 1 animated gradient blobs. Value prop, feature grid, pricing (Free/Starter/Pro), testimonials, CTA |
-| `/docs` | Docs / Getting Started | Step-by-step setup guide, tool reference, FAQ. Sidebar navigation |
+| `/docs` | Docs / Getting Started | Sidebar navigation. Sections: (1) Quick Start — create Discord bot, get token, sign up, paste token + guild ID, add Anthropic key; (2) Tool Reference — what each integration does, how to connect it; (3) FAQ — common issues (bot not connecting, invalid token, etc.); (4) Billing — how plans work, BYOK model explained |
 | `/login` | Login | Supabase Auth form on Tier 2 gradient background |
 | `/signup` | Sign Up | Supabase Auth form, redirects to dashboard |
 | `/reset-password` | Password Reset | Supabase Auth password reset flow |
@@ -175,7 +179,8 @@ current_period_end: timestamptz
 
 | Route | Page | Description |
 |-------|------|-------------|
-| `/admin` | Admin Panel | Tenant list with status/plan/heartbeat. Drill into tenant details. Suspend/unsuspend. Impersonation. System health |
+| `/admin` | Admin Panel | Tenant list with status/plan/heartbeat. Drill into tenant details. Suspend/unsuspend. System health |
+| `/admin/tenant/[id]` | Tenant Detail | View tenant's connections (masked tokens), service connections, subscription status. Suspend/unsuspend toggle. Impersonation: admin can view the tenant's dashboard as-if they were that user (read-only, via Supabase Auth admin API to generate a scoped session). All impersonation sessions logged to `admin_audit_log` with admin user ID, tenant ID, timestamp, and action taken |
 
 ## Bot Integration Contract
 
@@ -197,9 +202,9 @@ The website and bot communicate exclusively through Supabase. No direct API.
 ## Tenant Lifecycle
 
 ```
-pending → configured → active → suspended
-   ↑                      ↓         ↓
-   └──────────────────────┘    (unsuspend)
+pending → configured → active ⇄ suspended
+                         ↑          ↓
+                         └──────────┘ (unsuspend)
 ```
 
 1. **Pending** — User signed up. No token or API key yet.
@@ -209,11 +214,12 @@ pending → configured → active → suspended
 
 ## Security
 
-- **Encryption:** All tokens and API keys encrypted at rest using Supabase Vault or application-level AES-256-GCM. Never exposed in API responses — only masked previews (e.g., `sk-ant-...7x2Q`).
+- **Encryption:** All tokens and API keys encrypted at rest using Supabase Vault (pgcrypto + `vault.secrets`). Never exposed in API responses — only masked previews (e.g., `sk-ant-...7x2Q`). Bot decrypts via service role access to Vault.
 - **RLS:** All tenant tables use Row Level Security. Users can only access rows where they are a member of the tenant via `tenant_members`.
 - **Bot access:** Service role key, reads all tenants. Runs in trusted environment (Fly.io).
 - **Stripe webhooks:** Signature verification on all incoming webhooks.
 - **Token validation:** Discord bot tokens validated on paste (format check). Anthropic keys validated with test API call.
+- **Rate limiting:** Signup endpoint rate-limited (e.g., 5 per IP per hour). API key validation endpoints rate-limited (10 per tenant per minute). Enforced via Next.js middleware or Vercel Edge Config.
 
 ## Tech Stack
 
@@ -224,7 +230,7 @@ pending → configured → active → suspended
 | Auth | Supabase Auth (email/password) |
 | Database | Supabase (PostgreSQL 17, shared with bot) |
 | Payments | Stripe (Checkout + Customer Portal + Webhooks) |
-| Deployment | Vercel (website) or Fly.io (to colocate with bot) |
+| Deployment | Vercel (website) |
 | Bot runtime | Existing Decision Orchestrator on Fly.io |
 
 ## Deprecated Systems (Not In Scope)
