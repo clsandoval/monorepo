@@ -2,6 +2,27 @@
 
 ---
 
+## 2026-03-13 — discord-website
+
+**Aspect**: discord-website
+**Sources**: input/discord/channels/747896472896274453.jsonl (3,477 messages, 2020-08-25 → 2026-03-13) + users.jsonl
+**Output**: analysis/discord-website-extraction.md
+
+**Key findings:**
+- Tagline evolution: "Custom Bayesian models..." (2020) → "Better models. Better decisions." (2021) → "The Probabilistic AI Consultancy" (Christian, Jun 2025) → "Bayesian AI" pivot (Thomas, Nov 2025) — approved by Thomas/Halah/Christian
+- Site stack history: Lektor (2020) → Next.js + Strapi CMS + Tailwind CSS (current)
+- Services page deprecated Oct 2025; new EAP landing page being vibe-coded (Halah, Mar 2026)
+- New website design agency (Mar 2026): Halah documented full requirements — Next.js + Strapi + Tailwind confirmed, sitemap confirmed matching new nav
+- Client logo approvals: Bain, Colgate-Palmolive, Everysk, AppGrowth, Redhawk, Civiqs, Gain Theory, Alva Labs approved; P&G and Schwab require prior written consent
+- Named testimonials on site: Iraklis Pappas (Colgate), Nathan Kafi (Haleon), Tim MacWilliams (Ovative Group), plus SALK/Akili/Indigo/Roche
+- SEO engagement: Stephan Reiss conducted SEO audit; 15+ technical issues: /workshops → /courses redirect, sitemap exclusions, H-tag structure, image compression, rel=canonical, schema markup, Bing WMT, meta descriptions
+- Courses: /workshops renamed to /courses (Jan 2026); ABM ($1,499), BMA ($2,249), ABR ($1,499), Agentic AI DS ($1,900) — promo code discussed
+- Hub.decision.ai DNS setup; Synthetic Consumer Panel page; LLM Price Is Right benchmark
+- Brand: Canva certificate template, cover image generation for blog posts, color blindness testing
+- 16 notable threads indexed including "New-Website-Design" (20 msgs), "Adding Synthetic Consumers" (50 msgs), "Marimo notebooks on CMS" (43 msgs), "PyMC Labs - New website requirements" (18 msgs)
+
+---
+
 ## 2026-03-13 — discord-general
 
 **Aspect**: discord-general
