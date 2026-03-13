@@ -265,9 +265,9 @@ Daimon charges a small platform fee. You pay Anthropic directly for AI usage. No
 
 **Plan name display**: `Starter`
 **Badge**: `Most Popular`
-**Price display (monthly)**: `$12 / month`
-**Price display (annual)**: `$10 / month` (billed $120/yr)
-**Annual save badge**: `Save 20%`
+**Price display (monthly)**: `$9 / month`
+**Price display (annual)**: `$6.58 / month` (billed $79/yr)
+**Annual save badge**: `Save 27%`
 **Price description**: `A small platform fee. You pay Anthropic separately.`
 **CTA button**: `Start Starter Plan`
 
@@ -281,9 +281,9 @@ Daimon charges a small platform fee. You pay Anthropic directly for AI usage. No
 ### Plan: Pro
 
 **Plan name display**: `Pro`
-**Price display (monthly)**: `$39 / month`
-**Price display (annual)**: `$32 / month` (billed $384/yr)
-**Annual save badge**: `Save 18%`
+**Price display (monthly)**: `$29 / month`
+**Price display (annual)**: `$20.75 / month` (billed $249/yr)
+**Annual save badge**: `Save 28%`
 **Price description**: `For teams and power users.`
 **CTA button**: `Start Pro Plan`
 
@@ -668,7 +668,7 @@ Get your own AI-powered Discord bot with 50+ integrated tools. Bring your Anthro
 | Hero headline | "Your Discord server, powered by Claude." | "The AI operating system for Discord teams." |
 | Primary CTA | "Start Free — No Credit Card" | "Get Started in 2 Minutes" |
 | Social proof line | "Free tier available · Your keys, your costs · Cancel anytime" | "Join [N] Discord servers already using Daimon" |
-| Pricing CTA | "Start Starter Plan" | "Upgrade to Starter — $12/mo" |
+| Pricing CTA | "Start Starter Plan" | "Upgrade to Starter — $9/mo" |
 
 ---
 

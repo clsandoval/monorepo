@@ -124,7 +124,7 @@ These three tables are documented in `database/schema.md` with RLS notes but the
 
 ### 4.5 — Premium Tiers Alignment — COMPLETE
 
-`premium/tiers.md` and `premium/features-by-tier.md` use consistent tier names (Free / Starter / Pro), price points ($0 / $12 / $39), and feature lists. No discrepancies.
+`premium/tiers.md` and `premium/features-by-tier.md` use consistent tier names (Free / Starter / Pro), price points ($0 / $9 / $29), and feature lists. No discrepancies. Note: `premium/pricing.md` is the canonical source of truth for pricing ($9/mo Starter, $29/mo Pro; $79/yr Starter, $249/yr Pro).
 
 ---
 

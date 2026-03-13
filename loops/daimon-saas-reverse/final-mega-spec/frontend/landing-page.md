@@ -565,8 +565,8 @@ Free features:
 | Card padding | 32px |
 | "Most Popular" badge | Solid aqua tag at top-right of card: Inter 12px weight 600, `4px 14px` padding, border-radius 0 |
 | Plan name | "Starter" — Inter, 14px, weight 600, uppercase, letter-spacing 0.08em, white at 50% |
-| Price (monthly) | "$12" — Archivo Expanded wdth:125, 48px, weight 700, white |
-| Annual price | "$10" (billed $120/yr) |
+| Price (monthly) | "$9" — Archivo Expanded wdth:125, 48px, weight 700, white |
+| Annual price | "$6.58" (billed $79/yr) |
 | Price subtext | "/ month" — Inter, 16px, white at 50% |
 | Price description | "A small platform fee. You pay Anthropic separately." |
 | Divider | `1px solid rgba(255,255,255,0.1)`, margin: 24px 0 |
@@ -590,8 +590,8 @@ Starter features:
 | Card border-radius | 0 |
 | Card padding | 32px |
 | Plan name | "Pro" — Inter, 14px, weight 600, uppercase, letter-spacing 0.08em, navy at 50% |
-| Price (monthly) | "$39" — Archivo Expanded wdth:125, 48px, weight 700, navy |
-| Annual price | "$32" (billed $384/yr) |
+| Price (monthly) | "$29" — Archivo Expanded wdth:125, 48px, weight 700, navy |
+| Annual price | "$20.75" (billed $249/yr) |
 | Price subtext | "/ month" — Inter, 16px, navy at 50% |
 | Price description | "For teams and power users." |
 | Divider | `1px solid rgba(12,31,64,0.08)` |

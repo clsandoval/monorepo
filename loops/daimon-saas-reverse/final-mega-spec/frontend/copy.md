@@ -241,18 +241,18 @@ Sidebar footer tooltip:
 | pricing.free.pricePeriod | "/month" |
 | pricing.free.description | "For individuals evaluating Daimon." |
 | pricing.free.cta | "Get started free" |
-| pricing.free.features | ["1 Discord server", "50 messages/day", "Core tools (Discord, GitHub, Linear)", "Community support"] |
+| pricing.free.features | ["1 Discord connection", "1 guild (server)", "All 50+ tools available", "Bring your own Anthropic API key", "Bring your own service credentials", "Community support (docs only)"] |
 | pricing.starter.name | "Starter" |
-| pricing.starter.price.monthly | "$19" |
-| pricing.starter.price.annual | "$15" |
+| pricing.starter.price.monthly | "$9" |
+| pricing.starter.price.annual | "$6.58" |
 | pricing.starter.pricePeriod | "/month" |
-| pricing.starter.description | "For small teams running a live bot." |
-| pricing.starter.cta | "Start with Starter" |
+| pricing.starter.description | "A small platform fee. You pay Anthropic separately." |
+| pricing.starter.cta | "Start Starter Plan" |
 | pricing.starter.badge | "Most popular" |
-| pricing.starter.features | ["1 Discord server", "500 messages/day", "All tools (50+)", "Toggl + Google Analytics", "Email support", "30-day message history"] |
+| pricing.starter.features | ["Everything in Free", "Priority email support (48hr response)", "Dashboard analytics (bot activity overview)", "Connection health monitoring", "30-day audit log"] |
 | pricing.pro.name | "Pro" |
-| pricing.pro.price.monthly | "$49" |
-| pricing.pro.price.annual | "$39" |
+| pricing.pro.price.monthly | "$29" |
+| pricing.pro.price.annual | "$20.75" |
 | pricing.pro.pricePeriod | "/month" |
 | pricing.pro.description | "For teams that rely on the bot daily." |
 | pricing.pro.cta | "Go Pro" |
@@ -1356,7 +1356,7 @@ All tooltips appear on hover with a 200ms delay. They use `title` attribute or a
 | Copy bot username button | "Copy to clipboard" |
 | Copy guild ID button | "Copy to clipboard" |
 | API key hint display | "Only the last 4 characters are shown for security" |
-| Plan badge | Current plan description (e.g., "Starter — 500 messages/day") |
+| Plan badge | Current plan description (e.g., "Starter — billed $9/mo") |
 | Stale heartbeat indicator | "Last heartbeat was {n} minutes ago — bot may be unresponsive" |
 | Admin impersonate button | "View Daimon as this tenant" |
 | Disabled action buttons (member role) | "Only the workspace owner can perform this action." |
