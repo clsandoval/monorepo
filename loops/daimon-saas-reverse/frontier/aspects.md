@@ -2,10 +2,10 @@
 
 ## Statistics
 
-- **Total aspects**: 77
-- **Analyzed**: 75
-- **Pending**: 2
-- **Convergence**: 97%
+- **Total aspects**: 81
+- **Analyzed**: 76
+- **Pending**: 5
+- **Convergence**: 94%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -96,8 +96,15 @@
 ## Wave 8: Synthesis & Gap Audit (3 aspects)
 
 - [x] 8.1 — Data model reconciliation — verify schema covers all frontend queries, API routes, integration storage, bot reads
-- [ ] 8.2 — Cross-reference audit — validate all links between spec files, all table references, all route references
+- [x] 8.2 — Cross-reference audit — validate all links between spec files, all table references, all route references
 - [ ] 8.3 — Final gap analysis — read every file, check for TODOs/TBDs/placeholders/incomplete sections, add new aspects if gaps found
+
+## Wave 8 Cross-Reference Remediation (4 aspects — discovered during 8.2 audit)
+
+- [ ] 8.2.1 — Add missing RLS policies for stripe_webhook_events, tenant_messages, tenant_tool_calls to database/rls-policies.md (exact CREATE POLICY SQL)
+- [ ] 8.2.2 — Add missing migrations 007 (stripe_webhook_events), 008 (tenant_messages), 009 (tenant_tool_calls + cron jobs) to database/migrations.md; resolve migration 006 conflict between schema.md and migrations.md
+- [ ] 8.2.3 — Update multi-tenant/adaptation-plan.md: add tenant_messages and tenant_tool_calls to new-tables section; add fire-and-forget INSERT notes to modified-files section (services/execution.py + message handler)
+- [ ] 8.2.4 — Create missing required spec files: legal/disclaimers.md (platform disclaimers + liability limits text), ui/design-system.md (Tailwind config reference + design tokens), seo-and-growth/landing-page.md (hero copy + value prop + social proof + CTAs)
 
 ## Wave 8 Gap Remediation (9 aspects — discovered during reconciliation)
 
