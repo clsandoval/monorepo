@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 12
-- **Current**: 13
+- **Completed**: 13
+- **Current**: 14
 
 ## Current Stage
 
-**Stage 013** — (next stage)
+**Stage 014** — (next stage)
 
 ## Stage Log
 
@@ -26,3 +26,4 @@
 | 010 | done | 2026-03-13T09:00:00Z | tenant_subscriptions table, 3 indexes, updated_at trigger, plan cascade trigger, SELECT-only RLS (INSERT/UPDATE/DELETE blocked intentionally) |
 | 011 | done | 2026-03-13T10:00:00Z | stripe_webhook_events table, 2 indexes, RLS enabled (no policies — service role only), db reset passes |
 | 012 | done | 2026-03-13T11:00:00Z | tenant_messages table, 1 composite index, SELECT-only RLS (INSERT/UPDATE/DELETE blocked — bot uses service role), db reset passes |
+| 013 | done | 2026-03-13T12:00:00Z | tenant_tool_calls table, 1 composite index, CHECK constraint on duration_ms, SELECT-only RLS (INSERT/UPDATE/DELETE blocked — bot uses service role), pg_cron 90-day retention job (guarded), db reset passes |
