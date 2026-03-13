@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 49
-- **Analyzed**: 20
-- **Pending**: 29
-- **Convergence**: 41%
+- **Analyzed**: 21
+- **Pending**: 28
+- **Convergence**: 43%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -35,7 +35,7 @@
 - [x] 3.4 — Spec `tenant_service_connections` table — OAuth vs API key variants, token refresh logic
 - [x] 3.5 — Spec `tenant_subscriptions` table — Stripe sync, plan cascade trigger SQL
 - [x] 3.6 — Write complete RLS policies — exact SQL for every new table
-- [ ] 3.7 — Write migration plan — ordered SQL migrations from current schema to multi-tenant
+- [x] 3.7 — Write migration plan — ordered SQL migrations from current schema to multi-tenant
 
 ## Wave 4: Website Specification (12 aspects)
 
