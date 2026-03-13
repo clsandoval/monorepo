@@ -66,8 +66,10 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      body, .section, .nav-bar, * {
-        transition: none !important;
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
 
@@ -2714,10 +2716,16 @@
       color: var(--text-muted);
     }
 
+    .erp-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
     .erp-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 13px;
+      min-width: 480px;
     }
 
     .erp-table th {
@@ -4625,7 +4633,7 @@
 
                   <!-- Recent Transactions Table -->
                   <div style="font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;">Recent Transactions</div>
-                  <table class="erp-table">
+                  <div class="erp-table-wrap"><table class="erp-table">
                     <thead>
                       <tr>
                         <th>Member</th>
@@ -4666,7 +4674,7 @@
                         <td style="color:var(--error);">Refunded</td>
                       </tr>
                     </tbody>
-                  </table>
+                  </table></div><!-- /erp-table-wrap -->
                 </div>
               </div>
 
