@@ -2,6 +2,31 @@
 
 ---
 
+## 2026-03-13 — discord-simba
+
+**Aspect**: discord-simba
+**Sources**:
+- `🦁│simba` channel (ID: 1192432653916459008) — 292 msgs, 2024-01-04 → 2025-12-08
+- `Simba integration into website` thread (4 msgs, empty)
+- `Simba Deployment` thread (20 msgs, empty in archive)
+**Output**: analysis/discord-simba-extraction.md + content/solutions/simba.md
+
+**Key findings:**
+
+- **Name origin**: Simba = "Simply Bayesian SimBa MMM" — Niall Oulton's product, started independently then brought into PyMC Labs
+- **Product type**: SaaS web platform for enterprise MMM — upload data → configure → fit → compare → optimize → scenario plan
+- **Core differentiator vs Decision AI**: Simba = managed services clients; MMM Agent = self-service + coaching clients
+- **Features documented**: data upload, industry benchmark priors, model management, model comparison (MAE/LOO), budget optimization with risk controls, ROAs over time, holdout validation, lift test integration, full-funnel model connections, scenario planner
+- **Pricing (Sep 2025)**: $2,000/month base + $500/additional user; free trial (shared instance); add-on to SLA ~$2,500–$3,000/month
+- **Clients**: Coca-Cola (free trial Mar 2024), Cabify (free trial Apr 2024), TechStyle, Brilliant Earth (first paying sub Aug 2024, cancelled Oct 2025), TSB Bank, Nomad Foods demo
+- **Domain**: simba-mmm.com (live Sep 2025); also referenced 1749.io for docs
+- **Tech**: Lovable + v0 by Vercel for UI; Docker deployment; private GitHub repo (not open source)
+- **Planned enhancements**: pymc-marketing engine integration, CausalPy lift test integration, EAP-style chatbot
+- **Website integration**: Planned Oct 2025 but status unknown
+- **Gaps**: simba-mmm.com live content not scraped; 2026 subscriber count unknown; no finalized marketing copy
+
+---
+
 ## 2026-03-13 — discord-sales
 
 **Aspect**: discord-sales

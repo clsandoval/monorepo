@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 26
-- Pending: 48
-- Convergence: 35%
+- Analyzed: 27
+- Pending: 47
+- Convergence: 36%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -42,7 +42,7 @@ These aspects will be **self-expanded** after discord-category-triage completes.
 - [x] discord-sales — Read sales/leads channels, extract client pain points, value props, objections
 - [x] discord-case-studies-threads — Read client project channels (arc-brown, roche, hellofresh, appodeal, indigo, etc.), extract case study material per client
 - [x] discord-decision-ai — Read #decision-ai and related channels, extract product descriptions, features, roadmap
-- [ ] discord-simba — Read #simba channel, extract product descriptions, features, use cases
+- [x] discord-simba — Read #simba channel, extract product descriptions, features, use cases
 - [ ] discord-courses-workshops — Read workshop/course channels (bayesian-mktg-analytics, applied-bayesian-regression, etc.), extract course descriptions, curriculum, outcomes
 - [ ] discord-partnerships — Read partnership-related channels (databricks-partnership, etc.), extract partner info
 - [ ] discord-pymc-ecosystem — Read #pymc-ecosystem, #causalpy, #pymc-marketing, extract OSS project descriptions
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] discord-simba (2026-03-13) — 292 msgs mined from #simba (2024-01-04→2025-12-08). Simba = "Simply Bayesian SimBa MMM" — Niall Oulton's SaaS MMM platform. Full feature list: data upload → benchmark priors → model fitting → model management/comparison → budget optimization (posterior uncertainty) → ROAs over time → holdout/lift tests → scenario planner → full-funnel connections. Differentiation: Simba = managed services clients; Decision AI = self-service + coaching. Pricing: $2k/month base + $500/user (Sep 2025). Clients: Coca-Cola trial, Brilliant Earth (first paid, cancelled Oct 2025), Cabify, TechStyle, Nomad Foods. Domain: simba-mmm.com. Planned: pymc-marketing engine swap, CausalPy lift integration, EAP chatbot. Output: analysis/discord-simba-extraction.md + content/solutions/simba.md
 - [x] discord-decision-ai (2026-03-13) — 3 channels mined: #decision-ai (1,508 msgs), #decision-web-app-dev (1,128 msgs), #decision-ai-research (278 msgs). Full product ecosystem documented: naming evolution (MMM Agent → Decision.AI), 3-layer architecture (Decision Packs + Decision Hub + Decision Orchestrator). Decision Hub launched Feb 26 2026 (1,463 downloads in first week). 17 client/prospect names with status. Full feature list: MMM agent (data handling → modeling → budget optimization), CLV agent (alpha Oct 2025). Pricing: $8k/mo EAP, $50k/mo Databricks quote, $50–100k/yr SaaS target. Tech stack: GCP/K8s/LangGraph/E2B/PostgreSQL/MLflow/PostHog. 21-person team table. 10 verbatim pull quotes. Trust framework documented. Output: analysis/discord-decision-ai-extraction.md + content/solutions/decision-ai.md
 - [x] discord-case-studies-threads (2026-03-13) — 25 client channels mined: hellofresh-mmm, indigo, akili, appodeal, erisyon, gain-theory-mmm, roche, syngenta, supercell, alva-labs, swarovski, wegmans, nuernberger, fox-broadcasting-company, haleon, ll-bean, fabletics, real-madrid, dodgers, visualvest, live-nation, colgate-shelf-optim, colgate-cannibalization, takeda, hellofresh-se. Hard metrics: Swarovski MAE -20%, Roche 34K params/250K obs/~1hr, Wegmans MAPE 13-14%, Colgate GPU 10+hr/chain→6hr total. Client quotes: Fox "feels like part of their team", VisualVest "not so common in consulting to challenge". Summary table + cross-cutting tech themes documented. Output: analysis/discord-case-studies-extraction.md
 - [x] discord-sales (2026-03-13) — 4,858 messages mined across inbound-leads (3,815 msgs, 2020-08-27→2026-03-12) + sales channel (1,043 msgs, 2023-01-11→2026-03-09). Company revenue: $8M in 2025 (vs $5.5M in 2024), 20–40% growth targets. Bain engagement at $550–600k/month. Pricing documented: EAP $5k–$14k/month, project staffing $37k–$90k/month by level, workshops $10k/8hrs, MMM Agent pilots $10k–$50k/month. ICP confirmed: companies with in-house DS capability hitting limits; CMO/VP Data buyers; $10M+ marketing budgets. Competition = Excel/intuition (not ML). Tested pitches: Halah's Sept 2025 version (3 variants). 13 service descriptions. Objection handling: Meridian (red herring), Accenture ("back in 2 years to fix the mess"), SLA scope ($385/hr hands-on). 5 partners active: Bain (primary), Databricks, Fivetran, Serviceplan, BCG, Snowflake (applied). 70+ named prospects. Top 5 inbound questions documented. Lead sources ranked. Output: analysis/discord-sales-extraction.md
