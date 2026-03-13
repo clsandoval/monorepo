@@ -3,15 +3,15 @@
 ## Statistics
 
 - **Total aspects**: 49
-- **Analyzed**: 2
-- **Pending**: 47
-- **Convergence**: 4%
+- **Analyzed**: 3
+- **Pending**: 46
+- **Convergence**: 6%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
 - [x] 1.1 — Extract complete Supabase schema from all migrations in `supabase/migrations/`
 - [x] 1.2 — Extract full MCP tool catalog from `src_v2/mcp/catalog.py` + `src_v2/mcp/tools/` (every tool, input model, output type)
-- [ ] 1.3 — Extract current auth model from `src_v2/core/auth/` + `src_v2/mcp/auth.py`
+- [x] 1.3 — Extract current auth model from `src_v2/core/auth/` + `src_v2/mcp/auth.py`
 - [ ] 1.4 — Extract bootstrap config and client factories from `src_v2/bootstrap/`
 - [ ] 1.5 — Extract bot startup, Discord connection flow, and message handler pipeline from `src_v2/entrypoints/discord/`
 - [ ] 1.6 — Extract ORM models and repository patterns from `src_v2/db/models/` + `src_v2/db/repositories/`
