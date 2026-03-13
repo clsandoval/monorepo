@@ -33,7 +33,7 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 | File | Description | Status |
 |------|-------------|--------|
 | [database/schema.md](database/schema.md) | 7 PostgreSQL enum types + 2 new (service_auth_type, service_connection_status); `tenants` table (8 cols, 4 indexes, RLS); `tenant_members` table (5 cols, composite PK, 3 FKs, 4 RLS policies); `discord_connections` table (10 cols, lifecycle state machine, RLS); `tenant_api_keys` table (9 cols, UNIQUE per provider, Vault, RLS, bot startup JOIN); `tenant_service_connections` table (14 cols, UNIQUE(tenant_id,service), CHECK service↔auth_type, 4 services with per-service metadata schemas, Google token refresh logic, Realtime events, bot startup LEFT JOINs, 3 indexes, 4 RLS policies, Vault patterns for access/refresh/key secrets) | Partial (3.1–3.4 done; 3.5 pending) |
-| database/rls-policies.md | Exact SQL for every RLS policy | Pending |
+| [database/rls-policies.md](database/rls-policies.md) | Exact SQL for all RLS policies on 7 tables: tenants (4), tenant_members (4), discord_connections (4), tenant_api_keys (1 SELECT-only, writes blocked), tenant_service_connections (4), tenant_subscriptions (1 SELECT-only, writes blocked), admin_audit_log (no policies — default deny). RLS architecture, membership subquery pattern, service role bypass inventory, complete `ENABLE ROW LEVEL SECURITY` + `CREATE POLICY` SQL blocks. | ✅ Done |
 | database/triggers.md | Plan sync, status cascades | Pending |
 | database/migrations.md | Ordered migrations from single to multi-tenant | Pending |
 | database/indexes.md | Query patterns and required indexes | Pending |
