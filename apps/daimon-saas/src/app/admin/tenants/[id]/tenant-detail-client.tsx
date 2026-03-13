@@ -379,9 +379,10 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
     try {
       const res = await fetch(`/api/admin/tenants/${tenant.id}/impersonate`, { method: 'POST' })
       if (!res.ok) throw new Error((await res.json()).error ?? 'Failed')
-      const { redirectUrl } = await res.json()
+      const { impersonation_url } = await res.json()
       setImpersonateOpen(false)
-      router.push(redirectUrl ?? '/dashboard')
+      // Navigate to Supabase magic link (external URL) — replaces the current session
+      window.location.href = impersonation_url ?? '/dashboard'
     } catch (e) {
       toast.error(e instanceof Error ? e.message : 'Failed to start impersonation.')
       setImpersonatePending(false)

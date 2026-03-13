@@ -20,7 +20,7 @@ export async function POST(
   // Look up tenant
   const { data: tenant } = await supabaseAdmin
     .from('tenants')
-    .select('id')
+    .select('id, name')
     .eq('id', tenantId)
     .single();
 
@@ -57,7 +57,7 @@ export async function POST(
     type: 'magiclink',
     email: ownerEmail,
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard`,
+      redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?impersonated=1&tenant_name=${encodeURIComponent(tenant.name)}&tenant_id=${tenantId}`,
       data: { impersonated_by: user.id },
     },
   });
