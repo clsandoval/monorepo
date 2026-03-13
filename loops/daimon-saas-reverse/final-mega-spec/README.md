@@ -116,5 +116,5 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 | File | Description | Status |
 |------|-------------|--------|
 | seo-and-growth/landing-page.md | Hero copy, value prop, social proof, CTAs | Pending |
-| seo-and-growth/seo-strategy.md | Keywords, meta descriptions, schema markup | Pending |
+| [seo-and-growth/seo-strategy.md](seo-and-growth/seo-strategy.md) | Global SEO config (metadata, robots, icons, manifest); per-page metadata for all 16 routes (title/description/keywords/OG/twitter/robots); OG image inventory (8 images), design specs for each image (dimensions, layers, exact colors); @vercel/og dynamic route; robots.txt; sitemap.ts; site.webmanifest; favicon/icon asset inventory; canonical URL rules; structured data injection pattern; Schema.org markup for all indexable pages (WebSite, Organization, SoftwareApplication with full offers, FAQPage ×2, HowTo, TechArticle, BreadcrumbList per docs page) | ✅ Done |
 | seo-and-growth/content-strategy.md | Blog topics, comparison pages | Pending |
