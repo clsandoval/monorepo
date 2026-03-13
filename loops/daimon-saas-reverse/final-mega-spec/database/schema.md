@@ -1359,7 +1359,759 @@ The bot subscribes to changes on `tenant_service_connections` via Realtime:
 
 ---
 
-*Next tables to spec: `tenant_subscriptions` (aspect 3.5)*
+---
+
+## Table: `tenant_subscriptions`
+
+**Purpose:** One row per tenant. Mirrors the tenant's Stripe subscription state, updated exclusively by the Stripe webhook handler in the Next.js API. The plan field in this table is the authoritative billing source of truth. `tenants.plan` is a denormalized cache that is kept in sync by the `sync_tenant_plan` PostgreSQL trigger on this table.
+
+**Created by migration:** `20260400000005_create_tenant_subscriptions.sql` (to be created)
+
+**Key invariants:**
+- Every tenant has exactly one row in this table (created at sign-up, before any Stripe interaction)
+- Free-tier tenants have `stripe_subscription_id = NULL` until they first start a paid subscription
+- `plan = 'free'` is valid regardless of whether any Stripe subscription exists
+- When Stripe subscription is canceled, plan reverts to `'free'` — never NULL
+- `tenants.plan` is always equal to the `plan` column here (maintained by trigger)
+
+```sql
+CREATE TABLE public.tenant_subscriptions (
+    id                          UUID                    NOT NULL DEFAULT gen_random_uuid(),
+    tenant_id                   UUID                    NOT NULL,
+
+    -- Stripe identifiers
+    stripe_customer_id          TEXT                    NULL,
+    stripe_subscription_id      TEXT                    NULL,
+    stripe_price_id             TEXT                    NULL,
+
+    -- Billing state
+    plan                        public.tenant_plan      NOT NULL DEFAULT 'free',
+    status                      public.subscription_status NOT NULL DEFAULT 'active',
+    cancel_at_period_end        BOOLEAN                 NOT NULL DEFAULT FALSE,
+
+    -- Period timestamps
+    current_period_start        TIMESTAMPTZ             NULL,
+    current_period_end          TIMESTAMPTZ             NULL,
+    canceled_at                 TIMESTAMPTZ             NULL,
+    trial_start                 TIMESTAMPTZ             NULL,
+    trial_end                   TIMESTAMPTZ             NULL,
+
+    -- Audit
+    created_at                  TIMESTAMPTZ             NOT NULL DEFAULT NOW(),
+    updated_at                  TIMESTAMPTZ             NOT NULL DEFAULT NOW(),
+
+    -- Constraints
+    CONSTRAINT tenant_subscriptions_pkey
+        PRIMARY KEY (id),
+    CONSTRAINT tenant_subscriptions_tenant_id_fkey
+        FOREIGN KEY (tenant_id)
+        REFERENCES public.tenants(id) ON DELETE CASCADE,
+    CONSTRAINT tenant_subscriptions_tenant_id_unique
+        UNIQUE (tenant_id),
+    CONSTRAINT tenant_subscriptions_stripe_subscription_id_unique
+        UNIQUE (stripe_subscription_id),
+    CONSTRAINT tenant_subscriptions_status_plan_consistency CHECK (
+        -- If plan is 'free' and stripe_subscription_id is NULL, status must be 'active'
+        -- (free tenants have no real subscription — we use 'active' as the sentinel status)
+        (stripe_subscription_id IS NULL AND plan = 'free' AND status = 'active')
+        OR (stripe_subscription_id IS NOT NULL)
+    )
+);
+```
+
+### Column Specifications
+
+| Column | Type | Nullable | Default | Constraints | Description |
+|--------|------|----------|---------|-------------|-------------|
+| `id` | UUID | NOT NULL | `gen_random_uuid()` | PRIMARY KEY | Row identifier. Not used externally — `tenant_id` is the natural key for all lookups. |
+| `tenant_id` | UUID | NOT NULL | — | FK → `tenants(id)` CASCADE, UNIQUE | The tenant this subscription belongs to. UNIQUE guarantees exactly one subscription record per tenant at all times. CASCADE delete removes this row when the tenant is deleted. |
+| `stripe_customer_id` | TEXT | NULL | NULL | — | Stripe Customer ID (`cus_XXXXXXXXXXXXXXXXX`). Set when the tenant first initiates a Stripe Checkout. NULL for tenants who have never clicked "Upgrade." Note: also stored denormalized in `tenants.stripe_customer_id` for join-free access. Both columns must always be in sync — updated together by the Stripe webhook handler. |
+| `stripe_subscription_id` | TEXT | NULL | NULL | UNIQUE | Stripe Subscription ID (`sub_XXXXXXXXXXXXXXXXX`). NULL for free-tier tenants who have never had a paid subscription. Set when a Checkout Session is completed and a subscription is created by Stripe. UNIQUE — one Daimon tenant maps to at most one Stripe Subscription at any time. If a tenant cancels and resubscribes, the old subscription ID is replaced with the new one. |
+| `stripe_price_id` | TEXT | NULL | NULL | — | The Stripe Price ID the tenant is currently subscribed to. Format: `price_XXXXXXXXXXXXXXXXX`. NULL for free-tier. Used to determine the plan tier (cross-referenced with the price catalog) and to present the correct "Current Plan" display on the billing page. Distinct from `plan` — `plan` is the human-readable tier; `stripe_price_id` is the exact price (which can differentiate monthly vs annual billing in the future). |
+| `plan` | `tenant_plan` | NOT NULL | `'free'` | ENUM ('free', 'starter', 'pro') | **Authoritative plan tier.** Updated by the Stripe webhook handler when subscriptions are created, upgraded, downgraded, or canceled. When a subscription is canceled and the period ends, the webhook handler downgrades this to `'free'`. The `sync_tenant_plan` trigger watches this column and propagates changes to `tenants.plan` automatically. A plan change without a corresponding Stripe event should never happen — application code must always go through the webhook path (or the admin "force-set-plan" API route in the admin panel). |
+| `status` | `subscription_status` | NOT NULL | `'active'` | ENUM ('trialing', 'active', 'past_due', 'canceled', 'incomplete', 'incomplete_expired', 'paused', 'unpaid') | Mirrors `subscription.status` from Stripe. For free-tier tenants with no Stripe subscription, this is always `'active'` (sentinel value — there is no actual Stripe status). Updated by the webhook handler on every `customer.subscription.*` event. The bot and website do NOT gate access based on this status directly — they read `tenants.plan` and `tenants.status`. This column exists for the admin panel and billing page to show accurate Stripe state. |
+| `cancel_at_period_end` | BOOLEAN | NOT NULL | FALSE | — | Whether the subscription is scheduled to cancel at the end of the current billing period. Mirrors `subscription.cancel_at_period_end` from Stripe. Set to `TRUE` when the user clicks "Cancel Plan" in the Stripe Customer Portal. The plan remains active until `current_period_end`. When the period ends, Stripe fires `customer.subscription.deleted` → webhook handler sets `plan = 'free'`, `stripe_subscription_id = NULL`, `cancel_at_period_end = FALSE`. The billing page shows a cancellation notice when this is `TRUE`: "Your plan will end on [current_period_end date]. You'll be moved to Free." |
+| `current_period_start` | TIMESTAMPTZ | NULL | NULL | — | Start of the current billing period. Mirrors `subscription.current_period_start` from Stripe (Unix timestamp → converted to TIMESTAMPTZ). NULL for free-tier. Updated on every billing period renewal. Used by the billing page to display "Current period: Mar 1 – Apr 1." |
+| `current_period_end` | TIMESTAMPTZ | NULL | NULL | — | End of the current billing period. Mirrors `subscription.current_period_end` from Stripe. NULL for free-tier. When `cancel_at_period_end = TRUE`, this is the cancellation date. The billing page shows "Your plan ends on [date]" using this column. The bot remains fully operational until `current_period_end` — plan downgrade to 'free' only happens when the period ends and Stripe fires `customer.subscription.deleted`. |
+| `canceled_at` | TIMESTAMPTZ | NULL | NULL | — | When the subscription cancellation was initiated (not when it takes effect). Mirrors `subscription.canceled_at` from Stripe. Set to a non-NULL value when the user cancels (even if `cancel_at_period_end = TRUE` and the subscription is still active). NULL if the subscription has never been canceled. Used for audit trail in the admin panel. |
+| `trial_start` | TIMESTAMPTZ | NULL | NULL | — | Start of the subscription trial period. Mirrors `subscription.trial_start` from Stripe. NULL if no trial was used. Stored for analytics and admin panel display. |
+| `trial_end` | TIMESTAMPTZ | NULL | NULL | — | End of the subscription trial period. Mirrors `subscription.trial_end` from Stripe. NULL if no trial. When `status = 'trialing'`, the billing page shows "Trial ends on [trial_end date]." When the trial ends, Stripe fires `customer.subscription.updated` with `status = 'active'` (if payment method was added) or `status = 'past_due'` (if no payment method). |
+| `created_at` | TIMESTAMPTZ | NOT NULL | `NOW()` | — | Row creation time — set when the tenant signs up. NOT when the Stripe subscription is created. Every tenant has a row from day one (with `plan = 'free'` and all Stripe columns NULL). Stored in UTC. |
+| `updated_at` | TIMESTAMPTZ | NOT NULL | `NOW()` | — | Last row update time. Updated by the `tenant_subscriptions_updated_at` trigger on every UPDATE. Stored in UTC. The admin panel shows "Subscription last updated: X ago" using this column. |
+
+### Constraint Detail
+
+#### `UNIQUE (tenant_id)` — One Subscription Per Tenant
+
+```sql
+CONSTRAINT tenant_subscriptions_tenant_id_unique UNIQUE (tenant_id)
+```
+
+Guarantees that no tenant has more than one active subscription row. This simplifies all queries — the website can always query:
+```sql
+SELECT * FROM tenant_subscriptions WHERE tenant_id = :id
+```
+without needing to distinguish between multiple subscription rows.
+
+**What happens on re-subscription after cancellation:** When a previously-paying tenant resubscribes (creates a new Stripe Checkout), the webhook handler for `customer.subscription.created` runs an UPSERT on this table (ON CONFLICT on `tenant_id`), updating the existing row with the new `stripe_subscription_id`, `plan`, `status`, etc. The old row is updated in place — no new row is created.
+
+#### `UNIQUE (stripe_subscription_id)` — One Tenant Per Stripe Subscription
+
+```sql
+CONSTRAINT tenant_subscriptions_stripe_subscription_id_unique UNIQUE (stripe_subscription_id)
+```
+
+Prevents two tenant rows from claiming the same Stripe Subscription. This is a safety constraint — the Stripe webhook handler must also enforce this. The UNIQUE constraint prevents data corruption if the webhook handler has a bug.
+
+**NULL handling:** PostgreSQL treats NULL values as distinct for UNIQUE constraints — multiple rows with `stripe_subscription_id = NULL` are allowed. This is the correct behavior for free-tier tenants (all have `NULL`).
+
+#### Status-Plan Consistency Check
+
+```sql
+CONSTRAINT tenant_subscriptions_status_plan_consistency CHECK (
+    (stripe_subscription_id IS NULL AND plan = 'free' AND status = 'active')
+    OR (stripe_subscription_id IS NOT NULL)
+)
+```
+
+Enforces that tenants with no Stripe subscription are always on the free plan with `status = 'active'`. If the webhook handler attempts to set `status = 'past_due'` on a free-tier tenant (which would be a bug), this constraint rejects it.
+
+### Indexes
+
+```sql
+-- Primary key (automatic)
+-- idx_tenant_subscriptions_pkey ON tenant_subscriptions(id)
+
+-- Unique constraint index (automatic) — covers primary lookup
+-- idx_tenant_subscriptions_tenant_id_unique ON tenant_subscriptions(tenant_id)
+-- Used by: every billing page load, dashboard plan display, webhook handler tenant lookup by tenant_id
+
+-- Unique constraint index (automatic) — covers Stripe webhook lookups
+-- idx_tenant_subscriptions_stripe_subscription_id_unique ON tenant_subscriptions(stripe_subscription_id)
+-- Used by: Stripe webhook handler — looks up tenant by stripe_subscription_id on EVERY webhook event
+
+-- Stripe Customer ID lookup — for Stripe webhook events that use customer ID (not subscription ID)
+-- e.g., customer.deleted, customer.updated
+CREATE INDEX idx_tenant_subscriptions_stripe_customer_id
+    ON public.tenant_subscriptions (stripe_customer_id)
+    WHERE stripe_customer_id IS NOT NULL;
+
+-- Admin panel: filter tenants by plan
+-- SELECT * FROM tenant_subscriptions WHERE plan = 'starter' ORDER BY updated_at DESC
+CREATE INDEX idx_tenant_subscriptions_plan
+    ON public.tenant_subscriptions (plan);
+
+-- Admin panel: filter by subscription status
+-- SELECT * FROM tenant_subscriptions WHERE status = 'past_due'
+CREATE INDEX idx_tenant_subscriptions_status
+    ON public.tenant_subscriptions (status)
+    WHERE status != 'active';  -- partial: non-active subscriptions need admin attention
+
+-- Billing analytics: find subscriptions ending soon (churn prediction)
+-- SELECT * FROM tenant_subscriptions
+-- WHERE cancel_at_period_end = TRUE AND current_period_end BETWEEN NOW() AND NOW() + INTERVAL '7 days'
+CREATE INDEX idx_tenant_subscriptions_cancel_at_period_end
+    ON public.tenant_subscriptions (current_period_end)
+    WHERE cancel_at_period_end = TRUE;
+```
+
+### Triggers
+
+#### Trigger 1: `updated_at` Auto-Update
+
+```sql
+CREATE OR REPLACE FUNCTION public.update_tenant_subscriptions_updated_at()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER tenant_subscriptions_updated_at
+    BEFORE UPDATE ON public.tenant_subscriptions
+    FOR EACH ROW
+    EXECUTE FUNCTION public.update_tenant_subscriptions_updated_at();
+```
+
+#### Trigger 2: `sync_tenant_plan` — Plan Cascade to `tenants.plan`
+
+This is the primary cascade trigger. When `tenant_subscriptions.plan` changes, this trigger immediately propagates the new plan to `tenants.plan`. This keeps the denormalized plan cache in sync without requiring application code to update both tables.
+
+```sql
+CREATE OR REPLACE FUNCTION public.sync_tenant_plan()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+    -- Only fire when the plan column actually changes (not on every UPDATE)
+    IF (TG_OP = 'INSERT') OR (OLD.plan IS DISTINCT FROM NEW.plan) THEN
+        UPDATE public.tenants
+        SET
+            plan       = NEW.plan,
+            updated_at = NOW()
+        WHERE id = NEW.tenant_id;
+    END IF;
+
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER trg_sync_tenant_plan
+    AFTER INSERT OR UPDATE OF plan ON public.tenant_subscriptions
+    FOR EACH ROW
+    EXECUTE FUNCTION public.sync_tenant_plan();
+```
+
+**Trigger analysis:**
+
+| Property | Value |
+|----------|-------|
+| Fires on | `INSERT` and `UPDATE` of the `plan` column only (not every UPDATE) |
+| Fires when | `OLD.plan IS DISTINCT FROM NEW.plan` (skips no-op updates) |
+| Target | `public.tenants.plan` for the matching `tenant_id` |
+| SECURITY DEFINER | Yes — ensures the trigger can UPDATE `tenants` even if the calling role cannot |
+| Performance | Fires at most once per Stripe webhook event — negligible overhead |
+| Ordering | `AFTER` trigger — fires after the `tenant_subscriptions` row is written, so the row is committed before `tenants` is updated |
+
+**Why denormalize `tenants.plan` at all?** The bot reads `tenants.plan` at startup and via Realtime events to gate tool access. If `tenants.plan` did not exist and the bot had to JOIN `tenant_subscriptions` on every tool call, it would add one extra query per Discord message. With the denormalized column and the Realtime subscription on `tenants`, the bot receives instant plan change notifications via the existing channel.
+
+#### Trigger 3: `suspend_tenant_on_unpaid` — Suspend on Payment Failure
+
+When a Stripe subscription becomes `'unpaid'` (all payment retries exhausted after ~30 days of `'past_due'`), the tenant should be suspended. This trigger enforces that rule at the database level.
+
+```sql
+CREATE OR REPLACE FUNCTION public.suspend_tenant_on_unpaid()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+    -- When status transitions to 'unpaid', suspend the tenant
+    IF (OLD.status IS DISTINCT FROM NEW.status) AND (NEW.status = 'unpaid') THEN
+        UPDATE public.tenants
+        SET
+            status     = 'suspended',
+            updated_at = NOW()
+        WHERE id = NEW.tenant_id
+          AND status != 'suspended';  -- idempotent: skip if already suspended
+    END IF;
+
+    -- When status transitions FROM 'unpaid' back to 'active' (payment recovered),
+    -- unsuspend the tenant — set back to 'configured' (not 'active', because
+    -- the bot must reconnect after suspension)
+    IF (OLD.status IS DISTINCT FROM NEW.status)
+        AND (OLD.status = 'unpaid')
+        AND (NEW.status = 'active') THEN
+        UPDATE public.tenants
+        SET
+            status     = 'configured',
+            updated_at = NOW()
+        WHERE id = NEW.tenant_id
+          AND status = 'suspended';
+    END IF;
+
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER trg_suspend_tenant_on_unpaid
+    AFTER UPDATE OF status ON public.tenant_subscriptions
+    FOR EACH ROW
+    EXECUTE FUNCTION public.suspend_tenant_on_unpaid();
+```
+
+**Important notes on the suspension trigger:**
+
+1. **`past_due` does NOT suspend.** Only `unpaid` triggers suspension. During `past_due`, Stripe retries payment automatically for ~15–28 days (configurable in Stripe Dashboard → Settings → Billing → Retry schedule). The bot continues operating during this grace period. The billing page shows a payment failure banner.
+
+2. **`unpaid` → suspension is irreversible until payment recovers.** When Stripe gives up retrying (sends `customer.subscription.updated` with `status = 'unpaid'`), the trigger suspends the tenant. The bot detects the `tenants.status = 'suspended'` change via Realtime and disconnects.
+
+3. **Recovery path:** When payment eventually recovers (Stripe fires `customer.subscription.updated` with `status = 'active'`), the webhook handler updates `tenant_subscriptions.status` to `'active'`. The trigger then sets `tenants.status = 'configured'` — NOT `'active'`. The bot must reconnect after suspension. On next startup scan (or Realtime event on `discord_connections`), the bot picks up the tenant again and sets `tenants.status = 'active'`.
+
+4. **Manual admin unsuspension** is also supported — admin panel has a "Unsuspend" button that directly updates `tenants.status = 'configured'`. This is separate from the payment recovery path and does not require any Stripe interaction.
+
+### RLS Policies
+
+```sql
+ALTER TABLE public.tenant_subscriptions ENABLE ROW LEVEL SECURITY;
+
+-- Tenant owners and admins can SELECT their own subscription
+CREATE POLICY "Tenant members can read own subscription"
+    ON public.tenant_subscriptions
+    FOR SELECT
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tenant_subscriptions.tenant_id
+              AND tm.user_id = auth.uid()
+        )
+    );
+
+-- No direct INSERT/UPDATE/DELETE from JWT users
+-- All writes go through the Stripe webhook handler (service role)
+-- and the admin panel (service role)
+-- RLS blocks any direct writes from browser sessions
+```
+
+**Why no INSERT/UPDATE/DELETE policies:**
+
+| Operation | Who Does It | Why Blocked for JWT |
+|-----------|-------------|---------------------|
+| INSERT | Next.js API route on tenant signup (service role) | Tenant creation must happen in a single transaction — uses service role |
+| UPDATE | Stripe webhook handler (service role) | Must be trusted server-side — cannot allow clients to self-upgrade their plan |
+| DELETE | Never — CASCADE from `tenants` deletion only | Rows are never deleted except via tenant deletion |
+
+**Bot access:** The bot does NOT read `tenant_subscriptions` directly. It reads `tenants.plan` (denormalized cache) which is kept in sync by the `sync_tenant_plan` trigger. Service role bypasses RLS regardless.
+
+### Stripe Webhook → Subscription State Machine
+
+The following table documents every Stripe webhook event that can affect `tenant_subscriptions`. The Next.js webhook handler (`/api/webhooks/stripe`) must handle all of these.
+
+#### Webhook Events and Required Actions
+
+| Stripe Event | When It Fires | Required DB Update | Tenant Impact |
+|-------------|--------------|-------------------|---------------|
+| `checkout.session.completed` | User completes Checkout flow | Create Stripe Customer if not existing; UPSERT `tenant_subscriptions` with new `stripe_subscription_id`, `plan`, `status = 'active'`, `current_period_start`, `current_period_end`; UPDATE `tenants.stripe_customer_id` | Plan upgrades immediately (trigger updates `tenants.plan`) |
+| `customer.subscription.created` | New subscription created in Stripe | UPSERT `tenant_subscriptions` — same fields as checkout.session.completed. May fire alongside checkout.session.completed or independently (e.g., subscription created via API) | Plan active |
+| `customer.subscription.updated` | Subscription upgraded, downgraded, trial ended, payment recovered, or period renewed | UPDATE `tenant_subscriptions` SET `plan`, `status`, `stripe_price_id`, `current_period_start`, `current_period_end`, `cancel_at_period_end`, `trial_start`, `trial_end` from the event payload | Plan may change; trigger syncs `tenants.plan` |
+| `customer.subscription.deleted` | Subscription canceled and period ended (or immediately canceled) | UPDATE `tenant_subscriptions` SET `plan = 'free'`, `status = 'canceled'`, `stripe_subscription_id = NULL`, `stripe_price_id = NULL`, `current_period_start = NULL`, `current_period_end = NULL`, `cancel_at_period_end = FALSE` | Downgraded to free tier; trigger updates `tenants.plan = 'free'` |
+| `invoice.payment_failed` | A subscription payment fails | UPDATE `tenant_subscriptions` SET `status = 'past_due'`. Do NOT change `plan` — tenant retains access during grace period | Bot continues operating; billing page shows payment failure banner |
+| `invoice.payment_succeeded` | A subscription payment succeeds (including after past_due recovery) | UPDATE `tenant_subscriptions` SET `status = 'active'`, `current_period_start`, `current_period_end` from the invoice's subscription period | Status normalized; if was 'past_due', bot may have still been running (no action needed) |
+| `customer.subscription.trial_will_end` | 3 days before trial ends | No DB update required. Log the event. Optionally send an in-app notification (out of scope for v1) | No DB change |
+| `invoice.upcoming` | Upcoming invoice generated | No DB update required. Log only. | No DB change |
+
+#### Stripe Status → Daimon Status Mapping
+
+| Stripe `subscription.status` | Daimon `subscription_status` | Daimon plan behavior | Bot behavior |
+|------------------------------|-------------------------------|----------------------|-------------|
+| `trialing` | `trialing` | Plan = the trial plan (starter/pro) | Bot operates with trial plan features |
+| `active` | `active` | Plan = subscribed tier | Bot operates normally |
+| `past_due` | `past_due` | Plan = subscribed tier (no change) | Bot keeps operating (grace period) |
+| `unpaid` | `unpaid` | Plan = subscribed tier (no change immediately; webhook handler may downgrade) | Trigger suspends tenant; bot disconnects |
+| `canceled` | `canceled` | Plan = 'free' (set by webhook handler on `customer.subscription.deleted`) | Bot continues on free tier |
+| `incomplete` | `incomplete` | Plan = 'free' (subscription not yet active) | Bot operates on free tier |
+| `incomplete_expired` | `incomplete_expired` | Plan = 'free' | Bot operates on free tier |
+| `paused` | `paused` | Plan = subscribed tier (access decision is a product choice) | Bot behavior TBD (treat as suspended at v1) |
+
+#### Webhook Handler: `customer.subscription.updated` (Most Common Event)
+
+This event fires on any change to a subscription. The handler must:
+
+```typescript
+// In: /api/webhooks/stripe
+// Event: customer.subscription.updated
+
+async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
+    // 1. Look up tenant by stripe_customer_id
+    const { data: tenantSub } = await supabase
+        .from('tenant_subscriptions')
+        .select('tenant_id')
+        .eq('stripe_customer_id', subscription.customer as string)
+        .single()
+
+    if (!tenantSub) {
+        console.error(`No tenant found for Stripe customer: ${subscription.customer}`)
+        return  // Log and return 200 (Stripe will retry on non-200)
+    }
+
+    // 2. Determine the plan from the price ID
+    const priceId = subscription.items.data[0]?.price.id
+    const plan = STRIPE_PRICE_TO_PLAN[priceId] ?? 'free'
+    // STRIPE_PRICE_TO_PLAN is defined in /lib/stripe-config.ts:
+    // { 'price_starter_monthly': 'starter', 'price_starter_annual': 'starter',
+    //   'price_pro_monthly': 'pro', 'price_pro_annual': 'pro' }
+
+    // 3. Update tenant_subscriptions
+    const { error } = await supabase
+        .from('tenant_subscriptions')
+        .update({
+            stripe_subscription_id: subscription.id,
+            stripe_price_id: priceId ?? null,
+            plan: plan,
+            status: subscription.status,
+            cancel_at_period_end: subscription.cancel_at_period_end,
+            current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
+            current_period_end:   new Date(subscription.current_period_end * 1000).toISOString(),
+            canceled_at:    subscription.canceled_at
+                ? new Date(subscription.canceled_at * 1000).toISOString()
+                : null,
+            trial_start:    subscription.trial_start
+                ? new Date(subscription.trial_start * 1000).toISOString()
+                : null,
+            trial_end:      subscription.trial_end
+                ? new Date(subscription.trial_end * 1000).toISOString()
+                : null,
+            updated_at: new Date().toISOString(),
+        })
+        .eq('tenant_id', tenantSub.tenant_id)
+
+    if (error) {
+        console.error(`Failed to update tenant_subscriptions for ${tenantSub.tenant_id}:`, error)
+        throw error  // Return 500 → Stripe retries
+    }
+
+    // 4. The sync_tenant_plan trigger automatically updates tenants.plan
+    // 5. The suspend_tenant_on_unpaid trigger automatically suspends if status = 'unpaid'
+    // No further application code needed for plan sync or suspension
+}
+```
+
+#### Webhook Handler: `checkout.session.completed`
+
+```typescript
+async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
+    // Retrieve the full subscription from Stripe (session only has ID)
+    const subscription = await stripe.subscriptions.retrieve(session.subscription as string)
+
+    // The tenant_id is stored in the Checkout Session metadata when the session is created
+    const tenantId = session.metadata?.tenant_id
+    if (!tenantId) {
+        console.error('checkout.session.completed missing tenant_id metadata')
+        return
+    }
+
+    const priceId = subscription.items.data[0]?.price.id
+    const plan = STRIPE_PRICE_TO_PLAN[priceId] ?? 'free'
+
+    // UPSERT tenant_subscriptions (tenant row already exists with plan='free')
+    const { error } = await supabase
+        .from('tenant_subscriptions')
+        .update({
+            stripe_customer_id:     session.customer as string,
+            stripe_subscription_id: subscription.id,
+            stripe_price_id:        priceId ?? null,
+            plan:                   plan,
+            status:                 subscription.status,
+            cancel_at_period_end:   subscription.cancel_at_period_end,
+            current_period_start:   new Date(subscription.current_period_start * 1000).toISOString(),
+            current_period_end:     new Date(subscription.current_period_end * 1000).toISOString(),
+            trial_start:            subscription.trial_start
+                ? new Date(subscription.trial_start * 1000).toISOString() : null,
+            trial_end:              subscription.trial_end
+                ? new Date(subscription.trial_end * 1000).toISOString() : null,
+            updated_at:             new Date().toISOString(),
+        })
+        .eq('tenant_id', tenantId)
+
+    if (error) throw error
+
+    // Also update tenants.stripe_customer_id (denormalized)
+    await supabase
+        .from('tenants')
+        .update({
+            stripe_customer_id: session.customer as string,
+            updated_at: new Date().toISOString(),
+        })
+        .eq('id', tenantId)
+
+    // sync_tenant_plan trigger fires automatically — tenants.plan updated
+}
+```
+
+#### Webhook Handler: `customer.subscription.deleted`
+
+```typescript
+async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
+    // Look up by subscription ID (not customer ID)
+    const { data: tenantSub } = await supabase
+        .from('tenant_subscriptions')
+        .select('tenant_id')
+        .eq('stripe_subscription_id', subscription.id)
+        .single()
+
+    if (!tenantSub) return
+
+    // Downgrade to free — clear all Stripe subscription data
+    await supabase
+        .from('tenant_subscriptions')
+        .update({
+            stripe_subscription_id: null,
+            stripe_price_id:        null,
+            plan:                   'free',
+            status:                 'active',  // free tier sentinel status
+            cancel_at_period_end:   false,
+            current_period_start:   null,
+            current_period_end:     null,
+            canceled_at:            subscription.canceled_at
+                ? new Date(subscription.canceled_at * 1000).toISOString() : null,
+            trial_start:            null,
+            trial_end:              null,
+            updated_at:             new Date().toISOString(),
+        })
+        .eq('tenant_id', tenantSub.tenant_id)
+
+    // sync_tenant_plan trigger fires → tenants.plan = 'free'
+    // Bot adapts on next Realtime notification: plan-gated features disabled
+}
+```
+
+### Row Creation at Tenant Signup
+
+Every tenant gets a `tenant_subscriptions` row at signup (before any Stripe interaction). This happens in the same transaction as tenant + tenant_members creation:
+
+```typescript
+// In: /api/auth/signup or the post-signup callback
+// After creating tenants + tenant_members rows:
+
+await supabase
+    .from('tenant_subscriptions')
+    .insert({
+        tenant_id:              newTenantId,
+        stripe_customer_id:     null,
+        stripe_subscription_id: null,
+        stripe_price_id:        null,
+        plan:                   'free',
+        status:                 'active',
+        cancel_at_period_end:   false,
+    })
+```
+
+**Why insert at signup (not lazily on first Stripe event)?** The billing page and dashboard must always be able to query `SELECT * FROM tenant_subscriptions WHERE tenant_id = $id` and get a row. If the row didn't exist for free-tier tenants, every billing page would need a `LEFT JOIN` or a NULL check. Pre-creating the row with `plan = 'free'` simplifies all downstream queries.
+
+### Billing Page Display Logic
+
+The billing page reads `tenant_subscriptions` to render the current plan UI:
+
+```typescript
+// Billing page server component
+const { data: sub } = await supabase
+    .from('tenant_subscriptions')
+    .select('*')
+    .eq('tenant_id', tenantId)
+    .single()
+
+// Determine what to show:
+const isFree    = sub.plan === 'free'
+const isPastDue = sub.status === 'past_due'
+const isUnpaid  = sub.status === 'unpaid'
+const willCancel = sub.cancel_at_period_end === true
+const isTrialing = sub.status === 'trialing'
+
+// Banner logic (in order of priority):
+// 1. Payment failed banner (red): isPastDue || isUnpaid
+// 2. Cancellation notice (yellow): willCancel
+// 3. Trial notice (blue): isTrialing
+// 4. No banner: isFree or normal active subscription
+```
+
+### Notes
+
+1. **`tenants.stripe_customer_id` vs `tenant_subscriptions.stripe_customer_id`:** Both columns store the same value. `tenants.stripe_customer_id` exists for join-free lookups (e.g., "which tenant owns this Stripe Customer?"). `tenant_subscriptions.stripe_customer_id` exists for webhook handler lookups (incoming webhook has customer ID, must find subscription row). Both must be updated together. The webhook handler updates both in the `checkout.session.completed` handler.
+
+2. **Subscription history:** This table has only one row per tenant — it is not a history table. When a tenant upgrades from starter to pro, the row is updated in place. If subscription history is needed in the future (e.g., analytics on churn), add a `tenant_subscription_events` table as an append-only log. Not included at v1.
+
+3. **Re-subscription with same Stripe Customer:** If a tenant cancels, gets downgraded to free (`stripe_subscription_id = NULL`), and then resubscribes, Stripe creates a new Subscription but reuses the existing Customer (same `stripe_customer_id`). The webhook handler for `checkout.session.completed` UPSERTs the `tenant_subscriptions` row using `tenant_id` as the conflict target, restoring all Stripe subscription fields.
+
+4. **Testing with Stripe test mode:** Use Stripe CLI `stripe trigger customer.subscription.updated` to test webhook handlers locally. All test events use `cus_test_*` and `sub_test_*` IDs. The test price IDs must be configured in `STRIPE_PRICE_TO_PLAN` map in `/lib/stripe-config.ts` alongside production IDs.
+
+5. **Idempotency:** Stripe may deliver webhooks more than once. All webhook handlers must be idempotent. Using the `tenant_id` as the UPDATE target (not INSERT) achieves this — re-processing a `customer.subscription.updated` event for the same state overwrites with the same values, producing no net change.
+
+6. **Webhook signature verification:** Every incoming request to `/api/webhooks/stripe` must be verified using `stripe.webhooks.constructEvent(body, signature, STRIPE_WEBHOOK_SECRET)`. If signature fails, return 400 immediately. See [integrations/stripe.md](../integrations/stripe.md) for the complete webhook handler spec.
+
+7. **Stripe Customer Portal for cancellation and plan changes:** The Stripe Customer Portal (launched via `/api/billing/create-portal-session`) handles plan upgrades, downgrades, and cancellations directly. The portal redirects users back to Daimon after changes. All changes are communicated to Daimon via webhooks — the portal does NOT write to Daimon's database directly.
+
+---
+
+## Table: `admin_audit_log`
+
+**Purpose:** Append-only log of all admin actions taken in the admin panel, including impersonation sessions, tenant suspension/unsuspension, plan overrides, and other administrative changes. This table is not tenant-scoped — it is admin-scoped. All rows are accessible only to Supabase admin users (no RLS for regular tenants).
+
+**Created by migration:** `20260400000006_create_admin_audit_log.sql` (to be created)
+
+**Design principle:** Append-only. Rows are never updated or deleted. This is a forensic log.
+
+```sql
+CREATE TABLE public.admin_audit_log (
+    id              UUID        NOT NULL DEFAULT gen_random_uuid(),
+    admin_user_id   UUID        NOT NULL,
+    action          TEXT        NOT NULL,
+    tenant_id       UUID        NULL,
+    target_user_id  UUID        NULL,
+    metadata        JSONB       NOT NULL DEFAULT '{}',
+    ip_address      TEXT        NULL,
+    user_agent      TEXT        NULL,
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT admin_audit_log_pkey PRIMARY KEY (id),
+    CONSTRAINT admin_audit_log_admin_user_id_fkey
+        FOREIGN KEY (admin_user_id)
+        REFERENCES auth.users(id) ON DELETE RESTRICT,
+    -- Note: tenant_id is intentionally NOT a FK to tenants(id)
+    -- because audit log rows should persist even after the tenant is deleted
+    CONSTRAINT admin_audit_log_action_check
+        CHECK (action IN (
+            'tenant_suspended',
+            'tenant_unsuspended',
+            'tenant_plan_override',
+            'impersonation_started',
+            'impersonation_ended',
+            'tenant_deleted_by_admin',
+            'api_key_revoked_by_admin',
+            'discord_connection_reset',
+            'subscription_override',
+            'user_banned'
+        ))
+);
+```
+
+### Column Specifications
+
+| Column | Type | Nullable | Default | Constraints | Description |
+|--------|------|----------|---------|-------------|-------------|
+| `id` | UUID | NOT NULL | `gen_random_uuid()` | PRIMARY KEY | Unique log entry identifier. |
+| `admin_user_id` | UUID | NOT NULL | — | FK → `auth.users(id)` ON DELETE RESTRICT | The admin who took the action. ON DELETE RESTRICT — cannot delete an admin user who has audit log entries (preserves attribution). |
+| `action` | TEXT | NOT NULL | — | CHECK: IN (action list) | Machine-readable action type. New action types require a migration to add them to the CHECK constraint. |
+| `tenant_id` | UUID | NULL | NULL | — | The tenant affected, if applicable. NULL for user-level actions (e.g., `user_banned`). **Intentionally not a FK** — audit entries must persist even if the tenant is later deleted. |
+| `target_user_id` | UUID | NULL | NULL | — | The Supabase Auth user affected, if applicable (e.g., the tenant owner during impersonation). NULL for tenant-level-only actions. Not a FK for same reason as `tenant_id`. |
+| `metadata` | JSONB | NOT NULL | `'{}'` | — | Action-specific structured data. See per-action metadata schemas below. |
+| `ip_address` | TEXT | NULL | NULL | — | IP address of the admin at time of action. Extracted from the HTTP request by the Next.js API route. May be NULL for server-side admin actions. |
+| `user_agent` | TEXT | NULL | NULL | — | Browser user agent string. May be NULL. |
+| `created_at` | TIMESTAMPTZ | NOT NULL | `NOW()` | — | When the action occurred. Stored in UTC. Never updated. |
+
+### Per-Action Metadata Schemas
+
+#### `action = 'tenant_suspended'`
+
+```json
+{
+  "reason": "manual_admin_action",
+  "previous_status": "active",
+  "note": "Optional admin-entered note explaining the suspension"
+}
+```
+
+#### `action = 'tenant_unsuspended'`
+
+```json
+{
+  "previous_status": "suspended",
+  "note": "Optional admin-entered note"
+}
+```
+
+#### `action = 'tenant_plan_override'`
+
+```json
+{
+  "previous_plan": "free",
+  "new_plan": "pro",
+  "reason": "customer_support_courtesy_upgrade",
+  "note": "Optional admin note"
+}
+```
+
+#### `action = 'impersonation_started'`
+
+```json
+{
+  "impersonation_session_id": "a1b2c3d4-...",
+  "target_tenant_id": "b2c3d4e5-...",
+  "target_user_id": "c3d4e5f6-..."
+}
+```
+
+#### `action = 'impersonation_ended'`
+
+```json
+{
+  "impersonation_session_id": "a1b2c3d4-...",
+  "duration_seconds": 120
+}
+```
+
+#### `action = 'api_key_revoked_by_admin'`
+
+```json
+{
+  "key_type": "anthropic",
+  "key_hint": "sk-ant-a...b12c",
+  "reason": "Optional admin-entered reason"
+}
+```
+
+#### `action = 'discord_connection_reset'`
+
+```json
+{
+  "connection_id": "a1b2c3...",
+  "guild_id": "813258688680919040",
+  "previous_status": "error",
+  "new_status": "pending"
+}
+```
+
+#### `action = 'subscription_override'`
+
+```json
+{
+  "previous_stripe_subscription_id": "sub_xxx",
+  "action_taken": "force_free",
+  "reason": "chargeback_fraud_protection"
+}
+```
+
+#### `action = 'user_banned'`
+
+```json
+{
+  "user_email": "user@example.com",
+  "reason": "tos_violation"
+}
+```
+
+### Indexes
+
+```sql
+-- Primary key (automatic)
+
+-- Admin panel: recent actions by admin user
+CREATE INDEX idx_admin_audit_log_admin_user_id
+    ON public.admin_audit_log (admin_user_id, created_at DESC);
+
+-- Admin panel: all actions affecting a tenant
+CREATE INDEX idx_admin_audit_log_tenant_id
+    ON public.admin_audit_log (tenant_id, created_at DESC)
+    WHERE tenant_id IS NOT NULL;
+
+-- Admin panel: filter by action type
+CREATE INDEX idx_admin_audit_log_action
+    ON public.admin_audit_log (action, created_at DESC);
+```
+
+### RLS Policies
+
+```sql
+ALTER TABLE public.admin_audit_log ENABLE ROW LEVEL SECURITY;
+
+-- Only admin users can read the audit log
+-- Admin check: a separate 'admin_users' table or a role claim in JWT metadata
+-- At v1: admin_user_id must be in the list of known admin UUIDs in app config
+-- No INSERT/UPDATE/DELETE via RLS — all writes via service role (Next.js admin API routes)
+
+-- No RLS policy for SELECT from regular tenants — they cannot read this table
+-- SELECT is blocked by default when RLS is enabled and no policy exists
+-- Admin panel uses service role → bypasses RLS
+```
+
+**Access pattern:** The admin panel uses the Supabase service role key (via a server-side Next.js server component or API route protected by an admin middleware check). Regular tenant users cannot access this table at all — RLS blocks all access by default (no tenant SELECT policy exists).
+
+### Notes
+
+1. **Append-only by design:** No UPDATE or DELETE is permitted. The CHECK constraint on `action` prevents arbitrary strings. If new admin actions are added, a migration must update the CHECK constraint — which creates a natural forcing function for documenting new admin capabilities.
+
+2. **No FK on `tenant_id`:** Admin actions on a tenant should be retained even after the tenant deletes their account. A FK with ON DELETE CASCADE would destroy the audit history. The `tenant_id` is preserved as a UUID reference even after the tenant row is deleted.
+
+3. **Impersonation session lifecycle:** When an admin clicks "Impersonate" on a tenant:
+   - Server inserts `admin_audit_log` row with `action = 'impersonation_started'`, capturing `impersonation_session_id` (a new UUID generated server-side), `target_tenant_id`, and `target_user_id`.
+   - Server generates a scoped Supabase Auth token for the target tenant (using `supabase.auth.admin.generateLink()` or a custom JWT claim approach — specified in `api/routes.md`).
+   - Admin is redirected to `/dashboard` with that scoped session — reads tenant data but cannot write (enforced at API route level, not database).
+   - When impersonation ends (admin navigates away or clicks "End Impersonation"), server inserts `action = 'impersonation_ended'` row.
+
+4. **Retention:** Audit log rows are never deleted in v1. As the platform scales, add a retention job to archive rows older than 2 years to cold storage (out of scope at launch).
 
 ---
 
