@@ -1272,7 +1272,104 @@ CREATE POLICY "tenant_subscriptions_select"
 
 -- No policies created. All access via service role only.
 -- Default deny applies to all authenticated users.
+
+-- ============================================================
+-- RLS POLICIES: stripe_webhook_events
+-- ============================================================
+
+-- RLS is ENABLED on this table but NO policies are created.
+-- This results in default deny for all authenticated JWT users.
+--
+-- Rationale: The stripe_webhook_events table is an internal idempotency
+-- store accessed ONLY by the Next.js webhook handler via SUPABASE_SERVICE_ROLE_KEY.
+-- Service role bypasses RLS entirely. No product value in exposing this table
+-- to browser sessions; exposing it would leak internal system state.
+--
+-- The admin panel surfaces subscription state via tenant_subscriptions, NOT
+-- this table. stripe_webhook_events is purely for at-least-once deduplication.
+--
+-- Verification: Confirm RLS is enabled with no policies via Supabase dashboard
+-- or by running:
+--   SELECT schemaname, tablename, policyname
+--   FROM pg_policies
+--   WHERE tablename = 'stripe_webhook_events';
+-- Expected result: 0 rows (no policies).
+
+-- ============================================================
+-- RLS POLICIES: tenant_messages
+-- ============================================================
+
+-- RLS is ENABLED. One SELECT policy for authenticated tenant members.
+-- INSERT/UPDATE/DELETE are blocked for all authenticated users;
+-- the bot writes via service role key only.
+
+CREATE POLICY "tenant_messages_select_member"
+    ON public.tenant_messages
+    FOR SELECT
+    TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tenant_messages.tenant_id
+              AND tm.user_id = auth.uid()
+        )
+    );
+
+-- Policy summary for tenant_messages:
+--   SELECT  — allowed for any tenant member (owner, admin, member)
+--   INSERT  — blocked for authenticated role (bot uses service role)
+--   UPDATE  — blocked for all authenticated users (immutable log)
+--   DELETE  — blocked for all authenticated users (managed by pg_cron only)
+
+-- ============================================================
+-- RLS POLICIES: tenant_tool_calls
+-- ============================================================
+
+-- RLS is ENABLED. One SELECT policy for authenticated tenant members.
+-- INSERT/UPDATE/DELETE are blocked for all authenticated users;
+-- the bot writes via service role key only.
+
+CREATE POLICY "tenant_tool_calls_select_member"
+    ON public.tenant_tool_calls
+    FOR SELECT
+    TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tenant_tool_calls.tenant_id
+              AND tm.user_id = auth.uid()
+        )
+    );
+
+-- Policy summary for tenant_tool_calls:
+--   SELECT  — allowed for any tenant member (owner, admin, member)
+--   INSERT  — blocked for authenticated role (bot uses service role)
+--   UPDATE  — blocked for all authenticated users (immutable log)
+--   DELETE  — blocked for all authenticated users (managed by pg_cron only)
 ```
+
+---
+
+## Policy Coverage Matrix
+
+The table below consolidates the RLS posture for every table in the schema. "Service role" rows bypass RLS and are noted for completeness.
+
+| Table | RLS Enabled | SELECT (authenticated) | INSERT (authenticated) | UPDATE (authenticated) | DELETE (authenticated) | Notes |
+|-------|-------------|------------------------|------------------------|------------------------|------------------------|-------|
+| `tenants` | Yes | Members only | Blocked | Owner only | Blocked | INSERT via signup route (service role) |
+| `tenant_members` | Yes | Self or owner/admin | Owner/admin only | Owner only (role field) | Owner only | |
+| `discord_connections` | Yes | Members only | Owner/admin only | Owner/admin only | Owner/admin only | |
+| `tenant_api_keys` | Yes | Members only (key_hint, key_type only) | Owner/admin only | Owner/admin only | Owner/admin only | Encrypted columns never returned to browser |
+| `tenant_service_connections` | Yes | Members only | Owner/admin only | Owner/admin only | Owner/admin only | |
+| `tenant_subscriptions` | Yes | Members only | Blocked | Blocked | Blocked | All writes via service role (Stripe webhook handler) |
+| `admin_audit_log` | Yes | Blocked | Blocked | Blocked | Blocked | All access via service role only |
+| `stripe_webhook_events` | Yes | Blocked | Blocked | Blocked | Blocked | All access via service role only (webhook handler) |
+| `tenant_messages` | Yes | Members only | Blocked | Blocked | Blocked | Bot writes via service role; pg_cron deletes via service role |
+| `tenant_tool_calls` | Yes | Members only | Blocked | Blocked | Blocked | Bot writes via service role; pg_cron deletes via service role |
+
+**"Members only"** = EXISTS check against `tenant_members` for `auth.uid()` on the row's `tenant_id`.
+**"Owner/admin only"** = EXISTS check against `tenant_members` with `role IN ('owner', 'admin')`.
+**"Blocked"** = No policy for that operation → default deny applies.
 
 ---
 
