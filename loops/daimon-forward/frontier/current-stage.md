@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 49
-- **Current**: 50
+- **Completed**: 50
+- **Current**: 51
 
 ## Current Stage
 
-**Stage 051** — (next stage)
+**Stage 052** — (next stage)
 
 ## Stage Log
 
@@ -64,3 +64,4 @@
 | 048 | done | 2026-03-14T01:35:00Z | StatCard (default/compact variants, accent stripe, skeleton loading, icon slot), ActivityFeed (10 event types with icons/colors, relative timestamps refresh every 60s, empty/loading states), CopyToClipboard (inline/block variants, masked reveal toggle, clipboard API with fallback, success toast); build passes |
 | 049 | done | 2026-03-14T01:40:00Z | DropdownMenu (Radix UI primitives, trigger/items/dividers/labels, danger variant, keyboard nav, spec-accurate styling), Tabs (underline/pills/bordered variants, sm/md sizes, fullWidth, badge, keyboard arrow/Home/End nav, all accessibility attrs); build passes |
 | 050 | done | 2026-03-14T01:45:00Z | Sidebar (fixed 240px navy panel, logo area, 5 nav items with active state via usePathname, footer with avatar+email+logout), DashboardTopbar (56px sticky bar, pageTitle+tenantName+plan badge+user dropdown with Sign Out), DashboardLayout (sidebar+topbar+main content, mobile nav overlay); build passes |
+| 051 | done | 2026-03-14T01:50:00Z | AuthLayout (min-h-screen gray bg, centered 440px column, logo+footer links), AuthCard (white 0-radius card, title+description header, divider, body; mobile 24px padding), PublicNavbar (64px sticky frosted glass, logo+4 nav links+CTAs desktop; hamburger+full-screen navy overlay mobile), PublicLayout (flex column wrapper), PublicFooter (navy bg, 5-col grid desktop/2-col mobile, brand+4 link columns, copyright row); build passes |
