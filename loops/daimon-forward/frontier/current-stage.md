@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 21
-- **Current**: 22
+- **Completed**: 22
+- **Current**: 23
 
 ## Current Stage
 
-**Stage 022** — (next stage)
+**Stage 023** — (next stage)
 
 ## Stage Log
 
@@ -35,3 +35,4 @@
 | 019 | done | 2026-03-13T18:00:00Z | Signup page at /signup with fullName+email+password+confirmPassword+agreeTerms form; password strength bar (4 segments); show/hide toggles on both password fields; server error banner; createTenantForUser server action; build passes |
 | 020 | done | 2026-03-13T19:00:00Z | Reset password request page (/reset-password) with email form, success state (check email + 60s resend cooldown); confirm page (/reset-password/confirm) with token validation states (loading/valid/invalid), new password form with strength bar; build passes |
 | 021 | done | 2026-03-13T20:00:00Z | Auth middleware (src/middleware.ts): /dashboard/* and /admin/* protected (redirect to /login?next=); authenticated users redirected from /login /signup /reset-password to /dashboard; admin routes check user_profiles.is_admin; /api/auth/callback passes through; build passes |
+| 022 | done | 2026-03-13T21:00:00Z | Auth callback route at /api/auth/callback (src/app/api/auth/callback/route.ts): PKCE code exchange via exchangeCodeForSession, safe redirect validation (relative paths only), defaults to /dashboard; build passes |
