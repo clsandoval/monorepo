@@ -2,6 +2,30 @@
 
 ---
 
+## 2026-03-13 — discord-finances
+
+**Aspect**: discord-finances
+**Sources**:
+- `💵│finances` channel (ID: 747388118256320582) — 4,385 msgs, 2020-08-24 → 2026-03-11
+**Output**: analysis/discord-finances-extraction.md
+
+**Key findings:**
+
+- **50/50 revenue split**: 50% of all project revenue → contractor hours + bonus pool; 50% → Labs overhead/OSS/BD
+- **Hourly rate trajectory**: $50/h (2021) → $75 → $80 → $85 (project, Feb 2024); OSS rate $50/h (capped 6–12h/month)
+- **Rate modifiers**: +$25/h US bonus; +$50/h industry veteran (proposed Jan 2025 for Luca/Joe Wilkinson); PhD bonus (amount undisclosed); High Intensity 1.2x multiplier (Q3 2025)
+- **Bonus pool trajectory**: $0 (Q2 2022) → $21–24k (Q3–Q4 2023) → ~$200k (Q2 2024) → ~$223k (Q3 2024) → ~$288k (Q3 2025)
+- **Client-facing rates**: implied $140/h+ (Thomas 2024); market comps $300/h (Jesse) to $1K/h (Eric scare-off)
+- **Top clients by value**: Bain/Coke $5M/year; Readystate $2M/year (started at $500k)
+- **First contract**: ~$5k mid-2020; first year estimated $1.5M
+- **Dec 2020 monthly revenue**: $85k (Roche $60k + Indigo $20k + Appgrowth $5k)
+- **SLA/retainer = highest margin**: Audible + L.L. Bean cited; "5 SLAs would add $45k/quarter"
+- **Billing**: independent contractors invoice Labs monthly via Toggl; Labs pays in USD; converts to local currency via Wise (conversion cost borne by Labs)
+- **Payment terms**: Net 60–90 days; clients frequently pay late; only fully paid + completed SOWs enter bonus pool
+- **Long-term vision**: $50M revenue over next 10 years from GenAI initiative (Thomas 2025-01-04)
+
+---
+
 ## 2026-03-13 — discord-simba
 
 **Aspect**: discord-simba
