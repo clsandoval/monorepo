@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 17
-- Pending: 57
-- Convergence: 23%
+- Analyzed: 18
+- Pending: 56
+- Convergence: 24%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -28,7 +28,7 @@ Map all sources before extracting. These must complete before Wave 2.
 - [x] brand-deck-scrape — WebFetch https://pymc-brand-deck.netlify.app/, save to analysis/brand-deck-scrape.md
 - [x] github-org-scan — WebSearch/WebFetch PyMC Labs GitHub org, list repos + descriptions, save to analysis/public/github-org.md
 - [x] social-media-scan — WebSearch PyMC Labs on LinkedIn, Twitter/X, YouTube. Save to analysis/public/social-media.md
-- [ ] press-mentions — WebSearch for PyMC Labs press, interviews, podcast appearances. Save to analysis/public/press.md
+- [x] press-mentions — WebSearch for PyMC Labs press, interviews, podcast appearances. Save to analysis/public/press.md
 - [ ] brand-deck-podcast — WebSearch/WebFetch for PyMC Labs podcast (found in brand deck footer nav). Find URL, episode list, descriptions; save to analysis/public/podcast.md
 - [ ] brand-deck-course-ai-assisted — Investigate "AI-Assisted Data Science" course ($2,000, Hugo Bowne-Anderson/Wiecki/Fiaschi) found in brand deck but NOT on live site. Search Discord + web for curriculum/description; save to analysis/course-ai-assisted.md
 
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] press-mentions (2026-03-13) — WebSearch for press, interviews, podcasts. Key findings: Thomas Wiecki on ODSC Ai X Podcast (May 2025, 48min), Vanishing Gradients Ep 58 (Sep 2025, 1h45m w/ Hugo Bowne-Anderson), AigoraCast (Dec 2025, future-of-work). Luca Fiaschi on Retailgentic (Dec 2025, synthetic consumers paper), Mobile Dev Memo (Nov 2025, LLM ad creative). Alexandre Andorra hosts Learning Bayesian Statistics (12K listeners, top 1.5% global, sponsored by PyMC Labs). Conference talks: PyData London/NYC/Berlin/London 2024-2025, ODSC East 2025, Databricks Data+AI Summit 2025. No major press (TechCrunch/Forbes/Wired). ODSC blog article May 2025 w/ 3 Wiecki quotes. Output: analysis/public/press.md
 - [x] social-media-scan (2026-03-13) — WebSearch + WebFetch PyMC Labs social presence. LinkedIn: 7,519 followers, "The Bayesian AI Consultancy", founded 2020, specialties: data science/Bayesian modeling/Python. Twitter: @pymc_labs — workshop promos, OSS milestones (1M PyMC-Marketing downloads, 1K★), event/partnership announcements. YouTube: @PyMCLabs — meetup recordings (Agentic Data Science Feb 2026, State of Marketing Measurement Dec 2025, Synthetic Consumers Nov 2025, MMM vs. Meridian benchmark Oct 2025). Other: Bluesky (pymc-labs.bsky.social), Meetup Pro network. Twitter/YouTube subscriber counts not scrapable (JS-rendered). Output: analysis/public/social-media.md
 - [x] github-org-scan (2026-03-13) — Fetched pymc-labs GitHub org (WebFetch + WebSearch). 15 repos total. Key OSS: pymc-marketing (1,088★, Apache 2.0 — MMM/CLV/CLV toolbox), CausalPy (1,123★, Apache 2.0 — 10 quasi-experimental methods, v0.8.0 Mar 2026), decision-hub (37★, MIT — AI agent skills registry, "npm for agent capabilities", hub.decision.ai), semantic-similarity-rating (130★ — SSR algorithm for synthetic consumers, paper: Maier et al. 2025), ai_decision_workshop (52★ — Bayesian decision-making notebooks). Related org pymc-devs: PyMC core (9,500★, 2,200 forks, v6 active), PyTensor (596★). Key content: PyMC Labs = "inventors of PyMC"; professional consulting support offered via pymc-labs.io. No Simba repo found (likely internal). decision-hub = Decision AI product's open-source component. Output: analysis/public/github-org.md
 - [x] brand-deck-scrape (2026-03-13) — Playwright + WebFetch of 13-section UI treatment deck. Confirmed brand: "The Probabilistic AI Consultancy", 5-color palette (Navy #0C1F40 / Aqua #B4E7DD / Periwinkle #9FAAE2 / White #F7F7F7 / Peach #F6AE72 — Peach data viz only), Archivo variable-width headlines + Inter body + Lora serif accent, two-site stack (Framer marketing + Astro content), rocket logo rules, component system (buttons/tags/cards/nav/footer). Discovered: AI-Assisted Data Science course ($2,000, Bowne-Anderson/Wiecki/Fiaschi) not on live site; Podcast in footer nav not in sitemap; stat claims (100+ enterprise clients, 52 published articles). Output: analysis/brand-deck-scrape.md
