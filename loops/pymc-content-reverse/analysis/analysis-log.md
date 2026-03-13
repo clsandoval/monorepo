@@ -2,6 +2,38 @@
 
 ---
 
+## 2026-03-13 — website-case-studies
+
+**Aspect**: website-case-studies
+**Source**: https://www.pymc-labs.com/sitemap-0.xml + individual blog post URLs
+**Output**: analysis/website-scrape/case-studies.md
+
+### What was found
+
+- **No /case-studies/ page** exists (returns 404). Case studies are published as blog posts under /blog-posts/
+- **Full sitemap discovered**: 92 URLs via sitemap-0.xml (home, contact, team, courses×4, blog×66, benchmarks×3, legal×2)
+- **10 confirmed case studies** extracted from blog posts:
+  1. **Akili** (2023-01) — Cognitive modeling for ADHD digital therapeutics; LANs + likelihood-free inference
+  2. **Salk Institute** (2022-12) — Hierarchical Bayesian for public opinion survey data; MrP + Gaussian Processes
+  3. **HelloFresh MMM overview** (2022-11) — Bayesian MMM with hierarchical GPs
+  4. **HelloFresh Reducing CAC** (~2021) — 60% variance reduction, 10x speedup for MMM
+  5. **HelloFresh A/B Tests** (~2022) — 60x speedup for overnight A/B test batch pipeline (5-6 hrs → 5-6 min)
+  6. **Alva Labs** (2022-10) — Bayesian IRT / Graded Response Model for personality assessment
+  7. **Indigo Ag** (2022-08) — Spatial Gaussian processes for agricultural field trials
+  8. **Everysk** (2021-02) — Bayesian VC index from private equity cash flows; finance
+  9. **Colgate-Palmolive Synthetic Consumers** (2025-10) — SSR methodology; 90% correlation with human surveys
+  10. **Colgate-Palmolive Causal Sales** (2024-09) — Incremental vs cannibalistic sales analytics (follow-up post pending)
+- **Clients mentioned without dedicated case study posts**: SpaceX, Roche, Netflix, Deliveroo, Ovative Group, Haleon
+- **Sitemap gap confirmed**: No /services/, /industries/, /solutions/, /partners/, /resources/, /about/, /case-studies/ pages currently exist — all new
+
+### Key observations
+
+- Halah draft site (Framer) will be the primary source for new page structures not present on current site
+- Discord channels for Roche (5,276 msgs), VisualVest (5,283), Live Nation (4,563) will be primary source for additional case studies
+- Arc-Brown, Appodeal referenced in discord triage but no blog posts found
+
+---
+
 ## 2026-03-13 — website-home
 
 **Aspect**: website-home
