@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 36
-- **Current**: 37
+- **Completed**: 37
+- **Current**: 38
 
 ## Current Stage
 
-**Stage 037** — (next stage)
+**Stage 038** — (next stage)
 
 ## Stage Log
 
@@ -50,3 +50,4 @@
 | 034 | done | 2026-03-14T00:25:00Z | PATCH /api/admin/tenants/[id]/plan: admin JWT check (404 for non-admin), plan validation (free/starter/pro), tenant lookup, UPDATE tenants.plan, audit log tenant_plan_override with old_plan+new_plan; POST /api/admin/tenants/[id]/impersonate: admin JWT check, tenant lookup, owner member lookup, getUserById for email, generateLink magiclink with impersonated_by claim, audit log tenant_impersonated; build passes |
 | 035 | done | 2026-03-14T00:30:00Z | POST /api/admin/tenants/[id]/revoke-api-key: admin JWT check (404), keyId required, tenant-scoped key lookup, vault delete_secret, UPDATE status=revoked, audit log api_key_revoked_by_admin; DELETE /api/admin/tenants/[id]/service-connections/[connectionId]: admin JWT check, tenant-scoped connection lookup, vault delete access+refresh secrets, row delete, audit log service_connection_revoked_by_admin; build passes |
 | 036 | done | 2026-03-14T00:35:00Z | GET /api/admin/audit-log: admin JWT check (404), paginated query of admin_audit_log (100/page), filters: action, tenant_id, actor_id (→admin_user_id), start_date/end_date with inclusive end-date logic; returns entries + pagination metadata (page, page_size, total, total_pages); build passes |
+| 037 | done | 2026-03-14T00:40:00Z | globals.css: Tailwind v4 @theme with 5 brand colors, fluid type scale (clamp), animations + keyframes, all border-radius → 0; :root CSS custom properties (semantic tokens); base reset, typography, utilities (@layer), CI stripe, skeleton, sidebar, form input classes; layout.tsx: Inter+Archivo(variable wdth axis)+Lora fonts; src/lib/design-tokens.ts: TS constants for colors/fonts/spacing/nav/buttons/grids/z-index/breakpoints/shadows; build passes |
