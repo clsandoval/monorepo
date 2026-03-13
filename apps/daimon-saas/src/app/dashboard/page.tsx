@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
 import { DashboardStatusCards } from '@/components/dashboard/dashboard-status-cards'
+import { OnboardingChecklist } from '@/components/dashboard/onboarding-checklist'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -40,7 +41,7 @@ export default async function DashboardPage() {
 
     supabase
       .from('tenant_api_keys')
-      .select('id, provider, is_valid, last_validated_at')
+      .select('id, key_type, status, validated_at')
       .order('created_at', { ascending: true }),
 
     supabase
@@ -84,6 +85,18 @@ export default async function DashboardPage() {
       plan={(tenant?.plan as 'free' | 'starter' | 'pro') ?? 'free'}
     >
       <div className="flex flex-col gap-6">
+        {/* Onboarding checklist — shown while tenant is pending or configured */}
+        {(tenant?.status === 'pending' || tenant?.status === 'configured') && (
+          <OnboardingChecklist
+            hasBotToken={!!discord}
+            discordConnected={!!discord && discord.status !== 'pending'}
+            hasAnthropicKey={apiKeys.some(
+              (k) => k.key_type === 'anthropic' && k.status === 'valid'
+            )}
+            botOnline={discord?.status === 'connected'}
+          />
+        )}
+
         {/* Status cards row */}
         <DashboardStatusCards
           discord={discord}

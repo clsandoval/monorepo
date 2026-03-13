@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 58
-- **Current**: 59
+- **Completed**: 59
+- **Current**: 60
 
 ## Current Stage
 
-**Stage 060** — (next stage)
+**Stage 061** — (next stage)
 
 ## Stage Log
 
@@ -73,3 +73,4 @@
 | 057 | done | 2026-03-14T03:15:00Z | Landing page FAQ section (12 questions, accordion +/− toggle, max-height transition), Final CTA banner (navy bg, aqua blob, "Get your AI Discord bot running today.", "Create Your Free Account" CTA), footer updated to spec links (Changelog, About, Blog, Privacy, Terms, Cookies); build passes |
 | 058 | done | 2026-03-14T03:30:00Z | Dashboard route (Server Component): parallel Promise.all queries for tenant/discord/apiKeys/serviceConnections/subscription, ErrorState on query failure, DashboardLayout wrapper with tenantName+plan props; loading.tsx skeleton (4-section card skeletons matching page layout); build passes |
 | 059 | done | 2026-03-14T03:45:00Z | DashboardStatusCards component: 3-card grid (Bot Status with StatusIndicator, Current Plan with Badge, Discord Connection with guild_id or "Not connected"); deriveBotStatus logic (online if last_heartbeat ≤90s); wired into dashboard page; build passes |
+| 060 | done | 2026-03-14T04:00:00Z | OnboardingChecklist component: 4-step vertical list (create bot/connect server/add API key/wait for online), completed/current/pending step icons, aqua progress bar, fade-out on all complete; visibility gated on tenant.status pending|configured; wired into dashboard page; build passes |
