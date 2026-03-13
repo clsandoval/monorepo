@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 49
-- **Analyzed**: 13
-- **Pending**: 36
-- **Convergence**: 27%
+- **Analyzed**: 14
+- **Pending**: 35
+- **Convergence**: 29%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -25,7 +25,7 @@
 - [x] 2.3 — Analyze Claude API key usage → spec BYOK key routing per tenant (current: `bootstrap/config.py`)
 - [x] 2.4 — Design Supabase Realtime subscription — channel names, filters, payload shapes for tenant lifecycle events
 - [x] 2.5 — Design heartbeat + health monitoring — per-tenant status, stale detection, reconnection logic
-- [ ] 2.6 — Design tenant isolation boundaries — what's shared (code, infra) vs isolated (tokens, keys, data)
+- [x] 2.6 — Design tenant isolation boundaries — what's shared (code, infra) vs isolated (tokens, keys, data)
 
 ## Wave 3: Exhaustive Data Model (7 aspects)
 
