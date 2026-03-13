@@ -22,7 +22,7 @@ This file documents every reusable React component in the Daimon SaaS website. E
 
 1. [Layout Components](#1-layout-components) ← **This section (aspect 4.9a)**
 2. Form Components (aspect 4.9b)
-3. Feedback Components (aspect 4.9c)
+3. [Feedback Components](#3-feedback-components) ← **This section (aspect 4.9c)**
 4. Data Display Components (aspect 4.9d)
 5. Action Components (aspect 4.9e)
 
@@ -2281,5 +2281,948 @@ When focus-within:
 | `Checkbox` | `components/ui/Checkbox.tsx` | ToS agreement, multi-select lists |
 | `ApiKeyInput` | `components/ui/ApiKeyInput.tsx` | Anthropic/OpenAI keys on billing; Toggl etc. on integrations |
 | `SearchInput` | `components/ui/SearchInput.tsx` | Admin tenant search, integration grid search, tool reference search |
+
+---
+
+## 3. Feedback Components
+
+Feedback components communicate system status, errors, confirmations, and empty states to the user. All use the PyMC brand system: Navy `#0C1F40`, Aqua `#B4E7DD`, White `#FFFFFF`, White Soft `#F7F7F7`. No border-radius (sharp corners). Semantic colors for error/warning/success/info are defined below and are the only exception to the primary palette.
+
+### Semantic Feedback Colors
+
+| Semantic Role | Background | Border / Icon | Text |
+|---------------|-----------|---------------|------|
+| Error | `#FEF2F2` | `#DC2626` (red-600) | `#7F1D1D` (red-900) |
+| Warning | `#FFFBEB` | `#D97706` (amber-600) | `#78350F` (amber-900) |
+| Success | `#F0FDF4` | `#16A34A` (green-600) | `#14532D` (green-900) |
+| Info | `rgba(180,231,221,0.20)` | `#B4E7DD` (Aqua) | `#0C1F40` (Navy) |
+
+---
+
+### 3.1 AlertBanner
+
+**File:** `components/ui/AlertBanner.tsx`
+
+**Purpose:** Inline contextual alert displayed within a page section (not floating). Used for non-dismissible warnings (e.g., "Your bot is offline"), dismissible notices (e.g., "Email not verified"), and persistent system messages. Placed below the TopBar or within a card body.
+
+**Props interface:**
+
+```typescript
+type AlertVariant = 'error' | 'warning' | 'success' | 'info'
+
+interface AlertBannerProps {
+  variant: AlertVariant           // Controls color scheme
+  title: string                   // Bold first line, e.g. "Bot offline"
+  description?: string            // Optional supporting text below title
+  dismissible?: boolean           // Shows ✕ button; default false
+  onDismiss?: () => void          // Called when ✕ is clicked; required if dismissible=true
+  action?: {
+    label: string                 // Action button label, e.g. "Reconnect"
+    onClick: () => void           // Called on action button click
+  }
+  icon?: React.ReactNode          // Override default icon; if undefined, uses variant default
+  className?: string
+}
+```
+
+**Variant defaults (icon + colors):**
+
+| Variant | Default Icon | Background | Left border | Icon color | Title color | Description color |
+|---------|-------------|------------|-------------|-----------|-------------|-------------------|
+| `error` | `AlertCircle` (Lucide, 16px) | `#FEF2F2` | `3px solid #DC2626` | `#DC2626` | `#7F1D1D` | `#7F1D1D` at 75% opacity |
+| `warning` | `AlertTriangle` (Lucide, 16px) | `#FFFBEB` | `3px solid #D97706` | `#D97706` | `#78350F` | `#78350F` at 75% opacity |
+| `success` | `CheckCircle` (Lucide, 16px) | `#F0FDF4` | `3px solid #16A34A` | `#16A34A` | `#14532D` | `#14532D` at 75% opacity |
+| `info` | `Info` (Lucide, 16px) | `rgba(180,231,221,0.20)` | `3px solid #B4E7DD` | `#0C1F40` | `#0C1F40` | `rgba(12,31,64,0.65)` |
+
+**Dimensions and layout:**
+
+| Property | Value |
+|----------|-------|
+| Display | `flex`, `align-items: flex-start`, `gap: 12px` |
+| Padding | `14px 16px` |
+| Border-radius | `0` |
+| Border-left | `3px solid {variant color}` (see above) |
+| Width | `100%` |
+| Box-shadow | None |
+
+**Internal structure:**
+
+```
+AlertBanner
+├── Icon (flex-shrink: 0, margin-top: 1px to align with text cap height)
+├── Content (flex: 1)
+│   ├── Title (Inter, 14px, weight 600, variant title color)
+│   ├── Description? (Inter, 13px, weight 400, variant description color, margin-top: 2px)
+│   └── Action? (rendered as inline text link — Inter, 13px, weight 600, underline, variant icon color, margin-top: 6px)
+└── DismissButton? (flex-shrink: 0, 20px × 20px, X icon 14px, variant icon color at 60%, hover 100%, cursor pointer)
+```
+
+**Action button styling:**
+
+The `action` is rendered as a text link (not a button element), styled inline:
+| Property | Value |
+|----------|-------|
+| Font | Inter, 13px, weight 600 |
+| Color | Variant icon color (e.g. `#DC2626` for error) |
+| Text-decoration | `underline` |
+| Cursor | `pointer` |
+| Hover | `opacity: 0.75` |
+| Display | `block` |
+| Margin-top | `6px` |
+
+**Dismiss button (when `dismissible=true`):**
+
+| Property | Value |
+|----------|-------|
+| Element | `<button>` |
+| Size | `20px × 20px` |
+| Icon | `X` (Lucide, 14px) |
+| Icon color | Variant icon color at 60% opacity |
+| Hover icon color | Variant icon color at 100% opacity |
+| Background | Transparent |
+| Border | None |
+| Focus-visible | `outline: 2px solid #B4E7DD`, `outline-offset: 2px` |
+| Transition | `opacity 0.15s ease` |
+| Cursor | `pointer` |
+| Margin-top | `1px` |
+
+**Animation (dismissible):** When dismissed, the component fades out over `200ms` (`opacity: 0`, `max-height: 0`, `padding: 0`, overflow hidden) then calls `onDismiss`. Do not unmount before animation completes.
+
+**Usage in the spec:**
+- Dashboard: "Bot offline" warning (variant `error`, not dismissible, action "Check status")
+- Dashboard: "Email not verified — check your inbox" (variant `warning`, dismissible)
+- Settings: "Danger zone" confirmation banner after disconnect (variant `success`, dismissible)
+- Billing: "No active subscription" (variant `info`, action "View plans")
+- Auth pages: Server error feedback (variant `error`, not dismissible)
+
+**Implementation note:** `AlertBanner` is NOT used for toast notifications (which are floating). For toasts, use the `Toast` component below.
+
+---
+
+### 3.2 Toast
+
+**File:** `components/ui/Toast.tsx` + `components/ui/ToastProvider.tsx` + `lib/toast.ts`
+
+**Purpose:** Floating notification that appears in the bottom-right corner of the screen. Auto-dismisses after a configurable duration. Used for action confirmation (success) and non-blocking error notifications. Multiple toasts stack vertically.
+
+**Props interface (Toast item):**
+
+```typescript
+type ToastVariant = 'success' | 'error' | 'warning' | 'info'
+
+interface ToastItem {
+  id: string                      // Unique ID, generated by useToast hook
+  variant: ToastVariant
+  title: string                   // Primary message, e.g. "Settings saved"
+  description?: string            // Optional secondary line
+  duration?: number               // Auto-dismiss delay in ms; default 4000; set to 0 to disable auto-dismiss
+  action?: {
+    label: string                 // e.g. "Undo"
+    onClick: () => void
+  }
+}
+```
+
+**ToastProvider props:**
+
+```typescript
+interface ToastProviderProps {
+  children: React.ReactNode
+  maxToasts?: number              // Maximum toasts shown at once; default 5; oldest dismissed first
+}
+```
+
+**`lib/toast.ts` — imperative API:**
+
+```typescript
+// Used throughout the app to trigger toasts without prop drilling
+const { toast } = useToast()
+
+toast.success('Settings saved')
+toast.success('Settings saved', { description: 'Your changes have been applied.' })
+toast.error('Failed to save', { description: 'Please try again.' })
+toast.warning('API key expiring soon')
+toast.info('Bot reconnecting...')
+toast({
+  variant: 'success',
+  title: 'Tenant deleted',
+  description: 'The tenant has been permanently removed.',
+  duration: 6000,
+  action: { label: 'View log', onClick: () => router.push('/admin') }
+})
+```
+
+**Toast container (ToastViewport) dimensions and position:**
+
+| Property | Value |
+|----------|-------|
+| Position | `fixed`, `bottom: 24px`, `right: 24px` |
+| Z-index | `100` |
+| Width | `360px` |
+| Max-height | `calc(100vh - 48px)` |
+| Overflow | `hidden` (clips overflow during animation) |
+| Display | `flex`, `flex-direction: column-reverse`, `gap: 8px` |
+
+**Individual Toast dimensions:**
+
+| Property | Value |
+|----------|-------|
+| Background | White (`#FFFFFF`) |
+| Border | `1px solid rgba(12,31,64,0.10)` |
+| Border-left | `3px solid {variant color}` (same as AlertBanner variant colors) |
+| Border-radius | `0` |
+| Box-shadow | `0 4px 16px rgba(12,31,64,0.10)` |
+| Padding | `12px 14px` |
+| Width | `100%` (360px from container) |
+| Min-height | `52px` |
+
+**Internal structure:**
+
+```
+Toast
+├── Left accent bar (3px left border, variant color)
+├── Icon (Lucide, 16px, variant icon color, flex-shrink 0, margin-top 1px)
+├── Content (flex: 1)
+│   ├── Title (Inter, 13px, weight 600, Navy #0C1F40)
+│   └── Description? (Inter, 12px, weight 400, rgba(12,31,64,0.65), margin-top: 2px)
+├── Action? (text button, Inter, 12px, weight 600, variant color, underline, cursor pointer)
+└── DismissButton (X icon 12px, rgba(12,31,64,0.40), hover rgba(12,31,64,0.80))
+```
+
+**Variant colors (icon and left border):**
+
+| Variant | Icon | Left border color | Icon component |
+|---------|------|-------------------|----------------|
+| `success` | `#16A34A` | `#16A34A` | `CheckCircle` (Lucide, 16px) |
+| `error` | `#DC2626` | `#DC2626` | `AlertCircle` (Lucide, 16px) |
+| `warning` | `#D97706` | `#D97706` | `AlertTriangle` (Lucide, 16px) |
+| `info` | `#0C1F40` | `#B4E7DD` | `Info` (Lucide, 16px) |
+
+**Animation:**
+
+| State | Animation |
+|-------|-----------|
+| Enter | Slide in from right: `translateX(calc(100% + 24px))` → `translateX(0)`, `opacity: 0` → `1`, duration `250ms`, easing `cubic-bezier(0.22, 1, 0.36, 1)` |
+| Exit (auto-dismiss or manual) | Slide out right + fade: `translateX(0)` → `translateX(calc(100% + 24px))`, `opacity: 1` → `0`, duration `200ms`, easing `ease-in` |
+| Stack reflow (when toast removed) | Remaining toasts animate upward: `transition: transform 200ms ease` |
+
+**Progress bar (auto-dismiss visual indicator):**
+
+- A thin (`2px`) horizontal bar at the bottom of the toast
+- Color: variant icon color at 30% opacity
+- Animates from full-width to zero-width over `duration` ms using CSS `@keyframes` width animation
+- Pauses when user hovers the toast (`animation-play-state: paused`)
+- Not shown when `duration = 0`
+
+**Auto-dismiss timer:**
+
+- Starts after enter animation completes
+- Paused while user hovers the toast (mouseover → pause, mouseleave → resume from remaining time)
+- Paused while user is focused on the toast (keyboard navigation)
+- On dismiss: run exit animation, then remove from state
+
+**Stacking behavior:**
+
+- New toasts appear at the bottom of the stack (most recent is lowest)
+- When `maxToasts` is reached, the oldest toast is force-dismissed (exit animation plays before removal)
+- Each toast tracks its own timer independently
+
+**Mobile behavior (<768px):**
+
+| Property | Value |
+|----------|-------|
+| Position | `fixed`, `bottom: 16px`, `left: 16px`, `right: 16px` |
+| Width | `calc(100vw - 32px)` |
+| Max-width | None |
+
+**`useToast` hook (exported from `lib/toast.ts`):**
+
+```typescript
+export function useToast() {
+  const context = useContext(ToastContext)
+  return {
+    toast: {
+      success: (title: string, opts?: Partial<ToastItem>) => void,
+      error: (title: string, opts?: Partial<ToastItem>) => void,
+      warning: (title: string, opts?: Partial<ToastItem>) => void,
+      info: (title: string, opts?: Partial<ToastItem>) => void,
+    }
+    // also callable as: toast({ variant, title, ...opts })
+  }
+}
+```
+
+**Complete toast trigger inventory (all places in the app that call `toast`):**
+
+| Action | Variant | Title | Description |
+|--------|---------|-------|-------------|
+| Settings saved | success | "Settings saved" | — |
+| API key saved | success | "API key saved" | "Your Anthropic key has been stored securely." |
+| API key deleted | success | "API key removed" | — |
+| Discord connection saved | success | "Discord connected" | "Your bot is now connecting." |
+| Discord connection removed | success | "Discord disconnected" | — |
+| Integration connected (OAuth) | success | "{Service} connected" | — |
+| Integration disconnected | success | "{Service} disconnected" | — |
+| API key service saved | success | "API key saved" | "{Service} is now connected." |
+| Plan upgraded | success | "Plan upgraded" | "Welcome to {plan name}!" |
+| Plan downgraded | success | "Plan updated" | — |
+| Profile updated | success | "Profile updated" | — |
+| Password changed | success | "Password changed" | — |
+| Email verification sent | info | "Verification email sent" | "Check your inbox." |
+| Tenant deleted (admin) | success | "Tenant deleted" | — |
+| Tenant impersonation started | warning | "Impersonating tenant" | "You are viewing as {tenant name}." |
+| Impersonation ended | info | "Returned to admin" | — |
+| Clipboard copy success | success | "Copied to clipboard" | — |
+| Clipboard copy failed | error | "Copy failed" | "Please copy manually." |
+| API key validation failed | error | "Invalid API key" | "Please check your key and try again." |
+| Discord token invalid | error | "Invalid bot token" | "Please check the token and try again." |
+| Server error (generic) | error | "Something went wrong" | "Please try again or contact support." |
+| Subscription webhook received | info | "Subscription updated" | — |
+| Bot status changed to online | success | "Bot is online" | — |
+| Bot status changed to offline | error | "Bot went offline" | "Check the integrations page for details." |
+
+---
+
+### 3.3 ConfirmDialog
+
+**File:** `components/ui/ConfirmDialog.tsx`
+
+**Purpose:** Modal dialog requiring explicit user confirmation before a destructive or irreversible action. Used for: delete tenant, disconnect Discord, remove service, downgrade plan. Blocks interaction with the page until dismissed.
+
+**Props interface:**
+
+```typescript
+type ConfirmVariant = 'danger' | 'warning' | 'default'
+
+interface ConfirmDialogProps {
+  open: boolean                   // Controlled open state
+  onOpenChange: (open: boolean) => void  // Called when dialog should close (backdrop click, Escape, cancel)
+  variant?: ConfirmVariant        // Controls header icon and confirm button color; default 'default'
+  title: string                   // Dialog heading, e.g. "Delete tenant?"
+  description: string             // Explanation of what will happen, e.g. "This will permanently delete..."
+  confirmLabel?: string           // Confirm button text; default "Confirm"
+  cancelLabel?: string            // Cancel button text; default "Cancel"
+  onConfirm: () => void | Promise<void>  // Called on confirm; if Promise, button shows loading state
+  loading?: boolean               // External loading state (controlled); disables buttons
+  confirmationText?: string       // If provided, user must type this exact string to enable confirm button
+  confirmationPlaceholder?: string // Input placeholder; default "Type {confirmationText} to confirm"
+}
+```
+
+**Variant styles:**
+
+| Variant | Header icon | Icon color | Confirm button |
+|---------|------------|------------|----------------|
+| `danger` | `Trash2` (Lucide, 20px) | `#DC2626` | Background `#DC2626`, text White, hover `#B91C1C` |
+| `warning` | `AlertTriangle` (Lucide, 20px) | `#D97706` | Background `#D97706`, text White, hover `#B45309` |
+| `default` | `HelpCircle` (Lucide, 20px) | `#0C1F40` | Primary (Aqua bg, Navy text) same as brand primary button |
+
+**Overlay (backdrop):**
+
+| Property | Value |
+|----------|-------|
+| Position | `fixed inset-0` |
+| Background | `rgba(12,31,64,0.55)` |
+| Backdrop-filter | `blur(4px)` |
+| Z-index | `50` |
+| Animation | Fade in: `opacity 0` → `opacity 1`, `150ms ease` |
+
+**Dialog panel dimensions:**
+
+| Property | Value |
+|----------|-------|
+| Position | Centered: `fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2` |
+| Width | `440px` |
+| Max-width | `calc(100vw - 32px)` |
+| Background | White (`#FFFFFF`) |
+| Border | `1px solid rgba(12,31,64,0.12)` |
+| Border-radius | `0` |
+| Box-shadow | `0 20px 60px rgba(12,31,64,0.18)` |
+| Z-index | `51` |
+| Animation | Scale in: `scale(0.96) opacity(0)` → `scale(1) opacity(1)`, `200ms cubic-bezier(0.22, 1, 0.36, 1)` |
+
+**Internal structure:**
+
+```
+ConfirmDialog
+├── Header (padding: 24px 24px 0)
+│   ├── IconContainer (36px × 36px, background: variant icon color at 8% opacity, centered icon)
+│   └── Title (Archivo Semi-Expanded, 18px, weight 500, Navy, margin-top: 12px)
+├── Body (padding: 12px 24px 0)
+│   ├── Description (Inter, 14px, weight 400, rgba(12,31,64,0.65), line-height: 1.6)
+│   └── ConfirmationInput? (rendered if confirmationText prop is provided — see below)
+└── Footer (padding: 20px 24px 24px, display: flex, justify-content: flex-end, gap: 8px)
+    ├── CancelButton (secondary variant, 38px height, "Cancel")
+    └── ConfirmButton (variant-dependent, 38px height, loading state supported)
+```
+
+**IconContainer:**
+
+| Property | Value |
+|----------|-------|
+| Size | `36px × 36px` |
+| Display | `flex`, `align-items: center`, `justify-content: center` |
+| Background | Variant icon color at 8% opacity (e.g. `rgba(220,38,38,0.08)` for danger) |
+| Border-radius | `0` |
+
+**ConfirmationInput (when `confirmationText` provided):**
+
+Rendered below the description when `confirmationText` prop is set. Forces the user to type the exact string before confirming.
+
+| Property | Value |
+|----------|-------|
+| Margin-top | `16px` |
+| Label | Inter, 13px, weight 500, Navy, margin-bottom 6px |
+| Label text | `Type <code>{confirmationText}</code> to confirm` — the code element uses monospace font, background `rgba(12,31,64,0.06)`, padding `2px 4px` |
+| Input element | Uses `FormInput` component (see section 2.1) with no label, full width |
+| Input placeholder | Prop `confirmationPlaceholder` or `"Type {confirmationText} to confirm"` |
+| Confirm button | Disabled until input value === `confirmationText` (exact string match, case-sensitive) |
+
+**Cancel button:**
+
+| Property | Value |
+|----------|-------|
+| Variant | Secondary (transparent bg, Navy border, Navy text) |
+| Height | `38px` |
+| Font | Inter, 14px, weight 600 |
+| Padding | `0 20px` |
+| Border | `1.5px solid #0C1F40` |
+| Disabled | When `loading=true` |
+
+**Confirm button loading state:**
+
+When `onConfirm` returns a Promise (or `loading=true`), the confirm button:
+- Shows a `Loader2` (Lucide) icon, `14px`, spinning at `1s linear infinite`
+- Text replaced by `loading` prop label (same as `confirmLabel`)
+- Pointer-events disabled
+- Opacity `0.75`
+
+**Keyboard behavior:**
+
+| Key | Action |
+|-----|--------|
+| `Escape` | Calls `onOpenChange(false)` — closes dialog (if not loading) |
+| `Enter` | Activates focused button (confirm or cancel) |
+| `Tab` / `Shift+Tab` | Cycles focus through: Cancel → Confirm → Close (if shown) → back |
+| Focus trap | Focus cannot leave the dialog while open |
+
+**Scroll lock:** When open, `document.body` gets `overflow: hidden` to prevent background scroll.
+
+**Accessibility:**
+
+| ARIA | Value |
+|------|-------|
+| Dialog role | `role="dialog"` |
+| `aria-modal` | `"true"` |
+| `aria-labelledby` | References title element ID |
+| `aria-describedby` | References description element ID |
+| Initial focus | On `CancelButton` (safe default — not destructive) |
+
+**Complete usage inventory (all ConfirmDialogs in the app):**
+
+| Location | Variant | Title | Description | confirmLabel | confirmationText |
+|----------|---------|-------|-------------|--------------|-----------------|
+| Settings → Disconnect Discord | danger | "Disconnect bot?" | "Your Discord bot will go offline immediately. Any active conversations will be interrupted. You can reconnect at any time." | "Disconnect" | — |
+| Settings → Delete Account | danger | "Delete your account?" | "This permanently deletes your Daimon account, all tenant data, Discord connections, API keys, and cancels your subscription. This cannot be undone." | "Delete account" | `"delete my account"` |
+| Admin → Delete Tenant | danger | "Delete tenant?" | "This permanently deletes the tenant "{name}" and all associated data. The bot will go offline immediately." | "Delete tenant" | tenant slug |
+| Integrations → Disconnect service | warning | "Disconnect {service}?" | "Disconnecting {service} will disable all {service} tools in Decision Orchestrator. You can reconnect at any time." | "Disconnect" | — |
+| Billing → Downgrade to Free | warning | "Downgrade to Free?" | "You will lose access to all Starter features at the end of your current billing period. Usage above Free limits will be disabled." | "Downgrade" | — |
+
+---
+
+### 3.4 Modal
+
+**File:** `components/ui/Modal.tsx`
+
+**Purpose:** General-purpose modal dialog for non-destructive interactions: forms, previews, detail views. Unlike `ConfirmDialog` (which has a fixed layout), `Modal` accepts arbitrary children. Used for: add service connection, view audit log entry, disconnect service form.
+
+**Props interface:**
+
+```typescript
+interface ModalProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  title: string
+  description?: string            // Optional subtitle below title in header
+  size?: 'sm' | 'md' | 'lg'      // Default 'md'
+  children: React.ReactNode       // Modal body content
+  footer?: React.ReactNode        // Optional footer area (for action buttons)
+  showClose?: boolean             // Show × button in header; default true
+  closeOnBackdrop?: boolean       // Whether backdrop click closes; default true
+  closeOnEscape?: boolean         // Whether Escape closes; default true
+  loading?: boolean               // When true, disables close triggers and shows overlay inside modal
+}
+```
+
+**Size variants:**
+
+| Size | Width | Max-width |
+|------|-------|-----------|
+| `sm` | `380px` | `calc(100vw - 32px)` |
+| `md` | `520px` | `calc(100vw - 32px)` |
+| `lg` | `720px` | `calc(100vw - 48px)` |
+
+**Overlay (backdrop) — identical to ConfirmDialog:**
+
+| Property | Value |
+|----------|-------|
+| Position | `fixed inset-0` |
+| Background | `rgba(12,31,64,0.55)` |
+| Backdrop-filter | `blur(4px)` |
+| Z-index | `50` |
+
+**Modal panel:**
+
+| Property | Value |
+|----------|-------|
+| Position | `fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2` |
+| Max-height | `calc(100vh - 80px)` |
+| Display | `flex`, `flex-direction: column` |
+| Background | White (`#FFFFFF`) |
+| Border | `1px solid rgba(12,31,64,0.12)` |
+| Border-radius | `0` |
+| Box-shadow | `0 20px 60px rgba(12,31,64,0.18)` |
+| Z-index | `51` |
+| Animation | Same as ConfirmDialog: `scale(0.96) opacity(0)` → `scale(1) opacity(1)`, `200ms cubic-bezier(0.22, 1, 0.36, 1)` |
+| Overflow | `hidden` (body section scrolls internally if content overflows) |
+
+**Internal structure:**
+
+```
+Modal
+├── ModalHeader (padding: 20px 24px, border-bottom: 1px solid rgba(12,31,64,0.08), flex-shrink: 0)
+│   ├── TitleGroup (flex: 1)
+│   │   ├── Title (Archivo Semi-Expanded, 18px, weight 500, Navy)
+│   │   └── Description? (Inter, 13px, weight 400, rgba(12,31,64,0.55), margin-top: 2px)
+│   └── CloseButton? (showClose=true — 28px × 28px, X icon 16px, rgba(12,31,64,0.45) → rgba(12,31,64,0.80) on hover)
+├── ModalBody (padding: 24px, flex: 1, overflow-y: auto, children rendered here)
+│   └── {children}
+└── ModalFooter? (padding: 16px 24px, border-top: 1px solid rgba(12,31,64,0.08), flex-shrink: 0)
+    └── {footer}
+```
+
+**ModalBody scroll:** When content height exceeds `calc(100vh - 80px - header height - footer height)`, the body section scrolls with `overflow-y: auto`. The header and footer remain sticky.
+
+**Loading overlay (when `loading=true`):**
+
+An overlay is rendered inside the modal panel covering the body:
+| Property | Value |
+|----------|-------|
+| Position | `absolute inset-0` (positioned relative to modal panel) |
+| Background | `rgba(255,255,255,0.75)` |
+| Display | `flex`, `align-items: center`, `justify-content: center` |
+| Z-index | `1` (above body, below nothing) |
+| Content | `Loader2` (Lucide, 24px, Navy, spinning `1s linear infinite`) |
+
+**Close button:**
+
+| Property | Value |
+|----------|-------|
+| Size | `28px × 28px` |
+| Icon | `X` (Lucide, 16px) |
+| Icon color | `rgba(12,31,64,0.45)` |
+| Hover icon color | `rgba(12,31,64,0.80)` |
+| Background | Transparent |
+| Border | None |
+| Focus-visible | `outline: 2px solid #B4E7DD`, `outline-offset: 2px` |
+| Transition | `color 0.15s ease` |
+
+**Keyboard behavior:** Same as ConfirmDialog — Escape to close (if `closeOnEscape=true`), focus trap, scroll lock.
+
+**Accessibility:**
+
+| ARIA | Value |
+|------|-------|
+| Dialog role | `role="dialog"` |
+| `aria-modal` | `"true"` |
+| `aria-labelledby` | References title element ID |
+| `aria-describedby` | References description element ID (if present) |
+| Initial focus | First focusable element in `ModalBody`, or `CloseButton` as fallback |
+
+**Complete usage inventory (all Modals in the app):**
+
+| Location | Size | Title | Purpose |
+|----------|------|-------|---------|
+| Integrations → Add API key service | `sm` | "Connect {service}" | Form with API key input + save/cancel |
+| Integrations → OAuth connecting | `sm` | "Connecting {service}..." | Loading state during OAuth redirect |
+| Admin → View audit log entry | `md` | "Audit log entry" | Full detail of a single log entry |
+| Admin → Impersonate tenant confirm | `sm` | "Impersonate tenant?" | Warning + confirm button before switching |
+| Billing → Manage payment method | `md` | "Payment method" | Stripe Elements iframe for card update |
+
+---
+
+### 3.5 EmptyState
+
+**File:** `components/ui/EmptyState.tsx`
+
+**Purpose:** Displayed when a list or data section has no content yet. Used in: integrations page (no services connected), admin tenant list (no tenants), activity feed (no activity), dashboard (no bot status history), tool reference (no search results).
+
+**Props interface:**
+
+```typescript
+interface EmptyStateProps {
+  icon?: React.ReactNode           // Lucide icon component, 32px; if omitted, uses default placeholder icon
+  title: string                    // Primary message, e.g. "No integrations yet"
+  description?: string             // Supporting text, e.g. "Connect your first service to get started."
+  action?: {
+    label: string                  // CTA button label, e.g. "Connect a service"
+    onClick?: () => void           // Mutually exclusive with href
+    href?: string                  // Mutually exclusive with onClick — renders as Next.js Link
+    variant?: 'primary' | 'secondary'  // Default 'primary'
+  }
+  size?: 'sm' | 'md' | 'lg'       // Controls icon + title size; default 'md'
+  className?: string
+}
+```
+
+**Size variants:**
+
+| Size | Icon container | Icon size | Title font | Description font | Padding |
+|------|---------------|-----------|------------|-----------------|---------|
+| `sm` | `48px × 48px` | `20px` | Inter, 14px, weight 600 | Inter, 13px | `24px 0` |
+| `md` | `64px × 64px` | `28px` | Inter, 16px, weight 600 | Inter, 14px | `40px 0` |
+| `lg` | `80px × 80px` | `36px` | Archivo Semi-Expanded, 20px, weight 500 | Inter, 15px | `60px 0` |
+
+**Layout:**
+
+| Property | Value |
+|----------|-------|
+| Display | `flex`, `flex-direction: column`, `align-items: center`, `text-align: center` |
+| Width | `100%` |
+| Max-width | `360px` (centered within parent) |
+| Margin | `0 auto` |
+
+**Icon container:**
+
+| Property | Value |
+|----------|-------|
+| Background | `rgba(180,231,221,0.20)` (Aqua at 20%) |
+| Border | `1px solid rgba(180,231,221,0.50)` |
+| Border-radius | `0` |
+| Display | `flex`, `align-items: center`, `justify-content: center` |
+| Icon color | `#0C1F40` at 45% opacity (`rgba(12,31,64,0.45)`) |
+| Margin-bottom | `16px` |
+
+**Default icon** (when `icon` prop is omitted): `InboxIcon` (Lucide) — a tray/inbox indicating emptiness.
+
+**Title:**
+
+| Property | Value |
+|----------|-------|
+| Color | Navy (`#0C1F40`) |
+| Margin-bottom | `6px` |
+| Font | See size variants above |
+
+**Description:**
+
+| Property | Value |
+|----------|-------|
+| Color | `rgba(12,31,64,0.55)` |
+| Line-height | `1.6` |
+| Margin-bottom | `20px` (when action present) |
+| Max-width | `280px` |
+
+**Action button:** Uses the brand Button component (see section 5 — Action Components). Variant `primary` maps to Aqua bg + Navy text. Variant `secondary` maps to transparent + Navy border.
+
+**Complete usage inventory:**
+
+| Location | Icon | Title | Description | Action |
+|----------|------|-------|-------------|--------|
+| Integrations page — no services | `PlugZap` (Lucide) | "No integrations yet" | "Connect your first service to unlock tools in Decision Orchestrator." | "Browse services" (scroll to grid) |
+| Admin → tenant list — no tenants | `Users` (Lucide) | "No tenants yet" | "Tenants appear here when users sign up." | — |
+| Admin → audit log — no entries | `FileText` (Lucide) | "No audit events yet" | "Admin actions will appear here." | — |
+| Dashboard → activity feed — no activity | `Activity` (Lucide) | "No recent activity" | "Your bot's tool calls and decisions will appear here." | — |
+| Dashboard → bot never connected | `Bot` (Lucide) | "Bot not connected" | "Complete the setup checklist to connect your Discord bot." | "Go to settings" (`href="/dashboard/settings"`) |
+| Tool reference — no search results | `Search` (Lucide) | "No tools found" | "Try a different search term or browse all categories." | "Clear search" (onClick) |
+| Integrations — service search empty | `Search` (Lucide) | "No matching services" | "Try a different search term." | "Clear search" (onClick) |
+| Billing — no invoices yet | `Receipt` (Lucide) | "No invoices yet" | "Your billing history will appear here after your first payment." | — |
+
+---
+
+### 3.6 ErrorState
+
+**File:** `components/ui/ErrorState.tsx`
+
+**Purpose:** Displayed when a data fetch fails and the section cannot render. Provides a retry mechanism. Used as a replacement for the page/section content when an error occurs (not as a toast or banner — those are used for non-blocking errors).
+
+**Props interface:**
+
+```typescript
+interface ErrorStateProps {
+  title?: string                   // Error heading; default "Something went wrong"
+  description?: string             // Error detail; default "We couldn't load this content. Please try again."
+  onRetry?: () => void             // If provided, shows a "Try again" button
+  error?: Error | string           // Technical error detail (shown in dev mode only, hidden in prod)
+  size?: 'sm' | 'md' | 'lg'       // Same size tokens as EmptyState; default 'md'
+  className?: string
+}
+```
+
+**Visual design:** Similar layout to `EmptyState` but uses error color scheme.
+
+**Icon:** `AlertCircle` (Lucide) — always used, not overridable.
+
+**Icon container:**
+
+| Property | Value |
+|----------|-------|
+| Background | `rgba(220,38,38,0.06)` |
+| Border | `1px solid rgba(220,38,38,0.20)` |
+| Border-radius | `0` |
+| Icon color | `#DC2626` |
+
+**Title:**
+
+| Property | Value |
+|----------|-------|
+| Color | Navy (`#0C1F40`) |
+| Font | Same as EmptyState by size variant |
+
+**Description:**
+
+| Property | Value |
+|----------|-------|
+| Color | `rgba(12,31,64,0.55)` |
+| Line-height | `1.6` |
+| Max-width | `280px` |
+
+**Retry button (when `onRetry` provided):**
+
+| Property | Value |
+|----------|-------|
+| Label | "Try again" |
+| Variant | Secondary (transparent, Navy border) |
+| Size | Compact (38px height) |
+| Leading icon | `RotateCw` (Lucide, 14px) |
+| Icon spacing | `gap: 6px` |
+
+**Development mode error detail:**
+
+When `error` prop is provided AND `process.env.NODE_ENV === 'development'`, renders a `<pre>` block below the retry button:
+
+| Property | Value |
+|----------|-------|
+| Font | `font-mono`, 11px |
+| Color | `#DC2626` at 75% opacity |
+| Background | `rgba(220,38,38,0.04)` |
+| Border | `1px solid rgba(220,38,38,0.15)` |
+| Padding | `8px 12px` |
+| Margin-top | `16px` |
+| Max-width | `400px` |
+| Text-align | `left` |
+| White-space | `pre-wrap` |
+| Word-break | `break-word` |
+| Max-height | `120px` |
+| Overflow-y | `auto` |
+
+In production (`NODE_ENV !== 'development'`), the `error` prop is completely suppressed — no technical detail shown to users.
+
+**Layout:** Identical to `EmptyState` (flex column, centered, max-width 360px).
+
+**Complete usage inventory:**
+
+| Location | Title | Description | onRetry |
+|----------|-------|-------------|---------|
+| Dashboard data fetch failure | "Couldn't load dashboard" | "We couldn't load your dashboard data. Please try again." | Yes — re-runs dashboard query |
+| Integrations fetch failure | "Couldn't load integrations" | "We couldn't load your connected services. Please try again." | Yes |
+| Admin tenant list fetch failure | "Couldn't load tenants" | "We couldn't load the tenant list. Please try again." | Yes |
+| Admin audit log fetch failure | "Couldn't load audit log" | "We couldn't load the audit log. Please try again." | Yes |
+| Billing page fetch failure | "Couldn't load billing info" | "We couldn't load your subscription details. Please try again." | Yes |
+| Settings page fetch failure | "Couldn't load settings" | "We couldn't load your settings. Please try again." | Yes |
+| Bot status fetch failure | "Couldn't load bot status" | "Bot status is temporarily unavailable." | Yes — silent retry, shows ErrorState only after 3 failed attempts |
+| Docs page render failure | "Page unavailable" | "This documentation page couldn't be loaded." | No (static docs don't retry) |
+
+---
+
+### 3.7 SkeletonLoader
+
+**File:** `components/ui/SkeletonLoader.tsx` (base component) + `components/ui/skeletons/` (page-specific composites)
+
+**Purpose:** Placeholder UI shown while data is loading. Mimics the layout of the content that will replace it, reducing perceived load time and preventing layout shift. Uses a shimmer animation.
+
+**Base component props:**
+
+```typescript
+interface SkeletonProps {
+  width?: string | number          // CSS width; default '100%'
+  height?: string | number         // CSS height; default '16px'
+  className?: string
+  style?: React.CSSProperties      // For arbitrary dimensions not coverable by width/height
+}
+```
+
+**Base component styling:**
+
+| Property | Value |
+|----------|-------|
+| Background | `linear-gradient(90deg, rgba(12,31,64,0.06) 25%, rgba(12,31,64,0.10) 50%, rgba(12,31,64,0.06) 75%)` |
+| Background-size | `200% 100%` |
+| Animation | `shimmer 1.5s ease-in-out infinite` |
+| Border-radius | `0` |
+| Display | `block` |
+
+**Shimmer keyframes:**
+
+```css
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+```
+
+---
+
+#### Composite skeletons (page-specific, in `components/ui/skeletons/`)
+
+These pre-composed skeleton layouts are used directly in page components during loading states.
+
+---
+
+##### DashboardSkeleton
+
+**File:** `components/ui/skeletons/DashboardSkeleton.tsx`
+
+**Mimics:** Dashboard home page layout
+
+**Structure:**
+
+```
+DashboardSkeleton
+├── PageHeader row
+│   └── Skeleton (width: 200px, height: 28px)  ← page title
+├── StatusCards row (4 cards, gap: 16px, display: grid, grid-template-columns: repeat(4, 1fr))
+│   └── [×4] StatusCardSkeleton
+│       ├── Skeleton (width: 80px, height: 12px)   ← label
+│       ├── Skeleton (width: 48px, height: 28px, margin-top: 8px)  ← value
+│       └── Skeleton (width: 60%, height: 10px, margin-top: 6px)  ← sub-label
+├── Divider (16px margin)
+├── TwoColumn row (grid: 7fr 5fr, gap: 24px)
+│   ├── Left: ActivityFeedSkeleton
+│   │   ├── Skeleton (width: 140px, height: 18px)  ← section title
+│   │   └── [×5] ActivityRowSkeleton (margin-top: 16px each)
+│   │       ├── Skeleton (width: 32px, height: 32px)  ← avatar circle (still square per brand)
+│   │       └── ContentGroup (flex column, gap: 4px)
+│   │           ├── Skeleton (width: 70%, height: 13px)
+│   │           └── Skeleton (width: 40%, height: 11px)
+│   └── Right: OnboardingChecklistSkeleton
+│       ├── Skeleton (width: 180px, height: 18px)  ← section title
+│       └── [×4] ChecklistRowSkeleton (margin-top: 12px each)
+│           ├── Skeleton (width: 20px, height: 20px)  ← checkbox area
+│           └── Skeleton (width: 85%, height: 14px)   ← text
+```
+
+---
+
+##### IntegrationsSkeleton
+
+**File:** `components/ui/skeletons/IntegrationsSkeleton.tsx`
+
+**Mimics:** Integrations page service grid
+
+**Structure:**
+
+```
+IntegrationsSkeleton
+├── PageHeader row
+│   ├── Skeleton (width: 160px, height: 28px)   ← title
+│   └── Skeleton (width: 240px, height: 38px)   ← search input
+├── ServiceGrid (display: grid, grid-template-columns: repeat(3, 1fr), gap: 16px, margin-top: 24px)
+│   └── [×9] ServiceCardSkeleton
+│       ├── Skeleton (width: 40px, height: 40px)   ← service icon
+│       ├── Skeleton (width: 100px, height: 16px, margin-top: 10px)  ← service name
+│       ├── Skeleton (width: 80%, height: 12px, margin-top: 6px)     ← description line 1
+│       ├── Skeleton (width: 55%, height: 12px, margin-top: 4px)     ← description line 2
+│       └── Skeleton (width: 100px, height: 34px, margin-top: 12px) ← button
+```
+
+---
+
+##### BillingSkeleton
+
+**File:** `components/ui/skeletons/BillingSkeleton.tsx`
+
+**Mimics:** Billing page
+
+**Structure:**
+
+```
+BillingSkeleton
+├── PageHeader row
+│   └── Skeleton (width: 120px, height: 28px)
+├── PlanCard (full-width, padding: 24px, border skeleton)
+│   ├── Skeleton (width: 160px, height: 22px)  ← plan name
+│   ├── Skeleton (width: 240px, height: 14px, margin-top: 8px)  ← plan description
+│   └── ButtonRow (margin-top: 16px, gap: 12px)
+│       ├── Skeleton (width: 140px, height: 38px)  ← primary CTA
+│       └── Skeleton (width: 120px, height: 38px)  ← secondary CTA
+├── Divider (24px margin)
+├── ApiKeysCard (full-width)
+│   ├── Skeleton (width: 140px, height: 20px)  ← section title
+│   └── [×2] ApiKeyRowSkeleton (margin-top: 16px each)
+│       ├── Skeleton (width: 80px, height: 14px)   ← key label
+│       └── Skeleton (width: 90%, height: 38px)    ← masked input
+```
+
+---
+
+##### SettingsSkeleton
+
+**File:** `components/ui/skeletons/SettingsSkeleton.tsx`
+
+**Mimics:** Settings page
+
+**Structure:**
+
+```
+SettingsSkeleton
+├── PageHeader row
+│   └── Skeleton (width: 100px, height: 28px)
+├── [×3] SettingsSectionSkeleton (margin-top: 32px each)
+│   ├── SectionTitle Skeleton (width: 160px, height: 20px)
+│   ├── Divider (8px margin)
+│   └── [×2] FieldRowSkeleton (margin-top: 16px each)
+│       ├── Skeleton (width: 100px, height: 13px)   ← label
+│       └── Skeleton (width: 100%, height: 40px, margin-top: 6px)  ← input
+```
+
+---
+
+##### AdminTenantListSkeleton
+
+**File:** `components/ui/skeletons/AdminTenantListSkeleton.tsx`
+
+**Mimics:** Admin panel tenant list
+
+**Structure:**
+
+```
+AdminTenantListSkeleton
+├── PageHeader row
+│   ├── Skeleton (width: 140px, height: 28px)   ← title
+│   └── Skeleton (width: 260px, height: 38px)   ← search
+├── TableHeaderSkeleton (margin-top: 24px)
+│   ├── [×5] Skeleton (width varies: 15%, 20%, 15%, 15%, 10%; height: 13px each, gap: 16px)
+├── [×8] TenantRowSkeleton (height: 56px, border-bottom skeleton, flex, align-items: center, gap: 16px)
+│   ├── Skeleton (width: 15%, height: 15px)
+│   ├── Skeleton (width: 20%, height: 13px)
+│   ├── Skeleton (width: 15%, height: 20px)   ← status badge
+│   ├── Skeleton (width: 15%, height: 13px)
+│   └── Skeleton (width: 10%, height: 13px)
+```
+
+---
+
+### Summary Table — Feedback Components
+
+| Component | File | Primary Usage |
+|-----------|------|---------------|
+| `AlertBanner` | `components/ui/AlertBanner.tsx` | Inline contextual alerts within pages/cards |
+| `Toast` | `components/ui/Toast.tsx` + `ToastProvider.tsx` + `lib/toast.ts` | Floating action-confirmation notifications |
+| `ConfirmDialog` | `components/ui/ConfirmDialog.tsx` | Destructive/irreversible action confirmation |
+| `Modal` | `components/ui/Modal.tsx` | General-purpose dialog with arbitrary content |
+| `EmptyState` | `components/ui/EmptyState.tsx` | No-data placeholder for lists and sections |
+| `ErrorState` | `components/ui/ErrorState.tsx` | Data-fetch failure with retry option |
+| `SkeletonLoader` | `components/ui/SkeletonLoader.tsx` + `components/ui/skeletons/` | Loading placeholders mimicking page layout |
+
 
 *Next section: [Feedback Components](#3-feedback-components) — aspect 4.9c*
