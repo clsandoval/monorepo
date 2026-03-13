@@ -45,7 +45,7 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 | File | Description | Status |
 |------|-------------|--------|
 | [frontend/landing-page.md](frontend/landing-page.md) | 9 sections (nav, hero with animated blobs, how-it-works, features grid, integrations strip, pricing, FAQ, CTA banner, footer); complete copy for all sections; blob CSS keyframes; pricing cards (Free/Starter $12/Pro $39); 12 FAQ answers; OG image spec; responsive behavior at ≤900px; performance requirements | ✅ Done |
-| frontend/auth-pages.md | Login, signup, reset — every field, validation, error | Pending |
+| [frontend/auth-pages.md](frontend/auth-pages.md) | Auth layout + AuthCard component + FormInput/PasswordInput/AlertBanner/PasswordStrengthBar components; /login (email+password, mapAuthError, ?next= handling, ?passwordUpdated=true banner); /signup (4 fields + terms checkbox, password strength bar, createTenantForUser server action, mapSignupError); /reset-password (request form + success state with 60s resend cooldown); /reset-password/confirm (3 states: valid/expired/loading, PASSWORD_RECOVERY auth event handler); /api/auth/callback PKCE route; responsive at ≤900px; full accessibility (ARIA labels, focus management, contrast ratios); toast spec; 18 edge cases | ✅ Done |
 | frontend/dashboard.md | Cards, metrics, status indicators, onboarding checklist | Pending |
 | frontend/integrations-page.md | Service grid, OAuth flow, API key modal | Pending |
 | frontend/billing-page.md | Plan display, Stripe Checkout, key management | Pending |
