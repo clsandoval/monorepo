@@ -5,6 +5,8 @@ import { Tabs } from '@/components/ui/tabs'
 import { useToast } from '@/lib/toast'
 import { useRouter } from 'next/navigation'
 import { Copy, Check } from 'lucide-react'
+import { SettingsDiscordSection } from '@/components/settings/discord-section'
+import type { DiscordConnection } from '@/components/integrations/discord-connection-card'
 
 interface WorkspaceSectionProps {
   tenant: {
@@ -386,10 +388,12 @@ interface SettingsContentProps {
     name: string
     created_at: string
   }
+  tenantId: string
   userRole: 'owner' | 'admin' | 'member'
+  discordConnections: DiscordConnection[]
 }
 
-export function SettingsContent({ tenant, userRole }: SettingsContentProps) {
+export function SettingsContent({ tenant, tenantId, userRole, discordConnections }: SettingsContentProps) {
   const [activeTab, setActiveTab] = React.useState('workspace')
 
   const tabs = [
@@ -412,18 +416,11 @@ export function SettingsContent({ tenant, userRole }: SettingsContentProps) {
       )}
 
       {activeTab === 'discord' && (
-        <div
-          style={{
-            background: '#FFFFFF',
-            border: '1px solid #E5E7EB',
-            padding: '32px',
-            color: '#6B7280',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '14px',
-          }}
-        >
-          Discord connection settings coming in the next stage.
-        </div>
+        <SettingsDiscordSection
+          tenantId={tenantId}
+          userRole={userRole}
+          connections={discordConnections}
+        />
       )}
 
       {activeTab === 'account' && (

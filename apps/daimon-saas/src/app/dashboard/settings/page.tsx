@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
 import { SettingsContent } from '@/components/settings/workspace-section'
+import type { DiscordConnection } from '@/components/integrations/discord-connection-card'
 
 export const metadata = {
   title: 'Settings — Daimon',
@@ -41,12 +42,21 @@ export default async function SettingsPage() {
   const tenantId = membership.tenant_id
   const userRole = membership.role as 'owner' | 'admin' | 'member'
 
-  // Fetch tenant metadata
-  const { data: tenant, error: tenantError } = await supabase
-    .from('tenants')
-    .select('id, name, plan, created_at')
-    .eq('id', tenantId)
-    .single()
+  // Fetch tenant metadata + discord connections in parallel
+  const [tenantResult, discordResult] = await Promise.all([
+    supabase
+      .from('tenants')
+      .select('id, name, plan, created_at')
+      .eq('id', tenantId)
+      .single(),
+    supabase
+      .from('discord_connections')
+      .select('id, guild_id, bot_username, bot_user_id, status, last_heartbeat, error_message, created_at')
+      .eq('tenant_id', tenantId)
+      .order('created_at', { ascending: true }),
+  ])
+
+  const { data: tenant, error: tenantError } = tenantResult
 
   if (tenantError || !tenant) {
     return (
@@ -59,6 +69,8 @@ export default async function SettingsPage() {
       </DashboardLayout>
     )
   }
+
+  const discordConnections = (discordResult.data ?? []) as DiscordConnection[]
 
   return (
     <DashboardLayout
@@ -100,7 +112,9 @@ export default async function SettingsPage() {
           name: tenant.name,
           created_at: tenant.created_at ?? new Date().toISOString(),
         }}
+        tenantId={tenantId}
         userRole={userRole}
+        discordConnections={discordConnections}
       />
     </DashboardLayout>
   )
