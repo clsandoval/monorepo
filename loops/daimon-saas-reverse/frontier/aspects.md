@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 60
-- **Pending**: 3
-- **Convergence**: 95%
+- **Analyzed**: 61
+- **Pending**: 2
+- **Convergence**: 97%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -87,7 +87,7 @@
 
 - [x] 7.1a — Loading and empty states — audit every page (landing, auth, dashboard, integrations, billing, settings, admin, docs), fill gaps
 - [x] 7.1b — Error states — audit every page, ensure every fetch/mutation has a specific error UI, fill gaps
-- [ ] 7.2 — Micro-interactions, transitions, toasts, confirmation dialogs — consolidate from page specs, fill gaps
+- [x] 7.2 — Micro-interactions, transitions, toasts, confirmation dialogs — consolidate from page specs, fill gaps
 - [ ] 7.3a — Edge cases: auth + session — expired sessions, invalid tokens, concurrent logins, password reset mid-session
 - [ ] 7.3b — Edge cases: integrations + billing — Stripe down, OAuth revoked externally, bot crash mid-operation, slow connections
 - [ ] 7.4a — Accessibility: ARIA labels and roles — specific labels per component across all pages
