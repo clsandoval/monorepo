@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 75
-- **Current**: 75
+- **Completed**: 76
+- **Current**: 76
 
 ## Current Stage
 
-**Stage 076** — (next stage)
+**Stage 077** — (next stage)
 
 ## Stage Log
 
@@ -89,3 +89,4 @@
 | 073 | done | 2026-03-14T07:15:00Z | Settings page Discord tab: discord_connections fetched in parallel on page load, SettingsDiscordSection wraps integrations DiscordSection in settings card chrome; SettingsContent updated with tenantId+discordConnections props; build passes |
 | 074 | done | 2026-03-14T07:30:00Z | Settings page Account tab: SettingsAccountSection with display name form (save + error/hint), read-only email display, section divider, change password form (current/new/confirm with show/hide toggles, inline validation, API calls); page passes userEmail+userDisplayName from auth session; build passes |
 | 075 | done | 2026-03-14T07:45:00Z | Settings page Danger Zone tab: red-bordered card (#FCA5A5), Delete Workspace row, confirmation modal with warning banner + consequences list (discord count + member count) + name-match input (case-sensitive, focus border #DC2626); on confirm calls DELETE /api/settings/workspace, signs out, redirects to /?deleted=1; page fetches memberCount via count query; build passes |
+| 076 | done | 2026-03-14T08:00:00Z | Admin panel layout + tenant list: /admin redirects to /admin/tenants; /admin/tenants Server Component with 4 stat cards (total/active/paying/suspended), FiltersBar client component (search debounced 300ms, plan/status/sort selects, reset button), tenant table (name+email, plan badge, status badge, discord column, relative created_at with ISO tooltip, View button), pagination (50/page, URL params); use-debounce installed; build passes |
