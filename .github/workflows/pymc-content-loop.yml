@@ -1,0 +1,175 @@
+name: PyMC Content Gathering Loop
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  run-loop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Configure git
+        run: |
+          git config user.name "ralph-loop[bot]"
+          git config user.email "ralph-loop[bot]@users.noreply.github.com"
+
+      - name: Download Discord archive from Supabase Storage
+        env:
+          SUPABASE_URL: ${{ vars.DAIMON_SUPABASE_URL }}
+          SUPABASE_KEY: ${{ vars.DAIMON_SUPABASE_KEY }}
+        run: |
+          set -euo pipefail
+          BUCKET="discord-archive"
+          LOOP_DIR="loops/pymc-content-reverse"
+          DEST="$LOOP_DIR/input/discord"
+          mkdir -p "$DEST/channels"
+
+          AUTH=(-H "apikey: $SUPABASE_KEY" -H "Authorization: Bearer $SUPABASE_KEY")
+          BASE="$SUPABASE_URL/storage/v1/object/authenticated/$BUCKET"
+
+          # Download index.jsonl and users.jsonl
+          echo "Downloading index.jsonl..."
+          curl -sf "${AUTH[@]}" "$BASE/index.jsonl" -o "$DEST/index.jsonl"
+          echo "  $(wc -l < "$DEST/index.jsonl") channels indexed"
+
+          echo "Downloading users.jsonl..."
+          curl -sf "${AUTH[@]}" "$BASE/users.jsonl" -o "$DEST/users.jsonl"
+          echo "  $(wc -l < "$DEST/users.jsonl") users"
+
+          # List all channel files
+          echo "Listing channel files..."
+          curl -sf "${AUTH[@]}" \
+            -H "Content-Type: application/json" \
+            -X POST "$SUPABASE_URL/storage/v1/object/list/$BUCKET" \
+            -d '{"prefix":"channels","limit":10000}' \
+            | python3 -c "import json,sys; files=json.load(sys.stdin); [print(f['name']) for f in files if f['name'].endswith('.jsonl')]" \
+            > /tmp/channel-files.txt
+
+          TOTAL=$(wc -l < /tmp/channel-files.txt)
+          echo "Found $TOTAL channel files"
+
+          # Download all channel files (parallel with xargs)
+          download_channel() {
+            local fname="$1"
+            curl -sf \
+              -H "apikey: $SUPABASE_KEY" \
+              -H "Authorization: Bearer $SUPABASE_KEY" \
+              "$SUPABASE_URL/storage/v1/object/authenticated/$BUCKET/channels/$fname" \
+              -o "$DEST/channels/$fname" 2>/dev/null && echo "OK: $fname" || echo "FAIL: $fname"
+          }
+          export -f download_channel
+          export SUPABASE_URL SUPABASE_KEY DEST BUCKET
+
+          cat /tmp/channel-files.txt | xargs -P 20 -I {} bash -c 'download_channel "$@"' _ {}
+
+          # Verify
+          DOWNLOADED=$(ls "$DEST/channels/"*.jsonl 2>/dev/null | wc -l)
+          echo ""
+          echo "=== Download Summary ==="
+          echo "Channel files: $DOWNLOADED / $TOTAL"
+          echo "index.jsonl: $(du -h "$DEST/index.jsonl" | cut -f1)"
+          echo "users.jsonl: $(du -h "$DEST/users.jsonl" | cut -f1)"
+          echo "Total archive size: $(du -sh "$DEST" | cut -f1)"
+
+          if [ "$DOWNLOADED" -lt "$((TOTAL / 2))" ]; then
+            echo "ERROR: Less than half of channel files downloaded. Aborting."
+            exit 1
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Check loop status
+        id: check
+        run: |
+          LOOP_DIR="loops/pymc-content-reverse"
+          if [ -f "$LOOP_DIR/status/converged.txt" ]; then
+            echo "Loop already converged. Skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run until convergence (6-hour window)
+        if: steps.check.outputs.skip != 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          cd "loops/pymc-content-reverse"
+          FAILURES=0
+          ITERATION=0
+          MAX_ITERATIONS=100
+
+          while true; do
+            if [ -f status/converged.txt ]; then
+              echo "Loop converged after $ITERATION iterations."
+              break
+            fi
+
+            if [ "$ITERATION" -ge "$MAX_ITERATIONS" ]; then
+              echo "Max iterations ($MAX_ITERATIONS) reached."
+              break
+            fi
+
+            ITERATION=$((ITERATION + 1))
+            echo "--- $(date '+%H:%M:%S') | Iteration $ITERATION / $MAX_ITERATIONS ---"
+
+            if bash -c '
+              unset CLAUDECODE
+              cat PROMPT.md | claude --print --dangerously-skip-permissions
+            '; then
+              FAILURES=0
+            else
+              EXIT_CODE=$?
+              echo "WARNING: iteration $ITERATION exited with code $EXIT_CODE"
+              FAILURES=$((FAILURES + 1))
+              [ $FAILURES -ge 3 ] && echo "3 consecutive failures — stopping." && break
+            fi
+
+            # Push any local commits
+            git add -A
+            git diff --cached --quiet || git commit -m "loop(pymc-content-reverse): iteration $ITERATION"
+            if git log origin/main..HEAD --oneline | grep -q .; then
+              git pull --rebase origin main || true
+              git push || echo "WARNING: Push failed"
+            fi
+
+            sleep 5
+          done
+
+          echo "Done. Total iterations: $ITERATION"
+
+      - name: Check convergence and notify
+        if: steps.check.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          LOOP_DIR="loops/pymc-content-reverse"
+          if [ -f "$LOOP_DIR/status/converged.txt" ]; then
+            echo "Loop pymc-content-reverse has converged!"
+
+            ITER_COUNT=$(git log --oneline --grep="loop(pymc-content-reverse)" | wc -l)
+
+            gh issue create \
+              --title "[ralph] pymc-content-reverse converged ($ITER_COUNT iterations)" \
+              --label "ralph-converged" \
+              --body "$(cat <<'ISSUEEOF'
+          ## Loop Converged
+
+          **Loop:** pymc-content-reverse
+          **Iterations:** ~$ITER_COUNT
+          **Output:** `loops/pymc-content-reverse/content/`
+
+          Review the content package and hand off to Derick for the website build.
+          ISSUEEOF
+            )" || echo "WARNING: Could not create issue"
+          fi

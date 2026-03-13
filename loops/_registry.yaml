@@ -287,3 +287,11 @@ loops:
     timeout_minutes: 360
     status: active
     created: 2026-03-12
+  pymc-content-reverse:
+    description: "Scrape existing website + Discord archive + public data → complete content package for PyMC Labs website rebuild"
+    type: reverse
+    schedule: manual
+    max_iterations: 100
+    timeout_minutes: 360
+    status: active
+    created: 2026-03-13
