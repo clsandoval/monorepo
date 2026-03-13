@@ -23,7 +23,7 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 | multi-tenant/adaptation-plan.md | What changes, what stays the same | Pending |
 | [multi-tenant/connection-manager.md](multi-tenant/connection-manager.md) | Multi-token connection lifecycle: TenantConnectionManager, supervisor task, reconnect backoff, heartbeat loop, Realtime event handlers, TenantToolContext + SystemEnv dataclasses, startup query, stale detection, error scenarios | ✅ Done |
 | [multi-tenant/tenant-scoping.md](multi-tenant/tenant-scoping.md) | Per-tenant tool scoping: ToolContext 4-category partition (per-tenant/optional/platform/admin-only), TenantConfig+SystemConfig namedtuples, build_tenant_tool_context(), per-tenant ToolRegistry, 3 new Scope tags (PLATFORM_ADMIN/PLAN_STARTER/PLAN_PRO), plan gating logic, UserContext tenant_id field, credential update propagation, isolation guarantees, end-to-end execution flow | ✅ Done |
-| multi-tenant/byok-key-routing.md | Per-tenant Anthropic/OpenAI key routing | Pending |
+| [multi-tenant/byok-key-routing.md](multi-tenant/byok-key-routing.md) | BYOK key routing: current single-tenant behavior, storage in tenant_api_keys+Vault, TenantConfig expansion, _load_tenant_config(), _build_tool_context() with BYOK injection, Fly Machine env injection, hot-reload via Realtime, key lifecycle state machine, validation endpoints, Edge Function store-tenant-api-key, all error messages, OpenAI optional BYOK, security properties | ✅ Done |
 | multi-tenant/realtime-contract.md | Supabase Realtime channels, payloads | Pending |
 | multi-tenant/health-monitoring.md | Heartbeat, stale detection, reconnection | Pending |
 
