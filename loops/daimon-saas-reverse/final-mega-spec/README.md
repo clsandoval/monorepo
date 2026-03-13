@@ -22,7 +22,7 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 |------|-------------|--------|
 | multi-tenant/adaptation-plan.md | What changes, what stays the same | Pending |
 | [multi-tenant/connection-manager.md](multi-tenant/connection-manager.md) | Multi-token connection lifecycle: TenantConnectionManager, supervisor task, reconnect backoff, heartbeat loop, Realtime event handlers, TenantToolContext + SystemEnv dataclasses, startup query, stale detection, error scenarios | ✅ Done |
-| multi-tenant/tenant-scoping.md | Per-tenant tool access, data isolation | Pending |
+| [multi-tenant/tenant-scoping.md](multi-tenant/tenant-scoping.md) | Per-tenant tool scoping: ToolContext 4-category partition (per-tenant/optional/platform/admin-only), TenantConfig+SystemConfig namedtuples, build_tenant_tool_context(), per-tenant ToolRegistry, 3 new Scope tags (PLATFORM_ADMIN/PLAN_STARTER/PLAN_PRO), plan gating logic, UserContext tenant_id field, credential update propagation, isolation guarantees, end-to-end execution flow | ✅ Done |
 | multi-tenant/byok-key-routing.md | Per-tenant Anthropic/OpenAI key routing | Pending |
 | multi-tenant/realtime-contract.md | Supabase Realtime channels, payloads | Pending |
 | multi-tenant/health-monitoring.md | Heartbeat, stale detection, reconnection | Pending |
