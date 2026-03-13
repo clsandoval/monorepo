@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 13
-- **Current**: 14
+- **Completed**: 14
+- **Current**: 15
 
 ## Current Stage
 
-**Stage 014** — (next stage)
+**Stage 015** — (next stage)
 
 ## Stage Log
 
@@ -27,3 +27,4 @@
 | 011 | done | 2026-03-13T10:00:00Z | stripe_webhook_events table, 2 indexes, RLS enabled (no policies — service role only), db reset passes |
 | 012 | done | 2026-03-13T11:00:00Z | tenant_messages table, 1 composite index, SELECT-only RLS (INSERT/UPDATE/DELETE blocked — bot uses service role), db reset passes |
 | 013 | done | 2026-03-13T12:00:00Z | tenant_tool_calls table, 1 composite index, CHECK constraint on duration_ms, SELECT-only RLS (INSERT/UPDATE/DELETE blocked — bot uses service role), pg_cron 90-day retention job (guarded), db reset passes |
+| 014 | done | 2026-03-13T13:00:00Z | seed.sql with 3 users, 3 tenants (free/starter/pro), discord connections (connected/disconnected/error), API keys (Anthropic+OpenAI), service connections (GitHub/Google/Linear/Toggl), subscriptions (active/trialing); plan cascade confirmed; db reset passes |
