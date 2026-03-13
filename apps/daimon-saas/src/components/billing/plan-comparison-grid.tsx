@@ -329,10 +329,9 @@ export function PlanComparisonGrid({
   async function handleUpgrade(targetPlan: 'starter' | 'pro') {
     setUpgradeLoading(targetPlan)
     try {
-      const res = await fetch(`/api/billing/checkout`, {
+      const cycle = billingCycle === 'annual' ? 'annual' : 'monthly'
+      const res = await fetch(`/api/billing/checkout?plan=${targetPlan}&cycle=${cycle}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan: targetPlan, billing: billingCycle }),
       })
       if (!res.ok) throw new Error('Checkout failed')
       const { url } = await res.json()

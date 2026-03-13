@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 68
-- **Current**: 68
+- **Completed**: 69
+- **Current**: 69
 
 ## Current Stage
 
-**Stage 069** — (next stage)
+**Stage 070** — (next stage)
 
 ## Stage Log
 
@@ -82,3 +82,4 @@
 | 066 | done | 2026-03-14T05:30:00Z | Integrations status + error handling: status already wired (connected/expired/error/revoked/not-connected visual states), error banners, Reconnect button for expired/error — all from prior stages; added integrations/loading.tsx with page header skeleton + 4 ServiceCardSkeleton (2×2 grid, responsive); build passes |
 | 067 | done | 2026-03-14T05:45:00Z | Billing page layout + current plan: Server Component page with parallel data fetch (tenant/subscription/usage stats today), CurrentPlanCard client component (plan name + badge + price + feature list + billing period line + CTA button by role/status + usage stats); build passes |
 | 068 | done | 2026-03-14T06:00:00Z | Billing page plan comparison + upgrade: PlanComparisonGrid client component (monthly/annual slide toggle, 3-col plan cards, aqua border on current plan, feature lists, upgrade/downgrade CTAs, downgrade confirmation dialog, discord connection count in page fetch); build passes |
+| 069 | done | 2026-03-14T06:15:00Z | Billing page Stripe checkout flow: CheckoutReturnBanner client component (reads ?success=1/?canceled=1, shows success toast, cleans URL via router.replace); wired into billing page with Suspense; fixed plan-comparison-grid handleUpgrade to use query params (plan+cycle) instead of JSON body to match API route; build passes |

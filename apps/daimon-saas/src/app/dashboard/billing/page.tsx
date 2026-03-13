@@ -1,9 +1,11 @@
+import { Suspense } from 'react'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
 import { CurrentPlanCard } from '@/components/billing/current-plan-card'
 import { PlanComparisonGrid } from '@/components/billing/plan-comparison-grid'
+import { CheckoutReturnBanner } from '@/components/billing/checkout-return-banner'
 
 export const metadata = {
   title: 'Billing & Keys — Daimon',
@@ -108,6 +110,11 @@ export default async function BillingPage() {
       tenantName={tenant.name}
       plan={(tenant.plan as 'free' | 'starter' | 'pro') ?? 'free'}
     >
+      {/* Checkout return toast handler */}
+      <Suspense fallback={null}>
+        <CheckoutReturnBanner />
+      </Suspense>
+
       {/* Page header */}
       <div style={{ marginBottom: '32px' }}>
         <h1
