@@ -6,6 +6,7 @@ import { ErrorState } from '@/components/ui/error-state'
 import { CurrentPlanCard } from '@/components/billing/current-plan-card'
 import { PlanComparisonGrid } from '@/components/billing/plan-comparison-grid'
 import { CheckoutReturnBanner } from '@/components/billing/checkout-return-banner'
+import { ApiKeySection } from '@/components/billing/api-key-section'
 
 export const metadata = {
   title: 'Billing & Keys — Daimon',
@@ -56,6 +57,7 @@ export default async function BillingPage() {
     messagesTodayResult,
     toolUsesTodayResult,
     discordConnectionsResult,
+    apiKeysResult,
   ] = await Promise.all([
     supabase
       .from('tenants')
@@ -84,6 +86,11 @@ export default async function BillingPage() {
       .select('id', { count: 'exact', head: true })
       .eq('tenant_id', tenantId)
       .neq('status', 'disconnected'),
+    supabase
+      .from('tenant_api_keys')
+      .select('id, key_type, key_hint, status, validated_at')
+      .eq('tenant_id', tenantId)
+      .neq('status', 'revoked'),
   ])
 
   if (tenantResult.error || !tenantResult.data) {
@@ -103,6 +110,13 @@ export default async function BillingPage() {
   const messagesToday = messagesTodayResult.count ?? 0
   const toolUsesToday = toolUsesTodayResult.count ?? 0
   const discordConnectionCount = discordConnectionsResult.count ?? 0
+  const apiKeys = (apiKeysResult.data ?? []) as Array<{
+    id: string
+    key_type: 'anthropic' | 'openai'
+    key_hint: string | null
+    status: 'active' | 'invalid' | 'revoked'
+    validated_at: string | null
+  }>
 
   return (
     <DashboardLayout
@@ -186,6 +200,14 @@ export default async function BillingPage() {
           }
           discordConnectionCount={discordConnectionCount}
         />
+      </section>
+
+      {/* Divider */}
+      <hr style={{ border: 'none', borderTop: '1px solid #E5E7EB', margin: '32px 0' }} />
+
+      {/* API Keys section */}
+      <section id="api-keys">
+        <ApiKeySection apiKeys={apiKeys} userRole={userRole} />
       </section>
     </DashboardLayout>
   )
