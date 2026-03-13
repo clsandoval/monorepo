@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 18
-- **Current**: 19
+- **Completed**: 19
+- **Current**: 20
 
 ## Current Stage
 
-**Stage 019** — (next stage)
+**Stage 020** — (next stage)
 
 ## Stage Log
 
@@ -32,3 +32,4 @@
 | 016 | done | 2026-03-13T15:00:00Z | supabase auth configured: site_url=localhost:3000, redirect URLs include localhost:3000/**, minimum_password_length=8, password_requirements=lower_upper_letters_digits, enable_confirmations=true; db reset passes |
 | 017 | done | 2026-03-13T16:00:00Z | AuthProvider (auth-context.tsx) with client-only Supabase init in useEffect; useAuth hook re-exporting useAuthContext; AuthProvider wired into root layout; build passes |
 | 018 | done | 2026-03-13T17:00:00Z | Login page at /login with email+password form, zod validation, password visibility toggle, server error banner, forgot password link, sign up link; Suspense wrapper for useSearchParams; build passes |
+| 019 | done | 2026-03-13T18:00:00Z | Signup page at /signup with fullName+email+password+confirmPassword+agreeTerms form; password strength bar (4 segments); show/hide toggles on both password fields; server error banner; createTenantForUser server action; build passes |
