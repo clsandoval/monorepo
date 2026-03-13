@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 35
-- **Current**: 36
+- **Completed**: 36
+- **Current**: 37
 
 ## Current Stage
 
-**Stage 036** — (next stage)
+**Stage 037** — (next stage)
 
 ## Stage Log
 
@@ -49,3 +49,4 @@
 | 033 | done | 2026-03-14T00:20:00Z | POST /api/admin/tenants/[id]/suspend: admin JWT check (404 for non-admin), tenant lookup, already-suspended guard, UPDATE status=suspended, audit log tenant_suspended; POST /api/admin/tenants/[id]/unsuspend: admin JWT check, tenant lookup, not-suspended guard, determine new status (configured if active discord connection else pending), UPDATE status, audit log tenant_unsuspended; build passes |
 | 034 | done | 2026-03-14T00:25:00Z | PATCH /api/admin/tenants/[id]/plan: admin JWT check (404 for non-admin), plan validation (free/starter/pro), tenant lookup, UPDATE tenants.plan, audit log tenant_plan_override with old_plan+new_plan; POST /api/admin/tenants/[id]/impersonate: admin JWT check, tenant lookup, owner member lookup, getUserById for email, generateLink magiclink with impersonated_by claim, audit log tenant_impersonated; build passes |
 | 035 | done | 2026-03-14T00:30:00Z | POST /api/admin/tenants/[id]/revoke-api-key: admin JWT check (404), keyId required, tenant-scoped key lookup, vault delete_secret, UPDATE status=revoked, audit log api_key_revoked_by_admin; DELETE /api/admin/tenants/[id]/service-connections/[connectionId]: admin JWT check, tenant-scoped connection lookup, vault delete access+refresh secrets, row delete, audit log service_connection_revoked_by_admin; build passes |
+| 036 | done | 2026-03-14T00:35:00Z | GET /api/admin/audit-log: admin JWT check (404), paginated query of admin_audit_log (100/page), filters: action, tenant_id, actor_id (→admin_user_id), start_date/end_date with inclusive end-date logic; returns entries + pagination metadata (page, page_size, total, total_pages); build passes |
