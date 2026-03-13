@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 44
-- **Current**: 45
+- **Completed**: 45
+- **Current**: 46
 
 ## Current Stage
 
-**Stage 046** — (next stage)
+**Stage 047** — (next stage)
 
 ## Stage Log
 
@@ -59,3 +59,4 @@
 | 043 | done | 2026-03-14T01:10:00Z | Toast system: ToastContext + useToast hook (lib/toast.ts), ToastCard with 4 variants + progress bar + pause-on-hover + enter/exit animations, ToastProvider with maxToasts=5 stacking, ToastViewport (desktop bottom-right 360px / mobile full-width), wired into root layout; build passes |
 | 044 | done | 2026-03-14T01:15:00Z | Modal (generic, 3 sizes, close button, loading overlay, focus trap, scroll lock, portal) + ConfirmDialog (3 variants danger/warning/default, confirmationText input, loading state, focus trap); fadeIn + modalScaleIn keyframes added to globals.css; build passes |
 | 045 | done | 2026-03-14T01:20:00Z | EmptyState (icon/title/desc/action CTA, 3 sizes, aqua icon container), ErrorState (AlertCircle icon, retry button, dev-mode error detail, 3 sizes), Skeleton/SkeletonCircle/SkeletonText (shimmer animation, rectangular + circular variants); shimmer keyframes added to globals.css; build passes |
+| 046 | done | 2026-03-14T01:25:00Z | Badge (20 variants: plan-free/starter/pro, status-pending/configured/active/suspended, key-valid/invalid/unconfigured/validating, connection-connected/connecting/error/disconnected, neutral/info/success/warning/danger; sm/md sizes, label override), StatusIndicator (connected/connecting/error/disconnected/suspended states, pulse/fade animations, dotSize/labelSize/showLabel props); status-pulse + status-fade keyframes added to globals.css; build passes |
