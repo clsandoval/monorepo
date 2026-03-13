@@ -98,16 +98,38 @@ See [../integrations/stripe.md](../integrations/stripe.md#webhook-handler) for c
 
 All webhook handlers must be idempotent (safe to run multiple times). Stripe may deliver the same event more than once.
 
-**Verification:** Stripe includes an `event.id` in every event object. For critical events, idempotency is enforced by the SQL semantics (all handlers use `UPDATE WHERE` — re-running with same data is a no-op). For extra safety, implement event deduplication:
+**Verification:** Stripe includes an `event.id` in every event object. Idempotency is enforced by a dedicated `stripe_webhook_events` table combined with idempotent SQL handlers.
+
+**Event deduplication table:** `stripe_webhook_events` (fully documented in [database/schema.md](../database/schema.md#table-stripe_webhook_events)).
 
 ```typescript
-// Optional: Deduplicate events using a processed_events table (not in v1 schema)
-// If implementing, create table: processed_stripe_events(event_id TEXT PRIMARY KEY, processed_at TIMESTAMPTZ)
-// Check before processing: SELECT 1 FROM processed_stripe_events WHERE event_id = event.id
-// Insert after processing: INSERT INTO processed_stripe_events(event_id, processed_at) VALUES (event.id, NOW()) ON CONFLICT DO NOTHING
+// At the START of every webhook handler, before any business logic:
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
+
+const { data: inserted } = await supabaseAdmin
+  .from('stripe_webhook_events')
+  .insert({
+    stripe_event_id: event.id,
+    event_type: event.type,
+  })
+  .select('stripe_event_id')
+  .single();
+
+if (!inserted) {
+  // Event already processed (UNIQUE constraint conflict — ON CONFLICT DO NOTHING returned 0 rows)
+  console.info(`[webhook] Duplicate event skipped: ${event.id}`);
+  return new Response('Already processed', { status: 200 });
+}
+
+// Proceed with event-specific handler...
 ```
 
-**v1 decision:** Do NOT implement event deduplication table. Rely on idempotent SQL operations. If a duplicate event causes a duplicate update, the result is the same as a single update. The `updated_at` timestamp will be bumped, which is acceptable.
+**Why this replaces SQL-only idempotency:** Relying purely on `UPDATE ... WHERE` is safe for most events but fails for `checkout.session.completed` (which INSERTs a new `tenant_subscriptions` row — inserting twice would hit the UNIQUE constraint on `tenant_id` and error). The deduplication table handles all event types uniformly. See [database/schema.md §stripe_webhook_events](../database/schema.md#table-stripe_webhook_events) for full rationale.
+
+**Previous "v1 decision" note** stating "Do NOT implement event deduplication table" is superseded. The `stripe_webhook_events` table IS implemented. See aspect 8.1.1 in the analysis log.
 
 ---
 

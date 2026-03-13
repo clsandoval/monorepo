@@ -14,9 +14,9 @@
 | `discord_connections` | ✅ Fully documented | 10 columns, lifecycle states, 3 indexes, 4 RLS policies |
 | `tenant_api_keys` | ✅ Fully documented | 9 columns, UNIQUE per provider, Vault, RLS |
 | `tenant_service_connections` | ✅ Fully documented | 14 columns, UNIQUE(tenant_id,service), per-service metadata, 3 indexes, 4 RLS policies |
-| `tenant_subscriptions` | ⚠️ In migrations.md only | Complete DDL in migrations.md migration 006, but NOT written to schema.md (aspect 3.5 was marked pending and never written into schema.md). **New aspect 8.1.1 needed.** |
+| `tenant_subscriptions` | ✅ Fully documented | Complete DDL, RLS, triggers, indexes in schema.md §tenant_subscriptions. Resolved in prior iteration. |
 | `admin_audit_log` | ✅ Fully documented | Referenced by RLS policies (default deny) |
-| `stripe_webhook_events` | ❌ Missing entirely | Referenced in `frontend/edge-cases-integrations-billing.md` section 1.8 as idempotency store (`INSERT ON CONFLICT DO NOTHING`). Table never defined in schema. **New aspect 8.1.1 needed.** |
+| `stripe_webhook_events` | ✅ Fully documented | Added in aspect 8.1.1 — full DDL, RLS, indexes, migration 007, usage pattern in schema.md. api/webhooks.md updated to resolve contradiction. |
 
 ---
 
@@ -109,11 +109,11 @@
 | Storage Need | Column/Table | Status |
 |-------------|-------------|--------|
 | Stripe Customer ID | `tenants.stripe_customer_id` | ✅ |
-| Stripe Subscription ID | `tenant_subscriptions.stripe_subscription_id` | ⚠️ in migrations.md only |
-| Stripe Price ID | `tenant_subscriptions.stripe_price_id` | ⚠️ in migrations.md only |
-| Subscription status | `tenant_subscriptions.status` | ⚠️ in migrations.md only |
-| Current period end | `tenant_subscriptions.current_period_end` | ⚠️ in migrations.md only |
-| Webhook event deduplication | `stripe_webhook_events.stripe_event_id` | ❌ table not defined anywhere |
+| Stripe Subscription ID | `tenant_subscriptions.stripe_subscription_id` | ✅ documented in schema.md |
+| Stripe Price ID | `tenant_subscriptions.stripe_price_id` | ✅ documented in schema.md |
+| Subscription status | `tenant_subscriptions.status` | ✅ documented in schema.md |
+| Current period end | `tenant_subscriptions.current_period_end` | ✅ documented in schema.md |
+| Webhook event deduplication | `stripe_webhook_events.stripe_event_id` | ✅ table defined in schema.md (aspect 8.1.1) |
 
 ### OAuth Services (GitHub, Google, Linear)
 
@@ -198,8 +198,8 @@ WHERE t.status != 'suspended'
 
 | Gap | Priority | New Aspect |
 |-----|----------|-----------|
-| `tenant_subscriptions` table missing from schema.md | P0 | 8.1.1 |
-| `stripe_webhook_events` idempotency table undefined | P0 | 8.1.1 |
+| `tenant_subscriptions` table missing from schema.md | P0 — **RESOLVED** (aspect 8.1.1) | 8.1.1 |
+| `stripe_webhook_events` idempotency table undefined | P0 — **RESOLVED** (aspect 8.1.1) | 8.1.1 |
 | `api/routes.md` missing — 18+ routes undocumented | P0 | 8.1.3 |
 | `api/auth.md` missing | P1 | 8.1.4 |
 | `messages`/`tool_calls` existing tables need cross-reference note + RLS coverage for website reads | P1 | 8.1.2 |
@@ -228,11 +228,12 @@ WHERE t.status != 'suspended'
 
 ## 8. Reconciliation Verdict
 
-The spec is **NOT fully converged** due to the following blocking gaps:
-1. `tenant_subscriptions` not in schema.md
-2. `stripe_webhook_events` table undefined
-3. `api/routes.md` missing (18+ undocumented routes)
-4. `api/auth.md` missing
-5. RLS coverage for `messages`/`tool_calls` when read by website user context
+The spec is **NOT fully converged** due to the following blocking gaps. Items 1 and 2 were resolved in aspect 8.1.1:
+
+1. ~~`tenant_subscriptions` not in schema.md~~ — **RESOLVED** (aspect 8.1.1)
+2. ~~`stripe_webhook_events` table undefined~~ — **RESOLVED** (aspect 8.1.1; schema.md + api/webhooks.md updated)
+3. `api/routes.md` missing (18+ undocumented routes) — aspect 8.1.3
+4. `api/auth.md` missing — aspect 8.1.4
+5. RLS coverage for `messages`/`tool_calls` when read by website user context — aspect 8.1.2
 
 Nine new frontier aspects (8.1.1–8.1.9) have been added to cover all identified gaps.

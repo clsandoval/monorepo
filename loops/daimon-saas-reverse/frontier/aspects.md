@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 74
-- **Analyzed**: 66
-- **Pending**: 8
-- **Convergence**: 89%
+- **Analyzed**: 67
+- **Pending**: 7
+- **Convergence**: 91%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -101,7 +101,7 @@
 
 ## Wave 8 Gap Remediation (9 aspects — discovered during reconciliation)
 
-- [ ] 8.1.1 — Complete `database/schema.md`: add `tenant_subscriptions` table (all columns, indexes, RLS) + `stripe_webhook_events` table (idempotency store for Stripe webhooks)
+- [x] 8.1.1 — Complete `database/schema.md`: add `tenant_subscriptions` table (all columns, indexes, RLS) + `stripe_webhook_events` table (idempotency store for Stripe webhooks)
 - [ ] 8.1.2 — Add cross-reference notes to `database/schema.md` for existing bot tables (`messages`, `tool_calls`) read by dashboard; specify RLS extensions needed for website user reads
 - [ ] 8.1.3 — Write `api/routes.md` — consolidate ALL 18+ Next.js API routes (Discord CRUD, Stripe checkout/portal, OAuth start/callback, Toggl validate, admin routes) with full request/response shapes
 - [ ] 8.1.4 — Write `api/auth.md` — Supabase Auth session management: middleware spec, getUser vs getSession distinction, createClient patterns (browser/server/service-role/admin), JWT claims, session refresh, server action auth guard

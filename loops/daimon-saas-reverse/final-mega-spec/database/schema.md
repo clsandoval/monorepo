@@ -2335,3 +2335,264 @@ Bot: _on_connection_updated() → remove_tenant()
 8. **Bot reads this table:** Bot startup query joins `discord_connections` with `tenants` and `tenant_api_keys`. See §10 of [connection-manager.md](../multi-tenant/connection-manager.md) for the full startup SQL query.
 
 ---
+
+## Table: `stripe_webhook_events`
+
+**Purpose:** Idempotency store for Stripe webhook events. Stripe's delivery guarantee is "at-least-once" — the same event may arrive two or more times within seconds. This table prevents the webhook handler from processing the same event twice by inserting the Stripe event ID before processing and checking for conflicts. If the INSERT hits the `UNIQUE` constraint, the event was already processed and the handler returns `HTTP 200` immediately without re-running business logic.
+
+**Created by migration:** `20260400000007_create_stripe_webhook_events.sql`
+
+**Key invariants:**
+- One row per `stripe_event_id` (e.g., `evt_1OmWJFKZ2eZvKYlo2TtN7C2Y`)
+- Rows are INSERT-only: never updated after creation
+- Retention: rows older than 90 days are eligible for deletion (a nightly cleanup job handles this)
+- Service role access only — no JWT user can read or write this table
+- The `stripe_event_id` UNIQUE constraint is the idempotency mechanism; the `ON CONFLICT DO NOTHING RETURNING stripe_event_id` pattern is the lock-free check
+
+**Usage pattern (Next.js Stripe webhook handler):**
+
+```typescript
+// 1. Before processing any webhook event:
+const { data } = await supabaseAdmin
+  .from('stripe_webhook_events')
+  .insert({ stripe_event_id: event.id, event_type: event.type })
+  .select('stripe_event_id')
+  .single();
+
+// 2. If INSERT returned null (conflict), already processed — skip
+if (!data) {
+  return new Response('Already processed', { status: 200 });
+}
+
+// 3. Otherwise proceed with event handling...
+```
+
+```sql
+CREATE TABLE public.stripe_webhook_events (
+    id                  UUID        NOT NULL DEFAULT gen_random_uuid(),
+    stripe_event_id     TEXT        NOT NULL,
+    event_type          TEXT        NOT NULL,
+    processed_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT stripe_webhook_events_pkey
+        PRIMARY KEY (id),
+    CONSTRAINT stripe_webhook_events_stripe_event_id_unique
+        UNIQUE (stripe_event_id)
+);
+```
+
+### Column Specifications
+
+| Column | Type | Nullable | Default | Constraints | Description |
+|--------|------|----------|---------|-------------|-------------|
+| `id` | UUID | NOT NULL | `gen_random_uuid()` | PRIMARY KEY | Internal row identifier. Not used by application logic — `stripe_event_id` is the natural key. |
+| `stripe_event_id` | TEXT | NOT NULL | — | UNIQUE | The Stripe event ID (`evt_XXXXXXXXXXXXXXXXX`). This is the idempotency key. The `UNIQUE` constraint prevents duplicate rows. The webhook handler attempts `INSERT ... ON CONFLICT DO NOTHING RETURNING stripe_event_id`. If no row is returned, the event was already processed. Format: `evt_` followed by 24 alphanumeric characters. Maximum length: 255 characters (Stripe's current max is ~28 characters, with room for future changes). |
+| `event_type` | TEXT | NOT NULL | — | — | The Stripe event type string, e.g., `customer.subscription.updated`, `invoice.payment_failed`, `checkout.session.completed`. Stored for operational visibility (CloudWatch queries, debugging). Not used for routing — event type is extracted from the Stripe event object directly in the handler. Maximum length: 100 characters. |
+| `processed_at` | TIMESTAMPTZ | NOT NULL | `NOW()` | — | Timestamp when the event was first received and recorded. Set once at INSERT time; never updated. Stored in UTC. Used by the retention cleanup job to identify rows older than 90 days. |
+
+### Constraint Detail
+
+#### `UNIQUE (stripe_event_id)` — The Idempotency Lock
+
+```sql
+CONSTRAINT stripe_webhook_events_stripe_event_id_unique UNIQUE (stripe_event_id)
+```
+
+This constraint is the sole purpose of this table. PostgreSQL enforces uniqueness atomically, so even under concurrent requests (two webhook deliveries arriving within milliseconds), only one INSERT will succeed. The `ON CONFLICT DO NOTHING` pattern ensures the second attempt silently succeeds (returns 0 rows affected) rather than raising an error.
+
+**Why not rely on SQL idempotency alone (as api/webhooks.md v1 suggested)?**
+
+The original plan was to rely on `UPDATE ... WHERE` SQL idempotency (running the same update twice produces the same result). This is correct for most events, but has two failure modes:
+1. **`checkout.session.completed`** inserts a new row in `tenant_subscriptions` if the tenant just subscribed. If processed twice, the first INSERT might succeed, and the second INSERT triggers a UNIQUE constraint violation on `tenant_id` — returning an error instead of silently succeeding.
+2. **Side effects like sending a confirmation email or creating Stripe objects.** If the handler were ever extended to do so, double-processing would cause duplicate emails. The idempotency table prevents this proactively.
+
+**Resolution of contradiction with `api/webhooks.md`:** The "v1 decision: do not implement event deduplication table" note in `api/webhooks.md` is superseded by this spec. The `stripe_webhook_events` table IS implemented. `api/webhooks.md` should be treated as outdated on this point. See [api/webhooks.md](../api/webhooks.md) §3 for the updated handler pattern.
+
+### Indexes
+
+```sql
+-- Primary key (automatic B-tree index on id)
+
+-- Idempotency check (covers the ON CONFLICT DO NOTHING lookup):
+-- Automatic B-tree index from UNIQUE constraint:
+-- idx_stripe_webhook_events_stripe_event_id_unique ON stripe_webhook_events(stripe_event_id)
+-- Performance: O(log n) lookup on each webhook delivery. With 90-day retention and ~50
+-- events/day, the table has at most ~4,500 rows — lookup is negligible.
+
+-- Retention cleanup: find rows older than 90 days
+-- SELECT id FROM stripe_webhook_events WHERE processed_at < NOW() - INTERVAL '90 days'
+CREATE INDEX idx_stripe_webhook_events_processed_at
+    ON public.stripe_webhook_events (processed_at);
+
+-- Admin / debugging: look up all events of a given type
+-- SELECT * FROM stripe_webhook_events WHERE event_type = 'invoice.payment_failed'
+-- ORDER BY processed_at DESC LIMIT 50
+CREATE INDEX idx_stripe_webhook_events_event_type_processed_at
+    ON public.stripe_webhook_events (event_type, processed_at DESC);
+```
+
+### RLS Policies
+
+```sql
+ALTER TABLE public.stripe_webhook_events ENABLE ROW LEVEL SECURITY;
+
+-- NO policies for authenticated JWT users.
+-- This table is accessible ONLY via service role (the Next.js webhook handler uses
+-- SUPABASE_SERVICE_ROLE_KEY). Service role bypasses RLS entirely.
+--
+-- Rationale: Exposing this table to browser sessions has no product value and
+-- exposes internal system state. Zero RLS policies = zero JWT user access.
+--
+-- The admin panel does NOT expose this table directly. It surfaces subscription
+-- state via tenant_subscriptions, which is the user-facing representation.
+```
+
+**Bot access:** The bot does NOT read `stripe_webhook_events`. Subscription state is read from `tenants.plan` (denormalized cache) or `tenant_subscriptions`. The idempotency store is purely a website-side concern.
+
+**Retention:** Rows older than 90 days should be deleted by a nightly pg_cron job. See [database/retention.md](./retention.md) for the exact pg_cron SQL. 90 days is chosen because:
+1. Stripe retains event IDs in their system for 30 days; after that the same `evt_` ID will never be re-delivered
+2. The extra 60 days provides a safety buffer and allows querying recent events for debugging
+3. At 50 events/day (generous estimate), 90-day retention = ~4,500 rows — trivially small
+
+### Migration
+
+```sql
+-- Migration: 20260400000007_create_stripe_webhook_events.sql
+BEGIN;
+
+CREATE TABLE public.stripe_webhook_events (
+    id                  UUID        NOT NULL DEFAULT gen_random_uuid(),
+    stripe_event_id     TEXT        NOT NULL,
+    event_type          TEXT        NOT NULL,
+    processed_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT stripe_webhook_events_pkey
+        PRIMARY KEY (id),
+    CONSTRAINT stripe_webhook_events_stripe_event_id_unique
+        UNIQUE (stripe_event_id)
+);
+
+-- Retention cleanup index
+CREATE INDEX idx_stripe_webhook_events_processed_at
+    ON public.stripe_webhook_events (processed_at);
+
+-- Admin/debugging index
+CREATE INDEX idx_stripe_webhook_events_event_type_processed_at
+    ON public.stripe_webhook_events (event_type, processed_at DESC);
+
+-- RLS: enabled but no policies — service role only
+ALTER TABLE public.stripe_webhook_events ENABLE ROW LEVEL SECURITY;
+
+-- Comments
+COMMENT ON TABLE public.stripe_webhook_events
+    IS 'Idempotency store for Stripe webhook events. Prevents double-processing on at-least-once delivery.';
+COMMENT ON COLUMN public.stripe_webhook_events.stripe_event_id
+    IS 'Stripe event ID (evt_XXXXXXXXXXXXXXXXX). UNIQUE — used for ON CONFLICT DO NOTHING deduplication.';
+COMMENT ON COLUMN public.stripe_webhook_events.event_type
+    IS 'Stripe event type string, e.g. customer.subscription.updated. Stored for debugging.';
+COMMENT ON COLUMN public.stripe_webhook_events.processed_at
+    IS 'When the event was first received. Used by the 90-day retention cleanup job.';
+
+COMMIT;
+```
+
+**Rollback:**
+```sql
+DROP TABLE IF EXISTS public.stripe_webhook_events;
+```
+
+**Placement in migration sequence:**
+```
+supabase/migrations/
+├── 20260400000000_create_enums.sql
+├── 20260400000001_create_tenants.sql
+├── 20260400000002_create_tenant_members.sql
+├── 20260400000003_create_discord_connections.sql
+├── 20260400000004_create_tenant_api_keys.sql
+├── 20260400000005_create_tenant_service_connections.sql
+├── 20260400000006_create_tenant_subscriptions.sql
+└── 20260400000007_create_stripe_webhook_events.sql  ← NEW
+```
+
+**Migration 007 is independent of all preceding migrations.** It does not reference any other new table via foreign key, so it can technically run in any order after 000 (enum creation). The sequential numbering is for operational clarity only.
+
+---
+
+## Cross-References: Existing Bot Tables Read by the Dashboard
+
+The dashboard page reads two tables from the **existing bot schema** that are NOT part of the new SaaS schema. These tables were created by the original Decision Orchestrator migrations and are already present in production.
+
+See [source/existing-schema.md](../source/existing-schema.md) for complete documentation of these tables.
+
+### `messages` (Existing Bot Table)
+
+**Read by:** Dashboard QuickStatsRow (message count), RecentActivityFeed (last 10 messages)
+
+**Query pattern:**
+```sql
+-- Message count for a tenant (used on dashboard)
+SELECT COUNT(*) AS message_count
+FROM public.messages
+WHERE tenant_id = $1
+  AND created_at > NOW() - INTERVAL '30 days';
+
+-- Recent activity feed
+SELECT id, content, role, created_at, channel_id
+FROM public.messages
+WHERE tenant_id = $1
+ORDER BY created_at DESC
+LIMIT 10;
+```
+
+**RLS note:** The existing `messages` table has RLS policies designed for the bot's service role. For the website to query this table using the user's JWT (via Supabase JS client with `anon` key), a new RLS policy must be added:
+
+```sql
+-- Add to existing messages table RLS (in a new migration):
+CREATE POLICY "tenant_members_can_read_own_messages"
+    ON public.messages
+    FOR SELECT
+    TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = messages.tenant_id
+              AND tm.user_id = auth.uid()
+        )
+    );
+```
+
+**This policy addition is part of aspect 8.1.2** — see [data-model-reconciliation.md](./data-model-reconciliation.md) §2.
+
+### `tool_calls` (Existing Bot Table)
+
+**Read by:** Dashboard QuickStatsRow (tool use count)
+
+**Query pattern:**
+```sql
+-- Tool use count for a tenant (last 30 days)
+SELECT COUNT(*) AS tool_call_count
+FROM public.tool_calls
+WHERE tenant_id = $1
+  AND created_at > NOW() - INTERVAL '30 days';
+```
+
+**RLS note:** Same pattern as `messages` — needs a new policy for website user reads:
+
+```sql
+-- Add to existing tool_calls table RLS (same migration as messages policy):
+CREATE POLICY "tenant_members_can_read_own_tool_calls"
+    ON public.tool_calls
+    FOR SELECT
+    TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tool_calls.tenant_id
+              AND tm.user_id = auth.uid()
+        )
+    );
+```
+
+**This policy addition is part of aspect 8.1.2** — see [data-model-reconciliation.md](./data-model-reconciliation.md) §2.
+
+---
