@@ -71,7 +71,7 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 | File | Description | Status |
 |------|-------------|--------|
 | [integrations/stripe.md](integrations/stripe.md) | Stripe setup: 2 products + 4 prices, 4 env vars, Customer Portal config, webhook endpoint registration, SDK setup, plan→price mapping helper, Checkout Session route (full TypeScript), Customer Portal route, webhook handler (all 7 event types with complete TypeScript implementations), subscription lifecycle state machine (complete transition table), idempotency rules, test cards, customer→tenant mapping rules, security considerations | ✅ Done |
-| integrations/discord.md | Token validation, storage, error handling | Pending |
+| [integrations/discord.md](integrations/discord.md) | Discord BYOBT model: token format (regex + 3-part structure), guild ID validation, validate-token API route (full TypeScript with Discord API call, 8 error codes), Vault storage flow, token masking rules, 9 connection lifecycle scenarios (initial connect, token update, manual disconnect, token revoked/4004, transient errors, disallowed intents/4014, bot not in guild, account suspended, plan downgrade), complete UI error message inventory (client+server+status card+toast), 5 CRUD API routes (validate/create/patch/delete/reconnect) with full request/response shapes, bot-side token loading + isolation + hot-reload + heartbeat, security properties table | ✅ Done |
 | integrations/oauth-services.md | GitHub, Google, Linear — scopes, callbacks, refresh | Pending |
 | integrations/api-key-services.md | Toggl, etc. — validation, format, storage | Pending |
 | integrations/supabase-realtime.md | Channel names, filters, payload shapes | Pending |
