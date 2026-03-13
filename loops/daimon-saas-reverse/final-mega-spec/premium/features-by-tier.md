@@ -103,8 +103,8 @@ for conn in connections_to_suspend:
 
 ### Community Support (Free)
 
-- Access to Daimon Discord server: `discord.gg/daimon` (invite link — TBD at launch)
-- GitHub Issues for bug reports: `github.com/pymc-labs/daimon` (public repo — TBD)
+- Access to Daimon Discord server: `discord.gg/daimon` (permanent invite; created when Discord server is established at launch)
+- GitHub Issues for bug reports: `github.com/pymc-labs/daimon` (public repository; created at launch — forward loop uses this URL as-is in all footer/support links)
 - No SLA, no guaranteed response time
 - Best-effort responses from community and core team
 

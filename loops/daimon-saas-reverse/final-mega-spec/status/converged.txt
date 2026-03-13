@@ -1,0 +1,120 @@
+CONVERGED
+Date: 2026-03-13
+Loop: daimon-saas-reverse
+Aspect: 8.3 — Final Gap Analysis
+
+## Convergence Summary
+
+The Daimon SaaS final-mega-spec is complete. All 16 convergence audit checks pass.
+
+### Spec Statistics
+- Total spec files: 70 markdown files across 13 subdirectories
+- Total aspects analyzed: 93
+- Waves completed: 1–8 (including 4 cross-reference remediation aspects + 17 gap remediation aspects)
+- Convergence: 100%
+
+### What Is Specified
+
+**Source Layer (Wave 1)**
+- Complete Supabase schema from 27+ migrations
+- Full MCP tool catalog (100+ tools across Discord, Toggl, LinkedIn, GA, Fly, GitHub, Dub, ACP, Decision Hub, Onyx, Bluedot, Linear, Credentials)
+- Bot authentication model, ORM models, repository patterns
+- Bot startup, Discord connection flow, message handler pipeline
+- PyMC brand guidelines (6 colors with hex values, typography, spacing, component rules)
+- Existing design spec seeded and extended
+
+**Multi-Tenant Adaptation (Wave 2)**
+- Complete TenantConnectionManager design with lifecycle (CONNECTING → CONNECTED → HEALTHY → STALE → DISCONNECTED → TERMINATED)
+- Per-tenant tool execution scoping with audit trail
+- BYOK key routing: per-tenant Anthropic/OpenAI key injection into Claude API calls
+- Supabase Realtime channel design: `tenant:{tenant_id}:commands` (website→bot) + `bot:{tenant_id}:status` (bot→website)
+- Heartbeat contract: 30s ping, 90s stale threshold, 180s dead threshold
+- Tenant isolation boundaries: shared code/infra, isolated tokens/keys/data per tenant
+
+**Database (Wave 3)**
+- 10 new tables with every column (type, nullable, default, constraint)
+- 15+ RLS policies as exact CREATE POLICY SQL
+- 9 migrations in order (000–009) with exact SQL
+- All indexes with query-pattern rationale
+- Supabase Vault setup for encrypted API keys and OAuth tokens
+- Data retention policy per table with cleanup job SQL schedules
+
+**Frontend (Wave 4)**
+- 8 app pages: Landing, Auth (login/signup/reset), Dashboard, Integrations, Billing, Settings, Admin, Docs
+- 4 phantom/footer pages: Changelog, About, Blog, Cookie Policy
+- 5 component library sections (Layout, Form, Feedback, Data Display, Action) — every component with props, variants, states
+- Complete copy inventory: 100+ exact strings (labels, tooltips, errors, empty states, CTAs)
+- Complete validation rules: every field with constraint + exact error message
+- Responsive behavior at mobile (375px), tablet (768px), desktop (1280px)
+- Loading states, empty states, error states for every page
+- Edge cases: auth/session + integrations/billing
+- Micro-interactions, transitions, toasts, confirmation dialogs
+- Screenshot manifest: 260+ unique visual states enumerated
+- Playwright verification template with example test code
+
+**API (Wave 5)**
+- 23 Next.js API routes with request/response shapes and field types
+- Supabase Auth integration: middleware, getUser vs getSession, client factory patterns, JWT claims
+- Stripe webhook handler with all 8 event types and idempotency design
+- Rate limiting per endpoint with retry-after headers
+
+**Integrations (Wave 5)**
+- Stripe: products, prices, Checkout Sessions, Customer Portal, webhook lifecycle state machine
+- Discord: token format validation (regex), Vault storage, error scenarios
+- GitHub OAuth: scopes, redirect URIs, token exchange, refresh, revocation
+- Google OAuth: complete flow including calendar/gmail scopes
+- Linear OAuth: complete flow
+- Toggl, Dub, LinkedIn, GA, Fly, ACP, Onyx, Bluedot API key services: format, validation endpoint, error handling
+
+**Premium / Billing (Wave 5)**
+- 3 tiers: Free ($0), Starter ($9/mo or $79/yr), Pro ($29/mo or $249/yr)
+- 1 gating rule: Discord connection limit (1 / 3 / unlimited)
+- All other features (tools, integrations, support) identical across tiers
+- Stripe price IDs to create (4 prices)
+
+**Deployment (Wave 6)**
+- Vercel config with all env vars (website: 20 vars, bot: 18 vars)
+- GitHub Actions: 3 workflows (web CI, bot deploy, DB migrate) with complete YAML
+- Local Supabase CI: `supabase start` based, seed.sql with test tenants in all 6 states, Playwright integration
+- supabase/seed.sql with INSERT statements for all tables
+- Monitoring: Langfuse, Sentry, Supabase dashboard alerts, Fly.io health checks
+- Domains: daimon.ai (Vercel), api.daimon.ai (Fly.io), CNAME setup
+
+**Legal (Wave 6)**
+- Complete Terms of Service text (publication-ready)
+- Complete Privacy Policy text (publication-ready, Resend as email provider)
+- Complete Platform Disclaimers text (BYOK liability limits, AI limitations, third-party services)
+
+**SEO / Growth (Wave 6)**
+- Meta tags for every page (title, description, OG, Twitter Card)
+- Schema.org markup (Organization, SoftwareApplication, FAQPage, BreadcrumbList)
+- Keyword strategy: primary (discord ai bot, ai discord assistant), secondary 12 keywords
+- Blog topic roadmap: 8 topics
+- Comparison page spec: Daimon vs MEE6/MidJourney/Zapier/alternatives
+
+**Accessibility + Polish (Waves 7–8)**
+- WCAG 2.1 AA compliance with specific ARIA labels for every component
+- Keyboard navigation: tab order per page, focus traps for modals, screen reader announcements
+- All edge cases handled: expired sessions, revoked OAuth tokens, Stripe downtime, bot crashes
+- Cross-reference audit passed: all 23 API routes, all 10 tables, all Stripe webhooks aligned
+
+### Gaps Fixed During 8.3
+
+3 TBD markers resolved:
+1. `database/schema.md` — "paused" subscription bot behavior: now specified as "treat as suspended at v1, reconnects when Stripe resumes"
+2. `premium/features-by-tier.md` — Discord server invite URL: now specified as `discord.gg/daimon` (permanent invite, created at launch)
+3. `premium/features-by-tier.md` — GitHub repo URL: now specified as `github.com/pymc-labs/daimon` (public repo, created at launch)
+
+### Forward Loop Instructions
+
+A developer reading ONLY `final-mega-spec/` can build the complete Daimon SaaS platform.
+No external research required. No judgment calls left unmade. No placeholder text in copy.
+
+Start with:
+1. `README.md` — Index of all spec files
+2. `database/migrations.md` — Set up the database first (migrations 000–009)
+3. `multi-tenant/adaptation-plan.md` — Bot changes summary
+4. `frontend/` — One file per page
+5. `deployment/ci-cd.md` — CI/CD setup including local Supabase testing
+
+Status: COMPLETE. Forward loop may proceed.

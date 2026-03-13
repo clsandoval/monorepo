@@ -1695,7 +1695,7 @@ The following table documents every Stripe webhook event that can affect `tenant
 | `canceled` | `canceled` | Plan = 'free' (set by webhook handler on `customer.subscription.deleted`) | Bot continues on free tier |
 | `incomplete` | `incomplete` | Plan = 'free' (subscription not yet active) | Bot operates on free tier |
 | `incomplete_expired` | `incomplete_expired` | Plan = 'free' | Bot operates on free tier |
-| `paused` | `paused` | Plan = subscribed tier (access decision is a product choice) | Bot behavior TBD (treat as suspended at v1) |
+| `paused` | `paused` | Plan = subscribed tier (access decision is a product choice) | Bot treats `paused` as `suspended` at v1: Discord connection is terminated; bot reconnects automatically when Stripe resumes the subscription and `tenant_subscriptions.status` returns to `active` |
 
 #### Webhook Handler: `customer.subscription.updated` (Most Common Event)
 
