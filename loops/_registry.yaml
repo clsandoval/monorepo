@@ -282,8 +282,8 @@ loops:
   daimon-saas-reverse:
     description: "Exhaustive product spec for Daimon self-serve SaaS — multi-tenant Decision Orchestrator with BYOK billing"
     type: reverse
-    schedule: "*/30 * * * *"
-    max_iterations: 60
-    timeout_minutes: 30
+    schedule: "0 */6 * * *"
+    max_iterations: 100
+    timeout_minutes: 360
     status: active
     created: 2026-03-12

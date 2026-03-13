@@ -50,7 +50,7 @@ while [ ! -f "$CONVERGED_FILE" ] && [ "$iteration" -lt "$MAX_ITERATIONS" ]; do
     echo "$(date '+%Y-%m-%d %H:%M:%S')"
 
     iter_log="/tmp/ralph-${LOOP_NAME}-iter-${iteration}.log"
-    if timeout 1800 bash -c 'unset CLAUDECODE; cat "$1" | stdbuf -oL claude --print --dangerously-skip-permissions' _ "$PROMPT_FILE" 2>&1 | stdbuf -oL tee "$iter_log"; then
+    if timeout 21600 bash -c 'unset CLAUDECODE; cat "$1" | stdbuf -oL claude --print --dangerously-skip-permissions' _ "$PROMPT_FILE" 2>&1 | stdbuf -oL tee "$iter_log"; then
         echo ""
         echo "Iteration $iteration completed successfully."
         failures=0
