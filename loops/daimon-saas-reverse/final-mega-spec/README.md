@@ -97,7 +97,8 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 | ui/design-system.md | Colors, typography, spacing — exact values from brand | Pending |
 | ui/component-specs.md | Every component: dimensions, colors, states, hover/focus | Pending |
 | ui/responsive.md | Breakpoints, mobile-first, touch targets | Pending |
-| ui/accessibility.md | WCAG, ARIA, keyboard nav, screen reader | Pending |
+| [ui/accessibility.md](ui/accessibility.md) | WCAG 2.1 AA compliance: skip link, ARIA landmarks for all page types, per-component ARIA (Sidebar/MobileNav/DashboardTopbar/PublicNavbar/forms/feedback/data display/action components), per-page annotations (landing/auth/dashboard/integrations/billing/settings/admin/docs), live region announcements (32 events with role/aria-live per action), icon alt text rules, service logo alt text, exact color contrast ratios (14 combinations with pass/fail), 3 actionable contrast failures identified (footer link opacity + focus ring + input border), correct focus ring color per background context | ✅ Done (7.4a) |
+| [ui/micro-interactions.md](ui/micro-interactions.md) | Animation token system (8 duration vars + 3 easings), NProgress bar, button states, sidebar/nav animations, form field transitions, status indicator animations, onboarding checklist completion, dashboard real-time transitions, dropdown/modal/toast animations, landing page blobs + scroll reveal, service card transitions, billing/settings transitions, global cross-cutting patterns, complete animation inventory (54 rows), prefers-reduced-motion checklist | ✅ Done (7.2) |
 
 ### legal/ — What Protects The Business
 
