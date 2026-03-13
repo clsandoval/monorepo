@@ -133,6 +133,9 @@ Every file that must be created or modified. Organized by change type.
 | `apps/bot/src_v2/mcp/tags.py` | Add `Scope.PLATFORM_ADMIN`, `Scope.PLAN_STARTER`, `Scope.PLAN_PRO` to `Scope` StrEnum | [tenant-scoping.md](./tenant-scoping.md) §3.1, §5.1 |
 | `apps/bot/src_v2/mcp/registry.py` | Add plan gate logic and admin gate logic in `call_tool()`; add `tenant_plan: str` and `is_platform_admin: bool` params to `ToolRegistry.__init__()` | [tenant-scoping.md](./tenant-scoping.md) §3.2, §5.2 |
 | `apps/bot/src_v2/mcp/catalog.py` | Add `Scope.PLATFORM_ADMIN` to LinkedIn, GA, Dub tools; add `Scope.PLAN_STARTER` to Fly, Onyx, GitHub, Toggl tools; add `Scope.PLAN_PRO` to Linear, Bluedot, ACP, DecisionHub tools; add `tenant_plan` + `is_platform_admin` params to `create_tool_registry()` | [tenant-scoping.md](./tenant-scoping.md) §3.2, §5.3–5.4 |
+| `apps/bot/src_v2/entrypoints/discord/guild_handler.py` | After `_execute_message()` returns (success or failure), call `_record_message_event()` — fire-and-forget async INSERT into `tenant_messages`. Insert fields: `tenant_id`, `guild_id`, `channel_id`, `message_type='mention'`. Must be wrapped in `asyncio.create_task()` so it never blocks the response to Discord. Exception in INSERT must be caught and logged with `logger.warning(...)` — never re-raised. | See §3.2.1 below for exact code |
+| `apps/bot/src_v2/entrypoints/discord/dm_handler.py` | After `_execute_dm()` returns, call `_record_message_event()` — same fire-and-forget INSERT into `tenant_messages` with `message_type='dm'`. Same exception handling pattern. | See §3.2.1 below |
+| `apps/bot/src_v2/services/execution.py` | In the tool call dispatch wrapper (the code that calls the tool function and receives the result), call `_record_tool_call()` after each tool execution — fire-and-forget async INSERT into `tenant_tool_calls`. Insert fields: `tenant_id`, `tool_name`, `success` (True on success, False on MCP error or exception), `duration_ms` (wall-clock milliseconds from dispatch start to result receipt). Must be wrapped in `asyncio.create_task()`. Exception in INSERT must be caught and logged — never re-raised. | See §3.2.2 below |
 
 ### 3.3 Supabase Database Changes (New Tables + Migrations)
 
@@ -145,10 +148,137 @@ Every file that must be created or modified. Organized by change type.
 | `tenant_service_connections` | NEW TABLE | Per-tenant OAuth/API-key service connections (GitHub, Linear, Toggl, etc.) | [database/schema.md](../database/schema.md) |
 | `tenant_subscriptions` | NEW TABLE | Stripe subscription state — plan, status, Stripe IDs | [database/schema.md](../database/schema.md) |
 | `stripe_webhook_events` | NEW TABLE | Idempotency store for processed Stripe webhook events | [database/schema.md](../database/schema.md) |
-| RLS policies | 13 policies | One per table operation (SELECT/INSERT/UPDATE/DELETE) per new table | [database/rls-policies.md](../database/rls-policies.md) |
+| `tenant_messages` | NEW TABLE | Lightweight event log — one row per Discord message processed by the bot (no content, routing metadata only). Powers "Messages Today" / "Messages (30 days)" dashboard counts. Bot writes via service role key (fire-and-forget). | [database/schema.md](../database/schema.md) |
+| `tenant_tool_calls` | NEW TABLE | Lightweight event log — one row per MCP tool call executed (tool name, success flag, duration_ms). Powers "Tool Uses Today" dashboard count. Bot writes via service role key (fire-and-forget). | [database/schema.md](../database/schema.md) |
+| RLS policies | 15 policies | One per table operation (SELECT/INSERT/UPDATE/DELETE) per new table | [database/rls-policies.md](../database/rls-policies.md) |
 | `update_updated_at` trigger | TRIGGER (new instances) | Auto-updates `updated_at` on all new tables | [database/triggers.md](../database/triggers.md) |
 | `sync_tenant_plan` trigger | NEW TRIGGER | Copies `tenant_subscriptions.plan` → `tenants.plan` on UPDATE | [database/triggers.md](../database/triggers.md) |
 | `get_decrypted_secret(UUID)` | NEW FUNCTION | SECURITY DEFINER function for bot to decrypt Vault secrets | [database/vault-encryption.md](../database/vault-encryption.md) |
+
+### 3.2.1 Fire-and-Forget Message Event INSERT (guild_handler.py / dm_handler.py)
+
+The following private method must be added to both `GuildHandler` and `DMHandler` classes (or extracted into a shared mixin if both classes share a base):
+
+```python
+# In apps/bot/src_v2/entrypoints/discord/guild_handler.py
+# (and apps/bot/src_v2/entrypoints/discord/dm_handler.py — identical except message_type default)
+
+import asyncio
+import logging
+from typing import Literal
+
+logger = logging.getLogger(__name__)
+
+
+async def _record_message_event(
+    supabase_client,          # supabase-py AsyncClient
+    tenant_id: str,           # str(uuid.UUID) — tenant's UUID as string
+    guild_id: str,            # Discord guild ID as string
+    channel_id: str,          # Discord channel ID as string
+    message_type: Literal["mention", "dm", "command"],
+) -> None:
+    """Fire-and-forget instrumentation — never blocks message processing."""
+    try:
+        await supabase_client.table("tenant_messages").insert({
+            "tenant_id": tenant_id,
+            "guild_id": guild_id,
+            "channel_id": channel_id,
+            "message_type": message_type,
+        }).execute()
+    except Exception as exc:
+        # Log but never raise — instrumentation must NEVER affect user experience
+        logger.warning("tenant_messages insert failed (non-critical): %s", exc)
+```
+
+**Call site in guild handler** — immediately after `_execute_message()` returns (inside the `on_message` coroutine, after the Claude response has been sent):
+
+```python
+# After sending the response to Discord:
+asyncio.create_task(
+    _record_message_event(
+        supabase_client=self._supabase,
+        tenant_id=str(user_context.tenant_id),
+        guild_id=str(message.guild.id),
+        channel_id=str(message.channel.id),
+        message_type="mention",  # or "command" for slash commands
+    )
+)
+```
+
+**Call site in DM handler** — identical but with `message_type="dm"`.
+
+**Key invariants:**
+- The `asyncio.create_task()` wrapper ensures the INSERT runs concurrently without blocking the Discord response.
+- `_record_message_event` catches ALL exceptions — a Supabase outage, network error, or schema mismatch must never propagate to the message handler.
+- `tenant_id` is passed as a string because `supabase-py` serializes UUIDs as strings in JSON.
+- `guild_id` and `channel_id` are Discord snowflake IDs (integers) cast to `TEXT` in the INSERT — pass as `str()`.
+- The bot uses `SUPABASE_SERVICE_ROLE_KEY` for its Supabase client, which bypasses RLS — no auth needed for the INSERT.
+
+### 3.2.2 Fire-and-Forget Tool Call Event INSERT (services/execution.py)
+
+The following private method must be added to the class or module that contains the MCP tool dispatch loop (in `services/execution.py` or wherever `ToolRegistry.call_tool()` calls the actual tool function):
+
+```python
+# In apps/bot/src_v2/services/execution.py
+# (or wherever ToolRegistry.call_tool() dispatches to the actual tool function)
+
+import asyncio
+import time
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+async def _record_tool_call(
+    supabase_client,          # supabase-py AsyncClient
+    tenant_id: str,           # str(uuid.UUID)
+    tool_name: str,           # Fully-qualified tool name, e.g. "toggl__get_time_entries"
+    success: bool,            # True on success, False on MCP error or exception
+    duration_ms: int | None,  # Wall-clock time from dispatch to result, in milliseconds
+) -> None:
+    """Fire-and-forget instrumentation — never blocks tool execution."""
+    try:
+        await supabase_client.table("tenant_tool_calls").insert({
+            "tenant_id": tenant_id,
+            "tool_name": tool_name,
+            "success": success,
+            "duration_ms": duration_ms,
+        }).execute()
+    except Exception as exc:
+        # Log but never raise — instrumentation must NEVER affect tool execution
+        logger.warning("tenant_tool_calls insert failed (non-critical): %s", exc)
+```
+
+**Call site** — wraps each tool execution in the dispatch loop:
+
+```python
+# In the tool dispatch wrapper (wherever call_tool() invokes the tool function):
+start_ms = time.monotonic()
+success = True
+try:
+    result = await tool_fn(**params)
+except Exception as exc:
+    success = False
+    raise  # Re-raise after recording
+finally:
+    duration_ms = int((time.monotonic() - start_ms) * 1000)
+    asyncio.create_task(
+        _record_tool_call(
+            supabase_client=self._supabase,
+            tenant_id=str(user_context.tenant_id),
+            tool_name=tool_name,  # the registered MCP tool name string
+            success=success,
+            duration_ms=duration_ms,
+        )
+    )
+```
+
+**Key invariants:**
+- `asyncio.create_task()` ensures the INSERT is non-blocking.
+- The `finally` block ensures the INSERT fires on BOTH success and failure paths.
+- `success=False` is written when the tool raises any exception — the original exception is still re-raised after `create_task()` is scheduled.
+- `duration_ms` uses `time.monotonic()` (wall-clock, not CPU time) for accuracy across async awaits.
+- `tool_name` must be the exact string registered in `ToolRegistry` (e.g., `"toggl__get_time_entries"`) — not a human-readable label.
 
 ### 3.4 New Next.js API Routes (Website Side)
 
@@ -194,12 +324,14 @@ These changes add new code or tables without removing or altering existing funct
 
 | Change | Why Additive |
 |--------|-------------|
-| New database tables (`tenants`, `tenant_members`, `discord_connections`, `tenant_api_keys`, `tenant_service_connections`, `tenant_subscriptions`, `stripe_webhook_events`) | Tables added; existing tables unchanged |
+| New database tables (`tenants`, `tenant_members`, `discord_connections`, `tenant_api_keys`, `tenant_service_connections`, `tenant_subscriptions`, `stripe_webhook_events`, `tenant_messages`, `tenant_tool_calls`) | Tables added; existing tables unchanged |
 | New RLS policies on new tables | Only affects new tables; existing tables' RLS unchanged |
 | `get_decrypted_secret()` Postgres function | New function; no existing code changed |
 | `Scope.PLATFORM_ADMIN`, `Scope.PLAN_STARTER`, `Scope.PLAN_PRO` added to `tags.py` | New enum values; existing values unchanged |
 | `tenant_id: uuid.UUID` field added to `UserContext` | Additive field with `= uuid.uuid4()` default? No — see §4.2 |
 | New files: `tenant_connection_manager.py`, `health_server.py`, `tenant_config.py`, `context_builder.py` | New files; no existing files changed |
+| `_record_message_event()` added to `guild_handler.py` and `dm_handler.py` | New private method; existing `_execute_message()` / `_execute_dm()` logic unchanged — only a `create_task()` call added after each |
+| `_record_tool_call()` added to `services/execution.py` | New instrumentation wrapper; existing tool dispatch logic unchanged — `finally` block adds a non-blocking `create_task()` |
 
 ### 4.2 Breaking Changes (Require Coordination)
 
@@ -240,9 +372,12 @@ Run all new table migrations. No bot code changes. The new tables exist but are 
 5. CREATE TABLE tenant_service_connections
 6. CREATE TABLE tenant_subscriptions
 7. CREATE TABLE stripe_webhook_events
-8. CREATE FUNCTION get_decrypted_secret
-9. CREATE RLS policies for all new tables
-10. CREATE triggers (update_updated_at, sync_tenant_plan)
+8. CREATE TABLE tenant_messages               ← event log for dashboard message counts
+9. CREATE TABLE tenant_tool_calls             ← event log for dashboard tool use counts
+10. CREATE FUNCTION get_decrypted_secret
+11. CREATE RLS policies for all new tables
+12. CREATE triggers (update_updated_at, sync_tenant_plan)
+13. REGISTER pg_cron jobs (cleanup-tenant-messages, cleanup-tenant-tool-calls)
 ```
 
 **After Phase 0:** Deploy the Next.js website. Users can sign up, configure Discord tokens, add API keys, set up billing. The website writes to the new tables. The bot still uses the old single-tenant code — it ignores the new tables.
