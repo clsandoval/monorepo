@@ -59,7 +59,7 @@ Fields per loop:
 
 ### 2. `loops/loop.sh` — Standardized Runner
 
-Identical to the monorepo's latest runner (`loops/daimon-saas-reverse/loop.sh`). Shared by all loops — each loop directory either copies it or symlinks to it.
+Based on the monorepo's latest runner (`loops/daimon-saas-reverse/loop.sh`) with one bug fix: the timeout warning message says "1800s" but the actual timeout is 21600s — fix the message to match. Each loop directory gets a copy of this file (not a symlink, to avoid shallow-checkout issues in CI).
 
 Key parameters:
 - **Per-iteration timeout**: 21600s (6 hours)
@@ -88,29 +88,28 @@ on:
 
 **Jobs:**
 
-**discover** — Parse `loops/_registry.yaml`, emit matrix of active loops (or specific loop if named).
+**discover** — Parse `loops/_registry.yaml`, emit matrix of active loops (or specific loop if named). When `loop=all`, only **reverse** loops with `status: active` are discovered — forward loops must be dispatched by name (e.g., `gh workflow run ralph-loops.yml -f loop=my-forward-loop`). When a specific loop name is provided, it runs regardless of type or status (manual override).
 
 **run-loop** — Per-loop matrix job:
 
-1. Checkout repo
+1. Checkout repo (uses `GITHUB_TOKEN` — no `GH_PAT` needed since this is not a submodule context)
 2. Configure git (`ralph-loop[bot]`)
 3. Install Claude Code (Node.js + npm)
 4. Check loop status (skip if converged/paused)
-5. Install project deps (conditional, grep-detected from PROMPT.md):
-   - Python via `actions/setup-python` + `uv` (if PROMPT references pytest/uv)
-   - Supabase CLI (if PROMPT references supabase/database)
-   - `cd apps/bot && uv sync` (if PROMPT references apps/bot)
-   - psql (if PROMPT references SQL/database)
-6. Run until convergence (same loop as monorepo: iterate, commit, push, check convergence)
-7. On convergence: create GitHub issue, update registry, push
+5. Install project deps unconditionally (all loops in this repo target the same Python stack):
+   - Python 3.13 via `actions/setup-python`
+   - `uv` via `astral-sh/setup-uv`
+   - `cd apps/bot && uv sync` (install bot dependencies)
+   - Supabase CLI via `npx supabase`
+   - psql via `apt-get install postgresql-client`
+6. Run until convergence — CI **inlines the loop logic** in the workflow YAML (same as monorepo), it does NOT call `loop.sh`. The `loop.sh` file is for local runs only. Both use the same algorithm: iterate, commit, push, check convergence.
+7. On convergence: create GitHub issue (uses `GITHUB_TOKEN`), update registry, push
 
-**Secrets** passed to the loop run step:
-- `ANTHROPIC_API_KEY` (always)
+**Secrets** passed to the loop run step (all from the repo's GitHub environment secrets):
+- `ANTHROPIC_API_KEY` (always — required for Claude Code)
 - `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (for DB-touching loops)
 - `DISCORD_BOT_TOKEN` (for integration test loops)
 - `OPENAI_API_KEY` (for embedding/classification loops)
-
-These come from the repo's GitHub environment secrets, same as the existing CI workflows.
 
 **Timeout**: 360 minutes (6 hours) per loop job.
 
