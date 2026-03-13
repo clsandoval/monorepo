@@ -27,6 +27,31 @@
 
 ---
 
+## 2026-03-13 — website-about
+
+**Aspect**: website-about
+**Source**: https://www.pymc-labs.com/about/ + https://www.pymc-labs.com/team/
+**Output**: analysis/website-scrape/about.md
+
+### What was found
+
+- **Company positioning**: "We are the inventors of PyMC, the leading platform for statistical data science. We have launched a consultancy to turn our expertise into your advantage."
+- **Team composition**: "PhDs, mathematicians, neuroscientists, engineers, and social scientists"
+- **32 team members** listed, 5 Partners + 27 team members
+- **Partners**: Dr. Thomas Wiecki (PhD CompCogNeuro, Brown; ex-Quantopian VP), Dr. Christian Luhmann (PhD Psych, Vanderbilt; ex-Stony Brook Prof), Dr. Luca Fiaschi (PhD CS, Heidelberg; ex-HelloFresh VP DS, ex-Mistplay CDAIO), Niall Oulton (MSc Econometrics Bristol; PyMC-Marketing), Joe Wilkinson (BSc Econ Sheffield; ex-Gain Theory Senior Partner)
+- **Key team bios captured**: Allen Downey (Olin Prof Emeritus, Think Python author), Christopher Fonnesbeck (PyMC creator, Vanderbilt Adjunct, ex-MLB), Colt Allen (Principal DS, CLV lead), Daniel Saunders (pricing/marketing Bayesian), Juan Orduz (PhD Math Berlin), Andrew Heusser (PhD CogNeuro NYU), Bernard Mares (PhD math physics MIT), Eliot Carlson (Yale+Columbia), Francesco Muia (PhD physics, Hawking Fellow), Halah Joseph (AI/consulting), Jake Piekarski (MMM), Kusti Skytén (Cambridge stats)
+- **Individual team member pages** confirmed at /team/{slug}/ — contain richer bios
+- **12 team members with no bio** in scraped content (Benjamin Maier, Erik Ringen, Kemble Fletcher, Maxim Laletin, Mengxing Baldour-Wang, Nina Rismal, Olivera Stojanovic, Oriol Abril Pla, Pablo de Roque, Purna Mansingh, Sandra Meneses, Teemu Säilynoja, Titi Alailima, Ulf Aslak)
+- **No founding year** or company history narrative on site
+- ~18 client logos on about page, unlabeled in HTML
+
+### Key observations
+
+- New aspect needed: website-team-individual-pages (scrape all 32 /team/ slugs for full bios)
+- Company story must come from Discord or other source — not on website
+
+---
+
 ## 2026-03-13 — discord-index
 
 **Aspect**: discord-index
