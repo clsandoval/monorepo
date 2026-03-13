@@ -13,8 +13,8 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 | [source/existing-tools.md](source/existing-tools.md) | Full MCP tool catalog: 89 direct tools + 6 remote Linear tools = 95 total. Every tool, input model, field type, description, tag, credential requirement, and multi-tenant implication | ✅ Done |
 | [source/existing-bot-architecture.md](source/existing-bot-architecture.md) | Bootstrap config: all 19 env vars, ToolContext/UserContext/DatabaseContext dataclasses, 4 client factories (Supabase/Discord/Anthropic/SQLAlchemy), 10-step startup sequence, 11-step message handler pipeline, per-tenant vs system-level field classification, Langfuse observability | ✅ Done |
 | [source/existing-orm-models.md](source/existing-orm-models.md) | SQLAlchemy 2.0 ORM models (9 tables/views), Pydantic boundary schemas, 9 repository modules with full function signatures, Vault raw-SQL pattern, multi-tenant migration implications per table | ✅ Done |
-| source/brand-guidelines.md | Complete PyMC design system | Pending |
-| source/design-spec.md | Seeded from existing design doc | Pending |
+| [source/brand-guidelines.md](source/brand-guidelines.md) | Complete PyMC design system: 6 colors with hex, type scale with clamp(), spacing system, button specs, card CI stripe, nav, footer, blob animations, Tailwind config mapping | ✅ Done |
+| [source/design-spec.md](source/design-spec.md) | Product decisions, tech stack, data model, user flows, page architecture, bot integration contract, tenant lifecycle, security model | ✅ Done |
 
 ### multi-tenant/ — How The Bot Becomes Multi-Tenant
 
