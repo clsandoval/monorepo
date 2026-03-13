@@ -4,6 +4,7 @@ import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
 import { DashboardStatusCards } from '@/components/dashboard/dashboard-status-cards'
 import { OnboardingChecklist } from '@/components/dashboard/onboarding-checklist'
+import { QuickStatsRow } from '@/components/dashboard/quick-stats-row'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -17,6 +18,10 @@ export default async function DashboardPage() {
     redirect('/login?next=/dashboard')
   }
 
+  // Metrics: today window (UTC midnight)
+  const startOfTodayUTC = new Date()
+  startOfTodayUTC.setUTCHours(0, 0, 0, 0)
+
   // Parallel data fetch
   const [
     tenantResult,
@@ -24,6 +29,8 @@ export default async function DashboardPage() {
     apiKeysResult,
     serviceConnectionsResult,
     subscriptionResult,
+    messagesTodayResult,
+    toolUsesTodayResult,
   ] = await Promise.all([
     supabase
       .from('tenants')
@@ -53,6 +60,16 @@ export default async function DashboardPage() {
       .from('tenant_subscriptions')
       .select('plan, status, current_period_end')
       .maybeSingle(),
+
+    supabase
+      .from('tenant_messages')
+      .select('id', { count: 'exact', head: true })
+      .gte('created_at', startOfTodayUTC.toISOString()),
+
+    supabase
+      .from('tenant_tool_calls')
+      .select('id', { count: 'exact', head: true })
+      .gte('created_at', startOfTodayUTC.toISOString()),
   ])
 
   // Error state — any hard query failure
@@ -77,6 +94,8 @@ export default async function DashboardPage() {
   const apiKeys = apiKeysResult.data ?? []
   const serviceConnections = serviceConnectionsResult.data ?? []
   const subscription = subscriptionResult.data ?? null
+  const messagesToday = messagesTodayResult.count ?? 0
+  const toolUsesToday = toolUsesTodayResult.count ?? 0
 
   return (
     <DashboardLayout
@@ -101,6 +120,14 @@ export default async function DashboardPage() {
         <DashboardStatusCards
           discord={discord}
           plan={(tenant?.plan as 'free' | 'starter' | 'pro') ?? 'free'}
+        />
+
+        {/* Quick stats — messages today, tool uses today, uptime */}
+        <QuickStatsRow
+          messagesToday={messagesToday}
+          toolUsesToday={toolUsesToday}
+          connectedAt={discord?.created_at ?? null}
+          botConnected={discord?.status === 'connected'}
         />
 
         {/* Dev aid — hidden data attributes for tests */}

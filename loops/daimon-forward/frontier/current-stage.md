@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 59
-- **Current**: 60
+- **Completed**: 60
+- **Current**: 61
 
 ## Current Stage
 
-**Stage 061** — (next stage)
+**Stage 062** — (next stage)
 
 ## Stage Log
 
@@ -74,3 +74,4 @@
 | 058 | done | 2026-03-14T03:30:00Z | Dashboard route (Server Component): parallel Promise.all queries for tenant/discord/apiKeys/serviceConnections/subscription, ErrorState on query failure, DashboardLayout wrapper with tenantName+plan props; loading.tsx skeleton (4-section card skeletons matching page layout); build passes |
 | 059 | done | 2026-03-14T03:45:00Z | DashboardStatusCards component: 3-card grid (Bot Status with StatusIndicator, Current Plan with Badge, Discord Connection with guild_id or "Not connected"); deriveBotStatus logic (online if last_heartbeat ≤90s); wired into dashboard page; build passes |
 | 060 | done | 2026-03-14T04:00:00Z | OnboardingChecklist component: 4-step vertical list (create bot/connect server/add API key/wait for online), completed/current/pending step icons, aqua progress bar, fade-out on all complete; visibility gated on tenant.status pending|configured; wired into dashboard page; build passes |
+| 061 | done | 2026-03-14T04:15:00Z | QuickStatsRow component: 3-card grid (Messages Today/Tool Uses Today/Uptime), metrics queries (tenant_messages + tenant_tool_calls today count), uptime derived from discord created_at; wired into dashboard page; build passes |
