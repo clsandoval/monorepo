@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 67
-- **Current**: 67
+- **Completed**: 68
+- **Current**: 68
 
 ## Current Stage
 
-**Stage 068** — (next stage)
+**Stage 069** — (next stage)
 
 ## Stage Log
 
@@ -81,3 +81,4 @@
 | 065 | done | 2026-03-14T05:15:00Z | API key service cards: ApiKeyModal component (480px, password input with show/hide, client-side format validation 32-char /^[a-z0-9]{32}$/, submits to POST /api/integrations/api-key, success triggers router.push ?connected=toggl); ServiceGrid manages modal state; ServiceCard onApiKeyConnect prop wires Toggl connect button; accountName now checks toggl_email metadata; build passes |
 | 066 | done | 2026-03-14T05:30:00Z | Integrations status + error handling: status already wired (connected/expired/error/revoked/not-connected visual states), error banners, Reconnect button for expired/error — all from prior stages; added integrations/loading.tsx with page header skeleton + 4 ServiceCardSkeleton (2×2 grid, responsive); build passes |
 | 067 | done | 2026-03-14T05:45:00Z | Billing page layout + current plan: Server Component page with parallel data fetch (tenant/subscription/usage stats today), CurrentPlanCard client component (plan name + badge + price + feature list + billing period line + CTA button by role/status + usage stats); build passes |
+| 068 | done | 2026-03-14T06:00:00Z | Billing page plan comparison + upgrade: PlanComparisonGrid client component (monthly/annual slide toggle, 3-col plan cards, aqua border on current plan, feature lists, upgrade/downgrade CTAs, downgrade confirmation dialog, discord connection count in page fetch); build passes |

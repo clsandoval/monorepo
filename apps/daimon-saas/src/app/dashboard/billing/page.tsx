@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
 import { CurrentPlanCard } from '@/components/billing/current-plan-card'
+import { PlanComparisonGrid } from '@/components/billing/plan-comparison-grid'
 
 export const metadata = {
   title: 'Billing & Keys — Daimon',
@@ -47,31 +48,41 @@ export default async function BillingPage() {
   const todayStartIso = todayStart.toISOString()
 
   // Parallel data fetch
-  const [tenantResult, subscriptionResult, messagesTodayResult, toolUsesTodayResult] =
-    await Promise.all([
-      supabase
-        .from('tenants')
-        .select('id, name, plan, status, stripe_customer_id')
-        .eq('id', tenantId)
-        .single(),
-      supabase
-        .from('tenant_subscriptions')
-        .select(
-          'stripe_subscription_id, status, current_period_start, current_period_end, cancel_at, trial_end'
-        )
-        .eq('tenant_id', tenantId)
-        .maybeSingle(),
-      supabase
-        .from('tenant_messages')
-        .select('id', { count: 'exact', head: true })
-        .eq('tenant_id', tenantId)
-        .gte('created_at', todayStartIso),
-      supabase
-        .from('tenant_tool_calls')
-        .select('id', { count: 'exact', head: true })
-        .eq('tenant_id', tenantId)
-        .gte('created_at', todayStartIso),
-    ])
+  const [
+    tenantResult,
+    subscriptionResult,
+    messagesTodayResult,
+    toolUsesTodayResult,
+    discordConnectionsResult,
+  ] = await Promise.all([
+    supabase
+      .from('tenants')
+      .select('id, name, plan, status, stripe_customer_id')
+      .eq('id', tenantId)
+      .single(),
+    supabase
+      .from('tenant_subscriptions')
+      .select(
+        'stripe_subscription_id, status, current_period_start, current_period_end, cancel_at, trial_end'
+      )
+      .eq('tenant_id', tenantId)
+      .maybeSingle(),
+    supabase
+      .from('tenant_messages')
+      .select('id', { count: 'exact', head: true })
+      .eq('tenant_id', tenantId)
+      .gte('created_at', todayStartIso),
+    supabase
+      .from('tenant_tool_calls')
+      .select('id', { count: 'exact', head: true })
+      .eq('tenant_id', tenantId)
+      .gte('created_at', todayStartIso),
+    supabase
+      .from('discord_connections')
+      .select('id', { count: 'exact', head: true })
+      .eq('tenant_id', tenantId)
+      .neq('status', 'disconnected'),
+  ])
 
   if (tenantResult.error || !tenantResult.data) {
     return (
@@ -89,6 +100,7 @@ export default async function BillingPage() {
   const subscription = subscriptionResult.data ?? null
   const messagesToday = messagesTodayResult.count ?? 0
   const toolUsesToday = toolUsesTodayResult.count ?? 0
+  const discordConnectionCount = discordConnectionsResult.count ?? 0
 
   return (
     <DashboardLayout
@@ -155,6 +167,17 @@ export default async function BillingPage() {
           }
           userRole={userRole}
           usageStats={{ messagesToday, toolUsesToday }}
+        />
+
+        <PlanComparisonGrid
+          currentPlan={(tenant.plan as 'free' | 'starter' | 'pro') ?? 'free'}
+          userRole={userRole}
+          subscription={
+            subscription
+              ? { current_period_end: subscription.current_period_end ?? null }
+              : null
+          }
+          discordConnectionCount={discordConnectionCount}
         />
       </section>
     </DashboardLayout>
