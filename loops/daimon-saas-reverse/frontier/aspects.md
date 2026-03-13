@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 49
-- **Analyzed**: 8
-- **Pending**: 41
-- **Convergence**: 16%
+- **Analyzed**: 9
+- **Pending**: 40
+- **Convergence**: 18%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -20,7 +20,7 @@
 
 ## Wave 2: Multi-Tenant Adaptation (6 aspects)
 
-- [ ] 2.1 — Analyze single-token bot connection → spec multi-token connection manager (current: `entrypoints/discord/main.py`, `bot.py`)
+- [x] 2.1 — Analyze single-token bot connection → spec multi-token connection manager (current: `entrypoints/discord/main.py`, `bot.py`)
 - [ ] 2.2 — Analyze tool execution scoping → spec per-tenant tool access with tenant API keys (current: `mcp/catalog.py`, `services/execution.py`)
 - [ ] 2.3 — Analyze Claude API key usage → spec BYOK key routing per tenant (current: `bootstrap/config.py`)
 - [ ] 2.4 — Design Supabase Realtime subscription — channel names, filters, payload shapes for tenant lifecycle events
