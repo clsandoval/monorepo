@@ -31,10 +31,10 @@
 | `tenant_api_keys` | ✅ | provider, validated_at, status columns used |
 | `tenant_service_connections` | ✅ | service, status columns used for icon grid |
 | `tenant_subscriptions` | ⚠️ | Used; table defined in migrations.md only, not schema.md |
-| `messages` | ⚠️ | **Existing bot table** — NOT a new SaaS table. Used by QuickStatsRow (message count) and RecentActivityFeed. Defined in `source/existing-schema.md` and existing ORM. Dashboard spec reads from this table cross-tenant. **Cross-reference note needed in schema.md.** |
-| `tool_calls` | ⚠️ | **Existing bot table** — NOT a new SaaS table. Used by QuickStatsRow (tool use count). Defined in `source/existing-schema.md`. **Cross-reference note needed in schema.md.** |
+| `tenant_messages` | ✅ | **New SaaS table** (aspect 8.1.2). The existing bot has NO `messages` table — bot reads Discord history via `channel.history()` API, not DB. New `tenant_messages` table created (migration 008): lightweight event log (tenant_id, guild_id, channel_id, message_type, created_at). Bot writes 1 row per message processed. RLS allows tenant members to SELECT. Dashboard queries `tenant_messages` for QuickStatsRow count. |
+| `tenant_tool_calls` | ✅ | **New SaaS table** (aspect 8.1.2). The existing bot has NO `tool_calls` table. New `tenant_tool_calls` table created (migration 009): lightweight event log (tenant_id, tool_name, success, duration_ms, created_at). Bot writes 1 row per MCP tool call. RLS allows tenant members to SELECT. Dashboard queries `tenant_tool_calls` for QuickStatsRow count. |
 
-**Resolution for `messages` and `tool_calls`:** These are existing bot schema tables documented in `source/existing-schema.md`. The new SaaS schema does NOT replace or duplicate them. The dashboard page reads them with tenant-scoped queries (WHERE tenant_id = $tenant_id). RLS on these tables must be extended to support the website user (not just the bot service role). **New aspect 8.1.2 needed.**
+**Resolution for `tenant_messages` and `tenant_tool_calls` (aspect 8.1.2 complete):** These are NEW tables added to the SaaS schema (not existing bot tables). The existing bot does not persist messages or tool calls to Supabase. As part of the multi-tenant adaptation, the bot is instrumented to write fire-and-forget events to these tables. Full DDL, RLS policies, migration SQL, and bot instrumentation code are documented in [database/schema.md](./schema.md#table-tenant_messages). Dashboard spec updated to query `tenant_messages` and `tenant_tool_calls` (not `messages`/`tool_calls`).
 
 ### Integrations Page (`frontend/integrations-page.md`)
 

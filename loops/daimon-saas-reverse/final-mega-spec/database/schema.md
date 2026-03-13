@@ -2518,81 +2518,415 @@ supabase/migrations/
 
 ---
 
-## Cross-References: Existing Bot Tables Read by the Dashboard
+## Table: `tenant_messages`
 
-The dashboard page reads two tables from the **existing bot schema** that are NOT part of the new SaaS schema. These tables were created by the original Decision Orchestrator migrations and are already present in production.
+**Purpose:** Lightweight event log — one row per Discord message processed by the bot for a tenant. Stores only routing metadata (no message content) for privacy. Read by the dashboard QuickStatsRow to display "Messages Today" and "Messages (30 days)" counts. Written by the bot after successfully processing each mention, DM, or command.
 
-See [source/existing-schema.md](../source/existing-schema.md) for complete documentation of these tables.
+**Created by migration:** `20260400000008_create_tenant_messages.sql` (to be created)
 
-### `messages` (Existing Bot Table)
+**IMPORTANT — Not an existing table:** The existing Decision Orchestrator bot does NOT have a `messages` table. The bot reads Discord history via `channel.history()` (Discord API) and does NOT persist messages to Supabase. This table is **new** and is part of the multi-tenant SaaS adaptation. The bot must be updated to insert a row here after each message is processed. See [multi-tenant/tenant-scoping.md](../multi-tenant/tenant-scoping.md) for bot-side instrumentation details.
 
-**Read by:** Dashboard QuickStatsRow (message count), RecentActivityFeed (last 10 messages)
-
-**Query pattern:**
 ```sql
--- Message count for a tenant (used on dashboard)
-SELECT COUNT(*) AS message_count
-FROM public.messages
-WHERE tenant_id = $1
-  AND created_at > NOW() - INTERVAL '30 days';
+CREATE TABLE public.tenant_messages (
+    id              UUID            NOT NULL DEFAULT gen_random_uuid(),
+    tenant_id       UUID            NOT NULL,
+    guild_id        TEXT            NOT NULL,
+    channel_id      TEXT            NOT NULL,
+    message_type    TEXT            NOT NULL DEFAULT 'mention',
+    created_at      TIMESTAMPTZ     NOT NULL DEFAULT NOW(),
 
--- Recent activity feed
-SELECT id, content, role, created_at, channel_id
-FROM public.messages
-WHERE tenant_id = $1
-ORDER BY created_at DESC
-LIMIT 10;
+    CONSTRAINT tenant_messages_pkey
+        PRIMARY KEY (id),
+    CONSTRAINT tenant_messages_tenant_id_fkey
+        FOREIGN KEY (tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE,
+    CONSTRAINT tenant_messages_message_type_check
+        CHECK (message_type IN ('mention', 'dm', 'command'))
+);
 ```
 
-**RLS note:** The existing `messages` table has RLS policies designed for the bot's service role. For the website to query this table using the user's JWT (via Supabase JS client with `anon` key), a new RLS policy must be added:
+### Column Reference
+
+| Column | Type | Nullable | Default | Constraints | Description |
+|--------|------|----------|---------|-------------|-------------|
+| `id` | `UUID` | NOT NULL | `gen_random_uuid()` | PRIMARY KEY | Unique event identifier. Never returned to the frontend — only COUNT queries are used. |
+| `tenant_id` | `UUID` | NOT NULL | — | FOREIGN KEY → `tenants(id)` ON DELETE CASCADE | The tenant whose bot processed this message. On CASCADE delete: all message log rows are removed when a tenant is deleted. Used in all queries (always filtered). |
+| `guild_id` | `TEXT` | NOT NULL | — | — | Discord guild ID (numeric string) where the message occurred. Matches `discord_connections.guild_id`. Stored for potential per-server analytics in future. Not exposed in V1 dashboard. |
+| `channel_id` | `TEXT` | NOT NULL | — | — | Discord channel or thread ID where the message occurred. Not exposed in V1 dashboard. Stored for potential per-channel analytics. |
+| `message_type` | `TEXT` | NOT NULL | `'mention'` | CHECK IN ('mention', 'dm', 'command') | Type of message that triggered the bot. `mention` = user @mentioned the bot in a guild channel. `dm` = user sent the bot a DM. `command` = user used a slash command. |
+| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | — | Timestamp of when the bot received and began processing the message. Used for all count queries (WHERE created_at > ...). Set by the bot at processing start — not at processing completion. |
+
+### Indexes
 
 ```sql
--- Add to existing messages table RLS (in a new migration):
-CREATE POLICY "tenant_members_can_read_own_messages"
-    ON public.messages
+-- Query: Dashboard "Messages Today" count
+-- SELECT COUNT(*) FROM tenant_messages WHERE tenant_id = $1 AND created_at >= $start_of_day
+CREATE INDEX idx_tenant_messages_tenant_id_created_at
+    ON public.tenant_messages (tenant_id, created_at DESC);
+
+-- Note: No separate index on tenant_id alone — the composite index covers single-tenant lookups.
+-- No index on guild_id or channel_id — not queried in V1 dashboard.
+```
+
+### RLS
+
+RLS is enabled. Website users (authenticated JWT) may SELECT rows for tenants they belong to. The bot uses the service role key which bypasses RLS for INSERT.
+
+```sql
+ALTER TABLE public.tenant_messages ENABLE ROW LEVEL SECURITY;
+
+-- SELECT: tenant members can read their tenant's message log
+CREATE POLICY "tenant_messages_select_member"
+    ON public.tenant_messages
     FOR SELECT
     TO authenticated
     USING (
         EXISTS (
             SELECT 1 FROM public.tenant_members tm
-            WHERE tm.tenant_id = messages.tenant_id
+            WHERE tm.tenant_id = tenant_messages.tenant_id
               AND tm.user_id = auth.uid()
         )
     );
+
+-- INSERT: blocked for authenticated users — bot uses service role key
+-- (No INSERT policy for 'authenticated' role)
+
+-- UPDATE/DELETE: blocked for all authenticated users
+-- (No UPDATE or DELETE policies)
 ```
 
-**This policy addition is part of aspect 8.1.2** — see [data-model-reconciliation.md](./data-model-reconciliation.md) §2.
+### Dashboard Queries
 
-### `tool_calls` (Existing Bot Table)
+```typescript
+// QuickStatsRow — Messages Today count
+// File: components/dashboard/QuickStatsRow.tsx
+const startOfTodayUTC = new Date();
+startOfTodayUTC.setUTCHours(0, 0, 0, 0);
 
-**Read by:** Dashboard QuickStatsRow (tool use count)
-
-**Query pattern:**
-```sql
--- Tool use count for a tenant (last 30 days)
-SELECT COUNT(*) AS tool_call_count
-FROM public.tool_calls
-WHERE tenant_id = $1
-  AND created_at > NOW() - INTERVAL '30 days';
+const { count: messagesToday } = await supabase
+  .from('tenant_messages')
+  .select('id', { count: 'exact', head: true })
+  .gte('created_at', startOfTodayUTC.toISOString());
+// RLS automatically scopes to the authenticated user's tenant.
+// Returns null if no rows — display as 0.
 ```
 
-**RLS note:** Same pattern as `messages` — needs a new policy for website user reads:
+### Bot-Side Instrumentation
+
+The bot writes to `tenant_messages` after each message is successfully dispatched to Claude. Insert location: `entrypoints/discord/guild_handler.py` — after `_execute_message()` returns without error, and in `entrypoints/discord/dm_handler.py` — after `_execute_dm()` returns without error.
+
+```python
+# After successful message processing — guild handler
+async def _record_message_event(
+    self,
+    tenant_id: str,
+    guild_id: str,
+    channel_id: str,
+    message_type: Literal["mention", "dm", "command"],
+) -> None:
+    """Fire-and-forget instrumentation — never blocks message processing."""
+    try:
+        await self._supabase.table("tenant_messages").insert({
+            "tenant_id": tenant_id,
+            "guild_id": guild_id,
+            "channel_id": channel_id,
+            "message_type": message_type,
+        }).execute()
+    except Exception as e:
+        logger.warning(f"[tenant:{tenant_id}] Failed to record message event: {e}")
+        # Never re-raise — instrumentation failure must not affect user experience
+```
+
+**Error handling:** If the INSERT fails (Supabase offline, RLS misconfiguration, etc.), the bot logs a WARNING and continues. The dashboard stat will be slightly under-counted but the bot remains operational.
+
+### Data Volume and Retention
+
+- **Write rate:** 1 row per bot message processed. At 1,000 active tenants with 10 messages/day each: 10,000 rows/day = ~3.65M rows/year.
+- **Retention:** Rolling 90 days. A daily pg_cron job deletes rows older than 90 days.
+- **Cleanup SQL:**
+  ```sql
+  DELETE FROM public.tenant_messages
+  WHERE created_at < NOW() - INTERVAL '90 days';
+  ```
+- **Pg_cron schedule:** Daily at 03:00 UTC (low-traffic window).
+- **Index on `created_at`:** The `idx_tenant_messages_tenant_id_created_at` composite index also serves the cleanup query (full table scan avoided; retention cleanup deletes by `created_at` range regardless of `tenant_id`). Add a standalone `created_at` index if cleanup is slow:
+  ```sql
+  CREATE INDEX idx_tenant_messages_created_at
+      ON public.tenant_messages (created_at)
+      WHERE created_at < NOW() - INTERVAL '80 days';
+  ```
+
+### Migration SQL
 
 ```sql
--- Add to existing tool_calls table RLS (same migration as messages policy):
-CREATE POLICY "tenant_members_can_read_own_tool_calls"
-    ON public.tool_calls
+-- Migration: 20260400000008_create_tenant_messages.sql
+BEGIN;
+
+CREATE TABLE public.tenant_messages (
+    id              UUID            NOT NULL DEFAULT gen_random_uuid(),
+    tenant_id       UUID            NOT NULL,
+    guild_id        TEXT            NOT NULL,
+    channel_id      TEXT            NOT NULL,
+    message_type    TEXT            NOT NULL DEFAULT 'mention',
+    created_at      TIMESTAMPTZ     NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT tenant_messages_pkey
+        PRIMARY KEY (id),
+    CONSTRAINT tenant_messages_tenant_id_fkey
+        FOREIGN KEY (tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE,
+    CONSTRAINT tenant_messages_message_type_check
+        CHECK (message_type IN ('mention', 'dm', 'command'))
+);
+
+CREATE INDEX idx_tenant_messages_tenant_id_created_at
+    ON public.tenant_messages (tenant_id, created_at DESC);
+
+ALTER TABLE public.tenant_messages ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "tenant_messages_select_member"
+    ON public.tenant_messages
     FOR SELECT
     TO authenticated
     USING (
         EXISTS (
             SELECT 1 FROM public.tenant_members tm
-            WHERE tm.tenant_id = tool_calls.tenant_id
+            WHERE tm.tenant_id = tenant_messages.tenant_id
               AND tm.user_id = auth.uid()
         )
     );
+
+COMMENT ON TABLE public.tenant_messages
+    IS 'Lightweight event log for messages processed by the bot per tenant. No message content stored — routing metadata only. Used for dashboard QuickStats counts.';
+
+COMMIT;
 ```
 
-**This policy addition is part of aspect 8.1.2** — see [data-model-reconciliation.md](./data-model-reconciliation.md) §2.
+**Rollback:**
+```sql
+DROP TABLE IF EXISTS public.tenant_messages;
+```
+
+---
+
+## Table: `tenant_tool_calls`
+
+**Purpose:** Lightweight event log — one row per tool call executed by the bot for a tenant. Stores tool name, success/failure, and duration. Read by the dashboard QuickStatsRow to display "Tool Uses Today" count. Written by the bot after each MCP tool call completes (success or failure).
+
+**Created by migration:** `20260400000009_create_tenant_tool_calls.sql` (to be created)
+
+**IMPORTANT — Not an existing table:** The existing Decision Orchestrator bot does NOT have a `tool_calls` table. Tool executions are transient — the bot calls tools via MCP and returns results to Claude without persisting them. This table is **new** and is part of the multi-tenant SaaS adaptation. The bot must be updated to insert a row after each tool execution. See [multi-tenant/tenant-scoping.md](../multi-tenant/tenant-scoping.md) for bot-side instrumentation.
+
+```sql
+CREATE TABLE public.tenant_tool_calls (
+    id              UUID            NOT NULL DEFAULT gen_random_uuid(),
+    tenant_id       UUID            NOT NULL,
+    tool_name       TEXT            NOT NULL,
+    success         BOOLEAN         NOT NULL DEFAULT TRUE,
+    duration_ms     INTEGER         NULL,
+    created_at      TIMESTAMPTZ     NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT tenant_tool_calls_pkey
+        PRIMARY KEY (id),
+    CONSTRAINT tenant_tool_calls_tenant_id_fkey
+        FOREIGN KEY (tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE,
+    CONSTRAINT tenant_tool_calls_duration_positive
+        CHECK (duration_ms IS NULL OR duration_ms >= 0)
+);
+```
+
+### Column Reference
+
+| Column | Type | Nullable | Default | Constraints | Description |
+|--------|------|----------|---------|-------------|-------------|
+| `id` | `UUID` | NOT NULL | `gen_random_uuid()` | PRIMARY KEY | Unique event identifier. Never returned to the frontend — only COUNT queries used. |
+| `tenant_id` | `UUID` | NOT NULL | — | FOREIGN KEY → `tenants(id)` ON DELETE CASCADE | The tenant whose bot made this tool call. CASCADE delete removes all rows when tenant is deleted. |
+| `tool_name` | `TEXT` | NOT NULL | — | — | The MCP tool name as registered in `ToolRegistry` (e.g., `discord_send_message`, `toggl_create_time_entry`, `github_create_issue`). Stored for potential per-tool analytics in future. Not exposed in V1 dashboard (only COUNT is used). |
+| `success` | `BOOLEAN` | NOT NULL | `TRUE` | — | Whether the tool call completed without error. `FALSE` if the tool raised an exception or returned an error result. Used to track error rate in future analytics (V1 dashboard shows only total count regardless of success). |
+| `duration_ms` | `INTEGER` | NULL | NULL | CHECK >= 0 | Wall-clock time in milliseconds from tool call start to return. NULL if the bot does not record timing (optional instrumentation). Stored for future P95 latency dashboards. |
+| `created_at` | `TIMESTAMPTZ` | NOT NULL | `NOW()` | — | Timestamp when the tool call started. Used for all count queries. |
+
+### Indexes
+
+```sql
+-- Query: Dashboard "Tool Uses Today" count
+-- SELECT COUNT(*) FROM tenant_tool_calls WHERE tenant_id = $1 AND created_at >= $start_of_day
+CREATE INDEX idx_tenant_tool_calls_tenant_id_created_at
+    ON public.tenant_tool_calls (tenant_id, created_at DESC);
+
+-- Note: No index on tool_name — not queried in V1 dashboard.
+```
+
+### RLS
+
+```sql
+ALTER TABLE public.tenant_tool_calls ENABLE ROW LEVEL SECURITY;
+
+-- SELECT: tenant members can read their tenant's tool call log
+CREATE POLICY "tenant_tool_calls_select_member"
+    ON public.tenant_tool_calls
+    FOR SELECT
+    TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tenant_tool_calls.tenant_id
+              AND tm.user_id = auth.uid()
+        )
+    );
+
+-- INSERT: blocked for authenticated users — bot uses service role key
+-- UPDATE/DELETE: blocked for all authenticated users
+```
+
+### Dashboard Queries
+
+```typescript
+// QuickStatsRow — Tool Uses Today count
+// File: components/dashboard/QuickStatsRow.tsx
+const { count: toolUsesToday } = await supabase
+  .from('tenant_tool_calls')
+  .select('id', { count: 'exact', head: true })
+  .gte('created_at', startOfTodayUTC.toISOString());
+// RLS automatically scopes to the authenticated user's tenant.
+// Returns null if no rows — display as 0.
+```
+
+### Bot-Side Instrumentation
+
+The bot writes to `tenant_tool_calls` after each tool execution. Insert location: the MCP tool execution wrapper in `services/execution.py` (or wherever `ToolRegistry.call_tool()` dispatches). The insert is fire-and-forget — it must never block or fail a tool call.
+
+```python
+# After tool execution — in the tool call dispatch wrapper
+async def _record_tool_call(
+    self,
+    tenant_id: str,
+    tool_name: str,
+    success: bool,
+    duration_ms: int | None = None,
+) -> None:
+    """Fire-and-forget instrumentation — never blocks tool execution."""
+    try:
+        await self._supabase.table("tenant_tool_calls").insert({
+            "tenant_id": tenant_id,
+            "tool_name": tool_name,
+            "success": success,
+            "duration_ms": duration_ms,
+        }).execute()
+    except Exception as e:
+        logger.warning(f"[tenant:{tenant_id}] Failed to record tool call: {e}")
+        # Never re-raise
+```
+
+**Where to instrument:** Wrap `ToolRegistry.call_tool()` (or the equivalent dispatch method) at the top of the call:
+```python
+start_time = time.monotonic()
+try:
+    result = await tool_func(**tool_input)
+    success = True
+except Exception as e:
+    success = False
+    raise
+finally:
+    duration_ms = int((time.monotonic() - start_time) * 1000)
+    asyncio.create_task(
+        self._record_tool_call(tenant_id, tool_name, success, duration_ms)
+    )
+```
+
+### Data Volume and Retention
+
+- **Write rate:** Multiple rows per bot message (each tool call = 1 row). At 1,000 tenants × 10 messages/day × 3 tool calls/message average: 30,000 rows/day = ~10.9M rows/year.
+- **Retention:** Rolling 90 days. Same pg_cron job as `tenant_messages`:
+  ```sql
+  DELETE FROM public.tenant_tool_calls
+  WHERE created_at < NOW() - INTERVAL '90 days';
+  ```
+- **Pg_cron schedule:** Daily at 03:05 UTC (staggered 5 minutes after tenant_messages cleanup).
+
+### Migration SQL
+
+```sql
+-- Migration: 20260400000009_create_tenant_tool_calls.sql
+BEGIN;
+
+CREATE TABLE public.tenant_tool_calls (
+    id              UUID            NOT NULL DEFAULT gen_random_uuid(),
+    tenant_id       UUID            NOT NULL,
+    tool_name       TEXT            NOT NULL,
+    success         BOOLEAN         NOT NULL DEFAULT TRUE,
+    duration_ms     INTEGER         NULL,
+    created_at      TIMESTAMPTZ     NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT tenant_tool_calls_pkey
+        PRIMARY KEY (id),
+    CONSTRAINT tenant_tool_calls_tenant_id_fkey
+        FOREIGN KEY (tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE,
+    CONSTRAINT tenant_tool_calls_duration_positive
+        CHECK (duration_ms IS NULL OR duration_ms >= 0)
+);
+
+CREATE INDEX idx_tenant_tool_calls_tenant_id_created_at
+    ON public.tenant_tool_calls (tenant_id, created_at DESC);
+
+ALTER TABLE public.tenant_tool_calls ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "tenant_tool_calls_select_member"
+    ON public.tenant_tool_calls
+    FOR SELECT
+    TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tenant_tool_calls.tenant_id
+              AND tm.user_id = auth.uid()
+        )
+    );
+
+COMMENT ON TABLE public.tenant_tool_calls
+    IS 'Lightweight event log for MCP tool calls made by the bot per tenant. Tool name, success flag, and duration stored. Used for dashboard QuickStats counts.';
+
+COMMIT;
+```
+
+**Rollback:**
+```sql
+DROP TABLE IF EXISTS public.tenant_tool_calls;
+```
+
+---
+
+## Cross-Reference: Dashboard Queries on New Tables
+
+The following cross-reference documents which tables the dashboard reads and confirms there are no "orphaned" queries pointing to non-existent tables. As of aspect 8.1.2, all tables referenced by the dashboard exist in the schema.
+
+| Dashboard Component | Table Queried | Columns Used | Table Status |
+|--------------------|--------------|-------------|--------------|
+| `BotStatusCard` | `discord_connections` | `status`, `last_heartbeat_at`, `bot_username`, `guild_id`, `error_message` | ✅ Defined in this file |
+| `ApiKeysCard` | `tenant_api_keys` | `key_type`, `status`, `validated_at`, `key_hint` | ✅ Defined in this file |
+| `IntegrationsSummaryCard` | `tenant_service_connections` | `service`, `status` | ✅ Defined in this file |
+| `QuickStatsRow` — messages | `tenant_messages` | `id` (COUNT only), `created_at` | ✅ Defined in this file (new table) |
+| `QuickStatsRow` — tool calls | `tenant_tool_calls` | `id` (COUNT only), `created_at` | ✅ Defined in this file (new table) |
+| `QuickStatsRow` — uptime | `discord_connections` | `connected_at`, `last_heartbeat_at`, `status` | ✅ Defined in this file |
+| `RecentActivityFeed` | `discord_connections` | `status`, `updated_at` | ✅ Defined in this file |
+| `RecentActivityFeed` | `tenant_service_connections` | `service`, `status`, `connected_at` | ✅ Defined in this file |
+| `RecentActivityFeed` | `tenant_api_keys` | `key_type`, `status`, `validated_at` | ✅ Defined in this file |
+| `RecentActivityFeed` | `tenant_subscriptions` | `plan`, `status`, `updated_at` | ✅ Defined in this file |
+| `DashboardTopbar` | `tenants` | `name`, `plan` | ✅ Defined in this file |
+| `OnboardingChecklist` | `discord_connections` | `status` | ✅ Defined in this file |
+| `OnboardingChecklist` | `tenant_api_keys` | `key_type`, `status` | ✅ Defined in this file |
+
+**Updated migration sequence:**
+```
+supabase/migrations/
+├── 20260400000000_create_enums.sql
+├── 20260400000001_create_tenants.sql
+├── 20260400000002_create_tenant_members.sql
+├── 20260400000003_create_discord_connections.sql
+├── 20260400000004_create_tenant_api_keys.sql
+├── 20260400000005_create_tenant_service_connections.sql
+├── 20260400000006_create_tenant_subscriptions.sql
+├── 20260400000007_create_stripe_webhook_events.sql
+├── 20260400000008_create_tenant_messages.sql     ← NEW (aspect 8.1.2)
+└── 20260400000009_create_tenant_tool_calls.sql   ← NEW (aspect 8.1.2)
+```
 
 ---

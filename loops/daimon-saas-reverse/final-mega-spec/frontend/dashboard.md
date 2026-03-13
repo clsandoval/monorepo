@@ -611,26 +611,35 @@ Props: { stats: DashboardStats }
 
 On mobile: `grid-template-columns: 1fr`, stacked.
 
-**Data source:** Queried from the existing bot tables (read by website via service role or via Supabase views):
+**Data source:** Queried from the new SaaS instrumentation tables `tenant_messages` and `tenant_tool_calls`. These tables are written by the bot (service role) after each message is processed or tool is called. See [database/schema.md — tenant_messages](../database/schema.md#table-tenant_messages) and [database/schema.md — tenant_tool_calls](../database/schema.md#table-tenant_tool_calls) for full DDL.
 
 ```typescript
-// Query: message count today
-const { data: messageStats } = await supabase
-  .from('messages')
-  .select('id', { count: 'exact', head: true })
-  .gte('created_at', startOfTodayUTC);
+// File: app/(dashboard)/page.tsx — server component data fetch
+const startOfTodayUTC = new Date();
+startOfTodayUTC.setUTCHours(0, 0, 0, 0);
 
-// Query: tool calls today
-const { data: toolStats } = await supabase
-  .from('tool_calls')
+// Query: message count today (from new SaaS instrumentation table)
+const { count: messagesToday } = await supabase
+  .from('tenant_messages')
   .select('id', { count: 'exact', head: true })
-  .gte('created_at', startOfTodayUTC);
+  .gte('created_at', startOfTodayUTC.toISOString());
+// RLS on tenant_messages scopes to the user's tenant automatically.
+// Returns null if no rows — rendered as 0.
 
-// Query: bot uptime — derived from discord_connections.last_heartbeat and status
-// If status = 'connected' and last_heartbeat is recent: calculate uptime from connected_at
+// Query: tool calls today (from new SaaS instrumentation table)
+const { count: toolUsesToday } = await supabase
+  .from('tenant_tool_calls')
+  .select('id', { count: 'exact', head: true })
+  .gte('created_at', startOfTodayUTC.toISOString());
+// RLS on tenant_tool_calls scopes to the user's tenant automatically.
+// Returns null if no rows — rendered as 0.
+
+// Query: bot uptime — derived from discord_connections.last_heartbeat_at and status
+// If status = 'connected' and last_heartbeat_at is recent: uptime = NOW() - connected_at
+// (connected_at is when the current session was established; stored in discord_connections)
 ```
 
-**Note:** If the `messages` and `tool_calls` tables are not accessible via the website's RLS policy, these stats will show `—` (em dash). The stats section is informational and degrades gracefully.
+**Note:** If the bot has not yet written any rows (first day of operation, or bot just connected), the counts display as `0` — not as an error. The stats section is informational; a count of 0 is a valid and expected initial state.
 
 ### Stat Card: "Messages Today"
 
