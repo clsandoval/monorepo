@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 44
-- **Pending**: 19
-- **Convergence**: 70%
+- **Analyzed**: 45
+- **Pending**: 18
+- **Convergence**: 71%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -65,7 +65,7 @@
 
 ## Wave 5: Integration Contracts (7 aspects)
 
-- [ ] 5.1 — Stripe integration — products, prices, Checkout Sessions, webhooks, Customer Portal, subscription lifecycle
+- [x] 5.1 — Stripe integration — products, prices, Checkout Sessions, webhooks, Customer Portal, subscription lifecycle
 - [ ] 5.2 — Discord token handling — format validation, storage, error scenarios, what happens on invalid token
 - [ ] 5.3 — GitHub OAuth — scopes, redirect URI, token exchange, refresh, revocation
 - [ ] 5.4 — Google OAuth — scopes, redirect URI, token exchange, refresh, revocation

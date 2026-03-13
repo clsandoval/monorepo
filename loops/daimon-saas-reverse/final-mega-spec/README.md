@@ -63,14 +63,14 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 |------|-------------|--------|
 | api/routes.md | Every Next.js API route, method, request/response shape | Pending |
 | api/auth.md | Supabase Auth integration, session management | Pending |
-| api/webhooks.md | Stripe webhook handler, signature verification | Pending |
+| [api/webhooks.md](api/webhooks.md) | Stripe webhook handler: route config, middleware exclusion, signature verification, idempotency, DB client, logging, retry behavior, event deduplication decision | ✅ Done |
 | api/rate-limiting.md | Rate limits per endpoint, error responses | Pending |
 
 ### integrations/ — How External Services Connect
 
 | File | Description | Status |
 |------|-------------|--------|
-| integrations/stripe.md | Products, prices, checkout, webhooks, portal | Pending |
+| [integrations/stripe.md](integrations/stripe.md) | Stripe setup: 2 products + 4 prices, 4 env vars, Customer Portal config, webhook endpoint registration, SDK setup, plan→price mapping helper, Checkout Session route (full TypeScript), Customer Portal route, webhook handler (all 7 event types with complete TypeScript implementations), subscription lifecycle state machine (complete transition table), idempotency rules, test cards, customer→tenant mapping rules, security considerations | ✅ Done |
 | integrations/discord.md | Token validation, storage, error handling | Pending |
 | integrations/oauth-services.md | GitHub, Google, Linear — scopes, callbacks, refresh | Pending |
 | integrations/api-key-services.md | Toggl, etc. — validation, format, storage | Pending |
@@ -107,9 +107,9 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 
 | File | Description | Status |
 |------|-------------|--------|
-| premium/tiers.md | Free vs Starter vs Pro — exact feature gating | Pending |
-| premium/pricing.md | Price points, billing cycles, trial logic | Pending |
-| premium/features-by-tier.md | Feature matrix with exact gating rules | Pending |
+| [premium/tiers.md](premium/tiers.md) | Free/Starter/Pro definitions: target user, cost, key constraints, included features, DB state; connection limit enforcement (SQL + TypeScript); plan downgrade behavior (excess connections, bot enforcement); upgrade flow (Free→Starter/Pro); lateral upgrade flow (Starter→Pro via portal); trial logic (not enabled at launch) | ✅ Done |
+| [premium/pricing.md](premium/pricing.md) | Price points table (monthly/annual/savings), Stripe Price IDs + env vars, billing cycle toggle spec (monthly/annual toggle with color specs), currency (USD only), proration (Stripe default), free trial (not available at launch), promotion codes (allow_promotion_codes=true), invoicing, tax (not configured), failed payment recovery (dunning schedule), recommended dunning email settings | ✅ Done |
+| [premium/features-by-tier.md](premium/features-by-tier.md) | Complete feature matrix (21 rows × 3 tiers), gating rules (Rule 1: Discord connection limit — only gate, with SQL + TypeScript enforcement; Rule 2: no other gates, rationale), bot behavior by plan (Python enforcement logic), support tier specs (community/email/priority with SLAs), uptime SLA spec (99.9%, measurement method, remedy credit table, what counts as downtime, exclusions, credit request process) | ✅ Done |
 
 ### seo-and-growth/ — How Users Find It
 
