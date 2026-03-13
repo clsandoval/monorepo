@@ -160,7 +160,11 @@ jobs:
             git add -A
             git diff --cached --quiet || git commit -m "loop(${{ matrix.loop }}): iteration"
             if git log origin/${{ github.ref_name }}..HEAD --oneline | grep -q .; then
-              git pull --rebase origin "${{ github.ref_name }}" || true
+              if ! git pull --rebase origin "${{ github.ref_name }}"; then
+                echo "WARNING: Rebase failed, aborting and retrying with merge"
+                git rebase --abort 2>/dev/null || true
+                git pull --no-rebase origin "${{ github.ref_name }}" || true
+              fi
               git push || echo "WARNING: Push failed"
             fi
 
