@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 6
-- **Current**: 7
+- **Completed**: 7
+- **Current**: 8
 
 ## Current Stage
 
-**Stage 007** — (next stage)
+**Stage 008** — (next stage)
 
 ## Stage Log
 
@@ -20,3 +20,4 @@
 | 004 | done | 2026-03-13T03:00:00Z | Enum types SQL migration + TypeScript enums, db reset passes |
 | 005 | done | 2026-03-13T04:00:00Z | tenants table migration, indexes, trigger, INSERT RLS, Realtime; member RLS deferred to 006 (spec gap) |
 | 006 | done | 2026-03-13T05:00:00Z | tenant_members table, 3 indexes, 4 RLS policies; also added deferred tenants SELECT/UPDATE/DELETE RLS policies |
+| 007 | done | 2026-03-13T06:00:00Z | discord_connections table, 3 indexes, updated_at trigger, get_decrypted_secret() Vault helper, 4 RLS policies, Realtime |
