@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 27
-- Pending: 47
-- Convergence: 36%
+- Analyzed: 28
+- Pending: 46
+- Convergence: 38%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -43,7 +43,7 @@ These aspects will be **self-expanded** after discord-category-triage completes.
 - [x] discord-case-studies-threads — Read client project channels (arc-brown, roche, hellofresh, appodeal, indigo, etc.), extract case study material per client
 - [x] discord-decision-ai — Read #decision-ai and related channels, extract product descriptions, features, roadmap
 - [x] discord-simba — Read #simba channel, extract product descriptions, features, use cases
-- [ ] discord-courses-workshops — Read workshop/course channels (bayesian-mktg-analytics, applied-bayesian-regression, etc.), extract course descriptions, curriculum, outcomes
+- [x] discord-courses-workshops — Read workshop/course channels (bayesian-mktg-analytics, applied-bayesian-regression, etc.), extract course descriptions, curriculum, outcomes
 - [ ] discord-partnerships — Read partnership-related channels (databricks-partnership, etc.), extract partner info
 - [ ] discord-pymc-ecosystem — Read #pymc-ecosystem, #causalpy, #pymc-marketing, extract OSS project descriptions
 - [ ] discord-org-team — Read #org channel, extract team structure, roles, bios
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] discord-courses-workshops (2026-03-13) — 14 channels mined: general-training (1,892 msgs), open-cohort-workshop (1,110 msgs), bayesian-mktg-analytics-course (479 msgs), casual-inference (61 msgs), applied-bayesian-regression-modeling (38 msgs), applied-bayesian-modeling (6 msgs), workshop-alumni (79 msgs), bayesian-modeling-workshop-jan-2026 (417 msgs), bayesian-mktg-analytics-feb-2026 (101 msgs), applied-bayesian-modeling-workshop-august-2025 (602 msgs), applied-bayesian-modeling-workshop-october-2025 (483 msgs), keyword-studios-workshop (29 msgs), sixt-workshop (79 msgs), london-workshop (40 msgs). Key findings: ABM course (3 cohorts: Aug/Oct 2025, Jan 2026; $1,499; instructors Allen/Chris/Vianey; GitHub pymc-labs/pymc-workshop; 8 sessions 16h); BMA course (Feb 2026 cohort, 22 participants, 77.7% Good/Excellent, $2,249; instructors Tim/Carlos/Ben/Colt; GitHub bayesian-marketing-analytics-course); ABRM March cohort CANCELLED (2 registrations); CI course = "Applied Causal Inference for Business Impact" in development (Ben Vincent/Orduz/Forde, planned May-Jun 2026, proposed $2,249/$1,999EB, novelty 8/10); Corporate workshops: ~$20-30k/engagement (Thomas confirmed), Sixt 2-day, Keywords Studios 24h, London in-person WeWork Shoreditch; Alumni channel created Sept 2025. Output: analysis/discord-courses-workshops-extraction.md + content/courses/abm.md + content/courses/bma.md + content/courses/ci.md
 - [x] discord-simba (2026-03-13) — 292 msgs mined from #simba (2024-01-04→2025-12-08). Simba = "Simply Bayesian SimBa MMM" — Niall Oulton's SaaS MMM platform. Full feature list: data upload → benchmark priors → model fitting → model management/comparison → budget optimization (posterior uncertainty) → ROAs over time → holdout/lift tests → scenario planner → full-funnel connections. Differentiation: Simba = managed services clients; Decision AI = self-service + coaching. Pricing: $2k/month base + $500/user (Sep 2025). Clients: Coca-Cola trial, Brilliant Earth (first paid, cancelled Oct 2025), Cabify, TechStyle, Nomad Foods. Domain: simba-mmm.com. Planned: pymc-marketing engine swap, CausalPy lift integration, EAP chatbot. Output: analysis/discord-simba-extraction.md + content/solutions/simba.md
 - [x] discord-decision-ai (2026-03-13) — 3 channels mined: #decision-ai (1,508 msgs), #decision-web-app-dev (1,128 msgs), #decision-ai-research (278 msgs). Full product ecosystem documented: naming evolution (MMM Agent → Decision.AI), 3-layer architecture (Decision Packs + Decision Hub + Decision Orchestrator). Decision Hub launched Feb 26 2026 (1,463 downloads in first week). 17 client/prospect names with status. Full feature list: MMM agent (data handling → modeling → budget optimization), CLV agent (alpha Oct 2025). Pricing: $8k/mo EAP, $50k/mo Databricks quote, $50–100k/yr SaaS target. Tech stack: GCP/K8s/LangGraph/E2B/PostgreSQL/MLflow/PostHog. 21-person team table. 10 verbatim pull quotes. Trust framework documented. Output: analysis/discord-decision-ai-extraction.md + content/solutions/decision-ai.md
 - [x] discord-case-studies-threads (2026-03-13) — 25 client channels mined: hellofresh-mmm, indigo, akili, appodeal, erisyon, gain-theory-mmm, roche, syngenta, supercell, alva-labs, swarovski, wegmans, nuernberger, fox-broadcasting-company, haleon, ll-bean, fabletics, real-madrid, dodgers, visualvest, live-nation, colgate-shelf-optim, colgate-cannibalization, takeda, hellofresh-se. Hard metrics: Swarovski MAE -20%, Roche 34K params/250K obs/~1hr, Wegmans MAPE 13-14%, Colgate GPU 10+hr/chain→6hr total. Client quotes: Fox "feels like part of their team", VisualVest "not so common in consulting to challenge". Summary table + cross-cutting tech themes documented. Output: analysis/discord-case-studies-extraction.md
