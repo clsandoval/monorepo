@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 49
-- **Analyzed**: 16
-- **Pending**: 33
-- **Convergence**: 33%
+- **Analyzed**: 17
+- **Pending**: 32
+- **Convergence**: 35%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -31,7 +31,7 @@
 
 - [x] 3.1 — Spec `tenants` + `tenant_members` tables — every column, type, constraint, default, unique constraints
 - [x] 3.2 — Spec `discord_connections` table — every column, connection lifecycle states, unique constraints
-- [ ] 3.3 — Spec `tenant_api_keys` table — encryption via Vault, validation logic, unique constraints
+- [x] 3.3 — Spec `tenant_api_keys` table — encryption via Vault, validation logic, unique constraints
 - [ ] 3.4 — Spec `tenant_service_connections` table — OAuth vs API key variants, token refresh logic
 - [ ] 3.5 — Spec `tenant_subscriptions` table — Stripe sync, plan cascade trigger SQL
 - [ ] 3.6 — Write complete RLS policies — exact SQL for every new table
