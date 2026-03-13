@@ -971,6 +971,9 @@ ALTER TABLE public.tenant_api_keys ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.tenant_service_connections ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.tenant_subscriptions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.admin_audit_log ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.stripe_webhook_events ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.tenant_messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.tenant_tool_calls ENABLE ROW LEVEL SECURITY;
 ```
 
 ---

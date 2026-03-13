@@ -19,7 +19,7 @@ The existing Decision Orchestrator database (in `projects/decision-orchestrator/
 20260303120000_enable_discord_bot_reader_login.sql
 ```
 
-All 7 new Daimon SaaS migrations are **additive only** — they create entirely new tables, types, indexes, and policies. They do NOT modify or drop any existing tables. The bot's existing single-tenant tables (`sessions`, `messages`, `meeting_sessions`, `thread_tool_contexts`, `scheduled_tasks`, `conversation_skills`, `accessible_meetings`, `discord_archive` bucket, etc.) are untouched.
+All 10 new Daimon SaaS migrations are **additive only** — they create entirely new tables, types, indexes, and policies. They do NOT modify or drop any existing tables. The bot's existing single-tenant tables (`sessions`, `messages`, `meeting_sessions`, `thread_tool_contexts`, `scheduled_tasks`, `conversation_skills`, `accessible_meetings`, `discord_archive` bucket, etc.) are untouched.
 
 ### Migration Ordering
 
@@ -32,6 +32,9 @@ All 7 new Daimon SaaS migrations are **additive only** — they create entirely 
 | `20260400000004_create_tenant_api_keys.sql` | `tenant_api_keys` table + indexes + triggers + RLS + Realtime | Additive — safe |
 | `20260400000005_create_tenant_service_connections.sql` | `tenant_service_connections` table + indexes + triggers + RLS + Realtime | Additive — safe |
 | `20260400000006_create_tenant_subscriptions.sql` | `tenant_subscriptions` table + indexes + triggers + RLS + plan cascade trigger | Additive — safe |
+| `20260400000007_create_stripe_webhook_events.sql` | `stripe_webhook_events` idempotency table + indexes + RLS (no user policies — service role only) | Additive — safe |
+| `20260400000008_create_tenant_messages.sql` | `tenant_messages` event log table + indexes + RLS | Additive — safe |
+| `20260400000009_create_tenant_tool_calls.sql` | `tenant_tool_calls` event log table + indexes + RLS + pg_cron retention jobs | Additive — safe |
 
 ### Prerequisites
 
@@ -1175,12 +1178,327 @@ DROP TABLE IF EXISTS public.tenant_subscriptions;
 
 ---
 
+## Migration 007: Create stripe_webhook_events
+
+**File:** `20260400000007_create_stripe_webhook_events.sql`
+
+**Purpose:** Creates the Stripe webhook idempotency store. Stripe delivers webhook events at-least-once; this table prevents double-processing by using `INSERT ... ON CONFLICT DO NOTHING` on the unique `stripe_event_id` column.
+
+**Dependencies:** None — no foreign keys to other SaaS tables. Can technically run in any order after migration 000 (enum creation is not required). Placed after 006 for operational clarity.
+
+```sql
+-- Migration: 20260400000007_create_stripe_webhook_events.sql
+-- Purpose: Stripe webhook idempotency store — prevents double-processing of at-least-once events
+-- Safety: Additive only — new table, no modifications to existing objects
+BEGIN;
+
+CREATE TABLE public.stripe_webhook_events (
+    id                  UUID        NOT NULL DEFAULT gen_random_uuid(),
+    stripe_event_id     TEXT        NOT NULL,
+    event_type          TEXT        NOT NULL,
+    processed_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT stripe_webhook_events_pkey
+        PRIMARY KEY (id),
+    CONSTRAINT stripe_webhook_events_stripe_event_id_unique
+        UNIQUE (stripe_event_id)
+);
+
+-- Index: retention cleanup — find rows older than 90 days
+CREATE INDEX idx_stripe_webhook_events_processed_at
+    ON public.stripe_webhook_events (processed_at);
+
+-- Index: admin/debugging — look up events by type
+CREATE INDEX idx_stripe_webhook_events_event_type_processed_at
+    ON public.stripe_webhook_events (event_type, processed_at DESC);
+
+-- RLS: enabled but NO policies — service role only
+-- The Next.js Stripe webhook handler uses SUPABASE_SERVICE_ROLE_KEY.
+-- JWT-authenticated users cannot SELECT, INSERT, UPDATE, or DELETE.
+ALTER TABLE public.stripe_webhook_events ENABLE ROW LEVEL SECURITY;
+
+COMMENT ON TABLE public.stripe_webhook_events
+    IS 'Idempotency store for Stripe webhook events. Prevents double-processing on at-least-once delivery.';
+COMMENT ON COLUMN public.stripe_webhook_events.stripe_event_id
+    IS 'Stripe event ID (evt_XXXXXXXXXXXXXXXXX). UNIQUE — used for ON CONFLICT DO NOTHING deduplication.';
+COMMENT ON COLUMN public.stripe_webhook_events.event_type
+    IS 'Stripe event type string, e.g. customer.subscription.updated. Stored for debugging.';
+COMMENT ON COLUMN public.stripe_webhook_events.processed_at
+    IS 'When the event was first received. Used by the 90-day retention cleanup job.';
+
+COMMIT;
+```
+
+**Rollback:**
+```sql
+DROP TABLE IF EXISTS public.stripe_webhook_events;
+```
+
+**Usage pattern in the Stripe webhook handler (`/api/webhooks/stripe/route.ts`):**
+```typescript
+// Step 1: Attempt idempotency insert BEFORE processing
+const { error: idempotencyError } = await supabaseAdmin
+  .from('stripe_webhook_events')
+  .insert({ stripe_event_id: event.id, event_type: event.type })
+
+if (idempotencyError?.code === '23505') {
+  // UNIQUE constraint violation → already processed → return 200 without reprocessing
+  return NextResponse.json({ received: true, duplicate: true })
+}
+if (idempotencyError) {
+  // Unexpected error → return 500 so Stripe retries
+  return NextResponse.json({ error: 'Idempotency check failed' }, { status: 500 })
+}
+
+// Step 2: Process event (safe — idempotency guaranteed)
+// ... switch (event.type) { ... }
+```
+
+**Retention:** Rows older than 90 days are deleted by a nightly pg_cron job. Stripe retains event IDs for 30 days; the 90-day window is conservative. See [database/retention.md](./retention.md) for the exact cron SQL.
+
+---
+
+## Migration 008: Create tenant_messages
+
+**File:** `20260400000008_create_tenant_messages.sql`
+
+**Purpose:** Creates the message event log table. The bot inserts one row per Discord message processed (mention, DM, or command). The dashboard reads this table to display "Messages Today" and "Messages (30 days)" counts via COUNT queries. No message content is stored — routing metadata only (tenant_id, guild_id, channel_id, message_type).
+
+**Dependencies:** Depends on `tenants` table (foreign key). Must run after migration 001.
+
+**IMPORTANT — New table, not existing:** The existing Decision Orchestrator bot does NOT have a `messages` table in Supabase. This is a new SaaS adaptation. The bot must be updated to write here. See [multi-tenant/adaptation-plan.md](../multi-tenant/adaptation-plan.md) for bot-side instrumentation details.
+
+```sql
+-- Migration: 20260400000008_create_tenant_messages.sql
+-- Purpose: Lightweight message event log for dashboard QuickStats counts
+-- Safety: Additive only — new table, no modifications to existing objects
+BEGIN;
+
+CREATE TABLE public.tenant_messages (
+    id              UUID            NOT NULL DEFAULT gen_random_uuid(),
+    tenant_id       UUID            NOT NULL,
+    guild_id        TEXT            NOT NULL,
+    channel_id      TEXT            NOT NULL,
+    message_type    TEXT            NOT NULL DEFAULT 'mention',
+    created_at      TIMESTAMPTZ     NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT tenant_messages_pkey
+        PRIMARY KEY (id),
+    CONSTRAINT tenant_messages_tenant_id_fkey
+        FOREIGN KEY (tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE,
+    CONSTRAINT tenant_messages_message_type_check
+        CHECK (message_type IN ('mention', 'dm', 'command'))
+);
+
+-- Composite index: covers "Messages Today" and "Messages (30 days)" dashboard queries
+-- Pattern: SELECT COUNT(*) FROM tenant_messages WHERE tenant_id = $1 AND created_at >= $ts
+CREATE INDEX idx_tenant_messages_tenant_id_created_at
+    ON public.tenant_messages (tenant_id, created_at DESC);
+
+ALTER TABLE public.tenant_messages ENABLE ROW LEVEL SECURITY;
+
+-- SELECT: tenant members can read their tenant's message log for dashboard display
+CREATE POLICY "tenant_messages_select_member"
+    ON public.tenant_messages
+    FOR SELECT
+    TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tenant_messages.tenant_id
+              AND tm.user_id = auth.uid()
+        )
+    );
+
+-- INSERT: BLOCKED for all JWT users — bot writes via service role
+-- No INSERT policy — intentional. Bot uses SUPABASE_SERVICE_ROLE_KEY which bypasses RLS.
+
+-- UPDATE: BLOCKED — rows are immutable once written (event log)
+-- DELETE: BLOCKED — cleanup is handled by the pg_cron retention job (service role)
+
+COMMENT ON TABLE public.tenant_messages
+    IS 'Lightweight event log for messages processed by the bot per tenant. No message content stored — routing metadata only. Used for dashboard QuickStats counts.';
+COMMENT ON COLUMN public.tenant_messages.guild_id
+    IS 'Discord guild (server) ID where the message was sent.';
+COMMENT ON COLUMN public.tenant_messages.channel_id
+    IS 'Discord channel ID where the message was sent.';
+COMMENT ON COLUMN public.tenant_messages.message_type
+    IS 'Type of message: mention (bot was @-mentioned), dm (direct message), command (slash command).';
+
+COMMIT;
+```
+
+**Rollback:**
+```sql
+DROP TABLE IF EXISTS public.tenant_messages;
+```
+
+**Bot-side write (fire-and-forget, never blocks message processing):**
+```python
+# Location: entrypoints/discord/guild_handler.py — after _execute_message() returns
+# Location: entrypoints/discord/dm_handler.py — after _execute_dm() returns
+async def _record_message(
+    self,
+    tenant_id: str,
+    guild_id: str,
+    channel_id: str,
+    message_type: str,  # 'mention' | 'dm' | 'command'
+) -> None:
+    """Fire-and-forget instrumentation — never blocks message processing."""
+    try:
+        await self._supabase.table("tenant_messages").insert({
+            "tenant_id": tenant_id,
+            "guild_id": guild_id,
+            "channel_id": channel_id,
+            "message_type": message_type,
+        }).execute()
+    except Exception as exc:
+        # Log but never raise — instrumentation must never affect user experience
+        logger.warning("tenant_messages insert failed (non-critical): %s", exc)
+```
+
+**Retention:** Rolling 90 days. Daily pg_cron job at 03:00 UTC deletes rows older than 90 days. See [database/retention.md](./retention.md).
+
+---
+
+## Migration 009: Create tenant_tool_calls + Retention Cron Jobs
+
+**File:** `20260400000009_create_tenant_tool_calls.sql`
+
+**Purpose:** Creates the tool call event log table AND registers pg_cron retention jobs for both `tenant_messages` (from migration 008) and `tenant_tool_calls`. The bot inserts one row per MCP tool execution. The dashboard reads this table to display "Tool Uses Today" count via COUNT queries.
+
+**Dependencies:** Depends on `tenants` table (foreign key). Must run after migration 001. The retention cron job for `tenant_messages` references that table — must run after migration 008. Requires `pg_cron` extension (enabled in Prerequisites).
+
+**IMPORTANT — New table, not existing:** The existing Decision Orchestrator bot does NOT have a `tool_calls` table in Supabase. Tool executions are currently transient. This is a new SaaS adaptation. The bot must be updated to write here. See [multi-tenant/adaptation-plan.md](../multi-tenant/adaptation-plan.md) for bot-side instrumentation details.
+
+```sql
+-- Migration: 20260400000009_create_tenant_tool_calls.sql
+-- Purpose: Lightweight tool call event log for dashboard QuickStats + retention cron for 008+009
+-- Safety: Additive only — new table + cron job registrations
+BEGIN;
+
+CREATE TABLE public.tenant_tool_calls (
+    id              UUID            NOT NULL DEFAULT gen_random_uuid(),
+    tenant_id       UUID            NOT NULL,
+    tool_name       TEXT            NOT NULL,
+    success         BOOLEAN         NOT NULL DEFAULT true,
+    duration_ms     INTEGER         NULL,
+    created_at      TIMESTAMPTZ     NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT tenant_tool_calls_pkey
+        PRIMARY KEY (id),
+    CONSTRAINT tenant_tool_calls_tenant_id_fkey
+        FOREIGN KEY (tenant_id) REFERENCES public.tenants(id) ON DELETE CASCADE,
+    CONSTRAINT tenant_tool_calls_duration_positive
+        CHECK (duration_ms IS NULL OR duration_ms >= 0)
+);
+
+-- Composite index: covers "Tool Uses Today" dashboard query
+-- Pattern: SELECT COUNT(*) FROM tenant_tool_calls WHERE tenant_id = $1 AND created_at >= $ts
+CREATE INDEX idx_tenant_tool_calls_tenant_id_created_at
+    ON public.tenant_tool_calls (tenant_id, created_at DESC);
+
+ALTER TABLE public.tenant_tool_calls ENABLE ROW LEVEL SECURITY;
+
+-- SELECT: tenant members can read their tenant's tool call log
+CREATE POLICY "tenant_tool_calls_select_member"
+    ON public.tenant_tool_calls
+    FOR SELECT
+    TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM public.tenant_members tm
+            WHERE tm.tenant_id = tenant_tool_calls.tenant_id
+              AND tm.user_id = auth.uid()
+        )
+    );
+
+-- INSERT: BLOCKED for all JWT users — bot writes via service role
+-- UPDATE: BLOCKED — rows are immutable once written (event log)
+-- DELETE: BLOCKED — cleanup handled by pg_cron retention job (service role)
+
+COMMENT ON TABLE public.tenant_tool_calls
+    IS 'Lightweight event log for MCP tool calls made by the bot per tenant. Tool name, success flag, and duration stored. Used for dashboard QuickStats counts.';
+COMMENT ON COLUMN public.tenant_tool_calls.tool_name
+    IS 'Fully-qualified tool name as registered in the MCP catalog, e.g. toggl__get_time_entries.';
+COMMENT ON COLUMN public.tenant_tool_calls.success
+    IS 'True if the tool call completed without error. False on MCP error, timeout, or exception.';
+COMMENT ON COLUMN public.tenant_tool_calls.duration_ms
+    IS 'Wall-clock time in milliseconds from dispatch to result receipt. NULL if not measured.';
+
+-- ─── RETENTION CRON JOBS ──────────────────────────────────────────────────────
+-- Register pg_cron cleanup jobs for event log tables.
+-- These run on the Supabase project's PostgreSQL instance.
+-- Both jobs use the pg_cron superuser context (bypasses RLS).
+
+-- Job 1: Delete tenant_messages rows older than 90 days (daily 03:00 UTC)
+SELECT cron.schedule(
+    'cleanup-tenant-messages',           -- job name (unique)
+    '0 3 * * *',                         -- cron expression: daily at 03:00 UTC
+    $$DELETE FROM public.tenant_messages WHERE created_at < NOW() - INTERVAL '90 days'$$
+);
+
+-- Job 2: Delete tenant_tool_calls rows older than 90 days (daily 03:05 UTC)
+-- Staggered 5 minutes after tenant_messages cleanup to avoid overlapping I/O.
+SELECT cron.schedule(
+    'cleanup-tenant-tool-calls',         -- job name (unique)
+    '5 3 * * *',                         -- cron expression: daily at 03:05 UTC
+    $$DELETE FROM public.tenant_tool_calls WHERE created_at < NOW() - INTERVAL '90 days'$$
+);
+
+COMMIT;
+```
+
+**Rollback:**
+```sql
+-- Unschedule cron jobs first
+SELECT cron.unschedule('cleanup-tenant-messages');
+SELECT cron.unschedule('cleanup-tenant-tool-calls');
+-- Drop table
+DROP TABLE IF EXISTS public.tenant_tool_calls;
+```
+
+**Note:** `cron.unschedule()` does not error if the job does not exist (it returns false). Safe to run in rollback even if the migration only partially applied.
+
+**Bot-side write (fire-and-forget, never blocks tool execution):**
+```python
+# Location: services/execution.py — in the tool call dispatch wrapper
+# Called after ToolRegistry.call_tool() returns (success or failure)
+async def _record_tool_call(
+    self,
+    tenant_id: str,
+    tool_name: str,
+    success: bool,
+    duration_ms: int | None,
+) -> None:
+    """Fire-and-forget instrumentation — never blocks tool execution."""
+    try:
+        await self._supabase.table("tenant_tool_calls").insert({
+            "tenant_id": tenant_id,
+            "tool_name": tool_name,
+            "success": success,
+            "duration_ms": duration_ms,
+        }).execute()
+    except Exception as exc:
+        # Log but never raise — instrumentation must never affect tool execution
+        logger.warning("tenant_tool_calls insert failed (non-critical): %s", exc)
+```
+
+**Data volume estimate:**
+- 1,000 tenants × 10 messages/day × 3 tool calls/message = 30,000 rows/day
+- At 30,000 rows/day, the table holds at most ~2.7M rows at the 90-day retention window
+- Each row is ~100 bytes → ~270MB maximum. Well within Supabase free tier table limits.
+
+**Retention:** Rolling 90 days. Cron jobs registered in this migration (see above). See [database/retention.md](./retention.md) for the complete retention policy across all tables.
+
+---
+
 ## Deployment Instructions
 
 ### Running Migrations in the Supabase Dashboard
 
 1. Open Supabase Dashboard → SQL Editor
-2. Run migrations in strict order: 000 → 001 → 002 → 003 → 004 → 005 → 006
+2. Run migrations in strict order: 000 → 001 → 002 → 003 → 004 → 005 → 006 → 007 → 008 → 009
 3. Each migration is wrapped in `BEGIN; ... COMMIT;` — it will atomically succeed or roll back
 4. After each migration, verify in Table Editor that the new table exists with correct columns
 5. For migration 003: verify the `get_decrypted_secret` function exists in Functions section
@@ -1212,7 +1530,10 @@ projects/decision-orchestrator/supabase/migrations/
 ├── 20260400000003_create_discord_connections.sql
 ├── 20260400000004_create_tenant_api_keys.sql
 ├── 20260400000005_create_tenant_service_connections.sql
-└── 20260400000006_create_tenant_subscriptions.sql
+├── 20260400000006_create_tenant_subscriptions.sql
+├── 20260400000007_create_stripe_webhook_events.sql
+├── 20260400000008_create_tenant_messages.sql
+└── 20260400000009_create_tenant_tool_calls.sql
 ```
 
 The timestamp prefix `20260400000000` ensures these migrations sort after the last existing migration (`20260303120000_enable_discord_bot_reader_login.sql`).
@@ -1228,10 +1549,11 @@ FROM information_schema.tables
 WHERE table_schema = 'public'
   AND table_name IN (
       'tenants', 'tenant_members', 'discord_connections',
-      'tenant_api_keys', 'tenant_service_connections', 'tenant_subscriptions'
+      'tenant_api_keys', 'tenant_service_connections', 'tenant_subscriptions',
+      'stripe_webhook_events', 'tenant_messages', 'tenant_tool_calls'
   )
 ORDER BY table_name;
--- Expected: 6 rows
+-- Expected: 9 rows
 
 -- Verify all enum types exist
 SELECT typname
@@ -1252,10 +1574,11 @@ FROM pg_tables
 WHERE schemaname = 'public'
   AND tablename IN (
       'tenants', 'tenant_members', 'discord_connections',
-      'tenant_api_keys', 'tenant_service_connections', 'tenant_subscriptions'
+      'tenant_api_keys', 'tenant_service_connections', 'tenant_subscriptions',
+      'stripe_webhook_events', 'tenant_messages', 'tenant_tool_calls'
   )
 ORDER BY tablename;
--- Expected: 6 rows, all with rowsecurity = true
+-- Expected: 9 rows, all with rowsecurity = true
 
 -- Verify get_decrypted_secret function exists
 SELECT proname, prosecdef
@@ -1280,26 +1603,58 @@ WHERE pubname = 'supabase_realtime'
 ORDER BY tablename;
 -- Expected: 4 rows
 
--- Verify cron job registered
+-- Verify all cron jobs registered
 SELECT jobname, schedule
 FROM cron.job
-WHERE jobname = 'refresh-google-tokens';
--- Expected: 1 row, schedule = '*/30 * * * *'
+WHERE jobname IN (
+    'refresh-google-tokens',
+    'cleanup-tenant-messages',
+    'cleanup-tenant-tool-calls'
+)
+ORDER BY jobname;
+-- Expected: 3 rows:
+--   cleanup-tenant-messages    | 0 3 * * *
+--   cleanup-tenant-tool-calls  | 5 3 * * *
+--   refresh-google-tokens      | */30 * * * *
+
+-- Verify indexes on new event log tables
+SELECT indexname, tablename
+FROM pg_indexes
+WHERE schemaname = 'public'
+  AND tablename IN ('stripe_webhook_events', 'tenant_messages', 'tenant_tool_calls')
+ORDER BY tablename, indexname;
+-- Expected: 5 rows:
+--   stripe_webhook_events: idx_stripe_webhook_events_event_type_processed_at,
+--                          idx_stripe_webhook_events_processed_at
+--   tenant_messages:       idx_tenant_messages_tenant_id_created_at
+--   tenant_tool_calls:     idx_tenant_tool_calls_tenant_id_created_at
+--   (plus the implicit pkey index for each = 3 more, total 8 indexes)
 ```
 
 ---
 
 ## Full Rollback Procedure
 
-To revert all 7 migrations (in reverse order):
+To revert all 10 migrations (in reverse order — migrations 009 → 000):
 
 ```sql
 BEGIN;
 
--- Remove cron job
+-- Migration 009 rollback: remove retention cron jobs
+SELECT cron.unschedule('cleanup-tenant-tool-calls');
+SELECT cron.unschedule('cleanup-tenant-messages');
+
+-- Migration 005 rollback: remove Google token refresh cron job
 SELECT cron.unschedule('refresh-google-tokens');
 
--- Remove Realtime publications
+-- Drop event log tables (009, 008) — no FK dependencies from other new tables
+DROP TABLE IF EXISTS public.tenant_tool_calls;
+DROP TABLE IF EXISTS public.tenant_messages;
+
+-- Drop Stripe idempotency table (007) — no FK dependencies
+DROP TABLE IF EXISTS public.stripe_webhook_events;
+
+-- Remove Realtime publications (006, 005, 004, 003, 002, 001)
 ALTER PUBLICATION supabase_realtime DROP TABLE IF EXISTS public.tenant_subscriptions;
 ALTER PUBLICATION supabase_realtime DROP TABLE IF EXISTS public.tenant_service_connections;
 ALTER PUBLICATION supabase_realtime DROP TABLE IF EXISTS public.tenant_api_keys;
@@ -1319,7 +1674,7 @@ DROP TRIGGER IF EXISTS tenants_updated_at ON public.tenants;
 DROP FUNCTION IF EXISTS public.sync_tenant_plan_from_subscription();
 DROP FUNCTION IF EXISTS public.get_decrypted_secret(UUID);
 
--- Drop tables (in reverse dependency order)
+-- Drop tables (in reverse FK dependency order)
 DROP TABLE IF EXISTS public.tenant_subscriptions;
 DROP TABLE IF EXISTS public.tenant_service_connections;
 DROP TABLE IF EXISTS public.tenant_api_keys;
@@ -1340,7 +1695,7 @@ DROP TYPE IF EXISTS public.tenant_plan;
 COMMIT;
 ```
 
-**Note:** Rollback is destructive and permanent. All tenant data, connections, subscriptions, and encrypted Vault secret references are deleted. Run only in development or after verified backup.
+**Note:** Rollback is destructive and permanent. All tenant data, connections, subscriptions, encrypted Vault secret references, and event log rows are deleted. `cron.unschedule()` returns `false` (not an error) if the job does not exist — safe to run even if migration 009 only partially applied. Run only in development or after verified backup.
 
 ---
 

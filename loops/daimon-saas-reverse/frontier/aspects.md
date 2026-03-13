@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 81
-- **Analyzed**: 77
-- **Pending**: 4
-- **Convergence**: 95%
+- **Analyzed**: 78
+- **Pending**: 3
+- **Convergence**: 96%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -102,7 +102,7 @@
 ## Wave 8 Cross-Reference Remediation (4 aspects — discovered during 8.2 audit)
 
 - [x] 8.2.1 — Add missing RLS policies for stripe_webhook_events, tenant_messages, tenant_tool_calls to database/rls-policies.md (exact CREATE POLICY SQL)
-- [ ] 8.2.2 — Add missing migrations 007 (stripe_webhook_events), 008 (tenant_messages), 009 (tenant_tool_calls + cron jobs) to database/migrations.md; resolve migration 006 conflict between schema.md and migrations.md
+- [x] 8.2.2 — Add missing migrations 007 (stripe_webhook_events), 008 (tenant_messages), 009 (tenant_tool_calls + cron jobs) to database/migrations.md; resolve migration 006 conflict between schema.md and migrations.md
 - [ ] 8.2.3 — Update multi-tenant/adaptation-plan.md: add tenant_messages and tenant_tool_calls to new-tables section; add fire-and-forget INSERT notes to modified-files section (services/execution.py + message handler)
 - [ ] 8.2.4 — Create missing required spec files: legal/disclaimers.md (platform disclaimers + liability limits text), ui/design-system.md (Tailwind config reference + design tokens), seo-and-growth/landing-page.md (hero copy + value prop + social proof + CTAs)
 
