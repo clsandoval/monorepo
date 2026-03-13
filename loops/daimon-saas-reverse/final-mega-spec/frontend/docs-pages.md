@@ -6938,3 +6938,748 @@ Workspace ownership transfers are not self-serve. Contact support@daimon.ai to r
 ---
 
 *End of FAQ page specification. 42 questions documented across 7 sections: Billing & Pricing (10), Security (6), Bot Setup & Discord (8), Integrations & Tools (6), Troubleshooting (7), Limits & Quotas (5), Account & Teams (6).*
+
+---
+
+## Page: Billing & Plans
+
+> Route: `/docs/billing`
+> File: `app/(docs)/billing/page.tsx`
+> Type: Static page (no data fetching)
+> Title: `<title>Billing & Plans — Daimon Docs</title>`
+> Meta description: `"Understand how Daimon plans work, how BYOK billing saves you money, and how to upgrade, downgrade, or cancel your subscription."`
+> Sidebar nav label: "Plans & Pricing"
+> Sidebar section: "Account & Billing"
+
+---
+
+### Page Header
+
+```html
+<header class="docs-page-header">
+  <div class="breadcrumb">Account &amp; Billing</div>
+  <h1 id="billing-plans-title">Billing &amp; Plans</h1>
+  <p class="subtitle">
+    How Daimon plans work, what's included in each tier, and how to manage your subscription.
+  </p>
+</header>
+```
+
+| Property | Value |
+|----------|-------|
+| `h1` text | "Billing & Plans" |
+| `h1` id | `billing-plans-title` |
+| Subtitle font | Inter Regular, 18px, `#6B7280` (Gray 500), margin-top: 8px |
+| Breadcrumb | Inter Regular, 13px, `#B4E7DD` (Aqua), uppercase, letter-spacing `0.08em`, margin-bottom: 8px |
+
+---
+
+### On This Page — Table of Contents
+
+```html
+<nav class="toc" aria-label="On this page">
+  <p class="toc-label">On this page</p>
+  <ul>
+    <li><a href="#plans-overview">Plans Overview</a></li>
+    <li><a href="#byok-model">The BYOK Model</a></li>
+    <li><a href="#billing-cycles">Billing Cycles</a></li>
+    <li><a href="#upgrading">Upgrading Your Plan</a></li>
+    <li><a href="#downgrading">Downgrading Your Plan</a></li>
+    <li><a href="#canceling">Canceling Your Subscription</a></li>
+    <li><a href="#managing-billing">Managing Billing</a></li>
+    <li><a href="#api-keys">API Keys</a></li>
+    <li><a href="#payment-failures">Payment Failures</a></li>
+  </ul>
+</nav>
+```
+
+TOC styles: Same as all docs pages — right-column float or inline-block before body content, Inter Regular 14px, Periwinkle `#3F85CC` links, hover Navy `#0C1F40`.
+
+---
+
+### Section 1: Plans Overview
+
+> Anchor: `id="plans-overview"`
+
+```markdown
+## Plans Overview
+
+Daimon offers three plans. All plans include the full 50+ tool catalog — the difference is how many
+Discord servers you can connect and the level of support you receive.
+```
+
+#### Plan Comparison Table
+
+```html
+<table>
+  <caption class="sr-only">Daimon plan comparison: Free, Starter, and Pro</caption>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Free</th>
+      <th>Starter</th>
+      <th>Pro</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- rows below -->
+  </tbody>
+</table>
+```
+
+**Full table content (every row, rendered as HTML table in docs):**
+
+| Feature | Free | Starter | Pro |
+|---------|------|---------|-----|
+| **Monthly price** | $0/month | $9/month | $29/month |
+| **Annual price** | $0/year | $79/year | $249/year |
+| **Annual savings** | — | Save $29/year | Save $99/year |
+| **Discord connections** | 1 | Up to 3 | Unlimited |
+| **All 50+ tools included** | ✓ | ✓ | ✓ |
+| **Bring your own Anthropic key** | ✓ | ✓ | ✓ |
+| **Bring your own OpenAI key (optional)** | ✓ | ✓ | ✓ |
+| **All service integrations** | ✓ | ✓ | ✓ |
+| **Community support (Discord)** | ✓ | ✓ | ✓ |
+| **Email support** | — | ✓ (48-hour response) | ✓ (24-hour response) |
+| **Priority support** | — | — | ✓ |
+| **99.9% bot uptime SLA** | — | — | ✓ |
+| **Payment required** | No | Yes | Yes |
+
+Callout box (type: `tip`):
+```
+All plans include the full tool catalog. There are no locked features or paywalled integrations.
+You pay for infrastructure capacity (more connections) and support level — not tool access.
+```
+
+**Prose follow-up below table:**
+
+```markdown
+### Free Plan
+
+The Free plan lets you connect one Discord server and one Anthropic API key. There's no credit card
+required and no trial period — you can use Daimon indefinitely on the Free plan.
+
+The Free plan is ideal for:
+- Individuals managing a single Discord server
+- Trying out Daimon before committing to a paid plan
+- Low-volume usage where Anthropic API costs are minimal
+
+### Starter Plan — $9/month or $79/year
+
+The Starter plan lets you connect up to 3 Discord servers simultaneously. Each connection is an
+independent bot instance with its own conversation context.
+
+Choosing annual billing saves $29 compared to paying monthly ($79/year vs $108/year).
+
+The Starter plan is ideal for:
+- Teams running one main server plus staging/test servers
+- Community operators managing a small number of servers
+- Power users who want email support
+
+### Pro Plan — $29/month or $249/year
+
+The Pro plan removes the connection limit entirely. You can connect as many Discord servers as
+you need, all running simultaneously.
+
+Choosing annual billing saves $99 compared to paying monthly ($249/year vs $348/year).
+
+The Pro plan includes a 99.9% bot uptime SLA. If the bot is unavailable for longer than
+the SLA permits in a given month, contact support@daimon.ai for a prorated credit.
+
+The Pro plan is ideal for:
+- Agencies or consultants managing many Discord communities
+- Businesses running separate servers for different teams or regions
+- Users who need guaranteed uptime and fast support response times
+```
+
+---
+
+### Section 2: The BYOK Model
+
+> Anchor: `id="byok-model"`
+
+```markdown
+## The BYOK Model
+
+BYOK stands for "Bring Your Own Keys." Daimon does not charge you for AI usage — instead, you
+connect your own Anthropic API key, and Anthropic bills you directly for every Claude API call
+your bot makes.
+
+**Why BYOK?**
+
+- **Transparency**: You see exactly how much you're spending on AI in your Anthropic console.
+- **Control**: You can set usage limits directly in your Anthropic account.
+- **Fairness**: Light users pay less; heavy users pay more — in proportion to their actual usage.
+- **Privacy**: Your conversations go directly between your Discord server and Anthropic's API.
+  Daimon doesn't see or store your message content.
+
+**What Daimon charges for:**
+
+Daimon charges a platform fee (your Starter or Pro subscription) for hosting the bot
+infrastructure, managing connections, providing the dashboard, and delivering support.
+This fee is fixed per billing cycle and does not vary with usage.
+
+**What Anthropic charges for:**
+
+Anthropic charges per token — input tokens (your messages and context) and output tokens
+(Claude's responses). Typical usage costs $1–5/month for a moderately active Discord server,
+though this varies widely depending on message volume and which Claude model is used.
+
+You can monitor your Anthropic API usage and set spending limits at:
+[console.anthropic.com](https://console.anthropic.com) (opens in new tab)
+
+**The OpenAI key is optional:**
+
+Daimon uses a lightweight classification step to route messages efficiently. This step can use
+OpenAI's API (typically cheaper for classification than Claude) or fall back to Claude Haiku if
+no OpenAI key is provided. Either way, the bot works fully — the OpenAI key is purely an
+optimization for cost-conscious users.
+```
+
+Callout box (type: `info`):
+```
+Your API keys are stored encrypted using AES-256 via Supabase Vault. They are never logged,
+never exposed in the UI in plaintext, and never shared with third parties.
+```
+
+---
+
+### Section 3: Billing Cycles
+
+> Anchor: `id="billing-cycles"`
+
+```markdown
+## Billing Cycles
+
+### Monthly Billing
+
+With monthly billing, you are charged on the same day each month. For example, if you upgrade on
+March 13, your next charge is April 13, then May 13, and so on.
+
+Monthly billing gives you flexibility to cancel at any time. Cancellation takes effect at the end
+of the current period — you keep access through the date you already paid for.
+
+### Annual Billing
+
+Annual billing charges you once per year for the full annual price. Annual billing saves you:
+- **Starter**: $29/year ($79/year vs $108/year monthly)
+- **Pro**: $99/year ($249/year vs $348/year monthly)
+
+Annual billing is available when you initiate Stripe Checkout. Choose "Annual" in the billing
+toggle on the Billing page before clicking Upgrade.
+
+### Switching Between Monthly and Annual
+
+To switch from monthly to annual (or vice versa), open the Stripe Customer Portal via
+Settings → Billing → "Manage Billing →". In the portal, you can change your billing interval.
+The change takes effect at the start of your next billing period.
+
+### Billing Date
+
+Your billing date is set when you first subscribe and does not change unless you explicitly
+change your plan. If you upgrade from Starter to Pro mid-cycle, Stripe calculates a prorated
+charge for the remainder of the current period.
+
+### Currency
+
+All prices are in USD. Stripe accepts payment in other currencies, but the listed prices are
+USD and your bank converts at the prevailing exchange rate.
+
+### Invoices
+
+Invoices are issued by Stripe and sent to the email address on your Stripe customer record
+(typically the email you used to sign up for Daimon). You can also access all past invoices
+in the Stripe Customer Portal.
+```
+
+---
+
+### Section 4: Upgrading Your Plan
+
+> Anchor: `id="upgrading"`
+
+```markdown
+## Upgrading Your Plan
+
+You can upgrade from Free to Starter, Free to Pro, or Starter to Pro at any time.
+Upgrades take effect immediately.
+
+### How to Upgrade
+
+**Step 1:** Go to **Settings → Billing** (or navigate directly to `/dashboard/billing`).
+
+**Step 2:** In the "Subscription" section, you'll see the plan comparison grid showing Free,
+Starter, and Pro. The plan you're currently on shows "Current Plan" (disabled button).
+
+**Step 3:** Choose a billing cycle. There's a toggle above the plan grid labeled "Monthly" and
+"Annual." Select your preferred cycle. Annual saves you $29/year on Starter or $99/year on Pro.
+
+**Step 4:** Click "Upgrade to Starter →" or "Upgrade to Pro →" on the plan card you want.
+
+**Step 5:** You'll be redirected to a Stripe-hosted checkout page. Enter your payment details.
+Stripe accepts Visa, Mastercard, American Express, Discover, and most local payment methods
+via Stripe's automatic payment method selection.
+
+**Step 6:** After completing checkout, Stripe redirects you back to the Billing page with a
+confirmation banner: "Your plan has been upgraded! You now have access to all [Plan] features."
+
+**What happens immediately after upgrading:**
+- Your `tenants.plan` is updated to `'starter'` or `'pro'`
+- If you were on Free with 1 connection, your additional connection slots become available immediately
+- Your bot continues running without any interruption during the upgrade
+
+### Proration
+
+If you upgrade from Starter to Pro mid-billing-cycle, Stripe charges a prorated amount for the
+remaining days in the current period at the Pro rate, minus credit for unused days at the Starter
+rate. This appears as a single charge on your card.
+
+For example: If you're on Starter Monthly ($9/month) and upgrade to Pro ($29/month) on day 15
+of your 30-day cycle, Stripe charges approximately $10 (15 days of Pro minus 15 days of unused
+Starter credit = $14.50 - $4.50 ≈ $10).
+
+### Who Can Upgrade
+
+Only the workspace **Owner** can initiate an upgrade. Members and Admins see the plan grid in
+read-only mode. If you're a member and want to upgrade, ask your workspace owner.
+```
+
+Callout box (type: `tip`):
+```
+Upgrades are instant. Your new plan limits apply the moment Stripe confirms the payment —
+no need to reconnect your bot or restart anything.
+```
+
+---
+
+### Section 5: Downgrading Your Plan
+
+> Anchor: `id="downgrading"`
+
+```markdown
+## Downgrading Your Plan
+
+You can downgrade from Pro to Starter, Pro to Free, or Starter to Free at any time.
+Downgrades do NOT take effect immediately — they take effect at the end of your current
+billing period.
+
+### How to Downgrade
+
+**Step 1:** Go to **Settings → Billing** (`/dashboard/billing`).
+
+**Step 2:** In the plan comparison grid, click the "Downgrade to [Plan]" button on the
+plan card you want to move to.
+
+**Step 3:** A confirmation dialog appears:
+
+> **Downgrade to [Plan]?**
+>
+> Your plan will change to [Plan] at the end of your current billing period on [date].
+> Until then, you keep all your current plan's features.
+>
+> [current feature that will be lost]: [impact]
+>
+> [Cancel] [Confirm Downgrade]
+
+For example, downgrading from Pro to Free:
+
+> **Downgrade to Free?**
+>
+> Your plan will change to Free on January 14, 2027. Until then, you keep all Pro features.
+>
+> After downgrading:
+> - You will be limited to 1 Discord connection. If you currently have more than 1 active
+>   connection, the additional connections will be suspended on the downgrade date. Your data
+>   is preserved — you can reactivate connections by upgrading again.
+> - Email and priority support will no longer be available.
+> - The 99.9% uptime SLA will no longer apply.
+>
+> [Cancel] [Confirm Downgrade]
+
+**Step 4:** Click "Confirm Downgrade." The downgrade is scheduled. The Current Plan Card now
+shows: "⚠ Cancels on [date] · [Reactivate →]"
+
+### What Happens on the Downgrade Date
+
+On the first day of the new billing period (when Stripe's subscription changes take effect):
+- `tenants.plan` is updated to the new lower plan
+- Connection limits are enforced: if you have more connections than the new plan allows,
+  excess connections are suspended (status → `'suspended'`). The bot stops responding on
+  suspended connections. Connection data is preserved.
+- Stripe stops charging you at the higher rate. If downgrading to Free, Stripe cancels
+  the subscription entirely.
+
+### Reversing a Scheduled Downgrade
+
+If you've scheduled a downgrade but change your mind, click "Reactivate →" in the Current
+Plan Card. This cancels the scheduled downgrade and keeps you on your current plan.
+
+### Connection Limits After Downgrade
+
+If you have 5 active connections and downgrade from Pro to Starter (limit: 3):
+- Connections 1–3: remain active (determined by connection creation date, oldest first)
+- Connections 4–5: suspended on downgrade date
+
+You can see which connections will be suspended in advance: go to Settings → Discord
+Connections. Connections at risk of suspension are marked with a warning badge if a downgrade
+is scheduled.
+
+To choose which connections to keep, manually disconnect the ones you don't want before
+the downgrade date.
+
+### Downgrading to Free
+
+Downgrading to Free cancels your Stripe subscription entirely. No future charges. Your Stripe
+customer record and billing history are preserved in Stripe's system — if you resubscribe later,
+Stripe will use the same customer record.
+
+### Who Can Downgrade
+
+Only the workspace **Owner** can initiate a downgrade. Members see the plan grid in read-only mode.
+```
+
+Callout box (type: `warning`):
+```
+Downgrading to Free suspends extra connections on the downgrade date. Suspended connections
+stop responding immediately. Reconnect by upgrading your plan.
+```
+
+---
+
+### Section 6: Canceling Your Subscription
+
+> Anchor: `id="canceling"`
+
+```markdown
+## Canceling Your Subscription
+
+Canceling your subscription schedules your plan to revert to Free at the end of your current
+billing period. You are not charged for future periods after canceling.
+
+### How to Cancel
+
+**Option 1: Via the Billing page**
+
+1. Go to `/dashboard/billing`
+2. In the Current Plan Card, click "Manage Billing →"
+3. You're redirected to the Stripe Customer Portal
+4. In the portal, click "Cancel plan"
+5. Follow Stripe's cancellation flow (select reason, confirm)
+6. Stripe redirects you back to the Daimon Billing page
+
+After canceling, the Current Plan Card shows:
+"⚠ Cancels on [date] · [Reactivate →]"
+
+**Option 2: Via the Stripe Customer Portal directly**
+
+If you can't access the Billing page for any reason, you can cancel directly in Stripe's
+Customer Portal at [billing.stripe.com](https://billing.stripe.com) using the email address
+on your account.
+
+### What "Canceled" Means
+
+- Your bot continues running until the cancellation date (end of current period).
+- On the cancellation date, your plan reverts to Free.
+- If you have more than 1 active connection, extra connections are suspended on that date.
+- Your account is NOT deleted. Your data (API keys, connection settings, service connections)
+  is preserved. You remain on the Free plan indefinitely unless you delete your workspace.
+
+### Reactivating After Cancellation
+
+If your plan has been scheduled for cancellation but hasn't yet taken effect, click
+"Reactivate →" in the Current Plan Card on the Billing page.
+
+If your plan has already been downgraded to Free following a cancellation, simply upgrade
+again using the plan grid. There's no penalty for resubscribing.
+
+### Account Deletion vs. Cancellation
+
+**Canceling** ends your paid subscription — your account remains on Free.
+**Deleting your workspace** removes all data permanently and cannot be undone.
+
+To delete your workspace, go to Settings → Danger Zone → "Delete Workspace."
+This is a separate action from canceling your subscription.
+
+### Refunds
+
+Daimon does not issue refunds for unused subscription time except where required by applicable
+law. If you believe you're entitled to a refund, contact support@daimon.ai with your account
+email and billing details.
+```
+
+---
+
+### Section 7: Managing Billing
+
+> Anchor: `id="managing-billing"`
+
+```markdown
+## Managing Billing
+
+The Stripe Customer Portal is a Stripe-hosted page where you can manage all aspects of your
+Daimon billing account. Access it from the Billing page by clicking "Manage Billing →"
+(available on Starter and Pro plans) or "Update Payment →" (when payment has failed).
+
+### What You Can Do in the Customer Portal
+
+**Payment methods**
+- Add a new credit or debit card
+- Remove an existing card
+- Set a default payment method
+
+**Billing information**
+- Update your billing email
+- Add or update a billing address (required for VAT compliance in some regions)
+- Add a company name to invoices
+
+**Invoices**
+- View all past invoices
+- Download invoices as PDF
+- View individual invoice line items
+
+**Subscription management**
+- Change billing interval (monthly ↔ annual) — takes effect at next renewal
+- Cancel your subscription
+- Reactivate a canceled subscription (if still within the current period)
+
+### What You Cannot Do in the Customer Portal
+
+- Change your plan tier (use the Daimon Billing page plan grid instead)
+- Upgrade or downgrade plans (use the Daimon Billing page instead)
+- View Daimon dashboard, connections, or settings
+
+### Returning from the Customer Portal
+
+After completing your changes in the Customer Portal, click the "← Return to Daimon" link
+(Stripe provides this button automatically based on the return URL configured in Stripe settings).
+You'll be redirected to `/dashboard/billing?portal_return=1` and see an info banner:
+"Welcome back to Daimon."
+
+### Billing Contact vs. Account Owner
+
+The email address Stripe uses for invoices is the billing email — typically the email you used
+to sign up. You can update the billing email in the Customer Portal without changing your
+Daimon login email.
+```
+
+Callout box (type: `info`):
+```
+The Customer Portal is hosted by Stripe, not Daimon. Your payment card details are entered
+directly with Stripe and are never seen by Daimon's systems.
+```
+
+---
+
+### Section 8: API Keys
+
+> Anchor: `id="api-keys"`
+
+```markdown
+## API Keys
+
+Daimon uses two API keys — one required, one optional — to power your bot's AI capabilities.
+Both are managed on the Billing page under the "API Keys" section.
+
+### Anthropic API Key (Required)
+
+Your Anthropic API key is the credential that lets your bot call Claude. Without it, the bot
+cannot process any messages.
+
+**Where to get it:**
+
+1. Go to [console.anthropic.com](https://console.anthropic.com) (opens in new tab)
+2. Sign in or create an Anthropic account
+3. Click "API Keys" in the left sidebar
+4. Click "Create Key"
+5. Copy the key — it starts with `sk-ant-`
+
+**How to add it to Daimon:**
+
+1. Go to `/dashboard/billing`
+2. Scroll to the "API Keys" section
+3. Click "Add Key" next to "Anthropic API Key"
+4. A modal opens with a password-style input field
+5. Paste your key — it should start with `sk-ant-`
+6. Click "Save & Validate"
+7. Daimon sends a lightweight test request to Anthropic's API to confirm the key is valid
+8. On success: the key is stored encrypted and you see "✓ Valid"
+9. On failure: an error message explains what went wrong (see below)
+
+**Validation errors:**
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| "Invalid API key format. Anthropic keys start with `sk-ant-`." | Key is pasted incorrectly or wrong key type | Re-copy the key from Anthropic console |
+| "This API key was rejected by Anthropic. It may be expired or have insufficient permissions." | Key is revoked or was entered incorrectly | Create a new key in the Anthropic console |
+| "Could not reach Anthropic to validate the key. Please try again." | Network error during validation | Retry — if it persists, check status.anthropic.com |
+
+**Updating your key:**
+
+Click "Update" next to the key hint. The same modal opens pre-filled with nothing (for security,
+the current key is never shown). Paste the new key and click "Save & Validate."
+
+**Deleting your key:**
+
+Click "Delete" next to the key hint. A confirmation dialog asks: "Delete your Anthropic API key?
+Your bot will stop working until you add a new key." Click "Delete" to confirm.
+
+**What happens if your Anthropic key becomes invalid:**
+
+If Anthropic revokes your key (e.g., you rotate keys in the Anthropic console), the next time
+the bot tries to use the key, the API call will fail. The bot will mark the key as invalid in
+Daimon's system. You'll see a warning badge on your dashboard and the key row on the Billing
+page will show "✗ Invalid." Update your key to restore bot functionality.
+
+### OpenAI API Key (Optional)
+
+The OpenAI key is used for a classification step that routes messages efficiently. If not provided,
+Daimon falls back to Claude Haiku for the same classification task — fully functional but
+slightly slower and may cost slightly more per message on Anthropic's billing.
+
+**When to add an OpenAI key:**
+
+If you have an OpenAI API account and want to minimize Anthropic API costs, adding an OpenAI key
+can reduce your per-message Anthropic bill by routing classification away from Claude.
+
+**Where to get it:**
+
+1. Go to [platform.openai.com/api-keys](https://platform.openai.com/api-keys) (opens in new tab)
+2. Sign in or create an OpenAI account
+3. Click "Create new secret key"
+4. Copy the key — it starts with `sk-`
+
+**How to add it to Daimon:**
+
+1. Go to `/dashboard/billing`
+2. Scroll to "API Keys" → "OpenAI API Key (Optional)"
+3. Click "Add Key"
+4. Paste the key — it should start with `sk-`
+5. Click "Save & Validate"
+6. Daimon sends a test request to OpenAI's API to confirm the key is valid
+
+**Validation errors — OpenAI:**
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| "Invalid API key format. OpenAI keys start with `sk-`." | Key pasted incorrectly | Re-copy from OpenAI platform |
+| "This API key was rejected by OpenAI. It may be expired or have insufficient permissions." | Key is revoked | Create a new key in OpenAI platform |
+| "Could not reach OpenAI to validate the key. Please try again." | Network error | Retry |
+
+**Security note for both keys:**
+
+- Keys are stored using Supabase Vault (AES-256 encryption at rest)
+- Keys are never logged or included in error messages
+- The UI shows only a partial hint (first 10 and last 4 characters, e.g., `sk-ant-a...b12c`)
+- Keys are only decrypted in memory at the point of use — never written to logs or returned via API
+- Only your workspace's bot process has access to the decrypted key value
+
+### Key Validation Frequency
+
+Keys are validated:
+1. When you first save them (immediate test call to the provider API)
+2. Automatically when the bot tries to use them and receives an auth error (marks as invalid)
+3. Manual re-validation is not available — update your key to trigger a fresh validation
+```
+
+---
+
+### Section 9: What Happens When Payment Fails
+
+> Anchor: `id="payment-failures"`
+
+```markdown
+## What Happens When Payment Fails
+
+If Stripe cannot collect your subscription payment, your subscription enters `past_due` status.
+Stripe retries the charge automatically on a schedule: after 3 days, then 5 days, then 7 days.
+
+### During the Grace Period
+
+While in `past_due` status:
+- Your bot continues running normally
+- Your plan limits remain in effect (no connection downgrade yet)
+- A warning banner appears on your Billing page and Dashboard:
+  "Your last payment failed. Update your payment method to keep your bot running."
+- Stripe sends you an automated email with a payment link
+
+### If Payment Continues to Fail
+
+After Stripe exhausts its retry schedule (typically 15 days), the subscription is marked
+as `unpaid`. At this point:
+- Daimon suspends your account (`tenant.status = 'suspended'`)
+- Your bot goes offline
+- A suspension banner appears on all dashboard pages
+
+### Reactivating After Suspension
+
+1. Go to `/dashboard/billing`
+2. Click "Update Payment →" in the Current Plan Card
+3. You'll be redirected to the Stripe Customer Portal
+4. Update your payment method in the portal
+5. In the portal, click "Pay now" to retry the outstanding invoice
+6. After successful payment, Stripe reactivates the subscription
+7. Daimon's webhook handler unsuspends your account within seconds
+8. Your bot reconnects automatically
+
+### What to Do if You're Locked Out
+
+If your account is suspended and you cannot access the dashboard, contact support@daimon.ai
+with your registered email address. We can manually trigger a payment retry or arrange
+alternative payment.
+
+### Preventing Payment Failures
+
+- Keep your credit card up to date in the Stripe Customer Portal before it expires
+- Stripe sends expiration reminders 30 days before your card expires
+- Consider using a corporate card or virtual card number to prevent unexpected expiration
+```
+
+Callout box (type: `danger`):
+```
+Account suspension due to unpaid invoices takes the bot offline immediately. Keep your payment
+method current to avoid disruption. Update your card in the Stripe Customer Portal before it
+expires.
+```
+
+---
+
+### Footer Navigation
+
+```html
+<nav class="docs-page-nav" aria-label="Page navigation">
+  <div class="prev-page">
+    <a href="/docs/faq" aria-label="Previous page: FAQ">← FAQ</a>
+  </div>
+  <div class="next-page">
+    <!-- No next page — this is the last docs page -->
+  </div>
+</nav>
+```
+
+| Property | Value |
+|----------|-------|
+| Layout | `flex`, `justify-content: space-between`, `padding-top: 48px`, `border-top: 1px solid #E5E7EB`, `margin-top: 48px` |
+| Font | Inter Regular, 14px, Periwinkle `#3F85CC` |
+| Hover color | Navy `#0C1F40` |
+| Next page | None (last page in docs). The `.next-page` div is rendered empty, maintaining the flex layout. |
+
+---
+
+### Accessibility — Billing & Plans Page
+
+| Element | Accessibility requirement |
+|---------|--------------------------|
+| `<h1>` "Billing & Plans" | `id="billing-plans-title"` |
+| `<h2>` section headings | Each has unique `id` matching anchor in TOC (e.g., `id="plans-overview"`, `id="byok-model"`, `id="billing-cycles"`, `id="upgrading"`, `id="downgrading"`, `id="canceling"`, `id="managing-billing"`, `id="api-keys"`, `id="payment-failures"`) |
+| Plan comparison table | `<caption class="sr-only">Daimon plan comparison: Free, Starter, and Pro</caption>` |
+| Validation error table (Anthropic) | `<caption class="sr-only">Anthropic API key validation error messages and fixes</caption>` |
+| Validation error table (OpenAI) | `<caption class="sr-only">OpenAI API key validation error messages and fixes</caption>` |
+| External links (console.anthropic.com, platform.openai.com, billing.stripe.com) | `target="_blank"` with `rel="noopener noreferrer"` and `<span class="sr-only"> (opens in new tab)</span>` |
+| TOC navigation | `aria-label="On this page"` |
+| Footer page navigation | `aria-label="Page navigation"` with specific `aria-label` on each link |
+| Support email link | `href="mailto:support@daimon.ai"` |
+| Callout boxes | `role="note"` and `aria-label="[type] note"` (e.g., `aria-label="Tip"`, `aria-label="Warning"`) |
+
+---
+
+*End of Billing & Plans page specification. 9 sections documented: Plans Overview (with full comparison table), BYOK Model, Billing Cycles, Upgrading, Downgrading, Canceling, Managing Billing, API Keys (Anthropic + OpenAI), Payment Failures.*
