@@ -279,3 +279,11 @@ loops:
     status: converged
     created: "2026-03-12"
     converged_at: "2026-03-12"
+  daimon-saas-reverse:
+    description: "Exhaustive product spec for Daimon self-serve SaaS — multi-tenant Decision Orchestrator with BYOK billing"
+    type: reverse
+    schedule: "*/30 * * * *"
+    max_iterations: 60
+    timeout_minutes: 30
+    status: active
+    created: 2026-03-12
