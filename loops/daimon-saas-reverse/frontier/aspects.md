@@ -2,10 +2,10 @@
 
 ## Statistics
 
-- **Total aspects**: 49
+- **Total aspects**: 63
 - **Analyzed**: 28
-- **Pending**: 21
-- **Convergence**: 57%
+- **Pending**: 35
+- **Convergence**: 44%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -37,7 +37,7 @@
 - [x] 3.6 — Write complete RLS policies — exact SQL for every new table
 - [x] 3.7 — Write migration plan — ordered SQL migrations from current schema to multi-tenant
 
-## Wave 4: Website Specification (12 aspects)
+## Wave 4: Website Specification (23 aspects)
 
 - [x] 4.1 — Landing page — complete copy, section-by-section layout, gradient specs, responsive
 - [x] 4.2 — Auth pages (login, signup, reset-password) — every field, validation, error message, redirect logic
@@ -46,11 +46,22 @@
 - [x] 4.5 — Billing page — plan display, Stripe Checkout integration, API key management, validation
 - [x] 4.6 — Settings page — tenant config, Discord connection mgmt, danger zone actions
 - [x] 4.7 — Admin panel — tenant list, tenant detail, impersonation, audit log
-- [ ] 4.8 — Docs pages — every section with complete content (Quick Start, Tool Reference, FAQ, Billing)
-- [ ] 4.9 — Component library — every reusable component with props, variants, states, brand compliance
-- [ ] 4.10 — Complete copy inventory — every user-facing string: labels, tooltips, errors, empty states, CTAs
-- [ ] 4.11 — Validation rules — every form field validation with specific error messages
-- [ ] 4.12 — Responsive behavior — every page at mobile (375px), tablet (768px), desktop (1280px)
+- [ ] 4.8a — Docs: Quick Start guide — complete step-by-step walkthrough from signup to live bot, with every screen described
+- [ ] 4.8b — Docs: Tool Reference — Discord (7) + Dub (2) + Credentials (1) + GitHub (1) tools — name, description, params, example output
+- [ ] 4.8c — Docs: Tool Reference — Toggl tools (34) — every tool name, description, params, example output
+- [ ] 4.8d — Docs: Tool Reference — LinkedIn (17) + Google Analytics (4) tools — name, description, params, example output
+- [ ] 4.8e — Docs: Tool Reference — Fly (9) + ACP (4) + Decision Hub (4) + Onyx (2) + Bluedot (4) tools — name, description, params, example output
+- [ ] 4.8f — Docs: Tool Reference — Linear (6 remote MCP) tools + tool index/navigation structure
+- [ ] 4.8g — Docs: FAQ page — complete Q&A (billing, security, bot setup, troubleshooting, limits)
+- [ ] 4.8h — Docs: Billing & Plans docs page — plan comparison, feature gating rules, upgrade/downgrade flows explained
+- [ ] 4.9a — Component library: Layout components — Sidebar, TopBar, MobileNav, AuthCard, PageShell, DashboardLayout (props, variants, states)
+- [ ] 4.9b — Component library: Form components — FormInput, PasswordInput, Select, Toggle, Checkbox, ApiKeyInput, SearchInput (props, variants, states)
+- [ ] 4.9c — Component library: Feedback components — AlertBanner, Toast, ConfirmDialog, Modal, EmptyState, ErrorState, SkeletonLoader (props, variants, states)
+- [ ] 4.9d — Component library: Data display components — Badge, StatusIndicator, Table, Pagination, StatCard, ActivityFeed, CopyToClipboard (props, variants, states)
+- [ ] 4.9e — Component library: Action components — Button, IconButton, Link, DropdownMenu, Tabs + brand compliance matrix for all components
+- [ ] 4.10 — Complete copy inventory — every user-facing string: labels, tooltips, errors, empty states, CTAs (consolidate from page specs + fill gaps)
+- [ ] 4.11 — Validation rules — every form field validation with specific error messages (consolidate from page specs + fill gaps)
+- [ ] 4.12 — Responsive behavior — every page at mobile (375px), tablet (768px), desktop (1280px) (consolidate from page specs + fill gaps)
 
 ## Wave 5: Integration Contracts (7 aspects)
 
@@ -62,20 +73,25 @@
 - [ ] 5.6 — API key services (Toggl, etc.) — validation endpoints, key format, error handling per service
 - [ ] 5.7 — Supabase Realtime contract — exact channel config, row filters, payload shapes, reconnection
 
-## Wave 6: Deployment, Docs, Legal, SEO (5 aspects)
+## Wave 6: Deployment, Legal, SEO (7 aspects)
 
 - [ ] 6.1 — Vercel deployment — config, env vars (every single one with description + example), build commands, domains
 - [ ] 6.2 — CI/CD pipeline — GitHub Actions workflow, test suite, deploy triggers, preview deployments
 - [ ] 6.3 — Monitoring & alerting — health checks, error tracking, Langfuse integration, alert thresholds
-- [ ] 6.4 — Legal — actual Terms of Service text, actual Privacy Policy text, platform disclaimers
-- [ ] 6.5 — SEO & growth — meta tags for every page, OG images, schema.org markup, landing page copy, content strategy
+- [ ] 6.4a — Legal: Terms of Service — actual complete ToS text ready to publish
+- [ ] 6.4b — Legal: Privacy Policy — actual complete privacy policy text ready to publish
+- [ ] 6.5a — SEO — meta tags for every page, OG image specs, schema.org markup per page
+- [ ] 6.5b — Content strategy — blog topics, comparison pages, landing page keyword targeting
 
-## Wave 7: Polish & Completeness Pass (4 aspects)
+## Wave 7: Polish & Completeness Pass (7 aspects — consolidation pass, page specs already cover most states)
 
-- [ ] 7.1 — Loading, empty, and error states for every page and component
-- [ ] 7.2 — Micro-interactions, transitions, toasts, confirmation dialogs across all flows
-- [ ] 7.3 — Edge cases — invalid tokens, expired keys, Stripe failures, bot crashes, session expiry, slow connections
-- [ ] 7.4 — Accessibility audit — specific ARIA labels per component, keyboard navigation order, screen reader text, focus management
+- [ ] 7.1a — Loading and empty states — audit every page (landing, auth, dashboard, integrations, billing, settings, admin, docs), fill gaps
+- [ ] 7.1b — Error states — audit every page, ensure every fetch/mutation has a specific error UI, fill gaps
+- [ ] 7.2 — Micro-interactions, transitions, toasts, confirmation dialogs — consolidate from page specs, fill gaps
+- [ ] 7.3a — Edge cases: auth + session — expired sessions, invalid tokens, concurrent logins, password reset mid-session
+- [ ] 7.3b — Edge cases: integrations + billing — Stripe down, OAuth revoked externally, bot crash mid-operation, slow connections
+- [ ] 7.4a — Accessibility: ARIA labels and roles — specific labels per component across all pages
+- [ ] 7.4b — Accessibility: keyboard navigation + focus management — tab order per page, focus traps, screen reader announcements
 
 ## Wave 8: Synthesis & Gap Audit (3 aspects)
 
