@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 32
-- Pending: 42
-- Convergence: 43%
+- Analyzed: 33
+- Pending: 41
+- Convergence: 45%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -48,7 +48,7 @@ These aspects will be **self-expanded** after discord-category-triage completes.
 - [x] discord-pymc-ecosystem — Read #pymc-ecosystem, #causalpy, #pymc-marketing, extract OSS project descriptions
 - [x] discord-org-team — Read #org channel, extract team structure, roles, bios
 - [x] discord-finances — Read #finances for pricing signals, business model info
-- [ ] discord-competition — Read #competition for competitive positioning, differentiators
+- [x] discord-competition — Read #competition for competitive positioning, differentiators
 - [ ] discord-client-channels-batch-1 — Read next 10 client channels from relevant list, extract case study material
 - [ ] discord-client-channels-batch-2 — Read next 10 client channels, extract case study material
 - [ ] discord-client-channels-batch-3 — Read next 10 client channels, extract case study material
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] discord-competition (2026-03-13) — 1,366 msgs mined from #competition (2020-11-15→2026-03-13). Full competitor roster: Recast (primary SaaS competitor, $3.4M raised, team attrition 2024-2026), Analytic Partners (legacy incumbent, $60-100M/yr, Excel/R models), Meridian (Google, framed as validation not threat), Robyn (Meta, effectively dead Oct 2025), Lightweight MMM (Google, dead Nov 2023), BCG Fabriq (technically inferior), Nielsen→Circana (Aug 2024 acquisition). Key differentiators: open-source vs black-box, full flexibility vs fixed models, consulting+OSS hybrid, scientific rigor/Bayesian. Mutinex benchmark controversy (Dec 2025 — used default priors on old version, benchmark unpublished). Response strategy for Meridian questions: Juan Orduz notebook replicating Meridian in pymc-marketing. 20+ verbatim quotes. Output: analysis/discord-competition-extraction.md
 - [x] discord-finances (2026-03-13) — 4,385 msgs mined from #finances (2020-08-24→2026-03-11). 50/50 revenue split (50% project budget → hours+bonus; 50% → Labs overhead). Hourly rate trajectory: $50/h (2021 OSS) → $75 → $80 → $85 (project, Feb 2024). Modifiers: +$25 US bonus, +$50 industry veteran (Luca/Wilkinson), PhD bonus (undisclosed), 1.2x High Intensity tier. Quarterly bonus pool: $0 (Q2 2022) → $21–24k (Q3–Q4 2023) → ~$200k (Q2 2024) → ~$223k (Q3 2024) → ~$288k (Q3 2025). Top clients: Bain/Coke $5M/year, Readystate $2M/year (started $500k). Dec 2020 monthly revenue $85k; Year 1 ~$1.5M; First contract $5k. SLA/retainer = highest margin. Client-facing rates implied at $140/h+. Output: analysis/discord-finances-extraction.md
 - [x] discord-org-team (2026-03-13) — 1,984 msgs mined from #org (2020-08-19→2026-02-27) + #new-joins-ignore (526 msgs) + #strategy (614 msgs). Key findings: Teal organization model from day 1 (Thomas: inspired by Reinventing Organizations); 5 Partners: Wiecki/Luhmann/Fiaschi/Oulton/Wilkinson; Explorer tier (2-6 month trial, no bonus) vs Core tier (full member + bonus pool); Expertise levels: Associate vs Principal (formalized Mar 2025 Notion page); Sef M (ID 900773330586591233) = Discord admin/ops; Nina Rismal (ID 1235589912129179649) = Staffing Manager (announced Apr 2025); Halah Joseph = Marketing/Design; Ravin Kumar = early co-founder (departed ~2021 for Google); ~33 team members by early 2026; 52% YoY headcount growth (from cold email Jun 2025); Company fully distributed, all contractors, per-hour billing + shared bonus pool. Founding: ~Aug 2020, team from PyMC OSS community. Output: analysis/discord-org-team-extraction.md + content/about/story-and-team.md
 - [x] discord-pymc-ecosystem (2026-03-13) — 3 channels mined: #pymc-marketing (9,682 msgs), #causalpy (510 msgs), #pymc-ecosystem (127 msgs). pymc-marketing: flagship OSS (1,088★, 1M+ downloads), full MMM+CLV+Choice feature set, JOSS paper submitted Jan 2026, used in prod by HelloFresh/Colgate/Wegmans, monorepo split in progress (pymc-mmm/clv/choice sub-packages). CausalPy: 1,123★ v0.8.0, 10 quasi-experimental methods, cited at ICML 2025, BSTS roadmap for CausalImpact parity, explicit strategy = "OSS lead generator". PyMC ecosystem: strategic vertical stack vision (OSS + Insight Agent layering), ArviZ monorepo architecture migration, 60/136 example notebooks runnable. Full integration roadmap documented: PyMC → pymc-marketing → CausalPy → MMM Agent → Simba/Decision AI SaaS. Output: analysis/discord-pymc-ecosystem-extraction.md + content/resources/open-source-libraries.md
