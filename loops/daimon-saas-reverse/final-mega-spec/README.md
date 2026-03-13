@@ -44,7 +44,7 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 
 | File | Description | Status |
 |------|-------------|--------|
-| frontend/landing-page.md | Complete copy, sections, layout, gradient specs | Pending |
+| [frontend/landing-page.md](frontend/landing-page.md) | 9 sections (nav, hero with animated blobs, how-it-works, features grid, integrations strip, pricing, FAQ, CTA banner, footer); complete copy for all sections; blob CSS keyframes; pricing cards (Free/Starter $12/Pro $39); 12 FAQ answers; OG image spec; responsive behavior at ≤900px; performance requirements | ✅ Done |
 | frontend/auth-pages.md | Login, signup, reset — every field, validation, error | Pending |
 | frontend/dashboard.md | Cards, metrics, status indicators, onboarding checklist | Pending |
 | frontend/integrations-page.md | Service grid, OAuth flow, API key modal | Pending |

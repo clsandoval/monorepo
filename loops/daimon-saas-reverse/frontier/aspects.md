@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 49
-- **Analyzed**: 21
-- **Pending**: 28
-- **Convergence**: 43%
+- **Analyzed**: 22
+- **Pending**: 27
+- **Convergence**: 45%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -39,7 +39,7 @@
 
 ## Wave 4: Website Specification (12 aspects)
 
-- [ ] 4.1 — Landing page — complete copy, section-by-section layout, gradient specs, responsive
+- [x] 4.1 — Landing page — complete copy, section-by-section layout, gradient specs, responsive
 - [ ] 4.2 — Auth pages (login, signup, reset-password) — every field, validation, error message, redirect logic
 - [ ] 4.3 — Dashboard home — status cards, metrics, onboarding checklist, data queries
 - [ ] 4.4 — Integrations page — service grid, OAuth flow per service, API key modal, disconnect flow
