@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 31
-- **Current**: 32
+- **Completed**: 32
+- **Current**: 33
 
 ## Current Stage
 
-**Stage 032** — (next stage)
+**Stage 033** — (next stage)
 
 ## Stage Log
 
@@ -45,3 +45,4 @@
 | 029 | done | 2026-03-14T00:00:00Z | POST /api/discord-connections: token regex validation, guild_id snowflake validation, plan limit check (free=1/starter=3/pro=unlimited), duplicate guild check, vault.create_secret, discord_connections INSERT; PATCH /api/discord-connections/[id]: token rotate (create new vault secret + update row vault_secret_id + delete old), status=connecting; DELETE /api/discord-connections/[id]: vault.delete_secret + row delete (Realtime fires to bot); build passes |
 | 030 | done | 2026-03-14T00:05:00Z | GET /api/integrations/oauth/start: auth check, owner/admin role, service validation, CSRF state + 3 HttpOnly cookies, redirect to GitHub/Google/Linear auth URLs with correct scopes; GET /api/integrations/oauth/callback: state/cookie validation, code exchange for all 3 providers, identity fetch (GitHub REST, Google id_token decode, Linear GraphQL), Vault create/update for access + refresh tokens, tenant_service_connections upsert; build passes |
 | 031 | done | 2026-03-14T00:10:00Z | POST /api/integrations/api-key: owner/admin auth, service validation (toggl only), format check (/^[a-z0-9]{32}$/), live Toggl validation (GET /me), workspace metadata fetch (GET /me/all best-effort), Vault create/update, tenant_service_connections upsert; DELETE /api/integrations/[service]: owner/admin auth, service validation (github/google/linear/toggl), connection lookup, Vault secret(s) delete, row delete; build passes |
+| 032 | done | 2026-03-14T00:15:00Z | POST /api/settings/workspace: owner/admin auth, name validation (1-100 chars), UPDATE tenants.name; DELETE /api/settings/workspace: owner-only, confirm_name match, Vault secret cleanup for service connections + API keys + Discord, cascade delete, signOut; POST /api/settings/account/display-name: any role, full_name ≤100 chars, updateUser; POST /api/settings/account/password: any role, current password verify via anon signIn, min 8 chars, admin.updateUserById; build passes |
