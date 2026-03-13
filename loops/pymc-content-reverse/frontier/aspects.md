@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 68
-- Analyzed: 1
-- Pending: 67
-- Convergence: 1%
+- Analyzed: 2
+- Pending: 66
+- Convergence: 3%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -12,7 +12,7 @@
 Map all sources before extracting. These must complete before Wave 2.
 
 - [x] discord-index — Read input/discord/index.jsonl + users.jsonl, write analysis/discord-channel-map.md with every channel name, category, msg_count, date range
-- [ ] discord-category-triage — Read the channel map, classify each category as relevant/irrelevant to the sitemap, write analysis/discord-relevant-channels.md
+- [x] discord-category-triage — Read the channel map, classify each category as relevant/irrelevant to the sitemap, write analysis/discord-relevant-channels.md
 - [ ] website-home — WebFetch https://www.pymc-labs.com/, save to analysis/website-scrape/home.md
 - [ ] website-about — WebFetch the about page, save to analysis/website-scrape/about.md
 - [ ] website-services — WebFetch the services page(s), save to analysis/website-scrape/services.md
@@ -103,3 +103,4 @@ Final pass. Only start after Waves 1-4 are complete.
 
 ## Recently Analyzed
 - [x] discord-index (2026-03-13) — Mapped 309 channels across 18 categories, 443 users. Identified 10 priority-1 channels (website, marketing, org, strategy, inbound-leads, pymc-marketing, simba, decision-ai, synthetic-consumers, readystate). Discovered 14 industries from client roster. Output: analysis/discord-channel-map.md
+- [x] discord-category-triage (2026-03-13) — Classified all 18 categories and ~120 named channels by sitemap relevance (CRITICAL/HIGH/MEDIUM/LOW/SKIP). Built extraction queue of 19 Wave-2 batches ordered by priority. Identified 10 CRITICAL channels, ~40 HIGH channels. Mapped coverage estimates for all 24 sitemap pages. Output: analysis/discord-relevant-channels.md
