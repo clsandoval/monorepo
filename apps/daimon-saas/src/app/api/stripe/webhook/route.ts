@@ -284,22 +284,98 @@ async function handleSubscriptionDeleted(
 }
 
 async function handleInvoicePaymentSucceeded(
-  _invoice: Stripe.Invoice,
-  _supabase: SupabaseAdmin
+  invoice: Stripe.Invoice,
+  supabase: SupabaseAdmin
 ): Promise<void> {
-  // TODO: stage 025 — refresh period dates, confirm status=active
+  const subscriptionId = (invoice.parent?.subscription_details?.subscription as string | null) ?? null;
+  if (!subscriptionId) return; // Not a subscription invoice (one-time payment); ignore
+
+  // Fetch the latest subscription state from Stripe
+  // (invoice doesn't always include period dates directly)
+  const subscription = await getStripe().subscriptions.retrieve(subscriptionId);
+
+  const { data: ts } = await supabase
+    .from('tenant_subscriptions')
+    .select('tenant_id')
+    .eq('stripe_subscription_id', subscriptionId)
+    .single();
+
+  if (!ts) {
+    console.warn('[invoice.payment_succeeded] No tenant found for subscription:', subscriptionId);
+    return;
+  }
+
+  // Update period dates and confirm active status
+  const { error } = await supabase
+    .from('tenant_subscriptions')
+    .update({
+      status: 'active',
+      current_period_start: subscription.items.data[0]?.current_period_start
+        ? new Date(subscription.items.data[0].current_period_start * 1000).toISOString()
+        : null,
+      current_period_end: subscription.items.data[0]?.current_period_end
+        ? new Date(subscription.items.data[0].current_period_end * 1000).toISOString()
+        : null,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('tenant_id', ts.tenant_id);
+
+  if (error) {
+    console.error('[invoice.payment_succeeded] DB update error:', error.message);
+  }
 }
 
 async function handleInvoicePaymentFailed(
-  _invoice: Stripe.Invoice,
-  _supabase: SupabaseAdmin
+  invoice: Stripe.Invoice,
+  supabase: SupabaseAdmin
 ): Promise<void> {
-  // TODO: stage 025 — set status=past_due
+  const subscriptionId = (invoice.parent?.subscription_details?.subscription as string | null) ?? null;
+  if (!subscriptionId) return;
+
+  const { data: ts } = await supabase
+    .from('tenant_subscriptions')
+    .select('tenant_id')
+    .eq('stripe_subscription_id', subscriptionId)
+    .single();
+
+  if (!ts) {
+    console.warn('[invoice.payment_failed] No tenant found for subscription:', subscriptionId);
+    return;
+  }
+
+  // Set status to past_due — billing page shows "Update Payment Method" CTA
+  const { error } = await supabase
+    .from('tenant_subscriptions')
+    .update({
+      status: 'past_due',
+      updated_at: new Date().toISOString(),
+    })
+    .eq('tenant_id', ts.tenant_id);
+
+  if (error) {
+    console.error('[invoice.payment_failed] DB update error:', error.message);
+  }
+
+  // Note: The plan is NOT changed here. The tenant remains on their paid plan
+  // while Stripe retries payments. Only subscription.deleted triggers a downgrade.
+  console.info(`[invoice.payment_failed] Tenant ${ts.tenant_id} set to past_due`);
 }
 
 async function handleCustomerDeleted(
-  _customer: Stripe.Customer,
-  _supabase: SupabaseAdmin
+  customer: Stripe.Customer,
+  supabase: SupabaseAdmin
 ): Promise<void> {
-  // TODO: stage 025 — clear stripe_customer_id from tenants and tenant_subscriptions
+  // Clear customer ID from tenants table
+  await supabase
+    .from('tenants')
+    .update({ stripe_customer_id: null, updated_at: new Date().toISOString() })
+    .eq('stripe_customer_id', customer.id);
+
+  // Clear customer ID from tenant_subscriptions table
+  await supabase
+    .from('tenant_subscriptions')
+    .update({ stripe_customer_id: null, updated_at: new Date().toISOString() })
+    .eq('stripe_customer_id', customer.id);
+
+  console.info(`[customer.deleted] Cleared Stripe Customer ${customer.id} from DB`);
 }
