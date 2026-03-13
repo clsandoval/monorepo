@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 15
-- **Current**: 16
+- **Completed**: 16
+- **Current**: 17
 
 ## Current Stage
 
-**Stage 016** — (next stage)
+**Stage 017** — (next stage)
 
 ## Stage Log
 
@@ -29,3 +29,4 @@
 | 013 | done | 2026-03-13T12:00:00Z | tenant_tool_calls table, 1 composite index, CHECK constraint on duration_ms, SELECT-only RLS (INSERT/UPDATE/DELETE blocked — bot uses service role), pg_cron 90-day retention job (guarded), db reset passes |
 | 014 | done | 2026-03-13T13:00:00Z | seed.sql with 3 users, 3 tenants (free/starter/pro), discord connections (connected/disconnected/error), API keys (Anthropic+OpenAI), service connections (GitHub/Google/Linear/Toggl), subscriptions (active/trialing); plan cascade confirmed; db reset passes |
 | 015 | done | 2026-03-13T14:00:00Z | @supabase/supabase-js + @supabase/ssr installed; browser client (client.ts), server client with cookies (server.ts), generated database.types.ts, convenience re-exports in types.ts; build passes |
+| 016 | done | 2026-03-13T15:00:00Z | supabase auth configured: site_url=localhost:3000, redirect URLs include localhost:3000/**, minimum_password_length=8, password_requirements=lower_upper_letters_digits, enable_confirmations=true; db reset passes |
