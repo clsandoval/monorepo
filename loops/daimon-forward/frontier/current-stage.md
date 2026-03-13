@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 39
-- **Current**: 40
+- **Completed**: 40
+- **Current**: 41
 
 ## Current Stage
 
-**Stage 040** — (next stage)
+**Stage 041** — (next stage)
 
 ## Stage Log
 
@@ -53,3 +53,4 @@
 | 037 | done | 2026-03-14T00:40:00Z | globals.css: Tailwind v4 @theme with 5 brand colors, fluid type scale (clamp), animations + keyframes, all border-radius → 0; :root CSS custom properties (semantic tokens); base reset, typography, utilities (@layer), CI stripe, skeleton, sidebar, form input classes; layout.tsx: Inter+Archivo(variable wdth axis)+Lora fonts; src/lib/design-tokens.ts: TS constants for colors/fonts/spacing/nav/buttons/grids/z-index/breakpoints/shadows; build passes |
 | 038 | done | 2026-03-14T00:45:00Z | Button (5 variants: primary/secondary/ghost/danger/danger-secondary, 3 sizes, loading spinner, disabled); IconButton (4 variants, 4 sizes xs-lg, loading spinner, tooltip wrapper, aria-label required); Link (5 variants: default/nav/muted/underline/unstyled, 3 sizes, external + disabled behavior, ExternalLinkIcon auto-inject); build passes |
 | 039 | done | 2026-03-14T00:50:00Z | FormInput (label, error icon, hint, required star, all states, forwardRef/register-compatible); PasswordInput (show/hide toggle, PasswordStrengthMeter sub-component with 5 levels, forwardRef/register-compatible); lucide-react installed; build passes |
+| 040 | done | 2026-03-14T00:55:00Z | Select (native select + custom chevron, placeholder, hint, error, disabled states); Toggle (pill track, sm/md sizes, label left/right, description, all states); Checkbox (hidden native input, custom box, indeterminate, error, links-in-label support); build passes |
