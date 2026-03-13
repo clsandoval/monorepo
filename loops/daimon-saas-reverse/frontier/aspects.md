@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 28
-- **Pending**: 35
-- **Convergence**: 44%
+- **Analyzed**: 29
+- **Pending**: 34
+- **Convergence**: 46%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -46,7 +46,7 @@
 - [x] 4.5 — Billing page — plan display, Stripe Checkout integration, API key management, validation
 - [x] 4.6 — Settings page — tenant config, Discord connection mgmt, danger zone actions
 - [x] 4.7 — Admin panel — tenant list, tenant detail, impersonation, audit log
-- [ ] 4.8a — Docs: Quick Start guide — complete step-by-step walkthrough from signup to live bot, with every screen described
+- [x] 4.8a — Docs: Quick Start guide — complete step-by-step walkthrough from signup to live bot, with every screen described
 - [ ] 4.8b — Docs: Tool Reference — Discord (7) + Dub (2) + Credentials (1) + GitHub (1) tools — name, description, params, example output
 - [ ] 4.8c — Docs: Tool Reference — Toggl tools (34) — every tool name, description, params, example output
 - [ ] 4.8d — Docs: Tool Reference — LinkedIn (17) + Google Analytics (4) tools — name, description, params, example output
