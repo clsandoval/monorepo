@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 28
-- **Current**: 29
+- **Completed**: 29
+- **Current**: 30
 
 ## Current Stage
 
-**Stage 029** — (next stage)
+**Stage 030** — (next stage)
 
 ## Stage Log
 
@@ -42,3 +42,4 @@
 | 026 | done | 2026-03-13T23:45:00Z | POST /api/billing/checkout: auth check (owner only), plan/cycle validation, owner role check, tenant lookup, plan collision guard, getPriceId(), Stripe Checkout Session create with customer pre-fill or email; build passes |
 | 027 | done | 2026-03-13T23:50:00Z | POST /api/billing/portal: owner-only auth, stripe_customer_id lookup, billingPortal.sessions.create with return_url; POST /api/billing/downgrade: owner-only, target plan validation, cancel_at_period_end for free downgrade, price switch for pro→starter; build passes |
 | 028 | done | 2026-03-13T23:55:00Z | POST /api/billing/api-keys: owner/admin auth, format validation (sk-ant-/sk- prefixes), live provider validation, key_hint compute, vault.create_secret + tenant_api_keys upsert, old vault secret cleanup; DELETE /api/billing/api-keys/[id]: owner/admin auth, tenant scoped lookup, vault.delete_secret + row delete; build passes |
+| 029 | done | 2026-03-14T00:00:00Z | POST /api/discord-connections: token regex validation, guild_id snowflake validation, plan limit check (free=1/starter=3/pro=unlimited), duplicate guild check, vault.create_secret, discord_connections INSERT; PATCH /api/discord-connections/[id]: token rotate (create new vault secret + update row vault_secret_id + delete old), status=connecting; DELETE /api/discord-connections/[id]: vault.delete_secret + row delete (Realtime fires to bot); build passes |
