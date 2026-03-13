@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { Code2, Clock, BookOpen, Calendar, FileText, Brain, MessageSquare, ImageIcon, Key } from 'lucide-react'
 import { PublicLayout } from '@/components/layout/public-layout'
 import { PricingSection } from '@/components/landing/pricing-section'
+import { FaqSection } from '@/components/landing/faq-section'
 
 export const metadata: Metadata = {
   title: 'Daimon — AI Discord Bot, Bring Your Own Keys',
@@ -34,6 +35,8 @@ export default function LandingPage() {
       <HowItWorksSection />
       <FeaturesSection />
       <PricingSection />
+      <FaqSection />
+      <FinalCtaSection />
     </PublicLayout>
   )
 }
@@ -638,6 +641,110 @@ function HeroSection() {
           {/* Social proof */}
           <p className="hero-social-proof" style={{ fontFamily: 'var(--font-body)' }}>
             Free tier available · Your keys, your costs · Cancel anytime
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function FinalCtaSection() {
+  return (
+    <section>
+      <style>{`
+        .final-cta-root {
+          background-color: #0C1F40;
+          padding: 96px 0;
+          position: relative;
+          overflow: hidden;
+        }
+        .final-cta-blob {
+          position: absolute;
+          top: -100px;
+          right: -100px;
+          width: 500px;
+          height: 500px;
+          border-radius: 50%;
+          background-color: #B4E7DD;
+          opacity: 0.10;
+          filter: blur(100px);
+          pointer-events: none;
+        }
+        .final-cta-container {
+          position: relative;
+          z-index: 10;
+          max-width: 768px;
+          margin: 0 auto;
+          padding: 0 32px;
+          text-align: center;
+        }
+        .final-cta-heading {
+          font-size: clamp(32px, 4vw, 52px);
+          font-weight: 700;
+          color: #FFFFFF;
+          line-height: 1.1;
+          margin-bottom: 16px;
+        }
+        .final-cta-sub {
+          font-size: 20px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.65);
+          font-family: var(--font-body);
+          margin-bottom: 40px;
+        }
+        .final-cta-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 44px;
+          padding: 0 36px;
+          background-color: #B4E7DD;
+          color: #0C1F40;
+          border: none;
+          border-radius: 0;
+          font-size: 15px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: opacity 0.2s ease;
+          font-family: var(--font-body);
+          cursor: pointer;
+        }
+        .final-cta-btn:hover { opacity: 0.85; }
+        .final-cta-support {
+          font-size: 14px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.50);
+          font-family: var(--font-body);
+          margin-top: 16px;
+        }
+        .final-cta-support a {
+          color: #B4E7DD;
+          text-decoration: none;
+          transition: opacity 0.2s ease;
+        }
+        .final-cta-support a:hover { opacity: 0.8; }
+        @media (max-width: 900px) {
+          .final-cta-root { padding: 60px 0; }
+          .final-cta-heading { font-size: clamp(28px, 6vw, 40px); }
+          .final-cta-btn { width: 100%; }
+        }
+      `}</style>
+
+      <div className="final-cta-root">
+        <div className="final-cta-blob" aria-hidden="true" />
+        <div className="final-cta-container">
+          <h2 className="final-cta-heading font-headline-expanded">
+            Get your AI Discord bot running today.
+          </h2>
+          <p className="final-cta-sub">
+            Free tier, no credit card, live in minutes.
+          </p>
+          <a href="/signup" className="final-cta-btn">
+            Create Your Free Account
+          </a>
+          <p className="final-cta-support">
+            Or read the docs first →{' '}
+            <a href="/docs">View Quick Start</a>
           </p>
         </div>
       </div>

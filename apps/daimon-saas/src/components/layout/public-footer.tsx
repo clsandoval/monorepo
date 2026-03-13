@@ -7,34 +7,34 @@ const FOOTER_COLUMNS = [
     links: [
       { label: 'Features', href: '/#features' },
       { label: 'Pricing', href: '/#pricing' },
+      { label: 'Docs', href: '/docs' },
       { label: 'Changelog', href: '/changelog' },
-      { label: 'Roadmap', href: '/roadmap' },
     ],
   },
   {
     heading: 'RESOURCES',
     links: [
-      { label: 'Documentation', href: '/docs' },
-      { label: 'Quick Start', href: '/docs/quick-start' },
-      { label: 'Tool Reference', href: '/docs/tools' },
-      { label: 'FAQ', href: '/#faq' },
+      { label: 'Quick Start', href: '/docs#quick-start' },
+      { label: 'Tool Reference', href: '/docs#tools' },
+      { label: 'API Keys Guide', href: '/docs#api-keys' },
+      { label: 'Discord Setup', href: '/docs#discord-setup' },
     ],
   },
   {
     heading: 'LEGAL',
     links: [
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Service', href: '/terms' },
-      { label: 'Disclaimers', href: '/disclaimers' },
+      { label: 'Terms of Service', href: '/legal/terms' },
+      { label: 'Privacy Policy', href: '/legal/privacy' },
+      { label: 'Cookie Policy', href: '/legal/cookies' },
     ],
   },
   {
     heading: 'COMPANY',
     links: [
       { label: 'About', href: '/about' },
-      { label: 'Contact', href: '/contact' },
-      { label: 'GitHub', href: 'https://github.com', external: true },
-      { label: 'Twitter/X', href: 'https://x.com', external: true },
+      { label: 'Blog', href: '/blog' },
+      { label: 'Contact', href: 'mailto:hello@daimon.ai' },
+      { label: 'Status', href: 'https://status.daimon.ai', external: true },
     ],
   },
 ]
@@ -102,7 +102,7 @@ export function PublicFooter() {
               margin: 0,
             }}
           >
-            The AI operating system for your Discord server.
+            AI-powered Discord, on your terms.
           </p>
         </div>
 
@@ -169,7 +169,7 @@ export function PublicFooter() {
         }}
       >
         <span>© 2026 Daimon. All rights reserved.</span>
-        <span>Built with ❤ on Claude</span>
+        <span>Built with Claude · Powered by Anthropic</span>
       </div>
     </footer>
   )
