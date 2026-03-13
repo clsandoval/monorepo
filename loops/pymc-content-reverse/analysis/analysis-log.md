@@ -2,6 +2,26 @@
 
 ---
 
+## 2026-03-13 — halah-draft-scrape
+Playwright-scraped https://loyal-growth-093412.framer.app/ (JS-rendered Framer site — WebFetch returned only CSS). Captured 8 pages: home, /services, /work, /about, /work/hellofresh, /work/colgate-palmolive, /work/salk, /work/indigo.
+
+**Key content found:**
+- **Home page**: Hero "Bayesian Intelligence for [Marketing/Finance/Pharma/Sports]", 5 service tiles, 6 case study cards (incl. Ovative Group + Akili not yet on main site), testimonial from Nathan Kafi/Haleon, FAQ section.
+- **Services**: Full descriptions for all 5 services with bullet features. "Bayesian AI Solutions" names Simba explicitly as "Enterprise-level Bayesian solution for end-to-end MMM workflows." Also names MMM Insights Agent and CLV Agent.
+- **About**: Origin story timeline (2005→2020→2023→2025→Today), "In 2005 we came together as a team of scientists" (note: 2005=PyMC origin, 2020=Labs founding per timeline). Featured team: Wiecki (Founder), Luhmann (COO), Fiaschi (Partner-Gen AI).
+- **HelloFresh case study**: Full narrative — problem (black box + computational wall), solution (principled MMM + vectorized inference), results (60x faster, saturation curves, foundation for PyMC-Marketing).
+- **Colgate-Palmolive case study**: Full narrative — Synthetic Consumers, SSR methodology, 9,000+ human responses, 57 concepts, 90% reliability, 74% agreement, 74% "winner" identification.
+- **SALK case study**: Hierarchical Bayesian for survey/sentiment data — credible intervals, multi-level models.
+- **Indigo case study**: Hierarchical Bayesian causal models for agricultural field trial data — treatment effects, uncertainty quantification.
+
+**Template issues noted**: Stats counters show "0+", footer email href still points to hello@aurazen.com, social links point to Dribbble/VK. These are template artifacts — actual values in Discord/website.
+
+**Not yet captured**: /pricing (→ separate aspect halah-draft-pricing), /work/ovative-group, /work/akili, /old-home.
+
+**Output:** analysis/halah-draft-scrape.md
+
+---
+
 ## 2026-03-13 — website-crawl-remaining
 Verified full sitemap (92 URLs via sitemap-0.xml). Identified 11 critical pages not yet scraped. Fetched all 11:
 

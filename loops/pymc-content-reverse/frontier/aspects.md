@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 71
-- Analyzed: 12
-- Pending: 59
-- Convergence: 17%
+- Analyzed: 13
+- Pending: 58
+- Convergence: 18%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -23,7 +23,7 @@ Map all sources before extracting. These must complete before Wave 2.
 - [x] website-resources — WebFetch any resources/open-source pages, save to analysis/website-scrape/resources.md
 - [x] website-contact — WebFetch the contact page, save to analysis/website-scrape/contact.md
 - [x] website-crawl-remaining — Check for any pages not yet scraped (sitemap.xml, nav links), scrape them
-- [ ] halah-draft-scrape — WebFetch https://loyal-growth-093412.framer.app/, save to analysis/halah-draft-scrape.md
+- [x] halah-draft-scrape — WebFetch https://loyal-growth-093412.framer.app/, save to analysis/halah-draft-scrape.md
 - [ ] halah-draft-pricing — Playwright: navigate to https://loyal-growth-093412.framer.app/pricing, extract all pricing/engagement-model content, save to analysis/halah-draft-pricing.md
 - [ ] brand-deck-scrape — WebFetch https://pymc-brand-deck.netlify.app/, save to analysis/brand-deck-scrape.md
 - [ ] github-org-scan — WebSearch/WebFetch PyMC Labs GitHub org, list repos + descriptions, save to analysis/public/github-org.md
@@ -105,6 +105,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] halah-draft-scrape (2026-03-13) — Playwright-scraped 8 pages from Framer draft site. Home hero: "Bayesian Intelligence for [Marketing/Finance/Pharma/Sports]". Services: 5 detailed with features — Simba explicitly named under "Bayesian AI Solutions" as "Enterprise-level Bayesian solution for end-to-end MMM workflows." Also names MMM Insights Agent and CLV Agent. About: origin timeline (2005 PyMC → 2020 Labs → 2023 pymc-marketing → 2025 agentic AI). Full case study narratives for HelloFresh (60x faster, saturation curves), Colgate-Palmolive (SSR, 9K responses, 90% reliability, 74% agreement), SALK (hierarchical Bayesian for surveys), Indigo (causal Bayesian for ag field trials). NOT captured: /pricing (→ halah-draft-pricing), /work/ovative-group, /work/akili. Output: analysis/halah-draft-scrape.md
 - [x] website-crawl-remaining (2026-03-13) — Verified sitemap (92 URLs). Scraped 11 missing pages: Expert Access Program (two-tier: Base=Expert Lifeline, Pro=Deep Partnership; new clients: Fox Entertainment, Fabletics), Labs Principles (5 principles from open-source culture, Teal org), Origin Story (founded 2021 by Wiecki, early clients SpaceX/Roche/Netflix/Deliveroo/HelloFresh), The AI MMM Agent (Decision AI — ~80% grunt work reduction, hours not months, Luca Fiaschi), AI MMM Agent BETA (email [email protected]), Synthetic Consumers overview + practical guide (90% alignment with human data, 85% distributional similarity, <24h cycles, SSR methodology), Innovation Lab CPG (agentic + synthetic consumers platform), Colgate case study part 2 (nested logit discrete choice modeling, proprietary PyMC tooling), How Realistic Are Synthetic Consumers (Allen Downey GSS study), From Uncertainty to Insight (value prop). GAPS: Simba product name unconfirmed in web content — needs Discord; leaderboard page JS-rendered; Fabletics/Fox Entertainment clients have no case studies. Output: analysis/website-scrape/crawl-remaining.md
 - [x] website-resources (2026-03-13) — No /resources/ page exists (404). "Resources" nav item links to /benchmark/LLMPriceIsRight — PyMC Labs' novel LLM benchmark inspired by "The Price Is Right". Captured full benchmark content: game mechanics, 3 evaluation metrics (Elo/MAPE/Overbid Rate), top-5 leaderboard for each metric (last updated Sep 25 2025), methodology (820 products, 50-100 showcases per model), business applications, caveats. Blog post: "LLMs and Price Reasoning" by Maxim Laletin + Allen Downey (Sep 17 2025). GitHub: pymc-labs/PriceIsRightLLM. Also captured model submission form details. OSS section: 3 projects on home page (PyMC Marketing, CausalPy, PyMC) — no dedicated OSS page. GAP: no industry benchmarks page, richer OSS descriptions needed from Discord. Output: analysis/website-scrape/resources.md
 - [x] website-blog-index (2026-03-13) — Blog listing page requires Playwright (JS-rendered). Found 69 visible posts across 2 pages (47 + 20 + 2 featured). 75 total in sitemap (6 unlisted). 11 category filters. Full post index with themes: MMM (~15), Synthetic Consumers (~8), Case Studies (~11), Sports Analytics (~5), Causal (~6), Tutorials (~12), Company/About (~4). Featured post slot shows title + date + excerpt. Grid cards show image + title only (no date/author). Output: analysis/website-scrape/blog-index.md + content/blog/template.md
