@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 30
-- **Current**: 31
+- **Completed**: 31
+- **Current**: 32
 
 ## Current Stage
 
-**Stage 031** — (next stage)
+**Stage 032** — (next stage)
 
 ## Stage Log
 
@@ -44,3 +44,4 @@
 | 028 | done | 2026-03-13T23:55:00Z | POST /api/billing/api-keys: owner/admin auth, format validation (sk-ant-/sk- prefixes), live provider validation, key_hint compute, vault.create_secret + tenant_api_keys upsert, old vault secret cleanup; DELETE /api/billing/api-keys/[id]: owner/admin auth, tenant scoped lookup, vault.delete_secret + row delete; build passes |
 | 029 | done | 2026-03-14T00:00:00Z | POST /api/discord-connections: token regex validation, guild_id snowflake validation, plan limit check (free=1/starter=3/pro=unlimited), duplicate guild check, vault.create_secret, discord_connections INSERT; PATCH /api/discord-connections/[id]: token rotate (create new vault secret + update row vault_secret_id + delete old), status=connecting; DELETE /api/discord-connections/[id]: vault.delete_secret + row delete (Realtime fires to bot); build passes |
 | 030 | done | 2026-03-14T00:05:00Z | GET /api/integrations/oauth/start: auth check, owner/admin role, service validation, CSRF state + 3 HttpOnly cookies, redirect to GitHub/Google/Linear auth URLs with correct scopes; GET /api/integrations/oauth/callback: state/cookie validation, code exchange for all 3 providers, identity fetch (GitHub REST, Google id_token decode, Linear GraphQL), Vault create/update for access + refresh tokens, tenant_service_connections upsert; build passes |
+| 031 | done | 2026-03-14T00:10:00Z | POST /api/integrations/api-key: owner/admin auth, service validation (toggl only), format check (/^[a-z0-9]{32}$/), live Toggl validation (GET /me), workspace metadata fetch (GET /me/all best-effort), Vault create/update, tenant_service_connections upsert; DELETE /api/integrations/[service]: owner/admin auth, service validation (github/google/linear/toggl), connection lookup, Vault secret(s) delete, row delete; build passes |
