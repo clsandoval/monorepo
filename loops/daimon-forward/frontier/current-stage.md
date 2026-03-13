@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 23
-- **Current**: 24
+- **Completed**: 24
+- **Current**: 25
 
 ## Current Stage
 
-**Stage 024** — (next stage)
+**Stage 025** — (next stage)
 
 ## Stage Log
 
@@ -37,3 +37,4 @@
 | 021 | done | 2026-03-13T20:00:00Z | Auth middleware (src/middleware.ts): /dashboard/* and /admin/* protected (redirect to /login?next=); authenticated users redirected from /login /signup /reset-password to /dashboard; admin routes check user_profiles.is_admin; /api/auth/callback passes through; build passes |
 | 022 | done | 2026-03-13T21:00:00Z | Auth callback route at /api/auth/callback (src/app/api/auth/callback/route.ts): PKCE code exchange via exchangeCodeForSession, safe redirect validation (relative paths only), defaults to /dashboard; build passes |
 | 023 | done | 2026-03-13T22:00:00Z | Stripe webhook route at /api/stripe/webhook: signature verification, idempotency check via stripe_webhook_events table, event dispatch with stub handlers for all 8 event types; lib/stripe.ts lazy init, lib/supabase/admin.ts service role client; build passes |
+| 024 | done | 2026-03-13T23:00:00Z | Stripe webhook handlers: handleCheckoutCompleted (link customer to tenant), handleSubscriptionCreated + upsertSubscription helper, handleSubscriptionUpdated, handleSubscriptionDeleted (downgrade to free); lib/stripe-prices.ts with getPriceId + getPlanFromPriceId; current_period_start/end from items.data[0] (API 2026-02-25.clover); build passes |
