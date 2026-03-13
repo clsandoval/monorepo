@@ -288,6 +288,13 @@ loops:
     status: converged
     created: 2026-03-12
     converged_at: "2026-03-13"
+  daimon-forward:
+    description: "Build Daimon SaaS web app from converged reverse loop spec (120 stages, Next.js + Supabase + Stripe)"
+    type: forward
+    max_iterations: 150
+    timeout_minutes: 360
+    status: active
+    created: "2026-03-13"
   pymc-content-reverse:
     description: "Scrape existing website + Discord archive + public data → complete content package for PyMC Labs website rebuild"
     type: reverse
