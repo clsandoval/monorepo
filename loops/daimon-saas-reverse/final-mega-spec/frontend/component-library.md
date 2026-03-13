@@ -4527,3 +4527,896 @@ async function handleCopy() {
 | `CopyToClipboard` | `components/ui/CopyToClipboard.tsx` | API key display, guild ID copy, doc code examples |
 
 *Next section: Action Components — aspect 4.9e*
+
+---
+
+## 5. Action Components
+
+Action components are interactive elements that trigger user actions, navigate between views, or surface contextual options. All action components follow PyMC brand rules: **zero border-radius**, Inter font, Aqua primary, and strict no-Peach-Orange enforcement.
+
+---
+
+### 5.1 Button
+
+**File:** `components/ui/Button.tsx`
+
+**Purpose:** The primary interactive element across the entire application. Used for form submissions, triggering Stripe Checkout, confirming dialogs, saving settings, and all other primary/secondary/ghost call-to-action patterns.
+
+**Props interface:**
+
+```typescript
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'danger-secondary'
+  size?: 'sm' | 'md' | 'lg'
+  isLoading?: boolean            // Shows spinner + disables interaction
+  disabled?: boolean             // Disabled state
+  leftIcon?: React.ReactNode     // Icon rendered left of label (16px for sm, 20px for md/lg)
+  rightIcon?: React.ReactNode    // Icon rendered right of label
+  fullWidth?: boolean            // width: 100%
+  type?: 'button' | 'submit' | 'reset'  // Default: 'button'
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  children: React.ReactNode
+  className?: string
+  'aria-label'?: string          // Required when button has no text (icon-only use via Button with no children)
+  form?: string                  // Associate with a specific form by id
+}
+```
+
+**Size specifications:**
+
+| Size | Height | Padding (H) | Font Size | Font Weight | Icon Size | Gap (icon+label) |
+|------|--------|-------------|-----------|-------------|-----------|------------------|
+| `sm` | `32px` | `12px` | `13px` | `600` | `14px` | `6px` |
+| `md` | `44px` | `28px` | `15px` | `600` | `16px` | `8px` |
+| `lg` | `52px` | `36px` | `17px` | `600` | `20px` | `10px` |
+
+Default size: `md`.
+
+**Variant specifications — light background context:**
+
+| Variant | Background | Text Color | Border | Hover Background | Hover Text | Hover Border |
+|---------|-----------|------------|--------|-----------------|------------|--------------|
+| `primary` | Aqua (`#B4E7DD`) | Navy (`#0C1F40`) | `1.5px solid #B4E7DD` | `rgba(180,231,221,0.85)` | Navy | Same |
+| `secondary` | Transparent | Navy (`#0C1F40`) | `1.5px solid #0C1F40` | Navy (`#0C1F40`) | White (`#FFFFFF`) | `1.5px solid #0C1F40` |
+| `ghost` | Transparent | Navy (`#0C1F40`) | None | `rgba(12,31,64,0.06)` | Navy | None |
+| `danger` | `#EF4444` | White (`#FFFFFF`) | `1.5px solid #EF4444` | `#DC2626` | White | `1.5px solid #DC2626` |
+| `danger-secondary` | Transparent | `#EF4444` | `1.5px solid #EF4444` | `#EF4444` | White | `1.5px solid #EF4444` |
+
+**Variant specifications — dark background context (Sidebar, dark banners):**
+
+When rendered inside a dark background (Navy `#0C1F40`) container, use these overrides:
+
+| Variant | Background | Text Color | Border | Hover Background | Hover Text |
+|---------|-----------|------------|--------|-----------------|------------|
+| `primary` | Aqua (`#B4E7DD`) | Navy (`#0C1F40`) | — | `rgba(180,231,221,0.85)` | Navy |
+| `secondary` | Transparent | White (`#FFFFFF`) | `1.5px solid #FFFFFF` | White (`#FFFFFF`) | Navy (`#0C1F40`) |
+| `ghost` | Transparent | White (`#FFFFFF`) | None | `rgba(255,255,255,0.08)` | White |
+
+Note: The dark-context variants are applied automatically when the `Button` is wrapped inside a component with `data-theme="dark"` attribute, or via a `darkContext` prop. The default is light context.
+
+**All states:**
+
+| State | Description |
+|-------|-------------|
+| Default | As specified in variant table above |
+| Hover | Background/border transition per variant; transition: `all 0.2s ease` |
+| Focus-visible | `outline: 2px solid #B4E7DD; outline-offset: 2px` (all variants) |
+| Active (mousedown) | Additional opacity 0.90 layer — `filter: brightness(0.93)` |
+| Disabled | `opacity: 0.45`; `cursor: not-allowed`; `pointer-events: none` |
+| Loading | Spinner replaces or prepends icon; button disabled; text remains visible |
+
+**Loading state implementation:**
+
+When `isLoading = true`:
+- A `LoadingSpinner` (16px, matches text color) appears to the left of the label text, replacing `leftIcon` if present.
+- Button is `disabled` and `aria-disabled="true"`.
+- Button `aria-label` changes to `"Loading…"` if no explicit `aria-label` given.
+- Width does NOT change — the button maintains its pre-loading dimensions to prevent layout shift.
+
+```typescript
+// LoadingSpinner sub-component — rendered inside Button when isLoading
+function LoadingSpinner({ size = 16, color = 'currentColor' }) {
+  return (
+    <svg
+      className="animate-spin"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="10" stroke={color} strokeWidth="3" strokeOpacity="0.25" />
+      <path
+        d="M12 2a10 10 0 0 1 10 10"
+        stroke={color}
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+```
+
+**Border-radius:** `0px` — STRICTLY zero. No rounding under any circumstance. This is a core PyMC brand rule.
+
+**Transition:** `all 0.2s ease` on background, color, border-color, opacity.
+
+**Font:** Inter, size per size table, weight per size table. No text-transform (no uppercase/lowercase enforcement — use natural case in label).
+
+**Full-width behavior:** When `fullWidth = true`, `width: 100%` and `display: block` (defaults to `display: inline-flex`).
+
+**Tailwind class composition (illustrative, not exhaustive):**
+
+```typescript
+const base = [
+  'inline-flex items-center justify-center',
+  'font-inter font-semibold',
+  'border transition-all duration-200 ease-in-out',
+  'rounded-none',               // PyMC: zero border-radius
+  'disabled:opacity-45 disabled:cursor-not-allowed',
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4E7DD] focus-visible:ring-offset-2',
+].join(' ')
+
+const sizeMap = {
+  sm: 'h-8 px-3 text-[13px] gap-1.5',
+  md: 'h-11 px-7 text-[15px] gap-2',
+  lg: 'h-[52px] px-9 text-[17px] gap-2.5',
+}
+
+const variantMap = {
+  primary: 'bg-[#B4E7DD] text-[#0C1F40] border-[#B4E7DD] hover:bg-[#B4E7DD]/85',
+  secondary: 'bg-transparent text-[#0C1F40] border-[#0C1F40] hover:bg-[#0C1F40] hover:text-white',
+  ghost: 'bg-transparent text-[#0C1F40] border-transparent hover:bg-[#0C1F40]/6',
+  danger: 'bg-red-500 text-white border-red-500 hover:bg-red-600 hover:border-red-600',
+  'danger-secondary': 'bg-transparent text-red-500 border-red-500 hover:bg-red-500 hover:text-white',
+}
+```
+
+**Where used across the application:**
+
+| Location | Variant | Size | Label | Notes |
+|----------|---------|------|-------|-------|
+| Landing page — hero | `primary` | `lg` | "Get Started Free" | Links to `/signup` |
+| Landing page — hero | `secondary` | `lg` | "See How It Works" | Scrolls to #how-it-works |
+| Landing page — pricing section | `primary` | `md` | "Start Free" | Links to `/signup` |
+| Landing page — pricing section | `secondary` | `md` | "Contact Us" | For enterprise inquiries |
+| Auth pages — login form | `primary` | `md` | "Sign In" | `type="submit"`, fullWidth |
+| Auth pages — signup form | `primary` | `md` | "Create Account" | `type="submit"`, fullWidth |
+| Auth pages — reset password | `primary` | `md` | "Send Reset Link" | `type="submit"`, fullWidth |
+| Auth pages — new password | `primary` | `md` | "Set New Password" | `type="submit"`, fullWidth |
+| Dashboard — onboarding checklist CTA | `primary` | `sm` | Per step label | One per incomplete step |
+| Integrations page — connect service | `primary` | `sm` | "Connect" | Per service card |
+| Integrations page — disconnect service | `danger-secondary` | `sm` | "Disconnect" | Per service card |
+| Billing page — upgrade plan | `primary` | `md` | "Upgrade to Pro" | Triggers Stripe Checkout |
+| Billing page — manage subscription | `secondary` | `md` | "Manage Billing" | Opens Stripe Customer Portal |
+| Settings page — save tenant config | `primary` | `md` | "Save Changes" | `type="submit"` |
+| Settings page — delete account | `danger` | `md` | "Delete Account" | Opens ConfirmDialog |
+| Admin panel — impersonate | `secondary` | `sm` | "Impersonate" | Per tenant row |
+| Modal/Dialog — primary action | `primary` | `md` | Context-specific | E.g., "Confirm", "Delete" |
+| Modal/Dialog — cancel action | `secondary` | `md` | "Cancel" | Always secondary |
+| ConfirmDialog — destructive confirm | `danger` | `md` | Context-specific | E.g., "Delete Account" |
+
+**Accessibility:**
+
+| Attribute | Rule |
+|-----------|------|
+| `type` | Always explicitly set; default `"button"` prevents accidental form submission |
+| `aria-disabled` | Set to `"true"` when `disabled` or `isLoading`; use alongside HTML `disabled` attribute |
+| `aria-label` | Required when button contains only an icon (no text children) |
+| `aria-busy` | Set to `"true"` when `isLoading = true` |
+| Focus ring | `outline: 2px solid #B4E7DD; outline-offset: 2px` — always visible on keyboard focus, never hidden |
+| `role` | Implicit `button` via `<button>` element — no explicit role needed |
+
+---
+
+### 5.2 IconButton
+
+**File:** `components/ui/IconButton.tsx`
+
+**Purpose:** A square button containing only an icon — no label text. Used for copy, close, expand/collapse, actions in table rows, and icon-only controls. Distinct from `Button` in that it enforces square dimensions and requires an accessible `aria-label`.
+
+**Props interface:**
+
+```typescript
+interface IconButtonProps {
+  icon: React.ReactNode          // The icon element (Lucide component, sized to match button)
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
+  isLoading?: boolean
+  disabled?: boolean
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  'aria-label': string           // REQUIRED — no default; must describe the action
+  tooltip?: string               // If provided, wraps button in Tooltip component
+  type?: 'button' | 'submit'
+  className?: string
+}
+```
+
+Note: `aria-label` is required (non-optional in TypeScript) because an icon with no text provides no accessibility context. If the `aria-label` prop is omitted, TypeScript will produce a type error.
+
+**Size specifications:**
+
+| Size | Width × Height | Icon Size | Border Width |
+|------|----------------|-----------|--------------|
+| `xs` | `24px × 24px` | `12px` | `1px` |
+| `sm` | `32px × 32px` | `16px` | `1.5px` |
+| `md` | `40px × 40px` | `20px` | `1.5px` |
+| `lg` | `48px × 48px` | `24px` | `1.5px` |
+
+Default size: `sm`.
+
+**Variant specifications (light background):**
+
+| Variant | Background | Icon Color | Border | Hover Background | Hover Icon |
+|---------|-----------|------------|--------|-----------------|------------|
+| `primary` | Aqua (`#B4E7DD`) | Navy (`#0C1F40`) | `1.5px solid #B4E7DD` | `rgba(180,231,221,0.85)` | Navy |
+| `secondary` | Transparent | Navy (`#0C1F40`) | `1.5px solid #0C1F40` | Navy | White |
+| `ghost` | Transparent | `rgba(12,31,64,0.55)` | None | `rgba(12,31,64,0.06)` | Navy |
+| `danger` | Transparent | `#EF4444` | `1.5px solid #EF4444` | `#EF4444` | White |
+
+**States:**
+
+| State | Description |
+|-------|-------------|
+| Default | Per variant |
+| Hover | Per variant hover specs; transition `all 0.2s ease` |
+| Focus-visible | `outline: 2px solid #B4E7DD; outline-offset: 2px` |
+| Active | `filter: brightness(0.93)` |
+| Disabled | `opacity: 0.45; cursor: not-allowed; pointer-events: none` |
+| Loading | Spinner replaces icon; button disabled |
+
+**Border-radius:** `0px` — always zero.
+
+**Tooltip behavior:** When `tooltip` prop is provided, the `IconButton` is wrapped in the `Tooltip` component (see Section 3 Feedback Components — note: `Tooltip` is the hover label component from the Tooltip within the Modal/ConfirmDialog section). The tooltip appears after 500ms hover delay, positioned above the button. This ensures keyboard and pointer users both see the button's purpose.
+
+**Where used:**
+
+| Location | Size | Variant | Icon | `aria-label` |
+|----------|------|---------|------|--------------|
+| Table row actions — view | `sm` | `ghost` | `EyeIcon` | "View tenant [id]" |
+| Table row actions — copy | `sm` | `ghost` | `CopyIcon` | "Copy tenant ID" |
+| Modal close button | `sm` | `ghost` | `XIcon` | "Close dialog" |
+| Toast close button | `xs` | `ghost` | `XIcon` | "Dismiss notification" |
+| Sidebar logout button | `sm` | `ghost` | `LogOutIcon` | "Sign out" |
+| Dashboard bot status — refresh | `sm` | `ghost` | `RefreshCwIcon` | "Refresh bot status" |
+| Settings — copy guild ID | `sm` | `ghost` | `CopyIcon` | "Copy guild ID" |
+| Integrations — service info | `xs` | `ghost` | `InfoIcon` | "Learn about [service]" |
+| Admin — tenant impersonate | `sm` | `secondary` | `UserIcon` | "Impersonate [tenant]" |
+| Billing — reveal key | `sm` | `ghost` | `EyeIcon` | "Reveal API key" |
+| Billing — hide key | `sm` | `ghost` | `EyeOffIcon` | "Hide API key" |
+| TopBar — mobile menu toggle | `md` | `ghost` | `MenuIcon` / `XIcon` | "Open menu" / "Close menu" |
+
+**Accessibility:**
+
+| Attribute | Value |
+|-----------|-------|
+| `aria-label` | Always present (TypeScript enforced) |
+| `title` | Same as `aria-label` (secondary tooltip for sighted users without JS) |
+| `aria-pressed` | Set to `true/false` for toggle buttons (e.g., Show/Hide key) |
+| `aria-busy` | `"true"` when `isLoading` |
+| Focus ring | `outline: 2px solid #B4E7DD; outline-offset: 2px` |
+
+---
+
+### 5.3 Link
+
+**File:** `components/ui/Link.tsx`
+
+**Purpose:** A styled anchor component wrapping Next.js `<Link>`. Used for all navigational links within the UI — nav items, inline text links, breadcrumbs, and "forgot password?" type links. Distinct from `Button` in that it navigates rather than triggers an action.
+
+**Props interface:**
+
+```typescript
+interface LinkProps {
+  href: string
+  variant?: 'default' | 'nav' | 'muted' | 'underline' | 'unstyled'
+  size?: 'sm' | 'md' | 'lg'   // Controls font size; default: 'md'
+  external?: boolean            // Opens in new tab if true; adds rel="noopener noreferrer"
+  disabled?: boolean            // Renders as <span> instead of <a>; no navigation
+  leftIcon?: React.ReactNode
+  rightIcon?: React.ReactNode   // ExternalLinkIcon auto-injected when external=true
+  className?: string
+  children: React.ReactNode
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void
+}
+```
+
+**Variant specifications:**
+
+| Variant | Color | Underline | Hover | Focus |
+|---------|-------|-----------|-------|-------|
+| `default` | Navy (`#0C1F40`) | None by default | `text-decoration: underline; text-decoration-color: #B4E7DD` | `outline: 2px solid #B4E7DD; outline-offset: 2px` |
+| `nav` | Navy (`#0C1F40`), weight `500` | None | Aqua 2px underline (bottom) | Same |
+| `muted` | `rgba(12,31,64,0.55)` | None | Navy (`#0C1F40`), underline appears | Same |
+| `underline` | Navy (`#0C1F40`) | `text-decoration: underline; text-decoration-color: rgba(180,231,221,0.6)` | `text-decoration-color: #B4E7DD` (stronger) | Same |
+| `unstyled` | Inherit | None | Inherit | Same outline |
+
+**Size specifications:**
+
+| Size | Font Size | Line Height |
+|------|-----------|-------------|
+| `sm` | `13px` | `1.5` |
+| `md` | `15px` | `1.5` |
+| `lg` | `17px` | `1.5` |
+
+**External link behavior:**
+
+When `external = true`:
+- Renders `<a target="_blank" rel="noopener noreferrer">`.
+- Appends `ExternalLinkIcon` (12px, `rgba(12,31,64,0.45)`) as `rightIcon` automatically unless `rightIcon` is explicitly provided.
+- Does NOT use Next.js `<Link>` (not an internal navigation).
+
+**Disabled behavior:**
+
+When `disabled = true`:
+- Renders as `<span>` instead of `<a>` — no `href`, no navigation.
+- `opacity: 0.45; cursor: not-allowed`.
+- No hover state, no focus ring.
+- `aria-disabled="true"`.
+
+**Transition:** `color 0.15s ease, text-decoration-color 0.15s ease`.
+
+**Font:** Inherits from parent by default — no explicit font-family override unless used in isolation (in which case: Inter).
+
+**Where used:**
+
+| Location | Variant | Size | Text | Destination |
+|----------|---------|------|------|-------------|
+| Auth pages — "Forgot password?" | `muted` | `sm` | "Forgot password?" | `/reset-password` |
+| Auth pages — "Already have an account? Sign in" | `default` | `sm` | "Sign in" | `/login` |
+| Auth pages — "Don't have an account? Sign up" | `default` | `sm` | "Sign up" | `/signup` |
+| Auth pages — ToS + Privacy links | `underline` | `sm` | "Terms of Service", "Privacy Policy" | `/legal/terms`, `/legal/privacy` |
+| Landing page — nav links | `nav` | `md` | "Features", "Pricing", "Docs" | Same-page anchors |
+| Dashboard — onboarding inline links | `default` | `sm` | Contextual | Various |
+| Billing — "View on Stripe" | `default` | `sm` | "View invoice on Stripe" | external: Stripe invoice URL |
+| Admin panel — tenant email links | `default` | `sm` | User email | `mailto:` |
+| Footer — legal links | `muted` | `sm` | "Terms", "Privacy" | `/legal/terms`, `/legal/privacy` |
+| Docs pages — inline cross-references | `underline` | `md` | Anchor text | Internal doc pages |
+| Error pages — "Go back home" | `default` | `md` | "Return to Dashboard" | `/dashboard` |
+
+**Accessibility:**
+
+| Attribute | Rule |
+|-----------|------|
+| `aria-label` | Only needed when link text is ambiguous (e.g., "here" — never write such links) |
+| External links | `aria-label` appended with "(opens in new tab)" if using screen reader announcement convention |
+| External `rel` | Always `rel="noopener noreferrer"` on `target="_blank"` |
+| Disabled | `aria-disabled="true"` on the `<span>` replacement |
+| Focus ring | Always visible — never `outline: none` |
+
+---
+
+### 5.4 DropdownMenu
+
+**File:** `components/ui/DropdownMenu.tsx`
+
+**Purpose:** A popover menu triggered by a button click, revealing a list of contextual actions. Used for row-level actions in tables, the user menu (if expanded from TopBar), and any multi-action control that doesn't warrant a full toolbar.
+
+**Props interface:**
+
+```typescript
+interface DropdownMenuProps {
+  trigger: React.ReactNode       // The element that opens the menu (Button, IconButton, or custom)
+  items: DropdownMenuItem[]
+  align?: 'start' | 'end' | 'center'  // Menu alignment relative to trigger; default: 'end'
+  side?: 'bottom' | 'top' | 'right' | 'left'  // Preferred open direction; default: 'bottom'
+  sideOffset?: number            // Gap between trigger and menu panel; default: 4px
+  disabled?: boolean             // Prevents menu from opening
+  className?: string
+}
+
+interface DropdownMenuItem {
+  type: 'item' | 'separator' | 'label'
+  // 'item' fields:
+  label?: string                 // Display text
+  icon?: React.ReactNode         // Lucide icon (16px)
+  onClick?: () => void
+  href?: string                  // If set, renders as Link instead of button
+  disabled?: boolean
+  variant?: 'default' | 'danger' // 'danger' → red text + icon
+  shortcut?: string              // Keyboard shortcut label (display only, e.g. "⌘K")
+  // 'separator' — renders a horizontal divider line
+  // 'label' fields:
+  label?: string                 // Section label text (non-interactive)
+}
+```
+
+**Menu panel dimensions and styling:**
+
+| Property | Value |
+|----------|-------|
+| Background | White (`#FFFFFF`) |
+| Border | `1px solid rgba(12,31,64,0.10)` |
+| Box-shadow | `0 4px 16px rgba(12,31,64,0.12), 0 1px 4px rgba(12,31,64,0.06)` |
+| Border-radius | `0px` (PyMC sharp corners) |
+| Min-width | `160px` |
+| Max-width | `240px` |
+| Padding | `4px 0` (top/bottom inside panel) |
+| z-index | `200` (above sidebar at 40, modal at 100) |
+
+**Menu item dimensions and styling:**
+
+| Element | Value |
+|---------|-------|
+| Item height | `36px` (default variant); `32px` (compact with icon only) |
+| Item padding | `0 12px` |
+| Item display | `flex; align-items: center; gap: 8px` |
+| Item font | Inter, `14px`, weight `400`, Navy (`#0C1F40`) |
+| Item border-radius | `0px` |
+| Icon size | `16px × 16px`, `flex-shrink: 0` |
+| Shortcut label | Inter, `12px`, weight `400`, `rgba(12,31,64,0.40)`, `margin-left: auto` |
+
+**Item states:**
+
+| State | Background | Text Color | Transition |
+|-------|-----------|------------|------------|
+| Default | Transparent | Navy (`#0C1F40`) | — |
+| Hover | `rgba(12,31,64,0.05)` | Navy | `background 0.1s ease` |
+| Focus (keyboard) | `rgba(180,231,221,0.20)` | Navy | — |
+| Pressed | `rgba(12,31,64,0.08)` | Navy | — |
+| Disabled | Transparent | `rgba(12,31,64,0.35)` | None |
+
+**Danger variant item:**
+
+| State | Text Color | Icon Color | Background |
+|-------|-----------|------------|------------|
+| Default | `#EF4444` | `#EF4444` | Transparent |
+| Hover | `#DC2626` | `#DC2626` | `rgba(239,68,68,0.06)` |
+| Focus | `#DC2626` | `#DC2626` | `rgba(239,68,68,0.10)` |
+
+**Separator:**
+
+| Property | Value |
+|----------|-------|
+| Height | `1px` |
+| Margin | `4px 0` |
+| Background | `rgba(12,31,64,0.08)` |
+
+**Section label:**
+
+| Property | Value |
+|----------|-------|
+| Height | `28px` |
+| Padding | `0 12px` |
+| Font | Inter, `11px`, weight `600`, `rgba(12,31,64,0.45)`, `text-transform: uppercase; letter-spacing: 0.06em` |
+| Cursor | `default` |
+| Non-interactive | Does not receive focus or hover |
+
+**Open/Close behavior:**
+
+- Opens on trigger click (toggle on repeated click).
+- Closes on: item selection, pressing `Escape`, clicking outside the menu.
+- Focus moves to first non-disabled item when menu opens.
+- Arrow keys (`↑`, `↓`) navigate between items.
+- `Home` / `End` keys jump to first / last item.
+- `Enter` or `Space` activates focused item.
+- Opening animation: fade-in + slight downward shift (`opacity: 0 → 1`, `translateY: -4px → 0`, `duration: 150ms`, `ease-out`).
+- Closing animation: fade-out (`opacity: 1 → 0`, `duration: 100ms`).
+
+**Positioning:**
+
+Uses `@radix-ui/react-dropdown-menu` or equivalent floating-ui positioning. Menu reflows automatically:
+- If `side="bottom"` but insufficient space below → flips to `top`.
+- If `align="end"` but menu would overflow viewport right edge → shifts left.
+- Keeps at least `8px` from any viewport edge.
+
+**Implementation approach:**
+
+```typescript
+// Built on @radix-ui/react-dropdown-menu primitives
+// Trigger → DropdownMenu.Trigger
+// Panel → DropdownMenu.Content
+// Item → DropdownMenu.Item
+// Separator → DropdownMenu.Separator
+// Label → DropdownMenu.Label
+```
+
+**Where used across the application:**
+
+| Location | Trigger | Items |
+|----------|---------|-------|
+| Admin panel — tenant row actions | `IconButton` (`MoreHorizontalIcon`, `sm`, `ghost`) | View Details, Impersonate, Suspend, [separator], Delete |
+| Admin panel — audit log filter | `Button` (`secondary`, `sm`) | Filter by action, filter by user, filter by date |
+| TopBar — user menu (if implemented) | User avatar / initials | Profile, Settings, [separator], Sign Out |
+| Integrations page — service options | `IconButton` (`MoreHorizontalIcon`, `xs`, `ghost`) | Reconnect, View Token Info, Disconnect |
+| Table bulk actions | `Button` (`secondary`, `sm`, `rightIcon=ChevronDown`) | Export, Archive, Delete selected |
+
+**Accessibility:**
+
+| Attribute | Value |
+|-----------|-------|
+| Trigger `aria-haspopup` | `"menu"` |
+| Trigger `aria-expanded` | `"true"` when open, `"false"` when closed |
+| Trigger `aria-controls` | ID of the menu panel |
+| Menu panel `role` | `"menu"` |
+| Menu item `role` | `"menuitem"` |
+| Disabled item `aria-disabled` | `"true"` |
+| Section label `role` | `"group"` with `aria-label` matching label text |
+| Focus trap | Focus cycles within menu while open; `Escape` returns focus to trigger |
+| Screen reader | Uses Radix UI built-in accessibility — announcements for open/close are automatic |
+
+---
+
+### 5.5 Tabs
+
+**File:** `components/ui/Tabs.tsx`
+
+**Purpose:** A horizontal tab bar for switching between views within a single page section. Used in the Admin panel (tenant detail: Overview / Connections / Audit Log), the Docs pages (code language selector), and potentially the Settings page (General / Danger Zone tabs).
+
+**Props interface:**
+
+```typescript
+interface TabsProps {
+  tabs: TabItem[]
+  activeTab: string              // Value of the currently active tab
+  onChange: (value: string) => void
+  variant?: 'underline' | 'pills' | 'bordered'
+  size?: 'sm' | 'md'
+  fullWidth?: boolean            // Tabs stretch to fill container width
+  className?: string
+}
+
+interface TabItem {
+  value: string                  // Unique identifier
+  label: string                  // Display text
+  icon?: React.ReactNode         // Optional Lucide icon (16px)
+  badge?: string | number        // Optional count badge (e.g., "3", "New")
+  disabled?: boolean
+}
+```
+
+**Variant: `underline` (primary variant)**
+
+The standard tab style used in Admin panel and Settings page.
+
+**Tab bar container:**
+
+| Property | Value |
+|----------|-------|
+| Display | `flex` |
+| Border-bottom | `1px solid rgba(12,31,64,0.10)` |
+| Gap | `0` (tabs are flush) |
+| Overflow-x | `auto` (horizontal scroll on overflow, hide scrollbar) |
+
+**Individual tab (underline variant):**
+
+| Property | Value |
+|----------|-------|
+| Height | `sm: 36px` / `md: 44px` |
+| Padding | `sm: 0 12px` / `md: 0 16px` |
+| Font | Inter, `sm: 13px` / `md: 14px`, weight `500` |
+| Border-radius | `0px` |
+| Background | Transparent |
+| Border-bottom (active) | `2px solid #B4E7DD` — overrides the container line |
+| Margin-bottom | `-1px` (so active tab border overlaps container border) |
+| Gap (icon + label) | `6px` |
+| White-space | `nowrap` |
+
+**Tab states — underline variant:**
+
+| State | Text Color | Border-bottom | Background |
+|-------|-----------|--------------|------------|
+| Default (inactive) | `rgba(12,31,64,0.55)` | None | Transparent |
+| Hover (inactive) | Navy (`#0C1F40`) | None | `rgba(12,31,64,0.04)` |
+| Active | Navy (`#0C1F40`) | `2px solid #B4E7DD` | Transparent |
+| Disabled | `rgba(12,31,64,0.25)` | None | Transparent |
+| Focus-visible | `outline: 2px solid #B4E7DD; outline-offset: -2px` | — | — |
+
+**Variant: `pills`**
+
+Used in the Docs pages for code language selectors and secondary navigation within doc sections.
+
+**Tab bar container (pills):**
+
+| Property | Value |
+|----------|-------|
+| Display | `flex; gap: 4px` |
+| Background | `#F3F4F6` |
+| Padding | `4px` |
+| Border | `1px solid rgba(12,31,64,0.08)` |
+| Border-radius | `0px` (PyMC: never round the container either) |
+
+**Individual tab (pills variant):**
+
+| Property | Value |
+|----------|-------|
+| Height | `sm: 28px` / `md: 34px` |
+| Padding | `sm: 0 10px` / `md: 0 14px` |
+| Font | Inter, `sm: 12px` / `md: 13px`, weight `500` |
+| Border-radius | `0px` |
+
+**Tab states — pills variant:**
+
+| State | Background | Text Color | Border |
+|-------|-----------|------------|--------|
+| Default (inactive) | Transparent | `rgba(12,31,64,0.55)` | None |
+| Hover (inactive) | `rgba(12,31,64,0.06)` | Navy | None |
+| Active | White (`#FFFFFF`) | Navy (`#0C1F40`) | `1px solid rgba(12,31,64,0.12)` |
+| Disabled | Transparent | `rgba(12,31,64,0.25)` | None |
+| Focus-visible | `outline: 2px solid #B4E7DD; outline-offset: -2px` | — | — |
+
+Active tab has a subtle box-shadow: `0 1px 2px rgba(12,31,64,0.08)`.
+
+**Variant: `bordered`**
+
+Used for high-emphasis tab navigation where tabs visually separate from content below (e.g., top-level admin section navigation).
+
+**Tab bar container (bordered):**
+
+| Property | Value |
+|----------|-------|
+| Display | `flex` |
+| Border | `1px solid rgba(12,31,64,0.10)` |
+| Background | White |
+| Overflow-x | `auto` |
+
+**Individual tab (bordered variant):**
+
+| Property | Value |
+|----------|-------|
+| Height | `44px` |
+| Padding | `0 20px` |
+| Font | Inter, `14px`, weight `500` |
+| Border-right | `1px solid rgba(12,31,64,0.10)` (between tabs) |
+| Border-radius | `0px` |
+
+**Tab states — bordered variant:**
+
+| State | Background | Text Color | Border-bottom |
+|-------|-----------|------------|--------------|
+| Default | White | `rgba(12,31,64,0.55)` | None |
+| Hover | `rgba(12,31,64,0.03)` | Navy | None |
+| Active | `rgba(180,231,221,0.12)` | Navy (`#0C1F40`) | `2px solid #B4E7DD` |
+| Disabled | White | `rgba(12,31,64,0.25)` | None |
+| Focus-visible | `outline: 2px solid #B4E7DD; outline-offset: -2px` | — | — |
+
+**Tab badge:**
+
+When `badge` is present on a `TabItem`, a small pill badge renders to the right of the label text.
+
+| Property | Value |
+|----------|-------|
+| Background | Aqua 20% (`rgba(180,231,221,0.30)`) |
+| Text | Navy, `11px`, weight `600` |
+| Padding | `1px 6px` |
+| Border-radius | `0px` |
+| Margin-left | `4px` |
+
+Active tab badge: background `rgba(180,231,221,0.50)`.
+
+**Full-width behavior:**
+
+When `fullWidth = true`, each tab takes `flex: 1` — tabs divide available width equally. Used in Settings page where there are only 2 tabs (General / Danger Zone).
+
+**Transition:** `color 0.15s ease, background 0.15s ease, border-color 0.15s ease`.
+
+**Controlled vs uncontrolled:**
+
+`Tabs` is always controlled — `activeTab` and `onChange` are required. There is no internal state. The parent manages active tab. This enables URL-based tab persistence:
+
+```typescript
+// Admin panel example: tab state in URL searchParams
+const searchParams = useSearchParams()
+const activeTab = searchParams.get('tab') ?? 'overview'
+
+function handleTabChange(value: string) {
+  router.push(`?tab=${value}`, { scroll: false })
+}
+```
+
+**Tab content area:**
+
+The `Tabs` component does NOT render tab panel content — it only renders the tab bar. The parent is responsible for rendering the appropriate content beneath the tab bar based on `activeTab`. This keeps the component purely presentational.
+
+**Where used:**
+
+| Location | Variant | Tabs |
+|----------|---------|------|
+| Admin panel — tenant detail | `underline` | Overview, Connections, Audit Log |
+| Docs pages — code language selector | `pills` | TypeScript, Python, cURL |
+| Settings page | `underline` (fullWidth) | General, Danger Zone |
+| Billing page — plan detail (if needed) | `underline` | Current Plan, Invoice History |
+
+**Accessibility:**
+
+| Attribute | Value |
+|-----------|-------|
+| Tab list container `role` | `"tablist"` |
+| Tab list container `aria-label` | Descriptive label: e.g., `"Tenant detail sections"` |
+| Each tab button `role` | `"tab"` |
+| Active tab `aria-selected` | `"true"` |
+| Inactive tabs `aria-selected` | `"false"` |
+| Each tab `aria-controls` | ID of the corresponding tab panel |
+| Disabled tab `aria-disabled` | `"true"` |
+| Tab panel `role` | `"tabpanel"` (applied by parent to content area) |
+| Tab panel `aria-labelledby` | ID of the controlling tab |
+| Keyboard navigation | Arrow keys (`←`, `→`) move between tabs; `Home`/`End` jump to first/last; `Enter`/`Space` activates focused tab |
+| Focus management | When a tab is activated by keyboard, focus moves to the tab panel content |
+
+---
+
+### Summary Table — Action Components
+
+| Component | File | Primary Usage |
+|-----------|------|---------------|
+| `Button` | `components/ui/Button.tsx` | All primary/secondary/ghost/danger CTAs across forms, dialogs, pages |
+| `IconButton` | `components/ui/IconButton.tsx` | Icon-only actions: close, copy, logout, expand, row actions |
+| `Link` | `components/ui/Link.tsx` | Navigation links, inline text links, external URLs |
+| `DropdownMenu` | `components/ui/DropdownMenu.tsx` | Contextual row actions, user menu, bulk actions |
+| `Tabs` | `components/ui/Tabs.tsx` | Admin panel tenant detail, docs code selector, settings sections |
+
+---
+
+## 6. Brand Compliance Matrix — All Components
+
+This matrix is the definitive reference for enforcing PyMC brand rules across every component in the library. A developer building or reviewing any component should check this matrix to verify compliance.
+
+### Rule Reference
+
+Before the matrix, the 8 PyMC brand rules that components must obey:
+
+| # | Rule | Spec Reference |
+|---|------|---------------|
+| R1 | **Zero border-radius** on all interactive elements and containers (exception: circular user avatars only) | [brand-guidelines.md §6] |
+| R2 | **Aqua (`#B4E7DD`)** is the only primary button background color | [brand-guidelines.md §5] |
+| R3 | **Peach Orange (`#F6AE72`) is NEVER used** in UI elements — data visualization only | [brand-guidelines.md §1] |
+| R4 | **Inter** for all UI text (labels, buttons, navigation, body, tooltips, errors) | [brand-guidelines.md §2] |
+| R5 | **Archivo** for headlines and display text only — never for UI controls | [brand-guidelines.md §2] |
+| R6 | **Navy (`#0C1F40`)** is primary text color and dark background | [brand-guidelines.md §1] |
+| R7 | **Transition duration 0.2s ease** (or 0.15s for subtle states) — never instant, never slow | [brand-guidelines.md §5] |
+| R8 | **Focus ring: `outline: 2px solid #B4E7DD; outline-offset: 2px`** — always visible on keyboard focus | [accessibility best practice + brand] |
+
+### Compliance Matrix
+
+| Component | R1 (0 radius) | R2 (Aqua primary) | R3 (No Peach) | R4 (Inter font) | R5 (Archivo headlines) | R6 (Navy text) | R7 (Transition) | R8 (Focus ring) | Notes |
+|-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|-------|
+| **Layout** | | | | | | | | | |
+| DashboardLayout | ✓ | N/A | ✓ | ✓ | N/A | ✓ | N/A | N/A | Container only |
+| Sidebar | ✓ | N/A | ✓ | ✓ | N/A | White on Navy | ✓ | ✓ | Dark context |
+| SidebarNavItem | ✓ | ✓ (active: Aqua underline) | ✓ | ✓ | N/A | White 65% default, Aqua active | ✓ 0.15s | ✓ Aqua outline | Left border 2px Aqua on active |
+| DashboardTopbar | ✓ | N/A | ✓ | ✓ | N/A | ✓ | ✓ | ✓ | |
+| MobileNav | ✓ | N/A | ✓ | ✓ | N/A | ✓ | ✓ | ✓ | |
+| AuthCard | ✓ | N/A | ✓ | ✓ | ✓ (page title uses Archivo) | ✓ | N/A | N/A | |
+| PageShell | ✓ | N/A | ✓ | ✓ | N/A | ✓ | N/A | N/A | |
+| **Form** | | | | | | | | | |
+| FormInput | ✓ | N/A | ✓ | ✓ | N/A | ✓ | ✓ 0.15s | ✓ Aqua outline | Focus: 2px Aqua border |
+| PasswordInput | ✓ | N/A | ✓ | ✓ | N/A | ✓ | ✓ | ✓ | Eye toggle ghost variant |
+| Select | ✓ | N/A | ✓ | ✓ | N/A | ✓ | ✓ | ✓ | Dropdown panel: 0 radius |
+| Toggle | ✓ | ✓ (checked: Aqua track) | ✓ | ✓ | N/A | ✓ | ✓ | ✓ | Thumb is white circle (avatar exception) |
+| Checkbox | ✓ | ✓ (checked: Aqua bg) | ✓ | ✓ | N/A | ✓ | ✓ | ✓ | 2px Aqua border on focus |
+| ApiKeyInput | ✓ | N/A | ✓ | ✓ (monospace for key value) | N/A | ✓ | ✓ | ✓ | Uses `font-mono` for key; labels use Inter |
+| SearchInput | ✓ | N/A | ✓ | ✓ | N/A | ✓ | ✓ | ✓ | |
+| **Feedback** | | | | | | | | | |
+| AlertBanner | ✓ | N/A | ✓ | ✓ | N/A | ✓ | N/A | N/A | Info variant uses Aqua tint NOT Peach |
+| Toast | ✓ | N/A | ✓ | ✓ | N/A | ✓ | ✓ (slide-in 300ms) | N/A | Dismiss button: Aqua focus ring |
+| ConfirmDialog | ✓ | ✓ (confirm: Aqua or danger) | ✓ | ✓ | N/A | ✓ | ✓ | ✓ | Modal overlay prevents page interaction |
+| Modal | ✓ | N/A | ✓ | ✓ | ✓ (modal title can use Archivo) | ✓ | ✓ (150ms open) | ✓ | Focus trapped inside |
+| EmptyState | ✓ | ✓ (CTA button uses Aqua) | ✓ | ✓ | N/A | ✓ | N/A | ✓ | |
+| ErrorState | ✓ | ✓ (retry button if present) | ✓ | ✓ | N/A | ✓ | N/A | ✓ | |
+| SkeletonLoader | ✓ | N/A | ✓ | N/A | N/A | N/A | ✓ (shimmer animation) | N/A | Shimmer uses gray tones only |
+| **Data Display** | | | | | | | | | |
+| Badge | ✓ | ✓ (active/online: Aqua) | ✓ | ✓ | N/A | ✓ | N/A | N/A | Error: red; warning: yellow (not Peach) |
+| StatusIndicator | ✓ | ✓ (connected: Aqua dot) | ✓ | ✓ | N/A | ✓ | ✓ (dot pulse) | N/A | Disconnected: red; degraded: yellow |
+| Table | ✓ | N/A | ✓ | ✓ | N/A | ✓ | ✓ (row hover 0.1s) | ✓ (row focus) | Header bg: Navy; header text: White |
+| Pagination | ✓ | ✓ (active page: Aqua bg) | ✓ | ✓ | N/A | ✓ | ✓ 0.15s | ✓ | |
+| StatCard | ✓ | N/A | ✓ | ✓ | ✓ (value number uses Archivo) | ✓ | N/A | N/A | CI stripe on left edge |
+| ActivityFeed | ✓ | ✓ (icon bg: Aqua tint) | ✓ | ✓ | N/A | ✓ | N/A | N/A | Timeline dot uses Aqua |
+| CopyToClipboard | ✓ | N/A | ✓ | ✓ (mono for values) | N/A | ✓ | ✓ | ✓ | Success: green tint (NOT Aqua — semantic) |
+| **Action** | | | | | | | | | |
+| Button | ✓ | ✓ (primary: Aqua bg, Navy text) | ✓ | ✓ | N/A | ✓ | ✓ 0.2s | ✓ | Secondary: Navy border; Ghost: no border |
+| IconButton | ✓ | ✓ (primary variant) | ✓ | N/A (icon-only) | N/A | ✓ | ✓ 0.2s | ✓ | Ghost: most common variant |
+| Link | ✓ | ✓ (active underline: Aqua) | ✓ | ✓ | N/A | ✓ | ✓ 0.15s | ✓ | External links auto-add ExternalLinkIcon |
+| DropdownMenu | ✓ | N/A (panel) | ✓ | ✓ | N/A | ✓ | ✓ 0.1s items | ✓ (items) | Panel shadow: Navy-tinted |
+| Tabs | ✓ | ✓ (active: Aqua underline/bg) | ✓ | ✓ | N/A | ✓ | ✓ 0.15s | ✓ | |
+
+### Common Violations to Check
+
+The following are the most frequent brand violations that reviewers should actively check:
+
+| Violation | Symptom | Correction |
+|-----------|---------|------------|
+| Rounded corners | `border-radius: 4px` or `rounded-md` in Tailwind | Change to `rounded-none` or `border-radius: 0` |
+| Peach Orange in UI | `#F6AE72` or `orange-` Tailwind classes in non-chart code | Replace with `#B4E7DD` (Aqua) or semantic red/green/yellow |
+| Missing focus ring | `focus:outline-none` without a replacement ring | Add `focus-visible:ring-2 focus-visible:ring-[#B4E7DD]` |
+| Primary button not Aqua | Blue (`#3B82F6`) or black primary buttons | Change to `bg-[#B4E7DD] text-[#0C1F40]` |
+| Archivo in buttons | `font-archivo` on any `<Button>` or form element | Change to `font-inter` |
+| Inter in page headings | `font-inter` on `h1`, `h2`, page titles | Change to `font-archivo` with appropriate `wdth` |
+| Instant transitions | Missing `transition-*` classes | Add `transition-all duration-200 ease-in-out` |
+| Button with rounded corners inside modal | Re-using a third-party modal that doesn't inherit PyMC rules | Override with `[&_button]:rounded-none` |
+| Avatar not circular | Non-user avatar with `rounded-full` | Remove; only user initials avatars use `rounded-full` |
+| Yellow warning using Peach | Using `#F6AE72` for a warning state | Use standard yellow `#F59E0B` for warnings |
+
+### Tailwind Config Verification Checklist
+
+The following must be set in `tailwind.config.ts` for brand compliance:
+
+```typescript
+// tailwind.config.ts (brand-compliance relevant sections)
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        navy: '#0C1F40',
+        aqua: '#B4E7DD',
+        periwinkle: '#9FAAE2',
+        // Note: peach-orange NOT added here intentionally — it should not be
+        // accessible as a utility class to prevent accidental UI use
+      },
+      fontFamily: {
+        archivo: ['Archivo', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        lora: ['Lora', 'Georgia', 'serif'],
+      },
+      borderRadius: {
+        DEFAULT: '0px',   // Override Tailwind default of 4px
+        none: '0px',
+        sm: '0px',        // Override — PyMC never uses rounded corners
+        md: '0px',        // Override
+        lg: '0px',        // Override
+        xl: '0px',        // Override
+        full: '9999px',   // KEEP — used only for circular user avatars
+      },
+      ringColor: {
+        DEFAULT: '#B4E7DD',  // Aqua focus ring by default
+      },
+      ringOffsetWidth: {
+        DEFAULT: '2px',
+      },
+    },
+  },
+}
+```
+
+**Note on `full` border-radius:** The only permitted use of `rounded-full` (circular) is for user avatar initials circles — see `SidebarFooter.UserAvatar` and any user avatar rendering across the application. All other uses of `rounded-full` are brand violations.
+
+### Design Token Reference (CSS Custom Properties)
+
+These tokens must be defined in `app/globals.css` for use across the application:
+
+```css
+:root {
+  /* Core brand colors */
+  --color-navy: #0C1F40;
+  --color-aqua: #B4E7DD;
+  --color-periwinkle: #9FAAE2;
+  --color-white: #FFFFFF;
+  --color-white-soft: #F7F7F7;
+
+  /* Semantic UI colors (not in brand deck but needed for functional states) */
+  --color-success: #22C55E;      /* green-500 — success states, confirmation */
+  --color-error: #EF4444;        /* red-500 — errors, danger actions */
+  --color-warning: #F59E0B;      /* amber-500 — warnings (NOT Peach Orange) */
+  --color-info: rgba(180,231,221,0.20);  /* Aqua tint — info banners */
+
+  /* Surface colors */
+  --color-surface-page: #FFFFFF;
+  --color-surface-raised: #F7F7F7;
+  --color-surface-overlay: rgba(12,31,64,0.45);  /* Modal backdrop */
+
+  /* Border colors */
+  --color-border-default: rgba(12,31,64,0.10);
+  --color-border-strong: rgba(12,31,64,0.20);
+  --color-border-focus: #B4E7DD;
+
+  /* Typography */
+  --font-archivo: 'Archivo', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-lora: 'Lora', Georgia, serif;
+
+  /* Transitions */
+  --transition-fast: all 0.15s ease;
+  --transition-default: all 0.2s ease;
+
+  /* Spacing (consistent with brand margin scale) */
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+}
+```
+
+---
+
+*End of Component Library Specification. All 5 sections complete: Layout (4.9a), Form (4.9b), Feedback (4.9c), Data Display (4.9d), Action + Brand Matrix (4.9e).*
