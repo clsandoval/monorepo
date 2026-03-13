@@ -6063,3 +6063,878 @@ All 90 tools available in Daimon, grouped by platform. Click any tool name to ju
 ---
 
 *End of Tool Reference: Linear page specification (6 remote MCP tools documented) + Complete Tool Index (90 tools across all platforms).*
+
+---
+
+## Page: FAQ
+
+> Route: `/docs/faq`
+> File: `app/(docs)/faq/page.tsx`
+> Type: Static page (no data fetching)
+> Title: `<title>FAQ — Daimon Docs</title>`
+> Meta description: `"Answers to common questions about Daimon: billing, security, bot setup, troubleshooting, and account limits."`
+
+---
+
+### Page Header
+
+```html
+<header class="docs-page-header">
+  <div class="breadcrumb">Account &amp; Billing</div>
+  <h1>Frequently Asked Questions</h1>
+  <p class="subtitle">Answers to the most common questions about Daimon.</p>
+</header>
+```
+
+| Property | Value |
+|----------|-------|
+| `h1` | Archivo SemiBold, 32px, Navy `#0C1F40` |
+| Subtitle | Inter Regular, 18px, `#6B7280`, margin-top: 8px |
+| Breadcrumb | Inter Regular, 13px, Aqua `#B4E7DD`, text-transform: uppercase, letter-spacing: 0.08em, margin-bottom: 8px |
+
+---
+
+### Page Structure
+
+The FAQ page uses a collapsible accordion component grouped into labeled sections. Each section has an `<h2>` header followed by a list of question/answer accordion items. Every question is a `<details>` element with a `<summary>` for the question text and a `<div class="faq-answer">` for the answer body.
+
+**On-page navigation (in-page TOC):** Floats to the right on desktop (same as other docs pages). Links to section anchors:
+
+```
+- Billing & Pricing
+- Security
+- Bot Setup & Discord
+- Integrations & Tools
+- Troubleshooting
+- Limits & Quotas
+- Account & Teams
+```
+
+**All sections and questions are expanded by default on page load** (the `open` attribute is present on each `<details>` element). Users can collapse individual questions by clicking the summary.
+
+**Accordion styling:**
+
+```css
+details.faq-item {
+  border: 1px solid #E5E7EB;
+  border-radius: 0px;
+  margin-bottom: 8px;
+  background: #FFFFFF;
+}
+details.faq-item[open] {
+  background: #FAFAFA;
+}
+details.faq-item summary {
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0C1F40;
+  padding: 16px 20px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+details.faq-item summary::-webkit-details-marker { display: none; }
+details.faq-item summary::after {
+  content: "+";
+  font-size: 20px;
+  color: #6B7280;
+  flex-shrink: 0;
+  transition: transform 200ms ease;
+}
+details.faq-item[open] summary::after {
+  content: "−";
+}
+div.faq-answer {
+  padding: 0 20px 20px 20px;
+  font-family: Inter;
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.6;
+}
+div.faq-answer p { margin: 0 0 12px 0; }
+div.faq-answer p:last-child { margin-bottom: 0; }
+div.faq-answer ul { margin: 0 0 12px 0; padding-left: 20px; }
+div.faq-answer ul li { margin-bottom: 6px; }
+div.faq-answer a { color: #3F85CC; text-decoration: underline; }
+div.faq-answer code { font-family: 'Courier New', monospace; font-size: 13px; background: #F3F4F6; padding: 2px 6px; }
+```
+
+---
+
+### Section: Billing & Pricing
+
+Anchor: `id="billing-pricing"`
+
+```html
+<h2 id="billing-pricing">Billing &amp; Pricing</h2>
+```
+
+---
+
+#### Q: What plans does Daimon offer?
+
+**A:**
+
+Daimon offers three plans:
+
+- **Free** — $0/month. Includes 1 Discord connection, all 50+ tools, and community support. You bring your own Anthropic API key. No credit card required to start.
+- **Starter** — $9/month (or $79/year, saving $29). Includes up to 3 Discord connections, all tools, and email support.
+- **Pro** — $29/month (or $249/year, saving $99). Includes unlimited Discord connections, all tools, priority support, and a 99.9% bot uptime SLA.
+
+All plans include every tool that Daimon supports — there is no feature gating on tools. The only differences between plans are the number of Discord connections you can run simultaneously and the level of support you receive.
+
+---
+
+#### Q: Do I need a credit card to sign up?
+
+**A:**
+
+No. You can sign up and use the Free plan without providing any payment information. A credit card is only required when you upgrade to Starter or Pro.
+
+---
+
+#### Q: How does billing work?
+
+**A:**
+
+Daimon charges a flat monthly (or annual) platform fee via Stripe. This covers running the bot infrastructure for your account.
+
+You are billed separately by Anthropic for your Claude API usage — Daimon does not see, mark up, or resell your Anthropic API costs. Those charges appear on your Anthropic account directly.
+
+Your Daimon subscription renews automatically on the same date each billing period. You can cancel at any time from the Billing page — your access continues until the end of your current billing period.
+
+---
+
+#### Q: What is the "bring your own key" model?
+
+**A:**
+
+Daimon does not bundle Claude API access into your subscription. Instead, you paste your own Anthropic API key into the Billing page. Daimon uses that key to make Claude API calls on your behalf.
+
+This means:
+- You only pay Anthropic for the Claude API calls your bot actually makes.
+- Daimon cannot see your API usage or balance.
+- You have full control over your Anthropic API key — you can revoke it at any time.
+- You pay Anthropic's standard API pricing, which varies by model and token count.
+
+The Daimon platform fee is separate from and independent of your Anthropic API costs.
+
+---
+
+#### Q: Can I switch plans at any time?
+
+**A:**
+
+Yes. You can upgrade or downgrade your plan at any time from the Billing page.
+
+**Upgrading (e.g., Free → Starter, or Starter → Pro):** You are redirected to Stripe Checkout to enter payment information. Your new plan takes effect immediately after successful payment. You are billed pro-rated for the remainder of the current billing period.
+
+**Downgrading (e.g., Pro → Starter, or Starter → Free):** Downgrade requests are processed through the Stripe Customer Portal. Your current plan remains active until the end of your billing period, then the lower plan takes effect.
+
+**Canceling:** You can cancel your subscription from the Stripe Customer Portal. Your access to the paid plan features continues until the end of the current billing period, then your account automatically moves to the Free plan.
+
+---
+
+#### Q: What happens if my payment fails?
+
+**A:**
+
+If your payment fails, Stripe retries the charge automatically over several days. During this time:
+
+- Your bot continues to run normally (grace period).
+- A warning banner appears on your Daimon dashboard indicating the payment issue.
+- You will receive email notifications from Stripe to the address on file.
+
+If the payment continues to fail after the retry period, your account will be suspended. While suspended, your bot goes offline. You can restore access by updating your payment method in the Stripe Customer Portal (accessible via the "Update Payment Method" link on your Billing page).
+
+---
+
+#### Q: Can I get a refund?
+
+**A:**
+
+Daimon does not offer refunds for partial billing periods. If you cancel mid-cycle, your access continues until the end of the period you already paid for. We do not issue prorated refunds for unused time.
+
+If you believe you were charged in error, contact support@daimon.ai and we will review your case.
+
+---
+
+#### Q: Is annual billing available?
+
+**A:**
+
+Yes. Both Starter and Pro plans are available on annual billing at a discount:
+
+- Starter annual: $79/year (saves $29 compared to 12 months of monthly billing)
+- Pro annual: $249/year (saves $99 compared to 12 months of monthly billing)
+
+You can select annual or monthly billing during Stripe Checkout. To switch between monthly and annual, contact support@daimon.ai.
+
+---
+
+#### Q: Does Daimon charge me for the Anthropic API calls my bot makes?
+
+**A:**
+
+No. Daimon does not charge for Claude API usage. You pay Anthropic directly via your own API key. Your Daimon subscription fee covers only the platform infrastructure (hosting, database, bot runtime). Your Anthropic account is billed separately at Anthropic's standard API rates.
+
+---
+
+#### Q: What happens to my account if I downgrade from Starter/Pro to Free?
+
+**A:**
+
+When your subscription to Starter or Pro ends and you move to the Free plan:
+
+- Your account retains only 1 Discord connection. If you had multiple connections configured, only the first (oldest) connection remains active. Additional connections are disabled but their configuration is preserved — if you re-upgrade, they become active again.
+- All your service integrations (GitHub, Google, Linear, Toggl, etc.) remain connected.
+- All your data (history, settings, API keys) is preserved.
+- Support tier reverts to community support.
+
+---
+
+### Section: Security
+
+Anchor: `id="security"`
+
+```html
+<h2 id="security">Security</h2>
+```
+
+---
+
+#### Q: How are my API keys stored?
+
+**A:**
+
+All API keys you provide to Daimon — your Anthropic key, OpenAI key, Toggl API key, and any other service API keys — are encrypted at rest using Supabase Vault (AES-256-GCM encryption). Keys are never stored in plaintext in the database.
+
+In the Daimon dashboard, you will never see your full API key after saving it. Only a short hint (e.g., the last 4 characters: `...sk-ant-...xYzW`) is displayed so you can identify which key is saved.
+
+The encrypted keys are only decrypted at the moment the bot needs to make an API call, inside the bot's secure runtime environment. They are never logged, exposed in API responses, or sent to the browser.
+
+---
+
+#### Q: Is my Discord bot token secure?
+
+**A:**
+
+Yes. Your Discord bot token is encrypted using Supabase Vault (AES-256-GCM) before being stored in the database — the same encryption used for API keys. The token is never stored in plaintext.
+
+The token is only decrypted at the moment the bot process establishes a Discord connection. It is never returned to the browser or included in API responses. Only a short hint is shown in your dashboard to confirm a token is saved.
+
+If your bot token is ever compromised, you can regenerate it immediately in the Discord Developer Portal. Paste the new token in your Daimon Settings page to update it. Your old token is automatically invalidated by Discord when regenerated.
+
+---
+
+#### Q: Who can see my API keys?
+
+**A:**
+
+No one can see your full API keys after you save them — not even Daimon staff. The keys are encrypted with a key managed by Supabase Vault, and the decrypted values are only accessible inside the bot's runtime process when needed for API calls.
+
+Daimon staff with database access would see only the encrypted ciphertext, which is not usable without the Vault encryption key. The Vault key itself is managed by Supabase's secure infrastructure.
+
+---
+
+#### Q: Can my team members see my API keys?
+
+**A:**
+
+No. Team members added to your workspace cannot view any API keys. Only the workspace owner can save, update, or delete API keys (and they cannot read back the full key — only a hint is shown). Admin and member roles have read-only visibility into whether keys are configured, but cannot view or modify key values.
+
+---
+
+#### Q: Does Daimon have access to my Discord messages?
+
+**A:**
+
+Yes, in the sense that your bot processes messages sent to it in Discord. Your Daimon bot reads messages from your Discord server in real time in order to respond to them. This is fundamental to how the bot works.
+
+Daimon may log message metadata (such as user IDs, timestamps, and channel IDs) for operational purposes such as debugging and performance monitoring. We do not read or log the content of your Discord messages beyond what is necessary to operate the bot.
+
+See the Daimon Privacy Policy at daimon.app/privacy for full details on data handling.
+
+---
+
+#### Q: Is my data isolated from other Daimon users?
+
+**A:**
+
+Yes. Daimon uses a multi-tenant architecture where all users share the same underlying infrastructure (database, bot runtime), but all data is logically isolated by your tenant ID.
+
+Every database row that contains your data (messages, configuration, API keys, connections) is tagged with your unique tenant ID. Row Level Security (RLS) policies enforced at the database level ensure that one tenant's data is never accessible to another tenant's queries — even in the event of an application bug.
+
+Your bot token and API keys are tenant-scoped: your bot only has access to your own secrets, not other tenants' keys.
+
+---
+
+#### Q: What happens to my data if I delete my account?
+
+**A:**
+
+When you delete your account:
+
+1. All your API keys and service connection tokens are immediately and permanently deleted from Supabase Vault.
+2. Your Discord connection configuration is deleted, and your bot is disconnected from Discord.
+3. Your tenant record, member records, and subscription are deleted.
+4. Message history and activity logs are deleted within 30 days (may be retained in database backups for up to 90 days per our backup retention policy, after which they are permanently removed).
+
+Account deletion is permanent and cannot be undone. Export any data you need before deleting your account.
+
+---
+
+### Section: Bot Setup & Discord
+
+Anchor: `id="bot-setup-discord"`
+
+```html
+<h2 id="bot-setup-discord">Bot Setup &amp; Discord</h2>
+```
+
+---
+
+#### Q: How does Daimon connect to my Discord server?
+
+**A:**
+
+You create a Discord bot application yourself in the Discord Developer Portal (discord.com/developers/applications). After creating the bot, you copy two things to Daimon:
+
+1. **Bot Token** — Found in the Bot section of your Discord application. This is the secret credential that lets Daimon log in as your bot.
+2. **Guild ID** — The numeric ID of your Discord server. You can get this by right-clicking your server name in Discord (with Developer Mode enabled) and selecting "Copy Server ID."
+
+You paste both values into Daimon's Settings page under "Discord Connection." Daimon validates the token (by verifying it authenticates with Discord) and then connects the bot to your server.
+
+---
+
+#### Q: Do I need to create my own Discord bot?
+
+**A:**
+
+Yes. Daimon does not provide a shared bot — you create and own your own Discord application. This means:
+
+- You control the bot's name, avatar, and permissions.
+- Your bot token belongs to you. You can regenerate it or delete the application at any time.
+- There is no shared bot that multiple users connect to.
+
+The Quick Start guide walks you through creating a Discord application step by step — it takes about 3 minutes.
+
+---
+
+#### Q: What permissions does my Discord bot need?
+
+**A:**
+
+Your bot needs the following permissions when added to your server:
+
+| Permission | Why it's needed |
+|-----------|----------------|
+| Send Messages | To respond to user commands in channels |
+| Read Messages / View Channels | To receive messages from users |
+| Read Message History | To look up prior messages when needed |
+| Embed Links | To send formatted response cards |
+| Attach Files | To send file attachments (e.g., CSV exports from Toggl) |
+| Use Slash Commands | To register and respond to slash commands |
+| Add Reactions | To react to messages as acknowledgment |
+| Manage Messages | To delete bot messages in cleanup operations |
+
+The recommended way to set permissions: When generating the bot invite URL in the Discord Developer Portal, select these permissions and use the generated URL to add the bot to your server.
+
+Additionally, enable the following **Privileged Gateway Intents** in the Bot settings of the Developer Portal:
+- **Server Members Intent** — Required for the bot to see member lists.
+- **Message Content Intent** — Required for the bot to read message content (not just slash command interactions).
+
+Without the Message Content Intent, your bot will not be able to read the content of regular messages, only slash command payloads.
+
+---
+
+#### Q: Can I use Daimon with multiple Discord servers?
+
+**A:**
+
+Yes, on Starter and Pro plans.
+
+- **Free plan**: 1 Discord connection (1 bot token + 1 guild ID).
+- **Starter plan**: Up to 3 Discord connections.
+- **Pro plan**: Unlimited Discord connections.
+
+Each connection is a separate Discord bot token connected to a separate guild. You manage connections from the Settings page. Each bot must be separately created in the Discord Developer Portal and invited to its respective server.
+
+---
+
+#### Q: My bot token is invalid. What do I do?
+
+**A:**
+
+A "bot token is invalid" error typically means one of the following:
+
+1. **The token was copied incorrectly** — Make sure to copy the full token from the Discord Developer Portal without any leading or trailing spaces. Try pasting it into a plain text editor first to check.
+2. **The token was regenerated** — If you clicked "Reset Token" in the Discord Developer Portal, the old token is immediately invalidated. Paste the new token into Daimon's Settings page.
+3. **The Discord application was deleted** — If the application no longer exists, the token cannot be used. Create a new Discord application and bot, then paste the new token.
+
+After pasting a new valid token, click "Validate & Connect" on the Settings page. If validation passes, your bot will attempt to connect to Discord within 30 seconds.
+
+---
+
+#### Q: My bot is online but not responding. What do I check?
+
+**A:**
+
+If your bot shows as "Online" in Daimon but is not responding to messages in Discord:
+
+1. **Check the Message Content Intent** — Go to your Discord Developer Portal → your application → Bot → scroll to "Privileged Gateway Intents" — make sure "Message Content Intent" is enabled. Without this, the bot receives message events but cannot read the message text.
+
+2. **Check the channel** — Make sure you are messaging the bot in a channel where the bot has permission to read messages and send responses. The bot must have "View Channel," "Send Messages," and "Read Message History" permissions in that specific channel.
+
+3. **Check whether you @mentioned the bot** — By default, Daimon bots respond to messages that @mention them (e.g., `@MyBot can you summarize today's activity?`). Simply typing in a channel without a mention may not trigger the bot.
+
+4. **Check the Anthropic API key** — Go to Billing & Keys → API Keys. If your Anthropic key is missing or shows "Invalid," the bot cannot make Claude API calls and will fail silently. Save a valid key and click "Validate."
+
+5. **Check your plan** — Free plan users are limited to 1 active connection. If you added multiple connections, only one is active.
+
+---
+
+#### Q: What does "bot status: connecting" mean?
+
+**A:**
+
+"Connecting" means Daimon has received your bot token and is currently attempting to establish a WebSocket connection to Discord's Gateway. This state typically lasts less than 30 seconds.
+
+If your bot stays in "Connecting" for more than 2 minutes, the token may be invalid (connection is failing silently) or Discord may be experiencing an outage. Check [Discord's status page](https://discordstatus.com) and verify your token by re-entering it on the Settings page.
+
+---
+
+#### Q: What does "bot status: error" mean?
+
+**A:**
+
+"Error" means the bot attempted to connect to Discord but received an error response. Common causes:
+
+| Error reason | What to do |
+|-------------|------------|
+| Invalid token | Regenerate the token in the Discord Developer Portal and paste the new token into Settings |
+| Disallowed intents | Enable "Message Content Intent" and "Server Members Intent" in the Developer Portal under Bot → Privileged Gateway Intents |
+| Bot not in server | The bot was removed from your Discord server. Re-invite it using your bot's invite URL |
+| Discord API outage | Wait for Discord to recover. Check discordstatus.com |
+
+The error state auto-clears when the bot successfully reconnects. You can force a reconnect attempt by toggling the connection off and back on in Settings.
+
+---
+
+#### Q: Can I change my bot token after setup?
+
+**A:**
+
+Yes. Go to Settings → Discord Connections → click the gear icon next to your connection → select "Update Token." Paste your new token and click "Validate & Save." The old token is replaced immediately and the bot reconnects using the new token.
+
+If you regenerated your token in the Discord Developer Portal, you must update it in Daimon immediately or your bot will go offline (the old token is invalidated by Discord the moment you regenerate it).
+
+---
+
+### Section: Integrations & Tools
+
+Anchor: `id="integrations-tools"`
+
+```html
+<h2 id="integrations-tools">Integrations &amp; Tools</h2>
+```
+
+---
+
+#### Q: What tools does Daimon include?
+
+**A:**
+
+Daimon includes 90+ tools across multiple platforms. Every plan (Free, Starter, Pro) includes all tools — there is no tool gating. The tools you can actually use depend only on which services you have connected.
+
+**Included tool categories:**
+
+| Category | Tools | Connection required |
+|----------|-------|-------------------|
+| Discord | Send messages, create threads, manage channels, list members (7 tools) | None (always available via the bot's own token) |
+| Dub | Create, retrieve, update short links (2 tools) | Dub API key |
+| Credentials | Retrieve stored service credentials (1 tool) | None (built-in) |
+| GitHub | Create, update, comment on issues and PRs (8 tools) | GitHub OAuth |
+| Toggl | Full time tracking — entries, projects, clients, workspaces, reports (34 tools) | Toggl API key |
+| LinkedIn | Profile reads, job searches, company data, connections (17 tools) | LinkedIn OAuth |
+| Google Analytics | Property list, report runs, audience data, realtime (4 tools) | Google OAuth |
+| Fly | App management, machine management, releases, logs (9 tools) | Fly API token |
+| ACP (Agent Control Plane) | Agent status and job management (4 tools) | ACP API key |
+| Decision Hub | Channel configuration, decision records (4 tools) | None (built-in) |
+| Onyx | Document search and retrieval (2 tools) | Onyx API key |
+| Bluedot | Meeting notes, transcript search (4 tools) | Bluedot API key |
+| Linear (remote MCP) | Issue creation, search, update, project management (6 tools) | Linear OAuth |
+
+See the [Tool Reference](/docs/tool-reference/discord) section for the complete list with parameters and examples.
+
+---
+
+#### Q: How do I connect a service to use its tools?
+
+**A:**
+
+Service connections are managed from the Integrations page in your dashboard. Each service has its own connection method:
+
+- **OAuth services (GitHub, Google/Google Analytics, Linear, LinkedIn):** Click "Connect" next to the service. You will be redirected to that service's authorization page. After granting permissions, you are returned to Daimon and the connection is saved automatically.
+
+- **API key services (Toggl, Fly, ACP, Onyx, Bluedot, Dub, Daimon/Decision Hub API keys):** Click "Connect" next to the service. A modal appears with a text input field. Paste your API key (found in that service's settings page) and click "Save & Validate." Daimon tests the key immediately — if valid, the connection is saved; if invalid, an error is shown.
+
+---
+
+#### Q: What happens if I remove a service integration?
+
+**A:**
+
+When you disconnect a service:
+
+- The stored OAuth token or API key is permanently deleted from Daimon's database.
+- Any bot commands that rely on that service's tools will fail with a "service not connected" message in Discord.
+- Reconnecting the service later restores full tool access — you will need to re-authorize via OAuth or re-enter the API key.
+- No historical data from that service is deleted from Daimon (conversation logs remain, but new tool calls to that service will fail until reconnected).
+
+---
+
+#### Q: I connected GitHub but the bot says it's not authorized. What do I do?
+
+**A:**
+
+This typically means the OAuth token has expired or been revoked. OAuth access tokens from GitHub can be revoked by the user from GitHub's Authorized Apps settings page.
+
+To fix this: Go to Integrations → click "Reconnect" next to GitHub. You will be redirected through the GitHub OAuth flow to grant fresh permissions. After completing the flow, a new token is saved and the bot can use GitHub tools immediately.
+
+---
+
+#### Q: Can I use the bot without connecting any integrations?
+
+**A:**
+
+Yes. The Discord tools (send messages, create threads, manage channels, list members) and Decision Hub tools are available without any external service connections. You only need your Anthropic API key (required) and Discord bot token (required) to have a working bot.
+
+Other tools simply won't work until you connect the corresponding service. If you ask the bot to create a GitHub issue without GitHub connected, it will tell you in Discord that the GitHub integration is not configured.
+
+---
+
+#### Q: Does Daimon support custom tools or plugins?
+
+**A:**
+
+Not in the current version. The tool set is fixed to the 90+ tools described in the Tool Reference. Custom tool extensions are a planned feature for a future release.
+
+---
+
+### Section: Troubleshooting
+
+Anchor: `id="troubleshooting"`
+
+```html
+<h2 id="troubleshooting">Troubleshooting</h2>
+```
+
+---
+
+#### Q: My bot went offline suddenly. What happened?
+
+**A:**
+
+Bots can go offline for several reasons:
+
+1. **Discord Gateway disconnect** — Discord periodically disconnects bots. Daimon automatically reconnects within 10–30 seconds. If the bot stays offline, check your Dashboard status card for an error message.
+
+2. **Invalid or regenerated bot token** — If you regenerated your token in the Discord Developer Portal, your existing Daimon connection will fail. Go to Settings → Discord Connections → Update Token → paste the new token.
+
+3. **Payment failed / account suspended** — If your Daimon subscription payment failed and the grace period expired, your account is suspended and the bot is taken offline. Update your payment method from the Billing page.
+
+4. **Discord API outage** — Check discordstatus.com to see if Discord is experiencing service issues.
+
+5. **Daimon service disruption** — Check daimon.app for any ongoing incident announcements.
+
+If the Dashboard shows "Online" but the bot is unresponsive in Discord, see "My bot is online but not responding" above.
+
+---
+
+#### Q: The bot is responding but giving errors about tools. What do I check?
+
+**A:**
+
+Tool errors usually fall into these categories:
+
+| Error message in Discord | Likely cause | Resolution |
+|-------------------------|-------------|-----------|
+| "GitHub is not connected to your workspace" | GitHub OAuth not connected | Go to Integrations → Connect GitHub |
+| "Toggl API key is invalid or expired" | Toggl API key was rotated | Go to Integrations → Reconnect Toggl → paste new API key |
+| "Anthropic API key error" | Anthropic key is missing, invalid, or has no credits | Go to Billing & Keys → update Anthropic API key |
+| "You don't have permission to use this tool" | RLS or service authorization issue | Contact support@daimon.ai |
+| "Rate limit exceeded" | Anthropic or service rate limit hit | Wait and try again; consider upgrading your Anthropic API plan |
+| "Tool execution timed out" | External API was slow or unresponsive | Try again; if persistent, check the external service's status |
+
+---
+
+#### Q: I'm getting a "Workspace not found" or "Tenant not found" error. What does that mean?
+
+**A:**
+
+This typically occurs if:
+
+1. You are trying to access a workspace you were removed from or that was deleted.
+2. There is a session issue — your authentication token may be stale.
+
+Try signing out and signing back in. If the error persists, contact support@daimon.ai with your account email address.
+
+---
+
+#### Q: How do I report a bug or get help?
+
+**A:**
+
+For technical issues or unexpected behavior:
+
+- **Email:** support@daimon.ai — include your account email, a description of the issue, and any error messages you see.
+- **Response time:** Starter plan users can expect a response within 2 business days. Pro plan users receive priority support with a target response time of 4 business hours.
+- **Free plan users:** Community support — post in the Daimon community Discord server (link in the footer).
+
+When reporting a bug, include:
+- Your account email address
+- The date and approximate time the issue occurred
+- The Discord channel where the issue occurred (if relevant)
+- The exact message you sent to the bot (or the action you took)
+- The bot's response (or error message)
+- A screenshot if possible
+
+---
+
+#### Q: My Anthropic API key shows "Invalid" but I copied it correctly. What do I do?
+
+**A:**
+
+An "Invalid" status means Daimon's validation check — which makes a small test API call to Anthropic — received an error response. This can happen for these reasons:
+
+1. **The key has no remaining credits** — Anthropic API keys require a funded account. Check your Anthropic billing at console.anthropic.com.
+2. **The key was revoked** — API keys can be deactivated from the Anthropic console. Create a new key and paste it into Daimon.
+3. **Copy-paste error** — The key may have been truncated. Keys beginning with `sk-ant-api03-` are typically 108 characters long. Paste into a plain text editor to verify the full key before saving.
+4. **Rate limit on validation** — Rarely, the test call hits a rate limit. Wait 60 seconds and try saving the key again.
+
+After correcting the issue, go to Billing & Keys → paste the updated key → click "Save & Validate."
+
+---
+
+#### Q: I signed up but never received a verification email. What do I do?
+
+**A:**
+
+1. Check your spam/junk folder — verification emails from noreply@daimon.ai are sometimes filtered.
+2. Add noreply@daimon.ai to your contacts or safe-senders list.
+3. Wait up to 5 minutes — email delivery can sometimes be delayed.
+4. If you still haven't received it, go to the login page and click "Resend verification email." Enter your email address to request a new verification link.
+5. If the issue persists, contact support@daimon.ai with your signup email address.
+
+---
+
+#### Q: I forgot my password. How do I reset it?
+
+**A:**
+
+1. Go to daimon.app/login.
+2. Click "Forgot password?" below the sign-in form.
+3. Enter your account email address and click "Send Reset Link."
+4. Check your email for a message from noreply@daimon.ai with the subject "Reset your Daimon password."
+5. Click the link in the email — it expires after 1 hour.
+6. Enter and confirm your new password on the reset page.
+7. You are automatically signed in after a successful reset.
+
+If you do not receive the reset email within 5 minutes, check your spam folder or contact support@daimon.ai.
+
+---
+
+### Section: Limits & Quotas
+
+Anchor: `id="limits-quotas"`
+
+```html
+<h2 id="limits-quotas">Limits &amp; Quotas</h2>
+```
+
+---
+
+#### Q: How many Discord connections can I have?
+
+**A:**
+
+| Plan | Maximum Discord connections |
+|------|-----------------------------|
+| Free | 1 |
+| Starter | 3 |
+| Pro | Unlimited |
+
+Each connection is one bot token connected to one Discord server (guild). If you are on the Free plan and need to connect a second server, you must upgrade to Starter.
+
+---
+
+#### Q: Are there limits on how many messages my bot can process?
+
+**A:**
+
+Daimon does not impose a message processing limit. Your bot processes every message it receives.
+
+The practical limit is set by your Anthropic API plan — each message sent to your bot results in one or more Claude API calls. Anthropic enforces rate limits (requests per minute, tokens per minute) based on your API tier. If your bot is heavily used, you may hit Anthropic's rate limits.
+
+To increase your Anthropic rate limits, upgrade your Anthropic API usage tier at console.anthropic.com.
+
+---
+
+#### Q: Are there storage limits?
+
+**A:**
+
+Daimon does not currently enforce hard storage limits per tenant. Message history, configuration data, and activity logs are stored in a shared PostgreSQL database. Extremely high-volume tenants (millions of messages) may be subject to future fair-use limits.
+
+---
+
+#### Q: Are there API rate limits on the Daimon website itself?
+
+**A:**
+
+Yes. The following rate limits apply to the Daimon website API:
+
+| Endpoint category | Rate limit |
+|------------------|-----------|
+| Auth endpoints (login, signup, password reset) | 10 requests per minute per IP |
+| Dashboard API reads (status, integrations, billing data) | 60 requests per minute per authenticated user |
+| Discord token validation (POST /api/discord/validate) | 5 requests per minute per authenticated user |
+| API key save/validate endpoints | 10 requests per minute per authenticated user |
+| Stripe Checkout creation | 3 requests per minute per authenticated user |
+| Stripe Customer Portal creation | 10 requests per minute per authenticated user |
+
+If you exceed a rate limit, the API returns HTTP 429 with a `Retry-After` header indicating when you can retry.
+
+---
+
+#### Q: How many service integrations can I have?
+
+**A:**
+
+There is no limit on the number of service integrations. You can connect all supported services simultaneously on any plan.
+
+---
+
+#### Q: How long is message history retained?
+
+**A:**
+
+Message history and activity logs are retained for the lifetime of your account. If you delete your account, message history is deleted within 30 days (may persist in database backups for up to 90 days per our backup retention policy).
+
+There is no per-plan difference in retention period — all plans retain history indefinitely while the account is active.
+
+---
+
+### Section: Account & Teams
+
+Anchor: `id="account-teams"`
+
+```html
+<h2 id="account-teams">Account &amp; Teams</h2>
+```
+
+---
+
+#### Q: Can I invite team members to my Daimon workspace?
+
+**A:**
+
+Team member invitations are a planned feature for a future release. In the current version, each workspace has a single owner and does not support additional team members.
+
+If you are setting up Daimon for a team, the workspace owner is the single account that manages the bot, integrations, and billing.
+
+---
+
+#### Q: Can I have multiple workspaces?
+
+**A:**
+
+Each Daimon account is associated with one workspace. To create a separate workspace, you would need a separate Daimon account with a separate email address.
+
+Multiple workspaces under a single account are a planned feature for a future release.
+
+---
+
+#### Q: How do I change my workspace name?
+
+**A:**
+
+Go to Settings → Workspace → edit the "Workspace Name" field → click "Save." The name change takes effect immediately and is reflected everywhere in the dashboard.
+
+---
+
+#### Q: How do I change my account email address?
+
+**A:**
+
+Email address changes are not self-serve in the current version. Contact support@daimon.ai with your current email address and the new email address you want to use. We will manually update your account and send a verification to the new address.
+
+---
+
+#### Q: How do I delete my account?
+
+**A:**
+
+Account deletion is available in Settings → Workspace → Danger Zone → "Delete Workspace."
+
+**Before deleting, note:**
+- Deletion is permanent and cannot be undone.
+- All data (API keys, connections, configuration, message history) will be deleted.
+- Your active Daimon subscription will be canceled immediately. No refund is issued for the unused portion of the billing period.
+- Your Discord bot is disconnected from Discord. Your Discord application (in the Developer Portal) is not deleted — only the Daimon connection is removed.
+
+After clicking "Delete Workspace," you must type your workspace name to confirm, then click "Delete permanently." You will be signed out and your account will be queued for deletion.
+
+---
+
+#### Q: Can I transfer my workspace to another person?
+
+**A:**
+
+Workspace ownership transfers are not self-serve. Contact support@daimon.ai to request a transfer. We will require verification of both the current owner's identity and the new owner's email address.
+
+---
+
+### Footer Navigation
+
+```html
+<nav class="docs-page-nav" aria-label="Page navigation">
+  <div class="prev-page">
+    <a href="/docs/tool-reference/linear" aria-label="Previous page: Linear Tools">← Linear Tools</a>
+  </div>
+  <div class="next-page">
+    <a href="/docs/billing" aria-label="Next page: Billing & Plans">Billing &amp; Plans →</a>
+  </div>
+</nav>
+```
+
+| Property | Value |
+|----------|-------|
+| Layout | `flex`, `justify-content: space-between`, `padding-top: 48px`, `border-top: 1px solid #E5E7EB`, `margin-top: 48px` |
+| Font | Inter Regular, 14px, Periwinkle `#3F85CC` |
+| Hover color | Navy `#0C1F40` |
+
+---
+
+### Accessibility — FAQ Page
+
+| Element | Accessibility requirement |
+|---------|--------------------------|
+| `<h1>` "Frequently Asked Questions" | `id="faq-page-title"` |
+| `<h2>` section headings | Each has unique `id` matching the anchor (e.g., `id="billing-pricing"`, `id="security"`, etc.) |
+| `<details>` elements | Native HTML — keyboard accessible (Enter/Space on `<summary>` toggles open/close). No additional ARIA needed. |
+| `<summary>` elements | Each contains the full question text as the accessible name |
+| External links (discordstatus.com, console.anthropic.com) | `target="_blank"` with `rel="noopener noreferrer"` and visually hidden `<span class="sr-only"> (opens in new tab)</span>` |
+| Tables within answers | `role="table"`, `<caption class="sr-only">` describing the table content |
+| Support email link | `href="mailto:support@daimon.ai"` |
+| In-page TOC nav | `aria-label="On this page"` |
+| Footer page navigation | `aria-label="Page navigation"` with specific `aria-label` on each link |
+
+---
+
+*End of FAQ page specification. 42 questions documented across 7 sections: Billing & Pricing (10), Security (6), Bot Setup & Discord (8), Integrations & Tools (6), Troubleshooting (7), Limits & Quotas (5), Account & Teams (6).*
