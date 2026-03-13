@@ -1,10 +1,10 @@
 # Frontier — PyMC Content Gathering
 
 ## Statistics
-- Total aspects discovered: 70
-- Analyzed: 10
+- Total aspects discovered: 71
+- Analyzed: 11
 - Pending: 60
-- Convergence: 14%
+- Convergence: 15%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -21,7 +21,7 @@ Map all sources before extracting. These must complete before Wave 2.
 - [x] website-courses — WebFetch courses/training page(s), save to analysis/website-scrape/courses.md
 - [x] website-blog-index — WebFetch the blog listing page, save to analysis/website-scrape/blog-index.md
 - [x] website-resources — WebFetch any resources/open-source pages, save to analysis/website-scrape/resources.md
-- [ ] website-contact — WebFetch the contact page, save to analysis/website-scrape/contact.md
+- [x] website-contact — WebFetch the contact page, save to analysis/website-scrape/contact.md
 - [ ] website-crawl-remaining — Check for any pages not yet scraped (sitemap.xml, nav links), scrape them
 - [ ] halah-draft-scrape — WebFetch https://loyal-growth-093412.framer.app/, save to analysis/halah-draft-scrape.md
 - [ ] halah-draft-pricing — Playwright: navigate to https://loyal-growth-093412.framer.app/pricing, extract all pricing/engagement-model content, save to analysis/halah-draft-pricing.md
@@ -93,6 +93,7 @@ Identify thin pages and fill with targeted web research. Self-expands after Wave
 - [ ] enrich-case-studies-web — WebSearch for public PyMC Labs case studies, blog posts about client work
 - [ ] enrich-team-web — WebSearch for PyMC Labs team member profiles, conference talks, publications
 - [ ] enrich-courses-web — WebSearch for PyMC Labs course reviews, syllabi, learning outcomes
+- [ ] enrich-expert-access-program — Investigate "Expert Access Program" (found in contact form dropdown but not in sitemap); search Discord + web for descriptions, pricing, eligibility
 
 ### Wave 5: Cross-Reference & Convergence
 Final pass. Only start after Waves 1-4 are complete.

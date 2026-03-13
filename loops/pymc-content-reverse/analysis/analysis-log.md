@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-03-13 — website-contact
+Fetched https://www.pymc-labs.com/contact/. Contact page has a form (First/Last Name, Email, Phone optional, Inquiry Category dropdown, Discovery Source dropdown, Message). Email: info@pymc-labs.com. No phone, no address, no calendar booking. 5 inquiry categories reveal product names: Expert Access Program, Workshop, Consulting And Custom Bayesian Models, MMM Insights Agent, General Inquiry. Social links: LinkedIn, GitHub, X, Bluesky, YouTube, Meetup. Wrote analysis/website-scrape/contact.md + content/contact.md (status: complete). Discovered new aspect: enrich-expert-access-program ("Expert Access Program" is in contact form dropdown but has no sitemap page).
+
+---
+
 ## 2026-03-13 — website-courses
 
 **Aspect**: website-courses
