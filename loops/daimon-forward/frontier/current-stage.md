@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 9
-- **Current**: 10
+- **Completed**: 10
+- **Current**: 11
 
 ## Current Stage
 
-**Stage 010** — (next stage)
+**Stage 011** — (next stage)
 
 ## Stage Log
 
@@ -23,3 +23,4 @@
 | 007 | done | 2026-03-13T06:00:00Z | discord_connections table, 3 indexes, updated_at trigger, get_decrypted_secret() Vault helper, 4 RLS policies, Realtime |
 | 008 | done | 2026-03-13T07:00:00Z | tenant_api_keys table, 2 indexes, updated_at trigger, SELECT-only RLS (INSERT/UPDATE/DELETE blocked intentionally), Realtime |
 | 009 | done | 2026-03-13T08:00:00Z | tenant_service_connections table, 3 indexes, updated_at trigger, 4 RLS policies, Realtime, pg_cron job (guarded for local dev) |
+| 010 | done | 2026-03-13T09:00:00Z | tenant_subscriptions table, 3 indexes, updated_at trigger, plan cascade trigger, SELECT-only RLS (INSERT/UPDATE/DELETE blocked intentionally) |
