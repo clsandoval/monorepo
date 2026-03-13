@@ -42,7 +42,7 @@ All colors defined as CSS custom properties on `:root` (light) and `[data-theme=
 | `--border` | `#E8E4DC` | Dividers, card borders |
 | `--text` | `#1A1A1A` | Primary text, headings |
 | `--text-secondary` | `#666666` | Descriptions, meta text |
-| `--text-muted` | `#999999` | Labels, captions, section numbers |
+| `--text-muted` | `#777777` | Labels, captions, section numbers |
 | `--plum` | `#4A1942` | Accent — section markers, tags, emphasis |
 | `--gold` | `#C8A96E` | Accent — active states, highlights, nav underline |
 | `--peri` | `#8A9ABB` | Accent — tertiary, volleyball sport color |
@@ -57,7 +57,7 @@ All colors defined as CSS custom properties on `:root` (light) and `[data-theme=
 | `--border` | `#333333` | Dividers, card borders |
 | `--text` | `#FAFAFA` | Primary text, headings |
 | `--text-secondary` | `#999999` | Descriptions, meta text |
-| `--text-muted` | `#555555` | Labels, captions, section numbers |
+| `--text-muted` | `#666666` | Labels, captions, section numbers |
 | `--plum` | `#6B2D63` | Accent — section markers, tags, emphasis |
 | `--gold` | `#F0DFA0` | Accent — active states, highlights, nav underline |
 | `--peri` | `#B8C8E8` | Accent — tertiary, volleyball sport color |
