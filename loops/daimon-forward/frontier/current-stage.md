@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 17
-- **Current**: 18
+- **Completed**: 18
+- **Current**: 19
 
 ## Current Stage
 
-**Stage 018** — (next stage)
+**Stage 019** — (next stage)
 
 ## Stage Log
 
@@ -31,3 +31,4 @@
 | 015 | done | 2026-03-13T14:00:00Z | @supabase/supabase-js + @supabase/ssr installed; browser client (client.ts), server client with cookies (server.ts), generated database.types.ts, convenience re-exports in types.ts; build passes |
 | 016 | done | 2026-03-13T15:00:00Z | supabase auth configured: site_url=localhost:3000, redirect URLs include localhost:3000/**, minimum_password_length=8, password_requirements=lower_upper_letters_digits, enable_confirmations=true; db reset passes |
 | 017 | done | 2026-03-13T16:00:00Z | AuthProvider (auth-context.tsx) with client-only Supabase init in useEffect; useAuth hook re-exporting useAuthContext; AuthProvider wired into root layout; build passes |
+| 018 | done | 2026-03-13T17:00:00Z | Login page at /login with email+password form, zod validation, password visibility toggle, server error banner, forgot password link, sign up link; Suspense wrapper for useSearchParams; build passes |
