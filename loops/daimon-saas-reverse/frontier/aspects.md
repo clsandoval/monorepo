@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 93
-- **Analyzed**: 89
-- **Pending**: 4
-- **Convergence**: 96%
+- **Analyzed**: 90
+- **Pending**: 3
+- **Convergence**: 97%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -122,6 +122,6 @@
 - [x] 8.1.12 — Fix email provider TBD: replace "Postmark / Resend (TBD — select one at implementation)" in `legal/privacy-policy.md` with Resend. Update any other files that reference email provider selection.
 - [x] 8.1.13 — Verify cross-references fixed: 8.2.4 created ui/design-system.md, legal/disclaimers.md, seo-and-growth/landing-page.md. Verify all 7 previously-dead cross-references now resolve. If any remain broken, fix them.
 - [x] 8.1.14 — Spec phantom pages: the footer links to `/changelog`, `/about`, `/blog`, `/legal/cookies` but none have page specs. Write specs for each in `frontend/` — at minimum: route, layout, content structure, responsive behavior, loading/empty states. `/changelog` can be a simple reverse-chronological list. `/about` needs company description + team. `/blog` needs index layout + post layout. `/legal/cookies` needs actual cookie policy text.
-- [ ] 8.1.15 — Page/state screenshot manifest: create `final-mega-spec/qa/screenshot-manifest.md`. Enumerate EVERY unique visual state across EVERY route at desktop (1280px) and mobile (375px). Include: page load, empty state, populated state, loading skeleton, error state, every modal open, every dropdown open, every form validation error, every toast, every confirmation dialog, scroll positions for long pages (above-fold + below-fold). Format as a numbered checklist the forward loop can use as a Playwright screenshot task list. Target: 200+ screenshots minimum.
+- [x] 8.1.15 — Page/state screenshot manifest: create `final-mega-spec/qa/screenshot-manifest.md`. Enumerate EVERY unique visual state across EVERY route at desktop (1280px) and mobile (375px). Include: page load, empty state, populated state, loading skeleton, error state, every modal open, every dropdown open, every form validation error, every toast, every confirmation dialog, scroll positions for long pages (above-fold + below-fold). Format as a numbered checklist the forward loop can use as a Playwright screenshot task list. Target: 200+ screenshots minimum.
 - [ ] 8.1.16 — Playwright verification template: create `final-mega-spec/qa/playwright-verification.md`. Spec the Playwright test structure the forward loop must generate — test file organization, viewport configs, screenshot naming convention, visual regression setup, action sequences (click, fill, submit, wait for toast, screenshot). Include example test code for: landing page scroll, auth flow, dashboard with bot online vs offline, integration OAuth mock, billing upgrade flow.
 - [ ] 8.1.17 — Local Supabase CI setup: rewrite `deployment/ci-cd.md` E2E section to use `supabase start` (Docker) instead of a remote Supabase project. Spec: (1) GitHub Actions service or `supabase start` step that boots local Postgres + Auth + Realtime + Storage on `localhost:54321`, (2) a `supabase/seed.sql` file that creates test tenants in every state (onboarding, active-free, active-starter, active-pro, suspended, cancelled) with test Discord connections, API keys, service connections, and subscriptions, (3) teardown via `supabase stop` after tests, (4) update `playwright.config.ts` env vars to point at local Supabase (`NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` from `supabase status`), (5) update E2E auth fixture to use seeded test users instead of manually-created ones, (6) document the complete `seed.sql` with INSERT statements for every table including Vault-encrypted API keys. The forward loop must be able to run `supabase start && pnpm test:e2e` with zero manual setup. Reference: `apps/podplay/supabase/config.toml` and `.github/workflows/podplay-ops.yml` for the proven pattern.
