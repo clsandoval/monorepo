@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 74
-- **Analyzed**: 70
-- **Pending**: 4
-- **Convergence**: 95%
+- **Analyzed**: 71
+- **Pending**: 3
+- **Convergence**: 96%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -105,7 +105,7 @@
 - [x] 8.1.2 — Add cross-reference notes to `database/schema.md` for existing bot tables (`messages`, `tool_calls`) read by dashboard; specify RLS extensions needed for website user reads
 - [x] 8.1.3 — Write `api/routes.md` — consolidate ALL 18+ Next.js API routes (Discord CRUD, Stripe checkout/portal, OAuth start/callback, Toggl validate, admin routes) with full request/response shapes
 - [x] 8.1.4 — Write `api/auth.md` — Supabase Auth session management: middleware spec, getUser vs getSession distinction, createClient patterns (browser/server/service-role/admin), JWT claims, session refresh, server action auth guard
-- [ ] 8.1.5 — Write `multi-tenant/adaptation-plan.md` — top-level overview of all bot changes (synthesize from connection-manager, tenant-scoping, byok-key-routing, tenant-isolation into a single change manifest)
+- [x] 8.1.5 — Write `multi-tenant/adaptation-plan.md` — top-level overview of all bot changes (synthesize from connection-manager, tenant-scoping, byok-key-routing, tenant-isolation into a single change manifest)
 - [ ] 8.1.6 — Write `api/rate-limiting.md` — rate limits per endpoint (Supabase Auth built-in limits + custom limits for validate-token/OAuth/admin routes), error responses, retry-after headers
 - [ ] 8.1.7 — Write `database/triggers.md` — extract all trigger SQL from migrations.md into standalone reference: update_updated_at triggers, sync_tenant_plan trigger, any cascade triggers
 - [ ] 8.1.8 — Write `database/indexes.md` — extract all CREATE INDEX statements from schema.md into standalone query-pattern reference with rationale per index
