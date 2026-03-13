@@ -3252,3 +3252,959 @@ Returns: Array of rate objects per user per project
 ---
 
 *End of Tool Reference: Toggl page specification (34 tools documented).*
+
+---
+
+## Tool Reference: LinkedIn & Google Analytics (`/docs/tool-reference/linkedin`)
+
+**Route:** `/docs/tool-reference/linkedin`
+**File:** `app/(docs)/docs/tool-reference/linkedin/page.tsx`
+**Render mode:** Static (built at deploy time via `generateStaticParams`)
+**Auth required:** No
+**Layout:** Shared docs two-column layout (sidebar + content)
+
+---
+
+### Page Title & Introduction
+
+```
+# LinkedIn & Google Analytics Tools
+
+Daimon includes 17 LinkedIn tools and 4 Google Analytics tools, giving your AI assistant
+full control over your organization's social presence, advertising campaigns, and web analytics.
+
+**LinkedIn** tools require two separate LinkedIn app tokens (configured in your Integrations page):
+- **Ads Token** (App 1 — Advertising API): Used for ad accounts, campaigns, analytics, conversions, events, and leads.
+- **Community Token** (App 2 — Community Management API): Used for posts and organic page statistics.
+
+**Google Analytics** tools require a Google service account JSON and a GA4 property ID (configured in your Integrations page).
+```
+
+---
+
+### In-Page Table of Contents
+
+```
+On this page
+├── LinkedIn Tools (17)
+│   ├── Posts
+│   │   ├── linkedin_list_posts
+│   │   ├── linkedin_create_post
+│   │   ├── linkedin_update_post
+│   │   └── linkedin_delete_post
+│   ├── Ads & Campaigns
+│   │   ├── linkedin_list_ad_accounts
+│   │   ├── linkedin_list_campaigns
+│   │   ├── linkedin_create_campaign
+│   │   └── linkedin_update_campaign
+│   ├── Ad Analytics & Library
+│   │   ├── linkedin_get_ad_analytics
+│   │   └── linkedin_search_ad_library
+│   ├── Conversions
+│   │   └── linkedin_send_conversions
+│   ├── Events
+│   │   ├── linkedin_list_events
+│   │   └── linkedin_create_event
+│   ├── Lead Gen Forms
+│   │   └── linkedin_get_lead_form_responses
+│   └── Org Statistics
+│       ├── linkedin_get_share_stats
+│       ├── linkedin_get_follower_stats
+│       └── linkedin_get_page_stats
+└── Google Analytics Tools (4)
+    ├── ga_run_report
+    ├── ga_get_traffic_overview
+    ├── ga_get_top_pages
+    └── ga_get_campaign_performance
+```
+
+---
+
+### LinkedIn Tools (17)
+
+**Authentication note:** LinkedIn tools use two separate access tokens. The Ads Token is used for all advertising, analytics, conversions, events, and leads operations. The Community Token is used for posts and organic page statistics. Both are configured per-tenant in the Integrations page and stored encrypted in Supabase Vault.
+
+---
+
+#### Posts
+
+---
+
+##### `linkedin_list_posts`
+
+**Description:** List recent posts from the LinkedIn organization page. Returns post text, visibility, and lifecycle state.
+
+**Auth token used:** Community Token (App 2 — Community Management API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `count` | integer | No | `10` | Number of posts to return. Maximum: 100. |
+| `start` | integer | No | `0` | Pagination offset — number of posts to skip before starting to return results. |
+
+**Example invocation:**
+```
+List the 5 most recent posts on our LinkedIn page
+```
+
+**Example output (XML):**
+```xml
+<posts>
+  <post id="urn:li:share:7123456789012345">
+    <commentary>We're excited to announce our latest product update...</commentary>
+    <visibility>PUBLIC</visibility>
+    <lifecycle_state>PUBLISHED</lifecycle_state>
+  </post>
+  <post id="urn:li:share:7123456789012346">
+    <commentary>Join us for our upcoming webinar on AI-powered workflows.</commentary>
+    <visibility>PUBLIC</visibility>
+    <lifecycle_state>PUBLISHED</lifecycle_state>
+  </post>
+</posts>
+```
+
+**Empty state output:**
+```
+<!-- hint: No posts found. Use linkedin_create_post to create one. -->
+```
+
+**Pagination:** When more than 10 posts are returned, a hint indicates the total count and instructs use of the `start` parameter to paginate.
+
+---
+
+##### `linkedin_create_post`
+
+**Description:** Create a text or article post on the LinkedIn organization page. Supports plain text posts and posts with a linked article (URL + title + description).
+
+**Auth token used:** Community Token (App 2 — Community Management API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `commentary` | string | **Yes** | — | Post text content. This is the main post body that appears in the feed. |
+| `visibility` | string | No | `"PUBLIC"` | Post visibility: `PUBLIC` (visible to everyone) or `CONNECTIONS` (visible only to followers/connections). |
+| `article_url` | string | No | `null` | URL for article attachment (optional). When provided, the post renders with an article card. |
+| `article_title` | string | No | `null` | Article title displayed on the card (optional, requires `article_url`). |
+| `article_description` | string | No | `null` | Article description displayed on the card (optional). |
+
+**Example invocation:**
+```
+Post an announcement on LinkedIn: "We just hit 1,000 users! Thank you to our incredible community." Make it public.
+```
+
+**Example output (XML):**
+```xml
+<created_post id="urn:li:share:7123456789012350">urn:li:share:7123456789012350</created_post>
+<!-- hint: Post published successfully. -->
+```
+
+**Example invocation (article post):**
+```
+Post our latest blog article about AI decision-making to LinkedIn. URL: https://pymc.io/blog/ai-decisions, title: "How AI Is Changing Decision-Making", description: "A deep dive into AI-powered workflows."
+```
+
+---
+
+##### `linkedin_update_post`
+
+**Description:** Update the text of an existing LinkedIn post. Only the `commentary` (post text) can be updated via this tool. To change visibility or media, delete and recreate the post.
+
+**Auth token used:** Community Token (App 2 — Community Management API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `post_urn` | string | **Yes** | — | Post URN to update. Format: `urn:li:share:12345678901234`. Obtain from `linkedin_list_posts`. |
+| `commentary` | string | **Yes** | — | New post text content to replace the existing commentary. |
+
+**Example invocation:**
+```
+Update the post urn:li:share:7123456789012345 to say: "We're thrilled to announce our latest product update — now with 50% faster processing!"
+```
+
+**Example output (XML):**
+```xml
+<updated_post>urn:li:share:7123456789012345</updated_post>
+<!-- hint: Post updated successfully. -->
+```
+
+---
+
+##### `linkedin_delete_post`
+
+**Description:** Permanently delete a post from the LinkedIn organization page. This action cannot be undone.
+
+**Auth token used:** Community Token (App 2 — Community Management API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `post_urn` | string | **Yes** | — | Post URN to delete. Format: `urn:li:share:12345678901234`. Obtain from `linkedin_list_posts`. |
+
+**Example invocation:**
+```
+Delete the LinkedIn post urn:li:share:7123456789012346
+```
+
+**Example output (XML):**
+```xml
+<deleted_post>urn:li:share:7123456789012346</deleted_post>
+<!-- hint: Post deleted successfully. -->
+```
+
+**Warning:** Deletion is permanent. The post will no longer appear on the organization page or in follower feeds.
+
+---
+
+#### Ads & Campaigns
+
+---
+
+##### `linkedin_list_ad_accounts`
+
+**Description:** List LinkedIn ad accounts accessible to the organization. Returns account name and status (ACTIVE, CANCELLED, DRAFT, etc).
+
+**Auth token used:** Ads Token (App 1 — Advertising API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `page_size` | integer | No | `25` | Number of ad accounts per page. Maximum: 100. |
+
+**Example invocation:**
+```
+List our LinkedIn ad accounts
+```
+
+**Example output (XML):**
+```xml
+<ad_accounts>
+  <ad_account id="123456789">
+    <name>PyMC Advertising Account</name>
+    <status>ACTIVE</status>
+  </ad_account>
+</ad_accounts>
+```
+
+**Empty state output:**
+```
+<!-- hint: No ad accounts found. -->
+```
+
+---
+
+##### `linkedin_list_campaigns`
+
+**Description:** List campaigns in a LinkedIn ad account. Optionally filter by campaign status (ACTIVE, PAUSED, ARCHIVED, CANCELLED, DRAFT, etc).
+
+**Auth token used:** Ads Token (App 1 — Advertising API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `ad_account_id` | string | **Yes** | — | Ad account ID. Obtain from `linkedin_list_ad_accounts`. |
+| `status_filter` | array of strings | No | `null` | Filter by status. Valid values: `ACTIVE`, `PAUSED`, `ARCHIVED`, `CANCELLED`, `DRAFT`, `PENDING_DELETION`, `REMOVED`. Pass `null` to return all campaigns. |
+
+**Example invocation:**
+```
+List all active campaigns in ad account 123456789
+```
+
+**Example output (XML):**
+```xml
+<campaigns>
+  <campaign id="987654321">
+    <name>Q1 Product Launch - Awareness</name>
+    <status>ACTIVE</status>
+  </campaign>
+  <campaign id="987654322">
+    <name>Retargeting - Website Visitors</name>
+    <status>ACTIVE</status>
+  </campaign>
+</campaigns>
+```
+
+**Empty state output:**
+```
+<!-- hint: No campaigns found for this ad account. -->
+```
+
+**Pagination hint:** When more than 10 campaigns exist, a hint is appended showing total count.
+
+---
+
+##### `linkedin_create_campaign`
+
+**Description:** Create a new campaign in a LinkedIn ad account. The full LinkedIn Ads API campaign configuration is passed as a flexible `campaign_data` object. See LinkedIn Marketing Developer Platform docs for the complete campaign object schema.
+
+**Auth token used:** Ads Token (App 1 — Advertising API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `ad_account_id` | string | **Yes** | — | Ad account ID in which to create the campaign. |
+| `campaign_data` | object | **Yes** | — | Full campaign configuration. Must include `name` (string), `status` (`ACTIVE` or `PAUSED`), `type` (campaign type, e.g. `TEXT_AD`), `objectiveType` (e.g. `BRAND_AWARENESS`), and any other required LinkedIn campaign fields. |
+
+**Example invocation:**
+```
+Create a paused LinkedIn campaign called "Spring Webinar Promo" in account 123456789 with objective BRAND_AWARENESS
+```
+
+**Example output (XML):**
+```xml
+<created_campaign id="987654399">987654399</created_campaign>
+<!-- hint: Campaign created successfully. -->
+```
+
+---
+
+##### `linkedin_update_campaign`
+
+**Description:** Update an existing campaign in a LinkedIn ad account. Use this to pause/resume a campaign, change its budget, or update any other campaign field. Only the fields included in `patch_data` are changed — other fields remain unchanged.
+
+**Auth token used:** Ads Token (App 1 — Advertising API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `ad_account_id` | string | **Yes** | — | Ad account ID that owns the campaign. |
+| `campaign_id` | string | **Yes** | — | Campaign ID to update. Obtain from `linkedin_list_campaigns`. |
+| `patch_data` | object | **Yes** | — | Fields to update. Common fields: `status` (`ACTIVE` or `PAUSED`), `dailyBudget` (object with `amount` and `currencyCode`), `totalBudget`, `name`. |
+
+**Example invocation:**
+```
+Pause campaign 987654321 in ad account 123456789
+```
+
+**Example output (XML):**
+```xml
+<updated_campaign>987654321</updated_campaign>
+<!-- hint: Campaign updated successfully. -->
+```
+
+---
+
+#### Ad Analytics & Library
+
+---
+
+##### `linkedin_get_ad_analytics`
+
+**Description:** Get ad performance analytics with configurable pivot dimensions, date ranges, and metric fields. Returns clicks, impressions, cost, shares, likes, comments, follows, and video views for the specified pivot and time period.
+
+**Auth token used:** Ads Token (App 1 — Advertising API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `ad_account_urns` | array of strings | **Yes** | — | Ad account URNs to query. Format: `urn:li:sponsoredAccount:123456789`. |
+| `pivot` | string | **Yes** | — | Pivot dimension for grouping results. Valid values: `CAMPAIGN`, `CREATIVE`, `ACCOUNT`, `MEMBER_INDUSTRY`, `MEMBER_SENIORITY`, `MEMBER_JOB_TITLE`, `MEMBER_COMPANY_SIZE`, `MEMBER_COUNTRY`, `MEMBER_REGION`. |
+| `start_year` | integer | **Yes** | — | Start date year (e.g. `2026`). |
+| `start_month` | integer | **Yes** | — | Start date month, 1–12. |
+| `start_day` | integer | **Yes** | — | Start date day, 1–31. |
+| `end_year` | integer | **Yes** | — | End date year. |
+| `end_month` | integer | **Yes** | — | End date month, 1–12. |
+| `end_day` | integer | **Yes** | — | End date day, 1–31. |
+| `time_granularity` | string | No | `"DAILY"` | Time granularity: `DAILY`, `MONTHLY`, or `ALL` (aggregate total). |
+| `fields` | array of strings | No | `null` | Specific metric fields to include. When `null`, all available metrics are returned. Valid values: `clicks`, `impressions`, `costInLocalCurrency`, `shares`, `likes`, `comments`, `follows`, `videoViews`. |
+| `campaign_urns` | array of strings | No | `null` | Optional list of campaign URNs to filter by. Format: `urn:li:sponsoredCampaign:987654321`. |
+
+**Example invocation:**
+```
+Show ad performance for account urn:li:sponsoredAccount:123456789 by campaign for March 2026
+```
+
+**Example output (XML):**
+```xml
+<ad_analytics>
+  <analytics_row>
+    <pivot_values>urn:li:sponsoredCampaign:987654321</pivot_values>
+    <clicks>1245</clicks>
+    <impressions>89432</impressions>
+    <costInLocalCurrency>2341.50</costInLocalCurrency>
+    <shares>34</shares>
+    <likes>128</likes>
+    <comments>17</comments>
+    <follows>23</follows>
+    <videoViews>0</videoViews>
+  </analytics_row>
+</ad_analytics>
+```
+
+**Empty state output:**
+```
+<!-- hint: No analytics data found for this query. -->
+```
+
+---
+
+##### `linkedin_search_ad_library`
+
+**Description:** Search the LinkedIn Ad Library for public ad transparency data. Returns advertiser names and ad types. Useful for competitive research — any LinkedIn user can search active ads from any organization.
+
+**Auth token used:** Ads Token (App 1 — Advertising API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `query` | string | No | `null` | Free-text search query (optional). Searches ad text and advertiser name. |
+| `advertiser_name` | string | No | `null` | Filter results to a specific advertiser by name (optional). |
+| `page_size` | integer | No | `25` | Number of results per page. Maximum: 100. |
+
+**Example invocation:**
+```
+Search the LinkedIn Ad Library for ads from "Anthropic"
+```
+
+**Example output (XML):**
+```xml
+<ad_library_results>
+  <ad_library_entry>
+    <advertiser_name>Anthropic</advertiser_name>
+    <ad_type>SPONSORED_CONTENT</ad_type>
+  </ad_library_entry>
+  <ad_library_entry>
+    <advertiser_name>Anthropic</advertiser_name>
+    <ad_type>TEXT_AD</ad_type>
+  </ad_library_entry>
+</ad_library_results>
+```
+
+**Empty state output:**
+```
+<!-- hint: No ad library results found for this query. -->
+```
+
+---
+
+#### Conversions
+
+---
+
+##### `linkedin_send_conversions`
+
+**Description:** Send conversion events to LinkedIn for offline and online attribution tracking. Used to report conversions that happened outside of LinkedIn (e.g. a purchase after clicking an ad) so LinkedIn can attribute them to the correct campaign and creative.
+
+**Auth token used:** Ads Token (App 1 — Advertising API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `conversion_events` | array of objects | **Yes** | — | List of conversion event objects. Each object must include: `conversion` (URN of the conversion rule, format `urn:li:conversion:12345`), `conversionHappenedAt` (Unix timestamp in milliseconds), and at least one user identifier (`userInfo` object with `firstName`, `lastName`, `email`, etc.). See LinkedIn Conversions API docs for full schema. |
+
+**Example invocation:**
+```
+Send a conversion event to LinkedIn: user john.doe@example.com made a purchase at timestamp 1741872000000, conversion rule urn:li:conversion:99887
+```
+
+**Example output (XML):**
+```xml
+<conversions_sent>1</conversions_sent>
+<!-- hint: 1 conversion event(s) submitted. -->
+```
+
+---
+
+#### Events
+
+---
+
+##### `linkedin_list_events`
+
+**Description:** List events for the LinkedIn organization page. Returns event names and IDs.
+
+**Auth token used:** Ads Token (App 1 — Advertising API)
+
+**Parameters:** None.
+
+**Example invocation:**
+```
+List our upcoming LinkedIn events
+```
+
+**Example output (XML):**
+```xml
+<events>
+  <event id="123456">
+    <name>AI Decision-Making Webinar</name>
+  </event>
+  <event id="123457">
+    <name>Product Demo: Spring 2026</name>
+  </event>
+</events>
+```
+
+**Empty state output:**
+```
+<!-- hint: No events found for this organization. -->
+```
+
+---
+
+##### `linkedin_create_event`
+
+**Description:** Create a new event on the LinkedIn organization page. The full event configuration is passed as a flexible `event_data` object. Required fields include event name, organizer URN, and start/end timestamps.
+
+**Auth token used:** Ads Token (App 1 — Advertising API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `event_data` | object | **Yes** | — | Full event configuration object. Required fields: `name` (string), `organizer` (organization URN, e.g. `urn:li:organization:12345`), `startAt` (Unix timestamp ms), `endAt` (Unix timestamp ms). Optional fields: `description` (string), `address` (object), `eventUrl` (string), `timezone` (IANA timezone string). |
+
+**Example invocation:**
+```
+Create a LinkedIn event called "AI Workflow Summit 2026" starting April 15, 2026 at 2pm UTC and ending at 5pm UTC
+```
+
+**Example output (XML):**
+```xml
+<created_event id="urn:li:event:789012">urn:li:event:789012</created_event>
+<!-- hint: Event created successfully. -->
+```
+
+---
+
+#### Lead Gen Forms
+
+---
+
+##### `linkedin_get_lead_form_responses`
+
+**Description:** Get lead form responses from LinkedIn Lead Gen Forms. Returns submitted answers (name, email, job title, company, etc.) and submission timestamps. Used to retrieve leads captured from LinkedIn ad campaigns.
+
+**Auth token used:** Ads Token (App 1 — Advertising API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `sponsored_account_urn` | string | **Yes** | — | Sponsored account URN. Format: `urn:li:sponsoredAccount:123456789`. |
+| `start_ms` | integer | No | `null` | Start timestamp in milliseconds since Unix epoch (optional). When omitted, returns all available responses. |
+| `end_ms` | integer | No | `null` | End timestamp in milliseconds since Unix epoch (optional). |
+| `count` | integer | No | `100` | Number of responses to return. |
+
+**Example invocation:**
+```
+Get all lead form responses from account urn:li:sponsoredAccount:123456789 since March 1, 2026
+```
+
+**Example output (XML):**
+```xml
+<lead_responses>
+  <lead_response id="urn:li:leadFormResponse:aabbcc">
+    <submitted_at>1741824000000</submitted_at>
+    <answer>Jane Smith</answer>
+    <answer>jane.smith@acmecorp.com</answer>
+    <answer>VP of Engineering</answer>
+  </lead_response>
+</lead_responses>
+```
+
+**Empty state output:**
+```
+<!-- hint: No lead form responses found. -->
+```
+
+---
+
+#### Org Statistics
+
+---
+
+##### `linkedin_get_share_stats`
+
+**Description:** Get share and post engagement statistics for the LinkedIn organization (clicks, likes, comments, impressions, shares). Aggregated by time granularity (day, week, or month). Optionally filter to specific post URNs.
+
+**Auth token used:** Community Token (App 2 — Community Management API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `start_ms` | integer | No | `null` | Start timestamp in milliseconds since Unix epoch. When omitted, returns all available data. |
+| `end_ms` | integer | No | `null` | End timestamp in milliseconds since Unix epoch. |
+| `granularity` | string | No | `"DAY"` | Time grouping: `DAY`, `WEEK`, or `MONTH`. |
+| `share_urns` | array of strings | No | `null` | Optional list of post/share URNs to filter by. Format: `urn:li:share:12345`. When `null`, returns stats for all posts. |
+
+**Example invocation:**
+```
+Show our LinkedIn engagement stats for the last 30 days broken down by week
+```
+
+**Example output (XML):**
+```xml
+<share_statistics>
+  <share_stats entity="urn:li:organization:12345">
+    <clicks>892</clicks>
+    <likes>347</likes>
+    <comments>58</comments>
+    <impressions>42180</impressions>
+    <shares>94</shares>
+  </share_stats>
+</share_statistics>
+```
+
+**Empty state output:**
+```
+<!-- hint: No share statistics found for this time range. -->
+```
+
+---
+
+##### `linkedin_get_follower_stats`
+
+**Description:** Get follower demographics and growth statistics for the LinkedIn organization page. Returns organic and paid follower counts broken down by function (job function of followers). Useful for understanding audience composition.
+
+**Auth token used:** Community Token (App 2 — Community Management API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `start_ms` | integer | No | `null` | Start timestamp in milliseconds since Unix epoch. |
+| `end_ms` | integer | No | `null` | End timestamp in milliseconds since Unix epoch. |
+| `granularity` | string | No | `"DAY"` | Time grouping: `DAY`, `WEEK`, or `MONTH`. |
+
+**Example invocation:**
+```
+Show our LinkedIn follower statistics for this month
+```
+
+**Example output (XML):**
+```xml
+<follower_statistics>
+  <follower_stats entity="urn:li:organization:12345">
+    <function_followers function="ENGINEERING">organic=1240 paid=85</function_followers>
+    <function_followers function="INFORMATION_TECHNOLOGY">organic=893 paid=42</function_followers>
+    <function_followers function="MARKETING">organic=671 paid=31</function_followers>
+  </follower_stats>
+</follower_statistics>
+```
+
+**Empty state output:**
+```
+<!-- hint: No follower statistics found for this time range. -->
+```
+
+---
+
+##### `linkedin_get_page_stats`
+
+**Description:** Get page view statistics for the LinkedIn organization page (total page views, breakdowns by section). Useful for measuring organization page traffic and awareness.
+
+**Auth token used:** Community Token (App 2 — Community Management API)
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `start_ms` | integer | No | `null` | Start timestamp in milliseconds since Unix epoch. |
+| `end_ms` | integer | No | `null` | End timestamp in milliseconds since Unix epoch. |
+| `granularity` | string | No | `"DAY"` | Time grouping: `DAY`, `WEEK`, or `MONTH`. |
+
+**Example invocation:**
+```
+How many page views did our LinkedIn company page get this month?
+```
+
+**Example output (XML):**
+```xml
+<page_statistics>
+  <page_stats organization="urn:li:organization:12345">
+    <page_views>3847</page_views>
+  </page_stats>
+</page_statistics>
+```
+
+**Empty state output:**
+```
+<!-- hint: No page statistics found for this time range. -->
+```
+
+---
+
+### LinkedIn Tool Summary Table
+
+| Tool | Group | Action | Description |
+|------|-------|--------|-------------|
+| `linkedin_list_posts` | Posts | READ | List recent org page posts |
+| `linkedin_create_post` | Posts | WRITE | Create text or article post |
+| `linkedin_update_post` | Posts | WRITE | Update post text |
+| `linkedin_delete_post` | Posts | WRITE | Delete a post permanently |
+| `linkedin_list_ad_accounts` | Ads | READ | List accessible ad accounts |
+| `linkedin_list_campaigns` | Ads | READ | List campaigns in an ad account |
+| `linkedin_create_campaign` | Ads | WRITE | Create new ad campaign |
+| `linkedin_update_campaign` | Ads | WRITE | Update campaign (pause, budget, etc.) |
+| `linkedin_get_ad_analytics` | Analytics | READ | Ad performance by pivot + date range |
+| `linkedin_search_ad_library` | Analytics | READ | Search public LinkedIn Ad Library |
+| `linkedin_send_conversions` | Conversions | WRITE | Send offline/online conversion events |
+| `linkedin_list_events` | Events | READ | List org page events |
+| `linkedin_create_event` | Events | WRITE | Create new org page event |
+| `linkedin_get_lead_form_responses` | Leads | READ | Get Lead Gen Form responses |
+| `linkedin_get_share_stats` | Org Stats | READ | Post engagement stats (clicks, likes, etc.) |
+| `linkedin_get_follower_stats` | Org Stats | READ | Follower demographics + growth |
+| `linkedin_get_page_stats` | Org Stats | READ | Page view statistics |
+
+---
+
+### Google Analytics Tools (4)
+
+**Authentication note:** All Google Analytics tools require a Google service account JSON key and a GA4 property ID. These are configured per-tenant in the Integrations page. The service account must have Viewer (or higher) access on the GA4 property. If not configured, all GA tools return: `"Google Analytics is not configured. Set GOOGLE_ANALYTICS_SERVICE_ACCOUNT_JSON and GOOGLE_ANALYTICS_PROPERTY_ID."`
+
+**Data format:** All GA tool outputs are formatted as XML `<ga-report>` with `<row>` elements containing dimension and metric values. A maximum of 50 rows are returned per call. If more rows exist, a hint is appended: `"...and N more rows. Use limit parameter or narrow date range."`
+
+---
+
+##### `ga_run_report`
+
+**Description:** Run a custom Google Analytics 4 report. Specify any combination of GA4 dimensions and metrics with a date range. The most flexible GA tool — use it for any query not covered by the pre-built tools.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `dimensions` | array of strings | **Yes** | — | GA4 dimension names. Examples: `date`, `sessionSourceMedium`, `sessionCampaignName`, `pagePath`, `country`, `deviceCategory`, `sessionDefaultChannelGroup`, `pageTitle`, `eventName`. |
+| `metrics` | array of strings | **Yes** | — | GA4 metric names. Examples: `sessions`, `activeUsers`, `screenPageViews`, `bounceRate`, `engagementRate`, `conversions`, `totalRevenue`, `userEngagementDuration`, `newUsers`. |
+| `start_date` | string | **Yes** | — | Start date in format `YYYY-MM-DD`, `NdaysAgo` (e.g. `30daysAgo`), or `today`. |
+| `end_date` | string | **Yes** | — | End date in format `YYYY-MM-DD` or `today`. |
+| `limit` | integer | No | `50` | Maximum rows to return. Range: 1–1000. Note: output is capped at 50 rows regardless of this value. |
+
+**Example invocation:**
+```
+Show me sessions and new users by country for the last 14 days from Google Analytics
+```
+
+**Example output (XML):**
+```xml
+<ga-report count="42">
+  <row>
+    <country>United States</country>
+    <sessions>12847</sessions>
+    <newUsers>8934</newUsers>
+  </row>
+  <row>
+    <country>United Kingdom</country>
+    <sessions>3421</sessions>
+    <newUsers>2218</newUsers>
+  </row>
+  <row>
+    <country>Canada</country>
+    <sessions>1893</sessions>
+    <newUsers>1204</newUsers>
+  </row>
+</ga-report>
+```
+
+**Empty state output:**
+```xml
+<ga-report>
+  <!-- hint: No data found for the specified date range and filters. -->
+</ga-report>
+```
+
+---
+
+##### `ga_get_traffic_overview`
+
+**Description:** Get a traffic overview showing sessions and users broken down by channel group (Organic Search, Direct, Paid Social, etc.) and source/medium. Pre-built convenience tool — no need to specify dimensions or metrics. Useful for a quick summary of where traffic is coming from.
+
+**Fixed dimensions:** `sessionDefaultChannelGroup`, `sessionSourceMedium`
+**Fixed metrics:** `sessions`, `activeUsers`, `bounceRate`, `engagementRate`
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `start_date` | string | **Yes** | — | Start date: `YYYY-MM-DD`, `NdaysAgo`, or `today`. |
+| `end_date` | string | **Yes** | — | End date: `YYYY-MM-DD` or `today`. |
+| `limit` | integer | No | `25` | Maximum rows to return. Range: 1–500. |
+
+**Example invocation:**
+```
+Give me a traffic overview for the last 30 days
+```
+
+**Example output (XML):**
+```xml
+<ga-report count="8">
+  <row>
+    <sessionDefaultChannelGroup>Organic Search</sessionDefaultChannelGroup>
+    <sessionSourceMedium>google / organic</sessionSourceMedium>
+    <sessions>18432</sessions>
+    <activeUsers>14219</activeUsers>
+    <bounceRate>0.3421</bounceRate>
+    <engagementRate>0.6579</engagementRate>
+  </row>
+  <row>
+    <sessionDefaultChannelGroup>Direct</sessionDefaultChannelGroup>
+    <sessionSourceMedium>(direct) / (none)</sessionSourceMedium>
+    <sessions>7823</sessions>
+    <activeUsers>6104</activeUsers>
+    <bounceRate>0.2918</bounceRate>
+    <engagementRate>0.7082</engagementRate>
+  </row>
+</ga-report>
+```
+
+---
+
+##### `ga_get_top_pages`
+
+**Description:** Get the top pages on the site by pageviews for a date range. Returns page path, title, total views, active users, and average engagement duration per session. Useful for identifying highest-traffic content.
+
+**Fixed dimensions:** `pagePath`, `pageTitle`
+**Fixed metrics:** `screenPageViews`, `activeUsers`, `userEngagementDuration`
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `start_date` | string | **Yes** | — | Start date: `YYYY-MM-DD`, `NdaysAgo`, or `today`. |
+| `end_date` | string | **Yes** | — | End date: `YYYY-MM-DD` or `today`. |
+| `limit` | integer | No | `25` | Maximum rows to return. Range: 1–500. |
+
+**Example invocation:**
+```
+What are our top 10 pages by views this month?
+```
+
+**Example output (XML):**
+```xml
+<ga-report count="10">
+  <row>
+    <pagePath>/</pagePath>
+    <pageTitle>Daimon — AI Operating System for Discord</pageTitle>
+    <screenPageViews>34821</screenPageViews>
+    <activeUsers>28934</activeUsers>
+    <userEngagementDuration>124.3</userEngagementDuration>
+  </row>
+  <row>
+    <pagePath>/docs/quick-start</pagePath>
+    <pageTitle>Quick Start — Daimon Docs</pageTitle>
+    <screenPageViews>12483</screenPageViews>
+    <activeUsers>10291</activeUsers>
+    <userEngagementDuration>312.7</userEngagementDuration>
+  </row>
+</ga-report>
+```
+
+---
+
+##### `ga_get_campaign_performance`
+
+**Description:** Get Google Analytics campaign performance: sessions, users, conversions, and revenue broken down by campaign name and source/medium. Useful for evaluating the ROI of marketing campaigns tracked via UTM parameters.
+
+**Fixed dimensions:** `sessionCampaignName`, `sessionSourceMedium`
+**Fixed metrics:** `sessions`, `activeUsers`, `conversions`, `totalRevenue`
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `start_date` | string | **Yes** | — | Start date: `YYYY-MM-DD`, `NdaysAgo`, or `today`. |
+| `end_date` | string | **Yes** | — | End date: `YYYY-MM-DD` or `today`. |
+| `limit` | integer | No | `25` | Maximum rows to return. Range: 1–500. |
+
+**Example invocation:**
+```
+How did our LinkedIn ad campaigns perform in GA last month? Show conversions and revenue.
+```
+
+**Example output (XML):**
+```xml
+<ga-report count="5">
+  <row>
+    <sessionCampaignName>Q1 Product Launch</sessionCampaignName>
+    <sessionSourceMedium>linkedin / cpc</sessionSourceMedium>
+    <sessions>4231</sessions>
+    <activeUsers>3892</activeUsers>
+    <conversions>187</conversions>
+    <totalRevenue>18700.00</totalRevenue>
+  </row>
+  <row>
+    <sessionCampaignName>Spring Webinar</sessionCampaignName>
+    <sessionSourceMedium>email / newsletter</sessionSourceMedium>
+    <sessions>2104</sessions>
+    <activeUsers>1983</activeUsers>
+    <conversions>94</conversions>
+    <totalRevenue>0.00</totalRevenue>
+  </row>
+</ga-report>
+```
+
+**Empty state output:**
+```xml
+<ga-report>
+  <!-- hint: No data found for the specified date range and filters. -->
+</ga-report>
+```
+
+---
+
+### Google Analytics Tool Summary Table
+
+| Tool | Action | Fixed Dimensions | Fixed Metrics | Description |
+|------|--------|-----------------|---------------|-------------|
+| `ga_run_report` | READ | Custom | Custom | Flexible custom GA4 report with any dimensions + metrics |
+| `ga_get_traffic_overview` | READ | channelGroup, sourceMedium | sessions, users, bounceRate, engagementRate | Traffic by channel and source/medium |
+| `ga_get_top_pages` | READ | pagePath, pageTitle | pageviews, users, engagementDuration | Top pages by pageviews |
+| `ga_get_campaign_performance` | READ | campaignName, sourceMedium | sessions, users, conversions, revenue | Campaign ROI tracking |
+
+---
+
+### Page Footer Navigation
+
+```html
+<nav class="docs-page-nav" aria-label="Docs page navigation">
+  <a href="/docs/tool-reference/toggl" aria-label="Previous page: Toggl Tools">
+    ← Toggl Tools
+  </a>
+  <a href="/docs/tool-reference/fly" aria-label="Next page: Fly, ACP, Decision Hub, Onyx & Bluedot">
+    Fly, ACP, Decision Hub, Onyx & Bluedot →
+  </a>
+</nav>
+```
+
+---
+
+### Loading / Empty / Error States (Tool Reference: LinkedIn & Google Analytics)
+
+**Loading state:** Not applicable — fully static page, rendered at build time.
+
+**Empty state:** Not applicable — content is always present.
+
+**Error state:** If the page fails to load, `app/error.tsx` renders: "We're having trouble loading this page. Please try again in a moment." with a "Reload" button.
+
+**Auth button (topbar):** Rendered client-side; slot is empty until auth state resolves to prevent layout shift.
+
+---
+
+### Accessibility (Tool Reference: LinkedIn & Google Analytics)
+
+| Element | ARIA / Accessibility Requirement |
+|---------|----------------------------------|
+| `<article class="docs-content">` | `role="main"` |
+| In-page TOC nav | `aria-label="On this page"` |
+| Active in-page TOC link | `aria-current="location"` |
+| Tool entry `<section>` headings (`h3`) | Unique `id` matching the tool function name (e.g., `id="linkedin_list_posts"`, `id="ga_run_report"`) — anchor link targets |
+| Parameter tables | `<table role="table">` with `<caption class="sr-only">Parameters for {tool_name}</caption>` |
+| Code blocks `<pre>` | `tabindex="0"` to allow keyboard scrolling |
+| Warning note (linkedin_delete_post) | `role="note"` `aria-label="Destructive action warning"` |
+| Footer nav previous/next links | `aria-label="Previous page: Toggl Tools"` and `aria-label="Next page: Fly, ACP, Decision Hub, Onyx & Bluedot"` |
+
+---
+
+*End of Tool Reference: LinkedIn & Google Analytics page specification (17 LinkedIn tools + 4 Google Analytics tools documented).*
