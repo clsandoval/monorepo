@@ -11,7 +11,7 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 | [source/existing-schema.md](source/existing-schema.md) | Complete current Supabase schema: 10 tables, 1 view, 1 storage bucket, 2 roles, all column types and constraints | ✅ Done |
 | [source/existing-auth.md](source/existing-auth.md) | Complete auth model: Supabase Auth email/password, UserContext construction, CredentialPlatform enum, Vault decrypt pattern, admin impersonation, website middleware, tenant resolution, all auth error scenarios | ✅ Done |
 | [source/existing-tools.md](source/existing-tools.md) | Full MCP tool catalog: 89 direct tools + 6 remote Linear tools = 95 total. Every tool, input model, field type, description, tag, credential requirement, and multi-tenant implication | ✅ Done |
-| source/existing-bot-architecture.md | Bot startup, connection flow, message handling pipeline | Pending |
+| [source/existing-bot-architecture.md](source/existing-bot-architecture.md) | Bootstrap config: all 19 env vars, ToolContext/UserContext/DatabaseContext dataclasses, 4 client factories (Supabase/Discord/Anthropic/SQLAlchemy), 10-step startup sequence, 11-step message handler pipeline, per-tenant vs system-level field classification, Langfuse observability | ✅ Done |
 | source/existing-orm-models.md | SQLAlchemy models, repository patterns | Pending |
 | source/brand-guidelines.md | Complete PyMC design system | Pending |
 | source/design-spec.md | Seeded from existing design doc | Pending |
