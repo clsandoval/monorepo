@@ -203,9 +203,7 @@ We use trusted third-party companies that process data on our behalf to operate 
 | **Anthropic, PBC** | AI inference (Claude API) | Discord message content passed in-transit using your Anthropic API Key; no persistent storage by us | United States |
 | **Sentry, Inc.** (optional) | Error tracking and crash reporting | Error messages, stack traces, anonymized user ID, IP address | United States |
 | **Langfuse GmbH** (optional) | LLM observability and tracing | Prompts and responses (anonymized/truncated); configured to minimize PII | Germany (EU) |
-| **Postmark / Resend** (TBD — select one at implementation) | Transactional email delivery | Email address, email content | United States |
-
-**Note for forward loop**: Choose one transactional email provider at implementation time (Postmark or Resend) and update this table with the selected provider's name. The sub-processor list must be kept current; any new sub-processors must be added with 30 days' notice to users with GDPR rights.
+| **Resend, Inc.** | Transactional email delivery (email confirmation, password reset) | Email address, email content | United States |
 
 ### 3.2 OAuth Integration Providers
 

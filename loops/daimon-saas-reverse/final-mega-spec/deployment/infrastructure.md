@@ -455,7 +455,7 @@ Reasons:
    - Minimum password length: 8 characters
    - Enable email confirmations: Yes (users must confirm email before login)
    - OTP expiry: 3600 seconds (1 hour) — for password reset links
-   - Mailer: Supabase built-in SMTP for launch; upgrade to custom SMTP (e.g., Postmark, SendGrid) for better deliverability
+   - Mailer: Supabase built-in SMTP for launch; upgrade to Resend SMTP for production deliverability (see step 9)
 
 6. Configure Auth Email Templates in Supabase Dashboard → Authentication → Email Templates:
 
@@ -478,9 +478,15 @@ Reasons:
 8. Set up pg_cron job for Google token refresh (part of migration 20260400000005):
    - Migration SQL includes the `cron.schedule()` call — no manual step needed
 
-9. Configure SMTP for production email delivery (post-launch):
+9. Configure Resend SMTP for production email delivery (post-launch):
    - Supabase Dashboard → Authentication → Settings → SMTP Settings
-   - Use Postmark, SendGrid, or Resend for reliable deliverability
+   - SMTP Host: `smtp.resend.com`
+   - SMTP Port: `587`
+   - SMTP User: `resend`
+   - SMTP Password: Resend API key (create at resend.com → API Keys → "Supabase SMTP")
+   - Sender email: `noreply@daimon.ai` (must be a verified domain in Resend)
+   - Sender name: `Daimon`
+   - Verify daimon.ai domain in Resend: add DNS TXT record for SPF, DKIM CNAME records
 
 ### 3.3 Supabase Local Development
 
