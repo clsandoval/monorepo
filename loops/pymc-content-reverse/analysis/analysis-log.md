@@ -2,6 +2,31 @@
 
 ---
 
+## 2026-03-13 — discord-sales
+
+**Aspect**: discord-sales
+**Sources**:
+- `inbound-leads` channel (ID: 748522210091859978) — 3,815 msgs, 2020-08-27 → 2026-03-12
+- `💁│sales` channel (ID: 1062705105872355370) — 1,043 msgs, 2023-01-11 → 2026-03-09
+**Output**: analysis/discord-sales-extraction.md
+
+**Key findings:**
+
+- **Revenue**: $8M in 2025 vs $5.5M in 2024; 20% baseline / 40% aspirational growth targets; Bain at $550–600k/month
+- **Pricing documented**: EAP $5k–$14k/month (dynamic by client size); project staffing $37k–$90k/month; corporate workshops $10k/8hrs; MMM Agent pilots $10k–$50k/month; scoping projects €40k–€70k
+- **ICP confirmed**: Companies with in-house DS capability hitting scale limits; CMO/VP Data buyers; marketing budgets $10M+; pharma, CPG, media, retail, finance, sports
+- **Competition is Excel/intuition** (not ML) — Thomas's foundational insight from 2023 still in use
+- **Tested pitches**: Halah's Sept 2025 short + long versions; Evan's technical-but-not-Bayesian version; 2026 "Agentic Data Science you can trust"
+- **Service framework**: "We Advise / We Build / We Teach / We Work by Your Side" (Halah Feb 2026, approved by James Dodge)
+- **Objection handling documented**: Meridian = red herring; Accenture = "back in 2 years to fix the mess"; SLA scope = $385/hr hands-on + named seats
+- **Partners active**: Bain (primary revenue), Databricks (Built-on-DB pipeline), Fivetran (shared GTM list), Serviceplan, BCG (co-delivery), Snowflake (application submitted SPN-PID-752205)
+- **70+ named companies** in pipeline history with dates and status
+- **Top 5 inbound questions** (Halah, 2026-01-16) documented — key FAQ input
+- **Lead sources ranked**: OSS/GitHub > HelloFresh blog > conferences > pymc-marketing widget > LinkedIn > LBS podcast > referrals > Meridian/Robyn frustration
+- **GitHub stargazer mining**: `pymc-labs/github-leads` repo targeting pymc-marketing, PyMC, Robyn, lightweight_mmm stargazers
+
+---
+
 ## 2026-03-13 — discord-website
 
 **Aspect**: discord-website
