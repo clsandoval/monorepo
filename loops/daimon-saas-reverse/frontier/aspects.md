@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 49
-- **Analyzed**: 25
-- **Pending**: 24
-- **Convergence**: 51%
+- **Analyzed**: 26
+- **Pending**: 23
+- **Convergence**: 53%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -43,7 +43,7 @@
 - [x] 4.2 — Auth pages (login, signup, reset-password) — every field, validation, error message, redirect logic
 - [x] 4.3 — Dashboard home — status cards, metrics, onboarding checklist, data queries
 - [x] 4.4 — Integrations page — service grid, OAuth flow per service, API key modal, disconnect flow
-- [ ] 4.5 — Billing page — plan display, Stripe Checkout integration, API key management, validation
+- [x] 4.5 — Billing page — plan display, Stripe Checkout integration, API key management, validation
 - [ ] 4.6 — Settings page — tenant config, Discord connection mgmt, danger zone actions
 - [ ] 4.7 — Admin panel — tenant list, tenant detail, impersonation, audit log
 - [ ] 4.8 — Docs pages — every section with complete content (Quick Start, Tool Reference, FAQ, Billing)
