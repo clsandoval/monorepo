@@ -2,6 +2,36 @@
 
 ---
 
+## 2026-03-13 — github-org-scan
+
+**Aspect**: github-org-scan
+**Sources**: github.com/pymc-labs (WebFetch), github.com/pymc-devs (WebFetch), WebSearch
+**Output**: analysis/public/github-org.md
+
+### What was found
+
+**pymc-labs org — 15 total repos:**
+
+Key active repos:
+- **pymc-marketing** (1,088★, Apache 2.0) — Bayesian marketing toolbox: MMM (adstock, saturation, lift test integration, budget optimization), CLV (BG/NBD, Pareto/NBD, Gamma-Gamma), Customer Choice Analysis. 1,264 commits. 393 open issues.
+- **CausalPy** (1,123★, Apache 2.0) — Causal inference in quasi-experimental settings. 10 methods: Synthetic Control, DiD, RDD, ITS, IPSW, Instrumental Variable, etc. v0.8.0 released March 3, 2026. 1,676 commits.
+- **decision-hub** (37★, MIT) — Open-source AI agent skills registry. "Think npm, but for agent capabilities." 40+ agent integrations. Sandboxed evals. Trust grade scoring. Self-hostable at hub.decision.ai. **This is the Decision AI product.**
+- **semantic-similarity-rating** (130★, Apache 2.0) — SSR algorithm implementation. Paper: Maier, Aslak, Fiaschi, Pappas, Wiecki (2025). Core technology behind Synthetic Consumers.
+- **ai_decision_workshop** (52★) — 4 Jupyter notebooks on Bayesian decision-making under uncertainty. Runs in Google Colab.
+- **PriceIsRightLLM** — LLM price estimation benchmark. 820 products, 19 featured models, Elo ratings. No Simba repo found.
+
+**pymc-devs org — core OSS:**
+- **PyMC** (9,500★, 2,200 forks) — Core probabilistic programming library. v6 active. NUTS, ADVI, PyTensor backend. NumFOCUS project, sponsored by PyMC Labs. 10,420+ commits.
+- **PyTensor** (596★) — Math expression optimization backend for PyMC.
+
+### Key content implications
+- Resources > Open Source Libraries: PyMC (9.5K★), pymc-marketing (1.1K★), CausalPy (1.1K★) as three flagship OSS
+- Solutions > Decision AI: decision-hub is the open-source product; hub.decision.ai
+- About page: "Inventors of PyMC" claim validated — PyMC Labs = PyMC creator organization
+- No dedicated Simba repo — Simba is proprietary/internal product
+
+---
+
 ## 2026-03-13 — halah-draft-scrape
 Playwright-scraped https://loyal-growth-093412.framer.app/ (JS-rendered Framer site — WebFetch returned only CSS). Captured 8 pages: home, /services, /work, /about, /work/hellofresh, /work/colgate-palmolive, /work/salk, /work/indigo.
 
