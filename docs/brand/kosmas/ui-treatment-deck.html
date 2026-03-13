@@ -515,6 +515,468 @@
       filter: hue-rotate(90deg);
       max-height: 50px;
     }
+
+    /* ===== SECTION 03: COLOR PALETTE ===== */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .color-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .color-card {
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .color-swatch {
+      height: 120px;
+      display: flex;
+      align-items: flex-end;
+      padding: 12px 16px;
+    }
+
+    .color-swatch span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: rgba(255,255,255,0.85);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    .color-info {
+      padding: 16px;
+    }
+
+    .color-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .color-hex {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .color-usage {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .palette-subsection {
+      margin-bottom: 40px;
+    }
+
+    .palette-subsection-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .palette-dark-wrap {
+      background: #111111;
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 4px;
+    }
+
+    .usage-ratio {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--gold);
+      margin-bottom: 40px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .sport-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .sport-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .sport-card {
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .sport-swatch {
+      height: 64px;
+    }
+
+    .sport-info {
+      padding: 12px 16px;
+    }
+
+    .sport-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .sport-token {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ===== SECTION 04: TYPOGRAPHY ===== */
+    .type-row {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    @media (min-width: 768px) {
+      .type-row {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        align-items: baseline;
+        gap: 24px;
+      }
+    }
+
+    .type-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .type-meta {
+        margin-bottom: 0;
+      }
+    }
+
+    .type-level {
+      display: block;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .type-sample-display {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .type-sample-h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .type-sample-h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .type-sample-h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      line-height: 1.3;
+      color: var(--text);
+    }
+
+    .type-sample-h4 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      line-height: 1.3;
+      color: var(--text);
+    }
+
+    .type-sample-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .type-sample-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      line-height: 1.0;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+
+    .type-sample-caption {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    .type-sample-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    .weight-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 768px) {
+      .weight-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .weight-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .weight-sample {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: var(--text);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .weight-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .type-pairing {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--plum);
+      border-radius: 4px;
+      padding: 24px;
+      margin-top: 8px;
+    }
+
+    .type-pairing p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===== SECTION 05: SPACING & GRID ===== */
+    .spacing-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .spacing-label {
+      width: 100px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .spacing-bar {
+      height: 24px;
+      background: var(--plum);
+      border-radius: 4px;
+      min-width: 8px;
+    }
+
+    .spacing-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--gold);
+    }
+
+    /* ===== SECTION 06: BUTTONS ===== */
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .btn-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .btn-group-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .btn-state-wrap {
+      margin-bottom: 16px;
+    }
+
+    .btn-state-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      display: block;
+    }
+
+    .btn {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover,
+    .btn-primary.hover {
+      opacity: 0.85;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover,
+    .btn-secondary.hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-secondary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-accent {
+      background: var(--plum);
+      color: #FFFFFF;
+    }
+
+    .btn-accent:hover,
+    .btn-accent.hover {
+      opacity: 0.85;
+    }
+
+    .btn-accent:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: none;
+      color: var(--text);
+    }
+
+    .btn-ghost:hover,
+    .btn-ghost.hover {
+      text-decoration: underline;
+      text-decoration-color: var(--gold);
+    }
+
+    .btn-ghost:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
@@ -716,12 +1178,285 @@
       </div>
     </section>
 
-    <!-- Placeholder sections for s03–s13 -->
+    <!-- Section 03: Color Palette -->
     <section class="section" id="s03">
       <div class="container">
         <div class="section-number">03</div>
         <h1 class="section-title">COLOR PALETTE</h1>
-        <p class="section-desc">Coming soon — color swatches, usage ratios, and sport color mapping.</p>
+        <p class="section-desc">Dual-mode color system built on restraint — plum authority, gold warmth, peri clarity.</p>
+
+        <div class="usage-ratio">70% background/surface &middot; 20% text &middot; 10% accents</div>
+
+        <!-- Light Mode Palette -->
+        <div class="palette-subsection">
+          <div class="palette-subsection-title">Light Mode</div>
+          <div class="color-grid">
+            <div class="color-card">
+              <div class="color-swatch" style="background:#F8F6F1;">
+                <span style="color:#666;">#F8F6F1</span>
+              </div>
+              <div class="color-info">
+                <span class="color-name">Background</span>
+                <span class="color-hex">--bg</span>
+                <span class="color-usage">Page background — warm off-white</span>
+              </div>
+            </div>
+            <div class="color-card">
+              <div class="color-swatch" style="background:#FFFFFF; border-bottom:1px solid #E8E4DC;">
+                <span style="color:#999;">#FFFFFF</span>
+              </div>
+              <div class="color-info">
+                <span class="color-name">Surface</span>
+                <span class="color-hex">--surface</span>
+                <span class="color-usage">Cards, modals, elevated containers</span>
+              </div>
+            </div>
+            <div class="color-card">
+              <div class="color-swatch" style="background:#E8E4DC;">
+                <span style="color:#999;">#E8E4DC</span>
+              </div>
+              <div class="color-info">
+                <span class="color-name">Border</span>
+                <span class="color-hex">--border</span>
+                <span class="color-usage">Dividers, card outlines, inputs</span>
+              </div>
+            </div>
+            <div class="color-card">
+              <div class="color-swatch" style="background:#1A1A1A;">
+                <span>#1A1A1A</span>
+              </div>
+              <div class="color-info">
+                <span class="color-name">Text</span>
+                <span class="color-hex">--text</span>
+                <span class="color-usage">Primary body &amp; heading text</span>
+              </div>
+            </div>
+            <div class="color-card">
+              <div class="color-swatch" style="background:#666666;">
+                <span>#666666</span>
+              </div>
+              <div class="color-info">
+                <span class="color-name">Text Secondary</span>
+                <span class="color-hex">--text-secondary</span>
+                <span class="color-usage">Supporting body copy</span>
+              </div>
+            </div>
+            <div class="color-card">
+              <div class="color-swatch" style="background:#777777;">
+                <span>#777777</span>
+              </div>
+              <div class="color-info">
+                <span class="color-name">Text Muted</span>
+                <span class="color-hex">--text-muted</span>
+                <span class="color-usage">Labels, captions, metadata</span>
+              </div>
+            </div>
+            <div class="color-card">
+              <div class="color-swatch" style="background:#4A1942;">
+                <span>#4A1942</span>
+              </div>
+              <div class="color-info">
+                <span class="color-name">Plum</span>
+                <span class="color-hex">--plum</span>
+                <span class="color-usage">Brand authority, primary actions</span>
+              </div>
+            </div>
+            <div class="color-card">
+              <div class="color-swatch" style="background:#C8A96E;">
+                <span>#C8A96E</span>
+              </div>
+              <div class="color-info">
+                <span class="color-name">Gold</span>
+                <span class="color-hex">--gold</span>
+                <span class="color-usage">Accents, highlights, active states</span>
+              </div>
+            </div>
+            <div class="color-card">
+              <div class="color-swatch" style="background:#8A9ABB;">
+                <span>#8A9ABB</span>
+              </div>
+              <div class="color-info">
+                <span class="color-name">Periwinkle</span>
+                <span class="color-hex">--peri</span>
+                <span class="color-usage">Informational, sport accent</span>
+              </div>
+            </div>
+            <div class="color-card">
+              <div class="color-swatch" style="background:#B33A3A;">
+                <span>#B33A3A</span>
+              </div>
+              <div class="color-info">
+                <span class="color-name">Error</span>
+                <span class="color-hex">--error</span>
+                <span class="color-usage">Errors, destructive actions</span>
+              </div>
+            </div>
+            <div class="color-card">
+              <div class="color-swatch" style="background:#888888;">
+                <span>#888888</span>
+              </div>
+              <div class="color-info">
+                <span class="color-name">Golf</span>
+                <span class="color-hex">--golf</span>
+                <span class="color-usage">Golf sport accent — neutral</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dark Mode Palette -->
+        <div class="palette-subsection">
+          <div class="palette-subsection-title">Dark Mode</div>
+          <div class="palette-dark-wrap">
+            <div class="color-grid">
+              <div class="color-card" style="background:#2A2A2A; border-color:#444;">
+                <div class="color-swatch" style="background:#111111;">
+                  <span>#111111</span>
+                </div>
+                <div class="color-info">
+                  <span class="color-name" style="color:#FAFAFA;">Background</span>
+                  <span class="color-hex" style="color:#888;">--bg</span>
+                  <span class="color-usage" style="color:#999;">Page background — near black</span>
+                </div>
+              </div>
+              <div class="color-card" style="background:#2A2A2A; border-color:#444;">
+                <div class="color-swatch" style="background:#1E1E1E;">
+                  <span>#1E1E1E</span>
+                </div>
+                <div class="color-info">
+                  <span class="color-name" style="color:#FAFAFA;">Surface</span>
+                  <span class="color-hex" style="color:#888;">--surface</span>
+                  <span class="color-usage" style="color:#999;">Cards and elevated containers</span>
+                </div>
+              </div>
+              <div class="color-card" style="background:#2A2A2A; border-color:#444;">
+                <div class="color-swatch" style="background:#333333;">
+                  <span>#333333</span>
+                </div>
+                <div class="color-info">
+                  <span class="color-name" style="color:#FAFAFA;">Border</span>
+                  <span class="color-hex" style="color:#888;">--border</span>
+                  <span class="color-usage" style="color:#999;">Dividers and outlines</span>
+                </div>
+              </div>
+              <div class="color-card" style="background:#2A2A2A; border-color:#444;">
+                <div class="color-swatch" style="background:#FAFAFA;">
+                  <span style="color:#333;">#FAFAFA</span>
+                </div>
+                <div class="color-info">
+                  <span class="color-name" style="color:#FAFAFA;">Text</span>
+                  <span class="color-hex" style="color:#888;">--text</span>
+                  <span class="color-usage" style="color:#999;">Primary body &amp; heading text</span>
+                </div>
+              </div>
+              <div class="color-card" style="background:#2A2A2A; border-color:#444;">
+                <div class="color-swatch" style="background:#999999;">
+                  <span>#999999</span>
+                </div>
+                <div class="color-info">
+                  <span class="color-name" style="color:#FAFAFA;">Text Secondary</span>
+                  <span class="color-hex" style="color:#888;">--text-secondary</span>
+                  <span class="color-usage" style="color:#999;">Supporting copy</span>
+                </div>
+              </div>
+              <div class="color-card" style="background:#2A2A2A; border-color:#444;">
+                <div class="color-swatch" style="background:#666666;">
+                  <span>#666666</span>
+                </div>
+                <div class="color-info">
+                  <span class="color-name" style="color:#FAFAFA;">Text Muted</span>
+                  <span class="color-hex" style="color:#888;">--text-muted</span>
+                  <span class="color-usage" style="color:#999;">Labels, metadata</span>
+                </div>
+              </div>
+              <div class="color-card" style="background:#2A2A2A; border-color:#444;">
+                <div class="color-swatch" style="background:#6B2D63;">
+                  <span>#6B2D63</span>
+                </div>
+                <div class="color-info">
+                  <span class="color-name" style="color:#FAFAFA;">Plum</span>
+                  <span class="color-hex" style="color:#888;">--plum</span>
+                  <span class="color-usage" style="color:#999;">Brand authority, primary actions</span>
+                </div>
+              </div>
+              <div class="color-card" style="background:#2A2A2A; border-color:#444;">
+                <div class="color-swatch" style="background:#F0DFA0;">
+                  <span style="color:#666;">#F0DFA0</span>
+                </div>
+                <div class="color-info">
+                  <span class="color-name" style="color:#FAFAFA;">Gold</span>
+                  <span class="color-hex" style="color:#888;">--gold</span>
+                  <span class="color-usage" style="color:#999;">Accents, highlights, active states</span>
+                </div>
+              </div>
+              <div class="color-card" style="background:#2A2A2A; border-color:#444;">
+                <div class="color-swatch" style="background:#B8C8E8;">
+                  <span style="color:#666;">#B8C8E8</span>
+                </div>
+                <div class="color-info">
+                  <span class="color-name" style="color:#FAFAFA;">Periwinkle</span>
+                  <span class="color-hex" style="color:#888;">--peri</span>
+                  <span class="color-usage" style="color:#999;">Informational, sport accent</span>
+                </div>
+              </div>
+              <div class="color-card" style="background:#2A2A2A; border-color:#444;">
+                <div class="color-swatch" style="background:#D45555;">
+                  <span>#D45555</span>
+                </div>
+                <div class="color-info">
+                  <span class="color-name" style="color:#FAFAFA;">Error</span>
+                  <span class="color-hex" style="color:#888;">--error</span>
+                  <span class="color-usage" style="color:#999;">Errors, destructive actions</span>
+                </div>
+              </div>
+              <div class="color-card" style="background:#2A2A2A; border-color:#444;">
+                <div class="color-swatch" style="background:#BBBBBB;">
+                  <span style="color:#666;">#BBBBBB</span>
+                </div>
+                <div class="color-info">
+                  <span class="color-name" style="color:#FAFAFA;">Golf</span>
+                  <span class="color-hex" style="color:#888;">--golf</span>
+                  <span class="color-usage" style="color:#999;">Golf sport accent — neutral</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sport Color Assignments -->
+        <div class="palette-subsection">
+          <div class="palette-subsection-title">Sport Color Assignments</div>
+          <div class="sport-grid">
+            <div class="sport-card">
+              <div class="sport-swatch" style="background:#C8A96E;"></div>
+              <div class="sport-info">
+                <span class="sport-name">Pickleball</span>
+                <span class="sport-token">--gold</span>
+              </div>
+            </div>
+            <div class="sport-card">
+              <div class="sport-swatch" style="background:#8A9ABB;"></div>
+              <div class="sport-info">
+                <span class="sport-name">Volleyball</span>
+                <span class="sport-token">--peri</span>
+              </div>
+            </div>
+            <div class="sport-card">
+              <div class="sport-swatch" style="background:#4A1942;"></div>
+              <div class="sport-info">
+                <span class="sport-name">Football</span>
+                <span class="sport-token">--plum</span>
+              </div>
+            </div>
+            <div class="sport-card">
+              <div class="sport-swatch" style="background:#888888;"></div>
+              <div class="sport-info">
+                <span class="sport-name">Golf</span>
+                <span class="sport-token">--golf</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
