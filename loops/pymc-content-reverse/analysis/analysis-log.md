@@ -2,6 +2,27 @@
 
 ---
 
+## 2026-03-13 — website-crawl-remaining
+Verified full sitemap (92 URLs via sitemap-0.xml). Identified 11 critical pages not yet scraped. Fetched all 11:
+
+1. **Expert Access Program** (Aug 2025) — Two-tier ongoing engagement program: Base (Expert Lifeline: 1-day response, implementation guides) + Pro (Deep Partnership: bi-weekly coaching calls, bi-monthly Expert Exchange Sessions, early tool access, custom workshops, strategic consultation). New clients: Fox Entertainment (Eugene Kwok), Fabletics (Kate Hirth). CTA: calendly.com/niall-oulton.
+2. **Labs Principles** (Jan 2022, Thomas Wiecki) — 5 open-source principles: Freedom, Transparency, Autonomy, Flexibility, Leadership. 50% profit share to employees. "Teal" organization per Laloux framework. Key quote: "work can not feel like work but has to feel like play."
+3. **Origin Story** (Feb 2021, Thomas Wiecki) — Founded after leaving Quantopian 2020. Mission: "Saving the world with Bayesian modeling." Early clients: SpaceX, Roche, Netflix, Deliveroo, HelloFresh. Team: 3 neuroscience PhDs + mathematicians + social scientists + SpaceX rocket scientist + LBS podcast host.
+4. **The AI MMM Agent** (Feb 2025, Luca Fiaschi) — Decision AI product. ~80% reduction in manual work. Hours not months. Data exploration + auto model config + Bayesian inference + insight delivery. Causal intelligence + experiment calibration. Contact PyMC for access.
+5. **AI MMM Agent BETA** (Nov 2025) — BETA access program. Email [email protected]. 4 features. Upcoming: summary deck, budget optimization, causal DAG support.
+6. **Synthetic Consumers overview** (Jun 2025, Rismal/Fiaschi) — Definition, use cases, validation approach. No "Simba" product name mentioned.
+7. **Synthetic Consumers practical guide** (Feb 2026, Rismal/Swadi/Fiaschi) — 90% alignment with human data, 85% distributional similarity, <24h research cycles, 50%+ of market research by 2027. 5-step methodology. SSR + RAG + ResponseRater tools.
+8. **Innovation Lab CPG** (Jun 2025, Nina Rismal) — Integrated platform: agentic workflows + synthetic consumers for CPG product development. 5 services: Intelligent Briefs, AI Expert Evaluation, Design Refinement, Synthetic Consumer Testing, Market Simulation. 90% alignment with real consumer responses.
+9. **Colgate-Palmolive Part 2** (Oct 2025, Vincent/Vieira) — Nested Logit Discrete Choice Model. Incremental vs. cannibalistic sales in saturated CPG market. Proprietary PyMC tooling for arbitrary-depth nested logit with semi-automated priors.
+10. **How Realistic Are Synthetic Consumers** (Jun 2025, Allen Downey) — GSS validation study. Large LLMs match random forest on party ID prediction. GPT-o3-mini + Gemini 2.0 Flash occasionally outperform supervised baseline. Demographic grounding essential.
+11. **From Uncertainty to Insight** (Sep 2023, Tiaan Van Der Merwe) — Bayesian value prop vs. ML. Business applications. Company positioning.
+
+**New clients discovered:** Fox Entertainment (coaching program), Fabletics (MMM).
+**Key gap:** "Simba" product name not in any web content — needs Discord confirmation.
+**Output:** analysis/website-scrape/crawl-remaining.md
+
+---
+
 ## 2026-03-13 — website-contact
 Fetched https://www.pymc-labs.com/contact/. Contact page has a form (First/Last Name, Email, Phone optional, Inquiry Category dropdown, Discovery Source dropdown, Message). Email: info@pymc-labs.com. No phone, no address, no calendar booking. 5 inquiry categories reveal product names: Expert Access Program, Workshop, Consulting And Custom Bayesian Models, MMM Insights Agent, General Inquiry. Social links: LinkedIn, GitHub, X, Bluesky, YouTube, Meetup. Wrote analysis/website-scrape/contact.md + content/contact.md (status: complete). Discovered new aspect: enrich-expert-access-program ("Expert Access Program" is in contact form dropdown but has no sitemap page).
 
