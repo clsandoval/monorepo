@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 57
-- **Pending**: 6
-- **Convergence**: 90%
+- **Analyzed**: 58
+- **Pending**: 5
+- **Convergence**: 92%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -81,7 +81,7 @@
 - [x] 6.4a — Legal: Terms of Service — actual complete ToS text ready to publish
 - [x] 6.4b — Legal: Privacy Policy — actual complete privacy policy text ready to publish
 - [x] 6.5a — SEO — meta tags for every page, OG image specs, schema.org markup per page
-- [ ] 6.5b — Content strategy — blog topics, comparison pages, landing page keyword targeting
+- [x] 6.5b — Content strategy — blog topics, comparison pages, landing page keyword targeting
 
 ## Wave 7: Polish & Completeness Pass (7 aspects — consolidation pass, page specs already cover most states)
 
