@@ -172,52 +172,64 @@ Sidebar footer tooltip:
 
 | Key | String |
 |-----|--------|
-| hero.headline | "Your AI bot, your keys, your Discord." |
-| hero.subheadline | "Daimon gives your team a Claude-powered AI operating system inside Discord — connected to your tools, running on your own Anthropic API key." |
-| hero.cta.primary | "Get Started Free" |
-| hero.cta.secondary | "View Documentation" |
-| hero.social.label | "Trusted by teams using:" |
-| hero.social.items | "Discord • GitHub • Linear • Toggl • Google Analytics" |
+| hero.eyebrow | "Discord AI · Bring Your Own Keys" |
+| hero.headline | "Your Discord server,\npowered by Claude." |
+| hero.subheadline | "Bring your own bot token and Anthropic API key. Get an AI operating system for your Discord — with 50+ integrated tools, from GitHub and Linear to Google Calendar and Toggl. No workflow setup. No per-message fees." |
+| hero.cta.primary | "Start Free — No Credit Card" |
+| hero.cta.secondary | "Read the Docs" |
+| hero.socialProofLine | "Free tier available · Your keys, your costs · Cancel anytime" |
 
 ### Section: How It Works
 
 | Key | String |
 |-----|--------|
-| howItWorks.sectionLabel | "HOW IT WORKS" |
-| howItWorks.title | "From signup to live bot in minutes." |
-| howItWorks.step1.number | "1" |
-| howItWorks.step1.title | "Create your account" |
-| howItWorks.step1.description | "Sign up with your email. No credit card required to start." |
-| howItWorks.step2.number | "2" |
-| howItWorks.step2.title | "Bring your own keys" |
-| howItWorks.step2.description | "Paste your Discord bot token, guild ID, and Anthropic API key. Your credentials stay encrypted and private." |
-| howItWorks.step3.number | "3" |
+| howItWorks.sectionLabel | "Setup" |
+| howItWorks.title | "Live in three steps." |
+| howItWorks.subtitle | "No infrastructure to manage. No workflows to configure. Just connect your keys and go." |
+| howItWorks.step1.number | "01" |
+| howItWorks.step1.title | "Create your Discord bot" |
+| howItWorks.step1.description | "Head to the Discord Developer Portal and create a new application. Enable the Message Content Intent. Copy your bot token and your server (guild) ID." |
+| howItWorks.step2.number | "02" |
+| howItWorks.step2.title | "Paste your keys" |
+| howItWorks.step2.description | "Sign up for Daimon, then paste your Discord bot token, guild ID, and Anthropic API key into the dashboard. That's it — Daimon stores them encrypted. Your keys never leave our database unencrypted." |
+| howItWorks.step3.number | "03" |
 | howItWorks.step3.title | "Your bot goes live" |
-| howItWorks.step3.description | "Daimon connects your bot automatically. It's online and ready to use in your Discord server within 30 seconds." |
+| howItWorks.step3.description | "Within seconds, your bot connects to your server. Mention it in any channel and it picks the right tools automatically — no commands, no configuration. Claude handles the rest." |
 
 ### Section: Features
 
 | Key | String |
 |-----|--------|
-| features.sectionLabel | "CAPABILITIES" |
-| features.title | "50+ tools. Zero setup." |
-| features.subtitle | "Every tool is available the moment your bot connects. No workflows to configure, no permissions to map — just ask." |
-| features.card1.title | "Discord-native" |
-| features.card1.description | "Mentions, channel context, slash commands. The bot feels native because it is native." |
-| features.card2.title | "GitHub integration" |
-| features.card2.description | "Create issues, review PRs, run CLI commands directly from Discord." |
-| features.card3.title | "Linear integration" |
-| features.card3.description | "Query projects, update issues, manage sprints without leaving your server." |
-| features.card4.title | "Toggl time tracking" |
-| features.card4.description | "34 Toggl tools — start timers, generate reports, manage projects and clients." |
-| features.card5.title | "Google Analytics" |
-| features.card5.description | "Pull traffic reports and metrics into your Discord conversations." |
-| features.card6.title | "BYOK — your keys, your costs" |
-| features.card6.description | "You pay Anthropic directly. Daimon charges a small platform fee. Your usage stays private." |
-| features.card7.title | "Powered by Claude" |
-| features.card7.description | "Runs on Claude Sonnet 4.6 via the Anthropic API. Multi-agent orchestration via the Claude Agent SDK." |
-| features.card8.title | "Secure by default" |
-| features.card8.description | "All secrets encrypted at rest via Supabase Vault. Multi-tenant isolation. Your data never touches another tenant's context." |
+| features.sectionLabel | "Capabilities" |
+| features.title | "50+ tools. Zero configuration." |
+| features.subtitle | "Every tool is available out of the box. Connect your services once — Claude figures out when to use them." |
+| features.card1.title | "Developer Tools" |
+| features.card1.description | "Browse and create GitHub issues, review PRs, query Linear tickets, run shell commands. Your entire dev workflow, in chat." |
+| features.card1.tag | "GitHub · Linear · Shell" |
+| features.card2.title | "Time & Tasks" |
+| features.card2.description | "Track time in Toggl with natural language. Create tasks, log hours, and query your time entries — all from Discord." |
+| features.card2.tag | "Toggl · Tasks" |
+| features.card3.title | "Knowledge & Research" |
+| features.card3.description | "Web search, Wikipedia lookup, URL reading, ArXiv papers, Wikipedia disambiguation — Claude retrieves and synthesizes." |
+| features.card3.tag | "Web · Wikipedia · ArXiv" |
+| features.card4.title | "Calendar & Scheduling" |
+| features.card4.description | "Query Google Calendar, create events, check availability. Schedule with context from your other tools." |
+| features.card4.tag | "Google Calendar" |
+| features.card5.title | "Files & Docs" |
+| features.card5.description | "Read and write Google Docs, Google Sheets, and Notion. Upload and retrieve files from Google Drive. Manage content without leaving Discord." |
+| features.card5.tag | "Google Docs · Drive · Notion" |
+| features.card6.title | "Memory & Context" |
+| features.card6.description | "Daimon remembers. It stores notes and context that persist across conversations, giving you continuity across your server's history." |
+| features.card6.tag | "Built-in memory" |
+| features.card7.title | "Communication" |
+| features.card7.description | "Send emails via Gmail, draft messages, search your inbox. Manage Slack workspaces you've connected." |
+| features.card7.tag | "Gmail · Slack" |
+| features.card8.title | "Media & Images" |
+| features.card8.description | "Generate images with DALL-E, search for photos, process attachments. Visual AI capabilities within Discord." |
+| features.card8.tag | "DALL-E · Media" |
+| features.card9.title | "You control the costs" |
+| features.card9.description | "Every token your bot uses is charged to your Anthropic account directly. Daimon only charges a small platform fee. No per-message markups." |
+| features.card9.tag | "BYOK model" |
 
 ### Section: Integrations Strip
 
@@ -254,9 +266,9 @@ Sidebar footer tooltip:
 | pricing.pro.price.monthly | "$29" |
 | pricing.pro.price.annual | "$20.75" |
 | pricing.pro.pricePeriod | "/month" |
-| pricing.pro.description | "For teams that rely on the bot daily." |
-| pricing.pro.cta | "Go Pro" |
-| pricing.pro.features | ["1 Discord server", "Unlimited messages", "All tools (50+)", "Priority support", "90-day message history", "Admin panel access", "Custom bot name (coming soon)"] |
+| pricing.pro.description | "For teams and power users." |
+| pricing.pro.cta | "Start Pro Plan" |
+| pricing.pro.features | ["Everything in Starter", "Up to 5 Discord connections (multi-server)", "Team members (up to 5)", "Priority support (24hr, dedicated Slack channel)", "Advanced analytics (usage by tool, by user)", "90-day audit log", "Custom bot name configuration (future)", "Early access to new integrations"] |
 | pricing.note | "All plans include BYOK — you pay Anthropic directly for AI usage." |
 | pricing.faq.link | "Questions? See the FAQ ↓" |
 
@@ -276,16 +288,20 @@ Sidebar footer tooltip:
 
 | Key | String |
 |-----|--------|
-| finalCta.title | "Ready to bring AI to your Discord server?" |
-| finalCta.subtitle | "Set up in under 5 minutes. No credit card required." |
-| finalCta.button | "Get Started Free" |
+| finalCta.heading | "Get your AI Discord bot running today." |
+| finalCta.subtitle | "Free tier, no credit card, live in minutes." |
+| finalCta.button | "Create Your Free Account" |
+| finalCta.supportingText | "Or read the docs first →" |
+| finalCta.supportingLink.label | "View Quick Start" |
+| finalCta.supportingLink.href | "/docs" |
 
 ### Landing Page Footer
 
 | Key | String |
 |-----|--------|
-| footer.tagline | "The self-serve AI operating system for Discord teams." |
+| footer.tagline | "AI-powered Discord, on your terms." |
 | footer.copyright | "© 2026 Daimon. All rights reserved." |
+| footer.madeWith | "Built with Claude · Powered by Anthropic" |
 
 ---
 

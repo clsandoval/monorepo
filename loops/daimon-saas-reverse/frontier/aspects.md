@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 93
-- **Analyzed**: 85
-- **Pending**: 8
-- **Convergence**: 91%
+- **Analyzed**: 86
+- **Pending**: 7
+- **Convergence**: 92%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -118,7 +118,7 @@
 - [x] 8.1.8 — Write `database/indexes.md` — extract all CREATE INDEX statements from schema.md into standalone query-pattern reference with rationale per index
 - [x] 8.1.9 — Write `database/retention.md` — data retention policy per table: account data, tenant config, billing records, audit log, operational metrics; cleanup job SQL/schedules; PITR + snapshot policy
 - [x] 8.1.10 — Reconcile pricing: pick ONE pricing scheme ($9/$29 from `premium/pricing.md`), update `frontend/landing-page.md` (currently $12/$39), `frontend/copy.md` (currently $19/$49), and `README.md` (currently $12/$39) to match. Remove "50 messages/day" and "500 messages/day" rate limits from `copy.md` — this is BYOK, there are no platform-imposed message limits.
-- [ ] 8.1.11 — Reconcile copy divergence: `frontend/copy.md` and `frontend/landing-page.md` have different hero headlines, subheadlines, How It Works steps, and feature card lists. Make `landing-page.md` canonical — update `copy.md` to match it exactly (hero, features, how-it-works). Ensure feature card count and names are identical.
+- [x] 8.1.11 — Reconcile copy divergence: `frontend/copy.md` and `frontend/landing-page.md` have different hero headlines, subheadlines, How It Works steps, and feature card lists. Make `landing-page.md` canonical — update `copy.md` to match it exactly (hero, features, how-it-works). Ensure feature card count and names are identical.
 - [ ] 8.1.12 — Fix email provider TBD: replace "Postmark / Resend (TBD — select one at implementation)" in `legal/privacy-policy.md` with Resend. Update any other files that reference email provider selection.
 - [ ] 8.1.13 — Verify cross-references fixed: 8.2.4 created ui/design-system.md, legal/disclaimers.md, seo-and-growth/landing-page.md. Verify all 7 previously-dead cross-references now resolve. If any remain broken, fix them.
 - [ ] 8.1.14 — Spec phantom pages: the footer links to `/changelog`, `/about`, `/blog`, `/legal/cookies` but none have page specs. Write specs for each in `frontend/` — at minimum: route, layout, content structure, responsive behavior, loading/empty states. `/changelog` can be a simple reverse-chronological list. `/about` needs company description + team. `/blog` needs index layout + post layout. `/legal/cookies` needs actual cookie policy text.
