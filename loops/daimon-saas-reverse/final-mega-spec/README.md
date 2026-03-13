@@ -32,7 +32,7 @@ Complete, exhaustive product specification for building the Daimon self-serve Sa
 
 | File | Description | Status |
 |------|-------------|--------|
-| [database/schema.md](database/schema.md) | 7 PostgreSQL enum types; `tenants` table (8 columns, 4 indexes, RLS, trigger) + `tenant_members` table (5 columns, composite PK, 3 FKs, 4 RLS policies); cross-references to rls-policies, triggers, migrations | Partial (3.1 done — tenants + tenant_members; remaining tables 3.2–3.5 pending) |
+| [database/schema.md](database/schema.md) | 7 PostgreSQL enum types; `tenants` table (8 columns, 4 indexes, RLS); `tenant_members` table (5 columns, composite PK, 3 FKs, 4 RLS policies); `discord_connections` table (10 columns, UNIQUE(tenant_id,guild_id), 4 indexes, Realtime config, full lifecycle state machine, RLS, 8 edge case notes); cross-references to rls-policies, triggers, migrations | Partial (3.1 + 3.2 done; remaining tables 3.3–3.5 pending) |
 | database/rls-policies.md | Exact SQL for every RLS policy | Pending |
 | database/triggers.md | Plan sync, status cascades | Pending |
 | database/migrations.md | Ordered migrations from single to multi-tenant | Pending |
