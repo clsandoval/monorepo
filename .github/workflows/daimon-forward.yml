@@ -1,0 +1,159 @@
+name: Daimon Forward Loop
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_iterations:
+        description: "Max iterations (default 150)"
+        required: false
+        default: "150"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.status.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check loop status
+        id: status
+        run: |
+          LOOP_DIR="loops/daimon-forward"
+          if [ -f "$LOOP_DIR/status/converged.txt" ]; then
+            echo "Loop already converged. Skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          elif [ -f "$LOOP_DIR/status/paused.txt" ]; then
+            echo "Loop is paused. Skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  run-loop:
+    needs: check
+    if: needs.check.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Configure git
+        run: |
+          git config user.name "ralph-loop[bot]"
+          git config user.email "ralph-loop[bot]@users.noreply.github.com"
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run until convergence (6-hour window)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          cd "loops/daimon-forward"
+          FAILURES=0
+          ITERATION=0
+          MAX_ITERATIONS=${{ github.event.inputs.max_iterations || '150' }}
+
+          while true; do
+            if [ -f status/converged.txt ]; then
+              echo "Loop converged after $ITERATION iterations."
+              break
+            fi
+
+            if [ $ITERATION -ge $MAX_ITERATIONS ]; then
+              echo "Max iterations ($MAX_ITERATIONS) reached."
+              break
+            fi
+
+            ITERATION=$((ITERATION + 1))
+            echo "--- $(date '+%H:%M:%S') | Iteration $ITERATION / $MAX_ITERATIONS ---"
+
+            # Per-iteration timeout: 30 minutes max
+            if timeout 1800 bash -c '
+              unset CLAUDECODE
+              cat PROMPT.md | claude --print --dangerously-skip-permissions
+            '; then
+              FAILURES=0
+            else
+              EXIT_CODE=$?
+              if [ "$EXIT_CODE" -eq 124 ]; then
+                echo "WARNING: iteration $ITERATION timed out after 1800s"
+              else
+                echo "WARNING: iteration $ITERATION exited with code $EXIT_CODE"
+              fi
+              FAILURES=$((FAILURES + 1))
+              [ $FAILURES -ge 3 ] && echo "3 consecutive failures — stopping." && break
+            fi
+
+            # Push any local commits
+            cd "$(git rev-parse --show-toplevel)"
+            git add -A
+            git diff --cached --quiet || git commit -m "loop(daimon-forward): iteration $ITERATION"
+            if git log origin/${{ github.ref_name }}..HEAD --oneline | grep -q .; then
+              git pull --rebase origin "${{ github.ref_name }}" || true
+              git push || echo "WARNING: Push failed"
+            fi
+            cd "loops/daimon-forward"
+
+            sleep 5
+          done
+
+          echo "Done. Total iterations: $ITERATION"
+
+      - name: Check convergence and notify
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          LOOP_DIR="loops/daimon-forward"
+          if [ -f "$LOOP_DIR/status/converged.txt" ]; then
+            echo "Daimon forward loop has converged!"
+
+            ITER_COUNT=$(git log --oneline --grep="loop(daimon-forward)" | wc -l)
+
+            gh issue create \
+              --title "[ralph] daimon-forward converged ($ITER_COUNT iterations)" \
+              --label "ralph-converged" \
+              --body "$(cat <<ISSUEEOF
+          ## Loop Converged
+
+          **Loop:** daimon-forward
+          **Iterations:** ~$ITER_COUNT
+          **Output:** \`apps/daimon-saas/\`
+
+          The forward loop has built the full Daimon SaaS platform (Next.js + Supabase + Stripe). Review and deploy.
+
+          ### Convergence Summary
+          \`\`\`
+          $(cat "$LOOP_DIR/status/converged.txt")
+          \`\`\`
+          ISSUEEOF
+            )" || echo "WARNING: Could not create issue"
+
+            # Update registry
+            cd "$(git rev-parse --show-toplevel)"
+            if command -v yq &> /dev/null; then
+              yq -i '.loops.daimon-forward.status = "converged" | .loops.daimon-forward.converged_at = "'"$(date -u +%Y-%m-%d)"'"' loops/_registry.yaml
+            fi
+            git add loops/_registry.yaml
+            git commit -m "loop(daimon-forward): mark converged in registry" || true
+            git push || true
+          fi
