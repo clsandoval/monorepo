@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 29
-- Pending: 45
-- Convergence: 39%
+- Analyzed: 30
+- Pending: 44
+- Convergence: 41%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -45,7 +45,7 @@ These aspects will be **self-expanded** after discord-category-triage completes.
 - [x] discord-simba — Read #simba channel, extract product descriptions, features, use cases
 - [x] discord-courses-workshops — Read workshop/course channels (bayesian-mktg-analytics, applied-bayesian-regression, etc.), extract course descriptions, curriculum, outcomes
 - [x] discord-partnerships — Read partnership-related channels (databricks-partnership, etc.), extract partner info
-- [ ] discord-pymc-ecosystem — Read #pymc-ecosystem, #causalpy, #pymc-marketing, extract OSS project descriptions
+- [x] discord-pymc-ecosystem — Read #pymc-ecosystem, #causalpy, #pymc-marketing, extract OSS project descriptions
 - [ ] discord-org-team — Read #org channel, extract team structure, roles, bios
 - [ ] discord-finances — Read #finances for pricing signals, business model info
 - [ ] discord-competition — Read #competition for competitive positioning, differentiators
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] discord-pymc-ecosystem (2026-03-13) — 3 channels mined: #pymc-marketing (9,682 msgs), #causalpy (510 msgs), #pymc-ecosystem (127 msgs). pymc-marketing: flagship OSS (1,088★, 1M+ downloads), full MMM+CLV+Choice feature set, JOSS paper submitted Jan 2026, used in prod by HelloFresh/Colgate/Wegmans, monorepo split in progress (pymc-mmm/clv/choice sub-packages). CausalPy: 1,123★ v0.8.0, 10 quasi-experimental methods, cited at ICML 2025, BSTS roadmap for CausalImpact parity, explicit strategy = "OSS lead generator". PyMC ecosystem: strategic vertical stack vision (OSS + Insight Agent layering), ArviZ monorepo architecture migration, 60/136 example notebooks runnable. Full integration roadmap documented: PyMC → pymc-marketing → CausalPy → MMM Agent → Simba/Decision AI SaaS. Output: analysis/discord-pymc-ecosystem-extraction.md + content/resources/open-source-libraries.md
 - [x] discord-partnerships (2026-03-13) — 7 channels mined: bain-brand (10,111 msgs), bain-partnership (71 msgs), bain-customer-pack (413 msgs), bain-accelerator (212 msgs), databricks-partnership (798 msgs), five-tran-partnership (274 msgs), serviceplan-group-partnership (629 msgs), artefact-partnership (15 msgs). Key findings: Bain = primary revenue partner; subcontractor on Coca-Cola Fuelight 360 (US/GB/BR MMM production system); combined Fuelight + Red Cities budget $3.25M; Bain account at $550–600k/month by Jan 2026; Bain Accelerator (5 markets, Spain/Belgium/Sweden+) + Bain Customer Pack (refuel repo) also active. Databricks = official partner; "Data Intelligence for Marketing" launch partner Mar 2025; breakout session Data+AI Summit Jun 2025; shared clients Fox Sports/Supercell/Lidl/Wegmans; MMM Agent runs on Databricks serverless + MLflow. Fivetran = integration partner Sep 2025; 600+ connectors → pymc-marketing; joint webinar Oct 2025; GTM/revenue model in development; shared client Wegmans. Serviceplan/Plan.Net = official strategic partnership announced Dec 8 2025; BMW pilot = "the perfect project"; proposed 2026 contract ~€1.61M, 100 MMMs, 20+ markets; contract not yet signed as of Feb 2026. Artefact = dead/archived Dec 2025. BCG + Snowflake = emerging. Output: analysis/discord-partnerships-extraction.md + content/partners.md
 - [x] discord-courses-workshops (2026-03-13) — 14 channels mined: general-training (1,892 msgs), open-cohort-workshop (1,110 msgs), bayesian-mktg-analytics-course (479 msgs), casual-inference (61 msgs), applied-bayesian-regression-modeling (38 msgs), applied-bayesian-modeling (6 msgs), workshop-alumni (79 msgs), bayesian-modeling-workshop-jan-2026 (417 msgs), bayesian-mktg-analytics-feb-2026 (101 msgs), applied-bayesian-modeling-workshop-august-2025 (602 msgs), applied-bayesian-modeling-workshop-october-2025 (483 msgs), keyword-studios-workshop (29 msgs), sixt-workshop (79 msgs), london-workshop (40 msgs). Key findings: ABM course (3 cohorts: Aug/Oct 2025, Jan 2026; $1,499; instructors Allen/Chris/Vianey; GitHub pymc-labs/pymc-workshop; 8 sessions 16h); BMA course (Feb 2026 cohort, 22 participants, 77.7% Good/Excellent, $2,249; instructors Tim/Carlos/Ben/Colt; GitHub bayesian-marketing-analytics-course); ABRM March cohort CANCELLED (2 registrations); CI course = "Applied Causal Inference for Business Impact" in development (Ben Vincent/Orduz/Forde, planned May-Jun 2026, proposed $2,249/$1,999EB, novelty 8/10); Corporate workshops: ~$20-30k/engagement (Thomas confirmed), Sixt 2-day, Keywords Studios 24h, London in-person WeWork Shoreditch; Alumni channel created Sept 2025. Output: analysis/discord-courses-workshops-extraction.md + content/courses/abm.md + content/courses/bma.md + content/courses/ci.md
 - [x] discord-simba (2026-03-13) — 292 msgs mined from #simba (2024-01-04→2025-12-08). Simba = "Simply Bayesian SimBa MMM" — Niall Oulton's SaaS MMM platform. Full feature list: data upload → benchmark priors → model fitting → model management/comparison → budget optimization (posterior uncertainty) → ROAs over time → holdout/lift tests → scenario planner → full-funnel connections. Differentiation: Simba = managed services clients; Decision AI = self-service + coaching. Pricing: $2k/month base + $500/user (Sep 2025). Clients: Coca-Cola trial, Brilliant Earth (first paid, cancelled Oct 2025), Cabify, TechStyle, Nomad Foods. Domain: simba-mmm.com. Planned: pymc-marketing engine swap, CausalPy lift integration, EAP chatbot. Output: analysis/discord-simba-extraction.md + content/solutions/simba.md
