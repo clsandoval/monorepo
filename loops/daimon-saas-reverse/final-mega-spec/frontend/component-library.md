@@ -23,7 +23,7 @@ This file documents every reusable React component in the Daimon SaaS website. E
 1. [Layout Components](#1-layout-components) ← **This section (aspect 4.9a)**
 2. Form Components (aspect 4.9b)
 3. [Feedback Components](#3-feedback-components) ← **This section (aspect 4.9c)**
-4. Data Display Components (aspect 4.9d)
+4. [Data Display Components](#4-data-display-components) ← **This section (aspect 4.9d)**
 5. Action Components (aspect 4.9e)
 
 ---
@@ -3225,4 +3225,1305 @@ AdminTenantListSkeleton
 | `SkeletonLoader` | `components/ui/SkeletonLoader.tsx` + `components/ui/skeletons/` | Loading placeholders mimicking page layout |
 
 
-*Next section: [Feedback Components](#3-feedback-components) — aspect 4.9c*
+---
+
+## 4. Data Display Components
+
+Data display components render structured information — badges, status indicators, tables, statistics, activity feeds, and copy utilities. These components are read-only (no user input) and focus on communicating system state clearly.
+
+---
+
+### 4.1 Badge
+
+**File:** `components/ui/Badge.tsx`
+
+**Purpose:** Small inline label conveying categorical or status information. The base `Badge` component is the primitive; typed variants (PlanBadge, StatusBadge, KeyStatusBadge, ConnectionStatusBadge) are built on top of it.
+
+**Props interface:**
+
+```typescript
+type BadgeVariant =
+  | 'plan-free'
+  | 'plan-starter'
+  | 'plan-pro'
+  | 'status-pending'
+  | 'status-configured'
+  | 'status-active'
+  | 'status-suspended'
+  | 'key-valid'
+  | 'key-invalid'
+  | 'key-unconfigured'
+  | 'key-validating'
+  | 'connection-connected'
+  | 'connection-connecting'
+  | 'connection-error'
+  | 'connection-disconnected'
+  | 'neutral'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'danger'
+
+interface BadgeProps {
+  variant: BadgeVariant
+  label?: string          // Override the default label for the variant
+  size?: 'sm' | 'md'     // Default: 'sm'
+  uppercase?: boolean     // Default: true for named variants, false for generic
+  className?: string
+}
+```
+
+**Base styles (all badges):**
+
+| Property | Value |
+|----------|-------|
+| Font | Inter |
+| Font-weight | `600` |
+| Line-height | `1` |
+| Border-radius | `0px` (PyMC sharp corners — NEVER rounded) |
+| White-space | `nowrap` |
+| Display | `inline-flex`, `align-items: center` |
+
+**Size variants:**
+
+| Size | Font size | Padding | Letter-spacing |
+|------|-----------|---------|----------------|
+| `sm` (default) | `11px` | `2px 8px` | `0.05em` |
+| `md` | `13px` | `3px 10px` | `0.03em` |
+
+**Plan badge variants (`plan-*`):**
+
+| Variant | Default Label | Background | Text color | Border |
+|---------|--------------|-----------|-----------|--------|
+| `plan-free` | "FREE" | `rgba(12,31,64,0.08)` | `rgba(12,31,64,0.65)` | `1.5px solid rgba(12,31,64,0.15)` |
+| `plan-starter` | "STARTER" | `rgba(180,231,221,0.20)` | `#0C1F40` (Navy) | `1.5px solid rgba(180,231,221,0.60)` |
+| `plan-pro` | "PRO" | `#0C1F40` (Navy) | `#FFFFFF` (White) | None |
+
+Note: uppercase always true for plan badges.
+
+**Tenant status badge variants (`status-*`):**
+
+| Variant | Default Label | Background | Text color | Border |
+|---------|--------------|-----------|-----------|--------|
+| `status-pending` | "PENDING" | `#FEF9C3` (yellow-100) | `#854D0E` (yellow-800) | None |
+| `status-configured` | "CONFIGURED" | `#DBEAFE` (blue-100) | `#1E40AF` (blue-800) | None |
+| `status-active` | "ACTIVE" | `rgba(34,197,94,0.12)` | `#16A34A` (green-700) | None |
+| `status-suspended` | "SUSPENDED" | `rgba(239,68,68,0.12)` | `#DC2626` (red-600) | None |
+
+**API key status badge variants (`key-*`):**
+
+| Variant | Default Label | Background | Text color | Border |
+|---------|--------------|-----------|-----------|--------|
+| `key-valid` | "VALID" | `rgba(34,197,94,0.12)` | `#16A34A` | `1.5px solid rgba(34,197,94,0.30)` |
+| `key-invalid` | "INVALID" | `rgba(239,68,68,0.12)` | `#DC2626` | `1.5px solid rgba(239,68,68,0.30)` |
+| `key-unconfigured` | "NOT CONFIGURED" | `rgba(12,31,64,0.08)` | `rgba(12,31,64,0.55)` | `1.5px solid rgba(12,31,64,0.15)` |
+| `key-validating` | "CHECKING…" | `rgba(245,158,11,0.12)` | `#D97706` | `1.5px solid rgba(245,158,11,0.30)` |
+
+Note: `key-validating` animates the ellipsis via a CSS animation (3 dots cycle: `…` → `.` → `..` → `…` at 600ms intervals).
+
+**Discord connection status badge variants (`connection-*`):**
+
+| Variant | Default Label | Background | Text color | Border |
+|---------|--------------|-----------|-----------|--------|
+| `connection-connected` | "CONNECTED" | `rgba(34,197,94,0.12)` | `#16A34A` | `1.5px solid rgba(34,197,94,0.30)` |
+| `connection-connecting` | "CONNECTING" | `rgba(245,158,11,0.12)` | `#D97706` | `1.5px solid rgba(245,158,11,0.30)` |
+| `connection-error` | "ERROR" | `rgba(239,68,68,0.12)` | `#DC2626` | `1.5px solid rgba(239,68,68,0.30)` |
+| `connection-disconnected` | "DISCONNECTED" | `rgba(12,31,64,0.08)` | `rgba(12,31,64,0.55)` | `1.5px solid rgba(12,31,64,0.15)` |
+
+**Generic semantic variants:**
+
+| Variant | Background | Text color | Border |
+|---------|-----------|-----------|--------|
+| `neutral` | `rgba(12,31,64,0.08)` | `rgba(12,31,64,0.65)` | `1.5px solid rgba(12,31,64,0.15)` |
+| `info` | `#DBEAFE` | `#1E40AF` | None |
+| `success` | `rgba(34,197,94,0.12)` | `#16A34A` | None |
+| `warning` | `rgba(245,158,11,0.12)` | `#D97706` | None |
+| `danger` | `rgba(239,68,68,0.12)` | `#DC2626` | None |
+
+**Implementation:**
+
+```tsx
+// components/ui/Badge.tsx
+export function Badge({
+  variant,
+  label,
+  size = 'sm',
+  uppercase = true,
+  className,
+}: BadgeProps) {
+  const config = BADGE_CONFIGS[variant]
+  const displayLabel = label ?? config.defaultLabel
+
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center whitespace-nowrap font-semibold leading-none',
+        size === 'sm' ? 'text-[11px] px-[8px] py-[2px] tracking-[0.05em]' : 'text-[13px] px-[10px] py-[3px] tracking-[0.03em]',
+        uppercase && 'uppercase',
+        className
+      )}
+      style={{
+        background: config.background,
+        color: config.color,
+        border: config.border ?? 'none',
+        borderRadius: '0px',
+      }}
+    >
+      {displayLabel}
+    </span>
+  )
+}
+```
+
+**Where used:**
+
+| Badge variant | Used in |
+|---------------|---------|
+| `plan-free/starter/pro` | DashboardTopbar, admin tenant list, billing page |
+| `status-pending/configured/active/suspended` | Admin tenant list, admin tenant detail |
+| `key-valid/invalid/unconfigured/validating` | API Keys Card (dashboard), billing page |
+| `connection-connected/connecting/error/disconnected` | Bot Status Card, admin tenant detail |
+| `neutral` | Misc labels, doc tags |
+| `success/warning/danger` | AlertBanner, admin audit log entries |
+
+**No hover/focus states** — badges are non-interactive. If a badge must be clickable (e.g., a filter trigger), wrap it in a `<button>` element.
+
+**Accessibility:** Add `aria-label` describing the status when badge is the only indication of state, e.g., `aria-label="Plan: Pro"`. Screen readers must not rely solely on color.
+
+---
+
+### 4.2 StatusIndicator
+
+**File:** `components/ui/StatusIndicator.tsx`
+
+**Purpose:** An animated or static dot paired with a status label. Used in Bot Status Card headings to convey live connection state. Larger and more prominent than a Badge — intended as a page-level status signal rather than a table cell label.
+
+**Props interface:**
+
+```typescript
+type IndicatorStatus = 'connected' | 'connecting' | 'error' | 'disconnected' | 'suspended'
+
+interface StatusIndicatorProps {
+  status: IndicatorStatus
+  label?: string          // Override default label text
+  dotSize?: number        // Default: 12 (px)
+  labelSize?: number      // Default: 14 (px) — font-size for accompanying label
+  showLabel?: boolean     // Default: true
+  className?: string
+}
+```
+
+**Dot specifications:**
+
+| Status | Dot color | Animation |
+|--------|-----------|-----------|
+| `connected` | `#22C55E` (green-500) | Pulse ring: `box-shadow` radiates outward, 2s infinite ease-out |
+| `connecting` | `#F59E0B` (amber-400) | Slow fade: opacity oscillates 0.4 → 1 → 0.4, 1.5s infinite ease-in-out |
+| `error` | `#EF4444` (red-500) | Static — no animation |
+| `disconnected` | `rgba(12,31,64,0.25)` (muted) | Static — no animation |
+| `suspended` | `rgba(12,31,64,0.40)` (dark muted) | Static — no animation |
+
+**Pulse animation for `connected` state:**
+
+```css
+@keyframes status-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.50); }
+  70%  { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.status-dot-connected {
+  animation: status-pulse 2s infinite ease-out;
+}
+```
+
+**Fade animation for `connecting` state:**
+
+```css
+@keyframes status-fade {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+.status-dot-connecting {
+  animation: status-fade 1.5s infinite ease-in-out;
+}
+```
+
+**Default labels per status:**
+
+| Status | Default label |
+|--------|--------------|
+| `connected` | "Connected" |
+| `connecting` | "Connecting" |
+| `error` | "Connection Error" |
+| `disconnected` | "Disconnected" |
+| `suspended` | "Suspended" |
+
+**Layout:**
+
+```
+[dot] [label]
+  gap: 10px
+  align-items: center
+  display: flex
+```
+
+**Label typography:**
+
+| Property | Value |
+|----------|-------|
+| Font | Archivo Semi-Expanded (wdth: 112.5) |
+| Font-size | `28px` (default when used in Bot Status Card heading context) |
+| Font-weight | `500` |
+| Color | Navy (`#0C1F40`) |
+| Note | When `labelSize` prop overrides to `14px`, label uses Inter Regular instead of Archivo |
+
+**Dot dimensions:**
+
+| Property | Value |
+|----------|-------|
+| Width | `dotSize` px (default `12px`) |
+| Height | `dotSize` px |
+| Border-radius | `50%` (always circular) |
+| Flex-shrink | `0` |
+
+**Implementation:**
+
+```tsx
+// components/ui/StatusIndicator.tsx
+export function StatusIndicator({
+  status,
+  label,
+  dotSize = 12,
+  labelSize = 14,
+  showLabel = true,
+  className,
+}: StatusIndicatorProps) {
+  const dotColorMap: Record<IndicatorStatus, string> = {
+    connected:    '#22C55E',
+    connecting:   '#F59E0B',
+    error:        '#EF4444',
+    disconnected: 'rgba(12,31,64,0.25)',
+    suspended:    'rgba(12,31,64,0.40)',
+  }
+  const defaultLabelMap: Record<IndicatorStatus, string> = {
+    connected:    'Connected',
+    connecting:   'Connecting',
+    error:        'Connection Error',
+    disconnected: 'Disconnected',
+    suspended:    'Suspended',
+  }
+  const animationClassMap: Record<IndicatorStatus, string> = {
+    connected:    'status-dot-connected',
+    connecting:   'status-dot-connecting',
+    error:        '',
+    disconnected: '',
+    suspended:    '',
+  }
+
+  return (
+    <div className={cn('flex items-center gap-[10px]', className)}>
+      <span
+        className={cn('flex-shrink-0 rounded-full', animationClassMap[status])}
+        style={{
+          width: dotSize,
+          height: dotSize,
+          backgroundColor: dotColorMap[status],
+        }}
+        role="img"
+        aria-label={`Status: ${label ?? defaultLabelMap[status]}`}
+      />
+      {showLabel && (
+        <span style={{ fontSize: labelSize }}>
+          {label ?? defaultLabelMap[status]}
+        </span>
+      )}
+    </div>
+  )
+}
+```
+
+**Where used:**
+
+| Location | Status prop | dotSize | labelSize |
+|----------|------------|---------|-----------|
+| Bot Status Card heading | Dynamic from `discord_connections.status` | `12` | `28` (Archivo heading) |
+| Admin tenant detail — connection overview | Dynamic | `10` | `14` (Inter) |
+| DashboardTopbar — compact indicator (no label) | Dynamic | `8` | N/A (`showLabel=false`) |
+
+**Accessibility:**
+- Dot `<span>` has `role="img"` and `aria-label="Status: Connected"` (or relevant status).
+- Label text is independent of dot color — screen readers read the label directly.
+- Do not rely on color alone to convey status — the label is required by default.
+
+---
+
+### 4.3 Table
+
+**File:** `components/ui/Table.tsx`
+
+**Purpose:** A styled data table component for rendering tabular data with consistent column headers, row hover states, and optional sorting indicators. Used in admin panel for tenant list and audit log.
+
+**Props interface:**
+
+```typescript
+interface Column<T> {
+  key: string                                // Unique key for the column
+  header: string                             // Column header label
+  width?: string                             // CSS width (e.g., '20%', '120px')
+  align?: 'left' | 'right' | 'center'       // Default: 'left'
+  sortable?: boolean                         // Show sort indicator; default false
+  render: (row: T, index: number) => React.ReactNode  // Cell renderer
+}
+
+interface TableProps<T> {
+  columns: Column<T>[]
+  rows: T[]
+  keyExtractor: (row: T) => string           // Unique key per row (usually row.id)
+  onRowClick?: (row: T) => void              // Optional row click handler
+  sortKey?: string                           // Currently sorted column key
+  sortDirection?: 'asc' | 'desc'            // Sort direction
+  onSort?: (key: string) => void             // Called when a sortable header is clicked
+  emptyState?: React.ReactNode              // Custom empty state; default: generic empty
+  loading?: boolean                          // Shows skeleton rows when true
+  rowClassName?: (row: T) => string          // Dynamic row class
+  stickyHeader?: boolean                     // Default: false
+  caption?: string                           // Accessible table caption
+  className?: string
+}
+```
+
+**Container styles:**
+
+| Property | Value |
+|----------|-------|
+| Overflow | `overflow-x: auto` (wraps the table to allow horizontal scroll on mobile) |
+| Border | `1px solid #E5E7EB` |
+| Border-radius | `0px` |
+| Background | White |
+
+**Table element styles:**
+
+| Property | Value |
+|----------|-------|
+| Width | `100%` |
+| Border-collapse | `collapse` |
+| Table-layout | `auto` |
+
+**Header row (`<thead>`):**
+
+| Property | Value |
+|----------|-------|
+| Background | `#F9FAFB` |
+| Border-bottom | `1px solid #E5E7EB` |
+| Position | `sticky top: 0` when `stickyHeader=true` |
+| z-index | `10` when sticky |
+
+**Header cell (`<th>`):**
+
+| Property | Value |
+|----------|-------|
+| Font | Inter, `12px`, weight `500`, `#374151`, uppercase, letter-spacing `0.05em` |
+| Padding | `10px 16px` |
+| Text-align | Per `column.align` (default left) |
+| White-space | `nowrap` |
+| User-select | `none` |
+| Cursor | `pointer` when `column.sortable = true`, else `default` |
+
+**Sort indicator (when `column.sortable = true`):**
+
+| State | Icon | Color |
+|-------|------|-------|
+| Not currently sorted | ChevronUpDown icon, 14px | `#9CA3AF` (gray-400) |
+| Sorted ascending | ChevronUp icon, 14px | Navy (`#0C1F40`) |
+| Sorted descending | ChevronDown icon, 14px | Navy (`#0C1F40`) |
+
+Icon appears inline after header text, `gap: 4px`, vertically centered.
+
+**Data row (`<tr>`):**
+
+| State | Background | Transition |
+|-------|-----------|-----------|
+| Default | Transparent (inherits White from table) | — |
+| Hover | `#F9FAFB` | `background 0.1s ease` |
+| Focus-visible (when `onRowClick` is set) | `outline: 2px solid #B4E7DD` | — |
+| Active click | `#F3F4F6` | `background 0.05s ease` |
+
+When `onRowClick` is provided: row has `role="button"`, `tabIndex={0}`, and handles both `onClick` and `onKeyDown` (Enter/Space).
+
+**Data cell (`<td>`):**
+
+| Property | Value |
+|----------|-------|
+| Font | Inter, `14px`, weight `400`, Navy (`#0C1F40`) |
+| Padding | `12px 16px` |
+| Text-align | Per `column.align` |
+| Border-bottom | `1px solid #F3F4F6` |
+| Vertical-align | `middle` |
+
+Last row has no border-bottom (`:last-child td { border-bottom: none }`).
+
+**Empty state (no rows):**
+
+When `rows.length === 0` and `loading` is false, a single full-width `<tr>` with a centered empty state:
+
+| Property | Value |
+|----------|-------|
+| Padding | `48px 24px` |
+| Icon | TableIcon or SearchX, 32px, Navy at 20% |
+| Title | "No results" — Inter, 14px, weight 500, Navy |
+| Default body | "No data to display." — Inter, 13px, Navy at 55% |
+
+Custom `emptyState` prop replaces this default.
+
+**Loading state (skeleton rows):**
+
+When `loading = true`, renders 5 skeleton rows. Each skeleton row has:
+
+```
+<tr>
+  [per column] <td><Skeleton width="80%" height="14px" /></td>
+</tr>
+```
+
+Skeleton uses the same `SkeletonLoader` shimmer animation (see feedback components section 3.7).
+
+**Implementation:**
+
+```tsx
+// components/ui/Table.tsx
+export function Table<T>({
+  columns,
+  rows,
+  keyExtractor,
+  onRowClick,
+  sortKey,
+  sortDirection,
+  onSort,
+  emptyState,
+  loading = false,
+  rowClassName,
+  stickyHeader = false,
+  caption,
+  className,
+}: TableProps<T>) {
+  return (
+    <div className={cn('overflow-x-auto border border-[#E5E7EB]', className)}>
+      <table className="w-full border-collapse" role="table">
+        {caption && <caption className="sr-only">{caption}</caption>}
+        <thead className={cn('bg-[#F9FAFB]', stickyHeader && 'sticky top-0 z-10')}>
+          <tr>
+            {columns.map((col) => (
+              <th
+                key={col.key}
+                style={{ width: col.width, textAlign: col.align ?? 'left' }}
+                className={cn(
+                  'px-[16px] py-[10px] text-[12px] font-medium text-[#374151] uppercase tracking-[0.05em] whitespace-nowrap select-none',
+                  col.sortable && 'cursor-pointer'
+                )}
+                onClick={() => col.sortable && onSort?.(col.key)}
+                aria-sort={
+                  sortKey === col.key
+                    ? sortDirection === 'asc' ? 'ascending' : 'descending'
+                    : col.sortable ? 'none' : undefined
+                }
+              >
+                <span className="inline-flex items-center gap-[4px]">
+                  {col.header}
+                  {col.sortable && (
+                    sortKey === col.key
+                      ? sortDirection === 'asc' ? <ChevronUpIcon size={14} /> : <ChevronDownIcon size={14} />
+                      : <ChevronUpDownIcon size={14} className="text-[#9CA3AF]" />
+                  )}
+                </span>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {loading
+            ? Array.from({ length: 5 }).map((_, i) => (
+                <tr key={i}>
+                  {columns.map((col) => (
+                    <td key={col.key} className="px-[16px] py-[12px] border-b border-[#F3F4F6]">
+                      <Skeleton width="80%" height="14px" />
+                    </td>
+                  ))}
+                </tr>
+              ))
+            : rows.length === 0
+            ? (
+                <tr>
+                  <td colSpan={columns.length} className="px-[24px] py-[48px] text-center">
+                    {emptyState ?? <DefaultTableEmptyState />}
+                  </td>
+                </tr>
+              )
+            : rows.map((row, index) => (
+                <tr
+                  key={keyExtractor(row)}
+                  className={cn(
+                    'transition-colors duration-100 hover:bg-[#F9FAFB] last:border-b-0',
+                    onRowClick && 'cursor-pointer focus-visible:outline-2 focus-visible:outline-[#B4E7DD]',
+                    rowClassName?.(row)
+                  )}
+                  onClick={() => onRowClick?.(row)}
+                  onKeyDown={(e) => {
+                    if (onRowClick && (e.key === 'Enter' || e.key === ' ')) {
+                      e.preventDefault()
+                      onRowClick(row)
+                    }
+                  }}
+                  tabIndex={onRowClick ? 0 : undefined}
+                  role={onRowClick ? 'button' : undefined}
+                >
+                  {columns.map((col) => (
+                    <td
+                      key={col.key}
+                      style={{ textAlign: col.align ?? 'left' }}
+                      className="px-[16px] py-[12px] text-[14px] text-[#0C1F40] border-b border-[#F3F4F6] align-middle"
+                    >
+                      {col.render(row, index)}
+                    </td>
+                  ))}
+                </tr>
+              ))
+          }
+        </tbody>
+      </table>
+    </div>
+  )
+}
+```
+
+**Where used:**
+
+| Page | Table purpose | Columns |
+|------|--------------|---------|
+| `/admin/tenants` | Tenant list | Tenant name+email, Plan badge, Status badge, Discord info, Created, Actions |
+| `/admin/audit-log` | Admin audit log | Timestamp, Admin email, Action type, Target tenant, Details |
+| `/admin/tenants/[id]` (detail) | Tenant service connections list | Service, Auth type, Status, Connected at, Account |
+
+---
+
+### 4.4 Pagination
+
+**File:** `components/ui/Pagination.tsx`
+
+**Purpose:** Page navigation control for paginated tables. Uses URL-based pagination (page number in URL param `?page=N`) so the current page survives page refresh and can be shared via link.
+
+**Props interface:**
+
+```typescript
+interface PaginationProps {
+  currentPage: number          // 1-indexed current page
+  totalPages: number           // Total number of pages
+  totalItems: number           // Total item count (for "{X}–{Y} of {Z}" display)
+  itemsPerPage: number         // Items per page (for range display)
+  onPageChange: (page: number) => void  // Called when user navigates pages
+  className?: string
+}
+```
+
+**Layout:**
+
+```
+[Showing 1–50 of 1,247 tenants]          [← Prev]  [1] [2] [3] ... [25]  [Next →]
+```
+
+Left side: item range text.
+Right side: page button row.
+
+**Item range text:**
+
+| Property | Value |
+|----------|-------|
+| Font | Inter, `14px`, weight `400`, `#6B7280` (gray-500) |
+| Text | `"Showing {start}–{end} of {totalItems.toLocaleString()} {entity}"` |
+| Range calc | `start = (currentPage - 1) * itemsPerPage + 1`; `end = Math.min(currentPage * itemsPerPage, totalItems)` |
+| Entity label | Not in props — the containing page provides context via `aria-label` on the `<nav>` |
+
+**Page button row:**
+
+| Element | Description |
+|---------|-------------|
+| "← Prev" button | Disabled on page 1. On click: `onPageChange(currentPage - 1)` |
+| Page number buttons | Show: current page ± 2, always show first and last page, `...` ellipsis where gaps exist |
+| "Next →" button | Disabled on last page. On click: `onPageChange(currentPage + 1)` |
+
+**Page number display algorithm:**
+
+For `totalPages = 25`, `currentPage = 12`:
+```
+[1] ... [10] [11] [12] [13] [14] ... [25]
+```
+
+For `totalPages = 6`, `currentPage = 3`:
+```
+[1] [2] [3] [4] [5] [6]
+```
+(No ellipsis when all pages fit within the ±2 window.)
+
+**Button styles:**
+
+| State | Background | Text | Border |
+|-------|-----------|------|--------|
+| Default page number | Transparent | `#374151` | `1px solid #E5E7EB` |
+| Current page | `#0C1F40` (Navy) | White | None |
+| Hover (non-current) | `#F9FAFB` | Navy | `1px solid #D1D5DB` |
+| Disabled (Prev on page 1, Next on last page) | Transparent | `#D1D5DB` | `1px solid #E5E7EB` |
+| Ellipsis `...` | Transparent | `#9CA3AF` | None — not a button |
+| Focus-visible | `outline: 2px solid #B4E7DD`, `outline-offset: 2px` | — | — |
+
+**Button dimensions:**
+
+| Property | Value |
+|----------|-------|
+| Height | `36px` |
+| Min-width | `36px` (square for numbers, wider for Prev/Next) |
+| Prev/Next width | `auto` (text + arrow icon with `gap: 6px`) |
+| Padding | `0 10px` |
+| Font | Inter, `14px`, weight `500` |
+| Border-radius | `0px` |
+| Transition | `background 0.1s ease, border-color 0.1s ease` |
+
+**Prev/Next button content:**
+
+| Button | Content |
+|--------|---------|
+| Prev | `<ChevronLeftIcon size={16} />` + "Previous" — or just `←` on mobile (`< 480px`) |
+| Next | "Next" + `<ChevronRightIcon size={16} />` — or just `→` on mobile |
+
+**Container layout:**
+
+```
+display: flex
+justify-content: space-between
+align-items: center
+margin-top: 24px
+padding: 0 (flush with table)
+```
+
+On mobile (`< 640px`): item range text hidden, only Prev/Next + current page shown:
+```
+[← Prev]   Page 3 of 25   [Next →]
+```
+
+**URL param integration:**
+
+The page component using `Pagination` reads `searchParams.page` (server-side in Next.js App Router), defaults to `1`. When `onPageChange` is called, the handler calls `router.push` with the updated URL:
+
+```typescript
+// Pattern in admin/tenants/page.tsx
+function handlePageChange(page: number) {
+  const params = new URLSearchParams(searchParams)
+  params.set('page', page.toString())
+  router.push(`/admin/tenants?${params.toString()}`)
+}
+```
+
+**Accessibility:**
+
+| Property | Value |
+|----------|-------|
+| `<nav>` element | Wraps the entire pagination, `aria-label="Pagination"` |
+| Current page button | `aria-current="page"` |
+| Disabled buttons | `disabled` attribute + `aria-disabled="true"` |
+| Prev button | `aria-label="Go to previous page"` |
+| Next button | `aria-label="Go to next page"` |
+| Page number buttons | `aria-label="Go to page {N}"` |
+
+**Where used:**
+
+| Page | `totalItems` source | `itemsPerPage` |
+|------|-------------------|----------------|
+| `/admin/tenants` | `SELECT COUNT(*) FROM tenants` (with filters) | `50` |
+| `/admin/audit-log` | `SELECT COUNT(*) FROM admin_audit_log` | `100` |
+
+---
+
+### 4.5 StatCard
+
+**File:** `components/ui/StatCard.tsx`
+
+**Purpose:** A metric display card showing a single KPI — a large numeric value with a label, optional sub-label, and optional icon. Used in Dashboard Quick Stats Row and Admin panel summary statistics bar.
+
+**Props interface:**
+
+```typescript
+interface StatCardProps {
+  label: string                     // Primary label above value
+  value: string | number            // The metric value (e.g., "47", "3d 14h", "—")
+  subValue?: string                 // Secondary line below value (e.g., "in the last 24 hours")
+  icon?: React.ComponentType<{ size?: number; className?: string }>  // Lucide icon component
+  accentStripe?: boolean            // Left Aqua accent stripe; default true
+  variant?: 'default' | 'compact'  // 'default' = dashboard; 'compact' = admin summary bar
+  loading?: boolean                 // Show skeleton when true
+  className?: string
+}
+```
+
+**`default` variant (Dashboard Quick Stats Row):**
+
+| Property | Value |
+|----------|-------|
+| Background | White (`#FFFFFF`) |
+| Border | `1.5px solid rgba(12,31,64,0.12)` |
+| Border-radius | `0px` |
+| Padding | `20px 24px` |
+| Left accent stripe | `3px solid rgba(180,231,221,0.6)` (60% Aqua — PyMC CI accent band 3) when `accentStripe=true` |
+
+Icon (when provided):
+| Property | Value |
+|----------|-------|
+| Size | `20px` |
+| Color | Navy at 45% (`rgba(12,31,64,0.45)`) |
+| Position | Flex row, left of label |
+| Gap | `8px` |
+| Container | Flex row, `justify-content: space-between`, top of card |
+
+Label:
+| Property | Value |
+|----------|-------|
+| Font | Inter, `12px`, weight `500`, Navy at 55%, uppercase, letter-spacing `0.06em` |
+| Margin-bottom | `8px` |
+
+Value:
+| Property | Value |
+|----------|-------|
+| Font | Archivo Expanded (wdth: 125), `32px`, weight `700`, Navy |
+| Line-height | `1.1` |
+| Display | Block |
+
+Sub-value:
+| Property | Value |
+|----------|-------|
+| Font | Inter, `12px`, weight `400`, Navy at 45% |
+| Margin-top | `4px` |
+
+**`compact` variant (Admin Summary Bar):**
+
+| Property | Value |
+|----------|-------|
+| Background | White |
+| Border | `1px solid #E5E7EB` |
+| Padding | `16px 20px` |
+| Border-radius | `0px` |
+| Left accent stripe | None |
+
+Value font:
+| Property | Value |
+|----------|-------|
+| Font | Archivo Semi-Expanded (wdth: 112.5), `28px`, weight `600`, Navy |
+
+Label font:
+| Property | Value |
+|----------|-------|
+| Font | Inter, `12px`, weight `400`, `#6B7280` |
+
+Sub-value font:
+| Property | Value |
+|----------|-------|
+| Font | Inter, `11px`, weight `400`, `#9CA3AF` |
+
+**Loading state:**
+
+When `loading = true`, content area shows:
+
+| Element | Skeleton dimensions |
+|---------|-------------------|
+| Icon area | `Skeleton(20px × 20px)` |
+| Label | `Skeleton(80px × 12px)` |
+| Value | `Skeleton(60px × 32px)` |
+| Sub-value | `Skeleton(100px × 11px)` |
+
+**Internal layout structure:**
+
+```
+StatCard (div)
+├── TopRow (flex, justify-between, align-center, mb-2)
+│   ├── Label text + icon (flex, align-center, gap-2)
+│   └── [optional trailing icon slot]
+└── BottomSection
+    ├── Value (block, large Archivo)
+    └── SubValue (block, small Inter)
+```
+
+**Implementation:**
+
+```tsx
+// components/ui/StatCard.tsx
+export function StatCard({
+  label,
+  value,
+  subValue,
+  icon: Icon,
+  accentStripe = true,
+  variant = 'default',
+  loading = false,
+  className,
+}: StatCardProps) {
+  const isDefault = variant === 'default'
+
+  return (
+    <div
+      className={cn(
+        isDefault
+          ? 'bg-white border-[1.5px] border-[rgba(12,31,64,0.12)] p-[20px_24px]'
+          : 'bg-white border border-[#E5E7EB] p-[16px_20px]',
+        accentStripe && isDefault && 'border-l-[3px] border-l-[rgba(180,231,221,0.6)]',
+        className
+      )}
+    >
+      {loading ? (
+        <StatCardSkeleton variant={variant} />
+      ) : (
+        <>
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              {Icon && (
+                <Icon size={20} className="text-[rgba(12,31,64,0.45)] flex-shrink-0" />
+              )}
+              <span
+                className={cn(
+                  'uppercase tracking-[0.06em]',
+                  isDefault
+                    ? 'text-[12px] font-medium text-[rgba(12,31,64,0.55)]'
+                    : 'text-[12px] font-normal text-[#6B7280]'
+                )}
+              >
+                {label}
+              </span>
+            </div>
+          </div>
+          <span
+            className={cn(
+              'block',
+              isDefault
+                ? 'font-archivo font-bold text-[32px] leading-[1.1] text-[#0C1F40]'
+                : 'font-archivo font-semibold text-[28px] leading-[1.1] text-[#0C1F40]'
+            )}
+            style={{ fontVariationSettings: isDefault ? '"wdth" 125' : '"wdth" 112.5' }}
+          >
+            {value === null || value === undefined ? '—' : value}
+          </span>
+          {subValue && (
+            <span
+              className={cn(
+                'block mt-1',
+                isDefault ? 'text-[12px] text-[rgba(12,31,64,0.45)]' : 'text-[11px] text-[#9CA3AF]'
+              )}
+            >
+              {subValue}
+            </span>
+          )}
+        </>
+      )}
+    </div>
+  )
+}
+```
+
+**Where used:**
+
+| Location | Count | Variant | Labels |
+|----------|-------|---------|--------|
+| Dashboard `/dashboard` Quick Stats Row | 3 | `default` | "Messages Today", "Tool Uses Today", "Uptime" |
+| Admin `/admin/tenants` Summary Bar | 4 | `compact` | "Total Tenants", "Active Bots", "Starter + Pro", "Suspended" |
+
+**Peach Orange restriction:** `#F6AE72` (Peach Orange) is NOT used in `StatCard` backgrounds, borders, or text — it is reserved exclusively for data visualizations (charts/graphs). See brand guidelines.
+
+---
+
+### 4.6 ActivityFeed
+
+**File:** `components/ui/ActivityFeed.tsx`
+
+**Purpose:** A chronological list of system events displayed in a card. Used on the Dashboard home page to show recent bot activity (connections, key validations, service connections, billing events).
+
+**Props interface:**
+
+```typescript
+type ActivityEventType =
+  | 'bot_connected'
+  | 'bot_disconnected'
+  | 'bot_error'
+  | 'api_key_added'
+  | 'api_key_invalid'
+  | 'service_connected'
+  | 'service_expired'
+  | 'plan_upgraded'
+  | 'plan_downgraded'
+  | 'account_created'
+
+interface ActivityEvent {
+  id: string
+  type: ActivityEventType
+  timestamp: string          // ISO 8601 timestamp
+  description: string        // Human-readable event text (pre-formatted by server)
+  metadata?: {
+    serviceName?: string     // For service_connected / service_expired
+    planName?: string        // For plan_upgraded / plan_downgraded
+    errorMessage?: string    // For bot_error / api_key_invalid
+  }
+}
+
+interface ActivityFeedProps {
+  events: ActivityEvent[]
+  maxItems?: number          // Default: 10 — truncates list to this many events
+  showHeader?: boolean       // Default: true
+  loading?: boolean
+  className?: string
+}
+```
+
+**Container:**
+
+| Property | Value |
+|----------|-------|
+| Background | White (`#FFFFFF`) |
+| Border | `1.5px solid rgba(12,31,64,0.12)` |
+| Border-radius | `0px` |
+| Padding | `24px 28px` |
+
+**Header (when `showHeader = true`):**
+
+```
+[Activity/Clock icon 16px Navy@45%]  "Recent Activity"   [spacer]
+```
+
+| Property | Value |
+|----------|-------|
+| Icon | ClockIcon (16px, Navy at 45%) |
+| Title | "Recent Activity" |
+| Title font | Inter, `14px`, weight `600`, Navy |
+| Layout | `flex items-center gap-2 mb-5` |
+| Divider | `border-b border-[rgba(12,31,64,0.06)] pb-4 mb-0` below header |
+
+**Event row layout:**
+
+```
+[EventIcon]  [EventText]           [Timestamp]
+```
+
+| Property | Value |
+|----------|-------|
+| Row layout | `flex items-start gap-3` |
+| Row padding | `12px 0` |
+| Row border-bottom | `1px solid rgba(12,31,64,0.04)` (on all except last) |
+
+**EventIcon container:**
+
+| Property | Value |
+|----------|-------|
+| Size | `32px × 32px` |
+| Flex-shrink | `0` |
+| Display | `flex items-center justify-content-center` |
+| Background | Per event type (see below) |
+| Icon | Lucide icon, `16px`, per event type |
+
+**Event type configurations:**
+
+| Type | Icon | Icon bg | Description template |
+|------|------|---------|---------------------|
+| `bot_connected` | `ZapIcon` | `rgba(34,197,94,0.12)` | "Bot connected to Discord server" |
+| `bot_disconnected` | `ZapOffIcon` | `rgba(239,68,68,0.12)` | "Bot disconnected from Discord" |
+| `bot_error` | `AlertTriangleIcon` | `rgba(239,68,68,0.12)` | "Bot encountered a connection error" |
+| `api_key_added` | `KeyIcon` | `rgba(180,231,221,0.30)` | "Anthropic API key added and validated" |
+| `api_key_invalid` | `KeyRoundIcon` | `rgba(239,68,68,0.12)` | "Anthropic API key validation failed" |
+| `service_connected` | `PlugIcon` | `rgba(180,231,221,0.30)` | "{metadata.serviceName} connected" |
+| `service_expired` | `PlugZapIcon` | `rgba(245,158,11,0.12)` | "{metadata.serviceName} token expired — reconnect required" |
+| `plan_upgraded` | `CreditCardIcon` | `rgba(180,231,221,0.30)` | "Plan upgraded to {metadata.planName}" |
+| `plan_downgraded` | `CreditCardIcon` | `rgba(245,158,11,0.12)` | "Plan changed to {metadata.planName}" |
+| `account_created` | `UserIcon` | `rgba(159,170,226,0.30)` | "Account created" |
+
+**EventText column:**
+
+| Property | Value |
+|----------|-------|
+| Font | Inter, `14px`, weight `400`, Navy |
+| Line-height | `1.5` |
+| Flex | `1` (takes remaining width) |
+
+**Timestamp column:**
+
+| Property | Value |
+|----------|-------|
+| Font | Inter, `12px`, weight `400`, Navy at 45% |
+| White-space | `nowrap` |
+| Align-self | `flex-start` |
+| Title attribute | Full ISO timestamp for hover tooltip (e.g., `"2026-03-13T14:32:05Z"`) |
+
+**Relative timestamp format:** Uses a standard relative time formatter:
+
+| Age | Display format |
+|-----|---------------|
+| < 60 seconds | "just now" |
+| 1–59 minutes | "{N}m ago" |
+| 1–23 hours | "{N}h ago" |
+| 1–6 days | "{N}d ago" |
+| ≥ 7 days | "MMM D" (e.g., "Mar 6") |
+
+Timestamps refresh every 60 seconds client-side via `setInterval` (to keep relative times accurate while the user keeps the page open).
+
+**Empty state (no events):**
+
+```
+ActivityFeed (empty)
+├── EmptyState component
+│   ├── Icon: ActivityIcon (40px, Navy at 20%)
+│   ├── Title: "No activity yet"
+│   └── Body: "Activity will appear here once your bot is connected and running."
+```
+
+**Loading state (skeleton):**
+
+When `loading = true`:
+```
+ActivityFeed (loading)
+├── Header skeleton: Skeleton(140px × 16px)
+└── [×5] EventRowSkeleton
+    ├── Skeleton(32px × 32px) ← icon area
+    └── ContentGroup (flex col, gap-1)
+        ├── Skeleton(70% × 14px)
+        └── Skeleton(40% × 12px)
+```
+
+**Implementation:**
+
+```tsx
+// components/ui/ActivityFeed.tsx
+export function ActivityFeed({
+  events,
+  maxItems = 10,
+  showHeader = true,
+  loading = false,
+  className,
+}: ActivityFeedProps) {
+  const displayEvents = events.slice(0, maxItems)
+
+  if (loading) return <ActivityFeedSkeleton />
+
+  return (
+    <div className={cn('bg-white border-[1.5px] border-[rgba(12,31,64,0.12)] p-[24px_28px]', className)}>
+      {showHeader && (
+        <div className="flex items-center gap-2 border-b border-[rgba(12,31,64,0.06)] pb-4 mb-0">
+          <ClockIcon size={16} className="text-[rgba(12,31,64,0.45)]" />
+          <span className="text-[14px] font-semibold text-[#0C1F40]">Recent Activity</span>
+        </div>
+      )}
+      {displayEvents.length === 0 ? (
+        <EmptyState
+          icon={ActivityIcon}
+          title="No activity yet"
+          body="Activity will appear here once your bot is connected and running."
+        />
+      ) : (
+        <ul className="divide-y divide-[rgba(12,31,64,0.04)]" role="list" aria-label="Recent activity feed">
+          {displayEvents.map((event) => {
+            const config = EVENT_CONFIGS[event.type]
+            return (
+              <li key={event.id} className="flex items-start gap-3 py-3">
+                <div
+                  className="flex-shrink-0 w-8 h-8 flex items-center justify-center"
+                  style={{ background: config.iconBg }}
+                  aria-hidden="true"
+                >
+                  <config.Icon size={16} />
+                </div>
+                <span className="flex-1 text-[14px] text-[#0C1F40] leading-[1.5]">
+                  {event.description}
+                </span>
+                <time
+                  className="flex-shrink-0 text-[12px] text-[rgba(12,31,64,0.45)] self-start whitespace-nowrap"
+                  dateTime={event.timestamp}
+                  title={event.timestamp}
+                >
+                  {formatRelativeTime(event.timestamp)}
+                </time>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </div>
+  )
+}
+```
+
+**Real-time updates:** The Dashboard page subscribes to Supabase Realtime on relevant tables. When a new event arrives, the `events` array is updated client-side by prepending the new event and trimming to `maxItems`. No full page reload.
+
+**Where used:**
+
+| Location | `maxItems` | Source tables |
+|----------|-----------|--------------|
+| Dashboard home — Section 6 | `10` | `discord_connections`, `tenant_service_connections`, `tenant_api_keys`, `tenant_subscriptions` |
+
+---
+
+### 4.7 CopyToClipboard
+
+**File:** `components/ui/CopyToClipboard.tsx`
+
+**Purpose:** An inline copy button that copies text to the clipboard. Shows a success checkmark for 2 seconds after copying, then resets. Used wherever a user needs to copy a key, ID, token, or URL — without seeing the raw value if it's sensitive.
+
+**Props interface:**
+
+```typescript
+interface CopyToClipboardProps {
+  value: string                    // The text to copy to clipboard
+  displayValue?: string            // What to show in the UI (default: `value`)
+  masked?: boolean                 // If true, display as ••••••• with toggleable reveal; default false
+  size?: 'sm' | 'md'             // Default: 'md'
+  variant?: 'inline' | 'block'    // 'inline' = icon only; 'block' = value display + copy button
+  label?: string                  // ARIA label (default: "Copy to clipboard")
+  className?: string
+}
+```
+
+**`block` variant (value display + copy button):**
+
+Used in Billing page API key management, Settings page, and documentation pages.
+
+```
+┌─────────────────────────────────────────────────────┐
+│  sk-ant-api03-••••••••••••••••    [Copy] [👁 Show]  │
+└─────────────────────────────────────────────────────┘
+```
+
+| Property | Value |
+|----------|-------|
+| Container | `flex items-center gap-2` |
+| Value display | `flex-1`, `font-mono`, `14px`, Navy, truncated with `overflow: hidden; text-overflow: ellipsis; white-space: nowrap` |
+| Container background | `#F9FAFB` |
+| Container border | `1px solid #E5E7EB` |
+| Container padding | `8px 12px` |
+| Container border-radius | `0px` |
+
+When `masked = true`:
+- `displayValue` shown as `••••••••••••••••••••` (20 bullets) regardless of actual length.
+- A "Show" toggle button appears to the right of the copy button.
+- Clicking "Show" reveals the actual `displayValue` and changes button to "Hide".
+- The clipboard always copies the real `value` (not the masked display).
+
+**Show/Hide toggle button:**
+
+| State | Icon | Tooltip |
+|-------|------|---------|
+| Masked (default) | `EyeIcon` (16px) | "Reveal" |
+| Revealed | `EyeOffIcon` (16px) | "Hide" |
+
+| Property | Value |
+|----------|-------|
+| Height | `28px` (sm) / `32px` (md) |
+| Width | `28px` / `32px` |
+| Background | Transparent |
+| Border | None |
+| Icon color | Navy at 45%, hover: Navy at 75% |
+| Transition | `color 0.15s ease` |
+
+**Copy button (inside `block` variant):**
+
+| State | Icon | Background | Border | Tooltip |
+|-------|------|-----------|--------|---------|
+| Default | `CopyIcon` (14px) | Transparent | None | "Copy to clipboard" |
+| Hover | `CopyIcon` (14px) | `rgba(12,31,64,0.06)` | None | "Copy to clipboard" |
+| Success (2s window) | `CheckIcon` (14px) | `rgba(34,197,94,0.12)` | None | "Copied!" |
+| Error | `XIcon` (14px) | `rgba(239,68,68,0.12)` | None | "Failed to copy" |
+
+Button dimensions:
+| Property | Value |
+|----------|-------|
+| Height | `28px` (sm) / `32px` (md) |
+| Width | `28px` / `32px` |
+| Border-radius | `0px` |
+| Transition | `background 0.1s ease` |
+
+**`inline` variant (icon-only button):**
+
+Used inline next to IDs, short values, URLs in docs pages and admin panel.
+
+```
+guild ID: 123456789012345678  [□]
+```
+
+Only the copy icon button — no separate value display box.
+
+| Property | Value |
+|----------|-------|
+| Icon | `CopyIcon` (14px for sm, 16px for md) |
+| Display | Inline-flex |
+| Height | `24px` (sm) / `28px` (md) |
+| Width | `24px` / `28px` |
+| Padding | `4px` |
+| Background | Transparent |
+| Border | None |
+| Border-radius | `0px` |
+
+Success state: Icon switches to `CheckIcon` (same size), background `rgba(34,197,94,0.12)` for 2 seconds, then resets.
+
+**Clipboard API implementation:**
+
+```typescript
+async function handleCopy() {
+  try {
+    await navigator.clipboard.writeText(value)
+    setCopyState('success')
+  } catch (err) {
+    // Fallback for older browsers / HTTP contexts
+    const textArea = document.createElement('textarea')
+    textArea.value = value
+    textArea.style.cssText = 'position:fixed;top:-9999px;left:-9999px'
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+    try {
+      document.execCommand('copy')
+      setCopyState('success')
+    } catch {
+      setCopyState('error')
+    }
+    document.body.removeChild(textArea)
+  }
+  setTimeout(() => setCopyState('default'), 2000)
+}
+```
+
+**Toast notification:** When copy succeeds, a toast notification is shown: `"Copied to clipboard"` (duration: 2000ms, variant: `success`). This is separate from the in-button success icon — both fire simultaneously.
+
+**Accessibility:**
+
+| Property | Value |
+|----------|-------|
+| Copy button `aria-label` | Default: "Copy to clipboard"; Success: "Copied!"; Error: "Failed to copy" |
+| Copy button `aria-live` | `"polite"` — so screen readers announce state changes |
+| Show/Hide button `aria-label` | "Reveal API key" / "Hide API key" |
+| Show/Hide button `aria-pressed` | `true` when revealed, `false` when masked |
+| Value display | `aria-label="API key value: [masked or revealed]"` |
+
+**Where used:**
+
+| Location | Variant | `masked` | `value` source |
+|----------|---------|---------|---------------|
+| Billing page — Anthropic key display | `block` | `true` | `tenant_api_keys.encrypted_key` (decrypted server-side) |
+| Billing page — OpenAI key display | `block` | `true` | Same |
+| Admin panel — tenant detail, bot token | `block` | `true` | `discord_connections.bot_token` |
+| Settings page — Discord guild ID | `inline` | `false` | `discord_connections.guild_id` |
+| Docs pages — example values, IDs | `inline` | `false` | Hardcoded doc content |
+
+---
+
+### Summary Table — Data Display Components
+
+| Component | File | Primary Usage |
+|-----------|------|---------------|
+| `Badge` | `components/ui/Badge.tsx` | Plan labels, status indicators, key status, connection state |
+| `StatusIndicator` | `components/ui/StatusIndicator.tsx` | Bot connection status dot + label in Bot Status Card |
+| `Table` | `components/ui/Table.tsx` | Admin tenant list, admin audit log, admin tenant detail connections |
+| `Pagination` | `components/ui/Pagination.tsx` | Admin tenant list paging, audit log paging |
+| `StatCard` | `components/ui/StatCard.tsx` | Dashboard Quick Stats Row, admin summary statistics bar |
+| `ActivityFeed` | `components/ui/ActivityFeed.tsx` | Dashboard recent activity section |
+| `CopyToClipboard` | `components/ui/CopyToClipboard.tsx` | API key display, guild ID copy, doc code examples |
+
+*Next section: Action Components — aspect 4.9e*
