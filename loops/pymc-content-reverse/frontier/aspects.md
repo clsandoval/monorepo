@@ -1,9 +1,9 @@
 # Frontier — PyMC Content Gathering
 
 ## Statistics
-- Total aspects discovered: 71
-- Analyzed: 14
-- Pending: 57
+- Total aspects discovered: 74
+- Analyzed: 15
+- Pending: 59
 - Convergence: 20%
 
 ## Pending Aspects (ordered by dependency)
@@ -25,10 +25,12 @@ Map all sources before extracting. These must complete before Wave 2.
 - [x] website-crawl-remaining — Check for any pages not yet scraped (sitemap.xml, nav links), scrape them
 - [x] halah-draft-scrape — WebFetch https://loyal-growth-093412.framer.app/, save to analysis/halah-draft-scrape.md
 - [x] halah-draft-pricing — Playwright: navigate to https://loyal-growth-093412.framer.app/pricing, extract all pricing/engagement-model content, save to analysis/halah-draft-pricing.md
-- [ ] brand-deck-scrape — WebFetch https://pymc-brand-deck.netlify.app/, save to analysis/brand-deck-scrape.md
+- [x] brand-deck-scrape — WebFetch https://pymc-brand-deck.netlify.app/, save to analysis/brand-deck-scrape.md
 - [ ] github-org-scan — WebSearch/WebFetch PyMC Labs GitHub org, list repos + descriptions, save to analysis/public/github-org.md
 - [ ] social-media-scan — WebSearch PyMC Labs on LinkedIn, Twitter/X, YouTube. Save to analysis/public/social-media.md
 - [ ] press-mentions — WebSearch for PyMC Labs press, interviews, podcast appearances. Save to analysis/public/press.md
+- [ ] brand-deck-podcast — WebSearch/WebFetch for PyMC Labs podcast (found in brand deck footer nav). Find URL, episode list, descriptions; save to analysis/public/podcast.md
+- [ ] brand-deck-course-ai-assisted — Investigate "AI-Assisted Data Science" course ($2,000, Hugo Bowne-Anderson/Wiecki/Fiaschi) found in brand deck but NOT on live site. Search Discord + web for curriculum/description; save to analysis/course-ai-assisted.md
 
 ### Wave 2: Discord Channel Mining
 Read each relevant channel and extract content tagged by sitemap page. One aspect per channel/cluster.
@@ -105,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] brand-deck-scrape (2026-03-13) — Playwright + WebFetch of 13-section UI treatment deck. Confirmed brand: "The Probabilistic AI Consultancy", 5-color palette (Navy #0C1F40 / Aqua #B4E7DD / Periwinkle #9FAAE2 / White #F7F7F7 / Peach #F6AE72 — Peach data viz only), Archivo variable-width headlines + Inter body + Lora serif accent, two-site stack (Framer marketing + Astro content), rocket logo rules, component system (buttons/tags/cards/nav/footer). Discovered: AI-Assisted Data Science course ($2,000, Bowne-Anderson/Wiecki/Fiaschi) not on live site; Podcast in footer nav not in sitemap; stat claims (100+ enterprise clients, 52 published articles). Output: analysis/brand-deck-scrape.md
 - [x] halah-draft-pricing (2026-03-13) — Playwright-scraped /pricing page. Pricing tiers (Essential $1999/Growth $3999/Scale $6999/yr) are Aurazen Framer template placeholders — NOT PyMC Labs pricing. Footer/social links still point to template defaults. Key authentic content: 5-question FAQ with polished PyMC Labs answers covering industries (Pharma/Aerospace/Marketing/Finance/SpaceX), builders not advisors, model optimization, custom workshops, Embedded Teams via Slack+GitHub. Actual engagement model is Expert Access Program (Base: Expert Lifeline + Pro: Deep Partnership) from live website. Output: analysis/halah-draft-pricing.md
 - [x] halah-draft-scrape (2026-03-13) — Playwright-scraped 8 pages from Framer draft site. Home hero: "Bayesian Intelligence for [Marketing/Finance/Pharma/Sports]". Services: 5 detailed with features — Simba explicitly named under "Bayesian AI Solutions" as "Enterprise-level Bayesian solution for end-to-end MMM workflows." Also names MMM Insights Agent and CLV Agent. About: origin timeline (2005 PyMC → 2020 Labs → 2023 pymc-marketing → 2025 agentic AI). Full case study narratives for HelloFresh (60x faster, saturation curves), Colgate-Palmolive (SSR, 9K responses, 90% reliability, 74% agreement), SALK (hierarchical Bayesian for surveys), Indigo (causal Bayesian for ag field trials). NOT captured: /pricing (→ halah-draft-pricing), /work/ovative-group, /work/akili. Output: analysis/halah-draft-scrape.md
 - [x] website-crawl-remaining (2026-03-13) — Verified sitemap (92 URLs). Scraped 11 missing pages: Expert Access Program (two-tier: Base=Expert Lifeline, Pro=Deep Partnership; new clients: Fox Entertainment, Fabletics), Labs Principles (5 principles from open-source culture, Teal org), Origin Story (founded 2021 by Wiecki, early clients SpaceX/Roche/Netflix/Deliveroo/HelloFresh), The AI MMM Agent (Decision AI — ~80% grunt work reduction, hours not months, Luca Fiaschi), AI MMM Agent BETA (email [email protected]), Synthetic Consumers overview + practical guide (90% alignment with human data, 85% distributional similarity, <24h cycles, SSR methodology), Innovation Lab CPG (agentic + synthetic consumers platform), Colgate case study part 2 (nested logit discrete choice modeling, proprietary PyMC tooling), How Realistic Are Synthetic Consumers (Allen Downey GSS study), From Uncertainty to Insight (value prop). GAPS: Simba product name unconfirmed in web content — needs Discord; leaderboard page JS-rendered; Fabletics/Fox Entertainment clients have no case studies. Output: analysis/website-scrape/crawl-remaining.md
