@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 30
-- **Pending**: 33
-- **Convergence**: 48%
+- **Analyzed**: 31
+- **Pending**: 32
+- **Convergence**: 49%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -48,7 +48,7 @@
 - [x] 4.7 — Admin panel — tenant list, tenant detail, impersonation, audit log
 - [x] 4.8a — Docs: Quick Start guide — complete step-by-step walkthrough from signup to live bot, with every screen described
 - [x] 4.8b — Docs: Tool Reference — Discord (7) + Dub (2) + Credentials (1) + GitHub (1) tools — name, description, params, example output
-- [ ] 4.8c — Docs: Tool Reference — Toggl tools (34) — every tool name, description, params, example output
+- [x] 4.8c — Docs: Tool Reference — Toggl tools (34) — every tool name, description, params, example output
 - [ ] 4.8d — Docs: Tool Reference — LinkedIn (17) + Google Analytics (4) tools — name, description, params, example output
 - [ ] 4.8e — Docs: Tool Reference — Fly (9) + ACP (4) + Decision Hub (4) + Onyx (2) + Bluedot (4) tools — name, description, params, example output
 - [ ] 4.8f — Docs: Tool Reference — Linear (6 remote MCP) tools + tool index/navigation structure

@@ -1770,4 +1770,1485 @@ Tables have `overflow-x: auto` on a wrapping `<div>` so they scroll horizontally
 
 *End of Tool Reference: Discord & Core Tools page specification.*
 
-*Toggl Tools (34 tools) are documented in aspect 4.8c in this same file.*
+---
+
+## Page: Tool Reference — Toggl (`/docs/tool-reference/toggl`)
+
+**Route:** `/docs/tool-reference/toggl`
+**Layout:** `app/(docs)/layout.tsx` (shared docs shell)
+**Rendering:** Static — `generateStaticParams` at build time. No auth required.
+**Active sidebar link:** "Toggl" (under Tool Reference section)
+
+### Page Purpose
+
+Complete reference for all 34 Toggl tools available in Daimon. Split into two categories: tools that operate on the authenticated user's own time data (Time Entry, Project, Task, Workspace Member, Project User — available to any connected Toggl user), and workspace-level reporting tools that require the connected user to be a Toggl workspace admin.
+
+**Prerequisite:** User must connect their Toggl account on the [Integrations page](/dashboard/integrations). See [Quick Start → Step 4: Connect Integrations](quick-start#step-4).
+
+### Page Header
+
+```
+<h1>Toggl Tools</h1>
+<p class="page-subtitle">
+  34 tools for time tracking, project management, and workspace reporting.
+  Connects to your Toggl account via API key. Some reporting tools require workspace admin access.
+</p>
+```
+
+| Property | Value |
+|----------|-------|
+| `h1` font | Inter Bold, 36px, #0C1F40 |
+| `p.page-subtitle` font | Inter Regular, 18px, #6B7280 |
+| Bottom border | `1px solid #E5E7EB`, `margin-bottom: 32px` |
+
+### On-Page Table of Contents
+
+The right-side (or inline, at top of article on mobile) TOC:
+
+```
+On this page
+  ├── Time Entry Tools (7)
+  │   ├── toggl_get_my_time_entries
+  │   ├── toggl_get_my_time_entry
+  │   ├── toggl_get_my_current_time_entry
+  │   ├── toggl_create_my_time_entry
+  │   ├── toggl_update_my_time_entry
+  │   ├── toggl_stop_my_time_entry
+  │   └── toggl_bulk_edit_time_entries
+  ├── Project Tools (4)
+  │   ├── toggl_get_projects
+  │   ├── toggl_get_project
+  │   ├── toggl_update_project
+  │   └── toggl_create_project
+  ├── Task Tools (5)
+  │   ├── toggl_get_tasks
+  │   ├── toggl_get_task
+  │   ├── toggl_get_project_tasks
+  │   ├── toggl_create_task
+  │   └── toggl_update_task
+  ├── Workspace Member Tools (1)
+  │   └── toggl_get_workspace_members
+  ├── Project User Tools (3)
+  │   ├── toggl_add_user_to_project
+  │   ├── toggl_get_project_users
+  │   └── toggl_remove_user_from_project
+  └── Workspace Report Tools (14) — Admin Only
+      ├── toggl_search_workspace_time_entries
+      ├── toggl_get_workspace_time_summary
+      ├── toggl_workspace_project_summary
+      ├── toggl_workspace_time_totals
+      ├── toggl_weekly_report
+      ├── toggl_export_detailed_csv
+      ├── toggl_export_summary_csv
+      ├── toggl_project_trends
+      ├── toggl_employee_profitability
+      ├── toggl_project_profitability
+      ├── toggl_list_report_users
+      ├── toggl_list_report_projects
+      ├── toggl_list_report_clients
+      └── toggl_list_project_user_rates
+```
+
+### Prerequisites Banner
+
+```
+<div class="info-banner" role="note" aria-label="Prerequisite notice">
+  <span class="info-icon">ℹ️</span>
+  <p>
+    Toggl tools require a connected Toggl account. Go to
+    <a href="/dashboard/integrations">Integrations</a> and paste your Toggl API key to connect.
+    Workspace reporting tools (marked <span class="badge admin-badge">Admin Only</span>) additionally
+    require your Toggl user to have workspace admin permissions.
+  </p>
+</div>
+```
+
+| Property | Value |
+|----------|-------|
+| Background | `rgba(180, 231, 221, 0.15)` (Aqua 15%) |
+| Border | `1px solid #B4E7DD` |
+| Border-radius | `8px` |
+| Padding | `16px 20px` |
+| Font | Inter Regular, 14px, #374151 |
+
+### Admin-Only Badge Spec
+
+Used throughout this page on all 14 workspace report tools:
+
+| Property | Value |
+|----------|-------|
+| Label text | `Admin Only` |
+| Background | `#FEF3C7` (Amber 100) |
+| Text color | `#92400E` (Amber 800) |
+| Font | Inter SemiBold, 11px |
+| Border-radius | `4px` |
+| Padding | `2px 8px` |
+| Display | `inline-flex`, `align-items: center` |
+
+### Tool Entry Format
+
+Each tool entry follows this structure:
+
+```html
+<section id="{tool_name}" class="tool-entry">
+  <h3>
+    <code>{tool_name}</code>
+    {if admin-only: <span class="badge admin-badge">Admin Only</span>}
+  </h3>
+  <p class="tool-description">{description}</p>
+  <div class="tool-meta">
+    <span>Category: <strong>{category}</strong></span>
+    <span>Access: <strong>{READ|WRITE}</strong></span>
+    {if admin-only: <span>Requires: <strong>Toggl Workspace Admin</strong></span>}
+  </div>
+  {if has params:
+    <table role="table">
+      <caption class="sr-only">Parameters for {tool_name}</caption>
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Type</th>
+          <th>Required</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows}
+      </tbody>
+    </table>
+  }
+  {if no params: <p class="no-params">No parameters required.</p>}
+  <details class="example-block">
+    <summary>Example</summary>
+    <pre><code>{example}</code></pre>
+  </details>
+</section>
+```
+
+**Divider between tools:** `<hr class="tool-divider">` — `1px solid #E5E7EB`, `margin: 32px 0`
+
+---
+
+### Section: Time Entry Tools
+
+```html
+<h2 id="time-entry-tools">Time Entry Tools</h2>
+<p>
+  Tools for reading and managing your own time entries. These tools operate on the
+  authenticated Toggl user's personal time data — not workspace-wide data.
+</p>
+```
+
+---
+
+#### `toggl_get_my_time_entries`
+
+**Description:** Get time entries for the authenticated user, optionally filtered by date range. Max 90-day range.
+
+**Category:** Time Entry | **Access:** READ
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `start_date` | string | No | ISO 8601 start date filter, e.g. `2026-01-01T00:00:00Z`. If omitted, returns recent entries. |
+| `end_date` | string | No | ISO 8601 end date filter, e.g. `2026-01-31T23:59:59Z`. If omitted, no upper bound. |
+
+**Note:** Date range cannot exceed 90 days. If range exceeds 90 days, the tool returns an error: `"Date range cannot exceed 90 days. Use start_date and end_date to narrow your query."`
+
+**Example:**
+```
+User: Show me my time entries for this week.
+Daimon: [calls toggl_get_my_time_entries with start_date="2026-03-09T00:00:00Z", end_date="2026-03-13T23:59:59Z"]
+Returns: List of time entry objects with id, description, project_id, task_id, start, stop, duration (seconds), tags, billable, workspace_id
+```
+
+**Example output (single entry):**
+```json
+{
+  "id": 3458291047,
+  "description": "Sprint planning meeting",
+  "project_id": 198374201,
+  "task_id": null,
+  "start": "2026-03-10T09:00:00+00:00",
+  "stop": "2026-03-10T10:30:00+00:00",
+  "duration": 5400,
+  "tags": ["meetings"],
+  "billable": false,
+  "workspace_id": 9283741
+}
+```
+
+---
+
+#### `toggl_get_my_time_entry`
+
+**Description:** Get a single time entry by ID.
+
+**Category:** Time Entry | **Access:** READ
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `time_entry_id` | integer | Yes | The numeric ID of the time entry to retrieve. |
+
+**Example:**
+```
+User: Get details for time entry 3458291047.
+Daimon: [calls toggl_get_my_time_entry with time_entry_id=3458291047]
+Returns: Single time entry object (same shape as toggl_get_my_time_entries items)
+```
+
+**Example output:**
+```json
+{
+  "id": 3458291047,
+  "description": "Sprint planning meeting",
+  "project_id": 198374201,
+  "task_id": null,
+  "start": "2026-03-10T09:00:00+00:00",
+  "stop": "2026-03-10T10:30:00+00:00",
+  "duration": 5400,
+  "tags": ["meetings"],
+  "billable": false,
+  "workspace_id": 9283741
+}
+```
+
+---
+
+#### `toggl_get_my_current_time_entry`
+
+**Description:** Get the currently running time entry. Returns a hint if no entry is running.
+
+**Category:** Time Entry | **Access:** READ
+
+**Parameters:** None required.
+
+**Example:**
+```
+User: Am I tracking time right now?
+Daimon: [calls toggl_get_my_current_time_entry]
+Returns: Running time entry object if active, or message "No time entry is currently running."
+```
+
+**Example output (running entry):**
+```json
+{
+  "id": 3458299001,
+  "description": "Writing spec for Daimon",
+  "project_id": 198374201,
+  "task_id": 84712930,
+  "start": "2026-03-13T14:00:00+00:00",
+  "stop": null,
+  "duration": -1,
+  "tags": [],
+  "billable": true,
+  "workspace_id": 9283741
+}
+```
+
+**Example output (no running entry):**
+```
+"No time entry is currently running."
+```
+
+---
+
+#### `toggl_create_my_time_entry`
+
+**Description:** Create a new time entry. For a running entry, set duration to -1 and omit stop.
+
+**Category:** Time Entry | **Access:** WRITE
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `start` | string | Yes | Start time in ISO 8601 format, e.g. `2026-03-13T09:00:00Z`. |
+| `description` | string | No | Description of the work done. |
+| `project_id` | integer | No | Toggl project ID to assign this entry to. |
+| `task_id` | integer | No | Toggl task ID to assign this entry to (must belong to project_id if provided). |
+| `duration` | integer | No | Duration in seconds. Use `-1` to start a running (open) entry. |
+| `stop` | string | No | Stop time in ISO 8601 format. Omit for running entries. |
+| `tags` | array of strings | No | Tag names to apply, e.g. `["meetings", "client-work"]`. |
+| `billable` | boolean | No | Whether this entry is billable. |
+
+**Notes:**
+- To start a running timer: provide `start`, set `duration` to `-1`, omit `stop`.
+- To log a completed entry: provide `start` and either `stop` or a positive `duration`.
+- If both `stop` and `duration` are provided, they must be consistent.
+
+**Example:**
+```
+User: Start a timer for "writing the Daimon spec" on the Daimon project.
+Daimon: [calls toggl_create_my_time_entry with start="2026-03-13T14:00:00Z", description="Writing the Daimon spec", project_id=198374201, duration=-1]
+Returns: Created time entry object with id
+```
+
+**Example output:**
+```json
+{
+  "id": 3458299002,
+  "description": "Writing the Daimon spec",
+  "project_id": 198374201,
+  "task_id": null,
+  "start": "2026-03-13T14:00:00+00:00",
+  "stop": null,
+  "duration": -1,
+  "tags": [],
+  "billable": false,
+  "workspace_id": 9283741
+}
+```
+
+---
+
+#### `toggl_update_my_time_entry`
+
+**Description:** Update an existing time entry. Only provided fields are changed.
+
+**Category:** Time Entry | **Access:** WRITE
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `time_entry_id` | integer | Yes | ID of the time entry to update. |
+| `description` | string | No | New description. |
+| `project_id` | integer | No | New project ID. |
+| `task_id` | integer | No | New task ID. |
+| `start` | string | No | New start time in ISO 8601 format. |
+| `stop` | string | No | New stop time in ISO 8601 format. |
+| `duration` | integer | No | New duration in seconds. |
+| `tags` | array of strings | No | New tag list. Replaces existing tags entirely. |
+| `billable` | boolean | No | New billable status. |
+
+**Notes:**
+- Only fields explicitly provided are updated. Omitted fields are unchanged.
+- Providing `tags: []` removes all tags.
+
+**Example:**
+```
+User: Update time entry 3458291047 to be billable and add the "client-work" tag.
+Daimon: [calls toggl_update_my_time_entry with time_entry_id=3458291047, billable=true, tags=["client-work"]]
+Returns: Updated time entry object
+```
+
+---
+
+#### `toggl_stop_my_time_entry`
+
+**Description:** Stop a currently running time entry.
+
+**Category:** Time Entry | **Access:** WRITE
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `time_entry_id` | integer | Yes | ID of the running time entry to stop. |
+
+**Notes:**
+- The entry must be currently running (`duration == -1`). If it's already stopped, the tool returns an error.
+- Use `toggl_get_my_current_time_entry` first to get the ID of the running entry if unknown.
+
+**Example:**
+```
+User: Stop my running timer.
+Daimon: [calls toggl_get_my_current_time_entry → gets id=3458299001, then calls toggl_stop_my_time_entry with time_entry_id=3458299001]
+Returns: Stopped time entry with computed duration
+```
+
+**Example output:**
+```json
+{
+  "id": 3458299001,
+  "description": "Writing spec for Daimon",
+  "start": "2026-03-13T14:00:00+00:00",
+  "stop": "2026-03-13T16:30:00+00:00",
+  "duration": 9000,
+  "billable": true
+}
+```
+
+---
+
+#### `toggl_bulk_edit_time_entries`
+
+**Description:** Bulk edit multiple time entries using JSON Patch operations. Max 100 entries.
+
+**Category:** Time Entry | **Access:** WRITE
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `time_entry_ids` | array of integers | Yes | List of time entry IDs to edit. Maximum 100. |
+| `operations` | array of objects | Yes | JSON Patch operations (RFC 6902). Each operation is `{"op": "replace", "path": "/field", "value": newValue}`. Supported paths: `/description`, `/project_id`, `/task_id`, `/tags`, `/billable`. |
+
+**Example operations:**
+```json
+[
+  {"op": "replace", "path": "/project_id", "value": 198374202},
+  {"op": "replace", "path": "/billable", "value": true}
+]
+```
+
+**Example:**
+```
+User: Mark all my time entries from last week as billable.
+Daimon: [calls toggl_get_my_time_entries for last week → gets list of IDs → calls toggl_bulk_edit_time_entries with ids=[...], operations=[{"op": "replace", "path": "/billable", "value": true}]]
+Returns: Count of updated entries and any errors
+```
+
+**Example output:**
+```json
+{
+  "updated": 14,
+  "errors": []
+}
+```
+
+---
+
+### Section: Project Tools
+
+```html
+<h2 id="project-tools">Project Tools</h2>
+<p>
+  Tools for reading and managing Toggl projects in your workspace.
+</p>
+```
+
+---
+
+#### `toggl_get_projects`
+
+**Description:** Get all projects in the workspace, optionally filtered by active status.
+
+**Category:** Project | **Access:** READ
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `active` | boolean | No | If `true`, return only active projects. If `false`, return only archived projects. If omitted, return all. |
+
+**Example:**
+```
+User: List all my active Toggl projects.
+Daimon: [calls toggl_get_projects with active=true]
+Returns: Array of project objects
+```
+
+**Example output (single project):**
+```json
+{
+  "id": 198374201,
+  "name": "Daimon SaaS",
+  "color": "#0b83d9",
+  "active": true,
+  "billable": true,
+  "is_private": false,
+  "client_id": 12938471,
+  "workspace_id": 9283741,
+  "estimated_hours": null
+}
+```
+
+---
+
+#### `toggl_get_project`
+
+**Description:** Get a single project by ID.
+
+**Category:** Project | **Access:** READ
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `project_id` | integer | Yes | The numeric ID of the project to retrieve. |
+
+**Example:**
+```
+User: Get details for project 198374201.
+Daimon: [calls toggl_get_project with project_id=198374201]
+Returns: Single project object
+```
+
+---
+
+#### `toggl_update_project`
+
+**Description:** Update a project's metadata (name, color, status, etc.).
+
+**Category:** Project | **Access:** WRITE
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `project_id` | integer | Yes | ID of the project to update. |
+| `name` | string | No | New project name. |
+| `active` | boolean | No | `true` to reactivate, `false` to archive. |
+| `color` | string | No | New hex color, e.g. `#ff0000`. |
+| `is_private` | boolean | No | `true` to make project private (visible only to members). |
+| `billable` | boolean | No | Whether time tracked on this project is billable. |
+| `client_id` | integer | No | Client ID to associate with this project. |
+
+**Example:**
+```
+User: Archive the "Old Website Redesign" project (ID 198374190).
+Daimon: [calls toggl_update_project with project_id=198374190, active=false]
+Returns: Updated project object with active=false
+```
+
+---
+
+#### `toggl_create_project`
+
+**Description:** Create a new Toggl project in the workspace.
+
+**Category:** Project | **Access:** WRITE
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | Yes | Name for the new project. |
+| `client_id` | integer | No | Toggl client ID to associate with this project. |
+| `color` | string | No | Hex color, e.g. `#ff0000`. Defaults to Toggl's default color if omitted. |
+| `billable` | boolean | No | Whether the project is billable. |
+| `is_private` | boolean | No | Whether the project is private (visible only to members). |
+
+**Example:**
+```
+User: Create a new project called "Q2 Marketing Campaign" for client 12938471.
+Daimon: [calls toggl_create_project with name="Q2 Marketing Campaign", client_id=12938471, billable=true]
+Returns: Newly created project object with id
+```
+
+**Example output:**
+```json
+{
+  "id": 198374210,
+  "name": "Q2 Marketing Campaign",
+  "color": "#0b83d9",
+  "active": true,
+  "billable": true,
+  "is_private": false,
+  "client_id": 12938471,
+  "workspace_id": 9283741
+}
+```
+
+---
+
+### Section: Task Tools
+
+```html
+<h2 id="task-tools">Task Tools</h2>
+<p>
+  Tools for reading and managing tasks within Toggl projects. Tasks are sub-items of projects
+  that time entries can be assigned to.
+</p>
+```
+
+---
+
+#### `toggl_get_tasks`
+
+**Description:** Get all tasks in the workspace.
+
+**Category:** Task | **Access:** READ
+
+**Parameters:** None required.
+
+**Example:**
+```
+User: List all tasks in the workspace.
+Daimon: [calls toggl_get_tasks]
+Returns: Array of task objects across all projects
+```
+
+**Example output (single task):**
+```json
+{
+  "id": 84712930,
+  "name": "Write technical spec",
+  "project_id": 198374201,
+  "workspace_id": 9283741,
+  "active": true,
+  "estimated_seconds": 14400,
+  "tracked_seconds": 9000
+}
+```
+
+---
+
+#### `toggl_get_task`
+
+**Description:** Get a single task by project and task ID.
+
+**Category:** Task | **Access:** READ
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `project_id` | integer | Yes | ID of the project the task belongs to. |
+| `task_id` | integer | Yes | ID of the task to retrieve. |
+
+**Example:**
+```
+User: Get details for task 84712930 in project 198374201.
+Daimon: [calls toggl_get_task with project_id=198374201, task_id=84712930]
+Returns: Single task object
+```
+
+---
+
+#### `toggl_get_project_tasks`
+
+**Description:** Get all tasks for a specific project.
+
+**Category:** Task | **Access:** READ
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `project_id` | integer | Yes | ID of the project to get tasks for. |
+
+**Example:**
+```
+User: Show me all tasks in the Daimon SaaS project.
+Daimon: [calls toggl_get_project_tasks with project_id=198374201]
+Returns: Array of task objects for that project
+```
+
+---
+
+#### `toggl_create_task`
+
+**Description:** Create a new task under a project.
+
+**Category:** Task | **Access:** WRITE
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `project_id` | integer | Yes | ID of the project to create the task under. |
+| `name` | string | Yes | Name of the new task. |
+| `estimated_seconds` | integer | No | Estimated completion time in seconds, e.g. `3600` for 1 hour. |
+| `active` | boolean | No | Whether the task is active. Default: `true`. |
+
+**Example:**
+```
+User: Create a task "Design login page mockups" in project 198374201, estimated 2 hours.
+Daimon: [calls toggl_create_task with project_id=198374201, name="Design login page mockups", estimated_seconds=7200]
+Returns: Created task object with id
+```
+
+**Example output:**
+```json
+{
+  "id": 84712940,
+  "name": "Design login page mockups",
+  "project_id": 198374201,
+  "workspace_id": 9283741,
+  "active": true,
+  "estimated_seconds": 7200,
+  "tracked_seconds": 0
+}
+```
+
+---
+
+#### `toggl_update_task`
+
+**Description:** Update a task's name, status, or estimate.
+
+**Category:** Task | **Access:** WRITE
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `project_id` | integer | Yes | ID of the project the task belongs to. |
+| `task_id` | integer | Yes | ID of the task to update. |
+| `name` | string | No | New task name. |
+| `active` | boolean | No | `false` to complete/deactivate the task. |
+| `estimated_seconds` | integer | No | New estimated time in seconds. |
+
+**Example:**
+```
+User: Mark task 84712940 as complete.
+Daimon: [calls toggl_update_task with project_id=198374201, task_id=84712940, active=false]
+Returns: Updated task with active=false
+```
+
+---
+
+### Section: Workspace Member Tools
+
+```html
+<h2 id="workspace-member-tools">Workspace Member Tools</h2>
+<p>
+  Tools for looking up users in your Toggl workspace. Useful for finding user IDs
+  before assigning them to projects.
+</p>
+```
+
+---
+
+#### `toggl_get_workspace_members`
+
+**Description:** Look up workspace members by name or list all members. Returns Toggl user IDs needed for `toggl_add_user_to_project`.
+
+**Category:** Workspace Member | **Access:** READ
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `name` | string | No | Filter members by name. Server-side substring search. If omitted, returns all workspace members. |
+
+**Example:**
+```
+User: Find the Toggl user ID for Alice Johnson.
+Daimon: [calls toggl_get_workspace_members with name="Alice Johnson"]
+Returns: List of matching member objects with Toggl user IDs
+```
+
+**Example output:**
+```json
+[
+  {
+    "id": 10293847,
+    "name": "Alice Johnson",
+    "email": "alice@example.com",
+    "active": true,
+    "admin": false,
+    "workspace_id": 9283741
+  }
+]
+```
+
+---
+
+### Section: Project User Tools
+
+```html
+<h2 id="project-user-tools">Project User Tools</h2>
+<p>
+  Tools for managing which workspace members have access to a specific project.
+</p>
+```
+
+---
+
+#### `toggl_add_user_to_project`
+
+**Description:** Add a user to a Toggl project. `user_id` is the Toggl user ID — use `toggl_get_workspace_members` to look up users by name/email first.
+
+**Category:** Project User | **Access:** WRITE
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `project_id` | integer | Yes | ID of the Toggl project. |
+| `user_id` | integer | Yes | Toggl user ID (from `toggl_get_workspace_members`). |
+| `manager` | boolean | No | If `true`, the user is added as a project manager. Default: `false`. |
+
+**Notes:**
+- Use `toggl_get_workspace_members` first to find the user's Toggl `id` (not their Daimon user ID).
+- Adding a user who is already on the project returns an error.
+
+**Example:**
+```
+User: Add Alice Johnson (Toggl user ID 10293847) to the Daimon SaaS project.
+Daimon: [calls toggl_add_user_to_project with project_id=198374201, user_id=10293847]
+Returns: Project-user association object with project_user_id
+```
+
+**Example output:**
+```json
+{
+  "project_user_id": 7473920,
+  "project_id": 198374201,
+  "user_id": 10293847,
+  "manager": false,
+  "workspace_id": 9283741
+}
+```
+
+---
+
+#### `toggl_get_project_users`
+
+**Description:** List users assigned to a Toggl project. Returns `project_user_id` for each member — this ID (not `user_id`) is required for `toggl_remove_user_from_project`.
+
+**Category:** Project User | **Access:** READ
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `project_id` | integer | Yes | ID of the Toggl project. |
+
+**Example:**
+```
+User: Who's on the Daimon SaaS project?
+Daimon: [calls toggl_get_project_users with project_id=198374201]
+Returns: Array of project-user objects including project_user_id for each member
+```
+
+**Example output:**
+```json
+[
+  {
+    "project_user_id": 7473920,
+    "project_id": 198374201,
+    "user_id": 10293847,
+    "name": "Alice Johnson",
+    "manager": false
+  },
+  {
+    "project_user_id": 7473921,
+    "project_id": 198374201,
+    "user_id": 10293848,
+    "name": "Bob Smith",
+    "manager": true
+  }
+]
+```
+
+---
+
+#### `toggl_remove_user_from_project`
+
+**Description:** Remove a user from a Toggl project. Takes `project_user_id` (the association ID), not `user_id`. Get this from `toggl_get_project_users`.
+
+**Category:** Project User | **Access:** WRITE
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `project_user_id` | integer | Yes | Project-user association ID (from `toggl_get_project_users`). This is NOT the `user_id`. |
+
+**Notes:**
+- This removes the user's access to the project. Their existing time entries on this project are not affected.
+- To get the `project_user_id`, call `toggl_get_project_users` first.
+
+**Example:**
+```
+User: Remove Alice from the Daimon SaaS project.
+Daimon: [calls toggl_get_project_users with project_id=198374201 → finds project_user_id=7473920 for Alice → calls toggl_remove_user_from_project with project_user_id=7473920]
+Returns: Confirmation message
+```
+
+**Example output:**
+```
+"User removed from project successfully."
+```
+
+---
+
+### Section: Workspace Report Tools (Admin Only)
+
+```html
+<h2 id="workspace-report-tools">Workspace Report Tools</h2>
+<div class="admin-only-notice" role="note" aria-label="Admin permission required">
+  <span class="badge admin-badge">Admin Only</span>
+  <p>
+    All tools in this section require your connected Toggl account to have
+    <strong>workspace admin</strong> permissions. If your account does not have admin access,
+    these tools will return an error: <code>"This tool requires workspace admin permissions in Toggl."</code>
+  </p>
+</div>
+<p>
+  These tools access workspace-wide time tracking data across all members. Useful for
+  managers and team leads running payroll, billing, and performance reports.
+</p>
+```
+
+| Property | Value |
+|----------|-------|
+| `.admin-only-notice` background | `#FEF3C7` (Amber 100) |
+| `.admin-only-notice` border | `1px solid #F59E0B` (Amber 400) |
+| `.admin-only-notice` border-radius | `8px` |
+| `.admin-only-notice` padding | `16px 20px` |
+
+---
+
+#### `toggl_search_workspace_time_entries` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** Search all workspace members' time entries. Requires workspace admin. Supports date ranges beyond 1 year (auto-chunked).
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `start_date` | string | Yes | Start date in `YYYY-MM-DD` format, e.g. `2026-01-01`. |
+| `end_date` | string | Yes | End date in `YYYY-MM-DD` format, e.g. `2026-03-31`. |
+| `user_ids` | array of integers | No | Filter to specific user IDs. Use `toggl_list_report_users` to get valid IDs. |
+| `project_ids` | array of integers | No | Filter to specific project IDs. Use `toggl_list_report_projects` to get valid IDs. |
+
+**Notes:**
+- Date ranges exceeding 1 year are automatically chunked internally and results are merged.
+- Returns all time entries across the workspace (or filtered subset) for the period.
+
+**Example:**
+```
+User: Show me all time entries for Q1 2026.
+Daimon: [calls toggl_search_workspace_time_entries with start_date="2026-01-01", end_date="2026-03-31"]
+Returns: Array of detailed time entry objects for all workspace members
+```
+
+---
+
+#### `toggl_get_workspace_time_summary` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** Get aggregated time summary for all workspace members. Requires workspace admin. Group by users, projects, or clients.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `start_date` | string | Yes | Start date in `YYYY-MM-DD` format. |
+| `end_date` | string | Yes | End date in `YYYY-MM-DD` format. |
+| `user_ids` | array of integers | No | Filter by user IDs. |
+| `project_ids` | array of integers | No | Filter by project IDs. |
+| `grouping` | string | No | Primary grouping: `"users"`, `"projects"`, or `"clients"`. Default: `"projects"`. |
+| `sub_grouping` | string | No | Secondary grouping: `"time_entries"`, `"tasks"`, `"users"`, `"projects"`, or `"clients"`. |
+
+**Example:**
+```
+User: Summarize time for Q1 2026 grouped by user.
+Daimon: [calls toggl_get_workspace_time_summary with start_date="2026-01-01", end_date="2026-03-31", grouping="users"]
+Returns: Summary object with totals per user
+```
+
+**Example output:**
+```json
+{
+  "groups": [
+    {
+      "id": 10293847,
+      "title": {"text": "Alice Johnson"},
+      "tracked_seconds": 432000,
+      "billable_seconds": 324000
+    },
+    {
+      "id": 10293848,
+      "title": {"text": "Bob Smith"},
+      "tracked_seconds": 288000,
+      "billable_seconds": 216000
+    }
+  ]
+}
+```
+
+---
+
+#### `toggl_workspace_project_summary` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** Get per-project/user tracked and billable seconds. Requires workspace admin.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `start_date` | string | Yes | Start date in `YYYY-MM-DD` format. |
+| `end_date` | string | Yes | End date in `YYYY-MM-DD` format. |
+
+**Example:**
+```
+User: How many hours were tracked per project in February 2026?
+Daimon: [calls toggl_workspace_project_summary with start_date="2026-02-01", end_date="2026-02-28"]
+Returns: Per-project breakdown of tracked_seconds and billable_seconds
+```
+
+**Example output:**
+```json
+[
+  {
+    "project_id": 198374201,
+    "project_name": "Daimon SaaS",
+    "tracked_seconds": 180000,
+    "billable_seconds": 144000,
+    "members": [
+      {"user_id": 10293847, "tracked_seconds": 108000},
+      {"user_id": 10293848, "tracked_seconds": 72000}
+    ]
+  }
+]
+```
+
+---
+
+#### `toggl_workspace_time_totals` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** Get aggregated time totals with optional day/week/month granularity. Requires workspace admin.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `start_date` | string | Yes | Start date in `YYYY-MM-DD` format. |
+| `end_date` | string | Yes | End date in `YYYY-MM-DD` format. |
+| `user_ids` | array of integers | No | Filter by user IDs. |
+| `project_ids` | array of integers | No | Filter by project IDs. |
+| `granularity` | string | No | Time granularity: `"day"`, `"week"`, or `"month"`. If omitted, returns aggregate totals only. |
+
+**Example:**
+```
+User: Show me weekly time totals for Q1 2026.
+Daimon: [calls toggl_workspace_time_totals with start_date="2026-01-01", end_date="2026-03-31", granularity="week"]
+Returns: Time totals broken down by week
+```
+
+**Example output:**
+```json
+{
+  "resolution": "week",
+  "periods": [
+    {"period": "2026-01-05/2026-01-11", "tracked_seconds": 144000, "billable_seconds": 108000},
+    {"period": "2026-01-12/2026-01-18", "tracked_seconds": 162000, "billable_seconds": 126000}
+  ],
+  "totals": {"tracked_seconds": 720000, "billable_seconds": 540000}
+}
+```
+
+---
+
+#### `toggl_weekly_report` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** Get weekly timesheet per user with daily breakdowns. Requires workspace admin.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `start_date` | string | Yes | Start date in `YYYY-MM-DD` format. |
+| `end_date` | string | Yes | End date in `YYYY-MM-DD` format. |
+| `user_ids` | array of integers | No | Filter by user IDs. |
+| `project_ids` | array of integers | No | Filter by project IDs. |
+
+**Example:**
+```
+User: Show me the weekly timesheet for Alice for the week of March 9–15, 2026.
+Daimon: [calls toggl_weekly_report with start_date="2026-03-09", end_date="2026-03-15", user_ids=[10293847]]
+Returns: Per-user weekly totals with daily breakdown
+```
+
+**Example output:**
+```json
+{
+  "weeks": [
+    {
+      "user_id": 10293847,
+      "user_name": "Alice Johnson",
+      "days": [
+        {"date": "2026-03-09", "tracked_seconds": 28800},
+        {"date": "2026-03-10", "tracked_seconds": 32400},
+        {"date": "2026-03-11", "tracked_seconds": 27000},
+        {"date": "2026-03-12", "tracked_seconds": 25200},
+        {"date": "2026-03-13", "tracked_seconds": 18000}
+      ],
+      "total_seconds": 131400
+    }
+  ]
+}
+```
+
+---
+
+#### `toggl_export_detailed_csv` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** Export detailed time entries as CSV. Requires workspace admin.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `start_date` | string | Yes | Start date in `YYYY-MM-DD` format. |
+| `end_date` | string | Yes | End date in `YYYY-MM-DD` format. |
+| `user_ids` | array of integers | No | Filter by user IDs. |
+| `project_ids` | array of integers | No | Filter by project IDs. |
+
+**Notes:**
+- Returns CSV text content as a string. Each row is one time entry.
+- Columns: User, Email, Client, Project, Task, Description, Billable, Start date, Start time, End date, End time, Duration, Tags, Amount.
+
+**Example:**
+```
+User: Export all time entries for March 2026 as CSV.
+Daimon: [calls toggl_export_detailed_csv with start_date="2026-03-01", end_date="2026-03-31"]
+Returns: CSV string with one row per time entry
+```
+
+**Example output (first 2 rows):**
+```csv
+User,Email,Client,Project,Task,Description,Billable,Start date,Start time,End date,End time,Duration,Tags,Amount
+Alice Johnson,alice@example.com,Acme Corp,Daimon SaaS,Write technical spec,Writing the Daimon spec,Yes,2026-03-13,14:00:00,2026-03-13,16:30:00,02:30:00,billable,62.50
+```
+
+---
+
+#### `toggl_export_summary_csv` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** Export summary time entries as CSV. Requires workspace admin.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `start_date` | string | Yes | Start date in `YYYY-MM-DD` format. |
+| `end_date` | string | Yes | End date in `YYYY-MM-DD` format. |
+| `grouping` | string | No | Primary grouping: `"users"`, `"projects"`, or `"clients"`. Default: `"projects"`. |
+| `sub_grouping` | string | No | Secondary grouping: `"time_entries"`, `"tasks"`, `"users"`, `"projects"`, or `"clients"`. |
+| `user_ids` | array of integers | No | Filter by user IDs. |
+| `project_ids` | array of integers | No | Filter by project IDs. |
+
+**Notes:**
+- Returns CSV text content as a string. Rows are aggregated by the chosen grouping.
+- Columns: {grouping title}, Billable duration, Non-billable duration, Total duration.
+
+**Example:**
+```
+User: Export a summary CSV for Q1 2026 grouped by project.
+Daimon: [calls toggl_export_summary_csv with start_date="2026-01-01", end_date="2026-03-31", grouping="projects"]
+Returns: CSV string with one row per project
+```
+
+---
+
+#### `toggl_project_trends` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** Get project trends comparing current vs previous period. Requires workspace admin. Toggl Premium feature.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin + Toggl Premium
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `start_date` | string | Yes | Start date for the current period in `YYYY-MM-DD` format. |
+| `end_date` | string | Yes | End date for the current period in `YYYY-MM-DD` format. |
+| `previous_period_start` | string | Yes | Start date for the comparison period in `YYYY-MM-DD` format (same duration as current period). |
+| `project_ids` | array of integers | No | Filter by project IDs. |
+
+**Notes:**
+- Requires a Toggl Premium subscription on the workspace. If not Premium, Toggl returns a 403 and Daimon returns: `"Project trends require a Toggl Premium subscription."`
+
+**Example:**
+```
+User: Compare Q1 2026 project time vs Q4 2025.
+Daimon: [calls toggl_project_trends with start_date="2026-01-01", end_date="2026-03-31", previous_period_start="2025-10-01"]
+Returns: Per-project comparison with current and previous period tracked seconds
+```
+
+**Example output:**
+```json
+[
+  {
+    "project_id": 198374201,
+    "project_name": "Daimon SaaS",
+    "current_period_seconds": 180000,
+    "previous_period_seconds": 144000,
+    "change_percent": 25.0
+  }
+]
+```
+
+---
+
+#### `toggl_employee_profitability` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** Export employee profitability as CSV. Requires workspace admin. Toggl Premium feature.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin + Toggl Premium
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `currency` | string | Yes | Currency code for profitability calculations, e.g. `"USD"`, `"EUR"`, `"GBP"`. |
+| `start_date` | string | Yes | Start date in `YYYY-MM-DD` format. |
+| `end_date` | string | Yes | End date in `YYYY-MM-DD` format. |
+| `user_ids` | array of integers | No | Filter by user IDs. |
+
+**Notes:**
+- Requires a Toggl Premium subscription. Returns 403 error handled as: `"Employee profitability requires a Toggl Premium subscription."`
+- Returns CSV with employee billing rates and profitability calculations.
+
+**Example:**
+```
+User: Export employee profitability for Q1 2026 in USD.
+Daimon: [calls toggl_employee_profitability with currency="USD", start_date="2026-01-01", end_date="2026-03-31"]
+Returns: CSV string with per-employee profitability
+```
+
+---
+
+#### `toggl_project_profitability` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** Export project profitability as CSV. Requires workspace admin. Toggl Premium feature.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin + Toggl Premium
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `currency` | string | Yes | Currency code, e.g. `"USD"`, `"EUR"`, `"GBP"`. |
+| `start_date` | string | Yes | Start date in `YYYY-MM-DD` format. |
+| `end_date` | string | Yes | End date in `YYYY-MM-DD` format. |
+| `project_ids` | array of integers | No | Filter by project IDs. |
+
+**Notes:**
+- Requires a Toggl Premium subscription. Returns 403 error handled as: `"Project profitability requires a Toggl Premium subscription."`
+- Returns CSV with per-project revenue, cost, and profitability.
+
+**Example:**
+```
+User: Show project profitability for Q1 2026 in EUR.
+Daimon: [calls toggl_project_profitability with currency="EUR", start_date="2026-01-01", end_date="2026-03-31"]
+Returns: CSV string with per-project profitability breakdown
+```
+
+---
+
+#### `toggl_list_report_users` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** List users available for report filtering. Requires workspace admin.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin
+
+**Parameters:** None required.
+
+**Notes:**
+- Returns the list of users whose data appears in workspace reports. Use the returned IDs to filter other reporting tools.
+
+**Example:**
+```
+User: Who can I filter reports by?
+Daimon: [calls toggl_list_report_users]
+Returns: Array of user objects with id and name
+```
+
+**Example output:**
+```json
+[
+  {"id": 10293847, "name": "Alice Johnson", "email": "alice@example.com"},
+  {"id": 10293848, "name": "Bob Smith", "email": "bob@example.com"},
+  {"id": 10293849, "name": "Carol White", "email": "carol@example.com"}
+]
+```
+
+---
+
+#### `toggl_list_report_projects` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** List projects available for report filtering. Requires workspace admin.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin
+
+**Parameters:** None required.
+
+**Notes:**
+- Returns the list of projects that appear in workspace reports. Use the returned IDs to filter other reporting tools.
+
+**Example:**
+```
+User: What projects can I filter reports by?
+Daimon: [calls toggl_list_report_projects]
+Returns: Array of project objects with id and name
+```
+
+**Example output:**
+```json
+[
+  {"id": 198374201, "name": "Daimon SaaS", "active": true},
+  {"id": 198374190, "name": "Old Website Redesign", "active": false},
+  {"id": 198374210, "name": "Q2 Marketing Campaign", "active": true}
+]
+```
+
+---
+
+#### `toggl_list_report_clients` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** List clients available for report filtering. Requires workspace admin.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin
+
+**Parameters:** None required.
+
+**Notes:**
+- Returns the list of clients in your Toggl workspace. Use client IDs to group or filter workspace reports.
+
+**Example:**
+```
+User: What clients do we have in Toggl?
+Daimon: [calls toggl_list_report_clients]
+Returns: Array of client objects with id and name
+```
+
+**Example output:**
+```json
+[
+  {"id": 12938471, "name": "Acme Corp", "workspace_id": 9283741},
+  {"id": 12938472, "name": "Globex Inc", "workspace_id": 9283741}
+]
+```
+
+---
+
+#### `toggl_list_project_user_rates` <span class="badge admin-badge">Admin Only</span>
+
+**Description:** List project-user rate assignments. Requires workspace admin.
+
+**Category:** Workspace Report | **Access:** READ | **Requires:** Toggl Workspace Admin
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `project_ids` | array of integers | No | Filter by project IDs. If omitted, returns rates for all projects. |
+
+**Notes:**
+- Returns hourly rates assigned to specific users for specific projects. Used in profitability calculations.
+
+**Example:**
+```
+User: What are the billing rates for the Daimon SaaS project?
+Daimon: [calls toggl_list_project_user_rates with project_ids=[198374201]]
+Returns: Array of rate objects per user per project
+```
+
+**Example output:**
+```json
+[
+  {
+    "project_id": 198374201,
+    "user_id": 10293847,
+    "name": "Alice Johnson",
+    "rate": 125.00,
+    "currency": "USD"
+  },
+  {
+    "project_id": 198374201,
+    "user_id": 10293848,
+    "name": "Bob Smith",
+    "rate": 100.00,
+    "currency": "USD"
+  }
+]
+```
+
+---
+
+### Tool Quick-Reference Table
+
+| Tool | Category | Access | Admin? | Description |
+|------|----------|--------|--------|-------------|
+| `toggl_get_my_time_entries` | Time Entry | READ | No | List own time entries, optional date filter (max 90 days) |
+| `toggl_get_my_time_entry` | Time Entry | READ | No | Get single time entry by ID |
+| `toggl_get_my_current_time_entry` | Time Entry | READ | No | Get currently running timer |
+| `toggl_create_my_time_entry` | Time Entry | WRITE | No | Create time entry or start running timer |
+| `toggl_update_my_time_entry` | Time Entry | WRITE | No | Update fields on existing time entry |
+| `toggl_stop_my_time_entry` | Time Entry | WRITE | No | Stop running timer |
+| `toggl_bulk_edit_time_entries` | Time Entry | WRITE | No | Bulk-edit up to 100 entries via JSON Patch |
+| `toggl_get_projects` | Project | READ | No | List all workspace projects |
+| `toggl_get_project` | Project | READ | No | Get single project by ID |
+| `toggl_update_project` | Project | WRITE | No | Update project metadata or archive it |
+| `toggl_create_project` | Project | WRITE | No | Create a new project |
+| `toggl_get_tasks` | Task | READ | No | List all tasks in workspace |
+| `toggl_get_task` | Task | READ | No | Get single task by project + task ID |
+| `toggl_get_project_tasks` | Task | READ | No | List all tasks for a specific project |
+| `toggl_create_task` | Task | WRITE | No | Create task under a project |
+| `toggl_update_task` | Task | WRITE | No | Update task name, status, or estimate |
+| `toggl_get_workspace_members` | Workspace Member | READ | No | Look up workspace members by name |
+| `toggl_add_user_to_project` | Project User | WRITE | No | Add workspace member to project |
+| `toggl_get_project_users` | Project User | READ | No | List users assigned to a project |
+| `toggl_remove_user_from_project` | Project User | WRITE | No | Remove user from project (needs project_user_id) |
+| `toggl_search_workspace_time_entries` | Workspace Report | READ | **Yes** | Search all members' time entries |
+| `toggl_get_workspace_time_summary` | Workspace Report | READ | **Yes** | Aggregated summary, grouped by users/projects/clients |
+| `toggl_workspace_project_summary` | Workspace Report | READ | **Yes** | Per-project tracked and billable seconds |
+| `toggl_workspace_time_totals` | Workspace Report | READ | **Yes** | Aggregated totals with day/week/month granularity |
+| `toggl_weekly_report` | Workspace Report | READ | **Yes** | Weekly timesheet per user with daily breakdown |
+| `toggl_export_detailed_csv` | Workspace Report | READ | **Yes** | Export detailed time entries as CSV |
+| `toggl_export_summary_csv` | Workspace Report | READ | **Yes** | Export summarized time entries as CSV |
+| `toggl_project_trends` | Workspace Report | READ | **Yes** | Compare current vs previous period (Premium) |
+| `toggl_employee_profitability` | Workspace Report | READ | **Yes** | Employee profitability CSV (Premium) |
+| `toggl_project_profitability` | Workspace Report | READ | **Yes** | Project profitability CSV (Premium) |
+| `toggl_list_report_users` | Workspace Report | READ | **Yes** | List users for report filtering |
+| `toggl_list_report_projects` | Workspace Report | READ | **Yes** | List projects for report filtering |
+| `toggl_list_report_clients` | Workspace Report | READ | **Yes** | List clients for report filtering |
+| `toggl_list_project_user_rates` | Workspace Report | READ | **Yes** | List per-user billing rates per project |
+
+### Page Footer Navigation
+
+```html
+<nav class="docs-page-nav" aria-label="Docs page navigation">
+  <a href="/docs/tool-reference/discord" aria-label="Previous page: Discord & Core Tools">
+    ← Discord & Core Tools
+  </a>
+  <a href="/docs/tool-reference/linkedin" aria-label="Next page: LinkedIn & Analytics">
+    LinkedIn & Analytics →
+  </a>
+</nav>
+```
+
+### Loading / Empty / Error States (Tool Reference: Toggl)
+
+**Loading state:** Not applicable — fully static page, rendered at build time.
+
+**Empty state:** Not applicable — content is always present.
+
+**Error state:** If the page fails to load, `app/error.tsx` renders: "We're having trouble loading this page. Please try again in a moment." with a "Reload" button.
+
+**Auth button (topbar):** Rendered client-side; slot is empty until auth state resolves to prevent layout shift.
+
+---
+
+### Accessibility (Tool Reference: Toggl)
+
+| Element | ARIA / Accessibility Requirement |
+|---------|----------------------------------|
+| `<article class="docs-content">` | `role="main"` |
+| In-page TOC nav | `aria-label="On this page"` |
+| Active in-page TOC link | `aria-current="location"` |
+| Tool entry `<section>` headings (`h3`) | Unique `id` matching the tool function name (e.g., `id="toggl_get_my_time_entries"`) — anchor link targets |
+| Admin-only badge | `role="img"` `aria-label="Requires workspace admin"` on the badge span |
+| Admin-only notice at section top | `role="note"` `aria-label="Admin permission required"` |
+| Parameter tables | `<table role="table">` with `<caption class="sr-only">Parameters for {tool_name}</caption>` |
+| Code blocks `<pre>` | `tabindex="0"` to allow keyboard scrolling |
+| Footer nav previous/next links | `aria-label="Previous page: Discord & Core Tools"` and `aria-label="Next page: LinkedIn & Analytics"` |
+
+---
+
+*End of Tool Reference: Toggl page specification (34 tools documented).*
