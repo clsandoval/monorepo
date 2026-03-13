@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 48
-- **Current**: 49
+- **Completed**: 49
+- **Current**: 50
 
 ## Current Stage
 
-**Stage 050** — (next stage)
+**Stage 051** — (next stage)
 
 ## Stage Log
 
@@ -63,3 +63,4 @@
 | 047 | done | 2026-03-14T01:30:00Z | Table (generic, sortable columns, row click handler, skeleton loading rows, empty state, sticky header, accessible aria-sort; overflow-x-auto for mobile scroll), Pagination (page numbers with ±2 window + ellipsis, prev/next, item range display, mobile simplified view, URL-param pattern, accessibility); build passes |
 | 048 | done | 2026-03-14T01:35:00Z | StatCard (default/compact variants, accent stripe, skeleton loading, icon slot), ActivityFeed (10 event types with icons/colors, relative timestamps refresh every 60s, empty/loading states), CopyToClipboard (inline/block variants, masked reveal toggle, clipboard API with fallback, success toast); build passes |
 | 049 | done | 2026-03-14T01:40:00Z | DropdownMenu (Radix UI primitives, trigger/items/dividers/labels, danger variant, keyboard nav, spec-accurate styling), Tabs (underline/pills/bordered variants, sm/md sizes, fullWidth, badge, keyboard arrow/Home/End nav, all accessibility attrs); build passes |
+| 050 | done | 2026-03-14T01:45:00Z | Sidebar (fixed 240px navy panel, logo area, 5 nav items with active state via usePathname, footer with avatar+email+logout), DashboardTopbar (56px sticky bar, pageTitle+tenantName+plan badge+user dropdown with Sign Out), DashboardLayout (sidebar+topbar+main content, mobile nav overlay); build passes |
