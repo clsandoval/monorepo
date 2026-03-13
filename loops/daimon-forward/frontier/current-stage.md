@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 57
-- **Current**: 58
+- **Completed**: 58
+- **Current**: 59
 
 ## Current Stage
 
-**Stage 059** — (next stage)
+**Stage 060** — (next stage)
 
 ## Stage Log
 
@@ -72,3 +72,4 @@
 | 056 | done | 2026-03-14T03:00:00Z | Landing page pricing section: #F7F7F7 bg, monthly/annual toggle (useState client component), 3 tier cards (Free white/Starter navy/Pro white), Most Popular badge on Starter, feature lists with 6px aqua square bullets, BYOK note with Info icon; build passes |
 | 057 | done | 2026-03-14T03:15:00Z | Landing page FAQ section (12 questions, accordion +/− toggle, max-height transition), Final CTA banner (navy bg, aqua blob, "Get your AI Discord bot running today.", "Create Your Free Account" CTA), footer updated to spec links (Changelog, About, Blog, Privacy, Terms, Cookies); build passes |
 | 058 | done | 2026-03-14T03:30:00Z | Dashboard route (Server Component): parallel Promise.all queries for tenant/discord/apiKeys/serviceConnections/subscription, ErrorState on query failure, DashboardLayout wrapper with tenantName+plan props; loading.tsx skeleton (4-section card skeletons matching page layout); build passes |
+| 059 | done | 2026-03-14T03:45:00Z | DashboardStatusCards component: 3-card grid (Bot Status with StatusIndicator, Current Plan with Badge, Discord Connection with guild_id or "Not connected"); deriveBotStatus logic (online if last_heartbeat ≤90s); wired into dashboard page; build passes |

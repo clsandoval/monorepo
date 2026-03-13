@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
+import { DashboardStatusCards } from '@/components/dashboard/dashboard-status-cards'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -82,9 +83,14 @@ export default async function DashboardPage() {
       tenantName={tenant?.name ?? ''}
       plan={(tenant?.plan as 'free' | 'starter' | 'pro') ?? 'free'}
     >
-      {/* Section placeholders — built out in subsequent stages */}
       <div className="flex flex-col gap-6">
-        {/* Tenant info summary (dev aid — replaced by real sections next stages) */}
+        {/* Status cards row */}
+        <DashboardStatusCards
+          discord={discord}
+          plan={(tenant?.plan as 'free' | 'starter' | 'pro') ?? 'free'}
+        />
+
+        {/* Dev aid — hidden data attributes for tests */}
         <pre
           className="hidden"
           aria-hidden="true"
