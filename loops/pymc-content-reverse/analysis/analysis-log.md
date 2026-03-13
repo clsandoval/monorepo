@@ -2,6 +2,31 @@
 
 ---
 
+## 2026-03-13 — website-home
+
+**Aspect**: website-home
+**Source**: https://www.pymc-labs.com/
+**Output**: analysis/website-scrape/home.md
+
+### What was found
+
+- **Hero**: Headline "Bayesian AI Consultancy", 3-sentence subheading emphasizing open-source, transparency, and solving problems where traditional ML fails
+- **Services (5)**: Modeling & Optimization, AI Systems, Courses & Speaking, Strategy & Technical Advising, Roadmap Acceleration
+- **Value prop**: Founded by creators of PyMC; interpretable solutions; requires significantly less data than conventional ML
+- **6 testimonials**: Colgate-Palmolive (Iraklis Pappas, Global Head of AI), SALK (Tarmo Jüristo, CEO), Akili (Titi Alailima, VP Applied Data), Indigo (Manu Martinet, Lead Data Scientist), Ovative Group (Tim McWilliams, Sr. Manager Data Science), Haleon (Nathan Kafi, Principal Data Scientist)
+- **3 OSS projects highlighted**: PyMC Marketing (MMM), CausalPy (causal inference), PyMC (probabilistic programming)
+- **CTA**: "Let's talk about your next breakthrough!"
+- **Nav**: Home, About, Blog, Courses, Resources, Contact us (no Services/Industries/Solutions/Partners/Case Studies in nav)
+- **Footer socials**: Bluesky, X, Meetup, YouTube, LinkedIn
+
+### Key observations
+
+- Current nav does NOT match new sitemap — major restructuring planned
+- No case studies on home page; no partner logos; no team section
+- "Bayesian AI Consultancy" is the brand identity statement (footer also says "The Bayesian AI Consultancy")
+
+---
+
 ## 2026-03-13 — discord-index
 
 **Aspect**: discord-index
