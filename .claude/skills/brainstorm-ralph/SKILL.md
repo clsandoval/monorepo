@@ -1,18 +1,16 @@
 ---
 name: brainstorm-ralph
 description: |
-  Brainstorm a tangential idea into a reverse ralph loop. Explores the idea through
+  Brainstorm a tangential idea into a reverse or forward ralph loop. Explores the idea through
   collaborative dialogue, then generates PROMPT.md, frontier/aspects.md, and loop.sh
   ready for autonomous CI execution. Use when the user wants to set up a new ralph loop
   for an idea. Triggers: "brainstorm ralph", "new ralph loop", "set up a loop for",
-  "reverse ralph this idea", "cook this idea".
+  "reverse ralph this idea", "cook this idea", "forward loop".
 ---
 
 # Brainstorm Ralph — Idea to Autonomous Loop
 
-## Overview
-
-Turn a tangential idea into a fully configured reverse ralph loop that runs autonomously in GitHub Actions every 30 minutes. Same collaborative brainstorming process as the standard brainstorming skill, but the output is a loop directory instead of a design doc.
+Turn an idea into a fully configured ralph loop (reverse or forward) that runs autonomously in CI.
 
 <HARD-GATE>
 Do NOT generate loop artifacts until you have explored the idea through dialogue and the user has approved the approach. Every idea goes through the full brainstorming process regardless of perceived simplicity.
@@ -20,93 +18,85 @@ Do NOT generate loop artifacts until you have explored the idea through dialogue
 
 ## Checklist
 
-Complete these in order:
+1. **Determine loop type** — reverse (research/spec) or forward (build from spec)?
+2. **Search for prior art** — read [references/prior-art-checklist.md](references/prior-art-checklist.md), search `apps/`, `loops/`, `.github/workflows/` for existing patterns with matching tech stacks
+3. **Read anti-patterns** — read [references/anti-patterns.md](references/anti-patterns.md) before proposing any stage/aspect structure
+4. **Explore context** — read `loops/_registry.yaml` for existing loops, check for overlaps
+5. **Ask clarifying questions** — one at a time, understand goal/tools/convergence
+6. **Propose 2-3 frontier structures** — different decompositions with your recommendation
+7. **Draft PROMPT.md** — present section by section for approval. Key Sources table MUST include prior art discovered in step 2
+8. **Draft frontier/aspects.md** — present initial aspects for approval
+9. **Generate loop artifacts** — write all files to `loops/<idea-name>/`
+10. **Update registry** — add entry to `loops/_registry.yaml`
+11. **Commit and open PR**
 
-1. **Explore context** — read `loops/_registry.yaml` to see existing loops, check if the idea overlaps with anything active
-2. **Ask clarifying questions** — one at a time, understand the idea's goal, what tools/methods apply, what convergence looks like
-3. **Propose 2-3 frontier structures** — different ways to decompose the idea into waves of analysis, with your recommendation
-4. **Draft the PROMPT.md** — present it section by section for user approval
-5. **Draft frontier/aspects.md** — present the initial aspects for user approval
-6. **Generate loop artifacts** — write all files to `loops/<idea-name>/`
-7. **Update registry** — add entry to `loops/_registry.yaml` with `status: active`
-8. **Commit and open PR** — branch, commit, push, open PR for review
+## Loop Types
 
-## Process
+### Reverse Loops (research/spec)
 
-### Understanding the Idea
+Produce a `final-mega-spec/` directory. Template: `loops/_template/PROMPT.md.example`
 
-Same process as standard brainstorming:
-- Ask questions one at a time to refine the idea
-- Prefer multiple choice when possible
-- Focus on: purpose, tools/methods needed, what "done" looks like, convergence criteria
+- Waves decompose research into source gathering → extraction → design → synthesis → gap audit
+- Each aspect = one unit of research, writes to spec files
+- Convergence = every spec file complete, no TODOs/TBDs, cross-references valid
+- **Must include a Key Sources table** listing every codebase path, URL, or prior loop the agent should reference
 
-### Key Questions to Answer
+### Forward Loops (build from spec)
 
-Before generating artifacts, you must understand:
-1. **Goal**: What does convergence produce? (spec, report, dataset, recommendations)
-2. **Domain**: What tools or methods does this require? (web research, code analysis, data processing, API calls)
-3. **Waves**: How does exploration decompose? (Wave 1: gather raw data, Wave 2: analyze patterns, Wave 3: synthesize)
-4. **Aspects**: What are the initial Wave 1 aspects to explore?
-5. **Convergence**: How do we know the loop is done? (all aspects checked, output artifact passes review)
+Build working code from a converged reverse loop spec. Template: `loops/_template/PROMPT-forward.md.example`
 
-### Generating Artifacts
+- Stages decompose build into scaffold → test → implement → verify
+- Each stage = one unit of code, max 3 files touched
+- **Stage count guidelines** (from anti-patterns doc):
+  - Full-stack SaaS app: **80-150 stages** (not 20-30)
+  - Content/marketing site: 30-60 stages
+  - CLI tool / library: 15-30 stages
+  - QA fix loop: 3x open findings
+- **Mandatory stages**: local dev setup, Playwright verification, discovery stages (last 3-5), convergence gate
+- **Must include a local dev setup stage** — `supabase start` or equivalent, seed data, zero manual setup
+- **Must include Playwright screenshot stages** — every route, every state, desktop + mobile
 
-After user approves the approach, generate:
+## Key Questions to Answer
 
-**1. `loops/<idea-name>/PROMPT.md`**
+Before generating artifacts:
 
-Follow the pattern from `loops/_template/PROMPT.md.example` but fully customized:
-- Specific goal description
-- Concrete Wave 1 methods with tool commands
-- Wave 2 analysis instructions referencing Wave 1 outputs
-- Wave 3 synthesis with clear output format
-- Rules section with idea-specific constraints
+1. **Goal**: What does convergence produce? (spec, working app, dataset)
+2. **Type**: Reverse or forward? If forward, where's the spec?
+3. **Domain**: What tools/methods needed? (web research, code analysis, APIs)
+4. **Prior art**: What existing loops/apps in the repo use similar patterns?
+5. **Decomposition**: How many aspects/stages? (Use anti-patterns doc for sizing)
+6. **Convergence**: How do we know it's done? (Must be extrospective for forward loops)
 
-**2. `loops/<idea-name>/frontier/aspects.md`**
+## Generating Artifacts
 
-Initial frontier with:
-- Statistics section (total/analyzed/pending/convergence)
-- Wave 1 aspects (concrete, actionable)
-- Wave 2 placeholder aspects (will be refined as Wave 1 completes)
-- Wave 3 synthesis aspect
+After user approves, generate:
 
-**3. `loops/<idea-name>/loop.sh`**
-
-Copy from `loops/_template/loop.sh`. Only change the header comment to describe this specific loop.
-
-**4. `loops/<idea-name>/frontier/analysis-log.md`**
-
-Empty log table:
-```
-# Analysis Log
-
-| # | Timestamp | Aspect | Duration | Key Findings |
-|---|-----------|--------|----------|--------------|
-```
-
-**5. Create directories**
+### Directory Structure
 
 ```
 loops/<idea-name>/
-├── PROMPT.md
-├── loop.sh (executable)
+├── PROMPT.md               # Customized from template
+├── loop.sh                 # Copy from loops/_template/loop.sh
 ├── frontier/
-│   ├── aspects.md
-│   └── analysis-log.md
-├── analysis/    (empty)
-├── status/      (empty)
-└── raw/         (empty)
+│   ├── aspects.md          # Initial frontier with statistics
+│   └── analysis-log.md     # Empty log table
+├── analysis/               # (empty, reverse only)
+├── status/                 # (empty)
+└── raw/                    # (empty, reverse only)
 ```
 
-### Registry Update
+For forward loops, also include `frontier/current-stage.md`.
+
+### Registry Entry
 
 Add to `loops/_registry.yaml`:
+
 ```yaml
   <idea-name>:
     description: "<one-line description>"
-    type: reverse
-    schedule: "*/30 * * * *"
-    max_iterations: 40
+    type: reverse  # or forward
+    schedule: "*/30 * * * *"  # reverse default
+    max_iterations: 60        # adjust per anti-patterns sizing guide
     timeout_minutes: 30
     status: active
     created: <today's date>
@@ -117,7 +107,7 @@ Add to `loops/_registry.yaml`:
 ```bash
 git checkout -b ralph/<idea-name>
 git add loops/<idea-name>/ loops/_registry.yaml
-git commit -m "loop(<idea-name>): scaffold reverse ralph loop"
+git commit -m "loop(<idea-name>): scaffold <type> ralph loop"
 git push -u origin ralph/<idea-name>
 gh pr create --title "loop: <idea-name>" --body "..."
 ```
@@ -126,14 +116,10 @@ gh pr create --title "loop: <idea-name>" --body "..."
 
 - ONE question at a time during brainstorming
 - Multiple choice preferred
-- The PROMPT.md is the most critical artifact — it must be specific enough for Claude to work autonomously
-- Aspects must be concrete and actionable, not vague
+- The PROMPT.md is the most critical artifact — must be specific enough for autonomous operation
+- Aspects/stages must be concrete and actionable, not vague
 - Do NOT invoke writing-plans or any implementation skill — the loop IS the implementation
-- The terminal state is: artifacts committed, PR opened, user reviews and merges
-
-## Key Principles
-
-- **YAGNI**: Start with minimal Wave 1 aspects. The loop discovers more as it goes.
-- **Concrete methods**: Every Wave 1 aspect must specify exactly what tool/command to run or what research method to use.
-- **Convergence clarity**: The PROMPT.md must make it unambiguous when the loop is done.
-- **Autonomous operation**: Once merged, the loop runs without human intervention until converged.
+- **Always search for prior art** — if the repo has a solved pattern, reference it
+- **Always read anti-patterns** before proposing stage counts or convergence criteria
+- **Forward loops: enumerate, don't compress** — if a stage touches >3 files, split it
+- **Forward loops: Playwright is non-negotiable** — no convergence without browser verification
