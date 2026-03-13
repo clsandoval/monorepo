@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 22
-- Pending: 52
-- Convergence: 30%
+- Analyzed: 23
+- Pending: 51
+- Convergence: 31%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -38,7 +38,7 @@ These aspects will be **self-expanded** after discord-category-triage completes.
 
 - [x] discord-general — Read #general, extract company-wide announcements, positioning, vision
 - [x] discord-website — Read #website channel(s), extract previous website discussions, content decisions
-- [ ] discord-marketing — Read marketing-related channels, extract brand messaging, positioning, campaigns
+- [x] discord-marketing — Read marketing-related channels, extract brand messaging, positioning, campaigns
 - [ ] discord-sales — Read sales/leads channels, extract client pain points, value props, objections
 - [ ] discord-case-studies-threads — Read client project channels (arc-brown, roche, hellofresh, appodeal, indigo, etc.), extract case study material per client
 - [ ] discord-decision-ai — Read #decision-ai and related channels, extract product descriptions, features, roadmap
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] discord-marketing (2026-03-13) — 5,956 messages mined (2020-08-19 → 2026-03-13). Full brand evolution: "Bespoke Bayesian modeling" (2020) → "The Bayesian Consultancy" (2022) → "Bayesian AI Consultancy" (2024) → 2026 tagline brainstorm (16 options including "Where rigor meets the frontier", "Science first. Always."). ICP: two verticals (marketing/ad-tech, pharma/biotech), buyer personas (VP Data, CMO, Lead DS). 10 differentiators documented. Full campaign copy: Sep 2025 newsletter, Fivetran announcement, Meridian benchmark LinkedIn posts, "Bayesian Booth" confession campaign. 8 verbatim social posts. Top-10 blog posts by sessions (from Dec 2025 analytics). 14-tab keyword research (Thomas). Meridian competitive intel: 2x–20x speed advantage, Luca's "no scenario I would recommend Meridian." Decision Hub launch (1,463 downloads). EAP launch copy. 18 pull-quote-ready testimonials. Output: analysis/discord-marketing-extraction.md
 - [x] discord-website (2026-03-13) — 3,477 messages mined (2020-08-25 → 2026-03-13). Full evolution of website copy: early 2020 placeholders → "Better models. Better decisions." (2021) → "Probabilistic AI Consultancy" (Jun 2025) → "Bayesian AI" pivot (Nov 2025, Thomas/Halah/Christian). Site stack: Lektor → Next.js+Strapi+Tailwind. Services page deprecated Oct 2025; EAP landing page vibe-coded Mar 2026. Client logo approvals documented (P&G/Schwab require prior written consent). Named testimonials: Iraklis Pappas (Colgate), Nathan Kafi (Haleon), Tim MacWilliams (Ovative). SEO engagement (Stephan Reiss), 15+ technical SEO issues catalogued. New website design requirements (Halah, Mar 2026) confirmed. 16 thread topics indexed. Output: analysis/discord-website-extraction.md
 - [x] discord-general (2026-03-13) — 3,095 messages mined (2020-08-18 → 2026-03-09). Company founding story documented, original positioning (Ravin Kumar "missing puzzle piece"), 5 client testimonials (Erisyon/HelloFresh/Indigo/Roche), 15+ named clients first-mention dates, 15+ team intro quotes, "Win Win Win" OSS+commercial model, VC engagement (Tony, May 2021), pricing signals (5-figure+), YouTube/newsletter/meetup launch dates, conference appearances. Output: analysis/discord-general-extraction.md
 - [x] brand-deck-course-ai-assisted (2026-03-13) — Course renamed from "AI-Assisted Data Science" → "Agentic Data Science". LIVE but hidden at https://www.pymc-labs.com/courses/agentic-ai-data-science (no nav, no indexing — awaiting announcement). Final price: $1,900 (went through $2,000 → $2,500 → $1,900). Format: 4 sessions, 12 hrs, May 12–21 2026, cohort cap 20. Co-branded PyMC Labs × Vanishing Gradients (Hugo Bowne-Anderson). Instructors: Hugo (The Educator), Thomas Wiecki (The Scientist), Luca Fiaschi (The Strategist). Dual-track curriculum: Data Science ladder (descriptive→Bayesian) + Agent Skills (spec-driven dev, adversarial QA, orchestration). Full page content scraped + Discord thread (142 msgs) mined. Output: analysis/course-ai-assisted.md
