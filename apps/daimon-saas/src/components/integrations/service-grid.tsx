@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { AlertTriangle, Github, Globe, Activity, Clock, User } from 'lucide-react'
+import { AlertTriangle, Github, Globe, Activity, Clock, User, X, Info, Eye, EyeOff } from 'lucide-react'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -196,9 +196,10 @@ interface ServiceCardProps {
   service: ServiceName
   connection: TenantServiceConnection | null
   userRole: 'owner' | 'admin' | 'member'
+  onApiKeyConnect?: () => void
 }
 
-function ServiceCard({ service, connection, userRole }: ServiceCardProps) {
+function ServiceCard({ service, connection, userRole, onApiKeyConnect }: ServiceCardProps) {
   const meta = SERVICE_META[service]
   const router = useRouter()
   const isConnected = connection !== null
@@ -217,9 +218,10 @@ function ServiceCard({ service, connection, userRole }: ServiceCardProps) {
     borderLeft = '3px solid #EF4444'
   }
 
-  // Account name: prefer display_name, fall back to email, then nothing
+  // Account name: prefer display_name, fall back to toggl_email/email, then nothing
   const accountName = connection
     ? ((connection.metadata.display_name as string) ||
+       (connection.metadata.toggl_email as string) ||
        (connection.metadata.email as string) ||
        null)
     : null
@@ -227,8 +229,9 @@ function ServiceCard({ service, connection, userRole }: ServiceCardProps) {
   const handleConnect = () => {
     if (meta.authType === 'oauth') {
       window.location.href = `/api/integrations/oauth/start?service=${service}`
+    } else if (meta.authType === 'api_key') {
+      onApiKeyConnect?.()
     }
-    // API key flow: handled by Toggl card (future stage)
   }
 
   const handleDisconnect = async () => {
@@ -616,37 +619,395 @@ function ServiceCard({ service, connection, userRole }: ServiceCardProps) {
 
 const SERVICES: ServiceName[] = ['github', 'google', 'linear', 'toggl']
 
+// ---------------------------------------------------------------------------
+// API Key Modal (Toggl)
+// ---------------------------------------------------------------------------
+
+interface ApiKeyModalProps {
+  service: ServiceName
+  onClose: () => void
+  onSuccess: () => void
+}
+
+function ApiKeyModal({ service, onClose, onSuccess }: ApiKeyModalProps) {
+  const meta = SERVICE_META[service]
+  const [keyValue, setKeyValue] = React.useState('')
+  const [showKey, setShowKey] = React.useState(false)
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [error, setError] = React.useState<string | null>(null)
+  const inputRef = React.useRef<HTMLInputElement>(null)
+
+  // Focus input on mount
+  React.useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
+  // Close on Escape
+  React.useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !isSubmitting) onClose()
+    }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [isSubmitting, onClose])
+
+  const handleSubmit = async () => {
+    setError(null)
+
+    // Client-side validation
+    if (keyValue.length !== 32) {
+      setError('API token must be exactly 32 characters.')
+      return
+    }
+    if (!/^[a-z0-9]{32}$/.test(keyValue)) {
+      setError('API token may only contain lowercase letters and numbers.')
+      return
+    }
+
+    setIsSubmitting(true)
+    try {
+      const res = await fetch('/api/integrations/api-key', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ service, api_key: keyValue }),
+      })
+      const body = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        const errMsg = (body as { error?: string }).error ?? 'Failed to connect. Please try again.'
+        setError(errMsg)
+        setIsSubmitting(false)
+        return
+      }
+      // Success
+      onSuccess()
+    } catch {
+      setError('Could not reach the server. Please try again.')
+      setIsSubmitting(false)
+    }
+  }
+
+  // Display name safely (service might not have keyPlaceholder)
+  const placeholder = 'keyPlaceholder' in meta ? (meta as { keyPlaceholder: string }).keyPlaceholder : 'Paste your API token'
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 1000,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {/* Overlay */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'rgba(0,0,0,0.5)',
+        }}
+        onClick={() => { if (!isSubmitting) onClose() }}
+        aria-hidden="true"
+      />
+
+      {/* Modal content */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="api-key-modal-title"
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          background: '#FFFFFF',
+          border: '1px solid #E5E7EB',
+          borderRadius: '0px',
+          padding: '24px',
+          maxWidth: '480px',
+          width: '100%',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+          margin: '16px',
+        }}
+      >
+        {/* Header */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '16px',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <ServiceLogo service={service} />
+            <h2
+              id="api-key-modal-title"
+              style={{
+                fontFamily: 'var(--font-archivo), Archivo, sans-serif',
+                fontWeight: 600,
+                fontSize: '18px',
+                color: '#0C1F40',
+                margin: 0,
+              }}
+            >
+              Connect {meta.displayName}
+            </h2>
+          </div>
+          <button
+            onClick={onClose}
+            disabled={isSubmitting}
+            aria-label="Close"
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+              padding: '4px',
+              color: '#6B7280',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Description */}
+        <p
+          style={{
+            fontFamily: 'var(--font-inter), Inter, sans-serif',
+            fontSize: '14px',
+            color: '#374151',
+            marginBottom: '16px',
+          }}
+        >
+          Paste your {meta.displayName} API token to enable time tracking tools.
+        </p>
+
+        {/* Help banner */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '6px',
+            background: '#EFF6FF',
+            border: '1px solid #DBEAFE',
+            padding: '10px 12px',
+            marginBottom: '20px',
+          }}
+        >
+          <Info size={14} color="#3B82F6" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <span
+            style={{
+              fontFamily: 'var(--font-inter), Inter, sans-serif',
+              fontSize: '13px',
+              color: '#1E40AF',
+            }}
+          >
+            Find your API token at{' '}
+            <a
+              href="https://track.toggl.com/profile"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#2563EB', textDecoration: 'underline' }}
+            >
+              toggl.com/app/profile
+            </a>{' '}
+            under &quot;API Token&quot;.
+          </span>
+        </div>
+
+        {/* Input */}
+        <label
+          htmlFor="api-key-input"
+          style={{
+            display: 'block',
+            fontFamily: 'var(--font-inter), Inter, sans-serif',
+            fontWeight: 500,
+            fontSize: '13px',
+            color: '#374151',
+            marginBottom: '6px',
+          }}
+        >
+          {meta.displayName} API Token{' '}
+          <span aria-label="required" style={{ color: '#DC2626' }}>*</span>
+        </label>
+        <div style={{ position: 'relative', marginBottom: '6px' }}>
+          <input
+            ref={inputRef}
+            id="api-key-input"
+            type={showKey ? 'text' : 'password'}
+            value={keyValue}
+            onChange={(e) => {
+              setKeyValue(e.target.value)
+              setError(null)
+            }}
+            placeholder={placeholder}
+            autoComplete="off"
+            spellCheck={false}
+            aria-describedby={error ? 'api-key-error' : 'api-key-hint'}
+            disabled={isSubmitting}
+            style={{
+              width: '100%',
+              height: '40px',
+              padding: '0 40px 0 12px',
+              fontFamily: 'var(--font-inter), Inter, sans-serif',
+              fontSize: '14px',
+              color: '#0C1F40',
+              background: '#FFFFFF',
+              border: error ? '1px solid #EF4444' : '1px solid #D1D5DB',
+              borderRadius: '0px',
+              outline: 'none',
+              boxSizing: 'border-box',
+            }}
+          />
+          <button
+            type="button"
+            onClick={() => setShowKey((v) => !v)}
+            tabIndex={-1}
+            aria-label={showKey ? 'Hide token' : 'Show token'}
+            style={{
+              position: 'absolute',
+              right: '10px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: '#9CA3AF',
+              display: 'flex',
+              alignItems: 'center',
+              padding: 0,
+            }}
+          >
+            {showKey ? <EyeOff size={16} /> : <Eye size={16} />}
+          </button>
+        </div>
+        <p
+          id="api-key-hint"
+          style={{
+            fontFamily: 'var(--font-inter), Inter, sans-serif',
+            fontSize: '12px',
+            color: '#9CA3AF',
+            marginBottom: error ? '4px' : '20px',
+          }}
+        >
+          32-character alphanumeric token. Never share this with others.
+        </p>
+        {error && (
+          <p
+            id="api-key-error"
+            style={{
+              fontFamily: 'var(--font-inter), Inter, sans-serif',
+              fontSize: '13px',
+              color: '#DC2626',
+              marginBottom: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <AlertTriangle size={13} />
+            {error}
+          </p>
+        )}
+
+        {/* Footer */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+          <button
+            onClick={onClose}
+            disabled={isSubmitting}
+            style={{
+              height: '36px',
+              padding: '0 16px',
+              background: 'transparent',
+              color: isSubmitting ? '#9CA3AF' : '#374151',
+              fontFamily: 'var(--font-inter), Inter, sans-serif',
+              fontWeight: 500,
+              fontSize: '14px',
+              border: 'none',
+              borderRadius: '0px',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => { void handleSubmit() }}
+            disabled={isSubmitting || keyValue.length === 0}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              height: '36px',
+              padding: '0 16px',
+              background: isSubmitting || keyValue.length === 0 ? '#E5E7EB' : '#0C1F40',
+              color: isSubmitting || keyValue.length === 0 ? '#9CA3AF' : '#FFFFFF',
+              fontFamily: 'var(--font-inter), Inter, sans-serif',
+              fontWeight: 500,
+              fontSize: '14px',
+              border: 'none',
+              borderRadius: '0px',
+              cursor: isSubmitting || keyValue.length === 0 ? 'not-allowed' : 'pointer',
+            }}
+          >
+            {isSubmitting ? 'Validating…' : 'Save & Connect'}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function ServiceGrid({
   tenantId,
   userRole,
   connectionsByService,
 }: ServiceGridProps) {
-  return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
-        gap: '16px',
-      }}
-      className="sm:grid-cols-1 integrations-grid"
-      data-testid="integrations-grid"
-      data-tenant-id={tenantId}
-    >
-      <style>{`
-        @media (max-width: 767px) {
-          .integrations-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
+  const router = useRouter()
+  const [apiKeyModalService, setApiKeyModalService] = React.useState<ServiceName | null>(null)
 
-      {SERVICES.map((service) => (
-        <ServiceCard
-          key={service}
-          service={service}
-          connection={connectionsByService[service] ?? null}
-          userRole={userRole}
+  const handleApiKeySuccess = () => {
+    setApiKeyModalService(null)
+    router.push('/dashboard/integrations?connected=toggl')
+  }
+
+  return (
+    <>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '16px',
+        }}
+        className="sm:grid-cols-1 integrations-grid"
+        data-testid="integrations-grid"
+        data-tenant-id={tenantId}
+      >
+        <style>{`
+          @media (max-width: 767px) {
+            .integrations-grid { grid-template-columns: 1fr !important; }
+          }
+        `}</style>
+
+        {SERVICES.map((service) => (
+          <ServiceCard
+            key={service}
+            service={service}
+            connection={connectionsByService[service] ?? null}
+            userRole={userRole}
+            onApiKeyConnect={() => setApiKeyModalService(service)}
+          />
+        ))}
+      </div>
+
+      {apiKeyModalService !== null && (
+        <ApiKeyModal
+          service={apiKeyModalService}
+          onClose={() => setApiKeyModalService(null)}
+          onSuccess={handleApiKeySuccess}
         />
-      ))}
-    </div>
+      )}
+    </>
   )
 }
 
