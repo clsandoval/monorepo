@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 55
-- **Pending**: 8
-- **Convergence**: 87%
+- **Analyzed**: 56
+- **Pending**: 7
+- **Convergence**: 89%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -79,7 +79,7 @@
 - [x] 6.2 — CI/CD pipeline — GitHub Actions workflow, test suite, deploy triggers, preview deployments
 - [x] 6.3 — Monitoring & alerting — health checks, error tracking, Langfuse integration, alert thresholds
 - [x] 6.4a — Legal: Terms of Service — actual complete ToS text ready to publish
-- [ ] 6.4b — Legal: Privacy Policy — actual complete privacy policy text ready to publish
+- [x] 6.4b — Legal: Privacy Policy — actual complete privacy policy text ready to publish
 - [ ] 6.5a — SEO — meta tags for every page, OG image specs, schema.org markup per page
 - [ ] 6.5b — Content strategy — blog topics, comparison pages, landing page keyword targeting
 
