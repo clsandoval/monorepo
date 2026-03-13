@@ -1,8 +1,6 @@
 name: Inheritance Forward Loops
 
 on:
-  schedule:
-    - cron: "0 6,18 * * *"   # 6am + 6pm UTC (2pm + 2am Manila)
   workflow_dispatch:
     inputs:
       loop:
