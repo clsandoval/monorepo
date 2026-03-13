@@ -1,7 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import { AlertTriangle, Github, Globe, Activity, Clock } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { AlertTriangle, Github, Globe, Activity, Clock, User } from 'lucide-react'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -199,11 +200,14 @@ interface ServiceCardProps {
 
 function ServiceCard({ service, connection, userRole }: ServiceCardProps) {
   const meta = SERVICE_META[service]
+  const router = useRouter()
   const isConnected = connection !== null
   const badgeStatus: BadgeStatus = connection ? connection.status : 'not-connected'
   const isError =
     connection?.status === 'error' || connection?.status === 'expired'
   const isMember = userRole === 'member'
+  const [disconnecting, setDisconnecting] = React.useState(false)
+  const [disconnectError, setDisconnectError] = React.useState<string | null>(null)
 
   // Left border accent
   let borderLeft = '1px solid #E5E7EB'
@@ -213,16 +217,37 @@ function ServiceCard({ service, connection, userRole }: ServiceCardProps) {
     borderLeft = '3px solid #EF4444'
   }
 
+  // Account name: prefer display_name, fall back to email, then nothing
+  const accountName = connection
+    ? ((connection.metadata.display_name as string) ||
+       (connection.metadata.email as string) ||
+       null)
+    : null
+
   const handleConnect = () => {
     if (meta.authType === 'oauth') {
       window.location.href = `/api/integrations/oauth/start?service=${service}`
     }
-    // API key flow: stub (future stage)
+    // API key flow: handled by Toggl card (future stage)
   }
 
   const handleDisconnect = async () => {
-    // Stub — connect/disconnect flows implemented in later stage
-    void service
+    if (isMember || disconnecting) return
+    setDisconnecting(true)
+    setDisconnectError(null)
+    try {
+      const res = await fetch(`/api/integrations/${service}`, { method: 'DELETE' })
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        throw new Error((body as { error?: string }).error ?? 'disconnect_failed')
+      }
+      router.refresh()
+    } catch (err) {
+      setDisconnectError(
+        err instanceof Error ? err.message : 'Failed to disconnect. Please try again.'
+      )
+      setDisconnecting(false)
+    }
   }
 
   return (
@@ -296,6 +321,47 @@ function ServiceCard({ service, connection, userRole }: ServiceCardProps) {
             marginBottom: '16px',
           }}
         >
+          {/* Account name */}
+          {accountName && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                height: '24px',
+                marginBottom: '2px',
+              }}
+            >
+              <span
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  fontFamily: 'var(--font-inter), Inter, sans-serif',
+                  fontSize: '12px',
+                  color: '#9CA3AF',
+                }}
+              >
+                <User size={11} />
+                Account
+              </span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-inter), Inter, sans-serif',
+                  fontWeight: 500,
+                  fontSize: '12px',
+                  color: '#374151',
+                  maxWidth: '180px',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {accountName}
+              </span>
+            </div>
+          )}
+
           {/* Connected at */}
           <div
             style={{
@@ -421,6 +487,35 @@ function ServiceCard({ service, connection, userRole }: ServiceCardProps) {
         </div>
       )}
 
+      {/* Disconnect error */}
+      {disconnectError && (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            background: '#FEF2F2',
+            border: '1px solid #FEE2E2',
+            padding: '8px 12px',
+            marginBottom: '12px',
+          }}
+        >
+          <AlertTriangle
+            size={14}
+            color="#DC2626"
+            style={{ marginRight: '6px', flexShrink: 0 }}
+          />
+          <span
+            style={{
+              fontFamily: 'var(--font-inter), Inter, sans-serif',
+              fontSize: '12px',
+              color: '#DC2626',
+            }}
+          >
+            {disconnectError}
+          </span>
+        </div>
+      )}
+
       {/* Footer actions */}
       <div
         style={{
@@ -486,8 +581,8 @@ function ServiceCard({ service, connection, userRole }: ServiceCardProps) {
             {/* Disconnect — hidden for revoked */}
             {connection.status !== 'revoked' && (
               <button
-                onClick={handleDisconnect}
-                disabled={isMember}
+                onClick={() => { void handleDisconnect() }}
+                disabled={isMember || disconnecting}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -495,16 +590,17 @@ function ServiceCard({ service, connection, userRole }: ServiceCardProps) {
                   height: '36px',
                   padding: '0 16px',
                   background: 'transparent',
-                  color: isMember ? '#9CA3AF' : '#DC2626',
+                  color: isMember || disconnecting ? '#9CA3AF' : '#DC2626',
                   fontFamily: 'var(--font-inter), Inter, sans-serif',
                   fontWeight: 500,
                   fontSize: '14px',
                   borderRadius: '0px',
                   border: 'none',
-                  cursor: isMember ? 'not-allowed' : 'pointer',
+                  cursor: isMember || disconnecting ? 'not-allowed' : 'pointer',
+                  opacity: disconnecting ? 0.6 : 1,
                 }}
               >
-                Disconnect
+                {disconnecting ? 'Disconnecting…' : 'Disconnect'}
               </button>
             )}
           </>
@@ -550,6 +646,124 @@ export function ServiceGrid({
           userRole={userRole}
         />
       ))}
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// OAuth callback banner — reads ?connected= and ?error= from URL
+// ---------------------------------------------------------------------------
+
+const OAUTH_ERROR_MESSAGES: Record<string, string> = {
+  access_denied: 'You denied access. No changes were made.',
+  session_expired: 'Your session expired. Please try again.',
+  security_error: 'Security check failed. Please try again.',
+  token_exchange_failed: 'Could not exchange authorization code. Please try again.',
+  connection_failed: 'Failed to save connection. Please try again.',
+  provider_error: 'The provider returned an error. Please try again.',
+}
+
+export function OAuthCallbackBanner() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const [dismissed, setDismissed] = React.useState(false)
+
+  const connected = searchParams.get('connected')
+  const error = searchParams.get('error')
+  const errorService = searchParams.get('service')
+
+  if (dismissed || (!connected && !error)) return null
+
+  const dismiss = () => {
+    setDismissed(true)
+    // Strip query params from URL without reloading
+    router.replace('/dashboard/integrations', { scroll: false })
+  }
+
+  if (connected) {
+    const serviceName = SERVICE_META[connected as ServiceName]?.displayName ?? connected
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          background: '#ECFDF5',
+          border: '1px solid #A7F3D0',
+          padding: '12px 16px',
+          marginBottom: '24px',
+        }}
+      >
+        <span
+          style={{
+            fontFamily: 'var(--font-inter), Inter, sans-serif',
+            fontSize: '14px',
+            color: '#065F46',
+          }}
+        >
+          <strong>{serviceName}</strong> connected successfully.
+        </span>
+        <button
+          onClick={dismiss}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontSize: '16px',
+            color: '#065F46',
+            cursor: 'pointer',
+            padding: '0 4px',
+          }}
+          aria-label="Dismiss"
+        >
+          ×
+        </button>
+      </div>
+    )
+  }
+
+  // error state
+  const errorMsg =
+    OAUTH_ERROR_MESSAGES[error ?? ''] ?? 'An unexpected error occurred. Please try again.'
+  const serviceName = errorService
+    ? (SERVICE_META[errorService as ServiceName]?.displayName ?? errorService)
+    : null
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        background: '#FEF2F2',
+        border: '1px solid #FEE2E2',
+        padding: '12px 16px',
+        marginBottom: '24px',
+      }}
+    >
+      <span
+        style={{
+          fontFamily: 'var(--font-inter), Inter, sans-serif',
+          fontSize: '14px',
+          color: '#991B1B',
+        }}
+      >
+        {serviceName ? <><strong>{serviceName}:</strong> </> : null}
+        {errorMsg}
+      </span>
+      <button
+        onClick={dismiss}
+        style={{
+          background: 'none',
+          border: 'none',
+          fontSize: '16px',
+          color: '#991B1B',
+          cursor: 'pointer',
+          padding: '0 4px',
+        }}
+        aria-label="Dismiss"
+      >
+        ×
+      </button>
     </div>
   )
 }

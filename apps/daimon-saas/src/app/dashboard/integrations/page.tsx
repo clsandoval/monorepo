@@ -1,9 +1,11 @@
 import { redirect } from 'next/navigation'
+import * as React from 'react'
 import { createClient } from '@/lib/supabase/server'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
 import {
   ServiceGrid,
+  OAuthCallbackBanner,
   type ServiceName,
   type TenantServiceConnection,
 } from '@/components/integrations/service-grid'
@@ -97,6 +99,11 @@ export default async function IntegrationsPage() {
       tenantName={tenant?.name ?? ''}
       plan={(tenant?.plan as 'free' | 'starter' | 'pro') ?? 'free'}
     >
+      {/* OAuth callback feedback banner */}
+      <React.Suspense fallback={null}>
+        <OAuthCallbackBanner />
+      </React.Suspense>
+
       {/* Page header */}
       <div style={{ marginBottom: '32px' }}>
         <h1
