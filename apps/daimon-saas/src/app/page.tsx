@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { Code2, Clock, BookOpen, Calendar, FileText, Brain, MessageSquare, ImageIcon, Key } from 'lucide-react'
 import { PublicLayout } from '@/components/layout/public-layout'
 
 export const metadata: Metadata = {
@@ -29,7 +30,234 @@ export default function LandingPage() {
   return (
     <PublicLayout>
       <HeroSection />
+      <FeaturesSection />
     </PublicLayout>
+  )
+}
+
+const FEATURE_CARDS = [
+  {
+    icon: Code2,
+    iconColor: '#B4E7DD',
+    heading: 'Developer Tools',
+    body: 'Browse and create GitHub issues, review PRs, query Linear tickets, run shell commands. Your entire dev workflow, in chat.',
+    tag: 'GitHub · Linear · Shell',
+    bg: '#FFFFFF',
+  },
+  {
+    icon: Clock,
+    iconColor: '#B4E7DD',
+    heading: 'Time & Tasks',
+    body: 'Track time in Toggl with natural language. Create tasks, log hours, and query your time entries — all from Discord.',
+    tag: 'Toggl · Tasks',
+    bg: '#FFFFFF',
+  },
+  {
+    icon: BookOpen,
+    iconColor: '#B4E7DD',
+    heading: 'Knowledge & Research',
+    body: 'Web search, Wikipedia lookup, URL reading, ArXiv papers, Wikipedia disambiguation — Claude retrieves and synthesizes.',
+    tag: 'Web · Wikipedia · ArXiv',
+    bg: '#FFFFFF',
+  },
+  {
+    icon: Calendar,
+    iconColor: '#B4E7DD',
+    heading: 'Calendar & Scheduling',
+    body: 'Query Google Calendar, create events, check availability. Schedule with context from your other tools.',
+    tag: 'Google Calendar',
+    bg: '#FFFFFF',
+  },
+  {
+    icon: FileText,
+    iconColor: '#B4E7DD',
+    heading: 'Files & Docs',
+    body: 'Read and write Google Docs, Google Sheets, and Notion. Upload and retrieve files from Google Drive. Manage content without leaving Discord.',
+    tag: 'Google Docs · Drive · Notion',
+    bg: '#FFFFFF',
+  },
+  {
+    icon: Brain,
+    iconColor: '#B4E7DD',
+    heading: 'Memory & Context',
+    body: 'Daimon remembers. It stores notes and context that persist across conversations, giving you continuity across your server\'s history.',
+    tag: 'Built-in memory',
+    bg: '#FFFFFF',
+  },
+  {
+    icon: MessageSquare,
+    iconColor: '#B4E7DD',
+    heading: 'Communication',
+    body: 'Send emails via Gmail, draft messages, search your inbox. Manage Slack workspaces you\'ve connected.',
+    tag: 'Gmail · Slack',
+    bg: '#FFFFFF',
+  },
+  {
+    icon: ImageIcon,
+    iconColor: '#B4E7DD',
+    heading: 'Media & Images',
+    body: 'Generate images with DALL-E, search for photos, process attachments. Visual AI capabilities within Discord.',
+    tag: 'DALL-E · Media',
+    bg: '#FFFFFF',
+  },
+  {
+    icon: Key,
+    iconColor: '#9FAAE2',
+    heading: 'You control the costs',
+    body: 'Every token your bot uses is charged to your Anthropic account directly. Daimon only charges a small platform fee. No per-message markups.',
+    tag: 'BYOK model',
+    bg: 'rgba(159,170,226,0.06)',
+  },
+] as const
+
+function FeaturesSection() {
+  return (
+    <section id="features" style={{ scrollMarginTop: '80px' }}>
+      <style>{`
+        .features-root {
+          background-color: #F7F7F7;
+          padding: 96px 0;
+        }
+        .features-container {
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 32px;
+        }
+        .features-section-label {
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: rgba(12, 31, 64, 0.5);
+          margin-bottom: 12px;
+          font-family: var(--font-body);
+          text-align: center;
+        }
+        .features-heading {
+          font-size: clamp(28px, 3.5vw, 44px);
+          font-weight: 500;
+          color: #0C1F40;
+          text-align: center;
+          margin-bottom: 16px;
+        }
+        .features-divider {
+          width: 48px;
+          height: 3px;
+          background-color: #B4E7DD;
+          border-radius: 2px;
+          margin: 24px auto;
+        }
+        .features-subheadline {
+          font-size: 18px;
+          font-weight: 400;
+          color: rgba(12, 31, 64, 0.7);
+          line-height: 1.6;
+          max-width: 560px;
+          margin: 0 auto 64px;
+          text-align: center;
+          font-family: var(--font-body);
+        }
+        .features-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+        }
+        .feature-card {
+          display: flex;
+          flex-direction: column;
+          padding: 28px;
+          border-radius: 0;
+          position: relative;
+          overflow: hidden;
+          transition: opacity 0.2s ease;
+        }
+        .feature-card:hover { opacity: 0.92; }
+        .feature-card-stripe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 6px;
+          height: 100%;
+          background: linear-gradient(
+            to bottom,
+            #B4E7DD 30%,
+            #9FAAE2 35%,
+            #B4E7DD 60%
+          );
+        }
+        .feature-card-content {
+          padding-left: 12px;
+        }
+        .feature-card-icon {
+          margin-bottom: 16px;
+        }
+        .feature-card-heading {
+          font-size: 18px;
+          font-weight: 500;
+          color: #0C1F40;
+          margin-bottom: 10px;
+          font-family: var(--font-body);
+        }
+        .feature-card-body {
+          font-size: 15px;
+          font-weight: 400;
+          color: rgba(12, 31, 64, 0.7);
+          line-height: 1.65;
+          margin-bottom: 16px;
+          font-family: var(--font-body);
+          flex: 1;
+        }
+        .feature-card-tag {
+          display: inline-block;
+          font-size: 12px;
+          font-weight: 500;
+          color: rgba(12, 31, 64, 0.6);
+          background: rgba(12, 31, 64, 0.05);
+          padding: 3px 10px;
+          font-family: var(--font-body);
+        }
+        @media (max-width: 900px) {
+          .features-grid { grid-template-columns: 1fr; }
+        }
+        @media (min-width: 600px) and (max-width: 900px) {
+          .features-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+      `}</style>
+
+      <div className="features-root">
+        <div className="features-container">
+          {/* Section header */}
+          <p className="features-section-label">Capabilities</p>
+          <h2 className="features-heading font-headline-semi-expanded">
+            50+ tools. Zero configuration.
+          </h2>
+          <div className="features-divider" />
+          <p className="features-subheadline">
+            Every tool is available out of the box. Connect your services once — Claude figures out when to use them.
+          </p>
+
+          {/* Feature cards grid */}
+          <div className="features-grid">
+            {FEATURE_CARDS.map((card) => {
+              const Icon = card.icon
+              return (
+                <div key={card.heading} className="feature-card" style={{ backgroundColor: card.bg }}>
+                  <div className="feature-card-stripe" />
+                  <div className="feature-card-content">
+                    <div className="feature-card-icon">
+                      <Icon size={24} color={card.iconColor} />
+                    </div>
+                    <h3 className="feature-card-heading">{card.heading}</h3>
+                    <p className="feature-card-body">{card.body}</p>
+                    <span className="feature-card-tag">{card.tag}</span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
