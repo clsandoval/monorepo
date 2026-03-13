@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 26
-- **Current**: 27
+- **Completed**: 27
+- **Current**: 28
 
 ## Current Stage
 
-**Stage 027** — (next stage)
+**Stage 028** — (next stage)
 
 ## Stage Log
 
@@ -40,3 +40,4 @@
 | 024 | done | 2026-03-13T23:00:00Z | Stripe webhook handlers: handleCheckoutCompleted (link customer to tenant), handleSubscriptionCreated + upsertSubscription helper, handleSubscriptionUpdated, handleSubscriptionDeleted (downgrade to free); lib/stripe-prices.ts with getPriceId + getPlanFromPriceId; current_period_start/end from items.data[0] (API 2026-02-25.clover); build passes |
 | 025 | done | 2026-03-13T23:30:00Z | handleInvoicePaymentSucceeded (retrieve sub + refresh period dates + set active), handleInvoicePaymentFailed (set past_due), handleCustomerDeleted (clear stripe_customer_id from tenants + tenant_subscriptions); API v20 fix: invoice.parent.subscription_details.subscription instead of invoice.subscription; build passes |
 | 026 | done | 2026-03-13T23:45:00Z | POST /api/billing/checkout: auth check (owner only), plan/cycle validation, owner role check, tenant lookup, plan collision guard, getPriceId(), Stripe Checkout Session create with customer pre-fill or email; build passes |
+| 027 | done | 2026-03-13T23:50:00Z | POST /api/billing/portal: owner-only auth, stripe_customer_id lookup, billingPortal.sessions.create with return_url; POST /api/billing/downgrade: owner-only, target plan validation, cancel_at_period_end for free downgrade, price switch for pro→starter; build passes |
