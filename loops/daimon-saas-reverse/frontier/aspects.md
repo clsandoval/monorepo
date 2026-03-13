@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 59
-- **Pending**: 4
-- **Convergence**: 94%
+- **Analyzed**: 60
+- **Pending**: 3
+- **Convergence**: 95%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -86,7 +86,7 @@
 ## Wave 7: Polish & Completeness Pass (7 aspects — consolidation pass, page specs already cover most states)
 
 - [x] 7.1a — Loading and empty states — audit every page (landing, auth, dashboard, integrations, billing, settings, admin, docs), fill gaps
-- [ ] 7.1b — Error states — audit every page, ensure every fetch/mutation has a specific error UI, fill gaps
+- [x] 7.1b — Error states — audit every page, ensure every fetch/mutation has a specific error UI, fill gaps
 - [ ] 7.2 — Micro-interactions, transitions, toasts, confirmation dialogs — consolidate from page specs, fill gaps
 - [ ] 7.3a — Edge cases: auth + session — expired sessions, invalid tokens, concurrent logins, password reset mid-session
 - [ ] 7.3b — Edge cases: integrations + billing — Stripe down, OAuth revoked externally, bot crash mid-operation, slow connections
