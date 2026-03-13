@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 45
-- **Current**: 46
+- **Completed**: 46
+- **Current**: 47
 
 ## Current Stage
 
-**Stage 047** — (next stage)
+**Stage 048** — (next stage)
 
 ## Stage Log
 
@@ -60,3 +60,4 @@
 | 044 | done | 2026-03-14T01:15:00Z | Modal (generic, 3 sizes, close button, loading overlay, focus trap, scroll lock, portal) + ConfirmDialog (3 variants danger/warning/default, confirmationText input, loading state, focus trap); fadeIn + modalScaleIn keyframes added to globals.css; build passes |
 | 045 | done | 2026-03-14T01:20:00Z | EmptyState (icon/title/desc/action CTA, 3 sizes, aqua icon container), ErrorState (AlertCircle icon, retry button, dev-mode error detail, 3 sizes), Skeleton/SkeletonCircle/SkeletonText (shimmer animation, rectangular + circular variants); shimmer keyframes added to globals.css; build passes |
 | 046 | done | 2026-03-14T01:25:00Z | Badge (20 variants: plan-free/starter/pro, status-pending/configured/active/suspended, key-valid/invalid/unconfigured/validating, connection-connected/connecting/error/disconnected, neutral/info/success/warning/danger; sm/md sizes, label override), StatusIndicator (connected/connecting/error/disconnected/suspended states, pulse/fade animations, dotSize/labelSize/showLabel props); status-pulse + status-fade keyframes added to globals.css; build passes |
+| 047 | done | 2026-03-14T01:30:00Z | Table (generic, sortable columns, row click handler, skeleton loading rows, empty state, sticky header, accessible aria-sort; overflow-x-auto for mobile scroll), Pagination (page numbers with ±2 window + ellipsis, prev/next, item range display, mobile simplified view, URL-param pattern, accessibility); build passes |
