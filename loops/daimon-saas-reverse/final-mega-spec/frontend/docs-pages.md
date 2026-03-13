@@ -4208,3 +4208,1151 @@ How did our LinkedIn ad campaigns perform in GA last month? Show conversions and
 ---
 
 *End of Tool Reference: LinkedIn & Google Analytics page specification (17 LinkedIn tools + 4 Google Analytics tools documented).*
+
+---
+
+## Tool Reference: Fly, ACP, Decision Hub, Onyx & Bluedot (`/docs/tool-reference/fly`)
+
+**Route:** `/docs/tool-reference/fly`
+**File:** `app/(docs)/docs/tool-reference/fly/page.tsx`
+**Render mode:** Static (built at deploy time via `generateStaticParams`)
+**Auth required:** No
+**Layout:** Shared docs two-column layout (sidebar + content)
+
+---
+
+### Page Title & Introduction
+
+```
+# Fly, ACP, Decision Hub, Onyx & Bluedot Tools
+
+Daimon includes 23 tools across five infrastructure and knowledge management platforms:
+
+- **Fly.io (9 tools):** Launch, manage, and template ephemeral cloud sessions — interactive compute
+  environments with full Claude access.
+- **ACP — Agent Communication Protocol (4 tools):** Claude-to-Claude communication. Send messages
+  and call tools on remote Fly.io sessions directly from Daimon.
+- **Decision Hub (4 tools):** Search and activate skill packages that inject specialized instructions
+  into your AI assistant's system prompt.
+- **Onyx (2 tools):** Query your organization's knowledge base using RAG (Retrieval-Augmented
+  Generation).
+- **Bluedot (4 tools):** Search and read AI-transcribed meeting transcripts and summaries from your
+  Bluedot workspace.
+
+These tools are system-level and do not require you to connect personal accounts — they are
+configured by your Daimon workspace and available automatically.
+```
+
+---
+
+### In-Page Table of Contents
+
+```
+On this page
+├── Fly.io Tools (9)
+│   ├── Sessions
+│   │   ├── fly_launch_session
+│   │   ├── fly_stop_session
+│   │   ├── fly_get_session_status
+│   │   └── fly_list_sessions
+│   ├── Images
+│   │   └── fly_list_images
+│   └── Templates
+│       ├── fly_list_templates
+│       ├── fly_save_template
+│       ├── fly_delete_template
+│       └── fly_launch_builder
+├── ACP Tools (4)
+│   ├── acp_health_check
+│   ├── acp_list_tools
+│   ├── acp_send_message
+│   └── acp_call_tool
+├── Decision Hub Tools (4)
+│   ├── decision_hub_search_skills
+│   ├── decision_hub_activate_skill
+│   ├── decision_hub_list_active_skills
+│   └── decision_hub_deactivate_skill
+├── Onyx Tools (2)
+│   ├── onyx_list_agents
+│   └── onyx_query
+└── Bluedot Tools (4)
+    ├── bluedot_list_meetings
+    ├── bluedot_get_transcript
+    ├── bluedot_get_summary
+    └── bluedot_search_transcripts
+```
+
+---
+
+### Fly.io Tools (9)
+
+**About Fly.io sessions:** Fly.io tools let your AI assistant spin up ephemeral cloud machines — pre-configured compute environments you can use for running notebooks, building applications, or executing code. Each session is an isolated Fly.io app that is automatically deleted when stopped. Sessions are based on reusable templates stored in your Daimon workspace.
+
+**Authentication note:** Fly.io tools use a system-level Fly API token and organization slug configured at the platform level. You do not need to provide your own Fly.io account. These tools are available to all tenants.
+
+---
+
+#### Sessions
+
+---
+
+##### `fly_launch_session`
+
+**Description:** Launch a new ephemeral session on Fly.io from a template. Creates a new Fly app with a running machine based on the template's Docker image. Returns URLs for accessing the session.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `template` | string | Yes | — | Template slug to launch. Use `fly_list_templates` to see available templates. |
+| `region` | string | No | `"iad"` | Fly.io region code where the machine will be created. Examples: `"iad"` (Ashburn VA), `"lax"` (Los Angeles), `"cdg"` (Paris), `"nrt"` (Tokyo). |
+| `cpu_kind` | string | No | `"shared"` | CPU type. `"shared"` for shared vCPU (default, lower cost). `"performance"` for dedicated vCPU (better for compute-intensive work). |
+| `cpus` | integer | No | `2` | Number of CPUs to allocate. |
+| `memory_mb` | integer | No | `4096` | Memory to allocate in megabytes. Minimum: 256. |
+
+**Example invocation:**
+```
+Launch a new Marimo session from the "marimo-base" template in us-east
+```
+
+**Example output (XML):**
+```xml
+<session>
+  <app_name>mmm-abc12345</app_name>
+  <status>started</status>
+  <region>iad</region>
+  <template>marimo-base</template>
+  <urls>
+    <notebook>https://mmm-abc12345.fly.dev</notebook>
+    <acp>https://mmm-abc12345.fly.dev/acp</acp>
+  </urls>
+  <machine_id>148e306c696508</machine_id>
+  <cpu_kind>shared</cpu_kind>
+  <cpus>2</cpus>
+  <memory_mb>4096</memory_mb>
+</session>
+```
+
+**Notes:**
+- Session app names follow the pattern `mmm-{random}` — always a short alphanumeric suffix.
+- The returned `app_name` is what you pass to other `fly_*` and `acp_*` tools.
+- Sessions are ephemeral — stopping them permanently deletes all data.
+- The `acp` URL is used by `acp_*` tools for Claude-to-Claude communication.
+
+---
+
+##### `fly_stop_session`
+
+**Description:** Stop and delete a Fly.io session app. Permanently deletes the app and all its resources.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `app_name` | string | Yes | — | Fly app name to stop (e.g., `"mmm-abc12345"`). Use `fly_list_sessions` to find running apps. |
+
+**Example invocation:**
+```
+Stop the session mmm-abc12345
+```
+
+**Example output (XML):**
+```xml
+<result>
+  <app_name>mmm-abc12345</app_name>
+  <status>deleted</status>
+  <message>Session mmm-abc12345 has been stopped and deleted.</message>
+</result>
+```
+
+**Notes:**
+- This action is **irreversible**. All data on the session machine is permanently deleted.
+- The Fly app and all associated machines and volumes are destroyed.
+
+---
+
+##### `fly_get_session_status`
+
+**Description:** Get status of a Fly.io session. Returns machine state, region, and access URLs.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `app_name` | string | Yes | — | Fly app name to check (e.g., `"mmm-abc12345"`). |
+
+**Example invocation:**
+```
+Check the status of mmm-abc12345
+```
+
+**Example output (XML):**
+```xml
+<session>
+  <app_name>mmm-abc12345</app_name>
+  <state>started</state>
+  <region>iad</region>
+  <urls>
+    <notebook>https://mmm-abc12345.fly.dev</notebook>
+    <acp>https://mmm-abc12345.fly.dev/acp</acp>
+  </urls>
+  <machine_id>148e306c696508</machine_id>
+  <created_at>2026-03-13T14:22:00Z</created_at>
+</session>
+```
+
+**Machine states:**
+- `started` — running and accessible
+- `stopped` — machine halted, not accessible
+- `created` — machine created but not yet started
+- `destroyed` — machine has been deleted
+
+---
+
+##### `fly_list_sessions`
+
+**Description:** List all active Fly.io sessions. Returns list of running `mmm-*` apps with their status.
+
+**Parameters:** None — no parameters required.
+
+**Example invocation:**
+```
+Show me all my running sessions
+```
+
+**Example output (XML):**
+```xml
+<sessions>
+  <session>
+    <app_name>mmm-abc12345</app_name>
+    <state>started</state>
+    <region>iad</region>
+    <template>marimo-base</template>
+    <created_at>2026-03-13T14:22:00Z</created_at>
+    <url>https://mmm-abc12345.fly.dev</url>
+  </session>
+  <session>
+    <app_name>mmm-def67890</app_name>
+    <state>started</state>
+    <region>lax</region>
+    <template>decision-pack-compiler</template>
+    <created_at>2026-03-13T12:05:00Z</created_at>
+    <url>https://mmm-def67890.fly.dev</url>
+  </session>
+</sessions>
+<total>2</total>
+```
+
+**Notes:**
+- Only returns apps matching the `mmm-*` naming pattern (session apps).
+- Returns empty list if no sessions are running.
+
+---
+
+#### Images
+
+---
+
+##### `fly_list_images`
+
+**Description:** List available Docker images from template apps. Shows images that can be used for launching new sessions.
+
+**Parameters:** None — no parameters required.
+
+**Example invocation:**
+```
+What Docker images are available for sessions?
+```
+
+**Example output (XML):**
+```xml
+<images>
+  <image>
+    <repository>registry.fly.io/marimo-base</repository>
+    <tag>latest</tag>
+    <digest>sha256:abc123...</digest>
+    <size_mb>1240</size_mb>
+    <created_at>2026-03-01T10:00:00Z</created_at>
+  </image>
+  <image>
+    <repository>registry.fly.io/decision-pack-compiler</repository>
+    <tag>latest</tag>
+    <digest>sha256:def456...</digest>
+    <size_mb>2100</size_mb>
+    <created_at>2026-03-05T08:30:00Z</created_at>
+  </image>
+</images>
+```
+
+---
+
+#### Templates
+
+---
+
+##### `fly_list_templates`
+
+**Description:** List available session templates. Returns system templates and saved templates visible to the user.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `discord_user_id` | string | No | `null` | Filter saved templates by the Discord user ID who created them. If omitted, returns all system templates plus all saved templates. |
+
+**Example invocation:**
+```
+What templates are available to launch?
+```
+
+**Example output (XML):**
+```xml
+<templates>
+  <template>
+    <slug>marimo-base</slug>
+    <name>Marimo Notebook</name>
+    <description>Interactive Python notebook environment with Claude access</description>
+    <is_system>true</is_system>
+    <is_public>true</is_public>
+    <fly_app>marimo-base-template</fly_app>
+  </template>
+  <template>
+    <slug>decision-pack-compiler</slug>
+    <name>Decision Pack Compiler</name>
+    <description>Docker-in-Docker builder with git and Claude for building decision packs</description>
+    <is_system>true</is_system>
+    <is_public>true</is_public>
+    <fly_app>decision-pack-compiler-template</fly_app>
+  </template>
+  <template>
+    <slug>my-data-pipeline</slug>
+    <name>My Data Pipeline</name>
+    <description>Custom pipeline template with dbt and Airflow</description>
+    <is_system>false</is_system>
+    <is_public>false</is_public>
+    <owner_discord_id>123456789</owner_discord_id>
+    <owner_discord_name>alice</owner_discord_name>
+    <fly_app>mmm-saved-data-pipeline</fly_app>
+  </template>
+</templates>
+```
+
+---
+
+##### `fly_save_template`
+
+**Description:** Save a deployed Fly app as a reusable template. Creates a template that can be used to launch new sessions.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `slug` | string | Yes | — | Unique identifier for the template (lowercase letters, numbers, hyphens). Used as the `template` parameter when launching. |
+| `name` | string | Yes | — | Human-readable display name for the template. |
+| `fly_app` | string | Yes | — | Fly app name to save as a template (e.g., `"mmm-abc12345"`). The app's Docker image is recorded. |
+| `description` | string | No | `null` | Optional description shown in `fly_list_templates`. |
+| `source_repos` | string | No | `null` | Comma-separated source repository names associated with this template. |
+| `framework` | string | No | `null` | Framework name (e.g., `"marimo"`, `"dbt"`). |
+| `is_public` | boolean | No | `false` | If `true`, the template is visible to all users in the workspace. If `false`, only the creator can see it. |
+| `discord_user_id` | string | No | `null` | Discord user ID of the template owner. Used for ownership verification on deletion. |
+| `discord_user_name` | string | No | `null` | Discord username of the template owner. Shown in template listings. |
+
+**Example invocation:**
+```
+Save my current session mmm-abc12345 as a reusable template called "My Analysis Environment"
+```
+
+**Example output (XML):**
+```xml
+<result>
+  <slug>my-analysis-environment</slug>
+  <name>My Analysis Environment</name>
+  <fly_app>mmm-abc12345</fly_app>
+  <is_public>false</is_public>
+  <message>Template "My Analysis Environment" saved successfully.</message>
+</result>
+```
+
+**Notes:**
+- The template records a reference to the Fly app's current Docker image.
+- The source app (`fly_app`) does not need to remain running after saving.
+
+---
+
+##### `fly_delete_template`
+
+**Description:** Delete a saved template. Only the template creator can delete their templates. System templates cannot be deleted.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `slug` | string | Yes | — | Template slug to delete. |
+| `discord_user_id` | string | No | `null` | Discord user ID for ownership verification. Must match the user ID recorded when the template was saved. |
+
+**Example invocation:**
+```
+Delete my template "my-analysis-environment"
+```
+
+**Example output (XML):**
+```xml
+<result>
+  <slug>my-analysis-environment</slug>
+  <status>deleted</status>
+  <message>Template "my-analysis-environment" has been deleted.</message>
+</result>
+```
+
+**Error scenarios:**
+- If `discord_user_id` does not match the template owner: `ToolError("You are not the owner of template 'my-analysis-environment'.")`
+- If the slug refers to a system template: `ToolError("System templates cannot be deleted.")`
+- If the slug does not exist: `ToolError("Template 'my-analysis-environment' not found.")`
+
+---
+
+##### `fly_launch_builder`
+
+**Description:** Launch a Docker-in-Docker builder session. Creates a beefier session with Docker, git, and Claude assistant for building and deploying applications.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `region` | string | No | `"iad"` | Fly.io region code for the builder session. |
+| `memory_mb` | integer | No | `8192` | Memory to allocate in megabytes. Default 8 GB is recommended for Docker builds. |
+
+**Example invocation:**
+```
+Launch a builder session so I can build and deploy a new application
+```
+
+**Example output (XML):**
+```xml
+<session>
+  <app_name>mmm-builder-xyz789</app_name>
+  <status>started</status>
+  <region>iad</region>
+  <template>decision-pack-compiler</template>
+  <urls>
+    <builder>https://mmm-builder-xyz789.fly.dev</builder>
+    <acp>https://mmm-builder-xyz789.fly.dev/acp</acp>
+  </urls>
+  <cpu_kind>performance</cpu_kind>
+  <cpus>4</cpus>
+  <memory_mb>8192</memory_mb>
+</session>
+```
+
+**Notes:**
+- This tool is a shortcut that always uses the `"decision-pack-compiler"` template with `cpu_kind="performance"` and `cpus=4`. These values are hardcoded and cannot be overridden.
+- Builder sessions are more expensive than standard sessions due to dedicated performance CPUs.
+- Use `fly_stop_session` to terminate the builder when finished.
+
+---
+
+### ACP — Agent Communication Protocol Tools (4)
+
+**About ACP:** ACP (Agent Communication Protocol) enables your Daimon AI assistant to communicate directly with Claude instances running inside Fly.io sessions. This creates a Claude-to-Claude communication channel: Daimon can send messages to, and call tools on, remote session Claudes. ACP is a custom HTTP protocol built on top of MCP.
+
+**Use pattern:** Always call `acp_health_check` first to verify the session is reachable before sending messages. Then optionally call `acp_list_tools` to see what the session Claude can do. Then use `acp_send_message` for natural language delegation or `acp_call_tool` for direct tool invocation.
+
+**Authentication note:** ACP tools use the Fly app name for routing. No separate API credentials are required.
+
+---
+
+##### `acp_health_check`
+
+**Description:** Check if ACP server is healthy on a Fly.io session. Use before sending messages to verify the session is reachable.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `app_name` | string | Yes | — | Fly app name (e.g., `"mmm-abc12345"`) or local ACP address. |
+
+**Example invocation:**
+```
+Check if session mmm-abc12345 is ready for ACP communication
+```
+
+**Example output (XML):**
+```xml
+<health>
+  <app_name>mmm-abc12345</app_name>
+  <status>healthy</status>
+  <acp_url>https://mmm-abc12345.fly.dev/acp</acp_url>
+  <response_ms>42</response_ms>
+</health>
+```
+
+**Error scenarios:**
+- If session is not running or ACP server not yet initialized: `ToolError("ACP server on mmm-abc12345 is not reachable. Ensure the session is running and has fully started.")`
+- If app does not exist: `ToolError("Fly app 'mmm-abc12345' not found.")`
+
+---
+
+##### `acp_list_tools`
+
+**Description:** List tools available to session Claude via ACP. Use to discover what capabilities the remote session has.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `app_name` | string | Yes | — | Fly app name (e.g., `"mmm-abc12345"`) or local ACP address. |
+
+**Example invocation:**
+```
+What tools does session mmm-abc12345 have access to?
+```
+
+**Example output (XML):**
+```xml
+<tools app_name="mmm-abc12345">
+  <tool>
+    <name>marimo__get_active_notebooks</name>
+    <server>marimo</server>
+    <description>List active Marimo notebooks in the current session</description>
+  </tool>
+  <tool>
+    <name>marimo__execute_cell</name>
+    <server>marimo</server>
+    <description>Execute a cell in a Marimo notebook by cell ID</description>
+  </tool>
+  <tool>
+    <name>bash__run_command</name>
+    <server>bash</server>
+    <description>Run a shell command in the session environment</description>
+  </tool>
+</tools>
+<total>3</total>
+```
+
+---
+
+##### `acp_send_message`
+
+**Description:** Send a message to session Claude via ACP. Use for Claude-to-Claude communication with remote sessions.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `app_name` | string | Yes | — | Fly app name (e.g., `"mmm-abc12345"`) or local ACP address. |
+| `message` | string | Yes | — | Natural language message to send to the session Claude. The session Claude will process this as a user turn and respond. |
+| `timeout` | integer | No | `120` | Response timeout in seconds. Minimum: 10. Maximum: 600. Increase for long-running tasks. |
+
+**Example invocation:**
+```
+Tell the session mmm-abc12345 to run a data cleaning pipeline on the uploaded CSV
+```
+
+**Example output (XML):**
+```xml
+<acp_response app_name="mmm-abc12345">
+  <status>completed</status>
+  <response>
+    I've run the data cleaning pipeline on your CSV. Here's what I found and fixed:
+
+    - Removed 23 duplicate rows
+    - Filled 5 missing values in the "email" column with empty strings
+    - Standardized date formats in "created_at" to ISO 8601
+    - Exported cleaned data to /output/cleaned_data.csv
+
+    The file is ready to download from the session.
+  </response>
+  <duration_ms>4820</duration_ms>
+</acp_response>
+```
+
+**Notes:**
+- The session Claude has full access to its own tools (Marimo, bash, etc.) when processing the message.
+- For very long operations (e.g., Docker builds), increase `timeout` to 300–600 seconds.
+- The session Claude's response is returned verbatim — it may include code, data, or analysis.
+
+---
+
+##### `acp_call_tool`
+
+**Description:** Call a specific tool on the remote session via ACP. Use to execute tools on the remote session without going through Claude.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `app_name` | string | Yes | — | Fly app name (e.g., `"mmm-abc12345"`) or local ACP address. |
+| `server` | string | Yes | — | MCP server name on the remote session (e.g., `"marimo"`, `"bash"`). Use `acp_list_tools` to discover available servers. |
+| `tool` | string | Yes | — | Tool name on the remote MCP server (e.g., `"get_active_notebooks"`, `"run_command"`). |
+| `params` | string | No | `"{}"` | Tool parameters as a JSON string. Must be valid JSON. Example: `'{"command": "ls /output"}'`. |
+
+**Example invocation:**
+```
+Run "ls /output" on session mmm-abc12345 using the bash server
+```
+
+**Example output (XML):**
+```xml
+<acp_tool_result app_name="mmm-abc12345" server="bash" tool="run_command">
+  <status>success</status>
+  <result>
+    cleaned_data.csv
+    report.html
+    model_checkpoint.pkl
+  </result>
+</acp_tool_result>
+```
+
+**Notes:**
+- This bypasses the session Claude entirely — the tool is called directly on the MCP server.
+- `params` must be a valid JSON string (double-quoted keys and values). Use `'{}'` for tools with no parameters.
+- Use `acp_list_tools` first to confirm the correct server and tool names.
+
+---
+
+### Decision Hub Tools (4)
+
+**About Decision Hub:** Decision Hub is a registry of "skills" — prompt engineering packages that inject specialized instructions into your AI assistant's system prompt. Activating a skill changes how Daimon approaches a domain or task for the duration of your conversation. Skills are stored as ZIP files containing system prompt fragments and configuration.
+
+**Authentication note:** Decision Hub tools use a system-level HTTP client. No user credentials are required.
+
+---
+
+##### `decision_hub_search_skills`
+
+**Description:** Search Decision Hub for skills matching a natural language query. Returns skill names, descriptions, and org slugs.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `query` | string | Yes | — | Natural language search query. Examples: `"brainstorming"`, `"data analysis"`, `"writing coach"`. |
+
+**Example invocation:**
+```
+Find skills related to strategic planning
+```
+
+**Example output (XML):**
+```xml
+<skills>
+  <skill>
+    <org>pymc-labs</org>
+    <name>strategic-planning</name>
+    <description>Structures thinking around goals, constraints, and tradeoffs for strategic decisions</description>
+    <version>1.2.0</version>
+  </skill>
+  <skill>
+    <org>pymc-labs</org>
+    <name>okr-coach</name>
+    <description>Helps define and refine Objectives and Key Results following the OKR framework</description>
+    <version>1.0.1</version>
+  </skill>
+  <skill>
+    <org>community</org>
+    <name>scenario-planning</name>
+    <description>Facilitates scenario planning exercises using pre-mortem and futures mapping techniques</description>
+    <version>0.9.0</version>
+  </skill>
+</skills>
+<total>3</total>
+```
+
+---
+
+##### `decision_hub_activate_skill`
+
+**Description:** Activate a Decision Hub skill for the current conversation. Downloads and injects the skill instructions into the system prompt.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `org` | string | Yes | — | Organization slug that owns the skill (e.g., `"pymc-labs"`). Found in `decision_hub_search_skills` results. |
+| `skill_name` | string | Yes | — | Skill name (e.g., `"brainstorming"`, `"strategic-planning"`). Found in `decision_hub_search_skills` results. |
+
+**Example invocation:**
+```
+Activate the brainstorming skill from pymc-labs
+```
+
+**Example output (XML):**
+```xml
+<result>
+  <org>pymc-labs</org>
+  <skill_name>brainstorming</skill_name>
+  <status>activated</status>
+  <version>2.1.0</version>
+  <description>Divergent thinking and structured ideation — helps generate and organize novel ideas</description>
+  <message>Skill "brainstorming" is now active. My approach to this conversation has been updated.</message>
+</result>
+```
+
+**Notes:**
+- The skill's instructions are injected into the Claude system prompt for the remainder of the conversation.
+- Multiple skills can be active simultaneously — their instructions are concatenated.
+- Use `decision_hub_list_active_skills` to see what's currently active.
+
+---
+
+##### `decision_hub_list_active_skills`
+
+**Description:** List Decision Hub skills currently active in this conversation.
+
+**Parameters:** None — no parameters required.
+
+**Example invocation:**
+```
+What skills are currently active?
+```
+
+**Example output (XML):**
+```xml
+<active_skills>
+  <skill>
+    <org>pymc-labs</org>
+    <name>brainstorming</name>
+    <description>Divergent thinking and structured ideation</description>
+    <version>2.1.0</version>
+    <activated_at>2026-03-13T15:02:00Z</activated_at>
+  </skill>
+  <skill>
+    <org>pymc-labs</org>
+    <name>strategic-planning</name>
+    <description>Structures thinking around goals, constraints, and tradeoffs</description>
+    <version>1.2.0</version>
+    <activated_at>2026-03-13T15:05:00Z</activated_at>
+  </skill>
+</active_skills>
+<total>2</total>
+```
+
+**Notes:**
+- Returns an empty list if no skills are active.
+- Skills are scoped to the current conversation and do not persist across sessions.
+
+---
+
+##### `decision_hub_deactivate_skill`
+
+**Description:** Deactivate a Decision Hub skill from the current conversation.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `org` | string | Yes | — | Organization slug of the skill to deactivate (e.g., `"pymc-labs"`). |
+| `skill_name` | string | Yes | — | Name of the skill to deactivate (e.g., `"brainstorming"`). |
+
+**Example invocation:**
+```
+Deactivate the brainstorming skill
+```
+
+**Example output (XML):**
+```xml
+<result>
+  <org>pymc-labs</org>
+  <skill_name>brainstorming</skill_name>
+  <status>deactivated</status>
+  <message>Skill "brainstorming" has been removed from the current conversation.</message>
+</result>
+```
+
+**Error scenarios:**
+- If the skill is not currently active: `ToolError("Skill 'brainstorming' from org 'pymc-labs' is not currently active.")`
+
+---
+
+### Onyx Tools (2)
+
+**About Onyx:** Onyx (formerly Danswer) is a RAG (Retrieval-Augmented Generation) knowledge base platform. Daimon's Onyx tools let your AI assistant query your organization's internal documents, wikis, and knowledge repositories with AI-generated answers and source citations.
+
+**Authentication note:** Onyx tools use a system-level Onyx API key and base URL. You do not need to configure a personal Onyx account.
+
+---
+
+##### `onyx_list_agents`
+
+**Description:** List available Onyx knowledge base agents. Returns a list of agents with their IDs, names, descriptions, and associated document sets. Use agent IDs with `onyx_query`.
+
+**Parameters:** None — no parameters required.
+
+**Example invocation:**
+```
+What knowledge base agents are available?
+```
+
+**Example output (XML):**
+```xml
+<agents>
+  <agent>
+    <id>0</id>
+    <name>Default</name>
+    <description>General knowledge base across all document sets</description>
+    <document_sets>
+      <set>Company Wiki</set>
+      <set>Engineering Docs</set>
+      <set>Product Specs</set>
+    </document_sets>
+  </agent>
+  <agent>
+    <id>5</id>
+    <name>Engineering Assistant</name>
+    <description>Focused on technical documentation, architecture decisions, and runbooks</description>
+    <document_sets>
+      <set>Engineering Docs</set>
+      <set>Architecture ADRs</set>
+      <set>Runbooks</set>
+    </document_sets>
+  </agent>
+  <agent>
+    <id>8</id>
+    <name>HR & Policy</name>
+    <description>Employee handbook, benefits, and HR policies</description>
+    <document_sets>
+      <set>Employee Handbook</set>
+      <set>HR Policies</set>
+    </document_sets>
+  </agent>
+</agents>
+```
+
+---
+
+##### `onyx_query`
+
+**Description:** Query the organization's knowledge base using Onyx RAG. Returns an answer with citations from source documents. Use `onyx_list_agents` to discover available agents.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `message` | string | Yes | — | Natural language query. Examples: `"How do I set up a new dev environment?"`, `"What is our parental leave policy?"`. |
+| `persona_id` | integer | No | `0` | Onyx agent/persona ID to query. `0` = default agent. Use `onyx_list_agents` to find available IDs. |
+
+**Example invocation:**
+```
+What's the process for deploying to production?
+```
+
+**Example output (XML):**
+```xml
+<onyx_response>
+  <answer>
+    To deploy to production, follow these steps:
+    1. Merge your PR to main after at least one approval
+    2. The CI pipeline automatically runs tests and builds the Docker image
+    3. After tests pass, trigger the deploy job in GitHub Actions
+    4. Monitor the Fly.io dashboard for rollout status
+    5. Run smoke tests using the checklist in the runbook
+
+    For hotfixes, use the fast-track procedure described in the incident runbook.
+  </answer>
+  <sources>
+    <source>
+      <title>Production Deployment Runbook</title>
+      <url>https://wiki.internal/runbooks/deploy</url>
+      <score>0.94</score>
+    </source>
+    <source>
+      <title>Engineering Onboarding Guide</title>
+      <url>https://wiki.internal/eng/onboarding</url>
+      <score>0.71</score>
+    </source>
+  </sources>
+</onyx_response>
+```
+
+**Notes:**
+- Answers are AI-generated based on retrieved document chunks — always check the cited sources for authoritative information.
+- Response quality depends on the completeness of indexed documents. If results are poor, the relevant content may not be indexed in Onyx.
+- For specialized domains (engineering, HR, etc.), pass the appropriate `persona_id` for better results.
+
+---
+
+### Bluedot Tools (4)
+
+**About Bluedot:** Bluedot is an AI meeting recorder that automatically transcribes calls and generates summaries. Daimon's Bluedot tools let your AI assistant search and read your organization's meeting history — transcripts, summaries, action items, and attendees.
+
+**Authentication note:** Bluedot tools read from the `bluedot_transcripts` table in your Daimon workspace database. Meetings are synced via Bluedot webhook. No per-user Bluedot credentials are required.
+
+**Important sync note:** Only meetings that have been exported via webhook are available. Private meetings and meetings in Bluedot Collections may not sync automatically. To manually sync a meeting that's missing: open it in Bluedot → click the three-dot menu → select "Export to webhook".
+
+---
+
+##### `bluedot_list_meetings`
+
+**Description:** List all accessible Bluedot meetings, newest first. Returns meetings from the workspace that have been shared or are public. Private meetings are not included. Each entry shows date, title, duration, attendees, and available content (transcript/summary). Use `date_from` and `date_to` to restrict to a specific date range (e.g., "last week", "this month", "on Feb 26").
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `start_date` | string | No | `null` | Only include meetings on or after this date. ISO 8601 format (e.g., `"2026-02-01"`). |
+| `end_date` | string | No | `null` | Only include meetings on or before this date. ISO 8601 format (e.g., `"2026-02-28"`). |
+
+**Example invocation:**
+```
+Show me all meetings from last week
+```
+
+**Example output (XML):**
+```xml
+<meetings>
+  <meeting>
+    <id>meet_abc123</id>
+    <title>Q1 Planning Session</title>
+    <date>2026-03-10</date>
+    <duration_minutes>62</duration_minutes>
+    <attendees>
+      <attendee>Alice Johnson</attendee>
+      <attendee>Bob Smith</attendee>
+      <attendee>Carol Lee</attendee>
+    </attendees>
+    <has_transcript>true</has_transcript>
+    <has_summary>true</has_summary>
+  </meeting>
+  <meeting>
+    <id>meet_def456</id>
+    <title>1:1 with Engineering Lead</title>
+    <date>2026-03-11</date>
+    <duration_minutes>28</duration_minutes>
+    <attendees>
+      <attendee>Alice Johnson</attendee>
+      <attendee>David Park</attendee>
+    </attendees>
+    <has_transcript>true</has_transcript>
+    <has_summary>false</has_summary>
+  </meeting>
+</meetings>
+<total>2</total>
+```
+
+---
+
+##### `bluedot_get_transcript`
+
+**Description:** Get the full transcript of a Bluedot meeting. Returns a speaker-attributed transcript. Use `bluedot_list_meetings` first to find the `meeting_id`.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `meeting_id` | string | Yes | — | Meeting ID from `bluedot_list_meetings` (e.g., `"meet_abc123"`). |
+| `max_lines` | integer | No | `null` | Truncate the transcript to this many lines. Useful for very long meetings. If omitted, returns the full transcript. |
+
+**Example invocation:**
+```
+Get the full transcript from the Q1 Planning Session on March 10
+```
+
+**Example output (XML):**
+```xml
+<transcript meeting_id="meet_abc123" title="Q1 Planning Session" date="2026-03-10">
+  <line>
+    <speaker>Alice Johnson</speaker>
+    <timestamp>00:00:12</timestamp>
+    <text>Alright, let's get started. The main agenda today is reviewing our Q1 roadmap...</text>
+  </line>
+  <line>
+    <speaker>Bob Smith</speaker>
+    <timestamp>00:00:45</timestamp>
+    <text>I wanted to raise the infrastructure capacity question first, if that's okay.</text>
+  </line>
+  <line>
+    <speaker>Alice Johnson</speaker>
+    <timestamp>00:00:52</timestamp>
+    <text>Sure, go ahead Bob.</text>
+  </line>
+  <!-- ... additional lines ... -->
+  <line>
+    <speaker>Carol Lee</speaker>
+    <timestamp>01:01:30</timestamp>
+    <text>Great, I'll send out the action items by end of day. Thanks everyone.</text>
+  </line>
+</transcript>
+<total_lines>284</total_lines>
+```
+
+**Notes:**
+- Transcripts are speaker-attributed based on Bluedot's AI speaker identification.
+- Speaker names come from meeting participant profiles — they may be "Unknown Speaker" if Bluedot could not identify a participant.
+- If `has_transcript` was `false` in `bluedot_list_meetings`, this tool will return an error.
+
+---
+
+##### `bluedot_get_summary`
+
+**Description:** Get the AI-generated summary of a Bluedot meeting. Returns the meeting summary with action items and key points. Use `bluedot_list_meetings` first to find the `meeting_id`.
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `meeting_id` | string | Yes | — | Meeting ID from `bluedot_list_meetings` (e.g., `"meet_abc123"`). |
+
+**Example invocation:**
+```
+Summarize the Q1 Planning Session from March 10
+```
+
+**Example output (XML):**
+```xml
+<summary meeting_id="meet_abc123" title="Q1 Planning Session" date="2026-03-10">
+  <overview>
+    The team reviewed the Q1 roadmap and prioritized infrastructure capacity upgrades
+    alongside three product features. Budget allocation was discussed and decisions made
+    on resource distribution.
+  </overview>
+  <key_points>
+    <point>Infrastructure capacity will be increased by 40% before March 31 to support the GA launch</point>
+    <point>Feature A and Feature B are on track; Feature C is deprioritized to Q2</point>
+    <point>Design review scheduled for next Tuesday at 2pm</point>
+  </key_points>
+  <action_items>
+    <action>
+      <owner>Bob Smith</owner>
+      <task>Finalize infrastructure scaling plan and share with team by EOD Friday</task>
+    </action>
+    <action>
+      <owner>Carol Lee</owner>
+      <task>Send out action item list to all attendees</task>
+    </action>
+    <action>
+      <owner>Alice Johnson</owner>
+      <task>Schedule design review for next Tuesday</task>
+    </action>
+  </action_items>
+</summary>
+```
+
+**Notes:**
+- If `has_summary` was `false` in `bluedot_list_meetings`, this tool returns an error.
+- Summaries are AI-generated by Bluedot — key points and action items may not be 100% accurate.
+
+---
+
+##### `bluedot_search_transcripts`
+
+**Description:** Search across all accessible Bluedot transcripts and summaries. Finds meetings where the transcript or summary contains the search term. Returns matching meetings ordered newest first. **Always pass `date_from` and `date_to` when the user mentions a specific date, week, or time range — do not filter results yourself after calling this tool.**
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `query` | string | Yes | — | Keyword or phrase to search across transcripts and summaries. Example: `"product launch"`, `"budget approval"`, `"Alice`. |
+| `start_date` | string | No | `null` | Search only meetings on or after this date. ISO 8601 format (e.g., `"2026-03-01"`). |
+| `end_date` | string | No | `null` | Search only meetings on or before this date. ISO 8601 format (e.g., `"2026-03-13"`). |
+| `limit` | integer | No | `25` | Maximum number of results to return. Range: 1–100. |
+
+**Example invocation:**
+```
+Find all meetings where we discussed the product launch in March
+```
+
+**Example output (XML):**
+```xml
+<search_results query="product launch" start_date="2026-03-01" end_date="2026-03-13">
+  <meeting>
+    <id>meet_abc123</id>
+    <title>Q1 Planning Session</title>
+    <date>2026-03-10</date>
+    <match_context>...we need the product launch to happen before March 31 to hit our Q1 target...</match_context>
+    <has_transcript>true</has_transcript>
+    <has_summary>true</has_summary>
+  </meeting>
+  <meeting>
+    <id>meet_ghi789</id>
+    <title>Go-to-Market Review</title>
+    <date>2026-03-07</date>
+    <match_context>...product launch readiness checklist reviewed — 8 of 12 items complete...</match_context>
+    <has_transcript>true</has_transcript>
+    <has_summary>true</has_summary>
+  </meeting>
+</search_results>
+<total>2</total>
+```
+
+**Notes:**
+- Search is full-text across both transcript content and AI-generated summaries.
+- Results are ordered by meeting date, newest first.
+- Use `bluedot_get_transcript` or `bluedot_get_summary` with the returned `id` to get full content.
+
+---
+
+### Tool Quick-Reference Table (Fly + ACP + Decision Hub + Onyx + Bluedot)
+
+| Tool | Category | Auth | Parameters | Description |
+|------|----------|------|------------|-------------|
+| `fly_launch_session` | WRITE | System Fly token | template, region, cpu_kind, cpus, memory_mb | Launch ephemeral session from template |
+| `fly_stop_session` | WRITE | System Fly token | app_name | Stop and permanently delete a session |
+| `fly_get_session_status` | READ | System Fly token | app_name | Get machine state and URLs |
+| `fly_list_sessions` | READ | System Fly token | — | List all running sessions |
+| `fly_list_images` | READ | System Fly token | — | List available Docker images |
+| `fly_list_templates` | READ | System Fly token | discord_user_id (optional) | List available session templates |
+| `fly_save_template` | WRITE | System Fly token | slug, name, fly_app, + optional fields | Save a session as a reusable template |
+| `fly_delete_template` | WRITE | System Fly token | slug, discord_user_id (optional) | Delete a saved template |
+| `fly_launch_builder` | WRITE | System Fly token | region, memory_mb | Launch a Docker-in-Docker builder session |
+| `acp_health_check` | READ | None (app routing) | app_name | Check ACP server reachability |
+| `acp_list_tools` | READ | None (app routing) | app_name | List tools on remote session |
+| `acp_send_message` | WRITE | None (app routing) | app_name, message, timeout | Send message to session Claude |
+| `acp_call_tool` | WRITE | None (app routing) | app_name, server, tool, params | Call a specific tool on remote session |
+| `decision_hub_search_skills` | READ | System HTTP | query | Search Decision Hub skill registry |
+| `decision_hub_activate_skill` | WRITE | System HTTP | org, skill_name | Inject skill into system prompt |
+| `decision_hub_list_active_skills` | READ | System HTTP | — | List currently active skills |
+| `decision_hub_deactivate_skill` | WRITE | System HTTP | org, skill_name | Remove skill from system prompt |
+| `onyx_list_agents` | READ | System Onyx key | — | List available knowledge base agents |
+| `onyx_query` | READ | System Onyx key | message, persona_id | Query knowledge base with RAG |
+| `bluedot_list_meetings` | READ | Database (db_context) | start_date, end_date | List synced meetings |
+| `bluedot_get_transcript` | READ | Database (db_context) | meeting_id, max_lines | Get full speaker-attributed transcript |
+| `bluedot_get_summary` | READ | Database (db_context) | meeting_id | Get AI-generated summary + action items |
+| `bluedot_search_transcripts` | READ | Database (db_context) | query, start_date, end_date, limit | Full-text search across transcripts |
+
+---
+
+### Page Footer Navigation
+
+```html
+<nav class="docs-page-nav" aria-label="Docs page navigation">
+  <a href="/docs/tool-reference/linkedin" aria-label="Previous page: LinkedIn & Google Analytics Tools">
+    ← LinkedIn & Google Analytics Tools
+  </a>
+  <a href="/docs/tool-reference/linear" aria-label="Next page: Linear Tools">
+    Linear Tools →
+  </a>
+</nav>
+```
+
+---
+
+### Loading / Empty / Error States (Tool Reference: Fly, ACP, Decision Hub, Onyx & Bluedot)
+
+**Loading state:** Not applicable — fully static page, rendered at build time.
+
+**Empty state:** Not applicable — content is always present.
+
+**Error state:** If the page fails to load, `app/error.tsx` renders: "We're having trouble loading this page. Please try again in a moment." with a "Reload" button.
+
+**Auth button (topbar):** Rendered client-side; slot is empty until auth state resolves to prevent layout shift.
+
+---
+
+### Accessibility (Tool Reference: Fly, ACP, Decision Hub, Onyx & Bluedot)
+
+| Element | ARIA / Accessibility Requirement |
+|---------|----------------------------------|
+| `<article class="docs-content">` | `role="main"` |
+| In-page TOC nav | `aria-label="On this page"` |
+| Active in-page TOC link | `aria-current="location"` |
+| Tool entry `<section>` headings (`h5`) | Unique `id` matching the tool function name (e.g., `id="fly_launch_session"`, `id="acp_send_message"`) — anchor link targets |
+| Parameter tables | `<table role="table">` with `<caption class="sr-only">Parameters for {tool_name}</caption>` |
+| Code blocks `<pre>` | `tabindex="0"` to allow keyboard scrolling |
+| Warning note (fly_stop_session irreversible) | `role="note"` `aria-label="Destructive action warning"` |
+| Warning note (fly_delete_template irreversible) | `role="note"` `aria-label="Destructive action warning"` |
+| Footer nav previous/next links | `aria-label="Previous page: LinkedIn & Google Analytics Tools"` and `aria-label="Next page: Linear Tools"` |
+| Platform section headings (`h3`) | IDs: `id="fly-io-tools"`, `id="acp-tools"`, `id="decision-hub-tools"`, `id="onyx-tools"`, `id="bluedot-tools"` |
+
+---
+
+*End of Tool Reference: Fly, ACP, Decision Hub, Onyx & Bluedot page specification (9 Fly + 4 ACP + 4 Decision Hub + 2 Onyx + 4 Bluedot = 23 tools documented).*
