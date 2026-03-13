@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 34
-- **Current**: 35
+- **Completed**: 35
+- **Current**: 36
 
 ## Current Stage
 
-**Stage 035** — (next stage)
+**Stage 036** — (next stage)
 
 ## Stage Log
 
@@ -48,3 +48,4 @@
 | 032 | done | 2026-03-14T00:15:00Z | POST /api/settings/workspace: owner/admin auth, name validation (1-100 chars), UPDATE tenants.name; DELETE /api/settings/workspace: owner-only, confirm_name match, Vault secret cleanup for service connections + API keys + Discord, cascade delete, signOut; POST /api/settings/account/display-name: any role, full_name ≤100 chars, updateUser; POST /api/settings/account/password: any role, current password verify via anon signIn, min 8 chars, admin.updateUserById; build passes |
 | 033 | done | 2026-03-14T00:20:00Z | POST /api/admin/tenants/[id]/suspend: admin JWT check (404 for non-admin), tenant lookup, already-suspended guard, UPDATE status=suspended, audit log tenant_suspended; POST /api/admin/tenants/[id]/unsuspend: admin JWT check, tenant lookup, not-suspended guard, determine new status (configured if active discord connection else pending), UPDATE status, audit log tenant_unsuspended; build passes |
 | 034 | done | 2026-03-14T00:25:00Z | PATCH /api/admin/tenants/[id]/plan: admin JWT check (404 for non-admin), plan validation (free/starter/pro), tenant lookup, UPDATE tenants.plan, audit log tenant_plan_override with old_plan+new_plan; POST /api/admin/tenants/[id]/impersonate: admin JWT check, tenant lookup, owner member lookup, getUserById for email, generateLink magiclink with impersonated_by claim, audit log tenant_impersonated; build passes |
+| 035 | done | 2026-03-14T00:30:00Z | POST /api/admin/tenants/[id]/revoke-api-key: admin JWT check (404), keyId required, tenant-scoped key lookup, vault delete_secret, UPDATE status=revoked, audit log api_key_revoked_by_admin; DELETE /api/admin/tenants/[id]/service-connections/[connectionId]: admin JWT check, tenant-scoped connection lookup, vault delete access+refresh secrets, row delete, audit log service_connection_revoked_by_admin; build passes |
