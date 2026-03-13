@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 63
-- **Analyzed**: 33
-- **Pending**: 30
-- **Convergence**: 52%
+- **Analyzed**: 34
+- **Pending**: 29
+- **Convergence**: 54%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -51,7 +51,7 @@
 - [x] 4.8c — Docs: Tool Reference — Toggl tools (34) — every tool name, description, params, example output
 - [x] 4.8d — Docs: Tool Reference — LinkedIn (17) + Google Analytics (4) tools — name, description, params, example output
 - [x] 4.8e — Docs: Tool Reference — Fly (9) + ACP (4) + Decision Hub (4) + Onyx (2) + Bluedot (4) tools — name, description, params, example output
-- [ ] 4.8f — Docs: Tool Reference — Linear (6 remote MCP) tools + tool index/navigation structure
+- [x] 4.8f — Docs: Tool Reference — Linear (6 remote MCP) tools + tool index/navigation structure
 - [ ] 4.8g — Docs: FAQ page — complete Q&A (billing, security, bot setup, troubleshooting, limits)
 - [ ] 4.8h — Docs: Billing & Plans docs page — plan comparison, feature gating rules, upgrade/downgrade flows explained
 - [ ] 4.9a — Component library: Layout components — Sidebar, TopBar, MobileNav, AuthCard, PageShell, DashboardLayout (props, variants, states)

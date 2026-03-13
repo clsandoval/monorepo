@@ -5356,3 +5356,710 @@ Find all meetings where we discussed the product launch in March
 ---
 
 *End of Tool Reference: Fly, ACP, Decision Hub, Onyx & Bluedot page specification (9 Fly + 4 ACP + 4 Decision Hub + 2 Onyx + 4 Bluedot = 23 tools documented).*
+
+---
+
+## Page: Tool Reference — Linear (`/docs/tool-reference/linear`)
+
+> Route: `/docs/tool-reference/linear`
+> File: `app/(docs)/tool-reference/linear/page.tsx`
+> Type: Static page (no data fetching)
+> Title: `<title>Linear Tools — Daimon Docs</title>`
+> Meta description: `"Complete reference for Daimon's Linear integration — list, search, create, and update issues through Discord using your team's Linear workspace."`
+
+This page documents 6 tools: all Linear tools are **remote MCP tools** — they are proxied through a Streamable HTTP MCP connection rather than executed in-process. All tools require that the tenant has connected their Linear workspace via an API key (see the [Integrations page](/dashboard/integrations)).
+
+---
+
+### Page Header
+
+```html
+<header class="docs-page-header">
+  <div class="breadcrumb">Tool Reference</div>
+  <h1>Linear Tools</h1>
+  <p class="subtitle">Manage issues, search tasks, and track your team's work in Linear — all from Discord.</p>
+</header>
+```
+
+---
+
+### Section: On This Page (In-page TOC)
+
+Rendered as a sticky in-page table of contents in the right gutter (visible on desktop ≥ 1280px only; hidden on tablet/mobile).
+
+```
+On this page
+────────────
+• Linear Tools (6)
+  · linear_list_issues
+  · linear_search_issues
+  · linear_get_issue
+  · linear_create_issue
+  · linear_update_issue
+  · linear_list_teams
+```
+
+Each item is an anchor link (`href="#tool-name"`). Active item (closest heading in viewport) is bolded Navy.
+
+---
+
+### Callout: Remote MCP Note
+
+Displayed immediately below the page header, before the first tool entry:
+
+```html
+<div class="callout callout-info" role="note">
+  <strong>Remote MCP Integration</strong><br>
+  Linear tools are powered by a remote MCP server connection. When you use a Linear tool, Daimon opens a streaming connection to the Linear MCP proxy, executes the tool, and returns the result. Response times may be slightly longer than local tools — typically 1–3 seconds.
+</div>
+```
+
+---
+
+### Callout: Requires Linear API Key
+
+Displayed after the Remote MCP note, before the first tool entry:
+
+```html
+<div class="callout callout-warning" role="note">
+  <strong>Requires Linear connection</strong><br>
+  All Linear tools require a connected Linear workspace. Go to <a href="/dashboard/integrations">Integrations → Linear</a> and paste your Linear API key to enable these tools. If the key is not configured, every Linear tool call will return: <code>"Linear API key not configured. Set LINEAR_API_KEY in environment."</code>
+</div>
+```
+
+---
+
+### Section: How to Get a Linear API Key
+
+```markdown
+## Setting Up Linear
+
+To use Linear tools, you need to connect your Linear workspace to Daimon.
+
+**Step 1: Generate a Personal API Key**
+
+1. Open [linear.app](https://linear.app) and sign in to your workspace.
+2. Click your avatar in the bottom-left corner → **Settings**.
+3. Select **API** from the left sidebar.
+4. Click **Create key**.
+5. Give the key a label (e.g. "Daimon Bot") and click **Create**.
+6. Copy the key immediately — Linear only shows it once.
+
+**Step 2: Connect in Daimon**
+
+1. Go to your [Daimon Integrations page](/dashboard/integrations).
+2. Find **Linear** in the service grid.
+3. Click **Connect** and paste your API key.
+4. Click **Save**. Daimon will validate the key by listing your teams.
+
+**What Daimon can access**
+
+Once connected, Daimon can read and write issues in any Linear team visible to the API key owner. The API key operates with the same permissions as your Linear account.
+```
+
+---
+
+### Tool: `linear_list_issues`
+
+**Section heading:** `<h2 id="linear_list_issues">linear_list_issues</h2>`
+
+**Description:** List Linear issues, optionally filtered by team. Returns issue titles, states, assignees, and priorities.
+
+**Platform tag:** `Platform.LINEAR`
+**Action tag:** `Action.READ`
+**Auth:** Requires tenant's Linear API key (from `tenant_service_connections` where `service = 'linear'`).
+**Registration type:** Remote MCP proxy (not in-process).
+
+---
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `team_id` | string | No | `null` | Filter issues by this Linear team ID. If omitted, uses the tenant's default team (from `tool_context.linear_team_id`). If no default is configured, returns issues across all teams. |
+| `first` | integer | No | `50` | Maximum number of issues to return. Must be between 1 and 100. |
+
+---
+
+**Returns:** A formatted list of issues. Each issue includes:
+- Issue identifier (e.g. `BAI-42`)
+- Issue title
+- Workflow state (e.g. `In Progress`, `Todo`, `Done`)
+- Assignee display name (or `Unassigned`)
+- Priority label (`No priority`, `Urgent`, `High`, `Medium`, `Low`)
+
+**Example output:**
+```
+Found 8 issues:
+
+BAI-42 · Set up Supabase Realtime integration
+  State: In Progress · Assignee: Alex Chen · Priority: High
+
+BAI-41 · Implement tenant isolation for bot connections
+  State: Todo · Assignee: Alex Chen · Priority: Urgent
+
+BAI-39 · Write migration for tenant_api_keys table
+  State: Done · Assignee: Sam Rivera · Priority: Medium
+
+BAI-38 · Draft landing page copy
+  State: In Progress · Assignee: Unassigned · Priority: Low
+
+BAI-37 · Stripe webhook handler
+  State: Todo · Assignee: Sam Rivera · Priority: High
+
+BAI-36 · Set up Vercel deployment
+  State: Todo · Assignee: Unassigned · Priority: Medium
+
+BAI-35 · Design system tokens
+  State: Done · Assignee: Alex Chen · Priority: Low
+
+BAI-33 · Auth flow — login + signup pages
+  State: Done · Assignee: Sam Rivera · Priority: High
+```
+
+**Error cases:**
+- `"Linear API key not configured. Set LINEAR_API_KEY in environment."` — API key missing from tenant service connections.
+- `"Linear team not found: {team_id}"` — The specified team_id does not exist or is not accessible with this API key.
+- `"No issues found."` — Team exists but has no issues matching the filter.
+- `"Linear API error: {message}"` — Upstream Linear API returned an error (e.g. rate limit, network failure).
+
+---
+
+**Usage example:**
+```
+You: show me all high-priority issues in team BAI-TEAM-ID
+Bot: [calls linear_list_issues with team_id="BAI-TEAM-ID", first=50, then filters by priority in response]
+```
+
+---
+
+### Tool: `linear_search_issues`
+
+**Section heading:** `<h2 id="linear_search_issues">linear_search_issues</h2>`
+
+**Description:** Search Linear issues by text query. Searches across issue titles and descriptions.
+
+**Platform tag:** `Platform.LINEAR`
+**Action tag:** `Action.READ`
+**Auth:** Requires tenant's Linear API key.
+**Registration type:** Remote MCP proxy (not in-process).
+
+---
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `query` | string | Yes | — | Text to search for. Matched against issue titles and description bodies. Case-insensitive. |
+| `first` | integer | No | `20` | Maximum number of results to return. Must be between 1 and 100. |
+
+---
+
+**Returns:** A list of matching issues in the same format as `linear_list_issues` output (identifier, title, state, assignee, priority), prefixed with the search query echoed back.
+
+**Example output:**
+```
+Search results for "supabase":
+
+BAI-42 · Set up Supabase Realtime integration
+  State: In Progress · Assignee: Alex Chen · Priority: High
+
+BAI-39 · Write migration for tenant_api_keys table
+  State: Done · Assignee: Sam Rivera · Priority: Medium
+  Description match: "...store keys in Supabase Vault with encrypt/decrypt..."
+```
+
+**Error cases:**
+- `"Linear API key not configured. Set LINEAR_API_KEY in environment."` — API key missing.
+- `"No issues found matching: {query}"` — Valid key, no results for the query.
+- `"Linear API error: {message}"` — Upstream error.
+
+---
+
+**Usage example:**
+```
+You: find Linear issues about authentication
+Bot: [calls linear_search_issues with query="authentication"]
+```
+
+---
+
+### Tool: `linear_get_issue`
+
+**Section heading:** `<h2 id="linear_get_issue">linear_get_issue</h2>`
+
+**Description:** Get a single Linear issue by ID or identifier (e.g. `BAI-42`). Returns full details including description and comments.
+
+**Platform tag:** `Platform.LINEAR`
+**Action tag:** `Action.READ`
+**Auth:** Requires tenant's Linear API key.
+**Registration type:** Remote MCP proxy (not in-process).
+
+---
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `issue_id` | string | Yes | — | The issue ID (UUID) or human-readable identifier (e.g. `BAI-42`). Both formats are accepted. |
+
+---
+
+**Returns:** Full issue details including:
+- Identifier and title
+- Current state
+- Priority
+- Assignee
+- Labels (comma-separated)
+- Created date and last updated date
+- Full description body (markdown, rendered as-is)
+- Comments: each comment shows the author, timestamp, and body text
+
+**Example output:**
+```
+BAI-42 · Set up Supabase Realtime integration
+State: In Progress · Priority: High · Assignee: Alex Chen
+Labels: backend, infrastructure
+Created: 2026-03-10 · Updated: 2026-03-12
+
+Description:
+Implement the Supabase Realtime subscription that the bot uses to watch for tenant
+lifecycle events (new tenant, credential updates, reconnect requests).
+
+Channels:
+- tenant_events:{tenant_id} for per-tenant signals
+- global_bot_control for system-wide signals
+
+See realtime-contract.md for full payload shapes.
+
+---
+Comments:
+
+Alex Chen · 2026-03-11 14:22
+Started on this. Will use the multi-tenant/realtime-contract spec as the source of truth.
+
+Sam Rivera · 2026-03-12 09:05
+Reviewed — looks good. Make sure to handle reconnect on CHANNEL_ERROR.
+```
+
+**Error cases:**
+- `"Linear API key not configured. Set LINEAR_API_KEY in environment."` — API key missing.
+- `"Issue not found: {issue_id}"` — No issue with that ID exists or is accessible.
+- `"Linear API error: {message}"` — Upstream error.
+
+---
+
+**Usage example:**
+```
+You: show me the details for BAI-42
+Bot: [calls linear_get_issue with issue_id="BAI-42"]
+```
+
+---
+
+### Tool: `linear_create_issue`
+
+**Section heading:** `<h2 id="linear_create_issue">linear_create_issue</h2>`
+
+**Description:** Create a new Linear issue. Requires a title. Optionally set description, priority, assignee, and labels.
+
+**Platform tag:** `Platform.LINEAR`
+**Action tag:** `Action.WRITE`
+**Auth:** Requires tenant's Linear API key.
+**Registration type:** Remote MCP proxy (not in-process).
+
+---
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `title` | string | Yes | — | Issue title. Must be non-empty. Maximum 250 characters. |
+| `description` | string | No | `null` | Issue body in markdown. Optional. |
+| `team_id` | string | No | `null` | Linear team ID to create the issue in. If omitted, uses the tenant's default team (`tool_context.linear_team_id`). If no default is configured and no team_id is provided, returns an error. |
+| `priority` | integer | No | `null` | Priority level. Valid values: `0` (no priority), `1` (urgent), `2` (high), `3` (medium), `4` (low). If omitted, issue is created with no priority. |
+| `assignee_id` | string | No | `null` | Linear user ID to assign the issue to. If omitted, issue is unassigned. |
+| `label_ids` | array of strings | No | `null` | List of Linear label IDs to apply to the issue. If omitted, no labels are applied. |
+
+---
+
+**Returns:** Confirmation with the new issue identifier, title, and a direct URL.
+
+**Example output:**
+```
+Created issue BAI-48:
+
+Title: Design the admin panel tenant list view
+Team: BAI (Daimon Backend)
+Priority: Medium
+Assignee: Unassigned
+Labels: frontend, design
+
+View in Linear: https://linear.app/your-workspace/issue/BAI-48
+```
+
+**Error cases:**
+- `"Linear API key not configured. Set LINEAR_API_KEY in environment."` — API key missing.
+- `"title is required to create a Linear issue"` — title parameter was empty string or null.
+- `"No team configured. Provide team_id or set a default Linear team ID."` — No team_id provided and no default configured.
+- `"Assignee not found: {assignee_id}"` — The specified assignee_id does not exist in this workspace.
+- `"Label not found: {label_id}"` — One or more label_ids are invalid.
+- `"Linear API error: {message}"` — Upstream error (e.g. permissions, rate limit).
+
+---
+
+**Usage example:**
+```
+You: create a Linear issue: "Fix the Stripe webhook handler for subscription cancellation" — high priority, assign to Alex
+Bot: [looks up Alex's user ID via linear_list_teams or prior context, then calls linear_create_issue]
+```
+
+> **Note:** To assign an issue, Daimon needs the Linear user ID. It can get this by inspecting team member lists. If asked to assign by name, Daimon will attempt to resolve the name to a user ID from the workspace. If the name is ambiguous, it will ask you to clarify.
+
+---
+
+### Tool: `linear_update_issue`
+
+**Section heading:** `<h2 id="linear_update_issue">linear_update_issue</h2>`
+
+**Description:** Update an existing Linear issue. Provide the issue ID and any fields to change (title, description, priority, state, assignee).
+
+**Platform tag:** `Platform.LINEAR`
+**Action tag:** `Action.WRITE`
+**Auth:** Requires tenant's Linear API key.
+**Registration type:** Remote MCP proxy (not in-process).
+
+---
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `issue_id` | string | Yes | — | The issue ID (UUID) or human-readable identifier (e.g. `BAI-42`) to update. |
+| `title` | string | No | `null` | New title for the issue. If null, title is not changed. |
+| `description` | string | No | `null` | New body text in markdown. If null, description is not changed. |
+| `priority` | integer | No | `null` | New priority. Valid values: `0` (none), `1` (urgent), `2` (high), `3` (medium), `4` (low). If null, priority is not changed. |
+| `state_id` | string | No | `null` | New workflow state ID. If null, state is not changed. Use `linear_list_teams` to see available state IDs for a team. |
+| `assignee_id` | string | No | `null` | New assignee user ID. If null, assignee is not changed. To unassign, pass an empty string `""`. |
+
+---
+
+**Returns:** Confirmation with the updated issue details.
+
+**Example output:**
+```
+Updated BAI-42:
+
+Title: Set up Supabase Realtime integration (unchanged)
+State: Done  (was: In Progress)
+Priority: High (unchanged)
+Assignee: Sam Rivera  (was: Alex Chen)
+
+View in Linear: https://linear.app/your-workspace/issue/BAI-42
+```
+
+**Error cases:**
+- `"Linear API key not configured. Set LINEAR_API_KEY in environment."` — API key missing.
+- `"Issue not found: {issue_id}"` — No issue with that ID or identifier exists.
+- `"No fields to update. Provide at least one of: title, description, priority, state_id, assignee_id."` — Called with only issue_id, no other fields.
+- `"State not found: {state_id}"` — The specified state_id does not exist in this team.
+- `"Assignee not found: {assignee_id}"` — The specified assignee_id does not exist.
+- `"Linear API error: {message}"` — Upstream error.
+
+---
+
+**Usage example:**
+```
+You: mark BAI-42 as done
+Bot: [looks up the "Done" state_id for the issue's team via linear_list_teams, then calls linear_update_issue with issue_id="BAI-42", state_id="<done-state-id>"]
+```
+
+---
+
+### Tool: `linear_list_teams`
+
+**Section heading:** `<h2 id="linear_list_teams">linear_list_teams</h2>`
+
+**Description:** List all Linear teams in the workspace. Returns team names, keys, and available workflow states.
+
+**Platform tag:** `Platform.LINEAR`
+**Action tag:** `Action.READ`
+**Auth:** Requires tenant's Linear API key.
+**Registration type:** Remote MCP proxy (not in-process).
+**Input model:** No parameters (empty input model).
+
+---
+
+**Parameters:** None.
+
+---
+
+**Returns:** A list of all teams accessible with the API key. For each team:
+- Team ID (UUID)
+- Team key (short prefix, e.g. `BAI`)
+- Team name
+- All workflow states for that team: state ID, state name, state type (`backlog`, `unstarted`, `started`, `completed`, `cancelled`)
+
+**Example output:**
+```
+3 teams in your workspace:
+
+BAI · Daimon Backend
+  Workflow states:
+  - Backlog     [backlog]    ID: abc123
+  - Todo        [unstarted]  ID: def456
+  - In Progress [started]    ID: ghi789
+  - In Review   [started]    ID: jkl012
+  - Done        [completed]  ID: mno345
+  - Cancelled   [cancelled]  ID: pqr678
+
+FRN · Frontend
+  Workflow states:
+  - Backlog     [backlog]    ID: stu901
+  - Todo        [unstarted]  ID: vwx234
+  - In Progress [started]    ID: yza567
+  - Done        [completed]  ID: bcd890
+  - Cancelled   [cancelled]  ID: efg123
+
+OPS · Operations
+  Workflow states:
+  - Todo        [unstarted]  ID: hij456
+  - In Progress [started]    ID: klm789
+  - Done        [completed]  ID: nop012
+```
+
+**Error cases:**
+- `"Linear API key not configured. Set LINEAR_API_KEY in environment."` — API key missing.
+- `"No teams found. The API key may not have access to any teams."` — Valid key but no accessible teams.
+- `"Linear API error: {message}"` — Upstream error.
+
+---
+
+**Usage example:**
+```
+You: what teams do we have in Linear?
+Bot: [calls linear_list_teams]
+
+You: set BAI-42 to "In Review"
+Bot: [calls linear_list_teams to resolve state name → state_id, then calls linear_update_issue]
+```
+
+> **Tip:** Use `linear_list_teams` whenever you need a state ID or team ID. The IDs are workspace-specific and cannot be guessed.
+
+---
+
+### Tool Quick-Reference Table (Linear)
+
+| Tool | Category | Auth | Parameters | Description |
+|------|----------|------|------------|-------------|
+| `linear_list_issues` | READ | Linear API key | team_id (optional), first (default: 50) | List issues in a team, with state/assignee/priority |
+| `linear_search_issues` | READ | Linear API key | query (required), first (default: 20) | Full-text search across issue titles and descriptions |
+| `linear_get_issue` | READ | Linear API key | issue_id (required) | Get full details + comments for a single issue |
+| `linear_create_issue` | WRITE | Linear API key | title (required), description, team_id, priority, assignee_id, label_ids | Create a new issue |
+| `linear_update_issue` | WRITE | Linear API key | issue_id (required), title, description, priority, state_id, assignee_id | Update any fields of an existing issue |
+| `linear_list_teams` | READ | Linear API key | — | List all workspace teams with their workflow state IDs |
+
+---
+
+### Remote MCP Architecture Note
+
+```markdown
+## How Linear Tools Work Under the Hood
+
+Unlike other Daimon tools that run in-process, Linear tools are proxied through a remote MCP connection.
+
+**Architecture:**
+
+1. When you send a message, Claude selects a Linear tool.
+2. Daimon's tool registry calls `proxy.py` — an MCP Streamable HTTP client.
+3. The proxy opens a connection to the Linear MCP server endpoint.
+4. The tool call is forwarded as an MCP `tools/call` request.
+5. The remote server executes the Linear GraphQL API call using the tenant's API key.
+6. The result is streamed back and returned as a string to Claude.
+
+**Latency:** Remote MCP tools typically add 1–3 seconds compared to local tools.
+
+**Failure modes:**
+- If the remote MCP server is unreachable: `"Linear MCP server unavailable. Please try again."`
+- If the Linear API key is invalid: `"Linear API key not configured. Set LINEAR_API_KEY in environment."`
+- If the GraphQL call fails: `"Linear API error: {message}"`
+```
+
+---
+
+### Tool Index: All Tools by Platform
+
+> This section appears at the bottom of the Linear page and serves as the master tool index for the entire Tool Reference section.
+
+```markdown
+## Complete Tool Index
+
+All 90 tools available in Daimon, grouped by platform. Click any tool name to jump to its documentation page.
+
+### Discord & Core (11 tools)
+| Tool | Description | Doc Page |
+|------|-------------|----------|
+| `discord_read_thread` | Read all messages in a thread | [Discord & Core](/docs/tool-reference/discord#discord_read_thread) |
+| `discord_read_channel` | Read recent messages from a channel | [Discord & Core](/docs/tool-reference/discord#discord_read_channel) |
+| `discord_parse_link` | Extract message content from a Discord URL | [Discord & Core](/docs/tool-reference/discord#discord_parse_link) |
+| `discord_search_messages` | Search messages in a channel by keyword | [Discord & Core](/docs/tool-reference/discord#discord_search_messages) |
+| `discord_get_message` | Fetch a single message by ID | [Discord & Core](/docs/tool-reference/discord#discord_get_message) |
+| `discord_send_message` | Send a message to a channel or thread | [Discord & Core](/docs/tool-reference/discord#discord_send_message) |
+| `discord_create_thread` | Create a new thread from a message | [Discord & Core](/docs/tool-reference/discord#discord_create_thread) |
+| `dub_list_links` | List Dub.co short links | [Discord & Core](/docs/tool-reference/discord#dub_list_links) |
+| `dub_get_analytics` | Get click analytics for a Dub.co link | [Discord & Core](/docs/tool-reference/discord#dub_get_analytics) |
+| `get_credential` | Retrieve a stored secret by key name | [Discord & Core](/docs/tool-reference/discord#get_credential) |
+| `github_run_gh` | Run any GitHub CLI command | [Discord & Core](/docs/tool-reference/discord#github_run_gh) |
+
+### Toggl (34 tools)
+| Tool | Description | Doc Page |
+|------|-------------|----------|
+| `toggl_get_me` | Get current user profile | [Toggl](/docs/tool-reference/toggl#toggl_get_me) |
+| `toggl_get_workspaces` | List all accessible workspaces | [Toggl](/docs/tool-reference/toggl#toggl_get_workspaces) |
+| `toggl_get_workspace` | Get details for a specific workspace | [Toggl](/docs/tool-reference/toggl#toggl_get_workspace) |
+| `toggl_get_workspace_users` | List members of a workspace | [Toggl](/docs/tool-reference/toggl#toggl_get_workspace_users) |
+| `toggl_get_workspace_groups` | List groups in a workspace | [Toggl](/docs/tool-reference/toggl#toggl_get_workspace_groups) |
+| `toggl_get_projects` | List all projects in a workspace | [Toggl](/docs/tool-reference/toggl#toggl_get_projects) |
+| `toggl_get_project` | Get details for a specific project | [Toggl](/docs/tool-reference/toggl#toggl_get_project) |
+| `toggl_get_tasks` | List tasks for a project | [Toggl](/docs/tool-reference/toggl#toggl_get_tasks) |
+| `toggl_get_clients` | List all clients in a workspace | [Toggl](/docs/tool-reference/toggl#toggl_get_clients) |
+| `toggl_get_tags` | List all tags in a workspace | [Toggl](/docs/tool-reference/toggl#toggl_get_tags) |
+| `toggl_get_current_time_entry` | Get the currently running timer | [Toggl](/docs/tool-reference/toggl#toggl_get_current_time_entry) |
+| `toggl_get_time_entries` | Get time entries in a date range | [Toggl](/docs/tool-reference/toggl#toggl_get_time_entries) |
+| `toggl_create_time_entry` | Create a new time entry | [Toggl](/docs/tool-reference/toggl#toggl_create_time_entry) |
+| `toggl_start_timer` | Start a running timer | [Toggl](/docs/tool-reference/toggl#toggl_start_timer) |
+| `toggl_stop_timer` | Stop the currently running timer | [Toggl](/docs/tool-reference/toggl#toggl_stop_timer) |
+| `toggl_update_time_entry` | Update an existing time entry | [Toggl](/docs/tool-reference/toggl#toggl_update_time_entry) |
+| `toggl_delete_time_entry` | Delete a time entry | [Toggl](/docs/tool-reference/toggl#toggl_delete_time_entry) |
+| `toggl_create_project` | Create a new project | [Toggl](/docs/tool-reference/toggl#toggl_create_project) |
+| `toggl_update_project` | Update an existing project | [Toggl](/docs/tool-reference/toggl#toggl_update_project) |
+| `toggl_archive_project` | Archive a project | [Toggl](/docs/tool-reference/toggl#toggl_archive_project) |
+| `toggl_create_client` | Create a new client | [Toggl](/docs/tool-reference/toggl#toggl_create_client) |
+| `toggl_update_client` | Update an existing client | [Toggl](/docs/tool-reference/toggl#toggl_update_client) |
+| `toggl_create_tag` | Create a new tag | [Toggl](/docs/tool-reference/toggl#toggl_create_tag) |
+| `toggl_get_detailed_report` | Get detailed time report with entries | [Toggl](/docs/tool-reference/toggl#toggl_get_detailed_report) |
+| `toggl_get_summary_report` | Get summary report grouped by project/user | [Toggl](/docs/tool-reference/toggl#toggl_get_summary_report) |
+| `toggl_get_weekly_report` | Get weekly hours breakdown | [Toggl](/docs/tool-reference/toggl#toggl_get_weekly_report) |
+| `toggl_get_earnings_report` | Get billable hours and earnings | [Toggl](/docs/tool-reference/toggl#toggl_get_earnings_report) |
+| `toggl_create_workspace_user` | Invite a user to a workspace | [Toggl](/docs/tool-reference/toggl#toggl_create_workspace_user) |
+| `toggl_update_workspace_user` | Update workspace user settings | [Toggl](/docs/tool-reference/toggl#toggl_update_workspace_user) |
+| `toggl_delete_workspace_user` | Remove a user from a workspace | [Toggl](/docs/tool-reference/toggl#toggl_delete_workspace_user) |
+| `toggl_create_group` | Create a new group | [Toggl](/docs/tool-reference/toggl#toggl_create_group) |
+| `toggl_update_group` | Update a group | [Toggl](/docs/tool-reference/toggl#toggl_update_group) |
+| `toggl_delete_group` | Delete a group | [Toggl](/docs/tool-reference/toggl#toggl_delete_group) |
+| `toggl_workspace_time_totals` | Get time totals across all workspace members | [Toggl](/docs/tool-reference/toggl#toggl_workspace_time_totals) |
+
+### LinkedIn & Google Analytics (21 tools)
+| Tool | Description | Doc Page |
+|------|-------------|----------|
+| `linkedin_get_profile` | Get a LinkedIn member profile | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_profile) |
+| `linkedin_get_connections` | List LinkedIn connections | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_connections) |
+| `linkedin_search_people` | Search LinkedIn people | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_search_people) |
+| `linkedin_get_org_profile` | Get organization profile | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_org_profile) |
+| `linkedin_get_org_followers` | Get organization follower stats | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_org_followers) |
+| `linkedin_get_org_posts` | Get organization posts | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_org_posts) |
+| `linkedin_create_post` | Create an organization post | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_create_post) |
+| `linkedin_get_post_analytics` | Get engagement stats for a post | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_post_analytics) |
+| `linkedin_get_community_members` | List community members | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_community_members) |
+| `linkedin_get_community_posts` | List community posts | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_community_posts) |
+| `linkedin_create_community_post` | Create a community post | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_create_community_post) |
+| `linkedin_get_invitations` | List pending invitations | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_invitations) |
+| `linkedin_send_invitation` | Send a connection invitation | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_send_invitation) |
+| `linkedin_get_campaigns` | List LinkedIn ad campaigns | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_campaigns) |
+| `linkedin_get_campaign_analytics` | Get analytics for an ad campaign | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_campaign_analytics) |
+| `linkedin_get_ad_accounts` | List advertising accounts | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_ad_accounts) |
+| `linkedin_get_creatives` | List ad creatives | [LinkedIn & Analytics](/docs/tool-reference/linkedin#linkedin_get_creatives) |
+| `ga_run_report` | Run a custom GA4 report | [LinkedIn & Analytics](/docs/tool-reference/linkedin#ga_run_report) |
+| `ga_get_traffic_overview` | Get traffic overview (sessions, users, pageviews) | [LinkedIn & Analytics](/docs/tool-reference/linkedin#ga_get_traffic_overview) |
+| `ga_get_top_pages` | Get top pages by sessions | [LinkedIn & Analytics](/docs/tool-reference/linkedin#ga_get_top_pages) |
+| `ga_get_campaign_performance` | Get UTM campaign performance | [LinkedIn & Analytics](/docs/tool-reference/linkedin#ga_get_campaign_performance) |
+
+### Fly & Infrastructure (23 tools)
+| Tool | Description | Doc Page |
+|------|-------------|----------|
+| `fly_launch_session` | Launch an ephemeral session from a template | [Fly & Infrastructure](/docs/tool-reference/fly#fly_launch_session) |
+| `fly_stop_session` | Stop and permanently delete a session | [Fly & Infrastructure](/docs/tool-reference/fly#fly_stop_session) |
+| `fly_get_session_status` | Get machine state and URLs for a session | [Fly & Infrastructure](/docs/tool-reference/fly#fly_get_session_status) |
+| `fly_list_sessions` | List all running sessions | [Fly & Infrastructure](/docs/tool-reference/fly#fly_list_sessions) |
+| `fly_list_images` | List available Docker images | [Fly & Infrastructure](/docs/tool-reference/fly#fly_list_images) |
+| `fly_list_templates` | List available session templates | [Fly & Infrastructure](/docs/tool-reference/fly#fly_list_templates) |
+| `fly_save_template` | Save a session as a reusable template | [Fly & Infrastructure](/docs/tool-reference/fly#fly_save_template) |
+| `fly_delete_template` | Delete a saved template | [Fly & Infrastructure](/docs/tool-reference/fly#fly_delete_template) |
+| `fly_launch_builder` | Launch a Docker-in-Docker builder session | [Fly & Infrastructure](/docs/tool-reference/fly#fly_launch_builder) |
+| `acp_health_check` | Check ACP server reachability | [Fly & Infrastructure](/docs/tool-reference/fly#acp_health_check) |
+| `acp_list_tools` | List tools on a remote session | [Fly & Infrastructure](/docs/tool-reference/fly#acp_list_tools) |
+| `acp_send_message` | Send a message to a session's Claude | [Fly & Infrastructure](/docs/tool-reference/fly#acp_send_message) |
+| `acp_call_tool` | Call a specific tool on a remote session | [Fly & Infrastructure](/docs/tool-reference/fly#acp_call_tool) |
+| `decision_hub_search_skills` | Search the Decision Hub skill registry | [Fly & Infrastructure](/docs/tool-reference/fly#decision_hub_search_skills) |
+| `decision_hub_activate_skill` | Inject a skill into the system prompt | [Fly & Infrastructure](/docs/tool-reference/fly#decision_hub_activate_skill) |
+| `decision_hub_list_active_skills` | List currently active skills | [Fly & Infrastructure](/docs/tool-reference/fly#decision_hub_list_active_skills) |
+| `decision_hub_deactivate_skill` | Remove a skill from the system prompt | [Fly & Infrastructure](/docs/tool-reference/fly#decision_hub_deactivate_skill) |
+| `onyx_list_agents` | List available knowledge base agents | [Fly & Infrastructure](/docs/tool-reference/fly#onyx_list_agents) |
+| `onyx_query` | Query the knowledge base with RAG | [Fly & Infrastructure](/docs/tool-reference/fly#onyx_query) |
+| `bluedot_list_meetings` | List synced meetings | [Fly & Infrastructure](/docs/tool-reference/fly#bluedot_list_meetings) |
+| `bluedot_get_transcript` | Get full speaker-attributed transcript | [Fly & Infrastructure](/docs/tool-reference/fly#bluedot_get_transcript) |
+| `bluedot_get_summary` | Get AI-generated summary + action items | [Fly & Infrastructure](/docs/tool-reference/fly#bluedot_get_summary) |
+| `bluedot_search_transcripts` | Full-text search across transcripts | [Fly & Infrastructure](/docs/tool-reference/fly#bluedot_search_transcripts) |
+
+### Linear (6 tools — remote MCP)
+| Tool | Description | Doc Page |
+|------|-------------|----------|
+| `linear_list_issues` | List issues, filtered by team | [Linear](/docs/tool-reference/linear#linear_list_issues) |
+| `linear_search_issues` | Search issues by text query | [Linear](/docs/tool-reference/linear#linear_search_issues) |
+| `linear_get_issue` | Get full details + comments for one issue | [Linear](/docs/tool-reference/linear#linear_get_issue) |
+| `linear_create_issue` | Create a new issue | [Linear](/docs/tool-reference/linear#linear_create_issue) |
+| `linear_update_issue` | Update title, state, priority, assignee | [Linear](/docs/tool-reference/linear#linear_update_issue) |
+| `linear_list_teams` | List teams and their workflow state IDs | [Linear](/docs/tool-reference/linear#linear_list_teams) |
+
+**Total: 90 tools** (84 local tools + 6 remote MCP)
+```
+
+---
+
+### Page Footer Navigation
+
+```html
+<nav class="docs-page-nav" aria-label="Docs page navigation">
+  <a href="/docs/tool-reference/fly" aria-label="Previous page: Fly & Infrastructure Tools">
+    ← Fly & Infrastructure Tools
+  </a>
+  <a href="/docs/faq" aria-label="Next page: FAQ">
+    FAQ →
+  </a>
+</nav>
+```
+
+---
+
+### Loading / Empty / Error States (Tool Reference: Linear)
+
+**Loading state:** Not applicable — fully static page, rendered at build time.
+
+**Empty state:** Not applicable — content is always present.
+
+**Error state:** If the page fails to load, `app/error.tsx` renders: "We're having trouble loading this page. Please try again in a moment." with a "Reload" button.
+
+**Auth button (topbar):** Rendered client-side; slot is empty until auth state resolves to prevent layout shift.
+
+---
+
+### Accessibility (Tool Reference: Linear)
+
+| Element | ARIA / Accessibility Requirement |
+|---------|----------------------------------|
+| `<article class="docs-content">` | `role="main"` |
+| In-page TOC nav | `aria-label="On this page"` |
+| Active in-page TOC link | `aria-current="location"` |
+| Remote MCP callout | `role="note"` `aria-label="Remote MCP architecture note"` |
+| Requires API key callout | `role="note"` `aria-label="Requires Linear API key"` |
+| Tool entry `<section>` headings (`h2`) | Unique `id` matching the tool function name (e.g., `id="linear_list_issues"`, `id="linear_create_issue"`) — anchor link targets |
+| Parameter tables | `<table role="table">` with `<caption class="sr-only">Parameters for {tool_name}</caption>` |
+| Code blocks `<pre>` | `tabindex="0"` to allow keyboard scrolling |
+| Complete Tool Index tables | `<caption class="sr-only">All {platform} tools with links to documentation</caption>` |
+| Footer nav previous/next links | `aria-label="Previous page: Fly & Infrastructure Tools"` and `aria-label="Next page: FAQ"` |
+| "How to Get a Linear API Key" section heading | `id="setting-up-linear"` — anchor link target |
+| Complete Tool Index heading | `id="complete-tool-index"` — anchor link target |
+
+---
+
+*End of Tool Reference: Linear page specification (6 remote MCP tools documented) + Complete Tool Index (90 tools across all platforms).*
