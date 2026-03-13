@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 49
-- **Analyzed**: 5
-- **Pending**: 44
-- **Convergence**: 10%
+- **Analyzed**: 6
+- **Pending**: 43
+- **Convergence**: 12%
 
 ## Wave 1: Deep Codebase Mining (8 aspects)
 
@@ -14,7 +14,7 @@
 - [x] 1.3 — Extract current auth model from `src_v2/core/auth/` + `src_v2/mcp/auth.py`
 - [x] 1.4 — Extract bootstrap config and client factories from `src_v2/bootstrap/`
 - [x] 1.5 — Extract bot startup, Discord connection flow, and message handler pipeline from `src_v2/entrypoints/discord/`
-- [ ] 1.6 — Extract ORM models and repository patterns from `src_v2/db/models/` + `src_v2/db/repositories/`
+- [x] 1.6 — Extract ORM models and repository patterns from `src_v2/db/models/` + `src_v2/db/repositories/`
 - [ ] 1.7 — Fetch and extract complete PyMC brand guidelines from https://pymc-brand-deck.netlify.app/
 - [ ] 1.8 — Read and seed from existing design spec `docs/superpowers/specs/2026-03-12-daimon-saas-design.md`
 
