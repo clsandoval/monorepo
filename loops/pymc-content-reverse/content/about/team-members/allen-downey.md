@@ -40,4 +40,15 @@ Accounting, Blogging/Webinars, Coding, Data Science, Data Visualization, GenAI, 
 - Blog maintained: allendowney.com ("Probably Overthinking It")
 
 ## Conference Talks
-- ODSC East 2025 (May 13–15, Boston) — Speaker
+- "Bayesian Decision Analysis with PyMC" (Workshop) — PyData Global 2025
+- "Practical Bayesian Modeling with PyMC" (Tutorial) — ODSC East 2025; covered logistic, categorical, and ordered logistic regression in PyMC
+- "The Bayesian Zig Zag: Developing and Testing PyMC Models" — PyMCon 2020
+- PyCon US 2025 — Speaker
+
+## Books
+- *Think Bayes: Bayesian Statistics in Python* (O'Reilly, 1st ed. 2013; 2nd ed. expanded) — free at allendowney.github.io/ThinkBayes2/
+- *Think Stats: Exploratory Data Analysis* (O'Reilly, 3rd edition 2024–2025)
+- *Think Python: How to Think Like a Computer Scientist* (O'Reilly, multiple editions)
+- *Think Complexity* (O'Reilly) — complexity science with Python
+- *Think DSP: Digital Signal Processing in Python* (O'Reilly)
+- *Probably Overthinking It: How to Use Data to Answer Questions, Avoid Statistical Traps, and Make Better Decisions* (University of Chicago Press, 2023) — data science for general audiences

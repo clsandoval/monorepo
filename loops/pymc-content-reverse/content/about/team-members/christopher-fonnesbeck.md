@@ -37,7 +37,18 @@ Bio, Gaussian Processes (GP), Math, Modeling, Natural Resources, Sports, Teachin
   - Jan 2026 cohort; $1,499; 8 sessions / 16 hrs; GitHub: pymc-labs/pymc-workshop
 
 ## Conference Talks
-- PyData London 2025 — "Introduction to Bayesian Time Series Analysis with PyMC" (listed as "Chris")
-  - Note: This may refer to a different Chris; attribution uncertain
+- Keynote: "PyMC: Past, Present, and Future" — PyMCon 2020 (inaugural event)
+- "Bayesian Statistics and Probabilistic Programming with PyMC" (Tutorial) — PyData London 2024, co-presented with Thomas Wiecki
+- PyData London 2025 — Speaker (confirmed: cfp.pydata.org/london2025/speaker/MZZ8YC/)
+- "Developing Hierarchical Models for Sports Analytics" — PyMC Labs webinar, September 2023 (co-presented with Thomas Wiecki)
+- SciPy 2014 — Tutorial: Bayesian Statistical Analysis in Python
 
-<!-- GAP: Chris Fonnesbeck's current engagement level with PyMC Labs vs academic role not fully clear -->
+## Publications
+- "Probabilistic Programming in Python using PyMC3" (2016) — Salvatier, Wiecki, Fonnesbeck. *PeerJ Preprints*
+- "PyMC: A Modern and Comprehensive Probabilistic Programming Framework in Python" (2023) — Abril-Pla, Andreani, Carroll, Dong, Fonnesbeck et al. *PeerJ Computer Science*, e1516
+- 35+ articles on Google Scholar (vanderbilt.edu affiliation); research interests: computational biology, epidemiology, public health, statistics, ecology
+
+## Podcast Appearances
+- *Learning Bayesian Statistics* Podcast — Episode 125: "Bayesian Sports Analytics & The Future of PyMC"
+
+<!-- NOTE: Chris Fonnesbeck maintains dual role — Adjoint Associate Professor at Vanderbilt VUMC + PyMC Labs team member. PyMC Labs engagement is primarily around OSS development and ABM course instruction. -->

@@ -59,5 +59,22 @@ Probabilistic AI statistics, Teaching
 > "You used to run surveys. Now, you ask the LLM what it thinks of a glow-in-the-dark toothpaste idea."
 
 ## Conference Talks
-- PyData London 2024 — "Probabilistic Programming and Bayesian Computing with PyMC"
+- "Bayesian Marketing Science: Solving Marketing's 3 Biggest Problems" — PyCon DE & PyData Berlin 2023; introduced PyMC-Marketing and CausalPy; 3,000+ YouTube views
+- "Bayesian Statistics and Probabilistic Programming with PyMC" (Tutorial) — PyData London 2024, co-presented with Christopher Fonnesbeck
+- "The Bayesian Workflow: Building a COVID-19 Model" — PyMCon 2020
+- Keynote: "Bayesian Decision Making Lifts Off with PyMC3" — Insurance Data Science Conference 2021
+- PyData London 2022 — Bayesian modeling for digital marketing in a post-cookie world
+- "Developing Hierarchical Models for Sports Analytics" — PyMC Labs webinar, September 2023, co-presented with Chris Fonnesbeck
 - ODSC East 2025 (May 13–15, Boston) — Speaker
+
+## Publications
+- "Probabilistic Programming in Python using PyMC3" (2016) — Salvatier, Wiecki, Fonnesbeck. *PeerJ Computer Science*. The foundational PyMC3 paper.
+- "PyMC: A Modern and Comprehensive Probabilistic Programming Framework in Python" (2023) — Abril-Pla, Andreani, Carroll, Dong, Fonnesbeck, Wiecki et al. *PeerJ Computer Science*, e1516.
+- Google Scholar: 8,920+ citations; focus on Bayesian modeling and cognitive neuroscience
+
+## Blog
+- **twiecki.io** ("While My MCMC Gently Samples") — posts since 2013; key posts:
+  - "Bayesian Deep Learning" (2016)
+  - "Random-Walk Bayesian Deep Networks" (2017)
+  - "Bayesian Hierarchical Models: Non-Centered Parametrization" (2017)
+  - "Bayesian Decision Making for Supply Chain Optimization" (2019)

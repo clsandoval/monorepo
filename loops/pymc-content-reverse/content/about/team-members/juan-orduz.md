@@ -35,4 +35,17 @@ Blogging/Webinars, CLV, Causality, Experimentation, Gaussian Processes (GP), MMM
   - March cohort was cancelled (2 registrations); course being redesigned as CI for Business Impact
 
 ## Conference Talks
-- Regular PyData conference speaker (time series, Bayesian methods, causal inference)
+- "Introduction to Stochastic Variational Inference with NumPyro" — PyData Berlin 2025; companion notebook: juanitorduz.github.io/intro_svi/
+- "On Laplacian Eigenmaps for Dimensionality Reduction" — PyData Berlin 2018
+- "Remedies for Severe Class Imbalance" — satRday Berlin 2019
+- "Introduction to Bayesian Modeling with PyMC3" — Python Users Berlin (PUB) Meetup, 2017
+- "Bayesian Methods in Modern Marketing Analytics" — PyMC Labs webinar
+
+## Publications / Blog Posts
+- PhD thesis: "Induced Dirac-Schrödinger on quotients of semi-free circle actions" — Humboldt Universität zu Berlin, 2017 (supervised by Prof. Jochen Brüning)
+- PyMC Example Gallery contributions:
+  - BART Regression for Heteroscedasticity (Jan 2023)
+  - Gaussian Process Hilbert Space Approximation / HSGP for Time Series (Jan 2024)
+  - Time Series Modeling with Generative Graphs (Jan 2025, co-authored with Jesse Grabowski and Ricardo Vieira)
+  - Geo-Experimentation via Time-Based Regression in PyMC
+- Personal blog: juanitorduz.github.io — extensive technical blog covering PyMC, Bayesian time series, marketing analytics, causal inference, ML

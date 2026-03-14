@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 77
-- Analyzed: 71
-- Pending: 6
-- Convergence: 92%
+- Analyzed: 72
+- Pending: 5
+- Convergence: 94%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -95,7 +95,7 @@ Identify thin pages and fill with targeted web research. Self-expands after Wave
 - [x] industry-benchmarks-enrich — JS-rendered LLM Price Is Right leaderboard not fully scraped; web search for benchmark methodology, leaderboard data, press coverage; affects resources/industry-benchmarks.md
 - [x] enrich-industries-web — WebSearch for PyMC Labs work in each industry with thin content
 - [x] enrich-case-studies-web — WebSearch for public PyMC Labs case studies, blog posts about client work
-- [ ] enrich-team-web — WebSearch for PyMC Labs team member profiles, conference talks, publications
+- [x] enrich-team-web — WebSearch for PyMC Labs team member profiles, conference talks, publications
 - [ ] enrich-courses-web — WebSearch for PyMC Labs course reviews, syllabi, learning outcomes
 - [ ] enrich-expert-access-program — Investigate "Expert Access Program" (found in contact form dropdown but not in sitemap); search Discord + web for descriptions, pricing, eligibility
 
@@ -109,6 +109,8 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] enrich-team-web (2026-03-14) — Web-searched all team members with partial/missing profiles. Enriched 8 files: benjamin-maier.md (PhD Theoretical Physics Humboldt, 30 papers/1900+ citations, COVID-19 German government advisor, SynoSys), erik-ringen.md (PhD Biological Anthropology Emory, 20+ papers, LiRI UZH, H. Russell Bernard Prize 2018), ben-vincent.md (DPhil Neuroscience Sussex, 15y Dundee lecturer, CausalPy creator, 1549+ citations, github drbenvincent, LBS ep 87, PyData Global 2022), jesse-grabowski.md (PhD candidate Economics Paris I, OECD macroeconomist, PyMC/PyTensor core developer, pymc_statespace, GSoC 2024 mentor, PyData Berlin 2025), alexandre-andorra.md (BSc History, EB-1 visa, FBCS, Miami Marlins applied scientist, IntuitiveBayes co-founder, PollsPosition), thomas-wiecki.md (added 7 conference talks + PyMC3/PyMC5 publications), christopher-fonnesbeck.md (added PyMCon 2020 keynote, PyData London 2024, LBS ep 125), allen-downey.md (added 6 books, 4 conference talks), juan-orduz.md (added PyData Berlin 2025 SVI talk, 5 example gallery notebooks), oriol-abril-pla.md (added first-author PyMC 2023 paper, Prior Elicitation 2024 paper, CZI EOSS grant, 3 more conference talks). Updated 5 partial → complete; 2 already-complete files enriched with talks/pubs. All 8 modified files now have status:complete.
+
 - [x] enrich-case-studies-web (2026-03-14) — Searched web for all published PyMC Labs case study blog posts and client testimonials. Found 9 blog-post case studies (HelloFresh ×3, Colgate, Everysk, Indigo, Akili, SALK, Alva Labs, streaming A/B testing). Found Expert Access Program page with full testimonials for Fox Entertainment (Eugene Kwok), Haleon (Nathan Kafi), Fabletics (Kate Hirth). Resolved GAPs: Titi Alailima full quote, Iraklis Pappas full quote, arxiv preprint for Colgate SSR paper (2510.08338), Kate Hirth surname, Manu Martinet quote, additional Tarmo Jüristo quotes. Created new content/case-studies/streaming-ab-test.md for histogram approximation A/B testing case study (100M obs in 22s). Confirmed 12+ other clients (L.L.Bean, Swarovski, Takeda, Live Nation, Real Madrid, Dodgers, Supercell, Syngenta, VisualVest, Wegmans) have no published case study content.
 
 - [x] salk-org-research (2026-03-14) — Confirmed SALK is NOT the Salk Institute (San Diego biomedical research). SALK = SA Liberaalne Kodanik (Liberal Citizen Foundation), an Estonian NGO/political data consultancy founded by Tarmo Jüristo. Jüristo is founder & director (not CEO — that was a prior role at Hansa Asset Management/Praxis). SALK does electoral polling and democratic data work in Estonia + 7 European countries (Croatia, Lithuania, Romania, Slovakia, Czech Republic). Mission: "defending democracy with data." Notable backers: Bolt CEO Markus Villig, Taavet Hinrikus (Wise co-founder), Sten Tamkivi. 2023 revenue ~€200k (doubled). Updated content/case-studies/salk.md with full org description, Jüristo bio, corrected identity, enhanced problem statement with direct quote, and removed the GAP flag on identity.
