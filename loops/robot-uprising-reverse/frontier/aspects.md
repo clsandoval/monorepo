@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 244
-- **Analyzed:** 36
-- **Pending:** 208
-- **Convergence:** 14.8%
+- **Total aspects:** 249
+- **Analyzed:** 37
+- **Pending:** 212
+- **Convergence:** 14.9%
 
 ---
 
@@ -47,7 +47,7 @@
 - [x] 4.60 — Search budget as a player resource: instead of QUICK/THOROUGH as a binary toggle, the player has a "compute budget" resource that regenerates between sessions; exhaustive search costs more budget; encourages strategic decisions about when to use thorough analysis; interaction with early-game scarcity design
 - [x] 4.61 — "Why did QUICK find a different fix than THOROUGH?" explainer: when a player has run both modes and gotten different results, a dedicated comparison view showing both results side by side with explanation of why the pre-ranking heuristic diverged from the minimality criterion; the explainer as an in-game search algorithm lesson
 - [x] 4.62 — The "agree to disagree" result: when QUICK and THOROUGH find different fixes and both would improve pass rate, the explorer shows both with a "both valid" label and lets the player choose; teaches that "best fix" depends on your diagnostic goal — symptom suppression vs. root cause elimination; echoes real engineering debates about patching vs. fixing
-- [ ] 4.63 — Player-configurable pre-ranking weights: a late-game unlock allowing the player to adjust the three heuristic signals (pivot-activity, recency, volatility) by slider; teaches that the pre-ranking is a configurable belief system, not a fixed algorithm; interaction with 8.08 vocabulary claim ("tuning a heuristic")
+- [x] 4.63 — Player-configurable pre-ranking weights: a late-game unlock allowing the player to adjust the three heuristic signals (pivot-activity, recency, volatility) by slider; teaches that the pre-ranking is a configurable belief system, not a fixed algorithm; interaction with 8.08 vocabulary claim ("tuning a heuristic")
 - [ ] 4.64 — Pre-ranking accuracy as a displayed stat: after 30+ sessions, the transparency drawer shows "pre-ranking accuracy: your QUICK result matched THOROUGH minimum in X% of sessions"; teaches what a good heuristic accuracy looks like; risk of players optimizing the stat vs. using it diagnostically
 - [ ] 4.65 — Pre-ranking adversarial surface: enemy configs can be designed to fool the pre-ranking heuristic — engineer high pivot-activity and high volatility in a decoy element while the real vulnerability is elsewhere; "pre-ranking poisoning" as advanced PvP attack; interaction with adversarial counterfactual mode (4.39)
 - [ ] 4.66 — Signal genealogy as pre-ranking source: link the pivot-tick activity signal in the pre-ranking directly to the signal genealogy graph (4.16); clicking "active at tick 52" in the drawer highlights the relevant genealogy node; unifies diagnostic tools into one vocabulary
@@ -72,6 +72,11 @@
 - [ ] 4.85 — Predictability index for Gauntlet agree-to-disagree: each card shows a "predictability score" based on aggregate data from players in similar config states — "high predictability" means skilled opponents are likely to have predicted this fix; turns agree-to-disagree into adversarial information game; interaction with 4.39 adversarial counterfactual and 4.57 threat model report
 - [ ] 4.86 — Agree-to-disagree as mission design constraint: "Fork Missions" as a mission archetype specifically designed to trigger agree-to-disagree divergence; the player's choice (Focused vs. Structural) determines which half of the mission they get credit for; teaches goal-dependent diagnosis as a first-class skill; interaction with mission-design-*.md
 - [ ] 4.87 — "What if I'd chosen the other fix?" post-apply counterfactual in agree-to-disagree: after applying one fix, a one-click simulation showing what pass rate would have been if the other fix had been applied; teaches what was traded; reduces regret; interaction with 4.38 counterfactual history and 4.80 "what if I had applied QUICK?" counterfactual
+- [ ] 4.88 — Adaptive weight suggestion from divergence history: after 10+ divergence events, the game surfaces a data-driven weight recommendation ("your pre-ranking accuracy improves 23% when recency is below 20% in sessions with ≤2 config changes"); automatic prior recommendation from empirical session data; teaches Bayesian updating of diagnostic priors; interaction with 4.63 and 4.64
+- [ ] 4.89 — Weight preset import/export as config string: pre-ranking weight presets are serializable to a short config string (e.g., `PA:66,R:25,V:8`) that can be pasted in community channels; standardized sharing format for "optimal presets" for specific mission types; connects the in-game mechanic to real-world config-sharing culture (dotfiles, .eslintrc, etc.)
+- [ ] 4.90 — Weight configuration review prompt on campaign chapter transitions: when entering a new chapter, an optional prompt asks "your pre-ranking weights were saved in Chapter 2 — mission patterns have changed, do you want to review your diagnostic priors?"; temporal configuration hygiene as a campaign mechanic; prevents stale priors silently degrading performance
+- [ ] 4.91 — Visual weight interpolation animation when switching presets: when the player selects a different named preset, the three slider thumbs animate to their new positions over 500ms in sequence (pivot first, recency second, volatility third); the results list reshuffles during the animation; tactile preset switching that makes weight-change legible as motion; memory aid for what each preset "feels like"
+- [ ] 4.92 — Per-mission-type weight performance heatmap in career stats: a career stats panel showing which weight configurations produced highest QUICK accuracy for each mission type (wave 1 relay missions, wave 3 armor missions, etc.); color-coded grid: rows = mission types, columns = presets; teaches that heuristic configuration is context-dependent, not globally optimal
 - [ ] 4.54 — Adversarial explorer exposure policy: should the opponent be notified that you ran adversarial mode on their config? Opt-in mutual disclosure (both see each other's adversarial results) vs. private (neither knows) vs. public (full adversarial history visible on profiles); privacy norms in a competitive analysis context
 - [ ] 4.55 — Cross-match adversarial aggregation: after running adversarial mode on 5+ matches against different opponents, find recurring attack vectors that appear in ≥2 adversarial runs — "three different opponents independently discovered your relay's hook threshold is the exploit point"; the structural weakness that the community hasn't formally coordinated against but is independently discovering
 - [ ] 4.56 — Adversarial mode for PvE missions: apply the same logic to campaign missions — what change to the enemy config would have made this mission hardest for your specific architecture; the mission's adversarial variant as a "hard mode" generator; interaction with 2.19 variable scenario seeds
