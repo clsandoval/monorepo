@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 335
-- **Analyzed:** 53
-- **Pending:** 282
+- **Total aspects:** 341
+- **Analyzed:** 54
+- **Pending:** 287
 - **Convergence:** 15.8%
 
 ---
@@ -81,7 +81,13 @@
   - [ ] 4.69e-i-b-iii — Bulk re-tag from opponent list: batch operation to tag all opponents with AS% above a threshold as ⚠️ suspected adversarial; threshold input design; confirmation behavior; interaction with existing tags
   - [ ] 4.69e-i-b-iv — Opponent notes inline preview in list view: the `⊕ details` sub-panel has a note field; should a truncated one-line preview of the note appear inline in the compact list row without opening the sub-panel?
   - [ ] 4.69e-i-b-v — AS% sparkline trend in sub-panel: current AS% is a snapshot; a small sparkline showing AS% over the last 4 weeks in the `⊕ details` sub-panel distinguishes sustained adversarial targeting (stable high) from anomalous spike (recent jump); data requirements and rendering design
-- [ ] 4.69e-i-c — Filtered analysis data points in season health trend graph: should filtered analysis runs appear on the coverage-% trend graph as differentiated data points (lighter color, different shape); optional show/hide toggle; interaction with 4.68 coverage as season health
+- [x] 4.69e-i-c — Filtered analysis data points in season health trend graph: should filtered analysis runs appear on the coverage-% trend graph as differentiated data points (lighter color, different shape); optional show/hide toggle; interaction with 4.68 coverage as season health; 5 options analyzed (Exclusion / Inclusion / Dual-Series Overlay / Toggle Layer / Separate Panel); recommended Layered Hybrid (full-scope default, amber diamond secondary points, gap fill for adversarial contribution, separate sub-graph panel for scenario-type filters); 3 player journeys (Vesper discovering the adversarial gap over 6 weeks, Korbin multi-scenario trend analytics, Naledi first encounter with clean defaults); 6 new sub-aspects discovered
+  - [ ] 4.69e-i-c-i — Dual-grade display in season health header: when adversarial-adjusted filtered data exists, should a second grade appear in parentheses — e.g., "C (B+ adversarial-adjusted)"; exact format, color treatment, tooltip, conditions for appearance
+  - [ ] 4.69e-i-c-ii — Filtered trend sparkline in campaign map unit profile card: which series to show in miniature sparkline at small sizes; whether dual-series is readable below ~60px; fallback to "best health" single number
+  - [ ] 4.69e-i-c-iii — Necropsy export formatting for dual-trend graphs: does the PNG export include both trend lines; legend design for exported dual-series; gap fill in export; audience-legibility for community sharing
+  - [ ] 4.69e-i-c-iv — Convergence moment annotation on the trend graph: when full-scope and filtered trend lines converge (adversarial poisoning resolved), special annotation — ✓ mark, "adversarial contribution eliminated" note, celebration animation; conditions for triggering
+  - [ ] 4.69e-i-c-v — Trend graph "projection mode": dotted forward extensions based on current trajectory for both series; projected time to reach A tier; projected value if adversarial situation changes; interaction with 4.69e-v adversarial density metric
+  - [ ] 4.69e-i-c-vi — Minimum filtered data points for Series B display: 1 point = marker only; 2 = line but not trend; 3 = minimum slope; design for the transition from isolated diamonds to connected dashed series; intermediate state labeling ("2 data points — more runs needed")
 - [ ] 4.69e-i-d — Scope summary legibility in exports and shared artifacts: when a filtered analysis PNG is shared to Discord or a threat model report, does the scope summary contain enough for a reader who didn't run the filter to understand what they're looking at; design of the export footer
 - [ ] 4.69e-i-e — Auto-filter suggestion engine: if system detects adversarial signal strength >50% from a single opponent, proactive suggestion to run a filtered analysis excluding that opponent; what the suggestion looks like (banner, tooltip, interstitial); interaction with 4.69e-i concentration warning
 - [ ] 4.69e-ii — Known adversarial opponent tagging: UI for adding an opponent to the "known adversarial" list from within the career analysis agent audit; how the tag persists across sessions; what changes in career analysis behavior when an opponent is tagged; how to remove a tag
