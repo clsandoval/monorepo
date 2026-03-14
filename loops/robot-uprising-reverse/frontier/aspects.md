@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 656
-- **Analyzed:** 108
-- **Pending:** 548
+- **Total aspects:** 661
+- **Analyzed:** 109
+- **Pending:** 552
 - **Convergence:** 16.5%
 
 ---
@@ -492,7 +492,12 @@
 - [ ] 3.04 — Skill UI: how does the player browse, equip, and manage skills on agents?
 
 ### Rules (Behavioral Constraints)
-- [ ] 3.05 — Rules language: what's the vocabulary for rules? How expressive vs. structured?
+- [x] 3.05 — Rules language: what's the vocabulary for rules? How expressive vs. structured?
+  - [ ] 3.05c — The "Growing Grammar" unlock pacing: exact mission-by-mission rule vocabulary expansion; which tiles/filters/concepts unlock at which mission; the Goldilocks problem of "enough to solve this mission, not enough to overwhelm"
+  - [ ] 3.05d — Rules language and accessibility: how does each approach (dispatch table, priority queue, sentence builder, assembly prefix, behavior tree, pattern matcher) work with screen readers, colorblindness, motor impairment? The sentence builder's tile dragging is hostile to limited motor control; the priority queue's dropdowns work with keyboard navigation
+  - [ ] 3.05e — Rules language spectator readability: which approach produces the best "at a glance" understanding for stream viewers, tournament spectators, and TikTok clips? How does the rules display integrate into the sealed watch overlay?
+  - [ ] 3.05f — The dual-mode compilation guarantee: if the game offers multiple rules syntaxes (priority queue + assembly prefix), proving they produce identical behavior requires a formal equivalence; design the compilation layer and the edge cases where equivalence breaks
+  - [ ] 3.06-ext — Rule conflict visualization in real-time: when two rules COULD match but priority ordering picks one, how does the inspector show the "road not taken"? The near-miss visualization problem from pattern matching applies to all approaches
 - [ ] 3.05a — Conditional prefix as expressive primitive: minimal rule vocabulary (like Shenzhen I/O's +/- prefix) that enables sophisticated agent behavior from simple building blocks
 - [ ] 3.05b — SWIZ-style value packing as design primitive: EXAPUNKS SWIZ encodes multi-attribute info in one integer via digit manipulation; Robot Uprising signals might encode compound information; what's the analogous primitive?
 - [ ] 3.06 — Rule conflicts: what happens when two rules contradict? Priority system, error feedback, or emergent chaos?
