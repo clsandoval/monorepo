@@ -211,19 +211,46 @@ Systems communicate through typed signals. The player's architecture is a signal
 
 ---
 
-## Technical Architecture (Updated)
+## Technical Architecture (Locked)
 
-### Engine: Godot (decided, revisitable)
-- Free, open-source, good 2D
-- No LLM bridge needed — pure game engine
-- Risk: IDE-like UI may fight the engine if building block paradigm is complex
+### Stack: React + Pixi.js (Web-Based)
+
+| Layer | Tech | Purpose |
+|-------|------|---------|
+| **Rendering** | Pixi.js | Hardware-accelerated 2D. Sprites, tilemaps, isometric projection, animations. |
+| **UI** | React | Workbench panels, detail panel, debrief screens. DOM-based = Playwright-inspectable. |
+| **Game loop** | Custom tick scheduler | Deterministic, replayable, speed-controllable (1x/2x/4x/pause/rewind). |
+| **State** | Zustand or plain stores | Game state separate from React state. Tick scheduler owns game state, React subscribes. |
+| **Build** | Vite | Fast dev server, good plugin ecosystem. |
+| **Desktop** | Electron (later) | Steam distribution via Electron wrapper. Not needed for dev. |
+| **QA** | Playwright | Screenshots, DOM inspection, interaction automation. Ralph loop can play-test. |
+| **Backend** | None | Pure client-side. Save state via localStorage/IndexedDB. No server. |
+
+### Why Web-Based (Not Godot)
+
+The game will be built via forward ralph loops. The ralph loop agent must be able to:
+1. **Screenshot** the game at every stage via Playwright
+2. **Interact** with the game (click, drag, inspect) via Playwright
+3. **Visually QA** every screen, every animation, every state — not just unit tests
+
+Godot (or any native engine) makes Playwright blind. Web-based means the ralph loop can play-test the game itself, giving exhaustive visual QA that's impossible with native engines.
+
+React handles the workbench UI (DOM = fully Playwright-inspectable). Pixi.js handles the battlefield rendering (Canvas = Playwright-screenshottable). The game loop is custom and deterministic — no framework to outgrow.
+
+### Why Not Phaser
+
+Phaser was considered but rejected:
+- Casual-game framework reputation (Vampire Survivors migrated away to Unity)
+- Weak UI system (we'd overlay React anyway)
+- Entity scaling limits (not a concern for 5-20 agents, but why take the dependency?)
+- Custom game loop gives full control over determinism, replay, and speed controls
 
 ### Core Systems
-- **Tick Scheduler** — walks behavior graph each tick
+- **Tick Scheduler** — custom deterministic game loop. Walks behavior graph each tick. Supports pause/play/rewind/scrub/speed.
 - **Buffer System** — manages per-unit context windows, eviction, capacity
-- **Signal System** — typed message passing between units
-- **RTS Simulation** — units, buildings, pathfinding, collision, fog of war, resources
-- **Replay/Log System** — records every tick for debrief scrubbing
+- **Signal System** — typed message passing between units via hooks
+- **Simulation Engine** — units, pathfinding, collision, fog of war, resources on isometric tilemap
+- **Replay/Log System** — records every tick for debrief scrubbing. Full deterministic replay.
 
 ---
 
