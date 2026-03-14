@@ -82,7 +82,7 @@ const HOW_IT_WORKS_STEPS = [
 
 function HowItWorksSection() {
   return (
-    <section id="how-it-works" style={{ scrollMarginTop: '80px' }}>
+    <section id="how-it-works" aria-label="How it works" style={{ scrollMarginTop: '80px' }}>
       <style>{`
         .hiw-root {
           background-color: #FFFFFF;
@@ -292,7 +292,7 @@ const FEATURE_CARDS = [
 
 function FeaturesSection() {
   return (
-    <section id="features" style={{ scrollMarginTop: '80px' }}>
+    <section id="features" aria-label="Features" style={{ scrollMarginTop: '80px' }}>
       <style>{`
         .features-root {
           background-color: #F7F7F7;
@@ -443,7 +443,7 @@ function FeaturesSection() {
 
 function HeroSection() {
   return (
-    <section className="hero-section hero-root">
+    <section id="hero" aria-label="Hero" className="hero-section hero-root">
       {/* Hover + responsive styles */}
       <style>{`
         .hero-root {
@@ -671,7 +671,7 @@ function HeroSection() {
 
 function FinalCtaSection() {
   return (
-    <section>
+    <section id="final-cta" aria-label="Get started">
       <style>{`
         .final-cta-root {
           background-color: #0C1F40;

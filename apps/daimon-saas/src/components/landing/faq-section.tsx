@@ -69,7 +69,7 @@ export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <section id="faq" style={{ scrollMarginTop: '80px' }}>
+    <section id="faq" aria-label="FAQ" style={{ scrollMarginTop: '80px' }}>
       <style>{`
         .faq-root {
           background-color: #FFFFFF;

@@ -38,7 +38,7 @@ export function PricingSection() {
   const [cycle, setCycle] = useState<BillingCycle>('monthly')
 
   return (
-    <section id="pricing" style={{ scrollMarginTop: '80px' }}>
+    <section id="pricing" aria-label="Pricing" style={{ scrollMarginTop: '80px' }}>
       <style>{`
         .pricing-root {
           background-color: #F7F7F7;
@@ -413,7 +413,7 @@ export function PricingSection() {
           <div className="pricing-grid">
             {/* Free */}
             <div className="pricing-card pricing-card-light">
-              <p className="pricing-plan-name-light">Free</p>
+              <h3 className="pricing-plan-name-light">Free</h3>
               <div className="pricing-price-row">
                 <span className="pricing-price-light font-headline-expanded">$0</span>
                 <span className="pricing-price-period-light">/ month</span>
@@ -436,7 +436,7 @@ export function PricingSection() {
             {/* Starter — Most Popular */}
             <div className="pricing-card pricing-card-dark">
               <span className="pricing-popular-badge">Most Popular</span>
-              <p className="pricing-plan-name-dark">Starter</p>
+              <h3 className="pricing-plan-name-dark">Starter</h3>
               <div className="pricing-price-row">
                 <span className="pricing-price-dark font-headline-expanded">
                   {cycle === 'monthly' ? '$9' : '$6.58'}
@@ -463,7 +463,7 @@ export function PricingSection() {
 
             {/* Pro */}
             <div className="pricing-card pricing-card-light">
-              <p className="pricing-plan-name-light">Pro</p>
+              <h3 className="pricing-plan-name-light">Pro</h3>
               <div className="pricing-price-row">
                 <span className="pricing-price-light font-headline-expanded">
                   {cycle === 'monthly' ? '$29' : '$20.75'}
