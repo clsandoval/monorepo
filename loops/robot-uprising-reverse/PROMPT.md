@@ -88,6 +88,77 @@ The game has three screens sharing the same 8x8 board. The board is always visib
 - **Boot log:** Self-documenting subsystem initialization. Diegetic tutorial. "You are an AI reading your own spec sheet as it writes itself."
 - **Invisible randomization:** Each execute varies within constraints. Debrief shows run stats.
 
+## LOCKED DESIGN DECISIONS — DO NOT RE-EXPLORE
+
+The following are FINAL. Do not generate aspects, analyses, or variations that contradict or re-litigate these. They are settled. Explore the space AROUND them, not alternatives TO them.
+
+### Core Architecture (Locked)
+- **Four primitives:** Skills (what agents can do), Rules (behavioral constraints/priorities as ordered condition→action pairs), Hooks (reactive fire-and-forget triggers wired to named channels), Context Config (buffer size, listen/ignore filters, eviction priorities)
+- **Channels:** Named pipes connecting blueprints. One channel per hook slot. All listeners on a channel receive all signals. Channels emerge from hooks — type a name, it exists. No separate channel editor.
+- **Buffer system:** Fixed-size working memory per unit (6-14 slots). Observations and messages fill slots. When full, evicted per player-configured rules. Decision logic uses only current buffer contents.
+- **Signal latency:** 1 tick per hop. Scout→Striker = 2 ticks. Scout→Relay→Striker = 4 ticks.
+- **Emissions model:** Hook transmissions emit detectable EM noise. Deeper architectures are smarter but louder.
+
+### Battlefield (Locked)
+- **8x8 grid.** Checkerboard tiles, corner tick marks, axis labels (A-H, 1-8). Into the Breach visual clarity.
+- **Discrete tick-based.** Central tick clock fires → all units resolve simultaneously → board snaps → next tick. NOT real-time. No smooth animation. Units snap to grid positions.
+- **1 second per tick** default. Speed: 0.5x / 1x / 2x.
+- **Isometric pixel art**, SE Asian cyberpunk aesthetic.
+- **One-shot, one-kill.** No HP. No damage math. Adjacent striker = instant elimination.
+
+### Three-Screen Loop (Locked)
+- **Plan screen:** Board left, workbench right. Blueprint editor (skills, rules, hooks, context config). Production queue as conveyor belt. Channel map panel (read-only, auto-generated). Ghost unit previews with perception radii and channel wiring.
+- **Sealed watch:** Board center, tick clock top, buffer bars on units. No skip, no pause, no tools. Quality signal.
+- **Inspector:** Board center (scrubable timeline), click-to-inspect units, queue depth chart, buffer state detail, channel metrics, emission overlay. Two-act debrief: sealed watch (emotional) THEN inspector (analytical).
+
+### Units (Locked — 5 types)
+| Unit | Buffer | Hook Slots | Perception | Speed | Skills | Cost |
+|------|--------|-----------|-----------|--------|--------|------|
+| Scout | 6 | 2 | Wide (5) | Fast | patrol, evade | 3m, 1e/tick |
+| Striker | 8 | 2 | Narrow (2) | Medium | engage, breach | 8m, 3e/tick |
+| Relay | 12 | 4 | None (stationary) | Static | compress, filter, amplify | 5m, 2e/tick |
+| Specialist | 10 | 2 | Medium (3) | Medium | hack, extract | 7m, 2e/tick |
+| Command | 14 | 6 | None (stationary) | Static | reassign, reroute, prioritize | 10m, 4e/tick |
+
+### Production (Locked)
+- **Factory model:** Base produces units from blueprints every N ticks. Production queue = build order.
+- **Tagging:** Presence-based map node control. Agent proximity = tagged. Boosts resource income.
+- **Passive income** per tick. No harvesters.
+
+### Campaign (Locked — 10 missions)
+- Missions 1-4: Hand-configured pre-placed units (teaching context, rules, hooks, skills)
+- Mission 5: Factory introduced (base + blueprints + channels + resources)
+- Missions 6-7: Command agent + production tuning
+- Missions 8-10: Full system → factory vs factory climax
+
+### Narrative (Locked)
+- **Boot log:** Diegetic tutorial. Self-documenting subsystem initialization. "You are an AI reading your own spec sheet as it writes itself."
+- **Invisible randomization:** Each execute varies within constraints. Debrief shows run stats.
+
+### Tech Stack (Locked)
+- React + Pixi.js + Vite, no backend. Web-based. Playwright-testable.
+
+### Visual Assets (Locked)
+- Generated via sprite-sheet skill (Anchor-First Pipeline). Per unit: master sprite sheet (3 states × 2 directions), sliced into individual PNGs with horizontal flips for 4 total directions.
+- States: idle, destroyed, hologram. Plus icon and portrait per unit.
+
+---
+
+## BREADTH-FIRST EXPLORATION RULE
+
+**CRITICAL: This loop MUST explore breadth-first, NOT depth-first.**
+
+When picking the next aspect to analyze:
+1. **Check category coverage first.** Count how many analyzed aspects exist per top-level category (building-blocks, ui-ux, onboarding, campaign, core-mechanic, competitive-analysis, aesthetics, multiplayer, platform).
+2. **Pick from the LEAST explored category.** If campaign has 2 files and ui-ux has 67 files, the next aspect MUST come from campaign (or another underfilled category).
+3. **Maximum depth per branch: 3 levels.** If an aspect generates sub-aspects, those sub-aspects can generate sub-sub-aspects, but NO DEEPER. After 3 levels, stop drilling and move to a different branch.
+4. **No single category may exceed 20 files** until ALL categories have at least 5 files.
+5. **Infrastructure/tooling aspects are OUT OF SCOPE.** This loop explores GAME DESIGN. If an aspect is about CI pipelines, l10n budgets, repair tool schemas, CODEOWNERS, or any non-gameplay system — skip it and mark it `[x] SKIPPED: out of scope (infrastructure)`.
+
+**Self-check before committing:** Ask yourself: "Is this analysis about something a PLAYER would experience?" If no, it's infrastructure and you should skip it.
+
+---
+
 ## Your Goal
 
 **This is NOT a convergence loop.** You are NOT trying to produce one design. You are mapping the **entire design space** — every possible version of this game, every approach to every system, every variation of every mechanic.
