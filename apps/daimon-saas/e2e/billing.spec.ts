@@ -122,7 +122,7 @@ test.describe('Billing screenshots @screenshot', () => {
       path: path.join(SCREENSHOTS_DIR, '0103_billing_free-plan_desktop.png'),
       fullPage: false,
     });
-    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i })).toBeAttached();
+    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i }).first()).toBeAttached();
   });
 
   // ── 105: Plan comparison grid ─────────────────────────────────────────────
@@ -140,7 +140,7 @@ test.describe('Billing screenshots @screenshot', () => {
       path: path.join(SCREENSHOTS_DIR, '0105_billing_plan-comparison-grid_desktop.png'),
       fullPage: false,
     });
-    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i })).toBeAttached();
+    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i }).first()).toBeAttached();
   });
 
   // ── 107: Starter plan display ─────────────────────────────────────────────
@@ -155,7 +155,7 @@ test.describe('Billing screenshots @screenshot', () => {
       path: path.join(SCREENSHOTS_DIR, '0107_billing_starter-plan_desktop.png'),
       fullPage: false,
     });
-    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i })).toBeAttached();
+    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i }).first()).toBeAttached();
   });
 
   // ── 109: Pro plan display ─────────────────────────────────────────────────
@@ -170,7 +170,7 @@ test.describe('Billing screenshots @screenshot', () => {
       path: path.join(SCREENSHOTS_DIR, '0109_billing_pro-plan_desktop.png'),
       fullPage: false,
     });
-    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i })).toBeAttached();
+    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i }).first()).toBeAttached();
   });
 
   // ── 115: Past-due banner ──────────────────────────────────────────────────
@@ -204,7 +204,7 @@ test.describe('Billing screenshots @screenshot', () => {
       path: path.join(SCREENSHOTS_DIR, '0115_billing_past-due-banner_desktop.png'),
       fullPage: false,
     });
-    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i })).toBeAttached();
+    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i }).first()).toBeAttached();
   });
 
   // ── 120: API keys section (free tenant) ──────────────────────────────────
@@ -222,7 +222,7 @@ test.describe('Billing screenshots @screenshot', () => {
       path: path.join(SCREENSHOTS_DIR, '0120_billing_api-keys-section_desktop.png'),
       fullPage: false,
     });
-    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i })).toBeAttached();
+    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i }).first()).toBeAttached();
   });
 
   // ── 122: API keys section — Anthropic + OpenAI saved ─────────────────────
@@ -240,6 +240,6 @@ test.describe('Billing screenshots @screenshot', () => {
       path: path.join(SCREENSHOTS_DIR, '0122_billing_api-keys-both-saved_desktop.png'),
       fullPage: false,
     });
-    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i })).toBeAttached();
+    await expect(page.locator('h1, h2').filter({ hasText: /Billing/i }).first()).toBeAttached();
   });
 });
