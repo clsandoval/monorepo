@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 586
-- **Analyzed:** 94
-- **Pending:** 492
-- **Convergence:** 16.0%
+- **Total aspects:** 591
+- **Analyzed:** 95
+- **Pending:** 496
+- **Convergence:** 16.1%
 
 ---
 
@@ -583,7 +583,7 @@
 
 ## Wave 6: Aesthetics & Platform
 
-- [ ] 6.01 — Art direction: pixel art vs. vector vs. abstract vs. minimalist vs. detailed
+- [x] 6.01 — Art direction: pixel art vs. vector vs. abstract vs. minimalist vs. detailed
 - [ ] 6.02 — Audio design: soundtrack mood, sound effects for buffer events, attention alerts
 - [ ] 6.03 — Narrative voice: GLaDOS-style narrator, silent, text-log, radio chatter
 - [ ] 6.04 — The TikTok clip: what's the 15-second viral moment for each major design direction
@@ -591,6 +591,11 @@
 - [ ] 6.06 — Console/controller adaptation: how each building block paradigm works on a gamepad
 - [ ] 6.07 — Mobile/touch adaptation: how each paradigm works on a phone
 - [ ] 6.08 — Accessibility: colorblind modes, screen reader support, difficulty options, one-handed play
+- [ ] 6.01a — Tile art deep dive per biome: exact pixel-level design for each terrain type (jungle, rice terrace, beach, city, Siquijor volcanic); how much cultural detail fits in 64×32 isometric tiles; reference imagery from actual Philippine landscapes
+- [ ] 6.01b — Unit sprite design language: detailed visual identity per unit type — silhouette grammar, accent color system, destroyed/ghost/hologram variant derivation from base sprite; interaction with locked sprite-sheet pipeline
+- [ ] 6.01c — The holographic overlay system: full technical and aesthetic design of Plan mode overlay — grid materialization, channel wiring rendering, perception radius treatment, ghost units, overlay × terrain interaction
+- [ ] 6.01d — Color palette interaction with colorblind modes: how each art direction option degrades under protanopia/deuteranopia/tritanopia; which palettes need redesign vs. naturally robust; interaction with locked signal colors
+- [ ] 6.01e — Tilt-shift implementation in Pixi.js: technical feasibility of the "Diorama" effect — blur filters, performance on low-end hardware, dynamic edge sharpening, Playwright screenshot test determinism
 - [ ] 6.10 — Sound design for corruption detection: audio vocabulary of integrity violations — what does a foreign hook sound like when first detected, what does a revert "click" sound like, what does mid-execution EMP buffer degradation sound like; the sonic signature of a compromised vs. clean system
 
 ---
