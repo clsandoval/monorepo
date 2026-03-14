@@ -1,7 +1,7 @@
 ---
 page: case-studies/dodgers
 title: "Los Angeles Dodgers: Time Series Modeling Advisory"
-status: stub
+status: partial
 sources:
   - label: "Discord: dodgers channel"
 ---

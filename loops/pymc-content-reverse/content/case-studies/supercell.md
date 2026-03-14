@@ -1,7 +1,7 @@
 ---
 page: case-studies/supercell
 title: "Supercell: Bayesian MMM for Mobile Game User Acquisition"
-status: stub
+status: partial
 sources:
   - label: "Discord: supercell channel"
 ---

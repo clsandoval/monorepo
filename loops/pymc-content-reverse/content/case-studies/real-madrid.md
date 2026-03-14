@@ -1,7 +1,7 @@
 ---
 page: case-studies/real-madrid
 title: "Real Madrid: Fan CLV Modeling with PyMC-Marketing"
-status: stub
+status: partial
 sources:
   - label: "Discord: real-madrid channel"
 ---
