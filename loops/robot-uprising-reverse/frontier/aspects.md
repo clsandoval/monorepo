@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 356
-- **Analyzed:** 57
-- **Pending:** 299
-- **Convergence:** 16.0%
+- **Total aspects:** 361
+- **Analyzed:** 58
+- **Pending:** 303
+- **Convergence:** 16.1%
 
 ---
 
@@ -64,7 +64,12 @@
   - [x] 4.69e-i-a-i — "Don't show again" placement decision: whether the toast's "don't show again" affordance lives in-toast (more discoverable) vs. in Settings only (cleaner toast); two usability philosophies with measurable tradeoffs; recommendation: Option 4 (Two-Tier Dismissal: session snooze in-toast + permanent suppress in Settings) + first-occurrence footer pointing to Settings path; 4 options explored; 3 player journeys; 4 new sub-aspects discovered
     - [x] 4.69e-i-a-vi — Toast re-entry and session boundary detection after snooze: when does "session" end — tab close, game close, 30min idle? Browser sessionStorage vs. explicit game session tracking; edge cases with multiple tabs; Recommendation: Model B+ (localStorage calendar-day + 6h floor); 4 models compared (tab-close, calendar-day, idle-timeout, explicit session ID); 3 player journeys; 5 new sub-aspects discovered
       - [x] 4.69e-i-a-vi-a — Profile-scoped vs. global snooze key: if multi-profile ships, snooze key should be profile-scoped to prevent cross-profile snooze inheritance when helping another player in a second tab; 5 options analyzed (Global / Profile-Scoped Key / Self-Invalidating Embedded ProfileId / Profile Save Data / User-Level Distinction); recommended Phase 1 = Option 3 (embed profileId in value, null-check for backward compat), Phase 2 = Option 2 (profile-scoped key); permanent suppress same phase plan; 3 player journeys (Freya helping Kai in Tab 2, Marcus/Jaime sharing a laptop, Cleo streaming on Tutorial profile while Main has suppress enabled); 5 new sub-aspects discovered
-        - [ ] 4.69e-i-a-vi-a-i — Notification state in profile export: if profiles support import/export, should notification preferences (snooze, permanent suppress) travel with the export? Arguments for: complete portability. Arguments against: snooze is device-session state, not career-state; importing a profile from another player's machine shouldn't inherit their "this player already understands the toast" state
+        - [x] 4.69e-i-a-vi-a-i — Notification state in profile export: if profiles support import/export, should notification preferences (snooze, permanent suppress) travel with the export? Recommendation: export permanent suppress only (active snooze time-bound, always expired by import); [Review →] opt-in at import; 5 options analyzed; 3 player journeys (Priya device migration, Kenji community config importer, Tanya post-browser-wipe restore); 5 new sub-aspects discovered
+          - [ ] 4.69e-i-a-vi-a-i-a — Import timestamp visibility in notification audit log: when audit log shows a "permanently suppressed" entry that came from an import, should it show the original suppression date (from exported profile) or the import date? Original date is more informative but may confuse players who don't know the entry came from a backup
+          - [ ] 4.69e-i-a-vi-a-i-b — Notification state in partial (config-only) export: when the game allows "export config only" (workbench configuration, no career data), what notification state travels? Almost certainly none — but creates design decision: single export format or two? Interaction with community config-sharing culture
+          - [ ] 4.69e-i-a-vi-a-i-c — "Export age" warning for stale notification state: if a profile export file is more than 30 days old and contains permanent suppress flags, should the import dialog note that those preferences are from an old save? Players who changed their mind about a notification in the interim would get old preferences restored without realizing it
+          - [ ] 4.69e-i-a-vi-a-i-d — Cross-game portability of notification state: if Robot Uprising ships a sequel or sister game, should notification suppress state from v1 transfer? Second game may have redesigned toasts with new information; "carry suppress from v1" vs. "reset on new game" vs. "carry suppress but show catch-up notification for new content"
+          - [ ] 4.69e-i-a-vi-a-i-e — Opt-in export of notification state as a consent layer: rather than exporting by default or not at all, give explicit opt-in at export time: "Include notification preferences? (Recommended for device migration; not recommended when sharing)"; pre-selected based on inferred export context
         - [ ] 4.69e-i-a-vi-a-ii — "Snooze all profiles" global action: power users with 3+ profiles who want a single "snooze all profiles today" affordance rather than clicking snooze once per profile encounter; Settings-level toggle vs. toast option; interaction with profile isolation principle
         - [ ] 4.69e-i-a-vi-a-iii — Profile creation inherits notification prefs: when a new profile is created, should prefs default to the current profile's state (inherit) or reset to factory defaults? Fresh-start profile vs. experimental-variant profile have different expectations
         - [ ] 4.69e-i-a-vi-a-iv — The notification audit log: per-profile notification history showing last 5 toast encounters with timestamps; for players debugging "why am I seeing this?" or "I thought I snoozed this?"; interaction with profile-scoped snooze visibility (4.69e-i-a-vi-d)
