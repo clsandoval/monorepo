@@ -26,3 +26,8 @@ Artificial Intelligence, CLV, GenAI, MMM, Market Research, Marketing Analytics, 
 ## Social Links
 - GitHub: https://github.com/Dojahub
 - LinkedIn: https://www.linkedin.com/in/kemblefletcher/
+
+## Context
+- SweepLift was a PyMC Labs client (mentioned in sales/case studies) — Kemble came from client side to join Labs
+- SweepLift: Bayesian modeling for in-stream survey and measurement technology
+- Advisor role: works with SaaS executives on data architecture, marketing attribution, growth strategies

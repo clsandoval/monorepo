@@ -28,3 +28,12 @@ Coding, Cognitive Neuroscience, Computational Epidemiology, Math, Modeling, ODEs
 ## Social Links
 - GitHub: https://github.com/benmaier
 - LinkedIn: https://linkedin.com/in/benjaminfrankmaier
+
+## Key Published Work
+- **Lead author: Maier et al. 2025** — paper on Semantic Similarity Rating (SSR) methodology for synthetic consumers
+  - Paper: "LLMs Reproduce Human Purchase Intent via Semantic Similarity Elicitation of Likert Ratings"
+  - Co-authors include Luca Fiaschi and Colgate-Palmolive team members
+  - GitHub repo: `pymc-labs/semantic-similarity-rating` (130★)
+  - Core methodology behind PyMC Labs' Synthetic Consumers product and Innovation Lab CPG offering
+
+<!-- GAP: Full bio, education, career details not available from website. Status remains partial pending LinkedIn/web enrichment. -->

@@ -25,3 +25,17 @@ Blogging/Webinars, Business Operations, Market Research, Marketing Analytics, Pr
 
 ## Social Links
 - LinkedIn: https://www.linkedin.com/in/halahmh/
+
+## Org Context (from Discord)
+- Discord handle: `Halah`, Discord name: `lomjeh` (confirmed non-bot)
+- Role: Marketing/Design; built the Framer draft site (new website); brand deck creator
+- New website design confirmed active Mar 2026
+- Works closely with James Dodge (sales) on positioning copy (confirmed "We Work By Your Side" tagline together)
+
+## Key Deliverables at PyMC Labs
+- Built Framer draft site: https://loyal-growth-093412.framer.app/ (new website in progress)
+- Created brand deck: https://pymc-brand-deck.netlify.app/
+- Wrote case study narratives: HelloFresh (60x faster), Colgate SSR (90% reliability), SALK, Indigo
+- Owns About page origin timeline and company narrative
+- September 2025 newsletter author (brand marketing)
+- Authored 3 pitch variants for testing (Sep 2025)

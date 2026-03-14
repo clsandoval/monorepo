@@ -26,3 +26,13 @@ Coding, Data Science, Deep Learning, GenAI, ML, Math, Physics
 ## Social Links
 - GitHub: https://github.com/Maxim-Laletin
 - LinkedIn: https://www.linkedin.com/in/maxim-laletin-phd-84098722a/
+
+## Key Published Work
+- Co-author: **"LLMs and Price Reasoning"** blog post (with Allen Downey, Sep 17 2025) — PyMC Labs' LLM Price Is Right benchmark
+  - GitHub: pymc-labs/PriceIsRightLLM
+  - Game mechanics: LLMs bid on Price is Right showcases; metrics: Elo rating, MAPE, Overbid Rate
+  - Dataset: 820 products, 50–100 showcases per model
+
+## Key Work at PyMC Labs
+- Works on AI agents for statistical modeling (Decision AI / MMM Agent pipelines)
+- Develops and tests AI agent system pipelines
