@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 95
-- **Current**: 95
+- **Completed**: 96
+- **Current**: 96
 
 ## Current Stage
 
-**Stage 096** — (next stage)
+**Stage 097** — (next stage)
 
 ## Stage Log
 
@@ -109,3 +109,4 @@
 | 093 | done | 2026-03-14T14:00:00Z | Privacy Policy page at /privacy: full publication-ready policy (16 sections + 2 appendices), PublicLayout wrapper, table of contents with anchor links, all data tables rendered, readable typography with proper heading hierarchy, last-updated date, all spec content rendered; build passes |
 | 094 | done | 2026-03-14T15:00:00Z | Meta tags + OpenGraph per page: src/lib/seo/metadata.ts helper; root layout.tsx full spec metadata (metadataBase, title template, keywords, OG, Twitter, icons, manifest); landing page metadata updated to spec; auth pages get metadata via layout.tsx (login/signup/reset-password/confirm); all dashboard + admin + docs server component pages get typed metadata exports; docs/tools client page gets layout.tsx; build passes |
 | 095 | done | 2026-03-14T16:00:00Z | Schema.org markup: JsonLd component (src/components/seo/json-ld.tsx) with WebSite/Organization/SoftwareApplication/FAQPage/BreadcrumbList schemas; landing page gets WebSite+Organization+SoftwareApplication+FAQPage schemas; docs/faq page gets full FAQPage+BreadcrumbList schema (16 Q&As); buildBreadcrumbSchema helper for all pages; build passes |
+| 096 | done | 2026-03-14T17:00:00Z | sitemap.ts (12 public pages: /, /docs, /docs/quick-start, /docs/tools, /docs/billing, /docs/faq, /changelog, /about, /blog, /terms, /privacy, /legal/cookies) + robots.ts (allow public pages, disallow /dashboard/ /admin/ /api/ /login /signup /reset-password); /robots.txt and /sitemap.xml appear in build output; build passes |
