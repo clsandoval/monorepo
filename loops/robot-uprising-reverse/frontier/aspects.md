@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 98
-- **Analyzed:** 3
-- **Pending:** 95
-- **Convergence:** 3%
+- **Total aspects:** 104
+- **Analyzed:** 4
+- **Pending:** 100
+- **Convergence:** 4%
 
 ---
 
@@ -14,7 +14,12 @@
 - [x] 1.01 — Shenzhen I/O: constraint-based puzzle design, limited instruction space, multiple valid solutions
 - [x] 1.02 — TIS-100: minimal instruction set, spatial node layout, parallel execution visualization
 - [x] 1.03 — Opus Magnum: open-ended optimization, Zachtronics histogram system, aesthetic satisfaction of clean solutions
-- [ ] 1.04 — Exapunks: narrative framing of programming puzzles, zine-style tutorial, hacker fantasy
+- [x] 1.04 — Exapunks: narrative framing of programming puzzles, zine-style tutorial, hacker fantasy
+- [ ] 1.04a — Exapunks body horror narrative-mechanical integration gap: how could Robot Uprising integrate narrative stakes into the workbench itself (corrupted configs, degraded buffers, enemy-injected hooks)?
+- [ ] 1.04b — Diegetic tutorial documents as game artifact: the TWN zine design pattern — tutorial-as-in-universe-lore vs. traditional manual; trade-off between immersion and accessibility
+- [ ] 1.04c — REPL semantics for agent spawning: explicit spawn instruction (player programs it) vs. implicit spawn (triggered by rules/hooks); EXAPUNKS REPL as reference model
+- [ ] 1.04d — Blocking vs. queued hook semantics: blocking M register (both parties wait, deadlock-risky) vs. queued hooks (async, lossy under load); core architecture decision for Robot Uprising
+- [ ] 1.04e — The 100-test-case robustness pattern: mission scenarios presenting N randomized variants the agent config must handle; randomization design determines which abstraction skills the game actually teaches
 - [ ] 1.05 — Screeps: persistent-world programming RTS, JavaScript API, MMO dynamics
 - [ ] 1.06 — Gladiabots: visual behavior tree programming for robots, multiplayer AI tournaments
 - [ ] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
@@ -96,6 +101,7 @@
 ### Rules (Behavioral Constraints)
 - [ ] 3.05 — Rules language: what's the vocabulary for rules? How expressive vs. structured?
 - [ ] 3.05a — Conditional prefix as expressive primitive: minimal rule vocabulary (like Shenzhen I/O's +/- prefix) that enables sophisticated agent behavior from simple building blocks
+- [ ] 3.05b — SWIZ-style value packing as design primitive: EXAPUNKS SWIZ encodes multi-attribute info in one integer via digit manipulation; Robot Uprising signals might encode compound information; what's the analogous primitive?
 - [ ] 3.06 — Rule conflicts: what happens when two rules contradict? Priority system, error feedback, or emergent chaos?
 - [ ] 3.07 — Rules UI: how does the player write/edit/reorder rules?
 
