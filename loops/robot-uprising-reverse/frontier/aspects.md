@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 546
-- **Analyzed:** 86
-- **Pending:** 460
+- **Total aspects:** 551
+- **Analyzed:** 87
+- **Pending:** 464
 - **Convergence:** 15.8%
 
 ---
@@ -82,7 +82,12 @@
                                       - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I — Suppression condition reference integrity: when a surface name in review_trigger.surface is renamed, the condition silently becomes unevaluable; CI lint for stale surface references in suppression conditions; tooling to update them on surface rename; Recommendation: Options B+C complementary layers (make rename-surface for proactive propagation + Tier 1 PR-time ref check on surfaces.json modifications); 4 options analyzed (post-hoc warning, PR-time detection, proactive rename command, stable-ID architecture); rename/delete/decompose taxonomy with distinct fix paths; 3 developer journeys (Nadia using make rename-surface cleanly, Priya triaging 2 unevaluable conditions in quarterly audit, Dev caught by Tier 1 on manual edit); 5 new sub-aspects discovered
                                         - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a — `make repair-suppression-ref` as a CLI tool: full design of the surgical repair command — argument schema (`KEY`, `SURFACE`, `--dry-run`, `--validate-only`, `--no-immediate-check`, `--output-format`, `--no-stage`, `--confirm-surface`); output format (human/JSON/quiet); CI non-interactive mode with exit-code taxonomy (0/1/2/3); decompose case PR-state design; comparison table vs. `make rename-surface` across 8 dimensions; `--auto-lookup` from rename-log as future option; 3 player journeys (Priya batch quarterly repair, Dev first-time Tier-1-guided fix, Aarav CI batch pipeline); 5 new sub-aspects discovered
                                           - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i — `repair_command` field in audit JSON output: pre-formed repair command string embedded in each unevaluable suppression entry in `make l10n-suppression-audit --output-format=json`; when command can be pre-formed vs. left blank (no match, decompose, multiple equal-distance matches)
-                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A — `repair_command_version` field for schema compatibility: versioning the repair command format so cached audit outputs can be detected as stale after a `repair-suppression-ref` argument schema change; semantic versioning of CLI argument schemas as a general pattern
+                                            - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A — `repair_command_version` field for schema compatibility: versioning the repair command format so cached audit outputs can be detected as stale after a `repair-suppression-ref` argument schema change; semantic versioning of CLI argument schemas as a general pattern
+                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i — Automated schema change detection: CI check comparing repair tool's argument parser against recorded manifest; detects schema changes without version bump; the "schema drift detector"
+                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-ii — Version bump as a team-affecting event: notification protocol when a version bump invalidates cached audit artifacts across pipelines; CI maintainer review requirement; the "migration window" concept
+                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-iii — Schema version in IDE extension protocol: VSCode extension detecting schema version mismatches; re-querying --schema-version on tool file changes; stale code actions as UX problem
+                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-iv — Cross-tool schema version alignment: audit tool vs repair tool release cadence; meta-version for audit JSON envelope format; separate from repair command schema version
+                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-v — Schema changelog as a testable artifact: unit tests asserting changelog entries match actual argument parser changes; changelog-to-argparse consistency check
                                             - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-B — Eval injection hardening for `repair_command`: security model for the repair_command string; shell-safe quoting validation; whether the field should be a structured object (key + surface + flags array) instead of a string to avoid eval entirely; JSON-as-command-template vs. string-as-command debate
                                             - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-C — PR comment rendering of `repair_candidates`: GitHub Actions workflow design for posting audit results as formatted PR comments with approve-by-reaction; markdown rendering of candidate commands with inline approve buttons; the 👍-to-approve UX pattern
                                             - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-D — Confidence calibration from historical accuracy: tracking how often each confidence level's suggested command was actually applied (vs. overridden by human); recalibrating confidence thresholds based on historical hit rate
