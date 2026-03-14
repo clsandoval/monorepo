@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 101
-- **Current**: 101
+- **Completed**: 102
+- **Current**: 102
 
 ## Current Stage
 
-**Stage 102** — (next stage)
+**Stage 103** — (next stage)
 
 ## Stage Log
 
@@ -115,3 +115,4 @@
 | 099 | done | 2026-03-14T20:00:00Z | Empty states: admin/tenants uses EmptyState (Users icon "No tenants yet" / Search icon "No tenants found" with clear action); audit-log uses EmptyState (FileText icon, context-aware subtitle for filter-active vs no-entries); dashboard adds EmptyState for null tenant case; build passes |
 | 100 | done | 2026-03-14T21:00:00Z | Error states: global error.tsx (unexpected error + go to dashboard), not-found.tsx (FileQuestion icon + go to dashboard/docs links), per-page error.tsx for dashboard/integrations/billing/settings/admin/docs with spec copy; build passes |
 | 101 | done | 2026-03-14T22:00:00Z | Toast notifications: Discord add/replace/disconnect wired (spec copy); service card disconnect toast; OAuthCallbackBanner converted from inline banner to toast (success/error/cancelled); account+workspace+admin toasts already present from prior stages; build passes |
+| 102 | done | 2026-03-14T23:00:00Z | ConfirmDialog wired to all 5 destructive actions: delete workspace (confirmationText=tenantName), disconnect Discord bot (danger, spec copy), delete API key (danger, provider meta copy), disconnect service connection (warning, spec copy), admin suspend tenant (danger); replaced Modal/inline confirm patterns with ConfirmDialog; build passes |

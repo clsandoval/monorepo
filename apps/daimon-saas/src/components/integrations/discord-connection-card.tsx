@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { AlertTriangle, MessageSquare, Eye, EyeOff, X, Plus } from 'lucide-react'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { type Plan, getMaxConnections, canAddConnection, connectionLimitMessage } from '@/lib/plans/gate'
 import { useToast } from '@/lib/toast'
 
@@ -737,105 +738,6 @@ function DiscordCardItem({
 }
 
 // ---------------------------------------------------------------------------
-// Disconnect confirmation dialog (inline, not full modal)
-// ---------------------------------------------------------------------------
-
-interface DisconnectConfirmProps {
-  connection: DiscordConnection
-  onCancel: () => void
-  onConfirm: () => Promise<void>
-}
-
-function DisconnectConfirm({ connection, onCancel, onConfirm }: DisconnectConfirmProps) {
-  const [isLoading, setIsLoading] = React.useState(false)
-
-  const handleConfirm = async () => {
-    setIsLoading(true)
-    try {
-      await onConfirm()
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  return (
-    <div
-      style={{
-        background: '#FEF2F2',
-        border: '1px solid #FEE2E2',
-        padding: '16px 20px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-      }}
-    >
-      <AlertTriangle size={16} color="#DC2626" style={{ flexShrink: 0 }} />
-      <div style={{ flex: 1 }}>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '13px',
-            color: '#DC2626',
-            margin: 0,
-          }}
-        >
-          Disconnect Guild {connection.guild_id}?
-        </p>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '12px',
-            color: '#9CA3AF',
-            margin: '2px 0 0 0',
-          }}
-        >
-          The bot will be disconnected from your Discord server. You can reconnect at any time.
-        </p>
-      </div>
-      <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
-        <button
-          onClick={onCancel}
-          disabled={isLoading}
-          style={{
-            height: '30px',
-            padding: '0 12px',
-            background: 'transparent',
-            color: '#374151',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '13px',
-            borderRadius: '0px',
-            border: '1.5px solid #D1D5DB',
-            cursor: isLoading ? 'not-allowed' : 'pointer',
-          }}
-        >
-          Cancel
-        </button>
-        <button
-          onClick={handleConfirm}
-          disabled={isLoading}
-          style={{
-            height: '30px',
-            padding: '0 12px',
-            background: isLoading ? '#E5E7EB' : '#DC2626',
-            color: isLoading ? '#9CA3AF' : '#FFFFFF',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '13px',
-            borderRadius: '0px',
-            border: 'none',
-            cursor: isLoading ? 'not-allowed' : 'pointer',
-          }}
-        >
-          {isLoading ? 'Disconnecting...' : 'Disconnect'}
-        </button>
-      </div>
-    </div>
-  )
-}
-
-// ---------------------------------------------------------------------------
 // Discord section (main export)
 // ---------------------------------------------------------------------------
 
@@ -1074,25 +976,28 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
                 {idx > 0 && (
                   <div style={{ height: '1px', background: '#F3F4F6' }} />
                 )}
-                {disconnectTarget?.id === conn.id ? (
-                  <DisconnectConfirm
-                    connection={conn}
-                    onCancel={() => setDisconnectTarget(null)}
-                    onConfirm={handleConfirmDisconnect}
-                  />
-                ) : (
-                  <DiscordCardItem
-                    connection={conn}
-                    userRole={userRole}
-                    onReplaceToken={handleReplaceToken}
-                    onDisconnect={handleDisconnect}
-                  />
-                )}
+                <DiscordCardItem
+                  connection={conn}
+                  userRole={userRole}
+                  onReplaceToken={handleReplaceToken}
+                  onDisconnect={handleDisconnect}
+                />
               </React.Fragment>
             ))}
           </div>
         )}
       </div>
+
+      {/* Disconnect confirmation */}
+      <ConfirmDialog
+        open={disconnectTarget !== null}
+        onOpenChange={(open) => { if (!open) setDisconnectTarget(null) }}
+        variant="danger"
+        title="Disconnect bot?"
+        description="Your Discord bot will go offline immediately. Any active conversations will be interrupted. You can reconnect at any time."
+        confirmLabel="Disconnect"
+        onConfirm={handleConfirmDisconnect}
+      />
 
       {/* Add/Replace modal */}
       <DiscordConnectionModal

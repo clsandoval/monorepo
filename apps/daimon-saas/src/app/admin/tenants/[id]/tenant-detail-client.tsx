@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/lib/toast'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -296,8 +297,6 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
 
   // Modal state
   const [suspendOpen, setSuspendOpen] = useState(false)
-  const [suspendNote, setSuspendNote] = useState('')
-  const [suspendPending, setSuspendPending] = useState(false)
 
   const [unsuspendOpen, setUnsuspendOpen] = useState(false)
   const [unsuspendPending, setUnsuspendPending] = useState(false)
@@ -326,19 +325,15 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
 
   // ── Suspend ──
   const handleSuspend = async () => {
-    setSuspendPending(true)
-    try {
-      const res = await fetch(`/api/admin/tenants/${tenant.id}/suspend`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ note: suspendNote }) })
-      if (!res.ok) throw new Error((await res.json()).error ?? 'Failed')
-      toast.success('Tenant suspended.')
-      setSuspendOpen(false)
-      setSuspendNote('')
-      refresh()
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Failed to suspend tenant.')
-    } finally {
-      setSuspendPending(false)
+    const res = await fetch(`/api/admin/tenants/${tenant.id}/suspend`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) })
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      toast.error((data as { error?: string }).error ?? 'Failed to suspend tenant.')
+      return
     }
+    toast.success('Tenant suspended.')
+    setSuspendOpen(false)
+    refresh()
   }
 
   // ── Unsuspend ──
@@ -730,17 +725,15 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
       {/* ── Modals ── */}
 
       {/* Suspend */}
-      <Modal open={suspendOpen} onClose={() => setSuspendOpen(false)} title={`Suspend "${tenant.name}"?`}>
-        <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#374151' }}>The tenant&apos;s bot will be disconnected immediately. They will see an &quot;Account Suspended&quot; message when they log in.</p>
-        <label style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#6B7280', display: 'block', marginBottom: '4px' }}>Reason / Note (optional)</label>
-        <textarea value={suspendNote} onChange={e => setSuspendNote(e.target.value)} rows={3} maxLength={500} style={{ width: '100%', padding: '8px', border: '1px solid #E5E7EB', fontFamily: 'var(--font-inter)', fontSize: '13px', resize: 'vertical', boxSizing: 'border-box' }} placeholder="e.g., abuse report, billing issue" />
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '16px' }}>
-          <SmBtn variant="secondary" onClick={() => setSuspendOpen(false)}>Cancel</SmBtn>
-          <button onClick={handleSuspend} disabled={suspendPending} style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: suspendPending ? 'not-allowed' : 'pointer', opacity: suspendPending ? 0.7 : 1, borderRadius: 0 }}>
-            {suspendPending ? 'Suspending…' : 'Suspend'}
-          </button>
-        </div>
-      </Modal>
+      <ConfirmDialog
+        open={suspendOpen}
+        onOpenChange={setSuspendOpen}
+        variant="danger"
+        title={`Suspend "${tenant.name}"?`}
+        description="The tenant's bot will be disconnected immediately. They will see an 'Account Suspended' message when they log in. You can unsuspend at any time."
+        confirmLabel="Suspend"
+        onConfirm={handleSuspend}
+      />
 
       {/* Unsuspend */}
       <Modal open={unsuspendOpen} onClose={() => setUnsuspendOpen(false)} title={`Unsuspend "${tenant.name}"?`}>

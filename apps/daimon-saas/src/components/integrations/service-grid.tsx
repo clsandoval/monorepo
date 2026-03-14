@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { AlertTriangle, Github, Activity, Clock, User, X, Info, Eye, EyeOff } from 'lucide-react'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { useToast } from '@/lib/toast'
 
 // ---------------------------------------------------------------------------
@@ -209,7 +210,7 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
   const isError =
     connection?.status === 'error' || connection?.status === 'expired'
   const isMember = userRole === 'member'
-  const [disconnecting, setDisconnecting] = React.useState(false)
+  const [confirmOpen, setConfirmOpen] = React.useState(false)
   const [disconnectError, setDisconnectError] = React.useState<string | null>(null)
 
   // Left border accent
@@ -237,23 +238,19 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
   }
 
   const handleDisconnect = async () => {
-    if (isMember || disconnecting) return
-    setDisconnecting(true)
     setDisconnectError(null)
-    try {
-      const res = await fetch(`/api/integrations/${service}`, { method: 'DELETE' })
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}))
-        throw new Error((body as { error?: string }).error ?? 'disconnect_failed')
-      }
-      toast.success(`${meta.displayName} disconnected.`)
-      router.refresh()
-    } catch (err) {
-      const errMsg = err instanceof Error ? err.message : 'Failed to disconnect. Please try again.'
+    const res = await fetch(`/api/integrations/${service}`, { method: 'DELETE' })
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}))
+      const errMsg = (body as { error?: string }).error ?? 'Failed to disconnect. Please try again.'
       setDisconnectError(errMsg)
       toast.error(errMsg)
-      setDisconnecting(false)
+      setConfirmOpen(false)
+      return
     }
+    toast.success(`${meta.displayName} disconnected.`)
+    setConfirmOpen(false)
+    router.refresh()
   }
 
   return (
@@ -522,6 +519,17 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
         </div>
       )}
 
+      {/* Disconnect confirmation */}
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        variant="warning"
+        title={`Disconnect ${meta.displayName}?`}
+        description={`Disconnecting ${meta.displayName} will disable all ${meta.displayName} tools in Decision Orchestrator. You can reconnect at any time.`}
+        confirmLabel="Disconnect"
+        onConfirm={handleDisconnect}
+      />
+
       {/* Footer actions */}
       <div
         style={{
@@ -587,8 +595,8 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
             {/* Disconnect — hidden for revoked */}
             {connection.status !== 'revoked' && (
               <button
-                onClick={() => { void handleDisconnect() }}
-                disabled={isMember || disconnecting}
+                onClick={() => setConfirmOpen(true)}
+                disabled={isMember}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -596,17 +604,16 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
                   height: '36px',
                   padding: '0 16px',
                   background: 'transparent',
-                  color: isMember || disconnecting ? '#9CA3AF' : '#DC2626',
+                  color: isMember ? '#9CA3AF' : '#DC2626',
                   fontFamily: 'var(--font-inter), Inter, sans-serif',
                   fontWeight: 500,
                   fontSize: '14px',
                   borderRadius: '0px',
                   border: 'none',
-                  cursor: isMember || disconnecting ? 'not-allowed' : 'pointer',
-                  opacity: disconnecting ? 0.6 : 1,
+                  cursor: isMember ? 'not-allowed' : 'pointer',
                 }}
               >
-                {disconnecting ? 'Disconnecting…' : 'Disconnect'}
+                Disconnect
               </button>
             )}
           </>

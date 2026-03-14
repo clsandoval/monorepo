@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { useRouter } from 'next/navigation'
 import { AlertTriangle, CheckCircle, XCircle, X, Loader2, Eye, EyeOff } from 'lucide-react'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { useToast } from '@/lib/toast'
 
 // ---------------------------------------------------------------------------
@@ -936,6 +937,7 @@ export interface ApiKeySectionProps {
 
 export function ApiKeySection({ apiKeys, userRole }: ApiKeySectionProps) {
   const router = useRouter()
+  const { toast } = useToast()
   const [modal, setModal] = React.useState<ModalState>({ type: 'none' })
 
   const anthropicKey = apiKeys.find((k) => k.key_type === 'anthropic') ?? null
@@ -960,6 +962,19 @@ export function ApiKeySection({ apiKeys, userRole }: ApiKeySectionProps) {
     keyStatus: 'active' | 'invalid' | 'revoked'
   ) {
     setModal({ type: 'delete', provider, keyId, keyStatus })
+  }
+
+  async function handleConfirmDelete() {
+    if (modal.type !== 'delete') return
+    const { provider, keyId } = modal
+    const meta = PROVIDER_META[provider]
+    const res = await fetch(`/api/billing/api-keys/${keyId}`, { method: 'DELETE' })
+    if (!res.ok) {
+      toast.error('Could not delete key. Please try again.')
+      return
+    }
+    toast.success(meta.deletedToast)
+    handleSuccess()
   }
 
   return (
@@ -1033,12 +1048,14 @@ export function ApiKeySection({ apiKeys, userRole }: ApiKeySectionProps) {
         />
       )}
       {modal.type === 'delete' && (
-        <DeleteKeyDialog
-          provider={modal.provider}
-          keyId={modal.keyId}
-          keyStatus={modal.keyStatus}
-          onClose={() => setModal({ type: 'none' })}
-          onSuccess={handleSuccess}
+        <ConfirmDialog
+          open
+          onOpenChange={(open) => { if (!open) setModal({ type: 'none' }) }}
+          variant="danger"
+          title={PROVIDER_META[modal.provider].deleteTitle}
+          description={`${PROVIDER_META[modal.provider].deleteBody} ${PROVIDER_META[modal.provider].deleteWarning}`}
+          confirmLabel="Delete Key"
+          onConfirm={handleConfirmDelete}
         />
       )}
     </>
