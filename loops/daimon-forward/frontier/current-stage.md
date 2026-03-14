@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 106
-- **Current**: 106
+- **Completed**: 107
+- **Current**: 107
 
 ## Current Stage
 
-**Stage 107** — (next stage)
+**Stage 108** — (next stage)
 
 ## Stage Log
 
@@ -120,3 +120,4 @@
 | 104 | done | 2026-03-14T23:45:00Z | Accessibility ARIA + keyboard nav: skip-to-content link in root layout (first focusable element, sr-only until focused); globals.css focus ring: *:focus outline:none, *:focus-visible outline 2px aqua + box-shadow, navy bg variant, high-contrast media query (3px black); sidebar.tsx <aside>→<nav aria-label="Sidebar navigation" id="sidebar-nav">, logo aria-label, aria-current on nav items, aria-hidden on icons, role="list" on nav ul, aria-label on footer div; public-layout.tsx main id="main-content" tabIndex={-1}; dashboard-layout.tsx main id="main-content" tabIndex={-1}; build passes |
 | 105 | done | 2026-03-14T23:55:00Z | Micro-interactions + transitions: next-nprogress-bar (2px aqua top bar, NavigationProgressBar client wrapper) added to root layout; animation token system (--duration-* + --ease-* CSS vars) + prefers-reduced-motion block in globals.css; dropdown keyframes (dropdownEnter/dropdownExit) + animate-dropdown-open/close utilities; modalScaleOut keyframe + exit animation state in Modal (visible/isClosing); button active:scale-[0.98] press effect; sidebar-collapsible class with width transition 250ms ease-enter; field-error + alert-banner-dismissing utility classes; build passes |
 | 106 | done | 2026-03-15T00:10:00Z | Playwright config updated (5 projects: desktop-chromium/mobile-webkit/tablet-chromium/screenshots-desktop/screenshots-mobile, webServer npm run dev, globalSetup for npx supabase start, fullyParallel, retries, toHaveScreenshot tolerance); e2e/global-setup.ts (supabase start guard); e2e/fixtures/test-data.ts (TEST_USER + TEST_USERS from seed.sql); e2e/fixtures/auth.setup.ts (Supabase API sign-in + localStorage injection + storageState save); playwright --list shows 3 tests |
+| 107 | done | 2026-03-15T00:20:00Z | e2e/landing.spec.ts: 6 tests covering hero (above-fold), how-it-works, features grid, pricing monthly, pricing annual toggle, FAQ/social proof, footer; screenshots saved to loops/daimon-forward/screenshots/ with spec naming convention; viewport 1280x800; @screenshot tag |
