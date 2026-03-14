@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 92
-- **Analyzed:** 2
-- **Pending:** 90
-- **Convergence:** 2%
+- **Total aspects:** 98
+- **Analyzed:** 3
+- **Pending:** 95
+- **Convergence:** 3%
 
 ---
 
@@ -13,7 +13,7 @@
 ### Programming/Automation Games
 - [x] 1.01 — Shenzhen I/O: constraint-based puzzle design, limited instruction space, multiple valid solutions
 - [x] 1.02 — TIS-100: minimal instruction set, spatial node layout, parallel execution visualization
-- [ ] 1.03 — Opus Magnum: open-ended optimization, Zachtronics histogram system, aesthetic satisfaction of clean solutions
+- [x] 1.03 — Opus Magnum: open-ended optimization, Zachtronics histogram system, aesthetic satisfaction of clean solutions
 - [ ] 1.04 — Exapunks: narrative framing of programming puzzles, zine-style tutorial, hacker fantasy
 - [ ] 1.05 — Screeps: persistent-world programming RTS, JavaScript API, MMO dynamics
 - [ ] 1.06 — Gladiabots: visual behavior tree programming for robots, multiplayer AI tournaments
@@ -62,6 +62,7 @@
 - [ ] 2.00e — The meta-level: building systems that build systems — how does each intelligence model support the "factory of agents" feeling?
 - [ ] 2.00f — No global coordinator as design constraint: agents that only know their immediate neighbors; emergent swarm behavior from local decisions only (from TIS-100's no-orchestrator architecture)
 - [ ] 2.14 — Spatial routing as mechanic layer: battlefield layout creates information routing constraints, separate from configuration logic; agent proximity determines which hook chains are possible
+- [ ] 2.15 — Pipelined agent execution: throughput-optimal configurations where agents handle overlapping tasks (agent A finishes task N while agent B starts task N+1); cycle-optimal solutions look different from cost-optimal solutions; maps to Opus Magnum's pipeline-vs-sequential tradeoff
 
 ### Buffer Models
 - [ ] 2.01 — Fixed-slot buffer: N discrete slots, each holds one observation/message, oldest evicted first
@@ -131,6 +132,8 @@
 - [ ] 4.06 — Campaign map: how missions are presented, branching, narrative integration
 - [ ] 4.07 — The "oh no" moment: how information overload is visualized on units
 - [ ] 4.07a — "Blocked" visual state: agents that are waiting for input should be visually distinct from agents that are executing — prevents opacity that frustrates players in TIS-100 (deadlock detection gap)
+- [ ] 4.09 — The histogram as player communication layer: deep dive on histogram design for Robot Uprising — axes, distribution shape, friend overlay, no-reward philosophy, when to show vs. hide; informed by Opus Magnum histogram psychology
+- [ ] 6.09 — GIF/clip export as primary viral mechanic: designing replay clips that are shareable, beautiful, and self-explanatory without context; the hook-cascade clip as a viral moment; technical and design requirements for a Robot Uprising replay export
 - [ ] 4.04a — Debrief as debugger: step-through replay of execution with per-agent state, buffer contents, and hook activation — the primary teaching mechanic, not just a stats screen
 - [ ] 4.08 — Unit portraits and identity: how units look, how you distinguish them, personality
 
@@ -149,6 +152,7 @@
 - [ ] 5.08 — Mission variety: what types of missions exist (defend, attack, stealth, escort, puzzle, boss)
 - [ ] 5.09 — Replayability: what makes someone start a new campaign
 - [ ] 5.10 — The "product as puzzle" narrative method: working backwards from fictional mission objects to determine which agent configurations matter (from Shenzhen I/O)
+- [ ] 5.13 — The reagent-placement-as-choice design pattern (from Opus Magnum): starting conditions that feel fixed but are actually variable create a "double reveal" — players discover the solution, then discover the solution space is larger than they thought; applies to agent deployment layout and hook topology choices
 - [ ] 5.12 — Predecessor content as narrative: captured enemy agent configs carrying "previous operator" annotations — the Randy's-annotations pattern for Robot Uprising lore delivery without cutscenes
 - [ ] 5.11 — Solitaire distraction risk: when a secondary mechanic (debrief analysis, sandbox mode) becomes more engaging than the core loop — how to prevent and exploit
 
@@ -175,6 +179,7 @@
 - [ ] 7.04 — Modding: custom missions, custom building blocks, total conversions
 - [ ] 7.05 — Leaderboards and optimization: Zachtronics-style histograms, community competition
 - [ ] 7.07 — Three orthogonal optimization axes: speed / efficiency / elegance as genuinely in-tension post-mission goals; a cycle-optimal army config and a buffer-minimal config should require different approaches
+- [ ] 7.08 — Deferred community metric invention: designing the scoring system to be extensible so the community can invent new evaluation axes; the Opus Magnum "MechA" pattern; what composite metrics might the Robot Uprising community invent?
 - [ ] 7.06 — The histogram as social loop: post-execution bell curves showing player distribution across agent efficiency metrics (from Shenzhen I/O)
 
 ---
@@ -185,4 +190,5 @@
 - [ ] 8.02 — Conflict matrix: which options in different categories are incompatible
 - [ ] 8.03 — "Full game" configurations: 3-5 coherent complete designs across all categories
 - [ ] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
+- [ ] 8.06 — The "first ugly solution" as tutorial completion: designing missions to be beatable with brute-force configurations so the histogram teaches optimization rather than a tutorial system; the Opus Magnum "no required optimization" pattern applied to agent configuration
 - [ ] 8.05 — The maximum viable game: everything at once — does it cohere or collapse?
