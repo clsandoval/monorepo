@@ -1,30 +1,56 @@
-<testsuites id="" name="" tests="12" failures="0" skipped="0" errors="0" time="23.128602000000004">
-<testsuite name="billing.spec.ts" timestamp="2026-03-14T03:09:12.199Z" hostname="desktop-chromium" tests="7" failures="0" skipped="0" time="49.992" errors="0">
-<testcase name="Billing screenshots @screenshot › 103 billing free plan display" classname="billing.spec.ts" time="7.747">
+<testsuites id="" name="" tests="25" failures="0" skipped="0" errors="0" time="34.885510000000004">
+<testsuite name="docs.spec.ts" timestamp="2026-03-14T03:31:28.212Z" hostname="desktop-chromium" tests="8" failures="0" skipped="0" time="42.787" errors="0">
+<testcase name="Docs page screenshots @screenshot › 187 docs quick-start layout sidebar" classname="docs.spec.ts" time="4.785">
 </testcase>
-<testcase name="Billing screenshots @screenshot › 105 billing plan comparison grid" classname="billing.spec.ts" time="7.328">
+<testcase name="Docs page screenshots @screenshot › 190 docs quick-start above fold" classname="docs.spec.ts" time="4.865">
 </testcase>
-<testcase name="Billing screenshots @screenshot › 107 billing starter plan display" classname="billing.spec.ts" time="7.076">
+<testcase name="Docs page screenshots @screenshot › 192 docs quick-start mid-page" classname="docs.spec.ts" time="4.631">
 </testcase>
-<testcase name="Billing screenshots @screenshot › 109 billing pro plan display" classname="billing.spec.ts" time="7.909">
+<testcase name="Docs page screenshots @screenshot › 193 docs quick-start bottom" classname="docs.spec.ts" time="4.771">
 </testcase>
-<testcase name="Billing screenshots @screenshot › 115 billing past-due banner" classname="billing.spec.ts" time="4.866">
+<testcase name="Docs page screenshots @screenshot › 194 docs tools above fold" classname="docs.spec.ts" time="5.735">
 </testcase>
-<testcase name="Billing screenshots @screenshot › 120 billing api keys section" classname="billing.spec.ts" time="7.634">
+<testcase name="Docs page screenshots @screenshot › 199 docs faq above fold" classname="docs.spec.ts" time="6.312">
 </testcase>
-<testcase name="Billing screenshots @screenshot › 122 billing api keys both saved" classname="billing.spec.ts" time="7.432">
+<testcase name="Docs page screenshots @screenshot › 200 docs faq accordion expanded" classname="docs.spec.ts" time="6.055">
+</testcase>
+<testcase name="Docs page screenshots @screenshot › 202 docs billing above fold" classname="docs.spec.ts" time="5.633">
 </testcase>
 </testsuite>
-<testsuite name="integrations.spec.ts" timestamp="2026-03-14T03:09:12.199Z" hostname="desktop-chromium" tests="5" failures="0" skipped="0" time="26.967" errors="0">
-<testcase name="Integrations screenshots @screenshot › 079 integrations service grid all disconnected" classname="integrations.spec.ts" time="6.74">
+<testsuite name="phantom.spec.ts" timestamp="2026-03-14T03:31:28.212Z" hostname="desktop-chromium" tests="17" failures="0" skipped="0" time="81.82" errors="0">
+<testcase name="Phantom pages screenshots @screenshot › 204 changelog above fold" classname="phantom.spec.ts" time="3.598">
 </testcase>
-<testcase name="Integrations screenshots @screenshot › discord modal add connection open" classname="integrations.spec.ts" time="5.236">
+<testcase name="Phantom pages screenshots @screenshot › 206 changelog mid-page" classname="phantom.spec.ts" time="3.166">
 </testcase>
-<testcase name="Integrations screenshots @screenshot › 083 integrations connected service state" classname="integrations.spec.ts" time="4.394">
+<testcase name="Phantom pages screenshots @screenshot › 207 changelog footer" classname="phantom.spec.ts" time="2.943">
 </testcase>
-<testcase name="Integrations screenshots @screenshot › 090 integrations toggl api key modal open" classname="integrations.spec.ts" time="5.161">
+<testcase name="Phantom pages screenshots @screenshot › 208 about above fold" classname="phantom.spec.ts" time="4.755">
 </testcase>
-<testcase name="Integrations screenshots @screenshot › 096 integrations disconnect confirm dialog" classname="integrations.spec.ts" time="5.436">
+<testcase name="Phantom pages screenshots @screenshot › 210 about team section" classname="phantom.spec.ts" time="2.95">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 211 about footer" classname="phantom.spec.ts" time="2.878">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 212 blog index above fold" classname="phantom.spec.ts" time="4.506">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 215 blog index footer" classname="phantom.spec.ts" time="2.864">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 216 blog post introducing-daimon above fold" classname="phantom.spec.ts" time="5.019">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 221 cookie policy above fold" classname="phantom.spec.ts" time="4.876">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 223 cookie policy bottom" classname="phantom.spec.ts" time="3.174">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 224 terms above fold" classname="phantom.spec.ts" time="11.09">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 226 terms mid-page" classname="phantom.spec.ts" time="8.308">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 227 terms footer" classname="phantom.spec.ts" time="8.22">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 228 privacy above fold" classname="phantom.spec.ts" time="8.35">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 230 privacy mid-page" classname="phantom.spec.ts" time="2.601">
+</testcase>
+<testcase name="Phantom pages screenshots @screenshot › 231 privacy footer" classname="phantom.spec.ts" time="2.522">
 </testcase>
 </testsuite>
 </testsuites>
