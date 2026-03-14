@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 351
-- **Analyzed:** 56
-- **Pending:** 295
-- **Convergence:** 15.9%
+- **Total aspects:** 356
+- **Analyzed:** 57
+- **Pending:** 299
+- **Convergence:** 16.0%
 
 ---
 
@@ -63,7 +63,12 @@
 - [x] 4.69e-i-a — Sample size warning threshold: minimum match count for a reliable filtered analysis and how the UI communicates when a filtered set is too small; exact UI: warning banner, disabled Run Analysis button, or advisory text only?
   - [x] 4.69e-i-a-i — "Don't show again" placement decision: whether the toast's "don't show again" affordance lives in-toast (more discoverable) vs. in Settings only (cleaner toast); two usability philosophies with measurable tradeoffs; recommendation: Option 4 (Two-Tier Dismissal: session snooze in-toast + permanent suppress in Settings) + first-occurrence footer pointing to Settings path; 4 options explored; 3 player journeys; 4 new sub-aspects discovered
     - [x] 4.69e-i-a-vi — Toast re-entry and session boundary detection after snooze: when does "session" end — tab close, game close, 30min idle? Browser sessionStorage vs. explicit game session tracking; edge cases with multiple tabs; Recommendation: Model B+ (localStorage calendar-day + 6h floor); 4 models compared (tab-close, calendar-day, idle-timeout, explicit session ID); 3 player journeys; 5 new sub-aspects discovered
-      - [ ] 4.69e-i-a-vi-a — Profile-scoped vs. global snooze key: if multi-profile ships, snooze key should be profile-scoped to prevent cross-profile snooze inheritance when helping another player in a second tab
+      - [x] 4.69e-i-a-vi-a — Profile-scoped vs. global snooze key: if multi-profile ships, snooze key should be profile-scoped to prevent cross-profile snooze inheritance when helping another player in a second tab; 5 options analyzed (Global / Profile-Scoped Key / Self-Invalidating Embedded ProfileId / Profile Save Data / User-Level Distinction); recommended Phase 1 = Option 3 (embed profileId in value, null-check for backward compat), Phase 2 = Option 2 (profile-scoped key); permanent suppress same phase plan; 3 player journeys (Freya helping Kai in Tab 2, Marcus/Jaime sharing a laptop, Cleo streaming on Tutorial profile while Main has suppress enabled); 5 new sub-aspects discovered
+        - [ ] 4.69e-i-a-vi-a-i — Notification state in profile export: if profiles support import/export, should notification preferences (snooze, permanent suppress) travel with the export? Arguments for: complete portability. Arguments against: snooze is device-session state, not career-state; importing a profile from another player's machine shouldn't inherit their "this player already understands the toast" state
+        - [ ] 4.69e-i-a-vi-a-ii — "Snooze all profiles" global action: power users with 3+ profiles who want a single "snooze all profiles today" affordance rather than clicking snooze once per profile encounter; Settings-level toggle vs. toast option; interaction with profile isolation principle
+        - [ ] 4.69e-i-a-vi-a-iii — Profile creation inherits notification prefs: when a new profile is created, should prefs default to the current profile's state (inherit) or reset to factory defaults? Fresh-start profile vs. experimental-variant profile have different expectations
+        - [ ] 4.69e-i-a-vi-a-iv — The notification audit log: per-profile notification history showing last 5 toast encounters with timestamps; for players debugging "why am I seeing this?" or "I thought I snoozed this?"; interaction with profile-scoped snooze visibility (4.69e-i-a-vi-d)
+        - [ ] 4.69e-i-a-vi-a-v — Global suppress as explicit super-setting: Settings option "Suppress across all profiles" as distinct from per-profile suppress; explicitly distinguishes "I've learned this everywhere" from "I've learned this on my main profile only"
       - [ ] 4.69e-i-a-vi-b — Toast text adaptation on repeat encounters: should toast text become more terse after N views? First encounter = full explanation; subsequent = "N=11 · directional zone only"; adapts to player vocabulary
       - [ ] 4.69e-i-a-vi-c — Snooze expiry as generalized session re-entry hook: reuse session-boundary detection for other contextual reminders (coverage score stale, unreviewed flags); generalized notification system vs. per-notification custom logic
       - [ ] 4.69e-i-a-vi-d — Snooze state visibility in Settings: show "snoozed until midnight" vs. just enabled/disabled toggle; transparency vs. complexity
