@@ -59,10 +59,10 @@ Two things that ARE the game and cannot be removed:
 
 ### Core Loop (Updated)
 
-1. **PLAN** — player designs attention architectures for their units using composable building blocks
-2. **EXECUTE** — real-time, hands-off. Watch the architecture work or fail. Speed controls, pause, rewind.
-3. **DEBRIEF** — timeline replay showing exactly what each unit knew, what it forgot, what signals it missed, what decisions it made with incomplete information
-4. **ITERATE** — refine the architecture based on debrief analysis, redeploy
+1. **PLAN** — configure agents with primitives (skills, rules, hooks, context config), wire agents together into architectures
+2. **EXECUTE** — hands-off. Watch the full run play out. You cannot intervene, only observe. Speed controls, pause, rewind.
+3. **DEBRIEF** — trace failures through the chain. Which agent's context overflowed. Which hook never fired. Which skill was never used. Which rule conflicted with another rule. Every failure is a detective story.
+4. **ITERATE** — go back to the workbench. The insight from the last run changes how you configure the next one. Redeploy.
 
 ### Narrative & Setting
 
@@ -81,33 +81,43 @@ Two things that ARE the game and cannot be removed:
 
 ---
 
-## The Big Open Question: Building Block Paradigm
+## The Agentic Engineering Workbench (Locked)
 
-The player manipulates *something* to design attention architectures. What is that something?
+The building block question is resolved. The game is a literal agentic engineering workbench. The player configures agents with four primitive types — the same primitives used in real agentic AI engineering, using the same vocabulary (1:1 mapping, no metaphor).
 
-### Options Explored in Brainstorming
+### The Four Primitives
 
-**Node graph (Factorio-style plumbing):**
-- Sensor → Filter → Buffer → Router → Compressor → Actuator
-- Pro: connections/topology visible, combos visible before execution, spatial metaphor for capacity
-- Con: feels like work, too "factory-ish", the fun is attention not plumbing
+| Primitive | What It Does | Real-World Equivalent |
+|-----------|-------------|----------------------|
+| **Skills** | What an agent CAN do. Reusable capability packages slotted into an agent. | Claude Code skills — composable capability modules |
+| **Rules** | Behavioral constraints and priorities. What an agent SHOULD and SHOULDN'T do. | CLAUDE.md rules, system prompt constraints |
+| **Hooks** | Reactive triggers across agents. When X happens → do Y. The glue between agents. | Claude Code hooks — event-driven cross-system wiring |
+| **Context config** | Buffer size, what gets in, what gets filtered, eviction priorities, compression. | Context window management — what's in the prompt, what's not |
 
-**Stances / postures:**
-- Units adopt attention stances: "Tunnel Vision", "Paranoia", "Relay"
-- Pro: feels like commanding, not engineering
-- Con: may overcorrect away from the composability that creates combos
+### How It Works
 
-**Neither was locked.** This is the primary design space to explore.
+Each agent in the player's army is a bundle of skills + rules + hooks + context config. The workbench is where you configure each agent and wire agents together via hooks.
 
-### Other Paradigms Not Yet Explored
+**The wiring IS the architecture.** Hooks connect agents: "when scout detects threat → alert striker." "When relay buffer > 80% → compress old entries." "When command agent receives 3+ threat reports from same sector → reassign reserve squad."
 
-- Cards / deckbuilding
-- Drag-and-drop priority lists
-- Spatial placement (place attention "zones" on the battlefield)
-- Sliders / mixing board
-- Behavior trees (visual scripting)
-- Emoji/icon-based command language
-- Hybrid approaches
+**The meta-level:** An agent can have skills/rules/hooks that *manage other agents*. A command agent doesn't fight — it manages. It receives reports and reassigns skills, adjusts rules, reroutes hooks on subordinates based on what it observes. This is building the factory that builds the factory.
+
+### The Difficulty Curve (From Real Agentic Engineering)
+
+| Level | Failure Mode | Diagnosis Method | What Player Learns |
+|-------|-------------|-----------------|-------------------|
+| Early | Obvious — "it forgot X because Y wasn't in context" | Read the buffer, see what's missing | Context matters. Filter noise. |
+| Mid | Chain tracing — "A sent wrong thing to B because A's rules didn't account for Z" | Trace signals through the architecture | Systems interact. Test your wiring. |
+| Late | Surprising — "it worked for 10 rounds then conditions shifted and the whole thing collapsed" | Detective work through the debrief | Resilience requires anticipating what you can't anticipate. |
+
+### Previously Explored Paradigms (Superseded)
+
+These were explored before landing on the workbench model:
+- Node graph (too Factorio — plumbing, not commanding)
+- Stances/postures (too simple — kills composability)
+- Cards, sliders, behavior trees, etc. (all direct-control paradigms — wrong level of abstraction)
+
+The workbench model supersedes all of these because it operates at the right level: you're not placing nodes or playing cards, you're **configuring autonomous agents and wiring them into systems.**
 
 ---
 
@@ -129,13 +139,13 @@ Information overload is **viscerally legible**:
 - The fix is intuitive: remove things the unit doesn't need to think about
 - First tool isn't a text editor — it's a filter. Multiple choice, not blank page.
 
-### Player Levers
+### Player Levers (Mapped to Primitives)
 
-1. Perception filters — what to notice, what to ignore
-2. Message compression — coordinates only vs. full reports
-3. Memory priorities — what to keep, what to evict first
-4. Hierarchical delegation — summaries instead of raw data
-5. Architecture itself — multi-unit systems as the solution to context pressure
+1. **Context config** — perception filters (what to notice/ignore), buffer size, eviction priorities, compression settings
+2. **Rules** — "threat alerts outrank routine observations", "forget terrain data after 10 ticks"
+3. **Hooks** — "when buffer > 80% → compress old entries", "when scout detects threat → forward to striker"
+4. **Skills** — "relay" skill summarizes before forwarding, "compress" skill reduces message size
+5. **Architecture** — wiring agents together via hooks creates multi-agent systems as the solution to context pressure
 
 ---
 

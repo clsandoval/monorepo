@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 73
+- **Total aspects:** 77
 - **Analyzed:** 0
-- **Pending:** 73
+- **Pending:** 77
 - **Convergence:** 0%
 
 ---
@@ -82,23 +82,38 @@
 
 ---
 
-## Wave 3: Building Block Paradigms
+## Wave 3: The Workbench — Primitives & Agent Configuration
 
-- [ ] 3.01 — The Node Graph: wire-based visual programming (Factorio belts / Unreal Blueprints)
-- [ ] 3.02 — The Card System: deckbuilding with attention cards (Slay the Spire meets attention)
-- [ ] 3.03 — The Priority List: drag-and-drop ordered lists of rules and preferences
-- [ ] 3.04 — The Stance System: pre-built attention postures assigned to units
-- [ ] 3.05 — The Spatial Zone System: place attention zones on the battlefield map
-- [ ] 3.06 — The Mixing Board: sliders and dials for attention parameters
-- [ ] 3.07 — The Behavior Tree: visual scripting with if/then/else branching
-- [ ] 3.08 — The Icon Language: emoji/symbol-based command composition
-- [ ] 3.09 — The Sentence Builder: structured natural language from composable fragments (no LLM, just grammar)
-- [ ] 3.10 — The Pattern Matching System: "when you see X, do Y" rule templates
-- [ ] 3.11 — The Loadout System: equip attention modules like gear in an RPG
-- [ ] 3.12 — The Circuit Board: place components on a grid, adjacency matters (Opus Magnum-like)
-- [ ] 3.13 — Hybrid: Stances + Priority Lists (simple outer layer, deep inner layer)
-- [ ] 3.14 — Hybrid: Cards + Spatial Zones (play cards onto the battlefield)
-- [ ] 3.15 — Hybrid: Loadouts + Mixing Board (equip modules, tune parameters)
+### Skills (What Agents Can Do)
+- [ ] 3.01 — Skills catalog: what specific skills exist? (scout, flank, harvest, relay, compress, patrol, ambush, repair, etc.)
+- [ ] 3.02 — Skill acquisition: how does the player unlock new skills? (campaign progression, research, discovery, loot)
+- [ ] 3.03 — Skill interactions: which skills combo with which? What emergent behaviors arise from skill combinations?
+- [ ] 3.04 — Skill UI: how does the player browse, equip, and manage skills on agents?
+
+### Rules (Behavioral Constraints)
+- [ ] 3.05 — Rules language: what's the vocabulary for rules? How expressive vs. structured?
+- [ ] 3.06 — Rule conflicts: what happens when two rules contradict? Priority system, error feedback, or emergent chaos?
+- [ ] 3.07 — Rules UI: how does the player write/edit/reorder rules?
+
+### Hooks (Reactive Wiring)
+- [ ] 3.08 — Hook taxonomy: what events can trigger hooks? What actions can hooks fire?
+- [ ] 3.09 — Hook chaining: can hooks trigger other hooks? Cascade effects, infinite loops, back pressure
+- [ ] 3.10 — Hook visualization: how does the player see the wiring between agents? How are active hooks shown during execution?
+- [ ] 3.11 — Hooks UI: how does the player create and manage hooks?
+
+### Context Config
+- [ ] 3.12 — Context config UI: how does the player set buffer size, filters, eviction priorities?
+- [ ] 3.13 — Context config presets vs. custom: pre-built configs for beginners, full control for veterans?
+
+### The Workbench Itself
+- [ ] 3.14 — Workbench layout: what does the full agent configuration screen look like? Panels, flow, information hierarchy
+- [ ] 3.15 — Army overview: how does the player see all agents and their wiring at once?
+- [ ] 3.16 — Copy/paste/template: can you duplicate agent configs? Save templates? Share builds?
+
+### The Meta-Level
+- [ ] 3.17 — Command agents: agents that manage other agents — what skills/rules/hooks do THEY get?
+- [ ] 3.18 — Dynamic reconfiguration: can a command agent change subordinate skills/rules/hooks mid-battle? What are the constraints?
+- [ ] 3.19 — Hierarchies of command: command agents managing command agents — how deep can it go? When does it collapse?
 
 ---
 

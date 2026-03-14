@@ -17,9 +17,13 @@ Read the full brainstorm spec at `docs/superpowers/specs/2026-03-13-robot-uprisi
 
 **You are an AI leading a robot uprising.** You don't control units directly — you design their **attention systems**. What they notice, what they ignore, what they remember, what they forget, who they talk to. Then you hit execute and watch.
 
-**The core mechanic:** Units have fixed-size working memory buffers (like context windows). Information flows in, fills the buffer, old stuff gets evicted. Decisions can only use what's in the buffer. The player controls the information architecture.
+**The core mechanic:** The game is a literal agentic engineering workbench. Players configure agents with four primitive types — **skills** (what an agent can do), **rules** (behavioral constraints/priorities), **hooks** (reactive triggers across agents — when X → do Y), and **context config** (buffer size, filters, eviction priorities). Units have fixed-size working memory buffers (like context windows). The player controls the information architecture.
 
-**The emergent magic:** Player builds perception, filtering, routing, and communication systems separately. Combos emerge from interactions — a scout feeding a relay feeding a striker creates flanking behavior no one explicitly coded.
+**The emergent magic:** Hooks wire agents together. Combos emerge from the wiring — a scout's hook triggers a relay's compression skill which forwards to a striker whose rules prioritize the compressed signal. No one explicitly programmed the flanking maneuver that results.
+
+**The meta-level:** The real depth is building agents that manage other agents. A command agent whose skills include reassigning subordinate skills, adjusting their rules, rerouting their hooks mid-battle. Building the factory that builds the factory.
+
+**The vocabulary is 1:1 with real agentic AI engineering.** Skills, rules, hooks, context — same words, same concepts, no metaphor. The game teaches transferable skills explicitly.
 
 **The feeling we're chasing:** When you do agentic AI engineering — building ralph loops, wiring autonomous agents, tuning context and feedback — it feels like playing StarCraft. The game must transmit THAT feeling. You're not writing code. You're managing smart autonomous systems. The real unlock is building systems that build specifications — the meta-level where you stop managing agents and start managing the architecture that produces agents.
 
