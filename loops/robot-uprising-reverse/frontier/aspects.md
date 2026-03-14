@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 551
-- **Analyzed:** 87
-- **Pending:** 464
+- **Total aspects:** 556
+- **Analyzed:** 88
+- **Pending:** 468
 - **Convergence:** 15.8%
 
 ---
@@ -232,7 +232,7 @@
   - [ ] 4.69e-viii-d — Deactivated tag reactivation flow: fresh TTL vs. resume; original values vs. current data; distinguishing "accidentally expired" from "re-tagging after a break"
   - [ ] 4.69e-viii-e — Tag expiry as tutorial for broader config hygiene: expiry system as first encounter with "configuration debt" concept; transfer to hook configs, rule priorities, context filters
 - [x] 4.69e-ix — Adversarial tag as community signal: anonymized aggregation of tag frequency across players; "this opponent is tagged as adversarial by 12 players in your bracket"; crowd-sourced adversarial intelligence; risk of mob tagging strong non-adversarial players; interaction with 7.10 necropsy culture
-- [ ] 4.69e-x — Tag evidence export for community discussion: shareable artifact showing match-source breakdown, preview, and tagging rationale without revealing opponent identity; enables community discussion of "when should I tag?" as a learnable skill; interaction with necropsy culture (7.10) and Opus Magnum histogram sharing (1.03)
+- [x] 4.69e-x — Tag evidence export for community discussion: shareable artifact showing match-source breakdown, preview, and tagging rationale without revealing opponent identity; enables community discussion of "when should I tag?" as a learnable skill; interaction with necropsy culture (7.10) and Opus Magnum histogram sharing (1.03)
 - [ ] 4.69e-v-a — APS as matchmaking input: should matchmaking reduce probability of matching high-APS players against their tagged opponents; tension between competitive fairness (any vs. any) and player wellbeing; comparable: chess.com "avoid player" in arena tournaments
 - [ ] 4.69e-v-b — Community APS leaderboard and "resilience" prestige: aggregated APS data as community feature; "Most Resilient Players" showing high-rank players who maintained position despite extreme adversarial pressure; new axis of competitive prestige beyond win rate; interaction with necropsy culture (7.10)
 - [ ] 4.69e-v-c — APS false inflation from small opponent pools: natural match frequency in low-population brackets inflates APS even without intensifying targeting; APS computation normalization for pool size; closely related to 4.69e-vi concentration threshold calibration
@@ -247,6 +247,11 @@
 - [ ] 4.69e-ix-c — The "false adversarial" identity crisis: when a legitimate unconventional strategy generates high community tag counts, the player faces an identity crisis; design response options: "strategy profile" that explains playstyle to opponents, "counter-evidence" system that lets tagged players respond to tags, or acceptance that community perception IS the signal; interaction with necropsy culture (7.10)
 - [ ] 4.69e-ix-d — Community signal gating behind adversarial-diagnosis tutorial completion: community tag counts are actively harmful for players who haven't completed the adversarial-diagnosis tutorial arc (conformity without comprehension); design options: gate signals behind mission completion, show signals but hide tagging affordance, inline micro-tutorial on first encounter; interaction with onboarding (3.*)
 - [ ] 4.69e-ix-e — Cross-bracket adversarial intelligence for multi-tier players: a player competing in both Operative II and Architect I sees different community signals for the same opponent in different brackets; reconciling contradictory signals when opponent is adversarial only at one tier; interaction with APS (4.69e-v) and matchmaking (4.69e-v-a)
+- [ ] 4.69e-x-a — Consistent cross-player anonymization within brackets: should "Opponent A" in one player's Evidence Card map to the same real player as "Opponent A" in another player's export from the same bracket? Consistent IDs enable cross-referencing but also triangulation-based deanonymization; inconsistent IDs prevent cross-referencing but fragment community discussion; design options: consistent per-bracket-per-season, rotating IDs, hash-based with salt rotation; interaction with TIN (4.69e-ix opt-in pool)
+- [ ] 4.69e-x-b — Evidence Card moderation and abuse vectors: the free-text annotation field can contain harassment, slurs, coded language, or deanonymization attempts; moderation options: pre-share text screening, community flagging on hosted cards, annotation-less export option, approved vocabulary lists; interaction with community norms (7.10 necropsy culture)
+- [ ] 4.69e-x-c — Evidence Card as generic shareable analysis artifact precedent: the tag evidence export establishes infrastructure for ALL shareable analytical artifacts (debrief snapshots, configuration shares, inspector timeline moments); design decision: build generic "shareable analysis artifact" system or build tag-specific export first? Architecture implications for replay export, config sharing, and community content creation
+- [ ] 4.69e-x-d — The performative analysis problem: when Evidence Cards become content performance (streamer TikTok clips) rather than genuine diagnosis, the community conversation shifts from "is this adversarial?" to "is this entertaining?"; mitigation options: separate analytical and entertainment export contexts, community norms against sensationalization, annotation tone guidelines; interaction with streaming culture and necropsy culture (7.10)
+- [ ] 4.69e-x-e — Temporal validity markers on evidence exports: an Evidence Card from Season 5 shared during Season 7 is stale intelligence; design options: auto-expiring URLs, persistent with "HISTORICAL" banner, permanent archive; relationship between evidence card expiry and tag expiry (4.69e-viii); the problem of community threads linking to expired evidence
 - [ ] 4.69f — "Apply All Three" batch deployment: detailed design of the multi-fix batch application — sequencing, conflict detection, rollback affordance, confirmation dialog
 - [ ] 4.69g — Agent cluster as a unit of analysis in career stats: career statistics dashboard that shows per-agent multi-cluster frequency history; "agent debt ledger" as companion to match-level architectural debt metrics
 - [ ] 4.69h — Threshold preset profiles per config phase: different multi-cluster thresholds for different career phases (early season N=4 to avoid noise; late season N=2 to catch architectural drift before finals); a "phase-aware" threshold that auto-shifts as the season progresses
