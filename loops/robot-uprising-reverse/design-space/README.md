@@ -4,4 +4,8 @@ An exhaustive exploration of every possible version of Robot Uprising. Each file
 
 ## Index
 
-(Updated as aspects are analyzed)
+### Competitive Analysis
+
+| File | Aspect | Status |
+|------|--------|--------|
+| [competitive-analysis/zachtronics-shenzhen-io.md](competitive-analysis/zachtronics-shenzhen-io.md) | 1.01 — Shenzhen I/O: constraint-based puzzle design, limited instruction space, multiple valid solutions | ✅ Complete |

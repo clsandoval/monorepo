@@ -1,17 +1,17 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 77
-- **Analyzed:** 0
-- **Pending:** 77
-- **Convergence:** 0%
+- **Total aspects:** 83
+- **Analyzed:** 1
+- **Pending:** 82
+- **Convergence:** 1%
 
 ---
 
 ## Wave 1: Competitive Analysis
 
 ### Programming/Automation Games
-- [ ] 1.01 — Shenzhen I/O: constraint-based puzzle design, limited instruction space, multiple valid solutions
+- [x] 1.01 — Shenzhen I/O: constraint-based puzzle design, limited instruction space, multiple valid solutions
 - [ ] 1.02 — TIS-100: minimal instruction set, spatial node layout, parallel execution visualization
 - [ ] 1.03 — Opus Magnum: open-ended optimization, Zachtronics histogram system, aesthetic satisfaction of clean solutions
 - [ ] 1.04 — Exapunks: narrative framing of programming puzzles, zine-style tutorial, hacker fantasy
@@ -92,6 +92,7 @@
 
 ### Rules (Behavioral Constraints)
 - [ ] 3.05 — Rules language: what's the vocabulary for rules? How expressive vs. structured?
+- [ ] 3.05a — Conditional prefix as expressive primitive: minimal rule vocabulary (like Shenzhen I/O's +/- prefix) that enables sophisticated agent behavior from simple building blocks
 - [ ] 3.06 — Rule conflicts: what happens when two rules contradict? Priority system, error feedback, or emergent chaos?
 - [ ] 3.07 — Rules UI: how does the player write/edit/reorder rules?
 
@@ -132,6 +133,7 @@
 
 ## Wave 5: Onboarding & Campaign
 
+- [ ] 5.00 — The external-documentation anti-pattern: Shenzhen I/O requires a PDF manual outside the game — all Robot Uprising vocabulary (skills/rules/hooks/context) must be learnable through in-game play
 - [ ] 5.01 — Tutorial as puzzle: first missions are pure filter puzzles (drag away noise)
 - [ ] 5.02 — Tutorial as narrative: story-driven introduction, AI waking up
 - [ ] 5.03 — Tutorial as sandbox: free play with guided hints
@@ -141,6 +143,8 @@
 - [ ] 5.07 — Meta-progression: what carries across campaign restarts
 - [ ] 5.08 — Mission variety: what types of missions exist (defend, attack, stealth, escort, puzzle, boss)
 - [ ] 5.09 — Replayability: what makes someone start a new campaign
+- [ ] 5.10 — The "product as puzzle" narrative method: working backwards from fictional mission objects to determine which agent configurations matter (from Shenzhen I/O)
+- [ ] 5.11 — Solitaire distraction risk: when a secondary mechanic (debrief analysis, sandbox mode) becomes more engaging than the core loop — how to prevent and exploit
 
 ---
 
@@ -164,6 +168,7 @@
 - [ ] 7.03 — Async challenges: "beat my architecture" shareable puzzles
 - [ ] 7.04 — Modding: custom missions, custom building blocks, total conversions
 - [ ] 7.05 — Leaderboards and optimization: Zachtronics-style histograms, community competition
+- [ ] 7.06 — The histogram as social loop: post-execution bell curves showing player distribution across agent efficiency metrics (from Shenzhen I/O)
 
 ---
 
