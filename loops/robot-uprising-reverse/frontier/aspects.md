@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 556
-- **Analyzed:** 88
-- **Pending:** 468
-- **Convergence:** 15.8%
+- **Total aspects:** 561
+- **Analyzed:** 89
+- **Pending:** 472
+- **Convergence:** 15.9%
 
 ---
 
@@ -83,7 +83,12 @@
                                         - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a — `make repair-suppression-ref` as a CLI tool: full design of the surgical repair command — argument schema (`KEY`, `SURFACE`, `--dry-run`, `--validate-only`, `--no-immediate-check`, `--output-format`, `--no-stage`, `--confirm-surface`); output format (human/JSON/quiet); CI non-interactive mode with exit-code taxonomy (0/1/2/3); decompose case PR-state design; comparison table vs. `make rename-surface` across 8 dimensions; `--auto-lookup` from rename-log as future option; 3 player journeys (Priya batch quarterly repair, Dev first-time Tier-1-guided fix, Aarav CI batch pipeline); 5 new sub-aspects discovered
                                           - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i — `repair_command` field in audit JSON output: pre-formed repair command string embedded in each unevaluable suppression entry in `make l10n-suppression-audit --output-format=json`; when command can be pre-formed vs. left blank (no match, decompose, multiple equal-distance matches)
                                             - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A — `repair_command_version` field for schema compatibility: versioning the repair command format so cached audit outputs can be detected as stale after a `repair-suppression-ref` argument schema change; semantic versioning of CLI argument schemas as a general pattern
-                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i — Automated schema change detection: CI check comparing repair tool's argument parser against recorded manifest; detects schema changes without version bump; the "schema drift detector"
+                                            - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i — Automated schema change detection: CI check comparing repair tool's argument parser against recorded manifest; detects schema changes without version bump; the "schema drift detector"
+                                              - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a — Phantom flag detection as bidirectional completeness check: reverse template check (audit → repair direction); --enumerate-args as known-flags source of truth; flag alias handling; false positive suppression for test-only flags
+                                              - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-b — Enumeration-to-parser consistency lint: source-level check that --enumerate-args output matches actual getopt/argparse definitions; the "inner drift" problem where enumeration and parser diverge within the repair tool itself
+                                              - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-c — Round-trip test fixture versioning: synthetic suppression fixture must evolve alongside suppression schema; fixture manifest tracking target schema version; auto-regeneration on suppression schema changes
+                                              - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-d — Drift detector for other l10n CLI tools: generalizing three-tier drift detection to fork-string, rename-surface, and suppression-audit; shared check-schema-drift.sh library; --enumerate-args as standard interface
+                                              - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-e — CI tier ordering and skip logic: formal specification of when each tier runs, skip conditions (Tier 1.5 skipped if Tier 1 fails), result aggregation into single pass/fail; tier dependency graph as meta-design
                                             - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-ii — Version bump as a team-affecting event: notification protocol when a version bump invalidates cached audit artifacts across pipelines; CI maintainer review requirement; the "migration window" concept
                                             - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-iii — Schema version in IDE extension protocol: VSCode extension detecting schema version mismatches; re-querying --schema-version on tool file changes; stale code actions as UX problem
                                             - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-iv — Cross-tool schema version alignment: audit tool vs repair tool release cadence; meta-version for audit JSON envelope format; separate from repair command schema version
