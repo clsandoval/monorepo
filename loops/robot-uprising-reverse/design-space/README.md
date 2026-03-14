@@ -4,6 +4,12 @@ An exhaustive exploration of every possible version of Robot Uprising. Each file
 
 ## Index
 
+### Onboarding
+
+| File | Aspect | Status |
+|------|--------|--------|
+| [onboarding/diegetic-tutorial-documents.md](onboarding/diegetic-tutorial-documents.md) | 1.04b — Diegetic tutorial documents as game artifact: full taxonomy (printable artifact, accreting log, database interface, corporate spoof manual, mechanics-as-characters), 3 detailed player journeys, 11 comparable games, Robot Uprising application (4 voice candidates, hybrid architecture, document-as-corrupted-surface); 4 new aspects discovered | ✅ Complete |
+
 ### Competitive Analysis
 
 | File | Aspect | Status |
