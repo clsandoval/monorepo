@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 164
-- **Analyzed:** 18
-- **Pending:** 146
-- **Convergence:** 11.0%
+- **Total aspects:** 168
+- **Analyzed:** 19
+- **Pending:** 149
+- **Convergence:** 11.3%
 
 ---
 
@@ -29,9 +29,12 @@
 - [x] 1.06c — Asynchronous PvP as design constraint: async match model as architectural prerequisite for small-community PvP; how deploy-once/watch-once/iterate shapes design at every layer; what Robot Uprising gains and loses vs. synchronous mode
 - [x] 1.06c-ext-A — Sealed replay as tension mechanic: hiding match result until player watches full replay; "Watch now" vs. "Show result immediately" player choice; emotional design of the unknown-result vs. known-result playback modes; compensates for lost real-time tension
 - [x] 1.06c-ext-A-i — Replay length as tension design: minimum match duration required for sealed tension to function; mission design constraints around ensuring competitive Gauntlet matches run 60–180 ticks; how fast-resolution stomps are prevented without artificial health inflation
-- [ ] 1.06c-ext-A-ii — The "false pivot" anti-pattern: replays where outcome appears to reverse multiple times before resolution — emotionally rich but potentially frustrating if player misidentifies the pivot; should debrief overlay mark decisive moments retroactively?
+- [x] 1.06c-ext-A-ii — The "false pivot" anti-pattern: replays where outcome appears to reverse multiple times before resolution — emotionally rich but potentially frustrating if player misidentifies the pivot; should debrief overlay mark decisive moments retroactively?
 - [ ] 1.06c-ext-A-iii — Sealed replay for PvE missions: applying the sealed mechanic to campaign missions — hiding pass/fail until player watches; whether sealed tension works when the player designed both sides of the encounter
 - [ ] 4.04b — Two-act debrief structure: designing the watch experience and the analysis experience as sequential phases — sealed watch (emotional) → full debrief (analytical) — with a deliberate transition between them; the "seal breaking" as the transition event
+- [ ] 4.18 — Effective outcome timestamp as a first-class metric: the tick at which the match's outcome was "effectively determined" (minimum-counterfactual tick) shown in post-match stats; comparing this to max_ticks reveals "how much of the match was foregone conclusion"; effective-determination-to-max-ticks ratio as a Gauntlet map quality indicator (low ratio = high false pivot density = rich sealed content)
+- [ ] 4.19 — False pivot annotation opt-out for streamers: a per-session toggle hiding the gold diamond and grey markers; for streamers who want to provide commentary before the annotation appears, or for community events where "find the pivot" is a collective viewer challenge; the annotation as a game show format
+- [ ] 4.20 — Counterfactual simulation as advanced debrief feature: a "what if" mode in the debrief that lets the player change a single agent decision at the identified pivot tick and re-simulate the match forward; the "minimum fix explorer" showing how small a change was needed to flip the outcome
 - [ ] 1.06c-ext-B — Configuration version control as first-class infrastructure: async PvP requires explicit deploy snapshots, version comparison, "fork from deploy" workflow; how this differs from a simple file-save system; versioned configs as competitive history artifacts
 - [ ] 1.06c-ext-C — The async-to-sync hybrid (simultaneous-turn model): Frozen Synapse's sealed-order-submit as middle ground between pure async and synchronous; both players submit simultaneously, neither sees opponent's orders until resolution; fully schedule-compatible while preserving tactical tension
 - [ ] 1.06c-ext-D — Observation mode as competitive onboarding: watching featured matches without deploying; low-friction path from "curious about ranked" to "first deploy"; how observation mode teaches replay literacy before players need it
@@ -207,6 +210,7 @@
 - [ ] 5.14a — The fidelity threshold as onboarding gate: fidelity thresholds are the mechanic that teaches players to think about information quality, not just presence; design pass on the "first fidelity moment" — a mission where default threshold fails, debrief explains why, fix is a single slider adjustment; the designed teaching moment for buffer quality awareness
 - [ ] 5.14 — Detection skills as complexity gate: the "intrusion detection" skill as an advanced mechanic that reveals hidden corruption to players who invest in it; scales difficulty with player sophistication rather than with a separate difficulty slider; advanced players uncover more depth, beginners get clean experience
 - [ ] 5.18 — The "first deadlock" tutorial mission: a deliberately crafted Mission 6 ("Breach") scenario where naive BLOCKING hook use creates a deadlock — and the debrief shows exactly why, tick by tick, as the frozen agents' last actions play back; designed failure, designed recovery, designed insight
+- [ ] 5.24 — The "false pivot literacy" tutorial mission: a campaign mission explicitly teaching the false pivot phenomenon through a scripted demonstration replay where the player must identify the genuine pivot by scrubbing backward through the debrief; completing it unlocks the "Diagnostic" achievement and advanced signal genealogy visualization mode
 - [ ] 5.19 — The "pass-rate plateau" problem: players who get 80/100 and feel done — designing campaign gates that require 90% rather than 100% for progression, while reserving 100% for cosmetic/leaderboard rewards; the psychological difference between "good enough" and "provably correct"
 - [ ] 5.20 — Always-on anxiety vs. self-contained missions: Screeps World's 24/7 persistence creates ownership feeling but also "vacation death" anxiety (base destroyed while offline); Robot Uprising's mission structure eliminates anxiety but loses persistence fantasy; what compensatory design choices restore the ownership feeling? Named units? Between-mission camp state? Campaign memory?
 - [ ] 5.21 — Open-source architecture as community mechanic: Screeps' culture of publishing full bot code on GitHub + writing architectural blog posts is a deliberately-designed community mechanic; what's the Robot Uprising equivalent? Exportable agent configs, shareable hook wiring diagrams, community config repositories?
