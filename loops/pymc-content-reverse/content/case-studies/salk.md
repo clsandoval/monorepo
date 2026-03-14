@@ -85,6 +85,14 @@ MrP is a principled Bayesian technique for generating population-level estimates
 - Meaningful predictions even for population segments with very few survey respondents
 - Actionable inference from uneven survey distributions
 
+> "We got a very solid, very efficient, very quickly-running model so we could easily expand it."
+> — Tarmo Jüristo, CEO, SALK
+> (Source: pymc-labs.com blog post 2022-12-08)
+
+> "We wanted to be able to draw some big conclusions out of a big set of data. So, that's why we came to PyMC Labs for help. It was a very successful collaboration. I've had many, many consultants working with me in the past, and I think this is by far the most successful collaboration that I've seen."
+> — Tarmo Jüristo, Founder, SALK
+> (Source: pymc-labs.com blog post 2022-12-08)
+
 > "Makes inference possible — it makes it actionable, even [with] only a few data points for some demographics."
 > — Tarmo Jüristo, CEO, SALK
 

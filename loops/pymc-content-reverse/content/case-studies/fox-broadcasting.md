@@ -77,7 +77,15 @@ The Daimon AI bot was activated for the Fox client channel to handle routine tec
 
 PyMC-Marketing, Bayesian MMM, `MaskedPrior`, `CounterfactualAnalysis`, Bass Diffusion Model, do-operator
 
-<!-- GAP: need full Eugene Kwok testimonial text — not fully captured in Discord -->
+## Client Testimonial (Expert Access Program page)
+
+> "The PyMC Labs Coaching program has been transformative for our small Data Science team. They leveraged coaching sessions at every stage of the delivery cycle — from research and experimentation to deployment and long-term roadmapping — and the coaches helped refine models, review results, and troubleshoot complex code issues. Enabled us to deliver results at the level of a full-scale department."
+> — Eugene Kwok, Executive Director Research & Analytics, Fox Entertainment
+> (Source: https://www.pymc-labs.com/blog-posts/expert-access-program)
+
+**Note:** Client listed as "Fox Entertainment" on the Expert Access Program page, consistent with Fox Broadcasting Company context.
+
+<!-- RESOLVED: full Eugene Kwok testimonial found on Expert Access Program page -->
 <!-- GAP: need public blog post or case study writeup -->
 <!-- GAP: need quantitative results (ROAS estimates, budget allocation recommendations, NFL promo lift) -->
 <!-- GAP: need detail on MaskedPrior implementation — whether this became a PyMC-Marketing contribution -->

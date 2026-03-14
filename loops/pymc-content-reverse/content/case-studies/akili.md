@@ -31,7 +31,7 @@ sources:
 
 ## The Problem
 
-Akili needed rigorous, uncertainty-quantified methods for scoring cognitive assessment instruments and validating the digital biomarkers derived from gameplay data in clinical trials.
+Akili needed to evaluate computational models of cognition for ADHD treatment (EndeavorRx), and to develop rigorous, uncertainty-quantified methods for scoring cognitive assessment instruments. Primary technical difficulty: conducting inference on complex cognitive models where traditional likelihood calculations were intractable or computationally prohibitive.
 
 Four interconnected challenges:
 
@@ -81,10 +81,11 @@ For computationally intensive cognitive process models (building on the HDDM tra
 - Knowledge transfer to Akili's internal research team
 - Expanded applicability of the methodology beyond ADHD to other behavioral health conditions
 
-> "Most successful collaboration I've seen."
+> "This is by far the most successful collaboration that I've seen."
 > — Titi Alailima, VP of Applied Data, Akili Interactive
+> (Source: pymc-labs.com homepage testimonial and blog post 2023-01-12)
 
-<!-- GAP: need full verbatim quote from Titi Alailima homepage testimonial — current text is paraphrase from homepage analysis -->
+<!-- RESOLVED: Full verbatim quote confirmed from web research -->
 <!-- GAP: need specifics of which assessment instruments were scored (proprietary vs. standard clinical tools) -->
 <!-- GAP: need quantitative speedup figures for LAN-based inference vs. baseline -->
 <!-- GAP: need confirmation of which conditions beyond ADHD were explored -->

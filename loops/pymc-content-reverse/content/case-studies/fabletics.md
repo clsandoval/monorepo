@@ -14,7 +14,7 @@ sources:
 
 - **Industry:** Fashion / E-commerce / Retail
 - **Service:** Training & Enablement (SLA coaching, PyMC upgrade)
-- **Contact:** Kate (internal data scientist, promoted during engagement)
+- **Contact:** Kate Hirth, Senior Data Scientist
 - **Engagement period:** SOW 1 May–November 2024; SOW 2 proposed March 2025
 - **Pricing:** $5,000/month
 
@@ -67,8 +67,14 @@ The engagement was structured as coaching and enablement — Kate and the intern
 
 PyMC-Marketing, HSGP, JAX, MLflow, `freeze_dims_and_data` workaround, CausalPy (geo testing, future)
 
+## Client Testimonial (Expert Access Program page)
+
+> "PyMC Labs was instrumental in helping us implement time-varying coefficients to better capture seasonality in our marketing mix models, significantly improving both model accuracy and interpretability. The team was collaborative, insightful, and consistently supportive throughout the engagement."
+> — Kate Hirth, Senior Data Scientist, Fabletics
+> (Source: https://www.pymc-labs.com/blog-posts/expert-access-program)
+
 <!-- GAP: need public blog post — team discussed writing one but unclear if completed -->
-<!-- GAP: need Kate's last name for attribution -->
+<!-- RESOLVED: Kate Hirth confirmed as contact name -->
 <!-- GAP: need SOW 2 status — was it signed in March 2025? -->
 <!-- GAP: need quantitative model improvement metrics (e.g., fit quality before/after HSGP) -->
 <!-- GAP: need whether freeze_dims_and_data fix was contributed upstream to PyMC-Marketing -->

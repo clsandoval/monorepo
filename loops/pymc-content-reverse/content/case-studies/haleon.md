@@ -51,8 +51,9 @@ The SLA format was deliberately scoped to coaching and review, enabling the Hale
 - Strong relationship opened potential for other Haleon business units
 - Juan presented PyMC Labs to the entire Haleon analytics team, broadening the internal champion base
 
-> "PyMC Labs has significantly enhanced our testing capabilities by leveraging Bayesian programming. Their advisory role and team training have been invaluable, driving substantial improvements in our operations."
+> "PyMC Labs significantly enhanced our testing capabilities by leveraging Bayesian programming, with invaluable advisory support driving substantial operational improvements. Their advisory role in delivering new feature requests and training has been invaluable."
 > — Nathan Kafi, Principal Data Scientist, Haleon
+> (Source: homepage testimonial + Expert Access Program page)
 
 > "I think that was good! The client seems very happy with the help, tips and collaboration."
 > — Juan Orduz

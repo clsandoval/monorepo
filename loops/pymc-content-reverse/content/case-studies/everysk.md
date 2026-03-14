@@ -52,6 +52,9 @@ The engagement followed a structured, collaborative process:
 
 > "How can we figure out the unknown from the things we know? The answer lies with Bayesian Statistics."
 
+> "This insight would not have been available from a standard machine learning analysis."
+> (Source: pymc-labs.com blog post)
+
 ## Results
 
 - Successfully produced a Bayesian VC index estimated from capital flow data alone

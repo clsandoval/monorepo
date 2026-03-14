@@ -2,6 +2,35 @@
 
 ---
 
+## 2026-03-14 — enrich-case-studies-web
+
+**Aspect completed:** enrich-case-studies-web
+
+**Findings:**
+- Ran web searches for publicly available PyMC Labs case studies and client work
+- Found 9 published blog post case studies: HelloFresh (3 posts), Colgate-Palmolive, Everysk, Indigo Ag, Akili, SALK, Alva Labs, Bayesian A/B testing at scale (unnamed streaming client)
+- Found Expert Access Program page with testimonials: Fox Entertainment (Eugene Kwok), Haleon (Nathan Kafi), Fabletics (Kate Hirth), Ovative Group (Tim McWilliams)
+
+**Key enrichments:**
+- `colgate-synthetic-consumers.md`: Added full Iraklis Pappas testimonial, arxiv preprint URL (arxiv:2510.08338)
+- `akili.md`: Resolved GAP — full verbatim Titi Alailima quote: "This is by far the most successful collaboration that I've seen."
+- `fabletics.md`: Resolved GAP — Kate Hirth confirmed as Senior Data Scientist; full testimonial added from Expert Access Program page
+- `fox-broadcasting.md`: Resolved GAP — full Eugene Kwok testimonial added from Expert Access Program page
+- `haleon.md`: Updated testimonial with combined verbatim quotes from homepage + Expert Access Program page
+- `indigo-ag.md`: Added Manu Martinet testimonial: "Additional expertise was helpful to get the model to the finish line and into production."
+- `salk.md`: Added two additional Tarmo Jüristo verbatim quotes from blog post
+- `everysk.md`: Added "This insight would not have been available from a standard machine learning analysis" quote
+- `hellofresh-mmm.md`: Added 2 additional blog post URLs (MMM optimization + time-varying effectiveness)
+- Created `streaming-ab-test.md`: New case study file for Bayesian A/B at scale (histogram approximation, 100M obs in 22s)
+
+**Clients NOT found publicly:**
+- L.L.Bean, Swarovski, Takeda, Live Nation, Real Madrid, Dodgers, Supercell, Syngenta, VisualVest, Wegmans — no published case studies or public confirmations found
+
+**Ecosystem users found (not direct clients):**
+- Bolt, Qonto, Wise, FREENOW — using PyMC-Marketing, presented at webinars but not consulting clients
+
+---
+
 ## 2026-03-14 — enrich-industries-web
 
 **Aspect completed:** enrich-industries-web

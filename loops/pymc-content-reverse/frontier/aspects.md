@@ -1,8 +1,8 @@
 # Frontier — PyMC Content Gathering
 
 ## Statistics
-- Total aspects discovered: 76
-- Analyzed: 70
+- Total aspects discovered: 77
+- Analyzed: 71
 - Pending: 6
 - Convergence: 92%
 
@@ -94,7 +94,7 @@ Identify thin pages and fill with targeted web research. Self-expands after Wave
 - [x] salk-org-research — Resolve SALK org identity: "Salk Institute" (San Diego) vs Estonian polling org (CEO Tarmo Jüristo); web search to confirm; affects case-studies/salk.md
 - [x] industry-benchmarks-enrich — JS-rendered LLM Price Is Right leaderboard not fully scraped; web search for benchmark methodology, leaderboard data, press coverage; affects resources/industry-benchmarks.md
 - [x] enrich-industries-web — WebSearch for PyMC Labs work in each industry with thin content
-- [ ] enrich-case-studies-web — WebSearch for public PyMC Labs case studies, blog posts about client work
+- [x] enrich-case-studies-web — WebSearch for public PyMC Labs case studies, blog posts about client work
 - [ ] enrich-team-web — WebSearch for PyMC Labs team member profiles, conference talks, publications
 - [ ] enrich-courses-web — WebSearch for PyMC Labs course reviews, syllabi, learning outcomes
 - [ ] enrich-expert-access-program — Investigate "Expert Access Program" (found in contact form dropdown but not in sitemap); search Discord + web for descriptions, pricing, eligibility
@@ -109,6 +109,8 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] enrich-case-studies-web (2026-03-14) — Searched web for all published PyMC Labs case study blog posts and client testimonials. Found 9 blog-post case studies (HelloFresh ×3, Colgate, Everysk, Indigo, Akili, SALK, Alva Labs, streaming A/B testing). Found Expert Access Program page with full testimonials for Fox Entertainment (Eugene Kwok), Haleon (Nathan Kafi), Fabletics (Kate Hirth). Resolved GAPs: Titi Alailima full quote, Iraklis Pappas full quote, arxiv preprint for Colgate SSR paper (2510.08338), Kate Hirth surname, Manu Martinet quote, additional Tarmo Jüristo quotes. Created new content/case-studies/streaming-ab-test.md for histogram approximation A/B testing case study (100M obs in 22s). Confirmed 12+ other clients (L.L.Bean, Swarovski, Takeda, Live Nation, Real Madrid, Dodgers, Supercell, Syngenta, VisualVest, Wegmans) have no published case study content.
+
 - [x] salk-org-research (2026-03-14) — Confirmed SALK is NOT the Salk Institute (San Diego biomedical research). SALK = SA Liberaalne Kodanik (Liberal Citizen Foundation), an Estonian NGO/political data consultancy founded by Tarmo Jüristo. Jüristo is founder & director (not CEO — that was a prior role at Hansa Asset Management/Praxis). SALK does electoral polling and democratic data work in Estonia + 7 European countries (Croatia, Lithuania, Romania, Slovakia, Czech Republic). Mission: "defending democracy with data." Notable backers: Bolt CEO Markus Villig, Taavet Hinrikus (Wise co-founder), Sten Tamkivi. 2023 revenue ~€200k (doubled). Updated content/case-studies/salk.md with full org description, Jüristo bio, corrected identity, enhanced problem statement with direct quote, and removed the GAP flag on identity.
 
 - [x] gap-audit (2026-03-14) — Audited all 87 content files. Status breakdown: 59 complete, 28 partial, 0 stubs. Upgraded 3 stub case studies (dodgers, real-madrid, supercell) to partial — they contained all available Discord-sourced content but lacked external quotes/metrics. Confirmed all sitemap pages have content files. Gaps organized into 5 buckets: (1) 17 partial case studies — mostly need blog post / testimonial / quantitative results from web; (2) 5 partial industry pages — agriculture, finance-insurance, gaming, retail-ecommerce, sports-analytics; (3) 5 partial team members — alexandre-andorra, ben-vincent, benjamin-maier, erik-ringen, jesse-grabowski (not on website); (4) industry-benchmarks.md partial (JS-rendered leaderboard not scraped); (5) SALK org identity ambiguous (Salk Institute vs Estonian polling org). Added 2 new aspects: salk-org-research, industry-benchmarks-enrich. Existing frontier aspects (enrich-industries-web, enrich-case-studies-web, enrich-team-web) already cover the main gap buckets. Wrote analysis/gap-audit.md with full matrix.

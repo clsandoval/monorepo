@@ -98,11 +98,22 @@ Competitive positioning: differentiated vs. Kantar RichMix and Fractal.ai.
 
 > From Halah draft: "9K responses, 90% reliability, 74% agreement"
 
-<!-- GAP: need full verbatim homepage testimonial quote from Iraklis Pappas -->
+## Client Testimonial
+
+> "At Colgate-Palmolive, we really value the relationship we've built with PyMC Labs. They continue to deliver truly unmatched quality work on the hardest and most cutting edge problems we encounter. Their blend of deep Bayesian expertise, GenAI, and domain knowledge makes them an essential partner for delivering innovative, practical, and impactful solutions."
+> — Iraklis Pappas, Global Head of AI, Colgate-Palmolive
+> (Source: pymc-labs.com homepage testimonial)
+
+## Preprint Citation
+
+Maier, B.F., Pappas, K., et al. (2025). *Semantic Similarity Rating: Using LLMs to Simulate Consumer Research Panels*. arXiv:2510.08338
+- URL: https://arxiv.org/abs/2510.08338
+- Published: October 2025
+
 <!-- GAP: clarify the "74% agreement" figure from Halah draft — which metric does this correspond to vs. the "90% correlation" and "85% distributional similarity" figures? -->
-<!-- GAP: need the full Maier et al. 2025 paper citation and DOI/arXiv link -->
+<!-- RESOLVED: arxiv link is https://arxiv.org/abs/2510.08338 -->
 <!-- GAP: need confirmation of whether SSR is now in production use at Colgate-Palmolive -->
-<!-- GAP: need detail on what product categories were validated (oral care, personal care, other?) -->
+<!-- RESOLVED: oral-care category explicitly validated in blog post and innovation lab page -->
 
 ## Technologies
 

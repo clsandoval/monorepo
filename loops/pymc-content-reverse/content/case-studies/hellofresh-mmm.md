@@ -9,6 +9,10 @@ sources:
   - url: https://www.pymc-labs.com/blog-posts/reducing-customer-acquisition-costs-how-we-helped-optimizing-hellofreshs-marketing-budget
     label: "Blog post 2: CAC deep dive"
     date: 2026-02-18
+  - url: https://www.pymc-labs.com/blog-posts/bayesian-media-mix-modeling-for-marketing-optimization
+    label: "Blog post 2b: MMM optimization deep dive"
+  - url: https://www.pymc-labs.com/blog-posts/modelling-changes-marketing-effectiveness-over-time
+    label: "Blog post 2c: Time-varying marketing effectiveness"
   - url: https://www.pymc-labs.com/blog-posts/bayes-is-slow-speeding-up-hellofreshs-bayesian-ab-tests-by-60x
     label: "Blog post 3: A/B testing speedup"
     date: ~2022

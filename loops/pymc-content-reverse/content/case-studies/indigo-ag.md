@@ -82,7 +82,13 @@ Standard log-normal models assumed all fields had non-trivial yields. Field data
 - Embedded Teams service delivery — sustained collaboration over multiple growing seasons
 
 <!-- GAP: need specific quantitative treatment effect estimates or % yield improvement figures -->
-<!-- GAP: need Manu Martinet homepage testimonial — verbatim text not captured -->
+## Client Testimonial
+
+> "Additional expertise was helpful to get the model to the finish line and into production."
+> — Manu Martinet, Lead Data Scientist, Indigo Ag
+> (Source: pymc-labs.com blog post 2022-08-11)
+
+<!-- RESOLVED: Manu Martinet testimonial found in web research -->
 <!-- GAP: need confirmation of which crop types were modeled -->
 <!-- GAP: need clarity on scope of PyMC5 migration work within the engagement -->
 
