@@ -1,116 +1,117 @@
 # Robot Uprising — 5 Most Similar Games
 
-**Date:** 2026-03-14
-**Context:** Competitive landscape research based on Robot Uprising's core design: indirect control via attention/context systems, sealed execution, composable behavior primitives, debrief/iterate loop.
+**Date:** 2026-03-14 (v2 — corrected framing)
+**Context:** Competitive landscape research. Robot Uprising is NOT a programming game. It's an auto battler where you configure autonomous units through constrained primitives (skills, rules, hooks, context config) with fixed-size attention buffers. Discrete time steps. Sealed execution. No code, no open-ended input — just configuration within tight constraints.
+
+**Core design pillars to match against:**
+1. Configure units, then watch them fight (auto battler feel)
+2. Discrete time steps (tick-based), not real-time
+3. No programming — only constrained composable primitives
+4. Context window / attention buffer as the core constraint (a bot can only take so much)
+5. Sealed execution → debrief → iterate loop
 
 ---
 
-## 1. Gladiabots (GFX47, 2019)
+## 1. Armored Core: Formula Front (FromSoftware, 2004 — PSP)
 
-**Similarity: 95% — The closest existing game to Robot Uprising.**
+**The closest existing game. Auto battler with AI configuration, not programming.**
 
-- Visual behavior tree programming for robot squads — you design AI logic, not direct control
-- Async multiplayer where you deploy configs and watch sealed replays
-- Core loop is design → deploy → watch → iterate — identical to Robot Uprising's Plan/Execute/Debrief/Iterate
-- Target-type + filter + selector system is a declarative attention specification
-- Community culture around config sharing, debugging, and optimization
+- You're an "Architect" who builds mechs and **configures their AI** using sliders and operation chips — not code
+- **Sealed auto-battle:** your mechs fight autonomously in tournaments. You watch. Direct control exists but is explicitly discouraged (called "Naked" mode — notoriously hard)
+- **Constrained configuration:** base character traits (sliders for aggression, range preference, movement style) + operations chips that give specific orders for each 30-second block of battle
+- **Configuration IS the game:** "A well-designed AC with poorly programmed AI will be easily defeated"
+- Hardware customization (480 parts) determines what behaviors are even possible — chassis constrains tactics
+- Tournament structure with iterative improvement between rounds
 
-**Key differences from Robot Uprising:** Gladiabots uses behavior trees (branching if/then), not attention buffers. No concept of information pressure, context overflow, or memory eviction. Units don't have limited working memory — they evaluate the full tree every tick. No meta-level (you program individual units, not systems that produce units).
+**What it shares with Robot Uprising:** Architect role (you configure, not control). Sealed execution. AI behavior as the primary strategic axis. Constrained configuration space. Iterate after watching.
 
-**Already in reverse loop analysis:** Yes (1.06 + 8 sub-aspects)
-
----
-
-## 2. Carnage Heart (Artdink, 1995 — PS1)
-
-**Similarity: 85% — The original "program the robot, watch it fight" game.**
-
-- Flowchart-based visual programming of autonomous mechs (Overkill Engines)
-- **Completely sealed execution** — zero player control during battle. You program beforehand, then watch.
-- Hardware design (body, engine, weapons, CPU, armor) + software design (behavior flowcharts)
-- Condition checks, counters, radio communication between units, movement/attack icons
-- Packaged with 58-page strategy guide + tutorial disc — recognized the learning curve problem
-- IGN called it "one of the most ambitious console releases of all time"
-- Directly inspired Gladiabots' developer
-
-**Key differences from Robot Uprising:** Flowcharts are sequential (not composable primitives). No buffer/attention mechanic. No debrief tooling — you just watch and infer what went wrong. Hardware design is a major axis that Robot Uprising doesn't have. Single-player focused.
-
-**NOT in reverse loop analysis — strong candidate for addition.**
+**What it lacks:** No attention buffer / context window mechanic. Configuration is sliders + chips, not composable primitives. No structured debrief tooling. No discrete tick system — battles are real-time (you just can't intervene). No emergent behavior from primitive interactions.
 
 ---
 
-## 3. Screeps (Screeps LLC, 2017)
+## 2. Final Fantasy XII — Gambit System (Square Enix, 2006)
 
-**Similarity: 75% — The "real programming" endpoint of the design space.**
+**The original "limited slots of behavior rules" game.**
 
-- Write JavaScript to control autonomous units (creeps) in a persistent MMO world
-- Units execute your code 24/7 — true autonomous agents
-- Emergent behavior from code interactions across hundreds of units
-- Information constraints: units have limited vision range, communication costs energy
-- Persistent world = your code must handle all possible situations (robustness testing)
-- Community culture of code sharing, optimization, and competitive strategy
+- Party members are configured with **Gambits**: ordered if/then rules (condition → action) that execute top-down each tick
+- **Slot-limited:** you start with few gambit slots and unlock more. The constraint on how much behavior you can specify IS the challenge
+- Rules are composable: "Ally HP < 50% → Cure" above "Foe: nearest → Attack" creates prioritized autonomous behavior
+- Gambits must be acquired (purchased/found) — you can't use rules you haven't unlocked
+- You watch your party execute their gambit chains autonomously — intervening manually is possible but the game rewards good gambit design
+- Discrete evaluation: gambits are checked each action cycle in priority order
 
-**Key differences from Robot Uprising:** Real programming (JavaScript), not visual/composable primitives. No sealed execution — your code runs live and you can hotfix. No structured debrief. Skill floor is "know JavaScript." The game IS programming, not a game that teaches programming thinking.
+**What it shares with Robot Uprising:** Limited configuration slots (context window parallel). Composable condition-action rules as the building block. Priority-ordered evaluation. Autonomous execution you watch. The constraint on *how much* you can configure drives the strategy.
 
-**Already in reverse loop analysis:** Yes (1.05 + 1 sub-aspect)
-
----
-
-## 4. Battlecode (MIT, annual since 2000)
-
-**Similarity: 70% — Competitive autonomous robot army programming.**
-
-- Write autonomous AI players that control robot armies in an RTS environment
-- Robots must operate independently — no global omniscient control
-- **Communication constraints:** robots have limited broadcast range and bandwidth (maps directly to Robot Uprising's attention/context management)
-- **Fog of war:** robots can only see nearby tiles (information architecture under constraint)
-- Competitive tournament format with Elo ratings
-- Annual redesign means fresh meta each year
-- Teaches pathfinding, distributed algorithms, communication protocols
-
-**Key differences from Robot Uprising:** Real Java/Python programming. Academic competition format, not a commercial game. Synchronous RTS execution, not sealed. No visual behavior design. High skill floor (CS students).
-
-**NOT in reverse loop analysis — worth adding for communication constraint design.**
+**What it lacks:** Not an auto battler — it's an RPG. Manual override always available (not sealed). No attention/information pressure. No debrief. Rules are simple if/then, not the four-primitive system. No emergent combos from system interactions.
 
 ---
 
-## 5. Colobot (Epsitec, 2001 / open-source 2014+)
+## 3. Mechabellum (Paradox Arc / Game River, 2024)
 
-**Similarity: 65% — Robot programming RTS with educational framing.**
+**The modern robot auto battler — configure armies, watch them fight.**
 
-- Program robots using a simplified C-like language to colonize planets
-- Robots execute programs autonomously — you watch them work (or fail)
-- Multiple robot types with different capabilities (similar to Robot Uprising's unit types)
-- Educational framing: explicitly designed to teach programming concepts
-- 3D RTS environment with resource gathering, construction, combat
-- Open-sourced as Colobot: Gold Edition — active community
+- Auto battler with massive robot armies: you place units, assign tech upgrades, then watch battles play out
+- **Sealed rounds:** once battle starts, no intervention. Iterate between rounds
+- **Constrained builds:** unit positioning is locked after first placement. You fix mistakes with new units, not repositioning
+- Counter-based strategy: composition decisions (which units, which upgrades, which positions) are the entire game
+- Discrete rounds with configuration phases between them
+- Competitive PvP with ranking system
 
-**Key differences from Robot Uprising:** Text-based programming, not visual primitives. Direct control is also possible (you can switch to manual). No sealed execution constraint. No attention/buffer mechanic. Teaches syntax, not systems thinking.
+**What it shares with Robot Uprising:** Robot theme. Auto battler structure (configure → watch → iterate). Sealed execution per round. Constrained configuration. Competitive multiplayer.
 
-**NOT in reverse loop analysis — relevant for educational game design patterns.**
-
----
-
-## Honorable Mentions
-
-| Game | Why Similar | Why Not Top 5 |
-|------|-----------|---------------|
-| **Final Fantasy XII** (Gambit system) | If/then behavior rules for party members | Not a programming game; direct control available |
-| **Dominions 3** | Sealed battle execution, pre-battle orders | Grand strategy, not programming/AI design |
-| **Majesty** | Indirect unit control via incentives | No programming; control is economic, not behavioral |
-| **Autonauts** | Visual bot programming, automation | Colony sim, not combat/strategy; no sealed execution |
-| **Mindustry** (Logic system) | MLog programming for unit/block control | Factory game first, programming is optional layer |
-| **Robocode** | Program tank AI in Java, competitive | Pure programming exercise, no game design wrapper |
+**What it lacks:** No AI behavior configuration at all — units have fixed behavior. The strategy is composition and positioning, not how units think. No attention/buffer mechanic. No composable behavior primitives. No debrief tooling beyond watching replays. Units don't make decisions you designed — they just fight with built-in AI.
 
 ---
 
-## Key Insight
+## 4. Dragon Age: Origins — Tactics System (BioWare, 2009)
 
-Robot Uprising occupies a unique intersection that no existing game fully covers:
+**Slot-limited behavior configuration for autonomous party members.**
 
-1. **Gladiabots** has the sealed execution + iterate loop but lacks attention/buffer mechanics
-2. **Carnage Heart** pioneered sealed robot programming but has no debrief tooling or meta-level
-3. **Screeps/Battlecode** have information constraints but require real programming
-4. **Colobot** has the educational framing but teaches syntax, not systems thinking
+- Configure party AI with **condition-action pairs** in limited slots (up to ~12)
+- Conditions: "enemy is stunned", "ally HP < 25%", "self surrounded by 3+ enemies"
+- Actions: specific abilities, movement, targeting priorities
+- Slot limit forces hard prioritization — you can't cover every situation, so you choose what matters
+- Party members then fight autonomously based on your tactics configuration
+- Manual override available but good tactics reduce need for micromanagement
 
-The gap Robot Uprising fills: **a visual, composable system for designing autonomous agent attention architectures, with structured debrief tooling, that teaches information architecture thinking without requiring programming knowledge.**
+**What it shares with Robot Uprising:** Limited configuration slots (context window constraint). Condition-action rules as primitives. Autonomous execution. The strategy is in what you configure and what you leave unconfigured. Iterate after watching failures.
+
+**What it lacks:** RPG combat, not auto battler. Manual control always available. No sealed execution. No attention buffer / information pressure. No hooks or inter-agent communication. No tick-based discrete steps. No debrief tooling.
+
+---
+
+## 5. Teamfight Tactics / Auto Chess (Riot / Valve, 2019+)
+
+**The genre template: configure → watch → iterate.**
+
+- The defining auto battler: draft units, equip items, set positions, watch rounds play out
+- **Sealed rounds:** once combat starts, hands off
+- **Constrained builds:** limited bench, limited board slots, limited gold — every choice has opportunity cost
+- Synergy system: unit combinations create emergent bonuses (trait thresholds)
+- Discrete rounds with economy management between them
+- Iterate after each round based on what you saw fail
+- Massive competitive scene
+
+**What it shares with Robot Uprising:** The auto battler loop (configure → sealed execution → iterate). Constrained configuration space. Emergent properties from composition choices. Competitive multiplayer. Discrete rounds.
+
+**What it lacks:** Zero behavior configuration — units fight with fixed AI. The game is drafting and economy, not attention design. No composable behavior primitives. No information/attention constraint. No debrief beyond "I lost, what comp do I pivot to?" Units are interchangeable pieces, not agents with designed cognition.
+
+---
+
+## The Gap
+
+No existing game combines all of Robot Uprising's pillars:
+
+| Feature | AC:FF | FF12 Gambits | Mechabellum | DA:O Tactics | TFT |
+|---------|-------|-------------|-------------|-------------|-----|
+| Auto battler feel | Partial | No | **Yes** | No | **Yes** |
+| Sealed execution | **Yes** | No | **Yes** | No | **Yes** |
+| Behavior configuration | **Yes** (sliders) | **Yes** (if/then) | No | **Yes** (if/then) | No |
+| Constrained config slots | Partial | **Yes** | Partial | **Yes** | Partial |
+| Attention / context buffer | No | No | No | No | No |
+| Composable primitives | No | Partial | No | Partial | No |
+| Discrete tick system | No | Partial | Partial | No | Partial |
+| Debrief tooling | No | No | No | No | No |
+| Emergent behavior from config | Partial | Partial | No | Partial | No |
+
+**The unique thing Robot Uprising does that nobody else does:** The context window / attention buffer as the core constraint. Every other game constrains *what you can configure* (slot limits, part limits, gold limits). Robot Uprising constrains *what your units can perceive and remember*. That's a fundamentally different design axis — it's not about loadout optimization, it's about information architecture.
