@@ -310,5 +310,6 @@ loops:
     schedule: manual
     max_iterations: 100
     timeout_minutes: 360
-    status: active
+    status: converged
     created: 2026-03-13
+    converged_at: "2026-03-14"
