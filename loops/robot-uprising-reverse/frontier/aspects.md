@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 514
-- **Analyzed:** 79
-- **Pending:** 435
+- **Total aspects:** 519
+- **Analyzed:** 80
+- **Pending:** 439
 - **Convergence:** 15.4%
 
 ---
@@ -81,7 +81,12 @@
                                     - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1 — Fork suppression expiry and review_trigger evaluation: formal semantics for when suppression re-enables; what conditions are expressible; CI evaluation logic
                                       - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I — Suppression condition reference integrity: when a surface name in review_trigger.surface is renamed, the condition silently becomes unevaluable; CI lint for stale surface references in suppression conditions; tooling to update them on surface rename; Recommendation: Options B+C complementary layers (make rename-surface for proactive propagation + Tier 1 PR-time ref check on surfaces.json modifications); 4 options analyzed (post-hoc warning, PR-time detection, proactive rename command, stable-ID architecture); rename/delete/decompose taxonomy with distinct fix paths; 3 developer journeys (Nadia using make rename-surface cleanly, Priya triaging 2 unevaluable conditions in quarterly audit, Dev caught by Tier 1 on manual edit); 5 new sub-aspects discovered
                                         - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a — `make repair-suppression-ref` as a CLI tool: full design of the surgical repair command — argument schema (`KEY`, `SURFACE`, `--dry-run`, `--validate-only`, `--no-immediate-check`, `--output-format`, `--no-stage`, `--confirm-surface`); output format (human/JSON/quiet); CI non-interactive mode with exit-code taxonomy (0/1/2/3); decompose case PR-state design; comparison table vs. `make rename-surface` across 8 dimensions; `--auto-lookup` from rename-log as future option; 3 player journeys (Priya batch quarterly repair, Dev first-time Tier-1-guided fix, Aarav CI batch pipeline); 5 new sub-aspects discovered
-                                          - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i — `repair_command` field in audit JSON output: pre-formed repair command string embedded in each unevaluable suppression entry in `make l10n-suppression-audit --output-format=json`; when command can be pre-formed vs. left blank (no match, decompose, multiple equal-distance matches)
+                                          - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i — `repair_command` field in audit JSON output: pre-formed repair command string embedded in each unevaluable suppression entry in `make l10n-suppression-audit --output-format=json`; when command can be pre-formed vs. left blank (no match, decompose, multiple equal-distance matches)
+                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A — `repair_command_version` field for schema compatibility: versioning the repair command format so cached audit outputs can be detected as stale after a `repair-suppression-ref` argument schema change; semantic versioning of CLI argument schemas as a general pattern
+                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-B — Eval injection hardening for `repair_command`: security model for the repair_command string; shell-safe quoting validation; whether the field should be a structured object (key + surface + flags array) instead of a string to avoid eval entirely; JSON-as-command-template vs. string-as-command debate
+                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-C — PR comment rendering of `repair_candidates`: GitHub Actions workflow design for posting audit results as formatted PR comments with approve-by-reaction; markdown rendering of candidate commands with inline approve buttons; the 👍-to-approve UX pattern
+                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-D — Confidence calibration from historical accuracy: tracking how often each confidence level's suggested command was actually applied (vs. overridden by human); recalibrating confidence thresholds based on historical hit rate
+                                            - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-E — `auto_repair_policy` governance and team override model: who can change the auto-repair confidence threshold; should it require team approval (analogous to branch protection rules); escalation path when a wrong auto-repair is discovered; the "revoke auto-repair" incident response procedure
                                           - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-ii — `--auto-lookup` flag: rename-log-driven automated surface resolution when SURFACE omitted; disambiguation when multiple rename log entries for same surface; confidence threshold; user confirmation UX
                                           - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-iii — Multi-hop rename chain detection: surface renamed twice (A→B→C); chain-following logic in `--auto-lookup` mode; whether to warn when applying a non-terminal rename; chain max-depth limit
                                           - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-iv — Batch repair rollback design: partial failure mid-run (repaired 3 of 5, then file write error on 4th); how rollback works; `--no-stage` mode for partial-commit safety; immediate-trigger mid-batch escalation flow
