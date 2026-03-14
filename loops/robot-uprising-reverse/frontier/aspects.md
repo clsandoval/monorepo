@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 135
-- **Analyzed:** 12
-- **Pending:** 123
+- **Total aspects:** 140
+- **Analyzed:** 13
+- **Pending:** 127
 - **Convergence:** 9%
 
 ---
@@ -23,7 +23,12 @@
 - [x] 1.05 — Screeps: persistent-world programming RTS, JavaScript API, MMO dynamics
 - [x] 1.04f — Screeps as the "live test suite" endpoint: permanent adversarial environment as the extreme version of robustness testing where your code must handle all possible strategies; what would a persistent-world mode in Robot Uprising look like?
 - [x] 1.04g — The live win-rate as persistent identity metric: Gauntlet Elo as visible identity signal on profile/community posts/workshop uploads; reputation mechanic of a programming community applied to a game config; how this shapes player culture and aspiration
-- [ ] 1.06 — Gladiabots: visual behavior tree programming for robots, multiplayer AI tournaments
+- [x] 1.06 — Gladiabots: visual behavior tree programming for robots, multiplayer AI tournaments
+- [ ] 1.06a — The debugging sub-AI pattern: community-developed diagnostic layer (condition-only sub-AI at root showing current sensing state); how Robot Uprising designs this in from the start vs. letting it emerge as a workaround; the always-on diagnostics sidebar in a workbench-native implementation
+- [ ] 1.06b — Visual query model as attention language: Gladiabots's target-type + filter + selector as declarative attention specification; how Robot Uprising extends with buffer-awareness (can only query what's in buffer), fidelity metadata, and signal age
+- [ ] 1.06c — Asynchronous PvP as design constraint: async match model as architectural prerequisite for small-community PvP; how deploy-once/watch-once/iterate shapes design at every layer; what Robot Uprising gains and loses vs. synchronous mode
+- [ ] 1.06d — The Gladiabots meta-visibility gap: non-transitive strategy relationships players can't see until they've lost; design options for surfacing meta (counter-strategy hints, meta-map visualization, post-match strategy classification); does Robot Uprising want transparent or opaque meta-knowledge?
+- [ ] 1.06e — Anthropomorphization as engagement hook: players naming bots, narrating personalities, framing mechanical changes as character growth; how Robot Uprising designs for it deliberately (unit portraits, persistent bot identities, mission memory, named bot achievements)
 - [ ] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
 - [ ] 1.08 — SpaceChem: visual programming as chemistry metaphor, production pipeline design
 
