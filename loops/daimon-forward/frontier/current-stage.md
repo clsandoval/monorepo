@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 86
-- **Current**: 86
+- **Completed**: 87
+- **Current**: 87
 
 ## Current Stage
 
-**Stage 087** — (next stage)
+**Stage 088** — (next stage)
 
 ## Stage Log
 
@@ -100,3 +100,4 @@
 | 084 | done | 2026-03-14T10:30:00Z | Changelog page (/changelog): reverse-chronological entries with left aqua border, date+version badge, category tags, arrow bullet list; v1.0.0 launch entry; About page (/about): hero (navy+blobs), mission copy, how it works 3-col cards, 6 values grid, team founder card, CTA section; build passes |
 | 085 | done | 2026-03-14T10:45:00Z | Blog index (/blog): featured post card + 3-col post grid, 3 launch posts (Product/Engineering/Company); Blog post page (/blog/[slug]): breadcrumb, post header, body renderer, author card, related posts, CTA section, schema.org; Cookie policy (/legal/cookies): full 10-section policy with tables, TOC, noindex; build passes |
 | 086 | done | 2026-03-14T11:00:00Z | src/lib/stripe/client.ts (Stripe SDK lazy init), src/lib/stripe/config.ts (typed PLAN_PRICING, getPriceId, getPlanFromPriceId, billing period helpers, STRIPE_ENV_VARS), .env.local.example with all Stripe+Supabase+OAuth env vars; build passes |
+| 087 | done | 2026-03-14T11:15:00Z | Checkout flow end-to-end: CheckoutReturnBanner now shows correct success toast ("Your plan has been upgraded!" + plan-specific description) and info toast on cancel ("Checkout canceled. Your plan was not changed."); handleUpgrade in PlanComparisonGrid now shows toast.error on failure; billing page passes plan prop to CheckoutReturnBanner; build passes |

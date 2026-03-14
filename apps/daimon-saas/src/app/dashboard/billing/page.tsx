@@ -127,7 +127,7 @@ export default async function BillingPage() {
     >
       {/* Checkout return toast handler */}
       <Suspense fallback={null}>
-        <CheckoutReturnBanner />
+        <CheckoutReturnBanner plan={(tenant.plan as 'free' | 'starter' | 'pro') ?? 'free'} />
       </Suspense>
 
       {/* Subscription state banners (past_due, canceled, suspended) */}

@@ -4,7 +4,11 @@ import * as React from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useToast } from '@/lib/toast'
 
-export function CheckoutReturnBanner() {
+interface CheckoutReturnBannerProps {
+  plan?: 'free' | 'starter' | 'pro'
+}
+
+export function CheckoutReturnBanner({ plan }: CheckoutReturnBannerProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { toast } = useToast()
@@ -14,15 +18,17 @@ export function CheckoutReturnBanner() {
     const canceled = searchParams.get('canceled')
 
     if (success === '1') {
-      toast.success('Subscription updated', {
-        description: "You're all set. Your new plan is now active.",
+      const planName = plan === 'starter' ? 'Starter' : plan === 'pro' ? 'Pro' : null
+      toast.success('Your plan has been upgraded!', {
+        description: planName
+          ? `You now have access to all ${planName} features.`
+          : 'Your new plan is now active.',
       })
-      // Clean the URL
       const url = new URL(window.location.href)
       url.searchParams.delete('success')
       router.replace(url.pathname + (url.search || ''))
     } else if (canceled === '1') {
-      // No toast on cancel — user intentionally closed Checkout
+      toast.info('Checkout canceled. Your plan was not changed.')
       const url = new URL(window.location.href)
       url.searchParams.delete('canceled')
       router.replace(url.pathname + (url.search || ''))

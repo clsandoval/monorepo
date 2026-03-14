@@ -4,6 +4,7 @@ import * as React from 'react'
 import { useRouter } from 'next/navigation'
 import { CheckCircle, Loader2, X } from 'lucide-react'
 import { createPortal } from 'react-dom'
+import { useToast } from '@/lib/toast'
 
 export interface PlanComparisonGridProps {
   currentPlan: 'free' | 'starter' | 'pro'
@@ -312,6 +313,7 @@ export function PlanComparisonGrid({
   discordConnectionCount,
 }: PlanComparisonGridProps) {
   const router = useRouter()
+  const { toast } = useToast()
   const [billingCycle, setBillingCycle] = React.useState<'monthly' | 'annual'>('monthly')
   const [upgradeLoading, setUpgradeLoading] = React.useState<PlanKey | null>(null)
   const [downgradeDialog, setDowngradeDialog] = React.useState<'free' | 'starter' | null>(null)
@@ -333,10 +335,11 @@ export function PlanComparisonGrid({
       const res = await fetch(`/api/billing/checkout?plan=${targetPlan}&cycle=${cycle}`, {
         method: 'POST',
       })
-      if (!res.ok) throw new Error('Checkout failed')
-      const { url } = await res.json()
-      window.location.href = url
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? 'Checkout failed')
+      window.location.href = data.url
     } catch {
+      toast.error('Could not initiate checkout. Please try again.')
       setUpgradeLoading(null)
     }
   }
