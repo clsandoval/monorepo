@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 509
-- **Analyzed:** 78
-- **Pending:** 431
-- **Convergence:** 15.3%
+- **Total aspects:** 514
+- **Analyzed:** 79
+- **Pending:** 435
+- **Convergence:** 15.4%
 
 ---
 
@@ -202,7 +202,12 @@
   - [ ] 4.69e-iii-h — Intentional vs. convergent coordination signal: distinguishing deliberate team coordination from independent meta convergence; match scheduling proximity analysis; config similarity metrics; cross-player compound detection overlap; the attribution uncertainty problem
   - [ ] 4.69e-iii-i — Compound detection as a community-level metric: aggregating compound detection results across all players in a bracket; "this group is flagged by 8 of 15 opponents" as bracket-level insight; privacy implications; interaction with adversarial tag as community signal (4.69e-ix)
   - [ ] 4.69e-iii-j — Compound score trend as a season metric: tracking peak compound score across career analyses over a season; rising compound score = increasing coordinated adversarial pressure; interaction with adversarial density metric (4.69e-v) and season health dashboard (4.69n)
-- [ ] 4.69e-iv — Counter-poisoning config design: full design of the player's ability to intentionally design a config that generates misleading cluster signals in an opponent's career analysis; the offensive version of adversarial poisoning; ethical/design considerations around explicit "diagnostic sabotage" as player intent
+- [x] 4.69e-iv — Counter-poisoning config design: full design of the player's ability to intentionally design a config that generates misleading cluster signals in an opponent's career analysis; the offensive version of adversarial poisoning; ethical/design considerations around explicit "diagnostic sabotage" as player intent
+  - [ ] 4.69e-iv-a — Poison config templates and sharing: community-created and shared poisoning templates; modding/sharing implications; interaction with necropsy culture (7.10)
+  - [ ] 4.69e-iv-b — Diagnostic Intent Score false positive analysis: when a config is flagged as "optimized for disruption" but the player genuinely built a weird config; false accusation problem; appeal/explanation affordance
+  - [ ] 4.69e-iv-c — Bait config as meta-defensive strategy: intentionally making one agent look vulnerable to lure opponent's poison toward a decoy; "poisoning the poisoner's target selection"; interaction with Arms Race Layer 4
+  - [ ] 4.69e-iv-d — Win rate sacrifice budget as competitive resource: formalizing "I can afford to lose X% win rate for diagnostic disruption" as seasonal resource allocation; budget planning for diagnostic warfare; interaction with ELO/ranking systems
+  - [ ] 4.69e-iv-e — Cross-opponent poison coordination: different configs stressing the same element of the same opponent via different attack vectors; distributed poisoning evading single-config detection; interaction with compound detection from opponent's perspective
 - [ ] 4.69e-v — Adversarial density as a career season metric: tracking how many of the player's matches in a season were adversarially targeted; "adversarial pressure" as a context variable in season health; adjusting season health thresholds for high-adversarial-pressure seasons
 - [ ] 4.69e-vi — Concentration threshold calibration for dense opponent pools: false adversarial detection in small competitive ladders where players naturally match against same opponents repeatedly; graduated concentration thresholds based on opponent pool size; "expected concentration at N matches" as contextual denominator
 - [ ] 4.69e-vii — Per-cluster adversarial exclusion: tag an opponent as adversarial for specific agent clusters but not others; "exclude IronPulse99 from STRIKER-A analysis but include in RELAY-B analysis"; surgical per-cluster tagging vs. blanket per-opponent tag; interaction with 4.69j per-agent threshold override
