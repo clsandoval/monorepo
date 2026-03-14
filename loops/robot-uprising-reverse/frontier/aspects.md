@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 281
-- **Analyzed:** 43
-- **Pending:** 238
+- **Total aspects:** 287
+- **Analyzed:** 44
+- **Pending:** 243
 - **Convergence:** 15.3%
 
 ---
@@ -54,13 +54,18 @@
 - [x] 4.67 — Probe hook suggestion from transparency panel: when the drawer identifies an element as high-volatility or high-pivot-activity, surface a one-click action "Add probe hook to capture [ELEMENT] state in next match →"; converts passive explanation into active diagnostic step; probe hooks (4.15) as natural follow-on to understanding the pre-ranking
 - [x] 4.68 — Cross-match coverage percentage as season health metric: graphing the top-candidate coverage percentage across each career analysis run as a "structural robustness trend"; declining coverage = improving architecture; flat or rising coverage = plateaued or regressing; the long-arc view of architectural quality no single match metric can provide
 - [x] 4.69 — "Agent multi-cluster" detection in career analysis: automatic flag when the same agent appears in 3+ distinct runner-up slots in a career analysis result — surfaces "consider reviewing this agent holistically, not element-by-element"; interaction with 4.49 cross-mission pattern detection
-- [ ] 4.69a — Multi-cluster threshold configurability: letting players set whether 2+, 3+, or 4+ appearances triggers the flag; accessibility consideration (2+ fires constantly for new players with concentrated configs); expert mode consideration (4+ threshold for players who want less interruption)
+- [x] 4.69a — Multi-cluster threshold configurability: letting players set whether 2+, 3+, or 4+ appearances triggers the flag; accessibility consideration (2+ fires constantly for new players with concentrated configs); expert mode consideration (4+ threshold for players who want less interruption)
 - [ ] 4.69b — Combined agent coverage score display: showing "if ALL of this agent's clustered elements were fixed, combined coverage = X%" as a first-class metric in the career analysis panel; question of whether this number should be pre-computed or on-demand
 - [ ] 4.69c — Agent redesign mode as a dedicated workbench state: full design of the isolated redesign sandbox — how the player enters, what UI affordances are available, how changes are staged vs. committed, how the simulation differs from normal workbench operation
 - [ ] 4.69d — Multi-cluster persistence tracking: tracking whether the same agent triggers multi-cluster across multiple career analyses; the "persistent offender" agent as a named archetype with dedicated treatment in the season health dashboard
 - [ ] 4.69e — Adversarial multi-cluster poisoning: opponent config design strategy that stresses 3+ elements of the same target agent across all match types, deliberately triggering the player's cluster flag to mislead them into an unnecessary redesign; counter-design distinguishes "clustered across all opponents" (structural) from "clustered against specific opponent" (adversarial)
 - [ ] 4.69f — "Apply All Three" batch deployment: detailed design of the multi-fix batch application — sequencing, conflict detection, rollback affordance, confirmation dialog
 - [ ] 4.69g — Agent cluster as a unit of analysis in career stats: career statistics dashboard that shows per-agent multi-cluster frequency history; "agent debt ledger" as companion to match-level architectural debt metrics
+- [ ] 4.69h — Threshold preset profiles per config phase: different multi-cluster thresholds for different career phases (early season N=4 to avoid noise; late season N=2 to catch architectural drift before finals); a "phase-aware" threshold that auto-shifts as the season progresses
+- [ ] 4.69i — Combined coverage minimum as secondary threshold gate: requiring BOTH N=3 appearances AND combined coverage ≥30% before the cluster flag fires; prevents low-coverage clusters from generating noise; two-axis threshold specification design
+- [ ] 4.69j — Per-agent threshold override: letting the player set a specific threshold for a specific agent ("always flag RELAY-C at N=2, even if global threshold is N=4"); pinning diagnostic sensitivity on known problem agents; UI for managing per-agent overrides in the workbench agent inspector
+- [ ] 4.69k — Cluster flag history in career analysis log: a chronological log of every time the cluster flag fired, with the threshold active at that time and the player's response (dismissed/redesigned/applied-all); "diagnostic history" as a record of player judgment over time; interaction with 7.10 necropsy culture
+- [ ] 4.69l — Threshold recommendation engine: analyzes the player's last 5 career analyses and recommends a threshold adjustment based on false positive rate and flag dismissal frequency; "you dismissed 4 of the last 5 cluster flags without acting — recommend raising threshold to 4+"; explicit recommendation + one-tap accept
 - [ ] 4.70 — Career analysis filtered by opponent archetype: running cross-match analysis filtered to "matches against heavy-hook opponents" or "matches ending before tick 60"; find structural weaknesses specific to opponent classes; interaction with 2.28 scenario fingerprinting
 - [ ] 4.71 — Comparative career analysis between config versions: "if I had stayed on v2.3 and applied the career minimum fix vs. rebuilding to v3.8 — which would have produced better cross-match results?"; counterfactual on architectural strategy rather than parametric choices; requires counterfactual history (4.38)
 - [ ] 4.72 — The "debt-free" season achievement: a season where top-candidate career analysis coverage score is below 20% (no single element responsible for more than 20% of losses); "structurally diverse failure distribution" as highest-level architectural health certificate; analogous to a codebase with no single module owning more than 20% of bugs
