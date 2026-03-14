@@ -16,6 +16,7 @@ export function CheckoutReturnBanner({ plan }: CheckoutReturnBannerProps) {
   React.useEffect(() => {
     const success = searchParams.get('success')
     const canceled = searchParams.get('canceled')
+    const portalReturn = searchParams.get('portal_return')
 
     if (success === '1') {
       const planName = plan === 'starter' ? 'Starter' : plan === 'pro' ? 'Pro' : null
@@ -31,6 +32,11 @@ export function CheckoutReturnBanner({ plan }: CheckoutReturnBannerProps) {
       toast.info('Checkout canceled. Your plan was not changed.')
       const url = new URL(window.location.href)
       url.searchParams.delete('canceled')
+      router.replace(url.pathname + (url.search || ''))
+    } else if (portalReturn === '1') {
+      toast.info('Welcome back to Daimon.')
+      const url = new URL(window.location.href)
+      url.searchParams.delete('portal_return')
       router.replace(url.pathname + (url.search || ''))
     }
     // Only run once on mount

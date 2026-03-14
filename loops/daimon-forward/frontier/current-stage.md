@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 87
-- **Current**: 87
+- **Completed**: 88
+- **Current**: 88
 
 ## Current Stage
 
-**Stage 088** — (next stage)
+**Stage 089** — (next stage)
 
 ## Stage Log
 
@@ -101,3 +101,4 @@
 | 085 | done | 2026-03-14T10:45:00Z | Blog index (/blog): featured post card + 3-col post grid, 3 launch posts (Product/Engineering/Company); Blog post page (/blog/[slug]): breadcrumb, post header, body renderer, author card, related posts, CTA section, schema.org; Cookie policy (/legal/cookies): full 10-section policy with tables, TOC, noindex; build passes |
 | 086 | done | 2026-03-14T11:00:00Z | src/lib/stripe/client.ts (Stripe SDK lazy init), src/lib/stripe/config.ts (typed PLAN_PRICING, getPriceId, getPlanFromPriceId, billing period helpers, STRIPE_ENV_VARS), .env.local.example with all Stripe+Supabase+OAuth env vars; build passes |
 | 087 | done | 2026-03-14T11:15:00Z | Checkout flow end-to-end: CheckoutReturnBanner now shows correct success toast ("Your plan has been upgraded!" + plan-specific description) and info toast on cancel ("Checkout canceled. Your plan was not changed."); handleUpgrade in PlanComparisonGrid now shows toast.error on failure; billing page passes plan prop to CheckoutReturnBanner; build passes |
+| 088 | done | 2026-03-14T11:30:00Z | Customer portal integration: /api/billing/portal already implemented (owner-only, stripe_customer_id lookup, billingPortal.sessions.create with return_url); "Manage Billing →" button in CurrentPlanCard + portal links in BillingAlertBanners already wired; added portal_return=1 handler in CheckoutReturnBanner showing info toast "Welcome back to Daimon." with URL cleanup; build passes |
