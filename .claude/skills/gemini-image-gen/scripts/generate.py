@@ -12,7 +12,7 @@ import urllib.error
 API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent"
 
 
-def generate_image(prompt: str, output_path: str, aspect_ratio: str = "1:1") -> str:
+def generate_image(prompt: str, output_path: str) -> str:
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         print("ERROR: GEMINI_API_KEY environment variable not set", file=sys.stderr)
@@ -71,7 +71,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate images with Nano Banana 2")
     parser.add_argument("prompt", help="Image generation prompt")
     parser.add_argument("-o", "--output", default="generated.png", help="Output file path (default: generated.png)")
-    parser.add_argument("--aspect-ratio", default="1:1", help="Aspect ratio (default: 1:1, options: 1:1, 16:9, 9:16, 4:3, 3:4)")
     args = parser.parse_args()
 
-    generate_image(args.prompt, args.output, args.aspect_ratio)
+    generate_image(args.prompt, args.output)
