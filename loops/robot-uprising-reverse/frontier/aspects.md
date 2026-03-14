@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 571
-- **Analyzed:** 91
-- **Pending:** 480
-- **Convergence:** 15.9%
+- **Total aspects:** 576
+- **Analyzed:** 92
+- **Pending:** 484
+- **Convergence:** 16.0%
 
 ---
 
@@ -86,7 +86,12 @@
                                             - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i — Automated schema change detection: CI check comparing repair tool's argument parser against recorded manifest; detects schema changes without version bump; the "schema drift detector"
                                               - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a — Phantom flag detection as bidirectional completeness check: reverse template check (audit → repair direction); --enumerate-args as known-flags source of truth; flag alias handling; false positive suppression for test-only flags
                                                 - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i — Allowlist hygiene and expiry: when should allowlist entries be removed; stale allowlist entries suppressing future genuine phantoms; periodic audit of allowlist against current source; automated staleness detection; Recommendation: Option 2 (CI grep-back staleness check) + Option 3 (90-day TTL with renewal counter) as complementary layers; 5 design options (manual review, CI grep-back, TTL expiry, source-anchored, assertions-as-code); combined schema with renewals field as migration signal; "permanent allowlist" anti-pattern with three responses (permanent field, promote to internal, source refactoring); Phase 2 absorption path (atomic deletion); 3 player journeys (Aarav first expiry, Dev stale discovery during refactor, Margot high-renewal audit); 5 stale entry scenarios; interaction effects with schema drift detector, repair command version, profile export, bidirectional completeness pattern; 5 new sub-aspects discovered
-                                                  - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a — Renewal justification as commit message convention: when extending an expiry, what metadata belongs in the commit message vs. in the JSON; structured commit message format for allowlist renewals; git log as audit trail for renewal decisions
+                                                  - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a — Renewal justification as commit message convention: when extending an expiry, what metadata belongs in the commit message vs. in the JSON; structured commit message format for allowlist renewals; git log as audit trail for renewal decisions
+                                                    - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-i — Commit-msg hook enforcement strategy: warn vs. block on missing trailers; warn-first adoption period vs. immediate enforcement; hook bypass (--no-verify) auditing; interaction with pre-existing commit-msg hooks in the l10n pipeline
+                                                    - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-ii — Squash-merge trailer preservation: individual commit trailers lost in squash; PR description as canonical location vs. post-merge hook extraction vs. forbid squash on allowlist-touching PRs
+                                                    - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-iii — Renewal verdict `defer` as anti-pattern detection: consecutive defer count before escalation; shorter TTL for defer (30 days vs. 90); interaction with renewals ≥ 3 advisory
+                                                    - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-iv — Cross-tool commit trailer namespace collision: multiple l10n tools adopting structured trailers (Allowlist-*, Migration-*, Budget-*); namespace conventions, prefix standardization, and trailer schema discovery
+                                                    - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-v — Renewal tool `--non-interactive` mode for CI auto-renewal policy: constraints on CI auto-renewal; maximum auto-renewals before human required; interaction with forced-human-review principle of TTL
                                                   - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-b — Allowlist entry ownership and CODEOWNERS integration: who is responsible for renewing a specific entry; CODEOWNERS-style per-entry ownership; notification when an entry nears expiry so the owner can act proactively rather than blocking an unrelated PR
                                                   - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-c — Grep target scope configuration: the staleness check's grep target (single file vs. directory vs. glob pattern) as a configurable parameter; interaction with audit tool refactoring (monolith → package); when to widen vs. narrow the grep scope
                                                   - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-d — Allowlist schema versioning: the allowlist file itself needs a schema_version field; migration tooling when schema changes (e.g., adding permanent field, changing renewals from number to object); backward compatibility with older CI scripts reading newer allowlist format
