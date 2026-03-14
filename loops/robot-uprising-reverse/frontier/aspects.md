@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 532
-- **Analyzed:** 83
-- **Pending:** 449
+- **Total aspects:** 537
+- **Analyzed:** 84
+- **Pending:** 453
 - **Convergence:** 15.6%
 
 ---
@@ -220,7 +220,12 @@
   - [ ] 4.69e-vii-b — Lock inheritance on config redesign: when the player redesigns STRIKER-A into STRIKER-A-v2, should per-cluster locks from the old STRIKER-A transfer to the new version; identity continuity of agents across redesigns; interaction with agent versioning
   - [ ] 4.69e-vii-c — Lock recommendation engine: system-suggested locks based on replay analysis, concentration gap between clusters, and historical lock patterns; "we noticed RELAY-B persists after IronPulse99 exclusion — consider locking to include"; passive vs. active recommendation UX
   - [ ] 4.69e-vii-d — Bulk lock operations from the Tag Matrix view: if a player opens the Tag Matrix (Option B), can they set locks in batch across the grid; interaction between the inline lock (Option D) and the matrix view (Option B) as dual interfaces to the same state
-- [ ] 4.69e-viii — Tag expiry and automatic sunset: adversarial tags that persist forever become stale as configs and meta evolve; automatic expiry after N seasons with renewal prompt; interaction with periodic review prompt design; preventing stale tags from accumulating over long careers
+- [x] 4.69e-viii — Tag expiry and automatic sunset: adversarial tags that persist forever become stale as configs and meta evolve; automatic expiry after N seasons with renewal prompt; interaction with periodic review prompt design; preventing stale tags from accumulating over long careers
+  - [ ] 4.69e-viii-a — Tag renewal as competitive signal: renewal events as Threat Model Report data; renewal cadence as a metric of ongoing adversarial pressure; should opponents know they're being re-tagged
+  - [ ] 4.69e-viii-b — Batch review UX for high-tag-count players: pagination, sorting (by impact/age/recommendation), filtering, "Trust all recommendations" button; UI design for 15-20 simultaneous ceiling hits
+  - [ ] 4.69e-viii-c — Tag inheritance across account migration or season reset: should tags survive hard resets; tags as social memory vs. diagnostic instruments; different answers for different reset types
+  - [ ] 4.69e-viii-d — Deactivated tag reactivation flow: fresh TTL vs. resume; original values vs. current data; distinguishing "accidentally expired" from "re-tagging after a break"
+  - [ ] 4.69e-viii-e — Tag expiry as tutorial for broader config hygiene: expiry system as first encounter with "configuration debt" concept; transfer to hook configs, rule priorities, context filters
 - [ ] 4.69e-ix — Adversarial tag as community signal: anonymized aggregation of tag frequency across players; "this opponent is tagged as adversarial by 12 players in your bracket"; crowd-sourced adversarial intelligence; risk of mob tagging strong non-adversarial players; interaction with 7.10 necropsy culture
 - [ ] 4.69e-x — Tag evidence export for community discussion: shareable artifact showing match-source breakdown, preview, and tagging rationale without revealing opponent identity; enables community discussion of "when should I tag?" as a learnable skill; interaction with necropsy culture (7.10) and Opus Magnum histogram sharing (1.03)
 - [ ] 4.69e-v-a — APS as matchmaking input: should matchmaking reduce probability of matching high-APS players against their tagged opponents; tension between competitive fairness (any vs. any) and player wellbeing; comparable: chess.com "avoid player" in arena tournaments
