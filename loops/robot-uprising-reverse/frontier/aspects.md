@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 321
-- **Analyzed:** 50
-- **Pending:** 271
-- **Convergence:** 15.6%
+- **Total aspects:** 325
+- **Analyzed:** 51
+- **Pending:** 274
+- **Convergence:** 15.7%
 
 ---
 
@@ -61,7 +61,11 @@
 - [x] 4.69e — Adversarial multi-cluster poisoning: opponent config design strategy that stresses 3+ elements of the same target agent across all match types, deliberately triggering the player's cluster flag to mislead them into an unnecessary redesign; counter-design distinguishes "clustered across all opponents" (structural) from "clustered against specific opponent" (adversarial)
 - [x] 4.69e-i — Match-scope filter UI design: full design of the career analysis scope filter — how the player selects opponents to include/exclude, what the UI looks like, how filtered analyses are labeled and archived vs. full-scope analyses; interaction with career analysis history log
 - [x] 4.69e-i-a — Sample size warning threshold: minimum match count for a reliable filtered analysis and how the UI communicates when a filtered set is too small; exact UI: warning banner, disabled Run Analysis button, or advisory text only?
-  - [ ] 4.69e-i-a-i — "Don't show again" placement decision: whether the toast's "don't show again" affordance lives in-toast (more discoverable) vs. in Settings only (cleaner toast); two usability philosophies with measurable tradeoffs
+  - [x] 4.69e-i-a-i — "Don't show again" placement decision: whether the toast's "don't show again" affordance lives in-toast (more discoverable) vs. in Settings only (cleaner toast); two usability philosophies with measurable tradeoffs; recommendation: Option 4 (Two-Tier Dismissal: session snooze in-toast + permanent suppress in Settings) + first-occurrence footer pointing to Settings path; 4 options explored; 3 player journeys; 4 new sub-aspects discovered
+    - [ ] 4.69e-i-a-vi — Toast re-entry and session boundary detection after snooze: when does "session" end — tab close, game close, 30min idle? Browser sessionStorage vs. explicit game session tracking; edge cases with multiple tabs
+    - [ ] 4.69e-i-a-vii — First-occurrence footer text maintainability: hardcoded "Settings → Analysis" path vs. icon-link that navigates directly; localization and path-change fragility; alternative: deferred-navigation affordance that opens Settings directly from the toast
+    - [ ] 4.69e-i-a-viii — "Expand scope to 30+" CTA persistence after toast suppression: when toast is gone, does the action live anywhere else? Inline in the reliability band text ("Exploratory only (N=8) · [Expand to 30+]") as a fallback CTA; design of the non-toast path to scope expansion
+    - [ ] 4.69e-i-a-ix — Onboarding exemption for sample size toast: should the toast fire during tutorial/onboarding when the game deliberately uses small-N scenarios? Detection logic; risk of confusing guided-play players who are doing what they're told
   - [ ] 4.69e-i-a-ii — N threshold display in history log entries: when a history log entry shows "Filtered analysis · 14 matches," should it also show a zone label ("Directional") or color badge to remind the player of reliability context when reviewing historical entries?
   - [ ] 4.69e-i-a-iii — Minimum N for cluster detection hardcoded vs. configurable: whether exploratory/directional/reliable zone thresholds (15, 30) should be fixed constants vs. player-configurable (like 4.69h); design tension between power-user flexibility and statistical coherence
   - [ ] 4.69e-i-a-iv — Confidence interval display for full-scope analysis at early career (N < 30 total matches): should the ±% interval appear even for full-scope analyses when a new player has only played 12 total matches?
