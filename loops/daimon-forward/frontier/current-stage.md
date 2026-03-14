@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 83
-- **Current**: 83
+- **Completed**: 84
+- **Current**: 84
 
 ## Current Stage
 
-**Stage 084** — (next stage)
+**Stage 085** — (next stage)
 
 ## Stage Log
 
@@ -97,3 +97,4 @@
 | 081 | done | 2026-03-14T09:30:00Z | Docs quick start guide: 8-step guide (create account, create Discord bot, get Anthropic key, add key to Daimon, connect Discord bot, verify live, talk to bot, connect integrations); callouts, step circles, code blocks, tables; static page; build passes |
 | 082 | done | 2026-03-14T10:00:00Z | Docs tool reference: /docs/tools client page with all 95 tools organized in 13 collapsible categories, searchable filter input, plan tier badges (free/starter/pro), credential notes, footer nav; sidebar nav updated with "All Tools (95)" link; build passes |
 | 083 | done | 2026-03-14T10:15:00Z | Docs FAQ page (/docs/faq): 42 questions across 7 sections with native details/summary accordion (open by default), TOC, footer nav; Billing & Plans page (/docs/billing): 9 sections, plan comparison table, BYOK model, billing cycles, upgrade/downgrade/cancel flows, API keys, payment failures; build passes |
+| 084 | done | 2026-03-14T10:30:00Z | Changelog page (/changelog): reverse-chronological entries with left aqua border, date+version badge, category tags, arrow bullet list; v1.0.0 launch entry; About page (/about): hero (navy+blobs), mission copy, how it works 3-col cards, 6 values grid, team founder card, CTA section; build passes |
