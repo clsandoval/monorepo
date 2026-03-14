@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 102
-- **Current**: 102
+- **Completed**: 103
+- **Current**: 103
 
 ## Current Stage
 
-**Stage 103** — (next stage)
+**Stage 104** — (next stage)
 
 ## Stage Log
 
@@ -116,3 +116,4 @@
 | 100 | done | 2026-03-14T21:00:00Z | Error states: global error.tsx (unexpected error + go to dashboard), not-found.tsx (FileQuestion icon + go to dashboard/docs links), per-page error.tsx for dashboard/integrations/billing/settings/admin/docs with spec copy; build passes |
 | 101 | done | 2026-03-14T22:00:00Z | Toast notifications: Discord add/replace/disconnect wired (spec copy); service card disconnect toast; OAuthCallbackBanner converted from inline banner to toast (success/error/cancelled); account+workspace+admin toasts already present from prior stages; build passes |
 | 102 | done | 2026-03-14T23:00:00Z | ConfirmDialog wired to all 5 destructive actions: delete workspace (confirmationText=tenantName), disconnect Discord bot (danger, spec copy), delete API key (danger, provider meta copy), disconnect service connection (warning, spec copy), admin suspend tenant (danger); replaced Modal/inline confirm patterns with ConfirmDialog; build passes |
+| 103 | done | 2026-03-14T23:30:00Z | Responsive mobile layout: sidebar icon-only at tablet (md:w-14, labels hidden, centered icons), hidden at mobile; DashboardLayout responsive margins (ml-0/md:ml-14/xl:ml-60), responsive padding (p-4/md:p-6/xl:p-8), bottom padding pb-[72px] on mobile; MobileBottomNav (5 items, aqua active indicator, md:hidden); AdminLayout mobile blocking screen for <1024px (Monitor icon, "Desktop only" message, back link); build passes |

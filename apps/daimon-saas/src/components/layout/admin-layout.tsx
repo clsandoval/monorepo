@@ -12,6 +12,7 @@ import {
   Settings,
   Rocket,
   LogOut,
+  Monitor,
 } from 'lucide-react'
 import { DashboardTopbar } from '@/components/layout/dashboard-topbar'
 import { useAuthContext } from '@/lib/auth/auth-context'
@@ -184,6 +185,69 @@ function AdminSidebar() {
   )
 }
 
+// ─── Mobile Blocking Screen ────────────────────────────────────────────────
+
+function AdminMobileBlock() {
+  return (
+    <div
+      className="flex lg:hidden min-h-screen items-center justify-center"
+      style={{ background: '#F7F7F7', padding: '32px 16px' }}
+    >
+      <div
+        style={{
+          maxWidth: '400px',
+          width: '100%',
+          padding: '40px',
+          background: '#FFFFFF',
+          border: '1px solid rgba(12,31,64,0.08)',
+          textAlign: 'center',
+        }}
+      >
+        <Monitor
+          size={48}
+          color="#0C1F40"
+          style={{ opacity: 0.4, margin: '0 auto 16px' }}
+        />
+        <h2
+          style={{
+            fontFamily: 'var(--font-archivo)',
+            fontSize: '20px',
+            fontWeight: 600,
+            color: '#0C1F40',
+            marginBottom: '8px',
+          }}
+        >
+          Desktop only
+        </h2>
+        <p
+          style={{
+            fontFamily: 'var(--font-inter)',
+            fontSize: '15px',
+            color: 'rgba(12,31,64,0.70)',
+            marginBottom: '20px',
+            lineHeight: 1.5,
+          }}
+        >
+          The admin panel is not available on mobile devices. Please use a desktop browser.
+        </p>
+        <Link
+          href="/dashboard"
+          style={{
+            fontFamily: 'var(--font-inter)',
+            fontSize: '14px',
+            color: '#0C1F40',
+            textDecoration: 'underline',
+          }}
+        >
+          ← Back to Dashboard
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+// ─── Admin Layout ──────────────────────────────────────────────────────────
+
 interface AdminLayoutProps {
   children: React.ReactNode
   pageTitle?: string
@@ -200,56 +264,55 @@ export function AdminLayout({
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
   return (
-    <div
-      className="flex min-h-screen"
-      style={{ background: '#F7F7F7' }}
-    >
-      {/* AdminSidebar — hidden on mobile */}
-      <div className="hidden lg:block">
-        <AdminSidebar />
-      </div>
+    <>
+      {/* Mobile blocking screen — shown below 1024px */}
+      <AdminMobileBlock />
 
-      {/* Mobile nav overlay */}
-      {mobileNavOpen && (
-        <div
-          className="fixed inset-0 lg:hidden"
-          style={{ zIndex: 200 }}
-          onClick={() => setMobileNavOpen(false)}
-        >
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0"
-            style={{ background: 'rgba(12,31,64,0.50)' }}
-          />
-          {/* Panel */}
-          <div
-            className="absolute left-0 top-0 h-full"
-            style={{ width: '240px', zIndex: 201 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <AdminSidebar />
-          </div>
-        </div>
-      )}
-
-      {/* Main area */}
+      {/* Full admin panel — shown at 1024px and above */}
       <div
-        className="flex flex-1 flex-col lg:ml-[240px]"
+        className="hidden lg:flex min-h-screen"
+        style={{ background: '#F7F7F7' }}
       >
-        <DashboardTopbar
-          pageTitle={pageTitle}
-          tenantName={tenantName}
-          plan={plan}
-          onMenuClick={() => setMobileNavOpen(true)}
-        />
+        <AdminSidebar />
 
-        <main
-          className="flex-1 p-8 w-full"
-          style={{ maxWidth: '1200px' }}
-        >
-          {children}
-        </main>
+        {/* Mobile nav overlay (for tablet-ish scenarios) */}
+        {mobileNavOpen && (
+          <div
+            className="fixed inset-0 lg:hidden"
+            style={{ zIndex: 200 }}
+            onClick={() => setMobileNavOpen(false)}
+          >
+            <div
+              className="absolute inset-0"
+              style={{ background: 'rgba(12,31,64,0.50)' }}
+            />
+            <div
+              className="absolute left-0 top-0 h-full"
+              style={{ width: '240px', zIndex: 201 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <AdminSidebar />
+            </div>
+          </div>
+        )}
+
+        {/* Main area */}
+        <div className="flex flex-1 flex-col lg:ml-[240px]">
+          <DashboardTopbar
+            pageTitle={pageTitle}
+            tenantName={tenantName}
+            plan={plan}
+            onMenuClick={() => setMobileNavOpen(true)}
+          />
+
+          <main
+            className="flex-1 p-8 w-full"
+            style={{ maxWidth: '1200px' }}
+          >
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

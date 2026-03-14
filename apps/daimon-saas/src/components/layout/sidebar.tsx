@@ -17,7 +17,6 @@ interface NavItemConfig {
   href: string
   label: string
   icon: React.ReactNode
-  isExternal?: boolean
 }
 
 const NAV_ITEMS: NavItemConfig[] = [
@@ -36,13 +35,12 @@ function SidebarNavItem({ href, label, icon }: NavItemConfig) {
   return (
     <Link
       href={href}
-      className="flex items-center gap-3 mx-2 px-3 rounded-none transition-colors duration-150"
+      title={label}
+      className="flex items-center justify-center xl:justify-start mx-0 xl:mx-2 px-0 xl:px-3 xl:gap-3 transition-colors duration-150"
       style={{
         height: '44px',
         color: isActive ? '#FFFFFF' : 'rgba(255,255,255,0.65)',
-        background: isActive
-          ? 'rgba(255,255,255,0.10)'
-          : 'transparent',
+        background: isActive ? 'rgba(255,255,255,0.10)' : 'transparent',
       }}
       onMouseEnter={(e) => {
         if (!isActive) {
@@ -58,7 +56,8 @@ function SidebarNavItem({ href, label, icon }: NavItemConfig) {
       }}
     >
       <span className="flex-shrink-0">{icon}</span>
-      <span className="text-sm font-medium">{label}</span>
+      {/* Label: hidden on tablet (icon-only), visible on desktop */}
+      <span className="hidden xl:block text-sm font-medium">{label}</span>
     </Link>
   )
 }
@@ -76,27 +75,27 @@ export function Sidebar() {
 
   return (
     <aside
-      className="fixed left-0 top-0 flex flex-col overflow-y-auto"
+      className="fixed left-0 top-0 flex flex-col overflow-y-auto md:w-14 xl:w-60"
       style={{
-        width: '240px',
         height: '100vh',
         background: '#0C1F40',
         borderRight: '1px solid rgba(255,255,255,0.06)',
         zIndex: 100,
       }}
     >
-      {/* Logo Area */}
+      {/* Logo Area — icon only on tablet, icon + wordmark on desktop */}
       <Link
         href="/dashboard"
-        className="flex items-center gap-2 flex-shrink-0 transition-opacity duration-150 hover:opacity-85"
+        className="flex items-center justify-center xl:justify-start flex-shrink-0 transition-opacity duration-150 hover:opacity-85"
         style={{
           height: '64px',
           padding: '0 16px',
           borderBottom: '1px solid rgba(255,255,255,0.08)',
         }}
       >
-        <Rocket size={24} color="#FFFFFF" />
+        <Rocket size={24} color="#FFFFFF" className="flex-shrink-0" />
         <span
+          className="hidden xl:block ml-2"
           style={{
             fontFamily: 'var(--font-archivo)',
             fontSize: '16px',
@@ -115,11 +114,11 @@ export function Sidebar() {
         ))}
       </nav>
 
-      {/* Sidebar Footer */}
+      {/* Sidebar Footer — avatar only on tablet, full on desktop */}
       <div
-        className="flex items-center gap-[10px] flex-shrink-0"
+        className="flex items-center justify-center xl:justify-start flex-shrink-0"
         style={{
-          padding: '16px',
+          padding: '16px 8px',
           borderTop: '1px solid rgba(255,255,255,0.08)',
           background: '#0C1F40',
           zIndex: 1,
@@ -138,19 +137,19 @@ export function Sidebar() {
           {initials}
         </div>
 
-        {/* User Email */}
+        {/* User Email — hidden on tablet, visible on desktop */}
         <span
-          className="flex-1 truncate text-xs"
+          className="hidden xl:block flex-1 truncate text-xs ml-[10px]"
           style={{ color: 'rgba(255,255,255,0.65)' }}
           title={userEmail}
         >
           {userEmail}
         </span>
 
-        {/* Logout Button */}
+        {/* Logout Button — hidden on tablet, visible on desktop */}
         <button
           onClick={handleSignOut}
-          className="flex-shrink-0 transition-colors duration-150"
+          className="hidden xl:flex flex-shrink-0 transition-colors duration-150"
           style={{ color: 'rgba(255,255,255,0.45)' }}
           onMouseEnter={(e) => (e.currentTarget.style.color = '#FFFFFF')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
