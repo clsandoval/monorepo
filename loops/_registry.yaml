@@ -295,6 +295,14 @@ loops:
     timeout_minutes: 360
     status: active
     created: "2026-03-13"
+  robot-uprising-reverse:
+    description: "Exhaustive game design space cartography for Robot Uprising — every mechanic variation, every UI approach, every player journey"
+    type: reverse
+    schedule: "*/30 * * * *"
+    max_iterations: 200
+    timeout_minutes: 30
+    status: active
+    created: 2026-03-13
   pymc-content-reverse:
     description: "Scrape existing website + Discord archive + public data → complete content package for PyMC Labs website rebuild"
     type: reverse
