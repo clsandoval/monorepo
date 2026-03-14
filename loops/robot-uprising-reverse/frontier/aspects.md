@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 651
-- **Analyzed:** 107
-- **Pending:** 544
-- **Convergence:** 16.4%
+- **Total aspects:** 656
+- **Analyzed:** 108
+- **Pending:** 548
+- **Convergence:** 16.5%
 
 ---
 
@@ -663,7 +663,12 @@
   - [ ] 7.01c — Channel naming as competitive metagame: common channel names are predictable (hackable), unique names are harder to intercept but harder for teammates to guess in co-op; channel obfuscation as a competitive skill; automatic channel renaming as a defensive rule
   - [ ] 7.01d — PvP unlock gating and campaign integration: when does competitive multiplayer become available; Ghost Ladder after Mission 5 vs. earlier; practice-against-ghost missions in campaign; competitive skill teaching within the tutorial arc
   - [ ] 7.01e — Spectator mode and tournament infrastructure: stream overlays showing both players' Plan screens, split-screen Sealed Watch, Inspector casting tools, tournament bracket UI, replay sharing for community analysis
-- [ ] 7.02 — Co-op: shared battlefield, complementary attention architectures
+- [x] 7.02 — Co-op: shared battlefield, complementary attention architectures
+- [ ] 7.02a — Co-op channel naming protocols and emergent communication conventions: how player-pairs develop shared vocabulary for cross-boundary signals; the "protocol layer" that emerges from repeated co-op sessions; comparable to software API versioning and team naming conventions
+- [ ] 7.02b — Co-op production queue negotiation: when two players share one production queue (Archon, Specialist, War Room), build order becomes a diplomacy problem; resource allocation as cooperative tension; comparable to Factorio's "you used all the iron" conflict
+- [ ] 7.02c — 2v2 co-op PvP mode combinations: pairing co-op models with PvP models; Specialist co-op (4 distinct roles in a 2v2) as the deepest competitive format; mixed co-op models as asymmetric advantage
+- [ ] 7.02d — Co-op Inspector as teaching tool: War Room co-op forces deep Inspector usage; how co-op debrief habits transfer to improved single-player analysis; co-op as the "Inspector tutorial" the game otherwise lacks
+- [ ] 7.02e — Cross-boundary EM emission budget as cooperative resource: in Divided Front co-op, both players' combined EM emissions create shared detection risk; the "emission budget" as a cooperative resource that neither player can individually control; comparable to shared radio frequency allocation
 - [ ] 7.03 — Async challenges: "beat my architecture" shareable puzzles
 - [ ] 7.04 — Modding: custom missions, custom building blocks, total conversions
 - [ ] 7.05 — Leaderboards and optimization: Zachtronics-style histograms, community competition
