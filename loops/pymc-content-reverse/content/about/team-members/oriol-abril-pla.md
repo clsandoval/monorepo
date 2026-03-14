@@ -26,3 +26,16 @@ Coding, Dashboards, Data Engineering, Dataviz, Math, Modeling, Package Managemen
 ## Social Links
 - GitHub: https://github.com/OriolAbril
 - LinkedIn: https://www.linkedin.com/in/oriol-abril-pla-1b9123180/
+
+## Org Context (from Discord)
+- Discord handle: `Oriol`
+- One of the original PyMC Labs team members (founding era 2020)
+- Core OSS work: ArviZ (inference diagnostics library), PyMC core team
+
+## Conference Talks
+- PyData Berlin 2025 — Speaker (specific talk title not captured)
+
+## Key OSS Work
+- ArviZ: data visualization and diagnostics for Bayesian models; contributes to documentation, governance, EDIA initiatives
+- PyMC: core team contributor, package management, architecture
+- ArviZ monorepo architecture migration (per Discord pymc-ecosystem extraction)

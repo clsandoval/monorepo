@@ -26,3 +26,13 @@ Blogging/Webinars, CLV, Causality, Experimentation, Gaussian Processes (GP), MMM
 ## Social Links
 - GitHub: https://github.com/juanitorduz
 - Website: https://juanitorduz.github.io/
+
+## Org Context (from Discord)
+- Discord handle: `Juan Orduz`
+- Key contribution: Built Meridian-replication notebook in pymc-marketing (competitive positioning vs. Google Meridian)
+  — This was used in competitive response strategy: Juan's notebook showed pymc-marketing can replicate Meridian 2x–20x faster
+- Courses: Instructor for ABRM course (Applied Bayesian Regression Modeling, with Ben Vincent and Forde)
+  - March cohort was cancelled (2 registrations); course being redesigned as CI for Business Impact
+
+## Conference Talks
+- Regular PyData conference speaker (time series, Bayesian methods, causal inference)

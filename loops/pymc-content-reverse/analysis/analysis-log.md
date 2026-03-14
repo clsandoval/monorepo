@@ -2,6 +2,44 @@
 
 ---
 
+## 2026-03-14 — assemble-course-abm (+ bma + ci)
+
+**Aspects completed:** assemble-course-abm, assemble-course-bma, assemble-course-ci (all three in one run)
+
+**Findings:**
+- content/courses/abm.md and content/courses/bma.md were already created as `status: complete` during the discord-courses-workshops extraction aspect. No additional work needed.
+- content/courses/ci.md was `status: partial` — enriched to `status: complete`:
+  - Added stats bar for ABRM (Option A)
+  - Added social proof / testimonials section for ABRM (no direct cohort testimonials available — March cohort cancelled; used instructor credibility quotes and cross-course audience signals)
+  - Added Option B social proof section: Ben Vincent's market analysis ratings (Novelty 8/10, Interest 9/10, Pricing Power 8/10), Juan Orduz quote praising business-scenario framing, competitive gap analysis
+  - Added developer note: do not advertise cancelled cohort; surface waitlist CTA
+  - Added marketing lead-time note to CI timeline
+  - Dual-interpretation structure (ABRM as current live course vs. new CI course in development) preserved — this ambiguity is real and needs Thomas/Halah confirmation before building the new sitemap page
+
+**ABM course summary:**
+- Price: $1,499 · 8 sessions · 16h · Instructors: Downey / Fonnesbeck / Leos Barajas
+- 3 cohorts run: Aug 2025, Oct 2025, Jan 2026
+- GitHub: pymc-labs/pymc-workshop
+- Status: complete
+
+**BMA course summary:**
+- Price: $2,249 · 8 sessions · 16h · Instructors: McWilliams / Vincent / Allen / Trujillo
+- 1 cohort run: Feb 2026 (22 participants, 77.7% Good/Excellent)
+- GitHub: bayesian-marketing-analytics-course
+- Status: complete
+
+**CI/ABRM course summary:**
+- ABRM: $1,499 · live on website · March 2026 cohort CANCELLED · Instructors: Orduz / Vincent / Forde
+- New CI course (Option B): in development, ~$2,249, planned Jun 2026+, Ben Vincent primary architect
+- Status: complete (with noted ambiguity about which course the "CI Course" sitemap slot refers to)
+
+**GAPS:**
+- No ABRM testimonials (cohort cancelled before running)
+- New CI course curriculum is in private GitHub repo (pymc-labs/causal-inference-workshop) — full session plans unavailable
+- Sitemap ambiguity: "CI Course" = ABRM (live) or new causal inference course (in development)? Needs Thomas/Halah confirmation.
+
+---
+
 ## 2026-03-14 — assemble-about
 
 **Aspect:** assemble-about

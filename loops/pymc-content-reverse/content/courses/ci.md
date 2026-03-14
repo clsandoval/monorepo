@@ -1,10 +1,11 @@
 ---
 page: courses/ci
-title: Applied Causal Inference for Business Impact
-status: partial
+title: Applied Causal Inference for Business Impact (+ ABRM)
+status: complete
 sources:
   - analysis/website-scrape/courses.md
   - analysis/discord-courses-workshops-extraction.md
+  - analysis/discord-competition-extraction.md
 ---
 
 # CI Course — Two Possible Interpretations
@@ -32,6 +33,13 @@ Recommendation: The new website sitemap "CI Course" likely refers to the upcomin
 **Price:** $1,499 (previously $1,699)
 
 **Format:** 4 weeks · 8 live sessions · 16 hours total instruction
+
+### Stats Bar
+
+- 16 hrs live instruction
+- 8 live sessions
+- 3 expert instructors
+- Bambi · PyMC · CausalPy · ArviZ
 
 ### Who Is This For
 
@@ -85,10 +93,21 @@ Principal Data Scientist at PyMC Labs. 15+ years in academia. Core contributor t
 **Nathaniel Forde**
 Data Scientist. 10+ years delivering ML products in high-growth tech and regulated industries. Active open-source contributor to PyMC, Bambi, CausalPy, and PyMC-Marketing.
 
+### Social Proof / Testimonials
+
+<!-- GAP: No ABRM cohort testimonials available — March 2026 cohort was cancelled before running. Can use instructor credibility quotes and cross-course testimonials instead. -->
+
+- Chris Fonnesbeck (ABM lead): "We probably need to introduce an advanced course someday!" — spoken to ABM participants asking about Bambi and advanced regression (Oct 2025)
+- Ben Vincent (BMA + ABRM instructor): "Focuses on making rigorous inference accessible in practical contexts." — website bio
+- "I've been building custom MMM solutions and recently diving deeper into causal inference." — Nazar Maidanenko, BMA participant intro (Feb 2026; illustrates crossover audience)
+
 ### Operational Notes
 - March 2026 cohort CANCELLED — only 2 registrations received (per #applied-bayesian-modeling channel, 2026-02-20)
 - One registrant offered ABM recordings + 2× 1:1 sessions as alternative
 - No replacement cohort date set as of 2026-03-13
+- **Developer note:** Do NOT advertise the cancelled cohort; surface a waitlist CTA instead
+
+---
 
 ---
 
@@ -156,11 +175,19 @@ Ben's market analysis projected corporate workshops at $42K–$75K per engagemen
 Thomas's actual historical pricing: ~$20–30k per engagement.
 Target industries: e-commerce, SaaS, financial services, healthcare.
 
+### Social Proof / Market Validation (from Ben Vincent's analysis)
+
+- Market ratings: **Novelty 8/10 · Likely interest 9/10 · Pricing power 8/10**
+- "No existing course combines business-problem-first organisation, modern Bayesian tools (Bambi, CausalPy, PyMC), and comprehensive coverage across experiments, quasi-experiments, and observational methods." — Ben Vincent, #casual-inference, 2026-02-17
+- "I like that the section names are not tied to methods (like: linear regression), but to business scenarios (like: Price Elasticity and Revenue Optimization)" — Juan Orduz, 2026-03-12
+- Competitive gap confirmed: Mixtape Sessions and Harvard CAUSALab serve quasi-experiments well, but no course covers the full stack with modern Bayesian tools + business framing
+
 ### Timeline
 - Original target: May 4, 2026
 - Potential conflict with Agentic Data Science course (May 12-21)
 - Discussion: push to June or post-summer
 - Status as of 2026-03-13: deferred, timeline TBD
+- Marketing start (6-week lead) would need to begin by ~late March for a June launch
 
 ---
 

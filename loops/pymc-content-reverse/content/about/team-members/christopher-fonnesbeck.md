@@ -26,3 +26,18 @@ Bio, Gaussian Processes (GP), Math, Modeling, Natural Resources, Sports, Teachin
 ## Social Links
 - GitHub: https://github.com/fonnesbeck
 - LinkedIn: https://www.linkedin.com/in/christopher-fonnesbeck-374a492a/
+
+## Org Context (from Discord)
+- Discord handle: `Chris Fonnesbeck`
+- Co-developed PyMC with Thomas Wiecki starting ~2005 (then PyMC2/3)
+- One of the original PyMC Labs team members (founding era, Aug 2020)
+
+## Course Involvement
+- **Applied Bayesian Modeling (ABM)** course instructor alongside Allen Downey and Vianey Leos Barajas
+  - Jan 2026 cohort; $1,499; 8 sessions / 16 hrs; GitHub: pymc-labs/pymc-workshop
+
+## Conference Talks
+- PyData London 2025 — "Introduction to Bayesian Time Series Analysis with PyMC" (listed as "Chris")
+  - Note: This may refer to a different Chris; attribution uncertain
+
+<!-- GAP: Chris Fonnesbeck's current engagement level with PyMC Labs vs academic role not fully clear -->

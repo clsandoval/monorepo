@@ -26,3 +26,14 @@ CLV, Causality, Experimentation, GenAI, Interpretable ML, ML, MLflow, MMM, Marke
 ## Social Links
 - GitHub: https://github.com/ColtAllen
 - LinkedIn: https://www.linkedin.com/in/coltallen-datascientist/
+
+## Key OSS Work
+- Leads CLV (Customer Lifetime Value) modeling development in pymc-marketing
+- pymc-marketing GitHub contributor
+
+## Course Involvement
+- **Bayesian Marketing Analytics (BMA)** course co-instructor (Feb 2026 cohort, alongside Ben Vincent, Tim McWilliams, Carlos Trujillo)
+- **Applied Bayesian Modeling (ABM)** workshop co-instructor (listed for Aug/Oct 2025 cohorts)
+
+## Client Work
+- Production MMM and CLV systems for named clients using pymc-marketing

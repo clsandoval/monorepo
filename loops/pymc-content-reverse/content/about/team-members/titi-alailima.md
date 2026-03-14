@@ -26,3 +26,11 @@ Coding, Cognitive Neuroscience, Experimentation, GenAI, MMM, Marketing Analytics
 ## Social Links
 - GitHub: https://github.com/tigretigre
 - LinkedIn: https://www.linkedin.com/in/titi-alailima/
+
+## Key Client Work
+- **Akili Interactive** (FDA-cleared ADHD digital therapeutic, EndeavorRx) — built MMM via pymc-marketing, executed Bayesian marketing mix models, constructed ML product features, managed rapid A/B experimentation
+- Akili testimonial (from home page): Titi is the source of the Akili client quote praising PyMC Labs work
+
+## Notable Quotes
+- "AI raises the floor so that humans may raise the ceiling!" — on AI applications
+- SCALE ethos: "Spread a Culture of Accelerated Learning through Experimentation"

@@ -26,3 +26,7 @@ Experimentation, Coding, GenAI, MMM, ML, Modeling, Product Development, Project 
 ## Social Links
 - GitHub: https://github.com/andrewheusser
 - LinkedIn: https://www.linkedin.com/in/andrew-heusser-3b6587b1/
+
+## Key Client Work
+- **Akili Interactive** — data science lead; Bayesian MMM via pymc-marketing; ML product features; rapid A/B experimentation for FDA-cleared digital therapeutic (EndeavorRx for ADHD)
+- Colleague of Titi Alailima at Akili before both joined PyMC Labs
