@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 92
-- **Current**: 92
+- **Completed**: 93
+- **Current**: 93
 
 ## Current Stage
 
-**Stage 093** — (next stage)
+**Stage 094** — (next stage)
 
 ## Stage Log
 
@@ -106,3 +106,4 @@
 | 090 | done | 2026-03-14T12:15:00Z | Subscription lifecycle display: migration adds tenant_subscriptions to realtime publication; SubscriptionLifecycleWatcher client component subscribes to tenant_subscriptions UPDATE events, detects trialing→active / active→past_due / past_due→active / cancel scheduled / reactivated / downgraded-to-free transitions, shows toasts + router.refresh(); wired into billing page; build passes |
 | 091 | done | 2026-03-14T12:30:00Z | Stripe webhook tests: 18 tests covering all 8 event types (checkout.session.completed/expired, customer.subscription.created/updated/deleted, invoice.payment_succeeded/payment_failed, customer.deleted), idempotency (duplicate event_id skips processing), signature verification failure (400), unknown event type (graceful 200); vitest passes |
 | 092 | done | 2026-03-14T13:00:00Z | Terms of Service page at /terms: full publication-ready ToS (18 sections + 2 appendices), PublicLayout wrapper, table of contents with anchor links, readable typography with proper heading hierarchy, last-updated date, all spec content rendered; build passes |
+| 093 | done | 2026-03-14T14:00:00Z | Privacy Policy page at /privacy: full publication-ready policy (16 sections + 2 appendices), PublicLayout wrapper, table of contents with anchor links, all data tables rendered, readable typography with proper heading hierarchy, last-updated date, all spec content rendered; build passes |
