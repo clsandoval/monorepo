@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 210
-- **Analyzed:** 29
-- **Pending:** 181
-- **Convergence:** 13.8%
+- **Total aspects:** 214
+- **Analyzed:** 30
+- **Pending:** 184
+- **Convergence:** 14.0%
 
 ---
 
@@ -40,8 +40,12 @@
 - [x] 4.36 — Multi-scenario Minimum Fix Explorer for PvE robustness missions: instead of "what change flips this match," ask "what change improves pass rate across the most failing scenarios simultaneously"; ranking changes by pass-rate delta rather than binary flip; the fix that wins 7/10 failing scenarios is more architecturally meaningful than the fix that wins 1; harder computation, stronger teaching signal
 - [x] 4.37 — Fork-and-deploy shortcut: after finding a winning fork via the explorer, a one-click button applies the winning change to the active workbench config and opens the deploy queue; removes friction of manually finding and applying the change; risk: removes the learning step of "find the element in the config yourself"; design tension between helpfulness and pedagogy
 - [x] 4.38 — Counterfactual history as config evolution record: preserving all forks the player ran against a given config as a version-history artifact ("you tested 12 counterfactuals against v3.2, here are the ones that worked"); this history as a shareable necropsy artifact showing the diagnostic work done before landing on v3.3; interaction with 7.10 config necropsy culture and 4.23 replay annotated export
-- [ ] 4.39 — Adversarial counterfactual mode: running the Minimum Fix Explorer on the opponent's config rather than the player's own — "what one change to the opponent's config would have beaten me more decisively?"; stress-testing player configs from the attacker's perspective; available only in Gauntlet mode after a match; teaches professional red-teaming mental model
+- [x] 4.39 — Adversarial counterfactual mode: running the Minimum Fix Explorer on the opponent's config rather than the player's own — "what one change to the opponent's config would have beaten me more decisively?"; stress-testing player configs from the attacker's perspective; available only in Gauntlet mode after a match; teaches professional red-teaming mental model
 - [ ] 4.40 — "First viable fix" vs. "minimum fix" toggle in the explorer: stopping at first candidate that flips the outcome vs. checking all candidates for smallest change; "find first flip" faster (early termination), "find minimum flip" more precise; surfacing this tradeoff as a player choice is itself an educational moment about search strategies
+- [ ] 4.54 — Adversarial explorer exposure policy: should the opponent be notified that you ran adversarial mode on their config? Opt-in mutual disclosure (both see each other's adversarial results) vs. private (neither knows) vs. public (full adversarial history visible on profiles); privacy norms in a competitive analysis context
+- [ ] 4.55 — Cross-match adversarial aggregation: after running adversarial mode on 5+ matches against different opponents, find recurring attack vectors that appear in ≥2 adversarial runs — "three different opponents independently discovered your relay's hook threshold is the exploit point"; the structural weakness that the community hasn't formally coordinated against but is independently discovering
+- [ ] 4.56 — Adversarial mode for PvE missions: apply the same logic to campaign missions — what change to the enemy config would have made this mission hardest for your specific architecture; the mission's adversarial variant as a "hard mode" generator; interaction with 2.19 variable scenario seeds
+- [ ] 4.57 — The "threat model" report: a single-page summary of all adversarial runs against a given config version — every attack vector found, every counter deployed, every structural debt item flagged — as a formal document analogous to a security penetration test report; the threat model as a shareable artifact (necropsy extension)
 - [ ] 4.41 — Cluster-masked failure discovery: the phenomenon where fixing the dominant failure cluster reveals a previously-invisible sub-cluster (because prior failures in those scenarios terminated earlier, masking the later failure); design question: should the game warn the player that fixing the dominant cluster may reveal new failures, or is the discovery experience more valuable without warning? When does "surprise" become "frustration"?
 - [ ] 4.42 — Cross-mission failure pattern recognition: after a player accumulates debrief data across 5+ missions, the game can identify recurring failure patterns across missions ("you have had the direction-specific trigger cluster appear in Missions 3, 5, and 7") and surface this as a career-level diagnostic; interaction with 4.25 EDT trajectory career metric; "architectural debt" as a career-visible concept
 - [ ] 4.43 — MSMFE as a mission designer tool: during community mission design, running the MSMFE against a mission's scenario distribution tells the designer whether the failure landscape is teachable (dominant cluster with clean fix = good mission) vs. chaotic (no dominant cluster = unclear teaching signal); the MSMFE inverted: from "find the fix for my failure" to "is my mission's failure landscape teachable?"
