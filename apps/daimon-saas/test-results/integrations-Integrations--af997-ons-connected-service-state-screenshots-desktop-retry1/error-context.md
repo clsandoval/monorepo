@@ -1,0 +1,53 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=e3]:
+    - navigation "Sidebar navigation" [ref=e4]:
+      - link "Daimon home — go to dashboard" [ref=e5] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e6]
+      - list "Dashboard navigation" [ref=e11]:
+        - listitem [ref=e12]:
+          - link "Dashboard" [ref=e13] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e15]
+        - listitem [ref=e20]:
+          - link "Integrations" [ref=e21] [cursor=pointer]:
+            - /url: /dashboard/integrations
+            - img [ref=e23]
+        - listitem [ref=e25]:
+          - link "Billing" [ref=e26] [cursor=pointer]:
+            - /url: /dashboard/billing
+            - img [ref=e28]
+        - listitem [ref=e30]:
+          - link "Settings" [ref=e31] [cursor=pointer]:
+            - /url: /dashboard/settings
+            - img [ref=e33]
+        - listitem [ref=e36]:
+          - link "Documentation" [ref=e37] [cursor=pointer]:
+            - /url: /docs
+            - img [ref=e39]
+      - generic "User account" [ref=e41]:
+        - generic [ref=e42]: P
+    - generic [ref=e43]:
+      - banner [ref=e44]:
+        - heading "Integrations" [level=1] [ref=e46]
+        - generic [ref=e47]:
+          - generic [ref=e48]: FREE
+          - button "P" [ref=e50]:
+            - generic [ref=e51]: P
+            - img [ref=e52]
+      - main [ref=e54]:
+        - generic [ref=e55]:
+          - img [ref=e57]
+          - paragraph [ref=e59]: Failed to load integrations
+          - paragraph [ref=e60]: Could not resolve your workspace. Please try again.
+  - generic "Notifications"
+  - generic "Notifications"
+  - button "Open Next.js Dev Tools" [ref=e66] [cursor=pointer]:
+    - img [ref=e67]
+  - alert [ref=e70]
+```

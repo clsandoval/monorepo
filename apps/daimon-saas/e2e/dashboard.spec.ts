@@ -64,12 +64,49 @@ async function signInAs(
     user: data.session.user,
   });
 
-  // Navigate to root first so localStorage write is on the right origin
+  // @supabase/ssr v0.9+ stores session as "base64-{base64url(json)}" in cookies
+  const BASE64_PREFIX = 'base64-';
+  const MAX_CHUNK_SIZE = 3180;
+  const encoded = BASE64_PREFIX + Buffer.from(sessionPayload, 'utf-8').toString('base64url');
+  const urlEncoded = encodeURIComponent(encoded);
+
+  const cookieChunks: Array<{ name: string; value: string }> = [];
+  if (urlEncoded.length <= MAX_CHUNK_SIZE) {
+    cookieChunks.push({ name: storageKey, value: encoded });
+  } else {
+    let remaining = urlEncoded;
+    let idx = 0;
+    while (remaining.length > 0) {
+      let chunk = remaining.slice(0, MAX_CHUNK_SIZE);
+      const lastPct = chunk.lastIndexOf('%');
+      if (lastPct > MAX_CHUNK_SIZE - 3) chunk = chunk.slice(0, lastPct);
+      cookieChunks.push({ name: `${storageKey}.${idx}`, value: decodeURIComponent(chunk) });
+      remaining = remaining.slice(chunk.length);
+      idx++;
+    }
+  }
+
+  // Navigate to root first so we're on the correct origin
   await page.goto('/');
+
+  // Set localStorage (for browser client)
   await page.evaluate(
     ({ key, value }: { key: string; value: string }) =>
       localStorage.setItem(key, value),
     { key: storageKey, value: sessionPayload }
+  );
+
+  // Set cookie(s) for SSR middleware
+  await page.context().addCookies(
+    cookieChunks.map((c) => ({
+      name: c.name,
+      value: c.value,
+      domain: 'localhost',
+      path: '/',
+      sameSite: 'Lax' as const,
+      httpOnly: false,
+      secure: false,
+    }))
   );
 }
 

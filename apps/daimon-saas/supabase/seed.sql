@@ -48,6 +48,10 @@ BEGIN
         email,
         encrypted_password,
         email_confirmed_at,
+        confirmation_token,
+        recovery_token,
+        email_change_token_new,
+        email_change,
         created_at,
         updated_at,
         raw_app_meta_data,
@@ -59,8 +63,9 @@ BEGIN
         '00000000-0000-0000-0000-000000000000',
         'authenticated', 'authenticated',
         'free@daimon.test',
-        '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy',
-        NOW(), NOW(), NOW(),
+        '$2a$10$wjRvWUxkDpYvqmPMI./ZH.ljUeV20YqHbxsI0ZiwnEOLhZPhd5dNS',
+        NOW(), '', '', '', '',
+        NOW(), NOW(),
         '{"provider":"email","providers":["email"]}'::jsonb,
         '{"name":"Free Tester"}'::jsonb,
         FALSE
@@ -70,8 +75,9 @@ BEGIN
         '00000000-0000-0000-0000-000000000000',
         'authenticated', 'authenticated',
         'starter@daimon.test',
-        '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy',
-        NOW(), NOW(), NOW(),
+        '$2a$10$wjRvWUxkDpYvqmPMI./ZH.ljUeV20YqHbxsI0ZiwnEOLhZPhd5dNS',
+        NOW(), '', '', '', '',
+        NOW(), NOW(),
         '{"provider":"email","providers":["email"]}'::jsonb,
         '{"name":"Starter Tester"}'::jsonb,
         FALSE
@@ -81,11 +87,50 @@ BEGIN
         '00000000-0000-0000-0000-000000000000',
         'authenticated', 'authenticated',
         'pro@daimon.test',
-        '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy',
-        NOW(), NOW(), NOW(),
+        '$2a$10$wjRvWUxkDpYvqmPMI./ZH.ljUeV20YqHbxsI0ZiwnEOLhZPhd5dNS',
+        NOW(), '', '', '', '',
+        NOW(), NOW(),
         '{"provider":"email","providers":["email"]}'::jsonb,
         '{"name":"Pro Tester"}'::jsonb,
         FALSE
+    )
+    ON CONFLICT (id) DO NOTHING;
+
+    -- ─── AUTH IDENTITIES ─────────────────────────────────────────────────────
+    -- Required by GoTrue v2+ for email/password sign-in
+    INSERT INTO auth.identities (
+        id,
+        user_id,
+        provider_id,
+        provider,
+        identity_data,
+        created_at,
+        updated_at,
+        last_sign_in_at
+    ) VALUES
+    (
+        v_user_free,
+        v_user_free,
+        'free@daimon.test',
+        'email',
+        jsonb_build_object('sub', v_user_free::text, 'email', 'free@daimon.test', 'email_verified', TRUE, 'provider', 'email'),
+        NOW(), NOW(), NOW()
+    ),
+    (
+        v_user_starter,
+        v_user_starter,
+        'starter@daimon.test',
+        'email',
+        jsonb_build_object('sub', v_user_starter::text, 'email', 'starter@daimon.test', 'email_verified', TRUE, 'provider', 'email'),
+        NOW(), NOW(), NOW()
+    ),
+    (
+        v_user_pro,
+        v_user_pro,
+        'pro@daimon.test',
+        'email',
+        jsonb_build_object('sub', v_user_pro::text, 'email', 'pro@daimon.test', 'email_verified', TRUE, 'provider', 'email'),
+        NOW(), NOW(), NOW()
     )
     ON CONFLICT (id) DO NOTHING;
 
