@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 566
-- **Analyzed:** 90
-- **Pending:** 476
+- **Total aspects:** 571
+- **Analyzed:** 91
+- **Pending:** 480
 - **Convergence:** 15.9%
 
 ---
@@ -85,7 +85,12 @@
                                             - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A — `repair_command_version` field for schema compatibility: versioning the repair command format so cached audit outputs can be detected as stale after a `repair-suppression-ref` argument schema change; semantic versioning of CLI argument schemas as a general pattern
                                             - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i — Automated schema change detection: CI check comparing repair tool's argument parser against recorded manifest; detects schema changes without version bump; the "schema drift detector"
                                               - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a — Phantom flag detection as bidirectional completeness check: reverse template check (audit → repair direction); --enumerate-args as known-flags source of truth; flag alias handling; false positive suppression for test-only flags
-                                                - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i — Allowlist hygiene and expiry: when should allowlist entries be removed; stale allowlist entries suppressing future genuine phantoms; periodic audit of allowlist against current source; automated staleness detection
+                                                - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i — Allowlist hygiene and expiry: when should allowlist entries be removed; stale allowlist entries suppressing future genuine phantoms; periodic audit of allowlist against current source; automated staleness detection; Recommendation: Option 2 (CI grep-back staleness check) + Option 3 (90-day TTL with renewal counter) as complementary layers; 5 design options (manual review, CI grep-back, TTL expiry, source-anchored, assertions-as-code); combined schema with renewals field as migration signal; "permanent allowlist" anti-pattern with three responses (permanent field, promote to internal, source refactoring); Phase 2 absorption path (atomic deletion); 3 player journeys (Aarav first expiry, Dev stale discovery during refactor, Margot high-renewal audit); 5 stale entry scenarios; interaction effects with schema drift detector, repair command version, profile export, bidirectional completeness pattern; 5 new sub-aspects discovered
+                                                  - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a — Renewal justification as commit message convention: when extending an expiry, what metadata belongs in the commit message vs. in the JSON; structured commit message format for allowlist renewals; git log as audit trail for renewal decisions
+                                                  - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-b — Allowlist entry ownership and CODEOWNERS integration: who is responsible for renewing a specific entry; CODEOWNERS-style per-entry ownership; notification when an entry nears expiry so the owner can act proactively rather than blocking an unrelated PR
+                                                  - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-c — Grep target scope configuration: the staleness check's grep target (single file vs. directory vs. glob pattern) as a configurable parameter; interaction with audit tool refactoring (monolith → package); when to widen vs. narrow the grep scope
+                                                  - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-d — Allowlist schema versioning: the allowlist file itself needs a schema_version field; migration tooling when schema changes (e.g., adding permanent field, changing renewals from number to object); backward compatibility with older CI scripts reading newer allowlist format
+                                                  - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-e — High-renewal threshold as configurable team policy: the renewal count (default 3) that triggers the advisory; should this be in the allowlist file, in CI config, or in a team-wide l10n policy file; interaction with team size and sprint cadence
                                                 - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-ii — Semantic phantom detection beyond flag names: phantom flag VALUES (e.g., --output-format=quiet where quiet is no longer valid); extending reverse check to validate flag value validity; --enumerate-args valid_values field
                                                 - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-iii — --enumerate-template-flags version tracking: audit tool declared manifest needs its own version number; version bump protocol for template manifest changes; who bumps when flag moves between categories
                                                 - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-iv — Orphan flag as onboarding signal: uncategorized repair tool flag forces explicit include/exclude/conditional decision; orphan check as mandatory design decision point
