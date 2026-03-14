@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 76
-- Analyzed: 67
-- Pending: 9
-- Convergence: 88%
+- Analyzed: 68
+- Pending: 8
+- Convergence: 89%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -91,7 +91,7 @@ Consolidate all gathered material into content files. One aspect per page.
 Identify thin pages and fill with targeted web research. Self-expands after Wave 3.
 
 - [x] gap-audit — Read every content/ file, list pages with status:stub or status:partial, add one aspect per gap
-- [ ] salk-org-research — Resolve SALK org identity: "Salk Institute" (San Diego) vs Estonian polling org (CEO Tarmo Jüristo); web search to confirm; affects case-studies/salk.md
+- [x] salk-org-research — Resolve SALK org identity: "Salk Institute" (San Diego) vs Estonian polling org (CEO Tarmo Jüristo); web search to confirm; affects case-studies/salk.md
 - [ ] industry-benchmarks-enrich — JS-rendered LLM Price Is Right leaderboard not fully scraped; web search for benchmark methodology, leaderboard data, press coverage; affects resources/industry-benchmarks.md
 - [ ] enrich-industries-web — WebSearch for PyMC Labs work in each industry with thin content
 - [ ] enrich-case-studies-web — WebSearch for public PyMC Labs case studies, blog posts about client work
@@ -109,6 +109,8 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] salk-org-research (2026-03-14) — Confirmed SALK is NOT the Salk Institute (San Diego biomedical research). SALK = SA Liberaalne Kodanik (Liberal Citizen Foundation), an Estonian NGO/political data consultancy founded by Tarmo Jüristo. Jüristo is founder & director (not CEO — that was a prior role at Hansa Asset Management/Praxis). SALK does electoral polling and democratic data work in Estonia + 7 European countries (Croatia, Lithuania, Romania, Slovakia, Czech Republic). Mission: "defending democracy with data." Notable backers: Bolt CEO Markus Villig, Taavet Hinrikus (Wise co-founder), Sten Tamkivi. 2023 revenue ~€200k (doubled). Updated content/case-studies/salk.md with full org description, Jüristo bio, corrected identity, enhanced problem statement with direct quote, and removed the GAP flag on identity.
+
 - [x] gap-audit (2026-03-14) — Audited all 87 content files. Status breakdown: 59 complete, 28 partial, 0 stubs. Upgraded 3 stub case studies (dodgers, real-madrid, supercell) to partial — they contained all available Discord-sourced content but lacked external quotes/metrics. Confirmed all sitemap pages have content files. Gaps organized into 5 buckets: (1) 17 partial case studies — mostly need blog post / testimonial / quantitative results from web; (2) 5 partial industry pages — agriculture, finance-insurance, gaming, retail-ecommerce, sports-analytics; (3) 5 partial team members — alexandre-andorra, ben-vincent, benjamin-maier, erik-ringen, jesse-grabowski (not on website); (4) industry-benchmarks.md partial (JS-rendered leaderboard not scraped); (5) SALK org identity ambiguous (Salk Institute vs Estonian polling org). Added 2 new aspects: salk-org-research, industry-benchmarks-enrich. Existing frontier aspects (enrich-industries-web, enrich-case-studies-web, enrich-team-web) already cover the main gap buckets. Wrote analysis/gap-audit.md with full matrix.
 
 - [x] assemble-contact (2026-03-14) — Enriched content/contact.md from stub → complete. Form fields fully documented (5 inquiry categories, 6 discovery source options). All contact info captured: info@pymc-labs.com, [email protected] (Decision AI beta), calendly.com/niall-oulton (EAP). 6 social channels documented with follower counts. FAQ section added: 5 Q&As from Halah's Framer draft, sourced from top-5 sales questions compiled by Halah (#sales, 2026-01-16). 5 engagement entry points documented: EAP (Base/Pro tiers with 3 testimonials from Fox/Haleon/Fabletics), Solution Delivery, Workshops, Decision AI, Courses. Supporting copy added: Halah short/long pitch variants (Sep 2025), 4-pillar "We Advise/Build/Teach/Work By Your Side" framework (Feb 2026). ICP context: buyer personas (CMO/VP DS/CDAO), pain points, lead source ranking. GAPS: new-site inquiry category dropdown not finalized; no central booking widget confirmed; newsletter CTA copy not captured; EAP pricing public disclosure TBD.

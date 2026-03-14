@@ -8,30 +8,60 @@ sources:
     date: 2022-12-08
   - label: "Website homepage testimonial (Tarmo Jüristo)"
   - label: "Halah draft: SALK listed as 2025 Custom Bayesian Models project"
+  - url: https://news.err.ee/1609387604/salk-expands-beyond-estonia-s-borders-aims-to-boost-revenues-further
+    label: "ERR News: SALK expands beyond Estonia"
+  - url: https://news.err.ee/1164595/head-of-praxis-think-tank-establishes-liberal-citizen-foundation
+    label: "ERR News: Tarmo Jüristo establishes Liberal Citizen Foundation"
+  - url: https://www.caucasianjournal.org/2022/04/tarmo-juristo-founder-of-salk-estonia.html
+    label: "Caucasian Journal: Tarmo Jüristo, founder of SALK"
 ---
 
 # SALK: Multilevel Regression & Post-Stratification for Public Opinion Polling
 
 ## Client
 
-**SALK** (Salk Institute — public opinion polling context)
+**SALK** — **SA Liberaalne Kodanik** (Estonian: Liberal Citizen Foundation)
 
-- **Industry:** Non-profit / Research / Public Opinion
+> **IDENTITY RESOLVED:** SALK is NOT the Salk Institute in San Diego (the biomedical research institute). SALK is an **Estonian NGO and political data consultancy** founded by Tarmo Jüristo. The name is an Estonian acronym for "SA Liberaalne Kodanik" (Liberal Citizen Foundation). The CEO title on the PyMC Labs homepage testimonial likely refers to a prior role or is used loosely — Jüristo's official title is **founder and director** of SALK.
+
+- **Full Name:** SA Liberaalne Kodanik (Liberal Citizen Foundation) — abbreviated SALK
+- **Country:** Estonia (Tallinn-based; expanding across Central/Eastern Europe)
+- **Industry:** Political consultancy / Civic data / Public opinion research
+- **Mission:** "Defending democracy with data" — supports liberal democratic parties with data analysis, polling, and campaign support
+- **Geographic reach:** Estonia + 7 other nations: Croatia, Lithuania, Romania, Slovakia, Czech Republic, and more
+- **Founded by:** Tarmo Jüristo (former head of Praxis think tank)
+- **Notable backers:** Bolt CEO Markus Villig, Bolt company, Sten Tamkivi (tech), Taavet Hinrikus (Wise co-founder)
+- **Revenue (2023):** ~€200,000 (doubled from prior year; ~€194,000 from donations)
 - **Service:** Solution Delivery
-- **Contact:** Tarmo Jüristo, CEO
+- **Contact:** Tarmo Jüristo, Founder & Director
 
-<!-- GAP: need to confirm SALK's full organization name and whether "Salk Institute" is correct or if SALK is a separate Estonian/European polling organization — the CEO name "Tarmo Jüristo" suggests the latter -->
+### About Tarmo Jüristo
+
+Estonian civil society activist and opinion leader. Born 1971 in the Soviet Union. Finance degree from Tartu University. Career in investment banking and finance until 2009 financial crisis. Pursued doctorate in cultural studies; wrote for theater and TV; taught literature, anthropology, and philosophy. Former CEO of **Hansa Asset Management** and former head of **Praxis** think tank. Founded SALK to apply data science to democratic participation.
+
+### SALK's Work
+
+SALK conducts public opinion polls and electoral forecasting — particularly notable for demographic breakdowns needed in election analysis. Their polling requires reliable estimates even for demographic strata with very sparse survey responses (e.g., rural minorities, small age cohorts), which led to the PyMC Labs engagement.
+
+**Known projects:**
+- Estonian parliamentary elections (March 2023) — provided data/analysis to Reform, Eesti 200, SDE parties
+- Tallinn local elections forecasting (predicted seat allocations per party)
+- Expansion into 7+ European countries for similar electoral data work
 
 ## Team
 
-- **Thomas Wiecki** — Lead
-- **Alexandre Andorra** — Lead
+- **Thomas Wiecki** — Lead (PyMC Labs)
+- **Alexandre Andorra** — Lead (PyMC Labs)
+- **Tarmo Jüristo** — Client lead / practitioner (SALK)
 
 ## The Problem
 
 Public opinion polls produce noisy, sparse data — especially across smaller demographic strata and geographic subgroups. When certain population segments have too few survey respondents, traditional aggregation methods produce unstable estimates or simply fail to generate actionable numbers.
 
-SALK needed a principled statistical approach that could produce reliable, actionable inference across all demographic groups, even when individual strata had very limited data.
+> "Data can be sparse in some strata of the population, making the model's job harder, precisely for the demographics you're the most interested in."
+> — Tarmo Jüristo, SALK (from PyMC Labs blog post, 2022-12-08)
+
+SALK needed a principled statistical approach that could produce reliable, actionable inference across all demographic groups, even when individual strata had very limited data. This is especially important for electoral analysis where minority groups and sparse geographic areas are exactly the demographics you most need to understand.
 
 ## Approach
 
