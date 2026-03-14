@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 524
-- **Analyzed:** 81
-- **Pending:** 443
+- **Total aspects:** 528
+- **Analyzed:** 82
+- **Pending:** 446
 - **Convergence:** 15.5%
 
 ---
@@ -214,7 +214,7 @@
   - [ ] 4.69e-iv-d — Win rate sacrifice budget as competitive resource: formalizing "I can afford to lose X% win rate for diagnostic disruption" as seasonal resource allocation; budget planning for diagnostic warfare; interaction with ELO/ranking systems
   - [ ] 4.69e-iv-e — Cross-opponent poison coordination: different configs stressing the same element of the same opponent via different attack vectors; distributed poisoning evading single-config detection; interaction with compound detection from opponent's perspective
 - [x] 4.69e-v — Adversarial density as a career season metric: tracking how many of the player's matches in a season were adversarially targeted; "adversarial pressure" as a context variable in season health; adjusting season health thresholds for high-adversarial-pressure seasons
-- [ ] 4.69e-vi — Concentration threshold calibration for dense opponent pools: false adversarial detection in small competitive ladders where players naturally match against same opponents repeatedly; graduated concentration thresholds based on opponent pool size; "expected concentration at N matches" as contextual denominator
+- [x] 4.69e-vi — Concentration threshold calibration for dense opponent pools: false adversarial detection in small competitive ladders where players naturally match against same opponents repeatedly; graduated concentration thresholds based on opponent pool size; "expected concentration at N matches" as contextual denominator
 - [ ] 4.69e-vii — Per-cluster adversarial exclusion: tag an opponent as adversarial for specific agent clusters but not others; "exclude IronPulse99 from STRIKER-A analysis but include in RELAY-B analysis"; surgical per-cluster tagging vs. blanket per-opponent tag; interaction with 4.69j per-agent threshold override
 - [ ] 4.69e-viii — Tag expiry and automatic sunset: adversarial tags that persist forever become stale as configs and meta evolve; automatic expiry after N seasons with renewal prompt; interaction with periodic review prompt design; preventing stale tags from accumulating over long careers
 - [ ] 4.69e-ix — Adversarial tag as community signal: anonymized aggregation of tag frequency across players; "this opponent is tagged as adversarial by 12 players in your bracket"; crowd-sourced adversarial intelligence; risk of mob tagging strong non-adversarial players; interaction with 7.10 necropsy culture
@@ -224,6 +224,10 @@
 - [ ] 4.69e-v-c — APS false inflation from small opponent pools: natural match frequency in low-population brackets inflates APS even without intensifying targeting; APS computation normalization for pool size; closely related to 4.69e-vi concentration threshold calibration
 - [ ] 4.69e-v-d — Seasonal APS decay and historical archiving: hard reset to 0.00 each season vs. carry-over with decay (previous season starts at 50%); affects whether season-start diagnostics are clean or pre-contaminated by previous adversarial context
 - [ ] 4.69e-v-e — APS-aware redesign guard: warning before entering redesign mode during high APS; "2 of 3 cluster elements are adversarial artifacts in clean analysis — consider waiting for pressure to subside"; prevents the most costly adversarial effect: unnecessary redesigns driven by poisoned diagnostics
+- [ ] 4.69e-vi-a — Minimum match count before pool calibration activates: how many matches must a player complete before the effective pool computation is reliable; early-season N is volatile; premature calibration creates threshold instability; comparable to Dota 2's 10-match calibration period
+- [ ] 4.69e-vi-b — Pool size display as competitive intelligence: showing "Effective pool: 28" reveals information about competitive tier and matchmaking concentration; privacy implications of exposing matchmaking internals; should it be hidden, abstracted, or fully visible
+- [ ] 4.69e-vi-c — Cross-season pool drift and threshold migration: when bracket grows from 12 to 50, thresholds drop dramatically; old tags set under permissive small-pool thresholds may no longer meet stricter large-pool criteria; automatic tag review prompt on significant pool size change
+- [ ] 4.69e-vi-d — Pool calibration in asymmetric matchmaking (smurf detection): player in 50-player bracket repeatedly matching one opponent due to smurfing or queue-sniping has effective pool much smaller than bracket; should the system distinguish adversarial targeting from matchmaking failure
 - [ ] 4.69f — "Apply All Three" batch deployment: detailed design of the multi-fix batch application — sequencing, conflict detection, rollback affordance, confirmation dialog
 - [ ] 4.69g — Agent cluster as a unit of analysis in career stats: career statistics dashboard that shows per-agent multi-cluster frequency history; "agent debt ledger" as companion to match-level architectural debt metrics
 - [ ] 4.69h — Threshold preset profiles per config phase: different multi-cluster thresholds for different career phases (early season N=4 to avoid noise; late season N=2 to catch architectural drift before finals); a "phase-aware" threshold that auto-shifts as the season progresses
