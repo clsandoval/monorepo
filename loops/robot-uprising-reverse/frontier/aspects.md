@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 601
-- **Analyzed:** 97
-- **Pending:** 504
-- **Convergence:** 16.1%
+- **Total aspects:** 606
+- **Analyzed:** 98
+- **Pending:** 508
+- **Convergence:** 16.2%
 
 ---
 
@@ -559,7 +559,12 @@
 - [ ] 5.15 — Voice candidates for the Robot Uprising tactical document: deep exploration of four voice options (Dissenter's Field Manual, Unit 0's Tactical Archive, Requisition Docs, Propagandist's Handbook) with full player journeys and community potential for each
 - [ ] 5.16 — The non-alt-tab embedded document UI: design exploration of a togglable in-workbench reference panel that maintains diegetic framing without alt-tab friction; panel behavior, docking, visual treatment
 - [ ] 5.17 — The hybrid tutorial architecture: mapping the transition from interactive first-touch tutorial (teaches procedures) to diegetic document (teaches concepts and provides reference) — where the handoff happens and what the transition feels like
-- [ ] 5.01 — Tutorial as puzzle: first missions are pure filter puzzles (drag away noise)
+- [x] 5.01 — Tutorial as puzzle: first missions are pure filter puzzles (drag away noise)
+  - [ ] 5.01a — The "Keep N" puzzle variant: curation framing (select N cards to keep) vs. deletion framing (remove noise); different cognitive task, different emotional valence; where in the mission arc this variant first appears
+  - [ ] 5.01b — Card label language calibration: jargon level on buffer observation cards (technical vs. plain vs. iconic); how vocabulary scales from Mission 1 through endgame; interaction with localization and accessibility
+  - [ ] 5.01c — The undo economy in tutorial puzzles: unlimited (Baba Is You) vs. limited (resource cost) vs. time-windowed (2-second prompt); each creates different learning curves and emotional relationships with error
+  - [ ] 5.01d — Bridging from filter puzzles to blueprint building: the cognitive jump from "clean someone else's config" (Missions 1-4) to "build your own" (Mission 5+); scaffolding the additive mode using subtractive vocabulary
+  - [ ] 5.01e — Expert fast-track detection: automated difficulty sensing in tutorial puzzles (100% efficiency + sub-15s → skip offer); interaction with narrative continuity and locked mission arc
 - [ ] 5.02 — Tutorial as narrative: story-driven introduction, AI waking up
 - [ ] 5.03 — Tutorial as sandbox: free play with guided hints
 - [ ] 5.04 — Complexity ramp: what order are mechanics introduced? How many missions before full complexity?
