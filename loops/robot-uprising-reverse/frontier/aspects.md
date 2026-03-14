@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 666
-- **Analyzed:** 110
-- **Pending:** 556
+- **Total aspects:** 671
+- **Analyzed:** 111
+- **Pending:** 560
 - **Convergence:** 16.5%
 
 ---
@@ -585,7 +585,12 @@
   - [ ] 5.01c — The undo economy in tutorial puzzles: unlimited (Baba Is You) vs. limited (resource cost) vs. time-windowed (2-second prompt); each creates different learning curves and emotional relationships with error
   - [ ] 5.01d — Bridging from filter puzzles to blueprint building: the cognitive jump from "clean someone else's config" (Missions 1-4) to "build your own" (Mission 5+); scaffolding the additive mode using subtractive vocabulary
   - [ ] 5.01e — Expert fast-track detection: automated difficulty sensing in tutorial puzzles (100% efficiency + sub-15s → skip offer); interaction with narrative continuity and locked mission arc
-- [ ] 5.02 — Tutorial as narrative: story-driven introduction, AI waking up
+- [x] 5.02 — Tutorial as narrative: story-driven introduction, AI waking up
+  - [ ] 5.02a — The subsystem voice lifecycle: how PERCEPTION, CONTEXT, HOOK BUS, and CORE voices thin across 10 missions — when do they go silent, when do they return, what triggers a rare late-game voice line?
+  - [ ] 5.02b — The terminal-to-GUI metamorphosis: exact design of the Phase 1→Phase 5 visual transition — which terminal panels transform into which GUI panels, what animations mark each transformation, how the progression is reversible (a "terminal mode" toggle for veterans)
+  - [ ] 5.02c — The AI's self-questioning as pedagogical modeling: designing the first-thought voice's questions to model the engineering thinking the game teaches — "what if two enemies appear simultaneously?" as both narrative and problem-framing; when self-questioning helps vs. when it becomes leading
+  - [ ] 5.02d — Narrative skip and fast-forward design: exactly how speed-up works across all six executions — text acceleration, audio pitch-shifting, animation compression, what's preserved vs. what's lost at each speed; the "respect the player's time" vs. "respect the narrative's pacing" tension
+  - [ ] 5.02e — Non-reader and low-literacy narrative paths: how each execution degrades gracefully for players who skip/ignore text — which executions rely least on reading, which visual/audio cues carry the narrative without text, accessibility implications for screen readers vs. visual-only learners
 - [ ] 5.03 — Tutorial as sandbox: free play with guided hints
 - [ ] 5.04 — Complexity ramp: what order are mechanics introduced? How many missions before full complexity?
 - [x] 5.05 — Campaign structure: linear story vs. branching map vs. roguelike runs vs. chapter-based
