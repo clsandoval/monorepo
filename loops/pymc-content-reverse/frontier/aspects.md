@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 65
-- Pending: 9
-- Convergence: 88%
+- Analyzed: 66
+- Pending: 8
+- Convergence: 89%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -85,7 +85,7 @@ Consolidate all gathered material into content files. One aspect per page.
 - [x] assemble-blog-template — Write content/blog/template.md (blog post structure + any migrated metadata)
 - [x] assemble-resources-benchmarks — Write content/resources/industry-benchmarks.md
 - [x] assemble-resources-oss — Write content/resources/open-source-libraries.md
-- [ ] assemble-contact — Write content/contact.md
+- [x] assemble-contact — Write content/contact.md
 
 ### Wave 4: Gap Hunting & Enrichment
 Identify thin pages and fill with targeted web research. Self-expands after Wave 3.
@@ -107,6 +107,8 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] assemble-contact (2026-03-14) — Enriched content/contact.md from stub → complete. Form fields fully documented (5 inquiry categories, 6 discovery source options). All contact info captured: info@pymc-labs.com, [email protected] (Decision AI beta), calendly.com/niall-oulton (EAP). 6 social channels documented with follower counts. FAQ section added: 5 Q&As from Halah's Framer draft, sourced from top-5 sales questions compiled by Halah (#sales, 2026-01-16). 5 engagement entry points documented: EAP (Base/Pro tiers with 3 testimonials from Fox/Haleon/Fabletics), Solution Delivery, Workshops, Decision AI, Courses. Supporting copy added: Halah short/long pitch variants (Sep 2025), 4-pillar "We Advise/Build/Teach/Work By Your Side" framework (Feb 2026). ICP context: buyer personas (CMO/VP DS/CDAO), pain points, lead source ranking. GAPS: new-site inquiry category dropdown not finalized; no central booking widget confirmed; newsletter CTA copy not captured; EAP pricing public disclosure TBD.
+
 - [x] assemble-resources-oss (2026-03-14) — content/resources/open-source-libraries.md verified complete (status: complete, already written by discord-pymc-ecosystem aspect). 5 libraries documented: (1) PyMC — 9,500★, core inference engine, NumFOCUS-governed, PyMC Labs founders are inventors; (2) pymc-marketing — 1,088★, 1M+ downloads, MMM+CLV+Choice, JOSS paper Jan 2026, used by HelloFresh/Colgate/Wegmans, 2x-20x faster than Meridian; (3) CausalPy — 1,123★ v0.8.0, 10 quasi-experimental methods, cited at ICML 2025, BSTS roadmap; (4) decision-hub — 37★, MIT, "npm for agent capabilities", 1,463 downloads in launch week, open-source component of Decision AI; (5) semantic-similarity-rating — 130★, SSR algorithm, 90%/85%/<24hr synthetic consumers stats. OSS strategy section: Win-Win-Win model, lead generator flywheel, vertical stack diagram. GAPS: exact download count; JOSS paper DOI; CausalPy v0.8.0 release notes; pymc-extras repo; total contributor count.
 
 - [x] assemble-resources-benchmarks (2026-03-14) — Created content/resources/industry-benchmarks.md (status: partial). 5 benchmarks documented: (1) LLM Price Is Right — primary benchmark, full methodology/leaderboard (Sep 25 2025 snapshot, 820 grocery items, 3 metrics: Elo/MAPE/Overbid, submit-a-model form), authored by Maxim Laletin + Allen Downey, Sep 2025. (2) PyMC-Marketing vs. Meridian — 2x-20x speed advantage, headline Luca quote "no scenario I would recommend Meridian", Part 1 (Sep 2025) + Part 2 (Dec 2025 baseline modeling), Mutinex controversy (used default priors on old version, benchmark unpublished). (3) PyMC vs Stan sampling speed — #6 blog post by sessions (~2,300), content not yet extracted. (4) PyMC Skills — pass rates 60%→93% with domain skill, led by Fonnesbeck, Feb 2026, connected to Decision Hub launch. (5) Synthetic Consumers alignment — 90%/85%/24hr stats, SSR methodology, GSS study, Maier et al. 2025. GAPS: Stan benchmark post content not fetched; PyMC Skills full task set missing; synthetic consumers paper DOI unknown; no hero copy for overview page; leaderboard is live/JS-rendered.
