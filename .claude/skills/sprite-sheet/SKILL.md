@@ -93,6 +93,19 @@ Good: "front-right isometric view showing the face" vs "back-left isometric view
 
 Every Phase 2 call uses `-r anchor.png`. No exceptions.
 
+### Rule 6: Specify orientation and grid layout explicitly
+
+Gemini ignores exact pixel dimensions but respects orientation cues. For a 3-row × 2-column sheet, say "TALL sprite sheet image" or "portrait orientation, taller than wide." For 2-row × 4-column, say "WIDE sprite sheet, landscape." Also enumerate every cell explicitly:
+
+```
+[Row 1, Col 1] idle, front-right (NE)
+[Row 1, Col 2] idle, back-left (SW)
+[Row 2, Col 1] destroyed, front-right (NE)
+...
+```
+
+Always end with "Do NOT add labels or text" — the model likes to add row labels which break slicing.
+
 ## Asset Type Decision Tree
 
 ```
