@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 646
-- **Analyzed:** 106
-- **Pending:** 540
+- **Total aspects:** 651
+- **Analyzed:** 107
+- **Pending:** 544
 - **Convergence:** 16.4%
 
 ---
@@ -584,7 +584,12 @@
   - [ ] 5.05c — Campaign replay and mission select post-completion — post-campaign screen, individual mission replay, score/rating per mission, improvement tracking
   - [ ] 5.05d — Campaign difficulty escape hatches: what happens when a player is stuck — hint system, difficulty reduction, skip-with-penalty, practice mode, AI-suggested configs, watch-a-solution option
   - [ ] 5.05e — Act structure tuning: optimal grouping of 10 missions into acts — 4-3-3 vs. 3-3-4 vs. 2-4-4 vs. other splits; act length vs. pacing vs. intermission placement
-- [ ] 5.06 — Failure and recovery: what happens when you lose a mission, when you lose the campaign
+- [x] 5.06 — Failure and recovery: what happens when you lose a mission, when you lose the campaign
+  - [ ] 5.06a — The "attempt counter" as social/competitive signal: visible attempt counts per mission as speedrun metagame; "Mission 7, attempt 1" as flex; leaderboard of fewest total attempts; tension between displaying attempts (motivating) vs. hiding (less pressure)
+  - [ ] 5.06b — Failure audio design: the single agung strike: deep pass on the exact audio moment of failure — 3-second resonant gong meaning "this timeline has ended" without judgment; comparison to Into the Breach/Celeste/Dark Souls failure sounds; audio transition from failure to retry
+  - [ ] 5.06c — Case-sensitivity and accessibility in channel naming: channel name matching as accessibility surface; fuzzy matching, autocomplete, case-insensitive channels as accommodations; interaction with locked "channel name autocomplete" spec
+  - [ ] 5.06d — The "RESUPPLY" safety net for sacrifice systems: if any game mode uses resource-cost failure, design of the safety-net reset — trigger conditions, restoration scope, narrative framing; preventing downward spirals
+  - [ ] 5.06e — Skip-mission pedagogy: condensed concept teaching for skipped content: the "3 slides in 9 seconds" compressed teaching replacing a full tutorial mission; learning transfer from compressed instruction vs. interactive experience; interaction with vocabulary pacing (5.00a)
 - [ ] 5.07 — Meta-progression: what carries across campaign restarts
 - [ ] 5.08 — Mission variety: what types of missions exist (defend, attack, stealth, escort, puzzle, boss)
 - [ ] 5.09 — Replayability: what makes someone start a new campaign
