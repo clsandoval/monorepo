@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 596
-- **Analyzed:** 96
-- **Pending:** 500
+- **Total aspects:** 601
+- **Analyzed:** 97
+- **Pending:** 504
 - **Convergence:** 16.1%
 
 ---
@@ -594,7 +594,12 @@
 - [ ] 6.04 — The TikTok clip: what's the 15-second viral moment for each major design direction
 - [ ] 6.05 — PC/Steam optimization: keyboard/mouse UI, Steam features (workshop, achievements, cards)
 - [ ] 6.06 — Console/controller adaptation: how each building block paradigm works on a gamepad
-- [ ] 6.07 — Mobile/touch adaptation: how each paradigm works on a phone
+- [x] 6.07 — Mobile/touch adaptation: how each paradigm works on a phone
+  - [ ] 6.07a — PWA vs. native wrapper decision: performance, haptics, install flow, push notifications, platform-specific capabilities; Capacitor vs. pure PWA vs. TWA (Trusted Web Activity)
+  - [ ] 6.07b — Portrait-landscape orientation strategy: per-screen orientation preferences, rotation animation design, forced vs. adaptive orientation, how orientation affects the three-screen loop rhythm
+  - [ ] 6.07c — Mobile-specific onboarding for touch controls: ghost hand tutorial animations, inline gesture teaching vs. dedicated tutorial, first-touch-on-each-element instruction; comparable to iOS game onboarding patterns
+  - [ ] 6.07d — Battery and thermal performance budget for Pixi.js on mobile: WebGL rendering cost per screen, 60fps vs. 30fps decision, canvas resolution scaling on low-end devices, requestAnimationFrame throttling during Sealed Watch
+  - [ ] 6.07e — "Send to desktop" cross-device debrief flow: emotional sealed watch on mobile → analytical inspector on desktop; cloud sync of match replay data; the two-device two-act debrief as a feature, not a limitation
 - [ ] 6.08 — Accessibility: colorblind modes, screen reader support, difficulty options, one-handed play
 - [ ] 6.01a — Tile art deep dive per biome: exact pixel-level design for each terrain type (jungle, rice terrace, beach, city, Siquijor volcanic); how much cultural detail fits in 64×32 isometric tiles; reference imagery from actual Philippine landscapes
 - [ ] 6.01b — Unit sprite design language: detailed visual identity per unit type — silhouette grammar, accent color system, destroyed/ghost/hologram variant derivation from base sprite; interaction with locked sprite-sheet pipeline
