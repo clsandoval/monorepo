@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 135
-- **Analyzed:** 11
-- **Pending:** 124
-- **Convergence:** 8%
+- **Analyzed:** 12
+- **Pending:** 123
+- **Convergence:** 9%
 
 ---
 
@@ -22,7 +22,7 @@
 - [x] 1.04e — The 100-test-case robustness pattern: mission scenarios presenting N randomized variants the agent config must handle; randomization design determines which abstraction skills the game actually teaches
 - [x] 1.05 — Screeps: persistent-world programming RTS, JavaScript API, MMO dynamics
 - [x] 1.04f — Screeps as the "live test suite" endpoint: permanent adversarial environment as the extreme version of robustness testing where your code must handle all possible strategies; what would a persistent-world mode in Robot Uprising look like?
-- [ ] 1.04g — The live win-rate as persistent identity metric: Gauntlet Elo as visible identity signal on profile/community posts/workshop uploads; reputation mechanic of a programming community applied to a game config; how this shapes player culture and aspiration
+- [x] 1.04g — The live win-rate as persistent identity metric: Gauntlet Elo as visible identity signal on profile/community posts/workshop uploads; reputation mechanic of a programming community applied to a game config; how this shapes player culture and aspiration
 - [ ] 1.06 — Gladiabots: visual behavior tree programming for robots, multiplayer AI tournaments
 - [ ] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
 - [ ] 1.08 — SpaceChem: visual programming as chemistry metaphor, production pipeline design
