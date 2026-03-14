@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 94
-- **Current**: 94
+- **Completed**: 95
+- **Current**: 95
 
 ## Current Stage
 
-**Stage 095** — (next stage)
+**Stage 096** — (next stage)
 
 ## Stage Log
 
@@ -108,3 +108,4 @@
 | 092 | done | 2026-03-14T13:00:00Z | Terms of Service page at /terms: full publication-ready ToS (18 sections + 2 appendices), PublicLayout wrapper, table of contents with anchor links, readable typography with proper heading hierarchy, last-updated date, all spec content rendered; build passes |
 | 093 | done | 2026-03-14T14:00:00Z | Privacy Policy page at /privacy: full publication-ready policy (16 sections + 2 appendices), PublicLayout wrapper, table of contents with anchor links, all data tables rendered, readable typography with proper heading hierarchy, last-updated date, all spec content rendered; build passes |
 | 094 | done | 2026-03-14T15:00:00Z | Meta tags + OpenGraph per page: src/lib/seo/metadata.ts helper; root layout.tsx full spec metadata (metadataBase, title template, keywords, OG, Twitter, icons, manifest); landing page metadata updated to spec; auth pages get metadata via layout.tsx (login/signup/reset-password/confirm); all dashboard + admin + docs server component pages get typed metadata exports; docs/tools client page gets layout.tsx; build passes |
+| 095 | done | 2026-03-14T16:00:00Z | Schema.org markup: JsonLd component (src/components/seo/json-ld.tsx) with WebSite/Organization/SoftwareApplication/FAQPage/BreadcrumbList schemas; landing page gets WebSite+Organization+SoftwareApplication+FAQPage schemas; docs/faq page gets full FAQPage+BreadcrumbList schema (16 Q&As); buildBreadcrumbSchema helper for all pages; build passes |

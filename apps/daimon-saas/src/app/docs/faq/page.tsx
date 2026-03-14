@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { JsonLd, DOCS_FAQ_SCHEMA } from '@/components/seo/json-ld'
 
 export const metadata: Metadata = {
   title: 'FAQ',
@@ -267,6 +268,7 @@ const acode = (text: string) => (
 export default function FaqPage() {
   return (
     <>
+      <JsonLd data={DOCS_FAQ_SCHEMA} />
       <PageHeader />
       <Toc />
 

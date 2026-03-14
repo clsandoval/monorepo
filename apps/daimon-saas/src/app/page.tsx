@@ -3,6 +3,7 @@ import { Code2, Clock, BookOpen, Calendar, FileText, Brain, MessageSquare, Image
 import { PublicLayout } from '@/components/layout/public-layout'
 import { PricingSection } from '@/components/landing/pricing-section'
 import { FaqSection } from '@/components/landing/faq-section'
+import { JsonLd, WEBSITE_SCHEMA, ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA, LANDING_FAQ_SCHEMA } from '@/components/seo/json-ld'
 
 export const metadata: Metadata = {
   title: 'Daimon — AI Operating System for Discord',
@@ -50,6 +51,7 @@ export const metadata: Metadata = {
 export default function LandingPage() {
   return (
     <PublicLayout>
+      <JsonLd data={[WEBSITE_SCHEMA, ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA, LANDING_FAQ_SCHEMA]} />
       <HeroSection />
       <HowItWorksSection />
       <FeaturesSection />
