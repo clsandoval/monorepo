@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 125
-- **Analyzed:** 9
-- **Pending:** 116
-- **Convergence:** 7%
+- **Total aspects:** 130
+- **Analyzed:** 10
+- **Pending:** 120
+- **Convergence:** 8%
 
 ---
 
@@ -20,7 +20,7 @@
 - [x] 1.04c — REPL semantics for agent spawning: explicit spawn instruction (player programs it) vs. implicit spawn (triggered by rules/hooks); EXAPUNKS REPL as reference model
 - [x] 1.04d — Blocking vs. queued hook semantics: blocking M register (both parties wait, deadlock-risky) vs. queued hooks (async, lossy under load); core architecture decision for Robot Uprising
 - [x] 1.04e — The 100-test-case robustness pattern: mission scenarios presenting N randomized variants the agent config must handle; randomization design determines which abstraction skills the game actually teaches
-- [ ] 1.05 — Screeps: persistent-world programming RTS, JavaScript API, MMO dynamics
+- [x] 1.05 — Screeps: persistent-world programming RTS, JavaScript API, MMO dynamics
 - [ ] 1.04f — Screeps as the "live test suite" endpoint: permanent adversarial environment as the extreme version of robustness testing where your code must handle all possible strategies; what would a persistent-world mode in Robot Uprising look like?
 - [ ] 1.06 — Gladiabots: visual behavior tree programming for robots, multiplayer AI tournaments
 - [ ] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
@@ -73,6 +73,8 @@
 - [ ] 2.17 — Fabrication as tactical resource: spawn cost as a per-mission resource that creates trade-offs between pre-placed agents and dynamic spawning; fabrication point allocation as a pre-mission decision; how the resource cap interacts with spawn storm failure mode
 - [ ] 2.18 — Signal acknowledgment as optional mechanic: a lightweight "ACK" hook that fires automatically when a signal is processed — a soft middle ground between fire-and-forget (no delivery info) and blocking (full rendezvous); configurable ACK_TIMEOUT after which sender continues without confirmation
 - [ ] 2.19 — Variable scenario seeds as difficulty axis: replacing a single difficulty slider with a "scenario variance" dial — narrow variance makes missions more deterministic (tutorial-friendly), wide variance makes them extremely randomization-dependent (expert challenge); the dial as an explicit player control
+- [ ] 2.20 — Asynchronous observation gap as core design pattern: agents always act on last-tick's world state (frozen snapshot); Robot Uprising's 1-hop-1-tick latency is the architectural embodiment of this; how is the gap communicated during onboarding, visualized during execution, and taught in the debrief? What does "acting on stale intelligence" look like vs. "acting on fresh intelligence"?
+- [ ] 2.21 — Context efficiency asymmetry (tight vs. fat budgets): should a player who designs a minimal-footprint context architecture actually outperform a player who just maxes every buffer? The "budget players vs. big spenders" balance; analogous to Screeps CPU-efficient creeps outperforming naive brute-force bots; does Robot Uprising want this performance asymmetry baked in?
 - [ ] 3.19a — Self-replicating agent configs: agent configurations that explicitly include spawn of near-copies of themselves; the puzzle/achievement of the minimal self-replicator; when is this a cool advanced mechanic vs. a degenerate strategy that breaks missions; design guardrails
 
 ### Buffer Models
@@ -180,6 +182,8 @@
 - [ ] 5.14 — Detection skills as complexity gate: the "intrusion detection" skill as an advanced mechanic that reveals hidden corruption to players who invest in it; scales difficulty with player sophistication rather than with a separate difficulty slider; advanced players uncover more depth, beginners get clean experience
 - [ ] 5.18 — The "first deadlock" tutorial mission: a deliberately crafted Mission 6 ("Breach") scenario where naive BLOCKING hook use creates a deadlock — and the debrief shows exactly why, tick by tick, as the frozen agents' last actions play back; designed failure, designed recovery, designed insight
 - [ ] 5.19 — The "pass-rate plateau" problem: players who get 80/100 and feel done — designing campaign gates that require 90% rather than 100% for progression, while reserving 100% for cosmetic/leaderboard rewards; the psychological difference between "good enough" and "provably correct"
+- [ ] 5.20 — Always-on anxiety vs. self-contained missions: Screeps World's 24/7 persistence creates ownership feeling but also "vacation death" anxiety (base destroyed while offline); Robot Uprising's mission structure eliminates anxiety but loses persistence fantasy; what compensatory design choices restore the ownership feeling? Named units? Between-mission camp state? Campaign memory?
+- [ ] 5.21 — Open-source architecture as community mechanic: Screeps' culture of publishing full bot code on GitHub + writing architectural blog posts is a deliberately-designed community mechanic; what's the Robot Uprising equivalent? Exportable agent configs, shareable hook wiring diagrams, community config repositories?
 
 ---
 
@@ -219,3 +223,4 @@
 - [ ] 8.06 — The "first ugly solution" as tutorial completion: designing missions to be beatable with brute-force configurations so the histogram teaches optimization rather than a tutorial system; the Opus Magnum "no required optimization" pattern applied to agent configuration
 - [ ] 8.05 — The maximum viable game: everything at once — does it cohere or collapse?
 - [ ] 8.07 — Robustness vs. efficiency as fundamental tension: highly efficient architectures may be brittle (works 90% of cases, fast); robust architectures may be inefficient (works 100%, slow); how do histograms communicate both dimensions simultaneously?
+- [ ] 8.08 — The real-language vocabulary claim: Robot Uprising asserts its primitives (skills/rules/hooks/context) map 1:1 to real agentic AI engineering; design exercise — map a real Claude Code ralph loop to Robot Uprising primitives and test whether the vocabulary actually holds; where does the metaphor break down, and does that matter?
