@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 311
-- **Analyzed:** 48
-- **Pending:** 263
-- **Convergence:** 15.4%
+- **Total aspects:** 316
+- **Analyzed:** 49
+- **Pending:** 267
+- **Convergence:** 15.5%
 
 ---
 
@@ -59,7 +59,12 @@
 - [x] 4.69c — Agent redesign mode as a dedicated workbench state: full design of the isolated redesign sandbox — how the player enters, what UI affordances are available, how changes are staged vs. committed, how the simulation differs from normal workbench operation
 - [x] 4.69d — Multi-cluster persistence tracking: tracking whether the same agent triggers multi-cluster across multiple career analyses; the "persistent offender" agent as a named archetype with dedicated treatment in the season health dashboard
 - [x] 4.69e — Adversarial multi-cluster poisoning: opponent config design strategy that stresses 3+ elements of the same target agent across all match types, deliberately triggering the player's cluster flag to mislead them into an unnecessary redesign; counter-design distinguishes "clustered across all opponents" (structural) from "clustered against specific opponent" (adversarial)
-- [ ] 4.69e-i — Match-scope filter UI design: full design of the career analysis scope filter — how the player selects opponents to include/exclude, what the UI looks like, how filtered analyses are labeled and archived vs. full-scope analyses; interaction with career analysis history log
+- [x] 4.69e-i — Match-scope filter UI design: full design of the career analysis scope filter — how the player selects opponents to include/exclude, what the UI looks like, how filtered analyses are labeled and archived vs. full-scope analyses; interaction with career analysis history log
+- [ ] 4.69e-i-a — Sample size warning threshold: minimum match count for a reliable filtered analysis and how the UI communicates when a filtered set is too small; exact UI: warning banner, disabled Run Analysis button, or advisory text only?
+- [ ] 4.69e-i-b — Opponent list sorting and search at scale: when a player has faced 50+ opponents, how does the By Opponent list scale? Sort by match count / alphabetical / adversarial signal strength / most recent match; search box; grouping tagged adversarial at top
+- [ ] 4.69e-i-c — Filtered analysis data points in season health trend graph: should filtered analysis runs appear on the coverage-% trend graph as differentiated data points (lighter color, different shape); optional show/hide toggle; interaction with 4.68 coverage as season health
+- [ ] 4.69e-i-d — Scope summary legibility in exports and shared artifacts: when a filtered analysis PNG is shared to Discord or a threat model report, does the scope summary contain enough for a reader who didn't run the filter to understand what they're looking at; design of the export footer
+- [ ] 4.69e-i-e — Auto-filter suggestion engine: if system detects adversarial signal strength >50% from a single opponent, proactive suggestion to run a filtered analysis excluding that opponent; what the suggestion looks like (banner, tooltip, interstitial); interaction with 4.69e-i concentration warning
 - [ ] 4.69e-ii — Known adversarial opponent tagging: UI for adding an opponent to the "known adversarial" list from within the career analysis agent audit; how the tag persists across sessions; what changes in career analysis behavior when an opponent is tagged; how to remove a tag
 - [ ] 4.69e-iii — Per-opponent threshold override in competitive contexts: suppressing cluster contributions from specific opponents below a concentration threshold; interaction with match-source breakdown display; comparison with 4.69j per-agent threshold override
 - [ ] 4.69e-iv — Counter-poisoning config design: full design of the player's ability to intentionally design a config that generates misleading cluster signals in an opponent's career analysis; the offensive version of adversarial poisoning; ethical/design considerations around explicit "diagnostic sabotage" as player intent
