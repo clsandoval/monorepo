@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 528
-- **Analyzed:** 82
-- **Pending:** 446
-- **Convergence:** 15.5%
+- **Total aspects:** 532
+- **Analyzed:** 83
+- **Pending:** 449
+- **Convergence:** 15.6%
 
 ---
 
@@ -215,7 +215,11 @@
   - [ ] 4.69e-iv-e — Cross-opponent poison coordination: different configs stressing the same element of the same opponent via different attack vectors; distributed poisoning evading single-config detection; interaction with compound detection from opponent's perspective
 - [x] 4.69e-v — Adversarial density as a career season metric: tracking how many of the player's matches in a season were adversarially targeted; "adversarial pressure" as a context variable in season health; adjusting season health thresholds for high-adversarial-pressure seasons
 - [x] 4.69e-vi — Concentration threshold calibration for dense opponent pools: false adversarial detection in small competitive ladders where players naturally match against same opponents repeatedly; graduated concentration thresholds based on opponent pool size; "expected concentration at N matches" as contextual denominator
-- [ ] 4.69e-vii — Per-cluster adversarial exclusion: tag an opponent as adversarial for specific agent clusters but not others; "exclude IronPulse99 from STRIKER-A analysis but include in RELAY-B analysis"; surgical per-cluster tagging vs. blanket per-opponent tag; interaction with 4.69j per-agent threshold override
+- [x] 4.69e-vii — Per-cluster adversarial exclusion: tag an opponent as adversarial for specific agent clusters but not others; "exclude IronPulse99 from STRIKER-A analysis but include in RELAY-B analysis"; surgical per-cluster tagging vs. blanket per-opponent tag; interaction with 4.69j per-agent threshold override
+  - [ ] 4.69e-vii-a — Lock conflict resolution when multiple opponents lock the same cluster: what happens when IronPulse99 has RELAY-B locked-include but NebulaFang has RELAY-B locked-suppress; precedence rules for conflicting per-cluster locks from different opponents; should the system warn about conflicting lock intentions?
+  - [ ] 4.69e-vii-b — Lock inheritance on config redesign: when the player redesigns STRIKER-A into STRIKER-A-v2, should per-cluster locks from the old STRIKER-A transfer to the new version; identity continuity of agents across redesigns; interaction with agent versioning
+  - [ ] 4.69e-vii-c — Lock recommendation engine: system-suggested locks based on replay analysis, concentration gap between clusters, and historical lock patterns; "we noticed RELAY-B persists after IronPulse99 exclusion — consider locking to include"; passive vs. active recommendation UX
+  - [ ] 4.69e-vii-d — Bulk lock operations from the Tag Matrix view: if a player opens the Tag Matrix (Option B), can they set locks in batch across the grid; interaction between the inline lock (Option D) and the matrix view (Option B) as dual interfaces to the same state
 - [ ] 4.69e-viii — Tag expiry and automatic sunset: adversarial tags that persist forever become stale as configs and meta evolve; automatic expiry after N seasons with renewal prompt; interaction with periodic review prompt design; preventing stale tags from accumulating over long careers
 - [ ] 4.69e-ix — Adversarial tag as community signal: anonymized aggregation of tag frequency across players; "this opponent is tagged as adversarial by 12 players in your bracket"; crowd-sourced adversarial intelligence; risk of mob tagging strong non-adversarial players; interaction with 7.10 necropsy culture
 - [ ] 4.69e-x — Tag evidence export for community discussion: shareable artifact showing match-source breakdown, preview, and tagging rationale without revealing opponent identity; enables community discussion of "when should I tag?" as a learnable skill; interaction with necropsy culture (7.10) and Opus Magnum histogram sharing (1.03)
