@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 179
-- **Analyzed:** 22
-- **Pending:** 157
-- **Convergence:** 12.3%
+- **Total aspects:** 183
+- **Analyzed:** 23
+- **Pending:** 160
+- **Convergence:** 12.6%
 
 ---
 
@@ -33,10 +33,12 @@
 - [x] 1.06c-ext-A-iii — Sealed replay for PvE missions: applying the sealed mechanic to campaign missions — hiding pass/fail until player watches; whether sealed tension works when the player designed both sides of the encounter
 - [x] 4.04b — Two-act debrief structure: designing the watch experience and the analysis experience as sequential phases — sealed watch (emotional) → full debrief (analytical) — with a deliberate transition between them; the "seal breaking" as the transition event
 - [x] 4.18 — Effective outcome timestamp as a first-class metric: the tick at which the match's outcome was "effectively determined" (minimum-counterfactual tick) shown in post-match stats; comparing this to max_ticks reveals "how much of the match was foregone conclusion"; effective-determination-to-max-ticks ratio as a Gauntlet map quality indicator (low ratio = high false pivot density = rich sealed content)
-- [ ] 4.19 — False pivot annotation opt-out for streamers: a per-session toggle hiding the gold diamond and grey markers; for streamers who want to provide commentary before the annotation appears, or for community events where "find the pivot" is a collective viewer challenge; the annotation as a game show format
+- [x] 4.19 — False pivot annotation opt-out for streamers: a per-session toggle hiding the gold diamond and grey markers; for streamers who want to provide commentary before the annotation appears, or for community events where "find the pivot" is a collective viewer challenge; the annotation as a game show format
 - [ ] 4.25 — EDT trajectory as career progress metric: a 30-match rolling EDT average as a first-class career stat, showing whether a player's architectures trend toward more-contested matches over time; EDT trajectory as the measure of architectural improvement orthogonal to win/loss rate; a player whose EDT moves from 0.20 to 0.45 has improved their opener even if their win rate stayed flat
 - [ ] 4.26 — False pivot gap as a standalone metric: EDT to "most dramatic moment" distance as a displayed stat; "False Pivot Gap: 52 ticks" as a community-shareable number; used in config necropsy posts to communicate how misleading the sealed watch was; high false pivot gap = rich sealed experience but harder diagnostic work
 - [ ] 4.20 — Counterfactual simulation as advanced debrief feature: a "what if" mode in the debrief that lets the player change a single agent decision at the identified pivot tick and re-simulate the match forward; the "minimum fix explorer" showing how small a change was needed to flip the outcome
+- [ ] 4.27 — Pivot accuracy as a displayed stat: tracking how close a player's manual hypothesis (marked on timeline before revealing) is to the gold diamond EDT; "pivot accuracy" as a skill metric in player profiles; the "0 ticks off" achievement as a Commander-tier diagnostic milestone; whether accuracy is tracked only in annotation-suppressed sessions vs. always
+- [ ] 4.28 — Annotation reveal countdown as a designed segment format: the "reveal in 5:00" countdown timer as a structured format tool for streamers and for "study mode" players; a mandatory N-minute unguided-analysis window before diamond appears; applies the hot-take vs. cold-analysis principle as a designed mechanic rather than an optional setting
 - [ ] 1.06c-ext-B — Configuration version control as first-class infrastructure: async PvP requires explicit deploy snapshots, version comparison, "fork from deploy" workflow; how this differs from a simple file-save system; versioned configs as competitive history artifacts
 - [ ] 1.06c-ext-C — The async-to-sync hybrid (simultaneous-turn model): Frozen Synapse's sealed-order-submit as middle ground between pure async and synchronous; both players submit simultaneously, neither sees opponent's orders until resolution; fully schedule-compatible while preserving tactical tension
 - [ ] 1.06c-ext-D — Observation mode as competitive onboarding: watching featured matches without deploying; low-friction path from "curious about ranked" to "first deploy"; how observation mode teaches replay literacy before players need it
@@ -248,6 +250,8 @@
 - [ ] 7.03 — Async challenges: "beat my architecture" shareable puzzles
 - [ ] 7.04 — Modding: custom missions, custom building blocks, total conversions
 - [ ] 7.05 — Leaderboards and optimization: Zachtronics-style histograms, community competition
+- [ ] 7.13 — Community "find the pivot" tournament format: a formal async tournament where a featured match is posted and participants submit pivot guesses within a 24-hour window; the distribution of guesses displayed after deadline shows false pivot clustering; the metagame of collective diagnostic calibration; no debrief tools allowed during submission window
+- [ ] 7.14 — Annotation accuracy leaderboard: a global leaderboard tracking not win rate but "annotation accuracy" — players who consistently mark within ±5 ticks of the diamond before revealing; top annotators as the "diagnosticians" of the competitive community whose config necropsies carry authority because their manual pivot-identification is provably calibrated
 - [ ] 7.09 — The arms race as designed meta-evolution: Gauntlet meta not controlled by designers but evolving from player innovation; how to design a game that supports meta-evolution without locking into a dominant strategy; intervention points (seasonal resets, new skill/hook unlocks) vs. pure player-driven evolution
 - [ ] 7.11 — Match duration as community health signal: season meta reports tracking average match length across the Gauntlet population; dropping average match length as indicator of a dominant strategy (stomps increasing); "match length as meta health indicator" as a designed ecosystem diagnostic; when to trigger season resets based on this signal
 - [ ] 7.12 — Community-visible EDT distributions per config archetype: season analytics showing EDT distribution for each major config archetype (scout-heavy, relay-chain, command-agent); lets players understand the "match shape" profile of each archetype before choosing one; "relay-chain architectures tend toward EDT 0.45–0.65; scout-rush architectures tend toward EDT 0.15–0.30"; informed build choice using archetype EDT profile
