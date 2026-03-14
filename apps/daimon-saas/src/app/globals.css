@@ -144,6 +144,26 @@
     0%   { transform: translate(-50%, -50%) scale(0.96); opacity: 0; }
     100% { transform: translate(-50%, -50%) scale(1);    opacity: 1; }
   }
+  @keyframes modalScaleOut {
+    0%   { transform: translate(-50%, -50%) scale(1);    opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(0.96); opacity: 0; }
+  }
+  @keyframes dropdownEnter {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes dropdownExit {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  @keyframes fieldErrorAppear {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  --animate-dropdown-open:  dropdownEnter 150ms ease-out forwards;
+  --animate-dropdown-close: dropdownExit 100ms ease-in forwards;
+  --animate-modal-out:      modalScaleOut 150ms ease-in forwards;
   @keyframes shimmer {
     0%   { background-position: 200% 0; }
     100% { background-position: -200% 0; }
@@ -263,6 +283,38 @@
   --transition-brand:   all 0.2s ease;
   --transition-modal:   all 0.3s ease;
   --transition-opacity: opacity 0.2s ease;
+
+  /* Animation duration tokens */
+  --duration-instant:  100ms;
+  --duration-fast:     150ms;
+  --duration-base:     200ms;
+  --duration-slow:     250ms;
+  --duration-enter:    250ms;
+  --duration-exit:     200ms;
+  --duration-collapse: 400ms;
+
+  /* Animation easing tokens */
+  --ease-standard: ease;
+  --ease-enter:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-exit:     ease-in;
+}
+
+/* Reduced motion — disable durations for decorative animations */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant:  0ms;
+    --duration-fast:     0ms;
+    --duration-base:     0ms;
+    --duration-slow:     0ms;
+    --duration-enter:    0ms;
+    --duration-exit:     0ms;
+    --duration-collapse: 0ms;
+  }
+  .status-dot-connecting,
+  .status-dot-connected-ring,
+  .skeleton {
+    animation: none !important;
+  }
 }
 
 /* ── Base reset ──────────────────────────────────────────────────────────── */
@@ -527,6 +579,32 @@ a {
   .input-base:focus  { border-color: var(--color-navy); box-shadow: var(--shadow-focus-ring); }
   .input-base.error  { border-color: #DC2626; }
   .input-base:disabled { background-color: rgba(12,31,64,0.05); color: rgba(12,31,64,0.40); cursor: not-allowed; }
+
+  /* Field error appear animation */
+  .field-error {
+    animation: fieldErrorAppear 150ms ease forwards;
+  }
+
+  /* Alert banner dismiss animation */
+  .alert-banner-dismissing {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    transition:
+      opacity 200ms ease-in,
+      max-height 200ms ease-in,
+      padding 200ms ease-in;
+  }
+
+  /* Sidebar collapse transition */
+  .sidebar-collapsible {
+    transition: width var(--duration-slow) var(--ease-enter);
+  }
+  .sidebar-labels {
+    transition: opacity var(--duration-fast) var(--ease-exit), width var(--duration-fast) var(--ease-exit);
+  }
 
   /* Hero section dots texture overlay */
   .hero-section::before {

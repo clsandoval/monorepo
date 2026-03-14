@@ -41,7 +41,7 @@ interface ButtonProps {
 }
 
 const base =
-  'inline-flex items-center justify-center font-semibold border transition-all duration-200 ease-in-out rounded-none disabled:opacity-45 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4E7DD] focus-visible:ring-offset-2 active:brightness-93'
+  'inline-flex items-center justify-center font-semibold border transition-all duration-200 ease-in-out rounded-none disabled:opacity-45 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4E7DD] focus-visible:ring-offset-2 active:brightness-93 active:scale-[0.98]'
 
 const sizeMap: Record<NonNullable<ButtonProps['size']>, string> = {
   sm: 'h-8 px-3 text-[13px] gap-1.5',

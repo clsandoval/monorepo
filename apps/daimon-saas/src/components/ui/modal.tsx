@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import { X, Loader2 } from 'lucide-react'
 import { createPortal } from 'react-dom'
 
@@ -42,6 +42,23 @@ export function Modal({
 }: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
+  // Track visible state to allow exit animation before unmounting
+  const [visible, setVisible] = useState(open)
+  const [isClosing, setIsClosing] = useState(false)
+
+  useEffect(() => {
+    if (open) {
+      setIsClosing(false)
+      setVisible(true)
+    } else if (visible) {
+      setIsClosing(true)
+      const t = setTimeout(() => {
+        setVisible(false)
+        setIsClosing(false)
+      }, 150)
+      return () => clearTimeout(t)
+    }
+  }, [open]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClose = useCallback(() => {
     if (!loading) onOpenChange(false)
@@ -111,7 +128,7 @@ export function Modal({
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [open])
 
-  if (!open) return null
+  if (!visible) return null
 
   const { width, maxWidth } = SIZE_WIDTHS[size]
 
@@ -126,7 +143,9 @@ export function Modal({
           background: 'rgba(12,31,64,0.55)',
           backdropFilter: 'blur(4px)',
           zIndex: 50,
-          animation: 'fadeIn 150ms ease forwards',
+          animation: isClosing
+            ? 'fadeIn 150ms ease-in reverse forwards'
+            : 'fadeIn 150ms ease forwards',
         }}
         aria-hidden="true"
       />
@@ -154,7 +173,9 @@ export function Modal({
           boxShadow: '0 20px 60px rgba(12,31,64,0.18)',
           zIndex: 51,
           overflow: 'hidden',
-          animation: 'modalScaleIn 200ms cubic-bezier(0.22,1,0.36,1) forwards',
+          animation: isClosing
+            ? 'modalScaleOut 150ms ease-in forwards'
+            : 'modalScaleIn 200ms cubic-bezier(0.22,1,0.36,1) forwards',
         }}
       >
         {/* Header */}

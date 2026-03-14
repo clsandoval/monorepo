@@ -78,7 +78,7 @@ export function Sidebar() {
     <nav
       aria-label="Sidebar navigation"
       id="sidebar-nav"
-      className="fixed left-0 top-0 flex flex-col overflow-y-auto md:w-14 xl:w-60"
+      className="fixed left-0 top-0 flex flex-col overflow-y-auto md:w-14 xl:w-60 sidebar-collapsible"
       style={{
         height: '100vh',
         background: '#0C1F40',

@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 104
-- **Current**: 104
+- **Completed**: 105
+- **Current**: 105
 
 ## Current Stage
 
-**Stage 105** — (next stage)
+**Stage 106** — (next stage)
 
 ## Stage Log
 
@@ -118,3 +118,4 @@
 | 102 | done | 2026-03-14T23:00:00Z | ConfirmDialog wired to all 5 destructive actions: delete workspace (confirmationText=tenantName), disconnect Discord bot (danger, spec copy), delete API key (danger, provider meta copy), disconnect service connection (warning, spec copy), admin suspend tenant (danger); replaced Modal/inline confirm patterns with ConfirmDialog; build passes |
 | 103 | done | 2026-03-14T23:30:00Z | Responsive mobile layout: sidebar icon-only at tablet (md:w-14, labels hidden, centered icons), hidden at mobile; DashboardLayout responsive margins (ml-0/md:ml-14/xl:ml-60), responsive padding (p-4/md:p-6/xl:p-8), bottom padding pb-[72px] on mobile; MobileBottomNav (5 items, aqua active indicator, md:hidden); AdminLayout mobile blocking screen for <1024px (Monitor icon, "Desktop only" message, back link); build passes |
 | 104 | done | 2026-03-14T23:45:00Z | Accessibility ARIA + keyboard nav: skip-to-content link in root layout (first focusable element, sr-only until focused); globals.css focus ring: *:focus outline:none, *:focus-visible outline 2px aqua + box-shadow, navy bg variant, high-contrast media query (3px black); sidebar.tsx <aside>→<nav aria-label="Sidebar navigation" id="sidebar-nav">, logo aria-label, aria-current on nav items, aria-hidden on icons, role="list" on nav ul, aria-label on footer div; public-layout.tsx main id="main-content" tabIndex={-1}; dashboard-layout.tsx main id="main-content" tabIndex={-1}; build passes |
+| 105 | done | 2026-03-14T23:55:00Z | Micro-interactions + transitions: next-nprogress-bar (2px aqua top bar, NavigationProgressBar client wrapper) added to root layout; animation token system (--duration-* + --ease-* CSS vars) + prefers-reduced-motion block in globals.css; dropdown keyframes (dropdownEnter/dropdownExit) + animate-dropdown-open/close utilities; modalScaleOut keyframe + exit animation state in Modal (visible/isClosing); button active:scale-[0.98] press effect; sidebar-collapsible class with width transition 250ms ease-enter; field-error + alert-banner-dismissing utility classes; build passes |

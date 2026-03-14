@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Archivo, Lora } from "next/font/google";
 import { AuthProvider } from "@/lib/auth/auth-context";
 import { ToastProvider } from "@/components/ui/toast";
+import { NavigationProgressBar } from "@/components/layout/progress-bar";
 import "./globals.css";
 
 const inter = Inter({
@@ -120,6 +121,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        <NavigationProgressBar />
         <AuthProvider>
           <ToastProvider>{children}</ToastProvider>
         </AuthProvider>
