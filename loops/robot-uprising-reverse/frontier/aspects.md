@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 542
-- **Analyzed:** 85
-- **Pending:** 457
-- **Convergence:** 15.7%
+- **Total aspects:** 546
+- **Analyzed:** 86
+- **Pending:** 460
+- **Convergence:** 15.8%
 
 ---
 
@@ -386,7 +386,11 @@
 
 ### Intelligence Spectrum (How Smart Do Units Feel?)
 - [x] 2.00a — Fully deterministic: behavior trees, signal routing, composable rules — can this feel "smart"?
-- [ ] 2.00b — Simulated intelligence: deterministic systems designed to FEEL autonomous (randomness, personality quirks, surprising-but-scripted behavior)
+- [x] 2.00b — Simulated intelligence: deterministic systems designed to FEEL autonomous (randomness, personality quirks, surprising-but-scripted behavior)
+  - [ ] 2.00b-i — Near-miss rendering as progressive unlock: the micro-hesitation animation showing "what the agent almost did" requires rule-priority literacy; design of the unlock gate (mission-gated vs. settings toggle vs. automatic after N inspector uses); interaction with onboarding difficulty curve and the debugging tax (2.00j)
+  - [ ] 2.00b-ii — Callsign attachment and blueprint identity: when a player modifies every rule in a "Cautious" template, is it still "Cautious"? The Ship of Theseus problem for personality templates; should templates have a mutation threshold where the label changes; "Custom" as default label after N modifications vs. preserving lineage forever
+  - [ ] 2.00b-iii — Personality animation intensity as accessibility concern: players with photosensitivity, ADHD, or sensory processing differences may find idle animations distracting or triggering; design of the animation intensity slider (Minimal/Standard/Detailed) and what each level preserves vs. removes; interaction with reduced-motion OS settings
+  - [ ] 2.00b-iv — Enemy agent personality as intelligence signal: should enemy units also have callsigns, personality animations, and legible behavior patterns? If yes, the player can "read" enemy personality from observation ("that enemy scout is cautious — it retreats early"); if no, enemies remain opaque and alien. Interaction with counter-intelligence (2.16) and information warfare
 - [ ] 2.00c — Hybrid: deterministic core with optional LLM enhancement (players who want it pay API cost, others play offline)
 - [ ] 2.00d — LLM-native: lean into it, make token cost a resource, make the AI's reasoning visible and part of the game
 - [ ] 2.00e — The meta-level: building systems that build systems — how does each intelligence model support the "factory of agents" feeling?
