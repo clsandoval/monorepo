@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 83
-- **Analyzed:** 1
-- **Pending:** 82
-- **Convergence:** 1%
+- **Total aspects:** 92
+- **Analyzed:** 2
+- **Pending:** 90
+- **Convergence:** 2%
 
 ---
 
@@ -12,7 +12,7 @@
 
 ### Programming/Automation Games
 - [x] 1.01 — Shenzhen I/O: constraint-based puzzle design, limited instruction space, multiple valid solutions
-- [ ] 1.02 — TIS-100: minimal instruction set, spatial node layout, parallel execution visualization
+- [x] 1.02 — TIS-100: minimal instruction set, spatial node layout, parallel execution visualization
 - [ ] 1.03 — Opus Magnum: open-ended optimization, Zachtronics histogram system, aesthetic satisfaction of clean solutions
 - [ ] 1.04 — Exapunks: narrative framing of programming puzzles, zine-style tutorial, hacker fantasy
 - [ ] 1.05 — Screeps: persistent-world programming RTS, JavaScript API, MMO dynamics
@@ -60,6 +60,8 @@
 - [ ] 2.00c — Hybrid: deterministic core with optional LLM enhancement (players who want it pay API cost, others play offline)
 - [ ] 2.00d — LLM-native: lean into it, make token cost a resource, make the AI's reasoning visible and part of the game
 - [ ] 2.00e — The meta-level: building systems that build systems — how does each intelligence model support the "factory of agents" feeling?
+- [ ] 2.00f — No global coordinator as design constraint: agents that only know their immediate neighbors; emergent swarm behavior from local decisions only (from TIS-100's no-orchestrator architecture)
+- [ ] 2.14 — Spatial routing as mechanic layer: battlefield layout creates information routing constraints, separate from configuration logic; agent proximity determines which hook chains are possible
 
 ### Buffer Models
 - [ ] 2.01 — Fixed-slot buffer: N discrete slots, each holds one observation/message, oldest evicted first
@@ -99,6 +101,7 @@
 ### Hooks (Reactive Wiring)
 - [ ] 3.08 — Hook taxonomy: what events can trigger hooks? What actions can hooks fire?
 - [ ] 3.09 — Hook chaining: can hooks trigger other hooks? Cascade effects, infinite loops, back pressure
+- [ ] 3.09a — Blocking hook semantics: hooks that require both sender and receiver to be "ready" (not busy, in range, buffer not full) — implicit timing without a global clock (from TIS-100 blocking port model)
 - [ ] 3.10 — Hook visualization: how does the player see the wiring between agents? How are active hooks shown during execution?
 - [ ] 3.11 — Hooks UI: how does the player create and manage hooks?
 
@@ -127,6 +130,8 @@
 - [ ] 4.05 — The combo discovery moment: how the UI celebrates emergent interactions
 - [ ] 4.06 — Campaign map: how missions are presented, branching, narrative integration
 - [ ] 4.07 — The "oh no" moment: how information overload is visualized on units
+- [ ] 4.07a — "Blocked" visual state: agents that are waiting for input should be visually distinct from agents that are executing — prevents opacity that frustrates players in TIS-100 (deadlock detection gap)
+- [ ] 4.04a — Debrief as debugger: step-through replay of execution with per-agent state, buffer contents, and hook activation — the primary teaching mechanic, not just a stats screen
 - [ ] 4.08 — Unit portraits and identity: how units look, how you distinguish them, personality
 
 ---
@@ -144,6 +149,7 @@
 - [ ] 5.08 — Mission variety: what types of missions exist (defend, attack, stealth, escort, puzzle, boss)
 - [ ] 5.09 — Replayability: what makes someone start a new campaign
 - [ ] 5.10 — The "product as puzzle" narrative method: working backwards from fictional mission objects to determine which agent configurations matter (from Shenzhen I/O)
+- [ ] 5.12 — Predecessor content as narrative: captured enemy agent configs carrying "previous operator" annotations — the Randy's-annotations pattern for Robot Uprising lore delivery without cutscenes
 - [ ] 5.11 — Solitaire distraction risk: when a secondary mechanic (debrief analysis, sandbox mode) becomes more engaging than the core loop — how to prevent and exploit
 
 ---
@@ -168,6 +174,7 @@
 - [ ] 7.03 — Async challenges: "beat my architecture" shareable puzzles
 - [ ] 7.04 — Modding: custom missions, custom building blocks, total conversions
 - [ ] 7.05 — Leaderboards and optimization: Zachtronics-style histograms, community competition
+- [ ] 7.07 — Three orthogonal optimization axes: speed / efficiency / elegance as genuinely in-tension post-mission goals; a cycle-optimal army config and a buffer-minimal config should require different approaches
 - [ ] 7.06 — The histogram as social loop: post-execution bell curves showing player distribution across agent efficiency metrics (from Shenzhen I/O)
 
 ---
