@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 576
-- **Analyzed:** 92
-- **Pending:** 484
+- **Total aspects:** 581
+- **Analyzed:** 93
+- **Pending:** 488
 - **Convergence:** 16.0%
 
 ---
@@ -87,7 +87,12 @@
                                               - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a — Phantom flag detection as bidirectional completeness check: reverse template check (audit → repair direction); --enumerate-args as known-flags source of truth; flag alias handling; false positive suppression for test-only flags
                                                 - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i — Allowlist hygiene and expiry: when should allowlist entries be removed; stale allowlist entries suppressing future genuine phantoms; periodic audit of allowlist against current source; automated staleness detection; Recommendation: Option 2 (CI grep-back staleness check) + Option 3 (90-day TTL with renewal counter) as complementary layers; 5 design options (manual review, CI grep-back, TTL expiry, source-anchored, assertions-as-code); combined schema with renewals field as migration signal; "permanent allowlist" anti-pattern with three responses (permanent field, promote to internal, source refactoring); Phase 2 absorption path (atomic deletion); 3 player journeys (Aarav first expiry, Dev stale discovery during refactor, Margot high-renewal audit); 5 stale entry scenarios; interaction effects with schema drift detector, repair command version, profile export, bidirectional completeness pattern; 5 new sub-aspects discovered
                                                   - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a — Renewal justification as commit message convention: when extending an expiry, what metadata belongs in the commit message vs. in the JSON; structured commit message format for allowlist renewals; git log as audit trail for renewal decisions
-                                                    - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-i — Commit-msg hook enforcement strategy: warn vs. block on missing trailers; warn-first adoption period vs. immediate enforcement; hook bypass (--no-verify) auditing; interaction with pre-existing commit-msg hooks in the l10n pipeline
+                                                    - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-i — Commit-msg hook enforcement strategy: warn vs. block on missing trailers; warn-first adoption period vs. immediate enforcement; hook bypass (--no-verify) auditing; interaction with pre-existing commit-msg hooks in the l10n pipeline
+                                                      - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-i-a — Hook compositor architecture for multi-check commit-msg hooks: dispatcher pattern, context sharing between checks, check discovery and ordering, performance budget, error aggregation display format
+                                                      - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-i-b — Smart Gate JSON diff parser design: before/after JSON parsing in git hook, malformed JSON handling, jq dependency vs. pure bash, semantic diff categories, edge cases, performance on large files
+                                                      - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-i-c — Hook installation and distribution: Husky vs. lefthook vs. manual .git/hooks vs. core.hooksPath; ensuring all developers have hooks installed; "hook not installed" detection in CI; first-time setup experience
+                                                      - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-i-d — Shared validation library between local hook and CI lint: extracting trailer validation to reusable script; version pinning to prevent hook/CI divergence; testing the shared library
+                                                      - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-i-e — `Allowlist-Tool` provenance trailer: marker indicating which tool generated the commit; hook skip-validation for tool-generated commits; provenance as audit signal in renewal history
                                                     - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-ii — Squash-merge trailer preservation: individual commit trailers lost in squash; PR description as canonical location vs. post-merge hook extraction vs. forbid squash on allowlist-touching PRs
                                                     - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-iii — Renewal verdict `defer` as anti-pattern detection: consecutive defer count before escalation; shorter TTL for defer (30 days vs. 90); interaction with renewals ≥ 3 advisory
                                                     - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i-a-iv — Cross-tool commit trailer namespace collision: multiple l10n tools adopting structured trailers (Allowlist-*, Migration-*, Budget-*); namespace conventions, prefix standardization, and trailer schema discovery
