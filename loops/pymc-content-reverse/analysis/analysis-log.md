@@ -2,6 +2,16 @@
 
 ---
 
+## 2026-03-14 — assemble-industry-agriculture
+
+**Aspect**: assemble-industry-agriculture
+**Output**: content/industries/agriculture.md
+**Status**: partial
+
+**Summary**: Assembled agriculture industry page. Two named clients: Indigo Ag (primary — spatial GP for field trial treatment effect estimation, zero-inflated lognormal yield modeling, hierarchical Bayesian across farms/regions; multi-year engagement 2020–2024; Manu Martinet testimonial in two versions; Thomas quote about "agricultural frequentists"; production deployment confirmed; team: Wiecki/Luciano Paz/Adrian/Bill Engels/Niall/Carlos) and Syngenta (SLA/coaching format; XC50 assay + dose-response + hierarchical GLM for crop protection research; SOW 1 Mar 2025 / SOW 2 Dec 2025; client: Guillaume; Virgile quote "Guillaume's last model is great"; Eric Ma account lead). Blog posts: 2022-08-11-indigo (case study) + spatial-gaussian-process-01 (tutorial). Indigo Carbon program (soil carbon credits) noted as strategic use case. Agriculture grouped with pharma/biotech internally but gets own sitemap page. Flagship Pioneering fund connection documented (Moderna + Indigo). GAPS: No Halah draft agriculture section exists; no dedicated agriculture landing page copy written yet; Syngenta also in pharma page (cross-reference noted).
+
+---
+
 ## 2026-03-14 — assemble-industry-cpg
 
 **Aspect**: assemble-industry-cpg
