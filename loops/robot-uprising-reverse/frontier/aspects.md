@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 537
-- **Analyzed:** 84
-- **Pending:** 453
-- **Convergence:** 15.6%
+- **Total aspects:** 542
+- **Analyzed:** 85
+- **Pending:** 457
+- **Convergence:** 15.7%
 
 ---
 
@@ -226,7 +226,7 @@
   - [ ] 4.69e-viii-c — Tag inheritance across account migration or season reset: should tags survive hard resets; tags as social memory vs. diagnostic instruments; different answers for different reset types
   - [ ] 4.69e-viii-d — Deactivated tag reactivation flow: fresh TTL vs. resume; original values vs. current data; distinguishing "accidentally expired" from "re-tagging after a break"
   - [ ] 4.69e-viii-e — Tag expiry as tutorial for broader config hygiene: expiry system as first encounter with "configuration debt" concept; transfer to hook configs, rule priorities, context filters
-- [ ] 4.69e-ix — Adversarial tag as community signal: anonymized aggregation of tag frequency across players; "this opponent is tagged as adversarial by 12 players in your bracket"; crowd-sourced adversarial intelligence; risk of mob tagging strong non-adversarial players; interaction with 7.10 necropsy culture
+- [x] 4.69e-ix — Adversarial tag as community signal: anonymized aggregation of tag frequency across players; "this opponent is tagged as adversarial by 12 players in your bracket"; crowd-sourced adversarial intelligence; risk of mob tagging strong non-adversarial players; interaction with 7.10 necropsy culture
 - [ ] 4.69e-x — Tag evidence export for community discussion: shareable artifact showing match-source breakdown, preview, and tagging rationale without revealing opponent identity; enables community discussion of "when should I tag?" as a learnable skill; interaction with necropsy culture (7.10) and Opus Magnum histogram sharing (1.03)
 - [ ] 4.69e-v-a — APS as matchmaking input: should matchmaking reduce probability of matching high-APS players against their tagged opponents; tension between competitive fairness (any vs. any) and player wellbeing; comparable: chess.com "avoid player" in arena tournaments
 - [ ] 4.69e-v-b — Community APS leaderboard and "resilience" prestige: aggregated APS data as community feature; "Most Resilient Players" showing high-rank players who maintained position despite extreme adversarial pressure; new axis of competitive prestige beyond win rate; interaction with necropsy culture (7.10)
@@ -237,6 +237,11 @@
 - [ ] 4.69e-vi-b — Pool size display as competitive intelligence: showing "Effective pool: 28" reveals information about competitive tier and matchmaking concentration; privacy implications of exposing matchmaking internals; should it be hidden, abstracted, or fully visible
 - [ ] 4.69e-vi-c — Cross-season pool drift and threshold migration: when bracket grows from 12 to 50, thresholds drop dramatically; old tags set under permissive small-pool thresholds may no longer meet stricter large-pool criteria; automatic tag review prompt on significant pool size change
 - [ ] 4.69e-vi-d — Pool calibration in asymmetric matchmaking (smurf detection): player in 50-player bracket repeatedly matching one opponent due to smurfing or queue-sniping has effective pool much smaller than bracket; should the system distinguish adversarial targeting from matchmaking failure
+- [ ] 4.69e-ix-a — Tagger accuracy as competitive prestige: tagger accuracy scores (conviction-weighted community signal) as a visible competitive metric; "Most Accurate Diagnosticians in Architect Tier" as new prestige axis around analytical skill rather than win rate; interaction with necropsy culture (7.10) and live win-rate identity (1.04g)
+- [ ] 4.69e-ix-b — Tag Intelligence Network (TIN) opt-in dynamics: the opt-in community tag pool creates network effects that may produce de facto mandatory participation at competitive tiers; how to prevent soft coercion; comparable: Discord server verification tiers, Steam community features, chess.com club analytics; interaction with multiplayer/community-* design
+- [ ] 4.69e-ix-c — The "false adversarial" identity crisis: when a legitimate unconventional strategy generates high community tag counts, the player faces an identity crisis; design response options: "strategy profile" that explains playstyle to opponents, "counter-evidence" system that lets tagged players respond to tags, or acceptance that community perception IS the signal; interaction with necropsy culture (7.10)
+- [ ] 4.69e-ix-d — Community signal gating behind adversarial-diagnosis tutorial completion: community tag counts are actively harmful for players who haven't completed the adversarial-diagnosis tutorial arc (conformity without comprehension); design options: gate signals behind mission completion, show signals but hide tagging affordance, inline micro-tutorial on first encounter; interaction with onboarding (3.*)
+- [ ] 4.69e-ix-e — Cross-bracket adversarial intelligence for multi-tier players: a player competing in both Operative II and Architect I sees different community signals for the same opponent in different brackets; reconciling contradictory signals when opponent is adversarial only at one tier; interaction with APS (4.69e-v) and matchmaking (4.69e-v-a)
 - [ ] 4.69f — "Apply All Three" batch deployment: detailed design of the multi-fix batch application — sequencing, conflict detection, rollback affordance, confirmation dialog
 - [ ] 4.69g — Agent cluster as a unit of analysis in career stats: career statistics dashboard that shows per-agent multi-cluster frequency history; "agent debt ledger" as companion to match-level architectural debt metrics
 - [ ] 4.69h — Threshold preset profiles per config phase: different multi-cluster thresholds for different career phases (early season N=4 to avoid noise; late season N=2 to catch architectural drift before finals); a "phase-aware" threshold that auto-shifts as the season progresses
