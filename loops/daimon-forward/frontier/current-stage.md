@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 113
-- **Current**: 113
+- **Completed**: 114
+- **Current**: 114
 
 ## Current Stage
 
-**Stage 114** — (next stage)
+**Stage 115** — (next stage)
 
 ## Stage Log
 
@@ -127,3 +127,4 @@
 | 111 | done | 2026-03-15T02:00:00Z | e2e/settings.spec.ts (5 tests: owner view, workspace tab, discord tab, account tab, danger zone) + e2e/admin.spec.ts (6 tests: tenant list loading/populated, tenant detail loading/full, audit log loading/populated); user_profiles table created + pro user set as admin in beforeAll; 33 desktop+tablet tests pass (mobile-webkit skipped — WebKit not installed); 11 screenshots captured |
 | 112 | done | 2026-03-15T03:45:00Z | e2e/docs.spec.ts (8 tests: quick-start layout/above-fold/mid/bottom, tools above-fold, faq above-fold/accordion-expanded, billing docs) + e2e/phantom.spec.ts (17 tests: changelog/about/blog/blog-post/cookies/terms/privacy); 25 tests pass; 25 screenshots captured |
 | 113 | done | 2026-03-15T04:00:00Z | e2e/mobile-core.spec.ts: 6 tests at 375x812 viewport (landing hero, landing pricing, login, signup, dashboard, integrations); 6 screenshots captured |
+| 114 | done | 2026-03-15T04:15:00Z | e2e/mobile-flows.spec.ts: 4 tests at 375x812 viewport (billing plan cards stacked, settings full-width inputs, admin desktop-only block, docs sidebar-as-drawer); 4 screenshots captured |
