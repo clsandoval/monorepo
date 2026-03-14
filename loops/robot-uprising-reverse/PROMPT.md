@@ -27,6 +27,8 @@ Read the full brainstorm spec at `docs/superpowers/specs/2026-03-13-robot-uprisi
 
 **The feeling we're chasing:** When you do agentic AI engineering — building ralph loops, wiring autonomous agents, tuning context and feedback — it feels like playing StarCraft. The game must transmit THAT feeling. You're not writing code. You're managing smart autonomous systems. The real unlock is building systems that build specifications — the meta-level where you stop managing agents and start managing the architecture that produces agents.
 
+**Tech stack (locked):** React + Pixi.js, custom deterministic tick scheduler, Vite, no backend. Web-based so Playwright can visually QA every screen. React for workbench UI (DOM-inspectable), Pixi.js for battlefield rendering (Canvas-screenshottable). No Godot, no Phaser.
+
 **Key constraints:**
 - Must feel like managing smart autonomous systems, not puppeting dumb units
 - LLM integration is an OPEN question (explore deterministic, hybrid, LLM-native, and simulated-intelligence paths)
