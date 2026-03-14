@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 330
-- **Analyzed:** 52
-- **Pending:** 278
+- **Total aspects:** 335
+- **Analyzed:** 53
+- **Pending:** 282
 - **Convergence:** 15.8%
 
 ---
@@ -62,7 +62,12 @@
 - [x] 4.69e-i — Match-scope filter UI design: full design of the career analysis scope filter — how the player selects opponents to include/exclude, what the UI looks like, how filtered analyses are labeled and archived vs. full-scope analyses; interaction with career analysis history log
 - [x] 4.69e-i-a — Sample size warning threshold: minimum match count for a reliable filtered analysis and how the UI communicates when a filtered set is too small; exact UI: warning banner, disabled Run Analysis button, or advisory text only?
   - [x] 4.69e-i-a-i — "Don't show again" placement decision: whether the toast's "don't show again" affordance lives in-toast (more discoverable) vs. in Settings only (cleaner toast); two usability philosophies with measurable tradeoffs; recommendation: Option 4 (Two-Tier Dismissal: session snooze in-toast + permanent suppress in Settings) + first-occurrence footer pointing to Settings path; 4 options explored; 3 player journeys; 4 new sub-aspects discovered
-    - [ ] 4.69e-i-a-vi — Toast re-entry and session boundary detection after snooze: when does "session" end — tab close, game close, 30min idle? Browser sessionStorage vs. explicit game session tracking; edge cases with multiple tabs
+    - [x] 4.69e-i-a-vi — Toast re-entry and session boundary detection after snooze: when does "session" end — tab close, game close, 30min idle? Browser sessionStorage vs. explicit game session tracking; edge cases with multiple tabs; Recommendation: Model B+ (localStorage calendar-day + 6h floor); 4 models compared (tab-close, calendar-day, idle-timeout, explicit session ID); 3 player journeys; 5 new sub-aspects discovered
+      - [ ] 4.69e-i-a-vi-a — Profile-scoped vs. global snooze key: if multi-profile ships, snooze key should be profile-scoped to prevent cross-profile snooze inheritance when helping another player in a second tab
+      - [ ] 4.69e-i-a-vi-b — Toast text adaptation on repeat encounters: should toast text become more terse after N views? First encounter = full explanation; subsequent = "N=11 · directional zone only"; adapts to player vocabulary
+      - [ ] 4.69e-i-a-vi-c — Snooze expiry as generalized session re-entry hook: reuse session-boundary detection for other contextual reminders (coverage score stale, unreviewed flags); generalized notification system vs. per-notification custom logic
+      - [ ] 4.69e-i-a-vi-d — Snooze state visibility in Settings: show "snoozed until midnight" vs. just enabled/disabled toggle; transparency vs. complexity
+      - [ ] 4.69e-i-a-vi-e — Snooze state on game reset/clear: should localStorage notification states be cleared on "clear all progress"? Notification preferences are independent of game progress
     - [ ] 4.69e-i-a-vii — First-occurrence footer text maintainability: hardcoded "Settings → Analysis" path vs. icon-link that navigates directly; localization and path-change fragility; alternative: deferred-navigation affordance that opens Settings directly from the toast
     - [ ] 4.69e-i-a-viii — "Expand scope to 30+" CTA persistence after toast suppression: when toast is gone, does the action live anywhere else? Inline in the reliability band text ("Exploratory only (N=8) · [Expand to 30+]") as a fallback CTA; design of the non-toast path to scope expansion
     - [ ] 4.69e-i-a-ix — Onboarding exemption for sample size toast: should the toast fire during tutorial/onboarding when the game deliberately uses small-N scenarios? Detection logic; risk of confusing guided-play players who are doing what they're told
