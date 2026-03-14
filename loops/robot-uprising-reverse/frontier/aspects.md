@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 581
-- **Analyzed:** 93
-- **Pending:** 488
+- **Total aspects:** 586
+- **Analyzed:** 94
+- **Pending:** 492
 - **Convergence:** 16.0%
 
 ---
@@ -476,7 +476,7 @@
 ## Wave 3: The Workbench — Primitives & Agent Configuration
 
 ### Skills (What Agents Can Do)
-- [ ] 3.01 — Skills catalog: what specific skills exist? (scout, flank, harvest, relay, compress, patrol, ambush, repair, etc.)
+- [x] 3.01 — Skills catalog: what specific skills exist? (scout, flank, harvest, relay, compress, patrol, ambush, repair, etc.)
 - [ ] 3.02 — Skill acquisition: how does the player unlock new skills? (campaign progression, research, discovery, loot)
 - [ ] 3.03 — Skill interactions: which skills combo with which? What emergent behaviors arise from skill combinations?
 - [ ] 3.04 — Skill UI: how does the player browse, equip, and manage skills on agents?
@@ -499,6 +499,12 @@
 ### Context Config
 - [ ] 3.12 — Context config UI: how does the player set buffer size, filters, eviction priorities?
 - [ ] 3.13 — Context config presets vs. custom: pre-built configs for beginners, full control for veterans?
+
+- [ ] 3.01a — Skill parameterization depth: binary on/off vs. 1-3 slider parameters vs. fully configurable behavior curves per skill; impact on workbench complexity and mastery ceiling
+- [ ] 3.01b — Passive vs. active skill distinction: some skills fire automatically (evade, engage), others require rule triggers (compress, reassign); should this be formalized in UI? Mental model implications
+- [ ] 3.01c — Skill interaction matrix: 12 skills × 12 skills = 144 potential cross-unit interactions; which are synergistic, which conflict, which are neutral; emergent combo catalog
+- [ ] 3.01d — The "silence detection" skill gap: detecting ABSENCE of signals on a channel for N ticks; is this a missing skill or achievable through rules alone? The "watchdog timer" pattern
+- [ ] 3.01e — Skill visual language consistency: do the 12 skills' visual metaphors (ripples, flashes, lines, rings, arrows) form a learnable grammar? Can a player identify skills from the battlefield view alone?
 
 ### The Workbench Itself
 - [ ] 3.14 — Workbench layout: what does the full agent configuration screen look like? Panels, flow, information hierarchy

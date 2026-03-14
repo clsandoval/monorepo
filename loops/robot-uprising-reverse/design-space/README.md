@@ -4,6 +4,12 @@ An exhaustive exploration of every possible version of Robot Uprising. Each file
 
 ## Index
 
+### Building Blocks
+
+| File | Aspect | Status |
+|------|--------|--------|
+| [building-blocks/skills-catalog.md](building-blocks/skills-catalog.md) | 3.01 — Skills catalog: all 12 locked skills mechanically defined (patrol, evade, engage, breach, compress, filter, amplify, hack, extract, reassign, reroute, prioritize); interaction effects (skills × rules, hooks, context config, EM emissions, production economy); three design dimensions (skill unlocking, skill parameterization, cross-unit skill sharing); full sensory table with color/animation/audio per skill; comparable games (Screeps API functions, Gladiabots behavior actions, Factorio inserters, Into the Breach one-shot); 3 player journeys (Kira 22 discovering evade-buffer tension, Marcus 38 building command-agent cascade, Anika 14 mapping buffer to Minecraft shift register); 5 new aspects discovered (3.01a–3.01e) | ✅ Complete |
+
 ### Onboarding
 
 | File | Aspect | Status |
