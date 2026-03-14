@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 611
-- **Analyzed:** 99
-- **Pending:** 512
+- **Total aspects:** 616
+- **Analyzed:** 100
+- **Pending:** 516
 - **Convergence:** 16.2%
 
 ---
@@ -568,7 +568,12 @@
 - [ ] 5.02 — Tutorial as narrative: story-driven introduction, AI waking up
 - [ ] 5.03 — Tutorial as sandbox: free play with guided hints
 - [ ] 5.04 — Complexity ramp: what order are mechanics introduced? How many missions before full complexity?
-- [ ] 5.05 — Campaign structure: linear story vs. branching map vs. roguelike runs vs. chapter-based
+- [x] 5.05 — Campaign structure: linear story vs. branching map vs. roguelike runs vs. chapter-based
+  - [ ] 5.05a — Boot log as campaign UI: the terminal-as-map design pattern — font choice, color states, animation timing, sound design per state transition, small screen handling, scrolling behavior on mobile
+  - [ ] 5.05b — Intermission sandbox design: structured free play between campaign acts — available tools, default battlefield, suggested experiments, community blueprints, session length, re-engagement triggers
+  - [ ] 5.05c — Campaign replay and mission select post-completion — post-campaign screen, individual mission replay, score/rating per mission, improvement tracking
+  - [ ] 5.05d — Campaign difficulty escape hatches: what happens when a player is stuck — hint system, difficulty reduction, skip-with-penalty, practice mode, AI-suggested configs, watch-a-solution option
+  - [ ] 5.05e — Act structure tuning: optimal grouping of 10 missions into acts — 4-3-3 vs. 3-3-4 vs. 2-4-4 vs. other splits; act length vs. pacing vs. intermission placement
 - [ ] 5.06 — Failure and recovery: what happens when you lose a mission, when you lose the campaign
 - [ ] 5.07 — Meta-progression: what carries across campaign restarts
 - [ ] 5.08 — Mission variety: what types of missions exist (defend, attack, stealth, escort, puzzle, boss)
