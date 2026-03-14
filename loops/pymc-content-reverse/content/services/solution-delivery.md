@@ -206,15 +206,90 @@ The core offering. Full custom builds using PyMC-Marketing:
 
 ### Akili — Cognitive Modeling
 **Services:** Custom Bayesian Models, cognitive science application
-— analysis/website-scrape/case-studies.md
+**Details:** Bayesian cognitive assessment scoring for ADHD treatment using Likelihood Approximation Networks (LANs); digital therapeutics domain.
+— analysis/website-scrape/case-studies.md, content/case-studies/akili.md
 
 ### Appodeal — Gaming Analytics
 **Services:** Custom Bayesian Models for gaming metrics
-— analysis/discord-case-studies-extraction.md
+**Details:** Bayesian MMM for mobile app developer acquisition with adstock/saturation curves.
+— analysis/discord-case-studies-extraction.md, content/case-studies/appodeal.md
 
 ### Supercell — Gaming (Databricks shared client)
 **Services:** MMM and gaming analytics
-— analysis/discord-partnerships-extraction.md
+**Details:** Bayesian MMM for mobile game user acquisition; EAP initiated from conference lead; Databricks shared client.
+— analysis/discord-partnerships-extraction.md, content/case-studies/supercell.md
+
+### Live Nation — Hierarchical MMM at Scale
+**Services:** Custom Bayesian Models, Solution Delivery
+**Problem:** Modeling concert tour ticket sales ROI across a vast artist portfolio.
+**Solution:** Hierarchical Bayesian MMM applied across 125+ artists (SOW 1 & 2).
+**Technical highlight:** Hierarchical partial pooling to estimate media effects across hundreds of artists simultaneously.
+— content/case-studies/live-nation.md
+
+### Takeda — Pharma Manufacturing State Space Models
+**Services:** Custom Bayesian Models, Solution Delivery
+**Problem:** Optimize CAR-NK cell therapy manufacturing across a 28-day pipeline.
+**Solution:** Bayesian state space modeling for cell therapy manufacturing optimization.
+**Engagement:** 15-month SOW (ongoing as of Mar 2026).
+— content/case-studies/takeda.md
+
+### Streaming A/B Test — Scale Bayesian Testing to 100M+ Observations
+**Services:** Custom Bayesian Models, Solution Delivery
+**Client:** Large video streaming service (unnamed)
+**Problem:** Standard Bayesian A/B testing was computationally infeasible at 100M+ observation scale.
+**Solution:** Histogram approximation approach making large-scale Bayesian inference tractable; contributed to open-source infrastructure.
+— content/case-studies/streaming-ab-test.md
+
+### SALK — Multilevel Regression & Post-Stratification (MrP)
+**Services:** Custom Bayesian Models, Solution Delivery
+**Client:** SALK (Liberal Citizen Foundation), Estonia
+**Problem:** Public opinion polling estimation from complex survey data.
+**Solution:** MrP (multilevel regression + poststratification) for representative public opinion estimates.
+**Technical note:** Direct application of the methodology taught in ABRM course (Session 6).
+— content/case-studies/salk.md
+
+### VisualVest — Probabilistic CLV Modeling
+**Services:** Custom Bayesian Models, Solution Delivery
+**Client:** VisualVest (FinTech / robo-investing)
+**Problem:** Customer Lifetime Value modeling for a subscription investment product.
+**Solution:** Shifted Beta-Geometric (sBG) survival model for probabilistic CLV with full uncertainty quantification.
+— content/case-studies/visualvest.md
+
+### Erisyon — Bayesian HMM for Protein Sequencing
+**Services:** Custom Bayesian Models, Solution Delivery
+**Client:** Erisyon (Biotech / Proteomics)
+**Problem:** Bayesian inference for single-molecule protein sequencing with complex likelihood.
+**Solution:** Bayesian Hidden Markov Model (HMM) with JAX-based likelihood for scalable single-molecule proteomics.
+**Technical note:** Demonstrates PyMC Labs' JAX/NumPyro capability for custom likelihoods in novel domains.
+— content/case-studies/erisyon.md
+
+### Alva Labs — Bayesian Psychometric Modeling
+**Services:** Custom Bayesian Models, Solution Delivery
+**Client:** Alva Labs (HR Tech / hiring assessments)
+**Problem:** Validate personality assessment reliability and construct validity at scale.
+**Solution:** Bayesian psychometric modeling using Item Response Theory / Graded Response Model (IRT/GRM).
+— content/case-studies/alva-labs.md
+
+### Everysk — Private Equity Index from Cash Flows
+**Services:** Custom Bayesian Models, Solution Delivery
+**Client:** Everysk (Finance / investment management)
+**Problem:** Construct a private equity performance index from sparse capital cash flow data.
+**Solution:** Bayesian private equity index estimation from capital cash flows with full uncertainty propagation.
+— content/case-studies/everysk.md
+
+### Real Madrid — Fan CLV Modeling
+**Services:** Custom Bayesian Models, Solution Delivery (EAP, incomplete)
+**Client:** Real Madrid (Sports / Football)
+**Details:** Fan CLV modeling using PyMC-Marketing BG/NBD; EAP engagement initiated; incomplete as of Mar 2026.
+— content/case-studies/real-madrid.md
+
+### Gain Theory — MMM + Bass Diffusion
+**Services:** Custom Bayesian Models, Solution Delivery; also Training & Enablement
+**Client:** Gain Theory (Marketing consultancy)
+**Problem:** TV viewership prediction and MMM for a marketing consultancy upskilling their internal team.
+**Solution:** Hierarchical Bayesian MMM + Bass Diffusion modeling; delivered as both a custom build and as a training/upskilling engagement.
+**Cross-reference:** Also see Training & Enablement — Gain Theory appears as both a solution delivery case and a corporate workshop client.
+— content/case-studies/gain-theory.md
 
 ---
 
@@ -352,7 +427,8 @@ The core offering. Full custom builds using PyMC-Marketing:
 - **Training & Enablement** (`/services/training-enablement`): Knowledge transfer alongside or after delivery
 - **Solutions / Decision AI** (`/solutions/decision-ai`): AI MMM Agent + Decision Hub = the flagship agentic delivery product
 - **Solutions / Simba** (`/solutions/simba`): Managed service MMM platform, often sold alongside or instead of custom builds
-- **Case Studies** (`/case-studies/*`): HelloFresh, Indigo, Roche, Wegmans, Colgate, Swarovski, Akili, Appodeal, Dodgers, Real Madrid are all solution delivery cases
+- **Case Studies** (`/case-studies/*`): All 19 solution delivery cases — HelloFresh, Indigo Ag, Roche, Wegmans, Colgate (×3: cannibalization, shelf-optimization, synthetic-consumers), Swarovski, Akili, Appodeal, Supercell, Live Nation, Takeda, Streaming A/B Test, SALK, VisualVest, Erisyon, Alva Labs, Everysk, Real Madrid, Gain Theory (also Training)
+- **Fox Broadcasting** (`/case-studies/fox-broadcasting`): Show-level MMM component is solution delivery; EAP/coaching component is Strategy & Advisory — dual-service case
 - **OSS Libraries** (`/resources/open-source-libraries`): pymc-marketing + CausalPy = the open-source foundation of nearly every delivery
 - See also: `content/about/story-and-team.md` for team technical pedigree
 

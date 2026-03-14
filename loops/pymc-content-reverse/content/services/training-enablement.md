@@ -350,6 +350,45 @@ From live website — all courses share these logistics:
 
 ---
 
+## Client Case Studies (Training & Enablement as Primary Service)
+
+These case studies represent engagements where training, coaching, or upskilling was the primary deliverable:
+
+### L.L. Bean — In-House MMM Capability via SLA Coaching
+**Service:** SLA coaching (Training & Enablement primary)
+**Engagement:** Building in-house hierarchical MMM capability across 50 US DMAs
+**Outcome:** Client team independently owns and runs their MMM workflow
+— content/case-studies/llbean.md
+
+### Fabletics — MMM Upgrade Coaching (PyMC3 → PyMC5)
+**Service:** SLA coaching (Training & Enablement primary)
+**Client:** TechStyle/Fabletics (Fashion / E-Commerce)
+**Engagement:** PyMC3 to PyMC5/PyMC-Marketing migration + time-varying parameter coaching
+**EAP testimonial:** "PyMC Labs implemented time-varying coefficients improving seasonality capture in marketing mix models. The team proved collaborative, insightful, and consistently supportive." — Kate Hirth, Fabletics
+— content/case-studies/fabletics.md
+
+### Gain Theory — MMM Workshop + Consultancy Upskilling
+**Service:** Training & Enablement + Solution Delivery (dual)
+**Client:** Gain Theory (Marketing consultancy)
+**Engagement:** MMM workshop (2022) + Hierarchical Bayesian MMM + Bass Diffusion build
+**Note:** Dual-service case — both custom build and training/upskilling for a consultancy's own team
+— content/case-studies/gain-theory.md
+
+### Fox Broadcasting — EAP Coaching Across Full Delivery Lifecycle
+**Service:** Training & Enablement (EAP SLA coaching) + Strategy & Advisory
+**Client:** Fox Broadcasting / Fox Entertainment
+**Engagement:** Ongoing EAP coaching for a small DS team spanning full delivery cycle: research → implementation → deployment → roadmapping
+**EAP testimonial:** "The PyMC Labs Coaching program has been transformative for our small Data Science team, enabling us to deliver results at the level of a full-scale department." — Eugene Kwok, Fox Entertainment
+— content/case-studies/fox-broadcasting.md
+
+### HelloFresh — Early Workshop (2021) + Ongoing EAP
+**Service:** Training & Enablement (workshop) + Solution Delivery (custom MMM)
+**Engagement:** Early corporate workshop (2021) that seeded a deeper Solution Delivery relationship; followed by EAP at $8,000/month
+**Note:** Shows the workshop → project upsell path
+— content/case-studies/hellofresh-mmm.md
+
+---
+
 ## Cross-References
 
 - Courses use PyMC-Marketing → link to `content/resources/open-source-libraries.md`
@@ -357,6 +396,8 @@ From live website — all courses share these logistics:
 - BMA course instructs on tools also covered in `content/services/solution-delivery.md`
 - Embedded Teams service (knowledge transfer via daily collaboration) → link to `content/services/embedded-teams.md`
 - Halah Nathan Kafi testimonial mentions "advisory role and team training" → cross-ref `content/services/strategy-advisory.md`
+- **Case Studies** (`/case-studies/*`): Training & Enablement primary cases — L.L. Bean, Fabletics, Fox Broadcasting; dual cases — Gain Theory, HelloFresh
+- Corporate workshop clients (not full case studies): SIXT, Keywords Studios, Schwab, HelloFresh, Gain Theory, Vinted, IQVIA, Progressive Insurance, P&G, Wärtsilä
 
 ---
 

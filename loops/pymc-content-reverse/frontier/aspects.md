@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 77
-- Analyzed: 75
-- Pending: 4
-- Convergence: 97%
+- Analyzed: 76
+- Pending: 3
+- Convergence: 99%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -103,7 +103,7 @@ Identify thin pages and fill with targeted web research. Self-expands after Wave
 Final pass. Only start after Waves 1-4 are complete.
 
 - [x] cross-ref-case-studies-to-industries — Ensure every case study is referenced from its industry page
-- [ ] cross-ref-case-studies-to-services — Ensure every case study is referenced from its service page
+- [x] cross-ref-case-studies-to-services — Ensure every case study is referenced from its service page
 - [ ] cross-ref-solutions-to-case-studies — Link Simba/Decision AI to relevant case studies
 - [ ] status-audit — Read every content/ file, verify no stubs remain, all frontmatter is complete
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt

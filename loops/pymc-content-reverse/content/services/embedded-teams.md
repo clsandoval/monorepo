@@ -136,6 +136,22 @@ PyMC Labs co-built hierarchical Bayesian causal models for crop yield prediction
 
 ---
 
+## Broader Pattern: Engagements With Embedded Collaboration
+
+While only Indigo Ag is explicitly tagged "Embedded Teams" in frontmatter, several other cases involved sustained embedded-style collaboration:
+
+| Client | Why it fits Embedded Teams pattern | Case Study |
+|--------|------------------------------------|------------|
+| HelloFresh | Multi-SOW relationship; ongoing EAP at $8K/month; PyMC Labs co-developed what became pymc-marketing | content/case-studies/hellofresh-mmm.md |
+| Takeda | 15-month SOW; deep domain integration for CAR-NK cell therapy manufacturing | content/case-studies/takeda.md |
+| Live Nation | SOW 1 + SOW 2; 125+ artists hierarchical MMM requiring sustained collaboration | content/case-studies/live-nation.md |
+| Fox Broadcasting | EAP coaching spanning full delivery lifecycle; team embedded across research/deploy cycle | content/case-studies/fox-broadcasting.md |
+| Colgate-Palmolive | 3 sequential SOWs; deepening relationship with client's internal team | content/case-studies/colgate-*.md |
+
+Note: The "Embedded Teams" service pillar was formally named in November 2025. Most historical cases predate this naming but exhibit the same pattern of sustained co-working. As the service matures, expect more explicit Embedded Teams case study tagging.
+
+---
+
 ## Positioning: How Embedded Teams Was Named & Framed
 
 **Service framework (agreed Nov 2025, sales meeting):**
@@ -189,6 +205,7 @@ Monthly rate card for embedded DS resources (from #sales):
 - **EAP (Strategy & Advisory):** The Expert Access Program overlaps with Embedded Teams in that it also involves ongoing expert access, but EAP is asynchronous coaching + advisory; Embedded Teams = hands-on co-delivery. See `content/services/strategy-advisory.md`.
 - **Indigo case study:** Explicitly tagged "Embedded Teams" → see `content/case-studies/indigo-ag.md`
 - **Fox Entertainment** and **Haleon** are listed as testimonial sources → see `content/about/team-members/` for expert profiles cited in EAP/embedding contexts.
+- **Case Studies with embedded collaboration pattern** → HelloFresh (`content/case-studies/hellofresh-mmm.md`), Takeda (`content/case-studies/takeda.md`), Live Nation (`content/case-studies/live-nation.md`), Fox Broadcasting (`content/case-studies/fox-broadcasting.md`)
 
 ---
 

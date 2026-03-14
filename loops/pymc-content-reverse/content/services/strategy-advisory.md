@@ -286,6 +286,26 @@ From #inbound-leads and #sales — companies whose DS teams trigger strategy eng
 - After completing SOW 1, continued as EAP at $8,000/month
 - Source: analysis/discord-case-studies-extraction.md
 
+### Syngenta (SLA coaching, 2 SOWs)
+- Expert review of Bayesian dose-response models for XC50 assay modeling
+- Two separate SOWs completed (advisory/review scope, not full build)
+- Source: content/case-studies/syngenta.md
+
+### Los Angeles Dodgers (active EAP, confidential)
+- Time series modeling advisory; $5,000/month EAP contract start June 2025
+- Confidential engagement — no client outcome details available
+- Source: content/case-studies/dodgers.md
+
+### L.L. Bean (SLA coaching with advisory component)
+- Building in-house hierarchical MMM capability across 50 US DMAs via SLA coaching
+- Primary engagement is Training & Enablement / SLA coaching; advisory element present
+- Cross-reference: content/case-studies/llbean.md and content/services/training-enablement.md
+
+### Fox Broadcasting (EAP SLA + advisory across full delivery lifecycle)
+- EAP coaching program spanning full delivery cycle: research, implementation, deployment, roadmapping
+- Fox Entertainment also had show-level MMM + NFL promo ROI analysis (Solution Delivery component)
+- Cross-reference: see content/case-studies/fox-broadcasting.md and content/services/solution-delivery.md
+
 ---
 
 ## Process / How It Works
@@ -329,6 +349,7 @@ From #inbound-leads and #sales — companies whose DS teams trigger strategy eng
 - **Embedded Teams** (`/services/embedded-teams`): when advisory extends into sustained on-the-ground co-working
 - **Training & Enablement** (`/services/training-enablement`): when advisory includes structured upskilling (workshops, cohort courses)
 - **Contact** (`/contact`): primary CTA destination; EAP entry point via Calendly
+- **Case Studies** (`/case-studies/*`): Strategy & Advisory cases — Haleon, Fox Broadcasting, Fabletics, Indigo Ag (advisory→delivery), HelloFresh (follow-on EAP), Syngenta, Dodgers, L.L. Bean (SLA coaching)
 - See also: `content/about/story-and-team.md` for team pedigree supporting advisory credibility
 
 ---
