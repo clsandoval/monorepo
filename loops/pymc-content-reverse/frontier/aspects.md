@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 57
-- Pending: 17
-- Convergence: 77%
+- Analyzed: 58
+- Pending: 16
+- Convergence: 78%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -77,7 +77,7 @@ Consolidate all gathered material into content files. One aspect per page.
 - [x] assemble-solution-decision-ai — Write content/solutions/decision-ai.md
 - [x] assemble-about — Write content/about/story-and-team.md
 - [x] assemble-team-members — Write content/about/team-members/{name}.md for each discovered member
-- [ ] assemble-partners — Write content/partners.md
+- [x] assemble-partners — Write content/partners.md
 - [ ] assemble-course-abm — Write content/courses/abm.md
 - [ ] assemble-course-bma — Write content/courses/bma.md
 - [ ] assemble-course-ci — Write content/courses/ci.md
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] assemble-partners (2026-03-14) — Completed content/partners.md (partial → complete). Added: hero section (3 headline options + 3 body copy options, sourced from newsletter/announcement copy), official public announcement copy for Fivetran (Halah LinkedIn, Sep 2025) and Databricks (Sangam Data+AI Summit post Jun 2025 + Halah recap Jun 2025), new "Partnership Model & Why We Partner" section (3 partner archetypes, what each party contributes, internal vision quotes). 4 primary partners documented in full: Bain & Company ($3.25M+, $550–600k/month by Jan 2026, TCCC/CCHBC/Bain Accelerator), Databricks (official launch partner "Data Intelligence for Marketing" Mar 2025, Data+AI Summit Jun 2025, shared clients Fox/Supercell/Wegmans), Fivetran (Sep 2025, 600+ connectors, joint webinar, Wegmans shared client), Plan.Net/Serviceplan (Dec 2025 official announcement, BMW pilot "perfect project", ~€1.61M proposed contract). BCG and Snowflake documented as emerging. GAPS: BMW cannot be named publicly without authorization; no external-facing partner testimonials from Bain/Databricks contacts; BCG and Snowflake have minimal info; formal partner program description (self-serve) not yet written.
 - [x] assemble-team-members (2026-03-14) — All 33 existing team member files enriched with Discord org context, press/podcast appearances, conference talks, course involvement, and key client work. 3 new files created for team members NOT on website: ben-vincent.md (BMA course lead, CI course developer), alexandre-andorra.md (co-founder, Learning Bayesian Statistics podcast host), jesse-grabowski.md (Principal DS, causal inference, PyData Berlin 2025). Key enrichments: Thomas Wiecki (4 podcast appearances + 3 ODSC press quotes + 2 conference talks + founding story), Luca Fiaschi (2 podcasts + Databricks bio + Agentic DS course), Christian Luhmann (PyData NYC 2024), Niall Oulton (Simba creator + Bain partnership), Joe Wilkinson (Industry Veteran tier + GAP note), Allen Downey (ODSC East 2025 + LLM Price Is Right co-author + synthetic consumers), Christopher Fonnesbeck (PyMC co-founder 2005 + ABM instructor), Juan Orduz (Meridian replication notebook), Benjamin Maier (Maier et al. 2025 SSR paper lead author), Halah Joseph (Framer site + brand deck author), Nina Rismal (Staffing Manager role details), Oriol (PyData Berlin 2025). GAPS remaining: Joe Wilkinson Discord handle unconfirmed; Benjamin Maier + Erik Ringen bios missing (no website bio, status: partial); Ben Vincent + Jesse Grabowski not on team page.
 - [x] assemble-about (2026-03-14) — Enriched content/about/story-and-team.md from partial → complete. Added: full Origin Story (Thomas left Quantopian, "saving the world with Bayesian modeling" mission, early clients SpaceX/Roche/Netflix/Deliveroo/HelloFresh), Labs Principles (5 principles, Teal org model), social proof stats ($8M 2025 revenue, 100+ enterprise clients, 1M+ pymc-marketing downloads), Halah's about page timeline (2005→2020→2023→2025→today), Win-Win-Win model framing, 5 founding-era client quotes, all social channels. 32 team-member files already exist in content/about/team-members/ (written by prior aspect). GAPS: founding legal date unknown; Alexandre Andorra team status unclear; Joe Wilkinson Discord handle unconfirmed.
 - [x] assemble-solution-simba (2026-03-14) — Completed content/solutions/simba.md. Product: "Simply Bayesian SimBa MMM" — SaaS platform by Niall Oulton, managed services positioning (vs. Decision AI = self-service). 14 features documented: data upload → benchmark priors → model fitting → model management → budget optimization (utility theory risk slider) → ROAs over time → holdout validation → lift tests → scenario planner → full-funnel connections. Pricing: $2k/month + $500/user (Sep 2025). Clients: Coca-Cola (trial Mar 2024), Cabify (trial Apr 2024), Brilliant Earth (first paid Aug 2024, cancelled Oct 2025), TechStyle, Nomad Foods (RFP Nov 2025). Partners: Databricks (Simba budget optimizer in partnership offering, Fox Sports demo Sep-Nov 2024), Fivetran (MMM Agent+Simba as premium add-ons, roadmap). Domain: simba-mmm.com (login-gated, no public marketing page); simba.solutions (SSL error); early WIP 404. Status set to complete — all available sources exhausted. GAPS: live marketing copy inaccessible (login wall), no product screenshots, 2026 subscriber count unknown.
