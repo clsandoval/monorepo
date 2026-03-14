@@ -27,6 +27,12 @@ An exhaustive exploration of every possible version of Robot Uprising. Each file
 | [core-mechanic/spawn-semantics.md](core-mechanic/spawn-semantics.md) | 1.04c — REPL semantics for agent spawning: EXAPUNKS REPL as reference (explicit fork instruction with X/T inheritance); four Robot Uprising spawn models (explicit skill, implicit condition, hook-triggered, hybrid); inheritance mask design; spawn storm as designed failure; 3 full player journeys; comparable games (Factorio Roboport, Rimworld, ONI, StarCraft production queues); 4 new aspects discovered | ✅ Complete |
 | [core-mechanic/hook-semantics-blocking-vs-queued.md](core-mechanic/hook-semantics-blocking-vs-queued.md) | 1.04d — Blocking vs. queued hook semantics: five models (fire-and-forget, blocking rendezvous, bounded queue, priority queue, hybrid); EXAPUNKS M register as reference; locked design recommendation (A→C→B teaching progression across 7 missions); 3 full player journeys (backend engineer, Minecraft builder, network engineer); sensory vocabulary for blocked/queued/dropped states; 4 new aspects discovered | ✅ Complete |
 
+### Campaign / Mission Design
+
+| File | Aspect | Status |
+|------|--------|--------|
+| [campaign/mission-design-robustness-scenarios.md](campaign/mission-design-robustness-scenarios.md) | 1.04e — The 100-test-case robustness pattern: three tiers of randomization (data/structural/constraint), six named failure archetypes (Invariant Trap, Count Problem, Timing Ambush, False Positive, Order Reversal, Orphaned Chain), campaign ramp (10→100 cases), debrief as robustness teacher (pass/fail grid, failure cluster annotations, comparative replay), 3 player journeys (Maya/David/Keiko), sensory design; 5 new aspects discovered | ✅ Complete |
+
 ### First Playable Decisions (Brainstorm Output)
 
 | File | Description | Status |
