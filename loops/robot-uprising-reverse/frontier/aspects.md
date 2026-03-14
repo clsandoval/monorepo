@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 113
-- **Analyzed:** 6
-- **Pending:** 107
-- **Convergence:** 5%
+- **Total aspects:** 117
+- **Analyzed:** 7
+- **Pending:** 110
+- **Convergence:** 6%
 
 ---
 
@@ -17,7 +17,7 @@
 - [x] 1.04 — Exapunks: narrative framing of programming puzzles, zine-style tutorial, hacker fantasy
 - [x] 1.04a — Exapunks body horror narrative-mechanical integration gap: how could Robot Uprising integrate narrative stakes into the workbench itself (corrupted configs, degraded buffers, enemy-injected hooks)?
 - [x] 1.04b — Diegetic tutorial documents as game artifact: the TWN zine design pattern — tutorial-as-in-universe-lore vs. traditional manual; trade-off between immersion and accessibility
-- [ ] 1.04c — REPL semantics for agent spawning: explicit spawn instruction (player programs it) vs. implicit spawn (triggered by rules/hooks); EXAPUNKS REPL as reference model
+- [x] 1.04c — REPL semantics for agent spawning: explicit spawn instruction (player programs it) vs. implicit spawn (triggered by rules/hooks); EXAPUNKS REPL as reference model
 - [ ] 1.04d — Blocking vs. queued hook semantics: blocking M register (both parties wait, deadlock-risky) vs. queued hooks (async, lossy under load); core architecture decision for Robot Uprising
 - [ ] 1.04e — The 100-test-case robustness pattern: mission scenarios presenting N randomized variants the agent config must handle; randomization design determines which abstraction skills the game actually teaches
 - [ ] 1.05 — Screeps: persistent-world programming RTS, JavaScript API, MMO dynamics
@@ -69,6 +69,8 @@
 - [ ] 2.14 — Spatial routing as mechanic layer: battlefield layout creates information routing constraints, separate from configuration logic; agent proximity determines which hook chains are possible
 - [ ] 2.15 — Pipelined agent execution: throughput-optimal configurations where agents handle overlapping tasks (agent A finishes task N while agent B starts task N+1); cycle-optimal solutions look different from cost-optimal solutions; maps to Opus Magnum's pipeline-vs-sequential tradeoff
 - [ ] 2.16 — Counter-intelligence as offensive mechanic: deliberately leaving enemy-injected hooks active and routing deceptive signals through them; "hook judo" — using enemy infrastructure against them; how the game scaffolds this discovery moment; risk/reward of leaving a known intrusion active
+- [ ] 2.17 — Fabrication as tactical resource: spawn cost as a per-mission resource that creates trade-offs between pre-placed agents and dynamic spawning; fabrication point allocation as a pre-mission decision; how the resource cap interacts with spawn storm failure mode
+- [ ] 3.19a — Self-replicating agent configs: agent configurations that explicitly include spawn of near-copies of themselves; the puzzle/achievement of the minimal self-replicator; when is this a cool advanced mechanic vs. a degenerate strategy that breaks missions; design guardrails
 
 ### Buffer Models
 - [ ] 2.01 — Fixed-slot buffer: N discrete slots, each holds one observation/message, oldest evicted first
@@ -142,6 +144,7 @@
 - [ ] 4.09 — The histogram as player communication layer: deep dive on histogram design for Robot Uprising — axes, distribution shape, friend overlay, no-reward philosophy, when to show vs. hide; informed by Opus Magnum histogram psychology
 - [ ] 6.09 — GIF/clip export as primary viral mechanic: designing replay clips that are shareable, beautiful, and self-explanatory without context; the hook-cascade clip as a viral moment; technical and design requirements for a Robot Uprising replay export
 - [ ] 4.04a — Debrief as debugger: step-through replay of execution with per-agent state, buffer contents, and hook activation — the primary teaching mechanic, not just a stats screen
+- [ ] 4.12 — The spawn genealogy tree: how the debrief visualizes which agents spawned which, cycle-by-cycle ancestry; what information to show per spawn event (inherited buffer snapshot, spawn trigger cause, fabrication cost consumed, whether the spawn was a hook consequence or skill consequence)
 - [ ] 4.10 — Config integrity as a persistent resource: the "integrity %" as a cross-mission resource; some missions degrade it more, repair actions restore it; trade-off between speed and thoroughness of pre-mission audits; does low integrity persist into next mission if unaddressed?
 - [ ] 4.11 — The "foreign fingerprint" visual language: three-way visual vocabulary for elements in the workbench (mine / system-default / enemy-injected) that must be immediately parseable; how to make enemy modifications visually distinct without requiring a tooltip to understand; the Papers Please discrepancy-detection UI model applied to agent config
 - [ ] 4.08 — Unit portraits and identity: how units look, how you distinguish them, personality
@@ -166,6 +169,7 @@
 - [ ] 5.09 — Replayability: what makes someone start a new campaign
 - [ ] 5.10 — The "product as puzzle" narrative method: working backwards from fictional mission objects to determine which agent configurations matter (from Shenzhen I/O)
 - [ ] 5.13 — The reagent-placement-as-choice design pattern (from Opus Magnum): starting conditions that feel fixed but are actually variable create a "double reveal" — players discover the solution, then discover the solution space is larger than they thought; applies to agent deployment layout and hook topology choices
+- [ ] 5.13a — Spawn storm as designed tutorial failure: crafting a mission that makes the first spawn storm almost inevitable for a first-time player, then making the debrief teach the fix clearly; the Opus Magnum "first ugly solution" principle applied to spawn chain design; what the spawn storm looks and sounds like at maximum drama
 - [ ] 5.12 — Predecessor content as narrative: captured enemy agent configs carrying "previous operator" annotations — the Randy's-annotations pattern for Robot Uprising lore delivery without cutscenes
 - [ ] 5.11 — Solitaire distraction risk: when a secondary mechanic (debrief analysis, sandbox mode) becomes more engaging than the core loop — how to prevent and exploit
 - [ ] 5.14 — Detection skills as complexity gate: the "intrusion detection" skill as an advanced mechanic that reveals hidden corruption to players who invest in it; scales difficulty with player sophistication rather than with a separate difficulty slider; advanced players uncover more depth, beginners get clean experience
