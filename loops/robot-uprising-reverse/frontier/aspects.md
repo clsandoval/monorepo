@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 234
-- **Analyzed:** 34
-- **Pending:** 200
-- **Convergence:** 14.5%
+- **Total aspects:** 239
+- **Analyzed:** 35
+- **Pending:** 204
+- **Convergence:** 14.6%
 
 ---
 
@@ -45,7 +45,7 @@
 - [x] 4.58 — Pre-ranking transparency panel: a collapsible "why is this ranked #1?" panel in the Fix Explorer explaining the pre-ranking heuristic for the top candidate — "RELAY-C was active at tick 52 (pivot tick) and was modified 3 sessions ago (recent change signal)"; teaching the heuristic makes QUICK mode less opaque; interaction with 8.08 vocabulary claim
 - [x] 4.59 — "Minimum fix across multiple matches" vs. "minimum fix per match": in Gauntlet mode after 5+ matches, a deeper exhaustive search finding the single config change that would have improved the most matches (not just current); the "career minimum fix" as architectural debt metric; much slower (~5 minutes) but extremely high signal
 - [x] 4.60 — Search budget as a player resource: instead of QUICK/THOROUGH as a binary toggle, the player has a "compute budget" resource that regenerates between sessions; exhaustive search costs more budget; encourages strategic decisions about when to use thorough analysis; interaction with early-game scarcity design
-- [ ] 4.61 — "Why did QUICK find a different fix than THOROUGH?" explainer: when a player has run both modes and gotten different results, a dedicated comparison view showing both results side by side with explanation of why the pre-ranking heuristic diverged from the minimality criterion; the explainer as an in-game search algorithm lesson
+- [x] 4.61 — "Why did QUICK find a different fix than THOROUGH?" explainer: when a player has run both modes and gotten different results, a dedicated comparison view showing both results side by side with explanation of why the pre-ranking heuristic diverged from the minimality criterion; the explainer as an in-game search algorithm lesson
 - [ ] 4.62 — The "agree to disagree" result: when QUICK and THOROUGH find different fixes and both would improve pass rate, the explorer shows both with a "both valid" label and lets the player choose; teaches that "best fix" depends on your diagnostic goal — symptom suppression vs. root cause elimination; echoes real engineering debates about patching vs. fixing
 - [ ] 4.63 — Player-configurable pre-ranking weights: a late-game unlock allowing the player to adjust the three heuristic signals (pivot-activity, recency, volatility) by slider; teaches that the pre-ranking is a configurable belief system, not a fixed algorithm; interaction with 8.08 vocabulary claim ("tuning a heuristic")
 - [ ] 4.64 — Pre-ranking accuracy as a displayed stat: after 30+ sessions, the transparency drawer shows "pre-ranking accuracy: your QUICK result matched THOROUGH minimum in X% of sessions"; teaches what a good heuristic accuracy looks like; risk of players optimizing the stat vs. using it diagnostically
@@ -62,6 +62,11 @@
 - [ ] 4.75 — "Token debt" recovery mechanic: when a THOROUGH run confirms the QUICK result (finds no smaller fix), the player receives a partial token refund (tracked fractionally, rounds down); teaches that "confirming a hypothesis is valid diagnostic work" rather than punishing spent tokens that don't find new information; alternative to pure-loss scarcity design
 - [ ] 4.76 — Voluntary compute budget cap as an advanced-mode option: a late-game setting letting unlimited-compute players re-enable a personal budget cap; supports players like Zara who find constrained budgets promote better diagnostic discipline; "I wish I still had the cap" experience as a designed late-game option; interaction with accessibility design and player-controlled difficulty
 - [ ] 4.77 — Compute budget as Gauntlet meta-resource: in competitive Gauntlet, both players have the same per-session compute budget; spending tokens on pre-match debrief analysis is visible to opponents post-season (analysis depth = dedication signal); creates a strategic meta-game where committing MSMFE to a target opponent is information; interaction with 4.54 adversarial exposure policy and 4.57 threat model report
+- [ ] 4.78 — Cross-session divergence frequency as architecture health metric: tracking what percentage of Fix Explorer sessions produce QUICK/THOROUGH divergence over time; a player whose divergence rate drops from 35% to 15% has configs generating cleaner causal chains; a config quality metric orthogonal to pass rate; interaction with 4.25 EDT trajectory and career stat dashboard
+- [ ] 4.79 — Divergence replay export as pedagogical artifact: exporting a divergence event (QUICK result, THOROUGH result, animated causal trace) as a shareable clip or static screenshot; "this is why QUICK was wrong this time" as a standardized community artifact; extends necropsy culture (7.10) to the explainer layer; interaction with 4.23 replay annotated export
+- [ ] 4.80 — Counterfactual "what if I had applied QUICK?": in the debrief for a session where the player applied THOROUGH, a one-click simulation showing what pass rate would have been if the QUICK result had been applied; most direct feedback on "was running THOROUGH worth it?"; interaction with 4.60 search budget and the THOROUGH token spend decision
+- [ ] 4.81 — The "consistent divergence" flag: when a player gets QUICK/THOROUGH divergence on the same config version 3+ times, the game surfaces "your config consistently produces pre-ranking mismatches — the heuristic signals may not be well-calibrated for your architecture style"; prompts exploring pre-ranking weight configuration (4.63) or the heuristic autopsy
+- [ ] 4.82 — Divergence type distribution as career stat: displaying the breakdown of which scenario types caused divergence in history (Symptom-Before-Cause, Recency Bias, Volatility False Signal, Magnitude Gap); reflects the player's architectural habits; available in the profile view alongside EDT trajectory (4.25)
 - [ ] 4.54 — Adversarial explorer exposure policy: should the opponent be notified that you ran adversarial mode on their config? Opt-in mutual disclosure (both see each other's adversarial results) vs. private (neither knows) vs. public (full adversarial history visible on profiles); privacy norms in a competitive analysis context
 - [ ] 4.55 — Cross-match adversarial aggregation: after running adversarial mode on 5+ matches against different opponents, find recurring attack vectors that appear in ≥2 adversarial runs — "three different opponents independently discovered your relay's hook threshold is the exploit point"; the structural weakness that the community hasn't formally coordinated against but is independently discovering
 - [ ] 4.56 — Adversarial mode for PvE missions: apply the same logic to campaign missions — what change to the enemy config would have made this mission hardest for your specific architecture; the mission's adversarial variant as a "hard mode" generator; interaction with 2.19 variable scenario seeds
