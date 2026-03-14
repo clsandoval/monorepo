@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 287
-- **Analyzed:** 44
-- **Pending:** 243
-- **Convergence:** 15.3%
+- **Total aspects:** 293
+- **Analyzed:** 45
+- **Pending:** 248
+- **Convergence:** 15.4%
 
 ---
 
@@ -55,7 +55,7 @@
 - [x] 4.68 — Cross-match coverage percentage as season health metric: graphing the top-candidate coverage percentage across each career analysis run as a "structural robustness trend"; declining coverage = improving architecture; flat or rising coverage = plateaued or regressing; the long-arc view of architectural quality no single match metric can provide
 - [x] 4.69 — "Agent multi-cluster" detection in career analysis: automatic flag when the same agent appears in 3+ distinct runner-up slots in a career analysis result — surfaces "consider reviewing this agent holistically, not element-by-element"; interaction with 4.49 cross-mission pattern detection
 - [x] 4.69a — Multi-cluster threshold configurability: letting players set whether 2+, 3+, or 4+ appearances triggers the flag; accessibility consideration (2+ fires constantly for new players with concentrated configs); expert mode consideration (4+ threshold for players who want less interruption)
-- [ ] 4.69b — Combined agent coverage score display: showing "if ALL of this agent's clustered elements were fixed, combined coverage = X%" as a first-class metric in the career analysis panel; question of whether this number should be pre-computed or on-demand
+- [x] 4.69b — Combined agent coverage score display: showing "if ALL of this agent's clustered elements were fixed, combined coverage = X%" as a first-class metric in the career analysis panel; question of whether this number should be pre-computed or on-demand
 - [ ] 4.69c — Agent redesign mode as a dedicated workbench state: full design of the isolated redesign sandbox — how the player enters, what UI affordances are available, how changes are staged vs. committed, how the simulation differs from normal workbench operation
 - [ ] 4.69d — Multi-cluster persistence tracking: tracking whether the same agent triggers multi-cluster across multiple career analyses; the "persistent offender" agent as a named archetype with dedicated treatment in the season health dashboard
 - [ ] 4.69e — Adversarial multi-cluster poisoning: opponent config design strategy that stresses 3+ elements of the same target agent across all match types, deliberately triggering the player's cluster flag to mislead them into an unnecessary redesign; counter-design distinguishes "clustered across all opponents" (structural) from "clustered against specific opponent" (adversarial)
@@ -66,6 +66,12 @@
 - [ ] 4.69j — Per-agent threshold override: letting the player set a specific threshold for a specific agent ("always flag RELAY-C at N=2, even if global threshold is N=4"); pinning diagnostic sensitivity on known problem agents; UI for managing per-agent overrides in the workbench agent inspector
 - [ ] 4.69k — Cluster flag history in career analysis log: a chronological log of every time the cluster flag fired, with the threshold active at that time and the player's response (dismissed/redesigned/applied-all); "diagnostic history" as a record of player judgment over time; interaction with 7.10 necropsy culture
 - [ ] 4.69l — Threshold recommendation engine: analyzes the player's last 5 career analyses and recommends a threshold adjustment based on false positive rate and flag dismissal frequency; "you dismissed 4 of the last 5 cluster flags without acting — recommend raising threshold to 4+"; explicit recommendation + one-tap accept
+- [ ] 4.69m — Match-set scope label on combined coverage: requiring the career analysis panel to display which match set the combined coverage was computed over (full career, filtered-by-opponent, filtered-by-scenario-type); prevents misinterpretation of adversarially-high coverage in narrow match sets; "clustered vs. Opponent X only" vs. "clustered across all opponents" as structural vs. adversarial disambiguation
+- [ ] 4.69n — Gap chart: actual coverage vs. cluster ceiling over time: a dual-line chart on the season health dashboard showing the top-candidate coverage trend alongside the combined cluster coverage ceiling trend; the widening gap line is a visual representation of accumulating architectural debt; narrowing gap = successful incremental improvement
+- [ ] 4.69o — "4 extra wins" plain-language translation of coverage deltas: first-time-encounter tooltip that translates percentage deltas into absolute match counts ("4 more wins from 45 analyzed matches"); gradually replaced by percentage-only display as player gains experience; the match-count framing as accessibility layer for players who don't intuitively parse percentages
+- [ ] 4.69p — Combined coverage as a budget-cost computation: classifying the combined coverage calculation (or only its on-demand variant) as a search budget expenditure (see 4.60); creates scarcity around the diagnostic and makes each use intentional; early-season players must choose which clusters to investigate; interacts with search budget resource design
+- [ ] 4.69q — Prospective combined coverage: computing the combined coverage not from match history but from a simulated future match set based on the player's current config and upcoming opponents; forward-looking vs. historical ceiling estimates; interacts with scenario fingerprinting (2.28); the difference between "this agent failed here" and "this agent will likely fail there"
+- [ ] 4.69r — Combined coverage sensitivity to match window size: how different match window sizes (20 matches vs. 200 matches) affect the combined coverage number; small windows have high variance (one unusual match can swing the number significantly); recommended minimum window size for reliable combined coverage estimates; the "confidence interval" framing for coverage numbers
 - [ ] 4.70 — Career analysis filtered by opponent archetype: running cross-match analysis filtered to "matches against heavy-hook opponents" or "matches ending before tick 60"; find structural weaknesses specific to opponent classes; interaction with 2.28 scenario fingerprinting
 - [ ] 4.71 — Comparative career analysis between config versions: "if I had stayed on v2.3 and applied the career minimum fix vs. rebuilding to v3.8 — which would have produced better cross-match results?"; counterfactual on architectural strategy rather than parametric choices; requires counterfactual history (4.38)
 - [ ] 4.72 — The "debt-free" season achievement: a season where top-candidate career analysis coverage score is below 20% (no single element responsible for more than 20% of losses); "structurally diverse failure distribution" as highest-level architectural health certificate; analogous to a codebase with no single module owning more than 20% of bugs
