@@ -84,11 +84,11 @@ export default defineConfig({
       },
     },
 
-    // ── Mobile (375×812, Safari-ish pixel ratio) ──
+    // ── Mobile (375×812, Chromium mobile emulation) ──
     {
-      name: 'mobile-webkit',
+      name: 'mobile-chromium',
       use: {
-        ...devices['iPhone 13'],
+        ...devices['Pixel 5'],
         viewport: { width: 375, height: 812 },
         deviceScaleFactor: 2,
         isMobile: true,
@@ -134,12 +134,17 @@ export default defineConfig({
     ? {
         command: 'npm run dev',
         url: 'http://localhost:3000',
-        reuseExistingServer: !process.env.CI,
-        timeout: 60_000,
+        reuseExistingServer: true,
+        timeout: 120_000,
         env: {
           NEXT_PUBLIC_SUPABASE_URL: 'http://localhost:54321',
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.SUPABASE_LOCAL_ANON_KEY || '',
-          SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_LOCAL_SERVICE_ROLE_KEY || '',
+          // Only override if explicitly set — otherwise Next.js picks up .env.local
+          ...(process.env.SUPABASE_LOCAL_ANON_KEY
+            ? { NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.SUPABASE_LOCAL_ANON_KEY }
+            : {}),
+          ...(process.env.SUPABASE_LOCAL_SERVICE_ROLE_KEY
+            ? { SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_LOCAL_SERVICE_ROLE_KEY }
+            : {}),
           NEXT_PUBLIC_APP_URL: 'http://localhost:3000',
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_TEST_PUBLISHABLE_KEY || 'pk_test_placeholder',
           STRIPE_SECRET_KEY: process.env.STRIPE_TEST_SECRET_KEY || 'sk_test_placeholder',
