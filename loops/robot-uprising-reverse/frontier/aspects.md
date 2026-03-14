@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 376
-- **Analyzed:** 61
-- **Pending:** 315
-- **Convergence:** 16.2%
+- **Total aspects:** 381
+- **Analyzed:** 62
+- **Pending:** 319
+- **Convergence:** 16.3%
 
 ---
 
@@ -68,7 +68,12 @@
           - [x] 4.69e-i-a-vi-a-i-a — Import timestamp visibility in notification audit log: when audit log shows a "permanently suppressed" entry that came from an import, should it show the original suppression date (from exported profile) or the import date? Original date is more informative but may confuse players who don't know the entry came from a backup. Recommendation: Option D (original date + import badge) as default + Option E (full provenance chain) on progressive disclosure; 6 options analyzed (A–E + D+E hybrid); git author/committer, Slack forwarding, medical service/entry date as comparables; 3 player journeys (Priya migration verification, Kenji understanding inherited state and resetting it, Dev probing edge cases including "(date unavailable)" backcompat); 5 new sub-aspects discovered
             - [x] 4.69e-i-a-i-f — Audit log ordering policy (most-recent-first vs. chronological): main audit log vs. provenance chain may need different orderings; mixed-order UIs create cognitive friction; design decision needed; Recommendation: MRF outer list + Chronological inner provenance chain (email inbox/thread model); 5 options analyzed; staggered animation as chronological priming device; 3 player journeys; 5 new sub-aspects discovered
               - [x] 4.69e-i-a-i-f-i — Snooze event collapsing in long provenance chains: if a player snoozed 20 times before suppressing, the chain has 20 snooze entries; should snooze events be collapsible ("3 snooze events, Jan 5–Jan 9")? Granularity vs. scannability tradeoff; Recommendation: Option C (auto-collapse with expand affordance) when N≥4 consecutive snooze events within 30-day gap threshold; 5 options analyzed (full disclosure, total summation, auto-collapse, bookend disclosure, manual collapse); bookend enhancement (enlarged first/last dots with tooltips) as secondary feature within Option C expand; 22-event example chain used throughout; 3 player journeys (Theo habitual procrastinator, Vera data analyst expanding for velocity, Nadia new player building mental model); 5 edge cases (gap problem, imported suppress with no native snoozes, multiple snooze types, restore-split runs); 5 new sub-aspects discovered
-                - [ ] 4.69e-i-a-i-f-i-α — Temporal gap threshold as player-configurable setting: the 30-day gap that splits snooze runs is defensible but arbitrary; should it be configurable (Settings → Advanced) or auto-derived from the player's own session frequency history?
+                - [x] 4.69e-i-a-i-f-i-α — Temporal gap threshold as player-configurable setting: the 30-day gap that splits snooze runs is defensible but arbitrary; should it be configurable (Settings → Advanced) or auto-derived from the player's own session frequency history?
+                  - [ ] 4.69e-i-a-i-f-i-α-i — Multi-threshold export format: which threshold value travels with profile exports? Distinction between "display preferences" (threshold, sort order) vs. "game data" (snooze events, suppress state) for selective export
+                  - [ ] 4.69e-i-a-i-f-i-α-ii — Threshold preview before confirming: inline preview of how top 3 notification chains look under the new threshold, before the player commits; removes the change→navigate→inspect loop; requires chain rendering within the Settings panel
+                  - [ ] 4.69e-i-a-i-f-i-α-iii — Community-shared chains and threshold normalization: exported chain screenshots re-rendered at default 30-day threshold vs. player's personal threshold; community comparability requires a "normalized export" option
+                  - [ ] 4.69e-i-a-i-f-i-α-iv — Threshold-crossed history: optional annotation in expanded snooze list marking where the default 30-day threshold *would have* split the run; lets the player see both personal and default views simultaneously
+                  - [ ] 4.69e-i-a-i-f-i-α-v — Negative feedback loop: annotation link click-through rate as a product health metric for default threshold calibration; high click-through (>30%) signals the 30-day default is misaligned for a significant population
                 - [ ] 4.69e-i-a-i-f-i-β — Snooze velocity sparkline in collapsed summary row: a miniature inline sparkline showing snooze density per 7-day window within the "Snoozed 20 times · Jan 5–Feb 10" text; encodes velocity without requiring expand; cost: adds a viz component to a text-only panel
                 - [ ] 4.69e-i-a-i-f-i-γ — Snooze:suppress ratio as notification health signal for analytics: aggregate pre-suppress snooze counts across players (with consent) as a calibration metric for toast notification design; tells developers whether notifications are over-firing or under-informing
                 - [ ] 4.69e-i-a-i-f-i-δ — "Collapse snooze events in all notifications" global setting: a Settings-level override for the N≥4 default threshold (Always / When 4+ / Never); interaction with per-notification expand state and Option E (manual collapse)
