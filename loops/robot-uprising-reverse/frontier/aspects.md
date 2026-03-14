@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 249
-- **Analyzed:** 37
-- **Pending:** 212
-- **Convergence:** 14.9%
+- **Total aspects:** 253
+- **Analyzed:** 38
+- **Pending:** 215
+- **Convergence:** 15.0%
 
 ---
 
@@ -48,7 +48,7 @@
 - [x] 4.61 — "Why did QUICK find a different fix than THOROUGH?" explainer: when a player has run both modes and gotten different results, a dedicated comparison view showing both results side by side with explanation of why the pre-ranking heuristic diverged from the minimality criterion; the explainer as an in-game search algorithm lesson
 - [x] 4.62 — The "agree to disagree" result: when QUICK and THOROUGH find different fixes and both would improve pass rate, the explorer shows both with a "both valid" label and lets the player choose; teaches that "best fix" depends on your diagnostic goal — symptom suppression vs. root cause elimination; echoes real engineering debates about patching vs. fixing
 - [x] 4.63 — Player-configurable pre-ranking weights: a late-game unlock allowing the player to adjust the three heuristic signals (pivot-activity, recency, volatility) by slider; teaches that the pre-ranking is a configurable belief system, not a fixed algorithm; interaction with 8.08 vocabulary claim ("tuning a heuristic")
-- [ ] 4.64 — Pre-ranking accuracy as a displayed stat: after 30+ sessions, the transparency drawer shows "pre-ranking accuracy: your QUICK result matched THOROUGH minimum in X% of sessions"; teaches what a good heuristic accuracy looks like; risk of players optimizing the stat vs. using it diagnostically
+- [x] 4.64 — Pre-ranking accuracy as a displayed stat: after 30+ sessions, the transparency drawer shows "pre-ranking accuracy: your QUICK result matched THOROUGH minimum in X% of sessions"; teaches what a good heuristic accuracy looks like; risk of players optimizing the stat vs. using it diagnostically
 - [ ] 4.65 — Pre-ranking adversarial surface: enemy configs can be designed to fool the pre-ranking heuristic — engineer high pivot-activity and high volatility in a decoy element while the real vulnerability is elsewhere; "pre-ranking poisoning" as advanced PvP attack; interaction with adversarial counterfactual mode (4.39)
 - [ ] 4.66 — Signal genealogy as pre-ranking source: link the pivot-tick activity signal in the pre-ranking directly to the signal genealogy graph (4.16); clicking "active at tick 52" in the drawer highlights the relevant genealogy node; unifies diagnostic tools into one vocabulary
 - [ ] 4.67 — Probe hook suggestion from transparency panel: when the drawer identifies an element as high-volatility or high-pivot-activity, surface a one-click action "Add probe hook to capture [ELEMENT] state in next match →"; converts passive explanation into active diagnostic step; probe hooks (4.15) as natural follow-on to understanding the pre-ranking
@@ -77,6 +77,10 @@
 - [ ] 4.90 — Weight configuration review prompt on campaign chapter transitions: when entering a new chapter, an optional prompt asks "your pre-ranking weights were saved in Chapter 2 — mission patterns have changed, do you want to review your diagnostic priors?"; temporal configuration hygiene as a campaign mechanic; prevents stale priors silently degrading performance
 - [ ] 4.91 — Visual weight interpolation animation when switching presets: when the player selects a different named preset, the three slider thumbs animate to their new positions over 500ms in sequence (pivot first, recency second, volatility third); the results list reshuffles during the animation; tactile preset switching that makes weight-change legible as motion; memory aid for what each preset "feels like"
 - [ ] 4.92 — Per-mission-type weight performance heatmap in career stats: a career stats panel showing which weight configurations produced highest QUICK accuracy for each mission type (wave 1 relay missions, wave 3 armor missions, etc.); color-coded grid: rows = mission types, columns = presets; teaches that heuristic configuration is context-dependent, not globally optimal
+- [ ] 4.93 — Accuracy stat confidence interval display: showing not just "71%" but "71% ± 14pp (n=30)"; the confidence interval shrinks as n grows, making data accumulation feel meaningful; teaches statistical uncertainty without a statistics lecture; interaction with 8.08 vocabulary claim (statistical confidence as transferable engineering concept)
+- [ ] 4.94 — "Committed to QUICK" sessions only accuracy: tracking accuracy specifically in sessions where the player ran QUICK and made a config change without verifying with THOROUGH — the "did you trust it correctly?" metric; eliminates survivorship bias from selective THOROUGH usage; requires tracking whether THOROUGH was run before vs. after the config change was applied; the most honest possible accuracy measurement
+- [ ] 4.95 — Accuracy leaderboard opt-in: an optional community leaderboard showing aggregate pre-ranking accuracy distributions by config complexity tier; players can compare "how does my accuracy compare to players with similar architectural complexity?"; requires a complexity metric (perhaps: number of active hooks × number of agents); surfaces that accuracy is not universally better-is-higher — high-complexity expert configs have lower accuracy
+- [ ] 4.96 — Accuracy-vs.-complexity scatter plot in career stats: a two-axis visualization showing per-config-version data points: x-axis = architectural complexity (hooks × agents), y-axis = pre-ranking accuracy; the player can see the accuracy/complexity tradeoff curve of their own architecture history; identifies "high-complexity, low-accuracy" configs (high coupling, hard to diagnose) vs. "clean, well-calibrated" configs; the scatter plot as the signature career-arc diagnostic artifact
 - [ ] 4.54 — Adversarial explorer exposure policy: should the opponent be notified that you ran adversarial mode on their config? Opt-in mutual disclosure (both see each other's adversarial results) vs. private (neither knows) vs. public (full adversarial history visible on profiles); privacy norms in a competitive analysis context
 - [ ] 4.55 — Cross-match adversarial aggregation: after running adversarial mode on 5+ matches against different opponents, find recurring attack vectors that appear in ≥2 adversarial runs — "three different opponents independently discovered your relay's hook threshold is the exploit point"; the structural weakness that the community hasn't formally coordinated against but is independently discovering
 - [ ] 4.56 — Adversarial mode for PvE missions: apply the same logic to campaign missions — what change to the enemy config would have made this mission hardest for your specific architecture; the mission's adversarial variant as a "hard mode" generator; interaction with 2.19 variable scenario seeds
