@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 381
-- **Analyzed:** 62
-- **Pending:** 319
+- **Total aspects:** 386
+- **Analyzed:** 63
+- **Pending:** 323
 - **Convergence:** 16.3%
 
 ---
@@ -69,7 +69,12 @@
             - [x] 4.69e-i-a-i-f — Audit log ordering policy (most-recent-first vs. chronological): main audit log vs. provenance chain may need different orderings; mixed-order UIs create cognitive friction; design decision needed; Recommendation: MRF outer list + Chronological inner provenance chain (email inbox/thread model); 5 options analyzed; staggered animation as chronological priming device; 3 player journeys; 5 new sub-aspects discovered
               - [x] 4.69e-i-a-i-f-i — Snooze event collapsing in long provenance chains: if a player snoozed 20 times before suppressing, the chain has 20 snooze entries; should snooze events be collapsible ("3 snooze events, Jan 5–Jan 9")? Granularity vs. scannability tradeoff; Recommendation: Option C (auto-collapse with expand affordance) when N≥4 consecutive snooze events within 30-day gap threshold; 5 options analyzed (full disclosure, total summation, auto-collapse, bookend disclosure, manual collapse); bookend enhancement (enlarged first/last dots with tooltips) as secondary feature within Option C expand; 22-event example chain used throughout; 3 player journeys (Theo habitual procrastinator, Vera data analyst expanding for velocity, Nadia new player building mental model); 5 edge cases (gap problem, imported suppress with no native snoozes, multiple snooze types, restore-split runs); 5 new sub-aspects discovered
                 - [x] 4.69e-i-a-i-f-i-α — Temporal gap threshold as player-configurable setting: the 30-day gap that splits snooze runs is defensible but arbitrary; should it be configurable (Settings → Advanced) or auto-derived from the player's own session frequency history?
-                  - [ ] 4.69e-i-a-i-f-i-α-i — Multi-threshold export format: which threshold value travels with profile exports? Distinction between "display preferences" (threshold, sort order) vs. "game data" (snooze events, suppress state) for selective export
+                  - [x] 4.69e-i-a-i-f-i-α-i — Multi-threshold export format: which threshold value travels with profile exports? Distinction between "display preferences" (threshold, sort order) vs. "game data" (snooze events, suppress state) for selective export; Recommendation: three-category export model (gameData / notificationPrefs / displayPrefs); displayPrefs blob carries threshold silently for migration, stripped in config-share flow; iCalendar advisory-metadata model as precedent; 4 options analyzed (with notif prefs, explicit displayPrefs blob, never travels, advisory metadata); 3 player journeys (Hamid seamless migration, Yusra inheriting stranger's threshold, Daniela accessibility review); 5 new sub-aspects discovered
+                    - [ ] 4.69e-i-a-i-f-i-α-i-A — Display preferences as a general export category: complete inventory of what belongs in `displayPrefs` blob; decision rule for ambiguous entries (sort order: display or notification pref?); edge cases at the category boundary
+                    - [ ] 4.69e-i-a-i-f-i-α-i-B — Version compatibility for display preferences export: `formatVersion` field and migration path for display preference values that change meaning across game versions; threshold value type changes (integer days → complex type) requiring explicit backward-compat handling
+                    - [ ] 4.69e-i-a-i-f-i-α-i-C — "Display preferences" label clarity for non-technical players: user research needed on whether "display preferences," "layout settings," "appearance settings," or "how your history looks" communicates the concept most accessibly; consistent label across import confirmation, review drawer, and Settings panel
+                    - [ ] 4.69e-i-a-i-f-i-α-i-D — Multi-profile import and display preference isolation: each profile's displayPrefs blob must apply only to that profile on import; correctness requirement, needs explicit specification and test coverage
+                    - [ ] 4.69e-i-a-i-f-i-α-i-E — Threshold normalization as a one-click export action: "normalize to default threshold" action in notification panel produces a temporary re-render at 30-day default for screenshot/share purposes without permanently changing local setting; addresses community comparability without permanent preference change
                   - [ ] 4.69e-i-a-i-f-i-α-ii — Threshold preview before confirming: inline preview of how top 3 notification chains look under the new threshold, before the player commits; removes the change→navigate→inspect loop; requires chain rendering within the Settings panel
                   - [ ] 4.69e-i-a-i-f-i-α-iii — Community-shared chains and threshold normalization: exported chain screenshots re-rendered at default 30-day threshold vs. player's personal threshold; community comparability requires a "normalized export" option
                   - [ ] 4.69e-i-a-i-f-i-α-iv — Threshold-crossed history: optional annotation in expanded snooze list marking where the default 30-day threshold *would have* split the run; lets the player see both personal and default views simultaneously
