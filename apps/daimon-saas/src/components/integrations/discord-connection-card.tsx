@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { AlertTriangle, MessageSquare, Eye, EyeOff, X, Plus } from 'lucide-react'
 import { type Plan, getMaxConnections, canAddConnection, connectionLimitMessage } from '@/lib/plans/gate'
+import { useToast } from '@/lib/toast'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -839,6 +840,7 @@ function DisconnectConfirm({ connection, onCancel, onConfirm }: DisconnectConfir
 // ---------------------------------------------------------------------------
 
 export function DiscordSection({ tenantId, userRole, connections: initialConnections, plan = 'free' }: DiscordSectionProps) {
+  const { toast } = useToast()
   const [connections, setConnections] = React.useState<DiscordConnection[]>(initialConnections)
   const [modalOpen, setModalOpen] = React.useState(false)
   const [modalMode, setModalMode] = React.useState<'add' | 'replace'>('add')
@@ -877,10 +879,12 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
   const handleModalSuccess = (newConnection: DiscordConnection) => {
     if (modalMode === 'add') {
       setConnections((prev) => [...prev, newConnection])
+      toast.success('Discord bot connected. Your bot will come online within 30 seconds.')
     } else {
       setConnections((prev) =>
         prev.map((c) => (c.id === replaceTarget?.id ? newConnection : c))
       )
+      toast.success('Bot token updated. Your bot will reconnect shortly.')
     }
   }
 
@@ -894,13 +898,16 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}))
-      setDisconnectError(data.error ?? 'Failed to disconnect. Please try again.')
+      const errMsg = data.error ?? 'Failed to disconnect. Please try again.'
+      setDisconnectError(errMsg)
+      toast.error(errMsg)
       setDisconnectTarget(null)
       return
     }
 
     setConnections((prev) => prev.filter((c) => c.id !== disconnectTarget.id))
     setDisconnectTarget(null)
+    toast.success('Discord connection removed. Your bot is now offline.')
   }
 
   return (

@@ -2,7 +2,8 @@
 
 import * as React from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { AlertTriangle, Github, Globe, Activity, Clock, User, X, Info, Eye, EyeOff } from 'lucide-react'
+import { AlertTriangle, Github, Activity, Clock, User, X, Info, Eye, EyeOff } from 'lucide-react'
+import { useToast } from '@/lib/toast'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -202,6 +203,7 @@ interface ServiceCardProps {
 function ServiceCard({ service, connection, userRole, onApiKeyConnect }: ServiceCardProps) {
   const meta = SERVICE_META[service]
   const router = useRouter()
+  const { toast } = useToast()
   const isConnected = connection !== null
   const badgeStatus: BadgeStatus = connection ? connection.status : 'not-connected'
   const isError =
@@ -244,11 +246,12 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
         const body = await res.json().catch(() => ({}))
         throw new Error((body as { error?: string }).error ?? 'disconnect_failed')
       }
+      toast.success(`${meta.displayName} disconnected.`)
       router.refresh()
     } catch (err) {
-      setDisconnectError(
-        err instanceof Error ? err.message : 'Failed to disconnect. Please try again.'
-      )
+      const errMsg = err instanceof Error ? err.message : 'Failed to disconnect. Please try again.'
+      setDisconnectError(errMsg)
+      toast.error(errMsg)
       setDisconnecting(false)
     }
   }
@@ -1027,104 +1030,37 @@ const OAUTH_ERROR_MESSAGES: Record<string, string> = {
 export function OAuthCallbackBanner() {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const [dismissed, setDismissed] = React.useState(false)
+  const { toast } = useToast()
 
   const connected = searchParams.get('connected')
   const error = searchParams.get('error')
   const errorService = searchParams.get('service')
 
-  if (dismissed || (!connected && !error)) return null
+  React.useEffect(() => {
+    if (!connected && !error) return
 
-  const dismiss = () => {
-    setDismissed(true)
-    // Strip query params from URL without reloading
+    if (connected) {
+      const serviceName = SERVICE_META[connected as ServiceName]?.displayName ?? connected
+      toast.success(`${serviceName} connected successfully.`)
+    } else if (error) {
+      const serviceName = errorService
+        ? (SERVICE_META[errorService as ServiceName]?.displayName ?? errorService)
+        : null
+      const errMsg =
+        OAUTH_ERROR_MESSAGES[error] ?? 'An unexpected error occurred. Please try again.'
+      if (error === 'access_denied') {
+        toast.info(serviceName ? `${serviceName} authorization was cancelled.` : errMsg)
+      } else {
+        toast.error(
+          serviceName ? `Failed to connect ${serviceName}. Please try again.` : errMsg
+        )
+      }
+    }
+
+    // Clean URL params without reload
     router.replace('/dashboard/integrations', { scroll: false })
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  if (connected) {
-    const serviceName = SERVICE_META[connected as ServiceName]?.displayName ?? connected
-    return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          background: '#ECFDF5',
-          border: '1px solid #A7F3D0',
-          padding: '12px 16px',
-          marginBottom: '24px',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '14px',
-            color: '#065F46',
-          }}
-        >
-          <strong>{serviceName}</strong> connected successfully.
-        </span>
-        <button
-          onClick={dismiss}
-          style={{
-            background: 'none',
-            border: 'none',
-            fontSize: '16px',
-            color: '#065F46',
-            cursor: 'pointer',
-            padding: '0 4px',
-          }}
-          aria-label="Dismiss"
-        >
-          ×
-        </button>
-      </div>
-    )
-  }
-
-  // error state
-  const errorMsg =
-    OAUTH_ERROR_MESSAGES[error ?? ''] ?? 'An unexpected error occurred. Please try again.'
-  const serviceName = errorService
-    ? (SERVICE_META[errorService as ServiceName]?.displayName ?? errorService)
-    : null
-
-  return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        background: '#FEF2F2',
-        border: '1px solid #FEE2E2',
-        padding: '12px 16px',
-        marginBottom: '24px',
-      }}
-    >
-      <span
-        style={{
-          fontFamily: 'var(--font-inter), Inter, sans-serif',
-          fontSize: '14px',
-          color: '#991B1B',
-        }}
-      >
-        {serviceName ? <><strong>{serviceName}:</strong> </> : null}
-        {errorMsg}
-      </span>
-      <button
-        onClick={dismiss}
-        style={{
-          background: 'none',
-          border: 'none',
-          fontSize: '16px',
-          color: '#991B1B',
-          cursor: 'pointer',
-          padding: '0 4px',
-        }}
-        aria-label="Dismiss"
-      >
-        ×
-      </button>
-    </div>
-  )
+  return null
 }
