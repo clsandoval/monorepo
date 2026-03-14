@@ -2,6 +2,16 @@
 
 ---
 
+## 2026-03-14 — assemble-industry-cpg
+
+**Aspect**: assemble-industry-cpg
+**Output**: content/industries/consumer-goods.md
+**Status**: complete
+
+**Summary**: Assembled CPG/FMCG industry page. Primary client: Colgate-Palmolive with 3 engagements (cannibalization ~$485K SOW + MSA; shelf optimization nested logit DCM / GPU 4 chains 6h / custom colgate-shelf-sow2 package; synthetic consumers 90% alignment). Iraklis Pappas (Global Head of AI, Colgate) testimonial. Bain/Coca-Cola Fuelight 360 ($3.25M combined budget, US/GB/BR production MMM). Procter & Gamble EAP + workshop reference. Nomad Foods Simba+Insight Agent RFP. Diageo synthetic consumers reference. Nestle LATAM + Unilever Prestige inbound leads. Full Innovation Lab CPG product documented (5-capability pipeline: briefs → AI evaluation → design refinement → synthetic testing → market simulation). SSR method stats: 90% alignment, 85% distributional similarity, <24h cycle. Competitive framing vs. Kantar RichMix and Fractal.ai (Colgate's prior vendor). GTM note: dedicated Notion "CPG-Offering-GTM" doc by Niall (Nov 2025). GAPS: P&G engagement details; Yum! Brands scope; Nomad RFP outcome; Diageo client vs. blog reference unclear; no public Bain/Coca-Cola case study.
+
+---
+
 ## 2026-03-14 — assemble-industry-retail
 
 **Aspect**: assemble-industry-retail

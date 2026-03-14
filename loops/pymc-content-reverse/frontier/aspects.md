@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 47
-- Pending: 27
-- Convergence: 64%
+- Analyzed: 48
+- Pending: 26
+- Convergence: 65%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -67,7 +67,7 @@ Consolidate all gathered material into content files. One aspect per page.
 - [x] assemble-industries-overview — Write content/industries/_overview.md
 - [x] assemble-industry-marketing — Write content/industries/marketing-media.md
 - [x] assemble-industry-retail — Write content/industries/retail-ecommerce.md
-- [ ] assemble-industry-cpg — Write content/industries/consumer-goods.md
+- [x] assemble-industry-cpg — Write content/industries/consumer-goods.md
 - [ ] assemble-industry-pharma — Write content/industries/pharma-biotech.md
 - [ ] assemble-industry-agriculture — Write content/industries/agriculture.md
 - [ ] assemble-industry-finance — Write content/industries/finance-insurance.md
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] assemble-industry-cpg (2026-03-14) — Assembled content/industries/consumer-goods.md. Primary CPG client: Colgate-Palmolive (3 engagements: cannibalization ~$485K SOW+MSA / shelf optimization nested logit DCM GPU 4 chains 6h / synthetic consumers 90% alignment). Iraklis Pappas testimonial. Bain/Coca-Cola Fuelight 360 ($3.25M combined budget, US/GB/BR production MMM). Procter & Gamble EAP+workshop reference. Nomad Foods Simba+Insight Agent RFP. Diageo synthetic consumers reference. Full Innovation Lab CPG platform: 5-capability pipeline (briefs→AI evaluation→design refinement→synthetic testing→market simulation). SSR stats: 90% alignment / 85% distributional similarity / <24h cycle. Competitive framing vs. Kantar RichMix / Fractal.ai. Dedicated GTM: Niall's "CPG-Offering-GTM" Notion doc (Nov 2025). GAPS: P&G engagement details; Yum! Brands scope; Nomad RFP outcome; no public Coca-Cola case study.
 - [x] assemble-industry-marketing (2026-03-14) — Assembled content/industries/marketing-media.md. PyMC Labs' commercial flagship vertical. Hero/framing options (4 variants): cookie crisis angle, Luca value prop, Thomas founding insight, Halah rotating tagline. 6 use cases: MMM, A/B testing at scale, CLV, cookieless attribution, budget optimization, experimentation infra. 14 named clients: HelloFresh/Ovative/Gain Theory/Fox/Appodeal/Sweeplift/Twitch (active/completed) + NBCU/CNN/Bloomberg/Audible/Live Nation/DISH/Serviceplan (inbound/partner). Full HelloFresh case study (3 blog posts, 60x speedup, time-varying CAC, Halah narrative + Discord technical detail). Gain Theory and Appodeal case study narratives. Tim McWilliams testimonial. Competitive landscape: Meridian (pymc-marketing supports forecasting/Meridian doesn't; 2x-20x faster), Robyn (dead), Recast (team attrition), Analytic Partners (Excel), Accenture. Top-10 blog list by sessions. SEO keyword list (14 tabs from Thomas). ICP profiles, 7 value propositions, engagement funnel. Products: pymc-marketing (1,088★/1M+ downloads), MMM Agent/Decision AI, Simba, CLV Agent, Fivetran integration. GAPS: Eugene Kwok (Fox) testimonial text not captured; Ovative case study narrative missing; qualified inbound (NBCU/CNN/etc) conversion unknown.
 - [x] assemble-industries-overview (2026-03-14) — Assembled content/industries/_overview.md. All 8 sitemap industry verticals documented with PyMC relevance, use cases, named clients, and pull quotes. Marketing & Media: 10 named clients (HelloFresh/Ovative/Fox/NBCU etc.), MMM flagship. Retail: 10 named clients (Wegmans MAPE 13-14%), CPG: 6 named clients (Colgate SSR 90% reliability), Pharma/Bio: 8 named clients (Roche 34K params, Akili, Haleon). Agriculture: Indigo Ag primary case study + Syngenta. Finance: 11 named clients (Everysk/Nürnberger/Schwab). Gaming: Supercell/Appodeal. Sports: Dodgers/Real Madrid. Full ICP table (buyer persona + pain point per industry), competitor framing per vertical, universal Bayesian value propositions. GAPS: Gaming/Sports have no dedicated case studies; Supercell/Appodeal narratives not fully extracted.
 - [x] assemble-service-embedded (2026-03-14) — Assembled content/services/embedded-teams.md. "We Work By Your Side" pillar documented. Old site name: "Roadmap Acceleration". Core model: experts join client Slack+GitHub, co-deliver work while upskilling internal team. 3 hero options (old site / Halah home teaser / Halah services page). FAQ copy ready-to-use. Named clients: Indigo Ag (explicit "Embedded Teams" tag in Halah draft), Fox Entertainment (Eugene Kwok testimonial), Haleon (Nathan Kafi testimonial). Monthly rate card documented (Junior $37-40k / Senior $50k / Lead $90k — internal only). "We Work By Your Side" tagline (Halah/James Dodge, #sales Feb 2026). Carlos Trujillo referenced as fractional senior DS example but specific narrative not found. GAPS: no dedicated case study for Embedded Teams as primary deliverable; no engagement-length/scaling description; no direct upskilling testimonial; Halah hasn't written final page copy.
