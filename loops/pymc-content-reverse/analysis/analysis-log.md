@@ -2,6 +2,28 @@
 
 ---
 
+## 2026-03-14 — assemble-services-overview
+
+**Aspect**: assemble-services-overview
+**Sources**:
+- analysis/website-scrape/services.md
+- analysis/halah-draft-scrape.md
+- analysis/discord-sales-extraction.md
+- analysis/discord-marketing-extraction.md
+- analysis/website-scrape/home.md
+**Output**: content/services/_overview.md (status: complete)
+
+**Key findings:**
+- New sitemap consolidates 5 old services into 4 pillars: Strategy & Advisory / Solution Delivery / Training & Enablement / Embedded Teams
+- "We Advise. We Build. We Teach. We Work By Your Side." — Halah's crisp framework (Feb 2026) is the best one-liner for each pillar
+- "Solution Delivery" is a new name not in old site or Halah draft — consolidates Custom Bayesian Models + Bayesian AI Solutions
+- 3-step "Our Approach" (Discovery & Alignment → Solution Design → Integration & Growth) documented from Halah draft
+- Full FAQ (5 questions) documented — based on top inbound sales questions, same block appears on home + services pages
+- EAP is the primary CTA/entry point; pricing from $5k–$14k/month documented
+- GAPS: No public pricing on services pages; logo carousel needs approved client list; /services/* URL structure TBD
+
+---
+
 ## 2026-03-13 — discord-finances
 
 **Aspect**: discord-finances

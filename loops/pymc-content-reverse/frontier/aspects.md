@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 39
-- Pending: 35
-- Convergence: 53%
+- Analyzed: 40
+- Pending: 34
+- Convergence: 54%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -59,7 +59,7 @@ These aspects will be **self-expanded** after discord-category-triage completes.
 Consolidate all gathered material into content files. One aspect per page.
 
 - [x] assemble-home — Read all analysis/, write content/home.md (hero, service overview, social proof, CTA)
-- [ ] assemble-services-overview — Write content/services/_overview.md
+- [x] assemble-services-overview — Write content/services/_overview.md
 - [ ] assemble-service-strategy — Write content/services/strategy-advisory.md
 - [ ] assemble-service-delivery — Write content/services/solution-delivery.md
 - [ ] assemble-service-training — Write content/services/training-enablement.md
