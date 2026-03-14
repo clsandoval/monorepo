@@ -16,6 +16,7 @@ const NAV_SECTIONS = [
   {
     label: 'Tool Reference',
     items: [
+      { href: '/docs/tools', title: 'All Tools (95)' },
       { href: '/docs/tool-reference/discord', title: 'Discord & Core Tools' },
       { href: '/docs/tool-reference/toggl', title: 'Toggl' },
       { href: '/docs/tool-reference/linkedin', title: 'LinkedIn & Analytics' },
@@ -158,6 +159,7 @@ function DocsSidebar() {
 // ---------------------------------------------------------------------------
 
 function getPageTitle(pathname: string): string {
+  if (pathname === '/docs/tools') return 'All Tools'
   if (pathname === '/docs/quick-start') return 'Quick Start'
   if (pathname === '/docs/tool-reference/discord') return 'Discord & Core Tools'
   if (pathname === '/docs/tool-reference/toggl') return 'Toggl'
