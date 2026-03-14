@@ -1,6 +1,8 @@
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import * as React from 'react'
 import { createClient } from '@/lib/supabase/server'
+
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
 import {
@@ -14,8 +16,11 @@ import {
   type DiscordConnection,
 } from '@/components/integrations/discord-connection-card'
 
-export const metadata = {
-  title: 'Integrations — Daimon',
+export const metadata: Metadata = {
+  title: 'Integrations',
+  description: 'Connect GitHub, Linear, Toggl, Google, and more to your Discord bot.',
+  robots: { index: false, follow: false },
+  alternates: { canonical: 'https://daimon.ai/dashboard/integrations' },
 }
 
 export default async function IntegrationsPage() {

@@ -1,12 +1,17 @@
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
 import { SettingsContent } from '@/components/settings/workspace-section'
+
 import type { DiscordConnection } from '@/components/integrations/discord-connection-card'
 
-export const metadata = {
-  title: 'Settings — Daimon',
+export const metadata: Metadata = {
+  title: 'Settings',
+  description: 'Configure your Daimon account and Discord connection settings.',
+  robots: { index: false, follow: false },
+  alternates: { canonical: 'https://daimon.ai/dashboard/settings' },
 }
 
 export default async function SettingsPage() {

@@ -1,7 +1,15 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { createSupabaseAdminClient } from '@/lib/supabase/admin'
+
 import { AdminLayout } from '@/components/layout/admin-layout'
 import { TenantDetailClient } from './tenant-detail-client'
+
+export const metadata: Metadata = {
+  title: 'Tenant Detail',
+  description: 'Daimon platform tenant administration.',
+  robots: { index: false, follow: false },
+}
 
 interface PageProps {
   params: Promise<{ id: string }>

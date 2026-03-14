@@ -1,7 +1,16 @@
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { createSupabaseAdminClient } from '@/lib/supabase/admin'
+
 import { AdminLayout } from '@/components/layout/admin-layout'
 import { AuditLogClient, type AuditEntry } from './audit-log-client'
+
+export const metadata: Metadata = {
+  title: 'Audit Log — Admin',
+  description: 'Daimon platform admin audit log.',
+  robots: { index: false, follow: false },
+  alternates: { canonical: 'https://daimon.ai/admin/audit-log' },
+}
 
 const ITEMS_PER_PAGE = 100
 

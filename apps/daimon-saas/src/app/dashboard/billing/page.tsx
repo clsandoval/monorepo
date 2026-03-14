@@ -1,6 +1,8 @@
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
 import { CurrentPlanCard } from '@/components/billing/current-plan-card'
@@ -10,8 +12,11 @@ import { ApiKeySection } from '@/components/billing/api-key-section'
 import { BillingAlertBanners } from '@/components/billing/billing-alert-banners'
 import { SubscriptionLifecycleWatcher } from '@/components/billing/subscription-lifecycle-watcher'
 
-export const metadata = {
-  title: 'Billing & Keys — Daimon',
+export const metadata: Metadata = {
+  title: 'Billing',
+  description: 'Manage your Daimon plan, API keys, and billing details.',
+  robots: { index: false, follow: false },
+  alternates: { canonical: 'https://daimon.ai/dashboard/billing' },
 }
 
 export default async function BillingPage() {

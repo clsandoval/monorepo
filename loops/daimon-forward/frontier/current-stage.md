@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 93
-- **Current**: 93
+- **Completed**: 94
+- **Current**: 94
 
 ## Current Stage
 
-**Stage 094** — (next stage)
+**Stage 095** — (next stage)
 
 ## Stage Log
 
@@ -107,3 +107,4 @@
 | 091 | done | 2026-03-14T12:30:00Z | Stripe webhook tests: 18 tests covering all 8 event types (checkout.session.completed/expired, customer.subscription.created/updated/deleted, invoice.payment_succeeded/payment_failed, customer.deleted), idempotency (duplicate event_id skips processing), signature verification failure (400), unknown event type (graceful 200); vitest passes |
 | 092 | done | 2026-03-14T13:00:00Z | Terms of Service page at /terms: full publication-ready ToS (18 sections + 2 appendices), PublicLayout wrapper, table of contents with anchor links, readable typography with proper heading hierarchy, last-updated date, all spec content rendered; build passes |
 | 093 | done | 2026-03-14T14:00:00Z | Privacy Policy page at /privacy: full publication-ready policy (16 sections + 2 appendices), PublicLayout wrapper, table of contents with anchor links, all data tables rendered, readable typography with proper heading hierarchy, last-updated date, all spec content rendered; build passes |
+| 094 | done | 2026-03-14T15:00:00Z | Meta tags + OpenGraph per page: src/lib/seo/metadata.ts helper; root layout.tsx full spec metadata (metadataBase, title template, keywords, OG, Twitter, icons, manifest); landing page metadata updated to spec; auth pages get metadata via layout.tsx (login/signup/reset-password/confirm); all dashboard + admin + docs server component pages get typed metadata exports; docs/tools client page gets layout.tsx; build passes |

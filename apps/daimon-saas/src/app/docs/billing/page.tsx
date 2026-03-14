@@ -1,9 +1,23 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Billing & Plans — Daimon Docs',
+  title: 'Billing & Plans',
   description:
-    'Understand how Daimon plans work, how BYOK billing saves you money, and how to upgrade, downgrade, or cancel your subscription.',
+    "Understanding Daimon's pricing plans — Free, Starter, and Pro. Feature comparison, upgrade flows, and BYOK billing explained.",
+  openGraph: {
+    title: 'Billing & Plans — Daimon Docs',
+    description:
+      'Free, Starter ($9/mo), and Pro ($29/mo) plans. BYOK — you only pay Anthropic for actual AI usage.',
+    url: 'https://daimon.ai/docs/billing',
+    images: [{ url: '/og/docs-billing.png', width: 1200, height: 630, alt: 'Daimon Billing & Plans' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Billing & Plans — Daimon Docs',
+    description: 'Free, Starter, and Pro plans. BYOK — pay only for what you use.',
+    images: ['/og/docs-billing.png'],
+  },
+  alternates: { canonical: 'https://daimon.ai/docs/billing' },
 }
 
 // ---------------------------------------------------------------------------

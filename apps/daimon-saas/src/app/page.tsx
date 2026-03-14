@@ -5,23 +5,42 @@ import { PricingSection } from '@/components/landing/pricing-section'
 import { FaqSection } from '@/components/landing/faq-section'
 
 export const metadata: Metadata = {
-  title: 'Daimon — AI Discord Bot, Bring Your Own Keys',
+  title: 'Daimon — AI Operating System for Discord',
   description:
-    'Get your own AI-powered Discord bot with 50+ integrated tools. Bring your Anthropic API key, connect your services, and Claude handles the rest. Free to start.',
+    'Connect your Discord server to 50+ tools — GitHub, Linear, Toggl, Google Analytics, and more. Powered by Claude AI. Bring your own API key. Get started free.',
+  keywords: [
+    'discord ai bot',
+    'discord automation tools',
+    'ai assistant for discord',
+    'discord productivity',
+    'claude ai discord bot',
+    'discord github bot',
+    'discord linear bot',
+    'discord toggl integration',
+    'byok discord bot',
+    'discord ai operating system',
+  ],
   openGraph: {
-    title: 'Daimon — AI Discord Bot, Bring Your Own Keys',
+    title: 'Daimon — AI Operating System for Discord',
     description:
-      'Get your own AI-powered Discord bot with 50+ integrated tools. Bring your Anthropic API key, connect your services, and Claude handles the rest.',
+      '50+ tools. Your own API key. Claude-powered. Connect GitHub, Linear, Toggl, and more to your Discord server in minutes.',
     url: 'https://daimon.ai',
     type: 'website',
-    images: [{ url: 'https://daimon.ai/og/home.png' }],
+    images: [
+      {
+        url: '/og/landing.png',
+        width: 1200,
+        height: 630,
+        alt: 'Daimon — AI Operating System for Discord. 50+ tools, your API key, Claude-powered.',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Daimon — AI Discord Bot, Bring Your Own Keys',
+    title: 'Daimon — AI Operating System for Discord',
     description:
-      'Get your own AI-powered Discord bot with 50+ integrated tools. Bring your Anthropic API key, connect your services, and Claude handles the rest.',
-    images: ['https://daimon.ai/og/home.png'],
+      '50+ tools. Your own API key. Claude-powered. Connect GitHub, Linear, Toggl, and more to your Discord server in minutes.',
+    images: ['/og/landing.png'],
   },
   alternates: {
     canonical: 'https://daimon.ai',

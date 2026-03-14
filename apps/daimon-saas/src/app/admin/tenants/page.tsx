@@ -1,8 +1,17 @@
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Link from 'next/link'
 import { createSupabaseAdminClient } from '@/lib/supabase/admin'
+
 import { AdminLayout } from '@/components/layout/admin-layout'
 import { FiltersBar } from './filters-bar'
+
+export const metadata: Metadata = {
+  title: 'Tenants — Admin',
+  description: 'Daimon platform tenant management.',
+  robots: { index: false, follow: false },
+  alternates: { canonical: 'https://daimon.ai/admin/tenants' },
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

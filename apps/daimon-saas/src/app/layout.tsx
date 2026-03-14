@@ -31,8 +31,75 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Daimon",
-  description: "AI assistant for your team",
+  metadataBase: new URL("https://daimon.ai"),
+  title: {
+    default: "Daimon — AI Operating System for Discord",
+    template: "%s | Daimon",
+  },
+  description:
+    "Daimon connects your Discord server to 50+ tools — GitHub, Linear, Toggl, Google Analytics, and more — powered by Claude AI. Bring your own API key. No subscriptions to your data.",
+  keywords: [
+    "discord ai bot",
+    "discord automation",
+    "ai assistant discord",
+    "discord productivity bot",
+    "claude ai discord",
+    "discord github integration",
+    "discord linear integration",
+    "toggl discord",
+    "discord project management",
+    "byok ai bot",
+    "bring your own api key discord",
+    "discord ai operating system",
+    "decision orchestrator",
+  ],
+  authors: [{ name: "PyMC Labs", url: "https://pymc-labs.com" }],
+  creator: "PyMC Labs",
+  publisher: "PyMC Labs",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://daimon.ai",
+    siteName: "Daimon",
+    images: [
+      {
+        url: "/og/default.png",
+        width: 1200,
+        height: 630,
+        alt: "Daimon — AI Operating System for Discord",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@daimon_ai",
+    creator: "@daimon_ai",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-16.png", sizes: "16x16", type: "image/png" },
+      { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: ["/favicon.ico"],
+  },
+  manifest: "/site.webmanifest",
+  alternates: {
+    canonical: "https://daimon.ai",
+  },
 };
 
 export default function RootLayout({
@@ -43,6 +110,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      dir="ltr"
       className={`${inter.variable} ${archivo.variable} ${lora.variable}`}
     >
       <body className="font-body text-navy bg-white antialiased">

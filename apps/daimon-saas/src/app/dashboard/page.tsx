@@ -1,10 +1,19 @@
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
 import { DashboardStatusCards } from '@/components/dashboard/dashboard-status-cards'
 import { OnboardingChecklist } from '@/components/dashboard/onboarding-checklist'
 import { QuickStatsRow } from '@/components/dashboard/quick-stats-row'
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+  description: 'Manage your Daimon bot, view status, and monitor tool activity.',
+  robots: { index: false, follow: false },
+  alternates: { canonical: 'https://daimon.ai/dashboard' },
+}
 
 export default async function DashboardPage() {
   const supabase = await createClient()

@@ -2,9 +2,23 @@ import type { Metadata } from 'next'
 import { Clock } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Quick Start — Daimon Docs',
+  title: 'Quick Start Guide',
   description:
-    'Set up your own Daimon AI bot in under 10 minutes. Follow this guide from account creation to your first Discord message.',
+    'Set up your Daimon Discord bot in 5 minutes. Step-by-step guide from account creation to your first AI command.',
+  openGraph: {
+    title: 'Quick Start Guide — Daimon Docs',
+    description:
+      'Set up your Daimon Discord bot in 5 minutes. Step-by-step guide from account creation to your first AI command.',
+    url: 'https://daimon.ai/docs/quick-start',
+    images: [{ url: '/og/docs-quickstart.png', width: 1200, height: 630, alt: 'Daimon Quick Start Guide' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Quick Start Guide — Daimon Docs',
+    description: 'Set up your Daimon Discord bot in 5 minutes.',
+    images: ['/og/docs-quickstart.png'],
+  },
+  alternates: { canonical: 'https://daimon.ai/docs/quick-start' },
 }
 
 // ---------------------------------------------------------------------------

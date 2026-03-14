@@ -1,9 +1,23 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'FAQ — Daimon Docs',
+  title: 'FAQ',
   description:
-    'Answers to common questions about Daimon: billing, security, bot setup, troubleshooting, and account limits.',
+    'Frequently asked questions about Daimon — billing, security, bot setup, API keys, troubleshooting, and limits.',
+  openGraph: {
+    title: 'FAQ — Daimon Docs',
+    description:
+      'Answers to common questions about Daimon — billing, security, bot setup, API keys, troubleshooting, and usage limits.',
+    url: 'https://daimon.ai/docs/faq',
+    images: [{ url: '/og/docs-faq.png', width: 1200, height: 630, alt: 'Daimon FAQ' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FAQ — Daimon Docs',
+    description: 'Answers to common questions about Daimon.',
+    images: ['/og/docs-faq.png'],
+  },
+  alternates: { canonical: 'https://daimon.ai/docs/faq' },
 }
 
 // ---------------------------------------------------------------------------
