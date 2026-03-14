@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 621
-- **Analyzed:** 101
-- **Pending:** 520
+- **Total aspects:** 626
+- **Analyzed:** 102
+- **Pending:** 524
 - **Convergence:** 16.3%
 
 ---
@@ -483,7 +483,12 @@
   - [ ] 3.02c — The "I can see it but can't use it" anticipation design: showing locked skills as dimmed workbench slots vs. hiding them entirely; visible-but-locked progression psychology
   - [ ] 3.02d — Skill discovery as community content: if using Discovery or Hybrid paradigm, discovery variants become wiki/guide content; does community knowledge enhance or undermine the discovery experience?
   - [ ] 3.02e — Cross-paradigm hybrid: Staged + Mentor: linear unlocks for basic skills but capture-from-enemies for advanced skills; the "basics given, advanced earned" split mapping to Mission 1-4 → 5-10 arc
-- [ ] 3.03 — Skill interactions: which skills combo with which? What emergent behaviors arise from skill combinations?
+- [x] 3.03 — Skill interactions: which skills combo with which? What emergent behaviors arise from skill combinations?
+  - [ ] 3.03a — Skill execution ordering within a single unit: when a relay has compress, filter, and amplify all active, what order do they execute? Fixed pipeline, player-configurable, or simultaneous with conflict resolution?
+  - [ ] 3.03b — Degenerate strategy detection and in-game warnings: should the game detect echo chambers, evade floods, micromanagement traps? Warn in Plan ghost preview, debrief only, or architecture linter tool?
+  - [ ] 3.03c — Skill interaction discovery UI: how does the game help players discover combos? Pure emergence, combo journal, theory-crafting simulation mode, or community-shared recipes?
+  - [ ] 3.03d — The "silence detection" combo pattern: absence of signals as trigger condition; is this expressible through current rules or does it need a dedicated "watchdog" rule type?
+  - [ ] 3.03e — Cross-match skill interaction stability: which combos are robust across 100 randomized scenarios vs. fragile (dependent on specific spatial configurations)? Robustness as hidden quality metric
 - [ ] 3.04 — Skill UI: how does the player browse, equip, and manage skills on agents?
 
 ### Rules (Behavioral Constraints)
