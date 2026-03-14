@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 61
-- Pending: 13
-- Convergence: 82%
+- Analyzed: 62
+- Pending: 12
+- Convergence: 84%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -81,7 +81,7 @@ Consolidate all gathered material into content files. One aspect per page.
 - [x] assemble-course-abm — Write content/courses/abm.md
 - [x] assemble-course-bma — Write content/courses/bma.md
 - [x] assemble-course-ci — Write content/courses/ci.md
-- [ ] assemble-case-studies — Write content/case-studies/{name}.md for each discovered case study
+- [x] assemble-case-studies — Write content/case-studies/{name}.md for each discovered case study
 - [ ] assemble-blog-template — Write content/blog/template.md (blog post structure + any migrated metadata)
 - [ ] assemble-resources-benchmarks — Write content/resources/industry-benchmarks.md
 - [ ] assemble-resources-oss — Write content/resources/open-source-libraries.md

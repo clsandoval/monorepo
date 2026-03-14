@@ -2,6 +2,20 @@
 
 ---
 
+## 2026-03-14 — assemble-case-studies
+
+**Aspect completed:** assemble-case-studies
+
+**Findings:**
+- Created 26 case study files in content/case-studies/
+- Sources: discord-case-studies-extraction.md (25 Discord channels) + website-scrape/case-studies.md (10 published blog posts) + halah-draft-scrape.md
+- Case studies with published blog posts (complete/partial): hellofresh-mmm, akili, salk, indigo-ag, alva-labs, everysk, colgate-synthetic-consumers, colgate-cannibalization, colgate-shelf-optimization
+- Discord-only case studies (partial): appodeal, erisyon, gain-theory, syngenta, fox-broadcasting, haleon, live-nation, fabletics, llbean, roche, wegmans, swarovski, takeda, visualvest
+- Stub-level entries (confidential/thin): dodgers, real-madrid, supercell
+- Key metrics documented: HelloFresh 60x A/B speedup + 10x MMM speedup, Swarovski MAE -20%, Wegmans MAPE 13-14%, Roche 34K params/250K obs in ~1hr, Colgate SSR 90% alignment, Colgate shelf GPU 4 chains/6hr
+- Key testimonials captured: Eugene Kwok (Fox) "feels like part of their team", Nathan Kafi (Haleon) homepage quote, Tarmo Jüristo (SALK) homepage quote, VisualVest "not so common in consulting", Akili Titi Alailima homepage quote
+- GAPS: Nuernberger and Appodeal have no engagement-level results to report publicly; Dodgers/Supercell details confidential; Roche exact problem domain (genomic vs. clinical) unconfirmed; no published case study for Roche, Erisyon, Gain Theory, Fox, Haleon, Live Nation, Swarovski, Wegmans, VisualVest, Takeda
+
 ## 2026-03-14 — assemble-course-abm (+ bma + ci)
 
 **Aspects completed:** assemble-course-abm, assemble-course-bma, assemble-course-ci (all three in one run)
