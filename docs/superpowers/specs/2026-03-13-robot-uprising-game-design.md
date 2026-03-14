@@ -1,6 +1,6 @@
 # Robot Uprising — Game Design Brainstorm (WIP)
 
-**Status:** Brainstorming complete. Core direction locked. Reverse ralph loop launched to exhaustively explore the design space.
+**Status:** Brainstorming complete. Core direction locked. Reverse ralph loop launched to exhaustively explore the design space. First playable scoped — see `2026-03-13-robot-uprising-first-playable-design.md`.
 
 **Date:** 2026-03-13
 

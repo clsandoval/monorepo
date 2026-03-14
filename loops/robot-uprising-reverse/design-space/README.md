@@ -19,3 +19,9 @@ An exhaustive exploration of every possible version of Robot Uprising. Each file
 | [competitive-analysis/zachtronics-opus-magnum.md](competitive-analysis/zachtronics-opus-magnum.md) | 1.03 — Opus Magnum: three antagonistic metrics, histogram democracy, open-ended no-intended-solution design, infinite canvas, GIF virality, aesthetic satisfaction of clockwork elegance | ✅ Complete |
 | [competitive-analysis/zachtronics-exapunks.md](competitive-analysis/zachtronics-exapunks.md) | 1.04 — EXAPUNKS: multi-agent EXA programming model, REPL/messaging, Trash World News diegetic zine tutorial, hacker fantasy aesthetic, battle mode PvP, phage body horror narrative, direct parallels to Robot Uprising attention systems | ✅ Complete |
 | [competitive-analysis/exapunks-narrative-mechanical-integration.md](competitive-analysis/exapunks-narrative-mechanical-integration.md) | 1.04a — Narrative-mechanical integration: closing the EXAPUNKS body horror gap via corrupted configs, degraded buffers, and enemy-injected hooks; three design options (Sabotage Problem / Entropy Problem / Trojan Horse Problem) with 3 player journeys; comparable games (Hacknet, FTL, Dead Space); 5 new aspects discovered | ✅ Complete |
+
+### First Playable Decisions (Brainstorm Output)
+
+| File | Description | Status |
+|------|-------------|--------|
+| [first-playable-decisions.md](first-playable-decisions.md) | Locked preferences from brainstorming: 7-mission arc, tick system (1 action/tick, 1 tick/hop, receive-is-free), lossy compress (X/2 random), 5 unit types, 6 feeling checkpoints. Full spec at `docs/superpowers/specs/2026-03-13-robot-uprising-first-playable-design.md` | ✅ Locked |
