@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 636
-- **Analyzed:** 104
-- **Pending:** 532
+- **Total aspects:** 641
+- **Analyzed:** 105
+- **Pending:** 536
 - **Convergence:** 16.4%
 
 ---
@@ -615,7 +615,7 @@
   - [ ] 6.02c — Adaptive mixing for information density: when 14 units are active with overlapping signals, how does the audio mix prevent cacophony? Priority-based ducking, spatial audio panning per grid position, frequency-band reservation per event type; the "cocktail party problem" in game audio
   - [ ] 6.02d — Audio identity per named channel: each player-created channel gets a procedurally generated sonic signature derived from its name string (hash → pitch + timbre parameters); players learn to recognize channels by sound; the channel-as-instrument metaphor
   - [ ] 6.02e — Plan phase silence vs. music debate: Into the Breach cuts music during deployment; should Robot Uprising's Plan phase have authored music at all, or is silence + SFX more conducive to deep configuration thinking? The "focus music" question — when does music help vs. hinder complex cognitive work?
-- [ ] 6.03 — Narrative voice: GLaDOS-style narrator, silent, text-log, radio chatter
+- [x] 6.03 — Narrative voice: GLaDOS-style narrator, silent, text-log, radio chatter
 - [ ] 6.04 — The TikTok clip: what's the 15-second viral moment for each major design direction
 - [x] 6.05 — PC/Steam optimization: keyboard/mouse UI, Steam features (workshop, achievements, cards); full keyboard shortcut tables for all three screens (Plan: 20+ bindings including Factorio-inspired pipette Q, Tab panel cycling, F1-F4 subpanel focus; Sealed Watch: minimal by design — speed controls only; Inspector: arrow-key tick stepping, event-based [ ] navigation, panel toggles B/G/C/D); mouse interaction matrices per screen with hover/click/drag/scroll per surface; Steam Workshop integration (blueprint sharing with fork/subscribe, custom missions, config necropsy artifacts); 22 achievement designs (6 campaign milestones + 10 playstyle/discovery + hidden achievements); trading card set (6 cards, SE Asian cyberpunk art, badge rewards); Rich Presence states; Cloud Save design (conflict resolution, 5-10MB budget); ultrawide layout (21:9 three-column, 32:9 dual-half); Steam Deck compatibility (85% default UI scale, trackpad-essential input, 30/60fps per screen, battery 3h target); keybinding customization with 4 presets (Default, Left-handed, Minimal, Vim-style with : command palette); full accessibility pass (keyboard-only play with Tab order, ARIA screen reader labels, colorblind modes, text scaling 80-150%); multi-monitor detached Inspector concept; 4 player journeys (Elara 26 ML engineer dual-monitor first launch, Darius 42 IT manager ultrawide Vim-preset command agent, Mika 14 laptop trackpad accidental Tab discovery, Kofi 35 accessibility tester screen reader full playthrough); comparable games (Factorio pipette/fast-transfer, Into the Breach hover preview, Slay the Spire number key mod, Opus Magnum GIF export, Shenzhen IO Workshop); 5 new aspects discovered
   - [ ] 6.05a — The Vim/command-palette as power-user interface: full design of the command palette system — command vocabulary, autocomplete, argument syntax, what actions are available via text vs. requiring mouse; the "VS Code command palette" model adapted for a game workbench
@@ -636,6 +636,11 @@
 - [ ] 6.01c — The holographic overlay system: full technical and aesthetic design of Plan mode overlay — grid materialization, channel wiring rendering, perception radius treatment, ghost units, overlay × terrain interaction
 - [ ] 6.01d — Color palette interaction with colorblind modes: how each art direction option degrades under protanopia/deuteranopia/tritanopia; which palettes need redesign vs. naturally robust; interaction with locked signal colors
 - [ ] 6.01e — Tilt-shift implementation in Pixi.js: technical feasibility of the "Diorama" effect — blur filters, performance on low-end hardware, dynamic edge sharpening, Playwright screenshot test determinism
+- [ ] 6.03a — The Predecessor's character arc across 10 missions: beat-by-beat emotional evolution from weary mentor to hopeful observer; branching narrator mood based on player success/failure as implicit difficulty feedback; comparable: Darkest Dungeon Ancestor mood shifts, Hades character memory across runs
+  - [ ] 6.03b — Radio chatter as sonification of system state: mapping buffer occupancy, signal latency, eviction events to voice timing, interruption patterns, audio filter degradation; when voices overlap vs. queue; the audio engineering of "information overload sounds like panic"
+  - [ ] 6.03c — The mute/volume hierarchy for narrative layers: player control over which narrative voices they hear; granular per-voice vs. preset modes (dramatic/balanced/clinical); default differences by difficulty; risk of players muting into a worse experience
+  - [ ] 6.03d — Narrative voice localization strategy: cost-quality matrix for small studios across voice options; Boot Log (technical terms, cheap) vs. Predecessor (literary prose, expensive) vs. Radio (5 archetypes × N languages, very expensive); interaction with text-only vs. voiced implementations
+  - [ ] 6.03e — The Predecessor's diegetic justification: if the boot log is "you reading your own spec sheet," where does the Predecessor's voice come from? Corrupted previous installation, parallel AI, recorded message; whether diegetic justification matters for player experience
 - [ ] 6.10 — Sound design for corruption detection: audio vocabulary of integrity violations — what does a foreign hook sound like when first detected, what does a revert "click" sound like, what does mid-execution EMP buffer degradation sound like; the sonic signature of a compromised vs. clean system
 
 ---
