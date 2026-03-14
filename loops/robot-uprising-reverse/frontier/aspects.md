@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 293
-- **Analyzed:** 45
-- **Pending:** 248
+- **Total aspects:** 298
+- **Analyzed:** 46
+- **Pending:** 252
 - **Convergence:** 15.4%
 
 ---
@@ -56,7 +56,7 @@
 - [x] 4.69 — "Agent multi-cluster" detection in career analysis: automatic flag when the same agent appears in 3+ distinct runner-up slots in a career analysis result — surfaces "consider reviewing this agent holistically, not element-by-element"; interaction with 4.49 cross-mission pattern detection
 - [x] 4.69a — Multi-cluster threshold configurability: letting players set whether 2+, 3+, or 4+ appearances triggers the flag; accessibility consideration (2+ fires constantly for new players with concentrated configs); expert mode consideration (4+ threshold for players who want less interruption)
 - [x] 4.69b — Combined agent coverage score display: showing "if ALL of this agent's clustered elements were fixed, combined coverage = X%" as a first-class metric in the career analysis panel; question of whether this number should be pre-computed or on-demand
-- [ ] 4.69c — Agent redesign mode as a dedicated workbench state: full design of the isolated redesign sandbox — how the player enters, what UI affordances are available, how changes are staged vs. committed, how the simulation differs from normal workbench operation
+- [x] 4.69c — Agent redesign mode as a dedicated workbench state: full design of the isolated redesign sandbox — how the player enters, what UI affordances are available, how changes are staged vs. committed, how the simulation differs from normal workbench operation
 - [ ] 4.69d — Multi-cluster persistence tracking: tracking whether the same agent triggers multi-cluster across multiple career analyses; the "persistent offender" agent as a named archetype with dedicated treatment in the season health dashboard
 - [ ] 4.69e — Adversarial multi-cluster poisoning: opponent config design strategy that stresses 3+ elements of the same target agent across all match types, deliberately triggering the player's cluster flag to mislead them into an unnecessary redesign; counter-design distinguishes "clustered across all opponents" (structural) from "clustered against specific opponent" (adversarial)
 - [ ] 4.69f — "Apply All Three" batch deployment: detailed design of the multi-fix batch application — sequencing, conflict detection, rollback affordance, confirmation dialog
@@ -72,6 +72,11 @@
 - [ ] 4.69p — Combined coverage as a budget-cost computation: classifying the combined coverage calculation (or only its on-demand variant) as a search budget expenditure (see 4.60); creates scarcity around the diagnostic and makes each use intentional; early-season players must choose which clusters to investigate; interacts with search budget resource design
 - [ ] 4.69q — Prospective combined coverage: computing the combined coverage not from match history but from a simulated future match set based on the player's current config and upcoming opponents; forward-looking vs. historical ceiling estimates; interacts with scenario fingerprinting (2.28); the difference between "this agent failed here" and "this agent will likely fail there"
 - [ ] 4.69r — Combined coverage sensitivity to match window size: how different match window sizes (20 matches vs. 200 matches) affect the combined coverage number; small windows have high variance (one unusual match can swing the number significantly); recommended minimum window size for reliable combined coverage estimates; the "confidence interval" framing for coverage numbers
+- [ ] 4.69c-i — Draft context snapshot in redesign mode: redesign mode drafts must store the career analysis result (cluster flag, combined coverage, root cause hypotheses) that preceded the redesign; "redesign intent" rehydration when reopening draft in a future session; prevents "why was I rebuilding this?" confusion on session resumption
+- [ ] 4.69c-ii — Auto-suggest Paired Mode partners: when entering redesign mode on an agent with ≥2 active hook connections, analyze hook topology and surface "COMMAND-A receives signals from RELAY-C — add it to Paired Mode?"; one-tap accept or dismiss; triggered only when focal agent's output hooks connect directly to another agent's input hooks
+- [ ] 4.69c-iii — Template monoculture prevention: if >60% of players in a similar career range use the same template for a given role, flag it as a "monoculture template"; surface alternative templates and recent emergent configs when monoculture template is selected; player-population template usage as a live game health signal
+- [ ] 4.69c-iv — Redesign mode for newly created agents: new agents (built from scratch, not redesigned from existing) need their own onboarding variant of redesign mode — stress tests replaced by role-validating tutorials; templates foregrounded as default path; "first build" as pedagogically distinct experience from "structural overhaul"
+- [ ] 4.69c-v — Simulation seed persistence in redesign mode: stress test scenarios use a fixed seed derived from real failed matches; player can unlock the seed and randomize it to test redesign robustness against unseen scenario variants; "seed lock/unlock" as a simulation difficulty setting within redesign mode
 - [ ] 4.70 — Career analysis filtered by opponent archetype: running cross-match analysis filtered to "matches against heavy-hook opponents" or "matches ending before tick 60"; find structural weaknesses specific to opponent classes; interaction with 2.28 scenario fingerprinting
 - [ ] 4.71 — Comparative career analysis between config versions: "if I had stayed on v2.3 and applied the career minimum fix vs. rebuilding to v3.8 — which would have produced better cross-match results?"; counterfactual on architectural strategy rather than parametric choices; requires counterfactual history (4.38)
 - [ ] 4.72 — The "debt-free" season achievement: a season where top-candidate career analysis coverage score is below 20% (no single element responsible for more than 20% of losses); "structurally diverse failure distribution" as highest-level architectural health certificate; analogous to a codebase with no single module owning more than 20% of bugs
