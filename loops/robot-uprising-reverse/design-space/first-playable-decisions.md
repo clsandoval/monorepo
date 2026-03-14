@@ -1,6 +1,6 @@
 # First Playable Decisions — Brainstorm Output
 
-**Date:** 2026-03-13 (updated with v3 — base + spawning model)
+**Date:** 2026-03-13 (updated v4 — channels, no harvesters, plan-then-execute, aggregate debrief)
 **Context:** These decisions were made during a brainstorming session about scoping the first playable demo. The reverse loop should treat these as locked preferences for the "minimum viable game" (aspect 8.04) and "full game configurations" (aspect 8.03) explorations.
 
 **Full spec:** `docs/superpowers/specs/2026-03-13-robot-uprising-first-playable-design.md`
@@ -28,6 +28,42 @@ The player designs **agent blueprints**, not individual agents. A base produces 
 - **Old agents with bad configs die off naturally** — the army self-corrects through attrition + blueprint iteration.
 
 ### Missions 1-2 are still hand-configured (tutorial). Mission 3 introduces the base. Missions 4-7 use full blueprint+spawning.
+
+### Channels (Locked)
+
+Named communication pipes that connect blueprints at the type level:
+- A hook fires ON a channel: "on_detect → send on `east-net`"
+- A hook listens ON a channel: "on_receive[`east-net`] → forward on `strike-net`"
+- **One channel per hook slot.** Each hook = one slot = one channel.
+- **All instances receive.** 3 relays on `east-net` = all 3 get every signal.
+- The player's real design artifact is the **channel map** — the topology of named pipes.
+
+### Hook Slots (Locked)
+
+| Type | Hook Slots | Implication |
+|------|-----------|-------------|
+| Scout | 2 | Detect + report on one channel |
+| Striker | 2 | Receive orders + report kills |
+| Relay | 4 | The routing hub — but even it has limits |
+| Specialist | 2 | Receive orders + report status |
+| Command | 6 | Needs to listen to everything |
+
+Hook slots create a natural complexity ceiling. Can't build infinitely connected architecture.
+
+### Plan Phase (Locked)
+
+Pre-execution only. Design blueprints, set channels, set production, hit execute. No pausing to redesign. Command agent is the only mid-battle adaptation.
+
+### Resource Model (Locked)
+
+No harvesters. Material income is passive per tick, boosted by controlling map nodes. Removes busywork.
+
+### Debrief (Locked)
+
+Aggregate, not individual. Systems dashboard:
+- Channel-level metrics ("east-net: 23 signals, 2 dropped")
+- Blueprint-level stats ("Scout-East: 5 instances, avg buffer 78%, 2 destroyed")
+- Spatial heatmap of buffer overflows
 
 ---
 
@@ -74,7 +110,7 @@ Lossy. Takes X signals, keeps X/2 chosen at random, discards the rest.
 | Resource | Source | Spent On | Tension |
 |----------|--------|----------|---------|
 | Energy | Base generates per tick | Spawning, active skills | More agents = more drain |
-| Material | Extracted from map nodes | Spawning (initial cost) | Must send harvesters = exposure |
+| Material | Base generates per tick, boosted by map nodes | Spawning (initial cost) | Controlling nodes = exposure but faster production |
 | Bandwidth | Fixed pool per mission | Hook transmissions | Complex architecture = bandwidth hungry = loud |
 
 ---
@@ -104,16 +140,15 @@ Lossy. Takes X signals, keeps X/2 chosen at random, discards the rest.
 
 ---
 
-## Unit Types (6 Total, updated from 5)
+## Unit Types (5 Total)
 
-| Type | Buffer | Speed | Skills | Cost |
-|------|--------|-------|--------|------|
-| Harvester | 4 | Medium | extract_material | 2 mat, 1 energy/tick |
-| Scout | 6 | Fast | patrol, evade | 3 mat, 1 energy/tick |
-| Striker | 8 | Medium | engage, breach | 8 mat, 3 energy/tick |
-| Relay | 12 | Stationary | compress, filter, amplify | 5 mat, 2 energy/tick |
-| Specialist | 10 | Medium | hack, extract | 7 mat, 2 energy/tick |
-| Command | 14 | Stationary | reassign, reroute, prioritize | 10 mat, 4 energy/tick |
+| Type | Buffer | Hook Slots | Speed | Skills | Cost |
+|------|--------|-----------|-------|--------|------|
+| Scout | 6 | 2 | Fast | patrol, evade | 3 mat, 1 energy/tick |
+| Striker | 8 | 2 | Medium | engage, breach | 8 mat, 3 energy/tick |
+| Relay | 12 | 4 | Stationary | compress, filter, amplify | 5 mat, 2 energy/tick |
+| Specialist | 10 | 2 | Medium | hack, extract | 7 mat, 2 energy/tick |
+| Command | 14 | 6 | Stationary | reassign, reroute, prioritize | 10 mat, 4 energy/tick |
 
 ---
 

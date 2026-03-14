@@ -1,6 +1,6 @@
 # Robot Uprising — First Playable: "The Proving Ground"
 
-**Status:** Design approved (v3 — base + spawning model). Ready for implementation planning.
+**Status:** Design approved (v4 — channels, no harvesters, plan-then-execute). Ready for implementation planning.
 **Date:** 2026-03-13
 **Parent spec:** `2026-03-13-robot-uprising-game-design.md`
 
@@ -25,6 +25,9 @@ A 7-mission demo build of Robot Uprising targeting the creator as the primary au
 | Tech stack | React + Pixi.js + Vite, no backend |
 | Mission count | 7 |
 | Army model | Blueprint + base spawning (not individual unit config) |
+| Plan phase | Pre-execution only. No pausing to redesign. Command agent is the only mid-battle adaptation. |
+| Hook routing | Channel-based. One channel per hook. Blueprints wire to named channels, not individual units. |
+| Resource model | Passive income per tick (no harvesters). Controlling map nodes boosts income. |
 
 ---
 
@@ -96,11 +99,56 @@ Lossy. Takes X signals, keeps X/2 chosen at random, discards the rest.
 
 ---
 
+## Channels
+
+The communication topology primitive. Channels are named pipes that connect blueprints at the type level.
+
+### How Channels Work
+
+- A hook fires ON a channel: "on_detect_enemy → send on `east-net`"
+- A hook listens ON a channel: "on_receive[`east-net`] → forward on `strike-net`"
+- **One channel per hook slot.** Each hook occupies one slot and is bound to one channel.
+- **All instances receive.** If 3 relays listen on `east-net`, all 3 get every signal on that channel.
+
+### Why Channels
+
+Blueprints can't reference individual units ("send to Relay-1") because units are spawned copies. Channels solve this: blueprints reference named channels, not individuals. The player's real design artifact is the **channel map** — the topology of named communication pipes.
+
+### Channel Map Example
+
+```
+east-net:    Scout-East → Relay-Tactical → Striker-Assault
+west-net:    Scout-West → Relay-Main → Striker-Assault
+command-net: Relay-Tactical + Relay-Main → Command-Overseer
+strike-net:  Command-Overseer → Striker-Assault
+```
+
+### Debrief Shows Channel Metrics
+
+The debrief is a **systems dashboard**, not a unit inspector:
+- "east-net: 23 signals, 2 dropped, peak throughput tick 34"
+- "west-net: 8 signals, 0 dropped"
+- "command-net: 5 signals, 1 overflow at tick 52"
+- Heatmap: where on the map buffer overflows clustered
+- Aggregate per blueprint: "Scout-East: 5 instances, avg buffer 78%, 2 destroyed"
+
+---
+
 ## Base + Spawning Model
+
+### Plan Phase
+
+The plan phase is **pre-execution only.** The player:
+1. Designs blueprints (skills, rules, hooks with channel bindings, context config)
+2. Designs the channel map (the communication topology)
+3. Sets production queue (priority, caps)
+4. Hits execute
+
+No pausing to redesign. The command agent is the only way to adapt mid-battle.
 
 ### Blueprints
 
-In the plan phase, the player designs **blueprints** — agent templates. The base produces copies. Each copy inherits the blueprint's skills, rules, hooks, and context config.
+Agent templates. The base produces copies. Each copy inherits the blueprint's skills, rules, hooks, and context config.
 
 - Tweaking a blueprint affects all FUTURE spawns
 - Existing agents keep their config unless a Command agent updates them
@@ -118,21 +166,26 @@ The player sets blueprint priority and production cap:
 | Resource | Source | Spent On | Design Tension |
 |----------|--------|----------|----------------|
 | Energy | Base generates per tick | Spawning agents, active skills | More agents = more eyes but more drain |
-| Material | Extracted from map nodes | Spawning agents (initial cost) | Must send agents to harvest = exposure risk |
+| Material | Base generates per tick, boosted by controlling map nodes | Spawning agents (initial cost) | Controlling nodes = exposure but faster production |
 | Bandwidth | Fixed pool per mission | Hook transmissions | Complex architecture = bandwidth hungry = loud emissions |
 
 ---
 
-## Unit Types
+## Unit Types (5 Total)
 
-| Type | Buffer | Perception | Speed | Skills | Cost |
-|------|--------|-----------|-------|--------|------|
-| Harvester | 4 | Short (2 tiles) | Medium | extract_material | 2 mat, 1 energy/tick |
-| Scout | 6 | Wide (5 tiles) | Fast | patrol, evade | 3 mat, 1 energy/tick |
-| Striker | 8 | Narrow (2 tiles) | Medium | engage, breach | 8 mat, 3 energy/tick |
-| Relay | 12 | None (receives only) | Stationary | compress, filter, amplify | 5 mat, 2 energy/tick |
-| Specialist | 10 | Medium (3 tiles) | Medium | hack, extract | 7 mat, 2 energy/tick |
-| Command | 14 | None (receives only) | Stationary | reassign, reroute, prioritize | 10 mat, 4 energy/tick |
+| Type | Buffer | Hook Slots | Perception | Speed | Skills | Cost |
+|------|--------|-----------|-----------|-------|--------|------|
+| Scout | 6 | 2 | Wide (5 tiles) | Fast | patrol, evade | 3 mat, 1 energy/tick |
+| Striker | 8 | 2 | Narrow (2 tiles) | Medium | engage, breach | 8 mat, 3 energy/tick |
+| Relay | 12 | 4 | None (receives only) | Stationary | compress, filter, amplify | 5 mat, 2 energy/tick |
+| Specialist | 10 | 2 | Medium (3 tiles) | Medium | hack, extract | 7 mat, 2 energy/tick |
+| Command | 14 | 6 | None (receives only) | Stationary | reassign, reroute, prioritize | 10 mat, 4 energy/tick |
+
+### Hook Slots as Constraint
+
+Hook slots limit how many channels an agent can participate in. A relay with 4 hook slots can listen/send on 4 channels max. Need a 5th? You need a second relay. A command agent with 6 slots can monitor 6 channels — need a 7th? Either add another command agent or have a relay aggregate two channels into one.
+
+This creates a natural complexity ceiling. You can't build an infinitely connected architecture.
 
 ### Relay: Why Stationary?
 
@@ -153,7 +206,6 @@ This is the meta-meta-level: the command agent manages the factory that produces
 
 | Skill | Unit Types | What It Does |
 |-------|-----------|-------------|
-| extract_material | Harvester | Harvest material from map nodes |
 | patrol | Scout | Sweep a defined area systematically |
 | evade | Scout | Break contact and reposition when detected |
 | engage | Striker | Move to threat and neutralize |
@@ -218,18 +270,20 @@ Each bridge mission creates the problem that the next mission's new concept solv
 
 ### Mission 3: Assembly Line
 
-**Setup:** Empty board. Base in corner. 2 material nodes. 6 enemy patrols.
-**Primitives:** Context config, Rules, Hooks, Base (new), Blueprints (new), Resources (new).
+**Setup:** Empty board. Base in corner. 2 material nodes (controlling them boosts income). 6 enemy patrols.
+**Primitives:** Context config, Rules, Hooks, Base (new), Blueprints (new), Channels (new), Resources (new).
 **Framing:** "You configured two agents by hand. Now build the machine that builds them."
 
 **Journey:**
-- Empty map. No friendly units. Just the base and material nodes.
-- Create Scout blueprint (same config UI as missions 1-2, but editing a template).
-- Set production: 3 Scout-Alphas. Execute. Base produces — but material runs out after 2.
-- Create Harvester blueprint. Set production: 1 Harvester first. Harvester walks to node, extracts.
-- Material flows. Base produces scouts, relay, strikers. Army assembles itself.
+- Empty map. No friendly units. Just the base. Material income is passive but slow.
+- Create Scout blueprint — same config UI but editing a template. Assign hooks to a channel ("recon-net").
+- Create Relay blueprint — listens on "recon-net", forwards on "strike-net".
+- Create Striker blueprint — listens on "strike-net".
+- Set production queue: 3 scouts, 1 relay, 2 strikers. Execute.
+- Base produces agents over time. Army assembles itself. Scouts patrol, detect enemies, report on recon-net. Relay receives, forwards on strike-net. Strikers engage.
 - Scouts dying because of bad rules → edit blueprint → future scouts fixed → old ones die off naturally.
 - "I fixed a bug in the species, not in an individual."
+- Capturing material nodes speeds up production — sends a scout to hold the node for the income boost.
 
 ---
 
@@ -315,13 +369,22 @@ Each bridge mission creates the problem that the next mission's new concept solv
 
 ---
 
+## Resolved Design Questions
+
+| Question | Resolution |
+|----------|-----------|
+| Hook resolution for blueprints | **Channels.** Hooks wire to named channels, not individual units. All listeners on a channel receive. |
+| Plan phase timing | **Pre-execution only.** No pausing to redesign. Command agent is the only mid-battle adaptation. |
+| Harvester gameplay | **Removed.** Passive income per tick. Controlling map nodes boosts income. No harvester unit type. |
+| Debrief granularity | **Aggregate, not individual.** Channel-level metrics, blueprint-level stats, spatial heatmaps. Systems dashboard. |
+
 ## Open Questions
 
 | Question | Current Answer | Risk |
 |----------|---------------|------|
-| Blueprint editor UX | Same config UI as individual units but editing a template | Could feel identical to v2 — needs to FEEL like designing a species |
-| Hook resolution for blueprints | "on_detect → Relay" resolves by type, not individual | What if there are 3 relays? Nearest? Random? Player-configured routing? |
-| Production rate tuning | 1 agent per N ticks, N depends on energy | Needs playtesting — too fast = spam, too slow = boring |
-| Harvester gameplay | Walk to node, extract | Could feel like busywork. Should harvesting be automatic? |
-| Emission balance | Hook transmissions detectable at medium range | Too punishing = nobody uses hooks. Too weak = emissions don't matter. |
+| Blueprint editor UX | Same config UI as individual units + channel assignment | Needs to FEEL like designing a species and a topology, not filling a form |
+| Production rate tuning | 1 agent per N ticks, N depends on energy | Too fast = spam, too slow = boring. Needs playtesting. |
+| Emission balance | Hook transmissions detectable at medium range | Too punishing = nobody uses hooks. Too weak = irrelevant. |
 | Command agent modifying blueprints mid-battle | Allowed | Could be OP — changes all future spawns. Needs constraints or cost. |
+| Channel capacity | Unlimited signals per tick per channel | Should channels have throughput limits? Could add another constraint layer. |
+| Map node control mechanic | "Send agent to hold node" | How does controlling a node work? Proximity? Combat? Needs detail. |
