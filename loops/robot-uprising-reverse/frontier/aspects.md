@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 346
-- **Analyzed:** 55
-- **Pending:** 291
+- **Total aspects:** 351
+- **Analyzed:** 56
+- **Pending:** 295
 - **Convergence:** 15.9%
 
 ---
@@ -94,7 +94,12 @@
   - [ ] 4.69e-i-d-iii — Saved filter name as primary legibility shortcut: full incentive design around filter naming — how the export UX surfaces the "name this filter" prompt, how export quality visibly degrades for unnamed complex filters, whether the game teaches filter naming as explicit skill in the tutorial sequence
   - [ ] 4.69e-i-d-iv — Adversarial tag disclosure in exports: whether ☠️ confirmed adversarial tags appear in exported footer when excluded opponents are listed; opt-in export settings for including or hiding adversarial tags; potential metagame consequences of publicly tagging an opponent adversarially in a shared artifact
   - [ ] 4.69e-i-f — Comparative export: side-by-side full-scope + filtered in one PNG: dual-panel export format showing full-scope analysis alongside filtered analysis; designed for "the divergence is the story" use case; layout design, scaling, caption structure for dual format; optimal Discord sharing aspect ratio
-- [ ] 4.69e-i-e — Auto-filter suggestion engine: if system detects adversarial signal strength >50% from a single opponent, proactive suggestion to run a filtered analysis excluding that opponent; what the suggestion looks like (banner, tooltip, interstitial); interaction with 4.69e-i concentration warning
+- [x] 4.69e-i-e — Auto-filter suggestion engine: if system detects adversarial signal strength >50% from a single opponent, proactive suggestion to run a filtered analysis excluding that opponent; what the suggestion looks like (banner, tooltip, interstitial); interaction with 4.69e-i concentration warning; four options analyzed (Result Banner / Cluster Candidate Callout / Pre-Run Advisor / Persistent Indicator); recommended Layered design (banner fires once per opponent per season for discovery, scope pill annotation persists as "Anomaly Lamp" for maintenance); minimum opponent diversity gate (≥3 distinct opponents, <80% match-share) prevents false positives for new players; banner suppression threshold after 3 total dismissals graduates player to lamp-only mode; 3 player journeys (Wren discovering steering after 3 weeks of phantom RELAY-C cluster, Tanis veteran reading the Anomaly Lamp directly without banner, Mira false-positive case revealing the diversity gate); 5 new sub-aspects discovered
+  - [ ] 4.69e-i-e-i — Banner suppression threshold: after how many dismissals does the game switch from banner mode to lamp mode (scope pill annotation only); transition tooltip design; whether seasonal reset re-enables banner for new adversarial opponents
+  - [ ] 4.69e-i-e-ii — Auto-filter suggestion in the pre-run context: interaction between 4.69l recommendation UI and the pre-run concentration pre-scan advisory to avoid duplicate or conflicting prompts
+  - [ ] 4.69e-i-e-iii — Minimum opponent diversity gate design: exact trigger conditions suppressing auto-filter suggestion when opponent diversity is too low; three-condition gate edge cases (co-op-only players, private practice runs, mixed-pool seasons)
+  - [ ] 4.69e-i-e-iv — The "one-tap accept" flow in detail: what happens between tapping [Run Now] on the banner and seeing the filtered result; full-scope result visibility during filtered run; comparison state when both results available; scroll position preservation
+  - [ ] 4.69e-i-e-v — Seasonal reset of banner suppression: whether suppression is permanent or resets per season; interaction with the veteran lamp-only graduation; opt-in re-enable affordance
 - [ ] 4.69e-ii — Known adversarial opponent tagging: UI for adding an opponent to the "known adversarial" list from within the career analysis agent audit; how the tag persists across sessions; what changes in career analysis behavior when an opponent is tagged; how to remove a tag
 - [ ] 4.69e-iii — Per-opponent threshold override in competitive contexts: suppressing cluster contributions from specific opponents below a concentration threshold; interaction with match-source breakdown display; comparison with 4.69j per-agent threshold override
 - [ ] 4.69e-iv — Counter-poisoning config design: full design of the player's ability to intentionally design a config that generates misleading cluster signals in an opponent's career analysis; the offensive version of adversarial poisoning; ethical/design considerations around explicit "diagnostic sabotage" as player intent
