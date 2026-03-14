@@ -128,6 +128,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           CHEERFUL_DATABASE_URL: ${{ secrets.CHEERFUL_DATABASE_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           cd "loops/${{ matrix.loop }}"
           FAILURES=0

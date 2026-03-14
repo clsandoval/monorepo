@@ -314,7 +314,47 @@ Read across ALL existing design-space files. Find:
 - Promising "full game" configurations (a coherent set of choices across all categories)
 - Gaps — aspects of the design space that haven't been explored at all
 
-### Wave 8+: Expansion
+### Wave 9: Image Asset Generation (Nano Banana 2)
+
+Generate the complete visual asset library for Robot Uprising using the gemini-image-gen skill. The art direction is **Southeast Asian cyberpunk** — Ifugao rice terrace server farms, Siquijor witch-island relay stations, tropical beach forward bases, sprawling Manila/Cebu-inspired cyberpunk megacity. Not generic sci-fi — rooted in Philippine geography and culture.
+
+**Setting pillars:**
+- **Ifugao highlands**: Ancient rice terraces repurposed as cooling systems for server farms, bamboo scaffolding wrapped around data racks, mist rolling through compute clusters
+- **Siquijor mysticism**: Bioluminescent relay towers, mangrove-root antenna arrays, coral-encrusted signal boosters on volcanic rock
+- **Tropical beach**: White sand forward operating bases, palm-frond camouflage netting over robot assembly lines, turquoise water lapping at rusty mech feet
+- **Cyberpunk megacity**: Jeepney-inspired transport drones, neon-lit vertical slums with exposed fiber optic cables, massive data centers built into colonial-era architecture, sari-sari store fronts hiding command nodes
+
+**For each unit type (Scout, Striker, Relay, Specialist, Command), generate:**
+
+| Asset | Prompt guidance |
+|-------|----------------|
+| `{unit}_idle.png` | Full isometric sprite, SE-facing, transparent background, Into the Breach scale |
+| `{unit}_broken.png` | Same unit destroyed — sparking, collapsed, vines reclaiming |
+| `{unit}_icon.png` | 32x32 simplified icon for UI, clean silhouette |
+| `{unit}_portrait.png` | Detailed close-up for blueprint editor panel |
+| `{unit}_ghost.png` | Ethereal/holographic preview version at 50% opacity feel |
+
+**Additional assets:**
+- `base_idle.png` — Player base/factory (data center built into rice terrace or coastal cliff)
+- `base_producing.png` — Base actively spawning (assembly line glow, conveyor movement)
+- `base_damaged.png` — Base under attack
+- `enemy_scout.png`, `enemy_striker.png`, `enemy_relay.png` — Enemy faction variants (red-tinted, more aggressive/angular design)
+- `tile_jungle.png`, `tile_beach.png`, `tile_city.png`, `tile_terrace.png` — Board tile variants
+- `tile_resource_node.png` — Material tagging node (glowing data crystal embedded in terrain)
+- `effect_signal_green.png` — Signal delivery flash
+- `effect_combat_red.png` — Combat flash
+- `effect_overload.png` — Buffer overload jitter/spark effect
+
+**Method:** Use the gemini-image-gen skill script:
+```bash
+python3 .claude/skills/gemini-image-gen/scripts/generate.py "<detailed prompt>" -o design-space/assets/{filename}.png
+```
+
+Each aspect in this wave = one image asset. The prompt must be highly specific: art style (Into the Breach isometric pixel art), setting details (SE Asian cyberpunk), unit character, pose, and background treatment. After generating, describe the result and note what works/doesn't for iteration.
+
+**The GEMINI_API_KEY environment variable must be set for this wave to work.**
+
+### Wave 10+: Expansion
 
 Every completed wave should generate new aspects for deeper exploration. The space is fractal — zoom into any option and there are sub-options. Zoom into those and there are sub-sub-options.
 

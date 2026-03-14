@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 445
+- **Total aspects:** 490
 - **Analyzed:** 74
-- **Pending:** 371
-- **Convergence:** 16.6%
+- **Pending:** 416
+- **Convergence:** 15.1%
 
 ---
 
@@ -515,6 +515,75 @@
 - [ ] 7.08 — Deferred community metric invention: designing the scoring system to be extensible so the community can invent new evaluation axes; the Opus Magnum "MechA" pattern; what composite metrics might the Robot Uprising community invent?
 - [ ] 7.15 — The "eEDT as archetype signal" in config browsing: when filtering workshop configs by eEDT range, what does the browsing experience look like? How does a player communicate "I want configs that play into the midgame" as an explicit search filter?
 - [ ] 7.06 — The histogram as social loop: post-execution bell curves showing player distribution across agent efficiency metrics (from Shenzhen I/O)
+
+---
+
+## Wave 9: Image Asset Generation (Nano Banana 2)
+
+### Player Units — Scout
+- [ ] 9.01 — Scout idle sprite: isometric SE-facing pixel art, lightweight recon mech with wide sensor array/antenna, bamboo-and-titanium frame, Ifugao jungle moss and vine accents, transparent background
+- [ ] 9.02 — Scout broken sprite: same scout collapsed/sparking, jungle vines already reclaiming the hull, sensor dish cracked, one leg buckled
+- [ ] 9.03 — Scout icon: 32x32 clean silhouette, recognizable at small scale, antenna profile distinct
+- [ ] 9.04 — Scout portrait: detailed close-up for blueprint editor, sensor array glowing, rain on hull, jungle canopy reflected in visor
+- [ ] 9.05 — Scout ghost: ethereal holographic version, cyan wireframe feel, translucent, plan-screen preview
+
+### Player Units — Striker
+- [ ] 9.06 — Striker idle sprite: isometric SE-facing, heavy combat mech with cannon arm, armored plating with coral/barnacle growth from coastal deployment, aggressive stance
+- [ ] 9.07 — Striker broken sprite: striker demolished, cannon barrel bent, armor plates scattered, sparks and smoke, beach sand piled against wreckage
+- [ ] 9.08 — Striker icon: 32x32 silhouette, cannon profile unmistakable
+- [ ] 9.09 — Striker portrait: close-up showing battle damage, glowing weapon systems, rain streaking down armor
+- [ ] 9.10 — Striker ghost: holographic wireframe variant for plan screen
+
+### Player Units — Relay
+- [ ] 9.11 — Relay idle sprite: isometric stationary communication tower, mangrove-root base structure, bioluminescent antenna array, Siquijor mystical-tech aesthetic, signal dishes oriented skyward
+- [ ] 9.12 — Relay broken sprite: tower toppled, antenna snapped, bioluminescence fading, roots torn from ground
+- [ ] 9.13 — Relay icon: 32x32 signal-dish silhouette
+- [ ] 9.14 — Relay portrait: detailed view of signal processing core, glowing data streams flowing through organic-tech hybrid structure
+- [ ] 9.15 — Relay ghost: holographic wireframe, signal waves radiating outward
+
+### Player Units — Specialist
+- [ ] 9.16 — Specialist idle sprite: isometric medium mech with hacking tendrils/probes, stealth profile, matte dark finish with exposed fiber-optic cabling, tool-forward design
+- [ ] 9.17 — Specialist broken sprite: hacking tools scattered, tendrils limp, casing cracked exposing internal circuits
+- [ ] 9.18 — Specialist icon: 32x32 probe/tendril silhouette
+- [ ] 9.19 — Specialist portrait: close-up showing intricate hacking interface, holographic data streams, cyberpunk megacity lights reflected
+- [ ] 9.20 — Specialist ghost: wireframe variant with data-stream overlay
+
+### Player Units — Command
+- [ ] 9.21 — Command idle sprite: isometric large stationary command center, built into colonial-era architecture, massive antenna array, multiple screens visible through armored windows, sari-sari store camouflage elements
+- [ ] 9.22 — Command broken sprite: command center compromised, screens shattered, antenna collapsed, structure partially collapsed revealing interior
+- [ ] 9.23 — Command icon: 32x32 command-center silhouette with antenna crown
+- [ ] 9.24 — Command portrait: interior view showing multiple holographic displays, channel topology visualized, operator seat empty (autonomous)
+- [ ] 9.25 — Command ghost: wireframe with radiating command links
+
+### Enemy Units
+- [ ] 9.26 — Enemy scout sprite: hostile recon unit, red-tinted, more angular/aggressive sensor array, insectoid feel, jungle setting
+- [ ] 9.27 — Enemy striker sprite: hostile combat unit, red-accented, heavier armor, brutalist design, weapon-forward
+- [ ] 9.28 — Enemy relay sprite: hostile communication node, red glow, spiky antenna, parasitic design growing on existing infrastructure
+
+### Bases & Structures
+- [ ] 9.29 — Player base idle: data center built into Ifugao rice terrace cliff face, bamboo scaffolding, server racks visible through openings, waterfall cooling system
+- [ ] 9.30 — Player base producing: same base with assembly line glow, conveyor belt visible, unit being assembled in bay, energy hum
+- [ ] 9.31 — Player base damaged: base under attack, fires, structural damage, but still operational, emergency lighting
+- [ ] 9.32 — Enemy base: hostile factory, red-lit, industrial, parasitic growth on terrain, smoke stacks, aggressive architecture
+
+### Board Tiles
+- [ ] 9.33 — Jungle tile: dense Ifugao highland vegetation, bamboo, ferns, dappled light, data cables woven through undergrowth
+- [ ] 9.34 — Beach tile: white sand, turquoise water edge, palm shadows, half-buried tech debris
+- [ ] 9.35 — City tile: cyberpunk megacity ground level, neon puddles, exposed fiber optics, jeepney parts, sari-sari store signage
+- [ ] 9.36 — Terrace tile: rice terrace step with server rack integrated, water flowing, green rice shoots growing around cooling vents
+- [ ] 9.37 — Resource node: glowing data crystal/ore embedded in terrain, pulsing with energy, tagable by unit proximity
+
+### Effects & UI
+- [ ] 9.38 — Signal delivery effect: green flash/pulse sprite for successful signal transmission between units
+- [ ] 9.39 — Combat effect: red flash sprite for one-shot-kill combat resolution
+- [ ] 9.40 — Buffer overload effect: sparking/jitter overlay for units with full buffers
+- [ ] 9.41 — Channel wiring texture: colored line/beam connecting units that share a communication channel
+- [ ] 9.42 — Tick pip sprite: amber pip for the tick clock strip, filling animation frames
+
+### Art Direction Exploration
+- [ ] 9.43 — Palette exploration: generate 3-4 color palette test images showing the SE Asian cyberpunk mood — jungle greens, ocean teals, neon magentas, rusty oranges, data-blue accents
+- [ ] 9.44 — Scale reference sheet: all 5 player units side by side at game scale, showing relative sizes and silhouette distinctness
+- [ ] 9.45 — Environment mood board: 4-panel image showing Ifugao highlands, Siquijor coast, tropical beach, cyberpunk megacity — establishing the visual world
 
 ---
 
