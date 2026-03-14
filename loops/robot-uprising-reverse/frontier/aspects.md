@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 325
-- **Analyzed:** 51
-- **Pending:** 274
-- **Convergence:** 15.7%
+- **Total aspects:** 330
+- **Analyzed:** 52
+- **Pending:** 278
+- **Convergence:** 15.8%
 
 ---
 
@@ -70,7 +70,12 @@
   - [ ] 4.69e-i-a-iii — Minimum N for cluster detection hardcoded vs. configurable: whether exploratory/directional/reliable zone thresholds (15, 30) should be fixed constants vs. player-configurable (like 4.69h); design tension between power-user flexibility and statistical coherence
   - [ ] 4.69e-i-a-iv — Confidence interval display for full-scope analysis at early career (N < 30 total matches): should the ±% interval appear even for full-scope analyses when a new player has only played 12 total matches?
   - [ ] 4.69e-i-a-v — "Path to 30" suggestion accuracy: algorithm design for the toast's "Expand scope to 30+" link — computing optimal filter relaxation to cross N=30 from an arbitrary filter state
-- [ ] 4.69e-i-b — Opponent list sorting and search at scale: when a player has faced 50+ opponents, how does the By Opponent list scale? Sort by match count / alphabetical / adversarial signal strength / most recent match; search box; grouping tagged adversarial at top
+- [x] 4.69e-i-b — Opponent list sorting and search at scale: when a player has faced 50+ opponents, how does the By Opponent list scale? Sort by match count / alphabetical / adversarial signal strength / most recent match; search box; grouping tagged adversarial at top; five paradigms (Smart Default Sort / Priority Pinning / Search-First / Faceted Chips / Inline Sort Matrix); layered-complexity hybrid recommendation with scale thresholds at 20/40/60 opponents; 3 player journeys (Olyander 89-opponent veteran, Tessara discovering batch controls, Mireya at 8 opponents Layer 1); 5 new sub-aspects discovered
+  - [ ] 4.69e-i-b-i — Cross-filter AS% computation: adversarial signal strength shown in opponent list is computed against full-scope analysis; when a scenario-type filter is active, contextual AS% (vs. filtered set) would be more accurate but requires live recomputation; three design options: full-scope AS% with label / live contextual AS% with loading state / show both
+  - [ ] 4.69e-i-b-ii — Opponent disambiguation for repeated usernames: players who rename or near-duplicate names in career history; display name vs. historical name vs. UID in the opponent list; rename history visibility in `⊕ details` sub-panel
+  - [ ] 4.69e-i-b-iii — Bulk re-tag from opponent list: batch operation to tag all opponents with AS% above a threshold as ⚠️ suspected adversarial; threshold input design; confirmation behavior; interaction with existing tags
+  - [ ] 4.69e-i-b-iv — Opponent notes inline preview in list view: the `⊕ details` sub-panel has a note field; should a truncated one-line preview of the note appear inline in the compact list row without opening the sub-panel?
+  - [ ] 4.69e-i-b-v — AS% sparkline trend in sub-panel: current AS% is a snapshot; a small sparkline showing AS% over the last 4 weeks in the `⊕ details` sub-panel distinguishes sustained adversarial targeting (stable high) from anomalous spike (recent jump); data requirements and rendering design
 - [ ] 4.69e-i-c — Filtered analysis data points in season health trend graph: should filtered analysis runs appear on the coverage-% trend graph as differentiated data points (lighter color, different shape); optional show/hide toggle; interaction with 4.68 coverage as season health
 - [ ] 4.69e-i-d — Scope summary legibility in exports and shared artifacts: when a filtered analysis PNG is shared to Discord or a threat model report, does the scope summary contain enough for a reader who didn't run the filter to understand what they're looking at; design of the export footer
 - [ ] 4.69e-i-e — Auto-filter suggestion engine: if system detects adversarial signal strength >50% from a single opponent, proactive suggestion to run a filtered analysis excluding that opponent; what the suggestion looks like (banner, tooltip, interstitial); interaction with 4.69e-i concentration warning
