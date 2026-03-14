@@ -1,20 +1,20 @@
-<testsuites id="" name="" tests="3" failures="0" skipped="3" errors="0" time="0.02362200000000007">
-<testsuite name="smoke.spec.ts" timestamp="2026-03-14T01:49:26.299Z" hostname="desktop-chromium" tests="1" failures="0" skipped="1" time="0" errors="0">
-<testcase name="smoke: home page renders" classname="smoke.spec.ts" time="0">
-<skipped>
-</skipped>
+<testsuites id="" name="" tests="8" failures="0" skipped="0" errors="0" time="18.576763">
+<testsuite name="auth.spec.ts" timestamp="2026-03-14T02:13:32.385Z" hostname="screenshots-desktop" tests="8" failures="0" skipped="0" time="30.45" errors="0">
+<testcase name="Auth pages screenshots @screenshot › 015 login empty state" classname="auth.spec.ts" time="4.457">
 </testcase>
-</testsuite>
-<testsuite name="smoke.spec.ts" timestamp="2026-03-14T01:49:26.299Z" hostname="mobile-webkit" tests="1" failures="0" skipped="1" time="0" errors="0">
-<testcase name="smoke: home page renders" classname="smoke.spec.ts" time="0">
-<skipped>
-</skipped>
+<testcase name="Auth pages screenshots @screenshot › 019 login fields filled" classname="auth.spec.ts" time="4.788">
 </testcase>
-</testsuite>
-<testsuite name="smoke.spec.ts" timestamp="2026-03-14T01:49:26.299Z" hostname="tablet-chromium" tests="1" failures="0" skipped="1" time="0" errors="0">
-<testcase name="smoke: home page renders" classname="smoke.spec.ts" time="0">
-<skipped>
-</skipped>
+<testcase name="Auth pages screenshots @screenshot › 026 login email validation error" classname="auth.spec.ts" time="4.771">
+</testcase>
+<testcase name="Auth pages screenshots @screenshot › 028 signup empty state" classname="auth.spec.ts" time="4.592">
+</testcase>
+<testcase name="Auth pages screenshots @screenshot › 030 signup fields filled" classname="auth.spec.ts" time="2.929">
+</testcase>
+<testcase name="Auth pages screenshots @screenshot › 034 signup password validation error" classname="auth.spec.ts" time="2.676">
+</testcase>
+<testcase name="Auth pages screenshots @screenshot › 038 reset-password empty state" classname="auth.spec.ts" time="3.022">
+</testcase>
+<testcase name="Auth pages screenshots @screenshot › 042 reset-password success state after submission" classname="auth.spec.ts" time="3.215">
 </testcase>
 </testsuite>
 </testsuites>

@@ -10,14 +10,62 @@
     "grep": {},
     "grepInvert": null,
     "maxFailures": 0,
-    "metadata": {},
+    "metadata": {
+      "ci": {
+        "commitHref": "https://github.com/clsandoval/monorepo/commit/1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+        "commitHash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+        "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
+      },
+      "gitCommit": {
+        "shortHash": "1a0e2b0e",
+        "hash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+        "subject": "daimon(forward): stage 107 - desktop landing page screenshots",
+        "body": "daimon(forward): stage 107 - desktop landing page screenshots\n",
+        "author": {
+          "name": "ralph-loop[bot]",
+          "email": "ralph-loop[bot]@users.noreply.github.com",
+          "time": 1773453105000
+        },
+        "committer": {
+          "name": "ralph-loop[bot]",
+          "email": "ralph-loop[bot]@users.noreply.github.com",
+          "time": 1773453105000
+        },
+        "branch": "main"
+      },
+      "actualWorkers": 4
+    },
     "preserveOutput": "always",
     "projects": [
       {
         "outputDir": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results",
         "repeatEach": 1,
         "retries": 2,
-        "metadata": {},
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/clsandoval/monorepo/commit/1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "commitHash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
+          },
+          "gitCommit": {
+            "shortHash": "1a0e2b0e",
+            "hash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "subject": "daimon(forward): stage 107 - desktop landing page screenshots",
+            "body": "daimon(forward): stage 107 - desktop landing page screenshots\n",
+            "author": {
+              "name": "ralph-loop[bot]",
+              "email": "ralph-loop[bot]@users.noreply.github.com",
+              "time": 1773453105000
+            },
+            "committer": {
+              "name": "ralph-loop[bot]",
+              "email": "ralph-loop[bot]@users.noreply.github.com",
+              "time": 1773453105000
+            },
+            "branch": "main"
+          },
+          "actualWorkers": 4
+        },
         "id": "desktop-chromium",
         "name": "desktop-chromium",
         "testDir": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e",
@@ -31,7 +79,31 @@
         "outputDir": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results",
         "repeatEach": 1,
         "retries": 2,
-        "metadata": {},
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/clsandoval/monorepo/commit/1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "commitHash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
+          },
+          "gitCommit": {
+            "shortHash": "1a0e2b0e",
+            "hash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "subject": "daimon(forward): stage 107 - desktop landing page screenshots",
+            "body": "daimon(forward): stage 107 - desktop landing page screenshots\n",
+            "author": {
+              "name": "ralph-loop[bot]",
+              "email": "ralph-loop[bot]@users.noreply.github.com",
+              "time": 1773453105000
+            },
+            "committer": {
+              "name": "ralph-loop[bot]",
+              "email": "ralph-loop[bot]@users.noreply.github.com",
+              "time": 1773453105000
+            },
+            "branch": "main"
+          },
+          "actualWorkers": 4
+        },
         "id": "mobile-webkit",
         "name": "mobile-webkit",
         "testDir": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e",
@@ -45,7 +117,31 @@
         "outputDir": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results",
         "repeatEach": 1,
         "retries": 2,
-        "metadata": {},
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/clsandoval/monorepo/commit/1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "commitHash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
+          },
+          "gitCommit": {
+            "shortHash": "1a0e2b0e",
+            "hash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "subject": "daimon(forward): stage 107 - desktop landing page screenshots",
+            "body": "daimon(forward): stage 107 - desktop landing page screenshots\n",
+            "author": {
+              "name": "ralph-loop[bot]",
+              "email": "ralph-loop[bot]@users.noreply.github.com",
+              "time": 1773453105000
+            },
+            "committer": {
+              "name": "ralph-loop[bot]",
+              "email": "ralph-loop[bot]@users.noreply.github.com",
+              "time": 1773453105000
+            },
+            "branch": "main"
+          },
+          "actualWorkers": 4
+        },
         "id": "tablet-chromium",
         "name": "tablet-chromium",
         "testDir": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e",
@@ -59,7 +155,31 @@
         "outputDir": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results",
         "repeatEach": 1,
         "retries": 2,
-        "metadata": {},
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/clsandoval/monorepo/commit/1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "commitHash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
+          },
+          "gitCommit": {
+            "shortHash": "1a0e2b0e",
+            "hash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "subject": "daimon(forward): stage 107 - desktop landing page screenshots",
+            "body": "daimon(forward): stage 107 - desktop landing page screenshots\n",
+            "author": {
+              "name": "ralph-loop[bot]",
+              "email": "ralph-loop[bot]@users.noreply.github.com",
+              "time": 1773453105000
+            },
+            "committer": {
+              "name": "ralph-loop[bot]",
+              "email": "ralph-loop[bot]@users.noreply.github.com",
+              "time": 1773453105000
+            },
+            "branch": "main"
+          },
+          "actualWorkers": 4
+        },
         "id": "screenshots-desktop",
         "name": "screenshots-desktop",
         "testDir": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e",
@@ -73,7 +193,31 @@
         "outputDir": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results",
         "repeatEach": 1,
         "retries": 2,
-        "metadata": {},
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/clsandoval/monorepo/commit/1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "commitHash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
+          },
+          "gitCommit": {
+            "shortHash": "1a0e2b0e",
+            "hash": "1a0e2b0ea4d7c20483ebb5ef30efed80e76b9e9e",
+            "subject": "daimon(forward): stage 107 - desktop landing page screenshots",
+            "body": "daimon(forward): stage 107 - desktop landing page screenshots\n",
+            "author": {
+              "name": "ralph-loop[bot]",
+              "email": "ralph-loop[bot]@users.noreply.github.com",
+              "time": 1773453105000
+            },
+            "committer": {
+              "name": "ralph-loop[bot]",
+              "email": "ralph-loop[bot]@users.noreply.github.com",
+              "time": 1773453105000
+            },
+            "branch": "main"
+          },
+          "actualWorkers": 4
+        },
         "id": "screenshots-mobile",
         "name": "screenshots-mobile",
         "testDir": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e",
@@ -128,8 +272,8 @@
       "timeout": 60000,
       "env": {
         "NEXT_PUBLIC_SUPABASE_URL": "http://localhost:54321",
-        "NEXT_PUBLIC_SUPABASE_ANON_KEY": "",
-        "SUPABASE_SERVICE_ROLE_KEY": "",
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0",
+        "SUPABASE_SERVICE_ROLE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU",
         "NEXT_PUBLIC_APP_URL": "http://localhost:3000",
         "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_test_placeholder",
         "STRIPE_SECRET_KEY": "sk_test_placeholder",
@@ -139,80 +283,317 @@
   },
   "suites": [
     {
-      "title": "smoke.spec.ts",
-      "file": "smoke.spec.ts",
+      "title": "auth.spec.ts",
+      "file": "auth.spec.ts",
       "column": 0,
       "line": 0,
-      "specs": [
+      "specs": [],
+      "suites": [
         {
-          "title": "smoke: home page renders",
-          "ok": true,
-          "tags": [],
-          "tests": [
+          "title": "Auth pages screenshots @screenshot",
+          "file": "auth.spec.ts",
+          "line": 13,
+          "column": 6,
+          "specs": [
             {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "desktop-chromium",
-              "projectName": "desktop-chromium",
-              "results": [],
-              "status": "skipped"
-            }
-          ],
-          "id": "4219922fea2e2bd3c691-08c8ebf481b7b74044f3",
-          "file": "smoke.spec.ts",
-          "line": 3,
-          "column": 5
-        },
-        {
-          "title": "smoke: home page renders",
-          "ok": true,
-          "tags": [],
-          "tests": [
+              "title": "015 login empty state",
+              "ok": true,
+              "tags": [
+                "screenshot"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "screenshots-desktop",
+                  "projectName": "screenshots-desktop",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4457,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-14T02:13:34.397Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-d35433118033ac0f2f78",
+              "file": "auth.spec.ts",
+              "line": 18,
+              "column": 7
+            },
             {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "mobile-webkit",
-              "projectName": "mobile-webkit",
-              "results": [],
-              "status": "skipped"
-            }
-          ],
-          "id": "4219922fea2e2bd3c691-f92e3796ef48230305ad",
-          "file": "smoke.spec.ts",
-          "line": 3,
-          "column": 5
-        },
-        {
-          "title": "smoke: home page renders",
-          "ok": true,
-          "tags": [],
-          "tests": [
+              "title": "019 login fields filled",
+              "ok": true,
+              "tags": [
+                "screenshot"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "screenshots-desktop",
+                  "projectName": "screenshots-desktop",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 4788,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-14T02:13:34.367Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-08ead5dc267af7b9005d",
+              "file": "auth.spec.ts",
+              "line": 29,
+              "column": 7
+            },
             {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "tablet-chromium",
-              "projectName": "tablet-chromium",
-              "results": [],
-              "status": "skipped"
+              "title": "026 login email validation error",
+              "ok": true,
+              "tags": [
+                "screenshot"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "screenshots-desktop",
+                  "projectName": "screenshots-desktop",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 4771,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-14T02:13:34.282Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-4f71b51be48f36f82cea",
+              "file": "auth.spec.ts",
+              "line": 42,
+              "column": 7
+            },
+            {
+              "title": "028 signup empty state",
+              "ok": true,
+              "tags": [
+                "screenshot"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "screenshots-desktop",
+                  "projectName": "screenshots-desktop",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 4592,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-14T02:13:34.397Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-11a025f7c4ece9c49cf1",
+              "file": "auth.spec.ts",
+              "line": 58,
+              "column": 7
+            },
+            {
+              "title": "030 signup fields filled",
+              "ok": true,
+              "tags": [
+                "screenshot"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "screenshots-desktop",
+                  "projectName": "screenshots-desktop",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2929,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-14T02:13:40.850Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-f47267034bbece326555",
+              "file": "auth.spec.ts",
+              "line": 69,
+              "column": 7
+            },
+            {
+              "title": "034 signup password validation error",
+              "ok": true,
+              "tags": [
+                "screenshot"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "screenshots-desktop",
+                  "projectName": "screenshots-desktop",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 2676,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-14T02:13:40.988Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-4bfe4f1a8a71ffd3d262",
+              "file": "auth.spec.ts",
+              "line": 85,
+              "column": 7
+            },
+            {
+              "title": "038 reset-password empty state",
+              "ok": true,
+              "tags": [
+                "screenshot"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "screenshots-desktop",
+                  "projectName": "screenshots-desktop",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 3022,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-14T02:13:41.166Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-5e13fe9e89690a334514",
+              "file": "auth.spec.ts",
+              "line": 101,
+              "column": 7
+            },
+            {
+              "title": "042 reset-password success state after submission",
+              "ok": true,
+              "tags": [
+                "screenshot"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "screenshots-desktop",
+                  "projectName": "screenshots-desktop",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 3215,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-14T02:13:41.177Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-effc9a5e709ddce29a29",
+              "file": "auth.spec.ts",
+              "line": 112,
+              "column": 7
             }
-          ],
-          "id": "4219922fea2e2bd3c691-9ae7cb13a5454e295ebb",
-          "file": "smoke.spec.ts",
-          "line": 3,
-          "column": 5
+          ]
         }
       ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-03-14T01:49:26.275Z",
-    "duration": 23.62200000000007,
-    "expected": 0,
-    "skipped": 3,
+    "startTime": "2026-03-14T02:13:25.948Z",
+    "duration": 18576.763,
+    "expected": 8,
+    "skipped": 0,
     "unexpected": 0,
     "flaky": 0
   }
