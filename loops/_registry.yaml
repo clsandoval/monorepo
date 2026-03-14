@@ -293,8 +293,9 @@ loops:
     type: forward
     max_iterations: 150
     timeout_minutes: 360
-    status: active
+    status: converged
     created: "2026-03-13"
+    converged_at: "2026-03-14"
   robot-uprising-reverse:
     description: "Exhaustive game design space cartography for Robot Uprising — every mechanic variation, every UI approach, every player journey"
     type: reverse
