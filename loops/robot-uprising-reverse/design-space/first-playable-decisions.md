@@ -1,7 +1,7 @@
 # First Playable Decisions — Brainstorm Output
 
-**Date:** 2026-03-13 (updated 2026-03-14: v5 — research-informed pacing, boot log, two-act debrief, invisible randomization, 10 missions, tagging)
-**Context:** These decisions were made during brainstorming sessions. v5 incorporated findings from the reverse loop's research on spawn semantics, hook semantics, Gladiabots debugging patterns, and debrief structure. The reverse loop should treat these as locked preferences.
+**Date:** 2026-03-13 (updated 2026-03-14: v6 — plan screen, sealed watch, inspector; discrete tick-based battlefield; one-shot combat; conveyor belt queue; channels from hooks)
+**Context:** These decisions were made during brainstorming sessions. v5 incorporated reverse loop research. v6 locked the three-screen loop (plan/watch/inspector), Into the Breach-style discrete ticks, one-shot-one-kill combat, plan screen layout (split view with ghost previews, blueprint editor with spatial feedback, conveyor belt production queue, auto-generated channel map), and 8x8 board with visible tiles.
 
 **Full spec:** `docs/superpowers/specs/2026-03-13-robot-uprising-first-playable-design.md`
 

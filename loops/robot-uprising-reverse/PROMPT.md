@@ -38,6 +38,56 @@ Read the full brainstorm spec at `docs/superpowers/specs/2026-03-13-robot-uprisi
 - Information overload must be viscerally legible (not abstract)
 - The meta-level must exist: building systems that build systems
 
+## Locked First Playable Decisions (v6 — 2026-03-14)
+
+The following decisions are LOCKED from brainstorming sessions. The loop should explore the design space AROUND and BEYOND these, not contradict them. Full spec: `docs/superpowers/specs/2026-03-13-robot-uprising-first-playable-design.md`
+
+### Three-Screen Loop
+The game has three screens sharing the same 8x8 board. The board is always visible — only the surrounding UI changes:
+1. **Plan screen** — board left, workbench right, EXECUTE button top-right
+2. **Sealed watch** — board center, tick clock top, buffer bars on units
+3. **Inspector** — board center (scrubable), click-to-inspect, analytical tools in sidebar
+
+### Plan Screen (Locked)
+- **Split view:** 8x8 board on left with ghost unit previews, workbench panel on right
+- **Blueprint editor:** Config panel (skills toggles, rules as ordered condition→action pairs, hooks with channel name autocomplete, context config with listen/ignore toggles). Every change gives immediate spatial feedback — ghost units on the board show perception radii, patrol paths, channel wiring lines.
+- **Channels emerge from hooks:** No separate channel editor. Type a channel name in a hook config → channel created. Channel map panel is read-only auto-generated summary.
+- **Production queue as conveyor belt:** Horizontal strip of blueprint icons, drag to reorder, left-to-right = build order. Cost preview below. Ghost units appear on board in queue order.
+- **Channel map panel:** Auto-generated from hooks. Hover to highlight wiring on board. Shows warnings for dead-end channels.
+
+### Sealed Watch (Locked)
+- **Discrete tick-based, Into the Breach pacing.** Central tick clock (horizontal pips) fires → all units resolve simultaneously → board snaps to new state → player reads → next tick. NOT real-time. No smooth animation between ticks. Units snap to grid positions.
+- **1 second per tick** default. Speed controls: 0.5x / 1x / 2x.
+- **No skip, no pause, no tools** — not even on retry. Quality signal.
+- **Buffer bars** on each unit (tiny colored pips at bottom of tile).
+- **One-shot, one-kill.** No HP. Adjacent striker = instant elimination.
+- **Cell flashes** for signal delivery (green) and combat (red).
+
+### Inspector (Locked)
+- **Timeline scrubber** replaces tick clock. Step through any tick with arrow keys.
+- **Click-to-inspect:** Click any unit to see buffer state at current tick (per-slot contents, dropped signals).
+- **Queue depth chart:** Bar chart of selected unit's buffer fill over time (green/amber/red).
+- **Two-act debrief:** Sealed watch (emotional) THEN inspector (analytical). Temporal separation is mandatory.
+
+### Board (Locked)
+- **8x8 grid.** Visible tiles with checkerboard, corner tick marks, axis labels (A-H, 1-8). Into the Breach visual clarity.
+- **Unit icons:** 👁 Scout, 📡 Relay, ⚔ Striker, 🤖 Enemy.
+
+### Combat & Production (Locked)
+- **One-shot, one-kill.** No HP. No damage math. The game is about information architecture, not combat optimization.
+- **Factory model:** Base produces units from blueprints every N ticks. Production queue determines build order. Battle runs until enemy base destroyed or all enemies eliminated.
+- **Tagging:** Presence-based map node control. Agent proximity = tagged. Contested = untagged. Boosts resource income.
+
+### Mission Arc (Locked — 10 missions)
+- Missions 1-4: Hand-configured pre-placed units (tutorial — context, rules, hooks, skills)
+- Mission 5: Factory introduced (base + blueprints + channels + resources)
+- Missions 6-7: Command agent + production tuning
+- Missions 8-10: Full system → factory vs factory climax
+
+### Narrative (Locked)
+- **Boot log:** Self-documenting subsystem initialization. Diegetic tutorial. "You are an AI reading your own spec sheet as it writes itself."
+- **Invisible randomization:** Each execute varies within constraints. Debrief shows run stats.
+
 ## Your Goal
 
 **This is NOT a convergence loop.** You are NOT trying to produce one design. You are mapping the **entire design space** — every possible version of this game, every approach to every system, every variation of every mechanic.
