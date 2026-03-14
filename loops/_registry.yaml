@@ -298,7 +298,7 @@ loops:
   robot-uprising-reverse:
     description: "Exhaustive game design space cartography for Robot Uprising — every mechanic variation, every UI approach, every player journey"
     type: reverse
-    schedule: "*/30 * * * *"
+    schedule: manual
     max_iterations: 200
     timeout_minutes: 30
     status: active
