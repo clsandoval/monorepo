@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react'
 import { MessageSquare, Wrench, Activity } from 'lucide-react'
 import { StatCard } from '@/components/ui/stat-card'

@@ -64,7 +64,7 @@ export default async function DashboardPage() {
 
     supabase
       .from('tenant_service_connections')
-      .select('id, service, auth_type, status, connected_at, account_display_name')
+      .select('id, service, auth_type, status, connected_at, metadata')
       .eq('status', 'connected'),
 
     supabase

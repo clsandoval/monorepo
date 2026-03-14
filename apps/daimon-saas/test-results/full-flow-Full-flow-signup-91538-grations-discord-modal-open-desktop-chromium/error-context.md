@@ -1,0 +1,118 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=e3]:
+    - navigation "Sidebar navigation" [ref=e4]:
+      - link "Daimon home — go to dashboard" [ref=e5] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e6]
+      - list "Dashboard navigation" [ref=e11]:
+        - listitem [ref=e12]:
+          - link "Dashboard" [ref=e13] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e15]
+        - listitem [ref=e20]:
+          - link "Integrations" [ref=e21] [cursor=pointer]:
+            - /url: /dashboard/integrations
+            - img [ref=e23]
+        - listitem [ref=e25]:
+          - link "Billing" [ref=e26] [cursor=pointer]:
+            - /url: /dashboard/billing
+            - img [ref=e28]
+        - listitem [ref=e30]:
+          - link "Settings" [ref=e31] [cursor=pointer]:
+            - /url: /dashboard/settings
+            - img [ref=e33]
+        - listitem [ref=e36]:
+          - link "Documentation" [ref=e37] [cursor=pointer]:
+            - /url: /docs
+            - img [ref=e39]
+      - generic "User account" [ref=e41]:
+        - generic [ref=e42]: F
+    - generic [ref=e43]:
+      - banner [ref=e44]:
+        - heading "Integrations" [level=1] [ref=e46]
+        - generic [ref=e47]:
+          - generic "Free Workspace" [ref=e48]
+          - generic [ref=e49]: FREE
+          - button "F" [ref=e51]:
+            - generic [ref=e52]: F
+            - img [ref=e53]
+      - main [ref=e55]:
+        - generic [ref=e56]:
+          - heading "Integrations" [level=1] [ref=e57]
+          - paragraph [ref=e58]: Connect your services so the bot can work with your tools. Connected services are available to all users in your Discord server.
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - generic [ref=e61]:
+              - img "Discord" [ref=e62]
+              - generic [ref=e65]:
+                - heading "Discord Bot Connections" [level=2] [ref=e66]
+                - paragraph [ref=e67]: 1 of 1 connection used
+            - button "Add Connection" [disabled] [ref=e68]:
+              - img [ref=e69]
+              - text: Add Connection
+          - generic [ref=e70]:
+            - img [ref=e71]
+            - generic [ref=e73]:
+              - text: Your Free plan supports 1 Discord connection. Upgrade to Starter to add more.
+              - link "Upgrade your plan →" [ref=e74] [cursor=pointer]:
+                - /url: /dashboard/billing
+          - generic [ref=e77]:
+            - generic [ref=e79]:
+              - generic [ref=e80]: Connected as DaimonBot
+              - generic [ref=e81]: "Guild ID: 123456789012345678"
+            - generic [ref=e82]: Connected
+            - generic [ref=e83]:
+              - button "Replace Token" [ref=e84] [cursor=pointer]
+              - button "Disconnect" [ref=e85] [cursor=pointer]
+        - generic [ref=e87]:
+          - heading "Tool Sources" [level=2] [ref=e88]
+          - paragraph [ref=e89]: Connect third-party services to enable bot tools for your Discord server.
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - generic [ref=e92]:
+              - generic [ref=e93]:
+                - img "GitHub" [ref=e95]
+                - generic [ref=e98]:
+                  - generic [ref=e99]: GitHub
+                  - generic [ref=e100]: Run GitHub CLI commands, manage issues and pull requests.
+              - generic [ref=e101]: Not Connected
+            - button "Connect GitHub" [ref=e103] [cursor=pointer]
+          - generic [ref=e104]:
+            - generic [ref=e105]:
+              - generic [ref=e106]:
+                - img "Google" [ref=e108]:
+                  - generic [ref=e110]: G
+                - generic [ref=e111]:
+                  - generic [ref=e112]: Google
+                  - generic [ref=e113]: Access Google Analytics reports and workspace data.
+              - generic [ref=e114]: Not Connected
+            - button "Connect Google" [ref=e116] [cursor=pointer]
+          - generic [ref=e117]:
+            - generic [ref=e118]:
+              - generic [ref=e119]:
+                - img "Linear" [ref=e121]
+                - generic [ref=e123]:
+                  - generic [ref=e124]: Linear
+                  - generic [ref=e125]: Manage Linear issues, cycles, and projects.
+              - generic [ref=e126]: Not Connected
+            - button "Connect Linear" [ref=e128] [cursor=pointer]
+          - generic [ref=e129]:
+            - generic [ref=e130]:
+              - generic [ref=e131]:
+                - img "Toggl" [ref=e133]
+                - generic [ref=e136]:
+                  - generic [ref=e137]: Toggl
+                  - generic [ref=e138]: Track time entries and access workspace reports.
+              - generic [ref=e139]: Not Connected
+            - button "Connect Toggl" [ref=e141] [cursor=pointer]
+  - generic "Notifications"
+  - generic "Notifications"
+  - button "Open Next.js Dev Tools" [ref=e147] [cursor=pointer]:
+    - img [ref=e148]
+  - alert [ref=e151]
+```
