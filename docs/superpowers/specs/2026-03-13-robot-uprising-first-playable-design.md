@@ -1,6 +1,6 @@
 # Robot Uprising — First Playable: "The Proving Ground"
 
-**Status:** Design approved. Ready for implementation planning.
+**Status:** Design approved (v3 — base + spawning model). Ready for implementation planning.
 **Date:** 2026-03-13
 **Parent spec:** `2026-03-13-robot-uprising-game-design.md`
 
@@ -10,6 +10,8 @@
 
 A 7-mission demo build of Robot Uprising targeting the creator as the primary audience. The goal is to feel the core promise: "managing smart autonomous systems feels like playing StarCraft." Fully deterministic, battlefield-heavy visual investment, light narrative framing, React + Pixi.js + Vite.
 
+**v3 shift:** The player designs agent **blueprints**, not individual agents. A base produces copies from blueprints. The "factory that builds the factory" metaphor is literal. Missions 1-2 teach fundamentals on hand-configured units, then Mission 3 introduces the base. Missions 4-7 use the full blueprint+spawning model.
+
 ---
 
 ## Design Constraints
@@ -18,25 +20,24 @@ A 7-mission demo build of Robot Uprising targeting the creator as the primary au
 |------------|----------|
 | Intelligence model | Fully deterministic |
 | Visual investment | Battlefield-heavy (workbench functional but not fancy) |
-| Narrative | Light framing (1-2 lines per mission, no cutscenes) |
+| Narrative | Light framing (1-2 terminal lines per mission, no cutscenes) |
 | Audience | Yourself |
 | Tech stack | React + Pixi.js + Vite, no backend |
 | Mission count | 7 |
+| Army model | Blueprint + base spawning (not individual unit config) |
 
 ---
 
 ## Feeling Checkpoints
 
-Six moments that must land for the demo to succeed:
-
 | # | Checkpoint | Description |
 |---|-----------|-------------|
-| 1 | Attention is subtraction | Unit is overwhelmed, you drag away noise, it snaps to clarity and acts |
+| 1 | Attention is subtraction | Unit is overwhelmed, you drag away noise, it snaps to clarity |
 | 2 | Emergent combo | Scout feeds relay feeds striker — flanking happens without explicit programming |
-| 3 | Detective story | Debrief traces a failure: this signal arrived, this buffer was full, that's why it failed |
-| 4 | Designing systems | You stop configuring units and start designing information architecture |
-| 5 | Cascade failure | Everything was working, conditions shift, buffers overflow, the whole thing unravels |
-| 6 | I need to show someone | A moment so satisfying (or catastrophic) you instinctively want to share it |
+| 3 | Detective story | Debrief traces a failure through the signal chain |
+| 4 | Designing systems | Your factory adapts its own production to a new threat without player intervention |
+| 5 | Cascade failure | The factory breaks itself — keeps producing the wrong thing while the system fails |
+| 6 | I need to show someone | Your factory kills the enemy's factory |
 
 ---
 
@@ -44,100 +45,127 @@ Six moments that must land for the demo to succeed:
 
 ### Core Rules
 
-- **1 action per tick per agent.** Each agent does exactly one thing per tick: move, compress, filter, send signal, engage, patrol, hack, extract, etc.
-- **Receiving a signal is free.** When a signal arrives via a hook, it lands in the agent's buffer without costing the agent's action for that tick. The agent can still take its own action.
-- **1 tick per hop for signal travel.** A hook signal takes 1 tick to travel from sender to receiver. This is per hop, not per chain.
+- **1 action per tick per agent.** Move, compress, filter, send signal, engage, patrol, hack, etc.
+- **Receiving a signal is free.** Arrives in buffer without costing the agent's action.
+- **1 tick per hop for signal travel.** Hook signals take 1 tick per hop.
 
-### Signal Latency Examples
+### World Tick Loop
+
+Each tick, both sides simultaneously execute:
+
+1. **Produce** — base spawns agents from blueprints (costs resources)
+2. **Perceive** — all agents observe within radius (entries enter buffer, free)
+3. **Receive** — hook signals arrive in buffers (free)
+4. **Act** — each agent picks 1 action from rules (costs the tick)
+5. **Transmit** — hook signals sent (arrive next tick)
+6. **Resources** — energy regenerates, material extracted, bandwidth allocated
+
+### Signal Latency
 
 | Architecture | Chain | Total Latency |
 |-------------|-------|---------------|
-| Direct | Scout → Striker | 1 tick (hop) + 1 tick (Striker acts) = **2 ticks** |
-| Via relay (no processing) | Scout → Relay → Striker | 1 hop + 1 forward + 1 hop + 1 act = **4 ticks** |
-| Via relay (with compress) | Scout → Relay → Striker | 1 hop + 1 compress + 1 forward + 1 hop + 1 act = **5 ticks** |
-| Via command | Scout → Relay → Command → Relay → Striker | **7+ ticks** |
+| Direct | Scout → Striker | 2 ticks |
+| Via relay (no processing) | Scout → Relay → Striker | 4 ticks |
+| Via relay (with compress) | Scout → Relay → Striker | 5 ticks |
+| Via command | Scout → Relay → Command → Relay → Striker | 7+ ticks |
 
-### Design Implications
+Deeper architectures are smarter but slower.
 
-- Deeper architectures are smarter but slower. A direct scout-to-striker wire is dumb but fast. A command-agent architecture is adaptive but laggy. This is a genuine tradeoff the player navigates.
-- The green pulse animation traveling along hook lines is meaningful — it represents real tick-time travel.
-- Compress has a double cost: lossy randomness AND 1 tick of added latency.
-- The debrief timeline is dead simple: every tick is a row, every agent has exactly one action.
+### Perception Model: Visual + Emissions
 
-### Relay Cycle Example
+**Visual perception (radius-based, mutual):** If agent A is within agent B's perception radius, B gains a buffer entry. Both sides see each other if in range.
 
-```
-Tick 11: signal arrives in relay buffer (free — not an action)
-Tick 11: relay compresses buffer (its action for this tick)
-Tick 12: relay forwards compressed signal to striker (its action)
-Tick 13: signal arrives in striker's buffer (free — not an action)
-Tick 13: striker acts on signal (its action)
-```
+**Emission detection:** Certain actions emit detectable signals beyond visual range:
+- **Movement** — vibration (short range)
+- **Combat** — noise (medium range)
+- **Hook transmission** — EM signal (medium range)
+- **Compression** — processing noise (short range)
+- **Base production** — thermal + EM (long range)
+
+**Your architecture is a liability.** A deep hook chain with lots of signal traffic is powerful but electromagnetically loud. A minimal direct-wire setup is quiet but dumb.
 
 ---
 
 ## Compress Mechanic
 
-**Compress** is a lossy skill. When activated:
-- Takes X signals currently in the buffer
-- Keeps X/2 signals, chosen at random
-- Discards the rest
+Lossy. Takes X signals, keeps X/2 chosen at random, discards the rest.
 
-This creates a real tradeoff:
-- **Benefit:** Frees buffer space, prevents overflow
-- **Cost 1 (lossy):** Might randomly discard the one critical signal
-- **Cost 2 (time):** Takes 1 tick of the agent's action, adding latency to the chain
+- **Cost 1 (lossy):** Might randomly discard the critical signal
+- **Cost 2 (time):** Takes 1 tick, adds latency
+- **Cost 3 (emissions):** Compression emits processing noise
 
-"When to compress" is a genuine decision: risk dropping a critical signal vs. risk overflowing the buffer and losing everything.
+---
+
+## Base + Spawning Model
+
+### Blueprints
+
+In the plan phase, the player designs **blueprints** — agent templates. The base produces copies. Each copy inherits the blueprint's skills, rules, hooks, and context config.
+
+- Tweaking a blueprint affects all FUTURE spawns
+- Existing agents keep their config unless a Command agent updates them
+- Old agents with bad configs die off naturally — the army self-corrects through attrition + improved blueprints
+
+### Production Queue
+
+The player sets blueprint priority and production cap:
+- "Produce up to 4 Scout-Alphas, then 2 Relay-Mains, then 1 Striker-Assault"
+- Base produces one agent per N ticks (rate depends on energy)
+- Production order matters — it's part of the architecture
+
+### Resources
+
+| Resource | Source | Spent On | Design Tension |
+|----------|--------|----------|----------------|
+| Energy | Base generates per tick | Spawning agents, active skills | More agents = more eyes but more drain |
+| Material | Extracted from map nodes | Spawning agents (initial cost) | Must send agents to harvest = exposure risk |
+| Bandwidth | Fixed pool per mission | Hook transmissions | Complex architecture = bandwidth hungry = loud emissions |
 
 ---
 
 ## Unit Types
 
-Five unit types for the first playable:
-
-| Type | Buffer | Perception | Strength | Speed | Skills |
-|------|--------|-----------|----------|-------|--------|
-| Scout | 6 | Wide (5 tiles) | Weak | Fast | patrol, evade |
-| Striker | 8 | Narrow (2 tiles) | Strong | Medium | engage, breach |
-| Relay | 12 | None (receives only) | None | Stationary | compress, filter, amplify |
-| Specialist | 10 | Medium (3 tiles) | Weak | Medium | hack, extract |
-| Command | 14 | None (receives only) | None | Stationary | reassign, reroute, prioritize |
+| Type | Buffer | Perception | Speed | Skills | Cost |
+|------|--------|-----------|-------|--------|------|
+| Harvester | 4 | Short (2 tiles) | Medium | extract_material | 2 mat, 1 energy/tick |
+| Scout | 6 | Wide (5 tiles) | Fast | patrol, evade | 3 mat, 1 energy/tick |
+| Striker | 8 | Narrow (2 tiles) | Medium | engage, breach | 8 mat, 3 energy/tick |
+| Relay | 12 | None (receives only) | Stationary | compress, filter, amplify | 5 mat, 2 energy/tick |
+| Specialist | 10 | Medium (3 tiles) | Medium | hack, extract | 7 mat, 2 energy/tick |
+| Command | 14 | None (receives only) | Stationary | reassign, reroute, prioritize | 10 mat, 4 energy/tick |
 
 ### Relay: Why Stationary?
 
-The relay is a signal amplifier — it needs to be planted in position. This is a world constraint, not a game constraint. Positioning a relay is like placing a cell tower: where you plant it determines what it can cover. This creates a spatial puzzle layered on top of the information architecture puzzle.
+Signal amplifier — needs to be planted. Positioning a relay is like placing a cell tower.
 
-### Command Agent
+### Command Agent (Meta-Level)
 
-The command agent doesn't fight. Its skills operate on OTHER units:
+In the spawning model, the command agent can:
+- **Modify blueprint configs mid-battle** — all future spawns use the updated blueprint
+- **Reroute existing agents** — change hooks/rules on already-spawned units
+- **Adjust production priority** — "stop making scouts, we need more strikers"
 
-| Skill | What It Does |
-|-------|-------------|
-| reassign | Change a subordinate's active skill mid-battle |
-| reroute | Redirect a subordinate's hook targets mid-battle |
-| prioritize | Reorder a subordinate's rules mid-battle |
-
-This is the meta-level — configuring the agent that configures other agents. The command unit's rules determine WHEN it intervenes. Its hooks determine WHAT triggers a reconfiguration.
+This is the meta-meta-level: the command agent manages the factory that produces the agents.
 
 ---
 
 ## Skills Catalog
 
-| Skill | Unit Types | What It Does | Tradeoff |
-|-------|-----------|-------------|----------|
-| patrol | Scout | Sweep a defined area systematically | Thorough but predictable path |
-| evade | Scout | Break contact and reposition when detected | Survives but loses observation position |
-| engage | Striker | Move to threat and neutralize | Commits to target |
-| breach | Striker | Break through a fortified position | Slow, powerful |
-| compress | Relay | Halve buffer contents, randomly choosing which to keep | Saves space, might drop critical signal, costs 1 tick |
-| filter | Relay | Drop all signals below a priority threshold | Clean pipe, might miss low-priority-but-important signal |
-| amplify | Relay | Boost signal priority so receivers process it first | Useful for critical channels |
-| hack | Specialist | Disable electronic defenses (turrets, doors) | Requires adjacency, takes multiple ticks |
-| extract | Specialist | Download data from objective terminals | Requires adjacency, takes multiple ticks |
-| reassign | Command | Change a subordinate's active skill mid-battle | Meta-level management |
-| reroute | Command | Redirect a subordinate's hook targets mid-battle | Meta-level management |
-| prioritize | Command | Reorder a subordinate's rules mid-battle | Meta-level management |
+| Skill | Unit Types | What It Does |
+|-------|-----------|-------------|
+| extract_material | Harvester | Harvest material from map nodes |
+| patrol | Scout | Sweep a defined area systematically |
+| evade | Scout | Break contact and reposition when detected |
+| engage | Striker | Move to threat and neutralize |
+| breach | Striker | Break through a fortified position |
+| compress | Relay | Halve buffer contents, randomly choosing which to keep |
+| filter | Relay | Drop all signals below a priority threshold |
+| amplify | Relay | Boost signal priority so receivers process it first |
+| hack | Specialist | Disable electronic defenses (turrets, doors) |
+| extract | Specialist | Download data from objective terminals |
+| reassign | Command | Change a subordinate's active skill mid-battle |
+| reroute | Command | Redirect a subordinate's hook targets mid-battle |
+| prioritize | Command | Reorder a subordinate's rules mid-battle |
 
 ---
 
@@ -145,197 +173,130 @@ This is the meta-level — configuring the agent that configures other agents. T
 
 ### Overview
 
-| # | Name | New Concept | Checkpoints | Est. Time |
-|---|------|-------------|-------------|-----------|
-| 1 | Wake Up | Context config (filters, buffer) | #1 | ~3 min |
-| 2 | First Contact | Rules, Hooks | #2, #3 | ~8 min |
-| 3 | Growing Pains | Architecture scaling (split networks) | — | ~10 min |
-| 4 | Noisy Channel | Skills (compress, filter) | — | ~10 min |
-| 5 | Chain of Command | Command agent | #4 | ~12 min |
-| 6 | Breach | Full workbench, multi-objective | #5 | ~15-25 min |
-| 7 | The Warden | Enemy architecture | #6 | ~20-30 min |
+| # | Name | New Concept | Checkpoints | Model |
+|---|------|-------------|-------------|-------|
+| 1 | Wake Up | Context config (filters, buffer) | #1 | Hand-configured (2 units) |
+| 2 | First Contact | Rules, Hooks, Debrief | #2, #3 | Hand-configured (4 units) |
+| 3 | Assembly Line | Base, Blueprints, Spawning, Resources | — | First blueprint mission |
+| 4 | Noisy Channel | Skills (compress, filter), Emissions | — | Blueprints + signal processing |
+| 5 | Chain of Command | Command agent, dynamic reconfig | #4 | Blueprints + meta-level |
+| 6 | Breach | Full system, multi-objective, enemy spawner | #5 | Full production + architecture |
+| 7 | The Warden | Enemy base + architecture | #6 | Factory vs. factory |
 
-Each bridge mission (3, 4, 5) creates the *problem* that the next mission's new primitive solves.
+Each bridge mission creates the problem that the next mission's new concept solves.
 
 ---
 
 ### Mission 1: Wake Up
 
-**Setup:** 2 units, 6×6 grid, 1 objective. Both units frozen — buffers full of noise.
-
-**Primitives available:** Context config only.
-
-**Framing:**
-> SYSTEMS ONLINE... SENSORY INPUT: 847 STREAMS DETECTED... BUFFER CAPACITY: 8 SLOTS... STATUS: OVERLOADED... You need to think. But you can't think if you're listening to everything.
+**Setup:** 2 pre-spawned units, 6×6 grid, 1 objective. Both frozen — buffers full of noise.
+**Primitives:** Context config only.
+**Framing:** "SYSTEMS ONLINE... BUFFER CAPACITY: 8 SLOTS... STATUS: OVERLOADED... You need to think. But you can't think if you're listening to everything."
 
 **Journey:**
-
-- **0:00** — Boot sequence. Black screen, monospace green text, 8 seconds.
-- **0:08** — Battlefield appears. Two units pulsing red, jittering randomly. Objective glows yellow. Tooltip: "This unit's buffer is full. It can't decide what to do."
-- **0:15** — Click ALPHA. Right panel shows buffer: 8/8 full. 6 noise entries (floor vibration, ambient temperature, EM hum, dust count, acoustic echo, RF interference), 2 useful (objective location, path to objective). Noise has subtle red tint, useful has subtle green tint (hint, not rule). Prompt: "Drag items to the IGNORE list."
-- **0:25** — First drag. Buffer 7/8. Jitter reduces. Then 3-4 more noise items. Buffer hits 3/8. Unit stops jittering. Border red → blue. Turns to face objective. Clean chime.
-- **Checkpoint #1:** "It snapped to attention. I muted the noise and it woke up."
-- **0:50** — Same for BETA. EXECUTE button. Both pathfind to objective. Mission complete.
-- **1:30** — Results. "Buffer efficiency: 37%." Framing: "You can hear yourself think now. But thinking isn't enough. You need to coordinate."
-
-**UI notes:**
-- Buffer slots are draggable. IGNORE zone below with dashed border.
-- During execution: small vertical buffer bars next to each unit. Speed controls: 1x / 2x / 4x.
+- Battlefield fades in. Two units pulsing red, jittering. Objective across the grid.
+- Click unit → buffer panel: 8/8, mostly noise (floor vibration, EM hum, dust count...).
+- Drag noise to IGNORE zone. Buffer drops. Unit stops jittering, turns blue, faces objective.
+- **Checkpoint #1:** "I muted the noise and it woke up."
+- Execute. Both units pathfind to objective. Complete.
 
 ---
 
 ### Mission 2: First Contact
 
-**Setup:** 4 units (2 Scouts, 1 Relay, 1 Striker), 10×8 grid, 3 enemy patrols. Striker can't see enemies (narrow perception). Scouts can't fight.
-
-**Primitives available:** Context config, Rules (new), Hooks (new).
-
-**Framing:**
-> 3 HOSTILE SIGNATURES DETECTED... YOUR UNITS CANNOT SEE THEM YET... You have eyes. You have fists. But they don't talk to each other.
+**Setup:** 4 pre-spawned units (2 Scouts, 1 Relay, 1 Striker), 10×8 grid, 3 enemies.
+**Primitives:** Context config, Rules (new), Hooks (new).
+**Framing:** "You have eyes. You have fists. But they don't talk to each other."
 
 **Journey:**
-
-- **0:15** — Naive attempt (expected failure). Player filters noise (Mission 1 knowledge), executes. Scouts spot enemies, get destroyed. Striker stands idle, buffer empty. Fails.
-- **0:45** — First debrief. Timeline scrubber. Click Striker at tick 15: buffer empty. Click Scout-1: "Enemy-A at (7,3)" right there. Data existed. Never traveled.
-- **Checkpoint #3:** "They're not a team. They're individuals. I need to wire them."
-- **1:30** — Discovering hooks. HOOKS tab on Scout-1. Trigger: "on_detect_enemy" → Action: "send_signal_to: Relay". Wire Relay → Striker. Green dotted lines on battlefield.
-- **2:30** — Discovering rules. RULES tab on Striker. Default: "move_toward: nearest threat." Ordered list, drag to reorder.
-- **3:00** — Second execute. Scout detects → green pulse travels Scout → Relay → Striker. Striker's buffer lights up. Turns. Engages. Destroys.
-- **Checkpoint #2:** "I didn't tell it where to go. The flanking just happened."
-- **5:00** — Enemy-C positioned where no scout naturally goes. Seeds insight: configuration isn't just about reactions, it's about coverage.
-
-**UI notes:**
-- Hooks shown as table rows: TRIGGER → ACTION → TARGET (dropdowns).
-- Hook activation = green pulse traveling along wiring line, ~0.5s visual travel time per hop.
-- Rules are ordered list — top = highest priority. Drag to reorder.
+- Naive attempt: filter noise, execute. Scouts spot enemies, get destroyed. Striker idle — buffer empty.
+- **Checkpoint #3:** Debrief reveals Striker had no data. Scout had it. No wiring.
+- Retry: wire hooks (Scout on_detect → Relay → Striker). Add rule on Striker: "move_toward nearest threat."
+- **Checkpoint #2:** Execute. Green pulse travels Scout → Relay → Striker. Flanking emerges.
 
 ---
 
-### Mission 3: Growing Pains
+### Mission 3: Assembly Line
 
-**Setup:** 6 units (3 Scouts, 2 Relays, 1 Striker), 14×10 grid, 6 enemies in 2 sectors. No new primitives.
-
-**Framing:**
-> SINGLE RELAY COVERAGE: INSUFFICIENT... What worked for three enemies won't work for six.
+**Setup:** Empty board. Base in corner. 2 material nodes. 6 enemy patrols.
+**Primitives:** Context config, Rules, Hooks, Base (new), Blueprints (new), Resources (new).
+**Framing:** "You configured two agents by hand. Now build the machine that builds them."
 
 **Journey:**
-
-- **0:00** — Map is bigger. 6 enemies in two clusters (north, south). Player wires all scouts to one relay (Mission 2 pattern).
-- **2:00** — Execute. Three scouts flood one relay. 6 signals, buffer fills 10/10. Old signals evicted. Striker oscillates between north and south targets.
-- **4:00** — Debrief shows relay as bottleneck.
-- **5:00** — Player splits: Scout-1 + Scout-2 → Relay-North, Scout-3 → Relay-South. Both relays forward to Striker. Adds rule: "prioritize nearest threat."
-- **7:00** — Execute. Neither relay overflows. Clean sweep. But slow — one striker, two sectors.
-- **9:00** — Complete. "Relay-North: peak buffer 7/10. Relay-South: peak buffer 4/10." Framing: "Your network scales. But the pipes are still raw."
-
-**Lesson:** Architecture that works at small scale breaks at larger scale because of load, not missing mechanics.
+- Empty map. No friendly units. Just the base and material nodes.
+- Create Scout blueprint (same config UI as missions 1-2, but editing a template).
+- Set production: 3 Scout-Alphas. Execute. Base produces — but material runs out after 2.
+- Create Harvester blueprint. Set production: 1 Harvester first. Harvester walks to node, extracts.
+- Material flows. Base produces scouts, relay, strikers. Army assembles itself.
+- Scouts dying because of bad rules → edit blueprint → future scouts fixed → old ones die off naturally.
+- "I fixed a bug in the species, not in an individual."
 
 ---
 
 ### Mission 4: Noisy Channel
 
-**Setup:** 6 units, 14×10 grid, 8 enemies (high density, moving patrols). Skills introduced.
-
-**Primitives available:** Context config, Rules, Hooks, Skills (new).
-
-**Framing:**
-> SIGNAL DENSITY EXCEEDS RELAY CAPACITY... NEW CAPABILITY AVAILABLE: SIGNAL PROCESSING... Your pipes work. Now make them smarter.
+**Setup:** Blueprints + high enemy density. Enemies detect hook transmissions.
+**Primitives:** + Skills (new), Emissions (new).
+**Framing:** "Your network is powerful. It's also a beacon."
 
 **Journey:**
-
-- **0:00** — Same map as Mission 3 but more enemies. New: SKILLS tab on each unit.
-- **1:00** — Execute without skills. Split relays still overflow with 8 enemies.
-- **3:00** — Debrief + hint: "Relay has unused skill slots. Try COMPRESS or FILTER."
-- **4:00** — Equip compress on relays. Add patrol to scouts (systematic sweep), evade (survive detection).
-- **5:00** — Execute. Relays compress cyclically. One enemy missed — threat signal randomly discarded.
-- **7:00** — Iterate. Try filter on one relay, compress on the other. Experiment with tradeoffs.
-- **9:00** — Complete. "Compress fired: 4 times. Signals lost to compression: 6."
-
-**Lesson:** Signal processing (compress, filter) solves volume but introduces tradeoffs — lossy compression vs. threshold filtering.
+- Mission 3 architecture works initially. But enemies converge on the relay — not by sight, but by detecting EM emissions from hook traffic.
+- Relay destroyed. Architecture collapses.
+- Skills as the answer: compress (fewer signals = less emission), filter (less traffic). Or: architectural fix (shorter chains, multiple disposable relays).
+- Tradeoff: smarter architecture = louder architecture.
 
 ---
 
 ### Mission 5: Chain of Command
 
-**Setup:** 7 units (3 Scouts, 2 Relays, 1 Striker, 1 Command), 16×12 grid, enemies + mid-battle reinforcements from unknown direction.
-
-**Primitives available:** All + Command agent (new).
-
-**Framing:**
-> ENEMY REINFORCEMENTS EN ROUTE... ARRIVAL VECTOR: UNKNOWN... A plan that can't change isn't a plan. It's a wish.
+**Setup:** Blueprints + Command agent. Mid-battle reinforcements from unknown direction.
+**Primitives:** + Command agent (new).
+**Framing:** "A factory that can't adapt its own blueprints isn't a factory. It's a mold."
 
 **Journey:**
-
-- **0:00** — Familiar setup. New unit: Command (large buffer, management skills).
-- **2:00** — Phase 1 works. Mission 4 architecture handles initial enemies.
-- **3:00** — Reinforcements arrive from the east. All scouts sweeping north/south. Nobody looking east. Static architecture can't adapt. Fails.
-- **4:00** — Debrief shows exact tick reinforcements appeared. No coverage.
-- **5:00** — Configure command agent. All units report to Command. Command rules: "on_new_threat_axis → reroute nearest scout" and "on_sector_clear → reassign striker to next sector."
-- **8:00** — Execute. Phase 1 handled. Reinforcements arrive. Command detects gap in coverage, reroutes Scout-3's patrol east. Scout-3 detects reinforcements. Chain fires. Striker redirected.
-- **Checkpoint #4:** "I didn't react to the reinforcements. My system reacted."
-- **11:00** — Complete. "Command interventions: 3."
-
-**Lesson:** Static architecture breaks under changing conditions. The command agent adds adaptability — configuring the agent that configures agents.
-
-**UI notes:**
-- Command agent config screen: management policies as WHEN [condition] → DO [action] TO [subordinate]. Same dropdown pattern as hooks but actions operate on other units' configuration.
+- Blueprint army handles Phase 1. Factory hums.
+- Reinforcements from the east. All scouts sweeping north/south (blueprint pattern). Production queue still making north/south scouts. Factory producing the wrong thing.
+- Command agent: reroutes scouts, adjusts production priority mid-battle. Factory adapts.
+- **Checkpoint #4:** "The factory noticed the problem and changed what it produces."
 
 ---
 
 ### Mission 6: Breach
 
-**Setup:** 8 units (choose from pool), 16×12 grid, 6 enemies + 2 turrets, 2 objectives (primary: extract data core, secondary: disable comms array). Full workbench.
-
-**Framing:**
-> DEFENSIVE PERIMETER: 6 HOSTILES, 2 TURRETS... PRIMARY: BREACH SERVER ROOM... They outnumber you and they're entrenched. Brute force won't work.
-
-**Designed to cascade-fail on first attempt.**
+**Setup:** Full system. Enemy has a reinforcement spawner. 2 objectives. Turrets.
+**Primitives:** All available.
+**Framing:** "They have a factory too. Theirs is already running."
 
 **Journey:**
-
-- **0:00** — Full workbench. Unit pool with all 5 types. Two objective markers. Turrets (new enemy type — can't be engaged, only hacked).
-- **3:00** — Player builds Mission 5 architecture.
-- **5:00** — Cascade. Simultaneous detections flood relays. Compress discards a turret location. Striker walks into turret fire. Specialist route blocked. Command agent overwhelmed with reports. Chain collapse in ~10 seconds.
-- **Checkpoint #5:** "Everything was right and it all fell apart."
-- **7:00** — Debrief reveals cascade: relay full → compress drops turret data → striker enters kill zone → specialist blocked → command buffer full → coordination stops.
-- **9:00** — Redesign. Dedicated relay for turret data (filter, not compress — never drop turret signals). Command buffer filtered. Specialist gets dedicated scout + direct hook.
-- **15:00+** — Run 2-3. Architecture holds. System works.
-
-**Lesson:** Full-complexity architecture design. Each failure teaches a specific architecture lesson.
+- Enemy spawner produces a patrol every 15 ticks. The longer you take, the harder it gets.
+- More enemies → more detections → more hook traffic → relay overload → compress drops turret data → striker walks into turret → command agent buffer fills → factory keeps producing scouts nobody needs → resources depleted → everything collapses.
+- **Checkpoint #5:** "The factory broke itself."
+- Redesign: kill the spawner first (stop the bleed). Two parallel architectures from one base — strike team and holding force.
 
 ---
 
 ### Mission 7: The Warden
 
-**Setup:** 8 units, 20×16 grid, enemy AI with its own architecture (buffers, rules, hooks, skills). Architecture vs. architecture.
+**Setup:** Enemy has full base + blueprints + factory. Factory vs. factory.
+**Framing:** "You built a machine that builds armies. So did it."
 
-**Framing:**
-> DEFENSIVE AI DETECTED... DESIGNATION: "THE WARDEN"... IT HAS ITS OWN AGENTS. ITS OWN HOOKS. ITS OWN ARCHITECTURE... You are not the only system that thinks.
+**Warden's weaknesses:**
 
-**The Warden's architecture has deliberate weaknesses:**
-
-| Warden Unit | Weakness | Player Exploit |
-|-------------|----------|----------------|
-| Scouts (x3) | Overlapping patrol routes → duplicates | Position in overlap to flood relay |
-| Relay (x1) | No compress, no filter | Trigger many simultaneous detections |
-| Strikers (x2) | "engage nearest" with no dedup | Decoys — strikers chase ghosts |
-| Command (x1) | Single point of failure, no buffer management | Information-overload the command unit |
-
-Every weakness is a failure mode the player has experienced in earlier missions.
+| System | Weakness | Exploit |
+|--------|----------|---------|
+| Blueprints | Identical patrol patterns | Predictable gaps |
+| Production | Fixed priority, never adapts | Keeps making scouts when it needs strikers |
+| Relay | Single, no compress/filter | Flood with detections → overload |
+| Command | Single point of failure | Overwhelm with simultaneous events |
+| Resources | Only harvests 1 of 3 nodes | Capture others → resource advantage |
 
 **Journey:**
-
-- **0:00** — Enemy units have buffer bars and hook wiring. Same visual language as friendly units.
-- **2:00** — Run 1 (reconnaissance). Controlled loss. The Warden's architecture is competent.
-- **5:00** — Debrief shows BOTH armies' internals. Click Warden units to see their config (read-only). Spot the flaws.
-- **10:00** — Counter-architecture. Decoy scout in overlap zone. Coordinated multi-point detection. Main force from opposite side.
-- **18:00** — The moment. Decoy triggers 9 duplicate signals. Warden relay floods. Strikers chase decoy. Player's main force breaches. Warden command overwhelmed.
-- **Checkpoint #6:** "I weaponized information overload against the enemy."
-- **22:00** — Victory. Final screen: both architectures overlaid — player's clean graph, Warden's collapsed one.
-
-**UI notes:**
-- Debrief shows both armies. Enemy units in purple. Same config UI, read-only.
-- Both wiring networks visible on battlefield: green (player) and purple (Warden).
-- When Warden relay overloads, purple hook lines flicker and dim.
+- Two factories, one map. Both producing armies in real time.
+- Run 1: attrition stalemate. Can't out-build, must out-design.
+- Debrief reveals Warden's full system. Player spots weaknesses.
+- Counter-factory: decoy blueprints (cheap, clog enemy perception), resource denial team, relay strike team, main force.
+- Decoys flood Warden perception → relay overload → architecture collapse → factory is blind.
+- **Checkpoint #6:** "I didn't beat an army. I killed a factory."
 
 ---
 
@@ -343,14 +304,14 @@ Every weakness is a failure mode the player has experienced in earlier missions.
 
 | Excluded | Reason |
 |----------|--------|
-| Meta-progression | Each mission provides its full roster. No unlocks carry over. |
-| Campaign map | Linear 7-mission sequence. No branching. |
-| Unit variety beyond 5 types | Scout, Striker, Relay, Specialist, Command is the full set. |
-| Multiplayer | Single player only. |
+| Tech tree | Full game feature. First playable has flat skill/blueprint access per mission. |
+| Information warfare (spoofing, jamming, EMP) | Full game. Decoys in Mission 7 are the preview. |
+| Counter-intelligence | Full game feature. |
+| Meta-progression | Each mission provides its full blueprint library. |
+| Multiplayer | Factory vs. factory is the PvP format, but not in first playable. |
 | Modding/sharing | No export, templates, or Workshop. |
-| Audio | Minimal SFX (chime on focus, alert on overload, pulse on hook fire). No music. |
-| Polish animations | Functional, not flashy. Buffer bars, hook pulses, movement. No particles. |
-| Replay/clip export | Not in scope despite checkpoint #6. Screenshotting is the share mechanism. |
+| Audio | Minimal SFX. No music. |
+| Replay/clip export | Not in scope. |
 
 ---
 
@@ -358,8 +319,9 @@ Every weakness is a failure mode the player has experienced in earlier missions.
 
 | Question | Current Answer | Risk |
 |----------|---------------|------|
-| Workbench interaction design | Dropdown-based (trigger → action → target) | Could feel like filling forms instead of designing systems |
-| How does the command agent "detect" a new threat axis? | Hooks on all units + rules that evaluate patterns | Meta-config UX could be confusing |
-| What does "amplify" skill do exactly? | Boost signal priority so receivers process it first | Unclear how it differs from filter in practice |
-| Replay/clip export for checkpoint #6 | Not in scope | "Show someone" is hard without a share mechanism |
-| Turret mechanics | Can't be engaged, only hacked by Specialist | Needs more detail on turret behavior/range/detection |
+| Blueprint editor UX | Same config UI as individual units but editing a template | Could feel identical to v2 — needs to FEEL like designing a species |
+| Hook resolution for blueprints | "on_detect → Relay" resolves by type, not individual | What if there are 3 relays? Nearest? Random? Player-configured routing? |
+| Production rate tuning | 1 agent per N ticks, N depends on energy | Needs playtesting — too fast = spam, too slow = boring |
+| Harvester gameplay | Walk to node, extract | Could feel like busywork. Should harvesting be automatic? |
+| Emission balance | Hook transmissions detectable at medium range | Too punishing = nobody uses hooks. Too weak = emissions don't matter. |
+| Command agent modifying blueprints mid-battle | Allowed | Could be OP — changes all future spawns. Needs constraints or cost. |

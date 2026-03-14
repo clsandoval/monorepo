@@ -1,6 +1,6 @@
 # First Playable Decisions — Brainstorm Output
 
-**Date:** 2026-03-13
+**Date:** 2026-03-13 (updated with v3 — base + spawning model)
 **Context:** These decisions were made during a brainstorming session about scoping the first playable demo. The reverse loop should treat these as locked preferences for the "minimum viable game" (aspect 8.04) and "full game configurations" (aspect 8.03) explorations.
 
 **Full spec:** `docs/superpowers/specs/2026-03-13-robot-uprising-first-playable-design.md`
@@ -17,19 +17,45 @@
 
 ---
 
+## v3 Shift: Base + Spawning Model
+
+The player designs **agent blueprints**, not individual agents. A base produces copies from blueprints. This makes "factory that builds the factory" literal:
+
+- **Blueprints** replace individual unit config. Edit a blueprint → all future spawns change.
+- **Base** produces agents from blueprints at a rate determined by energy.
+- **Production queue** sets blueprint priority and caps. Order matters.
+- **Resources** (energy, material, bandwidth) constrain production and architecture.
+- **Old agents with bad configs die off naturally** — the army self-corrects through attrition + blueprint iteration.
+
+### Missions 1-2 are still hand-configured (tutorial). Mission 3 introduces the base. Missions 4-7 use full blueprint+spawning.
+
+---
+
 ## Tick System (Locked)
 
 - **1 action per tick per agent.** Move, compress, filter, send signal, engage, patrol, hack, etc.
 - **Receiving a signal is free.** Arrives in buffer, doesn't cost the agent's action.
 - **1 tick per hop for signal travel.** Hook signals take 1 tick to travel per hop.
 
-### Latency implications:
-- Direct hook (Scout → Striker): 2 ticks total (1 hop + 1 act)
-- Via relay, no processing: 4 ticks (1 hop + 1 forward + 1 hop + 1 act)
-- Via relay with compress: 5 ticks (1 hop + 1 compress + 1 forward + 1 hop + 1 act)
-- Via command agent: 7+ ticks
+### World Tick Loop (Both Sides Simultaneously)
 
-**Design implication:** Deeper architectures are smarter but slower. This is a real tradeoff.
+1. **Produce** — base spawns agents from blueprints (costs resources)
+2. **Perceive** — all agents observe within radius (entries enter buffer, free)
+3. **Receive** — hook signals arrive in buffers (free)
+4. **Act** — each agent picks 1 action from rules (costs the tick)
+5. **Transmit** — hook signals sent (arrive next tick)
+6. **Resources** — energy regenerates, material extracted, bandwidth allocated
+
+### Perception Model: Visual + Emissions
+
+- **Visual (radius-based, mutual):** If you can see them, they can see you.
+- **Emissions:** Certain actions emit detectable signals beyond visual range:
+  - Movement → vibration (short range)
+  - Combat → noise (medium range)
+  - Hook transmission → EM signal (medium range)
+  - Compression → processing noise (short range)
+  - Base production → thermal + EM (long range)
+- **Your architecture is a liability.** Complex hook chains = electromagnetically loud.
 
 ---
 
@@ -39,52 +65,76 @@ Lossy. Takes X signals, keeps X/2 chosen at random, discards the rest.
 
 - **Cost 1:** Might randomly discard the critical signal
 - **Cost 2:** Takes 1 tick (adds latency to the chain)
-- **When to use:** When buffer overflow is worse than lossy data
+- **Cost 3:** Emits processing noise (detectable)
 
 ---
 
-## 7-Mission Arc
+## Resources
 
-| # | Name | New Concept | Checkpoints |
-|---|------|-------------|-------------|
-| 1 | Wake Up | Context config (filters, buffer) | #1 Attention is subtraction |
-| 2 | First Contact | Rules, Hooks | #2 Emergent combo, #3 Detective story |
-| 3 | Growing Pains | Architecture scaling (split networks) | — |
-| 4 | Noisy Channel | Skills (compress, filter) | — |
-| 5 | Chain of Command | Command agent | #4 Designing systems |
-| 6 | Breach | Full workbench, multi-objective | #5 Cascade failure |
-| 7 | The Warden | Enemy architecture | #6 Show someone |
-
-Each bridge mission (3, 4, 5) creates the problem that the next mission's new primitive solves.
+| Resource | Source | Spent On | Tension |
+|----------|--------|----------|---------|
+| Energy | Base generates per tick | Spawning, active skills | More agents = more drain |
+| Material | Extracted from map nodes | Spawning (initial cost) | Must send harvesters = exposure |
+| Bandwidth | Fixed pool per mission | Hook transmissions | Complex architecture = bandwidth hungry = loud |
 
 ---
 
-## 6 Feeling Checkpoints
+## 7-Mission Arc (v3)
+
+| # | Name | New Concept | Checkpoints | Model |
+|---|------|-------------|-------------|-------|
+| 1 | Wake Up | Context config | #1 Attention is subtraction | Hand-configured |
+| 2 | First Contact | Rules, Hooks | #2 Emergent combo, #3 Detective story | Hand-configured |
+| 3 | Assembly Line | Base, Blueprints, Resources | — | First blueprint mission |
+| 4 | Noisy Channel | Skills, Emissions | — | Blueprints + emissions |
+| 5 | Chain of Command | Command agent | #4 Designing systems | Factory adapts itself |
+| 6 | Breach | Full system, enemy spawner | #5 Cascade failure | Factory breaks itself |
+| 7 | The Warden | Enemy base + architecture | #6 Show someone | Factory kills factory |
+
+---
+
+## 6 Feeling Checkpoints (Updated for v3)
 
 1. **Attention is subtraction** — drag noise to ignore, unit snaps from overloaded to focused
 2. **Emergent combo** — scout → relay → striker chain fires, flanking emerges unscripted
 3. **Detective story** — debrief traces failure through the signal chain
-4. **Designing systems** — command agent adapts architecture mid-battle without player intervention
-5. **Cascade failure** — simultaneous overloads chain through the architecture
-6. **Show someone** — player's architecture dismantles enemy architecture (weaponized information overload)
+4. **Designing systems** — factory adapts its own production to a new threat without player intervention
+5. **Cascade failure** — factory breaks itself, keeps producing the wrong thing while the system fails
+6. **Show someone** — your factory kills the enemy's factory
 
 ---
 
-## Unit Types (5 Total)
+## Unit Types (6 Total, updated from 5)
 
-| Type | Buffer | Key Trait | Skills |
-|------|--------|-----------|--------|
-| Scout | 6 | Wide perception, fast, fragile | patrol, evade |
-| Striker | 8 | Narrow perception, strong | engage, breach |
-| Relay | 12 | Stationary signal amplifier | compress, filter, amplify |
-| Specialist | 10 | Medium perception, hack/extract | hack, extract |
-| Command | 14 | Stationary, manages other agents | reassign, reroute, prioritize |
+| Type | Buffer | Speed | Skills | Cost |
+|------|--------|-------|--------|------|
+| Harvester | 4 | Medium | extract_material | 2 mat, 1 energy/tick |
+| Scout | 6 | Fast | patrol, evade | 3 mat, 1 energy/tick |
+| Striker | 8 | Medium | engage, breach | 8 mat, 3 energy/tick |
+| Relay | 12 | Stationary | compress, filter, amplify | 5 mat, 2 energy/tick |
+| Specialist | 10 | Medium | hack, extract | 7 mat, 2 energy/tick |
+| Command | 14 | Stationary | reassign, reroute, prioritize | 10 mat, 4 energy/tick |
+
+---
+
+## Full Game Vision: Tech Tree Branches (Not in First Playable)
+
+Five branches, all centered on information as the weapon:
+
+1. **Signal Engineering** — improve your own architecture (smart compress, wider buffers, predictive filtering)
+2. **Information Warfare** — attack enemy architecture (decoys, signal jamming, false data injection, EMP)
+3. **Counter-Intelligence** — defend against enemy info attacks (signal authentication, hardened buffers)
+4. **Architecture** — new wiring options (conditional hooks, broadcast hooks, feedback loops, shared memory)
+5. **Unit Evolution** — new unit types (stealth, saboteur, spawner, hivemind)
 
 ---
 
 ## Open Questions (For Loop to Explore)
 
-- **Workbench interaction design:** Dropdown-based (trigger → action → target) risks feeling like forms. What alternative UX makes configuration feel like *designing*?
-- **Command agent detection:** How does it "know" about a new threat axis? Needs explicit rule/hook mechanics.
-- **Amplify vs filter:** How do these differ in practice? Amplify boosts priority, filter drops below threshold — but when would you choose one over the other?
-- **Turret mechanics:** Can't be engaged, only hacked. Needs range, detection, and behavior details.
+- **Blueprint editor UX:** Same config UI as individual units. Needs to FEEL like designing a species.
+- **Hook resolution for blueprints:** "on_detect → Relay" resolves by type — but what if there are 3 relays? Nearest? Random? Player-configured routing?
+- **Production rate tuning:** Too fast = spam, too slow = boring. Needs playtesting.
+- **Harvester gameplay:** Could feel like busywork. Should harvesting be automatic?
+- **Emission balance:** Too punishing = nobody uses hooks. Too weak = irrelevant.
+- **Command agent modifying blueprints mid-battle:** Could be OP. Needs constraints or cost.
+- **Workbench interaction design:** Dropdowns risk feeling like forms. What makes configuration feel like designing?
