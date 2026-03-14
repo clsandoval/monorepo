@@ -2,6 +2,33 @@
 
 ---
 
+## 2026-03-14 — assemble-about
+
+**Aspect:** assemble-about
+**Status:** Complete
+
+`content/about/story-and-team.md` existed as `status: partial` (written during discord-org-team-extraction). This run enriched it to `status: complete` by adding:
+
+1. **Full Origin Story** from `https://www.pymc-labs.com/blog-posts/saving-the-world` — Thomas left Quantopian 2020, assembled team from PyMC OSS community, early clients SpaceX/Roche/Netflix/Deliveroo/HelloFresh, "saving the world with Bayesian modeling" mission, original team composition (neuroscience PhDs + SpaceX rocket scientist + podcast host)
+
+2. **Labs Principles** (5 principles from `https://www.pymc-labs.com/blog-posts/labs-principles`): Freedom / Transparency / Autonomy & Self-Organization / Flexibility & Fluid Hierarchies / Leadership & Community. Teal organization model documented. Core quote: "Work can not feel like work but has to feel like 'play'"
+
+3. **Social Proof / Stats Section** — brand deck stats (100+ enterprise clients, 52 published articles), hard numbers (9,500+ PyMC stars, 1M+ pymc-marketing downloads, $8M 2025 revenue, 1,463 Decision Hub downloads in first week)
+
+4. **Halah's Draft About Page** — Full timeline (2005 PyMC origins → 2020 Labs → 2023 pymc-marketing → 2025 Agentic AI), hero headline "Born from Open Source Built On Science", body copy with 3 featured team members
+
+5. **Win-Win-Win Model** — Ravin Kumar's original framing: Labs wins + Clients win + OSS community wins
+
+6. **Early Client Quotes** table — 5 founding-era testimonials (Erisyon/HelloFresh/Indigo/Roche/Erisyon CEO)
+
+7. **Social/Community Channels** — all 7 active channels with follower counts
+
+8. **Team Member Files** note — 32+ files in content/about/team-members/ with 30 complete bios, 2 stubs (Benjamin Maier, Erik Ringen)
+
+GAPS remaining: Founding legal date unknown; Alexandre Andorra's current team status unclear; Joe Wilkinson Discord handle unconfirmed.
+
+---
+
 ## 2026-03-14 — assemble-solution-decision-ai
 
 **Aspect:** assemble-solution-decision-ai

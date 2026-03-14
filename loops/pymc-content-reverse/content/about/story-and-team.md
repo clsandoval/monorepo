@@ -1,14 +1,19 @@
 ---
 page: about/story-and-team
 title: Our Story & Team
-status: partial
+status: complete
 sources:
   - analysis/discord-org-team-extraction.md
   - analysis/website-scrape/about.md
   - analysis/website-scrape/team-members.md
   - analysis/discord-general-extraction.md
+  - analysis/website-scrape/crawl-remaining.md
+  - analysis/halah-draft-scrape.md
+  - analysis/brand-deck-scrape.md
   - https://www.pymc-labs.com/about/
   - https://www.pymc-labs.com/team/
+  - https://www.pymc-labs.com/blog-posts/saving-the-world
+  - https://www.pymc-labs.com/blog-posts/labs-principles
   - https://loyal-growth-093412.framer.app/about
 ---
 
@@ -326,3 +331,183 @@ Complete files in `content/about/team-members/` for all 33 members (30 complete 
 <!-- GAP: Chris Fonnesbeck's current engagement level (academic vs. Labs) not fully clear -->
 <!-- GAP: Founding legal date / formal company registration not found in any source -->
 <!-- GAP: Ravin Kumar departure date/story not documented (left ~2021 for Google) -->
+
+---
+
+## Founding Narrative — Full Origin Story
+Source: https://www.pymc-labs.com/blog-posts/saving-the-world (Feb 18, 2021 · Thomas Wiecki)
+Title: "Introducing PyMC Labs"
+
+**Mission statement:** "Saving the world with Bayesian modeling"
+
+Thomas Wiecki left Quantopian in 2020 (Quantopian closed). He had been receiving consulting inquiries for PyMC3 models and was unable to handle them alone. He assembled a specialized team from the PyMC open-source community to take on client work.
+
+**Original team composition:**
+- Three neuroscience PhDs
+- Mathematicians
+- Social scientists
+- A SpaceX rocket scientist (Ravin Kumar, formerly at SpaceX → Sweetgreen → PyMC Labs)
+- Host of *Learning Bayesian Statistics* podcast (Alexandre Andorra)
+
+**Early clients (2021):** SpaceX, Roche, Netflix, Deliveroo, HelloFresh
+
+**Project types tackled:**
+- Complex finance models
+- Supply chain optimization (food delivery)
+- Pharmaceutical software development
+- Farm technology model enhancement
+- Data science team training
+
+**Key PyMC stats at founding (2021):**
+- PyMC3 paper: 930+ citations
+- Top 10 most-cited articles on PeerJ
+- 20+ active framework developers
+
+**Founding quotes (Thomas Wiecki):**
+- "Assembling a team of the most badass Bayesian modelers"
+- "Most data science problems are not simple prediction but rather inference problems"
+- "Rather than changing our problem to fit the solution...tailor the solution to best solve the problem at hand"
+
+**Scientific applications cited in founding blog post:**
+- COVID-19 spread prediction (published in *Science* journal)
+- Exoplanet discovery
+- Earthquake analysis
+- Electoral/political forecasting
+
+---
+
+## Labs Principles (Company Values)
+Source: https://www.pymc-labs.com/blog-posts/labs-principles (Jan 10, 2022 · Thomas Wiecki)
+Title: "Building PyMC Labs: Five Principles from Open Source that Boost Innovation at any Company"
+
+PyMC Labs is explicitly modeled as a **Teal organization** (from *Reinventing Organizations* by Frederic Laloux) — self-organizing with fluid hierarchies.
+
+### 1. Freedom
+- Contractors paid hourly; flexible work arrangements
+- Remote-only; work from anywhere
+- Side projects welcomed; lifestyle-first
+- *"4 hours of inspired work outweighs 40 hours of routine tasks"*
+
+### 2. Transparency
+- Standardized, formulaic compensation visible to all employees
+- Base-rate + bonuses for PhDs or US-based living costs
+- 50% profit distribution to employees
+- All client contracts and values visible company-wide
+
+### 3. Autonomy & Self-Organization
+- Take initiative without seeking permission
+- Communicate intent, not detailed instructions
+- Emphasis on "why" over "how"
+
+### 4. Flexibility & Fluid Hierarchies
+- No permanent hierarchical roles
+- Project leadership rotates based on suitability and motivation
+- Easy restructuring; knowledge cross-pollination
+
+### 5. Leadership & Community
+- Leadership as coaching / removing blockers
+- Inverted pyramid: senior people enable others
+- Leader absorbs external stress to protect team enjoyment
+
+**Core quote (Thomas Wiecki):**
+> "Work can not feel like work but has to feel like 'play'"
+> "What's better than working with friends on challenging problems in a fun environment?"
+
+---
+
+## Social Proof / Stats Section
+
+**From brand deck (analysis/brand-deck-scrape.md):**
+- "100+ enterprise clients" (stat claim)
+- "52 published articles" (stat claim)
+
+**From Halah's draft about page (analysis/halah-draft-scrape.md):**
+- Stats section (animated from 0, placeholder "0+" values — actual numbers not yet filled in):
+  - Projects Completed
+  - Years of Growth
+  - Industries Served
+  - Open Source Package Avg Monthly Downloads
+
+**From live website about page:**
+- PyMC paper: "The most cited paper on PeerJ where it was published"
+- PyMC3 used to detect exoplanets, predict earthquakes, elections, COVID-19 spread
+
+**Known hard numbers:**
+- PyMC (core): 9,500+ GitHub stars, 2,200+ forks
+- pymc-marketing: 1,088+ GitHub stars; 1M+ downloads
+- CausalPy: 1,123+ GitHub stars
+- Learning Bayesian Statistics podcast: 12K monthly listeners (Alexandre Andorra, every episode sponsored by PyMC Labs)
+- Decision Hub: 1,463 downloads in first week (Feb 2026 launch)
+- Revenue (2025): $8M (vs $5.5M in 2024)
+- Team headcount: ~33 members; ~52% YoY growth (2025)
+
+---
+
+## Halah Draft About Page Content
+Source: https://loyal-growth-093412.framer.app/about
+
+**Hero headline:** "Born from Open Source Built On Science"
+**Subtext:** "PyMC began as an open-source project driven by a simple belief: Uncertainty, when understood, leads to better decisions."
+
+**About section body:**
+> "In 2005, we came together as a team of scientists with a mission to make the world's most advanced statistical methods accessible to everyone. What started as a dedicated open-source project has grown into an ecosystem of the world's most trusted probabilistic libraries, including PyMC, PyMC-Marketing, and CausalPy."
+
+**Journey timeline (Halah's version):**
+1. **The Open Source Spark (2005)** — "PyMC began as an open-source project, a small community united by one belief: understanding uncertainty leads to better decisions."
+2. **The Birth of PyMC Labs (2020)** — "PyMC Labs was founded to bridge the gap between open-source innovation and the specialized needs of high-stakes industrial applications."
+3. **The Vertical Breakthrough (2023)** — "We revolutionized marketing with pymc-marketing, transforming complex Bayesian statistics into a standardized, high-ROI tool for global brands."
+4. **The Agentic AI Leap (2025)** — "We pioneered Agentic AI with synthetic consumers and Bayesian agents—like the MMM and CLV agents—to automate expert-level decision-making."
+5. **The Bayesian AI Authority (Today)** — "Now the world's leading Bayesian AI consultancy, we empower organizations to build transparent and reliable intelligence that understands the 'why.'"
+
+NOTE: Halah's draft says "2020" for Labs founding; Thomas's live website origin post says "2021" for company launch. Discord evidence suggests 2020 as operational start (Discord server created Aug 18, 2020; first paid contract Sep 2020), with formal registration possibly 2021.
+
+**Featured team members in draft:**
+- Dr. Thomas Wiecki — Founder
+- Dr. Christian Luhmann — Chief Operating Officer
+- Dr. Luca Fiaschi — Partner - Gen AI
+
+---
+
+## Win-Win-Win Model (Core Positioning)
+
+From Ravin Kumar (Nov 2020), #general:
+> "Its so awesome to me that people are paying for code to become open sourced and get better. We get paid to code and learn, clients are happy that they have new models and functionality to work with, and the bayesian community wins with better software all around. Win Win Win, its fantastic"
+
+This "Win-Win-Win" framing captures the three-way value loop:
+- **Labs team wins**: paid to code and learn
+- **Clients win**: new models and functionality in their stack
+- **OSS community wins**: better software released into the public
+
+---
+
+## Early Key Client Quotes (founding period — #general, Discord)
+
+| Client | Quote | Source |
+|--------|-------|--------|
+| Erisyon | "We couldn't have done in a year what you did in a month" | Discord #general, Aug 2021 |
+| HelloFresh | "This is the best model on the market right now" | Discord #general, Aug 2021 |
+| Indigo | "We love working with you and just hope that you will have bandwidth for us going forward" | Discord #general, Aug 2021 |
+| Roche (Eoin) | "At a first glance, wow, a great amount has been covered in this short time and great to have this so well documented — really impressive." | Discord #general, Jun 2021 |
+| Erisyon CEO | "We're already buying, you don't need to sell us" | Discord #general, May 2021 |
+
+---
+
+## Social / Community Channels
+
+From analysis/website-scrape/about.md and analysis/public/social-media.md:
+- **LinkedIn**: https://www.linkedin.com/company/pymc-labs/ (7,519 followers)
+- **Twitter/X**: @pymc_labs
+- **YouTube**: @PyMCLabs (meetup recordings, talks)
+- **GitHub**: https://github.com/pymc-labs
+- **Bluesky**: pymc-labs.bsky.social
+- **Newsletter**: https://www.pymc-labs.com/ (newsletter signup on site)
+- **Public Bayesian Discord**: https://discord.gg/KpPngXmZgJ (created Apr 2023)
+- **Online Meetup**: https://www.meetup.com/pymc-labs-online-meetup/
+
+---
+
+## Team Member Files
+
+All 32+ individual team member content files are in `content/about/team-members/`.
+Files written by: website-team-individual-pages aspect (analysis/website-scrape/team-members.md)
+Status: 30 complete bios; 2 stubs (Benjamin Maier, Erik Ringen — specializations only, no bio on website)
