@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 626
-- **Analyzed:** 102
-- **Pending:** 524
+- **Total aspects:** 631
+- **Analyzed:** 103
+- **Pending:** 528
 - **Convergence:** 16.3%
 
 ---
@@ -559,7 +559,12 @@
 
 ## Wave 5: Onboarding & Campaign
 
-- [ ] 5.00 — The external-documentation anti-pattern: Shenzhen I/O requires a PDF manual outside the game — all Robot Uprising vocabulary (skills/rules/hooks/context) must be learnable through in-game play
+- [x] 5.00 — The external-documentation anti-pattern: Shenzhen I/O requires a PDF manual outside the game — all Robot Uprising vocabulary (skills/rules/hooks/context) must be learnable through in-game play
+  - [ ] 5.00a — The vocabulary pacing bottleneck: 30 terms across 10 missions = 3 terms/mission average; maximum new-term density before cognitive overload; should some terms be withheld until debrief? Interaction with difficulty curve (5.04)
+  - [ ] 5.00b — Search-by-player-vocabulary: boot terminal search indexes player-created names (channel names, blueprint names) alongside game vocabulary; mapping player vocabulary to game vocabulary at scale; misspelling handling
+  - [ ] 5.00c — The veteran fast-path: players who already know the vocabulary need compressed experiential layer without missing mechanical details; fast-track detection, "technical mode" toggle, difficulty selector; interaction with expert-track (5.01e)
+  - [ ] 5.00d — The field manual as community artifact: discoverable pages as speedrun targets, community wikis mapping page locations, page screenshots as trading currency; is the field manual redundant with boot terminal or complementary?
+  - [ ] 5.00e — The naming moment as designed beat: exact timing of when concepts get named; too early = meaningless label, too late = annoying interruption; detecting the "tip of the tongue" moment programmatically
 - [ ] 5.11a — The document-as-corrupted-surface mechanic: designing the tactical log / field manual so that enemy interference appears IN the document — making tutorial pages a gameplay surface (corruption detection embedded in reading experience)
 - [ ] 5.15 — Voice candidates for the Robot Uprising tactical document: deep exploration of four voice options (Dissenter's Field Manual, Unit 0's Tactical Archive, Requisition Docs, Propagandist's Handbook) with full player journeys and community potential for each
 - [ ] 5.16 — The non-alt-tab embedded document UI: design exploration of a togglable in-workbench reference panel that maintains diegetic framing without alt-tab friction; panel behavior, docking, visual treatment
