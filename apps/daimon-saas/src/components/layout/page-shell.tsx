@@ -1,3 +1,4 @@
+// Spec library component — not yet wired to dashboard/admin/settings pages; available for future integration
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 

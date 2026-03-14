@@ -1,4 +1,5 @@
 'use client'
+// Spec library component — not yet wired to auth pages; available for future integration
 
 import React from 'react'
 import Link from 'next/link'

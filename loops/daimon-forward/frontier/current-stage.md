@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 115
-- **Current**: 115
+- **Completed**: 116
+- **Current**: 116
 
 ## Current Stage
 
-**Stage 116** — (next stage)
+**Stage 117** — (next stage)
 
 ## Stage Log
 
@@ -129,3 +129,4 @@
 | 113 | done | 2026-03-15T04:00:00Z | e2e/mobile-core.spec.ts: 6 tests at 375x812 viewport (landing hero, landing pricing, login, signup, dashboard, integrations); 6 screenshots captured |
 | 114 | done | 2026-03-15T04:15:00Z | e2e/mobile-flows.spec.ts: 4 tests at 375x812 viewport (billing plan cards stacked, settings full-width inputs, admin desktop-only block, docs sidebar-as-drawer); 4 screenshots captured |
 | 115 | done | 2026-03-15T04:30:00Z | e2e/full-flow.spec.ts: 5 tests covering signup form filled → dashboard after signup → onboarding checklist → integrations discord modal open → billing upgrade CTA; fixed free user at plan limit (use starter for discord modal step); 6 screenshots captured |
+| 116 | done | 2026-03-15T05:00:00Z | Orphan sweep: 16 spec library components (auth-card, auth-layout, page-shell, activity-feed, api-key-input, checkbox, copy-to-clipboard, dropdown-menu, icon-button, modal, pagination, password-input, search-input, select, table, toggle) + design-tokens.ts confirmed unreferenced by pages; all kept with spec-intentional comment (pages used inline implementations); build passes |

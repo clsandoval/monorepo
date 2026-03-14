@@ -1,3 +1,4 @@
+// Spec library module — design tokens defined per spec but not yet imported by components (CSS custom properties used instead); available for future JS/TS usage
 /**
  * Daimon SaaS — Design Tokens
  * Source: loops/daimon-saas-reverse/final-mega-spec/source/brand-guidelines.md

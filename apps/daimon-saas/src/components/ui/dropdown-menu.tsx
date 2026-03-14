@@ -1,4 +1,5 @@
 'use client'
+// Spec library component — built per spec but not yet wired to pages; available for future integration
 
 import * as React from 'react'
 import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu'

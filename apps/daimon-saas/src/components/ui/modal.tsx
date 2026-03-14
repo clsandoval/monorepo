@@ -1,4 +1,5 @@
 'use client'
+// Spec library component — built per spec but not yet wired to pages; available for future integration
 
 import { useEffect, useRef, useCallback, useState } from 'react'
 import { X, Loader2 } from 'lucide-react'
