@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 298
-- **Analyzed:** 46
-- **Pending:** 252
+- **Total aspects:** 305
+- **Analyzed:** 47
+- **Pending:** 258
 - **Convergence:** 15.4%
 
 ---
@@ -57,7 +57,7 @@
 - [x] 4.69a — Multi-cluster threshold configurability: letting players set whether 2+, 3+, or 4+ appearances triggers the flag; accessibility consideration (2+ fires constantly for new players with concentrated configs); expert mode consideration (4+ threshold for players who want less interruption)
 - [x] 4.69b — Combined agent coverage score display: showing "if ALL of this agent's clustered elements were fixed, combined coverage = X%" as a first-class metric in the career analysis panel; question of whether this number should be pre-computed or on-demand
 - [x] 4.69c — Agent redesign mode as a dedicated workbench state: full design of the isolated redesign sandbox — how the player enters, what UI affordances are available, how changes are staged vs. committed, how the simulation differs from normal workbench operation
-- [ ] 4.69d — Multi-cluster persistence tracking: tracking whether the same agent triggers multi-cluster across multiple career analyses; the "persistent offender" agent as a named archetype with dedicated treatment in the season health dashboard
+- [x] 4.69d — Multi-cluster persistence tracking: tracking whether the same agent triggers multi-cluster across multiple career analyses; the "persistent offender" agent as a named archetype with dedicated treatment in the season health dashboard
 - [ ] 4.69e — Adversarial multi-cluster poisoning: opponent config design strategy that stresses 3+ elements of the same target agent across all match types, deliberately triggering the player's cluster flag to mislead them into an unnecessary redesign; counter-design distinguishes "clustered across all opponents" (structural) from "clustered against specific opponent" (adversarial)
 - [ ] 4.69f — "Apply All Three" batch deployment: detailed design of the multi-fix batch application — sequencing, conflict detection, rollback affordance, confirmation dialog
 - [ ] 4.69g — Agent cluster as a unit of analysis in career stats: career statistics dashboard that shows per-agent multi-cluster frequency history; "agent debt ledger" as companion to match-level architectural debt metrics
@@ -72,6 +72,13 @@
 - [ ] 4.69p — Combined coverage as a budget-cost computation: classifying the combined coverage calculation (or only its on-demand variant) as a search budget expenditure (see 4.60); creates scarcity around the diagnostic and makes each use intentional; early-season players must choose which clusters to investigate; interacts with search budget resource design
 - [ ] 4.69q — Prospective combined coverage: computing the combined coverage not from match history but from a simulated future match set based on the player's current config and upcoming opponents; forward-looking vs. historical ceiling estimates; interacts with scenario fingerprinting (2.28); the difference between "this agent failed here" and "this agent will likely fail there"
 - [ ] 4.69r — Combined coverage sensitivity to match window size: how different match window sizes (20 matches vs. 200 matches) affect the combined coverage number; small windows have high variance (one unusual match can swing the number significantly); recommended minimum window size for reliable combined coverage estimates; the "confidence interval" framing for coverage numbers
+- [ ] 4.69d-i — Cluster entry count trend as secondary severity metric: tracking whether the NUMBER of elements in each cluster event grows over time (3 → 3 → 4 entries); "worsening severity" as a distinct signal from "recurring severity"; architectural debt accumulation rate vs. simple recurrence count
+- [ ] 4.69d-ii — "Partial fix" annotation in persistence tracking: the ⚡ suffix for targeted fixes that address some cluster elements without full redesign; how partial fix history reads differently from "applied #1 fix" history; player engagement level as part of the record
+- [ ] 4.69d-iii — Persistence counter reset as first-class game event: the ◆ badge dissolve + green checkmark animation on redesign commit; resolution motif sound; "resolved agents" section as a trophy shelf; the moment of architectural closure as a designed beat
+- [ ] 4.69d-iv — "Cluster-free since redesign" streak counter: tracking how many consecutive career analyses pass without the agent clustering post-redesign; positive reinforcement framing; "trust threshold" for when the player can stop monitoring
+- [ ] 4.69d-v — Multi-source flag (persistent offender + cross-mission pattern): merged diagnostic signal when both persistence tracking and cross-mission detection (4.49) flag the same agent; higher-confidence framing; combined-evidence view in season health dashboard
+- [ ] 4.69d-vi — Persistence history as learning artifact: shareable persistence history log as community discussion tool; "my RELAY-C took 3 redesigns to fix" as player narrative; compare to Zachtronics histogram sharing culture
+- [ ] 4.69d-vii — Experience-gated persistence history vocabulary: simplified ("what happened" story) vs. technical (recurrence bars, percentage coverage) history view; transition point design; bidirectional toggle
 - [ ] 4.69c-i — Draft context snapshot in redesign mode: redesign mode drafts must store the career analysis result (cluster flag, combined coverage, root cause hypotheses) that preceded the redesign; "redesign intent" rehydration when reopening draft in a future session; prevents "why was I rebuilding this?" confusion on session resumption
 - [ ] 4.69c-ii — Auto-suggest Paired Mode partners: when entering redesign mode on an agent with ≥2 active hook connections, analyze hook topology and surface "COMMAND-A receives signals from RELAY-C — add it to Paired Mode?"; one-tap accept or dismiss; triggered only when focal agent's output hooks connect directly to another agent's input hooks
 - [ ] 4.69c-iii — Template monoculture prevention: if >60% of players in a similar career range use the same template for a given role, flag it as a "monoculture template"; surface alternative templates and recent emergent configs when monoculture template is selected; player-population template usage as a live game health signal
