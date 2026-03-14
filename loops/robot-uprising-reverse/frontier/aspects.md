@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 371
-- **Analyzed:** 60
-- **Pending:** 311
-- **Convergence:** 16.1%
+- **Total aspects:** 376
+- **Analyzed:** 61
+- **Pending:** 315
+- **Convergence:** 16.2%
 
 ---
 
@@ -67,7 +67,12 @@
         - [x] 4.69e-i-a-vi-a-i — Notification state in profile export: if profiles support import/export, should notification preferences (snooze, permanent suppress) travel with the export? Recommendation: export permanent suppress only (active snooze time-bound, always expired by import); [Review →] opt-in at import; 5 options analyzed; 3 player journeys (Priya device migration, Kenji community config importer, Tanya post-browser-wipe restore); 5 new sub-aspects discovered
           - [x] 4.69e-i-a-vi-a-i-a — Import timestamp visibility in notification audit log: when audit log shows a "permanently suppressed" entry that came from an import, should it show the original suppression date (from exported profile) or the import date? Original date is more informative but may confuse players who don't know the entry came from a backup. Recommendation: Option D (original date + import badge) as default + Option E (full provenance chain) on progressive disclosure; 6 options analyzed (A–E + D+E hybrid); git author/committer, Slack forwarding, medical service/entry date as comparables; 3 player journeys (Priya migration verification, Kenji understanding inherited state and resetting it, Dev probing edge cases including "(date unavailable)" backcompat); 5 new sub-aspects discovered
             - [x] 4.69e-i-a-i-f — Audit log ordering policy (most-recent-first vs. chronological): main audit log vs. provenance chain may need different orderings; mixed-order UIs create cognitive friction; design decision needed; Recommendation: MRF outer list + Chronological inner provenance chain (email inbox/thread model); 5 options analyzed; staggered animation as chronological priming device; 3 player journeys; 5 new sub-aspects discovered
-              - [ ] 4.69e-i-a-i-f-i — Snooze event collapsing in long provenance chains: if a player snoozed 20 times before suppressing, the chain has 20 snooze entries; should snooze events be collapsible ("3 snooze events, Jan 5–Jan 9")? Granularity vs. scannability tradeoff
+              - [x] 4.69e-i-a-i-f-i — Snooze event collapsing in long provenance chains: if a player snoozed 20 times before suppressing, the chain has 20 snooze entries; should snooze events be collapsible ("3 snooze events, Jan 5–Jan 9")? Granularity vs. scannability tradeoff; Recommendation: Option C (auto-collapse with expand affordance) when N≥4 consecutive snooze events within 30-day gap threshold; 5 options analyzed (full disclosure, total summation, auto-collapse, bookend disclosure, manual collapse); bookend enhancement (enlarged first/last dots with tooltips) as secondary feature within Option C expand; 22-event example chain used throughout; 3 player journeys (Theo habitual procrastinator, Vera data analyst expanding for velocity, Nadia new player building mental model); 5 edge cases (gap problem, imported suppress with no native snoozes, multiple snooze types, restore-split runs); 5 new sub-aspects discovered
+                - [ ] 4.69e-i-a-i-f-i-α — Temporal gap threshold as player-configurable setting: the 30-day gap that splits snooze runs is defensible but arbitrary; should it be configurable (Settings → Advanced) or auto-derived from the player's own session frequency history?
+                - [ ] 4.69e-i-a-i-f-i-β — Snooze velocity sparkline in collapsed summary row: a miniature inline sparkline showing snooze density per 7-day window within the "Snoozed 20 times · Jan 5–Feb 10" text; encodes velocity without requiring expand; cost: adds a viz component to a text-only panel
+                - [ ] 4.69e-i-a-i-f-i-γ — Snooze:suppress ratio as notification health signal for analytics: aggregate pre-suppress snooze counts across players (with consent) as a calibration metric for toast notification design; tells developers whether notifications are over-firing or under-informing
+                - [ ] 4.69e-i-a-i-f-i-δ — "Collapse snooze events in all notifications" global setting: a Settings-level override for the N≥4 default threshold (Always / When 4+ / Never); interaction with per-notification expand state and Option E (manual collapse)
+                - [ ] 4.69e-i-a-i-f-i-ε — Snooze collapsing in full audit log export artifact: should exported audit log data include full individual snooze events (lossless) or only the collapsed summary (lossy)? Export format and in-app display are independent decisions
               - [ ] 4.69e-i-a-i-f-ii — Staggered animation direction and cognitive priming: 30ms top-to-bottom stagger primes chronological reading vs. bottom-to-top stagger priming MRF; warrants design validation between the two approaches
               - [ ] 4.69e-i-a-i-f-iii — Multi-hop pass-through data availability: intermediate import events are only reconstructible if audit log data travels in exports (4.69e-i-a-i-h); creates a dependency between ordering richness and export format decision
               - [ ] 4.69e-i-a-i-f-iv — "Jump to current state" affordance in long chains: if the current state is always at the bottom of a chronological chain, long chains require scrolling to see the present; anchor link or auto-scroll to bring current state into view without changing ordering
