@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 239
-- **Analyzed:** 35
-- **Pending:** 204
-- **Convergence:** 14.6%
+- **Total aspects:** 244
+- **Analyzed:** 36
+- **Pending:** 208
+- **Convergence:** 14.8%
 
 ---
 
@@ -46,7 +46,7 @@
 - [x] 4.59 — "Minimum fix across multiple matches" vs. "minimum fix per match": in Gauntlet mode after 5+ matches, a deeper exhaustive search finding the single config change that would have improved the most matches (not just current); the "career minimum fix" as architectural debt metric; much slower (~5 minutes) but extremely high signal
 - [x] 4.60 — Search budget as a player resource: instead of QUICK/THOROUGH as a binary toggle, the player has a "compute budget" resource that regenerates between sessions; exhaustive search costs more budget; encourages strategic decisions about when to use thorough analysis; interaction with early-game scarcity design
 - [x] 4.61 — "Why did QUICK find a different fix than THOROUGH?" explainer: when a player has run both modes and gotten different results, a dedicated comparison view showing both results side by side with explanation of why the pre-ranking heuristic diverged from the minimality criterion; the explainer as an in-game search algorithm lesson
-- [ ] 4.62 — The "agree to disagree" result: when QUICK and THOROUGH find different fixes and both would improve pass rate, the explorer shows both with a "both valid" label and lets the player choose; teaches that "best fix" depends on your diagnostic goal — symptom suppression vs. root cause elimination; echoes real engineering debates about patching vs. fixing
+- [x] 4.62 — The "agree to disagree" result: when QUICK and THOROUGH find different fixes and both would improve pass rate, the explorer shows both with a "both valid" label and lets the player choose; teaches that "best fix" depends on your diagnostic goal — symptom suppression vs. root cause elimination; echoes real engineering debates about patching vs. fixing
 - [ ] 4.63 — Player-configurable pre-ranking weights: a late-game unlock allowing the player to adjust the three heuristic signals (pivot-activity, recency, volatility) by slider; teaches that the pre-ranking is a configurable belief system, not a fixed algorithm; interaction with 8.08 vocabulary claim ("tuning a heuristic")
 - [ ] 4.64 — Pre-ranking accuracy as a displayed stat: after 30+ sessions, the transparency drawer shows "pre-ranking accuracy: your QUICK result matched THOROUGH minimum in X% of sessions"; teaches what a good heuristic accuracy looks like; risk of players optimizing the stat vs. using it diagnostically
 - [ ] 4.65 — Pre-ranking adversarial surface: enemy configs can be designed to fool the pre-ranking heuristic — engineer high pivot-activity and high volatility in a decoy element while the real vulnerability is elsewhere; "pre-ranking poisoning" as advanced PvP attack; interaction with adversarial counterfactual mode (4.39)
@@ -67,6 +67,11 @@
 - [ ] 4.80 — Counterfactual "what if I had applied QUICK?": in the debrief for a session where the player applied THOROUGH, a one-click simulation showing what pass rate would have been if the QUICK result had been applied; most direct feedback on "was running THOROUGH worth it?"; interaction with 4.60 search budget and the THOROUGH token spend decision
 - [ ] 4.81 — The "consistent divergence" flag: when a player gets QUICK/THOROUGH divergence on the same config version 3+ times, the game surfaces "your config consistently produces pre-ranking mismatches — the heuristic signals may not be well-calibrated for your architecture style"; prompts exploring pre-ranking weight configuration (4.63) or the heuristic autopsy
 - [ ] 4.82 — Divergence type distribution as career stat: displaying the breakdown of which scenario types caused divergence in history (Symptom-Before-Cause, Recency Bias, Volatility False Signal, Magnitude Gap); reflects the player's architectural habits; available in the profile view alongside EDT trajectory (4.25)
+- [ ] 4.83 — Agree-to-disagree history as a "debt ledger": tracking every agree-to-disagree encounter where the player chose the Focused Fix over the Structural Fix as a running architectural debt ledger; the ledger shows cumulative structural fixes not applied; at threshold (5+), a "debt clearing session" is suggested; interaction with 4.59 career minimum fix and 4.49 cross-mission pattern detection
+- [ ] 4.84 — "Both Valid, Apply Both" as a one-click option in agree-to-disagree: a third button applying fixes sequentially (Fix A then Fix B on updated config); runs dual simulations; shows combined improvement and interaction effects; teaches that symptom and root fixes are not mutually exclusive; interaction with 4.37 fork-and-deploy
+- [ ] 4.85 — Predictability index for Gauntlet agree-to-disagree: each card shows a "predictability score" based on aggregate data from players in similar config states — "high predictability" means skilled opponents are likely to have predicted this fix; turns agree-to-disagree into adversarial information game; interaction with 4.39 adversarial counterfactual and 4.57 threat model report
+- [ ] 4.86 — Agree-to-disagree as mission design constraint: "Fork Missions" as a mission archetype specifically designed to trigger agree-to-disagree divergence; the player's choice (Focused vs. Structural) determines which half of the mission they get credit for; teaches goal-dependent diagnosis as a first-class skill; interaction with mission-design-*.md
+- [ ] 4.87 — "What if I'd chosen the other fix?" post-apply counterfactual in agree-to-disagree: after applying one fix, a one-click simulation showing what pass rate would have been if the other fix had been applied; teaches what was traded; reduces regret; interaction with 4.38 counterfactual history and 4.80 "what if I had applied QUICK?" counterfactual
 - [ ] 4.54 — Adversarial explorer exposure policy: should the opponent be notified that you ran adversarial mode on their config? Opt-in mutual disclosure (both see each other's adversarial results) vs. private (neither knows) vs. public (full adversarial history visible on profiles); privacy norms in a competitive analysis context
 - [ ] 4.55 — Cross-match adversarial aggregation: after running adversarial mode on 5+ matches against different opponents, find recurring attack vectors that appear in ≥2 adversarial runs — "three different opponents independently discovered your relay's hook threshold is the exploit point"; the structural weakness that the community hasn't formally coordinated against but is independently discovering
 - [ ] 4.56 — Adversarial mode for PvE missions: apply the same logic to campaign missions — what change to the enemy config would have made this mission hardest for your specific architecture; the mission's adversarial variant as a "hard mode" generator; interaction with 2.19 variable scenario seeds
