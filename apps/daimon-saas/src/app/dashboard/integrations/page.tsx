@@ -137,6 +137,7 @@ export default async function IntegrationsPage() {
           tenantId={membership.tenant_id}
           userRole={membership.role as 'owner' | 'admin' | 'member'}
           connections={discordConnections}
+          plan={(tenant?.plan as 'free' | 'starter' | 'pro') ?? 'free'}
         />
       </div>
 

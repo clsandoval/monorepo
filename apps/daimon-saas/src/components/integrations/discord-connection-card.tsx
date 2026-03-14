@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { AlertTriangle, MessageSquare, Eye, EyeOff, X, Plus } from 'lucide-react'
+import { type Plan, getMaxConnections, canAddConnection, connectionLimitMessage } from '@/lib/plans/gate'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -21,6 +22,8 @@ export interface DiscordSectionProps {
   tenantId: string
   userRole: 'owner' | 'admin' | 'member'
   connections: DiscordConnection[]
+  /** Tenant plan — used to enforce connection limits. Defaults to 'free'. */
+  plan?: Plan
 }
 
 // ---------------------------------------------------------------------------
@@ -835,7 +838,7 @@ function DisconnectConfirm({ connection, onCancel, onConfirm }: DisconnectConfir
 // Discord section (main export)
 // ---------------------------------------------------------------------------
 
-export function DiscordSection({ tenantId, userRole, connections: initialConnections }: DiscordSectionProps) {
+export function DiscordSection({ tenantId, userRole, connections: initialConnections, plan = 'free' }: DiscordSectionProps) {
   const [connections, setConnections] = React.useState<DiscordConnection[]>(initialConnections)
   const [modalOpen, setModalOpen] = React.useState(false)
   const [modalMode, setModalMode] = React.useState<'add' | 'replace'>('add')
@@ -845,7 +848,16 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
 
   const isMember = userRole === 'member'
 
+  // Active connections: exclude disconnected (suspended not in current type but handled if added)
+  const activeCount = connections.filter(
+    (c) => c.status !== 'disconnected'
+  ).length
+  const atLimit = !canAddConnection(plan, activeCount)
+  const maxConnections = getMaxConnections(plan)
+  const limitMessage = atLimit ? connectionLimitMessage(plan) : undefined
+
   const handleAddConnection = () => {
+    if (atLimit || isMember) return
     setModalMode('add')
     setReplaceTarget(null)
     setModalOpen(true)
@@ -928,35 +940,71 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
             >
               {connections.length === 0
                 ? 'No bot connected yet. Add your Discord bot token to get started.'
-                : `${connections.length} connection${connections.length !== 1 ? 's' : ''}`}
+                : `${activeCount} of ${maxConnections === Infinity ? 'unlimited' : maxConnections} connection${maxConnections === 1 ? '' : 's'} used`}
             </p>
           </div>
         </div>
 
         <button
           onClick={handleAddConnection}
-          disabled={isMember}
-          title={isMember ? 'Only owners and admins can manage integrations.' : undefined}
+          disabled={isMember || atLimit}
+          title={
+            isMember
+              ? 'Only owners and admins can manage integrations.'
+              : limitMessage
+          }
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
             height: '36px',
             padding: '0 16px',
-            background: isMember ? '#E5E7EB' : '#0C1F40',
-            color: isMember ? '#9CA3AF' : '#FFFFFF',
+            background: isMember || atLimit ? '#E5E7EB' : '#0C1F40',
+            color: isMember || atLimit ? '#9CA3AF' : '#FFFFFF',
             fontFamily: 'var(--font-inter), Inter, sans-serif',
             fontWeight: 500,
             fontSize: '14px',
             borderRadius: '0px',
             border: 'none',
-            cursor: isMember ? 'not-allowed' : 'pointer',
+            cursor: isMember || atLimit ? 'not-allowed' : 'pointer',
           }}
         >
           <Plus size={16} />
           Add Connection
         </button>
       </div>
+
+      {/* Connection limit banner */}
+      {atLimit && (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: '#FFFBEB',
+            border: '1px solid #FDE68A',
+            padding: '10px 12px',
+            marginBottom: '12px',
+          }}
+        >
+          <AlertTriangle size={14} color="#D97706" style={{ flexShrink: 0 }} />
+          <span
+            style={{
+              fontFamily: 'var(--font-inter), Inter, sans-serif',
+              fontSize: '13px',
+              color: '#92400E',
+            }}
+          >
+            {limitMessage}{' '}
+            <a
+              href="/dashboard/billing"
+              style={{ color: '#D97706', textDecoration: 'underline', fontWeight: 500 }}
+            >
+              Upgrade your plan →
+            </a>
+          </span>
+        </div>
+      )}
 
       {/* Error banner */}
       {disconnectError && (
