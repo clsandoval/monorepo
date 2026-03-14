@@ -2,6 +2,16 @@
 
 ---
 
+## 2026-03-14 — assemble-industry-gaming
+
+**Aspect**: assemble-industry-gaming
+**Output**: content/industries/gaming.md
+**Status**: partial
+
+**Summary**: Assembled gaming industry page. 4 named clients: Supercell (mobile gaming — Clash of Clans/Brawl Stars; conference inbound from NY via Christian's presentation; "we want everything that Christian showed"; EAP engagement active; Databricks shared client), Appodeal (mobile ad mediation; early client 2020; Bayesian MMM for app developer acquisition attribution; ROAS with credible intervals; Niall led; completed SOW), Keywords Studios (AAA gaming services company; corporate workshop March 2026, 24h, 8 sessions), Game Data Pros (gaming consultant; Decision AI beta tester Aug 2025, access revoked Oct 2025). Key domain credibility: Luca Fiaschi's background as Chief Data & AI Officer at MistPlay; Mobile Dev Memo podcast appearance (Nov 2025) on LLM ad creative evaluation. Use cases: MMM for UA / Player LTV (CLV Agent) / A/B testing at scale / Ad creative evaluation / Corporate training. GAPS: No published testimonials from gaming clients; no public case study blog post for Appodeal or Supercell; Supercell engagement details internal; "Gaming" not in Halah's hero rotating tagline.
+
+---
+
 ## 2026-03-14 — assemble-industry-agriculture
 
 **Aspect**: assemble-industry-agriculture

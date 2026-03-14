@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 51
-- Pending: 23
-- Convergence: 69%
+- Analyzed: 52
+- Pending: 22
+- Convergence: 70%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -71,7 +71,7 @@ Consolidate all gathered material into content files. One aspect per page.
 - [x] assemble-industry-pharma — Write content/industries/pharma-biotech.md
 - [x] assemble-industry-agriculture — Write content/industries/agriculture.md
 - [x] assemble-industry-finance — Write content/industries/finance-insurance.md
-- [ ] assemble-industry-gaming — Write content/industries/gaming.md
+- [x] assemble-industry-gaming — Write content/industries/gaming.md
 - [ ] assemble-industry-sports — Write content/industries/sports-analytics.md
 - [ ] assemble-solution-simba — Write content/solutions/simba.md
 - [ ] assemble-solution-decision-ai — Write content/solutions/decision-ai.md
