@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 490
-- **Analyzed:** 74
-- **Pending:** 416
-- **Convergence:** 15.1%
+- **Total aspects:** 494
+- **Analyzed:** 75
+- **Pending:** 419
+- **Convergence:** 15.2%
 
 ---
 
@@ -190,11 +190,15 @@
   - [ ] 4.69e-i-e-iii — Minimum opponent diversity gate design: exact trigger conditions suppressing auto-filter suggestion when opponent diversity is too low; three-condition gate edge cases (co-op-only players, private practice runs, mixed-pool seasons)
   - [ ] 4.69e-i-e-iv — The "one-tap accept" flow in detail: what happens between tapping [Run Now] on the banner and seeing the filtered result; full-scope result visibility during filtered run; comparison state when both results available; scroll position preservation
   - [ ] 4.69e-i-e-v — Seasonal reset of banner suppression: whether suppression is permanent or resets per season; interaction with the veteran lamp-only graduation; opt-in re-enable affordance
-- [ ] 4.69e-ii — Known adversarial opponent tagging: UI for adding an opponent to the "known adversarial" list from within the career analysis agent audit; how the tag persists across sessions; what changes in career analysis behavior when an opponent is tagged; how to remove a tag
+- [x] 4.69e-ii — Known adversarial opponent tagging: UI for adding an opponent to the "known adversarial" list from within the career analysis agent audit; how the tag persists across sessions; what changes in career analysis behavior when an opponent is tagged; how to remove a tag
 - [ ] 4.69e-iii — Per-opponent threshold override in competitive contexts: suppressing cluster contributions from specific opponents below a concentration threshold; interaction with match-source breakdown display; comparison with 4.69j per-agent threshold override
 - [ ] 4.69e-iv — Counter-poisoning config design: full design of the player's ability to intentionally design a config that generates misleading cluster signals in an opponent's career analysis; the offensive version of adversarial poisoning; ethical/design considerations around explicit "diagnostic sabotage" as player intent
 - [ ] 4.69e-v — Adversarial density as a career season metric: tracking how many of the player's matches in a season were adversarially targeted; "adversarial pressure" as a context variable in season health; adjusting season health thresholds for high-adversarial-pressure seasons
 - [ ] 4.69e-vi — Concentration threshold calibration for dense opponent pools: false adversarial detection in small competitive ladders where players naturally match against same opponents repeatedly; graduated concentration thresholds based on opponent pool size; "expected concentration at N matches" as contextual denominator
+- [ ] 4.69e-vii — Per-cluster adversarial exclusion: tag an opponent as adversarial for specific agent clusters but not others; "exclude IronPulse99 from STRIKER-A analysis but include in RELAY-B analysis"; surgical per-cluster tagging vs. blanket per-opponent tag; interaction with 4.69j per-agent threshold override
+- [ ] 4.69e-viii — Tag expiry and automatic sunset: adversarial tags that persist forever become stale as configs and meta evolve; automatic expiry after N seasons with renewal prompt; interaction with periodic review prompt design; preventing stale tags from accumulating over long careers
+- [ ] 4.69e-ix — Adversarial tag as community signal: anonymized aggregation of tag frequency across players; "this opponent is tagged as adversarial by 12 players in your bracket"; crowd-sourced adversarial intelligence; risk of mob tagging strong non-adversarial players; interaction with 7.10 necropsy culture
+- [ ] 4.69e-x — Tag evidence export for community discussion: shareable artifact showing match-source breakdown, preview, and tagging rationale without revealing opponent identity; enables community discussion of "when should I tag?" as a learnable skill; interaction with necropsy culture (7.10) and Opus Magnum histogram sharing (1.03)
 - [ ] 4.69f — "Apply All Three" batch deployment: detailed design of the multi-fix batch application — sequencing, conflict detection, rollback affordance, confirmation dialog
 - [ ] 4.69g — Agent cluster as a unit of analysis in career stats: career statistics dashboard that shows per-agent multi-cluster frequency history; "agent debt ledger" as companion to match-level architectural debt metrics
 - [ ] 4.69h — Threshold preset profiles per config phase: different multi-cluster thresholds for different career phases (early season N=4 to avoid noise; late season N=2 to catch architectural drift before finals); a "phase-aware" threshold that auto-shifts as the season progresses
