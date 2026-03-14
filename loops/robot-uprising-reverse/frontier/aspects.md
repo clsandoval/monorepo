@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 661
-- **Analyzed:** 109
-- **Pending:** 552
+- **Total aspects:** 666
+- **Analyzed:** 110
+- **Pending:** 556
 - **Convergence:** 16.5%
 
 ---
@@ -504,12 +504,17 @@
 - [ ] 3.07 — Rules UI: how does the player write/edit/reorder rules?
 
 ### Hooks (Reactive Wiring)
-- [ ] 3.08 — Hook taxonomy: what events can trigger hooks? What actions can hooks fire?
+- [x] 3.08 — Hook taxonomy: what events can trigger hooks? What actions can hooks fire?
 - [ ] 3.09 — Hook chaining: can hooks trigger other hooks? Cascade effects, infinite loops, back pressure
 - [ ] 3.09a — Blocking hook semantics: hooks that require both sender and receiver to be "ready" (not busy, in range, buffer not full) — implicit timing without a global clock (from TIS-100 blocking port model)
 - [ ] 3.10a — Hook range as spatial mechanic: hooks that only fire within a configurable range radius; design options (fixed range, configurable per hook, range extenders as skill, relay positioning as tactical mini-game); how range requirements choreograph agent deployment
 - [ ] 3.10 — Hook visualization: how does the player see the wiring between agents? How are active hooks shown during execution?
 - [ ] 3.11 — Hooks UI: how does the player create and manage hooks?
+- [ ] 3.08a — Trigger-to-rule vocabulary alignment: should triggers and rules use the same condition primitives (shared vocabulary reduces learning cost) or distinct vocabularies (independent evolution)?
+- [ ] 3.08b — Channel naming conventions as emergent culture: standard channel libraries, community naming conventions, competitive meta around channel naming
+- [ ] 3.08c — Hook slot economy as strategic constraint: choosing which hooks to install when you have more ideas than slots; slot scarcity as design pressure
+- [ ] 3.08d — Trigger evaluation order within a single tick: simultaneous vs. sequential evaluation when multiple hooks match; can one hook's firing affect another hook's trigger?
+- [ ] 3.08e — Hook inheritance and blueprint templates: blueprint-level hook loadouts, instance-specific vs. shared channels when cloning units from the same blueprint
 
 ### Context Config
 - [ ] 3.12 — Context config UI: how does the player set buffer size, filters, eviction priorities?
