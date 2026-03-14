@@ -2,6 +2,23 @@
 
 ---
 
+## 2026-03-14 — assemble-industry-sports
+
+**Aspect**: assemble-industry-sports
+**Output**: content/industries/sports-analytics.md
+**Status**: partial
+
+**Key findings:**
+- 2 named sports clients: LA Dodgers (MLB, time series SLA, $5k/month, signed June 2025, active) and Real Madrid (CLV + sports analytics EAP, June–August 2025, ended due to Ancelotti→Xavi coaching change)
+- Chris Fonnesbeck = primary sports analytics lead; creator of PyMC; 7 years MLB experience (Phillies/Yankees/Brewers); led both Dodgers and Real Madrid engagements
+- Dodgers: exclusivity clause negotiated (month-to-month); logo usage rights secured; time series coaching format
+- Real Madrid: CLV work completed (Pablo Roque merged PR #1815 adding covariate support to pymc-marketing MBG/NBD); football analytics stalled; no follow-up contract
+- 5 sports analytics blog posts indexed: baseball MARCEL, BART swinging strikes, hockey goaltending spatial, NBA IRT foul analysis, hierarchical models for sports
+- Sports is one of 4 named verticals in Halah draft home hero ("Bayesian Intelligence for Sports")
+- GAP: No public testimonials from sports clients; no published case study pages; Dodgers contractual confidentiality; Real Madrid engagement ended without case study
+
+---
+
 ## 2026-03-14 — assemble-industry-gaming
 
 **Aspect**: assemble-industry-gaming
