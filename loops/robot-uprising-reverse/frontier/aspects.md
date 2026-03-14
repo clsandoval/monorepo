@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 168
-- **Analyzed:** 19
-- **Pending:** 149
-- **Convergence:** 11.3%
+- **Total aspects:** 170
+- **Analyzed:** 20
+- **Pending:** 150
+- **Convergence:** 11.8%
 
 ---
 
@@ -30,7 +30,7 @@
 - [x] 1.06c-ext-A — Sealed replay as tension mechanic: hiding match result until player watches full replay; "Watch now" vs. "Show result immediately" player choice; emotional design of the unknown-result vs. known-result playback modes; compensates for lost real-time tension
 - [x] 1.06c-ext-A-i — Replay length as tension design: minimum match duration required for sealed tension to function; mission design constraints around ensuring competitive Gauntlet matches run 60–180 ticks; how fast-resolution stomps are prevented without artificial health inflation
 - [x] 1.06c-ext-A-ii — The "false pivot" anti-pattern: replays where outcome appears to reverse multiple times before resolution — emotionally rich but potentially frustrating if player misidentifies the pivot; should debrief overlay mark decisive moments retroactively?
-- [ ] 1.06c-ext-A-iii — Sealed replay for PvE missions: applying the sealed mechanic to campaign missions — hiding pass/fail until player watches; whether sealed tension works when the player designed both sides of the encounter
+- [x] 1.06c-ext-A-iii — Sealed replay for PvE missions: applying the sealed mechanic to campaign missions — hiding pass/fail until player watches; whether sealed tension works when the player designed both sides of the encounter
 - [ ] 4.04b — Two-act debrief structure: designing the watch experience and the analysis experience as sequential phases — sealed watch (emotional) → full debrief (analytical) — with a deliberate transition between them; the "seal breaking" as the transition event
 - [ ] 4.18 — Effective outcome timestamp as a first-class metric: the tick at which the match's outcome was "effectively determined" (minimum-counterfactual tick) shown in post-match stats; comparing this to max_ticks reveals "how much of the match was foregone conclusion"; effective-determination-to-max-ticks ratio as a Gauntlet map quality indicator (low ratio = high false pivot density = rich sealed content)
 - [ ] 4.19 — False pivot annotation opt-out for streamers: a per-session toggle hiding the gold diamond and grey markers; for streamers who want to provide commentary before the annotation appears, or for community events where "find the pivot" is a collective viewer challenge; the annotation as a game show format
@@ -119,6 +119,7 @@
 - [ ] 2.26 — Fidelity spoofing as attack primitive: enemy crafts signals with artificially-high fidelity specifically to pass the player's confidence filters; the workbench UI for signal authentication (checksums, source signatures, Counter-Intelligence skill that verifies provenance before buffer entry); makes the attention language itself an adversarial interface
 - [ ] 2.13 — Signal priority: urgent vs routine, and how priority affects buffer eviction and routing
 - [ ] 2.27 — Buffer exhaustion as late-game mechanic: long matches (100+ ticks) create a new failure mode — eviction policy breaking down as buffers fill with stale data; "buffer hygiene" as a skill; how architectures gracefully manage a full buffer mid-match; the context-window-overflow problem in Robot Uprising terms
+- [ ] 2.28 — Scenario fingerprinting: giving each of the 100 randomized test cases a persistent visual identity (distinct color tag, icon, or seed number) so players can identify which specific scenarios fail across multiple runs; designing the scenario taxonomy to be learnable, not opaque; whether cases should be named or numbered in player-facing UI; interaction with sealed progressive reveal
 
 ---
 
@@ -211,6 +212,7 @@
 - [ ] 5.14 — Detection skills as complexity gate: the "intrusion detection" skill as an advanced mechanic that reveals hidden corruption to players who invest in it; scales difficulty with player sophistication rather than with a separate difficulty slider; advanced players uncover more depth, beginners get clean experience
 - [ ] 5.18 — The "first deadlock" tutorial mission: a deliberately crafted Mission 6 ("Breach") scenario where naive BLOCKING hook use creates a deadlock — and the debrief shows exactly why, tick by tick, as the frozen agents' last actions play back; designed failure, designed recovery, designed insight
 - [ ] 5.24 — The "false pivot literacy" tutorial mission: a campaign mission explicitly teaching the false pivot phenomenon through a scripted demonstration replay where the player must identify the genuine pivot by scrubbing backward through the debrief; completing it unlocks the "Diagnostic" achievement and advanced signal genealogy visualization mode
+- [ ] 5.25 — The "oracle preview" anti-pattern: players who alt-tab to look up a tier list or YouTube solution to discover the expected pass rate before watching their sealed replay; designing against this by making the sealed experience fast enough and surprising enough that spoiling it feels like opting out of the fun; whether the game should lean into spoilability (some players genuinely prefer guides) or resist it
 - [ ] 5.19 — The "pass-rate plateau" problem: players who get 80/100 and feel done — designing campaign gates that require 90% rather than 100% for progression, while reserving 100% for cosmetic/leaderboard rewards; the psychological difference between "good enough" and "provably correct"
 - [ ] 5.20 — Always-on anxiety vs. self-contained missions: Screeps World's 24/7 persistence creates ownership feeling but also "vacation death" anxiety (base destroyed while offline); Robot Uprising's mission structure eliminates anxiety but loses persistence fantasy; what compensatory design choices restore the ownership feeling? Named units? Between-mission camp state? Campaign memory?
 - [ ] 5.21 — Open-source architecture as community mechanic: Screeps' culture of publishing full bot code on GitHub + writing architectural blog posts is a deliberately-designed community mechanic; what's the Robot Uprising equivalent? Exportable agent configs, shareable hook wiring diagrams, community config repositories?
