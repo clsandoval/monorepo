@@ -300,7 +300,7 @@ loops:
     type: reverse
     schedule: manual
     max_iterations: 200
-    timeout_minutes: 30
+    timeout_minutes: 360
     status: active
     created: 2026-03-13
   pymc-content-reverse:
