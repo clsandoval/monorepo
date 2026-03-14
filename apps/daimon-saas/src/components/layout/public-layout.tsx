@@ -10,10 +10,8 @@ interface PublicLayoutProps {
 export function PublicLayout({ children, transparentNavbar = false }: PublicLayoutProps) {
   return (
     <div className="flex flex-col min-h-screen">
-      <header>
-        <PublicNavbar transparent={transparentNavbar} />
-      </header>
-      <main className="flex-1">{children}</main>
+      <PublicNavbar transparent={transparentNavbar} />
+      <main id="main-content" tabIndex={-1} className="flex-1">{children}</main>
       <PublicFooter />
     </div>
   )

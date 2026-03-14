@@ -225,6 +225,8 @@ function DashboardLayoutInner({
 
         {/* Page content — responsive padding + bottom padding on mobile to clear bottom nav bar */}
         <main
+          id="main-content"
+          tabIndex={-1}
           className="flex-1 p-4 md:p-6 xl:p-8 pb-[72px] md:pb-6 xl:pb-8 w-full"
           style={{ maxWidth: '1200px' }}
         >

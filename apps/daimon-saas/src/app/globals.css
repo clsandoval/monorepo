@@ -320,13 +320,27 @@ a {
 }
 
 /* ── Focus visible ───────────────────────────────────────────────────────── */
-:focus-visible {
+*:focus {
   outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-aqua);
+  outline-offset: 2px;
   box-shadow: var(--shadow-focus-ring);
 }
 
-.bg-navy :focus-visible {
+.bg-navy *:focus-visible {
+  outline-color: rgba(180, 231, 221, 0.9);
   box-shadow: 0 0 0 3px rgba(180, 231, 221, 0.7);
+}
+
+@media (prefers-contrast: more) {
+  *:focus-visible {
+    outline: 3px solid #000000;
+    outline-offset: 2px;
+    box-shadow: none;
+  }
 }
 
 /* ── Selection ───────────────────────────────────────────────────────────── */
