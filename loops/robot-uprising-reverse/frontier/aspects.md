@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 561
-- **Analyzed:** 89
-- **Pending:** 472
+- **Total aspects:** 566
+- **Analyzed:** 90
+- **Pending:** 476
 - **Convergence:** 15.9%
 
 ---
@@ -84,7 +84,12 @@
                                           - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i — `repair_command` field in audit JSON output: pre-formed repair command string embedded in each unevaluable suppression entry in `make l10n-suppression-audit --output-format=json`; when command can be pre-formed vs. left blank (no match, decompose, multiple equal-distance matches)
                                             - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A — `repair_command_version` field for schema compatibility: versioning the repair command format so cached audit outputs can be detected as stale after a `repair-suppression-ref` argument schema change; semantic versioning of CLI argument schemas as a general pattern
                                             - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i — Automated schema change detection: CI check comparing repair tool's argument parser against recorded manifest; detects schema changes without version bump; the "schema drift detector"
-                                              - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a — Phantom flag detection as bidirectional completeness check: reverse template check (audit → repair direction); --enumerate-args as known-flags source of truth; flag alias handling; false positive suppression for test-only flags
+                                              - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a — Phantom flag detection as bidirectional completeness check: reverse template check (audit → repair direction); --enumerate-args as known-flags source of truth; flag alias handling; false positive suppression for test-only flags
+                                                - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-i — Allowlist hygiene and expiry: when should allowlist entries be removed; stale allowlist entries suppressing future genuine phantoms; periodic audit of allowlist against current source; automated staleness detection
+                                                - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-ii — Semantic phantom detection beyond flag names: phantom flag VALUES (e.g., --output-format=quiet where quiet is no longer valid); extending reverse check to validate flag value validity; --enumerate-args valid_values field
+                                                - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-iii — --enumerate-template-flags version tracking: audit tool declared manifest needs its own version number; version bump protocol for template manifest changes; who bumps when flag moves between categories
+                                                - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-iv — Orphan flag as onboarding signal: uncategorized repair tool flag forces explicit include/exclude/conditional decision; orphan check as mandatory design decision point
+                                                - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-a-v — Bidirectional completeness as a general pattern for tool-to-tool interfaces: abstracting forward+reverse+orphan check into reusable library; tool-interface-check as CI primitive; applicable beyond l10n to any CLI tool ecosystem
                                               - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-b — Enumeration-to-parser consistency lint: source-level check that --enumerate-args output matches actual getopt/argparse definitions; the "inner drift" problem where enumeration and parser diverge within the repair tool itself
                                               - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-c — Round-trip test fixture versioning: synthetic suppression fixture must evolve alongside suppression schema; fixture manifest tracking target schema version; auto-regeneration on suppression schema changes
                                               - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I-a-i-A-i-d — Drift detector for other l10n CLI tools: generalizing three-tier drift detection to fork-string, rename-surface, and suppression-audit; shared check-schema-drift.sh library; --enumerate-args as standard interface
