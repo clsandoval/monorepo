@@ -125,7 +125,7 @@ export async function DELETE(req: NextRequest) {
     // Fetch Vault secret IDs before deletion
     const { data: serviceConnections } = await supabaseAdmin
       .from('tenant_service_connections')
-      .select('vault_access_token_id, vault_refresh_token_id')
+      .select('vault_secret_id, refresh_vault_secret_id')
       .eq('tenant_id', membership.tenant_id);
 
     const { data: apiKeys } = await supabaseAdmin
@@ -141,11 +141,11 @@ export async function DELETE(req: NextRequest) {
     // Delete Vault secrets for service connections
     if (serviceConnections) {
       for (const conn of serviceConnections) {
-        if (conn.vault_access_token_id) {
-          await adminAny.schema('vault').rpc('delete_secret', { secret_id: conn.vault_access_token_id });
+        if (conn.vault_secret_id) {
+          await adminAny.schema('vault').rpc('delete_secret', { secret_id: conn.vault_secret_id });
         }
-        if (conn.vault_refresh_token_id) {
-          await adminAny.schema('vault').rpc('delete_secret', { secret_id: conn.vault_refresh_token_id });
+        if (conn.refresh_vault_secret_id) {
+          await adminAny.schema('vault').rpc('delete_secret', { secret_id: conn.refresh_vault_secret_id });
         }
       }
     }

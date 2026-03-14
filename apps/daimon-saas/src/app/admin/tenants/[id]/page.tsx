@@ -55,17 +55,17 @@ export default async function AdminTenantDetailPage({ params }: PageProps) {
       .order('created_at', { ascending: false }),
     supabase
       .from('tenant_api_keys')
-      .select('id, api_key_type, key_hint, status, validated_at')
+      .select('id, key_type, key_hint, status, validated_at')
       .eq('tenant_id', id)
       .order('created_at', { ascending: false }),
     supabase
       .from('tenant_service_connections')
-      .select('id, service_name, status, created_at, metadata')
+      .select('id, service, status, created_at, metadata')
       .eq('tenant_id', id)
       .order('created_at', { ascending: false }),
     supabase
       .from('tenant_subscriptions')
-      .select('plan, stripe_status, stripe_subscription_id, current_period_start, current_period_end, cancel_at_period_end, trial_end, created_at')
+      .select('plan, status, stripe_subscription_id, current_period_start, current_period_end, cancel_at, trial_end, created_at')
       .eq('tenant_id', id)
       .maybeSingle(),
     supabase
@@ -117,14 +117,14 @@ export default async function AdminTenantDetailPage({ params }: PageProps) {
     })),
     apiKeys: (apiKeys ?? []).map(k => ({
       id: k.id,
-      api_key_type: k.api_key_type,
+      api_key_type: k.key_type,
       key_hint: k.key_hint,
       status: k.status,
       validated_at: k.validated_at ?? null,
     })),
     serviceConnections: (serviceConnections ?? []).map(sc => ({
       id: sc.id,
-      service_name: sc.service_name,
+      service_name: sc.service,
       status: sc.status,
       created_at: sc.created_at,
       metadata: (sc.metadata as Record<string, string> | null) ?? null,
@@ -132,11 +132,11 @@ export default async function AdminTenantDetailPage({ params }: PageProps) {
     subscription: subscription
       ? {
           plan: subscription.plan,
-          stripe_status: subscription.stripe_status ?? null,
+          stripe_status: subscription.status ?? null,
           stripe_subscription_id: subscription.stripe_subscription_id ?? null,
           current_period_start: subscription.current_period_start ?? null,
           current_period_end: subscription.current_period_end ?? null,
-          cancel_at_period_end: subscription.cancel_at_period_end ?? false,
+          cancel_at_period_end: subscription.cancel_at != null,
           trial_end: subscription.trial_end ?? null,
           created_at: subscription.created_at,
         }

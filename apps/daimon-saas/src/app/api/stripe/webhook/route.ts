@@ -159,7 +159,9 @@ async function upsertSubscription(
     stripe_price_id: priceId,
     plan: plan,
     status: subscription.status,
-    cancel_at_period_end: subscription.cancel_at_period_end,
+    cancel_at: subscription.cancel_at
+      ? new Date(subscription.cancel_at * 1000).toISOString()
+      : null,
     current_period_start: subscription.items.data[0]?.current_period_start
       ? new Date(subscription.items.data[0].current_period_start * 1000).toISOString()
       : null,
@@ -264,7 +266,7 @@ async function handleSubscriptionDeleted(
       stripe_price_id: null,
       plan: 'free',
       status: 'active',
-      cancel_at_period_end: false,
+      cancel_at: null,
       current_period_start: null,
       current_period_end: null,
       canceled_at: subscription.canceled_at
