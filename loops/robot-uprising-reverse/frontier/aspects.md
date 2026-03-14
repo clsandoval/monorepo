@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 504
-- **Analyzed:** 77
-- **Pending:** 427
+- **Total aspects:** 509
+- **Analyzed:** 78
+- **Pending:** 431
 - **Convergence:** 15.3%
 
 ---
@@ -192,11 +192,16 @@
   - [ ] 4.69e-i-e-v — Seasonal reset of banner suppression: whether suppression is permanent or resets per season; interaction with the veteran lamp-only graduation; opt-in re-enable affordance
 - [x] 4.69e-ii — Known adversarial opponent tagging: UI for adding an opponent to the "known adversarial" list from within the career analysis agent audit; how the tag persists across sessions; what changes in career analysis behavior when an opponent is tagged; how to remove a tag
 - [x] 4.69e-iii — Per-opponent threshold override in competitive contexts: suppressing cluster contributions from specific opponents below a concentration threshold; interaction with match-source breakdown display; comparison with 4.69j per-agent threshold override
-  - [ ] 4.69e-iii-a — Compound adversarial detection: automatic detection of cases where no single opponent dominates but 2–3 opponents together create a false cluster signal; pairwise and N-wise opponent removal checks; UI for displaying compound adversarial patterns and applying group caps
+  - [x] 4.69e-iii-a — Compound adversarial detection: automatic detection of cases where no single opponent dominates but 2–3 opponents together create a false cluster signal; pairwise and N-wise opponent removal checks; UI for displaying compound adversarial patterns and applying group caps
   - [ ] 4.69e-iii-b — Cap threshold calibration wizard: guided flow showing sensitivity analysis curve (threshold vs. suppression count); threshold recommendation based on player's stated goal (aggressive filtering vs. conservative); interactive visualization of the entire threshold-to-suppression-count curve
   - [ ] 4.69e-iii-c — Cap vs. tag migration path: UI flow for converting an existing binary ⚑ Exclude tag to a ⚡ Cap (and vice versa); preview of what changes when migrating; interaction with existing tag persistence model
   - [ ] 4.69e-iii-d — Per-opponent-per-agent threshold matrix: full combinatorial system with different concentration thresholds for each (opponent × agent) pair; UI design for a 5-opponent × 8-agent matrix; when maximum precision is warranted vs. when simpler systems suffice
   - [ ] 4.69e-iii-e — Cap effectiveness tracking over time: log of clusters suppressed by each cap per career analysis; false positive/negative tracking (was the suppressed cluster adversarial or structural?); the cap's own diagnostic — "is your cap helping or hurting?"
+  - [ ] 4.69e-iii-f — Coalition member departure handling: what happens when one member of a detected coalition leaves the ladder or stops appearing in matches; group cap persistence for remaining members; compound score recalculation with reduced group; grace period before auto-dissolution; the "roster instability" problem for compound groups
+  - [ ] 4.69e-iii-g — Coalition growth detection: detecting when a new opponent should be added to an existing coalition group; proactive coalition expansion suggestion when new opponent's compound contribution matches existing group pattern; manual vs. automatic group management
+  - [ ] 4.69e-iii-h — Intentional vs. convergent coordination signal: distinguishing deliberate team coordination from independent meta convergence; match scheduling proximity analysis; config similarity metrics; cross-player compound detection overlap; the attribution uncertainty problem
+  - [ ] 4.69e-iii-i — Compound detection as a community-level metric: aggregating compound detection results across all players in a bracket; "this group is flagged by 8 of 15 opponents" as bracket-level insight; privacy implications; interaction with adversarial tag as community signal (4.69e-ix)
+  - [ ] 4.69e-iii-j — Compound score trend as a season metric: tracking peak compound score across career analyses over a season; rising compound score = increasing coordinated adversarial pressure; interaction with adversarial density metric (4.69e-v) and season health dashboard (4.69n)
 - [ ] 4.69e-iv — Counter-poisoning config design: full design of the player's ability to intentionally design a config that generates misleading cluster signals in an opponent's career analysis; the offensive version of adversarial poisoning; ethical/design considerations around explicit "diagnostic sabotage" as player intent
 - [ ] 4.69e-v — Adversarial density as a career season metric: tracking how many of the player's matches in a season were adversarially targeted; "adversarial pressure" as a context variable in season health; adjusting season health thresholds for high-adversarial-pressure seasons
 - [ ] 4.69e-vi — Concentration threshold calibration for dense opponent pools: false adversarial detection in small competitive ladders where players naturally match against same opponents repeatedly; graduated concentration thresholds based on opponent pool size; "expected concentration at N matches" as contextual denominator
