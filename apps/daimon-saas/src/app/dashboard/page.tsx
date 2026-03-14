@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
+import { Users } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { ErrorState } from '@/components/ui/error-state'
+import { EmptyState } from '@/components/ui/empty-state'
 import { DashboardStatusCards } from '@/components/dashboard/dashboard-status-cards'
 import { OnboardingChecklist } from '@/components/dashboard/onboarding-checklist'
 import { QuickStatsRow } from '@/components/dashboard/quick-stats-row'
@@ -99,6 +101,22 @@ export default async function DashboardPage() {
   }
 
   const tenant = tenantResult.data
+
+  // No tenant row yet — new user who hasn't finished signup or tenant creation failed
+  if (!tenant) {
+    return (
+      <DashboardLayout pageTitle="Dashboard">
+        <EmptyState
+          icon={<Users size={28} />}
+          title="No workspace found"
+          description="We couldn't find a workspace for your account. Try signing out and back in, or contact support."
+          action={{ label: 'Sign out', href: '/api/auth/signout' }}
+          size="lg"
+        />
+      </DashboardLayout>
+    )
+  }
+
   const discord = discordResult.data ?? null
   const apiKeys = apiKeysResult.data ?? []
   const serviceConnections = serviceConnectionsResult.data ?? []

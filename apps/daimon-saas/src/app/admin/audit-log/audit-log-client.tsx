@@ -3,8 +3,9 @@
 import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
-import { X, ChevronDown, ChevronRight } from 'lucide-react'
+import { X, ChevronDown, ChevronRight, FileText } from 'lucide-react'
 import { useDebouncedCallback } from 'use-debounce'
+import { EmptyState } from '@/components/ui/empty-state'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -481,45 +482,17 @@ export function AuditLogClient({
       {/* ── Table ──────────────────────────────────────────────────────────────── */}
       <div style={{ background: '#FFFFFF', border: '1px solid #E5E7EB' }}>
         {entries.length === 0 ? (
-          <div style={{ padding: '60px 0', textAlign: 'center' }}>
-            <p
-              style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '15px',
-                fontWeight: 500,
-                color: '#374151',
-                marginBottom: '6px',
-              }}
-            >
-              No audit log entries found.
-            </p>
-            <p
-              style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '14px',
-                color: '#6B7280',
-                marginBottom: '20px',
-              }}
-            >
-              No admin actions have been recorded yet, or your filters returned no results.
-            </p>
-            <button
-              onClick={handleReset}
-              style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '14px',
-                fontWeight: 500,
-                color: '#0C1F40',
-                border: '1px solid #E5E7EB',
-                padding: '6px 16px',
-                background: '#FFFFFF',
-                cursor: 'pointer',
-                borderRadius: 0,
-              }}
-            >
-              Clear Filters
-            </button>
-          </div>
+          <EmptyState
+            icon={<FileText size={28} />}
+            title="No audit log entries"
+            description={
+              hasActiveFilters
+                ? 'No actions match the selected filters. Try a different date range.'
+                : 'Admin actions will appear here as they occur.'
+            }
+            action={hasActiveFilters ? { label: 'Clear filters', onClick: handleReset } : undefined}
+            size="lg"
+          />
         ) : (
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>

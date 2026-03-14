@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Link from 'next/link'
+import { Users, Search } from 'lucide-react'
 import { createSupabaseAdminClient } from '@/lib/supabase/admin'
 
 import { AdminLayout } from '@/components/layout/admin-layout'
+import { EmptyState } from '@/components/ui/empty-state'
 import { FiltersBar } from './filters-bar'
 
 export const metadata: Metadata = {
@@ -437,47 +439,23 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
 
           {/* ── Tenant table ─────────────────────────────────────────────── */}
           {tenants.length === 0 ? (
-            <div
-              style={{
-                padding: '60px 0',
-                textAlign: 'center',
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: 'var(--font-inter)',
-                  fontSize: '15px',
-                  color: '#6B7280',
-                  marginBottom: '4px',
-                }}
-              >
-                No tenants match these filters.
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-inter)',
-                  fontSize: '14px',
-                  color: '#9CA3AF',
-                  marginBottom: '16px',
-                }}
-              >
-                Try adjusting your search or clearing the filters.
-              </p>
-              <Link
-                href="/admin/tenants"
-                style={{
-                  fontFamily: 'var(--font-inter)',
-                  fontSize: '14px',
-                  fontWeight: 500,
-                  color: '#0C1F40',
-                  border: '1px solid #E5E7EB',
-                  padding: '6px 16px',
-                  textDecoration: 'none',
-                  display: 'inline-block',
-                }}
-              >
-                Clear All Filters
-              </Link>
+            <div style={{ padding: '40px 0' }}>
+              {total === 0 && !q && !planFilter && !statusFilter ? (
+                <EmptyState
+                  icon={<Users size={28} />}
+                  title="No tenants yet"
+                  description="Tenants will appear here once users sign up for Daimon."
+                  size="lg"
+                />
+              ) : (
+                <EmptyState
+                  icon={<Search size={28} />}
+                  title="No tenants found"
+                  description={`No tenants match${q ? ` "${q}"` : ' these filters'}. Try a different name or email.`}
+                  action={{ label: 'Clear search', href: '/admin/tenants' }}
+                  size="lg"
+                />
+              )}
             </div>
           ) : (
             <div style={{ overflowX: 'auto' }}>
