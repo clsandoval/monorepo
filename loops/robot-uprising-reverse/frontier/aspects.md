@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 170
-- **Analyzed:** 20
-- **Pending:** 150
-- **Convergence:** 11.8%
+- **Total aspects:** 175
+- **Analyzed:** 21
+- **Pending:** 154
+- **Convergence:** 12.0%
 
 ---
 
@@ -31,7 +31,7 @@
 - [x] 1.06c-ext-A-i — Replay length as tension design: minimum match duration required for sealed tension to function; mission design constraints around ensuring competitive Gauntlet matches run 60–180 ticks; how fast-resolution stomps are prevented without artificial health inflation
 - [x] 1.06c-ext-A-ii — The "false pivot" anti-pattern: replays where outcome appears to reverse multiple times before resolution — emotionally rich but potentially frustrating if player misidentifies the pivot; should debrief overlay mark decisive moments retroactively?
 - [x] 1.06c-ext-A-iii — Sealed replay for PvE missions: applying the sealed mechanic to campaign missions — hiding pass/fail until player watches; whether sealed tension works when the player designed both sides of the encounter
-- [ ] 4.04b — Two-act debrief structure: designing the watch experience and the analysis experience as sequential phases — sealed watch (emotional) → full debrief (analytical) — with a deliberate transition between them; the "seal breaking" as the transition event
+- [x] 4.04b — Two-act debrief structure: designing the watch experience and the analysis experience as sequential phases — sealed watch (emotional) → full debrief (analytical) — with a deliberate transition between them; the "seal breaking" as the transition event
 - [ ] 4.18 — Effective outcome timestamp as a first-class metric: the tick at which the match's outcome was "effectively determined" (minimum-counterfactual tick) shown in post-match stats; comparing this to max_ticks reveals "how much of the match was foregone conclusion"; effective-determination-to-max-ticks ratio as a Gauntlet map quality indicator (low ratio = high false pivot density = rich sealed content)
 - [ ] 4.19 — False pivot annotation opt-out for streamers: a per-session toggle hiding the gold diamond and grey markers; for streamers who want to provide commentary before the annotation appears, or for community events where "find the pivot" is a collective viewer challenge; the annotation as a game show format
 - [ ] 4.20 — Counterfactual simulation as advanced debrief feature: a "what if" mode in the debrief that lets the player change a single agent decision at the identified pivot tick and re-simulate the match forward; the "minimum fix explorer" showing how small a change was needed to flip the outcome
@@ -184,6 +184,10 @@
 - [ ] 4.10 — Config integrity as a persistent resource: the "integrity %" as a cross-mission resource; some missions degrade it more, repair actions restore it; trade-off between speed and thoroughness of pre-mission audits; does low integrity persist into next mission if unaddressed?
 - [ ] 4.11 — The "foreign fingerprint" visual language: three-way visual vocabulary for elements in the workbench (mine / system-default / enemy-injected) that must be immediately parseable; how to make enemy modifications visually distinct without requiring a tooltip to understand; the Papers Please discrepancy-detection UI model applied to agent config
 - [ ] 4.08 — Unit portraits and identity: how units look, how you distinguish them, personality
+- [ ] 4.21 — The materialization sound design as learned signal: designing the seal-break materialization sequence sounds (scrubber assembling, gold diamond ping, signal genealogy trace) as a conditioned vocabulary that becomes meaningful over many replays; what the sound should trigger in a veteran that it doesn't in a new player; UX design of satisfaction-at-first / meaning-later sound
+- [ ] 4.22 — Act 2 tool introduction sequence: the order in which Act 2 tools appear during the materialization and what the sequence communicates about priority; gold diamond first (primary diagnostic) vs. scrubber first (navigation) vs. signal genealogy last (expert); materialization as compressed onboarding arc; does tool order affect which tool players reach for first?
+- [ ] 4.23 — Replay annotated export format: the shareable debrief artifact including Act 1 timestamp annotations, Act 2 notes, gold diamond location, false pivot markers — a file format designed for config necropsy culture; what gets exported vs. what stays local; interaction with workshop and community sharing systems; replay as community artifact vs. personal record
+- [ ] 4.24 — The "hot take vs. cold analysis" temporal gap: analysis done immediately post-match is biased toward outcome (hot take mode); analysis 24+ hours later is more accurate (cold mode); should Robot Uprising's debrief offer a "24-hour cold mode" that unlocks additional insight markers only after temporal distance? Or would this friction destroy fast iteration loops entirely?
 
 ---
 
@@ -263,3 +267,4 @@
 - [ ] 8.07 — Robustness vs. efficiency as fundamental tension: highly efficient architectures may be brittle (works 90% of cases, fast); robust architectures may be inefficient (works 100%, slow); how do histograms communicate both dimensions simultaneously?
 - [ ] 8.09 — The diagnostic layer as teaching mechanic: cross-cutting synthesis of inspector sidebar / probe hooks / signal genealogy / diagnostic ring as a unified system for making information architecture legible; how this system scales across all three acts; what should be always-on vs. opt-in vs. expert-only; a full design pass on the diagnostic teaching arc
 - [ ] 8.08 — The real-language vocabulary claim: Robot Uprising asserts its primitives (skills/rules/hooks/context) map 1:1 to real agentic AI engineering; design exercise — map a real Claude Code ralph loop to Robot Uprising primitives and test whether the vocabulary actually holds; where does the metaphor break down, and does that matter?
+- [ ] 8.11 — The two-act structure as pedagogical framework: cross-cutting synthesis of how the emotional-first, analytical-second debrief sequence maps to real professional methodologies (blameless postmortems, incident review, chaos engineering); what does Robot Uprising teach by making this structure visceral and habitual over hundreds of play sessions; the "film room" culture as designed outcome

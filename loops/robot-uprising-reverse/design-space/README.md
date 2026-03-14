@@ -44,6 +44,12 @@ An exhaustive exploration of every possible version of Robot Uprising. Each file
 | [campaign/mission-design-robustness-scenarios.md](campaign/mission-design-robustness-scenarios.md) | 1.04e — The 100-test-case robustness pattern: three tiers of randomization (data/structural/constraint), six named failure archetypes (Invariant Trap, Count Problem, Timing Ambush, False Positive, Order Reversal, Orphaned Chain), campaign ramp (10→100 cases), debrief as robustness teacher (pass/fail grid, failure cluster annotations, comparative replay), 3 player journeys (Maya/David/Keiko), sensory design; 5 new aspects discovered | ✅ Complete |
 | [campaign/sealed-replay-pve-missions.md](campaign/sealed-replay-pve-missions.md) | 1.06c-ext-A-iii — Sealed replay for PvE missions: two uncertainty types (outcome vs. scenario); six design options (No Seal / Boss-Mission Sealed / Pass-Score-Sealed / Confidence Wager / Fail-Sealed Only / Progressive Scenario Accumulation); asymmetries between PvP and PvE sealed; Option F (live scenario counter with threshold cross) as PvE-native innovation; sandbox "designed both sides" edge case analyzed; 3 player journeys (Marcus confidence wager threshold cross, Aiko first-attempt genuine uncertainty, Priya exhausted opt-out); sensory design for scenario grid live-fill; 2 new aspects discovered (5.25, 2.28) | ✅ Complete |
 
+### UI/UX
+
+| File | Aspect | Status |
+|------|--------|--------|
+| [ui-ux/debrief-two-act-structure.md](ui-ux/debrief-two-act-structure.md) | 4.04b — Two-act debrief structure: five ways the design differs from naive watch-then-analyze; Act 1 visual register (stripped HUD, linear playback, compact buffer rings, no overlays); five-phase transition (frequency shift → seal dissolve → outcome silence → materialization assembly → curtain-raiser text); Act 2 full tool inventory (scrubber, signal genealogy, buffer slot detail, latency overlay, pivot annotation, opponent architecture reveal); cold open / fast track / hybrid / collaborative variations; PvP vs. PvE structural differences; comparable games (Chess.com post-game, Frozen Synapse dual replay, NFL film room, Dark Souls annotation); 3 full player journeys (Daniel diagnosing eviction taxonomy, Yuki first win plain-language Act 2, Rodrigo 38-minute signal genealogy session); sensory: observation room → document unsealing → interactive analysis station; 5 new aspects discovered (4.21–4.24, 8.11) | ✅ Complete |
+
 ### First Playable Decisions (Brainstorm Output)
 
 | File | Description | Status |
