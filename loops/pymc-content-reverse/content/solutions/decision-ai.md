@@ -1,12 +1,13 @@
 ---
 page: solutions/decision-ai
 title: Decision AI
-status: partial
+status: complete
 sources:
   - analysis/discord-decision-ai-extraction.md
   - analysis/website-scrape/crawl-remaining.md
   - analysis/discord-marketing-extraction.md
   - analysis/discord-sales-extraction.md
+  - analysis/halah-draft-scrape.md
 ---
 
 # Decision AI — Page Content
@@ -401,12 +402,112 @@ An agent-native skill registry — the "npm for agent capabilities." Instead of 
 
 ---
 
+---
+
+## Live Website Content (Public-Facing Copy)
+
+### Primary Blog Post: "The AI MMM Agent"
+**URL:** https://www.pymc-labs.com/blog-posts/the-ai-mmm-agent
+**Published:** February 24, 2025 | **Updated:** November 27, 2025
+**Author:** Luca Fiaschi
+
+**Subheadline:** "The AI MMM Agent, An AI-Powered Shortcut to Bayesian Marketing Mix Insights"
+
+**Description:** An intelligent automation system that transforms raw spending data into strategic business insights in hours rather than months by leveraging PyMC-Marketing.
+
+**Four core capability groups (website copy):**
+
+**1. Data Exploration:**
+- Automated data access and cleaning
+- Customized visualizations and diagnostics
+- Insight discovery combining data science expertise with context awareness
+
+**2. Model Configuration:**
+- Automatic optimal model structure selection based on data characteristics
+- Dynamic component selection (carryover, saturation, seasonality, time-varying baselines)
+- Eliminates extensive manual coding
+
+**3. Bayesian Inference:**
+- Efficient sampling using PyMC methods
+- GPU sampling optimization
+- Linear-time adstock calculations
+
+**4. Insight Delivery:**
+- Interactive expert analysis translating posterior estimates into actionable recommendations
+- Example output: "Facebook ads drove 20% of sales with 4.5× ROI. Consider shifting budget from print to Facebook"
+- Real-time scenario testing
+
+**Technical capabilities (website):**
+- Causal intelligence: incorporates control variables and causal DAGs; accounts for economic trends and competitive factors
+- Experiment calibration: integrates lift test results directly into modeling; corrects for confounding
+- Scenario integration with other agents (inventory management, sales promotion)
+
+**Benefit framing (website):**
+- **Data Scientists:** ~80% reduction in manual grunt work; instant scenario analysis; adaptive strategy adjustments
+- **Executives:** Weekly budget updates instead of quarterly cycles; boardroom-ready recommendations without technical jargon
+
+**CTA (website):** "Contact us today to access this cutting-edge solution."
+
+---
+
+### BETA Blog Post: "AI MMM Agent BETA"
+**URL:** https://www.pymc-labs.com/blog-posts/ai-mmm-agent-beta
+**Published:** November 7, 2025 | **Updated:** February 17, 2026
+
+**Headline:** "Introducing the BETA Release of Our MMM Agent - Powered by PyMC-Marketing"
+
+**Subheadline:** Turns "what used to be a multi-month modeling effort into an interactive, informative, and insightful workflow in hours."
+
+**Target users:** Data scientists, media analysts, CMOs
+
+**Four beta features:**
+1. Automated data wrangling
+2. Smart Bayesian modeling (auto-selects carryover, saturation, trend detection)
+3. Instant scenario simulation — budget allocation what-if with ROI impact visualization
+4. Causal analysis — experiments and interventions for causally robust recommendations
+
+**Improvements since alpha:**
+- Inline code and charts in chat interface
+- Persistent visualizations stored in MLflow
+- Enhanced diagnostic and debugging capabilities
+
+**BETA access CTA:** Email [email protected]
+
+---
+
+## Halah Draft Framing (Services Page)
+
+**Under "03 Bayesian AI Solutions":**
+> "Autonomous agents and frameworks designed to automate high-stakes decisions with mathematical transparency."
+
+**Named products in Halah draft:**
+- Simba: "Enterprise-level Bayesian solution for end-to-end MMM workflows" (named explicitly as "Simba")
+- MMM Insights Agent (aka Decision AI MMM Agent)
+- CLV Agent
+
+**Sub-text (services section):** "We specialize in providing scalable Bayesian solutions that transform uncertainty into a competitive advantage."
+
+---
+
+## decision.ai Website Copy
+**Domain live as of:** February 25, 2026
+
+The decision.ai website is the standalone brand hub separate from pymc-labs.com. It positions Decision AI as an independent open-source ecosystem, not just a PyMC Labs tool. Decision Hub (hub.decision.ai) is its first public component.
+
+**LinkedIn launch post (Feb 26, 2026, Sangam Swadi K):**
+> "Right now, most agentic AI optimizes for capability demos, not decision quality. When applied to complex, high-stakes data science, these systems break down. They lack statistical rigor, human-in-the-loop planning, and the strict validation required to ensure an agent isn't just generating an output, but making a trustworthy decision.
+>
+> That is why we built Decision AI: our open-source, research-driven ecosystem for building, evaluating, and operating AI systems that make real decisions, not just predictions."
+
+---
+
 ## Gaps
 
-<!-- GAP: Final public pricing card (2026 pricing not confirmed) -->
+<!-- GAP: Final public pricing card (2026 pricing not confirmed on decision.ai) -->
 <!-- GAP: Intuit/Mailchimp contract outcome (Dec 2025 start date — confirmed or delayed?) -->
 <!-- GAP: BMW ($700k) contract signed status (delayed to April 2026 as of March 2026) -->
 <!-- GAP: Decision Orchestrator architecture docs (not yet public) -->
-<!-- GAP: MMM Agent CLI release date and feature list -->
+<!-- GAP: MMM Agent CLI release date and full feature list -->
 <!-- GAP: Stakeholder mode (Jellyfish MVP) launch date -->
 <!-- GAP: Full competitive analysis vs Stella (deck exists but not extracted) -->
+<!-- GAP: decision.ai homepage body copy (beyond launch LinkedIn post) -->

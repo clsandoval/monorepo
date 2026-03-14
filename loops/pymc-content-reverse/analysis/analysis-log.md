@@ -2,6 +2,23 @@
 
 ---
 
+## 2026-03-14 — assemble-solution-decision-ai
+
+**Aspect:** assemble-solution-decision-ai
+**Status:** Complete
+
+content/solutions/decision-ai.md was already partially assembled (created during discord-decision-ai mining). This run:
+1. Upgraded status from `partial` → `complete`
+2. Added "Live Website Content" section — full copy from pymc-labs.com/blog-posts/the-ai-mmm-agent (Luca Fiaschi, Feb 24 2025) and ai-mmm-agent-beta post (Nov 7 2025), including all 4 core capability groups, benefit framing per audience, and CTAs
+3. Added "Halah Draft Framing" section — services page positioning of Decision AI as "Bayesian AI Solutions" (#3 of 5 pillars), with Simba/MMM Agent/CLV Agent named
+4. Added "decision.ai Website Copy" section — LinkedIn launch post from Feb 26 2026
+
+Key content: Full 3-layer ecosystem (Decision Packs / Decision Hub / Decision Orchestrator), 30+ MMM Agent features, Decision Hub (1,463 downloads in first week), CLV Agent alpha, 10 clients/pilots, pricing ($8k/mo EAP, $50-100k/yr SaaS), competitive vs Stella/Meridian, trust framework, full 21-person team table, roadmap Jan 2025 → May 2026.
+
+GAPS noted: final 2026 pricing, Intuit/Mailchimp + BMW contract outcomes, Stakeholder mode (Jellyfish MVP) launch date, Decision Orchestrator public docs, full Stella competitive deck.
+
+---
+
 ## 2026-03-14 — assemble-industry-sports
 
 **Aspect**: assemble-industry-sports
