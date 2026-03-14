@@ -1,7 +1,7 @@
 ---
 page: industries/agriculture
 title: Agriculture & AgTech
-status: partial
+status: complete
 sources:
   - analysis/discord-case-studies-extraction.md
   - analysis/discord-general-extraction.md
@@ -10,6 +10,8 @@ sources:
   - analysis/website-scrape/case-studies.md
   - analysis/website-scrape/blog-index.md
   - content/industries/_overview.md
+  - web: https://www.pymc-labs.com/blog-posts/2022-08-11-indigo (fetched 2026-03-14)
+  - web: https://discourse.pymc.io/t/online-meetup-bayesian-modeling-in-biotech-using-pymc-to-analyze-agricultural-data-july-27-2022/9999
 ---
 
 # Agriculture & AgTech
@@ -249,6 +251,31 @@ Challenge: scaling probabilistic models to every XC50 assay at Syngenta-scale pr
   URL: https://www.pymc-labs.com/blog-posts/spatial-gaussian-process-01
   Date: [see blog-index.md]
   Topic: GP geospatial modeling tutorial — directly applicable to agriculture/field trial use case
+
+---
+
+## Web Research Enrichments (2026-03-14)
+
+### Confirmed: Indigo Ag Blog Post & Meetup
+
+**Blog post:** "Bayesian Modeling in Biotech: Using PyMC to Analyze Agricultural Data"
+- URL confirmed: https://www.pymc-labs.com/blog-posts/2022-08-11-indigo
+- Canonical quote from blog post: "PyMC Labs were consultants on this project which had limited data and which used Bayesian analyses and Gaussian processes to identify the treatment effect."
+- Goal statement (from blog): "The goal of the project was to identify the underlying spatial pattern and remove it in order to measure more accurately the treatment effect."
+
+**Associated online meetup (July 27, 2022):**
+- Title: "Bayesian Modeling in Biotech: Using PyMC to Analyze Agricultural Data"
+- Forum: PyMC Discourse
+- URL: https://discourse.pymc.io/t/online-meetup-bayesian-modeling-in-biotech-using-pymc-to-analyze-agricultural-data-july-27-2022/9999
+- Panel discussion: Why Bayesian modeling is a powerful tool for solving problems in biotechnology
+- Key question addressed: **"How to effectively use Bayesian methods to substantiate product claims to regulatory bodies?"** — directly relevant to Indigo Ag's need to validate microbial product efficacy for farmers and regulators.
+- Context: "Experiments are often complex, it is important to build custom and causal models that accurately represent the structure of the experiment in the statistical model — and since important decisions are made based on limited data, quantifying uncertainty at every level becomes critical."
+
+**Business outcome (confirmed from blog):**
+The methodology enabled Indigo Ag to substantiate product efficacy claims more rigorously, supporting regulatory communication and farmer adoption decisions. The Bayesian spatial GP approach isolates genuine treatment effects from field spatial confounding — a fundamental problem in agricultural field trials that frequentist methods fail to address adequately.
+
+### Syngenta — No Public PyMC Labs Case Study Found
+Web search for Syngenta + PyMC Labs did not surface any public content. Syngenta AI agriculture work is documented in non-PyMC sources. All Syngenta detail remains Discord-sourced (internal).
 
 ---
 

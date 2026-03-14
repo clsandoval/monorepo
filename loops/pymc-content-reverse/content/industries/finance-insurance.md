@@ -1,7 +1,7 @@
 ---
 page: industries/finance-insurance
 title: Finance & Insurance
-status: partial
+status: complete
 sources:
   - analysis/discord-case-studies-extraction.md
   - analysis/website-scrape/case-studies.md
@@ -12,6 +12,7 @@ sources:
   - analysis/website-scrape/crawl-remaining.md
   - analysis/public/press.md
   - content/industries/_overview.md
+  - web: https://www.pymc-labs.com/blog-posts/everysk (fetched 2026-03-14)
 ---
 
 # Finance & Insurance
@@ -375,6 +376,39 @@ CTA
 - `content/resources/open-source-libraries.md` — CausalPy, pymc-marketing
 - `content/case-studies/everysk.md` — published case study (needs to be assembled)
 - `content/case-studies/visualvest.md` — unpublished case study (client narrative available)
+
+---
+
+## Web Research Enrichments (2026-03-14)
+
+### Confirmed: Everysk Case Study — Additional Quotes
+
+**Full case study page fetched:** https://www.pymc-labs.com/blog-posts/everysk
+
+**Key direct quotes from the published case study:**
+
+On the engagement process:
+> "PyMC Labs spent the first week exploring the data, understanding the details of the paper, and building an initial model. This initial model served as a testing ground, to ensure that modeling the hidden factors of interest was possible, that the results were sane, and that there was value for Everysk."
+
+On PyMC Labs' unique advantage as library maintainers:
+> "Because the PyMC Labs developers are also the maintainers of PyMC, they were able to incorporate numerous improvements to the original paper that led to a faster and more accurate model. For example, the original paper used first generation samplers, which were quite slow, while PyMC Labs upgraded the samplers to speed up the run time of the model, leading to faster iteration cycles."
+
+On interpretability over prediction:
+> "This approach was particularly needed by Everysk, as it wasn't seeking predictions but rather seeking understanding of why the trend line was behaving a certain way."
+
+On collaborative working style:
+> "With Everysk, PyMC Labs worked hand-in-hand to interpret the results, fix any outstanding issues, and run experiments. By having the team available for questions, Everysk was able to become more comfortable with the results."
+
+**Output description (from case study):**
+A visualization showing cumulative returns comparing:
+- US stock market performance (blue line)
+- PyMC Labs model-generated VC index (orange line)
+- Cambridge Associates VC Index benchmark (green line)
+
+The model showed the derived VC index aligning with Cambridge Associates' independent benchmark — strong validation signal.
+
+**Case study framing headline (from blog):**
+> "How can we figure out the unknown from the things we know? The answer lies with Bayesian Statistics."
 
 ---
 

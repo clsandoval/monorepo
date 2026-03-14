@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 76
-- Analyzed: 69
-- Pending: 7
-- Convergence: 91%
+- Analyzed: 70
+- Pending: 6
+- Convergence: 92%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -93,7 +93,7 @@ Identify thin pages and fill with targeted web research. Self-expands after Wave
 - [x] gap-audit — Read every content/ file, list pages with status:stub or status:partial, add one aspect per gap
 - [x] salk-org-research — Resolve SALK org identity: "Salk Institute" (San Diego) vs Estonian polling org (CEO Tarmo Jüristo); web search to confirm; affects case-studies/salk.md
 - [x] industry-benchmarks-enrich — JS-rendered LLM Price Is Right leaderboard not fully scraped; web search for benchmark methodology, leaderboard data, press coverage; affects resources/industry-benchmarks.md
-- [ ] enrich-industries-web — WebSearch for PyMC Labs work in each industry with thin content
+- [x] enrich-industries-web — WebSearch for PyMC Labs work in each industry with thin content
 - [ ] enrich-case-studies-web — WebSearch for public PyMC Labs case studies, blog posts about client work
 - [ ] enrich-team-web — WebSearch for PyMC Labs team member profiles, conference talks, publications
 - [ ] enrich-courses-web — WebSearch for PyMC Labs course reviews, syllabi, learning outcomes

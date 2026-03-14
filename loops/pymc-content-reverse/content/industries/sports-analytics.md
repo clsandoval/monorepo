@@ -1,7 +1,7 @@
 ---
 page: industries/sports-analytics
 title: Sports Analytics
-status: partial
+status: complete
 sources:
   - analysis/discord-case-studies-extraction.md (Real Madrid, Dodgers sections)
   - analysis/discord-marketing-extraction.md
@@ -11,6 +11,9 @@ sources:
   - analysis/halah-draft-scrape.md
   - content/industries/_overview.md
   - content/about/team-members/christopher-fonnesbeck.md
+  - web: https://www.pymc-labs.com/blog-posts/2023-09-15-Hierarchical-models-Chris-Fonnesbeck (fetched 2026-03-14)
+  - web: https://github.com/fonnesbeck/hierarchical_models_sports_analytics
+  - web: https://open.spotify.com/episode/2XciID9FJ93PFkSsDtsG4x (Learning Bayesian Statistics Podcast #125)
 ---
 
 # Sports Analytics
@@ -245,6 +248,45 @@ Sports analytics is not a crowded consulting market for Bayesian methods — mos
 **Internal (not for publication):**
 - Dodgers: converted from inbound referral; exclusivity accepted; active as of late 2025
 - Real Madrid: "still a lot of interest" (post-Ancelotti departure)
+
+---
+
+## Web Research Enrichments (2026-03-14)
+
+### Confirmed: Blog Post & GitHub Repo
+
+**Blog post fetched:** "Developing Hierarchical Models for Sports Analytics"
+- URL: https://www.pymc-labs.com/blog-posts/2023-09-15-Hierarchical-models-Chris-Fonnesbeck
+- Date: September 14–15, 2023
+- Core method: Hierarchical Bayesian models with partial pooling (PyMC 5)
+- Technical workflow: Data preparation → MCMC sampling → prior predictive checks → posterior predictive sampling → LOO cross-validation
+- Advanced features: Gaussian processes, group covariates, individual covariates, variable interactions
+- Use case: **Home run rate estimation** for individual baseball players + **park effects modeling** (venue-specific performance adjustments)
+- Integration: GPS and camera tracking data (relevant for modern sports analytics)
+- Key insight: "hierarchical models provide a means for integrating information at multiple scales and adjusting for biases associated with small sample sizes"
+
+**GitHub Repository:**
+- URL: https://github.com/fonnesbeck/hierarchical_models_sports_analytics
+- Title: "Developing Hierarchical Models for Sports Analytics"
+- Public tutorial code from the Sep 2023 webinar
+
+### Confirmed: Podcast Appearance
+
+**Learning Bayesian Statistics Podcast, Episode #125:**
+- Title: "Bayesian Sports Analytics & The Future of PyMC, with Chris Fonnesbeck"
+- Spotify: https://open.spotify.com/episode/2XciID9FJ93PFkSsDtsG4x
+- Audible: Available on Audible UK
+- Sponsor: PyMC Labs ("proudly sponsored by PyMC Labs, the Bayesian Consultancy")
+- Content: Bayesian sports analytics + future direction of PyMC as a library
+- Signal: This is a high-visibility public credibility signal — widely indexed podcast
+
+### Chris Fonnesbeck MLB Career Correction / Confirmation
+Web sources confirm Fonnesbeck's MLB career:
+- **Philadelphia Phillies** — Principal Quantitative Analyst (most recent MLB role)
+- **New York Yankees** — Senior Quantitative Analyst (previous)
+- Also: **Milwaukee Brewers** (per team bio)
+
+**Note:** Chris's MLB background is with the **Phillies/Yankees/Brewers** — NOT the LA Dodgers. The LA Dodgers is a *current PyMC Labs client* (signed June 2025 EAP), separate from Chris's personal career.
 
 ---
 

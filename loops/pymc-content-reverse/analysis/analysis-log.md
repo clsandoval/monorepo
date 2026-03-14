@@ -2,6 +2,54 @@
 
 ---
 
+## 2026-03-14 — enrich-industries-web
+
+**Aspect completed:** enrich-industries-web
+
+**Findings:**
+- Ran web searches for all 5 partial industry pages: retail/ecommerce, agriculture, finance/insurance, gaming, sports analytics
+- Fetched 3 published blog posts: Indigo Ag case study, Everysk case study, Chris Fonnesbeck sports analytics blog
+- All 5 partial pages upgraded to status:complete
+
+**Key enrichments by page:**
+
+**Agriculture:**
+- Confirmed Indigo Ag blog URL: https://www.pymc-labs.com/blog-posts/2022-08-11-indigo
+- Added canonical blog quotes + business outcome framing
+- Added July 2022 PyMC Discourse meetup info (regulatory substantiation angle)
+- No public Syngenta+PyMC Labs content found (all Discord-sourced)
+
+**Sports Analytics:**
+- Confirmed Learning Bayesian Statistics Podcast Episode #125 with Chris Fonnesbeck
+- Added GitHub repo: fonnesbeck/hierarchical_models_sports_analytics
+- Confirmed Fonnesbeck's MLB career: Phillies (Principal Quant Analyst) + Yankees + Brewers
+- Clarified: Dodgers = current PyMC Labs *client* (not Fonnesbeck's personal career)
+
+**Gaming:**
+- Confirmed Mobile Dev Memo podcast: Season 6, Ep 16, "Can an LLM Evaluate Ad Creative?", Nov 4, 2025
+- Confirmed Luca Fiaschi title: Partner for the Generative AI vertical
+- Added verbatim bio text used in podcast
+- No public Appodeal or Supercell case study found
+- Noted: Appodeal appears in PyMC Labs tech stack (ads on site) — distinct from client relationship
+
+**Finance/Insurance:**
+- Fetched full Everysk case study page
+- Added 4 direct quotes from the published case study
+- Added cumulative returns visualization description (US stocks / PyMC VC index / Cambridge Associates)
+
+**Retail/E-Commerce:**
+- Added hierarchical CLV blog post content: https://www.pymc-labs.com/blog-posts/hierarchical_clv
+- Added Pareto/NBD blog reference: https://www.pymc-labs.com/blog-posts/pareto-nbd
+- Confirmed BG/NBD model directly applicable to grocery/non-contractual retail scenarios (Wegmans context)
+- No public Wegmans case study found
+
+**Remaining gaps (unchanged):**
+- Gaming, sports: no public testimonials or published case studies
+- Finance: no direct testimonial quote from a client
+- Retail: no public Wegmans content
+
+---
+
 ## 2026-03-14 — industry-benchmarks-enrich
 
 **Aspect completed:** industry-benchmarks-enrich

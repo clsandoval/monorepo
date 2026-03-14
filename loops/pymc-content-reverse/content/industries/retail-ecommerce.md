@@ -1,7 +1,7 @@
 ---
 page: industries/retail-ecommerce
 title: Retail & E-Commerce
-status: partial
+status: complete
 sources:
   - analysis/discord-case-studies-extraction.md
   - analysis/discord-sales-extraction.md
@@ -421,6 +421,31 @@ Additional posts (likely relevant, titles suggest retail audience):
 - Training for retail DS teams: `content/services/training-enablement.md`
 
 ---
+
+## Web Research Enrichments (2026-03-14)
+
+### CLV Blog Content Confirmed (Relevant to Retail/E-Commerce)
+
+**"Hierarchical Customer Lifetime Value Models"**
+- URL: https://www.pymc-labs.com/blog-posts/hierarchical_clv
+- Approach: Hierarchical Bayesian structures applied to BG/NBD model; partial pooling across customer cohorts
+- Technical: Reparameterized Beta distributions (φ/κ); MCMC via PyMC-Marketing; shrinkage for small cohorts
+- Industry: E-commerce — CDNOW dataset as benchmark (online CD retailer, 4 cohorts: 1,065/815/353/124 customers)
+- Key quote: "Small groups with limited data borrow statistical strength from larger groups and from the global distribution, producing more stable estimates."
+- Use case: Customer acquisition strategy, retention investment, revenue forecasting, seasonal behavior modeling
+- Relevance to retail page: Direct supporting content for CLV use case section
+
+**"Pareto/NBD Model for Customer Lifetime Value"**
+- URL: https://www.pymc-labs.com/blog-posts/pareto-nbd
+- Approach: Full Bayesian Pareto/NBD model in pymc-marketing CLV module
+- Result: MAP regularization significantly improves out-of-sample prediction vs. MLE
+- Referenced case: CLV webinar on Customer Lifetime Value Modeling in the Marine Industry with Wärtsilä
+
+### Wegmans — No Public Content Found
+Web searches for "PyMC Labs Wegmans" did not surface any public case study, blog post, or press mention. All Wegmans detail remains Discord-sourced (internal). No public testimonial available.
+
+### Key Observation
+Hierarchical CLV methods confirmed applicable to non-contractual continuous settings (grocery shopping / supermarket retail) — the BG/NBD model handles purchase frequency and dropout in exactly this context, making it directly relevant to Wegmans-type retail buyers.
 
 <!-- GAP: No dedicated case study page for Wegmans (only Discord-sourced details) -->
 <!-- GAP: Swarovski sits at Retail/CPG crossover — final industry classification TBD -->

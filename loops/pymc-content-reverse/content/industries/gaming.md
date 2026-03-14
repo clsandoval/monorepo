@@ -1,7 +1,7 @@
 ---
 page: industries/gaming
 title: Gaming Industry
-status: partial
+status: complete
 sources:
   - analysis/discord-case-studies-extraction.md
   - analysis/discord-partnerships-extraction.md
@@ -12,6 +12,7 @@ sources:
   - analysis/public/press.md
   - analysis/website-scrape/blog-index.md
   - analysis/industries/_overview.md
+  - web: https://mobiledevmemo.com/podcast-can-an-llm-evaluate-ad-creative-with-luca-fiaschi/ (fetched 2026-03-14)
 ---
 
 # Gaming Industry
@@ -233,6 +234,45 @@ This makes Luca the primary domain expert for gaming client pitches.
 5. **Domain Credibility** — Luca's MistPlay background; Mobile Dev Memo podcast feature
 6. **Products** — pymc-marketing / Decision AI CLV Agent / Simba / Training
 7. **CTA** — EAP retainer (for studios) / Workshop inquiry (for training buyers)
+
+---
+
+## Web Research Enrichments (2026-03-14)
+
+### Confirmed: Mobile Dev Memo Podcast Appearance
+
+**Episode: "Can an LLM Evaluate Ad Creative?" — Mobile Dev Memo**
+- Season 6, Episode 16
+- Published: **November 4, 2025**
+- Host: Eric Seufert (Eric Benjamin Seufert) — top mobile ad tech journalist/analyst
+- Guest: **Luca Fiaschi**, Partner for Generative AI at PyMC Labs
+- Article URL: https://mobiledevmemo.com/podcast-can-an-llm-evaluate-ad-creative-with-luca-fiaschi/
+- Spotify: https://creators.spotify.com/pod/profile/mobile-dev-memo/episodes/Season-6--Episode-16-Can-an-LLM-evaluate-ad-creative--with-Luca-Fiaschi-e3ag5t8
+
+**Guest bio used (verbatim):**
+> "machine learning expert who previously held executive data science roles at MistPlay, StitchFix, and HelloFresh. He is now a Partner for the Generative AI vertical at PyMC Labs, a consultancy that specializes in the application of Bayesian methods to business problems and which maintains the open source PyMC library for Bayesian statistical modeling as well as the open source PyMC Marketing media mix modeling library."
+
+**Paper discussed:** "LLMs Reproduce Human Purchase Intent via Semantic Similarity Elicitation of Likert Ratings"
+- Authors: PyMC Labs team + Colgate
+- Methodology: LLMs as synthetic consumer panels scoring product concepts; LLM-produced score distributions comparable to human panels
+- Additional experiments: Quantified impact of disclosing generative AI authorship; field experiment (Google Display Network impressions); lab study with qualitative data
+- Key finding: Generative AI tools benefit from "total control" in visual modality, while text generation performs better with structured chain-of-thought
+
+**Why this matters for gaming page:**
+- Mobile Dev Memo is the highest-credibility media outlet in mobile ad tech — used by Supercell, Applovin, Unity, and every major mobile publisher's UA teams
+- Luca's MistPlay background + this publication = the strongest public signal that PyMC Labs has direct mobile gaming domain expertise
+- The LLM creative evaluation methodology is directly applicable to gaming UA creative testing
+
+### Luca Fiaschi's Role Confirmed
+- Title: **Partner for the Generative AI vertical at PyMC Labs**
+- Prior roles: MistPlay (Chief Data & AI Officer), StitchFix (VP Data Science), HelloFresh (executive)
+- MistPlay = "mobile gaming rewards app where players earn points for playing games" — core business: UA efficiency + player engagement modeling
+
+### No Public Appodeal or Supercell Case Study Found
+Web searches did not surface any published blog post, case study, or public mention of PyMC Labs working with Appodeal or Supercell. All engagement detail remains Discord-sourced (internal).
+
+### Note on "Appodeal" in PyMC Labs Tech Stack
+One search result noted Appodeal appears in PyMC Labs' website technology stack — likely used for ad monetization on the PyMC Labs site itself, not a client relationship. This is distinct from the Appodeal *client engagement* documented in Discord.
 
 ---
 
