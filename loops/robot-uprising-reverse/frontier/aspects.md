@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 430
-- **Analyzed:** 71
-- **Pending:** 359
-- **Convergence:** 16.5%
+- **Total aspects:** 435
+- **Analyzed:** 72
+- **Pending:** 363
+- **Convergence:** 16.6%
 
 ---
 
@@ -78,7 +78,12 @@
                               - [x] 4.69e-i-a-i-f-i-α-i-A-i-1-a-i-A — string-surface-map.json validation as a PR requirement: what happens when a developer maps a string to the wrong surface/slot; how CI detects a mapping that doesn't match the string's actual render context; static analysis vs. runtime validation; Recommendation: Two-tier validation — Tier 1 (fast, PR-blocking): naming convention lint + surface existence check + key completeness AST extraction; Tier 2 (thorough, nightly advisory): useSurface hook assertion integration tests + Playwright surface audit; escalation path after 3 consecutive nightly hits; 4 detection options analyzed (naming convention, AST tracing, useSurface hook, Playwright audit); 3 developer journeys (Aarav adding high-contrast setting correctly, Margot component refactor caught by nightly audit, Dev discovering legacy pre-convention keys via quarterly audit); 5 new sub-aspects discovered
                                 - [x] 4.69e-i-a-i-f-i-α-i-A-i-1-a-i-A-α — Multi-surface string handling: strings legitimately used in two different surfaces (e.g., same error message in toast and modal fallback); map schema must declare multiple surfaces per key; validator must not flag these as mismatches; budget lint must use strictest-budget policy across all declared surfaces; Recommendation: inline-array schema (Option A) with shared. prefix namespace for multi-surface keys; strictest-budget computed per-locale; surface-scoped translation overrides (Option C) as Phase 2 escape hatch; 3 developer journeys (Aarav adding new shared string, Margot refactor adding undeclared surface caught by nightly audit, Dev tracing budget regression from toast narrowing); 5 new sub-aspects discovered
                                   - [x] 4.69e-i-a-i-f-i-α-i-A-α-i — Multi-surface string forking policy: when one surface changes significantly, should the key be forked into two single-surface keys; migration tooling and TM impact; Recommendation: Option 5 (Manual forking with comprehensive tooling — `make fork-string` command, budget-divergence advisory at 1.67× ratio threshold, fork suppression with mandatory reason/reviewer/date fields, TM migration records with pre-seeding pattern); 5 options analyzed (never-fork, always-fork, budget-divergence-triggered, semantic-drift-detection, manual+tooling); TM impact analysis for 10-locale fork with 4 surface-override locales vs. 6 base-key locales; 3 developer journeys (Aarav deciding to fork after toast narrows to 200px triggering 2.8× advisory; Margot suppressing false advisory for version label with review_trigger condition; Dev auditing post-fork TM gap in pt-BR and requesting expressive retranslation); 5 new sub-aspects discovered
-                                    - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1 — Fork suppression expiry and review_trigger evaluation: formal semantics for when suppression re-enables; what conditions are expressible; CI evaluation logic
+                                    - [x] 4.69e-i-a-i-f-i-α-i-A-α-i-1 — Fork suppression expiry and review_trigger evaluation: formal semantics for when suppression re-enables; what conditions are expressible; CI evaluation logic
+                                      - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-I — Suppression condition reference integrity: when a surface name in review_trigger.surface is renamed, the condition silently becomes unevaluable; CI lint for stale surface references in suppression conditions; tooling to update them on surface rename
+                                      - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-II — Suppression audit as a first-class quarterly artifact: make l10n-suppression-audit report committed as versioned file; suppression count as team health metric; integration with tech debt tracking
+                                      - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-III — Suppression inheritance on key fork: when make fork-string forks a shared. key with an active suppression, should forked keys inherit the suppression; recommended: fork clears suppression and lets advisory re-evaluate naturally
+                                      - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-IV — Phase 2 any/all logical combinators for review_trigger: YAML-array form with typed Phase 1 leaves; schema, evaluation engine, and validation for composed conditions; "suppress unless EITHER budget < 20 OR surfaces.count > 3" as canonical use case
+                                      - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-1-V — Countdown display for near-expiry suppressions: amber 30-day warning for days_elapsed suppressions; exact UI — amber border, "Expiring in N days" text, link to suppression entry; advance notice vs. noise tradeoff
                                     - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-2 — Codemod coverage for dynamic key construction: how migration tool detects and reports uncoverable dynamic call sites; policy options
                                     - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-3 — TM vendor integration for migration records: vendor-agnostic tm-migrations.json format and per-vendor export scripts for Phrase/Lokalise/Crowdin
                                     - [ ] 4.69e-i-a-i-f-i-α-i-A-α-i-4 — Post-fork orphan detection: scanning for old key name after migration commit to catch missed call sites before runtime errors
