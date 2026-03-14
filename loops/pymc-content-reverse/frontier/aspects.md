@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 48
-- Pending: 26
-- Convergence: 65%
+- Analyzed: 49
+- Pending: 25
+- Convergence: 66%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -68,7 +68,7 @@ Consolidate all gathered material into content files. One aspect per page.
 - [x] assemble-industry-marketing — Write content/industries/marketing-media.md
 - [x] assemble-industry-retail — Write content/industries/retail-ecommerce.md
 - [x] assemble-industry-cpg — Write content/industries/consumer-goods.md
-- [ ] assemble-industry-pharma — Write content/industries/pharma-biotech.md
+- [x] assemble-industry-pharma — Write content/industries/pharma-biotech.md
 - [ ] assemble-industry-agriculture — Write content/industries/agriculture.md
 - [ ] assemble-industry-finance — Write content/industries/finance-insurance.md
 - [ ] assemble-industry-gaming — Write content/industries/gaming.md
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] assemble-industry-pharma (2026-03-14) — Assembled content/industries/pharma-biotech.md. 7 named pharma/biotech clients documented: Roche (34K params/250K obs/~1hr, 2020 first client), Takeda (15-month CAR-NK cell therapy digital twin, TAK-007/TAK-808, 17 donors, JAX state space model, SOW 1 completed Sep 2024), Akili Interactive (FDA-cleared ADHD digital therapeutic, ordinal regression/IRT/latent cognitive models, "most successful collaboration I've seen" testimonial), Erisyon (protein sequencing via Bayesian HMM/JAX, "couldn't have done in a year what you did in a month"), Haleon/ex-GSK (EAP $8.5k/mo, Nathan Kafi testimonial, full analytics team presentation), Syngenta (XC50 assay SLA x2 SOWs completed), IQVIA (corporate workshop). 2 homepage testimonials (Titi Alailima/Akili + Nathan Kafi/Haleon). Pharma is one of 4 primary hero verticals in Halah draft. Bayesian value props for pharma: regulatory defensibility, small-N efficiency, interpretability. Eric Ma = primary pharma account lead (Novartis/Moderna background). GAPS: no published Roche/Takeda/Erisyon/Haleon case study; Takeda SOW 2 status unknown; Novartis inbound conversion unknown.
 - [x] assemble-industry-cpg (2026-03-14) — Assembled content/industries/consumer-goods.md. Primary CPG client: Colgate-Palmolive (3 engagements: cannibalization ~$485K SOW+MSA / shelf optimization nested logit DCM GPU 4 chains 6h / synthetic consumers 90% alignment). Iraklis Pappas testimonial. Bain/Coca-Cola Fuelight 360 ($3.25M combined budget, US/GB/BR production MMM). Procter & Gamble EAP+workshop reference. Nomad Foods Simba+Insight Agent RFP. Diageo synthetic consumers reference. Full Innovation Lab CPG platform: 5-capability pipeline (briefs→AI evaluation→design refinement→synthetic testing→market simulation). SSR stats: 90% alignment / 85% distributional similarity / <24h cycle. Competitive framing vs. Kantar RichMix / Fractal.ai. Dedicated GTM: Niall's "CPG-Offering-GTM" Notion doc (Nov 2025). GAPS: P&G engagement details; Yum! Brands scope; Nomad RFP outcome; no public Coca-Cola case study.
 - [x] assemble-industry-marketing (2026-03-14) — Assembled content/industries/marketing-media.md. PyMC Labs' commercial flagship vertical. Hero/framing options (4 variants): cookie crisis angle, Luca value prop, Thomas founding insight, Halah rotating tagline. 6 use cases: MMM, A/B testing at scale, CLV, cookieless attribution, budget optimization, experimentation infra. 14 named clients: HelloFresh/Ovative/Gain Theory/Fox/Appodeal/Sweeplift/Twitch (active/completed) + NBCU/CNN/Bloomberg/Audible/Live Nation/DISH/Serviceplan (inbound/partner). Full HelloFresh case study (3 blog posts, 60x speedup, time-varying CAC, Halah narrative + Discord technical detail). Gain Theory and Appodeal case study narratives. Tim McWilliams testimonial. Competitive landscape: Meridian (pymc-marketing supports forecasting/Meridian doesn't; 2x-20x faster), Robyn (dead), Recast (team attrition), Analytic Partners (Excel), Accenture. Top-10 blog list by sessions. SEO keyword list (14 tabs from Thomas). ICP profiles, 7 value propositions, engagement funnel. Products: pymc-marketing (1,088★/1M+ downloads), MMM Agent/Decision AI, Simba, CLV Agent, Fivetran integration. GAPS: Eugene Kwok (Fox) testimonial text not captured; Ovative case study narrative missing; qualified inbound (NBCU/CNN/etc) conversion unknown.
 - [x] assemble-industries-overview (2026-03-14) — Assembled content/industries/_overview.md. All 8 sitemap industry verticals documented with PyMC relevance, use cases, named clients, and pull quotes. Marketing & Media: 10 named clients (HelloFresh/Ovative/Fox/NBCU etc.), MMM flagship. Retail: 10 named clients (Wegmans MAPE 13-14%), CPG: 6 named clients (Colgate SSR 90% reliability), Pharma/Bio: 8 named clients (Roche 34K params, Akili, Haleon). Agriculture: Indigo Ag primary case study + Syngenta. Finance: 11 named clients (Everysk/Nürnberger/Schwab). Gaming: Supercell/Appodeal. Sports: Dodgers/Real Madrid. Full ICP table (buyer persona + pain point per industry), competitor framing per vertical, universal Bayesian value propositions. GAPS: Gaming/Sports have no dedicated case studies; Supercell/Appodeal narratives not fully extracted.
