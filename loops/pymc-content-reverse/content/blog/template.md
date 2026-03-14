@@ -1,11 +1,17 @@
 ---
 page: blog/template
 title: Blog — Content Template & Index
-status: partial
+status: complete
 sources:
   - https://www.pymc-labs.com/blog-posts/ (Playwright, 2026-03-13)
   - https://www.pymc-labs.com/sitemap-0.xml (2026-03-13)
   - analysis/website-scrape/blog-index.md
+  - https://www.pymc-labs.com/blog-posts/saving-the-world (individual post, 2026-03-14)
+  - https://www.pymc-labs.com/blog-posts/2022-11-11-HelloFresh (individual post, 2026-03-14)
+  - https://www.pymc-labs.com/blog-posts/pymc-marketing-vs-meridian-baseline-modeling-mmm (individual post, 2026-03-14)
+  - https://www.pymc-labs.com/blog-posts/2023-01-12-Akili (individual post, 2026-03-14)
+  - https://www.pymc-labs.com/blog-posts/bayes-is-slow-speeding-up-hellofreshs-bayesian-ab-tests-by-60x (individual post, 2026-03-14)
+  - https://www.pymc-labs.com/blog-posts/AI-based-Customer-Research (individual post, 2026-03-14)
 ---
 
 # Blog Page — Content Package
@@ -76,16 +82,83 @@ Posts displayed as image + title cards. No date or excerpt shown in grid view.
 - Post title (H2, linked)
 
 ### Individual Blog Post Page Structure
-<!-- GAP: Need to fetch 2–3 individual blog post pages to document full single-post layout -->
-Expected elements based on content type:
-- Hero image
-- Title (H1)
-- Date, Author name
-- Category tags
-- Body content (markdown/rich text)
-- Code blocks (Python/PyMC syntax)
-- Charts/graphs (embedded)
-- CTA at end (newsletter, related posts, contact)
+
+**Documented from 5 real post fetches (2026-03-14):**
+
+#### Chrome/Navigation
+- **Breadcrumb:** `Blog > [Category] > [Post Title]`
+  - Category is omitted on some newer posts (e.g., Dec 2025 Meridian post has no category in breadcrumb)
+  - Examples: `Blog > PyMC Community > Introducing PyMC Labs`, `Blog > Marketing Measurement > Bayesian Marketing Mix Models`
+- **URL pattern:** `/blog-posts/{slug}` (current site)
+
+#### Post Header
+- **Title (H1):** Full post title
+- **Byline:** `By [Author Name]` — no role or title shown
+- **Date:** Full date string, e.g., `January 12, 2023` / `December 18, 2025`
+- **Category tag:** Shown in breadcrumb only (e.g., "Use Cases", "Marketing Measurement", "PyMC Community")
+- **No tags displayed** on the post itself (category visible only via breadcrumb)
+
+#### Body Content
+Three primary post formats observed:
+
+**Format A — Video + Timestamps** (Akili, HelloFresh panel discussion):
+- 1–2 paragraph intro
+- YouTube video embed (iframe)
+- Timestamps list (00:00 – HH:MM format with topic labels)
+- Resources section with external links
+- No code blocks
+
+**Format B — Long-Form Technical Case Study** (HelloFresh 60x, Meridian benchmark):
+- "At a Glance" summary section with 4–6 bullet points
+- H2 sections with prose explanations and occasional rhetorical questions as sub-headings
+- Figures/charts embedded (with captions)
+- Tables (comparison metrics, results)
+- Code blocks (Python/PyMC) — present but minimal in prose-heavy posts
+- Table of Contents (linked, sidebar or inline) on longer posts
+- Closing section: "Try It Yourself or Get in Touch" / "Find Out More" with GitHub link + contact CTA
+
+**Format C — Research Highlight** (Colgate Synthetic Consumers):
+- Research context setup (1–2 paragraphs)
+- Problem → breakthrough → results narrative
+- Inline stat callouts (e.g., "90% correlation attainment")
+- "About the Research Team" section in body listing co-authors with affiliation
+- "What's Next" roadmap section
+- "Want to learn more?" section with 3 related PyMC Labs post links
+
+#### Author Attribution
+- `By [Name]` only — no title, no headshot, no bio block on any post
+- For research papers: "About the Research Team" paragraph within body text names all co-authors
+- Examples observed:
+  - Thomas Wiecki — saving-the-world (Feb 18, 2021), 2022-11-11-HelloFresh (Nov 11, 2022), 2023-01-12-Akili (Jan 12, 2023)
+  - Teemu Säilynoja + Luca Fiaschi — pymc-marketing-vs-meridian-baseline-modeling-mmm (Dec 18, 2025)
+  - Benjamin Vincent — bayes-is-slow-speeding-up-hellofreshs-bayesian-ab-tests-by-60x (Jan 21, 2026)
+  - Benjamin F. Maier — AI-based-Customer-Research (Oct 9, 2025)
+
+#### In-Post CTAs
+- Inline contextual CTAs embedded at bottom of post body:
+  - "Reach out" / "Contact" → https://www.pymc-labs.com/contact
+  - GitHub repo links (for reproducibility posts): e.g., `github.com/pymc-labs/mmm-param-recovery`
+  - "Read the Full Preprint" → arxiv.org links
+  - "Want to learn more?" sections with 2–4 related PyMC Labs post links
+- Pattern: **1 contact CTA + 2–4 related post links** at bottom of post body
+
+#### Related Posts Carousel (End of Post)
+- 6 posts shown in horizontal scroll carousel
+- No visible algorithm/logic — appears curated or category-based
+- Example carousel (from Akili post): Bayesian MARCEL, Hierarchical Models for Sports Analytics, Akili, Survey Modeling, Item Response, Indigo Ag
+
+#### Newsletter CTA (Footer of Post)
+- Section heading: **"Subscribe to our newsletter"**
+- Body copy: *"Stay connected with the latest developments in Bayesian AI Statistics and AI."*
+- Form: Email input + "Subscribe" button
+- Fine print: *"You can unsubscribe at any time. For more details, review our Privacy Policy page."*
+
+#### Post Footer
+- Logo + tagline: "The Bayesian AI Consultancy" → /
+- Nav: Home (/) | About (/team) | Blog (/blog-posts)
+- Email: info@pymc-labs.com
+- Social icons: Bluesky (bsky.app/profile/pymc-labs.bsky.social), X/Twitter (x.com/pymc_labs), Meetup (meetup.com/pymc-labs-online-meetup/), YouTube (@PyMCLabs), LinkedIn (linkedin.com/company/pymc-labs)
+- Copyright: © 2026 PyMC Labs. All Rights Reserved.
 
 ---
 
@@ -234,9 +307,81 @@ Expected elements based on content type:
 
 ---
 
-## Gap Flags
-<!-- GAP: Dates are missing for ~40 posts (only featured posts show dates in listing) — need to fetch individual posts or scrape dates from metadata -->
-<!-- GAP: Authors are not shown in listing view — need individual post pages to get author attribution -->
-<!-- GAP: Need 2-3 individual post pages scraped to document full single-post layout/template -->
+---
+
+## Author & Date Reference (confirmed from individual post fetches)
+
+| Slug | Author | Date |
+|---|---|---|
+| saving-the-world | Thomas Wiecki | Feb 18, 2021 |
+| bayesian-media-mix-modeling-for-marketing-optimization | Thomas Wiecki | 2021 (est.) |
+| 2022-08-11-indigo | — | Aug 11, 2022 |
+| 2022-10-26-AlvaLabs | — | Oct 26, 2022 |
+| 2022-11-11-HelloFresh | Thomas Wiecki | Nov 11, 2022 |
+| 2022-12-08-Salk | — | Dec 8, 2022 |
+| 2023-01-12-Akili | Thomas Wiecki | Jan 12, 2023 |
+| AI-based-Customer-Research | Benjamin F. Maier | Oct 9, 2025 |
+| pymc-marketing-vs-meridian-baseline-modeling-mmm | Teemu Säilynoja, Luca Fiaschi | Dec 18, 2025 |
+| bayes-is-slow-speeding-up-hellofreshs-bayesian-ab-tests-by-60x | Benjamin Vincent | Jan 21, 2026 |
+| modelling-changes-marketing-effectiveness-over-time | — | Jan 24, 2026 |
+| causal-dag-functional-form-bayesian-investing | — | Mar 2026 (est.) |
+
+<!-- GAP: Dates and authors still missing for ~55 posts — only 12/75 confirmed -->
 <!-- GAP: ~6 posts in sitemap not visible in listing (unlisted/draft?) — slugs unknown -->
-<!-- GAP: No categories shown in card view — category mapping requires individual post fetches or filter page scraping -->
+<!-- GAP: Category mapping for most posts requires individual fetches — only 3 confirmed: "PyMC Community" (saving-the-world), "Marketing Measurement" (2022-11-11-HelloFresh), "Use Cases" (2023-01-12-Akili, bayes-is-slow) -->
+
+---
+
+## Blog Content Strategy Notes (from discord-marketing-extraction.md)
+
+### Top Posts by Sessions (Dec 2025 analytics — Thomas shared)
+The blog is a primary SEO driver. Top 10 posts by traffic concentrated on MMM content.
+Key traffic drivers:
+- "Marketing Mix Modeling: A Complete Guide" (marketing-mix-modeling-a-complete-guide) — high organic traffic
+- Meridian benchmark posts — #1 and #2 traffic peaks on publication
+- HelloFresh case studies — evergreen traffic
+- "From Uncertainty to Insight" — thought leadership entry point
+- Synthetic Consumers posts — rising traffic cluster (2025)
+- Sports Analytics posts — niche SEO
+
+### Blog as Sales Funnel
+- Blog posts drive EAP signups and workshop registrations
+- CausalPy and pymc-marketing OSS posts drive developer awareness → enterprise pipeline
+- Meridian benchmark posts specifically cited in sales conversations (proof of technical superiority)
+- "Announcing the Expert Access Program" (expert-access-program) = commercial conversion post
+
+### Post Formats Used
+1. **Panel Discussion / Video post** — YouTube embed + timestamps (older format, 2021–2023)
+2. **Case Study post** — detailed narrative of client engagement (Colgate, HelloFresh, Indigo, Akili)
+3. **Technical Tutorial** — step-by-step PyMC/pymc-marketing code walkthrough
+4. **Benchmark / Comparison** — data-driven comparison (Meridian benchmark series)
+5. **Product Announcement** — EAP, MMM Agent beta, Decision Hub (company news)
+6. **Research Highlight** — academic paper summary (SSR/Synthetic Consumers, Maier et al. 2025)
+7. **Thought Leadership** — "From Uncertainty to Insight", "Solving Real-World Problems"
+
+### Newsletter Integration
+- Blog footer newsletter CTA on every post
+- Newsletter launches announced via blog (Discord evidence)
+- Newsletter copy mirrors blog content themes
+
+---
+
+## SEO & URL Notes
+
+- **Current URL pattern:** `/blog-posts/{slug}`
+- **New site URL pattern:** Likely `/blog/{slug}` — confirm with dev team
+- **Sitemap:** `sitemap-0.xml` lists all 75 blog post URLs
+- **Redirects needed:** `/blog/` → `/blog-posts/` on current site returns 404
+- **Cloudinary CDN:** Hero images hosted on Cloudinary (all posts)
+- **Filter URLs:** `/blog-posts/filters/{slug}` — 11 category filters
+
+---
+
+## Gap Flags
+
+<!-- GAP: Dates and authors confirmed for only 12/75 posts — remaining 63 need individual fetches or metadata API -->
+<!-- GAP: ~6 posts in sitemap not visible in listing (unlisted/draft?) — slugs unknown -->
+<!-- GAP: Category/tag mapping for most posts is unconfirmed — only 3 confirmed categories -->
+<!-- GAP: No comments system visible — confirm whether blog has comments/Disqus/none -->
+<!-- GAP: Social sharing buttons on individual posts — present/absent? -->
+<!-- GAP: "Energy Analytics" category in filter bar — no posts in this category visible in listing; may be a filter for future content or legacy tag -->

@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 62
-- Pending: 12
-- Convergence: 84%
+- Analyzed: 63
+- Pending: 11
+- Convergence: 85%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -82,7 +82,7 @@ Consolidate all gathered material into content files. One aspect per page.
 - [x] assemble-course-bma — Write content/courses/bma.md
 - [x] assemble-course-ci — Write content/courses/ci.md
 - [x] assemble-case-studies — Write content/case-studies/{name}.md for each discovered case study
-- [ ] assemble-blog-template — Write content/blog/template.md (blog post structure + any migrated metadata)
+- [x] assemble-blog-template — Write content/blog/template.md (blog post structure + any migrated metadata)
 - [ ] assemble-resources-benchmarks — Write content/resources/industry-benchmarks.md
 - [ ] assemble-resources-oss — Write content/resources/open-source-libraries.md
 - [ ] assemble-contact — Write content/contact.md
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] assemble-blog-template (2026-03-14) — Completed content/blog/template.md (partial → complete). Fetched 5 individual blog posts to document single-post layout. Key findings: 3 post formats (Video+Timestamps, Long-Form Technical, Research Highlight); Author byline shows name only — no role/title/bio block; Breadcrumb shows category (e.g., "Use Cases", "Marketing Measurement", "PyMC Community"); Related posts carousel (6 posts) on every post; In-post CTA: 1 contact link + 2–4 related post links; Footer newsletter CTA on every post. Author/date confirmed for 12/75 posts: Thomas Wiecki (saving-the-world Feb 2021, HelloFresh Nov 2022, Akili Jan 2023), Teemu Säilynoja+Luca Fiaschi (Meridian benchmark Dec 2025), Benjamin Vincent (HelloFresh 60x Jan 2026), Benjamin F. Maier (Colgate SSR Oct 2025). Blog strategy notes added: top traffic posts, 7 post format types, MMM/Synthetic Consumers as primary SEO clusters. GAPS: dates/authors for 63/75 posts still unknown; ~6 unlisted sitemap posts; "Energy Analytics" filter has no visible posts.
 - [x] assemble-partners (2026-03-14) — Completed content/partners.md (partial → complete). Added: hero section (3 headline options + 3 body copy options, sourced from newsletter/announcement copy), official public announcement copy for Fivetran (Halah LinkedIn, Sep 2025) and Databricks (Sangam Data+AI Summit post Jun 2025 + Halah recap Jun 2025), new "Partnership Model & Why We Partner" section (3 partner archetypes, what each party contributes, internal vision quotes). 4 primary partners documented in full: Bain & Company ($3.25M+, $550–600k/month by Jan 2026, TCCC/CCHBC/Bain Accelerator), Databricks (official launch partner "Data Intelligence for Marketing" Mar 2025, Data+AI Summit Jun 2025, shared clients Fox/Supercell/Wegmans), Fivetran (Sep 2025, 600+ connectors, joint webinar, Wegmans shared client), Plan.Net/Serviceplan (Dec 2025 official announcement, BMW pilot "perfect project", ~€1.61M proposed contract). BCG and Snowflake documented as emerging. GAPS: BMW cannot be named publicly without authorization; no external-facing partner testimonials from Bain/Databricks contacts; BCG and Snowflake have minimal info; formal partner program description (self-serve) not yet written.
 - [x] assemble-team-members (2026-03-14) — All 33 existing team member files enriched with Discord org context, press/podcast appearances, conference talks, course involvement, and key client work. 3 new files created for team members NOT on website: ben-vincent.md (BMA course lead, CI course developer), alexandre-andorra.md (co-founder, Learning Bayesian Statistics podcast host), jesse-grabowski.md (Principal DS, causal inference, PyData Berlin 2025). Key enrichments: Thomas Wiecki (4 podcast appearances + 3 ODSC press quotes + 2 conference talks + founding story), Luca Fiaschi (2 podcasts + Databricks bio + Agentic DS course), Christian Luhmann (PyData NYC 2024), Niall Oulton (Simba creator + Bain partnership), Joe Wilkinson (Industry Veteran tier + GAP note), Allen Downey (ODSC East 2025 + LLM Price Is Right co-author + synthetic consumers), Christopher Fonnesbeck (PyMC co-founder 2005 + ABM instructor), Juan Orduz (Meridian replication notebook), Benjamin Maier (Maier et al. 2025 SSR paper lead author), Halah Joseph (Framer site + brand deck author), Nina Rismal (Staffing Manager role details), Oriol (PyData Berlin 2025). GAPS remaining: Joe Wilkinson Discord handle unconfirmed; Benjamin Maier + Erik Ringen bios missing (no website bio, status: partial); Ben Vincent + Jesse Grabowski not on team page.
 - [x] assemble-about (2026-03-14) — Enriched content/about/story-and-team.md from partial → complete. Added: full Origin Story (Thomas left Quantopian, "saving the world with Bayesian modeling" mission, early clients SpaceX/Roche/Netflix/Deliveroo/HelloFresh), Labs Principles (5 principles, Teal org model), social proof stats ($8M 2025 revenue, 100+ enterprise clients, 1M+ pymc-marketing downloads), Halah's about page timeline (2005→2020→2023→2025→today), Win-Win-Win model framing, 5 founding-era client quotes, all social channels. 32 team-member files already exist in content/about/team-members/ (written by prior aspect). GAPS: founding legal date unknown; Alexandre Andorra team status unclear; Joe Wilkinson Discord handle unconfirmed.
