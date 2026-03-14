@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 155
-- **Analyzed:** 16
-- **Pending:** 139
+- **Total aspects:** 159
+- **Analyzed:** 17
+- **Pending:** 142
 - **Convergence:** 10.7%
 
 ---
@@ -27,7 +27,11 @@
 - [x] 1.06a — The debugging sub-AI pattern: community-developed diagnostic layer (condition-only sub-AI at root showing current sensing state); how Robot Uprising designs this in from the start vs. letting it emerge as a workaround; the always-on diagnostics sidebar in a workbench-native implementation
 - [x] 1.06b — Visual query model as attention language: Gladiabots's target-type + filter + selector as declarative attention specification; how Robot Uprising extends with buffer-awareness (can only query what's in buffer), fidelity metadata, and signal age
 - [x] 1.06c — Asynchronous PvP as design constraint: async match model as architectural prerequisite for small-community PvP; how deploy-once/watch-once/iterate shapes design at every layer; what Robot Uprising gains and loses vs. synchronous mode
-- [ ] 1.06c-ext-A — Sealed replay as tension mechanic: hiding match result until player watches full replay; "Watch now" vs. "Show result immediately" player choice; emotional design of the unknown-result vs. known-result playback modes; compensates for lost real-time tension
+- [x] 1.06c-ext-A — Sealed replay as tension mechanic: hiding match result until player watches full replay; "Watch now" vs. "Show result immediately" player choice; emotional design of the unknown-result vs. known-result playback modes; compensates for lost real-time tension
+- [ ] 1.06c-ext-A-i — Replay length as tension design: minimum match duration required for sealed tension to function; mission design constraints around ensuring competitive Gauntlet matches run 60–180 ticks; how fast-resolution stomps are prevented without artificial health inflation
+- [ ] 1.06c-ext-A-ii — The "false pivot" anti-pattern: replays where outcome appears to reverse multiple times before resolution — emotionally rich but potentially frustrating if player misidentifies the pivot; should debrief overlay mark decisive moments retroactively?
+- [ ] 1.06c-ext-A-iii — Sealed replay for PvE missions: applying the sealed mechanic to campaign missions — hiding pass/fail until player watches; whether sealed tension works when the player designed both sides of the encounter
+- [ ] 4.04b — Two-act debrief structure: designing the watch experience and the analysis experience as sequential phases — sealed watch (emotional) → full debrief (analytical) — with a deliberate transition between them; the "seal breaking" as the transition event
 - [ ] 1.06c-ext-B — Configuration version control as first-class infrastructure: async PvP requires explicit deploy snapshots, version comparison, "fork from deploy" workflow; how this differs from a simple file-save system; versioned configs as competitive history artifacts
 - [ ] 1.06c-ext-C — The async-to-sync hybrid (simultaneous-turn model): Frozen Synapse's sealed-order-submit as middle ground between pure async and synchronous; both players submit simultaneously, neither sees opponent's orders until resolution; fully schedule-compatible while preserving tactical tension
 - [ ] 1.06c-ext-D — Observation mode as competitive onboarding: watching featured matches without deploying; low-friction path from "curious about ranked" to "first deploy"; how observation mode teaches replay literacy before players need it
