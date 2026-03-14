@@ -1,7 +1,7 @@
 ---
 page: solutions/simba
 title: Simba
-status: partial
+status: complete
 sources:
   - analysis/discord-simba-extraction.md
   - analysis/halah-draft-scrape.md
@@ -9,6 +9,11 @@ sources:
   - analysis/discord-marketing-extraction.md
   - analysis/discord-website-extraction.md
   - analysis/website-scrape/crawl-remaining.md
+  - analysis/discord-partnerships-extraction.md
+notes: >
+  simba-mmm.com redirects to login (no public marketing page).
+  simba.solutions has SSL error. simba-mmm-website.vercel.app is 404.
+  1749.io companion docs is 404. All available sources exhausted.
 ---
 
 # Simba — Page Content
@@ -175,11 +180,53 @@ Two PyMC Labs products serve different buyer types:
 
 ---
 
+---
+
+## Partnership & Integration Angles
+
+### Databricks Partnership
+Simba is positioned as a Labs contribution to the Databricks partnership offering:
+> "Labs → Databricks: pymc-marketing OSS, MMM consulting, **Simba budget optimizer**, MMM Agent (Streamlit + GPT-4/o4-mini, runs pymc-marketing notebooks on Databricks serverless with LLM-generated plot explanations + MLflow tracking), CLV Solution Accelerator update"
+— analysis/discord-partnerships-extraction.md
+
+- Simba demo delivered to Fox Sports via Databricks shared client relationship (Sep–Nov 2024)
+- Fivetran roadmap: "MMM-Agent and Simba as premium add-ons (future)" — Fivetran partnership, Sep 2025
+
+### Serviceplan/Plan.Net Partnership
+Serviceplan is a strategic marketing agency partner (announced Dec 8 2025). Simba is a candidate product for the Serviceplan engagement model (100 MMMs, 20+ markets proposed for 2026 — high-volume agency scenario that aligns with Simba's multi-client pricing model).
+
+---
+
+## Sales & GTM Context
+
+- Internal **Sales Enablement Deck** (Kemble, Nov 2025, Gamma.app) covers Decision AI, MMM Agent, and Simba as the three products
+- Feature parity objections from MMM Agent prospects often pivot to Simba: "introductions to MMM Decision Agent led to demos/convos about SIMBA" — Kemble, #sales, 2025-12-22
+- Simba featured in Nomad Foods RFP demo (Nov 2025 — "Simba + Insight Agent demo; 40 minutes; positive feedback")
+
+### Alternate Domain History
+- Early WIP landing page: https://simba-mmm-website.vercel.app/ (Jan 2024, now 404)
+- Companion docs: https://1749.io/resource-center/f/simba-marketing-mix-modeling-saas-required-file-structure (now 404)
+- Alternative domain referenced Oct 2025: https://simba.solutions/ (SSL error as of 2026-03-14)
+- Current domain: https://simba-mmm.com/ (login-gated SaaS app, no public marketing page)
+
+---
+
+## Competitive Differentiators (vs. Other MMM SaaS)
+
+| Competitor | Simba Advantage |
+|-----------|----------------|
+| **Recast** | "Interface speed and functionality was awful — all just a basic streamlit app" (Oct 2024). Simba: full purpose-built UI, model management, scenario planner |
+| **Meridian (Google)** | Open Bayesian model vs. black-box; full uncertainty propagation through budget optimization |
+| **Forvio** | Similar engine-swap concept; Simba discussed adopting "forvio-style" engine selection dropdown |
+| **Sellforte** | Sellforte uses media-spend-based pricing; Simba currently per-seat/monthly — potential to match |
+
+---
+
 ## Content Gaps
 
-<!-- GAP: Live simba-mmm.com content not scraped — use Playwright to capture current marketing copy, feature list, and pricing page -->
-<!-- GAP: No finalized hero copy — all above is constructed from Discord signals -->
-<!-- GAP: Screenshots/product UI not captured -->
-<!-- GAP: Current subscriber count and case studies not confirmed for 2026 -->
-<!-- GAP: Simba website integration into pymc-labs.com — planned Oct 2025; status unknown -->
-<!-- GAP: Competitive differentiator copy vs Recast, Meridian, Rockerbox — partial from Discord but no finalized positioning statement -->
+<!-- GAP: Live simba-mmm.com has no public marketing page (login-gated) — hero copy/feature list must be constructed from Discord + Halah draft signals -->
+<!-- GAP: No product screenshots or UI captures available -->
+<!-- GAP: Current subscriber count and active clients for 2026 unknown (Brilliant Earth cancelled Oct 2025) -->
+<!-- GAP: Simba integration into pymc-labs.com main site — planned Oct 2025; outcome unknown -->
+<!-- GAP: Finalized hero copy and positioning statement not confirmed with Niall / Halah -->
+<!-- GAP: Whether simba.solutions domain is active or abandoned — SSL error prevents access -->

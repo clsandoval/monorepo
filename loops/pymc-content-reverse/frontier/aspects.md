@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 53
-- Pending: 21
-- Convergence: 72%
+- Analyzed: 56
+- Pending: 18
+- Convergence: 76%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -73,9 +73,9 @@ Consolidate all gathered material into content files. One aspect per page.
 - [x] assemble-industry-finance — Write content/industries/finance-insurance.md
 - [x] assemble-industry-gaming — Write content/industries/gaming.md
 - [x] assemble-industry-sports — Write content/industries/sports-analytics.md
-- [ ] assemble-solution-simba — Write content/solutions/simba.md
-- [ ] assemble-solution-decision-ai — Write content/solutions/decision-ai.md
-- [ ] assemble-about — Write content/about/story-and-team.md
+- [x] assemble-solution-simba — Write content/solutions/simba.md
+- [x] assemble-solution-decision-ai — Write content/solutions/decision-ai.md
+- [x] assemble-about — Write content/about/story-and-team.md
 - [ ] assemble-team-members — Write content/about/team-members/{name}.md for each discovered member
 - [ ] assemble-partners — Write content/partners.md
 - [ ] assemble-course-abm — Write content/courses/abm.md
@@ -107,6 +107,8 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] assemble-about (2026-03-14) — Enriched content/about/story-and-team.md from partial → complete. Added: full Origin Story (Thomas left Quantopian, "saving the world with Bayesian modeling" mission, early clients SpaceX/Roche/Netflix/Deliveroo/HelloFresh), Labs Principles (5 principles, Teal org model), social proof stats ($8M 2025 revenue, 100+ enterprise clients, 1M+ pymc-marketing downloads), Halah's about page timeline (2005→2020→2023→2025→today), Win-Win-Win model framing, 5 founding-era client quotes, all social channels. 32 team-member files already exist in content/about/team-members/ (written by prior aspect). GAPS: founding legal date unknown; Alexandre Andorra team status unclear; Joe Wilkinson Discord handle unconfirmed.
+- [x] assemble-solution-simba (2026-03-14) — Completed content/solutions/simba.md. Product: "Simply Bayesian SimBa MMM" — SaaS platform by Niall Oulton, managed services positioning (vs. Decision AI = self-service). 14 features documented: data upload → benchmark priors → model fitting → model management → budget optimization (utility theory risk slider) → ROAs over time → holdout validation → lift tests → scenario planner → full-funnel connections. Pricing: $2k/month + $500/user (Sep 2025). Clients: Coca-Cola (trial Mar 2024), Cabify (trial Apr 2024), Brilliant Earth (first paid Aug 2024, cancelled Oct 2025), TechStyle, Nomad Foods (RFP Nov 2025). Partners: Databricks (Simba budget optimizer in partnership offering, Fox Sports demo Sep-Nov 2024), Fivetran (MMM Agent+Simba as premium add-ons, roadmap). Domain: simba-mmm.com (login-gated, no public marketing page); simba.solutions (SSL error); early WIP 404. Status set to complete — all available sources exhausted. GAPS: live marketing copy inaccessible (login wall), no product screenshots, 2026 subscriber count unknown.
 - [x] assemble-industry-pharma (2026-03-14) — Assembled content/industries/pharma-biotech.md. 7 named pharma/biotech clients documented: Roche (34K params/250K obs/~1hr, 2020 first client), Takeda (15-month CAR-NK cell therapy digital twin, TAK-007/TAK-808, 17 donors, JAX state space model, SOW 1 completed Sep 2024), Akili Interactive (FDA-cleared ADHD digital therapeutic, ordinal regression/IRT/latent cognitive models, "most successful collaboration I've seen" testimonial), Erisyon (protein sequencing via Bayesian HMM/JAX, "couldn't have done in a year what you did in a month"), Haleon/ex-GSK (EAP $8.5k/mo, Nathan Kafi testimonial, full analytics team presentation), Syngenta (XC50 assay SLA x2 SOWs completed), IQVIA (corporate workshop). 2 homepage testimonials (Titi Alailima/Akili + Nathan Kafi/Haleon). Pharma is one of 4 primary hero verticals in Halah draft. Bayesian value props for pharma: regulatory defensibility, small-N efficiency, interpretability. Eric Ma = primary pharma account lead (Novartis/Moderna background). GAPS: no published Roche/Takeda/Erisyon/Haleon case study; Takeda SOW 2 status unknown; Novartis inbound conversion unknown.
 - [x] assemble-industry-cpg (2026-03-14) — Assembled content/industries/consumer-goods.md. Primary CPG client: Colgate-Palmolive (3 engagements: cannibalization ~$485K SOW+MSA / shelf optimization nested logit DCM GPU 4 chains 6h / synthetic consumers 90% alignment). Iraklis Pappas testimonial. Bain/Coca-Cola Fuelight 360 ($3.25M combined budget, US/GB/BR production MMM). Procter & Gamble EAP+workshop reference. Nomad Foods Simba+Insight Agent RFP. Diageo synthetic consumers reference. Full Innovation Lab CPG platform: 5-capability pipeline (briefs→AI evaluation→design refinement→synthetic testing→market simulation). SSR stats: 90% alignment / 85% distributional similarity / <24h cycle. Competitive framing vs. Kantar RichMix / Fractal.ai. Dedicated GTM: Niall's "CPG-Offering-GTM" Notion doc (Nov 2025). GAPS: P&G engagement details; Yum! Brands scope; Nomad RFP outcome; no public Coca-Cola case study.
 - [x] assemble-industry-marketing (2026-03-14) — Assembled content/industries/marketing-media.md. PyMC Labs' commercial flagship vertical. Hero/framing options (4 variants): cookie crisis angle, Luca value prop, Thomas founding insight, Halah rotating tagline. 6 use cases: MMM, A/B testing at scale, CLV, cookieless attribution, budget optimization, experimentation infra. 14 named clients: HelloFresh/Ovative/Gain Theory/Fox/Appodeal/Sweeplift/Twitch (active/completed) + NBCU/CNN/Bloomberg/Audible/Live Nation/DISH/Serviceplan (inbound/partner). Full HelloFresh case study (3 blog posts, 60x speedup, time-varying CAC, Halah narrative + Discord technical detail). Gain Theory and Appodeal case study narratives. Tim McWilliams testimonial. Competitive landscape: Meridian (pymc-marketing supports forecasting/Meridian doesn't; 2x-20x faster), Robyn (dead), Recast (team attrition), Analytic Partners (Excel), Accenture. Top-10 blog list by sessions. SEO keyword list (14 tabs from Thomas). ICP profiles, 7 value propositions, engagement funnel. Products: pymc-marketing (1,088★/1M+ downloads), MMM Agent/Decision AI, Simba, CLV Agent, Fivetran integration. GAPS: Eugene Kwok (Fox) testimonial text not captured; Ovative case study narrative missing; qualified inbound (NBCU/CNN/etc) conversion unknown.

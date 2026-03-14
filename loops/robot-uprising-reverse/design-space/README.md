@@ -25,3 +25,10 @@ An exhaustive exploration of every possible version of Robot Uprising. Each file
 | File | Aspect | Status |
 |------|--------|--------|
 | [core-mechanic/spawn-semantics.md](core-mechanic/spawn-semantics.md) | 1.04c — REPL semantics for agent spawning: EXAPUNKS REPL as reference (explicit fork instruction with X/T inheritance); four Robot Uprising spawn models (explicit skill, implicit condition, hook-triggered, hybrid); inheritance mask design; spawn storm as designed failure; 3 full player journeys; comparable games (Factorio Roboport, Rimworld, ONI, StarCraft production queues); 4 new aspects discovered | ✅ Complete |
+| [core-mechanic/hook-semantics-blocking-vs-queued.md](core-mechanic/hook-semantics-blocking-vs-queued.md) | 1.04d — Blocking vs. queued hook semantics: five models (fire-and-forget, blocking rendezvous, bounded queue, priority queue, hybrid); EXAPUNKS M register as reference; locked design recommendation (A→C→B teaching progression across 7 missions); 3 full player journeys (backend engineer, Minecraft builder, network engineer); sensory vocabulary for blocked/queued/dropped states; 4 new aspects discovered | ✅ Complete |
+
+### First Playable Decisions (Brainstorm Output)
+
+| File | Description | Status |
+|------|-------------|--------|
+| [first-playable-decisions.md](first-playable-decisions.md) | Locked preferences from brainstorming: 7-mission arc, tick system (1 action/tick, 1 tick/hop, receive-is-free), lossy compress (X/2 random), 5 unit types, 6 feeling checkpoints. Full spec at `docs/superpowers/specs/2026-03-13-robot-uprising-first-playable-design.md` | ✅ Locked |

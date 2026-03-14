@@ -124,10 +124,11 @@ test.describe('Integrations screenshots @screenshot', () => {
   });
 
   // ── Discord modal open ────────────────────────────────────────────────────
-  // free tenant: click "Add Connection" in Discord section → modal opens
+  // starter tenant: 0 active connections (disconnected is filtered), plan limit=3
+  // → "Add Connection" button is enabled; click it to open the modal
 
   test('discord modal add connection open', async ({ page }) => {
-    await signInAs(page, TEST_USERS.free);
+    await signInAs(page, TEST_USERS.starter);
     await page.goto('/dashboard/integrations');
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(500);
