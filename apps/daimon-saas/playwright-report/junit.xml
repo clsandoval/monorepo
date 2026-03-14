@@ -1,0 +1,20 @@
+<testsuites id="" name="" tests="3" failures="0" skipped="3" errors="0" time="0.02362200000000007">
+<testsuite name="smoke.spec.ts" timestamp="2026-03-14T01:49:26.299Z" hostname="desktop-chromium" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="smoke: home page renders" classname="smoke.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="smoke.spec.ts" timestamp="2026-03-14T01:49:26.299Z" hostname="mobile-webkit" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="smoke: home page renders" classname="smoke.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="smoke.spec.ts" timestamp="2026-03-14T01:49:26.299Z" hostname="tablet-chromium" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="smoke: home page renders" classname="smoke.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>
