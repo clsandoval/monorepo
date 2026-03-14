@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 117
-- **Current**: 117
+- **Completed**: 118
+- **Current**: 118
 
 ## Current Stage
 
-**Stage 118** — (next stage)
+**Stage 119** — (next stage)
 
 ## Stage Log
 
@@ -131,3 +131,4 @@
 | 115 | done | 2026-03-15T04:30:00Z | e2e/full-flow.spec.ts: 5 tests covering signup form filled → dashboard after signup → onboarding checklist → integrations discord modal open → billing upgrade CTA; fixed free user at plan limit (use starter for discord modal step); 6 screenshots captured |
 | 116 | done | 2026-03-15T05:00:00Z | Orphan sweep: 16 spec library components (auth-card, auth-layout, page-shell, activity-feed, api-key-input, checkbox, copy-to-clipboard, dropdown-menu, icon-button, modal, pagination, password-input, search-input, select, table, toggle) + design-tokens.ts confirmed unreferenced by pages; all kept with spec-intentional comment (pages used inline implementations); build passes |
 | 117 | done | 2026-03-15T06:00:00Z | Schema mismatch audit: fixed 5 mismatches — vault_access_token_id→vault_secret_id + vault_refresh_token_id→refresh_vault_secret_id (settings/workspace), api_key_type→key_type + service_name→service + stripe_status→status + cancel_at_period_end(bool)→cancel_at(timestamptz) (admin/tenant-detail), cancel_at_period_end→cancel_at (webhook), status=valid→active (dashboard); build passes |
+| 118 | done | 2026-03-15T07:00:00Z | Placeholder and stub replacement audit: all grep patterns (TODO/FIXME/stub/lorem/coming soon) return zero results in src/; all "placeholder" matches are legitimate HTML attr/CSS pseudo/TS variable names; codebase is clean; build passes |
