@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 192
-- **Analyzed:** 25
-- **Pending:** 167
-- **Convergence:** 13.0%
+- **Total aspects:** 197
+- **Analyzed:** 26
+- **Pending:** 171
+- **Convergence:** 13.2%
 
 ---
 
@@ -36,7 +36,12 @@
 - [x] 4.19 — False pivot annotation opt-out for streamers: a per-session toggle hiding the gold diamond and grey markers; for streamers who want to provide commentary before the annotation appears, or for community events where "find the pivot" is a collective viewer challenge; the annotation as a game show format
 - [x] 4.25 — EDT trajectory as career progress metric: a 30-match rolling EDT average as a first-class career stat, showing whether a player's architectures trend toward more-contested matches over time; EDT trajectory as the measure of architectural improvement orthogonal to win/loss rate; a player whose EDT moves from 0.20 to 0.45 has improved their opener even if their win rate stayed flat
 - [x] 4.26 — False pivot gap as a standalone metric: EDT to "most dramatic moment" distance as a displayed stat; "False Pivot Gap: 52 ticks" as a community-shareable number; used in config necropsy posts to communicate how misleading the sealed watch was; high false pivot gap = rich sealed experience but harder diagnostic work
-- [ ] 4.20 — Counterfactual simulation as advanced debrief feature: a "what if" mode in the debrief that lets the player change a single agent decision at the identified pivot tick and re-simulate the match forward; the "minimum fix explorer" showing how small a change was needed to flip the outcome
+- [x] 4.20 — Counterfactual simulation as advanced debrief feature: a "what if" mode in the debrief that lets the player change a single agent decision at the identified pivot tick and re-simulate the match forward; the "minimum fix explorer" showing how small a change was needed to flip the outcome
+- [ ] 4.36 — Multi-scenario Minimum Fix Explorer for PvE robustness missions: instead of "what change flips this match," ask "what change improves pass rate across the most failing scenarios simultaneously"; ranking changes by pass-rate delta rather than binary flip; the fix that wins 7/10 failing scenarios is more architecturally meaningful than the fix that wins 1; harder computation, stronger teaching signal
+- [ ] 4.37 — Fork-and-deploy shortcut: after finding a winning fork via the explorer, a one-click button applies the winning change to the active workbench config and opens the deploy queue; removes friction of manually finding and applying the change; risk: removes the learning step of "find the element in the config yourself"; design tension between helpfulness and pedagogy
+- [ ] 4.38 — Counterfactual history as config evolution record: preserving all forks the player ran against a given config as a version-history artifact ("you tested 12 counterfactuals against v3.2, here are the ones that worked"); this history as a shareable necropsy artifact showing the diagnostic work done before landing on v3.3; interaction with 7.10 config necropsy culture and 4.23 replay annotated export
+- [ ] 4.39 — Adversarial counterfactual mode: running the Minimum Fix Explorer on the opponent's config rather than the player's own — "what one change to the opponent's config would have beaten me more decisively?"; stress-testing player configs from the attacker's perspective; available only in Gauntlet mode after a match; teaches professional red-teaming mental model
+- [ ] 4.40 — "First viable fix" vs. "minimum fix" toggle in the explorer: stopping at first candidate that flips the outcome vs. checking all candidates for smallest change; "find first flip" faster (early termination), "find minimum flip" more precise; surfacing this tradeoff as a player choice is itself an educational moment about search strategies
 - [ ] 4.27 — Pivot accuracy as a displayed stat: tracking how close a player's manual hypothesis (marked on timeline before revealing) is to the gold diamond EDT; "pivot accuracy" as a skill metric in player profiles; the "0 ticks off" achievement as a Commander-tier diagnostic milestone; whether accuracy is tracked only in annotation-suppressed sessions vs. always
 - [ ] 4.28 — Annotation reveal countdown as a designed segment format: the "reveal in 5:00" countdown timer as a structured format tool for streamers and for "study mode" players; a mandatory N-minute unguided-analysis window before diamond appears; applies the hot-take vs. cold-analysis principle as a designed mechanic rather than an optional setting
 - [ ] 4.32 — FPG trajectory as career diagnostic: should FPG trend (are my false pivots getting shorter?) appear in the career stats alongside eEDT trend? A player whose FPG trend moves Large→Small is building more legible causal chains. How is this displayed? What threshold constitutes a "meaningful" FPG shift?
