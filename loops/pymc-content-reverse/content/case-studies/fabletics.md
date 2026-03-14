@@ -78,3 +78,9 @@ PyMC-Marketing, HSGP, JAX, MLflow, `freeze_dims_and_data` workaround, CausalPy (
 <!-- GAP: need SOW 2 status — was it signed in March 2025? -->
 <!-- GAP: need quantitative model improvement metrics (e.g., fit quality before/after HSGP) -->
 <!-- GAP: need whether freeze_dims_and_data fix was contributed upstream to PyMC-Marketing -->
+
+## Simba Connection
+
+**TechStyle Group** (parent company of Fabletics) was an early adopter of **Simba**, PyMC Labs' SaaS MMM platform. Simba was added as a $2,500/month add-on to the existing SLA engagement in March 2024 — one of the first managed-service SLA clients to also subscribe to Simba.
+
+> See: `content/solutions/simba.md` (Clients & Traction section)

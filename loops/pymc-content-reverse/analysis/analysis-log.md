@@ -2,6 +2,33 @@
 
 ---
 
+## 2026-03-14 — cross-ref-solutions-to-case-studies
+
+**Aspect completed:** cross-ref-solutions-to-case-studies
+
+**Findings:**
+- Identified all case studies linked to Decision AI and Simba by cross-referencing client lists in solutions pages against case study files
+- **Decision AI case study connections (4):**
+  - `fox-broadcasting.md`: Fox Entertainment listed as Decision AI beta tester (Aug 2025); EAP from Sep 2025
+  - `hellofresh-mmm.md`: HelloFresh EAP starting Jan 2026 (Dovas Zakas); MMM agent deployed across 315+ model combinations
+  - `real-madrid.md`: Football sensor data identified as Decision AI platform candidate (pre-existing mention in file)
+  - `dodgers.md`: Active EAP engagement = Decision AI product tier
+- **Simba case study connections (1):**
+  - `fabletics.md`: TechStyle Group added Simba as $2,500/month SLA add-on (March 2024) — early Simba client
+
+**Files updated:**
+- `content/case-studies/fabletics.md` — added Simba Connection section
+- `content/case-studies/fox-broadcasting.md` — added Decision AI Connection section
+- `content/case-studies/hellofresh-mmm.md` — added Decision AI Connection section
+- `content/case-studies/real-madrid.md` — added Decision AI Connection section (formalized existing mention)
+- `content/case-studies/dodgers.md` — added Decision AI / EAP Connection section
+- `content/solutions/simba.md` — added Cross-References to Case Studies table
+- `content/solutions/decision-ai.md` — updated Cross-References with correct file paths (fixed erroneous `colgate-palmolive.md` → 3 actual Colgate files; added hellofresh, real-madrid, dodgers)
+
+**Gaps noted:** Colgate-Palmolive Decision AI pilot (SOW 4, Aug 2025 — MMM Agent) does not have a dedicated case study yet; the 3 existing Colgate case studies cover earlier non-Decision AI engagements.
+
+---
+
 ## 2026-03-14 — enrich-case-studies-web
 
 **Aspect completed:** enrich-case-studies-web

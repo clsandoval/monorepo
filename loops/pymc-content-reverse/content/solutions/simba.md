@@ -222,6 +222,16 @@ Serviceplan is a strategic marketing agency partner (announced Dec 8 2025). Simb
 
 ---
 
+## Cross-References to Case Studies
+
+| Case Study | Simba Connection |
+|------------|-----------------|
+| `content/case-studies/fabletics.md` | TechStyle Group (Fabletics parent) added Simba as $2,500/month SLA add-on (Mar 2024) — one of first confirmed paying Simba clients with an existing consulting SLA |
+
+<!-- No other current case studies are confirmed Simba clients. Coca-Cola, Cabify, Brilliant Earth, Nomad Foods, Found Search Marketing, and TSB Bank are mentioned in Simba client list but do not have dedicated case study pages yet. -->
+
+---
+
 ## Content Gaps
 
 <!-- GAP: Live simba-mmm.com has no public marketing page (login-gated) — hero copy/feature list must be constructed from Discord + Halah draft signals -->

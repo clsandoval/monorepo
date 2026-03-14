@@ -59,3 +59,9 @@ PyMC, time series modeling (specific methods confidential)
 <!-- GAP: engagement is active and details are confidential — limited content available -->
 <!-- GAP: need any publishable outcomes or anonymized methodology once engagement matures -->
 <!-- GAP: need clarification on whether logo usage permission covers public case study -->
+
+## Decision AI / EAP Connection
+
+The Dodgers engagement is an **Expert Access Program (EAP)** at $5,000/month — the EAP tier is part of the **Decision AI** product line. This is a brand-name client (logo rights negotiated) in the sports analytics vertical. Could be used as a Decision AI reference if outcomes are publishable.
+
+> See: `content/solutions/decision-ai.md` (Expert Access Program / EAP pricing tier)

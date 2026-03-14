@@ -89,3 +89,9 @@ PyMC-Marketing, Bayesian MMM, `MaskedPrior`, `CounterfactualAnalysis`, Bass Diff
 <!-- GAP: need public blog post or case study writeup -->
 <!-- GAP: need quantitative results (ROAS estimates, budget allocation recommendations, NFL promo lift) -->
 <!-- GAP: need detail on MaskedPrior implementation — whether this became a PyMC-Marketing contribution -->
+
+## Decision AI Connection
+
+**Fox Entertainment** (same entity as Fox Broadcasting Company) is listed in the Decision AI customer evidence as a **beta tester (Aug 2025)**. The September 2025 EAP expansion likely included access to the Decision AI MMM Agent alongside the SLA coaching relationship. Eugene Kwok's testimonial on the Expert Access Program page is also used in Decision AI sales materials.
+
+> See: `content/solutions/decision-ai.md` (Customer Evidence section — Fox Entertainment row)

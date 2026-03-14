@@ -132,3 +132,11 @@ PyMC, PyMC-Marketing, Gaussian Processes (HSGP), JAX/NumPyro, Theano, Numba, Arv
 <!-- GAP: need confirmation of exact blog post 3 date (~2022 approximate) -->
 <!-- GAP: need detail on Training & Enablement deliverables — what was transferred to HelloFresh's team -->
 <!-- GAP: need HelloFresh SE engagement specifics — which markets, product lines, timeline milestones -->
+
+## Decision AI Connection
+
+The **2026 EAP (Early Access Program)** at $8,000/month (contact: Dovas Zakas) and the "MMM agent deployment" scaling across 315+ model combinations (15 markets × 7 product lines) described in the HelloFresh SE Follow-On section are part of the **Decision AI** product ecosystem. HelloFresh is listed in the Decision AI customer evidence table as an EAP client starting January 2026.
+
+This makes HelloFresh one of the most significant Decision AI references: a multi-year client relationship that progressed from custom consulting → coaching SLA → Decision AI agentic platform deployment.
+
+> See: `content/solutions/decision-ai.md` (Customer Evidence section — HelloFresh row)

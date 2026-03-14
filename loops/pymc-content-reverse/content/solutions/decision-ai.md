@@ -394,8 +394,11 @@ An agent-native skill registry — the "npm for agent capabilities." Instead of 
 ## Cross-References
 
 - **Simba**: Related product (enterprise MMM solution) — see `content/solutions/simba.md`
-- **Colgate case study**: Primary paying pilot — see `content/case-studies/colgate-palmolive.md`
-- **Fox case study**: Beta tester — see `content/case-studies/fox-entertainment.md`
+- **Colgate case studies**: Primary paying pilot — see `content/case-studies/colgate-cannibalization.md`, `content/case-studies/colgate-shelf-optimization.md`, `content/case-studies/colgate-synthetic-consumers.md` (note: no standalone "colgate-palmolive.md" file — Colgate has 3 separate case study pages)
+- **Fox Broadcasting case study**: Beta tester (Aug 2025), EAP from Sep 2025 — see `content/case-studies/fox-broadcasting.md`
+- **HelloFresh case study**: EAP starting Jan 2026; MMM agent deployed across 315+ model combinations — see `content/case-studies/hellofresh-mmm.md`
+- **Real Madrid case study**: Football sensor data identified as Decision AI candidate use case — see `content/case-studies/real-madrid.md`
+- **LA Dodgers case study**: Active EAP engagement (Decision AI product tier) — see `content/case-studies/dodgers.md`
 - **Training/Courses**: Agentic AI Data Science course (May 2026) uses Decision AI — see `content/courses/`
 - **Partners**: Bain partnership includes Decision AI deep research demos — see `content/partners.md`
 - **OSS Libraries**: Decision Hub + Decision Orchestrator + PyMC Marketing — see `content/resources/open-source-libraries.md`

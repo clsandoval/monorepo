@@ -69,3 +69,9 @@ PyMC-Marketing, CLV models (BG/NBD, MBG/NBD), covariate support (PR #1815)
 <!-- GAP: need named client-side quote or testimonial -->
 <!-- GAP: need clarification on whether follow-on engagement was agreed after coaching transition resolved -->
 <!-- GAP: need quantitative CLV results from the fan modeling work -->
+
+## Decision AI Connection
+
+The planned **football analytics / sensor data workstream** was identified internally as a candidate for the **Decision AI** platform before the Ancelotti → Xavi coaching transition stalled it. If the engagement resumes, the football sensor data processing use case is a natural fit for Decision AI agentic data science.
+
+> See: `content/solutions/decision-ai.md`
