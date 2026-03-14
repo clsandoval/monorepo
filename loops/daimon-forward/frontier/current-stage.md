@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 110
-- **Current**: 110
+- **Completed**: 111
+- **Current**: 111
 
 ## Current Stage
 
-**Stage 111** — (next stage)
+**Stage 112** — (next stage)
 
 ## Stage Log
 
@@ -124,3 +124,4 @@
 | 108 | done | 2026-03-15T00:30:00Z | e2e/auth.spec.ts: 8 tests covering login (empty/filled/email-validation-error), signup (empty/filled/password-error), reset-password (empty/success); Supabase recover endpoint mocked for success state; all screenshots saved; viewport 1280x800; playwright passes |
 | 109 | done | 2026-03-15T00:45:00Z | e2e/dashboard.spec.ts: 5 tests covering bot online (free tenant/connected), bot offline (starter tenant/disconnected), onboarding checklist visible (status=configured), onboarding complete (all 4 steps done), metrics cards (scrolled); signInAs helper with Supabase API auth injection; 25 tests across 5 projects; build passes |
 | 110 | done | 2026-03-15T01:00:00Z | e2e/integrations.spec.ts (5 tests: service grid all disconnected/connected, toggl API key modal, disconnect confirm dialog, discord modal open) + e2e/billing.spec.ts (7 tests: free/starter/pro/past_due plan states, API keys section); fixed tenant_members_select RLS infinite recursion (migration 011); 12 tests pass; 12 screenshots captured |
+| 111 | done | 2026-03-15T02:00:00Z | e2e/settings.spec.ts (5 tests: owner view, workspace tab, discord tab, account tab, danger zone) + e2e/admin.spec.ts (6 tests: tenant list loading/populated, tenant detail loading/full, audit log loading/populated); user_profiles table created + pro user set as admin in beforeAll; 33 desktop+tablet tests pass (mobile-webkit skipped — WebKit not installed); 11 screenshots captured |
