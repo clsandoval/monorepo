@@ -98,7 +98,7 @@ jobs:
             # Per-iteration timeout: 30 minutes max
             if timeout 1800 bash -c '
               unset CLAUDECODE
-              cat PROMPT.md | claude --print --dangerously-skip-permissions
+              cat PROMPT.md | claude --model claude-opus-4-6 --print --dangerously-skip-permissions
             '; then
               FAILURES=0
             else
