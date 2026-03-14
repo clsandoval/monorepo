@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 150
-- **Analyzed:** 15
-- **Pending:** 135
-- **Convergence:** 10%
+- **Total aspects:** 155
+- **Analyzed:** 16
+- **Pending:** 139
+- **Convergence:** 10.7%
 
 ---
 
@@ -26,7 +26,12 @@
 - [x] 1.06 — Gladiabots: visual behavior tree programming for robots, multiplayer AI tournaments
 - [x] 1.06a — The debugging sub-AI pattern: community-developed diagnostic layer (condition-only sub-AI at root showing current sensing state); how Robot Uprising designs this in from the start vs. letting it emerge as a workaround; the always-on diagnostics sidebar in a workbench-native implementation
 - [x] 1.06b — Visual query model as attention language: Gladiabots's target-type + filter + selector as declarative attention specification; how Robot Uprising extends with buffer-awareness (can only query what's in buffer), fidelity metadata, and signal age
-- [ ] 1.06c — Asynchronous PvP as design constraint: async match model as architectural prerequisite for small-community PvP; how deploy-once/watch-once/iterate shapes design at every layer; what Robot Uprising gains and loses vs. synchronous mode
+- [x] 1.06c — Asynchronous PvP as design constraint: async match model as architectural prerequisite for small-community PvP; how deploy-once/watch-once/iterate shapes design at every layer; what Robot Uprising gains and loses vs. synchronous mode
+- [ ] 1.06c-ext-A — Sealed replay as tension mechanic: hiding match result until player watches full replay; "Watch now" vs. "Show result immediately" player choice; emotional design of the unknown-result vs. known-result playback modes; compensates for lost real-time tension
+- [ ] 1.06c-ext-B — Configuration version control as first-class infrastructure: async PvP requires explicit deploy snapshots, version comparison, "fork from deploy" workflow; how this differs from a simple file-save system; versioned configs as competitive history artifacts
+- [ ] 1.06c-ext-C — The async-to-sync hybrid (simultaneous-turn model): Frozen Synapse's sealed-order-submit as middle ground between pure async and synchronous; both players submit simultaneously, neither sees opponent's orders until resolution; fully schedule-compatible while preserving tactical tension
+- [ ] 1.06c-ext-D — Observation mode as competitive onboarding: watching featured matches without deploying; low-friction path from "curious about ranked" to "first deploy"; how observation mode teaches replay literacy before players need it
+- [ ] 1.06c-ext-E — Match volume compensation through AI ghosts: when community is small, AI-generated adversary configs fill the async match pool; designing AI ghosts indistinguishable in debrief from human configs; labeling AI vs. human matches; whether AI ghost matches count toward ELO
 - [ ] 1.06d — The Gladiabots meta-visibility gap: non-transitive strategy relationships players can't see until they've lost; design options for surfacing meta (counter-strategy hints, meta-map visualization, post-match strategy classification); does Robot Uprising want transparent or opaque meta-knowledge?
 - [ ] 1.06e — Anthropomorphization as engagement hook: players naming bots, narrating personalities, framing mechanical changes as character growth; how Robot Uprising designs for it deliberately (unit portraits, persistent bot identities, mission memory, named bot achievements)
 - [ ] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
