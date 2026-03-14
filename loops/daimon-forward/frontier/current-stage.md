@@ -3,12 +3,12 @@
 ## Statistics
 
 - **Total stages**: 120
-- **Completed**: 90
-- **Current**: 90
+- **Completed**: 91
+- **Current**: 91
 
 ## Current Stage
 
-**Stage 091** — (next stage)
+**Stage 092** — (next stage)
 
 ## Stage Log
 
@@ -104,3 +104,4 @@
 | 088 | done | 2026-03-14T11:30:00Z | Customer portal integration: /api/billing/portal already implemented (owner-only, stripe_customer_id lookup, billingPortal.sessions.create with return_url); "Manage Billing →" button in CurrentPlanCard + portal links in BillingAlertBanners already wired; added portal_return=1 handler in CheckoutReturnBanner showing info toast "Welcome back to Daimon." with URL cleanup; build passes |
 | 089 | done | 2026-03-14T12:00:00Z | Plan gating logic: src/lib/plans/gate.ts with canAccessTool (always true — no tool gates), getMaxConnections (free=1/starter=3/pro=Infinity), canAddConnection, isPlanFeature (email_support/priority_support/uptime_sla/annual_billing), connectionLimitMessage; DiscordSection wired with plan prop — Add Connection button disabled at limit with upgrade tooltip + amber banner with billing link; integrations page passes tenant.plan to DiscordSection; build passes |
 | 090 | done | 2026-03-14T12:15:00Z | Subscription lifecycle display: migration adds tenant_subscriptions to realtime publication; SubscriptionLifecycleWatcher client component subscribes to tenant_subscriptions UPDATE events, detects trialing→active / active→past_due / past_due→active / cancel scheduled / reactivated / downgraded-to-free transitions, shows toasts + router.refresh(); wired into billing page; build passes |
+| 091 | done | 2026-03-14T12:30:00Z | Stripe webhook tests: 18 tests covering all 8 event types (checkout.session.completed/expired, customer.subscription.created/updated/deleted, invoice.payment_succeeded/payment_failed, customer.deleted), idempotency (duplicate event_id skips processing), signature verification failure (400), unknown event type (graceful 200); vitest passes |
