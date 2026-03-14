@@ -1,15 +1,19 @@
 ---
 page: resources/industry-benchmarks
 title: Industry Benchmarks
-status: partial
+status: complete
 sources:
   - analysis/website-scrape/resources.md
   - analysis/website-scrape/blog-index.md
   - analysis/discord-marketing-extraction.md
   - analysis/discord-competition-extraction.md
   - https://www.pymc-labs.com/benchmark/LLMPriceIsRight
+  - https://www.pymc-labs.com/blog-posts/price-benchmark
+  - https://www.pymc-labs.com/blog-posts/can-llms-play
   - https://www.pymc-labs.com/blog-posts/pymc-marketing-vs-google-meridian
+  - https://www.pymc-labs.com/blog-posts/pymc-marketing-vs-meridian-baseline-modeling-mmm
   - https://www.pymc-labs.com/blog-posts/pymc-stan-benchmark
+  - https://www.pymc-labs.com/blog-posts/how-realistic-are-synthetic-consumers
   - https://www.pymc-labs/benchmark/LLMPriceIsRight/leaderboard
 ---
 
@@ -28,12 +32,19 @@ Current sitemap URLs in `/benchmark/` tree:
 
 ## Hero / Page Intro
 
-<!-- GAP: No written hero copy for a "Benchmarks" overview page — need to write from scratch or pull from blog intro text -->
-
 Candidate framing (from blog/marketing copy):
 - "We don't just build models — we measure them."
 - "Reproducible benchmarks that tell you what actually works."
 - "Most comparisons online are high-level or use simplistic examples, leaving teams to rely on brand familiarity or anecdotal advice." — Halah Joseph, 2025-09-10
+
+Hero copy candidates (synthesized from benchmark blog posts):
+- "At PyMC Labs, we believe claims should be backed by data. Every benchmark we publish includes reproducible code, real-world datasets, and transparent methodology. Here's what the numbers actually show."
+- "We publish the benchmarks we wish existed. Open source, reproducible, and designed for teams making real decisions."
+
+Benchmarks overview text (from benchmark blog language):
+> "Both promise state-of-the-art Bayesian inference, handle multi-geo hierarchical models, and come from credible teams. Yet, reliable, direct comparisons are non-existent." — PyMC Labs (on motivation for Meridian benchmark)
+
+Navigation note: The current site's "Resources" nav points to `/benchmark/LLMPriceIsRight`. The new sitemap collects all benchmarks under a single "Industry Benchmarks" hub page.
 
 ---
 
@@ -85,7 +96,9 @@ From the page:
 | **MAPE** | Mean Absolute Percentage Error — average % difference between bid and actual price (ignoring overbids). |
 | **Overbid Rate** | % of bids that exceeded the actual price (auto-disqualification). |
 
-### Leaderboard (as of September 25, 2025)
+### Leaderboard (as of September 25, 2025 snapshot — live at /benchmark/LLMPriceIsRight/leaderboard)
+
+The leaderboard is JS-rendered and updates dynamically. The tables below reflect the September 25, 2025 snapshot. The website must either embed the live leaderboard component or link prominently to `/benchmark/LLMPriceIsRight/leaderboard` for current standings.
 
 **Best Elo Rating:**
 | Rank | Model | Elo |
@@ -114,7 +127,28 @@ From the page:
 | #4 | gpt-4o-2024-08-06 | 40% |
 | #5 | gpt-5-mini | 40.82% |
 
-<!-- GAP: Leaderboard is JS-rendered and live — the table above is from Sep 25 2025 scrape. Need to surface it dynamically or note that live leaderboard is at /benchmark/LLMPriceIsRight/leaderboard -->
+### Full Tournament Results (from February 2026 blog post — 90 models)
+
+The "Can LLMs Play The Price Is Right?" blog post (Feb 25, 2026) expanded the benchmark to 90 models:
+
+**Tournament structure:**
+- 90 LLMs competed; 2 preliminary rounds eliminated lowest-MAPE performers
+- Finals: Top 50 models, 50 random showcases each, paired against different competitors
+- Each round: 10 reference prices provided from similar products
+
+**Key headline stats:**
+- OpenAI o3: **13.5% MAPE** (beats average human contestant ~18%)
+- o3 bid correlation with actual prices: **r = 0.89**
+- Llama4-scout: worst performer at **53.1% MAPE**; near-zero correlation
+- Most conservative model: **2% overbid rate**
+- Most aggressive model: **72% overbid rate**
+- Human contestants overbid ~25% of the time
+- OpenAI models occupied **top 14 Elo spots** and 16 of top 20
+- Of 42 OpenAI models: 31 (74%) passed preliminary rounds
+- Top-rated model beats lowest-rated ~90% of the time (Elo estimate)
+- o3 ranked #21 on Elo (despite best MAPE) due to high overbid rate (42%)
+
+**Key insight:** "Winning requires both accuracy and strategy. Models that overbid too often, even with precise price estimates, rank lower on the Elo leaderboard."
 
 ### Key Findings
 - Elo ratings vary significantly between models, reflecting different skill levels
@@ -163,10 +197,79 @@ Review process:
 ### What It Is
 A rigorous, reproducible quantitative comparison of PyMC-Marketing vs. Google's Meridian MMM library. The most comprehensive apples-to-apples comparison published, using real-world synthetic datasets spanning single-market startups to global enterprises like Nike and Colgate.
 
+**GitHub:** Open-sourced benchmark code with standalone data-generation module for full reproducibility.
+
 ### Headline Results
 - PyMC-Marketing is **2x–20x faster** than Meridian
 - PyMC-Marketing is **more accurate** and **more scalable**
+- Only PyMC-Marketing successfully handled enterprise-scale data (Meridian failed to converge)
 - Luca's conclusion: *"There is no scenario in which I would recommend Meridian"* — Luca Fiaschi, 2025
+
+### Part 1 Methodology (September 8, 2025)
+
+**Authors:** Teemu Säilynoja, Luca Fiaschi, Jake Piekarski
+**Versions tested:** PyMC-Marketing 0.15.1, Meridian 1.1.6
+**Hardware:** n1-standard-32 Google Compute Engine machine (CPU; GPU benchmarks pending)
+**MCMC config:** 4 chains, 2,000 draws, 0.9 acceptance probability
+
+**Dataset scales tested:**
+
+| Scale | Timespan | Markets | Channels | Controls | Size | Example |
+|-------|----------|---------|----------|----------|------|---------|
+| Startup | 2 yrs | 1 | 4 | 2 | 104×8 | Early D2C brands |
+| Growth | 2 yrs | 2 | 6 | 2 | 262×11 | Multi-market D2C |
+| Mature | 3 yrs | 8 | 8 | 4 | 1,248×15 | Multi-region digital brands |
+| Enterprise | 4 yrs | 50 | 30 | 8 | 10,400×43 | Global CPG (Nike/Colgate scale) |
+
+**Architectural differences:**
+- PyMC-Marketing: flexible samplers (NumPyro, BlackJAX, Nutpie), Fourier transformations for seasonality, 36 params (startup) / 1,931 (enterprise)
+- Meridian: fixed TensorFlow Probability backend, splines for baseline, 29 params (startup) / 2,229 (enterprise)
+
+### Part 1 Quantitative Results
+
+**Sampling Efficiency (ESS/s — higher is better):**
+
+| Sampler | Startup | Growth | Mature | Enterprise |
+|---------|---------|--------|--------|------------|
+| PyMC (NumPyro) | 110.00 | 4.38 | Failed | Failed |
+| PyMC (BlackJAX) | 83.19 | 5.42 | Failed | Failed |
+| PyMC (Default) | 25.04 | 4.48 | 5.30 | 0.10 |
+| PyMC (Nutpie) | 22.97 | 5.86 | 17.44 | 0.19 |
+| Meridian (TFP) | 5.66 | 2.18 | 3.58 | **Failed** |
+
+**In-Sample Accuracy (R²):**
+
+| Scale | PyMC-Marketing | Meridian |
+|-------|---------------|---------|
+| Startup | 0.87 ± 0.02 | 0.73 ± 0.02 |
+| Growth | 0.88 ± 0.02 | 0.89 ± 0.01 |
+| Mature | 0.95 ± 0.01 | 0.74 ± 0.01 |
+| Enterprise | 0.99 ± 0.01 | N/A (failed) |
+
+**In-Sample MAPE (lower is better):**
+
+| Scale | PyMC-Marketing | Meridian |
+|-------|---------------|---------|
+| Startup | 7.2 ± 0.6% | 10.4 ± 0.5% |
+| Growth | 6.8 ± 0.6% | 6.6 ± 0.3% |
+| Mature | 5.0 ± 0.3% | 12.3 ± 0.4% |
+| Enterprise | 2.6 ± 0.2% | N/A (failed) |
+
+**Durbin-Watson (residual autocorrelation, optimal ~2.0):**
+- PyMC: 1.71–1.96 (near-optimal across all scales)
+- Meridian: 0.40–1.13 (systematic autocorrelation — model misses important data patterns)
+
+**Channel Contribution Recovery (Scaled RMSE — lower is better):**
+
+| Scale | PyMC-Marketing | Meridian |
+|-------|---------------|---------|
+| Startup | 0.41 ± 0.22 | 0.70 ± 0.39 |
+| Growth | 0.44 ± 0.41 | 0.70 ± 0.64 |
+| Mature | 0.15 ± 0.08 | 0.59 ± 0.40 |
+
+**Key bias finding:** Meridian positive bias at mature scale = –2390 ± 11231 (vs PyMC slight negative bias).
+
+**Storage Note:** PyMC-Marketing stores more MB (includes original data for reproducibility) but uses *less* memory during fitting (900MB–2.5GB vs Meridian's 5GB minimum).
 
 ### Halah's LinkedIn announcement copy (2025-09-22):
 > "Last week, 𝐰𝐞 𝐩𝐮𝐛𝐥𝐢𝐬𝐡𝐞𝐝 𝐭𝐡𝐞 𝐦𝐨𝐬𝐭 𝐜𝐨𝐦𝐩𝐫𝐞𝐡𝐞𝐧𝐬𝐢𝐯𝐞 𝐏𝐲𝐌𝐂-𝐌𝐚𝐫𝐤𝐞𝐭𝐢𝐧𝐠 𝐯𝐬. 𝐌𝐞𝐫𝐢𝐝𝐢𝐚𝐧 benchmark ever conducted — with reproducible code, real-world sims, and clear winners on speed, accuracy, and scale."
@@ -185,12 +288,47 @@ Attendees learned:
 - When each library is appropriate for a given use case
 - Practical guidance for teams already building MMMs
 
-### Part 2: Baseline Modeling (December 2025)
+### Part 2: Baseline Modeling (December 18, 2025)
+
+**Authors:** Teemu Säilynoja, Luca Fiaschi
+**Versions:** PyMC-Marketing v0.17.0 vs Meridian v1.2.1
+**Updated:** January 8, 2026
+
 Featured post excerpt:
 > "PyMC-Marketing still leads where MMM matters most: reliable attribution. We reran our benchmark against the latest Google Meridian update to see what changed and what didn't."
 
 Luca's intro quote:
 > "Most MMM conversations focus on channels, curves, and budget shifts. But the part that often decides the entire story sits quietly in the background: the baseline."
+
+**What changed in Meridian v1.2.1:** Automated Knot Selection for spline baseline — enables baseline to track sales fluctuations more closely.
+
+**Methodology change:** Both libraries shifted to neutral priors (vs spend-share informed). "In synthetic datasets, historical spend does not reflect true effectiveness." — isolates ability to recover effects from data alone.
+
+**Part 2 Sampling Efficiency (ESS/s):**
+
+| Dataset Size | PyMC Best | Meridian TFP |
+|---|---|---|
+| Small | 28.82 | 2.28 |
+| Growing | 1.74 | 0.99 |
+| Medium | 1.71 | 1.10 |
+
+**Part 2 In-Sample Fit:** Meridian's Automated Knot Selection delivered real gains:
+- Small business R²: Meridian 0.930 vs PyMC 0.871
+- MAPE decreased significantly for Meridian
+
+**Critical Trade-off:** Despite better predictive R², Meridian's Durbin-Watson = 1.42–1.89 (vs PyMC 1.85–1.97) — spline baseline absorbs short-term variation rather than explicitly modeling seasonality, degrading causal separation.
+
+**Attribution accuracy (Part 2 — PyMC still wins):**
+- Bias (Small): PyMC 82±207 vs Meridian 219±259
+- SRMSE (Growing): PyMC 0.42±0.34 vs Meridian 0.54±0.49
+- CRPS (Small): PyMC 145±171 vs Meridian 229±311
+
+**Core insight:**
+> "A flexible spline baseline can improve in-sample accuracy while degrading causal separation." — Säilynoja & Fiaschi, December 2025
+
+**PyMC recommendation:** "PyMC-Marketing's explicit Fourier-based seasonality remains the more robust choice" for practitioners prioritizing robust attribution.
+
+**Identifiability challenge (both libraries):** Early-saturating channels become "confounded with the intercept" — recovery requires spend variation within non-saturated regions.
 
 ### Mutinex Controversy (December 2025)
 A competing benchmarker (Mutinex) published a benchmark claiming PyMC-Marketing "performs worst." PyMC Labs contacted Mutinex CEO and established that the benchmark:
@@ -203,17 +341,83 @@ A competing benchmarker (Mutinex) published a benchmark claiming PyMC-Marketing 
 
 ---
 
-## Benchmark 3: PyMC vs. Stan Sampling Speed
+## Benchmark 3: PyMC vs. Stan Sampling Speed (MCMC at Scale)
 
 ### Metadata
 - **URL:** https://www.pymc-labs.com/blog-posts/pymc-stan-benchmark
+- **Full title:** "MCMC at Scale: How JAX and GPUs Make Bayesian Inference Fast"
+- **Alt title:** "MCMC for Big Datasets: How Much Faster Is JAX and GPU Sampling with PyMC?"
+- **Author:** Martin Ingram
+- **Published:** December 22, 2021 (Updated: February 18, 2026)
 - **Theme:** Tutorial / Performance
 - **Traffic:** ~2,300 sessions (top-10 blog post, #6)
+- **Code repo:** https://github.com/martiningram/mcmc_runtime_comparison
 
 ### What It Tests
-How much faster JAX and GPU sampling are with PyMC compared to Stan for large-scale Bayesian inference.
+How much faster JAX and GPU sampling are with PyMC compared to Stan for large-scale Bayesian inference. Uses professional tennis match data as a realistic hierarchical model benchmark.
 
-<!-- GAP: Need to fetch and extract the full content of this post to get specific benchmark numbers, methodology, and conclusions -->
+### Methodology
+
+**Dataset:** 160,420 professional tennis matches (Open Era, 1968–present)
+**Model:** Bradley-Terry pairwise comparison model with hierarchical structure
+- Player skill: θᵢ ~ N(0, σ²), σ ~ HalfNormal(1)
+- Non-centered parameterization for better sampler geometry
+
+**Hardware:** Razer Blade Advanced 15 (2019) — Intel i7-9750H CPU + NVIDIA RTX 2070 GPU, 16GB RAM, Ubuntu
+
+**Sampling config:** 1,000 warm-up steps, 1,000 samples, 4 parallel chains
+
+**Variable dataset sizes:** Start year varied from 2020 back to 1968 (increasing match count)
+
+**Methods compared:**
+
+| Method | Backend |
+|--------|---------|
+| pymc (standard) | CPU |
+| pymc_jax_cpu_parallel | CPU (NumPyro NUTS) |
+| pymc_jax_gpu_parallel | GPU (sequential chains) |
+| pymc_jax_gpu_vectorized | GPU (parallel chains) |
+| cmdstanpy (Stan) | CPU |
+
+### Key Results (Full 160,420 matches)
+
+**Wall time comparison:**
+- pymc_jax_gpu_vectorized: **2.7 minutes**
+- pymc_jax_gpu_parallel: ~4.5 minutes
+- pymc_jax_cpu_parallel: ~7.5 minutes
+- pymc (standard): ~12 minutes
+- cmdstanpy (Stan): ~**20 minutes**
+
+**ESS/second improvement:**
+- Vectorized GPU vs PyMC standard: **~11× improvement**
+- JAX on CPU vs PyMC standard: **~2.9× improvement**
+- Stan and PyMC standard: comparable
+
+**GPU crossover point:** GPU outperforms CPU only above ~50,000 observations. Below that, GPU overhead makes CPU methods faster.
+
+**Accuracy validation:** All methods produced effectively identical posteriors — GPU is not trading accuracy for speed.
+
+### Key Quotes
+> "Moving from a 20-minute to a 2.7-minute iteration cycle fundamentally changes how quickly a modeller can diagnose and refine a model."
+
+> "Wall time alone is misleading. A sampler that runs faster but produces lower-quality samples delivers less value. Effective sample size per second (ESS/second) is the correct metric."
+
+> "MCMC handles much larger datasets than its reputation suggests."
+
+### Top Tennis Player Rankings (Posterior Skill Estimates — benchmark byproduct)
+
+| Rank | Player | Skill Mean |
+|------|--------|-----------|
+| 1 | Novak Djokovic | 3.54 |
+| 2 | Rafael Nadal | 3.43 |
+| 3 | Roger Federer | 3.31 |
+| 4 | Bjorn Borg | 3.25 |
+| 5 | Ivan Lendl | 3.23 |
+
+### Future Directions (from post)
+- Single-precision GPU: RTX 2070 theoretical 32× speedup (7.465 TFLOPS vs 233 GFLOPS double precision) — pending stability validation
+- BlackJAX identified as promising next comparison point
+- Stan OpenCL GPU backend not yet tested against PyMC/JAX GPU
 
 ---
 
@@ -243,31 +447,75 @@ Halah's LinkedIn post (2026-02-26):
 Daimon paraphrase (2026-02-26):
 > "We gave Claude a 15-page cheat sheet on Bayesian modeling. Pass rates jumped from 60% to 93%."
 
-<!-- GAP: Full benchmark methodology, task set, and detailed results not yet extracted — needs full post fetch or Discord thread -->
+Note: Full methodology/task set not yet publicly available via blog post — announcement via LinkedIn only. Additional Discord threads or a blog post may contain further detail. The "PyMC modeling skill" is distributed via Decision Hub — see `content/solutions/decision-ai.md`.
+
+**Related product context:** The skill encodes PyMC best practices (coords/dims, nutpie sampler, non-centered parameterization) in a 15-page structured format fed to the AI agent as context.
 
 ---
 
 ## Benchmark 5: Synthetic Consumers Alignment Study
 
 ### Metadata
-- **Related blog:** https://www.pymc-labs.com/blog-posts/how-realistic-are-synthetic-consumers
-- **Authors:** Allen Downey, (others TBC)
-- **Study:** GSS (General Social Survey) evaluation
+- **Blog URL:** https://www.pymc-labs.com/blog-posts/how-realistic-are-synthetic-consumers
+- **Full title:** "Can LLMs Replace Human Survey Respondents? Evaluating Synthetic Consumers on Political and Lifestyle Questions"
+- **Author:** Allen Downey
+- **Published:** June 3, 2025 (Updated: February 18, 2026)
+- **Models tested:** GPT-4o, GPT-o3-mini, Claude 3.7 Sonnet, DeepSeek R1 Distill, Gemini 2.0 Flash (larger); GPT-4o mini, Claude 3 Opus, Mixtral 8x7b, Meta Llama 3 8b Instruct (smaller)
 
 ### What It Tests
-Whether LLM-simulated survey respondents ("synthetic consumers") accurately replicate human survey responses on political and lifestyle questions.
+Whether LLM-simulated survey respondents ("synthetic consumers") accurately replicate human survey responses on political and lifestyle questions from the GSS (General Social Survey).
 
-### Key Stats (from live site and Discord)
-- **90% alignment** with human survey data (synthetic vs. real responses)
-- **85% distributional similarity** across demographic groups
+**Evaluation metric:** Mean Absolute Error (MAE) across 100 randomly selected test respondents
+
+**Comparison baselines:**
+- Naive classifier (always predicts median response)
+- Random forest trained on GSS data (3,000 respondents for party ID; 2,000 for TV hours)
+
+**Tasks:**
+1. Political Party Identification (7-point scale: Strong Democrat → Strong Republican)
+2. Daily Television Hours (5 categories: 1 or fewer → 6+ hours)
+
+### Key Findings
+
+**Political Party ID:**
+- Most large LLMs: comparable to supervised random forest
+- GPT-o3-mini and Gemini 2.0 Flash: occasionally outperformed random forest
+- DeepSeek R1 Distill: consistently underperformed, sometimes below naive baseline
+- Smaller models: competitive; Claude performed well overall
+- GPT-4o mini and Llama 3 8b: less consistent
+
+**Television Viewing:**
+- Performance "more variable than on party identification"
+- Most models landed within baseline-to-random-forest range
+- No consistent best performer across both tasks
+- Mixtral performed particularly poorly
+- Rankings shifted meaningfully between tasks
+
+**Control experiment (demographic info removed):**
+Performance "collapse consistently below the naive baseline across all models" — confirming LLMs encode statistically valid demographic-behavior relationships, not just pattern-matching.
+
+### Key Stats (from live site and Discord context)
+- **90% alignment** with human survey data (synthetic vs. real responses) — from marketing copy
+- **85% distributional similarity** across demographic groups — from marketing copy
 - **<24-hour** cycle from brief to synthetic results (vs. weeks for traditional surveys)
 - **9,000 responses** generated for Colgate-Palmolive synthetic shelf-test
 
-Methodology: Semantic Similarity Rating (SSR) algorithm — see GitHub: `pymc-labs/semantic-similarity-rating` (130★)
-
+Methodology: Semantic Similarity Rating (SSR) algorithm — GitHub: `pymc-labs/semantic-similarity-rating` (130★)
 Associated paper: Maier et al. 2025 (Benjamin F. Maier lead author) — SSR paper
 
-<!-- GAP: Exact blog post content for how-realistic-are-synthetic-consumers not yet fully extracted — partial content from crawl-remaining.md -->
+### Conclusions
+> "Synthetic consumers based on LLMs have a lot of potential." — Allen Downey, June 2025
+
+- Some LLMs match ML algorithms trained on large datasets for task performance
+- "Some LLMs can perform worse than a naive baseline" — requires model selection care
+- Task predictability matters: less demographically predictable behaviors → weaker results
+- Demographic grounding is essential: removing it destroys performance
+- **Future:** Ensemble methods, open-ended response testing, client-specific panels
+
+### Practical Applications for Marketing
+- Faster, lower-cost alternative to human survey panels
+- Immediate deployment without additional data collection
+- Reliability depends on task characteristics — requires model selection or ensemble approaches
 
 ---
 
@@ -306,10 +554,8 @@ Juan Orduz on benchmarking strategy (Feb 2026):
 
 ## GAPS Summary
 
-<!-- GAP: PyMC vs Stan benchmark post content not extracted — need full fetch of /blog-posts/pymc-stan-benchmark -->
-<!-- GAP: PyMC Skills benchmark full methodology/task set not documented — partial from LinkedIn post only -->
-<!-- GAP: Synthetic consumers study full content from /how-realistic-are-synthetic-consumers not fully extracted -->
-<!-- GAP: No hero/intro copy written for benchmarks overview page (new page, no existing copy) -->
-<!-- GAP: Live leaderboard is JS-rendered — table above reflects Sep 25 2025 snapshot, needs dynamic update strategy -->
-<!-- GAP: No industry-specific benchmarks documented (e.g., MMM accuracy across industries, CLV model accuracy) -->
-<!-- GAP: Maier et al. 2025 SSR paper citation/DOI not captured -->
+<!-- GAP: PyMC Skills (Benchmark 4) — full benchmark methodology, test suite, and detailed results not publicly available; only LinkedIn announcement. A blog post may be forthcoming. -->
+<!-- GAP: Live leaderboard is JS-rendered — tables above reflect Sep 25 2025 snapshot + Feb 2026 blog data. The website should embed or link to /benchmark/LLMPriceIsRight/leaderboard for live standings. -->
+<!-- GAP: No industry-specific benchmarks documented (e.g., MMM accuracy across industries, CLV model accuracy, pharma/finance specific) — these may not exist yet -->
+<!-- GAP: Maier et al. 2025 SSR paper citation/DOI not captured — no public DOI found -->
+<!-- GAP: CTA copy not finalized — see CTA Section above for candidates -->

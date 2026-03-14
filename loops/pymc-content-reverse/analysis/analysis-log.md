@@ -2,6 +2,22 @@
 
 ---
 
+## 2026-03-14 — industry-benchmarks-enrich
+
+**Aspect completed:** industry-benchmarks-enrich
+
+**Findings:**
+- Upgraded content/resources/industry-benchmarks.md from status:partial → status:complete
+- Fetched full content of 5 URLs: pymc-stan-benchmark, how-realistic-are-synthetic-consumers, pymc-marketing-vs-google-meridian (Part 1), pymc-marketing-vs-meridian-baseline-modeling-mmm (Part 2), can-llms-play
+- **Benchmark 3 (PyMC vs Stan) — RESOLVED:** Full methodology added. 160,420 tennis matches. Wall time: 2.7 min (GPU vectorized) vs 20 min (Stan). 11× ESS/s improvement for GPU. JAX CPU: 2.9× speedup. GPU crossover at ~50k observations. All methods produce identical posteriors. Author: Martin Ingram, Dec 2021 / updated Feb 2026.
+- **Benchmark 2 (Meridian) — ENRICHED:** Full quantitative tables added for Part 1 (PyMC 0.15.1 vs Meridian 1.1.6) and Part 2 (PyMC 0.17.0 vs Meridian 1.2.1). Detailed ESS/s, R², MAPE, Durbin-Watson, SRMSE by dataset scale. Part 2: Automated Knot Selection improved Meridian R² but degraded attribution accuracy due to spline absorbing seasonality.
+- **Benchmark 1 (LLM Price Is Right) — ENRICHED:** Added Feb 2026 tournament data (90 models, o3=13.5% MAPE beating human ~18%, r=0.89 correlation, OpenAI top 14 Elo). Predecessor blog "can-llms-play" documented.
+- **Benchmark 5 (Synthetic Consumers) — RESOLVED:** Full study design extracted. 9 models (5 large, 4 small), GSS data, MAE metric, 2 tasks (party ID + TV hours). Control experiment confirms demographic grounding essential. Main caveat: "some LLMs can perform worse than naive baseline."
+- **Hero copy** — added candidate framing text from blog language.
+- Remaining gaps: PyMC Skills (Benchmark 4) methodology still LinkedIn-only; live leaderboard JS-rendered; no industry-specific benchmarks found; SSR paper DOI not captured.
+
+---
+
 ## 2026-03-14 — assemble-resources-benchmarks
 
 **Aspect completed:** assemble-resources-benchmarks
