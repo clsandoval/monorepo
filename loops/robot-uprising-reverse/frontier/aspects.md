@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 159
-- **Analyzed:** 17
-- **Pending:** 142
-- **Convergence:** 10.7%
+- **Total aspects:** 164
+- **Analyzed:** 18
+- **Pending:** 146
+- **Convergence:** 11.0%
 
 ---
 
@@ -28,7 +28,7 @@
 - [x] 1.06b — Visual query model as attention language: Gladiabots's target-type + filter + selector as declarative attention specification; how Robot Uprising extends with buffer-awareness (can only query what's in buffer), fidelity metadata, and signal age
 - [x] 1.06c — Asynchronous PvP as design constraint: async match model as architectural prerequisite for small-community PvP; how deploy-once/watch-once/iterate shapes design at every layer; what Robot Uprising gains and loses vs. synchronous mode
 - [x] 1.06c-ext-A — Sealed replay as tension mechanic: hiding match result until player watches full replay; "Watch now" vs. "Show result immediately" player choice; emotional design of the unknown-result vs. known-result playback modes; compensates for lost real-time tension
-- [ ] 1.06c-ext-A-i — Replay length as tension design: minimum match duration required for sealed tension to function; mission design constraints around ensuring competitive Gauntlet matches run 60–180 ticks; how fast-resolution stomps are prevented without artificial health inflation
+- [x] 1.06c-ext-A-i — Replay length as tension design: minimum match duration required for sealed tension to function; mission design constraints around ensuring competitive Gauntlet matches run 60–180 ticks; how fast-resolution stomps are prevented without artificial health inflation
 - [ ] 1.06c-ext-A-ii — The "false pivot" anti-pattern: replays where outcome appears to reverse multiple times before resolution — emotionally rich but potentially frustrating if player misidentifies the pivot; should debrief overlay mark decisive moments retroactively?
 - [ ] 1.06c-ext-A-iii — Sealed replay for PvE missions: applying the sealed mechanic to campaign missions — hiding pass/fail until player watches; whether sealed tension works when the player designed both sides of the encounter
 - [ ] 4.04b — Two-act debrief structure: designing the watch experience and the analysis experience as sequential phases — sealed watch (emotional) → full debrief (analytical) — with a deliberate transition between them; the "seal breaking" as the transition event
@@ -115,6 +115,7 @@
 - [ ] 2.12 — Deception signals: enemy can inject false information into your network
 - [ ] 2.26 — Fidelity spoofing as attack primitive: enemy crafts signals with artificially-high fidelity specifically to pass the player's confidence filters; the workbench UI for signal authentication (checksums, source signatures, Counter-Intelligence skill that verifies provenance before buffer entry); makes the attention language itself an adversarial interface
 - [ ] 2.13 — Signal priority: urgent vs routine, and how priority affects buffer eviction and routing
+- [ ] 2.27 — Buffer exhaustion as late-game mechanic: long matches (100+ ticks) create a new failure mode — eviction policy breaking down as buffers fill with stale data; "buffer hygiene" as a skill; how architectures gracefully manage a full buffer mid-match; the context-window-overflow problem in Robot Uprising terms
 
 ---
 
@@ -174,6 +175,7 @@
 - [ ] 4.16 — Signal genealogy as visualization: the full network graph of signal propagation across all agents for a given tick range; legibility at 5 vs. 15 agents; comparable: network traffic analyzers, dependency trees, call graphs in profilers
 - [ ] 4.12 — The spawn genealogy tree: how the debrief visualizes which agents spawned which, cycle-by-cycle ancestry; what information to show per spawn event (inherited buffer snapshot, spawn trigger cause, fabrication cost consumed, whether the spawn was a hook consequence or skill consequence)
 - [ ] 4.13 — Latency visualization as primary diagnostic: signal age at time of action overlay in debrief — each agent action annotated with age of most recent signal that influenced it; fresh = bright, stale = dimmed; teaches that deeper architectures carry older intelligence
+- [ ] 4.17 — Match duration as diagnostic indicator in debrief analytics: win-rate bucketed by match duration (sub-50 / 50-90 / 90+); allows players to identify early-game vs. mid/late-game losses; the tactical self-coaching tool; how to make this legible without turning the game into a spreadsheet
 - [ ] 4.14 — The scenario parameter panel: a pre-execution panel showing what varies in the 100 test cases (ranges, distributions, variable types) so players can reason about edge cases before configuring; whether to show always or unlock via a "tactical briefing" skill
 - [ ] 4.10 — Config integrity as a persistent resource: the "integrity %" as a cross-mission resource; some missions degrade it more, repair actions restore it; trade-off between speed and thoroughness of pre-mission audits; does low integrity persist into next mission if unaddressed?
 - [ ] 4.11 — The "foreign fingerprint" visual language: three-way visual vocabulary for elements in the workbench (mine / system-default / enemy-injected) that must be immediately parseable; how to make enemy modifications visually distinct without requiring a tooltip to understand; the Papers Please discrepancy-detection UI model applied to agent config
@@ -209,6 +211,7 @@
 - [ ] 5.20 — Always-on anxiety vs. self-contained missions: Screeps World's 24/7 persistence creates ownership feeling but also "vacation death" anxiety (base destroyed while offline); Robot Uprising's mission structure eliminates anxiety but loses persistence fantasy; what compensatory design choices restore the ownership feeling? Named units? Between-mission camp state? Campaign memory?
 - [ ] 5.21 — Open-source architecture as community mechanic: Screeps' culture of publishing full bot code on GitHub + writing architectural blog posts is a deliberately-designed community mechanic; what's the Robot Uprising equivalent? Exportable agent configs, shareable hook wiring diagrams, community config repositories?
 - [ ] 5.22 — The Gauntlet as a third act: structuring the game as three acts — campaign (learn mechanics), advanced campaign (develop robustness), Gauntlet (prove against infinite adversarial creativity); the Gauntlet as designed destination, not optional appendage; how campaign's final cutscene/mission opens the Gauntlet and what that transition feels like
+- [ ] 5.23 — Campaign match length calibration: campaign missions use shorter tick ceilings (50-70 ticks) vs. Gauntlet (80-150 ticks) to support rapid iteration during learning; the transition to longer matches at the Gauntlet boundary as deliberate design signal; how mission briefings communicate expected match length
 
 ---
 
@@ -234,6 +237,7 @@
 - [ ] 7.04 — Modding: custom missions, custom building blocks, total conversions
 - [ ] 7.05 — Leaderboards and optimization: Zachtronics-style histograms, community competition
 - [ ] 7.09 — The arms race as designed meta-evolution: Gauntlet meta not controlled by designers but evolving from player innovation; how to design a game that supports meta-evolution without locking into a dominant strategy; intervention points (seasonal resets, new skill/hook unlocks) vs. pure player-driven evolution
+- [ ] 7.11 — Match duration as community health signal: season meta reports tracking average match length across the Gauntlet population; dropping average match length as indicator of a dominant strategy (stomps increasing); "match length as meta health indicator" as a designed ecosystem diagnostic; when to trigger season resets based on this signal
 - [ ] 7.10 — The "config necropsy" as community artifact: a community practice where high-Elo players post config evolution retrospectives ("here's v1, here's the attack that broke it, here's v5"); designing the infrastructure to make this easy — version history export, annotatable replay sharing, readable config diff views
 - [ ] 7.07 — Three orthogonal optimization axes: speed / efficiency / elegance as genuinely in-tension post-mission goals; a cycle-optimal army config and a buffer-minimal config should require different approaches
 - [ ] 7.08 — Deferred community metric invention: designing the scoring system to be extensible so the community can invent new evaluation axes; the Opus Magnum "MechA" pattern; what composite metrics might the Robot Uprising community invent?
@@ -249,6 +253,7 @@
 - [ ] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
 - [ ] 8.06 — The "first ugly solution" as tutorial completion: designing missions to be beatable with brute-force configurations so the histogram teaches optimization rather than a tutorial system; the Opus Magnum "no required optimization" pattern applied to agent configuration
 - [ ] 8.05 — The maximum viable game: everything at once — does it cohere or collapse?
+- [ ] 8.10 — The Gauntlet map template system: a library of Gauntlet-approved map templates with documented match-length distributions from playtesting; map selection for each Gauntlet season as a balance decision; community map submission with validation criteria (≥80% of matches in 60–150 tick range to be Gauntlet-eligible); map approval pipeline
 - [ ] 8.07 — Robustness vs. efficiency as fundamental tension: highly efficient architectures may be brittle (works 90% of cases, fast); robust architectures may be inefficient (works 100%, slow); how do histograms communicate both dimensions simultaneously?
 - [ ] 8.09 — The diagnostic layer as teaching mechanic: cross-cutting synthesis of inspector sidebar / probe hooks / signal genealogy / diagnostic ring as a unified system for making information architecture legible; how this system scales across all three acts; what should be always-on vs. opt-in vs. expert-only; a full design pass on the diagnostic teaching arc
 - [ ] 8.08 — The real-language vocabulary claim: Robot Uprising asserts its primitives (skills/rules/hooks/context) map 1:1 to real agentic AI engineering; design exercise — map a real Claude Code ralph loop to Robot Uprising primitives and test whether the vocabulary actually holds; where does the metaphor break down, and does that matter?
