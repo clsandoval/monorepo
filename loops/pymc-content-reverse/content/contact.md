@@ -133,8 +133,8 @@ The contact page should surface multiple engagement paths, not just a generic fo
 - Pricing: $5,000–$14,000/month (not publicly disclosed; internal range)
 - Book: calendly.com/niall-oulton
 - Testimonials:
-  > "The PyMC Labs Coaching program transformed our small Data Science team, enabling results matching a full-scale department. Sessions supported every delivery phase from research to deployment."
-  — Eugene Kwok, Fox Entertainment
+  > "The PyMC Labs Coaching program has been transformative for our small Data Science team, enabling us to deliver results at the level of a full-scale department. We've been able to leverage the coaching sessions at every stage of our delivery cycle, from early research and experimentation to implementation, deployment, and long-term roadmapping. The PyMC Labs coaches brought both technical expertise and practical guidance, helping us refine our models, review results, and even troubleshoot complex code issues."
+  — Eugene Kwok, Executive Director Research & Analytics, Fox Entertainment
   > "PyMC Labs significantly enhanced our testing capabilities by leveraging Bayesian programming. Their advisory role and team training have been invaluable, driving substantial improvements in our operations."
   — Nathan Kafi, Principal Data Scientist, Haleon
   > "PyMC Labs implemented time-varying coefficients improving seasonality capture in marketing mix models. The team proved collaborative, insightful, and consistently supportive."

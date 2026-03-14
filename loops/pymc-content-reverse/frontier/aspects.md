@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 77
-- Analyzed: 73
-- Pending: 4
-- Convergence: 95%
+- Analyzed: 74
+- Pending: 3
+- Convergence: 96%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -97,7 +97,7 @@ Identify thin pages and fill with targeted web research. Self-expands after Wave
 - [x] enrich-case-studies-web — WebSearch for public PyMC Labs case studies, blog posts about client work
 - [x] enrich-team-web — WebSearch for PyMC Labs team member profiles, conference talks, publications
 - [x] enrich-courses-web — WebSearch for PyMC Labs course reviews, syllabi, learning outcomes
-- [ ] enrich-expert-access-program — Investigate "Expert Access Program" (found in contact form dropdown but not in sitemap); search Discord + web for descriptions, pricing, eligibility
+- [x] enrich-expert-access-program — Investigate "Expert Access Program" (found in contact form dropdown but not in sitemap); search Discord + web for descriptions, pricing, eligibility
 
 ### Wave 5: Cross-Reference & Convergence
 Final pass. Only start after Waves 1-4 are complete.
@@ -109,6 +109,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] enrich-expert-access-program (2026-03-14) — Investigated EAP: live page (pymc-labs.com/blog-posts/expert-access-program, Aug 26 2025, updated Feb 17 2026), Discord #marketing + #sales + #org. Key findings: (1) Full Eugene Kwok (Fox Entertainment) quote captured — 4-sentence verbatim including "from early research and experimentation to implementation, deployment, and long-term roadmapping" (previous version was paraphrase). (2) EAP launch copy from Halah (Sep 2025 newsletter): "Imagine having a team of Bayesian modeling experts on call..." — strong hero copy for Strategy & Advisory page. (3) EAP target: teams with in-house model "struggling to scale" — not just post-project graduates. (4) SEO-optimized draft created by Sangam (Feb 26 2026) at /draft-post/bayesian-experts-for-hire targeting "bayesian experts for hire" keyword. (5) 8 named EAP client references: Fox/Haleon/Fabletics (testimonials) + HelloFresh/$8k/Syngenta/L.L.Bean/Nürnberger/P&G (Discord refs). (6) Pricing: $5k–$8.5k/mo Base, up to $14k/mo Pro, $385/hr hands-on (all internal — NOT disclosed publicly). Created analysis/eap-enrichment.md. Updated content/services/strategy-advisory.md (full Kwok quote + launch copy + SEO note) and content/contact.md (full Kwok quote).
 - [x] enrich-courses-web (2026-03-14) — WebSearched for PyMC Labs course reviews, syllabi, and external feedback. Key findings: (1) Found 2 testimonials live on pymc-labs.com/courses not previously captured: "The quality of instruction here was on a completely different level..." and "Before the workshop I was only loosely familiar with Bayesian analysis. Now I feel much more confident...for me the most important learning was understanding hierarchical models." Both added to content/courses/abm.md and content/courses/ci.md. (2) Confirmed URL migration: courses moved from /workshops/ → /courses/ (noted in all 3 course files). (3) No independent third-party reviews found on Reddit, Stan Forum, or LinkedIn public posts. Stan Forum post (July 2025) had no community responses. (4) Additional marketing copy captured: "global alumni network" mention, ABRM "non-technical stakeholder communication" emphasis. (5) BMA page has no testimonials on live site; ABM has the 2 testimonials above. All 3 course files remain status:complete.
 - [x] enrich-team-web (2026-03-14) — Web-searched all team members with partial/missing profiles. Enriched 8 files: benjamin-maier.md (PhD Theoretical Physics Humboldt, 30 papers/1900+ citations, COVID-19 German government advisor, SynoSys), erik-ringen.md (PhD Biological Anthropology Emory, 20+ papers, LiRI UZH, H. Russell Bernard Prize 2018), ben-vincent.md (DPhil Neuroscience Sussex, 15y Dundee lecturer, CausalPy creator, 1549+ citations, github drbenvincent, LBS ep 87, PyData Global 2022), jesse-grabowski.md (PhD candidate Economics Paris I, OECD macroeconomist, PyMC/PyTensor core developer, pymc_statespace, GSoC 2024 mentor, PyData Berlin 2025), alexandre-andorra.md (BSc History, EB-1 visa, FBCS, Miami Marlins applied scientist, IntuitiveBayes co-founder, PollsPosition), thomas-wiecki.md (added 7 conference talks + PyMC3/PyMC5 publications), christopher-fonnesbeck.md (added PyMCon 2020 keynote, PyData London 2024, LBS ep 125), allen-downey.md (added 6 books, 4 conference talks), juan-orduz.md (added PyData Berlin 2025 SVI talk, 5 example gallery notebooks), oriol-abril-pla.md (added first-author PyMC 2023 paper, Prior Elicitation 2024 paper, CZI EOSS grant, 3 more conference talks). Updated 5 partial → complete; 2 already-complete files enriched with talks/pubs. All 8 modified files now have status:complete.
 

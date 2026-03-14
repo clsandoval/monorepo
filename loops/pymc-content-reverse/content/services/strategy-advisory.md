@@ -10,6 +10,7 @@ sources:
   - analysis/discord-marketing-extraction.md
   - analysis/discord-competition-extraction.md
   - analysis/discord-org-team-extraction.md
+  - analysis/eap-enrichment.md
 ---
 
 # Strategy & Advisory — PyMC Labs
@@ -79,6 +80,19 @@ Both are served by the **Expert Access Program (EAP)** — PyMC Labs' flagship r
 
 Target: teams that have completed projects with PyMC Labs (or independently) and need ongoing expert guidance — without the cost of a full-time senior Bayesian hire.
 
+### Hero / Launch Copy (Halah, 2025-09-16 newsletter)
+
+> "Imagine having a team of Bayesian modeling experts on call, ready to help you solve complex challenges as they happen, not weeks later. That's exactly what EAP delivers. EAP ensures your team has expert guidance exactly when you need it, helping you move faster, avoid pitfalls, and make the most of your analytics investments."
+— Halah Joseph, #marketing, 2025-09-16
+
+**Section header option:** "Why EAP Changes the Game"
+
+### SEO / Keyword Note
+
+- Primary SEO target: `bayesian experts for hire`
+- Live page: https://www.pymc-labs.com/blog-posts/expert-access-program (published Aug 26 2025, updated Feb 17 2026)
+- SEO-optimized draft (Sangam, Feb 26 2026): https://www.pymc-labs.com/draft-post/bayesian-experts-for-hire
+
 ### Two Tiers
 
 **Base: Expert Lifeline**
@@ -113,9 +127,9 @@ Everything in Base, plus:
 
 ### EAP Testimonials
 
-**Eugene Kwok, Fox Entertainment:**
-> "The PyMC Labs Coaching program transformed our small Data Science team, enabling results matching a full-scale department. Sessions supported every delivery phase from research to deployment."
-— pymc-labs.com/blog-posts/expert-access-program
+**Eugene Kwok, Executive Director Research & Analytics, Fox Entertainment:**
+> "The PyMC Labs Coaching program has been transformative for our small Data Science team, enabling us to deliver results at the level of a full-scale department. We've been able to leverage the coaching sessions at every stage of our delivery cycle, from early research and experimentation to implementation, deployment, and long-term roadmapping. The PyMC Labs coaches brought both technical expertise and practical guidance, helping us refine our models, review results, and even troubleshoot complex code issues."
+— pymc-labs.com/blog-posts/expert-access-program (WebSearch, 2026-03-14)
 
 **Nathan Kafi, Principal Data Scientist, Haleon:**
 > "PyMC Labs has significantly enhanced our testing capabilities by leveraging the full power of Bayesian programming, maximizing the potential of the PyMC software. Their advisory role in delivering new feature requests and training our team has been invaluable, driving substantial improvements in our operations."
