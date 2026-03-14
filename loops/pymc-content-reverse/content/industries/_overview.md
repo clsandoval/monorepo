@@ -443,3 +443,12 @@ From sales channel and Discord:
 - Solutions with industry fit: Simba (Marketing/Retail/CPG) → `content/solutions/simba.md`;
   Decision AI (Marketing/CPG/Retail) → `content/solutions/decision-ai.md`
 - EAP as industry-agnostic entry point: `content/services/strategy-advisory.md`
+
+## Orphaned Case Studies (No Matching Industry Page in Sitemap)
+
+The following case study files exist but their industries are not covered by any industry landing page in the sitemap. They should surface in the Case Studies listing and can be linked from relevant services pages:
+
+| Case Study | Industry | Suggested Surface |
+|---|---|---|
+| `content/case-studies/alva-labs.md` | HR Technology / B2B SaaS | Case studies listing; `content/services/solution-delivery.md` |
+| `content/case-studies/salk.md` | Public Opinion Research / Analytics | Case studies listing; `content/services/solution-delivery.md` |

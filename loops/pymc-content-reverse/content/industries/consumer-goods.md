@@ -365,9 +365,11 @@ End-to-end agentic pipeline for CPG product development:
 
 ## Case Studies Cross-References
 
-- **Colgate cannibalization/incrementality:** → `content/case-studies/colgate-palmolive-cannibalization.md`
-- **Colgate shelf optimization:** → `content/case-studies/colgate-palmolive-shelf-optimization.md`
-- **Synthetic consumers validation:** → blog posts (see table above)
+- **Colgate cannibalization/incrementality:** → `content/case-studies/colgate-cannibalization.md`
+- **Colgate shelf optimization:** → `content/case-studies/colgate-shelf-optimization.md`
+- **Colgate synthetic consumers:** → `content/case-studies/colgate-synthetic-consumers.md`
+- **Swarovski (Luxury Retail / Consumer Goods crossover):** → `content/case-studies/swarovski.md` (also in `content/industries/retail-ecommerce.md`)
+- **Haleon (Consumer Healthcare):** → `content/case-studies/haleon.md` (also in `content/industries/pharma-biotech.md`)
 - **Fuelight 360/Coca-Cola:** → confidential (no public case study; Bain is client-facing)
 
 ---

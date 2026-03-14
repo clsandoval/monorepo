@@ -281,9 +281,17 @@ Web search for Syngenta + PyMC Labs did not surface any public content. Syngenta
 
 ## Cross-References
 
-- Full Indigo Ag case study narrative: `content/case-studies/indigo-ag.md` <!-- to be assembled -->
-- Syngenta also in: `content/industries/pharma-biotech.md` (agrochemical/pharma crossover)
+### Case Studies
+- `content/case-studies/indigo-ag.md` — Spatial GP for field trial treatment effects; multi-year engagement (2020–2024)
+- `content/case-studies/syngenta.md` — XC50 dose-response + hierarchical GLM; SLA coaching model (also in `content/industries/pharma-biotech.md`)
+
+### OSS
 - Spatial GP capability: `content/resources/open-source-libraries.md` (PyMC GP module)
+
+### Services
 - Strategy & Advisory service (EAP model used by Syngenta): `content/services/strategy-advisory.md`
 - Embedded Teams service (used by Indigo): `content/services/embedded-teams.md`
 - Solution Delivery (custom models): `content/services/solution-delivery.md`
+
+### Related Industry
+- Syngenta also in: `content/industries/pharma-biotech.md` (agrochemical/pharma crossover)

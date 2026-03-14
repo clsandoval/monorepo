@@ -412,11 +412,24 @@ Additional posts (likely relevant, titles suggest retail audience):
 
 ## Cross-References
 
-- HelloFresh case study (full): `content/industries/marketing-media.md` + `content/case-studies/hellofresh-*.md` (when assembled)
+### Case Studies
+- `content/case-studies/hellofresh-mmm.md` — flagship MMM + A/B testing (also in `content/industries/marketing-media.md`)
+- `content/case-studies/wegmans.md` — Bayesian site selection; MAPE 13–14%
+- `content/case-studies/llbean.md` — Hierarchical MMM across 50 US DMAs; SLA coaching model
+- `content/case-studies/fabletics.md` — PyMC3 → PyMC-Marketing upgrade + HSGP
+- `content/case-studies/swarovski.md` — MMM with HSGP; MAE –20% (also in `content/industries/consumer-goods.md`)
+
+### Products
 - Simba product detail: `content/solutions/simba.md`
 - Decision AI / MMM Agent: `content/solutions/decision-ai.md`
+
+### Partners
 - Fivetran partnership (Shopify integration): `content/partners.md`
+
+### OSS
 - pymc-marketing OSS: `content/resources/open-source-libraries.md`
+
+### Services
 - EAP engagement model: `content/services/strategy-advisory.md`
 - Training for retail DS teams: `content/services/training-enablement.md`
 

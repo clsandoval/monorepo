@@ -169,7 +169,7 @@ Vectorized MCMC sampling enables scaling to millions of observations.
 | **CNN** | Inbound lead | Qualified | — |
 | **Bloomberg** | Inbound lead | Qualified | — |
 | **Audible** | Inbound lead | Qualified | — |
-| **Live Nation** | Inbound lead | Qualified | — |
+| **Live Nation** | Hierarchical Bayesian MMM (SOW 1 + SOW 2) | Completed | Concert tour ticket sales across 125+ artists; see `content/case-studies/live-nation.md` |
 | **DISH US** | Inbound lead | Qualified | ~$300M marketing budget |
 | **Serviceplan/Plan.Net** | Strategic partner (BMW pilot) | Active | ~€1.61M proposed 2026 contract; 100 MMMs, 20+ markets |
 
@@ -279,6 +279,33 @@ Three critical challenges:
 — Joe Wilkinson, #gain-theory-mmm Discord channel
 
 **Status:** Active SLA / ongoing engagement. Joe Wilkinson (ex-Gain Theory) now a PyMC Labs team member — bridges the PyMC technical world with the marketing science world.
+
+---
+
+### Live Nation — Hierarchical Bayesian MMM (SOW 1 + SOW 2)
+**Client:** Live Nation — global live entertainment company
+**Engagement type:** Solution Delivery — custom hierarchical Bayesian MMM
+**Scope:** Concert tour ticket sales attribution across 125+ artists
+**Full narrative:** → `content/case-studies/live-nation.md`
+
+---
+
+### Fox Broadcasting — Show-Level MMM + NFL Promo ROI
+**Client:** Fox Broadcasting Company — major US broadcast network
+**Engagement type:** Strategy & Advisory + Training & Enablement (SLA coaching)
+**Contacts:** Eugene Kwok (client lead), Nithin (data scientist)
+**Start:** April/May 2025; EAP from September 2025
+**Scope:** Show-level MMM and NFL promotional ROI analysis. Fox team upskilled to build their own MMM.
+**Full narrative:** → `content/case-studies/fox-broadcasting.md`
+
+---
+
+### Streaming Service — Bayesian A/B Testing at Scale (100M+ Observations)
+**Client:** Large unnamed video streaming service
+**Engagement type:** Solution Delivery
+**Scope:** Vectorized Bayesian A/B testing for 100M+ observations via histogram approximation; significant pipeline speedup.
+**Published:** https://www.pymc-labs.com/blog-posts/bayesian-inference-at-scale-running-ab-tests-with-millions-of-observations
+**Full narrative:** → `content/case-studies/streaming-ab-test.md`
 
 ---
 
@@ -535,10 +562,13 @@ For Marketing & Media clients, typical funnel:
 ## Cross-References
 
 - **Case study detail pages:**
-  - `content/case-studies/hellofresh-mmm.md` (to be created in assemble-case-studies)
-  - `content/case-studies/hellofresh-ab-testing.md`
-  - `content/case-studies/gain-theory-mmm.md`
+  - `content/case-studies/hellofresh-mmm.md`
+  - `content/case-studies/gain-theory.md`
   - `content/case-studies/appodeal.md`
+  - `content/case-studies/live-nation.md`
+  - `content/case-studies/fox-broadcasting.md`
+  - `content/case-studies/streaming-ab-test.md`
+  - `content/case-studies/supercell.md` (also in `content/industries/gaming.md`)
 - **Products:**
   - `content/solutions/decision-ai.md` (MMM Agent / Decision Hub)
   - `content/solutions/simba.md` (managed MMM SaaS)

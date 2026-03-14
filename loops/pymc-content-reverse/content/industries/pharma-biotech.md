@@ -488,11 +488,24 @@ Pharma/Biotech is one of PyMC Labs' two **original industry verticals** (alongsi
 
 ## Cross-References
 
+### Case Studies
+- `content/case-studies/roche.md` — 34K params / 250K obs genomic model (~1hr inference)
+- `content/case-studies/takeda.md` — CAR-NK cell therapy digital twin (15-month SOW)
+- `content/case-studies/akili.md` — Digital therapeutics; FDA-cleared product; published blog post
+- `content/case-studies/erisyon.md` — Bayesian HMM for protein sequencing; published blog post
+- `content/case-studies/haleon.md` — Bayesian coaching SLA + team upskilling; also in `content/industries/consumer-goods.md`
+- `content/case-studies/syngenta.md` — XC50 dose-response modeling SLA; also in `content/industries/agriculture.md`
+
+### Services
 - `content/services/strategy-advisory.md` — EAP model, Haleon testimonial
 - `content/services/embedded-teams.md` — Haleon engagement model
 - `content/services/training-enablement.md` — IQVIA corporate workshop, P&G workshop
 - `content/services/solution-delivery.md` — Roche (34K params), Takeda digital twin
+
+### Team
 - `content/about/team-members/eric-ma.md` — Novartis/Moderna background, pharma lead
+
+### Related Industry
 - `content/industries/agriculture.md` — Syngenta overlaps; Indigo Ag in same original biotech vertical
 
 <!-- GAP: Need published Roche or Takeda case study for full pharma narrative -->

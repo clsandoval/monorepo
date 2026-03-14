@@ -278,8 +278,19 @@ One search result noted Appodeal appears in PyMC Labs' website technology stack 
 
 ## Cross-References
 
+### Case Studies
+- `content/case-studies/supercell.md` — Bayesian MMM for mobile game UA; EAP client
+- `content/case-studies/appodeal.md` — Mobile ad attribution MMM; completed SOW (also in `content/industries/marketing-media.md`)
+
+### Products
 - `content/solutions/decision-ai.md` — CLV Agent, MMM Agent (primary products for gaming)
 - `content/solutions/simba.md` — Simba MMM SaaS (alternative delivery)
-- `content/services/training-enablement.md` — Keywords Studios model
+
+### Services
+- `content/services/training-enablement.md` — Keywords Studios corporate workshop (Mar 2026)
+
+### Related Industry
 - `content/industries/marketing-media.md` — overlapping MMM use cases; Appodeal also appears there
-- `content/about/team-members/luca-fiaschi.md` — domain expertise anchor for gaming pitch
+
+### Team
+- `content/about/team-members/luca-fiaschi.md` — domain expertise anchor for gaming pitch (MistPlay background)

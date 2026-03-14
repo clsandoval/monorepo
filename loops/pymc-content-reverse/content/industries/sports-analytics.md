@@ -292,9 +292,18 @@ Web sources confirm Fonnesbeck's MLB career:
 
 ## Cross-References
 
-- **Team:** Chris Fonnesbeck → `content/about/team-members/christopher-fonnesbeck.md`
-- **Services:** EAP as entry point for sports orgs → `content/services/strategy-advisory.md`
-- **Solutions:** pymc-marketing CLV module (Real Madrid use case) → `content/resources/open-source-libraries.md`
-- **Related case studies:** `content/case-studies/` (no dedicated sports case study files yet)
-- **Blog posts:** All 5 sports posts indexed above
-- **Industries overview:** `content/industries/_overview.md` (section 8)
+### Case Studies
+- `content/case-studies/dodgers.md` — Time series modeling SLA; $5k/month; active EAP (June 2025+)
+- `content/case-studies/real-madrid.md` — Fan CLV modeling; MBG/NBD with covariate support added to pymc-marketing (PR #1815)
+
+### Team
+- `content/about/team-members/christopher-fonnesbeck.md` — MLB background (Phillies/Yankees/Brewers); PyMC creator
+
+### Services
+- `content/services/strategy-advisory.md` — EAP as entry point for sports orgs
+
+### OSS
+- `content/resources/open-source-libraries.md` — pymc-marketing CLV module (Real Madrid use case)
+
+### Overview
+- `content/industries/_overview.md` (section 8)
