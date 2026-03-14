@@ -17,19 +17,19 @@
         "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
       },
       "gitCommit": {
-        "shortHash": "567c89e6",
-        "hash": "567c89e6d719a209607a939bb3f5688b1925ce5b",
-        "subject": "loop(daimon-forward): iteration 2",
-        "body": "loop(daimon-forward): iteration 2\n",
+        "shortHash": "842f1c62",
+        "hash": "842f1c62ae46b68f63d9a8d5e52fb805cd48c54d",
+        "subject": "loop(daimon-forward): iteration 3",
+        "body": "loop(daimon-forward): iteration 3\n",
         "author": {
           "name": "ralph-loop[bot]",
           "email": "ralph-loop[bot]@users.noreply.github.com",
-          "time": 1773454802000
+          "time": 1773456609000
         },
         "committer": {
           "name": "ralph-loop[bot]",
           "email": "ralph-loop[bot]@users.noreply.github.com",
-          "time": 1773454803000
+          "time": 1773456610000
         },
         "branch": "main"
       },
@@ -48,19 +48,19 @@
             "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
           },
           "gitCommit": {
-            "shortHash": "567c89e6",
-            "hash": "567c89e6d719a209607a939bb3f5688b1925ce5b",
-            "subject": "loop(daimon-forward): iteration 2",
-            "body": "loop(daimon-forward): iteration 2\n",
+            "shortHash": "842f1c62",
+            "hash": "842f1c62ae46b68f63d9a8d5e52fb805cd48c54d",
+            "subject": "loop(daimon-forward): iteration 3",
+            "body": "loop(daimon-forward): iteration 3\n",
             "author": {
               "name": "ralph-loop[bot]",
               "email": "ralph-loop[bot]@users.noreply.github.com",
-              "time": 1773454802000
+              "time": 1773456609000
             },
             "committer": {
               "name": "ralph-loop[bot]",
               "email": "ralph-loop[bot]@users.noreply.github.com",
-              "time": 1773454803000
+              "time": 1773456610000
             },
             "branch": "main"
           },
@@ -86,19 +86,19 @@
             "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
           },
           "gitCommit": {
-            "shortHash": "567c89e6",
-            "hash": "567c89e6d719a209607a939bb3f5688b1925ce5b",
-            "subject": "loop(daimon-forward): iteration 2",
-            "body": "loop(daimon-forward): iteration 2\n",
+            "shortHash": "842f1c62",
+            "hash": "842f1c62ae46b68f63d9a8d5e52fb805cd48c54d",
+            "subject": "loop(daimon-forward): iteration 3",
+            "body": "loop(daimon-forward): iteration 3\n",
             "author": {
               "name": "ralph-loop[bot]",
               "email": "ralph-loop[bot]@users.noreply.github.com",
-              "time": 1773454802000
+              "time": 1773456609000
             },
             "committer": {
               "name": "ralph-loop[bot]",
               "email": "ralph-loop[bot]@users.noreply.github.com",
-              "time": 1773454803000
+              "time": 1773456610000
             },
             "branch": "main"
           },
@@ -124,19 +124,19 @@
             "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
           },
           "gitCommit": {
-            "shortHash": "567c89e6",
-            "hash": "567c89e6d719a209607a939bb3f5688b1925ce5b",
-            "subject": "loop(daimon-forward): iteration 2",
-            "body": "loop(daimon-forward): iteration 2\n",
+            "shortHash": "842f1c62",
+            "hash": "842f1c62ae46b68f63d9a8d5e52fb805cd48c54d",
+            "subject": "loop(daimon-forward): iteration 3",
+            "body": "loop(daimon-forward): iteration 3\n",
             "author": {
               "name": "ralph-loop[bot]",
               "email": "ralph-loop[bot]@users.noreply.github.com",
-              "time": 1773454802000
+              "time": 1773456609000
             },
             "committer": {
               "name": "ralph-loop[bot]",
               "email": "ralph-loop[bot]@users.noreply.github.com",
-              "time": 1773454803000
+              "time": 1773456610000
             },
             "branch": "main"
           },
@@ -162,19 +162,19 @@
             "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
           },
           "gitCommit": {
-            "shortHash": "567c89e6",
-            "hash": "567c89e6d719a209607a939bb3f5688b1925ce5b",
-            "subject": "loop(daimon-forward): iteration 2",
-            "body": "loop(daimon-forward): iteration 2\n",
+            "shortHash": "842f1c62",
+            "hash": "842f1c62ae46b68f63d9a8d5e52fb805cd48c54d",
+            "subject": "loop(daimon-forward): iteration 3",
+            "body": "loop(daimon-forward): iteration 3\n",
             "author": {
               "name": "ralph-loop[bot]",
               "email": "ralph-loop[bot]@users.noreply.github.com",
-              "time": 1773454802000
+              "time": 1773456609000
             },
             "committer": {
               "name": "ralph-loop[bot]",
               "email": "ralph-loop[bot]@users.noreply.github.com",
-              "time": 1773454803000
+              "time": 1773456610000
             },
             "branch": "main"
           },
@@ -200,19 +200,19 @@
             "buildHref": "https://github.com/clsandoval/monorepo/actions/runs/23077963147"
           },
           "gitCommit": {
-            "shortHash": "567c89e6",
-            "hash": "567c89e6d719a209607a939bb3f5688b1925ce5b",
-            "subject": "loop(daimon-forward): iteration 2",
-            "body": "loop(daimon-forward): iteration 2\n",
+            "shortHash": "842f1c62",
+            "hash": "842f1c62ae46b68f63d9a8d5e52fb805cd48c54d",
+            "subject": "loop(daimon-forward): iteration 3",
+            "body": "loop(daimon-forward): iteration 3\n",
             "author": {
               "name": "ralph-loop[bot]",
               "email": "ralph-loop[bot]@users.noreply.github.com",
-              "time": 1773454802000
+              "time": 1773456609000
             },
             "committer": {
               "name": "ralph-loop[bot]",
               "email": "ralph-loop[bot]@users.noreply.github.com",
-              "time": 1773454803000
+              "time": 1773456610000
             },
             "branch": "main"
           },
@@ -292,19 +292,19 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
                   "results": [
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 10480,
+                      "duration": 7747,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-14T02:41:49.374Z",
+                      "startTime": "2026-03-14T03:09:14.088Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -312,7 +312,7 @@
                   "status": "expected"
                 }
               ],
-              "id": "d4578388efe8f23c8f70-4d94016923e3e500abd5",
+              "id": "d4578388efe8f23c8f70-a52d11b352efe06cae4e",
               "file": "billing.spec.ts",
               "line": 116,
               "column": 7
@@ -328,19 +328,19 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
                   "results": [
                     {
                       "workerIndex": 1,
                       "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 10989,
+                      "duration": 7328,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-14T02:41:49.375Z",
+                      "startTime": "2026-03-14T03:09:14.094Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -348,7 +348,7 @@
                   "status": "expected"
                 }
               ],
-              "id": "d4578388efe8f23c8f70-2edc87fce598aea83692",
+              "id": "d4578388efe8f23c8f70-f0db40de60c0522010c3",
               "file": "billing.spec.ts",
               "line": 131,
               "column": 7
@@ -364,19 +364,19 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
                   "results": [
                     {
                       "workerIndex": 2,
                       "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 10385,
+                      "duration": 7076,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-14T02:41:49.558Z",
+                      "startTime": "2026-03-14T03:09:13.954Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -384,7 +384,7 @@
                   "status": "expected"
                 }
               ],
-              "id": "d4578388efe8f23c8f70-49414e693e46bfc9a63b",
+              "id": "d4578388efe8f23c8f70-3d1597ef05e52016dbfa",
               "file": "billing.spec.ts",
               "line": 149,
               "column": 7
@@ -400,19 +400,19 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
                   "results": [
                     {
                       "workerIndex": 3,
                       "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 10677,
+                      "duration": 7909,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-14T02:41:49.371Z",
+                      "startTime": "2026-03-14T03:09:13.996Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -420,7 +420,7 @@
                   "status": "expected"
                 }
               ],
-              "id": "d4578388efe8f23c8f70-90f67ef70b258dd3ff6c",
+              "id": "d4578388efe8f23c8f70-a9f9f4e45e5816791c01",
               "file": "billing.spec.ts",
               "line": 164,
               "column": 7
@@ -436,19 +436,19 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 6557,
+                      "duration": 4866,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-14T02:42:00.059Z",
+                      "startTime": "2026-03-14T03:09:21.233Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -456,7 +456,7 @@
                   "status": "expected"
                 }
               ],
-              "id": "d4578388efe8f23c8f70-9212c642c3ca483486fa",
+              "id": "d4578388efe8f23c8f70-6e22a7a626e91e9585b8",
               "file": "billing.spec.ts",
               "line": 180,
               "column": 7
@@ -472,19 +472,19 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
                   "results": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 6854,
+                      "duration": 7634,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-14T02:42:00.181Z",
+                      "startTime": "2026-03-14T03:09:21.813Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -492,7 +492,7 @@
                   "status": "expected"
                 }
               ],
-              "id": "d4578388efe8f23c8f70-22587bd182825ebb0634",
+              "id": "d4578388efe8f23c8f70-12d16030132952b18082",
               "file": "billing.spec.ts",
               "line": 213,
               "column": 7
@@ -508,19 +508,19 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
                   "results": [
                     {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 6829,
+                      "duration": 7432,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-14T02:42:00.248Z",
+                      "startTime": "2026-03-14T03:09:22.063Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -528,7 +528,7 @@
                   "status": "expected"
                 }
               ],
-              "id": "d4578388efe8f23c8f70-7c7892265a890d6495dd",
+              "id": "d4578388efe8f23c8f70-86e69a5074b4d5611c46",
               "file": "billing.spec.ts",
               "line": 231,
               "column": 7
@@ -552,7 +552,7 @@
           "specs": [
             {
               "title": "079 integrations service grid all disconnected",
-              "ok": false,
+              "ok": true,
               "tags": [
                 "screenshot"
               ],
@@ -561,185 +561,34 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "failed",
-                      "duration": 17544,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:123:69",
-                        "location": {
-                          "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                          "column": 69,
-                          "line": 123
-                        },
-                        "snippet": "\u001b[0m \u001b[90m 121 |\u001b[39m       fullPage\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 122 |\u001b[39m     })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 123 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'[data-testid=\"integrations-grid\"]'\u001b[39m))\u001b[33m.\u001b[39mtoBeAttached()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 124 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 125 |\u001b[39m\n \u001b[90m 126 |\u001b[39m   \u001b[90m// ── Discord modal open ────────────────────────────────────────────────────\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 69,
-                            "line": 123
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n\n  121 |       fullPage: false,\n  122 |     });\n> 123 |     await expect(page.locator('[data-testid=\"integrations-grid\"]')).toBeAttached();\n      |                                                                     ^\n  124 |   });\n  125 |\n  126 |   // ── Discord modal open ────────────────────────────────────────────────────\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:123:69"
-                        }
-                      ],
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 6740,
+                      "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-14T02:42:00.582Z",
+                      "startTime": "2026-03-14T03:09:22.091Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--95cb3-rvice-grid-all-disconnected-screenshots-desktop/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--95cb3-rvice-grid-all-disconnected-screenshots-desktop/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--95cb3-rvice-grid-all-disconnected-screenshots-desktop/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                        "column": 69,
-                        "line": 123
-                      }
-                    },
-                    {
-                      "workerIndex": 4,
-                      "parallelIndex": 1,
-                      "status": "failed",
-                      "duration": 13978,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:123:69",
-                        "location": {
-                          "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                          "column": 69,
-                          "line": 123
-                        },
-                        "snippet": "\u001b[0m \u001b[90m 121 |\u001b[39m       fullPage\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 122 |\u001b[39m     })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 123 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'[data-testid=\"integrations-grid\"]'\u001b[39m))\u001b[33m.\u001b[39mtoBeAttached()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 124 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 125 |\u001b[39m\n \u001b[90m 126 |\u001b[39m   \u001b[90m// ── Discord modal open ────────────────────────────────────────────────────\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 69,
-                            "line": 123
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n\n  121 |       fullPage: false,\n  122 |     });\n> 123 |     await expect(page.locator('[data-testid=\"integrations-grid\"]')).toBeAttached();\n      |                                                                     ^\n  124 |   });\n  125 |\n  126 |   // ── Discord modal open ────────────────────────────────────────────────────\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:123:69"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-03-14T02:42:19.258Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--95cb3-rvice-grid-all-disconnected-screenshots-desktop-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--95cb3-rvice-grid-all-disconnected-screenshots-desktop-retry1/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--95cb3-rvice-grid-all-disconnected-screenshots-desktop-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--95cb3-rvice-grid-all-disconnected-screenshots-desktop-retry1/trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                        "column": 69,
-                        "line": 123
-                      }
-                    },
-                    {
-                      "workerIndex": 6,
-                      "parallelIndex": 1,
-                      "status": "failed",
-                      "duration": 12949,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:123:69",
-                        "location": {
-                          "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                          "column": 69,
-                          "line": 123
-                        },
-                        "snippet": "\u001b[0m \u001b[90m 121 |\u001b[39m       fullPage\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 122 |\u001b[39m     })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 123 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'[data-testid=\"integrations-grid\"]'\u001b[39m))\u001b[33m.\u001b[39mtoBeAttached()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 124 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 125 |\u001b[39m\n \u001b[90m 126 |\u001b[39m   \u001b[90m// ── Discord modal open ────────────────────────────────────────────────────\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 69,
-                            "line": 123
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n\n  121 |       fullPage: false,\n  122 |     });\n> 123 |     await expect(page.locator('[data-testid=\"integrations-grid\"]')).toBeAttached();\n      |                                                                     ^\n  124 |   });\n  125 |\n  126 |   // ── Discord modal open ────────────────────────────────────────────────────\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:123:69"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 2,
-                      "startTime": "2026-03-14T02:42:34.539Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--95cb3-rvice-grid-all-disconnected-screenshots-desktop-retry2/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--95cb3-rvice-grid-all-disconnected-screenshots-desktop-retry2/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--95cb3-rvice-grid-all-disconnected-screenshots-desktop-retry2/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                        "column": 69,
-                        "line": 123
-                      }
+                      "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
-              "id": "b1ad4c9b5349975121f2-eb6575eb173cfa31ca0d",
+              "id": "b1ad4c9b5349975121f2-d856950846f17e6f761b",
               "file": "integrations.spec.ts",
               "line": 114,
               "column": 7
             },
             {
               "title": "discord modal add connection open",
-              "ok": false,
+              "ok": true,
               "tags": [
                 "screenshot"
               ],
@@ -748,348 +597,34 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "timedOut",
-                      "duration": 31651,
-                      "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                      },
-                      "errors": [
-                        {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 72,
-                            "line": 135
-                          },
-                          "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Add Connection' }).first()\u001b[22m\n\n\n  133 |     await page.waitForTimeout(500);\n  134 |     // Click the Add Connection button in the Discord section\n> 135 |     await page.getByRole('button', { name: 'Add Connection' }).first().click();\n      |                                                                        ^\n  136 |     await page.waitForTimeout(400);\n  137 |     await page.screenshot({\n  138 |       path: path.join(SCREENSHOTS_DIR, '0discord_integrations_discord-modal-open_desktop.png'),\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:135:72"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-03-14T02:42:06.639Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--580e5-d-modal-add-connection-open-screenshots-desktop/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--580e5-d-modal-add-connection-open-screenshots-desktop/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--580e5-d-modal-add-connection-open-screenshots-desktop/error-context.md"
-                        }
-                      ]
-                    },
-                    {
-                      "workerIndex": 8,
-                      "parallelIndex": 0,
-                      "status": "timedOut",
-                      "duration": 31538,
-                      "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                      },
-                      "errors": [
-                        {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 72,
-                            "line": 135
-                          },
-                          "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Add Connection' }).first()\u001b[22m\n\n\n  133 |     await page.waitForTimeout(500);\n  134 |     // Click the Add Connection button in the Discord section\n> 135 |     await page.getByRole('button', { name: 'Add Connection' }).first().click();\n      |                                                                        ^\n  136 |     await page.waitForTimeout(400);\n  137 |     await page.screenshot({\n  138 |       path: path.join(SCREENSHOTS_DIR, '0discord_integrations_discord-modal-open_desktop.png'),\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:135:72"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-03-14T02:42:40.111Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--580e5-d-modal-add-connection-open-screenshots-desktop-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--580e5-d-modal-add-connection-open-screenshots-desktop-retry1/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--580e5-d-modal-add-connection-open-screenshots-desktop-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--580e5-d-modal-add-connection-open-screenshots-desktop-retry1/trace.zip"
-                        }
-                      ]
-                    },
-                    {
-                      "workerIndex": 11,
-                      "parallelIndex": 0,
-                      "status": "timedOut",
-                      "duration": 31590,
-                      "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                      },
-                      "errors": [
-                        {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 72,
-                            "line": 135
-                          },
-                          "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Add Connection' }).first()\u001b[22m\n\n\n  133 |     await page.waitForTimeout(500);\n  134 |     // Click the Add Connection button in the Discord section\n> 135 |     await page.getByRole('button', { name: 'Add Connection' }).first().click();\n      |                                                                        ^\n  136 |     await page.waitForTimeout(400);\n  137 |     await page.screenshot({\n  138 |       path: path.join(SCREENSHOTS_DIR, '0discord_integrations_discord-modal-open_desktop.png'),\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:135:72"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 2,
-                      "startTime": "2026-03-14T02:43:13.288Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--580e5-d-modal-add-connection-open-screenshots-desktop-retry2/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--580e5-d-modal-add-connection-open-screenshots-desktop-retry2/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--580e5-d-modal-add-connection-open-screenshots-desktop-retry2/error-context.md"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "unexpected"
-                }
-              ],
-              "id": "b1ad4c9b5349975121f2-a6f038972ad5690fb10c",
-              "file": "integrations.spec.ts",
-              "line": 129,
-              "column": 7
-            },
-            {
-              "title": "083 integrations connected service state",
-              "ok": false,
-              "tags": [
-                "screenshot"
-              ],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
                   "results": [
                     {
                       "workerIndex": 2,
                       "parallelIndex": 2,
-                      "status": "failed",
-                      "duration": 15165,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:157:69",
-                        "location": {
-                          "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                          "column": 69,
-                          "line": 157
-                        },
-                        "snippet": "\u001b[0m \u001b[90m 155 |\u001b[39m       fullPage\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 156 |\u001b[39m     })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 157 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'[data-testid=\"integrations-grid\"]'\u001b[39m))\u001b[33m.\u001b[39mtoBeAttached()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 158 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 159 |\u001b[39m\n \u001b[90m 160 |\u001b[39m   \u001b[90m// ── 090: Toggl ApiKeyModal open ───────────────────────────────────────────\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 69,
-                            "line": 157
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n\n  155 |       fullPage: false,\n  156 |     });\n> 157 |     await expect(page.locator('[data-testid=\"integrations-grid\"]')).toBeAttached();\n      |                                                                     ^\n  158 |   });\n  159 |\n  160 |   // ── 090: Toggl ApiKeyModal open ───────────────────────────────────────────\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:157:69"
-                        }
-                      ],
+                      "status": "passed",
+                      "duration": 5236,
+                      "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-14T02:42:07.066Z",
+                      "startTime": "2026-03-14T03:09:26.138Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--af997-ons-connected-service-state-screenshots-desktop/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--af997-ons-connected-service-state-screenshots-desktop/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--af997-ons-connected-service-state-screenshots-desktop/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                        "column": 69,
-                        "line": 157
-                      }
-                    },
-                    {
-                      "workerIndex": 5,
-                      "parallelIndex": 2,
-                      "status": "failed",
-                      "duration": 13932,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:157:69",
-                        "location": {
-                          "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                          "column": 69,
-                          "line": 157
-                        },
-                        "snippet": "\u001b[0m \u001b[90m 155 |\u001b[39m       fullPage\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 156 |\u001b[39m     })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 157 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'[data-testid=\"integrations-grid\"]'\u001b[39m))\u001b[33m.\u001b[39mtoBeAttached()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 158 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 159 |\u001b[39m\n \u001b[90m 160 |\u001b[39m   \u001b[90m// ── 090: Toggl ApiKeyModal open ───────────────────────────────────────────\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 69,
-                            "line": 157
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n\n  155 |       fullPage: false,\n  156 |     });\n> 157 |     await expect(page.locator('[data-testid=\"integrations-grid\"]')).toBeAttached();\n      |                                                                     ^\n  158 |   });\n  159 |\n  160 |   // ── 090: Toggl ApiKeyModal open ───────────────────────────────────────────\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:157:69"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-03-14T02:42:23.564Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--af997-ons-connected-service-state-screenshots-desktop-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--af997-ons-connected-service-state-screenshots-desktop-retry1/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--af997-ons-connected-service-state-screenshots-desktop-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--af997-ons-connected-service-state-screenshots-desktop-retry1/trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                        "column": 69,
-                        "line": 157
-                      }
-                    },
-                    {
-                      "workerIndex": 7,
-                      "parallelIndex": 2,
-                      "status": "failed",
-                      "duration": 14460,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:157:69",
-                        "location": {
-                          "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                          "column": 69,
-                          "line": 157
-                        },
-                        "snippet": "\u001b[0m \u001b[90m 155 |\u001b[39m       fullPage\u001b[33m:\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 156 |\u001b[39m     })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 157 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'[data-testid=\"integrations-grid\"]'\u001b[39m))\u001b[33m.\u001b[39mtoBeAttached()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 158 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 159 |\u001b[39m\n \u001b[90m 160 |\u001b[39m   \u001b[90m// ── 090: Toggl ApiKeyModal open ───────────────────────────────────────────\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 69,
-                            "line": 157
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeAttached\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-testid=\"integrations-grid\"]')\nExpected: attached\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeAttached\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid=\"integrations-grid\"]')\u001b[22m\n\n\n  155 |       fullPage: false,\n  156 |     });\n> 157 |     await expect(page.locator('[data-testid=\"integrations-grid\"]')).toBeAttached();\n      |                                                                     ^\n  158 |   });\n  159 |\n  160 |   // ── 090: Toggl ApiKeyModal open ───────────────────────────────────────────\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:157:69"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 2,
-                      "startTime": "2026-03-14T02:42:39.667Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--af997-ons-connected-service-state-screenshots-desktop-retry2/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--af997-ons-connected-service-state-screenshots-desktop-retry2/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--af997-ons-connected-service-state-screenshots-desktop-retry2/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                        "column": 69,
-                        "line": 157
-                      }
+                      "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
-              "id": "b1ad4c9b5349975121f2-df2ea91a588995d389bd",
+              "id": "b1ad4c9b5349975121f2-57459c006cbb8ea953b2",
               "file": "integrations.spec.ts",
-              "line": 148,
+              "line": 130,
               "column": 7
             },
             {
-              "title": "090 integrations toggl api key modal open",
-              "ok": false,
+              "title": "083 integrations connected service state",
+              "ok": true,
               "tags": [
                 "screenshot"
               ],
@@ -1098,161 +633,34 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
                   "results": [
                     {
                       "workerIndex": 3,
                       "parallelIndex": 3,
-                      "status": "timedOut",
-                      "duration": 31616,
-                      "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                      },
-                      "errors": [
-                        {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 64,
-                            "line": 169
-                          },
-                          "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /Connect Toggl/i })\u001b[22m\n\n\n  167 |     await page.waitForTimeout(500);\n  168 |     // Click \"Connect Toggl\" button on the Toggl service card\n> 169 |     await page.getByRole('button', { name: /Connect Toggl/i }).click();\n      |                                                                ^\n  170 |     await page.waitForTimeout(400);\n  171 |     await page.screenshot({\n  172 |       path: path.join(SCREENSHOTS_DIR, '0090_integrations_toggl-api-key-modal_desktop.png'),\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:169:64"
-                        }
-                      ],
+                      "status": "passed",
+                      "duration": 4394,
+                      "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-14T02:42:07.112Z",
+                      "startTime": "2026-03-14T03:09:28.899Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--7cee4-ns-toggl-api-key-modal-open-screenshots-desktop/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--7cee4-ns-toggl-api-key-modal-open-screenshots-desktop/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--7cee4-ns-toggl-api-key-modal-open-screenshots-desktop/error-context.md"
-                        }
-                      ]
-                    },
-                    {
-                      "workerIndex": 9,
-                      "parallelIndex": 3,
-                      "status": "timedOut",
-                      "duration": 31698,
-                      "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                      },
-                      "errors": [
-                        {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 64,
-                            "line": 169
-                          },
-                          "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /Connect Toggl/i })\u001b[22m\n\n\n  167 |     await page.waitForTimeout(500);\n  168 |     // Click \"Connect Toggl\" button on the Toggl service card\n> 169 |     await page.getByRole('button', { name: /Connect Toggl/i }).click();\n      |                                                                ^\n  170 |     await page.waitForTimeout(400);\n  171 |     await page.screenshot({\n  172 |       path: path.join(SCREENSHOTS_DIR, '0090_integrations_toggl-api-key-modal_desktop.png'),\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:169:64"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-03-14T02:42:40.649Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--7cee4-ns-toggl-api-key-modal-open-screenshots-desktop-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--7cee4-ns-toggl-api-key-modal-open-screenshots-desktop-retry1/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--7cee4-ns-toggl-api-key-modal-open-screenshots-desktop-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--7cee4-ns-toggl-api-key-modal-open-screenshots-desktop-retry1/trace.zip"
-                        }
-                      ]
-                    },
-                    {
-                      "workerIndex": 12,
-                      "parallelIndex": 2,
-                      "status": "timedOut",
-                      "duration": 31598,
-                      "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                      },
-                      "errors": [
-                        {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 64,
-                            "line": 169
-                          },
-                          "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /Connect Toggl/i })\u001b[22m\n\n\n  167 |     await page.waitForTimeout(500);\n  168 |     // Click \"Connect Toggl\" button on the Toggl service card\n> 169 |     await page.getByRole('button', { name: /Connect Toggl/i }).click();\n      |                                                                ^\n  170 |     await page.waitForTimeout(400);\n  171 |     await page.screenshot({\n  172 |       path: path.join(SCREENSHOTS_DIR, '0090_integrations_toggl-api-key-modal_desktop.png'),\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:169:64"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 2,
-                      "startTime": "2026-03-14T02:43:14.020Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--7cee4-ns-toggl-api-key-modal-open-screenshots-desktop-retry2/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--7cee4-ns-toggl-api-key-modal-open-screenshots-desktop-retry2/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--7cee4-ns-toggl-api-key-modal-open-screenshots-desktop-retry2/error-context.md"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
-              "id": "b1ad4c9b5349975121f2-1435de7da6764b363b1f",
+              "id": "b1ad4c9b5349975121f2-dbe03a500989ef3b8f4a",
               "file": "integrations.spec.ts",
-              "line": 163,
+              "line": 149,
               "column": 7
             },
             {
-              "title": "096 integrations disconnect confirm dialog",
-              "ok": false,
+              "title": "090 integrations toggl api key modal open",
+              "ok": true,
               "tags": [
                 "screenshot"
               ],
@@ -1261,156 +669,65 @@
                   "timeout": 30000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "screenshots-desktop",
-                  "projectName": "screenshots-desktop",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
                   "results": [
                     {
-                      "workerIndex": 10,
+                      "workerIndex": 1,
                       "parallelIndex": 1,
-                      "status": "timedOut",
-                      "duration": 31434,
-                      "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                      },
-                      "errors": [
-                        {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 69,
-                            "line": 187
-                          },
-                          "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /Disconnect/i }).first()\u001b[22m\n\n\n  185 |     await page.waitForTimeout(500);\n  186 |     // Click \"Disconnect\" on the first connected service (Linear or Google)\n> 187 |     await page.getByRole('button', { name: /Disconnect/i }).first().click();\n      |                                                                     ^\n  188 |     await page.waitForTimeout(400);\n  189 |     await page.screenshot({\n  190 |       path: path.join(SCREENSHOTS_DIR, '0096_integrations_disconnect-confirm-dialog_desktop.png'),\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:187:69"
-                        }
-                      ],
+                      "status": "passed",
+                      "duration": 5161,
+                      "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-03-14T02:42:48.739Z",
+                      "startTime": "2026-03-14T03:09:29.518Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--8b81e-s-disconnect-confirm-dialog-screenshots-desktop/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--8b81e-s-disconnect-confirm-dialog-screenshots-desktop/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--8b81e-s-disconnect-confirm-dialog-screenshots-desktop/error-context.md"
-                        }
-                      ]
-                    },
-                    {
-                      "workerIndex": 13,
-                      "parallelIndex": 1,
-                      "status": "timedOut",
-                      "duration": 31381,
-                      "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                      },
-                      "errors": [
-                        {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 69,
-                            "line": 187
-                          },
-                          "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /Disconnect/i }).first()\u001b[22m\n\n\n  185 |     await page.waitForTimeout(500);\n  186 |     // Click \"Disconnect\" on the first connected service (Linear or Google)\n> 187 |     await page.getByRole('button', { name: /Disconnect/i }).first().click();\n      |                                                                     ^\n  188 |     await page.waitForTimeout(400);\n  189 |     await page.screenshot({\n  190 |       path: path.join(SCREENSHOTS_DIR, '0096_integrations_disconnect-confirm-dialog_desktop.png'),\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:187:69"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-03-14T02:43:21.397Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--8b81e-s-disconnect-confirm-dialog-screenshots-desktop-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--8b81e-s-disconnect-confirm-dialog-screenshots-desktop-retry1/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--8b81e-s-disconnect-confirm-dialog-screenshots-desktop-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--8b81e-s-disconnect-confirm-dialog-screenshots-desktop-retry1/trace.zip"
-                        }
-                      ]
-                    },
-                    {
-                      "workerIndex": 14,
-                      "parallelIndex": 0,
-                      "status": "timedOut",
-                      "duration": 31278,
-                      "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                      },
-                      "errors": [
-                        {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
-                          "location": {
-                            "file": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts",
-                            "column": 69,
-                            "line": 187
-                          },
-                          "message": "Error: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /Disconnect/i }).first()\u001b[22m\n\n\n  185 |     await page.waitForTimeout(500);\n  186 |     // Click \"Disconnect\" on the first connected service (Linear or Google)\n> 187 |     await page.getByRole('button', { name: /Disconnect/i }).first().click();\n      |                                                                     ^\n  188 |     await page.waitForTimeout(400);\n  189 |     await page.screenshot({\n  190 |       path: path.join(SCREENSHOTS_DIR, '0096_integrations_disconnect-confirm-dialog_desktop.png'),\n    at /home/runner/work/monorepo/monorepo/apps/daimon-saas/e2e/integrations.spec.ts:187:69"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 2,
-                      "startTime": "2026-03-14T02:43:54.017Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--8b81e-s-disconnect-confirm-dialog-screenshots-desktop-retry2/test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--8b81e-s-disconnect-confirm-dialog-screenshots-desktop-retry2/video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/runner/work/monorepo/monorepo/apps/daimon-saas/test-results/integrations-Integrations--8b81e-s-disconnect-confirm-dialog-screenshots-desktop-retry2/error-context.md"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
-              "id": "b1ad4c9b5349975121f2-b130b17fa63c1d898c52",
+              "id": "b1ad4c9b5349975121f2-4b0334b161cb4c3b5e3c",
               "file": "integrations.spec.ts",
-              "line": 181,
+              "line": 164,
+              "column": 7
+            },
+            {
+              "title": "096 integrations disconnect confirm dialog",
+              "ok": true,
+              "tags": [
+                "screenshot"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "desktop-chromium",
+                  "projectName": "desktop-chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5436,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-14T03:09:29.549Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1ad4c9b5349975121f2-9f51d7bb540f388d4bed",
+              "file": "integrations.spec.ts",
+              "line": 182,
               "column": 7
             }
           ]
@@ -1420,11 +737,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-03-14T02:41:47.319Z",
-    "duration": 158120.487,
-    "expected": 7,
+    "startTime": "2026-03-14T03:09:11.946Z",
+    "duration": 23128.602000000003,
+    "expected": 12,
     "skipped": 0,
-    "unexpected": 5,
+    "unexpected": 0,
     "flaky": 0
   }
 }
