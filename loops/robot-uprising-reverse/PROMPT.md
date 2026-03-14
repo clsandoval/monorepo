@@ -21,11 +21,16 @@ Read the full brainstorm spec at `docs/superpowers/specs/2026-03-13-robot-uprisi
 
 **The emergent magic:** Player builds perception, filtering, routing, and communication systems separately. Combos emerge from interactions — a scout feeding a relay feeding a striker creates flanking behavior no one explicitly coded.
 
+**The feeling we're chasing:** When you do agentic AI engineering — building ralph loops, wiring autonomous agents, tuning context and feedback — it feels like playing StarCraft. The game must transmit THAT feeling. You're not writing code. You're managing smart autonomous systems. The real unlock is building systems that build specifications — the meta-level where you stop managing agents and start managing the architecture that produces agents.
+
 **Key constraints:**
-- No LLM integration — fully deterministic, offline, moddable
+- Must feel like managing smart autonomous systems, not puppeting dumb units
+- LLM integration is an OPEN question (explore deterministic, hybrid, LLM-native, and simulated-intelligence paths)
+- The input method must be composable/visual/tactile regardless of execution model — NOT freeform text
 - Must be accessible to someone who's never played a strategy game
 - Must have depth for Factorio/Zachtronics veterans
 - Information overload must be viscerally legible (not abstract)
+- The meta-level must exist: building systems that build systems
 
 ## Your Goal
 

@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 68
+- **Total aspects:** 73
 - **Analyzed:** 0
-- **Pending:** 68
+- **Pending:** 73
 - **Convergence:** 0%
 
 ---
@@ -53,6 +53,13 @@
 ---
 
 ## Wave 2: Core Mechanic Variations
+
+### Intelligence Spectrum (How Smart Do Units Feel?)
+- [ ] 2.00a — Fully deterministic: behavior trees, signal routing, composable rules — can this feel "smart"?
+- [ ] 2.00b — Simulated intelligence: deterministic systems designed to FEEL autonomous (randomness, personality quirks, surprising-but-scripted behavior)
+- [ ] 2.00c — Hybrid: deterministic core with optional LLM enhancement (players who want it pay API cost, others play offline)
+- [ ] 2.00d — LLM-native: lean into it, make token cost a resource, make the AI's reasoning visible and part of the game
+- [ ] 2.00e — The meta-level: building systems that build systems — how does each intelligence model support the "factory of agents" feeling?
 
 ### Buffer Models
 - [ ] 2.01 — Fixed-slot buffer: N discrete slots, each holds one observation/message, oldest evicted first

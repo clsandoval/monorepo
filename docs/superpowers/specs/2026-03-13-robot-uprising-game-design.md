@@ -14,6 +14,24 @@ The core skill being taught is **information architecture under constraint** —
 
 ---
 
+## The Feeling We're Chasing
+
+When you do agentic AI engineering — building ralph loops, designing context systems, wiring autonomous agents together — it **feels like playing StarCraft.** You're not writing code. You're managing smart autonomous systems. You're tuning context, feedback loops, attention, back pressure. You're watching systems you designed make decisions in real time and reacting when they break.
+
+The real unlock isn't writing specifications. It's **building systems that write specifications.** There's a meta-level moment where you stop thinking about individual agent behavior and start thinking about the *architecture* that produces behavior. That's the vibe. That's the feeling this game needs to transmit.
+
+**What the game must capture:**
+- The feeling of managing smart autonomous systems (not dumb units following orders)
+- The thrill of watching your architecture handle something you didn't anticipate
+- The horror of watching context pressure cause cascade failures in real time
+- The meta-level insight: you're not building agents, you're building the system that builds agents
+- Feedback loops, back pressure, attention management — the real verbs of agentic engineering
+- The "vibe it out" moment where you stop micromanaging and start trusting your architecture
+
+**This is why the LLM question is nuanced.** The brainstorm initially added then removed LLMs. But the point was never "LLMs bad" — it was "freeform prompt engineering isn't the game." The game IS about managing intelligent autonomous systems. Whether those systems are deterministic or LLM-powered is an implementation question, not a design question. The design space loop should explore both paths. What matters is that the units feel *smart and autonomous*, not like puppets.
+
+---
+
 ## What's Locked (From Brainstorming Sessions)
 
 ### The Irreducible Core
@@ -24,17 +42,20 @@ Two things that ARE the game and cannot be removed:
 
 2. **Emergent combos from system interactions** — the player builds perception, filtering, routing, and communication systems separately. Power comes from unexpected interactions between them. A scout feeding a relay feeding a striker creates flanking behavior no one explicitly programmed.
 
-### The Pivot: No LLM Integration
+3. **The meta-level** — the real depth isn't in speccing one unit. It's in building systems that spec other systems. Hierarchies of delegation. Factories of attention. The moment the player stops thinking "what should this scout do" and starts thinking "what system should produce scouts that know what to do" — that's the skill ceiling.
 
-**Original design** used LLM compilation (player writes natural language specs → LLM compiles to DSL + reasoning prompts) and LLM inflection points during execution. This was dropped.
+### LLM Integration: An Open Design Question
 
-**Why it was dropped:**
-- The core game is context/attention management, not prompt engineering
-- LLM integration adds massive technical risk, API cost (BYOK friction), and balancing impossibility
-- Freeform natural language was the *input method*, not the *game* — a well-designed composable UI does it better
-- Without LLM: no API costs, deterministic replay, actual balanceability, works offline, console-viable, moddable
+**Original design** used LLM compilation and inflection points. This was initially dropped for practical reasons (API cost, BYOK friction, determinism, balancing). But the core feeling we're chasing — managing smart autonomous systems — may require some form of intelligent behavior that goes beyond deterministic rules.
 
-**What replaces it:** Fully deterministic composable building blocks. The player assembles attention architectures from discrete pieces. The exact nature of these pieces is the primary open design question (see below).
+**The tension:** Deterministic systems are balanceable, moddable, offline, cheap. But they might not feel *smart enough* to create the "managing autonomous agents" feeling. The design space loop should explore the full spectrum:
+
+- Fully deterministic (composable rules, behavior trees, signal routing)
+- Hybrid (deterministic core with optional LLM enhancement for players who want it)
+- LLM-native (lean into it, make the API cost part of the resource management game)
+- Simulated intelligence (deterministic systems designed to *feel* autonomous without actually being AI)
+
+**What's NOT the game:** Freeform prompt engineering. The player shouldn't be staring at a text box. The input method should be composable, visual, and tactile — regardless of whether the underlying execution is deterministic or LLM-powered.
 
 ### Core Loop (Updated)
 
