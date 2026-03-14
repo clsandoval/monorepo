@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 641
-- **Analyzed:** 105
-- **Pending:** 536
+- **Total aspects:** 646
+- **Analyzed:** 106
+- **Pending:** 540
 - **Convergence:** 16.4%
 
 ---
@@ -623,7 +623,12 @@
   - [ ] 6.05c — Multi-monitor detached Inspector: technical feasibility and UX design of rendering the Inspector on a second monitor while Plan remains on primary; window management, state sync, performance implications
   - [ ] 6.05d — Steam Input API integration for custom controller profiles: beyond Steam Deck — how to support arbitrary controllers, Steam Controller, fight sticks, accessibility devices via Steam Input; action sets per screen; community controller configs
   - [ ] 6.05e — Ultrawide-specific three-column layout design: detailed layout spec for 21:9 and 32:9 monitors — what fills the extra horizontal space, when panels become permanently visible vs. toggleable, how the layout degrades gracefully back to 16:9
-- [ ] 6.06 — Console/controller adaptation: how each building block paradigm works on a gamepad
+- [x] 6.06 — Console/controller adaptation: how each building block paradigm works on a gamepad
+  - [ ] 6.06a — Haptic vocabulary as game design language: complete vibration pattern specification per event type, platform-specific exploitation (DualSense adaptive triggers, Joy-Con HD Rumble), haptic tutorialization, gameplay-relevant vs. aesthetic haptic information
+  - [ ] 6.06b — DualSense adaptive trigger resistance as commitment ritual: EXECUTE resistance gate concept, variable trigger resistance for meaningful decision weight vs. fatigue, other adaptive trigger uses (resistance scaling with cost, trigger softening when resources abundant)
+  - [ ] 6.06c — Joy-Con separated asymmetric co-op: "architect + analyst" mode where each player holds one Joy-Con — one manages Plan, one manages Inspector; role split design, handoff moments, two-act debrief implications
+  - [ ] 6.06d — Cross-platform input parity for PvP: systematic controller disadvantage in timed formats; input-speed normalization (longer timer for controller), input-blind matchmaking, async-only as equalizer
+  - [ ] 6.06e — Controller-specific onboarding tutorial branch: dedicated first-five-minutes for gamepad with D-pad navigation teaching, radial wheel introduction, preview mode discovery vs. adaptive tutorial that swaps prompts based on detected input
 - [x] 6.07 — Mobile/touch adaptation: how each paradigm works on a phone
   - [ ] 6.07a — PWA vs. native wrapper decision: performance, haptics, install flow, push notifications, platform-specific capabilities; Capacitor vs. pure PWA vs. TWA (Trusted Web Activity)
   - [ ] 6.07b — Portrait-landscape orientation strategy: per-screen orientation preferences, rotation animation design, forced vs. adaptive orientation, how orientation affects the three-screen loop rhythm
