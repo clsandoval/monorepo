@@ -126,6 +126,14 @@ Assistant Professor at University of Toronto (Department of Statistical Sciences
 
 ## Participant Testimonials / Social Proof
 
+### Website testimonials (live on pymc-labs.com/courses)
+
+- "The quality of instruction here was on a completely different level. The instructors not only explained the concepts clearly but also addressed questions and doubts in real time, which made all the difference." — course participant (attribution: pymc-labs.com/courses, 2026)
+
+- "Before the workshop I was only loosely familiar with Bayesian analysis. Now I feel much more confident about the core concepts and for me the most important learning was understanding hierarchical models." — course participant (attribution: pymc-labs.com/courses, 2026)
+
+### Discord quotes (Oct 2025 cohort)
+
 - "This is busy breaking my brain" — participant, Oct 2025 cohort (re: Thompson sampling + hierarchical models)
 - "Uhhh yeah time to rewrite some of my projects" — BrentRoth, Oct 2025 (after seeing PyMC's `do` operator for causal inference)
 - "This has been great!" — kyle, Oct 2025 cohort (post final session)
@@ -133,7 +141,10 @@ Assistant Professor at University of Toronto (Department of Statistical Sciences
 - "Come for the math, stay for the etymology" — darthmaluus, Oct 2025 (lighthearted)
 - "Do you know about this [PyMC do function]? Uhhh yeah time to rewrite some of my projects" — BrentRoth (on discovering CausalPy integration, Oct 2025)
 
-<!-- GAP: Need named testimonials with job titles for stronger social proof. Post-course survey data available (Oct 2025, Jan 2026 cohorts) but not verbatim quotes. -->
+<!-- GAP: Need named testimonials with job titles for stronger social proof. Post-course survey data available (Oct 2025, Jan 2026 cohorts) but no verbatim quotes extracted. No independent third-party reviews found on Reddit/LinkedIn (2025–2026). -->
+
+### Alumni network note
+"Collaborate with like-minded professionals in a global alumni network and keep developing skills long after the course ends." — pymc-labs.com/courses marketing copy
 
 ---
 
@@ -176,3 +187,5 @@ Python, Jupyter Notebooks. We recommend pixi for environment setup (fastest). Go
 - March 2026 ABRM cohort cancelled (only 2 registrations)
 - Post-course recording access: 8 weeks
 - Promo codes: typically 15% off (e.g., `PyMC15`)
+- URL updated: page moved from /workshops/applied-bayesian-modeling → /courses/applied-bayesian-modeling (confirmed 2026-03-14)
+- No independent third-party reviews found on Reddit, Stan Forum, or LinkedIn public posts (2025–2026 search, 2026-03-14)

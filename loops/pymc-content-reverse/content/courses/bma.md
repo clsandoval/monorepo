@@ -209,3 +209,5 @@ Full refund if cancelled 7+ days before start. 14-day withdrawal right from regi
 - Promo codes used: `BMAFEB15` (15% off), `PyMC15` (15% off), custom 50% for strategic leads (e.g., BMW)
 - Paid LinkedIn ads: $199.27 spend, 0 conversions; organic/Carlos's LinkedIn video drove most signups
 - daimon bot generated post-course Q&A summary from session notes + Discord threads
+- URL: /courses/bayesian-marketing-analytics (also exists at /workshops/bayesian-marketing-analytics — redirect check needed)
+- No independent third-party reviews found on Reddit/LinkedIn (2026-03-14 search); no testimonials surfaced on live BMA course page

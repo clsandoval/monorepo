@@ -95,17 +95,27 @@ Data Scientist. 10+ years delivering ML products in high-growth tech and regulat
 
 ### Social Proof / Testimonials
 
-<!-- GAP: No ABRM cohort testimonials available — March 2026 cohort was cancelled before running. Can use instructor credibility quotes and cross-course testimonials instead. -->
+**Website testimonials (live on pymc-labs.com/courses/applied-bayesian-regression-modeling):**
 
+- "Before the course I was only loosely familiar with Bayesian analysis. Now I feel much more confident about the core concepts and for me the most important learning was understanding hierarchical models." — course participant (attribution: pymc-labs.com/courses, 2026)
+
+- "The quality of instruction here was on a completely different level. The instructors not only explained the concepts clearly but also addressed questions and doubts in real time, which made all the difference." — course participant (attribution: pymc-labs.com/courses, 2026)
+
+**Instructor/peer quotes:**
 - Chris Fonnesbeck (ABM lead): "We probably need to introduce an advanced course someday!" — spoken to ABM participants asking about Bambi and advanced regression (Oct 2025)
 - Ben Vincent (BMA + ABRM instructor): "Focuses on making rigorous inference accessible in practical contexts." — website bio
 - "I've been building custom MMM solutions and recently diving deeper into causal inference." — Nazar Maidanenko, BMA participant intro (Feb 2026; illustrates crossover audience)
+
+<!-- GAP: ABRM March 2026 cohort was cancelled before running so no cohort-specific testimonials exist. Website quotes above appear across all courses pages. No independent third-party reviews found on Reddit/LinkedIn (2026-03-14 search). -->
 
 ### Operational Notes
 - March 2026 cohort CANCELLED — only 2 registrations received (per #applied-bayesian-modeling channel, 2026-02-20)
 - One registrant offered ABM recordings + 2× 1:1 sessions as alternative
 - No replacement cohort date set as of 2026-03-13
 - **Developer note:** Do NOT advertise the cancelled cohort; surface a waitlist CTA instead
+- URL: /courses/applied-bayesian-regression-modeling (confirmed 2026-03-14)
+- Extra marketing copy from live site: "The course also emphasizes clear model interpretation and communication, providing participants with the tools to convey complex results to non-technical stakeholders."
+- Extra marketing copy: "Collaborate with like-minded professionals in a global alumni network and keep developing skills long after the course ends."
 
 ---
 
