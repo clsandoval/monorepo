@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 46
-- Pending: 28
-- Convergence: 62%
+- Analyzed: 47
+- Pending: 27
+- Convergence: 64%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -66,7 +66,7 @@ Consolidate all gathered material into content files. One aspect per page.
 - [x] assemble-service-embedded — Write content/services/embedded-teams.md
 - [x] assemble-industries-overview — Write content/industries/_overview.md
 - [x] assemble-industry-marketing — Write content/industries/marketing-media.md
-- [ ] assemble-industry-retail — Write content/industries/retail-ecommerce.md
+- [x] assemble-industry-retail — Write content/industries/retail-ecommerce.md
 - [ ] assemble-industry-cpg — Write content/industries/consumer-goods.md
 - [ ] assemble-industry-pharma — Write content/industries/pharma-biotech.md
 - [ ] assemble-industry-agriculture — Write content/industries/agriculture.md

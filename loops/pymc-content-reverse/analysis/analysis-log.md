@@ -2,6 +2,29 @@
 
 ---
 
+## 2026-03-14 — assemble-industry-retail
+
+**Aspect**: assemble-industry-retail
+**Sources**:
+- analysis/discord-case-studies-extraction.md
+- analysis/discord-sales-extraction.md
+- analysis/discord-marketing-extraction.md
+- analysis/discord-partnerships-extraction.md
+- analysis/discord-simba-extraction.md
+- analysis/discord-channel-map.md
+- content/industries/_overview.md
+**Output**: content/industries/retail-ecommerce.md (status: partial)
+
+**Key findings:**
+- 5 active/completed retail client case studies with hard metrics: HelloFresh (60x A/B speedup), Wegmans (MAPE 13-14%, ~1% cannibalization), Swarovski (-20% MAE), L.L. Bean (50 DMA hierarchical capability build), Fabletics (PyMC3→PyMC5 upgrade, HSGP time-varying)
+- Additional retail clients discovered: Lidl (Databricks shared, pricing optimization), MercadoLibre (early 2021), Deliveroo (early 2021), OpenStore (2022), Westwing (2025)
+- Fivetran/Shopify native integration built into pymc-marketing (Sep 2025): "transforms Fivetran's standardized ad reporting into production-grade Bayesian MMMs in minutes, not weeks"
+- Key inbound leads: Nomad Foods (RFP demo, "in with a pretty good chance"), Walmart (direct-to-CMO), ASOS, Just Eat Takeaway, Zalando, Decathlon, Panera
+- Products: pymc-marketing (1,088★, 1M+ downloads), Simba SaaS (TechStyle trial, Nomad RFP), Decision AI (Databricks-hosted, Wegmans context)
+- GAPS: No Retail-specific testimonial quote; Wegmans has no public case study; Nomad/Walmart conversion status unknown
+
+---
+
 ## 2026-03-14 — assemble-services-overview
 
 **Aspect**: assemble-services-overview
