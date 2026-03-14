@@ -11,6 +11,7 @@ python3 .claude/skills/gemini-image-gen/scripts/generate.py "your prompt here" -
 
 Options:
 - `-o / --output` — file path for the generated image (default: `generated.png`)
+- `-r / --reference` — reference image(s) for style consistency. Can be specified multiple times. The reference images are sent to the model before the text prompt, so it sees "here's what it should look like → now generate this."
 
 ## Usage
 

@@ -4,6 +4,7 @@
 import argparse
 import base64
 import json
+import mimetypes
 import os
 import sys
 import urllib.request
@@ -11,15 +12,45 @@ import urllib.error
 
 API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent"
 
+MIME_MAP = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".webp": "image/webp",
+    ".gif": "image/gif",
+}
 
-def generate_image(prompt: str, output_path: str) -> str:
+
+def load_reference_image(path: str) -> dict:
+    """Load an image file and return a Gemini API inline data part."""
+    ext = os.path.splitext(path)[1].lower()
+    mime_type = MIME_MAP.get(ext)
+    if not mime_type:
+        mime_type = mimetypes.guess_type(path)[0] or "image/png"
+    with open(path, "rb") as f:
+        data = base64.b64encode(f.read()).decode()
+    return {"inlineData": {"mimeType": mime_type, "data": data}}
+
+
+def generate_image(prompt: str, output_path: str, reference_images: list[str] | None = None) -> str:
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         print("ERROR: GEMINI_API_KEY environment variable not set", file=sys.stderr)
         sys.exit(1)
 
+    # Build parts: reference images first, then the text prompt
+    parts = []
+    if reference_images:
+        for i, ref_path in enumerate(reference_images):
+            if not os.path.exists(ref_path):
+                print(f"ERROR: Reference image not found: {ref_path}", file=sys.stderr)
+                sys.exit(1)
+            parts.append(load_reference_image(ref_path))
+            print(f"Loaded reference image {i+1}: {ref_path}")
+    parts.append({"text": prompt})
+
     payload = {
-        "contents": [{"parts": [{"text": prompt}]}],
+        "contents": [{"parts": parts}],
         "generationConfig": {
             "responseModalities": ["TEXT", "IMAGE"],
         },
@@ -71,6 +102,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate images with Nano Banana 2")
     parser.add_argument("prompt", help="Image generation prompt")
     parser.add_argument("-o", "--output", default="generated.png", help="Output file path (default: generated.png)")
+    parser.add_argument("-r", "--reference", action="append", dest="references", metavar="IMAGE",
+                        help="Reference image(s) for style consistency. Can be specified multiple times.")
     args = parser.parse_args()
 
-    generate_image(args.prompt, args.output)
+    generate_image(args.prompt, args.output, args.references)
