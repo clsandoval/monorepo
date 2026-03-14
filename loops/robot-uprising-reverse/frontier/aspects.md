@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 188
-- **Analyzed:** 24
-- **Pending:** 164
-- **Convergence:** 12.8%
+- **Total aspects:** 192
+- **Analyzed:** 25
+- **Pending:** 167
+- **Convergence:** 13.0%
 
 ---
 
@@ -35,10 +35,14 @@
 - [x] 4.18 — Effective outcome timestamp as a first-class metric: the tick at which the match's outcome was "effectively determined" (minimum-counterfactual tick) shown in post-match stats; comparing this to max_ticks reveals "how much of the match was foregone conclusion"; effective-determination-to-max-ticks ratio as a Gauntlet map quality indicator (low ratio = high false pivot density = rich sealed content)
 - [x] 4.19 — False pivot annotation opt-out for streamers: a per-session toggle hiding the gold diamond and grey markers; for streamers who want to provide commentary before the annotation appears, or for community events where "find the pivot" is a collective viewer challenge; the annotation as a game show format
 - [x] 4.25 — EDT trajectory as career progress metric: a 30-match rolling EDT average as a first-class career stat, showing whether a player's architectures trend toward more-contested matches over time; EDT trajectory as the measure of architectural improvement orthogonal to win/loss rate; a player whose EDT moves from 0.20 to 0.45 has improved their opener even if their win rate stayed flat
-- [ ] 4.26 — False pivot gap as a standalone metric: EDT to "most dramatic moment" distance as a displayed stat; "False Pivot Gap: 52 ticks" as a community-shareable number; used in config necropsy posts to communicate how misleading the sealed watch was; high false pivot gap = rich sealed experience but harder diagnostic work
+- [x] 4.26 — False pivot gap as a standalone metric: EDT to "most dramatic moment" distance as a displayed stat; "False Pivot Gap: 52 ticks" as a community-shareable number; used in config necropsy posts to communicate how misleading the sealed watch was; high false pivot gap = rich sealed experience but harder diagnostic work
 - [ ] 4.20 — Counterfactual simulation as advanced debrief feature: a "what if" mode in the debrief that lets the player change a single agent decision at the identified pivot tick and re-simulate the match forward; the "minimum fix explorer" showing how small a change was needed to flip the outcome
 - [ ] 4.27 — Pivot accuracy as a displayed stat: tracking how close a player's manual hypothesis (marked on timeline before revealing) is to the gold diamond EDT; "pivot accuracy" as a skill metric in player profiles; the "0 ticks off" achievement as a Commander-tier diagnostic milestone; whether accuracy is tracked only in annotation-suppressed sessions vs. always
 - [ ] 4.28 — Annotation reveal countdown as a designed segment format: the "reveal in 5:00" countdown timer as a structured format tool for streamers and for "study mode" players; a mandatory N-minute unguided-analysis window before diamond appears; applies the hot-take vs. cold-analysis principle as a designed mechanic rather than an optional setting
+- [ ] 4.32 — FPG trajectory as career diagnostic: should FPG trend (are my false pivots getting shorter?) appear in the career stats alongside eEDT trend? A player whose FPG trend moves Large→Small is building more legible causal chains. How is this displayed? What threshold constitutes a "meaningful" FPG shift?
+- [ ] 4.33 — FPG per map archetype: different Gauntlet maps have characteristic FPG distributions — some maps structurally produce high false pivot density due to their geometry. Should maps show their "average FPG" as map metadata so players can set diagnostic expectations before deploying? Parallels 4.18's EDT ratio as map quality indicator.
+- [ ] 4.34 — FPG as match recommendation engine: a "Show me a high-FPG match from my history" or "show me community matches with FPG > 40" filter; FPG as a quality filter for sealed content browsing; interaction with Workshop and match sharing systems
+- [ ] 4.35 — The FPG leaderboard inversion: unlike win rate or eEDT, there's no "good" direction for FPG — low FPG means clean architecture, high FPG means complex false pivots, both are neutral; a leaderboard rewarding "most interesting FPG distribution" rather than any specific value; "who produces the most narratively rich matches regardless of win rate?"
 - [ ] 4.29 — eEDT rolling window granularity options: should players be able to select 15 / 30 / 50 / 90 match windows for the career chart? What does each window communicate, and what's the cognitive tradeoff between granularity and legibility?
 - [ ] 4.30 — Bimodal EDT distribution as matchmaking diagnostic: when a player's EDT histogram shows two distinct clusters rather than a single distribution, it may indicate a structured matchmaking pool problem (being matched against two incompatible strategy tiers); should the game detect bimodal distributions and surface an "opponent style diversity" warning?
 - [ ] 4.31 — The career "growth event" detection and celebration: designing the exact threshold and presentation for the gold-dot inflection point on the eEDT spark-line — what constitutes a meaningful architectural shift vs. noise, and how to celebrate it without feeling patronizing to veterans
