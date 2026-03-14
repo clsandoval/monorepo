@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 591
-- **Analyzed:** 95
-- **Pending:** 496
+- **Total aspects:** 596
+- **Analyzed:** 96
+- **Pending:** 500
 - **Convergence:** 16.1%
 
 ---
@@ -477,7 +477,12 @@
 
 ### Skills (What Agents Can Do)
 - [x] 3.01 — Skills catalog: what specific skills exist? (scout, flank, harvest, relay, compress, patrol, ambush, repair, etc.)
-- [ ] 3.02 — Skill acquisition: how does the player unlock new skills? (campaign progression, research, discovery, loot)
+- [x] 3.02 — Skill acquisition: how does the player unlock new skills? (campaign progression, research, discovery, loot)
+  - [ ] 3.02a — New Game+ skill availability: does a second playthrough unlock all skills from Mission 1? What happens to missions designed to teach specific skills? "New Game+" as creativity sandbox vs. broken tutorial
+  - [ ] 3.02b — Skill unlock pacing vs. factory introduction timing: Mission 5 introduces factory AND potentially new skills; is this too much simultaneous learning? Should factory = zero new skills?
+  - [ ] 3.02c — The "I can see it but can't use it" anticipation design: showing locked skills as dimmed workbench slots vs. hiding them entirely; visible-but-locked progression psychology
+  - [ ] 3.02d — Skill discovery as community content: if using Discovery or Hybrid paradigm, discovery variants become wiki/guide content; does community knowledge enhance or undermine the discovery experience?
+  - [ ] 3.02e — Cross-paradigm hybrid: Staged + Mentor: linear unlocks for basic skills but capture-from-enemies for advanced skills; the "basics given, advanced earned" split mapping to Mission 1-4 → 5-10 arc
 - [ ] 3.03 — Skill interactions: which skills combo with which? What emergent behaviors arise from skill combinations?
 - [ ] 3.04 — Skill UI: how does the player browse, equip, and manage skills on agents?
 
