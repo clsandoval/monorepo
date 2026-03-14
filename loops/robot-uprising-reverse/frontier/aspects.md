@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 224
-- **Analyzed:** 32
-- **Pending:** 192
-- **Convergence:** 14.3%
+- **Total aspects:** 229
+- **Analyzed:** 33
+- **Pending:** 196
+- **Convergence:** 14.4%
 
 ---
 
@@ -43,7 +43,7 @@
 - [x] 4.39 — Adversarial counterfactual mode: running the Minimum Fix Explorer on the opponent's config rather than the player's own — "what one change to the opponent's config would have beaten me more decisively?"; stress-testing player configs from the attacker's perspective; available only in Gauntlet mode after a match; teaches professional red-teaming mental model
 - [x] 4.40 — "First viable fix" vs. "minimum fix" toggle in the explorer: stopping at first candidate that flips the outcome vs. checking all candidates for smallest change; "find first flip" faster (early termination), "find minimum flip" more precise; surfacing this tradeoff as a player choice is itself an educational moment about search strategies
 - [x] 4.58 — Pre-ranking transparency panel: a collapsible "why is this ranked #1?" panel in the Fix Explorer explaining the pre-ranking heuristic for the top candidate — "RELAY-C was active at tick 52 (pivot tick) and was modified 3 sessions ago (recent change signal)"; teaching the heuristic makes QUICK mode less opaque; interaction with 8.08 vocabulary claim
-- [ ] 4.59 — "Minimum fix across multiple matches" vs. "minimum fix per match": in Gauntlet mode after 5+ matches, a deeper exhaustive search finding the single config change that would have improved the most matches (not just current); the "career minimum fix" as architectural debt metric; much slower (~5 minutes) but extremely high signal
+- [x] 4.59 — "Minimum fix across multiple matches" vs. "minimum fix per match": in Gauntlet mode after 5+ matches, a deeper exhaustive search finding the single config change that would have improved the most matches (not just current); the "career minimum fix" as architectural debt metric; much slower (~5 minutes) but extremely high signal
 - [ ] 4.60 — Search budget as a player resource: instead of QUICK/THOROUGH as a binary toggle, the player has a "compute budget" resource that regenerates between sessions; exhaustive search costs more budget; encourages strategic decisions about when to use thorough analysis; interaction with early-game scarcity design
 - [ ] 4.61 — "Why did QUICK find a different fix than THOROUGH?" explainer: when a player has run both modes and gotten different results, a dedicated comparison view showing both results side by side with explanation of why the pre-ranking heuristic diverged from the minimality criterion; the explainer as an in-game search algorithm lesson
 - [ ] 4.62 — The "agree to disagree" result: when QUICK and THOROUGH find different fixes and both would improve pass rate, the explorer shows both with a "both valid" label and lets the player choose; teaches that "best fix" depends on your diagnostic goal — symptom suppression vs. root cause elimination; echoes real engineering debates about patching vs. fixing
@@ -52,6 +52,11 @@
 - [ ] 4.65 — Pre-ranking adversarial surface: enemy configs can be designed to fool the pre-ranking heuristic — engineer high pivot-activity and high volatility in a decoy element while the real vulnerability is elsewhere; "pre-ranking poisoning" as advanced PvP attack; interaction with adversarial counterfactual mode (4.39)
 - [ ] 4.66 — Signal genealogy as pre-ranking source: link the pivot-tick activity signal in the pre-ranking directly to the signal genealogy graph (4.16); clicking "active at tick 52" in the drawer highlights the relevant genealogy node; unifies diagnostic tools into one vocabulary
 - [ ] 4.67 — Probe hook suggestion from transparency panel: when the drawer identifies an element as high-volatility or high-pivot-activity, surface a one-click action "Add probe hook to capture [ELEMENT] state in next match →"; converts passive explanation into active diagnostic step; probe hooks (4.15) as natural follow-on to understanding the pre-ranking
+- [ ] 4.68 — Cross-match coverage percentage as season health metric: graphing the top-candidate coverage percentage across each career analysis run as a "structural robustness trend"; declining coverage = improving architecture; flat or rising coverage = plateaued or regressing; the long-arc view of architectural quality no single match metric can provide
+- [ ] 4.69 — "Agent multi-cluster" detection in career analysis: automatic flag when the same agent appears in 3+ distinct runner-up slots in a career analysis result — surfaces "consider reviewing this agent holistically, not element-by-element"; interaction with 4.49 cross-mission pattern detection
+- [ ] 4.70 — Career analysis filtered by opponent archetype: running cross-match analysis filtered to "matches against heavy-hook opponents" or "matches ending before tick 60"; find structural weaknesses specific to opponent classes; interaction with 2.28 scenario fingerprinting
+- [ ] 4.71 — Comparative career analysis between config versions: "if I had stayed on v2.3 and applied the career minimum fix vs. rebuilding to v3.8 — which would have produced better cross-match results?"; counterfactual on architectural strategy rather than parametric choices; requires counterfactual history (4.38)
+- [ ] 4.72 — The "debt-free" season achievement: a season where top-candidate career analysis coverage score is below 20% (no single element responsible for more than 20% of losses); "structurally diverse failure distribution" as highest-level architectural health certificate; analogous to a codebase with no single module owning more than 20% of bugs
 - [ ] 4.54 — Adversarial explorer exposure policy: should the opponent be notified that you ran adversarial mode on their config? Opt-in mutual disclosure (both see each other's adversarial results) vs. private (neither knows) vs. public (full adversarial history visible on profiles); privacy norms in a competitive analysis context
 - [ ] 4.55 — Cross-match adversarial aggregation: after running adversarial mode on 5+ matches against different opponents, find recurring attack vectors that appear in ≥2 adversarial runs — "three different opponents independently discovered your relay's hook threshold is the exploit point"; the structural weakness that the community hasn't formally coordinated against but is independently discovering
 - [ ] 4.56 — Adversarial mode for PvE missions: apply the same logic to campaign missions — what change to the enemy config would have made this mission hardest for your specific architecture; the mission's adversarial variant as a "hard mode" generator; interaction with 2.19 variable scenario seeds
