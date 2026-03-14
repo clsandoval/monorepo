@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 341
-- **Analyzed:** 54
-- **Pending:** 287
-- **Convergence:** 15.8%
+- **Total aspects:** 346
+- **Analyzed:** 55
+- **Pending:** 291
+- **Convergence:** 15.9%
 
 ---
 
@@ -88,7 +88,12 @@
   - [ ] 4.69e-i-c-iv — Convergence moment annotation on the trend graph: when full-scope and filtered trend lines converge (adversarial poisoning resolved), special annotation — ✓ mark, "adversarial contribution eliminated" note, celebration animation; conditions for triggering
   - [ ] 4.69e-i-c-v — Trend graph "projection mode": dotted forward extensions based on current trajectory for both series; projected time to reach A tier; projected value if adversarial situation changes; interaction with 4.69e-v adversarial density metric
   - [ ] 4.69e-i-c-vi — Minimum filtered data points for Series B display: 1 point = marker only; 2 = line but not trend; 3 = minimum slope; design for the transition from isolated diamonds to connected dashed series; intermediate state labeling ("2 data points — more runs needed")
-- [ ] 4.69e-i-d — Scope summary legibility in exports and shared artifacts: when a filtered analysis PNG is shared to Discord or a threat model report, does the scope summary contain enough for a reader who didn't run the filter to understand what they're looking at; design of the export footer
+- [x] 4.69e-i-d — Scope summary legibility in exports and shared artifacts: when a filtered analysis PNG is shared to Discord or a threat model report, does the scope summary contain enough for a reader who didn't run the filter to understand what they're looking at; design of the export footer; five options analyzed (Minimal Stamp / Filter Receipt / Named Filter Caption / Interpretive Caption / Layered Footer); recommended Layered Footer (amber [FILTERED] badge always present + scope line always present + optional player annotation); named filter is single most legible unit of filter description, export quality degrades gracefully for unnamed complex filters; overflow truncation patterns for 3+ exclusions; 3 player journeys (Vesper sharing to Discord, Korbin embedding in threat model report, Naledi receiving export as new player); 5 new aspects discovered
+  - [ ] 4.69e-i-d-i — Overflow truncation design for complex unnamed filters: exact trigger threshold (character count? element count?), which truncation pattern applied automatically vs. user-selected, and the "full criteria accessible here" affordance problem in a static PNG where interactive disclosure is unavailable
+  - [ ] 4.69e-i-d-ii — Threat model report section header design: how the scope line appears as section subtitle in the threat model PDF; whether a mini filtered-analysis panel appears as a sidebar; how multiple filtered-analysis sections for different scopes are structured relative to the full-scope master section
+  - [ ] 4.69e-i-d-iii — Saved filter name as primary legibility shortcut: full incentive design around filter naming — how the export UX surfaces the "name this filter" prompt, how export quality visibly degrades for unnamed complex filters, whether the game teaches filter naming as explicit skill in the tutorial sequence
+  - [ ] 4.69e-i-d-iv — Adversarial tag disclosure in exports: whether ☠️ confirmed adversarial tags appear in exported footer when excluded opponents are listed; opt-in export settings for including or hiding adversarial tags; potential metagame consequences of publicly tagging an opponent adversarially in a shared artifact
+  - [ ] 4.69e-i-f — Comparative export: side-by-side full-scope + filtered in one PNG: dual-panel export format showing full-scope analysis alongside filtered analysis; designed for "the divergence is the story" use case; layout design, scaling, caption structure for dual format; optimal Discord sharing aspect ratio
 - [ ] 4.69e-i-e — Auto-filter suggestion engine: if system detects adversarial signal strength >50% from a single opponent, proactive suggestion to run a filtered analysis excluding that opponent; what the suggestion looks like (banner, tooltip, interstitial); interaction with 4.69e-i concentration warning
 - [ ] 4.69e-ii — Known adversarial opponent tagging: UI for adding an opponent to the "known adversarial" list from within the career analysis agent audit; how the tag persists across sessions; what changes in career analysis behavior when an opponent is tagged; how to remove a tag
 - [ ] 4.69e-iii — Per-opponent threshold override in competitive contexts: suppressing cluster contributions from specific opponents below a concentration threshold; interaction with match-source breakdown display; comparison with 4.69j per-agent threshold override
