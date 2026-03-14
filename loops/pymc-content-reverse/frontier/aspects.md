@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 64
-- Pending: 10
-- Convergence: 86%
+- Analyzed: 65
+- Pending: 9
+- Convergence: 88%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -84,7 +84,7 @@ Consolidate all gathered material into content files. One aspect per page.
 - [x] assemble-case-studies — Write content/case-studies/{name}.md for each discovered case study
 - [x] assemble-blog-template — Write content/blog/template.md (blog post structure + any migrated metadata)
 - [x] assemble-resources-benchmarks — Write content/resources/industry-benchmarks.md
-- [ ] assemble-resources-oss — Write content/resources/open-source-libraries.md
+- [x] assemble-resources-oss — Write content/resources/open-source-libraries.md
 - [ ] assemble-contact — Write content/contact.md
 
 ### Wave 4: Gap Hunting & Enrichment
@@ -107,6 +107,8 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] assemble-resources-oss (2026-03-14) — content/resources/open-source-libraries.md verified complete (status: complete, already written by discord-pymc-ecosystem aspect). 5 libraries documented: (1) PyMC — 9,500★, core inference engine, NumFOCUS-governed, PyMC Labs founders are inventors; (2) pymc-marketing — 1,088★, 1M+ downloads, MMM+CLV+Choice, JOSS paper Jan 2026, used by HelloFresh/Colgate/Wegmans, 2x-20x faster than Meridian; (3) CausalPy — 1,123★ v0.8.0, 10 quasi-experimental methods, cited at ICML 2025, BSTS roadmap; (4) decision-hub — 37★, MIT, "npm for agent capabilities", 1,463 downloads in launch week, open-source component of Decision AI; (5) semantic-similarity-rating — 130★, SSR algorithm, 90%/85%/<24hr synthetic consumers stats. OSS strategy section: Win-Win-Win model, lead generator flywheel, vertical stack diagram. GAPS: exact download count; JOSS paper DOI; CausalPy v0.8.0 release notes; pymc-extras repo; total contributor count.
+
 - [x] assemble-resources-benchmarks (2026-03-14) — Created content/resources/industry-benchmarks.md (status: partial). 5 benchmarks documented: (1) LLM Price Is Right — primary benchmark, full methodology/leaderboard (Sep 25 2025 snapshot, 820 grocery items, 3 metrics: Elo/MAPE/Overbid, submit-a-model form), authored by Maxim Laletin + Allen Downey, Sep 2025. (2) PyMC-Marketing vs. Meridian — 2x-20x speed advantage, headline Luca quote "no scenario I would recommend Meridian", Part 1 (Sep 2025) + Part 2 (Dec 2025 baseline modeling), Mutinex controversy (used default priors on old version, benchmark unpublished). (3) PyMC vs Stan sampling speed — #6 blog post by sessions (~2,300), content not yet extracted. (4) PyMC Skills — pass rates 60%→93% with domain skill, led by Fonnesbeck, Feb 2026, connected to Decision Hub launch. (5) Synthetic Consumers alignment — 90%/85%/24hr stats, SSR methodology, GSS study, Maier et al. 2025. GAPS: Stan benchmark post content not fetched; PyMC Skills full task set missing; synthetic consumers paper DOI unknown; no hero copy for overview page; leaderboard is live/JS-rendered.
 
 - [x] assemble-blog-template (2026-03-14) — Completed content/blog/template.md (partial → complete). Fetched 5 individual blog posts to document single-post layout. Key findings: 3 post formats (Video+Timestamps, Long-Form Technical, Research Highlight); Author byline shows name only — no role/title/bio block; Breadcrumb shows category (e.g., "Use Cases", "Marketing Measurement", "PyMC Community"); Related posts carousel (6 posts) on every post; In-post CTA: 1 contact link + 2–4 related post links; Footer newsletter CTA on every post. Author/date confirmed for 12/75 posts: Thomas Wiecki (saving-the-world Feb 2021, HelloFresh Nov 2022, Akili Jan 2023), Teemu Säilynoja+Luca Fiaschi (Meridian benchmark Dec 2025), Benjamin Vincent (HelloFresh 60x Jan 2026), Benjamin F. Maier (Colgate SSR Oct 2025). Blog strategy notes added: top traffic posts, 7 post format types, MMM/Synthetic Consumers as primary SEO clusters. GAPS: dates/authors for 63/75 posts still unknown; ~6 unlisted sitemap posts; "Energy Analytics" filter has no visible posts.
