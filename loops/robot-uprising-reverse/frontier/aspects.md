@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 606
-- **Analyzed:** 98
-- **Pending:** 508
+- **Total aspects:** 611
+- **Analyzed:** 99
+- **Pending:** 512
 - **Convergence:** 16.2%
 
 ---
@@ -594,7 +594,12 @@
 ## Wave 6: Aesthetics & Platform
 
 - [x] 6.01 — Art direction: pixel art vs. vector vs. abstract vs. minimalist vs. detailed
-- [ ] 6.02 — Audio design: soundtrack mood, sound effects for buffer events, attention alerts
+- [x] 6.02 — Audio design: soundtrack mood, sound effects for buffer events, attention alerts; four options analyzed (A "Kulintang Machine" — Philippine gong electronica with game-state-driven layering, B "Server Room" — industrial-electronic ambient procedural from data center sounds, C "Neon Pulse" — synthwave with rondalla/kundiman Filipino elements, D "Adaptive Silence" — minimal procedural where SFX IS the soundtrack); full SFX taxonomy for all three screens (Plan/Sealed Watch/Inspector); 3 player journeys per option (Reyes Filipino dev recognizing kulintang, Sarah audio designer discovering emergent rhythm, Tomás 14yo first-time gamer entrained by agung pulse, Alex SRE experiencing professional anxiety, Min-ji music student hearing generative composition, Kenji Factorio veteran synthwave comfort); interaction effects with building blocks, sealed watch, mobile/touch, onboarding, art direction; comparable games (Into the Breach Prunty guitar breakthrough, Factorio sound accents, Cyberpunk 2077 anti-synthwave, Pantayo kulintang-electronic fusion, Shenzhen I/O ambient); TikTok clip per option; 8-dimension recommendation matrix; 5 new aspects discovered
+  - [ ] 6.02a — Dynamic music layering implementation in Pixi.js/Web Audio: technical feasibility of game-state-driven music layers (adding/removing gong voices as units occupy columns); Web Audio API AudioWorklet vs. Tone.js vs. Howler.js; latency constraints for tick-synchronized audio; performance on mobile browsers
+  - [ ] 6.02b — Audio accessibility: subtitles for sound cues, visual-only mode for deaf/HoH players, audio description mode for blind players; how to communicate signal-success vs. signal-failure without sound; vibration-only mode on mobile
+  - [ ] 6.02c — Adaptive mixing for information density: when 14 units are active with overlapping signals, how does the audio mix prevent cacophony? Priority-based ducking, spatial audio panning per grid position, frequency-band reservation per event type; the "cocktail party problem" in game audio
+  - [ ] 6.02d — Audio identity per named channel: each player-created channel gets a procedurally generated sonic signature derived from its name string (hash → pitch + timbre parameters); players learn to recognize channels by sound; the channel-as-instrument metaphor
+  - [ ] 6.02e — Plan phase silence vs. music debate: Into the Breach cuts music during deployment; should Robot Uprising's Plan phase have authored music at all, or is silence + SFX more conducive to deep configuration thinking? The "focus music" question — when does music help vs. hinder complex cognitive work?
 - [ ] 6.03 — Narrative voice: GLaDOS-style narrator, silent, text-log, radio chatter
 - [ ] 6.04 — The TikTok clip: what's the 15-second viral moment for each major design direction
 - [ ] 6.05 — PC/Steam optimization: keyboard/mouse UI, Steam features (workshop, achievements, cards)
