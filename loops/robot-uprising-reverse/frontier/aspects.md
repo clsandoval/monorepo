@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 631
-- **Analyzed:** 103
-- **Pending:** 528
-- **Convergence:** 16.3%
+- **Total aspects:** 636
+- **Analyzed:** 104
+- **Pending:** 532
+- **Convergence:** 16.4%
 
 ---
 
@@ -642,7 +642,12 @@
 
 ## Wave 7: Multiplayer & Community
 
-- [ ] 7.01 — PvP: designing attention systems against another human's attention systems
+- [x] 7.01 — PvP: designing attention systems against another human's attention systems
+  - [ ] 7.01a — Loadout system design for PvP: saveable blueprint configurations, quick-deploy, per-map loadout adaptation, loadout sharing between players, loadout import/export as community feature
+  - [ ] 7.01b — Red team mode in Plan screen: hypothetical enemy unit placement for testing architectures before deployment, sandbox PvP training, "what-if" scenarios for counter-configuration practice
+  - [ ] 7.01c — Channel naming as competitive metagame: common channel names are predictable (hackable), unique names are harder to intercept but harder for teammates to guess in co-op; channel obfuscation as a competitive skill; automatic channel renaming as a defensive rule
+  - [ ] 7.01d — PvP unlock gating and campaign integration: when does competitive multiplayer become available; Ghost Ladder after Mission 5 vs. earlier; practice-against-ghost missions in campaign; competitive skill teaching within the tutorial arc
+  - [ ] 7.01e — Spectator mode and tournament infrastructure: stream overlays showing both players' Plan screens, split-screen Sealed Watch, Inspector casting tools, tournament bracket UI, replay sharing for community analysis
 - [ ] 7.02 — Co-op: shared battlefield, complementary attention architectures
 - [ ] 7.03 — Async challenges: "beat my architecture" shareable puzzles
 - [ ] 7.04 — Modding: custom missions, custom building blocks, total conversions
