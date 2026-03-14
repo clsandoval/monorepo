@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 616
-- **Analyzed:** 100
-- **Pending:** 516
-- **Convergence:** 16.2%
+- **Total aspects:** 621
+- **Analyzed:** 101
+- **Pending:** 520
+- **Convergence:** 16.3%
 
 ---
 
@@ -607,7 +607,12 @@
   - [ ] 6.02e — Plan phase silence vs. music debate: Into the Breach cuts music during deployment; should Robot Uprising's Plan phase have authored music at all, or is silence + SFX more conducive to deep configuration thinking? The "focus music" question — when does music help vs. hinder complex cognitive work?
 - [ ] 6.03 — Narrative voice: GLaDOS-style narrator, silent, text-log, radio chatter
 - [ ] 6.04 — The TikTok clip: what's the 15-second viral moment for each major design direction
-- [ ] 6.05 — PC/Steam optimization: keyboard/mouse UI, Steam features (workshop, achievements, cards)
+- [x] 6.05 — PC/Steam optimization: keyboard/mouse UI, Steam features (workshop, achievements, cards); full keyboard shortcut tables for all three screens (Plan: 20+ bindings including Factorio-inspired pipette Q, Tab panel cycling, F1-F4 subpanel focus; Sealed Watch: minimal by design — speed controls only; Inspector: arrow-key tick stepping, event-based [ ] navigation, panel toggles B/G/C/D); mouse interaction matrices per screen with hover/click/drag/scroll per surface; Steam Workshop integration (blueprint sharing with fork/subscribe, custom missions, config necropsy artifacts); 22 achievement designs (6 campaign milestones + 10 playstyle/discovery + hidden achievements); trading card set (6 cards, SE Asian cyberpunk art, badge rewards); Rich Presence states; Cloud Save design (conflict resolution, 5-10MB budget); ultrawide layout (21:9 three-column, 32:9 dual-half); Steam Deck compatibility (85% default UI scale, trackpad-essential input, 30/60fps per screen, battery 3h target); keybinding customization with 4 presets (Default, Left-handed, Minimal, Vim-style with : command palette); full accessibility pass (keyboard-only play with Tab order, ARIA screen reader labels, colorblind modes, text scaling 80-150%); multi-monitor detached Inspector concept; 4 player journeys (Elara 26 ML engineer dual-monitor first launch, Darius 42 IT manager ultrawide Vim-preset command agent, Mika 14 laptop trackpad accidental Tab discovery, Kofi 35 accessibility tester screen reader full playthrough); comparable games (Factorio pipette/fast-transfer, Into the Breach hover preview, Slay the Spire number key mod, Opus Magnum GIF export, Shenzhen IO Workshop); 5 new aspects discovered
+  - [ ] 6.05a — The Vim/command-palette as power-user interface: full design of the command palette system — command vocabulary, autocomplete, argument syntax, what actions are available via text vs. requiring mouse; the "VS Code command palette" model adapted for a game workbench
+  - [ ] 6.05b — Replay GIF/clip export pipeline on PC: technical design of capturing Pixi.js canvas frames, encoding to GIF/MP4/WebP, UI for trimming and annotating clips, automatic watermarking, one-click share to clipboard; the Opus Magnum GIF virality model
+  - [ ] 6.05c — Multi-monitor detached Inspector: technical feasibility and UX design of rendering the Inspector on a second monitor while Plan remains on primary; window management, state sync, performance implications
+  - [ ] 6.05d — Steam Input API integration for custom controller profiles: beyond Steam Deck — how to support arbitrary controllers, Steam Controller, fight sticks, accessibility devices via Steam Input; action sets per screen; community controller configs
+  - [ ] 6.05e — Ultrawide-specific three-column layout design: detailed layout spec for 21:9 and 32:9 monitors — what fills the extra horizontal space, when panels become permanently visible vs. toggleable, how the layout degrades gracefully back to 16:9
 - [ ] 6.06 — Console/controller adaptation: how each building block paradigm works on a gamepad
 - [x] 6.07 — Mobile/touch adaptation: how each paradigm works on a phone
   - [ ] 6.07a — PWA vs. native wrapper decision: performance, haptics, install flow, push notifications, platform-specific capabilities; Capacitor vs. pure PWA vs. TWA (Trusted Web Activity)
