@@ -2,9 +2,9 @@
 
 ## Statistics
 - Total aspects discovered: 74
-- Analyzed: 44
-- Pending: 30
-- Convergence: 59%
+- Analyzed: 45
+- Pending: 29
+- Convergence: 61%
 
 ## Pending Aspects (ordered by dependency)
 
@@ -64,7 +64,7 @@ Consolidate all gathered material into content files. One aspect per page.
 - [x] assemble-service-delivery — Write content/services/solution-delivery.md
 - [x] assemble-service-training — Write content/services/training-enablement.md
 - [x] assemble-service-embedded — Write content/services/embedded-teams.md
-- [ ] assemble-industries-overview — Write content/industries/_overview.md
+- [x] assemble-industries-overview — Write content/industries/_overview.md
 - [ ] assemble-industry-marketing — Write content/industries/marketing-media.md
 - [ ] assemble-industry-retail — Write content/industries/retail-ecommerce.md
 - [ ] assemble-industry-cpg — Write content/industries/consumer-goods.md
@@ -107,6 +107,7 @@ Final pass. Only start after Waves 1-4 are complete.
 - [ ] convergence-check — Run full convergence checklist, either add new aspects or write converged.txt
 
 ## Recently Analyzed
+- [x] assemble-industries-overview (2026-03-14) — Assembled content/industries/_overview.md. All 8 sitemap industry verticals documented with PyMC relevance, use cases, named clients, and pull quotes. Marketing & Media: 10 named clients (HelloFresh/Ovative/Fox/NBCU etc.), MMM flagship. Retail: 10 named clients (Wegmans MAPE 13-14%), CPG: 6 named clients (Colgate SSR 90% reliability), Pharma/Bio: 8 named clients (Roche 34K params, Akili, Haleon). Agriculture: Indigo Ag primary case study + Syngenta. Finance: 11 named clients (Everysk/Nürnberger/Schwab). Gaming: Supercell/Appodeal. Sports: Dodgers/Real Madrid. Full ICP table (buyer persona + pain point per industry), competitor framing per vertical, universal Bayesian value propositions. GAPS: Gaming/Sports have no dedicated case studies; Supercell/Appodeal narratives not fully extracted.
 - [x] assemble-service-embedded (2026-03-14) — Assembled content/services/embedded-teams.md. "We Work By Your Side" pillar documented. Old site name: "Roadmap Acceleration". Core model: experts join client Slack+GitHub, co-deliver work while upskilling internal team. 3 hero options (old site / Halah home teaser / Halah services page). FAQ copy ready-to-use. Named clients: Indigo Ag (explicit "Embedded Teams" tag in Halah draft), Fox Entertainment (Eugene Kwok testimonial), Haleon (Nathan Kafi testimonial). Monthly rate card documented (Junior $37-40k / Senior $50k / Lead $90k — internal only). "We Work By Your Side" tagline (Halah/James Dodge, #sales Feb 2026). Carlos Trujillo referenced as fractional senior DS example but specific narrative not found. GAPS: no dedicated case study for Embedded Teams as primary deliverable; no engagement-length/scaling description; no direct upskilling testimonial; Halah hasn't written final page copy.
 - [x] assemble-service-training (2026-03-14) — Assembled content/services/training-enablement.md. "We Teach" pillar documented. 5 open-enrollment courses: ABM ($1,499, Jan cohort, instructors Downey/Fonnesbeck/Leos Barajas), BMA ($2,249, Feb cohort, McWilliams/Allen/Vincent/Trujillo), ABRM/CI ($1,499, March cohort cancelled, Orduz/Vincent/Forde), Causal Inference for Business Impact (in development, ~$2,249, Ben Vincent lead), Agentic Data Science ($1,900, May 2026, hidden, co-brand with Vanishing Gradients). Corporate workshops $20–30k/engagement (Thomas confirmed); past clients: SIXT/Keywords Studios/Schwab/HelloFresh/P&G/Wärtsilä/IQVIA/Progressive/Gain Theory/Vinted. Full curricula for ABM (8 sessions) and BMA (8 sessions) documented. 77.7% BMA satisfaction rate. Workshop alumni channel created Sept 2025. GAPS: CI course sitemap ambiguity (ABRM vs new Ben Vincent course), Agentic DS curriculum not yet public, no named corporate workshop testimonials.
 - [x] assemble-service-delivery (2026-03-14) — Assembled content/services/solution-delivery.md. "We Build" pillar documented. Consolidates old-site "Modeling & Optimization" + "AI Systems" + Halah draft "Custom Bayesian Models" + "Bayesian AI Solutions". Feature bullets for both sub-services. Problem types covered: MMM (HelloFresh 60x speedup), CLV, causal inference, Bayesian AI agents (Decision AI/MMM Agent/CLV Agent), production engineering, specialized tooling. 8 named client examples with results: HelloFresh (60x), Swarovski (-20% MAE), Roche (34K params/250K obs), Wegmans (MAPE 13-14%), Colgate (90% synthetic alignment + nested logit), Bain/Coke (production $500k+/mo), Indigo, Akili. Full tech stack documented. Pricing signals captured (internal only). 3-step delivery process. GAPS: no single Halah copy for "Solution Delivery" name; Roche/Wegmans full narratives missing; Bain/Coke case study public status TBD.
