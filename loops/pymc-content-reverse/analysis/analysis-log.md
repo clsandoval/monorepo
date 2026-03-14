@@ -2,6 +2,19 @@
 
 ---
 
+## 2026-03-14 — assemble-resources-benchmarks
+
+**Aspect completed:** assemble-resources-benchmarks
+
+**Findings:**
+- Created content/resources/industry-benchmarks.md (status: partial)
+- Documented 5 benchmarks: LLM Price Is Right (primary, full leaderboard), PyMC-Marketing vs. Meridian (Part 1 Sept 2025 + Part 2 Dec 2025, 2x-20x speed advantage), PyMC vs Stan sampling speed (#6 blog by traffic), PyMC Skills / AI Agent Reliability (60%→93% pass rate, Fonnesbeck lead), Synthetic Consumers Alignment (90% alignment, SSR methodology)
+- LLM Price Is Right: full leaderboard table (Sep 25 2025), methodology, dataset (820 items), 3 metrics (Elo/MAPE/Overbid), submission process documented
+- Meridian benchmark: headline results, LinkedIn copy (Halah/Teemu), webinar description, Mutinex controversy (used default priors on old version, benchmark unpublished)
+- GAPS: PyMC vs Stan full post content not extracted; PyMC Skills benchmark task set incomplete; synthetic consumers paper citation/DOI missing; no hero copy for overview page; leaderboard is live/JS-rendered
+
+---
+
 ## 2026-03-14 — assemble-case-studies
 
 **Aspect completed:** assemble-case-studies
