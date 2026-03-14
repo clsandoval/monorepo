@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 305
-- **Analyzed:** 47
-- **Pending:** 258
+- **Total aspects:** 311
+- **Analyzed:** 48
+- **Pending:** 263
 - **Convergence:** 15.4%
 
 ---
@@ -58,7 +58,13 @@
 - [x] 4.69b — Combined agent coverage score display: showing "if ALL of this agent's clustered elements were fixed, combined coverage = X%" as a first-class metric in the career analysis panel; question of whether this number should be pre-computed or on-demand
 - [x] 4.69c — Agent redesign mode as a dedicated workbench state: full design of the isolated redesign sandbox — how the player enters, what UI affordances are available, how changes are staged vs. committed, how the simulation differs from normal workbench operation
 - [x] 4.69d — Multi-cluster persistence tracking: tracking whether the same agent triggers multi-cluster across multiple career analyses; the "persistent offender" agent as a named archetype with dedicated treatment in the season health dashboard
-- [ ] 4.69e — Adversarial multi-cluster poisoning: opponent config design strategy that stresses 3+ elements of the same target agent across all match types, deliberately triggering the player's cluster flag to mislead them into an unnecessary redesign; counter-design distinguishes "clustered across all opponents" (structural) from "clustered against specific opponent" (adversarial)
+- [x] 4.69e — Adversarial multi-cluster poisoning: opponent config design strategy that stresses 3+ elements of the same target agent across all match types, deliberately triggering the player's cluster flag to mislead them into an unnecessary redesign; counter-design distinguishes "clustered across all opponents" (structural) from "clustered against specific opponent" (adversarial)
+- [ ] 4.69e-i — Match-scope filter UI design: full design of the career analysis scope filter — how the player selects opponents to include/exclude, what the UI looks like, how filtered analyses are labeled and archived vs. full-scope analyses; interaction with career analysis history log
+- [ ] 4.69e-ii — Known adversarial opponent tagging: UI for adding an opponent to the "known adversarial" list from within the career analysis agent audit; how the tag persists across sessions; what changes in career analysis behavior when an opponent is tagged; how to remove a tag
+- [ ] 4.69e-iii — Per-opponent threshold override in competitive contexts: suppressing cluster contributions from specific opponents below a concentration threshold; interaction with match-source breakdown display; comparison with 4.69j per-agent threshold override
+- [ ] 4.69e-iv — Counter-poisoning config design: full design of the player's ability to intentionally design a config that generates misleading cluster signals in an opponent's career analysis; the offensive version of adversarial poisoning; ethical/design considerations around explicit "diagnostic sabotage" as player intent
+- [ ] 4.69e-v — Adversarial density as a career season metric: tracking how many of the player's matches in a season were adversarially targeted; "adversarial pressure" as a context variable in season health; adjusting season health thresholds for high-adversarial-pressure seasons
+- [ ] 4.69e-vi — Concentration threshold calibration for dense opponent pools: false adversarial detection in small competitive ladders where players naturally match against same opponents repeatedly; graduated concentration thresholds based on opponent pool size; "expected concentration at N matches" as contextual denominator
 - [ ] 4.69f — "Apply All Three" batch deployment: detailed design of the multi-fix batch application — sequencing, conflict detection, rollback affordance, confirmation dialog
 - [ ] 4.69g — Agent cluster as a unit of analysis in career stats: career statistics dashboard that shows per-agent multi-cluster frequency history; "agent debt ledger" as companion to match-level architectural debt metrics
 - [ ] 4.69h — Threshold preset profiles per config phase: different multi-cluster thresholds for different career phases (early season N=4 to avoid noise; late season N=2 to catch architectural drift before finals); a "phase-aware" threshold that auto-shifts as the season progresses
