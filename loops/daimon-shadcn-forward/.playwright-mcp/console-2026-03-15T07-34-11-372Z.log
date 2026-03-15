@@ -1,0 +1,6 @@
+[      82ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3098/_next/static/chunks/5b3dbe6c574f4492.js:0
+[      97ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3098/site.webmanifest:0
+[      97ms] [ERROR] Manifest fetch from http://localhost:3098/site.webmanifest failed, code 404 @ http://localhost:3098/about:0
+[     112ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3098/site.webmanifest:0
+[     112ms] [ERROR] Manifest fetch from http://localhost:3098/site.webmanifest failed, code 404 @ http://localhost:3098/about:0
+[     113ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3098/icon.svg:0

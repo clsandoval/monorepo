@@ -342,7 +342,7 @@ export default async function BlogPostPage({
 
         <div className="mt-4 flex items-center gap-3 text-[#4A5568]" style={{ fontSize: '15px' }}>
           <div
-            className="w-6 h-6 rounded-full bg-[#0C1F40] flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+            className="w-6 h-6 rounded-full bg-[#0C1F40] flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
           >
             {post.author.name[0]}
           </div>

@@ -1,0 +1,5 @@
+[     318ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[     415ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/blog/discord-as-operating-system:0
+[     762ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[     800ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/icon.svg:0
+[     812ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/blog/discord-as-operating-system:0

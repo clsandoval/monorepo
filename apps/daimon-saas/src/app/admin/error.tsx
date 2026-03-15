@@ -23,7 +23,7 @@ export default function AdminError({ error, reset }: ErrorPageProps) {
       <p className="text-sm text-gray-500 text-center max-w-[400px]">
         We couldn&apos;t load the admin panel. Please try refreshing.
       </p>
-      <Button variant="primary" onClick={reset}>
+      <Button onClick={reset}>
         Refresh page
       </Button>
       <p className="text-xs text-gray-400 text-center">

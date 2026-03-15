@@ -1,20 +1,20 @@
+import { cn } from '@/lib/utils'
+
 export type IndicatorStatus = 'connected' | 'connecting' | 'error' | 'disconnected' | 'suspended'
 
 export interface StatusIndicatorProps {
   status: IndicatorStatus
   label?: string
-  dotSize?: number
-  labelSize?: number
   showLabel?: boolean
   className?: string
 }
 
-const DOT_COLORS: Record<IndicatorStatus, string> = {
-  connected:    '#22C55E',
-  connecting:   '#F59E0B',
-  error:        '#EF4444',
-  disconnected: 'rgba(12,31,64,0.25)',
-  suspended:    'rgba(12,31,64,0.40)',
+const DOT_CLASSES: Record<IndicatorStatus, string> = {
+  connected:    'bg-[#22C55E] status-dot-connected',
+  connecting:   'bg-[#F59E0B] status-dot-connecting',
+  error:        'bg-[#EF4444]',
+  disconnected: 'bg-foreground/25',
+  suspended:    'bg-foreground/40',
 }
 
 const DEFAULT_LABELS: Record<IndicatorStatus, string> = {
@@ -25,38 +25,23 @@ const DEFAULT_LABELS: Record<IndicatorStatus, string> = {
   suspended:    'Suspended',
 }
 
-const ANIMATION_CLASSES: Record<IndicatorStatus, string> = {
-  connected:    'status-dot-connected',
-  connecting:   'status-dot-connecting',
-  error:        '',
-  disconnected: '',
-  suspended:    '',
-}
-
 export function StatusIndicator({
   status,
   label,
-  dotSize = 12,
-  labelSize = 14,
   showLabel = true,
   className,
 }: StatusIndicatorProps) {
   const displayLabel = label ?? DEFAULT_LABELS[status]
 
   return (
-    <div className={['flex items-center gap-[10px]', className ?? ''].filter(Boolean).join(' ')}>
+    <div className={cn('flex items-center gap-2.5', className)}>
       <span
-        className={['flex-shrink-0 rounded-full', ANIMATION_CLASSES[status]].filter(Boolean).join(' ')}
-        style={{
-          width: dotSize,
-          height: dotSize,
-          backgroundColor: DOT_COLORS[status],
-        }}
+        className={cn('h-3 w-3 shrink-0 rounded-full', DOT_CLASSES[status])}
         role="img"
         aria-label={`Status: ${displayLabel}`}
       />
       {showLabel && (
-        <span style={{ fontSize: labelSize }}>
+        <span className="text-[15px] text-foreground">
           {displayLabel}
         </span>
       )}

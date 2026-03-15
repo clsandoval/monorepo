@@ -31,7 +31,7 @@ function PageHeader() {
       <div
         style={{
           fontFamily: 'var(--font-inter)',
-          fontSize: '13px',
+          fontSize: '14px',
           color: '#B4E7DD',
           textTransform: 'uppercase',
           letterSpacing: '0.08em',
@@ -240,7 +240,7 @@ const liStyle: React.CSSProperties = {
 
 const inlineCode: React.CSSProperties = {
   fontFamily: 'Courier New, monospace',
-  fontSize: '13px',
+  fontSize: '14px',
   color: '#0C1F40',
   backgroundColor: '#F3F4F6',
   padding: '2px 6px',
@@ -541,7 +541,7 @@ export default function QuickStartPage() {
         <pre
           style={{
             fontFamily: 'Courier New, monospace',
-            fontSize: '13px',
+            fontSize: '14px',
             color: '#E5E7EB',
             backgroundColor: '#0C1F40',
             padding: '20px 24px',
@@ -645,7 +645,7 @@ Used for message classification (improves accuracy).`}
         <pre
           style={{
             fontFamily: 'Courier New, monospace',
-            fontSize: '13px',
+            fontSize: '14px',
             color: '#E5E7EB',
             backgroundColor: '#0C1F40',
             padding: '20px 24px',
@@ -707,7 +707,7 @@ Used for message classification (improves accuracy).`}
         <pre
           style={{
             fontFamily: 'Courier New, monospace',
-            fontSize: '13px',
+            fontSize: '14px',
             color: '#FFFFFF',
             backgroundColor: '#36393F',
             padding: '20px 24px',
@@ -723,7 +723,7 @@ Used for message classification (improves accuracy).`}
         <pre
           style={{
             fontFamily: 'Courier New, monospace',
-            fontSize: '13px',
+            fontSize: '14px',
             color: '#FFFFFF',
             backgroundColor: '#36393F',
             padding: '20px 24px',

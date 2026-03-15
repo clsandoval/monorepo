@@ -1,0 +1,7 @@
+[     187ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[     243ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/blog:0
+[     606ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[     647ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/icon.svg:0
+[     660ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/blog:0
+[   19835ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[   19843ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/blog:0

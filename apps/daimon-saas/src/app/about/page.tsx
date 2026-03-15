@@ -66,48 +66,19 @@ export default function AboutPage() {
     <PublicLayout>
       <div>
         {/* Section 1: Hero */}
-        <section className="bg-[#0C1F40] relative overflow-hidden pt-24 pb-20">
+        <section className="bg-foreground relative overflow-hidden pt-24 pb-20">
           {/* Gradient orbs */}
           <div
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              width: '600px',
-              height: '600px',
-              background: 'radial-gradient(circle, #B4E7DD 0%, transparent 70%)',
-              top: '-200px',
-              left: '-150px',
-              opacity: 0.3,
-            }}
+            className="absolute rounded-full pointer-events-none w-[600px] h-[600px] -top-[200px] -left-[150px] opacity-30 bg-[radial-gradient(circle,_hsl(var(--primary))_0%,_transparent_70%)]"
           />
           <div
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              width: '500px',
-              height: '500px',
-              background: 'radial-gradient(circle, #7B8CDE 0%, transparent 70%)',
-              bottom: '-150px',
-              right: '-100px',
-              opacity: 0.3,
-            }}
+            className="absolute rounded-full pointer-events-none w-[500px] h-[500px] -bottom-[150px] -right-[100px] opacity-30 bg-[radial-gradient(circle,_hsl(var(--secondary))_0%,_transparent_70%)]"
           />
           <div className="max-w-4xl mx-auto px-8 text-center relative z-10">
-            <h1
-              className="font-archivo font-bold text-white mx-auto"
-              style={{
-                fontSize: 'clamp(30px, 4vw, 44px)',
-                maxWidth: '700px',
-              }}
-            >
+            <h1 className="font-archivo font-bold text-white mx-auto max-w-[700px] text-[clamp(30px,4vw,44px)]">
               We believe AI belongs in the tools your team already uses.
             </h1>
-            <p
-              className="text-white mt-5 mx-auto font-inter font-normal"
-              style={{
-                fontSize: '20px',
-                opacity: 0.7,
-                maxWidth: '600px',
-              }}
-            >
+            <p className="text-white/70 mt-5 mx-auto font-inter font-normal text-xl max-w-[600px]">
               Daimon brings Claude-powered decision intelligence to Discord — the platform where teams already live.
             </p>
           </div>
@@ -116,8 +87,8 @@ export default function AboutPage() {
         {/* Section 2: Mission */}
         <section className="bg-white py-20">
           <div className="max-w-3xl mx-auto px-8">
-            <h2 className="font-archivo font-bold text-[#0C1F40] text-[32px]">Our Mission</h2>
-            <div className="mt-6 space-y-5 text-[17px] font-inter font-normal text-[#4A5568] leading-[1.75]">
+            <h2 className="font-archivo font-bold text-foreground text-[32px]">Our Mission</h2>
+            <div className="mt-6 space-y-5 text-[17px] font-inter font-normal text-muted-foreground leading-[1.75]">
               <p>
                 Decision-making is the most high-value work any team does — and it&apos;s increasingly
                 happening asynchronously, in Discord, over fast-moving threads. Yet the tools that help
@@ -140,23 +111,22 @@ export default function AboutPage() {
         </section>
 
         {/* Section 3: How Daimon Works */}
-        <section className="bg-[#F7F7F7] py-16">
+        <section className="bg-background py-16">
           <div className="max-w-4xl mx-auto px-8">
-            <h2 className="font-archivo font-bold text-[#0C1F40] text-[28px] mb-10">
+            <h2 className="font-archivo font-bold text-foreground text-[28px] mb-10">
               Built on Decision Orchestrator
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {HOW_IT_WORKS.map(({ Icon, heading, body }, i) => (
                 <div
                   key={i}
-                  className="bg-white border-t-4 border-t-[#B4E7DD] p-6"
-                  style={{ borderRadius: 0 }}
+                  className="bg-white border-t-4 border-t-primary p-6 rounded-none"
                 >
-                  <div className="w-10 h-10 bg-[#B4E7DD] flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 text-[#0C1F40]" />
+                  <div className="w-10 h-10 bg-primary flex items-center justify-center mb-4">
+                    <Icon className="w-5 h-5 text-foreground" />
                   </div>
-                  <h3 className="font-archivo font-bold text-[#0C1F40] text-[18px] mb-2">{heading}</h3>
-                  <p className="font-inter text-[15px] text-[#4A5568] leading-relaxed">{body}</p>
+                  <h3 className="font-archivo font-bold text-foreground text-lg mb-2">{heading}</h3>
+                  <p className="font-inter text-[15px] text-muted-foreground leading-relaxed">{body}</p>
                 </div>
               ))}
             </div>
@@ -166,25 +136,15 @@ export default function AboutPage() {
         {/* Section 4: Values */}
         <section className="bg-white py-20">
           <div className="max-w-4xl mx-auto px-8">
-            <h2 className="font-archivo font-bold text-[#0C1F40] text-[32px] mb-10">What We Believe</h2>
+            <h2 className="font-archivo font-bold text-foreground text-[32px] mb-10">What We Believe</h2>
             <ul role="list" className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {VALUES.map((value) => (
                 <li key={value.title}>
-                  <article
-                    className="h-full p-6"
-                    style={{
-                      background: '#F7F7F7',
-                      border: '1px solid rgba(12,31,64,0.08)',
-                      borderRadius: '12px',
-                    }}
-                  >
-                    <h3 className="font-archivo font-bold text-[#0C1F40] text-[18px]">
+                  <article className="h-full p-6 bg-background border border-border rounded-xl">
+                    <h3 className="font-archivo font-bold text-foreground text-lg">
                       {value.title}
                     </h3>
-                    <p
-                      className="font-inter font-normal text-[#4A5568] text-[15px] mt-2"
-                      style={{ lineHeight: 1.6 }}
-                    >
+                    <p className="font-inter font-normal text-muted-foreground text-[15px] mt-2 leading-relaxed">
                       {value.body}
                     </p>
                   </article>
@@ -195,46 +155,32 @@ export default function AboutPage() {
         </section>
 
         {/* Section 5: Team */}
-        <section className="bg-[#F7F7F7] py-20">
+        <section className="bg-background py-20">
           <div className="max-w-4xl mx-auto px-8">
-            <h2 className="font-archivo font-bold text-[#0C1F40] text-[32px] text-center">
+            <h2 className="font-archivo font-bold text-foreground text-[32px] text-center">
               The Team
             </h2>
-            <p className="font-inter text-[18px] text-[#4A5568] text-center mt-2 mb-12">
+            <p className="font-inter text-lg text-muted-foreground text-center mt-2 mb-12">
               Small, focused, shipping.
             </p>
             <ul role="list" className="flex justify-center">
               <li>
-                <article
-                  className="flex flex-col items-center gap-3 p-8 text-center"
-                  style={{
-                    background: 'white',
-                    border: '1px solid rgba(12,31,64,0.08)',
-                    borderRadius: '16px',
-                    maxWidth: '280px',
-                    padding: '32px 24px',
-                  }}
-                >
+                <article className="flex flex-col items-center gap-3 text-center bg-white border border-border rounded-2xl max-w-[280px] px-6 py-8">
                   {/* Avatar */}
-                  <div
-                    className="w-20 h-20 rounded-full bg-[#0C1F40] flex items-center justify-center flex-shrink-0"
-                  >
+                  <div className="w-20 h-20 rounded-full bg-foreground flex items-center justify-center flex-shrink-0">
                     <span className="font-archivo font-bold text-white text-[28px]">F</span>
                   </div>
                   <div>
-                    <p className="font-archivo font-bold text-[#0C1F40] text-[20px]">Founder</p>
-                    <p className="font-inter text-[14px] text-[#718096] mt-1">Founder &amp; Builder</p>
-                    <p
-                      className="font-inter text-[14px] text-[#4A5568] mt-2"
-                      style={{ maxWidth: '240px' }}
-                    >
+                    <p className="font-archivo font-bold text-foreground text-xl">Founder</p>
+                    <p className="font-inter text-sm text-muted-foreground mt-1">Founder &amp; Builder</p>
+                    <p className="font-inter text-sm text-muted-foreground mt-2 max-w-[240px]">
                       Decision Orchestrator started as an internal tool. Daimon makes it available to every team.
                     </p>
                     <a
                       href="https://github.com/handle"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 mt-3 font-inter text-[14px] text-[#718096] hover:text-[#0C1F40] transition-colors"
+                      className="inline-flex items-center gap-1.5 mt-3 font-inter text-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
                       <Github className="w-4 h-4" />
                       @handle
@@ -247,20 +193,19 @@ export default function AboutPage() {
         </section>
 
         {/* Section 6: CTA */}
-        <section className="bg-[#0C1F40] py-20">
+        <section className="bg-foreground py-20">
           <div className="max-w-4xl mx-auto px-8 text-center">
-            <h2 className="font-archivo font-bold text-white text-[36px]">
+            <h2 className="font-archivo font-bold text-white text-4xl">
               Try Daimon free today
             </h2>
-            <p className="font-inter text-[18px] text-white mt-3" style={{ opacity: 0.7 }}>
+            <p className="font-inter text-lg text-white/70 mt-3">
               No credit card. No configuration. Just paste your keys and go.
             </p>
             <div className="mt-8">
               <Link
                 href="/signup"
                 aria-label="Get started free — go to signup page"
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#B4E7DD] text-[#0C1F40] font-archivo font-bold text-[16px] hover:bg-[#9ED8CC] transition-colors"
-                style={{ borderRadius: 0 }}
+                className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground font-archivo font-bold text-base hover:bg-primary/80 transition-colors rounded-none"
               >
                 Get started free
               </Link>

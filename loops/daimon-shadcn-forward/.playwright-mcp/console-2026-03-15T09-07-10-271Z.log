@@ -1,0 +1,9 @@
+[      53ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/login:0
+[     181ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[     397ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/login:0
+[     508ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[     549ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/icon.svg:0
+[     556ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/login:0
+[   14334ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=L6VcnxhB6Ai_V_4M6IzT1' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_17643121._.js:10878
+[   15336ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=L6VcnxhB6Ai_V_4M6IzT1' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_17643121._.js:10878
+[   16337ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=L6VcnxhB6Ai_V_4M6IzT1' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_17643121._.js:10878

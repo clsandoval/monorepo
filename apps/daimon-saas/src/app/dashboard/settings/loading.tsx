@@ -1,5 +1,5 @@
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
-import { Skeleton } from '@/components/ui/skeleton-loader'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function SettingsLoading() {
   return (
@@ -10,25 +10,25 @@ export default function SettingsLoading() {
         role="status"
       >
         {/* Page header skeleton */}
-        <div style={{ marginBottom: '32px' }}>
-          <Skeleton width="140px" height="28px" style={{ marginBottom: '8px' }} />
-          <Skeleton width="400px" height="16px" />
+        <div className="mb-8">
+          <Skeleton className="mb-2 h-7 w-[140px]" />
+          <Skeleton className="h-4 w-[400px]" />
         </div>
 
         {/* Section 1: Workspace */}
-        <Skeleton width="100%" height="130px" style={{ marginBottom: '16px' }} />
+        <Skeleton className="mb-4 h-[130px] w-full" />
 
         {/* Section 2: Discord Connection */}
-        <Skeleton width="100%" height="180px" style={{ marginBottom: '16px' }} />
+        <Skeleton className="mb-4 h-[180px] w-full" />
 
         {/* Section 3: Team Members */}
-        <Skeleton width="100%" height="120px" style={{ marginBottom: '16px' }} />
+        <Skeleton className="mb-4 h-[120px] w-full" />
 
         {/* Section 4: Account */}
-        <Skeleton width="100%" height="160px" style={{ marginBottom: '16px' }} />
+        <Skeleton className="mb-4 h-[160px] w-full" />
 
         {/* Section 5: Danger Zone (owner only) */}
-        <Skeleton width="100%" height="100px" />
+        <Skeleton className="h-[100px] w-full" />
       </div>
     </DashboardLayout>
   )

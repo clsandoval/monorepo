@@ -18,8 +18,8 @@ export const metadata: Metadata = {
 const tableClass =
   'w-full text-left border-collapse mb-6 overflow-x-auto block';
 const thClass =
-  'border border-[#E2E8F0] bg-[#F7F7F7] px-3 py-2 font-semibold text-[#0C1F40] text-sm';
-const tdClass = 'border border-[#E2E8F0] px-3 py-2 text-[#4A5568] text-sm leading-relaxed';
+  'border border-[#E2E8F0] bg-[#F7F7F7] px-3 py-2 font-semibold text-[#0C1F40] text-base';
+const tdClass = 'border border-[#E2E8F0] px-3 py-2 text-[#4A5568] text-base leading-relaxed';
 
 export default function PrivacyPolicyPage() {
   return (
@@ -940,7 +940,7 @@ export default function PrivacyPolicyPage() {
                       ['daimon_csrf', 'Essential / Security', 'CSRF token to prevent cross-site request forgery.', 'Session'],
                     ].map(([name, type, purpose, duration], i) => (
                       <tr key={i}>
-                        <td className={tdClass + ' font-mono text-xs'}>{name}</td>
+                        <td className={tdClass + ' font-mono text-sm'}>{name}</td>
                         <td className={tdClass}>{type}</td>
                         <td className={tdClass}>{purpose}</td>
                         <td className={tdClass}>{duration}</td>

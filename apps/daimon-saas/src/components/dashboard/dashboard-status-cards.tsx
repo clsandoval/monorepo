@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { Card } from '@/components/ui/card'
 import { StatusIndicator, type IndicatorStatus } from '@/components/ui/status-indicator'
 import { Badge } from '@/components/ui/badge'
 
@@ -36,22 +37,6 @@ function deriveBotStatus(discord: DiscordConnection | null): IndicatorStatus {
   return 'disconnected'
 }
 
-const CARD_STYLE: React.CSSProperties = {
-  background: '#FFFFFF',
-  border: '1.5px solid rgba(12,31,64,0.12)',
-  borderRadius: '0px',
-  padding: '20px 24px',
-}
-
-const LABEL_STYLE: React.CSSProperties = {
-  fontFamily: 'var(--font-inter), Inter, sans-serif',
-  fontSize: '12px',
-  fontWeight: 500,
-  color: 'rgba(12,31,64,0.55)',
-  letterSpacing: '0.06em',
-  textTransform: 'uppercase',
-}
-
 export function DashboardStatusCards({ discord, plan }: DashboardStatusCardsProps) {
   const botStatus = deriveBotStatus(discord)
 
@@ -60,59 +45,41 @@ export function DashboardStatusCards({ discord, plan }: DashboardStatusCardsProp
     : null
 
   return (
-    <div
-      className="grid gap-4"
-      style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}
-    >
+    <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
       {/* Bot Status */}
-      <div style={CARD_STYLE}>
-        <span className="block mb-3" style={LABEL_STYLE}>
+      <Card className="gap-0 rounded-none border-[1.5px] border-border bg-card px-6 py-5">
+        <span className="block mb-3 text-sm sm:text-xs font-medium text-muted-foreground uppercase tracking-[0.06em]">
           Bot Status
         </span>
         <StatusIndicator
           status={botStatus}
-          dotSize={12}
-          labelSize={15}
           showLabel
         />
-      </div>
+      </Card>
 
       {/* Current Plan */}
-      <div style={CARD_STYLE}>
-        <span className="block mb-3" style={LABEL_STYLE}>
+      <Card className="gap-0 rounded-none border-[1.5px] border-border bg-card px-6 py-5">
+        <span className="block mb-3 text-sm sm:text-xs font-medium text-muted-foreground uppercase tracking-[0.06em]">
           Current Plan
         </span>
         <Badge variant={`plan-${plan}`} size="md" />
-      </div>
+      </Card>
 
       {/* Discord Connection */}
-      <div style={CARD_STYLE}>
-        <span className="block mb-3" style={LABEL_STYLE}>
+      <Card className="gap-0 rounded-none border-[1.5px] border-border bg-card px-6 py-5">
+        <span className="block mb-3 text-sm sm:text-xs font-medium text-muted-foreground uppercase tracking-[0.06em]">
           Discord Connection
         </span>
         {guildDisplay ? (
-          <span
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '14px',
-              fontWeight: 500,
-              color: '#0C1F40',
-            }}
-          >
+          <span className="text-sm font-medium text-foreground">
             {guildDisplay}
           </span>
         ) : (
-          <span
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '14px',
-              color: 'rgba(12,31,64,0.45)',
-            }}
-          >
+          <span className="text-sm text-muted-foreground">
             Not connected
           </span>
         )}
-      </div>
+      </Card>
     </div>
   )
 }

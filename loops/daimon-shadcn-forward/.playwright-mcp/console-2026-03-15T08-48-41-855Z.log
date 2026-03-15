@@ -1,0 +1,4 @@
+[     495ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[     560ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/dashboard/integrations:0
+[     910ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[     910ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/dashboard/integrations:0

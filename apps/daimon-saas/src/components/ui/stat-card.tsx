@@ -1,7 +1,9 @@
 'use client'
 
 import * as React from 'react'
-import { Skeleton } from './skeleton-loader'
+import { Card } from './card'
+import { Skeleton } from './skeleton'
+import { cn } from '@/lib/utils'
 
 interface StatCardProps {
   label: string
@@ -19,12 +21,12 @@ function StatCardSkeleton({ variant }: { variant: 'default' | 'compact' }) {
   return (
     <div>
       <div className="flex items-center gap-2 mb-2">
-        <Skeleton width={20} height={20} />
-        <Skeleton width={80} height={12} />
+        <Skeleton className="h-5 w-5" />
+        <Skeleton className="h-3 w-20" />
       </div>
-      <Skeleton width={60} height={isDefault ? 32 : 28} />
+      <Skeleton className={`w-[60px] ${isDefault ? 'h-8' : 'h-7'}`} />
       <div className="mt-1">
-        <Skeleton width={100} height={isDefault ? 12 : 11} />
+        <Skeleton className={`w-[100px] ${isDefault ? 'h-3' : 'h-[11px]'}`} />
       </div>
     </div>
   )
@@ -42,21 +44,19 @@ export function StatCard({
 }: StatCardProps) {
   const isDefault = variant === 'default'
 
-  const containerStyle: React.CSSProperties = isDefault
-    ? {
-        background: '#FFFFFF',
-        border: '1.5px solid rgba(12,31,64,0.12)',
-        borderLeft: accentStripe ? '3px solid rgba(180,231,221,0.6)' : '1.5px solid rgba(12,31,64,0.12)',
-        padding: '20px 24px',
-      }
-    : {
-        background: '#FFFFFF',
-        border: '1px solid #E5E7EB',
-        padding: '16px 20px',
-      }
-
   return (
-    <div style={containerStyle} className={className}>
+    <Card
+      className={cn(
+        'gap-0 rounded-none bg-card',
+        isDefault
+          ? cn(
+              'border-[1.5px] border-border px-6 py-5',
+              accentStripe && 'border-l-[3px] border-l-primary/60'
+            )
+          : 'border border-border px-5 py-4',
+        className
+      )}
+    >
       {loading ? (
         <StatCardSkeleton variant={variant} />
       ) : (
@@ -64,18 +64,15 @@ export function StatCard({
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               {Icon && (
-                <Icon size={20} className="text-[rgba(12,31,64,0.45)] flex-shrink-0" />
+                <Icon size={20} className="text-muted-foreground flex-shrink-0" />
               )}
               <span
-                className="uppercase"
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '12px',
-                  fontWeight: isDefault ? 500 : 400,
-                  color: isDefault ? 'rgba(12,31,64,0.55)' : '#6B7280',
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                }}
+                className={cn(
+                  'uppercase tracking-wide font-sans',
+                  isDefault
+                    ? 'text-sm sm:text-xs font-medium text-muted-foreground'
+                    : 'text-sm sm:text-xs font-normal text-muted-foreground'
+                )}
               >
                 {label}
               </span>
@@ -83,33 +80,28 @@ export function StatCard({
           </div>
 
           <span
-            className="block font-archivo"
-            style={{
-              fontSize: isDefault ? '32px' : '28px',
-              fontWeight: isDefault ? 700 : 600,
-              lineHeight: '1.1',
-              color: '#0C1F40',
-              fontVariationSettings: isDefault ? '"wdth" 125' : '"wdth" 112.5',
-            }}
+            className={cn(
+              'block font-archivo leading-[1.1] text-foreground',
+              isDefault ? 'text-[32px] font-bold' : 'text-[28px] font-semibold'
+            )}
           >
             {value === null || value === undefined ? '—' : value}
           </span>
 
           {subValue && (
             <span
-              className="block mt-1"
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: isDefault ? '12px' : '11px',
-                fontWeight: 400,
-                color: isDefault ? 'rgba(12,31,64,0.45)' : '#9CA3AF',
-              }}
+              className={cn(
+                'block mt-1 font-sans',
+                isDefault
+                  ? 'text-sm sm:text-xs text-muted-foreground'
+                  : 'text-sm sm:text-[11px] text-muted-foreground'
+              )}
             >
               {subValue}
             </span>
           )}
         </>
       )}
-    </div>
+    </Card>
   )
 }

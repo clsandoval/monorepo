@@ -747,7 +747,7 @@ function PlanBadge({ plan }: { plan: PlanTier }) {
         backgroundColor: c.bg,
         color: c.text,
         fontFamily: 'var(--font-inter)',
-        fontSize: '11px',
+        fontSize: '14px',
         fontWeight: 600,
         whiteSpace: 'nowrap',
         flexShrink: 0,
@@ -778,7 +778,7 @@ function ToolRow({ tool }: { tool: ToolEntry }) {
         <code
           style={{
             fontFamily: 'var(--font-mono, ui-monospace, monospace)',
-            fontSize: '13px',
+            fontSize: '14px',
             fontWeight: 600,
             color: '#0C1F40',
             backgroundColor: 'rgba(12, 31, 64, 0.05)',
@@ -794,7 +794,7 @@ function ToolRow({ tool }: { tool: ToolEntry }) {
           <span
             style={{
               fontFamily: 'var(--font-inter)',
-              fontSize: '11px',
+              fontSize: '14px',
               color: '#9CA3AF',
               marginLeft: '8px',
             }}
@@ -805,7 +805,7 @@ function ToolRow({ tool }: { tool: ToolEntry }) {
         <p
           style={{
             fontFamily: 'var(--font-inter)',
-            fontSize: '13px',
+            fontSize: '14px',
             color: '#4B5563',
             lineHeight: '1.5',
             margin: 0,
@@ -887,7 +887,7 @@ function CategorySection({
           <span
             style={{
               fontFamily: 'var(--font-inter)',
-              fontSize: '12px',
+              fontSize: '14px',
               color: '#9CA3AF',
             }}
           >
@@ -980,7 +980,7 @@ export default function ToolReferencePage() {
         <div
           style={{
             fontFamily: 'var(--font-inter)',
-            fontSize: '13px',
+            fontSize: '14px',
             color: '#B4E7DD',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
@@ -1030,7 +1030,7 @@ export default function ToolReferencePage() {
         <span
           style={{
             fontFamily: 'var(--font-inter)',
-            fontSize: '12px',
+            fontSize: '14px',
             fontWeight: 600,
             color: '#6B7280',
             alignSelf: 'center',
@@ -1047,7 +1047,7 @@ export default function ToolReferencePage() {
             <span
               style={{
                 fontFamily: 'var(--font-inter)',
-                fontSize: '12px',
+                fontSize: '14px',
                 color: '#6B7280',
               }}
             >
@@ -1118,7 +1118,7 @@ export default function ToolReferencePage() {
         <p
           style={{
             fontFamily: 'var(--font-inter)',
-            fontSize: '13px',
+            fontSize: '14px',
             color: '#9CA3AF',
             marginBottom: '16px',
           }}

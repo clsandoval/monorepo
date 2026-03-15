@@ -167,22 +167,22 @@ export default function CookiePolicyPage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">sb-access-token</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">sb-access-token</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Supabase Auth — stores your authentication session token</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Session (until logout or expiry)</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">sb-refresh-token</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">sb-refresh-token</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Supabase Auth — stores your session refresh token for automatic renewal</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>60 days (rolling)</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">__Host-next-auth.csrf-token</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">__Host-next-auth.csrf-token</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>CSRF protection for server actions</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Session</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">next-auth.session-token</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">next-auth.session-token</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Next.js session management</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Session</td>
                   </tr>
@@ -209,17 +209,17 @@ export default function CookiePolicyPage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">daimon-theme</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-theme</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Stores your UI theme preference</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>1 year</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">daimon-onboarding-dismissed</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-onboarding-dismissed</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Remembers if you have dismissed the onboarding checklist</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>30 days</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">daimon-sidebar-state</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-sidebar-state</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Stores whether the sidebar is expanded or collapsed</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>1 year</td>
                   </tr>
@@ -247,13 +247,13 @@ export default function CookiePolicyPage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">_vercel_insights</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">_vercel_insights</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Vercel</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Tracks anonymous page view and performance metrics</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Session</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">vercel-analytics-id</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">vercel-analytics-id</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Vercel</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Persistent anonymous visitor identifier for Vercel Analytics</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>1 year</td>
@@ -285,7 +285,7 @@ export default function CookiePolicyPage() {
             <p>
               Supabase (supabase.com) provides our authentication and database infrastructure. When you
               authenticate via Supabase, authentication-related cookies are set in our{' '}
-              <code className="text-xs bg-gray-100 px-1 rounded">daimon.ai</code> domain (not
+              <code className="text-sm bg-gray-100 px-1 rounded">daimon.ai</code> domain (not
               third-party). Supabase may also set cookies on their own domains for their infrastructure.
               See Supabase&apos;s Privacy Policy for details.
             </p>
@@ -310,19 +310,19 @@ export default function CookiePolicyPage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">__stripe_mid</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">__stripe_mid</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>stripe.com</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Fraud detection</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>1 year</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">__stripe_sid</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">__stripe_sid</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>stripe.com</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Fraud detection</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>30 minutes</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-xs bg-gray-100 px-1 rounded">stripe.csrf</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">stripe.csrf</code></td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>stripe.com</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>CSRF protection during checkout</td>
                     <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Session</td>
@@ -374,7 +374,7 @@ export default function CookiePolicyPage() {
               <li>Enable &ldquo;Do Not Track&rdquo; in your browser (we honor this signal — see §8)</li>
               <li>Use a browser extension such as Privacy Badger or uBlock Origin</li>
               <li>Clear cookies and use private/incognito mode</li>
-              <li>Contact us at <code className="text-xs bg-gray-100 px-1 rounded">privacy@daimon.ai</code> to opt out of analytics tracking</li>
+              <li>Contact us at <code className="text-sm bg-gray-100 px-1 rounded">privacy@daimon.ai</code> to opt out of analytics tracking</li>
             </ul>
             <p>
               If you are in a jurisdiction requiring explicit cookie consent (e.g., the EU under
@@ -391,8 +391,8 @@ export default function CookiePolicyPage() {
               6. Specific Cookie Inventory
             </h2>
             <p>
-              Complete list of all cookies set on <code className="text-xs bg-gray-100 px-1 rounded">daimon.ai</code>{' '}
-              and <code className="text-xs bg-gray-100 px-1 rounded">app.daimon.ai</code>:
+              Complete list of all cookies set on <code className="text-sm bg-gray-100 px-1 rounded">daimon.ai</code>{' '}
+              and <code className="text-sm bg-gray-100 px-1 rounded">app.daimon.ai</code>:
             </p>
             <div style={{ overflowX: 'auto' }}>
               <table className="w-full border-collapse" style={{ fontSize: '14px' }}>
@@ -422,7 +422,7 @@ export default function CookiePolicyPage() {
                   ].map(([name, domain, type, duration, purpose]) => (
                     <tr key={name}>
                       <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>
-                        <code className="text-xs bg-gray-100 px-1 rounded">{name}</code>
+                        <code className="text-sm bg-gray-100 px-1 rounded">{name}</code>
                       </td>
                       <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>{domain}</td>
                       <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>{type}</td>
@@ -464,7 +464,7 @@ export default function CookiePolicyPage() {
             <p>
               To opt out of Vercel Analytics specifically, you can install a browser extension that
               blocks the Vercel Analytics endpoint (
-              <code className="text-xs bg-gray-100 px-1 rounded">/_vercel/insights</code>) or use a
+              <code className="text-sm bg-gray-100 px-1 rounded">/_vercel/insights</code>) or use a
               content blocker.
             </p>
 
@@ -481,7 +481,7 @@ export default function CookiePolicyPage() {
               your browser, we:
             </p>
             <ol className="ml-6 space-y-2">
-              <li>Do not set analytics cookies (<code className="text-xs bg-gray-100 px-1 rounded">_vercel_insights</code>, <code className="text-xs bg-gray-100 px-1 rounded">vercel-analytics-id</code>)</li>
+              <li>Do not set analytics cookies (<code className="text-sm bg-gray-100 px-1 rounded">_vercel_insights</code>, <code className="text-sm bg-gray-100 px-1 rounded">vercel-analytics-id</code>)</li>
               <li>Do not log your page view data for analytics purposes</li>
               <li>Continue to set strictly necessary cookies (required for authentication and security)</li>
             </ol>
@@ -530,7 +530,7 @@ export default function CookiePolicyPage() {
               If you have questions about our use of cookies or this Cookie Policy, please contact us:
             </p>
             <ul className="ml-6 space-y-2">
-              <li><strong className="font-bold text-[#0C1F40]">Email:</strong> <code className="text-xs bg-gray-100 px-1 rounded">privacy@daimon.ai</code></li>
+              <li><strong className="font-bold text-[#0C1F40]">Email:</strong> <code className="text-sm bg-gray-100 px-1 rounded">privacy@daimon.ai</code></li>
               <li><strong className="font-bold text-[#0C1F40]">Subject:</strong> &ldquo;Cookie Policy Inquiry&rdquo;</li>
               <li><strong className="font-bold text-[#0C1F40]">Response time:</strong> Within 10 business days</li>
             </ul>

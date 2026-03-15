@@ -137,7 +137,7 @@ export default async function DashboardPage() {
             hasBotToken={!!discord}
             discordConnected={!!discord && discord.status !== 'pending'}
             hasAnthropicKey={apiKeys.some(
-              (k) => k.key_type === 'anthropic' && k.status === 'active'
+              (k: any) => k.key_type === 'anthropic' && k.status === 'active'
             )}
             botOnline={discord?.status === 'connected'}
           />

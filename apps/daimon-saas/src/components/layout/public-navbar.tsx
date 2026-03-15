@@ -3,7 +3,16 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
+import { Menu } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Button, buttonVariants } from '@/components/ui/button'
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetTitle,
+} from '@/components/ui/sheet'
+import { Separator } from '@/components/ui/separator'
 
 const NAV_LINKS = [
   { label: 'Features', href: '/#features' },
@@ -32,17 +41,15 @@ function NavLogo({ white = false }: { white?: boolean }) {
       >
         <path
           d="M16 2L20 10H28L22 16L24 24L16 20L8 24L10 16L4 10H12L16 2Z"
-          fill={white ? '#B4E7DD' : '#0C1F40'}
+          className={white ? 'fill-primary' : 'fill-foreground'}
         />
       </svg>
       <span
-        style={{
-          fontFamily: 'var(--font-archivo)',
-          fontSize: '18px',
-          fontWeight: 700,
-          color: white ? '#FFFFFF' : '#0C1F40',
-          fontVariationSettings: "'wdth' 112.5",
-        }}
+        className={cn(
+          'font-heading text-lg font-bold',
+          white ? 'text-white' : 'text-foreground'
+        )}
+        style={{ fontVariationSettings: "'wdth' 112.5" }}
       >
         Daimon
       </span>
@@ -50,45 +57,16 @@ function NavLogo({ white = false }: { white?: boolean }) {
   )
 }
 
-function PublicMobileMenu({
-  open,
-  onClose,
+function MobileNavContent({
   pathname,
+  onClose,
 }: {
-  open: boolean
-  onClose: () => void
   pathname: string
+  onClose: () => void
 }) {
-  if (!open) return null
-
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 50,
-        backgroundColor: '#0C1F40',
-        padding: '24px',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      {/* Header row */}
-      <div className="flex items-center justify-between mb-8">
-        <NavLogo white />
-        <button
-          onClick={onClose}
-          aria-label="Close menu"
-          style={{
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '4px',
-          }}
-        >
-          <X size={20} color="rgba(255,255,255,0.65)" />
-        </button>
-      </div>
+    <div className="flex flex-col h-full">
+      <SheetTitle className="sr-only">Navigation menu</SheetTitle>
 
       {/* Nav links */}
       <nav className="flex flex-col flex-1">
@@ -99,17 +77,12 @@ function PublicMobileMenu({
               key={link.href}
               href={link.href}
               onClick={onClose}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                height: '56px',
-                fontFamily: 'var(--font-inter)',
-                fontSize: '18px',
-                fontWeight: isActive ? 600 : 500,
-                color: isActive ? '#FFFFFF' : 'rgba(255,255,255,0.80)',
-                borderBottom: '1px solid rgba(255,255,255,0.06)',
-                textDecoration: 'none',
-              }}
+              className={cn(
+                'flex items-center h-14 text-lg border-b border-white/[0.06] no-underline transition-colors',
+                isActive
+                  ? 'font-semibold text-white'
+                  : 'font-medium text-white/80 hover:text-white'
+              )}
             >
               {link.label}
             </Link>
@@ -117,47 +90,27 @@ function PublicMobileMenu({
         })}
       </nav>
 
-      {/* Divider */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.10)', margin: '16px 0' }} />
+      <Separator className="my-4 bg-white/10" />
 
       {/* CTA buttons */}
       <div className="flex flex-col gap-3">
         <Link
           href="/login"
           onClick={onClose}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '44px',
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
-            fontWeight: 500,
-            color: '#FFFFFF',
-            border: '1.5px solid rgba(255,255,255,0.35)',
-            borderRadius: '0',
-            textDecoration: 'none',
-          }}
+          className={cn(
+            buttonVariants({ variant: 'outline' }),
+            'h-11 border-white/35 text-white bg-transparent hover:bg-white/10 rounded-none'
+          )}
         >
           Sign in
         </Link>
         <Link
           href="/signup"
           onClick={onClose}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '44px',
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
-            fontWeight: 600,
-            color: '#0C1F40',
-            backgroundColor: '#B4E7DD',
-            border: '1.5px solid #B4E7DD',
-            borderRadius: '0',
-            textDecoration: 'none',
-          }}
+          className={cn(
+            buttonVariants({ variant: 'default' }),
+            'h-11 bg-primary text-primary-foreground font-semibold rounded-none hover:bg-primary/90'
+          )}
         >
           Get started
         </Link>
@@ -181,138 +134,82 @@ export function PublicNavbar({ transparent = false }: PublicNavbarProps) {
   const isOpaque = !transparent || scrolled
 
   return (
-    <>
-      <nav
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 50,
-          height: '64px',
-          backgroundColor: isOpaque ? 'rgba(255,255,255,0.92)' : 'transparent',
-          backdropFilter: 'blur(12px)',
-          borderBottom: '1px solid rgba(12,31,64,0.06)',
-          transition: 'background 0.3s ease',
-          paddingLeft: '32px',
-          paddingRight: '32px',
-        }}
-        className="max-[900px]:!h-14 max-[900px]:!px-4"
-      >
-        <div
-          style={{
-            maxWidth: '1280px',
-            margin: '0 auto',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          {/* Left: Logo */}
-          <NavLogo />
+    <nav
+      className={cn(
+        'sticky top-0 z-50 h-16 max-[900px]:h-14 px-8 max-[900px]:px-4 backdrop-blur-[12px] border-b border-foreground/[0.06] transition-colors duration-300',
+        isOpaque ? 'bg-white/[0.92]' : 'bg-transparent'
+      )}
+    >
+      <div className="mx-auto max-w-[1280px] h-full flex items-center justify-between">
+        {/* Left: Logo */}
+        <NavLogo />
 
-          {/* Center: Nav links (desktop only) */}
-          <div
-            className="hidden"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '28px',
-            }}
-          >
-            {NAV_LINKS.map((link) => {
-              const isActive = pathname === link.href
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  style={{
-                    fontFamily: 'var(--font-inter)',
-                    fontSize: '15px',
-                    fontWeight: 500,
-                    color: '#0C1F40',
-                    textDecoration: 'none',
-                    opacity: isActive ? 1 : undefined,
-                    borderBottom: isActive ? '2px solid #B4E7DD' : '2px solid transparent',
-                    paddingBottom: '2px',
-                    transition: 'opacity 0.2s ease',
-                  }}
-                  className="hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#B4E7DD] focus-visible:outline-offset-4"
-                >
-                  {link.label}
-                </Link>
-              )
-            })}
-          </div>
-
-          {/* Right: CTAs (desktop) + Hamburger (mobile) */}
-          <div className="flex items-center gap-3">
-            {/* Desktop CTAs */}
-            <div className="hidden items-center gap-3 min-[901px]:flex">
+        {/* Center: Nav links (desktop only) */}
+        <div className="hidden min-[901px]:flex items-center gap-7">
+          {NAV_LINKS.map((link) => {
+            const isActive = pathname === link.href
+            return (
               <Link
-                href="/login"
-                style={{
-                  fontFamily: 'var(--font-inter)',
-                  fontSize: '14px',
-                  fontWeight: 500,
-                  color: '#0C1F40',
-                  textDecoration: 'none',
-                  transition: 'opacity 0.2s ease',
-                }}
-                className="hover:opacity-70"
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  'text-[15px] font-medium text-foreground no-underline pb-0.5 transition-opacity hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4',
+                  isActive
+                    ? 'opacity-100 border-b-2 border-primary'
+                    : 'border-b-2 border-transparent'
+                )}
               >
-                Sign in
+                {link.label}
               </Link>
-              <Link
-                href="/signup"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '38px',
-                  padding: '0 20px',
-                  backgroundColor: '#B4E7DD',
-                  color: '#0C1F40',
-                  fontFamily: 'var(--font-inter)',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  border: '1.5px solid #B4E7DD',
-                  borderRadius: '0',
-                  textDecoration: 'none',
-                  transition: 'opacity 0.2s ease',
-                }}
-                className="hover:opacity-85"
-              >
-                Get started
-              </Link>
-            </div>
-
-            {/* Mobile hamburger */}
-            <button
-              className="flex min-[901px]:hidden"
-              onClick={() => setMobileOpen(true)}
-              aria-label="Open menu"
-              style={{
-                width: '40px',
-                height: '40px',
-                background: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Menu size={20} color="#0C1F40" />
-            </button>
-          </div>
+            )
+          })}
         </div>
-      </nav>
 
-      <PublicMobileMenu
-        open={mobileOpen}
-        onClose={() => setMobileOpen(false)}
-        pathname={pathname}
-      />
-    </>
+        {/* Right: CTAs (desktop) + Hamburger (mobile) */}
+        <div className="flex items-center gap-3">
+          {/* Desktop CTAs */}
+          <div className="hidden min-[901px]:flex items-center gap-3">
+            <Link
+              href="/login"
+              className="text-sm font-medium text-foreground no-underline transition-opacity hover:opacity-70"
+            >
+              Sign in
+            </Link>
+            <Link
+              href="/signup"
+              className={cn(
+                buttonVariants({ variant: 'default' }),
+                'h-[38px] px-5 bg-primary text-primary-foreground font-semibold rounded-none border-[1.5px] border-primary hover:opacity-85'
+              )}
+            >
+              Get started
+            </Link>
+          </div>
+
+          {/* Mobile hamburger via Sheet */}
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger
+              className={cn(
+                buttonVariants({ variant: 'ghost', size: 'icon' }),
+                'flex min-[901px]:hidden w-10 h-10'
+              )}
+              aria-label="Open menu"
+            >
+              <Menu size={20} className="text-foreground" />
+            </SheetTrigger>
+            <SheetContent
+              side="left"
+              className="w-full bg-foreground p-6 border-none"
+              showCloseButton
+            >
+              <MobileNavContent
+                pathname={pathname}
+                onClose={() => setMobileOpen(false)}
+              />
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </nav>
   )
 }

@@ -30,7 +30,7 @@ function PageHeader() {
       <div
         style={{
           fontFamily: 'var(--font-inter)',
-          fontSize: '13px',
+          fontSize: '14px',
           color: '#B4E7DD',
           textTransform: 'uppercase',
           letterSpacing: '0.08em',
@@ -93,7 +93,7 @@ function Toc() {
       <p
         style={{
           fontFamily: 'var(--font-inter)',
-          fontSize: '12px',
+          fontSize: '14px',
           fontWeight: 600,
           color: '#6B7280',
           textTransform: 'uppercase',
@@ -249,7 +249,7 @@ function Callout({
           color: s.labelColor,
           marginRight: '8px',
           textTransform: 'uppercase',
-          fontSize: '12px',
+          fontSize: '14px',
           letterSpacing: '0.05em',
         }}
       >
@@ -282,7 +282,7 @@ function acode(text: string) {
     <code
       style={{
         fontFamily: "'Courier New', monospace",
-        fontSize: '13px',
+        fontSize: '14px',
         background: '#F3F4F6',
         padding: '2px 6px',
       }}
@@ -833,7 +833,7 @@ export default function BillingDocsPage() {
               ['Could not reach Anthropic to validate the key. Please try again.', 'Network error during validation', 'Retry — if it persists, check status.anthropic.com'],
             ].map(([error, cause, fix], i) => (
               <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                <td style={{ padding: '10px 12px', color: '#374151', fontSize: '13px' }}>{error}</td>
+                <td style={{ padding: '10px 12px', color: '#374151', fontSize: '14px' }}>{error}</td>
                 <td style={{ padding: '10px 12px', color: '#374151' }}>{cause}</td>
                 <td style={{ padding: '10px 12px', color: '#374151' }}>{fix}</td>
               </tr>
@@ -876,7 +876,7 @@ export default function BillingDocsPage() {
               ['Could not reach OpenAI to validate the key. Please try again.', 'Network error', 'Retry'],
             ].map(([error, cause, fix], i) => (
               <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                <td style={{ padding: '10px 12px', color: '#374151', fontSize: '13px' }}>{error}</td>
+                <td style={{ padding: '10px 12px', color: '#374151', fontSize: '14px' }}>{error}</td>
                 <td style={{ padding: '10px 12px', color: '#374151' }}>{cause}</td>
                 <td style={{ padding: '10px 12px', color: '#374151' }}>{fix}</td>
               </tr>

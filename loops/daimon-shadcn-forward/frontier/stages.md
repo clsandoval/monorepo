@@ -1,161 +1,161 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 1
-Remaining: 214
+Completed: 126
+Remaining: 89
 
 ---
 
 ## Scaffold (stages 1–5) `[scaffold]`
 
-- [x] **Stage 1**: Install shadcn/ui CLI, run `npx shadcn@latest init`, configure `components.json` with `src/components/ui` path alias, set up Daimon CSS variables in `globals.css`, add `cn()` utility to `src/lib/utils.ts` *(2026-03-15)*
-- [ ] **Stage 2**: Fix signup bug — remove `tenant_subscriptions` insert from `src/app/actions/createTenant.ts` (free tier has no subscription row; the NOT NULL constraint on `stripe_subscription_id` causes the insert to fail, breaking the entire signup flow)
-- [ ] **Stage 3**: Install shadcn primitives batch 1 — `npx shadcn@latest add button input label checkbox badge card`
-- [ ] **Stage 4**: Install shadcn primitives batch 2 — `npx shadcn@latest add dialog dropdown-menu select tabs table toggle toast skeleton separator`
-- [ ] **Stage 5**: Install shadcn primitives batch 3 — `npx shadcn@latest add alert tooltip avatar sheet command pagination switch textarea popover`
+- [x] **Stage 1**: Install shadcn/ui CLI, run `npx shadcn@latest init`, configure `components.json` with `src/components/ui` path alias, set up Daimon CSS variables in `globals.css`, add `cn()` utility to `src/lib/utils.ts` (2026-03-15)
+- [x] **Stage 2**: Fix signup bug — remove `tenant_subscriptions` insert from `src/app/actions/createTenant.ts` (free tier has no subscription row; the NOT NULL constraint on `stripe_subscription_id` causes the insert to fail, breaking the entire signup flow) (2026-03-15)
+- [x] **Stage 3**: Install shadcn primitives batch 1 — `npx shadcn@latest add button input label checkbox badge card` (2026-03-15)
+- [x] **Stage 4**: Install shadcn primitives batch 2 — `npx shadcn@latest add dialog dropdown-menu select tabs table toggle toast skeleton separator` (2026-03-15)
+- [x] **Stage 5**: Install shadcn primitives batch 3 — `npx shadcn@latest add alert tooltip avatar sheet command pagination switch textarea popover` (2026-03-15)
 
 ## Replace UI Primitives (stages 6–29) `[replace-primitive]`
 
-- [ ] **Stage 6**: Replace `src/components/ui/button.tsx` — swap custom button with shadcn Button, preserve all variant names (primary, secondary, ghost, danger → destructive), update all 40+ import sites
-- [ ] **Stage 7**: Replace `src/components/ui/form-input.tsx` — swap with shadcn Input + Label composition, preserve react-hook-form integration, update all import sites
-- [ ] **Stage 8**: Replace `src/components/ui/password-input.tsx` — rebuild with shadcn Input + eye toggle button, preserve show/hide functionality
-- [ ] **Stage 9**: Replace `src/components/ui/search-input.tsx` — rebuild with shadcn Input + search icon, preserve clear button
-- [ ] **Stage 10**: Replace `src/components/ui/api-key-input.tsx` — rebuild with shadcn Input + copy-to-clipboard, preserve masked display
-- [ ] **Stage 11**: Replace `src/components/ui/checkbox.tsx` — swap with shadcn Checkbox, update all import sites
-- [ ] **Stage 12**: Replace `src/components/ui/toggle.tsx` — swap with shadcn Switch, update all import sites
-- [ ] **Stage 13**: Replace `src/components/ui/select.tsx` — swap with shadcn Select, update all import sites
-- [ ] **Stage 14**: Replace `src/components/ui/dropdown-menu.tsx` — swap with shadcn DropdownMenu (already Radix-based, align API), update all import sites
-- [ ] **Stage 15**: Replace `src/components/ui/badge.tsx` — swap with shadcn Badge, preserve variant names, update all import sites
-- [ ] **Stage 16**: Replace `src/components/ui/modal.tsx` — swap with shadcn Dialog, update all import sites
-- [ ] **Stage 17**: Replace `src/components/ui/confirm-dialog.tsx` — rebuild with shadcn AlertDialog, preserve onConfirm/onCancel callbacks
-- [ ] **Stage 18**: Replace `src/components/ui/table.tsx` — swap with shadcn Table (Table, TableBody, TableCell, TableHead, TableHeader, TableRow), update all import sites
-- [ ] **Stage 19**: Replace `src/components/ui/tabs.tsx` — swap with shadcn Tabs, update all import sites
-- [ ] **Stage 20**: Replace `src/components/ui/pagination.tsx` — swap with shadcn Pagination, update all import sites
-- [ ] **Stage 21**: Replace `src/components/ui/toast.tsx` — swap with shadcn Toast + Toaster + useToast hook, update all import sites
-- [ ] **Stage 22**: Replace `src/components/ui/alert-banner.tsx` — swap with shadcn Alert, preserve variant names (info, warning, error, success), update all import sites
-- [ ] **Stage 23**: Replace `src/components/ui/skeleton-loader.tsx` — swap with shadcn Skeleton, update all import sites
-- [ ] **Stage 24**: Replace `src/components/ui/stat-card.tsx` — rebuild with shadcn Card, preserve metric display layout
-- [ ] **Stage 25**: Replace `src/components/ui/status-indicator.tsx` — rebuild with shadcn Badge + dot indicator pattern
-- [ ] **Stage 26**: Replace `src/components/ui/copy-to-clipboard.tsx` — rebuild with shadcn Button + Tooltip for feedback
-- [ ] **Stage 27**: Replace `src/components/ui/empty-state.tsx` — rebuild with shadcn Card + centered content pattern
-- [ ] **Stage 28**: Replace `src/components/ui/error-state.tsx` — rebuild with shadcn Alert (destructive) + Button for retry
-- [ ] **Stage 29**: Replace `src/components/ui/icon-button.tsx` — replace with shadcn Button variant="ghost" size="icon", update all import sites
-- [ ] **Stage 30**: Replace `src/components/ui/link.tsx` — simplify to thin wrapper or remove if trivial, update all import sites
-- [ ] **Stage 31**: Replace `src/components/ui/activity-feed.tsx` — rebuild with shadcn Card + list pattern
+- [x] **Stage 6**: Replace `src/components/ui/button.tsx` — swap custom button with shadcn Button, preserve all variant names (primary, secondary, ghost, danger → destructive), update all 40+ import sites (2026-03-15)
+- [x] **Stage 7**: Replace `src/components/ui/form-input.tsx` — swap with shadcn Input + Label composition, preserve react-hook-form integration, update all import sites (2026-03-15)
+- [x] **Stage 8**: Replace `src/components/ui/password-input.tsx` — rebuild with shadcn Input + eye toggle button, preserve show/hide functionality (2026-03-15)
+- [x] **Stage 9**: Replace `src/components/ui/search-input.tsx` — rebuild with shadcn Input + search icon, preserve clear button (2026-03-15)
+- [x] **Stage 10**: Replace `src/components/ui/api-key-input.tsx` — rebuild with shadcn Input + copy-to-clipboard, preserve masked display (2026-03-15)
+- [x] **Stage 11**: Replace `src/components/ui/checkbox.tsx` — swap with shadcn Checkbox, update all import sites (2026-03-15)
+- [x] **Stage 12**: Replace `src/components/ui/toggle.tsx` — swap with shadcn Switch, update all import sites (2026-03-15)
+- [x] **Stage 13**: Replace `src/components/ui/select.tsx` — swap with shadcn Select, update all import sites (2026-03-15)
+- [x] **Stage 14**: Replace `src/components/ui/dropdown-menu.tsx` — swap with shadcn DropdownMenu (already Radix-based, align API), update all import sites (2026-03-15)
+- [x] **Stage 15**: Replace `src/components/ui/badge.tsx` — swap with shadcn Badge, preserve variant names, update all import sites (2026-03-15)
+- [x] **Stage 16**: Replace `src/components/ui/modal.tsx` — swap with shadcn Dialog, update all import sites (2026-03-15)
+- [x] **Stage 17**: Replace `src/components/ui/confirm-dialog.tsx` — rebuild with shadcn AlertDialog, preserve onConfirm/onCancel callbacks (2026-03-15)
+- [x] **Stage 18**: Replace `src/components/ui/table.tsx` — swap with shadcn Table (Table, TableBody, TableCell, TableHead, TableHeader, TableRow), update all import sites (2026-03-15)
+- [x] **Stage 19**: Replace `src/components/ui/tabs.tsx` — swap with shadcn Tabs, update all import sites (2026-03-15)
+- [x] **Stage 20**: Replace `src/components/ui/pagination.tsx` — swap with shadcn Pagination, update all import sites (2026-03-15)
+- [x] **Stage 21**: Replace `src/components/ui/toast.tsx` — swap with shadcn Toast + Toaster + useToast hook, update all import sites (2026-03-15)
+- [x] **Stage 22**: Replace `src/components/ui/alert-banner.tsx` — swap with shadcn Alert, preserve variant names (info, warning, error, success), update all import sites (2026-03-15)
+- [x] **Stage 23**: Replace `src/components/ui/skeleton-loader.tsx` — swap with shadcn Skeleton, update all import sites (2026-03-15)
+- [x] **Stage 24**: Replace `src/components/ui/stat-card.tsx` — rebuild with shadcn Card, preserve metric display layout (2026-03-15)
+- [x] **Stage 25**: Replace `src/components/ui/status-indicator.tsx` — rebuild with shadcn Badge + dot indicator pattern (2026-03-15)
+- [x] **Stage 26**: Replace `src/components/ui/copy-to-clipboard.tsx` — rebuild with shadcn Button + Tooltip for feedback (2026-03-15)
+- [x] **Stage 27**: Replace `src/components/ui/empty-state.tsx` — rebuild with shadcn Card + centered content pattern (2026-03-15)
+- [x] **Stage 28**: Replace `src/components/ui/error-state.tsx` — rebuild with shadcn Alert (destructive) + Button for retry (2026-03-15)
+- [x] **Stage 29**: Replace `src/components/ui/icon-button.tsx` — replace with shadcn Button variant="ghost" size="icon", update all import sites (2026-03-15)
+- [x] **Stage 30**: Replace `src/components/ui/link.tsx` — simplify to thin wrapper or remove if trivial, update all import sites (2026-03-15)
+- [x] **Stage 31**: Replace `src/components/ui/activity-feed.tsx` — rebuild with shadcn Card + list pattern (2026-03-15)
 
 ## Replace Layout Components (stages 32–42) `[replace-layout]`
 
-- [ ] **Stage 32**: Replace `src/components/layout/sidebar.tsx` — rebuild with shadcn Sheet (mobile) + nav pattern (desktop), preserve icon-only tablet collapse, preserve all nav links
-- [ ] **Stage 33**: Replace `src/components/layout/dashboard-layout.tsx` — rebuild wrapper using shadcn primitives, integrate new sidebar, preserve impersonation banner
-- [ ] **Stage 34**: Replace `src/components/layout/dashboard-topbar.tsx` — rebuild with shadcn primitives, preserve breadcrumbs/title
-- [ ] **Stage 35**: Replace `src/components/layout/public-navbar.tsx` — rebuild with shadcn NavigationMenu or custom nav using shadcn Button/Sheet
-- [ ] **Stage 36**: Replace `src/components/layout/public-footer.tsx` — rebuild with shadcn primitives, preserve link structure
-- [ ] **Stage 37**: Replace `src/components/layout/public-layout.tsx` — rebuild wrapper using new navbar + footer
-- [ ] **Stage 38**: Replace `src/components/layout/auth-layout.tsx` — rebuild with shadcn Card for auth card container
-- [ ] **Stage 39**: Replace `src/components/layout/auth-card.tsx` — rebuild with shadcn Card, preserve CI stripe accent
-- [ ] **Stage 40**: Replace `src/components/layout/admin-layout.tsx` — rebuild with shadcn primitives, preserve admin nav
-- [ ] **Stage 41**: Replace `src/components/layout/page-shell.tsx` — rebuild with shadcn container pattern
-- [ ] **Stage 42**: Replace `src/components/layout/progress-bar.tsx` — keep next-nprogress-bar but style with Daimon theme colors
+- [x] **Stage 32**: Replace `src/components/layout/sidebar.tsx` — rebuild with shadcn Sheet (mobile) + nav pattern (desktop), preserve icon-only tablet collapse, preserve all nav links (2026-03-15)
+- [x] **Stage 33**: Replace `src/components/layout/dashboard-layout.tsx` — rebuild wrapper using shadcn primitives, integrate new sidebar, preserve impersonation banner (2026-03-15)
+- [x] **Stage 34**: Replace `src/components/layout/dashboard-topbar.tsx` — rebuild with shadcn primitives, preserve breadcrumbs/title (2026-03-15)
+- [x] **Stage 35**: Replace `src/components/layout/public-navbar.tsx` — rebuild with shadcn NavigationMenu or custom nav using shadcn Button/Sheet (2026-03-15)
+- [x] **Stage 36**: Replace `src/components/layout/public-footer.tsx` — rebuild with shadcn primitives, preserve link structure (2026-03-15)
+- [x] **Stage 37**: Replace `src/components/layout/public-layout.tsx` — rebuild wrapper using new navbar + footer (2026-03-15)
+- [x] **Stage 38**: Replace `src/components/layout/auth-layout.tsx` — rebuild with shadcn Card for auth card container (2026-03-15)
+- [x] **Stage 39**: Replace `src/components/layout/auth-card.tsx` — rebuild with shadcn Card, preserve CI stripe accent (2026-03-15)
+- [x] **Stage 40**: Replace `src/components/layout/admin-layout.tsx` — rebuild with shadcn primitives, preserve admin nav (2026-03-15)
+- [x] **Stage 41**: Replace `src/components/layout/page-shell.tsx` — rebuild with shadcn container pattern (2026-03-15)
+- [x] **Stage 42**: Replace `src/components/layout/progress-bar.tsx` — keep next-nprogress-bar but style with Daimon theme colors (2026-03-15)
 
 ## Replace Domain Components (stages 43–61) `[replace-domain]`
 
-- [ ] **Stage 43**: Replace `src/components/dashboard/dashboard-status-cards.tsx` — swap internals to shadcn Card + Badge
-- [ ] **Stage 44**: Replace `src/components/dashboard/onboarding-checklist.tsx` — rebuild with shadcn Card + Checkbox + progress pattern
-- [ ] **Stage 45**: Replace `src/components/dashboard/quick-stats-row.tsx` — swap internals to shadcn Card
-- [ ] **Stage 46**: Replace `src/components/billing/current-plan-card.tsx` — rebuild with shadcn Card + Badge + Button
-- [ ] **Stage 47**: Replace `src/components/billing/plan-comparison-grid.tsx` — rebuild with shadcn Card grid + Table for feature comparison
-- [ ] **Stage 48**: Replace `src/components/billing/api-key-section.tsx` — rebuild with shadcn Card + Input + Button + Dialog
-- [ ] **Stage 49**: Replace `src/components/billing/billing-alert-banners.tsx` — rebuild with shadcn Alert variants
-- [ ] **Stage 50**: Replace `src/components/billing/checkout-return-banner.tsx` — rebuild with shadcn Alert (success variant)
-- [ ] **Stage 51**: Replace `src/components/billing/subscription-lifecycle-watcher.tsx` — swap any UI elements to shadcn (this may be logic-only)
-- [ ] **Stage 52**: Replace `src/components/integrations/discord-connection-card.tsx` — rebuild with shadcn Card + Badge + Button
-- [ ] **Stage 53**: Replace `src/components/integrations/service-grid.tsx` — rebuild with shadcn Card grid
-- [ ] **Stage 54**: Replace `src/components/settings/account-section.tsx` — rebuild with shadcn Card + Input + Button + Label
-- [ ] **Stage 55**: Replace `src/components/settings/workspace-section.tsx` — rebuild with shadcn Card + Input + Button + Label
-- [ ] **Stage 56**: Replace `src/components/settings/discord-section.tsx` — rebuild with shadcn Card + Badge + Button
-- [ ] **Stage 57**: Replace `src/components/settings/danger-zone-section.tsx` — rebuild with shadcn Card (destructive border) + AlertDialog for confirmation
-- [ ] **Stage 58**: Replace `src/components/landing/faq-section.tsx` — rebuild with shadcn Accordion (install if needed: `npx shadcn@latest add accordion`)
-- [ ] **Stage 59**: Replace `src/components/landing/pricing-section.tsx` — rebuild with shadcn Card grid + Badge + Button
-- [ ] **Stage 60**: Replace `src/components/seo/json-ld.tsx` — no UI, but verify it still renders valid JSON-LD after any layout changes
-- [ ] **Stage 61**: Clean up: delete any orphaned old component files that are no longer imported anywhere
+- [x] **Stage 43**: Replace `src/components/dashboard/dashboard-status-cards.tsx` — swap internals to shadcn Card + Badge (2026-03-15)
+- [x] **Stage 44**: Replace `src/components/dashboard/onboarding-checklist.tsx` — rebuild with shadcn Card + Checkbox + progress pattern (2026-03-15)
+- [x] **Stage 45**: Replace `src/components/dashboard/quick-stats-row.tsx` — swap internals to shadcn Card (2026-03-15)
+- [x] **Stage 46**: Replace `src/components/billing/current-plan-card.tsx` — rebuild with shadcn Card + Badge + Button (2026-03-15)
+- [x] **Stage 47**: Replace `src/components/billing/plan-comparison-grid.tsx` — rebuild with shadcn Card grid + Table for feature comparison (2026-03-15)
+- [x] **Stage 48**: Replace `src/components/billing/api-key-section.tsx` — rebuild with shadcn Card + Input + Button + Dialog (2026-03-15)
+- [x] **Stage 49**: Replace `src/components/billing/billing-alert-banners.tsx` — rebuild with shadcn Alert variants (2026-03-15)
+- [x] **Stage 50**: Replace `src/components/billing/checkout-return-banner.tsx` — rebuild with shadcn Alert (success variant) (2026-03-15)
+- [x] **Stage 51**: Replace `src/components/billing/subscription-lifecycle-watcher.tsx` — swap any UI elements to shadcn (this may be logic-only) (2026-03-15)
+- [x] **Stage 52**: Replace `src/components/integrations/discord-connection-card.tsx` — rebuild with shadcn Card + Badge + Button (2026-03-15)
+- [x] **Stage 53**: Replace `src/components/integrations/service-grid.tsx` — rebuild with shadcn Card grid (2026-03-15)
+- [x] **Stage 54**: Replace `src/components/settings/account-section.tsx` — rebuild with shadcn Card + Input + Button + Label (2026-03-15)
+- [x] **Stage 55**: Replace `src/components/settings/workspace-section.tsx` — rebuild with shadcn Card + Input + Button + Label (2026-03-15)
+- [x] **Stage 56**: Replace `src/components/settings/discord-section.tsx` — rebuild with shadcn Card + Badge + Button (2026-03-15)
+- [x] **Stage 57**: Replace `src/components/settings/danger-zone-section.tsx` — rebuild with shadcn Card (destructive border) + AlertDialog for confirmation (2026-03-15)
+- [x] **Stage 58**: Replace `src/components/landing/faq-section.tsx` — rebuild with shadcn Accordion (install if needed: `npx shadcn@latest add accordion`) (2026-03-15)
+- [x] **Stage 59**: Replace `src/components/landing/pricing-section.tsx` — rebuild with shadcn Card grid + Badge + Button (2026-03-15)
+- [x] **Stage 60**: Replace `src/components/seo/json-ld.tsx` — no UI, but verify it still renders valid JSON-LD after any layout changes (2026-03-15)
+- [x] **Stage 61**: Clean up: delete any orphaned old component files that are no longer imported anywhere (2026-03-15)
 
 ## Replace Page-Level Inline Styles (stages 62–66) `[replace-page]`
 
-- [ ] **Stage 62**: Migrate `/signup` page (`src/app/signup/page.tsx`) — replace all inline `style={}` with shadcn components (Input, Button, Label, Checkbox, Card), extract PasswordField/PasswordStrengthBar into shadcn-based components
-- [ ] **Stage 63**: Migrate `/login` page (`src/app/login/page.tsx`) — replace all inline styles with shadcn components
-- [ ] **Stage 64**: Migrate `/reset-password` page and `/reset-password/confirm` — replace inline styles with shadcn components
-- [ ] **Stage 65**: Migrate landing page (`src/app/page.tsx`) — replace inline styles with shadcn components + Tailwind
-- [ ] **Stage 66**: Migrate `/about` and `/changelog` pages — replace inline styles with shadcn components + Tailwind
+- [x] **Stage 62**: Migrate `/signup` page (`src/app/signup/page.tsx`) — replace all inline `style={}` with shadcn components (Input, Button, Label, Checkbox, Card), extract PasswordField/PasswordStrengthBar into shadcn-based components (2026-03-15)
+- [x] **Stage 63**: Migrate `/login` page (`src/app/login/page.tsx`) — replace all inline styles with shadcn components (2026-03-15)
+- [x] **Stage 64**: Migrate `/reset-password` page and `/reset-password/confirm` — replace inline styles with shadcn components (2026-03-15)
+- [x] **Stage 65**: Migrate landing page (`src/app/page.tsx`) — replace inline styles with shadcn components + Tailwind (2026-03-15)
+- [x] **Stage 66**: Migrate `/about` and `/changelog` pages — replace inline styles with shadcn components + Tailwind (2026-03-15)
 
 ## Desktop Verify (stages 67–97) `[desktop-verify]`
 
 Each stage: navigate route at 1280x800 via Playwright, assert no console errors, no 500/404, page content renders, all links valid, take screenshot.
 
-- [ ] **Stage 67**: Desktop verify `/` (landing page) — hero section, features, pricing, FAQ, footer all render
-- [ ] **Stage 68**: Desktop verify `/about` — content renders, team/mission section visible
-- [ ] **Stage 69**: Desktop verify `/changelog` — changelog entries render
-- [ ] **Stage 70**: Desktop verify `/login` — form renders with email + password fields, submit button, "sign up" link
-- [ ] **Stage 71**: Desktop verify `/signup` — form renders with full name + email + password + confirm + terms checkbox, submit button, "sign in" link
-- [ ] **Stage 72**: Desktop verify `/reset-password` — form renders with email field, submit button
-- [ ] **Stage 73**: Desktop verify `/reset-password/confirm` — form renders with new password fields
-- [ ] **Stage 74**: Desktop verify `/terms` — legal text renders, headings structured
-- [ ] **Stage 75**: Desktop verify `/privacy` — legal text renders, headings structured
-- [ ] **Stage 76**: Desktop verify `/legal/cookies` — cookie policy text renders
-- [ ] **Stage 77**: Desktop verify `/docs` — docs index page renders, navigation links present
-- [ ] **Stage 78**: Desktop verify `/docs/quick-start` — quick start guide renders with steps
-- [ ] **Stage 79**: Desktop verify `/docs/tools` — tools documentation renders with tool list
-- [ ] **Stage 80**: Desktop verify `/docs/billing` — billing docs render
-- [ ] **Stage 81**: Desktop verify `/docs/faq` — FAQ items render with questions and answers
-- [ ] **Stage 82**: Desktop verify `/blog` — blog index renders with post cards
-- [ ] **Stage 83**: Desktop verify `/blog/introducing-daimon` — blog post renders with title, date, body
-- [ ] **Stage 84**: Desktop verify `/blog/byok-why-it-matters` — blog post renders
-- [ ] **Stage 85**: Desktop verify `/blog/discord-as-operating-system` — blog post renders
-- [ ] **Stage 86**: Desktop verify `/dashboard` (authenticated) — sign in first, verify status cards + quick stats + onboarding checklist render
-- [ ] **Stage 87**: Desktop verify `/dashboard/billing` (authenticated) — current plan card + plan comparison grid render
-- [ ] **Stage 88**: Desktop verify `/dashboard/integrations` (authenticated) — Discord connection card + service grid render
-- [ ] **Stage 89**: Desktop verify `/dashboard/settings` (authenticated) — account section + workspace section + discord section + danger zone render
-- [ ] **Stage 90**: Desktop verify `/admin` (authenticated) — admin dashboard renders
-- [ ] **Stage 91**: Desktop verify `/admin/tenants` (authenticated) — tenant list table renders with at least 1 row
-- [ ] **Stage 92**: Desktop verify `/admin/tenants/[id]` (authenticated) — tenant detail page renders with tenant info
-- [ ] **Stage 93**: Desktop verify `/admin/audit-log` (authenticated) — audit log table renders
-- [ ] **Stage 94**: Desktop verify `/robots.txt` — valid robots.txt content
-- [ ] **Stage 95**: Desktop verify `/sitemap.xml` — valid XML sitemap
-- [ ] **Stage 96**: Desktop verify `/_not-found` (404) — styled 404 page renders (not default Next.js)
-- [ ] **Stage 97**: Desktop verify invalid route `/asdfghjkl` — 404 page renders
+- [x] **Stage 67**: Desktop verify `/` (landing page) — hero section, features, pricing, FAQ, footer all render (2026-03-15)
+- [x] **Stage 68**: Desktop verify `/about` — content renders, team/mission section visible (2026-03-15)
+- [x] **Stage 69**: Desktop verify `/changelog` — changelog entries render (2026-03-15)
+- [x] **Stage 70**: Desktop verify `/login` — form renders with email + password fields, submit button, "sign up" link (2026-03-15)
+- [x] **Stage 71**: Desktop verify `/signup` — form renders with full name + email + password + confirm + terms checkbox, submit button, "sign in" link (2026-03-15)
+- [x] **Stage 72**: Desktop verify `/reset-password` — form renders with email field, submit button (2026-03-15)
+- [x] **Stage 73**: Desktop verify `/reset-password/confirm` — form renders with new password fields (2026-03-15)
+- [x] **Stage 74**: Desktop verify `/terms` — legal text renders, headings structured (2026-03-15)
+- [x] **Stage 75**: Desktop verify `/privacy` — legal text renders, headings structured (2026-03-15)
+- [x] **Stage 76**: Desktop verify `/legal/cookies` — cookie policy text renders (2026-03-15)
+- [x] **Stage 77**: Desktop verify `/docs` — docs index page renders, navigation links present (2026-03-15)
+- [x] **Stage 78**: Desktop verify `/docs/quick-start` — quick start guide renders with steps (2026-03-15)
+- [x] **Stage 79**: Desktop verify `/docs/tools` — tools documentation renders with tool list (2026-03-15)
+- [x] **Stage 80**: Desktop verify `/docs/billing` — billing docs render (2026-03-15)
+- [x] **Stage 81**: Desktop verify `/docs/faq` — FAQ items render with questions and answers (2026-03-15)
+- [x] **Stage 82**: Desktop verify `/blog` — blog index renders with post cards (2026-03-15)
+- [x] **Stage 83**: Desktop verify `/blog/introducing-daimon` — blog post renders with title, date, body (2026-03-15)
+- [x] **Stage 84**: Desktop verify `/blog/byok-why-it-matters` — blog post renders (2026-03-15)
+- [x] **Stage 85**: Desktop verify `/blog/discord-as-operating-system` — blog post renders (2026-03-15)
+- [x] **Stage 86**: Desktop verify `/dashboard` (authenticated) — sign in first, verify status cards + quick stats + onboarding checklist render (2026-03-15)
+- [x] **Stage 87**: Desktop verify `/dashboard/billing` (authenticated) — current plan card + plan comparison grid render (2026-03-15)
+- [x] **Stage 88**: Desktop verify `/dashboard/integrations` (authenticated) — Discord connection card + service grid render (2026-03-15)
+- [x] **Stage 89**: Desktop verify `/dashboard/settings` (authenticated) — account section + workspace section + discord section + danger zone render (2026-03-15)
+- [x] **Stage 90**: Desktop verify `/admin` (authenticated) — admin dashboard renders (2026-03-15)
+- [x] **Stage 91**: Desktop verify `/admin/tenants` (authenticated) — tenant list table renders with at least 1 row (2026-03-15)
+- [x] **Stage 92**: Desktop verify `/admin/tenants/[id]` (authenticated) — tenant detail page renders with tenant info (2026-03-15)
+- [x] **Stage 93**: Desktop verify `/admin/audit-log` (authenticated) — audit log table renders (2026-03-15)
+- [x] **Stage 94**: Desktop verify `/robots.txt` — valid robots.txt content (2026-03-15)
+- [x] **Stage 95**: Desktop verify `/sitemap.xml` — valid XML sitemap (2026-03-15)
+- [x] **Stage 96**: Desktop verify `/_not-found` (404) — styled 404 page renders (not default Next.js) (2026-03-15)
+- [x] **Stage 97**: Desktop verify invalid route `/asdfghjkl` — 404 page renders (2026-03-15)
 
 ## Mobile Verify (stages 98–128) `[mobile-verify]`
 
 Each stage: navigate route at 375x812 via Playwright, assert no horizontal overflow, touch targets >= 44px, text >= 14px, mobile nav works, take screenshot.
 
-- [ ] **Stage 98**: Mobile verify `/` — hero stacks vertically, pricing cards stack, mobile hamburger nav works
-- [ ] **Stage 99**: Mobile verify `/about` — content readable, no overflow
-- [ ] **Stage 100**: Mobile verify `/changelog` — entries stack vertically
-- [ ] **Stage 101**: Mobile verify `/login` — form fills viewport width with padding, inputs full-width
-- [ ] **Stage 102**: Mobile verify `/signup` — form fills viewport width, all fields accessible, password strength bar visible
-- [ ] **Stage 103**: Mobile verify `/reset-password` — form centered, full-width input
-- [ ] **Stage 104**: Mobile verify `/reset-password/confirm` — form centered
-- [ ] **Stage 105**: Mobile verify `/terms` — text wraps properly, headings visible
-- [ ] **Stage 106**: Mobile verify `/privacy` — text wraps properly
-- [ ] **Stage 107**: Mobile verify `/legal/cookies` — text wraps properly
-- [ ] **Stage 108**: Mobile verify `/docs` — docs nav collapses or stacks, content readable
-- [ ] **Stage 109**: Mobile verify `/docs/quick-start` — content readable
-- [ ] **Stage 110**: Mobile verify `/docs/tools` — tool list stacks
-- [ ] **Stage 111**: Mobile verify `/docs/billing` — content readable
-- [ ] **Stage 112**: Mobile verify `/docs/faq` — FAQ items full-width
-- [ ] **Stage 113**: Mobile verify `/blog` — blog cards stack vertically
-- [ ] **Stage 114**: Mobile verify `/blog/introducing-daimon` — post readable, images scale
-- [ ] **Stage 115**: Mobile verify `/blog/byok-why-it-matters` — post readable
-- [ ] **Stage 116**: Mobile verify `/blog/discord-as-operating-system` — post readable
-- [ ] **Stage 117**: Mobile verify `/dashboard` (authenticated) — bottom nav or hamburger works, status cards stack, stats row stacks
-- [ ] **Stage 118**: Mobile verify `/dashboard/billing` (authenticated) — plan cards stack, comparison grid scrolls or stacks
-- [ ] **Stage 119**: Mobile verify `/dashboard/integrations` (authenticated) — service grid stacks
-- [ ] **Stage 120**: Mobile verify `/dashboard/settings` (authenticated) — form sections stack, inputs full-width
-- [ ] **Stage 121**: Mobile verify `/admin` (authenticated) — admin content accessible
-- [ ] **Stage 122**: Mobile verify `/admin/tenants` (authenticated) — table scrolls horizontally or cards stack
-- [ ] **Stage 123**: Mobile verify `/admin/tenants/[id]` (authenticated) — detail page readable
-- [ ] **Stage 124**: Mobile verify `/admin/audit-log` (authenticated) — table scrolls or stacks
-- [ ] **Stage 125**: Mobile verify `/robots.txt` — renders
-- [ ] **Stage 126**: Mobile verify `/sitemap.xml` — renders
+- [x] **Stage 98**: Mobile verify `/` — hero stacks vertically, pricing cards stack, mobile hamburger nav works (2026-03-15)
+- [x] **Stage 99**: Mobile verify `/about` — content readable, no overflow (2026-03-15)
+- [x] **Stage 100**: Mobile verify `/changelog` — entries stack vertically (2026-03-15)
+- [x] **Stage 101**: Mobile verify `/login` — form fills viewport width with padding, inputs full-width (2026-03-15)
+- [x] **Stage 102**: Mobile verify `/signup` — form fills viewport width, all fields accessible, password strength bar visible (2026-03-15)
+- [x] **Stage 103**: Mobile verify `/reset-password` — form centered, full-width input (2026-03-15)
+- [x] **Stage 104**: Mobile verify `/reset-password/confirm` — form centered (2026-03-15)
+- [x] **Stage 105**: Mobile verify `/terms` — text wraps properly, headings visible (2026-03-15)
+- [x] **Stage 106**: Mobile verify `/privacy` — text wraps properly (2026-03-15)
+- [x] **Stage 107**: Mobile verify `/legal/cookies` — text wraps properly (2026-03-15)
+- [x] **Stage 108**: Mobile verify `/docs` — docs nav collapses or stacks, content readable (2026-03-15)
+- [x] **Stage 109**: Mobile verify `/docs/quick-start` — content readable (2026-03-15)
+- [x] **Stage 110**: Mobile verify `/docs/tools` — tool list stacks (2026-03-15)
+- [x] **Stage 111**: Mobile verify `/docs/billing` — content readable (2026-03-15)
+- [x] **Stage 112**: Mobile verify `/docs/faq` — FAQ items full-width (2026-03-15)
+- [x] **Stage 113**: Mobile verify `/blog` — blog cards stack vertically (2026-03-15)
+- [x] **Stage 114**: Mobile verify `/blog/introducing-daimon` — post readable, images scale (2026-03-15)
+- [x] **Stage 115**: Mobile verify `/blog/byok-why-it-matters` — post readable (2026-03-15)
+- [x] **Stage 116**: Mobile verify `/blog/discord-as-operating-system` — post readable (2026-03-15)
+- [x] **Stage 117**: Mobile verify `/dashboard` (authenticated) — bottom nav or hamburger works, status cards stack, stats row stacks (2026-03-15)
+- [x] **Stage 118**: Mobile verify `/dashboard/billing` (authenticated) — plan cards stack, comparison grid scrolls or stacks (2026-03-15)
+- [x] **Stage 119**: Mobile verify `/dashboard/integrations` (authenticated) — service grid stacks (2026-03-15)
+- [x] **Stage 120**: Mobile verify `/dashboard/settings` (authenticated) — form sections stack, inputs full-width (2026-03-15)
+- [x] **Stage 121**: Mobile verify `/admin` (authenticated) — admin content accessible (2026-03-15)
+- [x] **Stage 122**: Mobile verify `/admin/tenants` (authenticated) — table scrolls horizontally or cards stack (2026-03-15)
+- [x] **Stage 123**: Mobile verify `/admin/tenants/[id]` (authenticated) — detail page readable (2026-03-15)
+- [x] **Stage 124**: Mobile verify `/admin/audit-log` (authenticated) — table scrolls or stacks (2026-03-15)
+- [x] **Stage 125**: Mobile verify `/robots.txt` — renders (2026-03-15)
+- [x] **Stage 126**: Mobile verify `/sitemap.xml` — renders (2026-03-15)
 - [ ] **Stage 127**: Mobile verify 404 page — styled page renders
 - [ ] **Stage 128**: Mobile verify invalid route — 404 renders
 

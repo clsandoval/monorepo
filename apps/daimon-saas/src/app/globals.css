@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 /* ─────────────────────────────────────────────────────────────────────────────
    shadcn/ui CSS Variables — mapped to Daimon brand tokens
@@ -338,6 +342,41 @@
   --ease-standard: ease;
   --ease-enter:    cubic-bezier(0.22, 1, 0.36, 1);
   --ease-exit:     ease-in;
+
+  /* ── shadcn/ui semantic tokens → Daimon brand ─────────────────────────── */
+  --background:                0 0% 97%;          /* #F7F7F7 — page background */
+  --foreground:                213 54% 16%;        /* #0C1F40 — primary text */
+  --card:                      0 0% 100%;          /* #FFFFFF */
+  --card-foreground:           213 54% 16%;
+  --popover:                   0 0% 100%;
+  --popover-foreground:        213 54% 16%;
+  --primary:                   163 53% 81%;        /* #B4E7DD — teal accent */
+  --primary-foreground:        213 54% 16%;
+  --secondary:                 231 52% 75%;        /* #9FAAE2 — lavender */
+  --secondary-foreground:      213 54% 16%;
+  --muted:                     213 54% 16% / 0.06;
+  --muted-foreground:          213 54% 16% / 0.55;
+  --accent:                    163 53% 81%;
+  --accent-foreground:         213 54% 16%;
+  --destructive:               0 84% 60%;          /* #DC2626 */
+  --destructive-foreground:    0 0% 100%;
+  --border:                    213 54% 16% / 0.15;
+  --input:                     213 54% 16% / 0.2;
+  --ring:                      163 53% 81%;
+  --chart-1:                   163 53% 81%;        /* teal */
+  --chart-2:                   231 52% 75%;        /* lavender */
+  --chart-3:                   213 54% 16%;        /* navy */
+  --chart-4:                   28 89% 70%;         /* peach (viz only) */
+  --chart-5:                   0 0% 97%;           /* soft white */
+  --radius:                    0rem;               /* Daimon uses sharp corners */
+  --sidebar:                   213 54% 16%;        /* navy sidebar */
+  --sidebar-foreground:        0 0% 100%;
+  --sidebar-primary:           163 53% 81%;        /* teal */
+  --sidebar-primary-foreground: 213 54% 16%;
+  --sidebar-accent:            163 53% 81% / 0.1;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border:            0 0% 100% / 0.1;
+  --sidebar-ring:              163 53% 81%;
 }
 
 /* Reduced motion — disable durations for decorative animations */
@@ -359,11 +398,9 @@
 }
 
 /* ── Base reset ──────────────────────────────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* Tailwind v4 preflight (included via @import "tailwindcss") already resets
+   box-sizing, margin, and padding. A manual reset here would be unlayered CSS
+   that overrides @layer utilities rules, breaking margin/padding utilities. */
 
 html {
   scroll-behavior: smooth;
@@ -488,7 +525,7 @@ a {
   /* Section label (eyebrow text) */
   .section-label {
     font-family: var(--font-body);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -543,6 +580,16 @@ a {
     font-size: 13px;
     font-weight: 500;
     border-radius: 0;
+  }
+
+  /* Landing page card stripe — simplified gradient */
+  .card-stripe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(to bottom, var(--color-aqua) 30%, var(--color-periwinkle) 35%, var(--color-aqua) 60%);
   }
 
   /* CI accent stripe — left-edge card decoration */
@@ -626,18 +673,6 @@ a {
     animation: fieldErrorAppear 150ms ease forwards;
   }
 
-  /* Alert banner dismiss animation */
-  .alert-banner-dismissing {
-    opacity: 0;
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    overflow: hidden;
-    transition:
-      opacity 200ms ease-in,
-      max-height 200ms ease-in,
-      padding 200ms ease-in;
-  }
 
   /* Sidebar collapse transition */
   .sidebar-collapsible {
@@ -657,5 +692,55 @@ a {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1' height='1' fill='%230C1F40' fill-opacity='0.08'/%3E%3C/svg%3E");
     background-size: 4px 4px;
     pointer-events: none;
+  }
+}
+
+/* Dark mode intentionally omitted — Daimon is light-only */
+
+@theme inline {
+  --font-sans:       var(--font-inter), sans-serif;
+  --color-sidebar-ring:       hsl(var(--sidebar-ring));
+  --color-sidebar-border:       hsl(var(--sidebar-border));
+  --color-sidebar-accent-foreground:       hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-accent:       hsl(var(--sidebar-accent));
+  --color-sidebar-primary-foreground:       hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-primary:       hsl(var(--sidebar-primary));
+  --color-sidebar-foreground:       hsl(var(--sidebar-foreground));
+  --color-sidebar:       hsl(var(--sidebar));
+  --color-chart-5:       hsl(var(--chart-5));
+  --color-chart-4:       hsl(var(--chart-4));
+  --color-chart-3:       hsl(var(--chart-3));
+  --color-chart-2:       hsl(var(--chart-2));
+  --color-chart-1:       hsl(var(--chart-1));
+  --color-ring:       hsl(var(--ring));
+  --color-input:       hsl(var(--input));
+  --color-border:       hsl(var(--border));
+  --color-destructive:       hsl(var(--destructive));
+  --color-accent-foreground:       hsl(var(--accent-foreground));
+  --color-accent:       hsl(var(--accent));
+  --color-muted-foreground:       hsl(var(--muted-foreground));
+  --color-muted:       hsl(var(--muted));
+  --color-secondary-foreground:       hsl(var(--secondary-foreground));
+  --color-secondary:       hsl(var(--secondary));
+  --color-primary-foreground:       hsl(var(--primary-foreground));
+  --color-primary:       hsl(var(--primary));
+  --color-popover-foreground:       hsl(var(--popover-foreground));
+  --color-popover:       hsl(var(--popover));
+  --color-card-foreground:       hsl(var(--card-foreground));
+  --color-card:       hsl(var(--card));
+  --color-foreground:       hsl(var(--foreground));
+  --color-background:       hsl(var(--background));
+  --radius-sm:       0px;
+  --radius-md:       0px;
+  --radius-lg:       0px;
+  --radius-xl:       0px;
+  --radius-2xl:       0px;
+  --radius-3xl:       0px;
+  --radius-4xl:       0px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
 }

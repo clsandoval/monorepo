@@ -1,0 +1,24 @@
+[      84ms] [ERROR] Error: Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY. Copy .env.local.example to .env.local and fill in your Supabase credentials.
+    at rE (http://localhost:3000/_next/static/chunks/a96346031da0043a.js:55:129)
+    at N (http://localhost:3000/_next/static/chunks/ca3303a3c44a12b9.js:1:5911)
+    at av (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:61258)
+    at oY (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:81531)
+    at io (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:92963)
+    at sc (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:135984)
+    at http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:135829
+    at ss (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:135837)
+    at u9 (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:131762)
+    at sV (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:157357) @ http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:0
+[      89ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[      89ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/reset-password/confirm:0
+[      93ms] [ERROR] [global error] Error: Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY. Copy .env.local.example to .env.local and fill in your Supabase credentials.
+    at rE (http://localhost:3000/_next/static/chunks/a96346031da0043a.js:55:129)
+    at N (http://localhost:3000/_next/static/chunks/ca3303a3c44a12b9.js:1:5911)
+    at av (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:61258)
+    at oY (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:81531)
+    at io (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:92963)
+    at sc (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:135984)
+    at http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:135829
+    at ss (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:135837)
+    at u9 (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:131762)
+    at sV (http://localhost:3000/_next/static/chunks/9acf66e95c17faef.js:1:157357) @ http://localhost:3000/_next/static/chunks/55763026e82f388e.js:0

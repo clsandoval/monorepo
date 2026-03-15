@@ -3,53 +3,18 @@
 import * as React from 'react'
 import { useToast } from '@/lib/toast'
 import { useRouter } from 'next/navigation'
-import { Eye, EyeOff } from 'lucide-react'
-
-function Spinner() {
-  return (
-    <span
-      style={{
-        width: '16px',
-        height: '16px',
-        border: '2px solid #0C1F40',
-        borderTopColor: 'transparent',
-        borderRadius: '50%',
-        display: 'inline-block',
-        animation: 'spin 0.7s linear infinite',
-      }}
-    />
-  )
-}
-
-function fieldInputBase(hasError: boolean): React.CSSProperties {
-  return {
-    width: '320px',
-    height: '40px',
-    padding: '10px 12px',
-    fontFamily: 'var(--font-inter), Inter, sans-serif',
-    fontWeight: 400,
-    fontSize: '14px',
-    color: '#111827',
-    background: '#FFFFFF',
-    border: hasError ? '1px solid #EF4444' : '1px solid #D1D5DB',
-    borderRadius: '0px',
-    outline: 'none',
-    boxSizing: 'border-box',
-  }
-}
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
 
 function FieldError({ message }: { message: string | null }) {
   if (!message) return null
   return (
-    <p
-      style={{
-        fontFamily: 'var(--font-inter), Inter, sans-serif',
-        fontWeight: 400,
-        fontSize: '12px',
-        color: '#EF4444',
-        margin: '6px 0 0 0',
-      }}
-    >
+    <p className="mt-1.5 text-sm text-destructive">
       {message}
     </p>
   )
@@ -57,65 +22,35 @@ function FieldError({ message }: { message: string | null }) {
 
 function FieldHint({ children }: { children: React.ReactNode }) {
   return (
-    <p
-      style={{
-        fontFamily: 'var(--font-inter), Inter, sans-serif',
-        fontWeight: 400,
-        fontSize: '12px',
-        color: '#6B7280',
-        margin: '6px 0 0 0',
-      }}
-    >
+    <p className="mt-1.5 text-sm text-muted-foreground">
       {children}
     </p>
   )
 }
 
-function FieldLabel({ htmlFor, children }: { htmlFor?: string; children: React.ReactNode }) {
-  return (
-    <label
-      htmlFor={htmlFor}
-      style={{
-        display: 'block',
-        fontFamily: 'var(--font-inter), Inter, sans-serif',
-        fontWeight: 500,
-        fontSize: '14px',
-        color: '#374151',
-        marginBottom: '6px',
-      }}
-    >
-      {children}
-    </label>
-  )
-}
-
-interface PasswordInputProps {
+interface PasswordFieldProps {
   id: string
   name: string
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   autoComplete: string
   hasError: boolean
-  onFocus: (e: React.FocusEvent<HTMLInputElement>) => void
-  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void
   minLength?: number
 }
 
-function PasswordInput({
+function PasswordField({
   id,
   name,
   value,
   onChange,
   autoComplete,
   hasError,
-  onFocus,
-  onBlur,
   minLength,
-}: PasswordInputProps) {
+}: PasswordFieldProps) {
   const [show, setShow] = React.useState(false)
   return (
-    <div style={{ position: 'relative', display: 'inline-block' }}>
-      <input
+    <div className="relative w-full sm:w-80">
+      <Input
         id={id}
         name={name}
         type={show ? 'text' : 'password'}
@@ -124,27 +59,16 @@ function PasswordInput({
         required
         autoComplete={autoComplete}
         minLength={minLength}
-        style={{ ...fieldInputBase(hasError), paddingRight: '40px' }}
-        onFocus={onFocus}
-        onBlur={onBlur}
+        className={cn(
+          'w-full h-10 pr-10',
+          hasError && 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20'
+        )}
       />
       <button
         type="button"
         onClick={() => setShow((s) => !s)}
         aria-label={show ? 'Hide password' : 'Show password'}
-        style={{
-          position: 'absolute',
-          right: '10px',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          background: 'transparent',
-          border: 'none',
-          cursor: 'pointer',
-          padding: '2px',
-          color: '#6B7280',
-          display: 'flex',
-          alignItems: 'center',
-        }}
+        className="absolute right-2.5 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer p-0.5 text-muted-foreground flex items-center hover:text-foreground"
       >
         {show ? <EyeOff size={16} /> : <Eye size={16} />}
       </button>
@@ -274,54 +198,23 @@ export function SettingsAccountSection({
   }
 
   return (
-    <div
-      style={{
-        background: '#FFFFFF',
-        border: '1px solid #E5E7EB',
-        borderRadius: '0px',
-        marginBottom: '24px',
-      }}
-    >
-      {/* Card header */}
-      <div
-        style={{
-          padding: '24px 32px 20px 32px',
-          borderBottom: '1px solid #E5E7EB',
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-            fontWeight: 600,
-            fontSize: '18px',
-            color: '#0C1F40',
-            marginBottom: '4px',
-          }}
-        >
+    <Card className="mb-6">
+      <CardHeader className="border-b">
+        <CardTitle className="font-heading text-lg font-semibold text-foreground">
           Account
-        </h2>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 400,
-            fontSize: '14px',
-            color: '#6B7280',
-            margin: 0,
-          }}
-        >
+        </CardTitle>
+        <CardDescription>
           Update your display name and password.
-        </p>
-      </div>
+        </CardDescription>
+      </CardHeader>
 
-      {/* Card body */}
-      <div style={{ padding: '24px 32px 32px 32px' }}>
+      <CardContent className="space-y-6">
         {/* Display Name + Email form */}
         <form id="display-name-form" onSubmit={handleSaveDisplayName}>
-          {/* Display Name */}
           <div>
-            <FieldLabel htmlFor="display-name">Display Name</FieldLabel>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <input
+            <Label htmlFor="display-name" className="mb-1.5">Display Name</Label>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <Input
                 id="display-name"
                 name="full_name"
                 type="text"
@@ -332,41 +225,19 @@ export function SettingsAccountSection({
                 }}
                 maxLength={100}
                 placeholder="Your name"
-                style={fieldInputBase(!!displayNameError)}
-                onFocus={(e) => {
-                  e.target.style.border = '1px solid #0C1F40'
-                  e.target.style.boxShadow = '0 0 0 3px rgba(180, 231, 221, 0.4)'
-                }}
-                onBlur={(e) => {
-                  e.target.style.border = displayNameError
-                    ? '1px solid #EF4444'
-                    : '1px solid #D1D5DB'
-                  e.target.style.boxShadow = 'none'
-                }}
+                className={cn(
+                  'w-full sm:w-80 h-10',
+                  displayNameError && 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20'
+                )}
               />
-              <button
+              <Button
                 type="submit"
                 disabled={savingDisplayName}
-                style={{
-                  height: '40px',
-                  minWidth: '80px',
-                  padding: '0 20px',
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontWeight: 600,
-                  fontSize: '14px',
-                  color: '#0C1F40',
-                  background: '#B4E7DD',
-                  border: 'none',
-                  borderRadius: '0px',
-                  cursor: savingDisplayName ? 'not-allowed' : 'pointer',
-                  opacity: savingDisplayName ? 0.4 : 1,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
+                size="lg"
+                className="min-w-[80px] w-full sm:w-auto"
               >
-                {savingDisplayName ? <Spinner /> : 'Save'}
-              </button>
+                {savingDisplayName ? <Loader2 className="size-4 animate-spin" /> : 'Save'}
+              </Button>
             </div>
             {displayNameError ? (
               <FieldError message={displayNameError} />
@@ -376,18 +247,9 @@ export function SettingsAccountSection({
           </div>
 
           {/* Email (read-only) */}
-          <div style={{ marginTop: '20px' }}>
-            <FieldLabel>Email</FieldLabel>
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontWeight: 400,
-                fontSize: '14px',
-                color: '#374151',
-                padding: '10px 0',
-                margin: 0,
-              }}
-            >
+          <div className="mt-5">
+            <Label>Email</Label>
+            <p className="py-2.5 text-sm text-foreground">
               {userEmail}
             </p>
             <FieldHint>
@@ -396,34 +258,18 @@ export function SettingsAccountSection({
           </div>
         </form>
 
-        {/* Section divider */}
-        <hr
-          style={{
-            border: 'none',
-            borderTop: '1px solid #E5E7EB',
-            margin: '24px 0',
-          }}
-        />
+        <Separator />
 
         {/* Change Password Form */}
         <form id="change-password-form" onSubmit={handleChangePassword}>
-          <h3
-            style={{
-              fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-              fontWeight: 600,
-              fontSize: '16px',
-              color: '#0C1F40',
-              marginTop: 0,
-              marginBottom: '16px',
-            }}
-          >
+          <h3 className="font-heading text-base font-semibold text-foreground mb-4">
             Change Password
           </h3>
 
           {/* Current Password */}
-          <div style={{ marginBottom: '16px' }}>
-            <FieldLabel htmlFor="current-password">Current Password</FieldLabel>
-            <PasswordInput
+          <div className="mb-4">
+            <Label htmlFor="current-password" className="mb-1.5">Current Password</Label>
+            <PasswordField
               id="current-password"
               name="current_password"
               value={currentPassword}
@@ -433,24 +279,14 @@ export function SettingsAccountSection({
               }}
               autoComplete="current-password"
               hasError={!!currentPasswordError}
-              onFocus={(e) => {
-                e.target.style.border = '1px solid #0C1F40'
-                e.target.style.boxShadow = '0 0 0 3px rgba(180, 231, 221, 0.4)'
-              }}
-              onBlur={(e) => {
-                e.target.style.border = currentPasswordError
-                  ? '1px solid #EF4444'
-                  : '1px solid #D1D5DB'
-                e.target.style.boxShadow = 'none'
-              }}
             />
             <FieldError message={currentPasswordError} />
           </div>
 
           {/* New Password */}
-          <div style={{ marginBottom: '16px' }}>
-            <FieldLabel htmlFor="new-password">New Password</FieldLabel>
-            <PasswordInput
+          <div className="mb-4">
+            <Label htmlFor="new-password" className="mb-1.5">New Password</Label>
+            <PasswordField
               id="new-password"
               name="new_password"
               value={newPassword}
@@ -461,16 +297,6 @@ export function SettingsAccountSection({
               autoComplete="new-password"
               hasError={!!newPasswordError}
               minLength={8}
-              onFocus={(e) => {
-                e.target.style.border = '1px solid #0C1F40'
-                e.target.style.boxShadow = '0 0 0 3px rgba(180, 231, 221, 0.4)'
-              }}
-              onBlur={(e) => {
-                e.target.style.border = newPasswordError
-                  ? '1px solid #EF4444'
-                  : '1px solid #D1D5DB'
-                e.target.style.boxShadow = 'none'
-              }}
             />
             {newPasswordError ? (
               <FieldError message={newPasswordError} />
@@ -480,9 +306,9 @@ export function SettingsAccountSection({
           </div>
 
           {/* Confirm New Password */}
-          <div style={{ marginBottom: '20px' }}>
-            <FieldLabel htmlFor="confirm-password">Confirm New Password</FieldLabel>
-            <PasswordInput
+          <div className="mb-5">
+            <Label htmlFor="confirm-password" className="mb-1.5">Confirm New Password</Label>
+            <PasswordField
               id="confirm-password"
               name="confirm_password"
               value={confirmPassword}
@@ -492,46 +318,20 @@ export function SettingsAccountSection({
               }}
               autoComplete="new-password"
               hasError={!!confirmPasswordError}
-              onFocus={(e) => {
-                e.target.style.border = '1px solid #0C1F40'
-                e.target.style.boxShadow = '0 0 0 3px rgba(180, 231, 221, 0.4)'
-              }}
-              onBlur={(e) => {
-                e.target.style.border = confirmPasswordError
-                  ? '1px solid #EF4444'
-                  : '1px solid #D1D5DB'
-                e.target.style.boxShadow = 'none'
-              }}
             />
             <FieldError message={confirmPasswordError} />
           </div>
 
-          {/* Update Password button */}
-          <button
+          <Button
             type="submit"
             disabled={savingPassword}
-            style={{
-              height: '40px',
-              minWidth: '160px',
-              padding: '0 20px',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontWeight: 600,
-              fontSize: '14px',
-              color: '#0C1F40',
-              background: '#B4E7DD',
-              border: 'none',
-              borderRadius: '0px',
-              cursor: savingPassword ? 'not-allowed' : 'pointer',
-              opacity: savingPassword ? 0.4 : 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+            size="lg"
+            className="min-w-[160px]"
           >
-            {savingPassword ? <Spinner /> : 'Update Password'}
-          </button>
+            {savingPassword ? <Loader2 className="size-4 animate-spin" /> : 'Update Password'}
+          </Button>
         </form>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

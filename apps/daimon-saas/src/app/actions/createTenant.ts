@@ -44,16 +44,8 @@ export async function createTenantForUser({
 
   if (memberError) return { error: memberError.message };
 
-  // 3. Create tenant_subscriptions row (free tier)
-  const { error: subError } = await supabaseAdmin
-    .from('tenant_subscriptions')
-    .insert({
-      tenant_id: tenant.id,
-      plan: 'free',
-      status: 'active',
-    });
-
-  if (subError) return { error: subError.message };
+  // Free tier has no Stripe subscription, so no tenant_subscriptions row needed.
+  // A subscription row is created only when the user upgrades to a paid plan.
 
   return { error: null };
 }

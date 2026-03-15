@@ -1,9 +1,20 @@
 'use client'
 
-import { useEffect, useRef, useCallback, useState } from 'react'
+import { useState, useCallback } from 'react'
 import { Trash2, AlertTriangle, HelpCircle, Loader2 } from 'lucide-react'
-import { createPortal } from 'react-dom'
-import { FormInput } from './form-input'
+import { cn } from '@/lib/utils'
+import { Input } from './input'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from './alert-dialog'
 
 type ConfirmVariant = 'danger' | 'warning' | 'default'
 
@@ -25,41 +36,33 @@ const VARIANT_CONFIG: Record<
   ConfirmVariant,
   {
     Icon: React.ElementType
-    iconColor: string
-    iconBg: string
-    confirmBg: string
-    confirmHoverBg: string
-    confirmText: string
+    iconClassName: string
+    mediaBgClassName: string
+    confirmClassName: string
   }
 > = {
   danger: {
     Icon: Trash2,
-    iconColor: '#DC2626',
-    iconBg: 'rgba(220,38,38,0.08)',
-    confirmBg: '#DC2626',
-    confirmHoverBg: '#B91C1C',
-    confirmText: '#FFFFFF',
+    iconClassName: 'text-destructive',
+    mediaBgClassName: 'bg-destructive/10',
+    confirmClassName:
+      'bg-destructive text-destructive-foreground hover:bg-destructive/90',
   },
   warning: {
     Icon: AlertTriangle,
-    iconColor: '#D97706',
-    iconBg: 'rgba(217,119,6,0.08)',
-    confirmBg: '#D97706',
-    confirmHoverBg: '#B45309',
-    confirmText: '#FFFFFF',
+    iconClassName: 'text-amber-600',
+    mediaBgClassName: 'bg-amber-600/10',
+    confirmClassName:
+      'bg-amber-600 text-white hover:bg-amber-700',
   },
   default: {
     Icon: HelpCircle,
-    iconColor: '#0C1F40',
-    iconBg: 'rgba(12,31,64,0.08)',
-    confirmBg: '#B4E7DD',
-    confirmHoverBg: '#9AD5CB',
-    confirmText: '#0C1F40',
+    iconClassName: 'text-foreground',
+    mediaBgClassName: 'bg-muted',
+    confirmClassName:
+      'bg-primary text-primary-foreground hover:bg-primary/90',
   },
 }
-
-const titleId = 'confirm-dialog-title'
-const descId = 'confirm-dialog-desc'
 
 export function ConfirmDialog({
   open,
@@ -74,19 +77,24 @@ export function ConfirmDialog({
   confirmationText,
   confirmationPlaceholder,
 }: ConfirmDialogProps) {
-  const cancelRef = useRef<HTMLButtonElement>(null)
-  const previousFocusRef = useRef<HTMLElement | null>(null)
   const [confirmInput, setConfirmInput] = useState('')
   const [internalLoading, setInternalLoading] = useState(false)
 
   const cfg = VARIANT_CONFIG[variant]
   const isLoading = loading || internalLoading
   const isConfirmDisabled =
-    isLoading || (confirmationText !== undefined && confirmInput !== confirmationText)
+    isLoading ||
+    (confirmationText !== undefined && confirmInput !== confirmationText)
 
-  const handleClose = useCallback(() => {
-    if (!isLoading) onOpenChange(false)
-  }, [isLoading, onOpenChange])
+  const handleOpenChange = useCallback(
+    (nextOpen: boolean) => {
+      if (!isLoading) {
+        onOpenChange(nextOpen)
+        if (!nextOpen) setConfirmInput('')
+      }
+    },
+    [isLoading, onOpenChange]
+  )
 
   async function handleConfirm() {
     const result = onConfirm()
@@ -100,274 +108,61 @@ export function ConfirmDialog({
     }
   }
 
-  // Scroll lock + initial focus
-  useEffect(() => {
-    if (open) {
-      previousFocusRef.current = document.activeElement as HTMLElement
-      document.body.style.overflow = 'hidden'
-      setConfirmInput('')
-      const timer = setTimeout(() => {
-        cancelRef.current?.focus()
-      }, 50)
-      return () => clearTimeout(timer)
-    } else {
-      document.body.style.overflow = ''
-      previousFocusRef.current?.focus()
-    }
-  }, [open])
-
-  // Escape key
-  useEffect(() => {
-    if (!open) return
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') handleClose()
-    }
-    document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
-  }, [open, handleClose])
-
-  // Focus trap
-  const panelRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (!open) return
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key !== 'Tab') return
-      const panel = panelRef.current
-      if (!panel) return
-      const focusable = Array.from(
-        panel.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )
-      )
-      if (focusable.length === 0) return
-      const first = focusable[0]
-      const last = focusable[focusable.length - 1]
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault()
-          last.focus()
-        }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault()
-          first.focus()
-        }
-      }
-    }
-    document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
-  }, [open])
-
-  if (!open) return null
-
-  const dialog = (
-    <>
-      {/* Backdrop */}
-      <div
-        onClick={handleClose}
-        style={{
-          position: 'fixed',
-          inset: 0,
-          background: 'rgba(12,31,64,0.55)',
-          backdropFilter: 'blur(4px)',
-          zIndex: 50,
-          animation: 'fadeIn 150ms ease forwards',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Dialog panel */}
-      <div
-        ref={panelRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        aria-describedby={descId}
-        style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '440px',
-          maxWidth: 'calc(100vw - 32px)',
-          background: '#FFFFFF',
-          border: '1px solid rgba(12,31,64,0.12)',
-          borderRadius: 0,
-          boxShadow: '0 20px 60px rgba(12,31,64,0.18)',
-          zIndex: 51,
-          animation: 'modalScaleIn 200ms cubic-bezier(0.22,1,0.36,1) forwards',
-        }}
-      >
-        {/* Header */}
-        <div style={{ padding: '24px 24px 0' }}>
-          <div
-            style={{
-              width: '36px',
-              height: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: cfg.iconBg,
-              borderRadius: 0,
-            }}
-          >
-            <cfg.Icon size={20} color={cfg.iconColor} />
-          </div>
-          <h2
-            id={titleId}
-            style={{
-              fontFamily: 'var(--font-archivo, Archivo, sans-serif)',
-              fontSize: '18px',
-              fontWeight: 500,
-              color: '#0C1F40',
-              margin: 0,
-              marginTop: '12px',
-              lineHeight: '1.3',
-            }}
-          >
+  return (
+    <AlertDialog open={open} onOpenChange={handleOpenChange}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogMedia className={cfg.mediaBgClassName}>
+            <cfg.Icon size={20} className={cfg.iconClassName} />
+          </AlertDialogMedia>
+          <AlertDialogTitle className="font-heading">
             {title}
-          </h2>
-        </div>
+          </AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
+        </AlertDialogHeader>
 
-        {/* Body */}
-        <div style={{ padding: '12px 24px 0' }}>
-          <p
-            id={descId}
-            style={{
-              fontFamily: 'var(--font-inter, Inter, sans-serif)',
-              fontSize: '14px',
-              fontWeight: 400,
-              color: 'rgba(12,31,64,0.65)',
-              margin: 0,
-              lineHeight: '1.6',
-            }}
-          >
-            {description}
-          </p>
+        {confirmationText !== undefined && (
+          <div className="grid gap-1.5">
+            <p className="text-[13px] font-medium text-foreground">
+              Type{' '}
+              <code className="bg-muted px-1 py-0.5 font-mono text-[13px]">
+                {confirmationText}
+              </code>{' '}
+              to confirm
+            </p>
+            <Input
+              id="confirm-dialog-input"
+              value={confirmInput}
+              onChange={(e) => setConfirmInput(e.target.value)}
+              placeholder={
+                confirmationPlaceholder ??
+                `Type ${confirmationText} to confirm`
+              }
+              disabled={isLoading}
+              className="h-[44px]"
+            />
+          </div>
+        )}
 
-          {/* Confirmation input */}
-          {confirmationText !== undefined && (
-            <div style={{ marginTop: '16px' }}>
-              <p
-                style={{
-                  fontFamily: 'var(--font-inter, Inter, sans-serif)',
-                  fontSize: '13px',
-                  fontWeight: 500,
-                  color: '#0C1F40',
-                  margin: 0,
-                  marginBottom: '6px',
-                }}
-              >
-                Type{' '}
-                <code
-                  style={{
-                    fontFamily: 'monospace',
-                    background: 'rgba(12,31,64,0.06)',
-                    padding: '2px 4px',
-                  }}
-                >
-                  {confirmationText}
-                </code>{' '}
-                to confirm
-              </p>
-              <FormInput
-                id="confirm-dialog-input"
-                label=""
-                value={confirmInput}
-                onChange={setConfirmInput}
-                placeholder={
-                  confirmationPlaceholder ?? `Type ${confirmationText} to confirm`
-                }
-                disabled={isLoading}
-              />
-            </div>
-          )}
-        </div>
-
-        {/* Footer */}
-        <div
-          style={{
-            padding: '20px 24px 24px',
-            display: 'flex',
-            justifyContent: 'flex-end',
-            gap: '8px',
-          }}
-        >
-          <button
-            ref={cancelRef}
-            type="button"
-            onClick={handleClose}
-            disabled={isLoading}
-            style={{
-              height: '38px',
-              padding: '0 20px',
-              fontFamily: 'var(--font-inter, Inter, sans-serif)',
-              fontSize: '14px',
-              fontWeight: 600,
-              color: '#0C1F40',
-              background: 'transparent',
-              border: '1.5px solid #0C1F40',
-              borderRadius: 0,
-              cursor: isLoading ? 'not-allowed' : 'pointer',
-              opacity: isLoading ? 0.5 : 1,
-              transition: 'opacity 0.15s ease, background 0.15s ease',
-            }}
-            onMouseEnter={(e) => {
-              if (!isLoading) e.currentTarget.style.background = 'rgba(12,31,64,0.05)'
-            }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}
-            onFocus={(e) => {
-              e.currentTarget.style.outline = '2px solid #B4E7DD'
-              e.currentTarget.style.outlineOffset = '2px'
-            }}
-            onBlur={(e) => { e.currentTarget.style.outline = 'none' }}
-          >
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={isLoading}>
             {cancelLabel}
-          </button>
-
-          <button
-            type="button"
-            onClick={handleConfirm}
+          </AlertDialogCancel>
+          <AlertDialogAction
+            onClick={(e) => {
+              e.preventDefault()
+              handleConfirm()
+            }}
             disabled={isConfirmDisabled}
-            style={{
-              height: '38px',
-              padding: '0 20px',
-              fontFamily: 'var(--font-inter, Inter, sans-serif)',
-              fontSize: '14px',
-              fontWeight: 600,
-              color: cfg.confirmText,
-              background: cfg.confirmBg,
-              border: 'none',
-              borderRadius: 0,
-              cursor: isConfirmDisabled ? 'not-allowed' : 'pointer',
-              opacity: isLoading ? 0.75 : isConfirmDisabled ? 0.5 : 1,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              transition: 'background 0.15s ease, opacity 0.15s ease',
-            }}
-            onMouseEnter={(e) => {
-              if (!isConfirmDisabled) e.currentTarget.style.background = cfg.confirmHoverBg
-            }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = cfg.confirmBg }}
-            onFocus={(e) => {
-              e.currentTarget.style.outline = '2px solid #B4E7DD'
-              e.currentTarget.style.outlineOffset = '2px'
-            }}
-            onBlur={(e) => { e.currentTarget.style.outline = 'none' }}
+            className={cn(cfg.confirmClassName)}
           >
             {isLoading && (
-              <Loader2
-                size={14}
-                style={{ animation: 'spin 1s linear infinite' }}
-              />
+              <Loader2 size={14} className="animate-spin" />
             )}
             {confirmLabel}
-          </button>
-        </div>
-      </div>
-    </>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
-
-  return createPortal(dialog, document.body)
 }

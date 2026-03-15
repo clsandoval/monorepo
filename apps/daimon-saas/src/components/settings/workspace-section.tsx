@@ -1,10 +1,16 @@
 'use client'
 
 import * as React from 'react'
-import { Tabs } from '@/components/ui/tabs'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { useToast } from '@/lib/toast'
 import { useRouter } from 'next/navigation'
-import { Copy, Check } from 'lucide-react'
+import { Copy, Check, Loader2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
 import { SettingsDiscordSection } from '@/components/settings/discord-section'
 import { SettingsAccountSection } from '@/components/settings/account-section'
 import { SettingsDangerZoneSection } from '@/components/settings/danger-zone-section'
@@ -83,71 +89,23 @@ function WorkspaceSection({ tenant, userRole }: WorkspaceSectionProps) {
   }
 
   return (
-    <div
-      style={{
-        background: '#FFFFFF',
-        border: '1px solid #E5E7EB',
-        borderRadius: '0px',
-        marginBottom: '24px',
-      }}
-    >
-      {/* Card header */}
-      <div
-        style={{
-          padding: '24px 32px 20px 32px',
-          borderBottom: '1px solid #E5E7EB',
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-            fontWeight: 600,
-            fontSize: '18px',
-            color: '#0C1F40',
-            marginBottom: '4px',
-          }}
-        >
+    <Card className="mb-6">
+      <CardHeader className="border-b">
+        <CardTitle className="font-heading text-lg font-semibold text-foreground">
           Workspace
-        </h2>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 400,
-            fontSize: '14px',
-            color: '#6B7280',
-            margin: 0,
-          }}
-        >
+        </CardTitle>
+        <CardDescription>
           Manage your workspace name and view workspace details.
-        </p>
-      </div>
+        </CardDescription>
+      </CardHeader>
 
-      {/* Card body */}
-      <div style={{ padding: '24px 32px 32px 32px' }}>
+      <CardContent className="space-y-6">
         {/* Workspace name form */}
         <form onSubmit={handleSave}>
           <div>
-            <label
-              htmlFor="workspace-name"
-              style={{
-                display: 'block',
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontWeight: 500,
-                fontSize: '14px',
-                color: '#374151',
-                marginBottom: '6px',
-              }}
-            >
-              Workspace Name
-            </label>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
-            >
-              <input
+            <Label htmlFor="workspace-name" className="mb-1.5">Workspace Name</Label>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <Input
                 id="workspace-name"
                 name="name"
                 type="text"
@@ -162,225 +120,73 @@ function WorkspaceSection({ tenant, userRole }: WorkspaceSectionProps) {
                 aria-label="Workspace name"
                 aria-describedby="workspace-name-hint"
                 title={isDisabled ? 'Only the workspace owner can perform this action.' : undefined}
-                style={{
-                  width: '320px',
-                  height: '40px',
-                  padding: '10px 12px',
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontWeight: 400,
-                  fontSize: '14px',
-                  color: isDisabled ? '#9CA3AF' : '#111827',
-                  background: isDisabled ? '#F9FAFB' : '#FFFFFF',
-                  border: error ? '1px solid #EF4444' : '1px solid #D1D5DB',
-                  borderRadius: '0px',
-                  outline: 'none',
-                  cursor: isDisabled ? 'not-allowed' : 'text',
-                  boxSizing: 'border-box',
-                }}
-                onFocus={(e) => {
-                  if (!isDisabled) {
-                    e.target.style.border = '1px solid #0C1F40'
-                    e.target.style.boxShadow = '0 0 0 3px rgba(180, 231, 221, 0.4)'
-                  }
-                }}
-                onBlur={(e) => {
-                  e.target.style.border = error ? '1px solid #EF4444' : '1px solid #D1D5DB'
-                  e.target.style.boxShadow = 'none'
-                }}
+                className={cn(
+                  'w-full sm:w-80 h-10',
+                  error && 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20',
+                  isDisabled && 'cursor-not-allowed'
+                )}
               />
-              <button
+              <Button
                 id="workspace-name-save"
                 type="submit"
                 disabled={!hasChanged || isDisabled || saving}
-                title={
-                  isDisabled ? 'Only the workspace owner can perform this action.' : undefined
-                }
-                style={{
-                  height: '40px',
-                  minWidth: '80px',
-                  padding: '0 20px',
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontWeight: 600,
-                  fontSize: '14px',
-                  color: '#0C1F40',
-                  background: '#B4E7DD',
-                  border: 'none',
-                  borderRadius: '0px',
-                  cursor: !hasChanged || isDisabled || saving ? 'not-allowed' : 'pointer',
-                  opacity: !hasChanged || isDisabled ? 0.4 : 1,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
+                title={isDisabled ? 'Only the workspace owner can perform this action.' : undefined}
+                size="lg"
+                className="min-w-[80px] w-full sm:w-auto"
               >
-                {saving ? (
-                  <span
-                    style={{
-                      width: '16px',
-                      height: '16px',
-                      border: '2px solid #0C1F40',
-                      borderTopColor: 'transparent',
-                      borderRadius: '50%',
-                      display: 'inline-block',
-                      animation: 'spin 0.7s linear infinite',
-                    }}
-                  />
-                ) : (
-                  'Save'
-                )}
-              </button>
+                {saving ? <Loader2 className="size-4 animate-spin" /> : 'Save'}
+              </Button>
             </div>
             {error ? (
-              <p
-                id="workspace-name-error"
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontWeight: 400,
-                  fontSize: '12px',
-                  color: '#EF4444',
-                  marginTop: '6px',
-                  margin: '6px 0 0 0',
-                }}
-              >
+              <p id="workspace-name-error" className="mt-1.5 text-sm text-destructive">
                 {error}
               </p>
             ) : (
-              <p
-                id="workspace-name-hint"
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontWeight: 400,
-                  fontSize: '12px',
-                  color: '#6B7280',
-                  marginTop: '6px',
-                  margin: '6px 0 0 0',
-                }}
-              >
+              <p id="workspace-name-hint" className="mt-1.5 text-sm text-muted-foreground">
                 Between 1 and 100 characters.
               </p>
             )}
           </div>
         </form>
 
+        <Separator />
+
         {/* Workspace metadata */}
-        <dl
-          style={{
-            marginTop: '24px',
-            paddingTop: '24px',
-            borderTop: '1px solid #E5E7EB',
-          }}
-        >
+        <dl className="space-y-0">
           {/* Workspace ID */}
-          <div
-            style={{
-              display: 'flex',
-              gap: '16px',
-              alignItems: 'center',
-              padding: '8px 0',
-            }}
-          >
-            <dt
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontWeight: 500,
-                fontSize: '13px',
-                color: '#6B7280',
-                minWidth: '140px',
-                flexShrink: 0,
-              }}
-            >
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 py-2">
+            <dt className="sm:min-w-[140px] shrink-0 text-sm font-medium text-muted-foreground">
               Workspace ID
             </dt>
-            <dd
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontWeight: 400,
-                fontSize: '13px',
-                color: '#111827',
-                display: 'flex',
-                alignItems: 'center',
-                margin: 0,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "'Courier New', monospace",
-                  fontSize: '12px',
-                  color: '#111827',
-                }}
-              >
+            <dd className="flex items-center text-sm text-foreground">
+              <span className="font-mono text-xs text-foreground break-all">
                 {tenant.id}
               </span>
-              <button
+              <Button
                 type="button"
+                variant="ghost"
+                size="icon"
                 onClick={handleCopy}
                 aria-label="Copy workspace ID"
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  padding: '4px',
-                  marginLeft: '8px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  color: '#6B7280',
-                  outline: 'none',
-                  borderRadius: '2px',
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.outline = '2px solid #B4E7DD'
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.outline = 'none'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#0C1F40'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = '#6B7280'
-                }}
+                className="ml-2 size-7 text-muted-foreground hover:text-foreground shrink-0"
               >
                 {copied ? <Check size={14} /> : <Copy size={14} />}
-              </button>
+              </Button>
             </dd>
           </div>
 
           {/* Created date */}
-          <div
-            style={{
-              display: 'flex',
-              gap: '16px',
-              alignItems: 'center',
-              padding: '8px 0',
-            }}
-          >
-            <dt
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontWeight: 500,
-                fontSize: '13px',
-                color: '#6B7280',
-                minWidth: '140px',
-                flexShrink: 0,
-              }}
-            >
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 py-2">
+            <dt className="sm:min-w-[140px] shrink-0 text-sm font-medium text-muted-foreground">
               Created
             </dt>
-            <dd
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontWeight: 400,
-                fontSize: '13px',
-                color: '#111827',
-                margin: 0,
-              }}
-            >
+            <dd className="text-sm text-foreground">
               {formattedDate}
             </dd>
           </div>
         </dl>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
 
@@ -399,46 +205,40 @@ interface SettingsContentProps {
 }
 
 export function SettingsContent({ tenant, tenantId, userRole, discordConnections, userEmail, userDisplayName, memberCount }: SettingsContentProps) {
-  const [activeTab, setActiveTab] = React.useState('workspace')
-
-  const tabs = [
-    { value: 'workspace', label: 'Workspace' },
-    { value: 'discord', label: 'Discord' },
-    { value: 'account', label: 'Account' },
-    ...(userRole === 'owner' ? [{ value: 'danger', label: 'Danger Zone' }] : []),
-  ]
-
   return (
-    <div>
-      {/* Tab navigation */}
-      <div style={{ marginBottom: '24px' }}>
-        <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} variant="underline" />
-      </div>
+    <Tabs defaultValue="workspace">
+      <TabsList variant="line" className="mb-6">
+        <TabsTrigger value="workspace">Workspace</TabsTrigger>
+        <TabsTrigger value="discord">Discord</TabsTrigger>
+        <TabsTrigger value="account">Account</TabsTrigger>
+        {userRole === 'owner' && <TabsTrigger value="danger">Danger Zone</TabsTrigger>}
+      </TabsList>
 
-      {/* Tab panels */}
-      {activeTab === 'workspace' && (
+      <TabsContent value="workspace">
         <WorkspaceSection tenant={tenant} userRole={userRole} />
-      )}
+      </TabsContent>
 
-      {activeTab === 'discord' && (
+      <TabsContent value="discord">
         <SettingsDiscordSection
           tenantId={tenantId}
           userRole={userRole}
           connections={discordConnections}
         />
-      )}
+      </TabsContent>
 
-      {activeTab === 'account' && (
+      <TabsContent value="account">
         <SettingsAccountSection userEmail={userEmail} userDisplayName={userDisplayName} />
-      )}
+      </TabsContent>
 
-      {activeTab === 'danger' && userRole === 'owner' && (
-        <SettingsDangerZoneSection
-          tenantName={tenant.name}
-          discordConnectionCount={discordConnections.length}
-          memberCount={memberCount}
-        />
+      {userRole === 'owner' && (
+        <TabsContent value="danger">
+          <SettingsDangerZoneSection
+            tenantName={tenant.name}
+            discordConnectionCount={discordConnections.length}
+            memberCount={memberCount}
+          />
+        </TabsContent>
       )}
-    </div>
+    </Tabs>
   )
 }

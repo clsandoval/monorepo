@@ -1,0 +1,8 @@
+[     162ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[     273ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/login:0
+[     576ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
+[     639ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/icon.svg:0
+[     640ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/login:0
+[    6666ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://tgeltzjcufdqmltuvbkd.supabase.co/auth/v1/token?grant_type=password:0
+[   14971ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://tgeltzjcufdqmltuvbkd.supabase.co/auth/v1/token?grant_type=password:0
+[  149993ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=WsySlUAlbuBvSroN7iIu6' failed:  @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_17643121._.js:10878

@@ -2,7 +2,22 @@
 
 import * as React from 'react'
 import { useRouter } from 'next/navigation'
-import { AlertTriangle, CheckCircle, XCircle, X, Loader2, Eye, EyeOff } from 'lucide-react'
+import { AlertTriangle, CheckCircle, XCircle, Loader2, Eye, EyeOff } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { useToast } from '@/lib/toast'
 
@@ -31,14 +46,6 @@ interface ApiKeyModalProps {
   provider: 'anthropic' | 'openai'
   mode: 'add' | 'update'
   keyId?: string
-  onClose: () => void
-  onSuccess: () => void
-}
-
-interface DeleteKeyDialogProps {
-  provider: 'anthropic' | 'openai'
-  keyId: string
-  keyStatus: 'active' | 'invalid' | 'revoked'
   onClose: () => void
   onSuccess: () => void
 }
@@ -126,9 +133,9 @@ function StatusLine({ keyData }: { keyData: ApiKeyData }) {
 
   if (keyData.status === 'active') {
     return (
-      <div className="flex items-center gap-[6px] mt-[6px]" style={{ color: '#059669' }}>
+      <div className="flex items-center gap-1.5 mt-1.5 text-emerald-600">
         <CheckCircle size={14} />
-        <span style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontSize: '13px' }}>
+        <span className="text-sm">
           Valid{dateStr ? ` · Last validated ${dateStr}` : ''}
         </span>
       </div>
@@ -136,20 +143,18 @@ function StatusLine({ keyData }: { keyData: ApiKeyData }) {
   }
   if (keyData.status === 'invalid') {
     return (
-      <div className="flex items-center gap-[6px] mt-[6px]" style={{ color: '#DC2626' }}>
+      <div className="flex items-center gap-1.5 mt-1.5 text-destructive">
         <XCircle size={14} />
-        <span style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontSize: '13px' }}>
+        <span className="text-sm">
           Invalid{dateStr ? ` · Last attempted ${dateStr}` : ''}
         </span>
       </div>
     )
   }
   return (
-    <div className="flex items-center gap-[6px] mt-[6px]" style={{ color: '#6B7280' }}>
+    <div className="flex items-center gap-1.5 mt-1.5 text-muted-foreground">
       <XCircle size={14} />
-      <span style={{ fontFamily: 'var(--font-inter), Inter, sans-serif', fontSize: '13px' }}>
-        Revoked
-      </span>
+      <span className="text-sm">Revoked</span>
     </div>
   )
 }
@@ -170,134 +175,60 @@ function ApiKeyRow({
   const isOwnerOrAdmin = userRole === 'owner' || userRole === 'admin'
   const hasKey = keyData !== null && keyData.status !== 'revoked'
 
-  const btnBase: React.CSSProperties = {
-    fontFamily: 'var(--font-inter), Inter, sans-serif',
-    fontSize: '13px',
-    fontWeight: 500,
-    padding: '6px 14px',
-    borderRadius: '0px',
-    cursor: 'pointer',
-    display: 'inline-flex',
-    alignItems: 'center',
-    transition: 'background 0.15s, opacity 0.15s',
-  }
-
-  const addKeyBtn: React.CSSProperties = {
-    ...btnBase,
-    background: '#B4E7DD',
-    color: '#0C1F40',
-    border: 'none',
-  }
-
-  const updateBtnActive: React.CSSProperties = {
-    ...btnBase,
-    background: 'white',
-    color: '#0C1F40',
-    border: '1px solid #0C1F40',
-  }
-
-  const updateBtnInvalid: React.CSSProperties = {
-    ...btnBase,
-    background: '#B4E7DD',
-    color: '#0C1F40',
-    border: 'none',
-  }
-
-  const deleteBtn: React.CSSProperties = {
-    ...btnBase,
-    background: 'white',
-    color: '#DC2626',
-    border: '1px solid #DC2626',
-  }
-
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '12px',
-        background: 'white',
-        border: '1px solid #E5E7EB',
-        padding: '20px 24px',
-        marginBottom: '16px',
-      }}
-    >
+    <Card className="flex flex-col gap-3 p-5 mb-4">
       {/* Header row: name + badge + actions */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px' }}>
-        <div style={{ flex: 1 }}>
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1">
           {/* Name + required/optional badge */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '15px',
-                fontWeight: 600,
-                color: '#0C1F40',
-              }}
-            >
+          <div className="flex items-center gap-2">
+            <span className="text-[15px] font-semibold text-foreground">
               {meta.name}
             </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '10px',
-                fontWeight: 500,
-                textTransform: 'uppercase',
-                padding: '2px 6px',
-                letterSpacing: '0.05em',
-                ...(meta.required
-                  ? { background: '#B4E7DD', color: '#0C1F40' }
-                  : { background: '#F3F4F6', color: '#6B7280' }),
-              }}
-            >
-              {meta.required ? 'Required' : 'Optional'}
-            </span>
+            <Badge
+              variant={meta.required ? 'success' : 'neutral'}
+              size="sm"
+              label={meta.required ? 'Required' : 'Optional'}
+            />
           </div>
           {/* Description */}
-          <p
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '13px',
-              color: '#6B7280',
-              marginTop: '2px',
-            }}
-          >
+          <p className="text-sm text-muted-foreground mt-0.5">
             {meta.description}
           </p>
         </div>
 
         {/* Action buttons — hidden for member role */}
         {isOwnerOrAdmin && (
-          <div style={{ display: 'flex', gap: '8px', flexShrink: 0, alignSelf: 'flex-end' }}>
+          <div className="flex gap-2 shrink-0 self-end">
             {!hasKey && (
-              <button style={addKeyBtn} onClick={onAddKey}>
+              <Button size="sm" onClick={onAddKey}>
                 Add Key
-              </button>
+              </Button>
             )}
             {hasKey && keyData?.status === 'active' && (
               <>
-                <button style={updateBtnActive} onClick={onUpdateKey}>
+                <Button variant="outline" size="sm" onClick={onUpdateKey}>
                   Update
-                </button>
-                <button style={deleteBtn} onClick={onDeleteKey}>
+                </Button>
+                <Button variant="destructive" size="sm" onClick={onDeleteKey}>
                   Delete
-                </button>
+                </Button>
               </>
             )}
             {hasKey && keyData?.status === 'invalid' && (
               <>
-                <button style={updateBtnInvalid} onClick={onUpdateKey}>
+                <Button size="sm" onClick={onUpdateKey}>
                   Update
-                </button>
-                <button style={deleteBtn} onClick={onDeleteKey}>
+                </Button>
+                <Button variant="destructive" size="sm" onClick={onDeleteKey}>
                   Delete
-                </button>
+                </Button>
               </>
             )}
             {keyData?.status === 'revoked' && (
-              <button style={addKeyBtn} onClick={onAddKey}>
+              <Button size="sm" onClick={onAddKey}>
                 Add Key
-              </button>
+              </Button>
             )}
           </div>
         )}
@@ -306,22 +237,8 @@ function ApiKeyRow({
       {/* Key hint box when key is saved */}
       {hasKey && keyData && (
         <div>
-          <div
-            style={{
-              background: '#F9FAFB',
-              border: '1px solid #E5E7EB',
-              padding: '10px 14px',
-              width: '100%',
-            }}
-          >
-            <code
-              style={{
-                fontFamily: 'monospace',
-                fontSize: '14px',
-                color: '#374151',
-                display: 'block',
-              }}
-            >
+          <div className="bg-muted/50 border border-border p-2.5 w-full">
+            <code className="font-mono text-sm text-foreground/80 block">
               {keyData.key_hint ?? '••••••••••••••••'}
             </code>
             <StatusLine keyData={keyData} />
@@ -329,28 +246,12 @@ function ApiKeyRow({
 
           {/* Invalid key inline warning */}
           {keyData.status === 'invalid' && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '8px',
-                background: '#FFFBEB',
-                border: '1px solid #FCD34D',
-                padding: '8px 12px',
-                marginTop: '8px',
-              }}
-            >
-              <AlertTriangle size={14} style={{ color: '#D97706', flexShrink: 0, marginTop: '1px' }} />
-              <span
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '13px',
-                  color: '#92400E',
-                }}
-              >
+            <Alert variant="default" className="mt-2 border-amber-300 bg-amber-50">
+              <AlertTriangle size={14} className="text-amber-600 shrink-0" />
+              <AlertDescription className="text-sm text-amber-900">
                 {meta.invalidWarning}
-              </span>
-            </div>
+              </AlertDescription>
+            </Alert>
           )}
         </div>
       )}
@@ -359,41 +260,20 @@ function ApiKeyRow({
       {!hasKey && (
         <>
           {provider === 'anthropic' ? (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '8px',
-                background: '#FFFBEB',
-                border: '1px solid #FCD34D',
-                padding: '8px 12px',
-              }}
-            >
-              <AlertTriangle size={14} style={{ color: '#D97706', flexShrink: 0, marginTop: '1px' }} />
-              <span
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '13px',
-                  color: '#92400E',
-                }}
-              >
+            <Alert variant="default" className="border-amber-300 bg-amber-50">
+              <AlertTriangle size={14} className="text-amber-600 shrink-0" />
+              <AlertDescription className="text-sm text-amber-900">
                 {meta.emptyWarning}
-              </span>
-            </div>
+              </AlertDescription>
+            </Alert>
           ) : (
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '13px',
-                color: '#6B7280',
-              }}
-            >
+            <p className="text-sm text-muted-foreground">
               {meta.emptyWarning}
             </p>
           )}
         </>
       )}
-    </div>
+    </Card>
   )
 }
 
@@ -454,101 +334,29 @@ function ApiKeyModal({ provider, mode, keyId, onClose, onSuccess }: ApiKeyModalP
     }
   }
 
-  // Trap focus: close on overlay click
-  function handleOverlayClick(e: React.MouseEvent<HTMLDivElement>) {
-    if (e.target === e.currentTarget) {
-      handleCancelClick()
-    }
+  function handleOpenChange(open: boolean) {
+    if (!open) handleCancelClick()
   }
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(0,0,0,0.50)',
-        zIndex: 50,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-      onClick={handleOverlayClick}
-    >
-      <div
-        style={{
-          background: 'white',
-          width: '480px',
-          maxWidth: '95vw',
-          padding: '32px',
-          position: 'relative',
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Close button */}
-        <button
-          type="button"
-          onClick={handleCancelClick}
-          style={{
-            position: 'absolute',
-            top: '16px',
-            right: '16px',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            color: '#6B7280',
-            display: 'flex',
-            padding: '4px',
-          }}
-          aria-label="Close"
-        >
-          <X size={16} />
-        </button>
-
-        {/* Title */}
-        <h2
-          style={{
-            fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-            fontWeight: 600,
-            fontSize: '18px',
-            color: '#0C1F40',
-            marginBottom: '8px',
-          }}
-        >
-          {title}
-        </h2>
-
-        {/* Body text */}
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '14px',
-            color: '#6B7280',
-            marginBottom: '24px',
-            lineHeight: '1.5',
-          }}
-        >
-          {meta.bodyText}
-        </p>
+    <Dialog open onOpenChange={handleOpenChange}>
+      <DialogContent className="sm:max-w-[480px]" showCloseButton>
+        <DialogHeader>
+          <DialogTitle className="font-heading text-lg">{title}</DialogTitle>
+          <DialogDescription className="leading-relaxed">
+            {meta.bodyText}
+          </DialogDescription>
+        </DialogHeader>
 
         <form onSubmit={handleSubmit}>
           {/* Key input */}
-          <div style={{ marginBottom: '20px' }}>
-            <label
-              htmlFor="api-key-input"
-              style={{
-                display: 'block',
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '13px',
-                fontWeight: 500,
-                color: '#0C1F40',
-                marginBottom: '6px',
-              }}
-            >
+          <div className="mb-5">
+            <Label htmlFor="api-key-input" className="text-sm font-medium text-foreground mb-1.5">
               {meta.name}
-              <span aria-hidden="true" style={{ color: '#DC2626', marginLeft: '2px' }}>*</span>
-            </label>
-            <div style={{ position: 'relative' }}>
-              <input
+              <span aria-hidden="true" className="text-destructive ml-0.5">*</span>
+            </Label>
+            <div className="relative">
+              <Input
                 id="api-key-input"
                 type={showKey ? 'text' : 'password'}
                 value={keyValue}
@@ -559,53 +367,26 @@ function ApiKeyModal({ provider, mode, keyId, onClose, onSuccess }: ApiKeyModalP
                 autoComplete="off"
                 autoCorrect="off"
                 autoCapitalize="off"
-                style={{
-                  width: '100%',
-                  height: '44px',
-                  paddingLeft: '12px',
-                  paddingRight: '44px',
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '15px',
-                  color: '#0C1F40',
-                  border: error ? '1px solid #DC2626' : '1px solid rgba(12,31,64,0.20)',
-                  background: error ? '#FEF2F2' : isSubmitting ? '#F7F7F7' : 'white',
-                  outline: 'none',
-                  boxSizing: 'border-box',
-                }}
+                className={cn(
+                  'h-[44px] pr-11 text-[15px]',
+                  error && 'border-destructive bg-destructive/5'
+                )}
+                aria-invalid={!!error}
               />
-              <button
+              <Button
                 type="button"
+                variant="ghost"
+                size="icon"
                 onClick={() => setShowKey((v) => !v)}
                 disabled={isSubmitting}
                 aria-label={showKey ? 'Hide key' : 'Show key'}
-                style={{
-                  position: 'absolute',
-                  right: 0,
-                  top: 0,
-                  width: '44px',
-                  height: '44px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'none',
-                  border: 'none',
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                  color: 'rgba(12,31,64,0.45)',
-                }}
+                className="absolute right-0 top-0 h-[44px] w-[44px] text-muted-foreground"
               >
                 {showKey ? <EyeOff size={14} /> : <Eye size={14} />}
-              </button>
+              </Button>
             </div>
             {error && (
-              <p
-                role="alert"
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '13px',
-                  color: '#DC2626',
-                  marginTop: '4px',
-                }}
-              >
+              <p role="alert" className="text-sm text-destructive mt-1">
                 {error}
               </p>
             )}
@@ -613,310 +394,59 @@ function ApiKeyModal({ provider, mode, keyId, onClose, onSuccess }: ApiKeyModalP
 
           {/* Discard warning */}
           {showDiscard && (
-            <div
-              style={{
-                background: '#FFFBEB',
-                border: '1px solid #FCD34D',
-                padding: '10px 14px',
-                marginBottom: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '13px',
-                  color: '#92400E',
-                  flex: 1,
-                }}
-              >
-                Your key won&apos;t be saved. Are you sure?
-              </span>
-              <button
-                type="button"
-                onClick={onClose}
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '13px',
-                  fontWeight: 500,
-                  color: '#DC2626',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: '2px 8px',
-                }}
-              >
-                Discard
-              </button>
-              <button
-                type="button"
-                onClick={() => setShowDiscard(false)}
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '13px',
-                  fontWeight: 500,
-                  color: '#0C1F40',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: '2px 8px',
-                }}
-              >
-                Keep Editing
-              </button>
-            </div>
+            <Alert variant="default" className="mb-4 border-amber-300 bg-amber-50">
+              <AlertDescription className="flex items-center gap-3 text-sm text-amber-900">
+                <span className="flex-1">Your key won&apos;t be saved. Are you sure?</span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={onClose}
+                  className="text-destructive hover:text-destructive"
+                >
+                  Discard
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowDiscard(false)}
+                >
+                  Keep Editing
+                </Button>
+              </AlertDescription>
+            </Alert>
           )}
 
           {/* Buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div className="flex items-center gap-3">
             {!showDiscard && (
-              <button
+              <Button
                 type="button"
+                variant="outline"
                 onClick={handleCancelClick}
                 disabled={isSubmitting}
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '14px',
-                  fontWeight: 500,
-                  color: '#0C1F40',
-                  background: 'white',
-                  border: '1px solid #0C1F40',
-                  padding: '10px 20px',
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                  opacity: isSubmitting ? 0.5 : 1,
-                }}
               >
                 Cancel
-              </button>
+              </Button>
             )}
-            <button
+            <Button
               type="submit"
               disabled={isSubmitting}
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '14px',
-                fontWeight: 600,
-                color: '#0C1F40',
-                background: '#B4E7DD',
-                border: 'none',
-                padding: '10px 20px',
-                cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                opacity: isSubmitting ? 0.8 : 1,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-              }}
+              className={cn(isSubmitting && 'opacity-80')}
             >
               {isSubmitting && <Loader2 size={14} className="animate-spin" />}
               {isSubmitting ? 'Validating...' : 'Save Key'}
-            </button>
+            </Button>
           </div>
           {isSubmitting && (
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '12px',
-                color: '#6B7280',
-                marginTop: '8px',
-              }}
-            >
+            <p className="text-xs text-muted-foreground mt-2">
               {meta.loadingNote}
             </p>
           )}
         </form>
-      </div>
-    </div>
-  )
-}
-
-// ---------------------------------------------------------------------------
-// DeleteKeyDialog
-// ---------------------------------------------------------------------------
-
-function DeleteKeyDialog({ provider, keyId, keyStatus, onClose, onSuccess }: DeleteKeyDialogProps) {
-  const meta = PROVIDER_META[provider]
-  const { toast } = useToast()
-  const [isDeleting, setIsDeleting] = React.useState(false)
-  const [deleteError, setDeleteError] = React.useState<string | null>(null)
-
-  async function handleDelete() {
-    setIsDeleting(true)
-    setDeleteError(null)
-    try {
-      const res = await fetch(`/api/billing/api-keys/${keyId}`, { method: 'DELETE' })
-      if (!res.ok) {
-        setDeleteError('Could not delete key. Please try again.')
-        return
-      }
-      toast.success(meta.deletedToast)
-      onSuccess()
-    } catch {
-      setDeleteError('Could not delete key. Please try again.')
-    } finally {
-      setIsDeleting(false)
-    }
-  }
-
-  const showWarning = provider === 'anthropic' || keyStatus === 'active'
-
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(0,0,0,0.50)',
-        zIndex: 50,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-      onClick={(e) => { if (e.target === e.currentTarget && !isDeleting) onClose() }}
-    >
-      <div
-        style={{
-          background: 'white',
-          width: '440px',
-          maxWidth: '95vw',
-          padding: '32px',
-          position: 'relative',
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Close */}
-        <button
-          type="button"
-          onClick={onClose}
-          disabled={isDeleting}
-          style={{
-            position: 'absolute',
-            top: '16px',
-            right: '16px',
-            background: 'none',
-            border: 'none',
-            cursor: isDeleting ? 'not-allowed' : 'pointer',
-            color: '#6B7280',
-            display: 'flex',
-            padding: '4px',
-          }}
-          aria-label="Close"
-        >
-          <X size={16} />
-        </button>
-
-        {/* Title */}
-        <h2
-          style={{
-            fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-            fontWeight: 600,
-            fontSize: '18px',
-            color: '#0C1F40',
-            marginBottom: '16px',
-          }}
-        >
-          {meta.deleteTitle}
-        </h2>
-
-        {/* Body */}
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '14px',
-            color: '#374151',
-            marginBottom: showWarning ? '12px' : '24px',
-            lineHeight: '1.5',
-          }}
-        >
-          {meta.deleteBody}
-        </p>
-
-        {/* Warning box */}
-        {showWarning && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: '8px',
-              background: '#FFFBEB',
-              border: '1px solid #FCD34D',
-              padding: '10px 12px',
-              marginBottom: '24px',
-            }}
-          >
-            <AlertTriangle size={14} style={{ color: '#D97706', flexShrink: 0, marginTop: '1px' }} />
-            <span
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '13px',
-                color: '#92400E',
-              }}
-            >
-              {meta.deleteWarning}
-            </span>
-          </div>
-        )}
-
-        {/* Error */}
-        {deleteError && (
-          <p
-            role="alert"
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '13px',
-              color: '#DC2626',
-              marginBottom: '16px',
-            }}
-          >
-            {deleteError}
-          </p>
-        )}
-
-        {/* Buttons */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
-          <button
-            type="button"
-            onClick={onClose}
-            disabled={isDeleting}
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '14px',
-              fontWeight: 500,
-              color: '#0C1F40',
-              background: 'white',
-              border: '1px solid #0C1F40',
-              padding: '8px 20px',
-              cursor: isDeleting ? 'not-allowed' : 'pointer',
-              opacity: isDeleting ? 0.5 : 1,
-            }}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            onClick={handleDelete}
-            disabled={isDeleting}
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '14px',
-              fontWeight: 600,
-              color: 'white',
-              background: '#DC2626',
-              border: 'none',
-              padding: '8px 20px',
-              cursor: isDeleting ? 'not-allowed' : 'pointer',
-              opacity: isDeleting ? 0.7 : 1,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}
-          >
-            {isDeleting && <Loader2 size={14} className="animate-spin" />}
-            {isDeleting ? 'Deleting...' : 'Delete Key'}
-          </button>
-        </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   )
 }
 
@@ -980,26 +510,11 @@ export function ApiKeySection({ apiKeys, userRole }: ApiKeySectionProps) {
   return (
     <>
       {/* Section header */}
-      <div style={{ marginBottom: '24px' }}>
-        <h2
-          style={{
-            fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-            fontWeight: 600,
-            fontSize: '20px',
-            color: '#0C1F40',
-          }}
-        >
+      <div className="mb-6">
+        <h2 className="font-heading text-xl font-semibold text-foreground">
           API Keys
         </h2>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '14px',
-            color: '#6B7280',
-            marginTop: '4px',
-            maxWidth: '640px',
-          }}
-        >
+        <p className="text-sm text-muted-foreground mt-1 max-w-[640px]">
           Your API keys are encrypted at rest using AES-256 and never exposed in plaintext. You are
           charged directly by Anthropic for AI usage — Daimon only charges the platform fee.
         </p>

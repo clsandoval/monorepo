@@ -1,39 +1,24 @@
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
-import { Skeleton } from '@/components/ui/skeleton-loader'
+import { Skeleton } from '@/components/ui/skeleton'
 
 function ServiceCardSkeleton() {
   return (
-    <div
-      style={{
-        height: '180px',
-        border: '1.5px solid rgba(12,31,64,0.1)',
-        display: 'flex',
-        flexDirection: 'column',
-        background: '#FFFFFF',
-      }}
-    >
+    <div className="flex h-[180px] flex-col border border-border bg-card">
       {/* Card header */}
-      <div
-        style={{
-          padding: '20px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
+      <div className="flex items-center gap-3 p-5">
         {/* Logo */}
-        <Skeleton width="40px" height="40px" style={{ flexShrink: 0 }} />
+        <Skeleton className="h-10 w-10 shrink-0" />
         {/* Name + description */}
-        <div style={{ flex: 1 }}>
-          <Skeleton width="100px" height="16px" style={{ marginBottom: '6px' }} />
-          <Skeleton width="220px" height="12px" />
+        <div className="flex-1">
+          <Skeleton className="mb-1.5 h-4 w-[100px]" />
+          <Skeleton className="h-3 w-[220px]" />
         </div>
         {/* Badge */}
-        <Skeleton width="80px" height="22px" style={{ marginLeft: 'auto', flexShrink: 0 }} />
+        <Skeleton className="ml-auto h-[22px] w-20 shrink-0" />
       </div>
       {/* Footer button */}
-      <div style={{ padding: '0 20px 20px', marginTop: 'auto' }}>
-        <Skeleton width="120px" height="36px" />
+      <div className="mt-auto px-5 pb-5">
+        <Skeleton className="h-9 w-[120px]" />
       </div>
     </div>
   )
@@ -48,25 +33,13 @@ export default function IntegrationsLoading() {
         role="status"
       >
         {/* Page header skeleton */}
-        <div style={{ marginBottom: '32px' }}>
-          <Skeleton width="180px" height="28px" style={{ marginBottom: '8px' }} />
-          <Skeleton width="480px" height="16px" />
+        <div className="mb-8">
+          <Skeleton className="mb-2 h-7 w-[180px]" />
+          <Skeleton className="h-4 w-[480px]" />
         </div>
 
         {/* Service grid skeleton — 4 cards in 2×2 grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '16px',
-          }}
-          className="integrations-skeleton-grid"
-        >
-          <style>{`
-            @media (max-width: 767px) {
-              .integrations-skeleton-grid { grid-template-columns: 1fr !important; }
-            }
-          `}</style>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <ServiceCardSkeleton />
           <ServiceCardSkeleton />
           <ServiceCardSkeleton />

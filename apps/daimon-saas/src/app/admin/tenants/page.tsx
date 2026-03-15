@@ -6,6 +6,15 @@ import { createSupabaseAdminClient } from '@/lib/supabase/admin'
 
 import { AdminLayout } from '@/components/layout/admin-layout'
 import { EmptyState } from '@/components/ui/empty-state'
+import {
+  Pagination as PaginationRoot,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+} from '@/components/ui/pagination'
 import { FiltersBar } from './filters-bar'
 
 export const metadata: Metadata = {
@@ -199,77 +208,47 @@ function Pagination({
     if (i === 1 || i === totalPages || (i >= page - 2 && i <= page + 2)) {
       pages.push(i)
     } else if (pages[pages.length - 1] !== null) {
-      pages.push(null) // ellipsis
+      pages.push(null)
     }
   }
 
-  const btnBase: React.CSSProperties = {
-    fontFamily: 'var(--font-inter)',
-    fontSize: '14px',
-    padding: '4px 10px',
-    border: '1px solid #E5E7EB',
-    background: '#FFFFFF',
-    color: '#6B7280',
-    cursor: 'pointer',
-    borderRadius: 0,
-    textDecoration: 'none',
-    display: 'inline-flex',
-    alignItems: 'center',
-  }
-
   return (
-    <div
-      className="flex items-center justify-between flex-wrap gap-3"
-      style={{ padding: '16px 0', marginTop: '0' }}
-    >
-      <span style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#6B7280' }}>
+    <div className="flex items-center justify-between flex-wrap gap-3 py-4">
+      <span className="text-sm text-muted-foreground">
         Showing {start.toLocaleString()}–{end.toLocaleString()} of {total.toLocaleString()} tenants
       </span>
 
-      <div className="flex items-center gap-1">
-        {/* Previous */}
-        {page > 1 ? (
-          <Link href={pageHref(page - 1)} style={btnBase}>
-            ← Previous
-          </Link>
-        ) : (
-          <span style={{ ...btnBase, opacity: 0.4, cursor: 'not-allowed' }}>← Previous</span>
-        )}
+      <PaginationRoot>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              href={page > 1 ? pageHref(page - 1) : undefined}
+              className={page <= 1 ? 'pointer-events-none opacity-40' : ''}
+              text="Previous"
+            />
+          </PaginationItem>
 
-        {/* Page numbers */}
-        {pages.map((p, idx) =>
-          p === null ? (
-            <span
-              key={`ellipsis-${idx}`}
-              style={{ ...btnBase, border: 'none', cursor: 'default' }}
-            >
-              …
-            </span>
-          ) : (
-            <Link
-              key={p}
-              href={pageHref(p)}
-              style={{
-                ...btnBase,
-                background: p === page ? '#0C1F40' : '#FFFFFF',
-                color: p === page ? '#FFFFFF' : '#6B7280',
-                borderColor: p === page ? '#0C1F40' : '#E5E7EB',
-              }}
-            >
-              {p}
-            </Link>
-          )
-        )}
+          {pages.map((p, idx) => (
+            <PaginationItem key={p === null ? `ellipsis-${idx}` : p} className="hidden sm:block">
+              {p === null ? (
+                <PaginationEllipsis />
+              ) : (
+                <PaginationLink href={pageHref(p)} isActive={p === page}>
+                  {p}
+                </PaginationLink>
+              )}
+            </PaginationItem>
+          ))}
 
-        {/* Next */}
-        {page < totalPages ? (
-          <Link href={pageHref(page + 1)} style={btnBase}>
-            Next →
-          </Link>
-        ) : (
-          <span style={{ ...btnBase, opacity: 0.4, cursor: 'not-allowed' }}>Next →</span>
-        )}
-      </div>
+          <PaginationItem>
+            <PaginationNext
+              href={page < totalPages ? pageHref(page + 1) : undefined}
+              className={page >= totalPages ? 'pointer-events-none opacity-40' : ''}
+              text="Next"
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </PaginationRoot>
     </div>
   )
 }
@@ -294,92 +273,103 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
   const sort = params.sort ?? 'created_desc'
   const page = Math.max(1, parseInt(params.page ?? '1', 10))
 
-  const supabaseAdmin = createSupabaseAdminClient()
+  let totalCount = 0
+  let activeCount = 0
+  let payingCount = 0
+  let suspendedCount = 0
+  let tenants: TenantRow[] = []
+  let total = 0
 
-  // ── Stats (parallel) ──────────────────────────────────────────────────────
-  const [totalResult, activeResult, payingResult, suspendedResult] = await Promise.all([
-    supabaseAdmin.from('tenants').select('*', { count: 'exact', head: true }),
-    supabaseAdmin
+  try {
+    const supabaseAdmin = createSupabaseAdminClient()
+
+    // ── Stats (parallel) ──────────────────────────────────────────────────────
+    const [totalResult, activeResult, payingResult, suspendedResult] = await Promise.all([
+      supabaseAdmin.from('tenants').select('*', { count: 'exact', head: true }),
+      supabaseAdmin
+        .from('tenants')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'active'),
+      supabaseAdmin
+        .from('tenants')
+        .select('*', { count: 'exact', head: true })
+        .in('plan', ['starter', 'pro']),
+      supabaseAdmin
+        .from('tenants')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'suspended'),
+    ])
+
+    totalCount = totalResult.count ?? 0
+    activeCount = activeResult.count ?? 0
+    payingCount = payingResult.count ?? 0
+    suspendedCount = suspendedResult.count ?? 0
+
+    // ── Tenant list query ─────────────────────────────────────────────────────
+    const sortOpt = SORT_MAP[sort] ?? SORT_MAP.created_desc
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let query: any = supabaseAdmin
       .from('tenants')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'active'),
-    supabaseAdmin
-      .from('tenants')
-      .select('*', { count: 'exact', head: true })
-      .in('plan', ['starter', 'pro']),
-    supabaseAdmin
-      .from('tenants')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'suspended'),
-  ])
+      .select(
+        `id, name, plan, status, created_at, owner_id,
+         discord_connections(bot_username, guild_id, status)`,
+        { count: 'exact' }
+      )
 
-  const totalCount = totalResult.count ?? 0
-  const activeCount = activeResult.count ?? 0
-  const payingCount = payingResult.count ?? 0
-  const suspendedCount = suspendedResult.count ?? 0
+    if (q) query = query.ilike('name', `%${q}%`)
+    if (planFilter) query = query.eq('plan', planFilter)
+    if (statusFilter) query = query.eq('status', statusFilter)
 
-  // ── Tenant list query ─────────────────────────────────────────────────────
-  const sortOpt = SORT_MAP[sort] ?? SORT_MAP.created_desc
+    query = query.order(sortOpt.column, { ascending: sortOpt.ascending })
+    query = query.range((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE - 1)
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let query: any = supabaseAdmin
-    .from('tenants')
-    .select(
-      `id, name, plan, status, created_at, owner_id,
-       discord_connections(bot_username, guild_id, status)`,
-      { count: 'exact' }
+    const { data: rawTenants, count: listCount } = await query
+
+    // ── Owner email lookup ────────────────────────────────────────────────────
+    const ownerIds: string[] = (rawTenants ?? []).map((t: { owner_id: string }) => t.owner_id)
+    const emailMap: Record<string, string> = {}
+    if (ownerIds.length > 0) {
+      const results = await Promise.allSettled(
+        ownerIds.map((id) => supabaseAdmin.auth.admin.getUserById(id))
+      )
+      results.forEach((result, i) => {
+        if (result.status === 'fulfilled' && result.value.data?.user) {
+          emailMap[ownerIds[i]] = result.value.data.user.email ?? ''
+        }
+      })
+    }
+
+    // ── Build typed rows ──────────────────────────────────────────────────────
+    tenants = (rawTenants ?? []).map(
+      (t: {
+        id: string
+        name: string
+        plan: string
+        status: string
+        created_at: string
+        owner_id: string
+        discord_connections: Array<{ bot_username: string | null; guild_id: string; status: string }>
+      }) => ({
+        id: t.id,
+        name: t.name,
+        plan: t.plan as TenantRow['plan'],
+        status: t.status as TenantRow['status'],
+        created_at: t.created_at,
+        owner_id: t.owner_id,
+        ownerEmail: emailMap[t.owner_id] ?? '',
+        discord:
+          t.discord_connections && t.discord_connections.length > 0
+            ? t.discord_connections[0]
+            : null,
+      })
     )
 
-  if (q) query = query.ilike('name', `%${q}%`)
-  if (planFilter) query = query.eq('plan', planFilter)
-  if (statusFilter) query = query.eq('status', statusFilter)
-
-  query = query.order(sortOpt.column, { ascending: sortOpt.ascending })
-  query = query.range((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE - 1)
-
-  const { data: rawTenants, count: listCount } = await query
-
-  // ── Owner email lookup ────────────────────────────────────────────────────
-  const ownerIds: string[] = (rawTenants ?? []).map((t: { owner_id: string }) => t.owner_id)
-  const emailMap: Record<string, string> = {}
-  if (ownerIds.length > 0) {
-    // Batch lookup using admin auth API
-    const results = await Promise.allSettled(
-      ownerIds.map((id) => supabaseAdmin.auth.admin.getUserById(id))
-    )
-    results.forEach((result, i) => {
-      if (result.status === 'fulfilled' && result.value.data?.user) {
-        emailMap[ownerIds[i]] = result.value.data.user.email ?? ''
-      }
-    })
+    total = listCount ?? 0
+  } catch {
+    // Admin credentials not available — render with empty data
   }
 
-  // ── Build typed rows ──────────────────────────────────────────────────────
-  const tenants: TenantRow[] = (rawTenants ?? []).map(
-    (t: {
-      id: string
-      name: string
-      plan: string
-      status: string
-      created_at: string
-      owner_id: string
-      discord_connections: Array<{ bot_username: string | null; guild_id: string; status: string }>
-    }) => ({
-      id: t.id,
-      name: t.name,
-      plan: t.plan as TenantRow['plan'],
-      status: t.status as TenantRow['status'],
-      created_at: t.created_at,
-      owner_id: t.owner_id,
-      ownerEmail: emailMap[t.owner_id] ?? '',
-      discord:
-        t.discord_connections && t.discord_connections.length > 0
-          ? t.discord_connections[0]
-          : null,
-    })
-  )
-
-  const total = listCount ?? 0
   const totalPages = Math.max(1, Math.ceil(total / ITEMS_PER_PAGE))
 
   // Rebuild search params string for pagination links

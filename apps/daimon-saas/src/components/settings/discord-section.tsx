@@ -2,6 +2,7 @@
 
 import { DiscordSection } from '@/components/integrations/discord-connection-card'
 import type { DiscordConnection } from '@/components/integrations/discord-connection-card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface SettingsDiscordSectionProps {
   tenantId: string
@@ -15,53 +16,22 @@ export function SettingsDiscordSection({
   connections,
 }: SettingsDiscordSectionProps) {
   return (
-    <div
-      style={{
-        background: '#FFFFFF',
-        border: '1px solid #E5E7EB',
-        borderRadius: '0px',
-        marginBottom: '24px',
-      }}
-    >
-      {/* Card header */}
-      <div
-        style={{
-          padding: '24px 32px 20px 32px',
-          borderBottom: '1px solid #E5E7EB',
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-            fontWeight: 600,
-            fontSize: '18px',
-            color: '#0C1F40',
-            marginBottom: '4px',
-          }}
-        >
+    <Card className="mb-6">
+      <CardHeader>
+        <CardTitle className="font-heading text-lg font-semibold text-foreground">
           Discord Connection
-        </h2>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 400,
-            fontSize: '14px',
-            color: '#6B7280',
-            margin: 0,
-          }}
-        >
+        </CardTitle>
+        <CardDescription>
           Manage your Discord bot connections. Each connection links a bot token to a Discord server.
-        </p>
-      </div>
-
-      {/* Card body */}
-      <div style={{ padding: '24px 32px 32px 32px' }}>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <DiscordSection
           tenantId={tenantId}
           userRole={userRole}
           connections={connections}
         />
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

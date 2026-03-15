@@ -4,6 +4,9 @@ import * as React from 'react'
 import { useRouter } from 'next/navigation'
 import { CheckCircle, Loader2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 export interface CurrentPlanData {
   plan: 'free' | 'starter' | 'pro'
@@ -70,7 +73,7 @@ function BillingPeriodLine({
 }) {
   if (plan === 'free') {
     return (
-      <p style={{ fontSize: '13px', color: '#6B7280', fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
+      <p className="text-sm text-muted-foreground">
         Free plan · No billing
       </p>
     )
@@ -84,11 +87,11 @@ function BillingPeriodLine({
 
   if (status === 'trialing') {
     return (
-      <p style={{ fontSize: '13px', color: '#6B7280', fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
+      <p className="text-sm text-muted-foreground">
         Trial ends {formatDate(trialEnd ?? null)} ·{' '}
         <button
           onClick={onPortalClick}
-          style={{ color: '#6B7280', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px', padding: 0 }}
+          className="bg-transparent border-none cursor-pointer text-sm text-muted-foreground underline p-0"
         >
           Add Payment Method →
         </button>
@@ -98,11 +101,11 @@ function BillingPeriodLine({
 
   if (status === 'past_due') {
     return (
-      <p style={{ fontSize: '13px', color: '#DC2626', fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
+      <p className="text-sm text-destructive">
         Payment failed ·{' '}
         <button
           onClick={onPortalClick}
-          style={{ color: '#DC2626', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px', padding: 0 }}
+          className="bg-transparent border-none cursor-pointer text-sm text-destructive underline p-0"
         >
           Update Payment Method →
         </button>
@@ -112,7 +115,7 @@ function BillingPeriodLine({
 
   if (status === 'canceled') {
     return (
-      <p style={{ fontSize: '13px', color: '#DC2626', fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
+      <p className="text-sm text-destructive">
         Canceled · Access ends {formatDate(periodEnd ?? null)}
       </p>
     )
@@ -120,7 +123,7 @@ function BillingPeriodLine({
 
   if (status === 'unpaid') {
     return (
-      <p style={{ fontSize: '13px', color: '#DC2626', fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
+      <p className="text-sm text-destructive">
         Unpaid · Bot access suspended
       </p>
     )
@@ -128,11 +131,11 @@ function BillingPeriodLine({
 
   if (status === 'incomplete') {
     return (
-      <p style={{ fontSize: '13px', color: '#D97706', fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
+      <p className="text-sm text-[#D97706]">
         Payment incomplete ·{' '}
         <button
           onClick={onPortalClick}
-          style={{ color: '#D97706', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px', padding: 0 }}
+          className="bg-transparent border-none cursor-pointer text-sm text-[#D97706] underline p-0"
         >
           Complete Payment →
         </button>
@@ -142,11 +145,11 @@ function BillingPeriodLine({
 
   if (cancelAtEnd) {
     return (
-      <p style={{ fontSize: '13px', color: '#D97706', fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
+      <p className="text-sm text-[#D97706]">
         ⚠ Cancels on {formatDate(cancelAt ?? null)} ·{' '}
         <button
           onClick={onPortalClick}
-          style={{ color: '#D97706', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px', padding: 0 }}
+          className="bg-transparent border-none cursor-pointer text-sm text-[#D97706] underline p-0"
         >
           Reactivate →
         </button>
@@ -156,7 +159,7 @@ function BillingPeriodLine({
 
   // active, default
   return (
-    <p style={{ fontSize: '13px', color: '#6B7280', fontFamily: 'var(--font-inter), Inter, sans-serif' }}>
+    <p className="text-sm text-muted-foreground">
       Renews {formatDate(periodEnd ?? null)}
     </p>
   )
@@ -207,115 +210,33 @@ export function CurrentPlanCard({
     const cancelAt = subscription?.cancel_at
     const cancelAtEnd = cancelAt && new Date(cancelAt) > new Date()
 
+    let onClick: () => void
+    let label: string
+
     if (plan === 'free') {
-      return (
-        <button
-          onClick={() => handleCheckout('starter')}
-          disabled={loading}
-          style={{
-            background: loading ? '#D1FAE5' : '#B4E7DD',
-            color: '#0C1F40',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '14px',
-            padding: '8px 16px',
-            border: 'none',
-            borderRadius: 0,
-            cursor: loading ? 'not-allowed' : 'pointer',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            transition: 'background-color 150ms ease',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {loading && <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} />}
-          {loading ? 'Opening...' : 'Upgrade Plan →'}
-        </button>
-      )
+      onClick = () => handleCheckout('starter')
+      label = 'Upgrade Plan →'
+    } else if (stripeStatus === 'canceled' || cancelAtEnd) {
+      onClick = () => handleCheckout(plan as 'starter' | 'pro')
+      label = 'Reactivate →'
+    } else if (stripeStatus === 'past_due' || stripeStatus === 'incomplete') {
+      onClick = handlePortal
+      label = 'Update Payment →'
+    } else {
+      onClick = handlePortal
+      label = 'Manage Billing →'
     }
 
-    if (stripeStatus === 'canceled' || cancelAtEnd) {
-      return (
-        <button
-          onClick={() => handleCheckout(plan as 'starter' | 'pro')}
-          disabled={loading}
-          style={{
-            background: loading ? '#D1FAE5' : '#B4E7DD',
-            color: '#0C1F40',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '14px',
-            padding: '8px 16px',
-            border: 'none',
-            borderRadius: 0,
-            cursor: loading ? 'not-allowed' : 'pointer',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            transition: 'background-color 150ms ease',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {loading && <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} />}
-          {loading ? 'Opening...' : 'Reactivate →'}
-        </button>
-      )
-    }
-
-    if (stripeStatus === 'past_due' || stripeStatus === 'incomplete') {
-      return (
-        <button
-          onClick={handlePortal}
-          disabled={loading}
-          style={{
-            background: loading ? '#D1FAE5' : '#B4E7DD',
-            color: '#0C1F40',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '14px',
-            padding: '8px 16px',
-            border: 'none',
-            borderRadius: 0,
-            cursor: loading ? 'not-allowed' : 'pointer',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            transition: 'background-color 150ms ease',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {loading && <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} />}
-          {loading ? 'Opening...' : 'Update Payment →'}
-        </button>
-      )
-    }
-
-    // active or default
     return (
-      <button
-        onClick={handlePortal}
+      <Button
+        onClick={onClick}
         disabled={loading}
-        style={{
-          background: loading ? '#D1FAE5' : '#B4E7DD',
-          color: '#0C1F40',
-          fontFamily: 'var(--font-inter), Inter, sans-serif',
-          fontWeight: 500,
-          fontSize: '14px',
-          padding: '8px 16px',
-          border: 'none',
-          borderRadius: 0,
-          cursor: loading ? 'not-allowed' : 'pointer',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-          transition: 'background-color 150ms ease',
-          whiteSpace: 'nowrap',
-        }}
+        variant="default"
+        className="whitespace-nowrap"
       >
-        {loading && <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} />}
-        {loading ? 'Opening...' : 'Manage Billing →'}
-      </button>
+        {loading && <Loader2 className="size-3.5 animate-spin" />}
+        {loading ? 'Opening...' : label}
+      </Button>
     )
   }
 
@@ -324,59 +245,23 @@ export function CurrentPlanCard({
   const features = PLAN_FEATURES[plan]
 
   return (
-    <div
-      style={{
-        background: '#FFFFFF',
-        border: '1px solid #E5E7EB',
-        borderRadius: 0,
-        padding: '24px',
-        marginBottom: '24px',
-        width: '100%',
-      }}
-    >
+    <Card className="p-6 mb-6 w-full">
       {/* CURRENT PLAN label */}
-      <p
-        style={{
-          fontFamily: 'var(--font-inter), Inter, sans-serif',
-          fontWeight: 500,
-          fontSize: '11px',
-          letterSpacing: '0.08em',
-          textTransform: 'uppercase',
-          color: '#6B7280',
-          marginBottom: '4px',
-        }}
-      >
+      <p className="font-medium text-xs tracking-[0.08em] uppercase text-muted-foreground mb-1">
         Current Plan
       </p>
 
       {/* Plan name row */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div className="flex justify-between items-start">
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <h2
-              style={{
-                fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-                fontWeight: 600,
-                fontSize: '24px',
-                color: '#0C1F40',
-                textTransform: 'capitalize',
-                margin: 0,
-              }}
-            >
+          <div className="flex items-center gap-2.5">
+            <h2 className="font-heading font-semibold text-2xl text-foreground capitalize m-0">
               {plan === 'free' ? 'Free' : plan === 'starter' ? 'Starter' : 'Pro'}
             </h2>
             <Badge variant={planVariant} />
           </div>
           {price && (
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontWeight: 400,
-                fontSize: '14px',
-                color: '#6B7280',
-                marginTop: '4px',
-              }}
-            >
+            <p className="text-sm text-muted-foreground mt-1">
               {price}
             </p>
           )}
@@ -385,29 +270,13 @@ export function CurrentPlanCard({
       </div>
 
       {/* Feature list */}
-      <ul
-        style={{
-          listStyle: 'none',
-          padding: 0,
-          margin: '16px 0',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '8px',
-        }}
-      >
+      <ul className="list-none p-0 my-4 flex flex-col gap-2">
         {features.map((feature) => (
           <li
             key={feature}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '14px',
-              color: '#0C1F40',
-            }}
+            className="inline-flex items-center gap-2 text-sm text-foreground"
           >
-            <CheckCircle size={16} style={{ color: '#B4E7DD', flexShrink: 0 }} />
+            <CheckCircle className="size-4 text-primary shrink-0" />
             {feature}
           </li>
         ))}
@@ -415,13 +284,7 @@ export function CurrentPlanCard({
 
       {/* Member note or billing period */}
       {!isOwner ? (
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '13px',
-            color: '#6B7280',
-          }}
-        >
+        <p className="text-sm text-muted-foreground">
           Only the workspace owner can manage billing.
         </p>
       ) : (
@@ -434,67 +297,25 @@ export function CurrentPlanCard({
 
       {/* Usage stats */}
       {(usageStats.messagesToday > 0 || usageStats.toolUsesToday > 0) && (
-        <div
-          style={{
-            marginTop: '16px',
-            paddingTop: '16px',
-            borderTop: '1px solid #F3F4F6',
-            display: 'flex',
-            gap: '24px',
-          }}
-        >
+        <div className="mt-4 pt-4 border-t border-border flex gap-6">
           <div>
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '11px',
-                fontWeight: 500,
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-                color: '#9CA3AF',
-                marginBottom: '2px',
-              }}
-            >
+            <p className="text-xs font-medium tracking-[0.06em] uppercase text-muted-foreground mb-0.5">
               Messages Today
             </p>
-            <p
-              style={{
-                fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-                fontSize: '20px',
-                fontWeight: 600,
-                color: '#0C1F40',
-              }}
-            >
+            <p className="font-heading text-xl font-semibold text-foreground">
               {usageStats.messagesToday}
             </p>
           </div>
           <div>
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '11px',
-                fontWeight: 500,
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-                color: '#9CA3AF',
-                marginBottom: '2px',
-              }}
-            >
+            <p className="text-xs font-medium tracking-[0.06em] uppercase text-muted-foreground mb-0.5">
               Tool Uses Today
             </p>
-            <p
-              style={{
-                fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-                fontSize: '20px',
-                fontWeight: 600,
-                color: '#0C1F40',
-              }}
-            >
+            <p className="font-heading text-xl font-semibold text-foreground">
               {usageStats.toolUsesToday}
             </p>
           </div>
         </div>
       )}
-    </div>
+    </Card>
   )
 }

@@ -9,6 +9,13 @@ import { z } from 'zod';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { cn } from '@/lib/utils';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 
 const ResetSchema = z.object({
   email: z
@@ -36,10 +43,17 @@ function mapResetRequestError(error: { message: string; status?: number }): stri
 // --- Icons ---
 function ExclamationCircleIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="flex-shrink-0">
-      <circle cx="8" cy="8" r="7.25" stroke="#DC2626" strokeWidth="1.5" />
-      <path d="M8 5v3.5" stroke="#DC2626" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="8" cy="11" r=".75" fill="#DC2626" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <circle cx="8" cy="8" r="7.25" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M8 5v3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="8" cy="11" r=".75" fill="currentColor" />
     </svg>
   );
 }
@@ -73,7 +87,6 @@ function ResendButton({
   const [cooldown, setCooldown] = useState(60);
   const [resending, setResending] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const supabase = createClient();
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -90,6 +103,7 @@ function ResendButton({
 
   async function handleResend() {
     setResending(true);
+    const supabase = createClient();
     const { error } = await supabase.auth.resetPasswordForEmail(sentToEmail, {
       redirectTo: `${window.location.origin}/reset-password/confirm`,
     });
@@ -114,28 +128,16 @@ function ResendButton({
   const disabled = cooldown > 0 || resending;
 
   return (
-    <button
+    <Button
       type="button"
+      variant="outline"
       onClick={handleResend}
       disabled={disabled}
       aria-disabled={disabled}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '44px',
-        backgroundColor: 'transparent',
-        color: '#0C1F40',
-        border: '1.5px solid #0C1F40',
-        borderRadius: 0,
-        fontFamily: 'Inter, sans-serif',
-        fontSize: '15px',
-        fontWeight: 600,
-        cursor: disabled ? 'not-allowed' : 'pointer',
-        opacity: disabled ? 0.5 : 1,
-        transition: 'all 0.2s ease',
-      }}
+      className={cn(
+        'w-full h-11 rounded-none border-[1.5px] border-foreground text-foreground text-[15px] font-semibold transition-all',
+        disabled && 'opacity-50 cursor-not-allowed'
+      )}
     >
       {resending ? (
         <Spinner />
@@ -144,82 +146,7 @@ function ResendButton({
       ) : (
         'Resend reset email'
       )}
-    </button>
-  );
-}
-
-// --- Logo + CI Stripe (reusable inline) ---
-function Logo() {
-  return (
-    <a
-      href="/"
-      className="flex items-center justify-center"
-      style={{ gap: '8px', transition: 'opacity 0.2s ease' }}
-      onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-      onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-    >
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <path
-          d="M16 2L20 10L28 8L24 16L28 24L20 22L16 30L12 22L4 24L8 16L4 8L12 10L16 2Z"
-          fill="#0C1F40"
-        />
-      </svg>
-      <span
-        style={{
-          fontFamily: 'Archivo, sans-serif',
-          fontSize: '20px',
-          fontWeight: 700,
-          color: '#0C1F40',
-        }}
-      >
-        Daimon
-      </span>
-    </a>
-  );
-}
-
-function CIStripe() {
-  return (
-    <div aria-hidden="true" className="absolute left-0 top-0 h-full" style={{ width: '6px' }}>
-      <div
-        className="absolute left-0"
-        style={{ top: '15%', height: '70%', width: '6px', backgroundColor: '#B4E7DD', opacity: 0.3 }}
-      />
-      <div
-        className="absolute left-0"
-        style={{ top: '35%', height: '30%', width: '6px', backgroundColor: '#9FAAE2', opacity: 0.35 }}
-      />
-      <div
-        className="absolute left-0"
-        style={{ top: '40%', height: '20%', width: '6px', backgroundColor: '#B4E7DD', opacity: 0.6 }}
-      />
-    </div>
-  );
-}
-
-function AuthFooter() {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '16px',
-        fontFamily: 'Inter, sans-serif',
-        fontSize: '12px',
-        fontWeight: 400,
-        color: 'rgba(12,31,64,0.45)',
-      }}
-    >
-      <Link href="/terms" style={{ color: 'inherit', textDecoration: 'none' }}>
-        Terms of Service
-      </Link>
-      <Link href="/privacy" style={{ color: 'inherit', textDecoration: 'none' }}>
-        Privacy Policy
-      </Link>
-      <a href="mailto:support@daimon.ai" style={{ color: 'inherit', textDecoration: 'none' }}>
-        Support
-      </a>
-    </div>
+    </Button>
   );
 }
 
@@ -230,8 +157,6 @@ function ResetPasswordForm() {
   const [sentToEmail, setSentToEmail] = useState('');
   const [serverError, setServerError] = useState<string | null>(null);
   const [resendBanner, setResendBanner] = useState<string | null>(null);
-
-  const supabase = createClient();
 
   const {
     register,
@@ -249,6 +174,7 @@ function ResetPasswordForm() {
   async function onSubmit(data: ResetFormValues) {
     setServerError(null);
 
+    const supabase = createClient();
     const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
       redirectTo: `${window.location.origin}/reset-password/confirm`,
     });
@@ -264,71 +190,77 @@ function ResetPasswordForm() {
 
   if (showSuccess) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#F7F7F7' }}>
-        <div className="w-full flex flex-col" style={{ maxWidth: '440px', gap: '32px' }}>
-          <Logo />
+      <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+        <div className="w-full flex flex-col max-w-[440px] gap-8">
+          {/* Logo */}
+          <Link
+            href="/"
+            className="flex items-center justify-center gap-2 transition-opacity hover:opacity-85"
+          >
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path
+                d="M16 2L20 10L28 8L24 16L28 24L20 22L16 30L12 22L4 24L8 16L4 8L12 10L16 2Z"
+                fill="currentColor"
+                className="text-foreground"
+              />
+            </svg>
+            <span className="font-heading text-xl font-bold text-foreground">
+              Daimon
+            </span>
+          </Link>
 
           {/* Success card */}
-          <div className="w-full relative overflow-hidden" style={{ backgroundColor: '#FFFFFF', boxShadow: '0 1px 3px rgba(12,31,64,0.08), 0 4px 16px rgba(12,31,64,0.06)', padding: '40px' }}>
-            <CIStripe />
-
-            <div style={{ marginBottom: '24px' }}>
-              <h1 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '24px', fontWeight: 500, color: '#0C1F40', marginBottom: '4px' }}>
-                Check your email
-              </h1>
+          <Card className="w-full relative overflow-hidden rounded-none ring-0 shadow-[0_1px_3px_rgba(12,31,64,0.08),0_4px_16px_rgba(12,31,64,0.06)] p-0">
+            {/* CI Stripe */}
+            <div aria-hidden="true" className="absolute left-0 top-0 h-full w-1.5">
+              <div className="absolute left-0 top-[15%] h-[70%] w-1.5 bg-primary opacity-30" />
+              <div className="absolute left-0 top-[35%] h-[30%] w-1.5 bg-secondary opacity-35" />
+              <div className="absolute left-0 top-[40%] h-[20%] w-1.5 bg-primary opacity-60" />
             </div>
 
-            <div style={{ textAlign: 'center', paddingTop: '8px' }}>
+            <CardHeader className="px-6 sm:px-10 pt-10 pb-0">
+              <CardTitle className="font-heading text-2xl font-medium text-foreground">
+                Check your email
+              </CardTitle>
+            </CardHeader>
+
+            <CardContent className="px-6 sm:px-10 pb-10 text-center pt-4">
               {/* Envelope icon */}
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+              <div className="flex justify-center mb-4">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                  <rect x="4" y="10" width="40" height="28" rx="2" stroke="#B4E7DD" strokeWidth="2.5" fill="none" />
-                  <path d="M4 14l20 14 20-14" stroke="#B4E7DD" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <rect x="4" y="10" width="40" height="28" rx="2" stroke="currentColor" strokeWidth="2.5" fill="none" className="text-primary" />
+                  <path d="M4 14l20 14 20-14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary" />
                 </svg>
               </div>
 
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: 'rgba(12,31,64,0.7)', marginBottom: '4px' }}>
+              <p className="text-sm text-foreground/70 mb-1">
                 We&apos;ve sent a password reset link to:
               </p>
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 700, color: '#0C1F40', marginBottom: '24px' }}>
+              <p className="text-sm font-bold text-foreground mb-6">
                 {sentToEmail}
               </p>
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: 'rgba(12,31,64,0.7)', marginBottom: '2px' }}>
+              <p className="text-sm text-foreground/70 mb-0.5">
                 Click the link in the email to reset your password.
               </p>
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: 'rgba(12,31,64,0.7)', marginBottom: '32px' }}>
+              <p className="text-sm text-foreground/70 mb-8">
                 The link expires in 1 hour.
               </p>
 
               {/* Divider */}
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
-                <div style={{ width: '48px', height: '3px', backgroundColor: '#B4E7DD' }} />
+              <div className="flex justify-center mb-6">
+                <Separator className="w-12 h-[3px] bg-primary" />
               </div>
 
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: 'rgba(12,31,64,0.7)', marginBottom: '12px' }}>
+              <p className="text-sm text-foreground/70 mb-3">
                 Didn&apos;t receive the email? Check your spam folder.
               </p>
 
               {resendBanner && (
-                <div
-                  role="alert"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: '10px',
-                    backgroundColor: 'rgba(180,231,221,0.2)',
-                    borderLeft: '3px solid #B4E7DD',
-                    padding: '12px 16px',
-                    marginBottom: '12px',
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '14px',
-                    fontWeight: 400,
-                    color: '#0C1F40',
-                    textAlign: 'left',
-                  }}
-                >
-                  <span>{resendBanner}</span>
-                </div>
+                <Alert className="mb-3 rounded-none border-l-[3px] border-l-primary bg-primary/20 text-left">
+                  <AlertDescription className="text-sm text-foreground">
+                    {resendBanner}
+                  </AlertDescription>
+                </Alert>
               )}
 
               <ResendButton
@@ -336,192 +268,170 @@ function ResetPasswordForm() {
                 onResendSuccess={() => setResendBanner('Reset link resent. Check your inbox.')}
                 onResendError={(msg) => setResendBanner(msg)}
               />
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
           {/* Back to sign in */}
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className="flex justify-center">
             <Link
               href="/login"
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '14px',
-                fontWeight: 500,
-                color: 'rgba(12,31,64,0.6)',
-                textDecoration: 'none',
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#0C1F40')}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = 'rgba(12,31,64,0.6)')}
+              className="text-sm font-medium text-foreground/60 no-underline hover:text-foreground"
             >
               ← Back to sign in
             </Link>
           </div>
 
-          <AuthFooter />
+          {/* Auth footer */}
+          <div className="flex justify-center gap-4 text-sm text-foreground/45">
+            <Link href="/terms" className="text-inherit no-underline hover:text-foreground/70">
+              Terms of Service
+            </Link>
+            <Link href="/privacy" className="text-inherit no-underline hover:text-foreground/70">
+              Privacy Policy
+            </Link>
+            <a href="mailto:support@daimon.ai" className="text-inherit no-underline hover:text-foreground/70">
+              Support
+            </a>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#F7F7F7' }}>
-      <div className="w-full flex flex-col" style={{ maxWidth: '440px', gap: '32px' }}>
-        <Logo />
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+      <div className="w-full flex flex-col max-w-[440px] gap-8">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="flex items-center justify-center gap-2 transition-opacity hover:opacity-85"
+        >
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path
+              d="M16 2L20 10L28 8L24 16L28 24L20 22L16 30L12 22L4 24L8 16L4 8L12 10L16 2Z"
+              fill="currentColor"
+              className="text-foreground"
+            />
+          </svg>
+          <span className="font-heading text-xl font-bold text-foreground">
+            Daimon
+          </span>
+        </Link>
 
         {/* Request form card */}
-        <div className="w-full relative overflow-hidden" style={{ backgroundColor: '#FFFFFF', boxShadow: '0 1px 3px rgba(12,31,64,0.08), 0 4px 16px rgba(12,31,64,0.06)', padding: '40px' }}>
-          <CIStripe />
-
-          <div style={{ marginBottom: '24px' }}>
-            <h1 style={{ fontFamily: 'Archivo, sans-serif', fontSize: '24px', fontWeight: 500, color: '#0C1F40', marginBottom: '4px' }}>
-              Reset your password
-            </h1>
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', fontWeight: 400, color: 'rgba(12,31,64,0.55)' }}>
-              Enter your email and we&apos;ll send you a link to reset your password.
-            </p>
+        <Card className="w-full relative overflow-hidden rounded-none ring-0 shadow-[0_1px_3px_rgba(12,31,64,0.08),0_4px_16px_rgba(12,31,64,0.06)] p-0">
+          {/* CI Stripe */}
+          <div aria-hidden="true" className="absolute left-0 top-0 h-full w-1.5">
+            <div className="absolute left-0 top-[15%] h-[70%] w-1.5 bg-primary opacity-30" />
+            <div className="absolute left-0 top-[35%] h-[30%] w-1.5 bg-secondary opacity-35" />
+            <div className="absolute left-0 top-[40%] h-[20%] w-1.5 bg-primary opacity-60" />
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Reset password form">
-            {/* Email field */}
-            <div style={{ marginBottom: '24px' }}>
-              <label
-                htmlFor="email"
-                style={{
-                  display: 'block',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '13px',
-                  fontWeight: 500,
-                  color: errors.email ? '#0C1F40' : 'rgba(12,31,64,0.7)',
-                  marginBottom: '6px',
-                }}
-              >
-                Email <span aria-hidden="true">*</span>
-              </label>
-              <input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                autoComplete="email"
-                autoFocus
-                maxLength={254}
-                disabled={isSubmitting}
-                aria-required="true"
-                aria-describedby={errors.email ? 'email-error' : undefined}
-                aria-invalid={!!errors.email}
-                {...register('email')}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  height: '44px',
-                  padding: '0 14px',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: 400,
-                  color: '#0C1F40',
-                  backgroundColor: errors.email ? '#FFF5F5' : '#FFFFFF',
-                  border: errors.email ? '1.5px solid #DC2626' : '1.5px solid rgba(12,31,64,0.2)',
-                  borderRadius: 0,
-                  outline: 'none',
-                  transition: 'border-color 0.15s ease',
-                  boxSizing: 'border-box',
-                }}
-              />
-              {errors.email && (
-                <p
-                  id="email-error"
-                  role="alert"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    color: '#DC2626',
-                    marginTop: '4px',
-                  }}
+          <CardHeader className="px-6 sm:px-10 pt-10 pb-0">
+            <CardTitle className="font-heading text-2xl font-medium text-foreground">
+              Reset your password
+            </CardTitle>
+            <CardDescription className="text-[15px] text-muted-foreground">
+              Enter your email and we&apos;ll send you a link to reset your password.
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="px-6 sm:px-10 pb-10">
+            <form onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Reset password form">
+              {/* Email field */}
+              <div className="mb-6">
+                <Label
+                  htmlFor="email"
+                  className="mb-1.5 text-sm text-foreground/70"
                 >
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
-            {/* Server error banner */}
-            {serverError && (
-              <div
-                role="alert"
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '10px',
-                  backgroundColor: '#FEF2F2',
-                  borderLeft: '3px solid #DC2626',
-                  padding: '12px 16px',
-                  marginBottom: '20px',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '14px',
-                  fontWeight: 400,
-                  color: '#991B1B',
-                }}
-              >
-                <ExclamationCircleIcon />
-                <span>{serverError}</span>
+                  Email <span aria-hidden="true">*</span>
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                  autoFocus
+                  maxLength={254}
+                  disabled={isSubmitting}
+                  aria-required="true"
+                  aria-describedby={errors.email ? 'email-error' : undefined}
+                  aria-invalid={!!errors.email}
+                  {...register('email')}
+                  className={cn(
+                    'h-11 rounded-none border-input px-3.5 text-[15px] text-foreground',
+                    errors.email && 'border-destructive bg-red-50'
+                  )}
+                />
+                {errors.email && (
+                  <p
+                    id="email-error"
+                    role="alert"
+                    className="flex items-center gap-1 text-sm text-destructive mt-1"
+                  >
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
-            )}
 
-            {/* Submit button */}
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              aria-busy={isSubmitting}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%',
-                height: '44px',
-                backgroundColor: '#B4E7DD',
-                color: '#0C1F40',
-                border: '1.5px solid #B4E7DD',
-                borderRadius: 0,
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '15px',
-                fontWeight: 600,
-                cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                opacity: isSubmitting ? 0.5 : 1,
-                transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(e) => { if (!isSubmitting) (e.currentTarget as HTMLButtonElement).style.opacity = '0.85'; }}
-              onMouseLeave={(e) => { if (!isSubmitting) (e.currentTarget as HTMLButtonElement).style.opacity = '1'; }}
-            >
-              {isSubmitting ? (
-                <>
-                  <Spinner />
-                  <span className="sr-only">Loading...</span>
-                </>
-              ) : (
-                'Send Reset Link'
+              {/* Server error banner */}
+              {serverError && (
+                <Alert variant="destructive" className="mb-5 rounded-none border-l-[3px] border-l-destructive bg-red-50">
+                  <ExclamationCircleIcon />
+                  <AlertDescription className="text-sm text-red-800">
+                    {serverError}
+                  </AlertDescription>
+                </Alert>
               )}
-            </button>
-          </form>
-        </div>
+
+              {/* Submit button */}
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                aria-busy={isSubmitting}
+                className={cn(
+                  'w-full h-11 rounded-none bg-primary text-primary-foreground border-[1.5px] border-primary text-[15px] font-semibold transition-all',
+                  isSubmitting && 'opacity-50 cursor-not-allowed'
+                )}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Spinner />
+                    <span className="sr-only">Loading...</span>
+                  </>
+                ) : (
+                  'Send Reset Link'
+                )}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
 
         {/* Footer link */}
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}>
-          <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 400, color: 'rgba(12,31,64,0.6)' }}>
+        <div className="flex justify-center items-center gap-1.5">
+          <span className="text-sm text-foreground/60">
             Remember your password?
           </span>
           <Link
             href="/login"
-            style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 600, color: '#0C1F40', textDecoration: 'none' }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#B4E7DD')}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = '#0C1F40')}
+            className="text-sm font-semibold text-foreground hover:text-primary no-underline"
           >
             Sign in
           </Link>
         </div>
 
-        <AuthFooter />
+        {/* Auth footer */}
+        <div className="flex justify-center gap-4 text-sm text-foreground/45">
+          <Link href="/terms" className="text-inherit no-underline hover:text-foreground/70">
+            Terms of Service
+          </Link>
+          <Link href="/privacy" className="text-inherit no-underline hover:text-foreground/70">
+            Privacy Policy
+          </Link>
+          <a href="mailto:support@daimon.ai" className="text-inherit no-underline hover:text-foreground/70">
+            Support
+          </a>
+        </div>
       </div>
     </div>
   );
