@@ -105,7 +105,7 @@ Each stage: navigate route at 1280x800 via Playwright, assert no console errors,
 - [x] **Stage 78**: Desktop verify `/docs/quick-start` — quick start guide renders with steps (2026-03-15)
 - [x] **Stage 79**: Desktop verify `/docs/tools` — tools documentation renders with tool list (2026-03-15)
 - [x] **Stage 80**: Desktop verify `/docs/billing` — billing docs render (2026-03-15)
-- [ ] **Stage 81**: Desktop verify `/docs/faq` — FAQ items render with questions and answers
+- [x] **Stage 81**: Desktop verify `/docs/faq` — FAQ items render with questions and answers (2026-03-15)
 - [ ] **Stage 82**: Desktop verify `/blog` — blog index renders with post cards
 - [ ] **Stage 83**: Desktop verify `/blog/introducing-daimon` — blog post renders with title, date, body
 - [ ] **Stage 84**: Desktop verify `/blog/byok-why-it-matters` — blog post renders
