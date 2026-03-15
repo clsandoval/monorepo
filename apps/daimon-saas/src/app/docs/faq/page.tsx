@@ -31,7 +31,7 @@ function PageHeader() {
       <div
         style={{
           fontFamily: 'var(--font-inter)',
-          fontSize: '13px',
+          fontSize: '14px',
           color: '#B4E7DD',
           textTransform: 'uppercase',
           letterSpacing: '0.08em',
@@ -92,7 +92,7 @@ function Toc() {
       <p
         style={{
           fontFamily: 'var(--font-inter)',
-          fontSize: '12px',
+          fontSize: '14px',
           fontWeight: 600,
           color: '#6B7280',
           textTransform: 'uppercase',
@@ -252,7 +252,7 @@ const acode = (text: string) => (
   <code
     style={{
       fontFamily: "'Courier New', monospace",
-      fontSize: '13px',
+      fontSize: '14px',
       background: '#F3F4F6',
       padding: '2px 6px',
     }}
@@ -657,7 +657,7 @@ export default function FaqPage() {
                 ['"Tool execution timed out"', 'External API was slow or unresponsive', "Try again; if persistent, check the external service's status"],
               ].map(([msg, cause, fix], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                  <td style={{ padding: '8px 12px', color: '#374151', fontFamily: "'Courier New', monospace", fontSize: '13px' }}>{msg}</td>
+                  <td style={{ padding: '8px 12px', color: '#374151', fontFamily: "'Courier New', monospace", fontSize: '14px' }}>{msg}</td>
                   <td style={{ padding: '8px 12px', color: '#374151' }}>{cause}</td>
                   <td style={{ padding: '8px 12px', color: '#374151' }}>{fix}</td>
                 </tr>

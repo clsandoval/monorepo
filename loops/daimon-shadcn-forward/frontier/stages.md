@@ -141,7 +141,7 @@ Each stage: navigate route at 375x812 via Playwright, assert no horizontal overf
 - [x] **Stage 109**: Mobile verify `/docs/quick-start` — content readable (2026-03-15)
 - [x] **Stage 110**: Mobile verify `/docs/tools` — tool list stacks (2026-03-15)
 - [x] **Stage 111**: Mobile verify `/docs/billing` — content readable (2026-03-15)
-- [ ] **Stage 112**: Mobile verify `/docs/faq` — FAQ items full-width
+- [x] **Stage 112**: Mobile verify `/docs/faq` — FAQ items full-width (2026-03-15)
 - [ ] **Stage 113**: Mobile verify `/blog` — blog cards stack vertically
 - [ ] **Stage 114**: Mobile verify `/blog/introducing-daimon` — post readable, images scale
 - [ ] **Stage 115**: Mobile verify `/blog/byok-why-it-matters` — post readable
