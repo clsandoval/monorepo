@@ -6,7 +6,7 @@ export function NavigationProgressBar() {
   return (
     <ProgressBar
       height="2px"
-      color="#B4E7DD"
+      color="hsl(var(--primary))"
       options={{ showSpinner: false }}
       shallowRouting
     />

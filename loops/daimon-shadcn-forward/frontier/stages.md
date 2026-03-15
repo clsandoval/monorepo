@@ -1,8 +1,8 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 13
-Remaining: 202
+Completed: 42
+Remaining: 173
 
 ---
 
@@ -55,7 +55,7 @@ Remaining: 202
 - [x] **Stage 39**: Replace `src/components/layout/auth-card.tsx` — rebuild with shadcn Card, preserve CI stripe accent (2026-03-15)
 - [x] **Stage 40**: Replace `src/components/layout/admin-layout.tsx` — rebuild with shadcn primitives, preserve admin nav (2026-03-15)
 - [x] **Stage 41**: Replace `src/components/layout/page-shell.tsx` — rebuild with shadcn container pattern (2026-03-15)
-- [ ] **Stage 42**: Replace `src/components/layout/progress-bar.tsx` — keep next-nprogress-bar but style with Daimon theme colors
+- [x] **Stage 42**: Replace `src/components/layout/progress-bar.tsx` — keep next-nprogress-bar but style with Daimon theme colors (2026-03-15)
 
 ## Replace Domain Components (stages 43–61) `[replace-domain]`
 
