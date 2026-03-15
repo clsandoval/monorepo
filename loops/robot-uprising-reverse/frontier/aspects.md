@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 740
-- **Analyzed:** 297
-- **Pending:** 443
-- **Convergence:** 40.1%
+- **Total aspects:** 745
+- **Analyzed:** 298
+- **Pending:** 447
+- **Convergence:** 40.0%
 
 ---
 
@@ -741,7 +741,7 @@
 - [ ] 7.03d — Workshop search and discovery UX: full design of search, filtering, tag taxonomy, recommendation engine, trending algorithms, and config similarity detection
 - [ ] 7.03e — Cross-platform sharing infrastructure: Config Codes, Workshop entries, challenge invitations across PC/mobile/web demo; account linking; progress sync; QR code flow
 - [ ] 7.04 — Modding: custom missions, custom building blocks, total conversions
-- [ ] 7.05 — Leaderboards and optimization: Zachtronics-style histograms, community competition
+- [x] 7.05 — Leaderboards and optimization: Zachtronics-style histograms, community competition
 - [ ] 7.13 — Community "find the pivot" tournament format: a formal async tournament where a featured match is posted and participants submit pivot guesses within a 24-hour window; the distribution of guesses displayed after deadline shows false pivot clustering; the metagame of collective diagnostic calibration; no debrief tools allowed during submission window
 - [ ] 7.14 — Annotation accuracy leaderboard: a global leaderboard tracking not win rate but "annotation accuracy" — players who consistently mark within ±5 ticks of the diamond before revealing; top annotators as the "diagnosticians" of the competitive community whose config necropsies carry authority because their manual pivot-identification is provably calibrated
 - [ ] 7.09 — The arms race as designed meta-evolution: Gauntlet meta not controlled by designers but evolving from player innovation; how to design a game that supports meta-evolution without locking into a dominant strategy; intervention points (seasonal resets, new skill/hook unlocks) vs. pure player-driven evolution
@@ -752,6 +752,11 @@
 - [ ] 7.08 — Deferred community metric invention: designing the scoring system to be extensible so the community can invent new evaluation axes; the Opus Magnum "MechA" pattern; what composite metrics might the Robot Uprising community invent?
 - [ ] 7.15 — The "eEDT as archetype signal" in config browsing: when filtering workshop configs by eEDT range, what does the browsing experience look like? How does a player communicate "I want configs that play into the midgame" as an explicit search filter?
 - [ ] 7.06 — The histogram as social loop: post-execution bell curves showing player distribution across agent efficiency metrics (from Shenzhen I/O)
+- [ ] 7.05a — Elegance metric definition deep dive: exactly how is "elegance" computed — rule count × hook count × blueprint count, or structural analysis (dead rules, redundant hooks, unused channels)? The metric's definition determines what the game rewards — mechanical simplicity vs. architectural cleanliness
+- [ ] 7.05b — The "metric corruption" problem (Goodhart's Law in game design): when a metric becomes a target it ceases to be a good metric; players optimizing for elegance score may build deliberately minimal configs that don't teach intended lessons; resistance strategies (metric rotation, composite metrics, hidden metrics)
+- [ ] 7.05c — Histogram population health over time: as the game matures histograms compress toward optimal values; maintaining histogram diversity via seasonal scenario rotations, mission variants, population segmentation; the "spike problem" when optimal solutions are discovered
+- [ ] 7.05d — The "optimization identity" as community role: players self-sorting into archetypes (speedrunner, elegance purist, Pareto hunter, garden-maxer); designing for archetype emergence and recognition; profile badges and community role vocabulary
+- [ ] 7.05e — Config Sketch design constraints for Pareto Gallery: the right abstraction level (unit types + counts + topology vs. just metrics); the "learning gap" between sketch and working config IS the game; preventing copy-paste while enabling learning
 
 ---
 
