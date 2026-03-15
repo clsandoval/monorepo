@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 860
-- **Analyzed:** 321
-- **Pending:** 539
-- **Convergence:** 37.3%
+- **Total aspects:** 865
+- **Analyzed:** 322
+- **Pending:** 543
+- **Convergence:** 37.2%
 
 ---
 
@@ -716,7 +716,12 @@
 - [ ] 5.11 — Solitaire distraction risk: when a secondary mechanic (debrief analysis, sandbox mode) becomes more engaging than the core loop — how to prevent and exploit
 - [ ] 5.14a — The fidelity threshold as onboarding gate: fidelity thresholds are the mechanic that teaches players to think about information quality, not just presence; design pass on the "first fidelity moment" — a mission where default threshold fails, debrief explains why, fix is a single slider adjustment; the designed teaching moment for buffer quality awareness
 - [ ] 5.14 — Detection skills as complexity gate: the "intrusion detection" skill as an advanced mechanic that reveals hidden corruption to players who invest in it; scales difficulty with player sophistication rather than with a separate difficulty slider; advanced players uncover more depth, beginners get clean experience
-- [ ] 5.18 — The "first deadlock" tutorial mission: a deliberately crafted Mission 6 ("Breach") scenario where naive BLOCKING hook use creates a deadlock — and the debrief shows exactly why, tick by tick, as the frozen agents' last actions play back; designed failure, designed recovery, designed insight
+- [x] 5.18 — The "first deadlock" tutorial mission: a deliberately crafted Mission 7 ("Gridlock") scenario where naive BLOCKING hook use creates a deadlock — and the debrief shows exactly why, tick by tick, as the frozen agents' last actions play back; designed failure, designed recovery, designed insight; five approaches (A "Hard Freeze" pure discovery, B "Predecessor's Warning" narrative foreshadowing, C "Two-Phase Mission" forced success then forced failure demonstrating chain vs star topology, D "Deadlock Detector" Inspector tool unlock as reward, E "Sandbox Deadlock Lab" pre-mission experimentation); recommended hybrid B+C+D with Predecessor warning + two-phase topology lesson + tool materialization; three prerequisite timing options for when blocking hooks become available; full sensory design (silence as deadlock's sound, 40Hz sub-bass hum, hourglass animation, amber→red blocking lines, haptic heartbeat pulse); 4 player journeys (Tomás 16 first-timer phone-call metaphor discovery, Dr. Priya 38 ML infrastructure lead evaluating against Jaeger/Zipkin, Aisha 14 struggling player "held door" metaphor + texts cousin about deadlocks, Kwame 32 Twitch streamer 180K-view clip "chat was right"); interaction effects with hook semantics (1.04d), hook chaining (3.09), buffer model (2.01), sealed watch, Predecessor arc (6.03a), Gauntlet competitive, multiplayer; comparable games (TIS-100, EXAPUNKS, Go unbuffered channels, Into the Breach, Factorio belt deadlock); 5 new aspects discovered (5.18a–e)
+  - [ ] 5.18a — Deadlock-inducing enemy strategies: can enemy configurations deliberately create deadlocks in the player's architecture? Deadlock as an adversarial weapon — enemy units flooding relays with blocking requests
+  - [ ] 5.18b — Partial deadlock vs. total deadlock: when only 2 of 5 units deadlock, the remaining 3 might still win; deadlock tolerance as strategic calculation; acceptable loss vs. catastrophic failure
+  - [ ] 5.18c — Self-resolving deadlocks: transient vs. permanent deadlocks as a spectrum; if a unit's ENGAGE completes and cycles back to RECEIVE, the deadlock breaks after N ticks; should the Deadlock Detector distinguish between them?
+  - [ ] 5.18d — The Deadlock Detector as competitive intelligence: in PvP, detecting opponent deadlocks from observable behavior (sudden freeze, stopped signal chains); deadlock detection as an observational skill
+  - [ ] 5.18e — Deadlock prevention vs. deadlock recovery: tutorial teaches prevention (fire-and-forget to break cycles); advanced mission teaches recovery (Command agent REROUTE dynamically switching blocked hooks mid-battle)
 - [ ] 5.24 — The "false pivot literacy" tutorial mission: a campaign mission explicitly teaching the false pivot phenomenon through a scripted demonstration replay where the player must identify the genuine pivot by scrubbing backward through the debrief; completing it unlocks the "Diagnostic" achievement and advanced signal genealogy visualization mode
 - [ ] 5.25 — The "oracle preview" anti-pattern: players who alt-tab to look up a tier list or YouTube solution to discover the expected pass rate before watching their sealed replay; designing against this by making the sealed experience fast enough and surprising enough that spoiling it feels like opting out of the fun; whether the game should lean into spoilability (some players genuinely prefer guides) or resist it
 - [ ] 5.19 — The "pass-rate plateau" problem: players who get 80/100 and feel done — designing campaign gates that require 90% rather than 100% for progression, while reserving 100% for cosmetic/leaderboard rewards; the psychological difference between "good enough" and "provably correct"
