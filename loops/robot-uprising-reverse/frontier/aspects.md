@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 695
-- **Analyzed:** 288
-- **Pending:** 407
-- **Convergence:** 41.4%
+- **Total aspects:** 700
+- **Analyzed:** 289
+- **Pending:** 411
+- **Convergence:** 41.3%
 
 ---
 
@@ -435,7 +435,7 @@
 - [ ] 2.00i — Sensitive dependence on initial conditions via buffer state: even deterministic systems can exhibit chaotic behavior when buffer contents create feedback loops; how two runs with slightly different enemy spawn positions cascade into completely different agent behaviors by tick 30; the buffer as a chaos engine
 - [ ] 2.00j — The debugging tax of full determinism: every failure is the player's fault; no "bad luck" to blame; for some players this is liberating, for others it's exhausting; how the debrief tools (especially the Minimum Fix Explorer) should surface the most impactful change to reduce diagnostic burden
 - [ ] 2.00k — Cross-model comparison matrix: formal side-by-side evaluation of all intelligence models (2.00a–2.00d) across 10 dimensions (debuggability, spectator drama, personality ceiling, educational transfer, async PvP fairness, computational cost, accessibility floor, skill ceiling, mod support, platform portability)
-- [ ] 2.14 — Spatial routing as mechanic layer: battlefield layout creates information routing constraints, separate from configuration logic; agent proximity determines which hook chains are possible
+- [x] 2.14 — Spatial routing as mechanic layer: battlefield layout creates information routing constraints, separate from configuration logic; agent proximity determines which hook chains are possible
 - [ ] 2.15 — Pipelined agent execution: throughput-optimal configurations where agents handle overlapping tasks (agent A finishes task N while agent B starts task N+1); cycle-optimal solutions look different from cost-optimal solutions; maps to Opus Magnum's pipeline-vs-sequential tradeoff
 - [ ] 2.16 — Counter-intelligence as offensive mechanic: deliberately leaving enemy-injected hooks active and routing deceptive signals through them; "hook judo" — using enemy infrastructure against them; how the game scaffolds this discovery moment; risk/reward of leaving a known intrusion active
 - [ ] 2.17 — Fabrication as tactical resource: spawn cost as a per-mission resource that creates trade-offs between pre-placed agents and dynamic spawning; fabrication point allocation as a pre-mission decision; how the resource cap interacts with spawn storm failure mode
@@ -470,6 +470,11 @@
 - [ ] 2.13 — Signal priority: urgent vs routine, and how priority affects buffer eviction and routing
 - [ ] 2.27 — Buffer exhaustion as late-game mechanic: long matches (100+ ticks) create a new failure mode — eviction policy breaking down as buffers fill with stale data; "buffer hygiene" as a skill; how architectures gracefully manage a full buffer mid-match; the context-window-overflow problem in Robot Uprising terms
 - [ ] 2.28 — Scenario fingerprinting: giving each of the 100 randomized test cases a persistent visual identity (distinct color tag, icon, or seed number) so players can identify which specific scenarios fail across multiple runs; designing the scenario taxonomy to be learnable, not opaque; whether cases should be named or numbered in player-facing UI; interaction with sealed progressive reveal
+- [ ] 2.14a — Dynamic connectivity as emergent gameplay: when mobile agents (scouts) move in and out of relay range during execution, the information network topology changes every tick; patrol-path-range intersection visualization as a first-class plan screen tool; predicting which ticks have full connectivity vs. partial
+- [ ] 2.14b — Relay chain latency vs. range tradeoff: short relay chains (low latency, limited coverage) vs. long relay chains (high latency, full coverage); optimal relay density for an 8x8 grid; mathematical analysis of coverage vs. latency for different relay counts and ranges
+- [ ] 2.14c — Relay destruction as the primary loss condition: in range-limited models, destroying a relay severs an entire flank's communication; should relay destruction be MORE dramatic than scout or striker destruction? A "communication blackout" visual effect; interaction with sealed watch emotional beat
+- [ ] 2.14d — Factory-spawned relay positioning problem: relays are stationary; the factory spawns units at the base; a replacement relay spawns at the base position, not the destroyed relay's position; pre-positioned backup relays vs. "deploy to position" mechanic for stationary units
+- [ ] 2.14e — Terrain-as-mission-identity: if terrain modifies signal routing, each mission's terrain creates a unique routing puzzle; distinct terrain archetypes (the wall, the moat, the island, the corridor); interaction with the existing mission arc structure
 
 ---
 
