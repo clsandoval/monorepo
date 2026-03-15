@@ -133,7 +133,7 @@ Each stage: navigate route at 375x812 via Playwright, assert no horizontal overf
 - [x] **Stage 101**: Mobile verify `/login` — form fills viewport width with padding, inputs full-width (2026-03-15)
 - [x] **Stage 102**: Mobile verify `/signup` — form fills viewport width, all fields accessible, password strength bar visible (2026-03-15)
 - [x] **Stage 103**: Mobile verify `/reset-password` — form centered, full-width input (2026-03-15)
-- [ ] **Stage 104**: Mobile verify `/reset-password/confirm` — form centered
+- [x] **Stage 104**: Mobile verify `/reset-password/confirm` — form centered (2026-03-15)
 - [ ] **Stage 105**: Mobile verify `/terms` — text wraps properly, headings visible
 - [ ] **Stage 106**: Mobile verify `/privacy` — text wraps properly
 - [ ] **Stage 107**: Mobile verify `/legal/cookies` — text wraps properly

@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense, useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -96,7 +96,7 @@ function PasswordStrengthBar({ password }: { password: string }) {
           />
         ))}
       </div>
-      <p className={cn('text-[11px] mt-1', textClass)}>
+      <p className={cn('text-sm mt-1', textClass)}>
         {label}
       </p>
       <span className="sr-only">Password strength: {label}</span>
@@ -177,9 +177,19 @@ function ConfirmForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [newPasswordValue, setNewPasswordValue] = useState('');
 
-  const supabase = createClient();
+  const supabaseRef = useRef<ReturnType<typeof createClient> | null>(null);
 
+  // Gracefully handle missing Supabase env vars (e.g. CI / preview builds)
   useEffect(() => {
+    let supabase: ReturnType<typeof createClient>;
+    try {
+      supabase = createClient();
+      supabaseRef.current = supabase;
+    } catch {
+      setTokenState('invalid');
+      return;
+    }
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'PASSWORD_RECOVERY') {
         setTokenState('valid');
@@ -219,6 +229,12 @@ function ConfirmForm() {
 
   async function onSubmit(data: ConfirmFormValues) {
     setServerError(null);
+
+    const supabase = supabaseRef.current;
+    if (!supabase) {
+      setServerError('Unable to connect. Please try again.');
+      return;
+    }
 
     const { error } = await supabase.auth.updateUser({ password: data.newPassword });
 
@@ -279,13 +295,13 @@ function ConfirmForm() {
               <div className="absolute left-0 top-[40%] h-[20%] w-1.5 bg-primary opacity-60" />
             </div>
 
-            <CardHeader className="px-10 pt-10 pb-0">
+            <CardHeader className="px-6 md:px-10 pt-10 pb-0">
               <CardTitle className="font-heading text-2xl font-medium text-foreground">
                 Reset link expired
               </CardTitle>
             </CardHeader>
 
-            <CardContent className="px-10 pb-10 text-center pt-4">
+            <CardContent className="px-6 md:px-10 pb-10 text-center pt-4">
               {/* Warning icon */}
               <div className="flex justify-center mb-5">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
@@ -320,7 +336,7 @@ function ConfirmForm() {
               <div className="absolute left-0 top-[40%] h-[20%] w-1.5 bg-primary opacity-60" />
             </div>
 
-            <CardHeader className="px-10 pt-10 pb-0">
+            <CardHeader className="px-6 md:px-10 pt-10 pb-0">
               <CardTitle className="font-heading text-2xl font-medium text-foreground">
                 Choose a new password
               </CardTitle>
@@ -329,14 +345,14 @@ function ConfirmForm() {
               </CardDescription>
             </CardHeader>
 
-            <CardContent className="px-10 pb-10">
+            <CardContent className="px-6 md:px-10 pb-10">
               <form onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Reset password form">
                 {/* New password field */}
                 <div className="mb-4">
                   <Label
                     htmlFor="newPassword"
                     className={cn(
-                      'mb-1.5 text-[13px]',
+                      'mb-1.5 text-sm',
                       errors.newPassword ? 'text-foreground' : 'text-foreground/70'
                     )}
                   >
@@ -375,7 +391,7 @@ function ConfirmForm() {
                     <p
                       id="newPassword-error"
                       role="alert"
-                      className="flex items-center gap-1 text-xs text-destructive mt-1"
+                      className="flex items-center gap-1 text-sm text-destructive mt-1"
                     >
                       {errors.newPassword.message}
                     </p>
@@ -387,7 +403,7 @@ function ConfirmForm() {
                   <Label
                     htmlFor="confirmNewPassword"
                     className={cn(
-                      'mb-1.5 text-[13px]',
+                      'mb-1.5 text-sm',
                       errors.confirmNewPassword ? 'text-foreground' : 'text-foreground/70'
                     )}
                   >
@@ -422,7 +438,7 @@ function ConfirmForm() {
                     <p
                       id="confirmNewPassword-error"
                       role="alert"
-                      className="flex items-center gap-1 text-xs text-destructive mt-1"
+                      className="flex items-center gap-1 text-sm text-destructive mt-1"
                     >
                       {errors.confirmNewPassword.message}
                     </p>
@@ -464,7 +480,7 @@ function ConfirmForm() {
         )}
 
         {/* Auth footer */}
-        <div className="flex justify-center gap-4 text-xs text-foreground/45">
+        <div className="flex justify-center gap-4 text-sm text-foreground/45">
           <Link href="/terms" className="text-inherit no-underline hover:text-foreground/70">
             Terms of Service
           </Link>
