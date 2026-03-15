@@ -110,28 +110,11 @@ export default async function SettingsPage() {
       plan={plan}
     >
       {/* Page header */}
-      <div style={{ marginBottom: '32px' }}>
-        <h1
-          style={{
-            fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-            fontWeight: 600,
-            fontSize: '28px',
-            color: '#0C1F40',
-            marginBottom: '8px',
-          }}
-        >
+      <div className="mb-8">
+        <h1 className="font-heading font-semibold text-[28px] text-foreground mb-2">
           Settings
         </h1>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 400,
-            fontSize: '14px',
-            color: '#6B7280',
-            maxWidth: '640px',
-            margin: 0,
-          }}
-        >
+        <p className="text-sm text-muted-foreground max-w-[640px]">
           Manage your workspace configuration and account preferences.
         </p>
       </div>

@@ -154,7 +154,7 @@ function DashboardLayoutInner({
       </div>
 
       {/* Main area — responsive margin-left: 0 mobile, 56px tablet, 240px desktop */}
-      <div className="flex flex-1 flex-col ml-0 md:ml-14 lg:ml-60">
+      <div className="flex flex-1 flex-col ml-0 md:ml-14 lg:ml-60 min-w-0">
         <Sheet>
           <DashboardTopbar
             pageTitle={pageTitle}

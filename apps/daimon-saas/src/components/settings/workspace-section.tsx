@@ -104,7 +104,7 @@ function WorkspaceSection({ tenant, userRole }: WorkspaceSectionProps) {
         <form onSubmit={handleSave}>
           <div>
             <Label htmlFor="workspace-name" className="mb-1.5">Workspace Name</Label>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <Input
                 id="workspace-name"
                 name="name"
@@ -121,7 +121,7 @@ function WorkspaceSection({ tenant, userRole }: WorkspaceSectionProps) {
                 aria-describedby="workspace-name-hint"
                 title={isDisabled ? 'Only the workspace owner can perform this action.' : undefined}
                 className={cn(
-                  'w-80 h-10',
+                  'w-full sm:w-80 h-10',
                   error && 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20',
                   isDisabled && 'cursor-not-allowed'
                 )}
@@ -132,17 +132,17 @@ function WorkspaceSection({ tenant, userRole }: WorkspaceSectionProps) {
                 disabled={!hasChanged || isDisabled || saving}
                 title={isDisabled ? 'Only the workspace owner can perform this action.' : undefined}
                 size="lg"
-                className="min-w-[80px]"
+                className="min-w-[80px] w-full sm:w-auto"
               >
                 {saving ? <Loader2 className="size-4 animate-spin" /> : 'Save'}
               </Button>
             </div>
             {error ? (
-              <p id="workspace-name-error" className="mt-1.5 text-xs text-destructive">
+              <p id="workspace-name-error" className="mt-1.5 text-sm text-destructive">
                 {error}
               </p>
             ) : (
-              <p id="workspace-name-hint" className="mt-1.5 text-xs text-muted-foreground">
+              <p id="workspace-name-hint" className="mt-1.5 text-sm text-muted-foreground">
                 Between 1 and 100 characters.
               </p>
             )}
@@ -154,12 +154,12 @@ function WorkspaceSection({ tenant, userRole }: WorkspaceSectionProps) {
         {/* Workspace metadata */}
         <dl className="space-y-0">
           {/* Workspace ID */}
-          <div className="flex items-center gap-4 py-2">
-            <dt className="min-w-[140px] shrink-0 text-[13px] font-medium text-muted-foreground">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 py-2">
+            <dt className="sm:min-w-[140px] shrink-0 text-sm font-medium text-muted-foreground">
               Workspace ID
             </dt>
-            <dd className="flex items-center text-[13px] text-foreground">
-              <span className="font-mono text-xs text-foreground">
+            <dd className="flex items-center text-sm text-foreground">
+              <span className="font-mono text-xs text-foreground break-all">
                 {tenant.id}
               </span>
               <Button
@@ -168,7 +168,7 @@ function WorkspaceSection({ tenant, userRole }: WorkspaceSectionProps) {
                 size="icon"
                 onClick={handleCopy}
                 aria-label="Copy workspace ID"
-                className="ml-2 size-7 text-muted-foreground hover:text-foreground"
+                className="ml-2 size-7 text-muted-foreground hover:text-foreground shrink-0"
               >
                 {copied ? <Check size={14} /> : <Copy size={14} />}
               </Button>
@@ -176,11 +176,11 @@ function WorkspaceSection({ tenant, userRole }: WorkspaceSectionProps) {
           </div>
 
           {/* Created date */}
-          <div className="flex items-center gap-4 py-2">
-            <dt className="min-w-[140px] shrink-0 text-[13px] font-medium text-muted-foreground">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 py-2">
+            <dt className="sm:min-w-[140px] shrink-0 text-sm font-medium text-muted-foreground">
               Created
             </dt>
-            <dd className="text-[13px] text-foreground">
+            <dd className="text-sm text-foreground">
               {formattedDate}
             </dd>
           </div>

@@ -47,12 +47,12 @@ export function SettingsDangerZoneSection({
       </CardHeader>
 
       <CardContent className="pt-6">
-        <div className="flex items-center justify-between gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
           <div className="flex-1">
             <h4 className="text-sm font-semibold text-foreground">
               Delete Workspace
             </h4>
-            <p className="mt-1 max-w-[480px] text-[13px] text-muted-foreground">
+            <p className="mt-1 text-sm text-muted-foreground">
               Permanently delete this workspace, all Discord connections, API keys, service
               integrations, and billing data. This cannot be reversed.
             </p>
@@ -61,7 +61,7 @@ export function SettingsDangerZoneSection({
             id="delete-workspace-btn"
             variant="destructive"
             onClick={() => setModalOpen(true)}
-            className="shrink-0"
+            className="shrink-0 w-full sm:w-auto"
           >
             Delete Workspace
           </Button>

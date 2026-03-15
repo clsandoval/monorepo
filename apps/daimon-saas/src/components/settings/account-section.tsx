@@ -14,7 +14,7 @@ import { Separator } from '@/components/ui/separator'
 function FieldError({ message }: { message: string | null }) {
   if (!message) return null
   return (
-    <p className="mt-1.5 text-xs text-destructive">
+    <p className="mt-1.5 text-sm text-destructive">
       {message}
     </p>
   )
@@ -22,7 +22,7 @@ function FieldError({ message }: { message: string | null }) {
 
 function FieldHint({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mt-1.5 text-xs text-muted-foreground">
+    <p className="mt-1.5 text-sm text-muted-foreground">
       {children}
     </p>
   )
@@ -49,7 +49,7 @@ function PasswordField({
 }: PasswordFieldProps) {
   const [show, setShow] = React.useState(false)
   return (
-    <div className="relative inline-block">
+    <div className="relative w-full sm:w-80">
       <Input
         id={id}
         name={name}
@@ -60,7 +60,7 @@ function PasswordField({
         autoComplete={autoComplete}
         minLength={minLength}
         className={cn(
-          'w-80 h-10 pr-10',
+          'w-full h-10 pr-10',
           hasError && 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20'
         )}
       />
@@ -213,7 +213,7 @@ export function SettingsAccountSection({
         <form id="display-name-form" onSubmit={handleSaveDisplayName}>
           <div>
             <Label htmlFor="display-name" className="mb-1.5">Display Name</Label>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <Input
                 id="display-name"
                 name="full_name"
@@ -226,7 +226,7 @@ export function SettingsAccountSection({
                 maxLength={100}
                 placeholder="Your name"
                 className={cn(
-                  'w-80 h-10',
+                  'w-full sm:w-80 h-10',
                   displayNameError && 'border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20'
                 )}
               />
@@ -234,7 +234,7 @@ export function SettingsAccountSection({
                 type="submit"
                 disabled={savingDisplayName}
                 size="lg"
-                className="min-w-[80px]"
+                className="min-w-[80px] w-full sm:w-auto"
               >
                 {savingDisplayName ? <Loader2 className="size-4 animate-spin" /> : 'Save'}
               </Button>
