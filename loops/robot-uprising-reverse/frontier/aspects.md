@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 944
-- **Analyzed:** 338
-- **Pending:** 606
-- **Convergence:** 35.8%
+- **Total aspects:** 949
+- **Analyzed:** 339
+- **Pending:** 610
+- **Convergence:** 35.7%
 
 ---
 
@@ -857,7 +857,12 @@
 - [ ] 6.01a-iii — Dynamic tile damage states: when combat occurs on a tile, does it show damage? Cracked terrace stones, scorched jungle canopy, shattered beach limestone, broken city neon, extinguished bioluminescence; damage state count per biome; interaction with terrain signal propagation
 - [ ] 6.01a-iv — Biome transition tile set completeness: fifteen biome pairs (5 choose 2) each need at least one transition tile; full pixel-level specs for all 15 combinations including jungle↔Siquijor, terrace↔city, and other uncovered pairs
 - [ ] 6.01a-v — High-contrast / accessibility tile variants
-- [ ] 6.01a-vi — Animation-as-narrative: biome animation intensity as difficulty signal — do calmer biomes (terraces: slow, meditative) correlate with easier missions, and aggressive biomes (Taal: fast, intrusive) with harder ones? Is this mapping intentional or incidental? Should the player learn to "read" terrain animation speed as a difficulty preview?
+- [x] 6.01a-vi — Animation-as-narrative: biome animation intensity as difficulty signal — do calmer biomes (terraces: slow, meditative) correlate with easier missions, and aggressive biomes (Taal: fast, intrusive) with harder ones? Is this mapping intentional or incidental? Should the player learn to "read" terrain animation speed as a difficulty preview?
+  - [ ] 6.01a-vi-a — Behind the Glass annotation authoring pipeline: if Option D ships, who writes the annotations? Game designer? Procedural generation from biome metadata? Community-contributed annotations? The annotation as a design document that ships inside the game.
+  - [ ] 6.01a-vi-b — Terrain noise as competitive Gauntlet variable: if Option B's mechanical terrain noise ships, Gauntlet maps could have different SNR values; players need environment-specific blueprints; "I have a Taal build and a Cebu build" as competitive vocabulary.
+  - [ ] 6.01a-vi-c — Cross-biome missions and animation blending as difficulty spike: what happens when a single board has multiple biomes? Animation intensity differs per half. Does the emotional arc break? Does the SNR differ per tile?
+  - [ ] 6.01a-vi-d — Animation intensity as player-controlled difficulty modifier: terrain animation intensity slider in custom missions; speed up Ifugao animations to make tutorial missions feel like Taal; self-imposed challenge tool.
+  - [ ] 6.01a-vi-e — The "acclimatization" phenomenon: players who replay Mission 1 after beating Mission 10 report the terraces feel "dead"; nervous system calibrated to Taal intensity; the crescendo can only be experienced once; designing for second-playthrough players.
 - [ ] 6.01a-vii — Tile animation response to game events: beyond suppression, should tiles react to specific events? Water splashes when a unit steps on a terrace tile. Neon signs flicker harder when combat happens nearby. Bioluminescence dims when an enemy passes. Reactive tiles vs. ambient-only tiles.
 - [ ] 6.01a-viii — Cross-biome transition animation blending: when the board has mixed biomes (e.g., terrace adjacent to jungle), how do their animations interact at the boundary? Do terrace water reflections carry into jungle shadow? Do Siquijor bioluminescent pulses illuminate adjacent city tiles?
 - [ ] 6.01a-ix — Animation sound design coupling: each biome's animation implies specific ambient sounds (water lapping for terraces, insect hum for jungle, neon buzz for city, rumbling for Taal). How tightly coupled should visual animation and ambient audio be? Should disabling visual animations also silence biome audio?: Shape-First Design geometric patterns per biome (diagonal hatching, horizontal lines, stippling, grid, concentric circles) replacing color as primary biome identifier; contrast ratios; readability across protanopia/deuteranopia/tritanopia/achromatopsia
