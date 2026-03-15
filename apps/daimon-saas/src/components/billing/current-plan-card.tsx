@@ -73,7 +73,7 @@ function BillingPeriodLine({
 }) {
   if (plan === 'free') {
     return (
-      <p className="text-[13px] text-muted-foreground">
+      <p className="text-sm text-muted-foreground">
         Free plan · No billing
       </p>
     )
@@ -87,11 +87,11 @@ function BillingPeriodLine({
 
   if (status === 'trialing') {
     return (
-      <p className="text-[13px] text-muted-foreground">
+      <p className="text-sm text-muted-foreground">
         Trial ends {formatDate(trialEnd ?? null)} ·{' '}
         <button
           onClick={onPortalClick}
-          className="bg-transparent border-none cursor-pointer text-[13px] text-muted-foreground underline p-0"
+          className="bg-transparent border-none cursor-pointer text-sm text-muted-foreground underline p-0"
         >
           Add Payment Method →
         </button>
@@ -101,11 +101,11 @@ function BillingPeriodLine({
 
   if (status === 'past_due') {
     return (
-      <p className="text-[13px] text-destructive">
+      <p className="text-sm text-destructive">
         Payment failed ·{' '}
         <button
           onClick={onPortalClick}
-          className="bg-transparent border-none cursor-pointer text-[13px] text-destructive underline p-0"
+          className="bg-transparent border-none cursor-pointer text-sm text-destructive underline p-0"
         >
           Update Payment Method →
         </button>
@@ -115,7 +115,7 @@ function BillingPeriodLine({
 
   if (status === 'canceled') {
     return (
-      <p className="text-[13px] text-destructive">
+      <p className="text-sm text-destructive">
         Canceled · Access ends {formatDate(periodEnd ?? null)}
       </p>
     )
@@ -123,7 +123,7 @@ function BillingPeriodLine({
 
   if (status === 'unpaid') {
     return (
-      <p className="text-[13px] text-destructive">
+      <p className="text-sm text-destructive">
         Unpaid · Bot access suspended
       </p>
     )
@@ -131,11 +131,11 @@ function BillingPeriodLine({
 
   if (status === 'incomplete') {
     return (
-      <p className="text-[13px] text-[#D97706]">
+      <p className="text-sm text-[#D97706]">
         Payment incomplete ·{' '}
         <button
           onClick={onPortalClick}
-          className="bg-transparent border-none cursor-pointer text-[13px] text-[#D97706] underline p-0"
+          className="bg-transparent border-none cursor-pointer text-sm text-[#D97706] underline p-0"
         >
           Complete Payment →
         </button>
@@ -145,11 +145,11 @@ function BillingPeriodLine({
 
   if (cancelAtEnd) {
     return (
-      <p className="text-[13px] text-[#D97706]">
+      <p className="text-sm text-[#D97706]">
         ⚠ Cancels on {formatDate(cancelAt ?? null)} ·{' '}
         <button
           onClick={onPortalClick}
-          className="bg-transparent border-none cursor-pointer text-[13px] text-[#D97706] underline p-0"
+          className="bg-transparent border-none cursor-pointer text-sm text-[#D97706] underline p-0"
         >
           Reactivate →
         </button>
@@ -159,7 +159,7 @@ function BillingPeriodLine({
 
   // active, default
   return (
-    <p className="text-[13px] text-muted-foreground">
+    <p className="text-sm text-muted-foreground">
       Renews {formatDate(periodEnd ?? null)}
     </p>
   )
@@ -247,7 +247,7 @@ export function CurrentPlanCard({
   return (
     <Card className="p-6 mb-6 w-full">
       {/* CURRENT PLAN label */}
-      <p className="font-medium text-[11px] tracking-[0.08em] uppercase text-muted-foreground mb-1">
+      <p className="font-medium text-xs tracking-[0.08em] uppercase text-muted-foreground mb-1">
         Current Plan
       </p>
 
@@ -284,7 +284,7 @@ export function CurrentPlanCard({
 
       {/* Member note or billing period */}
       {!isOwner ? (
-        <p className="text-[13px] text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           Only the workspace owner can manage billing.
         </p>
       ) : (
@@ -299,7 +299,7 @@ export function CurrentPlanCard({
       {(usageStats.messagesToday > 0 || usageStats.toolUsesToday > 0) && (
         <div className="mt-4 pt-4 border-t border-border flex gap-6">
           <div>
-            <p className="text-[11px] font-medium tracking-[0.06em] uppercase text-muted-foreground mb-0.5">
+            <p className="text-xs font-medium tracking-[0.06em] uppercase text-muted-foreground mb-0.5">
               Messages Today
             </p>
             <p className="font-heading text-xl font-semibold text-foreground">
@@ -307,7 +307,7 @@ export function CurrentPlanCard({
             </p>
           </div>
           <div>
-            <p className="text-[11px] font-medium tracking-[0.06em] uppercase text-muted-foreground mb-0.5">
+            <p className="text-xs font-medium tracking-[0.06em] uppercase text-muted-foreground mb-0.5">
               Tool Uses Today
             </p>
             <p className="font-heading text-xl font-semibold text-foreground">

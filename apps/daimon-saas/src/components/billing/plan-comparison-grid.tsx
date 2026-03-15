@@ -384,14 +384,14 @@ export function PlanComparisonGrid({
 
                 {/* Annual savings line */}
                 {billingCycle === 'annual' && plan !== 'free' && (
-                  <p className="mb-1 text-xs text-emerald-600">
+                  <p className="mb-1 text-sm text-emerald-600">
                     {ANNUAL_TOTALS[plan as 'starter' | 'pro'].total} / year — save{' '}
                     {ANNUAL_TOTALS[plan as 'starter' | 'pro'].savings}
                   </p>
                 )}
 
                 {billingCycle === 'monthly' && plan !== 'free' && (
-                  <p className="mb-1 text-xs text-emerald-600">
+                  <p className="mb-1 text-sm text-emerald-600">
                     {plan === 'starter' ? '$79/yr' : '$249/yr'} billed annually — save{' '}
                     {plan === 'starter' ? '$29' : '$99'}
                   </p>
@@ -404,7 +404,7 @@ export function PlanComparisonGrid({
                   {features.map((feature) => (
                     <li
                       key={feature}
-                      className="inline-flex items-start gap-1.5 text-[13px] text-muted-foreground"
+                      className="inline-flex items-start gap-1.5 text-sm text-muted-foreground"
                     >
                       <CheckCircle
                         className="mt-0.5 size-3.5 shrink-0 text-primary"
@@ -424,7 +424,7 @@ export function PlanComparisonGrid({
 
       {/* Non-owner note */}
       {!isOwner && (
-        <p className="mt-3 text-[13px] text-muted-foreground">
+        <p className="mt-3 text-sm text-muted-foreground">
           Contact your workspace owner to change your plan.
         </p>
       )}

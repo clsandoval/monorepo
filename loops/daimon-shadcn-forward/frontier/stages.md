@@ -147,7 +147,7 @@ Each stage: navigate route at 375x812 via Playwright, assert no horizontal overf
 - [x] **Stage 115**: Mobile verify `/blog/byok-why-it-matters` — post readable (2026-03-15)
 - [x] **Stage 116**: Mobile verify `/blog/discord-as-operating-system` — post readable (2026-03-15)
 - [x] **Stage 117**: Mobile verify `/dashboard` (authenticated) — bottom nav or hamburger works, status cards stack, stats row stacks (2026-03-15)
-- [ ] **Stage 118**: Mobile verify `/dashboard/billing` (authenticated) — plan cards stack, comparison grid scrolls or stacks
+- [x] **Stage 118**: Mobile verify `/dashboard/billing` (authenticated) — plan cards stack, comparison grid scrolls or stacks (2026-03-15)
 - [ ] **Stage 119**: Mobile verify `/dashboard/integrations` (authenticated) — service grid stacks
 - [ ] **Stage 120**: Mobile verify `/dashboard/settings` (authenticated) — form sections stack, inputs full-width
 - [ ] **Stage 121**: Mobile verify `/admin` (authenticated) — admin content accessible

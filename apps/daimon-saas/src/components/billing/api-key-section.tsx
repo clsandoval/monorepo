@@ -135,7 +135,7 @@ function StatusLine({ keyData }: { keyData: ApiKeyData }) {
     return (
       <div className="flex items-center gap-1.5 mt-1.5 text-emerald-600">
         <CheckCircle size={14} />
-        <span className="text-[13px]">
+        <span className="text-sm">
           Valid{dateStr ? ` · Last validated ${dateStr}` : ''}
         </span>
       </div>
@@ -145,7 +145,7 @@ function StatusLine({ keyData }: { keyData: ApiKeyData }) {
     return (
       <div className="flex items-center gap-1.5 mt-1.5 text-destructive">
         <XCircle size={14} />
-        <span className="text-[13px]">
+        <span className="text-sm">
           Invalid{dateStr ? ` · Last attempted ${dateStr}` : ''}
         </span>
       </div>
@@ -154,7 +154,7 @@ function StatusLine({ keyData }: { keyData: ApiKeyData }) {
   return (
     <div className="flex items-center gap-1.5 mt-1.5 text-muted-foreground">
       <XCircle size={14} />
-      <span className="text-[13px]">Revoked</span>
+      <span className="text-sm">Revoked</span>
     </div>
   )
 }
@@ -192,7 +192,7 @@ function ApiKeyRow({
             />
           </div>
           {/* Description */}
-          <p className="text-[13px] text-muted-foreground mt-0.5">
+          <p className="text-sm text-muted-foreground mt-0.5">
             {meta.description}
           </p>
         </div>
@@ -248,7 +248,7 @@ function ApiKeyRow({
           {keyData.status === 'invalid' && (
             <Alert variant="default" className="mt-2 border-amber-300 bg-amber-50">
               <AlertTriangle size={14} className="text-amber-600 shrink-0" />
-              <AlertDescription className="text-[13px] text-amber-900">
+              <AlertDescription className="text-sm text-amber-900">
                 {meta.invalidWarning}
               </AlertDescription>
             </Alert>
@@ -262,12 +262,12 @@ function ApiKeyRow({
           {provider === 'anthropic' ? (
             <Alert variant="default" className="border-amber-300 bg-amber-50">
               <AlertTriangle size={14} className="text-amber-600 shrink-0" />
-              <AlertDescription className="text-[13px] text-amber-900">
+              <AlertDescription className="text-sm text-amber-900">
                 {meta.emptyWarning}
               </AlertDescription>
             </Alert>
           ) : (
-            <p className="text-[13px] text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               {meta.emptyWarning}
             </p>
           )}
@@ -351,7 +351,7 @@ function ApiKeyModal({ provider, mode, keyId, onClose, onSuccess }: ApiKeyModalP
         <form onSubmit={handleSubmit}>
           {/* Key input */}
           <div className="mb-5">
-            <Label htmlFor="api-key-input" className="text-[13px] font-medium text-foreground mb-1.5">
+            <Label htmlFor="api-key-input" className="text-sm font-medium text-foreground mb-1.5">
               {meta.name}
               <span aria-hidden="true" className="text-destructive ml-0.5">*</span>
             </Label>
@@ -386,7 +386,7 @@ function ApiKeyModal({ provider, mode, keyId, onClose, onSuccess }: ApiKeyModalP
               </Button>
             </div>
             {error && (
-              <p role="alert" className="text-[13px] text-destructive mt-1">
+              <p role="alert" className="text-sm text-destructive mt-1">
                 {error}
               </p>
             )}
@@ -395,7 +395,7 @@ function ApiKeyModal({ provider, mode, keyId, onClose, onSuccess }: ApiKeyModalP
           {/* Discard warning */}
           {showDiscard && (
             <Alert variant="default" className="mb-4 border-amber-300 bg-amber-50">
-              <AlertDescription className="flex items-center gap-3 text-[13px] text-amber-900">
+              <AlertDescription className="flex items-center gap-3 text-sm text-amber-900">
                 <span className="flex-1">Your key won&apos;t be saved. Are you sure?</span>
                 <Button
                   type="button"
