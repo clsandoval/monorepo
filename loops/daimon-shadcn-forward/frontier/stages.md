@@ -65,7 +65,7 @@ Remaining: 169
 - [x] **Stage 46**: Replace `src/components/billing/current-plan-card.tsx` — rebuild with shadcn Card + Badge + Button (2026-03-15)
 - [x] **Stage 47**: Replace `src/components/billing/plan-comparison-grid.tsx` — rebuild with shadcn Card grid + Table for feature comparison (2026-03-15)
 - [x] **Stage 48**: Replace `src/components/billing/api-key-section.tsx` — rebuild with shadcn Card + Input + Button + Dialog (2026-03-15)
-- [ ] **Stage 49**: Replace `src/components/billing/billing-alert-banners.tsx` — rebuild with shadcn Alert variants
+- [x] **Stage 49**: Replace `src/components/billing/billing-alert-banners.tsx` — rebuild with shadcn Alert variants (2026-03-15)
 - [ ] **Stage 50**: Replace `src/components/billing/checkout-return-banner.tsx` — rebuild with shadcn Alert (success variant)
 - [ ] **Stage 51**: Replace `src/components/billing/subscription-lifecycle-watcher.tsx` — swap any UI elements to shadcn (this may be logic-only)
 - [ ] **Stage 52**: Replace `src/components/integrations/discord-connection-card.tsx` — rebuild with shadcn Card + Badge + Button
