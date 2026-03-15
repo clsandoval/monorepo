@@ -1,5 +1,7 @@
-// Spec library component — not yet wired to auth pages; available for future integration
 import React from 'react'
+import { cn } from '@/lib/utils'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 
 interface AuthCardProps {
   children: React.ReactNode
@@ -9,58 +11,26 @@ interface AuthCardProps {
 
 export function AuthCard({ children, title, description }: AuthCardProps) {
   return (
-    <div
-      style={{
-        backgroundColor: '#FFFFFF',
-        border: '1px solid rgba(12,31,64,0.10)',
-        borderRadius: '0',
-        boxShadow: 'none',
-        padding: '40px',
-        width: '100%',
-      }}
-      className="max-[440px]:!p-6"
-    >
-      {/* Card Header */}
-      <div style={{ marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-        <h1
-          style={{
-            fontFamily: 'var(--font-archivo)',
-            fontVariationSettings: "'wdth' 112.5",
-            fontSize: '24px',
-            fontWeight: 500,
-            color: '#0C1F40',
-            lineHeight: '1.2',
-            margin: 0,
-          }}
+    <Card className={cn('rounded-none shadow-none border-border px-6 py-6 max-[440px]:px-4 max-[440px]:py-4')}>
+      <CardHeader className="p-0 pb-0">
+        <CardTitle
+          className={cn(
+            'font-heading text-2xl font-medium text-foreground leading-tight',
+            "[font-variation-settings:'wdth'_112.5]"
+          )}
         >
           {title}
-        </h1>
+        </CardTitle>
         {description && (
-          <p
-            style={{
-              fontFamily: 'var(--font-inter)',
-              fontSize: '14px',
-              fontWeight: 400,
-              color: 'rgba(12,31,64,0.55)',
-              lineHeight: '1.5',
-              margin: 0,
-            }}
-          >
+          <CardDescription className="text-sm text-muted-foreground leading-normal">
             {description}
-          </p>
+          </CardDescription>
         )}
-      </div>
-
-      {/* Divider */}
-      <div
-        style={{
-          borderTop: '1px solid rgba(12,31,64,0.08)',
-          margin: '0 0 24px 0',
-        }}
-      />
-
-      {/* Card Body */}
-      <div>{children}</div>
-    </div>
+      </CardHeader>
+      <Separator className="my-0" />
+      <CardContent className="p-0">
+        {children}
+      </CardContent>
+    </Card>
   )
 }

@@ -1,8 +1,8 @@
 'use client'
-// Spec library component — not yet wired to auth pages; available for future integration
 
 import React from 'react'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 function AuthLogo() {
   return (
@@ -21,17 +21,14 @@ function AuthLogo() {
         >
           <path
             d="M16 2L20 10H28L22 16L24 24L16 20L8 24L10 16L4 10H12L16 2Z"
-            fill="#0C1F40"
+            className="fill-foreground"
           />
         </svg>
         <span
-          style={{
-            fontFamily: 'var(--font-archivo)',
-            fontSize: '20px',
-            fontWeight: 700,
-            color: '#0C1F40',
-            fontVariationSettings: "'wdth' 112.5",
-          }}
+          className={cn(
+            'font-heading text-xl font-bold text-foreground',
+            "[font-variation-settings:'wdth'_112.5]"
+          )}
         >
           Daimon
         </span>
@@ -45,25 +42,13 @@ function AuthFooterLinks() {
     <div className="flex justify-center gap-6">
       <Link
         href="/privacy"
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '13px',
-          fontWeight: 400,
-          color: 'rgba(12,31,64,0.45)',
-        }}
-        className="hover:opacity-70 transition-opacity"
+        className="text-[13px] text-muted-foreground hover:opacity-70 transition-opacity"
       >
         Privacy Policy
       </Link>
       <Link
         href="/terms"
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '13px',
-          fontWeight: 400,
-          color: 'rgba(12,31,64,0.45)',
-        }}
-        className="hover:opacity-70 transition-opacity"
+        className="text-[13px] text-muted-foreground hover:opacity-70 transition-opacity"
       >
         Terms of Service
       </Link>
@@ -77,10 +62,7 @@ interface AuthLayoutProps {
 
 export function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <div
-      className="min-h-screen flex items-center justify-center p-4"
-      style={{ backgroundColor: '#F7F7F7' }}
-    >
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
       <div className="w-full max-w-[440px] flex flex-col gap-8">
         <AuthLogo />
         {children}
