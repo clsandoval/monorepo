@@ -136,7 +136,7 @@ Each stage: navigate route at 375x812 via Playwright, assert no horizontal overf
 - [x] **Stage 104**: Mobile verify `/reset-password/confirm` — form centered (2026-03-15)
 - [x] **Stage 105**: Mobile verify `/terms` — text wraps properly, headings visible (2026-03-15)
 - [x] **Stage 106**: Mobile verify `/privacy` — text wraps properly (2026-03-15)
-- [ ] **Stage 107**: Mobile verify `/legal/cookies` — text wraps properly
+- [x] **Stage 107**: Mobile verify `/legal/cookies` — text wraps properly (2026-03-15)
 - [ ] **Stage 108**: Mobile verify `/docs` — docs nav collapses or stacks, content readable
 - [ ] **Stage 109**: Mobile verify `/docs/quick-start` — content readable
 - [ ] **Stage 110**: Mobile verify `/docs/tools` — tool list stacks
