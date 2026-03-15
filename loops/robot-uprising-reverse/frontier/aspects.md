@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 905
-- **Analyzed:** 330
-- **Pending:** 575
-- **Convergence:** 36.5%
+- **Total aspects:** 910
+- **Analyzed:** 331
+- **Pending:** 579
+- **Convergence:** 36.4%
 
 ---
 
@@ -378,7 +378,12 @@
 - [ ] 4.31 — The career "growth event" detection and celebration: designing the exact threshold and presentation for the gold-dot inflection point on the eEDT spark-line — what constitutes a meaningful architectural shift vs. noise, and how to celebrate it without feeling patronizing to veterans
 - [ ] 1.06c-ext-B — Configuration version control as first-class infrastructure: async PvP requires explicit deploy snapshots, version comparison, "fork from deploy" workflow; how this differs from a simple file-save system; versioned configs as competitive history artifacts
 - [ ] 1.06c-ext-C — The async-to-sync hybrid (simultaneous-turn model): Frozen Synapse's sealed-order-submit as middle ground between pure async and synchronous; both players submit simultaneously, neither sees opponent's orders until resolution; fully schedule-compatible while preserving tactical tension
-- [ ] 1.06c-ext-D — Observation mode as competitive onboarding: watching featured matches without deploying; low-friction path from "curious about ranked" to "first deploy"; how observation mode teaches replay literacy before players need it
+- [x] 1.06c-ext-D — Observation mode as competitive onboarding: watching featured matches without deploying; low-friction path from "curious about ranked" to "first deploy"; how observation mode teaches replay literacy before players need it
+- [ ] 1.06c-ext-D-i — Annotation generation system for Gallery matches: algorithmic detection of tactically significant moments (overloads, signal chains, kill sequences, hook reroutes) and auto-generation of pedagogical annotations; annotation quality as curation bottleneck; human-written vs. auto-generated annotation voice
+- [ ] 1.06c-ext-D-ii — Apprenticeship featured-architect selection algorithm: criteria for narrative quality (dramatic rank climbs, configuration pivots, losing streak recoveries); rank-appropriate matching (show Silver climbers to pre-Silver observers); opt-in consent for having your match history featured; AI-generated architect histories as privacy-preserving alternative
+- [ ] 1.06c-ext-D-iii — Mirror Match opponent selection and staleness: how to prevent Mirror Match from becoming a stale sandbox where players over-optimize against static snapshots; rotating opponent pool refresh, opponent-adaptation simulation, "this opponent's config is 2 weeks old" freshness indicators
+- [ ] 1.06c-ext-D-iv — Observation-to-deployment conversion funnel metrics: tracking how many Gallery views → Mirror Match attempts → first Ranked deployment; A/B testing nudge timing and copy; the "3 matches watched" nudge threshold as designed conversion trigger vs. patronizing gate
+- [ ] 1.06c-ext-D-v — Gallery as community curation platform: player-submitted highlight matches, community voting on featured matches, "Match of the Week" editorial picks; the Gallery as a social space that doubles as onboarding; interaction with community sharing (7.03) and leaderboards (7.05)
 - [ ] 1.06c-ext-E — Match volume compensation through AI ghosts: when community is small, AI-generated adversary configs fill the async match pool; designing AI ghosts indistinguishable in debrief from human configs; labeling AI vs. human matches; whether AI ghost matches count toward ELO
 - [ ] 1.06d — The Gladiabots meta-visibility gap: non-transitive strategy relationships players can't see until they've lost; design options for surfacing meta (counter-strategy hints, meta-map visualization, post-match strategy classification); does Robot Uprising want transparent or opaque meta-knowledge?
 - [ ] 1.06e — Anthropomorphization as engagement hook: players naming bots, narrating personalities, framing mechanical changes as character growth; how Robot Uprising designs for it deliberately (unit portraits, persistent bot identities, mission memory, named bot achievements)
