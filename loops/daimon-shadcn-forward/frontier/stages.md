@@ -154,7 +154,7 @@ Each stage: navigate route at 375x812 via Playwright, assert no horizontal overf
 - [x] **Stage 122**: Mobile verify `/admin/tenants` (authenticated) — table scrolls horizontally or cards stack (2026-03-15)
 - [x] **Stage 123**: Mobile verify `/admin/tenants/[id]` (authenticated) — detail page readable (2026-03-15)
 - [x] **Stage 124**: Mobile verify `/admin/audit-log` (authenticated) — table scrolls or stacks (2026-03-15)
-- [ ] **Stage 125**: Mobile verify `/robots.txt` — renders
+- [x] **Stage 125**: Mobile verify `/robots.txt` — renders (2026-03-15)
 - [ ] **Stage 126**: Mobile verify `/sitemap.xml` — renders
 - [ ] **Stage 127**: Mobile verify 404 page — styled page renders
 - [ ] **Stage 128**: Mobile verify invalid route — 404 renders
