@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { PublicLayout } from '@/components/layout/public-layout';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Changelog — Daimon',
@@ -25,11 +26,11 @@ interface ChangelogEntry {
 }
 
 const CATEGORY_STYLES: Record<CategoryTag, string> = {
-  'New Feature': 'bg-[#B4E7DD] text-[#0C1F40]',
-  'Improvement': 'bg-[#EBF8FF] text-[#2B6CB0]',
-  'Bug Fix': 'bg-[#FFF5F5] text-[#C53030]',
-  'Security': 'bg-[#FFF9DB] text-[#B7791F]',
-  'Deprecated': 'bg-[#F7FAFC] text-[#718096]',
+  'New Feature': 'bg-primary text-primary-foreground',
+  'Improvement': 'bg-blue-50 text-blue-700',
+  'Bug Fix': 'bg-red-50 text-red-700',
+  'Security': 'bg-yellow-50 text-yellow-700',
+  'Deprecated': 'bg-muted text-muted-foreground',
 };
 
 const entries: ChangelogEntry[] = [
@@ -62,16 +63,13 @@ function formatDate(iso: string): string {
 export default function ChangelogPage() {
   return (
     <PublicLayout>
-      <div className="max-w-3xl mx-auto px-6 py-20" style={{ paddingTop: '80px' }}>
+      <div className="max-w-3xl mx-auto px-6 pt-20 pb-20">
         {/* Header */}
         <div className="mb-16">
-          <h1
-            className="font-archivo font-bold text-[#0C1F40] text-[40px] sm:text-[28px]"
-            style={{ fontSize: 'clamp(28px, 4vw, 40px)' }}
-          >
+          <h1 className="font-archivo font-bold text-foreground text-[clamp(28px,4vw,40px)]">
             Changelog
           </h1>
-          <p className="mt-3 text-[18px] font-inter font-normal text-[#4A5568]">
+          <p className="mt-3 text-lg font-inter font-normal text-muted-foreground">
             What&apos;s new in Daimon
           </p>
         </div>
@@ -81,29 +79,23 @@ export default function ChangelogPage() {
           {entries.map((entry) => (
             <article
               key={entry.version}
-              className="mb-14"
-              style={{
-                borderLeft: '3px solid #B4E7DD',
-                paddingLeft: '24px',
-              }}
+              className="mb-14 border-l-[3px] border-l-primary pl-6"
             >
               {/* Date + version badge */}
               <div className="flex items-center gap-3 flex-wrap">
                 <time
                   dateTime={entry.date}
-                  className="text-[14px] font-inter font-medium text-[#718096]"
+                  className="text-sm font-inter font-medium text-muted-foreground"
                 >
                   {formatDate(entry.date)}
                 </time>
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-[#F7FAFC] text-[#2D3748] border border-[rgba(12,31,64,0.12)]">
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-muted text-foreground border border-border">
                   {entry.version}
                 </span>
               </div>
 
               {/* Title */}
-              <h2
-                className="font-archivo font-bold text-[#0C1F40] text-[24px] mt-2 mb-4"
-              >
+              <h2 className="font-archivo font-bold text-foreground text-2xl mt-2 mb-4">
                 {entry.title}
               </h2>
 
@@ -112,7 +104,10 @@ export default function ChangelogPage() {
                 {entry.categories.map((cat) => (
                   <span
                     key={cat}
-                    className={`text-[12px] font-inter font-semibold px-2 py-0.5 rounded-[4px] ${CATEGORY_STYLES[cat]}`}
+                    className={cn(
+                      'text-xs font-inter font-semibold px-2 py-0.5 rounded',
+                      CATEGORY_STYLES[cat]
+                    )}
                   >
                     {cat}
                   </span>
@@ -120,17 +115,15 @@ export default function ChangelogPage() {
               </div>
 
               {/* Changes list */}
-              <ul className="space-y-0" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+              <ul className="list-none p-0 m-0">
                 {entry.changes.map((change, i) => (
                   <li
                     key={i}
-                    className="relative text-[15px] font-inter font-normal text-[#2D3748] leading-relaxed"
-                    style={{ padding: '8px 0 8px 20px' }}
+                    className="relative text-[15px] font-inter font-normal text-foreground/85 leading-relaxed py-2 pl-5"
                   >
                     <span
                       aria-hidden="true"
-                      className="absolute left-0 text-[#B4E7DD] font-bold"
-                      style={{ top: '8px' }}
+                      className="absolute left-0 top-2 text-primary font-bold"
                     >
                       →
                     </span>
