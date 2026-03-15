@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 764
-- **Analyzed:** 302
-- **Pending:** 462
-- **Convergence:** 39.5%
+- **Total aspects:** 769
+- **Analyzed:** 303
+- **Pending:** 466
+- **Convergence:** 39.4%
 
 ---
 
@@ -759,7 +759,12 @@
 - [ ] 7.03c — Reputation economy design: circuit tokens, contributor badges, featured-creator program, reputation decay, and how reputation interacts with Gauntlet rating as parallel social currencies
 - [ ] 7.03d — Workshop search and discovery UX: full design of search, filtering, tag taxonomy, recommendation engine, trending algorithms, and config similarity detection
 - [ ] 7.03e — Cross-platform sharing infrastructure: Config Codes, Workshop entries, challenge invitations across PC/mobile/web demo; account linking; progress sync; QR code flow
-- [ ] 7.04 — Modding: custom missions, custom building blocks, total conversions
+- [x] 7.04 — Modding: custom missions, custom building blocks, total conversions
+  - [ ] 7.04a — Mission editor UX design: full wireframe of the mission editor — panel layout, toolbar design, snap behaviors, terrain painting workflow, enemy AI configuration popup, test-play flow, code generation animation
+  - [ ] 7.04b — Skill Definition Language (SDL) visual scripting design: detailed specification of the Forge's visual scripting canvas — block types, connection rules, parameter types, testing sandbox, error feedback; comparable to Unreal Blueprints, Warcraft III triggers, and Scratch
+  - [ ] 7.04c — Mod Kit composability architecture: how multiple mod kits coexist — namespace collision prevention, skill name deduplication, load order, dependency declaration, the Factorio composable-total-conversion pattern applied to Robot Uprising
+  - [ ] 7.04d — Modder IP ownership and licensing: explicit modder rights, Creative Commons defaults, commercial mod monetization policy, the Blizzard Reforged anti-pattern; how IP policy affects community trust and total conversion investment
+  - [ ] 7.04e — Modded content discoverability and curation: Workshop browsing UX for mods (separate from blueprint sharing), quality signals (ratings, play counts, completion rates), featured mod program, editorial curation vs. algorithmic surfacing
 - [x] 7.05 — Leaderboards and optimization: Zachtronics-style histograms, community competition
 - [ ] 7.13 — Community "find the pivot" tournament format: a formal async tournament where a featured match is posted and participants submit pivot guesses within a 24-hour window; the distribution of guesses displayed after deadline shows false pivot clustering; the metagame of collective diagnostic calibration; no debrief tools allowed during submission window
 - [ ] 7.14 — Annotation accuracy leaderboard: a global leaderboard tracking not win rate but "annotation accuracy" — players who consistently mark within ±5 ticks of the diamond before revealing; top annotators as the "diagnosticians" of the competitive community whose config necropsies carry authority because their manual pivot-identification is provably calibrated
