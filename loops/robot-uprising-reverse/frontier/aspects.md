@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 819
-- **Analyzed:** 313
-- **Pending:** 506
-- **Convergence:** 38.2%
+- **Total aspects:** 824
+- **Analyzed:** 314
+- **Pending:** 510
+- **Convergence:** 38.1%
 
 ---
 
@@ -654,7 +654,12 @@
   - [ ] 5.03d — Ghost mentor personality as player-archetype detector: mentor observations double as classification system (tinkerer, methodical builder, goal-chaser, social learner); classification feeding into adaptive campaign difficulty and hint frequency
   - [ ] 5.03e — The wreckage sandbox as post-mission replay mode: Variant F's reverse-engineering mechanic applied as a post-mission analytical mode after losing a campaign mission; tutorial introduces the mechanic, post-mission version provides depth
 - [x] 5.04 — Complexity ramp: what order are mechanics introduced? How many missions before full complexity?
-  - [ ] 5.04a — The Mission 5 Wall: five approaches to factory introduction pacing (pre-teach components, split mission 5A/5B, sandbox the factory, simplify to one-blueprint depth 1, make factory optional); full player journeys per approach
+  - [x] 5.04a — The Mission 5 Wall: five approaches to factory introduction pacing (pre-teach components, split mission 5A/5B, sandbox the factory, simplify to one-blueprint depth 1, make factory optional); full player journeys per approach
+    - [ ] 5.04a-i — The "template → blueprint" upgrade metaphor: exact design of the morphing text animation and pedagogical mapping between pre-Mission 5 templates and post-Mission 5 blueprints; when does the metaphor help vs. mislead; interaction with veteran fast-track
+    - [ ] 5.04a-ii — The Scouted Sandbox variant: ghost enemy projections in the sandbox as strategic context; should ghost enemies show exact types or just position/count; interaction with locked invisible randomization spec
+    - [ ] 5.04a-iii — The Handcrafted Victory badge and pre-placed-alongside-factory design: full design of the "beat the factory mission without the factory" achievement path; when should pre-placed units coexist with factory production; the community challenge layer
+    - [ ] 5.04a-iv — Production queue visual rhythm as teaching signal: the conveyor belt's audible and visual rhythm as the factory's heartbeat; monoculture monotony vs. diverse rhythm; the rhythm change as the moment the player "hears" army diversity
+    - [ ] 5.04a-v — The designed-failure detection heuristic for fast-track: how the expert fast-track detects monoculture understanding; when to skip the designed failure cycle; preventing false positives
   - [ ] 5.04b — The vocabulary density curve: how many new terms per minute is sustainable? Cognitive load theory applied to game tutorial design; comparison with Shenzhen I/O's ~2 new instructions per puzzle
   - [ ] 5.04c — The "subsystem online" micro-celebration: designing the moment a new concept unlocks — amber glow, chime, boot log print, panel expansion animation; interaction with narrative beat design and emotional pacing
   - [ ] 5.04d — Sandbox-to-challenge transition design: the desaturation peel — exact technical and aesthetic design of the simulation→reality transition animation; how the transition communicates stakes without words
