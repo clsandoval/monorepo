@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Rocket } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Rocket, Menu, X } from 'lucide-react'
 
 // ---------------------------------------------------------------------------
 // Sidebar nav structure
@@ -37,23 +38,87 @@ const NAV_SECTIONS = [
 // DocsSidebar
 // ---------------------------------------------------------------------------
 
-function DocsSidebar() {
+function DocsSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname()
 
   return (
-    <aside
-      style={{
-        position: 'fixed',
-        left: 0,
-        top: 0,
-        width: '260px',
-        height: '100vh',
-        backgroundColor: '#FFFFFF',
-        borderRight: '1px solid #E5E7EB',
-        overflowY: 'auto',
-        zIndex: 20,
-      }}
-    >
+    <nav aria-label="Docs navigation">
+      <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+        {NAV_SECTIONS.map((section) => (
+          <li key={section.label} style={{ margin: 0 }}>
+            {/* Section label */}
+            <span
+              style={{
+                display: 'block',
+                fontFamily: 'var(--font-inter)',
+                fontSize: '14px',
+                fontWeight: 600,
+                color: '#6B7280',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                padding: '20px 24px 8px 24px',
+              }}
+            >
+              {section.label}
+            </span>
+
+            {/* Section items */}
+            <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+              {section.items.map((item) => {
+                const isActive = pathname === item.href
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      aria-current={isActive ? 'page' : undefined}
+                      onClick={onNavigate}
+                      style={{
+                        display: 'block',
+                        fontFamily: 'var(--font-inter)',
+                        fontSize: '16px',
+                        fontWeight: isActive ? 600 : 400,
+                        color: '#0C1F40',
+                        padding: '10px 24px',
+                        textDecoration: 'none',
+                        backgroundColor: isActive
+                          ? 'rgba(180, 231, 221, 0.15)'
+                          : 'transparent',
+                        borderLeft: isActive
+                          ? '2px solid #B4E7DD'
+                          : '2px solid transparent',
+                        transition: 'background-color 150ms, color 150ms',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isActive) {
+                          ;(e.currentTarget as HTMLAnchorElement).style.backgroundColor =
+                            '#F9FAFB'
+                          ;(e.currentTarget as HTMLAnchorElement).style.color =
+                            '#0C1F40'
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) {
+                          ;(e.currentTarget as HTMLAnchorElement).style.backgroundColor =
+                            'transparent'
+                        }
+                      }}
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+function DocsSidebar() {
+  return (
+    <aside className="hidden md:block fixed left-0 top-0 w-[260px] h-screen bg-white border-r border-gray-200 overflow-y-auto z-20">
       {/* Logo area */}
       <div
         style={{
@@ -79,78 +144,103 @@ function DocsSidebar() {
         </Link>
       </div>
 
-      {/* Nav */}
-      <nav aria-label="Docs navigation">
-        <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-          {NAV_SECTIONS.map((section) => (
-            <li key={section.label} style={{ margin: 0 }}>
-              {/* Section label */}
-              <span
-                style={{
-                  display: 'block',
-                  fontFamily: 'var(--font-inter)',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  color: '#6B7280',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  padding: '20px 24px 8px 24px',
-                }}
-              >
-                {section.label}
-              </span>
-
-              {/* Section items */}
-              <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                {section.items.map((item) => {
-                  const isActive = pathname === item.href
-                  return (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        aria-current={isActive ? 'page' : undefined}
-                        style={{
-                          display: 'block',
-                          fontFamily: 'var(--font-inter)',
-                          fontSize: '14px',
-                          fontWeight: isActive ? 600 : 400,
-                          color: '#0C1F40',
-                          padding: '7px 24px',
-                          textDecoration: 'none',
-                          backgroundColor: isActive
-                            ? 'rgba(180, 231, 221, 0.15)'
-                            : 'transparent',
-                          borderLeft: isActive
-                            ? '2px solid #B4E7DD'
-                            : '2px solid transparent',
-                          transition: 'background-color 150ms, color 150ms',
-                        }}
-                        onMouseEnter={(e) => {
-                          if (!isActive) {
-                            ;(e.currentTarget as HTMLAnchorElement).style.backgroundColor =
-                              '#F9FAFB'
-                            ;(e.currentTarget as HTMLAnchorElement).style.color =
-                              '#0C1F40'
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          if (!isActive) {
-                            ;(e.currentTarget as HTMLAnchorElement).style.backgroundColor =
-                              'transparent'
-                          }
-                        }}
-                      >
-                        {item.title}
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <DocsSidebarNav />
     </aside>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Mobile sidebar overlay
+// ---------------------------------------------------------------------------
+
+function MobileSidebar({
+  open,
+  onClose,
+}: {
+  open: boolean
+  onClose: () => void
+}) {
+  const pathname = usePathname()
+
+  // Close on route change
+  useEffect(() => {
+    onClose()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname])
+
+  if (!open) return null
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          backgroundColor: 'rgba(0,0,0,0.4)',
+          zIndex: 40,
+        }}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      {/* Sidebar panel */}
+      <aside
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          width: '280px',
+          height: '100vh',
+          backgroundColor: '#FFFFFF',
+          overflowY: 'auto',
+          zIndex: 50,
+          boxShadow: '4px 0 12px rgba(0,0,0,0.1)',
+        }}
+      >
+        {/* Header with close */}
+        <div
+          style={{
+            padding: '16px 24px',
+            borderBottom: '1px solid #E5E7EB',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Link
+            href="/"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+          >
+            <Rocket size={20} color="#0C1F40" />
+            <span
+              style={{
+                fontFamily: 'var(--font-archivo)',
+                fontSize: '16px',
+                fontWeight: 700,
+                color: '#0C1F40',
+              }}
+            >
+              Daimon
+            </span>
+          </Link>
+          <button
+            onClick={onClose}
+            aria-label="Close navigation"
+            style={{
+              background: 'none',
+              border: 'none',
+              padding: '8px',
+              cursor: 'pointer',
+              color: '#6B7280',
+            }}
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        <DocsSidebarNav onNavigate={onClose} />
+      </aside>
+    </>
   )
 }
 
@@ -171,7 +261,7 @@ function getPageTitle(pathname: string): string {
   return 'Docs'
 }
 
-function DocsTopbar() {
+function DocsTopbar({ onMenuClick }: { onMenuClick: () => void }) {
   const pathname = usePathname()
   const pageTitle = getPageTitle(pathname)
 
@@ -186,10 +276,29 @@ function DocsTopbar() {
         zIndex: 10,
         display: 'flex',
         alignItems: 'center',
-        padding: '0 32px',
+        padding: '0 16px',
         gap: '8px',
       }}
+      className="md:px-8"
     >
+      {/* Mobile menu button */}
+      <button
+        onClick={onMenuClick}
+        aria-label="Open navigation"
+        className="md:hidden"
+        style={{
+          background: 'none',
+          border: 'none',
+          padding: '8px',
+          cursor: 'pointer',
+          color: '#0C1F40',
+          display: 'inline-flex',
+          alignItems: 'center',
+        }}
+      >
+        <Menu size={22} />
+      </button>
+
       {/* Breadcrumb */}
       <span
         style={{
@@ -211,10 +320,6 @@ function DocsTopbar() {
       {/* Spacer */}
       <div style={{ flex: 1 }} />
 
-      {/* CTA — shown unconditionally as client-side auth check adds complexity;
-          the spec notes "visible only to authenticated users" for dashboard link
-          and "unauthenticated" for signup — we show Sign up free as default
-          since docs are public and we keep the layout simple per stage spec */}
       <Link
         href="/signup"
         style={{
@@ -225,7 +330,7 @@ function DocsTopbar() {
           backgroundColor: '#B4E7DD',
           color: '#0C1F40',
           fontFamily: 'var(--font-inter)',
-          fontSize: '13px',
+          fontSize: '14px',
           fontWeight: 600,
           textDecoration: 'none',
           whiteSpace: 'nowrap',
@@ -253,6 +358,8 @@ export default function DocsLayout({
 }: {
   children: React.ReactNode
 }) {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
+
   return (
     <div
       style={{
@@ -262,18 +369,17 @@ export default function DocsLayout({
       }}
     >
       <DocsSidebar />
+      <MobileSidebar
+        open={mobileNavOpen}
+        onClose={() => setMobileNavOpen(false)}
+      />
 
-      {/* Main content shifted right of sidebar */}
-      <div style={{ flex: 1, marginLeft: '260px' }}>
-        <DocsTopbar />
+      {/* Main content — shifted right of sidebar on desktop, full-width on mobile */}
+      <div className="flex-1 min-w-0 md:ml-[260px]">
+        <DocsTopbar onMenuClick={() => setMobileNavOpen(true)} />
 
         <article
-          style={{
-            maxWidth: '780px',
-            margin: '0 auto',
-            padding: '48px 32px 96px 32px',
-          }}
-          className="docs-content"
+          className="docs-content max-w-[780px] mx-auto px-4 py-8 pb-24 md:px-8 md:pt-12 overflow-x-hidden"
         >
           {children}
         </article>
