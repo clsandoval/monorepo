@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 880
-- **Analyzed:** 325
-- **Pending:** 555
-- **Convergence:** 36.9%
+- **Total aspects:** 885
+- **Analyzed:** 326
+- **Pending:** 559
+- **Convergence:** 36.8%
 
 ---
 
@@ -469,10 +469,17 @@
 
 ### Buffer Models
 - [x] 2.01 — Fixed-slot buffer: N discrete slots, each holds one observation/message, oldest evicted first
-- [ ] 2.02 — Weighted buffer: entries have different sizes (a location = 1 slot, a full report = 3 slots)
+- [x] 2.02 — Weighted buffer: entries have different sizes (a location = 1 slot, a full report = 3 slots)
 - [ ] 2.03 — Decay buffer: entries fade over time rather than being evicted discretely (freshness gradient)
 - [ ] 2.04 — Categorized buffer: separate pools for different info types (threats, terrain, comms, memories)
 - [ ] 2.05 — Shared buffer: group of units shares a collective memory pool
+
+### Weighted Buffer Deep Dives
+- [ ] 2.02a — Weight value design space: what's the right weight range (1-3 ternary vs. 1-5 granular vs. 1-10 simulation-heavy); weight inflation across campaign missions; balance implications
+- [ ] 2.02b — Delivery richness as progressive unlock: stripped/tagged/structured trichotomy per-channel; when does this unlock; boot log framing; interaction with hook taxonomy (3.08)
+- [ ] 2.02c — Weight-aware eviction policy design space: FIFO-weight, lightest-first, heaviest-first, priority-tagged, weight-matched, random-weighted; which strategies create interesting decisions vs. degenerate ones
+- [ ] 2.02d — The "compress as refinery" skill identity: if weight makes compress essential, does the Relay become mandatory? Diversity implications; alternative weight-reduction skills; weight management as a skill category
+- [ ] 2.02e — Tutorial progression from fixed-slot to weighted: designing the M1-4 → M5 transition; the "bookshelf upgrade" moment; avoiding invalidating fixed-slot tutorial lessons
 
 ### Fixed-Slot Buffer Deep Dives
 - [ ] 2.01a — Buffer insertion order as hidden complexity: deterministic but opaque ordering of simultaneous arrivals (clockwise observations, alphabetical channels); should this be visible/configurable? What happens when renaming a channel changes insertion priority?
