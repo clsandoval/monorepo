@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 885
-- **Analyzed:** 326
-- **Pending:** 559
-- **Convergence:** 36.8%
+- **Total aspects:** 890
+- **Analyzed:** 327
+- **Pending:** 563
+- **Convergence:** 36.7%
 
 ---
 
@@ -386,7 +386,12 @@
 - [ ] 1.08 — SpaceChem: visual programming as chemistry metaphor, production pipeline design
 
 ### Combo Discovery / Deckbuilding Games
-- [ ] 1.09 — Slay the Spire: combo discovery, synergy between cards, run structure, ascension difficulty
+- [x] 1.09 — Slay the Spire: combo discovery, synergy between cards, run structure, ascension difficulty
+- [ ] 1.09a — The "drawback as fuel" cross-agent pattern: deliberately designing hook/skill drawbacks (EM emissions, buffer pollution, processing delay) that become triggers or resources for other agents; Slay the Spire's Wild Strike + Evolve as template; the combinatorial space of "my weakness is your strength" agent pairings
+- [ ] 1.09b — The skip-as-power principle for slot allocation: how Robot Uprising communicates that empty hook/rule/skill slots are sometimes optimal; visual language for deliberate emptiness vs. unfilled potential; Slay the Spire's deck thinning as reference model for "less is more" in agent configuration
+- [ ] 1.09c — Cumulative Gauntlet modifiers as skill teachers: designing 15-20 specific Gauntlet difficulty modifiers where each one teaches a defensive technique (wider enemy perception → stealth design, pre-filled noise → eviction mastery, channel pollution → authentication, latency increase → loose coupling); Slay the Spire Ascension as template
+- [ ] 1.09d — Near-miss visibility as retention engine: how the Inspector must surface "the one configuration change that would have changed the outcome" to create Slay the Spire's "I was SO close" psychology; the difference between "you lost" and "you lost because Rule 3 evaluated stale data from tick 12"
+- [ ] 1.09e — Slay the Spire 2 co-op design lessons: how the sequel's cooperative multiplayer (shared run with distinct roles) maps to Robot Uprising co-op models; 3M copies in one week as market validation for cooperative deckbuilder-adjacent design; what changed from solo to co-op and what broke
 - [ ] 1.10 — The Bazaar: real-time autobattler deckbuilding, item synergies, economic meta
 - [ ] 1.11 — Balatro: rule-breaking combo system, poker as base mechanic, joker synergies
 - [ ] 1.12 — Baba Is You: rule manipulation as mechanic, emergent interactions from simple rules
