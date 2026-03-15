@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 715
-- **Analyzed:** 292
-- **Pending:** 423
-- **Convergence:** 40.8%
+- **Total aspects:** 720
+- **Analyzed:** 293
+- **Pending:** 427
+- **Convergence:** 40.7%
 
 ---
 
@@ -596,7 +596,12 @@
   - [ ] 5.02c — The AI's self-questioning as pedagogical modeling: designing the first-thought voice's questions to model the engineering thinking the game teaches — "what if two enemies appear simultaneously?" as both narrative and problem-framing; when self-questioning helps vs. when it becomes leading
   - [ ] 5.02d — Narrative skip and fast-forward design: exactly how speed-up works across all six executions — text acceleration, audio pitch-shifting, animation compression, what's preserved vs. what's lost at each speed; the "respect the player's time" vs. "respect the narrative's pacing" tension
   - [ ] 5.02e — Non-reader and low-literacy narrative paths: how each execution degrades gracefully for players who skip/ignore text — which executions rely least on reading, which visual/audio cues carry the narrative without text, accessibility implications for screen readers vs. visual-only learners
-- [ ] 5.03 — Tutorial as sandbox: free play with guided hints
+- [x] 5.03 — Tutorial as sandbox: free play with guided hints
+  - [ ] 5.03a — Sandbox-to-campaign handoff design: the exact moment and mechanism where free sandbox transitions into structured campaign missions; does the sandbox become Mission 0? Does the campaign start fresh? How does sandbox learning carry over (or not)?
+  - [ ] 5.03b — Adaptive difficulty in sandbox mode: using sandbox performance to calibrate first campaign mission difficulty; the sandbox as a hidden placement test
+  - [ ] 5.03c — Sandbox return as between-mission free play: can the player return to the sandbox between campaign missions? A "practice range" accessible from the campaign map; interaction with 5.05b intermission sandbox design
+  - [ ] 5.03d — Ghost mentor personality as player-archetype detector: mentor observations double as classification system (tinkerer, methodical builder, goal-chaser, social learner); classification feeding into adaptive campaign difficulty and hint frequency
+  - [ ] 5.03e — The wreckage sandbox as post-mission replay mode: Variant F's reverse-engineering mechanic applied as a post-mission analytical mode after losing a campaign mission; tutorial introduces the mechanic, post-mission version provides depth
 - [ ] 5.04 — Complexity ramp: what order are mechanics introduced? How many missions before full complexity?
 - [x] 5.05 — Campaign structure: linear story vs. branching map vs. roguelike runs vs. chapter-based
   - [ ] 5.05a — Boot log as campaign UI: the terminal-as-map design pattern — font choice, color states, animation timing, sound design per state transition, small screen handling, scrolling behavior on mobile
