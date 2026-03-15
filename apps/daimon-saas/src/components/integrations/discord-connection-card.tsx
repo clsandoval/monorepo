@@ -2,6 +2,21 @@
 
 import * as React from 'react'
 import { AlertTriangle, MessageSquare, Eye, EyeOff, X, Plus } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Badge, type BadgeVariant } from '@/components/ui/badge'
+import { Card, CardContent } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { type Plan, getMaxConnections, canAddConnection, connectionLimitMessage } from '@/lib/plans/gate'
 import { useToast } from '@/lib/toast'
@@ -41,48 +56,40 @@ function sanitizeToken(raw: string): string {
 }
 
 // ---------------------------------------------------------------------------
-// Status badge
+// Status badge mapping
 // ---------------------------------------------------------------------------
 
 type DiscordStatus = DiscordConnection['status']
 
-const STATUS_STYLES: Record<DiscordStatus, { label: string; bg: string; color: string }> = {
-  connected: { label: 'Connected', bg: '#D1FAE5', color: '#059669' },
-  connecting: { label: 'Connecting...', bg: '#FEF3C7', color: '#D97706' },
-  pending: { label: 'Pending', bg: '#FEF3C7', color: '#D97706' },
-  error: { label: 'Error', bg: '#FEE2E2', color: '#DC2626' },
-  disconnected: { label: 'Disconnected', bg: '#F3F4F6', color: '#6B7280' },
+const STATUS_BADGE_MAP: Record<DiscordStatus, { variant: BadgeVariant; label: string }> = {
+  connected: { variant: 'connection-connected', label: 'Connected' },
+  connecting: { variant: 'connection-connecting', label: 'Connecting...' },
+  pending: { variant: 'connection-connecting', label: 'Pending' },
+  error: { variant: 'connection-error', label: 'Error' },
+  disconnected: { variant: 'connection-disconnected', label: 'Disconnected' },
 }
 
-function DiscordStatusBadge({ status }: { status: DiscordStatus }) {
-  const { label, bg, color } = STATUS_STYLES[status]
-  return (
-    <span
-      style={{
-        display: 'inline-block',
-        height: '22px',
-        padding: '4px 10px',
-        background: bg,
-        color,
-        fontFamily: 'var(--font-inter), Inter, sans-serif',
-        fontWeight: 500,
-        fontSize: '12px',
-        lineHeight: '14px',
-        borderRadius: '0px',
-        flexShrink: 0,
-      }}
-    >
-      {label}
-    </span>
-  )
+const STATUS_DOT_COLORS: Record<DiscordStatus, string> = {
+  connected: 'bg-[#059669]',
+  connecting: 'bg-[#D97706]',
+  pending: 'bg-[#D97706]',
+  error: 'bg-destructive',
+  disconnected: 'bg-muted-foreground',
+}
+
+const STATUS_BORDER_COLORS: Record<DiscordStatus, string> = {
+  connected: 'border-l-[3px] border-l-[#00D4B8]',
+  connecting: 'border-l-[3px] border-l-[#D97706]',
+  pending: 'border-l-[3px] border-l-[#D97706]',
+  error: 'border-l-[3px] border-l-destructive',
+  disconnected: '',
 }
 
 // ---------------------------------------------------------------------------
-// Discord logo (simple SVG icon using lucide MessageSquare as fallback)
+// Discord logo (simple SVG icon)
 // ---------------------------------------------------------------------------
 
 function DiscordLogo({ size = 40 }: { size?: number }) {
-  // Discord "blurple" brand color: #5865F2
   return (
     <svg
       width={size}
@@ -106,7 +113,7 @@ function DiscordLogo({ size = 40 }: { size?: number }) {
 
 interface DiscordModalProps {
   mode: 'add' | 'replace'
-  existingGuildId?: string // locked for replace mode
+  existingGuildId?: string
   isOpen: boolean
   onClose: () => void
   onSuccess: (connection: DiscordConnection) => void
@@ -139,16 +146,6 @@ function DiscordConnectionModal({
       setIsSubmitting(false)
     }
   }, [isOpen, existingGuildId])
-
-  // Focus trap: close on Escape
-  React.useEffect(() => {
-    if (!isOpen) return
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, onClose])
 
   const validateToken = (): boolean => {
     const raw = sanitizeToken(token)
@@ -228,150 +225,50 @@ function DiscordConnectionModal({
     }
   }
 
-  if (!isOpen) return null
-
   const title = mode === 'add' ? 'Add Discord Bot' : 'Replace Bot Token'
   const submitLabel = isSubmitting ? 'Saving...' : mode === 'add' ? 'Validate & Connect' : 'Update Token'
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(0,0,0,0.5)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 50,
-        padding: '16px',
-      }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose()
-      }}
-    >
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="discord-modal-title"
-        style={{
-          background: '#FFFFFF',
-          border: '1px solid #E5E7EB',
-          borderRadius: '0px',
-          padding: '24px',
-          width: '100%',
-          maxWidth: '480px',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
-          position: 'relative',
-        }}
-      >
-        {/* Header */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: '20px',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose() }}>
+      <DialogContent className="sm:max-w-[480px]" showCloseButton={false}>
+        <DialogHeader>
+          <div className="flex items-center gap-3">
             <DiscordLogo size={32} />
-            <h2
-              id="discord-modal-title"
-              style={{
-                fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-                fontWeight: 600,
-                fontSize: '18px',
-                color: '#0C1F40',
-                margin: 0,
-              }}
-            >
+            <DialogTitle className="font-heading text-lg">
               {title}
-            </h2>
+            </DialogTitle>
           </div>
-          <button
-            aria-label="Close"
-            onClick={onClose}
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              color: '#6B7280',
-              padding: '4px',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <X size={20} />
-          </button>
-        </div>
-
-        {/* Description */}
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '14px',
-            color: '#6B7280',
-            marginBottom: '20px',
-          }}
-        >
-          {mode === 'add'
-            ? 'Paste your Discord bot token and server ID to connect your bot.'
-            : 'Paste a new bot token to replace the existing one. The bot will briefly reconnect.'}
-        </p>
+          <DialogDescription>
+            {mode === 'add'
+              ? 'Paste your Discord bot token and server ID to connect your bot.'
+              : 'Paste a new bot token to replace the existing one. The bot will briefly reconnect.'}
+          </DialogDescription>
+        </DialogHeader>
 
         {/* Help banner */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '8px',
-            background: '#F0F9FF',
-            border: '1px solid #BAE6FD',
-            padding: '10px 12px',
-            marginBottom: '20px',
-          }}
-        >
-          <MessageSquare size={14} color="#0284C7" style={{ flexShrink: 0, marginTop: '1px' }} />
-          <span
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '12px',
-              color: '#0369A1',
-            }}
-          >
+        <Alert className="border-sky-200 bg-sky-50">
+          <MessageSquare className="size-3.5 text-sky-600" />
+          <AlertDescription className="text-xs text-sky-800">
             Create a bot at{' '}
             <a
               href="https://discord.com/developers/applications"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: '#0284C7', textDecoration: 'underline' }}
+              className="text-sky-600 underline"
             >
               discord.com/developers
             </a>
             , copy the token from the Bot section, and paste it below.
-          </span>
-        </div>
+          </AlertDescription>
+        </Alert>
 
         {/* Bot token field */}
-        <div style={{ marginBottom: '16px' }}>
-          <label
-            htmlFor="discord-token"
-            style={{
-              display: 'block',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontWeight: 500,
-              fontSize: '14px',
-              color: '#374151',
-              marginBottom: '6px',
-            }}
-          >
-            Discord Bot Token{' '}
-            <span style={{ color: '#DC2626' }} aria-label="required">
-              *
-            </span>
-          </label>
-          <div style={{ position: 'relative' }}>
-            <input
+        <div className="space-y-1.5">
+          <Label htmlFor="discord-token">
+            Discord Bot Token <span className="text-destructive" aria-label="required">*</span>
+          </Label>
+          <div className="relative">
+            <Input
               id="discord-token"
               type={showToken ? 'text' : 'password'}
               value={token}
@@ -384,76 +281,31 @@ function DiscordConnectionModal({
               autoComplete="off"
               spellCheck={false}
               disabled={isSubmitting}
-              style={{
-                width: '100%',
-                height: '40px',
-                padding: '0 40px 0 12px',
-                background: '#FFFFFF',
-                border: tokenError ? '1.5px solid #DC2626' : '1.5px solid #D1D5DB',
-                borderRadius: '0px',
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '14px',
-                color: '#0C1F40',
-                outline: 'none',
-                boxSizing: 'border-box',
-              }}
+              className={cn('h-10 pr-10', tokenError && 'border-destructive')}
             />
             <button
               type="button"
               aria-label={showToken ? 'Hide token' : 'Show token'}
               onClick={() => setShowToken((v) => !v)}
-              style={{
-                position: 'absolute',
-                right: '10px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                color: '#6B7280',
-                padding: 0,
-                display: 'flex',
-                alignItems: 'center',
-              }}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
             >
-              {showToken ? <EyeOff size={16} /> : <Eye size={16} />}
+              {showToken ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
             </button>
           </div>
           {tokenError && (
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '12px',
-                color: '#DC2626',
-                marginTop: '4px',
-              }}
-            >
-              {tokenError}
-            </p>
+            <p className="text-xs text-destructive">{tokenError}</p>
           )}
         </div>
 
-        {/* Guild ID field (shown for add, locked for replace) */}
-        <div style={{ marginBottom: '20px' }}>
-          <label
-            htmlFor="discord-guild-id"
-            style={{
-              display: 'block',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontWeight: 500,
-              fontSize: '14px',
-              color: '#374151',
-              marginBottom: '6px',
-            }}
-          >
+        {/* Guild ID field */}
+        <div className="space-y-1.5">
+          <Label htmlFor="discord-guild-id">
             Discord Server ID (Guild ID){' '}
             {mode === 'add' && (
-              <span style={{ color: '#DC2626' }} aria-label="required">
-                *
-              </span>
+              <span className="text-destructive" aria-label="required">*</span>
             )}
-          </label>
-          <input
+          </Label>
+          <Input
             id="discord-guild-id"
             type="text"
             value={guildId}
@@ -466,121 +318,49 @@ function DiscordConnectionModal({
             placeholder="1234567890123456789"
             autoComplete="off"
             disabled={isSubmitting || mode === 'replace'}
-            style={{
-              width: '100%',
-              height: '40px',
-              padding: '0 12px',
-              background: mode === 'replace' ? '#F9FAFB' : '#FFFFFF',
-              border: guildIdError ? '1.5px solid #DC2626' : '1.5px solid #D1D5DB',
-              borderRadius: '0px',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '14px',
-              color: mode === 'replace' ? '#6B7280' : '#0C1F40',
-              outline: 'none',
-              cursor: mode === 'replace' ? 'default' : 'text',
-              boxSizing: 'border-box',
-            }}
+            className={cn(
+              'h-10',
+              mode === 'replace' && 'bg-muted text-muted-foreground cursor-default',
+              guildIdError && 'border-destructive'
+            )}
           />
           {mode === 'replace' && (
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '12px',
-                color: '#9CA3AF',
-                marginTop: '4px',
-              }}
-            >
+            <p className="text-xs text-muted-foreground">
               Guild ID cannot be changed. To connect a different server, disconnect this bot and add a new connection.
             </p>
           )}
           {guildIdError && (
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '12px',
-                color: '#DC2626',
-                marginTop: '4px',
-              }}
-            >
-              {guildIdError}
-            </p>
+            <p className="text-xs text-destructive">{guildIdError}</p>
           )}
         </div>
 
         {/* Submit error */}
         {submitError && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: '#FEF2F2',
-              border: '1px solid #FEE2E2',
-              padding: '10px 12px',
-              marginBottom: '16px',
-            }}
-          >
-            <AlertTriangle size={14} color="#DC2626" style={{ flexShrink: 0 }} />
-            <span
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '13px',
-                color: '#DC2626',
-              }}
-            >
+          <Alert variant="destructive">
+            <AlertTriangle className="size-3.5" />
+            <AlertDescription className="text-[13px]">
               {submitError}
-            </span>
-          </div>
+            </AlertDescription>
+          </Alert>
         )}
 
-        {/* Footer */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            gap: '8px',
-            paddingTop: '4px',
-          }}
-        >
-          <button
+        <DialogFooter>
+          <Button
+            variant="outline"
             onClick={onClose}
             disabled={isSubmitting}
-            style={{
-              height: '36px',
-              padding: '0 16px',
-              background: 'transparent',
-              color: isSubmitting ? '#9CA3AF' : '#374151',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontWeight: 500,
-              fontSize: '14px',
-              borderRadius: '0px',
-              border: '1.5px solid #D1D5DB',
-              cursor: isSubmitting ? 'not-allowed' : 'pointer',
-            }}
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={handleSubmit}
             disabled={isSubmitting || !token}
-            style={{
-              height: '36px',
-              padding: '0 16px',
-              background: isSubmitting || !token ? '#E5E7EB' : '#0C1F40',
-              color: isSubmitting || !token ? '#9CA3AF' : '#FFFFFF',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontWeight: 500,
-              fontSize: '14px',
-              borderRadius: '0px',
-              border: 'none',
-              cursor: isSubmitting || !token ? 'not-allowed' : 'pointer',
-            }}
           >
             {submitLabel}
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }
 
@@ -603,14 +383,7 @@ function DiscordCardItem({
 }: DiscordCardItemProps) {
   const isMember = userRole === 'member'
   const isError = connection.status === 'error'
-  const isConnected = connection.status === 'connected'
-
-  let borderLeft = '1px solid #E5E7EB'
-  if (isConnected) borderLeft = '3px solid #00D4B8'
-  else if (isError) borderLeft = '3px solid #EF4444'
-  else if (connection.status === 'pending' || connection.status === 'connecting') {
-    borderLeft = '3px solid #D97706'
-  }
+  const { variant, label } = STATUS_BADGE_MAP[connection.status]
 
   const displayName = connection.bot_username
     ? `Connected as ${connection.bot_username}`
@@ -618,71 +391,33 @@ function DiscordCardItem({
 
   return (
     <div
-      style={{
-        background: '#FFFFFF',
-        border: '1px solid #E5E7EB',
-        borderLeft,
-        padding: '16px 20px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-      }}
+      className={cn(
+        'flex items-center gap-3 border border-border bg-card px-5 py-4',
+        STATUS_BORDER_COLORS[connection.status]
+      )}
     >
       {/* Status dot */}
       <div
-        style={{
-          width: '8px',
-          height: '8px',
-          borderRadius: '50%',
-          flexShrink: 0,
-          background: STATUS_STYLES[connection.status].color,
-        }}
+        className={cn(
+          'size-2 shrink-0 rounded-full',
+          STATUS_DOT_COLORS[connection.status]
+        )}
       />
 
       {/* Info */}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '14px',
-            color: '#0C1F40',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}
-        >
+      <div className="min-w-0 flex-1">
+        <div className="truncate text-sm font-medium text-foreground">
           {displayName}
         </div>
         {connection.bot_username && (
-          <div
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '12px',
-              color: '#9CA3AF',
-              marginTop: '2px',
-            }}
-          >
+          <div className="mt-0.5 text-xs text-muted-foreground">
             Guild ID: {connection.guild_id}
           </div>
         )}
         {isError && connection.error_message && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-              marginTop: '4px',
-            }}
-          >
-            <AlertTriangle size={12} color="#DC2626" />
-            <span
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '12px',
-                color: '#DC2626',
-              }}
-            >
+          <div className="mt-1 flex items-center gap-1">
+            <AlertTriangle className="size-3 text-destructive" />
+            <span className="text-xs text-destructive">
               {connection.error_message}
             </span>
           </div>
@@ -690,48 +425,29 @@ function DiscordCardItem({
       </div>
 
       {/* Badge */}
-      <DiscordStatusBadge status={connection.status} />
+      <Badge variant={variant} label={label} size="sm" className="shrink-0" />
 
       {/* Actions */}
-      <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
-        <button
+      <div className="flex shrink-0 gap-2">
+        <Button
+          variant="outline"
+          size="sm"
           onClick={() => onReplaceToken(connection)}
           disabled={isMember}
           title={isMember ? 'Only owners and admins can manage integrations.' : undefined}
-          style={{
-            height: '32px',
-            padding: '0 12px',
-            background: '#FFFFFF',
-            color: isMember ? '#9CA3AF' : '#0C1F40',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '13px',
-            borderRadius: '0px',
-            border: '1.5px solid #D1D5DB',
-            cursor: isMember ? 'not-allowed' : 'pointer',
-          }}
         >
           Replace Token
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={() => onDisconnect(connection)}
           disabled={isMember}
           title={isMember ? 'Only owners and admins can manage integrations.' : undefined}
-          style={{
-            height: '32px',
-            padding: '0 12px',
-            background: 'transparent',
-            color: isMember ? '#9CA3AF' : '#DC2626',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '13px',
-            borderRadius: '0px',
-            border: 'none',
-            cursor: isMember ? 'not-allowed' : 'pointer',
-          }}
+          className="text-destructive hover:text-destructive hover:bg-destructive/10"
         >
           Disconnect
-        </button>
+        </Button>
       </div>
     </div>
   )
@@ -752,7 +468,6 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
 
   const isMember = userRole === 'member'
 
-  // Active connections: exclude disconnected (suspended not in current type but handled if added)
   const activeCount = connections.filter(
     (c) => c.status !== 'disconnected'
   ).length
@@ -815,38 +530,14 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
   return (
     <>
       {/* Section header */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'space-between',
-          marginBottom: '16px',
-          flexWrap: 'wrap',
-          gap: '12px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+        <div className="flex items-center gap-2.5">
           <DiscordLogo size={28} />
           <div>
-            <h2
-              style={{
-                fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-                fontWeight: 600,
-                fontSize: '18px',
-                color: '#0C1F40',
-                margin: 0,
-              }}
-            >
+            <h2 className="font-heading text-lg font-semibold text-foreground">
               Discord Bot Connections
             </h2>
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '13px',
-                color: '#6B7280',
-                margin: '2px 0 0 0',
-              }}
-            >
+            <p className="mt-0.5 text-[13px] text-muted-foreground">
               {connections.length === 0
                 ? 'No bot connected yet. Add your Discord bot token to get started.'
                 : `${activeCount} of ${maxConnections === Infinity ? 'unlimited' : maxConnections} connection${maxConnections === 1 ? '' : 's'} used`}
@@ -854,7 +545,7 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
           </div>
         </div>
 
-        <button
+        <Button
           onClick={handleAddConnection}
           disabled={isMember || atLimit}
           title={
@@ -862,131 +553,66 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
               ? 'Only owners and admins can manage integrations.'
               : limitMessage
           }
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            height: '36px',
-            padding: '0 16px',
-            background: isMember || atLimit ? '#E5E7EB' : '#0C1F40',
-            color: isMember || atLimit ? '#9CA3AF' : '#FFFFFF',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '14px',
-            borderRadius: '0px',
-            border: 'none',
-            cursor: isMember || atLimit ? 'not-allowed' : 'pointer',
-          }}
         >
-          <Plus size={16} />
+          <Plus className="size-4" />
           Add Connection
-        </button>
+        </Button>
       </div>
 
       {/* Connection limit banner */}
       {atLimit && (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            background: '#FFFBEB',
-            border: '1px solid #FDE68A',
-            padding: '10px 12px',
-            marginBottom: '12px',
-          }}
-        >
-          <AlertTriangle size={14} color="#D97706" style={{ flexShrink: 0 }} />
-          <span
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '13px',
-              color: '#92400E',
-            }}
-          >
+        <Alert className="mb-3 border-amber-200 bg-amber-50">
+          <AlertTriangle className="size-3.5 text-amber-600" />
+          <AlertDescription className="text-[13px] text-amber-900">
             {limitMessage}{' '}
             <a
               href="/dashboard/billing"
-              style={{ color: '#D97706', textDecoration: 'underline', fontWeight: 500 }}
+              className="font-medium text-amber-600 underline"
             >
-              Upgrade your plan →
+              Upgrade your plan &rarr;
             </a>
-          </span>
-        </div>
+          </AlertDescription>
+        </Alert>
       )}
 
       {/* Error banner */}
       {disconnectError && (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            background: '#FEF2F2',
-            border: '1px solid #FEE2E2',
-            padding: '10px 12px',
-            marginBottom: '12px',
-          }}
-        >
-          <AlertTriangle size={14} color="#DC2626" style={{ flexShrink: 0 }} />
-          <span
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '13px',
-              color: '#DC2626',
-            }}
-          >
+        <Alert variant="destructive" className="mb-3">
+          <AlertTriangle className="size-3.5" />
+          <AlertDescription className="text-[13px]">
             {disconnectError}
-          </span>
-        </div>
+          </AlertDescription>
+        </Alert>
       )}
 
       {/* Connection list */}
-      <div
-        style={{
-          border: '1px solid #E5E7EB',
-          overflow: 'hidden',
-        }}
-        data-tenant-id={tenantId}
-      >
-        {connections.length === 0 ? (
-          <div
-            style={{
-              padding: '40px 24px',
-              textAlign: 'center',
-            }}
-          >
-            <DiscordLogo size={48} />
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '14px',
-                color: '#9CA3AF',
-                marginTop: '12px',
-              }}
-            >
-              No Discord bot connected. Click{' '}
-              <strong style={{ color: '#6B7280' }}>Add Connection</strong> to get started.
-            </p>
-          </div>
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-            {connections.map((conn, idx) => (
-              <React.Fragment key={conn.id}>
-                {idx > 0 && (
-                  <div style={{ height: '1px', background: '#F3F4F6' }} />
-                )}
+      <Card className="overflow-hidden p-0" data-tenant-id={tenantId}>
+        <CardContent className="p-0">
+          {connections.length === 0 ? (
+            <div className="py-10 text-center">
+              <div className="flex justify-center">
+                <DiscordLogo size={48} />
+              </div>
+              <p className="mt-3 text-sm text-muted-foreground">
+                No Discord bot connected. Click{' '}
+                <strong className="text-foreground/60">Add Connection</strong> to get started.
+              </p>
+            </div>
+          ) : (
+            <div className="flex flex-col divide-y divide-border">
+              {connections.map((conn) => (
                 <DiscordCardItem
+                  key={conn.id}
                   connection={conn}
                   userRole={userRole}
                   onReplaceToken={handleReplaceToken}
                   onDisconnect={handleDisconnect}
                 />
-              </React.Fragment>
-            ))}
-          </div>
-        )}
-      </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Disconnect confirmation */}
       <ConfirmDialog
