@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 824
-- **Analyzed:** 314
-- **Pending:** 510
-- **Convergence:** 38.1%
+- **Total aspects:** 829
+- **Analyzed:** 315
+- **Pending:** 514
+- **Convergence:** 38.0%
 
 ---
 
@@ -777,7 +777,12 @@
 - [ ] 6.01a-v — High-contrast / accessibility tile variants: Shape-First Design geometric patterns per biome (diagonal hatching, horizontal lines, stippling, grid, concentric circles) replacing color as primary biome identifier; contrast ratios; readability across protanopia/deuteranopia/tritanopia/achromatopsia
 - [ ] 6.01d — Color palette interaction with colorblind modes: how each art direction option degrades under protanopia/deuteranopia/tritanopia; which palettes need redesign vs. naturally robust; interaction with locked signal colors
 - [ ] 6.01e — Tilt-shift implementation in Pixi.js: technical feasibility of the "Diorama" effect — blur filters, performance on low-end hardware, dynamic edge sharpening, Playwright screenshot test determinism
-- [ ] 6.03a — The Predecessor's character arc across 10 missions: beat-by-beat emotional evolution from weary mentor to hopeful observer; branching narrator mood based on player success/failure as implicit difficulty feedback; comparable: Darkest Dungeon Ancestor mood shifts, Hades character memory across runs
+- [x] 6.03a — The Predecessor's character arc across 10 missions: beat-by-beat emotional evolution from weary mentor to hopeful observer; branching narrator mood based on player success/failure as implicit difficulty feedback; comparable: Darkest Dungeon Ancestor mood shifts, Hades character memory across runs
+  - [ ] 6.03b — The Predecessor's vocabulary discipline across emotional registers: how the Predecessor expresses anxiety, pride, grief, and hope while maintaining 1:1 agentic AI vocabulary; detailed vocabulary guide — allowed words, forbidden metaphors, emotional weight through sentence structure not poetic language
+  - [ ] 6.03c — The Predecessor's Plan-phase trigger system: which player actions trigger Predecessor commentary (add hook, remove rule, fill buffer, change eviction); event prioritization when multiple triggers fire simultaneously; cooldown timers; interaction with Plan-phase pacing
+  - [ ] 6.03d — The Predecessor as unreliable narrator: what if the Predecessor's advice is sometimes wrong based on its own flawed experience? The player learns to evaluate rather than follow; when does "my relay architecture was fragile" mislead because the Predecessor's context differs from the player's?
+  - [ ] 6.03e — The Predecessor's relationship to the Blueprint Codex: dual-voice Codex design with system documentation plus Predecessor marginalia annotations; which entries does the Predecessor annotate; italicized amber asides vs. formal monospace technical entries
+  - [ ] 6.03f — Mute toggle and narrator volume as player agency: per-phase mute (Plan/Sealed Watch/Inspector), narrator intensity slider (full/key moments/silence), design tension between player control and missing the character arc
   - [ ] 6.03b — Radio chatter as sonification of system state: mapping buffer occupancy, signal latency, eviction events to voice timing, interruption patterns, audio filter degradation; when voices overlap vs. queue; the audio engineering of "information overload sounds like panic"
   - [ ] 6.03c — The mute/volume hierarchy for narrative layers: player control over which narrative voices they hear; granular per-voice vs. preset modes (dramatic/balanced/clinical); default differences by difficulty; risk of players muting into a worse experience
   - [ ] 6.03d — Narrative voice localization strategy: cost-quality matrix for small studios across voice options; Boot Log (technical terms, cheap) vs. Predecessor (literary prose, expensive) vs. Radio (5 archetypes × N languages, very expensive); interaction with text-only vs. voiced implementations
