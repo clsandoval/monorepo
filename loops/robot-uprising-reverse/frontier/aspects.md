@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 949
-- **Analyzed:** 339
-- **Pending:** 610
-- **Convergence:** 35.7%
+- **Total aspects:** 954
+- **Analyzed:** 340
+- **Pending:** 614
+- **Convergence:** 35.6%
 
 ---
 
@@ -740,7 +740,12 @@
   - [ ] 5.07d — The annotation curation problem: after 5+ campaigns, Previous Notes become cluttered; annotation management (delete, resolve, pin, archive, search); annotation age decay; annotation-as-journaling as intentional design feature
   - [ ] 5.07e — Protocol 7 as cybersecurity curriculum: cross-faction signal injection teaches intrusion detection, source authentication, and input validation through gameplay; explicit pedagogical bridge to real-world security concepts
 - [x] 5.08 — Mission variety: what types of missions exist (defend, attack, stealth, escort, puzzle, boss)
-- [ ] 5.08a — The "Phase Shift" mission structure: missions that change TYPE mid-battle (relay network → siege → infiltration); multi-phase sealed watch pacing
+- [x] 5.08a — The "Phase Shift" mission structure: missions that change TYPE mid-battle (relay network → siege → infiltration); multi-phase sealed watch pacing
+- [ ] 5.08a-i — Phase transition visual language specification: full pixel-level spec for the phase shift moment — screen ripple radius, color temperature shift values, spawner crack-open animation keyframes, terrain tile-flip timing, audio hit frequencies; consistent visual vocabulary across all missions
+- [ ] 5.08a-ii — Phase-aware Command agent rule design: how Command agent reroute/reassign skills interact with phase shifts; formal "phase detection" signal type vs. inferred detection from signal pattern changes; writing rules that trigger on environmental shifts
+- [ ] 5.08a-iii — Multi-phase Inspector timeline UX: phase markers on timeline scrubber, branch visualization for Fork model, ghost-trace alternate timelines; layering phase information onto existing Inspector without overwhelming
+- [ ] 5.08a-iv — Phase-shift-as-difficulty-dial: number and severity of phase shifts as difficulty multiplier; Normal/Hard/Nightmare phase frequency; phase shift frequency as Gauntlet mutator; continuous-shift "earthquake mode"
+- [ ] 5.08a-v — The "Earthquake" model — terrain-only phase shifts: phase shifts that change ONLY terrain (hills collapse, rivers flood, buildings crumble) without new enemies; tests terrain-dependent vs terrain-agnostic information routing; the minimalist phase shift
 - [ ] 5.08b — Community mission editor: tools for creating custom missions of each type; mission type as template system with adjustable parameters
 - [ ] 5.08c — Mission type as difficulty language: using type names instead of star ratings; player self-selection into preferred types
 - [ ] 5.08d — The Gauntlet Rotation meta-structure: how Gauntlet cycles through mission types; rotation schedule as meta-puzzle
