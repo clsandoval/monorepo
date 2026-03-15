@@ -24,7 +24,7 @@ Remaining: 207
 - [x] **Stage 11**: Replace `src/components/ui/checkbox.tsx` — swap with shadcn Checkbox, update all import sites (2026-03-15)
 - [x] **Stage 12**: Replace `src/components/ui/toggle.tsx` — swap with shadcn Switch, update all import sites (2026-03-15)
 - [x] **Stage 13**: Replace `src/components/ui/select.tsx` — swap with shadcn Select, update all import sites (2026-03-15)
-- [ ] **Stage 14**: Replace `src/components/ui/dropdown-menu.tsx` — swap with shadcn DropdownMenu (already Radix-based, align API), update all import sites
+- [x] **Stage 14**: Replace `src/components/ui/dropdown-menu.tsx` — swap with shadcn DropdownMenu (already Radix-based, align API), update all import sites (2026-03-15)
 - [ ] **Stage 15**: Replace `src/components/ui/badge.tsx` — swap with shadcn Badge, preserve variant names, update all import sites
 - [ ] **Stage 16**: Replace `src/components/ui/modal.tsx` — swap with shadcn Dialog, update all import sites
 - [ ] **Stage 17**: Replace `src/components/ui/confirm-dialog.tsx` — rebuild with shadcn AlertDialog, preserve onConfirm/onCancel callbacks
