@@ -1,8 +1,8 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 11
-Remaining: 204
+Completed: 12
+Remaining: 203
 
 ---
 
@@ -41,7 +41,7 @@ Remaining: 204
 - [x] **Stage 28**: Replace `src/components/ui/error-state.tsx` — rebuild with shadcn Alert (destructive) + Button for retry (2026-03-15)
 - [x] **Stage 29**: Replace `src/components/ui/icon-button.tsx` — replace with shadcn Button variant="ghost" size="icon", update all import sites (2026-03-15)
 - [x] **Stage 30**: Replace `src/components/ui/link.tsx` — simplify to thin wrapper or remove if trivial, update all import sites (2026-03-15)
-- [ ] **Stage 31**: Replace `src/components/ui/activity-feed.tsx` — rebuild with shadcn Card + list pattern
+- [x] **Stage 31**: Replace `src/components/ui/activity-feed.tsx` — rebuild with shadcn Card + list pattern (2026-03-15)
 
 ## Replace Layout Components (stages 32–42) `[replace-layout]`
 

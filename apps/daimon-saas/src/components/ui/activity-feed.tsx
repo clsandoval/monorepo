@@ -15,6 +15,8 @@ import {
   UserIcon,
   ActivityIcon,
 } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { EmptyState } from './empty-state'
 import { Skeleton } from './skeleton'
 
@@ -52,18 +54,18 @@ interface ActivityFeedProps {
 
 const EVENT_CONFIGS: Record<
   ActivityEventType,
-  { Icon: React.ComponentType<{ size?: number }>; iconBg: string }
+  { Icon: React.ComponentType<{ size?: number }>; iconClass: string }
 > = {
-  bot_connected: { Icon: ZapIcon, iconBg: 'rgba(34,197,94,0.12)' },
-  bot_disconnected: { Icon: ZapOffIcon, iconBg: 'rgba(239,68,68,0.12)' },
-  bot_error: { Icon: AlertTriangleIcon, iconBg: 'rgba(239,68,68,0.12)' },
-  api_key_added: { Icon: KeyIcon, iconBg: 'rgba(180,231,221,0.30)' },
-  api_key_invalid: { Icon: KeyRoundIcon, iconBg: 'rgba(239,68,68,0.12)' },
-  service_connected: { Icon: PlugIcon, iconBg: 'rgba(180,231,221,0.30)' },
-  service_expired: { Icon: PlugZapIcon, iconBg: 'rgba(245,158,11,0.12)' },
-  plan_upgraded: { Icon: CreditCardIcon, iconBg: 'rgba(180,231,221,0.30)' },
-  plan_downgraded: { Icon: CreditCardIcon, iconBg: 'rgba(245,158,11,0.12)' },
-  account_created: { Icon: UserIcon, iconBg: 'rgba(159,170,226,0.30)' },
+  bot_connected: { Icon: ZapIcon, iconClass: 'bg-green-500/10' },
+  bot_disconnected: { Icon: ZapOffIcon, iconClass: 'bg-destructive/10' },
+  bot_error: { Icon: AlertTriangleIcon, iconClass: 'bg-destructive/10' },
+  api_key_added: { Icon: KeyIcon, iconClass: 'bg-primary/30' },
+  api_key_invalid: { Icon: KeyRoundIcon, iconClass: 'bg-destructive/10' },
+  service_connected: { Icon: PlugIcon, iconClass: 'bg-primary/30' },
+  service_expired: { Icon: PlugZapIcon, iconClass: 'bg-amber-500/10' },
+  plan_upgraded: { Icon: CreditCardIcon, iconClass: 'bg-primary/30' },
+  plan_downgraded: { Icon: CreditCardIcon, iconClass: 'bg-amber-500/10' },
+  account_created: { Icon: UserIcon, iconClass: 'bg-secondary/30' },
 }
 
 function formatRelativeTime(isoTimestamp: string): string {
@@ -87,22 +89,24 @@ function formatRelativeTime(isoTimestamp: string): string {
 
 function ActivityFeedSkeleton() {
   return (
-    <div style={{ background: '#FFFFFF', border: '1.5px solid rgba(12,31,64,0.12)', padding: '24px 28px' }}>
-      <div className="border-b pb-4 mb-0" style={{ borderColor: 'rgba(12,31,64,0.06)' }}>
+    <Card>
+      <CardHeader>
         <Skeleton className="h-4 w-[140px]" />
-      </div>
-      <ul className="mt-3">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <li key={i} className="flex items-start gap-3 py-3">
-            <Skeleton className="h-8 w-8" />
-            <div className="flex flex-col gap-1 flex-1">
-              <Skeleton className="h-3.5 w-[70%]" />
-              <Skeleton className="h-3 w-[40%]" />
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+      </CardHeader>
+      <CardContent>
+        <ul className="mt-3">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <li key={i} className="flex items-start gap-3 py-3">
+              <Skeleton className="h-8 w-8" />
+              <div className="flex flex-col gap-1 flex-1">
+                <Skeleton className="h-3.5 w-[70%]" />
+                <Skeleton className="h-3 w-[40%]" />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
   )
 }
 
@@ -125,85 +129,62 @@ export function ActivityFeed({
   const displayEvents = events.slice(0, maxItems)
 
   return (
-    <div
-      style={{ background: '#FFFFFF', border: '1.5px solid rgba(12,31,64,0.12)', padding: '24px 28px' }}
-      className={className}
-    >
+    <Card className={className}>
       {showHeader && (
-        <div
-          className="flex items-center gap-2 border-b pb-4 mb-0"
-          style={{ borderColor: 'rgba(12,31,64,0.06)' }}
-        >
-          <ClockIcon size={16} className="text-[rgba(12,31,64,0.45)]" />
-          <span
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '14px',
-              fontWeight: 600,
-              color: '#0C1F40',
-            }}
-          >
-            Recent Activity
-          </span>
-        </div>
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <ClockIcon size={16} className="text-muted-foreground" />
+            <span className="text-sm font-semibold text-foreground">
+              Recent Activity
+            </span>
+          </div>
+        </CardHeader>
       )}
 
-      {displayEvents.length === 0 ? (
-        <div className="mt-5">
-          <EmptyState
-            icon={<ActivityIcon size={40} style={{ color: 'rgba(12,31,64,0.20)' }} />}
-            title="No activity yet"
-            description="Activity will appear here once your bot is connected and running."
-          />
-        </div>
-      ) : (
-        <ul
-          className="divide-y"
-          style={{ '--tw-divide-opacity': '1' } as React.CSSProperties}
-          role="list"
-          aria-label="Recent activity feed"
-        >
-          {displayEvents.map((event) => {
-            const config = EVENT_CONFIGS[event.type]
-            return (
-              <li key={event.id} className="flex items-start gap-3 py-3" style={{ borderColor: 'rgba(12,31,64,0.04)' }}>
-                <div
-                  className="flex-shrink-0 w-8 h-8 flex items-center justify-center"
-                  style={{ background: config.iconBg }}
-                  aria-hidden="true"
-                >
-                  <config.Icon size={16} />
-                </div>
-                <span
-                  className="flex-1"
-                  style={{
-                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                    fontSize: '14px',
-                    fontWeight: 400,
-                    color: '#0C1F40',
-                    lineHeight: '1.5',
-                  }}
-                >
-                  {event.description}
-                </span>
-                <time
-                  className="flex-shrink-0 self-start whitespace-nowrap"
-                  dateTime={event.timestamp}
-                  title={event.timestamp}
-                  style={{
-                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    color: 'rgba(12,31,64,0.45)',
-                  }}
-                >
-                  {formatRelativeTime(event.timestamp)}
-                </time>
-              </li>
-            )
-          })}
-        </ul>
-      )}
-    </div>
+      <CardContent>
+        {displayEvents.length === 0 ? (
+          <div className="mt-5">
+            <EmptyState
+              icon={<ActivityIcon size={40} className="text-muted-foreground/40" />}
+              title="No activity yet"
+              description="Activity will appear here once your bot is connected and running."
+            />
+          </div>
+        ) : (
+          <ul
+            className="divide-y divide-border"
+            role="list"
+            aria-label="Recent activity feed"
+          >
+            {displayEvents.map((event) => {
+              const config = EVENT_CONFIGS[event.type]
+              return (
+                <li key={event.id} className="flex items-start gap-3 py-3">
+                  <div
+                    className={cn(
+                      'flex-shrink-0 w-8 h-8 flex items-center justify-center',
+                      config.iconClass,
+                    )}
+                    aria-hidden="true"
+                  >
+                    <config.Icon size={16} />
+                  </div>
+                  <span className="flex-1 text-sm text-foreground leading-relaxed">
+                    {event.description}
+                  </span>
+                  <time
+                    className="flex-shrink-0 self-start whitespace-nowrap text-xs text-muted-foreground"
+                    dateTime={event.timestamp}
+                    title={event.timestamp}
+                  >
+                    {formatRelativeTime(event.timestamp)}
+                  </time>
+                </li>
+              )
+            })}
+          </ul>
+        )}
+      </CardContent>
+    </Card>
   )
 }
