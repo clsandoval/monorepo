@@ -12,6 +12,14 @@ import {
   LogOut,
 } from 'lucide-react'
 import { useAuthContext } from '@/lib/auth/auth-context'
+import { Button } from '@/components/ui/button'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import { cn } from '@/lib/utils'
 
 interface NavItemConfig {
   href: string
@@ -33,33 +41,30 @@ function SidebarNavItem({ href, label, icon }: NavItemConfig) {
     href === '/dashboard' ? pathname === '/dashboard' : pathname.startsWith(href)
 
   return (
-    <Link
-      href={href}
-      aria-label={label}
-      aria-current={isActive ? 'page' : undefined}
-      className="flex items-center justify-center xl:justify-start mx-0 xl:mx-2 px-0 xl:px-3 xl:gap-3 transition-colors duration-150"
-      style={{
-        height: '44px',
-        color: isActive ? '#FFFFFF' : 'rgba(255,255,255,0.65)',
-        background: isActive ? 'rgba(255,255,255,0.10)' : 'transparent',
-      }}
-      onMouseEnter={(e) => {
-        if (!isActive) {
-          e.currentTarget.style.color = '#FFFFFF'
-          e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
+    <Tooltip>
+      <TooltipTrigger
+        render={
+          <Link
+            href={href}
+            aria-label={label}
+            aria-current={isActive ? 'page' : undefined}
+            className={cn(
+              'flex items-center justify-center xl:justify-start mx-0 xl:mx-2 px-0 xl:px-3 xl:gap-3 h-11 transition-colors duration-150',
+              isActive
+                ? 'text-white bg-white/10'
+                : 'text-white/65 hover:text-white hover:bg-white/5'
+            )}
+          />
         }
-      }}
-      onMouseLeave={(e) => {
-        if (!isActive) {
-          e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-          e.currentTarget.style.background = 'transparent'
-        }
-      }}
-    >
-      <span className="flex-shrink-0" aria-hidden="true">{icon}</span>
-      {/* Label: hidden on tablet (icon-only), visible on desktop */}
-      <span className="hidden xl:block text-sm font-medium">{label}</span>
-    </Link>
+      >
+        <span className="flex-shrink-0" aria-hidden="true">{icon}</span>
+        {/* Label: hidden on tablet (icon-only), visible on desktop */}
+        <span className="hidden xl:block text-sm font-medium">{label}</span>
+      </TooltipTrigger>
+      <TooltipContent side="right" className="xl:hidden">
+        {label}
+      </TooltipContent>
+    </Tooltip>
   )
 }
 
@@ -75,99 +80,67 @@ export function Sidebar() {
   }
 
   return (
-    <nav
-      aria-label="Sidebar navigation"
-      id="sidebar-nav"
-      className="fixed left-0 top-0 flex flex-col overflow-y-auto md:w-14 xl:w-60 sidebar-collapsible"
-      style={{
-        height: '100vh',
-        background: '#0C1F40',
-        borderRight: '1px solid rgba(255,255,255,0.06)',
-        zIndex: 100,
-      }}
-    >
-      {/* Logo Area — icon only on tablet, icon + wordmark on desktop */}
-      <Link
-        href="/dashboard"
-        aria-label="Daimon home — go to dashboard"
-        className="flex items-center justify-center xl:justify-start flex-shrink-0 transition-opacity duration-150 hover:opacity-85"
-        style={{
-          height: '64px',
-          padding: '0 16px',
-          borderBottom: '1px solid rgba(255,255,255,0.08)',
-        }}
+    <TooltipProvider>
+      <nav
+        aria-label="Sidebar navigation"
+        id="sidebar-nav"
+        className="fixed left-0 top-0 flex flex-col overflow-y-auto md:w-14 xl:w-60 h-screen bg-foreground border-r border-white/[0.06] z-[100] sidebar-collapsible"
       >
-        <Rocket size={24} color="#FFFFFF" className="flex-shrink-0" aria-hidden="true" />
-        <span
-          className="hidden xl:block ml-2"
-          style={{
-            fontFamily: 'var(--font-archivo)',
-            fontSize: '16px',
-            fontWeight: 700,
-            color: '#FFFFFF',
-          }}
+        {/* Logo Area — icon only on tablet, icon + wordmark on desktop */}
+        <Link
+          href="/dashboard"
+          aria-label="Daimon home — go to dashboard"
+          className="flex items-center justify-center xl:justify-start flex-shrink-0 h-16 px-4 border-b border-white/[0.08] transition-opacity duration-150 hover:opacity-85"
         >
-          Daimon
-        </span>
-      </Link>
+          <Rocket size={24} className="flex-shrink-0 text-white" aria-hidden="true" />
+          <span className="hidden xl:block ml-2 font-archivo text-base font-bold text-white">
+            Daimon
+          </span>
+        </Link>
 
-      {/* Nav Section */}
-      <ul role="list" aria-label="Dashboard navigation" className="flex-1 overflow-y-auto py-3 list-none m-0 p-0">
-        {NAV_ITEMS.map((item) => (
-          <li key={item.href}>
-            <SidebarNavItem {...item} />
-          </li>
-        ))}
-      </ul>
+        {/* Nav Section */}
+        <ul role="list" aria-label="Dashboard navigation" className="flex-1 overflow-y-auto py-3 list-none m-0 p-0">
+          {NAV_ITEMS.map((item) => (
+            <li key={item.href}>
+              <SidebarNavItem {...item} />
+            </li>
+          ))}
+        </ul>
 
-      {/* Sidebar Footer — avatar only on tablet, full on desktop */}
-      <div
-        aria-label="User account"
-        className="flex items-center justify-center xl:justify-start flex-shrink-0"
-        style={{
-          padding: '16px 8px',
-          borderTop: '1px solid rgba(255,255,255,0.08)',
-          background: '#0C1F40',
-          zIndex: 1,
-        }}
-      >
-        {/* User Avatar */}
+        {/* Sidebar Footer — avatar only on tablet, full on desktop */}
         <div
-          aria-hidden="true"
-          className="flex items-center justify-center flex-shrink-0 rounded-full text-xs font-semibold"
-          style={{
-            width: '24px',
-            height: '24px',
-            background: 'rgba(255,255,255,0.15)',
-            color: '#FFFFFF',
-          }}
+          aria-label="User account"
+          className="flex items-center justify-center xl:justify-start flex-shrink-0 p-4 xl:px-2 border-t border-white/[0.08] bg-foreground z-[1]"
         >
-          {initials}
+          {/* User Avatar */}
+          <div
+            aria-hidden="true"
+            className="flex items-center justify-center flex-shrink-0 size-6 rounded-full bg-white/15 text-white text-xs font-semibold"
+          >
+            {initials}
+          </div>
+
+          {/* User Email — hidden on tablet, visible on desktop */}
+          <span
+            className="hidden xl:block flex-1 truncate text-xs ml-2.5 text-white/65"
+            aria-label={`Signed in as ${userEmail}`}
+            title={userEmail}
+          >
+            {userEmail}
+          </span>
+
+          {/* Logout Button — hidden on tablet, visible on desktop */}
+          <Button
+            variant="ghost"
+            size="icon-xs"
+            onClick={handleSignOut}
+            className="hidden xl:flex text-white/45 hover:text-white hover:bg-transparent"
+            aria-label="Sign out of Daimon"
+          >
+            <LogOut size={16} aria-hidden="true" />
+          </Button>
         </div>
-
-        {/* User Email — hidden on tablet, visible on desktop */}
-        <span
-          className="hidden xl:block flex-1 truncate text-xs ml-[10px]"
-          style={{ color: 'rgba(255,255,255,0.65)' }}
-          aria-label={`Signed in as ${userEmail}`}
-          title={userEmail}
-        >
-          {userEmail}
-        </span>
-
-        {/* Logout Button — hidden on tablet, visible on desktop */}
-        <button
-          onClick={handleSignOut}
-          className="hidden xl:flex flex-shrink-0 transition-colors duration-150"
-          style={{ color: 'rgba(255,255,255,0.45)' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#FFFFFF')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
-          aria-label="Sign out of Daimon"
-          aria-busy={false}
-        >
-          <LogOut size={16} aria-hidden="true" />
-        </button>
-      </div>
-    </nav>
+      </nav>
+    </TooltipProvider>
   )
 }

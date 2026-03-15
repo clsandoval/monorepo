@@ -1,8 +1,8 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 12
-Remaining: 203
+Completed: 13
+Remaining: 202
 
 ---
 
@@ -45,7 +45,7 @@ Remaining: 203
 
 ## Replace Layout Components (stages 32–42) `[replace-layout]`
 
-- [ ] **Stage 32**: Replace `src/components/layout/sidebar.tsx` — rebuild with shadcn Sheet (mobile) + nav pattern (desktop), preserve icon-only tablet collapse, preserve all nav links
+- [x] **Stage 32**: Replace `src/components/layout/sidebar.tsx` — rebuild with shadcn Sheet (mobile) + nav pattern (desktop), preserve icon-only tablet collapse, preserve all nav links (2026-03-15)
 - [ ] **Stage 33**: Replace `src/components/layout/dashboard-layout.tsx` — rebuild wrapper using shadcn primitives, integrate new sidebar, preserve impersonation banner
 - [ ] **Stage 34**: Replace `src/components/layout/dashboard-topbar.tsx` — rebuild with shadcn primitives, preserve breadcrumbs/title
 - [ ] **Stage 35**: Replace `src/components/layout/public-navbar.tsx` — rebuild with shadcn NavigationMenu or custom nav using shadcn Button/Sheet
