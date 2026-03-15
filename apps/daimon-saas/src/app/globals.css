@@ -118,9 +118,9 @@
   --shadow-focus-ring: 0 0 0 3px rgba(180, 231, 221, 0.5);
   --shadow-focus-navy: 0 0 0 3px rgba(12, 31, 64, 0.3);
 
-  /* Breakpoints — brand uses single mobile breakpoint at 900px */
+  /* Breakpoints — sm for small tablets, md for standard tablets (768px iPad), lg for desktop */
   --breakpoint-sm: 600px;
-  --breakpoint-md: 900px;
+  --breakpoint-md: 768px;
   --breakpoint-lg: 1280px;
   --breakpoint-xl: 1536px;
 
