@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 799
-- **Analyzed:** 309
-- **Pending:** 490
-- **Convergence:** 38.7%
+- **Total aspects:** 804
+- **Analyzed:** 310
+- **Pending:** 494
+- **Convergence:** 38.6%
 
 ---
 
@@ -533,7 +533,12 @@
   - [ ] 3.06c — Conflict cascade visualization in Inspector: cascade lines connecting hesitation tick to downstream failures across multiple agents; multi-agent causal chain rendering
   - [ ] 3.06d — Rule ordering as transferable skill: explicit mapping to firewall rules, CSS specificity, exception handling, SRE runbook priority, production rule systems
   - [ ] 3.06e — Competitive meta around conflict-free architectures: deliberate conflicts as decoy strategy (EM spike bait), "controlled chaos" as advanced PvP technique
-- [ ] 3.07 — Rules UI: how does the player write/edit/reorder rules?
+- [x] 3.07 — Rules UI: how does the player write/edit/reorder rules?
+- [ ] 3.07a — Rules panel layout at scale: what does 12-20 rules look like on a Command unit? Scrolling vs. pagination vs. collapsible groups; the "wall of rules" readability problem
+- [ ] 3.07b — Rules copy-paste between blueprints: can the player copy a rule strip from one blueprint and paste it into another? Cross-unit-type compatibility for shared conditions
+- [ ] 3.07c — Rules diff view in Inspector: show which rules changed since last execute; "you added rule 4 and reordered 2-3" as explicit debrief feedback
+- [ ] 3.07d — Rules panel keyboard shortcuts: expert keyboard-only workflow for rule creation and reordering; Ctrl+N, Ctrl+Up/Down, Ctrl+D; the mouseless speedrun
+- [ ] 3.07e — The "rule graveyard" — disabled but preserved rules: gray out a rule without deleting; A/B testing rule configurations without losing work; visual treatment of disabled rules
 
 ### Hooks (Reactive Wiring)
 - [x] 3.08 — Hook taxonomy: what events can trigger hooks? What actions can hooks fire?
