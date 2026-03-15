@@ -71,8 +71,6 @@ export function DashboardStatusCards({ discord, plan }: DashboardStatusCardsProp
         </span>
         <StatusIndicator
           status={botStatus}
-          dotSize={12}
-          labelSize={15}
           showLabel
         />
       </div>
