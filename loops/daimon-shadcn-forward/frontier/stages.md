@@ -118,7 +118,7 @@ Each stage: navigate route at 1280x800 via Playwright, assert no console errors,
 - [x] **Stage 91**: Desktop verify `/admin/tenants` (authenticated) — tenant list table renders with at least 1 row (2026-03-15)
 - [x] **Stage 92**: Desktop verify `/admin/tenants/[id]` (authenticated) — tenant detail page renders with tenant info (2026-03-15)
 - [x] **Stage 93**: Desktop verify `/admin/audit-log` (authenticated) — audit log table renders (2026-03-15)
-- [ ] **Stage 94**: Desktop verify `/robots.txt` — valid robots.txt content
+- [x] **Stage 94**: Desktop verify `/robots.txt` — valid robots.txt content (2026-03-15)
 - [ ] **Stage 95**: Desktop verify `/sitemap.xml` — valid XML sitemap
 - [ ] **Stage 96**: Desktop verify `/_not-found` (404) — styled 404 page renders (not default Next.js)
 - [ ] **Stage 97**: Desktop verify invalid route `/asdfghjkl` — 404 page renders
