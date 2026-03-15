@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 700
-- **Analyzed:** 289
-- **Pending:** 411
-- **Convergence:** 41.3%
+- **Total aspects:** 705
+- **Analyzed:** 290
+- **Pending:** 415
+- **Convergence:** 41.1%
 
 ---
 
@@ -611,7 +611,12 @@
   - [ ] 5.06d — The "RESUPPLY" safety net for sacrifice systems: if any game mode uses resource-cost failure, design of the safety-net reset — trigger conditions, restoration scope, narrative framing; preventing downward spirals
   - [ ] 5.06e — Skip-mission pedagogy: condensed concept teaching for skipped content: the "3 slides in 9 seconds" compressed teaching replacing a full tutorial mission; learning transfer from compressed instruction vs. interactive experience; interaction with vocabulary pacing (5.00a)
 - [ ] 5.07 — Meta-progression: what carries across campaign restarts
-- [ ] 5.08 — Mission variety: what types of missions exist (defend, attack, stealth, escort, puzzle, boss)
+- [x] 5.08 — Mission variety: what types of missions exist (defend, attack, stealth, escort, puzzle, boss)
+- [ ] 5.08a — The "Phase Shift" mission structure: missions that change TYPE mid-battle (relay network → siege → infiltration); multi-phase sealed watch pacing
+- [ ] 5.08b — Community mission editor: tools for creating custom missions of each type; mission type as template system with adjustable parameters
+- [ ] 5.08c — Mission type as difficulty language: using type names instead of star ratings; player self-selection into preferred types
+- [ ] 5.08d — The Gauntlet Rotation meta-structure: how Gauntlet cycles through mission types; rotation schedule as meta-puzzle
+- [ ] 5.08e — Escort mission anti-frustration design: why escorts are hated elsewhere; "design-then-watch" as core differentiator; VIP-as-configured-agent
 - [ ] 5.09 — Replayability: what makes someone start a new campaign
 - [ ] 5.10 — The "product as puzzle" narrative method: working backwards from fictional mission objects to determine which agent configurations matter (from Shenzhen I/O)
 - [ ] 5.13 — The reagent-placement-as-choice design pattern (from Opus Magnum): starting conditions that feel fixed but are actually variable create a "double reveal" — players discover the solution, then discover the solution space is larger than they thought; applies to agent deployment layout and hook topology choices
