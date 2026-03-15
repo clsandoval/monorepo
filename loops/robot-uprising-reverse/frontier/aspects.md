@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 755
-- **Analyzed:** 300
-- **Pending:** 455
+- **Total aspects:** 759
+- **Analyzed:** 301
+- **Pending:** 458
 - **Convergence:** 39.7%
 
 ---
@@ -590,7 +590,11 @@
   - [ ] 5.00c — The veteran fast-path: players who already know the vocabulary need compressed experiential layer without missing mechanical details; fast-track detection, "technical mode" toggle, difficulty selector; interaction with expert-track (5.01e)
   - [ ] 5.00d — The field manual as community artifact: discoverable pages as speedrun targets, community wikis mapping page locations, page screenshots as trading currency; is the field manual redundant with boot terminal or complementary?
   - [ ] 5.00e — The naming moment as designed beat: exact timing of when concepts get named; too early = meaningless label, too late = annoying interruption; detecting the "tip of the tongue" moment programmatically
-- [ ] 5.11a — The document-as-corrupted-surface mechanic: designing the tactical log / field manual so that enemy interference appears IN the document — making tutorial pages a gameplay surface (corruption detection embedded in reading experience)
+- [x] 5.11a — The document-as-corrupted-surface mechanic: designing the tactical log / field manual so that enemy interference appears IN the document — making tutorial pages a gameplay surface (corruption detection embedded in reading experience)
+- [ ] 5.11b — The corrupted diff as endgame adversarial escalation: designing the mission where the diff view itself is compromised; when to reveal this capability; how to prevent it from being frustrating vs. thrilling; the "no tool is infallible" lesson as a designed campaign beat
+- [ ] 5.11c — Document recovery missions: missions where a primary objective is deploying a Specialist to recover redacted/purged document content from enemy communications; document integrity as a resource to defend and reclaim
+- [ ] 5.11d — Community corruption reports: players sharing screenshots of corruption they found; "corruption of the week" as a community artifact; the social loop of corruption detection as a shared experience
+- [ ] 5.11e — Corruption as enemy characterization: different enemy types have different corruption signatures (clean surgical rewrites vs. crude redactions vs. sophisticated injections); corruption style as adversary personality; reading corruption patterns to identify which enemy subsystem is active
 - [ ] 5.15 — Voice candidates for the Robot Uprising tactical document: deep exploration of four voice options (Dissenter's Field Manual, Unit 0's Tactical Archive, Requisition Docs, Propagandist's Handbook) with full player journeys and community potential for each
 - [ ] 5.16 — The non-alt-tab embedded document UI: design exploration of a togglable in-workbench reference panel that maintains diegetic framing without alt-tab friction; panel behavior, docking, visual treatment
 - [ ] 5.17 — The hybrid tutorial architecture: mapping the transition from interactive first-touch tutorial (teaches procedures) to diegetic document (teaches concepts and provides reference) — where the handoff happens and what the transition feels like
