@@ -1,6 +1,47 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   shadcn/ui CSS Variables — mapped to Daimon brand tokens
+   ──────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --background: 0 0% 97%;
+    --foreground: 213 54% 16%;
+    --card: 0 0% 100%;
+    --card-foreground: 213 54% 16%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 54% 16%;
+    --primary: 163 53% 81%;
+    --primary-foreground: 213 54% 16%;
+    --secondary: 231 52% 75%;
+    --secondary-foreground: 213 54% 16%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 213 54% 16% / 0.55;
+    --accent: 163 53% 81%;
+    --accent-foreground: 213 54% 16%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 213 54% 16% / 0.15;
+    --input: 213 54% 16% / 0.2;
+    --ring: 163 53% 81%;
+    --radius: 0rem;
+    --sidebar-background: 213 54% 16%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 163 53% 81%;
+    --sidebar-primary-foreground: 213 54% 16%;
+    --sidebar-accent: 163 53% 81% / 0.1;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 100% / 0.1;
+    --sidebar-ring: 163 53% 81%;
+    --chart-1: 163 53% 81%;
+    --chart-2: 231 52% 75%;
+    --chart-3: 213 54% 16%;
+    --chart-4: 28 86% 71%;
+    --chart-5: 0 84% 60%;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
    Daimon SaaS — Global Styles
    Brand: PyMC Design System
    Source: loops/daimon-saas-reverse/final-mega-spec/source/brand-guidelines.md
