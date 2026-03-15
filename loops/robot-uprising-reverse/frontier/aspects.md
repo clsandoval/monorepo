@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 745
-- **Analyzed:** 298
-- **Pending:** 447
-- **Convergence:** 40.0%
+- **Total aspects:** 750
+- **Analyzed:** 299
+- **Pending:** 451
+- **Convergence:** 39.9%
 
 ---
 
@@ -630,7 +630,12 @@
   - [ ] 5.06c — Case-sensitivity and accessibility in channel naming: channel name matching as accessibility surface; fuzzy matching, autocomplete, case-insensitive channels as accommodations; interaction with locked "channel name autocomplete" spec
   - [ ] 5.06d — The "RESUPPLY" safety net for sacrifice systems: if any game mode uses resource-cost failure, design of the safety-net reset — trigger conditions, restoration scope, narrative framing; preventing downward spirals
   - [ ] 5.06e — Skip-mission pedagogy: condensed concept teaching for skipped content: the "3 slides in 9 seconds" compressed teaching replacing a full tutorial mission; learning transfer from compressed instruction vs. interactive experience; interaction with vocabulary pacing (5.00a)
-- [ ] 5.07 — Meta-progression: what carries across campaign restarts
+- [x] 5.07 — Meta-progression: what carries across campaign restarts
+  - [ ] 5.07a — The "Encountered but not mastered" vocabulary state: three-state vocabulary model (unknown → encountered → mastered) with mastery detection criteria per concept; interaction with fast-track eligibility and adaptive tutorial compression
+  - [ ] 5.07b — Protocol modifier balance testing framework: systematic methodology for testing 10 Protocols × 10 missions × 3-5 variants for solvability, degenerate strategies, and pedagogical integrity; automated Playwright-based testing for minimum win-rate per Protocol-Mission pair
+  - [ ] 5.07c — Battle Scars as community metric: should Battle Scars be publicly visible on player profiles? The privacy vs. social signaling tension; opt-in vs. opt-out; what the "shape" of someone's timeline reveals about their learning style
+  - [ ] 5.07d — The annotation curation problem: after 5+ campaigns, Previous Notes become cluttered; annotation management (delete, resolve, pin, archive, search); annotation age decay; annotation-as-journaling as intentional design feature
+  - [ ] 5.07e — Protocol 7 as cybersecurity curriculum: cross-faction signal injection teaches intrusion detection, source authentication, and input validation through gameplay; explicit pedagogical bridge to real-world security concepts
 - [x] 5.08 — Mission variety: what types of missions exist (defend, attack, stealth, escort, puzzle, boss)
 - [ ] 5.08a — The "Phase Shift" mission structure: missions that change TYPE mid-battle (relay network → siege → infiltration); multi-phase sealed watch pacing
 - [ ] 5.08b — Community mission editor: tools for creating custom missions of each type; mission type as template system with adjustable parameters
