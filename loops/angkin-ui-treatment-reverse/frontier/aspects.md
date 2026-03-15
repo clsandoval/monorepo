@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 27
-- **Analyzed**: 8
-- **Pending**: 19
-- **Convergence**: 29.6%
+- **Analyzed**: 9
+- **Pending**: 18
+- **Convergence**: 33.3%
 
 ## Wave 1: Research & Foundation (Read existing code, benchmarks, decisions)
 
@@ -20,7 +20,7 @@
 - [x] 2.2 — Dark mode palette: define dark mode equivalents for every color. Background, surface, text, border colors. How logo inverts.
 - [x] 2.3 — Typography system: select font stack (heading + body + mono), define type scale (hero through caption) with sizes, weights, line-heights, letter-spacing. Write CSS.
 - [x] 2.4 — Spacing & layout system: define base unit, spacing scale, page max-width, grid columns, card padding, section gaps. Mobile vs desktop breakpoints.
-- [ ] 2.5 — Sub-tool branding: how TaxKlaro, Inheritance, Retirement Pay, etc. sit within Angkin. Tool icons, accent colors per tool (if any), "by Angkin" badge, tool card treatment on platform home.
+- [x] 2.5 — Sub-tool branding: how TaxKlaro, Inheritance, Retirement Pay, etc. sit within Angkin. Tool icons, accent colors per tool (if any), "by Angkin" badge, tool card treatment on platform home.
 - [ ] 2.6 — Iconography: choose icon style (line weight, fill vs outline), recommend library (Lucide, Phosphor, etc.), define custom category icons for tool types (tax, labor, corporate, property, civil law).
 
 ## Wave 3: Component Design (Visual examples of every UI element)
