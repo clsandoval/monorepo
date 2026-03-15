@@ -1,9 +1,16 @@
 'use client'
-// Spec library component — built per spec but not yet wired to pages; available for future integration
 
 import * as React from 'react'
 import { CopyIcon, CheckIcon, XIcon, EyeIcon, EyeOffIcon } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { useToast } from '@/lib/toast'
+import { cn } from '@/lib/utils'
 
 type CopyState = 'default' | 'success' | 'error'
 
@@ -30,9 +37,8 @@ export function CopyToClipboard({
   const [revealed, setRevealed] = React.useState(false)
   const { toast } = useToast()
 
-  const btnSize = size === 'sm' ? { w: 28, h: 28 } : { w: 32, h: 32 }
-  const iconSize = size === 'sm' ? 14 : (variant === 'inline' ? 16 : 14)
-  const inlineBtnSize = size === 'sm' ? 24 : 28
+  const iconSize = size === 'sm' ? 14 : variant === 'inline' ? 16 : 14
+  const btnSize = size === 'sm' ? 'xs' as const : 'icon' as const
 
   async function handleCopy() {
     try {
@@ -40,7 +46,6 @@ export function CopyToClipboard({
       setCopyState('success')
       toast.success('Copied to clipboard', { duration: 2000 })
     } catch {
-      // Fallback for older browsers / HTTP contexts
       const textArea = document.createElement('textarea')
       textArea.value = value
       textArea.style.cssText = 'position:fixed;top:-9999px;left:-9999px'
@@ -59,134 +64,104 @@ export function CopyToClipboard({
     setTimeout(() => setCopyState('default'), 2000)
   }
 
-  const copyBtnAriaLabel =
+  const tooltipLabel =
     copyState === 'success' ? 'Copied!' : copyState === 'error' ? 'Failed to copy' : label
-
-  const copyBtnBg =
-    copyState === 'success'
-      ? 'rgba(34,197,94,0.12)'
-      : copyState === 'error'
-      ? 'rgba(239,68,68,0.12)'
-      : 'transparent'
 
   const CopyStateIcon =
     copyState === 'success' ? CheckIcon : copyState === 'error' ? XIcon : CopyIcon
 
   if (variant === 'inline') {
     return (
-      <button
-        type="button"
-        onClick={handleCopy}
-        aria-label={copyBtnAriaLabel}
-        aria-live="polite"
-        className={className}
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: inlineBtnSize,
-          height: inlineBtnSize,
-          padding: '4px',
-          background: copyBtnBg,
-          border: 'none',
-          borderRadius: 0,
-          cursor: 'pointer',
-          transition: 'background 0.1s ease',
-          color: '#0C1F40',
-        }}
-      >
-        <CopyStateIcon size={iconSize} />
-      </button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                variant="ghost"
+                size={btnSize}
+                onClick={handleCopy}
+                aria-label={tooltipLabel}
+                aria-live="polite"
+                className={cn(
+                  'rounded-none',
+                  copyState === 'success' && 'bg-green-500/10',
+                  copyState === 'error' && 'bg-red-500/10',
+                  className,
+                )}
+              />
+            }
+          >
+            <CopyStateIcon size={iconSize} />
+          </TooltipTrigger>
+          <TooltipContent>{tooltipLabel}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     )
   }
 
   // block variant
-  const shown = masked ? revealed : true
-  const shownDisplay = masked && !revealed
-    ? '••••••••••••••••••••'
-    : (displayValue ?? value)
+  const shownDisplay =
+    masked && !revealed
+      ? '••••••••••••••••••••'
+      : (displayValue ?? value)
 
   return (
     <div
-      className={`flex items-center gap-2${className ? ` ${className}` : ''}`}
-      style={{
-        background: '#F9FAFB',
-        border: '1px solid #E5E7EB',
-        padding: '8px 12px',
-      }}
+      className={cn(
+        'flex items-center gap-2 border border-input bg-muted/50 px-3 py-2',
+        className,
+      )}
     >
       <span
-        className="flex-1 font-mono overflow-hidden text-ellipsis whitespace-nowrap"
-        style={{ fontSize: '14px', color: '#0C1F40' }}
-        aria-label={`API key value: ${shown ? (displayValue ?? value) : 'masked'}`}
+        className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-sm text-foreground"
+        aria-label={`API key value: ${masked && !revealed ? 'masked' : (displayValue ?? value)}`}
       >
         {shownDisplay}
       </span>
 
-      <button
-        type="button"
-        onClick={handleCopy}
-        aria-label={copyBtnAriaLabel}
-        aria-live="polite"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: btnSize.w,
-          height: btnSize.h,
-          background: copyBtnBg,
-          border: 'none',
-          borderRadius: 0,
-          cursor: 'pointer',
-          transition: 'background 0.1s ease',
-          flexShrink: 0,
-          color: '#0C1F40',
-        }}
-        onMouseEnter={(e) => {
-          if (copyState === 'default') {
-            (e.currentTarget as HTMLButtonElement).style.background = 'rgba(12,31,64,0.06)'
-          }
-        }}
-        onMouseLeave={(e) => {
-          if (copyState === 'default') {
-            (e.currentTarget as HTMLButtonElement).style.background = 'transparent'
-          }
-        }}
-      >
-        <CopyStateIcon size={14} />
-      </button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleCopy}
+                aria-label={tooltipLabel}
+                aria-live="polite"
+                className={cn(
+                  'shrink-0 rounded-none',
+                  copyState === 'success' && 'bg-green-500/10',
+                  copyState === 'error' && 'bg-red-500/10',
+                )}
+              />
+            }
+          >
+            <CopyStateIcon size={14} />
+          </TooltipTrigger>
+          <TooltipContent>{tooltipLabel}</TooltipContent>
+        </Tooltip>
 
-      {masked && (
-        <button
-          type="button"
-          onClick={() => setRevealed(r => !r)}
-          aria-label={revealed ? 'Hide API key' : 'Reveal API key'}
-          aria-pressed={revealed}
-          title={revealed ? 'Hide' : 'Reveal'}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: btnSize.w,
-            height: btnSize.h,
-            background: 'transparent',
-            border: 'none',
-            borderRadius: 0,
-            cursor: 'pointer',
-            transition: 'color 0.15s ease',
-            flexShrink: 0,
-            color: 'rgba(12,31,64,0.45)',
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color = 'rgba(12,31,64,0.75)'
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color = 'rgba(12,31,64,0.45)'
-          }}
-        >
-          {revealed ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
-        </button>
-      )}
+        {masked && (
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setRevealed((r) => !r)}
+                  aria-label={revealed ? 'Hide API key' : 'Reveal API key'}
+                  aria-pressed={revealed}
+                  className="shrink-0 rounded-none text-muted-foreground hover:text-foreground"
+                />
+              }
+            >
+              {revealed ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+            </TooltipTrigger>
+            <TooltipContent>{revealed ? 'Hide' : 'Reveal'}</TooltipContent>
+          </Tooltip>
+        )}
+      </TooltipProvider>
     </div>
   )
 }
