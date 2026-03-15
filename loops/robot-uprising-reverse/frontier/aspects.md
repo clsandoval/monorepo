@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 804
-- **Analyzed:** 310
-- **Pending:** 494
-- **Convergence:** 38.6%
+- **Total aspects:** 809
+- **Analyzed:** 311
+- **Pending:** 498
+- **Convergence:** 38.4%
 
 ---
 
@@ -398,7 +398,7 @@
 - [ ] 1.16 — Mindustry: tower defense + factory + RTS hybrid, conveyor logistics under pressure
 
 ### Tactical / Information Games
-- [ ] 1.17 — Into the Breach: perfect information tactics, consequence preview, small-scale precision
+- [x] 1.17 — Into the Breach: perfect information tactics, consequence preview, small-scale precision
 - [ ] 1.18 — Invisible Inc: information as primary resource, stealth + turn-based, alarm escalation
 - [ ] 1.19 — XCOM series: fog of war, probability management, squad persistence, permadeath stakes
 - [ ] 1.20 — Cogmind: robot-themed roguelike, part-swapping system, information-dense UI
@@ -414,6 +414,11 @@
 - [ ] 1.26 — Oxygen Not Included: resource/attention management sim, priority system, duplicant AI
 - [ ] 1.27 — Rimworld: colonist AI management, priority/schedule system, emergent stories
 - [ ] 1.28 — Dwarf Fortress: legendary complexity, emergent behavior from deep simulation
+- [ ] 1.17a — The animated tooltip pattern as universal design principle: Into the Breach's breakthrough of "show, don't describe" applied to Robot Uprising's rules/hooks/skills; what a micro-simulation preview looks like for each building block type; the "animated rule card" that plays a 3-second scenario when hovered
+- [ ] 1.17b — The consequence preview gap: Into the Breach previews every consequence before execution; Robot Uprising's sealed watch removes this entirely; where does consequence preview live in the plan screen (ghost preview, simulated first 5 ticks, "dry run" mode)?
+- [ ] 1.17c — Positional play as information play: Into the Breach's push/pull repositioning is spatial information warfare; Robot Uprising's signal routing is temporal information warfare; mapping the Into the Breach combo taxonomy (push-into-attack, push-into-water, block-emergence) to Robot Uprising equivalents (route-to-striker, overload-enemy-buffer, block-channel)
+- [ ] 1.17d — The Tactical Breach Wizards lineage: how TBW built on Into the Breach's perfect information model with character-specific ability previews, humor, and longer missions; what Robot Uprising can learn from the second generation of ItB-inspired design
+- [ ] 1.17e — Steel Judoka as Robot Uprising prototype: the zero-direct-damage squad that wins entirely through repositioning is the closest existing gameplay to Robot Uprising's attention-architecture-not-damage philosophy; analyzing every Steel Judoka strategy pattern for translation potential
 
 ---
 
