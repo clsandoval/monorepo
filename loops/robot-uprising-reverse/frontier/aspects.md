@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 959
-- **Analyzed:** 341
-- **Pending:** 618
-- **Convergence:** 35.6%
+- **Total aspects:** 964
+- **Analyzed:** 342
+- **Pending:** 622
+- **Convergence:** 35.5%
 
 ---
 
@@ -459,12 +459,17 @@
   - [ ] 2.00d-iv — Model selection as a progression mechanic: early missions use a small fast model; late missions unlock larger smarter models; agents get genuinely smarter as the campaign progresses
   - [ ] 2.00d-v — The "agent said something wrong" player trust problem: when an LLM agent hallucinates a false report the player loses trust in all reports; trust calibration as emergent gameplay and direct analogue to real-world AI trust issues
 - [x] 2.00e — The meta-level: building systems that build systems — how does each intelligence model support the "factory of agents" feeling?
-- [ ] 2.00f — No global coordinator as design constraint: agents that only know their immediate neighbors; emergent swarm behavior from local decisions only (from TIS-100's no-orchestrator architecture)
+- [x] 2.00f — No global coordinator as design constraint: agents that only know their immediate neighbors; emergent swarm behavior from local decisions only (from TIS-100's no-orchestrator architecture)
 - [ ] 2.00g — The personality ceiling problem: deterministic agents risk feeling like vending machines; named agents with visual personality (idle animations, signal format quirks, "voice"); how much personality can be layered onto a deterministic core without touching the execution model?
 - [ ] 2.00h — The solved-game risk and its mitigations: when a veteran finds a universal config that beats most missions; the Gauntlet as the unsolvable endgame; how campaign missions use 100-variant test cases to resist dominant strategies; at what skill level does the campaign "run out"?
 - [ ] 2.00i — Sensitive dependence on initial conditions via buffer state: even deterministic systems can exhibit chaotic behavior when buffer contents create feedback loops; how two runs with slightly different enemy spawn positions cascade into completely different agent behaviors by tick 30; the buffer as a chaos engine
 - [ ] 2.00j — The debugging tax of full determinism: every failure is the player's fault; no "bad luck" to blame; for some players this is liberating, for others it's exhausting; how the debrief tools (especially the Minimum Fix Explorer) should surface the most impactful change to reduce diagnostic burden
 - [ ] 2.00k — Cross-model comparison matrix: formal side-by-side evaluation of all intelligence models (2.00a–2.00d) across 10 dimensions (debuggability, spectator drama, personality ceiling, educational transfer, async PvP fairness, computational cost, accessibility floor, skill ceiling, mod support, platform portability)
+- [ ] 2.00f-i — Relay as single point of failure: network resilience design — how does the player protect critical relays? Dedicated defender strikers, redundant relay paths, relay self-defense skills? The "network resilience" design puzzle as core mid-campaign challenge
+- [ ] 2.00f-ii — Signal attenuation as terrain modifier: jungle tiles reduce broadcast radius by 2, city tiles amplify by 1; terrain becomes communication infrastructure variable, not just movement/combat; interaction with biome art direction and campaign mission design
+- [ ] 2.00f-iii — Emergent flocking from local rules: can Robot Uprising units exhibit Boids-like coordinated movement through local-only perception and communication? What rule configurations produce flock-like behavior without any explicit coordination signal? Swarm architectures as alternative to hierarchical command
+- [ ] 2.00f-iv — The "courier problem" in Variant E: designing the relay network specifically to service the Command agent; the relay chain from battlefield to Command and back as a first-class design challenge; courier network optimization as mid-campaign teaching sequence
+- [ ] 2.00f-v — Pheromone trails as optional Specialist skill: hybrid between tile-marking and the locked hook design; Specialists could have a "mark" skill that tags tiles with information, enabling local-information-sharing alongside hooks; ant colony optimization meets the four-primitive system
 - [ ] 2.00e-i — The Committee Problem: distributed authority conflict resolution — when two agents issue contradictory reorganization orders in the same tick, what are the design options (ID priority, spatial priority, signal freshness, consensus voting, oscillation dampening)? How does each option change the meta-level skill expression?
 - [ ] 2.00e-ii — Doctrine preset system: the "Constitution" paradigm's full workbench design — how does the player author, name, test, and switch between organizational mode presets? Doctrine as first-class game object (icons, costs, cooldowns); doctrine-switching animation and audio vocabulary
 - [ ] 2.00e-iii — The Evolver paradigm: architecture templates with variation points — full mechanical specification of how variation points work (range parameters, type alternatives, pin/unpin workflow); interaction with invisible randomization; the scientific method loop (hypothesis→test→narrow→repeat); 3 player journeys
