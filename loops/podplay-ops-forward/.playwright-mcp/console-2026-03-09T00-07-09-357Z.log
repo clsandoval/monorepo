@@ -1,7 +1,0 @@
-[   63009ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://127.0.0.1:54321/rest/v1/projects?id=eq.d092b41f-7e02-4a85-9c1b-23736d121d5e:0
-[   63010ms] [ERROR] Intake submit failed: Error: Could not find the 'deposit_amount' column of 'projects' in the schema cache
-    at handleIntakeSubmit (http://localhost:5175/src/routes/_auth/projects/$projectId/intake.tsx?t=1773013496333:99:30) @ http://localhost:5175/src/routes/_auth/projects/$projectId/intake.tsx?t=1773013496333:112
-[  167651ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://127.0.0.1:54321/rest/v1/settings?select=key%2Cvalue:0
-[  167657ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://127.0.0.1:54321/rest/v1/bom_templates?select=qty_per_venue%2Cqty_per_court%2Cqty_per_door%2Cqty_per_camera%2Csort_order%2Chardware_catalog%21inner%28id%2Csku%2Cname%2Cunit_cost%2Ccategory%29&tier=eq.autonomous&order=sort_order.asc:0
-[  167657ms] [ERROR] Intake submit failed: Error: column bom_templates.qty_per_venue does not exist
-    at handleIntakeSubmit (http://localhost:5175/src/routes/_auth/projects/$projectId/intake.tsx?t=1773014946838:119:27) @ http://localhost:5175/src/routes/_auth/projects/$projectId/intake.tsx?t=1773014946838:128

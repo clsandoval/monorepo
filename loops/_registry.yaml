@@ -176,14 +176,6 @@ loops:
     status: converged
     created: 2026-03-02
     converged_at: "2026-03-03"
-  cheerful-ce-parity-forward:
-    description: "Implement 113 CE tools + backend service routes for full Cheerful frontend parity"
-    type: forward
-    schedule: "*/30 * * * *"
-    max_iterations: 80
-    timeout_minutes: 30
-    status: active
-    created: 2026-03-03
   freelance-tax-platform-reverse:
     description: "Platform completion loop: add WASM bridge, Supabase, TanStack Router, Fly.io deployment layers to TaxKlaro domain spec"
     type: reverse
@@ -202,48 +194,6 @@ loops:
     status: converged
     created: 2026-03-05
     converged_at: "2026-03-06"
-  taxklaro-forward:
-    description: "Full-stack TaxKlaro build: Rust engine + WASM + React frontend + Supabase + Fly.io (28 stages)"
-    type: forward
-    schedule: "0 6,18 * * *"
-    max_iterations: 50
-    timeout_minutes: 30
-    status: converged
-    created: 2026-03-06
-    reopened: "2026-03-06"
-    converged_at: "2026-03-06"
-  taxklaro-ui-forward:
-    description: "UI polish: DM Serif Display + DM Sans typography, AppLayout wiring, page-by-page visual refinement, responsive audit (10 stages)"
-    type: forward
-    max_iterations: 40
-    timeout_minutes: 30
-    status: converged
-    created: 2026-03-06
-    converged_at: "2026-03-06"
-  taxklaro-qa-forward:
-    description: "Fix all 8 QA issues + computation persistence, verify every route desktop (1280px) + mobile (375px) with Playwright, full flow QA (33 stages)"
-    type: forward
-    max_iterations: 50
-    timeout_minutes: 30
-    status: converged
-    created: 2026-03-07
-    converged_at: "2026-03-07"
-  podplay-ops-forward:
-    description: "Build PodPlay Ops Wizard webapp from converged reverse loop spec (185 stages, React 19 + Vite + Supabase local)"
-    type: forward
-    max_iterations: 40
-    timeout_minutes: 30
-    status: converged
-    created: "2026-03-07"
-    converged_at: "2026-03-09"
-  podplay-ops-qa-forward:
-    description: "Fix 9 open QA findings for PodPlay Ops (46 stages, targeted fixes against existing app)"
-    type: forward
-    max_iterations: 46
-    timeout_minutes: 30
-    status: converged
-    created: "2026-03-09"
-    converged_at: "2026-03-09"
   ph-youth-slang-reverse:
     description: "Comprehensive dictionary & thesaurus of Filipino youth slang (2024-2026) from rap lyrics, TikTok, social media"
     type: reverse
@@ -271,14 +221,6 @@ loops:
     status: converged
     created: 2026-03-10
     converged_at: "2026-03-10"
-  podplay-ops-qa2-forward:
-    description: "QA round 2: 21 findings from Marco — removals (CC/replay/travel/WiFi), bug fixes, UX improvements, new features (guide, PDF export, on-order inventory, wizard nav). 85 stages, real Supabase."
-    type: forward
-    max_iterations: 90
-    timeout_minutes: 30
-    status: converged
-    created: "2026-03-12"
-    converged_at: "2026-03-12"
   daimon-saas-reverse:
     description: "Exhaustive product spec for Daimon self-serve SaaS — multi-tenant Decision Orchestrator with BYOK billing"
     type: reverse
@@ -288,14 +230,6 @@ loops:
     status: converged
     created: 2026-03-12
     converged_at: "2026-03-13"
-  daimon-forward:
-    description: "Build Daimon SaaS web app from converged reverse loop spec (120 stages, Next.js + Supabase + Stripe)"
-    type: forward
-    max_iterations: 150
-    timeout_minutes: 360
-    status: converged
-    created: "2026-03-13"
-    converged_at: "2026-03-14"
   robot-uprising-reverse:
     description: "Exhaustive game design space cartography for Robot Uprising — every mechanic variation, every UI approach, every player journey"
     type: reverse

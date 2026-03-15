@@ -1,2 +1,0 @@
-[    8399ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://127.0.0.1:54321/rest/v1/project_bom_items?select=id%2Cest_total_cost&project_id=eq.b09c4a9c-090d-4853-aa9b-140646d965d9:0
-[    8403ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://127.0.0.1:54321/rest/v1/project_bom_items?select=id%2Cest_total_cost&project_id=eq.b09c4a9c-090d-4853-aa9b-140646d965d9:0

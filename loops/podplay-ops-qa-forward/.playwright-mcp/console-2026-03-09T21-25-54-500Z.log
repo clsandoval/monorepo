@@ -1,2 +1,0 @@
-[     348ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://127.0.0.1:54321/rest/v1/projects?select=project_name%2Ccustomer_name%2Cservice_tier&id=eq.d513cc84-4dc2-4ce3-9bb1-cb8c61df4c0f:0
-[     352ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://127.0.0.1:54321/rest/v1/projects?select=project_name%2Ccustomer_name%2Cservice_tier&id=eq.d513cc84-4dc2-4ce3-9bb1-cb8c61df4c0f:0

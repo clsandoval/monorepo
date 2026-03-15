@@ -1,2 +1,0 @@
-[     371ms] [ERROR] Failed to load resource: the server responded with a status of 406 (Not Acceptable) @ http://127.0.0.1:54321/rest/v1/projects?select=wizard_step%2Cproject_status%2Cproject_name%2Ccustomer_name%2Ccontact_email%2Ccontact_phone&id=eq.1b6a474d-51a6-4e10-bda5-541c09e8201d:0
-[     373ms] [ERROR] Failed to load resource: the server responded with a status of 406 (Not Acceptable) @ http://127.0.0.1:54321/rest/v1/projects?select=wizard_step%2Cproject_status%2Cproject_name%2Ccustomer_name%2Ccontact_email%2Ccontact_phone&id=eq.1b6a474d-51a6-4e10-bda5-541c09e8201d:0
