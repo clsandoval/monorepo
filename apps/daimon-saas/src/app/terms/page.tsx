@@ -952,7 +952,7 @@ export default function TermsOfServicePage() {
                   <p className="text-[#4A5568] leading-relaxed mb-2 uppercase font-semibold">
                     11.1 No Warranties.
                   </p>
-                  <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '13px' }}>
+                  <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
                     The service is provided &ldquo;as is&rdquo; and &ldquo;as available&rdquo;
                     without warranty of any kind, express or implied. To the fullest extent
                     permitted by applicable law, the company expressly disclaims all warranties,
@@ -964,7 +964,7 @@ export default function TermsOfServicePage() {
                     service will be corrected.
                   </p>
                 </div>
-                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold" style={{ fontSize: '13px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold" style={{ fontSize: '14px' }}>
                   11.2 AI Output Disclaimer. The bot uses artificial intelligence to generate
                   responses. AI-generated content may be inaccurate, incomplete, offensive,
                   misleading, or otherwise inappropriate. The company makes no representation that
@@ -973,7 +973,7 @@ export default function TermsOfServicePage() {
                   acting on it. AI outputs should not be relied upon as a substitute for
                   professional advice in legal, financial, medical, or other regulated domains.
                 </p>
-                <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '13px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
                   <strong>11.3 Third-Party Services.</strong> The service integrates with
                   third-party services (including Discord, Anthropic, OpenAI, GitHub, Google,
                   Linear, and Toggl). We are not responsible for the availability, accuracy,
@@ -981,7 +981,7 @@ export default function TermsOfServicePage() {
                   services to their APIs, terms, or policies may affect the service without advance
                   notice from us.
                 </p>
-                <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '13px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
                   <strong>11.4 Discord-Specific Disclaimer.</strong> Your bot operates within
                   Discord. We are not responsible for: (a) actions taken by Discord, including
                   banning your bot or suspending your Discord account; (b) messages sent or
@@ -1013,10 +1013,10 @@ export default function TermsOfServicePage() {
               </h2>
               <div className="space-y-4" style={{ fontSize: '15px' }}>
                 <div>
-                  <p className="text-[#4A5568] leading-relaxed mb-2 uppercase font-semibold" style={{ fontSize: '13px' }}>
+                  <p className="text-[#4A5568] leading-relaxed mb-2 uppercase font-semibold" style={{ fontSize: '14px' }}>
                     12.1 Exclusion of Consequential Damages.
                   </p>
-                  <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '13px' }}>
+                  <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
                     To the fullest extent permitted by applicable law, in no event will the company,
                     its officers, directors, employees, agents, licensors, or service providers be
                     liable for any: (a) indirect, incidental, special, consequential, or punitive
@@ -1029,10 +1029,10 @@ export default function TermsOfServicePage() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-[#4A5568] leading-relaxed mb-2 uppercase font-semibold" style={{ fontSize: '13px' }}>
+                  <p className="text-[#4A5568] leading-relaxed mb-2 uppercase font-semibold" style={{ fontSize: '14px' }}>
                     12.2 Cap on Liability.
                   </p>
-                  <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '13px' }}>
+                  <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
                     To the fullest extent permitted by applicable law, the company&rsquo;s total
                     cumulative liability to you for any and all claims arising out of or in
                     connection with these terms or the service shall not exceed the greater of: (a)
@@ -1052,7 +1052,7 @@ export default function TermsOfServicePage() {
                   limitation of incidental or consequential damages. In such jurisdictions, the
                   above limitations apply to the maximum extent permitted by law.
                 </p>
-                <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '13px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
                   <strong>12.5 Third-Party Costs.</strong> You expressly acknowledge that the
                   company is not responsible for any costs you incur with Anthropic, OpenAI, or any
                   other third-party provider resulting from your use of the service. Such costs are
@@ -1128,7 +1128,7 @@ export default function TermsOfServicePage() {
                   dispute within 60 days. If the dispute is not resolved within 60 days of your
                   notice, either party may pursue formal resolution as described below.
                 </p>
-                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold" style={{ fontSize: '13px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold" style={{ fontSize: '14px' }}>
                   14.3 Binding Arbitration. Except as set forth in Section 14.5, all disputes,
                   controversies, or claims arising out of or relating to these terms or the service
                   shall be resolved by binding individual arbitration administered by the American
@@ -1138,7 +1138,7 @@ export default function TermsOfServicePage() {
                   Wilmington, Delaware. The arbitrator&rsquo;s decision shall be final and binding,
                   and judgment may be entered in any court of competent jurisdiction.
                 </p>
-                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold" style={{ fontSize: '13px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold" style={{ fontSize: '14px' }}>
                   14.4 Class Action Waiver. To the fullest extent permitted by applicable law, you
                   waive your right to participate in any class action lawsuit, class-wide
                   arbitration, private attorney general action, or representative proceeding against
