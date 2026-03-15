@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 730
-- **Analyzed:** 295
-- **Pending:** 435
-- **Convergence:** 40.4%
+- **Total aspects:** 735
+- **Analyzed:** 296
+- **Pending:** 439
+- **Convergence:** 40.3%
 
 ---
 
@@ -499,7 +499,12 @@
   - [ ] 3.03c — Skill interaction discovery UI: how does the game help players discover combos? Pure emergence, combo journal, theory-crafting simulation mode, or community-shared recipes?
   - [ ] 3.03d — The "silence detection" combo pattern: absence of signals as trigger condition; is this expressible through current rules or does it need a dedicated "watchdog" rule type?
   - [ ] 3.03e — Cross-match skill interaction stability: which combos are robust across 100 randomized scenarios vs. fragile (dependent on specific spatial configurations)? Robustness as hidden quality metric
-- [ ] 3.04 — Skill UI: how does the player browse, equip, and manage skills on agents?
+- [x] 3.04 — Skill UI: how does the player browse, equip, and manage skills on agents?
+  - [ ] 3.04a — Skill parameter naming conventions: parameters must serve double duty as UI labels and rule-language identifiers; naming constraints, abbreviation rules, localization implications
+  - [ ] 3.04b — Skill execution order as explicit vs. implicit design decision: when ordering is player-configurable (drag-reorder, graph wiring) vs. fixed per unit type; which approach better serves the "emergent combo" design goal
+  - [ ] 3.04c — Skill UI animation budget: total milliseconds of animation in the skill section per interaction; when does tactile satisfaction cross into sluggishness; 100ms vs. 200ms vs. 400ms feel thresholds
+  - [ ] 3.04d — Cross-unit skill comparison view: a mode showing all 5 unit types' skill configs side-by-side in a grid; army-wide skill audit; when does this become necessary vs. per-unit inspection
+  - [ ] 3.04e — Skill UI state persistence across blueprint copies: when a player copies a blueprint, which skill parameters carry over and which reset; the "clone vs. template" distinction for skill configs
 
 ### Rules (Behavioral Constraints)
 - [x] 3.05 — Rules language: what's the vocabulary for rules? How expressive vs. structured?
