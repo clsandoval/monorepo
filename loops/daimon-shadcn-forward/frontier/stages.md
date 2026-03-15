@@ -20,7 +20,7 @@ Remaining: 207
 - [x] **Stage 7**: Replace `src/components/ui/form-input.tsx` — swap with shadcn Input + Label composition, preserve react-hook-form integration, update all import sites (2026-03-15)
 - [x] **Stage 8**: Replace `src/components/ui/password-input.tsx` — rebuild with shadcn Input + eye toggle button, preserve show/hide functionality (2026-03-15)
 - [x] **Stage 9**: Replace `src/components/ui/search-input.tsx` — rebuild with shadcn Input + search icon, preserve clear button (2026-03-15)
-- [ ] **Stage 10**: Replace `src/components/ui/api-key-input.tsx` — rebuild with shadcn Input + copy-to-clipboard, preserve masked display
+- [x] **Stage 10**: Replace `src/components/ui/api-key-input.tsx` — rebuild with shadcn Input + copy-to-clipboard, preserve masked display (2026-03-15)
 - [ ] **Stage 11**: Replace `src/components/ui/checkbox.tsx` — swap with shadcn Checkbox, update all import sites
 - [ ] **Stage 12**: Replace `src/components/ui/toggle.tsx` — swap with shadcn Switch, update all import sites
 - [ ] **Stage 13**: Replace `src/components/ui/select.tsx` — swap with shadcn Select, update all import sites
