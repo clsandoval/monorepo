@@ -49,7 +49,7 @@ Remaining: 202
 - [x] **Stage 33**: Replace `src/components/layout/dashboard-layout.tsx` — rebuild wrapper using shadcn primitives, integrate new sidebar, preserve impersonation banner (2026-03-15)
 - [x] **Stage 34**: Replace `src/components/layout/dashboard-topbar.tsx` — rebuild with shadcn primitives, preserve breadcrumbs/title (2026-03-15)
 - [x] **Stage 35**: Replace `src/components/layout/public-navbar.tsx` — rebuild with shadcn NavigationMenu or custom nav using shadcn Button/Sheet (2026-03-15)
-- [ ] **Stage 36**: Replace `src/components/layout/public-footer.tsx` — rebuild with shadcn primitives, preserve link structure
+- [x] **Stage 36**: Replace `src/components/layout/public-footer.tsx` — rebuild with shadcn primitives, preserve link structure (2026-03-15)
 - [ ] **Stage 37**: Replace `src/components/layout/public-layout.tsx` — rebuild wrapper using new navbar + footer
 - [ ] **Stage 38**: Replace `src/components/layout/auth-layout.tsx` — rebuild with shadcn Card for auth card container
 - [ ] **Stage 39**: Replace `src/components/layout/auth-card.tsx` — rebuild with shadcn Card, preserve CI stripe accent
