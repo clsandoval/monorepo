@@ -2,9 +2,22 @@
 
 import * as React from 'react'
 import { useRouter } from 'next/navigation'
-import { CheckCircle, Loader2, X } from 'lucide-react'
-import { createPortal } from 'react-dom'
+import { CheckCircle, Loader2 } from 'lucide-react'
 import { useToast } from '@/lib/toast'
+import { cn } from '@/lib/utils'
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Switch } from '@/components/ui/switch'
+import { Separator } from '@/components/ui/separator'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog'
 
 export interface PlanComparisonGridProps {
   currentPlan: 'free' | 'starter' | 'pro'
@@ -67,7 +80,8 @@ interface DowngradeDialogProps {
   targetPlan: 'free' | 'starter'
   currentPeriodEnd: string | null
   discordConnectionCount: number
-  onClose: () => void
+  open: boolean
+  onOpenChange: (open: boolean) => void
   onConfirm: () => Promise<void>
   loading: boolean
   error: string | null
@@ -77,7 +91,8 @@ function DowngradeDialog({
   targetPlan,
   currentPeriodEnd,
   discordConnectionCount,
-  onClose,
+  open,
+  onOpenChange,
   onConfirm,
   loading,
   error,
@@ -97,211 +112,74 @@ function DowngradeDialog({
           '99.9% uptime SLA',
         ]
 
-  React.useEffect(() => {
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
-  }, [])
-
-  function handleBackdrop(e: React.MouseEvent) {
-    if (e.target === e.currentTarget && !loading) onClose()
-  }
-
-  const dialog = (
-    <div
-      onClick={handleBackdrop}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(0,0,0,0.5)',
-        zIndex: 50,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="downgrade-dialog-title"
-        style={{
-          background: '#FFFFFF',
-          borderRadius: 0,
-          padding: '32px',
-          width: '480px',
-          maxWidth: '95vw',
-          position: 'relative',
-        }}
-      >
-        {/* Header */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '12px',
-          }}
-        >
-          <h2
-            id="downgrade-dialog-title"
-            style={{
-              fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-              fontWeight: 600,
-              fontSize: '18px',
-              color: '#0C1F40',
-              margin: 0,
-            }}
-          >
+  return (
+    <Dialog open={open} onOpenChange={loading ? undefined : onOpenChange}>
+      <DialogContent className="sm:max-w-[480px]" showCloseButton={!loading}>
+        <DialogHeader>
+          <DialogTitle className="font-heading text-lg font-semibold text-foreground">
             {title}
-          </h2>
-          <button
-            onClick={onClose}
-            disabled={loading}
-            aria-label="Close"
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              color: '#6B7280',
-              padding: 0,
-              display: 'flex',
-            }}
-          >
-            <X size={16} />
-          </button>
+          </DialogTitle>
+        </DialogHeader>
+
+        <Separator />
+
+        <div className="flex flex-col gap-4">
+          <DialogDescription>
+            Your plan will be downgraded to{' '}
+            {targetPlan === 'free' ? 'Free' : 'Starter'} at the end of your current
+            billing period on {periodDate}.
+          </DialogDescription>
+
+          <p className="text-sm text-muted-foreground">
+            On the {targetPlan === 'free' ? 'Free' : 'Starter'} plan you will lose
+            access to:
+          </p>
+
+          <ul className="list-disc pl-5">
+            {loseItems.map((item) => (
+              <li
+                key={item}
+                className="mb-1 text-sm text-muted-foreground"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          {targetPlan === 'free' && (
+            <p className="text-sm text-muted-foreground">
+              Additional connections will be disconnected automatically at the
+              period end.
+            </p>
+          )}
+
+          {error && (
+            <p className="text-sm text-destructive">
+              {error}
+            </p>
+          )}
         </div>
 
-        <hr style={{ borderColor: '#E5E7EB', margin: '0 0 16px' }} />
-
-        {/* Body */}
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '14px',
-            color: '#374151',
-            marginBottom: '16px',
-          }}
-        >
-          Your plan will be downgraded to{' '}
-          {targetPlan === 'free' ? 'Free' : 'Starter'} at the end of your current
-          billing period on {periodDate}.
-        </p>
-
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '14px',
-            color: '#374151',
-            marginBottom: '8px',
-          }}
-        >
-          On the {targetPlan === 'free' ? 'Free' : 'Starter'} plan you will lose
-          access to:
-        </p>
-
-        <ul
-          style={{
-            listStyle: 'disc',
-            paddingLeft: '20px',
-            marginBottom: '16px',
-          }}
-        >
-          {loseItems.map((item) => (
-            <li
-              key={item}
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '14px',
-                color: '#374151',
-                marginBottom: '4px',
-              }}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-
-        {targetPlan === 'free' && (
-          <p
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '14px',
-              color: '#374151',
-              marginBottom: '16px',
-            }}
-          >
-            Additional connections will be disconnected automatically at the
-            period end.
-          </p>
-        )}
-
-        {error && (
-          <p
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '13px',
-              color: '#DC2626',
-              marginBottom: '12px',
-            }}
-          >
-            {error}
-          </p>
-        )}
-
-        {/* Actions */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            gap: '12px',
-          }}
-        >
-          <button
-            onClick={onClose}
+        <DialogFooter>
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
             disabled={loading}
-            style={{
-              background: '#FFFFFF',
-              color: '#0C1F40',
-              border: '1px solid #0C1F40',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontWeight: 500,
-              fontSize: '14px',
-              padding: '8px 16px',
-              borderRadius: 0,
-              cursor: loading ? 'not-allowed' : 'pointer',
-            }}
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="destructive"
             onClick={onConfirm}
             disabled={loading}
-            style={{
-              background: '#FFFFFF',
-              color: '#DC2626',
-              border: '1px solid #DC2626',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontWeight: 500,
-              fontSize: '14px',
-              padding: '8px 16px',
-              borderRadius: 0,
-              cursor: loading ? 'not-allowed' : 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-            }}
           >
-            {loading && <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} />}
+            {loading && <Loader2 className="size-3.5 animate-spin" />}
             {loading ? 'Confirming...' : 'Confirm Downgrade'}
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
-
-  return createPortal(dialog, document.body)
 }
 
 type PlanKey = 'free' | 'starter' | 'pro'
@@ -319,11 +197,6 @@ export function PlanComparisonGrid({
   const [downgradeDialog, setDowngradeDialog] = React.useState<'free' | 'starter' | null>(null)
   const [downgradeLoading, setDowngradeLoading] = React.useState(false)
   const [downgradeError, setDowngradeError] = React.useState<string | null>(null)
-  const [mounted, setMounted] = React.useState(false)
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const isOwner = userRole === 'owner'
   const plans: PlanKey[] = ['free', 'starter', 'pro']
@@ -378,12 +251,6 @@ export function PlanComparisonGrid({
     return MONTHLY_PRICES[plan].display
   }
 
-  function getCardBorder(plan: PlanKey) {
-    return plan === currentPlan
-      ? '2px solid #B4E7DD'
-      : '1px solid #E5E7EB'
-  }
-
   function getCta(cardPlan: PlanKey) {
     if (!isOwner) return null
 
@@ -391,108 +258,52 @@ export function PlanComparisonGrid({
 
     if (isCurrent) {
       return (
-        <button
-          disabled
-          style={{
-            width: '100%',
-            background: '#FFFFFF',
-            color: '#9CA3AF',
-            border: '1px solid #E5E7EB',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '14px',
-            padding: '8px 16px',
-            borderRadius: 0,
-            cursor: 'default',
-            textAlign: 'center',
-          }}
-        >
+        <Button variant="outline" disabled className="w-full">
           Current Plan
-        </button>
+        </Button>
       )
     }
 
-    // Upgrade cards (target plan rank > current plan rank)
     const planRank: Record<PlanKey, number> = { free: 0, starter: 1, pro: 2 }
     const isUpgrade = planRank[cardPlan] > planRank[currentPlan]
 
     if (isUpgrade && (cardPlan === 'starter' || cardPlan === 'pro')) {
       const isLoading = upgradeLoading === cardPlan
       return (
-        <button
+        <Button
           onClick={() => handleUpgrade(cardPlan)}
           disabled={isLoading || upgradeLoading !== null}
-          style={{
-            width: '100%',
-            background: '#B4E7DD',
-            color: '#0C1F40',
-            border: 'none',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '14px',
-            padding: '8px 16px',
-            borderRadius: 0,
-            cursor: isLoading || upgradeLoading !== null ? 'not-allowed' : 'pointer',
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '6px',
-            transition: 'background-color 150ms ease',
-          }}
+          className="w-full"
         >
-          {isLoading && <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} />}
+          {isLoading && <Loader2 className="size-3.5 animate-spin" />}
           {isLoading
             ? 'Opening Checkout...'
             : `Upgrade to ${cardPlan === 'starter' ? 'Starter' : 'Pro'} →`}
-        </button>
+        </Button>
       )
     }
 
-    // Downgrade — free card (ghost red)
     if (cardPlan === 'free') {
       return (
-        <button
+        <Button
+          variant="destructive"
           onClick={() => setDowngradeDialog('free')}
-          style={{
-            width: '100%',
-            background: '#FFFFFF',
-            color: '#DC2626',
-            border: '1px solid #DC2626',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '14px',
-            padding: '8px 16px',
-            borderRadius: 0,
-            cursor: 'pointer',
-            transition: 'background-color 150ms ease',
-          }}
+          className="w-full"
         >
           Downgrade to Free
-        </button>
+        </Button>
       )
     }
 
-    // Downgrade — starter card (from pro, ghost gray)
     if (cardPlan === 'starter' && currentPlan === 'pro') {
       return (
-        <button
+        <Button
+          variant="outline"
           onClick={() => setDowngradeDialog('starter')}
-          style={{
-            width: '100%',
-            background: '#FFFFFF',
-            color: '#6B7280',
-            border: '1px solid #D1D5DB',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '14px',
-            padding: '8px 16px',
-            borderRadius: 0,
-            cursor: 'pointer',
-            transition: 'background-color 150ms ease',
-          }}
+          className="w-full"
         >
           Downgrade to Starter
-        </button>
+        </Button>
       )
     }
 
@@ -502,81 +313,35 @@ export function PlanComparisonGrid({
   return (
     <div>
       {/* Section header + toggle */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '16px',
-        }}
-      >
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '14px',
-            color: '#374151',
-            margin: 0,
-          }}
-        >
+      <div className="mb-4 flex items-center justify-between">
+        <p className="text-sm font-medium text-muted-foreground">
           Compare Plans
         </p>
 
         {/* Slide toggle: Monthly / Annual */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-          }}
-        >
+        <div className="flex items-center gap-2">
           <span
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '14px',
-              color: billingCycle === 'monthly' ? '#0C1F40' : '#6B7280',
-            }}
+            className={cn(
+              'text-sm',
+              billingCycle === 'monthly' ? 'text-foreground' : 'text-muted-foreground'
+            )}
           >
             Monthly
           </span>
 
-          <button
-            onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'annual' : 'monthly')}
+          <Switch
+            checked={billingCycle === 'annual'}
+            onCheckedChange={(checked: boolean) =>
+              setBillingCycle(checked ? 'annual' : 'monthly')
+            }
             aria-label={`Switch to ${billingCycle === 'monthly' ? 'annual' : 'monthly'} billing`}
-            role="switch"
-            aria-checked={billingCycle === 'annual'}
-            style={{
-              width: '44px',
-              height: '24px',
-              background: billingCycle === 'annual' ? '#B4E7DD' : '#E5E7EB',
-              borderRadius: 0,
-              border: 'none',
-              cursor: 'pointer',
-              position: 'relative',
-              padding: 0,
-              transition: 'background-color 150ms ease',
-            }}
-          >
-            <span
-              style={{
-                position: 'absolute',
-                top: '2px',
-                left: billingCycle === 'annual' ? '22px' : '2px',
-                width: '20px',
-                height: '20px',
-                background: '#FFFFFF',
-                borderRadius: 0,
-                transition: 'left 150ms ease',
-              }}
-            />
-          </button>
+          />
 
           <span
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '14px',
-              color: billingCycle === 'annual' ? '#0C1F40' : '#6B7280',
-            }}
+            className={cn(
+              'text-sm',
+              billingCycle === 'annual' ? 'text-foreground' : 'text-muted-foreground'
+            )}
           >
             Annual
           </span>
@@ -584,181 +349,95 @@ export function PlanComparisonGrid({
       </div>
 
       {/* Plan grid */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '16px',
-        }}
-      >
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {plans.map((plan) => {
           const priceDisplay = getPriceDisplay(plan)
           const features = PLAN_FEATURES[plan]
           const isCurrent = plan === currentPlan
 
           return (
-            <div
+            <Card
               key={plan}
-              style={{
-                background: '#FFFFFF',
-                border: getCardBorder(plan),
-                borderRadius: 0,
-                padding: '24px',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
+              className={cn(
+                'flex flex-col',
+                isCurrent && 'ring-2 ring-primary'
+              )}
             >
-              {/* Plan name */}
-              <h3
-                style={{
-                  fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-                  fontWeight: 600,
-                  fontSize: '18px',
-                  color: '#0C1F40',
-                  margin: '0 0 4px',
-                  textTransform: 'capitalize',
-                }}
-              >
-                {plan === 'free' ? 'Free' : plan === 'starter' ? 'Starter' : 'Pro'}
-                {isCurrent && (
-                  <span
-                    style={{
-                      marginLeft: '8px',
-                      fontFamily: 'var(--font-inter), Inter, sans-serif',
-                      fontSize: '10px',
-                      fontWeight: 500,
-                      letterSpacing: '0.06em',
-                      textTransform: 'uppercase',
-                      background: '#B4E7DD',
-                      color: '#0C1F40',
-                      padding: '2px 6px',
-                      borderRadius: 0,
-                      verticalAlign: 'middle',
-                    }}
-                  >
-                    Current
+              <CardContent className="flex flex-1 flex-col px-6 py-6">
+                {/* Plan name */}
+                <h3 className="mb-1 font-heading text-lg font-semibold text-foreground">
+                  {plan === 'free' ? 'Free' : plan === 'starter' ? 'Starter' : 'Pro'}
+                  {isCurrent && (
+                    <Badge variant="success" label="Current" className="ml-2 align-middle" />
+                  )}
+                </h3>
+
+                {/* Monthly price */}
+                <div className="mb-0.5 flex items-baseline gap-0.5">
+                  <span className="font-heading text-[32px] font-bold text-foreground">
+                    {priceDisplay}
                   </span>
+                  <span className="text-sm text-muted-foreground">
+                    /month
+                  </span>
+                </div>
+
+                {/* Annual savings line */}
+                {billingCycle === 'annual' && plan !== 'free' && (
+                  <p className="mb-1 text-xs text-emerald-600">
+                    {ANNUAL_TOTALS[plan as 'starter' | 'pro'].total} / year — save{' '}
+                    {ANNUAL_TOTALS[plan as 'starter' | 'pro'].savings}
+                  </p>
                 )}
-              </h3>
 
-              {/* Monthly price */}
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '2px', marginBottom: '2px' }}>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-                    fontWeight: 700,
-                    fontSize: '32px',
-                    color: '#0C1F40',
-                  }}
-                >
-                  {priceDisplay}
-                </span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                    fontSize: '14px',
-                    color: '#6B7280',
-                  }}
-                >
-                  /month
-                </span>
-              </div>
+                {billingCycle === 'monthly' && plan !== 'free' && (
+                  <p className="mb-1 text-xs text-emerald-600">
+                    {plan === 'starter' ? '$79/yr' : '$249/yr'} billed annually — save{' '}
+                    {plan === 'starter' ? '$29' : '$99'}
+                  </p>
+                )}
 
-              {/* Annual savings line */}
-              {billingCycle === 'annual' && plan !== 'free' && (
-                <p
-                  style={{
-                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                    fontSize: '12px',
-                    color: '#059669',
-                    margin: '0 0 4px',
-                  }}
-                >
-                  {ANNUAL_TOTALS[plan as 'starter' | 'pro'].total} / year — save{' '}
-                  {ANNUAL_TOTALS[plan as 'starter' | 'pro'].savings}
-                </p>
-              )}
+                <Separator className="my-3" />
 
-              {billingCycle === 'monthly' && plan !== 'free' && (
-                <p
-                  style={{
-                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                    fontSize: '12px',
-                    color: '#059669',
-                    margin: '0 0 4px',
-                  }}
-                >
-                  {plan === 'starter' ? '$79/yr' : '$249/yr'} billed annually — save{' '}
-                  {plan === 'starter' ? '$29' : '$99'}
-                </p>
-              )}
+                {/* Feature list */}
+                <ul className="mb-5 flex flex-1 flex-col gap-1.5">
+                  {features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="inline-flex items-start gap-1.5 text-[13px] text-muted-foreground"
+                    >
+                      <CheckCircle
+                        className="mt-0.5 size-3.5 shrink-0 text-primary"
+                      />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
 
-              <hr style={{ borderColor: '#E5E7EB', margin: '12px 0' }} />
-
-              {/* Feature list */}
-              <ul
-                style={{
-                  listStyle: 'none',
-                  padding: 0,
-                  margin: '0 0 20px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '6px',
-                  flexGrow: 1,
-                }}
-              >
-                {features.map((feature) => (
-                  <li
-                    key={feature}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'flex-start',
-                      gap: '6px',
-                      fontFamily: 'var(--font-inter), Inter, sans-serif',
-                      fontSize: '13px',
-                      color: '#374151',
-                    }}
-                  >
-                    <CheckCircle
-                      size={14}
-                      style={{ color: '#B4E7DD', flexShrink: 0, marginTop: '2px' }}
-                    />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              {/* CTA */}
-              {isOwner ? (
-                getCta(plan)
-              ) : null}
-            </div>
+                {/* CTA */}
+                {isOwner ? getCta(plan) : null}
+              </CardContent>
+            </Card>
           )
         })}
       </div>
 
       {/* Non-owner note */}
       {!isOwner && (
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '13px',
-            color: '#6B7280',
-            marginTop: '12px',
-          }}
-        >
+        <p className="mt-3 text-[13px] text-muted-foreground">
           Contact your workspace owner to change your plan.
         </p>
       )}
 
       {/* Downgrade confirmation dialog */}
-      {mounted && downgradeDialog && (
+      {downgradeDialog && (
         <DowngradeDialog
           targetPlan={downgradeDialog}
           currentPeriodEnd={subscription?.current_period_end ?? null}
           discordConnectionCount={discordConnectionCount}
-          onClose={() => {
-            if (!downgradeLoading) {
+          open={!!downgradeDialog}
+          onOpenChange={(open) => {
+            if (!open && !downgradeLoading) {
               setDowngradeDialog(null)
               setDowngradeError(null)
             }
