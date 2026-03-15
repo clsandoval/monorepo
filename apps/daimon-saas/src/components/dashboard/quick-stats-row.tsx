@@ -38,14 +38,7 @@ export function QuickStatsRow({
     botConnected && connectedAt ? formatUptime(connectedAt) : '—'
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '24px',
-      }}
-      className="max-sm:grid-cols-1"
-    >
+    <div className="grid grid-cols-3 gap-6 max-sm:grid-cols-1">
       <StatCard
         label="Messages Today"
         value={messagesToday !== null ? String(messagesToday) : '—'}
