@@ -87,7 +87,6 @@ function ResendButton({
   const [cooldown, setCooldown] = useState(60);
   const [resending, setResending] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const supabase = createClient();
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -104,6 +103,7 @@ function ResendButton({
 
   async function handleResend() {
     setResending(true);
+    const supabase = createClient();
     const { error } = await supabase.auth.resetPasswordForEmail(sentToEmail, {
       redirectTo: `${window.location.origin}/reset-password/confirm`,
     });
@@ -158,8 +158,6 @@ function ResetPasswordForm() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [resendBanner, setResendBanner] = useState<string | null>(null);
 
-  const supabase = createClient();
-
   const {
     register,
     handleSubmit,
@@ -176,6 +174,7 @@ function ResetPasswordForm() {
   async function onSubmit(data: ResetFormValues) {
     setServerError(null);
 
+    const supabase = createClient();
     const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
       redirectTo: `${window.location.origin}/reset-password/confirm`,
     });

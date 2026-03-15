@@ -112,8 +112,6 @@ function LoginForm() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
 
-  const supabase = createClient();
-
   const {
     register,
     handleSubmit,
@@ -127,6 +125,7 @@ function LoginForm() {
   async function onSubmit(data: LoginFormValues) {
     setServerError(null);
 
+    const supabase = createClient();
     const { error } = await supabase.auth.signInWithPassword({
       email: data.email,
       password: data.password,
