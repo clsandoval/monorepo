@@ -82,7 +82,7 @@ Remaining: 160
 ## Replace Page-Level Inline Styles (stages 62–66) `[replace-page]`
 
 - [x] **Stage 62**: Migrate `/signup` page (`src/app/signup/page.tsx`) — replace all inline `style={}` with shadcn components (Input, Button, Label, Checkbox, Card), extract PasswordField/PasswordStrengthBar into shadcn-based components (2026-03-15)
-- [ ] **Stage 63**: Migrate `/login` page (`src/app/login/page.tsx`) — replace all inline styles with shadcn components
+- [x] **Stage 63**: Migrate `/login` page (`src/app/login/page.tsx`) — replace all inline styles with shadcn components (2026-03-15)
 - [ ] **Stage 64**: Migrate `/reset-password` page and `/reset-password/confirm` — replace inline styles with shadcn components
 - [ ] **Stage 65**: Migrate landing page (`src/app/page.tsx`) — replace inline styles with shadcn components + Tailwind
 - [ ] **Stage 66**: Migrate `/about` and `/changelog` pages — replace inline styles with shadcn components + Tailwind
