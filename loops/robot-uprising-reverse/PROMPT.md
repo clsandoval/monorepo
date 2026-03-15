@@ -62,7 +62,7 @@ The game has three screens sharing the same 8x8 board. The board is always visib
 - **1 second per tick** default. Speed controls: 0.5x / 1x / 2x.
 - **No skip, no pause, no tools** — not even on retry. Quality signal.
 - **Context bars** on each unit (tiny colored pips at bottom of tile showing context window fill).
-- **Context overload** is visually dramatic — sparking, jittering unit, dropped signals shown as fading lines.
+- **Context overload → 1 tick stunned.** When a unit's context window is full and new entries arrive, it enters a "stunned" state for 1 tick — cannot act, sparking/jittering visual, context compacts (evicts low-priority entries to make room). Survivable but costly. In a one-shot-one-kill game, 1 lost tick can be fatal. Prevention (proper context filters, compress skill) is better than recovery. Enemy flooding noise to force stun-locks is a viable tactic.
 - **One-shot, one-kill.** No HP. Adjacent striker = instant elimination.
 - **Cell flashes** for signal delivery (green) and combat (red).
 - **Signal chains visible** — colored dashed lines show active channel communications between units during battle.
