@@ -169,7 +169,7 @@ function LoginForm() {
             <div className="absolute left-0 top-[40%] h-[20%] w-1.5 bg-primary opacity-60" />
           </div>
 
-          <CardHeader className="px-10 pt-10 pb-0">
+          <CardHeader className="px-6 sm:px-10 pt-8 sm:pt-10 pb-0">
             <CardTitle className="font-heading text-2xl font-medium text-foreground">
               Welcome back
             </CardTitle>
@@ -178,14 +178,14 @@ function LoginForm() {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="px-10 pb-10">
+          <CardContent className="px-6 sm:px-10 pb-8 sm:pb-10">
             {/* Form */}
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
               {/* Email field */}
               <div className="mb-3">
                 <Label
                   htmlFor="email"
-                  className="mb-1.5 text-[13px] text-foreground/70"
+                  className="mb-1.5 text-sm text-foreground/70"
                 >
                   Email <span aria-hidden="true">*</span>
                 </Label>
@@ -210,7 +210,7 @@ function LoginForm() {
                   <p
                     id="email-error"
                     role="alert"
-                    className="flex items-center gap-1 text-xs text-destructive mt-1"
+                    className="flex items-center gap-1 text-sm text-destructive mt-1"
                   >
                     {errors.email.message}
                   </p>
@@ -222,7 +222,7 @@ function LoginForm() {
                 <div className="flex justify-between items-center mb-1.5">
                   <Label
                     htmlFor="password"
-                    className="text-[13px] text-foreground/70"
+                    className="text-sm text-foreground/70"
                   >
                     Password <span aria-hidden="true">*</span>
                   </Label>
@@ -230,7 +230,7 @@ function LoginForm() {
                     href="/reset-password"
                     tabIndex={isSubmitting ? -1 : undefined}
                     className={cn(
-                      'text-[13px] font-medium text-foreground/60 no-underline hover:text-foreground/90 hover:underline',
+                      'text-sm font-medium text-foreground/60 no-underline hover:text-foreground/90 hover:underline',
                       isSubmitting && 'pointer-events-none'
                     )}
                   >
@@ -266,7 +266,7 @@ function LoginForm() {
                   <p
                     id="password-error"
                     role="alert"
-                    className="flex items-center gap-1 text-xs text-destructive mt-1"
+                    className="flex items-center gap-1 text-sm text-destructive mt-1"
                   >
                     {errors.password.message}
                   </p>
@@ -316,7 +316,7 @@ function LoginForm() {
         </div>
 
         {/* Auth footer links */}
-        <div className="flex justify-center gap-4 text-xs text-foreground/45">
+        <div className="flex justify-center gap-4 text-sm text-foreground/45">
           <Link href="/terms" className="text-inherit no-underline hover:text-foreground/70">
             Terms of Service
           </Link>
