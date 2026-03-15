@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 759
-- **Analyzed:** 301
-- **Pending:** 458
-- **Convergence:** 39.7%
+- **Total aspects:** 764
+- **Analyzed:** 302
+- **Pending:** 462
+- **Convergence:** 39.5%
 
 ---
 
@@ -700,7 +700,12 @@
   - [ ] 6.06e — Controller-specific onboarding tutorial branch: dedicated first-five-minutes for gamepad with D-pad navigation teaching, radial wheel introduction, preview mode discovery vs. adaptive tutorial that swaps prompts based on detected input
 - [x] 6.07 — Mobile/touch adaptation: how each paradigm works on a phone
   - [ ] 6.07a — PWA vs. native wrapper decision: performance, haptics, install flow, push notifications, platform-specific capabilities; Capacitor vs. pure PWA vs. TWA (Trusted Web Activity)
-  - [ ] 6.07b — Portrait-landscape orientation strategy: per-screen orientation preferences, rotation animation design, forced vs. adaptive orientation, how orientation affects the three-screen loop rhythm
+  - [x] 6.07b — Portrait-landscape orientation strategy: five options analyzed (A "The Lock" landscape-only — minimal design cost, kills commute/bed play, Slay the Spire readability lesson; B "The Unlock" portrait-only — commute-ready, one-thumb native, cramped board/wiring, Auto Chess Legends/Clash Royale precedent; C "The Hybrid" per-screen rotation — Plan portrait/Watch landscape/Inspector landscape, rotation-as-commitment ritual, physical gesture marks phase transition, graceful degradation to portrait-only; D "The Adaptive" player-chosen per-screen lock — maximum agency, 6 layout variants expensive, foldable-ready, accessibility gold; E "The Responsive" fluid reflow — zero friction, fidget-friendly, extreme engineering cost, no ritual); cross-option matrix across 10 dimensions; transition animation vocabulary (Iris, Board Holds, Seal, Heartbeat); 4 player journeys per option (Ria commuter, Yuki bedtime, Hiro RSI accessibility, Dex tablet, Kenji Factorio vet, Amara casual, Marcus foldable, Sam fidgeter); 5 new aspects discovered (6.07b-i–v)
+    - [ ] 6.07b-i — Rotation debounce and gyroscope reliability: debounce timing, dead-zone angles, bed-lying disambiguation, low-cost phone accelerometer-only fallback, orientation change event handling in Web API
+    - [ ] 6.07b-ii — Foldable phone adaptation: Galaxy Z Fold / Pixel Fold inner vs. outer display transitions, fold-aware CSS media queries, hinge-position detection for tent/tabletop mode, layout switching on fold state change
+    - [ ] 6.07b-iii — The rotation-as-commitment ritual: physical rotation gesture as game mechanic, parallels to board game rituals (flipping timer, rolling dice), haptic prompt design, whether commitment metaphor increases player investment in designs
+    - [ ] 6.07b-iv — Transition animation vocabulary: Plan→Watch→Inspector screen transitions (iris wipe, board-holds, seal descend, heartbeat blink), timing, performance budget, orientation-aware variants
+    - [ ] 6.07b-v — Portrait-only competitive viability: whether portrait-locked players are strategically disadvantaged vs. landscape in PvP, Inspector scrubber precision, Plan spatial awareness, matchmaking orientation accounting
   - [ ] 6.07c — Mobile-specific onboarding for touch controls: ghost hand tutorial animations, inline gesture teaching vs. dedicated tutorial, first-touch-on-each-element instruction; comparable to iOS game onboarding patterns
   - [ ] 6.07d — Battery and thermal performance budget for Pixi.js on mobile: WebGL rendering cost per screen, 60fps vs. 30fps decision, canvas resolution scaling on low-end devices, requestAnimationFrame throttling during Sealed Watch
   - [ ] 6.07e — "Send to desktop" cross-device debrief flow: emotional sealed watch on mobile → analytical inspector on desktop; cloud sync of match replay data; the two-device two-act debrief as a feature, not a limitation
