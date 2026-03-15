@@ -49,24 +49,30 @@ The game has three screens sharing the same 8x8 board. The board is always visib
 3. **Inspector** — board center (scrubable), click-to-inspect, analytical tools in sidebar
 
 ### Plan Screen (Locked)
-- **Split view:** 8x8 board on left with ghost unit previews, workbench panel on right
-- **Blueprint editor:** Config panel (skills toggles, rules as ordered condition→action pairs, hooks with channel name autocomplete, context config with listen/ignore toggles). Every change gives immediate spatial feedback — ghost units on the board show perception radii, patrol paths, channel wiring lines.
+- **Workbench-dominant layout.** The blueprint editor IS the plan screen. Small tactical map preview (showing spawn points, enemy spawners, terrain) in the corner. The workbench takes most of the screen.
+- **Loadout-style blueprint editor:** Each blueprint has HARD SLOT LIMITS — you can't equip everything. The tension is choosing what to include vs. leave out. Skills slots, hook slots, rule slots are visibly constrained (empty slots with dashed outlines invite filling but there aren't enough for everything).
+- **Blueprint editor sections:** Skills (toggle/equip into limited slots), Rules (ordered condition→action pairs, drag to reorder priority, limited count), Hooks (reactive triggers wired to named channels, limited by hook slot count), Context Config (buffer listen/ignore toggles, eviction priority — per-blueprint).
 - **Channels emerge from hooks:** No separate channel editor. Type a channel name in a hook config → channel created. Channel map panel is read-only auto-generated summary.
-- **Production queue as conveyor belt:** Horizontal strip of blueprint icons, drag to reorder, left-to-right = build order. Cost preview below. Ghost units appear on board in queue order.
-- **Channel map panel:** Auto-generated from hooks. Hover to highlight wiring on board. Shows warnings for dead-end channels.
+- **Production queue as conveyor belt:** Horizontal strip of blueprint icons, drag to reorder, left-to-right = build order. Cost preview below.
+- **The board is read-only preview** — shows spawn points, enemy spawner positions, terrain layout. Players do NOT place units; the factory spawns them. Missions 1-4 show pre-placed unit positions.
 
 ### Sealed Watch (Locked)
 - **Discrete tick-based, Into the Breach pacing.** Central tick clock (horizontal pips) fires → all units resolve simultaneously → board snaps to new state → player reads → next tick. NOT real-time. No smooth animation between ticks. Units snap to grid positions.
+- **Isometric battlefield** with varied terrain (rice terraces, jungle, urban cyberpunk) and visible factories. Player factory and enemy spawner clearly visible on the board.
 - **1 second per tick** default. Speed controls: 0.5x / 1x / 2x.
 - **No skip, no pause, no tools** — not even on retry. Quality signal.
-- **Buffer bars** on each unit (tiny colored pips at bottom of tile).
+- **Context bars** on each unit (tiny colored pips at bottom of tile showing context window fill).
+- **Context overload** is visually dramatic — sparking, jittering unit, dropped signals shown as fading lines.
 - **One-shot, one-kill.** No HP. Adjacent striker = instant elimination.
 - **Cell flashes** for signal delivery (green) and combat (red).
+- **Signal chains visible** — colored dashed lines show active channel communications between units during battle.
 
 ### Inspector (Locked)
 - **Timeline scrubber** replaces tick clock. Step through any tick with arrow keys.
-- **Click-to-inspect:** Click any unit to see buffer state at current tick (per-slot contents, dropped signals).
-- **Queue depth chart:** Bar chart of selected unit's buffer fill over time (green/amber/red).
+- **Click-to-inspect:** Click any unit to see full context window state at current tick — each slot shows content type, source, age, and whether it was used in a decision. Not just colored squares — meaningful data.
+- **Decision trace:** Shows which rule matched this tick, what context entries it evaluated, why this action was chosen. Traceable chain: unit did X → because rule Y matched → because slot Z had data → because signal arrived from unit W.
+- **Context window chart:** Sparkline of context fill over all ticks (green/amber/red). NOT "queue depth" — it's context window utilization.
+- **Event log:** Timestamped signal events (T12 recon-net → SENT, T13 threat detected). Simple log, not hook rule display.
 - **Two-act debrief:** Sealed watch (emotional) THEN inspector (analytical). Temporal separation is mandatory.
 
 ### Board (Locked)
@@ -76,7 +82,7 @@ The game has three screens sharing the same 8x8 board. The board is always visib
 ### Combat & Production (Locked)
 - **One-shot, one-kill.** No HP. No damage math. The game is about information architecture, not combat optimization.
 - **Factory model:** Base produces units from blueprints every N ticks. Production queue determines build order. Battle runs until enemy base destroyed or all enemies eliminated.
-- **Tagging:** Presence-based map node control. Agent proximity = tagged. Contested = untagged. Boosts resource income.
+- **Tagging:** Universal primitive — not just map control. Units can tag enemies (and potentially allies/tiles). Tagged targets become actionable by other skills: "damage tagged in radius", "amplify signals about tagged", "hack tagged units", "heal tagged allies". The scout PERCEIVES, the tag PERSISTS, other units ACT on tags based on their skills. Visually: tagged units show a cyan diamond marker. Tagging map nodes still boosts resource income.
 
 ### Mission Arc (Locked — 10 missions)
 - Missions 1-4: Hand-configured pre-placed units (tutorial — context, rules, hooks, skills)
@@ -85,8 +91,20 @@ The game has three screens sharing the same 8x8 board. The board is always visib
 - Missions 8-10: Full system → factory vs factory climax
 
 ### Narrative (Locked)
-- **Boot log:** Self-documenting subsystem initialization. Diegetic tutorial. "You are an AI reading your own spec sheet as it writes itself."
+- **Boot log:** Self-documenting subsystem initialization. Diegetic tutorial. "You are an AI reading your own spec sheet as it writes itself." One-time intro per mission.
+- **Blueprint Codex:** Persistent reference accessible anytime. Collection-style card screen (like a card game collection). Categories: Units, Skills, Rules, Hooks, Channels. Each unlocked capability is a card with portrait, stats, description. Locked cards show silhouettes. Grows over 10 missions. This is how players look up "how does compress work?" — not by replaying the boot log.
 - **Invisible randomization:** Each execute varies within constraints. Debrief shows run stats.
+
+### Campaign Map (Locked)
+- **Philippine archipelago** — stylized map with recognizable geography (Luzon, Visayas, Mindanao). Each mission maps to a real Philippine province with corresponding terrain on the battlefield.
+- **Province-to-mission mapping:** Ifugao (rice terraces), Siquijor (mystic island), Palawan (jungle), Batanes (highlands), Cebu (urban), Manila (megacity), Mindanao (jungle), Bohol (hills), Zambales (volcanic coast), Taal (volcano — final boss).
+- **Visual style:** Stylized archipelago silhouettes with circuit-board data cable connections between provinces. Completed = cyan glow, current = gold pulse, locked = dim. Into the Breach inspired aesthetic.
+
+### Terminology (Locked)
+- "Context window" not "buffer" in player-facing UI
+- "Context overload" not "buffer overload"
+- "Context bars" not "buffer bars"
+- Buffer/context is used internally in code; context window is the player-facing term
 
 ## LOCKED DESIGN DECISIONS — DO NOT RE-EXPLORE
 
@@ -95,7 +113,7 @@ The following are FINAL. Do not generate aspects, analyses, or variations that c
 ### Core Architecture (Locked)
 - **Four primitives:** Skills (what agents can do), Rules (behavioral constraints/priorities as ordered condition→action pairs), Hooks (reactive fire-and-forget triggers wired to named channels), Context Config (buffer size, listen/ignore filters, eviction priorities)
 - **Channels:** Named pipes connecting blueprints. One channel per hook slot. All listeners on a channel receive all signals. Channels emerge from hooks — type a name, it exists. No separate channel editor.
-- **Buffer system:** Fixed-size working memory per unit (6-14 slots). Observations and messages fill slots. When full, evicted per player-configured rules. Decision logic uses only current buffer contents.
+- **Context window:** Fixed-size working memory per unit (6-14 slots). Observations and messages fill slots. When full, evicted per player-configured rules. Decision logic uses only current context contents. Player-facing term is "context window"; code uses "buffer" internally.
 - **Signal latency:** 1 tick per hop. Scout→Striker = 2 ticks. Scout→Relay→Striker = 4 ticks.
 - **Emissions model:** Hook transmissions emit detectable EM noise. Deeper architectures are smarter but louder.
 
