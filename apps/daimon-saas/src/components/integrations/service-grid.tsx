@@ -3,6 +3,21 @@
 import * as React from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { AlertTriangle, Github, Activity, Clock, User, X, Info, Eye, EyeOff } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { useToast } from '@/lib/toast'
 
@@ -81,13 +96,12 @@ function ServiceLogo({ service }: { service: ServiceName }) {
       <Github
         width={size}
         height={size}
-        color="#0C1F40"
+        className="text-foreground"
         aria-label="GitHub"
       />
     )
   }
   if (service === 'google') {
-    // Colored "G" approximating Google brand
     return (
       <svg
         width={size}
@@ -138,37 +152,26 @@ function ServiceLogo({ service }: { service: ServiceName }) {
 
 type BadgeStatus = ConnectionStatus | 'not-connected'
 
-const STATUS_BADGE_STYLES: Record<
+const STATUS_BADGE_MAP: Record<
   BadgeStatus,
-  { label: string; bg: string; color: string }
+  { label: string; variant: import('@/components/ui/badge').BadgeVariant }
 > = {
-  connected: { label: 'Connected', bg: '#D1FAE5', color: '#059669' },
-  expired: { label: 'Expired', bg: '#FEF3C7', color: '#D97706' },
-  error: { label: 'Error', bg: '#FEE2E2', color: '#DC2626' },
-  revoked: { label: 'Disconnected', bg: '#F3F4F6', color: '#6B7280' },
-  'not-connected': { label: 'Not Connected', bg: '#F3F4F6', color: '#6B7280' },
+  connected: { label: 'Connected', variant: 'connection-connected' },
+  expired: { label: 'Expired', variant: 'warning' },
+  error: { label: 'Error', variant: 'connection-error' },
+  revoked: { label: 'Disconnected', variant: 'connection-disconnected' },
+  'not-connected': { label: 'Not Connected', variant: 'neutral' },
 }
 
 function StatusBadge({ status }: { status: BadgeStatus }) {
-  const { label, bg, color } = STATUS_BADGE_STYLES[status]
+  const { label, variant } = STATUS_BADGE_MAP[status]
   return (
-    <span
-      style={{
-        display: 'inline-block',
-        height: '22px',
-        padding: '4px 10px',
-        background: bg,
-        color,
-        fontFamily: 'var(--font-inter), Inter, sans-serif',
-        fontWeight: 500,
-        fontSize: '12px',
-        lineHeight: '14px',
-        borderRadius: '0px',
-        flexShrink: 0,
-      }}
-    >
-      {label}
-    </span>
+    <Badge
+      variant={variant}
+      label={label}
+      uppercase={false}
+      className="shrink-0"
+    />
   )
 }
 
@@ -213,14 +216,6 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
   const [confirmOpen, setConfirmOpen] = React.useState(false)
   const [disconnectError, setDisconnectError] = React.useState<string | null>(null)
 
-  // Left border accent
-  let borderLeft = '1px solid #E5E7EB'
-  if (connection?.status === 'connected') {
-    borderLeft = '3px solid #00D4B8'
-  } else if (isError) {
-    borderLeft = '3px solid #EF4444'
-  }
-
   // Account name: prefer display_name, fall back to toggl_email/email, then nothing
   const accountName = connection
     ? ((connection.metadata.display_name as string) ||
@@ -254,59 +249,26 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
   }
 
   return (
-    <div
-      style={{
-        background: '#FFFFFF',
-        border: '1px solid #E5E7EB',
-        borderLeft,
-        borderRadius: '0px',
-        padding: '24px',
-        minHeight: '180px',
-        boxShadow: 'none',
-        transition: 'box-shadow 150ms ease',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-      onMouseEnter={(e) => {
-        ;(e.currentTarget as HTMLDivElement).style.boxShadow =
-          '0 2px 8px rgba(0,0,0,0.08)'
-      }}
-      onMouseLeave={(e) => {
-        ;(e.currentTarget as HTMLDivElement).style.boxShadow = 'none'
-      }}
+    <Card
+      className={cn(
+        'flex min-h-[180px] flex-col border p-6 shadow-none transition-shadow hover:shadow-md',
+        connection?.status === 'connected' && 'border-l-[3px] border-l-teal-400',
+        isError && 'border-l-[3px] border-l-red-500',
+        !connection?.status && 'border-l',
+        connection?.status === 'revoked' && 'border-l'
+      )}
     >
       {/* Header row */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '16px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ flexShrink: 0, marginRight: '12px' }}>
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center">
+          <div className="mr-3 shrink-0">
             <ServiceLogo service={service} />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-                fontWeight: 600,
-                fontSize: '16px',
-                color: '#0C1F40',
-              }}
-            >
+          <div className="flex flex-col gap-0.5">
+            <span className="font-heading text-base font-semibold text-foreground">
               {meta.displayName}
             </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontWeight: 400,
-                fontSize: '13px',
-                color: '#6B7280',
-              }}
-            >
+            <span className="text-[13px] text-muted-foreground">
               {meta.description}
             </span>
           </div>
@@ -316,112 +278,37 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
 
       {/* Connection details (shown when connected or error) */}
       {isConnected && (
-        <div
-          style={{
-            background: '#F9FAFB',
-            border: '1px solid #F3F4F6',
-            padding: '12px',
-            marginBottom: '16px',
-          }}
-        >
+        <div className="mb-4 border border-gray-100 bg-gray-50 p-3">
           {/* Account name */}
           {accountName && (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                height: '24px',
-                marginBottom: '2px',
-              }}
-            >
-              <span
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '12px',
-                  color: '#9CA3AF',
-                }}
-              >
+            <div className="mb-0.5 flex h-6 items-center justify-between">
+              <span className="flex items-center gap-1 text-xs text-gray-400">
                 <User size={11} />
                 Account
               </span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '12px',
-                  color: '#374151',
-                  maxWidth: '180px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                }}
-              >
+              <span className="max-w-[180px] truncate text-xs font-medium text-gray-700">
                 {accountName}
               </span>
             </div>
           )}
 
           {/* Connected at */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              height: '24px',
-            }}
-          >
-            <span
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '12px',
-                color: '#9CA3AF',
-              }}
-            >
+          <div className="flex h-6 items-center justify-between">
+            <span className="text-xs text-gray-400">
               Connected
             </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontWeight: 500,
-                fontSize: '12px',
-                color: '#374151',
-              }}
-            >
+            <span className="text-xs font-medium text-gray-700">
               {relativeTime(connection.connected_at)}
             </span>
           </div>
 
           {/* Last used */}
           {connection.last_used_at && (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                height: '24px',
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '12px',
-                  color: '#9CA3AF',
-                }}
-              >
+            <div className="flex h-6 items-center justify-between">
+              <span className="text-xs text-gray-400">
                 Last used
               </span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '12px',
-                  color: '#374151',
-                }}
-              >
+              <span className="text-xs font-medium text-gray-700">
                 {relativeTime(connection.last_used_at)}
               </span>
             </div>
@@ -429,31 +316,11 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
 
           {/* Scopes (OAuth only, non-empty) */}
           {connection.auth_type === 'oauth' && connection.scopes.length > 0 && (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                height: '24px',
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '12px',
-                  color: '#9CA3AF',
-                }}
-              >
+            <div className="flex h-6 items-center justify-between">
+              <span className="text-xs text-gray-400">
                 Scopes
               </span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '12px',
-                  color: '#374151',
-                }}
-              >
+              <span className="text-xs font-medium text-gray-700">
                 {connection.scopes.join(', ')}
               </span>
             </div>
@@ -461,62 +328,24 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
 
           {/* Error banner */}
           {isError && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                background: '#FEF2F2',
-                border: '1px solid #FEE2E2',
-                padding: '8px 12px',
-                marginTop: '8px',
-              }}
-            >
-              <AlertTriangle
-                size={14}
-                color="#DC2626"
-                style={{ marginRight: '6px', flexShrink: 0 }}
-              />
-              <span
-                style={{
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontSize: '12px',
-                  color: '#DC2626',
-                }}
-              >
+            <Alert variant="destructive" className="mt-2 border-red-200 bg-red-50 p-2 px-3">
+              <AlertTriangle className="h-3.5 w-3.5" />
+              <AlertDescription className="text-xs">
                 {connection.error_message ?? meta.defaultErrorMessage}
-              </span>
-            </div>
+              </AlertDescription>
+            </Alert>
           )}
         </div>
       )}
 
       {/* Disconnect error */}
       {disconnectError && (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            background: '#FEF2F2',
-            border: '1px solid #FEE2E2',
-            padding: '8px 12px',
-            marginBottom: '12px',
-          }}
-        >
-          <AlertTriangle
-            size={14}
-            color="#DC2626"
-            style={{ marginRight: '6px', flexShrink: 0 }}
-          />
-          <span
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '12px',
-              color: '#DC2626',
-            }}
-          >
+        <Alert variant="destructive" className="mb-3 border-red-200 bg-red-50 p-2 px-3">
+          <AlertTriangle className="h-3.5 w-3.5" />
+          <AlertDescription className="text-xs">
             {disconnectError}
-          </span>
-        </div>
+          </AlertDescription>
+        </Alert>
       )}
 
       {/* Disconnect confirmation */}
@@ -531,95 +360,44 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
       />
 
       {/* Footer actions */}
-      <div
-        style={{
-          marginTop: 'auto',
-          paddingTop: '16px',
-          borderTop: '1px solid #F3F4F6',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          gap: '8px',
-        }}
-      >
+      <div className="mt-auto flex justify-end gap-2 border-t border-gray-100 pt-4">
         {!isConnected && (
-          <button
+          <Button
             onClick={handleConnect}
             disabled={isMember}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '36px',
-              padding: '0 16px',
-              background: isMember ? '#E5E7EB' : '#0C1F40',
-              color: isMember ? '#9CA3AF' : '#FFFFFF',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontWeight: 500,
-              fontSize: '14px',
-              borderRadius: '0px',
-              border: 'none',
-              cursor: isMember ? 'not-allowed' : 'pointer',
-            }}
           >
             Connect {meta.displayName}
-          </button>
+          </Button>
         )}
 
         {isConnected && (
           <>
             {/* Reconnect — shown for expired or error */}
             {isError && (
-              <button
+              <Button
+                variant="outline"
                 onClick={handleConnect}
                 disabled={isMember}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '36px',
-                  padding: '0 16px',
-                  background: '#FFFFFF',
-                  color: isMember ? '#9CA3AF' : '#0C1F40',
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '14px',
-                  borderRadius: '0px',
-                  border: '1.5px solid #D1D5DB',
-                  cursor: isMember ? 'not-allowed' : 'pointer',
-                }}
               >
                 Reconnect
-              </button>
+              </Button>
             )}
 
             {/* Disconnect — hidden for revoked */}
             {connection.status !== 'revoked' && (
-              <button
+              <Button
+                variant="ghost"
                 onClick={() => setConfirmOpen(true)}
                 disabled={isMember}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '36px',
-                  padding: '0 16px',
-                  background: 'transparent',
-                  color: isMember ? '#9CA3AF' : '#DC2626',
-                  fontFamily: 'var(--font-inter), Inter, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '14px',
-                  borderRadius: '0px',
-                  border: 'none',
-                  cursor: isMember ? 'not-allowed' : 'pointer',
-                }}
+                className="text-destructive hover:text-destructive"
               >
                 Disconnect
-              </button>
+              </Button>
             )}
           </>
         )}
       </div>
-    </div>
+    </Card>
   )
 }
 
@@ -651,15 +429,6 @@ function ApiKeyModal({ service, onClose, onSuccess }: ApiKeyModalProps) {
   React.useEffect(() => {
     inputRef.current?.focus()
   }, [])
-
-  // Close on Escape
-  React.useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !isSubmitting) onClose()
-    }
-    document.addEventListener('keydown', handler)
-    return () => document.removeEventListener('keydown', handler)
-  }, [isSubmitting, onClose])
 
   const handleSubmit = async () => {
     setError(null)
@@ -700,271 +469,102 @@ function ApiKeyModal({ service, onClose, onSuccess }: ApiKeyModalProps) {
   const placeholder = 'keyPlaceholder' in meta ? (meta as { keyPlaceholder: string }).keyPlaceholder : 'Paste your API token'
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 1000,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      {/* Overlay */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'rgba(0,0,0,0.5)',
-        }}
-        onClick={() => { if (!isSubmitting) onClose() }}
-        aria-hidden="true"
-      />
-
-      {/* Modal content */}
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="api-key-modal-title"
-        style={{
-          position: 'relative',
-          zIndex: 1,
-          background: '#FFFFFF',
-          border: '1px solid #E5E7EB',
-          borderRadius: '0px',
-          padding: '24px',
-          maxWidth: '480px',
-          width: '100%',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
-          margin: '16px',
-        }}
-      >
-        {/* Header */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '16px',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+    <Dialog open onOpenChange={(open) => { if (!open && !isSubmitting) onClose() }}>
+      <DialogContent className="max-w-[480px]">
+        <DialogHeader>
+          <div className="flex items-center gap-3">
             <ServiceLogo service={service} />
-            <h2
-              id="api-key-modal-title"
-              style={{
-                fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-                fontWeight: 600,
-                fontSize: '18px',
-                color: '#0C1F40',
-                margin: 0,
-              }}
-            >
+            <DialogTitle className="font-heading text-lg font-semibold text-foreground">
               Connect {meta.displayName}
-            </h2>
+            </DialogTitle>
           </div>
-          <button
-            onClick={onClose}
-            disabled={isSubmitting}
-            aria-label="Close"
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: isSubmitting ? 'not-allowed' : 'pointer',
-              padding: '4px',
-              color: '#6B7280',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <X size={20} />
-          </button>
-        </div>
-
-        {/* Description */}
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '14px',
-            color: '#374151',
-            marginBottom: '16px',
-          }}
-        >
-          Paste your {meta.displayName} API token to enable time tracking tools.
-        </p>
+          <DialogDescription className="text-sm text-gray-700">
+            Paste your {meta.displayName} API token to enable time tracking tools.
+          </DialogDescription>
+        </DialogHeader>
 
         {/* Help banner */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '6px',
-            background: '#EFF6FF',
-            border: '1px solid #DBEAFE',
-            padding: '10px 12px',
-            marginBottom: '20px',
-          }}
-        >
-          <Info size={14} color="#3B82F6" style={{ flexShrink: 0, marginTop: '2px' }} />
-          <span
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '13px',
-              color: '#1E40AF',
-            }}
-          >
+        <Alert className="border-blue-200 bg-blue-50">
+          <Info className="h-3.5 w-3.5 text-blue-500" />
+          <AlertDescription className="text-[13px] text-blue-800">
             Find your API token at{' '}
             <a
               href="https://track.toggl.com/profile"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: '#2563EB', textDecoration: 'underline' }}
+              className="text-blue-600 underline"
             >
               toggl.com/app/profile
             </a>{' '}
             under &quot;API Token&quot;.
-          </span>
-        </div>
+          </AlertDescription>
+        </Alert>
 
         {/* Input */}
-        <label
-          htmlFor="api-key-input"
-          style={{
-            display: 'block',
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 500,
-            fontSize: '13px',
-            color: '#374151',
-            marginBottom: '6px',
-          }}
-        >
-          {meta.displayName} API Token{' '}
-          <span aria-label="required" style={{ color: '#DC2626' }}>*</span>
-        </label>
-        <div style={{ position: 'relative', marginBottom: '6px' }}>
-          <input
-            ref={inputRef}
-            id="api-key-input"
-            type={showKey ? 'text' : 'password'}
-            value={keyValue}
-            onChange={(e) => {
-              setKeyValue(e.target.value)
-              setError(null)
-            }}
-            placeholder={placeholder}
-            autoComplete="off"
-            spellCheck={false}
-            aria-describedby={error ? 'api-key-error' : 'api-key-hint'}
-            disabled={isSubmitting}
-            style={{
-              width: '100%',
-              height: '40px',
-              padding: '0 40px 0 12px',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '14px',
-              color: '#0C1F40',
-              background: '#FFFFFF',
-              border: error ? '1px solid #EF4444' : '1px solid #D1D5DB',
-              borderRadius: '0px',
-              outline: 'none',
-              boxSizing: 'border-box',
-            }}
-          />
-          <button
-            type="button"
-            onClick={() => setShowKey((v) => !v)}
-            tabIndex={-1}
-            aria-label={showKey ? 'Hide token' : 'Show token'}
-            style={{
-              position: 'absolute',
-              right: '10px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              color: '#9CA3AF',
-              display: 'flex',
-              alignItems: 'center',
-              padding: 0,
-            }}
-          >
-            {showKey ? <EyeOff size={16} /> : <Eye size={16} />}
-          </button>
-        </div>
-        <p
-          id="api-key-hint"
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '12px',
-            color: '#9CA3AF',
-            marginBottom: error ? '4px' : '20px',
-          }}
-        >
-          32-character alphanumeric token. Never share this with others.
-        </p>
-        {error && (
-          <p
-            id="api-key-error"
-            style={{
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontSize: '13px',
-              color: '#DC2626',
-              marginBottom: '20px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-            }}
-          >
-            <AlertTriangle size={13} />
-            {error}
+        <div className="space-y-1.5">
+          <Label htmlFor="api-key-input" className="text-[13px] font-medium text-gray-700">
+            {meta.displayName} API Token{' '}
+            <span aria-label="required" className="text-destructive">*</span>
+          </Label>
+          <div className="relative">
+            <Input
+              ref={inputRef}
+              id="api-key-input"
+              type={showKey ? 'text' : 'password'}
+              value={keyValue}
+              onChange={(e) => {
+                setKeyValue(e.target.value)
+                setError(null)
+              }}
+              placeholder={placeholder}
+              autoComplete="off"
+              spellCheck={false}
+              aria-describedby={error ? 'api-key-error' : 'api-key-hint'}
+              disabled={isSubmitting}
+              className={cn('pr-10', error && 'border-red-500')}
+            />
+            <button
+              type="button"
+              onClick={() => setShowKey((v) => !v)}
+              tabIndex={-1}
+              aria-label={showKey ? 'Hide token' : 'Show token'}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-gray-400 flex items-center p-0"
+            >
+              {showKey ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          </div>
+          <p id="api-key-hint" className={cn('text-xs text-gray-400', error ? 'mb-1' : 'mb-5')}>
+            32-character alphanumeric token. Never share this with others.
           </p>
-        )}
+          {error && (
+            <p
+              id="api-key-error"
+              className="mb-5 flex items-center gap-1.5 text-[13px] text-destructive"
+            >
+              <AlertTriangle size={13} />
+              {error}
+            </p>
+          )}
+        </div>
 
         {/* Footer */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-          <button
+        <DialogFooter>
+          <Button
+            variant="ghost"
             onClick={onClose}
             disabled={isSubmitting}
-            style={{
-              height: '36px',
-              padding: '0 16px',
-              background: 'transparent',
-              color: isSubmitting ? '#9CA3AF' : '#374151',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontWeight: 500,
-              fontSize: '14px',
-              border: 'none',
-              borderRadius: '0px',
-              cursor: isSubmitting ? 'not-allowed' : 'pointer',
-            }}
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => { void handleSubmit() }}
             disabled={isSubmitting || keyValue.length === 0}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              height: '36px',
-              padding: '0 16px',
-              background: isSubmitting || keyValue.length === 0 ? '#E5E7EB' : '#0C1F40',
-              color: isSubmitting || keyValue.length === 0 ? '#9CA3AF' : '#FFFFFF',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontWeight: 500,
-              fontSize: '14px',
-              border: 'none',
-              borderRadius: '0px',
-              cursor: isSubmitting || keyValue.length === 0 ? 'not-allowed' : 'pointer',
-            }}
           >
-            {isSubmitting ? 'Validating…' : 'Save & Connect'}
-          </button>
-        </div>
-      </div>
-    </div>
+            {isSubmitting ? 'Validating\u2026' : 'Save & Connect'}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }
 
@@ -984,21 +584,10 @@ export function ServiceGrid({
   return (
     <>
       <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '16px',
-        }}
-        className="sm:grid-cols-1 integrations-grid"
+        className="grid grid-cols-1 gap-4 md:grid-cols-2"
         data-testid="integrations-grid"
         data-tenant-id={tenantId}
       >
-        <style>{`
-          @media (max-width: 767px) {
-            .integrations-grid { grid-template-columns: 1fr !important; }
-          }
-        `}</style>
-
         {SERVICES.map((service) => (
           <ServiceCard
             key={service}

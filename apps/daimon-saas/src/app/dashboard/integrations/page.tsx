@@ -110,34 +110,18 @@ export default async function IntegrationsPage() {
       </React.Suspense>
 
       {/* Page header */}
-      <div style={{ marginBottom: '32px' }}>
-        <h1
-          style={{
-            fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-            fontWeight: 600,
-            fontSize: '28px',
-            color: '#0C1F40',
-            marginBottom: '8px',
-          }}
-        >
+      <div className="mb-8">
+        <h1 className="mb-2 font-heading text-[28px] font-semibold text-foreground">
           Integrations
         </h1>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 400,
-            fontSize: '14px',
-            color: '#6B7280',
-            maxWidth: '640px',
-          }}
-        >
+        <p className="max-w-[640px] text-sm text-muted-foreground">
           Connect your services so the bot can work with your tools. Connected
           services are available to all users in your Discord server.
         </p>
       </div>
 
       {/* Discord bot connections */}
-      <div style={{ marginBottom: '40px' }}>
+      <div className="mb-10">
         <DiscordSection
           tenantId={membership.tenant_id}
           userRole={membership.role as 'owner' | 'admin' | 'member'}
@@ -147,33 +131,14 @@ export default async function IntegrationsPage() {
       </div>
 
       {/* Section divider */}
-      <div
-        style={{
-          borderTop: '1px solid #E5E7EB',
-          marginBottom: '32px',
-        }}
-      />
+      <div className="mb-8 border-t" />
 
       {/* Service connections header */}
-      <div style={{ marginBottom: '16px' }}>
-        <h2
-          style={{
-            fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-            fontWeight: 600,
-            fontSize: '18px',
-            color: '#0C1F40',
-            marginBottom: '4px',
-          }}
-        >
+      <div className="mb-4">
+        <h2 className="mb-1 font-heading text-lg font-semibold text-foreground">
           Tool Sources
         </h2>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '13px',
-            color: '#6B7280',
-          }}
-        >
+        <p className="text-[13px] text-muted-foreground">
           Connect third-party services to enable bot tools for your Discord server.
         </p>
       </div>
