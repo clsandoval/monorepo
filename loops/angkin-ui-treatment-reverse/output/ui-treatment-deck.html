@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Angkin UI Treatment Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=DM+Sans:wght@100..1000&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       ANGKIN UI TREATMENT DECK — CSS FRAMEWORK
+       All design tokens from the Angkin design system.
+       ============================================================ */
+
+    :root {
+      /* === Brand: Navy === */
+      --navy-50: #EEF2F7;
+      --navy-100: #D8E1ED;
+      --navy-150: #C2D0E2;
+      --navy-200: #A8BBD4;
+      --navy-300: #7A99BE;
+      --navy-400: #4D77A3;
+      --navy-500: #2D5A85;
+      --navy-600: #1E3A5F;
+      --navy-700: #172E4D;
+      --navy-800: #11223A;
+      --navy-900: #0B1628;
+      --navy-950: #060D18;
+
+      /* === Accent: Gold === */
+      --gold-50: #FBF7ED;
+      --gold-100: #F5ECD4;
+      --gold-200: #EBDAAB;
+      --gold-300: #DECA85;
+      --gold-400: #C5A44E;
+      --gold-500: #A68A3D;
+      --gold-600: #87702F;
+      --gold-700: #685522;
+      --gold-800: #4A3C17;
+
+      /* === Neutral (Navy-Undertoned) === */
+      --neutral-0: #FFFFFF;
+      --neutral-50: #F7F8FA;
+      --neutral-100: #EEF0F4;
+      --neutral-150: #E3E6EC;
+      --neutral-200: #D5D9E1;
+      --neutral-300: #B8BEC9;
+      --neutral-400: #8C95A3;
+      --neutral-500: #6B7485;
+      --neutral-600: #505868;
+      --neutral-700: #374050;
+      --neutral-800: #1F2735;
+      --neutral-900: #111827;
+      --neutral-950: #0A0F18;
+
+      /* === Semantic: Success === */
+      --success-50: #ECFDF5;
+      --success-100: #D1FAE5;
+      --success-500: #059669;
+      --success-600: #047857;
+      --success-700: #166534;
+
+      /* === Semantic: Warning === */
+      --warning-50: #FFFBEB;
+      --warning-100: #FEF3C7;
+      --warning-500: #D97706;
+      --warning-600: #B45309;
+      --warning-700: #92400E;
+
+      /* === Semantic: Error === */
+      --error-50: #FEF2F2;
+      --error-100: #FEE2E2;
+      --error-500: #DC2626;
+      --error-600: #B91C1C;
+      --error-700: #991B1B;
+
+      /* === Semantic: Info (Teal) === */
+      --info-50: #F0FDFA;
+      --info-100: #CCFBF1;
+      --info-500: #0D9488;
+      --info-600: #0F766E;
+      --info-700: #115E59;
+
+      /* === Chart === */
+      --chart-1: #1E3A5F;
+      --chart-2: #C5A44E;
+      --chart-3: #0D9488;
+      --chart-4: #7A99BE;
+      --chart-5: #92400E;
+      --chart-6: #6B7485;
+
+      /* === Compliance-Specific === */
+      --peso-amount: var(--navy-600);
+      --peso-savings: var(--success-500);
+      --peso-due: var(--error-600);
+      --peso-neutral: var(--neutral-600);
+
+      /* === Font Families === */
+      --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace;
+
+      /* === Type Scale === */
+      --text-hero: 3rem;
+      --text-display: 2.25rem;
+      --text-h1: 1.875rem;
+      --text-h2: 1.5rem;
+      --text-h3: 1.25rem;
+      --text-h4: 1.0625rem;
+      --text-body: 0.9375rem;
+      --text-small: 0.8125rem;
+      --text-xs: 0.75rem;
+      --text-overline: 0.6875rem;
+
+      /* === Type Scale: Line Heights === */
+      --leading-hero: 1.08;
+      --leading-display: 1.12;
+      --leading-h1: 1.2;
+      --leading-h2: 1.25;
+      --leading-h3: 1.3;
+      --leading-body: 1.6;
+      --leading-small: 1.5;
+
+      /* === Type Scale: Letter Spacing === */
+      --tracking-hero: -0.025em;
+      --tracking-display: -0.02em;
+      --tracking-h1: -0.015em;
+      --tracking-h2: -0.01em;
+      --tracking-normal: 0;
+      --tracking-wide: 0.005em;
+      --tracking-wider: 0.02em;
+      --tracking-overline: 0.08em;
+
+      /* === Type Scale: Weights === */
+      --weight-regular: 400;
+      --weight-medium: 500;
+      --weight-semibold: 600;
+      --weight-bold: 700;
+      --weight-extrabold: 800;
+
+      /* === Peso Amount Sizes === */
+      --peso-hero: 2.5rem;
+      --peso-display: 1.75rem;
+      --peso-body: 1rem;
+      --peso-small: 0.8125rem;
+
+      /* === Spacing Scale === */
+      --space-0: 0;
+      --space-0-5: 0.125rem;
+      --space-1: 0.25rem;
+      --space-1-5: 0.375rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+
+      /* === Border Radius === */
+      --radius-sm: 0.375rem;
+      --radius: 0.5rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.625rem;
+      --radius-xl: 0.875rem;
+      --radius-2xl: 1.125rem;
+      --radius-full: 9999px;
+
+      /* === Shadows (Navy-Tinted) === */
+      --shadow-xs: 0 1px 2px rgba(30, 58, 95, 0.06);
+      --shadow-sm: 0 1px 3px rgba(30, 58, 95, 0.08), 0 1px 2px rgba(30, 58, 95, 0.04);
+      --shadow-md: 0 4px 8px rgba(30, 58, 95, 0.08), 0 2px 4px rgba(30, 58, 95, 0.04);
+      --shadow-lg: 0 8px 24px rgba(30, 58, 95, 0.12), 0 4px 8px rgba(30, 58, 95, 0.04);
+      --shadow-xl: 0 16px 48px rgba(30, 58, 95, 0.14), 0 8px 16px rgba(30, 58, 95, 0.06);
+
+      /* === Transitions === */
+      --duration-fast: 100ms;
+      --duration-default: 200ms;
+      --duration-slow: 300ms;
+      --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--text-body);
+      font-weight: var(--weight-regular);
+      line-height: var(--leading-body);
+      color: var(--neutral-900);
+      background-color: var(--neutral-50);
+    }
+
+    /* ============================================================
+       DECK LAYOUT — The deck itself is the design artifact
+       ============================================================ */
+
+    .deck {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* --- Cover / Title Page --- */
+
+    .deck-cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--navy-600);
+      color: white;
+      text-align: center;
+      padding: 64px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .deck-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(197, 164, 78, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(122, 153, 190, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .deck-cover .logo-hero {
+      width: 128px;
+      height: 128px;
+      margin-bottom: 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .deck-cover h1 {
+      font-family: var(--font-heading);
+      font-size: 4rem;
+      font-weight: var(--weight-extrabold);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .deck-cover .subtitle {
+      font-family: var(--font-body);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-regular);
+      color: var(--navy-200);
+      line-height: 1.4;
+      max-width: 540px;
+      margin-bottom: 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .deck-cover .meta {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--navy-300);
+      letter-spacing: var(--tracking-wider);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- Table of Contents --- */
+
+    .deck-toc {
+      background: var(--neutral-0);
+      border-bottom: 1px solid var(--neutral-200);
+      padding: 64px 48px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .deck-toc.scrolled {
+      padding: 16px 48px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .toc-title {
+      grid-column: 1 / -1;
+      font-family: var(--font-heading);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-bold);
+      letter-spacing: var(--tracking-h2);
+      color: var(--navy-600);
+      margin-bottom: 16px;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--neutral-700);
+      font-size: var(--text-small);
+      font-weight: var(--weight-medium);
+      padding: 6px 0;
+      transition: color var(--duration-fast) var(--ease-default);
+      border-bottom: 1px solid transparent;
+    }
+
+    .toc-item:hover {
+      color: var(--navy-600);
+    }
+
+    .toc-number {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--gold-500);
+      font-weight: var(--weight-semibold);
+      min-width: 28px;
+    }
+
+    /* --- Section Base --- */
+
+    .deck-section {
+      padding: 96px 48px;
+      border-bottom: 1px solid var(--neutral-200);
+      position: relative;
+    }
+
+    .deck-section:nth-child(even) {
+      background: var(--neutral-0);
+    }
+
+    .deck-section:nth-child(odd) {
+      background: var(--neutral-50);
+    }
+
+    .section-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: 64px;
+      max-width: 720px;
+    }
+
+    .section-number {
+      font-family: var(--font-mono);
+      font-size: var(--text-overline);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-overline);
+      text-transform: uppercase;
+      color: var(--gold-500);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-display);
+      font-weight: var(--weight-bold);
+      line-height: var(--leading-display);
+      letter-spacing: var(--tracking-display);
+      color: var(--navy-600);
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: var(--text-body);
+      line-height: var(--leading-body);
+      color: var(--neutral-600);
+      max-width: 600px;
+    }
+
+    /* --- Content Blocks --- */
+
+    .content-grid {
+      display: grid;
+      gap: 32px;
+    }
+
+    .content-grid--2col {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .content-grid--3col {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .content-grid--4col {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .content-block {
+      background: var(--neutral-0);
+      border: 1px solid var(--neutral-200);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .content-block--dark {
+      background: var(--navy-900);
+      border-color: var(--navy-800);
+      color: #E8EDF2;
+    }
+
+    .content-block--navy {
+      background: var(--navy-600);
+      border-color: var(--navy-700);
+      color: white;
+    }
+
+    .content-block__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-semibold);
+      line-height: var(--leading-h3);
+      margin-bottom: 12px;
+    }
+
+    .content-block__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-wider);
+      color: var(--neutral-500);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .content-block--dark .content-block__label {
+      color: var(--navy-300);
+    }
+
+    /* --- Mockup Image Container --- */
+
+    .mockup {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--neutral-200);
+      background: var(--neutral-100);
+      position: relative;
+    }
+
+    .mockup img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .mockup--mobile {
+      max-width: 375px;
+      margin: 0 auto;
+    }
+
+    .mockup--browser {
+      border-radius: var(--radius-xl);
+    }
+
+    .mockup--browser::before {
+      content: '';
+      display: block;
+      height: 36px;
+      background: var(--neutral-100);
+      border-bottom: 1px solid var(--neutral-200);
+      background-image:
+        radial-gradient(circle at 20px 18px, var(--neutral-300) 5px, transparent 5px),
+        radial-gradient(circle at 38px 18px, var(--neutral-300) 5px, transparent 5px),
+        radial-gradient(circle at 56px 18px, var(--neutral-300) 5px, transparent 5px);
+    }
+
+    .mockup-caption {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--neutral-500);
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* --- Color Swatch --- */
+
+    .swatch-row {
+      display: flex;
+      gap: 0;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--neutral-200);
+    }
+
+    .swatch {
+      flex: 1;
+      height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 8px;
+      position: relative;
+    }
+
+    .swatch--tall {
+      height: 120px;
+    }
+
+    .swatch-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: var(--weight-medium);
+      line-height: 1.2;
+    }
+
+    .swatch-label--light {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .swatch-label--dark {
+      color: var(--neutral-700);
+    }
+
+    .swatch-hex {
+      display: block;
+      opacity: 0.7;
+      font-size: 9px;
+    }
+
+    /* --- Code Block --- */
+
+    .code-block {
+      background: var(--navy-950);
+      color: #E8EDF2;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: auto;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--navy-800);
+    }
+
+    .code-block .token-prop {
+      color: var(--navy-300);
+    }
+
+    .code-block .token-value {
+      color: var(--gold-300);
+    }
+
+    .code-block .token-comment {
+      color: var(--neutral-500);
+      font-style: italic;
+    }
+
+    .code-block .token-selector {
+      color: #7DD3FC;
+    }
+
+    /* --- Type Specimen --- */
+
+    .type-specimen {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--neutral-150);
+    }
+
+    .type-specimen:last-child {
+      border-bottom: none;
+    }
+
+    .type-specimen__sample {
+      margin-bottom: 8px;
+    }
+
+    .type-specimen__meta {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--neutral-400);
+    }
+
+    /* --- Token Table --- */
+
+    .token-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-small);
+    }
+
+    .token-table th {
+      font-family: var(--font-heading);
+      font-weight: var(--weight-semibold);
+      font-size: var(--text-xs);
+      letter-spacing: var(--tracking-wider);
+      text-transform: uppercase;
+      color: var(--neutral-500);
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--neutral-200);
+    }
+
+    .token-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--neutral-100);
+      vertical-align: middle;
+    }
+
+    .token-table td:first-child {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--navy-500);
+      white-space: nowrap;
+    }
+
+    .token-table tr:hover td {
+      background: var(--navy-50);
+    }
+
+    /* --- Spacing Demo --- */
+
+    .spacing-demo {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      padding: 24px;
+      background: var(--neutral-0);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--neutral-200);
+    }
+
+    .spacing-bar {
+      background: var(--navy-100);
+      border: 1px solid var(--navy-200);
+      border-radius: 2px;
+      width: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 4px;
+    }
+
+    .spacing-bar-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--navy-500);
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+      margin-bottom: 4px;
+    }
+
+    /* --- Subsection --- */
+
+    .subsection {
+      margin-top: 64px;
+    }
+
+    .subsection-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-semibold);
+      color: var(--navy-700);
+      margin-bottom: 8px;
+    }
+
+    .subsection-desc {
+      font-size: var(--text-small);
+      color: var(--neutral-500);
+      margin-bottom: 24px;
+      max-width: 600px;
+    }
+
+    /* --- Logo Inline SVGs --- */
+
+    .logo-mark {
+      display: inline-block;
+    }
+
+    .logo-mark--navy circle { fill: #1E3A5F; }
+    .logo-mark--navy line { stroke: #FFFFFF; }
+
+    .logo-mark--white circle { fill: #FFFFFF; }
+    .logo-mark--white line { stroke: #1E3A5F; }
+
+    .logo-mark--inverted circle { fill: #FFFFFF; }
+    .logo-mark--inverted line { stroke: #060D18; }
+
+    /* --- Utility --- */
+
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .gap-8 { gap: 8px; }
+    .gap-16 { gap: 16px; }
+    .gap-24 { gap: 24px; }
+    .gap-32 { gap: 32px; }
+    .gap-48 { gap: 48px; }
+    .text-center { text-align: center; }
+    .mt-24 { margin-top: 24px; }
+    .mt-32 { margin-top: 32px; }
+    .mt-48 { margin-top: 48px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+    .mb-32 { margin-bottom: 32px; }
+
+    /* --- Placeholder for content that 5.2 will populate --- */
+
+    .placeholder-content {
+      background: var(--neutral-100);
+      border: 2px dashed var(--neutral-300);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      text-align: center;
+      color: var(--neutral-400);
+      font-family: var(--font-mono);
+      font-size: var(--text-small);
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- ============================================================
+         COVER
+         ============================================================ -->
+    <header class="deck-cover">
+      <svg class="logo-hero" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="cover-clip">
+            <circle cx="50" cy="50" r="48"/>
+          </clipPath>
+        </defs>
+        <circle cx="50" cy="50" r="48" fill="#FFFFFF"/>
+        <line x1="75" y1="10" x2="25" y2="90" stroke="#1E3A5F" stroke-width="16" stroke-linecap="round" clip-path="url(#cover-clip)"/>
+      </svg>
+      <h1>Angkin</h1>
+      <p class="subtitle">UI Treatment Deck for a unified platform of 148 Philippine compliance calculator tools</p>
+      <p class="meta">angkin.ph &middot; 2C Radical Clarity &middot; March 2026</p>
+    </header>
+
+    <!-- ============================================================
+         TABLE OF CONTENTS
+         ============================================================ -->
+    <nav class="deck-toc" id="toc">
+      <div class="toc-grid">
+        <h2 class="toc-title">Contents</h2>
+        <a class="toc-item" href="#section-01"><span class="toc-number">01</span> Brand Mark</a>
+        <a class="toc-item" href="#section-02"><span class="toc-number">02</span> Color System</a>
+        <a class="toc-item" href="#section-03"><span class="toc-number">03</span> Typography</a>
+        <a class="toc-item" href="#section-04"><span class="toc-number">04</span> Spacing &amp; Layout</a>
+        <a class="toc-item" href="#section-05"><span class="toc-number">05</span> Component Library</a>
+        <a class="toc-item" href="#section-06"><span class="toc-number">06</span> Data Display</a>
+        <a class="toc-item" href="#section-07"><span class="toc-number">07</span> Sub-Tool Branding</a>
+        <a class="toc-item" href="#section-08"><span class="toc-number">08</span> Navigation &amp; Layout</a>
+        <a class="toc-item" href="#section-09"><span class="toc-number">09</span> Iconography</a>
+        <a class="toc-item" href="#section-10"><span class="toc-number">10</span> Dark Mode</a>
+        <a class="toc-item" href="#section-11"><span class="toc-number">11</span> Mobile Treatment</a>
+        <a class="toc-item" href="#section-12"><span class="toc-number">12</span> Example Screens</a>
+      </div>
+    </nav>
+
+    <!-- ============================================================
+         SECTION 01: BRAND MARK
+         ============================================================ -->
+    <section class="deck-section" id="section-01">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 01</span>
+          <h2 class="section-title">Brand Mark</h2>
+          <p class="section-desc">The 2C Radical Clarity mark: a circle with diagonal slash forming a negative-space 'A'. Deep navy on white, or inverted for dark contexts. Every surface of Angkin begins here.</p>
+        </div>
+
+        <!-- Content populated in 5.2 -->
+        <div class="placeholder-content">Section 01 content &mdash; Logo variants, clear space, sizing, misuse rules</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 02: COLOR SYSTEM
+         ============================================================ -->
+    <section class="deck-section" id="section-02">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 02</span>
+          <h2 class="section-title">Color System</h2>
+          <p class="section-desc">Navy-undertoned institutional palette. Three scales (navy, gold, neutral), four semantic colors, six chart colors, and ten compliance tokens. ~80 CSS custom properties.</p>
+        </div>
+
+        <div class="placeholder-content">Section 02 content &mdash; Navy scale, gold scale, neutrals, semantic, chart colors, contrast audit</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 03: TYPOGRAPHY
+         ============================================================ -->
+    <section class="deck-section" id="section-03">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 03</span>
+          <h2 class="section-title">Typography</h2>
+          <p class="section-desc">Three fonts, three jobs. Plus Jakarta Sans for geometric authority in headings, DM Sans for warm readability in body text, IBM Plex Mono for institutional precision in peso amounts.</p>
+        </div>
+
+        <div class="placeholder-content">Section 03 content &mdash; Font specimens, type scale, weight usage, peso display rules</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 04: SPACING & LAYOUT
+         ============================================================ -->
+    <section class="deck-section" id="section-04">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 04</span>
+          <h2 class="section-title">Spacing &amp; Layout</h2>
+          <p class="section-desc">4px base unit, 8px rhythm. 16-step spacing scale, four content widths, responsive grid, navy-tinted shadows, and seven radius steps. The invisible architecture of 148 tools.</p>
+        </div>
+
+        <div class="placeholder-content">Section 04 content &mdash; Spacing scale, container widths, grid, radius, shadows, breakpoints</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 05: COMPONENT LIBRARY
+         ============================================================ -->
+    <section class="deck-section" id="section-05">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 05</span>
+          <h2 class="section-title">Component Library</h2>
+          <p class="section-desc">Buttons, inputs, cards, badges, tooltips, modals, progress bars, tabs. Every component in every state: default, hover, focus, disabled, active, error.</p>
+        </div>
+
+        <div class="placeholder-content">Section 05 content &mdash; Buttons, form inputs, cards, modals, wizard pattern, all states</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 06: DATA DISPLAY
+         ============================================================ -->
+    <section class="deck-section" id="section-06">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 06</span>
+          <h2 class="section-title">Data Display</h2>
+          <p class="section-desc">The result card moment is the most important design decision. Large peso amounts in IBM Plex Mono, comparison tables, dotted-leader breakdowns, regime cards, stat blocks.</p>
+        </div>
+
+        <div class="placeholder-content">Section 06 content &mdash; Peso amount display, comparison tables, progress bars, badges, stat blocks</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 07: SUB-TOOL BRANDING
+         ============================================================ -->
+    <section class="deck-section" id="section-07">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 07</span>
+          <h2 class="section-title">Sub-Tool Branding</h2>
+          <p class="section-desc">Angkin is the brand, tools are features. No per-tool accent colors. TaxKlaro and Inheritance are named flagships; everything else is "Angkin &rsaquo; Category &rsaquo; Tool."</p>
+        </div>
+
+        <div class="placeholder-content">Section 07 content &mdash; Tool cards, "by Angkin" badge, category system, tool headers, featured treatment</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 08: NAVIGATION & LAYOUT PATTERNS
+         ============================================================ -->
+    <section class="deck-section" id="section-08">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 08</span>
+          <h2 class="section-title">Navigation &amp; Layout Patterns</h2>
+          <p class="section-desc">Two navigation modes: top bar for public pages, navy sidebar for authenticated views. Breadcrumbs, mobile hamburger, wizard progress, mega-menu for 148 tools.</p>
+        </div>
+
+        <div class="placeholder-content">Section 08 content &mdash; Top nav, sidebar, breadcrumbs, mobile nav, tab bar, mega-menu</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 09: ICONOGRAPHY
+         ============================================================ -->
+    <section class="deck-section" id="section-09">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 09</span>
+          <h2 class="section-title">Iconography</h2>
+          <p class="section-desc">Phosphor Icons, regular weight (1.5px stroke) for UI, duotone for category icons. 14 compliance domains mapped to specific icons. No filled icons, no emoji, no mixed libraries.</p>
+        </div>
+
+        <div class="placeholder-content">Section 09 content &mdash; Icon style, category icons, UI icons, archetype icons, anti-patterns</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 10: DARK MODE
+         ============================================================ -->
+    <section class="deck-section" id="section-10">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 10</span>
+          <h2 class="section-title">Dark Mode</h2>
+          <p class="section-desc">Navy-black, not pure black. Four-tier surface elevation, shifted primary from navy-600 to navy-400, warm off-white text, gold accent that naturally excels on dark surfaces.</p>
+        </div>
+
+        <div class="placeholder-content">Section 10 content &mdash; Dark surfaces, dark palette, logo inversion, dark mockups, contrast audit</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 11: MOBILE TREATMENT
+         ============================================================ -->
+    <section class="deck-section" id="section-11">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 11</span>
+          <h2 class="section-title">Mobile Treatment</h2>
+          <p class="section-desc">375px viewport examples. Touch targets, mobile nav, card stacking, column-reverse buttons for thumb zone, type scale reduction, safe-area-inset handling.</p>
+        </div>
+
+        <div class="placeholder-content">Section 11 content &mdash; Mobile mockups, touch targets, responsive patterns, type scale adjustments</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 12: EXAMPLE SCREENS
+         ============================================================ -->
+    <section class="deck-section" id="section-12">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">Section 12</span>
+          <h2 class="section-title">Example Screens</h2>
+          <p class="section-desc">Full-page mockups at 1280px: Angkin home, TaxKlaro landing, TaxKlaro results, Inheritance wizard, and a generic new tool template.</p>
+        </div>
+
+        <div class="placeholder-content">Section 12 content &mdash; Full-page mockups with browser chrome frames</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer style="background: var(--navy-600); color: var(--navy-200); padding: 48px; text-align: center;">
+      <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 16px;">
+        <defs><clipPath id="footer-clip"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+        <circle cx="50" cy="50" r="48" fill="#FFFFFF"/>
+        <line x1="75" y1="10" x2="25" y2="90" stroke="#1E3A5F" stroke-width="16" stroke-linecap="round" clip-path="url(#footer-clip)"/>
+      </svg>
+      <p style="font-family: var(--font-heading); font-size: var(--text-small); font-weight: var(--weight-medium);">
+        Angkin UI Treatment Deck &middot; 2C Radical Clarity &middot; angkin.ph
+      </p>
+      <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--navy-300); margin-top: 8px;">
+        Generated March 2026 &middot; All design tokens are production-ready CSS custom properties
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- ============================================================
+       SCROLL BEHAVIOR — Compact TOC on scroll
+       ============================================================ -->
+  <script>
+    const toc = document.getElementById('toc');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY > 300;
+      if (scrolled !== lastScroll) {
+        toc.classList.toggle('scrolled', scrolled);
+        lastScroll = scrolled;
+      }
+    }, { passive: true });
+  </script>
+</body>
+</html>
