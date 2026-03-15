@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 900
-- **Analyzed:** 329
-- **Pending:** 571
-- **Convergence:** 36.6%
+- **Total aspects:** 905
+- **Analyzed:** 330
+- **Pending:** 575
+- **Convergence:** 36.5%
 
 ---
 
@@ -394,7 +394,12 @@
 - [ ] 1.09e — Slay the Spire 2 co-op design lessons: how the sequel's cooperative multiplayer (shared run with distinct roles) maps to Robot Uprising co-op models; 3M copies in one week as market validation for cooperative deckbuilder-adjacent design; what changed from solo to co-op and what broke
 - [ ] 1.10 — The Bazaar: real-time autobattler deckbuilding, item synergies, economic meta
 - [ ] 1.11 — Balatro: rule-breaking combo system, poker as base mechanic, joker synergies
-- [ ] 1.12 — Baba Is You: rule manipulation as mechanic, emergent interactions from simple rules
+- [x] 1.12 — Baba Is You: rule manipulation as mechanic, emergent interactions from simple rules
+  - [ ] 1.12a — The Comprehension Cliff: managing exponential cognitive load from interacting rules — how Robot Uprising's Inspector solves what Baba's branching paths merely mitigate; per-rule-count UI thresholds and intervention design
+  - [ ] 1.12b — Spatial rules vs. sequential rules: Baba's physical word arrangement creates emergent spatial constraints; what if Robot Uprising's workbench arranged rules spatially (proximity, adjacency) instead of sequentially (ordered list)?
+  - [ ] 1.12c — The identity swap mechanic translated: Baba's "ROCK IS YOU" identity rewriting as Robot Uprising's blueprint versatility — same unit type, different rules, completely different emergent behavior; designing for "identity aha" moments in the workbench
+  - [ ] 1.12d — Zero-cost experimentation spectrum: Baba's infinite undo → Robot Uprising's sealed watch → Inspector post-hoc analysis; the emotional arc difference between instant feedback and deferred feedback; designing the optimal feedback delay
+  - [ ] 1.12e — Meta-rule recursion depth: Baba's TEXT/LEVEL nouns as precedent for Command agent's reassign/reroute/prioritize skills; how deep can "rules about rules" go before the game becomes incomprehensible?
 
 ### RTS / Automation / Factory Games
 - [ ] 1.13 — StarCraft Brood War: information warfare, scouting, fog of war, macro/micro split
