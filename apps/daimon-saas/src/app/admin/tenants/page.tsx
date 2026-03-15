@@ -6,6 +6,15 @@ import { createSupabaseAdminClient } from '@/lib/supabase/admin'
 
 import { AdminLayout } from '@/components/layout/admin-layout'
 import { EmptyState } from '@/components/ui/empty-state'
+import {
+  Pagination as PaginationRoot,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+} from '@/components/ui/pagination'
 import { FiltersBar } from './filters-bar'
 
 export const metadata: Metadata = {
@@ -199,77 +208,47 @@ function Pagination({
     if (i === 1 || i === totalPages || (i >= page - 2 && i <= page + 2)) {
       pages.push(i)
     } else if (pages[pages.length - 1] !== null) {
-      pages.push(null) // ellipsis
+      pages.push(null)
     }
   }
 
-  const btnBase: React.CSSProperties = {
-    fontFamily: 'var(--font-inter)',
-    fontSize: '14px',
-    padding: '4px 10px',
-    border: '1px solid #E5E7EB',
-    background: '#FFFFFF',
-    color: '#6B7280',
-    cursor: 'pointer',
-    borderRadius: 0,
-    textDecoration: 'none',
-    display: 'inline-flex',
-    alignItems: 'center',
-  }
-
   return (
-    <div
-      className="flex items-center justify-between flex-wrap gap-3"
-      style={{ padding: '16px 0', marginTop: '0' }}
-    >
-      <span style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#6B7280' }}>
+    <div className="flex items-center justify-between flex-wrap gap-3 py-4">
+      <span className="text-sm text-muted-foreground">
         Showing {start.toLocaleString()}–{end.toLocaleString()} of {total.toLocaleString()} tenants
       </span>
 
-      <div className="flex items-center gap-1">
-        {/* Previous */}
-        {page > 1 ? (
-          <Link href={pageHref(page - 1)} style={btnBase}>
-            ← Previous
-          </Link>
-        ) : (
-          <span style={{ ...btnBase, opacity: 0.4, cursor: 'not-allowed' }}>← Previous</span>
-        )}
+      <PaginationRoot>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              href={page > 1 ? pageHref(page - 1) : undefined}
+              className={page <= 1 ? 'pointer-events-none opacity-40' : ''}
+              text="Previous"
+            />
+          </PaginationItem>
 
-        {/* Page numbers */}
-        {pages.map((p, idx) =>
-          p === null ? (
-            <span
-              key={`ellipsis-${idx}`}
-              style={{ ...btnBase, border: 'none', cursor: 'default' }}
-            >
-              …
-            </span>
-          ) : (
-            <Link
-              key={p}
-              href={pageHref(p)}
-              style={{
-                ...btnBase,
-                background: p === page ? '#0C1F40' : '#FFFFFF',
-                color: p === page ? '#FFFFFF' : '#6B7280',
-                borderColor: p === page ? '#0C1F40' : '#E5E7EB',
-              }}
-            >
-              {p}
-            </Link>
-          )
-        )}
+          {pages.map((p, idx) => (
+            <PaginationItem key={p === null ? `ellipsis-${idx}` : p} className="hidden sm:block">
+              {p === null ? (
+                <PaginationEllipsis />
+              ) : (
+                <PaginationLink href={pageHref(p)} isActive={p === page}>
+                  {p}
+                </PaginationLink>
+              )}
+            </PaginationItem>
+          ))}
 
-        {/* Next */}
-        {page < totalPages ? (
-          <Link href={pageHref(page + 1)} style={btnBase}>
-            Next →
-          </Link>
-        ) : (
-          <span style={{ ...btnBase, opacity: 0.4, cursor: 'not-allowed' }}>Next →</span>
-        )}
-      </div>
+          <PaginationItem>
+            <PaginationNext
+              href={page < totalPages ? pageHref(page + 1) : undefined}
+              className={page >= totalPages ? 'pointer-events-none opacity-40' : ''}
+              text="Next"
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </PaginationRoot>
     </div>
   )
 }

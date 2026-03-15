@@ -30,7 +30,7 @@ Remaining: 207
 - [x] **Stage 17**: Replace `src/components/ui/confirm-dialog.tsx` — rebuild with shadcn AlertDialog, preserve onConfirm/onCancel callbacks (2026-03-15)
 - [x] **Stage 18**: Replace `src/components/ui/table.tsx` — swap with shadcn Table (Table, TableBody, TableCell, TableHead, TableHeader, TableRow), update all import sites (2026-03-15)
 - [x] **Stage 19**: Replace `src/components/ui/tabs.tsx` — swap with shadcn Tabs, update all import sites (2026-03-15)
-- [ ] **Stage 20**: Replace `src/components/ui/pagination.tsx` — swap with shadcn Pagination, update all import sites
+- [x] **Stage 20**: Replace `src/components/ui/pagination.tsx` — swap with shadcn Pagination, update all import sites (2026-03-15)
 - [ ] **Stage 21**: Replace `src/components/ui/toast.tsx` — swap with shadcn Toast + Toaster + useToast hook, update all import sites
 - [ ] **Stage 22**: Replace `src/components/ui/alert-banner.tsx` — swap with shadcn Alert, preserve variant names (info, warning, error, success), update all import sites
 - [ ] **Stage 23**: Replace `src/components/ui/skeleton-loader.tsx` — swap with shadcn Skeleton, update all import sites
