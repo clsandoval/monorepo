@@ -89,7 +89,7 @@ export default function ChangelogPage() {
                 >
                   {formatDate(entry.date)}
                 </time>
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-muted text-foreground border border-border">
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-sm font-semibold bg-muted text-foreground border border-border">
                   {entry.version}
                 </span>
               </div>
@@ -105,7 +105,7 @@ export default function ChangelogPage() {
                   <span
                     key={cat}
                     className={cn(
-                      'text-xs font-inter font-semibold px-2 py-0.5 rounded',
+                      'text-sm font-inter font-semibold px-2 py-0.5 rounded',
                       CATEGORY_STYLES[cat]
                     )}
                   >

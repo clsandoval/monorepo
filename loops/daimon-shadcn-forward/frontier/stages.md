@@ -129,7 +129,7 @@ Each stage: navigate route at 375x812 via Playwright, assert no horizontal overf
 
 - [x] **Stage 98**: Mobile verify `/` — hero stacks vertically, pricing cards stack, mobile hamburger nav works (2026-03-15)
 - [x] **Stage 99**: Mobile verify `/about` — content readable, no overflow (2026-03-15)
-- [ ] **Stage 100**: Mobile verify `/changelog` — entries stack vertically
+- [x] **Stage 100**: Mobile verify `/changelog` — entries stack vertically (2026-03-15)
 - [ ] **Stage 101**: Mobile verify `/login` — form fills viewport width with padding, inputs full-width
 - [ ] **Stage 102**: Mobile verify `/signup` — form fills viewport width, all fields accessible, password strength bar visible
 - [ ] **Stage 103**: Mobile verify `/reset-password` — form centered, full-width input
