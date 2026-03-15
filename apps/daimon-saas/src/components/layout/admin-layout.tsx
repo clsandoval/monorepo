@@ -16,6 +16,10 @@ import {
 } from 'lucide-react'
 import { DashboardTopbar } from '@/components/layout/dashboard-topbar'
 import { useAuthContext } from '@/lib/auth/auth-context'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
+import { cn } from '@/lib/utils'
 
 interface AdminNavItemConfig {
   href: string
@@ -40,28 +44,16 @@ function AdminNavItem({ href, label, icon }: AdminNavItemConfig) {
   return (
     <Link
       href={href}
-      className="flex items-center gap-3 mx-2 px-3 rounded-none transition-colors duration-150"
-      style={{
-        height: '44px',
-        color: isActive ? '#FFFFFF' : 'rgba(255,255,255,0.65)',
-        background: isActive
-          ? 'rgba(255,255,255,0.10)'
-          : 'transparent',
-      }}
-      onMouseEnter={(e) => {
-        if (!isActive) {
-          e.currentTarget.style.color = '#FFFFFF'
-          e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!isActive) {
-          e.currentTarget.style.color = 'rgba(255,255,255,0.65)'
-          e.currentTarget.style.background = 'transparent'
-        }
-      }}
+      aria-label={label}
+      aria-current={isActive ? 'page' : undefined}
+      className={cn(
+        'flex items-center gap-3 mx-2 px-3 h-11 transition-colors duration-150',
+        isActive
+          ? 'text-white bg-white/10'
+          : 'text-white/65 hover:text-white hover:bg-white/5'
+      )}
     >
-      <span className="flex-shrink-0">{icon}</span>
+      <span className="flex-shrink-0" aria-hidden="true">{icon}</span>
       <span className="text-sm font-medium">{label}</span>
     </Link>
   )
@@ -80,51 +72,21 @@ function AdminSidebar() {
 
   return (
     <aside
-      className="fixed left-0 top-0 flex flex-col overflow-y-auto"
-      style={{
-        width: '240px',
-        height: '100vh',
-        background: '#0C1F40',
-        borderRight: '1px solid rgba(255,255,255,0.06)',
-        zIndex: 100,
-      }}
+      aria-label="Admin sidebar navigation"
+      className="fixed left-0 top-0 flex flex-col overflow-y-auto w-60 h-screen bg-foreground border-r border-white/[0.06] z-[100]"
     >
       {/* Logo Area with ADMIN badge */}
       <Link
         href="/admin"
-        className="flex items-center gap-2 flex-shrink-0 transition-opacity duration-150 hover:opacity-85"
-        style={{
-          height: '64px',
-          padding: '0 16px',
-          borderBottom: '1px solid rgba(255,255,255,0.08)',
-        }}
+        aria-label="Daimon Admin — go to admin home"
+        className="flex items-center gap-2 flex-shrink-0 h-16 px-4 border-b border-white/[0.08] transition-opacity duration-150 hover:opacity-85"
       >
-        <Rocket size={24} color="#FFFFFF" />
-        <span
-          style={{
-            fontFamily: 'var(--font-archivo)',
-            fontSize: '16px',
-            fontWeight: 700,
-            color: '#FFFFFF',
-          }}
-        >
+        <Rocket size={24} className="text-white" aria-hidden="true" />
+        <span className="font-archivo text-base font-bold text-white">
           Daimon
         </span>
         {/* ADMIN badge */}
-        <span
-          style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '10px',
-            fontWeight: 700,
-            color: '#0C1F40',
-            background: '#F6AE72',
-            padding: '2px 6px',
-            borderRadius: 0,
-            marginLeft: '8px',
-            flexShrink: 0,
-            lineHeight: 1.4,
-          }}
-        >
+        <span className="font-sans text-[10px] font-bold text-foreground bg-[#F6AE72] px-1.5 py-0.5 ml-2 flex-shrink-0 leading-snug">
           ADMIN
         </span>
       </Link>
@@ -137,49 +99,34 @@ function AdminSidebar() {
       </nav>
 
       {/* Sidebar Footer */}
-      <div
-        className="flex items-center gap-[10px] flex-shrink-0"
-        style={{
-          padding: '16px',
-          borderTop: '1px solid rgba(255,255,255,0.08)',
-          background: '#0C1F40',
-          zIndex: 1,
-        }}
-      >
+      <div className="flex items-center gap-2.5 flex-shrink-0 p-4 border-t border-white/[0.08] bg-foreground z-[1]">
         {/* User Avatar */}
         <div
-          className="flex items-center justify-center flex-shrink-0 rounded-full text-xs font-semibold"
-          style={{
-            width: '24px',
-            height: '24px',
-            background: 'rgba(255,255,255,0.15)',
-            color: '#FFFFFF',
-          }}
+          aria-hidden="true"
+          className="flex items-center justify-center flex-shrink-0 size-6 rounded-full bg-white/15 text-white text-xs font-semibold"
         >
           {initials}
         </div>
 
         {/* User Email */}
         <span
-          className="flex-1 truncate text-xs"
-          style={{ color: 'rgba(255,255,255,0.65)' }}
+          className="flex-1 truncate text-xs text-white/65"
+          aria-label={`Signed in as ${userEmail}`}
           title={userEmail}
         >
           {userEmail}
         </span>
 
         {/* Logout Button */}
-        <button
+        <Button
+          variant="ghost"
+          size="icon-xs"
           onClick={handleSignOut}
-          className="flex-shrink-0 transition-colors duration-150"
-          style={{ color: 'rgba(255,255,255,0.45)' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#FFFFFF')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
-          title="Sign out"
-          aria-label="Sign out"
+          className="flex-shrink-0 text-white/45 hover:text-white hover:bg-transparent"
+          aria-label="Sign out of Daimon"
         >
-          <LogOut size={16} />
-        </button>
+          <LogOut size={16} aria-hidden="true" />
+        </Button>
       </div>
     </aside>
   )
@@ -189,59 +136,26 @@ function AdminSidebar() {
 
 function AdminMobileBlock() {
   return (
-    <div
-      className="flex lg:hidden min-h-screen items-center justify-center"
-      style={{ background: '#F7F7F7', padding: '32px 16px' }}
-    >
-      <div
-        style={{
-          maxWidth: '400px',
-          width: '100%',
-          padding: '40px',
-          background: '#FFFFFF',
-          border: '1px solid rgba(12,31,64,0.08)',
-          textAlign: 'center',
-        }}
-      >
+    <div className="flex lg:hidden min-h-screen items-center justify-center bg-background px-4 py-8">
+      <Card className="max-w-[400px] w-full p-10 text-center">
         <Monitor
           size={48}
-          color="#0C1F40"
-          style={{ opacity: 0.4, margin: '0 auto 16px' }}
+          className="text-foreground/40 mx-auto mb-4"
+          aria-hidden="true"
         />
-        <h2
-          style={{
-            fontFamily: 'var(--font-archivo)',
-            fontSize: '20px',
-            fontWeight: 600,
-            color: '#0C1F40',
-            marginBottom: '8px',
-          }}
-        >
+        <h2 className="font-archivo text-xl font-semibold text-foreground mb-2">
           Desktop only
         </h2>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '15px',
-            color: 'rgba(12,31,64,0.70)',
-            marginBottom: '20px',
-            lineHeight: 1.5,
-          }}
-        >
+        <p className="font-sans text-[15px] text-muted-foreground mb-5 leading-relaxed">
           The admin panel is not available on mobile devices. Please use a desktop browser.
         </p>
         <Link
           href="/dashboard"
-          style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
-            color: '#0C1F40',
-            textDecoration: 'underline',
-          }}
+          className="font-sans text-sm text-foreground underline"
         >
-          ← Back to Dashboard
+          &larr; Back to Dashboard
         </Link>
-      </div>
+      </Card>
     </div>
   )
 }
@@ -269,26 +183,18 @@ export function AdminLayout({
       <AdminMobileBlock />
 
       {/* Full admin panel — shown at 1024px and above */}
-      <div
-        className="hidden lg:flex min-h-screen"
-        style={{ background: '#F7F7F7' }}
-      >
+      <div className="hidden lg:flex min-h-screen bg-background">
         <AdminSidebar />
 
         {/* Mobile nav overlay (for tablet-ish scenarios) */}
         {mobileNavOpen && (
           <div
-            className="fixed inset-0 lg:hidden"
-            style={{ zIndex: 200 }}
+            className="fixed inset-0 lg:hidden z-[200]"
             onClick={() => setMobileNavOpen(false)}
           >
+            <div className="absolute inset-0 bg-foreground/50" />
             <div
-              className="absolute inset-0"
-              style={{ background: 'rgba(12,31,64,0.50)' }}
-            />
-            <div
-              className="absolute left-0 top-0 h-full"
-              style={{ width: '240px', zIndex: 201 }}
+              className="absolute left-0 top-0 h-full w-60 z-[201]"
               onClick={(e) => e.stopPropagation()}
             >
               <AdminSidebar />
@@ -297,7 +203,7 @@ export function AdminLayout({
         )}
 
         {/* Main area */}
-        <div className="flex flex-1 flex-col lg:ml-[240px]">
+        <div className="flex flex-1 flex-col lg:ml-60">
           <DashboardTopbar
             pageTitle={pageTitle}
             tenantName={tenantName}
@@ -305,10 +211,7 @@ export function AdminLayout({
             onMenuClick={() => setMobileNavOpen(true)}
           />
 
-          <main
-            className="flex-1 p-8 w-full"
-            style={{ maxWidth: '1200px' }}
-          >
+          <main className="flex-1 p-8 w-full max-w-[1200px]">
             {children}
           </main>
         </div>
