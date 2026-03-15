@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 769
-- **Analyzed:** 303
-- **Pending:** 466
-- **Convergence:** 39.4%
+- **Total aspects:** 774
+- **Analyzed:** 304
+- **Pending:** 470
+- **Convergence:** 39.3%
 
 ---
 
@@ -427,7 +427,12 @@
   - [ ] 2.00b-iii — Personality animation intensity as accessibility concern: players with photosensitivity, ADHD, or sensory processing differences may find idle animations distracting or triggering; design of the animation intensity slider (Minimal/Standard/Detailed) and what each level preserves vs. removes; interaction with reduced-motion OS settings
   - [ ] 2.00b-iv — Enemy agent personality as intelligence signal: should enemy units also have callsigns, personality animations, and legible behavior patterns? If yes, the player can "read" enemy personality from observation ("that enemy scout is cautious — it retreats early"); if no, enemies remain opaque and alien. Interaction with counter-intelligence (2.16) and information warfare
 - [x] 2.00c — Hybrid: deterministic core with optional LLM enhancement (players who want it pay API cost, others play offline)
-- [ ] 2.00d — LLM-native: lean into it, make token cost a resource, make the AI's reasoning visible and part of the game
+- [x] 2.00d — LLM-native: lean into it, make token cost a resource, make the AI's reasoning visible and part of the game
+  - [ ] 2.00d-i — Local vs. cloud inference as a game design constraint: how the choice between local models (free, limited hardware) and cloud APIs (expensive, universal hardware) shapes the game's reach and business model; the "bring your own API key" model vs. bundled inference
+  - [ ] 2.00d-ii — Temperature as difficulty modifier: low temperature = predictable agents = easier missions; high temperature = creative but unreliable agents = harder missions; temperature as an explicit player-controlled difficulty dial separate from mission design
+  - [ ] 2.00d-iii — Prompt injection as an enemy mechanic: enemy agents send adversarial signals designed to confuse the player's LLM agents; buffer sanitization as a defensive skill; the cybersecurity dimension
+  - [ ] 2.00d-iv — Model selection as a progression mechanic: early missions use a small fast model; late missions unlock larger smarter models; agents get genuinely smarter as the campaign progresses
+  - [ ] 2.00d-v — The "agent said something wrong" player trust problem: when an LLM agent hallucinates a false report the player loses trust in all reports; trust calibration as emergent gameplay and direct analogue to real-world AI trust issues
 - [ ] 2.00e — The meta-level: building systems that build systems — how does each intelligence model support the "factory of agents" feeling?
 - [ ] 2.00f — No global coordinator as design constraint: agents that only know their immediate neighbors; emergent swarm behavior from local decisions only (from TIS-100's no-orchestrator architecture)
 - [ ] 2.00g — The personality ceiling problem: deterministic agents risk feeling like vending machines; named agents with visual personality (idle animations, signal format quirks, "voice"); how much personality can be layered onto a deterministic core without touching the execution model?
