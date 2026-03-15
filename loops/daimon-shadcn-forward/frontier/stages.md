@@ -70,7 +70,7 @@ Remaining: 164
 - [x] **Stage 51**: Replace `src/components/billing/subscription-lifecycle-watcher.tsx` — swap any UI elements to shadcn (this may be logic-only) (2026-03-15)
 - [x] **Stage 52**: Replace `src/components/integrations/discord-connection-card.tsx` — rebuild with shadcn Card + Badge + Button (2026-03-15)
 - [x] **Stage 53**: Replace `src/components/integrations/service-grid.tsx` — rebuild with shadcn Card grid (2026-03-15)
-- [ ] **Stage 54**: Replace `src/components/settings/account-section.tsx` — rebuild with shadcn Card + Input + Button + Label
+- [x] **Stage 54**: Replace `src/components/settings/account-section.tsx` — rebuild with shadcn Card + Input + Button + Label (2026-03-15)
 - [ ] **Stage 55**: Replace `src/components/settings/workspace-section.tsx` — rebuild with shadcn Card + Input + Button + Label
 - [ ] **Stage 56**: Replace `src/components/settings/discord-section.tsx` — rebuild with shadcn Card + Badge + Button
 - [ ] **Stage 57**: Replace `src/components/settings/danger-zone-section.tsx` — rebuild with shadcn Card (destructive border) + AlertDialog for confirmation
