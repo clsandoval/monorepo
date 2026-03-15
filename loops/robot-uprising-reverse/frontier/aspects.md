@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 840
-- **Analyzed:** 317
-- **Pending:** 523
-- **Convergence:** 37.7%
+- **Total aspects:** 845
+- **Analyzed:** 318
+- **Pending:** 527
+- **Convergence:** 37.6%
 
 ---
 
@@ -547,7 +547,12 @@
 
 ### Hooks (Reactive Wiring)
 - [x] 3.08 — Hook taxonomy: what events can trigger hooks? What actions can hooks fire?
-- [ ] 3.09 — Hook chaining: can hooks trigger other hooks? Cascade effects, infinite loops, back pressure
+- [x] 3.09 — Hook chaining: can hooks trigger other hooks? Cascade effects, infinite loops, back pressure
+  - [ ] 3.09a-new — Cascade ordering semantics: when multiple units' hot hooks trigger in the same cascade step, what determines evaluation order? Unit production order? Spatial proximity? Hook slot number? The ordering rule determines which cascades "win" when two signals compete for the same buffer slot.
+  - [ ] 3.09b — Cascade visualization design: specific animation, timing, and audio design for hot cascades racing through the network; spark travel speed, visual splitting at branch points, crossing cascade visual treatment
+  - [ ] 3.09c — Hot/cold as enemy design lever: enemy architectures using hot/cold strategically; all-hot (fast but detectable via EM), all-cold (stealthy but slow); boss enemies dynamically switching modes mid-battle
+  - [ ] 3.09d — Emergent patterns from delayed chaining: catalog of "Factorio combinator" patterns from 1-tick-delay cold hooks — heartbeat generators, edge detectors, memory locks, priority arbiters, load balancers; advanced techniques veterans discover
+  - [ ] 3.09e — Cascade depth as competitive meta: optimal cascade depth as strategic variable in Gauntlet; shallow-and-fast (2-hop hot) vs. deep-and-slow (4-hop mixed) as distinct competitive archetypes
 - [ ] 3.09a — Blocking hook semantics: hooks that require both sender and receiver to be "ready" (not busy, in range, buffer not full) — implicit timing without a global clock (from TIS-100 blocking port model)
 - [ ] 3.10a — Hook range as spatial mechanic: hooks that only fire within a configurable range radius; design options (fixed range, configurable per hook, range extenders as skill, relay positioning as tactical mini-game); how range requirements choreograph agent deployment
 - [ ] 3.10 — Hook visualization: how does the player see the wiring between agents? How are active hooks shown during execution?
