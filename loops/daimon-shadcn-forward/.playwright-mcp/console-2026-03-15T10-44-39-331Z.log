@@ -1,0 +1,4 @@
+[     269ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3088/site.webmanifest:0
+[     270ms] [ERROR] Manifest fetch from http://localhost:3088/site.webmanifest failed, code 404 @ http://localhost:3088/admin/audit-log:76
+[     364ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3088/site.webmanifest:0
+[     364ms] [ERROR] Manifest fetch from http://localhost:3088/site.webmanifest failed, code 404 @ http://localhost:3088/admin/audit-log:0
