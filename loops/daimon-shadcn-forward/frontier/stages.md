@@ -1,7 +1,7 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 42
+Completed: 43
 Remaining: 173
 
 ---
@@ -59,7 +59,7 @@ Remaining: 173
 
 ## Replace Domain Components (stages 43–61) `[replace-domain]`
 
-- [ ] **Stage 43**: Replace `src/components/dashboard/dashboard-status-cards.tsx` — swap internals to shadcn Card + Badge
+- [x] **Stage 43**: Replace `src/components/dashboard/dashboard-status-cards.tsx` — swap internals to shadcn Card + Badge (2026-03-15)
 - [ ] **Stage 44**: Replace `src/components/dashboard/onboarding-checklist.tsx` — rebuild with shadcn Card + Checkbox + progress pattern
 - [ ] **Stage 45**: Replace `src/components/dashboard/quick-stats-row.tsx` — swap internals to shadcn Card
 - [ ] **Stage 46**: Replace `src/components/billing/current-plan-card.tsx` — rebuild with shadcn Card + Badge + Button
