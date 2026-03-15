@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 954
-- **Analyzed:** 340
-- **Pending:** 614
+- **Total aspects:** 959
+- **Analyzed:** 341
+- **Pending:** 618
 - **Convergence:** 35.6%
 
 ---
@@ -811,7 +811,12 @@
   - [ ] 6.04d — Streamer overlay mode: enhanced-legibility rendering for stream viewers — thicker channel lines, larger buffer bars, video-compression-optimized color palette; Twitch extension integration; OBS source capture considerations
   - [ ] 6.04e — "Architecture beauty shot" screenshot mode: dedicated Plan screen screenshot rendering — no UI chrome, board + wiring only; high-res export for Reddit/Twitter image sharing; the Factorio screenshot feature as reference
 - [x] 6.05 — PC/Steam optimization: keyboard/mouse UI, Steam features (workshop, achievements, cards); full keyboard shortcut tables for all three screens (Plan: 20+ bindings including Factorio-inspired pipette Q, Tab panel cycling, F1-F4 subpanel focus; Sealed Watch: minimal by design — speed controls only; Inspector: arrow-key tick stepping, event-based [ ] navigation, panel toggles B/G/C/D); mouse interaction matrices per screen with hover/click/drag/scroll per surface; Steam Workshop integration (blueprint sharing with fork/subscribe, custom missions, config necropsy artifacts); 22 achievement designs (6 campaign milestones + 10 playstyle/discovery + hidden achievements); trading card set (6 cards, SE Asian cyberpunk art, badge rewards); Rich Presence states; Cloud Save design (conflict resolution, 5-10MB budget); ultrawide layout (21:9 three-column, 32:9 dual-half); Steam Deck compatibility (85% default UI scale, trackpad-essential input, 30/60fps per screen, battery 3h target); keybinding customization with 4 presets (Default, Left-handed, Minimal, Vim-style with : command palette); full accessibility pass (keyboard-only play with Tab order, ARIA screen reader labels, colorblind modes, text scaling 80-150%); multi-monitor detached Inspector concept; 4 player journeys (Elara 26 ML engineer dual-monitor first launch, Darius 42 IT manager ultrawide Vim-preset command agent, Mika 14 laptop trackpad accidental Tab discovery, Kofi 35 accessibility tester screen reader full playthrough); comparable games (Factorio pipette/fast-transfer, Into the Breach hover preview, Slay the Spire number key mod, Opus Magnum GIF export, Shenzhen IO Workshop); 5 new aspects discovered
-  - [ ] 6.05a — The Vim/command-palette as power-user interface: full design of the command palette system — command vocabulary, autocomplete, argument syntax, what actions are available via text vs. requiring mouse; the "VS Code command palette" model adapted for a game workbench
+  - [x] 6.05a — The Vim/command-palette as power-user interface: full design of the command palette system — command vocabulary, autocomplete, argument syntax, what actions are available via text vs. requiring mouse; the "VS Code command palette" model adapted for a game workbench
+    - [ ] 6.05a-i — Command palette as vocabulary translator: fuzzy search mapping player vocabulary ("attack", "memory", "perception") to game vocabulary ("engage", "context window", "context config"); synonym mapping design, localization implications, evolution as player learns game terms
+    - [ ] 6.05a-ii — Macro system and command chaining: semicolon-chaining, `:macro save/load/list`, macro recording/editing/sharing (Config Code-compatible), community macro libraries, competitive integrity (macros in Gauntlet?)
+    - [ ] 6.05a-iii — Event Stream as read-only sealed watch companion: REPL telemetry during Sealed Watch — event selection, formatting, scrollback, filtering; whether it constitutes a "tool" under locked "no tools" rule; dual-media (visual + textual) as content creation feature
+    - [ ] 6.05a-iv — Command palette accessibility and screen reader integration: ARIA labels for palette results, audio cues for mode transitions, screen reader announcement of Vim grammar status line and REPL output; making a visual grammar accessible to blind players
+    - [ ] 6.05a-v — Cross-player command history as community meta-analysis: aggregated anonymized palette usage data revealing confusion points, vocabulary translator synonym map evolution, command palette as telemetry instrument for game design iteration
   - [ ] 6.05b — Replay GIF/clip export pipeline on PC: technical design of capturing Pixi.js canvas frames, encoding to GIF/MP4/WebP, UI for trimming and annotating clips, automatic watermarking, one-click share to clipboard; the Opus Magnum GIF virality model
   - [ ] 6.05c — Multi-monitor detached Inspector: technical feasibility and UX design of rendering the Inspector on a second monitor while Plan remains on primary; window management, state sync, performance implications
   - [ ] 6.05d — Steam Input API integration for custom controller profiles: beyond Steam Deck — how to support arbitrary controllers, Steam Controller, fight sticks, accessibility devices via Steam Input; action sets per screen; community controller configs
