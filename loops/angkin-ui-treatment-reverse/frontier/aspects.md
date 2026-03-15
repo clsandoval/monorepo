@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 27
-- **Analyzed**: 14
-- **Pending**: 13
-- **Convergence**: 51.9%
+- **Analyzed**: 15
+- **Pending**: 12
+- **Convergence**: 55.6%
 
 ## Wave 1: Research & Foundation (Read existing code, benchmarks, decisions)
 
@@ -29,7 +29,7 @@
 - [x] 3.2 — Form inputs: text, number, select, radio, checkbox, toggle. Default, focus, error, disabled states. Labels, help text, error messages.
 - [x] 3.3 — Cards: content card, tool card, result card, stat card. Light and dark variants. Hover/active states.
 - [x] 3.4 — Navigation: top nav bar, sidebar nav, mobile hamburger menu, breadcrumbs, tab bar. Active/inactive states.
-- [ ] 3.5 — Data display: large peso amounts (monospace), comparison tables, progress bars, badges, tooltips, stat blocks.
+- [x] 3.5 — Data display: large peso amounts (monospace), comparison tables, progress bars, badges, tooltips, stat blocks.
 - [ ] 3.6 — Modals & overlays: confirmation dialog, info modal, bottom sheet (mobile). Backdrop treatment.
 - [ ] 3.7 — Wizard pattern: step progress indicator, step content area, navigation buttons, validation states. Desktop and mobile.
 
