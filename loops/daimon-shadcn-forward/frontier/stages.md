@@ -47,7 +47,7 @@ Remaining: 202
 
 - [x] **Stage 32**: Replace `src/components/layout/sidebar.tsx` — rebuild with shadcn Sheet (mobile) + nav pattern (desktop), preserve icon-only tablet collapse, preserve all nav links (2026-03-15)
 - [x] **Stage 33**: Replace `src/components/layout/dashboard-layout.tsx` — rebuild wrapper using shadcn primitives, integrate new sidebar, preserve impersonation banner (2026-03-15)
-- [ ] **Stage 34**: Replace `src/components/layout/dashboard-topbar.tsx` — rebuild with shadcn primitives, preserve breadcrumbs/title
+- [x] **Stage 34**: Replace `src/components/layout/dashboard-topbar.tsx` — rebuild with shadcn primitives, preserve breadcrumbs/title (2026-03-15)
 - [ ] **Stage 35**: Replace `src/components/layout/public-navbar.tsx` — rebuild with shadcn NavigationMenu or custom nav using shadcn Button/Sheet
 - [ ] **Stage 36**: Replace `src/components/layout/public-footer.tsx` — rebuild with shadcn primitives, preserve link structure
 - [ ] **Stage 37**: Replace `src/components/layout/public-layout.tsx` — rebuild wrapper using new navbar + footer
