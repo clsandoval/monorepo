@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 705
-- **Analyzed:** 290
-- **Pending:** 415
-- **Convergence:** 41.1%
+- **Total aspects:** 710
+- **Analyzed:** 291
+- **Pending:** 419
+- **Convergence:** 41.0%
 
 ---
 
@@ -704,7 +704,12 @@
 - [ ] 7.02c — 2v2 co-op PvP mode combinations: pairing co-op models with PvP models; Specialist co-op (4 distinct roles in a 2v2) as the deepest competitive format; mixed co-op models as asymmetric advantage
 - [ ] 7.02d — Co-op Inspector as teaching tool: War Room co-op forces deep Inspector usage; how co-op debrief habits transfer to improved single-player analysis; co-op as the "Inspector tutorial" the game otherwise lacks
 - [ ] 7.02e — Cross-boundary EM emission budget as cooperative resource: in Divided Front co-op, both players' combined EM emissions create shared detection risk; the "emission budget" as a cooperative resource that neither player can individually control; comparable to shared radio frequency allocation
-- [ ] 7.03 — Async challenges: "beat my architecture" shareable puzzles
+- [x] 7.03 — Async challenges: "beat my architecture" shareable puzzles
+- [ ] 7.03a — Config Code format design: exact encoding format, compression strategy, version migration, URL scheme, QR code generation, backward compatibility when game primitives change between versions
+- [ ] 7.03b — Community moderation infrastructure: grief prevention (impossible bounties, bad Evolution Chain contributions, offensive names), report system, automated quality detection, trust levels
+- [ ] 7.03c — Reputation economy design: circuit tokens, contributor badges, featured-creator program, reputation decay, and how reputation interacts with Gauntlet rating as parallel social currencies
+- [ ] 7.03d — Workshop search and discovery UX: full design of search, filtering, tag taxonomy, recommendation engine, trending algorithms, and config similarity detection
+- [ ] 7.03e — Cross-platform sharing infrastructure: Config Codes, Workshop entries, challenge invitations across PC/mobile/web demo; account linking; progress sync; QR code flow
 - [ ] 7.04 — Modding: custom missions, custom building blocks, total conversions
 - [ ] 7.05 — Leaderboards and optimization: Zachtronics-style histograms, community competition
 - [ ] 7.13 — Community "find the pivot" tournament format: a formal async tournament where a featured match is posted and participants submit pivot guesses within a 24-hour window; the distribution of guesses displayed after deadline shows false pivot clustering; the metagame of collective diagnostic calibration; no debrief tools allowed during submission window
