@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 939
-- **Analyzed:** 337
-- **Pending:** 602
-- **Convergence:** 35.9%
+- **Total aspects:** 944
+- **Analyzed:** 338
+- **Pending:** 606
+- **Convergence:** 35.8%
 
 ---
 
@@ -751,7 +751,12 @@
 - [ ] 5.09c — Predecessor memory as light replay narrative: minimal-writing variant of narrative replay — 5-10 new Predecessor lines per cycle referencing specific mission outcomes; low dev cost, high emotional return
 - [ ] 5.09d — The "remix tape" — curated mutator playlists: developer- or community-curated sequences of mutator combos across all 10 missions, packaged as named experiences; playlists as shareable content units
 - [ ] 5.09e — Cross-campaign persistent architecture museum: gallery saving the player's best architecture from each mission across all campaigns/cycles/ascension levels; historical preservation showing evolution of design philosophy
-- [ ] 5.10 — The "product as puzzle" narrative method: working backwards from fictional mission objects to determine which agent configurations matter (from Shenzhen I/O)
+- [x] 5.10 — The "product as puzzle" narrative method: working backwards from fictional mission objects to determine which agent configurations matter (from Shenzhen I/O); six approaches (A "The Contract" — formal engineering specs, B "The Predecessor's Problem" — narrative-framed failure challenges, C "The Scenario" — board-state-as-specification Into the Breach style, D "The Reverse Engineering" — diagnose failure before building, E "The Escalating Request" — progressive product complexity on same board, F "The Hybrid Brief" RECOMMENDED — narrative + specification + board triple-layer for all learning styles); detailed interaction with Blueprint Codex as Shenzhen I/O manual analog; product portfolio as campaign narrative arc; specification explicitness as difficulty dial; comparable (Shenzhen I/O products, Opus Magnum recipes + histograms, Into the Breach implicit specs, Factorio production chains, EXAPUNKS heist targets, Baba Is You stable-goal-shifting-meaning); 4 player journeys (Mei 24 CS student first amplify chain from contract spec, Marcus 42 IT manager speed-building network architecture, Sofia 15 first-timer discovering hooks from Predecessor's "eyes but no voice" story, Kwame 32 streamer final mission golden reroute cascade — 180K view clip); TikTok clip: golden reroute wave + "I didn't write code, I designed the backup plan"; 5 new aspects discovered (5.10a–5.10e)
+  - [ ] 5.10a — The "product portfolio" as campaign narrative: 10 mission products as coherent story arc from "wake up and see" to "destroy the adaptive factory"; designing products-as-narrative-beats; interaction with Predecessor arc (6.03a) and campaign structure (5.05)
+  - [ ] 5.10b — Specification language explicitness as difficulty dial: explicit hints ("use amplify") vs. implicit challenges ("enemies are nearly invisible"); progressive implicit-ification across campaign; interaction with accessibility (6.08) and vocabulary pacing (5.00a)
+  - [ ] 5.10c — Product specs as community-shareable challenge format: player-authored specifications as custom missions; "Can you beat this spec?" as competitive artifact; interaction with demo competitive infrastructure (6.11d) and async challenges (7.03)
+  - [ ] 5.10d — The failing-config library: pre-built bad designs as teaching tools: curated collection of instructive failures for Reverse Engineering approach (Approach D); "common mistake" pattern matching in debrief; failing configs as community-shareable artifacts
+  - [ ] 5.10e — Product spec as accessibility layer: multiple reading levels per brief: 3-tier brief structure (emotional summary / formal objective / detailed intel); player self-selection; interaction with cognitive accessibility (6.08) and vocabulary pacing (5.00a)
 - [ ] 5.13 — The reagent-placement-as-choice design pattern (from Opus Magnum): starting conditions that feel fixed but are actually variable create a "double reveal" — players discover the solution, then discover the solution space is larger than they thought; applies to agent deployment layout and hook topology choices
 - [ ] 5.13a — Spawn storm as designed tutorial failure: crafting a mission that makes the first spawn storm almost inevitable for a first-time player, then making the debrief teach the fix clearly; the Opus Magnum "first ugly solution" principle applied to spawn chain design; what the spawn storm looks and sounds like at maximum drama
 - [ ] 5.12 — Predecessor content as narrative: captured enemy agent configs carrying "previous operator" annotations — the Randy's-annotations pattern for Robot Uprising lore delivery without cutscenes
