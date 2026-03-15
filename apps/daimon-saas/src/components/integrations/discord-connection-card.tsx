@@ -338,7 +338,7 @@ function DiscordConnectionModal({
         {submitError && (
           <Alert variant="destructive">
             <AlertTriangle className="size-3.5" />
-            <AlertDescription className="text-[13px]">
+            <AlertDescription className="text-sm">
               {submitError}
             </AlertDescription>
           </Alert>
@@ -392,40 +392,43 @@ function DiscordCardItem({
   return (
     <div
       className={cn(
-        'flex items-center gap-3 border border-border bg-card px-5 py-4',
+        'flex flex-col gap-3 border border-border bg-card px-5 py-4 sm:flex-row sm:items-center',
         STATUS_BORDER_COLORS[connection.status]
       )}
     >
-      {/* Status dot */}
-      <div
-        className={cn(
-          'size-2 shrink-0 rounded-full',
-          STATUS_DOT_COLORS[connection.status]
-        )}
-      />
+      {/* Top row: dot + info + badge */}
+      <div className="flex items-center gap-3 min-w-0 flex-1">
+        {/* Status dot */}
+        <div
+          className={cn(
+            'size-2 shrink-0 rounded-full',
+            STATUS_DOT_COLORS[connection.status]
+          )}
+        />
 
-      {/* Info */}
-      <div className="min-w-0 flex-1">
-        <div className="truncate text-sm font-medium text-foreground">
-          {displayName}
+        {/* Info */}
+        <div className="min-w-0 flex-1">
+          <div className="truncate text-sm font-medium text-foreground">
+            {displayName}
+          </div>
+          {connection.bot_username && (
+            <div className="mt-0.5 text-xs text-muted-foreground">
+              Guild ID: {connection.guild_id}
+            </div>
+          )}
+          {isError && connection.error_message && (
+            <div className="mt-1 flex items-center gap-1">
+              <AlertTriangle className="size-3 text-destructive" />
+              <span className="text-xs text-destructive">
+                {connection.error_message}
+              </span>
+            </div>
+          )}
         </div>
-        {connection.bot_username && (
-          <div className="mt-0.5 text-xs text-muted-foreground">
-            Guild ID: {connection.guild_id}
-          </div>
-        )}
-        {isError && connection.error_message && (
-          <div className="mt-1 flex items-center gap-1">
-            <AlertTriangle className="size-3 text-destructive" />
-            <span className="text-xs text-destructive">
-              {connection.error_message}
-            </span>
-          </div>
-        )}
-      </div>
 
-      {/* Badge */}
-      <Badge variant={variant} label={label} size="sm" className="shrink-0" />
+        {/* Badge */}
+        <Badge variant={variant} label={label} size="sm" className="shrink-0" />
+      </div>
 
       {/* Actions */}
       <div className="flex shrink-0 gap-2">
@@ -537,7 +540,7 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
             <h2 className="font-heading text-lg font-semibold text-foreground">
               Discord Bot Connections
             </h2>
-            <p className="mt-0.5 text-[13px] text-muted-foreground">
+            <p className="mt-0.5 text-sm text-muted-foreground">
               {connections.length === 0
                 ? 'No bot connected yet. Add your Discord bot token to get started.'
                 : `${activeCount} of ${maxConnections === Infinity ? 'unlimited' : maxConnections} connection${maxConnections === 1 ? '' : 's'} used`}
@@ -563,7 +566,7 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
       {atLimit && (
         <Alert className="mb-3 border-amber-200 bg-amber-50">
           <AlertTriangle className="size-3.5 text-amber-600" />
-          <AlertDescription className="text-[13px] text-amber-900">
+          <AlertDescription className="text-sm text-amber-900">
             {limitMessage}{' '}
             <a
               href="/dashboard/billing"
@@ -579,7 +582,7 @@ export function DiscordSection({ tenantId, userRole, connections: initialConnect
       {disconnectError && (
         <Alert variant="destructive" className="mb-3">
           <AlertTriangle className="size-3.5" />
-          <AlertDescription className="text-[13px]">
+          <AlertDescription className="text-sm">
             {disconnectError}
           </AlertDescription>
         </Alert>

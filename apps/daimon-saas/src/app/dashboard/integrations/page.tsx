@@ -155,7 +155,7 @@ export default async function IntegrationsPage() {
         <h2 className="mb-1 font-heading text-lg font-semibold text-foreground">
           Tool Sources
         </h2>
-        <p className="text-[13px] text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           Connect third-party services to enable bot tools for your Discord server.
         </p>
       </div>

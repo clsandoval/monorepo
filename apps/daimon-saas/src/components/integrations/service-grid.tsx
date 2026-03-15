@@ -268,7 +268,7 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
             <span className="font-heading text-base font-semibold text-foreground">
               {meta.displayName}
             </span>
-            <span className="text-[13px] text-muted-foreground">
+            <span className="text-sm text-muted-foreground">
               {meta.description}
             </span>
           </div>
@@ -486,7 +486,7 @@ function ApiKeyModal({ service, onClose, onSuccess }: ApiKeyModalProps) {
         {/* Help banner */}
         <Alert className="border-blue-200 bg-blue-50">
           <Info className="h-3.5 w-3.5 text-blue-500" />
-          <AlertDescription className="text-[13px] text-blue-800">
+          <AlertDescription className="text-sm text-blue-800">
             Find your API token at{' '}
             <a
               href="https://track.toggl.com/profile"
@@ -502,7 +502,7 @@ function ApiKeyModal({ service, onClose, onSuccess }: ApiKeyModalProps) {
 
         {/* Input */}
         <div className="space-y-1.5">
-          <Label htmlFor="api-key-input" className="text-[13px] font-medium text-gray-700">
+          <Label htmlFor="api-key-input" className="text-sm font-medium text-gray-700">
             {meta.displayName} API Token{' '}
             <span aria-label="required" className="text-destructive">*</span>
           </Label>
@@ -539,7 +539,7 @@ function ApiKeyModal({ service, onClose, onSuccess }: ApiKeyModalProps) {
           {error && (
             <p
               id="api-key-error"
-              className="mb-5 flex items-center gap-1.5 text-[13px] text-destructive"
+              className="mb-5 flex items-center gap-1.5 text-sm text-destructive"
             >
               <AlertTriangle size={13} />
               {error}
