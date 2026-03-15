@@ -95,7 +95,7 @@ Each stage: navigate route at 1280x800 via Playwright, assert no console errors,
 - [x] **Stage 68**: Desktop verify `/about` — content renders, team/mission section visible (2026-03-15)
 - [x] **Stage 69**: Desktop verify `/changelog` — changelog entries render (2026-03-15)
 - [x] **Stage 70**: Desktop verify `/login` — form renders with email + password fields, submit button, "sign up" link (2026-03-15)
-- [ ] **Stage 71**: Desktop verify `/signup` — form renders with full name + email + password + confirm + terms checkbox, submit button, "sign in" link
+- [x] **Stage 71**: Desktop verify `/signup` — form renders with full name + email + password + confirm + terms checkbox, submit button, "sign in" link (2026-03-15)
 - [ ] **Stage 72**: Desktop verify `/reset-password` — form renders with email field, submit button
 - [ ] **Stage 73**: Desktop verify `/reset-password/confirm` — form renders with new password fields
 - [ ] **Stage 74**: Desktop verify `/terms` — legal text renders, headings structured
