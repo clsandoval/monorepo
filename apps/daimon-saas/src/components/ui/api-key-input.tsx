@@ -282,7 +282,7 @@ export function ApiKeyInput({
             {value.length > 0 && !isValidating && !isSaving && (
               <Button
                 type="button"
-                variant="primary"
+                variant="default"
                 size="sm"
                 onClick={handleSave}
                 disabled={disabled}
