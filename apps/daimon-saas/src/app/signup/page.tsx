@@ -3,13 +3,20 @@
 export const dynamic = 'force-dynamic';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { createTenantForUser } from '@/app/actions/createTenant';
+import { cn } from '@/lib/utils';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 // --- Zod schema ---
 const newPasswordSchema = z
@@ -69,46 +76,39 @@ function mapSignupError(error: { message: string; status?: number }): string {
 }
 
 // --- Password strength indicator ---
-function getStrength(password: string): { score: number; label: string; color: string } {
-  if (!password) return { score: 0, label: '', color: '' };
+function getStrength(password: string): { score: number; label: string; colorClass: string } {
+  if (!password) return { score: 0, label: '', colorClass: '' };
   let score = 0;
   if (/[A-Z]/.test(password)) score++;
   if (/[a-z]/.test(password)) score++;
   if (/[0-9]/.test(password)) score++;
   if (password.length >= 12) score++;
 
-  if (score === 1) return { score, label: 'Weak', color: '#DC2626' };
-  if (score === 2) return { score, label: 'Fair', color: '#F59E0B' };
-  if (score === 3) return { score, label: 'Good', color: '#B4E7DD' };
-  return { score, label: 'Strong', color: '#059669' };
+  if (score === 1) return { score, label: 'Weak', colorClass: 'bg-destructive text-destructive' };
+  if (score === 2) return { score, label: 'Fair', colorClass: 'bg-amber-500 text-amber-500' };
+  if (score === 3) return { score, label: 'Good', colorClass: 'bg-primary text-primary' };
+  return { score, label: 'Strong', colorClass: 'bg-emerald-600 text-emerald-600' };
 }
 
 function PasswordStrengthBar({ password }: { password: string }) {
   if (!password) return null;
-  const { score, label, color } = getStrength(password);
+  const { score, label, colorClass } = getStrength(password);
+  const bgClass = colorClass.split(' ')[0];
+  const textClass = colorClass.split(' ')[1];
   return (
-    <div style={{ marginTop: '8px', marginBottom: '0' }}>
-      <div style={{ display: 'flex', gap: '4px', height: '4px' }}>
+    <div className="mt-2">
+      <div className="flex gap-1 h-1">
         {[1, 2, 3, 4].map((seg) => (
           <div
             key={seg}
-            style={{
-              flex: 1,
-              backgroundColor: seg <= score ? color : 'rgba(12,31,64,0.1)',
-              transition: 'background-color 0.2s ease',
-            }}
+            className={cn(
+              'flex-1 transition-colors duration-200',
+              seg <= score ? bgClass : 'bg-foreground/10'
+            )}
           />
         ))}
       </div>
-      <p
-        style={{
-          fontFamily: 'Inter, sans-serif',
-          fontSize: '11px',
-          fontWeight: 400,
-          color,
-          marginTop: '4px',
-        }}
-      >
+      <p className={cn('text-[11px] mt-1', textClass)}>
         {label}
       </p>
     </div>
@@ -150,11 +150,11 @@ function ExclamationCircleIcon() {
       viewBox="0 0 16 16"
       fill="none"
       aria-hidden="true"
-      className="flex-shrink-0"
+      className="shrink-0"
     >
-      <circle cx="8" cy="8" r="7.25" stroke="#DC2626" strokeWidth="1.5" />
-      <path d="M8 5v3.5" stroke="#DC2626" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="8" cy="11" r=".75" fill="#DC2626" />
+      <circle cx="8" cy="8" r="7.25" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M8 5v3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="8" cy="11" r=".75" fill="currentColor" />
     </svg>
   );
 }
@@ -206,21 +206,14 @@ function PasswordField({
 }) {
   return (
     <div>
-      <label
+      <Label
         htmlFor={id}
-        style={{
-          display: 'block',
-          fontFamily: 'Inter, sans-serif',
-          fontSize: '13px',
-          fontWeight: 500,
-          color: 'rgba(12,31,64,0.7)',
-          marginBottom: '6px',
-        }}
+        className="mb-1.5 text-[13px] text-foreground/70"
       >
         {label} <span aria-hidden="true">*</span>
-      </label>
-      <div style={{ position: 'relative' }}>
-        <input
+      </Label>
+      <div className="relative">
+        <Input
           id={id}
           type={showPassword ? 'text' : 'password'}
           placeholder={placeholder}
@@ -233,46 +226,16 @@ function PasswordField({
           aria-describedby={error ? `${id}-error` : undefined}
           aria-invalid={!!error}
           {...registration}
-          style={{
-            display: 'block',
-            width: '100%',
-            height: '44px',
-            padding: '0 44px 0 14px',
-            fontFamily: 'Inter, sans-serif',
-            fontSize: '15px',
-            fontWeight: 400,
-            color: '#0C1F40',
-            backgroundColor: error ? '#FFF5F5' : '#FFFFFF',
-            border: error ? '1.5px solid #DC2626' : '1.5px solid rgba(12,31,64,0.2)',
-            borderRadius: 0,
-            outline: 'none',
-            transition: 'border-color 0.15s ease',
-            boxSizing: 'border-box',
-          }}
+          className={cn(
+            'h-11 rounded-none border-input px-3.5 text-[15px] text-foreground pr-11',
+            error && 'border-destructive bg-red-50'
+          )}
         />
         <button
           type="button"
           onClick={onToggle}
           aria-label={showPassword ? 'Hide password' : 'Show password'}
-          style={{
-            position: 'absolute',
-            right: '14px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            background: 'none',
-            border: 'none',
-            padding: 0,
-            cursor: 'pointer',
-            color: 'rgba(12,31,64,0.5)',
-            display: 'flex',
-            alignItems: 'center',
-          }}
-          onMouseEnter={(e) =>
-            ((e.currentTarget as HTMLButtonElement).style.color = 'rgba(12,31,64,0.8)')
-          }
-          onMouseLeave={(e) =>
-            ((e.currentTarget as HTMLButtonElement).style.color = 'rgba(12,31,64,0.5)')
-          }
+          className="absolute right-3.5 top-1/2 -translate-y-1/2 bg-transparent border-none p-0 cursor-pointer text-foreground/50 hover:text-foreground/80 flex items-center"
         >
           {showPassword ? <EyeOffIcon /> : <EyeIcon />}
         </button>
@@ -281,16 +244,7 @@ function PasswordField({
         <p
           id={`${id}-error`}
           role="alert"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-            fontFamily: 'Inter, sans-serif',
-            fontSize: '12px',
-            fontWeight: 400,
-            color: '#DC2626',
-            marginTop: '4px',
-          }}
+          className="flex items-center gap-1 text-xs text-destructive mt-1"
         >
           {error}
         </p>
@@ -309,6 +263,7 @@ export default function SignupPage() {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<SignupFormValues>({
     resolver: zodResolver(SignupSchema),
@@ -351,454 +306,257 @@ export default function SignupPage() {
   }
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center p-4"
-      style={{ backgroundColor: '#F7F7F7' }}
-    >
-      <div className="w-full flex flex-col" style={{ maxWidth: '440px', gap: '32px' }}>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+      <div className="w-full flex flex-col max-w-[440px] gap-8">
         {/* Logo */}
-        <a
+        <Link
           href="/"
-          className="flex items-center justify-center"
-          style={{ gap: '8px', transition: 'opacity 0.2s ease' }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+          className="flex items-center justify-center gap-2 transition-opacity hover:opacity-85"
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
             <path
               d="M16 2L20 10L28 8L24 16L28 24L20 22L16 30L12 22L4 24L8 16L4 8L12 10L16 2Z"
-              fill="#0C1F40"
+              fill="currentColor"
+              className="text-foreground"
             />
           </svg>
-          <span
-            style={{
-              fontFamily: 'Archivo, sans-serif',
-              fontSize: '20px',
-              fontWeight: 700,
-              color: '#0C1F40',
-            }}
-          >
+          <span className="font-heading text-xl font-bold text-foreground">
             Daimon
           </span>
-        </a>
+        </Link>
 
         {/* Auth Card */}
-        <div
-          className="w-full relative overflow-hidden"
-          style={{
-            backgroundColor: '#FFFFFF',
-            boxShadow: '0 1px 3px rgba(12,31,64,0.08), 0 4px 16px rgba(12,31,64,0.06)',
-            padding: '40px',
-          }}
-        >
+        <Card className="w-full relative overflow-hidden rounded-none ring-0 shadow-[0_1px_3px_rgba(12,31,64,0.08),0_4px_16px_rgba(12,31,64,0.06)] p-0">
           {/* CI Stripe */}
-          <div aria-hidden="true" className="absolute left-0 top-0 h-full" style={{ width: '6px' }}>
-            <div
-              className="absolute left-0"
-              style={{
-                top: '15%',
-                height: '70%',
-                width: '6px',
-                backgroundColor: '#B4E7DD',
-                opacity: 0.3,
-              }}
-            />
-            <div
-              className="absolute left-0"
-              style={{
-                top: '35%',
-                height: '30%',
-                width: '6px',
-                backgroundColor: '#9FAAE2',
-                opacity: 0.35,
-              }}
-            />
-            <div
-              className="absolute left-0"
-              style={{
-                top: '40%',
-                height: '20%',
-                width: '6px',
-                backgroundColor: '#B4E7DD',
-                opacity: 0.6,
-              }}
-            />
+          <div aria-hidden="true" className="absolute left-0 top-0 h-full w-1.5">
+            <div className="absolute left-0 top-[15%] h-[70%] w-1.5 bg-primary opacity-30" />
+            <div className="absolute left-0 top-[35%] h-[30%] w-1.5 bg-secondary opacity-35" />
+            <div className="absolute left-0 top-[40%] h-[20%] w-1.5 bg-primary opacity-60" />
           </div>
 
-          {/* Card header */}
-          <div style={{ marginBottom: '24px' }}>
-            <h1
-              style={{
-                fontFamily: 'Archivo, sans-serif',
-                fontSize: '24px',
-                fontWeight: 500,
-                color: '#0C1F40',
-                marginBottom: '4px',
-              }}
-            >
+          <CardHeader className="px-10 pt-10 pb-0">
+            <CardTitle className="font-heading text-2xl font-medium text-foreground">
               Create your account
-            </h1>
-            <p
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '15px',
-                fontWeight: 400,
-                color: 'rgba(12,31,64,0.55)',
-              }}
-            >
+            </CardTitle>
+            <CardDescription className="text-[15px] text-muted-foreground">
               Start with your Discord bot in minutes.
-            </p>
-          </div>
+            </CardDescription>
+          </CardHeader>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            {/* Full name field */}
-            <div style={{ marginBottom: '16px' }}>
-              <label
-                htmlFor="fullName"
-                style={{
-                  display: 'block',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '13px',
-                  fontWeight: 500,
-                  color: 'rgba(12,31,64,0.7)',
-                  marginBottom: '6px',
-                }}
-              >
-                Full name <span aria-hidden="true">*</span>
-              </label>
-              <input
-                id="fullName"
-                type="text"
-                placeholder="Jane Smith"
-                autoComplete="name"
-                autoFocus
-                maxLength={100}
-                disabled={isSubmitting}
-                aria-required="true"
-                aria-describedby={errors.fullName ? 'fullName-error' : undefined}
-                aria-invalid={!!errors.fullName}
-                {...register('fullName')}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  height: '44px',
-                  padding: '0 14px',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: 400,
-                  color: '#0C1F40',
-                  backgroundColor: errors.fullName ? '#FFF5F5' : '#FFFFFF',
-                  border: errors.fullName
-                    ? '1.5px solid #DC2626'
-                    : '1.5px solid rgba(12,31,64,0.2)',
-                  borderRadius: 0,
-                  outline: 'none',
-                  transition: 'border-color 0.15s ease',
-                  boxSizing: 'border-box',
-                }}
-              />
-              {errors.fullName && (
-                <p
-                  id="fullName-error"
-                  role="alert"
-                  style={{
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    color: '#DC2626',
-                    marginTop: '4px',
-                  }}
+          <CardContent className="px-10 pb-10">
+            {/* Form */}
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              {/* Full name field */}
+              <div className="mb-4">
+                <Label
+                  htmlFor="fullName"
+                  className="mb-1.5 text-[13px] text-foreground/70"
                 >
-                  {errors.fullName.message}
-                </p>
-              )}
-            </div>
-
-            {/* Email field */}
-            <div style={{ marginBottom: '16px' }}>
-              <label
-                htmlFor="email"
-                style={{
-                  display: 'block',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '13px',
-                  fontWeight: 500,
-                  color: 'rgba(12,31,64,0.7)',
-                  marginBottom: '6px',
-                }}
-              >
-                Email <span aria-hidden="true">*</span>
-              </label>
-              <input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                autoComplete="email"
-                maxLength={254}
-                disabled={isSubmitting}
-                aria-required="true"
-                aria-describedby={errors.email ? 'email-error' : undefined}
-                aria-invalid={!!errors.email}
-                {...register('email')}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  height: '44px',
-                  padding: '0 14px',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: 400,
-                  color: '#0C1F40',
-                  backgroundColor: errors.email ? '#FFF5F5' : '#FFFFFF',
-                  border: errors.email
-                    ? '1.5px solid #DC2626'
-                    : '1.5px solid rgba(12,31,64,0.2)',
-                  borderRadius: 0,
-                  outline: 'none',
-                  transition: 'border-color 0.15s ease',
-                  boxSizing: 'border-box',
-                }}
-              />
-              {errors.email && (
-                <p
-                  id="email-error"
-                  role="alert"
-                  style={{
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    color: '#DC2626',
-                    marginTop: '4px',
-                  }}
-                >
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
-            {/* Password field */}
-            <div style={{ marginBottom: '12px' }}>
-              <PasswordField
-                id="password"
-                label="Password"
-                placeholder="••••••••"
-                autoComplete="new-password"
-                minLength={8}
-                maxLength={72}
-                disabled={isSubmitting}
-                error={errors.password?.message}
-                showPassword={showPassword}
-                onToggle={() => setShowPassword((v) => !v)}
-                registration={register('password')}
-              />
-              <PasswordStrengthBar password={passwordValue} />
-            </div>
-
-            {/* Confirm password field */}
-            <div style={{ marginBottom: '20px' }}>
-              <PasswordField
-                id="confirmPassword"
-                label="Confirm password"
-                placeholder="••••••••"
-                autoComplete="new-password"
-                disabled={isSubmitting}
-                error={errors.confirmPassword?.message}
-                showPassword={showConfirmPassword}
-                onToggle={() => setShowConfirmPassword((v) => !v)}
-                registration={register('confirmPassword')}
-              />
-            </div>
-
-            {/* Terms checkbox */}
-            <div style={{ marginBottom: '24px' }}>
-              <label
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '10px',
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                }}
-              >
-                <input
-                  id="agreeTerms"
-                  type="checkbox"
+                  Full name <span aria-hidden="true">*</span>
+                </Label>
+                <Input
+                  id="fullName"
+                  type="text"
+                  placeholder="Jane Smith"
+                  autoComplete="name"
+                  autoFocus
+                  maxLength={100}
                   disabled={isSubmitting}
                   aria-required="true"
-                  aria-describedby={errors.agreeTerms ? 'agreeTerms-error' : undefined}
-                  aria-invalid={!!errors.agreeTerms}
-                  {...register('agreeTerms')}
-                  style={{
-                    width: '16px',
-                    height: '16px',
-                    marginTop: '2px',
-                    flexShrink: 0,
-                    accentColor: '#B4E7DD',
-                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                  }}
+                  aria-describedby={errors.fullName ? 'fullName-error' : undefined}
+                  aria-invalid={!!errors.fullName}
+                  {...register('fullName')}
+                  className={cn(
+                    'h-11 rounded-none border-input px-3.5 text-[15px] text-foreground',
+                    errors.fullName && 'border-destructive bg-red-50'
+                  )}
                 />
-                <span
-                  style={{
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '13px',
-                    fontWeight: 400,
-                    color: 'rgba(12,31,64,0.65)',
-                    lineHeight: '1.4',
-                  }}
-                >
-                  I agree to the{' '}
-                  <Link
-                    href="/terms"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: '#0C1F40', textDecoration: 'underline' }}
+                {errors.fullName && (
+                  <p
+                    id="fullName-error"
+                    role="alert"
+                    className="text-xs text-destructive mt-1"
                   >
-                    Terms of Service
-                  </Link>{' '}
-                  and{' '}
-                  <Link
-                    href="/privacy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: '#0C1F40', textDecoration: 'underline' }}
-                  >
-                    Privacy Policy
-                  </Link>
-                </span>
-              </label>
-              {errors.agreeTerms && (
-                <p
-                  id="agreeTerms-error"
-                  role="alert"
-                  style={{
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    color: '#DC2626',
-                    marginTop: '6px',
-                  }}
-                >
-                  {errors.agreeTerms.message}
-                </p>
-              )}
-            </div>
-
-            {/* Server error banner */}
-            {serverError && (
-              <div
-                role="alert"
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '10px',
-                  backgroundColor: '#FEF2F2',
-                  borderLeft: '3px solid #DC2626',
-                  padding: '12px 16px',
-                  marginBottom: '20px',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '14px',
-                  fontWeight: 400,
-                  color: '#991B1B',
-                }}
-              >
-                <ExclamationCircleIcon />
-                <span>{serverError}</span>
+                    {errors.fullName.message}
+                  </p>
+                )}
               </div>
-            )}
 
-            {/* Submit button */}
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%',
-                height: '44px',
-                backgroundColor: '#B4E7DD',
-                color: '#0C1F40',
-                border: '1.5px solid #B4E7DD',
-                borderRadius: 0,
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '15px',
-                fontWeight: 600,
-                cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                opacity: isSubmitting ? 0.5 : 1,
-                transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(e) => {
-                if (!isSubmitting) (e.currentTarget as HTMLButtonElement).style.opacity = '0.85';
-              }}
-              onMouseLeave={(e) => {
-                if (!isSubmitting) (e.currentTarget as HTMLButtonElement).style.opacity = '1';
-              }}
-            >
-              {isSubmitting ? <Spinner /> : 'Create account'}
-            </button>
-          </form>
-        </div>
+              {/* Email field */}
+              <div className="mb-4">
+                <Label
+                  htmlFor="email"
+                  className="mb-1.5 text-[13px] text-foreground/70"
+                >
+                  Email <span aria-hidden="true">*</span>
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                  maxLength={254}
+                  disabled={isSubmitting}
+                  aria-required="true"
+                  aria-describedby={errors.email ? 'email-error' : undefined}
+                  aria-invalid={!!errors.email}
+                  {...register('email')}
+                  className={cn(
+                    'h-11 rounded-none border-input px-3.5 text-[15px] text-foreground',
+                    errors.email && 'border-destructive bg-red-50'
+                  )}
+                />
+                {errors.email && (
+                  <p
+                    id="email-error"
+                    role="alert"
+                    className="text-xs text-destructive mt-1"
+                  >
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Password field */}
+              <div className="mb-3">
+                <PasswordField
+                  id="password"
+                  label="Password"
+                  placeholder="••••••••"
+                  autoComplete="new-password"
+                  minLength={8}
+                  maxLength={72}
+                  disabled={isSubmitting}
+                  error={errors.password?.message}
+                  showPassword={showPassword}
+                  onToggle={() => setShowPassword((v) => !v)}
+                  registration={register('password')}
+                />
+                <PasswordStrengthBar password={passwordValue} />
+              </div>
+
+              {/* Confirm password field */}
+              <div className="mb-5">
+                <PasswordField
+                  id="confirmPassword"
+                  label="Confirm password"
+                  placeholder="••••••••"
+                  autoComplete="new-password"
+                  disabled={isSubmitting}
+                  error={errors.confirmPassword?.message}
+                  showPassword={showConfirmPassword}
+                  onToggle={() => setShowConfirmPassword((v) => !v)}
+                  registration={register('confirmPassword')}
+                />
+              </div>
+
+              {/* Terms checkbox */}
+              <div className="mb-6">
+                <label
+                  className={cn(
+                    'flex items-start gap-2.5',
+                    isSubmitting ? 'cursor-not-allowed' : 'cursor-pointer'
+                  )}
+                >
+                  <Controller
+                    name="agreeTerms"
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        id="agreeTerms"
+                        checked={field.value === true}
+                        onCheckedChange={(checked) => field.onChange(checked === true ? true : false)}
+                        disabled={isSubmitting}
+                        aria-required="true"
+                        aria-describedby={errors.agreeTerms ? 'agreeTerms-error' : undefined}
+                        aria-invalid={!!errors.agreeTerms}
+                        className="mt-0.5"
+                      />
+                    )}
+                  />
+                  <span className="text-[13px] text-foreground/65 leading-relaxed">
+                    I agree to the{' '}
+                    <Link
+                      href="/terms"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-foreground underline"
+                    >
+                      Terms of Service
+                    </Link>{' '}
+                    and{' '}
+                    <Link
+                      href="/privacy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-foreground underline"
+                    >
+                      Privacy Policy
+                    </Link>
+                  </span>
+                </label>
+                {errors.agreeTerms && (
+                  <p
+                    id="agreeTerms-error"
+                    role="alert"
+                    className="text-xs text-destructive mt-1.5"
+                  >
+                    {errors.agreeTerms.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Server error banner */}
+              {serverError && (
+                <Alert variant="destructive" className="mb-5 rounded-none border-l-[3px] border-l-destructive bg-red-50">
+                  <ExclamationCircleIcon />
+                  <AlertDescription className="text-sm text-red-800">
+                    {serverError}
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              {/* Submit button */}
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className={cn(
+                  'w-full h-11 rounded-none bg-primary text-primary-foreground border-[1.5px] border-primary text-[15px] font-semibold transition-all',
+                  isSubmitting && 'opacity-50 cursor-not-allowed'
+                )}
+              >
+                {isSubmitting ? <Spinner /> : 'Create account'}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
 
         {/* Footer login link */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '6px',
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '14px',
-              fontWeight: 400,
-              color: 'rgba(12,31,64,0.6)',
-            }}
-          >
+        <div className="flex justify-center items-center gap-1.5">
+          <span className="text-sm text-foreground/60">
             Already have an account?
           </span>
           <Link
             href="/login"
             tabIndex={isSubmitting ? -1 : undefined}
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '14px',
-              fontWeight: 600,
-              color: '#0C1F40',
-              textDecoration: 'none',
-              pointerEvents: isSubmitting ? 'none' : 'auto',
-            }}
-            onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLAnchorElement).style.color = '#B4E7DD')
-            }
-            onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLAnchorElement).style.color = '#0C1F40')
-            }
+            className={cn(
+              'text-sm font-semibold text-foreground hover:text-primary no-underline',
+              isSubmitting && 'pointer-events-none'
+            )}
           >
             Sign in
           </Link>
         </div>
 
         {/* Auth footer links */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '16px',
-            fontFamily: 'Inter, sans-serif',
-            fontSize: '12px',
-            fontWeight: 400,
-            color: 'rgba(12,31,64,0.45)',
-          }}
-        >
-          <Link href="/terms" style={{ color: 'inherit', textDecoration: 'none' }}>
+        <div className="flex justify-center gap-4 text-xs text-foreground/45">
+          <Link href="/terms" className="text-inherit no-underline hover:text-foreground/70">
             Terms of Service
           </Link>
-          <Link href="/privacy" style={{ color: 'inherit', textDecoration: 'none' }}>
+          <Link href="/privacy" className="text-inherit no-underline hover:text-foreground/70">
             Privacy Policy
           </Link>
-          <a href="mailto:support@daimon.ai" style={{ color: 'inherit', textDecoration: 'none' }}>
+          <a href="mailto:support@daimon.ai" className="text-inherit no-underline hover:text-foreground/70">
             Support
           </a>
         </div>
