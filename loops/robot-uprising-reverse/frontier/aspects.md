@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 829
-- **Analyzed:** 315
-- **Pending:** 514
-- **Convergence:** 38.0%
+- **Total aspects:** 835
+- **Analyzed:** 316
+- **Pending:** 519
+- **Convergence:** 37.8%
 
 ---
 
@@ -793,6 +793,12 @@
 - [ ] 6.10c — Hybrid corruption audio vocabulary: combining elements of multiple options (Geiger clicking for detection + heartbeat for severity + whispers for deep corruption narrative); the layered approach
 - [ ] 6.10d — Accessibility alternatives for corruption audio: screen-reader integration, visual-only corruption modes for deaf/hard-of-hearing players, haptic-only modes; ensuring corruption detection doesn't become audio-gated
 - [ ] 6.10e — Player-configurable corruption audio intensity: settings slider from "subtle" (perturbation only) to "aggressive" (full alarm cascade); player agency over corruption layer's attention demand
+- [x] 6.11 — The web demo: browser-playable demo as acquisition funnel — six demo models (vertical slice, extended tutorial, sandbox, replay theater, persistent playground, rotating featured mission), layered pipeline recommendation, funnel metrics, conversion mechanics, technical implementation
+- [ ] 6.11a — Demo-to-full-game save migration: localStorage → Steam Cloud sync, account linking, handling demo progress incompatible with newer game versions, "thank you for playing the demo" emotional beat
+- [ ] 6.11b — Demo-specific analytics dashboard: funnel visualization, drop-off points, retry rates per mission, Inspector engagement heatmap, conversion attribution — developers applying the game's Inspector philosophy to business metrics
+- [ ] 6.11c — Embeddable demo widget for gaming press: lightweight iframe embed for review articles, "Play Mission 1 right here," <2s load, Steam widget on completion, responsive width, message-passing API
+- [ ] 6.11d — Demo as competitive event infrastructure: weekly community challenges on sandbox mode, fixed config constraints, leaderboard on demo page, demo as ongoing community infrastructure not just acquisition
+- [ ] 6.11e — QR code physical-to-digital funnel: convention booths, poster campaigns, attribution-tracked QR codes linking to demo, physical world → browser → Steam wishlist three-step funnel
 
 ---
 
