@@ -1,8 +1,8 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 50
-Remaining: 165
+Completed: 51
+Remaining: 164
 
 ---
 
@@ -67,7 +67,7 @@ Remaining: 165
 - [x] **Stage 48**: Replace `src/components/billing/api-key-section.tsx` — rebuild with shadcn Card + Input + Button + Dialog (2026-03-15)
 - [x] **Stage 49**: Replace `src/components/billing/billing-alert-banners.tsx` — rebuild with shadcn Alert variants (2026-03-15)
 - [x] **Stage 50**: Replace `src/components/billing/checkout-return-banner.tsx` — rebuild with shadcn Alert (success variant) (2026-03-15)
-- [ ] **Stage 51**: Replace `src/components/billing/subscription-lifecycle-watcher.tsx` — swap any UI elements to shadcn (this may be logic-only)
+- [x] **Stage 51**: Replace `src/components/billing/subscription-lifecycle-watcher.tsx` — swap any UI elements to shadcn (this may be logic-only) (2026-03-15)
 - [ ] **Stage 52**: Replace `src/components/integrations/discord-connection-card.tsx` — rebuild with shadcn Card + Badge + Button
 - [ ] **Stage 53**: Replace `src/components/integrations/service-grid.tsx` — rebuild with shadcn Card grid
 - [ ] **Stage 54**: Replace `src/components/settings/account-section.tsx` — rebuild with shadcn Card + Input + Button + Label
