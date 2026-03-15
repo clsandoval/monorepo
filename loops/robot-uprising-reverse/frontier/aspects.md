@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 779
-- **Analyzed:** 305
-- **Pending:** 474
-- **Convergence:** 39.2%
+- **Total aspects:** 784
+- **Analyzed:** 306
+- **Pending:** 478
+- **Convergence:** 39.0%
 
 ---
 
@@ -458,11 +458,18 @@
 - [ ] 3.19a — Self-replicating agent configs: agent configurations that explicitly include spawn of near-copies of themselves; the puzzle/achievement of the minimal self-replicator; when is this a cool advanced mechanic vs. a degenerate strategy that breaks missions; design guardrails
 
 ### Buffer Models
-- [ ] 2.01 — Fixed-slot buffer: N discrete slots, each holds one observation/message, oldest evicted first
+- [x] 2.01 — Fixed-slot buffer: N discrete slots, each holds one observation/message, oldest evicted first
 - [ ] 2.02 — Weighted buffer: entries have different sizes (a location = 1 slot, a full report = 3 slots)
 - [ ] 2.03 — Decay buffer: entries fade over time rather than being evicted discretely (freshness gradient)
 - [ ] 2.04 — Categorized buffer: separate pools for different info types (threats, terrain, comms, memories)
 - [ ] 2.05 — Shared buffer: group of units shares a collective memory pool
+
+### Fixed-Slot Buffer Deep Dives
+- [ ] 2.01a — Buffer insertion order as hidden complexity: deterministic but opaque ordering of simultaneous arrivals (clockwise observations, alphabetical channels); should this be visible/configurable? What happens when renaming a channel changes insertion priority?
+- [ ] 2.01b — Transit eviction in multi-hop chains: signals that arrive at a Relay and are evicted before compression can process them; "data dies in transit" problem; how common is this? Core tension or degenerate edge case?
+- [ ] 2.01c — Empty buffer slots as strategic signal: half-empty buffers indicate information starvation; can the player deliberately engineer buffer headroom ("always keep 2 slots free for emergency signals") as a strategy?
+- [ ] 2.01d — Buffer health as spectator readability tool: buffer bars as the "health bars" of information architecture for streamers/esports; design implications for casting vocabulary and overlay design
+- [ ] 2.01e — Polling-vs-event-driven tradeoff in buffer management: heartbeat (polling) vs. pure event-driven hooks; the game naturally teaches both patterns through buffer pressure; formal analysis of when each approach is optimal
 
 ### Eviction Policies
 - [ ] 2.06 — Player-configured eviction: drag to set priority order of what gets kept
