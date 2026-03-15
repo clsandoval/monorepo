@@ -244,8 +244,9 @@ loops:
     schedule: manual
     max_iterations: 40
     timeout_minutes: 360
-    status: active
+    status: converged
     created: 2026-03-14
+    converged_at: "2026-03-15"
   pymc-content-reverse:
     description: "Scrape existing website + Discord archive + public data → complete content package for PyMC Labs website rebuild"
     type: reverse
