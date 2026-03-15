@@ -2,6 +2,9 @@
 
 import * as React from 'react'
 import { AlertCircle } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Input } from './input'
+import { Label } from './label'
 
 export interface FormInputProps {
   id: string
@@ -50,51 +53,35 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
     ref
   ) {
     const hasError = Boolean(error)
-
-    const rootClass = [
-      'flex flex-col',
-      hasError ? 'form-field--error' : '',
-      disabled ? 'form-field--disabled pointer-events-none' : '',
-      className ?? '',
-    ]
-      .filter(Boolean)
-      .join(' ')
-
-    // Base input classes
-    const inputBase =
-      'h-[44px] w-full font-[Inter,sans-serif] text-[15px] font-[400] outline-none border transition-[border-color,box-shadow,background-color] duration-150 ease-in-out'
-
-    const inputState = hasError
-      ? 'border-[#DC2626] bg-[#FEF2F2] text-[#0C1F40] focus:border-[1.5px] focus:border-[#DC2626] focus:shadow-[0_0_0_3px_rgba(220,38,38,0.15)]'
-      : disabled
-        ? 'border-[rgba(12,31,64,0.10)] bg-[#F7F7F7] text-[rgba(12,31,64,0.35)] cursor-not-allowed'
-        : readOnly
-          ? 'border-[rgba(12,31,64,0.15)] bg-[#F7F7F7] text-[rgba(12,31,64,0.70)] cursor-default'
-          : 'border-[rgba(12,31,64,0.20)] bg-white text-[#0C1F40] hover:border-[rgba(12,31,64,0.40)] focus:border-[1.5px] focus:border-[#0C1F40] focus:shadow-[0_0_0_3px_rgba(180,231,221,0.30)]'
-
-    const inputPadding = hasError ? 'px-3 pr-9' : 'px-3'
-
     const resolvedRef = inputRef ?? ref
 
     return (
-      <div className={rootClass}>
-        <label
-          htmlFor={id}
-          className={[
-            'text-[13px] font-[500] mb-[6px]',
-            disabled ? 'text-[rgba(12,31,64,0.50)]' : 'text-[#0C1F40]',
-          ].join(' ')}
-        >
-          {label}
-          {required && (
-            <span aria-hidden="true" className="text-[#DC2626] ml-[2px]">
-              *
-            </span>
-          )}
-        </label>
+      <div
+        className={cn(
+          'flex flex-col',
+          disabled && 'pointer-events-none',
+          className
+        )}
+      >
+        {label && (
+          <Label
+            htmlFor={id}
+            className={cn(
+              'mb-1.5 text-[13px] font-medium',
+              disabled ? 'text-muted-foreground' : 'text-foreground'
+            )}
+          >
+            {label}
+            {required && (
+              <span aria-hidden="true" className="ml-0.5 text-destructive">
+                *
+              </span>
+            )}
+          </Label>
+        )}
 
         <div className="relative flex items-center">
-          <input
+          <Input
             id={id}
             name={name}
             type={type}
@@ -108,27 +95,40 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
             autoFocus={autoFocus}
             maxLength={maxLength}
             readOnly={readOnly}
-            aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
+            aria-describedby={
+              error ? `${id}-error` : hint ? `${id}-hint` : undefined
+            }
             aria-invalid={hasError ? 'true' : undefined}
             ref={resolvedRef as React.Ref<HTMLInputElement>}
-            className={[inputBase, inputState, inputPadding].join(' ')}
+            className={cn(
+              'h-[44px] text-[15px]',
+              hasError && 'pr-9',
+              readOnly && 'cursor-default bg-muted'
+            )}
           />
           {hasError && (
             <AlertCircle
               size={14}
-              className="absolute right-[12px] text-[#DC2626] pointer-events-none"
+              className="pointer-events-none absolute right-3 text-destructive"
               aria-hidden="true"
             />
           )}
         </div>
 
         {hasError && (
-          <p id={`${id}-error`} role="alert" className="text-[13px] text-[#DC2626] mt-[4px]">
+          <p
+            id={`${id}-error`}
+            role="alert"
+            className="mt-1 text-[13px] text-destructive"
+          >
             {error}
           </p>
         )}
         {!hasError && hint && (
-          <p id={`${id}-hint`} className="text-[13px] text-[rgba(12,31,64,0.55)] mt-[4px]">
+          <p
+            id={`${id}-hint`}
+            className="mt-1 text-[13px] text-muted-foreground"
+          >
             {hint}
           </p>
         )}
