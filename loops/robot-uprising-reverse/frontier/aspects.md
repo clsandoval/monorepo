@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 850
-- **Analyzed:** 319
-- **Pending:** 531
-- **Convergence:** 37.5%
+- **Total aspects:** 855
+- **Analyzed:** 320
+- **Pending:** 535
+- **Convergence:** 37.4%
 
 ---
 
@@ -826,11 +826,16 @@
   - [ ] 7.01d — PvP unlock gating and campaign integration: when does competitive multiplayer become available; Ghost Ladder after Mission 5 vs. earlier; practice-against-ghost missions in campaign; competitive skill teaching within the tutorial arc
   - [ ] 7.01e — Spectator mode and tournament infrastructure: stream overlays showing both players' Plan screens, split-screen Sealed Watch, Inspector casting tools, tournament bracket UI, replay sharing for community analysis
 - [x] 7.02 — Co-op: shared battlefield, complementary attention architectures
-- [ ] 7.02a — Co-op channel naming protocols and emergent communication conventions: how player-pairs develop shared vocabulary for cross-boundary signals; the "protocol layer" that emerges from repeated co-op sessions; comparable to software API versioning and team naming conventions
+- [x] 7.02a — Co-op channel naming protocols and emergent communication conventions: how player-pairs develop shared vocabulary for cross-boundary signals; the "protocol layer" that emerges from repeated co-op sessions; comparable to software API versioning and team naming conventions
 - [ ] 7.02b — Co-op production queue negotiation: when two players share one production queue (Archon, Specialist, War Room), build order becomes a diplomacy problem; resource allocation as cooperative tension; comparable to Factorio's "you used all the iron" conflict
 - [ ] 7.02c — 2v2 co-op PvP mode combinations: pairing co-op models with PvP models; Specialist co-op (4 distinct roles in a 2v2) as the deepest competitive format; mixed co-op models as asymmetric advantage
 - [ ] 7.02d — Co-op Inspector as teaching tool: War Room co-op forces deep Inspector usage; how co-op debrief habits transfer to improved single-player analysis; co-op as the "Inspector tutorial" the game otherwise lacks
 - [ ] 7.02e — Cross-boundary EM emission budget as cooperative resource: in Divided Front co-op, both players' combined EM emissions create shared detection risk; the "emission budget" as a cooperative resource that neither player can individually control; comparable to shared radio frequency allocation
+  - [ ] 7.02a-i — Channel name as EM intercept surface: in competitive co-op (2v2), can opponents read channel names from intercepted EM signals? Channel naming as information security game — clear names leak intent, coded names preserve secrecy; the naming arms race as emergent metagame
+  - [ ] 7.02a-ii — Protocol Codex as community artifact: the export/import cycle for naming conventions; how top pairs' protocols propagate through the community; convergence toward "standard protocols" vs. diversity; the Factorio blueprint library model applied to channel conventions
+  - [ ] 7.02a-iii — Cross-pair protocol compatibility: when two pairs with different naming conventions merge for 4-player co-op, Protocol Codexes conflict; the "protocol merge" as designed onboarding moment; comparable to API gateway pattern in microservices
+  - [ ] 7.02a-iv — The "dead channel" cleanup ritual: how the game encourages or automates discovery and removal of unused channels; channel pruning as architectural hygiene; the Slack Channel Problem and its mitigation in gameplay terms
+  - [ ] 7.02a-v — Rich text in channel names: supporting emoji, icons, and color in channel names as visual convention accelerators; Factorio's `[item=iron-plate]` rich text model; accessibility implications (screen readers, colorblind modes)
 - [x] 7.03 — Async challenges: "beat my architecture" shareable puzzles
 - [ ] 7.03a — Config Code format design: exact encoding format, compression strategy, version migration, URL scheme, QR code generation, backward compatibility when game primitives change between versions
 - [ ] 7.03b — Community moderation infrastructure: grief prevention (impossible bounties, bad Evolution Chain contributions, offensive names), report system, automated quality detection, trust levels
