@@ -624,18 +624,6 @@ a {
     animation: fieldErrorAppear 150ms ease forwards;
   }
 
-  /* Alert banner dismiss animation */
-  .alert-banner-dismissing {
-    opacity: 0;
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    overflow: hidden;
-    transition:
-      opacity 200ms ease-in,
-      max-height 200ms ease-in,
-      padding 200ms ease-in;
-  }
 
   /* Sidebar collapse transition */
   .sidebar-collapsible {

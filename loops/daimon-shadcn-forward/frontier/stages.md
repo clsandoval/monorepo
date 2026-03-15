@@ -32,7 +32,7 @@ Remaining: 207
 - [x] **Stage 19**: Replace `src/components/ui/tabs.tsx` — swap with shadcn Tabs, update all import sites (2026-03-15)
 - [x] **Stage 20**: Replace `src/components/ui/pagination.tsx` — swap with shadcn Pagination, update all import sites (2026-03-15)
 - [x] **Stage 21**: Replace `src/components/ui/toast.tsx` — swap with shadcn Toast + Toaster + useToast hook, update all import sites (2026-03-15)
-- [ ] **Stage 22**: Replace `src/components/ui/alert-banner.tsx` — swap with shadcn Alert, preserve variant names (info, warning, error, success), update all import sites
+- [x] **Stage 22**: Replace `src/components/ui/alert-banner.tsx` — swap with shadcn Alert, preserve variant names (info, warning, error, success), update all import sites (2026-03-15)
 - [ ] **Stage 23**: Replace `src/components/ui/skeleton-loader.tsx` — swap with shadcn Skeleton, update all import sites
 - [ ] **Stage 24**: Replace `src/components/ui/stat-card.tsx` — rebuild with shadcn Card, preserve metric display layout
 - [ ] **Stage 25**: Replace `src/components/ui/status-indicator.tsx` — rebuild with shadcn Badge + dot indicator pattern

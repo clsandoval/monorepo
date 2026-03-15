@@ -121,7 +121,7 @@ export function BillingAlertBanners({
   if (banners.length === 0) return null
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
+    <div className="flex flex-col gap-3 mb-6">
       {banners}
     </div>
   )
