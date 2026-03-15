@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 835
-- **Analyzed:** 316
-- **Pending:** 519
-- **Convergence:** 37.8%
+- **Total aspects:** 840
+- **Analyzed:** 317
+- **Pending:** 523
+- **Convergence:** 37.7%
 
 ---
 
@@ -707,7 +707,12 @@
 - [ ] 5.19 — The "pass-rate plateau" problem: players who get 80/100 and feel done — designing campaign gates that require 90% rather than 100% for progression, while reserving 100% for cosmetic/leaderboard rewards; the psychological difference between "good enough" and "provably correct"
 - [ ] 5.20 — Always-on anxiety vs. self-contained missions: Screeps World's 24/7 persistence creates ownership feeling but also "vacation death" anxiety (base destroyed while offline); Robot Uprising's mission structure eliminates anxiety but loses persistence fantasy; what compensatory design choices restore the ownership feeling? Named units? Between-mission camp state? Campaign memory?
 - [ ] 5.21 — Open-source architecture as community mechanic: Screeps' culture of publishing full bot code on GitHub + writing architectural blog posts is a deliberately-designed community mechanic; what's the Robot Uprising equivalent? Exportable agent configs, shareable hook wiring diagrams, community config repositories?
-- [ ] 5.22 — The Gauntlet as a third act: structuring the game as three acts — campaign (learn mechanics), advanced campaign (develop robustness), Gauntlet (prove against infinite adversarial creativity); the Gauntlet as designed destination, not optional appendage; how campaign's final cutscene/mission opens the Gauntlet and what that transition feels like
+- [x] 5.22 — The Gauntlet as a third act: structuring the game as three acts — campaign (learn mechanics), advanced campaign (develop robustness), Gauntlet (prove against infinite adversarial creativity); the Gauntlet as designed destination, not optional appendage; how campaign's final cutscene/mission opens the Gauntlet and what that transition feels like
+- [ ] 5.22a — Multi-round mission retry granularity: when a player fails Round 3 of 5, do they restart from Round 1 or retry Round 3? Round-level checkpointing vs. mission-level reset; how retry granularity affects emotional stakes and learning speed; the "I have to redo rounds I already passed" frustration vs. the "context from earlier rounds matters" argument
+- [ ] 5.22b — Gauntlet ELO calibration match design: the first 5 Gauntlet matches are calibration — how the game communicates this, whether the player knows their rating is being determined, whether calibration matches feel different from regular matches; the "placement anxiety" problem from League of Legends/Overwatch applied to architecture design
+- [ ] 5.22c — The Predecessor's Codex presence post-campaign: after the Predecessor "stops" at the Gauntlet transition, they persist in the Blueprint Codex as a reference voice; how the Codex entries change tone from tutorial-mode to archival-mode; the Predecessor as ghost-in-the-documentation
+- [ ] 5.22d — The "return to campaign" motivation: why a Gauntlet veteran would replay campaign missions; mastery runs (beat M10 in fewer rounds), narrative appreciation runs (re-experiencing the Predecessor with new context), tool-restricted runs (replay M1-4 without Inspector tools to remember what it felt like)
+- [ ] 5.22e — Gauntlet warm-up mode: a "practice match" option that doesn't affect ELO, for players who want to test architecture changes without stakes; the tension between "every match matters" (pure Gauntlet) and "I need a safe space to experiment" (sandbox); how warm-up mode interacts with the sealed watch's emotional design
 - [ ] 5.23 — Campaign match length calibration: campaign missions use shorter tick ceilings (50-70 ticks) vs. Gauntlet (80-150 ticks) to support rapid iteration during learning; the transition to longer matches at the Gauntlet boundary as deliberate design signal; how mission briefings communicate expected match length
 
 ---
