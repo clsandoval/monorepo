@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 890
-- **Analyzed:** 327
-- **Pending:** 563
-- **Convergence:** 36.7%
+- **Total aspects:** 895
+- **Analyzed:** 328
+- **Pending:** 567
+- **Convergence:** 36.6%
 
 ---
 
@@ -572,7 +572,12 @@
   - [ ] 3.09e — Cascade depth as competitive meta: optimal cascade depth as strategic variable in Gauntlet; shallow-and-fast (2-hop hot) vs. deep-and-slow (4-hop mixed) as distinct competitive archetypes
 - [ ] 3.09a — Blocking hook semantics: hooks that require both sender and receiver to be "ready" (not busy, in range, buffer not full) — implicit timing without a global clock (from TIS-100 blocking port model)
 - [ ] 3.10a — Hook range as spatial mechanic: hooks that only fire within a configurable range radius; design options (fixed range, configurable per hook, range extenders as skill, relay positioning as tactical mini-game); how range requirements choreograph agent deployment
-- [ ] 3.10 — Hook visualization: how does the player see the wiring between agents? How are active hooks shown during execution?
+- [x] 3.10 — Hook visualization: how does the player see the wiring between agents? How are active hooks shown during execution?
+- [ ] 3.10b — Signal latency legibility: how the player learns and predicts multi-tick signal travel times; spatial vs temporal distance; paradigm-specific latency communication
+- [ ] 3.10c — Channel color assignment and palette management: auto-assignment vs player choice; color-blind palettes; palette exhaustion at 8+ channels
+- [ ] 3.10d — Wire routing algorithms for the subway map paradigm: path-finding along grid edges, crossing handling, parallel lane stacking, manual waypoints, Bézier vs right-angle
+- [ ] 3.10e — EM emission visualization: making detectable noise visible; separate overlay vs integrated; relationship between "signals you see" and "signals the enemy detects"
+- [ ] 3.10f — Visualization density scaling across the 10-mission arc: 2 units/0 channels (M1) to 12+ units/8+ channels (M10); paradigm breakdown thresholds; progressive disclosure gates
 - [ ] 3.11 — Hooks UI: how does the player create and manage hooks?
 - [ ] 3.08a — Trigger-to-rule vocabulary alignment: should triggers and rules use the same condition primitives (shared vocabulary reduces learning cost) or distinct vocabularies (independent evolution)?
 - [ ] 3.08b — Channel naming conventions as emergent culture: standard channel libraries, community naming conventions, competitive meta around channel naming
