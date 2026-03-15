@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 27
-- **Analyzed**: 7
-- **Pending**: 20
-- **Convergence**: 25.9%
+- **Analyzed**: 8
+- **Pending**: 19
+- **Convergence**: 29.6%
 
 ## Wave 1: Research & Foundation (Read existing code, benchmarks, decisions)
 
@@ -19,7 +19,7 @@
 - [x] 2.1 — Color system: define full palette — primary navy + tints/shades, neutral scale (gray-50 to gray-900), semantic colors (success, warning, error, info), accent color. Write CSS custom properties.
 - [x] 2.2 — Dark mode palette: define dark mode equivalents for every color. Background, surface, text, border colors. How logo inverts.
 - [x] 2.3 — Typography system: select font stack (heading + body + mono), define type scale (hero through caption) with sizes, weights, line-heights, letter-spacing. Write CSS.
-- [ ] 2.4 — Spacing & layout system: define base unit, spacing scale, page max-width, grid columns, card padding, section gaps. Mobile vs desktop breakpoints.
+- [x] 2.4 — Spacing & layout system: define base unit, spacing scale, page max-width, grid columns, card padding, section gaps. Mobile vs desktop breakpoints.
 - [ ] 2.5 — Sub-tool branding: how TaxKlaro, Inheritance, Retirement Pay, etc. sit within Angkin. Tool icons, accent colors per tool (if any), "by Angkin" badge, tool card treatment on platform home.
 - [ ] 2.6 — Iconography: choose icon style (line weight, fill vs outline), recommend library (Lucide, Phosphor, etc.), define custom category icons for tool types (tax, labor, corporate, property, civil law).
 
