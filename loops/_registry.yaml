@@ -304,6 +304,14 @@ loops:
     timeout_minutes: 360
     status: active
     created: 2026-03-13
+  angkin-ui-treatment-reverse:
+    description: "Comprehensive UI treatment deck for Angkin platform — typography, color, components, dark mode, mobile, sub-tool branding, example screens. Anchored on 2C Radical Clarity logo."
+    type: reverse
+    schedule: manual
+    max_iterations: 40
+    timeout_minutes: 360
+    status: active
+    created: 2026-03-14
   pymc-content-reverse:
     description: "Scrape existing website + Discord archive + public data → complete content package for PyMC Labs website rebuild"
     type: reverse
