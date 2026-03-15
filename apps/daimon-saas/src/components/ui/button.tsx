@@ -1,9 +1,51 @@
-'use client'
+"use client"
 
-import * as React from 'react'
+import * as React from "react"
+import { Button as ButtonPrimitive } from "@base-ui/react/button"
+import { cva, type VariantProps } from "class-variance-authority"
 
-// LoadingSpinner sub-component — rendered inside Button when isLoading
-function LoadingSpinner({ size = 16, color = 'currentColor' }: { size?: number; color?: string }) {
+import { cn } from "@/lib/utils"
+
+const buttonVariants = cva(
+  "group/button inline-flex shrink-0 items-center justify-center rounded-none border border-transparent bg-clip-padding text-sm font-semibold whitespace-nowrap transition-all duration-200 ease-in-out outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:brightness-[0.93] active:scale-[0.98] disabled:pointer-events-none disabled:opacity-45 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground border-primary hover:bg-primary/85",
+        primary: "bg-primary text-primary-foreground border-primary hover:bg-primary/85",
+        outline:
+          "bg-transparent text-foreground border-foreground hover:bg-foreground hover:text-white",
+        secondary:
+          "bg-transparent text-foreground border-foreground hover:bg-foreground hover:text-white",
+        ghost:
+          "bg-transparent text-foreground border-transparent hover:bg-foreground/[0.06]",
+        destructive:
+          "bg-destructive text-destructive-foreground border-destructive hover:bg-destructive/90",
+        danger:
+          "bg-destructive text-destructive-foreground border-destructive hover:bg-destructive/90",
+        "danger-secondary":
+          "bg-transparent text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-11 px-7 text-[15px] gap-2",
+        sm: "h-8 px-3 text-[13px] gap-1.5",
+        md: "h-11 px-7 text-[15px] gap-2",
+        lg: "h-[52px] px-9 text-[17px] gap-2.5",
+        icon: "size-10",
+        "icon-sm": "size-8",
+        "icon-lg": "size-12",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+// LoadingSpinner sub-component
+function LoadingSpinner({ size = 16, color = "currentColor" }: { size?: number; color?: string }) {
   return (
     <svg
       className="animate-spin"
@@ -24,93 +66,57 @@ function LoadingSpinner({ size = 16, color = 'currentColor' }: { size?: number; 
   )
 }
 
-interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'danger-secondary'
-  size?: 'sm' | 'md' | 'lg'
+interface ButtonProps
+  extends Omit<ButtonPrimitive.Props, "size">,
+    VariantProps<typeof buttonVariants> {
   isLoading?: boolean
-  disabled?: boolean
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
   fullWidth?: boolean
-  type?: 'button' | 'submit' | 'reset'
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
-  children: React.ReactNode
-  className?: string
-  'aria-label'?: string
-  form?: string
 }
 
-const base =
-  'inline-flex items-center justify-center font-semibold border transition-all duration-200 ease-in-out rounded-none disabled:opacity-45 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4E7DD] focus-visible:ring-offset-2 active:brightness-93 active:scale-[0.98]'
-
-const sizeMap: Record<NonNullable<ButtonProps['size']>, string> = {
-  sm: 'h-8 px-3 text-[13px] gap-1.5',
-  md: 'h-11 px-7 text-[15px] gap-2',
-  lg: 'h-[52px] px-9 text-[17px] gap-2.5',
-}
-
-const variantMap: Record<NonNullable<ButtonProps['variant']>, string> = {
-  primary:
-    'bg-[#B4E7DD] text-[#0C1F40] border-[#B4E7DD] hover:bg-[#B4E7DD]/85',
-  secondary:
-    'bg-transparent text-[#0C1F40] border-[#0C1F40] hover:bg-[#0C1F40] hover:text-white',
-  ghost:
-    'bg-transparent text-[#0C1F40] border-transparent hover:bg-[#0C1F40]/6',
-  danger:
-    'bg-red-500 text-white border-red-500 hover:bg-red-600 hover:border-red-600',
-  'danger-secondary':
-    'bg-transparent text-red-500 border-red-500 hover:bg-red-500 hover:text-white',
-}
-
-export function Button({
-  variant = 'primary',
-  size = 'md',
+function Button({
+  className,
+  variant = "default",
+  size = "default",
   isLoading = false,
-  disabled = false,
   leftIcon,
   rightIcon,
   fullWidth = false,
-  type = 'button',
-  onClick,
+  disabled,
   children,
-  className = '',
-  'aria-label': ariaLabel,
-  form,
+  ...props
 }: ButtonProps) {
   const isDisabled = disabled || isLoading
+  const resolvedAriaLabel =
+    isLoading && !props["aria-label"] ? "Loading…" : props["aria-label"]
 
-  const classes = [
-    base,
-    sizeMap[size],
-    variantMap[variant],
-    fullWidth ? 'w-full block' : '',
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ')
-
-  const resolvedAriaLabel = isLoading && !ariaLabel ? 'Loading…' : ariaLabel
+  // Determine spinner size based on button size
+  const spinnerSize = size === "sm" ? 14 : size === "lg" ? 20 : 16
 
   return (
-    <button
-      type={type}
-      onClick={onClick}
+    <ButtonPrimitive
+      data-slot="button"
       disabled={isDisabled}
-      aria-disabled={isDisabled ? 'true' : undefined}
-      aria-busy={isLoading ? 'true' : undefined}
+      aria-disabled={isDisabled ? "true" : undefined}
+      aria-busy={isLoading ? "true" : undefined}
       aria-label={resolvedAriaLabel}
-      form={form}
-      className={classes}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        fullWidth && "w-full"
+      )}
+      {...props}
     >
       {isLoading ? (
-        <LoadingSpinner size={size === 'sm' ? 14 : size === 'md' ? 16 : 20} />
+        <LoadingSpinner size={spinnerSize} />
       ) : leftIcon ? (
         leftIcon
       ) : null}
       {children}
       {rightIcon && !isLoading ? rightIcon : null}
-    </button>
+    </ButtonPrimitive>
   )
 }
 
+export { Button, buttonVariants }
 export default Button

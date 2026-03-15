@@ -16,7 +16,7 @@ Remaining: 210
 
 ## Replace UI Primitives (stages 6–29) `[replace-primitive]`
 
-- [ ] **Stage 6**: Replace `src/components/ui/button.tsx` — swap custom button with shadcn Button, preserve all variant names (primary, secondary, ghost, danger → destructive), update all 40+ import sites
+- [x] **Stage 6**: Replace `src/components/ui/button.tsx` — swap custom button with shadcn Button, preserve all variant names (primary, secondary, ghost, danger → destructive), update all 40+ import sites (2026-03-15)
 - [ ] **Stage 7**: Replace `src/components/ui/form-input.tsx` — swap with shadcn Input + Label composition, preserve react-hook-form integration, update all import sites
 - [ ] **Stage 8**: Replace `src/components/ui/password-input.tsx` — rebuild with shadcn Input + eye toggle button, preserve show/hide functionality
 - [ ] **Stage 9**: Replace `src/components/ui/search-input.tsx` — rebuild with shadcn Input + search icon, preserve clear button
