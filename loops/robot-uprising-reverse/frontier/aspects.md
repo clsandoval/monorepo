@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 710
-- **Analyzed:** 291
-- **Pending:** 419
-- **Convergence:** 41.0%
+- **Total aspects:** 715
+- **Analyzed:** 292
+- **Pending:** 423
+- **Convergence:** 40.8%
 
 ---
 
@@ -676,9 +676,14 @@
   - [ ] 6.08c — Community accessibility profile sharing: shareable accessibility configuration presets via Steam Workshop; "Sana's screen reader profile" as downloadable config; players with similar disabilities can download and fine-tune
   - [ ] 6.08d — Accessible Gauntlet: competitive fairness with Assist Mode: which options are neutral (font, color, narration) vs. game-affecting (buffer bonus, enemy speed); matchmaking interaction; ELO adjustment vs. separate brackets vs. universal access
   - [ ] 6.08e — The "accessibility cliff" at Mission 5: factory introduction is the steepest complexity jump; specific accommodations for cognitively impaired players (extended tutorial, simplified factory mode, bridging mission); where accessible design and game design converge
-- [ ] 6.01a — Tile art deep dive per biome: exact pixel-level design for each terrain type (jungle, rice terrace, beach, city, Siquijor volcanic); how much cultural detail fits in 64×32 isometric tiles; reference imagery from actual Philippine landscapes
+- [x] 6.01a — Tile art deep dive per biome: exact pixel-level design for each terrain type (jungle, rice terrace, beach, city, Siquijor volcanic); how much cultural detail fits in 64×32 isometric tiles; reference imagery from actual Philippine landscapes
 - [ ] 6.01b — Unit sprite design language: detailed visual identity per unit type — silhouette grammar, accent color system, destroyed/ghost/hologram variant derivation from base sprite; interaction with locked sprite-sheet pipeline
 - [ ] 6.01c — The holographic overlay system: full technical and aesthetic design of Plan mode overlay — grid materialization, channel wiring rendering, perception radius treatment, ghost units, overlay × terrain interaction
+- [ ] 6.01a-i — Tile animation budget: per-tile animation spec (bioluminescent pulsing 0.25Hz, water shimmer 0.5Hz, foam drift every 4 ticks, neon reflection flicker); Pixi.js rendering cost analysis for 64 animated tiles; "does animation compete with gameplay overlays" question
+- [ ] 6.01a-ii — Biome-specific signal propagation visuals: if terrain-modified spatial routing adopted, each biome needs distinct signal-delivery animation (jungle traces canopy, terrace follows horizontal lines, city routes through fiber optic, Siquijor amplified by bioluminescence); full animation spec per biome × signal type
+- [ ] 6.01a-iii — Dynamic tile damage states: when combat occurs on a tile, does it show damage? Cracked terrace stones, scorched jungle canopy, shattered beach limestone, broken city neon, extinguished bioluminescence; damage state count per biome; interaction with terrain signal propagation
+- [ ] 6.01a-iv — Biome transition tile set completeness: fifteen biome pairs (5 choose 2) each need at least one transition tile; full pixel-level specs for all 15 combinations including jungle↔Siquijor, terrace↔city, and other uncovered pairs
+- [ ] 6.01a-v — High-contrast / accessibility tile variants: Shape-First Design geometric patterns per biome (diagonal hatching, horizontal lines, stippling, grid, concentric circles) replacing color as primary biome identifier; contrast ratios; readability across protanopia/deuteranopia/tritanopia/achromatopsia
 - [ ] 6.01d — Color palette interaction with colorblind modes: how each art direction option degrades under protanopia/deuteranopia/tritanopia; which palettes need redesign vs. naturally robust; interaction with locked signal colors
 - [ ] 6.01e — Tilt-shift implementation in Pixi.js: technical feasibility of the "Diorama" effect — blur filters, performance on low-end hardware, dynamic edge sharpening, Playwright screenshot test determinism
 - [ ] 6.03a — The Predecessor's character arc across 10 missions: beat-by-beat emotional evolution from weary mentor to hopeful observer; branching narrator mood based on player success/failure as implicit difficulty feedback; comparable: Darkest Dungeon Ancestor mood shifts, Hades character memory across runs
