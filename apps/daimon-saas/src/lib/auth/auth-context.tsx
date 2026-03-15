@@ -23,6 +23,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Client-only: initialize auth state listener
   useEffect(() => {
+    // Skip Supabase init if env vars are not configured
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      setLoading(false)
+      return
+    }
+
     const supabase = createClient()
 
     supabase.auth.getSession().then(({ data: { session } }) => {
