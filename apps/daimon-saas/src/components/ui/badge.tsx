@@ -1,3 +1,7 @@
+import { cva, type VariantProps } from 'class-variance-authority'
+
+import { cn } from '@/lib/utils'
+
 export type BadgeVariant =
   | 'plan-free'
   | 'plan-starter'
@@ -20,125 +24,85 @@ export type BadgeVariant =
   | 'warning'
   | 'danger'
 
-interface BadgeConfig {
-  defaultLabel: string
-  background: string
-  color: string
-  border?: string
-}
+const badgeVariants = cva(
+  'inline-flex items-center whitespace-nowrap font-semibold leading-none rounded-none',
+  {
+    variants: {
+      variant: {
+        'plan-free':
+          'bg-[rgba(12,31,64,0.08)] text-[rgba(12,31,64,0.65)] border-[1.5px] border-[rgba(12,31,64,0.15)]',
+        'plan-starter':
+          'bg-[rgba(180,231,221,0.20)] text-foreground border-[1.5px] border-[rgba(180,231,221,0.60)]',
+        'plan-pro':
+          'bg-foreground text-white border-0',
+        'status-pending':
+          'bg-[#FEF9C3] text-[#854D0E] border-0',
+        'status-configured':
+          'bg-[#DBEAFE] text-[#1E40AF] border-0',
+        'status-active':
+          'bg-[rgba(34,197,94,0.12)] text-[#16A34A] border-0',
+        'status-suspended':
+          'bg-[rgba(239,68,68,0.12)] text-destructive border-0',
+        'key-valid':
+          'bg-[rgba(34,197,94,0.12)] text-[#16A34A] border-[1.5px] border-[rgba(34,197,94,0.30)]',
+        'key-invalid':
+          'bg-[rgba(239,68,68,0.12)] text-destructive border-[1.5px] border-[rgba(239,68,68,0.30)]',
+        'key-unconfigured':
+          'bg-[rgba(12,31,64,0.08)] text-[rgba(12,31,64,0.55)] border-[1.5px] border-[rgba(12,31,64,0.15)]',
+        'key-validating':
+          'bg-[rgba(245,158,11,0.12)] text-[#D97706] border-[1.5px] border-[rgba(245,158,11,0.30)]',
+        'connection-connected':
+          'bg-[rgba(34,197,94,0.12)] text-[#16A34A] border-[1.5px] border-[rgba(34,197,94,0.30)]',
+        'connection-connecting':
+          'bg-[rgba(245,158,11,0.12)] text-[#D97706] border-[1.5px] border-[rgba(245,158,11,0.30)]',
+        'connection-error':
+          'bg-[rgba(239,68,68,0.12)] text-destructive border-[1.5px] border-[rgba(239,68,68,0.30)]',
+        'connection-disconnected':
+          'bg-[rgba(12,31,64,0.08)] text-[rgba(12,31,64,0.55)] border-[1.5px] border-[rgba(12,31,64,0.15)]',
+        neutral:
+          'bg-[rgba(12,31,64,0.08)] text-[rgba(12,31,64,0.65)] border-[1.5px] border-[rgba(12,31,64,0.15)]',
+        info:
+          'bg-[#DBEAFE] text-[#1E40AF] border-0',
+        success:
+          'bg-[rgba(34,197,94,0.12)] text-[#16A34A] border-0',
+        warning:
+          'bg-[rgba(245,158,11,0.12)] text-[#D97706] border-0',
+        danger:
+          'bg-[rgba(239,68,68,0.12)] text-destructive border-0',
+      },
+      size: {
+        sm: 'text-[11px] px-2 py-[2px] tracking-[0.05em]',
+        md: 'text-[13px] px-[10px] py-[3px] tracking-[0.03em]',
+      },
+    },
+    defaultVariants: {
+      variant: 'neutral',
+      size: 'sm',
+    },
+  }
+)
 
-const BADGE_CONFIGS: Record<BadgeVariant, BadgeConfig> = {
-  'plan-free': {
-    defaultLabel: 'FREE',
-    background: 'rgba(12,31,64,0.08)',
-    color: 'rgba(12,31,64,0.65)',
-    border: '1.5px solid rgba(12,31,64,0.15)',
-  },
-  'plan-starter': {
-    defaultLabel: 'STARTER',
-    background: 'rgba(180,231,221,0.20)',
-    color: '#0C1F40',
-    border: '1.5px solid rgba(180,231,221,0.60)',
-  },
-  'plan-pro': {
-    defaultLabel: 'PRO',
-    background: '#0C1F40',
-    color: '#FFFFFF',
-  },
-  'status-pending': {
-    defaultLabel: 'PENDING',
-    background: '#FEF9C3',
-    color: '#854D0E',
-  },
-  'status-configured': {
-    defaultLabel: 'CONFIGURED',
-    background: '#DBEAFE',
-    color: '#1E40AF',
-  },
-  'status-active': {
-    defaultLabel: 'ACTIVE',
-    background: 'rgba(34,197,94,0.12)',
-    color: '#16A34A',
-  },
-  'status-suspended': {
-    defaultLabel: 'SUSPENDED',
-    background: 'rgba(239,68,68,0.12)',
-    color: '#DC2626',
-  },
-  'key-valid': {
-    defaultLabel: 'VALID',
-    background: 'rgba(34,197,94,0.12)',
-    color: '#16A34A',
-    border: '1.5px solid rgba(34,197,94,0.30)',
-  },
-  'key-invalid': {
-    defaultLabel: 'INVALID',
-    background: 'rgba(239,68,68,0.12)',
-    color: '#DC2626',
-    border: '1.5px solid rgba(239,68,68,0.30)',
-  },
-  'key-unconfigured': {
-    defaultLabel: 'NOT CONFIGURED',
-    background: 'rgba(12,31,64,0.08)',
-    color: 'rgba(12,31,64,0.55)',
-    border: '1.5px solid rgba(12,31,64,0.15)',
-  },
-  'key-validating': {
-    defaultLabel: 'CHECKING…',
-    background: 'rgba(245,158,11,0.12)',
-    color: '#D97706',
-    border: '1.5px solid rgba(245,158,11,0.30)',
-  },
-  'connection-connected': {
-    defaultLabel: 'CONNECTED',
-    background: 'rgba(34,197,94,0.12)',
-    color: '#16A34A',
-    border: '1.5px solid rgba(34,197,94,0.30)',
-  },
-  'connection-connecting': {
-    defaultLabel: 'CONNECTING',
-    background: 'rgba(245,158,11,0.12)',
-    color: '#D97706',
-    border: '1.5px solid rgba(245,158,11,0.30)',
-  },
-  'connection-error': {
-    defaultLabel: 'ERROR',
-    background: 'rgba(239,68,68,0.12)',
-    color: '#DC2626',
-    border: '1.5px solid rgba(239,68,68,0.30)',
-  },
-  'connection-disconnected': {
-    defaultLabel: 'DISCONNECTED',
-    background: 'rgba(12,31,64,0.08)',
-    color: 'rgba(12,31,64,0.55)',
-    border: '1.5px solid rgba(12,31,64,0.15)',
-  },
-  neutral: {
-    defaultLabel: '',
-    background: 'rgba(12,31,64,0.08)',
-    color: 'rgba(12,31,64,0.65)',
-    border: '1.5px solid rgba(12,31,64,0.15)',
-  },
-  info: {
-    defaultLabel: '',
-    background: '#DBEAFE',
-    color: '#1E40AF',
-  },
-  success: {
-    defaultLabel: '',
-    background: 'rgba(34,197,94,0.12)',
-    color: '#16A34A',
-  },
-  warning: {
-    defaultLabel: '',
-    background: 'rgba(245,158,11,0.12)',
-    color: '#D97706',
-  },
-  danger: {
-    defaultLabel: '',
-    background: 'rgba(239,68,68,0.12)',
-    color: '#DC2626',
-  },
+const DEFAULT_LABELS: Record<BadgeVariant, string> = {
+  'plan-free': 'FREE',
+  'plan-starter': 'STARTER',
+  'plan-pro': 'PRO',
+  'status-pending': 'PENDING',
+  'status-configured': 'CONFIGURED',
+  'status-active': 'ACTIVE',
+  'status-suspended': 'SUSPENDED',
+  'key-valid': 'VALID',
+  'key-invalid': 'INVALID',
+  'key-unconfigured': 'NOT CONFIGURED',
+  'key-validating': 'CHECKING…',
+  'connection-connected': 'CONNECTED',
+  'connection-connecting': 'CONNECTING',
+  'connection-error': 'ERROR',
+  'connection-disconnected': 'DISCONNECTED',
+  neutral: '',
+  info: '',
+  success: '',
+  warning: '',
+  danger: '',
 }
 
 export interface BadgeProps {
@@ -156,27 +120,19 @@ export function Badge({
   uppercase = true,
   className,
 }: BadgeProps) {
-  const config = BADGE_CONFIGS[variant]
-  const displayLabel = label ?? config.defaultLabel
+  const displayLabel = label ?? DEFAULT_LABELS[variant]
 
   return (
     <span
-      className={[
-        'inline-flex items-center whitespace-nowrap font-semibold leading-none',
-        size === 'sm'
-          ? 'text-[11px] px-[8px] py-[2px] tracking-[0.05em]'
-          : 'text-[13px] px-[10px] py-[3px] tracking-[0.03em]',
-        uppercase ? 'uppercase' : '',
-        className ?? '',
-      ].filter(Boolean).join(' ')}
-      style={{
-        background: config.background,
-        color: config.color,
-        border: config.border ?? 'none',
-        borderRadius: '0px',
-      }}
+      className={cn(
+        badgeVariants({ variant, size }),
+        uppercase && 'uppercase',
+        className
+      )}
     >
       {displayLabel}
     </span>
   )
 }
+
+export { badgeVariants }
