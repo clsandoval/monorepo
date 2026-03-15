@@ -73,7 +73,7 @@ export function FaqSection() {
     <section id="faq" aria-label="FAQ" className="scroll-mt-20">
       <div className="bg-card py-24 max-md:py-16">
         <div className="mx-auto max-w-[896px] px-8 max-md:px-6">
-          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          <p className="mb-3 text-center text-sm font-semibold uppercase tracking-widest text-muted-foreground">
             FAQ
           </p>
           <h2 className="font-headline-semi-expanded mb-12 text-center text-[clamp(28px,3.5vw,44px)] font-medium text-foreground">

@@ -101,7 +101,7 @@ export function PublicFooter() {
       <Separator className="mb-4 mt-8 bg-white/10" />
 
       {/* Copyright row */}
-      <div className="flex items-center justify-between text-[13px] text-white/35">
+      <div className="flex items-center justify-between text-sm text-white/35">
         <span>© 2026 Daimon. All rights reserved.</span>
         <span>Built with Claude · Powered by Anthropic</span>
       </div>

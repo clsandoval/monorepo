@@ -127,7 +127,7 @@ Each stage: navigate route at 1280x800 via Playwright, assert no console errors,
 
 Each stage: navigate route at 375x812 via Playwright, assert no horizontal overflow, touch targets >= 44px, text >= 14px, mobile nav works, take screenshot.
 
-- [ ] **Stage 98**: Mobile verify `/` — hero stacks vertically, pricing cards stack, mobile hamburger nav works
+- [x] **Stage 98**: Mobile verify `/` — hero stacks vertically, pricing cards stack, mobile hamburger nav works (2026-03-15)
 - [ ] **Stage 99**: Mobile verify `/about` — content readable, no overflow
 - [ ] **Stage 100**: Mobile verify `/changelog` — entries stack vertically
 - [ ] **Stage 101**: Mobile verify `/login` — form fills viewport width with padding, inputs full-width

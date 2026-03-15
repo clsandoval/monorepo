@@ -218,7 +218,7 @@ function FeaturesSection() {
                     </div>
                     <h3 className="mb-2.5 text-lg font-medium text-navy font-body">{card.heading}</h3>
                     <p className="mb-4 flex-1 text-[15px] font-normal text-navy/70 leading-[1.65] font-body">{card.body}</p>
-                    <span className="inline-block text-xs font-medium text-navy/60 bg-navy/5 px-2.5 py-[3px] font-body">{card.tag}</span>
+                    <span className="inline-block text-sm font-medium text-navy/60 bg-navy/5 px-2.5 py-[3px] font-body">{card.tag}</span>
                   </div>
                 </div>
               )
@@ -277,7 +277,7 @@ function HeroSection() {
           </div>
 
           {/* Social proof */}
-          <p className="text-[13px] font-normal text-navy/50 mt-4 font-body">
+          <p className="text-sm font-normal text-navy/50 mt-4 font-body">
             Free tier available · Your keys, your costs · Cancel anytime
           </p>
         </div>

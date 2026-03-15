@@ -71,8 +71,8 @@ const badgeVariants = cva(
           'bg-[rgba(239,68,68,0.12)] text-destructive border-0',
       },
       size: {
-        sm: 'text-[11px] px-2 py-[2px] tracking-[0.05em]',
-        md: 'text-[13px] px-[10px] py-[3px] tracking-[0.03em]',
+        sm: 'text-sm px-2 py-[2px] tracking-[0.05em]',
+        md: 'text-sm px-[10px] py-[3px] tracking-[0.03em]',
       },
     },
     defaultVariants: {

@@ -50,7 +50,7 @@ function FeatureList({
     <div>
       <p
         className={cn(
-          'mb-3 font-body text-xs font-semibold uppercase tracking-wider',
+          'mb-3 font-body text-sm font-semibold uppercase tracking-wider',
           dark ? 'text-white/40' : 'text-foreground/40'
         )}
       >
@@ -86,7 +86,7 @@ export function PricingSection() {
       <div className="bg-background py-24">
         <div className="mx-auto max-w-[1280px] px-8">
           {/* Section header */}
-          <p className="mb-3 text-center font-body text-xs font-semibold uppercase tracking-widest text-foreground/50">
+          <p className="mb-3 text-center font-body text-sm font-semibold uppercase tracking-widest text-foreground/50">
             Pricing
           </p>
           <h2 className="font-headline-semi-expanded text-center text-[clamp(28px,3.5vw,44px)] font-medium text-foreground">
