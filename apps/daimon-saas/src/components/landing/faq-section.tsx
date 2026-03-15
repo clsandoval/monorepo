@@ -1,6 +1,9 @@
-'use client'
-
-import { useState } from 'react'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 
 const FAQ_ITEMS = [
   {
@@ -66,120 +69,29 @@ const FAQ_ITEMS = [
 ]
 
 export function FaqSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
-
   return (
-    <section id="faq" aria-label="FAQ" style={{ scrollMarginTop: '80px' }}>
-      <style>{`
-        .faq-root {
-          background-color: #FFFFFF;
-          padding: 96px 0;
-        }
-        .faq-container {
-          max-width: 896px;
-          margin: 0 auto;
-          padding: 0 32px;
-        }
-        .faq-section-label {
-          font-size: 12px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: rgba(12, 31, 64, 0.5);
-          margin-bottom: 12px;
-          font-family: var(--font-body);
-          text-align: center;
-        }
-        .faq-heading {
-          font-size: clamp(28px, 3.5vw, 44px);
-          font-weight: 500;
-          color: #0C1F40;
-          text-align: center;
-          margin-bottom: 48px;
-        }
-        .faq-item {
-          border-bottom: 1px solid rgba(12, 31, 64, 0.08);
-        }
-        .faq-question-btn {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 20px 0;
-          background: none;
-          border: none;
-          cursor: pointer;
-          text-align: left;
-          gap: 16px;
-        }
-        .faq-question-text {
-          font-size: 17px;
-          font-weight: 500;
-          color: #0C1F40;
-          font-family: var(--font-body);
-          line-height: 1.4;
-        }
-        .faq-expand-icon {
-          font-size: 20px;
-          font-weight: 400;
-          color: rgba(12, 31, 64, 0.6);
-          flex-shrink: 0;
-          line-height: 1;
-          width: 20px;
-          text-align: center;
-        }
-        .faq-answer {
-          overflow: hidden;
-          transition: max-height 0.3s ease;
-        }
-        .faq-answer-inner {
-          padding: 0 0 20px 0;
-          font-size: 16px;
-          font-weight: 400;
-          color: rgba(12, 31, 64, 0.7);
-          line-height: 1.7;
-          font-family: var(--font-body);
-        }
-        @media (max-width: 900px) {
-          .faq-container { padding: 0 24px; }
-          .faq-root { padding: 60px 0; }
-          .faq-question-text { font-size: 16px; }
-          .faq-answer-inner { font-size: 15px; }
-        }
-      `}</style>
-
-      <div className="faq-root">
-        <div className="faq-container">
-          <p className="faq-section-label">FAQ</p>
-          <h2 className="faq-heading font-headline-semi-expanded">
+    <section id="faq" aria-label="FAQ" className="scroll-mt-20">
+      <div className="bg-card py-24 max-md:py-16">
+        <div className="mx-auto max-w-[896px] px-8 max-md:px-6">
+          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            FAQ
+          </p>
+          <h2 className="font-headline-semi-expanded mb-12 text-center text-[clamp(28px,3.5vw,44px)] font-medium text-foreground">
             Common questions.
           </h2>
 
-          <div>
-            {FAQ_ITEMS.map((item, index) => {
-              const isOpen = openIndex === index
-              return (
-                <div key={index} className="faq-item">
-                  <button
-                    className="faq-question-btn"
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                    aria-expanded={isOpen}
-                  >
-                    <span className="faq-question-text">{item.question}</span>
-                    <span className="faq-expand-icon" aria-hidden="true">
-                      {isOpen ? '−' : '+'}
-                    </span>
-                  </button>
-                  <div
-                    className="faq-answer"
-                    style={{ maxHeight: isOpen ? '500px' : '0px' }}
-                  >
-                    <p className="faq-answer-inner">{item.answer}</p>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+          <Accordion>
+            {FAQ_ITEMS.map((item, index) => (
+              <AccordionItem key={index} value={index}>
+                <AccordionTrigger className="py-5 text-[17px] font-medium leading-snug text-foreground max-md:text-base">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-base leading-relaxed text-muted-foreground max-md:text-[15px]">
+                  <p>{item.answer}</p>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </div>
     </section>
