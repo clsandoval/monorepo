@@ -2,6 +2,8 @@
 
 import * as React from 'react'
 import { ListChecks, CheckCircle2, Circle } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Card } from '@/components/ui/card'
 
 interface OnboardingChecklistProps {
   /** discord_connections row exists with non-null bot_token_encrypted  */
@@ -102,57 +104,25 @@ export function OnboardingChecklist(props: OnboardingChecklistProps) {
   }
 
   return (
-    <div
+    <Card
       data-testid="onboarding-checklist"
-      style={{
-        background: '#FFFFFF',
-        border: '1.5px solid rgba(12,31,64,0.12)',
-        borderRadius: '0px',
-        padding: '24px 28px',
-        marginBottom: '24px',
-        borderLeft: '4px solid #B4E7DD',
-        opacity: fading ? 0 : 1,
-        height: fading ? 0 : undefined,
-        overflow: fading ? 'hidden' : undefined,
-        transition: 'opacity 0.4s ease, height 0.4s ease',
-      }}
+      className={cn(
+        'border-[1.5px] border-border border-l-4 border-l-primary px-7 py-6 mb-6 transition-[opacity,height] duration-[400ms] ease-in-out',
+        fading && 'opacity-0 h-0 overflow-hidden',
+      )}
     >
       {/* Header */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-          marginBottom: '16px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+      <div className="flex justify-between items-start mb-4">
+        <div className="flex items-start gap-2.5">
           <ListChecks
             size={20}
-            color="#0C1F40"
-            style={{ flexShrink: 0, marginTop: '2px' }}
+            className="shrink-0 mt-0.5 text-foreground"
           />
           <div>
-            <p
-              style={{
-                fontFamily: '"Archivo", sans-serif',
-                fontVariationSettings: '"wdth" 112',
-                fontSize: '16px',
-                fontWeight: 500,
-                color: '#0C1F40',
-                margin: 0,
-              }}
-            >
+            <p className="font-heading text-base font-medium text-foreground m-0">
               Get started
             </p>
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontSize: '14px',
-                color: 'rgba(12,31,64,0.65)',
-                margin: '2px 0 0 0',
-              }}
-            >
+            <p className="text-sm text-muted-foreground mt-0.5 mb-0">
               Complete these steps to bring your bot online.
             </p>
           </div>
@@ -160,15 +130,8 @@ export function OnboardingChecklist(props: OnboardingChecklistProps) {
       </div>
 
       {/* Progress bar */}
-      <div style={{ marginBottom: '16px' }}>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontSize: '12px',
-            color: 'rgba(12,31,64,0.55)',
-            marginBottom: '6px',
-          }}
-        >
+      <div className="mb-4">
+        <p className="text-xs text-muted-foreground mb-1.5">
           Step {completedSteps} of {totalSteps}
         </p>
         <div
@@ -176,26 +139,17 @@ export function OnboardingChecklist(props: OnboardingChecklistProps) {
           aria-valuenow={completedSteps}
           aria-valuemin={0}
           aria-valuemax={totalSteps}
-          style={{
-            background: 'rgba(12,31,64,0.08)',
-            height: '4px',
-            borderRadius: '0px',
-            overflow: 'hidden',
-          }}
+          className="bg-muted h-1 overflow-hidden"
         >
           <div
-            style={{
-              background: '#B4E7DD',
-              height: '100%',
-              width: `${progressPct}%`,
-              transition: 'width 0.4s ease',
-            }}
+            className="bg-primary h-full transition-[width] duration-[400ms] ease-in-out"
+            style={{ width: `${progressPct}%` }}
           />
         </div>
       </div>
 
       {/* Steps */}
-      <ol aria-label="Setup steps" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+      <ol aria-label="Setup steps" className="list-none m-0 p-0">
         {steps.map((step, idx) => {
           const variant = stepVariant(step, idx)
           const isLast = idx === steps.length - 1
@@ -204,76 +158,39 @@ export function OnboardingChecklist(props: OnboardingChecklistProps) {
             <li
               key={idx}
               aria-label={`Step ${idx + 1}: ${step.title} — ${step.completed ? 'completed' : 'pending'}`}
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '12px',
-                padding: '12px 0',
-                borderBottom: isLast ? 'none' : '1px solid rgba(12,31,64,0.06)',
-              }}
+              className={cn(
+                'flex items-start gap-3 py-3',
+                !isLast && 'border-b border-border/40',
+              )}
             >
               {/* Status icon */}
-              <div style={{ flexShrink: 0, marginTop: '1px' }}>
+              <div className="shrink-0 mt-px">
                 {variant === 'completed' && (
-                  <CheckCircle2 size={20} color="#B4E7DD" fill="#B4E7DD" strokeWidth={0} />
+                  <CheckCircle2 size={20} className="text-primary fill-primary" strokeWidth={0} />
                 )}
                 {variant === 'current' && (
-                  <div
-                    style={{
-                      width: '20px',
-                      height: '20px',
-                      borderRadius: '50%',
-                      border: '1.5px solid #0C1F40',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-inter), Inter, sans-serif',
-                        fontSize: '10px',
-                        fontWeight: 600,
-                        color: '#0C1F40',
-                        lineHeight: 1,
-                      }}
-                    >
+                  <div className="w-5 h-5 rounded-full border-[1.5px] border-foreground flex items-center justify-center">
+                    <span className="text-[10px] font-semibold text-foreground leading-none">
                       {idx + 1}
                     </span>
                   </div>
                 )}
                 {variant === 'pending' && (
-                  <Circle size={20} color="rgba(12,31,64,0.25)" strokeWidth={1.5} />
+                  <Circle size={20} className="text-foreground/25" strokeWidth={1.5} />
                 )}
               </div>
 
               {/* Content */}
               <div
-                style={{
-                  flex: 1,
-                  opacity: variant === 'completed' ? 0.55 : 1,
-                  minHeight: '28px',
-                }}
+                className={cn(
+                  'flex-1 min-h-7',
+                  variant === 'completed' && 'opacity-55',
+                )}
               >
-                <p
-                  style={{
-                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                    fontSize: '14px',
-                    fontWeight: 500,
-                    color: '#0C1F40',
-                    margin: 0,
-                  }}
-                >
+                <p className="text-sm font-medium text-foreground m-0">
                   {step.title}
                 </p>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                    fontSize: '13px',
-                    color: 'rgba(12,31,64,0.65)',
-                    margin: '2px 0 0 0',
-                  }}
-                >
+                <p className="text-[13px] text-muted-foreground mt-0.5 mb-0">
                   {step.description}
                 </p>
               </div>
@@ -285,17 +202,7 @@ export function OnboardingChecklist(props: OnboardingChecklistProps) {
                   {...(step.ctaExternal
                     ? { target: '_blank', rel: 'noopener noreferrer' }
                     : {})}
-                  style={{
-                    flexShrink: 0,
-                    fontFamily: 'var(--font-inter), Inter, sans-serif',
-                    fontSize: '13px',
-                    fontWeight: 500,
-                    color: '#0C1F40',
-                    textDecoration: 'underline',
-                    textUnderlineOffset: '2px',
-                    whiteSpace: 'nowrap',
-                    marginTop: '2px',
-                  }}
+                  className="shrink-0 text-[13px] font-medium text-foreground underline underline-offset-2 whitespace-nowrap mt-0.5"
                 >
                   {step.ctaLabel}
                 </a>
@@ -304,6 +211,6 @@ export function OnboardingChecklist(props: OnboardingChecklistProps) {
           )
         })}
       </ol>
-    </div>
+    </Card>
   )
 }
