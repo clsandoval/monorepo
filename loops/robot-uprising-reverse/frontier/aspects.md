@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 725
-- **Analyzed:** 294
-- **Pending:** 431
-- **Convergence:** 40.6%
+- **Total aspects:** 730
+- **Analyzed:** 295
+- **Pending:** 435
+- **Convergence:** 40.4%
 
 ---
 
@@ -669,7 +669,12 @@
   - [ ] 6.05d — Steam Input API integration for custom controller profiles: beyond Steam Deck — how to support arbitrary controllers, Steam Controller, fight sticks, accessibility devices via Steam Input; action sets per screen; community controller configs
   - [ ] 6.05e — Ultrawide-specific three-column layout design: detailed layout spec for 21:9 and 32:9 monitors — what fills the extra horizontal space, when panels become permanently visible vs. toggleable, how the layout degrades gracefully back to 16:9
 - [x] 6.06 — Console/controller adaptation: how each building block paradigm works on a gamepad
-  - [ ] 6.06a — Haptic vocabulary as game design language: complete vibration pattern specification per event type, platform-specific exploitation (DualSense adaptive triggers, Joy-Con HD Rumble), haptic tutorialization, gameplay-relevant vs. aesthetic haptic information
+  - [x] 6.06a — Haptic vocabulary as game design language: complete vibration pattern specification per event type, platform-specific exploitation (DualSense adaptive triggers, Joy-Con HD Rumble), haptic tutorialization, gameplay-relevant vs. aesthetic haptic information
+    - [ ] 6.06a-i — Haptic fatigue testing and intensity curves: empirical testing protocol for continuous haptic vibration over 5/10/30/60 minute sessions; per-category intensity decay curves to counteract habituation; "haptic loudness war" avoidance principles
+    - [ ] 6.06a-ii — Audio-haptic synchronization specification: formal timing constraints between visual events, audio cues, and haptic pulses; acceptable latency windows per category; DualSense speaker + grip + trigger three-channel sync requirements
+    - [ ] 6.06a-iii — Haptic replay overlay for streaming/spectating: visual waveform representation of haptic events overlaid on replay footage; "what the player felt" as a spectator feature; waveform rendering spec for Twitch/YouTube overlays
+    - [ ] 6.06a-iv — Cross-platform haptic parity testing matrix: systematic comparison of the same game events across DualSense / Joy-Con / Xbox / Steam Deck / generic; acceptable degradation thresholds; the "minimum viable haptic experience" definition
+    - [ ] 6.06a-v — Haptic modding API for community-created vibration profiles: user-configurable haptic event → pattern mapping; community-shared haptic "skins"; accessibility profiles as a sharing use case; competitive integrity concerns for custom haptic configurations
   - [ ] 6.06b — DualSense adaptive trigger resistance as commitment ritual: EXECUTE resistance gate concept, variable trigger resistance for meaningful decision weight vs. fatigue, other adaptive trigger uses (resistance scaling with cost, trigger softening when resources abundant)
   - [ ] 6.06c — Joy-Con separated asymmetric co-op: "architect + analyst" mode where each player holds one Joy-Con — one manages Plan, one manages Inspector; role split design, handoff moments, two-act debrief implications
   - [ ] 6.06d — Cross-platform input parity for PvP: systematic controller disadvantage in timed formats; input-speed normalization (longer timer for controller), input-blind matchmaking, async-only as equalizer
