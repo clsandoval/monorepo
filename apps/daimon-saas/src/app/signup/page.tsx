@@ -108,7 +108,7 @@ function PasswordStrengthBar({ password }: { password: string }) {
           />
         ))}
       </div>
-      <p className={cn('text-[11px] mt-1', textClass)}>
+      <p className={cn('text-sm mt-1', textClass)}>
         {label}
       </p>
     </div>
@@ -208,7 +208,7 @@ function PasswordField({
     <div>
       <Label
         htmlFor={id}
-        className="mb-1.5 text-[13px] text-foreground/70"
+        className="mb-1.5 text-sm text-foreground/70"
       >
         {label} <span aria-hidden="true">*</span>
       </Label>
@@ -244,7 +244,7 @@ function PasswordField({
         <p
           id={`${id}-error`}
           role="alert"
-          className="flex items-center gap-1 text-xs text-destructive mt-1"
+          className="flex items-center gap-1 text-sm text-destructive mt-1"
         >
           {error}
         </p>
@@ -334,7 +334,7 @@ export default function SignupPage() {
             <div className="absolute left-0 top-[40%] h-[20%] w-1.5 bg-primary opacity-60" />
           </div>
 
-          <CardHeader className="px-10 pt-10 pb-0">
+          <CardHeader className="px-6 sm:px-10 pt-10 pb-0">
             <CardTitle className="font-heading text-2xl font-medium text-foreground">
               Create your account
             </CardTitle>
@@ -343,14 +343,14 @@ export default function SignupPage() {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="px-10 pb-10">
+          <CardContent className="px-6 sm:px-10 pb-10">
             {/* Form */}
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
               {/* Full name field */}
               <div className="mb-4">
                 <Label
                   htmlFor="fullName"
-                  className="mb-1.5 text-[13px] text-foreground/70"
+                  className="mb-1.5 text-sm text-foreground/70"
                 >
                   Full name <span aria-hidden="true">*</span>
                 </Label>
@@ -375,7 +375,7 @@ export default function SignupPage() {
                   <p
                     id="fullName-error"
                     role="alert"
-                    className="text-xs text-destructive mt-1"
+                    className="text-sm text-destructive mt-1"
                   >
                     {errors.fullName.message}
                   </p>
@@ -386,7 +386,7 @@ export default function SignupPage() {
               <div className="mb-4">
                 <Label
                   htmlFor="email"
-                  className="mb-1.5 text-[13px] text-foreground/70"
+                  className="mb-1.5 text-sm text-foreground/70"
                 >
                   Email <span aria-hidden="true">*</span>
                 </Label>
@@ -410,7 +410,7 @@ export default function SignupPage() {
                   <p
                     id="email-error"
                     role="alert"
-                    className="text-xs text-destructive mt-1"
+                    className="text-sm text-destructive mt-1"
                   >
                     {errors.email.message}
                   </p>
@@ -474,7 +474,7 @@ export default function SignupPage() {
                       />
                     )}
                   />
-                  <span className="text-[13px] text-foreground/65 leading-relaxed">
+                  <span className="text-sm text-foreground/65 leading-relaxed">
                     I agree to the{' '}
                     <Link
                       href="/terms"
@@ -499,7 +499,7 @@ export default function SignupPage() {
                   <p
                     id="agreeTerms-error"
                     role="alert"
-                    className="text-xs text-destructive mt-1.5"
+                    className="text-sm text-destructive mt-1.5"
                   >
                     {errors.agreeTerms.message}
                   </p>
@@ -549,7 +549,7 @@ export default function SignupPage() {
         </div>
 
         {/* Auth footer links */}
-        <div className="flex justify-center gap-4 text-xs text-foreground/45">
+        <div className="flex justify-center gap-4 text-sm text-foreground/45">
           <Link href="/terms" className="text-inherit no-underline hover:text-foreground/70">
             Terms of Service
           </Link>
