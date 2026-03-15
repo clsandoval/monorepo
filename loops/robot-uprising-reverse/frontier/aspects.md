@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 964
-- **Analyzed:** 342
-- **Pending:** 622
-- **Convergence:** 35.5%
+- **Total aspects:** 969
+- **Analyzed:** 343
+- **Pending:** 626
+- **Convergence:** 35.4%
 
 ---
 
@@ -929,7 +929,12 @@
 - [x] 7.02 — Co-op: shared battlefield, complementary attention architectures
 - [x] 7.02a — Co-op channel naming protocols and emergent communication conventions: how player-pairs develop shared vocabulary for cross-boundary signals; the "protocol layer" that emerges from repeated co-op sessions; comparable to software API versioning and team naming conventions
 - [x] 7.02b — Co-op production queue negotiation: when two players share one production queue (Archon, Specialist, War Room), build order becomes a diplomacy problem; resource allocation as cooperative tension; comparable to Factorio's "you used all the iron" conflict
-- [ ] 7.02c — 2v2 co-op PvP mode combinations: pairing co-op models with PvP models; Specialist co-op (4 distinct roles in a 2v2) as the deepest competitive format; mixed co-op models as asymmetric advantage
+- [x] 7.02c — 2v2 co-op PvP mode combinations: pairing co-op models with PvP models; Specialist co-op (4 distinct roles in a 2v2) as the deepest competitive format; mixed co-op models as asymmetric advantage
+  - [ ] 7.02c-i — 2v2 matchmaking population thresholds: minimum concurrent player counts for viable 2v2 matchmaking across each PvP model (Ghost: ~30 teams, Sealed Duel: ~200 teams, Arms Race: ~500 teams, Gauntlet: ~50 teams); dynamic mode availability based on concurrent count
+  - [ ] 7.02c-ii — Team rating systems for 2v2: Elo variants for team vs. individual rating; partnership persistence; the "new partner penalty" design; comparison to chess team ratings and Valorant duo queue adjustments
+  - [ ] 7.02c-iii — Asymmetric co-op model draft as ban/pick phase: tournament format where teams ban 1 co-op model, then pick from remaining 4; ban as strategic intelligence; comparable to MOBA champion draft
+  - [ ] 7.02c-iv — Spectator mode four-quadrant director controls: automated and manual camera systems for 2v2 tournament streaming; picture-in-picture priority logic; the "director AI"; Dota 2 auto-directed camera as comparable
+  - [ ] 7.02c-v — 2v2-specific mission design for co-op campaign: missions designed for 2v2 teams rather than adapted from solo; the "designed handoff" mission forcing Behaviorist and Networker to solve intertwined problems
 - [ ] 7.02d — Co-op Inspector as teaching tool: War Room co-op forces deep Inspector usage; how co-op debrief habits transfer to improved single-player analysis; co-op as the "Inspector tutorial" the game otherwise lacks
 - [ ] 7.02e — Cross-boundary EM emission budget as cooperative resource: in Divided Front co-op, both players' combined EM emissions create shared detection risk; the "emission budget" as a cooperative resource that neither player can individually control; comparable to shared radio frequency allocation
 - [ ] 7.02b-i — Queue proposal history in Inspector: chronological log of every proposed, accepted, and rejected queue change visible in Inspector after battle as "Production Planning Trace"; enables post-game analysis of whether build order disagreements caused failures; co-op equivalent of git blame for deployment order
