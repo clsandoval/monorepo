@@ -255,3 +255,10 @@ loops:
     status: converged
     created: 2026-03-13
     converged_at: "2026-03-14"
+  daimon-shadcn-forward:
+    description: "Replace all custom UI components with shadcn/ui + exhaustive Playwright QA (215 stages)"
+    type: forward
+    max_iterations: 250
+    timeout_minutes: 30
+    status: active
+    created: "2026-03-15"
