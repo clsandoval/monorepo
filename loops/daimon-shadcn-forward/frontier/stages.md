@@ -1,8 +1,8 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 126
-Remaining: 89
+Completed: 128
+Remaining: 87
 
 ---
 
@@ -157,7 +157,7 @@ Each stage: navigate route at 375x812 via Playwright, assert no horizontal overf
 - [x] **Stage 125**: Mobile verify `/robots.txt` — renders (2026-03-15)
 - [x] **Stage 126**: Mobile verify `/sitemap.xml` — renders (2026-03-15)
 - [x] **Stage 127**: Mobile verify 404 page — styled page renders (2026-03-15)
-- [ ] **Stage 128**: Mobile verify invalid route — 404 renders
+- [x] **Stage 128**: Mobile verify invalid route — 404 renders (2026-03-15)
 
 ## Tablet Verify (stages 129–137) `[tablet-verify]`
 
