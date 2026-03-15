@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import NextLink from 'next/link'
+import { cn } from '@/lib/utils'
 
 interface LinkProps {
   href: string
@@ -24,20 +25,16 @@ const sizeMap: Record<NonNullable<LinkProps['size']>, string> = {
 
 const variantMap: Record<NonNullable<LinkProps['variant']>, string> = {
   default:
-    'text-[#0C1F40] no-underline hover:underline hover:decoration-[#B4E7DD] transition-[color,text-decoration-color] duration-150 ease-linear',
+    'text-foreground no-underline hover:underline hover:decoration-primary transition-[color,text-decoration-color] duration-150 ease-linear',
   nav:
-    'text-[#0C1F40] font-medium no-underline hover:border-b-2 hover:border-[#B4E7DD] transition-[color,text-decoration-color] duration-150 ease-linear',
+    'text-foreground font-medium no-underline hover:border-b-2 hover:border-primary transition-[color,text-decoration-color] duration-150 ease-linear',
   muted:
-    'text-[rgba(12,31,64,0.55)] no-underline hover:text-[#0C1F40] hover:underline transition-[color,text-decoration-color] duration-150 ease-linear',
+    'text-muted-foreground no-underline hover:text-foreground hover:underline transition-[color,text-decoration-color] duration-150 ease-linear',
   underline:
-    'text-[#0C1F40] underline decoration-[rgba(180,231,221,0.6)] hover:decoration-[#B4E7DD] transition-[color,text-decoration-color] duration-150 ease-linear',
+    'text-foreground underline decoration-primary/60 hover:decoration-primary transition-[color,text-decoration-color] duration-150 ease-linear',
   unstyled: 'transition-[color,text-decoration-color] duration-150 ease-linear',
 }
 
-const focusStyles =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4E7DD] focus-visible:ring-offset-2'
-
-// ExternalLinkIcon — 12px inline SVG
 function ExternalLinkIcon() {
   return (
     <svg
@@ -45,12 +42,12 @@ function ExternalLinkIcon() {
       height="12"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="rgba(12,31,64,0.45)"
+      stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      style={{ display: 'inline', flexShrink: 0 }}
+      className="inline shrink-0 opacity-45"
     >
       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
       <polyline points="15 3 21 3 21 9" />
@@ -67,33 +64,29 @@ export function Link({
   disabled = false,
   leftIcon,
   rightIcon,
-  className = '',
+  className,
   children,
   onClick,
 }: LinkProps) {
-  const classes = [
+  const classes = cn(
     'inline-flex items-center gap-1',
     sizeMap[size],
     variantMap[variant],
-    focusStyles,
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
     className,
-  ]
-    .filter(Boolean)
-    .join(' ')
+  )
 
   if (disabled) {
     return (
       <span
         aria-disabled="true"
-        className={[
+        className={cn(
           'inline-flex items-center gap-1',
           sizeMap[size],
           variantMap[variant],
           'opacity-45 cursor-not-allowed',
           className,
-        ]
-          .filter(Boolean)
-          .join(' ')}
+        )}
       >
         {leftIcon}
         {children}
@@ -110,7 +103,6 @@ export function Link({
         rel="noopener noreferrer"
         onClick={onClick}
         className={classes}
-        aria-label={undefined}
       >
         {leftIcon}
         {children}
