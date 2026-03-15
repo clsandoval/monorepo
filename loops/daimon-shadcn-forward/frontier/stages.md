@@ -97,7 +97,7 @@ Each stage: navigate route at 1280x800 via Playwright, assert no console errors,
 - [x] **Stage 70**: Desktop verify `/login` — form renders with email + password fields, submit button, "sign up" link (2026-03-15)
 - [x] **Stage 71**: Desktop verify `/signup` — form renders with full name + email + password + confirm + terms checkbox, submit button, "sign in" link (2026-03-15)
 - [x] **Stage 72**: Desktop verify `/reset-password` — form renders with email field, submit button (2026-03-15)
-- [ ] **Stage 73**: Desktop verify `/reset-password/confirm` — form renders with new password fields
+- [x] **Stage 73**: Desktop verify `/reset-password/confirm` — form renders with new password fields (2026-03-15)
 - [ ] **Stage 74**: Desktop verify `/terms` — legal text renders, headings structured
 - [ ] **Stage 75**: Desktop verify `/privacy` — legal text renders, headings structured
 - [ ] **Stage 76**: Desktop verify `/legal/cookies` — cookie policy text renders
