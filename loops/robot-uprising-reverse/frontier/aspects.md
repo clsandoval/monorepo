@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 910
-- **Analyzed:** 331
-- **Pending:** 579
-- **Convergence:** 36.4%
+- **Total aspects:** 914
+- **Analyzed:** 332
+- **Pending:** 582
+- **Convergence:** 36.3%
 
 ---
 
@@ -832,11 +832,15 @@
   - [ ] 6.01c-iii — Overlay visual language consistency across Plan/Inspector/Replay: deterministic color hash for channel names persistent across sessions; same routing, colors, station circles in all three screens; "channel passport" identity preservation
   - [ ] 6.01c-iv — The "wiring spaghetti" threshold and auto-layout: at what channel count does subway-map routing become unreadable (6? 8? 12?); automatic wire-bundling "bus" segments; Factorio spaghetti as rite of passage vs. UX failure
   - [ ] 6.01c-v — Overlay interaction with EM emissions visualization: Inspector-mode EM noise radial pulses from transmitting units; layered rendering order (terrain→grid→wiring→EM→sprites→radii); visual separation between designed channels and emergent noise
-- [ ] 6.01a-i — Tile animation budget: per-tile animation spec (bioluminescent pulsing 0.25Hz, water shimmer 0.5Hz, foam drift every 4 ticks, neon reflection flicker); Pixi.js rendering cost analysis for 64 animated tiles; "does animation compete with gameplay overlays" question
+- [x] 6.01a-i — Tile animation budget: per-tile animation spec (bioluminescent pulsing 0.25Hz, water shimmer 0.5Hz, foam drift every 4 ticks, neon reflection flicker); Pixi.js rendering cost analysis for 64 animated tiles; "does animation compete with gameplay overlays" question
 - [ ] 6.01a-ii — Biome-specific signal propagation visuals: if terrain-modified spatial routing adopted, each biome needs distinct signal-delivery animation (jungle traces canopy, terrace follows horizontal lines, city routes through fiber optic, Siquijor amplified by bioluminescence); full animation spec per biome × signal type
 - [ ] 6.01a-iii — Dynamic tile damage states: when combat occurs on a tile, does it show damage? Cracked terrace stones, scorched jungle canopy, shattered beach limestone, broken city neon, extinguished bioluminescence; damage state count per biome; interaction with terrain signal propagation
 - [ ] 6.01a-iv — Biome transition tile set completeness: fifteen biome pairs (5 choose 2) each need at least one transition tile; full pixel-level specs for all 15 combinations including jungle↔Siquijor, terrace↔city, and other uncovered pairs
-- [ ] 6.01a-v — High-contrast / accessibility tile variants: Shape-First Design geometric patterns per biome (diagonal hatching, horizontal lines, stippling, grid, concentric circles) replacing color as primary biome identifier; contrast ratios; readability across protanopia/deuteranopia/tritanopia/achromatopsia
+- [ ] 6.01a-v — High-contrast / accessibility tile variants
+- [ ] 6.01a-vi — Animation-as-narrative: biome animation intensity as difficulty signal — do calmer biomes (terraces: slow, meditative) correlate with easier missions, and aggressive biomes (Taal: fast, intrusive) with harder ones? Is this mapping intentional or incidental? Should the player learn to "read" terrain animation speed as a difficulty preview?
+- [ ] 6.01a-vii — Tile animation response to game events: beyond suppression, should tiles react to specific events? Water splashes when a unit steps on a terrace tile. Neon signs flicker harder when combat happens nearby. Bioluminescence dims when an enemy passes. Reactive tiles vs. ambient-only tiles.
+- [ ] 6.01a-viii — Cross-biome transition animation blending: when the board has mixed biomes (e.g., terrace adjacent to jungle), how do their animations interact at the boundary? Do terrace water reflections carry into jungle shadow? Do Siquijor bioluminescent pulses illuminate adjacent city tiles?
+- [ ] 6.01a-ix — Animation sound design coupling: each biome's animation implies specific ambient sounds (water lapping for terraces, insect hum for jungle, neon buzz for city, rumbling for Taal). How tightly coupled should visual animation and ambient audio be? Should disabling visual animations also silence biome audio?: Shape-First Design geometric patterns per biome (diagonal hatching, horizontal lines, stippling, grid, concentric circles) replacing color as primary biome identifier; contrast ratios; readability across protanopia/deuteranopia/tritanopia/achromatopsia
 - [ ] 6.01d — Color palette interaction with colorblind modes: how each art direction option degrades under protanopia/deuteranopia/tritanopia; which palettes need redesign vs. naturally robust; interaction with locked signal colors
 - [ ] 6.01e — Tilt-shift implementation in Pixi.js: technical feasibility of the "Diorama" effect — blur filters, performance on low-end hardware, dynamic edge sharpening, Playwright screenshot test determinism
 - [x] 6.03a — The Predecessor's character arc across 10 missions: beat-by-beat emotional evolution from weary mentor to hopeful observer; branching narrator mood based on player success/failure as implicit difficulty feedback; comparable: Darkest Dungeon Ancestor mood shifts, Hades character memory across runs
