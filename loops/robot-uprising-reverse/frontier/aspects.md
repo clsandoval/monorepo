@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 735
-- **Analyzed:** 296
-- **Pending:** 439
-- **Convergence:** 40.3%
+- **Total aspects:** 740
+- **Analyzed:** 297
+- **Pending:** 443
+- **Convergence:** 40.1%
 
 ---
 
@@ -612,7 +612,12 @@
   - [ ] 5.03c — Sandbox return as between-mission free play: can the player return to the sandbox between campaign missions? A "practice range" accessible from the campaign map; interaction with 5.05b intermission sandbox design
   - [ ] 5.03d — Ghost mentor personality as player-archetype detector: mentor observations double as classification system (tinkerer, methodical builder, goal-chaser, social learner); classification feeding into adaptive campaign difficulty and hint frequency
   - [ ] 5.03e — The wreckage sandbox as post-mission replay mode: Variant F's reverse-engineering mechanic applied as a post-mission analytical mode after losing a campaign mission; tutorial introduces the mechanic, post-mission version provides depth
-- [ ] 5.04 — Complexity ramp: what order are mechanics introduced? How many missions before full complexity?
+- [x] 5.04 — Complexity ramp: what order are mechanics introduced? How many missions before full complexity?
+  - [ ] 5.04a — The Mission 5 Wall: five approaches to factory introduction pacing (pre-teach components, split mission 5A/5B, sandbox the factory, simplify to one-blueprint depth 1, make factory optional); full player journeys per approach
+  - [ ] 5.04b — The vocabulary density curve: how many new terms per minute is sustainable? Cognitive load theory applied to game tutorial design; comparison with Shenzhen I/O's ~2 new instructions per puzzle
+  - [ ] 5.04c — The "subsystem online" micro-celebration: designing the moment a new concept unlocks — amber glow, chime, boot log print, panel expansion animation; interaction with narrative beat design and emotional pacing
+  - [ ] 5.04d — Sandbox-to-challenge transition design: the desaturation peel — exact technical and aesthetic design of the simulation→reality transition animation; how the transition communicates stakes without words
+  - [ ] 5.04e — Adaptive skip false positive mitigation: how to detect luck vs. understanding — the difference between a fast solve and a correct solve; what additional signals beyond speed indicate genuine comprehension; interaction with 5.01e expert fast-track detection
 - [x] 5.05 — Campaign structure: linear story vs. branching map vs. roguelike runs vs. chapter-based
   - [ ] 5.05a — Boot log as campaign UI: the terminal-as-map design pattern — font choice, color states, animation timing, sound design per state transition, small screen handling, scrolling behavior on mobile
   - [ ] 5.05b — Intermission sandbox design: structured free play between campaign acts — available tools, default battlefield, suggested experiments, community blueprints, session length, re-engagement triggers
