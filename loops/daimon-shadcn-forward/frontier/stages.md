@@ -103,7 +103,7 @@ Each stage: navigate route at 1280x800 via Playwright, assert no console errors,
 - [x] **Stage 76**: Desktop verify `/legal/cookies` — cookie policy text renders (2026-03-15)
 - [x] **Stage 77**: Desktop verify `/docs` — docs index page renders, navigation links present (2026-03-15)
 - [x] **Stage 78**: Desktop verify `/docs/quick-start` — quick start guide renders with steps (2026-03-15)
-- [ ] **Stage 79**: Desktop verify `/docs/tools` — tools documentation renders with tool list
+- [x] **Stage 79**: Desktop verify `/docs/tools` — tools documentation renders with tool list (2026-03-15)
 - [ ] **Stage 80**: Desktop verify `/docs/billing` — billing docs render
 - [ ] **Stage 81**: Desktop verify `/docs/faq` — FAQ items render with questions and answers
 - [ ] **Stage 82**: Desktop verify `/blog` — blog index renders with post cards
