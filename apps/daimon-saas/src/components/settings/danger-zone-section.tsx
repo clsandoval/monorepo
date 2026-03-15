@@ -1,6 +1,8 @@
 'use client'
 
 import * as React from 'react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
 import { useToast } from '@/lib/toast'
 import { useRouter } from 'next/navigation'
@@ -34,109 +36,37 @@ export function SettingsDangerZoneSection({
   }
 
   return (
-    <div
-      style={{
-        background: '#FFFFFF',
-        border: '1px solid #FCA5A5',
-        borderRadius: '0px',
-        marginBottom: '24px',
-      }}
-    >
-      {/* Card header */}
-      <div
-        style={{
-          padding: '24px 32px 20px 32px',
-          borderBottom: '1px solid #FCA5A5',
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-            fontWeight: 600,
-            fontSize: '18px',
-            color: '#991B1B',
-            marginBottom: '4px',
-          }}
-        >
+    <Card className="border-destructive">
+      <CardHeader className="border-b border-destructive">
+        <CardTitle className="font-heading text-lg text-destructive">
           Danger Zone
-        </h2>
-        <p
-          style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 400,
-            fontSize: '14px',
-            color: '#6B7280',
-            margin: 0,
-          }}
-        >
+        </CardTitle>
+        <CardDescription>
           These actions are permanent and cannot be undone.
-        </p>
-      </div>
+        </CardDescription>
+      </CardHeader>
 
-      {/* Card body */}
-      <div style={{ padding: '24px 32px 32px 32px' }}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '24px',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div style={{ flex: 1 }}>
-            <h4
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontWeight: 600,
-                fontSize: '14px',
-                color: '#374151',
-                marginBottom: '4px',
-              }}
-            >
+      <CardContent className="pt-6">
+        <div className="flex items-center justify-between gap-6">
+          <div className="flex-1">
+            <h4 className="text-sm font-semibold text-foreground">
               Delete Workspace
             </h4>
-            <p
-              style={{
-                fontFamily: 'var(--font-inter), Inter, sans-serif',
-                fontWeight: 400,
-                fontSize: '13px',
-                color: '#6B7280',
-                maxWidth: '480px',
-                margin: 0,
-              }}
-            >
+            <p className="mt-1 max-w-[480px] text-[13px] text-muted-foreground">
               Permanently delete this workspace, all Discord connections, API keys, service
               integrations, and billing data. This cannot be reversed.
             </p>
           </div>
-          <button
+          <Button
             id="delete-workspace-btn"
-            type="button"
+            variant="destructive"
             onClick={() => setModalOpen(true)}
-            style={{
-              height: '40px',
-              padding: '0 20px',
-              background: '#DC2626',
-              color: '#FFFFFF',
-              fontFamily: 'var(--font-inter), Inter, sans-serif',
-              fontWeight: 600,
-              fontSize: '14px',
-              border: 'none',
-              borderRadius: '0px',
-              cursor: 'pointer',
-              flexShrink: 0,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#B91C1C'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#DC2626'
-            }}
+            className="shrink-0"
           >
             Delete Workspace
-          </button>
+          </Button>
         </div>
-      </div>
+      </CardContent>
 
       <ConfirmDialog
         open={modalOpen}
@@ -148,6 +78,6 @@ export function SettingsDangerZoneSection({
         confirmationText={tenantName}
         onConfirm={handleDelete}
       />
-    </div>
+    </Card>
   )
 }
