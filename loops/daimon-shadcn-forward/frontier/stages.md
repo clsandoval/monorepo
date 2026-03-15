@@ -1,14 +1,14 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 0
-Remaining: 215
+Completed: 1
+Remaining: 214
 
 ---
 
 ## Scaffold (stages 1–5) `[scaffold]`
 
-- [ ] **Stage 1**: Install shadcn/ui CLI, run `npx shadcn@latest init`, configure `components.json` with `src/components/ui` path alias, set up Daimon CSS variables in `globals.css`, add `cn()` utility to `src/lib/utils.ts`
+- [x] **Stage 1**: Install shadcn/ui CLI, run `npx shadcn@latest init`, configure `components.json` with `src/components/ui` path alias, set up Daimon CSS variables in `globals.css`, add `cn()` utility to `src/lib/utils.ts` (2026-03-15)
 - [ ] **Stage 2**: Fix signup bug — remove `tenant_subscriptions` insert from `src/app/actions/createTenant.ts` (free tier has no subscription row; the NOT NULL constraint on `stripe_subscription_id` causes the insert to fail, breaking the entire signup flow)
 - [ ] **Stage 3**: Install shadcn primitives batch 1 — `npx shadcn@latest add button input label checkbox badge card`
 - [ ] **Stage 4**: Install shadcn primitives batch 2 — `npx shadcn@latest add dialog dropdown-menu select tabs table toggle toast skeleton separator`
