@@ -113,7 +113,7 @@ Each stage: navigate route at 1280x800 via Playwright, assert no console errors,
 - [x] **Stage 86**: Desktop verify `/dashboard` (authenticated) — sign in first, verify status cards + quick stats + onboarding checklist render (2026-03-15)
 - [x] **Stage 87**: Desktop verify `/dashboard/billing` (authenticated) — current plan card + plan comparison grid render (2026-03-15)
 - [x] **Stage 88**: Desktop verify `/dashboard/integrations` (authenticated) — Discord connection card + service grid render (2026-03-15)
-- [ ] **Stage 89**: Desktop verify `/dashboard/settings` (authenticated) — account section + workspace section + discord section + danger zone render
+- [x] **Stage 89**: Desktop verify `/dashboard/settings` (authenticated) — account section + workspace section + discord section + danger zone render (2026-03-15)
 - [ ] **Stage 90**: Desktop verify `/admin` (authenticated) — admin dashboard renders
 - [ ] **Stage 91**: Desktop verify `/admin/tenants` (authenticated) — tenant list table renders with at least 1 row
 - [ ] **Stage 92**: Desktop verify `/admin/tenants/[id]` (authenticated) — tenant detail page renders with tenant info
