@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, Suspense } from 'react'
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import {
@@ -9,9 +9,17 @@ import {
   CreditCard,
   Settings,
   BookOpen,
+  Menu,
 } from 'lucide-react'
 import { Sidebar } from '@/components/layout/sidebar'
 import { DashboardTopbar } from '@/components/layout/dashboard-topbar'
+import { Button } from '@/components/ui/button'
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+} from '@/components/ui/sheet'
+import { cn } from '@/lib/utils'
 
 // ─── Bottom Nav Bar (mobile only) ──────────────────────────────────────────
 
@@ -28,43 +36,26 @@ function BottomNavItem({ href, icon, label }: { href: string; icon: React.ReactN
   const isActive =
     href === '/dashboard' ? pathname === '/dashboard' : pathname.startsWith(href)
 
-  const activeColor = '#0C1F40'
-  const defaultColor = 'rgba(12,31,64,0.45)'
-
   return (
     <Link
       href={href}
-      className="flex flex-1 flex-col items-center justify-center gap-[3px] relative"
-      style={{
-        minHeight: '44px',
-        minWidth: '44px',
-        color: isActive ? activeColor : defaultColor,
-      }}
+      className={cn(
+        'flex flex-1 flex-col items-center justify-center gap-[3px] relative min-h-[44px] min-w-[44px]',
+        isActive ? 'text-foreground' : 'text-foreground/45'
+      )}
     >
       {/* Active dot indicator */}
       {isActive && (
         <span
-          style={{
-            position: 'absolute',
-            top: '6px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '16px',
-            height: '2px',
-            background: '#B4E7DD',
-            borderRadius: 0,
-          }}
+          className="absolute top-1.5 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-primary"
         />
       )}
-      <span className="flex-shrink-0" style={{ marginTop: isActive ? '8px' : '0' }}>{icon}</span>
+      <span className={cn('flex-shrink-0', isActive && 'mt-2')}>{icon}</span>
       <span
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '10px',
-          fontWeight: 500,
-          lineHeight: 1,
-          color: isActive ? activeColor : defaultColor,
-        }}
+        className={cn(
+          'font-sans text-[10px] font-medium leading-none',
+          isActive ? 'text-foreground' : 'text-foreground/45'
+        )}
       >
         {label}
       </span>
@@ -75,13 +66,7 @@ function BottomNavItem({ href, icon, label }: { href: string; icon: React.ReactN
 function MobileBottomNav() {
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 flex md:hidden"
-      style={{
-        height: '56px',
-        background: '#FFFFFF',
-        borderTop: '1px solid rgba(12,31,64,0.08)',
-        zIndex: 40,
-      }}
+      className="fixed bottom-0 left-0 right-0 flex md:hidden h-14 bg-card border-t border-border z-40"
       aria-label="Mobile navigation"
     >
       {BOTTOM_NAV_ITEMS.map((item) => (
@@ -108,41 +93,17 @@ function ImpersonationBanner() {
 
   return (
     <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: '48px',
-        zIndex: 100,
-        background: '#FEF9C3',
-        borderBottom: '2px solid #EAB308',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 24px',
-      }}
+      className="fixed top-0 left-0 right-0 h-12 z-[100] bg-yellow-100 border-b-2 border-yellow-500 flex items-center justify-between px-6"
     >
-      <span style={{ fontFamily: 'var(--font-inter)', fontWeight: 500, fontSize: '13px', color: '#854D0E' }}>
+      <span className="font-sans font-medium text-[13px] text-yellow-800">
         👁 You are viewing this dashboard as &ldquo;{tenantName}&rdquo;. All write actions are blocked. This session expires in 30 minutes.
       </span>
-      <button
+      <Button
         onClick={handleEnd}
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '12px',
-          fontWeight: 500,
-          padding: '4px 12px',
-          background: '#EAB308',
-          border: 'none',
-          color: '#fff',
-          cursor: 'pointer',
-          borderRadius: 0,
-          whiteSpace: 'nowrap',
-        }}
+        className="bg-yellow-500 text-white hover:bg-yellow-600 text-xs font-medium px-3 py-1 h-auto whitespace-nowrap"
       >
         End Impersonation
-      </button>
+      </Button>
     </div>
   )
 }
@@ -175,14 +136,15 @@ function DashboardLayoutInner({
   tenantName,
   plan,
 }: Required<DashboardLayoutProps>) {
-  const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const searchParams = useSearchParams()
   const isImpersonated = searchParams.get('impersonated') === '1'
 
   return (
     <div
-      className="flex min-h-screen"
-      style={{ background: '#F7F7F7', paddingTop: isImpersonated ? '48px' : undefined }}
+      className={cn(
+        'flex min-h-screen bg-background',
+        isImpersonated && 'pt-12'
+      )}
     >
       <ImpersonationBanner />
 
@@ -191,44 +153,34 @@ function DashboardLayoutInner({
         <Sidebar />
       </div>
 
-      {/* Mobile full-screen nav slide-over */}
-      {mobileNavOpen && (
-        <div
-          className="fixed inset-0 md:hidden"
-          style={{ zIndex: 200 }}
-          onClick={() => setMobileNavOpen(false)}
-        >
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0"
-            style={{ background: 'rgba(12,31,64,0.50)' }}
-          />
-          {/* Panel */}
-          <div
-            className="absolute left-0 top-0 h-full"
-            style={{ width: '240px', zIndex: 201 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Sidebar />
-          </div>
-        </div>
-      )}
-
       {/* Main area — responsive margin-left: 0 mobile, 56px tablet, 240px desktop */}
       <div className="flex flex-1 flex-col ml-0 md:ml-14 xl:ml-60">
-        <DashboardTopbar
-          pageTitle={pageTitle}
-          tenantName={tenantName}
-          plan={plan}
-          onMenuClick={() => setMobileNavOpen(true)}
-        />
+        <Sheet>
+          <DashboardTopbar
+            pageTitle={pageTitle}
+            tenantName={tenantName}
+            plan={plan}
+            menuButton={
+              <SheetTrigger
+                className="md:hidden flex items-center justify-center text-foreground/65"
+                aria-label="Open navigation"
+              >
+                <Menu size={20} />
+              </SheetTrigger>
+            }
+          />
+
+          {/* Mobile Sheet nav slide-over */}
+          <SheetContent side="left" showCloseButton={false} className="w-60 p-0 border-r-0">
+            <Sidebar />
+          </SheetContent>
+        </Sheet>
 
         {/* Page content — responsive padding + bottom padding on mobile to clear bottom nav bar */}
         <main
           id="main-content"
           tabIndex={-1}
-          className="flex-1 p-4 md:p-6 xl:p-8 pb-[72px] md:pb-6 xl:pb-8 w-full"
-          style={{ maxWidth: '1200px' }}
+          className="flex-1 p-4 md:p-6 xl:p-8 pb-[72px] md:pb-6 xl:pb-8 w-full max-w-[1200px]"
         >
           {children}
         </main>

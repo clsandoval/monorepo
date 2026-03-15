@@ -10,6 +10,7 @@ interface DashboardTopbarProps {
   tenantName: string
   plan: 'free' | 'starter' | 'pro'
   onMenuClick?: () => void
+  menuButton?: React.ReactNode
 }
 
 export function DashboardTopbar({
@@ -17,6 +18,7 @@ export function DashboardTopbar({
   tenantName,
   plan,
   onMenuClick,
+  menuButton,
 }: DashboardTopbarProps) {
   const { user, signOut } = useAuthContext()
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -58,16 +60,16 @@ export function DashboardTopbar({
     >
       {/* Left: hamburger (mobile) + page title */}
       <div className="flex items-center gap-3">
-        {onMenuClick && (
+        {menuButton ?? (onMenuClick && (
           <button
             onClick={onMenuClick}
-            className="lg:hidden flex items-center justify-center"
+            className="md:hidden flex items-center justify-center"
             style={{ color: 'rgba(12,31,64,0.65)' }}
             aria-label="Open navigation"
           >
             <Menu size={20} />
           </button>
-        )}
+        ))}
         <h1
           className="text-base font-semibold"
           style={{ color: '#0C1F40' }}
