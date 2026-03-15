@@ -1,8 +1,8 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 55
-Remaining: 160
+Completed: 56
+Remaining: 159
 
 ---
 
@@ -84,7 +84,7 @@ Remaining: 160
 - [x] **Stage 62**: Migrate `/signup` page (`src/app/signup/page.tsx`) — replace all inline `style={}` with shadcn components (Input, Button, Label, Checkbox, Card), extract PasswordField/PasswordStrengthBar into shadcn-based components (2026-03-15)
 - [x] **Stage 63**: Migrate `/login` page (`src/app/login/page.tsx`) — replace all inline styles with shadcn components (2026-03-15)
 - [x] **Stage 64**: Migrate `/reset-password` page and `/reset-password/confirm` — replace inline styles with shadcn components (2026-03-15)
-- [ ] **Stage 65**: Migrate landing page (`src/app/page.tsx`) — replace inline styles with shadcn components + Tailwind
+- [x] **Stage 65**: Migrate landing page (`src/app/page.tsx`) — replace inline styles with shadcn components + Tailwind (2026-03-15)
 - [ ] **Stage 66**: Migrate `/about` and `/changelog` pages — replace inline styles with shadcn components + Tailwind
 
 ## Desktop Verify (stages 67–97) `[desktop-verify]`

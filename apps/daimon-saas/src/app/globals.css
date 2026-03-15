@@ -543,6 +543,16 @@ a {
     border-radius: 0;
   }
 
+  /* Landing page card stripe — simplified gradient */
+  .card-stripe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(to bottom, var(--color-aqua) 30%, var(--color-periwinkle) 35%, var(--color-aqua) 60%);
+  }
+
   /* CI accent stripe — left-edge card decoration */
   .ci-stripe {
     position: absolute;

@@ -4,6 +4,7 @@ import { PublicLayout } from '@/components/layout/public-layout'
 import { PricingSection } from '@/components/landing/pricing-section'
 import { FaqSection } from '@/components/landing/faq-section'
 import { JsonLd, WEBSITE_SCHEMA, ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA, LANDING_FAQ_SCHEMA } from '@/components/seo/json-ld'
+import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: 'Daimon — AI Operating System for Discord',
@@ -82,129 +83,28 @@ const HOW_IT_WORKS_STEPS = [
 
 function HowItWorksSection() {
   return (
-    <section id="how-it-works" aria-label="How it works" style={{ scrollMarginTop: '80px' }}>
-      <style>{`
-        .hiw-root {
-          background-color: #FFFFFF;
-          padding: 96px 0;
-        }
-        .hiw-container {
-          max-width: 1280px;
-          margin: 0 auto;
-          padding: 0 32px;
-        }
-        .hiw-section-label {
-          font-size: 12px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: rgba(12, 31, 64, 0.5);
-          margin-bottom: 12px;
-          font-family: var(--font-body);
-          text-align: center;
-        }
-        .hiw-heading {
-          font-size: clamp(28px, 3.5vw, 44px);
-          font-weight: 500;
-          color: #0C1F40;
-          text-align: center;
-          margin-bottom: 16px;
-        }
-        .hiw-divider {
-          width: 48px;
-          height: 3px;
-          background-color: #B4E7DD;
-          border-radius: 2px;
-          margin: 24px auto;
-        }
-        .hiw-subheadline {
-          font-size: 18px;
-          font-weight: 400;
-          color: rgba(12, 31, 64, 0.7);
-          line-height: 1.6;
-          max-width: 560px;
-          margin: 0 auto 64px;
-          text-align: center;
-          font-family: var(--font-body);
-        }
-        .hiw-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
-          align-items: start;
-        }
-        .hiw-step-card {
-          position: relative;
-          overflow: hidden;
-          padding: 24px;
-          background-color: #FFFFFF;
-          border-radius: 0;
-        }
-        .hiw-step-stripe {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 6px;
-          height: 100%;
-          background: linear-gradient(
-            to bottom,
-            #B4E7DD 30%,
-            #9FAAE2 35%,
-            #B4E7DD 60%
-          );
-        }
-        .hiw-step-content {
-          padding-left: 12px;
-        }
-        .hiw-step-number {
-          font-size: 80px;
-          font-weight: 700;
-          color: #B4E7DD;
-          line-height: 1;
-          display: block;
-        }
-        .hiw-step-heading {
-          font-size: 22px;
-          font-weight: 400;
-          color: #0C1F40;
-          margin-top: 16px;
-          margin-bottom: 12px;
-          font-family: var(--font-body);
-        }
-        .hiw-step-body {
-          font-size: 16px;
-          font-weight: 400;
-          color: rgba(12, 31, 64, 0.7);
-          line-height: 1.7;
-          font-family: var(--font-body);
-        }
-        @media (max-width: 900px) {
-          .hiw-grid { grid-template-columns: 1fr; }
-          .hiw-step-number { font-size: 60px; }
-        }
-      `}</style>
-
-      <div className="hiw-root">
-        <div className="hiw-container">
+    <section id="how-it-works" aria-label="How it works">
+      <div className="bg-white py-24">
+        <div className="mx-auto max-w-[1280px] px-8">
           {/* Section header */}
-          <p className="hiw-section-label">Setup</p>
-          <h2 className="hiw-heading font-headline-semi-expanded">
+          <p className="section-label text-center">Setup</p>
+          <h2 className="text-h2 font-medium text-navy text-center mb-4 font-headline-semi-expanded">
             Live in three steps.
           </h2>
-          <div className="hiw-divider" />
-          <p className="hiw-subheadline">
+          <div className="brand-divider-center" />
+          <p className="mx-auto mb-16 max-w-[560px] text-center text-lg font-normal leading-relaxed text-navy/70 font-body">
             No infrastructure to manage. No workflows to configure. Just connect your keys and go.
           </p>
 
           {/* Step grid */}
-          <div className="hiw-grid">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {HOW_IT_WORKS_STEPS.map((step) => (
-              <div key={step.number} className="hiw-step-card">
-                <div className="hiw-step-stripe" />
-                <div className="hiw-step-content">
-                  <span className="hiw-step-number font-headline-expanded">{step.number}</span>
-                  <h3 className="hiw-step-heading font-headline-semi-expanded">{step.heading}</h3>
-                  <p className="hiw-step-body">{step.body}</p>
+              <div key={step.number} className="relative overflow-hidden bg-white p-6">
+                <div className="card-stripe" />
+                <div className="pl-3">
+                  <span className="text-[60px] md:text-[80px] font-bold text-aqua leading-none font-headline-expanded">{step.number}</span>
+                  <h3 className="mt-4 mb-3 text-[22px] font-normal text-navy font-headline-semi-expanded">{step.heading}</h3>
+                  <p className="text-base font-normal text-navy/70 leading-[1.7] font-body">{step.body}</p>
                 </div>
               </div>
             ))}
@@ -218,218 +118,107 @@ function HowItWorksSection() {
 const FEATURE_CARDS = [
   {
     icon: Code2,
-    iconColor: '#B4E7DD',
+    iconClass: 'text-aqua',
     heading: 'Developer Tools',
     body: 'Browse and create GitHub issues, review PRs, query Linear tickets, run shell commands. Your entire dev workflow, in chat.',
     tag: 'GitHub · Linear · Shell',
-    bg: '#FFFFFF',
+    bgClass: 'bg-white',
   },
   {
     icon: Clock,
-    iconColor: '#B4E7DD',
+    iconClass: 'text-aqua',
     heading: 'Time & Tasks',
     body: 'Track time in Toggl with natural language. Create tasks, log hours, and query your time entries — all from Discord.',
     tag: 'Toggl · Tasks',
-    bg: '#FFFFFF',
+    bgClass: 'bg-white',
   },
   {
     icon: BookOpen,
-    iconColor: '#B4E7DD',
+    iconClass: 'text-aqua',
     heading: 'Knowledge & Research',
     body: 'Web search, Wikipedia lookup, URL reading, ArXiv papers, Wikipedia disambiguation — Claude retrieves and synthesizes.',
     tag: 'Web · Wikipedia · ArXiv',
-    bg: '#FFFFFF',
+    bgClass: 'bg-white',
   },
   {
     icon: Calendar,
-    iconColor: '#B4E7DD',
+    iconClass: 'text-aqua',
     heading: 'Calendar & Scheduling',
     body: 'Query Google Calendar, create events, check availability. Schedule with context from your other tools.',
     tag: 'Google Calendar',
-    bg: '#FFFFFF',
+    bgClass: 'bg-white',
   },
   {
     icon: FileText,
-    iconColor: '#B4E7DD',
+    iconClass: 'text-aqua',
     heading: 'Files & Docs',
     body: 'Read and write Google Docs, Google Sheets, and Notion. Upload and retrieve files from Google Drive. Manage content without leaving Discord.',
     tag: 'Google Docs · Drive · Notion',
-    bg: '#FFFFFF',
+    bgClass: 'bg-white',
   },
   {
     icon: Brain,
-    iconColor: '#B4E7DD',
+    iconClass: 'text-aqua',
     heading: 'Memory & Context',
     body: 'Daimon remembers. It stores notes and context that persist across conversations, giving you continuity across your server\'s history.',
     tag: 'Built-in memory',
-    bg: '#FFFFFF',
+    bgClass: 'bg-white',
   },
   {
     icon: MessageSquare,
-    iconColor: '#B4E7DD',
+    iconClass: 'text-aqua',
     heading: 'Communication',
     body: 'Send emails via Gmail, draft messages, search your inbox. Manage Slack workspaces you\'ve connected.',
     tag: 'Gmail · Slack',
-    bg: '#FFFFFF',
+    bgClass: 'bg-white',
   },
   {
     icon: ImageIcon,
-    iconColor: '#B4E7DD',
+    iconClass: 'text-aqua',
     heading: 'Media & Images',
     body: 'Generate images with DALL-E, search for photos, process attachments. Visual AI capabilities within Discord.',
     tag: 'DALL-E · Media',
-    bg: '#FFFFFF',
+    bgClass: 'bg-white',
   },
   {
     icon: Key,
-    iconColor: '#9FAAE2',
+    iconClass: 'text-periwinkle',
     heading: 'You control the costs',
     body: 'Every token your bot uses is charged to your Anthropic account directly. Daimon only charges a small platform fee. No per-message markups.',
     tag: 'BYOK model',
-    bg: 'rgba(159,170,226,0.06)',
+    bgClass: 'bg-periwinkle/[0.06]',
   },
 ] as const
 
 function FeaturesSection() {
   return (
-    <section id="features" aria-label="Features" style={{ scrollMarginTop: '80px' }}>
-      <style>{`
-        .features-root {
-          background-color: #F7F7F7;
-          padding: 96px 0;
-        }
-        .features-container {
-          max-width: 1280px;
-          margin: 0 auto;
-          padding: 0 32px;
-        }
-        .features-section-label {
-          font-size: 12px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: rgba(12, 31, 64, 0.5);
-          margin-bottom: 12px;
-          font-family: var(--font-body);
-          text-align: center;
-        }
-        .features-heading {
-          font-size: clamp(28px, 3.5vw, 44px);
-          font-weight: 500;
-          color: #0C1F40;
-          text-align: center;
-          margin-bottom: 16px;
-        }
-        .features-divider {
-          width: 48px;
-          height: 3px;
-          background-color: #B4E7DD;
-          border-radius: 2px;
-          margin: 24px auto;
-        }
-        .features-subheadline {
-          font-size: 18px;
-          font-weight: 400;
-          color: rgba(12, 31, 64, 0.7);
-          line-height: 1.6;
-          max-width: 560px;
-          margin: 0 auto 64px;
-          text-align: center;
-          font-family: var(--font-body);
-        }
-        .features-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
-        }
-        .feature-card {
-          display: flex;
-          flex-direction: column;
-          padding: 28px;
-          border-radius: 0;
-          position: relative;
-          overflow: hidden;
-          transition: opacity 0.2s ease;
-        }
-        .feature-card:hover { opacity: 0.92; }
-        .feature-card-stripe {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 6px;
-          height: 100%;
-          background: linear-gradient(
-            to bottom,
-            #B4E7DD 30%,
-            #9FAAE2 35%,
-            #B4E7DD 60%
-          );
-        }
-        .feature-card-content {
-          padding-left: 12px;
-        }
-        .feature-card-icon {
-          margin-bottom: 16px;
-        }
-        .feature-card-heading {
-          font-size: 18px;
-          font-weight: 500;
-          color: #0C1F40;
-          margin-bottom: 10px;
-          font-family: var(--font-body);
-        }
-        .feature-card-body {
-          font-size: 15px;
-          font-weight: 400;
-          color: rgba(12, 31, 64, 0.7);
-          line-height: 1.65;
-          margin-bottom: 16px;
-          font-family: var(--font-body);
-          flex: 1;
-        }
-        .feature-card-tag {
-          display: inline-block;
-          font-size: 12px;
-          font-weight: 500;
-          color: rgba(12, 31, 64, 0.6);
-          background: rgba(12, 31, 64, 0.05);
-          padding: 3px 10px;
-          font-family: var(--font-body);
-        }
-        @media (max-width: 900px) {
-          .features-grid { grid-template-columns: 1fr; }
-        }
-        @media (min-width: 600px) and (max-width: 900px) {
-          .features-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-      `}</style>
-
-      <div className="features-root">
-        <div className="features-container">
+    <section id="features" aria-label="Features">
+      <div className="bg-white-soft py-24">
+        <div className="mx-auto max-w-[1280px] px-8">
           {/* Section header */}
-          <p className="features-section-label">Capabilities</p>
-          <h2 className="features-heading font-headline-semi-expanded">
+          <p className="section-label text-center">Capabilities</p>
+          <h2 className="text-h2 font-medium text-navy text-center mb-4 font-headline-semi-expanded">
             50+ tools. Zero configuration.
           </h2>
-          <div className="features-divider" />
-          <p className="features-subheadline">
+          <div className="brand-divider-center" />
+          <p className="mx-auto mb-16 max-w-[560px] text-center text-lg font-normal leading-relaxed text-navy/70 font-body">
             Every tool is available out of the box. Connect your services once — Claude figures out when to use them.
           </p>
 
           {/* Feature cards grid */}
-          <div className="features-grid">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {FEATURE_CARDS.map((card) => {
               const Icon = card.icon
               return (
-                <div key={card.heading} className="feature-card" style={{ backgroundColor: card.bg }}>
-                  <div className="feature-card-stripe" />
-                  <div className="feature-card-content">
-                    <div className="feature-card-icon">
-                      <Icon size={24} color={card.iconColor} />
+                <div key={card.heading} className={cn('relative flex flex-col overflow-hidden p-7 transition-opacity duration-200 hover:opacity-[0.92]', card.bgClass)}>
+                  <div className="card-stripe" />
+                  <div className="pl-3">
+                    <div className="mb-4">
+                      <Icon size={24} className={card.iconClass} />
                     </div>
-                    <h3 className="feature-card-heading">{card.heading}</h3>
-                    <p className="feature-card-body">{card.body}</p>
-                    <span className="feature-card-tag">{card.tag}</span>
+                    <h3 className="mb-2.5 text-lg font-medium text-navy font-body">{card.heading}</h3>
+                    <p className="mb-4 flex-1 text-[15px] font-normal text-navy/70 leading-[1.65] font-body">{card.body}</p>
+                    <span className="inline-block text-xs font-medium text-navy/60 bg-navy/5 px-2.5 py-[3px] font-body">{card.tag}</span>
                   </div>
                 </div>
               )
@@ -443,206 +232,28 @@ function FeaturesSection() {
 
 function HeroSection() {
   return (
-    <section id="hero" aria-label="Hero" className="hero-section hero-root">
-      {/* Hover + responsive styles */}
-      <style>{`
-        .hero-root {
-          position: relative;
-          min-height: 100vh;
-          overflow: hidden;
-          background-color: #FFFFFF;
-        }
-
-        /* Animated blobs */
-        .hero-blob-1 {
-          position: absolute;
-          top: -200px;
-          left: -100px;
-          width: 600px;
-          height: 600px;
-          border-radius: 50%;
-          background-color: #B4E7DD;
-          opacity: 0.4;
-          filter: blur(80px);
-          will-change: transform;
-          z-index: 0;
-          animation: drift-teal 25s ease-in-out infinite alternate;
-        }
-        .hero-blob-2 {
-          position: absolute;
-          top: 10%;
-          right: -150px;
-          width: 500px;
-          height: 500px;
-          border-radius: 50%;
-          background-color: #9FAAE2;
-          opacity: 0.35;
-          filter: blur(80px);
-          will-change: transform;
-          z-index: 0;
-          animation: drift-periwinkle 30s ease-in-out infinite alternate;
-        }
-        .hero-blob-3 {
-          position: absolute;
-          bottom: 20%;
-          left: 30%;
-          width: 400px;
-          height: 400px;
-          border-radius: 50%;
-          background-color: #0C1F40;
-          opacity: 0.08;
-          filter: blur(80px);
-          will-change: transform;
-          z-index: 0;
-          transform: translateX(-50%);
-          animation: drift-navy-center 22s ease-in-out infinite alternate;
-        }
-        .hero-blob-4 {
-          position: absolute;
-          bottom: -100px;
-          right: 10%;
-          width: 300px;
-          height: 300px;
-          border-radius: 50%;
-          background-color: #9FAAE2;
-          opacity: 0.25;
-          filter: blur(80px);
-          will-change: transform;
-          z-index: 0;
-          transform: translateY(-57%);
-          animation: drift-navy-right 28s ease-in-out infinite alternate;
-        }
-
-        /* Content wrapper */
-        .hero-content {
-          position: relative;
-          z-index: 10;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          min-height: 100vh;
-          padding-bottom: 80px;
-        }
-        .hero-inner {
-          max-width: 1280px;
-          margin: 0 auto;
-          width: 100%;
-          padding: 0 32px;
-        }
-
-        /* Headline */
-        .hero-headline {
-          font-size: clamp(56px, 6vw, 80px);
-          font-weight: 700;
-          line-height: 1.05;
-          color: #0C1F40;
-          max-width: 800px;
-          white-space: pre-line;
-          margin-bottom: 24px;
-        }
-
-        /* Subheadline */
-        .hero-subheadline {
-          font-size: 20px;
-          font-weight: 400;
-          line-height: 1.6;
-          color: rgba(12, 31, 64, 0.7);
-          max-width: 640px;
-          margin-bottom: 40px;
-        }
-
-        /* CTA group */
-        .hero-cta-group {
-          display: flex;
-          flex-direction: row;
-          gap: 16px;
-          flex-wrap: wrap;
-        }
-
-        /* Primary CTA button */
-        .hero-btn-primary {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          height: 44px;
-          padding: 0 28px;
-          background-color: #B4E7DD;
-          color: #0C1F40;
-          border: 1.5px solid #B4E7DD;
-          border-radius: 0;
-          font-size: 15px;
-          font-weight: 600;
-          text-decoration: none;
-          transition: all 0.2s ease;
-          white-space: nowrap;
-          cursor: pointer;
-        }
-        .hero-btn-primary:hover { opacity: 0.85; }
-
-        /* Secondary CTA button */
-        .hero-btn-secondary {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          height: 44px;
-          padding: 0 28px;
-          background-color: transparent;
-          color: #0C1F40;
-          border: 1.5px solid #0C1F40;
-          border-radius: 0;
-          font-size: 15px;
-          font-weight: 600;
-          text-decoration: none;
-          transition: all 0.2s ease;
-          white-space: nowrap;
-          cursor: pointer;
-        }
-        .hero-btn-secondary:hover {
-          background-color: #0C1F40;
-          color: #FFFFFF;
-        }
-
-        /* Social proof */
-        .hero-social-proof {
-          font-size: 13px;
-          font-weight: 400;
-          color: rgba(12, 31, 64, 0.5);
-          margin-top: 16px;
-        }
-
-        /* Mobile overrides */
-        @media (max-width: 900px) {
-          .hero-content { padding-bottom: 48px; }
-          .hero-inner { padding: 0 32px; }
-          .hero-headline { font-size: clamp(36px, 8vw, 52px); }
-          .hero-subheadline { font-size: 18px; }
-          .hero-cta-group { flex-direction: column; }
-          .hero-btn-primary,
-          .hero-btn-secondary { width: 100%; }
-        }
-      `}</style>
-
+    <section id="hero" aria-label="Hero" className="hero-section relative min-h-screen overflow-hidden bg-white">
       {/* Animated blob layer */}
-      <div className="hero-blob-1" data-blob />
-      <div className="hero-blob-2" data-blob />
-      <div className="hero-blob-3" data-blob />
-      <div className="hero-blob-4" data-blob />
+      <div className="absolute -top-[200px] -left-[100px] w-[600px] h-[600px] rounded-full bg-aqua opacity-40 blur-[80px] will-change-transform z-0 animate-drift-teal" data-blob />
+      <div className="absolute top-[10%] -right-[150px] w-[500px] h-[500px] rounded-full bg-periwinkle opacity-35 blur-[80px] will-change-transform z-0 animate-drift-periwinkle" data-blob />
+      <div className="absolute bottom-[20%] left-[30%] w-[400px] h-[400px] rounded-full bg-navy opacity-[0.08] blur-[80px] will-change-transform z-0 -translate-x-1/2 animate-drift-navy-center" data-blob />
+      <div className="absolute -bottom-[100px] right-[10%] w-[300px] h-[300px] rounded-full bg-periwinkle opacity-25 blur-[80px] will-change-transform z-0 -translate-y-[57%] animate-drift-navy-right" data-blob />
 
       {/* Content — positioned at bottom */}
-      <div className="hero-content">
-        <div className="hero-inner">
+      <div className="relative z-10 flex flex-col justify-end min-h-screen pb-12 md:pb-20">
+        <div className="mx-auto max-w-[1280px] w-full px-8">
           {/* Eyebrow tag */}
-          <div className="tag-category" style={{ marginBottom: '24px' }}>
+          <div className="tag-category mb-6">
             Discord AI · Bring Your Own Keys
           </div>
 
           {/* Headline */}
-          <h1 className="hero-headline font-headline-expanded">
+          <h1 className="text-[clamp(36px,8vw,52px)] md:text-hero leading-[1.05] font-bold text-navy max-w-[800px] whitespace-pre-line mb-6 font-headline-expanded">
             {`Your Discord server,\npowered by Claude.`}
           </h1>
 
           {/* Subheadline */}
-          <p className="hero-subheadline" style={{ fontFamily: 'var(--font-body)' }}>
+          <p className="text-lg md:text-[20px] font-normal leading-relaxed text-navy/70 max-w-[640px] mb-10 font-body">
             Bring your own bot token and Anthropic API key. Get an AI operating
             system for your Discord — with 50+ integrated tools, from GitHub and
             Linear to Google Calendar and Toggl. No workflow setup. No
@@ -650,17 +261,23 @@ function HeroSection() {
           </p>
 
           {/* CTA group */}
-          <div className="hero-cta-group">
-            <a href="/signup" className="hero-btn-primary" style={{ fontFamily: 'var(--font-body)' }}>
+          <div className="flex flex-col md:flex-row gap-4 flex-wrap">
+            <a
+              href="/signup"
+              className="inline-flex items-center justify-center h-11 px-7 bg-aqua text-navy border-[1.5px] border-aqua text-[15px] font-semibold no-underline transition-all duration-200 whitespace-nowrap cursor-pointer hover:opacity-85 w-full md:w-auto font-body"
+            >
               Start Free — No Credit Card
             </a>
-            <a href="/docs" className="hero-btn-secondary" style={{ fontFamily: 'var(--font-body)' }}>
+            <a
+              href="/docs"
+              className="inline-flex items-center justify-center h-11 px-7 bg-transparent text-navy border-[1.5px] border-navy text-[15px] font-semibold no-underline transition-all duration-200 whitespace-nowrap cursor-pointer hover:bg-navy hover:text-white w-full md:w-auto font-body"
+            >
               Read the Docs
             </a>
           </div>
 
           {/* Social proof */}
-          <p className="hero-social-proof" style={{ fontFamily: 'var(--font-body)' }}>
+          <p className="text-[13px] font-normal text-navy/50 mt-4 font-body">
             Free tier available · Your keys, your costs · Cancel anytime
           </p>
         </div>
@@ -672,100 +289,26 @@ function HeroSection() {
 function FinalCtaSection() {
   return (
     <section id="final-cta" aria-label="Get started">
-      <style>{`
-        .final-cta-root {
-          background-color: #0C1F40;
-          padding: 96px 0;
-          position: relative;
-          overflow: hidden;
-        }
-        .final-cta-blob {
-          position: absolute;
-          top: -100px;
-          right: -100px;
-          width: 500px;
-          height: 500px;
-          border-radius: 50%;
-          background-color: #B4E7DD;
-          opacity: 0.10;
-          filter: blur(100px);
-          pointer-events: none;
-        }
-        .final-cta-container {
-          position: relative;
-          z-index: 10;
-          max-width: 768px;
-          margin: 0 auto;
-          padding: 0 32px;
-          text-align: center;
-        }
-        .final-cta-heading {
-          font-size: clamp(32px, 4vw, 52px);
-          font-weight: 700;
-          color: #FFFFFF;
-          line-height: 1.1;
-          margin-bottom: 16px;
-        }
-        .final-cta-sub {
-          font-size: 20px;
-          font-weight: 400;
-          color: rgba(255, 255, 255, 0.65);
-          font-family: var(--font-body);
-          margin-bottom: 40px;
-        }
-        .final-cta-btn {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          height: 44px;
-          padding: 0 36px;
-          background-color: #B4E7DD;
-          color: #0C1F40;
-          border: none;
-          border-radius: 0;
-          font-size: 15px;
-          font-weight: 600;
-          text-decoration: none;
-          transition: opacity 0.2s ease;
-          font-family: var(--font-body);
-          cursor: pointer;
-        }
-        .final-cta-btn:hover { opacity: 0.85; }
-        .final-cta-support {
-          font-size: 14px;
-          font-weight: 400;
-          color: rgba(255, 255, 255, 0.50);
-          font-family: var(--font-body);
-          margin-top: 16px;
-        }
-        .final-cta-support a {
-          color: #B4E7DD;
-          text-decoration: none;
-          transition: opacity 0.2s ease;
-        }
-        .final-cta-support a:hover { opacity: 0.8; }
-        @media (max-width: 900px) {
-          .final-cta-root { padding: 60px 0; }
-          .final-cta-heading { font-size: clamp(28px, 6vw, 40px); }
-          .final-cta-btn { width: 100%; }
-        }
-      `}</style>
+      <div className="relative overflow-hidden bg-navy py-16 md:py-24">
+        {/* Decorative blob */}
+        <div className="absolute -top-[100px] -right-[100px] w-[500px] h-[500px] rounded-full bg-aqua opacity-10 blur-[100px] pointer-events-none" aria-hidden="true" />
 
-      <div className="final-cta-root">
-        <div className="final-cta-blob" aria-hidden="true" />
-        <div className="final-cta-container">
-          <h2 className="final-cta-heading font-headline-expanded">
+        <div className="relative z-10 mx-auto max-w-3xl px-8 text-center">
+          <h2 className="text-[clamp(28px,6vw,40px)] md:text-[clamp(32px,4vw,52px)] font-bold text-white leading-[1.1] mb-4 font-headline-expanded">
             Get your AI Discord bot running today.
           </h2>
-          <p className="final-cta-sub">
+          <p className="text-[20px] font-normal text-white/65 mb-10 font-body">
             Free tier, no credit card, live in minutes.
           </p>
-          <a href="/signup" className="final-cta-btn">
+          <a
+            href="/signup"
+            className="inline-flex items-center justify-center h-11 px-9 bg-aqua text-navy border-none text-[15px] font-semibold no-underline transition-opacity duration-200 cursor-pointer hover:opacity-85 w-full md:w-auto font-body"
+          >
             Create Your Free Account
           </a>
-          <p className="final-cta-support">
+          <p className="mt-4 text-sm font-normal text-white/50 font-body">
             Or read the docs first →{' '}
-            <a href="/docs">View Quick Start</a>
+            <a href="/docs" className="text-aqua no-underline transition-opacity duration-200 hover:opacity-80">View Quick Start</a>
           </p>
         </div>
       </div>
