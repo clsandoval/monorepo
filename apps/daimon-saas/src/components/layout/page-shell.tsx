@@ -2,6 +2,8 @@
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 
+import { cn } from '@/lib/utils'
+
 export interface BreadcrumbItem {
   label: string
   href?: string
@@ -15,8 +17,7 @@ function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
     <nav
       aria-label="Breadcrumb"
-      className="flex items-center"
-      style={{ marginBottom: '8px' }}
+      className="mb-2 flex items-center"
     >
       {items.map((item, index) => {
         const isLast = index === items.length - 1
@@ -25,40 +26,24 @@ function Breadcrumbs({ items }: BreadcrumbsProps) {
             {index > 0 && (
               <ChevronRight
                 size={12}
-                style={{ color: 'rgba(12,31,64,0.30)', margin: '0 4px', flexShrink: 0 }}
+                className="mx-1 shrink-0 text-muted-foreground/50"
                 aria-hidden="true"
               />
             )}
             {item.href && !isLast ? (
               <Link
                 href={item.href}
-                className="transition-colors duration-150"
-                style={{
-                  fontFamily: 'var(--font-inter)',
-                  fontSize: '13px',
-                  fontWeight: 400,
-                  color: 'rgba(12,31,64,0.55)',
-                  textDecoration: 'none',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'rgba(12,31,64,0.80)'
-                  e.currentTarget.style.textDecoration = 'underline'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'rgba(12,31,64,0.55)'
-                  e.currentTarget.style.textDecoration = 'none'
-                }}
+                className={cn(
+                  'font-sans text-[13px] font-normal text-muted-foreground',
+                  'no-underline transition-colors duration-150',
+                  'hover:text-foreground/80 hover:underline'
+                )}
               >
                 {item.label}
               </Link>
             ) : (
               <span
-                style={{
-                  fontFamily: 'var(--font-inter)',
-                  fontSize: '13px',
-                  fontWeight: 400,
-                  color: 'rgba(12,31,64,0.80)',
-                }}
+                className="font-sans text-[13px] font-normal text-foreground/80"
                 aria-current={isLast ? 'page' : undefined}
               >
                 {item.label}
@@ -96,39 +81,23 @@ export function PageShell({
       <div className="page-shell-header flex items-start justify-between gap-4 max-sm:flex-col">
         <div className="page-shell-heading flex flex-col gap-1">
           <h1
-            style={{
-              fontFamily: 'var(--font-archivo)',
-              fontVariationSettings: "'wdth' 112.5",
-              fontSize: 'clamp(24px, 4vw, 28px)',
-              fontWeight: 500,
-              color: '#0C1F40',
-              lineHeight: 1.2,
-              margin: 0,
-            }}
+            className={cn(
+              'font-heading font-medium text-foreground leading-[1.2]',
+              'text-[clamp(24px,4vw,28px)]',
+              '[font-variation-settings:"wdth"_112.5]'
+            )}
           >
             {title}
           </h1>
           {description && (
-            <p
-              style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '15px',
-                fontWeight: 400,
-                color: 'rgba(12,31,64,0.55)',
-                lineHeight: 1.6,
-                margin: 0,
-                maxWidth: '600px',
-              }}
-            >
+            <p className="max-w-[600px] font-sans text-[15px] font-normal leading-relaxed text-muted-foreground">
               {description}
             </p>
           )}
         </div>
 
         {actions && (
-          <div
-            className="page-shell-actions flex items-center gap-3 shrink-0 max-sm:w-full"
-          >
+          <div className="page-shell-actions flex shrink-0 items-center gap-3 max-sm:w-full">
             {actions}
           </div>
         )}
