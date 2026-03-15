@@ -154,7 +154,7 @@ function DashboardLayoutInner({
       </div>
 
       {/* Main area — responsive margin-left: 0 mobile, 56px tablet, 240px desktop */}
-      <div className="flex flex-1 flex-col ml-0 md:ml-14 xl:ml-60">
+      <div className="flex flex-1 flex-col ml-0 md:ml-14 lg:ml-60">
         <Sheet>
           <DashboardTopbar
             pageTitle={pageTitle}
@@ -180,7 +180,7 @@ function DashboardLayoutInner({
         <main
           id="main-content"
           tabIndex={-1}
-          className="flex-1 p-4 md:p-6 xl:p-8 pb-[72px] md:pb-6 xl:pb-8 w-full max-w-[1200px]"
+          className="flex-1 p-4 md:p-6 lg:p-8 pb-[72px] md:pb-6 lg:pb-8 w-full max-w-[1200px]"
         >
           {children}
         </main>

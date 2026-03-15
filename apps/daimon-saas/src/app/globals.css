@@ -357,11 +357,9 @@
 }
 
 /* ── Base reset ──────────────────────────────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* Tailwind v4 preflight (included via @import "tailwindcss") already resets
+   box-sizing, margin, and padding. A manual reset here would be unlayered CSS
+   that overrides @layer utilities rules, breaking margin/padding utilities. */
 
 html {
   scroll-behavior: smooth;

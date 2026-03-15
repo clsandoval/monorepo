@@ -110,7 +110,7 @@ Each stage: navigate route at 1280x800 via Playwright, assert no console errors,
 - [x] **Stage 83**: Desktop verify `/blog/introducing-daimon` — blog post renders with title, date, body (2026-03-15)
 - [x] **Stage 84**: Desktop verify `/blog/byok-why-it-matters` — blog post renders (2026-03-15)
 - [x] **Stage 85**: Desktop verify `/blog/discord-as-operating-system` — blog post renders (2026-03-15)
-- [ ] **Stage 86**: Desktop verify `/dashboard` (authenticated) — sign in first, verify status cards + quick stats + onboarding checklist render
+- [x] **Stage 86**: Desktop verify `/dashboard` (authenticated) — sign in first, verify status cards + quick stats + onboarding checklist render (2026-03-15)
 - [ ] **Stage 87**: Desktop verify `/dashboard/billing` (authenticated) — current plan card + plan comparison grid render
 - [ ] **Stage 88**: Desktop verify `/dashboard/integrations` (authenticated) — Discord connection card + service grid render
 - [ ] **Stage 89**: Desktop verify `/dashboard/settings` (authenticated) — account section + workspace section + discord section + danger zone render
