@@ -1,8 +1,8 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 4
-Remaining: 211
+Completed: 5
+Remaining: 210
 
 ---
 
@@ -12,7 +12,7 @@ Remaining: 211
 - [x] **Stage 2**: Fix signup bug — remove `tenant_subscriptions` insert from `src/app/actions/createTenant.ts` (free tier has no subscription row; the NOT NULL constraint on `stripe_subscription_id` causes the insert to fail, breaking the entire signup flow) (2026-03-15)
 - [x] **Stage 3**: Install shadcn primitives batch 1 — `npx shadcn@latest add button input label checkbox badge card` (2026-03-15)
 - [x] **Stage 4**: Install shadcn primitives batch 2 — `npx shadcn@latest add dialog dropdown-menu select tabs table toggle toast skeleton separator` (2026-03-15)
-- [ ] **Stage 5**: Install shadcn primitives batch 3 — `npx shadcn@latest add alert tooltip avatar sheet command pagination switch textarea popover`
+- [x] **Stage 5**: Install shadcn primitives batch 3 — `npx shadcn@latest add alert tooltip avatar sheet command pagination switch textarea popover` (2026-03-15)
 
 ## Replace UI Primitives (stages 6–29) `[replace-primitive]`
 
