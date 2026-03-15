@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 865
-- **Analyzed:** 322
-- **Pending:** 543
-- **Convergence:** 37.2%
+- **Total aspects:** 870
+- **Analyzed:** 323
+- **Pending:** 547
+- **Convergence:** 37.1%
 
 ---
 
@@ -794,7 +794,12 @@
   - [ ] 6.01b-iii — Rank/veterancy visual indicators: should units that survive many ticks gain visual "veteran" markers? Kill marks, battle scarring, accent color saturation increase? Risk: visual noise vs. rewarding attachment to specific units
   - [ ] 6.01b-iv — Unit personality through micro-animation variance: identical blueprints produce identical units, but should individual instances have slight animation timing offsets to feel like individual agents rather than clones? The "uncanny synchrony" problem
   - [ ] 6.01b-v — Sprite readability at different zoom levels: how the sprite design degrades at 50% zoom (strategy overview), 100% (normal play), and 200% (accessibility zoom); which design elements survive each scale? The "critical pixel" that makes a unit identifiable
-- [ ] 6.01c — The holographic overlay system: full technical and aesthetic design of Plan mode overlay — grid materialization, channel wiring rendering, perception radius treatment, ghost units, overlay × terrain interaction
+- [x] 6.01c — The holographic overlay system: full technical and aesthetic design of Plan mode overlay — grid materialization, channel wiring rendering, perception radius treatment, ghost units, overlay × terrain interaction; five grid transition options (A "The Fade" desaturation+rise, B "The X-Ray" instant toggle, C "The Holographic Projection" RECOMMENDED floating volumetric layer with parallax, D "The Night Vision" dark inversion, E "The Three-Layer Cake" toggleable depth layers); four channel wiring styles (W1 "Circuit Board" orthogonal Manhattan, W2 "Nerve Bundle" bezier curves, W3 "Subway Map" RECOMMENDED 45°/90° with station circles, W4 "Pulse Network" minimalist node-and-edge); four perception radius styles (P1 "Spotlight" filled circles, P2 "Radar Sweep" animated wedge, P3 "Heatmap" tile-level coverage, P4 "Grid Highlight" RECOMMENDED discrete tile borders); ghost unit rendering pipeline (desaturate→cyan tint→45% opacity→scan-line sweep); ghost interaction states (default/hover/selected/dragging/production-preview); per-biome overlay tuning (jungle=no change, beach=gold shift, city=intensity increase, terrace=dotted lines, volcanic=no change); "Overlay Confidence Rule" adaptive contrast; seal-descend transition 800ms ceremony (commit flash→grid dissolve→wires burn→ghosts solidify→world returns); Shape-First accessible overlay (6 dash patterns, hatching fills, number labels); 4 player journeys (Reyes 26 frontend dev first wiring encounter, Marcus 42 Factorio vet complex topology audit, Tomás 14 first-timer overlay learning, Dr. Priya 38 ML engineer deuteranopia accessible mode); 5 new aspects discovered
+  - [ ] 6.01c-i — Overlay performance budget in Pixi.js: rendering cost analysis for floating holographic overlay with all elements active (grid, wires, radii, ghosts, scan-line shaders); target 60fps on integrated GPU at 1080p; flowing-dash animation and scan-line sweep shader costs
+  - [ ] 6.01c-ii — Overlay customization as power-user preference: toggling individual overlay layers (grid/perception/wiring/ghosts) as unlockable preference; forced visibility vs. player agency; "Photoshop layers" model as post-campaign unlock
+  - [ ] 6.01c-iii — Overlay visual language consistency across Plan/Inspector/Replay: deterministic color hash for channel names persistent across sessions; same routing, colors, station circles in all three screens; "channel passport" identity preservation
+  - [ ] 6.01c-iv — The "wiring spaghetti" threshold and auto-layout: at what channel count does subway-map routing become unreadable (6? 8? 12?); automatic wire-bundling "bus" segments; Factorio spaghetti as rite of passage vs. UX failure
+  - [ ] 6.01c-v — Overlay interaction with EM emissions visualization: Inspector-mode EM noise radial pulses from transmitting units; layered rendering order (terrain→grid→wiring→EM→sprites→radii); visual separation between designed channels and emergent noise
 - [ ] 6.01a-i — Tile animation budget: per-tile animation spec (bioluminescent pulsing 0.25Hz, water shimmer 0.5Hz, foam drift every 4 ticks, neon reflection flicker); Pixi.js rendering cost analysis for 64 animated tiles; "does animation compete with gameplay overlays" question
 - [ ] 6.01a-ii — Biome-specific signal propagation visuals: if terrain-modified spatial routing adopted, each biome needs distinct signal-delivery animation (jungle traces canopy, terrace follows horizontal lines, city routes through fiber optic, Siquijor amplified by bioluminescence); full animation spec per biome × signal type
 - [ ] 6.01a-iii — Dynamic tile damage states: when combat occurs on a tile, does it show damage? Cracked terrace stones, scorched jungle canopy, shattered beach limestone, broken city neon, extinguished bioluminescence; damage state count per biome; interaction with terrain signal propagation
