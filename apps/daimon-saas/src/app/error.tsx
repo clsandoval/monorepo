@@ -23,7 +23,7 @@ export default function GlobalError({ error, reset }: ErrorPageProps) {
       <p className="text-sm text-gray-500 text-center max-w-md">
         We encountered an unexpected error. Our team has been notified.
       </p>
-      <Button variant="primary" onClick={() => (window.location.href = '/dashboard')}>
+      <Button onClick={() => (window.location.href = '/dashboard')}>
         Go to dashboard
       </Button>
       <p className="text-xs text-gray-400 text-center">
