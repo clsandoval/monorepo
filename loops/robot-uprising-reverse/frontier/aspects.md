@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 774
-- **Analyzed:** 304
-- **Pending:** 470
-- **Convergence:** 39.3%
+- **Total aspects:** 779
+- **Analyzed:** 305
+- **Pending:** 474
+- **Convergence:** 39.2%
 
 ---
 
@@ -520,7 +520,12 @@
   - [ ] 3.06-ext — Rule conflict visualization in real-time: when two rules COULD match but priority ordering picks one, how does the inspector show the "road not taken"? The near-miss visualization problem from pattern matching applies to all approaches
 - [ ] 3.05a — Conditional prefix as expressive primitive: minimal rule vocabulary (like Shenzhen I/O's +/- prefix) that enables sophisticated agent behavior from simple building blocks
 - [ ] 3.05b — SWIZ-style value packing as design primitive: EXAPUNKS SWIZ encodes multi-attribute info in one integer via digit manipulation; Robot Uprising signals might encode compound information; what's the analogous primitive?
-- [ ] 3.06 — Rule conflicts: what happens when two rules contradict? Priority system, error feedback, or emergent chaos?
+- [x] 3.06 — Rule conflicts: what happens when two rules contradict? Priority system, error feedback, or emergent chaos?
+  - [ ] 3.06a — Warning calibration: the false positive problem — how many warnings per rule-set is too many? Warning fatigue threshold; A/B testing warning sensitivity
+  - [ ] 3.06b — Ghost preview conflict visualization: dual-arrow and colored spatial zone rendering for overlapping condition ranges; full design spec for the contested zone highlight
+  - [ ] 3.06c — Conflict cascade visualization in Inspector: cascade lines connecting hesitation tick to downstream failures across multiple agents; multi-agent causal chain rendering
+  - [ ] 3.06d — Rule ordering as transferable skill: explicit mapping to firewall rules, CSS specificity, exception handling, SRE runbook priority, production rule systems
+  - [ ] 3.06e — Competitive meta around conflict-free architectures: deliberate conflicts as decoy strategy (EM spike bait), "controlled chaos" as advanced PvP technique
 - [ ] 3.07 — Rules UI: how does the player write/edit/reorder rules?
 
 ### Hooks (Reactive Wiring)
