@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 27
-- **Analyzed**: 10
-- **Pending**: 17
-- **Convergence**: 37.0%
+- **Analyzed**: 11
+- **Pending**: 16
+- **Convergence**: 40.7%
 
 ## Wave 1: Research & Foundation (Read existing code, benchmarks, decisions)
 
@@ -25,7 +25,7 @@
 
 ## Wave 3: Component Design (Visual examples of every UI element)
 
-- [ ] 3.1 — Buttons: primary, secondary, ghost, danger, disabled states. All sizes (sm, md, lg). Generate image showing all variants.
+- [x] 3.1 — Buttons: primary, secondary, ghost, danger, disabled states. All sizes (sm, md, lg). Generate image showing all variants.
 - [ ] 3.2 — Form inputs: text, number, select, radio, checkbox, toggle. Default, focus, error, disabled states. Labels, help text, error messages.
 - [ ] 3.3 — Cards: content card, tool card, result card, stat card. Light and dark variants. Hover/active states.
 - [ ] 3.4 — Navigation: top nav bar, sidebar nav, mobile hamburger menu, breadcrumbs, tab bar. Active/inactive states.
