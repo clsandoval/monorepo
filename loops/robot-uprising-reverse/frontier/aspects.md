@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 794
-- **Analyzed:** 308
-- **Pending:** 486
-- **Convergence:** 38.8%
+- **Total aspects:** 799
+- **Analyzed:** 309
+- **Pending:** 490
+- **Convergence:** 38.7%
 
 ---
 
@@ -668,7 +668,12 @@
 - [ ] 5.08c — Mission type as difficulty language: using type names instead of star ratings; player self-selection into preferred types
 - [ ] 5.08d — The Gauntlet Rotation meta-structure: how Gauntlet cycles through mission types; rotation schedule as meta-puzzle
 - [ ] 5.08e — Escort mission anti-frustration design: why escorts are hated elsewhere; "design-then-watch" as core differentiator; VIP-as-configured-agent
-- [ ] 5.09 — Replayability: what makes someone start a new campaign
+- [x] 5.09 — Replayability: what makes someone start a new campaign
+- [ ] 5.09a — Blueprint presets as replay currency: unlocking pre-designed blueprint loadouts (like Into the Breach squads) that fundamentally change approach; "The Stealth Doctrine," "The Swarm," "The Singleton" as named playstyle presets
+- [ ] 5.09b — The "impossible challenge" community layer: community-submitted challenges with verified-impossible or extremely-difficult mutator combos; leaderboards for beautiful failure, not just victory
+- [ ] 5.09c — Predecessor memory as light replay narrative: minimal-writing variant of narrative replay — 5-10 new Predecessor lines per cycle referencing specific mission outcomes; low dev cost, high emotional return
+- [ ] 5.09d — The "remix tape" — curated mutator playlists: developer- or community-curated sequences of mutator combos across all 10 missions, packaged as named experiences; playlists as shareable content units
+- [ ] 5.09e — Cross-campaign persistent architecture museum: gallery saving the player's best architecture from each mission across all campaigns/cycles/ascension levels; historical preservation showing evolution of design philosophy
 - [ ] 5.10 — The "product as puzzle" narrative method: working backwards from fictional mission objects to determine which agent configurations matter (from Shenzhen I/O)
 - [ ] 5.13 — The reagent-placement-as-choice design pattern (from Opus Magnum): starting conditions that feel fixed but are actually variable create a "double reveal" — players discover the solution, then discover the solution space is larger than they thought; applies to agent deployment layout and hook topology choices
 - [ ] 5.13a — Spawn storm as designed tutorial failure: crafting a mission that makes the first spawn storm almost inevitable for a first-time player, then making the debrief teach the fix clearly; the Opus Magnum "first ugly solution" principle applied to spawn chain design; what the spawn storm looks and sounds like at maximum drama
