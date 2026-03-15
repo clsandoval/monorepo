@@ -37,7 +37,7 @@ Remaining: 206
 - [x] **Stage 24**: Replace `src/components/ui/stat-card.tsx` — rebuild with shadcn Card, preserve metric display layout (2026-03-15)
 - [x] **Stage 25**: Replace `src/components/ui/status-indicator.tsx` — rebuild with shadcn Badge + dot indicator pattern (2026-03-15)
 - [x] **Stage 26**: Replace `src/components/ui/copy-to-clipboard.tsx` — rebuild with shadcn Button + Tooltip for feedback (2026-03-15)
-- [ ] **Stage 27**: Replace `src/components/ui/empty-state.tsx` — rebuild with shadcn Card + centered content pattern
+- [x] **Stage 27**: Replace `src/components/ui/empty-state.tsx` — rebuild with shadcn Card + centered content pattern (2026-03-15)
 - [ ] **Stage 28**: Replace `src/components/ui/error-state.tsx` — rebuild with shadcn Alert (destructive) + Button for retry
 - [ ] **Stage 29**: Replace `src/components/ui/icon-button.tsx` — replace with shadcn Button variant="ghost" size="icon", update all import sites
 - [ ] **Stage 30**: Replace `src/components/ui/link.tsx` — simplify to thin wrapper or remove if trivial, update all import sites
