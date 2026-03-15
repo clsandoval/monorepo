@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 929
-- **Analyzed:** 335
-- **Pending:** 594
-- **Convergence:** 36.1%
+- **Total aspects:** 934
+- **Analyzed:** 336
+- **Pending:** 598
+- **Convergence:** 36.0%
 
 ---
 
@@ -898,10 +898,15 @@
   - [ ] 7.01e — Spectator mode and tournament infrastructure: stream overlays showing both players' Plan screens, split-screen Sealed Watch, Inspector casting tools, tournament bracket UI, replay sharing for community analysis
 - [x] 7.02 — Co-op: shared battlefield, complementary attention architectures
 - [x] 7.02a — Co-op channel naming protocols and emergent communication conventions: how player-pairs develop shared vocabulary for cross-boundary signals; the "protocol layer" that emerges from repeated co-op sessions; comparable to software API versioning and team naming conventions
-- [ ] 7.02b — Co-op production queue negotiation: when two players share one production queue (Archon, Specialist, War Room), build order becomes a diplomacy problem; resource allocation as cooperative tension; comparable to Factorio's "you used all the iron" conflict
+- [x] 7.02b — Co-op production queue negotiation: when two players share one production queue (Archon, Specialist, War Room), build order becomes a diplomacy problem; resource allocation as cooperative tension; comparable to Factorio's "you used all the iron" conflict
 - [ ] 7.02c — 2v2 co-op PvP mode combinations: pairing co-op models with PvP models; Specialist co-op (4 distinct roles in a 2v2) as the deepest competitive format; mixed co-op models as asymmetric advantage
 - [ ] 7.02d — Co-op Inspector as teaching tool: War Room co-op forces deep Inspector usage; how co-op debrief habits transfer to improved single-player analysis; co-op as the "Inspector tutorial" the game otherwise lacks
 - [ ] 7.02e — Cross-boundary EM emission budget as cooperative resource: in Divided Front co-op, both players' combined EM emissions create shared detection risk; the "emission budget" as a cooperative resource that neither player can individually control; comparable to shared radio frequency allocation
+- [ ] 7.02b-i — Queue proposal history in Inspector: chronological log of every proposed, accepted, and rejected queue change visible in Inspector after battle as "Production Planning Trace"; enables post-game analysis of whether build order disagreements caused failures; co-op equivalent of git blame for deployment order
+- [ ] 7.02b-ii — Build order dependency graph visualization: optional War Council overlay showing dependency arrows between blueprints ("STRIKER-B depends on RELAY-C for signal delivery → RELAY-C must deploy first"); computed from hook/channel wiring; auto-detected deployment-order constraints as visual guidance
+- [ ] 7.02b-iii — Queue veto as competitive meta-resource: in 2v2 co-op, each player gets one "hard veto" per War Council that cannot be overridden; the veto as scarce resource signaling conviction strength; interaction with EM emission budget as parallel cooperative constraint
+- [ ] 7.02b-iv — Async co-op queue negotiation: for asynchronous co-op play, the production queue becomes a message-passing system — Player A proposes a queue, Player B reviews and edits offline; queue negotiation as async design review; interaction with async challenges (7.03)
+- [ ] 7.02b-v — Solo queue practice mode: single-player mode simulating co-op queue by giving AI partner its own build preferences the player must negotiate against; teaches co-op negotiation without a partner; AI partner personality (aggressive, conservative, economy-focused) as solo training tool
   - [ ] 7.02a-i — Channel name as EM intercept surface: in competitive co-op (2v2), can opponents read channel names from intercepted EM signals? Channel naming as information security game — clear names leak intent, coded names preserve secrecy; the naming arms race as emergent metagame
   - [ ] 7.02a-ii — Protocol Codex as community artifact: the export/import cycle for naming conventions; how top pairs' protocols propagate through the community; convergence toward "standard protocols" vs. diversity; the Factorio blueprint library model applied to channel conventions
   - [ ] 7.02a-iii — Cross-pair protocol compatibility: when two pairs with different naming conventions merge for 4-player co-op, Protocol Codexes conflict; the "protocol merge" as designed onboarding moment; comparable to API gateway pattern in microservices
