@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 27
-- **Analyzed**: 4
-- **Pending**: 23
-- **Convergence**: 14.8%
+- **Analyzed**: 5
+- **Pending**: 22
+- **Convergence**: 18.5%
 
 ## Wave 1: Research & Foundation (Read existing code, benchmarks, decisions)
 
@@ -16,7 +16,7 @@
 
 ## Wave 2: Design Decisions (Make choices, write specs)
 
-- [ ] 2.1 — Color system: define full palette — primary navy + tints/shades, neutral scale (gray-50 to gray-900), semantic colors (success, warning, error, info), accent color. Write CSS custom properties.
+- [x] 2.1 — Color system: define full palette — primary navy + tints/shades, neutral scale (gray-50 to gray-900), semantic colors (success, warning, error, info), accent color. Write CSS custom properties.
 - [ ] 2.2 — Dark mode palette: define dark mode equivalents for every color. Background, surface, text, border colors. How logo inverts.
 - [ ] 2.3 — Typography system: select font stack (heading + body + mono), define type scale (hero through caption) with sizes, weights, line-heights, letter-spacing. Write CSS.
 - [ ] 2.4 — Spacing & layout system: define base unit, spacing scale, page max-width, grid columns, card padding, section gaps. Mobile vs desktop breakpoints.
