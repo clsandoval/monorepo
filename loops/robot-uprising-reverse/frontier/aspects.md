@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 924
-- **Analyzed:** 334
-- **Pending:** 590
+- **Total aspects:** 929
+- **Analyzed:** 335
+- **Pending:** 594
 - **Convergence:** 36.1%
 
 ---
@@ -407,7 +407,12 @@
   - [ ] 1.12e — Meta-rule recursion depth: Baba's TEXT/LEVEL nouns as precedent for Command agent's reassign/reroute/prioritize skills; how deep can "rules about rules" go before the game becomes incomprehensible?
 
 ### RTS / Automation / Factory Games
-- [ ] 1.13 — StarCraft Brood War: information warfare, scouting, fog of war, macro/micro split
+- [x] 1.13 — StarCraft Brood War: information warfare, scouting, fog of war, macro/micro split
+  - [ ] 1.13a — The "fog of time" vs. "fog of space" philosophical distinction: temporal information degradation (signal age, buffer staleness) creates fundamentally different strategic decisions than spatial information hiding (fog of war, hidden bases); how temporal model teaches latency/caching/TTL while spatial teaches exploration/positioning
+  - [ ] 1.13b — The APM-to-architecture transfer: designing Robot Uprising to reward the SAME cognitive skills high-APM StarCraft players use (parallel task prioritization, attention cycling, interrupt handling) but expressed through configuration not execution speed; the "300 APM player finds equivalent advantage in a 0-APM game" problem
+  - [ ] 1.13c — The spectator problem: StarCraft became esport because battles are visually legible; Robot Uprising's signal chains and context bars need the same clarity for observers who didn't design the systems; making someone else's information architecture comprehensible to a viewer in real time
+  - [ ] 1.13d — The control group / hotkey vocabulary as plan-screen UX precedent: StarCraft's Ctrl+1-9 as original "named attention unit collections"; how this maps to blueprint naming, channel naming, production group management; keyboard-first expert workflows
+  - [ ] 1.13e — The replay culture as Inspector precedent: Brood War replay-watching culture (Day9 dailies, community analysis, tournament VODs) as direct precedent for Inspector and async sharing; designing Inspector to support "learn by watching others" ecosystem
 - [ ] 1.14 — Factorio: belt/logistics systems, throughput optimization, infinite scalability, mod community
 - [ ] 1.15 — Shapez: pure factory puzzle stripped of combat, focus on throughput and layout
 - [ ] 1.16 — Mindustry: tower defense + factory + RTS hybrid, conveyor logistics under pressure
