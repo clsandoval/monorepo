@@ -1,8 +1,8 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 53
-Remaining: 162
+Completed: 54
+Remaining: 161
 
 ---
 
@@ -77,7 +77,7 @@ Remaining: 162
 - [x] **Stage 58**: Replace `src/components/landing/faq-section.tsx` — rebuild with shadcn Accordion (install if needed: `npx shadcn@latest add accordion`) (2026-03-15)
 - [x] **Stage 59**: Replace `src/components/landing/pricing-section.tsx` — rebuild with shadcn Card grid + Badge + Button (2026-03-15)
 - [x] **Stage 60**: Replace `src/components/seo/json-ld.tsx` — no UI, but verify it still renders valid JSON-LD after any layout changes (2026-03-15)
-- [ ] **Stage 61**: Clean up: delete any orphaned old component files that are no longer imported anywhere
+- [x] **Stage 61**: Clean up: delete any orphaned old component files that are no longer imported anywhere (2026-03-15)
 
 ## Replace Page-Level Inline Styles (stages 62–66) `[replace-page]`
 
