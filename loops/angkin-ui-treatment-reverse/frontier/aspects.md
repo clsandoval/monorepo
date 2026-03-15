@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 27
-- **Analyzed**: 17
-- **Pending**: 10
-- **Convergence**: 63.0%
+- **Analyzed**: 18
+- **Pending**: 9
+- **Convergence**: 66.7%
 
 ## Wave 1: Research & Foundation (Read existing code, benchmarks, decisions)
 
@@ -35,7 +35,7 @@
 
 ## Wave 4: Full-Page Mockups (Example screens with gemini-image-gen)
 
-- [ ] 4.1 — Angkin platform home: tool grid, nav, hero, footer. Desktop 1280px.
+- [x] 4.1 — Angkin platform home: tool grid, nav, hero, footer. Desktop 1280px.
 - [ ] 4.2 — TaxKlaro landing page: hero, features, CTA. Desktop 1280px.
 - [ ] 4.3 — TaxKlaro results page: 3-regime comparison, recommended badge, savings highlight. Desktop 1280px.
 - [ ] 4.4 — Inheritance wizard step: family tree builder or estate details form. Desktop 1280px.
