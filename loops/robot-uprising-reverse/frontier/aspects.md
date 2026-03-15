@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 855
-- **Analyzed:** 320
-- **Pending:** 535
-- **Convergence:** 37.4%
+- **Total aspects:** 860
+- **Analyzed:** 321
+- **Pending:** 539
+- **Convergence:** 37.3%
 
 ---
 
@@ -638,7 +638,12 @@
   - [ ] 5.00d — The field manual as community artifact: discoverable pages as speedrun targets, community wikis mapping page locations, page screenshots as trading currency; is the field manual redundant with boot terminal or complementary?
   - [ ] 5.00e — The naming moment as designed beat: exact timing of when concepts get named; too early = meaningless label, too late = annoying interruption; detecting the "tip of the tongue" moment programmatically
 - [x] 5.11a — The document-as-corrupted-surface mechanic: designing the tactical log / field manual so that enemy interference appears IN the document — making tutorial pages a gameplay surface (corruption detection embedded in reading experience)
-- [ ] 5.11b — The corrupted diff as endgame adversarial escalation: designing the mission where the diff view itself is compromised; when to reveal this capability; how to prevent it from being frustrating vs. thrilling; the "no tool is infallible" lesson as a designed campaign beat
+- [x] 5.11b — The corrupted diff as endgame adversarial escalation: designing the mission where the diff view itself is compromised; when to reveal this capability; how to prevent it from being frustrating vs. thrilling; the "no tool is infallible" lesson as a designed campaign beat
+  - [ ] 5.11b-i — Audio channel independence during diff compromise: critical architecture decision — does the Geiger counter clicking have its own detection path independent of the diff view baseline, or does poisoning the baseline also silence the audio? Each answer creates different gameplay dynamics and fairness levels per mission
+  - [ ] 5.11b-ii — The "cascading distrust" containment problem: after experiencing one compromised tool, players may lose trust in ALL tools; designing the boundaries — which tools can be corrupted, which are always reliable, and how the game communicates these guarantees — is a meta-design problem for the entire Inspector toolkit
+  - [ ] 5.11b-iii — Specialist-deployed baseline recovery as mid-mission objective: using the Specialist unit's extract skill to recover uncorrupted baseline data from enemy relays during the sealed watch; turning diff corruption from a pre-mission scan problem into an in-mission tactical objective with spatial and temporal constraints
+  - [ ] 5.11b-iv — The "VERIFY AGAINST MISSION HISTORY" tool as general-purpose diagnostic: this tool (introduced to counter corrupted diffs) could become a powerful general diagnostic — "what did I change since my last victory?" — useful even when the diff is trustworthy; risk of feature creep vs. value of consistent diagnostic vocabulary
+  - [ ] 5.11b-v — Gauntlet confidence percentage as competitive meta-resource: in PvP Gauntlet, the diff confidence percentage creates time-pressure tradeoffs (verify manually vs. trust the percentage); opponent strategy around manipulating verification time cost; "verification denial" as an advanced adversarial tactic
 - [ ] 5.11c — Document recovery missions: missions where a primary objective is deploying a Specialist to recover redacted/purged document content from enemy communications; document integrity as a resource to defend and reclaim
 - [ ] 5.11d — Community corruption reports: players sharing screenshots of corruption they found; "corruption of the week" as a community artifact; the social loop of corruption detection as a shared experience
 - [ ] 5.11e — Corruption as enemy characterization: different enemy types have different corruption signatures (clean surgical rewrites vs. crude redactions vs. sophisticated injections); corruption style as adversary personality; reading corruption patterns to identify which enemy subsystem is active
