@@ -1,8 +1,8 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 128
-Remaining: 87
+Completed: 129
+Remaining: 86
 
 ---
 
@@ -163,7 +163,7 @@ Each stage: navigate route at 375x812 via Playwright, assert no horizontal overf
 
 Each stage: navigate at 768x1024, verify layout reflows correctly between mobile and desktop breakpoints.
 
-- [ ] **Stage 129**: Tablet verify `/` — landing page grid reflows, pricing cards 2-column
+- [x] **Stage 129**: Tablet verify `/` — landing page grid reflows, pricing cards 2-column (2026-03-15)
 - [ ] **Stage 130**: Tablet verify `/dashboard` — sidebar collapsed to icons, content area fills remaining width
 - [ ] **Stage 131**: Tablet verify `/dashboard/billing` — plan comparison adapts to tablet width
 - [ ] **Stage 132**: Tablet verify `/dashboard/integrations` — service grid 2-column
