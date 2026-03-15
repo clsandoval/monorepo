@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 914
-- **Analyzed:** 332
-- **Pending:** 582
-- **Convergence:** 36.3%
+- **Total aspects:** 919
+- **Analyzed:** 333
+- **Pending:** 586
+- **Convergence:** 36.2%
 
 ---
 
@@ -869,7 +869,12 @@
 - [ ] 6.11d-ii — Demo-to-full-game badge migration: how demo badges (Seasonal Circuit rankings, Daily Config streaks) transfer on purchase; badge persistence across platforms; "Demo Veteran" prestige hierarchy; interaction with Gauntlet ratings
 - [ ] 6.11d-iii — Challenge authoring tools for designers: internal tool for creating weekly/seasonal challenges; enemy config → constraint specification → difficulty estimation → playtesting → publication pipeline; potential community opening as Bounty Board
 - [ ] 6.11d-iv — Timezone equity in daily challenges: midnight UTC reset fairness across global timezones; rolling resets vs. fixed UTC vs. player-local-time; implications for Philippines (UTC+8) vs. US audiences; leaderboard fairness
-- [ ] 6.11d-v — Educational institution demo integration: class groups, assignment-friendly Inspector exports, curriculum-aligned seasonal schedules; the demo as teaching platform for CS/multi-agent-systems courses
+- [x] 6.11d-v — Educational institution demo integration: class groups, assignment-friendly Inspector exports, curriculum-aligned seasonal schedules; the demo as teaching platform for CS/multi-agent-systems courses
+- [ ] 6.11d-v-i — Inspector export file format specification: detailed `.uprising` JSON schema, versioning strategy, backward compatibility, field semantics for grading automation, community tooling around the format
+- [ ] 6.11d-v-ii — Lab Sandbox scenario editor constraint validation: automated impossibility detection, difficulty estimation algorithms, scenario complexity metrics, teacher-facing validation feedback
+- [ ] 6.11d-v-iii — Save code for shared computer labs: 6-character alphanumeric progress encoding without accounts, QR display, restore flow, collision avoidance, localStorage-to-code and code-to-localStorage round-trip
+- [ ] 6.11d-v-iv — Vocabulary mapping as in-game overlay: toggle-able "CS Mode" that shows real CS/AI terminology alongside game terms (e.g., "Context Window (bounded buffer)"), activated by class code or setting; interaction with boot log and Inspector
+- [ ] 6.11d-v-v — Community scenario library for educators: teacher-authored Lab Sandbox scenarios shared via URL/repository, rating/review system, tagging by CS concept, difficulty level, and prerequisite missions; the "lesson plan marketplace" for Robot Uprising
 
 ---
 
