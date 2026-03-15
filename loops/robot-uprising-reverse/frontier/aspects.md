@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 809
-- **Analyzed:** 311
-- **Pending:** 498
-- **Convergence:** 38.4%
+- **Total aspects:** 814
+- **Analyzed:** 312
+- **Pending:** 502
+- **Convergence:** 38.3%
 
 ---
 
@@ -591,7 +591,12 @@
 - [ ] 4.07 — The "oh no" moment: how information overload is visualized on units
 - [ ] 4.07a — "Blocked" visual state: agents that are waiting for input should be visually distinct from agents that are executing — prevents opacity that frustrates players in TIS-100 (deadlock detection gap)
 - [ ] 4.09 — The histogram as player communication layer: deep dive on histogram design for Robot Uprising — axes, distribution shape, friend overlay, no-reward philosophy, when to show vs. hide; informed by Opus Magnum histogram psychology
-- [ ] 6.09 — GIF/clip export as primary viral mechanic: designing replay clips that are shareable, beautiful, and self-explanatory without context; the hook-cascade clip as a viral moment; technical and design requirements for a Robot Uprising replay export
+- [x] 6.09 — GIF/clip export as primary viral mechanic: designing replay clips that are shareable, beautiful, and self-explanatory without context; the hook-cascade clip as a viral moment; technical and design requirements for a Robot Uprising replay export
+  - [ ] 6.09a — Clip audio mixing for social media: loudness normalization for auto-play muted→unmuted behavior; "first 0.5s must have visual hook" principle; platform-specific mixing presets
+  - [ ] 6.09b — Match Card template system: customizable card layouts, community-created templates as Workshop items, seasonal card designs, terrain backdrop selection
+  - [ ] 6.09c — Replay link deep-linking with tick parameter: `?t=47` format for timestamp sharing; "jump to the cool part" culture; interaction with community analysis posts
+  - [ ] 6.09d — Export analytics as game health signal: tracking which moments get exported reveals game strengths; anonymous aggregate export heuristics as playtesting data
+  - [ ] 6.09e — "Before/After" comparison clip mode: side-by-side same-seed replays with two configurations; split-screen export with shared timeline; the most powerful teaching artifact
 - [ ] 4.04a — Debrief as debugger: step-through replay of execution with per-agent state, buffer contents, and hook activation — the primary teaching mechanic, not just a stats screen
 - [ ] 4.15 — The probe hook as first-class debugging primitive: how probes are created, what they cost, how debrief surfaces output, whether they auto-strip before Gauntlet deploy; "always-be-observable" as a designed game mechanic
 - [ ] 4.16 — Signal genealogy as visualization: the full network graph of signal propagation across all agents for a given tick range; legibility at 5 vs. 15 agents; comparable: network traffic analyzers, dependency trees, call graphs in profilers
