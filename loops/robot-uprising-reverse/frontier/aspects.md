@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 919
-- **Analyzed:** 333
-- **Pending:** 586
-- **Convergence:** 36.2%
+- **Total aspects:** 924
+- **Analyzed:** 334
+- **Pending:** 590
+- **Convergence:** 36.1%
 
 ---
 
@@ -588,7 +588,12 @@
 - [ ] 3.10d — Wire routing algorithms for the subway map paradigm: path-finding along grid edges, crossing handling, parallel lane stacking, manual waypoints, Bézier vs right-angle
 - [ ] 3.10e — EM emission visualization: making detectable noise visible; separate overlay vs integrated; relationship between "signals you see" and "signals the enemy detects"
 - [ ] 3.10f — Visualization density scaling across the 10-mission arc: 2 units/0 channels (M1) to 12+ units/8+ channels (M10); paradigm breakdown thresholds; progressive disclosure gates
-- [ ] 3.11 — Hooks UI: how does the player create and manage hooks?
+- [x] 3.11 — Hooks UI: how does the player create and manage hooks?
+- [ ] 3.11a — Hook template presets per unit type: should each unit type come with pre-suggested hooks? How do presets help onboarding without limiting creativity?
+- [ ] 3.11b — The "dead hook" diagnostic: when a hook has fired 0 times in the last N executes, should the Inspector flag it as misconfigured? Amber warning on unused hooks
+- [ ] 3.11c — Hook copy-paste between blueprints: channel names carry over, but trigger availability may differ by unit type; handling incompatible triggers on paste
+- [ ] 3.11d — Channel subscriber count as competitive intelligence: can the opponent estimate your channel count from EM emissions? EM footprint surfaced in hooks UI as you add hooks
+- [ ] 3.11e — Expert keyboard workflow for hook wiring: Ctrl+H to add hook, Tab between fields, Enter to confirm, Ctrl+Up/Down to reorder; full mouseless speedrun
 - [ ] 3.08a — Trigger-to-rule vocabulary alignment: should triggers and rules use the same condition primitives (shared vocabulary reduces learning cost) or distinct vocabularies (independent evolution)?
 - [ ] 3.08b — Channel naming conventions as emergent culture: standard channel libraries, community naming conventions, competitive meta around channel naming
 - [ ] 3.08c — Hook slot economy as strategic constraint: choosing which hooks to install when you have more ideas than slots; slot scarcity as design pressure
