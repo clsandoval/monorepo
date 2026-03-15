@@ -1,8 +1,8 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 57
-Remaining: 158
+Completed: 58
+Remaining: 157
 
 ---
 
@@ -92,7 +92,7 @@ Remaining: 158
 Each stage: navigate route at 1280x800 via Playwright, assert no console errors, no 500/404, page content renders, all links valid, take screenshot.
 
 - [x] **Stage 67**: Desktop verify `/` (landing page) — hero section, features, pricing, FAQ, footer all render (2026-03-15)
-- [ ] **Stage 68**: Desktop verify `/about` — content renders, team/mission section visible
+- [x] **Stage 68**: Desktop verify `/about` — content renders, team/mission section visible (2026-03-15)
 - [ ] **Stage 69**: Desktop verify `/changelog` — changelog entries render
 - [ ] **Stage 70**: Desktop verify `/login` — form renders with email + password fields, submit button, "sign up" link
 - [ ] **Stage 71**: Desktop verify `/signup` — form renders with full name + email + password + confirm + terms checkbox, submit button, "sign in" link
