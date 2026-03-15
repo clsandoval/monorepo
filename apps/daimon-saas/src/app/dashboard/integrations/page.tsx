@@ -104,7 +104,7 @@ export default async function IntegrationsPage() {
 
     // Index service connections by service name for O(1) card lookup
     connectionsByService = Object.fromEntries(
-      (serviceConnectionsResult.data ?? []).map((c) => [
+      (serviceConnectionsResult.data ?? []).map((c: any) => [
         c.service,
         c as TenantServiceConnection,
       ])

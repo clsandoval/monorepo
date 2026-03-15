@@ -48,7 +48,7 @@ export function DashboardStatusCards({ discord, plan }: DashboardStatusCardsProp
     <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
       {/* Bot Status */}
       <Card className="gap-0 rounded-none border-[1.5px] border-border bg-card px-6 py-5">
-        <span className="block mb-3 text-xs font-medium text-muted-foreground uppercase tracking-[0.06em]">
+        <span className="block mb-3 text-sm sm:text-xs font-medium text-muted-foreground uppercase tracking-[0.06em]">
           Bot Status
         </span>
         <StatusIndicator
@@ -59,7 +59,7 @@ export function DashboardStatusCards({ discord, plan }: DashboardStatusCardsProp
 
       {/* Current Plan */}
       <Card className="gap-0 rounded-none border-[1.5px] border-border bg-card px-6 py-5">
-        <span className="block mb-3 text-xs font-medium text-muted-foreground uppercase tracking-[0.06em]">
+        <span className="block mb-3 text-sm sm:text-xs font-medium text-muted-foreground uppercase tracking-[0.06em]">
           Current Plan
         </span>
         <Badge variant={`plan-${plan}`} size="md" />
@@ -67,7 +67,7 @@ export function DashboardStatusCards({ discord, plan }: DashboardStatusCardsProp
 
       {/* Discord Connection */}
       <Card className="gap-0 rounded-none border-[1.5px] border-border bg-card px-6 py-5">
-        <span className="block mb-3 text-xs font-medium text-muted-foreground uppercase tracking-[0.06em]">
+        <span className="block mb-3 text-sm sm:text-xs font-medium text-muted-foreground uppercase tracking-[0.06em]">
           Discord Connection
         </span>
         {guildDisplay ? (

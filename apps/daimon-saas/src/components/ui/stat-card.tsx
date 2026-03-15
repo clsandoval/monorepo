@@ -70,8 +70,8 @@ export function StatCard({
                 className={cn(
                   'uppercase tracking-wide font-sans',
                   isDefault
-                    ? 'text-xs font-medium text-muted-foreground'
-                    : 'text-xs font-normal text-muted-foreground'
+                    ? 'text-sm sm:text-xs font-medium text-muted-foreground'
+                    : 'text-sm sm:text-xs font-normal text-muted-foreground'
                 )}
               >
                 {label}
@@ -93,8 +93,8 @@ export function StatCard({
               className={cn(
                 'block mt-1 font-sans',
                 isDefault
-                  ? 'text-xs text-muted-foreground'
-                  : 'text-[11px] text-muted-foreground'
+                  ? 'text-sm sm:text-xs text-muted-foreground'
+                  : 'text-sm sm:text-[11px] text-muted-foreground'
               )}
             >
               {subValue}
