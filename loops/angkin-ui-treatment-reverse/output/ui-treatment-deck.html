@@ -731,18 +731,7 @@
     .mb-24 { margin-bottom: 24px; }
     .mb-32 { margin-bottom: 32px; }
 
-    /* --- Placeholder for content that 5.2 will populate --- */
-
-    .placeholder-content {
-      background: var(--neutral-100);
-      border: 2px dashed var(--neutral-300);
-      border-radius: var(--radius-lg);
-      padding: 48px;
-      text-align: center;
-      color: var(--neutral-400);
-      font-family: var(--font-mono);
-      font-size: var(--text-small);
-    }
+    /* --- Placeholder class removed — all sections populated --- */
   </style>
 </head>
 <body>
@@ -798,8 +787,189 @@
           <p class="section-desc">The 2C Radical Clarity mark: a circle with diagonal slash forming a negative-space 'A'. Deep navy on white, or inverted for dark contexts. Every surface of Angkin begins here.</p>
         </div>
 
-        <!-- Content populated in 5.2 -->
-        <div class="placeholder-content">Section 01 content &mdash; Logo variants, clear space, sizing, misuse rules</div>
+        <!-- Logo Variants -->
+        <div class="subsection">
+          <h3 class="subsection-title">Color Variants</h3>
+          <p class="subsection-desc">The mark in its four canonical color treatments. Navy-on-white is the default (90%+ of usage).</p>
+          <div class="content-grid content-grid--4col" style="align-items: center;">
+            <div class="content-block text-center" style="padding:32px;text-align:center;">
+              <span class="content-block__label">Primary (Light BG)</span>
+              <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto;display:block;">
+                <defs><clipPath id="s01-1"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-1)"/>
+              </svg>
+              <div style="margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--neutral-500);">Navy #1E3A5F on white</div>
+            </div>
+            <div class="content-block content-block--navy text-center" style="padding:32px;text-align:center;">
+              <span class="content-block__label" style="color:var(--navy-300);">Inverted (Dark BG)</span>
+              <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto;display:block;">
+                <defs><clipPath id="s01-2"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#FFFFFF"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#1E3A5F" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-2)"/>
+              </svg>
+              <div style="margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--navy-300);">White on navy-600</div>
+            </div>
+            <div class="content-block content-block--dark text-center" style="padding:32px;text-align:center;">
+              <span class="content-block__label">Dark Mode</span>
+              <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto;display:block;">
+                <defs><clipPath id="s01-3"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#FFFFFF"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#060D18" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-3)"/>
+              </svg>
+              <div style="margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--navy-300);">White fill, navy-950 slash</div>
+            </div>
+            <div class="content-block text-center" style="padding:32px;text-align:center;background:#000;">
+              <span class="content-block__label" style="color:#666;">Monochrome</span>
+              <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="margin:0 auto;display:block;">
+                <defs><clipPath id="s01-4"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#FFFFFF"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#000" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-4)"/>
+              </svg>
+              <div style="margin-top:12px;font-family:var(--font-mono);font-size:11px;color:#666;">White on black (print)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sizing -->
+        <div class="subsection">
+          <h3 class="subsection-title">Size Specifications</h3>
+          <p class="subsection-desc">The mark at every size it appears in the platform. Minimum clear space = 1/4 circle diameter on all sides.</p>
+          <div style="display:flex;align-items:flex-end;gap:48px;padding:48px 32px;background:var(--neutral-0);border:1px solid var(--neutral-200);border-radius:var(--radius-lg);">
+            <div style="text-align:center;">
+              <svg width="16" height="16" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs><clipPath id="s01-f"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="18" stroke-linecap="round" clip-path="url(#s01-f)"/>
+              </svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-400);margin-top:8px;">16px<br>Favicon</div>
+            </div>
+            <div style="text-align:center;">
+              <svg width="24" height="24" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs><clipPath id="s01-b"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-b)"/>
+              </svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-400);margin-top:8px;">24px<br>Badge</div>
+            </div>
+            <div style="text-align:center;">
+              <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs><clipPath id="s01-n"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-n)"/>
+              </svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-400);margin-top:8px;">32px<br>Nav</div>
+            </div>
+            <div style="text-align:center;">
+              <svg width="48" height="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs><clipPath id="s01-p"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-p)"/>
+              </svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-400);margin-top:8px;">48px<br>Print</div>
+            </div>
+            <div style="text-align:center;">
+              <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs><clipPath id="s01-h"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-h)"/>
+              </svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-400);margin-top:8px;">80px<br>Hero</div>
+            </div>
+            <div style="text-align:center;">
+              <svg width="128" height="128" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs><clipPath id="s01-xl"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-xl)"/>
+              </svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-400);margin-top:8px;">128px<br>Landing</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lockups -->
+        <div class="subsection">
+          <h3 class="subsection-title">Logo + Wordmark Lockups</h3>
+          <p class="subsection-desc">Horizontal lockup (primary) and stacked lockup (compact). Mark and wordmark share the same color.</p>
+          <div class="content-grid content-grid--2col">
+            <div class="content-block" style="padding:40px;display:flex;align-items:center;gap:14px;">
+              <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs><clipPath id="s01-lh"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-lh)"/>
+              </svg>
+              <span style="font-family:var(--font-heading);font-size:22px;font-weight:600;color:var(--navy-600);letter-spacing:-0.01em;">Angkin</span>
+              <div style="position:absolute;bottom:12px;right:16px;font-family:var(--font-mono);font-size:10px;color:var(--neutral-400);">Horizontal lockup</div>
+            </div>
+            <div class="content-block content-block--navy" style="padding:40px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+              <svg width="48" height="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs><clipPath id="s01-ls"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#FFFFFF"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#1E3A5F" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-ls)"/>
+              </svg>
+              <span style="font-family:var(--font-heading);font-size:18px;font-weight:600;color:white;">Angkin</span>
+              <span style="font-family:var(--font-body);font-size:11px;color:var(--navy-300);margin-top:-4px;">Philippine Compliance Tools</span>
+              <div style="position:absolute;bottom:12px;right:16px;font-family:var(--font-mono);font-size:10px;color:var(--navy-400);">Stacked with tagline</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Misuse -->
+        <div class="subsection">
+          <h3 class="subsection-title">What NOT To Do</h3>
+          <p class="subsection-desc">Ten rules that protect the mark's integrity. The circle must remain a perfect circle, the slash angle is fixed.</p>
+          <div class="content-grid content-grid--4col" style="gap:16px;">
+            <div style="background:var(--error-50);border:1px solid var(--error-100);border-radius:var(--radius);padding:16px;text-align:center;">
+              <svg width="48" height="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="opacity:0.5;">
+                <defs><clipPath id="s01-d1"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="35" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-d1)"/>
+              </svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--error-600);margin-top:8px;">Don't stretch</div>
+            </div>
+            <div style="background:var(--error-50);border:1px solid var(--error-100);border-radius:var(--radius);padding:16px;text-align:center;">
+              <svg width="48" height="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="opacity:0.5;transform:rotate(45deg);">
+                <defs><clipPath id="s01-d2"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-d2)"/>
+              </svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--error-600);margin-top:8px;">Don't rotate</div>
+            </div>
+            <div style="background:var(--error-50);border:1px solid var(--error-100);border-radius:var(--radius);padding:16px;text-align:center;">
+              <svg width="48" height="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="opacity:0.5;filter:drop-shadow(4px 4px 8px rgba(0,0,0,0.5));">
+                <defs><clipPath id="s01-d3"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-d3)"/>
+              </svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--error-600);margin-top:8px;">Don't add effects</div>
+            </div>
+            <div style="background:var(--error-50);border:1px solid var(--error-100);border-radius:var(--radius);padding:16px;text-align:center;">
+              <svg width="48" height="48" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="opacity:0.5;">
+                <defs><linearGradient id="s01-g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1E3A5F"/><stop offset="100%" stop-color="#C5A44E"/></linearGradient><clipPath id="s01-d4"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="url(#s01-g1)"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-d4)"/>
+              </svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--error-600);margin-top:8px;">Don't use gradients</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clear Space -->
+        <div class="subsection">
+          <h3 class="subsection-title">Clear Space</h3>
+          <div class="content-block" style="max-width:400px;padding:48px;text-align:center;">
+            <div style="position:relative;display:inline-block;">
+              <div style="position:absolute;inset:-20px;border:1px dashed var(--gold-400);border-radius:50%;"></div>
+              <div style="position:absolute;top:-28px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:10px;color:var(--gold-600);">0.25d</div>
+              <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs><clipPath id="s01-cs"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <circle cx="50" cy="50" r="48" fill="#1E3A5F"/>
+                <line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s01-cs)"/>
+              </svg>
+            </div>
+            <div style="margin-top:24px;font-family:var(--font-mono);font-size:11px;color:var(--neutral-500);">Minimum clear space = 1/4 diameter on all sides</div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -814,7 +984,131 @@
           <p class="section-desc">Navy-undertoned institutional palette. Three scales (navy, gold, neutral), four semantic colors, six chart colors, and ten compliance tokens. ~80 CSS custom properties.</p>
         </div>
 
-        <div class="placeholder-content">Section 02 content &mdash; Navy scale, gold scale, neutrals, semantic, chart colors, contrast audit</div>
+        <!-- Navy Scale -->
+        <div class="subsection" style="margin-top:0;">
+          <h3 class="subsection-title">Primary Navy Scale</h3>
+          <p class="subsection-desc">#1E3A5F is the brand — positioned at 600 in the scale. Tints above provide surfaces, shades below provide dark mode.</p>
+          <div class="swatch-row">
+            <div class="swatch swatch--tall" style="background:#EEF2F7;"><span class="swatch-label swatch-label--dark">50<span class="swatch-hex">#EEF2F7</span></span></div>
+            <div class="swatch swatch--tall" style="background:#D8E1ED;"><span class="swatch-label swatch-label--dark">100<span class="swatch-hex">#D8E1ED</span></span></div>
+            <div class="swatch swatch--tall" style="background:#C2D0E2;"><span class="swatch-label swatch-label--dark">150<span class="swatch-hex">#C2D0E2</span></span></div>
+            <div class="swatch swatch--tall" style="background:#A8BBD4;"><span class="swatch-label swatch-label--dark">200<span class="swatch-hex">#A8BBD4</span></span></div>
+            <div class="swatch swatch--tall" style="background:#7A99BE;"><span class="swatch-label swatch-label--light">300<span class="swatch-hex">#7A99BE</span></span></div>
+            <div class="swatch swatch--tall" style="background:#4D77A3;"><span class="swatch-label swatch-label--light">400<span class="swatch-hex">#4D77A3</span></span></div>
+            <div class="swatch swatch--tall" style="background:#2D5A85;"><span class="swatch-label swatch-label--light">500<span class="swatch-hex">#2D5A85</span></span></div>
+            <div class="swatch swatch--tall" style="background:#1E3A5F;border-bottom:3px solid var(--gold-400);"><span class="swatch-label swatch-label--light">600 ★<span class="swatch-hex">#1E3A5F</span></span></div>
+            <div class="swatch swatch--tall" style="background:#172E4D;"><span class="swatch-label swatch-label--light">700<span class="swatch-hex">#172E4D</span></span></div>
+            <div class="swatch swatch--tall" style="background:#11223A;"><span class="swatch-label swatch-label--light">800<span class="swatch-hex">#11223A</span></span></div>
+            <div class="swatch swatch--tall" style="background:#0B1628;"><span class="swatch-label swatch-label--light">900<span class="swatch-hex">#0B1628</span></span></div>
+            <div class="swatch swatch--tall" style="background:#060D18;"><span class="swatch-label swatch-label--light">950<span class="swatch-hex">#060D18</span></span></div>
+          </div>
+        </div>
+
+        <!-- Gold Scale -->
+        <div class="subsection">
+          <h3 class="subsection-title">Accent Gold Scale</h3>
+          <p class="subsection-desc">The premium accent. Gold-400 (#C5A44E) for non-text elements; gold-600+ for text (gold-400 fails WCAG on white).</p>
+          <div class="swatch-row">
+            <div class="swatch swatch--tall" style="background:#FBF7ED;"><span class="swatch-label swatch-label--dark">50<span class="swatch-hex">#FBF7ED</span></span></div>
+            <div class="swatch swatch--tall" style="background:#F5ECD4;"><span class="swatch-label swatch-label--dark">100<span class="swatch-hex">#F5ECD4</span></span></div>
+            <div class="swatch swatch--tall" style="background:#EBDAAB;"><span class="swatch-label swatch-label--dark">200<span class="swatch-hex">#EBDAAB</span></span></div>
+            <div class="swatch swatch--tall" style="background:#DECA85;"><span class="swatch-label swatch-label--dark">300<span class="swatch-hex">#DECA85</span></span></div>
+            <div class="swatch swatch--tall" style="background:#C5A44E;border-bottom:3px solid var(--navy-600);"><span class="swatch-label swatch-label--dark">400 ★<span class="swatch-hex">#C5A44E</span></span></div>
+            <div class="swatch swatch--tall" style="background:#A68A3D;"><span class="swatch-label swatch-label--light">500<span class="swatch-hex">#A68A3D</span></span></div>
+            <div class="swatch swatch--tall" style="background:#87702F;"><span class="swatch-label swatch-label--light">600<span class="swatch-hex">#87702F</span></span></div>
+            <div class="swatch swatch--tall" style="background:#685522;"><span class="swatch-label swatch-label--light">700<span class="swatch-hex">#685522</span></span></div>
+            <div class="swatch swatch--tall" style="background:#4A3C17;"><span class="swatch-label swatch-label--light">800<span class="swatch-hex">#4A3C17</span></span></div>
+          </div>
+        </div>
+
+        <!-- Neutral Scale -->
+        <div class="subsection">
+          <h3 class="subsection-title">Neutral Scale (Navy-Undertoned)</h3>
+          <p class="subsection-desc">Custom grays with subtle navy undertone (~215° hue). Not Tailwind Slate — intentionally branded.</p>
+          <div class="swatch-row">
+            <div class="swatch" style="background:#FFFFFF;border-right:1px solid #eee;"><span class="swatch-label swatch-label--dark">0<span class="swatch-hex">#FFF</span></span></div>
+            <div class="swatch" style="background:#F7F8FA;"><span class="swatch-label swatch-label--dark">50<span class="swatch-hex">#F7F8FA</span></span></div>
+            <div class="swatch" style="background:#EEF0F4;"><span class="swatch-label swatch-label--dark">100<span class="swatch-hex">#EEF0F4</span></span></div>
+            <div class="swatch" style="background:#E3E6EC;"><span class="swatch-label swatch-label--dark">150<span class="swatch-hex">#E3E6EC</span></span></div>
+            <div class="swatch" style="background:#D5D9E1;"><span class="swatch-label swatch-label--dark">200<span class="swatch-hex">#D5D9E1</span></span></div>
+            <div class="swatch" style="background:#B8BEC9;"><span class="swatch-label swatch-label--dark">300<span class="swatch-hex">#B8BEC9</span></span></div>
+            <div class="swatch" style="background:#8C95A3;"><span class="swatch-label swatch-label--light">400<span class="swatch-hex">#8C95A3</span></span></div>
+            <div class="swatch" style="background:#6B7485;"><span class="swatch-label swatch-label--light">500<span class="swatch-hex">#6B7485</span></span></div>
+            <div class="swatch" style="background:#505868;"><span class="swatch-label swatch-label--light">600<span class="swatch-hex">#505868</span></span></div>
+            <div class="swatch" style="background:#374050;"><span class="swatch-label swatch-label--light">700<span class="swatch-hex">#374050</span></span></div>
+            <div class="swatch" style="background:#1F2735;"><span class="swatch-label swatch-label--light">800<span class="swatch-hex">#1F2735</span></span></div>
+            <div class="swatch" style="background:#111827;"><span class="swatch-label swatch-label--light">900<span class="swatch-hex">#111827</span></span></div>
+          </div>
+        </div>
+
+        <!-- Semantic Colors -->
+        <div class="subsection">
+          <h3 class="subsection-title">Semantic Colors</h3>
+          <p class="subsection-desc">Teal for info (not blue — avoids confusion with navy primary). Deeper, institutional tones.</p>
+          <div class="content-grid content-grid--4col" style="gap:16px;">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--neutral-500);margin-bottom:8px;font-weight:500;">SUCCESS</div>
+              <div class="swatch-row">
+                <div class="swatch" style="background:#ECFDF5;height:40px;"><span class="swatch-label swatch-label--dark" style="font-size:9px;">50</span></div>
+                <div class="swatch" style="background:#059669;height:40px;"><span class="swatch-label swatch-label--light" style="font-size:9px;">500</span></div>
+                <div class="swatch" style="background:#166534;height:40px;"><span class="swatch-label swatch-label--light" style="font-size:9px;">700</span></div>
+              </div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--neutral-500);margin-bottom:8px;font-weight:500;">WARNING</div>
+              <div class="swatch-row">
+                <div class="swatch" style="background:#FFFBEB;height:40px;"><span class="swatch-label swatch-label--dark" style="font-size:9px;">50</span></div>
+                <div class="swatch" style="background:#D97706;height:40px;"><span class="swatch-label swatch-label--light" style="font-size:9px;">500</span></div>
+                <div class="swatch" style="background:#92400E;height:40px;"><span class="swatch-label swatch-label--light" style="font-size:9px;">700</span></div>
+              </div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--neutral-500);margin-bottom:8px;font-weight:500;">ERROR</div>
+              <div class="swatch-row">
+                <div class="swatch" style="background:#FEF2F2;height:40px;"><span class="swatch-label swatch-label--dark" style="font-size:9px;">50</span></div>
+                <div class="swatch" style="background:#DC2626;height:40px;"><span class="swatch-label swatch-label--light" style="font-size:9px;">500</span></div>
+                <div class="swatch" style="background:#991B1B;height:40px;"><span class="swatch-label swatch-label--light" style="font-size:9px;">700</span></div>
+              </div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--neutral-500);margin-bottom:8px;font-weight:500;">INFO (TEAL)</div>
+              <div class="swatch-row">
+                <div class="swatch" style="background:#F0FDFA;height:40px;"><span class="swatch-label swatch-label--dark" style="font-size:9px;">50</span></div>
+                <div class="swatch" style="background:#0D9488;height:40px;"><span class="swatch-label swatch-label--light" style="font-size:9px;">500</span></div>
+                <div class="swatch" style="background:#115E59;height:40px;"><span class="swatch-label swatch-label--light" style="font-size:9px;">700</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart Colors -->
+        <div class="subsection">
+          <h3 class="subsection-title">Chart Colors</h3>
+          <p class="subsection-desc">6-color sequence for data visualization. Colorblind-safe (distinguishable by luminance).</p>
+          <div style="display:flex;gap:0;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--neutral-200);">
+            <div style="flex:1;height:64px;background:#1E3A5F;display:flex;align-items:flex-end;padding:8px;"><span class="swatch-label swatch-label--light">Navy<span class="swatch-hex">#1E3A5F</span></span></div>
+            <div style="flex:1;height:64px;background:#C5A44E;display:flex;align-items:flex-end;padding:8px;"><span class="swatch-label swatch-label--dark">Gold<span class="swatch-hex">#C5A44E</span></span></div>
+            <div style="flex:1;height:64px;background:#0D9488;display:flex;align-items:flex-end;padding:8px;"><span class="swatch-label swatch-label--light">Teal<span class="swatch-hex">#0D9488</span></span></div>
+            <div style="flex:1;height:64px;background:#7A99BE;display:flex;align-items:flex-end;padding:8px;"><span class="swatch-label swatch-label--dark">Navy-300<span class="swatch-hex">#7A99BE</span></span></div>
+            <div style="flex:1;height:64px;background:#92400E;display:flex;align-items:flex-end;padding:8px;"><span class="swatch-label swatch-label--light">Amber<span class="swatch-hex">#92400E</span></span></div>
+            <div style="flex:1;height:64px;background:#6B7485;display:flex;align-items:flex-end;padding:8px;"><span class="swatch-label swatch-label--light">Neutral<span class="swatch-hex">#6B7485</span></span></div>
+          </div>
+        </div>
+
+        <!-- Contrast Audit -->
+        <div class="subsection">
+          <h3 class="subsection-title">Contrast Audit</h3>
+          <table class="token-table">
+            <thead><tr><th>Combination</th><th>Ratio</th><th>Grade</th></tr></thead>
+            <tbody>
+              <tr><td>Navy-600 on white</td><td style="font-family:var(--font-mono);">8.5:1</td><td><span style="background:var(--success-50);color:var(--success-700);padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600;">AAA</span></td></tr>
+              <tr><td>Neutral-900 on white</td><td style="font-family:var(--font-mono);">15.4:1</td><td><span style="background:var(--success-50);color:var(--success-700);padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600;">AAA</span></td></tr>
+              <tr><td>Gold-400 on white</td><td style="font-family:var(--font-mono);">3.4:1</td><td><span style="background:var(--warning-50);color:var(--warning-700);padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600;">Large only</span></td></tr>
+              <tr><td>Gold-600 on white</td><td style="font-family:var(--font-mono);">4.8:1</td><td><span style="background:var(--success-50);color:var(--success-700);padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600;">AA</span></td></tr>
+              <tr><td>White on navy-600</td><td style="font-family:var(--font-mono);">8.5:1</td><td><span style="background:var(--success-50);color:var(--success-700);padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600;">AAA</span></td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -829,7 +1123,105 @@
           <p class="section-desc">Three fonts, three jobs. Plus Jakarta Sans for geometric authority in headings, DM Sans for warm readability in body text, IBM Plex Mono for institutional precision in peso amounts.</p>
         </div>
 
-        <div class="placeholder-content">Section 03 content &mdash; Font specimens, type scale, weight usage, peso display rules</div>
+        <!-- Font Stack -->
+        <div class="subsection" style="margin-top:0;">
+          <h3 class="subsection-title">Font Stack</h3>
+          <div class="content-grid content-grid--3col">
+            <div class="content-block">
+              <span class="content-block__label">Headings</span>
+              <div style="font-family:var(--font-heading);font-size:28px;font-weight:700;color:var(--navy-600);line-height:1.2;margin-bottom:12px;">Plus Jakarta Sans</div>
+              <div style="font-family:var(--font-heading);font-size:14px;color:var(--neutral-500);line-height:1.5;">Geometric authority with softened terminals. Variable 200-800. ~45KB.</div>
+            </div>
+            <div class="content-block">
+              <span class="content-block__label">Body</span>
+              <div style="font-family:var(--font-body);font-size:28px;font-weight:400;color:var(--navy-600);line-height:1.2;margin-bottom:12px;">DM Sans</div>
+              <div style="font-family:var(--font-body);font-size:14px;color:var(--neutral-500);line-height:1.5;">Warm readability for dense compliance forms. Variable 100-1000. ~45KB.</div>
+            </div>
+            <div class="content-block">
+              <span class="content-block__label">Mono / Peso</span>
+              <div style="font-family:var(--font-mono);font-size:28px;font-weight:500;color:var(--navy-600);line-height:1.2;margin-bottom:12px;">IBM Plex Mono</div>
+              <div style="font-family:var(--font-body);font-size:14px;color:var(--neutral-500);line-height:1.5;">Institutional precision for peso amounts. 400/500/600. ~45KB.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Type Scale -->
+        <div class="subsection">
+          <h3 class="subsection-title">Type Scale</h3>
+          <p class="subsection-desc">10-step scale from 48px hero to 11px overline. Based on ~1.2 minor third ratio with practical adjustments.</p>
+          <div class="content-block" style="padding:0;overflow:hidden;">
+            <div class="type-specimen" style="padding:32px 24px;">
+              <div class="type-specimen__sample" style="font-family:var(--font-heading);font-size:48px;font-weight:800;line-height:1.08;letter-spacing:-0.025em;color:var(--navy-600);">Philippine Compliance</div>
+              <div class="type-specimen__meta">Hero &middot; 48px &middot; Plus Jakarta Sans 800 &middot; -0.025em &middot; 1.08</div>
+            </div>
+            <div class="type-specimen" style="padding:24px;">
+              <div class="type-specimen__sample" style="font-family:var(--font-heading);font-size:36px;font-weight:700;line-height:1.12;letter-spacing:-0.02em;color:var(--navy-600);">Platform Dashboard</div>
+              <div class="type-specimen__meta">Display &middot; 36px &middot; Plus Jakarta Sans 700 &middot; -0.02em &middot; 1.12</div>
+            </div>
+            <div class="type-specimen" style="padding:24px;">
+              <div class="type-specimen__sample" style="font-family:var(--font-heading);font-size:30px;font-weight:700;line-height:1.2;letter-spacing:-0.015em;color:var(--navy-600);">Tax Regime Comparison</div>
+              <div class="type-specimen__meta">H1 &middot; 30px &middot; Plus Jakarta Sans 700 &middot; -0.015em &middot; 1.2</div>
+            </div>
+            <div class="type-specimen" style="padding:24px;">
+              <div class="type-specimen__sample" style="font-family:var(--font-heading);font-size:24px;font-weight:600;line-height:1.25;letter-spacing:-0.01em;color:var(--navy-600);">Computation Results</div>
+              <div class="type-specimen__meta">H2 &middot; 24px &middot; Plus Jakarta Sans 600 &middot; -0.01em &middot; 1.25</div>
+            </div>
+            <div class="type-specimen" style="padding:24px;">
+              <div class="type-specimen__sample" style="font-family:var(--font-heading);font-size:20px;font-weight:600;line-height:1.3;color:var(--navy-600);">Estate Tax Breakdown</div>
+              <div class="type-specimen__meta">H3 &middot; 20px &middot; Plus Jakarta Sans 600 &middot; 0 &middot; 1.3</div>
+            </div>
+            <div class="type-specimen" style="padding:24px;">
+              <div class="type-specimen__sample" style="font-family:var(--font-body);font-size:15px;font-weight:400;line-height:1.6;color:var(--neutral-900);">Enter your gross annual income to calculate the optimal tax regime. The calculator compares graduated rates, 8% flat tax, and mixed income scenarios to find the lowest tax liability.</div>
+              <div class="type-specimen__meta">Body &middot; 15px &middot; DM Sans 400 &middot; 0 &middot; 1.6</div>
+            </div>
+            <div class="type-specimen" style="padding:24px;">
+              <div class="type-specimen__sample" style="font-family:var(--font-body);font-size:13px;font-weight:400;line-height:1.5;color:var(--neutral-500);letter-spacing:0.005em;">Based on the Tax Reform for Acceleration and Inclusion (TRAIN) Law, Republic Act No. 10963</div>
+              <div class="type-specimen__meta">Small &middot; 13px &middot; DM Sans 400 &middot; +0.005em &middot; 1.5</div>
+            </div>
+            <div class="type-specimen" style="padding:24px;">
+              <div class="type-specimen__sample" style="font-family:var(--font-body);font-size:11px;font-weight:600;line-height:1.3;color:var(--neutral-400);letter-spacing:0.08em;text-transform:uppercase;">Section Label &middot; Computation Details</div>
+              <div class="type-specimen__meta">Overline &middot; 11px &middot; DM Sans 600 &middot; +0.08em &middot; uppercase</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Peso Amount Moment -->
+        <div class="subsection">
+          <h3 class="subsection-title">The Peso Amount Moment</h3>
+          <p class="subsection-desc">The single most important typographic decision. IBM Plex Mono, always tabular-nums, always ₱ prefix, always 2 decimals.</p>
+          <div class="content-grid content-grid--4col">
+            <div class="content-block" style="text-align:center;padding:32px 16px;">
+              <span class="content-block__label">Hero (40px)</span>
+              <div style="font-family:var(--font-mono);font-size:40px;font-weight:600;color:var(--navy-600);font-variant-numeric:tabular-nums;line-height:1.1;letter-spacing:0.02em;">₱1,234,567.89</div>
+            </div>
+            <div class="content-block" style="text-align:center;padding:32px 16px;">
+              <span class="content-block__label">Display (28px)</span>
+              <div style="font-family:var(--font-mono);font-size:28px;font-weight:600;color:var(--navy-600);font-variant-numeric:tabular-nums;line-height:1.2;letter-spacing:0.015em;">₱45,833.33</div>
+            </div>
+            <div class="content-block" style="text-align:center;padding:32px 16px;">
+              <span class="content-block__label">Body (16px)</span>
+              <div style="font-family:var(--font-mono);font-size:16px;font-weight:500;color:var(--navy-600);font-variant-numeric:tabular-nums;line-height:1.4;letter-spacing:0.01em;">₱12,500.00</div>
+            </div>
+            <div class="content-block" style="text-align:center;padding:32px 16px;">
+              <span class="content-block__label">Small (13px)</span>
+              <div style="font-family:var(--font-mono);font-size:13px;font-weight:400;color:var(--neutral-600);font-variant-numeric:tabular-nums;line-height:1.4;letter-spacing:0.01em;">₱2,500.00</div>
+            </div>
+          </div>
+          <div class="content-grid content-grid--3col mt-24" style="gap:16px;">
+            <div style="padding:16px 24px;background:var(--success-50);border:1px solid var(--success-500);border-radius:var(--radius);text-align:center;">
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--success-600);font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Savings</div>
+              <div style="font-family:var(--font-mono);font-size:24px;font-weight:600;color:var(--success-500);font-variant-numeric:tabular-nums;">₱18,750.00</div>
+            </div>
+            <div style="padding:16px 24px;background:var(--neutral-50);border:1px solid var(--neutral-200);border-radius:var(--radius);text-align:center;">
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-500);font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Neutral</div>
+              <div style="font-family:var(--font-mono);font-size:24px;font-weight:600;color:var(--navy-600);font-variant-numeric:tabular-nums;">₱45,833.33</div>
+            </div>
+            <div style="padding:16px 24px;background:var(--error-50);border:1px solid var(--error-500);border-radius:var(--radius);text-align:center;">
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--error-600);font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">Tax Due</div>
+              <div style="font-family:var(--font-mono);font-size:24px;font-weight:600;color:var(--error-600);font-variant-numeric:tabular-nums;">₱67,500.00</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -844,7 +1236,116 @@
           <p class="section-desc">4px base unit, 8px rhythm. 16-step spacing scale, four content widths, responsive grid, navy-tinted shadows, and seven radius steps. The invisible architecture of 148 tools.</p>
         </div>
 
-        <div class="placeholder-content">Section 04 content &mdash; Spacing scale, container widths, grid, radius, shadows, breakpoints</div>
+        <!-- Spacing Scale Visual -->
+        <div class="subsection" style="margin-top:0;">
+          <h3 class="subsection-title">Spacing Scale</h3>
+          <p class="subsection-desc">16 steps from 0 to 96px. 8px is the rhythm unit — most visible spacing snaps to multiples of 8.</p>
+          <div class="spacing-demo">
+            <div class="spacing-bar" style="height:2px;"><span class="spacing-bar-label">0.5</span></div>
+            <div class="spacing-bar" style="height:4px;"><span class="spacing-bar-label">1</span></div>
+            <div class="spacing-bar" style="height:6px;"><span class="spacing-bar-label">1.5</span></div>
+            <div class="spacing-bar" style="height:8px;background:var(--navy-200);border-color:var(--navy-300);"><span class="spacing-bar-label" style="color:var(--navy-700);">2</span></div>
+            <div class="spacing-bar" style="height:12px;"><span class="spacing-bar-label">3</span></div>
+            <div class="spacing-bar" style="height:16px;background:var(--navy-200);border-color:var(--navy-300);"><span class="spacing-bar-label" style="color:var(--navy-700);">4</span></div>
+            <div class="spacing-bar" style="height:20px;"><span class="spacing-bar-label">5</span></div>
+            <div class="spacing-bar" style="height:24px;background:var(--navy-200);border-color:var(--navy-300);"><span class="spacing-bar-label" style="color:var(--navy-700);">6</span></div>
+            <div class="spacing-bar" style="height:32px;background:var(--navy-200);border-color:var(--navy-300);"><span class="spacing-bar-label" style="color:var(--navy-700);">8</span></div>
+            <div class="spacing-bar" style="height:40px;"><span class="spacing-bar-label">10</span></div>
+            <div class="spacing-bar" style="height:48px;background:var(--navy-200);border-color:var(--navy-300);"><span class="spacing-bar-label" style="color:var(--navy-700);">12</span></div>
+            <div class="spacing-bar" style="height:64px;background:var(--navy-200);border-color:var(--navy-300);"><span class="spacing-bar-label" style="color:var(--navy-700);">16</span></div>
+            <div class="spacing-bar" style="height:80px;"><span class="spacing-bar-label">20</span></div>
+            <div class="spacing-bar" style="height:96px;background:var(--navy-200);border-color:var(--navy-300);"><span class="spacing-bar-label" style="color:var(--navy-700);">24</span></div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--neutral-400);margin-top:8px;">Highlighted bars = multiples of 8 (rhythm unit). Values in rem (×4px).</div>
+        </div>
+
+        <!-- Content Widths -->
+        <div class="subsection">
+          <h3 class="subsection-title">Content Widths</h3>
+          <p class="subsection-desc">Four container widths for different contexts. 960px is the default — optimal for compliance forms.</p>
+          <div style="display:flex;flex-direction:column;gap:12px;padding:32px;background:var(--neutral-0);border:1px solid var(--neutral-200);border-radius:var(--radius-lg);">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:576px;max-width:100%;height:24px;background:var(--navy-50);border:1px solid var(--navy-200);border-radius:4px;position:relative;">
+                <span style="position:absolute;left:8px;top:4px;font-family:var(--font-mono);font-size:10px;color:var(--navy-500);">576px — Narrow (wizards, forms)</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:768px;max-width:100%;height:24px;background:var(--navy-50);border:1px solid var(--navy-200);border-radius:4px;position:relative;">
+                <span style="position:absolute;left:8px;top:4px;font-family:var(--font-mono);font-size:10px;color:var(--navy-500);">768px — Default (standard tool pages)</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:960px;max-width:100%;height:24px;background:var(--navy-100);border:2px solid var(--navy-400);border-radius:4px;position:relative;">
+                <span style="position:absolute;left:8px;top:3px;font-family:var(--font-mono);font-size:10px;color:var(--navy-600);font-weight:600;">960px — Wide (dashboard, results) ★</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:1120px;max-width:100%;height:24px;background:var(--navy-50);border:1px solid var(--navy-200);border-radius:4px;position:relative;">
+                <span style="position:absolute;left:8px;top:4px;font-family:var(--font-mono);font-size:10px;color:var(--navy-500);">1120px — Full (platform home, comparisons)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Border Radius -->
+        <div class="subsection">
+          <h3 class="subsection-title">Border Radius</h3>
+          <p class="subsection-desc">7 steps from 6px to pill. 8px default — institutional, not playful.</p>
+          <div style="display:flex;align-items:center;gap:24px;padding:32px;background:var(--neutral-0);border:1px solid var(--neutral-200);border-radius:var(--radius-lg);flex-wrap:wrap;">
+            <div style="text-align:center;">
+              <div style="width:64px;height:48px;background:var(--navy-100);border:2px solid var(--navy-300);border-radius:6px;margin-bottom:8px;"></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-500);">sm · 6px</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="width:64px;height:48px;background:var(--navy-200);border:2px solid var(--navy-400);border-radius:8px;margin-bottom:8px;"></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--navy-600);font-weight:600;">md · 8px ★</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="width:64px;height:48px;background:var(--navy-100);border:2px solid var(--navy-300);border-radius:10px;margin-bottom:8px;"></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-500);">lg · 10px</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="width:64px;height:48px;background:var(--navy-100);border:2px solid var(--navy-300);border-radius:14px;margin-bottom:8px;"></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-500);">xl · 14px</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="width:64px;height:48px;background:var(--navy-100);border:2px solid var(--navy-300);border-radius:18px;margin-bottom:8px;"></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-500);">2xl · 18px</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="width:80px;height:36px;background:var(--navy-100);border:2px solid var(--navy-300);border-radius:9999px;margin-bottom:8px;"></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-500);">pill · 9999px</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shadows -->
+        <div class="subsection">
+          <h3 class="subsection-title">Shadow Scale (Navy-Tinted)</h3>
+          <p class="subsection-desc">rgba(30,58,95,...) — warmer than black shadows, cohesive with the brand.</p>
+          <div style="display:flex;gap:24px;padding:48px 32px;background:var(--neutral-50);border-radius:var(--radius-lg);border:1px solid var(--neutral-200);">
+            <div style="text-align:center;flex:1;">
+              <div style="width:100%;height:64px;background:white;border-radius:8px;box-shadow:0 1px 2px rgba(30,58,95,0.06);margin-bottom:8px;"></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-500);">xs</div>
+            </div>
+            <div style="text-align:center;flex:1;">
+              <div style="width:100%;height:64px;background:white;border-radius:8px;box-shadow:0 1px 3px rgba(30,58,95,0.08),0 1px 2px rgba(30,58,95,0.04);margin-bottom:8px;"></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-500);">sm</div>
+            </div>
+            <div style="text-align:center;flex:1;">
+              <div style="width:100%;height:64px;background:white;border-radius:8px;box-shadow:0 4px 8px rgba(30,58,95,0.08),0 2px 4px rgba(30,58,95,0.04);margin-bottom:8px;"></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-500);">md</div>
+            </div>
+            <div style="text-align:center;flex:1;">
+              <div style="width:100%;height:64px;background:white;border-radius:8px;box-shadow:0 8px 24px rgba(30,58,95,0.12),0 4px 8px rgba(30,58,95,0.04);margin-bottom:8px;"></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-500);">lg</div>
+            </div>
+            <div style="text-align:center;flex:1;">
+              <div style="width:100%;height:64px;background:white;border-radius:8px;box-shadow:0 16px 48px rgba(30,58,95,0.14),0 8px 16px rgba(30,58,95,0.06);margin-bottom:8px;"></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--neutral-500);">xl</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -859,7 +1360,147 @@
           <p class="section-desc">Buttons, inputs, cards, badges, tooltips, modals, progress bars, tabs. Every component in every state: default, hover, focus, disabled, active, error.</p>
         </div>
 
-        <div class="placeholder-content">Section 05 content &mdash; Buttons, form inputs, cards, modals, wizard pattern, all states</div>
+        <!-- Buttons -->
+        <div class="subsection" style="margin-top:0;">
+          <h3 class="subsection-title">Buttons</h3>
+          <p class="subsection-desc">5 variants, 3 sizes, 6 states = 90 combinations. Navy brand, no gradients, no pill shapes, 1px translateY on press.</p>
+          <div class="content-block" style="padding:32px;">
+            <span class="content-block__label">Variants (Default State)</span>
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:24px;">
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;background:#1E3A5F;color:white;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 1px 2px rgba(30,58,95,0.06);">Primary</button>
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;background:white;color:#1E3A5F;border:1px solid #D5D9E1;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;cursor:pointer;">Secondary</button>
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;background:transparent;color:#1E3A5F;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:500;cursor:pointer;">Ghost</button>
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;background:#991B1B;color:white;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 1px 2px rgba(30,58,95,0.06);">Danger</button>
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;background:transparent;color:#991B1B;border:1px solid #DC2626;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;cursor:pointer;">Outline Danger</button>
+            </div>
+            <span class="content-block__label">Sizes</span>
+            <div style="display:flex;gap:12px;align-items:center;margin-bottom:24px;">
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:32px;padding:0 12px;background:#1E3A5F;color:white;border:none;border-radius:6px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;">Small 32px</button>
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;background:#1E3A5F;color:white;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;cursor:pointer;">Medium 40px</button>
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;background:#1E3A5F;color:white;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;cursor:pointer;">Large 48px</button>
+            </div>
+            <span class="content-block__label">States (Primary)</span>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;background:#1E3A5F;color:white;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;">Default</button>
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;background:#172E4D;color:white;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;box-shadow:0 1px 3px rgba(30,58,95,0.08);">Hover</button>
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;background:#1E3A5F;color:white;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;outline:2px solid #4D77A3;outline-offset:2px;">Focus</button>
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;background:#11223A;color:white;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;transform:translateY(1px);">Active</button>
+              <button style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;background:#A8BBD4;color:white;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;cursor:not-allowed;">Disabled</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Inputs -->
+        <div class="subsection">
+          <h3 class="subsection-title">Form Inputs</h3>
+          <p class="subsection-desc">Quiet containers, loud data. Shadow-xs at rest, decisive navy focus ring. No floating labels.</p>
+          <div class="content-grid content-grid--2col">
+            <div class="content-block" style="padding:32px;">
+              <span class="content-block__label">Text Input States</span>
+              <div style="display:flex;flex-direction:column;gap:16px;">
+                <div>
+                  <label style="display:block;font-family:var(--font-body);font-size:15px;font-weight:500;color:#1F2735;margin-bottom:6px;">Full Name</label>
+                  <input type="text" value="Juan dela Cruz" readonly style="width:100%;height:40px;padding:8px 12px;font-family:var(--font-body);font-size:15px;background:white;border:1px solid #D5D9E1;border-radius:8px;box-shadow:0 1px 2px rgba(30,58,95,0.06);color:#111827;outline:none;">
+                  <div style="font-family:var(--font-body);font-size:13px;color:#6B7485;margin-top:6px;">Default state</div>
+                </div>
+                <div>
+                  <label style="display:block;font-family:var(--font-body);font-size:15px;font-weight:500;color:#1F2735;margin-bottom:6px;">Email Address <span style="color:#DC2626;">*</span></label>
+                  <input type="text" value="juan@example.com" readonly style="width:100%;height:40px;padding:8px 12px;font-family:var(--font-body);font-size:15px;background:white;border:1px solid #1E3A5F;border-radius:8px;box-shadow:0 1px 2px rgba(30,58,95,0.06);color:#111827;outline:3px solid rgba(30,58,95,0.15);">
+                  <div style="font-family:var(--font-body);font-size:13px;color:#1E3A5F;margin-top:6px;font-weight:500;">Focus state — navy border + soft glow</div>
+                </div>
+                <div>
+                  <label style="display:block;font-family:var(--font-body);font-size:15px;font-weight:500;color:#1F2735;margin-bottom:6px;">TIN Number</label>
+                  <input type="text" value="" readonly style="width:100%;height:40px;padding:8px 12px;font-family:var(--font-body);font-size:15px;background:white;border:1px solid #DC2626;border-radius:8px;color:#111827;outline:3px solid rgba(220,38,38,0.12);">
+                  <div style="display:flex;align-items:center;gap:4px;font-family:var(--font-body);font-size:13px;color:#B91C1C;margin-top:6px;">&#9888; TIN is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="content-block" style="padding:32px;">
+              <span class="content-block__label">Peso Input + Controls</span>
+              <div style="display:flex;flex-direction:column;gap:16px;">
+                <div>
+                  <label style="display:block;font-family:var(--font-body);font-size:15px;font-weight:500;color:#1F2735;margin-bottom:6px;">Annual Gross Income</label>
+                  <div style="position:relative;">
+                    <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:15px;font-weight:500;color:#8C95A3;">₱</span>
+                    <input type="text" value="1,200,000.00" readonly style="width:100%;height:40px;padding:8px 12px 8px 32px;font-family:var(--font-mono);font-size:15px;font-weight:500;background:white;border:1px solid #D5D9E1;border-radius:8px;box-shadow:0 1px 2px rgba(30,58,95,0.06);color:#111827;font-variant-numeric:tabular-nums;outline:none;">
+                  </div>
+                </div>
+                <div style="display:flex;gap:16px;">
+                  <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                    <span style="width:18px;height:18px;border:2px solid #1E3A5F;border-radius:4px;background:#1E3A5F;display:flex;align-items:center;justify-content:center;">
+                      <span style="color:white;font-size:12px;font-weight:bold;">&#10003;</span>
+                    </span>
+                    <span style="font-family:var(--font-body);font-size:15px;color:#111827;">Checkbox (checked)</span>
+                  </label>
+                  <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                    <span style="width:18px;height:18px;border:2px solid #B8BEC9;border-radius:4px;background:white;"></span>
+                    <span style="font-family:var(--font-body);font-size:15px;color:#111827;">Checkbox</span>
+                  </label>
+                </div>
+                <div>
+                  <div style="width:44px;height:24px;border-radius:12px;background:#1E3A5F;position:relative;cursor:pointer;">
+                    <div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;top:2px;left:22px;box-shadow:0 1px 2px rgba(30,58,95,0.06);"></div>
+                  </div>
+                  <span style="font-family:var(--font-mono);font-size:11px;color:var(--neutral-500);margin-top:4px;display:block;">Toggle (on) — 44x24px, navy-600</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="subsection">
+          <h3 class="subsection-title">Cards</h3>
+          <p class="subsection-desc">4 types sharing one visual language. radius-lg (10px) for cards — larger than inputs (8px) for container hierarchy.</p>
+          <div class="content-grid content-grid--3col" style="gap:16px;">
+            <div style="background:white;border:1px solid #D5D9E1;border-radius:10px;padding:24px;box-shadow:0 1px 3px rgba(30,58,95,0.08),0 1px 2px rgba(30,58,95,0.04);">
+              <div style="font-family:var(--font-heading);font-size:17px;font-weight:600;color:#1E3A5F;margin-bottom:8px;">Content Card</div>
+              <div style="font-family:var(--font-body);font-size:14px;color:#6B7485;line-height:1.5;">The generic container. White surface, subtle border, quiet shadow. Non-interactive by default.</div>
+            </div>
+            <div style="background:white;border:1px solid #D5D9E1;border-radius:10px;padding:24px;box-shadow:0 1px 3px rgba(30,58,95,0.08),0 1px 2px rgba(30,58,95,0.04);cursor:pointer;transition:border-color 200ms,box-shadow 200ms;" onmouseover="this.style.borderColor='#C2D0E2';this.style.boxShadow='0 4px 8px rgba(30,58,95,0.08),0 2px 4px rgba(30,58,95,0.04)';" onmouseout="this.style.borderColor='#D5D9E1';this.style.boxShadow='0 1px 3px rgba(30,58,95,0.08),0 1px 2px rgba(30,58,95,0.04)';">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                <div style="width:40px;height:40px;background:#EEF2F7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;">&#9881;</div>
+                <div>
+                  <div style="font-family:var(--font-heading);font-size:15px;font-weight:600;color:#111827;">13th Month Pay</div>
+                  <div style="font-family:var(--font-body);font-size:12px;color:#8C95A3;">Labor</div>
+                </div>
+              </div>
+              <div style="font-family:var(--font-body);font-size:13px;color:#6B7485;">Tool card — interactive, hover lifts shadow.</div>
+            </div>
+            <div style="background:white;border:1px solid #D5D9E1;border-radius:14px;padding:24px;box-shadow:0 4px 8px rgba(30,58,95,0.08),0 2px 4px rgba(30,58,95,0.04);border-top:3px solid #1E3A5F;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:#8C95A3;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Recommended</div>
+              <div style="font-family:var(--font-mono);font-size:32px;font-weight:600;color:#1E3A5F;font-variant-numeric:tabular-nums;letter-spacing:0.015em;margin-bottom:8px;">₱45,833.33</div>
+              <div style="font-family:var(--font-body);font-size:13px;color:#6B7485;">Result card — the crown jewel. radius-xl, 3px accent bar.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wizard Pattern -->
+        <div class="subsection">
+          <h3 class="subsection-title">Wizard Pattern</h3>
+          <p class="subsection-desc">Unified for 3-14 step flows. Desktop: numbered circles + connector lines. Mobile: text progress + bar.</p>
+          <div class="content-block" style="padding:32px;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:32px;">
+              <div style="width:32px;height:32px;border-radius:50%;background:#1E3A5F;color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:13px;font-weight:600;">1</div>
+              <div style="width:64px;height:2px;background:#1E3A5F;"></div>
+              <div style="width:32px;height:32px;border-radius:50%;background:#1E3A5F;color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:13px;font-weight:600;">2</div>
+              <div style="width:64px;height:2px;background:#D5D9E1;"></div>
+              <div style="width:32px;height:32px;border-radius:50%;background:white;border:2px solid #D5D9E1;color:#6B7485;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:13px;font-weight:600;">3</div>
+              <div style="width:64px;height:2px;background:#D5D9E1;"></div>
+              <div style="width:32px;height:32px;border-radius:50%;background:white;border:2px solid #D5D9E1;color:#6B7485;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:13px;font-weight:600;">4</div>
+            </div>
+            <div style="display:flex;justify-content:center;gap:80px;font-family:var(--font-body);font-size:12px;">
+              <span style="color:#1E3A5F;font-weight:500;">Estate Details</span>
+              <span style="color:#1E3A5F;font-weight:600;">Heirs</span>
+              <span style="color:#8C95A3;">Will &amp; Testament</span>
+              <span style="color:#8C95A3;">Review</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:32px;padding-top:24px;border-top:1px solid #E3E6EC;">
+              <button style="height:40px;padding:0 16px;background:transparent;color:#1E3A5F;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:500;cursor:pointer;">&#8592; Back</button>
+              <button style="height:40px;padding:0 16px;background:#1E3A5F;color:white;border:none;border-radius:8px;font-family:var(--font-body);font-size:15px;font-weight:600;cursor:pointer;">Continue &#8594;</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -874,7 +1515,124 @@
           <p class="section-desc">The result card moment is the most important design decision. Large peso amounts in IBM Plex Mono, comparison tables, dotted-leader breakdowns, regime cards, stat blocks.</p>
         </div>
 
-        <div class="placeholder-content">Section 06 content &mdash; Peso amount display, comparison tables, progress bars, badges, stat blocks</div>
+        <!-- Result Card -->
+        <div class="subsection" style="margin-top:0;">
+          <h3 class="subsection-title">The Result Card Moment</h3>
+          <p class="subsection-desc">Progressive disclosure: overline label, hero amount, caption, then dotted-leader breakdown.</p>
+          <div style="max-width:480px;">
+            <div style="background:white;border:1px solid #D5D9E1;border-radius:14px;padding:32px;box-shadow:0 4px 8px rgba(30,58,95,0.08),0 2px 4px rgba(30,58,95,0.04);border-top:3px solid #1E3A5F;">
+              <div style="font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8C95A3;margin-bottom:4px;">Total 13th Month Pay</div>
+              <div style="font-family:var(--font-mono);font-size:40px;font-weight:600;color:#1E3A5F;font-variant-numeric:tabular-nums;letter-spacing:0.02em;line-height:1.1;margin-bottom:4px;">₱45,833.33</div>
+              <div style="font-family:var(--font-body);font-size:13px;color:#6B7485;margin-bottom:24px;">Based on ₱550,000.00 annual basic salary</div>
+              <div style="border-top:1px solid #E3E6EC;padding-top:16px;">
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #D5D9E1;">
+                  <span style="font-family:var(--font-body);font-size:13px;color:#505868;">Monthly Basic Salary</span>
+                  <span style="font-family:var(--font-mono);font-size:13px;color:#111827;font-variant-numeric:tabular-nums;">₱45,833.33</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted #D5D9E1;">
+                  <span style="font-family:var(--font-body);font-size:13px;color:#505868;">Months Employed</span>
+                  <span style="font-family:var(--font-mono);font-size:13px;color:#111827;font-variant-numeric:tabular-nums;">12</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:6px 0;font-weight:500;">
+                  <span style="font-family:var(--font-body);font-size:13px;color:#111827;font-weight:600;">13th Month Pay</span>
+                  <span style="font-family:var(--font-mono);font-size:13px;color:#1E3A5F;font-weight:600;font-variant-numeric:tabular-nums;">₱45,833.33</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="subsection">
+          <h3 class="subsection-title">Regime Comparison</h3>
+          <p class="subsection-desc">Side-by-side comparison with recommended column highlight. Sticky first column on mobile scroll.</p>
+          <div style="background:white;border:1px solid #D5D9E1;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(30,58,95,0.08);">
+            <table style="width:100%;border-collapse:collapse;font-family:var(--font-body);font-size:14px;">
+              <thead>
+                <tr>
+                  <th style="text-align:left;padding:16px;font-size:12px;letter-spacing:0.02em;text-transform:uppercase;color:#6B7485;font-weight:600;border-bottom:2px solid #D5D9E1;background:#F7F8FA;"></th>
+                  <th style="text-align:center;padding:16px;background:#ECFDF5;border-bottom:2px solid #059669;color:#166534;font-size:12px;letter-spacing:0.02em;text-transform:uppercase;font-weight:600;">8% Flat &#9733;</th>
+                  <th style="text-align:center;padding:16px;font-size:12px;letter-spacing:0.02em;text-transform:uppercase;color:#6B7485;font-weight:600;border-bottom:2px solid #D5D9E1;background:#F7F8FA;">Graduated</th>
+                  <th style="text-align:center;padding:16px;font-size:12px;letter-spacing:0.02em;text-transform:uppercase;color:#6B7485;font-weight:600;border-bottom:2px solid #D5D9E1;background:#F7F8FA;">Mixed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding:12px 16px;border-bottom:1px solid #EEF0F4;color:#505868;">Gross Income</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #EEF0F4;text-align:center;background:#F7FDF9;font-family:var(--font-mono);font-size:13px;font-variant-numeric:tabular-nums;">₱1,200,000</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #EEF0F4;text-align:center;font-family:var(--font-mono);font-size:13px;font-variant-numeric:tabular-nums;">₱1,200,000</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #EEF0F4;text-align:center;font-family:var(--font-mono);font-size:13px;font-variant-numeric:tabular-nums;">₱1,200,000</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px 16px;border-bottom:1px solid #EEF0F4;color:#505868;">Deductions</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #EEF0F4;text-align:center;background:#F7FDF9;font-family:var(--font-mono);font-size:13px;">&#8212;</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #EEF0F4;text-align:center;font-family:var(--font-mono);font-size:13px;font-variant-numeric:tabular-nums;">₱250,000</td>
+                  <td style="padding:12px 16px;border-bottom:1px solid #EEF0F4;text-align:center;font-family:var(--font-mono);font-size:13px;font-variant-numeric:tabular-nums;">₱250,000</td>
+                </tr>
+                <tr style="font-weight:600;">
+                  <td style="padding:12px 16px;border-top:2px solid #D5D9E1;color:#111827;">Tax Due</td>
+                  <td style="padding:12px 16px;border-top:2px solid #059669;text-align:center;background:#ECFDF5;font-family:var(--font-mono);font-size:15px;color:#059669;font-variant-numeric:tabular-nums;">₱71,600</td>
+                  <td style="padding:12px 16px;border-top:2px solid #D5D9E1;text-align:center;font-family:var(--font-mono);font-size:15px;color:#111827;font-variant-numeric:tabular-nums;">₱130,000</td>
+                  <td style="padding:12px 16px;border-top:2px solid #D5D9E1;text-align:center;font-family:var(--font-mono);font-size:15px;color:#111827;font-variant-numeric:tabular-nums;">₱95,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Badges & Progress -->
+        <div class="subsection">
+          <h3 class="subsection-title">Badges &amp; Progress</h3>
+          <div class="content-grid content-grid--2col">
+            <div class="content-block" style="padding:24px;">
+              <span class="content-block__label">Badges</span>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+                <span style="display:inline-flex;align-items:center;padding:2px 10px;border-radius:9999px;font-family:var(--font-body);font-size:12px;font-weight:500;background:#EEF2F7;color:#1E3A5F;">Tax</span>
+                <span style="display:inline-flex;align-items:center;padding:2px 10px;border-radius:9999px;font-family:var(--font-body);font-size:12px;font-weight:500;background:#ECFDF5;color:#047857;">Optimal</span>
+                <span style="display:inline-flex;align-items:center;padding:2px 10px;border-radius:9999px;font-family:var(--font-body);font-size:12px;font-weight:500;background:#FFFBEB;color:#92400E;">Caution</span>
+                <span style="display:inline-flex;align-items:center;padding:2px 10px;border-radius:9999px;font-family:var(--font-body);font-size:12px;font-weight:500;background:#FEF2F2;color:#991B1B;">Overdue</span>
+                <span style="display:inline-flex;align-items:center;padding:2px 10px;border-radius:9999px;font-family:var(--font-body);font-size:12px;font-weight:500;background:#F0FDFA;color:#115E59;">Info</span>
+                <span style="display:inline-flex;align-items:center;padding:2px 10px;border-radius:9999px;font-family:var(--font-body);font-size:12px;font-weight:600;background:#FBF7ED;color:#87702F;border:1px solid #EBDAAB;">Timely</span>
+              </div>
+            </div>
+            <div class="content-block" style="padding:24px;">
+              <span class="content-block__label">Progress Bars</span>
+              <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;color:#6B7485;margin-bottom:4px;"><span>Step 2 of 4</span><span>50%</span></div>
+                  <div style="height:8px;background:#EEF0F4;border-radius:9999px;overflow:hidden;"><div style="width:50%;height:100%;background:#1E3A5F;border-radius:9999px;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;color:#6B7485;margin-bottom:4px;"><span>Tax threshold</span><span>78%</span></div>
+                  <div style="height:8px;background:#EEF0F4;border-radius:9999px;overflow:hidden;"><div style="width:78%;height:100%;background:#059669;border-radius:9999px;"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stat Blocks -->
+        <div class="subsection">
+          <h3 class="subsection-title">Stat Blocks</h3>
+          <div class="content-grid content-grid--4col" style="gap:16px;">
+            <div style="background:white;border:1px solid #D5D9E1;border-radius:10px;padding:16px;">
+              <div style="font-family:var(--font-body);font-size:12px;color:#8C95A3;margin-bottom:4px;">Total Tax Savings</div>
+              <div style="font-family:var(--font-mono);font-size:24px;font-weight:600;color:#059669;font-variant-numeric:tabular-nums;">₱58,400</div>
+            </div>
+            <div style="background:white;border:1px solid #D5D9E1;border-radius:10px;padding:16px;">
+              <div style="font-family:var(--font-body);font-size:12px;color:#8C95A3;margin-bottom:4px;">Effective Rate</div>
+              <div style="font-family:var(--font-mono);font-size:24px;font-weight:600;color:#1E3A5F;font-variant-numeric:tabular-nums;">5.97%</div>
+            </div>
+            <div style="background:white;border:1px solid #D5D9E1;border-radius:10px;padding:16px;">
+              <div style="font-family:var(--font-body);font-size:12px;color:#8C95A3;margin-bottom:4px;">Quarterly Payment</div>
+              <div style="font-family:var(--font-mono);font-size:24px;font-weight:600;color:#1E3A5F;font-variant-numeric:tabular-nums;">₱17,900</div>
+            </div>
+            <div style="background:white;border:1px solid #D5D9E1;border-radius:10px;padding:16px;border-left:3px solid #D97706;">
+              <div style="font-family:var(--font-body);font-size:12px;color:#8C95A3;margin-bottom:4px;">Filing Deadline</div>
+              <div style="font-family:var(--font-mono);font-size:24px;font-weight:600;color:#92400E;font-variant-numeric:tabular-nums;">Apr 15</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -889,7 +1647,66 @@
           <p class="section-desc">Angkin is the brand, tools are features. No per-tool accent colors. TaxKlaro and Inheritance are named flagships; everything else is "Angkin &rsaquo; Category &rsaquo; Tool."</p>
         </div>
 
-        <div class="placeholder-content">Section 07 content &mdash; Tool cards, "by Angkin" badge, category system, tool headers, featured treatment</div>
+        <!-- Core Decision -->
+        <div class="subsection" style="margin-top:0;">
+          <h3 class="subsection-title">One Brand, Not 148 Brands</h3>
+          <p class="subsection-desc">Tools are features. No per-tool accent colors. Category differentiation through icons only.</p>
+          <div class="content-grid content-grid--2col">
+            <!-- by Angkin Badge -->
+            <div class="content-block" style="padding:32px;">
+              <span class="content-block__label">"by Angkin" Attribution Badge</span>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:12px;margin-bottom:16px;">
+                <svg width="16" height="16" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="s07-b"><circle cx="50" cy="50" r="48"/></clipPath></defs><circle cx="50" cy="50" r="48" fill="#1E3A5F"/><line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s07-b)"/></svg>
+                <span style="font-family:var(--font-body);font-size:12px;color:#6B7485;">by Angkin</span>
+              </div>
+              <div style="font-family:var(--font-body);font-size:13px;color:#8C95A3;line-height:1.5;">Appears on every tool page. 16px mark + 12px text. Transparent background — sits on any surface.</div>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="content-block" style="padding:32px;">
+              <span class="content-block__label">Tool Header Breadcrumb</span>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:12px;margin-bottom:16px;font-family:var(--font-body);font-size:14px;">
+                <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="s07-c"><circle cx="50" cy="50" r="48"/></clipPath></defs><circle cx="50" cy="50" r="48" fill="#1E3A5F"/><line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s07-c)"/></svg>
+                <span style="color:#1E3A5F;font-weight:500;">Angkin</span>
+                <span style="color:#B8BEC9;">&#8250;</span>
+                <span style="color:#6B7485;">Labor</span>
+                <span style="color:#B8BEC9;">&#8250;</span>
+                <span style="color:#111827;font-weight:500;">13th Month Pay Calculator</span>
+              </div>
+              <div style="font-family:var(--font-body);font-size:13px;color:#8C95A3;line-height:1.5;">3 levels max. Named flagships skip category: Angkin &#8250; TaxKlaro.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tool Cards -->
+        <div class="subsection">
+          <h3 class="subsection-title">Tool Card Grid</h3>
+          <p class="subsection-desc">How the 148 tools appear on the platform home. Category icon + name + description + archetype badge.</p>
+          <div class="content-grid content-grid--3col" style="gap:16px;">
+            <div style="background:white;border:1px solid #D5D9E1;border-radius:10px;padding:20px;cursor:pointer;transition:all 200ms;" onmouseover="this.style.borderColor='#C2D0E2';this.style.boxShadow='0 4px 8px rgba(30,58,95,0.08)';" onmouseout="this.style.borderColor='#D5D9E1';this.style.boxShadow='none';">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                <div style="width:40px;height:40px;background:#EEF2F7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#1E3A5F;">&#9878;</div>
+                <div><div style="font-family:var(--font-heading);font-size:15px;font-weight:600;color:#111827;">TaxKlaro</div><span style="font-size:11px;color:#8C95A3;">Tax</span></div>
+              </div>
+              <div style="font-family:var(--font-body);font-size:13px;color:#6B7485;line-height:1.4;">Compare tax regimes and find the optimal filing strategy.</div>
+            </div>
+            <div style="background:white;border:2px solid #C5A44E;border-radius:10px;padding:19px;cursor:pointer;position:relative;">
+              <span style="position:absolute;top:12px;right:12px;font-size:11px;font-weight:600;color:#87702F;background:#FBF7ED;padding:2px 8px;border-radius:9999px;border:1px solid #EBDAAB;">Timely</span>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                <div style="width:40px;height:40px;background:#EEF2F7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#1E3A5F;">&#9883;</div>
+                <div><div style="font-family:var(--font-heading);font-size:15px;font-weight:600;color:#111827;">SSS Maternity</div><span style="font-size:11px;color:#8C95A3;">Social Insurance</span></div>
+              </div>
+              <div style="font-family:var(--font-body);font-size:13px;color:#6B7485;line-height:1.4;">Calculate SSS maternity benefit and employer reimbursement.</div>
+            </div>
+            <div style="background:white;border:1px solid #D5D9E1;border-radius:10px;padding:20px;cursor:pointer;transition:all 200ms;" onmouseover="this.style.borderColor='#C2D0E2';this.style.boxShadow='0 4px 8px rgba(30,58,95,0.08)';" onmouseout="this.style.borderColor='#D5D9E1';this.style.boxShadow='none';">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                <div style="width:40px;height:40px;background:#EEF2F7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#1E3A5F;">&#9874;</div>
+                <div><div style="font-family:var(--font-heading);font-size:15px;font-weight:600;color:#111827;">Inheritance</div><span style="font-size:11px;color:#8C95A3;">Civil Law</span></div>
+              </div>
+              <div style="font-family:var(--font-body);font-size:13px;color:#6B7485;line-height:1.4;">Compute estate tax with Philippine succession rules.</div>
+            </div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--neutral-400);margin-top:12px;">Gold border = featured/seasonal tool (max 2-4 at a time). All others use standard neutral border.</div>
+        </div>
       </div>
     </section>
 
@@ -904,7 +1721,70 @@
           <p class="section-desc">Two navigation modes: top bar for public pages, navy sidebar for authenticated views. Breadcrumbs, mobile hamburger, wizard progress, mega-menu for 148 tools.</p>
         </div>
 
-        <div class="placeholder-content">Section 08 content &mdash; Top nav, sidebar, breadcrumbs, mobile nav, tab bar, mega-menu</div>
+        <!-- Top Bar -->
+        <div class="subsection" style="margin-top:0;">
+          <h3 class="subsection-title">Top Bar (Public Pages)</h3>
+          <p class="subsection-desc">Sticky, 64px desktop / 56px mobile. White background with backdrop blur. Content max-width 1120px.</p>
+          <div style="background:white;border:1px solid #D5D9E1;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(30,58,95,0.08);">
+            <div style="height:64px;padding:0 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #D5D9E1;max-width:1120px;margin:0 auto;">
+              <div style="display:flex;align-items:center;gap:32px;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="s08-n"><circle cx="50" cy="50" r="48"/></clipPath></defs><circle cx="50" cy="50" r="48" fill="#1E3A5F"/><line x1="75" y1="10" x2="25" y2="90" stroke="#FFF" stroke-width="16" stroke-linecap="round" clip-path="url(#s08-n)"/></svg>
+                  <span style="font-family:var(--font-heading);font-size:18px;font-weight:600;color:#1E3A5F;">Angkin</span>
+                </div>
+                <nav style="display:flex;gap:32px;font-family:var(--font-body);font-size:14px;font-weight:500;">
+                  <a style="color:#1E3A5F;text-decoration:none;border-bottom:2px solid #1E3A5F;padding-bottom:20px;">Tools</a>
+                  <a style="color:#505868;text-decoration:none;">About</a>
+                  <a style="color:#505868;text-decoration:none;">Pricing</a>
+                </nav>
+              </div>
+              <div style="display:flex;align-items:center;gap:16px;">
+                <span style="color:#6B7485;font-size:18px;cursor:pointer;">&#128269;</span>
+                <span style="color:#6B7485;font-size:18px;cursor:pointer;">&#9788;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="subsection">
+          <h3 class="subsection-title">Sidebar (Authenticated Views)</h3>
+          <p class="subsection-desc">256px navy-600 sidebar. Gold-400 left-border active indicator. White text at 80% opacity.</p>
+          <div style="display:flex;border:1px solid #D5D9E1;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(30,58,95,0.08);height:320px;">
+            <div style="width:256px;background:#1E3A5F;padding:24px 16px;display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;align-items:center;gap:10px;padding:0 8px 20px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:12px;">
+                <svg width="24" height="24" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="s08-s"><circle cx="50" cy="50" r="48"/></clipPath></defs><circle cx="50" cy="50" r="48" fill="#FFF"/><line x1="75" y1="10" x2="25" y2="90" stroke="#1E3A5F" stroke-width="16" stroke-linecap="round" clip-path="url(#s08-s)"/></svg>
+                <span style="font-family:var(--font-heading);font-size:16px;font-weight:600;color:white;">Angkin</span>
+              </div>
+              <a style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:6px;color:rgba(255,255,255,0.7);font-family:var(--font-body);font-size:14px;text-decoration:none;">&#9776; Dashboard</a>
+              <a style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:6px;background:#2D5A85;color:white;font-family:var(--font-body);font-size:14px;font-weight:500;text-decoration:none;border-left:3px solid #C5A44E;">&#9874; Computations</a>
+              <a style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:6px;color:rgba(255,255,255,0.7);font-family:var(--font-body);font-size:14px;text-decoration:none;">&#9734; Clients</a>
+              <a style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:6px;color:rgba(255,255,255,0.7);font-family:var(--font-body);font-size:14px;text-decoration:none;">&#9998; Deadlines</a>
+              <a style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:6px;color:rgba(255,255,255,0.7);font-family:var(--font-body);font-size:14px;text-decoration:none;">&#9881; Settings</a>
+            </div>
+            <div style="flex:1;background:#F7F8FA;padding:24px;">
+              <div style="font-family:var(--font-heading);font-size:20px;font-weight:600;color:#1E3A5F;margin-bottom:8px;">Saved Computations</div>
+              <div style="font-family:var(--font-body);font-size:14px;color:#6B7485;">Content area — 960px max-width within sidebar layout.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="subsection">
+          <h3 class="subsection-title">Tab Bar</h3>
+          <p class="subsection-desc">Horizontal scroll, 2px bottom active indicator. Used for category filters and in-page sections.</p>
+          <div class="content-block" style="padding:0 0 0 0;">
+            <div style="display:flex;gap:0;border-bottom:1px solid #D5D9E1;padding:0 24px;">
+              <button style="padding:12px 16px;font-family:var(--font-body);font-size:14px;font-weight:600;color:#1E3A5F;background:none;border:none;border-bottom:2px solid #1E3A5F;cursor:pointer;">All Tools</button>
+              <button style="padding:12px 16px;font-family:var(--font-body);font-size:14px;font-weight:500;color:#6B7485;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;">Tax</button>
+              <button style="padding:12px 16px;font-family:var(--font-body);font-size:14px;font-weight:500;color:#6B7485;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;">Labor</button>
+              <button style="padding:12px 16px;font-family:var(--font-body);font-size:14px;font-weight:500;color:#6B7485;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;">Social Insurance</button>
+              <button style="padding:12px 16px;font-family:var(--font-body);font-size:14px;font-weight:500;color:#6B7485;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;">Corporate</button>
+              <button style="padding:12px 16px;font-family:var(--font-body);font-size:14px;font-weight:500;color:#6B7485;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;">Property</button>
+            </div>
+            <div style="padding:24px;font-family:var(--font-body);font-size:13px;color:#8C95A3;">Category content area</div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -919,7 +1799,76 @@
           <p class="section-desc">Phosphor Icons, regular weight (1.5px stroke) for UI, duotone for category icons. 14 compliance domains mapped to specific icons. No filled icons, no emoji, no mixed libraries.</p>
         </div>
 
-        <div class="placeholder-content">Section 09 content &mdash; Icon style, category icons, UI icons, archetype icons, anti-patterns</div>
+        <!-- Icon Style -->
+        <div class="subsection" style="margin-top:0;">
+          <h3 class="subsection-title">Icon Library: Phosphor Icons</h3>
+          <p class="subsection-desc">6,000+ icons, 6 weights, MIT license. Regular weight (1.5px) for UI, duotone for category hero contexts.</p>
+          <div class="content-grid content-grid--3col" style="gap:16px;">
+            <div class="content-block" style="text-align:center;padding:24px;">
+              <span class="content-block__label">Regular (1.5px)</span>
+              <div style="font-size:32px;color:#1E3A5F;margin:12px 0;">&#9881; &#9733; &#9998; &#128269;</div>
+              <div style="font-family:var(--font-body);font-size:12px;color:#8C95A3;">Standard UI: nav, buttons, forms</div>
+            </div>
+            <div class="content-block" style="text-align:center;padding:24px;">
+              <span class="content-block__label">Bold (2px)</span>
+              <div style="font-size:32px;color:#1E3A5F;font-weight:bold;margin:12px 0;">&#9881; &#9733; &#9998; &#128269;</div>
+              <div style="font-family:var(--font-body);font-size:12px;color:#8C95A3;">Active/selected states</div>
+            </div>
+            <div class="content-block" style="text-align:center;padding:24px;">
+              <span class="content-block__label">Duotone</span>
+              <div style="display:flex;justify-content:center;gap:16px;margin:12px 0;">
+                <div style="width:40px;height:40px;background:#EEF2F7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#1E3A5F;">&#9878;</div>
+                <div style="width:40px;height:40px;background:#EEF2F7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#1E3A5F;">&#9883;</div>
+                <div style="width:40px;height:40px;background:#EEF2F7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#1E3A5F;">&#9874;</div>
+              </div>
+              <div style="font-family:var(--font-body);font-size:12px;color:#8C95A3;">Category headers, tool card icons (40px container)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Icons -->
+        <div class="subsection">
+          <h3 class="subsection-title">14 Category Icons</h3>
+          <p class="subsection-desc">Each regulatory domain mapped to a specific Phosphor icon. Icons differentiate categories — not color.</p>
+          <table class="token-table">
+            <thead><tr><th>Category</th><th>Phosphor Icon</th><th>Rationale</th></tr></thead>
+            <tbody>
+              <tr><td>Tax</td><td style="font-family:var(--font-body);">Receipt</td><td style="font-family:var(--font-body);">Universal tax/receipt association</td></tr>
+              <tr><td>Labor</td><td style="font-family:var(--font-body);">Users Three</td><td style="font-family:var(--font-body);">Employment/workforce</td></tr>
+              <tr><td>Social Insurance</td><td style="font-family:var(--font-body);">Shield Check</td><td style="font-family:var(--font-body);">Protection/coverage</td></tr>
+              <tr><td>OFW</td><td style="font-family:var(--font-body);">Airplane Takeoff</td><td style="font-family:var(--font-body);">Overseas Filipino Workers</td></tr>
+              <tr><td>Corporate</td><td style="font-family:var(--font-body);">Buildings</td><td style="font-family:var(--font-body);">Corporate/business</td></tr>
+              <tr><td>Property</td><td style="font-family:var(--font-body);">House Line</td><td style="font-family:var(--font-body);">Real estate/property</td></tr>
+              <tr><td>Business Reg</td><td style="font-family:var(--font-body);">Storefront</td><td style="font-family:var(--font-body);">Business registration</td></tr>
+              <tr><td>Professional</td><td style="font-family:var(--font-body);">Certificate</td><td style="font-family:var(--font-body);">Licensed professionals</td></tr>
+              <tr><td>Customs</td><td style="font-family:var(--font-body);">Package</td><td style="font-family:var(--font-body);">Import/export</td></tr>
+              <tr><td>IP</td><td style="font-family:var(--font-body);">Lightbulb</td><td style="font-family:var(--font-body);">Intellectual property</td></tr>
+              <tr><td>Safety</td><td style="font-family:var(--font-body);">Fire Simple</td><td style="font-family:var(--font-body);">Fire/safety compliance</td></tr>
+              <tr><td>Financial</td><td style="font-family:var(--font-body);">Bank</td><td style="font-family:var(--font-body);">Banking/financial</td></tr>
+              <tr><td>Energy</td><td style="font-family:var(--font-body);">Lightning</td><td style="font-family:var(--font-body);">Energy/utilities</td></tr>
+              <tr><td>Legal</td><td style="font-family:var(--font-body);">Scales</td><td style="font-family:var(--font-body);">Civil law/succession</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Anti-patterns -->
+        <div class="subsection">
+          <h3 class="subsection-title">Anti-Patterns</h3>
+          <div class="content-grid content-grid--4col" style="gap:12px;">
+            <div style="background:var(--error-50);border:1px solid var(--error-100);border-radius:var(--radius);padding:16px;text-align:center;">
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--error-600);font-weight:500;">No filled icons</div>
+            </div>
+            <div style="background:var(--error-50);border:1px solid var(--error-100);border-radius:var(--radius);padding:16px;text-align:center;">
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--error-600);font-weight:500;">No emoji</div>
+            </div>
+            <div style="background:var(--error-50);border:1px solid var(--error-100);border-radius:var(--radius);padding:16px;text-align:center;">
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--error-600);font-weight:500;">No custom SVGs</div>
+            </div>
+            <div style="background:var(--error-50);border:1px solid var(--error-100);border-radius:var(--radius);padding:16px;text-align:center;">
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--error-600);font-weight:500;">No mixed libraries</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -934,7 +1883,84 @@
           <p class="section-desc">Navy-black, not pure black. Four-tier surface elevation, shifted primary from navy-600 to navy-400, warm off-white text, gold accent that naturally excels on dark surfaces.</p>
         </div>
 
-        <div class="placeholder-content">Section 10 content &mdash; Dark surfaces, dark palette, logo inversion, dark mockups, contrast audit</div>
+        <!-- Surface Elevation -->
+        <div class="subsection" style="margin-top:0;">
+          <h3 class="subsection-title">Surface Elevation Model</h3>
+          <p class="subsection-desc">4-tier system: higher elevation = lighter surface. Navy-tinted blacks, never pure black.</p>
+          <div class="swatch-row">
+            <div class="swatch swatch--tall" style="background:#060D18;"><span class="swatch-label swatch-label--light">Background<span class="swatch-hex">#060D18 (navy-950)</span></span></div>
+            <div class="swatch swatch--tall" style="background:#0B1628;"><span class="swatch-label swatch-label--light">Surface 0<span class="swatch-hex">#0B1628 (navy-900)</span></span></div>
+            <div class="swatch swatch--tall" style="background:#101D30;"><span class="swatch-label swatch-label--light">Surface 1<span class="swatch-hex">#101D30</span></span></div>
+            <div class="swatch swatch--tall" style="background:#152438;"><span class="swatch-label swatch-label--light">Surface 2<span class="swatch-hex">#152438</span></span></div>
+            <div class="swatch swatch--tall" style="background:#1A2B42;"><span class="swatch-label swatch-label--light">Surface 3<span class="swatch-hex">#1A2B42</span></span></div>
+          </div>
+        </div>
+
+        <!-- Dark Mode Colors -->
+        <div class="subsection">
+          <h3 class="subsection-title">Dark Mode Palette Shifts</h3>
+          <div class="content-grid content-grid--2col">
+            <div class="content-block content-block--dark" style="padding:32px;">
+              <span class="content-block__label">Primary Shift</span>
+              <div style="display:flex;gap:24px;align-items:center;margin-top:12px;">
+                <div style="text-align:center;">
+                  <div style="width:48px;height:48px;background:#4D77A3;border-radius:8px;margin-bottom:8px;"></div>
+                  <div style="font-family:var(--font-mono);font-size:10px;color:var(--navy-300);">navy-400<br>Primary</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="width:48px;height:48px;background:#7A99BE;border-radius:8px;margin-bottom:8px;"></div>
+                  <div style="font-family:var(--font-mono);font-size:10px;color:var(--navy-300);">navy-300<br>Hover</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="width:48px;height:48px;background:#C5A44E;border-radius:8px;margin-bottom:8px;"></div>
+                  <div style="font-family:var(--font-mono);font-size:10px;color:var(--navy-300);">gold-400<br>Accent ★</div>
+                </div>
+              </div>
+              <div style="font-family:var(--font-body);font-size:12px;color:var(--navy-300);margin-top:12px;">Gold is the dark mode star — 8.4:1 AAA contrast on navy-950.</div>
+            </div>
+            <div class="content-block content-block--dark" style="padding:32px;">
+              <span class="content-block__label">Text Colors</span>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px;">
+                <div style="font-family:var(--font-heading);font-size:20px;font-weight:700;color:#E8EDF2;">Heading Text #E8EDF2</div>
+                <div style="font-family:var(--font-body);font-size:15px;color:#E8EDF2;">Primary body text — warm off-white, not pure white</div>
+                <div style="font-family:var(--font-body);font-size:13px;color:#8C95A3;">Secondary text #8C95A3 — 6.2:1 AA</div>
+                <div style="font-family:var(--font-mono);font-size:24px;font-weight:600;color:#C5A44E;font-variant-numeric:tabular-nums;">₱45,833.33</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dark Mode Logo -->
+        <div class="subsection">
+          <h3 class="subsection-title">Logo Inversion</h3>
+          <div class="content-grid content-grid--3col" style="gap:16px;">
+            <div style="background:#060D18;border-radius:10px;padding:32px;text-align:center;">
+              <svg width="64" height="64" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="s10-1"><circle cx="50" cy="50" r="48"/></clipPath></defs><circle cx="50" cy="50" r="48" fill="#FFFFFF"/><line x1="75" y1="10" x2="25" y2="90" stroke="#060D18" stroke-width="16" stroke-linecap="round" clip-path="url(#s10-1)"/></svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:#7A99BE;margin-top:12px;">White fill, navy-950 slash</div>
+            </div>
+            <div style="background:#0B1628;border-radius:10px;padding:32px;text-align:center;">
+              <div style="display:flex;align-items:center;justify-content:center;gap:10px;">
+                <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="s10-2"><circle cx="50" cy="50" r="48"/></clipPath></defs><circle cx="50" cy="50" r="48" fill="#FFFFFF"/><line x1="75" y1="10" x2="25" y2="90" stroke="#060D18" stroke-width="16" stroke-linecap="round" clip-path="url(#s10-2)"/></svg>
+                <span style="font-family:var(--font-heading);font-size:18px;font-weight:600;color:#E8EDF2;">Angkin</span>
+              </div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:#7A99BE;margin-top:12px;">Nav lockup on surface-0</div>
+            </div>
+            <div style="background:#1E3A5F;border-radius:10px;padding:32px;text-align:center;">
+              <svg width="64" height="64" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="s10-3"><circle cx="50" cy="50" r="48"/></clipPath></defs><circle cx="50" cy="50" r="48" fill="#FFFFFF"/><line x1="75" y1="10" x2="25" y2="90" stroke="#1E3A5F" stroke-width="16" stroke-linecap="round" clip-path="url(#s10-3)"/></svg>
+              <div style="font-family:var(--font-mono);font-size:10px;color:#A8BBD4;margin-top:12px;">Sidebar context (navy-600)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dark Mode Mockups -->
+        <div class="subsection">
+          <h3 class="subsection-title">Dark Mode Screens</h3>
+          <div class="content-grid content-grid--3col" style="gap:16px;">
+            <div class="mockup mockup--browser"><img src="../raw/section-04-7-dark-platform-home.png" alt="Dark mode platform home"><div class="mockup-caption">Platform Home (dark)</div></div>
+            <div class="mockup mockup--browser"><img src="../raw/section-04-7-dark-taxklaro-results.png" alt="Dark mode TaxKlaro results"><div class="mockup-caption">TaxKlaro Results (dark)</div></div>
+            <div class="mockup mockup--browser"><img src="../raw/section-04-7-dark-wizard-step.png" alt="Dark mode wizard"><div class="mockup-caption">Wizard Step (dark)</div></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -949,7 +1975,48 @@
           <p class="section-desc">375px viewport examples. Touch targets, mobile nav, card stacking, column-reverse buttons for thumb zone, type scale reduction, safe-area-inset handling.</p>
         </div>
 
-        <div class="placeholder-content">Section 11 content &mdash; Mobile mockups, touch targets, responsive patterns, type scale adjustments</div>
+        <!-- Mobile Rules -->
+        <div class="subsection" style="margin-top:0;">
+          <h3 class="subsection-title">Mobile Design Rules</h3>
+          <div class="content-grid content-grid--3col" style="gap:16px;">
+            <div class="content-block" style="padding:20px;">
+              <span class="content-block__label">Touch Targets</span>
+              <div style="font-family:var(--font-body);font-size:14px;color:var(--neutral-700);margin-top:8px;">44px minimum for all interactive elements. Buttons, nav items, checkboxes use invisible padding extension.</div>
+            </div>
+            <div class="content-block" style="padding:20px;">
+              <span class="content-block__label">Type Scale Reduction</span>
+              <div style="font-family:var(--font-body);font-size:14px;color:var(--neutral-700);margin-top:8px;">Hero 48px &#8594; 24px. Peso amounts 32px &#8594; 24px. Body stays 15px. No text below 12px.</div>
+            </div>
+            <div class="content-block" style="padding:20px;">
+              <span class="content-block__label">Button Layout</span>
+              <div style="font-family:var(--font-body);font-size:14px;color:var(--neutral-700);margin-top:8px;">column-reverse on mobile: primary action on top for thumb zone. Full-width buttons at 48px height.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Mockups -->
+        <div class="subsection">
+          <h3 class="subsection-title">375px Viewport Mockups</h3>
+          <p class="subsection-desc">Key screens at iPhone SE width. Stacked cards, hamburger nav, safe-area-inset-bottom handling.</p>
+          <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
+            <div>
+              <div class="mockup mockup--mobile"><img src="../raw/section-04-6-mobile-home.png" alt="Mobile platform home"></div>
+              <div class="mockup-caption">Platform Home</div>
+            </div>
+            <div>
+              <div class="mockup mockup--mobile"><img src="../raw/section-04-6-mobile-wizard.png" alt="Mobile wizard step"></div>
+              <div class="mockup-caption">Wizard Step</div>
+            </div>
+            <div>
+              <div class="mockup mockup--mobile"><img src="../raw/section-04-6-mobile-results.png" alt="Mobile results"></div>
+              <div class="mockup-caption">Results Page</div>
+            </div>
+            <div>
+              <div class="mockup mockup--mobile"><img src="../raw/section-04-6-mobile-nav.png" alt="Mobile nav menu"></div>
+              <div class="mockup-caption">Nav Menu (280px sheet)</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -964,7 +2031,53 @@
           <p class="section-desc">Full-page mockups at 1280px: Angkin home, TaxKlaro landing, TaxKlaro results, Inheritance wizard, and a generic new tool template.</p>
         </div>
 
-        <div class="placeholder-content">Section 12 content &mdash; Full-page mockups with browser chrome frames</div>
+        <!-- Platform Home -->
+        <div class="subsection" style="margin-top:0;">
+          <h3 class="subsection-title">Angkin Platform Home</h3>
+          <p class="subsection-desc">Hero + tool grid + category filters + footer. Desktop 1280px.</p>
+          <div class="content-grid" style="gap:24px;">
+            <div class="mockup mockup--browser"><img src="../raw/section-04-1-platform-home-desktop.png" alt="Platform home above the fold"><div class="mockup-caption">Above the fold — hero, nav, tool grid</div></div>
+            <div class="content-grid content-grid--2col" style="gap:16px;">
+              <div class="mockup mockup--browser"><img src="../raw/section-04-1-platform-home-scroll.png" alt="Platform home scrolled"><div class="mockup-caption">Scrolled — category sections, footer</div></div>
+              <div class="mockup mockup--browser"><img src="../raw/section-04-1-tools-megamenu.png" alt="Tools mega-menu"><div class="mockup-caption">Tools mega-menu dropdown</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TaxKlaro -->
+        <div class="subsection">
+          <h3 class="subsection-title">TaxKlaro Landing &amp; Results</h3>
+          <div class="content-grid content-grid--2col" style="gap:16px;">
+            <div class="mockup mockup--browser"><img src="../raw/section-04-2-taxklaro-hero.png" alt="TaxKlaro hero"><div class="mockup-caption">Landing — hero + regime preview</div></div>
+            <div class="mockup mockup--browser"><img src="../raw/section-04-2-taxklaro-features.png" alt="TaxKlaro features"><div class="mockup-caption">Features + regime explainer</div></div>
+          </div>
+          <div class="content-grid content-grid--3col mt-24" style="gap:16px;">
+            <div class="mockup mockup--browser"><img src="../raw/section-04-3-taxklaro-results-comparison.png" alt="TaxKlaro regime comparison"><div class="mockup-caption">Results — regime comparison cards</div></div>
+            <div class="mockup mockup--browser"><img src="../raw/section-04-3-taxklaro-results-breakdown.png" alt="TaxKlaro breakdown"><div class="mockup-caption">Results — detailed breakdown</div></div>
+            <div class="mockup mockup--browser"><img src="../raw/section-04-3-taxklaro-results-bottom.png" alt="TaxKlaro bottom sections"><div class="mockup-caption">Results — credits, BIR form</div></div>
+          </div>
+        </div>
+
+        <!-- Inheritance Wizard -->
+        <div class="subsection">
+          <h3 class="subsection-title">Inheritance Wizard</h3>
+          <div class="content-grid content-grid--3col" style="gap:16px;">
+            <div class="mockup mockup--browser"><img src="../raw/section-04-4-inheritance-estate-step.png" alt="Estate details step"><div class="mockup-caption">Estate Details step</div></div>
+            <div class="mockup mockup--browser"><img src="../raw/section-04-4-inheritance-family-tree.png" alt="Family tree step"><div class="mockup-caption">Family Tree — person cards</div></div>
+            <div class="mockup mockup--browser"><img src="../raw/section-04-4-inheritance-person-edit.png" alt="Person edit panel"><div class="mockup-caption">Person edit slide-out</div></div>
+          </div>
+        </div>
+
+        <!-- New Tool Template -->
+        <div class="subsection">
+          <h3 class="subsection-title">Generic New Tool Template</h3>
+          <p class="subsection-desc">What a new compliance calculator looks like on day 1. Example: 13th Month Pay Calculator.</p>
+          <div class="content-grid content-grid--3col" style="gap:16px;">
+            <div class="mockup mockup--browser"><img src="../raw/section-04-5-new-tool-empty.png" alt="New tool empty state"><div class="mockup-caption">Input state (empty)</div></div>
+            <div class="mockup mockup--browser"><img src="../raw/section-04-5-new-tool-results.png" alt="New tool with results"><div class="mockup-caption">Results state</div></div>
+            <div class="mockup mockup--browser"><img src="../raw/section-04-5-new-tool-errors.png" alt="New tool with errors"><div class="mockup-caption">Error state</div></div>
+          </div>
+        </div>
       </div>
     </section>
 
