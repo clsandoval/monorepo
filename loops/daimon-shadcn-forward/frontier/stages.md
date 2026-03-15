@@ -1,8 +1,8 @@
 # Daimon SaaS — shadcn/ui Migration Stages
 
 Total: 215 stages
-Completed: 6
-Remaining: 209
+Completed: 7
+Remaining: 208
 
 ---
 
@@ -18,7 +18,7 @@ Remaining: 209
 
 - [x] **Stage 6**: Replace `src/components/ui/button.tsx` — swap custom button with shadcn Button, preserve all variant names (primary, secondary, ghost, danger → destructive), update all 40+ import sites (2026-03-15)
 - [x] **Stage 7**: Replace `src/components/ui/form-input.tsx` — swap with shadcn Input + Label composition, preserve react-hook-form integration, update all import sites (2026-03-15)
-- [ ] **Stage 8**: Replace `src/components/ui/password-input.tsx` — rebuild with shadcn Input + eye toggle button, preserve show/hide functionality
+- [x] **Stage 8**: Replace `src/components/ui/password-input.tsx` — rebuild with shadcn Input + eye toggle button, preserve show/hide functionality (2026-03-15)
 - [ ] **Stage 9**: Replace `src/components/ui/search-input.tsx` — rebuild with shadcn Input + search icon, preserve clear button
 - [ ] **Stage 10**: Replace `src/components/ui/api-key-input.tsx` — rebuild with shadcn Input + copy-to-clipboard, preserve masked display
 - [ ] **Stage 11**: Replace `src/components/ui/checkbox.tsx` — swap with shadcn Checkbox, update all import sites
