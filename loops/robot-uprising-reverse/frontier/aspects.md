@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 895
-- **Analyzed:** 328
-- **Pending:** 567
+- **Total aspects:** 900
+- **Analyzed:** 329
+- **Pending:** 571
 - **Convergence:** 36.6%
 
 ---
@@ -742,11 +742,16 @@
 - [ ] 5.24 — The "false pivot literacy" tutorial mission: a campaign mission explicitly teaching the false pivot phenomenon through a scripted demonstration replay where the player must identify the genuine pivot by scrubbing backward through the debrief; completing it unlocks the "Diagnostic" achievement and advanced signal genealogy visualization mode
 - [ ] 5.25 — The "oracle preview" anti-pattern: players who alt-tab to look up a tier list or YouTube solution to discover the expected pass rate before watching their sealed replay; designing against this by making the sealed experience fast enough and surprising enough that spoiling it feels like opting out of the fun; whether the game should lean into spoilability (some players genuinely prefer guides) or resist it
 - [ ] 5.19 — The "pass-rate plateau" problem: players who get 80/100 and feel done — designing campaign gates that require 90% rather than 100% for progression, while reserving 100% for cosmetic/leaderboard rewards; the psychological difference between "good enough" and "provably correct"
-- [ ] 5.20 — Always-on anxiety vs. self-contained missions: Screeps World's 24/7 persistence creates ownership feeling but also "vacation death" anxiety (base destroyed while offline); Robot Uprising's mission structure eliminates anxiety but loses persistence fantasy; what compensatory design choices restore the ownership feeling? Named units? Between-mission camp state? Campaign memory?
+- [x] 5.20 — Always-on anxiety vs. self-contained missions: Screeps World's 24/7 persistence creates ownership feeling but also "vacation death" anxiety (base destroyed while offline); Robot Uprising's mission structure eliminates anxiety but loses persistence fantasy; what compensatory design choices restore the ownership feeling? Named units? Between-mission camp state? Campaign memory?
 - [ ] 5.21 — Open-source architecture as community mechanic: Screeps' culture of publishing full bot code on GitHub + writing architectural blog posts is a deliberately-designed community mechanic; what's the Robot Uprising equivalent? Exportable agent configs, shareable hook wiring diagrams, community config repositories?
 - [x] 5.22 — The Gauntlet as a third act: structuring the game as three acts — campaign (learn mechanics), advanced campaign (develop robustness), Gauntlet (prove against infinite adversarial creativity); the Gauntlet as designed destination, not optional appendage; how campaign's final cutscene/mission opens the Gauntlet and what that transition feels like
 - [ ] 5.22a — Multi-round mission retry granularity: when a player fails Round 3 of 5, do they restart from Round 1 or retry Round 3? Round-level checkpointing vs. mission-level reset; how retry granularity affects emotional stakes and learning speed; the "I have to redo rounds I already passed" frustration vs. the "context from earlier rounds matters" argument
 - [ ] 5.22b — Gauntlet ELO calibration match design: the first 5 Gauntlet matches are calibration — how the game communicates this, whether the player knows their rating is being determined, whether calibration matches feel different from regular matches; the "placement anxiety" problem from League of Legends/Overwatch applied to architecture design
+- [ ] 5.20a — Boot log as session resume mechanism: the boot log's "operator last active" summary as a diegetic save-state recap; how much context to surface, how to handle multi-day gaps vs. same-day returns, whether the boot log's tone changes based on gap length
+- [ ] 5.20b — Architect Profile archetype design: the full set of architectural style archetypes (Switchboard Operator, Sniper, Sentinel, etc.); how many, how they're computed, how they change over the campaign, whether they're visible to other players
+- [ ] 5.20c — Blueprint lineage as competitive stat: blueprint performance histories (survival rate, average lifespan, kills per unit) as competitive Gauntlet metadata; whether opponents can see your blueprint lineages; the "intimidation" factor of a blueprint with 200+ deployed units
+- [ ] 5.20d — The Camp's scope boundary: how much is "too much Camp"? The line between a warm hub and a time-wasting distraction; Hades spends 5-10 minutes between runs; without dialogue/relationships, how long does the Camp hold attention; minimum viable Camp design
+- [ ] 5.20e — Architecture Gallery encoding format: encoding a full architecture (blueprints + channels + production queue + context configs) as a shareable string without a backend; Factorio blueprint strings as model; length constraints for Discord/Reddit sharing; QR codes for physical sharing
 - [ ] 5.22c — The Predecessor's Codex presence post-campaign: after the Predecessor "stops" at the Gauntlet transition, they persist in the Blueprint Codex as a reference voice; how the Codex entries change tone from tutorial-mode to archival-mode; the Predecessor as ghost-in-the-documentation
 - [ ] 5.22d — The "return to campaign" motivation: why a Gauntlet veteran would replay campaign missions; mastery runs (beat M10 in fewer rounds), narrative appreciation runs (re-experiencing the Predecessor with new context), tool-restricted runs (replay M1-4 without Inspector tools to remember what it felt like)
 - [ ] 5.22e — Gauntlet warm-up mode: a "practice match" option that doesn't affect ELO, for players who want to test architecture changes without stakes; the tension between "every match matters" (pure Gauntlet) and "I need a safe space to experiment" (sandbox); how warm-up mode interacts with the sealed watch's emotional design
