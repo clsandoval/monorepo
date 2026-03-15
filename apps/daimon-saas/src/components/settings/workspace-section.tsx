@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Tabs } from '@/components/ui/tabs'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { useToast } from '@/lib/toast'
 import { useRouter } from 'next/navigation'
 import { Copy, Check } from 'lucide-react'
@@ -399,46 +399,40 @@ interface SettingsContentProps {
 }
 
 export function SettingsContent({ tenant, tenantId, userRole, discordConnections, userEmail, userDisplayName, memberCount }: SettingsContentProps) {
-  const [activeTab, setActiveTab] = React.useState('workspace')
-
-  const tabs = [
-    { value: 'workspace', label: 'Workspace' },
-    { value: 'discord', label: 'Discord' },
-    { value: 'account', label: 'Account' },
-    ...(userRole === 'owner' ? [{ value: 'danger', label: 'Danger Zone' }] : []),
-  ]
-
   return (
-    <div>
-      {/* Tab navigation */}
-      <div style={{ marginBottom: '24px' }}>
-        <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} variant="underline" />
-      </div>
+    <Tabs defaultValue="workspace">
+      <TabsList variant="line" className="mb-6">
+        <TabsTrigger value="workspace">Workspace</TabsTrigger>
+        <TabsTrigger value="discord">Discord</TabsTrigger>
+        <TabsTrigger value="account">Account</TabsTrigger>
+        {userRole === 'owner' && <TabsTrigger value="danger">Danger Zone</TabsTrigger>}
+      </TabsList>
 
-      {/* Tab panels */}
-      {activeTab === 'workspace' && (
+      <TabsContent value="workspace">
         <WorkspaceSection tenant={tenant} userRole={userRole} />
-      )}
+      </TabsContent>
 
-      {activeTab === 'discord' && (
+      <TabsContent value="discord">
         <SettingsDiscordSection
           tenantId={tenantId}
           userRole={userRole}
           connections={discordConnections}
         />
-      )}
+      </TabsContent>
 
-      {activeTab === 'account' && (
+      <TabsContent value="account">
         <SettingsAccountSection userEmail={userEmail} userDisplayName={userDisplayName} />
-      )}
+      </TabsContent>
 
-      {activeTab === 'danger' && userRole === 'owner' && (
-        <SettingsDangerZoneSection
-          tenantName={tenant.name}
-          discordConnectionCount={discordConnections.length}
-          memberCount={memberCount}
-        />
+      {userRole === 'owner' && (
+        <TabsContent value="danger">
+          <SettingsDangerZoneSection
+            tenantName={tenant.name}
+            discordConnectionCount={discordConnections.length}
+            memberCount={memberCount}
+          />
+        </TabsContent>
       )}
-    </div>
+    </Tabs>
   )
 }

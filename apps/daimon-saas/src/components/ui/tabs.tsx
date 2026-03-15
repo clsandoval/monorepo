@@ -1,210 +1,82 @@
-'use client'
+"use client"
 
-import * as React from 'react'
+import { Tabs as TabsPrimitive } from "@base-ui/react/tabs"
+import { cva, type VariantProps } from "class-variance-authority"
 
-export interface TabItem {
-  value: string
-  label: string
-  icon?: React.ReactNode
-  badge?: string | number
-  disabled?: boolean
-}
+import { cn } from "@/lib/utils"
 
-export interface TabsProps {
-  tabs: TabItem[]
-  activeTab: string
-  onChange: (value: string) => void
-  variant?: 'underline' | 'pills' | 'bordered'
-  size?: 'sm' | 'md'
-  fullWidth?: boolean
-  className?: string
-}
-
-export function Tabs({
-  tabs,
-  activeTab,
-  onChange,
-  variant = 'underline',
-  size = 'md',
-  fullWidth = false,
+function Tabs({
   className,
-}: TabsProps) {
-  const tabListRef = React.useRef<HTMLDivElement>(null)
-
-  function handleKeyDown(e: React.KeyboardEvent<HTMLButtonElement>, index: number) {
-    const enabledIndexes = tabs
-      .map((t, i) => (!t.disabled ? i : -1))
-      .filter((i) => i !== -1)
-
-    const currentPos = enabledIndexes.indexOf(index)
-
-    let nextIndex: number | undefined
-
-    if (e.key === 'ArrowRight') {
-      nextIndex = enabledIndexes[(currentPos + 1) % enabledIndexes.length]
-    } else if (e.key === 'ArrowLeft') {
-      nextIndex =
-        enabledIndexes[(currentPos - 1 + enabledIndexes.length) % enabledIndexes.length]
-    } else if (e.key === 'Home') {
-      nextIndex = enabledIndexes[0]
-    } else if (e.key === 'End') {
-      nextIndex = enabledIndexes[enabledIndexes.length - 1]
-    } else if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      if (!tabs[index].disabled) {
-        onChange(tabs[index].value)
-      }
-      return
-    } else {
-      return
-    }
-
-    if (nextIndex !== undefined) {
-      e.preventDefault()
-      const buttons = tabListRef.current?.querySelectorAll<HTMLButtonElement>('button[role="tab"]')
-      if (buttons && buttons[nextIndex]) {
-        buttons[nextIndex].focus()
-        onChange(tabs[nextIndex].value)
-      }
-    }
-  }
-
-  // --- Container classes ---
-  let containerClass = ''
-  if (variant === 'underline') {
-    containerClass = 'flex border-b border-[rgba(12,31,64,0.10)] overflow-x-auto'
-  } else if (variant === 'pills') {
-    containerClass =
-      'flex gap-1 bg-[#F3F4F6] p-1 border border-[rgba(12,31,64,0.08)] overflow-x-auto'
-  } else if (variant === 'bordered') {
-    containerClass =
-      'flex border border-[rgba(12,31,64,0.10)] bg-white overflow-x-auto'
-  }
-
+  orientation = "horizontal",
+  ...props
+}: TabsPrimitive.Root.Props) {
   return (
-    <div
-      ref={tabListRef}
-      role="tablist"
-      aria-label="Tab navigation"
-      className={[containerClass, className ?? ''].join(' ')}
-    >
-      {tabs.map((tab, index) => {
-        const isActive = tab.value === activeTab
-        const isDisabled = tab.disabled ?? false
-
-        // --- Tab button classes ---
-        let tabClass = ''
-        let tabHeight = ''
-        let tabPadding = ''
-        let tabFont = ''
-
-        if (variant === 'underline') {
-          tabHeight = size === 'sm' ? 'h-9' : 'h-11'
-          tabPadding = size === 'sm' ? 'px-3' : 'px-4'
-          tabFont = size === 'sm' ? 'text-[13px]' : 'text-[14px]'
-          const activeClasses = isActive
-            ? 'text-[#0C1F40] border-b-2 border-[#B4E7DD] -mb-px'
-            : 'text-[rgba(12,31,64,0.55)] border-b-2 border-transparent -mb-px'
-          const hoverClasses = !isDisabled && !isActive ? 'hover:text-[#0C1F40] hover:bg-[rgba(12,31,64,0.04)]' : ''
-          const disabledClasses = isDisabled ? 'text-[rgba(12,31,64,0.25)] cursor-not-allowed' : 'cursor-pointer'
-          tabClass = [
-            'flex items-center gap-1.5 whitespace-nowrap font-inter font-medium',
-            'transition-[color,background,border-color] duration-150 ease-in-out',
-            'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#B4E7DD] focus-visible:-outline-offset-2',
-            'outline-none',
-            tabHeight,
-            tabPadding,
-            tabFont,
-            activeClasses,
-            hoverClasses,
-            disabledClasses,
-            fullWidth ? 'flex-1 justify-center' : '',
-          ].join(' ')
-        } else if (variant === 'pills') {
-          tabHeight = size === 'sm' ? 'h-7' : 'h-[34px]'
-          tabPadding = size === 'sm' ? 'px-2.5' : 'px-3.5'
-          tabFont = size === 'sm' ? 'text-[12px]' : 'text-[13px]'
-          const activeClasses = isActive
-            ? 'bg-white text-[#0C1F40] border border-[rgba(12,31,64,0.12)] shadow-[0_1px_2px_rgba(12,31,64,0.08)]'
-            : 'bg-transparent text-[rgba(12,31,64,0.55)] border border-transparent'
-          const hoverClasses = !isDisabled && !isActive ? 'hover:bg-[rgba(12,31,64,0.06)] hover:text-[#0C1F40]' : ''
-          const disabledClasses = isDisabled ? 'text-[rgba(12,31,64,0.25)] cursor-not-allowed' : 'cursor-pointer'
-          tabClass = [
-            'flex items-center gap-1.5 whitespace-nowrap font-inter font-medium',
-            'transition-[color,background,border-color] duration-150 ease-in-out',
-            'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#B4E7DD] focus-visible:-outline-offset-2',
-            'outline-none',
-            tabHeight,
-            tabPadding,
-            tabFont,
-            activeClasses,
-            hoverClasses,
-            disabledClasses,
-            fullWidth ? 'flex-1 justify-center' : '',
-          ].join(' ')
-        } else if (variant === 'bordered') {
-          tabHeight = 'h-11'
-          tabPadding = 'px-5'
-          tabFont = 'text-[14px]'
-          const activeClasses = isActive
-            ? 'bg-[rgba(180,231,221,0.12)] text-[#0C1F40] border-b-2 border-[#B4E7DD] -mb-px'
-            : 'bg-white text-[rgba(12,31,64,0.55)] border-b-2 border-transparent -mb-px'
-          const hoverClasses = !isDisabled && !isActive ? 'hover:bg-[rgba(12,31,64,0.03)] hover:text-[#0C1F40]' : ''
-          const disabledClasses = isDisabled ? 'text-[rgba(12,31,64,0.25)] cursor-not-allowed' : 'cursor-pointer'
-          tabClass = [
-            'flex items-center gap-1.5 whitespace-nowrap font-inter font-medium border-r border-r-[rgba(12,31,64,0.10)] last:border-r-0',
-            'transition-[color,background,border-color] duration-150 ease-in-out',
-            'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#B4E7DD] focus-visible:-outline-offset-2',
-            'outline-none',
-            tabHeight,
-            tabPadding,
-            tabFont,
-            activeClasses,
-            hoverClasses,
-            disabledClasses,
-            fullWidth ? 'flex-1 justify-center' : '',
-          ].join(' ')
-        }
-
-        const tabId = `tab-${tab.value}`
-        const panelId = `tabpanel-${tab.value}`
-
-        return (
-          <button
-            key={tab.value}
-            id={tabId}
-            role="tab"
-            aria-selected={isActive}
-            aria-controls={panelId}
-            aria-disabled={isDisabled || undefined}
-            disabled={isDisabled}
-            tabIndex={isActive ? 0 : -1}
-            className={tabClass}
-            onClick={() => {
-              if (!isDisabled) {
-                onChange(tab.value)
-              }
-            }}
-            onKeyDown={(e) => handleKeyDown(e, index)}
-          >
-            {tab.icon && <span className="w-4 h-4 flex-shrink-0">{tab.icon}</span>}
-            <span>{tab.label}</span>
-            {tab.badge !== undefined && (
-              <span
-                className={[
-                  'ml-1 font-inter text-[11px] font-semibold text-[#0C1F40] px-1.5 py-px',
-                  isActive
-                    ? 'bg-[rgba(180,231,221,0.50)]'
-                    : 'bg-[rgba(180,231,221,0.30)]',
-                ].join(' ')}
-                style={{ borderRadius: 0 }}
-              >
-                {tab.badge}
-              </span>
-            )}
-          </button>
-        )
-      })}
-    </div>
+    <TabsPrimitive.Root
+      data-slot="tabs"
+      data-orientation={orientation}
+      className={cn(
+        "group/tabs flex gap-2 data-horizontal:flex-col",
+        className
+      )}
+      {...props}
+    />
   )
 }
+
+const tabsListVariants = cva(
+  "group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground group-data-horizontal/tabs:h-8 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col data-[variant=line]:rounded-none",
+  {
+    variants: {
+      variant: {
+        default: "bg-muted",
+        line: "gap-1 bg-transparent",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
+function TabsList({
+  className,
+  variant = "default",
+  ...props
+}: TabsPrimitive.List.Props & VariantProps<typeof tabsListVariants>) {
+  return (
+    <TabsPrimitive.List
+      data-slot="tabs-list"
+      data-variant={variant}
+      className={cn(tabsListVariants({ variant }), className)}
+      {...props}
+    />
+  )
+}
+
+function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
+  return (
+    <TabsPrimitive.Tab
+      data-slot="tabs-trigger"
+      className={cn(
+        "relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent",
+        "data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground",
+        "after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {
+  return (
+    <TabsPrimitive.Panel
+      data-slot="tabs-content"
+      className={cn("flex-1 text-sm outline-none", className)}
+      {...props}
+    />
+  )
+}
+
+export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }
