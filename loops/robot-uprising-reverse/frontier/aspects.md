@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 814
-- **Analyzed:** 312
-- **Pending:** 502
-- **Convergence:** 38.3%
+- **Total aspects:** 819
+- **Analyzed:** 313
+- **Pending:** 506
+- **Convergence:** 38.2%
 
 ---
 
@@ -818,7 +818,12 @@
 - [ ] 7.09 — The arms race as designed meta-evolution: Gauntlet meta not controlled by designers but evolving from player innovation; how to design a game that supports meta-evolution without locking into a dominant strategy; intervention points (seasonal resets, new skill/hook unlocks) vs. pure player-driven evolution
 - [ ] 7.11 — Match duration as community health signal: season meta reports tracking average match length across the Gauntlet population; dropping average match length as indicator of a dominant strategy (stomps increasing); "match length as meta health indicator" as a designed ecosystem diagnostic; when to trigger season resets based on this signal
 - [ ] 7.12 — Community-visible EDT distributions per config archetype: season analytics showing EDT distribution for each major config archetype (scout-heavy, relay-chain, command-agent); lets players understand the "match shape" profile of each archetype before choosing one; "relay-chain architectures tend toward EDT 0.45–0.65; scout-rush architectures tend toward EDT 0.15–0.30"; informed build choice using archetype EDT profile
-- [ ] 7.10 — The "config necropsy" as community artifact: a community practice where high-Elo players post config evolution retrospectives ("here's v1, here's the attack that broke it, here's v5"); designing the infrastructure to make this easy — version history export, annotatable replay sharing, readable config diff views
+- [x] 7.10 — The "config necropsy" as community artifact: a community practice where high-Elo players post config evolution retrospectives ("here's v1, here's the attack that broke it, here's v5"); designing the infrastructure to make this easy — version history export, annotatable replay sharing, readable config diff views
+  - [ ] 7.10a — Necropsy search and discovery UX: tag taxonomy (failure-type, archetype, rank-bracket, mission), search by config similarity, recommendation engine, featured necropsies as editorial content
+  - [ ] 7.10b — Necropsy reputation economy: "Senior Diagnostician" badge, diagnostic reputation as social currency distinct from competitive rank, the "famous analyst" archetype who is Gold-tier but writes Diamond-quality necropsies
+  - [ ] 7.10c — Necropsy-to-tutorial pipeline: promoting community-identified common failure patterns into official tutorial missions; community necropsy data as campaign content source; feedback loop from competitive play to onboarding
+  - [ ] 7.10d — Cross-necropsy pattern mining: automated analysis across published necropsies to find recurring failure patterns; necropsy data as game balance signal; "340 necropsies mention relay buffer overflow this month" as balance indicator
+  - [ ] 7.10e — Necropsy localization and accessibility: text-heavy community content for non-English speakers; machine translation with original preserved; audio narration; visual-only necropsies via annotated replays; tension between rich analysis and universal accessibility
 - [ ] 7.07 — Three orthogonal optimization axes: speed / efficiency / elegance as genuinely in-tension post-mission goals; a cycle-optimal army config and a buffer-minimal config should require different approaches
 - [ ] 7.08 — Deferred community metric invention: designing the scoring system to be extensible so the community can invent new evaluation axes; the Opus Magnum "MechA" pattern; what composite metrics might the Robot Uprising community invent?
 - [ ] 7.15 — The "eEDT as archetype signal" in config browsing: when filtering workshop configs by eEDT range, what does the browsing experience look like? How does a player communicate "I want configs that play into the midgame" as an explicit search filter?
