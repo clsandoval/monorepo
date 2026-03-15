@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Skeleton } from './skeleton-loader'
+import { Skeleton } from './skeleton'
 
 interface StatCardProps {
   label: string
@@ -19,12 +19,12 @@ function StatCardSkeleton({ variant }: { variant: 'default' | 'compact' }) {
   return (
     <div>
       <div className="flex items-center gap-2 mb-2">
-        <Skeleton width={20} height={20} />
-        <Skeleton width={80} height={12} />
+        <Skeleton className="h-5 w-5" />
+        <Skeleton className="h-3 w-20" />
       </div>
-      <Skeleton width={60} height={isDefault ? 32 : 28} />
+      <Skeleton className={`w-[60px] ${isDefault ? 'h-8' : 'h-7'}`} />
       <div className="mt-1">
-        <Skeleton width={100} height={isDefault ? 12 : 11} />
+        <Skeleton className={`w-[100px] ${isDefault ? 'h-3' : 'h-[11px]'}`} />
       </div>
     </div>
   )

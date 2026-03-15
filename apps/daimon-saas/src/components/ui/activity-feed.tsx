@@ -16,7 +16,7 @@ import {
   ActivityIcon,
 } from 'lucide-react'
 import { EmptyState } from './empty-state'
-import { Skeleton } from './skeleton-loader'
+import { Skeleton } from './skeleton'
 
 export type ActivityEventType =
   | 'bot_connected'
@@ -89,15 +89,15 @@ function ActivityFeedSkeleton() {
   return (
     <div style={{ background: '#FFFFFF', border: '1.5px solid rgba(12,31,64,0.12)', padding: '24px 28px' }}>
       <div className="border-b pb-4 mb-0" style={{ borderColor: 'rgba(12,31,64,0.06)' }}>
-        <Skeleton width={140} height={16} />
+        <Skeleton className="h-4 w-[140px]" />
       </div>
       <ul className="mt-3">
         {Array.from({ length: 5 }).map((_, i) => (
           <li key={i} className="flex items-start gap-3 py-3">
-            <Skeleton width={32} height={32} />
+            <Skeleton className="h-8 w-8" />
             <div className="flex flex-col gap-1 flex-1">
-              <Skeleton width="70%" height={14} />
-              <Skeleton width="40%" height={12} />
+              <Skeleton className="h-3.5 w-[70%]" />
+              <Skeleton className="h-3 w-[40%]" />
             </div>
           </li>
         ))}

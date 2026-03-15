@@ -1,5 +1,5 @@
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
-import { Skeleton } from '@/components/ui/skeleton-loader'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function BillingLoading() {
   return (
@@ -10,19 +10,19 @@ export default function BillingLoading() {
         role="status"
       >
         {/* Page header skeleton */}
-        <div style={{ marginBottom: '32px' }}>
-          <Skeleton width="160px" height="28px" style={{ marginBottom: '8px' }} />
-          <Skeleton width="420px" height="16px" />
+        <div className="mb-8">
+          <Skeleton className="mb-2 h-7 w-40" />
+          <Skeleton className="h-4 w-[420px]" />
         </div>
 
         {/* Section 1: Current Plan card */}
-        <Skeleton width="100%" height="120px" style={{ marginBottom: '24px' }} />
+        <Skeleton className="mb-6 h-[120px] w-full" />
 
         {/* Section 2: Plan comparison table */}
-        <Skeleton width="100%" height="280px" style={{ marginBottom: '24px' }} />
+        <Skeleton className="mb-6 h-[280px] w-full" />
 
         {/* Section 3: API Keys card (Anthropic + OpenAI) */}
-        <Skeleton width="100%" height="200px" style={{ marginBottom: '24px' }} />
+        <Skeleton className="mb-6 h-[200px] w-full" />
       </div>
     </DashboardLayout>
   )

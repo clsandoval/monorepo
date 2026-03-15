@@ -1,5 +1,5 @@
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
-import { Skeleton } from '@/components/ui/skeleton-loader'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function DashboardLoading() {
   return (
@@ -8,48 +8,30 @@ export default function DashboardLoading() {
         {/* Top row: 2-column card skeletons */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Bot Status Card skeleton */}
-          <div
-            className="flex flex-col gap-4 p-7"
-            style={{
-              background: '#fff',
-              border: '1.5px solid rgba(12,31,64,0.12)',
-            }}
-          >
-            <Skeleton width="40%" height="14px" />
-            <Skeleton width="60%" height="32px" />
-            <Skeleton width="80%" height="14px" />
-            <Skeleton width="50%" height="12px" />
+          <div className="flex flex-col gap-4 border border-border bg-card p-7">
+            <Skeleton className="h-3.5 w-[40%]" />
+            <Skeleton className="h-8 w-[60%]" />
+            <Skeleton className="h-3.5 w-[80%]" />
+            <Skeleton className="h-3 w-1/2" />
           </div>
 
           {/* API Keys Card skeleton */}
-          <div
-            className="flex flex-col gap-4 p-7"
-            style={{
-              background: '#fff',
-              border: '1.5px solid rgba(12,31,64,0.12)',
-            }}
-          >
-            <Skeleton width="35%" height="14px" />
+          <div className="flex flex-col gap-4 border border-border bg-card p-7">
+            <Skeleton className="h-3.5 w-[35%]" />
             <div className="flex flex-col gap-3 pt-2">
-              <Skeleton width="100%" height="40px" />
-              <Skeleton width="100%" height="40px" />
+              <Skeleton className="h-10 w-full" />
+              <Skeleton className="h-10 w-full" />
             </div>
           </div>
         </div>
 
         {/* Service integrations skeleton */}
-        <div
-          className="flex flex-col gap-4 p-7"
-          style={{
-            background: '#fff',
-            border: '1.5px solid rgba(12,31,64,0.12)',
-          }}
-        >
-          <Skeleton width="30%" height="14px" />
+        <div className="flex flex-col gap-4 border border-border bg-card p-7">
+          <Skeleton className="h-3.5 w-[30%]" />
           <div className="flex gap-4">
-            <Skeleton width="80px" height="80px" />
-            <Skeleton width="80px" height="80px" />
-            <Skeleton width="80px" height="80px" />
+            <Skeleton className="h-20 w-20" />
+            <Skeleton className="h-20 w-20" />
+            <Skeleton className="h-20 w-20" />
           </div>
         </div>
 
@@ -58,34 +40,24 @@ export default function DashboardLoading() {
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="flex flex-col gap-2 p-7"
-              style={{
-                background: '#fff',
-                border: '1.5px solid rgba(12,31,64,0.12)',
-              }}
+              className="flex flex-col gap-2 border border-border bg-card p-7"
             >
-              <Skeleton width="50%" height="12px" />
-              <Skeleton width="40%" height="28px" />
+              <Skeleton className="h-3 w-1/2" />
+              <Skeleton className="h-7 w-[40%]" />
             </div>
           ))}
         </div>
 
         {/* Activity feed skeleton */}
-        <div
-          className="flex flex-col gap-4 p-7"
-          style={{
-            background: '#fff',
-            border: '1.5px solid rgba(12,31,64,0.12)',
-          }}
-        >
-          <Skeleton width="30%" height="14px" />
+        <div className="flex flex-col gap-4 border border-border bg-card p-7">
+          <Skeleton className="h-3.5 w-[30%]" />
           <div className="flex flex-col gap-3 pt-2">
             {[0, 1, 2, 3, 4].map((i) => (
               <div key={i} className="flex items-center gap-3">
-                <Skeleton width="32px" height="32px" style={{ borderRadius: '50%' }} />
+                <Skeleton className="h-8 w-8 rounded-full" />
                 <div className="flex flex-1 flex-col gap-1">
-                  <Skeleton width="60%" height="13px" />
-                  <Skeleton width="30%" height="11px" />
+                  <Skeleton className="h-[13px] w-[60%]" />
+                  <Skeleton className="h-[11px] w-[30%]" />
                 </div>
               </div>
             ))}
