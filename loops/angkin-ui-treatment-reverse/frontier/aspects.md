@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 27
-- **Analyzed**: 23
-- **Pending**: 4
-- **Convergence**: 85.2%
+- **Analyzed**: 24
+- **Pending**: 3
+- **Convergence**: 88.9%
 
 ## Wave 1: Research & Foundation (Read existing code, benchmarks, decisions)
 
@@ -41,7 +41,7 @@
 - [x] 4.4 — Inheritance wizard step: family tree builder or estate details form. Desktop 1280px.
 - [x] 4.5 — Generic "new tool" template: what a new compliance calculator looks like day 1. Desktop 1280px.
 - [x] 4.6 — Mobile treatments: 3-4 key screens at 375px — platform home, wizard step, results page, nav menu.
-- [ ] 4.7 — Dark mode screens: 2-3 screens showing the dark mode palette in action.
+- [x] 4.7 — Dark mode screens: 2-3 screens showing the dark mode palette in action.
 
 ## Wave 5: Assembly & Polish (Build the HTML deck)
 
