@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 870
-- **Analyzed:** 323
-- **Pending:** 547
-- **Convergence:** 37.1%
+- **Total aspects:** 875
+- **Analyzed:** 324
+- **Pending:** 551
+- **Convergence:** 37.0%
 
 ---
 
@@ -827,8 +827,13 @@
 - [ ] 6.11a — Demo-to-full-game save migration: localStorage → Steam Cloud sync, account linking, handling demo progress incompatible with newer game versions, "thank you for playing the demo" emotional beat
 - [ ] 6.11b — Demo-specific analytics dashboard: funnel visualization, drop-off points, retry rates per mission, Inspector engagement heatmap, conversion attribution — developers applying the game's Inspector philosophy to business metrics
 - [ ] 6.11c — Embeddable demo widget for gaming press: lightweight iframe embed for review articles, "Play Mission 1 right here," <2s load, Steam widget on completion, responsive width, message-passing API
-- [ ] 6.11d — Demo as competitive event infrastructure: weekly community challenges on sandbox mode, fixed config constraints, leaderboard on demo page, demo as ongoing community infrastructure not just acquisition
+- [x] 6.11d — Demo as competitive event infrastructure: weekly community challenges on sandbox mode, fixed config constraints, leaderboard on demo page, demo as ongoing community infrastructure not just acquisition
 - [ ] 6.11e — QR code physical-to-digital funnel: convention booths, poster campaigns, attribution-tracked QR codes linking to demo, physical world → browser → Steam wishlist three-step funnel
+- [ ] 6.11d-i — Anti-cheat in a deterministic demo: brute-force optimization vs. legitimate iteration; what "cheating" means when the game is about configuration not execution; search space exploration as intended behavior or exploit
+- [ ] 6.11d-ii — Demo-to-full-game badge migration: how demo badges (Seasonal Circuit rankings, Daily Config streaks) transfer on purchase; badge persistence across platforms; "Demo Veteran" prestige hierarchy; interaction with Gauntlet ratings
+- [ ] 6.11d-iii — Challenge authoring tools for designers: internal tool for creating weekly/seasonal challenges; enemy config → constraint specification → difficulty estimation → playtesting → publication pipeline; potential community opening as Bounty Board
+- [ ] 6.11d-iv — Timezone equity in daily challenges: midnight UTC reset fairness across global timezones; rolling resets vs. fixed UTC vs. player-local-time; implications for Philippines (UTC+8) vs. US audiences; leaderboard fairness
+- [ ] 6.11d-v — Educational institution demo integration: class groups, assignment-friendly Inspector exports, curriculum-aligned seasonal schedules; the demo as teaching platform for CS/multi-agent-systems courses
 
 ---
 
