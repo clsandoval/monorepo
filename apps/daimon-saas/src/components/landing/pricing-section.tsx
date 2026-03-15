@@ -2,6 +2,11 @@
 
 import { useState } from 'react'
 import { Info } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { buttonVariants } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 
 type BillingCycle = 'monthly' | 'annual'
 
@@ -34,467 +39,199 @@ const PRO_FEATURES = [
   'Early access to new integrations',
 ]
 
+function FeatureList({
+  features,
+  dark = false,
+}: {
+  features: string[]
+  dark?: boolean
+}) {
+  return (
+    <div>
+      <p
+        className={cn(
+          'mb-3 font-body text-xs font-semibold uppercase tracking-wider',
+          dark ? 'text-white/40' : 'text-foreground/40'
+        )}
+      >
+        What&apos;s included
+      </p>
+      <ul className="flex flex-col gap-2">
+        {features.map((f) => (
+          <li
+            key={f}
+            className={cn(
+              'flex items-start gap-2.5 font-body text-sm leading-relaxed',
+              dark ? 'text-white/85' : 'text-foreground/80'
+            )}
+          >
+            <span className="mt-[5px] inline-block h-1.5 w-1.5 shrink-0 bg-primary" />
+            {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export function PricingSection() {
   const [cycle, setCycle] = useState<BillingCycle>('monthly')
 
   return (
-    <section id="pricing" aria-label="Pricing" style={{ scrollMarginTop: '80px' }}>
-      <style>{`
-        .pricing-root {
-          background-color: #F7F7F7;
-          padding: 96px 0;
-        }
-        .pricing-container {
-          max-width: 1280px;
-          margin: 0 auto;
-          padding: 0 32px;
-        }
-        .pricing-section-label {
-          font-size: 12px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: rgba(12, 31, 64, 0.5);
-          margin-bottom: 12px;
-          font-family: var(--font-body);
-          text-align: center;
-        }
-        .pricing-heading {
-          font-size: clamp(28px, 3.5vw, 44px);
-          font-weight: 500;
-          color: #0C1F40;
-          text-align: center;
-          margin-bottom: 16px;
-        }
-        .pricing-divider {
-          width: 48px;
-          height: 3px;
-          background-color: #B4E7DD;
-          border-radius: 2px;
-          margin: 24px auto;
-        }
-        .pricing-subheadline {
-          font-size: 18px;
-          font-weight: 400;
-          color: rgba(12, 31, 64, 0.7);
-          line-height: 1.6;
-          max-width: 560px;
-          margin: 0 auto 40px;
-          text-align: center;
-          font-family: var(--font-body);
-        }
-
-        /* Billing toggle */
-        .pricing-toggle-wrap {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 48px;
-        }
-        .pricing-toggle {
-          display: inline-flex;
-          align-items: center;
-          border: 1.5px solid rgba(12, 31, 64, 0.15);
-          border-radius: 0;
-          overflow: hidden;
-        }
-        .pricing-toggle-btn {
-          height: 38px;
-          padding: 0 16px;
-          font-size: 14px;
-          font-weight: 500;
-          font-family: var(--font-body);
-          border: none;
-          cursor: pointer;
-          transition: background 0.15s ease;
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          white-space: nowrap;
-        }
-        .pricing-toggle-btn.active {
-          background-color: #B4E7DD;
-          color: #0C1F40;
-        }
-        .pricing-toggle-btn.inactive {
-          background-color: transparent;
-          color: rgba(12, 31, 64, 0.6);
-        }
-        .pricing-save-badge {
-          font-size: 12px;
-          font-weight: 600;
-          background-color: #B4E7DD;
-          color: #0C1F40;
-          padding: 2px 8px;
-          border-radius: 0;
-          font-family: var(--font-body);
-        }
-
-        /* Grid */
-        .pricing-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
-          align-items: start;
-        }
-
-        /* Base card */
-        .pricing-card {
-          padding: 32px;
-          border-radius: 0;
-          position: relative;
-        }
-        .pricing-card-light {
-          background-color: #FFFFFF;
-          border: 1.5px solid rgba(12, 31, 64, 0.1);
-        }
-        .pricing-card-dark {
-          background-color: #0C1F40;
-          border: none;
-        }
-
-        /* Most popular badge */
-        .pricing-popular-badge {
-          position: absolute;
-          top: 16px;
-          right: 16px;
-          font-size: 12px;
-          font-weight: 600;
-          background-color: #B4E7DD;
-          color: #0C1F40;
-          padding: 4px 14px;
-          border-radius: 0;
-          font-family: var(--font-body);
-        }
-
-        /* Plan name */
-        .pricing-plan-name-light {
-          font-size: 14px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: rgba(12, 31, 64, 0.5);
-          font-family: var(--font-body);
-          margin-bottom: 16px;
-        }
-        .pricing-plan-name-dark {
-          font-size: 14px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: rgba(255, 255, 255, 0.5);
-          font-family: var(--font-body);
-          margin-bottom: 16px;
-        }
-
-        /* Price */
-        .pricing-price-row {
-          display: flex;
-          align-items: baseline;
-          gap: 4px;
-          margin-bottom: 4px;
-        }
-        .pricing-price-light {
-          font-size: 48px;
-          font-weight: 700;
-          color: #0C1F40;
-          line-height: 1;
-        }
-        .pricing-price-dark {
-          font-size: 48px;
-          font-weight: 700;
-          color: #FFFFFF;
-          line-height: 1;
-        }
-        .pricing-price-period-light {
-          font-size: 16px;
-          font-weight: 400;
-          color: rgba(12, 31, 64, 0.5);
-          font-family: var(--font-body);
-        }
-        .pricing-price-period-dark {
-          font-size: 16px;
-          font-weight: 400;
-          color: rgba(255, 255, 255, 0.5);
-          font-family: var(--font-body);
-        }
-        .pricing-annual-note {
-          font-size: 13px;
-          font-weight: 400;
-          font-family: var(--font-body);
-          margin-bottom: 4px;
-        }
-        .pricing-annual-note-light { color: rgba(12, 31, 64, 0.5); }
-        .pricing-annual-note-dark { color: rgba(255, 255, 255, 0.4); }
-
-        .pricing-price-desc-light {
-          font-size: 14px;
-          color: rgba(12, 31, 64, 0.6);
-          font-family: var(--font-body);
-          margin-top: 8px;
-        }
-        .pricing-price-desc-dark {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.6);
-          font-family: var(--font-body);
-          margin-top: 8px;
-        }
-
-        /* Divider */
-        .pricing-card-divider-light {
-          border: none;
-          border-top: 1px solid rgba(12, 31, 64, 0.08);
-          margin: 24px 0;
-        }
-        .pricing-card-divider-dark {
-          border: none;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          margin: 24px 0;
-        }
-
-        /* CTA buttons */
-        .pricing-cta-secondary {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          height: 44px;
-          background-color: transparent;
-          color: #0C1F40;
-          border: 1.5px solid #0C1F40;
-          border-radius: 0;
-          font-size: 15px;
-          font-weight: 600;
-          font-family: var(--font-body);
-          text-decoration: none;
-          transition: all 0.2s ease;
-          cursor: pointer;
-        }
-        .pricing-cta-secondary:hover {
-          background-color: #0C1F40;
-          color: #FFFFFF;
-        }
-        .pricing-cta-primary-dark {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          height: 44px;
-          background-color: #B4E7DD;
-          color: #0C1F40;
-          border: 1.5px solid #B4E7DD;
-          border-radius: 0;
-          font-size: 15px;
-          font-weight: 600;
-          font-family: var(--font-body);
-          text-decoration: none;
-          transition: opacity 0.2s ease;
-          cursor: pointer;
-        }
-        .pricing-cta-primary-dark:hover { opacity: 0.85; }
-
-        /* Feature list */
-        .pricing-feature-heading-light {
-          font-size: 12px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: rgba(12, 31, 64, 0.4);
-          font-family: var(--font-body);
-          margin-bottom: 12px;
-        }
-        .pricing-feature-heading-dark {
-          font-size: 12px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: rgba(255, 255, 255, 0.4);
-          font-family: var(--font-body);
-          margin-bottom: 12px;
-        }
-        .pricing-feature-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-        }
-        .pricing-feature-item {
-          display: flex;
-          align-items: flex-start;
-          gap: 10px;
-          font-family: var(--font-body);
-          font-size: 14px;
-          line-height: 1.5;
-        }
-        .pricing-feature-item-light { color: rgba(12, 31, 64, 0.8); }
-        .pricing-feature-item-dark { color: rgba(255, 255, 255, 0.85); }
-        .pricing-bullet {
-          display: inline-block;
-          width: 6px;
-          height: 6px;
-          background-color: #B4E7DD;
-          flex-shrink: 0;
-          margin-top: 5px;
-        }
-
-        /* BYOK note */
-        .pricing-byok-wrap {
-          margin-top: 32px;
-          display: flex;
-          justify-content: center;
-        }
-        .pricing-byok-note {
-          max-width: 640px;
-          width: 100%;
-          background: rgba(180, 231, 221, 0.15);
-          border: 1px solid rgba(180, 231, 221, 0.4);
-          padding: 20px 24px;
-          border-radius: 0;
-          display: flex;
-          gap: 12px;
-          align-items: flex-start;
-        }
-        .pricing-byok-icon {
-          flex-shrink: 0;
-          margin-top: 2px;
-          color: rgba(12, 31, 64, 0.6);
-        }
-        .pricing-byok-text {
-          font-size: 14px;
-          font-family: var(--font-body);
-          color: rgba(12, 31, 64, 0.7);
-          line-height: 1.6;
-        }
-        .pricing-byok-text strong {
-          font-weight: 600;
-          color: #0C1F40;
-        }
-
-        @media (max-width: 900px) {
-          .pricing-grid { grid-template-columns: 1fr; }
-        }
-      `}</style>
-
-      <div className="pricing-root">
-        <div className="pricing-container">
+    <section
+      id="pricing"
+      aria-label="Pricing"
+      className="scroll-mt-20"
+    >
+      <div className="bg-background py-24">
+        <div className="mx-auto max-w-[1280px] px-8">
           {/* Section header */}
-          <p className="pricing-section-label">Pricing</p>
-          <h2 className="pricing-heading font-headline-semi-expanded">
+          <p className="mb-3 text-center font-body text-xs font-semibold uppercase tracking-widest text-foreground/50">
+            Pricing
+          </p>
+          <h2 className="font-headline-semi-expanded text-center text-[clamp(28px,3.5vw,44px)] font-medium text-foreground">
             Simple pricing. Your API costs stay yours.
           </h2>
-          <div className="pricing-divider" />
-          <p className="pricing-subheadline">
+          <div className="mx-auto my-6 h-[3px] w-12 bg-primary" />
+          <p className="mx-auto mb-10 max-w-[560px] text-center font-body text-lg leading-relaxed text-foreground/70">
             Daimon charges a small platform fee. You pay Anthropic directly for AI usage. No per-message markup, no hidden fees.
           </p>
 
           {/* Billing toggle */}
-          <div className="pricing-toggle-wrap">
-            <div className="pricing-toggle">
+          <div className="mb-12 flex justify-center">
+            <div className="inline-flex items-center overflow-hidden border-[1.5px] border-border">
               <button
-                className={`pricing-toggle-btn ${cycle === 'monthly' ? 'active' : 'inactive'}`}
+                className={cn(
+                  'flex h-[38px] items-center gap-1.5 whitespace-nowrap px-4 font-body text-sm font-medium transition-colors',
+                  cycle === 'monthly'
+                    ? 'bg-primary text-foreground'
+                    : 'bg-transparent text-foreground/60'
+                )}
                 onClick={() => setCycle('monthly')}
               >
                 Monthly
               </button>
               <button
-                className={`pricing-toggle-btn ${cycle === 'annual' ? 'active' : 'inactive'}`}
+                className={cn(
+                  'flex h-[38px] items-center gap-1.5 whitespace-nowrap px-4 font-body text-sm font-medium transition-colors',
+                  cycle === 'annual'
+                    ? 'bg-primary text-foreground'
+                    : 'bg-transparent text-foreground/60'
+                )}
                 onClick={() => setCycle('annual')}
               >
                 Annual
                 {cycle !== 'annual' && (
-                  <span className="pricing-save-badge">Save 20%</span>
+                  <Badge variant="neutral" label="Save 20%" uppercase={false} className="bg-primary text-foreground" />
                 )}
               </button>
             </div>
           </div>
 
           {/* Pricing grid */}
-          <div className="pricing-grid">
+          <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-3">
             {/* Free */}
-            <div className="pricing-card pricing-card-light">
-              <h3 className="pricing-plan-name-light">Free</h3>
-              <div className="pricing-price-row">
-                <span className="pricing-price-light font-headline-expanded">$0</span>
-                <span className="pricing-price-period-light">/ month</span>
-              </div>
-              <p className="pricing-price-desc-light">Forever free. Bring your own Anthropic key.</p>
-              <hr className="pricing-card-divider-light" />
-              <a href="/signup" className="pricing-cta-secondary">Get Started Free</a>
-              <hr className="pricing-card-divider-light" />
-              <p className="pricing-feature-heading-light">What&apos;s included</p>
-              <ul className="pricing-feature-list">
-                {FREE_FEATURES.map((f) => (
-                  <li key={f} className="pricing-feature-item pricing-feature-item-light">
-                    <span className="pricing-bullet" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Card className="rounded-none border-[1.5px] border-foreground/10 bg-card p-8">
+              <CardContent className="flex flex-col gap-0 p-0">
+                <h3 className="mb-4 font-body text-sm font-semibold uppercase tracking-wider text-foreground/50">
+                  Free
+                </h3>
+                <div className="mb-1 flex items-baseline gap-1">
+                  <span className="font-headline-expanded text-5xl font-bold text-foreground">$0</span>
+                  <span className="font-body text-base text-foreground/50">/ month</span>
+                </div>
+                <p className="mt-2 font-body text-sm text-foreground/60">
+                  Forever free. Bring your own Anthropic key.
+                </p>
+                <Separator className="my-6" />
+                <a
+                  href="/signup"
+                  className={cn(
+                    buttonVariants({ variant: 'outline', size: 'lg' }),
+                    'h-11 w-full rounded-none border-[1.5px] border-foreground font-body text-[15px] font-semibold hover:bg-foreground hover:text-card'
+                  )}
+                >
+                  Get Started Free
+                </a>
+                <Separator className="my-6" />
+                <FeatureList features={FREE_FEATURES} />
+              </CardContent>
+            </Card>
 
             {/* Starter — Most Popular */}
-            <div className="pricing-card pricing-card-dark">
-              <span className="pricing-popular-badge">Most Popular</span>
-              <h3 className="pricing-plan-name-dark">Starter</h3>
-              <div className="pricing-price-row">
-                <span className="pricing-price-dark font-headline-expanded">
-                  {cycle === 'monthly' ? '$9' : '$6.58'}
-                </span>
-                <span className="pricing-price-period-dark">/ month</span>
-              </div>
-              {cycle === 'annual' && (
-                <p className="pricing-annual-note pricing-annual-note-dark">billed $79/yr</p>
-              )}
-              <p className="pricing-price-desc-dark">A small platform fee. You pay Anthropic separately.</p>
-              <hr className="pricing-card-divider-dark" />
-              <a href="/signup" className="pricing-cta-primary-dark">Start Starter Plan</a>
-              <hr className="pricing-card-divider-dark" />
-              <p className="pricing-feature-heading-dark">What&apos;s included</p>
-              <ul className="pricing-feature-list">
-                {STARTER_FEATURES.map((f) => (
-                  <li key={f} className="pricing-feature-item pricing-feature-item-dark">
-                    <span className="pricing-bullet" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Card className="relative rounded-none border-none bg-foreground p-8">
+              <Badge variant="neutral" label="Most Popular" uppercase={false} className="absolute right-4 top-4 bg-primary text-foreground" />
+              <CardContent className="flex flex-col gap-0 p-0">
+                <h3 className="mb-4 font-body text-sm font-semibold uppercase tracking-wider text-white/50">
+                  Starter
+                </h3>
+                <div className="mb-1 flex items-baseline gap-1">
+                  <span className="font-headline-expanded text-5xl font-bold text-white">
+                    {cycle === 'monthly' ? '$9' : '$6.58'}
+                  </span>
+                  <span className="font-body text-base text-white/50">/ month</span>
+                </div>
+                {cycle === 'annual' && (
+                  <p className="mb-1 font-body text-[13px] text-white/40">billed $79/yr</p>
+                )}
+                <p className="mt-2 font-body text-sm text-white/60">
+                  A small platform fee. You pay Anthropic separately.
+                </p>
+                <Separator className="my-6 bg-white/10" />
+                <a
+                  href="/signup"
+                  className={cn(
+                    buttonVariants({ variant: 'default', size: 'lg' }),
+                    'h-11 w-full rounded-none border-[1.5px] border-primary bg-primary font-body text-[15px] font-semibold text-foreground hover:opacity-85'
+                  )}
+                >
+                  Start Starter Plan
+                </a>
+                <Separator className="my-6 bg-white/10" />
+                <FeatureList features={STARTER_FEATURES} dark />
+              </CardContent>
+            </Card>
 
             {/* Pro */}
-            <div className="pricing-card pricing-card-light">
-              <h3 className="pricing-plan-name-light">Pro</h3>
-              <div className="pricing-price-row">
-                <span className="pricing-price-light font-headline-expanded">
-                  {cycle === 'monthly' ? '$29' : '$20.75'}
-                </span>
-                <span className="pricing-price-period-light">/ month</span>
-              </div>
-              {cycle === 'annual' && (
-                <p className="pricing-annual-note pricing-annual-note-light">billed $249/yr</p>
-              )}
-              <p className="pricing-price-desc-light">For teams and power users.</p>
-              <hr className="pricing-card-divider-light" />
-              <a href="/signup" className="pricing-cta-secondary">Start Pro Plan</a>
-              <hr className="pricing-card-divider-light" />
-              <p className="pricing-feature-heading-light">What&apos;s included</p>
-              <ul className="pricing-feature-list">
-                {PRO_FEATURES.map((f) => (
-                  <li key={f} className="pricing-feature-item pricing-feature-item-light">
-                    <span className="pricing-bullet" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Card className="rounded-none border-[1.5px] border-foreground/10 bg-card p-8">
+              <CardContent className="flex flex-col gap-0 p-0">
+                <h3 className="mb-4 font-body text-sm font-semibold uppercase tracking-wider text-foreground/50">
+                  Pro
+                </h3>
+                <div className="mb-1 flex items-baseline gap-1">
+                  <span className="font-headline-expanded text-5xl font-bold text-foreground">
+                    {cycle === 'monthly' ? '$29' : '$20.75'}
+                  </span>
+                  <span className="font-body text-base text-foreground/50">/ month</span>
+                </div>
+                {cycle === 'annual' && (
+                  <p className="mb-1 font-body text-[13px] text-foreground/50">billed $249/yr</p>
+                )}
+                <p className="mt-2 font-body text-sm text-foreground/60">
+                  For teams and power users.
+                </p>
+                <Separator className="my-6" />
+                <a
+                  href="/signup"
+                  className={cn(
+                    buttonVariants({ variant: 'outline', size: 'lg' }),
+                    'h-11 w-full rounded-none border-[1.5px] border-foreground font-body text-[15px] font-semibold hover:bg-foreground hover:text-card'
+                  )}
+                >
+                  Start Pro Plan
+                </a>
+                <Separator className="my-6" />
+                <FeatureList features={PRO_FEATURES} />
+              </CardContent>
+            </Card>
           </div>
 
           {/* BYOK note */}
-          <div className="pricing-byok-wrap">
-            <div className="pricing-byok-note">
-              <Info size={16} className="pricing-byok-icon" />
-              <p className="pricing-byok-text">
-                <strong>How BYOK pricing works</strong>: Daimon charges only the platform fee above. Your bot&apos;s AI usage (Claude API calls) is billed directly from Anthropic to your API key. You keep full visibility and control over your AI spending.
+          <div className="mt-8 flex justify-center">
+            <div className="flex w-full max-w-[640px] items-start gap-3 border border-primary/40 bg-primary/15 p-5">
+              <Info size={16} className="mt-0.5 shrink-0 text-foreground/60" />
+              <p className="font-body text-sm leading-relaxed text-foreground/70">
+                <strong className="font-semibold text-foreground">How BYOK pricing works</strong>: Daimon charges only the platform fee above. Your bot&apos;s AI usage (Claude API calls) is billed directly from Anthropic to your API key. You keep full visibility and control over your AI spending.
               </p>
             </div>
           </div>
