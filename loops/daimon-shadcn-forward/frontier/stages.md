@@ -107,7 +107,7 @@ Each stage: navigate route at 1280x800 via Playwright, assert no console errors,
 - [x] **Stage 80**: Desktop verify `/docs/billing` — billing docs render (2026-03-15)
 - [x] **Stage 81**: Desktop verify `/docs/faq` — FAQ items render with questions and answers (2026-03-15)
 - [x] **Stage 82**: Desktop verify `/blog` — blog index renders with post cards (2026-03-15)
-- [ ] **Stage 83**: Desktop verify `/blog/introducing-daimon` — blog post renders with title, date, body
+- [x] **Stage 83**: Desktop verify `/blog/introducing-daimon` — blog post renders with title, date, body (2026-03-15)
 - [ ] **Stage 84**: Desktop verify `/blog/byok-why-it-matters` — blog post renders
 - [ ] **Stage 85**: Desktop verify `/blog/discord-as-operating-system` — blog post renders
 - [ ] **Stage 86**: Desktop verify `/dashboard` (authenticated) — sign in first, verify status cards + quick stats + onboarding checklist render
