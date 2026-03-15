@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 720
-- **Analyzed:** 293
-- **Pending:** 427
-- **Convergence:** 40.7%
+- **Total aspects:** 725
+- **Analyzed:** 294
+- **Pending:** 431
+- **Convergence:** 40.6%
 
 ---
 
@@ -426,7 +426,7 @@
   - [ ] 2.00b-ii — Callsign attachment and blueprint identity: when a player modifies every rule in a "Cautious" template, is it still "Cautious"? The Ship of Theseus problem for personality templates; should templates have a mutation threshold where the label changes; "Custom" as default label after N modifications vs. preserving lineage forever
   - [ ] 2.00b-iii — Personality animation intensity as accessibility concern: players with photosensitivity, ADHD, or sensory processing differences may find idle animations distracting or triggering; design of the animation intensity slider (Minimal/Standard/Detailed) and what each level preserves vs. removes; interaction with reduced-motion OS settings
   - [ ] 2.00b-iv — Enemy agent personality as intelligence signal: should enemy units also have callsigns, personality animations, and legible behavior patterns? If yes, the player can "read" enemy personality from observation ("that enemy scout is cautious — it retreats early"); if no, enemies remain opaque and alien. Interaction with counter-intelligence (2.16) and information warfare
-- [ ] 2.00c — Hybrid: deterministic core with optional LLM enhancement (players who want it pay API cost, others play offline)
+- [x] 2.00c — Hybrid: deterministic core with optional LLM enhancement (players who want it pay API cost, others play offline)
 - [ ] 2.00d — LLM-native: lean into it, make token cost a resource, make the AI's reasoning visible and part of the game
 - [ ] 2.00e — The meta-level: building systems that build systems — how does each intelligence model support the "factory of agents" feeling?
 - [ ] 2.00f — No global coordinator as design constraint: agents that only know their immediate neighbors; emergent swarm behavior from local decisions only (from TIS-100's no-orchestrator architecture)
@@ -435,6 +435,11 @@
 - [ ] 2.00i — Sensitive dependence on initial conditions via buffer state: even deterministic systems can exhibit chaotic behavior when buffer contents create feedback loops; how two runs with slightly different enemy spawn positions cascade into completely different agent behaviors by tick 30; the buffer as a chaos engine
 - [ ] 2.00j — The debugging tax of full determinism: every failure is the player's fault; no "bad luck" to blame; for some players this is liberating, for others it's exhausting; how the debrief tools (especially the Minimum Fix Explorer) should surface the most impactful change to reduce diagnostic burden
 - [ ] 2.00k — Cross-model comparison matrix: formal side-by-side evaluation of all intelligence models (2.00a–2.00d) across 10 dimensions (debuggability, spectator drama, personality ceiling, educational transfer, async PvP fairness, computational cost, accessibility floor, skill ceiling, mod support, platform portability)
+- [ ] 2.00c-i — The Socratic calibration curve: how the LLM's directness scales across 10 missions (pure questions → structural hints → direct analysis); scaffolding that removes itself; calibration for different player archetypes
+- [ ] 2.00c-ii — LLM-as-opponent-coach: adversarial AI that designs enemy configs to counter the player's architecture; the LLM is the opponent designer, not the assistant; escalation curve and fairness constraints
+- [ ] 2.00c-iii — Replay narration as spectator feature: LLM sports-commentator narrating replays in real-time; streamer/content creator value; non-player watchability; the TikTok clip generator
+- [ ] 2.00c-iv — Config diff explanation: translating structural config changes into behavioral predictions; "git diff for robot behavior"; version comparison tool for iterative design
+- [ ] 2.00c-v — Community knowledge distillation: LLM with access to aggregated anonymized community strategy data; meta-awareness as a feature; privacy and competitive integrity implications
 - [x] 2.14 — Spatial routing as mechanic layer: battlefield layout creates information routing constraints, separate from configuration logic; agent proximity determines which hook chains are possible
 - [ ] 2.15 — Pipelined agent execution: throughput-optimal configurations where agents handle overlapping tasks (agent A finishes task N while agent B starts task N+1); cycle-optimal solutions look different from cost-optimal solutions; maps to Opus Magnum's pipeline-vs-sequential tradeoff
 - [ ] 2.16 — Counter-intelligence as offensive mechanic: deliberately leaving enemy-injected hooks active and routing deceptive signals through them; "hook judo" — using enemy infrastructure against them; how the game scaffolds this discovery moment; risk/reward of leaving a known intrusion active
