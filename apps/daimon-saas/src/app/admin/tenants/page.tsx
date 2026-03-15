@@ -273,92 +273,103 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
   const sort = params.sort ?? 'created_desc'
   const page = Math.max(1, parseInt(params.page ?? '1', 10))
 
-  const supabaseAdmin = createSupabaseAdminClient()
+  let totalCount = 0
+  let activeCount = 0
+  let payingCount = 0
+  let suspendedCount = 0
+  let tenants: TenantRow[] = []
+  let total = 0
 
-  // ── Stats (parallel) ──────────────────────────────────────────────────────
-  const [totalResult, activeResult, payingResult, suspendedResult] = await Promise.all([
-    supabaseAdmin.from('tenants').select('*', { count: 'exact', head: true }),
-    supabaseAdmin
+  try {
+    const supabaseAdmin = createSupabaseAdminClient()
+
+    // ── Stats (parallel) ──────────────────────────────────────────────────────
+    const [totalResult, activeResult, payingResult, suspendedResult] = await Promise.all([
+      supabaseAdmin.from('tenants').select('*', { count: 'exact', head: true }),
+      supabaseAdmin
+        .from('tenants')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'active'),
+      supabaseAdmin
+        .from('tenants')
+        .select('*', { count: 'exact', head: true })
+        .in('plan', ['starter', 'pro']),
+      supabaseAdmin
+        .from('tenants')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'suspended'),
+    ])
+
+    totalCount = totalResult.count ?? 0
+    activeCount = activeResult.count ?? 0
+    payingCount = payingResult.count ?? 0
+    suspendedCount = suspendedResult.count ?? 0
+
+    // ── Tenant list query ─────────────────────────────────────────────────────
+    const sortOpt = SORT_MAP[sort] ?? SORT_MAP.created_desc
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let query: any = supabaseAdmin
       .from('tenants')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'active'),
-    supabaseAdmin
-      .from('tenants')
-      .select('*', { count: 'exact', head: true })
-      .in('plan', ['starter', 'pro']),
-    supabaseAdmin
-      .from('tenants')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'suspended'),
-  ])
+      .select(
+        `id, name, plan, status, created_at, owner_id,
+         discord_connections(bot_username, guild_id, status)`,
+        { count: 'exact' }
+      )
 
-  const totalCount = totalResult.count ?? 0
-  const activeCount = activeResult.count ?? 0
-  const payingCount = payingResult.count ?? 0
-  const suspendedCount = suspendedResult.count ?? 0
+    if (q) query = query.ilike('name', `%${q}%`)
+    if (planFilter) query = query.eq('plan', planFilter)
+    if (statusFilter) query = query.eq('status', statusFilter)
 
-  // ── Tenant list query ─────────────────────────────────────────────────────
-  const sortOpt = SORT_MAP[sort] ?? SORT_MAP.created_desc
+    query = query.order(sortOpt.column, { ascending: sortOpt.ascending })
+    query = query.range((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE - 1)
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let query: any = supabaseAdmin
-    .from('tenants')
-    .select(
-      `id, name, plan, status, created_at, owner_id,
-       discord_connections(bot_username, guild_id, status)`,
-      { count: 'exact' }
+    const { data: rawTenants, count: listCount } = await query
+
+    // ── Owner email lookup ────────────────────────────────────────────────────
+    const ownerIds: string[] = (rawTenants ?? []).map((t: { owner_id: string }) => t.owner_id)
+    const emailMap: Record<string, string> = {}
+    if (ownerIds.length > 0) {
+      const results = await Promise.allSettled(
+        ownerIds.map((id) => supabaseAdmin.auth.admin.getUserById(id))
+      )
+      results.forEach((result, i) => {
+        if (result.status === 'fulfilled' && result.value.data?.user) {
+          emailMap[ownerIds[i]] = result.value.data.user.email ?? ''
+        }
+      })
+    }
+
+    // ── Build typed rows ──────────────────────────────────────────────────────
+    tenants = (rawTenants ?? []).map(
+      (t: {
+        id: string
+        name: string
+        plan: string
+        status: string
+        created_at: string
+        owner_id: string
+        discord_connections: Array<{ bot_username: string | null; guild_id: string; status: string }>
+      }) => ({
+        id: t.id,
+        name: t.name,
+        plan: t.plan as TenantRow['plan'],
+        status: t.status as TenantRow['status'],
+        created_at: t.created_at,
+        owner_id: t.owner_id,
+        ownerEmail: emailMap[t.owner_id] ?? '',
+        discord:
+          t.discord_connections && t.discord_connections.length > 0
+            ? t.discord_connections[0]
+            : null,
+      })
     )
 
-  if (q) query = query.ilike('name', `%${q}%`)
-  if (planFilter) query = query.eq('plan', planFilter)
-  if (statusFilter) query = query.eq('status', statusFilter)
-
-  query = query.order(sortOpt.column, { ascending: sortOpt.ascending })
-  query = query.range((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE - 1)
-
-  const { data: rawTenants, count: listCount } = await query
-
-  // ── Owner email lookup ────────────────────────────────────────────────────
-  const ownerIds: string[] = (rawTenants ?? []).map((t: { owner_id: string }) => t.owner_id)
-  const emailMap: Record<string, string> = {}
-  if (ownerIds.length > 0) {
-    // Batch lookup using admin auth API
-    const results = await Promise.allSettled(
-      ownerIds.map((id) => supabaseAdmin.auth.admin.getUserById(id))
-    )
-    results.forEach((result, i) => {
-      if (result.status === 'fulfilled' && result.value.data?.user) {
-        emailMap[ownerIds[i]] = result.value.data.user.email ?? ''
-      }
-    })
+    total = listCount ?? 0
+  } catch {
+    // Admin credentials not available — render with empty data
   }
 
-  // ── Build typed rows ──────────────────────────────────────────────────────
-  const tenants: TenantRow[] = (rawTenants ?? []).map(
-    (t: {
-      id: string
-      name: string
-      plan: string
-      status: string
-      created_at: string
-      owner_id: string
-      discord_connections: Array<{ bot_username: string | null; guild_id: string; status: string }>
-    }) => ({
-      id: t.id,
-      name: t.name,
-      plan: t.plan as TenantRow['plan'],
-      status: t.status as TenantRow['status'],
-      created_at: t.created_at,
-      owner_id: t.owner_id,
-      ownerEmail: emailMap[t.owner_id] ?? '',
-      discord:
-        t.discord_connections && t.discord_connections.length > 0
-          ? t.discord_connections[0]
-          : null,
-    })
-  )
-
-  const total = listCount ?? 0
   const totalPages = Math.max(1, Math.ceil(total / ITEMS_PER_PAGE))
 
   // Rebuild search params string for pagination links
