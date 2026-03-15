@@ -3,9 +3,9 @@
 ## Statistics
 
 - **Total aspects**: 27
-- **Analyzed**: 26
-- **Pending**: 1
-- **Convergence**: 96.3%
+- **Analyzed**: 27
+- **Pending**: 0
+- **Convergence**: 100%
 
 ## Wave 1: Research & Foundation (Read existing code, benchmarks, decisions)
 
@@ -47,4 +47,4 @@
 
 - [x] 5.1 — Scaffold `output/ui-treatment-deck.html`: page structure, TOC, section headings, inline CSS framework. Use frontend-design skill.
 - [x] 5.2 — Populate all 12 sections with images, CSS snippets, design rationale. Use frontend-design skill.
-- [ ] 5.3 — Final polish: verify all images load, cross-check every design token, Playwright screenshot for QA.
+- [x] 5.3 — Final polish: verify all images load, cross-check every design token, Playwright screenshot for QA.

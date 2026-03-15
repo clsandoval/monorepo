@@ -478,6 +478,87 @@
       height: auto;
     }
 
+    .mockup-wireframe {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      padding: 32px 24px;
+      background:
+        linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 50%, var(--navy-800) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mockup-wireframe::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(122,153,190,0.06) 39px, rgba(122,153,190,0.06) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(122,153,190,0.06) 39px, rgba(122,153,190,0.06) 40px);
+      pointer-events: none;
+    }
+
+    .mockup-wireframe__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(30,58,95,0.6);
+      border: 2px solid var(--navy-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .mockup-wireframe__title {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy-200);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      max-width: 240px;
+      line-height: 1.4;
+    }
+
+    .mockup-wireframe__desc {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--navy-400);
+      text-align: center;
+      margin-top: 8px;
+      position: relative;
+      z-index: 1;
+      max-width: 260px;
+      line-height: 1.5;
+    }
+
+    .mockup-wireframe--mobile {
+      min-height: 480px;
+    }
+
+    .mockup-wireframe__blocks {
+      display: flex;
+      gap: 6px;
+      margin-top: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .mockup-wireframe__block {
+      width: 40px;
+      height: 28px;
+      border-radius: 4px;
+      background: rgba(122,153,190,0.12);
+      border: 1px solid rgba(122,153,190,0.15);
+    }
+
     .mockup--mobile {
       max-width: 375px;
       margin: 0 auto;
@@ -1956,9 +2037,33 @@
         <div class="subsection">
           <h3 class="subsection-title">Dark Mode Screens</h3>
           <div class="content-grid content-grid--3col" style="gap:16px;">
-            <div class="mockup mockup--browser"><img src="../raw/section-04-7-dark-platform-home.png" alt="Dark mode platform home"><div class="mockup-caption">Platform Home (dark)</div></div>
-            <div class="mockup mockup--browser"><img src="../raw/section-04-7-dark-taxklaro-results.png" alt="Dark mode TaxKlaro results"><div class="mockup-caption">TaxKlaro Results (dark)</div></div>
-            <div class="mockup mockup--browser"><img src="../raw/section-04-7-dark-wizard-step.png" alt="Dark mode wizard"><div class="mockup-caption">Wizard Step (dark)</div></div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#FFF"/><line x1="75" y1="10" x2="25" y2="90" stroke="#060D18" stroke-width="16" stroke-linecap="round"/></svg></div>
+                <div class="mockup-wireframe__title">Platform Home — Dark</div>
+                <div class="mockup-wireframe__desc">navy-950 base · surface-1 tool cards · gold "Timely" badge at 8.4:1 AAA</div>
+                <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block"></div><div class="mockup-wireframe__block"></div><div class="mockup-wireframe__block"></div></div>
+              </div>
+              <div class="mockup-caption">Platform Home (dark)</div>
+            </div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div>
+                <div class="mockup-wireframe__title">TaxKlaro Results — Dark</div>
+                <div class="mockup-wireframe__desc">green-tinted recommended card #071F16 · navy-200 monospace peso amounts · teal/gold chart accents</div>
+                <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block" style="width:50px;background:rgba(5,150,105,0.15);border-color:rgba(5,150,105,0.2);"></div><div class="mockup-wireframe__block"></div><div class="mockup-wireframe__block"></div></div>
+              </div>
+              <div class="mockup-caption">TaxKlaro Results (dark)</div>
+            </div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><path d="M4 6h16M4 12h8m-8 6h16"/></svg></div>
+                <div class="mockup-wireframe__title">Wizard Step — Dark</div>
+                <div class="mockup-wireframe__desc">navy-900 sidebar darker-than-content · surface-2 inputs · navy-400 focus glow</div>
+                <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block" style="width:20px;height:80px;background:rgba(30,58,95,0.3);border-color:rgba(30,58,95,0.4);"></div><div class="mockup-wireframe__block" style="width:60px;"></div></div>
+              </div>
+              <div class="mockup-caption">Wizard Step (dark)</div>
+            </div>
           </div>
         </div>
       </div>
@@ -2000,19 +2105,50 @@
           <p class="subsection-desc">Key screens at iPhone SE width. Stacked cards, hamburger nav, safe-area-inset-bottom handling.</p>
           <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;">
             <div>
-              <div class="mockup mockup--mobile"><img src="../raw/section-04-6-mobile-home.png" alt="Mobile platform home"></div>
+              <div class="mockup mockup--mobile">
+                <div class="mockup-wireframe mockup-wireframe--mobile">
+                  <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01" stroke-width="2"/></svg></div>
+                  <div class="mockup-wireframe__title">Platform Home</div>
+                  <div class="mockup-wireframe__desc">Hamburger nav · centered logo · search bar · 2-col tool grid · sticky category pills</div>
+                  <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block"></div><div class="mockup-wireframe__block"></div></div>
+                  <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block"></div><div class="mockup-wireframe__block"></div></div>
+                </div>
+              </div>
               <div class="mockup-caption">Platform Home</div>
             </div>
             <div>
-              <div class="mockup mockup--mobile"><img src="../raw/section-04-6-mobile-wizard.png" alt="Mobile wizard step"></div>
+              <div class="mockup mockup--mobile">
+                <div class="mockup-wireframe mockup-wireframe--mobile">
+                  <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+                  <div class="mockup-wireframe__title">Wizard Step</div>
+                  <div class="mockup-wireframe__desc">Text progress "Step 2 of 5 · Family" · 4px bar · single-col cards · column-reverse buttons</div>
+                  <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block" style="width:100%;height:4px;background:var(--navy-400);border:none;border-radius:2px;"></div></div>
+                </div>
+              </div>
               <div class="mockup-caption">Wizard Step</div>
             </div>
             <div>
-              <div class="mockup mockup--mobile"><img src="../raw/section-04-6-mobile-results.png" alt="Mobile results"></div>
+              <div class="mockup mockup--mobile">
+                <div class="mockup-wireframe mockup-wireframe--mobile">
+                  <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5A44E" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="mockup-wireframe__title">Results Page</div>
+                  <div class="mockup-wireframe__desc">Stacked regime cards · accordion breakdown · sticky CTA · 24px peso amounts</div>
+                  <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block" style="width:100%;height:40px;background:rgba(5,150,105,0.1);border-color:rgba(5,150,105,0.2);"></div></div>
+                </div>
+              </div>
               <div class="mockup-caption">Results Page</div>
             </div>
             <div>
-              <div class="mockup mockup--mobile"><img src="../raw/section-04-6-mobile-nav.png" alt="Mobile nav menu"></div>
+              <div class="mockup mockup--mobile">
+                <div class="mockup-wireframe mockup-wireframe--mobile">
+                  <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg></div>
+                  <div class="mockup-wireframe__title">Nav Menu</div>
+                  <div class="mockup-wireframe__desc">280px slide-in sheet · category list with Phosphor icons · dark mode toggle · safe-area-inset</div>
+                  <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block" style="width:80%;height:12px;"></div></div>
+                  <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block" style="width:70%;height:12px;"></div></div>
+                  <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block" style="width:75%;height:12px;"></div></div>
+                </div>
+              </div>
               <div class="mockup-caption">Nav Menu (280px sheet)</div>
             </div>
           </div>
@@ -2036,10 +2172,33 @@
           <h3 class="subsection-title">Angkin Platform Home</h3>
           <p class="subsection-desc">Hero + tool grid + category filters + footer. Desktop 1280px.</p>
           <div class="content-grid" style="gap:24px;">
-            <div class="mockup mockup--browser"><img src="../raw/section-04-1-platform-home-desktop.png" alt="Platform home above the fold"><div class="mockup-caption">Above the fold — hero, nav, tool grid</div></div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe" style="min-height:360px;">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#FFF"/><line x1="75" y1="10" x2="25" y2="90" stroke="#1E3A5F" stroke-width="16" stroke-linecap="round"/></svg></div>
+                <div class="mockup-wireframe__title">Angkin Platform Home — Above the Fold</div>
+                <div class="mockup-wireframe__desc">64px nav with logo lockup · text hero "Philippine Compliance, Simplified" 48px extrabold · horizontal category pill filter · 3-col tool grid at 1120px · featured tools with gold border</div>
+                <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block"></div><div class="mockup-wireframe__block"></div><div class="mockup-wireframe__block"></div></div>
+                <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block"></div><div class="mockup-wireframe__block"></div><div class="mockup-wireframe__block"></div></div>
+              </div>
+              <div class="mockup-caption">Above the fold — hero, nav, tool grid</div>
+            </div>
             <div class="content-grid content-grid--2col" style="gap:16px;">
-              <div class="mockup mockup--browser"><img src="../raw/section-04-1-platform-home-scroll.png" alt="Platform home scrolled"><div class="mockup-caption">Scrolled — category sections, footer</div></div>
-              <div class="mockup mockup--browser"><img src="../raw/section-04-1-tools-megamenu.png" alt="Tools mega-menu"><div class="mockup-caption">Tools mega-menu dropdown</div></div>
+              <div class="mockup mockup--browser">
+                <div class="mockup-wireframe">
+                  <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></div>
+                  <div class="mockup-wireframe__title">Scrolled View</div>
+                  <div class="mockup-wireframe__desc">Category section headings · tool cards continue · 3-col footer with logo + links + copyright</div>
+                </div>
+                <div class="mockup-caption">Scrolled — category sections, footer</div>
+              </div>
+              <div class="mockup mockup--browser">
+                <div class="mockup-wireframe">
+                  <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+                  <div class="mockup-wireframe__title">Tools Mega-Menu</div>
+                  <div class="mockup-wireframe__desc">720px dropdown · search field · 3-col category grid · Phosphor duotone icons · "View all 148 tools"</div>
+                </div>
+                <div class="mockup-caption">Tools mega-menu dropdown</div>
+              </div>
             </div>
           </div>
         </div>
@@ -2048,13 +2207,49 @@
         <div class="subsection">
           <h3 class="subsection-title">TaxKlaro Landing &amp; Results</h3>
           <div class="content-grid content-grid--2col" style="gap:16px;">
-            <div class="mockup mockup--browser"><img src="../raw/section-04-2-taxklaro-hero.png" alt="TaxKlaro hero"><div class="mockup-caption">Landing — hero + regime preview</div></div>
-            <div class="mockup mockup--browser"><img src="../raw/section-04-2-taxklaro-features.png" alt="TaxKlaro features"><div class="mockup-caption">Features + regime explainer</div></div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe" style="min-height:320px;">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5A44E" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                <div class="mockup-wireframe__title">TaxKlaro Landing — Hero</div>
+                <div class="mockup-wireframe__desc">Two-column: pain-point headline "Stop Guessing Your Tax Regime" · regime comparison preview · "BY ANGKIN" overline · 3-step walkthrough</div>
+              </div>
+              <div class="mockup-caption">Landing — hero + regime preview</div>
+            </div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe" style="min-height:320px;">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg></div>
+                <div class="mockup-wireframe__title">TaxKlaro — Features</div>
+                <div class="mockup-wireframe__desc">2×3 feature grid · gold PRO badges · 3-path regime explainer cards with formulas · 3-tier pricing (Free/Pro ₱299/yr/Enterprise)</div>
+              </div>
+              <div class="mockup-caption">Features + regime explainer</div>
+            </div>
           </div>
           <div class="content-grid content-grid--3col mt-24" style="gap:16px;">
-            <div class="mockup mockup--browser"><img src="../raw/section-04-3-taxklaro-results-comparison.png" alt="TaxKlaro regime comparison"><div class="mockup-caption">Results — regime comparison cards</div></div>
-            <div class="mockup mockup--browser"><img src="../raw/section-04-3-taxklaro-results-breakdown.png" alt="TaxKlaro breakdown"><div class="mockup-caption">Results — detailed breakdown</div></div>
-            <div class="mockup mockup--browser"><img src="../raw/section-04-3-taxklaro-results-bottom.png" alt="TaxKlaro bottom sections"><div class="mockup-caption">Results — credits, BIR form</div></div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                <div class="mockup-wireframe__title">Regime Comparison</div>
+                <div class="mockup-wireframe__desc">3 cards · recommended leftmost · green optimal variant · savings highlight</div>
+                <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block" style="background:rgba(5,150,105,0.15);border-color:rgba(5,150,105,0.2);height:40px;"></div><div class="mockup-wireframe__block" style="height:40px;"></div><div class="mockup-wireframe__block" style="height:40px;"></div></div>
+              </div>
+              <div class="mockup-caption">Results — regime comparison cards</div>
+            </div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg></div>
+                <div class="mockup-wireframe__title">Detailed Breakdown</div>
+                <div class="mockup-wireframe__desc">Dotted-leader table · 32px peso amounts · progressive disclosure · BIR form numbers</div>
+              </div>
+              <div class="mockup-caption">Results — detailed breakdown</div>
+            </div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div>
+                <div class="mockup-wireframe__title">Credits &amp; BIR Form</div>
+                <div class="mockup-wireframe__desc">CWT credits · quarterly payments · installment options · Form 1701A mapping</div>
+              </div>
+              <div class="mockup-caption">Results — credits, BIR form</div>
+            </div>
           </div>
         </div>
 
@@ -2062,9 +2257,31 @@
         <div class="subsection">
           <h3 class="subsection-title">Inheritance Wizard</h3>
           <div class="content-grid content-grid--3col" style="gap:16px;">
-            <div class="mockup mockup--browser"><img src="../raw/section-04-4-inheritance-estate-step.png" alt="Estate details step"><div class="mockup-caption">Estate Details step</div></div>
-            <div class="mockup mockup--browser"><img src="../raw/section-04-4-inheritance-family-tree.png" alt="Family tree step"><div class="mockup-caption">Family Tree — person cards</div></div>
-            <div class="mockup mockup--browser"><img src="../raw/section-04-4-inheritance-person-edit.png" alt="Person edit panel"><div class="mockup-caption">Person edit slide-out</div></div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5A44E" stroke-width="1.5"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div>
+                <div class="mockup-wireframe__title">Estate Details</div>
+                <div class="mockup-wireframe__desc">Large peso input · radio card succession type (intestate/testate) · sidebar wizard stepper · 240px sticky nav</div>
+              </div>
+              <div class="mockup-caption">Estate Details step</div>
+            </div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+                <div class="mockup-wireframe__title">Family Tree</div>
+                <div class="mockup-wireframe__desc">2-col person cards · green left border for compulsory heirs · 11 relationship types · add person button</div>
+                <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block" style="border-left:3px solid #059669;"></div><div class="mockup-wireframe__block" style="border-left:3px solid #059669;"></div></div>
+              </div>
+              <div class="mockup-caption">Family Tree — person cards</div>
+            </div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></div>
+                <div class="mockup-wireframe__title">Person Edit Panel</div>
+                <div class="mockup-wireframe__desc">480px right slide-out · 17+ fields · conditional visibility · adoption/unworthiness/renunciation accordions</div>
+              </div>
+              <div class="mockup-caption">Person edit slide-out</div>
+            </div>
           </div>
         </div>
 
@@ -2073,9 +2290,32 @@
           <h3 class="subsection-title">Generic New Tool Template</h3>
           <p class="subsection-desc">What a new compliance calculator looks like on day 1. Example: 13th Month Pay Calculator.</p>
           <div class="content-grid content-grid--3col" style="gap:16px;">
-            <div class="mockup mockup--browser"><img src="../raw/section-04-5-new-tool-empty.png" alt="New tool empty state"><div class="mockup-caption">Input state (empty)</div></div>
-            <div class="mockup mockup--browser"><img src="../raw/section-04-5-new-tool-results.png" alt="New tool with results"><div class="mockup-caption">Results state</div></div>
-            <div class="mockup mockup--browser"><img src="../raw/section-04-5-new-tool-errors.png" alt="New tool with errors"><div class="mockup-caption">Error state</div></div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A99BE" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+                <div class="mockup-wireframe__title">Input State (Empty)</div>
+                <div class="mockup-wireframe__desc">13th Month Pay Calculator · centered 576px narrow form · nav + breadcrumb + title · empty fields with help text</div>
+              </div>
+              <div class="mockup-caption">Input state (empty)</div>
+            </div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.5"><path d="M5 13l4 4L19 7"/></svg></div>
+                <div class="mockup-wireframe__title">Results State</div>
+                <div class="mockup-wireframe__desc">Two-column 960px · sticky result card with 3px navy accent · 32px IBM Plex Mono peso · dotted-leader breakdown · legal note</div>
+                <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block" style="width:50px;"></div><div class="mockup-wireframe__block" style="width:30px;border-top:3px solid var(--navy-400);"></div></div>
+              </div>
+              <div class="mockup-caption">Results state</div>
+            </div>
+            <div class="mockup mockup--browser">
+              <div class="mockup-wireframe">
+                <div class="mockup-wireframe__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+                <div class="mockup-wireframe__title">Error State</div>
+                <div class="mockup-wireframe__desc">Summary banner (error-50 bg, 3px left border) · clickable error items · per-field red borders · error replaces help text</div>
+                <div class="mockup-wireframe__blocks"><div class="mockup-wireframe__block" style="width:100%;height:24px;background:rgba(220,38,38,0.08);border-color:rgba(220,38,38,0.2);border-left:3px solid #DC2626;"></div></div>
+              </div>
+              <div class="mockup-caption">Error state</div>
+            </div>
           </div>
         </div>
       </div>
