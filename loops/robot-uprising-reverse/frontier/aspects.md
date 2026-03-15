@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 784
-- **Analyzed:** 306
-- **Pending:** 478
-- **Convergence:** 39.0%
+- **Total aspects:** 789
+- **Analyzed:** 307
+- **Pending:** 482
+- **Convergence:** 38.9%
 
 ---
 
@@ -733,7 +733,12 @@
   - [ ] 6.08d — Accessible Gauntlet: competitive fairness with Assist Mode: which options are neutral (font, color, narration) vs. game-affecting (buffer bonus, enemy speed); matchmaking interaction; ELO adjustment vs. separate brackets vs. universal access
   - [ ] 6.08e — The "accessibility cliff" at Mission 5: factory introduction is the steepest complexity jump; specific accommodations for cognitively impaired players (extended tutorial, simplified factory mode, bridging mission); where accessible design and game design converge
 - [x] 6.01a — Tile art deep dive per biome: exact pixel-level design for each terrain type (jungle, rice terrace, beach, city, Siquijor volcanic); how much cultural detail fits in 64×32 isometric tiles; reference imagery from actual Philippine landscapes
-- [ ] 6.01b — Unit sprite design language: detailed visual identity per unit type — silhouette grammar, accent color system, destroyed/ghost/hologram variant derivation from base sprite; interaction with locked sprite-sheet pipeline
+- [x] 6.01b — Unit sprite design language: detailed visual identity per unit type — silhouette grammar, accent color system, destroyed/ghost/hologram variant derivation from base sprite; interaction with locked sprite-sheet pipeline
+  - [ ] 6.01b-i — Directional sprite variants and the facing problem: when a Scout faces NE vs. SW, does the wedge flip? Does the tool arm switch shoulders on the Specialist? Four approaches: mirror (horizontal flip), rotate (4 directional sprites), fixed (always SE-facing), hybrid (body fixed, accent features rotate)
+  - [ ] 6.01b-ii — Unit grouping and stack visualization: when 2+ units occupy the same tile (if rules allow), how are sprites composited? Vertical stacking, horizontal offset, miniaturized icon overlay, or rule-it-out (one unit per tile)?
+  - [ ] 6.01b-iii — Rank/veterancy visual indicators: should units that survive many ticks gain visual "veteran" markers? Kill marks, battle scarring, accent color saturation increase? Risk: visual noise vs. rewarding attachment to specific units
+  - [ ] 6.01b-iv — Unit personality through micro-animation variance: identical blueprints produce identical units, but should individual instances have slight animation timing offsets to feel like individual agents rather than clones? The "uncanny synchrony" problem
+  - [ ] 6.01b-v — Sprite readability at different zoom levels: how the sprite design degrades at 50% zoom (strategy overview), 100% (normal play), and 200% (accessibility zoom); which design elements survive each scale? The "critical pixel" that makes a unit identifiable
 - [ ] 6.01c — The holographic overlay system: full technical and aesthetic design of Plan mode overlay — grid materialization, channel wiring rendering, perception radius treatment, ghost units, overlay × terrain interaction
 - [ ] 6.01a-i — Tile animation budget: per-tile animation spec (bioluminescent pulsing 0.25Hz, water shimmer 0.5Hz, foam drift every 4 ticks, neon reflection flicker); Pixi.js rendering cost analysis for 64 animated tiles; "does animation compete with gameplay overlays" question
 - [ ] 6.01a-ii — Biome-specific signal propagation visuals: if terrain-modified spatial routing adopted, each biome needs distinct signal-delivery animation (jungle traces canopy, terrace follows horizontal lines, city routes through fiber optic, Siquijor amplified by bioluminescence); full animation spec per biome × signal type
