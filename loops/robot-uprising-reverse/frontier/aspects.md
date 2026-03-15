@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 690
-- **Analyzed:** 287
-- **Pending:** 403
-- **Convergence:** 41.6%
+- **Total aspects:** 695
+- **Analyzed:** 288
+- **Pending:** 407
+- **Convergence:** 41.4%
 
 ---
 
@@ -660,7 +660,12 @@
   - [ ] 6.07c — Mobile-specific onboarding for touch controls: ghost hand tutorial animations, inline gesture teaching vs. dedicated tutorial, first-touch-on-each-element instruction; comparable to iOS game onboarding patterns
   - [ ] 6.07d — Battery and thermal performance budget for Pixi.js on mobile: WebGL rendering cost per screen, 60fps vs. 30fps decision, canvas resolution scaling on low-end devices, requestAnimationFrame throttling during Sealed Watch
   - [ ] 6.07e — "Send to desktop" cross-device debrief flow: emotional sealed watch on mobile → analytical inspector on desktop; cloud sync of match replay data; the two-device two-act debrief as a feature, not a limitation
-- [ ] 6.08 — Accessibility: colorblind modes, screen reader support, difficulty options, one-handed play
+- [x] 6.08 — Accessibility: colorblind modes, screen reader support, difficulty options, one-handed play; six axes explored (visual: colorblind shape-first + palette swap + full customization, low vision magnification + high-contrast, screen reader parallel DOM + sealed watch hybrid narration; auditory: visual replacements for all audio cues, auditory processing simplification; motor: mouse-only mode, one-handed keyboard presets, switch/eye-tracker/voice adaptive input; cognitive: complexity layers Simple/Standard/Full, dyslexia fonts + icon-first design, ADHD session timer + templates + auto-save, autism sensory controls + animation intensity; difficulty: Celeste-model Assist Mode with zero judgment; intersectional: blind+motor, deaf+colorblind, cognitive+low-vision); PixiJS accessibility system leveraged for DOM overlay; 4 player journeys (Sana 28 blind software engineer screen reader full playthrough, Marcus 52 RSI one-handed mouse-only, Leo 14 ADHD+dyslexia Simple Mode with icons, Dr. Keiko 67 low-vision+arthritis magnification+trackball); comparable (Celeste Assist Mode, Slay the Spire community mods, TLoU2 60+ options, Into the Breach structural accessibility, Hades God Mode); TikTok clip (blind player screen reader playthrough — "designed for screen readers from day one"); 5 new aspects discovered (6.08a–6.08e)
+  - [ ] 6.08a — Accessibility testing matrix and QA pipeline: combinatorial testing of colorblind × screen reader × magnification × motor × cognitive settings; automated testing via Playwright + axe-core; cross-platform screen reader testing (NVDA, JAWS, VoiceOver, TalkBack)
+  - [ ] 6.08b — Accessibility as game narrative: diegetic framing of accessibility settings as "adjusting your own perception parameters"; blind mode as "signal bus routing"; dyslexia font as "text rendering optimization"; whether diegetic framing helps or patronizes
+  - [ ] 6.08c — Community accessibility profile sharing: shareable accessibility configuration presets via Steam Workshop; "Sana's screen reader profile" as downloadable config; players with similar disabilities can download and fine-tune
+  - [ ] 6.08d — Accessible Gauntlet: competitive fairness with Assist Mode: which options are neutral (font, color, narration) vs. game-affecting (buffer bonus, enemy speed); matchmaking interaction; ELO adjustment vs. separate brackets vs. universal access
+  - [ ] 6.08e — The "accessibility cliff" at Mission 5: factory introduction is the steepest complexity jump; specific accommodations for cognitively impaired players (extended tutorial, simplified factory mode, bridging mission); where accessible design and game design converge
 - [ ] 6.01a — Tile art deep dive per biome: exact pixel-level design for each terrain type (jungle, rice terrace, beach, city, Siquijor volcanic); how much cultural detail fits in 64×32 isometric tiles; reference imagery from actual Philippine landscapes
 - [ ] 6.01b — Unit sprite design language: detailed visual identity per unit type — silhouette grammar, accent color system, destroyed/ghost/hologram variant derivation from base sprite; interaction with locked sprite-sheet pipeline
 - [ ] 6.01c — The holographic overlay system: full technical and aesthetic design of Plan mode overlay — grid materialization, channel wiring rendering, perception radius treatment, ghost units, overlay × terrain interaction
