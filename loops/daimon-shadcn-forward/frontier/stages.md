@@ -150,7 +150,7 @@ Each stage: navigate route at 375x812 via Playwright, assert no horizontal overf
 - [x] **Stage 118**: Mobile verify `/dashboard/billing` (authenticated) — plan cards stack, comparison grid scrolls or stacks (2026-03-15)
 - [x] **Stage 119**: Mobile verify `/dashboard/integrations` (authenticated) — service grid stacks (2026-03-15)
 - [x] **Stage 120**: Mobile verify `/dashboard/settings` (authenticated) — form sections stack, inputs full-width (2026-03-15)
-- [ ] **Stage 121**: Mobile verify `/admin` (authenticated) — admin content accessible
+- [x] **Stage 121**: Mobile verify `/admin` (authenticated) — admin content accessible (2026-03-15)
 - [ ] **Stage 122**: Mobile verify `/admin/tenants` (authenticated) — table scrolls horizontally or cards stack
 - [ ] **Stage 123**: Mobile verify `/admin/tenants/[id]` (authenticated) — detail page readable
 - [ ] **Stage 124**: Mobile verify `/admin/audit-log` (authenticated) — table scrolls or stacks
