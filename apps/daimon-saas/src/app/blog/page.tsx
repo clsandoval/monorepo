@@ -214,7 +214,7 @@ function PostCard({ post }: { post: BlogPost }) {
             </p>
             <div
               className="mt-3 flex items-center justify-between text-[#718096]"
-              style={{ fontSize: '13px' }}
+              style={{ fontSize: '14px' }}
             >
               <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
               <span>{post.readTimeMinutes} min read</span>
