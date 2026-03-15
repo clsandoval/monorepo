@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 750
-- **Analyzed:** 299
-- **Pending:** 451
-- **Convergence:** 39.9%
+- **Total aspects:** 755
+- **Analyzed:** 300
+- **Pending:** 455
+- **Convergence:** 39.7%
 
 ---
 
@@ -721,7 +721,12 @@
   - [ ] 6.03c — The mute/volume hierarchy for narrative layers: player control over which narrative voices they hear; granular per-voice vs. preset modes (dramatic/balanced/clinical); default differences by difficulty; risk of players muting into a worse experience
   - [ ] 6.03d — Narrative voice localization strategy: cost-quality matrix for small studios across voice options; Boot Log (technical terms, cheap) vs. Predecessor (literary prose, expensive) vs. Radio (5 archetypes × N languages, very expensive); interaction with text-only vs. voiced implementations
   - [ ] 6.03e — The Predecessor's diegetic justification: if the boot log is "you reading your own spec sheet," where does the Predecessor's voice come from? Corrupted previous installation, parallel AI, recorded message; whether diegetic justification matters for player experience
-- [ ] 6.10 — Sound design for corruption detection: audio vocabulary of integrity violations — what does a foreign hook sound like when first detected, what does a revert "click" sound like, what does mid-execution EMP buffer degradation sound like; the sonic signature of a compromised vs. clean system
+- [x] 6.10 — Sound design for corruption detection: audio vocabulary of integrity violations — what does a foreign hook sound like when first detected, what does a revert "click" sound like, what does mid-execution EMP buffer degradation sound like; the sonic signature of a compromised vs. clean system
+- [ ] 6.10a — Corruption audio learning curve design: how the first corruption encounter (Mission 7-8) introduces the audio vocabulary without overwhelming; pacing of new corruption sounds across campaign's second half; which sounds appear when
+- [ ] 6.10b — Corruption audio in competitive/PvP context: does the opponent hear YOUR corruption audio? Can EM emissions include corruption detection sounds? Audio as competitive intelligence leak
+- [ ] 6.10c — Hybrid corruption audio vocabulary: combining elements of multiple options (Geiger clicking for detection + heartbeat for severity + whispers for deep corruption narrative); the layered approach
+- [ ] 6.10d — Accessibility alternatives for corruption audio: screen-reader integration, visual-only corruption modes for deaf/hard-of-hearing players, haptic-only modes; ensuring corruption detection doesn't become audio-gated
+- [ ] 6.10e — Player-configurable corruption audio intensity: settings slider from "subtle" (perturbation only) to "aggressive" (full alarm cascade); player agency over corruption layer's attention demand
 
 ---
 
