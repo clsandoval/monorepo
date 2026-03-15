@@ -218,13 +218,13 @@ function ResetPasswordForm() {
               <div className="absolute left-0 top-[40%] h-[20%] w-1.5 bg-primary opacity-60" />
             </div>
 
-            <CardHeader className="px-10 pt-10 pb-0">
+            <CardHeader className="px-6 sm:px-10 pt-10 pb-0">
               <CardTitle className="font-heading text-2xl font-medium text-foreground">
                 Check your email
               </CardTitle>
             </CardHeader>
 
-            <CardContent className="px-10 pb-10 text-center pt-4">
+            <CardContent className="px-6 sm:px-10 pb-10 text-center pt-4">
               {/* Envelope icon */}
               <div className="flex justify-center mb-4">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
@@ -282,7 +282,7 @@ function ResetPasswordForm() {
           </div>
 
           {/* Auth footer */}
-          <div className="flex justify-center gap-4 text-xs text-foreground/45">
+          <div className="flex justify-center gap-4 text-sm text-foreground/45">
             <Link href="/terms" className="text-inherit no-underline hover:text-foreground/70">
               Terms of Service
             </Link>
@@ -327,7 +327,7 @@ function ResetPasswordForm() {
             <div className="absolute left-0 top-[40%] h-[20%] w-1.5 bg-primary opacity-60" />
           </div>
 
-          <CardHeader className="px-10 pt-10 pb-0">
+          <CardHeader className="px-6 sm:px-10 pt-10 pb-0">
             <CardTitle className="font-heading text-2xl font-medium text-foreground">
               Reset your password
             </CardTitle>
@@ -336,13 +336,13 @@ function ResetPasswordForm() {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="px-10 pb-10">
+          <CardContent className="px-6 sm:px-10 pb-10">
             <form onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Reset password form">
               {/* Email field */}
               <div className="mb-6">
                 <Label
                   htmlFor="email"
-                  className="mb-1.5 text-[13px] text-foreground/70"
+                  className="mb-1.5 text-sm text-foreground/70"
                 >
                   Email <span aria-hidden="true">*</span>
                 </Label>
@@ -367,7 +367,7 @@ function ResetPasswordForm() {
                   <p
                     id="email-error"
                     role="alert"
-                    className="flex items-center gap-1 text-xs text-destructive mt-1"
+                    className="flex items-center gap-1 text-sm text-destructive mt-1"
                   >
                     {errors.email.message}
                   </p>
@@ -421,7 +421,7 @@ function ResetPasswordForm() {
         </div>
 
         {/* Auth footer */}
-        <div className="flex justify-center gap-4 text-xs text-foreground/45">
+        <div className="flex justify-center gap-4 text-sm text-foreground/45">
           <Link href="/terms" className="text-inherit no-underline hover:text-foreground/70">
             Terms of Service
           </Link>
