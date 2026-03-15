@@ -3,14 +3,14 @@
 ## Statistics
 
 - **Total aspects**: 27
-- **Analyzed**: 1
-- **Pending**: 26
-- **Convergence**: 3.7%
+- **Analyzed**: 2
+- **Pending**: 25
+- **Convergence**: 7.4%
 
 ## Wave 1: Research & Foundation (Read existing code, benchmarks, decisions)
 
 - [x] 1.1 — Audit TaxKlaro current design tokens: read `apps/taxklaro/frontend/src/index.css` and extract all CSS variables, colors, fonts, spacing
-- [ ] 1.2 — Audit Inheritance current design tokens: read `apps/inheritance/frontend/src/index.css` and extract all CSS variables, colors, fonts, spacing
+- [x] 1.2 — Audit Inheritance current design tokens: read `apps/inheritance/frontend/src/index.css` and extract all CSS variables, colors, fonts, spacing
 - [ ] 1.3 — Read angkin-design-system-reverse analysis: extract useful context from `loops/angkin-design-system-reverse/analysis/` (benchmarks, audience fit, tool archetypes, Option 2 radical clarity spec)
 - [ ] 1.4 — Logo anatomy: document the 2C mark's geometry, proportions, clear space rules, minimum size. Generate logo usage examples with gemini-image-gen (light bg, dark bg, colored bg, favicon, nav-size, hero-size)
 
