@@ -34,7 +34,7 @@ Remaining: 206
 - [x] **Stage 21**: Replace `src/components/ui/toast.tsx` — swap with shadcn Toast + Toaster + useToast hook, update all import sites (2026-03-15)
 - [x] **Stage 22**: Replace `src/components/ui/alert-banner.tsx` — swap with shadcn Alert, preserve variant names (info, warning, error, success), update all import sites (2026-03-15)
 - [x] **Stage 23**: Replace `src/components/ui/skeleton-loader.tsx` — swap with shadcn Skeleton, update all import sites (2026-03-15)
-- [ ] **Stage 24**: Replace `src/components/ui/stat-card.tsx` — rebuild with shadcn Card, preserve metric display layout
+- [x] **Stage 24**: Replace `src/components/ui/stat-card.tsx` — rebuild with shadcn Card, preserve metric display layout (2026-03-15)
 - [ ] **Stage 25**: Replace `src/components/ui/status-indicator.tsx` — rebuild with shadcn Badge + dot indicator pattern
 - [ ] **Stage 26**: Replace `src/components/ui/copy-to-clipboard.tsx` — rebuild with shadcn Button + Tooltip for feedback
 - [ ] **Stage 27**: Replace `src/components/ui/empty-state.tsx` — rebuild with shadcn Card + centered content pattern
