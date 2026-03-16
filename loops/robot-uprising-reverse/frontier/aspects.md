@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1317
-- **Analyzed:** 414
-- **Pending:** 903
+- **Total aspects:** 1322
+- **Analyzed:** 415
+- **Pending:** 907
 - **Convergence:** 31.4%
 
 ---
@@ -922,7 +922,12 @@
   - [ ] 6.01a-iii-b-iii — Heat map comparison across Gauntlet matches: meta-analysis tool showing 5-match heat map overlays to reveal per-opponent spatial patterns or rigid architecture
   - [ ] 6.01a-iii-b-iv — Enemy heat map as advanced unlock: opponent's combat density from their perspective; reveals deliberate targeting vs. chaotic spread; Gauntlet-only
   - [ ] 6.01a-iii-b-v — Heat map export as shareable image: one-click PNG export of heat map over board (1080×1080, no UI chrome, match metadata watermark); the "battle painting" social sharing artifact
-- [ ] 6.01a-iii-c — Asymmetric damage for player vs. enemy kills: blue-tinted vs. red-tinted tile scars as instant friend/foe battlefield forensics
+- [x] 6.01a-iii-c — Asymmetric damage for player vs. enemy kills: blue-tinted vs. red-tinted tile scars as instant friend/foe battlefield forensics
+  - [ ] 6.01a-iii-c-i — Asymmetric damage in high-density combat zones: color intensification when 4+ same-color scars cluster adjacently; "territory painting" at scale; saturation as alarm/reward
+  - [ ] 6.01a-iii-c-ii — Player-vs-player asymmetric damage in Gauntlet: both players produce "clean" kills from their perspective; whose signature colors the tile? Player-assigned color pairs; board as territory map in two player colors
+  - [ ] 6.01a-iii-c-iii — Asymmetric damage audio vocabulary per biome: beyond generic ting/thud, 5 biomes × 2 outcomes = 10 unique audio signatures; terrace stone chime vs. crack, city neon connection vs. shatter
+  - [ ] 6.01a-iii-c-iv — "Scoreboard tile" as emergent community metric: cyan-to-orange tile ratio as visual achievement; community culture around all-cyan flawless runs; screenshot sharing as battle report
+  - [ ] 6.01a-iii-c-v — Asymmetric ghost scar tinting interaction with retry psychology: do colored ghosts change behavior differently than neutral? Orange ghosts → avoidance patterns; cyan ghosts → overconfidence; psychological valence as design lever
 - [x] 6.01a-iii-d — Damage audio coupling: sounds accompanying tile damage transitions per biome (cracking stone, sputtering neon, hissing steam, falling canopy); interaction with 6.01a-ix
   - [ ] 6.01a-iii-d-i — Biome damage sound as unit identity confusion: sound collision audit across all biome×unit×event combinations; when a Scout's movement bamboo creak overlaps with jungle tile damage bamboo snap, can the player distinguish movement from destruction?
   - [ ] 6.01a-iii-d-ii — Damage sound volume scaling with camera zoom: objective perspective (constant volume) vs. spatial audio (zoom-scaled) design decision; interaction with accessibility
