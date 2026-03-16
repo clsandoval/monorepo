@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1090
-- **Analyzed:** 369
-- **Pending:** 721
-- **Convergence:** 33.9%
+- **Total aspects:** 1095
+- **Analyzed:** 370
+- **Pending:** 725
+- **Convergence:** 33.8%
 
 ---
 
@@ -953,7 +953,12 @@
 - [x] 6.01a-i — Tile animation budget: per-tile animation spec (bioluminescent pulsing 0.25Hz, water shimmer 0.5Hz, foam drift every 4 ticks, neon reflection flicker); Pixi.js rendering cost analysis for 64 animated tiles; "does animation compete with gameplay overlays" question
 - [x] 6.01a-ii — Biome-specific signal propagation visuals: if terrain-modified spatial routing adopted, each biome needs distinct signal-delivery animation (jungle traces canopy, terrace follows horizontal lines, city routes through fiber optic, Siquijor amplified by bioluminescence); full animation spec per biome × signal type
 - [x] 6.01a-iii — Dynamic tile damage states: when combat occurs on a tile, does it show damage? Cracked terrace stones, scorched jungle canopy, shattered beach limestone, broken city neon, extinguished bioluminescence; damage state count per biome; interaction with terrain signal propagation
-- [ ] 6.01a-iii-a — Damage state persistence across retries: should the board start pristine or carry scars from previous attempts? "Haunted tiles" as visual record of past failures vs. clean slate
+- [x] 6.01a-iii-a — Damage state persistence across retries: should the board start pristine or carry scars from previous attempts? "Haunted tiles" as visual record of past failures vs. clean slate
+  - [ ] 6.01a-iii-a-i — Ghost scar visual vocabulary per biome: full pixel-level specification of 60% and 30% recovery states for all five biomes — intermediate sprites showing partial healing (regrown canopy, sealed cracks, recovering bioluminescence)
+  - [ ] 6.01a-iii-a-ii — Board settling animation as micro-narrative: the 1.5-second healing animation on retry; per-biome regrowth choreography; audio accompaniment; the animation as designed emotional beat — "the world forgives you"
+  - [ ] 6.01a-iii-a-iii — Campaign map meta-persistence: should campaign map province icons show damage proportional to retry count? The archipelago as meta-damage map of player struggle
+  - [ ] 6.01a-iii-a-iv — Ghost scar interaction with invisible randomization: ghost positions from previous attempt don't match new run's enemy behavior; ghosts as misleading vs. useful data
+  - [ ] 6.01a-iii-a-v — "Memory depth" as player-configurable setting: how many attempts the board remembers (0=clean, 1=recent, 3=default, ∞=full); context window depth as meta-setting for the board itself
 - [ ] 6.01a-iii-b — Damage states as Inspector filter layer: the "Combat Density" heat map derived from damage tiles; toggle overlay in Inspector sidebar; gradient, opacity, legend specification
 - [ ] 6.01a-iii-c — Asymmetric damage for player vs. enemy kills: blue-tinted vs. red-tinted tile scars as instant friend/foe battlefield forensics
 - [x] 6.01a-iii-d — Damage audio coupling: sounds accompanying tile damage transitions per biome (cracking stone, sputtering neon, hissing steam, falling canopy); interaction with 6.01a-ix
