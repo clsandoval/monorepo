@@ -740,15 +740,12 @@ function PlanBadge({ plan }: { plan: PlanTier }) {
   const c = PLAN_COLORS[plan]
   return (
     <span
-      style={{
+      className="font-body text-sm font-semibold" style={{
         display: 'inline-block',
         padding: '2px 8px',
         borderRadius: '3px',
         backgroundColor: c.bg,
         color: c.text,
-        fontFamily: 'var(--font-inter)',
-        fontSize: '14px',
-        fontWeight: 600,
         whiteSpace: 'nowrap',
         flexShrink: 0,
       }}
@@ -776,10 +773,7 @@ function ToolRow({ tool }: { tool: ToolEntry }) {
       {/* Name + description */}
       <div style={{ flex: 1, minWidth: 0 }}>
         <code
-          style={{
-            fontFamily: 'var(--font-mono, ui-monospace, monospace)',
-            fontSize: '14px',
-            fontWeight: 600,
+          className="text-sm font-semibold font-mono" style={{
             color: '#0C1F40',
             backgroundColor: 'rgba(12, 31, 64, 0.05)',
             padding: '2px 6px',
@@ -792,9 +786,7 @@ function ToolRow({ tool }: { tool: ToolEntry }) {
         </code>
         {tool.credential && (
           <span
-            style={{
-              fontFamily: 'var(--font-inter)',
-              fontSize: '14px',
+            className="font-body text-sm" style={{
               color: '#9CA3AF',
               marginLeft: '8px',
             }}
@@ -803,9 +795,7 @@ function ToolRow({ tool }: { tool: ToolEntry }) {
           </span>
         )}
         <p
-          style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
+          className="font-body text-sm" style={{
             color: '#4B5563',
             lineHeight: '1.5',
             margin: 0,
@@ -873,10 +863,7 @@ function CategorySection({
           <ChevronRight size={16} color="#6B7280" />
         )}
         <span
-          style={{
-            fontFamily: 'var(--font-archivo)',
-            fontSize: '14px',
-            fontWeight: 700,
+          className="font-headline text-sm font-bold" style={{
             color: '#0C1F40',
             flex: 1,
           }}
@@ -885,9 +872,7 @@ function CategorySection({
         </span>
         {matchCount < category.count && (
           <span
-            style={{
-              fontFamily: 'var(--font-inter)',
-              fontSize: '14px',
+            className="font-body text-sm" style={{
               color: '#9CA3AF',
             }}
           >
@@ -978,9 +963,7 @@ export default function ToolReferencePage() {
       {/* Page header */}
       <header style={{ marginBottom: '40px' }}>
         <div
-          style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
+          className="font-body text-sm" style={{
             color: 'rgba(12, 31, 64, 0.65)',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
@@ -990,10 +973,7 @@ export default function ToolReferencePage() {
           Tool Reference
         </div>
         <h1
-          style={{
-            fontFamily: 'var(--font-archivo)',
-            fontSize: 'clamp(28px, 4vw, 40px)',
-            fontWeight: 900,
+          className="font-headline text-[clamp(28px,4vw,40px)] font-black" style={{
             color: '#0C1F40',
             lineHeight: 1.1,
             margin: '0 0 16px 0',
@@ -1002,9 +982,7 @@ export default function ToolReferencePage() {
           All Tools
         </h1>
         <p
-          style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '16px',
+          className="font-body text-base" style={{
             color: '#6B7280',
             margin: 0,
             lineHeight: 1.6,
@@ -1028,10 +1006,7 @@ export default function ToolReferencePage() {
         }}
       >
         <span
-          style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
-            fontWeight: 600,
+          className="font-body text-sm font-semibold" style={{
             color: '#6B7280',
             alignSelf: 'center',
           }}
@@ -1045,9 +1020,7 @@ export default function ToolReferencePage() {
           >
             <PlanBadge plan={tier} />
             <span
-              style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '14px',
+              className="font-body text-sm" style={{
                 color: '#6B7280',
               }}
             >
@@ -1073,15 +1046,13 @@ export default function ToolReferencePage() {
           placeholder="Search tools by name or description…"
           value={query}
           onChange={(e) => handleQueryChange(e.target.value)}
-          style={{
+          className="font-body text-sm" style={{
             width: '100%',
             height: '44px',
             paddingLeft: '38px',
             paddingRight: query ? '38px' : '12px',
             border: '1px solid #D1D5DB',
             backgroundColor: '#FFFFFF',
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
             color: '#0C1F40',
             outline: 'none',
             boxSizing: 'border-box',
@@ -1116,9 +1087,7 @@ export default function ToolReferencePage() {
       {/* Results count when searching */}
       {q && (
         <p
-          style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
+          className="font-body text-sm" style={{
             color: '#9CA3AF',
             marginBottom: '16px',
           }}
@@ -1155,27 +1124,23 @@ export default function ToolReferencePage() {
         }}
       >
         <a
+          className="font-body text-sm font-medium"
           href="/docs/quick-start"
           aria-label="Previous page: Quick Start"
           style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
             color: '#0C1F40',
             textDecoration: 'none',
-            fontWeight: 500,
           }}
         >
           ← Quick Start
         </a>
         <a
+          className="font-body text-sm font-medium"
           href="/docs/faq"
           aria-label="Next page: FAQ"
           style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
             color: '#0C1F40',
             textDecoration: 'none',
-            fontWeight: 500,
           }}
         >
           FAQ →

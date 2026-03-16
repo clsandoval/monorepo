@@ -21,24 +21,24 @@ export default function CookiePolicyPage() {
       <main>
         <article className="max-w-3xl mx-auto px-8 py-20">
           <h1
-            className="font-archivo font-bold text-[#0C1F40]"
-            style={{ fontSize: 'clamp(28px, 4vw, 36px)' }}
+            className="font-archivo font-bold text-[#0C1F40] text-[clamp(28px,4vw,36px)]"
+
           >
             Cookie Policy
           </h1>
-          <p className="mt-2 text-[#718096]" style={{ fontSize: '14px' }}>
+          <p className="mt-2 text-[#718096] text-sm">
             Effective Date: March 13, 2026
           </p>
-          <p className="text-[#718096] mb-12" style={{ fontSize: '14px' }}>
+          <p className="text-[#718096] mb-12 text-sm">
             Last Updated: March 13, 2026
           </p>
 
           {/* Table of contents */}
           <nav aria-label="Cookie policy table of contents" className="mb-12">
-            <p className="font-archivo font-bold text-[#0C1F40] mb-3" style={{ fontSize: '16px' }}>
+            <p className="font-archivo font-bold text-[#0C1F40] mb-3 text-base">
               Table of Contents
             </p>
-            <ol className="ml-6 space-y-1" style={{ fontSize: '15px' }}>
+            <ol className="ml-6 space-y-1 text-[15px]">
               <li>
                 <a href="#what-are-cookies" className="text-[#0C1F40] hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
                   1. What Are Cookies?
@@ -93,14 +93,14 @@ export default function CookiePolicyPage() {
           </nav>
 
           <div
-            className="text-[#2D3748] space-y-4"
-            style={{ fontSize: '16px', lineHeight: '1.75' }}
+            className="text-[#2D3748] space-y-4 text-base"
+            style={{ lineHeight: '1.75' }}
           >
             {/* Section 1 */}
             <h2
               id="what-are-cookies"
-              className="font-archivo font-bold text-[#0C1F40]"
-              style={{ fontSize: '22px', marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               1. What Are Cookies?
             </h2>
@@ -121,8 +121,8 @@ export default function CookiePolicyPage() {
             {/* Section 2 */}
             <h2
               id="how-we-use-cookies"
-              className="font-archivo font-bold text-[#0C1F40]"
-              style={{ fontSize: '22px', marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               2. How We Use Cookies
             </h2>
@@ -143,13 +143,13 @@ export default function CookiePolicyPage() {
             {/* Section 3 */}
             <h2
               id="types-of-cookies-we-use"
-              className="font-archivo font-bold text-[#0C1F40]"
-              style={{ fontSize: '22px', marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               3. Types of Cookies We Use
             </h2>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40]" style={{ fontSize: '18px', marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               3.1 Strictly Necessary Cookies
             </h3>
             <p>
@@ -157,7 +157,7 @@ export default function CookiePolicyPage() {
               them, you cannot log in, access your dashboard, or use the application.
             </p>
             <div style={{ overflowX: 'auto' }}>
-              <table className="w-full border-collapse" style={{ fontSize: '14px' }}>
+              <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr style={{ background: '#F7F7F7' }}>
                     <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Cookie Name</th>
@@ -191,7 +191,7 @@ export default function CookiePolicyPage() {
             </div>
             <p><strong className="font-bold text-[#0C1F40]">Legal basis:</strong> Legitimate interests (strictly necessary for service operation).</p>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40]" style={{ fontSize: '18px', marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               3.2 Functional Cookies
             </h3>
             <p>
@@ -199,7 +199,7 @@ export default function CookiePolicyPage() {
               but some features may not work as expected.
             </p>
             <div style={{ overflowX: 'auto' }}>
-              <table className="w-full border-collapse" style={{ fontSize: '14px' }}>
+              <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr style={{ background: '#F7F7F7' }}>
                     <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Cookie Name</th>
@@ -228,7 +228,7 @@ export default function CookiePolicyPage() {
             </div>
             <p><strong className="font-bold text-[#0C1F40]">Legal basis:</strong> Consent / legitimate interests.</p>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40]" style={{ fontSize: '18px', marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               3.3 Analytics Cookies
             </h3>
             <p>
@@ -236,7 +236,7 @@ export default function CookiePolicyPage() {
               privacy-respecting analytics tools that do not share data with third-party advertisers.
             </p>
             <div style={{ overflowX: 'auto' }}>
-              <table className="w-full border-collapse" style={{ fontSize: '14px' }}>
+              <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr style={{ background: '#F7F7F7' }}>
                     <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Cookie Name</th>
@@ -270,8 +270,8 @@ export default function CookiePolicyPage() {
             {/* Section 4 */}
             <h2
               id="third-party-cookies"
-              className="font-archivo font-bold text-[#0C1F40]"
-              style={{ fontSize: '22px', marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               4. Third-Party Cookies
             </h2>
@@ -279,7 +279,7 @@ export default function CookiePolicyPage() {
               Our service integrates with the following third parties who may set cookies on your device:
             </p>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40]" style={{ fontSize: '18px', marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               4.1 Supabase
             </h3>
             <p>
@@ -290,7 +290,7 @@ export default function CookiePolicyPage() {
               See Supabase&apos;s Privacy Policy for details.
             </p>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40]" style={{ fontSize: '18px', marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               4.2 Stripe
             </h3>
             <p>
@@ -299,7 +299,7 @@ export default function CookiePolicyPage() {
               These cookies are set by Stripe&apos;s domains, not our domain.
             </p>
             <div style={{ overflowX: 'auto' }}>
-              <table className="w-full border-collapse" style={{ fontSize: '14px' }}>
+              <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr style={{ background: '#F7F7F7' }}>
                     <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Cookie</th>
@@ -331,7 +331,7 @@ export default function CookiePolicyPage() {
               </table>
             </div>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40]" style={{ fontSize: '18px', marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               4.3 Vercel
             </h3>
             <p>
@@ -349,8 +349,8 @@ export default function CookiePolicyPage() {
             {/* Section 5 */}
             <h2
               id="cookie-consent-and-your-choices"
-              className="font-archivo font-bold text-[#0C1F40]"
-              style={{ fontSize: '22px', marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               5. Cookie Consent and Your Choices
             </h2>
@@ -385,8 +385,8 @@ export default function CookiePolicyPage() {
             {/* Section 6 */}
             <h2
               id="specific-cookie-inventory"
-              className="font-archivo font-bold text-[#0C1F40]"
-              style={{ fontSize: '22px', marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               6. Specific Cookie Inventory
             </h2>
@@ -395,7 +395,7 @@ export default function CookiePolicyPage() {
               and <code className="text-sm bg-gray-100 px-1 rounded">app.daimon.ai</code>:
             </p>
             <div style={{ overflowX: 'auto' }}>
-              <table className="w-full border-collapse" style={{ fontSize: '14px' }}>
+              <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr style={{ background: '#F7F7F7' }}>
                     {['Name', 'Domain', 'Type', 'Duration', 'Purpose'].map((h) => (
@@ -433,15 +433,15 @@ export default function CookiePolicyPage() {
                 </tbody>
               </table>
             </div>
-            <p className="text-[#718096]" style={{ fontSize: '14px' }}>
+            <p className="text-[#718096] text-sm">
               This list is reviewed and updated quarterly. Last reviewed: March 13, 2026.
             </p>
 
             {/* Section 7 */}
             <h2
               id="browser-controls"
-              className="font-archivo font-bold text-[#0C1F40]"
-              style={{ fontSize: '22px', marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               7. Browser Controls
             </h2>
@@ -471,8 +471,8 @@ export default function CookiePolicyPage() {
             {/* Section 8 */}
             <h2
               id="do-not-track"
-              className="font-archivo font-bold text-[#0C1F40]"
-              style={{ fontSize: '22px', marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               8. Do Not Track
             </h2>
@@ -494,8 +494,8 @@ export default function CookiePolicyPage() {
             {/* Section 9 */}
             <h2
               id="changes-to-this-policy"
-              className="font-archivo font-bold text-[#0C1F40]"
-              style={{ fontSize: '22px', marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               9. Changes to This Policy
             </h2>
@@ -521,8 +521,8 @@ export default function CookiePolicyPage() {
             {/* Section 10 */}
             <h2
               id="contact-us"
-              className="font-archivo font-bold text-[#0C1F40]"
-              style={{ fontSize: '22px', marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               10. Contact Us
             </h2>
@@ -543,7 +543,7 @@ export default function CookiePolicyPage() {
 
             <hr className="my-10" style={{ borderColor: 'rgba(12,31,64,0.1)' }} />
 
-            <p className="text-[#718096]" style={{ fontSize: '14px' }}>
+            <p className="text-[#718096] text-sm">
               This Cookie Policy is incorporated by reference into our{' '}
               <Link href="/legal/privacy" className="hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
                 Privacy Policy

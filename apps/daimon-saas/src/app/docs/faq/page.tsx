@@ -29,9 +29,7 @@ function PageHeader() {
   return (
     <header style={{ marginBottom: '48px' }}>
       <div
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '14px',
+        className="font-body text-sm" style={{
           color: 'rgba(12, 31, 64, 0.65)',
           textTransform: 'uppercase',
           letterSpacing: '0.08em',
@@ -42,10 +40,7 @@ function PageHeader() {
       </div>
       <h1
         id="faq-page-title"
-        style={{
-          fontFamily: 'var(--font-archivo)',
-          fontSize: '32px',
-          fontWeight: 600,
+        className="font-headline text-[32px] font-semibold" style={{
           color: '#0C1F40',
           margin: '0 0 8px 0',
         }}
@@ -53,10 +48,7 @@ function PageHeader() {
         Frequently Asked Questions
       </h1>
       <p
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '18px',
-          fontWeight: 400,
+        className="font-body text-lg font-normal" style={{
           color: '#6B7280',
           margin: 0,
           lineHeight: 1.5,
@@ -90,10 +82,7 @@ function Toc() {
       }}
     >
       <p
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '14px',
-          fontWeight: 600,
+        className="font-body text-sm font-semibold" style={{
           color: '#6B7280',
           textTransform: 'uppercase',
           letterSpacing: '0.08em',
@@ -107,9 +96,7 @@ function Toc() {
           <li key={item.href}>
             <a
               href={item.href}
-              style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '14px',
+              className="font-body text-sm" style={{
                 color: '#3F85CC',
                 textDecoration: 'none',
               }}
@@ -133,10 +120,7 @@ function SectionHeading({
   return (
     <h2
       id={id}
-      style={{
-        fontFamily: 'var(--font-archivo)',
-        fontSize: '22px',
-        fontWeight: 600,
+      className="font-headline text-[22px] font-semibold" style={{
         color: '#0C1F40',
         margin: '48px 0 16px 0',
         paddingTop: '8px',
@@ -177,10 +161,7 @@ function FaqItem({
         details.faq-item[open] summary::after { content: "−"; }
       `}</style>
       <summary
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '15px',
-          fontWeight: 600,
+        className="font-body text-[15px] font-semibold" style={{
           color: '#0C1F40',
           padding: '16px 20px',
           cursor: 'pointer',
@@ -193,8 +174,7 @@ function FaqItem({
       >
         {question}
         <span
-          style={{
-            fontSize: '20px',
+          className="text-xl" style={{
             color: '#6B7280',
             flexShrink: 0,
             transition: 'transform 200ms ease',
@@ -204,10 +184,8 @@ function FaqItem({
         />
       </summary>
       <div
-        style={{
+        className="font-body text-[15px]" style={{
           padding: '0 20px 20px 20px',
-          fontFamily: 'var(--font-inter)',
-          fontSize: '15px',
           color: '#374151',
           lineHeight: 1.6,
         }}
@@ -250,9 +228,7 @@ const alink = (href: string, label: string, newTab?: boolean) => (
 )
 const acode = (text: string) => (
   <code
-    style={{
-      fontFamily: "'Courier New', monospace",
-      fontSize: '14px',
+    className="text-sm font-mono" style={{
       background: '#F3F4F6',
       padding: '2px 6px',
     }}
@@ -430,12 +406,12 @@ export default function FaqPage() {
       <FaqItem question="What permissions does my Discord bot need?">
         {ap('Your bot needs the following permissions when added to your server:')}
         <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
-          <table role="table" style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-inter)', fontSize: '14px' }}>
+ <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
             <caption className="sr-only">Discord bot permissions required by Daimon</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Permission</th>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Why it&apos;s needed</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Permission</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Why it&apos;s needed</th>
               </tr>
             </thead>
             <tbody>
@@ -450,7 +426,7 @@ export default function FaqPage() {
                 ['Manage Messages', 'To delete bot messages in cleanup operations'],
               ].map(([perm, reason], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                  <td style={{ padding: '8px 12px', color: '#374151', fontWeight: 500 }}>{perm}</td>
+ <td className="font-medium" style={{ padding: '8px 12px', color: '#374151' }}>{perm}</td>
                   <td style={{ padding: '8px 12px', color: '#374151' }}>{reason}</td>
                 </tr>
               ))}
@@ -509,12 +485,12 @@ export default function FaqPage() {
       <FaqItem question='What does "bot status: error" mean?'>
         {ap('"Error" means the bot attempted to connect to Discord but received an error response. Common causes:')}
         <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
-          <table role="table" style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-inter)', fontSize: '14px' }}>
+ <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
             <caption className="sr-only">Common bot error reasons and resolutions</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Error reason</th>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>What to do</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Error reason</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>What to do</th>
               </tr>
             </thead>
             <tbody>
@@ -525,7 +501,7 @@ export default function FaqPage() {
                 ['Discord API outage', 'Wait for Discord to recover. Check discordstatus.com'],
               ].map(([reason, action], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                  <td style={{ padding: '8px 12px', color: '#374151', fontWeight: 500 }}>{reason}</td>
+ <td className="font-medium" style={{ padding: '8px 12px', color: '#374151' }}>{reason}</td>
                   <td style={{ padding: '8px 12px', color: '#374151' }}>{action}</td>
                 </tr>
               ))}
@@ -547,13 +523,13 @@ export default function FaqPage() {
         {ap('Daimon includes 90+ tools across multiple platforms. Every plan (Free, Starter, Pro) includes all tools — there is no tool gating. The tools you can actually use depend only on which services you have connected.')}
         <p style={{ margin: '0 0 8px 0' }}><strong>Included tool categories:</strong></p>
         <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
-          <table role="table" style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-inter)', fontSize: '14px' }}>
+ <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
             <caption className="sr-only">Daimon tool categories and their connection requirements</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Category</th>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Tools</th>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Connection required</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Category</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Tools</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Connection required</th>
               </tr>
             </thead>
             <tbody>
@@ -573,7 +549,7 @@ export default function FaqPage() {
                 ['Linear (remote MCP)', 'Issue creation, search, update, project management (6 tools)', 'Linear OAuth'],
               ].map(([cat, tools, conn], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                  <td style={{ padding: '8px 12px', color: '#374151', fontWeight: 500 }}>{cat}</td>
+ <td className="font-medium" style={{ padding: '8px 12px', color: '#374151' }}>{cat}</td>
                   <td style={{ padding: '8px 12px', color: '#374151' }}>{tools}</td>
                   <td style={{ padding: '8px 12px', color: '#374151' }}>{conn}</td>
                 </tr>
@@ -638,13 +614,13 @@ export default function FaqPage() {
       <FaqItem question="The bot is responding but giving errors about tools. What do I check?">
         {ap('Tool errors usually fall into these categories:')}
         <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
-          <table role="table" style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-inter)', fontSize: '14px' }}>
+ <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
             <caption className="sr-only">Bot tool error messages and resolutions</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Error message in Discord</th>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Likely cause</th>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Resolution</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Error message in Discord</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Likely cause</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Resolution</th>
               </tr>
             </thead>
             <tbody>
@@ -657,7 +633,7 @@ export default function FaqPage() {
                 ['"Tool execution timed out"', 'External API was slow or unresponsive', "Try again; if persistent, check the external service's status"],
               ].map(([msg, cause, fix], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                  <td style={{ padding: '8px 12px', color: '#374151', fontFamily: "'Courier New', monospace", fontSize: '14px' }}>{msg}</td>
+                  <td className="text-sm font-mono" style={{ padding: '8px 12px', color: '#374151' }}>{msg}</td>
                   <td style={{ padding: '8px 12px', color: '#374151' }}>{cause}</td>
                   <td style={{ padding: '8px 12px', color: '#374151' }}>{fix}</td>
                 </tr>
@@ -744,18 +720,18 @@ export default function FaqPage() {
 
       <FaqItem question="How many Discord connections can I have?">
         <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
-          <table role="table" style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-inter)', fontSize: '14px' }}>
+ <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
             <caption className="sr-only">Discord connection limits by plan</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Plan</th>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Maximum Discord connections</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Plan</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Maximum Discord connections</th>
               </tr>
             </thead>
             <tbody>
               {[['Free', '1'], ['Starter', '3'], ['Pro', 'Unlimited']].map(([plan, limit], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                  <td style={{ padding: '8px 12px', color: '#374151', fontWeight: 500 }}>{plan}</td>
+ <td className="font-medium" style={{ padding: '8px 12px', color: '#374151' }}>{plan}</td>
                   <td style={{ padding: '8px 12px', color: '#374151' }}>{limit}</td>
                 </tr>
               ))}
@@ -777,12 +753,12 @@ export default function FaqPage() {
       <FaqItem question="Are there API rate limits on the Daimon website itself?">
         {ap('Yes. The following rate limits apply to the Daimon website API:')}
         <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
-          <table role="table" style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-inter)', fontSize: '14px' }}>
+ <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
             <caption className="sr-only">Daimon API rate limits by endpoint category</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Endpoint category</th>
-                <th style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40', fontWeight: 600 }}>Rate limit</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Endpoint category</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Rate limit</th>
               </tr>
             </thead>
             <tbody>
@@ -796,7 +772,7 @@ export default function FaqPage() {
               ].map(([cat, limit], i) => (
                 <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
                   <td style={{ padding: '8px 12px', color: '#374151' }}>{cat}</td>
-                  <td style={{ padding: '8px 12px', color: '#374151', fontWeight: 500 }}>{limit}</td>
+ <td className="font-medium" style={{ padding: '8px 12px', color: '#374151' }}>{limit}</td>
                 </tr>
               ))}
             </tbody>
@@ -866,9 +842,7 @@ export default function FaqPage() {
           <a
             href="/docs/tool-reference/linear"
             aria-label="Previous page: Linear Tools"
-            style={{
-              fontFamily: 'var(--font-inter)',
-              fontSize: '14px',
+            className="font-body text-sm" style={{
               color: '#3F85CC',
               textDecoration: 'none',
             }}
@@ -880,9 +854,7 @@ export default function FaqPage() {
           <a
             href="/docs/billing"
             aria-label="Next page: Billing & Plans"
-            style={{
-              fontFamily: 'var(--font-inter)',
-              fontSize: '14px',
+            className="font-body text-sm" style={{
               color: '#3F85CC',
               textDecoration: 'none',
             }}

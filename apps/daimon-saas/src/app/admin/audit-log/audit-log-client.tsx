@@ -279,8 +279,6 @@ export function AuditLogClient({
   }
 
   const selectStyle: React.CSSProperties = {
-    fontFamily: 'var(--font-inter)',
-    fontSize: '14px',
     color: '#374151',
     background: '#FFFFFF',
     border: '1px solid #E5E7EB',
@@ -290,13 +288,9 @@ export function AuditLogClient({
     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'right 8px center',
-    cursor: 'pointer',
-  }
+    cursor: 'pointer'}
 
   const thStyle: React.CSSProperties = {
-    fontFamily: 'var(--font-inter)',
-    fontSize: '12px',
-    fontWeight: 500,
     color: '#374151',
     textTransform: 'uppercase',
     letterSpacing: '0.3px',
@@ -304,8 +298,7 @@ export function AuditLogClient({
     textAlign: 'left',
     background: '#F9FAFB',
     borderBottom: '1px solid #E5E7EB',
-    whiteSpace: 'nowrap',
-  }
+    whiteSpace: 'nowrap'}
 
   const tdStyle: React.CSSProperties = {
     padding: '10px 16px',
@@ -332,17 +325,13 @@ export function AuditLogClient({
             placeholder="Tenant ID (UUID)…"
             defaultValue={filters.tenantId}
             onChange={(e) => handleTenantIdChange(e.target.value)}
-            style={{
-              fontFamily: 'var(--font-inter)',
-              fontSize: '14px',
-              color: '#374151',
+            className="font-body text-sm" style={{color: '#374151',
               background: '#FFFFFF',
               border: '1px solid #E5E7EB',
               padding: '6px 10px',
               borderRadius: 0,
               outline: 'none',
-              width: '260px',
-            }}
+              width: '260px'}}
             onFocus={(e) => (e.currentTarget.style.borderColor = '#B4E7DD')}
             onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
           />
@@ -351,7 +340,7 @@ export function AuditLogClient({
           <select
             value={filters.action}
             onChange={(e) => handleSelect('action', e.target.value)}
-            style={selectStyle}
+            className="font-body text-sm" style={selectStyle}
             aria-label="Filter by action"
           >
             {ACTION_OPTIONS.map((opt) => (
@@ -365,7 +354,7 @@ export function AuditLogClient({
           <select
             value={filters.adminId}
             onChange={(e) => handleSelect('admin_id', e.target.value)}
-            style={selectStyle}
+            className="font-body text-sm" style={selectStyle}
             aria-label="Filter by admin"
           >
             <option value="">All Admins</option>
@@ -379,12 +368,8 @@ export function AuditLogClient({
           {/* Date from */}
           <div className="flex items-center gap-2">
             <label
-              style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '13px',
-                color: '#6B7280',
-                whiteSpace: 'nowrap',
-              }}
+              className="font-body text-[13px]" style={{color: '#6B7280',
+                whiteSpace: 'nowrap'}}
             >
               From
             </label>
@@ -392,16 +377,12 @@ export function AuditLogClient({
               type="date"
               value={filters.from}
               onChange={(e) => handleSelect('from', e.target.value)}
-              style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '14px',
-                color: '#374151',
+              className="font-body text-sm" style={{color: '#374151',
                 background: '#FFFFFF',
                 border: '1px solid #E5E7EB',
                 padding: '6px 8px',
                 borderRadius: 0,
-                outline: 'none',
-              }}
+                outline: 'none'}}
               onFocus={(e) => (e.currentTarget.style.borderColor = '#B4E7DD')}
               onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
             />
@@ -410,12 +391,8 @@ export function AuditLogClient({
           {/* Date to */}
           <div className="flex items-center gap-2">
             <label
-              style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '13px',
-                color: '#6B7280',
-                whiteSpace: 'nowrap',
-              }}
+              className="font-body text-[13px]" style={{color: '#6B7280',
+                whiteSpace: 'nowrap'}}
             >
               To
             </label>
@@ -423,16 +400,12 @@ export function AuditLogClient({
               type="date"
               value={filters.to}
               onChange={(e) => handleSelect('to', e.target.value)}
-              style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '14px',
-                color: '#374151',
+              className="font-body text-sm" style={{color: '#374151',
                 background: '#FFFFFF',
                 border: '1px solid #E5E7EB',
                 padding: '6px 8px',
                 borderRadius: 0,
-                outline: 'none',
-              }}
+                outline: 'none'}}
               onFocus={(e) => (e.currentTarget.style.borderColor = '#B4E7DD')}
               onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
             />
@@ -442,18 +415,13 @@ export function AuditLogClient({
           {hasActiveFilters && (
             <button
               onClick={handleReset}
-              className="flex items-center gap-1 transition-colors duration-150"
-              style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '14px',
-                fontWeight: 500,
-                color: '#0C1F40',
+              className="flex items-center gap-1 transition-colors duration-150 font-body text-sm font-medium"
+              style={{color: '#0C1F40',
                 background: 'transparent',
                 border: 'none',
                 padding: '6px 8px',
                 cursor: 'pointer',
-                borderRadius: 0,
-              }}
+                borderRadius: 0}}
               onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
             >
@@ -483,12 +451,12 @@ export function AuditLogClient({
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr>
-                  <th style={{ ...thStyle, width: '100px' }}>ID</th>
-                  <th style={{ ...thStyle, width: '18%' }}>Action</th>
-                  <th style={{ ...thStyle, width: '18%' }}>Tenant</th>
-                  <th style={{ ...thStyle, width: '18%' }}>Admin</th>
-                  <th style={{ ...thStyle, width: '20%' }}>Date &amp; Time</th>
-                  <th style={{ ...thStyle }}>Metadata</th>
+                  <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '100px' }}>ID</th>
+                  <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '18%' }}>Action</th>
+                  <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '18%' }}>Tenant</th>
+                  <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '18%' }}>Admin</th>
+                  <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '20%' }}>Date &amp; Time</th>
+                  <th className="font-body text-xs font-medium" style={{ ...thStyle }}>Metadata</th>
                 </tr>
               </thead>
               <tbody>
@@ -530,14 +498,9 @@ export function AuditLogClient({
                             )}
                             <span
                               title={entry.id}
-                              style={{
-                                fontFamily: 'var(--font-inter)',
-                                fontSize: '12px',
-                                fontWeight: 500,
-                                color: '#9CA3AF',
+                              className="font-body text-xs font-medium" style={{color: '#9CA3AF',
                                 fontVariantNumeric: 'tabular-nums',
-                                cursor: 'default',
-                              }}
+                                cursor: 'default'}}
                             >
                               {entry.id.slice(0, 8)}
                             </span>
@@ -547,12 +510,7 @@ export function AuditLogClient({
                         {/* Action */}
                         <td style={tdStyle}>
                           <span
-                            style={{
-                              fontFamily: 'var(--font-inter)',
-                              fontSize: '13px',
-                              fontWeight: 500,
-                              color: '#0C1F40',
-                            }}
+                            className="font-body text-[13px] font-medium" style={{color: '#0C1F40'}}
                           >
                             {actionLabel}
                           </span>
@@ -565,41 +523,29 @@ export function AuditLogClient({
                               <Link
                                 href={`/admin/tenants/${entry.tenant_id}`}
                                 onClick={(e) => e.stopPropagation()}
-                                style={{
-                                  fontFamily: 'var(--font-inter)',
-                                  fontSize: '13px',
-                                  color: '#0C1F40',
+                                className="font-body text-[13px]" style={{color: '#0C1F40',
                                   textDecoration: 'none',
-                                  borderBottom: '1px solid #E5E7EB',
-                                }}
+                                  borderBottom: '1px solid #E5E7EB'}}
                               >
                                 {tenantName}
                               </Link>
                             ) : (
                               <span
-                                style={{
-                                  fontFamily: 'var(--font-inter)',
-                                  fontSize: '12px',
-                                  color: '#9CA3AF',
-                                  fontStyle: 'italic',
-                                }}
+                                className="font-body text-xs" style={{color: '#9CA3AF',
+                                  fontStyle: 'italic'}}
                               >
                                 Deleted tenant ({entry.tenant_id.slice(0, 8)}...)
                               </span>
                             )
                           ) : (
-                            <span style={{ color: '#9CA3AF', fontSize: '14px' }}>—</span>
+                            <span className="text-sm" style={{color: '#9CA3AF'}}>—</span>
                           )}
                         </td>
 
                         {/* Admin */}
                         <td style={tdStyle}>
                           <span
-                            style={{
-                              fontFamily: 'var(--font-inter)',
-                              fontSize: '13px',
-                              color: '#374151',
-                            }}
+                            className="font-body text-[13px]" style={{color: '#374151'}}
                           >
                             {adminEmail}
                           </span>
@@ -608,12 +554,8 @@ export function AuditLogClient({
                         {/* Date & Time */}
                         <td style={tdStyle}>
                           <span
-                            style={{
-                              fontFamily: 'var(--font-inter)',
-                              fontSize: '13px',
-                              color: '#6B7280',
-                              whiteSpace: 'nowrap',
-                            }}
+                            className="font-body text-[13px]" style={{color: '#6B7280',
+                              whiteSpace: 'nowrap'}}
                           >
                             {formatDateTime(entry.created_at)}
                           </span>
@@ -622,11 +564,7 @@ export function AuditLogClient({
                         {/* Metadata summary */}
                         <td style={tdStyle}>
                           <span
-                            style={{
-                              fontFamily: 'var(--font-inter)',
-                              fontSize: '13px',
-                              color: '#6B7280',
-                            }}
+                            className="font-body text-[13px]" style={{color: '#6B7280'}}
                           >
                             {metaSummary}
                           </span>
@@ -644,18 +582,14 @@ export function AuditLogClient({
                             }}
                           >
                             <pre
-                              style={{
-                                fontFamily: 'monospace',
-                                fontSize: '12px',
-                                color: '#374151',
+                              className="font-mono text-xs" style={{color: '#374151',
                                 background: '#F3F4F6',
                                 border: '1px solid #E5E7EB',
                                 padding: '12px 16px',
                                 overflowX: 'auto',
                                 margin: 0,
                                 lineHeight: 1.6,
-                                borderRadius: 0,
-                              }}
+                                borderRadius: 0}}
                             >
                               {JSON.stringify(entry.metadata, null, 2)}
                             </pre>

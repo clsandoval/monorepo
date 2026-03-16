@@ -76,18 +76,13 @@ function PlanBadge({ plan }: { plan: string }) {
   const s = styles[plan] ?? styles.free
   return (
     <span
-      style={{
-        fontFamily: 'var(--font-inter)',
-        fontSize: '11px',
-        fontWeight: 600,
-        textTransform: 'uppercase',
+      className="font-body text-[11px] font-semibold" style={{textTransform: 'uppercase',
         letterSpacing: '0.5px',
         padding: '2px 8px',
         borderRadius: 0,
         background: s.bg,
         color: s.color,
-        whiteSpace: 'nowrap',
-      }}
+        whiteSpace: 'nowrap'}}
     >
       {plan}
     </span>
@@ -106,18 +101,13 @@ function StatusBadge({ status }: { status: string }) {
   const s = styles[status] ?? { bg: '#F3F4F6', color: '#6B7280' }
   return (
     <span
-      style={{
-        fontFamily: 'var(--font-inter)',
-        fontSize: '11px',
-        fontWeight: 600,
-        textTransform: 'uppercase',
+      className="font-body text-[11px] font-semibold" style={{textTransform: 'uppercase',
         letterSpacing: '0.5px',
         padding: '2px 8px',
         borderRadius: 0,
         background: s.bg,
         color: s.color,
-        whiteSpace: 'nowrap',
-      }}
+        whiteSpace: 'nowrap'}}
     >
       {status}
     </span>
@@ -144,33 +134,20 @@ function StatCard({
       }}
     >
       <div
-        style={{
-          fontFamily: 'var(--font-archivo)',
-          fontSize: '28px',
-          fontWeight: 600,
-          color: '#0C1F40',
-          lineHeight: 1.2,
-        }}
+        className="font-headline text-[28px] font-semibold" style={{color: '#0C1F40',
+          lineHeight: 1.2}}
       >
         {count.toLocaleString()}
       </div>
       <div
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '12px',
-          color: '#6B7280',
-          marginTop: '2px',
-        }}
+        className="font-body text-xs" style={{color: '#6B7280',
+          marginTop: '2px'}}
       >
         {label}
       </div>
       <div
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '11px',
-          color: '#9CA3AF',
-          marginTop: '1px',
-        }}
+        className="font-body text-[11px]" style={{color: '#9CA3AF',
+          marginTop: '1px'}}
       >
         {subLabel}
       </div>
@@ -382,9 +359,6 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
 
   // ── Table cell style helpers ──────────────────────────────────────────────
   const thStyle: React.CSSProperties = {
-    fontFamily: 'var(--font-inter)',
-    fontSize: '12px',
-    fontWeight: 500,
     color: '#374151',
     textTransform: 'uppercase',
     letterSpacing: '0.3px',
@@ -392,8 +366,7 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
     textAlign: 'left',
     background: '#F9FAFB',
     borderBottom: '1px solid #E5E7EB',
-    whiteSpace: 'nowrap',
-  }
+    whiteSpace: 'nowrap'}
 
   const tdStyle: React.CSSProperties = {
     padding: '12px 16px',
@@ -452,12 +425,12 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
                   <tr>
-                    <th style={{ ...thStyle, width: '35%' }}>Tenant</th>
-                    <th style={{ ...thStyle, width: '10%' }}>Plan</th>
-                    <th style={{ ...thStyle, width: '12%' }}>Status</th>
-                    <th style={{ ...thStyle, width: '18%' }}>Discord</th>
-                    <th style={{ ...thStyle, width: '12%' }}>Created</th>
-                    <th style={{ ...thStyle, width: '8%' }}></th>
+                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '35%' }}>Tenant</th>
+                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '10%' }}>Plan</th>
+                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '12%' }}>Status</th>
+                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '18%' }}>Discord</th>
+                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '12%' }}>Created</th>
+                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '8%' }}></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -469,23 +442,14 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
                       {/* Tenant name + email */}
                       <td style={tdStyle}>
                         <div
-                          style={{
-                            fontFamily: 'var(--font-inter)',
-                            fontSize: '14px',
-                            fontWeight: 500,
-                            color: '#0C1F40',
-                          }}
+                          className="font-body text-sm font-medium" style={{color: '#0C1F40'}}
                         >
                           {tenant.name}
                         </div>
                         {tenant.ownerEmail && (
                           <div
-                            style={{
-                              fontFamily: 'var(--font-inter)',
-                              fontSize: '12px',
-                              color: '#6B7280',
-                              marginTop: '2px',
-                            }}
+                            className="font-body text-xs" style={{color: '#6B7280',
+                              marginTop: '2px'}}
                           >
                             {tenant.ownerEmail}
                           </div>
@@ -508,28 +472,20 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
                           <div>
                             {tenant.discord.bot_username && (
                               <div
-                                style={{
-                                  fontFamily: 'var(--font-inter)',
-                                  fontSize: '13px',
-                                  color: '#374151',
-                                }}
+                                className="font-body text-[13px]" style={{color: '#374151'}}
                               >
                                 {tenant.discord.bot_username}
                               </div>
                             )}
                             <div
-                              style={{
-                                fontFamily: 'var(--font-inter)',
-                                fontSize: '11px',
-                                color: '#9CA3AF',
-                                marginTop: '1px',
-                              }}
+                              className="font-body text-[11px]" style={{color: '#9CA3AF',
+                                marginTop: '1px'}}
                             >
                               {tenant.discord.guild_id}
                             </div>
                           </div>
                         ) : (
-                          <span style={{ color: '#9CA3AF', fontSize: '14px' }}>—</span>
+                          <span className="text-sm" style={{color: '#9CA3AF'}}>—</span>
                         )}
                       </td>
 
@@ -537,12 +493,8 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
                       <td style={tdStyle}>
                         <span
                           title={new Date(tenant.created_at).toISOString()}
-                          style={{
-                            fontFamily: 'var(--font-inter)',
-                            fontSize: '13px',
-                            color: '#6B7280',
-                            cursor: 'default',
-                          }}
+                          className="font-body text-[13px]" style={{color: '#6B7280',
+                            cursor: 'default'}}
                         >
                           {relativeDate(tenant.created_at)}
                         </span>

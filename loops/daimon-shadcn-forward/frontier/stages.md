@@ -265,7 +265,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 
 ## Cross-Page Consistency QA (stages 207–210) `[consistency-qa]`
 
-- [ ] **Stage 207**: Typography consistency — grep all `.tsx` files for inline `fontFamily`, `fontSize`, `fontWeight`. Every instance should be zero (all handled by shadcn/Tailwind classes). Fix any remaining inline font styles.
+- [x] **Stage 207**: Typography consistency — grep all `.tsx` files for inline `fontFamily`, `fontSize`, `fontWeight`. Every instance should be zero (all handled by shadcn/Tailwind classes). Fix any remaining inline font styles. (2026-03-16) — converted 712 inline font properties across 19 files to Tailwind classes (font-body, font-headline, font-mono, text-sm, text-base, font-semibold, font-bold, etc.); only 3 SVG attributes remain (valid SVG, not inline styles); build passes
 - [ ] **Stage 208**: Color consistency — grep all `.tsx` files for hardcoded hex colors (`#0C1F40`, `#B4E7DD`, `#9FAAE2`, `#DC2626`, `rgba(12,31,64`). All should be replaced with CSS variable references via Tailwind classes (e.g., `text-foreground`, `bg-primary`). Fix any remaining.
 - [ ] **Stage 209**: Spacing consistency — grep for inline `margin`, `padding`, `gap` in `style={}` objects. All should be Tailwind classes. Fix any remaining inline spacing.
 - [ ] **Stage 210**: Component consistency — navigate to 3+ pages that use the same component (e.g., Button). Screenshot each instance. Verify visual consistency (same padding, font, border radius, hover state). Fix any inconsistencies.

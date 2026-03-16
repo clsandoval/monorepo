@@ -164,10 +164,8 @@ export default async function BillingPage() {
       {/* Page header */}
       <div style={{ marginBottom: '32px' }}>
         <h1
+          className="font-headline font-semibold text-[28px]"
           style={{
-            fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-            fontWeight: 600,
-            fontSize: '28px',
             color: '#0C1F40',
             marginBottom: '8px',
           }}
@@ -175,10 +173,8 @@ export default async function BillingPage() {
           Billing &amp; Keys
         </h1>
         <p
+          className="font-body font-normal text-sm"
           style={{
-            fontFamily: 'var(--font-inter), Inter, sans-serif',
-            fontWeight: 400,
-            fontSize: '14px',
             color: '#6B7280',
             maxWidth: '640px',
           }}
@@ -191,12 +187,8 @@ export default async function BillingPage() {
       <section id="subscription">
         <div style={{ marginBottom: '24px' }}>
           <h2
-            style={{
-              fontFamily: 'var(--font-archivo), Archivo, sans-serif',
-              fontWeight: 600,
-              fontSize: '20px',
-              color: '#0C1F40',
-            }}
+            className="font-headline font-semibold text-xl"
+            style={{ color: '#0C1F40' }}
           >
             Subscription
           </h2>

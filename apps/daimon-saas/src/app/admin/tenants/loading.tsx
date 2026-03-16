@@ -54,19 +54,14 @@ export default function AdminTenantsLoading() {
                 {['Workspace', 'Status', 'Plan', 'Created', 'Last Active', 'Actions'].map((col) => (
                   <th
                     key={col}
-                    style={{
-                      fontFamily: 'var(--font-inter)',
-                      fontSize: '12px',
-                      fontWeight: 500,
-                      color: '#374151',
+                    className="font-body text-xs font-medium" style={{color: '#374151',
                       textTransform: 'uppercase',
                       letterSpacing: '0.3px',
                       padding: '10px 16px',
                       textAlign: 'left',
                       background: '#F9FAFB',
                       borderBottom: '1px solid #E5E7EB',
-                      whiteSpace: 'nowrap',
-                    }}
+                      whiteSpace: 'nowrap'}}
                   >
                     {col}
                   </th>

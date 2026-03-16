@@ -28,9 +28,8 @@ function PageHeader() {
   return (
     <header style={{ marginBottom: '48px' }}>
       <div
+        className="font-body text-sm"
         style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '14px',
           color: 'rgba(12, 31, 64, 0.65)',
           textTransform: 'uppercase',
           letterSpacing: '0.08em',
@@ -41,10 +40,8 @@ function PageHeader() {
       </div>
       <h1
         id="billing-plans-title"
+        className="font-heading text-3xl font-semibold"
         style={{
-          fontFamily: 'var(--font-archivo)',
-          fontSize: '32px',
-          fontWeight: 600,
           color: '#0C1F40',
           margin: '0 0 8px 0',
         }}
@@ -52,10 +49,8 @@ function PageHeader() {
         Billing &amp; Plans
       </h1>
       <p
+        className="font-body text-lg font-normal"
         style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '18px',
-          fontWeight: 400,
           color: '#6B7280',
           margin: 0,
           lineHeight: 1.5,
@@ -91,10 +86,8 @@ function Toc() {
       }}
     >
       <p
+        className="font-body text-sm font-semibold"
         style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '14px',
-          fontWeight: 600,
           color: '#6B7280',
           textTransform: 'uppercase',
           letterSpacing: '0.08em',
@@ -108,9 +101,8 @@ function Toc() {
           <li key={item.href}>
             <a
               href={item.href}
+              className="font-body text-sm"
               style={{
-                fontFamily: 'var(--font-inter)',
-                fontSize: '14px',
                 color: '#3F85CC',
                 textDecoration: 'none',
               }}
@@ -128,10 +120,8 @@ function H2({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <h2
       id={id}
+      className="font-headline text-[22px] font-semibold"
       style={{
-        fontFamily: 'var(--font-archivo)',
-        fontSize: '22px',
-        fontWeight: 600,
         color: '#0C1F40',
         margin: '0 0 20px 0',
       }}
@@ -144,10 +134,8 @@ function H2({ id, children }: { id: string; children: React.ReactNode }) {
 function H3({ children }: { children: React.ReactNode }) {
   return (
     <h3
+      className="font-headline text-[17px] font-semibold"
       style={{
-        fontFamily: 'var(--font-archivo)',
-        fontSize: '17px',
-        fontWeight: 600,
         color: '#0C1F40',
         margin: '28px 0 12px 0',
       }}
@@ -160,9 +148,8 @@ function H3({ children }: { children: React.ReactNode }) {
 function P({ children }: { children: React.ReactNode }) {
   return (
     <p
+      className="font-body text-[15px]"
       style={{
-        fontFamily: 'var(--font-inter)',
-        fontSize: '15px',
         color: '#374151',
         lineHeight: 1.7,
         margin: '0 0 16px 0',
@@ -176,9 +163,8 @@ function P({ children }: { children: React.ReactNode }) {
 function Ul({ items }: { items: React.ReactNode[] }) {
   return (
     <ul
+      className="font-body text-[15px]"
       style={{
-        fontFamily: 'var(--font-inter)',
-        fontSize: '15px',
         color: '#374151',
         lineHeight: 1.7,
         margin: '0 0 16px 0',
@@ -197,9 +183,7 @@ function Ul({ items }: { items: React.ReactNode[] }) {
 function Ol({ items }: { items: React.ReactNode[] }) {
   return (
     <ol
-      style={{
-        fontFamily: 'var(--font-inter)',
-        fontSize: '15px',
+      className="font-body text-[15px]" style={{
         color: '#374151',
         lineHeight: 1.7,
         margin: '0 0 16px 0',
@@ -231,25 +215,21 @@ function Callout({
   const s = styles[type]
   return (
     <div
-      style={{
+      className="font-body text-sm" style={{
         backgroundColor: s.bg,
         border: `1px solid ${s.border}`,
         borderLeft: `4px solid ${s.border}`,
         padding: '16px 20px',
         marginBottom: '24px',
-        fontFamily: 'var(--font-inter)',
-        fontSize: '14px',
         color: '#374151',
         lineHeight: 1.6,
       }}
     >
       <span
-        style={{
-          fontWeight: 700,
+        className="font-bold text-sm" style={{
           color: s.labelColor,
           marginRight: '8px',
           textTransform: 'uppercase',
-          fontSize: '14px',
           letterSpacing: '0.05em',
         }}
       >
@@ -280,9 +260,8 @@ function alink(href: string, label: string, newTab?: boolean) {
 function acode(text: string) {
   return (
     <code
+      className="text-sm font-mono"
       style={{
-        fontFamily: "'Courier New', monospace",
-        fontSize: '14px',
         background: '#F3F4F6',
         padding: '2px 6px',
       }}
@@ -313,15 +292,15 @@ export default function BillingDocsPage() {
       <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
         <table
           role="table"
-          style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-inter)', fontSize: '14px' }}
+ className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}
         >
           <caption className="sr-only">Daimon plan comparison: Free, Starter, and Pro</caption>
           <thead>
             <tr style={{ borderBottom: '2px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
-              <th style={{ textAlign: 'left', padding: '12px 16px', color: '#0C1F40', fontWeight: 600 }}>Feature</th>
-              <th style={{ textAlign: 'center', padding: '12px 16px', color: '#0C1F40', fontWeight: 600 }}>Free</th>
-              <th style={{ textAlign: 'center', padding: '12px 16px', color: '#0C1F40', fontWeight: 600 }}>Starter</th>
-              <th style={{ textAlign: 'center', padding: '12px 16px', color: '#0C1F40', fontWeight: 600 }}>Pro</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '12px 16px', color: '#0C1F40' }}>Feature</th>
+ <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: '#0C1F40' }}>Free</th>
+ <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: '#0C1F40' }}>Starter</th>
+ <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: '#0C1F40' }}>Pro</th>
             </tr>
           </thead>
           <tbody>
@@ -347,7 +326,7 @@ export default function BillingDocsPage() {
                   backgroundColor: i % 2 === 0 ? '#FFFFFF' : '#FAFAFA',
                 }}
               >
-                <td style={{ padding: '10px 16px', color: '#374151', fontWeight: feature.startsWith('**') ? 600 : 400 }}>
+                <td className={feature.startsWith('**') ? "font-semibold" : "font-normal"} style={{ padding: '10px 16px', color: '#374151' }}>
                   {feature}
                 </td>
                 <td style={{ padding: '10px 16px', color: '#374151', textAlign: 'center' }}>{free}</td>
@@ -816,14 +795,14 @@ export default function BillingDocsPage() {
       <div style={{ overflowX: 'auto', marginBottom: '16px' }}>
         <table
           role="table"
-          style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-inter)', fontSize: '14px' }}
+ className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}
         >
           <caption className="sr-only">Anthropic API key validation errors</caption>
           <thead>
             <tr style={{ borderBottom: '2px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
-              <th style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40', fontWeight: 600 }}>Error</th>
-              <th style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40', fontWeight: 600 }}>Cause</th>
-              <th style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40', fontWeight: 600 }}>Fix</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Error</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Cause</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Fix</th>
             </tr>
           </thead>
           <tbody>
@@ -833,7 +812,7 @@ export default function BillingDocsPage() {
               ['Could not reach Anthropic to validate the key. Please try again.', 'Network error during validation', 'Retry — if it persists, check status.anthropic.com'],
             ].map(([error, cause, fix], i) => (
               <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                <td style={{ padding: '10px 12px', color: '#374151', fontSize: '14px' }}>{error}</td>
+ <td className="text-sm" style={{ padding: '10px 12px', color: '#374151' }}>{error}</td>
                 <td style={{ padding: '10px 12px', color: '#374151' }}>{cause}</td>
                 <td style={{ padding: '10px 12px', color: '#374151' }}>{fix}</td>
               </tr>
@@ -859,14 +838,14 @@ export default function BillingDocsPage() {
       <div style={{ overflowX: 'auto', marginBottom: '16px' }}>
         <table
           role="table"
-          style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-inter)', fontSize: '14px' }}
+ className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}
         >
           <caption className="sr-only">OpenAI API key validation errors</caption>
           <thead>
             <tr style={{ borderBottom: '2px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
-              <th style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40', fontWeight: 600 }}>Error</th>
-              <th style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40', fontWeight: 600 }}>Cause</th>
-              <th style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40', fontWeight: 600 }}>Fix</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Error</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Cause</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Fix</th>
             </tr>
           </thead>
           <tbody>
@@ -876,7 +855,7 @@ export default function BillingDocsPage() {
               ['Could not reach OpenAI to validate the key. Please try again.', 'Network error', 'Retry'],
             ].map(([error, cause, fix], i) => (
               <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                <td style={{ padding: '10px 12px', color: '#374151', fontSize: '14px' }}>{error}</td>
+ <td className="text-sm" style={{ padding: '10px 12px', color: '#374151' }}>{error}</td>
                 <td style={{ padding: '10px 12px', color: '#374151' }}>{cause}</td>
                 <td style={{ padding: '10px 12px', color: '#374151' }}>{fix}</td>
               </tr>
@@ -978,9 +957,7 @@ export default function BillingDocsPage() {
           <a
             href="/docs/faq"
             aria-label="Previous page: FAQ"
-            style={{
-              fontFamily: 'var(--font-inter)',
-              fontSize: '14px',
+            className="font-body text-sm" style={{
               color: '#3F85CC',
               textDecoration: 'none',
             }}

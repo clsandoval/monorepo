@@ -134,18 +134,18 @@ function FeaturedPostCard({ post }: { post: BlogPost }) {
         <Badge variant={CATEGORY_COLORS[post.category]} label={post.category} />
         <h2
           id={`featured-${post.slug}`}
-          className="mt-3 font-archivo font-bold text-[#0C1F40]"
-          style={{ fontSize: '28px', maxWidth: '520px' }}
+          className="mt-3 font-archivo font-bold text-[#0C1F40] text-[28px]"
+          style={{ maxWidth: '520px' }}
         >
           {post.title}
         </h2>
         <p
-          className="mt-3 text-[#4A5568]"
-          style={{ fontSize: '16px', lineHeight: '1.7' }}
+          className="mt-3 text-[#4A5568] text-base"
+          style={{ lineHeight: '1.7' }}
         >
           {post.excerpt}
         </p>
-        <div className="mt-4 flex items-center gap-3 text-[#718096]" style={{ fontSize: '14px' }}>
+        <div className="mt-4 flex items-center gap-3 text-[#718096] text-sm">
           <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
           <span>·</span>
           <span>{post.readTimeMinutes} min read</span>
@@ -201,20 +201,20 @@ function PostCard({ post }: { post: BlogPost }) {
             </div>
             <h2
               id={`post-${post.slug}`}
-              className="font-archivo font-bold text-[#0C1F40] line-clamp-2"
-              style={{ fontSize: '20px' }}
+              className="font-archivo font-bold text-[#0C1F40] line-clamp-2 text-xl"
+
             >
               {post.title}
             </h2>
             <p
-              className="mt-2 text-[#4A5568] line-clamp-3"
-              style={{ fontSize: '14px', lineHeight: '1.6' }}
+              className="mt-2 text-[#4A5568] line-clamp-3 text-sm"
+              style={{ lineHeight: '1.6' }}
             >
               {post.excerpt}
             </p>
             <div
-              className="mt-3 flex items-center justify-between text-[#718096]"
-              style={{ fontSize: '14px' }}
+              className="mt-3 flex items-center justify-between text-[#718096] text-sm"
+
             >
               <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
               <span>{post.readTimeMinutes} min read</span>
@@ -234,10 +234,10 @@ export default function BlogPage() {
       <main className="max-w-7xl mx-auto px-8">
         {/* Page header */}
         <div className="pt-20 pb-12">
-          <h1 className="font-archivo font-bold text-[#0C1F40]" style={{ fontSize: '44px' }}>
+          <h1 className="font-archivo font-bold text-[#0C1F40] text-[44px]">
             Blog
           </h1>
-          <p className="mt-2 text-[#4A5568]" style={{ fontSize: '18px' }}>
+          <p className="mt-2 text-[#4A5568] text-lg">
             Insights on AI-powered workflows, Discord automation, and building with Claude.
           </p>
         </div>

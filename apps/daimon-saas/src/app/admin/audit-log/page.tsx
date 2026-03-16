@@ -104,14 +104,10 @@ export default async function AdminAuditLogPage({ searchParams }: PageProps) {
         return (
           <AdminLayout pageTitle="Audit Log">
             <div
-              style={{
-                background: '#FEF2F2',
+              className="font-body text-sm" style={{background: '#FEF2F2',
                 border: '1px solid #FECACA',
                 padding: '16px 20px',
-                fontFamily: 'var(--font-inter)',
-                fontSize: '14px',
-                color: '#991B1B',
-              }}
+                color: '#991B1B'}}
             >
               Failed to load audit log. Refresh the page.
             </div>

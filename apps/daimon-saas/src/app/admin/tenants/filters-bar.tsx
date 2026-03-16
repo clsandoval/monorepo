@@ -75,8 +75,6 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
   }
 
   const selectStyle: React.CSSProperties = {
-    fontFamily: 'var(--font-inter)',
-    fontSize: '14px',
     color: '#374151',
     background: '#FFFFFF',
     border: '1px solid #E5E7EB',
@@ -86,8 +84,7 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'right 8px center',
-    cursor: 'pointer',
-  }
+    cursor: 'pointer'}
 
   return (
     <div
@@ -116,17 +113,13 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
           placeholder="Search by tenant name or owner email…"
           defaultValue={q}
           onChange={(e) => handleSearch(e.target.value)}
-          style={{
-            width: '100%',
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
+          className="font-body text-sm" style={{width: '100%',
             color: '#374151',
             background: '#FFFFFF',
             border: '1px solid #E5E7EB',
             padding: '6px 10px 6px 34px',
             borderRadius: 0,
-            outline: 'none',
-          }}
+            outline: 'none'}}
           onFocus={(e) => (e.currentTarget.style.borderColor = '#B4E7DD')}
           onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
         />
@@ -136,7 +129,7 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
       <select
         value={plan}
         onChange={(e) => handleSelect('plan', e.target.value)}
-        style={selectStyle}
+        className="font-body text-sm" style={selectStyle}
         aria-label="Filter by plan"
       >
         {PLAN_OPTIONS.map((opt) => (
@@ -150,7 +143,7 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
       <select
         value={status}
         onChange={(e) => handleSelect('status', e.target.value)}
-        style={selectStyle}
+        className="font-body text-sm" style={selectStyle}
         aria-label="Filter by status"
       >
         {STATUS_OPTIONS.map((opt) => (
@@ -164,7 +157,7 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
       <select
         value={sort || 'created_desc'}
         onChange={(e) => handleSelect('sort', e.target.value === 'created_desc' ? '' : e.target.value)}
-        style={selectStyle}
+        className="font-body text-sm" style={selectStyle}
         aria-label="Sort order"
       >
         {SORT_OPTIONS.map((opt) => (
@@ -178,18 +171,13 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
       {hasActiveFilters && (
         <button
           onClick={handleReset}
-          className="flex items-center gap-1 transition-colors duration-150"
-          style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '14px',
-            fontWeight: 500,
-            color: '#0C1F40',
+          className="flex items-center gap-1 transition-colors duration-150 font-body text-sm font-medium"
+          style={{color: '#0C1F40',
             background: 'transparent',
             border: 'none',
             padding: '6px 8px',
             cursor: 'pointer',
-            borderRadius: 0,
-          }}
+            borderRadius: 0}}
           onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
         >

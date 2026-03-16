@@ -48,11 +48,8 @@ function DocsSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
           <li key={section.label} style={{ margin: 0 }}>
             {/* Section label */}
             <span
-              style={{
+              className="font-body text-sm font-semibold" style={{
                 display: 'block',
-                fontFamily: 'var(--font-inter)',
-                fontSize: '14px',
-                fontWeight: 600,
                 color: '#6B7280',
                 textTransform: 'uppercase',
                 letterSpacing: '0.08em',
@@ -72,11 +69,8 @@ function DocsSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                       href={item.href}
                       aria-current={isActive ? 'page' : undefined}
                       onClick={onNavigate}
-                      style={{
+                      className={`font-body text-base ${isActive ? "font-semibold" : "font-normal"}`} style={{
                         display: 'block',
-                        fontFamily: 'var(--font-inter)',
-                        fontSize: '16px',
-                        fontWeight: isActive ? 600 : 400,
                         color: '#0C1F40',
                         padding: '10px 24px',
                         textDecoration: 'none',
@@ -132,10 +126,7 @@ function DocsSidebar() {
         >
           <Rocket size={20} color="#0C1F40" />
           <span
-            style={{
-              fontFamily: 'var(--font-archivo)',
-              fontSize: '16px',
-              fontWeight: 700,
+            className="font-headline text-base font-bold" style={{
               color: '#0C1F40',
             }}
           >
@@ -213,10 +204,7 @@ function MobileSidebar({
           >
             <Rocket size={20} color="#0C1F40" />
             <span
-              style={{
-                fontFamily: 'var(--font-archivo)',
-                fontSize: '16px',
-                fontWeight: 700,
+              className="font-headline text-base font-bold" style={{
                 color: '#0C1F40',
               }}
             >
@@ -301,9 +289,7 @@ function DocsTopbar({ onMenuClick }: { onMenuClick: () => void }) {
 
       {/* Breadcrumb */}
       <span
-        style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '14px',
+        className="font-body text-sm" style={{
           color: '#6B7280',
         }}
       >
@@ -322,16 +308,13 @@ function DocsTopbar({ onMenuClick }: { onMenuClick: () => void }) {
 
       <Link
         href="/signup"
-        style={{
+        className="font-body text-sm font-semibold" style={{
           display: 'inline-flex',
           alignItems: 'center',
           height: '32px',
           padding: '0 16px',
           backgroundColor: '#B4E7DD',
           color: '#0C1F40',
-          fontFamily: 'var(--font-inter)',
-          fontSize: '14px',
-          fontWeight: 600,
           textDecoration: 'none',
           whiteSpace: 'nowrap',
           transition: 'opacity 150ms',

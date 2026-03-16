@@ -242,7 +242,7 @@ function renderContent(content: string) {
       if (trimmed.startsWith('**') && trimmed.endsWith('**') && trimmed.length > 4) {
         const text = trimmed.slice(2, -2);
         return (
-          <h2 key={i} className="font-archivo font-bold text-[#0C1F40]" style={{ fontSize: '28px', margin: '48px 0 16px' }}>
+          <h2 key={i} className="font-archivo font-bold text-[#0C1F40] text-[28px]" style={{ margin: '48px 0 16px' }}>
             {text}
           </h2>
         );
@@ -264,7 +264,7 @@ function renderContent(content: string) {
         );
       }
       return (
-        <p key={i} className="mb-5" style={{ fontSize: '17px', lineHeight: '1.8', color: '#2D3748' }}>
+        <p key={i} className="mb-5 text-[17px]" style={{ lineHeight: '1.8', color: '#2D3748' }}>
           {trimmed.split('**').map((part, j) =>
             j % 2 === 1 ? <strong key={j} className="font-bold text-[#0C1F40]">{part}</strong> : part
           )}
@@ -314,7 +314,7 @@ export default async function BlogPostPage({
       />
       <main className="max-w-3xl mx-auto px-8 pt-20 pb-24">
         {/* Breadcrumb */}
-        <nav className="mb-6 text-[#718096]" style={{ fontSize: '14px' }}>
+        <nav className="mb-6 text-[#718096] text-sm">
           <Link href="/blog" className="hover:underline" style={{ textDecorationColor: '#B4E7DD' }}>
             Blog
           </Link>
@@ -330,8 +330,8 @@ export default async function BlogPostPage({
 
         {/* Post header */}
         <h1
-          className="font-archivo font-bold text-[#0C1F40]"
-          style={{ fontSize: 'clamp(30px, 4vw, 44px)', maxWidth: '48rem' }}
+          className="font-archivo font-bold text-[#0C1F40] text-[clamp(30px,4vw,44px)]"
+          style={{ maxWidth: '48rem' }}
         >
           {post.title}
         </h1>
@@ -340,7 +340,7 @@ export default async function BlogPostPage({
           <Badge variant={CATEGORY_COLORS[post.category]} label={post.category} />
         </div>
 
-        <div className="mt-4 flex items-center gap-3 text-[#4A5568]" style={{ fontSize: '15px' }}>
+        <div className="mt-4 flex items-center gap-3 text-[#4A5568] text-[15px]">
           <div
             className="w-6 h-6 rounded-full bg-[#0C1F40] flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
           >
@@ -382,10 +382,10 @@ export default async function BlogPostPage({
             {post.author.name[0]}
           </div>
           <div>
-            <div className="font-archivo font-bold text-[#0C1F40]" style={{ fontSize: '18px' }}>
+            <div className="font-archivo font-bold text-[#0C1F40] text-lg">
               {post.author.name}
             </div>
-            <div className="text-[#718096]" style={{ fontSize: '14px' }}>
+            <div className="text-[#718096] text-sm">
               {post.author.role}
             </div>
           </div>
@@ -395,8 +395,7 @@ export default async function BlogPostPage({
         {relatedPosts.length > 0 && (
           <section aria-label="Related posts" className="mt-16">
             <h2
-              className="font-archivo font-bold text-[#0C1F40] mb-6"
-              style={{ fontSize: '24px' }}
+              className="font-archivo font-bold text-[#0C1F40] mb-6 text-2xl"
             >
               More from the blog
             </h2>
@@ -423,8 +422,7 @@ export default async function BlogPostPage({
                         <Badge variant={CATEGORY_COLORS[related.category]} label={related.category} />
                         <h3
                           id={`related-${related.slug}`}
-                          className="mt-2 font-archivo font-bold text-[#0C1F40] line-clamp-2"
-                          style={{ fontSize: '16px' }}
+                          className="mt-2 font-archivo font-bold text-[#0C1F40] line-clamp-2 text-base"
                         >
                           {related.title}
                         </h3>
@@ -443,12 +441,11 @@ export default async function BlogPostPage({
           style={{ background: '#0C1F40' }}
         >
           <h2
-            className="font-archivo font-bold text-white"
-            style={{ fontSize: '28px' }}
+            className="font-archivo font-bold text-white text-[28px]"
           >
             Ready to put AI in your Discord?
           </h2>
-          <p className="mt-3 text-white/70" style={{ fontSize: '16px' }}>
+          <p className="mt-3 text-white/70 text-base">
             Start free — no credit card required.
           </p>
           <div className="mt-6">

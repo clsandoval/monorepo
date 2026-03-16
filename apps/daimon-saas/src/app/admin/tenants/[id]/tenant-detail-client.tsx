@@ -88,7 +88,7 @@ function PlanBadge({ plan }: { plan: string }) {
   }
   const s = styles[plan] ?? styles.free
   return (
-    <span style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 8px', borderRadius: 0, background: s.bg, color: s.color, whiteSpace: 'nowrap' }}>
+    <span className="font-body text-[11px] font-semibold" style={{textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 8px', borderRadius: 0, background: s.bg, color: s.color, whiteSpace: 'nowrap'}}>
       {plan}
     </span>
   )
@@ -103,7 +103,7 @@ function StatusBadge({ status }: { status: string }) {
   }
   const s = styles[status] ?? { bg: '#F3F4F6', color: '#6B7280' }
   return (
-    <span style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 8px', borderRadius: 0, background: s.bg, color: s.color, whiteSpace: 'nowrap' }}>
+    <span className="font-body text-[11px] font-semibold" style={{textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 8px', borderRadius: 0, background: s.bg, color: s.color, whiteSpace: 'nowrap'}}>
       {status}
     </span>
   )
@@ -120,7 +120,7 @@ function DiscordStatusBadge({ status }: { status: string }) {
   }
   const s = styles[status] ?? { bg: '#F3F4F6', color: '#6B7280' }
   return (
-    <span style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 8px', borderRadius: 0, background: s.bg, color: s.color, whiteSpace: 'nowrap' }}>
+    <span className="font-body text-[11px] font-semibold" style={{textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 8px', borderRadius: 0, background: s.bg, color: s.color, whiteSpace: 'nowrap'}}>
       {status}
     </span>
   )
@@ -134,7 +134,7 @@ function ApiKeyStatusBadge({ status }: { status: string }) {
   }
   const s = styles[status] ?? { bg: '#F3F4F6', color: '#6B7280' }
   return (
-    <span style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 8px', borderRadius: 0, background: s.bg, color: s.color, whiteSpace: 'nowrap' }}>
+    <span className="font-body text-[11px] font-semibold" style={{textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 8px', borderRadius: 0, background: s.bg, color: s.color, whiteSpace: 'nowrap'}}>
       {status}
     </span>
   )
@@ -149,7 +149,7 @@ function ServiceStatusBadge({ status }: { status: string }) {
   }
   const s = styles[status] ?? { bg: '#F3F4F6', color: '#6B7280' }
   return (
-    <span style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 8px', borderRadius: 0, background: s.bg, color: s.color, whiteSpace: 'nowrap' }}>
+    <span className="font-body text-[11px] font-semibold" style={{textTransform: 'uppercase', letterSpacing: '0.5px', padding: '2px 8px', borderRadius: 0, background: s.bg, color: s.color, whiteSpace: 'nowrap'}}>
       {status}
     </span>
   )
@@ -260,7 +260,7 @@ function auditMetaSummary(action: string, metadata: Record<string, unknown> | nu
 function SectionCard({ title, children }: { title: React.ReactNode; children: React.ReactNode }) {
   return (
     <div style={{ background: '#fff', border: '1px solid #E5E7EB', marginBottom: '16px' }}>
-      <div style={{ padding: '16px 20px', borderBottom: '1px solid #E5E7EB', fontFamily: 'var(--font-archivo)', fontWeight: 600, fontSize: '14px', color: '#0C1F40' }}>
+      <div className="font-headline text-sm font-semibold" style={{padding: '16px 20px', borderBottom: '1px solid #E5E7EB', color: '#0C1F40'}}>
         {title}
       </div>
       <div style={{ padding: '20px' }}>
@@ -275,8 +275,8 @@ function SectionCard({ title, children }: { title: React.ReactNode; children: Re
 function InfoRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ display: 'flex', padding: '8px 0', borderBottom: '1px solid #F3F4F6', gap: '16px' }}>
-      <span style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#6B7280', minWidth: '180px', flexShrink: 0 }}>{label}</span>
-      <span style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#0C1F40', display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>{children}</span>
+      <span className="font-body text-[13px]" style={{color: '#6B7280', minWidth: '180px', flexShrink: 0}}>{label}</span>
+      <span className="font-body text-[13px]" style={{color: '#0C1F40', display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap'}}>{children}</span>
     </div>
   )
 }
@@ -284,14 +284,14 @@ function InfoRow({ label, children }: { label: string; children: React.ReactNode
 // ─── Small button ──────────────────────────────────────────────────────────────
 
 function SmBtn({ variant = 'secondary', onClick, disabled, children }: { variant?: 'secondary' | 'danger' | 'danger-outline'; onClick?: () => void; disabled?: boolean; children: React.ReactNode }) {
-  const base: React.CSSProperties = { fontFamily: 'var(--font-inter)', fontSize: '12px', fontWeight: 500, padding: '3px 10px', borderRadius: 0, cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.5 : 1 }
+  const base: React.CSSProperties = { padding: '3px 10px', borderRadius: 0, cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.5 : 1}
   const variants: Record<string, React.CSSProperties> = {
     secondary: { background: '#fff', border: '1px solid #E5E7EB', color: '#0C1F40' },
     danger: { background: '#DC2626', border: '1px solid #DC2626', color: '#fff' },
     'danger-outline': { background: '#fff', border: '1px solid #DC2626', color: '#DC2626' },
   }
   return (
-    <button style={{ ...base, ...variants[variant] }} onClick={onClick} disabled={disabled}>
+    <button className="font-body text-xs font-medium" style={{ ...base, ...variants[variant] }} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   )
@@ -305,7 +305,7 @@ function Modal({ open, onClose, title, children, preventBackdropClose }: { open:
     <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)' }} onClick={preventBackdropClose ? undefined : onClose} />
       <div style={{ position: 'relative', background: '#fff', width: '480px', maxWidth: '95vw', padding: '24px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
-        <div style={{ fontFamily: 'var(--font-archivo)', fontWeight: 600, fontSize: '16px', color: '#0C1F40', marginBottom: '16px' }}>{title}</div>
+        <div className="font-headline text-base font-semibold" style={{color: '#0C1F40', marginBottom: '16px'}}>{title}</div>
         {children}
       </div>
     </div>
@@ -464,7 +464,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
   return (
     <div>
       {/* ── Breadcrumb ── */}
-      <a href="/admin/tenants" style={{ color: '#0C1F40', fontFamily: 'var(--font-inter)', fontSize: '13px', display: 'inline-flex', gap: '4px', alignItems: 'center', marginBottom: '16px', textDecoration: 'underline', textUnderlineOffset: '2px' }}>
+      <a href="/admin/tenants" className="font-body text-[13px]" style={{color: '#0C1F40', display: 'inline-flex', gap: '4px', alignItems: 'center', marginBottom: '16px', textDecoration: 'underline', textUnderlineOffset: '2px'}}>
         ← Tenants
       </a>
 
@@ -473,28 +473,28 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '6px' }}>
-              <h1 style={{ fontFamily: 'var(--font-archivo)', fontWeight: 600, fontSize: '24px', color: '#0C1F40', margin: 0 }}>{tenant.name}</h1>
+              <h1 className="font-headline text-2xl font-semibold" style={{color: '#0C1F40', margin: 0}}>{tenant.name}</h1>
               <PlanBadge plan={tenant.plan} />
               <StatusBadge status={tenant.status} />
             </div>
-            <div style={{ fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#9CA3AF', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '2px' }}>
+            <div className="font-body text-xs" style={{color: '#9CA3AF', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '2px'}}>
               Tenant ID: {tenant.id} <CopyButton value={tenant.id} />
             </div>
-            <div style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#6B7280' }}>
+            <div className="font-body text-[13px]" style={{color: '#6B7280'}}>
               Owner: {tenant.ownerEmail}
             </div>
           </div>
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
             <button
               onClick={() => setImpersonateOpen(true)}
-              style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '6px 14px', background: '#fff', border: '1px solid #B4E7DD', color: '#0C1F40', cursor: 'pointer', borderRadius: 0 }}
+              className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#fff', border: '1px solid #B4E7DD', color: '#0C1F40', cursor: 'pointer', borderRadius: 0}}
             >
               Impersonate
             </button>
             {canSuspend && (
               <button
                 onClick={() => setSuspendOpen(true)}
-                style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '6px 14px', background: '#fff', border: '1px solid #DC2626', color: '#DC2626', cursor: 'pointer', borderRadius: 0 }}
+                className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#fff', border: '1px solid #DC2626', color: '#DC2626', cursor: 'pointer', borderRadius: 0}}
               >
                 Suspend
               </button>
@@ -502,7 +502,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
             {canUnsuspend && (
               <button
                 onClick={() => setUnsuspendOpen(true)}
-                style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '6px 14px', background: '#fff', border: '1px solid #E5E7EB', color: '#0C1F40', cursor: 'pointer', borderRadius: 0 }}
+                className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#fff', border: '1px solid #E5E7EB', color: '#0C1F40', cursor: 'pointer', borderRadius: 0}}
               >
                 Unsuspend
               </button>
@@ -510,14 +510,14 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
             <div style={{ position: 'relative' }}>
               <button
                 onClick={() => setOverridePlanOpen(v => !v)}
-                style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '6px 14px', background: '#fff', border: '1px solid #E5E7EB', color: '#0C1F40', cursor: 'pointer', borderRadius: 0 }}
+                className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#fff', border: '1px solid #E5E7EB', color: '#0C1F40', cursor: 'pointer', borderRadius: 0}}
               >
                 Override Plan ▾
               </button>
               {overridePlanOpen && (
                 <div style={{ position: 'absolute', right: 0, top: '100%', background: '#fff', border: '1px solid #E5E7EB', zIndex: 50, minWidth: '120px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
                   {['free', 'starter', 'pro'].filter(p => p !== tenant.plan).map(p => (
-                    <button key={p} onClick={() => { setOverridePlanTarget(p); setOverridePlanOpen(false); setTimeout(() => document.getElementById('confirm-plan-modal-trigger')?.click(), 10) }} style={{ display: 'block', width: '100%', textAlign: 'left', padding: '10px 14px', background: 'none', border: 'none', fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#0C1F40', cursor: 'pointer' }}>
+                    <button key={p} onClick={() => { setOverridePlanTarget(p); setOverridePlanOpen(false); setTimeout(() => document.getElementById('confirm-plan-modal-trigger')?.click(), 10) }} className="font-body text-[13px]" style={{display: 'block', width: '100%', textAlign: 'left', padding: '10px 14px', background: 'none', border: 'none', color: '#0C1F40', cursor: 'pointer'}}>
                       {p.charAt(0).toUpperCase() + p.slice(1)}
                     </button>
                   ))}
@@ -531,17 +531,17 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
       {/* ── Tenant Info ── */}
       <SectionCard title="Tenant Information">
         <InfoRow label="Tenant Name">{tenant.name}</InfoRow>
-        <InfoRow label="Tenant ID"><span style={{ fontFamily: 'monospace', fontSize: '12px' }}>{tenant.id}</span><CopyButton value={tenant.id} /></InfoRow>
-        <InfoRow label="Owner User ID"><span style={{ fontFamily: 'monospace', fontSize: '12px' }}>{tenant.owner_id}</span><CopyButton value={tenant.owner_id} /></InfoRow>
+        <InfoRow label="Tenant ID"><span className="font-mono text-xs">{tenant.id}</span><CopyButton value={tenant.id} /></InfoRow>
+        <InfoRow label="Owner User ID"><span className="font-mono text-xs">{tenant.owner_id}</span><CopyButton value={tenant.owner_id} /></InfoRow>
         <InfoRow label="Owner Email">{tenant.ownerEmail}</InfoRow>
         <InfoRow label="Plan"><PlanBadge plan={tenant.plan} /></InfoRow>
         <InfoRow label="Status"><StatusBadge status={tenant.status} /></InfoRow>
         <InfoRow label="Stripe Customer">
           {tenant.stripe_customer_id ? (
             <>
-              <span style={{ fontFamily: 'monospace', fontSize: '12px' }}>{tenant.stripe_customer_id}</span>
+              <span className="font-mono text-xs">{tenant.stripe_customer_id}</span>
               <CopyButton value={tenant.stripe_customer_id} />
-              <a href={`https://dashboard.stripe.com/customers/${tenant.stripe_customer_id}`} target="_blank" rel="noopener noreferrer" style={{ color: '#0C1F40', fontSize: '12px', textDecoration: 'underline', textUnderlineOffset: '2px' }}>View in Stripe ↗</a>
+              <a href={`https://dashboard.stripe.com/customers/${tenant.stripe_customer_id}`} target="_blank" rel="noopener noreferrer" className="text-xs" style={{color: '#0C1F40', textDecoration: 'underline', textUnderlineOffset: '2px'}}>View in Stripe ↗</a>
             </>
           ) : '—'}
         </InfoRow>
@@ -552,13 +552,13 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
       {/* ── Discord Connections ── */}
       <SectionCard title={`Discord Connections (${tenant.discordConnections.length})`}>
         {tenant.discordConnections.length === 0 ? (
-          <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#6B7280', textAlign: 'center', margin: 0 }}>No Discord connections found for this tenant.<br />The tenant has not yet set up a bot connection.</p>
+          <p className="font-body text-sm" style={{color: '#6B7280', textAlign: 'center', margin: 0}}>No Discord connections found for this tenant.<br />The tenant has not yet set up a bot connection.</p>
         ) : (
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ background: '#F9FAFB' }}>
                 {['Bot', 'Guild ID', 'Status', 'Last Heartbeat', 'Actions'].map(h => (
-                  <th key={h} style={{ textAlign: 'left', padding: '8px 12px', fontFamily: 'var(--font-inter)', fontSize: '11px', fontWeight: 500, color: '#374151', textTransform: 'uppercase', borderBottom: '1px solid #E5E7EB' }}>{h}</th>
+                  <th key={h} className="font-body text-[11px] font-medium" style={{textAlign: 'left', padding: '8px 12px', color: '#374151', textTransform: 'uppercase', borderBottom: '1px solid #E5E7EB'}}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -566,10 +566,10 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
               {tenant.discordConnections.map(dc => (
                 <>
                   <tr key={dc.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                    <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, color: '#0C1F40' }}>{dc.bot_username ?? '—'}</td>
-                    <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#6B7280' }}>{dc.guild_id}</td>
+                    <td className="font-body text-[13px] font-medium" style={{padding: '10px 12px', color: '#0C1F40'}}>{dc.bot_username ?? '—'}</td>
+                    <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{dc.guild_id}</td>
                     <td style={{ padding: '10px 12px' }}><DiscordStatusBadge status={dc.status} /></td>
-                    <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#6B7280' }} title={dc.last_heartbeat ?? undefined}>{dc.last_heartbeat ? relativeDate(dc.last_heartbeat) : '—'}</td>
+                    <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}} title={dc.last_heartbeat ?? undefined}>{dc.last_heartbeat ? relativeDate(dc.last_heartbeat) : '—'}</td>
                     <td style={{ padding: '10px 12px', display: 'flex', gap: '6px' }}>
                       <SmBtn variant="secondary">Reset</SmBtn>
                       <SmBtn variant="danger-outline">Disconnect</SmBtn>
@@ -578,7 +578,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
                   {dc.status === 'error' && dc.error_message && (
                     <tr key={`${dc.id}-err`}>
                       <td colSpan={5} style={{ padding: '6px 12px 10px' }}>
-                        <div style={{ background: '#FEF2F2', color: '#DC2626', fontSize: '12px', fontFamily: 'var(--font-inter)', padding: '6px 10px' }}>
+                        <div className="font-body text-xs" style={{background: '#FEF2F2', color: '#DC2626', padding: '6px 10px'}}>
                           Error: {dc.error_message}
                         </div>
                       </td>
@@ -594,23 +594,23 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
       {/* ── API Keys ── */}
       <SectionCard title="API Keys">
         {tenant.apiKeys.length === 0 ? (
-          <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#6B7280', margin: 0 }}>No API keys found. The tenant has not yet added any API keys.</p>
+          <p className="font-body text-sm" style={{color: '#6B7280', margin: 0}}>No API keys found. The tenant has not yet added any API keys.</p>
         ) : (
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ background: '#F9FAFB' }}>
                 {['Provider', 'Key (hint)', 'Status', 'Validated', 'Actions'].map(h => (
-                  <th key={h} style={{ textAlign: 'left', padding: '8px 12px', fontFamily: 'var(--font-inter)', fontSize: '11px', fontWeight: 500, color: '#374151', textTransform: 'uppercase', borderBottom: '1px solid #E5E7EB' }}>{h}</th>
+                  <th key={h} className="font-body text-[11px] font-medium" style={{textAlign: 'left', padding: '8px 12px', color: '#374151', textTransform: 'uppercase', borderBottom: '1px solid #E5E7EB'}}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {tenant.apiKeys.map(k => (
                 <tr key={k.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                  <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#0C1F40' }}>{k.api_key_type === 'anthropic' ? 'Anthropic' : 'OpenAI'}</td>
-                  <td style={{ padding: '10px 12px', fontFamily: 'monospace', fontSize: '12px', color: '#6B7280' }}>{k.key_hint}</td>
+                  <td className="font-body text-[13px]" style={{padding: '10px 12px', color: '#0C1F40'}}>{k.api_key_type === 'anthropic' ? 'Anthropic' : 'OpenAI'}</td>
+                  <td className="font-mono text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{k.key_hint}</td>
                   <td style={{ padding: '10px 12px' }}><ApiKeyStatusBadge status={k.status} /></td>
-                  <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#6B7280' }}>{k.validated_at ? formatDateShort(k.validated_at) : '—'}</td>
+                  <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{k.validated_at ? formatDateShort(k.validated_at) : '—'}</td>
                   <td style={{ padding: '10px 12px' }}>
                     {k.status !== 'revoked' && (
                       <SmBtn variant="danger-outline" onClick={() => { setRevokeKeyId(k.id); setRevokeKeyHint(k.key_hint); setRevokeKeyReason('') }}>Revoke</SmBtn>
@@ -626,13 +626,13 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
       {/* ── Service Connections ── */}
       <SectionCard title={`Service Connections (${tenant.serviceConnections.length})`}>
         {tenant.serviceConnections.length === 0 ? (
-          <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#6B7280', margin: 0 }}>No service connections. The tenant has not connected any external services.</p>
+          <p className="font-body text-sm" style={{color: '#6B7280', margin: 0}}>No service connections. The tenant has not connected any external services.</p>
         ) : (
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ background: '#F9FAFB' }}>
                 {['Service', 'Connected As', 'Status', 'Connected On', 'Actions'].map(h => (
-                  <th key={h} style={{ textAlign: 'left', padding: '8px 12px', fontFamily: 'var(--font-inter)', fontSize: '11px', fontWeight: 500, color: '#374151', textTransform: 'uppercase', borderBottom: '1px solid #E5E7EB' }}>{h}</th>
+                  <th key={h} className="font-body text-[11px] font-medium" style={{textAlign: 'left', padding: '8px 12px', color: '#374151', textTransform: 'uppercase', borderBottom: '1px solid #E5E7EB'}}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -645,10 +645,10 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
                 const canRevoke = ['active', 'expired', 'error'].includes(sc.status)
                 return (
                   <tr key={sc.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                    <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#0C1F40', textTransform: 'capitalize' }}>{sc.service_name}</td>
-                    <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#6B7280' }}>{connectedAs}</td>
+                    <td className="font-body text-[13px]" style={{padding: '10px 12px', color: '#0C1F40', textTransform: 'capitalize'}}>{sc.service_name}</td>
+                    <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{connectedAs}</td>
                     <td style={{ padding: '10px 12px' }}><ServiceStatusBadge status={sc.status} /></td>
-                    <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#6B7280' }}>{formatDateShort(sc.created_at)}</td>
+                    <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{formatDateShort(sc.created_at)}</td>
                     <td style={{ padding: '10px 12px' }}>
                       {canRevoke && (
                         <SmBtn variant="danger-outline" onClick={() => { setRevokeServiceId(sc.id); setRevokeServiceName(sc.service_name) }}>Revoke</SmBtn>
@@ -665,7 +665,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
       {/* ── Subscription ── */}
       <SectionCard title="Subscription">
         {!tenant.stripe_customer_id ? (
-          <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#6B7280', margin: 0 }}>Free tier — no Stripe subscription.<br />This tenant has never initiated a billing flow.</p>
+          <p className="font-body text-sm" style={{color: '#6B7280', margin: 0}}>Free tier — no Stripe subscription.<br />This tenant has never initiated a billing flow.</p>
         ) : tenant.subscription ? (
           <>
             <InfoRow label="Plan"><PlanBadge plan={tenant.subscription.plan} /></InfoRow>
@@ -673,9 +673,9 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
             <InfoRow label="Stripe Sub ID">
               {tenant.subscription.stripe_subscription_id ? (
                 <>
-                  <span style={{ fontFamily: 'monospace', fontSize: '12px' }}>{tenant.subscription.stripe_subscription_id}</span>
+                  <span className="font-mono text-xs">{tenant.subscription.stripe_subscription_id}</span>
                   <CopyButton value={tenant.subscription.stripe_subscription_id} />
-                  <a href={`https://dashboard.stripe.com/subscriptions/${tenant.subscription.stripe_subscription_id}`} target="_blank" rel="noopener noreferrer" style={{ color: '#0C1F40', fontSize: '12px', textDecoration: 'underline', textUnderlineOffset: '2px' }}>View in Stripe ↗</a>
+                  <a href={`https://dashboard.stripe.com/subscriptions/${tenant.subscription.stripe_subscription_id}`} target="_blank" rel="noopener noreferrer" className="text-xs" style={{color: '#0C1F40', textDecoration: 'underline', textUnderlineOffset: '2px'}}>View in Stripe ↗</a>
                 </>
               ) : '—'}
             </InfoRow>
@@ -689,37 +689,37 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
             <InfoRow label="Created">{formatDateShort(tenant.subscription.created_at)}</InfoRow>
           </>
         ) : (
-          <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#6B7280', margin: 0 }}>No subscription record found.</p>
+          <p className="font-body text-sm" style={{color: '#6B7280', margin: 0}}>No subscription record found.</p>
         )}
       </SectionCard>
 
       {/* ── Recent Admin Actions ── */}
       <SectionCard title="Recent Admin Actions">
         {tenant.auditLog.length === 0 ? (
-          <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#6B7280', margin: 0 }}>No admin actions have been taken on this tenant.</p>
+          <p className="font-body text-sm" style={{color: '#6B7280', margin: 0}}>No admin actions have been taken on this tenant.</p>
         ) : (
           <>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ background: '#F9FAFB' }}>
                   {['Action', 'Admin', 'Date & Time', 'Metadata'].map(h => (
-                    <th key={h} style={{ textAlign: 'left', padding: '8px 12px', fontFamily: 'var(--font-inter)', fontSize: '11px', fontWeight: 500, color: '#374151', textTransform: 'uppercase', borderBottom: '1px solid #E5E7EB' }}>{h}</th>
+                    <th key={h} className="font-body text-[11px] font-medium" style={{textAlign: 'left', padding: '8px 12px', color: '#374151', textTransform: 'uppercase', borderBottom: '1px solid #E5E7EB'}}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {tenant.auditLog.map(entry => (
                   <tr key={entry.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                    <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#0C1F40' }}>{ACTION_LABELS[entry.action] ?? entry.action}</td>
-                    <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#6B7280' }}>{entry.adminEmail}</td>
-                    <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#6B7280' }}>{formatDate(entry.created_at)}</td>
-                    <td style={{ padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#6B7280' }}>{auditMetaSummary(entry.action, entry.metadata)}</td>
+                    <td className="font-body text-[13px]" style={{padding: '10px 12px', color: '#0C1F40'}}>{ACTION_LABELS[entry.action] ?? entry.action}</td>
+                    <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{entry.adminEmail}</td>
+                    <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{formatDate(entry.created_at)}</td>
+                    <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{auditMetaSummary(entry.action, entry.metadata)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
             <div style={{ marginTop: '12px' }}>
-              <a href={`/admin/audit-log?tenant_id=${tenant.id}`} style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#0C1F40', textDecoration: 'underline', textUnderlineOffset: '2px' }}>
+              <a href={`/admin/audit-log?tenant_id=${tenant.id}`} className="font-body text-[13px]" style={{color: '#0C1F40', textDecoration: 'underline', textUnderlineOffset: '2px'}}>
                 ← View all actions for this tenant in the audit log
               </a>
             </div>
@@ -729,17 +729,17 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
 
       {/* ── Danger Zone ── */}
       <div style={{ border: '1px solid #FCA5A5', marginBottom: '16px' }}>
-        <div style={{ padding: '16px 20px', borderBottom: '1px solid #FCA5A5', fontFamily: 'var(--font-archivo)', fontWeight: 600, fontSize: '14px', color: '#DC2626' }}>
+        <div className="font-headline text-sm font-semibold" style={{padding: '16px 20px', borderBottom: '1px solid #FCA5A5', color: '#DC2626'}}>
           ⚠ Danger Zone
         </div>
         <div style={{ padding: '20px' }}>
-          <p style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#6B7280', marginTop: 0 }}>These actions are irreversible and may disrupt the tenant&apos;s service.</p>
+          <p className="font-body text-[13px]" style={{color: '#6B7280', marginTop: 0}}>These actions are irreversible and may disrupt the tenant&apos;s service.</p>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', border: '1px solid #F3F4F6' }}>
             <div>
-              <div style={{ fontFamily: 'var(--font-inter)', fontWeight: 500, fontSize: '14px', color: '#0C1F40', marginBottom: '4px' }}>Delete Tenant</div>
-              <div style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#6B7280' }}>Permanently delete this tenant, all their data, and cancel their Stripe subscription. This cannot be undone.</div>
+              <div className="font-body text-sm font-medium" style={{color: '#0C1F40', marginBottom: '4px'}}>Delete Tenant</div>
+              <div className="font-body text-[13px]" style={{color: '#6B7280'}}>Permanently delete this tenant, all their data, and cancel their Stripe subscription. This cannot be undone.</div>
             </div>
-            <button onClick={() => setDeleteStep(1)} style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '8px 16px', background: '#DC2626', border: 'none', color: '#fff', cursor: 'pointer', borderRadius: 0, marginLeft: '16px', whiteSpace: 'nowrap' }}>
+            <button onClick={() => setDeleteStep(1)} className="font-body text-[13px] font-medium" style={{padding: '8px 16px', background: '#DC2626', border: 'none', color: '#fff', cursor: 'pointer', borderRadius: 0, marginLeft: '16px', whiteSpace: 'nowrap'}}>
               Delete Tenant
             </button>
           </div>
@@ -761,7 +761,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
 
       {/* Unsuspend */}
       <Modal open={unsuspendOpen} onClose={() => setUnsuspendOpen(false)} title={`Unsuspend "${tenant.name}"?`}>
-        <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#374151' }}>The tenant&apos;s account will be restored. Bot connections will need to reconnect.</p>
+        <p className="font-body text-sm" style={{color: '#374151'}}>The tenant&apos;s account will be restored. Bot connections will need to reconnect.</p>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '16px' }}>
           <SmBtn variant="secondary" onClick={() => setUnsuspendOpen(false)}>Cancel</SmBtn>
           <SmBtn variant="secondary" onClick={handleUnsuspend} disabled={unsuspendPending}>{unsuspendPending ? 'Unsuspending…' : 'Unsuspend'}</SmBtn>
@@ -770,12 +770,12 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
 
       {/* Override Plan Confirm */}
       <Modal open={!!overridePlanTarget && !overridePlanOpen} onClose={() => setOverridePlanTarget('')} title="Override Plan">
-        <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#374151' }}>
+        <p className="font-body text-sm" style={{color: '#374151'}}>
           Change plan from <strong>{tenant.plan}</strong> to <strong>{overridePlanTarget}</strong>?
         </p>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '16px' }}>
           <SmBtn variant="secondary" onClick={() => setOverridePlanTarget('')}>Cancel</SmBtn>
-          <button onClick={handleOverridePlan} disabled={overridePlanPending} style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '6px 14px', background: '#0C1F40', border: 'none', color: '#fff', cursor: overridePlanPending ? 'not-allowed' : 'pointer', opacity: overridePlanPending ? 0.7 : 1, borderRadius: 0 }}>
+          <button onClick={handleOverridePlan} disabled={overridePlanPending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#0C1F40', border: 'none', color: '#fff', cursor: overridePlanPending ? 'not-allowed' : 'pointer', opacity: overridePlanPending ? 0.7 : 1, borderRadius: 0}}>
             {overridePlanPending ? 'Updating…' : 'Confirm Override'}
           </button>
         </div>
@@ -783,13 +783,13 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
 
       {/* Impersonate */}
       <Modal open={impersonateOpen} onClose={() => setImpersonateOpen(false)} title={`Impersonate "${tenant.name}"?`}>
-        <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#374151' }}>You will be redirected to the tenant dashboard as the owner of {tenant.name}.<br />Any changes you make will affect the tenant&apos;s real data.</p>
-        <div style={{ background: '#FEF9C3', border: '1px solid #EAB308', padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#854D0E', marginBottom: '16px' }}>
+        <p className="font-body text-sm" style={{color: '#374151'}}>You will be redirected to the tenant dashboard as the owner of {tenant.name}.<br />Any changes you make will affect the tenant&apos;s real data.</p>
+        <div className="font-body text-[13px]" style={{background: '#FEF9C3', border: '1px solid #EAB308', padding: '10px 12px', color: '#854D0E', marginBottom: '16px'}}>
           ⚠ Impersonation is logged. This action will be recorded in the audit log.
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
           <SmBtn variant="secondary" onClick={() => setImpersonateOpen(false)}>Cancel</SmBtn>
-          <button onClick={handleImpersonate} disabled={impersonatePending} style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '6px 14px', background: '#0C1F40', border: 'none', color: '#fff', cursor: impersonatePending ? 'not-allowed' : 'pointer', opacity: impersonatePending ? 0.7 : 1, borderRadius: 0 }}>
+          <button onClick={handleImpersonate} disabled={impersonatePending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#0C1F40', border: 'none', color: '#fff', cursor: impersonatePending ? 'not-allowed' : 'pointer', opacity: impersonatePending ? 0.7 : 1, borderRadius: 0}}>
             {impersonatePending ? 'Starting…' : 'Start Impersonation'}
           </button>
         </div>
@@ -797,21 +797,21 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
 
       {/* Revoke API Key */}
       <Modal open={!!revokeKeyId} onClose={() => setRevokeKeyId(null)} title="Revoke API Key?">
-        <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#374151' }}>
+        <p className="font-body text-sm" style={{color: '#374151'}}>
           Revoke key <strong>{revokeKeyHint}</strong>? This will immediately disconnect the bot for this tenant. They will need to re-enter their key.
         </p>
-        <label style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#6B7280', display: 'block', marginBottom: '4px' }}>Reason (optional)</label>
+        <label className="font-body text-[13px]" style={{color: '#6B7280', display: 'block', marginBottom: '4px'}}>Reason (optional)</label>
         <input
           type="text"
           value={revokeKeyReason}
           onChange={e => setRevokeKeyReason(e.target.value)}
           maxLength={500}
           placeholder='e.g., suspected abuse, tenant request'
-          style={{ width: '100%', padding: '8px', border: '1px solid #E5E7EB', fontFamily: 'var(--font-inter)', fontSize: '13px', boxSizing: 'border-box' }}
+          className="font-body text-[13px]" style={{width: '100%', padding: '8px', border: '1px solid #E5E7EB', boxSizing: 'border-box'}}
         />
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '16px' }}>
           <SmBtn variant="secondary" onClick={() => setRevokeKeyId(null)}>Cancel</SmBtn>
-          <button onClick={handleRevokeKey} disabled={revokeKeyPending} style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: revokeKeyPending ? 'not-allowed' : 'pointer', opacity: revokeKeyPending ? 0.7 : 1, borderRadius: 0 }}>
+          <button onClick={handleRevokeKey} disabled={revokeKeyPending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: revokeKeyPending ? 'not-allowed' : 'pointer', opacity: revokeKeyPending ? 0.7 : 1, borderRadius: 0}}>
             {revokeKeyPending ? 'Revoking…' : 'Revoke Key'}
           </button>
         </div>
@@ -819,10 +819,10 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
 
       {/* Revoke Service Connection */}
       <Modal open={!!revokeServiceId} onClose={() => setRevokeServiceId(null)} title={`Revoke ${revokeServiceName} connection?`}>
-        <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#374151' }}>The tenant will need to reconnect the service.</p>
+        <p className="font-body text-sm" style={{color: '#374151'}}>The tenant will need to reconnect the service.</p>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '16px' }}>
           <SmBtn variant="secondary" onClick={() => setRevokeServiceId(null)}>Cancel</SmBtn>
-          <button onClick={handleRevokeService} disabled={revokeServicePending} style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: revokeServicePending ? 'not-allowed' : 'pointer', opacity: revokeServicePending ? 0.7 : 1, borderRadius: 0 }}>
+          <button onClick={handleRevokeService} disabled={revokeServicePending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: revokeServicePending ? 'not-allowed' : 'pointer', opacity: revokeServicePending ? 0.7 : 1, borderRadius: 0}}>
             {revokeServicePending ? 'Revoking…' : 'Revoke'}
           </button>
         </div>
@@ -830,8 +830,8 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
 
       {/* Delete Tenant — Step 1 */}
       <Modal open={deleteStep === 1} onClose={() => setDeleteStep(0)} title={`Delete "${tenant.name}"?`} preventBackdropClose>
-        <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#374151', marginBottom: '8px' }}>This will permanently:</p>
-        <ul style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#374151', paddingLeft: '20px', marginBottom: '16px' }}>
+        <p className="font-body text-sm" style={{color: '#374151', marginBottom: '8px'}}>This will permanently:</p>
+        <ul className="font-body text-[13px]" style={{color: '#374151', paddingLeft: '20px', marginBottom: '16px'}}>
           <li>Delete the tenant account and all member associations</li>
           <li>Delete all Discord connections (tokens destroyed)</li>
           <li>Delete all API keys (from Vault)</li>
@@ -839,12 +839,12 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
           <li>Cancel their Stripe subscription (if any)</li>
           <li>Remove all data from the database</li>
         </ul>
-        <div style={{ background: '#FEF2F2', border: '1px solid #FCA5A5', padding: '10px 12px', fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 600, color: '#DC2626', marginBottom: '16px' }}>
+        <div className="font-body text-[13px] font-semibold" style={{background: '#FEF2F2', border: '1px solid #FCA5A5', padding: '10px 12px', color: '#DC2626', marginBottom: '16px'}}>
           This action CANNOT be undone.
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
           <SmBtn variant="secondary" onClick={() => setDeleteStep(0)}>Cancel</SmBtn>
-          <button onClick={() => setDeleteStep(2)} style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: 'pointer', borderRadius: 0 }}>
+          <button onClick={() => setDeleteStep(2)} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: 'pointer', borderRadius: 0}}>
             Proceed →
           </button>
         </div>
@@ -852,21 +852,21 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
 
       {/* Delete Tenant — Step 2 */}
       <Modal open={deleteStep === 2} onClose={() => setDeleteStep(0)} title="Confirm Deletion" preventBackdropClose>
-        <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: '#374151', marginBottom: '4px' }}>Type the tenant name to confirm:</p>
-        <p style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#6B7280', marginBottom: '8px' }}>Tenant name: <strong>{tenant.name}</strong></p>
+        <p className="font-body text-sm" style={{color: '#374151', marginBottom: '4px'}}>Type the tenant name to confirm:</p>
+        <p className="font-body text-[13px]" style={{color: '#6B7280', marginBottom: '8px'}}>Tenant name: <strong>{tenant.name}</strong></p>
         <input
           type="text"
           value={deleteNameInput}
           onChange={e => setDeleteNameInput(e.target.value)}
           placeholder={`Type "${tenant.name}" to confirm`}
-          style={{ width: '100%', padding: '8px', border: '1px solid #E5E7EB', fontFamily: 'var(--font-inter)', fontSize: '13px', boxSizing: 'border-box', marginBottom: '16px' }}
+          className="font-body text-[13px]" style={{width: '100%', padding: '8px', border: '1px solid #E5E7EB', boxSizing: 'border-box', marginBottom: '16px'}}
         />
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
           <SmBtn variant="secondary" onClick={() => setDeleteStep(1)}>← Back</SmBtn>
           <button
             onClick={handleDelete}
             disabled={deleteNameInput !== tenant.name || deletePending}
-            style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', fontWeight: 500, padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: (deleteNameInput !== tenant.name || deletePending) ? 'not-allowed' : 'pointer', opacity: (deleteNameInput !== tenant.name || deletePending) ? 0.5 : 1, borderRadius: 0 }}
+            className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: (deleteNameInput !== tenant.name || deletePending) ? 'not-allowed' : 'pointer', opacity: (deleteNameInput !== tenant.name || deletePending) ? 0.5 : 1, borderRadius: 0}}
           >
             {deletePending ? 'Deleting…' : 'Delete Permanently'}
           </button>

@@ -27,24 +27,23 @@ export default function PrivacyPolicyPage() {
       <main>
         <article className="max-w-3xl mx-auto px-8 py-20">
           <h1
-            className="font-archivo font-bold text-[#0C1F40]"
-            style={{ fontSize: 'clamp(28px, 4vw, 36px)' }}
+            className="font-archivo font-bold text-[#0C1F40] text-[clamp(28px,4vw,36px)]"
           >
             Privacy Policy
           </h1>
-          <p className="mt-2 text-[#718096]" style={{ fontSize: '14px' }}>
+          <p className="mt-2 text-[#718096] text-sm">
             Effective Date: March 13, 2026
           </p>
-          <p className="text-[#718096] mb-12" style={{ fontSize: '14px' }}>
+          <p className="text-[#718096] mb-12 text-sm">
             Last Updated: March 13, 2026
           </p>
 
           {/* Table of Contents */}
           <nav aria-label="Privacy policy table of contents" className="mb-12">
-            <p className="font-archivo font-bold text-[#0C1F40] mb-3" style={{ fontSize: '16px' }}>
+            <p className="font-archivo font-bold text-[#0C1F40] mb-3 text-base">
               Table of Contents
             </p>
-            <ol className="ml-6 space-y-1" style={{ fontSize: '15px' }}>
+            <ol className="ml-6 space-y-1 text-[15px]">
               {[
                 ['#introduction', 'Introduction'],
                 ['#section-1', '1. Information We Collect'],
@@ -82,12 +81,11 @@ export default function PrivacyPolicyPage() {
             {/* Introduction */}
             <section id="introduction" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 Introduction
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 PyMC Technologies, Inc. (&ldquo;Company,&rdquo; &ldquo;Daimon,&rdquo;
                 &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) is committed to
                 protecting your privacy. This Privacy Policy explains how we collect, use, disclose,
@@ -96,15 +94,15 @@ export default function PrivacyPolicyPage() {
                 Discord bot service, and all related services (collectively, the
                 &ldquo;Service&rdquo;).
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed font-semibold" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed font-semibold text-[15px]">
                 This Privacy Policy is incorporated by reference into our Terms of Service. By
                 creating an Account or using the Service, you agree to this Privacy Policy.
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 If you do not agree with this Privacy Policy, do not create an Account or use the
                 Service.
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 <strong>For users in the European Economic Area (EEA), United Kingdom, and
                 Switzerland</strong>: PyMC Technologies, Inc. is the data controller for your
                 personal data as described in this Privacy Policy. Your additional rights under the
@@ -115,23 +113,22 @@ export default function PrivacyPolicyPage() {
             {/* Section 1 */}
             <section id="section-1" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 1. Information We Collect
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We collect information you provide directly, information collected automatically, and
                 information from third parties.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 1.1 Information You Provide Directly
               </h3>
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Account Registration Data
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">Email address (required at signup)</li>
                 <li className="text-[#4A5568] leading-relaxed">
                   Password (stored as a cryptographic hash; we never store your plaintext password)
@@ -141,10 +138,10 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Tenant Configuration Data
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">Tenant/workspace name</li>
                 <li className="text-[#4A5568] leading-relaxed">
                   Discord Guild ID (the numeric ID of your Discord server)
@@ -168,10 +165,10 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Billing Data
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   Payment card information &mdash; note: we do NOT store full card numbers, expiry
                   dates, or CVVs. All payment card data is processed directly by Stripe, Inc. and
@@ -188,10 +185,10 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Communications
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   Email address and message content when you contact us for support or other inquiries
                 </li>
@@ -200,24 +197,24 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Profile and Preferences
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">Timezone preference (optional)</li>
                 <li className="text-[#4A5568] leading-relaxed">
                   Notification preferences (email opt-in/out settings)
                 </li>
               </ul>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 1.2 Information Collected Automatically
               </h3>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Log Data and Telemetry
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   IP address (collected for security and fraud prevention; see retention period in
                   Section 7)
@@ -239,10 +236,10 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Bot Operational Data
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   Bot connection status per tenant (connected, disconnected, error state)
                 </li>
@@ -261,10 +258,10 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Cookies and Local Storage
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   Session tokens (authentication cookies &mdash; see Section 6)
                 </li>
@@ -274,37 +271,37 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 1.3 Information from Third Parties
               </h3>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Supabase Authentication Provider
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 When you sign up or log in, Supabase Auth manages authentication. Supabase may log
                 authentication events (login, logout, password reset) on our behalf.
               </p>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Stripe
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 When you purchase a subscription, Stripe provides us with subscription status, plan
                 information, billing cycle dates, invoice history, and payment failure events. Stripe
                 may also share fraud signals.
               </p>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 OAuth Providers (GitHub, Google, Linear)
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 When you connect an Integration using OAuth, the provider shares with us: your user
                 ID at that provider, your username/display name, your email address (if within the
                 requested scopes), and the OAuth access token and refresh token. We use these solely
                 to enable the Integration.
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   <strong>GitHub OAuth</strong>: We receive your GitHub user ID, username, email (if
                   public or granted), and access token. Scopes requested:{' '}
@@ -332,17 +329,16 @@ export default function PrivacyPolicyPage() {
             {/* Section 2 */}
             <section id="section-2" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 2. How We Use Your Information
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We use the information we collect for the following purposes, each with its legal
                 basis:
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 2.1 Providing and Operating the Service
               </h3>
               <div className={tableClass}>
@@ -374,7 +370,7 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 2.2 Security and Fraud Prevention
               </h3>
               <div className={tableClass}>
@@ -404,7 +400,7 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 2.3 Service Improvement and Analytics
               </h3>
               <div className={tableClass}>
@@ -433,7 +429,7 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 2.4 Communications
               </h3>
               <div className={tableClass}>
@@ -462,7 +458,7 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 2.5 Legal Compliance
               </h3>
               <div className={tableClass}>
@@ -491,10 +487,10 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 2.6 What We Do NOT Do with Your Data
               </h3>
-              <ul className="list-disc ml-6 mb-4 space-y-2" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-2 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   We do <strong>not</strong> sell your personal information to third parties.
                 </li>
@@ -522,19 +518,18 @@ export default function PrivacyPolicyPage() {
             {/* Section 3 */}
             <section id="section-3" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 3. How We Share Your Information
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We share personal information only in the limited circumstances described below.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 3.1 Service Providers (Sub-Processors)
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We use trusted third-party companies that process data on our behalf to operate the
                 Service. Each sub-processor is bound by data processing agreements and is permitted
                 to use your data only as directed by us.
@@ -571,30 +566,30 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 3.2 OAuth Integration Providers
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 When you connect an Integration, you authorize us to exchange data with that provider
                 (GitHub, Google, Linear) on your behalf. The data exchange is limited to what is
                 necessary for the Integration. We do not share your data with these providers beyond
                 what is required to authenticate and use the Integration.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 3.3 Discord, Inc.
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 Your Bot Token is used to make API calls to Discord&apos;s API on your behalf.
                 Discord receives API requests authenticated with your Bot Token. Discord&apos;s
                 handling of data is governed by Discord&apos;s Privacy Policy. We are not
                 responsible for Discord&apos;s data practices.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 3.4 Business Transfers
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 If we are involved in a merger, acquisition, financing, reorganization, bankruptcy,
                 or sale of all or a portion of our assets, your personal information may be
                 transferred as part of that transaction. We will notify you via email and a prominent
@@ -602,29 +597,29 @@ export default function PrivacyPolicyPage() {
                 subject to a different Privacy Policy as a result of such a transaction.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 3.5 Legal Requirements and Safety
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 We may disclose your information if we believe in good faith that disclosure is
                 necessary to:
               </p>
-              <ul className="list-none ml-0 mb-4 space-y-2" style={{ fontSize: '15px' }}>
+              <ul className="list-none ml-0 mb-4 space-y-2 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">(a) comply with a legal obligation, court order, or valid legal process (e.g., subpoena, search warrant);</li>
                 <li className="text-[#4A5568] leading-relaxed">(b) protect and defend the rights or property of the Company;</li>
                 <li className="text-[#4A5568] leading-relaxed">(c) prevent or investigate possible wrongdoing in connection with the Service;</li>
                 <li className="text-[#4A5568] leading-relaxed">(d) protect the safety of you, other users, or the public;</li>
                 <li className="text-[#4A5568] leading-relaxed">(e) protect against legal liability.</li>
               </ul>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 Where legally permitted, we will attempt to notify you before complying with such a
                 request.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 3.6 Aggregated and Anonymized Data
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We may share aggregated, anonymized, or de-identified information that cannot
                 reasonably be used to identify you, for purposes such as analytics, industry
                 research, or marketing. This data is not personal information.
@@ -634,17 +629,16 @@ export default function PrivacyPolicyPage() {
             {/* Section 4 */}
             <section id="section-4" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 4. Credentials and Sensitive Data &mdash; Special Handling
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 This section describes our special handling of the most sensitive categories of data
                 you entrust to us.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 4.1 What We Consider Credentials
               </h3>
               <div className={tableClass}>
@@ -677,10 +671,10 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 4.2 Encryption at Rest
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 All Credentials listed above are encrypted at rest using{' '}
                 <strong>Supabase Vault</strong>, which uses{' '}
                 <strong>AES-256-GCM</strong> symmetric encryption. The encryption keys are managed
@@ -688,10 +682,10 @@ export default function PrivacyPolicyPage() {
                 the encrypted values. Credentials are never stored in plaintext in any database
                 column, log file, error report, or application cache.
               </p>
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 What this means technically:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   The raw credential value you paste is immediately encrypted before being written to
                   the database.
@@ -711,20 +705,20 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 4.3 Encryption in Transit
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 All data in transit between your browser and our servers, between our servers and
                 Supabase, and between our servers and third-party APIs is encrypted using{' '}
                 <strong>TLS 1.2 or TLS 1.3</strong>. We do not support unencrypted HTTP connections;
                 all HTTP requests are automatically redirected to HTTPS.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 4.4 Access Controls for Credentials
               </h3>
-              <ul className="list-disc ml-6 mb-4 space-y-2" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-2 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   <strong>Database-level</strong>: Supabase Row-Level Security (RLS) policies ensure
                   that Credential data is only accessible to the authenticated user who owns it, and
@@ -743,7 +737,7 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 4.5 What We Transmit to Third Parties Using Your Credentials
               </h3>
               <div className={tableClass}>
@@ -777,13 +771,13 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 4.6 Credential Deletion
               </h3>
-              <p className="text-[#4A5568] mb-2 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 leading-relaxed text-[15px]">
                 When you:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   Disconnect an Integration: the associated OAuth token or API key is deleted from
                   our database immediately.
@@ -802,7 +796,7 @@ export default function PrivacyPolicyPage() {
                   Account deletion.
                 </li>
               </ul>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We do not retain backups of Credentials after deletion beyond the backup retention
                 window (see Section 7.5).
               </p>
@@ -811,24 +805,23 @@ export default function PrivacyPolicyPage() {
             {/* Section 5 */}
             <section id="section-5" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 5. Discord and Bot Message Data
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 This section explains our specific practices regarding Discord messages processed by
                 your Bot.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 5.1 Message Content &mdash; No Persistent Storage
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 Your Bot receives Discord messages in your Discord Guild. Message content is
                 processed in the following way:
               </p>
-              <ol className="list-decimal ml-6 mb-4 space-y-2" style={{ fontSize: '15px' }}>
+              <ol className="list-decimal ml-6 mb-4 space-y-2 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   <strong>Receipt</strong>: The Bot process receives the message from Discord&apos;s
                   WebSocket API.
@@ -852,19 +845,19 @@ export default function PrivacyPolicyPage() {
                   when the Bot process restarts or after a configurable idle timeout.
                 </li>
               </ol>
-              <p className="text-[#4A5568] mb-4 leading-relaxed font-semibold" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed font-semibold text-[15px]">
                 We do not write Discord message content to any database column, log file, analytics
                 system, or external service under our control.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 5.2 Message Metadata &mdash; Minimal Logging
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 We log the following message metadata for operational purposes only (not message
                 content):
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">Timestamp of message processing</li>
                 <li className="text-[#4A5568] leading-relaxed">
                   Discord Guild ID (to attribute the event to a tenant)
@@ -879,30 +872,30 @@ export default function PrivacyPolicyPage() {
                   Whether the processing succeeded or failed, and the error category if failed
                 </li>
               </ul>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 This metadata is retained for 90 days and then deleted.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 5.3 Guild Members&apos; Data
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 Your Bot operates in your Discord Guild and interacts with your Guild members. You
                 are responsible, as the Guild owner or administrator, for ensuring that your use of
                 the Bot in your Guild complies with all applicable data protection laws, including
                 informing your Guild members that an AI bot may process their messages.
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 <strong>We are a data processor with respect to Guild members&apos; message
                 data.</strong> You (the Guild owner/administrator) are the data controller for your
                 Guild members&apos; data. Our Data Processing Agreement (DPA) template is available
                 at daimon.bot/dpa for customers who need it for GDPR compliance.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 5.4 What Discord Knows
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 Discord, Inc. processes data about your Bot&apos;s activity independently, as
                 described in Discord&apos;s Privacy Policy. We have no control over
                 Discord&apos;s data practices.
@@ -912,13 +905,12 @@ export default function PrivacyPolicyPage() {
             {/* Section 6 */}
             <section id="section-6" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 6. Cookies and Tracking Technologies
               </h2>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 6.1 Types of Cookies We Use
               </h3>
               <div className={tableClass}>
@@ -949,18 +941,18 @@ export default function PrivacyPolicyPage() {
                   </tbody>
                 </table>
               </div>
-              <p className="text-[#4A5568] mb-4 leading-relaxed font-semibold" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed font-semibold text-[15px]">
                 We do not set advertising cookies. We do not use third-party analytics cookies
                 (e.g., Google Analytics). We do not use tracking pixels.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 6.2 Local Storage
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 We use browser local storage for the following purposes:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   <code className="bg-[#F7F7F7] px-1 rounded text-sm">sidebar_collapsed</code>{' '}
                   &mdash; Boolean flag for dashboard sidebar state. Contains no personal data.
@@ -974,16 +966,16 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 6.3 Managing Cookies
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 You can control cookies through your browser settings. Disabling essential cookies
                 (authentication cookies) will prevent you from logging into the Service. You can
                 delete all cookies associated with daimon.bot by clearing your browser data for that
                 site.
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We do not use any cookie management platform or consent banner for our current cookie
                 set, because the cookies we use are limited to those strictly necessary for the
                 Service to function (security and authentication), plus Stripe fraud prevention
@@ -995,17 +987,16 @@ export default function PrivacyPolicyPage() {
             {/* Section 7 */}
             <section id="section-7" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 7. Data Retention
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We retain personal data for the periods described below. After the applicable
                 retention period, data is deleted or anonymized.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 7.1 Account Data
               </h3>
               <div className={tableClass}>
@@ -1034,7 +1025,7 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 7.2 Tenant Configuration Data
               </h3>
               <div className={tableClass}>
@@ -1066,7 +1057,7 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 7.3 Billing Data
               </h3>
               <div className={tableClass}>
@@ -1095,7 +1086,7 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 7.4 Operational and Log Data
               </h3>
               <div className={tableClass}>
@@ -1127,13 +1118,13 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 7.5 Backups
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 We maintain database backups for disaster recovery purposes. Backup retention:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   <strong>Point-in-time recovery (PITR)</strong>: 7 days of continuous backup
                   (Supabase PITR feature)
@@ -1142,7 +1133,7 @@ export default function PrivacyPolicyPage() {
                   <strong>Periodic snapshots</strong>: Weekly snapshots retained for 30 days
                 </li>
               </ul>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 Data deleted from the live database may persist in backups for up to 30 days. After
                 the backup retention window expires, the backup is permanently deleted.
               </p>
@@ -1151,19 +1142,18 @@ export default function PrivacyPolicyPage() {
             {/* Section 8 */}
             <section id="section-8" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 8. Data Security
               </h2>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 8.1 Technical Safeguards
               </h3>
-              <p className="text-[#4A5568] mb-3 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 font-semibold leading-relaxed text-[15px]">
                 Encryption
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   All data in transit: TLS 1.2+ (HTTPS enforced; HSTS header set with{' '}
                   <code className="bg-[#F7F7F7] px-1 rounded text-sm">max-age=31536000; includeSubDomains; preload</code>)
@@ -1184,10 +1174,10 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <p className="text-[#4A5568] mb-3 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 font-semibold leading-relaxed text-[15px]">
                 Access Control
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   Database Row-Level Security (RLS) enforced on all tables containing personal data
                 </li>
@@ -1205,10 +1195,10 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <p className="text-[#4A5568] mb-3 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 font-semibold leading-relaxed text-[15px]">
                 Infrastructure
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   All infrastructure hosted on reputable cloud providers (Vercel, Supabase, Fly.io)
                   with SOC 2 compliance
@@ -1221,10 +1211,10 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 8.2 Organizational Safeguards
               </h3>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   Only authorized personnel have access to production systems
                 </li>
@@ -1239,14 +1229,14 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 8.3 Security Incident Response
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 In the event of a data breach or security incident that affects your personal
                 information:
               </p>
-              <ol className="list-decimal ml-6 mb-4 space-y-2" style={{ fontSize: '15px' }}>
+              <ol className="list-decimal ml-6 mb-4 space-y-2 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   <strong>Containment</strong>: We will take immediate steps to contain the breach.
                 </li>
@@ -1264,7 +1254,7 @@ export default function PrivacyPolicyPage() {
                   applicable data protection authorities within the required timeframe.
                 </li>
               </ol>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 To report a suspected security vulnerability, please contact us at{' '}
                 <a href="mailto:security@daimon.bot" className="text-[#0C1F40] underline">
                   security@daimon.bot
@@ -1272,10 +1262,10 @@ export default function PrivacyPolicyPage() {
                 . We appreciate responsible disclosure.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 8.4 Limitations
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 No security measures are perfect or impenetrable. We cannot guarantee the security
                 of your personal information. You should take steps to protect your own account,
                 including using a strong, unique password and promptly reporting any suspicious
@@ -1286,29 +1276,28 @@ export default function PrivacyPolicyPage() {
             {/* Section 9 */}
             <section id="section-9" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 9. International Data Transfers
               </h2>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 9.1 Where Your Data Is Stored
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 Our primary data storage is in the United States (Supabase hosted on AWS us-east-1;
                 Vercel infrastructure). If you are located outside the United States, your personal
                 information will be transferred to and processed in the United States.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 9.2 Legal Mechanisms for Transfers from the EEA/UK
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 For transfers of personal data from the EEA, UK, or Switzerland to the United
                 States, we rely on the following legal mechanisms:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-2" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-2 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   <strong>EU-US Data Privacy Framework</strong>: Where our sub-processors (Supabase,
                   Vercel, Stripe) participate in the EU-US Data Privacy Framework, we rely on their
@@ -1324,15 +1313,15 @@ export default function PrivacyPolicyPage() {
                   International Data Transfer Addendum to the EU SCCs.
                 </li>
               </ul>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 Our Data Processing Agreement (DPA) template, including applicable SCCs, is available
                 at daimon.bot/dpa.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 9.3 Anthropic API Transfers
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 When your Bot processes Discord messages, the message content is transmitted to
                 Anthropic&apos;s API, which is operated from the United States. This transfer is
                 made using your own Anthropic API Key, under your own account with Anthropic. You
@@ -1345,21 +1334,20 @@ export default function PrivacyPolicyPage() {
             {/* Section 10 */}
             <section id="section-10" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 10. Children&apos;s Privacy
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 The Service is not directed to children under the age of 13, and we do not knowingly
                 collect personal information from children under 13. If you are under 13, do not
                 create an Account or provide any personal information through the Service.
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 If you are between 13 and 17 years of age, you may use the Service only with the
                 express consent and supervision of a parent or legal guardian.
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 If we discover that we have collected personal information from a child under 13
                 without verifiable parental consent, we will delete that information promptly. If you
                 believe we have inadvertently collected information from a child under 13, please
@@ -1374,31 +1362,30 @@ export default function PrivacyPolicyPage() {
             {/* Section 11 */}
             <section id="section-11" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 11. Third-Party Services and Links
               </h2>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 11.1 Third-Party Links
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 The Service may contain links to third-party websites (e.g., Discord documentation,
                 Anthropic documentation, GitHub, Linear). We are not responsible for the privacy
                 practices of those websites and encourage you to read their privacy policies.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 11.2 Third-Party Services Accessed via Integrations
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 When you connect an Integration, you are authorizing the Service to interact with a
                 third-party service on your behalf. The third-party service&apos;s privacy policy
                 governs how that service collects and uses your data. We are not responsible for the
                 privacy practices of:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">Discord, Inc. (discord.com/privacy)</li>
                 <li className="text-[#4A5568] leading-relaxed">Anthropic, PBC (anthropic.com/privacy)</li>
                 <li className="text-[#4A5568] leading-relaxed">OpenAI, L.L.C. (openai.com/privacy)</li>
@@ -1408,10 +1395,10 @@ export default function PrivacyPolicyPage() {
                 <li className="text-[#4A5568] leading-relaxed">Toggl O&Uuml; (toggl.com/legal/privacy)</li>
               </ul>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 11.3 Stripe
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 Payment processing is handled by Stripe, Inc. When you provide payment information,
                 it is collected directly by Stripe through their embedded payment form (Stripe.js /
                 Stripe Elements). We never see your full card number. Stripe&apos;s privacy policy
@@ -1422,16 +1409,15 @@ export default function PrivacyPolicyPage() {
             {/* Section 12 */}
             <section id="section-12" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 12. Your Rights and Choices
               </h2>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 12.1 Access
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 You may request access to the personal information we hold about you. You can access
                 and review much of your account data directly in the dashboard. For a full data
                 export, contact us at{' '}
@@ -1442,10 +1428,10 @@ export default function PrivacyPolicyPage() {
                 request.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 12.2 Correction
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 You may correct inaccurate personal information by updating it directly in your
                 dashboard profile settings, or by contacting us at{' '}
                 <a href="mailto:privacy@daimon.bot" className="text-[#0C1F40] underline">
@@ -1454,14 +1440,14 @@ export default function PrivacyPolicyPage() {
                 .
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 12.3 Deletion
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 You may delete your Account at any time from the Settings page (Account &rarr; Danger
                 Zone &rarr; Delete Account). Upon Account deletion:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   Your personal information and User Data will be deleted in accordance with Section
                   7.
@@ -1476,7 +1462,7 @@ export default function PrivacyPolicyPage() {
                   Your subscription will be cancelled.
                 </li>
               </ul>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 Account deletion is permanent and irreversible. We cannot recover deleted accounts.
                 You may also request deletion of specific data without deleting your Account by
                 contacting{' '}
@@ -1486,14 +1472,14 @@ export default function PrivacyPolicyPage() {
                 .
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 12.4 Opt-Out of Marketing Emails
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 We send product update emails and other marketing communications only to users who
                 have opted in. You may opt out at any time by:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   Clicking the &ldquo;unsubscribe&rdquo; link at the bottom of any marketing email,
                   or
@@ -1503,22 +1489,22 @@ export default function PrivacyPolicyPage() {
                   Notifications).
                 </li>
               </ul>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 Opting out of marketing emails does not affect transactional emails (invoices,
                 security alerts, password resets), which are necessary for operating your Account.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 12.5 Cookie Preferences
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 You may manage cookies through your browser settings as described in Section 6.3.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 12.6 Data Portability
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 You may request an export of your personal data in a machine-readable format (JSON or
                 CSV) by contacting{' '}
                 <a href="mailto:privacy@daimon.bot" className="text-[#0C1F40] underline">
@@ -1531,19 +1517,18 @@ export default function PrivacyPolicyPage() {
             {/* Section 13 */}
             <section id="section-13" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 13. EEA, UK, and Swiss User Rights (GDPR / UK GDPR)
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 If you are located in the European Economic Area (EEA), United Kingdom, or
                 Switzerland, you have the following additional rights under the General Data
                 Protection Regulation (GDPR), the UK GDPR, or the Swiss Federal Act on Data
                 Protection (nFADP), as applicable.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 13.1 Legal Bases for Processing
               </h3>
               <div className={tableClass}>
@@ -1572,7 +1557,7 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 13.2 Your GDPR Rights
               </h3>
               <div className="space-y-4 mb-4">
@@ -1587,23 +1572,23 @@ export default function PrivacyPolicyPage() {
                   ['Right to Lodge a Complaint', 'You have the right to lodge a complaint with your local data protection authority. A list of EEA supervisory authorities is available at edpb.europa.eu. The UK supervisory authority is the Information Commissioner\'s Office (ico.org.uk).'],
                 ].map(([right, description], i) => (
                   <div key={i}>
-                    <p className="text-[#0C1F40] font-semibold mb-1" style={{ fontSize: '15px' }}>
+                    <p className="text-[#0C1F40] font-semibold mb-1 text-[15px]">
                       {right}
                     </p>
-                    <p className="text-[#4A5568] leading-relaxed" style={{ fontSize: '15px' }}>
+                    <p className="text-[#4A5568] leading-relaxed text-[15px]">
                       {description}
                     </p>
                   </div>
                 ))}
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 13.3 How to Exercise Your GDPR Rights
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 To exercise any of the above rights, submit a request to:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   <strong>Email</strong>:{' '}
                   <a href="mailto:privacy@daimon.bot" className="text-[#0C1F40] underline">
@@ -1615,15 +1600,15 @@ export default function PrivacyPolicyPage() {
                   <strong>Mail</strong>: PyMC Technologies, Inc., Attn: Data Protection
                 </li>
               </ul>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We will respond within 30 days of receiving your request. We may ask you to verify
                 your identity before processing your request.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 13.4 Data Protection Officer
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We have appointed a Data Protection Officer (DPO) who can be contacted at:{' '}
                 <a href="mailto:dpo@daimon.bot" className="text-[#0C1F40] underline">
                   dpo@daimon.bot
@@ -1634,18 +1619,17 @@ export default function PrivacyPolicyPage() {
             {/* Section 14 */}
             <section id="section-14" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 14. California Consumer Privacy Rights (CCPA / CPRA)
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 If you are a California resident, the California Consumer Privacy Act (CCPA) as
                 amended by the California Privacy Rights Act (CPRA) grants you specific rights
                 regarding your personal information.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 14.1 Categories of Personal Information We Collect
               </h3>
               <div className={tableClass}>
@@ -1676,27 +1660,27 @@ export default function PrivacyPolicyPage() {
                 </table>
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 14.2 Purposes for Collection
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We collect personal information for the business purposes described in Section 2.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 14.3 Categories of Third Parties with Whom We Share Personal Information
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We share personal information with the categories of third parties described in
                 Section 3: service providers/sub-processors, integration partners, payment processor
                 (Stripe), and government/law enforcement when legally required.
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed font-semibold" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed font-semibold text-[15px]">
                 We do not sell your personal information as defined under CCPA. We do not share your
                 personal information for cross-context behavioral advertising.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 14.4 Your CCPA/CPRA Rights
               </h3>
               <div className="space-y-4 mb-4">
@@ -1709,23 +1693,23 @@ export default function PrivacyPolicyPage() {
                   ['Right to Non-Discrimination', 'We will not discriminate against you for exercising your CCPA rights.'],
                 ].map(([right, description], i) => (
                   <div key={i}>
-                    <p className="text-[#0C1F40] font-semibold mb-1" style={{ fontSize: '15px' }}>
+                    <p className="text-[#0C1F40] font-semibold mb-1 text-[15px]">
                       {right}
                     </p>
-                    <p className="text-[#4A5568] leading-relaxed" style={{ fontSize: '15px' }}>
+                    <p className="text-[#4A5568] leading-relaxed text-[15px]">
                       {description}
                     </p>
                   </div>
                 ))}
               </div>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 14.5 How to Submit a CCPA Request
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 Submit requests to:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   <strong>Email</strong>:{' '}
                   <a href="mailto:privacy@daimon.bot" className="text-[#0C1F40] underline">
@@ -1734,16 +1718,16 @@ export default function PrivacyPolicyPage() {
                   (subject line: &ldquo;CCPA Privacy Request&rdquo;)
                 </li>
               </ul>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We will acknowledge your request within 10 business days and respond within 45 days.
                 If we need more time (up to 45 additional days), we will notify you. We will verify
                 your identity before processing your request.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 14.6 Authorized Agent
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 You may designate an authorized agent to make a CCPA request on your behalf. The
                 authorized agent must provide written authorization signed by you and proof of
                 identity.
@@ -1753,20 +1737,19 @@ export default function PrivacyPolicyPage() {
             {/* Section 15 */}
             <section id="section-15" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 15. Changes to This Privacy Policy
               </h2>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 15.1 Notice of Changes
               </h3>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 We may update this Privacy Policy from time to time. When we make material changes,
                 we will:
               </p>
-              <ul className="list-none ml-0 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-none ml-0 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   (a) send an email notification to the address on your Account at least 30 days
                   before the changes take effect; and
@@ -1775,25 +1758,25 @@ export default function PrivacyPolicyPage() {
                   (b) post a notice in the dashboard with a summary of changes.
                 </li>
               </ul>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 For non-material changes (such as corrections, clarifications, or updates to reflect
                 new sub-processors with equivalent privacy practices), we may provide shorter notice
                 or update the &ldquo;Last Updated&rdquo; date without advance email notice.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 15.2 Continued Use
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 Your continued use of the Service after the effective date of the updated Privacy
                 Policy constitutes your acceptance of the changes. If you do not agree to the updated
                 Privacy Policy, you must stop using the Service and delete your Account.
               </p>
 
-              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6" style={{ fontSize: '17px' }}>
+              <h3 className="font-archivo font-semibold text-[#0C1F40] mb-3 mt-6 text-[17px]">
                 15.3 Version History
               </h3>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We maintain an archive of prior versions of this Privacy Policy. Prior versions are
                 available upon request by emailing{' '}
                 <a href="mailto:privacy@daimon.bot" className="text-[#0C1F40] underline">
@@ -1806,15 +1789,14 @@ export default function PrivacyPolicyPage() {
             {/* Section 16 */}
             <section id="section-16" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 16. Contact Us
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 For privacy-related questions, requests, or concerns, please contact us:
               </p>
-              <p className="text-[#0C1F40] font-semibold mb-4" style={{ fontSize: '15px' }}>
+              <p className="text-[#0C1F40] font-semibold mb-4 text-[15px]">
                 PyMC Technologies, Inc.
               </p>
               <div className={tableClass}>
@@ -1850,7 +1832,7 @@ export default function PrivacyPolicyPage() {
                   </tbody>
                 </table>
               </div>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We will respond to privacy inquiries within 30 days, or within the applicable legal
                 timeframe for rights requests under GDPR (30 days) or CCPA (45 days + 45-day
                 extension if needed).
@@ -1860,20 +1842,19 @@ export default function PrivacyPolicyPage() {
             {/* Appendix A */}
             <section id="appendix-a" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 Appendix A: Data Processing Agreement Summary
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 This appendix summarizes the key terms of our data processing relationship for users
                 who need GDPR compliance documentation. A full DPA is available at daimon.bot/dpa.
               </p>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Roles:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   For personal data of Account holders: PyMC Technologies, Inc. is the{' '}
                   <strong>Data Controller</strong>.
@@ -1885,17 +1866,17 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Sub-processors:
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 As listed in Section 3.1 of this Privacy Policy.
               </p>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Processing activities:
               </p>
-              <ul className="list-disc ml-6 mb-4 space-y-1" style={{ fontSize: '15px' }}>
+              <ul className="list-disc ml-6 mb-4 space-y-1 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   Duration: For the duration of your use of the Service.
                 </li>
@@ -1915,17 +1896,17 @@ export default function PrivacyPolicyPage() {
                 </li>
               </ul>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Security measures:
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 As described in Section 8 of this Privacy Policy.
               </p>
 
-              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-2 font-semibold leading-relaxed text-[15px]">
                 Data subject rights assistance:
               </p>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 We will assist you in responding to data subject rights requests from your Guild
                 members to the extent technically feasible. Contact{' '}
                 <a href="mailto:support@daimon.bot" className="text-[#0C1F40] underline">
@@ -1938,15 +1919,14 @@ export default function PrivacyPolicyPage() {
             {/* Appendix B */}
             <section id="appendix-b" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
               >
                 Appendix B: Sub-Processor Change Notice Process
               </h2>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 We will notify you of any new or changed sub-processors by:
               </p>
-              <ol className="list-decimal ml-6 mb-4 space-y-2" style={{ fontSize: '15px' }}>
+              <ol className="list-decimal ml-6 mb-4 space-y-2 text-[15px]">
                 <li className="text-[#4A5568] leading-relaxed">
                   Posting an update to the sub-processor list at daimon.bot/sub-processors with at
                   least 30 days&apos; notice.
@@ -1957,7 +1937,7 @@ export default function PrivacyPolicyPage() {
                   Updates).
                 </li>
               </ol>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 If you object to a new sub-processor for legitimate reasons related to data
                 protection, contact{' '}
                 <a href="mailto:privacy@daimon.bot" className="text-[#0C1F40] underline">
@@ -1971,10 +1951,10 @@ export default function PrivacyPolicyPage() {
 
             {/* Footer note */}
             <div className="border-t border-[#E2E8F0] pt-8 mt-10">
-              <p className="text-[#718096] italic" style={{ fontSize: '14px' }}>
+              <p className="text-[#718096] italic text-sm">
                 This Privacy Policy was last updated on March 13, 2026. Version 1.0.
               </p>
-              <p className="text-[#718096] mt-2" style={{ fontSize: '14px' }}>
+              <p className="text-[#718096] mt-2 text-sm">
                 Related documents:{' '}
                 <Link href="/terms" className="text-[#0C1F40] underline">
                   Terms of Service

@@ -21,24 +21,24 @@ export default function TermsOfServicePage() {
       <main>
         <article className="max-w-3xl mx-auto px-8 py-20">
           <h1
-            className="font-archivo font-bold text-[#0C1F40]"
-            style={{ fontSize: 'clamp(28px, 4vw, 36px)' }}
+            className="font-archivo font-bold text-[#0C1F40] text-[clamp(28px,4vw,36px)]"
+
           >
             Terms of Service
           </h1>
-          <p className="mt-2 text-[#718096]" style={{ fontSize: '14px' }}>
+          <p className="mt-2 text-[#718096] text-sm">
             Effective Date: March 13, 2026
           </p>
-          <p className="text-[#718096] mb-12" style={{ fontSize: '14px' }}>
+          <p className="text-[#718096] mb-12 text-sm">
             Last Updated: March 13, 2026
           </p>
 
           {/* Table of Contents */}
           <nav aria-label="Terms of service table of contents" className="mb-12">
-            <p className="font-archivo font-bold text-[#0C1F40] mb-3" style={{ fontSize: '16px' }}>
+            <p className="font-archivo font-bold text-[#0C1F40] mb-3 text-base">
               Table of Contents
             </p>
-            <ol className="ml-6 space-y-1" style={{ fontSize: '15px' }}>
+            <ol className="ml-6 space-y-1 text-[15px]">
               {[
                 ['#agreement', 'Agreement to Terms'],
                 ['#definitions', '1. Definitions'],
@@ -77,12 +77,12 @@ export default function TermsOfServicePage() {
             {/* Agreement to Terms */}
             <section id="agreement" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 Agreement to Terms
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 These Terms of Service (&ldquo;Terms&rdquo;) constitute a legally binding agreement
                 between you (&ldquo;User,&rdquo; &ldquo;you,&rdquo; or &ldquo;your&rdquo;) and
                 PyMC Technologies, Inc. (&ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo;
@@ -92,15 +92,15 @@ export default function TermsOfServicePage() {
                 functionality (collectively, the &ldquo;Service&rdquo;).
               </p>
               <p
-                className="text-[#4A5568] mb-4 leading-relaxed font-semibold uppercase"
-                style={{ fontSize: '14px' }}
+                className="text-[#4A5568] mb-4 leading-relaxed font-semibold uppercase text-sm"
+
               >
                 By creating an account, clicking &ldquo;I agree,&rdquo; or otherwise accessing or
                 using the service, you agree to be bound by these terms and our privacy policy,
                 which is incorporated herein by reference. If you do not agree to these terms, you
                 must not create an account or use the service.
               </p>
-              <p className="text-[#4A5568] leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] leading-relaxed text-[15px]">
                 If you are using the Service on behalf of an organization or entity
                 (&ldquo;Organization&rdquo;), you represent and warrant that you have the authority
                 to bind that Organization to these Terms, and all references to &ldquo;you&rdquo;
@@ -111,12 +111,12 @@ export default function TermsOfServicePage() {
             {/* 1. Definitions */}
             <section id="definitions" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 1. Definitions
               </h2>
-              <dl className="space-y-3" style={{ fontSize: '15px' }}>
+              <dl className="space-y-3 text-[15px]">
                 {[
                   [
                     '1.1 "Account"',
@@ -207,12 +207,12 @@ export default function TermsOfServicePage() {
             {/* 2. Eligibility */}
             <section id="eligibility" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 2. Eligibility
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <p className="text-[#4A5568] leading-relaxed">
                   <strong>2.1 Age Requirement.</strong> You must be at least 18 years of age to
                   create an Account and use the Service. By using the Service, you represent and
@@ -248,12 +248,12 @@ export default function TermsOfServicePage() {
             {/* 3. Account Registration */}
             <section id="account" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 3. Account Registration and Security
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <p className="text-[#4A5568] leading-relaxed">
                   <strong>3.1 Account Creation.</strong> To access the Service, you must register
                   for an Account by providing a valid email address and creating a password. You may
@@ -315,12 +315,12 @@ export default function TermsOfServicePage() {
             {/* 4. The Service */}
             <section id="service" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 4. The Service
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <div>
                   <p className="text-[#4A5568] leading-relaxed mb-2">
                     <strong>4.1 Service Description.</strong> Daimon is a self-serve platform that
@@ -433,12 +433,12 @@ export default function TermsOfServicePage() {
             {/* 5. Subscription Plans and Billing */}
             <section id="billing" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 5. Subscription Plans and Billing
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <div>
                   <p className="text-[#4A5568] leading-relaxed mb-3">
                     <strong>5.1 Plans.</strong> The Service is offered under three subscription
@@ -446,8 +446,8 @@ export default function TermsOfServicePage() {
                   </p>
                   <div className="overflow-x-auto">
                     <table
-                      className="w-full border-collapse text-[#4A5568]"
-                      style={{ fontSize: '14px' }}
+                      className="w-full border-collapse text-[#4A5568] text-sm"
+
                     >
                       <thead>
                         <tr className="border-b border-[#E2E8F0]">
@@ -643,12 +643,12 @@ export default function TermsOfServicePage() {
             {/* 6. Acceptable Use Policy */}
             <section id="acceptable-use" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 6. Acceptable Use Policy
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <p className="text-[#4A5568] leading-relaxed">
                   <strong>6.1 Permitted Use.</strong> You may use the Service solely for lawful
                   purposes and in accordance with these Terms. The Service is designed for personal
@@ -716,12 +716,12 @@ export default function TermsOfServicePage() {
             {/* 7. Credentials and Data Security */}
             <section id="credentials" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 7. Credentials and Data Security
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <p className="text-[#4A5568] leading-relaxed">
                   <strong>7.1 Credential Storage.</strong> We store your Credentials (Bot Token,
                   Anthropic API Key, OpenAI API Key, OAuth tokens, third-party API keys) using
@@ -772,12 +772,12 @@ export default function TermsOfServicePage() {
             {/* 8. Intellectual Property */}
             <section id="ip" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 8. Intellectual Property
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <p className="text-[#4A5568] leading-relaxed">
                   <strong>8.1 Our Intellectual Property.</strong> The Service, including its
                   software, design, text, graphics, user interface, logos, and all other content
@@ -827,12 +827,12 @@ export default function TermsOfServicePage() {
             {/* 9. Privacy and Data */}
             <section id="privacy" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 9. Privacy and Data
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <p className="text-[#4A5568] leading-relaxed">
                   <strong>9.1 Privacy Policy.</strong> Our{' '}
                   <Link
@@ -889,12 +889,12 @@ export default function TermsOfServicePage() {
             {/* 10. Termination */}
             <section id="termination" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 10. Termination
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <p className="text-[#4A5568] leading-relaxed">
                   <strong>10.1 Termination by You.</strong> You may terminate your use of the
                   Service and delete your Account at any time via the Settings page. Termination
@@ -942,17 +942,17 @@ export default function TermsOfServicePage() {
             {/* 11. Disclaimers */}
             <section id="disclaimers" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 11. Disclaimers and Warnings
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <div>
                   <p className="text-[#4A5568] leading-relaxed mb-2 uppercase font-semibold">
                     11.1 No Warranties.
                   </p>
-                  <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
+                  <p className="text-[#4A5568] leading-relaxed uppercase text-sm">
                     The service is provided &ldquo;as is&rdquo; and &ldquo;as available&rdquo;
                     without warranty of any kind, express or implied. To the fullest extent
                     permitted by applicable law, the company expressly disclaims all warranties,
@@ -964,7 +964,7 @@ export default function TermsOfServicePage() {
                     service will be corrected.
                   </p>
                 </div>
-                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold" style={{ fontSize: '14px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold text-sm">
                   11.2 AI Output Disclaimer. The bot uses artificial intelligence to generate
                   responses. AI-generated content may be inaccurate, incomplete, offensive,
                   misleading, or otherwise inappropriate. The company makes no representation that
@@ -973,7 +973,7 @@ export default function TermsOfServicePage() {
                   acting on it. AI outputs should not be relied upon as a substitute for
                   professional advice in legal, financial, medical, or other regulated domains.
                 </p>
-                <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase text-sm">
                   <strong>11.3 Third-Party Services.</strong> The service integrates with
                   third-party services (including Discord, Anthropic, OpenAI, GitHub, Google,
                   Linear, and Toggl). We are not responsible for the availability, accuracy,
@@ -981,7 +981,7 @@ export default function TermsOfServicePage() {
                   services to their APIs, terms, or policies may affect the service without advance
                   notice from us.
                 </p>
-                <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase text-sm">
                   <strong>11.4 Discord-Specific Disclaimer.</strong> Your bot operates within
                   Discord. We are not responsible for: (a) actions taken by Discord, including
                   banning your bot or suspending your Discord account; (b) messages sent or
@@ -1006,17 +1006,17 @@ export default function TermsOfServicePage() {
             {/* 12. Limitation of Liability */}
             <section id="liability" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 12. Limitation of Liability
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <div>
-                  <p className="text-[#4A5568] leading-relaxed mb-2 uppercase font-semibold" style={{ fontSize: '14px' }}>
+                  <p className="text-[#4A5568] leading-relaxed mb-2 uppercase font-semibold text-sm">
                     12.1 Exclusion of Consequential Damages.
                   </p>
-                  <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
+                  <p className="text-[#4A5568] leading-relaxed uppercase text-sm">
                     To the fullest extent permitted by applicable law, in no event will the company,
                     its officers, directors, employees, agents, licensors, or service providers be
                     liable for any: (a) indirect, incidental, special, consequential, or punitive
@@ -1029,10 +1029,10 @@ export default function TermsOfServicePage() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-[#4A5568] leading-relaxed mb-2 uppercase font-semibold" style={{ fontSize: '14px' }}>
+                  <p className="text-[#4A5568] leading-relaxed mb-2 uppercase font-semibold text-sm">
                     12.2 Cap on Liability.
                   </p>
-                  <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
+                  <p className="text-[#4A5568] leading-relaxed uppercase text-sm">
                     To the fullest extent permitted by applicable law, the company&rsquo;s total
                     cumulative liability to you for any and all claims arising out of or in
                     connection with these terms or the service shall not exceed the greater of: (a)
@@ -1052,7 +1052,7 @@ export default function TermsOfServicePage() {
                   limitation of incidental or consequential damages. In such jurisdictions, the
                   above limitations apply to the maximum extent permitted by law.
                 </p>
-                <p className="text-[#4A5568] leading-relaxed uppercase" style={{ fontSize: '14px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase text-sm">
                   <strong>12.5 Third-Party Costs.</strong> You expressly acknowledge that the
                   company is not responsible for any costs you incur with Anthropic, OpenAI, or any
                   other third-party provider resulting from your use of the service. Such costs are
@@ -1064,12 +1064,12 @@ export default function TermsOfServicePage() {
             {/* 13. Indemnification */}
             <section id="indemnification" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 13. Indemnification
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <div>
                   <p className="text-[#4A5568] leading-relaxed mb-2">
                     <strong>13.1 Your Indemnification Obligation.</strong> You agree to defend,
@@ -1102,12 +1102,12 @@ export default function TermsOfServicePage() {
             {/* 14. Governing Law and Dispute Resolution */}
             <section id="disputes" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 14. Governing Law and Dispute Resolution
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <p className="text-[#4A5568] leading-relaxed">
                   <strong>14.1 Governing Law.</strong> These Terms are governed by and construed in
                   accordance with the laws of the State of Delaware, United States of America,
@@ -1128,7 +1128,7 @@ export default function TermsOfServicePage() {
                   dispute within 60 days. If the dispute is not resolved within 60 days of your
                   notice, either party may pursue formal resolution as described below.
                 </p>
-                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold" style={{ fontSize: '14px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold text-sm">
                   14.3 Binding Arbitration. Except as set forth in Section 14.5, all disputes,
                   controversies, or claims arising out of or relating to these terms or the service
                   shall be resolved by binding individual arbitration administered by the American
@@ -1138,7 +1138,7 @@ export default function TermsOfServicePage() {
                   Wilmington, Delaware. The arbitrator&rsquo;s decision shall be final and binding,
                   and judgment may be entered in any court of competent jurisdiction.
                 </p>
-                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold" style={{ fontSize: '14px' }}>
+                <p className="text-[#4A5568] leading-relaxed uppercase font-semibold text-sm">
                   14.4 Class Action Waiver. To the fullest extent permitted by applicable law, you
                   waive your right to participate in any class action lawsuit, class-wide
                   arbitration, private attorney general action, or representative proceeding against
@@ -1168,12 +1168,12 @@ export default function TermsOfServicePage() {
             {/* 15. Changes to Terms */}
             <section id="changes" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 15. Changes to Terms
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <div>
                   <p className="text-[#4A5568] leading-relaxed mb-2">
                     <strong>15.1 Notice of Changes.</strong> We may modify these Terms at any time.
@@ -1207,12 +1207,12 @@ export default function TermsOfServicePage() {
             {/* 16. Confidentiality */}
             <section id="confidentiality" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 16. Confidentiality
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <p className="text-[#4A5568] leading-relaxed">
                   <strong>16.1 Confidential Information.</strong> Each party may disclose
                   confidential information to the other party. &ldquo;Confidential
@@ -1250,12 +1250,12 @@ export default function TermsOfServicePage() {
             {/* 17. General Provisions */}
             <section id="general" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 17. General Provisions
               </h2>
-              <div className="space-y-4" style={{ fontSize: '15px' }}>
+              <div className="space-y-4 text-[15px]">
                 <p className="text-[#4A5568] leading-relaxed">
                   <strong>17.1 Entire Agreement.</strong> These Terms, together with the Privacy
                   Policy and any additional terms incorporated by reference herein, constitute the
@@ -1330,15 +1330,15 @@ export default function TermsOfServicePage() {
             {/* 18. Contact Information */}
             <section id="contact" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 18. Contact Information
               </h2>
-              <p className="text-[#4A5568] mb-4 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-4 leading-relaxed text-[15px]">
                 If you have questions about these Terms, please contact us:
               </p>
-              <address className="not-italic text-[#4A5568] space-y-1" style={{ fontSize: '15px' }}>
+              <address className="not-italic text-[#4A5568] space-y-1 text-[15px]">
                 <p className="font-semibold text-[#0C1F40]">PyMC Technologies, Inc.</p>
                 <p>
                   Email:{' '}
@@ -1387,18 +1387,18 @@ export default function TermsOfServicePage() {
             {/* Appendix A */}
             <section className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 Appendix A: Discord Developer Terms Compliance
               </h2>
-              <p className="text-[#4A5568] mb-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mb-3 leading-relaxed text-[15px]">
                 Your use of the Service, including operating a Bot via Bot Token, is subject to
                 Discord&rsquo;s Developer Terms of Service and Developer Policy. By using the
                 Service, you represent that your Bot configuration and use complies with all Discord
                 developer requirements. Key Discord requirements you must comply with include:
               </p>
-              <ul className="ml-6 space-y-2 text-[#4A5568]" style={{ fontSize: '15px' }}>
+              <ul className="ml-6 space-y-2 text-[#4A5568] text-[15px]">
                 <li>Your Bot must only request the Discord Gateway intents it requires.</li>
                 <li>
                   Your Bot must comply with Discord&rsquo;s Data Deletion requests within the
@@ -1414,7 +1414,7 @@ export default function TermsOfServicePage() {
                   Discord&rsquo;s Terms.
                 </li>
               </ul>
-              <p className="text-[#4A5568] mt-3 leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] mt-3 leading-relaxed text-[15px]">
                 Failure to comply with Discord&rsquo;s terms may result in your Bot Token being
                 revoked by Discord, your Discord account being suspended, or other actions by
                 Discord outside the control of the Company.
@@ -1424,12 +1424,12 @@ export default function TermsOfServicePage() {
             {/* Appendix B */}
             <section className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4"
-                style={{ fontSize: '20px' }}
+                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+
               >
                 Appendix B: Anthropic and OpenAI Terms Compliance
               </h2>
-              <p className="text-[#4A5568] leading-relaxed" style={{ fontSize: '15px' }}>
+              <p className="text-[#4A5568] leading-relaxed text-[15px]">
                 Your Anthropic API Key is governed by your agreement with Anthropic, PBC, including
                 Anthropic&rsquo;s Usage Policy. Your OpenAI API Key, if provided, is governed by
                 your agreement with OpenAI, L.L.C. You are solely responsible for compliance with
@@ -1442,7 +1442,7 @@ export default function TermsOfServicePage() {
 
             {/* Footer note */}
             <hr className="border-[#E2E8F0] my-8" />
-            <p className="text-[#718096] italic" style={{ fontSize: '14px' }}>
+            <p className="text-[#718096] italic text-sm">
               These Terms of Service were last updated on March 13, 2026. Version 1.0.
             </p>
           </div>
