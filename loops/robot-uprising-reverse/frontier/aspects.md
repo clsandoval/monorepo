@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1110
-- **Analyzed:** 373
-- **Pending:** 737
-- **Convergence:** 33.6%
+- **Total aspects:** 1115
+- **Analyzed:** 374
+- **Pending:** 741
+- **Convergence:** 33.5%
 
 ---
 
@@ -1047,7 +1047,12 @@
 ## Wave 7: Multiplayer & Community
 
 - [x] 7.01 — PvP: designing attention systems against another human's attention systems
-  - [ ] 7.01a — Loadout system design for PvP: saveable blueprint configurations, quick-deploy, per-map loadout adaptation, loadout sharing between players, loadout import/export as community feature
+  - [x] 7.01a — Loadout system design for PvP: saveable blueprint configurations, quick-deploy, per-map loadout adaptation, loadout sharing between players, loadout import/export as community feature
+  - [ ] 7.01a-i — Loadout diff view between saved configs: side-by-side comparison of two slots showing rule/hook/queue deltas; "what did I change between v6 and v7?" tool; interaction with config necropsy (7.10) and Inspector
+  - [ ] 7.01a-ii — Auto-deploy ghost rotation for async PvP: 3-config rotation queue per map preventing hard-countering a single known ghost; the "unpredictable ghost" as competitive advantage
+  - [ ] 7.01a-iii — Loadout warmup: recent-play bonus or confidence indicator for frequently deployed configs vs. dormant ones; practice-makes-perfect signal; competitive integrity implications
+  - [ ] 7.01a-iv — Opponent-specific loadout tagging in Gauntlet: "vs. [opponent]" filter after multiple matches against same player; the scouting report as loadout metadata
+  - [ ] 7.01a-v — Loadout inheritance and template configs: "base class" configs with locked elements and open customization slots; the template config that sub-configs extend; interaction with community sharing
   - [ ] 7.01b — Red team mode in Plan screen: hypothetical enemy unit placement for testing architectures before deployment, sandbox PvP training, "what-if" scenarios for counter-configuration practice
   - [ ] 7.01c — Channel naming as competitive metagame: common channel names are predictable (hackable), unique names are harder to intercept but harder for teammates to guess in co-op; channel obfuscation as a competitive skill; automatic channel renaming as a defensive rule
   - [ ] 7.01d — PvP unlock gating and campaign integration: when does competitive multiplayer become available; Ghost Ladder after Mission 5 vs. earlier; practice-against-ghost missions in campaign; competitive skill teaching within the tutorial arc
