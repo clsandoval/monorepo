@@ -104,7 +104,12 @@ export function SettingsAccountSection({
     e.preventDefault()
     setDisplayNameError(null)
 
-    if (displayName.length > 100) {
+    if (!displayName.trim()) {
+      setDisplayNameError('Display name is required.')
+      return
+    }
+
+    if (displayName.trim().length > 100) {
       setDisplayNameError('Display name must be 100 characters or less.')
       return
     }
@@ -220,7 +225,6 @@ export function SettingsAccountSection({
                   setDisplayName(e.target.value)
                   setDisplayNameError(null)
                 }}
-                maxLength={100}
                 placeholder="Your name"
                 className={cn(
                   'w-full sm:w-80 h-10',

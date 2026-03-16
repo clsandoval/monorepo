@@ -15,7 +15,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 });
   }
 
-  const full_name = typeof body.full_name === 'string' ? body.full_name : '';
+  const full_name = typeof body.full_name === 'string' ? body.full_name.trim() : '';
+
+  if (!full_name) {
+    return NextResponse.json(
+      { error: 'Display name is required.', field: 'full_name' },
+      { status: 400 }
+    );
+  }
 
   if (full_name.length > 100) {
     return NextResponse.json(
