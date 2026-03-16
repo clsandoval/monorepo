@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1372
-- **Analyzed:** 425
-- **Pending:** 947
-- **Convergence:** 31.0%
+- **Total aspects:** 1377
+- **Analyzed:** 426
+- **Pending:** 951
+- **Convergence:** 30.9%
 
 ---
 
@@ -910,7 +910,12 @@
     - [ ] 6.07b-iii — The rotation-as-commitment ritual: physical rotation gesture as game mechanic, parallels to board game rituals (flipping timer, rolling dice), haptic prompt design, whether commitment metaphor increases player investment in designs
     - [ ] 6.07b-iv — Transition animation vocabulary: Plan→Watch→Inspector screen transitions (iris wipe, board-holds, seal descend, heartbeat blink), timing, performance budget, orientation-aware variants
     - [ ] 6.07b-v — Portrait-only competitive viability: whether portrait-locked players are strategically disadvantaged vs. landscape in PvP, Inspector scrubber precision, Plan spatial awareness, matchmaking orientation accounting
-  - [ ] 6.07c — Mobile-specific onboarding for touch controls: ghost hand tutorial animations, inline gesture teaching vs. dedicated tutorial, first-touch-on-each-element instruction; comparable to iOS game onboarding patterns
+  - [x] 6.07c — Mobile-specific onboarding for touch controls: ghost hand tutorial animations, inline gesture teaching vs. dedicated tutorial, first-touch-on-each-element instruction; comparable to iOS game onboarding patterns; six paradigms analyzed (A "Ghost Hand" animated overlay demonstrations with gesture dictionary, B "Spotlight Funnel" progressive element reveal with discovery graph, C "Fingerprint" first-touch-per-element instruction with slow-mo and particles, D "Coach Mark Carousel" swipeable instruction cards — 70-90% skip rate makes this weakest, E "The Breath" contextual micro-pauses with diegetic typewriter text, F "The Apprentice" RECOMMENDED adaptive hybrid with four tiers: Tier 1 micro-pauses for WHAT + Tier 2 first-touch for HOW + Tier 3 ghost hand after 8s inaction + Tier 4 spotlight for mission-critical moments; per-gesture competence tracker (3=disable ghost hand, 5=shorten first-touch, 8=disable first-touch); performance tier detection for budget phones; 4 player journeys (Ria 24 UX designer MRT commute portrait mode 80-second first mission, Datu 38 Factorio/Screeps vet landscape iPad 4-minute speedrun with system getting out of his way, Tala 17 Mobile Legends player Realme budget phone needing ghost hand twice then never again, Marcus 42 Into the Breach iPad Pro player spending 5/7 minutes in Inspector); comparable (Into the Breach Netflix port "make every button large enough", Clash Royale ghost hand gold standard, StS mobile rough launch without mobile-specific teaching, Monument Valley wordless geometry teaching, Alto's Odyssey continuous-surface discovery); interaction effects with tutorial-as-puzzle, boot log narrative, animated tooltips, portrait/landscape, accessibility screen reader mode, controller onboarding, workbench layout evolution; 5 new aspects discovered (6.07c-i through 6.07c-v)
+    - [ ] 6.07c-i — Ghost hand asset pipeline: cost estimation for full gesture dictionary across all missions; procedural generation from element metadata vs. hand-crafted animations
+    - [ ] 6.07c-ii — Competence score persistence and reset policy: returning-player detection after long absence; competence decay over time; "welcome back" re-onboarding
+    - [ ] 6.07c-iii — First-touch response replay: "?" button for on-demand replay of teaching moments; interaction with Blueprint Codex as persistent reference
+    - [ ] 6.07c-iv — Cross-device competence sync: concept knowledge vs. gesture knowledge split; desktop drag ≠ mobile long-press-drag; what transfers and what doesn't
+    - [ ] 6.07c-v — Adaptive performance tier detection: first-load benchmark vs. device fingerprinting vs. user toggle; tutorial animation quality scaling on budget phones
   - [ ] 6.07d — Battery and thermal performance budget for Pixi.js on mobile: WebGL rendering cost per screen, 60fps vs. 30fps decision, canvas resolution scaling on low-end devices, requestAnimationFrame throttling during Sealed Watch
   - [ ] 6.07e — "Send to desktop" cross-device debrief flow: emotional sealed watch on mobile → analytical inspector on desktop; cloud sync of match replay data; the two-device two-act debrief as a feature, not a limitation
 - [x] 6.08 — Accessibility: colorblind modes, screen reader support, difficulty options, one-handed play; six axes explored (visual: colorblind shape-first + palette swap + full customization, low vision magnification + high-contrast, screen reader parallel DOM + sealed watch hybrid narration; auditory: visual replacements for all audio cues, auditory processing simplification; motor: mouse-only mode, one-handed keyboard presets, switch/eye-tracker/voice adaptive input; cognitive: complexity layers Simple/Standard/Full, dyslexia fonts + icon-first design, ADHD session timer + templates + auto-save, autism sensory controls + animation intensity; difficulty: Celeste-model Assist Mode with zero judgment; intersectional: blind+motor, deaf+colorblind, cognitive+low-vision); PixiJS accessibility system leveraged for DOM overlay; 4 player journeys (Sana 28 blind software engineer screen reader full playthrough, Marcus 52 RSI one-handed mouse-only, Leo 14 ADHD+dyslexia Simple Mode with icons, Dr. Keiko 67 low-vision+arthritis magnification+trackball); comparable (Celeste Assist Mode, Slay the Spire community mods, TLoU2 60+ options, Into the Breach structural accessibility, Hades God Mode); TikTok clip (blind player screen reader playthrough — "designed for screen readers from day one"); 5 new aspects discovered (6.08a–6.08e)
