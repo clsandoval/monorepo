@@ -118,7 +118,7 @@ function LoginForm() {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(LoginSchema),
-    mode: 'onTouched',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
   });
 
