@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -264,7 +264,9 @@ export default function SignupPage() {
     handleSubmit,
     watch,
     control,
-    formState: { errors, isSubmitting },
+    setError,
+    clearErrors,
+    formState: { errors, isSubmitting, touchedFields },
   } = useForm<SignupFormValues>({
     resolver: zodResolver(SignupSchema),
     mode: 'onTouched',
@@ -272,6 +274,17 @@ export default function SignupPage() {
   });
 
   const passwordValue = watch('password', '');
+  const confirmPasswordValue = watch('confirmPassword', '');
+
+  // Live cross-field mismatch check once confirmPassword has been touched
+  useEffect(() => {
+    if (!touchedFields.confirmPassword || !confirmPasswordValue) return;
+    if (passwordValue !== confirmPasswordValue) {
+      setError('confirmPassword', { type: 'manual', message: 'Passwords do not match.' });
+    } else {
+      clearErrors('confirmPassword');
+    }
+  }, [passwordValue, confirmPasswordValue, touchedFields.confirmPassword, setError, clearErrors]);
 
   async function onSubmit(data: SignupFormValues) {
     setServerError(null);
