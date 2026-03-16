@@ -40,16 +40,16 @@ export function InstallmentSection({
         <div className="flex justify-between text-sm">
           <div>
             <span className="font-medium">1st Installment</span>
-            <p className="text-xs text-muted-foreground">Due: April 15</p>
+            <p className="text-sm text-foreground/70">Due: April 15</p>
           </div>
-          <span className="tabular-nums font-medium">{formatPeso(installmentFirstDue)}</span>
+          <span className="tabular-nums font-semibold text-base">{formatPeso(installmentFirstDue)}</span>
         </div>
         <div className="flex justify-between text-sm">
           <div>
             <span className="font-medium">2nd Installment</span>
-            <p className="text-xs text-muted-foreground">Due: July 15</p>
+            <p className="text-sm text-foreground/70">Due: July 15</p>
           </div>
-          <span className="tabular-nums font-medium">{formatPeso(installmentSecondDue)}</span>
+          <span className="tabular-nums font-semibold text-base">{formatPeso(installmentSecondDue)}</span>
         </div>
       </CardContent>
     </Card>

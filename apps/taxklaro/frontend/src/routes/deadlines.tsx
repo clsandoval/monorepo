@@ -23,8 +23,18 @@ interface DeadlineEntry {
   computationTitle: string;
 }
 
-/** Derive filing deadlines from computation metadata. */
-function deriveDeadlines(computations: ComputationListItem[]): DeadlineEntry[] {
+/** A grouped deadline: one row per unique date+milestoneKey, listing all computations that share it. */
+interface GroupedDeadline {
+  groupKey: string;
+  milestoneKey: string;
+  dueDate: string;
+  description: string;
+  completed: boolean;
+  computationTitles: string[];
+}
+
+/** Derive filing deadlines from computation metadata, grouped by date+type. */
+function deriveDeadlines(computations: ComputationListItem[]): GroupedDeadline[] {
   const entries: DeadlineEntry[] = [];
 
   for (const c of computations) {
@@ -72,14 +82,35 @@ function deriveDeadlines(computations: ComputationListItem[]): DeadlineEntry[] {
     });
   }
 
-  // Sort by due date ascending
-  entries.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
-  return entries;
+  // Group by date + milestoneKey to avoid duplicate rows for the same deadline
+  const groupMap = new Map<string, GroupedDeadline>();
+  for (const e of entries) {
+    const gk = `${e.dueDate}|${e.milestoneKey}`;
+    const existing = groupMap.get(gk);
+    if (existing) {
+      existing.computationTitles.push(e.computationTitle);
+      // If any computation is not completed, the group is not completed
+      if (!e.completed) existing.completed = false;
+    } else {
+      groupMap.set(gk, {
+        groupKey: gk,
+        milestoneKey: e.milestoneKey,
+        dueDate: e.dueDate,
+        description: e.description,
+        completed: e.completed,
+        computationTitles: [e.computationTitle],
+      });
+    }
+  }
+
+  const grouped = Array.from(groupMap.values());
+  grouped.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+  return grouped;
 }
 
 function DeadlinesPage() {
   const { orgId, isLoading: orgLoading } = useOrganization();
-  const [deadlines, setDeadlines] = useState<DeadlineEntry[]>([]);
+  const [deadlines, setDeadlines] = useState<GroupedDeadline[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const load = useCallback(async () => {
@@ -127,38 +158,40 @@ function DeadlinesPage() {
             {upcoming.length === 0 ? (
               <p className="text-sm text-muted-foreground">All deadlines completed.</p>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <div className="flex flex-col gap-3">
                 {upcoming.map((d) => (
                   <DeadlineCard
-                    key={d.key}
+                    key={d.groupKey}
                     milestoneKey={d.milestoneKey}
                     dueDate={d.dueDate}
                     description={d.description}
                     completed={d.completed}
-                    computationTitle={d.computationTitle}
+                    computationTitles={d.computationTitles}
                   />
                 ))}
               </div>
             )}
           </section>
 
-          {completed.length > 0 && (
-            <section className="space-y-3">
-              <h2 className="font-semibold text-foreground" style={{ fontSize: 'var(--text-h3)', lineHeight: 'var(--text-h3-lh)' }}>Completed</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <section className="space-y-3">
+            <h2 className="font-semibold text-foreground" style={{ fontSize: 'var(--text-h3)', lineHeight: 'var(--text-h3-lh)' }}>Completed</h2>
+            {completed.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No completed deadlines yet.</p>
+            ) : (
+              <div className="flex flex-col gap-3">
                 {completed.map((d) => (
                   <DeadlineCard
-                    key={d.key}
+                    key={d.groupKey}
                     milestoneKey={d.milestoneKey}
                     dueDate={d.dueDate}
                     description={d.description}
                     completed={d.completed}
-                    computationTitle={d.computationTitle}
+                    computationTitles={d.computationTitles}
                   />
                 ))}
               </div>
-            </section>
-          )}
+            )}
+          </section>
         </>
       )}
     </div>

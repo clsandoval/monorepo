@@ -76,7 +76,7 @@ export function RegimeComparisonTable({
                     </td>
                     <td className="text-right py-3 px-2 tabular-nums">{formatPeso(opt.incomeTaxDue)}</td>
                     <td className="text-right py-3 px-2 tabular-nums">{formatPeso(opt.percentageTaxDue)}</td>
-                    <td className={`text-right py-3 pl-2 tabular-nums font-semibold ${isRecommended ? 'text-green-800 dark:text-green-300' : ''}`}>
+                    <td className={`text-right py-3 pl-2 tabular-nums font-semibold ${isRecommended ? 'text-primary' : ''}`}>
                       {formatPeso(opt.totalTaxBurden)}
                     </td>
                     <td className="text-right py-3 pl-2 tabular-nums text-muted-foreground">{formatRate(opt.effectiveRate)}</td>

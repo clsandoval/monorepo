@@ -6,6 +6,7 @@ interface DeadlineCardProps {
   description?: string | null;
   completed?: boolean;
   computationTitle?: string;
+  computationTitles?: string[];
 }
 
 function getUrgencyClasses(dueDate: string, completed: boolean): string {
@@ -32,12 +33,15 @@ function getUrgencyLabel(dueDate: string, completed: boolean): { label: string; 
   return null;
 }
 
-export function DeadlineCard({ milestoneKey, dueDate, description, completed, computationTitle }: DeadlineCardProps) {
+export function DeadlineCard({ milestoneKey, dueDate, description, completed, computationTitle, computationTitles }: DeadlineCardProps) {
   const date = new Date(dueDate + 'T00:00:00');
   const day = date.toLocaleDateString('en-PH', { day: 'numeric' });
   const month = date.toLocaleDateString('en-PH', { month: 'short' });
   const year = date.getFullYear();
   const urgencyLabel = getUrgencyLabel(dueDate, !!completed);
+
+  // Support both single computationTitle and grouped computationTitles
+  const titles = computationTitles ?? (computationTitle ? [computationTitle] : []);
 
   return (
     <div
@@ -62,8 +66,12 @@ export function DeadlineCard({ milestoneKey, dueDate, description, completed, co
             <Clock className="h-4 w-4 text-muted-foreground/50 shrink-0 mt-0.5" />
           )}
         </div>
-        {computationTitle && (
-          <p className="text-xs text-muted-foreground truncate">{computationTitle}</p>
+        {titles.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {titles.map((t, i) => (
+              <span key={i} className="text-xs text-muted-foreground bg-muted/60 rounded px-1.5 py-0.5">{t}</span>
+            ))}
+          </div>
         )}
         {completed && (
           <p className="text-xs text-green-600 font-medium">Completed</p>

@@ -32,11 +32,15 @@ export function FirmBrandingSection({ firmName, logoUrl, onSave, onUploadLogo }:
         </div>
         <div className="space-y-1.5">
           <Label>Logo</Label>
-          {logoUrl && <img src={logoUrl} alt="Firm logo" className="h-12 object-contain" />}
-          <label className="cursor-pointer">
-            <Button type="button" variant="outline" size="sm" asChild>
-              <span><Upload className="h-4 w-4 mr-2" />Upload Logo</span>
-            </Button>
+          <label className="cursor-pointer block">
+            <div className="border-2 border-dashed border-border rounded-lg p-6 flex flex-col items-center justify-center gap-2 hover:border-primary/50 hover:bg-muted/30 transition-colors">
+              {logoUrl ? (
+                <img src={logoUrl} alt="Firm logo" className="h-16 object-contain" />
+              ) : (
+                <Upload className="h-8 w-8 text-muted-foreground" />
+              )}
+              <span className="text-sm text-muted-foreground">{logoUrl ? 'Change Logo' : 'Upload Logo'}</span>
+            </div>
             <input type="file" accept="image/*" className="hidden" onChange={handleLogoChange} />
           </label>
         </div>

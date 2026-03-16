@@ -46,9 +46,9 @@ export function TaxBreakdownPanel({
           </div>
         )}
         <Separator />
-        <div className="flex justify-between items-baseline">
-          <span className="text-sm font-semibold">Total Tax Burden</span>
-          <span className="font-display text-xl tabular-nums">{formatPeso(selectedTotalTax)}</span>
+        <div className="flex justify-between items-baseline pt-1">
+          <span className="text-sm font-semibold text-foreground">Total Tax Burden</span>
+          <span className="font-display text-[1.75rem] tabular-nums text-foreground">{formatPeso(selectedTotalTax)}</span>
         </div>
       </CardContent>
     </Card>

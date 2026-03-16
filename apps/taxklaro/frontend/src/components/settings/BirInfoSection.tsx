@@ -22,7 +22,8 @@ export function BirInfoSection({ tin, rdoCode, onSave }: BirInfoSectionProps) {
         <h2 className="font-display text-xl text-foreground">BIR Information</h2>
         <div className="space-y-1.5">
           <Label htmlFor="tin">TIN</Label>
-          <Input id="tin" name="tin" defaultValue={tin ?? ''} placeholder="000-000-000-000" className="h-11" />
+          <Input id="tin" name="tin" defaultValue={tin ?? ''} placeholder="000-000-000-000" maxLength={15} className="h-11" />
+          <p className="text-xs text-muted-foreground">Format: 000-000-000-000 (12 digits with dashes)</p>
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="rdoCode">RDO Code</Label>

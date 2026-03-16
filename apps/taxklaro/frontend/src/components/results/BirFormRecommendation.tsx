@@ -30,7 +30,6 @@ export function BirFormRecommendation({
   requiredAttachments,
 }: BirFormRecommendationProps) {
   const formInfo = FORM_LABELS[formType];
-  const variant = formOutput.formVariant;
 
   return (
     <Card className="border-blue-200/70 bg-blue-50/30 shadow-sm dark:bg-blue-900/10 dark:border-blue-800/40">
@@ -43,10 +42,6 @@ export function BirFormRecommendation({
             {formInfo.name}
           </Badge>
           <p className="text-sm text-muted-foreground">{formInfo.description}</p>
-        </div>
-
-        <div className="text-xs text-muted-foreground font-mono bg-muted/50 rounded-md px-2.5 py-1.5 inline-block">
-          Variant: {variant}
         </div>
 
         {requiredAttachments.length > 0 && (

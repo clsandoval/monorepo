@@ -30,6 +30,16 @@ const STATUS_LABEL: Record<ComputationStatus, string> = {
   archived: 'Archived',
 };
 
+const REGIME_PATH_LABEL: Record<string, string> = {
+  PATH_A: 'Graduated + Itemized',
+  PATH_B: 'Graduated + OSD',
+  PATH_C: '8% Flat Rate',
+};
+
+function formatRegimePath(raw: string): string {
+  return REGIME_PATH_LABEL[raw] ?? raw;
+}
+
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-PH', {
     year: 'numeric',
@@ -92,7 +102,7 @@ export function ComputationCard({ computation, onDelete, onArchive }: Computatio
       <p className="text-[0.8125rem] text-muted-foreground">Tax Year {computation.taxYear}</p>
       <div className="flex items-center gap-2 text-[0.8125rem] text-muted-foreground">
         {computation.regimeSelected && (
-          <span className="font-medium text-foreground">{computation.regimeSelected}</span>
+          <span className="font-medium text-foreground">{formatRegimePath(computation.regimeSelected)}</span>
         )}
         <span>Modified {formatDate(computation.updatedAt)}</span>
       </div>

@@ -37,17 +37,17 @@ export function RecommendationBanner({
             <Badge className="bg-green-600 hover:bg-green-700 text-white text-xs px-2.5">
               {usingLockedRegime ? 'Elected Regime' : 'Recommended'}
             </Badge>
-            <span className="font-semibold text-green-800 dark:text-green-300 text-[0.9375rem]">
+            <span className="font-semibold text-foreground text-[0.9375rem]">
               {REGIME_LABELS[recommendedRegime]}
             </span>
           </div>
 
           {!usingLockedRegime && savings > 0 && (
             <div className="flex flex-col gap-0.5">
-              <p className="text-sm text-green-700 dark:text-green-400">
+              <p className="text-sm text-foreground/70">
                 You save vs. highest-tax option:
               </p>
-              <p className="font-display text-2xl text-green-800 dark:text-green-300 tabular-nums">
+              <p className="font-display text-2xl text-foreground tabular-nums">
                 {formatPeso(savingsVsWorst)}
               </p>
               {nextBestSavings > 0 && (
@@ -60,7 +60,7 @@ export function RecommendationBanner({
 
           {usingLockedRegime && (
             <p className="text-sm text-muted-foreground">
-              Regime locked by prior-year election. Results shown for elected regime.
+              You selected this regime last year, so it applies again this year. Results below are based on this regime.
             </p>
           )}
         </div>

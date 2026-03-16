@@ -75,7 +75,7 @@ function AuthPage() {
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-xl p-4 sm:p-8 shadow-[var(--shadow-lg)]">
+        <div className="bg-white rounded-xl p-4 sm:p-8 shadow-[var(--shadow-lg)] border-l-[3px] border-l-primary">
           <div className="mb-6">
             <h1 className="font-display text-foreground" style={{ fontSize: 'var(--text-h2)', lineHeight: 'var(--text-h2-lh)' }}>
               {mode === 'signup' ? 'Create Account' : mode === 'magic' ? 'Magic Link' : 'Sign In'}
@@ -103,6 +103,7 @@ function AuthPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="email"
                 className="w-full h-11 rounded-lg border border-border bg-white px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
                 placeholder="you@example.com"
               />
@@ -123,9 +124,11 @@ function AuthPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={6}
+                  autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
                   className="w-full h-11 rounded-lg border border-border bg-white px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
-                  placeholder="Min. 6 characters"
+                  placeholder="••••••••"
                 />
+                <p className="text-xs text-muted-foreground mt-1.5">Min. 6 characters</p>
               </div>
             )}
 

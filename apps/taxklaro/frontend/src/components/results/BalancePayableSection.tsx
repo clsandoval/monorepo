@@ -85,9 +85,9 @@ export function BalancePayableSection({
         )}
 
         {disposition === 'BALANCE_PAYABLE' && (
-          <div className="flex justify-between items-baseline">
-            <span className="text-sm font-semibold text-destructive">Net Balance Payable</span>
-            <span className="font-display text-2xl tabular-nums text-destructive">{formatPeso(balance)}</span>
+          <div className="flex justify-between items-baseline pt-1">
+            <span className="text-sm font-semibold text-foreground">Net Balance Payable</span>
+            <span className="font-display tabular-nums text-destructive" style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)' }}>{formatPeso(balance)}</span>
           </div>
         )}
 

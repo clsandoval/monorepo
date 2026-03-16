@@ -126,3 +126,109 @@ body {
 .font-display {
   font-family: var(--font-display);
 }
+
+/* ---- Easing tokens ---- */
+
+:root {
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---- Landing page ---- */
+
+/* Underline draws in from left after headline appears */
+.landing-underline-bar {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 2px;
+  background-color: rgb(var(--peso-savings));
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: underline-draw 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.8s forwards;
+}
+
+@keyframes underline-draw {
+  to { transform: scaleX(1); }
+}
+
+/* Comparison card — subtle hover lift */
+.landing-comparison {
+  background: rgb(var(--card));
+  border: 1px solid rgb(var(--border) / 0.6);
+  border-radius: 12px;
+  padding: 28px 28px 24px;
+  box-shadow:
+    0 1px 3px rgb(0 0 0 / 0.03),
+    0 8px 24px rgb(0 0 0 / 0.04),
+    0 20px 48px rgb(0 0 0 / 0.02);
+  transition:
+    transform 0.3s var(--ease-out-quart),
+    box-shadow 0.3s var(--ease-out-quart);
+}
+
+.landing-comparison:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 2px 4px rgb(0 0 0 / 0.03),
+    0 12px 32px rgb(0 0 0 / 0.06),
+    0 24px 56px rgb(0 0 0 / 0.03);
+}
+
+/* CTA buttons — scale feedback + focus */
+.landing-cta {
+  transition:
+    transform 0.15s var(--ease-out-quart),
+    box-shadow 0.2s var(--ease-out-quart);
+}
+
+.landing-cta:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgb(var(--brand-600) / 0.25);
+}
+
+.landing-cta:active {
+  transform: scale(0.98);
+  transition-duration: 0.1s;
+}
+
+.landing-cta:focus-visible {
+  outline: 2px solid rgb(var(--brand-600));
+  outline-offset: 3px;
+}
+
+/* Comparison card — overflow protection */
+.landing-comparison .flex {
+  min-width: 0;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Reduced motion ---- */
+/* Only disable animations and transforms — preserve color/opacity hover transitions */
+@media (prefers-reduced-motion: reduce) {
+  .landing-underline-bar {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  .landing-cta:hover {
+    transform: none;
+  }
+
+  .landing-cta:active {
+    transform: none;
+  }
+
+  .landing-comparison {
+    transition: none;
+  }
+
+  .landing-comparison:hover {
+    transform: none;
+  }
+}

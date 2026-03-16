@@ -61,9 +61,11 @@ function ClientsPage() {
     <div className="space-y-6" data-testid="clients-page">
       <div className="flex items-center justify-between flex-wrap gap-y-3">
         <h1 className="font-display text-foreground" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Clients</h1>
-        <Button onClick={() => navigate({ to: '/clients/new' })}>
-          <Plus className="h-4 w-4 mr-2" /> New Client
-        </Button>
+        {(clients.length > 0 || isLoading) && (
+          <Button onClick={() => navigate({ to: '/clients/new' })}>
+            <Plus className="h-4 w-4 mr-2" /> New Client
+          </Button>
+        )}
       </div>
 
       {error ? (
@@ -72,17 +74,22 @@ function ClientsPage() {
           <Button variant="outline" onClick={load}>Try again</Button>
         </div>
       ) : clients.length === 0 && !isLoading ? (
-        <div className="text-center py-20 space-y-4" data-testid="empty-clients">
-          <div className="mx-auto w-16 h-16 rounded-full bg-muted flex items-center justify-center">
-            <Users className="h-8 w-8 text-muted-foreground" />
-          </div>
+        <div className="py-16 px-8 space-y-5" data-testid="empty-clients">
+          <Users className="h-10 w-10 text-muted-foreground" />
           <div>
-            <p className="font-display text-xl font-normal">No clients yet</p>
-            <p className="text-[0.9375rem] text-muted-foreground mt-1">
-              Add a client to start organizing your computations.
+            <h2
+              className="font-display text-foreground"
+              style={{ fontSize: 'var(--text-h2)', lineHeight: 'var(--text-h2-lh)' }}
+            >
+              No clients yet
+            </h2>
+            <p className="text-muted-foreground mt-2 max-w-md" style={{ fontSize: 'var(--text-body)' }}>
+              Organize computations by client. Track multiple taxpayers from one account.
             </p>
           </div>
-          <Button onClick={() => navigate({ to: '/clients/new' })}>New Client</Button>
+          <Button onClick={() => navigate({ to: '/clients/new' })}>
+            <Plus className="h-4 w-4 mr-2" /> New Client
+          </Button>
         </div>
       ) : (
         <ClientsTable
