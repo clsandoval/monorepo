@@ -278,7 +278,7 @@ function ServiceCard({ service, connection, userRole, onApiKeyConnect }: Service
 
       {/* Connection details (shown when connected or error) */}
       {isConnected && (
-        <div className="mb-4 border border-gray-100 bg-gray-50 p-3">
+        <div className="mb-4 border border-border bg-muted p-3">
           {/* Account name */}
           {accountName && (
             <div className="mb-0.5 flex h-6 items-center justify-between">

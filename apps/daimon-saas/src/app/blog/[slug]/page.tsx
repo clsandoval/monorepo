@@ -442,7 +442,7 @@ export default async function BlogPostPage({
           <div className="mt-6">
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center px-6 py-3 rounded font-semibold text-sm bg-primary text-foreground hover:opacity-90 transition-opacity"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-none font-semibold text-sm bg-primary text-foreground hover:opacity-90 transition-opacity"
             >
               Get started free
             </Link>

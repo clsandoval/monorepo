@@ -125,7 +125,7 @@ export default function CookiePolicyPage() {
             </h2>
             <p>
               Daimon (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) uses cookies and similar
-              technologies on our website (<code className="bg-gray-100 px-1 rounded text-sm">daimon.ai</code>)
+              technologies on our website (<code className="bg-muted px-1 rounded text-sm">daimon.ai</code>)
               and web application for the following purposes:
             </p>
             <ul className="ml-6 space-y-2">
