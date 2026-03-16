@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1137
-- **Analyzed:** 378
-- **Pending:** 759
+- **Total aspects:** 1142
+- **Analyzed:** 379
+- **Pending:** 763
 - **Convergence:** 33.2%
 
 ---
@@ -869,7 +869,12 @@
   - [ ] 5.13d — Variable reclassification as narrative beat: boot log "CONSTANT → VARIABLE" animation as recurring campaign motif; reclassification count as progression metric; the final reclassification at Mission 10
   - [ ] 5.13e — Social discovery asymmetry in PvP: players who discover hidden variables earlier have structural Gauntlet advantages; competitive bracketing implications; variable discovery tracking
 - [ ] 5.13a — Spawn storm as designed tutorial failure: crafting a mission that makes the first spawn storm almost inevitable for a first-time player, then making the debrief teach the fix clearly; the Opus Magnum "first ugly solution" principle applied to spawn chain design; what the spawn storm looks and sounds like at maximum drama
-- [ ] 5.12 — Predecessor content as narrative: captured enemy agent configs carrying "previous operator" annotations — the Randy's-annotations pattern for Robot Uprising lore delivery without cutscenes
+- [x] 5.12 — Predecessor content as narrative: captured enemy agent configs carrying "previous operator" annotations — the Randy's-annotations pattern for Robot Uprising lore delivery without cutscenes
+  - [ ] 5.12a — Predecessor annotation density calibration: how many annotations per blueprint and per mission; annotation fatigue curve across 10 missions; the right ratio of annotated to unannotated config elements
+  - [ ] 5.12b — Predecessor config as difficulty modifier: offering "start from Predecessor X's config" as difficulty option; The Architect as Easy, The Improviser as Medium, blank slate as Hard; interaction with reagent-placement-as-choice revelation cascade
+  - [ ] 5.12c — Community-authored predecessor voices: top-ranked community players becoming "predecessors" in Gauntlet mode; moderation, voice consistency, annotation quality control; the social loop of becoming someone else's Architect
+  - [ ] 5.12d — Predecessor voice in competitive/PvP context: pseudo-annotations on defeated opponent configs; "your opponent probably wired this hook to counter relay-heavy builds"; opponent-as-predecessor in competitive mode
+  - [ ] 5.12e — Cross-predecessor dialogue: annotations referencing other predecessors' work; The Paranoid commenting on The Architect's relay chain; multi-voice epistolary narrative within the config
 - [ ] 5.11 — Solitaire distraction risk: when a secondary mechanic (debrief analysis, sandbox mode) becomes more engaging than the core loop — how to prevent and exploit
 - [ ] 5.14a — The fidelity threshold as onboarding gate: fidelity thresholds are the mechanic that teaches players to think about information quality, not just presence; design pass on the "first fidelity moment" — a mission where default threshold fails, debrief explains why, fix is a single slider adjustment; the designed teaching moment for buffer quality awareness
 - [ ] 5.14 — Detection skills as complexity gate: the "intrusion detection" skill as an advanced mechanic that reveals hidden corruption to players who invest in it; scales difficulty with player sophistication rather than with a separate difficulty slider; advanced players uncover more depth, beginners get clean experience
