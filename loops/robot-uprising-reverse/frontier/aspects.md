@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1207
-- **Analyzed:** 392
-- **Pending:** 815
-- **Convergence:** 32.5%
+- **Total aspects:** 1212
+- **Analyzed:** 393
+- **Pending:** 819
+- **Convergence:** 32.4%
 
 ---
 
@@ -832,7 +832,12 @@
     - [ ] 5.04a-iii — The Handcrafted Victory badge and pre-placed-alongside-factory design: full design of the "beat the factory mission without the factory" achievement path; when should pre-placed units coexist with factory production; the community challenge layer
     - [ ] 5.04a-iv — Production queue visual rhythm as teaching signal: the conveyor belt's audible and visual rhythm as the factory's heartbeat; monoculture monotony vs. diverse rhythm; the rhythm change as the moment the player "hears" army diversity
     - [ ] 5.04a-v — The designed-failure detection heuristic for fast-track: how the expert fast-track detects monoculture understanding; when to skip the designed failure cycle; preventing false positives
-  - [ ] 5.04b — The vocabulary density curve: how many new terms per minute is sustainable? Cognitive load theory applied to game tutorial design; comparison with Shenzhen I/O's ~2 new instructions per puzzle
+  - [x] 5.04b — The vocabulary density curve: how many new terms per minute is sustainable? Cognitive load theory applied to game tutorial design; comparison with Shenzhen I/O's ~2 new instructions per puzzle
+    - [ ] 5.04b-i — Compound term teaching design: detailed mechanical design for introducing (rule + condition + action) as one atomic concept — the specific UI presentation, boot log phrasing, first encounter scenario; how to make a 3-term compound feel like 1 concept
+    - [ ] 5.04b-ii — Return-from-break vocabulary refresh: exact design for the recap animation triggered by session gaps >3 days — which terms get refreshed, time consumed, skippability, interaction with save state
+    - [ ] 5.04b-iii — Vocabulary category reclassification across player archetypes: the same term is Category C for a non-programmer and Category A for a software engineer; should the game detect professional background to set initial category assignments?
+    - [ ] 5.04b-iv — The "vocabulary dead zone" in Missions 8-10: late-game missions introduce only 3 terms total; what replaces vocabulary introduction as the engagement driver? Combinatorial depth? Narrative? Competition?
+    - [ ] 5.04b-v — Density curve visualization as meta-game UI element: should the player see their own vocabulary acquisition rate in the Codex? A sparkline showing terms-learned-per-mission; risk of making the adaptive system visible
   - [ ] 5.04c — The "subsystem online" micro-celebration: designing the moment a new concept unlocks — amber glow, chime, boot log print, panel expansion animation; interaction with narrative beat design and emotional pacing
   - [ ] 5.04d — Sandbox-to-challenge transition design: the desaturation peel — exact technical and aesthetic design of the simulation→reality transition animation; how the transition communicates stakes without words
   - [ ] 5.04e — Adaptive skip false positive mitigation: how to detect luck vs. understanding — the difference between a fast solve and a correct solve; what additional signals beyond speed indicate genuine comprehension; interaction with 5.01e expert fast-track detection
