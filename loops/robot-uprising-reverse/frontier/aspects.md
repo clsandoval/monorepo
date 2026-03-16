@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1127
-- **Analyzed:** 376
-- **Pending:** 751
-- **Convergence:** 33.4%
+- **Total aspects:** 1132
+- **Analyzed:** 377
+- **Pending:** 755
+- **Convergence:** 33.3%
 
 ---
 
@@ -608,11 +608,16 @@
   - [ ] 3.05f — The dual-mode compilation guarantee: if the game offers multiple rules syntaxes (priority queue + assembly prefix), proving they produce identical behavior requires a formal equivalence; design the compilation layer and the edge cases where equivalence breaks
   - [ ] 3.06-ext — Rule conflict visualization in real-time: when two rules COULD match but priority ordering picks one, how does the inspector show the "road not taken"? The near-miss visualization problem from pattern matching applies to all approaches
 - [x] 3.05a — Conditional prefix as expressive primitive: minimal rule vocabulary (like Shenzhen I/O's +/- prefix) that enables sophisticated agent behavior from simple building blocks
-- [ ] 3.05a-i — The ? (uncertainty) prefix as first-class game mechanic: deep dive into tri-state prefix — when "I don't have data" differs strategically from "the data says no"; mission design that forces the distinction; defensive programming lesson
+- [x] 3.05a-i — The ? (uncertainty) prefix as first-class game mechanic: deep dive into tri-state prefix — when "I don't have data" differs strategically from "the data says no"; mission design that forces the distinction; defensive programming lesson
 - [ ] 3.05a-ii — Prefix composition as boolean algebra tutorial: explicit mapping of player prefix patterns to boolean algebra (De Morgan's laws, short-circuit evaluation, truth tables); when/whether to surface pedagogically vs. leaving implicit
 - [ ] 3.05a-iii — The accumulator prefix as consensus mechanic: majority voting in agent decisions ("at least 2 of 3 conditions must pass"); mapping to distributed consensus protocols (Raft, Paxos); mission design that teaches quorum
 - [ ] 3.05a-iv — Prefix-to-behavior-tree visual translation in Inspector: showing instruction list as BOTH linear prefix sequence AND equivalent behavior tree diagram side-by-side; "Rosetta Stone" view bridging Gladiabots tree thinking and Shenzhen linear thinking
 - [ ] 3.05a-v — The evaluation waterfall as spectator sport: detailed visual design for instruction evaluation animation during sealed watch; split-screen choreography between waterfall trace and battlefield consequence; streaming/TikTok optimization
+- [ ] 3.05a-i-a — The trust horizon as tunable parameter: configurable threshold for data absence before ? fires; UI for per-TEST trust horizon sliders; interaction with eviction policy and buffer size
+- [ ] 3.05a-i-b — Cascading ? through hook chains: when a relay receives ? state from a scout, should it propagate uncertainty or drop it? Uncertainty as a signal TYPE flowing through the network; ? propagation semantics
+- [ ] 3.05a-i-c — The ? prefix in Command agent meta-rules: Command agents monitoring subordinate ? frequency as organizational health metric; "uncertainty budget" for resource reassignment; interaction with 3.17 command agent paradigms
+- [ ] 3.05a-i-d — Enemy exploitation of ? behavior: enemy AI targeting units in ? state via EM uncertainty pulse; "? hunting" as enemy archetype; signal jamming to force ? then attacking frozen units; counterplay through randomized ? behaviors
+- [ ] 3.05a-i-e — The ? prefix as accessibility affordance: ? handlers as implicit difficulty adjustment (more ? = safer but slower); safe defaults for players with cognitive load limitations; interaction with accessibility modes
 - [ ] 3.05b — SWIZ-style value packing as design primitive: EXAPUNKS SWIZ encodes multi-attribute info in one integer via digit manipulation; Robot Uprising signals might encode compound information; what's the analogous primitive?
 - [x] 3.06 — Rule conflicts: what happens when two rules contradict? Priority system, error feedback, or emergent chaos?
   - [ ] 3.06a — Warning calibration: the false positive problem — how many warnings per rule-set is too many? Warning fatigue threshold; A/B testing warning sensitivity
