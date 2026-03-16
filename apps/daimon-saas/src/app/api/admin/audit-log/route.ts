@@ -8,7 +8,18 @@ export async function GET(req: NextRequest) {
   // Admin auth check — return 404 to obscure admin panel existence
   const supabase = await createSupabaseServerClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();
-  if (authError || !user || user.app_metadata?.is_admin !== true) {
+  if (authError || !user) {
+    return NextResponse.json({ error: 'Not found.' }, { status: 404 });
+  }
+
+  const supabaseAdminAuth = createSupabaseAdminClient();
+  const { data: profile } = await supabaseAdminAuth
+    .from('user_profiles')
+    .select('is_admin')
+    .eq('user_id', user.id)
+    .single();
+
+  if (!profile?.is_admin) {
     return NextResponse.json({ error: 'Not found.' }, { status: 404 });
   }
 
