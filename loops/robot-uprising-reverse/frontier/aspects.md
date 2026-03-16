@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 998
-- **Analyzed:** 349
-- **Pending:** 649
-- **Convergence:** 35.0%
+- **Total aspects:** 1003
+- **Analyzed:** 350
+- **Pending:** 653
+- **Convergence:** 34.9%
 
 ---
 
@@ -1005,7 +1005,12 @@
   - [ ] 7.10c — Necropsy-to-tutorial pipeline: promoting community-identified common failure patterns into official tutorial missions; community necropsy data as campaign content source; feedback loop from competitive play to onboarding
   - [ ] 7.10d — Cross-necropsy pattern mining: automated analysis across published necropsies to find recurring failure patterns; necropsy data as game balance signal; "340 necropsies mention relay buffer overflow this month" as balance indicator
   - [ ] 7.10e — Necropsy localization and accessibility: text-heavy community content for non-English speakers; machine translation with original preserved; audio narration; visual-only necropsies via annotated replays; tension between rich analysis and universal accessibility
-- [ ] 7.07 — Three orthogonal optimization axes: speed / efficiency / elegance as genuinely in-tension post-mission goals; a cycle-optimal army config and a buffer-minimal config should require different approaches
+- [x] 7.07 — Three orthogonal optimization axes: speed / efficiency / elegance as genuinely in-tension post-mission goals; a cycle-optimal army config and a buffer-minimal config should require different approaches
+  - [ ] 7.07a — Elegance formula calibration and edge cases: how to count "activations" (once per run vs. once per tick vs. per-variant), how to handle rules that fire only in rare variants, preventing elegance from collapsing to "one blueprint and pray"
+  - [ ] 7.07b — Axis-specific seasonal modifiers in Gauntlet: season modifiers that double one axis's weight ("Efficiency Season") or introduce a temporary fourth axis ("Stealth Season" where EM emissions become scored)
+  - [ ] 7.07c — The "Pareto Walk" as designed community content format: tooling for recording optimization journeys along the Pareto frontier, replay trails as shareable artifacts, community challenges
+  - [ ] 7.07d — Axis profile as matchmaking signal in async PvP: radar chart profiles matching players against similar or contrasting optimization styles; "speed vs. elegance" matchups as designed competitive experience
+  - [ ] 7.07e — Inspector overlay per optimization axis: dedicated Inspector modes for each axis (speed=latency bottlenecks, efficiency=cost accumulation, elegance=unused components) as analytical tools
 - [ ] 7.08 — Deferred community metric invention: designing the scoring system to be extensible so the community can invent new evaluation axes; the Opus Magnum "MechA" pattern; what composite metrics might the Robot Uprising community invent?
 - [ ] 7.15 — The "eEDT as archetype signal" in config browsing: when filtering workshop configs by eEDT range, what does the browsing experience look like? How does a player communicate "I want configs that play into the midgame" as an explicit search filter?
 - [ ] 7.06 — The histogram as social loop: post-execution bell curves showing player distribution across agent efficiency metrics (from Shenzhen I/O)
