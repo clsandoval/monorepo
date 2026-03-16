@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1227
-- **Analyzed:** 396
-- **Pending:** 831
-- **Convergence:** 32.3%
+- **Total aspects:** 1232
+- **Analyzed:** 397
+- **Pending:** 835
+- **Convergence:** 32.2%
 
 ---
 
@@ -1046,7 +1046,12 @@
   - [ ] 6.01a-iii-a-iii — Campaign map meta-persistence: should campaign map province icons show damage proportional to retry count? The archipelago as meta-damage map of player struggle
   - [ ] 6.01a-iii-a-iv — Ghost scar interaction with invisible randomization: ghost positions from previous attempt don't match new run's enemy behavior; ghosts as misleading vs. useful data
   - [ ] 6.01a-iii-a-v — "Memory depth" as player-configurable setting: how many attempts the board remembers (0=clean, 1=recent, 3=default, ∞=full); context window depth as meta-setting for the board itself
-- [ ] 6.01a-iii-b — Damage states as Inspector filter layer: the "Combat Density" heat map derived from damage tiles; toggle overlay in Inspector sidebar; gradient, opacity, legend specification
+- [x] 6.01a-iii-b — Damage states as Inspector filter layer: the "Combat Density" heat map derived from damage tiles; toggle overlay in Inspector sidebar; gradient, opacity, legend specification
+  - [ ] 6.01a-iii-b-i — Heat map as pre-battle prediction layer: displaying previous attempt's heat map as ghost overlay during the PLAN phase of the next attempt; heat map as planning tool, not just diagnostic
+  - [ ] 6.01a-iii-b-ii — Automated "engagement zone" narration in event log: auto-generated event log entries like "T8-T14: Engagement Zone Alpha (tiles D4-E5, 5 events)" from cluster analysis; event log as written battle narrative
+  - [ ] 6.01a-iii-b-iii — Heat map comparison across Gauntlet matches: meta-analysis tool showing 5-match heat map overlays to reveal per-opponent spatial patterns or rigid architecture
+  - [ ] 6.01a-iii-b-iv — Enemy heat map as advanced unlock: opponent's combat density from their perspective; reveals deliberate targeting vs. chaotic spread; Gauntlet-only
+  - [ ] 6.01a-iii-b-v — Heat map export as shareable image: one-click PNG export of heat map over board (1080×1080, no UI chrome, match metadata watermark); the "battle painting" social sharing artifact
 - [ ] 6.01a-iii-c — Asymmetric damage for player vs. enemy kills: blue-tinted vs. red-tinted tile scars as instant friend/foe battlefield forensics
 - [x] 6.01a-iii-d — Damage audio coupling: sounds accompanying tile damage transitions per biome (cracking stone, sputtering neon, hissing steam, falling canopy); interaction with 6.01a-ix
   - [ ] 6.01a-iii-d-i — Biome damage sound as unit identity confusion: sound collision audit across all biome×unit×event combinations; when a Scout's movement bamboo creak overlaps with jungle tile damage bamboo snap, can the player distinguish movement from destruction?
