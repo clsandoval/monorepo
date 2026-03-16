@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1212
-- **Analyzed:** 393
-- **Pending:** 819
+- **Total aspects:** 1217
+- **Analyzed:** 394
+- **Pending:** 823
 - **Convergence:** 32.4%
 
 ---
@@ -935,7 +935,12 @@
 - [ ] 5.22c — The Predecessor's Codex presence post-campaign: after the Predecessor "stops" at the Gauntlet transition, they persist in the Blueprint Codex as a reference voice; how the Codex entries change tone from tutorial-mode to archival-mode; the Predecessor as ghost-in-the-documentation
 - [ ] 5.22d — The "return to campaign" motivation: why a Gauntlet veteran would replay campaign missions; mastery runs (beat M10 in fewer rounds), narrative appreciation runs (re-experiencing the Predecessor with new context), tool-restricted runs (replay M1-4 without Inspector tools to remember what it felt like)
 - [ ] 5.22e — Gauntlet warm-up mode: a "practice match" option that doesn't affect ELO, for players who want to test architecture changes without stakes; the tension between "every match matters" (pure Gauntlet) and "I need a safe space to experiment" (sandbox); how warm-up mode interacts with the sealed watch's emotional design
-- [ ] 5.23 — Campaign match length calibration: campaign missions use shorter tick ceilings (50-70 ticks) vs. Gauntlet (80-150 ticks) to support rapid iteration during learning; the transition to longer matches at the Gauntlet boundary as deliberate design signal; how mission briefings communicate expected match length
+- [x] 5.23 — Campaign match length calibration: campaign missions use shorter tick ceilings (50-70 ticks) vs. Gauntlet (80-150 ticks) to support rapid iteration during learning; the transition to longer matches at the Gauntlet boundary as deliberate design signal; how mission briefings communicate expected match length
+  - [ ] 5.23a — Smart 2x speed control detailed design: event-trigger system for automatic speed shifting; which events trigger 1x, transition animation, player override behavior, interaction with streaming/spectator mode
+  - [ ] 5.23b — The "Last Stand" projected victory mechanic: ghost timeline extension shown when player would have won within N ticks of hard ceiling; emotional pacing of reveal; false-last-stand edge cases
+  - [ ] 5.23c — Inspector chapter markers for long matches: auto-detection of dramatic moments as timeline scrubber bookmarks; bookmark types (combat, stun, reroute, phase shift, production milestone); visual language; Gauntlet 150-tick timeline interaction
+  - [ ] 5.23d — Production rate vs. tick ceiling scaling: unit production rate interaction with match duration; constant vs. escalating vs. resource-gated rate; board saturation calculations at different tick ceilings
+  - [ ] 5.23e — The "one more try" threshold by mission duration: retry willingness as function of attempt duration; the 30-second (always) vs. 90-second (usually) vs. 3-minute (rarely) retry cliff; designing ceilings below the "quit" threshold per campaign phase
 
 ---
 
