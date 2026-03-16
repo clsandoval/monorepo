@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1322
-- **Analyzed:** 415
-- **Pending:** 907
+- **Total aspects:** 1327
+- **Analyzed:** 416
+- **Pending:** 911
 - **Convergence:** 31.4%
 
 ---
@@ -701,7 +701,12 @@
     - [ ] 5.04b-iii — Vocabulary category reclassification across player archetypes: the same term is Category C for a non-programmer and Category A for a software engineer; should the game detect professional background to set initial category assignments?
     - [ ] 5.04b-iv — The "vocabulary dead zone" in Missions 8-10: late-game missions introduce only 3 terms total; what replaces vocabulary introduction as the engagement driver? Combinatorial depth? Narrative? Competition?
     - [ ] 5.04b-v — Density curve visualization as meta-game UI element: should the player see their own vocabulary acquisition rate in the Codex? A sparkline showing terms-learned-per-mission; risk of making the adaptive system visible
-  - [ ] 5.04c — The "subsystem online" micro-celebration: designing the moment a new concept unlocks — amber glow, chime, boot log print, panel expansion animation; interaction with narrative beat design and emotional pacing
+  - [x] 5.04c — The "subsystem online" micro-celebration: designing the moment a new concept unlocks — amber glow, chime, boot log print, panel expansion animation; interaction with narrative beat design and emotional pacing
+    - [ ] 5.04c-i — The silence before the major unlock: detailed audio design of the dramatic pause before Mission 5 and Mission 7 major ceremonies; silence duration, ambient sound cutoff, the silence as the most powerful audio event
+    - [ ] 5.04c-ii — Kulintang phrase as progression save indicator: main menu plays current kulintang phrase on loading — a musical save file that sounds different at every campaign stage; "loading screen as progression summary"
+    - [ ] 5.04c-iii — Ceremony skip/compress for expert fast-track: exact UX for "Quick Start" mode; audio persistence, compress-to-100ms flash, interaction with speedrun culture and pacing intent
+    - [ ] 5.04c-iv — The Commander's tambur as unique instrument: Mission 7 introduces a NEW instrument; should other major unlocks also introduce new instruments, or is the tambur the one surprise?
+    - [ ] 5.04c-v — Inspector-mode teal ceremony variant: detailed color, audio, animation spec for Inspector-screen unlocks; teal analytical palette vs. amber configuration palette; higher-octave kulintang
   - [ ] 5.04d — Sandbox-to-challenge transition design: the desaturation peel — exact technical and aesthetic design of the simulation→reality transition animation; how the transition communicates stakes without words
   - [ ] 5.04e — Adaptive skip false positive mitigation: how to detect luck vs. understanding — the difference between a fast solve and a correct solve; what additional signals beyond speed indicate genuine comprehension; interaction with 5.01e expert fast-track detection
 - [x] 5.05 — Campaign structure: linear story vs. branching map vs. roguelike runs vs. chapter-based
