@@ -196,7 +196,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 156**: Table — verify empty state: if possible, filter to show no results, verify empty state message shown (not blank table) (2026-03-16)
 - [x] **Stage 157**: Pagination — on admin audit log or tenant list: navigate to page 2, verify URL or state updates. Navigate back to page 1. Click a specific page number if visible. (2026-03-16)
 - [x] **Stage 158**: Toast — trigger a success action (e.g., save settings), verify toast appears with success message, verify it auto-dismisses after a few seconds. Trigger an error, verify error toast appears. (2026-03-16)
-- [ ] **Stage 159**: Alert/Banner — on dashboard: verify billing alert banners render for free plan (if applicable). Verify alert styling matches variant (info/warning/error). If dismissible, click dismiss, verify removed.
+- [x] **Stage 159**: Alert/Banner — on dashboard: verify billing alert banners render for free plan (if applicable). Verify alert styling matches variant (info/warning/error). If dismissible, click dismiss, verify removed. (2026-03-16)
 
 ## Form Validation Exhaustive QA (stages 160–169) `[interactive-qa]`
 
