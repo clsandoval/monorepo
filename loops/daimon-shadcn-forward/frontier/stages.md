@@ -207,7 +207,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 164**: Signup — password strength bar exhaustive: type single lowercase → Weak (1 bar, red). Add uppercase → Fair (2 bars, amber). Add number → Good (3 bars, teal). Make >= 12 chars → Strong (4 bars, green). Clear field → bar disappears. (2026-03-16)
 - [x] **Stage 165**: Signup — terms checkbox: submit without checking → "You must agree" error. Check box → error clears. Uncheck → error reappears on next submit attempt. (2026-03-16)
 - [x] **Stage 166**: Login — submit empty form, verify email + password errors appear. Type only email, submit → password error. Type only password, submit → email error. (2026-03-16)
-- [ ] **Stage 167**: Login — wrong password: enter valid email + wrong password, submit, verify server error banner appears ("Invalid login credentials" or similar). Verify form fields are NOT cleared (email still filled).
+- [x] **Stage 167**: Login — wrong password: enter valid email + wrong password, submit, verify server error banner appears ("Invalid login credentials" or similar). Verify form fields are NOT cleared (email still filled). (2026-03-16)
 - [ ] **Stage 168**: Reset password — submit empty → email error. Submit invalid email → error. Submit valid email → success message shown (no error, even if email doesn't exist in DB).
 - [ ] **Stage 169**: Settings — display name: clear field, submit → error. Type 101+ chars → error. Type valid name, submit → success toast. Reload page → name persisted.
 
