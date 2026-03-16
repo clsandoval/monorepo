@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1152
-- **Analyzed:** 381
-- **Pending:** 771
-- **Convergence:** 33.1%
+- **Total aspects:** 1157
+- **Analyzed:** 382
+- **Pending:** 775
+- **Convergence:** 33.0%
 
 ---
 
@@ -1015,7 +1015,12 @@
 - [ ] 6.01a-ii-c — Signal volume visual scaling: how the visual changes at 2 vs. 5 vs. 15 simultaneous signals; the "signal traffic jam" threshold per biome; city fiber optic oversaturation, Taal visual chaos, terrace overlapping plinks becoming a stream
 - [ ] 6.01a-ii-d — Transition tile signal behavior: signal visual transition at biome boundaries on hybrid boards; packet behavior change mid-flight; trail style change at boundary; biome boundary as visible communication infrastructure change
 - [ ] 6.01a-ii-e — Signal path persistence as replay tool: Inspector "pin trail" feature for indefinite signal path display; pinned city trails as permanent circuit diagrams; pinned Taal trails showing jitter path as frozen noise visualization
-- [ ] 6.01d — Color palette interaction with colorblind modes: how each art direction option degrades under protanopia/deuteranopia/tritanopia; which palettes need redesign vs. naturally robust; interaction with locked signal colors
+- [x] 6.01d — Color palette interaction with colorblind modes: how each art direction option degrades under protanopia/deuteranopia/tritanopia; which palettes need redesign vs. naturally robust; interaction with locked signal colors
+  - [ ] 6.01d-i — Colorblind quick-test minigame design: the 5-color discrimination test that auto-selects a CVD preset — exact game design, visual presentation, false-positive handling, integration with first-launch flow
+  - [ ] 6.01d-ii — Community-shared color palettes as accessibility aid: how the Config Code palette sharing system enables crowdsourced accessibility — r/RobotUprising "best palettes for deuteranomaly" threads, curator role, discovery UX
+  - [ ] 6.01d-iii — Pattern readability at sealed-watch speed: empirical testing protocol for which geometric patterns are distinguishable within 200ms flash duration at game-scale pixel resolution; minimum pattern size and complexity constraints
+  - [ ] 6.01d-iv — Diegetic framing of accessibility as AI self-configuration: boot log acknowledging visual pipeline settings ("PATTERN REDUNDANCY ENABLED"); diegetic vs. menu-only accessibility; the AI adjusting output to operator capability as thematic coherence
+  - [ ] 6.01d-v — Cross-CVD-type interaction (compound color vision deficiency): what happens when a player has both protanomaly AND tritanomaly? Custom palette as the only viable approach for compound CVD; minimum viable palette that works under ALL three types simultaneously (the "universal palette" challenge)
 - [ ] 6.01e — Tilt-shift implementation in Pixi.js: technical feasibility of the "Diorama" effect — blur filters, performance on low-end hardware, dynamic edge sharpening, Playwright screenshot test determinism
 - [x] 6.03a — The Predecessor's character arc across 10 missions: beat-by-beat emotional evolution from weary mentor to hopeful observer; branching narrator mood based on player success/failure as implicit difficulty feedback; comparable: Darkest Dungeon Ancestor mood shifts, Hades character memory across runs
   - [ ] 6.03b — The Predecessor's vocabulary discipline across emotional registers: how the Predecessor expresses anxiety, pride, grief, and hope while maintaining 1:1 agentic AI vocabulary; detailed vocabulary guide — allowed words, forbidden metaphors, emotional weight through sentence structure not poetic language
