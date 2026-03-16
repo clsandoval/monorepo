@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1357
-- **Analyzed:** 422
-- **Pending:** 935
+- **Total aspects:** 1362
+- **Analyzed:** 423
+- **Pending:** 939
 - **Convergence:** 31.1%
 
 ---
@@ -1208,11 +1208,16 @@
 - [x] 8.01 — Natural pairings: which building block paradigm works best with which buffer model
 - [x] 8.02 — Conflict matrix: which options in different categories are incompatible
 - [x] 8.03 — "Full game" configurations: 3-5 coherent complete designs across all categories
-- [ ] 8.03a — Configuration mixing: can a player start in Greenhouse mode and transition to War Room mode at Mission 10 without jarring tonal shift?
+- [x] 8.03a — Configuration mixing: can a player start in Greenhouse mode and transition to War Room mode at Mission 10 without jarring tonal shift?
 - [ ] 8.03b — The Inspector as universal substrate: which Inspector features are core (present in all configs) vs. mode-specific (only in competitive or sandbox)?
 - [ ] 8.03c — Cultural toggle as accessibility layer: can Config 5's Filipino elements exist as an opt-in cultural layer on top of Config 2, rather than a separate configuration?
 - [ ] 8.03d — The "mode shock" problem: players who enter through the warm Greenhouse and encounter the cold War Room ranked queue — how does the UI signal the tonal transition?
 - [ ] 8.03e — Unified aesthetic direction: can Warm Filipino Cyberpunk serve competitive readability requirements, or does competitive play demand the Circuit Board's dark minimalism?
+- [ ] 8.03a-i — The "analytical index" as hidden player model: formal specification of behavior tracking for tonal temperature; signal weights (Inspector time, skip rate, retry count); privacy and "creepiness threshold" of adaptive UI
+- [ ] 8.03a-ii — Character voice fade-out writing: text progression from character-first to data-first decision traces across 10 granularity levels; authoring 5 units × 10 levels = 50 voice variants; tone consistency
+- [ ] 8.03a-iii — Mechanical delta tutorials: teaching Filing Cabinet → Relay Race hook architecture shift in 60 seconds when activating Competitive lens; "one-screen primer" design pattern for lens-specific mechanical changes
+- [ ] 8.03a-iv — Co-op thermal negotiation: resolving aesthetic temperature mismatches in multiplayer; "warmest wins" vs. "host decides" vs. "per-player rendering"; bandwidth implications
+- [ ] 8.03a-v — The "speedrun path" as parallel onboarding: designing Mission 1-5 to be completable in 12 minutes while still teaching enough fundamentals for ranked play; minimum viable tutorial for competitive players
 - [x] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
 - [ ] 8.04a — The "second session" test for the MVG: what creates pull-back to a 5-mission prototype without progression systems or new content? "One more try" psychology for the minimum viable game
 - [ ] 8.04b — The Relay essentiality debate: could a two-unit MVG work if scouts had built-in compress? Minimum topology for emergence vs. simplest onboarding
