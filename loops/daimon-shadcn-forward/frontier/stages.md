@@ -171,7 +171,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 134**: Tablet verify `/admin/tenants` — table fits or scrolls gracefully (2026-03-16)
 - [x] **Stage 135**: Tablet verify `/docs` — docs sidebar collapses or overlays (2026-03-16)
 - [x] **Stage 136**: Tablet verify `/blog` — blog grid 2-column (2026-03-16)
-- [ ] **Stage 137**: Tablet verify `/signup` — auth card centered, reasonable width
+- [x] **Stage 137**: Tablet verify `/signup` — auth card centered, reasonable width (2026-03-16)
 
 ## Interactive Component QA (stages 138–159) `[interactive-qa]`
 
