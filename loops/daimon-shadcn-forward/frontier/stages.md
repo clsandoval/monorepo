@@ -180,7 +180,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 140**: Button — verify loading state: submit signup form, confirm spinner shows during submission, confirm double-click prevented (2026-03-16)
 - [x] **Stage 141**: IconButton — click an icon button (e.g., copy-to-clipboard), verify tooltip appears on hover, verify action fires (2026-03-16)
 - [x] **Stage 142**: Input — on signup page: type into full name field, verify value appears. Clear field. Type invalid email, tab away, verify validation error appears. Fix email, verify error clears. (2026-03-16)
-- [ ] **Stage 143**: Input — on signup page: trigger every validation error one by one (empty name, invalid email, short password, no uppercase, no lowercase, no number, passwords don't match, terms unchecked). Verify each error message matches expected text.
+- [x] **Stage 143**: Input — on signup page: trigger every validation error one by one (empty name, invalid email, short password, no uppercase, no lowercase, no number, passwords don't match, terms unchecked). Verify each error message matches expected text. (2026-03-16)
 - [ ] **Stage 144**: PasswordInput — on signup page: type password, verify masked. Click eye icon, verify unmasked. Click again, verify re-masked. Repeat for confirm password field.
 - [ ] **Stage 145**: PasswordInput — verify password strength bar: type "a" (weak/red), type "aA" (still weak), type "aA1" (fair/amber), type "aA1bcdefghij" (strong/green). Verify bar segments and labels update.
 - [ ] **Stage 146**: SearchInput — if search input exists on any page (admin tenant list?), type query, verify search icon visible, clear button appears, clear resets input
