@@ -81,7 +81,7 @@ export function DashboardTopbar({
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className="flex items-center gap-1.5 px-1 hover:bg-transparent focus-visible:ring-0"
+              className="flex items-center gap-1.5 px-1 hover:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               <div className="flex h-7 w-7 items-center justify-center rounded-full bg-foreground text-xs font-semibold text-card">
                 {initials}

@@ -40,7 +40,7 @@ function BottomNavItem({ href, icon, label }: { href: string; icon: React.ReactN
     <Link
       href={href}
       className={cn(
-        'flex flex-1 flex-col items-center justify-center gap-[3px] relative min-h-[44px] min-w-[44px]',
+        'flex flex-1 flex-col items-center justify-center gap-[3px] relative min-h-[44px] min-w-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring',
         isActive ? 'text-foreground' : 'text-foreground/45'
       )}
     >
@@ -162,7 +162,7 @@ function DashboardLayoutInner({
             plan={plan}
             menuButton={
               <SheetTrigger
-                className="md:hidden flex items-center justify-center text-foreground/65"
+                className="md:hidden flex items-center justify-center text-foreground/65 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 aria-label="Open navigation"
               >
                 <Menu size={20} />

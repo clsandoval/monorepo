@@ -49,7 +49,7 @@ function SidebarNavItem({ href, label, icon }: NavItemConfig) {
             aria-label={label}
             aria-current={isActive ? 'page' : undefined}
             className={cn(
-              'flex items-center justify-center lg:justify-start mx-0 lg:mx-2 px-0 lg:px-3 lg:gap-3 h-11 transition-colors duration-150',
+              'flex items-center justify-center lg:justify-start mx-0 lg:mx-2 px-0 lg:px-3 lg:gap-3 h-11 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-white/70',
               isActive
                 ? 'text-white bg-white/10'
                 : 'text-white/65 hover:text-white hover:bg-white/5'
@@ -90,7 +90,7 @@ export function Sidebar() {
         <Link
           href="/dashboard"
           aria-label="Daimon home — go to dashboard"
-          className="flex items-center justify-center lg:justify-start flex-shrink-0 h-16 px-4 border-b border-white/[0.08] transition-opacity duration-150 hover:opacity-85"
+          className="flex items-center justify-center lg:justify-start flex-shrink-0 h-16 px-4 border-b border-white/[0.08] transition-opacity duration-150 hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-white/70"
         >
           <Rocket size={24} className="flex-shrink-0 text-white" aria-hidden="true" />
           <span className="hidden lg:block ml-2 font-archivo text-base font-bold text-white">
@@ -134,7 +134,7 @@ export function Sidebar() {
             variant="ghost"
             size="icon-xs"
             onClick={handleSignOut}
-            className="hidden lg:flex text-white/45 hover:text-white hover:bg-transparent"
+            className="hidden lg:flex text-white/45 hover:text-white hover:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
             aria-label="Sign out of Daimon"
           >
             <LogOut size={16} aria-hidden="true" />

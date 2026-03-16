@@ -202,7 +202,7 @@ export function OnboardingChecklist(props: OnboardingChecklistProps) {
                   {...(step.ctaExternal
                     ? { target: '_blank', rel: 'noopener noreferrer' }
                     : {})}
-                  className="shrink-0 text-[13px] font-medium text-foreground underline underline-offset-2 whitespace-nowrap mt-0.5"
+                  className="shrink-0 text-[13px] font-medium text-foreground underline underline-offset-2 whitespace-nowrap mt-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 >
                   {step.ctaLabel}
                 </a>
