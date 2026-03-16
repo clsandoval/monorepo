@@ -200,7 +200,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 
 ## Form Validation Exhaustive QA (stages 160–169) `[interactive-qa]`
 
-- [ ] **Stage 160**: Signup — submit completely empty form, verify all 5 field errors appear simultaneously (full name, email, password, confirm password, terms)
+- [x] **Stage 160**: Signup — submit completely empty form, verify all 5 field errors appear simultaneously (full name, email, password, confirm password, terms) (2026-03-16)
 - [ ] **Stage 161**: Signup — test invalid email formats: type `@` → error, `foo@` → error, `foo@.com` → error, `foo bar@x.com` → error. Type valid email → error clears.
 - [ ] **Stage 162**: Signup — password validation: type 7-char password → "at least 8 characters" error. Type 8 lowercase chars → "uppercase letter" error. Add uppercase → "number" error. Add number → errors clear.
 - [ ] **Stage 163**: Signup — passwords don't match: type different passwords in password and confirm fields, tab away from confirm, verify "Passwords do not match" error appears on confirm field
