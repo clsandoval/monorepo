@@ -303,12 +303,26 @@ export default function SignupPage() {
       return;
     }
 
-    const { error: tenantError } = await createTenantForUser({
-      userId: authData.user!.id,
-      tenantName: `${data.fullName.trim()}'s Workspace`,
-    });
+    // Supabase returns a fake user with empty identities for duplicate emails
+    // (when email confirmation is enabled) instead of an error
+    if (authData.user?.identities?.length === 0) {
+      setServerError('An account with this email already exists. Try signing in.');
+      return;
+    }
 
-    if (tenantError) {
+    try {
+      const { error: tenantError } = await createTenantForUser({
+        userId: authData.user!.id,
+        tenantName: `${data.fullName.trim()}'s Workspace`,
+      });
+
+      if (tenantError) {
+        setServerError(
+          'Account created but workspace setup failed. Please contact support@daimon.ai.'
+        );
+        return;
+      }
+    } catch {
       setServerError(
         'Account created but workspace setup failed. Please contact support@daimon.ai.'
       );
