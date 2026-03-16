@@ -120,7 +120,7 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
             padding: '6px 10px 6px 34px',
             borderRadius: 0,
             outline: 'none'}}
-          onFocus={(e) => (e.currentTarget.style.borderColor = '#B4E7DD')}
+          onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
           onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
         />
       </div>
@@ -171,9 +171,8 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
       {hasActiveFilters && (
         <button
           onClick={handleReset}
-          className="flex items-center gap-1 transition-colors duration-150 font-body text-sm font-medium"
-          style={{color: '#0C1F40',
-            background: 'transparent',
+          className="flex items-center gap-1 transition-colors duration-150 font-body text-sm font-medium text-foreground"
+          style={{background: 'transparent',
             border: 'none',
             padding: '6px 8px',
             cursor: 'pointer',

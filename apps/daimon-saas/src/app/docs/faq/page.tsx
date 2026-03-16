@@ -30,7 +30,7 @@ function PageHeader() {
     <header style={{ marginBottom: '48px' }}>
       <div
         className="font-body text-sm" style={{
-          color: 'rgba(12, 31, 64, 0.65)',
+          color: 'hsl(var(--muted-foreground))',
           textTransform: 'uppercase',
           letterSpacing: '0.08em',
           marginBottom: '8px',
@@ -41,7 +41,7 @@ function PageHeader() {
       <h1
         id="faq-page-title"
         className="font-headline text-[32px] font-semibold" style={{
-          color: '#0C1F40',
+          color: 'hsl(var(--foreground))',
           margin: '0 0 8px 0',
         }}
       >
@@ -121,7 +121,7 @@ function SectionHeading({
     <h2
       id={id}
       className="font-headline text-[22px] font-semibold" style={{
-        color: '#0C1F40',
+        color: 'hsl(var(--foreground))',
         margin: '48px 0 16px 0',
         paddingTop: '8px',
       }}
@@ -162,7 +162,7 @@ function FaqItem({
       `}</style>
       <summary
         className="font-body text-[15px] font-semibold" style={{
-          color: '#0C1F40',
+          color: 'hsl(var(--foreground))',
           padding: '16px 20px',
           cursor: 'pointer',
           listStyle: 'none',
@@ -410,8 +410,8 @@ export default function FaqPage() {
             <caption className="sr-only">Discord bot permissions required by Daimon</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Permission</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Why it&apos;s needed</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Permission</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Why it&apos;s needed</th>
               </tr>
             </thead>
             <tbody>
@@ -489,8 +489,8 @@ export default function FaqPage() {
             <caption className="sr-only">Common bot error reasons and resolutions</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Error reason</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>What to do</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Error reason</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>What to do</th>
               </tr>
             </thead>
             <tbody>
@@ -527,9 +527,9 @@ export default function FaqPage() {
             <caption className="sr-only">Daimon tool categories and their connection requirements</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Category</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Tools</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Connection required</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Category</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Tools</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Connection required</th>
               </tr>
             </thead>
             <tbody>
@@ -618,9 +618,9 @@ export default function FaqPage() {
             <caption className="sr-only">Bot tool error messages and resolutions</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Error message in Discord</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Likely cause</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Resolution</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Error message in Discord</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Likely cause</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Resolution</th>
               </tr>
             </thead>
             <tbody>
@@ -724,8 +724,8 @@ export default function FaqPage() {
             <caption className="sr-only">Discord connection limits by plan</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Plan</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Maximum Discord connections</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Plan</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Maximum Discord connections</th>
               </tr>
             </thead>
             <tbody>
@@ -757,8 +757,8 @@ export default function FaqPage() {
             <caption className="sr-only">Daimon API rate limits by endpoint category</caption>
             <thead>
               <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Endpoint category</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: '#0C1F40' }}>Rate limit</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Endpoint category</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Rate limit</th>
               </tr>
             </thead>
             <tbody>

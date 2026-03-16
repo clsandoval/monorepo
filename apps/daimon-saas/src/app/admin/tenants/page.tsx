@@ -70,8 +70,8 @@ function relativeDate(iso: string): string {
 function PlanBadge({ plan }: { plan: string }) {
   const styles: Record<string, { bg: string; color: string }> = {
     free: { bg: '#F3F4F6', color: '#6B7280' },
-    starter: { bg: 'rgba(180,231,221,0.3)', color: '#0C1F40' },
-    pro: { bg: '#B4E7DD', color: '#0C1F40' },
+    starter: { bg: 'rgba(180,231,221,0.3)', color: 'var(--color-foreground)' },
+    pro: { bg: 'var(--color-primary)', color: 'var(--color-foreground)' },
   }
   const s = styles[plan] ?? styles.free
   return (
@@ -134,7 +134,7 @@ function StatCard({
       }}
     >
       <div
-        className="font-headline text-[28px] font-semibold" style={{color: '#0C1F40',
+        className="font-headline text-[28px] font-semibold text-foreground" style={{
           lineHeight: 1.2}}
       >
         {count.toLocaleString()}
@@ -442,7 +442,7 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
                       {/* Tenant name + email */}
                       <td style={tdStyle}>
                         <div
-                          className="font-body text-sm font-medium" style={{color: '#0C1F40'}}
+                          className="font-body text-sm font-medium text-foreground"
                         >
                           {tenant.name}
                         </div>

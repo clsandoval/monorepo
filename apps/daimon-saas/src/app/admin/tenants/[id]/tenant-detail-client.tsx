@@ -83,8 +83,8 @@ interface AuditEntry {
 function PlanBadge({ plan }: { plan: string }) {
   const styles: Record<string, { bg: string; color: string }> = {
     free: { bg: '#F3F4F6', color: '#6B7280' },
-    starter: { bg: 'rgba(180,231,221,0.3)', color: '#0C1F40' },
-    pro: { bg: '#B4E7DD', color: '#0C1F40' },
+    starter: { bg: 'rgba(180,231,221,0.3)', color: 'var(--color-foreground)' },
+    pro: { bg: 'var(--color-primary)', color: 'var(--color-foreground)' },
   }
   const s = styles[plan] ?? styles.free
   return (
@@ -260,7 +260,7 @@ function auditMetaSummary(action: string, metadata: Record<string, unknown> | nu
 function SectionCard({ title, children }: { title: React.ReactNode; children: React.ReactNode }) {
   return (
     <div style={{ background: '#fff', border: '1px solid #E5E7EB', marginBottom: '16px' }}>
-      <div className="font-headline text-sm font-semibold" style={{padding: '16px 20px', borderBottom: '1px solid #E5E7EB', color: '#0C1F40'}}>
+      <div className="font-headline text-sm font-semibold text-foreground" style={{padding: '16px 20px', borderBottom: '1px solid #E5E7EB'}}>
         {title}
       </div>
       <div style={{ padding: '20px' }}>
@@ -276,7 +276,7 @@ function InfoRow({ label, children }: { label: string; children: React.ReactNode
   return (
     <div style={{ display: 'flex', padding: '8px 0', borderBottom: '1px solid #F3F4F6', gap: '16px' }}>
       <span className="font-body text-[13px]" style={{color: '#6B7280', minWidth: '180px', flexShrink: 0}}>{label}</span>
-      <span className="font-body text-[13px]" style={{color: '#0C1F40', display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap'}}>{children}</span>
+      <span className="font-body text-[13px] text-foreground" style={{display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap'}}>{children}</span>
     </div>
   )
 }
@@ -286,9 +286,9 @@ function InfoRow({ label, children }: { label: string; children: React.ReactNode
 function SmBtn({ variant = 'secondary', onClick, disabled, children }: { variant?: 'secondary' | 'danger' | 'danger-outline'; onClick?: () => void; disabled?: boolean; children: React.ReactNode }) {
   const base: React.CSSProperties = { padding: '3px 10px', borderRadius: 0, cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.5 : 1}
   const variants: Record<string, React.CSSProperties> = {
-    secondary: { background: '#fff', border: '1px solid #E5E7EB', color: '#0C1F40' },
-    danger: { background: '#DC2626', border: '1px solid #DC2626', color: '#fff' },
-    'danger-outline': { background: '#fff', border: '1px solid #DC2626', color: '#DC2626' },
+    secondary: { background: '#fff', border: '1px solid #E5E7EB', color: 'var(--color-foreground)' },
+    danger: { background: 'var(--color-destructive)', border: '1px solid var(--color-destructive)', color: '#fff' },
+    'danger-outline': { background: '#fff', border: '1px solid var(--color-destructive)', color: 'var(--color-destructive)' },
   }
   return (
     <button className="font-body text-xs font-medium" style={{ ...base, ...variants[variant] }} onClick={onClick} disabled={disabled}>
@@ -305,7 +305,7 @@ function Modal({ open, onClose, title, children, preventBackdropClose }: { open:
     <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)' }} onClick={preventBackdropClose ? undefined : onClose} />
       <div style={{ position: 'relative', background: '#fff', width: '480px', maxWidth: '95vw', padding: '24px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
-        <div className="font-headline text-base font-semibold" style={{color: '#0C1F40', marginBottom: '16px'}}>{title}</div>
+        <div className="font-headline text-base font-semibold text-foreground" style={{marginBottom: '16px'}}>{title}</div>
         {children}
       </div>
     </div>
@@ -464,7 +464,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
   return (
     <div>
       {/* ── Breadcrumb ── */}
-      <a href="/admin/tenants" className="font-body text-[13px]" style={{color: '#0C1F40', display: 'inline-flex', gap: '4px', alignItems: 'center', marginBottom: '16px', textDecoration: 'underline', textUnderlineOffset: '2px'}}>
+      <a href="/admin/tenants" className="font-body text-[13px] text-foreground" style={{display: 'inline-flex', gap: '4px', alignItems: 'center', marginBottom: '16px', textDecoration: 'underline', textUnderlineOffset: '2px'}}>
         ← Tenants
       </a>
 
@@ -473,7 +473,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '6px' }}>
-              <h1 className="font-headline text-2xl font-semibold" style={{color: '#0C1F40', margin: 0}}>{tenant.name}</h1>
+              <h1 className="font-headline text-2xl font-semibold text-foreground" style={{margin: 0}}>{tenant.name}</h1>
               <PlanBadge plan={tenant.plan} />
               <StatusBadge status={tenant.status} />
             </div>
@@ -487,14 +487,14 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
             <button
               onClick={() => setImpersonateOpen(true)}
-              className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#fff', border: '1px solid #B4E7DD', color: '#0C1F40', cursor: 'pointer', borderRadius: 0}}
+              className="font-body text-[13px] font-medium text-foreground" style={{padding: '6px 14px', background: '#fff', border: '1px solid var(--color-primary)', cursor: 'pointer', borderRadius: 0}}
             >
               Impersonate
             </button>
             {canSuspend && (
               <button
                 onClick={() => setSuspendOpen(true)}
-                className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#fff', border: '1px solid #DC2626', color: '#DC2626', cursor: 'pointer', borderRadius: 0}}
+                className="font-body text-[13px] font-medium text-destructive" style={{padding: '6px 14px', background: '#fff', border: '1px solid var(--color-destructive)', cursor: 'pointer', borderRadius: 0}}
               >
                 Suspend
               </button>
@@ -502,7 +502,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
             {canUnsuspend && (
               <button
                 onClick={() => setUnsuspendOpen(true)}
-                className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#fff', border: '1px solid #E5E7EB', color: '#0C1F40', cursor: 'pointer', borderRadius: 0}}
+                className="font-body text-[13px] font-medium text-foreground" style={{padding: '6px 14px', background: '#fff', border: '1px solid #E5E7EB', cursor: 'pointer', borderRadius: 0}}
               >
                 Unsuspend
               </button>
@@ -510,14 +510,14 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
             <div style={{ position: 'relative' }}>
               <button
                 onClick={() => setOverridePlanOpen(v => !v)}
-                className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#fff', border: '1px solid #E5E7EB', color: '#0C1F40', cursor: 'pointer', borderRadius: 0}}
+                className="font-body text-[13px] font-medium text-foreground" style={{padding: '6px 14px', background: '#fff', border: '1px solid #E5E7EB', cursor: 'pointer', borderRadius: 0}}
               >
                 Override Plan ▾
               </button>
               {overridePlanOpen && (
                 <div style={{ position: 'absolute', right: 0, top: '100%', background: '#fff', border: '1px solid #E5E7EB', zIndex: 50, minWidth: '120px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
                   {['free', 'starter', 'pro'].filter(p => p !== tenant.plan).map(p => (
-                    <button key={p} onClick={() => { setOverridePlanTarget(p); setOverridePlanOpen(false); setTimeout(() => document.getElementById('confirm-plan-modal-trigger')?.click(), 10) }} className="font-body text-[13px]" style={{display: 'block', width: '100%', textAlign: 'left', padding: '10px 14px', background: 'none', border: 'none', color: '#0C1F40', cursor: 'pointer'}}>
+                    <button key={p} onClick={() => { setOverridePlanTarget(p); setOverridePlanOpen(false); setTimeout(() => document.getElementById('confirm-plan-modal-trigger')?.click(), 10) }} className="font-body text-[13px] text-foreground" style={{display: 'block', width: '100%', textAlign: 'left', padding: '10px 14px', background: 'none', border: 'none', cursor: 'pointer'}}>
                       {p.charAt(0).toUpperCase() + p.slice(1)}
                     </button>
                   ))}
@@ -541,7 +541,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
             <>
               <span className="font-mono text-xs">{tenant.stripe_customer_id}</span>
               <CopyButton value={tenant.stripe_customer_id} />
-              <a href={`https://dashboard.stripe.com/customers/${tenant.stripe_customer_id}`} target="_blank" rel="noopener noreferrer" className="text-xs" style={{color: '#0C1F40', textDecoration: 'underline', textUnderlineOffset: '2px'}}>View in Stripe ↗</a>
+              <a href={`https://dashboard.stripe.com/customers/${tenant.stripe_customer_id}`} target="_blank" rel="noopener noreferrer" className="text-xs text-foreground" style={{textDecoration: 'underline', textUnderlineOffset: '2px'}}>View in Stripe ↗</a>
             </>
           ) : '—'}
         </InfoRow>
@@ -566,7 +566,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
               {tenant.discordConnections.map(dc => (
                 <>
                   <tr key={dc.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                    <td className="font-body text-[13px] font-medium" style={{padding: '10px 12px', color: '#0C1F40'}}>{dc.bot_username ?? '—'}</td>
+                    <td className="font-body text-[13px] font-medium text-foreground" style={{padding: '10px 12px'}}>{dc.bot_username ?? '—'}</td>
                     <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{dc.guild_id}</td>
                     <td style={{ padding: '10px 12px' }}><DiscordStatusBadge status={dc.status} /></td>
                     <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}} title={dc.last_heartbeat ?? undefined}>{dc.last_heartbeat ? relativeDate(dc.last_heartbeat) : '—'}</td>
@@ -578,7 +578,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
                   {dc.status === 'error' && dc.error_message && (
                     <tr key={`${dc.id}-err`}>
                       <td colSpan={5} style={{ padding: '6px 12px 10px' }}>
-                        <div className="font-body text-xs" style={{background: '#FEF2F2', color: '#DC2626', padding: '6px 10px'}}>
+                        <div className="font-body text-xs text-destructive" style={{background: '#FEF2F2', padding: '6px 10px'}}>
                           Error: {dc.error_message}
                         </div>
                       </td>
@@ -607,7 +607,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
             <tbody>
               {tenant.apiKeys.map(k => (
                 <tr key={k.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                  <td className="font-body text-[13px]" style={{padding: '10px 12px', color: '#0C1F40'}}>{k.api_key_type === 'anthropic' ? 'Anthropic' : 'OpenAI'}</td>
+                  <td className="font-body text-[13px] text-foreground" style={{padding: '10px 12px'}}>{k.api_key_type === 'anthropic' ? 'Anthropic' : 'OpenAI'}</td>
                   <td className="font-mono text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{k.key_hint}</td>
                   <td style={{ padding: '10px 12px' }}><ApiKeyStatusBadge status={k.status} /></td>
                   <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{k.validated_at ? formatDateShort(k.validated_at) : '—'}</td>
@@ -645,7 +645,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
                 const canRevoke = ['active', 'expired', 'error'].includes(sc.status)
                 return (
                   <tr key={sc.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                    <td className="font-body text-[13px]" style={{padding: '10px 12px', color: '#0C1F40', textTransform: 'capitalize'}}>{sc.service_name}</td>
+                    <td className="font-body text-[13px] text-foreground" style={{padding: '10px 12px', textTransform: 'capitalize'}}>{sc.service_name}</td>
                     <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{connectedAs}</td>
                     <td style={{ padding: '10px 12px' }}><ServiceStatusBadge status={sc.status} /></td>
                     <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{formatDateShort(sc.created_at)}</td>
@@ -675,7 +675,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
                 <>
                   <span className="font-mono text-xs">{tenant.subscription.stripe_subscription_id}</span>
                   <CopyButton value={tenant.subscription.stripe_subscription_id} />
-                  <a href={`https://dashboard.stripe.com/subscriptions/${tenant.subscription.stripe_subscription_id}`} target="_blank" rel="noopener noreferrer" className="text-xs" style={{color: '#0C1F40', textDecoration: 'underline', textUnderlineOffset: '2px'}}>View in Stripe ↗</a>
+                  <a href={`https://dashboard.stripe.com/subscriptions/${tenant.subscription.stripe_subscription_id}`} target="_blank" rel="noopener noreferrer" className="text-xs text-foreground" style={{textDecoration: 'underline', textUnderlineOffset: '2px'}}>View in Stripe ↗</a>
                 </>
               ) : '—'}
             </InfoRow>
@@ -710,7 +710,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
               <tbody>
                 {tenant.auditLog.map(entry => (
                   <tr key={entry.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                    <td className="font-body text-[13px]" style={{padding: '10px 12px', color: '#0C1F40'}}>{ACTION_LABELS[entry.action] ?? entry.action}</td>
+                    <td className="font-body text-[13px] text-foreground" style={{padding: '10px 12px'}}>{ACTION_LABELS[entry.action] ?? entry.action}</td>
                     <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{entry.adminEmail}</td>
                     <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{formatDate(entry.created_at)}</td>
                     <td className="font-body text-xs" style={{padding: '10px 12px', color: '#6B7280'}}>{auditMetaSummary(entry.action, entry.metadata)}</td>
@@ -719,7 +719,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
               </tbody>
             </table>
             <div style={{ marginTop: '12px' }}>
-              <a href={`/admin/audit-log?tenant_id=${tenant.id}`} className="font-body text-[13px]" style={{color: '#0C1F40', textDecoration: 'underline', textUnderlineOffset: '2px'}}>
+              <a href={`/admin/audit-log?tenant_id=${tenant.id}`} className="font-body text-[13px] text-foreground" style={{textDecoration: 'underline', textUnderlineOffset: '2px'}}>
                 ← View all actions for this tenant in the audit log
               </a>
             </div>
@@ -729,17 +729,17 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
 
       {/* ── Danger Zone ── */}
       <div style={{ border: '1px solid #FCA5A5', marginBottom: '16px' }}>
-        <div className="font-headline text-sm font-semibold" style={{padding: '16px 20px', borderBottom: '1px solid #FCA5A5', color: '#DC2626'}}>
+        <div className="font-headline text-sm font-semibold text-destructive" style={{padding: '16px 20px', borderBottom: '1px solid #FCA5A5'}}>
           ⚠ Danger Zone
         </div>
         <div style={{ padding: '20px' }}>
           <p className="font-body text-[13px]" style={{color: '#6B7280', marginTop: 0}}>These actions are irreversible and may disrupt the tenant&apos;s service.</p>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', border: '1px solid #F3F4F6' }}>
             <div>
-              <div className="font-body text-sm font-medium" style={{color: '#0C1F40', marginBottom: '4px'}}>Delete Tenant</div>
+              <div className="font-body text-sm font-medium text-foreground" style={{marginBottom: '4px'}}>Delete Tenant</div>
               <div className="font-body text-[13px]" style={{color: '#6B7280'}}>Permanently delete this tenant, all their data, and cancel their Stripe subscription. This cannot be undone.</div>
             </div>
-            <button onClick={() => setDeleteStep(1)} className="font-body text-[13px] font-medium" style={{padding: '8px 16px', background: '#DC2626', border: 'none', color: '#fff', cursor: 'pointer', borderRadius: 0, marginLeft: '16px', whiteSpace: 'nowrap'}}>
+            <button onClick={() => setDeleteStep(1)} className="font-body text-[13px] font-medium" style={{padding: '8px 16px', background: 'var(--color-destructive)', border: 'none', color: '#fff', cursor: 'pointer', borderRadius: 0, marginLeft: '16px', whiteSpace: 'nowrap'}}>
               Delete Tenant
             </button>
           </div>
@@ -775,7 +775,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
         </p>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '16px' }}>
           <SmBtn variant="secondary" onClick={() => setOverridePlanTarget('')}>Cancel</SmBtn>
-          <button onClick={handleOverridePlan} disabled={overridePlanPending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#0C1F40', border: 'none', color: '#fff', cursor: overridePlanPending ? 'not-allowed' : 'pointer', opacity: overridePlanPending ? 0.7 : 1, borderRadius: 0}}>
+          <button onClick={handleOverridePlan} disabled={overridePlanPending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: 'var(--color-foreground)', border: 'none', color: '#fff', cursor: overridePlanPending ? 'not-allowed' : 'pointer', opacity: overridePlanPending ? 0.7 : 1, borderRadius: 0}}>
             {overridePlanPending ? 'Updating…' : 'Confirm Override'}
           </button>
         </div>
@@ -789,7 +789,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
           <SmBtn variant="secondary" onClick={() => setImpersonateOpen(false)}>Cancel</SmBtn>
-          <button onClick={handleImpersonate} disabled={impersonatePending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#0C1F40', border: 'none', color: '#fff', cursor: impersonatePending ? 'not-allowed' : 'pointer', opacity: impersonatePending ? 0.7 : 1, borderRadius: 0}}>
+          <button onClick={handleImpersonate} disabled={impersonatePending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: 'var(--color-foreground)', border: 'none', color: '#fff', cursor: impersonatePending ? 'not-allowed' : 'pointer', opacity: impersonatePending ? 0.7 : 1, borderRadius: 0}}>
             {impersonatePending ? 'Starting…' : 'Start Impersonation'}
           </button>
         </div>
@@ -811,7 +811,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
         />
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '16px' }}>
           <SmBtn variant="secondary" onClick={() => setRevokeKeyId(null)}>Cancel</SmBtn>
-          <button onClick={handleRevokeKey} disabled={revokeKeyPending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: revokeKeyPending ? 'not-allowed' : 'pointer', opacity: revokeKeyPending ? 0.7 : 1, borderRadius: 0}}>
+          <button onClick={handleRevokeKey} disabled={revokeKeyPending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: 'var(--color-destructive)', border: 'none', color: '#fff', cursor: revokeKeyPending ? 'not-allowed' : 'pointer', opacity: revokeKeyPending ? 0.7 : 1, borderRadius: 0}}>
             {revokeKeyPending ? 'Revoking…' : 'Revoke Key'}
           </button>
         </div>
@@ -822,7 +822,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
         <p className="font-body text-sm" style={{color: '#374151'}}>The tenant will need to reconnect the service.</p>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '16px' }}>
           <SmBtn variant="secondary" onClick={() => setRevokeServiceId(null)}>Cancel</SmBtn>
-          <button onClick={handleRevokeService} disabled={revokeServicePending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: revokeServicePending ? 'not-allowed' : 'pointer', opacity: revokeServicePending ? 0.7 : 1, borderRadius: 0}}>
+          <button onClick={handleRevokeService} disabled={revokeServicePending} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: 'var(--color-destructive)', border: 'none', color: '#fff', cursor: revokeServicePending ? 'not-allowed' : 'pointer', opacity: revokeServicePending ? 0.7 : 1, borderRadius: 0}}>
             {revokeServicePending ? 'Revoking…' : 'Revoke'}
           </button>
         </div>
@@ -839,12 +839,12 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
           <li>Cancel their Stripe subscription (if any)</li>
           <li>Remove all data from the database</li>
         </ul>
-        <div className="font-body text-[13px] font-semibold" style={{background: '#FEF2F2', border: '1px solid #FCA5A5', padding: '10px 12px', color: '#DC2626', marginBottom: '16px'}}>
+        <div className="font-body text-[13px] font-semibold text-destructive" style={{background: '#FEF2F2', border: '1px solid #FCA5A5', padding: '10px 12px', marginBottom: '16px'}}>
           This action CANNOT be undone.
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
           <SmBtn variant="secondary" onClick={() => setDeleteStep(0)}>Cancel</SmBtn>
-          <button onClick={() => setDeleteStep(2)} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: 'pointer', borderRadius: 0}}>
+          <button onClick={() => setDeleteStep(2)} className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: 'var(--color-destructive)', border: 'none', color: '#fff', cursor: 'pointer', borderRadius: 0}}>
             Proceed →
           </button>
         </div>
@@ -866,7 +866,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
           <button
             onClick={handleDelete}
             disabled={deleteNameInput !== tenant.name || deletePending}
-            className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: '#DC2626', border: 'none', color: '#fff', cursor: (deleteNameInput !== tenant.name || deletePending) ? 'not-allowed' : 'pointer', opacity: (deleteNameInput !== tenant.name || deletePending) ? 0.5 : 1, borderRadius: 0}}
+            className="font-body text-[13px] font-medium" style={{padding: '6px 14px', background: 'var(--color-destructive)', border: 'none', color: '#fff', cursor: (deleteNameInput !== tenant.name || deletePending) ? 'not-allowed' : 'pointer', opacity: (deleteNameInput !== tenant.name || deletePending) ? 0.5 : 1, borderRadius: 0}}
           >
             {deletePending ? 'Deleting…' : 'Delete Permanently'}
           </button>

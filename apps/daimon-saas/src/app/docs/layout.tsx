@@ -71,14 +71,14 @@ function DocsSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                       onClick={onNavigate}
                       className={`font-body text-base ${isActive ? "font-semibold" : "font-normal"}`} style={{
                         display: 'block',
-                        color: '#0C1F40',
+                        color: 'hsl(var(--foreground))',
                         padding: '10px 24px',
                         textDecoration: 'none',
                         backgroundColor: isActive
-                          ? 'rgba(180, 231, 221, 0.15)'
+                          ? 'hsl(var(--primary) / 0.15)'
                           : 'transparent',
                         borderLeft: isActive
-                          ? '2px solid #B4E7DD'
+                          ? '2px solid hsl(var(--primary))'
                           : '2px solid transparent',
                         transition: 'background-color 150ms, color 150ms',
                       }}
@@ -87,7 +87,7 @@ function DocsSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                           ;(e.currentTarget as HTMLAnchorElement).style.backgroundColor =
                             '#F9FAFB'
                           ;(e.currentTarget as HTMLAnchorElement).style.color =
-                            '#0C1F40'
+                            'hsl(var(--foreground))'
                         }
                       }}
                       onMouseLeave={(e) => {
@@ -124,11 +124,9 @@ function DocsSidebar() {
           href="/"
           style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
         >
-          <Rocket size={20} color="#0C1F40" />
+          <Rocket size={20} color="hsl(var(--foreground))" />
           <span
-            className="font-headline text-base font-bold" style={{
-              color: '#0C1F40',
-            }}
+            className="font-headline text-base font-bold text-foreground"
           >
             Daimon
           </span>
@@ -202,11 +200,9 @@ function MobileSidebar({
             href="/"
             style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
           >
-            <Rocket size={20} color="#0C1F40" />
+            <Rocket size={20} color="hsl(var(--foreground))" />
             <span
-              className="font-headline text-base font-bold" style={{
-                color: '#0C1F40',
-              }}
+              className="font-headline text-base font-bold text-foreground"
             >
               Daimon
             </span>
@@ -279,7 +275,7 @@ function DocsTopbar({ onMenuClick }: { onMenuClick: () => void }) {
           border: 'none',
           padding: '8px',
           cursor: 'pointer',
-          color: '#0C1F40',
+          color: 'hsl(var(--foreground))',
           display: 'inline-flex',
           alignItems: 'center',
         }}
@@ -313,8 +309,8 @@ function DocsTopbar({ onMenuClick }: { onMenuClick: () => void }) {
           alignItems: 'center',
           height: '32px',
           padding: '0 16px',
-          backgroundColor: '#B4E7DD',
-          color: '#0C1F40',
+          backgroundColor: 'hsl(var(--primary))',
+          color: 'hsl(var(--foreground))',
           textDecoration: 'none',
           whiteSpace: 'nowrap',
           transition: 'opacity 150ms',
@@ -348,7 +344,7 @@ export default function DocsLayout({
       style={{
         display: 'flex',
         minHeight: '100vh',
-        backgroundColor: '#F7F7F7',
+        backgroundColor: 'hsl(var(--background))',
       }}
     >
       <DocsSidebar />

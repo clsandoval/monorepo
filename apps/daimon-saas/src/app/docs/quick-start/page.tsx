@@ -30,7 +30,7 @@ function PageHeader() {
     <header style={{ marginBottom: '48px' }}>
       <div
         className="font-body text-sm" style={{
-          color: 'rgba(12, 31, 64, 0.65)',
+          color: 'hsl(var(--muted-foreground))',
           textTransform: 'uppercase',
           letterSpacing: '0.08em',
           marginBottom: '8px',
@@ -40,7 +40,7 @@ function PageHeader() {
       </div>
       <h1
         className="font-headline text-[32px] font-semibold" style={{
-          color: '#0C1F40',
+          color: 'hsl(var(--foreground))',
           margin: '0 0 8px 0',
         }}
       >
@@ -82,7 +82,7 @@ const CALLOUT_STYLES: Record<
 > = {
   info: { background: '#EFF6FF', borderColor: '#3B82F6', icon: 'ℹ' },
   warning: { background: '#FFFBEB', borderColor: '#F59E0B', icon: '⚠' },
-  tip: { background: 'rgba(180, 231, 221, 0.20)', borderColor: '#B4E7DD', icon: '✓' },
+  tip: { background: 'hsl(var(--primary) / 0.20)', borderColor: 'hsl(var(--primary))', icon: '✓' },
   danger: { background: '#FEF2F2', borderColor: '#EF4444', icon: '✗' },
 }
 
@@ -157,7 +157,7 @@ function Step({
           width: '28px',
           height: '28px',
           borderRadius: '50%',
-          backgroundColor: '#0C1F40',
+          backgroundColor: 'hsl(var(--foreground))',
           color: '#FFFFFF',
           display: 'flex',
           alignItems: 'center',
@@ -173,7 +173,7 @@ function Step({
       <div style={{ flex: 1 }}>
         <h3
           className="font-headline text-lg font-semibold" style={{
-            color: '#0C1F40',
+            color: 'hsl(var(--foreground))',
             margin: '0 0 12px 0',
           }}
         >
@@ -215,7 +215,7 @@ const liStyle: React.CSSProperties = {
 }
 
 const inlineCode: React.CSSProperties = {
-  color: '#0C1F40',
+  color: 'hsl(var(--foreground))',
   backgroundColor: '#F3F4F6',
   padding: '2px 6px',
 }
@@ -233,7 +233,7 @@ export default function QuickStartPage() {
       {/* Prerequisites */}
       <h2
         className="font-headline text-2xl font-semibold" style={{
-          color: '#0C1F40',
+          color: 'hsl(var(--foreground))',
           margin: '48px 0 16px 0',
         }}
       >
@@ -510,7 +510,7 @@ export default function QuickStartPage() {
         <pre
           className="font-mono text-sm" style={{
             color: '#E5E7EB',
-            backgroundColor: '#0C1F40',
+            backgroundColor: 'hsl(var(--foreground))',
             padding: '20px 24px',
             borderRadius: '0px',
             margin: '0 0 24px 0',
@@ -609,7 +609,7 @@ Used for message classification (improves accuracy).`}
         <pre
           className="font-mono text-sm" style={{
             color: '#E5E7EB',
-            backgroundColor: '#0C1F40',
+            backgroundColor: 'hsl(var(--foreground))',
             padding: '20px 24px',
             borderRadius: '0px',
             margin: '0 0 24px 0',
@@ -756,7 +756,7 @@ Used for message classification (improves accuracy).`}
 
       <h2
         className="font-headline text-2xl font-semibold" style={{
-          color: '#0C1F40',
+          color: 'hsl(var(--foreground))',
           margin: '0 0 16px 0',
         }}
       >

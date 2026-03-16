@@ -21,7 +21,7 @@ export default function TermsOfServicePage() {
       <main>
         <article className="max-w-3xl mx-auto px-8 py-20">
           <h1
-            className="font-archivo font-bold text-[#0C1F40] text-[clamp(28px,4vw,36px)]"
+            className="font-archivo font-bold text-foreground text-[clamp(28px,4vw,36px)]"
 
           >
             Terms of Service
@@ -35,7 +35,7 @@ export default function TermsOfServicePage() {
 
           {/* Table of Contents */}
           <nav aria-label="Terms of service table of contents" className="mb-12">
-            <p className="font-archivo font-bold text-[#0C1F40] mb-3 text-base">
+            <p className="font-archivo font-bold text-foreground mb-3 text-base">
               Table of Contents
             </p>
             <ol className="ml-6 space-y-1 text-[15px]">
@@ -63,8 +63,7 @@ export default function TermsOfServicePage() {
                 <li key={href}>
                   <a
                     href={href}
-                    className="text-[#0C1F40] hover:opacity-70"
-                    style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}
+                    className="text-foreground hover:opacity-70 underline decoration-primary"
                   >
                     {label}
                   </a>
@@ -77,7 +76,7 @@ export default function TermsOfServicePage() {
             {/* Agreement to Terms */}
             <section id="agreement" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 Agreement to Terms
@@ -111,7 +110,7 @@ export default function TermsOfServicePage() {
             {/* 1. Definitions */}
             <section id="definitions" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 1. Definitions
@@ -197,7 +196,7 @@ export default function TermsOfServicePage() {
                   ],
                 ].map(([term, def]) => (
                   <div key={term as string}>
-                    <dt className="font-semibold text-[#0C1F40] inline">{term as string} </dt>
+                    <dt className="font-semibold text-foreground inline">{term as string} </dt>
                     <dd className="inline text-[#4A5568]">{def as string}</dd>
                   </div>
                 ))}
@@ -207,7 +206,7 @@ export default function TermsOfServicePage() {
             {/* 2. Eligibility */}
             <section id="eligibility" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 2. Eligibility
@@ -248,7 +247,7 @@ export default function TermsOfServicePage() {
             {/* 3. Account Registration */}
             <section id="account" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 3. Account Registration and Security
@@ -276,11 +275,7 @@ export default function TermsOfServicePage() {
                     (b) notify us immediately at{' '}
                     <a
                       href="mailto:support@daimon.bot"
-                      className="text-[#0C1F40]"
-                      style={{
-                        textDecoration: 'underline',
-                        textDecorationColor: '#B4E7DD',
-                      }}
+                      className="text-foreground underline decoration-primary"
                     >
                       support@daimon.bot
                     </a>{' '}
@@ -315,7 +310,7 @@ export default function TermsOfServicePage() {
             {/* 4. The Service */}
             <section id="service" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 4. The Service
@@ -433,7 +428,7 @@ export default function TermsOfServicePage() {
             {/* 5. Subscription Plans and Billing */}
             <section id="billing" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 5. Subscription Plans and Billing
@@ -450,29 +445,29 @@ export default function TermsOfServicePage() {
 
                     >
                       <thead>
-                        <tr className="border-b border-[#E2E8F0]">
-                          <th className="text-left py-2 pr-4 font-semibold text-[#0C1F40]">
+                        <tr className="border-b border-border">
+                          <th className="text-left py-2 pr-4 font-semibold text-foreground">
                             Plan
                           </th>
-                          <th className="text-left py-2 pr-4 font-semibold text-[#0C1F40]">
+                          <th className="text-left py-2 pr-4 font-semibold text-foreground">
                             Monthly Price
                           </th>
-                          <th className="text-left py-2 pr-4 font-semibold text-[#0C1F40]">
+                          <th className="text-left py-2 pr-4 font-semibold text-foreground">
                             Annual Price
                           </th>
-                          <th className="text-left py-2 font-semibold text-[#0C1F40]">
+                          <th className="text-left py-2 font-semibold text-foreground">
                             Discord Connections
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr className="border-b border-[#E2E8F0]">
+                        <tr className="border-b border-border">
                           <td className="py-2 pr-4">Free</td>
                           <td className="py-2 pr-4">$0/month</td>
                           <td className="py-2 pr-4">$0/year</td>
                           <td className="py-2">1</td>
                         </tr>
-                        <tr className="border-b border-[#E2E8F0]">
+                        <tr className="border-b border-border">
                           <td className="py-2 pr-4">Starter</td>
                           <td className="py-2 pr-4">$9/month</td>
                           <td className="py-2 pr-4">$79/year</td>
@@ -573,8 +568,7 @@ export default function TermsOfServicePage() {
                     a credit, you must submit a written request to{' '}
                     <a
                       href="mailto:support@daimon.bot"
-                      className="text-[#0C1F40]"
-                      style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}
+                      className="text-foreground underline decoration-primary"
                     >
                       support@daimon.bot
                     </a>{' '}
@@ -628,8 +622,7 @@ export default function TermsOfServicePage() {
                   charged, you must notify us within 60 days of the charge by contacting{' '}
                   <a
                     href="mailto:support@daimon.bot"
-                    className="text-[#0C1F40]"
-                    style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}
+                    className="text-foreground underline decoration-primary"
                   >
                     support@daimon.bot
                   </a>
@@ -643,7 +636,7 @@ export default function TermsOfServicePage() {
             {/* 6. Acceptable Use Policy */}
             <section id="acceptable-use" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 6. Acceptable Use Policy
@@ -703,8 +696,7 @@ export default function TermsOfServicePage() {
                   of these Terms, please report it to{' '}
                   <a
                     href="mailto:support@daimon.bot"
-                    className="text-[#0C1F40]"
-                    style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}
+                    className="text-foreground underline decoration-primary"
                   >
                     support@daimon.bot
                   </a>
@@ -716,7 +708,7 @@ export default function TermsOfServicePage() {
             {/* 7. Credentials and Data Security */}
             <section id="credentials" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 7. Credentials and Data Security
@@ -772,7 +764,7 @@ export default function TermsOfServicePage() {
             {/* 8. Intellectual Property */}
             <section id="ip" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 8. Intellectual Property
@@ -827,7 +819,7 @@ export default function TermsOfServicePage() {
             {/* 9. Privacy and Data */}
             <section id="privacy" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 9. Privacy and Data
@@ -837,8 +829,7 @@ export default function TermsOfServicePage() {
                   <strong>9.1 Privacy Policy.</strong> Our{' '}
                   <Link
                     href="/privacy"
-                    className="text-[#0C1F40]"
-                    style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}
+                    className="text-foreground underline decoration-primary"
                   >
                     Privacy Policy
                   </Link>
@@ -864,8 +855,7 @@ export default function TermsOfServicePage() {
                   any time by contacting{' '}
                   <a
                     href="mailto:support@daimon.bot"
-                    className="text-[#0C1F40]"
-                    style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}
+                    className="text-foreground underline decoration-primary"
                   >
                     support@daimon.bot
                   </a>
@@ -889,7 +879,7 @@ export default function TermsOfServicePage() {
             {/* 10. Termination */}
             <section id="termination" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 10. Termination
@@ -942,7 +932,7 @@ export default function TermsOfServicePage() {
             {/* 11. Disclaimers */}
             <section id="disclaimers" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 11. Disclaimers and Warnings
@@ -1006,7 +996,7 @@ export default function TermsOfServicePage() {
             {/* 12. Limitation of Liability */}
             <section id="liability" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 12. Limitation of Liability
@@ -1064,7 +1054,7 @@ export default function TermsOfServicePage() {
             {/* 13. Indemnification */}
             <section id="indemnification" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 13. Indemnification
@@ -1102,7 +1092,7 @@ export default function TermsOfServicePage() {
             {/* 14. Governing Law and Dispute Resolution */}
             <section id="disputes" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 14. Governing Law and Dispute Resolution
@@ -1119,8 +1109,7 @@ export default function TermsOfServicePage() {
                   proceeding, you agree to first contact us at{' '}
                   <a
                     href="mailto:legal@daimon.bot"
-                    className="text-[#0C1F40]"
-                    style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}
+                    className="text-foreground underline decoration-primary"
                   >
                     legal@daimon.bot
                   </a>{' '}
@@ -1168,7 +1157,7 @@ export default function TermsOfServicePage() {
             {/* 15. Changes to Terms */}
             <section id="changes" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 15. Changes to Terms
@@ -1207,7 +1196,7 @@ export default function TermsOfServicePage() {
             {/* 16. Confidentiality */}
             <section id="confidentiality" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 16. Confidentiality
@@ -1250,7 +1239,7 @@ export default function TermsOfServicePage() {
             {/* 17. General Provisions */}
             <section id="general" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 17. General Provisions
@@ -1330,7 +1319,7 @@ export default function TermsOfServicePage() {
             {/* 18. Contact Information */}
             <section id="contact" className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 18. Contact Information
@@ -1339,13 +1328,12 @@ export default function TermsOfServicePage() {
                 If you have questions about these Terms, please contact us:
               </p>
               <address className="not-italic text-[#4A5568] space-y-1 text-[15px]">
-                <p className="font-semibold text-[#0C1F40]">PyMC Technologies, Inc.</p>
+                <p className="font-semibold text-foreground">PyMC Technologies, Inc.</p>
                 <p>
                   Email:{' '}
                   <a
                     href="mailto:legal@daimon.bot"
-                    className="text-[#0C1F40]"
-                    style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}
+                    className="text-foreground underline decoration-primary"
                   >
                     legal@daimon.bot
                   </a>
@@ -1354,8 +1342,7 @@ export default function TermsOfServicePage() {
                   Support:{' '}
                   <a
                     href="mailto:support@daimon.bot"
-                    className="text-[#0C1F40]"
-                    style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}
+                    className="text-foreground underline decoration-primary"
                   >
                     support@daimon.bot
                   </a>
@@ -1365,8 +1352,7 @@ export default function TermsOfServicePage() {
                   Billing:{' '}
                   <a
                     href="mailto:billing@daimon.bot"
-                    className="text-[#0C1F40]"
-                    style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}
+                    className="text-foreground underline decoration-primary"
                   >
                     billing@daimon.bot
                   </a>
@@ -1375,8 +1361,7 @@ export default function TermsOfServicePage() {
                   Security:{' '}
                   <a
                     href="mailto:security@daimon.bot"
-                    className="text-[#0C1F40]"
-                    style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}
+                    className="text-foreground underline decoration-primary"
                   >
                     security@daimon.bot
                   </a>
@@ -1387,7 +1372,7 @@ export default function TermsOfServicePage() {
             {/* Appendix A */}
             <section className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 Appendix A: Discord Developer Terms Compliance
@@ -1424,7 +1409,7 @@ export default function TermsOfServicePage() {
             {/* Appendix B */}
             <section className="mb-10">
               <h2
-                className="font-archivo font-bold text-[#0C1F40] mb-4 text-xl"
+                className="font-archivo font-bold text-foreground mb-4 text-xl"
 
               >
                 Appendix B: Anthropic and OpenAI Terms Compliance
@@ -1441,7 +1426,7 @@ export default function TermsOfServicePage() {
             </section>
 
             {/* Footer note */}
-            <hr className="border-[#E2E8F0] my-8" />
+            <hr className="border-border my-8" />
             <p className="text-[#718096] italic text-sm">
               These Terms of Service were last updated on March 13, 2026. Version 1.0.
             </p>

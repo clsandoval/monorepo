@@ -30,7 +30,7 @@ function PageHeader() {
       <div
         className="font-body text-sm"
         style={{
-          color: 'rgba(12, 31, 64, 0.65)',
+          color: 'hsl(var(--muted-foreground))',
           textTransform: 'uppercase',
           letterSpacing: '0.08em',
           marginBottom: '8px',
@@ -42,7 +42,7 @@ function PageHeader() {
         id="billing-plans-title"
         className="font-heading text-3xl font-semibold"
         style={{
-          color: '#0C1F40',
+          color: 'hsl(var(--foreground))',
           margin: '0 0 8px 0',
         }}
       >
@@ -122,7 +122,7 @@ function H2({ id, children }: { id: string; children: React.ReactNode }) {
       id={id}
       className="font-headline text-[22px] font-semibold"
       style={{
-        color: '#0C1F40',
+        color: 'hsl(var(--foreground))',
         margin: '0 0 20px 0',
       }}
     >
@@ -136,7 +136,7 @@ function H3({ children }: { children: React.ReactNode }) {
     <h3
       className="font-headline text-[17px] font-semibold"
       style={{
-        color: '#0C1F40',
+        color: 'hsl(var(--foreground))',
         margin: '28px 0 12px 0',
       }}
     >
@@ -297,10 +297,10 @@ export default function BillingDocsPage() {
           <caption className="sr-only">Daimon plan comparison: Free, Starter, and Pro</caption>
           <thead>
             <tr style={{ borderBottom: '2px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '12px 16px', color: '#0C1F40' }}>Feature</th>
- <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: '#0C1F40' }}>Free</th>
- <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: '#0C1F40' }}>Starter</th>
- <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: '#0C1F40' }}>Pro</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '12px 16px', color: 'hsl(var(--foreground))' }}>Feature</th>
+ <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: 'hsl(var(--foreground))' }}>Free</th>
+ <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: 'hsl(var(--foreground))' }}>Starter</th>
+ <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: 'hsl(var(--foreground))' }}>Pro</th>
             </tr>
           </thead>
           <tbody>
@@ -800,9 +800,9 @@ export default function BillingDocsPage() {
           <caption className="sr-only">Anthropic API key validation errors</caption>
           <thead>
             <tr style={{ borderBottom: '2px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Error</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Cause</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Fix</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Error</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Cause</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Fix</th>
             </tr>
           </thead>
           <tbody>
@@ -843,9 +843,9 @@ export default function BillingDocsPage() {
           <caption className="sr-only">OpenAI API key validation errors</caption>
           <thead>
             <tr style={{ borderBottom: '2px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Error</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Cause</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: '#0C1F40' }}>Fix</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Error</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Cause</th>
+ <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Fix</th>
             </tr>
           </thead>
           <tbody>

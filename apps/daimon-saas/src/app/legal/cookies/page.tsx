@@ -21,7 +21,7 @@ export default function CookiePolicyPage() {
       <main>
         <article className="max-w-3xl mx-auto px-8 py-20">
           <h1
-            className="font-archivo font-bold text-[#0C1F40] text-[clamp(28px,4vw,36px)]"
+            className="font-archivo font-bold text-foreground text-[clamp(28px,4vw,36px)]"
 
           >
             Cookie Policy
@@ -35,57 +35,57 @@ export default function CookiePolicyPage() {
 
           {/* Table of contents */}
           <nav aria-label="Cookie policy table of contents" className="mb-12">
-            <p className="font-archivo font-bold text-[#0C1F40] mb-3 text-base">
+            <p className="font-archivo font-bold text-foreground mb-3 text-base">
               Table of Contents
             </p>
             <ol className="ml-6 space-y-1 text-[15px]">
               <li>
-                <a href="#what-are-cookies" className="text-[#0C1F40] hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+                <a href="#what-are-cookies" className="text-foreground hover:opacity-70 underline decoration-primary">
                   1. What Are Cookies?
                 </a>
               </li>
               <li>
-                <a href="#how-we-use-cookies" className="text-[#0C1F40] hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+                <a href="#how-we-use-cookies" className="text-foreground hover:opacity-70 underline decoration-primary">
                   2. How We Use Cookies
                 </a>
               </li>
               <li>
-                <a href="#types-of-cookies-we-use" className="text-[#0C1F40] hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+                <a href="#types-of-cookies-we-use" className="text-foreground hover:opacity-70 underline decoration-primary">
                   3. Types of Cookies We Use
                 </a>
               </li>
               <li>
-                <a href="#third-party-cookies" className="text-[#0C1F40] hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+                <a href="#third-party-cookies" className="text-foreground hover:opacity-70 underline decoration-primary">
                   4. Third-Party Cookies
                 </a>
               </li>
               <li>
-                <a href="#cookie-consent-and-your-choices" className="text-[#0C1F40] hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+                <a href="#cookie-consent-and-your-choices" className="text-foreground hover:opacity-70 underline decoration-primary">
                   5. Cookie Consent and Your Choices
                 </a>
               </li>
               <li>
-                <a href="#specific-cookie-inventory" className="text-[#0C1F40] hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+                <a href="#specific-cookie-inventory" className="text-foreground hover:opacity-70 underline decoration-primary">
                   6. Specific Cookie Inventory
                 </a>
               </li>
               <li>
-                <a href="#browser-controls" className="text-[#0C1F40] hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+                <a href="#browser-controls" className="text-foreground hover:opacity-70 underline decoration-primary">
                   7. Browser Controls
                 </a>
               </li>
               <li>
-                <a href="#do-not-track" className="text-[#0C1F40] hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+                <a href="#do-not-track" className="text-foreground hover:opacity-70 underline decoration-primary">
                   8. Do Not Track
                 </a>
               </li>
               <li>
-                <a href="#changes-to-this-policy" className="text-[#0C1F40] hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+                <a href="#changes-to-this-policy" className="text-foreground hover:opacity-70 underline decoration-primary">
                   9. Changes to This Policy
                 </a>
               </li>
               <li>
-                <a href="#contact-us" className="text-[#0C1F40] hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+                <a href="#contact-us" className="text-foreground hover:opacity-70 underline decoration-primary">
                   10. Contact Us
                 </a>
               </li>
@@ -99,7 +99,7 @@ export default function CookiePolicyPage() {
             {/* Section 1 */}
             <h2
               id="what-are-cookies"
-              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              className="font-archivo font-bold text-foreground text-[22px]"
               style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               1. What Are Cookies?
@@ -121,7 +121,7 @@ export default function CookiePolicyPage() {
             {/* Section 2 */}
             <h2
               id="how-we-use-cookies"
-              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              className="font-archivo font-bold text-foreground text-[22px]"
               style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               2. How We Use Cookies
@@ -132,24 +132,24 @@ export default function CookiePolicyPage() {
               and web application for the following purposes:
             </p>
             <ul className="ml-6 space-y-2">
-              <li><strong className="font-bold text-[#0C1F40]">Authentication:</strong> To keep you logged in to your account and recognize your session across page loads.</li>
-              <li><strong className="font-bold text-[#0C1F40]">Security:</strong> To protect against cross-site request forgery (CSRF) and other security threats.</li>
-              <li><strong className="font-bold text-[#0C1F40]">Preferences:</strong> To remember your settings and preferences (such as theme or language).</li>
-              <li><strong className="font-bold text-[#0C1F40]">Analytics:</strong> To understand how visitors use our site, which pages are visited most, and how users navigate.</li>
-              <li><strong className="font-bold text-[#0C1F40]">Performance:</strong> To optimize the speed and performance of our site.</li>
+              <li><strong className="font-bold text-foreground">Authentication:</strong> To keep you logged in to your account and recognize your session across page loads.</li>
+              <li><strong className="font-bold text-foreground">Security:</strong> To protect against cross-site request forgery (CSRF) and other security threats.</li>
+              <li><strong className="font-bold text-foreground">Preferences:</strong> To remember your settings and preferences (such as theme or language).</li>
+              <li><strong className="font-bold text-foreground">Analytics:</strong> To understand how visitors use our site, which pages are visited most, and how users navigate.</li>
+              <li><strong className="font-bold text-foreground">Performance:</strong> To optimize the speed and performance of our site.</li>
             </ul>
             <p>We do not use cookies for advertising, retargeting, or cross-site tracking for third-party purposes.</p>
 
             {/* Section 3 */}
             <h2
               id="types-of-cookies-we-use"
-              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              className="font-archivo font-bold text-foreground text-[22px]"
               style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               3. Types of Cookies We Use
             </h2>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               3.1 Strictly Necessary Cookies
             </h3>
             <p>
@@ -159,39 +159,39 @@ export default function CookiePolicyPage() {
             <div style={{ overflowX: 'auto' }}>
               <table className="w-full border-collapse text-sm">
                 <thead>
-                  <tr style={{ background: '#F7F7F7' }}>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Cookie Name</th>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Purpose</th>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Duration</th>
+                  <tr className="bg-background">
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Cookie Name</th>
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Purpose</th>
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Duration</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">sb-access-token</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Supabase Auth — stores your authentication session token</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Session (until logout or expiry)</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">sb-access-token</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Supabase Auth — stores your authentication session token</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Session (until logout or expiry)</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">sb-refresh-token</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Supabase Auth — stores your session refresh token for automatic renewal</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>60 days (rolling)</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">sb-refresh-token</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Supabase Auth — stores your session refresh token for automatic renewal</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>60 days (rolling)</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">__Host-next-auth.csrf-token</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>CSRF protection for server actions</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Session</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">__Host-next-auth.csrf-token</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>CSRF protection for server actions</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Session</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">next-auth.session-token</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Next.js session management</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Session</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">next-auth.session-token</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Next.js session management</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Session</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <p><strong className="font-bold text-[#0C1F40]">Legal basis:</strong> Legitimate interests (strictly necessary for service operation).</p>
+            <p><strong className="font-bold text-foreground">Legal basis:</strong> Legitimate interests (strictly necessary for service operation).</p>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               3.2 Functional Cookies
             </h3>
             <p>
@@ -201,34 +201,34 @@ export default function CookiePolicyPage() {
             <div style={{ overflowX: 'auto' }}>
               <table className="w-full border-collapse text-sm">
                 <thead>
-                  <tr style={{ background: '#F7F7F7' }}>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Cookie Name</th>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Purpose</th>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Duration</th>
+                  <tr className="bg-background">
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Cookie Name</th>
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Purpose</th>
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Duration</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-theme</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Stores your UI theme preference</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>1 year</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-theme</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Stores your UI theme preference</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>1 year</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-onboarding-dismissed</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Remembers if you have dismissed the onboarding checklist</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>30 days</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-onboarding-dismissed</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Remembers if you have dismissed the onboarding checklist</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>30 days</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-sidebar-state</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Stores whether the sidebar is expanded or collapsed</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>1 year</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-sidebar-state</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Stores whether the sidebar is expanded or collapsed</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>1 year</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <p><strong className="font-bold text-[#0C1F40]">Legal basis:</strong> Consent / legitimate interests.</p>
+            <p><strong className="font-bold text-foreground">Legal basis:</strong> Consent / legitimate interests.</p>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               3.3 Analytics Cookies
             </h3>
             <p>
@@ -238,31 +238,31 @@ export default function CookiePolicyPage() {
             <div style={{ overflowX: 'auto' }}>
               <table className="w-full border-collapse text-sm">
                 <thead>
-                  <tr style={{ background: '#F7F7F7' }}>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Cookie Name</th>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Set By</th>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Purpose</th>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Duration</th>
+                  <tr className="bg-background">
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Cookie Name</th>
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Set By</th>
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Purpose</th>
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Duration</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">_vercel_insights</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Vercel</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Tracks anonymous page view and performance metrics</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Session</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">_vercel_insights</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Vercel</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Tracks anonymous page view and performance metrics</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Session</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">vercel-analytics-id</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Vercel</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Persistent anonymous visitor identifier for Vercel Analytics</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>1 year</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">vercel-analytics-id</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Vercel</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Persistent anonymous visitor identifier for Vercel Analytics</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>1 year</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <p>
-              <strong className="font-bold text-[#0C1F40]">Legal basis:</strong> Legitimate interests
+              <strong className="font-bold text-foreground">Legal basis:</strong> Legitimate interests
               (we use anonymized, aggregated data only). You may opt out via browser controls or by
               enabling &ldquo;Do Not Track.&rdquo;
             </p>
@@ -270,7 +270,7 @@ export default function CookiePolicyPage() {
             {/* Section 4 */}
             <h2
               id="third-party-cookies"
-              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              className="font-archivo font-bold text-foreground text-[22px]"
               style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               4. Third-Party Cookies
@@ -279,7 +279,7 @@ export default function CookiePolicyPage() {
               Our service integrates with the following third parties who may set cookies on your device:
             </p>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               4.1 Supabase
             </h3>
             <p>
@@ -290,7 +290,7 @@ export default function CookiePolicyPage() {
               See Supabase&apos;s Privacy Policy for details.
             </p>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               4.2 Stripe
             </h3>
             <p>
@@ -301,37 +301,37 @@ export default function CookiePolicyPage() {
             <div style={{ overflowX: 'auto' }}>
               <table className="w-full border-collapse text-sm">
                 <thead>
-                  <tr style={{ background: '#F7F7F7' }}>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Cookie</th>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Set By</th>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Purpose</th>
-                    <th className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Duration</th>
+                  <tr className="bg-background">
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Cookie</th>
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Set By</th>
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Purpose</th>
+                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Duration</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">__stripe_mid</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>stripe.com</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Fraud detection</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>1 year</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">__stripe_mid</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>stripe.com</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Fraud detection</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>1 year</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">__stripe_sid</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>stripe.com</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Fraud detection</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>30 minutes</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">__stripe_sid</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>stripe.com</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Fraud detection</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>30 minutes</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}><code className="text-sm bg-gray-100 px-1 rounded">stripe.csrf</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>stripe.com</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>CSRF protection during checkout</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>Session</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">stripe.csrf</code></td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>stripe.com</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>CSRF protection during checkout</td>
+                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Session</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <h3 className="font-archivo font-bold text-[#0C1F40] text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
               4.3 Vercel
             </h3>
             <p>
@@ -349,23 +349,23 @@ export default function CookiePolicyPage() {
             {/* Section 5 */}
             <h2
               id="cookie-consent-and-your-choices"
-              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              className="font-archivo font-bold text-foreground text-[22px]"
               style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               5. Cookie Consent and Your Choices
             </h2>
             <p>
-              <strong className="font-bold text-[#0C1F40]">Strictly necessary cookies:</strong> These
+              <strong className="font-bold text-foreground">Strictly necessary cookies:</strong> These
               cookies are set automatically as they are required for the service to function. You cannot
               decline them and continue to use the service.
             </p>
             <p>
-              <strong className="font-bold text-[#0C1F40]">Functional cookies:</strong> These cookies
+              <strong className="font-bold text-foreground">Functional cookies:</strong> These cookies
               are set when you take actions that trigger them (e.g., adjusting your sidebar). You can
               clear them via your browser settings at any time.
             </p>
             <p>
-              <strong className="font-bold text-[#0C1F40]">Analytics cookies:</strong> On your first
+              <strong className="font-bold text-foreground">Analytics cookies:</strong> On your first
               visit, we do not require explicit consent for analytics cookies where we use only
               anonymized, aggregated data (as permitted by applicable law in our operating
               jurisdiction). If you prefer to opt out:
@@ -385,7 +385,7 @@ export default function CookiePolicyPage() {
             {/* Section 6 */}
             <h2
               id="specific-cookie-inventory"
-              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              className="font-archivo font-bold text-foreground text-[22px]"
               style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               6. Specific Cookie Inventory
@@ -397,9 +397,9 @@ export default function CookiePolicyPage() {
             <div style={{ overflowX: 'auto' }}>
               <table className="w-full border-collapse text-sm">
                 <thead>
-                  <tr style={{ background: '#F7F7F7' }}>
+                  <tr className="bg-background">
                     {['Name', 'Domain', 'Type', 'Duration', 'Purpose'].map((h) => (
-                      <th key={h} className="font-archivo font-bold text-[#0C1F40] text-left" style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>
+                      <th key={h} className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>
                         {h}
                       </th>
                     ))}
@@ -421,13 +421,13 @@ export default function CookiePolicyPage() {
                     ['stripe.csrf', 'stripe.com', 'Third-Party (Security)', 'Session', 'Stripe CSRF protection'],
                   ].map(([name, domain, type, duration, purpose]) => (
                     <tr key={name}>
-                      <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>
+                      <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>
                         <code className="text-sm bg-gray-100 px-1 rounded">{name}</code>
                       </td>
-                      <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>{domain}</td>
-                      <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>{type}</td>
-                      <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>{duration}</td>
-                      <td style={{ padding: '12px 16px', border: '1px solid rgba(12,31,64,0.08)' }}>{purpose}</td>
+                      <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>{domain}</td>
+                      <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>{type}</td>
+                      <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>{duration}</td>
+                      <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>{purpose}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -440,7 +440,7 @@ export default function CookiePolicyPage() {
             {/* Section 7 */}
             <h2
               id="browser-controls"
-              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              className="font-archivo font-bold text-foreground text-[22px]"
               style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               7. Browser Controls
@@ -450,14 +450,14 @@ export default function CookiePolicyPage() {
               links explain how to manage cookies in major browsers:
             </p>
             <ul className="ml-6 space-y-2">
-              <li><strong className="font-bold text-[#0C1F40]">Chrome:</strong> chrome://settings/cookies</li>
-              <li><strong className="font-bold text-[#0C1F40]">Firefox:</strong> about:preferences#privacy</li>
-              <li><strong className="font-bold text-[#0C1F40]">Safari:</strong> Preferences → Privacy</li>
-              <li><strong className="font-bold text-[#0C1F40]">Edge:</strong> edge://settings/cookies</li>
-              <li><strong className="font-bold text-[#0C1F40]">Opera:</strong> opera://settings/privacy-browser</li>
+              <li><strong className="font-bold text-foreground">Chrome:</strong> chrome://settings/cookies</li>
+              <li><strong className="font-bold text-foreground">Firefox:</strong> about:preferences#privacy</li>
+              <li><strong className="font-bold text-foreground">Safari:</strong> Preferences → Privacy</li>
+              <li><strong className="font-bold text-foreground">Edge:</strong> edge://settings/cookies</li>
+              <li><strong className="font-bold text-foreground">Opera:</strong> opera://settings/privacy-browser</li>
             </ul>
             <p>
-              <strong className="font-bold text-[#0C1F40]">Important:</strong> If you delete or block
+              <strong className="font-bold text-foreground">Important:</strong> If you delete or block
               strictly necessary cookies, you will be logged out and may not be able to access your
               dashboard.
             </p>
@@ -471,7 +471,7 @@ export default function CookiePolicyPage() {
             {/* Section 8 */}
             <h2
               id="do-not-track"
-              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              className="font-archivo font-bold text-foreground text-[22px]"
               style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               8. Do Not Track
@@ -494,7 +494,7 @@ export default function CookiePolicyPage() {
             {/* Section 9 */}
             <h2
               id="changes-to-this-policy"
-              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              className="font-archivo font-bold text-foreground text-[22px]"
               style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               9. Changes to This Policy
@@ -508,7 +508,7 @@ export default function CookiePolicyPage() {
               <li>If changes are material, notify you via email (if you have an account) or via a banner on the website</li>
               <li>
                 Maintain the previous version in our changelog at{' '}
-                <Link href="/changelog" className="hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+                <Link href="/changelog" className="hover:opacity-70 underline decoration-primary">
                   /changelog
                 </Link>
               </li>
@@ -521,7 +521,7 @@ export default function CookiePolicyPage() {
             {/* Section 10 */}
             <h2
               id="contact-us"
-              className="font-archivo font-bold text-[#0C1F40] text-[22px]"
+              className="font-archivo font-bold text-foreground text-[22px]"
               style={{ marginTop: '48px', marginBottom: '16px' }}
             >
               10. Contact Us
@@ -530,9 +530,9 @@ export default function CookiePolicyPage() {
               If you have questions about our use of cookies or this Cookie Policy, please contact us:
             </p>
             <ul className="ml-6 space-y-2">
-              <li><strong className="font-bold text-[#0C1F40]">Email:</strong> <code className="text-sm bg-gray-100 px-1 rounded">privacy@daimon.ai</code></li>
-              <li><strong className="font-bold text-[#0C1F40]">Subject:</strong> &ldquo;Cookie Policy Inquiry&rdquo;</li>
-              <li><strong className="font-bold text-[#0C1F40]">Response time:</strong> Within 10 business days</li>
+              <li><strong className="font-bold text-foreground">Email:</strong> <code className="text-sm bg-gray-100 px-1 rounded">privacy@daimon.ai</code></li>
+              <li><strong className="font-bold text-foreground">Subject:</strong> &ldquo;Cookie Policy Inquiry&rdquo;</li>
+              <li><strong className="font-bold text-foreground">Response time:</strong> Within 10 business days</li>
             </ul>
             <p>You may also submit a request to:</p>
             <ul className="ml-6 space-y-2">
@@ -541,15 +541,15 @@ export default function CookiePolicyPage() {
               <li>Request deletion of any non-essential cookie data we hold</li>
             </ul>
 
-            <hr className="my-10" style={{ borderColor: 'rgba(12,31,64,0.1)' }} />
+            <hr className="my-10" />
 
             <p className="text-[#718096] text-sm">
               This Cookie Policy is incorporated by reference into our{' '}
-              <Link href="/legal/privacy" className="hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+              <Link href="/legal/privacy" className="hover:opacity-70 underline decoration-primary">
                 Privacy Policy
               </Link>{' '}
               and{' '}
-              <Link href="/legal/terms" className="hover:opacity-70" style={{ textDecoration: 'underline', textDecorationColor: '#B4E7DD' }}>
+              <Link href="/legal/terms" className="hover:opacity-70 underline decoration-primary">
                 Terms of Service
               </Link>
               .

@@ -107,17 +107,11 @@ function FeaturedPostCard({ post }: { post: BlogPost }) {
   return (
     <article
       aria-labelledby={`featured-${post.slug}`}
-      className="flex flex-col md:flex-row rounded-2xl overflow-hidden border"
-      style={{ borderColor: 'rgba(12,31,64,0.08)' }}
+      className="flex flex-col md:flex-row rounded-2xl overflow-hidden border border-border"
     >
       {/* Image area */}
       <div
-        className="md:w-[480px] md:h-[320px] h-48 flex-shrink-0"
-        style={{
-          background: post.coverImageUrl
-            ? undefined
-            : '#F7F7F7',
-        }}
+        className={`md:w-[480px] md:h-[320px] h-48 flex-shrink-0${post.coverImageUrl ? '' : ' bg-background'}`}
       >
         {post.coverImageUrl && (
           // eslint-disable-next-line @next/next/no-img-element
@@ -134,26 +128,25 @@ function FeaturedPostCard({ post }: { post: BlogPost }) {
         <Badge variant={CATEGORY_COLORS[post.category]} label={post.category} />
         <h2
           id={`featured-${post.slug}`}
-          className="mt-3 font-archivo font-bold text-[#0C1F40] text-[28px]"
+          className="mt-3 font-archivo font-bold text-foreground text-[28px]"
           style={{ maxWidth: '520px' }}
         >
           {post.title}
         </h2>
         <p
-          className="mt-3 text-[#4A5568] text-base"
+          className="mt-3 text-muted-foreground text-base"
           style={{ lineHeight: '1.7' }}
         >
           {post.excerpt}
         </p>
-        <div className="mt-4 flex items-center gap-3 text-[#718096] text-sm">
+        <div className="mt-4 flex items-center gap-3 text-muted-foreground text-sm">
           <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
           <span>·</span>
           <span>{post.readTimeMinutes} min read</span>
         </div>
         <Link
           href={`/blog/${post.slug}`}
-          className="mt-5 font-semibold text-[15px] text-[#0C1F40] hover:underline"
-          style={{ textDecorationColor: '#B4E7DD' }}
+          className="mt-5 font-semibold text-[15px] text-foreground hover:underline decoration-primary"
           aria-label={post.title}
         >
           Read more →
@@ -168,21 +161,13 @@ function PostCard({ post }: { post: BlogPost }) {
     <li>
       <Link
         href={`/blog/${post.slug}`}
-        className="block rounded-xl overflow-hidden border bg-white transition-all duration-200 hover:-translate-y-0.5"
-        style={{
-          borderColor: 'rgba(12,31,64,0.08)',
-        }}
+        className="block rounded-xl overflow-hidden border border-border bg-white transition-all duration-200 hover:-translate-y-0.5"
         aria-label={post.title}
       >
         <article aria-labelledby={`post-${post.slug}`}>
           {/* Cover image / gradient fallback */}
           <div
-            className="w-full h-[200px] object-cover"
-            style={{
-              background: post.coverImageUrl
-                ? undefined
-                : 'linear-gradient(135deg, #0C1F40 0%, #1a3a6e 100%)',
-            }}
+            className={`w-full h-[200px] object-cover${post.coverImageUrl ? '' : ' bg-foreground'}`}
           >
             {post.coverImageUrl && (
               // eslint-disable-next-line @next/next/no-img-element
@@ -201,20 +186,18 @@ function PostCard({ post }: { post: BlogPost }) {
             </div>
             <h2
               id={`post-${post.slug}`}
-              className="font-archivo font-bold text-[#0C1F40] line-clamp-2 text-xl"
-
+              className="font-archivo font-bold text-foreground line-clamp-2 text-xl"
             >
               {post.title}
             </h2>
             <p
-              className="mt-2 text-[#4A5568] line-clamp-3 text-sm"
+              className="mt-2 text-muted-foreground line-clamp-3 text-sm"
               style={{ lineHeight: '1.6' }}
             >
               {post.excerpt}
             </p>
             <div
-              className="mt-3 flex items-center justify-between text-[#718096] text-sm"
-
+              className="mt-3 flex items-center justify-between text-muted-foreground text-sm"
             >
               <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
               <span>{post.readTimeMinutes} min read</span>
@@ -234,10 +217,10 @@ export default function BlogPage() {
       <main className="max-w-7xl mx-auto px-8">
         {/* Page header */}
         <div className="pt-20 pb-12">
-          <h1 className="font-archivo font-bold text-[#0C1F40] text-[44px]">
+          <h1 className="font-archivo font-bold text-foreground text-[44px]">
             Blog
           </h1>
-          <p className="mt-2 text-[#4A5568] text-lg">
+          <p className="mt-2 text-muted-foreground text-lg">
             Insights on AI-powered workflows, Discord automation, and building with Claude.
           </p>
         </div>
@@ -248,8 +231,8 @@ export default function BlogPage() {
         ) : (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <PenLine className="w-12 h-12 text-foreground/30 mb-4" />
-            <h2 className="font-archivo font-bold text-[#0C1F40] text-xl">No posts yet</h2>
-            <p className="mt-2 text-[#4A5568]">
+            <h2 className="font-archivo font-bold text-foreground text-xl">No posts yet</h2>
+            <p className="mt-2 text-muted-foreground">
               We&apos;re working on our first article. Check back soon.
             </p>
           </div>

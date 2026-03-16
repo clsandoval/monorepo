@@ -164,20 +164,14 @@ export default async function BillingPage() {
       {/* Page header */}
       <div style={{ marginBottom: '32px' }}>
         <h1
-          className="font-headline font-semibold text-[28px]"
-          style={{
-            color: '#0C1F40',
-            marginBottom: '8px',
-          }}
+          className="font-headline font-semibold text-[28px] text-foreground"
+          style={{ marginBottom: '8px' }}
         >
           Billing &amp; Keys
         </h1>
         <p
-          className="font-body font-normal text-sm"
-          style={{
-            color: '#6B7280',
-            maxWidth: '640px',
-          }}
+          className="font-body font-normal text-sm text-muted-foreground"
+          style={{ maxWidth: '640px' }}
         >
           Manage your Daimon plan and the API keys used to power your bot.
         </p>
@@ -187,8 +181,7 @@ export default async function BillingPage() {
       <section id="subscription">
         <div style={{ marginBottom: '24px' }}>
           <h2
-            className="font-headline font-semibold text-xl"
-            style={{ color: '#0C1F40' }}
+            className="font-headline font-semibold text-xl text-foreground"
           >
             Subscription
           </h2>
@@ -227,7 +220,7 @@ export default async function BillingPage() {
       </section>
 
       {/* Divider */}
-      <hr style={{ border: 'none', borderTop: '1px solid #E5E7EB', margin: '32px 0' }} />
+      <hr className="border-0 border-t border-border my-8" />
 
       {/* API Keys section */}
       <section id="api-keys">

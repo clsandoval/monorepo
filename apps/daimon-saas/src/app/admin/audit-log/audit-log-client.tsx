@@ -332,7 +332,7 @@ export function AuditLogClient({
               borderRadius: 0,
               outline: 'none',
               width: '260px'}}
-            onFocus={(e) => (e.currentTarget.style.borderColor = '#B4E7DD')}
+            onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
             onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
           />
 
@@ -383,7 +383,7 @@ export function AuditLogClient({
                 padding: '6px 8px',
                 borderRadius: 0,
                 outline: 'none'}}
-              onFocus={(e) => (e.currentTarget.style.borderColor = '#B4E7DD')}
+              onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
               onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
             />
           </div>
@@ -406,7 +406,7 @@ export function AuditLogClient({
                 padding: '6px 8px',
                 borderRadius: 0,
                 outline: 'none'}}
-              onFocus={(e) => (e.currentTarget.style.borderColor = '#B4E7DD')}
+              onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
               onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
             />
           </div>
@@ -415,9 +415,8 @@ export function AuditLogClient({
           {hasActiveFilters && (
             <button
               onClick={handleReset}
-              className="flex items-center gap-1 transition-colors duration-150 font-body text-sm font-medium"
-              style={{color: '#0C1F40',
-                background: 'transparent',
+              className="flex items-center gap-1 transition-colors duration-150 font-body text-sm font-medium text-foreground"
+              style={{background: 'transparent',
                 border: 'none',
                 padding: '6px 8px',
                 cursor: 'pointer',
@@ -510,7 +509,7 @@ export function AuditLogClient({
                         {/* Action */}
                         <td style={tdStyle}>
                           <span
-                            className="font-body text-[13px] font-medium" style={{color: '#0C1F40'}}
+                            className="font-body text-[13px] font-medium text-foreground"
                           >
                             {actionLabel}
                           </span>
@@ -523,7 +522,7 @@ export function AuditLogClient({
                               <Link
                                 href={`/admin/tenants/${entry.tenant_id}`}
                                 onClick={(e) => e.stopPropagation()}
-                                className="font-body text-[13px]" style={{color: '#0C1F40',
+                                className="font-body text-[13px] text-foreground" style={{
                                   textDecoration: 'none',
                                   borderBottom: '1px solid #E5E7EB'}}
                               >

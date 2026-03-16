@@ -30,7 +30,7 @@ const badgeVariants = cva(
     variants: {
       variant: {
         'plan-free':
-          'bg-[rgba(12,31,64,0.08)] text-[rgba(12,31,64,0.65)] border-[1.5px] border-[rgba(12,31,64,0.15)]',
+          'bg-muted text-muted-foreground border-[1.5px] border-border',
         'plan-starter':
           'bg-[rgba(180,231,221,0.20)] text-foreground border-[1.5px] border-[rgba(180,231,221,0.60)]',
         'plan-pro':
@@ -48,7 +48,7 @@ const badgeVariants = cva(
         'key-invalid':
           'bg-[rgba(239,68,68,0.12)] text-destructive border-[1.5px] border-[rgba(239,68,68,0.30)]',
         'key-unconfigured':
-          'bg-[rgba(12,31,64,0.08)] text-[rgba(12,31,64,0.55)] border-[1.5px] border-[rgba(12,31,64,0.15)]',
+          'bg-muted text-muted-foreground border-[1.5px] border-border',
         'key-validating':
           'bg-[rgba(245,158,11,0.12)] text-[#D97706] border-[1.5px] border-[rgba(245,158,11,0.30)]',
         'connection-connected':
@@ -58,9 +58,9 @@ const badgeVariants = cva(
         'connection-error':
           'bg-[rgba(239,68,68,0.12)] text-destructive border-[1.5px] border-[rgba(239,68,68,0.30)]',
         'connection-disconnected':
-          'bg-[rgba(12,31,64,0.08)] text-[rgba(12,31,64,0.55)] border-[1.5px] border-[rgba(12,31,64,0.15)]',
+          'bg-muted text-muted-foreground border-[1.5px] border-border',
         neutral:
-          'bg-[rgba(12,31,64,0.08)] text-[rgba(12,31,64,0.65)] border-[1.5px] border-[rgba(12,31,64,0.15)]',
+          'bg-muted text-muted-foreground border-[1.5px] border-border',
         info:
           'bg-[#DBEAFE] text-[#1E40AF] border-0',
         success:

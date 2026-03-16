@@ -210,7 +210,7 @@ function ResetPasswordForm() {
           </Link>
 
           {/* Success card */}
-          <Card className="w-full relative overflow-hidden rounded-none ring-0 shadow-[0_1px_3px_rgba(12,31,64,0.08),0_4px_16px_rgba(12,31,64,0.06)] p-0">
+          <Card className="w-full relative overflow-hidden rounded-none ring-0 shadow-[0_1px_3px_hsl(var(--foreground)/0.08),0_4px_16px_hsl(var(--foreground)/0.06)] p-0">
             {/* CI Stripe */}
             <div aria-hidden="true" className="absolute left-0 top-0 h-full w-1.5">
               <div className="absolute left-0 top-[15%] h-[70%] w-1.5 bg-primary opacity-30" />
@@ -319,7 +319,7 @@ function ResetPasswordForm() {
         </Link>
 
         {/* Request form card */}
-        <Card className="w-full relative overflow-hidden rounded-none ring-0 shadow-[0_1px_3px_rgba(12,31,64,0.08),0_4px_16px_rgba(12,31,64,0.06)] p-0">
+        <Card className="w-full relative overflow-hidden rounded-none ring-0 shadow-[0_1px_3px_hsl(var(--foreground)/0.08),0_4px_16px_hsl(var(--foreground)/0.06)] p-0">
           {/* CI Stripe */}
           <div aria-hidden="true" className="absolute left-0 top-0 h-full w-1.5">
             <div className="absolute left-0 top-[15%] h-[70%] w-1.5 bg-primary opacity-30" />

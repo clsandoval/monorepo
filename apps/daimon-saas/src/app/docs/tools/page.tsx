@@ -731,8 +731,8 @@ const TOOL_CATEGORIES: ToolCategory[] = [
 
 const PLAN_COLORS: Record<PlanTier, { bg: string; text: string; label: string }> =
   {
-    free: { bg: 'rgba(12, 31, 64, 0.08)', text: '#0C1F40', label: 'Free' },
-    starter: { bg: 'rgba(180, 231, 221, 0.3)', text: '#0D6E5E', label: 'Starter' },
+    free: { bg: 'hsl(var(--muted))', text: 'hsl(var(--foreground))', label: 'Free' },
+    starter: { bg: 'hsl(var(--primary) / 0.3)', text: '#0D6E5E', label: 'Starter' },
     pro: { bg: 'rgba(246, 174, 114, 0.25)', text: '#8B4400', label: 'Pro' },
   }
 
@@ -773,9 +773,7 @@ function ToolRow({ tool }: { tool: ToolEntry }) {
       {/* Name + description */}
       <div style={{ flex: 1, minWidth: 0 }}>
         <code
-          className="text-sm font-semibold font-mono" style={{
-            color: '#0C1F40',
-            backgroundColor: 'rgba(12, 31, 64, 0.05)',
+          className="text-sm font-semibold font-mono text-foreground bg-muted" style={{
             padding: '2px 6px',
             borderRadius: '3px',
             display: 'inline-block',
@@ -863,8 +861,7 @@ function CategorySection({
           <ChevronRight size={16} color="#6B7280" />
         )}
         <span
-          className="font-headline text-sm font-bold" style={{
-            color: '#0C1F40',
+          className="font-headline text-sm font-bold text-foreground" style={{
             flex: 1,
           }}
         >
@@ -963,8 +960,7 @@ export default function ToolReferencePage() {
       {/* Page header */}
       <header style={{ marginBottom: '40px' }}>
         <div
-          className="font-body text-sm" style={{
-            color: 'rgba(12, 31, 64, 0.65)',
+          className="font-body text-sm text-muted-foreground" style={{
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
             marginBottom: '8px',
@@ -973,8 +969,7 @@ export default function ToolReferencePage() {
           Tool Reference
         </div>
         <h1
-          className="font-headline text-[clamp(28px,4vw,40px)] font-black" style={{
-            color: '#0C1F40',
+          className="font-headline text-[clamp(28px,4vw,40px)] font-black text-foreground" style={{
             lineHeight: 1.1,
             margin: '0 0 16px 0',
           }}
@@ -1053,11 +1048,11 @@ export default function ToolReferencePage() {
             paddingRight: query ? '38px' : '12px',
             border: '1px solid #D1D5DB',
             backgroundColor: '#FFFFFF',
-            color: '#0C1F40',
+            color: 'hsl(var(--foreground))',
             outline: 'none',
             boxSizing: 'border-box',
           }}
-          onFocus={(e) => (e.currentTarget.style.borderColor = '#B4E7DD')}
+          onFocus={(e) => (e.currentTarget.style.borderColor = 'hsl(var(--primary))')}
           onBlur={(e) => (e.currentTarget.style.borderColor = '#D1D5DB')}
         />
         {query && (
@@ -1124,22 +1119,20 @@ export default function ToolReferencePage() {
         }}
       >
         <a
-          className="font-body text-sm font-medium"
+          className="font-body text-sm font-medium text-foreground"
           href="/docs/quick-start"
           aria-label="Previous page: Quick Start"
           style={{
-            color: '#0C1F40',
             textDecoration: 'none',
           }}
         >
           ← Quick Start
         </a>
         <a
-          className="font-body text-sm font-medium"
+          className="font-body text-sm font-medium text-foreground"
           href="/docs/faq"
           aria-label="Next page: FAQ"
           style={{
-            color: '#0C1F40',
             textDecoration: 'none',
           }}
         >

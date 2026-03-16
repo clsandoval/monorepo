@@ -242,7 +242,7 @@ function renderContent(content: string) {
       if (trimmed.startsWith('**') && trimmed.endsWith('**') && trimmed.length > 4) {
         const text = trimmed.slice(2, -2);
         return (
-          <h2 key={i} className="font-archivo font-bold text-[#0C1F40] text-[28px]" style={{ margin: '48px 0 16px' }}>
+          <h2 key={i} className="font-archivo font-bold text-foreground text-[28px]" style={{ margin: '48px 0 16px' }}>
             {text}
           </h2>
         );
@@ -251,7 +251,7 @@ function renderContent(content: string) {
         return (
           <li key={i} className="mb-2">
             {trimmed.slice(2).split('**').map((part, j) =>
-              j % 2 === 1 ? <strong key={j} className="font-bold text-[#0C1F40]">{part}</strong> : part
+              j % 2 === 1 ? <strong key={j} className="font-bold text-foreground">{part}</strong> : part
             )}
           </li>
         );
@@ -264,9 +264,9 @@ function renderContent(content: string) {
         );
       }
       return (
-        <p key={i} className="mb-5 text-[17px]" style={{ lineHeight: '1.8', color: '#2D3748' }}>
+        <p key={i} className="mb-5 text-[17px] text-muted-foreground" style={{ lineHeight: '1.8' }}>
           {trimmed.split('**').map((part, j) =>
-            j % 2 === 1 ? <strong key={j} className="font-bold text-[#0C1F40]">{part}</strong> : part
+            j % 2 === 1 ? <strong key={j} className="font-bold text-foreground">{part}</strong> : part
           )}
         </p>
       );
@@ -314,15 +314,14 @@ export default async function BlogPostPage({
       />
       <main className="max-w-3xl mx-auto px-8 pt-20 pb-24">
         {/* Breadcrumb */}
-        <nav className="mb-6 text-[#718096] text-sm">
-          <Link href="/blog" className="hover:underline" style={{ textDecorationColor: '#B4E7DD' }}>
+        <nav className="mb-6 text-muted-foreground text-sm">
+          <Link href="/blog" className="hover:underline decoration-primary">
             Blog
           </Link>
           <span className="mx-2">→</span>
           <Link
             href={`/blog?category=${post.category}`}
-            className="hover:underline"
-            style={{ textDecorationColor: '#B4E7DD' }}
+            className="hover:underline decoration-primary"
           >
             {post.category}
           </Link>
@@ -330,7 +329,7 @@ export default async function BlogPostPage({
 
         {/* Post header */}
         <h1
-          className="font-archivo font-bold text-[#0C1F40] text-[clamp(30px,4vw,44px)]"
+          className="font-archivo font-bold text-foreground text-[clamp(30px,4vw,44px)]"
           style={{ maxWidth: '48rem' }}
         >
           {post.title}
@@ -340,19 +339,19 @@ export default async function BlogPostPage({
           <Badge variant={CATEGORY_COLORS[post.category]} label={post.category} />
         </div>
 
-        <div className="mt-4 flex items-center gap-3 text-[#4A5568] text-[15px]">
+        <div className="mt-4 flex items-center gap-3 text-muted-foreground text-[15px]">
           <div
-            className="w-6 h-6 rounded-full bg-[#0C1F40] flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
+            className="w-6 h-6 rounded-full bg-foreground flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
           >
             {post.author.name[0]}
           </div>
-          <span className="font-medium text-[#0C1F40]">{post.author.name}</span>
-          <span className="text-[#718096]">·</span>
-          <time dateTime={post.publishedAt} className="text-[#718096]">
+          <span className="font-medium text-foreground">{post.author.name}</span>
+          <span className="text-muted-foreground">·</span>
+          <time dateTime={post.publishedAt} className="text-muted-foreground">
             {formatDate(post.publishedAt)}
           </time>
-          <span className="text-[#718096]">·</span>
-          <span className="text-[#718096]">{post.readTimeMinutes} min read</span>
+          <span className="text-muted-foreground">·</span>
+          <span className="text-muted-foreground">{post.readTimeMinutes} min read</span>
         </div>
 
         {post.coverImageUrl && (
@@ -373,19 +372,18 @@ export default async function BlogPostPage({
         {/* Author card */}
         <aside
           aria-label="About the author"
-          className="mt-12 flex items-center gap-6 rounded-xl border p-6"
-          style={{ background: '#F7F7F7', borderColor: 'rgba(12,31,64,0.08)' }}
+          className="mt-12 flex items-center gap-6 rounded-xl border border-border p-6 bg-background"
         >
           <div
-            className="w-14 h-14 rounded-full bg-[#0C1F40] flex items-center justify-center text-white text-xl font-bold flex-shrink-0"
+            className="w-14 h-14 rounded-full bg-foreground flex items-center justify-center text-white text-xl font-bold flex-shrink-0"
           >
             {post.author.name[0]}
           </div>
           <div>
-            <div className="font-archivo font-bold text-[#0C1F40] text-lg">
+            <div className="font-archivo font-bold text-foreground text-lg">
               {post.author.name}
             </div>
-            <div className="text-[#718096] text-sm">
+            <div className="text-muted-foreground text-sm">
               {post.author.role}
             </div>
           </div>
@@ -395,7 +393,7 @@ export default async function BlogPostPage({
         {relatedPosts.length > 0 && (
           <section aria-label="Related posts" className="mt-16">
             <h2
-              className="font-archivo font-bold text-[#0C1F40] mb-6 text-2xl"
+              className="font-archivo font-bold text-foreground mb-6 text-2xl"
             >
               More from the blog
             </h2>
@@ -407,22 +405,18 @@ export default async function BlogPostPage({
                 <li key={related.slug}>
                   <Link
                     href={`/blog/${related.slug}`}
-                    className="block rounded-xl overflow-hidden border bg-white transition-all duration-200 hover:-translate-y-0.5"
-                    style={{ borderColor: 'rgba(12,31,64,0.08)' }}
+                    className="block rounded-xl overflow-hidden border border-border bg-white transition-all duration-200 hover:-translate-y-0.5"
                     aria-label={related.title}
                   >
                     <article aria-labelledby={`related-${related.slug}`}>
                       <div
-                        className="w-full h-32"
-                        style={{
-                          background: 'linear-gradient(135deg, #0C1F40 0%, #1a3a6e 100%)',
-                        }}
+                        className="w-full h-32 bg-foreground"
                       />
                       <div className="p-4">
                         <Badge variant={CATEGORY_COLORS[related.category]} label={related.category} />
                         <h3
                           id={`related-${related.slug}`}
-                          className="mt-2 font-archivo font-bold text-[#0C1F40] line-clamp-2 text-base"
+                          className="mt-2 font-archivo font-bold text-foreground line-clamp-2 text-base"
                         >
                           {related.title}
                         </h3>
@@ -437,8 +431,7 @@ export default async function BlogPostPage({
 
         {/* CTA section */}
         <div
-          className="mt-16 rounded-2xl p-10 text-center"
-          style={{ background: '#0C1F40' }}
+          className="mt-16 rounded-2xl p-10 text-center bg-foreground"
         >
           <h2
             className="font-archivo font-bold text-white text-[28px]"
@@ -451,7 +444,7 @@ export default async function BlogPostPage({
           <div className="mt-6">
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center px-6 py-3 rounded font-semibold text-sm bg-[#B4E7DD] text-[#0C1F40] hover:opacity-90 transition-opacity"
+              className="inline-flex items-center justify-center px-6 py-3 rounded font-semibold text-sm bg-primary text-foreground hover:opacity-90 transition-opacity"
             >
               Get started free
             </Link>
