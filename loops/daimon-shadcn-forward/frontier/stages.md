@@ -192,7 +192,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 152**: Modal/Dialog — trigger a confirm dialog (e.g., danger zone delete action on settings page), verify dialog appears, verify backdrop visible, verify focus is inside dialog (tab doesn't escape). (2026-03-16)
 - [x] **Stage 153**: Modal/Dialog — with dialog open: press Escape, verify closes. Re-open, click backdrop/overlay, verify closes. Re-open, click Cancel button, verify closes without action. Click Confirm, verify action fires. (2026-03-16)
 - [x] **Stage 154**: Tabs — on a page with tabs (docs?), click each tab, verify content switches. Verify active tab has distinct styling. Use arrow keys between tabs, verify focus moves and content switches. (2026-03-16)
-- [ ] **Stage 155**: Table — on admin tenants page: verify headers render, rows render with data. If pagination exists: click next page, verify content changes. Click previous, verify returns.
+- [x] **Stage 155**: Table — on admin tenants page: verify headers render, rows render with data. If pagination exists: click next page, verify content changes. Click previous, verify returns. (2026-03-16)
 - [ ] **Stage 156**: Table — verify empty state: if possible, filter to show no results, verify empty state message shown (not blank table)
 - [ ] **Stage 157**: Pagination — on admin audit log or tenant list: navigate to page 2, verify URL or state updates. Navigate back to page 1. Click a specific page number if visible.
 - [ ] **Stage 158**: Toast — trigger a success action (e.g., save settings), verify toast appears with success message, verify it auto-dismisses after a few seconds. Trigger an error, verify error toast appears.
