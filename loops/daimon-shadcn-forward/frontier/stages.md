@@ -167,7 +167,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 130**: Tablet verify `/dashboard` — sidebar collapsed to icons, content area fills remaining width (2026-03-15)
 - [x] **Stage 131**: Tablet verify `/dashboard/billing` — plan comparison adapts to tablet width (2026-03-15)
 - [x] **Stage 132**: Tablet verify `/dashboard/integrations` — service grid 2-column (2026-03-16)
-- [ ] **Stage 133**: Tablet verify `/dashboard/settings` — form width appropriate, not stretched
+- [x] **Stage 133**: Tablet verify `/dashboard/settings` — form width appropriate, not stretched (2026-03-16)
 - [ ] **Stage 134**: Tablet verify `/admin/tenants` — table fits or scrolls gracefully
 - [ ] **Stage 135**: Tablet verify `/docs` — docs sidebar collapses or overlays
 - [ ] **Stage 136**: Tablet verify `/blog` — blog grid 2-column
