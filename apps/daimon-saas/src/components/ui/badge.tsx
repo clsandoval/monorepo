@@ -32,7 +32,7 @@ const badgeVariants = cva(
         'plan-free':
           'bg-muted text-muted-foreground border-[1.5px] border-border',
         'plan-starter':
-          'bg-[rgba(180,231,221,0.20)] text-foreground border-[1.5px] border-[rgba(180,231,221,0.60)]',
+          'bg-primary/20 text-foreground border-[1.5px] border-primary/60',
         'plan-pro':
           'bg-foreground text-white border-0',
         'status-pending':

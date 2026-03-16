@@ -70,7 +70,7 @@ function relativeDate(iso: string): string {
 function PlanBadge({ plan }: { plan: string }) {
   const styles: Record<string, { bg: string; color: string }> = {
     free: { bg: '#F3F4F6', color: '#6B7280' },
-    starter: { bg: 'rgba(180,231,221,0.3)', color: 'var(--color-foreground)' },
+    starter: { bg: 'hsl(var(--primary) / 0.3)', color: 'var(--color-foreground)' },
     pro: { bg: 'var(--color-primary)', color: 'var(--color-foreground)' },
   }
   const s = styles[plan] ?? styles.free
@@ -90,7 +90,7 @@ function StatusBadge({ status }: { status: string }) {
   const styles: Record<string, { bg: string; color: string }> = {
     pending: { bg: '#FEF9C3', color: '#854D0E' },
     configured: { bg: '#DBEAFE', color: '#1E40AF' },
-    active: { bg: 'rgba(180,231,221,0.4)', color: '#065F46' },
+    active: { bg: 'hsl(var(--primary) / 0.4)', color: '#065F46' },
     suspended: { bg: '#FEE2E2', color: '#991B1B' },
   }
   const s = styles[status] ?? { bg: '#F3F4F6', color: '#6B7280' }

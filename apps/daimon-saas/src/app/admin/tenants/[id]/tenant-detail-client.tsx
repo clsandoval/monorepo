@@ -83,7 +83,7 @@ interface AuditEntry {
 function PlanBadge({ plan }: { plan: string }) {
   const styles: Record<string, { bg: string; color: string }> = {
     free: { bg: '#F3F4F6', color: '#6B7280' },
-    starter: { bg: 'rgba(180,231,221,0.3)', color: 'var(--color-foreground)' },
+    starter: { bg: 'hsl(var(--primary) / 0.3)', color: 'var(--color-foreground)' },
     pro: { bg: 'var(--color-primary)', color: 'var(--color-foreground)' },
   }
   const s = styles[plan] ?? styles.free
@@ -98,7 +98,7 @@ function StatusBadge({ status }: { status: string }) {
   const styles: Record<string, { bg: string; color: string }> = {
     pending: { bg: '#FEF9C3', color: '#854D0E' },
     configured: { bg: '#DBEAFE', color: '#1E40AF' },
-    active: { bg: 'rgba(180,231,221,0.4)', color: '#065F46' },
+    active: { bg: 'hsl(var(--primary) / 0.4)', color: '#065F46' },
     suspended: { bg: '#FEE2E2', color: '#991B1B' },
   }
   const s = styles[status] ?? { bg: '#F3F4F6', color: '#6B7280' }
@@ -113,7 +113,7 @@ function DiscordStatusBadge({ status }: { status: string }) {
   const styles: Record<string, { bg: string; color: string }> = {
     pending: { bg: '#FEF9C3', color: '#854D0E' },
     connecting: { bg: '#DBEAFE', color: '#1E40AF' },
-    connected: { bg: 'rgba(180,231,221,0.4)', color: '#065F46' },
+    connected: { bg: 'hsl(var(--primary) / 0.4)', color: '#065F46' },
     disconnected: { bg: '#F3F4F6', color: '#6B7280' },
     error: { bg: '#FEE2E2', color: '#991B1B' },
     suspended: { bg: '#F3F4F6', color: '#6B7280' },
@@ -128,7 +128,7 @@ function DiscordStatusBadge({ status }: { status: string }) {
 
 function ApiKeyStatusBadge({ status }: { status: string }) {
   const styles: Record<string, { bg: string; color: string }> = {
-    active: { bg: 'rgba(180,231,221,0.4)', color: '#065F46' },
+    active: { bg: 'hsl(var(--primary) / 0.4)', color: '#065F46' },
     invalid: { bg: '#FEE2E2', color: '#991B1B' },
     revoked: { bg: '#F3F4F6', color: '#6B7280' },
   }
@@ -142,7 +142,7 @@ function ApiKeyStatusBadge({ status }: { status: string }) {
 
 function ServiceStatusBadge({ status }: { status: string }) {
   const styles: Record<string, { bg: string; color: string }> = {
-    active: { bg: 'rgba(180,231,221,0.4)', color: '#065F46' },
+    active: { bg: 'hsl(var(--primary) / 0.4)', color: '#065F46' },
     expired: { bg: '#FEF9C3', color: '#854D0E' },
     revoked: { bg: '#F3F4F6', color: '#6B7280' },
     error: { bg: '#FEE2E2', color: '#991B1B' },
