@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1217
-- **Analyzed:** 394
-- **Pending:** 823
-- **Convergence:** 32.4%
+- **Total aspects:** 1222
+- **Analyzed:** 395
+- **Pending:** 827
+- **Convergence:** 32.3%
 
 ---
 
@@ -497,7 +497,12 @@
 - [ ] 2.00k — Cross-model comparison matrix: formal side-by-side evaluation of all intelligence models (2.00a–2.00d) across 10 dimensions (debuggability, spectator drama, personality ceiling, educational transfer, async PvP fairness, computational cost, accessibility floor, skill ceiling, mod support, platform portability)
 - [ ] 2.00f-i — Relay as single point of failure: network resilience design — how does the player protect critical relays? Dedicated defender strikers, redundant relay paths, relay self-defense skills? The "network resilience" design puzzle as core mid-campaign challenge
 - [ ] 2.00f-ii — Signal attenuation as terrain modifier: jungle tiles reduce broadcast radius by 2, city tiles amplify by 1; terrain becomes communication infrastructure variable, not just movement/combat; interaction with biome art direction and campaign mission design
-- [ ] 2.00f-iii — Emergent flocking from local rules: can Robot Uprising units exhibit Boids-like coordinated movement through local-only perception and communication? What rule configurations produce flock-like behavior without any explicit coordination signal? Swarm architectures as alternative to hierarchical command
+- [x] 2.00f-iii — Emergent flocking from local rules: can Robot Uprising units exhibit Boids-like coordinated movement through local-only perception and communication? What rule configurations produce flock-like behavior without any explicit coordination signal? Swarm architectures as alternative to hierarchical command
+- [ ] 2.00f-iii-a — Flock size scaling analysis: how does flock behavior change from 3 scouts to 6 to 12? Minimum viable flock size, maximum before 8×8 board crowding, sweet spot as function of board size and unit perception radius
+- [ ] 2.00f-iii-b — Anti-flock enemy tactics: how should enemy AI exploit player flocking? AoE disruption signals, target-the-relay, EM-based flock tracking, noise flooding to break whisper networks; the flock as designed vulnerability
+- [ ] 2.00f-iii-c — Flock + Command agent hybrid: Command agent dynamically switching between hierarchical control and flock mode; "release the flock" as meta-level skill; the transition moment as gameplay
+- [ ] 2.00f-iii-d — Flock visualization design for sealed watch: full specification of whisper mesh rendering, scatter animation, reform sequence; explicit flock cohesion indicator vs. purely emergent visual
+- [ ] 2.00f-iii-e — The echo chamber failure mode as tutorial moment: mission where first flock fails because buffer saturation prevents scouting; debrief teaches context window management through visceral flock self-deafening
 - [ ] 2.00f-iv — The "courier problem" in Variant E: designing the relay network specifically to service the Command agent; the relay chain from battlefield to Command and back as a first-class design challenge; courier network optimization as mid-campaign teaching sequence
 - [ ] 2.00f-v — Pheromone trails as optional Specialist skill: hybrid between tile-marking and the locked hook design; Specialists could have a "mark" skill that tags tiles with information, enabling local-information-sharing alongside hooks; ant colony optimization meets the four-primitive system
 - [ ] 2.00g-i — The random name generator as cultural expression: Filipino-inspired procedural name generation for units (Bantay, Talim, Agos, Kidlat); name pools per unit type reflecting function (scout names = perception words, striker names = force words); how naming defaults shape the game's cultural identity; interaction with Philippine setting and SE Asian cyberpunk aesthetic
