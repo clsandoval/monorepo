@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1272
-- **Analyzed:** 405
-- **Pending:** 867
+- **Total aspects:** 1277
+- **Analyzed:** 406
+- **Pending:** 871
 - **Convergence:** 31.8%
 
 ---
@@ -656,7 +656,12 @@
   - [ ] 3.06-ext — Rule conflict visualization in real-time: when two rules COULD match but priority ordering picks one, how does the inspector show the "road not taken"? The near-miss visualization problem from pattern matching applies to all approaches
 - [x] 3.05a — Conditional prefix as expressive primitive: minimal rule vocabulary (like Shenzhen I/O's +/- prefix) that enables sophisticated agent behavior from simple building blocks
 - [x] 3.05a-i — The ? (uncertainty) prefix as first-class game mechanic: deep dive into tri-state prefix — when "I don't have data" differs strategically from "the data says no"; mission design that forces the distinction; defensive programming lesson
-- [ ] 3.05a-ii — Prefix composition as boolean algebra tutorial: explicit mapping of player prefix patterns to boolean algebra (De Morgan's laws, short-circuit evaluation, truth tables); when/whether to surface pedagogically vs. leaving implicit
+- [x] 3.05a-ii — Prefix composition as boolean algebra tutorial: explicit mapping of player prefix patterns to boolean algebra (De Morgan's laws, short-circuit evaluation, truth tables); when/whether to surface pedagogically vs. leaving implicit
+  - [ ] 3.05a-ii-a — Evaluation cost model as game mechanic: TEST instructions consuming processing cycles that contribute to context load; test ordering and short-circuit efficiency as survival mechanics; evaluation cost budget per tick
+  - [ ] 3.05a-ii-b — Truth table visualization in Inspector: interactive truth table the player fills in by clicking cells, auto-checked against their prefix config; "build your own truth table" as diagnostic exercise
+  - [ ] 3.05a-ii-c — De Morgan linting as workbench diagnostic: static analysis identifying prefix chains using longer De Morgan forms and suggesting shorter equivalents; "boolean optimizer" as plan-screen tool
+  - [ ] 3.05a-ii-d — Three-valued logic (Kleene) complications with ? prefix: formal specification of tri-state ? interaction with short-circuit semantics, De Morgan's laws, and truth table construction; player-visible differences from binary logic
+  - [ ] 3.05a-ii-e — "Evaluation efficiency" as Zachtronics-style histogram metric: average evaluations-per-tick as community-visible optimization axis; boolean composition skill distribution across player population
 - [ ] 3.05a-iii — The accumulator prefix as consensus mechanic: majority voting in agent decisions ("at least 2 of 3 conditions must pass"); mapping to distributed consensus protocols (Raft, Paxos); mission design that teaches quorum
 - [ ] 3.05a-iv — Prefix-to-behavior-tree visual translation in Inspector: showing instruction list as BOTH linear prefix sequence AND equivalent behavior tree diagram side-by-side; "Rosetta Stone" view bridging Gladiabots tree thinking and Shenzhen linear thinking
 - [ ] 3.05a-v — The evaluation waterfall as spectator sport: detailed visual design for instruction evaluation animation during sealed watch; split-screen choreography between waterfall trace and battlefield consequence; streaming/TikTok optimization
