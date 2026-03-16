@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1287
-- **Analyzed:** 408
-- **Pending:** 879
+- **Total aspects:** 1292
+- **Analyzed:** 409
+- **Pending:** 883
 - **Convergence:** 31.7%
 
 ---
@@ -1365,7 +1365,12 @@
 ## Wave 8: Cross-Cutting Synthesis
 
 - [x] 8.01 — Natural pairings: which building block paradigm works best with which buffer model
-- [ ] 8.02 — Conflict matrix: which options in different categories are incompatible
+- [x] 8.02 — Conflict matrix: which options in different categories are incompatible
+- [ ] 8.02a — Intelligence model selection as product-defining constraint: the choice between deterministic/simulated/hybrid/LLM-native determines more downstream design decisions than any other single choice; decision tree mapping all downstream forced pairings per intelligence model
+- [ ] 8.02b — Platform-specific building block paradigm mapping: which BB paradigms are viable on each platform (PC/console/mobile/Steam Deck/web); the "lowest common denominator" problem when targeting all five platforms simultaneously
+- [ ] 8.02c — Buffer model transition mechanics: if the campaign uses different buffer models across missions (fixed-slot M1-M4, introducing decay/weighted/categorized M5+), what happens to player configs at the transition boundary; migration UI, config compatibility checking, "your rules need updating" warning design
+- [ ] 8.02d — The "meta-convergence" problem in competitive modes: how competitive play pressures creative options into narrow optimal bands (temperature→0, paradigm→most efficient, buffer→most controllable); designing against convergence without artificial restrictions
+- [ ] 8.02e — Cross-paradigm config portability: when a player's config was built in Flow Lane (BB-D) and they need to view/edit it in Sentence Strips (BB-A) on console, how much information is lost; the "config schema" as paradigm-independent representation vs. paradigm-specific config files
 - [ ] 8.03 — "Full game" configurations: 3-5 coherent complete designs across all categories
 - [x] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
 - [ ] 8.04a — The "second session" test for the MVG: what creates pull-back to a 5-mission prototype without progression systems or new content? "One more try" psychology for the minimum viable game
