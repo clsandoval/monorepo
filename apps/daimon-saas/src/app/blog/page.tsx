@@ -128,14 +128,12 @@ function FeaturedPostCard({ post }: { post: BlogPost }) {
         <Badge variant={CATEGORY_COLORS[post.category]} label={post.category} />
         <h2
           id={`featured-${post.slug}`}
-          className="mt-3 font-archivo font-bold text-foreground text-[28px]"
-          style={{ maxWidth: '520px' }}
+          className="mt-3 font-archivo font-bold text-foreground text-[28px] max-w-[520px]"
         >
           {post.title}
         </h2>
         <p
-          className="mt-3 text-muted-foreground text-base"
-          style={{ lineHeight: '1.7' }}
+          className="mt-3 text-muted-foreground text-base leading-[1.7]"
         >
           {post.excerpt}
         </p>
@@ -191,8 +189,7 @@ function PostCard({ post }: { post: BlogPost }) {
               {post.title}
             </h2>
             <p
-              className="mt-2 text-muted-foreground line-clamp-3 text-sm"
-              style={{ lineHeight: '1.6' }}
+              className="mt-2 text-muted-foreground line-clamp-3 text-sm leading-[1.6]"
             >
               {post.excerpt}
             </p>

@@ -161,7 +161,7 @@ function Callout({
   const s = styles[type]
   return (
     <div
-      className="font-body text-sm py-4 px-5 mb-6 text-gray-700 leading-relaxed"
+      className="font-body text-sm py-4 px-5 mb-6 text-foreground/80 leading-relaxed"
       style={{
         backgroundColor: s.bg,
         border: `1px solid ${s.border}`,

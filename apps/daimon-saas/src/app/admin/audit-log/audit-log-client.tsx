@@ -278,18 +278,18 @@ export function AuditLogClient({
     })
   }
 
-  const selectClass = 'text-gray-700 bg-white border border-gray-200 py-1.5 pr-8 pl-2.5 rounded-none appearance-none cursor-pointer bg-[length:12px_12px] bg-no-repeat bg-[position:right_8px_center]'
+  const selectClass = 'text-foreground bg-card border border-border py-1.5 pr-8 pl-2.5 rounded-none appearance-none cursor-pointer bg-[length:12px_12px] bg-no-repeat bg-[position:right_8px_center] focus:border-primary outline-none'
   const selectBgImage = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`
 
-  const thClass = 'text-gray-700 uppercase tracking-wide py-2.5 px-4 text-left bg-gray-50 border-b border-gray-200 whitespace-nowrap'
+  const thClass = 'text-muted-foreground uppercase tracking-wide py-2.5 px-4 text-left bg-muted border-b border-border whitespace-nowrap'
 
-  const tdClass = 'py-2.5 px-4 border-b border-gray-100 align-middle'
+  const tdClass = 'py-2.5 px-4 border-b border-border align-middle'
 
   return (
     <div>
       {/* ── Filters bar ──────────────────────────────────────────────────────── */}
       <div
-        className="bg-white border border-gray-200 py-3 px-4 mb-0 border-b-0"
+        className="bg-card border border-border py-3 px-4 mb-0 border-b-0"
       >
         <div className="flex flex-wrap items-center gap-3">
           {/* Tenant ID filter */}
@@ -298,9 +298,7 @@ export function AuditLogClient({
             placeholder="Tenant ID (UUID)…"
             defaultValue={filters.tenantId}
             onChange={(e) => handleTenantIdChange(e.target.value)}
-            className="font-body text-sm text-gray-700 bg-white border border-gray-200 py-1.5 px-2.5 rounded-none outline-none w-[260px]"
-            onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
-            onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
+            className="font-body text-sm text-foreground bg-card border border-border py-1.5 px-2.5 rounded-none outline-none w-[260px] focus:border-primary"
           />
 
           {/* Action filter */}
@@ -335,7 +333,7 @@ export function AuditLogClient({
           {/* Date from */}
           <div className="flex items-center gap-2">
             <label
-              className="font-body text-[13px] text-gray-500 whitespace-nowrap"
+              className="font-body text-[13px] text-muted-foreground whitespace-nowrap"
             >
               From
             </label>
@@ -343,16 +341,14 @@ export function AuditLogClient({
               type="date"
               value={filters.from}
               onChange={(e) => handleSelect('from', e.target.value)}
-              className="font-body text-sm text-gray-700 bg-white border border-gray-200 py-1.5 px-2 rounded-none outline-none"
-              onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
-              onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
+              className="font-body text-sm text-foreground bg-card border border-border py-1.5 px-2 rounded-none outline-none focus:border-primary"
             />
           </div>
 
           {/* Date to */}
           <div className="flex items-center gap-2">
             <label
-              className="font-body text-[13px] text-gray-500 whitespace-nowrap"
+              className="font-body text-[13px] text-muted-foreground whitespace-nowrap"
             >
               To
             </label>
@@ -360,9 +356,7 @@ export function AuditLogClient({
               type="date"
               value={filters.to}
               onChange={(e) => handleSelect('to', e.target.value)}
-              className="font-body text-sm text-gray-700 bg-white border border-gray-200 py-1.5 px-2 rounded-none outline-none"
-              onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
-              onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
+              className="font-body text-sm text-foreground bg-card border border-border py-1.5 px-2 rounded-none outline-none focus:border-primary"
             />
           </div>
 
@@ -370,9 +364,7 @@ export function AuditLogClient({
           {hasActiveFilters && (
             <button
               onClick={handleReset}
-              className="flex items-center gap-1 transition-colors duration-150 font-body text-sm font-medium text-foreground bg-transparent border-none py-1.5 px-2 cursor-pointer rounded-none"
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+              className="flex items-center gap-1 transition-opacity duration-150 font-body text-sm font-medium text-foreground bg-transparent border-none py-1.5 px-2 cursor-pointer rounded-none hover:opacity-70"
             >
               <X size={14} />
               Reset Filters

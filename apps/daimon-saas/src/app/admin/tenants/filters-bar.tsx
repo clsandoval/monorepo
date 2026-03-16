@@ -36,6 +36,10 @@ const SORT_OPTIONS = [
   { value: 'heartbeat_desc', label: 'Recently Active' },
 ]
 
+const selectBgImage = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`
+
+const selectClass = 'font-body text-sm text-foreground bg-card border border-border py-1.5 pr-8 pl-2.5 rounded-none appearance-none cursor-pointer bg-[length:12px_12px] bg-no-repeat bg-[position:right_8px_center] focus:border-primary outline-none'
+
 export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: FiltersBarProps) {
   const router = useRouter()
   const pathname = usePathname()
@@ -74,54 +78,22 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
     router.push(pathname)
   }
 
-  const selectStyle: React.CSSProperties = {
-    color: '#374151',
-    background: '#FFFFFF',
-    border: '1px solid #E5E7EB',
-    padding: '6px 32px 6px 10px',
-    borderRadius: 0,
-    appearance: 'none' as const,
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 8px center',
-    cursor: 'pointer'}
-
   return (
     <div
-      className="flex flex-wrap items-center gap-3"
-      style={{
-        padding: '12px 0',
-        borderBottom: '1px solid #E5E7EB',
-        marginBottom: '0',
-      }}
+      className="flex flex-wrap items-center gap-3 py-3 border-b border-border"
     >
       {/* Search */}
-      <div className="relative" style={{ width: '320px' }}>
+      <div className="relative w-[320px]">
         <Search
           size={16}
-          style={{
-            position: 'absolute',
-            left: '10px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            color: '#9CA3AF',
-            pointerEvents: 'none',
-          }}
+          className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
         />
         <input
           type="text"
           placeholder="Search by tenant name or owner email…"
           defaultValue={q}
           onChange={(e) => handleSearch(e.target.value)}
-          className="font-body text-sm" style={{width: '100%',
-            color: '#374151',
-            background: '#FFFFFF',
-            border: '1px solid #E5E7EB',
-            padding: '6px 10px 6px 34px',
-            borderRadius: 0,
-            outline: 'none'}}
-          onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
-          onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
+          className="font-body text-sm w-full text-foreground bg-card border border-border py-1.5 pl-[34px] pr-2.5 rounded-none outline-none focus:border-primary"
         />
       </div>
 
@@ -129,7 +101,7 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
       <select
         value={plan}
         onChange={(e) => handleSelect('plan', e.target.value)}
-        className="font-body text-sm" style={selectStyle}
+        className={selectClass} style={{ backgroundImage: selectBgImage }}
         aria-label="Filter by plan"
       >
         {PLAN_OPTIONS.map((opt) => (
@@ -143,7 +115,7 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
       <select
         value={status}
         onChange={(e) => handleSelect('status', e.target.value)}
-        className="font-body text-sm" style={selectStyle}
+        className={selectClass} style={{ backgroundImage: selectBgImage }}
         aria-label="Filter by status"
       >
         {STATUS_OPTIONS.map((opt) => (
@@ -157,7 +129,7 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
       <select
         value={sort || 'created_desc'}
         onChange={(e) => handleSelect('sort', e.target.value === 'created_desc' ? '' : e.target.value)}
-        className="font-body text-sm" style={selectStyle}
+        className={selectClass} style={{ backgroundImage: selectBgImage }}
         aria-label="Sort order"
       >
         {SORT_OPTIONS.map((opt) => (
@@ -171,14 +143,7 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
       {hasActiveFilters && (
         <button
           onClick={handleReset}
-          className="flex items-center gap-1 transition-colors duration-150 font-body text-sm font-medium text-foreground"
-          style={{background: 'transparent',
-            border: 'none',
-            padding: '6px 8px',
-            cursor: 'pointer',
-            borderRadius: 0}}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+          className="flex items-center gap-1 transition-opacity duration-150 font-body text-sm font-medium text-foreground bg-transparent border-none py-1.5 px-2 cursor-pointer rounded-none hover:opacity-70"
         >
           <X size={14} />
           Reset Filters

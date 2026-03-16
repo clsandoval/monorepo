@@ -104,10 +104,7 @@ export default async function AdminAuditLogPage({ searchParams }: PageProps) {
         return (
           <AdminLayout pageTitle="Audit Log">
             <div
-              className="font-body text-sm" style={{background: '#FEF2F2',
-                border: '1px solid #FECACA',
-                padding: '16px 20px',
-                color: '#991B1B'}}
+              className="font-body text-sm bg-destructive/10 border border-destructive/30 py-4 px-5 text-destructive"
             >
               Failed to load audit log. Refresh the page.
             </div>
@@ -154,7 +151,7 @@ export default async function AdminAuditLogPage({ searchParams }: PageProps) {
 
   return (
     <AdminLayout pageTitle="Audit Log">
-      <div style={{ maxWidth: '1200px' }}>
+      <div className="max-w-[1200px]">
         <Suspense fallback={null}>
           <AuditLogClient
             entries={entries ?? []}

@@ -971,12 +971,7 @@ export default function ToolReferencePage() {
           placeholder="Search tools by name or description…"
           value={query}
           onChange={(e) => handleQueryChange(e.target.value)}
-          className="font-body text-sm w-full h-11 pl-[38px] border border-gray-300 bg-white text-foreground outline-none box-border"
-          style={{
-            paddingRight: query ? '38px' : '12px',
-          }}
-          onFocus={(e) => (e.currentTarget.style.borderColor = 'hsl(var(--primary))')}
-          onBlur={(e) => (e.currentTarget.style.borderColor = '#D1D5DB')}
+          className={`font-body text-sm w-full h-11 pl-[38px] border border-border bg-card text-foreground outline-none box-border focus:border-primary ${query ? 'pr-[38px]' : 'pr-3'}`}
         />
         {query && (
           <button

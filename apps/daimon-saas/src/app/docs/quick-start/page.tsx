@@ -93,7 +93,7 @@ function Callout({
         {s.icon}
       </span>
       <div
-        className="font-body text-[15px] text-gray-700 leading-relaxed"
+        className="font-body text-[15px] text-foreground/80 leading-relaxed"
       >
         {children}
       </div>

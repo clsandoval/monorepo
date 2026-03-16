@@ -272,7 +272,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 
 ## Discovery (stages 211–215) `[discovery]`
 
-- [ ] **Stage 211**: Grep for remaining inline `style={}` across all `.tsx` files in `src/`. Every instance is a missed migration. Fix all found instances by converting to Tailwind/shadcn classes.
+- [x] **Stage 211**: Grep for remaining inline `style={}` across all `.tsx` files in `src/`. Every instance is a missed migration. Fix all found instances by converting to Tailwind/shadcn classes. (2026-03-16) — converted 27+ inline style instances across 10 files to Tailwind classes: blog lineHeight/maxWidth, audit-log loading (full rewrite from inline styles to Tailwind tokens), audit-log page error div and max-width, audit-log-client filter bar colors/focus handlers/hover handlers, tenants filters-bar (full rewrite), tenants loading skeletons (static dimensions), tenant detail loading skeletons, docs tools search padding/focus; remaining 23 inline styles are all legitimately dynamic (runtime-computed widths, JS-object-driven colors, fontVariationSettings, SVG data URL backgroundImage)
 - [ ] **Stage 212**: Grep for old imports — search for imports from deleted custom component files. Fix any dead imports. Search for unused exports in remaining component files.
 - [ ] **Stage 213**: Grep for hardcoded colors — search for `#0C1F40`, `#B4E7DD`, `#9FAAE2`, `#F7F7F7`, `#DC2626`, `rgba(12,31,64` in all `.tsx` and `.css` files outside of the CSS variable definitions. Every instance should use CSS vars. Fix all.
 - [ ] **Stage 214**: Final build + lint — run `npm run build` and `npm run lint`. Fix ALL errors and warnings. Zero tolerance.
