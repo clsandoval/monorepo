@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1056
-- **Analyzed:** 362
-- **Pending:** 699
-- **Convergence:** 34.1%
+- **Total aspects:** 1061
+- **Analyzed:** 363
+- **Pending:** 703
+- **Convergence:** 34.2%
 
 ---
 
@@ -797,7 +797,12 @@
 - [ ] 5.08a-i — Phase transition visual language specification: full pixel-level spec for the phase shift moment — screen ripple radius, color temperature shift values, spawner crack-open animation keyframes, terrain tile-flip timing, audio hit frequencies; consistent visual vocabulary across all missions
 - [ ] 5.08a-ii — Phase-aware Command agent rule design: how Command agent reroute/reassign skills interact with phase shifts; formal "phase detection" signal type vs. inferred detection from signal pattern changes; writing rules that trigger on environmental shifts
 - [ ] 5.08a-iii — Multi-phase Inspector timeline UX: phase markers on timeline scrubber, branch visualization for Fork model, ghost-trace alternate timelines; layering phase information onto existing Inspector without overwhelming
-- [ ] 5.08a-iv — Phase-shift-as-difficulty-dial: number and severity of phase shifts as difficulty multiplier; Normal/Hard/Nightmare phase frequency; phase shift frequency as Gauntlet mutator; continuous-shift "earthquake mode"
+- [x] 5.08a-iv — Phase-shift-as-difficulty-dial: number and severity of phase shifts as difficulty multiplier; Normal/Hard/Nightmare phase frequency; phase shift frequency as Gauntlet mutator; continuous-shift "earthquake mode"
+  - [ ] 5.08a-iv-i — The "Phase Profile Card" as pre-mission information design: what the player sees about phase difficulty before a mission; detail level vs. spoiler tension; layout, information hierarchy, progressive disclosure
+  - [ ] 5.08a-iv-ii — Earthquake mode as emergent narrative generator: continuous micro-shifts create unique board evolution stories; terrain drift as exportable "landscape biography"; interaction with replay export (4.23)
+  - [ ] 5.08a-iv-iii — Phase shift frequency as stream content differentiator: Earthquake mode's "chat sees drift before streamer" dynamic; chat prediction game; interaction with streaming/community (7.03)
+  - [ ] 5.08a-iv-iv — Adaptive phase difficulty based on performance: mission observes player's architecture and introduces shifts when succeeding too easily; rubber-banding difficulty through environmental volatility; interaction with invisible randomization
+  - [ ] 5.08a-iv-v — "Phase tolerance" as displayed architecture stat: computed metric in workbench estimating shifts before degradation, based on buffer margins, eviction robustness, and detection hook coverage; pre-mission readiness signal
 - [ ] 5.08a-v — The "Earthquake" model — terrain-only phase shifts: phase shifts that change ONLY terrain (hills collapse, rivers flood, buildings crumble) without new enemies; tests terrain-dependent vs terrain-agnostic information routing; the minimalist phase shift
 - [ ] 5.08b — Community mission editor: tools for creating custom missions of each type; mission type as template system with adjustable parameters
 - [ ] 5.08c — Mission type as difficulty language: using type names instead of star ratings; player self-selection into preferred types
