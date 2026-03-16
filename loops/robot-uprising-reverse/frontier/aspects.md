@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 984
-- **Analyzed:** 346
-- **Pending:** 638
-- **Convergence:** 35.2%
+- **Total aspects:** 989
+- **Analyzed:** 347
+- **Pending:** 642
+- **Convergence:** 35.1%
 
 ---
 
@@ -764,7 +764,12 @@
 - [ ] 5.08b — Community mission editor: tools for creating custom missions of each type; mission type as template system with adjustable parameters
 - [ ] 5.08c — Mission type as difficulty language: using type names instead of star ratings; player self-selection into preferred types
 - [ ] 5.08d — The Gauntlet Rotation meta-structure: how Gauntlet cycles through mission types; rotation schedule as meta-puzzle
-- [ ] 5.08e — Escort mission anti-frustration design: why escorts are hated elsewhere; "design-then-watch" as core differentiator; VIP-as-configured-agent
+- [x] 5.08e — Escort mission anti-frustration design: why escorts are hated elsewhere; "design-then-watch" as core differentiator; VIP-as-configured-agent
+- [ ] 5.08e-i — VIP stun vs. instant kill balancing: 3-tick stun window tuning, stun immunity cooldown, difficulty scaling, rescue probability math, comparison with Into the Breach Armored Train variant
+- [ ] 5.08e-ii — Escort formation presets as accessibility layer: pre-built escort blueprint sets (Diamond Formation, Sensor Net, Stealth Escort) as templates for new players; interaction with 5.04a template-seeding; cold-start problem for escort missions
+- [ ] 5.08e-iii — Escort mission sound design vocabulary: VIP heartbeat, formation footsteps, stun crackle, rescue scramble audio; complete audio vocabulary specific to escort missions; interaction with 6.10 corruption audio
+- [ ] 5.08e-iv — Dynamic escort formation visualization on Plan screen: ghost preview showing escort formation at each tick of VIP's projected path; coverage gaps, timing windows, perception overlaps; planning tool unique to escort missions
+- [ ] 5.08e-v — "The Silent Escort" as distinct mission archetype: escort + emissions model = stealth escort; minimal communication, compressed signals, dark network tactics; the quietest escort wins; distinct enough from standard escort to warrant own mission design
 - [x] 5.09 — Replayability: what makes someone start a new campaign
 - [ ] 5.09a — Blueprint presets as replay currency: unlocking pre-designed blueprint loadouts (like Into the Breach squads) that fundamentally change approach; "The Stealth Doctrine," "The Swarm," "The Singleton" as named playstyle presets
 - [ ] 5.09b — The "impossible challenge" community layer: community-submitted challenges with verified-impossible or extremely-difficult mutator combos; leaderboards for beautiful failure, not just victory
