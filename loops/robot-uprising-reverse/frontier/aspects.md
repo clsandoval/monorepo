@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1066
-- **Analyzed:** 364
-- **Pending:** 702
+- **Total aspects:** 1071
+- **Analyzed:** 365
+- **Pending:** 706
 - **Convergence:** 34.1%
 
 ---
@@ -1164,7 +1164,12 @@
 - [ ] 8.01 — Natural pairings: which building block paradigm works best with which buffer model
 - [ ] 8.02 — Conflict matrix: which options in different categories are incompatible
 - [ ] 8.03 — "Full game" configurations: 3-5 coherent complete designs across all categories
-- [ ] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
+- [x] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
+- [ ] 8.04a — The "second session" test for the MVG: what creates pull-back to a 5-mission prototype without progression systems or new content? "One more try" psychology for the minimum viable game
+- [ ] 8.04b — The Relay essentiality debate: could a two-unit MVG work if scouts had built-in compress? Minimum topology for emergence vs. simplest onboarding
+- [ ] 8.04c — Inspector engagement metrics: time-on-Inspector, unit clicks per debrief, scrubber positions visited as quality signals; how to detect and respond to Inspector skip behavior
+- [ ] 8.04d — The "factory shock" at Mission 5: Mission 5 introduces blueprints + production queue + economy simultaneously after 4 pre-placed-unit missions; should there be a Mission 4.5?
+- [ ] 8.04e — The MVG as web demo: 5-mission browser-playable demo as viral acquisition funnel; React + Pixi.js, under 5 minutes, shareable URL; the demo-to-full-game conversion path
 - [ ] 8.06 — The "first ugly solution" as tutorial completion: designing missions to be beatable with brute-force configurations so the histogram teaches optimization rather than a tutorial system; the Opus Magnum "no required optimization" pattern applied to agent configuration
 - [ ] 8.05 — The maximum viable game: everything at once — does it cohere or collapse?
 - [ ] 8.10 — The Gauntlet map template system: a library of Gauntlet-approved map templates with documented match-length distributions from playtesting; map selection for each Gauntlet season as a balance decision; community map submission with validation criteria (≥80% of matches in 60–150 tick range to be Gauntlet-eligible); map approval pipeline
