@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1297
-- **Analyzed:** 410
-- **Pending:** 887
-- **Convergence:** 31.5%
+- **Total aspects:** 1302
+- **Analyzed:** 411
+- **Pending:** 891
+- **Convergence:** 31.6%
 
 ---
 
@@ -667,7 +667,12 @@
   - [ ] 3.05a-ii-c — De Morgan linting as workbench diagnostic: static analysis identifying prefix chains using longer De Morgan forms and suggesting shorter equivalents; "boolean optimizer" as plan-screen tool
   - [ ] 3.05a-ii-d — Three-valued logic (Kleene) complications with ? prefix: formal specification of tri-state ? interaction with short-circuit semantics, De Morgan's laws, and truth table construction; player-visible differences from binary logic
   - [ ] 3.05a-ii-e — "Evaluation efficiency" as Zachtronics-style histogram metric: average evaluations-per-tick as community-visible optimization axis; boolean composition skill distribution across player population
-- [ ] 3.05a-iii — The accumulator prefix as consensus mechanic: majority voting in agent decisions ("at least 2 of 3 conditions must pass"); mapping to distributed consensus protocols (Raft, Paxos); mission design that teaches quorum
+- [x] 3.05a-iii — The accumulator prefix as consensus mechanic: majority voting in agent decisions ("at least 2 of 3 conditions must pass"); mapping to distributed consensus protocols (Raft, Paxos); mission design that teaches quorum
+  - [ ] 3.05a-iii-a — Quorum visualization during sealed watch at scale: when 6+ units each have TALLY/QUORUM blocks evaluating simultaneously, visual/audio prioritization of which quorum evaluations get full fidelity; camera proximity, decision significance, and player attention history as priority signals
+  - [ ] 3.05a-iii-b — Adaptive quorum thresholds via Command agent: Command agent dynamically adjusting subordinate QUORUM thresholds mid-battle; "alert level" meta-mechanic where organizational consensus strictness responds to tactical pressure; full UX of threshold-modification skill
+  - [ ] 3.05a-iii-c — Quorum as enemy attack surface: enemy behaviors targeting quorum decisions — injecting exactly N−threshold+1 false signals, timing fake signals to coincide with real ones, "quorum flooding" attack pattern; counter-play curriculum across Missions 8-10
+  - [ ] 3.05a-iii-d — The "hung jury" state: accumulator at threshold−1 with one TEST in ? state; distinct from "quorum failed"; should this trigger a ? handler? The hung jury as information-gathering trigger; mission design around engineering deliberate hung juries
+  - [ ] 3.05a-iii-e — Cross-agent quorum (distributed vote): multiple agents contributing votes via hook channels, Relay as tally agent aggregating QUORUM across the network; parallel to Raft distributed leader election; UX for configuring distributed quorum in workbench
 - [ ] 3.05a-iv — Prefix-to-behavior-tree visual translation in Inspector: showing instruction list as BOTH linear prefix sequence AND equivalent behavior tree diagram side-by-side; "Rosetta Stone" view bridging Gladiabots tree thinking and Shenzhen linear thinking
 - [ ] 3.05a-v — The evaluation waterfall as spectator sport: detailed visual design for instruction evaluation animation during sealed watch; split-screen choreography between waterfall trace and battlefield consequence; streaming/TikTok optimization
 - [ ] 3.05a-i-a — The trust horizon as tunable parameter: configurable threshold for data absence before ? fires; UI for per-TEST trust horizon sliders; interaction with eviction policy and buffer size
