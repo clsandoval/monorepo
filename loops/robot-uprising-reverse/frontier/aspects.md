@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1147
-- **Analyzed:** 380
-- **Pending:** 767
+- **Total aspects:** 1152
+- **Analyzed:** 381
+- **Pending:** 771
 - **Convergence:** 33.1%
 
 ---
@@ -1246,7 +1246,12 @@
 - [ ] 8.04a — The "second session" test for the MVG: what creates pull-back to a 5-mission prototype without progression systems or new content? "One more try" psychology for the minimum viable game
 - [ ] 8.04b — The Relay essentiality debate: could a two-unit MVG work if scouts had built-in compress? Minimum topology for emergence vs. simplest onboarding
 - [ ] 8.04c — Inspector engagement metrics: time-on-Inspector, unit clicks per debrief, scrubber positions visited as quality signals; how to detect and respond to Inspector skip behavior
-- [ ] 8.04d — The "factory shock" at Mission 5: Mission 5 introduces blueprints + production queue + economy simultaneously after 4 pre-placed-unit missions; should there be a Mission 4.5?
+- [x] 8.04d — The "factory shock" at Mission 5: Mission 5 introduces blueprints + production queue + economy simultaneously after 4 pre-placed-unit missions; should there be a Mission 4.5?
+- [ ] 8.04d-i — Phase 1 skip detection design: heuristics for recognizing veteran players in Phase 1 (time-to-first-blueprint, config element count, keyboard shortcut use); "RAPID ASSEMBLY DETECTED" boot log as earned recognition; speedrun and accessibility interaction
+- [ ] 8.04d-ii — The Split pattern as reusable campaign template: if M5 uses two-act (guided → open) structure, should M6-M8 also use it? When does the pattern become patronizing? The "earned skip" threshold increasing over the campaign
+- [ ] 8.04d-iii — Factory Proving Ground as persistent sandbox: sandbox (Model F) as permanent campaign-map fixture after M5; experimentation space, stress-test bench, competitive loadout laboratory; interaction with Ghost Matches (1.06c) and Gauntlet preparation
+- [ ] 8.04d-iv — The blank-page gradient across M5-M10: Mission 5 has the most constrained blank page; each subsequent mission widens it; mapping "degrees of freedom" gradient and how each mission adds exactly one new axis of freedom
+- [ ] 8.04d-v — Phase 1 as dynamic difficulty assessment (DDA): using Phase 1 performance to adjust Phase 2's resource budget or enemy composition; invisible difficulty tuning through the factory shock itself
 - [ ] 8.04e — The MVG as web demo: 5-mission browser-playable demo as viral acquisition funnel; React + Pixi.js, under 5 minutes, shareable URL; the demo-to-full-game conversion path
 - [ ] 8.06 — The "first ugly solution" as tutorial completion: designing missions to be beatable with brute-force configurations so the histogram teaches optimization rather than a tutorial system; the Opus Magnum "no required optimization" pattern applied to agent configuration
 - [ ] 8.05 — The maximum viable game: everything at once — does it cohere or collapse?
