@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1232
-- **Analyzed:** 397
-- **Pending:** 835
+- **Total aspects:** 1237
+- **Analyzed:** 398
+- **Pending:** 839
 - **Convergence:** 32.2%
 
 ---
@@ -685,11 +685,16 @@
 - [ ] 3.09a — Blocking hook semantics: hooks that require both sender and receiver to be "ready" (not busy, in range, buffer not full) — implicit timing without a global clock (from TIS-100 blocking port model)
 - [ ] 3.10a — Hook range as spatial mechanic: hooks that only fire within a configurable range radius; design options (fixed range, configurable per hook, range extenders as skill, relay positioning as tactical mini-game); how range requirements choreograph agent deployment
 - [x] 3.10 — Hook visualization: how does the player see the wiring between agents? How are active hooks shown during execution?
-- [ ] 3.10b — Signal latency legibility: how the player learns and predicts multi-tick signal travel times; spatial vs temporal distance; paradigm-specific latency communication
+- [x] 3.10b — Signal latency legibility: how the player learns and predicts multi-tick signal travel times; spatial vs temporal distance; paradigm-specific latency communication
 - [ ] 3.10c — Channel color assignment and palette management: auto-assignment vs player choice; color-blind palettes; palette exhaustion at 8+ channels
 - [ ] 3.10d — Wire routing algorithms for the subway map paradigm: path-finding along grid edges, crossing handling, parallel lane stacking, manual waypoints, Bézier vs right-angle
 - [ ] 3.10e — EM emission visualization: making detectable noise visible; separate overlay vs integrated; relationship between "signals you see" and "signals the enemy detects"
 - [ ] 3.10f — Visualization density scaling across the 10-mission arc: 2 units/0 channels (M1) to 12+ units/8+ channels (M10); paradigm breakdown thresholds; progressive disclosure gates
+- [ ] 3.10b-i — Latency wavefront as pre-battle prediction tool: the concentric T+1/T+2/T+3 rings shown when hovering a unit in Plan screen; visual design of wavefront rendering, animation timing, color gradient, interaction with ghost unit previews; whether wavefronts should show per-channel or aggregate all channels
+- [ ] 3.10b-ii — Latency budget as workbench panel: the threat-closure calculation (signal hops vs. enemy tiles-to-kill) as a persistent workbench readout; design of the latency thermometer bar; real-time updates on architecture changes; when to show budget (always vs. on-demand); integration with mission briefing data
+- [ ] 3.10b-iii — Counterfactual latency in Inspector: "what if this signal had taken a direct path?" overlay showing hypothetical faster chain alongside actual chain; the ghost-chain visualization; when counterfactual suggestions cross from helpful to prescriptive; integration with fork-and-deploy (4.44)
+- [ ] 3.10b-iv — Latency as audible rhythm: signal hops as inter-motif musical spacing; the trained ear can diagnose latency without looking at the screen; interaction with channel audio identity (6.02d); the 1-hop-1-beat pattern as musical teaching device; multi-channel polyrhythm as network health diagnostic
+- [ ] 3.10b-v — Dynamic latency during execution: how unit movement, relay destruction, and signal rerouting change effective latency mid-battle; the gap between plan-phase predictions and execution-phase reality; should the Inspector show "predicted vs. actual latency" comparison; the "latency surprise" as a designed teaching moment
 - [x] 3.11 — Hooks UI: how does the player create and manage hooks?
 - [ ] 3.11a — Hook template presets per unit type: should each unit type come with pre-suggested hooks? How do presets help onboarding without limiting creativity?
 - [ ] 3.11b — The "dead hook" diagnostic: when a hook has fired 0 times in the last N executes, should the Inspector flag it as misconfigured? Amber warning on unused hooks
