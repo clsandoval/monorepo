@@ -235,7 +235,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 186**: Integrations — service grid — verify grid renders available integrations. Discord connection card shows disconnected state with setup instructions. (2026-03-16)
 - [x] **Stage 187**: Integrations — Discord card states — verify card renders correctly for disconnected state. If possible, simulate connected state and verify status badge changes. (2026-03-16)
 - [x] **Stage 188**: Settings — account section — change display name to "Test Name", submit, verify success toast. Reload page, verify "Test Name" persisted. Change back to original. (2026-03-16)
-- [ ] **Stage 189**: Settings — workspace section — change workspace name to "Test Workspace", submit, verify success toast. Reload, verify persisted. Change back to "CL's Workspace".
+- [x] **Stage 189**: Settings — workspace section — change workspace name to "Test Workspace", submit, verify success toast. Reload, verify persisted. Change back to "CL's Workspace". (2026-03-16) — fixed: added missing SUPABASE_SERVICE_ROLE_KEY to .env.local (was causing 500 on workspace API)
 
 ## Admin Flow QA (stages 190–195) `[flow-qa]`
 
