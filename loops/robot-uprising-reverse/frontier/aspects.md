@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1071
-- **Analyzed:** 365
-- **Pending:** 706
-- **Convergence:** 34.1%
+- **Total aspects:** 1076
+- **Analyzed:** 366
+- **Pending:** 710
+- **Convergence:** 34.0%
 
 ---
 
@@ -1045,7 +1045,12 @@
   - [ ] 7.02a-iv — The "dead channel" cleanup ritual: how the game encourages or automates discovery and removal of unused channels; channel pruning as architectural hygiene; the Slack Channel Problem and its mitigation in gameplay terms
   - [ ] 7.02a-v — Rich text in channel names: supporting emoji, icons, and color in channel names as visual convention accelerators; Factorio's `[item=iron-plate]` rich text model; accessibility implications (screen readers, colorblind modes)
 - [x] 7.03 — Async challenges: "beat my architecture" shareable puzzles
-- [ ] 7.03a — Config Code format design: exact encoding format, compression strategy, version migration, URL scheme, QR code generation, backward compatibility when game primitives change between versions
+- [x] 7.03a — Config Code format design: exact encoding format, compression strategy, version migration, URL scheme, QR code generation, backward compatibility when game primitives change between versions
+  - [ ] 7.03a-i — Partial blueprint sharing format: encoding a single blueprint (not full architecture) for import into existing configs; template marketplace implications; "install this relay blueprint" as atomic community content unit
+  - [ ] 7.03a-ii — Config Code diff visualization: side-by-side comparison of two Config Codes showing rule/hook/channel changes; the "git diff for attention architectures" design; integration with Inspector comparison views
+  - [ ] 7.03a-iii — Replay seed embedding in Config Codes: optional replay seed + scenario ID appended to config code, enabling reproducible experiments; "import my config AND my exact battle" as community debugging tool; interaction with invisible randomization (locked)
+  - [ ] 7.03a-iv — Config Code analytics and popularity tracking: CDN-based resolution counting for shortlinks; import frequency as Workshop discovery signal; trending configs; privacy implications of tracking code resolution
+  - [ ] 7.03a-v — Config Code as pedagogical artifact format: classroom-specific extensions (assignment metadata, constraint annotations, grading rubric hints embedded in code metadata); the "lab worksheet" Config Code variant for educational contexts
 - [ ] 7.03b — Community moderation infrastructure: grief prevention (impossible bounties, bad Evolution Chain contributions, offensive names), report system, automated quality detection, trust levels
 - [ ] 7.03c — Reputation economy design: circuit tokens, contributor badges, featured-creator program, reputation decay, and how reputation interacts with Gauntlet rating as parallel social currencies
 - [ ] 7.03d — Workshop search and discovery UX: full design of search, filtering, tag taxonomy, recommendation engine, trending algorithms, and config similarity detection
