@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1026
-- **Analyzed:** 355
-- **Pending:** 671
-- **Convergence:** 34.6%
+- **Total aspects:** 1031
+- **Analyzed:** 356
+- **Pending:** 675
+- **Convergence:** 34.5%
 
 ---
 
@@ -505,7 +505,12 @@
 ### Buffer Models
 - [x] 2.01 — Fixed-slot buffer: N discrete slots, each holds one observation/message, oldest evicted first
 - [x] 2.02 — Weighted buffer: entries have different sizes (a location = 1 slot, a full report = 3 slots)
-- [ ] 2.03 — Decay buffer: entries fade over time rather than being evicted discretely (freshness gradient)
+- [x] 2.03 — Decay buffer: entries fade over time rather than being evicted discretely (freshness gradient)
+  - [ ] 2.03a — Freshness-aware rule evaluation order: first-match-wins (simplest, ghost data risk) vs. freshest-match-wins (smarter, less predictable) vs. player-configurable match strategy (first/freshest/highest-priority); interaction with rule priority ordering
+  - [ ] 2.03b — Terrain-modified decay rates: jungle accelerates decay, city decelerates, Taal variable; terrain as information infrastructure; interaction with 2.14e terrain-as-mission-identity and 6.01a-ii biome signal propagation
+  - [ ] 2.03c — Decay as difficulty axis: per-mission decay rate parameter from near-zero (tutorial) to aggressive (late campaign) to asymmetric (final boss); interaction with 2.19 variable scenario seeds
+  - [ ] 2.03d — The "memory palace" Specialist skill: protected sub-buffer of 2-3 zero-decay pinned entries; permanent slot cost; maps to Redis PERSIST; interaction with 2.09 sticky memories
+  - [ ] 2.03e — Visual decay language across three screens: freshness rendering at Plan (thermometer), Sealed Watch (opacity pips — legible at tile scale?), Inspector (sparkline); critical question of whether decay information belongs exclusively in Inspector; interaction with 6.01b-v sprite readability
 - [ ] 2.04 — Categorized buffer: separate pools for different info types (threats, terrain, comms, memories)
 - [ ] 2.05 — Shared buffer: group of units shares a collective memory pool
 
