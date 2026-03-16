@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1277
-- **Analyzed:** 406
-- **Pending:** 871
-- **Convergence:** 31.8%
+- **Total aspects:** 1282
+- **Analyzed:** 407
+- **Pending:** 875
+- **Convergence:** 31.7%
 
 ---
 
@@ -1280,6 +1280,11 @@
 - [ ] 7.05c — Histogram population health over time: as the game matures histograms compress toward optimal values; maintaining histogram diversity via seasonal scenario rotations, mission variants, population segmentation; the "spike problem" when optimal solutions are discovered
 - [ ] 7.05d — The "optimization identity" as community role: players self-sorting into archetypes (speedrunner, elegance purist, Pareto hunter, garden-maxer); designing for archetype emergence and recognition; profile badges and community role vocabulary
 - [ ] 7.05e — Config Sketch design constraints for Pareto Gallery: the right abstraction level (unit types + counts + topology vs. just metrics); the "learning gap" between sketch and working config IS the game; preventing copy-paste while enabling learning
+- [ ] 8.01a — Progressive pairing campaign pacing: exact mission-by-mission breakdown of which building-block paradigm and buffer model are active; how paradigm SHIFTS feel as boot log events; transition UX (workbench transforms gradually or in a single moment); one-variable-at-a-time principle across 10 missions
+- [ ] 8.01b — Pairing-specific Inspector layouts: each building-block × buffer-model pairing demands different Inspector tools (flow lane needs frozen graph, decay needs sparklines, categorized needs compartment timeline); how Inspector adapts when pairing changes across campaign; Inspector as the unifying thread across paradigm shifts
+- [ ] 8.01c — Gauntlet pairing selection as competitive expression: post-campaign PvP where players choose their own building-block paradigm and buffer model; public declaration, matchmaking per pairing, pairing as strategic signal; interaction with seasonal modifiers (7.09a)
+- [ ] 8.01d — Pairing-specific sealed watch readability: which buffer model visual representations remain readable at 2x speed on isometric tiles; fixed-slot pips vs. decay opacity vs. weighted variable-width vs. categorized colored sections; readability testing criteria
+- [ ] 8.01e — The Stigmergy Fork: Sentence Strips × Shared/Stigmergy produces a fundamentally different game where the board replaces the workbench as primary interface; game mode vs. mission variant vs. spin-off; interaction with terrain biomes and mark persistence
 
 ---
 
@@ -1354,7 +1359,7 @@
 
 ## Wave 8: Cross-Cutting Synthesis
 
-- [ ] 8.01 — Natural pairings: which building block paradigm works best with which buffer model
+- [x] 8.01 — Natural pairings: which building block paradigm works best with which buffer model
 - [ ] 8.02 — Conflict matrix: which options in different categories are incompatible
 - [ ] 8.03 — "Full game" configurations: 3-5 coherent complete designs across all categories
 - [x] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
