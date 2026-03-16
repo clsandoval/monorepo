@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1008
-- **Analyzed:** 351
-- **Pending:** 657
+- **Total aspects:** 1013
+- **Analyzed:** 352
+- **Pending:** 661
 - **Convergence:** 34.8%
 
 ---
@@ -591,7 +591,12 @@
   - [ ] 3.06d — Rule ordering as transferable skill: explicit mapping to firewall rules, CSS specificity, exception handling, SRE runbook priority, production rule systems
   - [ ] 3.06e — Competitive meta around conflict-free architectures: deliberate conflicts as decoy strategy (EM spike bait), "controlled chaos" as advanced PvP technique
 - [x] 3.07 — Rules UI: how does the player write/edit/reorder rules?
-- [ ] 3.07a — Rules panel layout at scale: what does 12-20 rules look like on a Command unit? Scrolling vs. pagination vs. collapsible groups; the "wall of rules" readability problem
+- [x] 3.07a — Rules panel layout at scale: what does 12-20 rules look like on a Command unit? Scrolling vs. pagination vs. collapsible groups; the "wall of rules" readability problem
+  - [ ] 3.07a-i — Cross-rule comparison in the detail flyout: pinned comparison mode showing two rules side-by-side in the flyout; split-screen detail view, diff highlighting for shared conditions, conflict indicator for overlapping triggers
+  - [ ] 3.07a-ii — The "Expected Dormant" rule annotation system: marking contingency rules as intentionally dormant to suppress false dead-rule alerts; annotation types (expected dormant, threshold-dependent, aspirational); visual markers; persistence across sessions; interaction with Inspector diagnostics
+  - [ ] 3.07a-iii — Execution overlay as difficulty-adaptive teaching tool: the overlay teaches different things at different player stages (new players learn dead rules exist, intermediates learn priority affects firing frequency, experts read architectural health); visual vocabulary evolution across 10 missions
+  - [ ] 3.07a-iv — The minimap as shareable "config silhouette": compact image export of the minimap state as thumbnail for shared configs; the silhouette as the "album cover" of a blueprint; interaction with community sharing (7.03) and streamer culture
+  - [ ] 3.07a-v — Adaptive slot counts per unit type as balance lever: slot counts as unlockable progression (Scout starts 4, unlocks to 8); interaction with skill acquisition (3.03) and meta-progression (5.04); slot count as difficulty dial vs. fixed constraint
 - [ ] 3.07b — Rules copy-paste between blueprints: can the player copy a rule strip from one blueprint and paste it into another? Cross-unit-type compatibility for shared conditions
 - [ ] 3.07c — Rules diff view in Inspector: show which rules changed since last execute; "you added rule 4 and reordered 2-3" as explicit debrief feedback
 - [ ] 3.07d — Rules panel keyboard shortcuts: expert keyboard-only workflow for rule creation and reordering; Ctrl+N, Ctrl+Up/Down, Ctrl+D; the mouseless speedrun
