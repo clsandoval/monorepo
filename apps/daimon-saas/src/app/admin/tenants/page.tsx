@@ -464,13 +464,7 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
                   {tenants.map((tenant) => (
                     <tr
                       key={tenant.id}
-                      style={{ background: '#FFFFFF' }}
-                      onMouseEnter={(e) =>
-                        ((e.currentTarget as HTMLTableRowElement).style.background = '#F9FAFB')
-                      }
-                      onMouseLeave={(e) =>
-                        ((e.currentTarget as HTMLTableRowElement).style.background = '#FFFFFF')
-                      }
+                      className="bg-white hover:bg-gray-50 transition-colors"
                     >
                       {/* Tenant name + email */}
                       <td style={tdStyle}>
@@ -558,24 +552,7 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
                       <td style={tdStyle}>
                         <Link
                           href={`/admin/tenants/${tenant.id}`}
-                          style={{
-                            fontFamily: 'var(--font-inter)',
-                            fontSize: '13px',
-                            fontWeight: 500,
-                            color: '#0C1F40',
-                            border: '1px solid #E5E7EB',
-                            padding: '4px 12px',
-                            textDecoration: 'none',
-                            display: 'inline-block',
-                            background: '#FFFFFF',
-                            whiteSpace: 'nowrap',
-                          }}
-                          onMouseEnter={(e) =>
-                            ((e.currentTarget as HTMLAnchorElement).style.background = '#F9FAFB')
-                          }
-                          onMouseLeave={(e) =>
-                            ((e.currentTarget as HTMLAnchorElement).style.background = '#FFFFFF')
-                          }
+                          className="font-inter text-[13px] font-medium text-foreground border border-gray-200 px-3 py-1 no-underline inline-block bg-white hover:bg-gray-50 whitespace-nowrap transition-colors"
                         >
                           View
                         </Link>
