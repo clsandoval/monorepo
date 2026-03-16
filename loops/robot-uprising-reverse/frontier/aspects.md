@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1312
-- **Analyzed:** 413
-- **Pending:** 899
-- **Convergence:** 31.5%
+- **Total aspects:** 1317
+- **Analyzed:** 414
+- **Pending:** 903
+- **Convergence:** 31.4%
 
 ---
 
@@ -1075,7 +1075,12 @@
   - [ ] 7.04d — Modder IP ownership and licensing: explicit modder rights, Creative Commons defaults, commercial mod monetization policy, the Blizzard Reforged anti-pattern; how IP policy affects community trust and total conversion investment
   - [ ] 7.04e — Modded content discoverability and curation: Workshop browsing UX for mods (separate from blueprint sharing), quality signals (ratings, play counts, completion rates), featured mod program, editorial curation vs. algorithmic surfacing
 - [x] 7.05 — Leaderboards and optimization: Zachtronics-style histograms, community competition
-- [ ] 7.13 — Community "find the pivot" tournament format: a formal async tournament where a featured match is posted and participants submit pivot guesses within a 24-hour window; the distribution of guesses displayed after deadline shows false pivot clustering; the metagame of collective diagnostic calibration; no debrief tools allowed during submission window
+- [x] 7.13 — Community "find the pivot" tournament format: a formal async tournament where a featured match is posted and participants submit pivot guesses within a 24-hour window; the distribution of guesses displayed after deadline shows false pivot clustering; the metagame of collective diagnostic calibration; no debrief tools allowed during submission window
+  - [ ] 7.13a — Anti-spoiler infrastructure for find-the-pivot matches: preventing inspector access before submission; anti-cheat for screen-recording and replay tools; match encryption and reveal key distribution; preventing streamers from revealing answers before deadline
+  - [ ] 7.13b — Pivot accuracy as matchmaking signal: diagnostic skill vs. creative design skill as orthogonal ability axes; whether diagnostic accuracy should influence Gauntlet matchmaking or remain a separate ranking
+  - [ ] 7.13c — The "Crowd Wisdom" metric: tracking how often the histogram peak (modal guess) matches the EDT; aggregated intuition vs. individual expert accuracy; community diagnostic calibration as a meta-metric
+  - [ ] 7.13d — Find-the-pivot for campaign missions (single-player variant): sealed-only replay after mission completion; self-diagnostic training without community; the "diagnostic journal" as solo accuracy tracker
+  - [ ] 7.13e — Pivot difficulty rating for match selection: algorithmic difficulty score based on false-pivot count, EDT distance from nearest combat event, signal-vs-combat ratio, relay chain depth; automated match curation for daily/weekly formats
 - [ ] 7.14 — Annotation accuracy leaderboard: a global leaderboard tracking not win rate but "annotation accuracy" — players who consistently mark within ±5 ticks of the diamond before revealing; top annotators as the "diagnosticians" of the competitive community whose config necropsies carry authority because their manual pivot-identification is provably calibrated
 - [x] 7.09 — The arms race as designed meta-evolution: Gauntlet meta not controlled by designers but evolving from player innovation; how to design a game that supports meta-evolution without locking into a dominant strategy; intervention points (seasonal resets, new skill/hook unlocks) vs. pure player-driven evolution
   - [x] 7.09a — Seasonal modifier design space: exhaustive catalog of possible modifiers (EM range, signal latency, buffer size, perception range, starting noise, unit cost scaling, terrain effects) with interaction matrices and archetype impact analysis; which modifiers create healthy meta-shifts vs. which create degenerate dominant strategies
