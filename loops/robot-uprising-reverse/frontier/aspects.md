@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1292
-- **Analyzed:** 409
-- **Pending:** 883
-- **Convergence:** 31.7%
+- **Total aspects:** 1297
+- **Analyzed:** 410
+- **Pending:** 887
+- **Convergence:** 31.5%
 
 ---
 
@@ -441,7 +441,12 @@
 - [x] 1.17 — Into the Breach: perfect information tactics, consequence preview, small-scale precision
 - [ ] 1.18 — Invisible Inc: information as primary resource, stealth + turn-based, alarm escalation
 - [ ] 1.19 — XCOM series: fog of war, probability management, squad persistence, permadeath stakes
-- [ ] 1.20 — Cogmind: robot-themed roguelike, part-swapping system, information-dense UI
+- [x] 1.20 — Cogmind: robot-themed roguelike, part-swapping system, information-dense UI
+- [ ] 1.20a — The "salvage reveal" mechanic as enemy blueprint inspection: when a Robot Uprising unit dies, should the Inspector reveal the enemy unit's full configuration as a knowledge-looting pattern? Cogmind scatters destroyed robot parts visually; Robot Uprising could scatter destroyed robot configurations informationally
+- [ ] 1.20b — Gradual degradation vs. binary death: Cogmind's part-by-part degradation creates a rich mid-state between functional and dead; should Robot Uprising explore a "damaged" state where units lose context slots from near-misses or EM attacks? The design space between one-shot-one-kill and HP bars
+- [ ] 1.20c — The "naked core" recovery moment: Cogmind's most iconic moment is being stripped to a bare core and rebuilding from salvage; what is Robot Uprising's equivalent when the factory is destroyed? Does the game have a "rebuild from nothing" mechanic or is factory loss immediate defeat?
+- [ ] 1.20d — Audio-as-intelligence in sealed watch: Cogmind players identify threats by sound before seeing them; should Robot Uprising's sealed watch include audio signals that experienced players learn to decode? Signal chain sounds whose pitch/pattern indicates network health
+- [ ] 1.20e — The Polymind inversion as Robot Uprising variant mode: a variant where the player directly controls one unit while the rest run autonomously — the "field commander" mode testing whether blueprints work without intervention
 
 ### Auto-Battler / Hands-Off Execution Games
 - [ ] 1.21 — Teamfight Tactics / Dota Underlords: plan then watch, positioning matters, synergy traits
