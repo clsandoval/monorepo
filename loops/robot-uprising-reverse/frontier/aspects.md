@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1242
-- **Analyzed:** 399
-- **Pending:** 843
+- **Total aspects:** 1247
+- **Analyzed:** 400
+- **Pending:** 847
 - **Convergence:** 32.1%
 
 ---
@@ -810,7 +810,12 @@
   - [ ] 5.15c — Voice switching as player preference: settings toggle for Tactical (Reyes-dominant), Archive (Unit-0-dominant), Combined view; accessibility tradeoff of fragmenting the audience vs. enabling comfort
   - [ ] 5.15d — The Logistics Desk 4 character in Voice C: can a bureaucrat who communicates only through passive-aggressive memos become someone the player cares about? The recurring institutional character as community meme
   - [ ] 5.15e — Voice-specific corruption detection difficulty: each voice has different corruption legibility; designing the corruption difficulty curve per-voice; Voice A corruption easiest to detect, Voice D hardest; voice-layered corruption difficulty in hybrid A+B
-- [ ] 5.16 — The non-alt-tab embedded document UI: design exploration of a togglable in-workbench reference panel that maintains diegetic framing without alt-tab friction; panel behavior, docking, visual treatment
+- [x] 5.16 — The non-alt-tab embedded document UI: design exploration of a togglable in-workbench reference panel that maintains diegetic framing without alt-tab friction; panel behavior, docking, visual treatment
+- [ ] 5.16a — Terminal content authoring pipeline: how ~30 term entries + cross-cutting interaction descriptions are authored; manual vs. templated vs. player-behavior-driven prioritization; combinatorial explosion management
+- [ ] 5.16b — Terminal in Inspector mode: detailed design of how the reference terminal functions during Inspector phase; tick-state-aware context, "why did X fire at tick N" queries, replay-grounded reference
+- [ ] 5.16c — Terminal as community sharing surface: shareable query result links; "here's the interaction between compress and EM" as URL that opens terminal to that entry; community knowledge sharing
+- [ ] 5.16d — Terminal progressive disclosure across campaign: which terminal features unlock when (M1 context only, M3 query, M5 related, M7 cross-cutting synthesis, M10 full); the terminal itself teaches over time
+- [ ] 5.16e — Terminal accessibility: screen reader navigation of three-column layout, keyboard-only operation, high-contrast mode, reduced-motion scan-line removal, audio descriptions of micro-scenarios
 - [x] 5.17 — The hybrid tutorial architecture: mapping the transition from interactive first-touch tutorial (teaches procedures) to diegetic document (teaches concepts and provides reference) — where the handoff happens and what the transition feels like; six handoff models (A "Clean Break" dark-souls-cliff, B "Gradual Fade" BotW-style invisible graduation, C "Dual Track" Civ6-civilopedia simultaneous-from-start, D "Materialization" cards-crystallize-from-experience Inscryption-inspired, E "Mentor Withdrawal" Unit-0-leaves-but-lives-in-archive emotional-beat, F "Living Handoff" procedure/concept-division parallel-tracks); RECOMMENDED D+F hybrid "The Experiential Archive" — interactive procedures generate Codex concept cards (M1-4), Codex initialization ceremony at M5 (cards lift/sort/grid with kulintang chord), Inspector-Codex bridge as mature teaching cycle (failure→diagnostic→concept-link→fix→retest = Kolb's experiential learning cycle); three-mission-delay relevance cycle (M1 concepts become meaningful at M4 when new situations create genuine questions); 4 player journeys (Sofia 15 discovering Codex is answer-key-to-failures not decoration, Marcus 42 Factorio-vet pre-reading Codex as pilot-checklist, Aisha 14 first-strategy-gamer using Inspector-Codex bridge to diagnose eviction priority failure, Dr. Ramirez 55 CS professor evaluating constructivist pedagogy + Vygotsky tension); interaction effects with boot log narrative role-shift, vocabulary pacing handrails, Blueprint Codex collection design, Inspector deep-linking, filter puzzle card-generation, voice candidates register-shift (Reyes=procedure, Unit 0=concept); comparable: Shenzhen I/O (no handoff), EXAPUNKS (early TWN handoff), Into the Breach (invisible fade), Slay the Spire (community-dependent), TUNIC (discovery-based), Baba Is You (zero-text)
   - [ ] 5.17a — The "three-mission-delay" relevance cycle: detailed design of how the Codex surfaces old entries when new situations make them relevant; beyond Inspector links, should the Codex itself suggest "related reading" based on recent failures? Risk of noise vs. benefit of connection-making
   - [ ] 5.17b — Codex entry quality and voice calibration: what makes a good Codex entry? Length, tone, abstraction level, use of examples, inclusion of edge cases; entry writing as a design discipline — each entry must serve both the first-time reader and the fifth-time re-reader
