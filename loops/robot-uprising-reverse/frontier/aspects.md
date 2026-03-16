@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1162
-- **Analyzed:** 383
-- **Pending:** 779
-- **Convergence:** 33.0%
+- **Total aspects:** 1167
+- **Analyzed:** 384
+- **Pending:** 783
+- **Convergence:** 32.9%
 
 ---
 
@@ -387,7 +387,12 @@
 - [ ] 1.06c-ext-E — Match volume compensation through AI ghosts: when community is small, AI-generated adversary configs fill the async match pool; designing AI ghosts indistinguishable in debrief from human configs; labeling AI vs. human matches; whether AI ghost matches count toward ELO
 - [ ] 1.06d — The Gladiabots meta-visibility gap: non-transitive strategy relationships players can't see until they've lost; design options for surfacing meta (counter-strategy hints, meta-map visualization, post-match strategy classification); does Robot Uprising want transparent or opaque meta-knowledge?
 - [ ] 1.06e — Anthropomorphization as engagement hook: players naming bots, narrating personalities, framing mechanical changes as character growth; how Robot Uprising designs for it deliberately (unit portraits, persistent bot identities, mission memory, named bot achievements)
-- [ ] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
+- [x] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
+- [ ] 1.07a — The RAM-as-context-window parallel: how Bitburner's static RAM analysis (compile-time function cost → fits/doesn't-fit) vs. Robot Uprising's dynamic context window (runtime fill/evict) create fundamentally different player tensions; static constraint = build-time optimization, dynamic constraint = runtime drama
+- [ ] 1.07b — The code wall as design lesson: Bitburner's scripting cliff (manual→JavaScript transition) as cautionary data for Robot Uprising's workbench accessibility; dropout rate analysis; what specific affordances prevent the equivalent wall in visual configuration
+- [ ] 1.07c — The batch script coordination pattern: Bitburner's HWGW timing attacks as pure-code precursor to Robot Uprising's hook/channel signal chains; extracting the coordination design pattern from code into visual wiring
+- [ ] 1.07d — Prestige loops that change the game: BitNode system as model for Robot Uprising's post-campaign progression; each reset introduces new systems rather than just scaling numbers; how the Gauntlet or New Game+ could vary game rules rather than just difficulty
+- [ ] 1.07e — Idle accumulation vs. sealed watch tension: the fundamental emotional design choice between "my system works while I'm away" (Bitburner) and "I must watch my system execute under pressure" (Robot Uprising); when each emotional register serves the game
 - [ ] 1.08 — SpaceChem: visual programming as chemistry metaphor, production pipeline design
 
 ### Combo Discovery / Deckbuilding Games
