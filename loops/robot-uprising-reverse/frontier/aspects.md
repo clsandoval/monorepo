@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1327
-- **Analyzed:** 416
-- **Pending:** 911
-- **Convergence:** 31.4%
+- **Total aspects:** 1332
+- **Analyzed:** 417
+- **Pending:** 915
+- **Convergence:** 31.3%
 
 ---
 
@@ -232,7 +232,12 @@
 - [ ] 1.09c — Cumulative Gauntlet modifiers as skill teachers: designing 15-20 specific Gauntlet difficulty modifiers where each one teaches a defensive technique (wider enemy perception → stealth design, pre-filled noise → eviction mastery, channel pollution → authentication, latency increase → loose coupling); Slay the Spire Ascension as template
 - [ ] 1.09d — Near-miss visibility as retention engine: how the Inspector must surface "the one configuration change that would have changed the outcome" to create Slay the Spire's "I was SO close" psychology; the difference between "you lost" and "you lost because Rule 3 evaluated stale data from tick 12"
 - [ ] 1.09e — Slay the Spire 2 co-op design lessons: how the sequel's cooperative multiplayer (shared run with distinct roles) maps to Robot Uprising co-op models; 3M copies in one week as market validation for cooperative deckbuilder-adjacent design; what changed from solo to co-op and what broke
-- [ ] 1.10 — The Bazaar: real-time autobattler deckbuilding, item synergies, economic meta
+- [x] 1.10 — The Bazaar: real-time autobattler deckbuilding, item synergies, economic meta
+  - [ ] 1.10a — The Bazaar's adjacency-first synergy vs. Robot Uprising's topology-first synergy: deep comparison of 1D positional synergy (adjacency on a line) vs. 2D+temporal synergy (spatial positioning + signal latency); which creates more memorable discovery moments; which is more accessible; can Robot Uprising borrow instant-feedback adjacency effects
+  - [ ] 1.10b — The 30-second combat window as pacing constraint: fixed combat duration (The Bazaar's 30 seconds) vs. variable duration (Robot Uprising's tick budgets per mission); evaluation timescale uniformity vs. mission-specific optimization targets; which serves replayability better
+  - [ ] 1.10c — Ghost database as community content pipeline: The Bazaar's ghost system creates a massive database of real player builds; could Robot Uprising's async model double as community sharing; "your failed config became someone else's challenge"
+  - [ ] 1.10d — The stash as non-combat optimization surface: dual-board system (combat + economy) creating parallel optimization games; relay placement as both signal routing and economy contribution; making non-combat value quantified and visible
+  - [ ] 1.10e — External database dependency as design failure: community reliance on BazaarDB/HowBazaar for synergy understanding; Robot Uprising's Blueprint Codex and Inspector as in-game analysis tools; how deep should in-game tools go vs. accepting external community tools
 - [x] 1.11 — Balatro: rule-breaking combo system, poker as base mechanic, joker synergies
   - [ ] 1.11a — The "exponential score as TikTok content" virality engine: Balatro's most shared clips are absurd scores on bad hands; how does Robot Uprising's equivalent clip work when the payoff is emergent behavior rather than big numbers? The "flanking maneuver from a Pair" clip problem
   - [ ] 1.11b — The borrowed vocabulary principle applied to Robot Uprising: systematically identifying which base grammar (if/then, flowcharts, traffic signals, email filters) could serve as Robot Uprising's "poker hands" — the universally-known thing that gets broken by the four primitives
