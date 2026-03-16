@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1347
-- **Analyzed:** 420
-- **Pending:** 927
-- **Convergence:** 31.2%
+- **Total aspects:** 1352
+- **Analyzed:** 421
+- **Pending:** 931
+- **Convergence:** 31.1%
 
 ---
 
@@ -231,7 +231,12 @@
 - [ ] 1.09b — The skip-as-power principle for slot allocation: how Robot Uprising communicates that empty hook/rule/skill slots are sometimes optimal; visual language for deliberate emptiness vs. unfilled potential; Slay the Spire's deck thinning as reference model for "less is more" in agent configuration
 - [ ] 1.09c — Cumulative Gauntlet modifiers as skill teachers: designing 15-20 specific Gauntlet difficulty modifiers where each one teaches a defensive technique (wider enemy perception → stealth design, pre-filled noise → eviction mastery, channel pollution → authentication, latency increase → loose coupling); Slay the Spire Ascension as template
 - [ ] 1.09d — Near-miss visibility as retention engine: how the Inspector must surface "the one configuration change that would have changed the outcome" to create Slay the Spire's "I was SO close" psychology; the difference between "you lost" and "you lost because Rule 3 evaluated stale data from tick 12"
-- [ ] 1.09e — Slay the Spire 2 co-op design lessons: how the sequel's cooperative multiplayer (shared run with distinct roles) maps to Robot Uprising co-op models; 3M copies in one week as market validation for cooperative deckbuilder-adjacent design; what changed from solo to co-op and what broke
+- [x] 1.09e — Slay the Spire 2 co-op design lessons: how the sequel's cooperative multiplayer (shared run with distinct roles) maps to Robot Uprising co-op models; 3M copies in one week as market validation for cooperative deckbuilder-adjacent design; what changed from solo to co-op and what broke
+- [ ] 1.09e-i — Slay the Spire 2's "relic contention" RPS mini-game as model for co-op resource conflict resolution: when two Robot Uprising co-op players both want the same production slot or blueprint priority, what resolution mechanic preserves the board-game-night feeling without frustrating the losing player?
+- [ ] 1.09e-ii — Co-op cursor awareness and simultaneous workbench editing UX: multi-user real-time editing of shared game state (like Google Docs collaborative editing applied to the Plan screen); preventing edit conflicts on shared blueprints; "who's editing what" awareness indicators
+- [ ] 1.09e-iii — Asymmetric co-op tutorial design "Keep Talking and Nobody Builds": one player sees the battlefield, the other has the workbench; radical information asymmetry as teaching tool for the hook/channel system; forces verbal communication of spatial and temporal information
+- [ ] 1.09e-iv — Co-op-exclusive skills and hooks: skills/hooks that only exist in co-op mode (like StS2's co-op-exclusive cards); cross-player amplify, cross-player filter, shared context pool skill; how co-op-exclusive mechanics incentivize multiplayer without making solo feel incomplete
+- [ ] 1.09e-v — The "shared Command agent" co-op paradigm: one jointly-controlled Command agent managing both players' armies; shared infrastructure investment as cooperative bonding mechanic; the message broker as cooperative object
 - [x] 1.10 — The Bazaar: real-time autobattler deckbuilding, item synergies, economic meta
   - [ ] 1.10a — The Bazaar's adjacency-first synergy vs. Robot Uprising's topology-first synergy: deep comparison of 1D positional synergy (adjacency on a line) vs. 2D+temporal synergy (spatial positioning + signal latency); which creates more memorable discovery moments; which is more accessible; can Robot Uprising borrow instant-feedback adjacency effects
   - [ ] 1.10b — The 30-second combat window as pacing constraint: fixed combat duration (The Bazaar's 30 seconds) vs. variable duration (Robot Uprising's tick budgets per mission); evaluation timescale uniformity vs. mission-specific optimization targets; which serves replayability better
