@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1046
-- **Analyzed:** 359
-- **Pending:** 687
-- **Convergence:** 34.3%
+- **Total aspects:** 1051
+- **Analyzed:** 360
+- **Pending:** 691
+- **Convergence:** 34.2%
 
 ---
 
@@ -701,7 +701,12 @@
 - [x] 5.00 — The external-documentation anti-pattern: Shenzhen I/O requires a PDF manual outside the game — all Robot Uprising vocabulary (skills/rules/hooks/context) must be learnable through in-game play
   - [x] 5.00a — The vocabulary pacing bottleneck: 30 terms across 10 missions = 3 terms/mission average; maximum new-term density before cognitive overload; should some terms be withheld until debrief? Interaction with difficulty curve (5.04)
     - [x] 5.00a-i — The Mission 4 Wall: detailed mission design for the rules introduction — exact puzzle scenarios, enemy placement, designed failure states, and rule complexity ramp within a single mission; how to make 3-4 rule terms feel natural rather than overwhelming
-    - [ ] 5.00a-ii — Physical term placement as naming mechanic — the Baba Is You inspiration: dragging term labels from boot log to workbench headers as a physical naming ritual; the term becomes real when you place it; implications for accessibility and controller input
+    - [x] 5.00a-ii — Physical term placement as naming mechanic — the Baba Is You inspiration: dragging term labels from boot log to workbench headers as a physical naming ritual; the term becomes real when you place it; implications for accessibility and controller input
+      - [ ] 5.00a-ix — Distractor tokens as comprehension test: adding 1-2 word tiles per mission that DON'T match any panel; false-match avoidance training; interaction with vocabulary density curve (5.04b)
+      - [ ] 5.00a-x — Label persistence across sessions: save-state design for partially-labeled workbench; token tray state on quit/resume; interaction with session resume (5.20a)
+      - [ ] 5.00a-xi — Community label sharing: if custom names allowed, sharing naming schemes as community artifacts; "Sofia's naming pack"; interaction with config sharing (5.20e, 7.03)
+      - [ ] 5.00a-xii — Label removal as advanced mechanic: stripping names to see raw system without vocabulary framing; "beginner's mind" as diagnostic technique; interaction with frozen striker (5.00a-vi)
+      - [ ] 5.00a-xiii — Multi-language simultaneous labels: toggle showing both player's language AND English on panel headers; vocabulary learning as secondary benefit; interaction with localization (6.03d) and CS Mode overlay (6.11d-v-iv)
     - [ ] 5.00a-iii — Extension terms vs. genuinely new concepts: the taxonomy problem — formal criteria for distinguishing "more of the same" from "fundamentally new"; which Robot Uprising terms are truly new concepts vs. parameters of existing concepts
     - [ ] 5.00a-iv — Cross-run vocabulary retention testing — if a player takes a week-long break, how much vocabulary do they retain? Design patterns for reactivating dormant vocabulary on session resumption; the "welcome back" recap as vocabulary reinforcement
     - [ ] 5.00a-v — Vocabulary budget as visible game mechanic — Option D's hexagonal concept slots as a first-class UI element; the vocabulary collection metagame; concept constellation as progression visualization; does making the pacing visible improve or constrain the experience?
