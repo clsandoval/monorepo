@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1262
-- **Analyzed:** 403
-- **Pending:** 859
+- **Total aspects:** 1267
+- **Analyzed:** 404
+- **Pending:** 863
 - **Convergence:** 31.9%
 
 ---
@@ -510,7 +510,12 @@
 - [ ] 2.00f-iii-e — The echo chamber failure mode as tutorial moment: mission where first flock fails because buffer saturation prevents scouting; debrief teaches context window management through visceral flock self-deafening
 - [ ] 2.00f-iv — The "courier problem" in Variant E: designing the relay network specifically to service the Command agent; the relay chain from battlefield to Command and back as a first-class design challenge; courier network optimization as mid-campaign teaching sequence
 - [ ] 2.00f-v — Pheromone trails as optional Specialist skill: hybrid between tile-marking and the locked hook design; Specialists could have a "mark" skill that tags tiles with information, enabling local-information-sharing alongside hooks; ant colony optimization meets the four-primitive system
-- [ ] 2.00g-i — The random name generator as cultural expression: Filipino-inspired procedural name generation for units (Bantay, Talim, Agos, Kidlat); name pools per unit type reflecting function (scout names = perception words, striker names = force words); how naming defaults shape the game's cultural identity; interaction with Philippine setting and SE Asian cyberpunk aesthetic
+- [x] 2.00g-i — The random name generator as cultural expression: Filipino-inspired procedural name generation for units (Bantay, Talim, Agos, Kidlat); name pools per unit type reflecting function (scout names = perception words, striker names = force words); how naming defaults shape the game's cultural identity; interaction with Philippine setting and SE Asian cyberpunk aesthetic
+- [ ] 2.00g-i-a — Pronunciation audio system design: recording Filipino voice talent for 60+ name pronunciations; playback UI in tooltips and Codex; accessibility implications (screen readers reading Filipino words); diegetic justification (the AI learned spoken language too)
+- [ ] 2.00g-i-b — Name Origins panel as cultural bridge: full design of Blueprint Codex "Names" tab; etymology cards visual design; how much cultural context without becoming Wikipedia; gamification (undiscovered names as collectible motivation)
+- [ ] 2.00g-i-c — Community vocabulary emergence: predicting which names become universal shorthand; the "Urist effect" for Robot Uprising; competitive meta around custom naming (hiding strategy by renaming?); designing pools to maximize memorable defaults
+- [ ] 2.00g-i-d — Localization of non-localized names: handling Filipino proper nouns in CJK localizations; katakana/hangul transliteration; political dimension of insisting on Filipino names globally; comparable Genshin Impact Chinese cultural terms across 15 languages
+- [ ] 2.00g-i-e — Regional Philippine language variant pools: expanding beyond Tagalog to Cebuano, Ilocano, Bisaya, Kapampangan per campaign province; Cebu missions draw Cebuano names, Ifugao missions draw Cordilleran words; linguistic diversity as cultural statement vs. stereotyping risk
 - [ ] 2.00g-ii — Quirk preview in the Blueprint Codex: a live idle animation thumbnail that changes as the player modifies configuration; making the config-to-personality mapping visible and discoverable; "personality preview" as a secondary reason to tweak configurations; the moment players realize their config choices affect how units look/sound
 - [ ] 2.00g-iii — Cross-mission scar persistence: should scars carry across missions (blueprint-level "veteran" markers) or reset each battle? Veteran visual identity vs. visual noise accumulation; the golden nameplate as blueprint-level achievement that persists vs. per-unit-per-battle scars that reset; interaction with campaign progression
 - [ ] 2.00g-iv — Signal voice as network diagnostics: using type-specific signal audio to diagnose network health by ear alone; "I can hear my relay is overloaded because the whoops are too fast"; audio-first debugging as accessibility feature and expert skill; interaction with corruption audio vocabulary (6.10)
