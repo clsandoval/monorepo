@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1337
-- **Analyzed:** 418
-- **Pending:** 919
-- **Convergence:** 31.3%
+- **Total aspects:** 1342
+- **Analyzed:** 419
+- **Pending:** 923
+- **Convergence:** 31.2%
 
 ---
 
@@ -810,7 +810,12 @@
 - [x] 5.22 — The Gauntlet as a third act: structuring the game as three acts — campaign (learn mechanics), advanced campaign (develop robustness), Gauntlet (prove against infinite adversarial creativity); the Gauntlet as designed destination, not optional appendage; how campaign's final cutscene/mission opens the Gauntlet and what that transition feels like
 - [ ] 5.22a — Multi-round mission retry granularity: when a player fails Round 3 of 5, do they restart from Round 1 or retry Round 3? Round-level checkpointing vs. mission-level reset; how retry granularity affects emotional stakes and learning speed; the "I have to redo rounds I already passed" frustration vs. the "context from earlier rounds matters" argument
 - [ ] 5.22b — Gauntlet ELO calibration match design: the first 5 Gauntlet matches are calibration — how the game communicates this, whether the player knows their rating is being determined, whether calibration matches feel different from regular matches; the "placement anxiety" problem from League of Legends/Overwatch applied to architecture design
-- [ ] 5.20a — Boot log as session resume mechanism: the boot log's "operator last active" summary as a diegetic save-state recap; how much context to surface, how to handle multi-day gaps vs. same-day returns, whether the boot log's tone changes based on gap length
+- [x] 5.20a — Boot log as session resume mechanism: the boot log's "operator last active" summary as a diegetic save-state recap; how much context to surface, how to handle multi-day gaps vs. same-day returns, whether the boot log's tone changes based on gap length
+  - [ ] 5.20a-i — Boot log adaptation learning algorithm: the specific algorithm for learning player engagement patterns (dismiss speed, click-through rate, post-boot-log action alignment); how quickly it adapts; cold start for new players; reset behavior on long absences
+  - [ ] 5.20a-ii — Boot log content generation for dynamic suggestions: how the "recommended focus" and specific architectural suggestions are generated from save state data; what makes a good suggestion vs. a misleading one; the accuracy requirement for maintaining AI trust
+  - [ ] 5.20a-iii — Boot log localization and text expansion: time-aware greetings and Predecessor voices in 10+ locales; text expansion budget for variable-length content; cultural differences in "welcome back" tone (Japanese keigo formality vs. Brazilian warmth)
+  - [ ] 5.20a-iv — Boot log as streamable content: designing boot logs that are interesting to WATCH someone else read; streamer-friendly formatting, clip-worthy moments, chat-interactive boot log elements
+  - [ ] 5.20a-v — The abbreviated refresher as compressed tutorial: full design of the 3-minute re-onboarding sequence for 30+ day returns; which concepts compress well, which require replay; the kulintang musical recap as non-verbal re-teaching
 - [ ] 5.20b — Architect Profile archetype design: the full set of architectural style archetypes (Switchboard Operator, Sniper, Sentinel, etc.); how many, how they're computed, how they change over the campaign, whether they're visible to other players
 - [ ] 5.20c — Blueprint lineage as competitive stat: blueprint performance histories (survival rate, average lifespan, kills per unit) as competitive Gauntlet metadata; whether opponents can see your blueprint lineages; the "intimidation" factor of a blueprint with 200+ deployed units
 - [ ] 5.20d — The Camp's scope boundary: how much is "too much Camp"? The line between a warm hub and a time-wasting distraction; Hades spends 5-10 minutes between runs; without dialogue/relationships, how long does the Camp hold attention; minimum viable Camp design
