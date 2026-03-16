@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1100
-- **Analyzed:** 371
-- **Pending:** 729
+- **Total aspects:** 1105
+- **Analyzed:** 372
+- **Pending:** 733
 - **Convergence:** 33.7%
 
 ---
@@ -671,7 +671,12 @@
 - [ ] 3.16 — Copy/paste/template: can you duplicate agent configs? Save templates? Share builds?
 
 ### The Meta-Level
-- [ ] 3.17 — Command agents: agents that manage other agents — what skills/rules/hooks do THEY get?
+- [x] 3.17 — Command agents: agents that manage other agents — what skills/rules/hooks do THEY get?
+  - [ ] 3.17a — Multi-Command conflict resolution protocol: when two Command agents issue conflicting orders to the same subordinate in the same tick, what determines the winner? ID priority, spatial proximity, signal freshness, consensus voting, oscillation dampening — each changes the competitive meta
+  - [ ] 3.17b — Command agent self-management rules: can a Command agent manage ITSELF? Self-monitoring rules, recursive configuration, self-disabling — limits and edge cases of reflexive meta-management
+  - [ ] 3.17c — The "obey command" rule as opt-in subordination design: should subordinates automatically obey command overrides or must the player explicitly wire obedience? Mandatory vs. advisory vs. explicit rule — each creates different hierarchy cultures
+  - [ ] 3.17d — Command agent elimination recovery design: graceful degradation vs. catastrophic collapse vs. automatic succession when the sole Command agent dies; strategic tension around Command protection
+  - [ ] 3.17e — The "production requeue" skill gap: should Command agents modify the production queue mid-battle? A 4th Command skill or out of scope? Interaction with factory vs. factory missions
 - [ ] 3.18 — Dynamic reconfiguration: can a command agent change subordinate skills/rules/hooks mid-battle? What are the constraints?
 - [ ] 3.19 — Hierarchies of command: command agents managing command agents — how deep can it go? When does it collapse?
 
