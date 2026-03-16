@@ -240,7 +240,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 ## Admin Flow QA (stages 190–195) `[flow-qa]`
 
 - [x] **Stage 190**: Admin dashboard — log in as admin user, navigate to `/admin`, verify admin overview page loads with stats or summary (2026-03-16) — fixed: removed onMouseEnter/onMouseLeave event handlers from Server Component (tenants page.tsx) causing "Event handlers cannot be passed to Client Component props" crash, replaced with Tailwind hover classes
-- [ ] **Stage 191**: Admin tenant list — navigate to `/admin/tenants`, verify table renders with at least 1 tenant row, verify columns (name, plan, status, created) are visible
+- [x] **Stage 191**: Admin tenant list — navigate to `/admin/tenants`, verify table renders with at least 1 tenant row, verify columns (name, plan, status, created) are visible (2026-03-16)
 - [ ] **Stage 192**: Admin tenant detail — click into a tenant row, verify detail page loads with: tenant info (name, plan, status, owner), member list, subscription status, API keys count
 - [ ] **Stage 193**: Admin tenant actions — on tenant detail page: test suspend button (verify confirmation dialog appears, click cancel → no change). If safe to test: click confirm → verify status changes to suspended. Unsuspend → verify returns to active.
 - [ ] **Stage 194**: Admin audit log — navigate to `/admin/audit-log`, verify table renders. If pagination exists, navigate pages. Verify entries have timestamps and action descriptions.
