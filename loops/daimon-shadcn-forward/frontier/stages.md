@@ -176,7 +176,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 ## Interactive Component QA (stages 138–159) `[interactive-qa]`
 
 - [x] **Stage 138**: Button — click primary variant on landing page, verify visual feedback (press state). Click secondary, ghost, outline variants on dashboard. Verify each has distinct styling. (2026-03-16)
-- [ ] **Stage 139**: Button — verify disabled state: find a disabled button (e.g., submitting form), confirm `pointer-events: none` or `cursor: not-allowed`, confirm click does nothing
+- [x] **Stage 139**: Button — verify disabled state: find a disabled button (e.g., submitting form), confirm `pointer-events: none` or `cursor: not-allowed`, confirm click does nothing (2026-03-16)
 - [ ] **Stage 140**: Button — verify loading state: submit signup form, confirm spinner shows during submission, confirm double-click prevented
 - [ ] **Stage 141**: IconButton — click an icon button (e.g., copy-to-clipboard), verify tooltip appears on hover, verify action fires
 - [ ] **Stage 142**: Input — on signup page: type into full name field, verify value appears. Clear field. Type invalid email, tab away, verify validation error appears. Fix email, verify error clears.
