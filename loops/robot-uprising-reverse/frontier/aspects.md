@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1267
-- **Analyzed:** 404
-- **Pending:** 863
-- **Convergence:** 31.9%
+- **Total aspects:** 1272
+- **Analyzed:** 405
+- **Pending:** 867
+- **Convergence:** 31.8%
 
 ---
 
@@ -1368,7 +1368,12 @@
   - [ ] 8.04e-iii — Demo-to-full-game progress handoff architecture: how localStorage demo save state maps to full game save system; which demo decisions persist (blueprints, channel names) vs. which reset (mission progress, histogram); Pokémon Transfer Ritual vs. clean-start tradeoff
   - [ ] 8.04e-iv — Boot log as adaptive loading screen: the structural insight that diegetic boot log masks asset loading time, extensible for slow connections with additional flavor text; the "infinite loading screen" that never looks like one; interaction with mobile 4G/3G performance targets
   - [ ] 8.04e-v — Demo histogram population bootstrapping: how the histogram works with 10 players vs. 100,000; synthetic population seeding from internal playtests; cold-start problem for social features in a demo; interaction with 7.06b histogram population bootstrapping
-- [ ] 8.06 — The "first ugly solution" as tutorial completion: designing missions to be beatable with brute-force configurations so the histogram teaches optimization rather than a tutorial system; the Opus Magnum "no required optimization" pattern applied to agent configuration
+- [x] 8.06 — The "first ugly solution" as tutorial completion: designing missions to be beatable with brute-force configurations so the histogram teaches optimization rather than a tutorial system; the Opus Magnum "no required optimization" pattern applied to agent configuration
+- [ ] 8.06a — Multi-run histogram comparison view: should the Inspector support comparing histogram positions across multiple attempts of the same mission? A "run history" panel showing improvement arc from attempt 1 to attempt N; the improvement arc as first-class visualization; interaction with 7.06 histogram system
+- [ ] 8.06b — The "ugly solution gallery" as community feature: player-submitted worst wins; inverted leaderboard celebrating ugliest victories; community bonding over brute-force experiences; gallery as onboarding normalizing ugly wins; interaction with 7.03 community sharing
+- [ ] 8.06c — Histogram-gated optional challenges: bonus content gated on histogram percentile (not progression); "Clean Machine" achievement for crossing 30th percentile on overloads; named milestones in optimization journey; interaction with Doctrines (5.09a)
+- [ ] 8.06d — The "first elegant solution" as mid-campaign moment: when does a player's histogram position first cross the median? Designing that moment as milestone with celebration (amber→cyan color shift, new chord); emotional arc from "barely winning" to "winning well" as designed progression
+- [ ] 8.06e — Ugly solution archetypes as Inspector diagnostic categories: should Inspector recognize Swarm/Wall/Solo Hero/Copy-Paste/Goldberg patterns and label them? Named pattern vocabulary as teaching tool; risk of judgment vs. information framing
 - [ ] 8.05 — The maximum viable game: everything at once — does it cohere or collapse?
 - [ ] 8.10 — The Gauntlet map template system: a library of Gauntlet-approved map templates with documented match-length distributions from playtesting; map selection for each Gauntlet season as a balance decision; community map submission with validation criteria (≥80% of matches in 60–150 tick range to be Gauntlet-eligible); map approval pipeline
 - [ ] 8.12 — EDT as a difficulty calibration axis for campaign missions: campaign mission designers can target specific EDT ranges (early-EDT = opener lesson, late-EDT = endgame test, mid-EDT = fair contest baseline); EDT targeting as a formal campaign design tool rather than implicit difficulty tuning; what each EDT zone teaches and feels like
