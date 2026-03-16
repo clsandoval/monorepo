@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1013
-- **Analyzed:** 352
-- **Pending:** 661
-- **Convergence:** 34.8%
+- **Total aspects:** 1018
+- **Analyzed:** 353
+- **Pending:** 665
+- **Convergence:** 34.7%
 
 ---
 
@@ -708,7 +708,12 @@
   - [ ] 5.11b-v — Gauntlet confidence percentage as competitive meta-resource: in PvP Gauntlet, the diff confidence percentage creates time-pressure tradeoffs (verify manually vs. trust the percentage); opponent strategy around manipulating verification time cost; "verification denial" as an advanced adversarial tactic
 - [ ] 5.11c — Document recovery missions: missions where a primary objective is deploying a Specialist to recover redacted/purged document content from enemy communications; document integrity as a resource to defend and reclaim
 - [ ] 5.11d — Community corruption reports: players sharing screenshots of corruption they found; "corruption of the week" as a community artifact; the social loop of corruption detection as a shared experience
-- [ ] 5.11e — Corruption as enemy characterization: different enemy types have different corruption signatures (clean surgical rewrites vs. crude redactions vs. sophisticated injections); corruption style as adversary personality; reading corruption patterns to identify which enemy subsystem is active
+- [x] 5.11e — Corruption as enemy characterization: different enemy types have different corruption signatures (clean surgical rewrites vs. crude redactions vs. sophisticated injections); corruption style as adversary personality; reading corruption patterns to identify which enemy subsystem is active
+  - [ ] 5.11f — Corruption personality combination attack design: detailed mechanical specification for every 2- and 3-personality combination (Surgeon+Censor distraction, Mimic+Architect structural injection, Vandal+Surgeon noise cover), with specific mission placements and escalation curves
+  - [ ] 5.11g — The Ghost subsystem: retroactive corruption after verification: full design exploration of the Mission 10 twist — corruption that activates AFTER the player has verified and cleared the document; timer-based vs. trigger-based; detection and response during sealed watch when document is inaccessible
+  - [ ] 5.11h — Adversary profiling as transferable cybersecurity skill: cross-cutting analysis of how corruption personalities map to real-world threat intelligence concepts (TTPs, IOCs, attribution, APT classification); explicit educational design for cybersecurity-curious players
+  - [ ] 6.10j — Per-personality audio signature specification: full frequency/timing/layer specification for each corruption personality's audio fingerprint; collision rules for simultaneous presence; degradation characteristics on laptop speakers vs. headphones vs. studio monitors
+  - [ ] 4.75 — Corruption personality identification in Inspector debrief: how the Inspector displays which personalities were active, when they were detected, and how the player's detection sequence compares to optimal triage order; post-battle corruption forensics as scored skill
 - [x] 5.15 — Voice candidates for the Robot Uprising tactical document: deep exploration of four voice options (Dissenter's Field Manual, Unit 0's Tactical Archive, Requisition Docs, Propagandist's Handbook) with full player journeys and community potential for each
   - [ ] 5.15a — The Reyes-Unit 0 relationship arc through marginalia: full design of the 10-mission narrative delivered entirely through document annotations — from first anonymous annotation to revealed collaboration to the defection decision at Mission 10; how much narrative can be told through shared footnotes without cutscenes
   - [ ] 5.15b — The annotator reveal pacing: when does the player discover who the margin annotator is? Mission 3, 5, or 7? Each timing creates different narrative structures and emotional investment patterns
