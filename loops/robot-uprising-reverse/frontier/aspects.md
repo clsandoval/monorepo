@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1257
-- **Analyzed:** 402
-- **Pending:** 855
-- **Convergence:** 32.0%
+- **Total aspects:** 1262
+- **Analyzed:** 403
+- **Pending:** 859
+- **Convergence:** 31.9%
 
 ---
 
@@ -491,7 +491,12 @@
 - [x] 2.00e — The meta-level: building systems that build systems — how does each intelligence model support the "factory of agents" feeling?
 - [x] 2.00f — No global coordinator as design constraint: agents that only know their immediate neighbors; emergent swarm behavior from local decisions only (from TIS-100's no-orchestrator architecture)
 - [x] 2.00g — The personality ceiling problem: deterministic agents risk feeling like vending machines; named agents with visual personality (idle animations, signal format quirks, "voice"); how much personality can be layered onto a deterministic core without touching the execution model?
-- [ ] 2.00h — The solved-game risk and its mitigations: when a veteran finds a universal config that beats most missions; the Gauntlet as the unsolvable endgame; how campaign missions use 100-variant test cases to resist dominant strategies; at what skill level does the campaign "run out"?
+- [x] 2.00h — The solved-game risk and its mitigations: when a veteran finds a universal config that beats most missions; the Gauntlet as the unsolvable endgame; how campaign missions use 100-variant test cases to resist dominant strategies; at what skill level does the campaign "run out"?
+- [ ] 2.00h-i — Pass rate display design: full UX specification for the 100-variant pass rate bar — segment rendering, hover behavior, click-to-load, cluster highlighting, animation timing, sound design, accessibility (screen reader narration, high-contrast mode)
+- [ ] 2.00h-ii — Variant-weighted generation in late campaign: hostile meta system design — which player config signals trigger which variant weights, transparency design, fairness perception testing, interaction with Doctrine constraints
+- [ ] 2.00h-iii — Doctrine as competitive modifier in Gauntlet: voluntary handicaps in Gauntlet matches, "Whisperer match" as competitive format, Doctrine-specific leaderboards, interaction with seasonal modifiers (7.09a)
+- [ ] 2.00h-iv — The "95% Wall" as designed content cliff: last 5% of pass rate as intentionally exponential difficulty, variant 96-100 as near-impossible edge cases, "impossible variant" as community puzzle, interaction with community challenge packs
+- [ ] 2.00h-v — Cross-mission pass rate dashboard: campaign overview showing all 10 missions' pass rates simultaneously, visual identification of cross-mission architectural weaknesses, cross-mission architectural health as meta-diagnostic
 - [ ] 2.00i — Sensitive dependence on initial conditions via buffer state: even deterministic systems can exhibit chaotic behavior when buffer contents create feedback loops; how two runs with slightly different enemy spawn positions cascade into completely different agent behaviors by tick 30; the buffer as a chaos engine
 - [ ] 2.00j — The debugging tax of full determinism: every failure is the player's fault; no "bad luck" to blame; for some players this is liberating, for others it's exhausting; how the debrief tools (especially the Minimum Fix Explorer) should surface the most impactful change to reduce diagnostic burden
 - [ ] 2.00k — Cross-model comparison matrix: formal side-by-side evaluation of all intelligence models (2.00a–2.00d) across 10 dimensions (debuggability, spectator drama, personality ceiling, educational transfer, async PvP fairness, computational cost, accessibility floor, skill ceiling, mod support, platform portability)
