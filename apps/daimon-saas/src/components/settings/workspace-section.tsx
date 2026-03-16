@@ -11,6 +11,12 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from '@/components/ui/tooltip'
 import { SettingsDiscordSection } from '@/components/settings/discord-section'
 import { SettingsAccountSection } from '@/components/settings/account-section'
 import { SettingsDangerZoneSection } from '@/components/settings/danger-zone-section'
@@ -162,16 +168,25 @@ function WorkspaceSection({ tenant, userRole }: WorkspaceSectionProps) {
               <span className="font-mono text-xs text-foreground break-all">
                 {tenant.id}
               </span>
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                onClick={handleCopy}
-                aria-label="Copy workspace ID"
-                className="ml-2 size-7 text-muted-foreground hover:text-foreground shrink-0"
-              >
-                {copied ? <Check size={14} /> : <Copy size={14} />}
-              </Button>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger
+                    render={
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={handleCopy}
+                        aria-label="Copy workspace ID"
+                        className="ml-2 size-7 text-muted-foreground hover:text-foreground shrink-0"
+                      >
+                        {copied ? <Check size={14} /> : <Copy size={14} />}
+                      </Button>
+                    }
+                  />
+                  <TooltipContent>{copied ? 'Copied!' : 'Copy'}</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </dd>
           </div>
 

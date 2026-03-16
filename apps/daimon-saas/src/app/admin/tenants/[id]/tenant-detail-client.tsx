@@ -4,6 +4,14 @@ import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/lib/toast'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
+import { Copy, Check } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from '@/components/ui/tooltip'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -157,9 +165,25 @@ function CopyButton({ value }: { value: string }) {
     setTimeout(() => setCopied(false), 1500)
   }
   return (
-    <button onClick={copy} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0 4px', color: copied ? '#B4E7DD' : '#9CA3AF', fontSize: '12px' }} title="Copy">
-      {copied ? '✓' : '⧉'}
-    </button>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger
+          render={
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={copy}
+              aria-label="Copy"
+              className="size-6 text-muted-foreground hover:text-foreground"
+            >
+              {copied ? <Check size={12} className="text-primary" /> : <Copy size={12} />}
+            </Button>
+          }
+        />
+        <TooltipContent>{copied ? 'Copied!' : 'Copy'}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
 
