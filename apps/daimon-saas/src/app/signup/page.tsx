@@ -86,7 +86,7 @@ function getStrength(password: string): { score: number; label: string; colorCla
 
   if (score === 1) return { score, label: 'Weak', colorClass: 'bg-destructive text-destructive' };
   if (score === 2) return { score, label: 'Fair', colorClass: 'bg-amber-500 text-amber-500' };
-  if (score === 3) return { score, label: 'Good', colorClass: 'bg-primary text-primary' };
+  if (score === 3) return { score, label: 'Good', colorClass: 'bg-primary text-emerald-700' };
   return { score, label: 'Strong', colorClass: 'bg-emerald-600 text-emerald-600' };
 }
 

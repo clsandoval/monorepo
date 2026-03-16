@@ -247,7 +247,7 @@ export default function BlogPage() {
           <FeaturedPostCard post={featured} />
         ) : (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <PenLine className="w-12 h-12 text-[#B4E7DD] mb-4" />
+            <PenLine className="w-12 h-12 text-foreground/30 mb-4" />
             <h2 className="font-archivo font-bold text-[#0C1F40] text-xl">No posts yet</h2>
             <p className="mt-2 text-[#4A5568]">
               We&apos;re working on our first article. Check back soon.

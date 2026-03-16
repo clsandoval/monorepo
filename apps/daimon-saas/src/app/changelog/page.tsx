@@ -123,7 +123,7 @@ export default function ChangelogPage() {
                   >
                     <span
                       aria-hidden="true"
-                      className="absolute left-0 top-2 text-primary font-bold"
+                      className="absolute left-0 top-2 text-foreground/40 font-bold"
                     >
                       →
                     </span>

@@ -464,7 +464,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
   return (
     <div>
       {/* ── Breadcrumb ── */}
-      <a href="/admin/tenants" style={{ color: '#B4E7DD', fontFamily: 'var(--font-inter)', fontSize: '13px', display: 'inline-flex', gap: '4px', alignItems: 'center', marginBottom: '16px', textDecoration: 'none' }}>
+      <a href="/admin/tenants" style={{ color: '#0C1F40', fontFamily: 'var(--font-inter)', fontSize: '13px', display: 'inline-flex', gap: '4px', alignItems: 'center', marginBottom: '16px', textDecoration: 'underline', textUnderlineOffset: '2px' }}>
         ← Tenants
       </a>
 
@@ -541,7 +541,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
             <>
               <span style={{ fontFamily: 'monospace', fontSize: '12px' }}>{tenant.stripe_customer_id}</span>
               <CopyButton value={tenant.stripe_customer_id} />
-              <a href={`https://dashboard.stripe.com/customers/${tenant.stripe_customer_id}`} target="_blank" rel="noopener noreferrer" style={{ color: '#B4E7DD', fontSize: '12px' }}>View in Stripe ↗</a>
+              <a href={`https://dashboard.stripe.com/customers/${tenant.stripe_customer_id}`} target="_blank" rel="noopener noreferrer" style={{ color: '#0C1F40', fontSize: '12px', textDecoration: 'underline', textUnderlineOffset: '2px' }}>View in Stripe ↗</a>
             </>
           ) : '—'}
         </InfoRow>
@@ -675,7 +675,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
                 <>
                   <span style={{ fontFamily: 'monospace', fontSize: '12px' }}>{tenant.subscription.stripe_subscription_id}</span>
                   <CopyButton value={tenant.subscription.stripe_subscription_id} />
-                  <a href={`https://dashboard.stripe.com/subscriptions/${tenant.subscription.stripe_subscription_id}`} target="_blank" rel="noopener noreferrer" style={{ color: '#B4E7DD', fontSize: '12px' }}>View in Stripe ↗</a>
+                  <a href={`https://dashboard.stripe.com/subscriptions/${tenant.subscription.stripe_subscription_id}`} target="_blank" rel="noopener noreferrer" style={{ color: '#0C1F40', fontSize: '12px', textDecoration: 'underline', textUnderlineOffset: '2px' }}>View in Stripe ↗</a>
                 </>
               ) : '—'}
             </InfoRow>
@@ -719,7 +719,7 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
               </tbody>
             </table>
             <div style={{ marginTop: '12px' }}>
-              <a href={`/admin/audit-log?tenant_id=${tenant.id}`} style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#B4E7DD', textDecoration: 'none' }}>
+              <a href={`/admin/audit-log?tenant_id=${tenant.id}`} style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#0C1F40', textDecoration: 'underline', textUnderlineOffset: '2px' }}>
                 ← View all actions for this tenant in the audit log
               </a>
             </div>

@@ -981,7 +981,7 @@ export default function ToolReferencePage() {
           style={{
             fontFamily: 'var(--font-inter)',
             fontSize: '14px',
-            color: '#B4E7DD',
+            color: 'rgba(12, 31, 64, 0.65)',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
             marginBottom: '8px',
