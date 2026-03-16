@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1051
-- **Analyzed:** 360
-- **Pending:** 691
-- **Convergence:** 34.2%
+- **Analyzed:** 361
+- **Pending:** 695
+- **Convergence:** 34.1%
 
 ---
 
@@ -972,7 +972,7 @@
 - [ ] 6.10h — Cross-player corruption audio in spectator mode: which player's corruption audio does spectator hear in PvP; merged "god view" showing both corruption states; audio mixing for broadcast
 - [ ] 6.10i — Corruption audio adaptation over campaign arc: vocabulary evolution from Mission 7 (minimal) to Mission 10 (full); audio complexity growing with player corruption literacy; graduated introduction of hybrid layers
 - [x] 6.11 — The web demo: browser-playable demo as acquisition funnel — six demo models (vertical slice, extended tutorial, sandbox, replay theater, persistent playground, rotating featured mission), layered pipeline recommendation, funnel metrics, conversion mechanics, technical implementation
-- [ ] 6.11a — Demo-to-full-game save migration: localStorage → Steam Cloud sync, account linking, handling demo progress incompatible with newer game versions, "thank you for playing the demo" emotional beat
+- [x] 6.11a — Demo-to-full-game save migration: localStorage → Steam Cloud sync, account linking, handling demo progress incompatible with newer game versions, "thank you for playing the demo" emotional beat
 - [ ] 6.11b — Demo-specific analytics dashboard: funnel visualization, drop-off points, retry rates per mission, Inspector engagement heatmap, conversion attribution — developers applying the game's Inspector philosophy to business metrics
 - [ ] 6.11c — Embeddable demo widget for gaming press: lightweight iframe embed for review articles, "Play Mission 1 right here," <2s load, Steam widget on completion, responsive width, message-passing API
 - [x] 6.11d — Demo as competitive event infrastructure: weekly community challenges on sandbox mode, fixed config constraints, leaderboard on demo page, demo as ongoing community infrastructure not just acquisition
@@ -987,6 +987,11 @@
 - [ ] 6.11d-v-iii — Save code for shared computer labs: 6-character alphanumeric progress encoding without accounts, QR display, restore flow, collision avoidance, localStorage-to-code and code-to-localStorage round-trip
 - [ ] 6.11d-v-iv — Vocabulary mapping as in-game overlay: toggle-able "CS Mode" that shows real CS/AI terminology alongside game terms (e.g., "Context Window (bounded buffer)"), activated by class code or setting; interaction with boot log and Inspector
 - [ ] 6.11d-v-v — Community scenario library for educators: teacher-authored Lab Sandbox scenarios shared via URL/repository, rating/review system, tagging by CS concept, difficulty level, and prerequisite missions; the "lesson plan marketplace" for Robot Uprising
+- [ ] 6.11a-i — The System Upgrade ceremony variants: detailed design of 4+ "thank you for purchasing" emotional beats — The Statistician (demo stats), The Archivist (compressed replay montage), The Quiet Nod (golden border discovery), The Name Drop (AI uses player's blueprint names in clinical voice); audio design for each; interaction with boot log voice and narrative tone
+- [ ] 6.11a-ii — Save schema versioning strategy: the "Promise" approach (lock schema early, additive-only changes) vs. "Adapter" approach (migration functions per version delta); database migration pattern applied to game saves; breaking change policy for demo→full game format evolution
+- [ ] 6.11a-iii — Migration funnel analytics: what % of demo players generate export codes, what % successfully import, what % start fresh despite having demo data; A/B testing migration UI prominence; "recovery path" design for players who forgot to export
+- [ ] 6.11a-iv — The Pokémon Transfer Ritual pattern: making data import a mini-gameplay-moment rather than a paste; brief "system compatibility check" where the game shows each blueprint and asks the player to confirm; re-acquaintance as ownership-building; 30-second ritual vs. instant paste tradeoff
+- [ ] 6.11a-v — Inspector replay data portability across migration paths: large replay data (~200KB) exceeds QR/code limits; which migration paths support full replay transfer vs. config-only; "replay not included" messaging; replay re-generation from deterministic tick log as alternative to transferring full replay data
 
 ---
 
