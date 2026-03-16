@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1031
-- **Analyzed:** 356
-- **Pending:** 675
+- **Total aspects:** 1036
+- **Analyzed:** 357
+- **Pending:** 679
 - **Convergence:** 34.5%
 
 ---
@@ -917,7 +917,12 @@
   - [ ] 6.01c-v — Overlay interaction with EM emissions visualization: Inspector-mode EM noise radial pulses from transmitting units; layered rendering order (terrain→grid→wiring→EM→sprites→radii); visual separation between designed channels and emergent noise
 - [x] 6.01a-i — Tile animation budget: per-tile animation spec (bioluminescent pulsing 0.25Hz, water shimmer 0.5Hz, foam drift every 4 ticks, neon reflection flicker); Pixi.js rendering cost analysis for 64 animated tiles; "does animation compete with gameplay overlays" question
 - [x] 6.01a-ii — Biome-specific signal propagation visuals: if terrain-modified spatial routing adopted, each biome needs distinct signal-delivery animation (jungle traces canopy, terrace follows horizontal lines, city routes through fiber optic, Siquijor amplified by bioluminescence); full animation spec per biome × signal type
-- [ ] 6.01a-iii — Dynamic tile damage states: when combat occurs on a tile, does it show damage? Cracked terrace stones, scorched jungle canopy, shattered beach limestone, broken city neon, extinguished bioluminescence; damage state count per biome; interaction with terrain signal propagation
+- [x] 6.01a-iii — Dynamic tile damage states: when combat occurs on a tile, does it show damage? Cracked terrace stones, scorched jungle canopy, shattered beach limestone, broken city neon, extinguished bioluminescence; damage state count per biome; interaction with terrain signal propagation
+- [ ] 6.01a-iii-a — Damage state persistence across retries: should the board start pristine or carry scars from previous attempts? "Haunted tiles" as visual record of past failures vs. clean slate
+- [ ] 6.01a-iii-b — Damage states as Inspector filter layer: the "Combat Density" heat map derived from damage tiles; toggle overlay in Inspector sidebar; gradient, opacity, legend specification
+- [ ] 6.01a-iii-c — Asymmetric damage for player vs. enemy kills: blue-tinted vs. red-tinted tile scars as instant friend/foe battlefield forensics
+- [ ] 6.01a-iii-d — Damage audio coupling: sounds accompanying tile damage transitions per biome (cracking stone, sputtering neon, hissing steam, falling canopy); interaction with 6.01a-ix
+- [ ] 6.01a-iii-e — Tile repair as late-game Specialist skill: "restore" ability that repairs damaged tiles; strategic implications for damage-as-noise sub-option; aesthetic satisfaction of healing the battlefield
 - [ ] 6.01a-iv — Biome transition tile set completeness: fifteen biome pairs (5 choose 2) each need at least one transition tile; full pixel-level specs for all 15 combinations including jungle↔Siquijor, terrace↔city, and other uncovered pairs
 - [ ] 6.01a-v — High-contrast / accessibility tile variants
 - [x] 6.01a-vi — Animation-as-narrative: biome animation intensity as difficulty signal — do calmer biomes (terraces: slow, meditative) correlate with easier missions, and aggressive biomes (Taal: fast, intrusive) with harder ones? Is this mapping intentional or incidental? Should the player learn to "read" terrain animation speed as a difficulty preview?
