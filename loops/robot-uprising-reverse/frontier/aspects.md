@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1377
-- **Analyzed:** 426
-- **Pending:** 951
+- **Total aspects:** 1382
+- **Analyzed:** 427
+- **Pending:** 955
 - **Convergence:** 30.9%
 
 ---
@@ -799,7 +799,12 @@
   - [ ] 5.12d — Predecessor voice in competitive/PvP context: pseudo-annotations on defeated opponent configs; "your opponent probably wired this hook to counter relay-heavy builds"; opponent-as-predecessor in competitive mode
   - [ ] 5.12e — Cross-predecessor dialogue: annotations referencing other predecessors' work; The Paranoid commenting on The Architect's relay chain; multi-voice epistolary narrative within the config
 - [ ] 5.11 — Solitaire distraction risk: when a secondary mechanic (debrief analysis, sandbox mode) becomes more engaging than the core loop — how to prevent and exploit
-- [ ] 5.14a — The fidelity threshold as onboarding gate: fidelity thresholds are the mechanic that teaches players to think about information quality, not just presence; design pass on the "first fidelity moment" — a mission where default threshold fails, debrief explains why, fix is a single slider adjustment; the designed teaching moment for buffer quality awareness
+- [x] 5.14a — The fidelity threshold as onboarding gate: fidelity thresholds are the mechanic that teaches players to think about information quality, not just presence; design pass on the "first fidelity moment" — a mission where default threshold fails, debrief explains why, fix is a single slider adjustment; the designed teaching moment for buffer quality awareness
+- [ ] 5.14b — Per-channel fidelity thresholds: advanced mode where each listened channel gets its own threshold slider; UI complexity management, when to introduce vs. keep behind "Advanced" toggle, interaction with channel map panel
+- [ ] 5.14c — Fidelity threshold as rule condition: rules that reference fidelity threshold as a variable; "IF signal fidelity < threshold AND source = relay-B → compress before processing"; the threshold becoming part of the rule language rather than just a config parameter
+- [ ] 5.14d — Adaptive fidelity threshold (The Immune System model): auto-adjusting threshold that responds to buffer pressure; the pressure curve, two-parameter configuration, sealed watch visualization of threshold shifting in real-time
+- [ ] 5.14e — Enemy fidelity spoofing: late-game enemy tactic with artificially inflated fidelity scores; forces secondary quality checks beyond threshold slider; source authentication, signal chain verification; the arms race as difficulty escalator
+- [ ] 5.14f — The "overcautious" diagnostic in Inspector: post-mission diagnostic identifying unnecessarily high thresholds; quantified false-positive feedback as teaching tool; "You rejected 47 signals, but only 3 were genuine noise"
 - [ ] 5.14 — Detection skills as complexity gate: the "intrusion detection" skill as an advanced mechanic that reveals hidden corruption to players who invest in it; scales difficulty with player sophistication rather than with a separate difficulty slider; advanced players uncover more depth, beginners get clean experience
 - [x] 5.18 — The "first deadlock" tutorial mission: a deliberately crafted Mission 7 ("Gridlock") scenario where naive BLOCKING hook use creates a deadlock — and the debrief shows exactly why, tick by tick, as the frozen agents' last actions play back; designed failure, designed recovery, designed insight; five approaches (A "Hard Freeze" pure discovery, B "Predecessor's Warning" narrative foreshadowing, C "Two-Phase Mission" forced success then forced failure demonstrating chain vs star topology, D "Deadlock Detector" Inspector tool unlock as reward, E "Sandbox Deadlock Lab" pre-mission experimentation); recommended hybrid B+C+D with Predecessor warning + two-phase topology lesson + tool materialization; three prerequisite timing options for when blocking hooks become available; full sensory design (silence as deadlock's sound, 40Hz sub-bass hum, hourglass animation, amber→red blocking lines, haptic heartbeat pulse); 4 player journeys (Tomás 16 first-timer phone-call metaphor discovery, Dr. Priya 38 ML infrastructure lead evaluating against Jaeger/Zipkin, Aisha 14 struggling player "held door" metaphor + texts cousin about deadlocks, Kwame 32 Twitch streamer 180K-view clip "chat was right"); interaction effects with hook semantics (1.04d), hook chaining (3.09), buffer model (2.01), sealed watch, Predecessor arc (6.03a), Gauntlet competitive, multiplayer; comparable games (TIS-100, EXAPUNKS, Go unbuffered channels, Into the Breach, Factorio belt deadlock); 5 new aspects discovered (5.18a–e)
   - [ ] 5.18a — Deadlock-inducing enemy strategies: can enemy configurations deliberately create deadlocks in the player's architecture? Deadlock as an adversarial weapon — enemy units flooding relays with blocking requests
