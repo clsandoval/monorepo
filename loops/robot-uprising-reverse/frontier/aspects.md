@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1252
-- **Analyzed:** 401
-- **Pending:** 851
-- **Convergence:** 32.1%
+- **Total aspects:** 1257
+- **Analyzed:** 402
+- **Pending:** 855
+- **Convergence:** 32.0%
 
 ---
 
@@ -1223,7 +1223,12 @@
 - [ ] 7.13 — Community "find the pivot" tournament format: a formal async tournament where a featured match is posted and participants submit pivot guesses within a 24-hour window; the distribution of guesses displayed after deadline shows false pivot clustering; the metagame of collective diagnostic calibration; no debrief tools allowed during submission window
 - [ ] 7.14 — Annotation accuracy leaderboard: a global leaderboard tracking not win rate but "annotation accuracy" — players who consistently mark within ±5 ticks of the diamond before revealing; top annotators as the "diagnosticians" of the competitive community whose config necropsies carry authority because their manual pivot-identification is provably calibrated
 - [x] 7.09 — The arms race as designed meta-evolution: Gauntlet meta not controlled by designers but evolving from player innovation; how to design a game that supports meta-evolution without locking into a dominant strategy; intervention points (seasonal resets, new skill/hook unlocks) vs. pure player-driven evolution
-  - [ ] 7.09a — Seasonal modifier design space: exhaustive catalog of possible modifiers (EM range, signal latency, buffer size, perception range, starting noise, unit cost scaling, terrain effects) with interaction matrices and archetype impact analysis; which modifiers create healthy meta-shifts vs. which create degenerate dominant strategies
+  - [x] 7.09a — Seasonal modifier design space: exhaustive catalog of possible modifiers (EM range, signal latency, buffer size, perception range, starting noise, unit cost scaling, terrain effects) with interaction matrices and archetype impact analysis; which modifiers create healthy meta-shifts vs. which create degenerate dominant strategies
+    - [ ] 7.09a-i — Mid-season "field condition" micro-modifiers: weekly rotating mild modifiers within a season (StarCraft 2 weekly mutation model); how micro-modifiers interact with the season's primary modifier; community excitement from the weekly unknown
+    - [ ] 7.09a-ii — Player-chosen modifier mode (Hades Pact model): optional custom Gauntlet mode where players choose their own modifiers from the catalog; Heat-style difficulty currency; separate leaderboard per Heat level
+    - [ ] 7.09a-iii — Modifier preview and pre-season preparation window: how much advance notice players get before a season starts; "weather forecast" showing next season's modifiers 1 week early; pre-season preparation meta
+    - [ ] 7.09a-iv — Modifier interaction testing framework: systematic method for verifying modifier combinations don't create degenerate states; automated simulation of 1000+ matches per combination
+    - [ ] 7.09a-v — Community-proposed modifier pipeline: community votes on modifier candidates for future seasons; "modifier workshop" where players propose and debate new modifiers
   - [ ] 7.09b — Community Pulse panel UX: real-time archetype distribution visualization in the Gauntlet lobby; bar chart vs. pie chart vs. network graph; how archetype classification works (rule-based vs. ML clustering); privacy implications of showing population-level strategy data
   - [ ] 7.09c — Automated meta-health detection system: exact metrics (archetype diversity index, match duration distribution, win rate variance, deploy churn rate), thresholds for intervention, false positive handling, transparency vs. opacity design for players
   - [ ] 7.09d — The "field condition order" as weather metaphor: full vocabulary design for environmental adjustments (clarity, turbulence, calm, storm); how the weather metaphor shapes player perception of meta-intervention vs. balance-patch perception; notification UX for mid-season adjustments
