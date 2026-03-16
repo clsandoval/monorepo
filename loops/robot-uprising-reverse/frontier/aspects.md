@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1202
-- **Analyzed:** 391
-- **Pending:** 811
+- **Total aspects:** 1207
+- **Analyzed:** 392
+- **Pending:** 815
 - **Convergence:** 32.5%
 
 ---
@@ -988,7 +988,12 @@
   - [ ] 6.06d — Cross-platform input parity for PvP: systematic controller disadvantage in timed formats; input-speed normalization (longer timer for controller), input-blind matchmaking, async-only as equalizer
   - [ ] 6.06e — Controller-specific onboarding tutorial branch: dedicated first-five-minutes for gamepad with D-pad navigation teaching, radial wheel introduction, preview mode discovery vs. adaptive tutorial that swaps prompts based on detected input
 - [x] 6.07 — Mobile/touch adaptation: how each paradigm works on a phone
-  - [ ] 6.07a — PWA vs. native wrapper decision: performance, haptics, install flow, push notifications, platform-specific capabilities; Capacitor vs. pure PWA vs. TWA (Trusted Web Activity)
+  - [x] 6.07a — PWA vs. native wrapper decision: performance, haptics, install flow, push notifications, platform-specific capabilities; Capacitor vs. pure PWA vs. TWA (Trusted Web Activity); five options (A Pure PWA zero-friction URL-first, B Capacitor native wrapper full capabilities, C TWA Android-only Play Store window, D Hybrid Progressive web-first ladder RECOMMENDED, E Desktop-only sidestep REJECTED); install friction math (URL 3sec/5% drop vs. store 60-120sec/50-70% drop); iOS capability gaps (no Vibration API, 50MB cache limit, 7-day eviction, no push unless installed); Vampire Survivors/Wordle/Lichess/2048 web-first precedents; capability-detection layer for progressive enhancement across 4 runtime contexts; classroom deployment as URL distribution killer app; 4 player journeys (Ria 24 Manila UX designer URL→PWA→Capacitor upgrade ladder, Kwame 27 Accra streamer Android haptic discovery + viewer viral loop, Tala 17 Cebu student low-end Realme budget phone + TWA Play Store, Dr. Santos 52 UP Diliman professor 38-student instant classroom deployment); 5 new aspects discovered (6.07a-i through 6.07a-v)
+    - [ ] 6.07a-i — Save data durability across wrapper transitions: detailed design of how save state (IndexedDB in PWA, filesystem in Capacitor) migrates when a player upgrades from PWA to native app; what happens to replay data too large for Config Code; cloud sync as optional backend addition
+    - [ ] 6.07a-ii — PWA install prompt timing and conversion optimization: A/B testing when to show the install prompt (after Mission 1? After 3 sessions? After first retry?); install prompt phrasing in boot-log diegetic voice vs. system-standard language; suppression after dismissal
+    - [ ] 6.07a-iii — Capability-gated feature discovery: how the game surfaces features that become available after upgrading wrapper (e.g., "Haptic feedback now available" toast after Capacitor install); avoiding FOMO for PWA-only players while incentivizing upgrade
+    - [ ] 6.07a-iv — TWA Chrome dependency risk: what happens when a player's Android phone doesn't have Chrome as default; fallback to Custom Chrome Tab with visible browser UI; Samsung Internet market share in Southeast Asia (25-30%); Samsung TWA workarounds
+    - [ ] 6.07a-v — App Store listing as conversion surface vs. standalone acquisition: optimizing the App Store page for two distinct audiences — players who already played the web version (conversion) vs. players discovering Robot Uprising for the first time (acquisition); different screenshot strategies for each; A/B testing listing variants
   - [x] 6.07b — Portrait-landscape orientation strategy: five options analyzed (A "The Lock" landscape-only — minimal design cost, kills commute/bed play, Slay the Spire readability lesson; B "The Unlock" portrait-only — commute-ready, one-thumb native, cramped board/wiring, Auto Chess Legends/Clash Royale precedent; C "The Hybrid" per-screen rotation — Plan portrait/Watch landscape/Inspector landscape, rotation-as-commitment ritual, physical gesture marks phase transition, graceful degradation to portrait-only; D "The Adaptive" player-chosen per-screen lock — maximum agency, 6 layout variants expensive, foldable-ready, accessibility gold; E "The Responsive" fluid reflow — zero friction, fidget-friendly, extreme engineering cost, no ritual); cross-option matrix across 10 dimensions; transition animation vocabulary (Iris, Board Holds, Seal, Heartbeat); 4 player journeys per option (Ria commuter, Yuki bedtime, Hiro RSI accessibility, Dex tablet, Kenji Factorio vet, Amara casual, Marcus foldable, Sam fidgeter); 5 new aspects discovered (6.07b-i–v)
     - [ ] 6.07b-i — Rotation debounce and gyroscope reliability: debounce timing, dead-zone angles, bed-lying disambiguation, low-cost phone accelerometer-only fallback, orientation change event handling in Web API
     - [ ] 6.07b-ii — Foldable phone adaptation: Galaxy Z Fold / Pixel Fold inner vs. outer display transitions, fold-aware CSS media queries, hinge-position detection for tent/tabletop mode, layout switching on fold state change
