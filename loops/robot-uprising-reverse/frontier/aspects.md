@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1167
-- **Analyzed:** 384
-- **Pending:** 783
-- **Convergence:** 32.9%
+- **Total aspects:** 1172
+- **Analyzed:** 385
+- **Pending:** 787
+- **Convergence:** 32.8%
 
 ---
 
@@ -462,7 +462,12 @@
 ### Intelligence Spectrum (How Smart Do Units Feel?)
 - [x] 2.00a — Fully deterministic: behavior trees, signal routing, composable rules — can this feel "smart"?
 - [x] 2.00b — Simulated intelligence: deterministic systems designed to FEEL autonomous (randomness, personality quirks, surprising-but-scripted behavior)
-  - [ ] 2.00b-i — Near-miss rendering as progressive unlock: the micro-hesitation animation showing "what the agent almost did" requires rule-priority literacy; design of the unlock gate (mission-gated vs. settings toggle vs. automatic after N inspector uses); interaction with onboarding difficulty curve and the debugging tax (2.00j)
+  - [x] 2.00b-i — Near-miss rendering as progressive unlock: the micro-hesitation animation showing "what the agent almost did" requires rule-priority literacy; design of the unlock gate (mission-gated vs. settings toggle vs. automatic after N inspector uses); interaction with onboarding difficulty curve and the debugging tax (2.00j)
+    - [ ] 2.00b-i-a — Near-miss suppression at scale: when 8+ units fire near-misses simultaneously, which ones render at full fidelity? Priority scoring for near-miss visual importance (closest rule match, highest-stakes alternative, nearest to camera focus); interaction with sealed watch visual noise at scale
+    - [ ] 2.00b-i-b — Near-miss as enemy intelligence vector: could an advanced enemy infer player rule priorities by observing near-miss patterns (ghost trails, orientation twitches)? Near-miss as EM-like leakage; the "poker face" upgrade that suppresses near-miss rendering for stealth; interaction with 2.16 counter-intelligence
+    - [ ] 2.00b-i-c — Near-miss audio vocabulary expansion: the dual-click is one sound; could each rule TYPE have a distinct near-miss sound? Engage-near-miss = metallic clang, evade-near-miss = whoosh, transmit-near-miss = static burst; audio near-miss as ears-only diagnostic for expert players; interaction with 6.02d channel audio identity
+    - [ ] 2.00b-i-d — Near-miss replay in Inspector: dedicated "What Almost Happened" panel showing parallel-universe counterfactual — "if Rule 2 had fired instead, here's what would have happened for 3 ticks"; counterfactual simulation as teaching tool; interaction with Inspector decision trace and 4.xx
+    - [ ] 2.00b-i-e — Ghost trail as community meme format: the ghost-hand-reaching-toward-friend image as standardized shareable format; "She wanted to help. The rules said run." as template; interaction with 6.04 clip export and 7.03 community sharing
   - [ ] 2.00b-ii — Callsign attachment and blueprint identity: when a player modifies every rule in a "Cautious" template, is it still "Cautious"? The Ship of Theseus problem for personality templates; should templates have a mutation threshold where the label changes; "Custom" as default label after N modifications vs. preserving lineage forever
   - [ ] 2.00b-iii — Personality animation intensity as accessibility concern: players with photosensitivity, ADHD, or sensory processing differences may find idle animations distracting or triggering; design of the animation intensity slider (Minimal/Standard/Detailed) and what each level preserves vs. removes; interaction with reduced-motion OS settings
   - [ ] 2.00b-iv — Enemy agent personality as intelligence signal: should enemy units also have callsigns, personality animations, and legible behavior patterns? If yes, the player can "read" enemy personality from observation ("that enemy scout is cautious — it retreats early"); if no, enemies remain opaque and alien. Interaction with counter-intelligence (2.16) and information warfare
