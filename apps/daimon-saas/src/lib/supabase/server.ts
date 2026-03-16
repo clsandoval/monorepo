@@ -24,27 +24,38 @@ function createMockClient() {
   const emptyResult = { data: null, error: null, count: 0 }
   const emptyArrayResult = { data: [], error: null, count: 0 }
 
+  type MockResult = { data: unknown; error: null; count?: number }
+  type MockEntry = { single: MockResult; array: MockResult }
+
   // Table-specific mock data
-  const tableMocks: Record<string, any> = {
+  const tableMocks: Record<string, MockEntry> = {
     tenants: { single: { data: mockTenant, error: null }, array: { data: [mockTenant], error: null, count: 1 } },
     tenant_members: { single: { data: { role: 'owner', user_id: mockUser.id, tenant_id: mockTenant.id }, error: null }, array: { data: [{ role: 'owner', user_id: mockUser.id, tenant_id: mockTenant.id }], error: null, count: 1 } },
     user_profiles: { single: { data: { is_admin: true, display_name: 'CI Test User', user_id: mockUser.id }, error: null }, array: { data: [{ is_admin: true }], error: null, count: 1 } },
   }
 
+  type MockChain = Record<string | symbol, unknown> & {
+    single: () => Promise<MockResult>
+    maybeSingle: () => Promise<MockResult>
+    then: (resolve: (value: MockResult) => unknown) => unknown
+    catch: (...args: unknown[]) => MockChain
+    finally: (...args: unknown[]) => MockChain
+  }
+
   // Chain builder that returns mock data per table
-  const createChain = (table: string): any => {
+  const createChain = (table: string): MockChain => {
     const mock = tableMocks[table]
-    const chain: any = {}
+    const chain = {} as MockChain
     const methods = ['select', 'insert', 'update', 'delete', 'upsert', 'eq', 'neq', 'gt', 'gte', 'lt', 'lte', 'like', 'ilike', 'is', 'in', 'contains', 'containedBy', 'order', 'limit', 'range', 'filter', 'match', 'not', 'or', 'textSearch']
     for (const m of methods) {
-      chain[m] = (..._args: any[]) => chain
+      chain[m] = (...args: unknown[]) => { void args; return chain }
     }
     chain.single = () => Promise.resolve(mock?.single ?? emptyResult)
     chain.maybeSingle = () => Promise.resolve(mock?.single ?? emptyResult)
-    chain.then = (resolve: any) => resolve(mock?.array ?? emptyArrayResult)
+    chain.then = (resolve: (value: MockResult) => unknown) => resolve(mock?.array ?? emptyArrayResult)
     chain[Symbol.toStringTag] = 'Promise'
-    chain.catch = (_fn: any) => chain
-    chain.finally = (_fn: any) => chain
+    chain.catch = (...args: unknown[]) => { void args; return chain }
+    chain.finally = (...args: unknown[]) => { void args; return chain }
     return chain
   }
 
@@ -55,7 +66,8 @@ function createMockClient() {
       signOut: async () => ({ error: null }),
     },
     from: (table: string) => createChain(table),
-    rpc: (_fn: string, _params?: any) => Promise.resolve(emptyResult),
+    rpc: (...args: unknown[]) => { void args; return Promise.resolve(emptyResult) },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mock client must satisfy SupabaseClient shape
   } as any
 }
 

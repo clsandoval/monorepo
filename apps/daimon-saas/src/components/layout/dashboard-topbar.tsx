@@ -11,7 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { cn } from '@/lib/utils'
 import { useAuthContext } from '@/lib/auth/auth-context'
 
 interface DashboardTopbarProps {

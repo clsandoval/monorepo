@@ -1,12 +1,10 @@
 'use client'
 
 import * as React from 'react'
-import { useRouter } from 'next/navigation'
 import { CheckCircle, Loader2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
 
 export interface CurrentPlanData {
   plan: 'free' | 'starter' | 'pro'
@@ -167,12 +165,12 @@ function BillingPeriodLine({
 
 export function CurrentPlanCard({
   plan,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   tenantStatus,
   subscription,
   userRole,
   usageStats,
 }: CurrentPlanData) {
-  const router = useRouter()
   const [loading, setLoading] = React.useState(false)
   const isOwner = userRole === 'owner'
 

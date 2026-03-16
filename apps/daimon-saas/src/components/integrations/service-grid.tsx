@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { AlertTriangle, Github, Activity, Clock, User, X, Info, Eye, EyeOff } from 'lucide-react'
+import { AlertTriangle, Github, Activity, Clock, User, Info, Eye, EyeOff } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'

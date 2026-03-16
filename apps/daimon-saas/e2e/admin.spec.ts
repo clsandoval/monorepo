@@ -136,7 +136,7 @@ test.describe('Admin screenshots @screenshot', () => {
         stdio: 'pipe',
         timeout: 10_000,
       });
-    } catch (err) {
+    } catch {
       // If psql is not available, try via supabase CLI
       try {
         execSync(

@@ -18,7 +18,6 @@ import { DashboardTopbar } from '@/components/layout/dashboard-topbar'
 import { useAuthContext } from '@/lib/auth/auth-context'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 
 interface AdminNavItemConfig {

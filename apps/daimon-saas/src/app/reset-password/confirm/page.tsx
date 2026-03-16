@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import { Suspense, useState, useEffect, useRef } from 'react';
+import { Suspense, useState, useEffect, useRef, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -227,7 +227,7 @@ function ConfirmForm() {
     reValidateMode: 'onChange',
   });
 
-  async function onSubmit(data: ConfirmFormValues) {
+  const onSubmit = useCallback(async (data: ConfirmFormValues) => {
     setServerError(null);
 
     const supabase = supabaseRef.current;
@@ -245,7 +245,10 @@ function ConfirmForm() {
 
     await supabase.auth.signOut();
     router.push('/login?passwordUpdated=true');
-  }
+  }, [router]);
+
+  // eslint-disable-next-line react-hooks/refs -- onSubmit only reads supabaseRef.current at call time (form submission), not during render
+  const handleFormSubmit = handleSubmit(onSubmit);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-background">
@@ -346,7 +349,7 @@ function ConfirmForm() {
             </CardHeader>
 
             <CardContent className="px-6 md:px-10 pb-10">
-              <form onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Reset password form">
+              <form onSubmit={handleFormSubmit} noValidate aria-label="Reset password form">
                 {/* New password field */}
                 <div className="mb-4">
                   <Label

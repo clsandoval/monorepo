@@ -23,9 +23,14 @@ export default function GlobalError({ error, reset }: ErrorPageProps) {
       <p className="text-sm text-muted-foreground text-center max-w-md">
         We encountered an unexpected error. Our team has been notified.
       </p>
-      <Button onClick={() => (window.location.href = '/dashboard')}>
-        Go to dashboard
-      </Button>
+      <div className="flex gap-2">
+        <Button variant="outline" onClick={reset}>
+          Try again
+        </Button>
+        <Button onClick={() => (window.location.href = '/dashboard')}>
+          Go to dashboard
+        </Button>
+      </div>
       <p className="text-xs text-muted-foreground text-center">
         If this keeps happening, contact{' '}
         <a href="mailto:support@daimon.ai" className="underline text-foreground hover:text-foreground/80">

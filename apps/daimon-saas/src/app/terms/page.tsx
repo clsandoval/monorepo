@@ -59,7 +59,7 @@ export default function TermsOfServicePage() {
                 ['#confidentiality', '16. Confidentiality'],
                 ['#general', '17. General Provisions'],
                 ['#contact', '18. Contact Information'],
-              ].map(([href, label], i) => (
+              ].map(([href, label]) => (
                 <li key={href}>
                   <a
                     href={href}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback } from 'react'
+
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { Search, X } from 'lucide-react'
 import { useDebouncedCallback } from 'use-debounce'
@@ -66,13 +66,10 @@ export function FiltersBar({ q = '', plan = '', status = '', sort = '' }: Filter
     router.push(`${pathname}${qs ? '?' + qs : ''}`)
   }, 300)
 
-  const handleSelect = useCallback(
-    (key: string, value: string) => {
-      const qs = buildParams({ [key]: value })
-      router.push(`${pathname}${qs ? '?' + qs : ''}`)
-    },
-    [router, pathname, searchParams] // eslint-disable-line react-hooks/exhaustive-deps
-  )
+  function handleSelect(key: string, value: string) {
+    const qs = buildParams({ [key]: value })
+    router.push(`${pathname}${qs ? '?' + qs : ''}`)
+  }
 
   function handleReset() {
     router.push(pathname)

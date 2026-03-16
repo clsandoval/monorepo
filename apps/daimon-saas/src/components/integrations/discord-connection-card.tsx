@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { AlertTriangle, MessageSquare, Eye, EyeOff, X, Plus } from 'lucide-react'
+import { AlertTriangle, MessageSquare, Eye, EyeOff, Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge, type BadgeVariant } from '@/components/ui/badge'

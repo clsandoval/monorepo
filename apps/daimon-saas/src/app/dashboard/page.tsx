@@ -133,7 +133,8 @@ export default async function DashboardPage() {
             hasBotToken={!!discord}
             discordConnected={!!discord && discord.status !== 'pending'}
             hasAnthropicKey={apiKeys.some(
-              (k: any) => k.key_type === 'anthropic' && k.status === 'active'
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+(k: any) => k.key_type === 'anthropic' && k.status === 'active'
             )}
             botOnline={discord?.status === 'connected'}
           />

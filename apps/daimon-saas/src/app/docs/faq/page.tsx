@@ -333,7 +333,7 @@ export default function FaqPage() {
         {ap('You create a Discord bot application yourself in the Discord Developer Portal (discord.com/developers/applications). After creating the bot, you copy two things to Daimon:')}
         <ol className="mt-0 mb-3 pl-5">
           <li className="mb-1.5"><strong>Bot Token</strong> — Found in the Bot section of your Discord application. This is the secret credential that lets Daimon log in as your bot.</li>
-          <li className="mb-1.5"><strong>Guild ID</strong> — The numeric ID of your Discord server. You can get this by right-clicking your server name in Discord (with Developer Mode enabled) and selecting "Copy Server ID."</li>
+          <li className="mb-1.5"><strong>Guild ID</strong> — The numeric ID of your Discord server. You can get this by right-clicking your server name in Discord (with Developer Mode enabled) and selecting &quot;Copy Server ID.&quot;</li>
         </ol>
         {apLast('You paste both values into Daimon\'s Settings page under "Discord Connection." Daimon validates the token (by verifying it authenticates with Discord) and then connects the bot to your server.')}
       </FaqItem>
@@ -401,7 +401,7 @@ export default function FaqPage() {
         {ap('A "bot token is invalid" error typically means one of the following:')}
         <ol className="mt-0 mb-3 pl-5">
           <li className="mb-1.5"><strong>The token was copied incorrectly</strong> — Make sure to copy the full token from the Discord Developer Portal without any leading or trailing spaces. Try pasting it into a plain text editor first to check.</li>
-          <li className="mb-1.5"><strong>The token was regenerated</strong> — If you clicked "Reset Token" in the Discord Developer Portal, the old token is immediately invalidated. Paste the new token into Daimon&apos;s Settings page.</li>
+          <li className="mb-1.5"><strong>The token was regenerated</strong> — If you clicked &quot;Reset Token&quot; in the Discord Developer Portal, the old token is immediately invalidated. Paste the new token into Daimon&apos;s Settings page.</li>
           <li className="mb-1.5"><strong>The Discord application was deleted</strong> — If the application no longer exists, the token cannot be used. Create a new Discord application and bot, then paste the new token.</li>
         </ol>
         {apLast('After pasting a new valid token, click "Validate & Connect" on the Settings page. If validation passes, your bot will attempt to connect to Discord within 30 seconds.')}
@@ -411,10 +411,10 @@ export default function FaqPage() {
         {ap('If your bot shows as "Online" in Daimon but is not responding to messages in Discord:')}
         <ol className="mt-0 mb-3 pl-5">
           {[
-            <><strong>Check the Message Content Intent</strong> — Go to your Discord Developer Portal → your application → Bot → scroll to "Privileged Gateway Intents" — make sure "Message Content Intent" is enabled. Without this, the bot receives message events but cannot read the message text.</>,
-            <><strong>Check the channel</strong> — Make sure you are messaging the bot in a channel where the bot has permission to read messages and send responses. The bot must have "View Channel," "Send Messages," and "Read Message History" permissions in that specific channel.</>,
+            <><strong>Check the Message Content Intent</strong> — Go to your Discord Developer Portal → your application → Bot → scroll to &quot;Privileged Gateway Intents&quot; — make sure &quot;Message Content Intent&quot; is enabled. Without this, the bot receives message events but cannot read the message text.</>,
+            <><strong>Check the channel</strong> — Make sure you are messaging the bot in a channel where the bot has permission to read messages and send responses. The bot must have &quot;View Channel,&quot; &quot;Send Messages,&quot; and &quot;Read Message History&quot; permissions in that specific channel.</>,
             <><strong>Check whether you @mentioned the bot</strong> — By default, Daimon bots respond to messages that @mention them (e.g., {acode('@MyBot can you summarize today\'s activity?')}). Simply typing in a channel without a mention may not trigger the bot.</>,
-            <><strong>Check the Anthropic API key</strong> — Go to Billing &amp; Keys → API Keys. If your Anthropic key is missing or shows "Invalid," the bot cannot make Claude API calls and will fail silently. Save a valid key and click "Validate."</>,
+            <><strong>Check the Anthropic API key</strong> — Go to Billing &amp; Keys → API Keys. If your Anthropic key is missing or shows &quot;Invalid,&quot; the bot cannot make Claude API calls and will fail silently. Save a valid key and click &quot;Validate.&quot;</>,
             <><strong>Check your plan</strong> — Free plan users are limited to 1 active connection. If you added multiple connections, only one is active.</>,
           ].map((item, i) => (
             <li key={i} className="mb-2">{item}</li>
@@ -424,7 +424,7 @@ export default function FaqPage() {
 
       <FaqItem question='What does "bot status: connecting" mean?'>
         {ap('"Connecting" means Daimon has received your bot token and is currently attempting to establish a WebSocket connection to Discord\'s Gateway. This state typically lasts less than 30 seconds.')}
-        {apLast(<>If your bot stays in "Connecting" for more than 2 minutes, the token may be invalid (connection is failing silently) or Discord may be experiencing an outage. Check {alink('https://discordstatus.com', 'Discord\'s status page', true)} and verify your token by re-entering it on the Settings page.</>)}
+        {apLast(<>If your bot stays in &quot;Connecting&quot; for more than 2 minutes, the token may be invalid (connection is failing silently) or Discord may be experiencing an outage. Check {alink('https://discordstatus.com', 'Discord\'s status page', true)} and verify your token by re-entering it on the Settings page.</>)}
       </FaqItem>
 
       <FaqItem question='What does "bot status: error" mean?'>
@@ -508,8 +508,8 @@ export default function FaqPage() {
       <FaqItem question="How do I connect a service to use its tools?">
         {ap('Service connections are managed from the Integrations page in your dashboard. Each service has its own connection method:')}
         {aul([
-          <><strong>OAuth services (GitHub, Google/Google Analytics, Linear, LinkedIn):</strong> Click "Connect" next to the service. You will be redirected to that service&apos;s authorization page. After granting permissions, you are returned to Daimon and the connection is saved automatically.</>,
-          <><strong>API key services (Toggl, Fly, ACP, Onyx, Bluedot, Dub, Daimon/Decision Hub API keys):</strong> Click "Connect" next to the service. A modal appears with a text input field. Paste your API key (found in that service&apos;s settings page) and click "Save &amp; Validate." Daimon tests the key immediately — if valid, the connection is saved; if invalid, an error is shown.</>,
+          <><strong>OAuth services (GitHub, Google/Google Analytics, Linear, LinkedIn):</strong> Click &quot;Connect&quot; next to the service. You will be redirected to that service&apos;s authorization page. After granting permissions, you are returned to Daimon and the connection is saved automatically.</>,
+          <><strong>API key services (Toggl, Fly, ACP, Onyx, Bluedot, Dub, Daimon/Decision Hub API keys):</strong> Click &quot;Connect&quot; next to the service. A modal appears with a text input field. Paste your API key (found in that service&apos;s settings page) and click &quot;Save &amp; Validate.&quot; Daimon tests the key immediately — if valid, the connection is saved; if invalid, an error is shown.</>,
         ])}
       </FaqItem>
 

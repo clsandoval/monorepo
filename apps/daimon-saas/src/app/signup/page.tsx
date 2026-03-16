@@ -273,6 +273,7 @@ export default function SignupPage() {
     reValidateMode: 'onChange',
   });
 
+  // eslint-disable-next-line react-hooks/incompatible-library -- react-hook-form watch is needed for live validation
   const passwordValue = watch('password', '');
   const confirmPasswordValue = watch('confirmPassword', '');
 

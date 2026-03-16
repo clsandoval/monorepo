@@ -3,7 +3,8 @@ import { createClient as createSupabaseServerClient } from '@/lib/supabase/serve
 import { getStripe } from '@/lib/stripe';
 import type Stripe from 'stripe';
 
-export async function POST(req: NextRequest) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function POST(_req: NextRequest) {
   // 1. Authenticate
   const supabase = await createSupabaseServerClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();

@@ -14,7 +14,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
@@ -281,6 +280,7 @@ function ApiKeyRow({
 // ApiKeyModal
 // ---------------------------------------------------------------------------
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ApiKeyModal({ provider, mode, keyId, onClose, onSuccess }: ApiKeyModalProps) {
   const meta = PROVIDER_META[provider]
   const { toast } = useToast()

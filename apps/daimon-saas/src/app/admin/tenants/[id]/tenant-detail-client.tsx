@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/lib/toast'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
@@ -463,9 +464,9 @@ export function TenantDetailClient({ tenant }: { tenant: TenantDetail }) {
   return (
     <div>
       {/* ── Breadcrumb ── */}
-      <a href="/admin/tenants" className="font-body text-[13px] text-foreground inline-flex gap-1 items-center mb-4 underline underline-offset-2">
+      <Link href="/admin/tenants" className="font-body text-[13px] text-foreground inline-flex gap-1 items-center mb-4 underline underline-offset-2">
         ← Tenants
-      </a>
+      </Link>
 
       {/* ── Header ── */}
       <div className="bg-white border border-gray-200 py-5 px-6 mb-4">
