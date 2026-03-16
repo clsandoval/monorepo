@@ -308,24 +308,3 @@ export const DOCS_FAQ_SCHEMA = {
   },
 } as const
 
-// ---------------------------------------------------------------------------
-// BreadcrumbList builder
-// ---------------------------------------------------------------------------
-
-export interface BreadcrumbItem {
-  name: string
-  item: string
-}
-
-export function buildBreadcrumbSchema(items: BreadcrumbItem[]) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: items.map((crumb, idx) => ({
-      '@type': 'ListItem',
-      position: idx + 1,
-      name: crumb.name,
-      item: crumb.item,
-    })),
-  }
-}
