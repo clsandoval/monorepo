@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1036
-- **Analyzed:** 357
-- **Pending:** 679
-- **Convergence:** 34.5%
+- **Total aspects:** 1041
+- **Analyzed:** 358
+- **Pending:** 683
+- **Convergence:** 34.4%
 
 ---
 
@@ -997,7 +997,12 @@
   - [ ] 7.02c-iii — Asymmetric co-op model draft as ban/pick phase: tournament format where teams ban 1 co-op model, then pick from remaining 4; ban as strategic intelligence; comparable to MOBA champion draft
   - [ ] 7.02c-iv — Spectator mode four-quadrant director controls: automated and manual camera systems for 2v2 tournament streaming; picture-in-picture priority logic; the "director AI"; Dota 2 auto-directed camera as comparable
   - [ ] 7.02c-v — 2v2-specific mission design for co-op campaign: missions designed for 2v2 teams rather than adapted from solo; the "designed handoff" mission forcing Behaviorist and Networker to solve intertwined problems
-- [ ] 7.02d — Co-op Inspector as teaching tool: War Room co-op forces deep Inspector usage; how co-op debrief habits transfer to improved single-player analysis; co-op as the "Inspector tutorial" the game otherwise lacks
+- [x] 7.02d — Co-op Inspector as teaching tool: War Room co-op forces deep Inspector usage; how co-op debrief habits transfer to improved single-player analysis; co-op as the "Inspector tutorial" the game otherwise lacks
+  - [ ] 7.02d-i — AI Analyst personality calibration: designing the AI Analyst's communication style across player skill levels; when to be explicit vs. Socratic; interaction with narrative voice (5.15) and difficulty curve (5.01)
+  - [ ] 7.02d-ii — Diagnostic Challenge curriculum design: full taxonomy and sequencing of guided Inspector challenges; which diagnostic patterns to teach first; how challenges unlock progressively based on campaign progress
+  - [ ] 7.02d-iii — War Room matchmaking and skill-gap handling: pairing Architects and Analysts of different skill levels; solo queue with AI partner vs. friend-code; diagnostic skill rating separate from architectural ability
+  - [ ] 7.02d-iv — Inspector skill transfer measurement: measuring whether co-op diagnostic habits transfer to solo play; tracking diagnostic workflow metrics before and after War Room sessions; A/B testing
+  - [ ] 7.02d-v — "Analyst spectator" mode for streams and tournaments: third-party Analyst role for viewers; stream chat voting on which unit to inspect; crowd-sourced diagnosis as spectator sport; interaction with 7.01e
 - [ ] 7.02e — Cross-boundary EM emission budget as cooperative resource: in Divided Front co-op, both players' combined EM emissions create shared detection risk; the "emission budget" as a cooperative resource that neither player can individually control; comparable to shared radio frequency allocation
 - [ ] 7.02b-i — Queue proposal history in Inspector: chronological log of every proposed, accepted, and rejected queue change visible in Inspector after battle as "Production Planning Trace"; enables post-game analysis of whether build order disagreements caused failures; co-op equivalent of git blame for deployment order
 - [ ] 7.02b-ii — Build order dependency graph visualization: optional War Council overlay showing dependency arrows between blueprints ("STRIKER-B depends on RELAY-C for signal delivery → RELAY-C must deploy first"); computed from hook/channel wiring; auto-detected deployment-order constraints as visual guidance
