@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1342
-- **Analyzed:** 419
-- **Pending:** 923
+- **Total aspects:** 1347
+- **Analyzed:** 420
+- **Pending:** 927
 - **Convergence:** 31.2%
 
 ---
@@ -1032,7 +1032,12 @@
 
 - [x] 7.01 — PvP: designing attention systems against another human's attention systems
   - [x] 7.01a — Loadout system design for PvP: saveable blueprint configurations, quick-deploy, per-map loadout adaptation, loadout sharing between players, loadout import/export as community feature
-  - [ ] 7.01a-i — Loadout diff view between saved configs: side-by-side comparison of two slots showing rule/hook/queue deltas; "what did I change between v6 and v7?" tool; interaction with config necropsy (7.10) and Inspector
+  - [x] 7.01a-i — Loadout diff view between saved configs: side-by-side comparison of two slots showing rule/hook/queue deltas; "what did I change between v6 and v7?" tool; interaction with config necropsy (7.10) and Inspector
+    - [ ] 7.01a-i-a — Diff algorithm for blueprint matching: content-similarity vs. name-based matching; similarity scoring heuristics; unit-type anchoring; manual override for ambiguous matches
+    - [ ] 7.01a-i-b — "Regression alert" badge when deploying a config that reverts a previously tested change; warning system for undoing winning changes; interaction with Inspector and sealed watch
+    - [ ] 7.01a-i-c — Community diff as Workshop discovery signal: surfacing "nearby" configs (Δ1-3) as "you might learn from this small change" recommendations; diff magnitude as relevance heuristic for Workshop search
+    - [ ] 7.01a-i-d — Three-way diff for merge conflicts in co-op config editing: base version + Player A changes + Player B changes with conflict highlighting; interaction with co-op production queue negotiation (7.02b)
+    - [ ] 7.01a-i-e — Diff view as tournament spectator analysis tool: casters showing side-by-side diffs between Arms Race rounds; diff view as sports commentary infrastructure; interaction with spectator mode (7.01e)
   - [ ] 7.01a-ii — Auto-deploy ghost rotation for async PvP: 3-config rotation queue per map preventing hard-countering a single known ghost; the "unpredictable ghost" as competitive advantage
   - [ ] 7.01a-iii — Loadout warmup: recent-play bonus or confidence indicator for frequently deployed configs vs. dormant ones; practice-makes-perfect signal; competitive integrity implications
   - [ ] 7.01a-iv — Opponent-specific loadout tagging in Gauntlet: "vs. [opponent]" filter after multiple matches against same player; the scouting report as loadout metadata
