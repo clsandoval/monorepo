@@ -91,22 +91,34 @@ export default async function AdminAuditLogPage({ searchParams }: PageProps) {
     const { data: rawEntries, count, error } = await query
 
     if (error) {
-      return (
-        <AdminLayout pageTitle="Audit Log">
-          <div
-            style={{
-              background: '#FEF2F2',
-              border: '1px solid #FECACA',
-              padding: '16px 20px',
-              fontFamily: 'var(--font-inter)',
-              fontSize: '14px',
-              color: '#991B1B',
-            }}
-          >
-            Failed to load audit log. Refresh the page.
-          </div>
-        </AdminLayout>
-      )
+      // If the table doesn't exist yet (e.g. fresh deploy), show empty state
+      // rather than an error. PostgREST returns PGRST205 for missing tables,
+      // Postgres returns 42P01.
+      const isTableMissing =
+        error.code === '42P01' ||
+        error.code === 'PGRST205' ||
+        error.message?.includes('does not exist') ||
+        error.message?.includes('Could not find the table') ||
+        error.message?.includes('schema cache')
+      if (!isTableMissing) {
+        return (
+          <AdminLayout pageTitle="Audit Log">
+            <div
+              style={{
+                background: '#FEF2F2',
+                border: '1px solid #FECACA',
+                padding: '16px 20px',
+                fontFamily: 'var(--font-inter)',
+                fontSize: '14px',
+                color: '#991B1B',
+              }}
+            >
+              Failed to load audit log. Refresh the page.
+            </div>
+          </AdminLayout>
+        )
+      }
+      // Table missing — fall through with empty data
     }
 
     entries = rawEntries ?? []
