@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1387
-- **Analyzed:** 428
-- **Pending:** 959
-- **Convergence:** 30.9%
+- **Total aspects:** 1392
+- **Analyzed:** 429
+- **Pending:** 963
+- **Convergence:** 30.8%
 
 ---
 
@@ -397,7 +397,12 @@
 - [ ] 3.19a-i-c — The "Control View" Inspector overlay: production rule firing patterns as time-domain waveforms — binary fire/idle signals plotted against unit count, MATLAB-style process visualization built into the game, unlock timing
 - [ ] 3.19a-i-d — Multi-type resource contention in MIMO thermostats: single-factory actuator managing scouts AND strikers AND relays, dynamic priority inversion, conditional scheduling, factory utilization optimization, the OS scheduler analogy
 - [ ] 3.19a-i-e — Hooks-based thermostat vs. system-level thermostat: advanced variant using channel signals instead of system queries for loss detection, faster response but noisier, bandwidth vs. accuracy tradeoff as late-campaign design decision
-- [ ] 3.19a-ii — Root network topology optimization: spatial puzzle of rooted unit placement on 8×8 grid — coverage overlap analysis, signal latency graphs, tradeoff between coverage breadth and defensive depth; terrain constraints on root positions
+- [x] 3.19a-ii — Root network topology optimization: spatial puzzle of rooted unit placement on 8×8 grid — coverage overlap analysis, signal latency graphs, tradeoff between coverage breadth and defensive depth; terrain constraints on root positions
+- [ ] 3.19a-ii-a — The Root Planner as first spatial reasoning tool: UX design of the coverage/latency/EM overlay system; activation triggers (always visible vs. ghost-drag-only); interaction with board preview in Plan Screen; teaching spatial thinking before first root
+- [ ] 3.19a-ii-b — Terrain-specific root bonuses and penalties: mechanical bonuses per biome (rice terrace water cooling +1 buffer? urban interference −1 perception? volcanic vent destruction risk?); terrain as topology constraint vs. terrain as topology modifier
+- [ ] 3.19a-ii-c — Enemy topology recognition as player skill: reading enemy EM patterns to infer their network architecture; "that looks like a star — take out the center" as tactical reasoning; factory-vs-factory missions (8-10)
+- [ ] 3.19a-ii-d — Dynamic re-rooting or root migration: what happens when topology becomes suboptimal mid-battle; sacrifice-and-re-root mechanic vs. permanence as the point; commitment architecture
+- [ ] 3.19a-ii-e — Topology pattern library (Blueprint Codex integration): named patterns (Star, Mesh, Spine, Picket Fence) as Codex entries; saving/sharing topology templates per board; community topology meta
 - [ ] 3.19a-iii — The Quine achievement puzzle design: three difficulty tiers walkthrough — configurations at each level, hint system, Blueprint Codex entry as suggestive-not-spoiling; Gödel connection as educational payoff
 - [ ] 3.19a-iv — Self-replication as enemy tactic: enemy AI using forward bases, rooting, and command-driven reinforcement against the player; detection and counter-strategies; "whack-a-mole" mission pattern
 - [ ] 3.19a-v — Feedback loop visualization in Inspector: dedicated Inspector view for cycle detection — signal flow graph, oscillation warnings, loop health metrics; applicable to any cyclic hook configuration beyond just self-replication
