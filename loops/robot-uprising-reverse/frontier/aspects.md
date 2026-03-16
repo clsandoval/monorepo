@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1085
-- **Analyzed:** 368
-- **Pending:** 717
+- **Total aspects:** 1090
+- **Analyzed:** 369
+- **Pending:** 721
 - **Convergence:** 33.9%
 
 ---
@@ -439,11 +439,16 @@
 - [ ] 1.26 — Oxygen Not Included: resource/attention management sim, priority system, duplicant AI
 - [ ] 1.27 — Rimworld: colonist AI management, priority/schedule system, emergent stories
 - [ ] 1.28 — Dwarf Fortress: legendary complexity, emergent behavior from deep simulation
-- [ ] 1.17a — The animated tooltip pattern as universal design principle: Into the Breach's breakthrough of "show, don't describe" applied to Robot Uprising's rules/hooks/skills; what a micro-simulation preview looks like for each building block type; the "animated rule card" that plays a 3-second scenario when hovered
+- [x] 1.17a — The animated tooltip pattern as universal design principle: Into the Breach's breakthrough of "show, don't describe" applied to Robot Uprising's rules/hooks/skills; what a micro-simulation preview looks like for each building block type; the "animated rule card" that plays a 3-second scenario when hovered
 - [ ] 1.17b — The consequence preview gap: Into the Breach previews every consequence before execution; Robot Uprising's sealed watch removes this entirely; where does consequence preview live in the plan screen (ghost preview, simulated first 5 ticks, "dry run" mode)?
 - [ ] 1.17c — Positional play as information play: Into the Breach's push/pull repositioning is spatial information warfare; Robot Uprising's signal routing is temporal information warfare; mapping the Into the Breach combo taxonomy (push-into-attack, push-into-water, block-emergence) to Robot Uprising equivalents (route-to-striker, overload-enemy-buffer, block-channel)
 - [ ] 1.17d — The Tactical Breach Wizards lineage: how TBW built on Into the Breach's perfect information model with character-specific ability previews, humor, and longer missions; what Robot Uprising can learn from the second generation of ItB-inspired design
 - [ ] 1.17e — Steel Judoka as Robot Uprising prototype: the zero-direct-damage squad that wins entirely through repositioning is the closest existing gameplay to Robot Uprising's attention-architecture-not-damage philosophy; analyzing every Steel Judoka strategy pattern for translation potential
+- [ ] 1.17a-i — Micro-scenario authoring pipeline: systematically authoring, testing, and maintaining 50+ micro-scenarios as the game evolves; decomposed vs. holistic scenario design; combinatorial scenario generation from condition+action pools; automated testing of micro-scenario correctness
+- [ ] 1.17a-ii — Board preview sizing tension: the locked "small tactical map preview" vs. animated tooltip's need for readable board space; when should the board preview expand during tooltip display; responsive board preview sizing; mobile overlay vs. desktop inline
+- [ ] 1.17a-iii — Tooltip-to-Inspector continuity: how the 3-second tooltip micro-scenario maps to the full Inspector decision trace; "expand this tooltip" as a shortcut to the Inspector view of the same causal chain; the tooltip as compressed Inspector
+- [ ] 1.17a-iv — Combined primitive tooltips: when the player has configured a skill + rule + hook that form a combo, hovering over any one should show the full combo chain; how far does the "radius" of a tooltip micro-scenario extend across connected primitives?
+- [ ] 1.17a-v — Tooltip as competitive coaching tool: in multiplayer, hovering over an opponent's shared config to see how their hooks and rules work; the tooltip as scouting tool for competitive play; interaction with config sharing (7.03)
 
 ---
 
