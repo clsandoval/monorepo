@@ -185,7 +185,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 145**: PasswordInput — verify password strength bar: type "a" (weak/red), type "aA" (still weak), type "aA1" (fair/amber), type "aA1bcdefghij" (strong/green). Verify bar segments and labels update. (2026-03-16)
 - [x] **Stage 146**: SearchInput — if search input exists on any page (admin tenant list?), type query, verify search icon visible, clear button appears, clear resets input (2026-03-16)
 - [x] **Stage 147**: Select — find a select component (settings or admin), open dropdown, select option with click, verify selection displays. Open again, use arrow keys to navigate, press Enter to select, press Escape to close. (2026-03-16)
-- [ ] **Stage 148**: Checkbox — on signup page: check terms checkbox, verify visual state. Uncheck, verify visual state. Submit without checking, verify error.
+- [x] **Stage 148**: Checkbox — on signup page: check terms checkbox, verify visual state. Uncheck, verify visual state. Submit without checking, verify error. (2026-03-16)
 - [ ] **Stage 149**: Toggle/Switch — find a toggle (settings page?), flip on, verify visual state. Flip off, verify state. Verify the associated setting is applied.
 - [ ] **Stage 150**: Dropdown menu — click user menu in dashboard topbar/sidebar, verify menu opens with options. Click an option, verify action. Open menu, press Escape, verify closes. Open menu, click outside, verify closes.
 - [ ] **Stage 151**: Dropdown menu keyboard — open user menu with Enter/Space, navigate with arrow keys, select with Enter, verify action fires. Navigate to last item, press arrow down, verify wraps or stops.
