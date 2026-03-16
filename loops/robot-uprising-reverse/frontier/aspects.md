@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1187
-- **Analyzed:** 388
-- **Pending:** 799
-- **Convergence:** 32.7%
+- **Total aspects:** 1192
+- **Analyzed:** 389
+- **Pending:** 803
+- **Convergence:** 32.6%
 
 ---
 
@@ -931,7 +931,12 @@
   - [ ] 6.02a — Dynamic music layering implementation in Pixi.js/Web Audio: technical feasibility of game-state-driven music layers (adding/removing gong voices as units occupy columns); Web Audio API AudioWorklet vs. Tone.js vs. Howler.js; latency constraints for tick-synchronized audio; performance on mobile browsers
   - [ ] 6.02b — Audio accessibility: subtitles for sound cues, visual-only mode for deaf/HoH players, audio description mode for blind players; how to communicate signal-success vs. signal-failure without sound; vibration-only mode on mobile
   - [ ] 6.02c — Adaptive mixing for information density: when 14 units are active with overlapping signals, how does the audio mix prevent cacophony? Priority-based ducking, spatial audio panning per grid position, frequency-band reservation per event type; the "cocktail party problem" in game audio
-  - [ ] 6.02d — Audio identity per named channel: each player-created channel gets a procedurally generated sonic signature derived from its name string (hash → pitch + timbre parameters); players learn to recognize channels by sound; the channel-as-instrument metaphor
+  - [x] 6.02d — Audio identity per named channel: each player-created channel gets a procedurally generated sonic signature derived from its name string (hash → pitch + timbre parameters); players learn to recognize channels by sound; the channel-as-instrument metaphor; "The Sonic Identicon" — six variations explored (A "The Ping" single-note, B "The Motif" multi-note melodic fragment, C "The Instrument" persistent timbral identity, D "The Tuning Fork" player-configurable override, E "The Chorus" traffic-adaptive volume, F "The Babel Problem" failure mode analysis); hash-to-sound pipeline using Web Audio API OscillatorNode + BiquadFilterNode + GainNode (zero samples, ~39M perceptually distinct combinations from 11 hash bytes); pentatonic constraint guarantees harmonic safety; recommended B+E+D accessibility (motif + traffic mixing + configurable override); Spore libpd creature vocalizations, Sonic-Hash jQuery password melody, Slack notification fatigue anti-reference, Factorio "hear the broken belt" rhythm; 4 player journeys (Sofia 15 Manila first-timer learning architecture through sound, Marcus 38 DevOps hearing PagerDuty incident in sealed watch, Aisha 14 Tagalog channel names creating cultural audio vocabulary, Dr. Tanaka 58 presbycusis accessibility with frequency floor + visual waveforms); interaction effects with kulintang ensemble (babendil becomes channel family), hook visualization (dual-coded color+sound), EM emissions (beauty=vulnerability), Inspector (solo-channel audio isolation), signal latency (hops as musical spacing), context overload (cacophony-then-silence), mobile haptic pairing, co-op shared vocabulary, streaming/content creation; TikTok: "I didn't compose this. I just named the channels."; 5 new aspects discovered (6.02d-i through 6.02d-v)
+    - [ ] 6.02d-i — Channel sound collision resolution: when two channel names hash to perceptually similar sounds (within 2 semitones + same waveform), automatic detection and nudge-to-differentiate; collision probability math; when it becomes a real problem (>8 channels)
+    - [ ] 6.02d-ii — Enemy channel audio as intelligence gathering: player hears distorted versions of enemy channel sounds through EM detection; recognizing enemy channel patterns through audio before visual confirmation; audio reconnaissance as advanced gameplay
+    - [ ] 6.02d-iii — Channel sound evolution across campaign: should channel sounds subtly evolve as the player's architecture matures? Channels used for 100+ signals developing richer harmonics; "worn in" audio vs. deterministic consistency
+    - [ ] 6.02d-iv — Audio identity in Config Code exports: how channel sounds serialize into shareable configs; deterministic hash = same sounds everywhere vs. custom overrides = sound divergence; social implications for co-op and streaming
+    - [ ] 6.02d-v — The "silent channel" as stealth design: deliberately naming channels to hash to minimal/quiet sounds; "sound hacking" as metagame; interaction with EM emission mechanic; naming for sonic stealth vs. semantic meaning
   - [ ] 6.02e — Plan phase silence vs. music debate: Into the Breach cuts music during deployment; should Robot Uprising's Plan phase have authored music at all, or is silence + SFX more conducive to deep configuration thinking? The "focus music" question — when does music help vs. hinder complex cognitive work?
 - [x] 6.03 — Narrative voice: GLaDOS-style narrator, silent, text-log, radio chatter
 - [x] 6.04 — The TikTok clip: what's the 15-second viral moment for each major design direction; seven clip types analyzed (Chain Reaction, Buffer Meltdown, Inspector Revelation, Spaghetti Wiring, Meta-Level, First Timer, EM Noise Betrayal); emotional palette matrix across platforms; five cross-cutting requirements for clip-producing design (legible state changes, discrete moments, visible causality, dramatic failure modes, audio punctuation); design implications for buffer bar prominence, channel wiring visualization, audio direction, and content creation tooling; 5 new aspects discovered
