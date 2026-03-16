@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 993
-- **Analyzed:** 348
-- **Pending:** 645
+- **Total aspects:** 998
+- **Analyzed:** 349
+- **Pending:** 649
 - **Convergence:** 35.0%
 
 ---
@@ -848,7 +848,12 @@
     - [ ] 6.06a-iii — Haptic replay overlay for streaming/spectating: visual waveform representation of haptic events overlaid on replay footage; "what the player felt" as a spectator feature; waveform rendering spec for Twitch/YouTube overlays
     - [ ] 6.06a-iv — Cross-platform haptic parity testing matrix: systematic comparison of the same game events across DualSense / Joy-Con / Xbox / Steam Deck / generic; acceptable degradation thresholds; the "minimum viable haptic experience" definition
     - [ ] 6.06a-v — Haptic modding API for community-created vibration profiles: user-configurable haptic event → pattern mapping; community-shared haptic "skins"; accessibility profiles as a sharing use case; competitive integrity concerns for custom haptic configurations
-  - [ ] 6.06b — DualSense adaptive trigger resistance as commitment ritual: EXECUTE resistance gate concept, variable trigger resistance for meaningful decision weight vs. fatigue, other adaptive trigger uses (resistance scaling with cost, trigger softening when resources abundant)
+  - [x] 6.06b — DualSense adaptive trigger resistance as commitment ritual: five EXECUTE resistance variations (A "Fixed Gate" constant ritual, B "Confidence Meter" config-completeness-scaled, C "Escalating Stakes" mission-scaled with retry decay, D "The Ratchet" three-stage launch sequence with abort-at-any-stage, E "The Breath" haptic heartbeat quickening with silence-on-commit); four beyond-EXECUTE applications (L2 production cost preview, R2 sealed watch speed dial, Inspector scrubber resistance near interesting ticks, L2 context-fill persistent undertone); interaction effects with haptic vocabulary (grip=world/trigger=agency separation), sealed watch purity (speed dial allowed but context undertone contested), accessibility (full opt-out with R1 hold alternative, screen reader stage announcements), mobile (no analog — needs different gesture), PvP (resistance adds 0.5-1.5s to timed commits); recommended combination B+D (Confidence Meter base + Ratchet for milestone missions + Breath as accessibility fallback); comparable games (Returnal half-press commitment wall as gold standard, Astro's Playroom trigger dictionary, Death Stranding cargo-weight-as-resistance, GT7 brake simulation, Deathloop gun-jam surprise state); TikTok clip (split-screen hand struggling through trigger + sealed watch explosion); 4 player journeys (Reyes 26 frontend dev first-ever trigger gate discovery and retry decay, Dr. Amara 41 ML researcher Confidence Meter light-vs-heavy pull on stripped command unit, Kai 11 first-timer amazement and self-narrating launch sequence, Sana 28 blind engineer R1-hold temporal alternative); 5 new aspects discovered (6.06b-i through 6.06b-v)
+    - [ ] 6.06b-i — EXECUTE resistance calibration testing: empirical playtest protocol for finding the resistance sweet spot across hand sizes, grip styles, and fatigue thresholds; A/B testing framework for Fixed vs. Confidence vs. Ratchet; the "Goldilocks zone" between too-light (meaningless) and too-heavy (fighting the controller)
+    - [ ] 6.06b-ii — Inspector scrubber magnetic resistance as attention director: detailed design of resistance "wells" near high-interest ticks; how to define "interesting" (combat, overload, signal drop, kill); resistance strength vs. scrub speed interaction; risk of player feeling controlled vs. guided
+    - [ ] 6.06b-iii — Cross-platform EXECUTE ritual equivalents: Xbox impulse trigger vibration-only version, Switch button-hold-with-HD-Rumble version, keyboard/mouse long-press-with-screen-shake version, mobile swipe-to-confirm version; ensuring ritual parity without DualSense hardware
+    - [ ] 6.06b-iv — Trigger resistance as enemy corruption attack surface: what if enemy hacking skill could interfere with EXECUTE trigger feel — adding unexpected resistance or removing expected resistance as a diegetic corruption of the player's own commitment ritual; the controller-as-compromised-system concept
+    - [ ] 6.06b-v — Trigger force readback as hidden input: DualSense reports user-applied force during resistance; could the game read HOW HARD the player commits (gentle push-through vs. aggressive slam) and map that to a hidden confidence variable that subtly affects randomization seeds or debrief framing?
   - [ ] 6.06c — Joy-Con separated asymmetric co-op: "architect + analyst" mode where each player holds one Joy-Con — one manages Plan, one manages Inspector; role split design, handoff moments, two-act debrief implications
   - [ ] 6.06d — Cross-platform input parity for PvP: systematic controller disadvantage in timed formats; input-speed normalization (longer timer for controller), input-blind matchmaking, async-only as equalizer
   - [ ] 6.06e — Controller-specific onboarding tutorial branch: dedicated first-five-minutes for gamepad with D-pad navigation teaching, radial wheel introduction, preview mode discovery vs. adaptive tutorial that swaps prompts based on detected input
