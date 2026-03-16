@@ -4,7 +4,7 @@ import { Users } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 
 import { DashboardLayout } from '@/components/layout/dashboard-layout'
-import { ErrorState } from '@/components/ui/error-state'
+import { DashboardErrorState } from '@/components/dashboard/dashboard-error-state'
 import { EmptyState } from '@/components/ui/empty-state'
 import { DashboardStatusCards } from '@/components/dashboard/dashboard-status-cards'
 import { OnboardingChecklist } from '@/components/dashboard/onboarding-checklist'
@@ -91,11 +91,7 @@ export default async function DashboardPage() {
   ) {
     return (
       <DashboardLayout pageTitle="Dashboard">
-        <ErrorState
-          title="Failed to load dashboard"
-          description="There was a problem loading your workspace data. Please try again."
-          onRetry={undefined}
-        />
+        <DashboardErrorState />
       </DashboardLayout>
     )
   }

@@ -16,19 +16,19 @@ export default function AdminError({ error, reset }: ErrorPageProps) {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] gap-4 px-4 pt-20">
-      <AlertCircle size={48} className="text-red-600" />
-      <h1 className="text-2xl font-semibold text-navy text-center">
+      <AlertCircle size={48} className="text-destructive" />
+      <h1 className="text-2xl font-semibold text-foreground text-center">
         Something went wrong
       </h1>
-      <p className="text-sm text-gray-500 text-center max-w-[400px]">
+      <p className="text-sm text-muted-foreground text-center max-w-[400px]">
         We couldn&apos;t load the admin panel. Please try refreshing.
       </p>
       <Button onClick={reset}>
         Refresh page
       </Button>
-      <p className="text-xs text-gray-400 text-center">
+      <p className="text-xs text-muted-foreground text-center">
         Having trouble? Contact{' '}
-        <a href="mailto:support@daimon.ai" className="underline">
+        <a href="mailto:support@daimon.ai" className="underline text-foreground hover:text-foreground/80">
           support@daimon.ai
         </a>
       </p>
