@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1081
-- **Analyzed:** 367
-- **Pending:** 714
-- **Convergence:** 34.0%
+- **Total aspects:** 1085
+- **Analyzed:** 368
+- **Pending:** 717
+- **Convergence:** 33.9%
 
 ---
 
@@ -951,7 +951,11 @@
 - [ ] 6.01a-iii-a — Damage state persistence across retries: should the board start pristine or carry scars from previous attempts? "Haunted tiles" as visual record of past failures vs. clean slate
 - [ ] 6.01a-iii-b — Damage states as Inspector filter layer: the "Combat Density" heat map derived from damage tiles; toggle overlay in Inspector sidebar; gradient, opacity, legend specification
 - [ ] 6.01a-iii-c — Asymmetric damage for player vs. enemy kills: blue-tinted vs. red-tinted tile scars as instant friend/foe battlefield forensics
-- [ ] 6.01a-iii-d — Damage audio coupling: sounds accompanying tile damage transitions per biome (cracking stone, sputtering neon, hissing steam, falling canopy); interaction with 6.01a-ix
+- [x] 6.01a-iii-d — Damage audio coupling: sounds accompanying tile damage transitions per biome (cracking stone, sputtering neon, hissing steam, falling canopy); interaction with 6.01a-ix
+  - [ ] 6.01a-iii-d-i — Biome damage sound as unit identity confusion: sound collision audit across all biome×unit×event combinations; when a Scout's movement bamboo creak overlaps with jungle tile damage bamboo snap, can the player distinguish movement from destruction?
+  - [ ] 6.01a-iii-d-ii — Damage sound volume scaling with camera zoom: objective perspective (constant volume) vs. spatial audio (zoom-scaled) design decision; interaction with accessibility
+  - [ ] 6.01a-iii-d-iii — Player-authored damage sound mods: custom sound packs for tile damage; which audio slots are moddable and which are locked for gameplay legibility; community horror/comedy/lo-fi variants
+  - [ ] 6.01a-iii-d-iv — The "battle choir" emergent composition: accumulated damage sounds from mixed-biome boards creating unintentional sonic layering; designing biome damage ambient contributions for harmonic compatibility vs. tolerating chaos
 - [ ] 6.01a-iii-e — Tile repair as late-game Specialist skill: "restore" ability that repairs damaged tiles; strategic implications for damage-as-noise sub-option; aesthetic satisfaction of healing the battlefield
 - [ ] 6.01a-iv — Biome transition tile set completeness: fifteen biome pairs (5 choose 2) each need at least one transition tile; full pixel-level specs for all 15 combinations including jungle↔Siquijor, terrace↔city, and other uncovered pairs
 - [ ] 6.01a-v — High-contrast / accessibility tile variants
