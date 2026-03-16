@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1307
-- **Analyzed:** 412
-- **Pending:** 895
+- **Total aspects:** 1312
+- **Analyzed:** 413
+- **Pending:** 899
 - **Convergence:** 31.5%
 
 ---
@@ -788,7 +788,12 @@
   - [ ] 5.18d — The Deadlock Detector as competitive intelligence: in PvP, detecting opponent deadlocks from observable behavior (sudden freeze, stopped signal chains); deadlock detection as an observational skill
   - [ ] 5.18e — Deadlock prevention vs. deadlock recovery: tutorial teaches prevention (fire-and-forget to break cycles); advanced mission teaches recovery (Command agent REROUTE dynamically switching blocked hooks mid-battle)
 - [ ] 5.24 — The "false pivot literacy" tutorial mission: a campaign mission explicitly teaching the false pivot phenomenon through a scripted demonstration replay where the player must identify the genuine pivot by scrubbing backward through the debrief; completing it unlocks the "Diagnostic" achievement and advanced signal genealogy visualization mode
-- [ ] 5.25 — The "oracle preview" anti-pattern: players who alt-tab to look up a tier list or YouTube solution to discover the expected pass rate before watching their sealed replay; designing against this by making the sealed experience fast enough and surprising enough that spoiling it feels like opting out of the fun; whether the game should lean into spoilability (some players genuinely prefer guides) or resist it
+- [x] 5.25 — The "oracle preview" anti-pattern: players who alt-tab to look up a tier list or YouTube solution to discover the expected pass rate before watching their sealed replay; designing against this by making the sealed experience fast enough and surprising enough that spoiling it feels like opting out of the fun; whether the game should lean into spoilability (some players genuinely prefer guides) or resist it
+  - [ ] 5.25a — The "Blind Run" badge as social signal: designing a first-party blind run toggle that records whether the player used Community Insights or paused during pre-execute; blind run completions as special achievements; streamer integration; social pressure/prestige of blind vs. optimized runs
+  - [ ] 5.25b — Community Insights population bootstrapping: populating Community Insights before player population is large enough; synthetic data from AI opponents, dev team seeds, beta tester ghosts; cold start problem for community-dependent anti-oracle features
+  - [ ] 5.25c — Pre-execute confidence dial calibration: making estimated resilience vague enough to manage anxiety without spoiling; deliberate inaccuracy as design; honest uncertainty communication
+  - [ ] 5.25d — Oracle behavior across player archetypes: how oracle-seeking differs between first-timer (anxiety), casual (efficiency), veteran (meta), streamer (social), child (impatience); archetype-specific anti-oracle strategies
+  - [ ] 5.25e — The posthumous signal as emergent narrative archetype: cataloging emergent narratives that only appear blind — sacrifice play, cascade failure, last-tick save, friendly fire; designing hooks to maximize dramatic moment probability; streamer/TikTok virality interaction
 - [ ] 5.19 — The "pass-rate plateau" problem: players who get 80/100 and feel done — designing campaign gates that require 90% rather than 100% for progression, while reserving 100% for cosmetic/leaderboard rewards; the psychological difference between "good enough" and "provably correct"
 - [x] 5.20 — Always-on anxiety vs. self-contained missions: Screeps World's 24/7 persistence creates ownership feeling but also "vacation death" anxiety (base destroyed while offline); Robot Uprising's mission structure eliminates anxiety but loses persistence fantasy; what compensatory design choices restore the ownership feeling? Named units? Between-mission camp state? Campaign memory?
 - [ ] 5.21 — Open-source architecture as community mechanic: Screeps' culture of publishing full bot code on GitHub + writing architectural blog posts is a deliberately-designed community mechanic; what's the Robot Uprising equivalent? Exportable agent configs, shareable hook wiring diagrams, community config repositories?
