@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1142
-- **Analyzed:** 379
-- **Pending:** 763
-- **Convergence:** 33.2%
+- **Total aspects:** 1147
+- **Analyzed:** 380
+- **Pending:** 767
+- **Convergence:** 33.1%
 
 ---
 
@@ -1154,7 +1154,12 @@
   - [ ] 7.07e — Inspector overlay per optimization axis: dedicated Inspector modes for each axis (speed=latency bottlenecks, efficiency=cost accumulation, elegance=unused components) as analytical tools
 - [ ] 7.08 — Deferred community metric invention: designing the scoring system to be extensible so the community can invent new evaluation axes; the Opus Magnum "MechA" pattern; what composite metrics might the Robot Uprising community invent?
 - [ ] 7.15 — The "eEDT as archetype signal" in config browsing: when filtering workshop configs by eEDT range, what does the browsing experience look like? How does a player communicate "I want configs that play into the midgame" as an explicit search filter?
-- [ ] 7.06 — The histogram as social loop: post-execution bell curves showing player distribution across agent efficiency metrics (from Shenzhen I/O)
+- [x] 7.06 — The histogram as social loop: post-execution bell curves showing player distribution across agent efficiency metrics (from Shenzhen I/O)
+- [ ] 7.06a — Histogram animation and sound design vocabulary: exact visual choreography of line-snap, friend-marker-drop, curve-morph, percentile-label-fade; audio mapping (tick, tink, whoosh, ding); 200ms rendering budget; animation pacing as emotional rhythm in debrief
+- [ ] 7.06b — Histogram population bootstrapping for launch: strategies for empty histograms (AI benchmarks, developer playthroughs, beta carry-over, "first 1000 players" badge); synthetic data disclosure; transition from bootstrapped to organic population curves
+- [ ] 7.06c — The histogram as anti-cheat signal: using distribution shape to detect anomalous scores; replay verification for tail outliers; tension between legitimate outliers and exploit detection; community-reported suspicious scores
+- [ ] 7.06d — Per-unit-type histograms: breaking down overall histogram by unit composition (relay-heavy vs. scout-heavy curves); constellation-like analysis without full identity map; simpler implementation path
+- [ ] 7.06e — Histogram accessibility: screen reader narration of position; haptic vibration mapping to curve shape on mobile; high-contrast mode; reduced-motion rendering (no animation, instant positioning)
 - [ ] 7.05a — Elegance metric definition deep dive: exactly how is "elegance" computed — rule count × hook count × blueprint count, or structural analysis (dead rules, redundant hooks, unused channels)? The metric's definition determines what the game rewards — mechanical simplicity vs. architectural cleanliness
 - [ ] 7.05b — The "metric corruption" problem (Goodhart's Law in game design): when a metric becomes a target it ceases to be a good metric; players optimizing for elegance score may build deliberately minimal configs that don't teach intended lessons; resistance strategies (metric rotation, composite metrics, hidden metrics)
 - [ ] 7.05c — Histogram population health over time: as the game matures histograms compress toward optimal values; maintaining histogram diversity via seasonal scenario rotations, mission variants, population segmentation; the "spike problem" when optimal solutions are discovered
