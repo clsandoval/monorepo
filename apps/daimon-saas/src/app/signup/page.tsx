@@ -96,8 +96,8 @@ function PasswordStrengthBar({ password }: { password: string }) {
   const bgClass = colorClass.split(' ')[0];
   const textClass = colorClass.split(' ')[1];
   return (
-    <div className="mt-2">
-      <div className="flex gap-1 h-1">
+    <div className="mt-2" role="status" aria-live="polite">
+      <div className="flex gap-1 h-1" aria-hidden="true">
         {[1, 2, 3, 4].map((seg) => (
           <div
             key={seg}
@@ -109,7 +109,7 @@ function PasswordStrengthBar({ password }: { password: string }) {
         ))}
       </div>
       <p className={cn('text-sm mt-1', textClass)}>
-        {label}
+        Password strength: {label}
       </p>
     </div>
   );
@@ -552,7 +552,14 @@ export default function SignupPage() {
                   isSubmitting && 'opacity-50 cursor-not-allowed'
                 )}
               >
-                {isSubmitting ? <Spinner /> : 'Create account'}
+                {isSubmitting ? (
+                  <>
+                    <Spinner />
+                    <span className="sr-only">Creating account…</span>
+                  </>
+                ) : (
+                  'Create account'
+                )}
               </Button>
             </form>
           </CardContent>
