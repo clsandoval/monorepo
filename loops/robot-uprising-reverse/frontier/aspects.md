@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 989
-- **Analyzed:** 347
-- **Pending:** 642
-- **Convergence:** 35.1%
+- **Total aspects:** 993
+- **Analyzed:** 348
+- **Pending:** 645
+- **Convergence:** 35.0%
 
 ---
 
@@ -916,9 +916,13 @@
 - [x] 6.10 — Sound design for corruption detection: audio vocabulary of integrity violations — what does a foreign hook sound like when first detected, what does a revert "click" sound like, what does mid-execution EMP buffer degradation sound like; the sonic signature of a compromised vs. clean system
 - [ ] 6.10a — Corruption audio learning curve design: how the first corruption encounter (Mission 7-8) introduces the audio vocabulary without overwhelming; pacing of new corruption sounds across campaign's second half; which sounds appear when
 - [ ] 6.10b — Corruption audio in competitive/PvP context: does the opponent hear YOUR corruption audio? Can EM emissions include corruption detection sounds? Audio as competitive intelligence leak
-- [ ] 6.10c — Hybrid corruption audio vocabulary: combining elements of multiple options (Geiger clicking for detection + heartbeat for severity + whispers for deep corruption narrative); the layered approach
+- [x] 6.10c — Hybrid corruption audio vocabulary: combining elements of multiple options (Geiger clicking for detection + heartbeat for severity + whispers for deep corruption narrative); the layered approach
 - [ ] 6.10d — Accessibility alternatives for corruption audio: screen-reader integration, visual-only corruption modes for deaf/hard-of-hearing players, haptic-only modes; ensuring corruption detection doesn't become audio-gated
 - [ ] 6.10e — Player-configurable corruption audio intensity: settings slider from "subtle" (perturbation only) to "aggressive" (full alarm cascade); player agency over corruption layer's attention demand
+- [ ] 6.10f — Corruption audio in the sealed watch phase: what corruption sounds like DURING battle (not just workbench); EMP buffer degradation audio mid-fight; sealed watch corruption vocabulary distinct from plan phase
+- [ ] 6.10g — Player-authored corruption audio modding: custom sound pack support for corruption vocabulary; modding hooks for audio system; community horror/comedy/minimal packs
+- [ ] 6.10h — Cross-player corruption audio in spectator mode: which player's corruption audio does spectator hear in PvP; merged "god view" showing both corruption states; audio mixing for broadcast
+- [ ] 6.10i — Corruption audio adaptation over campaign arc: vocabulary evolution from Mission 7 (minimal) to Mission 10 (full); audio complexity growing with player corruption literacy; graduated introduction of hybrid layers
 - [x] 6.11 — The web demo: browser-playable demo as acquisition funnel — six demo models (vertical slice, extended tutorial, sandbox, replay theater, persistent playground, rotating featured mission), layered pipeline recommendation, funnel metrics, conversion mechanics, technical implementation
 - [ ] 6.11a — Demo-to-full-game save migration: localStorage → Steam Cloud sync, account linking, handling demo progress incompatible with newer game versions, "thank you for playing the demo" emotional beat
 - [ ] 6.11b — Demo-specific analytics dashboard: funnel visualization, drop-off points, retry rates per mission, Inspector engagement heatmap, conversion attribution — developers applying the game's Inspector philosophy to business metrics
