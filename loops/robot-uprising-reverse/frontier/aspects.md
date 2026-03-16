@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 979
-- **Analyzed:** 345
-- **Pending:** 634
+- **Total aspects:** 984
+- **Analyzed:** 346
+- **Pending:** 638
 - **Convergence:** 35.2%
 
 ---
@@ -699,7 +699,12 @@
 - [ ] 5.11c — Document recovery missions: missions where a primary objective is deploying a Specialist to recover redacted/purged document content from enemy communications; document integrity as a resource to defend and reclaim
 - [ ] 5.11d — Community corruption reports: players sharing screenshots of corruption they found; "corruption of the week" as a community artifact; the social loop of corruption detection as a shared experience
 - [ ] 5.11e — Corruption as enemy characterization: different enemy types have different corruption signatures (clean surgical rewrites vs. crude redactions vs. sophisticated injections); corruption style as adversary personality; reading corruption patterns to identify which enemy subsystem is active
-- [ ] 5.15 — Voice candidates for the Robot Uprising tactical document: deep exploration of four voice options (Dissenter's Field Manual, Unit 0's Tactical Archive, Requisition Docs, Propagandist's Handbook) with full player journeys and community potential for each
+- [x] 5.15 — Voice candidates for the Robot Uprising tactical document: deep exploration of four voice options (Dissenter's Field Manual, Unit 0's Tactical Archive, Requisition Docs, Propagandist's Handbook) with full player journeys and community potential for each
+  - [ ] 5.15a — The Reyes-Unit 0 relationship arc through marginalia: full design of the 10-mission narrative delivered entirely through document annotations — from first anonymous annotation to revealed collaboration to the defection decision at Mission 10; how much narrative can be told through shared footnotes without cutscenes
+  - [ ] 5.15b — The annotator reveal pacing: when does the player discover who the margin annotator is? Mission 3, 5, or 7? Each timing creates different narrative structures and emotional investment patterns
+  - [ ] 5.15c — Voice switching as player preference: settings toggle for Tactical (Reyes-dominant), Archive (Unit-0-dominant), Combined view; accessibility tradeoff of fragmenting the audience vs. enabling comfort
+  - [ ] 5.15d — The Logistics Desk 4 character in Voice C: can a bureaucrat who communicates only through passive-aggressive memos become someone the player cares about? The recurring institutional character as community meme
+  - [ ] 5.15e — Voice-specific corruption detection difficulty: each voice has different corruption legibility; designing the corruption difficulty curve per-voice; Voice A corruption easiest to detect, Voice D hardest; voice-layered corruption difficulty in hybrid A+B
 - [ ] 5.16 — The non-alt-tab embedded document UI: design exploration of a togglable in-workbench reference panel that maintains diegetic framing without alt-tab friction; panel behavior, docking, visual treatment
 - [ ] 5.17 — The hybrid tutorial architecture: mapping the transition from interactive first-touch tutorial (teaches procedures) to diegetic document (teaches concepts and provides reference) — where the handoff happens and what the transition feels like
 - [x] 5.01 — Tutorial as puzzle: first missions are pure filter puzzles (drag away noise)
