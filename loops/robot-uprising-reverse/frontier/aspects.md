@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1352
-- **Analyzed:** 421
-- **Pending:** 931
+- **Total aspects:** 1357
+- **Analyzed:** 422
+- **Pending:** 935
 - **Convergence:** 31.1%
 
 ---
@@ -1121,7 +1121,12 @@
   - [ ] 7.09c — Automated meta-health detection system: exact metrics (archetype diversity index, match duration distribution, win rate variance, deploy churn rate), thresholds for intervention, false positive handling, transparency vs. opacity design for players
   - [ ] 7.09d — The "field condition order" as weather metaphor: full vocabulary design for environmental adjustments (clarity, turbulence, calm, storm); how the weather metaphor shapes player perception of meta-intervention vs. balance-patch perception; notification UX for mid-season adjustments
   - [ ] 7.09e — Season transition ceremony design: the boot log, map animation, palette shift, first-match calibration experience; how to make the moment feel like an event, not a reset; preserving deployed configs across seasons while communicating that adaptation is needed
-- [ ] 7.11 — Match duration as community health signal: season meta reports tracking average match length across the Gauntlet population; dropping average match length as indicator of a dominant strategy (stomps increasing); "match length as meta health indicator" as a designed ecosystem diagnostic; when to trigger season resets based on this signal
+- [x] 7.11 — Match duration as community health signal: season meta reports tracking average match length across the Gauntlet population; dropping average match length as indicator of a dominant strategy (stomps increasing); "match length as meta health indicator" as a designed ecosystem diagnostic; when to trigger season resets based on this signal
+- [ ] 7.11a — The Pulse as spectator broadcast overlay: heartbeat line and stomp index displayed during tournament streams; casters reference it to contextualize matches; the overlay as meta-literacy tool for casual viewers
+- [ ] 7.11b — Duration-based matchmaking weighting: using average match duration as a matchmaking factor (pairing rush vs. rush, macro vs. macro at same rating); "play style ELO"; risk of meta echo chambers vs. experience quality
+- [ ] 7.11c — Historical Pulse archive as community memory: full season-by-season Pulse data archive as "Meta History Museum"; scrubbing through past seasons; educational tool and competitive intelligence resource
+- [ ] 7.11d — Anomaly detection for meta-breaking discoveries: rate-of-change in duration metrics to detect sudden shifts indicating a broken discovery; "the spike detector"; auto-flagging configs at inflection points for designer review
+- [ ] 7.11e — Per-tier Pulse decomposition: separate Pulse dashboards per ranked tier (Bronze through Diamond); tier-specific metas differ; prevents population-level averages from hiding tier-specific problems; comparable to LoL rank-stratified balance
 - [x] 7.10 — The "config necropsy" as community artifact: a community practice where high-Elo players post config evolution retrospectives ("here's v1, here's the attack that broke it, here's v5"); designing the infrastructure to make this easy — version history export, annotatable replay sharing, readable config diff views
 - [x] 7.07 — Three orthogonal optimization axes: speed / efficiency / elegance as genuinely in-tension post-mission goals; a cycle-optimal army config and a buffer-minimal config should require different approaches
 - [x] 7.08 — Deferred community metric invention: designing the scoring system to be extensible so the community can invent new evaluation axes; the Opus Magnum "MechA" pattern; what composite metrics might the Robot Uprising community invent?
