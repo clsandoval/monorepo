@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1182
-- **Analyzed:** 387
-- **Pending:** 795
+- **Total aspects:** 1187
+- **Analyzed:** 388
+- **Pending:** 799
 - **Convergence:** 32.7%
 
 ---
@@ -866,7 +866,12 @@
 - [ ] 5.08e-iv — Dynamic escort formation visualization on Plan screen: ghost preview showing escort formation at each tick of VIP's projected path; coverage gaps, timing windows, perception overlaps; planning tool unique to escort missions
 - [ ] 5.08e-v — "The Silent Escort" as distinct mission archetype: escort + emissions model = stealth escort; minimal communication, compressed signals, dark network tactics; the quietest escort wins; distinct enough from standard escort to warrant own mission design
 - [x] 5.09 — Replayability: what makes someone start a new campaign
-- [ ] 5.09a — Blueprint presets as replay currency: unlocking pre-designed blueprint loadouts (like Into the Breach squads) that fundamentally change approach; "The Stealth Doctrine," "The Swarm," "The Singleton" as named playstyle presets
+- [x] 5.09a — Blueprint presets as replay currency: unlocking pre-designed blueprint loadouts (like Into the Breach squads) that fundamentally change approach; "The Stealth Doctrine," "The Swarm," "The Singleton" as named playstyle presets
+- [ ] 5.09a-i — Custom Doctrine editor as late-game unlock: after completing the campaign with 3+ Doctrines, unlock ability to create custom Doctrines with self-imposed constraints; Doctrine Workshop as community sharing platform; Into the Breach Custom Squad equivalent
+- [ ] 5.09a-ii — Doctrine-specific Predecessor dialogue: 7 narrative variants of key Predecessor lines referencing active Doctrine; cost vs. immersion analysis; "You're running silent. Smart. I tried that in Cycle 7."
+- [ ] 5.09a-iii — Doctrine-specific debrief metrics: per-Doctrine tracked metrics (Stealth → EM emissions, Swarm → peak unit count, Singleton → reassign activations); per-Doctrine histograms; interaction with 7.06 histogram system
+- [ ] 5.09a-iv — Doctrine difficulty ratings as community-sourced data: computing difficulty from community clear rates per mission rather than fixed stars; "Singleton Mission 7: 12% clear rate" as live data
+- [ ] 5.09a-v — "Doctrine fusion" mechanic: combining constraints from two completed Doctrines; Stealth+Swarm = "Whisper Swarm" (12 units, 1 hook each); combinatorial explosion of replay possibilities
 - [ ] 5.09b — The "impossible challenge" community layer: community-submitted challenges with verified-impossible or extremely-difficult mutator combos; leaderboards for beautiful failure, not just victory
 - [ ] 5.09c — Predecessor memory as light replay narrative: minimal-writing variant of narrative replay — 5-10 new Predecessor lines per cycle referencing specific mission outcomes; low dev cost, high emotional return
 - [ ] 5.09d — The "remix tape" — curated mutator playlists: developer- or community-curated sequences of mutator combos across all 10 missions, packaged as named experiences; playlists as shareable content units
