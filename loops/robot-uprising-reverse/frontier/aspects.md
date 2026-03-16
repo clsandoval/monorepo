@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1076
-- **Analyzed:** 366
-- **Pending:** 710
+- **Total aspects:** 1081
+- **Analyzed:** 367
+- **Pending:** 714
 - **Convergence:** 34.0%
 
 ---
@@ -413,7 +413,12 @@
   - [ ] 1.13c — The spectator problem: StarCraft became esport because battles are visually legible; Robot Uprising's signal chains and context bars need the same clarity for observers who didn't design the systems; making someone else's information architecture comprehensible to a viewer in real time
   - [ ] 1.13d — The control group / hotkey vocabulary as plan-screen UX precedent: StarCraft's Ctrl+1-9 as original "named attention unit collections"; how this maps to blueprint naming, channel naming, production group management; keyboard-first expert workflows
   - [ ] 1.13e — The replay culture as Inspector precedent: Brood War replay-watching culture (Day9 dailies, community analysis, tournament VODs) as direct precedent for Inspector and async sharing; designing Inspector to support "learn by watching others" ecosystem
-- [ ] 1.14 — Factorio: belt/logistics systems, throughput optimization, infinite scalability, mod community
+- [x] 1.14 — Factorio: belt/logistics systems, throughput optimization, infinite scalability, mod community
+- [ ] 1.14a — The "Ratio Calculator" gap: in-game vs. external optimization tools; Robot Uprising's Inspector as built-in optimizer vs. Factorio's external calculator dependency; pre-execution signal latency predictions in the workbench
+- [ ] 1.14b — The spaghetti-to-bus progression as emergent tutorial: how Factorio players naturally evolve from spaghetti→bus→trains; channel topology should follow same arc (all-to-all→hierarchy→relay-mediated); designing walls that motivate architectural evolution
+- [ ] 1.14c — Peaceful mode as accessibility escape valve: sandbox mode for configure-and-test without mission pressure; ghost preview vs. full simulation; interaction with plan screen design
+- [ ] 1.14d — The "everything is visible" vs. "temporal separation" design philosophy: Factorio shows everything always; Robot Uprising hides internals until Inspector; when each approach works better
+- [ ] 1.14e — Friday Facts as community-building pattern: weekly dev blog as trust engine; 500+ posts building Factorio's community; what Robot Uprising's development transparency model looks like for an AI-engineering game
 - [ ] 1.15 — Shapez: pure factory puzzle stripped of combat, focus on throughput and layout
 - [ ] 1.16 — Mindustry: tower defense + factory + RTS hybrid, conveyor logistics under pressure
 
