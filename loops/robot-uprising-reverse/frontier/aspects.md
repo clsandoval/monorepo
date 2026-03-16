@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1051
-- **Analyzed:** 361
-- **Pending:** 695
+- **Total aspects:** 1056
+- **Analyzed:** 362
+- **Pending:** 699
 - **Convergence:** 34.1%
 
 ---
@@ -540,7 +540,12 @@
 - [ ] 2.09 — Sticky memories: some entries are "pinned" and never evict (costs permanent capacity)
 
 ### Signal & Information Types
-- [ ] 2.10 — Signal taxonomy: what kinds of information exist in the game world (threats, resources, terrain, orders, rumors)
+- [x] 2.10 — Signal taxonomy: what kinds of information exist in the game world (threats, resources, terrain, orders, rumors)
+  - [ ] 2.10a — Content type classification ambiguity resolution: when a perception event could be multiple types (enemy relay = THREAT + NOISE + POSITION), tie-breaking rules; first-match priority vs. multi-tag vs. player-configurable classification
+  - [ ] 2.10b — Custom content types as late-game unlock: player-defined types beyond the 8 built-in ones; interaction with community config sharing and portability
+  - [ ] 2.10c — Content type distribution as diagnostic metric: type-frequency histogram as first-class Inspector and season health metric; "70% THREAT = scout in the fire"
+  - [ ] 2.10d — Enemy signal type spoofing depth: three levels of spoofing sophistication (wrong type, plausible payload, confidence spoofing); detection skill requirements per level
+  - [ ] 2.10e — Type-aware compression ratios: per-content-type compression config on relay compress skill; THREAT 1:1 passthrough vs. POSITION 5:1 summary vs. TERRAIN drop
 - [ ] 2.24 — Buffer miss fallback behaviors as a design vocabulary: what does an agent do when a rule's buffer query finds no match? (skip/fall-through, suspend for 1 tick, configurable defensive default, broadcast "need data" to its channel); which model teaches the right habits and prevents frustrating behavioral lockdown
 - [ ] 2.25 — The "last known position" prediction chain: when a positional buffer entry is too old for direct action, can the agent dead-reckon (last-known + elapsed ticks + velocity estimate)? Options: built-in skill, query modifier, or dedicated Specialist unit for position prediction; where does prediction live in the architecture?
 - [ ] 2.11 — Signal fidelity: signals degrade as they travel (telephone game mechanic)
