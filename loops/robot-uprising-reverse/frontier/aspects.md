@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1222
-- **Analyzed:** 395
-- **Pending:** 827
+- **Total aspects:** 1227
+- **Analyzed:** 396
+- **Pending:** 831
 - **Convergence:** 32.3%
 
 ---
@@ -1181,7 +1181,12 @@
   - [ ] 7.03a-v — Config Code as pedagogical artifact format: classroom-specific extensions (assignment metadata, constraint annotations, grading rubric hints embedded in code metadata); the "lab worksheet" Config Code variant for educational contexts
 - [ ] 7.03b — Community moderation infrastructure: grief prevention (impossible bounties, bad Evolution Chain contributions, offensive names), report system, automated quality detection, trust levels
 - [ ] 7.03c — Reputation economy design: circuit tokens, contributor badges, featured-creator program, reputation decay, and how reputation interacts with Gauntlet rating as parallel social currencies
-- [ ] 7.03d — Workshop search and discovery UX: full design of search, filtering, tag taxonomy, recommendation engine, trending algorithms, and config similarity detection
+- [x] 7.03d — Workshop search and discovery UX: full design of search, filtering, tag taxonomy, recommendation engine, trending algorithms, and config similarity detection
+  - [ ] 7.03d-i — Config Card hero image generation: exact algorithm for selecting "most dramatic replay frame" vs. procedural topology diagram generation; frame scoring heuristic (signal density, unit count, kill events); when replay data is unavailable
+  - [ ] 7.03d-ii — Workshop content moderation at the card level: offensive config names, misleading tags, fake import counts, coordinated upvote manipulation; automated detection vs. community reporting; interaction with 7.03b moderation infrastructure
+  - [ ] 7.03d-iii — Workshop offline mode: what happens when the player has no internet? Cached configs from last session, local-only configs, sync-on-reconnect; the Workshop as partially-offline-capable
+  - [ ] 7.03d-iv — Collection curation as community content type: curated collections as a first-class shareable artifact beyond individual configs; "playlists" of configs for specific purposes (learning arcs, meta-counter lists, archetype showcases); collection creator reputation
+  - [ ] 7.03d-v — Workshop analytics dashboard for creators: what metrics does an author see about their own configs? Import trends, like ratios, fork counts, comment sentiment, geographic distribution; the "Creator Studio" as a post-upload engagement tool
 - [ ] 7.03e — Cross-platform sharing infrastructure: Config Codes, Workshop entries, challenge invitations across PC/mobile/web demo; account linking; progress sync; QR code flow
 - [x] 7.04 — Modding: custom missions, custom building blocks, total conversions
   - [ ] 7.04a — Mission editor UX design: full wireframe of the mission editor — panel layout, toolbar design, snap behaviors, terrain painting workflow, enemy AI configuration popup, test-play flow, code generation animation
