@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1282
-- **Analyzed:** 407
-- **Pending:** 875
+- **Total aspects:** 1287
+- **Analyzed:** 408
+- **Pending:** 879
 - **Convergence:** 31.7%
 
 ---
@@ -1227,7 +1227,12 @@
   - [ ] 7.03d-iii — Workshop offline mode: what happens when the player has no internet? Cached configs from last session, local-only configs, sync-on-reconnect; the Workshop as partially-offline-capable
   - [ ] 7.03d-iv — Collection curation as community content type: curated collections as a first-class shareable artifact beyond individual configs; "playlists" of configs for specific purposes (learning arcs, meta-counter lists, archetype showcases); collection creator reputation
   - [ ] 7.03d-v — Workshop analytics dashboard for creators: what metrics does an author see about their own configs? Import trends, like ratios, fork counts, comment sentiment, geographic distribution; the "Creator Studio" as a post-upload engagement tool
-- [ ] 7.03e — Cross-platform sharing infrastructure: Config Codes, Workshop entries, challenge invitations across PC/mobile/web demo; account linking; progress sync; QR code flow
+- [x] 7.03e — Cross-platform sharing infrastructure: Config Codes, Workshop entries, challenge invitations across PC/mobile/web demo; account linking; progress sync; QR code flow
+  - [ ] 7.03e-i — Blind Trade Workshop feature: "Wonder Trade" for configs — upload a config, receive a random one from the CDN pool; serendipitous discovery; teaching through exposure to unfamiliar architectures; interaction with Workshop discovery (7.03d) and onboarding
+  - [ ] 7.03e-ii — Open Graph preview card rendering: edge function converting Config Code to SVG topology diagram for Discord/Twitter/Reddit/Slack embed cards; the preview card IS the sharing experience for most recipients; rendering pipeline, caching strategy, visual fidelity targets
+  - [ ] 7.03e-iii — NFC tap-to-share detailed protocol design: NDEF record format for Config Codes, payload limits, Android Nearby Share integration, iOS Core NFC limitations, fallback to QR on NFC-incapable devices
+  - [ ] 7.03e-iv — Offline Workshop cache strategy: cache invalidation, prefetch heuristics, storage budget allocation (Workshop cache vs career data vs replays), stale data UX
+  - [ ] 7.03e-v — CDN write coordination and consistency model: edge function conflict resolution for simultaneous Workshop index writes, eventual consistency implications for trending algorithms, index file pagination strategy
 - [x] 7.04 — Modding: custom missions, custom building blocks, total conversions
   - [ ] 7.04a — Mission editor UX design: full wireframe of the mission editor — panel layout, toolbar design, snap behaviors, terrain painting workflow, enemy AI configuration popup, test-play flow, code generation animation
   - [ ] 7.04b — Skill Definition Language (SDL) visual scripting design: detailed specification of the Forge's visual scripting canvas — block types, connection rules, parameter types, testing sandbox, error feedback; comparable to Unreal Blueprints, Warcraft III triggers, and Scratch
