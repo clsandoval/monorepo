@@ -27,32 +27,20 @@ export const metadata: Metadata = {
 
 function PageHeader() {
   return (
-    <header style={{ marginBottom: '48px' }}>
+    <header className="mb-12">
       <div
-        className="font-body text-sm" style={{
-          color: 'hsl(var(--muted-foreground))',
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-          marginBottom: '8px',
-        }}
+        className="font-body text-sm text-muted-foreground uppercase tracking-widest mb-2"
       >
         Account &amp; Billing
       </div>
       <h1
         id="faq-page-title"
-        className="font-headline text-[32px] font-semibold" style={{
-          color: 'hsl(var(--foreground))',
-          margin: '0 0 8px 0',
-        }}
+        className="font-headline text-[32px] font-semibold text-foreground mt-0 mb-2"
       >
         Frequently Asked Questions
       </h1>
       <p
-        className="font-body text-lg font-normal" style={{
-          color: '#6B7280',
-          margin: 0,
-          lineHeight: 1.5,
-        }}
+        className="font-body text-lg font-normal text-gray-500 m-0 leading-normal"
       >
         Answers to the most common questions about Daimon.
       </p>
@@ -74,32 +62,19 @@ function Toc() {
   return (
     <nav
       aria-label="On this page"
-      style={{
-        backgroundColor: '#F9FAFB',
-        border: '1px solid #E5E7EB',
-        padding: '20px 24px',
-        marginBottom: '48px',
-      }}
+      className="bg-gray-50 border border-border py-5 px-6 mb-12"
     >
       <p
-        className="font-body text-sm font-semibold" style={{
-          color: '#6B7280',
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-          margin: '0 0 12px 0',
-        }}
+        className="font-body text-sm font-semibold text-gray-500 uppercase tracking-widest mt-0 mb-3"
       >
         On this page
       </p>
-      <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
+      <ul className="list-none m-0 p-0 flex flex-col gap-1.5">
         {tocItems.map((item) => (
           <li key={item.href}>
             <a
               href={item.href}
-              className="font-body text-sm" style={{
-                color: '#3F85CC',
-                textDecoration: 'none',
-              }}
+              className="font-body text-sm text-[#3F85CC] no-underline"
             >
               {item.label}
             </a>
@@ -120,11 +95,7 @@ function SectionHeading({
   return (
     <h2
       id={id}
-      className="font-headline text-[22px] font-semibold" style={{
-        color: 'hsl(var(--foreground))',
-        margin: '48px 0 16px 0',
-        paddingTop: '8px',
-      }}
+      className="font-headline text-[22px] font-semibold text-foreground mt-12 mb-4 pt-2"
     >
       {children}
     </h2>
@@ -141,12 +112,7 @@ function FaqItem({
   return (
     <details
       open
-      style={{
-        border: '1px solid #E5E7EB',
-        borderRadius: '0px',
-        marginBottom: '8px',
-        backgroundColor: '#FFFFFF',
-      }}
+      className="border border-border rounded-none mb-2 bg-white"
     >
       <style>{`
         details.faq-item[open] { background: #FAFAFA; }
@@ -161,34 +127,16 @@ function FaqItem({
         details.faq-item[open] summary::after { content: "−"; }
       `}</style>
       <summary
-        className="font-body text-[15px] font-semibold" style={{
-          color: 'hsl(var(--foreground))',
-          padding: '16px 20px',
-          cursor: 'pointer',
-          listStyle: 'none',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          gap: '16px',
-        }}
+        className="font-body text-[15px] font-semibold text-foreground py-4 px-5 cursor-pointer list-none flex justify-between items-center gap-4"
       >
         {question}
         <span
-          className="text-xl" style={{
-            color: '#6B7280',
-            flexShrink: 0,
-            transition: 'transform 200ms ease',
-            userSelect: 'none',
-          }}
+          className="text-xl text-gray-500 shrink-0 transition-transform duration-200 select-none"
           aria-hidden="true"
         />
       </summary>
       <div
-        className="font-body text-[15px]" style={{
-          padding: '0 20px 20px 20px',
-          color: '#374151',
-          lineHeight: 1.6,
-        }}
+        className="font-body text-[15px] px-5 pb-5 text-gray-700 leading-relaxed"
       >
         {children}
       </div>
@@ -198,15 +146,15 @@ function FaqItem({
 
 // answer body helpers
 const ap = (text: string | React.ReactNode) => (
-  <p style={{ margin: '0 0 12px 0' }}>{text}</p>
+  <p className="mt-0 mb-3">{text}</p>
 )
 const apLast = (text: string | React.ReactNode) => (
-  <p style={{ margin: 0 }}>{text}</p>
+  <p className="m-0">{text}</p>
 )
 const aul = (items: (string | React.ReactNode)[]) => (
-  <ul style={{ margin: '0 0 12px 0', paddingLeft: '20px' }}>
+  <ul className="mt-0 mb-3 pl-5">
     {items.map((item, i) => (
-      <li key={i} style={{ marginBottom: '6px' }}>
+      <li key={i} className="mb-1.5">
         {item}
       </li>
     ))}
@@ -215,7 +163,7 @@ const aul = (items: (string | React.ReactNode)[]) => (
 const alink = (href: string, label: string, newTab?: boolean) => (
   <a
     href={href}
-    style={{ color: '#3F85CC', textDecoration: 'underline' }}
+    className="text-[#3F85CC] underline"
     {...(newTab
       ? { target: '_blank', rel: 'noopener noreferrer' }
       : {})}
@@ -228,10 +176,7 @@ const alink = (href: string, label: string, newTab?: boolean) => (
 )
 const acode = (text: string) => (
   <code
-    className="text-sm font-mono" style={{
-      background: '#F3F4F6',
-      padding: '2px 6px',
-    }}
+    className="text-sm font-mono bg-gray-100 py-0.5 px-1.5"
   >
     {text}
   </code>
@@ -273,7 +218,7 @@ export default function FaqPage() {
 
       <FaqItem question='What is the "bring your own key" model?'>
         {ap('Daimon does not bundle Claude API access into your subscription. Instead, you paste your own Anthropic API key into the Billing page. Daimon uses that key to make Claude API calls on your behalf.')}
-        <p style={{ margin: '0 0 6px 0' }}>This means:</p>
+        <p className="mt-0 mb-1.5">This means:</p>
         {aul([
           'You only pay Anthropic for the Claude API calls your bot actually makes.',
           'Daimon cannot see your API usage or balance.',
@@ -319,7 +264,7 @@ export default function FaqPage() {
       </FaqItem>
 
       <FaqItem question="What happens to my account if I downgrade from Starter/Pro to Free?">
-        <p style={{ margin: '0 0 6px 0' }}>When your subscription to Starter or Pro ends and you move to the Free plan:</p>
+        <p className="mt-0 mb-1.5">When your subscription to Starter or Pro ends and you move to the Free plan:</p>
         {aul([
           'Your account retains only 1 Discord connection. If you had multiple connections configured, only the first (oldest) connection remains active. Additional connections are disabled but their configuration is preserved — if you re-upgrade, they become active again.',
           'All your service integrations (GitHub, Google, Linear, Toggl, etc.) remain connected.',
@@ -365,15 +310,15 @@ export default function FaqPage() {
       </FaqItem>
 
       <FaqItem question="What happens to my data if I delete my account?">
-        <p style={{ margin: '0 0 8px 0' }}>When you delete your account:</p>
-        <ol style={{ margin: '0 0 12px 0', paddingLeft: '20px' }}>
+        <p className="mt-0 mb-2">When you delete your account:</p>
+        <ol className="mt-0 mb-3 pl-5">
           {[
             'All your API keys and service connection tokens are immediately and permanently deleted from Supabase Vault.',
             'Your Discord connection configuration is deleted, and your bot is disconnected from Discord.',
             'Your tenant record, member records, and subscription are deleted.',
             'Message history and activity logs are deleted within 30 days (may be retained in database backups for up to 90 days per our backup retention policy, after which they are permanently removed).',
           ].map((item, i) => (
-            <li key={i} style={{ marginBottom: '6px' }}>
+            <li key={i} className="mb-1.5">
               {item}
             </li>
           ))}
@@ -386,9 +331,9 @@ export default function FaqPage() {
 
       <FaqItem question="How does Daimon connect to my Discord server?">
         {ap('You create a Discord bot application yourself in the Discord Developer Portal (discord.com/developers/applications). After creating the bot, you copy two things to Daimon:')}
-        <ol style={{ margin: '0 0 12px 0', paddingLeft: '20px' }}>
-          <li style={{ marginBottom: '6px' }}><strong>Bot Token</strong> — Found in the Bot section of your Discord application. This is the secret credential that lets Daimon log in as your bot.</li>
-          <li style={{ marginBottom: '6px' }}><strong>Guild ID</strong> — The numeric ID of your Discord server. You can get this by right-clicking your server name in Discord (with Developer Mode enabled) and selecting "Copy Server ID."</li>
+        <ol className="mt-0 mb-3 pl-5">
+          <li className="mb-1.5"><strong>Bot Token</strong> — Found in the Bot section of your Discord application. This is the secret credential that lets Daimon log in as your bot.</li>
+          <li className="mb-1.5"><strong>Guild ID</strong> — The numeric ID of your Discord server. You can get this by right-clicking your server name in Discord (with Developer Mode enabled) and selecting "Copy Server ID."</li>
         </ol>
         {apLast('You paste both values into Daimon\'s Settings page under "Discord Connection." Daimon validates the token (by verifying it authenticates with Discord) and then connects the bot to your server.')}
       </FaqItem>
@@ -405,13 +350,13 @@ export default function FaqPage() {
 
       <FaqItem question="What permissions does my Discord bot need?">
         {ap('Your bot needs the following permissions when added to your server:')}
-        <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
- <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div className="overflow-x-auto mb-3">
+ <table role="table" className="font-body text-sm w-full border-collapse">
             <caption className="sr-only">Discord bot permissions required by Daimon</caption>
             <thead>
-              <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Permission</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Why it&apos;s needed</th>
+              <tr className="border-b-2 border-border">
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Permission</th>
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Why it&apos;s needed</th>
               </tr>
             </thead>
             <tbody>
@@ -425,16 +370,16 @@ export default function FaqPage() {
                 ['Add Reactions', 'To react to messages as acknowledgment'],
                 ['Manage Messages', 'To delete bot messages in cleanup operations'],
               ].map(([perm, reason], i) => (
-                <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
- <td className="font-medium" style={{ padding: '8px 12px', color: '#374151' }}>{perm}</td>
-                  <td style={{ padding: '8px 12px', color: '#374151' }}>{reason}</td>
+                <tr key={i} className="border-b border-gray-100">
+ <td className="font-medium py-2 px-3 text-gray-700">{perm}</td>
+                  <td className="py-2 px-3 text-gray-700">{reason}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         {ap('The recommended way to set permissions: When generating the bot invite URL in the Discord Developer Portal, select these permissions and use the generated URL to add the bot to your server.')}
-        <p style={{ margin: '0 0 6px 0' }}>Additionally, enable the following <strong>Privileged Gateway Intents</strong> in the Bot settings of the Developer Portal:</p>
+        <p className="mt-0 mb-1.5">Additionally, enable the following <strong>Privileged Gateway Intents</strong> in the Bot settings of the Developer Portal:</p>
         {aul([
           <><strong>Server Members Intent</strong> — Required for the bot to see member lists.</>,
           <><strong>Message Content Intent</strong> — Required for the bot to read message content (not just slash command interactions).</>,
@@ -454,17 +399,17 @@ export default function FaqPage() {
 
       <FaqItem question="My bot token is invalid. What do I do?">
         {ap('A "bot token is invalid" error typically means one of the following:')}
-        <ol style={{ margin: '0 0 12px 0', paddingLeft: '20px' }}>
-          <li style={{ marginBottom: '6px' }}><strong>The token was copied incorrectly</strong> — Make sure to copy the full token from the Discord Developer Portal without any leading or trailing spaces. Try pasting it into a plain text editor first to check.</li>
-          <li style={{ marginBottom: '6px' }}><strong>The token was regenerated</strong> — If you clicked "Reset Token" in the Discord Developer Portal, the old token is immediately invalidated. Paste the new token into Daimon&apos;s Settings page.</li>
-          <li style={{ marginBottom: '6px' }}><strong>The Discord application was deleted</strong> — If the application no longer exists, the token cannot be used. Create a new Discord application and bot, then paste the new token.</li>
+        <ol className="mt-0 mb-3 pl-5">
+          <li className="mb-1.5"><strong>The token was copied incorrectly</strong> — Make sure to copy the full token from the Discord Developer Portal without any leading or trailing spaces. Try pasting it into a plain text editor first to check.</li>
+          <li className="mb-1.5"><strong>The token was regenerated</strong> — If you clicked "Reset Token" in the Discord Developer Portal, the old token is immediately invalidated. Paste the new token into Daimon&apos;s Settings page.</li>
+          <li className="mb-1.5"><strong>The Discord application was deleted</strong> — If the application no longer exists, the token cannot be used. Create a new Discord application and bot, then paste the new token.</li>
         </ol>
         {apLast('After pasting a new valid token, click "Validate & Connect" on the Settings page. If validation passes, your bot will attempt to connect to Discord within 30 seconds.')}
       </FaqItem>
 
       <FaqItem question="My bot is online but not responding. What do I check?">
         {ap('If your bot shows as "Online" in Daimon but is not responding to messages in Discord:')}
-        <ol style={{ margin: '0 0 12px 0', paddingLeft: '20px' }}>
+        <ol className="mt-0 mb-3 pl-5">
           {[
             <><strong>Check the Message Content Intent</strong> — Go to your Discord Developer Portal → your application → Bot → scroll to "Privileged Gateway Intents" — make sure "Message Content Intent" is enabled. Without this, the bot receives message events but cannot read the message text.</>,
             <><strong>Check the channel</strong> — Make sure you are messaging the bot in a channel where the bot has permission to read messages and send responses. The bot must have "View Channel," "Send Messages," and "Read Message History" permissions in that specific channel.</>,
@@ -472,7 +417,7 @@ export default function FaqPage() {
             <><strong>Check the Anthropic API key</strong> — Go to Billing &amp; Keys → API Keys. If your Anthropic key is missing or shows "Invalid," the bot cannot make Claude API calls and will fail silently. Save a valid key and click "Validate."</>,
             <><strong>Check your plan</strong> — Free plan users are limited to 1 active connection. If you added multiple connections, only one is active.</>,
           ].map((item, i) => (
-            <li key={i} style={{ marginBottom: '8px' }}>{item}</li>
+            <li key={i} className="mb-2">{item}</li>
           ))}
         </ol>
       </FaqItem>
@@ -484,13 +429,13 @@ export default function FaqPage() {
 
       <FaqItem question='What does "bot status: error" mean?'>
         {ap('"Error" means the bot attempted to connect to Discord but received an error response. Common causes:')}
-        <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
- <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div className="overflow-x-auto mb-3">
+ <table role="table" className="font-body text-sm w-full border-collapse">
             <caption className="sr-only">Common bot error reasons and resolutions</caption>
             <thead>
-              <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Error reason</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>What to do</th>
+              <tr className="border-b-2 border-border">
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Error reason</th>
+ <th className="font-semibold text-left py-2 px-3 text-foreground">What to do</th>
               </tr>
             </thead>
             <tbody>
@@ -500,9 +445,9 @@ export default function FaqPage() {
                 ['Bot not in server', 'The bot was removed from your Discord server. Re-invite it using your bot\'s invite URL'],
                 ['Discord API outage', 'Wait for Discord to recover. Check discordstatus.com'],
               ].map(([reason, action], i) => (
-                <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
- <td className="font-medium" style={{ padding: '8px 12px', color: '#374151' }}>{reason}</td>
-                  <td style={{ padding: '8px 12px', color: '#374151' }}>{action}</td>
+                <tr key={i} className="border-b border-gray-100">
+ <td className="font-medium py-2 px-3 text-gray-700">{reason}</td>
+                  <td className="py-2 px-3 text-gray-700">{action}</td>
                 </tr>
               ))}
             </tbody>
@@ -521,15 +466,15 @@ export default function FaqPage() {
 
       <FaqItem question="What tools does Daimon include?">
         {ap('Daimon includes 90+ tools across multiple platforms. Every plan (Free, Starter, Pro) includes all tools — there is no tool gating. The tools you can actually use depend only on which services you have connected.')}
-        <p style={{ margin: '0 0 8px 0' }}><strong>Included tool categories:</strong></p>
-        <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
- <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <p className="mt-0 mb-2"><strong>Included tool categories:</strong></p>
+        <div className="overflow-x-auto mb-3">
+ <table role="table" className="font-body text-sm w-full border-collapse">
             <caption className="sr-only">Daimon tool categories and their connection requirements</caption>
             <thead>
-              <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Category</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Tools</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Connection required</th>
+              <tr className="border-b-2 border-border">
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Category</th>
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Tools</th>
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Connection required</th>
               </tr>
             </thead>
             <tbody>
@@ -548,10 +493,10 @@ export default function FaqPage() {
                 ['Bluedot', 'Meeting notes, transcript search (4 tools)', 'Bluedot API key'],
                 ['Linear (remote MCP)', 'Issue creation, search, update, project management (6 tools)', 'Linear OAuth'],
               ].map(([cat, tools, conn], i) => (
-                <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
- <td className="font-medium" style={{ padding: '8px 12px', color: '#374151' }}>{cat}</td>
-                  <td style={{ padding: '8px 12px', color: '#374151' }}>{tools}</td>
-                  <td style={{ padding: '8px 12px', color: '#374151' }}>{conn}</td>
+                <tr key={i} className="border-b border-gray-100">
+ <td className="font-medium py-2 px-3 text-gray-700">{cat}</td>
+                  <td className="py-2 px-3 text-gray-700">{tools}</td>
+                  <td className="py-2 px-3 text-gray-700">{conn}</td>
                 </tr>
               ))}
             </tbody>
@@ -597,7 +542,7 @@ export default function FaqPage() {
 
       <FaqItem question="My bot went offline suddenly. What happened?">
         {ap('Bots can go offline for several reasons:')}
-        <ol style={{ margin: '0 0 12px 0', paddingLeft: '20px' }}>
+        <ol className="mt-0 mb-3 pl-5">
           {[
             <><strong>Discord Gateway disconnect</strong> — Discord periodically disconnects bots. Daimon automatically reconnects within 10–30 seconds. If the bot stays offline, check your Dashboard status card for an error message.</>,
             <><strong>Invalid or regenerated bot token</strong> — If you regenerated your token in the Discord Developer Portal, your existing Daimon connection will fail. Go to Settings → Discord Connections → Update Token → paste the new token.</>,
@@ -605,7 +550,7 @@ export default function FaqPage() {
             <><strong>Discord API outage</strong> — Check {alink('https://discordstatus.com', 'discordstatus.com', true)} to see if Discord is experiencing service issues.</>,
             <><strong>Daimon service disruption</strong> — Check daimon.app for any ongoing incident announcements.</>,
           ].map((item, i) => (
-            <li key={i} style={{ marginBottom: '8px' }}>{item}</li>
+            <li key={i} className="mb-2">{item}</li>
           ))}
         </ol>
         {apLast('If the Dashboard shows "Online" but the bot is unresponsive in Discord, see "My bot is online but not responding" above.')}
@@ -613,14 +558,14 @@ export default function FaqPage() {
 
       <FaqItem question="The bot is responding but giving errors about tools. What do I check?">
         {ap('Tool errors usually fall into these categories:')}
-        <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
- <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div className="overflow-x-auto mb-3">
+ <table role="table" className="font-body text-sm w-full border-collapse">
             <caption className="sr-only">Bot tool error messages and resolutions</caption>
             <thead>
-              <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Error message in Discord</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Likely cause</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Resolution</th>
+              <tr className="border-b-2 border-border">
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Error message in Discord</th>
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Likely cause</th>
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Resolution</th>
               </tr>
             </thead>
             <tbody>
@@ -632,10 +577,10 @@ export default function FaqPage() {
                 ['"Rate limit exceeded"', 'Anthropic or service rate limit hit', "Wait and try again; consider upgrading your Anthropic API plan"],
                 ['"Tool execution timed out"', 'External API was slow or unresponsive', "Try again; if persistent, check the external service's status"],
               ].map(([msg, cause, fix], i) => (
-                <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                  <td className="text-sm font-mono" style={{ padding: '8px 12px', color: '#374151' }}>{msg}</td>
-                  <td style={{ padding: '8px 12px', color: '#374151' }}>{cause}</td>
-                  <td style={{ padding: '8px 12px', color: '#374151' }}>{fix}</td>
+                <tr key={i} className="border-b border-gray-100">
+                  <td className="text-sm font-mono py-2 px-3 text-gray-700">{msg}</td>
+                  <td className="py-2 px-3 text-gray-700">{cause}</td>
+                  <td className="py-2 px-3 text-gray-700">{fix}</td>
                 </tr>
               ))}
             </tbody>
@@ -645,9 +590,9 @@ export default function FaqPage() {
 
       <FaqItem question={"I'm getting a \"Workspace not found\" or \"Tenant not found\" error. What does that mean?"}>
         {ap('This typically occurs if:')}
-        <ol style={{ margin: '0 0 12px 0', paddingLeft: '20px' }}>
-          <li style={{ marginBottom: '6px' }}>You are trying to access a workspace you were removed from or that was deleted.</li>
-          <li style={{ marginBottom: '6px' }}>There is a session issue — your authentication token may be stale.</li>
+        <ol className="mt-0 mb-3 pl-5">
+          <li className="mb-1.5">You are trying to access a workspace you were removed from or that was deleted.</li>
+          <li className="mb-1.5">There is a session issue — your authentication token may be stale.</li>
         </ol>
         {apLast(<>Try signing out and signing back in. If the error persists, contact {alink('mailto:support@daimon.ai', 'support@daimon.ai')} with your account email address.</>)}
       </FaqItem>
@@ -659,7 +604,7 @@ export default function FaqPage() {
           <><strong>Response time:</strong> Starter plan users can expect a response within 2 business days. Pro plan users receive priority support with a target response time of 4 business hours.</>,
           <><strong>Free plan users:</strong> Community support — post in the Daimon community Discord server (link in the footer).</>,
         ])}
-        <p style={{ margin: '0 0 6px 0' }}>When reporting a bug, include:</p>
+        <p className="mt-0 mb-1.5">When reporting a bug, include:</p>
         {aul([
           'Your account email address',
           'The date and approximate time the issue occurred',
@@ -672,21 +617,21 @@ export default function FaqPage() {
 
       <FaqItem question='My Anthropic API key shows "Invalid" but I copied it correctly. What do I do?'>
         {ap("An \"Invalid\" status means Daimon's validation check — which makes a small test API call to Anthropic — received an error response. This can happen for these reasons:")}
-        <ol style={{ margin: '0 0 12px 0', paddingLeft: '20px' }}>
+        <ol className="mt-0 mb-3 pl-5">
           {[
             <><strong>The key has no remaining credits</strong> — Anthropic API keys require a funded account. Check your Anthropic billing at {alink('https://console.anthropic.com', 'console.anthropic.com', true)}.</>,
             <><strong>The key was revoked</strong> — API keys can be deactivated from the Anthropic console. Create a new key and paste it into Daimon.</>,
             <><strong>Copy-paste error</strong> — The key may have been truncated. Keys beginning with {acode('sk-ant-api03-')} are typically 108 characters long. Paste into a plain text editor to verify the full key before saving.</>,
             <><strong>Rate limit on validation</strong> — Rarely, the test call hits a rate limit. Wait 60 seconds and try saving the key again.</>,
           ].map((item, i) => (
-            <li key={i} style={{ marginBottom: '8px' }}>{item}</li>
+            <li key={i} className="mb-2">{item}</li>
           ))}
         </ol>
         {apLast('After correcting the issue, go to Billing & Keys → paste the updated key → click "Save & Validate."')}
       </FaqItem>
 
       <FaqItem question="I signed up but never received a verification email. What do I do?">
-        <ol style={{ margin: '0 0 12px 0', paddingLeft: '20px' }}>
+        <ol className="mt-0 mb-3 pl-5">
           {[
             'Check your spam/junk folder — verification emails from noreply@daimon.ai are sometimes filtered.',
             'Add noreply@daimon.ai to your contacts or safe-senders list.',
@@ -694,13 +639,13 @@ export default function FaqPage() {
             'If you still haven\'t received it, go to the login page and click "Resend verification email." Enter your email address to request a new verification link.',
             'If the issue persists, contact support@daimon.ai with your signup email address.',
           ].map((item, i) => (
-            <li key={i} style={{ marginBottom: '6px' }}>{item}</li>
+            <li key={i} className="mb-1.5">{item}</li>
           ))}
         </ol>
       </FaqItem>
 
       <FaqItem question="I forgot my password. How do I reset it?">
-        <ol style={{ margin: 0, paddingLeft: '20px' }}>
+        <ol className="m-0 pl-5">
           {[
             'Go to daimon.app/login.',
             'Click "Forgot password?" below the sign-in form.',
@@ -710,7 +655,7 @@ export default function FaqPage() {
             'Enter and confirm your new password on the reset page.',
             'You are automatically signed in after a successful reset.',
           ].map((item, i) => (
-            <li key={i} style={{ marginBottom: '6px' }}>{item}</li>
+            <li key={i} className="mb-1.5">{item}</li>
           ))}
         </ol>
       </FaqItem>
@@ -719,20 +664,20 @@ export default function FaqPage() {
       <SectionHeading id="limits-quotas">Limits &amp; Quotas</SectionHeading>
 
       <FaqItem question="How many Discord connections can I have?">
-        <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
- <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div className="overflow-x-auto mb-3">
+ <table role="table" className="font-body text-sm w-full border-collapse">
             <caption className="sr-only">Discord connection limits by plan</caption>
             <thead>
-              <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Plan</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Maximum Discord connections</th>
+              <tr className="border-b-2 border-border">
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Plan</th>
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Maximum Discord connections</th>
               </tr>
             </thead>
             <tbody>
               {[['Free', '1'], ['Starter', '3'], ['Pro', 'Unlimited']].map(([plan, limit], i) => (
-                <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
- <td className="font-medium" style={{ padding: '8px 12px', color: '#374151' }}>{plan}</td>
-                  <td style={{ padding: '8px 12px', color: '#374151' }}>{limit}</td>
+                <tr key={i} className="border-b border-gray-100">
+ <td className="font-medium py-2 px-3 text-gray-700">{plan}</td>
+                  <td className="py-2 px-3 text-gray-700">{limit}</td>
                 </tr>
               ))}
             </tbody>
@@ -752,13 +697,13 @@ export default function FaqPage() {
 
       <FaqItem question="Are there API rate limits on the Daimon website itself?">
         {ap('Yes. The following rate limits apply to the Daimon website API:')}
-        <div style={{ overflowX: 'auto', marginBottom: '12px' }}>
- <table role="table" className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div className="overflow-x-auto mb-3">
+ <table role="table" className="font-body text-sm w-full border-collapse">
             <caption className="sr-only">Daimon API rate limits by endpoint category</caption>
             <thead>
-              <tr style={{ borderBottom: '2px solid #E5E7EB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Endpoint category</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '8px 12px', color: 'hsl(var(--foreground))' }}>Rate limit</th>
+              <tr className="border-b-2 border-border">
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Endpoint category</th>
+ <th className="font-semibold text-left py-2 px-3 text-foreground">Rate limit</th>
               </tr>
             </thead>
             <tbody>
@@ -770,9 +715,9 @@ export default function FaqPage() {
                 ['Stripe Checkout creation', '3 requests per minute per authenticated user'],
                 ['Stripe Customer Portal creation', '10 requests per minute per authenticated user'],
               ].map(([cat, limit], i) => (
-                <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
-                  <td style={{ padding: '8px 12px', color: '#374151' }}>{cat}</td>
- <td className="font-medium" style={{ padding: '8px 12px', color: '#374151' }}>{limit}</td>
+                <tr key={i} className="border-b border-gray-100">
+                  <td className="py-2 px-3 text-gray-700">{cat}</td>
+ <td className="font-medium py-2 px-3 text-gray-700">{limit}</td>
                 </tr>
               ))}
             </tbody>
@@ -813,7 +758,7 @@ export default function FaqPage() {
 
       <FaqItem question="How do I delete my account?">
         {ap('Account deletion is available in Settings → Workspace → Danger Zone → "Delete Workspace."')}
-        <p style={{ margin: '0 0 6px 0' }}><strong>Before deleting, note:</strong></p>
+        <p className="mt-0 mb-1.5"><strong>Before deleting, note:</strong></p>
         {aul([
           'Deletion is permanent and cannot be undone.',
           'All data (API keys, connections, configuration, message history) will be deleted.',
@@ -830,22 +775,13 @@ export default function FaqPage() {
       {/* ── Footer Nav ───────────────────────────────────────────── */}
       <nav
         aria-label="Page navigation"
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          paddingTop: '48px',
-          borderTop: '1px solid #E5E7EB',
-          marginTop: '48px',
-        }}
+        className="flex justify-between pt-12 border-t border-border mt-12"
       >
         <div>
           <a
             href="/docs/tool-reference/linear"
             aria-label="Previous page: Linear Tools"
-            className="font-body text-sm" style={{
-              color: '#3F85CC',
-              textDecoration: 'none',
-            }}
+            className="font-body text-sm text-[#3F85CC] no-underline"
           >
             ← Linear Tools
           </a>
@@ -854,10 +790,7 @@ export default function FaqPage() {
           <a
             href="/docs/billing"
             aria-label="Next page: Billing & Plans"
-            className="font-body text-sm" style={{
-              color: '#3F85CC',
-              textDecoration: 'none',
-            }}
+            className="font-body text-sm text-[#3F85CC] no-underline"
           >
             Billing &amp; Plans →
           </a>

@@ -740,14 +740,10 @@ function PlanBadge({ plan }: { plan: PlanTier }) {
   const c = PLAN_COLORS[plan]
   return (
     <span
-      className="font-body text-sm font-semibold" style={{
-        display: 'inline-block',
-        padding: '2px 8px',
-        borderRadius: '3px',
+      className="font-body text-sm font-semibold inline-block py-0.5 px-2 rounded-sm whitespace-nowrap shrink-0"
+      style={{
         backgroundColor: c.bg,
         color: c.text,
-        whiteSpace: 'nowrap',
-        flexShrink: 0,
       }}
     >
       {c.label}
@@ -761,43 +757,23 @@ function PlanBadge({ plan }: { plan: PlanTier }) {
 
 function ToolRow({ tool }: { tool: ToolEntry }) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: '12px',
-        padding: '14px 0',
-        borderBottom: '1px solid #F3F4F6',
-      }}
-    >
+    <div className="flex items-start gap-3 py-3.5 border-b border-gray-100">
       {/* Name + description */}
-      <div style={{ flex: 1, minWidth: 0 }}>
+      <div className="flex-1 min-w-0">
         <code
-          className="text-sm font-semibold font-mono text-foreground bg-muted" style={{
-            padding: '2px 6px',
-            borderRadius: '3px',
-            display: 'inline-block',
-            marginBottom: '5px',
-          }}
+          className="text-sm font-semibold font-mono text-foreground bg-muted py-0.5 px-1.5 rounded-sm inline-block mb-1"
         >
           {tool.name}
         </code>
         {tool.credential && (
           <span
-            className="font-body text-sm" style={{
-              color: '#9CA3AF',
-              marginLeft: '8px',
-            }}
+            className="font-body text-sm text-gray-400 ml-2"
           >
             Requires: {tool.credential}
           </span>
         )}
         <p
-          className="font-body text-sm" style={{
-            color: '#4B5563',
-            lineHeight: '1.5',
-            margin: 0,
-          }}
+          className="font-body text-sm text-gray-600 leading-normal m-0"
         >
           {tool.description}
         </p>
@@ -829,23 +805,12 @@ function CategorySection({
   if (matchCount === 0) return null
 
   return (
-    <section style={{ marginBottom: '8px' }}>
+    <section className="mb-2">
       {/* Header */}
       <button
         onClick={onToggle}
         aria-expanded={isOpen}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          width: '100%',
-          padding: '12px 16px',
-          backgroundColor: '#F9FAFB',
-          border: '1px solid #E5E7EB',
-          cursor: 'pointer',
-          textAlign: 'left',
-          transition: 'background-color 150ms',
-        }}
+        className="flex items-center gap-2 w-full py-3 px-4 bg-gray-50 border border-border cursor-pointer text-left transition-colors duration-150"
         onMouseEnter={(e) =>
           ((e.currentTarget as HTMLButtonElement).style.backgroundColor =
             '#F3F4F6')
@@ -861,17 +826,13 @@ function CategorySection({
           <ChevronRight size={16} color="#6B7280" />
         )}
         <span
-          className="font-headline text-sm font-bold text-foreground" style={{
-            flex: 1,
-          }}
+          className="font-headline text-sm font-bold text-foreground flex-1"
         >
           {category.title}
         </span>
         {matchCount < category.count && (
           <span
-            className="font-body text-sm" style={{
-              color: '#9CA3AF',
-            }}
+            className="font-body text-sm text-gray-400"
           >
             {matchCount} match{matchCount !== 1 ? 'es' : ''}
           </span>
@@ -880,14 +841,8 @@ function CategorySection({
 
       {/* Tools list */}
       {isOpen && (
-        <div
-          style={{
-            border: '1px solid #E5E7EB',
-            borderTop: 'none',
-            padding: '0 16px',
-            backgroundColor: '#FFFFFF',
-          }}
-        >
+        <div className="border border-border border-t-0 px-4 bg-white">
+
           {visibleTools.map((tool) => (
             <ToolRow key={tool.name} tool={tool} />
           ))}
@@ -958,30 +913,19 @@ export default function ToolReferencePage() {
   return (
     <div>
       {/* Page header */}
-      <header style={{ marginBottom: '40px' }}>
+      <header className="mb-10">
         <div
-          className="font-body text-sm text-muted-foreground" style={{
-            textTransform: 'uppercase',
-            letterSpacing: '0.08em',
-            marginBottom: '8px',
-          }}
+          className="font-body text-sm text-muted-foreground uppercase tracking-widest mb-2"
         >
           Tool Reference
         </div>
         <h1
-          className="font-headline text-[clamp(28px,4vw,40px)] font-black text-foreground" style={{
-            lineHeight: 1.1,
-            margin: '0 0 16px 0',
-          }}
+          className="font-headline text-[clamp(28px,4vw,40px)] font-black text-foreground leading-tight mt-0 mb-4"
         >
           All Tools
         </h1>
         <p
-          className="font-body text-base" style={{
-            color: '#6B7280',
-            margin: 0,
-            lineHeight: 1.6,
-          }}
+          className="font-body text-base text-gray-500 m-0 leading-relaxed"
         >
           Complete reference for all 95 tools available in Daimon, organized by
           platform. Search by name, description, or integration.
@@ -989,35 +933,21 @@ export default function ToolReferencePage() {
       </header>
 
       {/* Plan legend */}
-      <div
-        style={{
-          display: 'flex',
-          gap: '16px',
-          flexWrap: 'wrap',
-          marginBottom: '32px',
-          padding: '14px 16px',
-          backgroundColor: '#F9FAFB',
-          border: '1px solid #E5E7EB',
-        }}
-      >
+      <div className="flex gap-4 flex-wrap mb-8 py-3.5 px-4 bg-gray-50 border border-border">
+
         <span
-          className="font-body text-sm font-semibold" style={{
-            color: '#6B7280',
-            alignSelf: 'center',
-          }}
+          className="font-body text-sm font-semibold text-gray-500 self-center"
         >
           Plan required:
         </span>
         {(Object.keys(PLAN_COLORS) as PlanTier[]).map((tier) => (
           <div
             key={tier}
-            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+            className="flex items-center gap-1.5"
           >
             <PlanBadge plan={tier} />
             <span
-              className="font-body text-sm" style={{
-                color: '#6B7280',
-              }}
+              className="font-body text-sm text-gray-500"
             >
               {tier === 'free'
                 ? 'All plans'
@@ -1030,27 +960,20 @@ export default function ToolReferencePage() {
       </div>
 
       {/* Search */}
-      <div style={{ position: 'relative', marginBottom: '24px' }}>
+      <div className="relative mb-6">
         <Search
           size={16}
           color="#9CA3AF"
-          style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }}
+          className="absolute left-3 top-1/2 -translate-y-1/2"
         />
         <input
           type="search"
           placeholder="Search tools by name or description…"
           value={query}
           onChange={(e) => handleQueryChange(e.target.value)}
-          className="font-body text-sm" style={{
-            width: '100%',
-            height: '44px',
-            paddingLeft: '38px',
+          className="font-body text-sm w-full h-11 pl-[38px] border border-gray-300 bg-white text-foreground outline-none box-border"
+          style={{
             paddingRight: query ? '38px' : '12px',
-            border: '1px solid #D1D5DB',
-            backgroundColor: '#FFFFFF',
-            color: 'hsl(var(--foreground))',
-            outline: 'none',
-            boxSizing: 'border-box',
           }}
           onFocus={(e) => (e.currentTarget.style.borderColor = 'hsl(var(--primary))')}
           onBlur={(e) => (e.currentTarget.style.borderColor = '#D1D5DB')}
@@ -1062,17 +985,7 @@ export default function ToolReferencePage() {
               setOpenSections(new Set(TOOL_CATEGORIES.map((c) => c.id)))
             }}
             aria-label="Clear search"
-            style={{
-              position: 'absolute',
-              right: '10px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '4px',
-              display: 'flex',
-            }}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer p-1 flex"
           >
             <X size={14} color="#9CA3AF" />
           </button>
@@ -1082,10 +995,7 @@ export default function ToolReferencePage() {
       {/* Results count when searching */}
       {q && (
         <p
-          className="font-body text-sm" style={{
-            color: '#9CA3AF',
-            marginBottom: '16px',
-          }}
+          className="font-body text-sm text-gray-400 mb-4"
         >
           {totalVisible === 0
             ? 'No tools found.'
@@ -1110,31 +1020,19 @@ export default function ToolReferencePage() {
       {/* Footer nav */}
       <nav
         aria-label="Page navigation"
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginTop: '64px',
-          paddingTop: '32px',
-          borderTop: '1px solid #E5E7EB',
-        }}
+        className="flex justify-between mt-16 pt-8 border-t border-border"
       >
         <a
-          className="font-body text-sm font-medium text-foreground"
+          className="font-body text-sm font-medium text-foreground no-underline"
           href="/docs/quick-start"
           aria-label="Previous page: Quick Start"
-          style={{
-            textDecoration: 'none',
-          }}
         >
           ← Quick Start
         </a>
         <a
-          className="font-body text-sm font-medium text-foreground"
+          className="font-body text-sm font-medium text-foreground no-underline"
           href="/docs/faq"
           aria-label="Next page: FAQ"
-          style={{
-            textDecoration: 'none',
-          }}
         >
           FAQ →
         </a>

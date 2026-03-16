@@ -27,41 +27,24 @@ export const metadata: Metadata = {
 
 function PageHeader() {
   return (
-    <header style={{ marginBottom: '48px' }}>
+    <header className="mb-12">
       <div
-        className="font-body text-sm" style={{
-          color: 'hsl(var(--muted-foreground))',
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-          marginBottom: '8px',
-        }}
+        className="font-body text-sm text-muted-foreground uppercase tracking-widest mb-2"
       >
         Getting Started
       </div>
       <h1
-        className="font-headline text-[32px] font-semibold" style={{
-          color: 'hsl(var(--foreground))',
-          margin: '0 0 8px 0',
-        }}
+        className="font-headline text-[32px] font-semibold text-foreground mt-0 mb-2"
       >
         Quick Start
       </h1>
       <p
-        className="font-body text-lg font-normal" style={{
-          color: '#6B7280',
-          margin: '0 0 12px 0',
-          lineHeight: 1.5,
-        }}
+        className="font-body text-lg font-normal text-gray-500 mt-0 mb-3 leading-normal"
       >
         From signup to a live AI bot in your Discord server — typically under 10 minutes.
       </p>
       <div
-        className="font-body text-sm" style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          color: '#6B7280',
-        }}
+        className="font-body text-sm flex items-center gap-1.5 text-gray-500"
       >
         <Clock size={16} />
         <span>Estimated time: 8–12 minutes</span>
@@ -96,32 +79,21 @@ function Callout({
   const s = CALLOUT_STYLES[type]
   return (
     <div
+      className="rounded-none py-4 px-5 mt-0 mb-6 flex gap-2.5 items-start"
       style={{
         background: s.background,
         borderLeft: `3px solid ${s.borderColor}`,
-        borderRadius: '0px',
-        padding: '16px 20px',
-        margin: '0 0 24px 0',
-        display: 'flex',
-        gap: '10px',
-        alignItems: 'flex-start',
       }}
     >
       <span
         aria-hidden="true"
-        className="font-body text-sm" style={{
-          color: s.borderColor,
-          flexShrink: 0,
-          marginTop: '2px',
-        }}
+        className="font-body text-sm shrink-0 mt-0.5"
+        style={{ color: s.borderColor }}
       >
         {s.icon}
       </span>
       <div
-        className="font-body text-[15px]" style={{
-          color: '#374151',
-          lineHeight: 1.6,
-        }}
+        className="font-body text-[15px] text-gray-700 leading-relaxed"
       >
         {children}
       </div>
@@ -143,39 +115,18 @@ function Step({
   children: React.ReactNode
 }) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        gap: '16px',
-        alignItems: 'flex-start',
-        marginBottom: '48px',
-      }}
-    >
+    <div className="flex gap-4 items-start mb-12">
       {/* Step number circle */}
       <div
-        className="font-body text-sm font-semibold" style={{
-          width: '28px',
-          height: '28px',
-          borderRadius: '50%',
-          backgroundColor: 'hsl(var(--foreground))',
-          color: '#FFFFFF',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-          marginTop: '4px',
-        }}
+        className="font-body text-sm font-semibold w-7 h-7 rounded-full bg-foreground text-white flex items-center justify-center shrink-0 mt-1"
       >
         {number}
       </div>
 
       {/* Step content */}
-      <div style={{ flex: 1 }}>
+      <div className="flex-1">
         <h3
-          className="font-headline text-lg font-semibold" style={{
-            color: 'hsl(var(--foreground))',
-            margin: '0 0 12px 0',
-          }}
+          className="font-headline text-lg font-semibold text-foreground mt-0 mb-3"
         >
           {title}
         </h3>
@@ -189,37 +140,15 @@ function Step({
 // Shared prose style
 // ---------------------------------------------------------------------------
 
-const prose: React.CSSProperties = {
-  color: '#374151',
-  lineHeight: 1.6,
-  margin: '0 0 16px 0',
-}
-const proseCn = 'font-body text-[15px]'
+const proseCn = 'font-body text-[15px] text-gray-700 leading-relaxed mt-0 mb-4'
 
-const h4Style: React.CSSProperties = {
-  color: '#374151',
-  margin: '24px 0 8px 0',
-}
-const h4Cn = 'font-body text-[15px] font-semibold'
+const h4Cn = 'font-body text-[15px] font-semibold text-gray-700 mt-6 mb-2'
 
-const ulStyle: React.CSSProperties = {
-  color: '#374151',
-  lineHeight: 1.6,
-  margin: '0 0 16px 0',
-  paddingLeft: '24px',
-}
-const ulCn = 'font-body text-[15px]'
+const ulCn = 'font-body text-[15px] text-gray-700 leading-relaxed mt-0 mb-4 pl-6'
 
-const liStyle: React.CSSProperties = {
-  marginBottom: '8px',
-}
+const liCn = 'mb-2'
 
-const inlineCode: React.CSSProperties = {
-  color: 'hsl(var(--foreground))',
-  backgroundColor: '#F3F4F6',
-  padding: '2px 6px',
-}
-const inlineCodeCn = 'font-mono text-sm'
+const inlineCodeCn = 'font-mono text-sm text-foreground bg-gray-100 py-0.5 px-1.5'
 
 // ---------------------------------------------------------------------------
 // Page
@@ -232,27 +161,24 @@ export default function QuickStartPage() {
 
       {/* Prerequisites */}
       <h2
-        className="font-headline text-2xl font-semibold" style={{
-          color: 'hsl(var(--foreground))',
-          margin: '48px 0 16px 0',
-        }}
+        className="font-headline text-2xl font-semibold text-foreground mt-12 mb-4"
       >
         Before You Begin
       </h2>
-      <p className={proseCn} style={prose}>
+      <p className={proseCn}>
         You&apos;ll need three things before you can start:
       </p>
-      <ol style={{ ...ulStyle, listStyleType: 'decimal' }}>
-        <li style={liStyle}>
+      <ol className={`${ulCn} list-decimal`}>
+        <li className={liCn}>
           <strong>A Discord bot token</strong> — You&apos;ll create a Discord application and bot in
           the Discord Developer Portal. This takes about 3 minutes and is covered in Step 2 below.
         </li>
-        <li style={liStyle}>
+        <li className={liCn}>
           <strong>A Discord server (guild)</strong> — You need a server where you have &quot;Manage
           Server&quot; permissions. You&apos;ll be the server owner for your own server, or you need an
           existing server where you can add bots.
         </li>
-        <li style={liStyle}>
+        <li className={liCn}>
           <strong>An Anthropic API key</strong> — Daimon uses Claude (by Anthropic) to understand
           and respond to your messages. You provide your own key so you only pay for what you use.
           API key setup is covered in Step 3.
@@ -265,36 +191,26 @@ export default function QuickStartPage() {
         separately based on your Claude API usage.
       </Callout>
 
-      <hr style={{ border: 'none', borderTop: '1px solid #E5E7EB', margin: '32px 0' }} />
+      <hr className="border-0 border-t border-border my-8" />
 
       {/* Step 1 */}
       <Step number={1} title="Create Your Daimon Account">
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Navigate to <strong>daimon.app/signup</strong> to create your account.
         </p>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           You&apos;ll see the signup page with the Daimon logo centered at the top and a white card
           below it. The form has these fields:
         </p>
         <table
-          className="font-body text-sm" style={{
-            width: '100%',
-            color: '#374151',
-            borderCollapse: 'collapse',
-            margin: '0 0 24px 0',
-          }}
+          className="font-body text-sm w-full text-gray-700 border-collapse mt-0 mb-6"
         >
           <thead>
             <tr>
               {['Field', 'Label', 'Placeholder', 'Notes'].map((h) => (
                 <th
                   key={h}
-                  className="font-semibold" style={{
-                    backgroundColor: '#F9FAFB',
-                    padding: '10px 16px',
-                    border: '1px solid #E5E7EB',
-                    textAlign: 'left',
-                  }}
+                  className="font-semibold bg-gray-50 py-2.5 px-4 border border-border text-left"
                 >
                   {h}
                 </th>
@@ -312,7 +228,7 @@ export default function QuickStartPage() {
                 {[field, label, placeholder, notes].map((cell, i) => (
                   <td
                     key={i}
-                    style={{ padding: '10px 16px', border: '1px solid #E5E7EB' }}
+                    className="py-2.5 px-4 border border-border"
                   >
                     {cell}
                   </td>
@@ -321,21 +237,21 @@ export default function QuickStartPage() {
             ))}
           </tbody>
         </table>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Click <strong>&quot;Create account&quot;</strong>. After successful registration you&apos;ll be
-          redirected to <code className={inlineCodeCn} style={inlineCode}>/dashboard</code> and see the onboarding checklist
+          redirected to <code className={inlineCodeCn}>/dashboard</code> and see the onboarding checklist
           at the top of the page.
         </p>
       </Step>
 
       {/* Step 2 */}
       <Step number={2} title="Create a Discord Bot">
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Before you can connect Daimon to your Discord server, you need to create a Discord bot
           application and get its token. This is done entirely on Discord&apos;s website — not
           within Daimon.
         </p>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Daimon does <strong>not</strong> use Discord OAuth. You create your own bot and paste its
           token into Daimon. This means your bot will have a custom name and avatar — your users
           will see <em>your</em> bot, not a shared Daimon bot.
@@ -348,12 +264,12 @@ export default function QuickStartPage() {
           users.
         </Callout>
 
-        <h4 className={h4Cn} style={h4Style}>2a. Go to the Discord Developer Portal</h4>
-        <p className={proseCn} style={prose}>
+        <h4 className={h4Cn}>2a. Go to the Discord Developer Portal</h4>
+        <p className={proseCn}>
           Open{' '}
           <a
             href="https://discord.com/developers/applications"
-            style={{ color: '#3F85CC', textDecoration: 'none' }}
+            className="text-[#3F85CC] no-underline"
           >
             discord.com/developers/applications
           </a>{' '}
@@ -361,26 +277,26 @@ export default function QuickStartPage() {
           already.
         </p>
 
-        <h4 className={h4Cn} style={h4Style}>2b. Create a new application</h4>
-        <p className={proseCn} style={prose}>
+        <h4 className={h4Cn}>2b. Create a new application</h4>
+        <p className={proseCn}>
           Click <strong>&quot;New Application&quot;</strong> in the top-right corner. Enter a name for your
           bot (e.g. &quot;My AI Assistant&quot;) and click <strong>&quot;Create&quot;</strong>.
         </p>
 
-        <h4 className={h4Cn} style={h4Style}>2c. Create the bot user</h4>
-        <p className={proseCn} style={prose}>
+        <h4 className={h4Cn}>2c. Create the bot user</h4>
+        <p className={proseCn}>
           In the left sidebar, click <strong>&quot;Bot&quot;</strong>. On the Bot page, click{' '}
           <strong>&quot;Add Bot&quot;</strong>, then confirm by clicking <strong>&quot;Yes, do it!&quot;</strong>.
         </p>
 
-        <h4 className={h4Cn} style={h4Style}>2d. Copy your bot token</h4>
-        <p className={proseCn} style={prose}>
+        <h4 className={h4Cn}>2d. Copy your bot token</h4>
+        <p className={proseCn}>
           On the Bot page, scroll to the &quot;Token&quot; section. Click <strong>&quot;Reset Token&quot;</strong>{' '}
           (you may need to enter your Discord password or complete 2FA if enabled). Your token is
           displayed once — it looks like a long string of random characters (e.g.{' '}
-          <code className={inlineCodeCn} style={inlineCode}>MTE4...rest of token...</code>).
+          <code className={inlineCodeCn}>MTE4...rest of token...</code>).
         </p>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           <strong>Copy this token and save it somewhere safe immediately</strong> — Discord will not
           show it again after you leave the page.
         </p>
@@ -391,48 +307,48 @@ export default function QuickStartPage() {
           token at rest — it is never displayed again after you paste it.
         </Callout>
 
-        <h4 className={h4Cn} style={h4Style}>2e. Enable required intents</h4>
-        <p className={proseCn} style={prose}>
+        <h4 className={h4Cn}>2e. Enable required intents</h4>
+        <p className={proseCn}>
           Still on the Bot page, scroll down to <strong>&quot;Privileged Gateway Intents&quot;</strong>.
           Enable ALL of the following:
         </p>
-        <ul className={ulCn} style={ulStyle}>
-          <li style={liStyle}><strong>Presence Intent</strong> — Toggle ON</li>
-          <li style={liStyle}><strong>Server Members Intent</strong> — Toggle ON</li>
-          <li style={liStyle}><strong>Message Content Intent</strong> — Toggle ON</li>
+        <ul className={ulCn}>
+          <li className={liCn}><strong>Presence Intent</strong> — Toggle ON</li>
+          <li className={liCn}><strong>Server Members Intent</strong> — Toggle ON</li>
+          <li className={liCn}><strong>Message Content Intent</strong> — Toggle ON</li>
         </ul>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Click <strong>&quot;Save Changes&quot;</strong>. Without these intents, the bot will not be able
           to read messages or respond to your commands.
         </p>
 
-        <h4 className={h4Cn} style={h4Style}>2f. Invite the bot to your server</h4>
-        <p className={proseCn} style={prose}>
+        <h4 className={h4Cn}>2f. Invite the bot to your server</h4>
+        <p className={proseCn}>
           In the left sidebar, click <strong>&quot;OAuth2&quot;</strong>, then{' '}
           <strong>&quot;URL Generator&quot;</strong>.
         </p>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Under <strong>&quot;Scopes&quot;</strong>, check:
         </p>
-        <ul className={ulCn} style={ulStyle}>
-          <li style={liStyle}><code className={inlineCodeCn} style={inlineCode}>bot</code></li>
-          <li style={liStyle}><code className={inlineCodeCn} style={inlineCode}>applications.commands</code></li>
+        <ul className={ulCn}>
+          <li className={liCn}><code className={inlineCodeCn}>bot</code></li>
+          <li className={liCn}><code className={inlineCodeCn}>applications.commands</code></li>
         </ul>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Under <strong>&quot;Bot Permissions&quot;</strong>, check:
         </p>
-        <ul className={ulCn} style={ulStyle}>
-          <li style={liStyle}>Read Messages / View Channels</li>
-          <li style={liStyle}>Send Messages</li>
-          <li style={liStyle}>Send Messages in Threads</li>
-          <li style={liStyle}>Read Message History</li>
-          <li style={liStyle}>Add Reactions</li>
-          <li style={liStyle}>Use Slash Commands</li>
-          <li style={liStyle}>Embed Links</li>
-          <li style={liStyle}>Attach Files</li>
-          <li style={liStyle}>Mention Everyone (optional)</li>
+        <ul className={ulCn}>
+          <li className={liCn}>Read Messages / View Channels</li>
+          <li className={liCn}>Send Messages</li>
+          <li className={liCn}>Send Messages in Threads</li>
+          <li className={liCn}>Read Message History</li>
+          <li className={liCn}>Add Reactions</li>
+          <li className={liCn}>Use Slash Commands</li>
+          <li className={liCn}>Embed Links</li>
+          <li className={liCn}>Attach Files</li>
+          <li className={liCn}>Mention Everyone (optional)</li>
         </ul>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Scroll to the bottom. Copy the <strong>&quot;Generated URL&quot;</strong>, open it in a new tab,
           select your server from the dropdown, click <strong>&quot;Authorize&quot;</strong>, complete the
           CAPTCHA, and the bot will join your server.
@@ -445,47 +361,47 @@ export default function QuickStartPage() {
           paste it into Daimon.
         </Callout>
 
-        <h4 className={h4Cn} style={h4Style}>2g. What you should have now</h4>
-        <ul className={ulCn} style={ulStyle}>
-          <li style={liStyle}>✓ Your <strong>bot token</strong> (the long random string from Step 2d)</li>
-          <li style={liStyle}>✓ Your <strong>Guild ID</strong> (the server ID from Developer Mode)</li>
-          <li style={liStyle}>✓ The bot is already a member of your server</li>
+        <h4 className={h4Cn}>2g. What you should have now</h4>
+        <ul className={ulCn}>
+          <li className={liCn}>✓ Your <strong>bot token</strong> (the long random string from Step 2d)</li>
+          <li className={liCn}>✓ Your <strong>Guild ID</strong> (the server ID from Developer Mode)</li>
+          <li className={liCn}>✓ The bot is already a member of your server</li>
         </ul>
       </Step>
 
       {/* Step 3 */}
       <Step number={3} title="Get Your Anthropic API Key">
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Daimon runs on Claude, Anthropic&apos;s AI model. You need to provide your own Anthropic API
           key. Usage fees are charged directly by Anthropic to your Anthropic account — Daimon
           charges a separate flat platform fee.
         </p>
 
-        <h4 className={h4Cn} style={h4Style}>3a. Create an Anthropic account</h4>
-        <p className={proseCn} style={prose}>
+        <h4 className={h4Cn}>3a. Create an Anthropic account</h4>
+        <p className={proseCn}>
           Go to{' '}
           <a
             href="https://console.anthropic.com"
-            style={{ color: '#3F85CC', textDecoration: 'none' }}
+            className="text-[#3F85CC] no-underline"
           >
             console.anthropic.com
           </a>{' '}
           and sign up or log in.
         </p>
 
-        <h4 className={h4Cn} style={h4Style}>3b. Add billing to your Anthropic account</h4>
-        <p className={proseCn} style={prose}>
+        <h4 className={h4Cn}>3b. Add billing to your Anthropic account</h4>
+        <p className={proseCn}>
           In the Anthropic Console, navigate to <strong>Settings → Billing</strong>. Add a payment
           method. You need an active billing method before you can create an API key.
         </p>
 
-        <h4 className={h4Cn} style={h4Style}>3c. Create an API key</h4>
-        <p className={proseCn} style={prose}>
+        <h4 className={h4Cn}>3c. Create an API key</h4>
+        <p className={proseCn}>
           Navigate to <strong>API Keys</strong> in the left sidebar. Click{' '}
           <strong>&quot;Create Key&quot;</strong>. Give it a name (e.g. &quot;Daimon Production&quot;). Your API key
-          is displayed once — it starts with <code className={inlineCodeCn} style={inlineCode}>sk-ant-</code>.
+          is displayed once — it starts with <code className={inlineCodeCn}>sk-ant-</code>.
         </p>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           <strong>Copy and save this key immediately.</strong> You&apos;ll paste it into Daimon in the
           next step.
         </p>
@@ -498,9 +414,9 @@ export default function QuickStartPage() {
 
       {/* Step 4 */}
       <Step number={4} title="Add Your Anthropic API Key to Daimon">
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Back in Daimon, navigate to{' '}
-          <a href="/dashboard/billing" style={{ color: '#3F85CC', textDecoration: 'none' }}>
+          <a href="/dashboard/billing" className="text-[#3F85CC] no-underline">
             Billing
           </a>{' '}
           using the sidebar. You&apos;ll see two sections on this page: &quot;Subscription&quot; (your plan)
@@ -508,15 +424,7 @@ export default function QuickStartPage() {
         </p>
 
         <pre
-          className="font-mono text-sm" style={{
-            color: '#E5E7EB',
-            backgroundColor: 'hsl(var(--foreground))',
-            padding: '20px 24px',
-            borderRadius: '0px',
-            margin: '0 0 24px 0',
-            overflowX: 'auto',
-            lineHeight: 1.5,
-          }}
+          className="font-mono text-sm text-gray-200 bg-foreground py-5 px-6 rounded-none mt-0 mb-6 overflow-x-auto leading-normal"
         >
           {`API Keys
 Your API keys are encrypted and stored securely.
@@ -534,9 +442,9 @@ OpenAI API Key             [Optional]
 Used for message classification (improves accuracy).`}
         </pre>
 
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Click the Anthropic API Key input, paste your key (starts with{' '}
-          <code className={inlineCodeCn} style={inlineCode}>sk-ant-</code>), and click <strong>&quot;Save&quot;</strong>. If the key is
+          <code className={inlineCodeCn}>sk-ant-</code>), and click <strong>&quot;Save&quot;</strong>. If the key is
           valid, a green &quot;Valid&quot; badge appears next to the label and a success toast confirms the
           save.
         </p>
@@ -550,35 +458,25 @@ Used for message classification (improves accuracy).`}
 
       {/* Step 5 */}
       <Step number={5} title="Connect Your Discord Bot">
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Navigate to{' '}
-          <a href="/dashboard/settings" style={{ color: '#3F85CC', textDecoration: 'none' }}>
+          <a href="/dashboard/settings" className="text-[#3F85CC] no-underline">
             Settings
           </a>{' '}
           using the sidebar. Scroll down to the <strong>&quot;Discord Connection&quot;</strong> section.
         </p>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Click <strong>&quot;Add Connection&quot;</strong>. A form expands inline with two fields:
         </p>
         <table
-          className="font-body text-sm" style={{
-            width: '100%',
-            color: '#374151',
-            borderCollapse: 'collapse',
-            margin: '0 0 24px 0',
-          }}
+          className="font-body text-sm w-full text-gray-700 border-collapse mt-0 mb-6"
         >
           <thead>
             <tr>
               {['Field', 'Label', 'Placeholder', 'Notes'].map((h) => (
                 <th
                   key={h}
-                  className="font-semibold" style={{
-                    backgroundColor: '#F9FAFB',
-                    padding: '10px 16px',
-                    border: '1px solid #E5E7EB',
-                    textAlign: 'left',
-                  }}
+                  className="font-semibold bg-gray-50 py-2.5 px-4 border border-border text-left"
                 >
                   {h}
                 </th>
@@ -592,7 +490,7 @@ Used for message classification (improves accuracy).`}
             ].map(([field, label, placeholder, notes]) => (
               <tr key={field}>
                 {[field, label, placeholder, notes].map((cell, i) => (
-                  <td key={i} style={{ padding: '10px 16px', border: '1px solid #E5E7EB' }}>
+                  <td key={i} className="py-2.5 px-4 border border-border">
                     {cell}
                   </td>
                 ))}
@@ -600,22 +498,14 @@ Used for message classification (improves accuracy).`}
             ))}
           </tbody>
         </table>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Click <strong>&quot;Connect Bot&quot;</strong>. The form collapses and the connection row appears
           with status &quot;Pending&quot;. Within 10–30 seconds, the badge changes to &quot;Connected&quot; as the
           bot comes online.
         </p>
 
         <pre
-          className="font-mono text-sm" style={{
-            color: '#E5E7EB',
-            backgroundColor: 'hsl(var(--foreground))',
-            padding: '20px 24px',
-            borderRadius: '0px',
-            margin: '0 0 24px 0',
-            overflowX: 'auto',
-            lineHeight: 1.5,
-          }}
+          className="font-mono text-sm text-gray-200 bg-foreground py-5 px-6 rounded-none mt-0 mb-6 overflow-x-auto leading-normal"
         >
           {`Discord Connection
 ─────────────────────────────────────────────────────────────────
@@ -627,29 +517,29 @@ Used for message classification (improves accuracy).`}
 
       {/* Step 6 */}
       <Step number={6} title="Verify Your Bot Is Live">
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Navigate to the{' '}
-          <a href="/dashboard" style={{ color: '#3F85CC', textDecoration: 'none' }}>
+          <a href="/dashboard" className="text-[#3F85CC] no-underline">
             Dashboard
           </a>{' '}
           by clicking &quot;Dashboard&quot; in the sidebar.
         </p>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Look at the <strong>&quot;Bot Status&quot;</strong> card. It should show:
         </p>
-        <ul className={ulCn} style={ulStyle}>
-          <li style={liStyle}>A status indicator colored <strong>Aqua</strong> (#B4E7DD)</li>
-          <li style={liStyle}>The text <strong>&quot;Connected&quot;</strong> in Navy</li>
-          <li style={liStyle}>Your bot&apos;s username below (e.g. &quot;MyBot#1234&quot;)</li>
-          <li style={liStyle}>&quot;Last heartbeat: just now&quot; in gray text</li>
+        <ul className={ulCn}>
+          <li className={liCn}>A status indicator colored <strong>Aqua</strong> (#B4E7DD)</li>
+          <li className={liCn}>The text <strong>&quot;Connected&quot;</strong> in Navy</li>
+          <li className={liCn}>Your bot&apos;s username below (e.g. &quot;MyBot#1234&quot;)</li>
+          <li className={liCn}>&quot;Last heartbeat: just now&quot; in gray text</li>
         </ul>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           If you see &quot;Connecting…&quot; (blue indicator), wait 15–30 seconds and refresh. The bot is
           still initializing.
         </p>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           If you see &quot;Error&quot; (red indicator), see the{' '}
-          <a href="/docs/faq" style={{ color: '#3F85CC', textDecoration: 'none' }}>
+          <a href="/docs/faq" className="text-[#3F85CC] no-underline">
             FAQ
           </a>{' '}
           for common errors and troubleshooting steps.
@@ -658,50 +548,36 @@ Used for message classification (improves accuracy).`}
 
       {/* Step 7 */}
       <Step number={7} title="Talk to Your Bot in Discord">
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Open your Discord server. Your bot should appear in the member list on the right side
           with an online status (green dot).
         </p>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Go to any text channel and mention your bot to start a conversation:
         </p>
 
         <pre
-          className="font-mono text-sm" style={{
-            color: '#FFFFFF',
-            backgroundColor: '#36393F',
-            padding: '20px 24px',
-            borderRadius: '0px',
-            margin: '0 0 16px 0',
-            overflowX: 'auto',
-          }}
+          className="font-mono text-sm text-white bg-[#36393F] py-5 px-6 rounded-none mt-0 mb-4 overflow-x-auto"
         >
- <span className="font-bold" style={{ color: '#7289DA' }}>@MyBot</span>
+ <span className="font-bold text-[#7289DA]">@MyBot</span>
           {' Can you help me track my time today?'}
         </pre>
 
         <pre
-          className="font-mono text-sm" style={{
-            color: '#FFFFFF',
-            backgroundColor: '#36393F',
-            padding: '20px 24px',
-            borderRadius: '0px',
-            margin: '0 0 24px 0',
-            overflowX: 'auto',
-          }}
+          className="font-mono text-sm text-white bg-[#36393F] py-5 px-6 rounded-none mt-0 mb-6 overflow-x-auto"
         >
- <span className="font-bold" style={{ color: '#7289DA' }}>@YourUsername</span>
+ <span className="font-bold text-[#7289DA]">@YourUsername</span>
           {` Sure! To track your time, I can help you\nstart a Toggl time entry. What project or task are\nyou working on?`}
         </pre>
 
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           If you haven&apos;t connected any integrations yet, the bot will respond to general
           conversation and questions immediately. If you ask it to do something that requires a
           connected service (like tracking time in Toggl), it will tell you which integration you
           need and link you to the{' '}
           <a
             href="/dashboard/integrations"
-            style={{ color: '#3F85CC', textDecoration: 'none' }}
+            className="text-[#3F85CC] no-underline"
           >
             Integrations
           </a>{' '}
@@ -711,34 +587,34 @@ Used for message classification (improves accuracy).`}
 
       {/* Step 8 */}
       <Step number={8} title="Connect Your Services (Optional)">
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Daimon can connect to the tools you already use, giving the bot access to real data and
           the ability to take actions. Navigate to{' '}
           <a
             href="/dashboard/integrations"
-            style={{ color: '#3F85CC', textDecoration: 'none' }}
+            className="text-[#3F85CC] no-underline"
           >
             Integrations
           </a>{' '}
           to connect services.
         </p>
-        <p className={proseCn} style={prose}>Four services are available at launch:</p>
-        <ul className={ulCn} style={ulStyle}>
-          <li style={liStyle}>
+        <p className={proseCn}>Four services are available at launch:</p>
+        <ul className={ulCn}>
+          <li className={liCn}>
             <strong>GitHub</strong> (OAuth) — Manage issues, pull requests, CI status, and
             repositories.
           </li>
-          <li style={liStyle}>
+          <li className={liCn}>
             <strong>Google</strong> (OAuth) — Access Google Calendar, Drive, and Gmail.
           </li>
-          <li style={liStyle}>
+          <li className={liCn}>
             <strong>Linear</strong> (OAuth) — Manage issues and projects in Linear.
           </li>
-          <li style={liStyle}>
+          <li className={liCn}>
             <strong>Toggl</strong> (API Key) — Track time and manage Toggl projects and entries.
           </li>
         </ul>
-        <p className={proseCn} style={prose}>
+        <p className={proseCn}>
           Each service card has a <strong>&quot;Connect&quot;</strong> button. OAuth services redirect you to
           the provider&apos;s authorization page. Toggl requires you to paste your API key from your
           Toggl Profile settings.
@@ -752,31 +628,28 @@ Used for message classification (improves accuracy).`}
       </Step>
 
       {/* Next steps */}
-      <hr style={{ border: 'none', borderTop: '1px solid #E5E7EB', margin: '32px 0' }} />
+      <hr className="border-0 border-t border-border my-8" />
 
       <h2
-        className="font-headline text-2xl font-semibold" style={{
-          color: 'hsl(var(--foreground))',
-          margin: '0 0 16px 0',
-        }}
+        className="font-headline text-2xl font-semibold text-foreground mt-0 mb-4"
       >
         Next Steps
       </h2>
-      <ul className={ulCn} style={ulStyle}>
-        <li style={liStyle}>
-          <a href="/docs/tool-reference/discord" style={{ color: '#3F85CC', textDecoration: 'none' }}>
+      <ul className={ulCn}>
+        <li className={liCn}>
+          <a href="/docs/tool-reference/discord" className="text-[#3F85CC] no-underline">
             Tool Reference: Discord &amp; Core Tools
           </a>{' '}
           — See all the commands your bot supports out of the box.
         </li>
-        <li style={liStyle}>
-          <a href="/docs/billing" style={{ color: '#3F85CC', textDecoration: 'none' }}>
+        <li className={liCn}>
+          <a href="/docs/billing" className="text-[#3F85CC] no-underline">
             Plans &amp; Pricing
           </a>{' '}
           — Understand plan limits and how to upgrade.
         </li>
-        <li style={liStyle}>
-          <a href="/docs/faq" style={{ color: '#3F85CC', textDecoration: 'none' }}>
+        <li className={liCn}>
+          <a href="/docs/faq" className="text-[#3F85CC] no-underline">
             FAQ
           </a>{' '}
           — Troubleshooting, common questions, and billing answers.

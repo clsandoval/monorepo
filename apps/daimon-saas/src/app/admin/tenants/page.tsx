@@ -76,13 +76,8 @@ function PlanBadge({ plan }: { plan: string }) {
   const s = styles[plan] ?? styles.free
   return (
     <span
-      className="font-body text-[11px] font-semibold" style={{textTransform: 'uppercase',
-        letterSpacing: '0.5px',
-        padding: '2px 8px',
-        borderRadius: 0,
-        background: s.bg,
-        color: s.color,
-        whiteSpace: 'nowrap'}}
+      className="font-body text-[11px] font-semibold uppercase tracking-wide py-0.5 px-2 rounded-none whitespace-nowrap"
+      style={{ background: s.bg, color: s.color }}
     >
       {plan}
     </span>
@@ -101,13 +96,8 @@ function StatusBadge({ status }: { status: string }) {
   const s = styles[status] ?? { bg: '#F3F4F6', color: '#6B7280' }
   return (
     <span
-      className="font-body text-[11px] font-semibold" style={{textTransform: 'uppercase',
-        letterSpacing: '0.5px',
-        padding: '2px 8px',
-        borderRadius: 0,
-        background: s.bg,
-        color: s.color,
-        whiteSpace: 'nowrap'}}
+      className="font-body text-[11px] font-semibold uppercase tracking-wide py-0.5 px-2 rounded-none whitespace-nowrap"
+      style={{ background: s.bg, color: s.color }}
     >
       {status}
     </span>
@@ -127,27 +117,20 @@ function StatCard({
 }) {
   return (
     <div
-      style={{
-        background: '#FFFFFF',
-        border: '1px solid #E5E7EB',
-        padding: '16px 20px',
-      }}
+      className="bg-white border border-gray-200 py-4 px-5"
     >
       <div
-        className="font-headline text-[28px] font-semibold text-foreground" style={{
-          lineHeight: 1.2}}
+        className="font-headline text-[28px] font-semibold text-foreground leading-[1.2]"
       >
         {count.toLocaleString()}
       </div>
       <div
-        className="font-body text-xs" style={{color: '#6B7280',
-          marginTop: '2px'}}
+        className="font-body text-xs text-gray-500 mt-0.5"
       >
         {label}
       </div>
       <div
-        className="font-body text-[11px]" style={{color: '#9CA3AF',
-          marginTop: '1px'}}
+        className="font-body text-[11px] text-gray-400 mt-px"
       >
         {subLabel}
       </div>
@@ -358,29 +341,16 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
   const searchString = searchParamsForLinks.toString()
 
   // ── Table cell style helpers ──────────────────────────────────────────────
-  const thStyle: React.CSSProperties = {
-    color: '#374151',
-    textTransform: 'uppercase',
-    letterSpacing: '0.3px',
-    padding: '10px 16px',
-    textAlign: 'left',
-    background: '#F9FAFB',
-    borderBottom: '1px solid #E5E7EB',
-    whiteSpace: 'nowrap'}
+  const thClass = 'text-gray-700 uppercase tracking-wide py-2.5 px-4 text-left bg-gray-50 border-b border-gray-200 whitespace-nowrap'
 
-  const tdStyle: React.CSSProperties = {
-    padding: '12px 16px',
-    borderBottom: '1px solid #F3F4F6',
-    verticalAlign: 'middle',
-  }
+  const tdClass = 'py-3 px-4 border-b border-gray-100 align-middle'
 
   return (
     <AdminLayout pageTitle="Tenants">
-      <div style={{ maxWidth: '1200px' }}>
+      <div className="max-w-[1200px]">
         {/* ── Stats bar ────────────────────────────────────────────────────── */}
         <div
-          className="grid gap-4"
-          style={{ gridTemplateColumns: 'repeat(4, 1fr)', marginBottom: '24px' }}
+          className="grid gap-4 grid-cols-4 mb-6"
         >
           <StatCard count={totalCount} label="Total Tenants" subLabel="All time" />
           <StatCard count={activeCount} label="Active Bots" subLabel="Right now" />
@@ -390,11 +360,7 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
 
         {/* ── Filters bar ──────────────────────────────────────────────────── */}
         <div
-          style={{
-            background: '#FFFFFF',
-            border: '1px solid #E5E7EB',
-            padding: '0 16px',
-          }}
+          className="bg-white border border-gray-200 px-4"
         >
           <Suspense fallback={null}>
             <FiltersBar q={q} plan={planFilter} status={statusFilter} sort={sort} />
@@ -402,7 +368,7 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
 
           {/* ── Tenant table ─────────────────────────────────────────────── */}
           {tenants.length === 0 ? (
-            <div style={{ padding: '40px 0' }}>
+            <div className="py-10">
               {total === 0 && !q && !planFilter && !statusFilter ? (
                 <EmptyState
                   icon={<Users size={28} />}
@@ -421,16 +387,16 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
               )}
             </div>
           ) : (
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
                 <thead>
                   <tr>
-                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '35%' }}>Tenant</th>
-                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '10%' }}>Plan</th>
-                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '12%' }}>Status</th>
-                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '18%' }}>Discord</th>
-                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '12%' }}>Created</th>
-                    <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '8%' }}></th>
+                    <th className={`font-body text-xs font-medium ${thClass} w-[35%]`}>Tenant</th>
+                    <th className={`font-body text-xs font-medium ${thClass} w-[10%]`}>Plan</th>
+                    <th className={`font-body text-xs font-medium ${thClass} w-[12%]`}>Status</th>
+                    <th className={`font-body text-xs font-medium ${thClass} w-[18%]`}>Discord</th>
+                    <th className={`font-body text-xs font-medium ${thClass} w-[12%]`}>Created</th>
+                    <th className={`font-body text-xs font-medium ${thClass} w-[8%]`}></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -440,7 +406,7 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
                       className="bg-white hover:bg-gray-50 transition-colors"
                     >
                       {/* Tenant name + email */}
-                      <td style={tdStyle}>
+                      <td className={tdClass}>
                         <div
                           className="font-body text-sm font-medium text-foreground"
                         >
@@ -448,8 +414,7 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
                         </div>
                         {tenant.ownerEmail && (
                           <div
-                            className="font-body text-xs" style={{color: '#6B7280',
-                              marginTop: '2px'}}
+                            className="font-body text-xs text-gray-500 mt-0.5"
                           >
                             {tenant.ownerEmail}
                           </div>
@@ -457,51 +422,49 @@ export default async function AdminTenantsPage({ searchParams }: PageProps) {
                       </td>
 
                       {/* Plan badge */}
-                      <td style={tdStyle}>
+                      <td className={tdClass}>
                         <PlanBadge plan={tenant.plan} />
                       </td>
 
                       {/* Status badge */}
-                      <td style={tdStyle}>
+                      <td className={tdClass}>
                         <StatusBadge status={tenant.status} />
                       </td>
 
                       {/* Discord */}
-                      <td style={tdStyle}>
+                      <td className={tdClass}>
                         {tenant.discord ? (
                           <div>
                             {tenant.discord.bot_username && (
                               <div
-                                className="font-body text-[13px]" style={{color: '#374151'}}
+                                className="font-body text-[13px] text-gray-700"
                               >
                                 {tenant.discord.bot_username}
                               </div>
                             )}
                             <div
-                              className="font-body text-[11px]" style={{color: '#9CA3AF',
-                                marginTop: '1px'}}
+                              className="font-body text-[11px] text-gray-400 mt-px"
                             >
                               {tenant.discord.guild_id}
                             </div>
                           </div>
                         ) : (
-                          <span className="text-sm" style={{color: '#9CA3AF'}}>—</span>
+                          <span className="text-sm text-gray-400">—</span>
                         )}
                       </td>
 
                       {/* Created */}
-                      <td style={tdStyle}>
+                      <td className={tdClass}>
                         <span
                           title={new Date(tenant.created_at).toISOString()}
-                          className="font-body text-[13px]" style={{color: '#6B7280',
-                            cursor: 'default'}}
+                          className="font-body text-[13px] text-gray-500 cursor-default"
                         >
                           {relativeDate(tenant.created_at)}
                         </span>
                       </td>
 
                       {/* Actions */}
-                      <td style={tdStyle}>
+                      <td className={tdClass}>
                         <Link
                           href={`/admin/tenants/${tenant.id}`}
                           className="font-inter text-[13px] font-medium text-foreground border border-gray-200 px-3 py-1 no-underline inline-block bg-white hover:bg-gray-50 whitespace-nowrap transition-colors"

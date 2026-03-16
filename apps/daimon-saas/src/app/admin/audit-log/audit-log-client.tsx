@@ -278,45 +278,18 @@ export function AuditLogClient({
     })
   }
 
-  const selectStyle: React.CSSProperties = {
-    color: '#374151',
-    background: '#FFFFFF',
-    border: '1px solid #E5E7EB',
-    padding: '6px 32px 6px 10px',
-    borderRadius: 0,
-    appearance: 'none' as const,
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 8px center',
-    cursor: 'pointer'}
+  const selectClass = 'text-gray-700 bg-white border border-gray-200 py-1.5 pr-8 pl-2.5 rounded-none appearance-none cursor-pointer bg-[length:12px_12px] bg-no-repeat bg-[position:right_8px_center]'
+  const selectBgImage = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`
 
-  const thStyle: React.CSSProperties = {
-    color: '#374151',
-    textTransform: 'uppercase',
-    letterSpacing: '0.3px',
-    padding: '10px 16px',
-    textAlign: 'left',
-    background: '#F9FAFB',
-    borderBottom: '1px solid #E5E7EB',
-    whiteSpace: 'nowrap'}
+  const thClass = 'text-gray-700 uppercase tracking-wide py-2.5 px-4 text-left bg-gray-50 border-b border-gray-200 whitespace-nowrap'
 
-  const tdStyle: React.CSSProperties = {
-    padding: '10px 16px',
-    borderBottom: '1px solid #F3F4F6',
-    verticalAlign: 'middle',
-  }
+  const tdClass = 'py-2.5 px-4 border-b border-gray-100 align-middle'
 
   return (
     <div>
       {/* ── Filters bar ──────────────────────────────────────────────────────── */}
       <div
-        style={{
-          background: '#FFFFFF',
-          border: '1px solid #E5E7EB',
-          padding: '12px 16px',
-          marginBottom: '0',
-          borderBottom: 'none',
-        }}
+        className="bg-white border border-gray-200 py-3 px-4 mb-0 border-b-0"
       >
         <div className="flex flex-wrap items-center gap-3">
           {/* Tenant ID filter */}
@@ -325,13 +298,7 @@ export function AuditLogClient({
             placeholder="Tenant ID (UUID)…"
             defaultValue={filters.tenantId}
             onChange={(e) => handleTenantIdChange(e.target.value)}
-            className="font-body text-sm" style={{color: '#374151',
-              background: '#FFFFFF',
-              border: '1px solid #E5E7EB',
-              padding: '6px 10px',
-              borderRadius: 0,
-              outline: 'none',
-              width: '260px'}}
+            className="font-body text-sm text-gray-700 bg-white border border-gray-200 py-1.5 px-2.5 rounded-none outline-none w-[260px]"
             onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
             onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
           />
@@ -340,7 +307,7 @@ export function AuditLogClient({
           <select
             value={filters.action}
             onChange={(e) => handleSelect('action', e.target.value)}
-            className="font-body text-sm" style={selectStyle}
+            className={`font-body text-sm ${selectClass}`} style={{ backgroundImage: selectBgImage }}
             aria-label="Filter by action"
           >
             {ACTION_OPTIONS.map((opt) => (
@@ -354,7 +321,7 @@ export function AuditLogClient({
           <select
             value={filters.adminId}
             onChange={(e) => handleSelect('admin_id', e.target.value)}
-            className="font-body text-sm" style={selectStyle}
+            className={`font-body text-sm ${selectClass}`} style={{ backgroundImage: selectBgImage }}
             aria-label="Filter by admin"
           >
             <option value="">All Admins</option>
@@ -368,8 +335,7 @@ export function AuditLogClient({
           {/* Date from */}
           <div className="flex items-center gap-2">
             <label
-              className="font-body text-[13px]" style={{color: '#6B7280',
-                whiteSpace: 'nowrap'}}
+              className="font-body text-[13px] text-gray-500 whitespace-nowrap"
             >
               From
             </label>
@@ -377,12 +343,7 @@ export function AuditLogClient({
               type="date"
               value={filters.from}
               onChange={(e) => handleSelect('from', e.target.value)}
-              className="font-body text-sm" style={{color: '#374151',
-                background: '#FFFFFF',
-                border: '1px solid #E5E7EB',
-                padding: '6px 8px',
-                borderRadius: 0,
-                outline: 'none'}}
+              className="font-body text-sm text-gray-700 bg-white border border-gray-200 py-1.5 px-2 rounded-none outline-none"
               onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
               onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
             />
@@ -391,8 +352,7 @@ export function AuditLogClient({
           {/* Date to */}
           <div className="flex items-center gap-2">
             <label
-              className="font-body text-[13px]" style={{color: '#6B7280',
-                whiteSpace: 'nowrap'}}
+              className="font-body text-[13px] text-gray-500 whitespace-nowrap"
             >
               To
             </label>
@@ -400,12 +360,7 @@ export function AuditLogClient({
               type="date"
               value={filters.to}
               onChange={(e) => handleSelect('to', e.target.value)}
-              className="font-body text-sm" style={{color: '#374151',
-                background: '#FFFFFF',
-                border: '1px solid #E5E7EB',
-                padding: '6px 8px',
-                borderRadius: 0,
-                outline: 'none'}}
+              className="font-body text-sm text-gray-700 bg-white border border-gray-200 py-1.5 px-2 rounded-none outline-none"
               onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
               onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
             />
@@ -415,12 +370,7 @@ export function AuditLogClient({
           {hasActiveFilters && (
             <button
               onClick={handleReset}
-              className="flex items-center gap-1 transition-colors duration-150 font-body text-sm font-medium text-foreground"
-              style={{background: 'transparent',
-                border: 'none',
-                padding: '6px 8px',
-                cursor: 'pointer',
-                borderRadius: 0}}
+              className="flex items-center gap-1 transition-colors duration-150 font-body text-sm font-medium text-foreground bg-transparent border-none py-1.5 px-2 cursor-pointer rounded-none"
               onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
             >
@@ -432,7 +382,7 @@ export function AuditLogClient({
       </div>
 
       {/* ── Table ──────────────────────────────────────────────────────────────── */}
-      <div style={{ background: '#FFFFFF', border: '1px solid #E5E7EB' }}>
+      <div className="bg-white border border-gray-200">
         {entries.length === 0 ? (
           <EmptyState
             icon={<FileText size={28} />}
@@ -446,16 +396,16 @@ export function AuditLogClient({
             size="lg"
           />
         ) : (
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '100px' }}>ID</th>
-                  <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '18%' }}>Action</th>
-                  <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '18%' }}>Tenant</th>
-                  <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '18%' }}>Admin</th>
-                  <th className="font-body text-xs font-medium" style={{ ...thStyle, width: '20%' }}>Date &amp; Time</th>
-                  <th className="font-body text-xs font-medium" style={{ ...thStyle }}>Metadata</th>
+                  <th className={`font-body text-xs font-medium ${thClass} w-[100px]`}>ID</th>
+                  <th className={`font-body text-xs font-medium ${thClass} w-[18%]`}>Action</th>
+                  <th className={`font-body text-xs font-medium ${thClass} w-[18%]`}>Tenant</th>
+                  <th className={`font-body text-xs font-medium ${thClass} w-[18%]`}>Admin</th>
+                  <th className={`font-body text-xs font-medium ${thClass} w-[20%]`}>Date &amp; Time</th>
+                  <th className={`font-body text-xs font-medium ${thClass}`}>Metadata</th>
                 </tr>
               </thead>
               <tbody>
@@ -474,10 +424,7 @@ export function AuditLogClient({
                       <tr
                         key={entry.id}
                         onClick={() => toggleRow(entry.id)}
-                        style={{
-                          background: isExpanded ? '#F9FAFB' : '#FFFFFF',
-                          cursor: 'pointer',
-                        }}
+                        className={`cursor-pointer ${isExpanded ? 'bg-gray-50' : 'bg-white'}`}
                         onMouseEnter={(e) => {
                           if (!isExpanded)
                             (e.currentTarget as HTMLTableRowElement).style.background = '#F9FAFB'
@@ -488,7 +435,7 @@ export function AuditLogClient({
                         }}
                       >
                         {/* ID */}
-                        <td style={tdStyle}>
+                        <td className={tdClass}>
                           <div className="flex items-center gap-1">
                             {isExpanded ? (
                               <ChevronDown size={14} color="#9CA3AF" />
@@ -497,9 +444,7 @@ export function AuditLogClient({
                             )}
                             <span
                               title={entry.id}
-                              className="font-body text-xs font-medium" style={{color: '#9CA3AF',
-                                fontVariantNumeric: 'tabular-nums',
-                                cursor: 'default'}}
+                              className="font-body text-xs font-medium text-gray-400 tabular-nums cursor-default"
                             >
                               {entry.id.slice(0, 8)}
                             </span>
@@ -507,7 +452,7 @@ export function AuditLogClient({
                         </td>
 
                         {/* Action */}
-                        <td style={tdStyle}>
+                        <td className={tdClass}>
                           <span
                             className="font-body text-[13px] font-medium text-foreground"
                           >
@@ -516,54 +461,50 @@ export function AuditLogClient({
                         </td>
 
                         {/* Tenant */}
-                        <td style={tdStyle}>
+                        <td className={tdClass}>
                           {entry.tenant_id ? (
                             tenantName ? (
                               <Link
                                 href={`/admin/tenants/${entry.tenant_id}`}
                                 onClick={(e) => e.stopPropagation()}
-                                className="font-body text-[13px] text-foreground" style={{
-                                  textDecoration: 'none',
-                                  borderBottom: '1px solid #E5E7EB'}}
+                                className="font-body text-[13px] text-foreground no-underline border-b border-gray-200"
                               >
                                 {tenantName}
                               </Link>
                             ) : (
                               <span
-                                className="font-body text-xs" style={{color: '#9CA3AF',
-                                  fontStyle: 'italic'}}
+                                className="font-body text-xs text-gray-400 italic"
                               >
                                 Deleted tenant ({entry.tenant_id.slice(0, 8)}...)
                               </span>
                             )
                           ) : (
-                            <span className="text-sm" style={{color: '#9CA3AF'}}>—</span>
+                            <span className="text-sm text-gray-400">—</span>
                           )}
                         </td>
 
                         {/* Admin */}
-                        <td style={tdStyle}>
+                        <td className={tdClass}>
                           <span
-                            className="font-body text-[13px]" style={{color: '#374151'}}
+                            className="font-body text-[13px] text-gray-700"
                           >
                             {adminEmail}
                           </span>
                         </td>
 
                         {/* Date & Time */}
-                        <td style={tdStyle}>
+                        <td className={tdClass}>
                           <span
-                            className="font-body text-[13px]" style={{color: '#6B7280',
-                              whiteSpace: 'nowrap'}}
+                            className="font-body text-[13px] text-gray-500 whitespace-nowrap"
                           >
                             {formatDateTime(entry.created_at)}
                           </span>
                         </td>
 
                         {/* Metadata summary */}
-                        <td style={tdStyle}>
+                        <td className={tdClass}>
                           <span
-                            className="font-body text-[13px]" style={{color: '#6B7280'}}
+                            className="font-body text-[13px] text-gray-500"
                           >
                             {metaSummary}
                           </span>
@@ -572,23 +513,13 @@ export function AuditLogClient({
 
                       {/* Expanded JSON row */}
                       {isExpanded && (
-                        <tr key={`${entry.id}-expanded`} style={{ background: '#F9FAFB' }}>
+                        <tr key={`${entry.id}-expanded`} className="bg-gray-50">
                           <td
                             colSpan={6}
-                            style={{
-                              padding: '0 16px 16px 48px',
-                              borderBottom: '1px solid #E5E7EB',
-                            }}
+                            className="pt-0 px-4 pb-4 pl-12 border-b border-gray-200"
                           >
                             <pre
-                              className="font-mono text-xs" style={{color: '#374151',
-                                background: '#F3F4F6',
-                                border: '1px solid #E5E7EB',
-                                padding: '12px 16px',
-                                overflowX: 'auto',
-                                margin: 0,
-                                lineHeight: 1.6,
-                                borderRadius: 0}}
+                              className="font-mono text-xs text-gray-700 bg-gray-100 border border-gray-200 py-3 px-4 overflow-x-auto m-0 leading-relaxed rounded-none"
                             >
                               {JSON.stringify(entry.metadata, null, 2)}
                             </pre>
@@ -605,7 +536,7 @@ export function AuditLogClient({
 
         {/* ── Pagination ──────────────────────────────────────────────────────── */}
         {total > 0 && (
-          <div style={{ padding: '0 16px' }}>
+          <div className="px-4">
             <Pagination
               page={page}
               totalPages={totalPages}

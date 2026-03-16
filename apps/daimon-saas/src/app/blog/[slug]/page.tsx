@@ -242,7 +242,7 @@ function renderContent(content: string) {
       if (trimmed.startsWith('**') && trimmed.endsWith('**') && trimmed.length > 4) {
         const text = trimmed.slice(2, -2);
         return (
-          <h2 key={i} className="font-archivo font-bold text-foreground text-[28px]" style={{ margin: '48px 0 16px' }}>
+          <h2 key={i} className="font-archivo font-bold text-foreground text-[28px] mt-12 mb-4">
             {text}
           </h2>
         );
@@ -264,7 +264,7 @@ function renderContent(content: string) {
         );
       }
       return (
-        <p key={i} className="mb-5 text-[17px] text-muted-foreground" style={{ lineHeight: '1.8' }}>
+        <p key={i} className="mb-5 text-[17px] text-muted-foreground leading-[1.8]">
           {trimmed.split('**').map((part, j) =>
             j % 2 === 1 ? <strong key={j} className="font-bold text-foreground">{part}</strong> : part
           )}
@@ -329,8 +329,7 @@ export default async function BlogPostPage({
 
         {/* Post header */}
         <h1
-          className="font-archivo font-bold text-foreground text-[clamp(30px,4vw,44px)]"
-          style={{ maxWidth: '48rem' }}
+          className="font-archivo font-bold text-foreground text-[clamp(30px,4vw,44px)] max-w-3xl"
         >
           {post.title}
         </h1>
@@ -359,8 +358,7 @@ export default async function BlogPostPage({
           <img
             src={post.coverImageUrl}
             alt={`${post.title} — cover image`}
-            className="w-full mt-8 rounded-2xl object-cover"
-            style={{ maxHeight: '480px' }}
+            className="w-full mt-8 rounded-2xl object-cover max-h-[480px]"
           />
         )}
 

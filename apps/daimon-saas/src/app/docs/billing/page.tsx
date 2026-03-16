@@ -26,35 +26,20 @@ export const metadata: Metadata = {
 
 function PageHeader() {
   return (
-    <header style={{ marginBottom: '48px' }}>
+    <header className="mb-12">
       <div
-        className="font-body text-sm"
-        style={{
-          color: 'hsl(var(--muted-foreground))',
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-          marginBottom: '8px',
-        }}
+        className="font-body text-sm text-muted-foreground uppercase tracking-widest mb-2"
       >
         Account &amp; Billing
       </div>
       <h1
         id="billing-plans-title"
-        className="font-heading text-3xl font-semibold"
-        style={{
-          color: 'hsl(var(--foreground))',
-          margin: '0 0 8px 0',
-        }}
+        className="font-heading text-3xl font-semibold text-foreground mt-0 mb-2"
       >
         Billing &amp; Plans
       </h1>
       <p
-        className="font-body text-lg font-normal"
-        style={{
-          color: '#6B7280',
-          margin: 0,
-          lineHeight: 1.5,
-        }}
+        className="font-body text-lg font-normal text-gray-500 m-0 leading-normal"
       >
         How Daimon plans work, what&apos;s included in each tier, and how to manage your subscription.
       </p>
@@ -78,34 +63,19 @@ function Toc() {
   return (
     <nav
       aria-label="On this page"
-      style={{
-        backgroundColor: '#F9FAFB',
-        border: '1px solid #E5E7EB',
-        padding: '20px 24px',
-        marginBottom: '48px',
-      }}
+      className="bg-gray-50 border border-border py-5 px-6 mb-12"
     >
       <p
-        className="font-body text-sm font-semibold"
-        style={{
-          color: '#6B7280',
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-          margin: '0 0 12px 0',
-        }}
+        className="font-body text-sm font-semibold text-gray-500 uppercase tracking-widest mt-0 mb-3"
       >
         On this page
       </p>
-      <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '6px' }}>
+      <ul className="list-none m-0 p-0 flex flex-col gap-1.5">
         {tocItems.map((item) => (
           <li key={item.href}>
             <a
               href={item.href}
-              className="font-body text-sm"
-              style={{
-                color: '#3F85CC',
-                textDecoration: 'none',
-              }}
+              className="font-body text-sm text-[#3F85CC] no-underline"
             >
               {item.label}
             </a>
@@ -120,11 +90,7 @@ function H2({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <h2
       id={id}
-      className="font-headline text-[22px] font-semibold"
-      style={{
-        color: 'hsl(var(--foreground))',
-        margin: '0 0 20px 0',
-      }}
+      className="font-headline text-[22px] font-semibold text-foreground mt-0 mb-5"
     >
       {children}
     </h2>
@@ -134,11 +100,7 @@ function H2({ id, children }: { id: string; children: React.ReactNode }) {
 function H3({ children }: { children: React.ReactNode }) {
   return (
     <h3
-      className="font-headline text-[17px] font-semibold"
-      style={{
-        color: 'hsl(var(--foreground))',
-        margin: '28px 0 12px 0',
-      }}
+      className="font-headline text-[17px] font-semibold text-foreground mt-7 mb-3"
     >
       {children}
     </h3>
@@ -148,12 +110,7 @@ function H3({ children }: { children: React.ReactNode }) {
 function P({ children }: { children: React.ReactNode }) {
   return (
     <p
-      className="font-body text-[15px]"
-      style={{
-        color: '#374151',
-        lineHeight: 1.7,
-        margin: '0 0 16px 0',
-      }}
+      className="font-body text-[15px] text-gray-700 leading-relaxed mt-0 mb-4"
     >
       {children}
     </p>
@@ -163,16 +120,10 @@ function P({ children }: { children: React.ReactNode }) {
 function Ul({ items }: { items: React.ReactNode[] }) {
   return (
     <ul
-      className="font-body text-[15px]"
-      style={{
-        color: '#374151',
-        lineHeight: 1.7,
-        margin: '0 0 16px 0',
-        paddingLeft: '24px',
-      }}
+      className="font-body text-[15px] text-gray-700 leading-relaxed mt-0 mb-4 pl-6"
     >
       {items.map((item, i) => (
-        <li key={i} style={{ marginBottom: '6px' }}>
+        <li key={i} className="mb-1.5">
           {item}
         </li>
       ))}
@@ -183,15 +134,10 @@ function Ul({ items }: { items: React.ReactNode[] }) {
 function Ol({ items }: { items: React.ReactNode[] }) {
   return (
     <ol
-      className="font-body text-[15px]" style={{
-        color: '#374151',
-        lineHeight: 1.7,
-        margin: '0 0 16px 0',
-        paddingLeft: '24px',
-      }}
+      className="font-body text-[15px] text-gray-700 leading-relaxed mt-0 mb-4 pl-6"
     >
       {items.map((item, i) => (
-        <li key={i} style={{ marginBottom: '6px' }}>
+        <li key={i} className="mb-1.5">
           {item}
         </li>
       ))}
@@ -215,23 +161,16 @@ function Callout({
   const s = styles[type]
   return (
     <div
-      className="font-body text-sm" style={{
+      className="font-body text-sm py-4 px-5 mb-6 text-gray-700 leading-relaxed"
+      style={{
         backgroundColor: s.bg,
         border: `1px solid ${s.border}`,
         borderLeft: `4px solid ${s.border}`,
-        padding: '16px 20px',
-        marginBottom: '24px',
-        color: '#374151',
-        lineHeight: 1.6,
       }}
     >
       <span
-        className="font-bold text-sm" style={{
-          color: s.labelColor,
-          marginRight: '8px',
-          textTransform: 'uppercase',
-          letterSpacing: '0.05em',
-        }}
+        className="font-bold text-sm mr-2 uppercase tracking-wide"
+        style={{ color: s.labelColor }}
       >
         {s.label}:
       </span>
@@ -241,14 +180,14 @@ function Callout({
 }
 
 function SectionDivider() {
-  return <div style={{ height: '1px', backgroundColor: '#E5E7EB', margin: '48px 0' }} />
+  return <div className="h-px bg-border my-12" />
 }
 
 function alink(href: string, label: string, newTab?: boolean) {
   return (
     <a
       href={href}
-      style={{ color: '#3F85CC', textDecoration: 'underline' }}
+      className="text-[#3F85CC] underline"
       {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
       {label}
@@ -260,11 +199,7 @@ function alink(href: string, label: string, newTab?: boolean) {
 function acode(text: string) {
   return (
     <code
-      className="text-sm font-mono"
-      style={{
-        background: '#F3F4F6',
-        padding: '2px 6px',
-      }}
+      className="text-sm font-mono bg-gray-100 py-0.5 px-1.5"
     >
       {text}
     </code>
@@ -289,18 +224,18 @@ export default function BillingDocsPage() {
       </P>
 
       {/* Plan comparison table */}
-      <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
+      <div className="overflow-x-auto mb-6">
         <table
           role="table"
- className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}
+ className="font-body text-sm w-full border-collapse"
         >
           <caption className="sr-only">Daimon plan comparison: Free, Starter, and Pro</caption>
           <thead>
-            <tr style={{ borderBottom: '2px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '12px 16px', color: 'hsl(var(--foreground))' }}>Feature</th>
- <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: 'hsl(var(--foreground))' }}>Free</th>
- <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: 'hsl(var(--foreground))' }}>Starter</th>
- <th className="font-semibold" style={{ textAlign: 'center', padding: '12px 16px', color: 'hsl(var(--foreground))' }}>Pro</th>
+            <tr className="border-b-2 border-border bg-gray-50">
+ <th className="font-semibold text-left py-3 px-4 text-foreground">Feature</th>
+ <th className="font-semibold text-center py-3 px-4 text-foreground">Free</th>
+ <th className="font-semibold text-center py-3 px-4 text-foreground">Starter</th>
+ <th className="font-semibold text-center py-3 px-4 text-foreground">Pro</th>
             </tr>
           </thead>
           <tbody>
@@ -321,17 +256,14 @@ export default function BillingDocsPage() {
             ].map(([feature, free, starter, pro], i) => (
               <tr
                 key={i}
-                style={{
-                  borderBottom: '1px solid #F3F4F6',
-                  backgroundColor: i % 2 === 0 ? '#FFFFFF' : '#FAFAFA',
-                }}
+                className={`border-b border-gray-100 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}
               >
-                <td className={feature.startsWith('**') ? "font-semibold" : "font-normal"} style={{ padding: '10px 16px', color: '#374151' }}>
+                <td className={`py-2.5 px-4 text-gray-700 ${feature.startsWith('**') ? "font-semibold" : "font-normal"}`}>
                   {feature}
                 </td>
-                <td style={{ padding: '10px 16px', color: '#374151', textAlign: 'center' }}>{free}</td>
-                <td style={{ padding: '10px 16px', color: '#374151', textAlign: 'center' }}>{starter}</td>
-                <td style={{ padding: '10px 16px', color: '#374151', textAlign: 'center' }}>{pro}</td>
+                <td className="py-2.5 px-4 text-gray-700 text-center">{free}</td>
+                <td className="py-2.5 px-4 text-gray-700 text-center">{starter}</td>
+                <td className="py-2.5 px-4 text-gray-700 text-center">{pro}</td>
               </tr>
             ))}
           </tbody>
@@ -792,17 +724,17 @@ export default function BillingDocsPage() {
       ]} />
 
       <P><strong>Validation errors:</strong></P>
-      <div style={{ overflowX: 'auto', marginBottom: '16px' }}>
+      <div className="overflow-x-auto mb-4">
         <table
           role="table"
- className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}
+ className="font-body text-sm w-full border-collapse"
         >
           <caption className="sr-only">Anthropic API key validation errors</caption>
           <thead>
-            <tr style={{ borderBottom: '2px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Error</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Cause</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Fix</th>
+            <tr className="border-b-2 border-border bg-gray-50">
+ <th className="font-semibold text-left py-2.5 px-3 text-foreground">Error</th>
+ <th className="font-semibold text-left py-2.5 px-3 text-foreground">Cause</th>
+ <th className="font-semibold text-left py-2.5 px-3 text-foreground">Fix</th>
             </tr>
           </thead>
           <tbody>
@@ -811,10 +743,10 @@ export default function BillingDocsPage() {
               ['This API key was rejected by Anthropic. It may be expired or have insufficient permissions.', 'Key is revoked or was entered incorrectly', 'Create a new key in the Anthropic console'],
               ['Could not reach Anthropic to validate the key. Please try again.', 'Network error during validation', 'Retry — if it persists, check status.anthropic.com'],
             ].map(([error, cause, fix], i) => (
-              <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
- <td className="text-sm" style={{ padding: '10px 12px', color: '#374151' }}>{error}</td>
-                <td style={{ padding: '10px 12px', color: '#374151' }}>{cause}</td>
-                <td style={{ padding: '10px 12px', color: '#374151' }}>{fix}</td>
+              <tr key={i} className="border-b border-gray-100">
+ <td className="text-sm py-2.5 px-3 text-gray-700">{error}</td>
+                <td className="py-2.5 px-3 text-gray-700">{cause}</td>
+                <td className="py-2.5 px-3 text-gray-700">{fix}</td>
               </tr>
             ))}
           </tbody>
@@ -835,17 +767,17 @@ export default function BillingDocsPage() {
         <>Copy the key — it starts with {acode('sk-')}</>,
       ]} />
       <P><strong>Validation errors — OpenAI:</strong></P>
-      <div style={{ overflowX: 'auto', marginBottom: '16px' }}>
+      <div className="overflow-x-auto mb-4">
         <table
           role="table"
- className="font-body text-sm" style={{ width: '100%', borderCollapse: 'collapse' }}
+ className="font-body text-sm w-full border-collapse"
         >
           <caption className="sr-only">OpenAI API key validation errors</caption>
           <thead>
-            <tr style={{ borderBottom: '2px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Error</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Cause</th>
- <th className="font-semibold" style={{ textAlign: 'left', padding: '10px 12px', color: 'hsl(var(--foreground))' }}>Fix</th>
+            <tr className="border-b-2 border-border bg-gray-50">
+ <th className="font-semibold text-left py-2.5 px-3 text-foreground">Error</th>
+ <th className="font-semibold text-left py-2.5 px-3 text-foreground">Cause</th>
+ <th className="font-semibold text-left py-2.5 px-3 text-foreground">Fix</th>
             </tr>
           </thead>
           <tbody>
@@ -854,10 +786,10 @@ export default function BillingDocsPage() {
               ['This API key was rejected by OpenAI. It may be expired or have insufficient permissions.', 'Key is revoked', 'Create a new key in OpenAI platform'],
               ['Could not reach OpenAI to validate the key. Please try again.', 'Network error', 'Retry'],
             ].map(([error, cause, fix], i) => (
-              <tr key={i} style={{ borderBottom: '1px solid #F3F4F6' }}>
- <td className="text-sm" style={{ padding: '10px 12px', color: '#374151' }}>{error}</td>
-                <td style={{ padding: '10px 12px', color: '#374151' }}>{cause}</td>
-                <td style={{ padding: '10px 12px', color: '#374151' }}>{fix}</td>
+              <tr key={i} className="border-b border-gray-100">
+ <td className="text-sm py-2.5 px-3 text-gray-700">{error}</td>
+                <td className="py-2.5 px-3 text-gray-700">{cause}</td>
+                <td className="py-2.5 px-3 text-gray-700">{fix}</td>
               </tr>
             ))}
           </tbody>
@@ -945,22 +877,13 @@ export default function BillingDocsPage() {
       {/* ── Footer Nav ───────────────────────────────────────────── */}
       <nav
         aria-label="Page navigation"
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          paddingTop: '48px',
-          borderTop: '1px solid #E5E7EB',
-          marginTop: '48px',
-        }}
+        className="flex justify-between pt-12 border-t border-border mt-12"
       >
         <div>
           <a
             href="/docs/faq"
             aria-label="Previous page: FAQ"
-            className="font-body text-sm" style={{
-              color: '#3F85CC',
-              textDecoration: 'none',
-            }}
+            className="font-body text-sm text-[#3F85CC] no-underline"
           >
             ← FAQ
           </a>

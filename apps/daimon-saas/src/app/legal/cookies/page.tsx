@@ -93,14 +93,12 @@ export default function CookiePolicyPage() {
           </nav>
 
           <div
-            className="text-[#2D3748] space-y-4 text-base"
-            style={{ lineHeight: '1.75' }}
+            className="text-[#2D3748] space-y-4 text-base leading-[1.75]"
           >
             {/* Section 1 */}
             <h2
               id="what-are-cookies"
-              className="font-archivo font-bold text-foreground text-[22px]"
-              style={{ marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-foreground text-[22px] mt-12 mb-4"
             >
               1. What Are Cookies?
             </h2>
@@ -121,8 +119,7 @@ export default function CookiePolicyPage() {
             {/* Section 2 */}
             <h2
               id="how-we-use-cookies"
-              className="font-archivo font-bold text-foreground text-[22px]"
-              style={{ marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-foreground text-[22px] mt-12 mb-4"
             >
               2. How We Use Cookies
             </h2>
@@ -143,120 +140,119 @@ export default function CookiePolicyPage() {
             {/* Section 3 */}
             <h2
               id="types-of-cookies-we-use"
-              className="font-archivo font-bold text-foreground text-[22px]"
-              style={{ marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-foreground text-[22px] mt-12 mb-4"
             >
               3. Types of Cookies We Use
             </h2>
 
-            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg mt-8 mb-3">
               3.1 Strictly Necessary Cookies
             </h3>
             <p>
               These cookies are required for the website to function. They cannot be disabled. Without
               them, you cannot log in, access your dashboard, or use the application.
             </p>
-            <div style={{ overflowX: 'auto' }}>
+            <div className="overflow-x-auto">
               <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr className="bg-background">
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Cookie Name</th>
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Purpose</th>
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Duration</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Cookie Name</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Purpose</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Duration</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">sb-access-token</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Supabase Auth — stores your authentication session token</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Session (until logout or expiry)</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">sb-access-token</code></td>
+                    <td className="py-3 px-4 border border-border">Supabase Auth — stores your authentication session token</td>
+                    <td className="py-3 px-4 border border-border">Session (until logout or expiry)</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">sb-refresh-token</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Supabase Auth — stores your session refresh token for automatic renewal</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>60 days (rolling)</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">sb-refresh-token</code></td>
+                    <td className="py-3 px-4 border border-border">Supabase Auth — stores your session refresh token for automatic renewal</td>
+                    <td className="py-3 px-4 border border-border">60 days (rolling)</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">__Host-next-auth.csrf-token</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>CSRF protection for server actions</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Session</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">__Host-next-auth.csrf-token</code></td>
+                    <td className="py-3 px-4 border border-border">CSRF protection for server actions</td>
+                    <td className="py-3 px-4 border border-border">Session</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">next-auth.session-token</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Next.js session management</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Session</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">next-auth.session-token</code></td>
+                    <td className="py-3 px-4 border border-border">Next.js session management</td>
+                    <td className="py-3 px-4 border border-border">Session</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <p><strong className="font-bold text-foreground">Legal basis:</strong> Legitimate interests (strictly necessary for service operation).</p>
 
-            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg mt-8 mb-3">
               3.2 Functional Cookies
             </h3>
             <p>
               These cookies enhance your experience but are not strictly required. You may disable them,
               but some features may not work as expected.
             </p>
-            <div style={{ overflowX: 'auto' }}>
+            <div className="overflow-x-auto">
               <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr className="bg-background">
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Cookie Name</th>
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Purpose</th>
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Duration</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Cookie Name</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Purpose</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Duration</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-theme</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Stores your UI theme preference</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>1 year</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">daimon-theme</code></td>
+                    <td className="py-3 px-4 border border-border">Stores your UI theme preference</td>
+                    <td className="py-3 px-4 border border-border">1 year</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-onboarding-dismissed</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Remembers if you have dismissed the onboarding checklist</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>30 days</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">daimon-onboarding-dismissed</code></td>
+                    <td className="py-3 px-4 border border-border">Remembers if you have dismissed the onboarding checklist</td>
+                    <td className="py-3 px-4 border border-border">30 days</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">daimon-sidebar-state</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Stores whether the sidebar is expanded or collapsed</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>1 year</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">daimon-sidebar-state</code></td>
+                    <td className="py-3 px-4 border border-border">Stores whether the sidebar is expanded or collapsed</td>
+                    <td className="py-3 px-4 border border-border">1 year</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <p><strong className="font-bold text-foreground">Legal basis:</strong> Consent / legitimate interests.</p>
 
-            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg mt-8 mb-3">
               3.3 Analytics Cookies
             </h3>
             <p>
               We use analytics to understand how our site is used so we can improve it. We use
               privacy-respecting analytics tools that do not share data with third-party advertisers.
             </p>
-            <div style={{ overflowX: 'auto' }}>
+            <div className="overflow-x-auto">
               <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr className="bg-background">
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Cookie Name</th>
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Set By</th>
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Purpose</th>
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Duration</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Cookie Name</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Set By</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Purpose</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Duration</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">_vercel_insights</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Vercel</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Tracks anonymous page view and performance metrics</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Session</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">_vercel_insights</code></td>
+                    <td className="py-3 px-4 border border-border">Vercel</td>
+                    <td className="py-3 px-4 border border-border">Tracks anonymous page view and performance metrics</td>
+                    <td className="py-3 px-4 border border-border">Session</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">vercel-analytics-id</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Vercel</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Persistent anonymous visitor identifier for Vercel Analytics</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>1 year</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">vercel-analytics-id</code></td>
+                    <td className="py-3 px-4 border border-border">Vercel</td>
+                    <td className="py-3 px-4 border border-border">Persistent anonymous visitor identifier for Vercel Analytics</td>
+                    <td className="py-3 px-4 border border-border">1 year</td>
                   </tr>
                 </tbody>
               </table>
@@ -270,8 +266,7 @@ export default function CookiePolicyPage() {
             {/* Section 4 */}
             <h2
               id="third-party-cookies"
-              className="font-archivo font-bold text-foreground text-[22px]"
-              style={{ marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-foreground text-[22px] mt-12 mb-4"
             >
               4. Third-Party Cookies
             </h2>
@@ -279,7 +274,7 @@ export default function CookiePolicyPage() {
               Our service integrates with the following third parties who may set cookies on your device:
             </p>
 
-            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg mt-8 mb-3">
               4.1 Supabase
             </h3>
             <p>
@@ -290,7 +285,7 @@ export default function CookiePolicyPage() {
               See Supabase&apos;s Privacy Policy for details.
             </p>
 
-            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg mt-8 mb-3">
               4.2 Stripe
             </h3>
             <p>
@@ -298,40 +293,40 @@ export default function CookiePolicyPage() {
               (stripe.com) may set cookies for fraud prevention, performance, and compliance purposes.
               These cookies are set by Stripe&apos;s domains, not our domain.
             </p>
-            <div style={{ overflowX: 'auto' }}>
+            <div className="overflow-x-auto">
               <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr className="bg-background">
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Cookie</th>
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Set By</th>
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Purpose</th>
-                    <th className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Duration</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Cookie</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Set By</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Purpose</th>
+                    <th className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">Duration</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">__stripe_mid</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>stripe.com</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Fraud detection</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>1 year</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">__stripe_mid</code></td>
+                    <td className="py-3 px-4 border border-border">stripe.com</td>
+                    <td className="py-3 px-4 border border-border">Fraud detection</td>
+                    <td className="py-3 px-4 border border-border">1 year</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">__stripe_sid</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>stripe.com</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Fraud detection</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>30 minutes</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">__stripe_sid</code></td>
+                    <td className="py-3 px-4 border border-border">stripe.com</td>
+                    <td className="py-3 px-4 border border-border">Fraud detection</td>
+                    <td className="py-3 px-4 border border-border">30 minutes</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}><code className="text-sm bg-gray-100 px-1 rounded">stripe.csrf</code></td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>stripe.com</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>CSRF protection during checkout</td>
-                    <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>Session</td>
+                    <td className="py-3 px-4 border border-border"><code className="text-sm bg-gray-100 px-1 rounded">stripe.csrf</code></td>
+                    <td className="py-3 px-4 border border-border">stripe.com</td>
+                    <td className="py-3 px-4 border border-border">CSRF protection during checkout</td>
+                    <td className="py-3 px-4 border border-border">Session</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <h3 className="font-archivo font-bold text-foreground text-lg" style={{ marginTop: '32px', marginBottom: '12px' }}>
+            <h3 className="font-archivo font-bold text-foreground text-lg mt-8 mb-3">
               4.3 Vercel
             </h3>
             <p>
@@ -349,8 +344,7 @@ export default function CookiePolicyPage() {
             {/* Section 5 */}
             <h2
               id="cookie-consent-and-your-choices"
-              className="font-archivo font-bold text-foreground text-[22px]"
-              style={{ marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-foreground text-[22px] mt-12 mb-4"
             >
               5. Cookie Consent and Your Choices
             </h2>
@@ -385,8 +379,7 @@ export default function CookiePolicyPage() {
             {/* Section 6 */}
             <h2
               id="specific-cookie-inventory"
-              className="font-archivo font-bold text-foreground text-[22px]"
-              style={{ marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-foreground text-[22px] mt-12 mb-4"
             >
               6. Specific Cookie Inventory
             </h2>
@@ -394,12 +387,12 @@ export default function CookiePolicyPage() {
               Complete list of all cookies set on <code className="text-sm bg-gray-100 px-1 rounded">daimon.ai</code>{' '}
               and <code className="text-sm bg-gray-100 px-1 rounded">app.daimon.ai</code>:
             </p>
-            <div style={{ overflowX: 'auto' }}>
+            <div className="overflow-x-auto">
               <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr className="bg-background">
                     {['Name', 'Domain', 'Type', 'Duration', 'Purpose'].map((h) => (
-                      <th key={h} className="font-archivo font-bold text-foreground text-left" style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>
+                      <th key={h} className="font-archivo font-bold text-foreground text-left py-3 px-4 border border-border">
                         {h}
                       </th>
                     ))}
@@ -421,13 +414,13 @@ export default function CookiePolicyPage() {
                     ['stripe.csrf', 'stripe.com', 'Third-Party (Security)', 'Session', 'Stripe CSRF protection'],
                   ].map(([name, domain, type, duration, purpose]) => (
                     <tr key={name}>
-                      <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>
+                      <td className="py-3 px-4 border border-border">
                         <code className="text-sm bg-gray-100 px-1 rounded">{name}</code>
                       </td>
-                      <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>{domain}</td>
-                      <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>{type}</td>
-                      <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>{duration}</td>
-                      <td style={{ padding: '12px 16px', border: '1px solid var(--border)' }}>{purpose}</td>
+                      <td className="py-3 px-4 border border-border">{domain}</td>
+                      <td className="py-3 px-4 border border-border">{type}</td>
+                      <td className="py-3 px-4 border border-border">{duration}</td>
+                      <td className="py-3 px-4 border border-border">{purpose}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -440,8 +433,7 @@ export default function CookiePolicyPage() {
             {/* Section 7 */}
             <h2
               id="browser-controls"
-              className="font-archivo font-bold text-foreground text-[22px]"
-              style={{ marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-foreground text-[22px] mt-12 mb-4"
             >
               7. Browser Controls
             </h2>
@@ -471,8 +463,7 @@ export default function CookiePolicyPage() {
             {/* Section 8 */}
             <h2
               id="do-not-track"
-              className="font-archivo font-bold text-foreground text-[22px]"
-              style={{ marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-foreground text-[22px] mt-12 mb-4"
             >
               8. Do Not Track
             </h2>
@@ -494,8 +485,7 @@ export default function CookiePolicyPage() {
             {/* Section 9 */}
             <h2
               id="changes-to-this-policy"
-              className="font-archivo font-bold text-foreground text-[22px]"
-              style={{ marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-foreground text-[22px] mt-12 mb-4"
             >
               9. Changes to This Policy
             </h2>
@@ -521,8 +511,7 @@ export default function CookiePolicyPage() {
             {/* Section 10 */}
             <h2
               id="contact-us"
-              className="font-archivo font-bold text-foreground text-[22px]"
-              style={{ marginTop: '48px', marginBottom: '16px' }}
+              className="font-archivo font-bold text-foreground text-[22px] mt-12 mb-4"
             >
               10. Contact Us
             </h2>

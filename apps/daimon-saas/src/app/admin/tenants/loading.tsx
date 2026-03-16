@@ -6,11 +6,7 @@ function SkeletonRow() {
       {[180, 50, 60, 100, 100, 80].map((w, i) => (
         <td
           key={i}
-          style={{
-            padding: '12px 16px',
-            borderBottom: '1px solid #F3F4F6',
-            verticalAlign: 'middle',
-          }}
+          className="py-3 px-4 border-b border-gray-100 align-middle"
         >
           <div
             className="skeleton"
@@ -31,37 +27,30 @@ export default function AdminTenantsLoading() {
         role="status"
       >
         {/* Page header */}
-        <div style={{ marginBottom: '24px' }}>
-          <div className="skeleton" style={{ width: '160px', height: '28px', marginBottom: '8px' }} />
+        <div className="mb-6">
+          <div className="skeleton mb-2" style={{ width: '160px', height: '28px' }} />
           <div className="skeleton" style={{ width: '280px', height: '16px' }} />
         </div>
 
         {/* Stats bar (3 stat chips) */}
-        <div style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
+        <div className="flex gap-4 mb-6">
           <div className="skeleton" style={{ width: '120px', height: '60px' }} />
           <div className="skeleton" style={{ width: '120px', height: '60px' }} />
           <div className="skeleton" style={{ width: '120px', height: '60px' }} />
         </div>
 
         {/* Search bar skeleton */}
-        <div className="skeleton" style={{ width: '320px', height: '38px', marginBottom: '16px' }} />
+        <div className="skeleton mb-4" style={{ width: '320px', height: '38px' }} />
 
         {/* Table skeleton */}
-        <div style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div className="bg-white border border-gray-200 overflow-x-auto">
+          <table className="w-full border-collapse">
             <thead>
               <tr>
                 {['Workspace', 'Status', 'Plan', 'Created', 'Last Active', 'Actions'].map((col) => (
                   <th
                     key={col}
-                    className="font-body text-xs font-medium" style={{color: '#374151',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.3px',
-                      padding: '10px 16px',
-                      textAlign: 'left',
-                      background: '#F9FAFB',
-                      borderBottom: '1px solid #E5E7EB',
-                      whiteSpace: 'nowrap'}}
+                    className="font-body text-xs font-medium text-gray-700 uppercase tracking-wide py-2.5 px-4 text-left bg-gray-50 border-b border-gray-200 whitespace-nowrap"
                   >
                     {col}
                   </th>

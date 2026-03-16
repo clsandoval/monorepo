@@ -43,24 +43,18 @@ function DocsSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <nav aria-label="Docs navigation">
-      <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+      <ul className="list-none m-0 p-0">
         {NAV_SECTIONS.map((section) => (
-          <li key={section.label} style={{ margin: 0 }}>
+          <li key={section.label} className="m-0">
             {/* Section label */}
             <span
-              className="font-body text-sm font-semibold" style={{
-                display: 'block',
-                color: '#6B7280',
-                textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-                padding: '20px 24px 8px 24px',
-              }}
+              className="font-body text-sm font-semibold block text-gray-500 uppercase tracking-widest pt-5 px-6 pb-2"
             >
               {section.label}
             </span>
 
             {/* Section items */}
-            <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+            <ul className="list-none m-0 p-0">
               {section.items.map((item) => {
                 const isActive = pathname === item.href
                 return (
@@ -69,19 +63,7 @@ function DocsSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                       href={item.href}
                       aria-current={isActive ? 'page' : undefined}
                       onClick={onNavigate}
-                      className={`font-body text-base ${isActive ? "font-semibold" : "font-normal"}`} style={{
-                        display: 'block',
-                        color: 'hsl(var(--foreground))',
-                        padding: '10px 24px',
-                        textDecoration: 'none',
-                        backgroundColor: isActive
-                          ? 'hsl(var(--primary) / 0.15)'
-                          : 'transparent',
-                        borderLeft: isActive
-                          ? '2px solid hsl(var(--primary))'
-                          : '2px solid transparent',
-                        transition: 'background-color 150ms, color 150ms',
-                      }}
+                      className={`font-body text-base block text-foreground py-2.5 px-6 no-underline transition-colors duration-150 ${isActive ? "font-semibold bg-primary/15 border-l-2 border-primary" : "font-normal bg-transparent border-l-2 border-transparent"}`}
                       onMouseEnter={(e) => {
                         if (!isActive) {
                           ;(e.currentTarget as HTMLAnchorElement).style.backgroundColor =
@@ -114,15 +96,11 @@ function DocsSidebar() {
   return (
     <aside className="hidden md:block fixed left-0 top-0 w-[260px] h-screen bg-white border-r border-gray-200 overflow-y-auto z-20">
       {/* Logo area */}
-      <div
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid #E5E7EB',
-        }}
-      >
+      <div className="py-5 px-6 border-b border-border">
+
         <Link
           href="/"
-          style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+          className="inline-flex items-center gap-2"
         >
           <Rocket size={20} color="hsl(var(--foreground))" />
           <span
@@ -163,42 +141,20 @@ function MobileSidebar({
     <>
       {/* Backdrop */}
       <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          backgroundColor: 'rgba(0,0,0,0.4)',
-          zIndex: 40,
-        }}
+        className="fixed inset-0 bg-black/40 z-40"
         onClick={onClose}
         aria-hidden="true"
       />
       {/* Sidebar panel */}
       <aside
-        style={{
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          width: '280px',
-          height: '100vh',
-          backgroundColor: '#FFFFFF',
-          overflowY: 'auto',
-          zIndex: 50,
-          boxShadow: '4px 0 12px rgba(0,0,0,0.1)',
-        }}
+        className="fixed left-0 top-0 w-[280px] h-screen bg-white overflow-y-auto z-50 shadow-lg"
       >
         {/* Header with close */}
-        <div
-          style={{
-            padding: '16px 24px',
-            borderBottom: '1px solid #E5E7EB',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
+        <div className="py-4 px-6 border-b border-border flex items-center justify-between">
+
           <Link
             href="/"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+            className="inline-flex items-center gap-2"
           >
             <Rocket size={20} color="hsl(var(--foreground))" />
             <span
@@ -210,13 +166,7 @@ function MobileSidebar({
           <button
             onClick={onClose}
             aria-label="Close navigation"
-            style={{
-              background: 'none',
-              border: 'none',
-              padding: '8px',
-              cursor: 'pointer',
-              color: '#6B7280',
-            }}
+            className="bg-transparent border-none p-2 cursor-pointer text-gray-500"
           >
             <X size={20} />
           </button>
@@ -251,47 +201,24 @@ function DocsTopbar({ onMenuClick }: { onMenuClick: () => void }) {
 
   return (
     <header
-      style={{
-        position: 'sticky',
-        top: 0,
-        height: '56px',
-        backgroundColor: '#FFFFFF',
-        borderBottom: '1px solid #E5E7EB',
-        zIndex: 10,
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 16px',
-        gap: '8px',
-      }}
-      className="md:px-8"
+      className="sticky top-0 h-14 bg-white border-b border-border z-10 flex items-center px-4 gap-2 md:px-8"
     >
       {/* Mobile menu button */}
       <button
         onClick={onMenuClick}
         aria-label="Open navigation"
-        className="md:hidden"
-        style={{
-          background: 'none',
-          border: 'none',
-          padding: '8px',
-          cursor: 'pointer',
-          color: 'hsl(var(--foreground))',
-          display: 'inline-flex',
-          alignItems: 'center',
-        }}
+        className="md:hidden bg-transparent border-none p-2 cursor-pointer text-foreground inline-flex items-center"
       >
         <Menu size={22} />
       </button>
 
       {/* Breadcrumb */}
       <span
-        className="font-body text-sm" style={{
-          color: '#6B7280',
-        }}
+        className="font-body text-sm text-gray-500"
       >
         <span>Docs</span>
         <span
-          style={{ color: '#D1D5DB', padding: '0 8px' }}
+          className="text-muted-foreground px-2"
           aria-hidden="true"
         >
           /
@@ -300,21 +227,11 @@ function DocsTopbar({ onMenuClick }: { onMenuClick: () => void }) {
       </span>
 
       {/* Spacer */}
-      <div style={{ flex: 1 }} />
+      <div className="flex-1" />
 
       <Link
         href="/signup"
-        className="font-body text-sm font-semibold" style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          height: '32px',
-          padding: '0 16px',
-          backgroundColor: 'hsl(var(--primary))',
-          color: 'hsl(var(--foreground))',
-          textDecoration: 'none',
-          whiteSpace: 'nowrap',
-          transition: 'opacity 150ms',
-        }}
+        className="font-body text-sm font-semibold inline-flex items-center h-8 px-4 bg-primary text-foreground no-underline whitespace-nowrap transition-opacity duration-150"
         onMouseEnter={(e) =>
           ((e.currentTarget as HTMLAnchorElement).style.opacity = '0.85')
         }
@@ -340,13 +257,8 @@ export default function DocsLayout({
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        minHeight: '100vh',
-        backgroundColor: 'hsl(var(--background))',
-      }}
-    >
+    <div className="flex min-h-screen bg-background">
+
       <DocsSidebar />
       <MobileSidebar
         open={mobileNavOpen}
