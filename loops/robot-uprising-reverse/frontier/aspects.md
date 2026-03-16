@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1172
-- **Analyzed:** 385
-- **Pending:** 787
+- **Total aspects:** 1177
+- **Analyzed:** 386
+- **Pending:** 791
 - **Convergence:** 32.8%
 
 ---
@@ -1167,7 +1167,12 @@
   - [ ] 7.07c — The "Pareto Walk" as designed community content format: tooling for recording optimization journeys along the Pareto frontier, replay trails as shareable artifacts, community challenges
   - [ ] 7.07d — Axis profile as matchmaking signal in async PvP: radar chart profiles matching players against similar or contrasting optimization styles; "speed vs. elegance" matchups as designed competitive experience
   - [ ] 7.07e — Inspector overlay per optimization axis: dedicated Inspector modes for each axis (speed=latency bottlenecks, efficiency=cost accumulation, elegance=unused components) as analytical tools
-- [ ] 7.08 — Deferred community metric invention: designing the scoring system to be extensible so the community can invent new evaluation axes; the Opus Magnum "MechA" pattern; what composite metrics might the Robot Uprising community invent?
+- [x] 7.08 — Deferred community metric invention: designing the scoring system to be extensible so the community can invent new evaluation axes; the Opus Magnum "MechA" pattern; what composite metrics might the Robot Uprising community invent?
+- [ ] 7.08a — Metric primitive selection as game balance lever: which 15 primitives ship determines which metrics are easy vs. hard to compute; adding "context_entries_that_influenced_decisions" as a primitive makes Signal Coherence trivial; the primitive set IS the metric design space boundary
+- [ ] 7.08b — Metric Workshop moderation and quality signals: beyond subscriber count — upvote/downvote, "misleading metric" reports, seasonal metric validity decay, metric creator trust scores; the curation problem for user-generated analytical tools
+- [ ] 7.08c — Cross-metric correlation discovery tool: in-game panel showing Pearson correlations between all subscribed metrics; teaches correlation ≠ causation through lived experience; interaction with career stat dashboards
+- [ ] 7.08d — Metric-as-challenge-constraint: community tournaments requiring optimization for a specific community metric; "This week's Gauntlet Bounty: highest Whisper Score on Mission 7"; metrics become content
+- [ ] 7.08e — The "metric archaeology" pattern: when Developer Blessing promotes a community metric, publishing a retrospective showing how the metric evolved from Discord language to formalization to adoption; the metric's lifecycle as community narrative
 - [ ] 7.15 — The "eEDT as archetype signal" in config browsing: when filtering workshop configs by eEDT range, what does the browsing experience look like? How does a player communicate "I want configs that play into the midgame" as an explicit search filter?
 - [x] 7.06 — The histogram as social loop: post-execution bell curves showing player distribution across agent efficiency metrics (from Shenzhen I/O)
 - [ ] 7.06a — Histogram animation and sound design vocabulary: exact visual choreography of line-snap, friend-marker-drop, curve-morph, percentile-label-fade; audio mapping (tick, tink, whoosh, ding); 200ms rendering budget; animation pacing as emotional rhythm in debrief
