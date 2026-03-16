@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1061
-- **Analyzed:** 363
-- **Pending:** 703
-- **Convergence:** 34.2%
+- **Total aspects:** 1066
+- **Analyzed:** 364
+- **Pending:** 702
+- **Convergence:** 34.1%
 
 ---
 
@@ -744,7 +744,12 @@
   - [ ] 5.15d — The Logistics Desk 4 character in Voice C: can a bureaucrat who communicates only through passive-aggressive memos become someone the player cares about? The recurring institutional character as community meme
   - [ ] 5.15e — Voice-specific corruption detection difficulty: each voice has different corruption legibility; designing the corruption difficulty curve per-voice; Voice A corruption easiest to detect, Voice D hardest; voice-layered corruption difficulty in hybrid A+B
 - [ ] 5.16 — The non-alt-tab embedded document UI: design exploration of a togglable in-workbench reference panel that maintains diegetic framing without alt-tab friction; panel behavior, docking, visual treatment
-- [ ] 5.17 — The hybrid tutorial architecture: mapping the transition from interactive first-touch tutorial (teaches procedures) to diegetic document (teaches concepts and provides reference) — where the handoff happens and what the transition feels like
+- [x] 5.17 — The hybrid tutorial architecture: mapping the transition from interactive first-touch tutorial (teaches procedures) to diegetic document (teaches concepts and provides reference) — where the handoff happens and what the transition feels like; six handoff models (A "Clean Break" dark-souls-cliff, B "Gradual Fade" BotW-style invisible graduation, C "Dual Track" Civ6-civilopedia simultaneous-from-start, D "Materialization" cards-crystallize-from-experience Inscryption-inspired, E "Mentor Withdrawal" Unit-0-leaves-but-lives-in-archive emotional-beat, F "Living Handoff" procedure/concept-division parallel-tracks); RECOMMENDED D+F hybrid "The Experiential Archive" — interactive procedures generate Codex concept cards (M1-4), Codex initialization ceremony at M5 (cards lift/sort/grid with kulintang chord), Inspector-Codex bridge as mature teaching cycle (failure→diagnostic→concept-link→fix→retest = Kolb's experiential learning cycle); three-mission-delay relevance cycle (M1 concepts become meaningful at M4 when new situations create genuine questions); 4 player journeys (Sofia 15 discovering Codex is answer-key-to-failures not decoration, Marcus 42 Factorio-vet pre-reading Codex as pilot-checklist, Aisha 14 first-strategy-gamer using Inspector-Codex bridge to diagnose eviction priority failure, Dr. Ramirez 55 CS professor evaluating constructivist pedagogy + Vygotsky tension); interaction effects with boot log narrative role-shift, vocabulary pacing handrails, Blueprint Codex collection design, Inspector deep-linking, filter puzzle card-generation, voice candidates register-shift (Reyes=procedure, Unit 0=concept); comparable: Shenzhen I/O (no handoff), EXAPUNKS (early TWN handoff), Into the Breach (invisible fade), Slay the Spire (community-dependent), TUNIC (discovery-based), Baba Is You (zero-text)
+  - [ ] 5.17a — The "three-mission-delay" relevance cycle: detailed design of how the Codex surfaces old entries when new situations make them relevant; beyond Inspector links, should the Codex itself suggest "related reading" based on recent failures? Risk of noise vs. benefit of connection-making
+  - [ ] 5.17b — Codex entry quality and voice calibration: what makes a good Codex entry? Length, tone, abstraction level, use of examples, inclusion of edge cases; entry writing as a design discipline — each entry must serve both the first-time reader and the fifth-time re-reader
+  - [ ] 5.17c — The skip-tutorial-replay problem: when a player replays M1-4 after completing the campaign, the interactive tutorial is redundant; should the Codex replace it? Options: skip tutorial, tutorial-as-speedrun, tutorial-with-Codex; each changes the replay experience
+  - [ ] 5.17d — Inspector diagnostic annotation quality: the Inspector-Codex bridge depends on high-quality diagnostic annotations that correctly identify which concept explains the failure; annotation generation for multi-cause failures where multiple concepts are relevant
+  - [ ] 5.17e — The "unknown unknowns" problem in self-directed Codex use: players who don't know what they don't know won't search the Codex; beyond Inspector links, what other entry points exist? Campaign map hints, pre-mission highlights, retry-count-based prompts
 - [x] 5.01 — Tutorial as puzzle: first missions are pure filter puzzles (drag away noise)
   - [ ] 5.01a — The "Keep N" puzzle variant: curation framing (select N cards to keep) vs. deletion framing (remove noise); different cognitive task, different emotional valence; where in the mission arc this variant first appears
   - [ ] 5.01b — Card label language calibration: jargon level on buffer observation cards (technical vs. plain vs. iconic); how vocabulary scales from Mission 1 through endgame; interaction with localization and accessibility
