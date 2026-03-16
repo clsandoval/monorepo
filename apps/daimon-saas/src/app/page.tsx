@@ -264,13 +264,13 @@ function HeroSection() {
           <div className="flex flex-col md:flex-row gap-4 flex-wrap">
             <a
               href="/signup"
-              className="inline-flex items-center justify-center h-11 px-7 bg-aqua text-navy border-[1.5px] border-aqua text-[15px] font-semibold no-underline transition-all duration-200 whitespace-nowrap cursor-pointer hover:opacity-85 w-full md:w-auto font-body"
+              className="inline-flex items-center justify-center h-11 px-7 bg-aqua text-navy border-[1.5px] border-aqua text-[15px] font-semibold no-underline transition-all duration-200 whitespace-nowrap cursor-pointer hover:opacity-85 w-full md:w-auto font-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4"
             >
               Start Free — No Credit Card
             </a>
             <a
               href="/docs"
-              className="inline-flex items-center justify-center h-11 px-7 bg-transparent text-navy border-[1.5px] border-navy text-[15px] font-semibold no-underline transition-all duration-200 whitespace-nowrap cursor-pointer hover:bg-navy hover:text-white w-full md:w-auto font-body"
+              className="inline-flex items-center justify-center h-11 px-7 bg-transparent text-navy border-[1.5px] border-navy text-[15px] font-semibold no-underline transition-all duration-200 whitespace-nowrap cursor-pointer hover:bg-navy hover:text-white w-full md:w-auto font-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4"
             >
               Read the Docs
             </a>
@@ -302,13 +302,13 @@ function FinalCtaSection() {
           </p>
           <a
             href="/signup"
-            className="inline-flex items-center justify-center h-11 px-9 bg-aqua text-navy border-none text-[15px] font-semibold no-underline transition-opacity duration-200 cursor-pointer hover:opacity-85 w-full md:w-auto font-body"
+            className="inline-flex items-center justify-center h-11 px-9 bg-aqua text-navy border-none text-[15px] font-semibold no-underline transition-opacity duration-200 cursor-pointer hover:opacity-85 w-full md:w-auto font-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4"
           >
             Create Your Free Account
           </a>
           <p className="mt-4 text-sm font-normal text-white/50 font-body">
             Or read the docs first →{' '}
-            <a href="/docs" className="text-aqua no-underline transition-opacity duration-200 hover:opacity-80">View Quick Start</a>
+            <a href="/docs" className="text-aqua no-underline transition-opacity duration-200 hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">View Quick Start</a>
           </p>
         </div>
       </div>

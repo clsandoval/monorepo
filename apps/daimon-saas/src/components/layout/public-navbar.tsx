@@ -29,7 +29,7 @@ function NavLogo({ white = false }: { white?: boolean }) {
   return (
     <Link
       href="/"
-      className="flex items-center gap-2 hover:opacity-85 transition-opacity"
+      className="flex items-center gap-2 hover:opacity-85 transition-opacity focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4"
     >
       <svg
         width="28"
@@ -171,7 +171,7 @@ export function PublicNavbar({ transparent = false }: PublicNavbarProps) {
           <div className="hidden min-[901px]:flex items-center gap-3">
             <Link
               href="/login"
-              className="text-sm font-medium text-foreground no-underline transition-opacity hover:opacity-70"
+              className="text-sm font-medium text-foreground no-underline transition-opacity hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4"
             >
               Sign in
             </Link>

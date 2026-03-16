@@ -248,7 +248,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 
 ## Accessibility QA (stages 196–201) `[a11y-qa]`
 
-- [ ] **Stage 196**: Keyboard navigation — public pages: tab through entire landing page from top. Verify: focus ring visible on every focusable element (links, buttons), logical tab order (left-to-right, top-to-bottom), no focus traps, skip-to-content link if present.
+- [x] **Stage 196**: Keyboard navigation — public pages: tab through entire landing page from top. Verify: focus ring visible on every focusable element (links, buttons), logical tab order (left-to-right, top-to-bottom), no focus traps, skip-to-content link if present. (2026-03-16) — fixed: added focus-visible:outline classes to 8 elements missing them (NavLogo, Sign in link, hero CTAs, pricing toggle buttons, final CTA links); all 45 focusable elements now have focus-visible styles; tab order verified logical; skip-to-content link present
 - [ ] **Stage 197**: Keyboard navigation — auth forms: on login page, tab through all fields. Verify: each input receives focus in order (email → password → submit), focus ring visible, Enter submits form, Tab from last field goes to links below.
 - [ ] **Stage 198**: Keyboard navigation — dashboard: tab through sidebar links, verify focus moves through all nav items. Tab into main content area. Verify all interactive elements (buttons, links, cards) are reachable.
 - [ ] **Stage 199**: ARIA attributes — verify on signup page: all `<input>` have associated `<label>` (via `htmlFor` or `aria-label`), all buttons have accessible names, error messages have `role="alert"`, form has `aria-required` on required fields, `aria-invalid` on errored fields.

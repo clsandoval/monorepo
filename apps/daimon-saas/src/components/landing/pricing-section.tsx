@@ -102,7 +102,7 @@ export function PricingSection() {
             <div className="inline-flex items-center overflow-hidden border-[1.5px] border-border">
               <button
                 className={cn(
-                  'flex h-[38px] items-center gap-1.5 whitespace-nowrap px-4 font-body text-sm font-medium transition-colors',
+                  'flex h-[38px] items-center gap-1.5 whitespace-nowrap px-4 font-body text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2',
                   cycle === 'monthly'
                     ? 'bg-primary text-foreground'
                     : 'bg-transparent text-foreground/60'
@@ -113,7 +113,7 @@ export function PricingSection() {
               </button>
               <button
                 className={cn(
-                  'flex h-[38px] items-center gap-1.5 whitespace-nowrap px-4 font-body text-sm font-medium transition-colors',
+                  'flex h-[38px] items-center gap-1.5 whitespace-nowrap px-4 font-body text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2',
                   cycle === 'annual'
                     ? 'bg-primary text-foreground'
                     : 'bg-transparent text-foreground/60'
