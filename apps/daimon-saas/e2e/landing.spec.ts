@@ -8,7 +8,7 @@ import path from 'path';
  * Screenshots saved to loops/daimon-forward/screenshots/
  */
 
-const SCREENSHOTS_DIR = path.resolve(__dirname, '../../../loops/daimon-forward/screenshots');
+const SCREENSHOTS_DIR = path.resolve(__dirname, '../../../loops/daimon-shadcn-forward/screenshots');
 
 test.describe('Landing page screenshots @screenshot', () => {
   test.use({ viewport: { width: 1280, height: 800 } });
