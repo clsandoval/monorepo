@@ -222,7 +222,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 176**: Logout — while logged into dashboard, find and click sign out button/link, verify redirect to `/login` or `/`, verify navigating to `/dashboard` now redirects to login (2026-03-16)
 - [x] **Stage 177**: Session persistence — log in, note the dashboard loads. Close the browser tab (Playwright: close page, open new page), navigate to `/dashboard`, verify still logged in (session cookie persists) (2026-03-16)
 - [x] **Stage 178**: Reset password request — navigate to `/reset-password`, enter `cl@sandoval.dev`, submit, verify confirmation message shown (e.g., "Check your email") (2026-03-16)
-- [ ] **Stage 179**: Auth middleware exhaustive — verify ALL dashboard routes redirect to login when unauthenticated: `/dashboard`, `/dashboard/billing`, `/dashboard/integrations`, `/dashboard/settings`. Verify all admin routes also redirect: `/admin`, `/admin/tenants`, `/admin/audit-log`.
+- [x] **Stage 179**: Auth middleware exhaustive — verify ALL dashboard routes redirect to login when unauthenticated: `/dashboard`, `/dashboard/billing`, `/dashboard/integrations`, `/dashboard/settings`. Verify all admin routes also redirect: `/admin`, `/admin/tenants`, `/admin/audit-log`. (2026-03-16)
 
 ## Dashboard Flow QA (stages 180–189) `[flow-qa]`
 
