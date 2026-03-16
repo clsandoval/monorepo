@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1362
-- **Analyzed:** 423
-- **Pending:** 939
-- **Convergence:** 31.1%
+- **Total aspects:** 1367
+- **Analyzed:** 424
+- **Pending:** 943
+- **Convergence:** 31.0%
 
 ---
 
@@ -578,7 +578,12 @@
 - [ ] 3.01e — Skill visual language consistency: do the 12 skills' visual metaphors (ripples, flashes, lines, rings, arrows) form a learnable grammar? Can a player identify skills from the battlefield view alone?
 
 ### The Workbench Itself
-- [ ] 3.14 — Workbench layout: what does the full agent configuration screen look like? Panels, flow, information hierarchy
+- [x] 3.14 — Workbench layout: what does the full agent configuration screen look like? Panels, flow, information hierarchy
+  - [ ] 3.14a — Multi-blueprint comparison view: side-by-side drawers, army overview screen, diff highlighting between similar blueprints when managing 4-6 blueprints simultaneously
+  - [ ] 3.14b — Workbench layout persistence and per-blueprint preferences: should layout choice persist per blueprint (Command in Dashboard, Scout in Stack), per-player global, or per-session?
+  - [ ] 3.14c — The "blueprint switching tax" in production-heavy missions: tab strip vs. overview panel vs. spatial arrangement for 5-6 blueprint management; switching cost compounds
+  - [ ] 3.14d — Workbench micro-animations and interaction juice: section reveal, layout morph, collapse/expand, cross-quadrant highlighting, drag operations; animation timing budget for 60fps in React
+  - [ ] 3.14e — The workbench-to-sealed-watch transition ceremony: precise animation sequence when EXECUTE is pressed — workbench retracting, board expanding, UI chrome dissolving; timing, sound, visual metaphor
 - [ ] 3.15 — Army overview: how does the player see all agents and their wiring at once?
 - [ ] 3.16 — Copy/paste/template: can you duplicate agent configs? Save templates? Share builds?
 
