@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 974
-- **Analyzed:** 344
-- **Pending:** 630
-- **Convergence:** 35.3%
+- **Total aspects:** 979
+- **Analyzed:** 345
+- **Pending:** 634
+- **Convergence:** 35.2%
 
 ---
 
@@ -572,7 +572,12 @@
   - [ ] 3.05e — Rules language spectator readability: which approach produces the best "at a glance" understanding for stream viewers, tournament spectators, and TikTok clips? How does the rules display integrate into the sealed watch overlay?
   - [ ] 3.05f — The dual-mode compilation guarantee: if the game offers multiple rules syntaxes (priority queue + assembly prefix), proving they produce identical behavior requires a formal equivalence; design the compilation layer and the edge cases where equivalence breaks
   - [ ] 3.06-ext — Rule conflict visualization in real-time: when two rules COULD match but priority ordering picks one, how does the inspector show the "road not taken"? The near-miss visualization problem from pattern matching applies to all approaches
-- [ ] 3.05a — Conditional prefix as expressive primitive: minimal rule vocabulary (like Shenzhen I/O's +/- prefix) that enables sophisticated agent behavior from simple building blocks
+- [x] 3.05a — Conditional prefix as expressive primitive: minimal rule vocabulary (like Shenzhen I/O's +/- prefix) that enables sophisticated agent behavior from simple building blocks
+- [ ] 3.05a-i — The ? (uncertainty) prefix as first-class game mechanic: deep dive into tri-state prefix — when "I don't have data" differs strategically from "the data says no"; mission design that forces the distinction; defensive programming lesson
+- [ ] 3.05a-ii — Prefix composition as boolean algebra tutorial: explicit mapping of player prefix patterns to boolean algebra (De Morgan's laws, short-circuit evaluation, truth tables); when/whether to surface pedagogically vs. leaving implicit
+- [ ] 3.05a-iii — The accumulator prefix as consensus mechanic: majority voting in agent decisions ("at least 2 of 3 conditions must pass"); mapping to distributed consensus protocols (Raft, Paxos); mission design that teaches quorum
+- [ ] 3.05a-iv — Prefix-to-behavior-tree visual translation in Inspector: showing instruction list as BOTH linear prefix sequence AND equivalent behavior tree diagram side-by-side; "Rosetta Stone" view bridging Gladiabots tree thinking and Shenzhen linear thinking
+- [ ] 3.05a-v — The evaluation waterfall as spectator sport: detailed visual design for instruction evaluation animation during sealed watch; split-screen choreography between waterfall trace and battlefield consequence; streaming/TikTok optimization
 - [ ] 3.05b — SWIZ-style value packing as design primitive: EXAPUNKS SWIZ encodes multi-attribute info in one integer via digit manipulation; Robot Uprising signals might encode compound information; what's the analogous primitive?
 - [x] 3.06 — Rule conflicts: what happens when two rules contradict? Priority system, error feedback, or emergent chaos?
   - [ ] 3.06a — Warning calibration: the false positive problem — how many warnings per rule-set is too many? Warning fatigue threshold; A/B testing warning sensitivity
