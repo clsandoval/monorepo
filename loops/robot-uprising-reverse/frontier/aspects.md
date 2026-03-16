@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1132
-- **Analyzed:** 377
-- **Pending:** 755
-- **Convergence:** 33.3%
+- **Total aspects:** 1137
+- **Analyzed:** 378
+- **Pending:** 759
+- **Convergence:** 33.2%
 
 ---
 
@@ -532,7 +532,14 @@
   - [ ] 2.04c — Compartment overflow visualization in Sealed Watch: rendering rapid pip flicker at 1x speed on phone; interaction with sprite readability (6.01b-v)
   - [ ] 2.04d — Categorized buffer vs. custom eviction rules redundancy problem: formal analysis of whether compartments and eviction policies are complementary or competing; interaction with 2.06, 2.07
   - [ ] 2.04e — The "wrong drawer" diagnostic in Inspector: annotation for data discarded because its compartment has 0 slots while others are empty; teaching moment design
-- [ ] 2.05 — Shared buffer: group of units shares a collective memory pool
+- [x] 2.05 — Shared buffer: group of units shares a collective memory pool
+
+### Shared Buffer Deep Dives
+- [ ] 2.05a — Shared buffer pooling tax calibration: what's the right capacity reduction coefficient (0.7? 0.8? 0.9?) and should it scale with squad size?
+- [ ] 2.05b — Shared buffer write conflict resolution: when two units write to the shared pool on the same tick, who goes first? Deterministic ordering vs. priority-based vs. random?
+- [ ] 2.05c — Enemy-targeted shared buffer attacks: noise bombs, hack-the-pool, poison-the-cache — offensive tactics specifically designed to exploit shared memory vulnerabilities
+- [ ] 2.05d — Shared buffer + categorized buffer interaction: can a shared pool use typed compartments (Model A × 2.04)? Does that create too many configuration knobs?
+- [ ] 2.05e — Stigmergy-only variant (Model F as primary coordination): a game mode or mission where hooks are disabled and units can ONLY communicate through tile marks — pure environmental coordination
 
 ### Weighted Buffer Deep Dives
 - [ ] 2.02a — Weight value design space: what's the right weight range (1-3 ternary vs. 1-5 granular vs. 1-10 simulation-heavy); weight inflation across campaign missions; balance implications
