@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1197
-- **Analyzed:** 390
-- **Pending:** 807
-- **Convergence:** 32.6%
+- **Total aspects:** 1202
+- **Analyzed:** 391
+- **Pending:** 811
+- **Convergence:** 32.5%
 
 ---
 
@@ -408,7 +408,12 @@
 - [ ] 1.09d — Near-miss visibility as retention engine: how the Inspector must surface "the one configuration change that would have changed the outcome" to create Slay the Spire's "I was SO close" psychology; the difference between "you lost" and "you lost because Rule 3 evaluated stale data from tick 12"
 - [ ] 1.09e — Slay the Spire 2 co-op design lessons: how the sequel's cooperative multiplayer (shared run with distinct roles) maps to Robot Uprising co-op models; 3M copies in one week as market validation for cooperative deckbuilder-adjacent design; what changed from solo to co-op and what broke
 - [ ] 1.10 — The Bazaar: real-time autobattler deckbuilding, item synergies, economic meta
-- [ ] 1.11 — Balatro: rule-breaking combo system, poker as base mechanic, joker synergies
+- [x] 1.11 — Balatro: rule-breaking combo system, poker as base mechanic, joker synergies
+  - [ ] 1.11a — The "exponential score as TikTok content" virality engine: Balatro's most shared clips are absurd scores on bad hands; how does Robot Uprising's equivalent clip work when the payoff is emergent behavior rather than big numbers? The "flanking maneuver from a Pair" clip problem
+  - [ ] 1.11b — The borrowed vocabulary principle applied to Robot Uprising: systematically identifying which base grammar (if/then, flowcharts, traffic signals, email filters) could serve as Robot Uprising's "poker hands" — the universally-known thing that gets broken by the four primitives
+  - [ ] 1.11c — Additive-then-multiplicative as universal scaling architecture: how Balatro's Chips×Mult formula maps to Robot Uprising's signal processing chain; designing the mathematical architecture to ensure exponential combo potential
+  - [ ] 1.11d — The 5-slot constraint as compositional tension design: comparative analysis of constrained-slot systems (Balatro 5 Jokers, Slay the Spire 10-card hand, Into the Breach 3 mechs, Robot Uprising per-blueprint slot limits) and how slot count affects discovery pace, mastery ceiling, and decision density
+  - [ ] 1.11e — The "solved mid-game" anti-pattern: how Balatro's late-game collapses to "find ×Mult" and what Robot Uprising can learn; the role of information warfare and enemy adaptation in preventing dominant strategies
 - [x] 1.12 — Baba Is You: rule manipulation as mechanic, emergent interactions from simple rules
   - [ ] 1.12a — The Comprehension Cliff: managing exponential cognitive load from interacting rules — how Robot Uprising's Inspector solves what Baba's branching paths merely mitigate; per-rule-count UI thresholds and intervention design
   - [ ] 1.12b — Spatial rules vs. sequential rules: Baba's physical word arrangement creates emergent spatial constraints; what if Robot Uprising's workbench arranged rules spatially (proximity, adjacency) instead of sequentially (ordered list)?
