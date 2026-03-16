@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1157
-- **Analyzed:** 382
-- **Pending:** 775
+- **Total aspects:** 1162
+- **Analyzed:** 383
+- **Pending:** 779
 - **Convergence:** 33.0%
 
 ---
@@ -1257,7 +1257,12 @@
 - [ ] 8.04d-iii — Factory Proving Ground as persistent sandbox: sandbox (Model F) as permanent campaign-map fixture after M5; experimentation space, stress-test bench, competitive loadout laboratory; interaction with Ghost Matches (1.06c) and Gauntlet preparation
 - [ ] 8.04d-iv — The blank-page gradient across M5-M10: Mission 5 has the most constrained blank page; each subsequent mission widens it; mapping "degrees of freedom" gradient and how each mission adds exactly one new axis of freedom
 - [ ] 8.04d-v — Phase 1 as dynamic difficulty assessment (DDA): using Phase 1 performance to adjust Phase 2's resource budget or enemy composition; invisible difficulty tuning through the factory shock itself
-- [ ] 8.04e — The MVG as web demo: 5-mission browser-playable demo as viral acquisition funnel; React + Pixi.js, under 5 minutes, shareable URL; the demo-to-full-game conversion path
+- [x] 8.04e — The MVG as web demo: 5-mission browser-playable demo as viral acquisition funnel; React + Pixi.js, under 5 minutes, shareable URL; the demo-to-full-game conversion path
+  - [ ] 8.04e-i — Quick Play compression methodology: exactly how Missions 1-2 are compressed for the 4-minute track — which UI elements removed, which defaults change (2x speed, simplified Inspector), which boot log lines cut; tension between compression and comprehension
+  - [ ] 8.04e-ii — Factory teaser as live-rendered cinematic: technical design of the 30-second factory demonstration — pre-authored "perfect run" config, camera choreography, assembly animation pipeline, ensuring teaser showcases specific architectural patterns (relay compression, channel splitting, coordinated engagement)
+  - [ ] 8.04e-iii — Demo-to-full-game progress handoff architecture: how localStorage demo save state maps to full game save system; which demo decisions persist (blueprints, channel names) vs. which reset (mission progress, histogram); Pokémon Transfer Ritual vs. clean-start tradeoff
+  - [ ] 8.04e-iv — Boot log as adaptive loading screen: the structural insight that diegetic boot log masks asset loading time, extensible for slow connections with additional flavor text; the "infinite loading screen" that never looks like one; interaction with mobile 4G/3G performance targets
+  - [ ] 8.04e-v — Demo histogram population bootstrapping: how the histogram works with 10 players vs. 100,000; synthetic population seeding from internal playtests; cold-start problem for social features in a demo; interaction with 7.06b histogram population bootstrapping
 - [ ] 8.06 — The "first ugly solution" as tutorial completion: designing missions to be beatable with brute-force configurations so the histogram teaches optimization rather than a tutorial system; the Opus Magnum "no required optimization" pattern applied to agent configuration
 - [ ] 8.05 — The maximum viable game: everything at once — does it cohere or collapse?
 - [ ] 8.10 — The Gauntlet map template system: a library of Gauntlet-approved map templates with documented match-length distributions from playtesting; map selection for each Gauntlet season as a balance decision; community map submission with validation criteria (≥80% of matches in 60–150 tick range to be Gauntlet-eligible); map approval pipeline
