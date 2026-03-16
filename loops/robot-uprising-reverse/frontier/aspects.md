@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1120
-- **Analyzed:** 375
-- **Pending:** 745
-- **Convergence:** 33.5%
+- **Total aspects:** 1127
+- **Analyzed:** 376
+- **Pending:** 751
+- **Convergence:** 33.4%
 
 ---
 
@@ -1032,7 +1032,7 @@
 - [x] 6.11d — Demo as competitive event infrastructure: weekly community challenges on sandbox mode, fixed config constraints, leaderboard on demo page, demo as ongoing community infrastructure not just acquisition
 - [ ] 6.11e — QR code physical-to-digital funnel: convention booths, poster campaigns, attribution-tracked QR codes linking to demo, physical world → browser → Steam wishlist three-step funnel
 - [ ] 6.11d-i — Anti-cheat in a deterministic demo: brute-force optimization vs. legitimate iteration; what "cheating" means when the game is about configuration not execution; search space exploration as intended behavior or exploit
-- [ ] 6.11d-ii — Demo-to-full-game badge migration: how demo badges (Seasonal Circuit rankings, Daily Config streaks) transfer on purchase; badge persistence across platforms; "Demo Veteran" prestige hierarchy; interaction with Gauntlet ratings
+- [x] 6.11d-ii — Demo-to-full-game badge migration: how demo badges (Seasonal Circuit rankings, Daily Config streaks) transfer on purchase; badge persistence across platforms; "Demo Veteran" prestige hierarchy; interaction with Gauntlet ratings
 - [ ] 6.11d-iii — Challenge authoring tools for designers: internal tool for creating weekly/seasonal challenges; enemy config → constraint specification → difficulty estimation → playtesting → publication pipeline; potential community opening as Bounty Board
 - [ ] 6.11d-iv — Timezone equity in daily challenges: midnight UTC reset fairness across global timezones; rolling resets vs. fixed UTC vs. player-local-time; implications for Philippines (UTC+8) vs. US audiences; leaderboard fairness
 - [x] 6.11d-v — Educational institution demo integration: class groups, assignment-friendly Inspector exports, curriculum-aligned seasonal schedules; the demo as teaching platform for CS/multi-agent-systems courses
@@ -1041,6 +1041,13 @@
 - [ ] 6.11d-v-iii — Save code for shared computer labs: 6-character alphanumeric progress encoding without accounts, QR display, restore flow, collision avoidance, localStorage-to-code and code-to-localStorage round-trip
 - [ ] 6.11d-v-iv — Vocabulary mapping as in-game overlay: toggle-able "CS Mode" that shows real CS/AI terminology alongside game terms (e.g., "Context Window (bounded buffer)"), activated by class code or setting; interaction with boot log and Inspector
 - [ ] 6.11d-v-v — Community scenario library for educators: teacher-authored Lab Sandbox scenarios shared via URL/repository, rating/review system, tagging by CS concept, difficulty level, and prerequisite missions; the "lesson plan marketplace" for Robot Uprising
+- [ ] 6.11d-ii-a — Badge tier threshold calibration: how to set Bronze/Silver/Gold/Diamond/Founder thresholds when demo population size is unknown at design time; adaptive thresholds based on actual population vs. fixed percentile cutoffs; "Top 10 in a 200-player demo" vs. "Top 10 in a 50,000-player demo" dignity equivalence
+- [ ] 6.11d-ii-b — Founding slot empty-state psychology: the permanent empty hexagonal outline with "No record found" on non-demo players' profiles; should this create aspiration (FOMO for something unattainable) or be hidden entirely (avoid rubbing it in); A/B testing empty-slot vs. no-slot for non-demo players
+- [ ] 6.11d-ii-c — Badge minting ceremony performance budget: the three-phase animation (outline draw, circuit trace fill, tier text reveal) with audio must complete within the System Upgrade ceremony's 45-second window; animation timing when badge count is high (47 archive entries = 2.8s typewriter scroll); ceremony pacing for short vs. long demo histories
+- [ ] 6.11d-ii-d — Demo badge as matchmaking confidence signal: converted badge data feeding Gauntlet placement confidence (fewer calibration matches for demo veterans) without affecting starting MMR; the distinction between "we know your skill" and "you start higher"; interaction with 7.01a loadout system
+- [ ] 6.11d-ii-e — Academy badge section design for educational contexts: Lab/educational badges in a separate archive partition with instructor attribution and class identifiers; grey-green visual treatment distinct from demo amber and Gauntlet cyan; instructor commendation format; interaction with 6.11d-v educational integration
+- [ ] 6.11d-ii-f — Badge sunset communication ethics: manufactured urgency ("export your badges before the demo shuts down") as conversion tactic; the line between legitimate notification and dark pattern; opt-in sunset reminders vs. aggressive push notifications
+- [ ] 6.11d-ii-g — Cross-era badge comparison in community discourse: when a "Circuit Pioneer — Silver" holder's achievement predates the full game, how does the community perceive it relative to Gauntlet Silver; designing for graceful era-comparison rather than prestige hierarchy; the League of Legends Season 1 model where scarcity from a smaller era enhances value
 - [ ] 6.11a-i — The System Upgrade ceremony variants: detailed design of 4+ "thank you for purchasing" emotional beats — The Statistician (demo stats), The Archivist (compressed replay montage), The Quiet Nod (golden border discovery), The Name Drop (AI uses player's blueprint names in clinical voice); audio design for each; interaction with boot log voice and narrative tone
 - [ ] 6.11a-ii — Save schema versioning strategy: the "Promise" approach (lock schema early, additive-only changes) vs. "Adapter" approach (migration functions per version delta); database migration pattern applied to game saves; breaking change policy for demo→full game format evolution
 - [ ] 6.11a-iii — Migration funnel analytics: what % of demo players generate export codes, what % successfully import, what % start fresh despite having demo data; A/B testing migration UI prominence; "recovery path" design for players who forgot to export
