@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1382
-- **Analyzed:** 427
-- **Pending:** 955
+- **Total aspects:** 1387
+- **Analyzed:** 428
+- **Pending:** 959
 - **Convergence:** 30.9%
 
 ---
@@ -221,7 +221,12 @@
 - [x] 1.08 — SpaceChem: visual programming as chemistry metaphor, production pipeline design
 - [ ] 1.08a — The dual-agent spatial coordination model: SpaceChem's two-waldo shared-grid system as the purest existing model for multi-agent coordination; formal comparison of spatial-temporal coordination (SpaceChem) vs. informational-temporal coordination (Robot Uprising); what Sync teaches about hook blocking semantics
 - [ ] 1.08b — The pipeline cognition shift: how SpaceChem's single-reactor→production-level transition creates a permanent cognitive upgrade from component thinking to system thinking; parallels to Robot Uprising's M1-4→M5 factory transition
-- [ ] 1.08c — The "running machine" aesthetic payoff: SpaceChem's greatest emotional moment is watching a complex pipeline execute; the sealed watch must deliver equivalent satisfaction through richer visual vocabulary; what specific visual elements create the "I built this" feeling
+- [x] 1.08c — The "running machine" aesthetic payoff: SpaceChem's greatest emotional moment is watching a complex pipeline execute; the sealed watch must deliver equivalent satisfaction through richer visual vocabulary; what specific visual elements create the "I built this" feeling
+- [ ] 1.08c-i — Signal line as GIF-able aesthetic: Opus Magnum's built-in GIF export created a viral sharing loop; Robot Uprising needs an equivalent "capture the signal web" feature for the sealed watch; how to make a frozen moment of peak signal density into a shareable image; the signal web as the game's visual identity in marketing and community
+- [ ] 1.08c-ii — Audio chord from channel activity as emergent music system: each active channel contributes a pitch to an ambient chord; harmonic vs. dissonant states as architecture health indicator; the player's hook topology as implicit musical composition; comparable to Rez's synesthetic music-gameplay fusion
+- [ ] 1.08c-iii — Aesthetic density ramp across campaign: how sealed watch visual richness scales from Mission 1 (2 units, ghost trails only) to Mission 9 (12 units, all layers active); the ramp as implicit reward for mechanical mastery; each new system learned adds a visual layer to the sealed watch
+- [ ] 1.08c-iv — Context overload as "beat drop" vs. "crash stop": SpaceChem stops simulation on error (crash); Robot Uprising recovers after 1 tick (beat drop); the 1-tick stun as a designed moment of chaos that resolves back into rhythm; the aesthetic vocabulary for recoverable vs. terminal failure states
+- [ ] 1.08c-v — The "I didn't program that" emergence gap: Robot Uprising's wider gap between player input and emergent output vs. Zachtronics' narrow gap; how this wider gap creates either stronger pride ("my architecture did THAT") or stronger confusion ("why did it do THAT"); aesthetic treatments that bridge the gap (signal line traces, Inspector decision chains) vs. those that celebrate it (movement choreography, emergent patterns)
 - [ ] 1.08d — SpaceChem's Flip-Flop as late-game conditional: the Flip-Flop instruction (alternating path selection, introduced in world 7) as a model for late-campaign mechanic unlocks; how introducing a single new primitive mid-game transforms the entire strategy space
 - [ ] 1.08e — Pipeline buffer length as accidental context window: SpaceChem players using pipe length to buffer throughput mismatches; the parallel to relay context window sizing; emergent vs. designed buffering mechanics and which is more teachable
 
