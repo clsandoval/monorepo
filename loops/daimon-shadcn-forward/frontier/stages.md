@@ -226,7 +226,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 
 ## Dashboard Flow QA (stages 180–189) `[flow-qa]`
 
-- [ ] **Stage 180**: Sidebar navigation — log in, on dashboard: click every sidebar link one by one (Dashboard, Integrations, Billing, Settings). Verify each navigates to the correct URL and page loads without errors.
+- [x] **Stage 180**: Sidebar navigation — log in, on dashboard: click every sidebar link one by one (Dashboard, Integrations, Billing, Settings). Verify each navigates to the correct URL and page loads without errors. (2026-03-16)
 - [ ] **Stage 181**: Dashboard status cards — verify all 3 status cards render: Discord connection status (should show "Not connected" or similar), API Keys count, Current plan (Free)
 - [ ] **Stage 182**: Dashboard quick stats — verify stats row renders: Messages today (0), Tool uses today (0), uptime/connected indicator
 - [ ] **Stage 183**: Onboarding checklist — verify checklist shows for new-ish tenant: Discord bot step (incomplete), API key step (incomplete), verify each step shows correct completion state. If tenant has discord/keys, verify steps show complete.
