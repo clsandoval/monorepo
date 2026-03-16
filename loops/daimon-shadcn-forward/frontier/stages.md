@@ -183,7 +183,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 143**: Input — on signup page: trigger every validation error one by one (empty name, invalid email, short password, no uppercase, no lowercase, no number, passwords don't match, terms unchecked). Verify each error message matches expected text. (2026-03-16)
 - [x] **Stage 144**: PasswordInput — on signup page: type password, verify masked. Click eye icon, verify unmasked. Click again, verify re-masked. Repeat for confirm password field. (2026-03-16)
 - [x] **Stage 145**: PasswordInput — verify password strength bar: type "a" (weak/red), type "aA" (still weak), type "aA1" (fair/amber), type "aA1bcdefghij" (strong/green). Verify bar segments and labels update. (2026-03-16)
-- [ ] **Stage 146**: SearchInput — if search input exists on any page (admin tenant list?), type query, verify search icon visible, clear button appears, clear resets input
+- [x] **Stage 146**: SearchInput — if search input exists on any page (admin tenant list?), type query, verify search icon visible, clear button appears, clear resets input (2026-03-16)
 - [ ] **Stage 147**: Select — find a select component (settings or admin), open dropdown, select option with click, verify selection displays. Open again, use arrow keys to navigate, press Enter to select, press Escape to close.
 - [ ] **Stage 148**: Checkbox — on signup page: check terms checkbox, verify visual state. Uncheck, verify visual state. Submit without checking, verify error.
 - [ ] **Stage 149**: Toggle/Switch — find a toggle (settings page?), flip on, verify visual state. Flip off, verify state. Verify the associated setting is applied.
