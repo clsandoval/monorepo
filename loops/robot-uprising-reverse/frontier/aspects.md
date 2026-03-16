@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1018
-- **Analyzed:** 353
-- **Pending:** 665
-- **Convergence:** 34.7%
+- **Total aspects:** 1023
+- **Analyzed:** 354
+- **Pending:** 669
+- **Convergence:** 34.6%
 
 ---
 
@@ -869,7 +869,12 @@
     - [ ] 6.06b-iii — Cross-platform EXECUTE ritual equivalents: Xbox impulse trigger vibration-only version, Switch button-hold-with-HD-Rumble version, keyboard/mouse long-press-with-screen-shake version, mobile swipe-to-confirm version; ensuring ritual parity without DualSense hardware
     - [ ] 6.06b-iv — Trigger resistance as enemy corruption attack surface: what if enemy hacking skill could interfere with EXECUTE trigger feel — adding unexpected resistance or removing expected resistance as a diegetic corruption of the player's own commitment ritual; the controller-as-compromised-system concept
     - [ ] 6.06b-v — Trigger force readback as hidden input: DualSense reports user-applied force during resistance; could the game read HOW HARD the player commits (gentle push-through vs. aggressive slam) and map that to a hidden confidence variable that subtly affects randomization seeds or debrief framing?
-  - [ ] 6.06c — Joy-Con separated asymmetric co-op: "architect + analyst" mode where each player holds one Joy-Con — one manages Plan, one manages Inspector; role split design, handoff moments, two-act debrief implications
+  - [x] 6.06c — Joy-Con separated asymmetric co-op: "architect + analyst" mode where each player holds one Joy-Con — one manages Plan, one manages Inspector; role split design, handoff moments, two-act debrief implications; five co-op modes (A "Classic Architect+Analyst" primary asymmetric with annotation markers, B "Hot Seat Swap" alternating control with peek mechanic, C "Shared Inspector Split Plan" dual-cursor diagnosis with suggestion interface, D "The Announcer" emotional commentary during Sealed Watch for non-gamers, E "The Relay" 2v2 party mode with information warfare); annotation marker system (4 types ⚠/🔗/📊/✓, 5-marker limit forcing diagnostic prioritization, 12-character telegraph labels, pin/dismiss persistence); hardware constraint analysis (10 inputs per Joy-Con, no radial wheel, stick+face-buttons only); HD Rumble shared haptic channel during Sealed Watch with asymmetric baton pass vibration; screen ownership model (Architect=Plan, Analyst=Inspector, Sealed Watch=shared); 4 player journeys (Mira+Dante first co-op Mission 3 discovering terrain overload together, Kenji+Yuki veteran married couple Mission 7 with evolved annotation shorthand, Cass+Patricia teen+non-gamer-mom Mission 1 "grading homework" metaphor, Alex+River CS+art students Mission 9 hierarchical meta-relay architecture debate); comparable (KTANE temporal vs informational asymmetry, It Takes Two mechanical vs cognitive asymmetry, We Were Here communication-as-puzzle, Overcooked symmetric anti-pattern, Luigi's Mansion 3 Joy-Con simplification lesson); 5 new aspects discovered
+  - [ ] 6.06c-i — Annotation vocabulary evolution over long campaigns: how the 5-marker / 12-character label system evolves as co-op partners develop shorthand; emergent communication protocols; custom marker types vs. fixed 4-type system across 10 missions
+  - [ ] 6.06c-ii — Role-swap variant: alternating Architect/Analyst per mission: does switching roles improve both players' understanding? The "walk in their shoes" learning hypothesis; mission-gated role swaps as campaign structure
+  - [ ] 6.06c-iii — Two-device mobile co-op as Joy-Con split descendant: same asymmetric model (one phone = Plan, other phone = Inspector) for mobile; synchronization architecture; shared Sealed Watch on one or both devices; latency tolerance
+  - [ ] 6.06c-iv — Spectator mode as a third Joy-Con role: "coach" role with commentary tools; three-player asymmetric co-op viability; spectator Joy-Con annotation permissions; esports coaching applications
+  - [ ] 6.06c-v — Co-op annotation history as post-campaign artifact: full annotation history across all missions as shareable "co-op journal"; annotation record as narrative of two players learning to communicate; community sharing
   - [ ] 6.06d — Cross-platform input parity for PvP: systematic controller disadvantage in timed formats; input-speed normalization (longer timer for controller), input-blind matchmaking, async-only as equalizer
   - [ ] 6.06e — Controller-specific onboarding tutorial branch: dedicated first-five-minutes for gamepad with D-pad navigation teaching, radial wheel introduction, preview mode discovery vs. adaptive tutorial that swaps prompts based on detected input
 - [x] 6.07 — Mobile/touch adaptation: how each paradigm works on a phone
