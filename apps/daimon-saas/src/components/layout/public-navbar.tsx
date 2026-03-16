@@ -134,13 +134,13 @@ export function PublicNavbar({ transparent = false }: PublicNavbarProps) {
   const isOpaque = !transparent || scrolled
 
   return (
-    <nav
+    <header
       className={cn(
         'sticky top-0 z-50 h-16 max-[900px]:h-14 px-8 max-[900px]:px-4 backdrop-blur-[12px] border-b border-foreground/[0.06] transition-colors duration-300',
         isOpaque ? 'bg-white/[0.92]' : 'bg-transparent'
       )}
     >
-      <div className="mx-auto max-w-[1280px] h-full flex items-center justify-between">
+    <nav aria-label="Main navigation" className="mx-auto max-w-[1280px] h-full flex items-center justify-between">
         {/* Left: Logo */}
         <NavLogo />
 
@@ -209,7 +209,7 @@ export function PublicNavbar({ transparent = false }: PublicNavbarProps) {
             </SheetContent>
           </Sheet>
         </div>
-      </div>
     </nav>
+    </header>
   )
 }

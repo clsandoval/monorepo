@@ -211,7 +211,7 @@ export function AdminLayout({
             onMenuClick={() => setMobileNavOpen(true)}
           />
 
-          <main className="flex-1 p-8 w-full max-w-[1200px]">
+          <main id="main-content" tabIndex={-1} className="flex-1 p-8 w-full max-w-[1200px]">
             {children}
           </main>
         </div>
