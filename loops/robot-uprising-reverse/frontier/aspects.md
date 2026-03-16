@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1177
-- **Analyzed:** 386
-- **Pending:** 791
-- **Convergence:** 32.8%
+- **Total aspects:** 1182
+- **Analyzed:** 387
+- **Pending:** 795
+- **Convergence:** 32.7%
 
 ---
 
@@ -393,7 +393,12 @@
 - [ ] 1.07c — The batch script coordination pattern: Bitburner's HWGW timing attacks as pure-code precursor to Robot Uprising's hook/channel signal chains; extracting the coordination design pattern from code into visual wiring
 - [ ] 1.07d — Prestige loops that change the game: BitNode system as model for Robot Uprising's post-campaign progression; each reset introduces new systems rather than just scaling numbers; how the Gauntlet or New Game+ could vary game rules rather than just difficulty
 - [ ] 1.07e — Idle accumulation vs. sealed watch tension: the fundamental emotional design choice between "my system works while I'm away" (Bitburner) and "I must watch my system execute under pressure" (Robot Uprising); when each emotional register serves the game
-- [ ] 1.08 — SpaceChem: visual programming as chemistry metaphor, production pipeline design
+- [x] 1.08 — SpaceChem: visual programming as chemistry metaphor, production pipeline design
+- [ ] 1.08a — The dual-agent spatial coordination model: SpaceChem's two-waldo shared-grid system as the purest existing model for multi-agent coordination; formal comparison of spatial-temporal coordination (SpaceChem) vs. informational-temporal coordination (Robot Uprising); what Sync teaches about hook blocking semantics
+- [ ] 1.08b — The pipeline cognition shift: how SpaceChem's single-reactor→production-level transition creates a permanent cognitive upgrade from component thinking to system thinking; parallels to Robot Uprising's M1-4→M5 factory transition
+- [ ] 1.08c — The "running machine" aesthetic payoff: SpaceChem's greatest emotional moment is watching a complex pipeline execute; the sealed watch must deliver equivalent satisfaction through richer visual vocabulary; what specific visual elements create the "I built this" feeling
+- [ ] 1.08d — SpaceChem's Flip-Flop as late-game conditional: the Flip-Flop instruction (alternating path selection, introduced in world 7) as a model for late-campaign mechanic unlocks; how introducing a single new primitive mid-game transforms the entire strategy space
+- [ ] 1.08e — Pipeline buffer length as accidental context window: SpaceChem players using pipe length to buffer throughput mismatches; the parallel to relay context window sizing; emergent vs. designed buffering mechanics and which is more teachable
 
 ### Combo Discovery / Deckbuilding Games
 - [x] 1.09 — Slay the Spire: combo discovery, synergy between cards, run structure, ascension difficulty
