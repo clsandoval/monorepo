@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1095
-- **Analyzed:** 370
-- **Pending:** 725
-- **Convergence:** 33.8%
+- **Total aspects:** 1100
+- **Analyzed:** 371
+- **Pending:** 729
+- **Convergence:** 33.7%
 
 ---
 
@@ -1008,7 +1008,12 @@
 - [x] 6.11 — The web demo: browser-playable demo as acquisition funnel — six demo models (vertical slice, extended tutorial, sandbox, replay theater, persistent playground, rotating featured mission), layered pipeline recommendation, funnel metrics, conversion mechanics, technical implementation
 - [x] 6.11a — Demo-to-full-game save migration: localStorage → Steam Cloud sync, account linking, handling demo progress incompatible with newer game versions, "thank you for playing the demo" emotional beat
 - [ ] 6.11b — Demo-specific analytics dashboard: funnel visualization, drop-off points, retry rates per mission, Inspector engagement heatmap, conversion attribution — developers applying the game's Inspector philosophy to business metrics
-- [ ] 6.11c — Embeddable demo widget for gaming press: lightweight iframe embed for review articles, "Play Mission 1 right here," <2s load, Steam widget on completion, responsive width, message-passing API
+- [x] 6.11c — Embeddable demo widget for gaming press: lightweight iframe embed for review articles, "Play Mission 1 right here," <2s load, Steam widget on completion, responsive width, message-passing API; six embed models (A "Snapshot" passive battle replay 225KB, B "Puzzle" one-challenge micro-mission 353KB with core configure→execute→watch loop, C "Workbench Slice" full Mission 1 575KB, D "Replay Theater" Inspector-mode curated battle 415KB, E "Configurator" blueprint editor generating Config Codes 240KB no Pixi.js, F "Layered Widget" RECOMMENDED parameterized URL with mode selection + postMessage API); facade pattern (static PNG + preconnect-on-hover + click-to-load); full postMessage specification (6 embed→host events, 5 host→embed commands, origin whitelisting, sandbox attributes); publisher integration (WordPress shortcode plugin, Ghost raw HTML, Discord Open Graph card); educational mode with CS terminology overlay; adaptive one-line embed (auto-selects mode by viewport+connection); 4 player journeys (Alex 26 Kotaku reader mobile puzzle conversion, Sarah 34 game designer GDC article triple-embed path, Tomás 14 Philippine student jeepney snapshot discovery, Dr. Reyes 45 CS professor Canvas LMS educational replay); comparable (itch.io game embeds, NYT interactive journalism, Chess.com/Lichess analysis boards, GameDistribution DGI); 5 new aspects discovered (6.11c-i through 6.11c-v)
+  - [ ] 6.11c-i — Embed performance profiling across 20 gaming press CMSes: actual payload budget measurements on Kotaku, IGN, Polygon, Game Developer, Rock Paper Shotgun, etc.; which CMSes add overhead (WordPress plugins, ad scripts, consent banners); the embed must survive hostile host-page JavaScript environments
+  - [ ] 6.11c-ii — Embed A/B testing framework: serving different embed modes to different readers and measuring conversion rate per mode; the embed as its own experimental platform; ethical considerations of A/B testing inside editorial content
+  - [ ] 6.11c-iii — Embed as press kit component: embed code packaged alongside screenshots, trailers, and fact sheets; Distribute.gg/PressKit.html integration; embargo-gated embed activation (returns "COMING SOON" facade until embargo lifts)
+  - [ ] 6.11c-iv — Embed localization for 10 target locales: puzzle mode's rule labels, result text, and Steam prompt in all locales; text expansion in narrow workbench panel; interaction with L1-L4 fallback strategies
+  - [ ] 6.11c-v — Embed accessibility audit across screen readers: NVDA, JAWS, VoiceOver behavior inside cross-origin iframes; ARIA label propagation; focus management; the "embed trap" anti-pattern where keyboard users get stuck inside the iframe
 - [x] 6.11d — Demo as competitive event infrastructure: weekly community challenges on sandbox mode, fixed config constraints, leaderboard on demo page, demo as ongoing community infrastructure not just acquisition
 - [ ] 6.11e — QR code physical-to-digital funnel: convention booths, poster campaigns, attribution-tracked QR codes linking to demo, physical world → browser → Steam wishlist three-step funnel
 - [ ] 6.11d-i — Anti-cheat in a deterministic demo: brute-force optimization vs. legitimate iteration; what "cheating" means when the game is about configuration not execution; search space exploration as intended behavior or exploit
