@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1105
-- **Analyzed:** 372
-- **Pending:** 733
-- **Convergence:** 33.7%
+- **Total aspects:** 1110
+- **Analyzed:** 373
+- **Pending:** 737
+- **Convergence:** 33.6%
 
 ---
 
@@ -526,7 +526,12 @@
   - [ ] 2.03c — Decay as difficulty axis: per-mission decay rate parameter from near-zero (tutorial) to aggressive (late campaign) to asymmetric (final boss); interaction with 2.19 variable scenario seeds
   - [ ] 2.03d — The "memory palace" Specialist skill: protected sub-buffer of 2-3 zero-decay pinned entries; permanent slot cost; maps to Redis PERSIST; interaction with 2.09 sticky memories
   - [ ] 2.03e — Visual decay language across three screens: freshness rendering at Plan (thermometer), Sealed Watch (opacity pips — legible at tile scale?), Inspector (sparkline); critical question of whether decay information belongs exclusively in Inspector; interaction with 6.01b-v sprite readability
-- [ ] 2.04 — Categorized buffer: separate pools for different info types (threats, terrain, comms, memories)
+- [x] 2.04 — Categorized buffer: separate pools for different info types (threats, terrain, comms, memories)
+  - [ ] 2.04a — Compartment allocation templates as community content: shareable divider presets per unit type per mission; interaction with Config Code format (7.03a)
+  - [ ] 2.04b — Dynamic compartment count across campaign: starting with 2 types (THREAT/COMMS) expanding to 4+ types; compartment count as progression mechanic
+  - [ ] 2.04c — Compartment overflow visualization in Sealed Watch: rendering rapid pip flicker at 1x speed on phone; interaction with sprite readability (6.01b-v)
+  - [ ] 2.04d — Categorized buffer vs. custom eviction rules redundancy problem: formal analysis of whether compartments and eviction policies are complementary or competing; interaction with 2.06, 2.07
+  - [ ] 2.04e — The "wrong drawer" diagnostic in Inspector: annotation for data discarded because its compartment has 0 slots while others are empty; teaching moment design
 - [ ] 2.05 — Shared buffer: group of units shares a collective memory pool
 
 ### Weighted Buffer Deep Dives
