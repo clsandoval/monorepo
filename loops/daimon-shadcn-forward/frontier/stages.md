@@ -230,7 +230,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 181**: Dashboard status cards — verify all 3 status cards render: Discord connection status (should show "Not connected" or similar), API Keys count, Current plan (Free) (2026-03-16)
 - [x] **Stage 182**: Dashboard quick stats — verify stats row renders: Messages today (0), Tool uses today (0), uptime/connected indicator (2026-03-16)
 - [x] **Stage 183**: Onboarding checklist — verify checklist shows for new-ish tenant: Discord bot step (incomplete), API key step (incomplete), verify each step shows correct completion state. If tenant has discord/keys, verify steps show complete. (2026-03-16)
-- [ ] **Stage 184**: Billing — current plan card — verify free plan card shows: plan name "Free", feature list, upgrade button present
+- [x] **Stage 184**: Billing — current plan card — verify free plan card shows: plan name "Free", feature list, upgrade button present (2026-03-16)
 - [ ] **Stage 185**: Billing — plan comparison grid — verify all 3 plans render (Free, Starter, Pro) with feature rows, pricing, and CTA buttons. Verify free plan shows "Current plan" indicator.
 - [ ] **Stage 186**: Integrations — service grid — verify grid renders available integrations. Discord connection card shows disconnected state with setup instructions.
 - [ ] **Stage 187**: Integrations — Discord card states — verify card renders correctly for disconnected state. If possible, simulate connected state and verify status badge changes.
