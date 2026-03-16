@@ -146,7 +146,7 @@ function LoginForm() {
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center justify-center gap-2 transition-opacity hover:opacity-85"
+          className="flex items-center justify-center gap-2 transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
             <path
@@ -219,24 +219,12 @@ function LoginForm() {
 
               {/* Password field */}
               <div className="mb-6">
-                <div className="flex justify-between items-center mb-1.5">
-                  <Label
-                    htmlFor="password"
-                    className="text-sm text-foreground/70"
-                  >
-                    Password <span aria-hidden="true">*</span>
-                  </Label>
-                  <Link
-                    href="/reset-password"
-                    tabIndex={isSubmitting ? -1 : undefined}
-                    className={cn(
-                      'text-sm font-medium text-foreground/60 no-underline hover:text-foreground/90 hover:underline',
-                      isSubmitting && 'pointer-events-none'
-                    )}
-                  >
-                    Forgot password?
-                  </Link>
-                </div>
+                <Label
+                  htmlFor="password"
+                  className="mb-1.5 text-sm text-foreground/70"
+                >
+                  Password <span aria-hidden="true">*</span>
+                </Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -257,20 +245,34 @@ function LoginForm() {
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 bg-transparent border-none p-0 cursor-pointer text-foreground/50 hover:text-foreground/80 flex items-center"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 bg-transparent border-none p-0 cursor-pointer text-foreground/50 hover:text-foreground/80 flex items-center focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
                   >
                     {showPassword ? <EyeOffIcon /> : <EyeIcon />}
                   </button>
                 </div>
-                {errors.password && (
-                  <p
-                    id="password-error"
-                    role="alert"
-                    className="flex items-center gap-1 text-sm text-destructive mt-1"
+                <div className="flex justify-between items-center mt-1.5">
+                  {errors.password ? (
+                    <p
+                      id="password-error"
+                      role="alert"
+                      className="flex items-center gap-1 text-sm text-destructive"
+                    >
+                      {errors.password.message}
+                    </p>
+                  ) : (
+                    <span />
+                  )}
+                  <Link
+                    href="/reset-password"
+                    tabIndex={isSubmitting ? -1 : undefined}
+                    className={cn(
+                      'text-sm font-medium text-foreground/60 no-underline hover:text-foreground/90 hover:underline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2',
+                      isSubmitting && 'pointer-events-none'
+                    )}
                   >
-                    {errors.password.message}
-                  </p>
-                )}
+                    Forgot password?
+                  </Link>
+                </div>
               </div>
 
               {/* Server error banner */}
@@ -307,7 +309,7 @@ function LoginForm() {
             href="/signup"
             tabIndex={isSubmitting ? -1 : undefined}
             className={cn(
-              'text-sm font-semibold text-foreground hover:text-primary no-underline',
+              'text-sm font-semibold text-foreground hover:text-primary no-underline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2',
               isSubmitting && 'pointer-events-none'
             )}
           >
@@ -317,13 +319,13 @@ function LoginForm() {
 
         {/* Auth footer links */}
         <div className="flex justify-center gap-4 text-sm text-foreground/45">
-          <Link href="/terms" className="text-inherit no-underline hover:text-foreground/70">
+          <Link href="/terms" className="text-inherit no-underline hover:text-foreground/70 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
             Terms of Service
           </Link>
-          <Link href="/privacy" className="text-inherit no-underline hover:text-foreground/70">
+          <Link href="/privacy" className="text-inherit no-underline hover:text-foreground/70 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
             Privacy Policy
           </Link>
-          <a href="mailto:support@daimon.ai" className="text-inherit no-underline hover:text-foreground/70">
+          <a href="mailto:support@daimon.ai" className="text-inherit no-underline hover:text-foreground/70 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2">
             Support
           </a>
         </div>
