@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { useToast } from '@/lib/toast'
-import { useRouter } from 'next/navigation'
 import { Copy, Check, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -33,7 +32,6 @@ interface WorkspaceSectionProps {
 
 function WorkspaceSection({ tenant, userRole }: WorkspaceSectionProps) {
   const { toast } = useToast()
-  const router = useRouter()
   const [name, setName] = React.useState(tenant.name)
   const [saving, setSaving] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
@@ -74,7 +72,6 @@ function WorkspaceSection({ tenant, userRole }: WorkspaceSectionProps) {
         throw new Error(data.error ?? 'Failed to save workspace name. Please try again.')
       }
       toast.success('Workspace name updated.')
-      router.refresh()
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : 'Failed to save workspace name. Please try again.'

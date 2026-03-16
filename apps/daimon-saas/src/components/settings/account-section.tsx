@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { useToast } from '@/lib/toast'
-import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -86,7 +85,6 @@ export function SettingsAccountSection({
   userDisplayName,
 }: SettingsAccountSectionProps) {
   const { toast } = useToast()
-  const router = useRouter()
 
   // Display name state
   const [displayName, setDisplayName] = React.useState(userDisplayName)
@@ -123,7 +121,6 @@ export function SettingsAccountSection({
         throw new Error(data.error ?? 'Failed to update display name. Please try again.')
       }
       toast.success('Display name updated.')
-      router.refresh()
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : 'Failed to update display name. Please try again.'

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Archivo, Lora } from "next/font/google";
 import { AuthProvider } from "@/lib/auth/auth-context";
-import { ToastProvider } from "@/components/ui/toast";
+import { DaimonToaster } from "@/components/ui/toast";
 import { NavigationProgressBar } from "@/components/layout/progress-bar";
 import "./globals.css";
 
@@ -123,7 +123,8 @@ export default function RootLayout({
         </a>
         <NavigationProgressBar />
         <AuthProvider>
-          <ToastProvider>{children}</ToastProvider>
+          {children}
+          <DaimonToaster />
         </AuthProvider>
       </body>
     </html>
