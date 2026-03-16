@@ -188,7 +188,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 148**: Checkbox — on signup page: check terms checkbox, verify visual state. Uncheck, verify visual state. Submit without checking, verify error. (2026-03-16)
 - [x] **Stage 149**: Toggle/Switch — find a toggle (settings page?), flip on, verify visual state. Flip off, verify state. Verify the associated setting is applied. (2026-03-16)
 - [x] **Stage 150**: Dropdown menu — click user menu in dashboard topbar/sidebar, verify menu opens with options. Click an option, verify action. Open menu, press Escape, verify closes. Open menu, click outside, verify closes. (2026-03-16)
-- [ ] **Stage 151**: Dropdown menu keyboard — open user menu with Enter/Space, navigate with arrow keys, select with Enter, verify action fires. Navigate to last item, press arrow down, verify wraps or stops.
+- [x] **Stage 151**: Dropdown menu keyboard — open user menu with Enter/Space, navigate with arrow keys, select with Enter, verify action fires. Navigate to last item, press arrow down, verify wraps or stops. (2026-03-16)
 - [ ] **Stage 152**: Modal/Dialog — trigger a confirm dialog (e.g., danger zone delete action on settings page), verify dialog appears, verify backdrop visible, verify focus is inside dialog (tab doesn't escape).
 - [ ] **Stage 153**: Modal/Dialog — with dialog open: press Escape, verify closes. Re-open, click backdrop/overlay, verify closes. Re-open, click Cancel button, verify closes without action. Click Confirm, verify action fires.
 - [ ] **Stage 154**: Tabs — on a page with tabs (docs?), click each tab, verify content switches. Verify active tab has distinct styling. Use arrow keys between tabs, verify focus moves and content switches.
