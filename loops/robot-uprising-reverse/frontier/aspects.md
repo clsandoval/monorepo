@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1115
-- **Analyzed:** 374
-- **Pending:** 741
+- **Total aspects:** 1120
+- **Analyzed:** 375
+- **Pending:** 745
 - **Convergence:** 33.5%
 
 ---
@@ -850,7 +850,12 @@
   - [ ] 5.10c — Product specs as community-shareable challenge format: player-authored specifications as custom missions; "Can you beat this spec?" as competitive artifact; interaction with demo competitive infrastructure (6.11d) and async challenges (7.03)
   - [ ] 5.10d — The failing-config library: pre-built bad designs as teaching tools: curated collection of instructive failures for Reverse Engineering approach (Approach D); "common mistake" pattern matching in debrief; failing configs as community-shareable artifacts
   - [ ] 5.10e — Product spec as accessibility layer: multiple reading levels per brief: 3-tier brief structure (emotional summary / formal objective / detailed intel); player self-selection; interaction with cognitive accessibility (6.08) and vocabulary pacing (5.00a)
-- [ ] 5.13 — The reagent-placement-as-choice design pattern (from Opus Magnum): starting conditions that feel fixed but are actually variable create a "double reveal" — players discover the solution, then discover the solution space is larger than they thought; applies to agent deployment layout and hook topology choices
+- [x] 5.13 — The reagent-placement-as-choice design pattern (from Opus Magnum): starting conditions that feel fixed but are actually variable create a "double reveal" — players discover the solution, then discover the solution space is larger than they thought; applies to agent deployment layout and hook topology choices
+  - [ ] 5.13a — The "assumption audit" as post-campaign meta-game: post-campaign challenge mode scoring hidden variable discovery; interaction with replayability (5.09) and Gauntlet (5.22)
+  - [ ] 5.13b — Difficulty scaling through hidden variable count: easy missions lock more variables, hard missions unlock all; Gauntlet unlocks unknowns; difficulty as freedom not constraint
+  - [ ] 5.13c — The "(default)" tag as universal UI design pattern: every configurable parameter shows "(default)" when unmodified; the tag as teaching tool; interaction with accessibility (6.08) and Blueprint Codex
+  - [ ] 5.13d — Variable reclassification as narrative beat: boot log "CONSTANT → VARIABLE" animation as recurring campaign motif; reclassification count as progression metric; the final reclassification at Mission 10
+  - [ ] 5.13e — Social discovery asymmetry in PvP: players who discover hidden variables earlier have structural Gauntlet advantages; competitive bracketing implications; variable discovery tracking
 - [ ] 5.13a — Spawn storm as designed tutorial failure: crafting a mission that makes the first spawn storm almost inevitable for a first-time player, then making the debrief teach the fix clearly; the Opus Magnum "first ugly solution" principle applied to spawn chain design; what the spawn storm looks and sounds like at maximum drama
 - [ ] 5.12 — Predecessor content as narrative: captured enemy agent configs carrying "previous operator" annotations — the Randy's-annotations pattern for Robot Uprising lore delivery without cutscenes
 - [ ] 5.11 — Solitaire distraction risk: when a secondary mechanic (debrief analysis, sandbox mode) becomes more engaging than the core loop — how to prevent and exploit
