@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1367
-- **Analyzed:** 424
-- **Pending:** 943
+- **Total aspects:** 1372
+- **Analyzed:** 425
+- **Pending:** 947
 - **Convergence:** 31.0%
 
 ---
@@ -967,7 +967,12 @@
   - [ ] 6.01a-vi-c — Cross-biome missions and animation blending as difficulty spike: what happens when a single board has multiple biomes? Animation intensity differs per half. Does the emotional arc break? Does the SNR differ per tile?
   - [ ] 6.01a-vi-d — Animation intensity as player-controlled difficulty modifier: terrain animation intensity slider in custom missions; speed up Ifugao animations to make tutorial missions feel like Taal; self-imposed challenge tool.
   - [ ] 6.01a-vi-e — The "acclimatization" phenomenon: players who replay Mission 1 after beating Mission 10 report the terraces feel "dead"; nervous system calibrated to Taal intensity; the crescendo can only be experienced once; designing for second-playthrough players.
-- [ ] 6.01a-vii — Tile animation response to game events: beyond suppression, should tiles react to specific events? Water splashes when a unit steps on a terrace tile. Neon signs flicker harder when combat happens nearby. Bioluminescence dims when an enemy passes. Reactive tiles vs. ambient-only tiles.
+- [x] 6.01a-vii — Tile animation response to game events: beyond suppression, should tiles react to specific events? Water splashes when a unit steps on a terrace tile. Neon signs flicker harder when combat happens nearby. Bioluminescence dims when an enemy passes. Reactive tiles vs. ambient-only tiles.
+  - [ ] 6.01a-vii-a — Overload radiation radius tuning: adjacency dimming at 1-tile (4 neighbors), 2-tile (12 neighbors), or proportional to unit buffer size; larger Command overloads radiating further than scout overloads; visual hierarchy matching severity
+  - [ ] 6.01a-vii-b — Enemy overload tile reactions as intelligence: when an enemy unit overloads outside perception range, should the tile reaction be visible? Detection mechanic through environmental observation; interaction with EM emissions model
+  - [ ] 6.01a-vii-c — Tag tint in competitive/PvP context: dual-player tag tints, opponent tag color (orange vs. cyan), contested-space dual-tint readability, territory visualization in PvP
+  - [ ] 6.01a-vii-d — Tile reaction intensity as difficulty signal: environmental drama scaling with mission difficulty; same overload → subtle dim (M3) vs. board-wide ripple (M10); Gauntlet/Doctrine intensified reactions
+  - [ ] 6.01a-vii-e — Inspector tile reaction replay controls: slow-motion tile reaction replay at 0.25x speed; "show tile reactions" toggle; EM detection pattern visibility for missed sealed-watch events
 - [ ] 6.01a-viii — Cross-biome transition animation blending: when the board has mixed biomes (e.g., terrace adjacent to jungle), how do their animations interact at the boundary? Do terrace water reflections carry into jungle shadow? Do Siquijor bioluminescent pulses illuminate adjacent city tiles?
 - [ ] 6.01a-ix — Animation sound design coupling: each biome's animation implies specific ambient sounds (water lapping for terraces, insect hum for jungle, neon buzz for city, rumbling for Taal). How tightly coupled should visual animation and ambient audio be? Should disabling visual animations also silence biome audio?: Shape-First Design geometric patterns per biome (diagonal hatching, horizontal lines, stippling, grid, concentric circles) replacing color as primary biome identifier; contrast ratios; readability across protanopia/deuteranopia/tritanopia/achromatopsia
 - [ ] 6.01a-ii-a — Signal collision visuals: what happens when two signal packets from different channels cross the same tile on the same tick? Interference patterns, pass-through, momentary merge; visual treatment varies by biome (city: overlapping fiber optic lines; jungle: double-rustle; Taal: amplified jitter)
