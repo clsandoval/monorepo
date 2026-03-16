@@ -233,7 +233,7 @@ Each stage: navigate at 768x1024, verify layout reflows correctly between mobile
 - [x] **Stage 184**: Billing — current plan card — verify free plan card shows: plan name "Free", feature list, upgrade button present (2026-03-16)
 - [x] **Stage 185**: Billing — plan comparison grid — verify all 3 plans render (Free, Starter, Pro) with feature rows, pricing, and CTA buttons. Verify free plan shows "Current plan" indicator. (2026-03-16)
 - [x] **Stage 186**: Integrations — service grid — verify grid renders available integrations. Discord connection card shows disconnected state with setup instructions. (2026-03-16)
-- [ ] **Stage 187**: Integrations — Discord card states — verify card renders correctly for disconnected state. If possible, simulate connected state and verify status badge changes.
+- [x] **Stage 187**: Integrations — Discord card states — verify card renders correctly for disconnected state. If possible, simulate connected state and verify status badge changes. (2026-03-16)
 - [ ] **Stage 188**: Settings — account section — change display name to "Test Name", submit, verify success toast. Reload page, verify "Test Name" persisted. Change back to original.
 - [ ] **Stage 189**: Settings — workspace section — change workspace name to "Test Workspace", submit, verify success toast. Reload, verify persisted. Change back to "CL's Workspace".
 
