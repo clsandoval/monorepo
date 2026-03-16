@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1023
-- **Analyzed:** 354
-- **Pending:** 669
+- **Total aspects:** 1026
+- **Analyzed:** 355
+- **Pending:** 671
 - **Convergence:** 34.6%
 
 ---
@@ -690,11 +690,14 @@
 
 - [x] 5.00 — The external-documentation anti-pattern: Shenzhen I/O requires a PDF manual outside the game — all Robot Uprising vocabulary (skills/rules/hooks/context) must be learnable through in-game play
   - [x] 5.00a — The vocabulary pacing bottleneck: 30 terms across 10 missions = 3 terms/mission average; maximum new-term density before cognitive overload; should some terms be withheld until debrief? Interaction with difficulty curve (5.04)
-    - [ ] 5.00a-i — The Mission 4 Wall: detailed mission design for the rules introduction — exact puzzle scenarios, enemy placement, designed failure states, and rule complexity ramp within a single mission; how to make 3-4 rule terms feel natural rather than overwhelming
+    - [x] 5.00a-i — The Mission 4 Wall: detailed mission design for the rules introduction — exact puzzle scenarios, enemy placement, designed failure states, and rule complexity ramp within a single mission; how to make 3-4 rule terms feel natural rather than overwhelming
     - [ ] 5.00a-ii — Physical term placement as naming mechanic — the Baba Is You inspiration: dragging term labels from boot log to workbench headers as a physical naming ritual; the term becomes real when you place it; implications for accessibility and controller input
     - [ ] 5.00a-iii — Extension terms vs. genuinely new concepts: the taxonomy problem — formal criteria for distinguishing "more of the same" from "fundamentally new"; which Robot Uprising terms are truly new concepts vs. parameters of existing concepts
     - [ ] 5.00a-iv — Cross-run vocabulary retention testing — if a player takes a week-long break, how much vocabulary do they retain? Design patterns for reactivating dormant vocabulary on session resumption; the "welcome back" recap as vocabulary reinforcement
     - [ ] 5.00a-v — Vocabulary budget as visible game mechanic — Option D's hexagonal concept slots as a first-class UI element; the vocabulary collection metagame; concept constellation as progression visualization; does making the pacing visible improve or constrain the experience?
+    - [ ] 5.00a-vi — The "frozen striker" as reusable diagnostic template: can the Mission 4 opener (unit sees everything, does nothing) be recreated deliberately by players in later missions as a diagnostic tool? "Strip all rules to see raw data" as an advanced technique taught accidentally in the tutorial
+    - [ ] 5.00a-vii — Perception radius as the third slider (alongside buffer size and filter strictness): three continuous parameters that interact multiplicatively; the tutorial must decide whether to introduce all three sliders or simplify to binary toggles during Mission 4 and graduate to sliders in Mission 5+
+    - [ ] 5.00a-viii — Designed failure cadence across the tutorial arc: Missions 1-3 each have 1 designed failure; Mission 4 has 2-3; is the failure density increasing too fast? Optimal failure-to-success ratio per mission for learning without frustration
   - [ ] 5.00b — Search-by-player-vocabulary: boot terminal search indexes player-created names (channel names, blueprint names) alongside game vocabulary; mapping player vocabulary to game vocabulary at scale; misspelling handling
   - [ ] 5.00c — The veteran fast-path: players who already know the vocabulary need compressed experiential layer without missing mechanical details; fast-track detection, "technical mode" toggle, difficulty selector; interaction with expert-track (5.01e)
   - [ ] 5.00d — The field manual as community artifact: discoverable pages as speedrun targets, community wikis mapping page locations, page screenshots as trading currency; is the field manual redundant with boot terminal or complementary?
