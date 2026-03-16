@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1237
-- **Analyzed:** 398
-- **Pending:** 839
-- **Convergence:** 32.2%
+- **Total aspects:** 1242
+- **Analyzed:** 399
+- **Pending:** 843
+- **Convergence:** 32.1%
 
 ---
 
@@ -913,7 +913,12 @@
   - [ ] 5.13c — The "(default)" tag as universal UI design pattern: every configurable parameter shows "(default)" when unmodified; the tag as teaching tool; interaction with accessibility (6.08) and Blueprint Codex
   - [ ] 5.13d — Variable reclassification as narrative beat: boot log "CONSTANT → VARIABLE" animation as recurring campaign motif; reclassification count as progression metric; the final reclassification at Mission 10
   - [ ] 5.13e — Social discovery asymmetry in PvP: players who discover hidden variables earlier have structural Gauntlet advantages; competitive bracketing implications; variable discovery tracking
-- [ ] 5.13a — Spawn storm as designed tutorial failure: crafting a mission that makes the first spawn storm almost inevitable for a first-time player, then making the debrief teach the fix clearly; the Opus Magnum "first ugly solution" principle applied to spawn chain design; what the spawn storm looks and sounds like at maximum drama
+- [x] 5.13a — Spawn storm as designed tutorial failure: crafting a mission that makes the first spawn storm almost inevitable for a first-time player, then making the debrief teach the fix clearly; the Opus Magnum "first ugly solution" principle applied to spawn chain design; what the spawn storm looks and sounds like at maximum drama
+  - [ ] 5.13a-i — The "Spawn Governor Detected" achievement as skill-recognition system: design of the detection heuristics (what qualifies as a governor: child limit, resource threshold, command agent reassign), reward scaling (first-try governor vs. post-failure governor), interaction with Predecessor narrative, speedrunner exploitation
+  - [ ] 5.13a-ii — Spawn storm severity spectrum: not all storms are equally catastrophic — partial storms (5 extra units, resources survive) vs. total storms (all resources consumed); graduated debrief language matching severity; the "controlled burn" as advanced technique (deliberate partial spawning)
+  - [ ] 5.13a-iii — Spawn storm in PvP/Gauntlet context: when the opponent deliberately induces your spawn storm by flooding your scouts with detectable bait units; "spawn baiting" as adversarial tactic; counter-play through resource-floor guards; the metagame of inducing opponent resource depletion
+  - [ ] 5.13a-iv — Community spawn storm gallery: shareable production logs and resource curves from spawn storm failures; "worst storm" leaderboard (most units spawned before collapse); the aesthetic of catastrophic failure as community bonding; interaction with 7.06 histograms
+  - [ ] 5.13a-v — The "controlled storm" as Swarm Doctrine mastery technique: under The Swarm Doctrine (5.09a), bounded spawn storms ARE the adaptation strategy; designing production rules that ride the edge of storm without crossing it; "storm surfing" as expert-level production management
 - [x] 5.12 — Predecessor content as narrative: captured enemy agent configs carrying "previous operator" annotations — the Randy's-annotations pattern for Robot Uprising lore delivery without cutscenes
   - [ ] 5.12a — Predecessor annotation density calibration: how many annotations per blueprint and per mission; annotation fatigue curve across 10 missions; the right ratio of annotated to unannotated config elements
   - [ ] 5.12b — Predecessor config as difficulty modifier: offering "start from Predecessor X's config" as difficulty option; The Architect as Easy, The Improviser as Medium, blank slate as Hard; interaction with reagent-placement-as-choice revelation cascade
