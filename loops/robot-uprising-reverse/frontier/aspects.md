@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1447
-- **Analyzed:** 440
-- **Pending:** 1007
+- **Total aspects:** 1452
+- **Analyzed:** 441
+- **Pending:** 1011
 - **Convergence:** 30.4%
 
 ---
@@ -707,7 +707,12 @@
 - [ ] 5.16a — Terminal content authoring pipeline: how ~30 term entries + cross-cutting interaction descriptions are authored; manual vs. templated vs. player-behavior-driven prioritization; combinatorial explosion management
 - [ ] 5.16b — Terminal in Inspector mode: detailed design of how the reference terminal functions during Inspector phase; tick-state-aware context, "why did X fire at tick N" queries, replay-grounded reference
 - [ ] 5.16c — Terminal as community sharing surface: shareable query result links; "here's the interaction between compress and EM" as URL that opens terminal to that entry; community knowledge sharing
-- [ ] 5.16d — Terminal progressive disclosure across campaign: which terminal features unlock when (M1 context only, M3 query, M5 related, M7 cross-cutting synthesis, M10 full); the terminal itself teaches over time
+- [x] 5.16d — Terminal progressive disclosure across campaign: which terminal features unlock when (M1 context only, M3 query, M5 related, M7 cross-cutting synthesis, M10 full); the terminal itself teaches over time
+  - [ ] 5.16d-i — Terminal state persistence on replay: should Terminal regress to Mission 1 state (3 entries, no features) on replay or remain fully unlocked? Terminal regression for immersion vs. persistence for utility; the replay tension
+  - [ ] 5.16d-ii — Interaction matrix cell discovery incentives: gamifying undiscovered cells as collectibles with Discovery % counter; grinding risk vs. genuine curiosity; does "fill all cells" become a goal that overrides exploration?
+  - [ ] 5.16d-iii — Terminal unlock notifications outside boot log: mid-mission feature unlock communication — icon pulse, toast, or silent activation; Plan phase vs. Inspector phase unlock timing
+  - [ ] 5.16d-iv — Terminal content localization challenges: 31 entries × 100 words × 45 interactions × 10 locales = significant budget; micro-scenarios as locale-neutral animations; Terminal text as localization scope driver
+  - [ ] 5.16d-v — "Try It" sandbox boundary design: Mission 7 sandbox parameter limits; contradictory/impossible configurations as teaching moments vs. error states; sandbox as safe failure space
 - [ ] 5.16e — Terminal accessibility: screen reader navigation of three-column layout, keyboard-only operation, high-contrast mode, reduced-motion scan-line removal, audio descriptions of micro-scenarios
 - [x] 5.17 — The hybrid tutorial architecture: mapping the transition from interactive first-touch tutorial (teaches procedures) to diegetic document (teaches concepts and provides reference) — where the handoff happens and what the transition feels like; six handoff models (A "Clean Break" dark-souls-cliff, B "Gradual Fade" BotW-style invisible graduation, C "Dual Track" Civ6-civilopedia simultaneous-from-start, D "Materialization" cards-crystallize-from-experience Inscryption-inspired, E "Mentor Withdrawal" Unit-0-leaves-but-lives-in-archive emotional-beat, F "Living Handoff" procedure/concept-division parallel-tracks); RECOMMENDED D+F hybrid "The Experiential Archive" — interactive procedures generate Codex concept cards (M1-4), Codex initialization ceremony at M5 (cards lift/sort/grid with kulintang chord), Inspector-Codex bridge as mature teaching cycle (failure→diagnostic→concept-link→fix→retest = Kolb's experiential learning cycle); three-mission-delay relevance cycle (M1 concepts become meaningful at M4 when new situations create genuine questions); 4 player journeys (Sofia 15 discovering Codex is answer-key-to-failures not decoration, Marcus 42 Factorio-vet pre-reading Codex as pilot-checklist, Aisha 14 first-strategy-gamer using Inspector-Codex bridge to diagnose eviction priority failure, Dr. Ramirez 55 CS professor evaluating constructivist pedagogy + Vygotsky tension); interaction effects with boot log narrative role-shift, vocabulary pacing handrails, Blueprint Codex collection design, Inspector deep-linking, filter puzzle card-generation, voice candidates register-shift (Reyes=procedure, Unit 0=concept); comparable: Shenzhen I/O (no handoff), EXAPUNKS (early TWN handoff), Into the Breach (invisible fade), Slay the Spire (community-dependent), TUNIC (discovery-based), Baba Is You (zero-text)
   - [ ] 5.17a — The "three-mission-delay" relevance cycle: detailed design of how the Codex surfaces old entries when new situations make them relevant; beyond Inspector links, should the Codex itself suggest "related reading" based on recent failures? Risk of noise vs. benefit of connection-making
