@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1452
-- **Analyzed:** 441
-- **Pending:** 1011
-- **Convergence:** 30.4%
+- **Total aspects:** 1457
+- **Analyzed:** 442
+- **Pending:** 1015
+- **Convergence:** 30.3%
 
 ---
 
@@ -285,7 +285,12 @@
   - [ ] 1.13e — The replay culture as Inspector precedent: Brood War replay-watching culture (Day9 dailies, community analysis, tournament VODs) as direct precedent for Inspector and async sharing; designing Inspector to support "learn by watching others" ecosystem
 - [x] 1.14 — Factorio: belt/logistics systems, throughput optimization, infinite scalability, mod community
 - [ ] 1.14a — The "Ratio Calculator" gap: in-game vs. external optimization tools; Robot Uprising's Inspector as built-in optimizer vs. Factorio's external calculator dependency; pre-execution signal latency predictions in the workbench
-- [ ] 1.14b — The spaghetti-to-bus progression as emergent tutorial: how Factorio players naturally evolve from spaghetti→bus→trains; channel topology should follow same arc (all-to-all→hierarchy→relay-mediated); designing walls that motivate architectural evolution
+- [x] 1.14b — The spaghetti-to-bus progression as emergent tutorial: how Factorio players naturally evolve from spaghetti→bus→trains; channel topology should follow same arc (all-to-all→hierarchy→relay-mediated); designing walls that motivate architectural evolution
+- [ ] 1.14b-i — Channel map panel auto-clustering: should the read-only channel map detect and render modular topologies as visual clusters (boxed groups) automatically, or should the display remain a flat graph? When does auto-layout become prescriptive vs. informative?
+- [ ] 1.14b-ii — Missions that reward spaghetti: designing early missions where all-to-all connectivity is optimal (high redundancy, low unit count), validating the beginner architecture as correct-for-context rather than a mistake to outgrow
+- [ ] 1.14b-iii — Relay placement as irreversible architectural commitment: because relays are stationary once spawned, factory relay placement decisions are permanent for the battle — the architectural equivalent of pouring concrete footings; plan screen tools for previewing relay coverage zones before committing
+- [ ] 1.14b-iv — Spatial channel partitioning as player-invented pattern: Aiko's journey reveals that some players will invent spatial channel splits (left/right, north/south) before discovering relay hierarchies; should the game recognize and support this pattern with spatial channel assignment tools, or let it remain emergent?
+- [ ] 1.14b-v — Emissions cost as counter-pressure against deep architectures: the emissions model punishes hook-heavy topologies — more structured architectures are louder; designing the tension between architectural clarity (more hooks, more layers) and stealth (fewer hooks, flatter topology); the "whisper network" as an advanced architectural style
 - [ ] 1.14c — Peaceful mode as accessibility escape valve: sandbox mode for configure-and-test without mission pressure; ghost preview vs. full simulation; interaction with plan screen design
 - [ ] 1.14d — The "everything is visible" vs. "temporal separation" design philosophy: Factorio shows everything always; Robot Uprising hides internals until Inspector; when each approach works better
 - [ ] 1.14e — Friday Facts as community-building pattern: weekly dev blog as trust engine; 500+ posts building Factorio's community; what Robot Uprising's development transparency model looks like for an AI-engineering game
