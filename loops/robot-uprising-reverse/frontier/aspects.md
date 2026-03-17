@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1471
-- **Analyzed:** 447
-- **Pending:** 1024
-- **Convergence:** 30.4%
+- **Analyzed:** 448
+- **Pending:** 1023
+- **Convergence:** 30.5%
 
 ---
 
@@ -715,7 +715,7 @@
 - [x] 7.01 — PvP: designing attention systems against another human's attention systems
   - [x] 7.01a — Loadout system design for PvP: saveable blueprint configurations, quick-deploy, per-map loadout adaptation, loadout sharing between players, loadout import/export as community feature
   - [x] 7.01b — Red team mode in Plan screen: hypothetical enemy unit placement for testing architectures before deployment, sandbox PvP training, "what-if" scenarios for counter-configuration practice
-  - [ ] 7.01c — Channel naming as competitive metagame: common channel names are predictable (hackable), unique names are harder to intercept but harder for teammates to guess in co-op; channel obfuscation as a competitive skill; automatic channel renaming as a defensive rule
+  - [x] 7.01c — Channel naming as competitive metagame: common channel names are predictable (hackable), unique names are harder to intercept but harder for teammates to guess in co-op; channel obfuscation as a competitive skill; automatic channel renaming as a defensive rule
   - [ ] 7.01d — PvP unlock gating and campaign integration: when does competitive multiplayer become available; Ghost Ladder after Mission 5 vs. earlier; practice-against-ghost missions in campaign; competitive skill teaching within the tutorial arc
   - [ ] 7.01e — Spectator mode and tournament infrastructure: stream overlays showing both players' Plan screens, split-screen Sealed Watch, Inspector casting tools, tournament bracket UI, replay sharing for community analysis
 - [x] 7.02 — Co-op: shared battlefield, complementary attention architectures
