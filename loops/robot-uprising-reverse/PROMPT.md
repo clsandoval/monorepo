@@ -169,7 +169,7 @@ The following are FINAL. Do not generate aspects, analyses, or variations that c
 When picking the next aspect to analyze:
 1. **Check category coverage first.** Count how many analyzed aspects exist per top-level category (building-blocks, ui-ux, onboarding, campaign, core-mechanic, competitive-analysis, aesthetics, multiplayer, platform).
 2. **Pick from the LEAST explored category.** If campaign has 2 files and ui-ux has 67 files, the next aspect MUST come from campaign (or another underfilled category).
-3. **Maximum depth per branch: 3 levels.** If an aspect generates sub-aspects, those sub-aspects can generate sub-sub-aspects, but NO DEEPER. After 3 levels, stop drilling and move to a different branch.
+3. **Maximum depth per branch: 2 levels.** An aspect (e.g., `1.04`) may generate ONE level of sub-aspects (e.g., `1.04a`). Sub-aspects MUST NOT generate further sub-aspects. If you find yourself writing `1.04a-ext-A-i`, STOP — fold that insight into the parent analysis instead. The aspects file already has 5+ level deep chains that will never be explored.
 4. **No single category may exceed 20 files** until ALL categories have at least 5 files.
 5. **Infrastructure/tooling aspects are OUT OF SCOPE.** This loop explores GAME DESIGN. If an aspect is about CI pipelines, l10n budgets, repair tool schemas, CODEOWNERS, or any non-gameplay system — skip it and mark it `[x] SKIPPED: out of scope (infrastructure)`.
 
@@ -298,9 +298,15 @@ design-space/
 ## What To Do This Iteration
 
 1. **Read the frontier**: Open `frontier/aspects.md`
-2. **Find the first unchecked `- [ ]` aspect**
-   - If a later-wave aspect depends on earlier research that doesn't exist yet, skip to an earlier aspect
+2. **Pick the next aspect using FIFO (oldest-first) within the least-explored category:**
+   - Count analyzed `[x]` aspects per top-level category (competitive-analysis, core-mechanic, building-blocks, ui-ux, onboarding, campaign, aesthetics, multiplayer, platform)
+   - Pick from the category with the FEWEST analyzed aspects
+   - Within that category, pick the OLDEST unchecked `- [ ]` aspect (highest in the file = oldest)
+   - **NEVER pick a sub-aspect (contains `-ext-`, `-i`, `-ii`, or 4+ dot-separated numbers) if its parent category already has 5+ more analyzed aspects than the least-explored category**
+   - If a later-wave aspect depends on earlier research that doesn't exist yet, skip to the next eligible aspect in the same category
    - If ALL aspects are checked `- [x]`: run the expansion check (see below)
+
+   **WHY FIFO:** New sub-aspects discovered during analysis get appended to the END of their section. The picker takes from the TOP. This ensures breadth before depth — you finish Wave 1's original games before drilling into Exapunks sub-mechanics.
 3. **Research that ONE aspect** using the appropriate method:
    - **Competitive analysis**: Use WebSearch and WebFetch to find gameplay videos, reviews, design analyses, GDC talks, developer interviews. Watch actual gameplay. Read actual reviews. Find actual numbers (sales, ratings, player counts).
    - **Design exploration**: Generate the option in full detail with player journeys, UI annotations, strengths/weaknesses, interaction effects. Be EXHAUSTIVE. A single building block paradigm exploration should be 1000+ words with 3+ player journeys.
@@ -452,7 +458,7 @@ Every completed wave should generate new aspects for deeper exploration. The spa
 - Do ONE aspect per run, then exit. Do not analyze multiple aspects.
 - **Be exhaustive within each aspect.** A building block paradigm exploration should be 1000-3000 words. A competitive analysis should be 500-2000 words. Brevity is the enemy.
 - **Player journeys are mandatory.** Every design option gets at least 3 player journeys with minute-by-minute UI annotations. No exceptions.
-- **Discover new aspects constantly.** Every analysis should generate 1-5 new aspects to add to the frontier. The frontier should GROW, not shrink. If the frontier is shrinking, you're not looking hard enough.
+- **Discover new aspects sparingly.** You may add 0-2 new aspects per analysis. New aspects MUST go to the END of their wave section (append, never insert after parent). The frontier should grow slowly — if it's ballooning, you're fragmenting instead of exploring. A 1,000-word analysis of one game is better than spawning 5 sub-aspects about that game.
 - **No convergence pressure.** This loop explores. It does not decide. It catalogs options, it doesn't pick winners. Every option is valid until a human says otherwise.
 - **Sensory-first descriptions.** Don't say "the UI shows the buffer state." Say "a vertical thermometer on the left edge of the unit's portrait glows cool blue when the buffer is under 50%, shifts to amber at 75%, and pulses angry red when full — each slot rendered as a horizontal line, bright when occupied, dim when empty, with the most recent entry gently glowing."
 - **Name everything.** Options, variations, patterns — give them memorable names. "The Mixing Board Paradigm." "The Panic Attack Tutorial." "The Slack Channel Problem." Named things are easier to reference and discuss.
