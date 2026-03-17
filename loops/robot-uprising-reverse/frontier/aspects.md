@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1472
-- **Analyzed:** 452
-- **Pending:** 1020
-- **Convergence:** 30.7%
+- **Analyzed:** 453
+- **Pending:** 1019
+- **Convergence:** 30.8%
 
 ---
 
@@ -596,7 +596,7 @@
   - [ ] 5.12c — Community-authored predecessor voices: top-ranked community players becoming "predecessors" in Gauntlet mode; moderation, voice consistency, annotation quality control; the social loop of becoming someone else's Architect
   - [ ] 5.12d — Predecessor voice in competitive/PvP context: pseudo-annotations on defeated opponent configs; "your opponent probably wired this hook to counter relay-heavy builds"; opponent-as-predecessor in competitive mode
   - [ ] 5.12e — Cross-predecessor dialogue: annotations referencing other predecessors' work; The Paranoid commenting on The Architect's relay chain; multi-voice epistolary narrative within the config
-- [ ] 5.11 — Solitaire distraction risk: when a secondary mechanic (debrief analysis, sandbox mode) becomes more engaging than the core loop — how to prevent and exploit
+- [x] 5.11 — Solitaire distraction risk: when a secondary mechanic (debrief analysis, sandbox mode) becomes more engaging than the core loop — how to prevent and exploit
 - [x] 5.14a — The fidelity threshold as onboarding gate: fidelity thresholds are the mechanic that teaches players to think about information quality, not just presence; design pass on the "first fidelity moment" — a mission where default threshold fails, debrief explains why, fix is a single slider adjustment; the designed teaching moment for buffer quality awareness
 - [ ] 5.14b — Per-channel fidelity thresholds: advanced mode where each listened channel gets its own threshold slider; UI complexity management, when to introduce vs. keep behind "Advanced" toggle, interaction with channel map panel
 - [ ] 5.14c — Fidelity threshold as rule condition: rules that reference fidelity threshold as a variable; "IF signal fidelity < threshold AND source = relay-B → compress before processing"; the threshold becoming part of the rule language rather than just a config parameter
