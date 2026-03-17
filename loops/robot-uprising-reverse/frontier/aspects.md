@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1417
-- **Analyzed:** 434
-- **Pending:** 983
+- **Total aspects:** 1422
+- **Analyzed:** 435
+- **Pending:** 987
 - **Convergence:** 30.6%
 
 ---
@@ -1264,7 +1264,12 @@
 - [x] 8.02 — Conflict matrix: which options in different categories are incompatible
 - [x] 8.03 — "Full game" configurations: 3-5 coherent complete designs across all categories
 - [x] 8.03a — Configuration mixing: can a player start in Greenhouse mode and transition to War Room mode at Mission 10 without jarring tonal shift?
-- [ ] 8.03b — The Inspector as universal substrate: which Inspector features are core (present in all configs) vs. mode-specific (only in competitive or sandbox)?
+- [x] 8.03b — The Inspector as universal substrate: which Inspector features are core (present in all configs) vs. mode-specific (only in competitive or sandbox)?
+  - [ ] 8.03b-i — Decision trace polymorphism: how the Inspector renders decision traces differently based on the active building block paradigm (sentence strip syntax vs. tile grammar vs. node graph path vs. NL bar text); the rendering pipeline that translates a single simulation log into multiple visual vocabularies
+  - [ ] 8.03b-ii — Inspector replay feature ratchet: the "one-way unlock" policy for Inspector features on mission replay; edge cases (replaying Mission 1 with full Inspector); should there be a "play as first time" toggle?
+  - [ ] 8.03b-iii — Inspector multiplayer cursor awareness: shared Inspector in co-op — cursor synchronization, "I'm looking at this" indicators, split-inspect, annotation sharing
+  - [ ] 8.03b-iv — Cultural annotation content pipeline: who writes ~100 cultural annotations for Config 5; quality bar, sensitivity review, historian consultation, community contribution post-launch
+  - [ ] 8.03b-v — Inspector screen reader audit: full accessibility spec for all three Inspector tiers — ARIA labels, keyboard navigation order, alternative descriptions for visual-only features, announcement protocol
 - [ ] 8.03c — Cultural toggle as accessibility layer: can Config 5's Filipino elements exist as an opt-in cultural layer on top of Config 2, rather than a separate configuration?
 - [ ] 8.03d — The "mode shock" problem: players who enter through the warm Greenhouse and encounter the cold War Room ranked queue — how does the UI signal the tonal transition?
 - [ ] 8.03e — Unified aesthetic direction: can Warm Filipino Cyberpunk serve competitive readability requirements, or does competitive play demand the Circuit Board's dark minimalism?
