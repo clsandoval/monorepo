@@ -2,8 +2,8 @@
 
 ## Statistics
 - **Total aspects:** 1472
-- **Analyzed:** 451
-- **Pending:** 1021
+- **Analyzed:** 452
+- **Pending:** 1020
 - **Convergence:** 30.7%
 
 ---
@@ -241,7 +241,7 @@
 - [x] 2.00f — No global coordinator as design constraint: agents that only know their immediate neighbors; emergent swarm behavior from local decisions only (from TIS-100's no-orchestrator architecture)
 - [x] 2.00g — The personality ceiling problem: deterministic agents risk feeling like vending machines; named agents with visual personality (idle animations, signal format quirks, "voice"); how much personality can be layered onto a deterministic core without touching the execution model?
 - [x] 2.00h — The solved-game risk and its mitigations: when a veteran finds a universal config that beats most missions; the Gauntlet as the unsolvable endgame; how campaign missions use 100-variant test cases to resist dominant strategies; at what skill level does the campaign "run out"?
-- [ ] 2.00i — Sensitive dependence on initial conditions via buffer state: even deterministic systems can exhibit chaotic behavior when buffer contents create feedback loops; how two runs with slightly different enemy spawn positions cascade into completely different agent behaviors by tick 30; the buffer as a chaos engine
+- [x] 2.00i — Sensitive dependence on initial conditions via buffer state: even deterministic systems can exhibit chaotic behavior when buffer contents create feedback loops; how two runs with slightly different enemy spawn positions cascade into completely different agent behaviors by tick 30; the buffer as a chaos engine
 - [ ] 2.00j — The debugging tax of full determinism: every failure is the player's fault; no "bad luck" to blame; for some players this is liberating, for others it's exhausting; how the debrief tools (especially the Minimum Fix Explorer) should surface the most impactful change to reduce diagnostic burden
 - [ ] 2.00k — Cross-model comparison matrix: formal side-by-side evaluation of all intelligence models (2.00a–2.00d) across 10 dimensions (debuggability, spectator drama, personality ceiling, educational transfer, async PvP fairness, computational cost, accessibility floor, skill ceiling, mod support, platform portability)
 - [x] 2.14 — Spatial routing as mechanic layer: battlefield layout creates information routing constraints, separate from configuration logic; agent proximity determines which hook chains are possible
