@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1397
-- **Analyzed:** 430
-- **Pending:** 967
-- **Convergence:** 30.8%
+- **Total aspects:** 1402
+- **Analyzed:** 431
+- **Pending:** 971
+- **Convergence:** 30.7%
 
 ---
 
@@ -223,10 +223,15 @@
 - [x] 1.08b — The pipeline cognition shift: how SpaceChem's single-reactor→production-level transition creates a permanent cognitive upgrade from component thinking to system thinking; parallels to Robot Uprising's M1-4→M5 factory transition
 - [x] 1.08c — The "running machine" aesthetic payoff: SpaceChem's greatest emotional moment is watching a complex pipeline execute; the sealed watch must deliver equivalent satisfaction through richer visual vocabulary; what specific visual elements create the "I built this" feeling
 - [ ] 1.08c-i — Signal line as GIF-able aesthetic: Opus Magnum's built-in GIF export created a viral sharing loop; Robot Uprising needs an equivalent "capture the signal web" feature for the sealed watch; how to make a frozen moment of peak signal density into a shareable image; the signal web as the game's visual identity in marketing and community
-- [ ] 1.08c-ii — Audio chord from channel activity as emergent music system: each active channel contributes a pitch to an ambient chord; harmonic vs. dissonant states as architecture health indicator; the player's hook topology as implicit musical composition; comparable to Rez's synesthetic music-gameplay fusion
+- [x] 1.08c-ii — Audio chord from channel activity as emergent music system: each active channel contributes a pitch to an ambient chord; harmonic vs. dissonant states as architecture health indicator; the player's hook topology as implicit musical composition; comparable to Rez's synesthetic music-gameplay fusion
 - [ ] 1.08c-iii — Aesthetic density ramp across campaign: how sealed watch visual richness scales from Mission 1 (2 units, ghost trails only) to Mission 9 (12 units, all layers active); the ramp as implicit reward for mechanical mastery; each new system learned adds a visual layer to the sealed watch
 - [ ] 1.08c-iv — Context overload as "beat drop" vs. "crash stop": SpaceChem stops simulation on error (crash); Robot Uprising recovers after 1 tick (beat drop); the 1-tick stun as a designed moment of chaos that resolves back into rhythm; the aesthetic vocabulary for recoverable vs. terminal failure states
 - [ ] 1.08c-v — The "I didn't program that" emergence gap: Robot Uprising's wider gap between player input and emergent output vs. Zachtronics' narrow gap; how this wider gap creates either stronger pride ("my architecture did THAT") or stronger confusion ("why did it do THAT"); aesthetic treatments that bridge the gap (signal line traces, Inspector decision chains) vs. those that celebrate it (movement choreography, emergent patterns)
+- [ ] 1.08c-ii-a — Chord spectrogram as Inspector diagnostic tool: full UX specification for the horizontal frequency-over-time visualization in the Inspector sidebar; rendering resolution, color palette (bronze gradient), interaction (scrub, zoom, click-to-isolate), relationship to existing context window chart
+- [ ] 1.08c-ii-b — Channel renaming as frequency planning: the emergent creative affordance of players optimizing channel names for harmonic spacing; parallels to radio frequency allocation; should the game surface this explicitly or leave it as a discovery?
+- [ ] 1.08c-ii-c — Chord as accessibility layer for visually impaired players: detailed design for screen-reader-compatible chord descriptions; audio-only debrief mode using chord playback + spoken event log
+- [ ] 1.08c-ii-d — Chord mixing across Plan/Watch/Inspector: volume, reverb, and processing differences across the three screens; Plan = dry preview, Watch = full mix with breathing, Inspector = isolated dissection with solo/mute per channel
+- [ ] 1.08c-ii-e — Enemy network chord as fog-of-war audio: can the player hear the ENEMY's topology chord as a distant, muffled version? Denser enemy chord = more complex enemy architecture; reading the opponent's network complexity by ear
 - [ ] 1.08b-i — The "factory shock" emotional design: detailed emotional beat design for the player's first factory encounter — awe, confusion, recognition, agency, mastery; the equivalent of SpaceChem's "my reactor is now a thumbnail" moment; how to make the zoom-out feel empowering rather than overwhelming
 - [ ] 1.08b-ii — Throughput monitoring as first-class sealed watch UI: beyond context bars on individual units — should there be aggregate channel traffic indicators visible during sealed watch? Per-channel thermometers? Signal volume as system health metric?
 - [ ] 1.08b-iii — The "black box trust" teaching sequence: when does the player stop inspecting individual units and start trusting blueprints as abstractions? Designing explicit trust-building across M5-M8; SpaceChem's forced zoom-out vs. optional zoom-in
