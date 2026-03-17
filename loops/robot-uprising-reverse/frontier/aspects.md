@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1476
-- **Analyzed:** 459
-- **Pending:** 1017
-- **Convergence:** 31.1%
+- **Analyzed:** 460
+- **Pending:** 1016
+- **Convergence:** 31.2%
 
 ---
 
@@ -143,7 +143,7 @@
 - [ ] 4.30 — Bimodal EDT distribution as matchmaking diagnostic: when a player's EDT histogram shows two distinct clusters rather than a single distribution, it may indicate a structured matchmaking pool problem (being matched against two incompatible strategy tiers); should the game detect bimodal distributions and surface an "opponent style diversity" warning?
 - [ ] 4.31 — The career "growth event" detection and celebration: designing the exact threshold and presentation for the gold-dot inflection point on the eEDT spark-line — what constitutes a meaningful architectural shift vs. noise, and how to celebrate it without feeling patronizing to veterans
 - [x] 1.06d — The Gladiabots meta-visibility gap: non-transitive strategy relationships players can't see until they've lost; design options for surfacing meta (counter-strategy hints, meta-map visualization, post-match strategy classification); does Robot Uprising want transparent or opaque meta-knowledge?
-- [ ] 1.06e — Anthropomorphization as engagement hook: players naming bots, narrating personalities, framing mechanical changes as character growth; how Robot Uprising designs for it deliberately (unit portraits, persistent bot identities, mission memory, named bot achievements)
+- [x] 1.06e — Anthropomorphization as engagement hook: players naming bots, narrating personalities, framing mechanical changes as character growth; how Robot Uprising designs for it deliberately (unit portraits, persistent bot identities, mission memory, named bot achievements)
 - [ ] 1.06f — Scouting report staleness and adversarial profile management: when opponents change configs between matches, scouting data becomes stale; should the game surface confidence decay? Can players deliberately present misleading profiles in early matches to set up a counter in a later match? Profile poisoning as competitive tactic
 - [x] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
 - [ ] 1.07a — The RAM-as-context-window parallel: how Bitburner's static RAM analysis (compile-time function cost → fits/doesn't-fit) vs. Robot Uprising's dynamic context window (runtime fill/evict) create fundamentally different player tensions; static constraint = build-time optimization, dynamic constraint = runtime drama

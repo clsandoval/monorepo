@@ -398,4 +398,325 @@ Adding to frontier:
 
 ---
 
-*Analysis complete. Aspect 1.06 fully documented.*
+## 1.06e — Anthropomorphization as Engagement Hook
+
+**Aspect:** How players project personality onto autonomous agents, and how Robot Uprising can design for this deliberately rather than leaving it emergent.
+
+---
+
+### The Phenomenon: Why Players Name Their Bots
+
+In Gladiabots, every bot is mechanically identical within its class. A Sniper is a Sniper — same stats, same actions, same hitbox. The only difference is the behavior tree the player assigns. Yet community forums reveal players consistently narrating personality onto their bots: "my flanker always panics when outnumbered," "the medic refuses to retreat even when I've built retreat logic," "Snipy has trust issues — won't engage unless three allies are visible." This is not a bug. It is the most powerful engagement mechanic in the game, and it was never explicitly designed.
+
+The root cause: **behavior trees produce legible, repeatable behavioral patterns that humans instinctively interpret as personality.** A bot that always retreats at low shield "feels cautious." A bot that rushes forward regardless "feels brave." The player knows these are mechanical consequences of their own configuration, but the emotional interpretation happens anyway — the same way we anthropomorphize Roombas getting stuck under chairs.
+
+**What Gladiabots does deliberately:** Almost nothing. Bots have named AI configurations ("Scout Behavior v3"), but the bots themselves are visually identical within a class. No portraits, no persistent names, no kill counters, no battle scars. The entire anthropomorphization layer is player-projected, community-sustained.
+
+**What Gladiabots misses:** Because bots are anonymous, the community's attachment is fragile. A bot that performed heroically in one match is indistinguishable from any other bot of the same class in the next. There's no "legendary soldier" moment. The stories die between sessions unless the player actively retells them in forums.
+
+---
+
+### The Research: How Other Games Build Attachment
+
+**XCOM's attachment formula** (from Tiago Costa's Game Developer analysis and Firaxis design postmortems): Five reinforcing mechanisms create deep soldier attachment —
+
+1. **Customization** — Players name soldiers after friends, family, celebrities. But Costa's key insight: naming happens AFTER attachment forms, not before. Players customize because they already care, which deepens the caring further. The trigger is shared hardship, not naming.
+2. **Character evolution** — Soldiers gain skills, ranks, nicknames. The player trims and shapes each soldier's build. "We try to create the perfect soldier." The development arc creates measurable growth players track obsessively.
+3. **Scarcity & time investment** — Only 10-15 advanced troops at any time. Weeks of in-game training per soldier. Losing a Colonel represents enormous sunk cost.
+4. **Emergent narratives** — A 91% shot missed. A 30% critical kill. A squad of rookies holding against impossible odds. These unscripted moments build individual soldier mythologies that are "personal to us only."
+5. **Shared hardship** — The "brothers in war" effect. Overcoming brutal difficulty together bonds players to the units that survived alongside them.
+
+**Dwarf Fortress's personality engine:** Every dwarf has procedurally generated beliefs (Law, Loyalty, Family, Friendship, Power, Truth), facets (Love, Hate, Envy, Cheer, Depression), preferences (favorite food, material, animal), and a multi-screen biography tracking their entire life history. The overwhelming majority of this data is never read by the player — but the data's *existence* enables emergent behavior differences that the player *does* notice. "Urist always picks fights at parties" is the player's interpretation of three interacting personality facets they never inspected directly.
+
+**RimWorld's colonist storytelling:** Each colonist has backstories, traits ("Brawler," "Night Owl," "Depressive"), and dynamically forming relationships (romances, friendships, rivalries). Tynan Sylvester's key design insight: "Great non-scripted stories take place at the intersection of player agency and unpredictability." The trait system is just complex enough to produce surprising behavior without being so complex that behavior feels random.
+
+**Fire Emblem's named permadeath:** Characters have authored backstories, support conversations that unlock through adjacency, and permanent death. The grid-based battles become "a tactical chess match with all the pieces having names and backstories." But Fire Emblem's weakness: deaths rarely impact the authored story, creating a disconnect between mechanical loss and narrative continuity.
+
+**Tamagotchi's care bond:** Aki Maita's foundational insight: "I think it's very important for humans to find joy caring for something." She observed high-school girls with prototypes for weeks, optimizing for emotional attachment. The key design: the Tamagotchi's state is a *consequence of the player's attention*. A well-fed Tamagotchi "grows into a cute, happy cyber creature." A neglected one "grows into an unattractive alien." The causal link between care and outcome creates ownership.
+
+**Screeps' naming tension:** Players discuss creep naming extensively on forums. Functional names ("repair-1234," "build-5678") are efficient but emotionally dead. Fun names create attachment but make debugging harder. Power Creeps — persistent hero units — were specifically designed with "more personality" because the community wanted units "that everyone knows you by." The persistent identity is the hook.
+
+---
+
+### The Robot Uprising Opportunity
+
+Robot Uprising is uniquely positioned for anthropomorphization because its core mechanic — configuring agent attention systems — *literally produces behavioral personality.* A Scout configured with wide perception and aggressive hooks "feels curious and chatty." A Striker with narrow perception and minimal context "feels laser-focused and silent." A Relay with max buffer and compress skill "feels patient and methodical." These aren't metaphors — they're direct consequences of the player's configuration choices, read through the lens of human social cognition.
+
+The game has five locked unit types (Scout, Striker, Relay, Specialist, Command) with distinct portraits and icons. But the locked design doesn't specify whether individual *instances* of these units carry persistent identity across missions.
+
+---
+
+### Five Design Models for Anthropomorphization
+
+#### Model A: "The Anonymous Factory" (Gladiabots approach)
+
+Units are interchangeable instances of blueprints. A Scout is a Scout. No names, no persistent identity, no memory between missions. The factory spawns them, they execute, they're gone.
+
+**What this feels like:** Clinical. Efficient. The player thinks about *architectures*, not *individuals*. The factory metaphor is pure — units are products, not people. This aligns with the "you are an AI" narrative frame: an AI wouldn't anthropomorphize its own subroutines.
+
+**Strengths:** Cleanest mechanical design. No naming UI to build. No attachment means no grief when units are eliminated — the player's emotional response stays focused on the *architecture's* performance, not individual loss. Reinforces the "information architecture, not combat" identity.
+
+**Weaknesses:** Misses the most powerful engagement hook in comparable games. Sealed watch becomes purely analytical — "did my architecture work?" — without the emotional overlay of "is Scout-3 going to survive?" Community stories center on configurations, not characters. Streaming value drops significantly — audiences engage with named characters, not anonymous processes.
+
+**The TikTok clip:** A factory produces scout after scout, each executing identically, each dying the same way. Cold. Mechanical. Compelling only for the architecture-minded.
+
+#### Model B: "The Naming Ceremony" (XCOM approach)
+
+Each unit spawned from the factory receives a procedurally generated name and a persistent identity within the mission. "SCOUT-Mayon" (named after Philippine volcanoes), "RELAY-Apo," "STRIKER-Pinatubo." Names appear above units during sealed watch. Kill counts, signal relays processed, and context overloads survived are tracked per-unit during the mission.
+
+**What this feels like:** Warmer. The sealed watch becomes personal — "Mayon is flanking left, she's about to see three enemies, her context window is almost full, she's going to overload—" The player narrates without being prompted because the name creates a handle for the narrative.
+
+**Strengths:** Zero mechanical impact — names are purely cosmetic. Massive emotional engagement during sealed watch. Natural streaming vocabulary ("Mayon is down! Pinatubo has to solo the right flank!"). Player investment in sealed watch quality increases because units have identities to root for. Philippine geography naming scheme reinforces the setting.
+
+**Weaknesses:** Names reset per mission — no cross-mission attachment. If the factory spawns 8 Scouts from the same blueprint, 8 different names dilute identity (which one is "my" scout?). Risk of attachment to individual units distracting from architecture-level thinking.
+
+**The TikTok clip:** "SCOUT-Mayon spots three enemies. Her context window fills. She transmits. The signal reaches RELAY-Apo just as STRIKER-Pinatubo arrives. One tick. Three kills. Mayon never saw the fourth enemy behind her."
+
+#### Model C: "The Persistent Roster" (Fire Emblem approach)
+
+Units persist across missions. SCOUT-Mayon, spawned in Mission 5, carries forward with a service record: missions survived, total signals transmitted, context overloads endured, enemies tagged, kills assisted. Portraits in the Blueprint Codex show individual unit records. Units that survive many missions earn visual distinctions — battle scars rendered as circuit-board cracks, antenna modifications, chassis weathering.
+
+**What this feels like:** Deep attachment. Players develop favorites. "Mayon has been with me since the Ifugao mission. She's survived six battles. She's my best scout." The service record transforms mechanical history into narrative significance.
+
+**Strengths:** Maximum emotional engagement. Cross-mission narrative continuity. Natural difficulty: losing a veteran unit means losing accumulated narrative weight (even if mechanically identical to a replacement). Community sharing of legendary unit stories. The Blueprint Codex becomes a trophy case. Visual wear-and-tear rewards longevity.
+
+**Weaknesses:** Conflicts with factory production model — if the factory spawns 3 scouts per mission, which ones persist? If all persist, the roster balloons unmanageably. If only survivors persist, there's a favored-few problem. Mechanical attachment creates save-scumming pressure (retry to save Mayon). Most critically: **the game's core thesis is "think about architectures, not individuals"** — persistent rosters push players toward individual unit attachment, which is the opposite direction.
+
+**The TikTok clip:** SCOUT-Mayon's service record scrolling like an end-credits sequence. Mission count climbing. Signal count in the thousands. Then: "Mission 9 — Taal Volcano. ELIMINATED tick 23." Silence. Empty portrait slot.
+
+#### Model D: "The Named Blueprint" (Screeps Power Creep approach)
+
+Not units, but *blueprints* carry identity. The player names their Scout blueprint "Mayon" and their Relay blueprint "Apo." Every Scout spawned from the Mayon blueprint inherits the name and personality — they're instances of a named *design*, not named individuals. The blueprint's service record tracks cumulative stats across all instances: total scouts spawned, average survival ticks, signal efficiency rating, overload frequency.
+
+**What this feels like:** The player anthropomorphizes their *design decisions*, not individual units. "Mayon v3 is much more cautious than v2 — she actually retreats now." The name tracks the *evolution of the player's thinking* about that role. This is the closest to how real engineers talk about their systems: "our authentication service is paranoid" — they're describing the system's configured behavior as personality.
+
+**Strengths:** Perfectly aligned with the "architecture, not individuals" thesis. Blueprint naming is natural (players will name blueprints anyway for organizational clarity). Version history creates a narrative of the player's learning arc. Community sharing uses blueprint names ("try my Mayon config — she's tuned for wide-perception stealth scouting"). Multiple instances of the same blueprint reinforce the "design" identity, not the "individual" identity. When a Scout dies, it's "a Mayon died," not "Mayon died" — the design persists, the instance is replaceable.
+
+**Weaknesses:** Weaker individual attachment during sealed watch — watching five identical "Mayon" scouts is less narratively rich than watching five differently-named scouts. The blueprint-as-character metaphor is intellectually elegant but emotionally cooler than individual naming. Veterans who've played XCOM may feel the game is withholding something.
+
+**The TikTok clip:** Blueprint editor. "Mayon v1 — too aggressive." Delete. "Mayon v2 — can't handle noise." Iterate. "Mayon v7 — she's perfect." Deploy. Watch. She works. Exhale.
+
+#### Model E: "The Growing Personality" (Dwarf Fortress approach — RECOMMENDED)
+
+**Named blueprints (Model D) as the primary layer, with emergent per-instance behavioral signatures as a secondary layer.** Here's how:
+
+Each blueprint is player-named and carries persistent identity, version history, and cumulative stats. But individual unit instances, during a mission, develop a **behavioral signature** — a short auto-generated descriptor based on what actually happened during that mission's execution. The signature is generated from observable behavior: which rules fired most, which context entries dominated, what the unit's movement pattern looked like.
+
+After a mission, the Inspector's unit detail panel shows:
+
+> **SCOUT-Mayon #7** (instance 7 of the Mayon blueprint)
+> *Behavioral signature: "The Perimeter Walker"*
+> — Completed 14 patrol cycles (3× fleet average)
+> — Transmitted 23 signals (highest in army)
+> — 0 context overloads (clean run)
+> — Survived
+
+> **SCOUT-Mayon #8**
+> *Behavioral signature: "The Sacrifice"*
+> — Destroyed tick 18 (earliest in army)
+> — Transmitted 4 signals before elimination
+> — Final transmission triggered relay chain that won the match
+> — Context window was 100% full at destruction
+
+The same blueprint, the same configuration — but different starting positions, different enemy encounters, different timing produced two different "personalities" in the same mission. The behavioral signature is auto-generated, ephemeral (lives only in the debrief), and purely observational. It doesn't affect gameplay. But it gives the player a narrative handle for what happened.
+
+**What this feels like:** The player names the *design* (blueprint), the *game* names the *performance* (instance signature). "I designed Mayon to be cautious, but Mayon #8 was The Sacrifice — she overloaded trying to warn everyone and died." The gap between intended behavior and emergent behavior is where the anthropomorphization magic lives. The player experiences their own design producing surprising personality — exactly the feeling of watching an AI you built do something unexpected.
+
+**Strengths:** Combines architectural thinking (named blueprints) with emotional moments (named instances). Behavioral signatures emerge from the same chaos/sensitive-dependence system documented in 2.00i — the buffer-as-chaos-engine produces different behavioral outcomes from the same config. Signatures give streamers instant vocabulary ("The Sacrifice!" in the debrief gets a clip). The auto-generation means zero player effort for the naming. Signatures are discoverable — players learn to predict which configurations produce which signature archetypes. The gap between "what I designed" and "what happened" is the game's core teaching moment, and signatures make it narratively legible.
+
+**Weaknesses:** Auto-generated names risk feeling generic or forced. The system needs enough behavioral analysis to produce good signatures — bad names break immersion worse than no names. Implementation complexity for behavioral classification. Risk of players optimizing for "cool signatures" rather than mission success (but this might actually be a feature — it's a secondary optimization axis).
+
+**What this sounds like:** During sealed watch, units are identified by blueprint name and instance number ("Mayon-7, Mayon-8"). In the debrief, the behavioral signature appears with a soft chime — a single ascending tone for survivors, a descending minor chord for eliminated units. The signature text fades in over 1.5 seconds, handwritten-font style, below the unit's portrait in the Inspector panel. A unit that earned "The Sacrifice" gets a brief amber glow around its portrait — not celebration, just acknowledgment.
+
+---
+
+### Behavioral Signature Taxonomy
+
+The auto-generated signatures draw from a classification system based on observable behavior during the mission:
+
+| Pattern | Signature Examples | Trigger Criteria |
+|---------|-------------------|-----------------|
+| High signal output | "The Town Crier," "The Broadcaster," "The Alarm Bell" | Top 20% signal transmission count in army |
+| Long survival | "The Survivor," "The Cockroach," "The Last Standing" | Survived while 50%+ of same type eliminated |
+| Early elimination with impact | "The Sacrifice," "The Warning Shot," "The Canary" | Eliminated in first 25% of ticks AND final signal triggered chain reaction |
+| Early elimination without impact | "The First Casualty," "The Unlucky" | Eliminated in first 25% of ticks, no significant post-death signal chain |
+| Zero context overloads | "The Disciplined," "The Clean Buffer," "The Monk" | 0 overloads in a match where army average > 1 |
+| Many context overloads | "The Overwhelmed," "The Drowning," "The Open Ear" | 3+ overloads, highest in army |
+| High movement coverage | "The Perimeter Walker," "The Explorer," "The Wanderer" | Visited 40%+ of reachable grid cells |
+| Stationary high throughput | "The Switchboard," "The Backbone," "The Hub" | Relay with 30+ signals compressed/filtered |
+| Critical kill chain | "The Assassin," "The Closer," "The Finisher" | Striker whose action eliminated 2+ enemies |
+| Failed engagement | "The Whiff," "The Confused," "The Misfire" | Striker who moved to engage but target relocated before arrival |
+| Hack success | "The Infiltrator," "The Ghost," "The Lockpick" | Specialist who successfully hacked an enemy unit |
+| Tagging champion | "The Cartographer," "The Painter," "The Marker" | Tagged 4+ map nodes or enemies |
+| Command reassignment | "The Conductor," "The Architect," "The Puppeteer" | Command unit that issued 5+ reassignment/reroute actions |
+
+Signatures compound: a unit that qualifies for multiple patterns gets a composite — "The Disciplined Wanderer," "The Sacrificial Broadcaster." Maximum two adjective-noun combinations to prevent absurdity.
+
+---
+
+### Interaction Effects
+
+**× Blueprint Codex (locked):** Blueprint entries show aggregate signature distribution — "Mayon v7 produces 43% Perimeter Walkers, 22% Broadcasters, 18% Sacrifices, 17% other." This teaches the player what behavioral range their configuration actually produces. A configuration that produces 80% "The Overwhelmed" signatures has a context management problem — the signatures are a diagnostic tool disguised as a narrative feature.
+
+**× Sealed Watch (locked):** During sealed watch, units show blueprint name + instance number only ("Mayon-7"). Signatures are assigned retroactively in the debrief. This preserves sealed watch purity — no spoilers about what a unit "is" until you've watched it perform.
+
+**× Inspector (locked):** The behavioral signature is the first thing shown in the unit detail panel, above the context window chart and decision trace. It functions as a one-word summary of the unit's mission experience — click to expand into the full behavioral breakdown.
+
+**× Sensitive Dependence / Chaos Engine (2.00i):** Behavioral signatures make the chaos engine's output legible. Two runs of the same config produce Mayon-7 "The Perimeter Walker" and Mayon-7 "The Sacrifice" — the signature difference is a human-readable encoding of the divergent execution paths documented in 2.00i.
+
+**× Config Necropsy Culture (7.10):** Signatures become community vocabulary. "My Relay config keeps producing Overwhelmed signatures against rush compositions" is a more communicable problem statement than "my relay's context window fills up in high-signal-density scenarios." The signature is a shared diagnostic language.
+
+**× Streaming/Content (locked):** Signatures are clip gold. A streamer watches sealed watch narrating in real-time, then the debrief reveals signatures: "OH, Mayon-8 was THE SACRIFICE?! She died on tick 18 but her signal won the whole match!" The reveal is a natural content moment.
+
+**× Campaign Progression:** Signature vocabulary grows with the campaign. Missions 1-4 (pre-factory, few units) produce simple signatures. Mission 5+ (factory, many units) produces richer signatures as more behavioral patterns become possible. The signature taxonomy is a hidden progression system.
+
+---
+
+### Comparable Games: Attachment Through Autonomous Behavior
+
+| Game | Attachment Mechanism | Identity Layer | Persistence | Lesson for Robot Uprising |
+|------|---------------------|---------------|-------------|--------------------------|
+| **XCOM** | Customization + shared hardship + permadeath | Individual soldiers with names/faces | Cross-mission (until death) | Naming alone doesn't create attachment — shared hardship does; sealed watch IS the shared hardship |
+| **Dwarf Fortress** | Procedural personality + emergent behavior | Individual dwarves with beliefs/facets/biography | Permanent | Personality depth can be invisible — players only see behavioral consequences; most data is never read |
+| **RimWorld** | Traits + dynamic relationships + authored backstories | Individual colonists with traits/skills/stories | Permanent | "Trait × situation = surprise" is the formula; Robot Uprising's version is "config × scenario = signature" |
+| **Fire Emblem** | Authored characters + permadeath + support conversations | Pre-written characters | Cross-mission (until death) | Named characters without behavioral variety feel like chess pieces with hats |
+| **Gladiabots** | Emergent behavior from behavior trees (undesigned) | Anonymous class instances | None | Players will anthropomorphize regardless — the question is whether you harvest this or ignore it |
+| **Screeps** | Code-as-identity + persistent world + Power Creeps | Functional naming vs. fun naming tension | Session-length for creeps, permanent for Power Creeps | The naming tension (functional vs. emotional) IS a design space; Power Creeps prove persistent identity adds engagement |
+| **Tamagotchi** | Care → consequence feedback loop | Single named pet | Permanent | The causal link between player attention and creature state creates ownership; Robot Uprising's version: config quality → unit behavioral signature |
+
+---
+
+### Player Journeys
+
+#### Journey: Sofia, 15, first-time strategy game player
+
+**Context:** Mission 6 (first factory mission with multiple Scouts). She's named her Scout blueprint "Diwata" (Philippine nature spirit) and her Relay blueprint "Balete" (banyan tree). She's about to deploy for the first time with multiple instances of the same blueprint.
+
+**Minute 0:00 — The Factory Hum**
+The factory UI shows Diwata in the production queue. Cost: 3 minerals. She drags Diwata into slots 1, 2, and 3. Three scouts. The ghost preview shows three identical cyan silhouettes on the board, labeled Diwata-1, Diwata-2, Diwata-3. She hasn't thought about the fact that they'll behave identically. She thinks of them as three different characters.
+
+**Minute 0:30 — Sealed Watch**
+Tick 1: Three scouts fan out from the factory. Diwata-1 heads northwest, Diwata-2 east, Diwata-3 southeast. Same patrol logic, different spawn timing, different enemy positions — different paths. Sofia immediately starts narrating: "Diwata-1 is brave, she's going straight toward the enemy spawner. Diwata-3 is playing it safe."
+
+**Minute 1:45 — The Divergence**
+Tick 22: Diwata-1 spots two enemies simultaneously. Her context window fills to 5/6. She transmits on the recon channel. Diwata-3, in a quiet sector, has a half-empty buffer and is calmly patrolling. Sofia watches Diwata-1's context bar turn amber. "She's stressed. She's got too much information."
+
+**Minute 2:30 — The Loss**
+Tick 31: Diwata-1's context overloads. She freezes for one tick — sparking jitter animation. An enemy striker moves adjacent. Elimination. Sofia gasps. Not "a scout died" — "Diwata-1 died."
+
+**Minute 3:00 — The Debrief Reveal**
+Inspector opens. Sofia clicks Diwata-1. The behavioral signature fades in below the portrait: *"The Canary."* Explanation: eliminated early, but final transmission triggered relay chain that alerted the army to the northwest flank. Sofia didn't see the downstream effect during sealed watch — the signature tells her the death mattered. She clicks Diwata-3: *"The Perimeter Walker."* Explanation: completed 11 patrol cycles, transmitted 8 signals, survived. Sofia smiles. "Diwata-3 is the careful one."
+
+**Minute 4:00 — The Iteration**
+She goes back to the workbench. She doesn't change the Diwata blueprint — she adjusts the listen/ignore filters in the Context Config. "Maybe if Diwata doesn't try to track everything, she won't overload." She's learning context window management, but she frames it as "helping Diwata be less anxious." The anthropomorphization IS the learning.
+
+**UI Annotations:**
+- Blueprint name field: 200px text input at top of blueprint editor, auto-saves, Philippine-character-set support
+- Instance labels: "Diwata-1" in 10px font above unit during sealed watch, fades to 8px at 2× speed
+- Behavioral signature: 14px italic text below portrait in Inspector, fade-in 1.5s, amber glow for eliminated units
+- Signature tooltip on hover: 3-line behavioral summary with key stats
+
+---
+
+#### Journey: Marcus, 42, DevOps engineer and Factorio veteran
+
+**Context:** Mission 8 (full system, complex architecture). He has 7 named blueprints, a command unit, and a sophisticated relay mesh. He's been playing for 6 hours total. His naming convention mirrors his professional Kubernetes namespace habits: relay-edge, relay-core, scout-flank, striker-primary.
+
+**Minute 0:00 — Pre-Deploy Review**
+Marcus opens the Blueprint Codex. He checks his relay-core blueprint's signature distribution from the last 4 missions: 62% "The Switchboard," 23% "The Backbone," 15% "The Overwhelmed." That 15% Overwhelmed rate bothers him. He opens relay-core's config. Buffer is 12 slots. Listen config accepts 4 channel types. He narrows it to 3. He's doing exactly what a DevOps engineer does: reading observability metrics and tuning the service.
+
+**Minute 1:30 — Sealed Watch**
+Tick 1-40: The architecture executes. Marcus watches relay-core-1 (his central relay) processing signals. Context bar pulses between cyan and amber — busy but not overloaded. He nods. "Relay-core is handling it." He doesn't say "the relay" — he says "relay-core," his name, his design.
+
+**Minute 3:00 — The Cascade**
+Tick 41: Enemy specialist hacks relay-core-1. It goes dark. The signal chain breaks. Downstream strikers lose intelligence. Marcus watches the cascade exactly as described in 2.00f-i: signal lines dissolve, downstream units drift on stale data. But his redundant relay-core-2 picks up within 3 ticks — the failover works. He exhales. "Relay-core held. Well, relay-core-2 held."
+
+**Minute 4:30 — The Debrief**
+Inspector. Relay-core-1: *"The Backbone"* — processed 47 signals in 41 ticks before hack. Relay-core-2: *"The Understudy"* — 3 signals in first 41 ticks, then 29 signals in remaining 19 ticks after failover. Marcus laughs. "The Understudy. That's exactly right." He screenshots the two signatures side by side and posts them in his team's Slack: "My relay failover architecture has better uptime than our prod Kafka cluster."
+
+**Minute 6:00 — The Meta-Insight**
+He opens the Blueprint Codex's aggregate view. Relay-core's Overwhelmed rate has dropped from 15% to 4% after narrowing the listen config. The signature distribution IS the SLO dashboard. He realizes he's been doing incident response and capacity planning for the last hour, but it felt like playing a game.
+
+**UI Annotations:**
+- Blueprint Codex signature distribution: horizontal stacked bar chart, one color per signature archetype, hover shows percentage and count
+- Signature history: last 10 missions, sparkline of signature type distribution over time
+- "The Understudy" signature: triggered by <20% throughput in first half, >200% throughput in second half (relative to army average)
+
+---
+
+#### Journey: Kwame, 28, Twitch streamer, 400 concurrent viewers
+
+**Context:** Mission 9, streaming. He's named all his blueprints after Filipino mythological creatures: Tikbalang (Scout), Kapre (Striker), Duwende (Relay), Manananggal (Specialist), Bathala (Command). His audience loves the naming scheme and has developed favorites.
+
+**Minute 0:00 — Pre-Deploy Chat Interaction**
+Kwame opens the Blueprint Codex for stream. Chat sees Tikbalang's signature history: 55% "The Wanderer," 30% "The Canary," 15% "The Broadcaster." Chat erupts: "TIKBALANG DIES TOO MUCH" "PROTECT THE HORSE BOY" "buff tikbalang's buffer please." Kwame adjusts Tikbalang's context config on stream, narrating: "Chat says Tikbalang is too reckless. Let's give him better filters."
+
+**Minute 2:00 — Sealed Watch**
+The army deploys. Tikbalang-1 and Tikbalang-2 fan out. Chat is split-screen watching both. "Tikbalang-1 is going toward the enemy base!" "TIKBALANG-2 IS FLANKING!" The identical blueprint produces different paths. Chat assigns personalities in real-time: "Tikbalang-1 is the brave one" "T-2 is smart."
+
+**Minute 3:30 — The Dramatic Moment**
+Tick 38: Tikbalang-1 spots the enemy base. Context window: 5/6. He transmits. The signal chain lights up — colored dashed lines from Tikbalang-1 to Duwende-1 to Kapre-1. Chat: "THE CHAIN! THE CHAIN!" Tikbalang-1's context bar hits 6/6 — amber to red. Overload. Stun. One tick frozen. An enemy striker moves adjacent. Elimination. Chat: "NOOOOOO" "HE DIED FOR THE TEAM" "F" "F" "F."
+
+**Minute 4:00 — The Debrief Reveal**
+Kwame opens Inspector, clicks Tikbalang-1. The behavioral signature fades in: *"The Sacrifice."* Chat explodes. "CALLED IT" "THE SACRIFICE TIKBALANG" "clip that." Kwame clicks Tikbalang-2: *"The Perimeter Walker."* Chat: "boring" "safe boy" "tikbalang-2 didn't avenge his brother." The signatures give chat vocabulary, narrative structure, and emotional anchors — three things that make streaming content.
+
+**Minute 5:00 — The Content Moment**
+Kwame opens the Blueprint Codex. Tikbalang's updated signature distribution: Canary rate increased from 30% to 35%. He says to stream: "We keep sending Tikbalang to die. The stats don't lie. Either we fix the config or we accept that Tikbalang is a kamikaze scout." Chat poll: "FIX TIKBALANG" vs "EMBRACE THE SACRIFICE." 60/40 for sacrifice. Kwame toggles the listen config wider. "Chat has spoken. Tikbalang sees everything. Tikbalang dies for the cause."
+
+**UI Annotations:**
+- Streamer overlay: signature reveal animation lasts 2 seconds with custom sound (configurable in settings)
+- Signature distribution chart: stream-friendly with high-contrast colors, 16px min font
+- Chat-relevant elements: blueprint names visible during sealed watch, signature reveal has natural pause for reaction
+
+---
+
+#### Journey: Dr. Amara, 38, ML researcher and distributed systems expert
+
+**Context:** Mission 10 (Taal Volcano, final boss). She has a meticulously documented spreadsheet tracking every blueprint version and its signature distributions across 9 prior missions. She treats the game as a hyperparameter tuning exercise.
+
+**Minute 0:00 — The Hypothesis**
+Dr. Amara opens the Blueprint Codex. Her Command blueprint "Matriarch" has a concerning pattern: 40% "The Conductor" (good — active reassignment), 35% "The Silent" (bad — no reassignment actions, indicating buffer was full of low-priority data preventing rule evaluation), 25% "The Overwhelmed" (bad — context overload). She hypothesizes: Matriarch's buffer is too permissive. She adjusts eviction priority to aggressively drop POSITION data (low-value for a stationary Command unit) and pinches the listen config to 2 channels instead of 4.
+
+**Minute 1:00 — Deploy**
+She deploys with the tuned Matriarch v12 and reviews her spreadsheet's prediction: if the hypothesis is correct, "The Silent" rate should drop below 15%. She needs 3-5 runs for statistical significance. She treats each mission execution as a trial.
+
+**Minute 3:30 — The Run**
+Matriarch-1 executes beautifully. Command reassignments fire on ticks 12, 19, 27, 35, 44. The army adapts fluidly to a two-front assault. No overloads on the Command unit. Dr. Amara watches the context bar stay green-to-amber, never red.
+
+**Minute 5:00 — The Debrief**
+Inspector. Matriarch-1: *"The Conductor."* Dr. Amara doesn't celebrate — one data point isn't significant. But she notes: 5 reassignments in 50 ticks = 10% action rate, up from the 4% average of previous versions. She opens the Codex. Matriarch v12's first signature. She'll run 4 more times before updating her spreadsheet and declaring the hypothesis validated or rejected.
+
+**Minute 6:00 — The Teaching Moment**
+She screenshots Matriarch v11 vs v12 signature distributions and prepares a slide for her lab meeting: "Bayesian hyperparameter tuning of an attention system, gamified." The behavioral signatures are her evaluation metric. The Blueprint Codex is her experiment tracker. The game is her research seminar's interactive demo.
+
+**UI Annotations:**
+- Blueprint version history: scrollable list with version number, date, signature distribution bar, and diff annotations ("v12: removed POSITION from listen, prioritize COMMAND in eviction")
+- Signature distribution comparison: side-by-side bars for any two versions, difference highlighted
+- Export: CSV export of signature distributions per version for external analysis
+
+---
+
+### Sensory Design
+
+**Visual:** Behavioral signatures appear in 14px italic serif font (DM Serif Display — matching the locked font choice), below the unit portrait in the Inspector panel. Survivors get a soft teal text glow. Eliminated units get amber text glow. The signature fades in over 1.5 seconds, left to right, as if being typed. First appearance in a session gets a subtle paper-unfold animation.
+
+**Audio:** Signature reveal plays a 2-note chime. Survivor signature: ascending major third (C→E). Eliminated signature: descending minor third (E→C#). The Blueprint Codex, when showing aggregate signature distributions, plays a very quiet ambient hum whose timbre shifts with the dominant signature type — high clear tone for "Conductor/Backbone" heavy distributions, lower warmer tone for "Sacrifice/Canary" heavy distributions. The player subconsciously associates sound with architectural health.
+
+**Color:** Each signature archetype has a muted accent color used in the Codex distribution chart: Perimeter Walker (teal), Broadcaster (cyan), Sacrifice (amber), Overwhelmed (red-orange), Switchboard (lavender), Understudy (sage green), Conductor (gold), Silent (grey). These colors appear nowhere else in the UI — they're exclusively the signature palette.
+
+---
+
+### The Anthropomorphization Spectrum
+
+Robot Uprising doesn't need to choose one model. The recommendation is **Model E (Growing Personality)** as the primary system, with a settings toggle for players who prefer **Model A (Anonymous Factory)**:
+
+| Setting | Behavior |
+|---------|----------|
+| **Personality: On** (default) | Blueprint names + instance numbers during sealed watch, behavioral signatures in debrief, aggregate distributions in Codex |
+| **Personality: Off** | Blueprint class + instance numbers only, no signatures, Codex shows raw stats only |
+
+The default-on ensures new players experience the engagement hook. The toggle respects players who find anthropomorphization distracting from pure architectural analysis. No mechanical difference between modes.
+
+---
+
+*Analysis complete. Aspect 1.06e documented.*
