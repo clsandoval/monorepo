@@ -167,7 +167,7 @@ The following are FINAL. Do not generate aspects, analyses, or variations that c
 **CRITICAL: This loop MUST explore breadth-first, NOT depth-first.**
 
 When picking the next aspect to analyze:
-1. **Check category coverage first.** Count how many analyzed aspects exist per top-level category (building-blocks, ui-ux, onboarding, campaign, core-mechanic, competitive-analysis, aesthetics, multiplayer, platform).
+1. **Check category coverage first.** Count how many analyzed aspects exist per top-level category (building-blocks, ui-ux, onboarding, campaign, core-mechanic, competitive-analysis, aesthetics, platform). **Multiplayer is OUT OF SCOPE** — skip all multiplayer aspects and mark them `[x] SKIPPED: out of scope (multiplayer deferred)`.
 2. **Pick from the LEAST explored category.** If campaign has 2 files and ui-ux has 67 files, the next aspect MUST come from campaign (or another underfilled category).
 3. **Maximum depth per branch: 2 levels.** An aspect (e.g., `1.04`) may generate ONE level of sub-aspects (e.g., `1.04a`). Sub-aspects MUST NOT generate further sub-aspects. If you find yourself writing `1.04a-ext-A-i`, STOP — fold that insight into the parent analysis instead. The aspects file already has 5+ level deep chains that will never be explored.
 4. **No single category may exceed 20 files** until ALL categories have at least 5 files.
