@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1462
-- **Analyzed:** 443
-- **Pending:** 1019
+- **Total aspects:** 1467
+- **Analyzed:** 444
+- **Pending:** 1023
 - **Convergence:** 30.3%
 
 ---
@@ -365,7 +365,12 @@
 - [ ] 2.00i — Sensitive dependence on initial conditions via buffer state: even deterministic systems can exhibit chaotic behavior when buffer contents create feedback loops; how two runs with slightly different enemy spawn positions cascade into completely different agent behaviors by tick 30; the buffer as a chaos engine
 - [ ] 2.00j — The debugging tax of full determinism: every failure is the player's fault; no "bad luck" to blame; for some players this is liberating, for others it's exhausting; how the debrief tools (especially the Minimum Fix Explorer) should surface the most impactful change to reduce diagnostic burden
 - [ ] 2.00k — Cross-model comparison matrix: formal side-by-side evaluation of all intelligence models (2.00a–2.00d) across 10 dimensions (debuggability, spectator drama, personality ceiling, educational transfer, async PvP fairness, computational cost, accessibility floor, skill ceiling, mod support, platform portability)
-- [ ] 2.00f-i — Relay as single point of failure: network resilience design — how does the player protect critical relays? Dedicated defender strikers, redundant relay paths, relay self-defense skills? The "network resilience" design puzzle as core mid-campaign challenge
+- [x] 2.00f-i — Relay as single point of failure: network resilience design — how does the player protect critical relays? Dedicated defender strikers, redundant relay paths, relay self-defense skills? The "network resilience" design puzzle as core mid-campaign challenge
+  - [ ] 2.00f-i-a — Relay defense as resource allocation problem: the explicit tradeoff between spending minerals on combat units vs. relay defense; the "defense budget" as a first-class mission constraint; how different mission economies push toward different defense paradigms
+  - [ ] 2.00f-i-b — Network fragmentation visualization in sealed watch: full specification of how signal chain dissolution animates during sealed watch — per-line fade timing, downstream unit reaction animations, the "cascade darkness" visual language; readability at 2× speed
+  - [ ] 2.00f-i-c — Relay-hunting AI behavior design: how enemy AI decides to target relays — EM-based targeting, proximity targeting, random chance; mission-specific enemy relay-targeting profiles; reading and predicting enemy targeting from the Inspector
+  - [ ] 2.00f-i-d — The "relay-light" architecture as competitive meta: architectures that minimize relay dependency via direct peer-to-peer hooks; higher latency and EM cost but zero SPOF risk; when relay-light beats relay-heavy in competitive play
+  - [ ] 2.00f-i-e — Graceful degradation rule patterns: a catalog of rule configurations maintaining useful behavior when signals are lost — timeout fallbacks, dead-reckoning rules, "last known position" behaviors; designing for failure as transferable engineering skill
 - [ ] 2.00f-ii — Signal attenuation as terrain modifier: jungle tiles reduce broadcast radius by 2, city tiles amplify by 1; terrain becomes communication infrastructure variable, not just movement/combat; interaction with biome art direction and campaign mission design
 - [x] 2.00f-iii — Emergent flocking from local rules: can Robot Uprising units exhibit Boids-like coordinated movement through local-only perception and communication? What rule configurations produce flock-like behavior without any explicit coordination signal? Swarm architectures as alternative to hierarchical command
 - [ ] 2.00f-iii-a — Flock size scaling analysis: how does flock behavior change from 3 scouts to 6 to 12? Minimum viable flock size, maximum before 8×8 board crowding, sweet spot as function of board size and unit perception radius
