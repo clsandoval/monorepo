@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1437
-- **Analyzed:** 438
-- **Pending:** 999
+- **Total aspects:** 1442
+- **Analyzed:** 439
+- **Pending:** 1003
 - **Convergence:** 30.5%
 
 ---
@@ -779,7 +779,12 @@
   - [ ] 5.08a-iv-iv — Adaptive phase difficulty based on performance: mission observes player's architecture and introduces shifts when succeeding too easily; rubber-banding difficulty through environmental volatility; interaction with invisible randomization
   - [ ] 5.08a-iv-v — "Phase tolerance" as displayed architecture stat: computed metric in workbench estimating shifts before degradation, based on buffer margins, eviction robustness, and detection hook coverage; pre-mission readiness signal
 - [ ] 5.08a-v — The "Earthquake" model — terrain-only phase shifts: phase shifts that change ONLY terrain (hills collapse, rivers flood, buildings crumble) without new enemies; tests terrain-dependent vs terrain-agnostic information routing; the minimalist phase shift
-- [ ] 5.08b — Community mission editor: tools for creating custom missions of each type; mission type as template system with adjustable parameters
+- [x] 5.08b — Community mission editor: tools for creating custom missions of each type; mission type as template system with adjustable parameters
+- [ ] 5.08b-i — Editor tutorial sequence: how the mission editor teaches itself; first-time onboarding for each of the four editor models (Template Stamp, War Room, Thesis Defense, Replay Remix); the "your first mission" guided flow; contextual help system; Into the Breach never shipped this, Mario Maker's was rudimentary
+- [ ] 5.08b-ii — Mission rating and discovery algorithms: how community missions are ranked, recommended, and surfaced; Steam Workshop's "most subscribed" popularity bias vs. quality-weighted discovery; the cold-start problem for new creators; skill-tag-based recommendation ("you struggled with noise — try these missions")
+- [ ] 5.08b-iii — Mission packs as curated experiences: bundling 3-7 missions into themed packs with narrative framing, shared difficulty curves, and unified aesthetic; community-authored "mini-campaigns"; the Thesis Defense model's multi-scenario bundle as a natural pack format
+- [ ] 5.08b-iv — Adversarial mission design (impossible-by-design): missions designed to be nearly unbeatable as community competitions; speedrun categories, lowest-unit-count challenges, single-blueprint challenges; the "I Wanna Be the Guy" tradition applied to attention architecture; interaction with 5.09b community layer
+- [ ] 5.08b-v — Cross-editor collaboration (multiplayer mission building): two players building a mission simultaneously — one designing the board, one designing the enemy AI; real-time collaborative editing as a social activity; interaction with multiplayer infrastructure
 - [ ] 5.08c — Mission type as difficulty language: using type names instead of star ratings; player self-selection into preferred types
 - [ ] 5.08d — The Gauntlet Rotation meta-structure: how Gauntlet cycles through mission types; rotation schedule as meta-puzzle
 - [x] 5.08e — Escort mission anti-frustration design: why escorts are hated elsewhere; "design-then-watch" as core differentiator; VIP-as-configured-agent
