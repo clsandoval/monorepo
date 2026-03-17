@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1402
-- **Analyzed:** 431
-- **Pending:** 971
+- **Total aspects:** 1407
+- **Analyzed:** 432
+- **Pending:** 975
 - **Convergence:** 30.7%
 
 ---
@@ -778,7 +778,12 @@
 - [ ] 5.08c — Mission type as difficulty language: using type names instead of star ratings; player self-selection into preferred types
 - [ ] 5.08d — The Gauntlet Rotation meta-structure: how Gauntlet cycles through mission types; rotation schedule as meta-puzzle
 - [x] 5.08e — Escort mission anti-frustration design: why escorts are hated elsewhere; "design-then-watch" as core differentiator; VIP-as-configured-agent
-- [ ] 5.08e-i — VIP stun vs. instant kill balancing: 3-tick stun window tuning, stun immunity cooldown, difficulty scaling, rescue probability math, comparison with Into the Breach Armored Train variant
+- [x] 5.08e-i — VIP stun vs. instant kill balancing: 3-tick stun window tuning, stun immunity cooldown, difficulty scaling, rescue probability math, comparison with Into the Breach Armored Train variant
+    - [ ] 5.08e-i-a — Rescue skill vs. adjacency rescue: should rescue require a specific `rescue` skill (limited to certain unit types, consuming a skill slot) or should any adjacent ally automatically trigger rescue? Skill-gated rescue creates composition decisions; adjacency rescue creates formation decisions
+    - [ ] 5.08e-i-b — VIP buffer firmware entries: the pre-filled buffer entries at higher difficulties — what are they narratively? Mission briefing data? Encrypted intelligence? Can the player read firmware entries in the Inspector? Firmware as both difficulty mechanic and worldbuilding
+    - [ ] 5.08e-i-c — Enemy noise composition as diagnostic information: are the noise flood entries uniform garbage or readable enemy intelligence? Can the player configure VIP to compress rather than filter, extracting useful data from the attack? "The noise IS the signal" as advanced escort strategy
+    - [ ] 5.08e-i-d — Overload counter persistence across retries: does the ⚡ counter reset on retry or carry over? Reset = independent attempts; carry-over = cumulative pressure punishing repeated failures; interaction with invisible randomization
+    - [ ] 5.08e-i-e — Multi-VIP escort formations: missions with 2-3 VIPs in convoy or splitting to separate extraction points; formation design challenge multiplication; the "convoy problem" as late-campaign design space
 - [ ] 5.08e-ii — Escort formation presets as accessibility layer: pre-built escort blueprint sets (Diamond Formation, Sensor Net, Stealth Escort) as templates for new players; interaction with 5.04a template-seeding; cold-start problem for escort missions
 - [ ] 5.08e-iii — Escort mission sound design vocabulary: VIP heartbeat, formation footsteps, stun crackle, rescue scramble audio; complete audio vocabulary specific to escort missions; interaction with 6.10 corruption audio
 - [ ] 5.08e-iv — Dynamic escort formation visualization on Plan screen: ghost preview showing escort formation at each tick of VIP's projected path; coverage gaps, timing windows, perception overlaps; planning tool unique to escort missions
