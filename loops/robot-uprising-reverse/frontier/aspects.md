@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1457
-- **Analyzed:** 442
-- **Pending:** 1015
+- **Total aspects:** 1462
+- **Analyzed:** 443
+- **Pending:** 1019
 - **Convergence:** 30.3%
 
 ---
@@ -1090,7 +1090,12 @@
 - [x] 6.11d-v — Educational institution demo integration: class groups, assignment-friendly Inspector exports, curriculum-aligned seasonal schedules; the demo as teaching platform for CS/multi-agent-systems courses
 - [ ] 6.11d-v-i — Inspector export file format specification: detailed `.uprising` JSON schema, versioning strategy, backward compatibility, field semantics for grading automation, community tooling around the format
 - [ ] 6.11d-v-ii — Lab Sandbox scenario editor constraint validation: automated impossibility detection, difficulty estimation algorithms, scenario complexity metrics, teacher-facing validation feedback
-- [ ] 6.11d-v-iii — Save code for shared computer labs: 6-character alphanumeric progress encoding without accounts, QR display, restore flow, collision avoidance, localStorage-to-code and code-to-localStorage round-trip
+- [x] 6.11d-v-iii — Save code for shared computer labs: 6-character alphanumeric progress encoding without accounts, QR display, restore flow, collision avoidance, localStorage-to-code and code-to-localStorage round-trip
+    - [ ] 6.11d-v-iii-a — Multi-device conflict resolution: last-write-wins vs. merge vs. player-prompt when offline edits on Device B conflict with CDN state from Device A; vector clock or timestamp-based resolution; merge strategies for non-conflicting blueprint changes
+    - [ ] 6.11d-v-iii-b — Save code as spectator pass: read-only mode when entering another player's save code; peer review in educational contexts; student-to-student architecture inspection without modification risk
+    - [ ] 6.11d-v-iii-c — Classroom-to-global save code migration: when a semester ends, converting classroom-scoped 4-character codes to global 6-character codes; teacher "release students" action; namespace portability
+    - [ ] 6.11d-v-iii-d — Save code versioned snapshots: optional version history behind a single code (HXKM7P-v1, v2, v3); rollback affordance; storage cost tradeoff (3-5× per code); "undo last session" as player safety net
+    - [ ] 6.11d-v-iii-e — CDN abuse mitigation design: rate limiting, payload validation, size caps, and CAPTCHA-free anti-bot measures for the save upload endpoint; balancing write-surface security against zero-friction educational use
 - [ ] 6.11d-v-iv — Vocabulary mapping as in-game overlay: toggle-able "CS Mode" that shows real CS/AI terminology alongside game terms (e.g., "Context Window (bounded buffer)"), activated by class code or setting; interaction with boot log and Inspector
 - [ ] 6.11d-v-v — Community scenario library for educators: teacher-authored Lab Sandbox scenarios shared via URL/repository, rating/review system, tagging by CS concept, difficulty level, and prerequisite missions; the "lesson plan marketplace" for Robot Uprising
 - [ ] 6.11d-ii-a — Badge tier threshold calibration: how to set Bronze/Silver/Gold/Diamond/Founder thresholds when demo population size is unknown at design time; adaptive thresholds based on actual population vs. fixed percentile cutoffs; "Top 10 in a 200-player demo" vs. "Top 10 in a 50,000-player demo" dignity equivalence
