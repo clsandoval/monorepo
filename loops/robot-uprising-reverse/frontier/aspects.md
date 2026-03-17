@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1476
-- **Analyzed:** 457
-- **Pending:** 1019
-- **Convergence:** 30.9%
+- **Analyzed:** 458
+- **Pending:** 1018
+- **Convergence:** 31.0%
 
 ---
 
@@ -441,7 +441,7 @@
 
 - [x] 4.01 — Plan phase: split-screen (army view + editor) vs. full-screen editor vs. overlay
 - [x] 4.02 — Execute phase: what's visible during hands-off execution, HUD elements, speed controls
-- [ ] 4.03 — The buffer visualization: how to show a unit's working memory in real time
+- [x] 4.03 — The buffer visualization: how to show a unit's working memory in real time
 - [ ] 4.04 — The debrief screen: timeline scrubbing, what-if analysis, failure diagnosis
 - [ ] 4.05 — The combo discovery moment: how the UI celebrates emergent interactions
 - [ ] 4.06 — Campaign map: how missions are presented, branching, narrative integration

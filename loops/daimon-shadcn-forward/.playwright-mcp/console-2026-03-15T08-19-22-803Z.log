@@ -1,8 +1,0 @@
-[    6104ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/icon.svg:0
-[    6117ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/site.webmanifest:0
-[    6130ms] [ERROR] Manifest fetch from http://localhost:3001/site.webmanifest failed, code 404 @ http://localhost:3001/login:0
-[   16849ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/site.webmanifest:0
-[   16866ms] [ERROR] Manifest fetch from http://localhost:3001/site.webmanifest failed, code 404 @ http://localhost:3001/dashboard:0
-[  254837ms] [WARNING] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
-[  254903ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/site.webmanifest:0
-[  254911ms] [ERROR] Manifest fetch from http://localhost:3001/site.webmanifest failed, code 404 @ http://localhost:3001/dashboard:0

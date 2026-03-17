@@ -1,3 +1,0 @@
-[    1351ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3097/site.webmanifest:0
-[    1353ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3097/icon.svg:0
-[    1384ms] [ERROR] Manifest fetch from http://localhost:3097/site.webmanifest failed, code 404 @ http://localhost:3097/:0

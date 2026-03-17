@@ -1,9 +1,0 @@
-[     166ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
-[     281ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/login:0
-[     610ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/site.webmanifest:0
-[     635ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/icon.svg:0
-[     643ms] [ERROR] Manifest fetch from http://localhost:3000/site.webmanifest failed, code 404 @ http://localhost:3000/login:0
-[    5761ms] Error: Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY. Copy .env.local.example to .env.local and fill in your Supabase credentials.
-    at createClient (http://localhost:3000/_next/static/chunks/src_f91367a3._.js:17:15)
-    at onSubmit (http://localhost:3000/_next/static/chunks/src_2f306454._.js:579:178)
-    at http://localhost:3000/_next/static/chunks/node_modules_84a7eed5._.js:2103:27
