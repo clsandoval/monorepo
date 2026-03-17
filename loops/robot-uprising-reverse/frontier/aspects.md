@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1442
-- **Analyzed:** 439
-- **Pending:** 1003
-- **Convergence:** 30.5%
+- **Total aspects:** 1447
+- **Analyzed:** 440
+- **Pending:** 1007
+- **Convergence:** 30.4%
 
 ---
 
@@ -593,7 +593,12 @@
 - [ ] 3.08e — Hook inheritance and blueprint templates: blueprint-level hook loadouts, instance-specific vs. shared channels when cloning units from the same blueprint
 
 ### Context Config
-- [ ] 3.12 — Context config UI: how does the player set buffer size, filters, eviction priorities?
+- [x] 3.12 — Context config UI: how does the player set buffer size, filters, eviction priorities?
+  - [ ] 3.12a — Per-channel fidelity threshold as mixing board sub-fader: secondary fader controlling minimum signal quality to accept; interaction with 5.14b per-channel fidelity
+  - [ ] 3.12b — Eviction policy visualization in sealed watch: can pips show eviction events in real-time during sealed watch without violating "no tools" constraint?
+  - [ ] 3.12c — Context config A/B testing between executes: "Compare Configs" mode running same scenario with two context configs side by side
+  - [ ] 3.12d — Context config templates per unit type: default configs (scout high-observations, relay high-channel, command high-priority) as starting points; interaction with Progressive Lens and onboarding
+  - [ ] 3.12e — "Attention budget" as first-class resource metric: total information processing bandwidth across all units displayed in production queue alongside minerals and energy
 - [ ] 3.13 — Context config presets vs. custom: pre-built configs for beginners, full control for veterans?
 
 - [ ] 3.01a — Skill parameterization depth: binary on/off vs. 1-3 slider parameters vs. fully configurable behavior curves per skill; impact on workbench complexity and mastery ceiling
