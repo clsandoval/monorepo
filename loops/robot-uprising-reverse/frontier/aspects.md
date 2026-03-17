@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1432
-- **Analyzed:** 437
-- **Pending:** 995
-- **Convergence:** 30.6%
+- **Total aspects:** 1437
+- **Analyzed:** 438
+- **Pending:** 999
+- **Convergence:** 30.5%
 
 ---
 
@@ -1080,11 +1080,16 @@
 - [ ] 6.11d-ii-e — Academy badge section design for educational contexts: Lab/educational badges in a separate archive partition with instructor attribution and class identifiers; grey-green visual treatment distinct from demo amber and Gauntlet cyan; instructor commendation format; interaction with 6.11d-v educational integration
 - [ ] 6.11d-ii-f — Badge sunset communication ethics: manufactured urgency ("export your badges before the demo shuts down") as conversion tactic; the line between legitimate notification and dark pattern; opt-in sunset reminders vs. aggressive push notifications
 - [ ] 6.11d-ii-g — Cross-era badge comparison in community discourse: when a "Circuit Pioneer — Silver" holder's achievement predates the full game, how does the community perceive it relative to Gauntlet Silver; designing for graceful era-comparison rather than prestige hierarchy; the League of Legends Season 1 model where scarcity from a smaller era enhances value
-- [ ] 6.11a-i — The System Upgrade ceremony variants: detailed design of 4+ "thank you for purchasing" emotional beats — The Statistician (demo stats), The Archivist (compressed replay montage), The Quiet Nod (golden border discovery), The Name Drop (AI uses player's blueprint names in clinical voice); audio design for each; interaction with boot log voice and narrative tone
+- [x] 6.11a-i — The System Upgrade ceremony variants: detailed design of 4+ "thank you for purchasing" emotional beats — The Statistician (demo stats), The Archivist (compressed replay montage), The Quiet Nod (golden border discovery), The Name Drop (AI uses player's blueprint names in clinical voice); audio design for each; interaction with boot log voice and narrative tone
 - [ ] 6.11a-ii — Save schema versioning strategy: the "Promise" approach (lock schema early, additive-only changes) vs. "Adapter" approach (migration functions per version delta); database migration pattern applied to game saves; breaking change policy for demo→full game format evolution
 - [ ] 6.11a-iii — Migration funnel analytics: what % of demo players generate export codes, what % successfully import, what % start fresh despite having demo data; A/B testing migration UI prominence; "recovery path" design for players who forgot to export
 - [ ] 6.11a-iv — The Pokémon Transfer Ritual pattern: making data import a mini-gameplay-moment rather than a paste; brief "system compatibility check" where the game shows each blueprint and asks the player to confirm; re-acquaintance as ownership-building; 30-second ritual vs. instant paste tradeoff
 - [ ] 6.11a-v — Inspector replay data portability across migration paths: large replay data (~200KB) exceeds QR/code limits; which migration paths support full replay transfer vs. config-only; "replay not included" messaging; replay re-generation from deterministic tick log as alternative to transferring full replay data
+- [ ] 6.11a-i-a — Ceremony tier comparison anxiety mitigation: when players learn the ceremony is engagement-tiered, light-tier players may feel judged; design options for preventing comparison anxiety (hide tier existence, make all tiers feel complete, add exclusive content per tier so "minimal" has something "deep" doesn't)
+- [ ] 6.11a-i-b — Ceremony localization and the Gratitude Glitch: the partial-word deletion sequence ("Opera|", "engage|", "performa|") requires language-specific fragments in every locale; localization pipeline for glitch text that maintains emotional rhythm in non-English typewriter reveal
+- [ ] 6.11a-i-c — Ceremony replay and archival: should the ceremony be viewable after the one-time play? Boot log archive, screenshot gallery, "memory" section in Blueprint Codex; the tension between one-time emotional impact and player desire to rewatch/share
+- [ ] 6.11a-i-d — The Archivist variant's tick-log dependency: the compressed replay montage requires full tick logs in the migration payload (~200KB+); interaction with lightweight migration models (Export Code) that may only transfer config data; "degraded Archivist" that shows board positions without animation
+- [ ] 6.11a-i-e — Ceremony as onboarding checkpoint: using the ceremony tier detection data (session count, Inspector time, naming behavior) to calibrate the full game's initial difficulty and tutorial verbosity; "the ceremony already knows how you play" as invisible adaptive difficulty seed
 
 ---
 
