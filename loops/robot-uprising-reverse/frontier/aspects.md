@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1469
-- **Analyzed:** 445
-- **Pending:** 1024
-- **Convergence:** 30.3%
+- **Total aspects:** 1471
+- **Analyzed:** 446
+- **Pending:** 1025
+- **Convergence:** 30.2%
 
 ---
 
@@ -679,7 +679,9 @@
   - [x] 5.00a — The vocabulary pacing bottleneck: 30 terms across 10 missions = 3 terms/mission average; maximum new-term density before cognitive overload; should some terms be withheld until debrief? Interaction with difficulty curve (5.04)
     - [x] 5.00a-i — The Mission 4 Wall: detailed mission design for the rules introduction — exact puzzle scenarios, enemy placement, designed failure states, and rule complexity ramp within a single mission; how to make 3-4 rule terms feel natural rather than overwhelming
     - [x] 5.00a-ii — Physical term placement as naming mechanic — the Baba Is You inspiration: dragging term labels from boot log to workbench headers as a physical naming ritual; the term becomes real when you place it; implications for accessibility and controller input
-      - [ ] 5.00a-ix — Distractor tokens as comprehension test: adding 1-2 word tiles per mission that DON'T match any panel; false-match avoidance training; interaction with vocabulary density curve (5.04b)
+      - [x] 5.00a-ix — Distractor tokens as comprehension test: adding 1-2 word tiles per mission that DON'T match any panel; false-match avoidance training; interaction with vocabulary density curve (5.04b)
+        - [ ] 5.00a-ix-a — Distractor token selection criteria: which future terms make good distractors; "near miss" (semantically close to a real panel) vs. "far miss" (obviously from a different system); how close can a distractor's semantics be before it becomes genuinely confusing vs. productively misleading
+        - [ ] 5.00a-ix-b — Distractor-to-real conversion pacing: tempo of shelved tokens returning as real tokens; 1-2 mission shelf residence vs. 4-5 mission residence; anticipation vs. forgetting; the promise cycle
       - [ ] 5.00a-x — Label persistence across sessions: save-state design for partially-labeled workbench; token tray state on quit/resume; interaction with session resume (5.20a)
       - [ ] 5.00a-xi — Community label sharing: if custom names allowed, sharing naming schemes as community artifacts; "Sofia's naming pack"; interaction with config sharing (5.20e, 7.03)
       - [ ] 5.00a-xii — Label removal as advanced mechanic: stripping names to see raw system without vocabulary framing; "beginner's mind" as diagnostic technique; interaction with frozen striker (5.00a-vi)
