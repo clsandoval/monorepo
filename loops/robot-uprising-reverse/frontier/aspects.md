@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1407
-- **Analyzed:** 432
-- **Pending:** 975
-- **Convergence:** 30.7%
+- **Total aspects:** 1412
+- **Analyzed:** 433
+- **Pending:** 979
+- **Convergence:** 30.6%
 
 ---
 
@@ -244,7 +244,7 @@
 - [x] 1.09 — Slay the Spire: combo discovery, synergy between cards, run structure, ascension difficulty
 - [ ] 1.09a — The "drawback as fuel" cross-agent pattern: deliberately designing hook/skill drawbacks (EM emissions, buffer pollution, processing delay) that become triggers or resources for other agents; Slay the Spire's Wild Strike + Evolve as template; the combinatorial space of "my weakness is your strength" agent pairings
 - [ ] 1.09b — The skip-as-power principle for slot allocation: how Robot Uprising communicates that empty hook/rule/skill slots are sometimes optimal; visual language for deliberate emptiness vs. unfilled potential; Slay the Spire's deck thinning as reference model for "less is more" in agent configuration
-- [ ] 1.09c — Cumulative Gauntlet modifiers as skill teachers: designing 15-20 specific Gauntlet difficulty modifiers where each one teaches a defensive technique (wider enemy perception → stealth design, pre-filled noise → eviction mastery, channel pollution → authentication, latency increase → loose coupling); Slay the Spire Ascension as template
+- [x] 1.09c — Cumulative Gauntlet modifiers as skill teachers: designing 15-20 specific Gauntlet difficulty modifiers where each one teaches a defensive technique (wider enemy perception → stealth design, pre-filled noise → eviction mastery, channel pollution → authentication, latency increase → loose coupling); Slay the Spire Ascension as template
 - [ ] 1.09d — Near-miss visibility as retention engine: how the Inspector must surface "the one configuration change that would have changed the outcome" to create Slay the Spire's "I was SO close" psychology; the difference between "you lost" and "you lost because Rule 3 evaluated stale data from tick 12"
 - [x] 1.09e — Slay the Spire 2 co-op design lessons: how the sequel's cooperative multiplayer (shared run with distinct roles) maps to Robot Uprising co-op models; 3M copies in one week as market validation for cooperative deckbuilder-adjacent design; what changed from solo to co-op and what broke
 - [ ] 1.09e-i — Slay the Spire 2's "relic contention" RPS mini-game as model for co-op resource conflict resolution: when two Robot Uprising co-op players both want the same production slot or blueprint priority, what resolution mechanic preserves the board-game-night feeling without frustrating the losing player?
@@ -252,6 +252,11 @@
 - [ ] 1.09e-iii — Asymmetric co-op tutorial design "Keep Talking and Nobody Builds": one player sees the battlefield, the other has the workbench; radical information asymmetry as teaching tool for the hook/channel system; forces verbal communication of spatial and temporal information
 - [ ] 1.09e-iv — Co-op-exclusive skills and hooks: skills/hooks that only exist in co-op mode (like StS2's co-op-exclusive cards); cross-player amplify, cross-player filter, shared context pool skill; how co-op-exclusive mechanics incentivize multiplayer without making solo feel incomplete
 - [ ] 1.09e-v — The "shared Command agent" co-op paradigm: one jointly-controlled Command agent managing both players' armies; shared infrastructure investment as cooperative bonding mechanic; the message broker as cooperative object
+- [ ] 1.09c-i — Modifier reveal ceremony audio design: full specification of the synthesizer tones, chime progression, and "the click" sound for each of the 18 Gauntlet levels; interaction with boot log audio and narrative tone
+- [ ] 1.09c-ii — Gauntlet modifier icons as visual language: 18 distinct glyphs readable at 16×16 pixels that communicate each modifier's essence; the glyph alphabet as a designed visual language; interaction with signal icon design and tier color coding
+- [ ] 1.09c-iii — "The Wall" levels as designed difficulty spikes: detailed analysis of which Gauntlet levels function as progression walls (L5 Channel Pollution, L10 Adaptive Threat, L14 Command Silence), what they filter for, and how the debrief system helps players overcome them
+- [ ] 1.09c-iv — Hades vs. Slay the Spire modifier selection model for Gauntlet: should Robot Uprising use fixed cumulative (StS Ascension) or player-selected (Hades Pact of Punishment) modifiers? Detailed tradeoff analysis with player journeys for each model
+- [ ] 1.09c-v — Modifier-unlocked Codex entries as delayed tutorial: "Defensive Technique" cards appearing in the Blueprint Codex only after encountering each modifier; forming a second tutorial layer parallel to the Gauntlet climb
 - [x] 1.10 — The Bazaar: real-time autobattler deckbuilding, item synergies, economic meta
   - [ ] 1.10a — The Bazaar's adjacency-first synergy vs. Robot Uprising's topology-first synergy: deep comparison of 1D positional synergy (adjacency on a line) vs. 2D+temporal synergy (spatial positioning + signal latency); which creates more memorable discovery moments; which is more accessible; can Robot Uprising borrow instant-feedback adjacency effects
   - [ ] 1.10b — The 30-second combat window as pacing constraint: fixed combat duration (The Bazaar's 30 seconds) vs. variable duration (Robot Uprising's tick budgets per mission); evaluation timescale uniformity vs. mission-specific optimization targets; which serves replayability better
