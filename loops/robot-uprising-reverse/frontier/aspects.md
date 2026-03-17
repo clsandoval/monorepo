@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1471
-- **Analyzed:** 449
-- **Pending:** 1022
-- **Convergence:** 30.5%
+- **Analyzed:** 450
+- **Pending:** 1021
+- **Convergence:** 30.6%
 
 ---
 
@@ -567,7 +567,7 @@
 - [x] 5.08 — Mission variety: what types of missions exist (defend, attack, stealth, escort, puzzle, boss)
 - [x] 5.08a — The "Phase Shift" mission structure: missions that change TYPE mid-battle (relay network → siege → infiltration); multi-phase sealed watch pacing
 - [x] 5.08b — Community mission editor: tools for creating custom missions of each type; mission type as template system with adjustable parameters
-- [ ] 5.08c — Mission type as difficulty language: using type names instead of star ratings; player self-selection into preferred types
+- [x] 5.08c — Mission type as difficulty language: using type names instead of star ratings; player self-selection into preferred types
 - [ ] 5.08d — The Gauntlet Rotation meta-structure: how Gauntlet cycles through mission types; rotation schedule as meta-puzzle
 - [x] 5.08e — Escort mission anti-frustration design: why escorts are hated elsewhere; "design-then-watch" as core differentiator; VIP-as-configured-agent
 - [x] 5.09 — Replayability: what makes someone start a new campaign
