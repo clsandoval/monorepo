@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1412
-- **Analyzed:** 433
-- **Pending:** 979
+- **Total aspects:** 1417
+- **Analyzed:** 434
+- **Pending:** 983
 - **Convergence:** 30.6%
 
 ---
@@ -1000,7 +1000,7 @@
   - [ ] 6.01a-iii-d-iv — The "battle choir" emergent composition: accumulated damage sounds from mixed-biome boards creating unintentional sonic layering; designing biome damage ambient contributions for harmonic compatibility vs. tolerating chaos
 - [ ] 6.01a-iii-e — Tile repair as late-game Specialist skill: "restore" ability that repairs damaged tiles; strategic implications for damage-as-noise sub-option; aesthetic satisfaction of healing the battlefield
 - [ ] 6.01a-iv — Biome transition tile set completeness: fifteen biome pairs (5 choose 2) each need at least one transition tile; full pixel-level specs for all 15 combinations including jungle↔Siquijor, terrace↔city, and other uncovered pairs
-- [ ] 6.01a-v — High-contrast / accessibility tile variants
+- [x] 6.01a-v — High-contrast / accessibility tile variants
 - [x] 6.01a-vi — Animation-as-narrative: biome animation intensity as difficulty signal — do calmer biomes (terraces: slow, meditative) correlate with easier missions, and aggressive biomes (Taal: fast, intrusive) with harder ones? Is this mapping intentional or incidental? Should the player learn to "read" terrain animation speed as a difficulty preview?
   - [ ] 6.01a-vi-a — Behind the Glass annotation authoring pipeline: if Option D ships, who writes the annotations? Game designer? Procedural generation from biome metadata? Community-contributed annotations? The annotation as a design document that ships inside the game.
   - [ ] 6.01a-vi-b — Terrain noise as competitive Gauntlet variable: if Option B's mechanical terrain noise ships, Gauntlet maps could have different SNR values; players need environment-specific blueprints; "I have a Taal build and a Cebu build" as competitive vocabulary.
@@ -1013,6 +1013,11 @@
   - [ ] 6.01a-vii-c — Tag tint in competitive/PvP context: dual-player tag tints, opponent tag color (orange vs. cyan), contested-space dual-tint readability, territory visualization in PvP
   - [ ] 6.01a-vii-d — Tile reaction intensity as difficulty signal: environmental drama scaling with mission difficulty; same overload → subtle dim (M3) vs. board-wide ripple (M10); Gauntlet/Doctrine intensified reactions
   - [ ] 6.01a-vii-e — Inspector tile reaction replay controls: slow-motion tile reaction replay at 0.25x speed; "show tile reactions" toggle; EM detection pattern visibility for missed sealed-watch events
+- [ ] 6.01a-v-i — Transition tile geometric pattern design: when two biomes meet, how their geometric fingerprints merge or split at the boundary; the "junction pattern" as a distinct visual element
+- [ ] 6.01a-v-ii — Damage state communication in high-contrast mode: crack lines, scorch marks, vine-reclaim visuals translated to Blueprint/Paper/Radar tilesets; damage as pattern disruption
+- [ ] 6.01a-v-iii — Competitive integrity of tileset choice: whether tileset variants create measurable readability advantages; "tileset normalization" rules for ranked play
+- [ ] 6.01a-v-iv — Community tileset modding API: constraints, validation, contrast ratio enforcement, and distribution for player-created tilesets
+- [ ] 6.01a-v-v — Biome ambient audio design for blind navigation: detailed specification of the five biome sounds, their spatial audio behavior, volume curves, and the "audio tile walk" technique as primary board exploration for blind players
 - [ ] 6.01a-viii — Cross-biome transition animation blending: when the board has mixed biomes (e.g., terrace adjacent to jungle), how do their animations interact at the boundary? Do terrace water reflections carry into jungle shadow? Do Siquijor bioluminescent pulses illuminate adjacent city tiles?
 - [ ] 6.01a-ix — Animation sound design coupling: each biome's animation implies specific ambient sounds (water lapping for terraces, insect hum for jungle, neon buzz for city, rumbling for Taal). How tightly coupled should visual animation and ambient audio be? Should disabling visual animations also silence biome audio?: Shape-First Design geometric patterns per biome (diagonal hatching, horizontal lines, stippling, grid, concentric circles) replacing color as primary biome identifier; contrast ratios; readability across protanopia/deuteranopia/tritanopia/achromatopsia
 - [ ] 6.01a-ii-a — Signal collision visuals: what happens when two signal packets from different channels cross the same tile on the same tick? Interference patterns, pass-through, momentary merge; visual treatment varies by biome (city: overlapping fiber optic lines; jungle: double-rustle; Taal: amplified jitter)
