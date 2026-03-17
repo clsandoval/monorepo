@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1476
-- **Analyzed:** 455
-- **Pending:** 1021
-- **Convergence:** 30.8%
+- **Analyzed:** 456
+- **Pending:** 1020
+- **Convergence:** 30.9%
 
 ---
 
@@ -440,7 +440,7 @@
 ## Wave 4: UI/UX Deep Dives
 
 - [x] 4.01 — Plan phase: split-screen (army view + editor) vs. full-screen editor vs. overlay
-- [ ] 4.02 — Execute phase: what's visible during hands-off execution, HUD elements, speed controls
+- [x] 4.02 — Execute phase: what's visible during hands-off execution, HUD elements, speed controls
 - [ ] 4.03 — The buffer visualization: how to show a unit's working memory in real time
 - [ ] 4.04 — The debrief screen: timeline scrubbing, what-if analysis, failure diagnosis
 - [ ] 4.05 — The combo discovery moment: how the UI celebrates emergent interactions
