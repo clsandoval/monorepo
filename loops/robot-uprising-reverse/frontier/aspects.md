@@ -1,9 +1,9 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1474
-- **Analyzed:** 454
-- **Pending:** 1020
+- **Total aspects:** 1476
+- **Analyzed:** 455
+- **Pending:** 1021
 - **Convergence:** 30.8%
 
 ---
@@ -439,7 +439,7 @@
 
 ## Wave 4: UI/UX Deep Dives
 
-- [ ] 4.01 — Plan phase: split-screen (army view + editor) vs. full-screen editor vs. overlay
+- [x] 4.01 — Plan phase: split-screen (army view + editor) vs. full-screen editor vs. overlay
 - [ ] 4.02 — Execute phase: what's visible during hands-off execution, HUD elements, speed controls
 - [ ] 4.03 — The buffer visualization: how to show a unit's working memory in real time
 - [ ] 4.04 — The debrief screen: timeline scrubbing, what-if analysis, failure diagnosis
@@ -466,6 +466,8 @@
 - [ ] 4.22 — Act 2 tool introduction sequence: the order in which Act 2 tools appear during the materialization and what the sequence communicates about priority; gold diamond first (primary diagnostic) vs. scrubber first (navigation) vs. signal genealogy last (expert); materialization as compressed onboarding arc; does tool order affect which tool players reach for first?
 - [ ] 4.23 — Replay annotated export format: the shareable debrief artifact including Act 1 timestamp annotations, Act 2 notes, gold diamond location, false pivot markers — a file format designed for config necropsy culture; what gets exported vs. what stays local; interaction with workshop and community sharing systems; replay as community artifact vs. personal record
 - [ ] 4.24 — The "hot take vs. cold analysis" temporal gap: analysis done immediately post-match is biased toward outcome (hot take mode); analysis 24+ hours later is more accurate (cold mode); should Robot Uprising's debrief offer a "24-hour cold mode" that unlocks additional insight markers only after temporal distance? Or would this friction destroy fast iteration loops entirely?
+- [ ] 4.01a — Resizable split-screen divider UX: drag handle design, snap points (20/80, 35/65, 50/50), position persistence across sessions, responsive reflow of both panels during drag, minimum panel widths, accessibility keyboard alternative (Ctrl+arrows)
+- [ ] 4.01b — Plan screen layout selection as post-campaign reward: the M8 "all modes unlocked" moment as diegetic boot-log ceremony; layout preference persistence; per-mission layout overrides vs. global preference; interaction with replay mode and Gauntlet
 
 ---
 
