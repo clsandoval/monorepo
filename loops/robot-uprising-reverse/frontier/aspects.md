@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1476
-- **Analyzed:** 460
-- **Pending:** 1016
-- **Convergence:** 31.2%
+- **Analyzed:** 462
+- **Pending:** 1014
+- **Convergence:** 31.3%
 
 ---
 
@@ -146,7 +146,7 @@
 - [x] 1.06e — Anthropomorphization as engagement hook: players naming bots, narrating personalities, framing mechanical changes as character growth; how Robot Uprising designs for it deliberately (unit portraits, persistent bot identities, mission memory, named bot achievements)
 - [ ] 1.06f — Scouting report staleness and adversarial profile management: when opponents change configs between matches, scouting data becomes stale; should the game surface confidence decay? Can players deliberately present misleading profiles in early matches to set up a counter in a later match? Profile poisoning as competitive tactic
 - [x] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
-- [ ] 1.07a — The RAM-as-context-window parallel: how Bitburner's static RAM analysis (compile-time function cost → fits/doesn't-fit) vs. Robot Uprising's dynamic context window (runtime fill/evict) create fundamentally different player tensions; static constraint = build-time optimization, dynamic constraint = runtime drama
+- [x] 1.07a — The RAM-as-context-window parallel: how Bitburner's static RAM analysis (compile-time function cost → fits/doesn't-fit) vs. Robot Uprising's dynamic context window (runtime fill/evict) create fundamentally different player tensions; static constraint = build-time optimization, dynamic constraint = runtime drama
 - [ ] 1.07b — The code wall as design lesson: Bitburner's scripting cliff (manual→JavaScript transition) as cautionary data for Robot Uprising's workbench accessibility; dropout rate analysis; what specific affordances prevent the equivalent wall in visual configuration
 - [ ] 1.07c — The batch script coordination pattern: Bitburner's HWGW timing attacks as pure-code precursor to Robot Uprising's hook/channel signal chains; extracting the coordination design pattern from code into visual wiring
 - [ ] 1.07d — Prestige loops that change the game: BitNode system as model for Robot Uprising's post-campaign progression; each reset introduces new systems rather than just scaling numbers; how the Gauntlet or New Game+ could vary game rules rather than just difficulty
@@ -242,7 +242,7 @@
 - [x] 2.00g — The personality ceiling problem: deterministic agents risk feeling like vending machines; named agents with visual personality (idle animations, signal format quirks, "voice"); how much personality can be layered onto a deterministic core without touching the execution model?
 - [x] 2.00h — The solved-game risk and its mitigations: when a veteran finds a universal config that beats most missions; the Gauntlet as the unsolvable endgame; how campaign missions use 100-variant test cases to resist dominant strategies; at what skill level does the campaign "run out"?
 - [x] 2.00i — Sensitive dependence on initial conditions via buffer state: even deterministic systems can exhibit chaotic behavior when buffer contents create feedback loops; how two runs with slightly different enemy spawn positions cascade into completely different agent behaviors by tick 30; the buffer as a chaos engine
-- [ ] 2.00j — The debugging tax of full determinism: every failure is the player's fault; no "bad luck" to blame; for some players this is liberating, for others it's exhausting; how the debrief tools (especially the Minimum Fix Explorer) should surface the most impactful change to reduce diagnostic burden
+- [x] 2.00j — The debugging tax of full determinism: every failure is the player's fault; no "bad luck" to blame; for some players this is liberating, for others it's exhausting; how the debrief tools (especially the Minimum Fix Explorer) should surface the most impactful change to reduce diagnostic burden
 - [ ] 2.00k — Cross-model comparison matrix: formal side-by-side evaluation of all intelligence models (2.00a–2.00d) across 10 dimensions (debuggability, spectator drama, personality ceiling, educational transfer, async PvP fairness, computational cost, accessibility floor, skill ceiling, mod support, platform portability)
 - [x] 2.14 — Spatial routing as mechanic layer: battlefield layout creates information routing constraints, separate from configuration logic; agent proximity determines which hook chains are possible
 - [ ] 2.15 — Pipelined agent execution: throughput-optimal configurations where agents handle overlapping tasks (agent A finishes task N while agent B starts task N+1); cycle-optimal solutions look different from cost-optimal solutions; maps to Opus Magnum's pipeline-vs-sequential tradeoff
