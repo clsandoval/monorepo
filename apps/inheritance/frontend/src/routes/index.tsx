@@ -1,7 +1,7 @@
 import { createRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
 import { rootRoute } from './__root';
-import { LayoutDashboard, FilePlus, FolderOpen, Calculator, Users, FileText, Building2, Loader2 } from 'lucide-react';
+import { LayoutDashboard, FilePlus, FolderOpen, Building2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { QuickCalcWidget } from '@/components/quick-calc/QuickCalcWidget';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -32,37 +32,41 @@ export function DashboardPage() {
 
   if (!user) {
     return (
-      <div className="max-w-2xl mx-auto py-12 sm:py-20 px-4 sm:px-6">
+      <div className="max-w-2xl mx-auto py-16 sm:py-24 px-4 sm:px-6">
         {/* Hero */}
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 bg-accent/10 text-[#c5a44e] text-xs font-medium px-3 py-1 rounded-full border border-accent/20 mb-4">
+        <div className="text-center mb-10">
+          <p className="text-[#c5a44e] text-xs font-semibold uppercase tracking-[0.2em] mb-6">
             Philippine Succession Law
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight font-serif text-foreground mb-3">
+          </p>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight font-serif text-foreground mb-4 leading-[1.1]">
             Estate Distribution<br />Made Simple
           </h1>
-          <p className="text-base text-muted-foreground max-w-md mx-auto mb-6">
-            Compute Philippine inheritance shares instantly. Handles testate, intestate, mixed succession, preterition, and representation.
+          <p className="text-sm sm:text-base text-muted-foreground max-w-sm mx-auto">
+            Compute inheritance shares instantly. Testate, intestate, mixed succession, preterition, and representation.
           </p>
         </div>
 
         {/* Quick Calc Widget */}
-        <div className="max-w-md mx-auto mb-10">
+        <div className="max-w-md mx-auto mb-16">
           <QuickCalcWidget />
         </div>
 
-        {/* Feature grid */}
-        <div className="grid sm:grid-cols-3 gap-4 text-sm">
-          {[
-            { icon: Calculator, title: 'All Succession Types', desc: 'Testate, intestate, mixed, preterition' },
-            { icon: Users, title: 'Full Family Tree', desc: 'Representation, illegitimate heirs, collateral' },
-            { icon: FileText, title: 'Professional PDF', desc: 'Firm-branded reports for client delivery' },
-          ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
-              <Icon className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-              <div><p className="font-medium">{title}</p><p className="text-muted-foreground text-xs mt-0.5">{desc}</p></div>
+        {/* Proof points */}
+        <div className="border-t pt-6">
+          <div className="grid grid-cols-3 gap-4 text-center">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-foreground">All Types</p>
+              <p className="text-[11px] text-muted-foreground mt-0.5">Testate, intestate, mixed, preterition</p>
             </div>
-          ))}
+            <div className="border-x px-4">
+              <p className="text-xs font-semibold uppercase tracking-wider text-foreground">Full Tree</p>
+              <p className="text-[11px] text-muted-foreground mt-0.5">Representation, collateral, illegitimate</p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-foreground">PDF Reports</p>
+              <p className="text-[11px] text-muted-foreground mt-0.5">Firm-branded, ready for client delivery</p>
+            </div>
+          </div>
         </div>
       </div>
     );
