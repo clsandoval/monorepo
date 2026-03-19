@@ -34,7 +34,7 @@ COPY .claude-setup/settings.json /home/appuser/.claude/settings.json
 RUN chown -R appuser:appgroup /home/appuser/.claude
 
 # Entrypoint fixes volume perms (mounted as root) then drops to appuser
-RUN printf '#!/bin/sh\nchown appuser:appgroup /workspace 2>/dev/null\nexec su -s /bin/sh appuser -c "node /app/dist/index.js"\n' > /app/entrypoint.sh \
+RUN printf '#!/bin/sh\nchown appuser:appgroup /workspace 2>/dev/null\nexport HOME=/home/appuser\nexec su -s /bin/sh appuser -c "HOME=/home/appuser node /app/dist/index.js"\n' > /app/entrypoint.sh \
     && chmod +x /app/entrypoint.sh
 
 EXPOSE 8080
