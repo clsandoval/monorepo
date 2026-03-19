@@ -16,7 +16,7 @@ export function Header({ connected, onNewSession, filesOpen, onToggleFiles, sess
             <line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" />
           </svg>
         </button>
-        <h1 className="app-header-title">ops-knowledgebase-chat</h1>
+        <h1 className="app-header-title hidden sm:block">marigold-kbase</h1>
         <span
           className={`status-dot ${connected ? 'status-dot--connected' : 'status-dot--error'}`}
           title={connected ? 'Connected' : 'Disconnected'}

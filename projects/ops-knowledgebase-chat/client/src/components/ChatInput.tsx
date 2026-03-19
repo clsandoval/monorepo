@@ -102,7 +102,7 @@ export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled
   const isSlash = input.startsWith('/');
 
   return (
-    <div className="border-t border-default bg-white px-5 py-3">
+    <div className="border-t border-default bg-white px-3 md:px-5 py-2 md:py-3">
       <div className="chat-input-inner relative">
         {showAutocomplete && (
           <FileAutocomplete
@@ -162,7 +162,7 @@ export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled
           </button>
         )}
       </div>
-      <div className="chat-input-hint">
+      <div className="chat-input-hint hidden md:block">
         ctrl+enter send · ctrl+u upload · esc stop
       </div>
     </div>

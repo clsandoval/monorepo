@@ -239,8 +239,17 @@ export function App() {
       />
       <div className="flex flex-1 overflow-hidden" style={{ marginTop: 48 }}>
         {filesOpen && (
-          <div className="w-60 flex-shrink-0">
+          <div className="hidden md:block w-60 flex-shrink-0">
             <FileExplorer tree={tree} loading={filesLoading} onRefresh={refreshFiles} />
+          </div>
+        )}
+        {/* Mobile sidebar overlays */}
+        {filesOpen && (
+          <div className="md:hidden fixed inset-0 z-40" style={{ top: 48 }}>
+            <div className="absolute inset-0 bg-black/30" onClick={() => setFilesOpen(false)} />
+            <div className="absolute left-0 top-0 bottom-0 w-64 bg-white shadow-md overflow-y-auto">
+              <FileExplorer tree={tree} loading={filesLoading} onRefresh={refreshFiles} />
+            </div>
           </div>
         )}
         <div className="flex flex-col flex-1 min-w-0">
@@ -255,12 +264,24 @@ export function App() {
           />
         </div>
         {sessionsOpen && (
-          <div className="w-65 flex-shrink-0">
+          <div className="hidden md:block w-65 flex-shrink-0">
             <SessionHistory
               sessions={sessions}
               activeSessionId={activeSessionId}
               onSelectSession={handleLoadSession}
             />
+          </div>
+        )}
+        {sessionsOpen && (
+          <div className="md:hidden fixed inset-0 z-40" style={{ top: 48 }}>
+            <div className="absolute inset-0 bg-black/30" onClick={() => setSessionsOpen(false)} />
+            <div className="absolute right-0 top-0 bottom-0 w-64 bg-white shadow-md overflow-y-auto">
+              <SessionHistory
+                sessions={sessions}
+                activeSessionId={activeSessionId}
+                onSelectSession={handleLoadSession}
+              />
+            </div>
           </div>
         )}
       </div>
