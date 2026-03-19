@@ -7,15 +7,31 @@ export const rootRoute = createRootRoute({
 
 function RootLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const isPublicRoute =
+  const isAuthRoute =
     pathname.startsWith('/auth') ||
     pathname.startsWith('/share/') ||
     pathname.startsWith('/invite/');
-  if (isPublicRoute) {
+  const isContentRoute =
+    pathname.startsWith('/blog') ||
+    pathname === '/intestate-succession-calculator' ||
+    pathname === '/legitimate-share-calculator' ||
+    pathname === '/spouse-and-children-inheritance' ||
+    pathname === '/illegitimate-child-inheritance' ||
+    pathname === '/parents-inheritance-share' ||
+    pathname === '/no-will-inheritance-philippines';
+
+  if (isAuthRoute) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Outlet />
       </div>
+    );
+  }
+  if (isContentRoute) {
+    return (
+      <main className="min-h-screen bg-background">
+        <Outlet />
+      </main>
     );
   }
   return <AppLayout><Outlet /></AppLayout>;
