@@ -5,13 +5,17 @@ const RECONNECT_DELAY = 2000;
 
 interface UseWebSocketOptions {
   onMessage: (msg: ServerMessage) => void;
+  onReconnect?: () => void;
 }
 
-export function useWebSocket({ onMessage }: UseWebSocketOptions) {
+export function useWebSocket({ onMessage, onReconnect }: UseWebSocketOptions) {
   const wsRef = useRef<WebSocket | null>(null);
   const onMessageRef = useRef(onMessage);
   onMessageRef.current = onMessage;
+  const onReconnectRef = useRef(onReconnect);
+  onReconnectRef.current = onReconnect;
   const [connected, setConnected] = useState(false);
+  const hasConnectedBefore = useRef(false);
 
   useEffect(() => {
     let reconnectTimeout: ReturnType<typeof setTimeout>;
@@ -23,7 +27,14 @@ export function useWebSocket({ onMessage }: UseWebSocketOptions) {
       wsRef.current = ws;
 
       ws.onopen = () => {
-        if (mounted) setConnected(true);
+        if (mounted) {
+          setConnected(true);
+          // If this is a reconnect (not first connect), notify the app
+          if (hasConnectedBefore.current) {
+            onReconnectRef.current?.();
+          }
+          hasConnectedBefore.current = true;
+        }
       };
 
       ws.onmessage = (event) => {

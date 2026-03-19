@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useWebSocket } from './hooks/useWebSocket';
 import { useFileTree } from './hooks/useFileTree';
 import { useSessions } from './hooks/useSessions';
@@ -155,7 +155,23 @@ export function App() {
     }
   }, [refreshFiles, refreshSessions, updateSessionTitle]);
 
-  const { send, connected } = useWebSocket({ onMessage: handleMessage });
+  const activeSessionIdRef = useRef(activeSessionId);
+  activeSessionIdRef.current = activeSessionId;
+
+  const { send, connected } = useWebSocket({
+    onMessage: handleMessage,
+    onReconnect: () => {
+      // Restore active session after WebSocket reconnect (e.g. phone lock/unlock)
+      setIsStreaming(false);
+      setAgentStatus(null);
+      const sid = activeSessionIdRef.current;
+      if (sid) {
+        setTimeout(() => {
+          send({ type: 'load_session', session_id: sid });
+        }, 500);
+      }
+    },
+  });
 
   const handleSend = useCallback(
     (content: string) => {
