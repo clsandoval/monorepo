@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1476
-- **Analyzed:** 476
-- **Pending:** 1000
-- **Convergence:** 32.2%
+- **Analyzed:** 482
+- **Pending:** 994
+- **Convergence:** 32.7%
 
 ---
 
