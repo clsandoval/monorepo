@@ -34,11 +34,14 @@ export function LandingPageLayout({
       <JsonLd data={CALCULATOR_JSONLD} />
 
       <div className="max-w-2xl mx-auto py-16 sm:py-24 px-4 sm:px-6">
-        {/* Navigation back to home */}
-        <nav className="mb-8">
+        {/* Navigation */}
+        <nav className="mb-8 flex items-center justify-between">
           <Link to="/" className="text-sm text-primary hover:underline">
             ← Inheritance Calculator
           </Link>
+          <a href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Blog
+          </a>
         </nav>
 
         {/* Hero */}
