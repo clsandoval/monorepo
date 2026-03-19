@@ -75,6 +75,9 @@ export async function* runAgent(
       resumeSessionAt: session.lastAssistantUuid,
       env: { ...process.env },
       settingSources: ['project', 'user'],
+      plugins: [
+        { type: 'local' as const, path: (process.env.HOME || '/home/appuser') + '/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.5' },
+      ],
       allowedTools: ALLOWED_TOOLS,
       includePartialMessages: true,
       systemPrompt: {
