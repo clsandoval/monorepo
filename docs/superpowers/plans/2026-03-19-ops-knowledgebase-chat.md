@@ -46,6 +46,17 @@ projects/ops-knowledgebase-chat/
 │   ├── vite.config.ts
 │   ├── tsconfig.json
 │   └── tailwind.config.ts
+├── e2e/
+│   ├── helpers/
+│   │   └── server.ts          # Test server lifecycle (build, seed, start, stop)
+│   ├── 01-health.spec.ts      # Page load, health check, connection
+│   ├── 02-upload.spec.ts      # File upload via API and UI
+│   ├── 03-chat.spec.ts        # Chat send, agent response, tool use rendering
+│   ├── 04-controls.spec.ts    # New session, interrupt, keyboard shortcuts
+│   ├── 05-slash-commands.spec.ts  # Slash commands, multi-turn conversation
+│   ├── playwright.config.ts
+│   ├── package.json
+│   └── tsconfig.json
 ├── Dockerfile
 ├── fly.toml
 └── .gitignore
@@ -1513,56 +1524,589 @@ git commit -m "feat(ops-kb-chat): add Dockerfile and fly.toml"
 
 ---
 
-### Task 15: Local Dev Smoke Test
+### Task 15: Playwright E2E Setup
 
-**Files:** None (verification only)
+**Files:**
+- Create: `projects/ops-knowledgebase-chat/e2e/playwright.config.ts`
+- Create: `projects/ops-knowledgebase-chat/e2e/package.json`
+- Create: `projects/ops-knowledgebase-chat/e2e/tsconfig.json`
+- Create: `projects/ops-knowledgebase-chat/e2e/helpers/server.ts`
 
-- [ ] **Step 1: Build server**
+- [ ] **Step 1: Create e2e package.json**
 
-Run: `cd projects/ops-knowledgebase-chat/server && npm run build`
-Expected: Compiles to `dist/` without errors
+```json
+{
+  "name": "ops-knowledgebase-chat-e2e",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
+```
 
-- [ ] **Step 2: Build client**
+- [ ] **Step 2: Create e2e tsconfig.json**
 
-Run: `cd projects/ops-knowledgebase-chat/client && npm run build`
-Expected: Compiles to `dist/` without errors
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["**/*.ts"]
+}
+```
 
-- [ ] **Step 3: Start server locally**
+- [ ] **Step 3: Create playwright.config.ts**
+
+```typescript
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  testDir: '.',
+  testMatch: '**/*.spec.ts',
+  timeout: 120_000,  // Agent responses can be slow
+  expect: {
+    timeout: 60_000,
+  },
+  use: {
+    baseURL: 'http://localhost:8080',
+    trace: 'on-first-retry',
+  },
+  retries: 1,
+  reporter: [['list'], ['html', { open: 'never' }]],
+  // Server is started by the helper, not by Playwright's webServer config,
+  // because we need to control WORKSPACE_DIR and seed files before starting.
+});
+```
+
+- [ ] **Step 4: Create e2e/helpers/server.ts**
+
+This helper builds, seeds test files, and starts the server for E2E tests.
+
+```typescript
+import { execSync, spawn, type ChildProcess } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+
+const PROJECT_ROOT = path.resolve(import.meta.dirname, '..', '..');
+const SERVER_DIR = path.join(PROJECT_ROOT, 'server');
+const CLIENT_DIR = path.join(PROJECT_ROOT, 'client');
+const WORKSPACE_DIR = '/tmp/ops-kb-e2e-workspace';
+const PORT = 8080;
+
+let serverProcess: ChildProcess | null = null;
+
+export async function startServer(): Promise<void> {
+  // Clean workspace
+  fs.rmSync(WORKSPACE_DIR, { recursive: true, force: true });
+  fs.mkdirSync(WORKSPACE_DIR, { recursive: true });
+
+  // Seed test files
+  fs.writeFileSync(path.join(WORKSPACE_DIR, 'readme.txt'), 'This is a test knowledgebase.\nIt contains important documents for testing.\n');
+  fs.writeFileSync(path.join(WORKSPACE_DIR, 'notes.md'), '# Meeting Notes\n\n- Discussed Q1 priorities\n- Action item: review budget\n- Next meeting: March 25\n');
+  fs.writeFileSync(path.join(WORKSPACE_DIR, 'data.csv'), 'name,value\nalpha,100\nbeta,200\ngamma,300\n');
+
+  // Build server and client
+  execSync('npm run build', { cwd: SERVER_DIR, stdio: 'pipe' });
+  execSync('npm run build', { cwd: CLIENT_DIR, stdio: 'pipe' });
+
+  // Copy client build to server/public
+  const publicDir = path.join(SERVER_DIR, 'public');
+  fs.rmSync(publicDir, { recursive: true, force: true });
+  fs.cpSync(path.join(CLIENT_DIR, 'dist'), publicDir, { recursive: true });
+
+  // Start server
+  serverProcess = spawn('node', ['dist/index.js'], {
+    cwd: SERVER_DIR,
+    env: { ...process.env, PORT: String(PORT), WORKSPACE_DIR },
+    stdio: 'pipe',
+  });
+
+  // Wait for server to be ready
+  await waitForServer(`http://localhost:${PORT}/health`, 30_000);
+}
+
+export async function stopServer(): Promise<void> {
+  if (serverProcess) {
+    serverProcess.kill('SIGTERM');
+    serverProcess = null;
+  }
+}
+
+async function waitForServer(url: string, timeoutMs: number): Promise<void> {
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) return;
+    } catch {
+      // not ready yet
+    }
+    await new Promise((r) => setTimeout(r, 500));
+  }
+  throw new Error(`Server did not start within ${timeoutMs}ms`);
+}
+```
+
+- [ ] **Step 5: Install dependencies and install browsers**
 
 Run:
 ```bash
-mkdir -p /tmp/ops-kb-workspace
-cp -r ../client/dist ./public
-WORKSPACE_DIR=/tmp/ops-kb-workspace node dist/index.js
+cd projects/ops-knowledgebase-chat/e2e && npm install && npx playwright install chromium
 ```
-Expected: `Server running on http://localhost:8080`
-Note: The `cp` step copies the client build into `server/public/` so the server can serve the SPA locally.
 
-- [ ] **Step 4: Test health endpoint**
+- [ ] **Step 6: Commit**
 
-Run: `curl http://localhost:8080/health`
-Expected: `ok`
-
-- [ ] **Step 5: Test upload endpoint**
-
-Run:
 ```bash
-echo "test content" > /tmp/test-upload.txt
-curl -F "files=@/tmp/test-upload.txt" http://localhost:8080/api/upload
+git add projects/ops-knowledgebase-chat/e2e/
+git commit -m "feat(ops-kb-chat): add Playwright E2E test scaffolding"
 ```
-Expected: `{"files":[{"name":"test-upload.txt","path":"/tmp/ops-kb-workspace/test-upload.txt","size":13}]}`
-
-- [ ] **Step 6: Test WebSocket connection**
-
-Run: `npx wscat -c ws://localhost:8080/ws`
-Then send: `{"type":"user_message","content":"hello"}`
-Expected: Receives `session_init`, `assistant_text`, and `done` messages (requires `ANTHROPIC_API_KEY` set)
-
-- [ ] **Step 7: Stop server, commit if any fixes were needed**
 
 ---
 
-### Task 16: Deploy to Fly
+### Task 16: E2E Test — Page Load and Health Check
+
+**Files:**
+- Create: `projects/ops-knowledgebase-chat/e2e/01-health.spec.ts`
+
+- [ ] **Step 1: Create 01-health.spec.ts**
+
+```typescript
+import { test, expect } from '@playwright/test';
+import { startServer, stopServer } from './helpers/server';
+
+test.beforeAll(async () => {
+  await startServer();
+});
+
+test.afterAll(async () => {
+  await stopServer();
+});
+
+test('health endpoint returns 200', async ({ request }) => {
+  const res = await request.get('/health');
+  expect(res.status()).toBe(200);
+  expect(await res.text()).toBe('ok');
+});
+
+test('page loads with app title and empty state', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('h1')).toHaveText('ops-knowledgebase-chat');
+  // Empty state message
+  await expect(page.getByText('Ask questions about files in /workspace')).toBeVisible();
+  // Input area is present
+  await expect(page.getByPlaceholder('Type a message')).toBeVisible();
+  // Connection indicator should be green
+  await expect(page.locator('[title="Connected"]')).toBeVisible();
+});
+
+test('New button is visible', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('button', { name: 'New' })).toBeVisible();
+});
+```
+
+- [ ] **Step 2: Run test**
+
+Run: `cd projects/ops-knowledgebase-chat/e2e && npx playwright test 01-health.spec.ts`
+Expected: All 3 tests pass
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add projects/ops-knowledgebase-chat/e2e/01-health.spec.ts
+git commit -m "test(ops-kb-chat): E2E health check and page load"
+```
+
+---
+
+### Task 17: E2E Test — File Upload
+
+**Files:**
+- Create: `projects/ops-knowledgebase-chat/e2e/02-upload.spec.ts`
+
+- [ ] **Step 1: Create 02-upload.spec.ts**
+
+```typescript
+import { test, expect } from '@playwright/test';
+import { startServer, stopServer } from './helpers/server';
+import fs from 'fs';
+import path from 'path';
+
+test.beforeAll(async () => {
+  await startServer();
+});
+
+test.afterAll(async () => {
+  await stopServer();
+});
+
+test('upload file via API and verify it lands in workspace', async ({ request }) => {
+  // Create a temp file
+  const tmpFile = '/tmp/e2e-upload-test.txt';
+  fs.writeFileSync(tmpFile, 'E2E upload test content');
+
+  const res = await request.post('/api/upload', {
+    multipart: {
+      files: {
+        name: 'e2e-upload-test.txt',
+        mimeType: 'text/plain',
+        buffer: Buffer.from('E2E upload test content'),
+      },
+    },
+  });
+
+  expect(res.status()).toBe(200);
+  const body = await res.json();
+  expect(body.files).toHaveLength(1);
+  expect(body.files[0].name).toBe('e2e-upload-test.txt');
+  expect(body.files[0].size).toBeGreaterThan(0);
+
+  // Verify file exists in workspace
+  const filePath = '/tmp/ops-kb-e2e-workspace/e2e-upload-test.txt';
+  expect(fs.existsSync(filePath)).toBe(true);
+  expect(fs.readFileSync(filePath, 'utf-8')).toBe('E2E upload test content');
+});
+
+test('upload file via UI button', async ({ page }) => {
+  await page.goto('/');
+
+  // Create a test file for upload
+  const tmpFile = '/tmp/e2e-ui-upload.txt';
+  fs.writeFileSync(tmpFile, 'UI upload test');
+
+  // Click the upload button (paperclip icon)
+  const fileInput = page.locator('input[type="file"]');
+  await fileInput.setInputFiles(tmpFile);
+
+  // Should show "[Uploaded: e2e-ui-upload.txt]" in chat
+  await expect(page.getByText('[Uploaded: e2e-ui-upload.txt]')).toBeVisible({ timeout: 10_000 });
+});
+
+test('upload rejects path traversal filenames', async ({ request }) => {
+  const res = await request.post('/api/upload', {
+    multipart: {
+      files: {
+        name: '../../etc/passwd',
+        mimeType: 'text/plain',
+        buffer: Buffer.from('malicious content'),
+      },
+    },
+  });
+
+  expect(res.status()).toBe(200);
+  const body = await res.json();
+  // Filename should be sanitized — no path components
+  expect(body.files[0].name).toBe('../../etc/passwd');
+  // But the saved path should NOT be /etc/passwd
+  expect(body.files[0].path).toContain('ops-kb-e2e-workspace');
+  expect(body.files[0].path).not.toContain('/etc/');
+});
+```
+
+- [ ] **Step 2: Run test**
+
+Run: `cd projects/ops-knowledgebase-chat/e2e && npx playwright test 02-upload.spec.ts`
+Expected: All 3 tests pass
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add projects/ops-knowledgebase-chat/e2e/02-upload.spec.ts
+git commit -m "test(ops-kb-chat): E2E file upload via API and UI"
+```
+
+---
+
+### Task 18: E2E Test — Chat Send and Agent Response
+
+**Files:**
+- Create: `projects/ops-knowledgebase-chat/e2e/03-chat.spec.ts`
+
+This test requires `ANTHROPIC_API_KEY` to be set. It sends a real message to the agent and verifies the full round-trip: user message appears, agent responds, tool use blocks render.
+
+- [ ] **Step 1: Create 03-chat.spec.ts**
+
+```typescript
+import { test, expect } from '@playwright/test';
+import { startServer, stopServer } from './helpers/server';
+
+test.beforeAll(async () => {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    throw new Error('ANTHROPIC_API_KEY must be set for chat E2E tests');
+  }
+  await startServer();
+});
+
+test.afterAll(async () => {
+  await stopServer();
+});
+
+test('send message and receive agent response', async ({ page }) => {
+  await page.goto('/');
+
+  // Type a message
+  const input = page.getByPlaceholder('Type a message');
+  await input.fill('What files are in the workspace? Just list the filenames.');
+
+  // Send via Ctrl+Enter
+  await input.press('Control+Enter');
+
+  // User message should appear
+  await expect(page.getByText('What files are in the workspace?')).toBeVisible();
+
+  // Wait for agent response — should contain at least one of our seeded filenames
+  await expect(page.getByText('readme.txt')).toBeVisible({ timeout: 120_000 });
+});
+
+test('agent uses tool and tool use block renders', async ({ page }) => {
+  await page.goto('/');
+
+  const input = page.getByPlaceholder('Type a message');
+  await input.fill('Read the file notes.md and tell me what the action item is.');
+  await input.press('Control+Enter');
+
+  // Wait for tool use block to appear — should show "Read" tool
+  await expect(page.locator('text=Read').first()).toBeVisible({ timeout: 120_000 });
+
+  // Agent should mention "review budget" from the seeded notes.md
+  await expect(page.getByText(/review budget/i)).toBeVisible({ timeout: 120_000 });
+});
+
+test('agent can search with Grep', async ({ page }) => {
+  await page.goto('/');
+
+  const input = page.getByPlaceholder('Type a message');
+  await input.fill('Search all files for the word "priorities" and tell me which file contains it.');
+  await input.press('Control+Enter');
+
+  // Should eventually mention notes.md
+  await expect(page.getByText(/notes\.md/i)).toBeVisible({ timeout: 120_000 });
+});
+```
+
+- [ ] **Step 2: Run test**
+
+Run: `cd projects/ops-knowledgebase-chat/e2e && npx playwright test 03-chat.spec.ts`
+Expected: All 3 tests pass (requires ANTHROPIC_API_KEY)
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add projects/ops-knowledgebase-chat/e2e/03-chat.spec.ts
+git commit -m "test(ops-kb-chat): E2E chat send, agent response, tool use rendering"
+```
+
+---
+
+### Task 19: E2E Test — New Session and Interrupt
+
+**Files:**
+- Create: `projects/ops-knowledgebase-chat/e2e/04-controls.spec.ts`
+
+- [ ] **Step 1: Create 04-controls.spec.ts**
+
+```typescript
+import { test, expect } from '@playwright/test';
+import { startServer, stopServer } from './helpers/server';
+
+test.beforeAll(async () => {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    throw new Error('ANTHROPIC_API_KEY must be set for control E2E tests');
+  }
+  await startServer();
+});
+
+test.afterAll(async () => {
+  await stopServer();
+});
+
+test('New Session clears chat', async ({ page }) => {
+  await page.goto('/');
+
+  // Send a message first
+  const input = page.getByPlaceholder('Type a message');
+  await input.fill('Say hello');
+  await input.press('Control+Enter');
+
+  // Wait for response
+  await expect(page.locator('.mb-4').first()).toBeVisible({ timeout: 120_000 });
+
+  // Click New button
+  await page.getByRole('button', { name: 'New' }).click();
+
+  // Chat should be cleared — empty state should reappear
+  await expect(page.getByText('Ask questions about files in /workspace')).toBeVisible();
+});
+
+test('Interrupt stops streaming', async ({ page }) => {
+  await page.goto('/');
+
+  const input = page.getByPlaceholder('Type a message');
+  // Ask something that takes a while
+  await input.fill('List every file in /workspace recursively and describe each one in detail.');
+  await input.press('Control+Enter');
+
+  // Wait briefly for streaming to start
+  await page.waitForTimeout(3000);
+
+  // Press Escape to interrupt
+  await page.keyboard.press('Escape');
+
+  // The stop button should disappear (streaming ended)
+  // The send button should reappear
+  await expect(page.locator('button[title="Send (Ctrl+Enter)"]')).toBeVisible({ timeout: 10_000 });
+});
+
+test('Ctrl+N triggers new session', async ({ page }) => {
+  await page.goto('/');
+
+  // Send a message
+  const input = page.getByPlaceholder('Type a message');
+  await input.fill('Hello');
+  await input.press('Control+Enter');
+
+  // Wait for any response
+  await expect(page.locator('.mb-4').first()).toBeVisible({ timeout: 120_000 });
+
+  // Ctrl+N
+  await page.keyboard.press('Control+n');
+
+  // Should clear
+  await expect(page.getByText('Ask questions about files in /workspace')).toBeVisible();
+});
+```
+
+- [ ] **Step 2: Run test**
+
+Run: `cd projects/ops-knowledgebase-chat/e2e && npx playwright test 04-controls.spec.ts`
+Expected: All 3 tests pass
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add projects/ops-knowledgebase-chat/e2e/04-controls.spec.ts
+git commit -m "test(ops-kb-chat): E2E new session, interrupt, keyboard shortcuts"
+```
+
+---
+
+### Task 20: E2E Test — Slash Commands
+
+**Files:**
+- Create: `projects/ops-knowledgebase-chat/e2e/05-slash-commands.spec.ts`
+
+- [ ] **Step 1: Create 05-slash-commands.spec.ts**
+
+```typescript
+import { test, expect } from '@playwright/test';
+import { startServer, stopServer } from './helpers/server';
+
+test.beforeAll(async () => {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    throw new Error('ANTHROPIC_API_KEY must be set for slash command E2E tests');
+  }
+  await startServer();
+});
+
+test.afterAll(async () => {
+  await stopServer();
+});
+
+test('slash command is sent to agent verbatim', async ({ page }) => {
+  await page.goto('/');
+
+  const input = page.getByPlaceholder('Type a message');
+  // /help should be sent to the agent as a regular message
+  await input.fill('/help');
+  await input.press('Control+Enter');
+
+  // User message should show the slash command
+  await expect(page.getByText('/help')).toBeVisible();
+
+  // Agent should respond (exact response depends on agent, but it should not error)
+  // Wait for any assistant response to appear
+  const assistantBubble = page.locator('[class*="bg-zinc-800"]').last();
+  await expect(assistantBubble).toBeVisible({ timeout: 120_000 });
+});
+
+test('multi-turn conversation works', async ({ page }) => {
+  await page.goto('/');
+
+  const input = page.getByPlaceholder('Type a message');
+
+  // First message
+  await input.fill('What is in readme.txt?');
+  await input.press('Control+Enter');
+
+  // Wait for first response
+  await expect(page.getByText(/test knowledgebase/i)).toBeVisible({ timeout: 120_000 });
+
+  // Follow-up that references the prior turn
+  await input.fill('Now read data.csv and tell me the sum of the values column.');
+  await input.press('Control+Enter');
+
+  // Should eventually show values from data.csv (100 + 200 + 300 = 600)
+  await expect(page.getByText('600')).toBeVisible({ timeout: 120_000 });
+});
+```
+
+- [ ] **Step 2: Run test**
+
+Run: `cd projects/ops-knowledgebase-chat/e2e && npx playwright test 05-slash-commands.spec.ts`
+Expected: All 2 tests pass
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add projects/ops-knowledgebase-chat/e2e/05-slash-commands.spec.ts
+git commit -m "test(ops-kb-chat): E2E slash commands and multi-turn conversation"
+```
+
+---
+
+### Task 21: Run Full E2E Suite
+
+**Files:** None (verification only)
+
+- [ ] **Step 1: Run all E2E tests**
+
+Run:
+```bash
+cd projects/ops-knowledgebase-chat/e2e && npx playwright test
+```
+Expected: All tests pass (5 spec files, ~14 tests total)
+
+- [ ] **Step 2: Fix any failures**
+
+If any test fails, debug with:
+```bash
+npx playwright test --headed --debug <failing-spec>
+```
+Fix the code, re-run, and commit the fix.
+
+- [ ] **Step 3: Commit any remaining fixes**
+
+```bash
+git add -A projects/ops-knowledgebase-chat/
+git commit -m "fix(ops-kb-chat): E2E test fixes"
+```
+
+---
+
+### Task 22: Deploy to Fly
 
 **Files:** None (deployment only)
 
