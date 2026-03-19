@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://inheritance-frontend.fly.dev/sitemap.xml
