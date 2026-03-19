@@ -14,7 +14,7 @@ export function ChatView({ messages }: ChatViewProps) {
   }, [messages]);
 
   return (
-    <div className="chat-area flex-1 overflow-y-auto">
+    <div className="flex-1 overflow-y-auto px-5 py-6 pb-32">
       {messages.length === 0 && (
         <div className="text-center text-text-muted mt-20">
           <p className="text-lg font-display mb-2">ops-knowledgebase-chat</p>

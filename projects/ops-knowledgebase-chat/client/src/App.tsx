@@ -1,8 +1,12 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useWebSocket } from './hooks/useWebSocket';
+import { useFileTree } from './hooks/useFileTree';
+import { useSessions } from './hooks/useSessions';
 import { Header } from './components/Header';
 import { ChatView } from './components/ChatView';
 import { ChatInput } from './components/ChatInput';
+import { FileExplorer } from './components/FileExplorer';
+import { SessionHistory } from './components/SessionHistory';
 import type { ChatMessage, ToolUseEntry, ServerMessage } from './types';
 
 let msgId = 0;
@@ -13,6 +17,12 @@ function nextId() {
 export function App() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
+  const [filesOpen, setFilesOpen] = useState(true);
+  const [sessionsOpen, setSessionsOpen] = useState(true);
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
+
+  const { tree, flatFiles, loading: filesLoading, refresh: refreshFiles } = useFileTree();
+  const { sessions, refresh: refreshSessions, updateSessionTitle } = useSessions();
 
   const handleMessage = useCallback((msg: ServerMessage) => {
     switch (msg.type) {
@@ -69,6 +79,8 @@ export function App() {
 
       case 'done':
         setIsStreaming(false);
+        refreshFiles();
+        refreshSessions();
         break;
 
       case 'error':
@@ -81,8 +93,30 @@ export function App() {
 
       case 'session_init':
         break;
+
+      case 'session_title':
+        updateSessionTitle(msg.title);
+        break;
+
+      case 'session_loaded': {
+        const loaded = msg.session;
+        setActiveSessionId(loaded.id);
+        const restoredMessages: ChatMessage[] = loaded.messages.map((m) => {
+          if (m.role === 'assistant') {
+            return {
+              id: nextId(),
+              role: 'assistant' as const,
+              content: m.content,
+              toolUses: m.toolUses || [],
+            };
+          }
+          return { id: nextId(), role: m.role, content: m.content };
+        });
+        setMessages(restoredMessages);
+        break;
+      }
     }
-  }, []);
+  }, [refreshFiles, refreshSessions, updateSessionTitle]);
 
   const { send, connected } = useWebSocket({ onMessage: handleMessage });
 
@@ -107,7 +141,17 @@ export function App() {
     send({ type: 'new_session' });
     setMessages([]);
     setIsStreaming(false);
-  }, [send]);
+    setActiveSessionId(null);
+    refreshSessions();
+  }, [send, refreshSessions]);
+
+  const handleLoadSession = useCallback(
+    (sessionId: string) => {
+      send({ type: 'load_session', session_id: sessionId });
+      setIsStreaming(false);
+    },
+    [send],
+  );
 
   const handleUpload = useCallback(async (files: FileList) => {
     const formData = new FormData();
@@ -122,13 +166,14 @@ export function App() {
         ...prev,
         { id: nextId(), role: 'user', content: `[Uploaded: ${names}]` },
       ]);
+      refreshFiles();
     } catch (err) {
       setMessages((prev) => [
         ...prev,
         { id: nextId(), role: 'error', content: `Upload failed: ${err}` },
       ]);
     }
-  }, []);
+  }, [refreshFiles]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -143,15 +188,41 @@ export function App() {
 
   return (
     <div className="flex flex-col h-screen bg-surface-1 text-text-primary">
-      <Header connected={connected} onNewSession={handleNewSession} />
-      <ChatView messages={messages} />
-      <ChatInput
-        onSend={handleSend}
-        onUpload={handleUpload}
-        onInterrupt={handleInterrupt}
-        isStreaming={isStreaming}
-        disabled={!connected}
+      <Header
+        connected={connected}
+        onNewSession={handleNewSession}
+        filesOpen={filesOpen}
+        onToggleFiles={() => setFilesOpen((v) => !v)}
+        sessionsOpen={sessionsOpen}
+        onToggleSessions={() => setSessionsOpen((v) => !v)}
       />
+      <div className="flex flex-1 overflow-hidden" style={{ marginTop: 48 }}>
+        {filesOpen && (
+          <div className="w-60 flex-shrink-0">
+            <FileExplorer tree={tree} loading={filesLoading} onRefresh={refreshFiles} />
+          </div>
+        )}
+        <div className="flex flex-col flex-1 min-w-0">
+          <ChatView messages={messages} />
+          <ChatInput
+            onSend={handleSend}
+            onUpload={handleUpload}
+            onInterrupt={handleInterrupt}
+            isStreaming={isStreaming}
+            disabled={!connected}
+            filesList={flatFiles}
+          />
+        </div>
+        {sessionsOpen && (
+          <div className="w-65 flex-shrink-0">
+            <SessionHistory
+              sessions={sessions}
+              activeSessionId={activeSessionId}
+              onSelectSession={handleLoadSession}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
