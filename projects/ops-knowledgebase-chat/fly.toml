@@ -1,5 +1,5 @@
-app = "ops-knowledgebase-chat"
-primary_region = "sjc"
+app = "marigold-kbase"
+primary_region = "sin"
 
 [build]
 
