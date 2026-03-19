@@ -103,6 +103,23 @@ wss.on('connection', (ws: WebSocket) => {
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       console.error('[ws] Agent error:', message);
+
+      // If session resume failed, retry without resume (fresh session)
+      if (message.includes('no message found with message.uuid') || message.includes('resume')) {
+        console.log('[ws] Session resume failed, retrying with fresh session');
+        session.sessionId = undefined;
+        session.lastAssistantUuid = undefined;
+        session.stream = new MessageStream();
+        session.generator = null;
+        agentRunning = false;
+        // Re-push the last user message if we have one
+        if (firstMessageContent) {
+          session.stream.push(firstMessageContent);
+          startAgent();
+        }
+        return;
+      }
+
       if (ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify({ type: 'error', message }));
       }
