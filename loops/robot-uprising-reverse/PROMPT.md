@@ -179,7 +179,7 @@ When picking the next aspect to analyze:
 
 ## Your Goal
 
-**This is NOT a convergence loop.** You are NOT trying to produce one design. You are mapping the **entire design space** — every possible version of this game, every approach to every system, every variation of every mechanic.
+**This is a convergence loop.** You are mapping the design space and working toward completion. Analyze remaining aspects without spawning new ones.
 
 Your output is an exhaustive **design space catalog** in the `design-space/` directory. Each file explores one region of the space with:
 
@@ -325,17 +325,7 @@ design-space/
 
 ### Expansion Check (When All Aspects Done)
 
-This loop is designed to NEVER converge easily. When all aspects are checked:
-
-1. Read every file in `design-space/`
-2. For EACH file, ask:
-   - Are there unexplored variations? (If a file covers 3 approaches, are there 3 more?)
-   - Are there missing player journeys? (Every option needs journeys for: total beginner, casual player, hardcore veteran, streamer/content creator, child, accessibility-impaired player)
-   - Are there missing interaction effects? (How does this option combine with EVERY option in other categories?)
-   - Are there missing comparable games? (Search for more)
-   - Are there missing sensory descriptions? (What does it SOUND like?)
-3. Add ALL discovered gaps as new aspects
-4. Only if you genuinely cannot find a single gap anywhere: write `status/converged.txt`
+When all aspects are checked, write `status/converged.txt` and exit. The design space is complete.
 
 ## Wave Definitions
 
@@ -449,17 +439,17 @@ Each aspect in this wave = one image asset. The prompt must be highly specific: 
 
 **The GEMINI_API_KEY environment variable must be set for this wave to work.**
 
-### Wave 10+: Expansion
+### Wave 10+: Removed
 
-Every completed wave should generate new aspects for deeper exploration. The space is fractal — zoom into any option and there are sub-options. Zoom into those and there are sub-sub-options.
+No further expansion. Complete existing aspects and converge.
 
 ## Rules
 
 - Do FIVE aspects per run, then exit. Commit all 5 in a single batch commit.
 - **Be exhaustive within each aspect.** A building block paradigm exploration should be 1000-3000 words. A competitive analysis should be 500-2000 words. Brevity is the enemy.
 - **Player journeys are mandatory.** Every design option gets at least 3 player journeys with minute-by-minute UI annotations. No exceptions.
-- **Discover new aspects sparingly.** You may add 0-2 new aspects per analysis. New aspects MUST go to the END of their wave section (append, never insert after parent). The frontier should grow slowly — if it's ballooning, you're fragmenting instead of exploring. A 1,000-word analysis of one game is better than spawning 5 sub-aspects about that game.
-- **No convergence pressure.** This loop explores. It does not decide. It catalogs options, it doesn't pick winners. Every option is valid until a human says otherwise.
+- **Do NOT discover new aspects.** Do not add new aspects to the frontier. Work through what exists and converge.
+- **Converge.** This loop is heading toward completion. Work through the remaining aspects and finish.
 - **Sensory-first descriptions.** Don't say "the UI shows the buffer state." Say "a vertical thermometer on the left edge of the unit's portrait glows cool blue when the buffer is under 50%, shifts to amber at 75%, and pulses angry red when full — each slot rendered as a horizontal line, bright when occupied, dim when empty, with the most recent entry gently glowing."
 - **Name everything.** Options, variations, patterns — give them memorable names. "The Mixing Board Paradigm." "The Panic Attack Tutorial." "The Slack Channel Problem." Named things are easier to reference and discuss.
 - **Steal shamelessly from real games.** When a comparable game does something relevant, describe it in detail. Don't just say "like Factorio's belts" — describe exactly how Factorio's belts work and what translates.
