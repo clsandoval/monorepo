@@ -1,0 +1,672 @@
+/* ============================================================
+   ops-knowledgebase-chat — Base Styles
+   Aesthetic: Control Room Warmth
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- CSS Custom Properties ---- */
+
+:root {
+  --surface-0: #1a1916;
+  --surface-1: #23211e;
+  --surface-2: #2e2b27;
+  --surface-3: #3a3632;
+  --surface-4: #4a4540;
+
+  --text-primary: #e8e4de;
+  --text-secondary: #a39e96;
+  --text-muted: #6b6660;
+  --text-inverse: #1a1916;
+
+  --accent-red: #c4443a;
+  --accent-red-hover: #d65349;
+  --accent-red-subtle: rgba(196, 68, 58, 0.12);
+
+  --accent-gold: #c4983a;
+  --accent-gold-hover: #d6aa4c;
+  --accent-gold-subtle: rgba(196, 152, 58, 0.12);
+
+  --status-success: #5a9a6b;
+  --status-warning: #c4983a;
+  --status-error: #c4443a;
+  --status-info: #5a8a9a;
+
+  --border-default: rgba(163, 158, 150, 0.12);
+  --border-strong: rgba(163, 158, 150, 0.24);
+
+  --code-bg: #1e1c19;
+  --code-text: #d4cfca;
+
+  --tool-bg: #1e1c19;
+  --tool-border: #3a3632;
+  --tool-border-active: #c4983a;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-focus: 0 0 0 2px var(--accent-red);
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+}
+
+/* ---- Base Reset & Defaults ---- */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--surface-1);
+    color: var(--text-primary);
+    font-family: "Nunito Sans", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Instrument Sans", system-ui, sans-serif;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+  }
+
+  a {
+    color: var(--accent-gold);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--accent-gold-hover);
+    text-decoration: underline;
+  }
+
+  ::selection {
+    background-color: var(--accent-red-subtle);
+    color: var(--text-primary);
+  }
+
+  /* Focus styles — red ring, consistent across all interactive elements */
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+}
+
+/* ---- Scrollbar ---- */
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--surface-4) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--surface-4);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-muted);
+  }
+}
+
+/* ---- Component Layer ---- */
+
+@layer components {
+  /* -- Header -- */
+  .app-header {
+    height: 48px;
+    background: var(--surface-0);
+    border-bottom: 1px solid var(--border-default);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+  }
+
+  .app-header-title {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  /* -- Chat Area -- */
+  .chat-area {
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 64px 20px 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* -- Message: User -- */
+  .msg-user {
+    align-self: flex-end;
+    max-width: 85%;
+    background: var(--surface-2);
+    border-radius: var(--radius-lg);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.6;
+    animation: fade-in-up 200ms ease-out;
+  }
+
+  /* -- Message: Assistant -- */
+  .msg-assistant {
+    align-self: flex-start;
+    max-width: 72ch;
+    padding: 12px 0;
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.6;
+    animation: fade-in-up 200ms ease-out;
+  }
+
+  /* -- Tool Use Block -- */
+  .tool-block {
+    background: var(--tool-bg);
+    border-left: 2px solid var(--tool-border);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 12px 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    animation: fade-in-up 200ms ease-out;
+  }
+
+  .tool-block--active {
+    border-left-color: var(--tool-border-active);
+  }
+
+  .tool-block-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .tool-block-header:hover {
+    color: var(--text-primary);
+  }
+
+  .tool-block-name {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .tool-block-input {
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .tool-block-duration {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .tool-block-output {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-default);
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  /* -- Chat Input -- */
+  .chat-input-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--surface-1);
+    border-top: 1px solid var(--border-default);
+    padding: 12px 20px 16px;
+  }
+
+  .chat-input-inner {
+    max-width: 768px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .chat-input {
+    flex: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-family: "Nunito Sans", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 44px;
+    max-height: 200px;
+    resize: none;
+    transition: border-color 120ms ease;
+  }
+
+  .chat-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .chat-input:focus {
+    outline: none;
+    border-color: var(--accent-red);
+  }
+
+  /* Slash command mode — when input starts with / */
+  .chat-input--slash {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+  }
+
+  .chat-input-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  /* -- Buttons -- */
+  .btn-primary {
+    background: var(--accent-red);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-family: "Nunito Sans", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 120ms ease, transform 80ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-red-hover);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    font-family: "Nunito Sans", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-ghost:hover {
+    background: var(--surface-3);
+    color: var(--text-primary);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-family: "Nunito Sans", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 120ms ease, color 120ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+  }
+
+  .btn-icon {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px;
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-icon:hover {
+    background: var(--surface-3);
+    color: var(--text-primary);
+  }
+
+  /* -- Status Indicators -- */
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .status-dot--connected {
+    background: var(--status-success);
+  }
+
+  .status-dot--streaming {
+    background: var(--accent-gold);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .status-dot--error {
+    background: var(--status-error);
+  }
+
+  /* -- Error Banner -- */
+  .error-banner {
+    background: var(--accent-red-subtle);
+    border: 1px solid rgba(196, 68, 58, 0.24);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+/* ---- Markdown Prose Styles (for assistant messages) ---- */
+
+@layer components {
+  .prose-chat h1 {
+    font-size: 21px;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    margin-top: 24px;
+    margin-bottom: 12px;
+  }
+
+  .prose-chat h2 {
+    font-size: 17px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+
+  .prose-chat h3 {
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  .prose-chat p {
+    margin: 0 0 12px;
+  }
+
+  .prose-chat p:last-child {
+    margin-bottom: 0;
+  }
+
+  .prose-chat ul,
+  .prose-chat ol {
+    margin: 0 0 12px;
+    padding-left: 20px;
+  }
+
+  .prose-chat li {
+    margin-bottom: 4px;
+  }
+
+  .prose-chat li::marker {
+    color: var(--text-muted);
+  }
+
+  .prose-chat blockquote {
+    border-left: 2px solid var(--surface-4);
+    margin: 0 0 12px;
+    padding: 4px 16px;
+    color: var(--text-secondary);
+  }
+
+  .prose-chat hr {
+    border: none;
+    border-top: 1px solid var(--border-default);
+    margin: 20px 0;
+  }
+
+  .prose-chat table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 12px;
+    font-size: 13px;
+  }
+
+  .prose-chat th {
+    text-align: left;
+    font-family: "Instrument Sans", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .prose-chat td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-default);
+    color: var(--text-secondary);
+  }
+
+  /* Inline code */
+  .prose-chat code:not(pre code) {
+    background: var(--code-bg);
+    border: 1px solid var(--border-default);
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 13px;
+    color: var(--code-text);
+  }
+
+  /* Code blocks */
+  .prose-chat pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin: 0 0 12px;
+    overflow-x: auto;
+    position: relative;
+  }
+
+  .prose-chat pre code {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--code-text);
+  }
+
+  .prose-chat strong {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .prose-chat em {
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+}
+
+/* ---- Syntax Highlighting (Warm theme) ---- */
+
+@layer components {
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-built_in,
+  .hljs-type {
+    color: #b85450;
+  }
+
+  .hljs-string,
+  .hljs-attr,
+  .hljs-symbol,
+  .hljs-template-variable {
+    color: #b8963a;
+  }
+
+  .hljs-number,
+  .hljs-literal,
+  .hljs-variable.constant_ {
+    color: #5a8a7a;
+  }
+
+  .hljs-comment,
+  .hljs-quote,
+  .hljs-doctag {
+    color: #6b6660;
+    font-style: italic;
+  }
+
+  .hljs-function,
+  .hljs-title {
+    color: #d4cfca;
+  }
+
+  .hljs-variable,
+  .hljs-params {
+    color: #c4bfb8;
+  }
+
+  .hljs-operator,
+  .hljs-punctuation {
+    color: #a39e96;
+  }
+
+  .hljs-title.class_ {
+    color: #6a8a9a;
+  }
+
+  .hljs-meta,
+  .hljs-meta .hljs-keyword {
+    color: #8a7a5a;
+  }
+
+  .hljs-section {
+    color: var(--accent-gold);
+  }
+
+  .hljs-addition {
+    color: var(--status-success);
+    background: rgba(90, 154, 107, 0.1);
+  }
+
+  .hljs-deletion {
+    color: var(--status-error);
+    background: rgba(196, 68, 58, 0.1);
+  }
+}
+
+/* ---- Animations ---- */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
