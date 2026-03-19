@@ -60,7 +60,7 @@ export function LandingPageLayout({
         </div>
 
         {/* Legal Explainer */}
-        <article className="prose prose-slate max-w-none mb-16">
+        <article className="article-body mb-16">
           {legalExplainer}
         </article>
 

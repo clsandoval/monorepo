@@ -48,12 +48,7 @@ export function BlogLayout({ meta, children }: BlogLayoutProps) {
         </header>
 
         {/* Article body */}
-        <article className="prose prose-slate max-w-none leading-relaxed
-          prose-headings:font-serif prose-headings:font-bold prose-headings:tracking-tight
-          prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4
-          prose-p:text-base prose-p:leading-relaxed prose-p:mb-5
-          mb-16
-        ">
+        <article className="article-body mb-16">
           {children}
         </article>
 
