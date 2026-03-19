@@ -1,8 +1,9 @@
 import { createRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
 import { rootRoute } from './__root';
-import { LayoutDashboard, LogIn, UserPlus, FilePlus, FolderOpen, Calculator, Users, FileText, Building2, Loader2 } from 'lucide-react';
+import { LayoutDashboard, FilePlus, FolderOpen, Calculator, Users, FileText, Building2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { QuickCalcWidget } from '@/components/quick-calc/QuickCalcWidget';
 import { Skeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/empty-state';
 import { CaseCard } from '@/components/dashboard/CaseCard';
@@ -18,7 +19,7 @@ export const indexRoute = createRoute({
   component: DashboardPage,
 });
 
-function DashboardPage() {
+export function DashboardPage() {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -33,7 +34,7 @@ function DashboardPage() {
     return (
       <div className="max-w-2xl mx-auto py-12 sm:py-20 px-4 sm:px-6">
         {/* Hero */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 bg-accent/10 text-[#c5a44e] text-xs font-medium px-3 py-1 rounded-full border border-accent/20 mb-4">
             Philippine Succession Law
           </div>
@@ -43,17 +44,11 @@ function DashboardPage() {
           <p className="text-base text-muted-foreground max-w-md mx-auto mb-6">
             Compute Philippine inheritance shares instantly. Handles testate, intestate, mixed succession, preterition, and representation.
           </p>
-          <div className="flex items-center justify-center gap-3">
-            <Link to="/auth" search={{ mode: 'signup' as const, redirect: '' }}>
-              <Button className="gap-2"><UserPlus className="h-4 w-4" />Create Account</Button>
-            </Link>
-            <Link to="/auth" search={{ mode: 'signin' as const, redirect: '' }}>
-              <Button variant="outline" className="gap-2"><LogIn className="h-4 w-4" />Sign In</Button>
-            </Link>
-          </div>
-          <p className="text-xs text-muted-foreground mt-3">
-            Or <Link to="/cases/new" className="text-primary hover:underline">try without an account</Link> — results won&apos;t be saved
-          </p>
+        </div>
+
+        {/* Quick Calc Widget */}
+        <div className="max-w-md mx-auto mb-10">
+          <QuickCalcWidget />
         </div>
 
         {/* Feature grid */}
