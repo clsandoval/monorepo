@@ -67,10 +67,9 @@ filesRouter.get('/api/files', (_req, res) => {
   res.json(tree);
 });
 
-// GET /api/files/* — raw file content
-filesRouter.get('/api/files/*', (req, res) => {
-  // req.params is { '': string[] } in Express 5 splat wildcard
-  const rawParam = (req.params as unknown as Record<string, string | string[]>)[0] ?? (req.params as unknown as Record<string, string | string[]>)[''];
+// GET /api/files/* — raw file content (Express 5 named wildcard)
+filesRouter.get('/api/files/{*filePath}', (req, res) => {
+  const rawParam = (req.params as Record<string, string | string[]>).filePath;
   const filePath = Array.isArray(rawParam) ? rawParam.join('/') : (rawParam || '');
 
   // Path traversal protection
