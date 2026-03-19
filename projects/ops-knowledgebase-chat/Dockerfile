@@ -9,9 +9,8 @@ RUN npm run build
 # Stage 2: Server + static assets
 FROM node:22-alpine
 
-# bash is required — claude-code CLI needs a POSIX shell environment
-# Alpine only ships ash (/bin/sh) which claude-code doesn't detect
-RUN apk add --no-cache bash
+# bash + python3 + git — claude-code needs POSIX shell, agents use python/git
+RUN apk add --no-cache bash python3 git
 
 # claude-code binary is required by @anthropic-ai/claude-agent-sdk at runtime
 # (the SDK spawns it as a subprocess)
