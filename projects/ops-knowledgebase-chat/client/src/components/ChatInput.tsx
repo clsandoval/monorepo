@@ -102,7 +102,7 @@ export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled
   const isSlash = input.startsWith('/');
 
   return (
-    <div className="border-t border-default bg-surface-1 px-5 py-3">
+    <div className="border-t border-default bg-white px-5 py-3">
       <div className="chat-input-inner relative">
         {showAutocomplete && (
           <FileAutocomplete
@@ -114,7 +114,7 @@ export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled
         )}
         <button
           onClick={() => fileInputRef.current?.click()}
-          className="btn-icon"
+          className="btn-icon text-text-secondary hover:text-text-primary"
           title="Upload files (Ctrl+U)"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -9,7 +9,7 @@ interface SessionHistoryProps {
 
 export function SessionHistory({ sessions, activeSessionId, onSelectSession }: SessionHistoryProps) {
   return (
-    <div className="flex flex-col h-full bg-surface-0 border-l border-default">
+    <div className="flex flex-col h-full bg-white border-l border-default">
       <div className="px-3 py-2 border-b border-default">
         <span className="text-xs font-display font-semibold text-text-muted uppercase tracking-wider">Sessions</span>
       </div>

@@ -11,8 +11,8 @@ export function Header({ connected, onNewSession, filesOpen, onToggleFiles, sess
   return (
     <header className="app-header">
       <div className="flex items-center gap-3">
-        <button onClick={onToggleFiles} className="btn-icon" title="Toggle file explorer">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={filesOpen ? 'var(--accent-gold)' : 'currentColor'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <button onClick={onToggleFiles} className="btn-icon text-white hover:bg-white/10" title="Toggle file explorer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={filesOpen ? '#faac54' : 'white'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" />
           </svg>
         </button>
@@ -23,11 +23,11 @@ export function Header({ connected, onNewSession, filesOpen, onToggleFiles, sess
         />
       </div>
       <div className="flex items-center gap-2">
-        <button onClick={onNewSession} className="btn-ghost">
+        <button onClick={onNewSession} className="btn-ghost text-white hover:bg-white/10">
           New
         </button>
-        <button onClick={onToggleSessions} className="btn-icon" title="Toggle session history">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={sessionsOpen ? 'var(--accent-gold)' : 'currentColor'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <button onClick={onToggleSessions} className="btn-icon text-white hover:bg-white/10" title="Toggle session history">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={sessionsOpen ? '#faac54' : 'white'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
           </svg>
         </button>
