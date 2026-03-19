@@ -51,6 +51,7 @@ Client and server exchange JSON messages:
 type ClientMessage =
   | { type: 'user_message'; content: string }      // Regular message or /slash command
   | { type: 'interrupt' }                           // Abort current stream
+  | { type: 'new_session' }                         // Clear and start fresh
 
 // Server → Client
 type ServerMessage =
@@ -269,6 +270,7 @@ projects/ops-knowledgebase-chat/
 │   ├── src/
 │   │   ├── index.ts          # Express + WS setup
 │   │   ├── agent.ts          # Agent SDK wrapper (query, MessageStream)
+│   │   ├── hooks.ts          # PreToolUse bash sanitization hook
 │   │   ├── protocol.ts       # WebSocket message types
 │   │   └── upload.ts         # File upload handler
 │   ├── package.json
