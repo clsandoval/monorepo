@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1476
-- **Analyzed:** 462
-- **Pending:** 1014
-- **Convergence:** 31.3%
+- **Analyzed:** 468
+- **Pending:** 1008
+- **Convergence:** 31.7%
 
 ---
 
@@ -144,7 +144,7 @@
 - [ ] 4.31 — The career "growth event" detection and celebration: designing the exact threshold and presentation for the gold-dot inflection point on the eEDT spark-line — what constitutes a meaningful architectural shift vs. noise, and how to celebrate it without feeling patronizing to veterans
 - [x] 1.06d — The Gladiabots meta-visibility gap: non-transitive strategy relationships players can't see until they've lost; design options for surfacing meta (counter-strategy hints, meta-map visualization, post-match strategy classification); does Robot Uprising want transparent or opaque meta-knowledge?
 - [x] 1.06e — Anthropomorphization as engagement hook: players naming bots, narrating personalities, framing mechanical changes as character growth; how Robot Uprising designs for it deliberately (unit portraits, persistent bot identities, mission memory, named bot achievements)
-- [ ] 1.06f — Scouting report staleness and adversarial profile management: when opponents change configs between matches, scouting data becomes stale; should the game surface confidence decay? Can players deliberately present misleading profiles in early matches to set up a counter in a later match? Profile poisoning as competitive tactic
+- [x] 1.06f — Scouting report staleness and adversarial profile management: when opponents change configs between matches, scouting data becomes stale; should the game surface confidence decay? Can players deliberately present misleading profiles in early matches to set up a counter in a later match? Profile poisoning as competitive tactic
 - [x] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
 - [x] 1.07a — The RAM-as-context-window parallel: how Bitburner's static RAM analysis (compile-time function cost → fits/doesn't-fit) vs. Robot Uprising's dynamic context window (runtime fill/evict) create fundamentally different player tensions; static constraint = build-time optimization, dynamic constraint = runtime drama
 - [ ] 1.07b — The code wall as design lesson: Bitburner's scripting cliff (manual→JavaScript transition) as cautionary data for Robot Uprising's workbench accessibility; dropout rate analysis; what specific affordances prevent the equivalent wall in visual configuration
@@ -243,7 +243,7 @@
 - [x] 2.00h — The solved-game risk and its mitigations: when a veteran finds a universal config that beats most missions; the Gauntlet as the unsolvable endgame; how campaign missions use 100-variant test cases to resist dominant strategies; at what skill level does the campaign "run out"?
 - [x] 2.00i — Sensitive dependence on initial conditions via buffer state: even deterministic systems can exhibit chaotic behavior when buffer contents create feedback loops; how two runs with slightly different enemy spawn positions cascade into completely different agent behaviors by tick 30; the buffer as a chaos engine
 - [x] 2.00j — The debugging tax of full determinism: every failure is the player's fault; no "bad luck" to blame; for some players this is liberating, for others it's exhausting; how the debrief tools (especially the Minimum Fix Explorer) should surface the most impactful change to reduce diagnostic burden
-- [ ] 2.00k — Cross-model comparison matrix: formal side-by-side evaluation of all intelligence models (2.00a–2.00d) across 10 dimensions (debuggability, spectator drama, personality ceiling, educational transfer, async PvP fairness, computational cost, accessibility floor, skill ceiling, mod support, platform portability)
+- [x] 2.00k — Cross-model comparison matrix: formal side-by-side evaluation of all intelligence models (2.00a–2.00d) across 10 dimensions (debuggability, spectator drama, personality ceiling, educational transfer, async PvP fairness, computational cost, accessibility floor, skill ceiling, mod support, platform portability)
 - [x] 2.14 — Spatial routing as mechanic layer: battlefield layout creates information routing constraints, separate from configuration logic; agent proximity determines which hook chains are possible
 - [ ] 2.15 — Pipelined agent execution: throughput-optimal configurations where agents handle overlapping tasks (agent A finishes task N while agent B starts task N+1); cycle-optimal solutions look different from cost-optimal solutions; maps to Opus Magnum's pipeline-vs-sequential tradeoff
 - [ ] 2.16 — Counter-intelligence as offensive mechanic: deliberately leaving enemy-injected hooks active and routing deceptive signals through them; "hook judo" — using enemy infrastructure against them; how the game scaffolds this discovery moment; risk/reward of leaving a known intrusion active
@@ -443,9 +443,9 @@
 - [x] 4.02 — Execute phase: what's visible during hands-off execution, HUD elements, speed controls
 - [x] 4.03 — The buffer visualization: how to show a unit's working memory in real time
 - [x] 4.04 — The debrief screen: timeline scrubbing, what-if analysis, failure diagnosis
-- [ ] 4.05 — The combo discovery moment: how the UI celebrates emergent interactions
-- [ ] 4.06 — Campaign map: how missions are presented, branching, narrative integration
-- [ ] 4.07 — The "oh no" moment: how information overload is visualized on units
+- [x] 4.05 — The combo discovery moment: how the UI celebrates emergent interactions
+- [x] 4.06 — Campaign map: how missions are presented, branching, narrative integration
+- [x] 4.07 — The "oh no" moment: how information overload is visualized on units
 - [ ] 4.07a — "Blocked" visual state: agents that are waiting for input should be visually distinct from agents that are executing — prevents opacity that frustrates players in TIS-100 (deadlock detection gap)
 - [ ] 4.09 — The histogram as player communication layer: deep dive on histogram design for Robot Uprising — axes, distribution shape, friend overlay, no-reward philosophy, when to show vs. hide; informed by Opus Magnum histogram psychology
 - [x] 6.09 — GIF/clip export as primary viral mechanic: designing replay clips that are shareable, beautiful, and self-explanatory without context; the hook-cascade clip as a viral moment; technical and design requirements for a Robot Uprising replay export
@@ -845,7 +845,7 @@
 - [x] 8.03a — Configuration mixing: can a player start in Greenhouse mode and transition to War Room mode at Mission 10 without jarring tonal shift?
 - [x] 8.03b — The Inspector as universal substrate: which Inspector features are core (present in all configs) vs. mode-specific (only in competitive or sandbox)?
 - [x] 8.03c — Cultural toggle as accessibility layer: can Config 5's Filipino elements exist as an opt-in cultural layer on top of Config 2, rather than a separate configuration?
-- [ ] 8.03d — The "mode shock" problem: players who enter through the warm Greenhouse and encounter the cold War Room ranked queue — how does the UI signal the tonal transition?
+- [x] 8.03d — The "mode shock" problem: players who enter through the warm Greenhouse and encounter the cold War Room ranked queue — how does the UI signal the tonal transition?
 - [ ] 8.03e — Unified aesthetic direction: can Warm Filipino Cyberpunk serve competitive readability requirements, or does competitive play demand the Circuit Board's dark minimalism?
 - [x] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
 - [ ] 8.04a — The "second session" test for the MVG: what creates pull-back to a 5-mission prototype without progression systems or new content? "One more try" psychology for the minimum viable game
