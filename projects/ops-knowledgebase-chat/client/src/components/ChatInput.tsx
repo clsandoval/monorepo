@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, type KeyboardEvent } from 'react';
+import { FileAutocomplete } from './FileAutocomplete';
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -6,10 +7,13 @@ interface ChatInputProps {
   onInterrupt: () => void;
   isStreaming: boolean;
   disabled: boolean;
+  filesList: string[];
 }
 
-export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled }: ChatInputProps) {
+export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled, filesList }: ChatInputProps) {
   const [input, setInput] = useState('');
+  const [showAutocomplete, setShowAutocomplete] = useState(false);
+  const [autocompleteQuery, setAutocompleteQuery] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -18,6 +22,7 @@ export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled
     if (!trimmed) return;
     onSend(trimmed);
     setInput('');
+    setShowAutocomplete(false);
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
     }
@@ -25,6 +30,14 @@ export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLTextAreaElement>) => {
+      if (showAutocomplete && ['ArrowDown', 'ArrowUp', 'Enter', 'Tab'].includes(e.key)) {
+        return; // Let FileAutocomplete handle these
+      }
+      if (showAutocomplete && e.key === 'Escape') {
+        e.preventDefault();
+        setShowAutocomplete(false);
+        return;
+      }
       if (e.key === 'Escape') {
         e.preventDefault();
         onInterrupt();
@@ -41,7 +54,7 @@ export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled
         return;
       }
     },
-    [handleSend, onInterrupt],
+    [handleSend, onInterrupt, showAutocomplete],
   );
 
   const handleFileChange = useCallback(
@@ -59,13 +72,46 @@ export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled
     const ta = e.target;
     ta.style.height = 'auto';
     ta.style.height = Math.min(ta.scrollHeight, 200) + 'px';
+
+    // Check for @ autocomplete trigger
+    const value = e.target.value;
+    const cursorPos = e.target.selectionStart || 0;
+    const textBeforeCursor = value.slice(0, cursorPos);
+    const atIndex = textBeforeCursor.lastIndexOf('@');
+
+    if (atIndex !== -1 && (atIndex === 0 || textBeforeCursor[atIndex - 1] === ' ')) {
+      setShowAutocomplete(true);
+      setAutocompleteQuery(textBeforeCursor.slice(atIndex + 1));
+    } else {
+      setShowAutocomplete(false);
+    }
   }, []);
+
+  const handleAutocompleteSelect = useCallback((filePath: string) => {
+    const cursorPos = textareaRef.current?.selectionStart || input.length;
+    const textBeforeCursor = input.slice(0, cursorPos);
+    const atIndex = textBeforeCursor.lastIndexOf('@');
+    if (atIndex === -1) return;
+
+    const before = input.slice(0, atIndex);
+    const after = input.slice(cursorPos);
+    setInput(`${before}@${filePath}${after}`);
+    setShowAutocomplete(false);
+  }, [input]);
 
   const isSlash = input.startsWith('/');
 
   return (
-    <div className="chat-input-container">
-      <div className="chat-input-inner">
+    <div className="border-t border-default bg-surface-1 px-5 py-3">
+      <div className="chat-input-inner relative">
+        {showAutocomplete && (
+          <FileAutocomplete
+            query={autocompleteQuery}
+            files={filesList}
+            onSelect={handleAutocompleteSelect}
+            onDismiss={() => setShowAutocomplete(false)}
+          />
+        )}
         <button
           onClick={() => fileInputRef.current?.click()}
           className="btn-icon"
