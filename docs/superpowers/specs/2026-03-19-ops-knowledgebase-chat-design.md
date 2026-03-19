@@ -54,23 +54,27 @@ type ClientMessage =
 
 // Server → Client
 type ServerMessage =
-  | { type: 'assistant_text'; content: string }     // Streamed text chunk
-  | { type: 'tool_use'; tool: string; input: any }  // Agent using a tool
-  | { type: 'tool_result'; output: string }         // Tool result
-  | { type: 'session_init'; session_id: string }    // Session created
-  | { type: 'done' }                                // Stream complete
-  | { type: 'error'; message: string }              // Error
+  | { type: 'assistant_text'; content: string }                          // Streamed text (full message content)
+  | { type: 'tool_use'; id: string; tool: string; input: any }          // Agent using a tool
+  | { type: 'tool_result'; tool_use_id: string; output: string }        // Tool result (correlated by id)
+  | { type: 'session_init'; session_id: string }                        // Session created
+  | { type: 'done' }                                                    // Stream complete
+  | { type: 'error'; message: string }                                  // Error
 ```
 
 ### Agent Configuration
 
 ```typescript
 query({
-  prompt: userMessage,  // or MessageStream for multi-turn
+  prompt: messageStream,  // MessageStream async iterable for multi-turn
   options: {
     cwd: '/workspace',
     permissionMode: 'bypassPermissions',
     allowDangerouslySkipPermissions: true,
+    resume: sessionId,              // Resume existing session (undefined for first turn)
+    resumeSessionAt: lastAssistantUuid, // Resume at specific point
+    env: { ...process.env },        // Pass ANTHROPIC_API_KEY + other env vars to SDK
+    settingSources: ['project', 'user'],
     allowedTools: [
       'Read', 'Glob', 'Grep',
       'Write', 'Edit',
@@ -84,6 +88,12 @@ query({
       preset: 'claude_code',
       append: '... custom system prompt for knowledgebase context ...',
     },
+    hooks: {
+      PreToolUse: [{
+        matcher: 'Bash',
+        hooks: [sanitizeBashHook],  // Strip ANTHROPIC_API_KEY from bash env
+      }],
+    },
   },
 })
 ```
@@ -91,8 +101,13 @@ query({
 ### Session Management
 
 - Uses NanoClaw's `MessageStream` pattern — async iterable that keeps the session alive for multi-turn
-- Session resume via `resume` + `resumeSessionAt` options
+- Session resume via `resume` + `resumeSessionAt` options in `query()`
 - `/new` meta action from client ends the current MessageStream and starts a fresh `query()`
+- On `interrupt`: server calls `.return()` on the active `query()` async generator, sends `{ type: 'done' }` to client. Session remains resumable via `resume`/`resumeSessionAt`.
+
+### Security: Bash Sanitization
+
+A `PreToolUse` hook strips sensitive environment variables (`ANTHROPIC_API_KEY`) from Bash commands before execution, preventing the agent from leaking secrets. Follows the same pattern as NanoClaw's `createSanitizeBashHook`.
 
 ### File Upload Endpoint
 
@@ -100,8 +115,13 @@ query({
 POST /api/upload
 Content-Type: multipart/form-data
 
-→ Writes files to /workspace/<original-filename>
+→ Sanitizes filename (strips path traversal, e.g. ../../)
+→ Writes files to /workspace/<sanitized-filename>
+→ Max file size: 50MB per file
 → Returns { files: [{ name, path, size }] }
+
+GET /health
+→ Returns 200 OK (used by Fly health checks)
 ```
 
 ## Client
@@ -146,7 +166,7 @@ Content-Type: multipart/form-data
 
 ### Features
 
-- **Streaming text** — Token-by-token rendering as WebSocket delivers
+- **Streaming text** — Message-level streaming as WebSocket delivers (SDK yields complete messages, not tokens)
 - **Markdown rendering** — Full GFM support with syntax-highlighted code blocks
 - **Tool use visibility** — Collapsible sections showing what the agent did (Read file X, Grep for Y)
 - **Slash commands** — Typed in input, sent to agent verbatim (agent handles via Skill tool)
@@ -173,6 +193,8 @@ RUN npm ci && npm run build
 
 # Stage 2: Server + static assets
 FROM node:22-alpine
+# claude-code binary is required by @anthropic-ai/claude-agent-sdk at runtime
+# (the SDK spawns it as a subprocess)
 RUN npm i -g @anthropic-ai/claude-code
 WORKDIR /app
 COPY server/ .
@@ -183,11 +205,36 @@ CMD ["node", "dist/index.js"]
 
 ### Fly Configuration
 
-- **App name:** `ops-knowledgebase-chat`
-- **Volume:** `/workspace` — persistent, survives deploys
+```toml
+app = "ops-knowledgebase-chat"
+primary_region = "sea"
+
+[build]
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+
+[mounts]
+  source = "workspace"
+  destination = "/workspace"
+
+[[vm]]
+  size = "shared-cpu-2x"
+  memory = "1gb"
+
+[checks.health]
+  type = "http"
+  port = 8080
+  path = "/health"
+  interval = "30s"
+  timeout = "5s"
+```
+
 - **Secret:** `ANTHROPIC_API_KEY` via `fly secrets set`
-- **Port:** 8080
-- **Machine:** `shared-cpu-2x` or `performance-1x`
+- **Health check:** `GET /health` returns 200
 
 ### File Seeding
 
