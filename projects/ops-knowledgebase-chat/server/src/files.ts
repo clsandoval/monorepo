@@ -96,3 +96,35 @@ filesRouter.get('/api/files/{*filePath}', (req, res) => {
   res.set('Content-Disposition', `attachment; filename="${filename}"`);
   res.type('text/plain').send(content);
 });
+
+// DELETE /api/files/* — delete a file from workspace
+filesRouter.delete('/api/files/{*filePath}', (req, res) => {
+  const rawParam = (req.params as Record<string, string | string[]>).filePath;
+  const filePath = Array.isArray(rawParam) ? rawParam.join('/') : (rawParam || '');
+
+  if (filePath.includes('..') || path.isAbsolute(filePath)) {
+    res.status(400).json({ error: 'Invalid path' });
+    return;
+  }
+
+  const fullPath = path.join(WORKSPACE_DIR, filePath);
+
+  if (!fullPath.startsWith(WORKSPACE_DIR)) {
+    res.status(400).json({ error: 'Path outside workspace' });
+    return;
+  }
+
+  if (!fs.existsSync(fullPath)) {
+    res.status(404).json({ error: 'File not found' });
+    return;
+  }
+
+  const stat = fs.statSync(fullPath);
+  if (stat.isDirectory()) {
+    fs.rmSync(fullPath, { recursive: true });
+  } else {
+    fs.unlinkSync(fullPath);
+  }
+
+  res.json({ deleted: filePath });
+});

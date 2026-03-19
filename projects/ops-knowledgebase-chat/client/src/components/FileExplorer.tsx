@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { FileTreeNode } from './FileTreeNode';
 import type { FileTreeNode as FileTreeNodeType } from '../types';
 
@@ -11,6 +12,18 @@ export function FileExplorer({ tree, loading, onRefresh }: FileExplorerProps) {
   const handleFileClick = (filePath: string) => {
     window.open('/api/files/' + encodeURIComponent(filePath), '_blank');
   };
+
+  const handleFileDelete = useCallback(async (filePath: string) => {
+    if (!confirm(`Delete ${filePath}?`)) return;
+    try {
+      const res = await fetch('/api/files/' + encodeURIComponent(filePath), { method: 'DELETE' });
+      if (res.ok) {
+        onRefresh();
+      }
+    } catch {
+      // ignore
+    }
+  }, [onRefresh]);
 
   return (
     <div className="flex flex-col h-full bg-white border-r border-default">
@@ -28,7 +41,7 @@ export function FileExplorer({ tree, loading, onRefresh }: FileExplorerProps) {
           <div className="text-text-muted text-xs px-3 py-4 text-center">No files in workspace</div>
         )}
         {tree.map((node) => (
-          <FileTreeNode key={node.path || node.name} node={node} depth={0} onFileClick={handleFileClick} />
+          <FileTreeNode key={node.path || node.name} node={node} depth={0} onFileClick={handleFileClick} onFileDelete={handleFileDelete} />
         ))}
       </div>
     </div>
