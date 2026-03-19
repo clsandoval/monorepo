@@ -1,17 +1,19 @@
 import { useEffect, useRef } from 'react';
 import { MessageBubble } from './MessageBubble';
+import { TypingIndicator } from './TypingIndicator';
 import type { ChatMessage } from '../types';
 
 interface ChatViewProps {
   messages: ChatMessage[];
+  agentStatus: string | null;
 }
 
-export function ChatView({ messages }: ChatViewProps) {
+export function ChatView({ messages, agentStatus }: ChatViewProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, agentStatus]);
 
   return (
     <div className="flex-1 overflow-y-auto px-5 py-6 pb-32">
@@ -26,6 +28,7 @@ export function ChatView({ messages }: ChatViewProps) {
       {messages.map((msg) => (
         <MessageBubble key={msg.id} message={msg} />
       ))}
+      {agentStatus && <TypingIndicator status={agentStatus} />}
       <div ref={bottomRef} />
     </div>
   );

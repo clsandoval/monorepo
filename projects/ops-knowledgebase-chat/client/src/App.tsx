@@ -17,6 +17,7 @@ function nextId() {
 export function App() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
+  const [agentStatus, setAgentStatus] = useState<string | null>(null);
   const [filesOpen, setFilesOpen] = useState(true);
   const [sessionsOpen, setSessionsOpen] = useState(true);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
@@ -26,7 +27,25 @@ export function App() {
 
   const handleMessage = useCallback((msg: ServerMessage) => {
     switch (msg.type) {
+      case 'assistant_delta':
+        setAgentStatus(null); // Clear status once text starts flowing
+        setMessages((prev) => {
+          const last = prev[prev.length - 1];
+          if (last && last.role === 'assistant') {
+            return [
+              ...prev.slice(0, -1),
+              { ...last, content: last.content + msg.content },
+            ];
+          }
+          return [
+            ...prev,
+            { id: nextId(), role: 'assistant', content: msg.content, toolUses: [] },
+          ];
+        });
+        break;
+
       case 'assistant_text':
+        setAgentStatus(null);
         setMessages((prev) => {
           const last = prev[prev.length - 1];
           if (last && last.role === 'assistant') {
@@ -62,6 +81,22 @@ export function App() {
             },
           ];
         });
+        // Derive typing status from tool use
+        {
+          const toolInput = msg.input as Record<string, unknown> | undefined;
+          let statusText = `Using ${msg.tool}...`;
+          switch (msg.tool) {
+            case 'Read': statusText = `Reading ${toolInput?.file_path || 'file'}...`; break;
+            case 'Grep': statusText = `Searching for ${toolInput?.pattern || 'pattern'}...`; break;
+            case 'Glob': statusText = 'Finding files...'; break;
+            case 'Bash': statusText = 'Running command...'; break;
+            case 'Write': statusText = `Writing ${toolInput?.file_path || 'file'}...`; break;
+            case 'Edit': statusText = `Editing ${toolInput?.file_path || 'file'}...`; break;
+            case 'WebSearch': statusText = 'Searching the web...'; break;
+            case 'WebFetch': statusText = 'Fetching page...'; break;
+          }
+          setAgentStatus(statusText);
+        }
         break;
 
       case 'tool_result':
@@ -79,6 +114,7 @@ export function App() {
 
       case 'done':
         setIsStreaming(false);
+        setAgentStatus(null);
         refreshFiles();
         refreshSessions();
         break;
@@ -89,6 +125,7 @@ export function App() {
           { id: nextId(), role: 'error', content: msg.message },
         ]);
         setIsStreaming(false);
+        setAgentStatus(null);
         break;
 
       case 'session_init':
@@ -128,6 +165,7 @@ export function App() {
       ]);
       send({ type: 'user_message', content });
       setIsStreaming(true);
+      setAgentStatus('Thinking...');
     },
     [send],
   );
@@ -135,12 +173,14 @@ export function App() {
   const handleInterrupt = useCallback(() => {
     send({ type: 'interrupt' });
     setIsStreaming(false);
+    setAgentStatus(null);
   }, [send]);
 
   const handleNewSession = useCallback(() => {
     send({ type: 'new_session' });
     setMessages([]);
     setIsStreaming(false);
+    setAgentStatus(null);
     setActiveSessionId(null);
     refreshSessions();
   }, [send, refreshSessions]);
@@ -149,6 +189,7 @@ export function App() {
     (sessionId: string) => {
       send({ type: 'load_session', session_id: sessionId });
       setIsStreaming(false);
+      setAgentStatus(null);
     },
     [send],
   );
@@ -203,7 +244,7 @@ export function App() {
           </div>
         )}
         <div className="flex flex-col flex-1 min-w-0">
-          <ChatView messages={messages} />
+          <ChatView messages={messages} agentStatus={agentStatus} />
           <ChatInput
             onSend={handleSend}
             onUpload={handleUpload}
