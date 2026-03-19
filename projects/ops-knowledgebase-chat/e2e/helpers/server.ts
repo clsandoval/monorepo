@@ -9,8 +9,24 @@ const WORKSPACE_DIR = '/tmp/ops-kb-e2e-workspace';
 const PORT = 8080;
 
 let serverProcess: ChildProcess | null = null;
+let starting: Promise<void> | null = null;
 
 export async function startServer(): Promise<void> {
+  // Deduplicate concurrent calls from parallel workers
+  if (starting) return starting;
+  starting = doStartServer();
+  return starting;
+}
+
+async function doStartServer(): Promise<void> {
+  // If server is already running, just wait for health
+  try {
+    const res = await fetch(`http://localhost:${PORT}/health`);
+    if (res.ok) return;
+  } catch {
+    // not running, proceed with startup
+  }
+
   fs.rmSync(WORKSPACE_DIR, { recursive: true, force: true });
   fs.mkdirSync(WORKSPACE_DIR, { recursive: true });
 
