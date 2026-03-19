@@ -22,5 +22,15 @@ RUN npm run build
 # Copy frontend build into public/
 COPY --from=frontend /app/client/dist ./public
 
+# Run as non-root user — claude-code SDK refuses --dangerously-skip-permissions as root
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup \
+    && chown -R appuser:appgroup /app \
+    && mkdir -p /workspace && chown appuser:appgroup /workspace \
+    && mkdir -p /home/appuser && chown appuser:appgroup /home/appuser
+
+# Entrypoint fixes volume perms (mounted as root) then drops to appuser
+RUN printf '#!/bin/sh\nchown appuser:appgroup /workspace 2>/dev/null\nexec su -s /bin/sh appuser -c "node /app/dist/index.js"\n' > /app/entrypoint.sh \
+    && chmod +x /app/entrypoint.sh
+
 EXPOSE 8080
-CMD ["node", "dist/index.js"]
+CMD ["/app/entrypoint.sh"]
