@@ -17,9 +17,13 @@ const ALL_HEIR_TYPES: QuickCalcHeirType[] = [
   'Father', 'Mother', 'Brother', 'Sister',
 ];
 
-export function QuickCalcWidget() {
+interface QuickCalcWidgetProps {
+  initialHeirs?: QuickCalcHeir[];
+}
+
+export function QuickCalcWidget({ initialHeirs }: QuickCalcWidgetProps) {
   const [estatePesos, setEstatePesos] = useState('');
-  const [heirs, setHeirs] = useState<QuickCalcHeir[]>([]);
+  const [heirs, setHeirs] = useState<QuickCalcHeir[]>(initialHeirs ?? []);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [computing, setComputing] = useState(false);
   const [output, setOutput] = useState<EngineOutput | null>(null);

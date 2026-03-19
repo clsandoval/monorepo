@@ -116,6 +116,12 @@ describe('QuickCalcWidget', () => {
     expect(sessionStorage.getItem('quick-calc-used')).toBeNull();
   });
 
+  it('renders pre-populated heirs from initialHeirs prop', () => {
+    render(<QuickCalcWidget initialHeirs={[{ type: 'LegitimateChild' }, { type: 'LegitimateChild' }]} />);
+    expect(screen.getByText('Legitimate Child 1')).toBeInTheDocument();
+    expect(screen.getByText('Legitimate Child 2')).toBeInTheDocument();
+  });
+
   it('blocks second calculation with session gate', async () => {
     const user = userEvent.setup();
     sessionStorage.setItem('quick-calc-used', 'true');
