@@ -10,42 +10,42 @@
 /* ---- CSS Custom Properties ---- */
 
 :root {
-  --surface-0: #1a1916;
-  --surface-1: #23211e;
-  --surface-2: #2e2b27;
-  --surface-3: #3a3632;
-  --surface-4: #4a4540;
+  --surface-0: #ffffff;
+  --surface-1: #fdf6ee;
+  --surface-2: #f5ede3;
+  --surface-3: #ebe3d9;
+  --surface-4: #d9d0c5;
 
-  --text-primary: #e8e4de;
-  --text-secondary: #a39e96;
-  --text-muted: #6b6660;
-  --text-inverse: #1a1916;
+  --text-primary: #2c2420;
+  --text-secondary: #6b5e52;
+  --text-muted: #a09488;
+  --text-inverse: #ffffff;
 
-  --accent-red: #c4443a;
-  --accent-red-hover: #d65349;
-  --accent-red-subtle: rgba(196, 68, 58, 0.12);
+  --accent-red: #a83227;
+  --accent-red-hover: #c23b2f;
+  --accent-red-subtle: rgba(168, 50, 39, 0.08);
 
-  --accent-gold: #c4983a;
-  --accent-gold-hover: #d6aa4c;
-  --accent-gold-subtle: rgba(196, 152, 58, 0.12);
+  --accent-gold: #faac54;
+  --accent-gold-hover: #ffbc6e;
+  --accent-gold-subtle: rgba(250, 172, 84, 0.08);
 
-  --status-success: #5a9a6b;
-  --status-warning: #c4983a;
-  --status-error: #c4443a;
-  --status-info: #5a8a9a;
+  --status-success: #3d8c5c;
+  --status-warning: #d4942e;
+  --status-error: #a83227;
+  --status-info: #3d7a8c;
 
-  --border-default: rgba(163, 158, 150, 0.12);
-  --border-strong: rgba(163, 158, 150, 0.24);
+  --border-default: rgba(107, 94, 82, 0.15);
+  --border-strong: rgba(107, 94, 82, 0.30);
 
-  --code-bg: #1e1c19;
-  --code-text: #d4cfca;
+  --code-bg: #faf5ef;
+  --code-text: #4a3f35;
 
-  --tool-bg: #1e1c19;
-  --tool-border: #3a3632;
-  --tool-border-active: #c4983a;
+  --tool-bg: #faf5ef;
+  --tool-border: #ebe3d9;
+  --tool-border-active: #faac54;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-focus: 0 0 0 2px var(--accent-red);
 
   --radius-sm: 4px;
@@ -107,7 +107,7 @@
   }
 
   ::selection {
-    background-color: var(--accent-red-subtle);
+    background-color: var(--accent-gold-subtle);
     color: var(--text-primary);
   }
 
@@ -151,8 +151,8 @@
   /* -- Header -- */
   .app-header {
     height: 48px;
-    background: var(--surface-0);
-    border-bottom: 1px solid var(--border-default);
+    background: var(--accent-red);
+    border-bottom: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -168,7 +168,7 @@
     font-family: "IBM Plex Mono", monospace;
     font-size: 13px;
     font-weight: 500;
-    color: var(--text-muted);
+    color: var(--text-inverse);
     letter-spacing: 0.02em;
   }
 
@@ -186,7 +186,8 @@
   .msg-user {
     align-self: flex-end;
     max-width: 85%;
-    background: var(--surface-2);
+    background: var(--surface-0);
+    border: 1px solid var(--border-default);
     border-radius: var(--radius-lg);
     padding: 12px 16px;
     color: var(--text-primary);
@@ -271,7 +272,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: var(--surface-1);
+    background: var(--surface-0);
     border-top: 1px solid var(--border-default);
     padding: 12px 20px 16px;
   }
@@ -286,7 +287,7 @@
 
   .chat-input {
     flex: 1;
-    background: var(--surface-2);
+    background: var(--surface-0);
     border: 1px solid var(--border-default);
     border-radius: var(--radius-md);
     padding: 12px 16px;
@@ -584,46 +585,46 @@
   .hljs-selector-tag,
   .hljs-built_in,
   .hljs-type {
-    color: #b85450;
+    color: #a83227;
   }
 
   .hljs-string,
   .hljs-attr,
   .hljs-symbol,
   .hljs-template-variable {
-    color: #b8963a;
+    color: #b8762a;
   }
 
   .hljs-number,
   .hljs-literal,
   .hljs-variable.constant_ {
-    color: #5a8a7a;
+    color: #3d7a6a;
   }
 
   .hljs-comment,
   .hljs-quote,
   .hljs-doctag {
-    color: #6b6660;
+    color: #a09488;
     font-style: italic;
   }
 
   .hljs-function,
   .hljs-title {
-    color: #d4cfca;
+    color: #4a3f35;
   }
 
   .hljs-variable,
   .hljs-params {
-    color: #c4bfb8;
+    color: #6b5e52;
   }
 
   .hljs-operator,
   .hljs-punctuation {
-    color: #a39e96;
+    color: #a09488;
   }
 
   .hljs-title.class_ {
-    color: #6a8a9a;
+    color: #3d7a8c;
   }
 
   .hljs-meta,
@@ -637,12 +638,12 @@
 
   .hljs-addition {
     color: var(--status-success);
-    background: rgba(90, 154, 107, 0.1);
+    background: rgba(61, 140, 92, 0.08);
   }
 
   .hljs-deletion {
     color: var(--status-error);
-    background: rgba(196, 68, 58, 0.1);
+    background: rgba(168, 50, 39, 0.08);
   }
 }
 
