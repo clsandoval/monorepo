@@ -9,8 +9,15 @@ RUN npm run build
 # Stage 2: Server + static assets
 FROM node:22-alpine
 
-# bash + python3 + git — claude-code needs POSIX shell, agents use python/git
-RUN apk add --no-cache bash python3 git
+# Runtime tools — claude-code needs bash, agent needs python/git/pdf/common utils
+RUN apk add --no-cache \
+    bash git curl wget \
+    python3 py3-pip \
+    poppler-utils \
+    tesseract-ocr \
+    jq \
+    && pip3 install --break-system-packages \
+    pdfplumber pymupdf python-docx openpyxl pandas
 
 # claude-code binary is required by @anthropic-ai/claude-agent-sdk at runtime
 # (the SDK spawns it as a subprocess)
