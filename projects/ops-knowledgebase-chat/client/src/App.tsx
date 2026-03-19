@@ -18,8 +18,8 @@ export function App() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [agentStatus, setAgentStatus] = useState<string | null>(null);
-  const [filesOpen, setFilesOpen] = useState(true);
-  const [sessionsOpen, setSessionsOpen] = useState(true);
+  const [filesOpen, setFilesOpen] = useState(false);
+  const [sessionsOpen, setSessionsOpen] = useState(false);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
 
   const { tree, flatFiles, loading: filesLoading, refresh: refreshFiles } = useFileTree();
