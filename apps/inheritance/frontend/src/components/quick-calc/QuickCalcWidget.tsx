@@ -9,6 +9,7 @@ import { pesosToCentavos } from '@/types';
 import type { EngineOutput } from '@/types';
 import { buildEngineInput, HEIR_TYPE_LABELS, SINGLETON_TYPES, type QuickCalcHeir, type QuickCalcHeirType } from './defaults';
 import { QuickCalcResults } from './QuickCalcResults';
+import { trackQuickCalcUsed } from '@/lib/analytics';
 
 const SESSION_KEY = 'quick-calc-used';
 
@@ -64,6 +65,7 @@ export function QuickCalcWidget({ initialHeirs }: QuickCalcWidgetProps) {
       }
       const result = await computeWasm(input);
       setOutput(result);
+      trackQuickCalcUsed(heirs.length);
       sessionStorage.setItem(SESSION_KEY, 'true');
     } catch {
       setError('Unable to load calculator. Please try again or create an account.');
