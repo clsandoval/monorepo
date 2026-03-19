@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1476
-- **Analyzed:** 468
-- **Pending:** 1008
-- **Convergence:** 31.7%
+- **Analyzed:** 475
+- **Pending:** 1001
+- **Convergence:** 32.2%
 
 ---
 
@@ -147,7 +147,7 @@
 - [x] 1.06f — Scouting report staleness and adversarial profile management: when opponents change configs between matches, scouting data becomes stale; should the game surface confidence decay? Can players deliberately present misleading profiles in early matches to set up a counter in a later match? Profile poisoning as competitive tactic
 - [x] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
 - [x] 1.07a — The RAM-as-context-window parallel: how Bitburner's static RAM analysis (compile-time function cost → fits/doesn't-fit) vs. Robot Uprising's dynamic context window (runtime fill/evict) create fundamentally different player tensions; static constraint = build-time optimization, dynamic constraint = runtime drama
-- [ ] 1.07b — The code wall as design lesson: Bitburner's scripting cliff (manual→JavaScript transition) as cautionary data for Robot Uprising's workbench accessibility; dropout rate analysis; what specific affordances prevent the equivalent wall in visual configuration
+- [x] 1.07b — The code wall as design lesson: Bitburner's scripting cliff (manual→JavaScript transition) as cautionary data for Robot Uprising's workbench accessibility; dropout rate analysis; what specific affordances prevent the equivalent wall in visual configuration
 - [ ] 1.07c — The batch script coordination pattern: Bitburner's HWGW timing attacks as pure-code precursor to Robot Uprising's hook/channel signal chains; extracting the coordination design pattern from code into visual wiring
 - [ ] 1.07d — Prestige loops that change the game: BitNode system as model for Robot Uprising's post-campaign progression; each reset introduces new systems rather than just scaling numbers; how the Gauntlet or New Game+ could vary game rules rather than just difficulty
 - [ ] 1.07e — Idle accumulation vs. sealed watch tension: the fundamental emotional design choice between "my system works while I'm away" (Bitburner) and "I must watch my system execute under pressure" (Robot Uprising); when each emotional register serves the game
@@ -245,8 +245,8 @@
 - [x] 2.00j — The debugging tax of full determinism: every failure is the player's fault; no "bad luck" to blame; for some players this is liberating, for others it's exhausting; how the debrief tools (especially the Minimum Fix Explorer) should surface the most impactful change to reduce diagnostic burden
 - [x] 2.00k — Cross-model comparison matrix: formal side-by-side evaluation of all intelligence models (2.00a–2.00d) across 10 dimensions (debuggability, spectator drama, personality ceiling, educational transfer, async PvP fairness, computational cost, accessibility floor, skill ceiling, mod support, platform portability)
 - [x] 2.14 — Spatial routing as mechanic layer: battlefield layout creates information routing constraints, separate from configuration logic; agent proximity determines which hook chains are possible
-- [ ] 2.15 — Pipelined agent execution: throughput-optimal configurations where agents handle overlapping tasks (agent A finishes task N while agent B starts task N+1); cycle-optimal solutions look different from cost-optimal solutions; maps to Opus Magnum's pipeline-vs-sequential tradeoff
-- [ ] 2.16 — Counter-intelligence as offensive mechanic: deliberately leaving enemy-injected hooks active and routing deceptive signals through them; "hook judo" — using enemy infrastructure against them; how the game scaffolds this discovery moment; risk/reward of leaving a known intrusion active
+- [x] 2.15 — Pipelined agent execution: throughput-optimal configurations where agents handle overlapping tasks (agent A finishes task N while agent B starts task N+1); cycle-optimal solutions look different from cost-optimal solutions; maps to Opus Magnum's pipeline-vs-sequential tradeoff
+- [x] 2.16 — Counter-intelligence as offensive mechanic: deliberately leaving enemy-injected hooks active and routing deceptive signals through them; "hook judo" — using enemy infrastructure against them; how the game scaffolds this discovery moment; risk/reward of leaving a known intrusion active
 - [ ] 2.17 — Fabrication as tactical resource: spawn cost as a per-mission resource that creates trade-offs between pre-placed agents and dynamic spawning; fabrication point allocation as a pre-mission decision; how the resource cap interacts with spawn storm failure mode
 - [ ] 2.18 — Signal acknowledgment as optional mechanic: a lightweight "ACK" hook that fires automatically when a signal is processed — a soft middle ground between fire-and-forget (no delivery info) and blocking (full rendezvous); configurable ACK_TIMEOUT after which sender continues without confirmation
 - [ ] 2.19 — Variable scenario seeds as difficulty axis: replacing a single difficulty slider with a "scenario variance" dial — narrow variance makes missions more deterministic (tutorial-friendly), wide variance makes them extremely randomization-dependent (expert challenge); the dial as an explicit player control
@@ -359,7 +359,7 @@
   - [ ] 3.05f — The dual-mode compilation guarantee: if the game offers multiple rules syntaxes (priority queue + assembly prefix), proving they produce identical behavior requires a formal equivalence; design the compilation layer and the edge cases where equivalence breaks
   - [ ] 3.06-ext — Rule conflict visualization in real-time: when two rules COULD match but priority ordering picks one, how does the inspector show the "road not taken"? The near-miss visualization problem from pattern matching applies to all approaches
 - [x] 3.05a — Conditional prefix as expressive primitive: minimal rule vocabulary (like Shenzhen I/O's +/- prefix) that enables sophisticated agent behavior from simple building blocks
-- [ ] 3.05b — SWIZ-style value packing as design primitive: EXAPUNKS SWIZ encodes multi-attribute info in one integer via digit manipulation; Robot Uprising signals might encode compound information; what's the analogous primitive?
+- [x] 3.05b — SWIZ-style value packing as design primitive: EXAPUNKS SWIZ encodes multi-attribute info in one integer via digit manipulation; Robot Uprising signals might encode compound information; what's the analogous primitive?
 - [x] 3.06 — Rule conflicts: what happens when two rules contradict? Priority system, error feedback, or emergent chaos?
   - [ ] 3.06a — Warning calibration: the false positive problem — how many warnings per rule-set is too many? Warning fatigue threshold; A/B testing warning sensitivity
   - [ ] 3.06b — Ghost preview conflict visualization: dual-arrow and colored spatial zone rendering for overlapping condition ranges; full design spec for the contested zone highlight
@@ -368,7 +368,7 @@
   - [ ] 3.06e — Competitive meta around conflict-free architectures: deliberate conflicts as decoy strategy (EM spike bait), "controlled chaos" as advanced PvP technique
 - [x] 3.07 — Rules UI: how does the player write/edit/reorder rules?
 - [x] 3.07a — Rules panel layout at scale: what does 12-20 rules look like on a Command unit? Scrolling vs. pagination vs. collapsible groups; the "wall of rules" readability problem
-- [ ] 3.07b — Rules copy-paste between blueprints: can the player copy a rule strip from one blueprint and paste it into another? Cross-unit-type compatibility for shared conditions
+- [x] 3.07b — Rules copy-paste between blueprints: can the player copy a rule strip from one blueprint and paste it into another? Cross-unit-type compatibility for shared conditions
 - [ ] 3.07c — Rules diff view in Inspector: show which rules changed since last execute; "you added rule 4 and reordered 2-3" as explicit debrief feedback
 - [ ] 3.07d — Rules panel keyboard shortcuts: expert keyboard-only workflow for rule creation and reordering; Ctrl+N, Ctrl+Up/Down, Ctrl+D; the mouseless speedrun
 - [ ] 3.07e — The "rule graveyard" — disabled but preserved rules: gray out a rule without deleting; A/B testing rule configurations without losing work; visual treatment of disabled rules
@@ -499,7 +499,7 @@
   - [ ] 5.00e — The naming moment as designed beat: exact timing of when concepts get named; too early = meaningless label, too late = annoying interruption; detecting the "tip of the tongue" moment programmatically
 - [x] 5.11a — The document-as-corrupted-surface mechanic: designing the tactical log / field manual so that enemy interference appears IN the document — making tutorial pages a gameplay surface (corruption detection embedded in reading experience)
 - [x] 5.11b — The corrupted diff as endgame adversarial escalation: designing the mission where the diff view itself is compromised; when to reveal this capability; how to prevent it from being frustrating vs. thrilling; the "no tool is infallible" lesson as a designed campaign beat
-- [ ] 5.11c — Document recovery missions: missions where a primary objective is deploying a Specialist to recover redacted/purged document content from enemy communications; document integrity as a resource to defend and reclaim
+- [x] 5.11c — Document recovery missions: missions where a primary objective is deploying a Specialist to recover redacted/purged document content from enemy communications; document integrity as a resource to defend and reclaim
 - [ ] 5.11d — Community corruption reports: players sharing screenshots of corruption they found; "corruption of the week" as a community artifact; the social loop of corruption detection as a shared experience
 - [x] 5.11e — Corruption as enemy characterization: different enemy types have different corruption signatures (clean surgical rewrites vs. crude redactions vs. sophisticated injections); corruption style as adversary personality; reading corruption patterns to identify which enemy subsystem is active
   - [ ] 5.11f — Corruption personality combination attack design: detailed mechanical specification for every 2- and 3-personality combination (Surgeon+Censor distraction, Mimic+Architect structural injection, Vandal+Surgeon noise cover), with specific mission placements and escalation curves
@@ -685,7 +685,7 @@
 - [x] 6.01b — Unit sprite design language: detailed visual identity per unit type — silhouette grammar, accent color system, destroyed/ghost/hologram variant derivation from base sprite; interaction with locked sprite-sheet pipeline
 - [x] 6.01c — The holographic overlay system: full technical and aesthetic design of Plan mode overlay — grid materialization, channel wiring rendering, perception radius treatment, ghost units, overlay × terrain interaction; five grid transition options (A "The Fade" desaturation+rise, B "The X-Ray" instant toggle, C "The Holographic Projection" RECOMMENDED floating volumetric layer with parallax, D "The Night Vision" dark inversion, E "The Three-Layer Cake" toggleable depth layers); four channel wiring styles (W1 "Circuit Board" orthogonal Manhattan, W2 "Nerve Bundle" bezier curves, W3 "Subway Map" RECOMMENDED 45°/90° with station circles, W4 "Pulse Network" minimalist node-and-edge); four perception radius styles (P1 "Spotlight" filled circles, P2 "Radar Sweep" animated wedge, P3 "Heatmap" tile-level coverage, P4 "Grid Highlight" RECOMMENDED discrete tile borders); ghost unit rendering pipeline (desaturate→cyan tint→45% opacity→scan-line sweep); ghost interaction states (default/hover/selected/dragging/production-preview); per-biome overlay tuning (jungle=no change, beach=gold shift, city=intensity increase, terrace=dotted lines, volcanic=no change); "Overlay Confidence Rule" adaptive contrast; seal-descend transition 800ms ceremony (commit flash→grid dissolve→wires burn→ghosts solidify→world returns); Shape-First accessible overlay (6 dash patterns, hatching fills, number labels); 4 player journeys (Reyes 26 frontend dev first wiring encounter, Marcus 42 Factorio vet complex topology audit, Tomás 14 first-timer overlay learning, Dr. Priya 38 ML engineer deuteranopia accessible mode); 5 new aspects discovered
 - [x] 6.01d — Color palette interaction with colorblind modes: how each art direction option degrades under protanopia/deuteranopia/tritanopia; which palettes need redesign vs. naturally robust; interaction with locked signal colors
-- [ ] 6.01e — Tilt-shift implementation in Pixi.js: technical feasibility of the "Diorama" effect — blur filters, performance on low-end hardware, dynamic edge sharpening, Playwright screenshot test determinism
+- [x] 6.01e — Tilt-shift implementation in Pixi.js: technical feasibility of the "Diorama" effect — blur filters, performance on low-end hardware, dynamic edge sharpening, Playwright screenshot test determinism
 - [x] 6.03a — The Predecessor's character arc across 10 missions: beat-by-beat emotional evolution from weary mentor to hopeful observer; branching narrator mood based on player success/failure as implicit difficulty feedback; comparable: Darkest Dungeon Ancestor mood shifts, Hades character memory across runs
   - [ ] 6.03b — The Predecessor's vocabulary discipline across emotional registers: how the Predecessor expresses anxiety, pride, grief, and hope while maintaining 1:1 agentic AI vocabulary; detailed vocabulary guide — allowed words, forbidden metaphors, emotional weight through sentence structure not poetic language
   - [ ] 6.03c — The Predecessor's Plan-phase trigger system: which player actions trigger Predecessor commentary (add hook, remove rule, fill buffer, change eviction); event prioritization when multiple triggers fire simultaneously; cooldown timers; interaction with Plan-phase pacing
@@ -697,7 +697,7 @@
   - [ ] 6.03d — Narrative voice localization strategy: cost-quality matrix for small studios across voice options; Boot Log (technical terms, cheap) vs. Predecessor (literary prose, expensive) vs. Radio (5 archetypes × N languages, very expensive); interaction with text-only vs. voiced implementations
   - [ ] 6.03e — The Predecessor's diegetic justification: if the boot log is "you reading your own spec sheet," where does the Predecessor's voice come from? Corrupted previous installation, parallel AI, recorded message; whether diegetic justification matters for player experience
 - [x] 6.10 — Sound design for corruption detection: audio vocabulary of integrity violations — what does a foreign hook sound like when first detected, what does a revert "click" sound like, what does mid-execution EMP buffer degradation sound like; the sonic signature of a compromised vs. clean system
-- [ ] 6.10a — Corruption audio learning curve design: how the first corruption encounter (Mission 7-8) introduces the audio vocabulary without overwhelming; pacing of new corruption sounds across campaign's second half; which sounds appear when
+- [x] 6.10a — Corruption audio learning curve design: how the first corruption encounter (Mission 7-8) introduces the audio vocabulary without overwhelming; pacing of new corruption sounds across campaign's second half; which sounds appear when
 - [ ] 6.10b — Corruption audio in competitive/PvP context: does the opponent hear YOUR corruption audio? Can EM emissions include corruption detection sounds? Audio as competitive intelligence leak
 - [x] 6.10c — Hybrid corruption audio vocabulary: combining elements of multiple options (Geiger clicking for detection + heartbeat for severity + whispers for deep corruption narrative); the layered approach
 - [ ] 6.10d — Accessibility alternatives for corruption audio: screen-reader integration, visual-only corruption modes for deaf/hard-of-hearing players, haptic-only modes; ensuring corruption detection doesn't become audio-gated
@@ -846,7 +846,7 @@
 - [x] 8.03b — The Inspector as universal substrate: which Inspector features are core (present in all configs) vs. mode-specific (only in competitive or sandbox)?
 - [x] 8.03c — Cultural toggle as accessibility layer: can Config 5's Filipino elements exist as an opt-in cultural layer on top of Config 2, rather than a separate configuration?
 - [x] 8.03d — The "mode shock" problem: players who enter through the warm Greenhouse and encounter the cold War Room ranked queue — how does the UI signal the tonal transition?
-- [ ] 8.03e — Unified aesthetic direction: can Warm Filipino Cyberpunk serve competitive readability requirements, or does competitive play demand the Circuit Board's dark minimalism?
+- [x] 8.03e — Unified aesthetic direction: can Warm Filipino Cyberpunk serve competitive readability requirements, or does competitive play demand the Circuit Board's dark minimalism?
 - [x] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
 - [ ] 8.04a — The "second session" test for the MVG: what creates pull-back to a 5-mission prototype without progression systems or new content? "One more try" psychology for the minimum viable game
 - [ ] 8.04b — The Relay essentiality debate: could a two-unit MVG work if scouts had built-in compress? Minimum topology for emergence vs. simplest onboarding

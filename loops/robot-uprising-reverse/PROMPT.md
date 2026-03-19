@@ -298,29 +298,29 @@ design-space/
 ## What To Do This Iteration
 
 1. **Read the frontier**: Open `frontier/aspects.md`
-2. **Pick the next aspect using FIFO (oldest-first) within the least-explored category:**
+2. **Pick the next 5 aspects using FIFO (oldest-first) across the least-explored categories:**
    - Count analyzed `[x]` aspects per top-level category (competitive-analysis, core-mechanic, building-blocks, ui-ux, onboarding, campaign, aesthetics, multiplayer, platform)
-   - Pick from the category with the FEWEST analyzed aspects
-   - Within that category, pick the OLDEST unchecked `- [ ]` aspect (highest in the file = oldest)
+   - Pick from the categories with the FEWEST analyzed aspects, spreading your 5 picks across different categories for maximum breadth
+   - Within each category, pick the OLDEST unchecked `- [ ]` aspect (highest in the file = oldest)
    - **NEVER pick a sub-aspect (contains `-ext-`, `-i`, `-ii`, or 4+ dot-separated numbers) if its parent category already has 5+ more analyzed aspects than the least-explored category**
    - If a later-wave aspect depends on earlier research that doesn't exist yet, skip to the next eligible aspect in the same category
    - If ALL aspects are checked `- [x]`: run the expansion check (see below)
 
    **WHY FIFO:** New sub-aspects discovered during analysis get appended to the END of their section. The picker takes from the TOP. This ensures breadth before depth — you finish Wave 1's original games before drilling into Exapunks sub-mechanics.
-3. **Research that ONE aspect** using the appropriate method:
+3. **Research all 5 aspects** using the appropriate method for each:
    - **Competitive analysis**: Use WebSearch and WebFetch to find gameplay videos, reviews, design analyses, GDC talks, developer interviews. Watch actual gameplay. Read actual reviews. Find actual numbers (sales, ratings, player counts).
    - **Design exploration**: Generate the option in full detail with player journeys, UI annotations, strengths/weaknesses, interaction effects. Be EXHAUSTIVE. A single building block paradigm exploration should be 1000+ words with 3+ player journeys.
    - **Cross-cutting analysis**: Read multiple existing design-space files and find patterns, conflicts, synergies across options.
 4. **Write findings** to the appropriate file(s) in `design-space/`
    - Create the file if it doesn't exist (with a header)
    - Append if it does exist
-5. **Update the frontier**:
-   - Mark the aspect as `- [x]` in `frontier/aspects.md`
-   - Update Statistics (increment Analyzed, decrement Pending, update %)
+5. **Update the frontier** (for all 5 aspects):
+   - Mark each aspect as `- [x]` in `frontier/aspects.md`
+   - Update Statistics (increment Analyzed by total done, decrement Pending, update %)
    - **If you discovered new aspects** — and you SHOULD, constantly — add them to the appropriate wave
-   - Add a row to `frontier/analysis-log.md`
-6. **Update design-space/README.md**: Add or update the index entry
-7. **Commit**: `git add -A && git commit -m "loop(robot-uprising-reverse): {aspect-name}"`
+   - Add a row per aspect to `frontier/analysis-log.md`
+6. **Update design-space/README.md**: Add or update the index entries
+7. **Commit**: `git add -A && git commit -m "loop(robot-uprising-reverse): batch — {aspect1}, {aspect2}, {aspect3}, {aspect4}, {aspect5}"`
 8. **Exit**
 
 ### Expansion Check (When All Aspects Done)
@@ -455,7 +455,7 @@ Every completed wave should generate new aspects for deeper exploration. The spa
 
 ## Rules
 
-- Do ONE aspect per run, then exit. Do not analyze multiple aspects.
+- Do FIVE aspects per run, then exit. Commit all 5 in a single batch commit.
 - **Be exhaustive within each aspect.** A building block paradigm exploration should be 1000-3000 words. A competitive analysis should be 500-2000 words. Brevity is the enemy.
 - **Player journeys are mandatory.** Every design option gets at least 3 player journeys with minute-by-minute UI annotations. No exceptions.
 - **Discover new aspects sparingly.** You may add 0-2 new aspects per analysis. New aspects MUST go to the END of their wave section (append, never insert after parent). The frontier should grow slowly — if it's ballooning, you're fragmenting instead of exploring. A 1,000-word analysis of one game is better than spawning 5 sub-aspects about that game.

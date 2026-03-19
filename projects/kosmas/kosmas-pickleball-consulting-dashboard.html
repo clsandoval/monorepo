@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kosmas Pickleball Consulting — Service Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Brand colors from logo */
+      --brand-orange: #d67e4b;
+      --brand-orange-light: oklch(94% 0.03 50);
+      --brand-orange-hover: oklch(55% 0.14 50);
+      --brand-dark: #282d27;
+
+      /* Warm-tinted neutrals */
+      --neutral-50: oklch(97.5% 0.005 60);
+      --neutral-100: oklch(95% 0.008 60);
+      --neutral-200: oklch(90% 0.008 60);
+      --neutral-300: oklch(80% 0.008 60);
+      --neutral-400: oklch(68% 0.008 60);
+      --neutral-500: oklch(55% 0.008 60);
+      --neutral-700: oklch(35% 0.01 60);
+      --neutral-900: oklch(18% 0.015 145);
+
+      /* Semantic */
+      --text-primary: var(--brand-dark);
+      --text-secondary: var(--neutral-500);
+      --text-tertiary: var(--neutral-400);
+      --surface-base: var(--neutral-50);
+      --surface-raised: oklch(99% 0.003 60);
+      --border: var(--neutral-200);
+
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+      --space-4xl: 96px;
+
+      /* Motion */
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+      /* Layout */
+      --header-h: 53px;
+      --nav-h: 41px;
+      --sticky-offset: calc(var(--header-h) + var(--nav-h));
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--surface-base);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── SKIP NAV (a11y) ── */
+    .skip-nav {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      background: var(--brand-orange);
+      color: var(--brand-dark);
+      padding: var(--space-sm) var(--space-md);
+      font-weight: 700;
+      font-size: 0.85rem;
+      z-index: 200;
+      text-decoration: none;
+    }
+
+    .skip-nav:focus {
+      top: var(--space-sm);
+    }
+
+    /* ── HEADER ── */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface-raised);
+      padding: var(--space-sm) var(--space-xl);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      height: var(--header-h);
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .header-logo {
+      height: 32px;
+      width: auto;
+      display: block;
+      mix-blend-mode: multiply;
+    }
+
+    .header-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--neutral-300);
+    }
+
+    .header-service {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+    }
+
+    .header-meta {
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── NAV ── */
+    .nav-pills {
+      display: flex;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-xl);
+      background: var(--surface-raised);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      position: sticky;
+      top: var(--header-h);
+      z-index: 99;
+      height: var(--nav-h);
+      align-items: center;
+    }
+
+    .nav-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      transition: color 150ms var(--ease-out-quart);
+      white-space: nowrap;
+      text-decoration: none;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-pill:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-pill:focus-visible {
+      outline: 2px solid var(--brand-orange);
+      outline-offset: -2px;
+    }
+
+    .nav-pill.active {
+      color: var(--brand-orange);
+      border-bottom-color: var(--brand-orange);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: var(--space-3xl) var(--space-xl) var(--space-2xl);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--brand-orange);
+      margin-bottom: var(--space-md);
+    }
+
+    .hero h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      color: var(--text-primary);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero h2 em {
+      font-style: normal;
+      color: var(--brand-orange);
+    }
+
+    .hero-desc {
+      font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+      color: var(--text-secondary);
+      max-width: 55ch;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: var(--space-3xl);
+      margin-top: var(--space-2xl);
+      padding-top: var(--space-2xl);
+      border-top: 2px solid var(--border);
+    }
+
+    .hero-stat .number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--text-primary);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hero-stat .label {
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: var(--space-xs);
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-xl) var(--space-3xl);
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: var(--space-4xl);
+      scroll-margin-top: var(--sticky-offset);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+      padding-bottom: var(--space-md);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      line-height: 1;
+      color: var(--brand-orange);
+      min-width: 48px;
+    }
+
+    .section-title-group {
+      flex: 1;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      color: var(--text-primary);
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: var(--space-xs);
+    }
+
+    .section-price {
+      text-align: right;
+    }
+
+    .section-price .amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--brand-orange);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .section-price .basis {
+      font-size: 0.68rem;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── TIER BADGE ── */
+    .tier-badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 3px 10px;
+      margin-bottom: var(--space-md);
+      background: oklch(62% 0.13 50 / 0.1);
+      color: var(--brand-orange);
+      border-left: 2px solid var(--brand-orange);
+    }
+
+    /* ── SERVICE LIST (semantic dl) ── */
+    .services {
+      display: grid;
+      gap: 1px;
+      background: var(--border);
+      overflow: hidden;
+    }
+
+    .service-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      background: var(--surface-raised);
+      padding: var(--space-lg) var(--space-xl);
+      transition: background 200ms var(--ease-out-quart);
+      align-items: start;
+    }
+
+    .service-row:hover {
+      background: var(--brand-orange-light);
+    }
+
+    .service-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      padding-top: 1px;
+    }
+
+    .service-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── DELIVERABLE ── */
+    .deliverable {
+      margin-top: var(--space-md);
+      padding: var(--space-md) var(--space-xl);
+      background: var(--brand-orange-light);
+      border-left: 3px solid var(--brand-orange);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--neutral-700);
+    }
+
+    .deliverable span {
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+
+    /* ── ADD-ONS ── */
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .addon-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-lg) var(--space-xl);
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      transition: border-color 200ms var(--ease-out-quart), transform 200ms var(--ease-out-quart);
+    }
+
+    .addon-item:hover {
+      border-color: var(--brand-orange);
+      transform: translateY(-2px);
+    }
+
+    .addon-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .addon-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.05rem;
+      color: var(--brand-orange);
+      white-space: nowrap;
+      margin-left: var(--space-md);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── COMPARISON TABLE ── */
+    .comparison {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .comparison thead {
+      position: sticky;
+      top: var(--sticky-offset);
+      z-index: 10;
+    }
+
+    .comparison th {
+      background: var(--brand-dark);
+      color: var(--neutral-50);
+      font-weight: 600;
+      text-align: left;
+      padding: var(--space-md) var(--space-xl);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .comparison th:last-child {
+      background: var(--brand-orange);
+      color: var(--brand-dark);
+    }
+
+    .comparison td {
+      padding: var(--space-md) var(--space-xl);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .comparison tr td:first-child {
+      font-weight: 600;
+      color: var(--neutral-700);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .comparison tr td:last-child {
+      background: oklch(62% 0.13 50 / 0.04);
+    }
+
+    .comparison .win {
+      color: var(--brand-orange);
+      font-weight: 700;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      border-top: 2px solid var(--border);
+      padding: var(--space-2xl) var(--space-xl);
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+    }
+
+    .footer strong {
+      color: var(--text-primary);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ENTRANCE ANIMATIONS ── */
+    /* Content visible by default — animation is progressive enhancement */
+    .fade-up {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up.will-animate {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 500ms var(--ease-out-expo), transform 500ms var(--ease-out-expo);
+    }
+
+    .fade-up.will-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      :root {
+        --header-h: 48px;
+        --nav-h: 44px;
+      }
+
+      .header {
+        padding: var(--space-sm) var(--space-md);
+      }
+
+      .header-divider, .header-service {
+        display: none;
+      }
+
+      .header-logo {
+        height: 28px;
+      }
+
+      .hero {
+        padding: var(--space-2xl) var(--space-md) var(--space-xl);
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: var(--space-lg);
+      }
+
+      .main {
+        padding: var(--space-xl) var(--space-md) var(--space-3xl);
+      }
+
+      .service-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+        padding: var(--space-md);
+      }
+
+      .section-header {
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+
+      .section-price {
+        text-align: left;
+      }
+
+      .addons-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison th, .comparison td {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.78rem;
+      }
+
+      .header-meta {
+        display: none;
+      }
+
+      .nav-pills {
+        padding: var(--space-xs) var(--space-md);
+        gap: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up.will-animate {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    @media print {
+      .header, .nav-pills { position: static; }
+      .skip-nav { display: none; }
+      .fade-up, .fade-up.will-animate { opacity: 1; transform: none; }
+      .service-row:hover { background: var(--surface-raised); }
+      .addon-item:hover { border-color: var(--border); transform: none; }
+    }
+
+    /* ── FOCUS STYLES (global) ── */
+    :focus-visible {
+      outline: 2px solid var(--brand-orange);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-nav">Skip to content</a>
+
+  <header class="header">
+    <div class="header-brand">
+      <img src="brand/logokosmasfinal.jpg" alt="Kosmas Athletic Ventures Co." class="header-logo">
+      <div class="header-divider" aria-hidden="true"></div>
+      <span class="header-service">Pickleball Consulting</span>
+    </div>
+    <div class="header-meta">Internal Menu &middot; PH Market</div>
+  </header>
+
+  <nav class="nav-pills" aria-label="Service sections">
+    <a href="#feasibility" class="nav-pill">Feasibility</a>
+    <a href="#design" class="nav-pill">Design & Planning</a>
+    <a href="#advisory" class="nav-pill">Ongoing Advisory</a>
+    <a href="#addons" class="nav-pill">Add-Ons</a>
+  </nav>
+
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-label">Facility Consulting Services</div>
+    <h2 id="hero-heading">BUILD WORLD-CLASS<br><em>PICKLEBALL</em> IN THE PHILIPPINES</h2>
+    <p class="hero-desc">On-the-ground consulting for facility owners, investors, and operators. From feasibility to ongoing optimization. Local expertise, international standards.</p>
+
+    <div class="hero-stats" role="list" aria-label="Key figures">
+      <div class="hero-stat" role="listitem">
+        <div class="number" aria-hidden="true">3</div>
+        <div class="label"><span class="sr-only">3 </span>Service Tiers</div>
+      </div>
+      <div class="hero-stat" role="listitem">
+        <div class="number" aria-hidden="true">&#8369;60K</div>
+        <div class="label"><span class="sr-only">&#8369;60K </span>Starting Monthly</div>
+      </div>
+      <div class="hero-stat" role="listitem">
+        <div class="number" aria-hidden="true">PH</div>
+        <div class="label"><span class="sr-only">PH — </span>On the Ground</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="main" id="main-content">
+
+    <!-- TIER 1 -->
+    <section class="section fade-up" id="feasibility" aria-labelledby="tier1-title">
+      <span class="tier-badge">Tier 1</span>
+      <div class="section-header">
+        <div class="section-number" aria-hidden="true">01</div>
+        <div class="section-title-group">
+          <h3 class="section-title" id="tier1-title">FEASIBILITY & PRE-BUILD</h3>
+          <p class="section-subtitle">Should you build this? We'll tell you before you spend a peso.</p>
+        </div>
+        <div class="section-price">
+          <div class="amount">&#8369;150K &ndash; 250K</div>
+          <div class="basis">One-time engagement</div>
+        </div>
+      </div>
+
+      <dl class="services">
+        <div class="service-row">
+          <dt class="service-name">Market Analysis</dt>
+          <dd class="service-desc">Demand assessment, competition mapping, demographic study for your target city or area</dd>
+        </div>
+        <div class="service-row">
+          <dt class="service-name">Site Evaluation</dt>
+          <dd class="service-desc">Score 2-3 candidate locations on access, zoning, foot traffic, and utilities</dd>
+        </div>
+        <div class="service-row">
+          <dt class="service-name">Financial Model</dt>
+          <dd class="service-desc">Build cost estimate, revenue projections, break-even timeline, ROI scenarios</dd>
+        </div>
+        <div class="service-row">
+          <dt class="service-name">Facility Sizing</dt>
+          <dd class="service-desc">Recommended court count, facility size, and amenity mix based on market data</dd>
+        </div>
+        <div class="service-row">
+          <dt class="service-name">Go/No-Go Deck</dt>
+          <dd class="service-desc">Executive summary with clear recommendation and supporting data</dd>
+        </div>
+      </dl>
+
+      <div class="deliverable">
+        Deliverable: <span>PDF feasibility report + financial model spreadsheet</span>
+      </div>
+    </section>
+
+    <!-- TIER 2 -->
+    <section class="section fade-up" id="design" aria-labelledby="tier2-title">
+      <span class="tier-badge">Tier 2</span>
+      <div class="section-header">
+        <div class="section-number" aria-hidden="true">02</div>
+        <div class="section-title-group">
+          <h3 class="section-title" id="tier2-title">DESIGN & PLANNING</h3>
+          <p class="section-subtitle">What should it look like? Layout, specs, vendors &mdash; all in one package.</p>
+        </div>
+        <div class="section-price">
+          <div class="amount">&#8369;200K &ndash; 350K</div>
+          <div class="basis">One-time engagement</div>
+        </div>
+      </div>
+
+      <dl class="services">
+        <div class="service-row">
+          <dt class="service-name">Facility Layout</dt>
+          <dd class="service-desc">Court arrangement, player flow, common areas, pro shop, F&B zones</dd>
+        </div>
+        <div class="service-row">
+          <dt class="service-name">Surface & Lighting</dt>
+          <dd class="service-desc">Flooring type, lighting design, acoustic treatment recommendations</dd>
+        </div>
+        <div class="service-row">
+          <dt class="service-name">Vendor Introductions</dt>
+          <dd class="service-desc">PH-specific vendors for flooring, nets, paddles, construction &mdash; with negotiated pricing</dd>
+        </div>
+        <div class="service-row">
+          <dt class="service-name">Permitting Support</dt>
+          <dd class="service-desc">Local permitting guidance, contractor vetting, compliance checklist</dd>
+        </div>
+      </dl>
+
+      <div class="deliverable">
+        Deliverable: <span>Design package (CAD-ready layouts + vendor shortlist)</span>
+      </div>
+    </section>
+
+    <!-- TIER 3 -->
+    <section class="section fade-up" id="advisory" aria-labelledby="tier3-title">
+      <span class="tier-badge">Tier 3</span>
+      <div class="section-header">
+        <div class="section-number" aria-hidden="true">03</div>
+        <div class="section-title-group">
+          <h3 class="section-title" id="tier3-title">ONGOING ADVISORY</h3>
+          <p class="section-subtitle">Keep the facility optimized. Month-to-month performance tuning.</p>
+        </div>
+        <div class="section-price">
+          <div class="amount">&#8369;60K &ndash; 100K/MO</div>
+          <div class="basis">Month-to-month</div>
+        </div>
+      </div>
+
+      <dl class="services">
+        <div class="service-row">
+          <dt class="service-name">Performance Review</dt>
+          <dd class="service-desc">Monthly utilization, revenue, retention analysis with actionable insights</dd>
+        </div>
+        <div class="service-row">
+          <dt class="service-name">Rate Optimization</dt>
+          <dd class="service-desc">Dynamic pricing adjustments based on demand patterns and seasonality</dd>
+        </div>
+        <div class="service-row">
+          <dt class="service-name">Programming Refresh</dt>
+          <dd class="service-desc">Seasonal events, tournament calendar, new format testing</dd>
+        </div>
+        <div class="service-row">
+          <dt class="service-name">Vendor Management</dt>
+          <dd class="service-desc">Ongoing supplier relationships, bulk purchasing, equipment refresh cycles</dd>
+        </div>
+        <div class="service-row">
+          <dt class="service-name">On-Call Advisory</dt>
+          <dd class="service-desc">WhatsApp/Telegram access for ad-hoc questions and real-time guidance</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ADD-ONS -->
+    <section class="section fade-up" id="addons" aria-labelledby="addons-title">
+      <div class="section-header">
+        <div class="section-number" aria-hidden="true">&plus;</div>
+        <div class="section-title-group">
+          <h3 class="section-title" id="addons-title">A LA CARTE ADD-ONS</h3>
+          <p class="section-subtitle">Stack on top of any tier, or purchase standalone.</p>
+        </div>
+      </div>
+
+      <div class="addons-grid" role="list">
+        <div class="addon-item" role="listitem">
+          <div class="addon-name">Tournament Design & Execution</div>
+          <div class="addon-price">&#8369;75K &ndash; 150K /event</div>
+        </div>
+        <div class="addon-item" role="listitem">
+          <div class="addon-name">Coach Certification Program</div>
+          <div class="addon-price">&#8369;50K /cohort</div>
+        </div>
+        <div class="addon-item" role="listitem">
+          <div class="addon-name">Mystery Shopper / Facility Audit</div>
+          <div class="addon-price">&#8369;25K /visit</div>
+        </div>
+        <div class="addon-item" role="listitem">
+          <div class="addon-name">Tech Integration Consulting</div>
+          <div class="addon-price">&#8369;50K &ndash; 100K</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <strong>KOSMAS ATHLETIC VENTURES CO.</strong><br>
+    Internal Use Only &middot; PH Market Services Menu
+  </footer>
+
+  <script>
+    // Progressive enhancement: only animate if JS runs and user allows motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReducedMotion) {
+      // Mark elements for animation BEFORE they scroll into view
+      document.querySelectorAll('.fade-up').forEach(el => {
+        el.classList.add('will-animate');
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Stagger based on DOM order relative to siblings
+            const siblings = Array.from(entry.target.parentElement.querySelectorAll('.fade-up.will-animate'));
+            const index = siblings.indexOf(entry.target);
+            entry.target.style.transitionDelay = `${index * 80}ms`;
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+      document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    }
+
+    // Active nav pill on scroll
+    const sections = document.querySelectorAll('.section[id]');
+    const pills = document.querySelectorAll('.nav-pill');
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          pills.forEach(p => p.classList.remove('active'));
+          const active = document.querySelector(`.nav-pill[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '-94px 0px -60% 0px' });
+
+    sections.forEach(s => navObserver.observe(s));
+
+    // Smooth scroll handled by CSS scroll-behavior: smooth + scroll-margin-top
+  </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 # PodPlay Ops — Cost Analysis Gap Spec
 
-**Date:** 2026-03-14
-**Status:** Draft
+**Date:** 2026-03-14 (updated 2026-03-17)
+**Status:** Approved
 **Source:** Excel sheet `docs/Kim Lapus PodPlay MRP.xlsx` → "Cost Analysis" tab
 
 ## Problem
@@ -198,6 +198,8 @@ Each group has a footer row with Landed Cost and Customer Price subtotals.
 | `src/components/wizard/financials/CostAnalysis.tsx` | **New file** — per-project cost analysis component |
 | `src/components/financials/CostAnalysisGlobal.tsx` | **New file** — global cross-project comparison table |
 | `src/lib/empty-state-configs.ts` | Add `costAnalysisEmpty` and `costAnalysisGlobalEmpty` entries |
+| `src/index.css` (or global stylesheet) | Add `@media print` block fixing right-margin cutoff — landscape orientation, safe margins, table scaling, hide non-print elements |
+| Layout/nav components | Add `no-print` class to sidebar, nav, and action buttons |
 
 ## Reuse
 
@@ -208,6 +210,21 @@ Each group has a footer row with Landed Cost and Customer Price subtotals.
 - `src/components/ui/PdfExportButton.tsx` — existing export component
 - `src/components/ui/EmptyState.tsx` + `src/lib/empty-state-configs.ts` — existing empty state pattern
 - Badge color palette from `CatalogSettings.tsx`'s `BOM_CATEGORIES` — inline in new components (the canonical `bomCategoryBadgeClass` in `enum-labels.ts` is currently unpopulated)
+
+## Bug Fix: PDF Export Right-Margin Cutoff
+
+The existing `PdfExportButton` uses `window.print()`. Users report the right side of content is clipped in the generated PDF. This affects all pages that use `PdfExportButton` (invoices, and the new Cost Analysis).
+
+**Fix:** Add a global `@media print` stylesheet with:
+- `@page { margin: 0.5in; size: landscape; }` — landscape for wide tables, safe margins
+- `body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }` — preserve background colors
+- `.no-print { display: none !important; }` — hide nav, sidebar, buttons during print
+- `table { width: 100% !important; font-size: 10px; }` — scale tables to fit page width
+- `* { overflow: visible !important; }` — prevent clipping from scroll containers
+
+**File:** Add print styles to `src/index.css` (or equivalent global stylesheet) under a `@media print` block.
+
+**Also:** Add `className="no-print"` to sidebar/nav and action buttons so they don't appear in the PDF.
 
 ## Not Changing
 

@@ -136,3 +136,14 @@ tags: [designer, friend]
 - Cross-reference using `[[wikilinks]]`
 - Dashboards provide at-a-glance views via Dataview queries
 - Uncertain entity matches go to `inbox/_review.md` for manual resolution
+
+## Kosmas Athletic Ventures Co — Design Context
+
+When working on anything in `projects/kosmas/`, follow the design context in `projects/kosmas/.impeccable.md`. Key points:
+
+- **Brand colors**: Orange `#d67e4b`, Dark `#282d27`
+- **Logo**: `projects/kosmas/brand/logokosmasfinal.jpg` — NEVER recreate as SVG, use the actual file
+- **Personality**: Bold, Athletic, Premium
+- **Aesthetic**: Light backgrounds, dark text, orange accents used sparingly
+- **Anti-references**: No corporate/boring, no cheap/amateur, no techy/neon, no playful/cartoonish
+- **Typography**: Geometric display headings (Bebas Neue), clean sans body (Plus Jakarta Sans)
