@@ -1,10 +1,10 @@
 # Robot Uprising — Design Space Frontier
 
 ## Statistics
-- **Total aspects:** 1476
-- **Analyzed:** 488
-- **Pending:** 988
-- **Convergence:** 33.1%
+- **Total aspects:** 513
+- **Analyzed:** 213
+- **Pending:** 300
+- **Convergence:** 41.5%
 
 ---
 
@@ -848,7 +848,7 @@
 - [x] 8.03d — The "mode shock" problem: players who enter through the warm Greenhouse and encounter the cold War Room ranked queue — how does the UI signal the tonal transition?
 - [x] 8.03e — Unified aesthetic direction: can Warm Filipino Cyberpunk serve competitive readability requirements, or does competitive play demand the Circuit Board's dark minimalism?
 - [x] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
-- [ ] 8.04a — The "second session" test for the MVG: what creates pull-back to a 5-mission prototype without progression systems or new content? "One more try" psychology for the minimum viable game
+- [x] 8.04a — The "second session" test for the MVG: what creates pull-back to a 5-mission prototype without progression systems or new content? "One more try" psychology for the minimum viable game
 - [ ] 8.04b — The Relay essentiality debate: could a two-unit MVG work if scouts had built-in compress? Minimum topology for emergence vs. simplest onboarding
 - [ ] 8.04c — Inspector engagement metrics: time-on-Inspector, unit clicks per debrief, scrubber positions visited as quality signals; how to detect and respond to Inspector skip behavior
 - [x] 8.04d — The "factory shock" at Mission 5: Mission 5 introduces blueprints + production queue + economy simultaneously after 4 pre-placed-unit missions; should there be a Mission 4.5?
