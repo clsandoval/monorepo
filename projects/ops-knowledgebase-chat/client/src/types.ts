@@ -6,6 +6,7 @@ export type ClientMessage =
 
 export type ServerMessage =
   | { type: 'assistant_text'; content: string }
+  | { type: 'assistant_delta'; content: string }
   | { type: 'tool_use'; id: string; tool: string; input: unknown }
   | { type: 'tool_result'; tool_use_id: string; output: string }
   | { type: 'session_init'; session_id: string }

@@ -92,5 +92,7 @@ filesRouter.get('/api/files/{*filePath}', (req, res) => {
   }
 
   const content = fs.readFileSync(fullPath, 'utf-8');
+  const filename = path.basename(fullPath);
+  res.set('Content-Disposition', `attachment; filename="${filename}"`);
   res.type('text/plain').send(content);
 });

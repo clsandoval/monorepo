@@ -76,6 +76,7 @@ export async function* runAgent(
       env: { ...process.env },
       settingSources: ['project', 'user'],
       allowedTools: ALLOWED_TOOLS,
+      includePartialMessages: true,
       systemPrompt: {
         type: 'preset' as const,
         preset: 'claude_code' as const,
@@ -101,6 +102,17 @@ export async function* runAgent(
       session.sessionId = sid;
       onSessionInit?.(sid);
       yield { type: 'session_init', session_id: sid };
+    }
+
+    // Stream events (partial/incremental text)
+    if (msg.type === 'stream_event') {
+      const event = msg as Record<string, unknown>;
+      if (event.event_type === 'content_block_delta') {
+        const delta = event.delta as { type?: string; text?: string } | undefined;
+        if (delta?.type === 'text_delta' && delta.text) {
+          yield { type: 'assistant_delta', content: delta.text };
+        }
+      }
     }
 
     if (msg.type === 'assistant' && 'uuid' in msg) {
