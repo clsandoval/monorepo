@@ -18,27 +18,27 @@ export function ToolUseBlock({ entry }: ToolUseBlockProps) {
     : String(entry.input);
 
   return (
-    <div className="my-2 border border-zinc-700 rounded-lg overflow-hidden text-sm">
-      <button
+    <div className={`my-2 bg-tool-bg border-l-2 ${expanded ? 'border-l-tool-border-active' : 'border-l-tool-border'} rounded-r-md font-mono text-sm text-text-secondary`}>
+      <div
+        className="flex items-center gap-2 px-4 py-3 cursor-pointer select-none hover:text-text-primary transition-colors"
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center gap-2 px-3 py-2 bg-zinc-800/50 hover:bg-zinc-800 transition-colors text-left"
       >
-        <span className="text-zinc-500">{expanded ? '▼' : '▶'}</span>
-        <span className="font-mono text-amber-400">{entry.tool}</span>
-        <span className="text-zinc-500 truncate flex-1">{inputSummary}</span>
-      </button>
+        <span className="text-text-muted">{expanded ? '▼' : '▶'}</span>
+        <span className="font-medium text-text-primary">{entry.tool}</span>
+        <span className="text-text-muted truncate flex-1">{inputSummary}</span>
+      </div>
       {expanded && (
-        <div className="px-3 py-2 space-y-2 bg-zinc-900/50">
+        <div className="px-4 py-3 border-t border-default">
           <div>
-            <div className="text-xs text-zinc-500 mb-1">Input</div>
-            <pre className="text-xs text-zinc-300 whitespace-pre-wrap overflow-x-auto">
+            <div className="text-xs text-text-muted mb-1">Input</div>
+            <pre className="text-xs text-code-text whitespace-pre-wrap overflow-x-auto">
               {JSON.stringify(entry.input, null, 2)}
             </pre>
           </div>
           {entry.output && (
-            <div>
-              <div className="text-xs text-zinc-500 mb-1">Output</div>
-              <pre className="text-xs text-zinc-300 whitespace-pre-wrap overflow-x-auto max-h-64 overflow-y-auto">
+            <div className="mt-3 pt-3 border-t border-default">
+              <div className="text-xs text-text-muted mb-1">Output</div>
+              <pre className="text-xs text-code-text whitespace-pre-wrap overflow-x-auto max-h-[300px] overflow-y-auto">
                 {entry.output}
               </pre>
             </div>

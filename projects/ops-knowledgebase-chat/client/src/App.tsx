@@ -142,7 +142,7 @@ export function App() {
   }, [handleNewSession]);
 
   return (
-    <div className="flex flex-col h-screen bg-zinc-900 text-zinc-100">
+    <div className="flex flex-col h-screen bg-surface-1 text-text-primary">
       <Header connected={connected} onNewSession={handleNewSession} />
       <ChatView messages={messages} />
       <ChatInput

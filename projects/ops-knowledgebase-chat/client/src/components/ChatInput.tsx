@@ -61,12 +61,14 @@ export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled
     ta.style.height = Math.min(ta.scrollHeight, 200) + 'px';
   }, []);
 
+  const isSlash = input.startsWith('/');
+
   return (
-    <div className="border-t border-zinc-800 bg-zinc-950 px-4 py-3">
-      <div className="flex items-end gap-2 max-w-3xl mx-auto">
+    <div className="chat-input-container">
+      <div className="chat-input-inner">
         <button
           onClick={() => fileInputRef.current?.click()}
-          className="p-2 text-zinc-400 hover:text-zinc-200 transition-colors"
+          className="btn-icon"
           title="Upload files (Ctrl+U)"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -88,12 +90,12 @@ export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled
           placeholder="Type a message... (Ctrl+Enter to send)"
           disabled={disabled}
           rows={1}
-          className="flex-1 bg-zinc-800 text-zinc-100 rounded-xl px-4 py-2.5 resize-none placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-600 disabled:opacity-50"
+          className={`chat-input ${isSlash ? 'chat-input--slash' : ''}`}
         />
         {isStreaming ? (
           <button
             onClick={onInterrupt}
-            className="p-2 text-red-400 hover:text-red-300 transition-colors"
+            className="btn-icon text-accent-red hover:text-accent-red-hover"
             title="Stop (Esc)"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -104,18 +106,18 @@ export function ChatInput({ onSend, onUpload, onInterrupt, isStreaming, disabled
           <button
             onClick={handleSend}
             disabled={disabled || !input.trim()}
-            className="p-2 text-blue-400 hover:text-blue-300 transition-colors disabled:opacity-30"
+            className="btn-primary disabled:opacity-30"
             title="Send (Ctrl+Enter)"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="22" y1="2" x2="11" y2="13" />
               <polygon points="22 2 15 22 11 13 2 9 22 2" />
             </svg>
           </button>
         )}
       </div>
-      <div className="text-xs text-zinc-600 text-center mt-1">
-        Ctrl+Enter send | Ctrl+U upload | Esc stop
+      <div className="chat-input-hint">
+        ctrl+enter send · ctrl+u upload · esc stop
       </div>
     </div>
   );
