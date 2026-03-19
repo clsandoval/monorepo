@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 1476
-- **Analyzed:** 482
-- **Pending:** 994
-- **Convergence:** 32.7%
+- **Analyzed:** 488
+- **Pending:** 988
+- **Convergence:** 33.1%
 
 ---
 
@@ -148,8 +148,8 @@
 - [x] 1.07 — Bitburner: incremental hacking sim, real JavaScript, idle-game progression
 - [x] 1.07a — The RAM-as-context-window parallel: how Bitburner's static RAM analysis (compile-time function cost → fits/doesn't-fit) vs. Robot Uprising's dynamic context window (runtime fill/evict) create fundamentally different player tensions; static constraint = build-time optimization, dynamic constraint = runtime drama
 - [x] 1.07b — The code wall as design lesson: Bitburner's scripting cliff (manual→JavaScript transition) as cautionary data for Robot Uprising's workbench accessibility; dropout rate analysis; what specific affordances prevent the equivalent wall in visual configuration
-- [ ] 1.07c — The batch script coordination pattern: Bitburner's HWGW timing attacks as pure-code precursor to Robot Uprising's hook/channel signal chains; extracting the coordination design pattern from code into visual wiring
-- [ ] 1.07d — Prestige loops that change the game: BitNode system as model for Robot Uprising's post-campaign progression; each reset introduces new systems rather than just scaling numbers; how the Gauntlet or New Game+ could vary game rules rather than just difficulty
+- [x] 1.07c — The batch script coordination pattern: Bitburner's HWGW timing attacks as pure-code precursor to Robot Uprising's hook/channel signal chains; extracting the coordination design pattern from code into visual wiring
+- [x] 1.07d — Prestige loops that change the game: BitNode system as model for Robot Uprising's post-campaign progression; each reset introduces new systems rather than just scaling numbers; how the Gauntlet or New Game+ could vary game rules rather than just difficulty
 - [ ] 1.07e — Idle accumulation vs. sealed watch tension: the fundamental emotional design choice between "my system works while I'm away" (Bitburner) and "I must watch my system execute under pressure" (Robot Uprising); when each emotional register serves the game
 - [x] 1.08 — SpaceChem: visual programming as chemistry metaphor, production pipeline design
 - [ ] 1.08a — The dual-agent spatial coordination model: SpaceChem's two-waldo shared-grid system as the purest existing model for multi-agent coordination; formal comparison of spatial-temporal coordination (SpaceChem) vs. informational-temporal coordination (Robot Uprising); what Sync teaches about hook blocking semantics
@@ -247,8 +247,8 @@
 - [x] 2.14 — Spatial routing as mechanic layer: battlefield layout creates information routing constraints, separate from configuration logic; agent proximity determines which hook chains are possible
 - [x] 2.15 — Pipelined agent execution: throughput-optimal configurations where agents handle overlapping tasks (agent A finishes task N while agent B starts task N+1); cycle-optimal solutions look different from cost-optimal solutions; maps to Opus Magnum's pipeline-vs-sequential tradeoff
 - [x] 2.16 — Counter-intelligence as offensive mechanic: deliberately leaving enemy-injected hooks active and routing deceptive signals through them; "hook judo" — using enemy infrastructure against them; how the game scaffolds this discovery moment; risk/reward of leaving a known intrusion active
-- [ ] 2.17 — Fabrication as tactical resource: spawn cost as a per-mission resource that creates trade-offs between pre-placed agents and dynamic spawning; fabrication point allocation as a pre-mission decision; how the resource cap interacts with spawn storm failure mode
-- [ ] 2.18 — Signal acknowledgment as optional mechanic: a lightweight "ACK" hook that fires automatically when a signal is processed — a soft middle ground between fire-and-forget (no delivery info) and blocking (full rendezvous); configurable ACK_TIMEOUT after which sender continues without confirmation
+- [x] 2.17 — Fabrication as tactical resource: spawn cost as a per-mission resource that creates trade-offs between pre-placed agents and dynamic spawning; fabrication point allocation as a pre-mission decision; how the resource cap interacts with spawn storm failure mode
+- [x] 2.18 — Signal acknowledgment as optional mechanic: a lightweight "ACK" hook that fires automatically when a signal is processed — a soft middle ground between fire-and-forget (no delivery info) and blocking (full rendezvous); configurable ACK_TIMEOUT after which sender continues without confirmation
 - [ ] 2.19 — Variable scenario seeds as difficulty axis: replacing a single difficulty slider with a "scenario variance" dial — narrow variance makes missions more deterministic (tutorial-friendly), wide variance makes them extremely randomization-dependent (expert challenge); the dial as an explicit player control
 - [x] 2.20 — Asynchronous observation gap as core design pattern: agents always act on last-tick's world state (frozen snapshot); Robot Uprising's 1-hop-1-tick latency is the architectural embodiment of this; how is the gap communicated during onboarding, visualized during execution, and taught in the debrief? What does "acting on stale intelligence" look like vs. "acting on fresh intelligence"?
   - [ ] 2.20a — Confidence meter as a first-class unit stat: full design of the per-unit confidence metric — calculation formula (weighted average of buffer entry ages), display in plan screen preview, use as a rule condition ("IF confidence < 50% → fallback to patrol"), and how the player learns to read and optimize for it
@@ -369,9 +369,9 @@
 - [x] 3.07 — Rules UI: how does the player write/edit/reorder rules?
 - [x] 3.07a — Rules panel layout at scale: what does 12-20 rules look like on a Command unit? Scrolling vs. pagination vs. collapsible groups; the "wall of rules" readability problem
 - [x] 3.07b — Rules copy-paste between blueprints: can the player copy a rule strip from one blueprint and paste it into another? Cross-unit-type compatibility for shared conditions
-- [ ] 3.07c — Rules diff view in Inspector: show which rules changed since last execute; "you added rule 4 and reordered 2-3" as explicit debrief feedback
+- [x] 3.07c — Rules diff view in Inspector: show which rules changed since last execute; "you added rule 4 and reordered 2-3" as explicit debrief feedback
 - [ ] 3.07d — Rules panel keyboard shortcuts: expert keyboard-only workflow for rule creation and reordering; Ctrl+N, Ctrl+Up/Down, Ctrl+D; the mouseless speedrun
-- [ ] 3.07e — The "rule graveyard" — disabled but preserved rules: gray out a rule without deleting; A/B testing rule configurations without losing work; visual treatment of disabled rules
+- [x] 3.07e — The "rule graveyard" — disabled but preserved rules: gray out a rule without deleting; A/B testing rule configurations without losing work; visual treatment of disabled rules
 
 ### Hooks (Reactive Wiring)
 - [x] 3.08 — Hook taxonomy: what events can trigger hooks? What actions can hooks fire?
@@ -500,7 +500,7 @@
 - [x] 5.11a — The document-as-corrupted-surface mechanic: designing the tactical log / field manual so that enemy interference appears IN the document — making tutorial pages a gameplay surface (corruption detection embedded in reading experience)
 - [x] 5.11b — The corrupted diff as endgame adversarial escalation: designing the mission where the diff view itself is compromised; when to reveal this capability; how to prevent it from being frustrating vs. thrilling; the "no tool is infallible" lesson as a designed campaign beat
 - [x] 5.11c — Document recovery missions: missions where a primary objective is deploying a Specialist to recover redacted/purged document content from enemy communications; document integrity as a resource to defend and reclaim
-- [ ] 5.11d — Community corruption reports: players sharing screenshots of corruption they found; "corruption of the week" as a community artifact; the social loop of corruption detection as a shared experience
+- [x] 5.11d — Community corruption reports: players sharing screenshots of corruption they found; "corruption of the week" as a community artifact; the social loop of corruption detection as a shared experience
 - [x] 5.11e — Corruption as enemy characterization: different enemy types have different corruption signatures (clean surgical rewrites vs. crude redactions vs. sophisticated injections); corruption style as adversary personality; reading corruption patterns to identify which enemy subsystem is active
   - [ ] 5.11f — Corruption personality combination attack design: detailed mechanical specification for every 2- and 3-personality combination (Surgeon+Censor distraction, Mimic+Architect structural injection, Vandal+Surgeon noise cover), with specific mission placements and escalation curves
   - [ ] 5.11g — The Ghost subsystem: retroactive corruption after verification: full design exploration of the Mission 10 twist — corruption that activates AFTER the player has verified and cleared the document; timer-based vs. trigger-based; detection and response during sealed watch when document is inaccessible
@@ -698,7 +698,7 @@
   - [ ] 6.03e — The Predecessor's diegetic justification: if the boot log is "you reading your own spec sheet," where does the Predecessor's voice come from? Corrupted previous installation, parallel AI, recorded message; whether diegetic justification matters for player experience
 - [x] 6.10 — Sound design for corruption detection: audio vocabulary of integrity violations — what does a foreign hook sound like when first detected, what does a revert "click" sound like, what does mid-execution EMP buffer degradation sound like; the sonic signature of a compromised vs. clean system
 - [x] 6.10a — Corruption audio learning curve design: how the first corruption encounter (Mission 7-8) introduces the audio vocabulary without overwhelming; pacing of new corruption sounds across campaign's second half; which sounds appear when
-- [ ] 6.10b — Corruption audio in competitive/PvP context: does the opponent hear YOUR corruption audio? Can EM emissions include corruption detection sounds? Audio as competitive intelligence leak
+- [x] 6.10b — Corruption audio in competitive/PvP context: does the opponent hear YOUR corruption audio? Can EM emissions include corruption detection sounds? Audio as competitive intelligence leak
 - [x] 6.10c — Hybrid corruption audio vocabulary: combining elements of multiple options (Geiger clicking for detection + heartbeat for severity + whispers for deep corruption narrative); the layered approach
 - [ ] 6.10d — Accessibility alternatives for corruption audio: screen-reader integration, visual-only corruption modes for deaf/hard-of-hearing players, haptic-only modes; ensuring corruption detection doesn't become audio-gated
 - [ ] 6.10e — Player-configurable corruption audio intensity: settings slider from "subtle" (perturbation only) to "aggressive" (full alarm cascade); player agency over corruption layer's attention demand
