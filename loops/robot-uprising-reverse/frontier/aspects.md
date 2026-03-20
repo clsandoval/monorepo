@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 213
-- **Pending:** 300
-- **Convergence:** 41.5%
+- **Analyzed:** 218
+- **Pending:** 295
+- **Convergence:** 42.5%
 
 ---
 
@@ -150,12 +150,12 @@
 - [x] 1.07b — The code wall as design lesson: Bitburner's scripting cliff (manual→JavaScript transition) as cautionary data for Robot Uprising's workbench accessibility; dropout rate analysis; what specific affordances prevent the equivalent wall in visual configuration
 - [x] 1.07c — The batch script coordination pattern: Bitburner's HWGW timing attacks as pure-code precursor to Robot Uprising's hook/channel signal chains; extracting the coordination design pattern from code into visual wiring
 - [x] 1.07d — Prestige loops that change the game: BitNode system as model for Robot Uprising's post-campaign progression; each reset introduces new systems rather than just scaling numbers; how the Gauntlet or New Game+ could vary game rules rather than just difficulty
-- [ ] 1.07e — Idle accumulation vs. sealed watch tension: the fundamental emotional design choice between "my system works while I'm away" (Bitburner) and "I must watch my system execute under pressure" (Robot Uprising); when each emotional register serves the game
+- [x] 1.07e — Idle accumulation vs. sealed watch tension: the fundamental emotional design choice between "my system works while I'm away" (Bitburner) and "I must watch my system execute under pressure" (Robot Uprising); when each emotional register serves the game
 - [x] 1.08 — SpaceChem: visual programming as chemistry metaphor, production pipeline design
-- [ ] 1.08a — The dual-agent spatial coordination model: SpaceChem's two-waldo shared-grid system as the purest existing model for multi-agent coordination; formal comparison of spatial-temporal coordination (SpaceChem) vs. informational-temporal coordination (Robot Uprising); what Sync teaches about hook blocking semantics
+- [x] 1.08a — The dual-agent spatial coordination model: SpaceChem's two-waldo shared-grid system as the purest existing model for multi-agent coordination; formal comparison of spatial-temporal coordination (SpaceChem) vs. informational-temporal coordination (Robot Uprising); what Sync teaches about hook blocking semantics
 - [x] 1.08b — The pipeline cognition shift: how SpaceChem's single-reactor→production-level transition creates a permanent cognitive upgrade from component thinking to system thinking; parallels to Robot Uprising's M1-4→M5 factory transition
 - [x] 1.08c — The "running machine" aesthetic payoff: SpaceChem's greatest emotional moment is watching a complex pipeline execute; the sealed watch must deliver equivalent satisfaction through richer visual vocabulary; what specific visual elements create the "I built this" feeling
-- [ ] 1.08d — SpaceChem's Flip-Flop as late-game conditional: the Flip-Flop instruction (alternating path selection, introduced in world 7) as a model for late-campaign mechanic unlocks; how introducing a single new primitive mid-game transforms the entire strategy space
+- [x] 1.08d — SpaceChem's Flip-Flop as late-game conditional: the Flip-Flop instruction (alternating path selection, introduced in world 7) as a model for late-campaign mechanic unlocks; how introducing a single new primitive mid-game transforms the entire strategy space
 - [ ] 1.08e — Pipeline buffer length as accidental context window: SpaceChem players using pipe length to buffer throughput mismatches; the parallel to relay context window sizing; emergent vs. designed buffering mechanics and which is more teachable
 
 ### Combo Discovery / Deckbuilding Games
@@ -198,12 +198,12 @@
 - [ ] 1.14d — The "everything is visible" vs. "temporal separation" design philosophy: Factorio shows everything always; Robot Uprising hides internals until Inspector; when each approach works better
 - [ ] 1.14e — Friday Facts as community-building pattern: weekly dev blog as trust engine; 500+ posts building Factorio's community; what Robot Uprising's development transparency model looks like for an AI-engineering game
 - [ ] 1.15 — Shapez: pure factory puzzle stripped of combat, focus on throughput and layout
-- [ ] 1.16 — Mindustry: tower defense + factory + RTS hybrid, conveyor logistics under pressure
+- [x] 1.16 — Mindustry: tower defense + factory + RTS hybrid, conveyor logistics under pressure
 
 ### Tactical / Information Games
 - [x] 1.17 — Into the Breach: perfect information tactics, consequence preview, small-scale precision
 - [ ] 1.18 — Invisible Inc: information as primary resource, stealth + turn-based, alarm escalation
-- [ ] 1.19 — XCOM series: fog of war, probability management, squad persistence, permadeath stakes
+- [x] 1.19 — XCOM series: fog of war, probability management, squad persistence, permadeath stakes
 - [x] 1.20 — Cogmind: robot-themed roguelike, part-swapping system, information-dense UI
 - [ ] 1.20a — The "salvage reveal" mechanic as enemy blueprint inspection: when a Robot Uprising unit dies, should the Inspector reveal the enemy unit's full configuration as a knowledge-looting pattern? Cogmind scatters destroyed robot parts visually; Robot Uprising could scatter destroyed robot configurations informationally
 - [ ] 1.20b — Gradual degradation vs. binary death: Cogmind's part-by-part degradation creates a rich mid-state between functional and dead; should Robot Uprising explore a "damaged" state where units lose context slots from near-misses or EM attacks? The design space between one-shot-one-kill and HP bars
@@ -475,7 +475,6 @@
 
 - [x] 5.00 — The external-documentation anti-pattern: Shenzhen I/O requires a PDF manual outside the game — all Robot Uprising vocabulary (skills/rules/hooks/context) must be learnable through in-game play
   - [x] 5.00a — The vocabulary pacing bottleneck: 30 terms across 10 missions = 3 terms/mission average; maximum new-term density before cognitive overload; should some terms be withheld until debrief? Interaction with difficulty curve (5.04)
-<<<<<<< HEAD
     - [x] 5.00a-i — The Mission 4 Wall: detailed mission design for the rules introduction — exact puzzle scenarios, enemy placement, designed failure states, and rule complexity ramp within a single mission; how to make 3-4 rule terms feel natural rather than overwhelming
     - [x] 5.00a-ii — Physical term placement as naming mechanic — the Baba Is You inspiration: dragging term labels from boot log to workbench headers as a physical naming ritual; the term becomes real when you place it; implications for accessibility and controller input
       - [x] 5.00a-ix — Distractor tokens as comprehension test: adding 1-2 word tiles per mission that DON'T match any panel; false-match avoidance training; interaction with vocabulary density curve (5.04b)
@@ -485,18 +484,16 @@
       - [ ] 5.00a-xi — Community label sharing: if custom names allowed, sharing naming schemes as community artifacts; "Sofia's naming pack"; interaction with config sharing (5.20e, 7.03)
       - [ ] 5.00a-xii — Label removal as advanced mechanic: stripping names to see raw system without vocabulary framing; "beginner's mind" as diagnostic technique; interaction with frozen striker (5.00a-vi)
       - [ ] 5.00a-xiii — Multi-language simultaneous labels: toggle showing both player's language AND English on panel headers; vocabulary learning as secondary benefit; interaction with localization (6.03d) and CS Mode overlay (6.11d-v-iv)
-    - [ ] 5.00a-iii — Extension terms vs. genuinely new concepts: the taxonomy problem — formal criteria for distinguishing "more of the same" from "fundamentally new"; which Robot Uprising terms are truly new concepts vs. parameters of existing concepts
+    - [x] 5.00a-iii — Extension terms vs. genuinely new concepts: the taxonomy problem — formal criteria for distinguishing "more of the same" from "fundamentally new"; which Robot Uprising terms are truly new concepts vs. parameters of existing concepts
     - [ ] 5.00a-iv — Cross-run vocabulary retention testing — if a player takes a week-long break, how much vocabulary do they retain? Design patterns for reactivating dormant vocabulary on session resumption; the "welcome back" recap as vocabulary reinforcement
     - [ ] 5.00a-v — Vocabulary budget as visible game mechanic — Option D's hexagonal concept slots as a first-class UI element; the vocabulary collection metagame; concept constellation as progression visualization; does making the pacing visible improve or constrain the experience?
     - [ ] 5.00a-vi — The "frozen striker" as reusable diagnostic template: can the Mission 4 opener (unit sees everything, does nothing) be recreated deliberately by players in later missions as a diagnostic tool? "Strip all rules to see raw data" as an advanced technique taught accidentally in the tutorial
     - [ ] 5.00a-vii — Perception radius as the third slider (alongside buffer size and filter strictness): three continuous parameters that interact multiplicatively; the tutorial must decide whether to introduce all three sliders or simplify to binary toggles during Mission 4 and graduate to sliders in Mission 5+
     - [ ] 5.00a-viii — Designed failure cadence across the tutorial arc: Missions 1-3 each have 1 designed failure; Mission 4 has 2-3; is the failure density increasing too fast? Optimal failure-to-success ratio per mission for learning without frustration
-=======
->>>>>>> b3096dfea14ea30eb9070af2aeb924edcfee972d
-  - [ ] 5.00b — Search-by-player-vocabulary: boot terminal search indexes player-created names (channel names, blueprint names) alongside game vocabulary; mapping player vocabulary to game vocabulary at scale; misspelling handling
-  - [ ] 5.00c — The veteran fast-path: players who already know the vocabulary need compressed experiential layer without missing mechanical details; fast-track detection, "technical mode" toggle, difficulty selector; interaction with expert-track (5.01e)
-  - [ ] 5.00d — The field manual as community artifact: discoverable pages as speedrun targets, community wikis mapping page locations, page screenshots as trading currency; is the field manual redundant with boot terminal or complementary?
-  - [ ] 5.00e — The naming moment as designed beat: exact timing of when concepts get named; too early = meaningless label, too late = annoying interruption; detecting the "tip of the tongue" moment programmatically
+  - [x] 5.00b — Search-by-player-vocabulary: boot terminal search indexes player-created names (channel names, blueprint names) alongside game vocabulary; mapping player vocabulary to game vocabulary at scale; misspelling handling
+  - [x] 5.00c — The veteran fast-path: players who already know the vocabulary need compressed experiential layer without missing mechanical details; fast-track detection, "technical mode" toggle, difficulty selector; interaction with expert-track (5.01e)
+  - [x] 5.00d — The field manual as community artifact: discoverable pages as speedrun targets, community wikis mapping page locations, page screenshots as trading currency; is the field manual redundant with boot terminal or complementary?
+  - [x] 5.00e — The naming moment as designed beat: exact timing of when concepts get named; too early = meaningless label, too late = annoying interruption; detecting the "tip of the tongue" moment programmatically
 - [x] 5.11a — The document-as-corrupted-surface mechanic: designing the tactical log / field manual so that enemy interference appears IN the document — making tutorial pages a gameplay surface (corruption detection embedded in reading experience)
 - [x] 5.11b — The corrupted diff as endgame adversarial escalation: designing the mission where the diff view itself is compromised; when to reveal this capability; how to prevent it from being frustrating vs. thrilling; the "no tool is infallible" lesson as a designed campaign beat
 - [x] 5.11c — Document recovery missions: missions where a primary objective is deploying a Specialist to recover redacted/purged document content from enemy communications; document integrity as a resource to defend and reclaim
