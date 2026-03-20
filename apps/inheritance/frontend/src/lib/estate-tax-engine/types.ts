@@ -22,14 +22,15 @@ export type DeductionRules = 'TRAIN' | 'PRE_TRAIN';
 export type AmnestyTrack = 'TRACK_A' | 'TRACK_B';
 
 export type AmnestyIneligibilityReason =
-  | 'ALREADY_ASSESSED'
-  | 'ASSESSMENT_FINAL'
-  | 'JUDICIAL_PROCEEDINGS_FILED'
-  | 'TAX_FRAUD_CASE'
-  | 'PREVIOUSLY_AVAILED_AMNESTY'
-  | 'ESTATE_FULLY_SETTLED'
-  | 'DEATH_AFTER_CUTOFF'
-  | 'ESTATE_TAX_RETURN_ALREADY_FILED';
+  | 'DEATH_AFTER_COVERAGE_CUTOFF'
+  | 'TAX_ALREADY_PAID'
+  | 'PCGG_EXCLUSION'
+  | 'RA3019_EXCLUSION'
+  | 'RA9160_EXCLUSION'
+  | 'PENDING_COURT_CASE_EXCLUSION'
+  | 'UNEXPLAINED_WEALTH_EXCLUSION'
+  | 'RPC_FELONY_EXCLUSION'
+  | 'USER_NOT_ELECTED';
 
 // ── Regime detection ─────────────────────────────────────────────────────────
 
@@ -47,12 +48,18 @@ export interface RegimeDetectionResult {
 
 /** Items 29–34: components of gross estate. */
 export interface GrossEstateResult {
-  item29_real_properties: ColumnValues;
-  item30_personal_financial: ColumnValues;
-  item31_personal_tangible: ColumnValues;
-  item32_taxable_transfers: ColumnValues;
-  item33_business_interests: ColumnValues;
-  item34_total_gross_estate: ColumnValues;
+  /** Item 29: Real properties excluding family home */
+  realProperty: ColumnValues;
+  /** Item 30: Family home (0 for NRAs) */
+  familyHome: ColumnValues;
+  /** Item 31: Personal properties (financial + tangible combined) */
+  personalProperty: ColumnValues;
+  /** Item 32: Taxable transfers (net: max(0, fmv - consideration)) */
+  taxableTransfers: ColumnValues;
+  /** Item 33: Business interests (netEquity floored at 0) */
+  businessInterest: ColumnValues;
+  /** Item 34: Total gross estate */
+  total: ColumnValues;
 }
 
 // ── Ordinary deductions ──────────────────────────────────────────────────────
@@ -204,7 +211,12 @@ export interface RealProperty {
   description: string;
   location: string;
   ownershipType: 'exclusive' | 'conjugal';
-  fmv: number; // centavos
+  /** FMV per tax declaration (centavos). Engine computes fmv = max(fmvTaxDeclaration, fmvBir). */
+  fmvTaxDeclaration: number;
+  /** Zonal value per BIR (centavos). */
+  fmvBir: number;
+  /** Pre-computed FMV override; if provided, engine uses this instead of max(fmvTaxDeclaration, fmvBir). */
+  fmv?: number; // centavos, optional override
   isDesignatedFamilyHome: boolean;
 }
 
@@ -223,13 +235,23 @@ export interface PersonalPropertyTangible {
 export interface TaxableTransfer {
   description: string;
   transferType: string;
-  fmv: number; // centavos
+  /** FMV at date of death (centavos). */
+  fmvAtDeath: number;
+  /** Consideration received (centavos). Engine computes taxableAmount = max(0, fmvAtDeath - considerationReceived). */
+  considerationReceived: number;
+  /** Pre-computed FMV override (optional). */
+  fmv?: number; // centavos, optional
+  /** Ownership column. Defaults to exclusive if not specified. */
+  ownershipType?: 'exclusive' | 'conjugal';
 }
 
 export interface BusinessInterest {
   description: string;
   ownershipType: 'exclusive' | 'conjugal';
-  fmv: number; // centavos
+  /** Net equity (centavos). Engine floors at 0. */
+  netEquity: number;
+  /** Pre-computed FMV override (optional). */
+  fmv?: number; // centavos, optional
 }
 
 export interface Sec87ExemptAsset {
@@ -315,6 +337,8 @@ export interface DecedentInfo {
   isFilipino: boolean;
   isNRA: boolean; // non-resident alien
   isMarried: boolean;
+  /** Required when isNRA = true; total worldwide gross estate in centavos. */
+  worldwideGrossEstate?: number | null;
 }
 
 /** Executor info */
@@ -330,6 +354,18 @@ export interface EstateFlags {
   hasFamilyHome: boolean;
   hasNRAAssets: boolean;
   hasForeignAssets: boolean;
+  /** Track B amnesty: a prior estate tax return was filed. */
+  priorReturnFiled?: boolean;
+  /** Required when priorReturnFiled = true; centavos. */
+  previouslyDeclaredNetEstate?: number | null;
+  /** RA 11213 exclusions */
+  taxFullyPaidBeforeMay2022?: boolean;
+  subjectToPCGGJurisdiction?: boolean;
+  hasRA3019Violations?: boolean;
+  hasRA9160Violations?: boolean;
+  hasPendingCourtCasePreAmnestyAct?: boolean;
+  hasUnexplainedWealthCases?: boolean;
+  hasPendingRPCFelonies?: boolean;
 }
 
 /** Filing info */
