@@ -11,14 +11,13 @@ import {
   createMemoryHistory,
   RouterProvider,
 } from '@tanstack/react-router';
-import { rootRoute } from '../routes/__root';
+import { rootRoute, publicRootRoute } from '../routes/__root';
 import { indexRoute } from '../routes/index';
 import { authRoute } from '../routes/auth';
 import { casesNewRoute } from '../routes/cases/new';
 import { caseIdRoute } from '../routes/cases/$caseId';
-import { clientsRoute } from '../routes/clients/index';
-import { deadlinesRoute } from '../routes/deadlines';
 import { settingsRoute } from '../routes/settings/index';
+import { blogIndexRoute } from '../routes/blog/index';
 import { shareTokenRoute } from '../routes/share/$token';
 
 // Mock supabase — share/$token imports share lib which imports supabase
@@ -73,16 +72,7 @@ vi.mock('../lib/cases', () => ({
   updateCaseStatus: vi.fn(),
 }));
 
-// Mock clients lib — /clients imports listClients
-vi.mock('../lib/clients', () => ({
-  listClients: vi.fn().mockResolvedValue([]),
-  createClient: vi.fn(),
-  loadClient: vi.fn().mockRejectedValue(new Error('Not found')),
-  updateClient: vi.fn(),
-  deleteClient: vi.fn(),
-}));
-
-// Mock organizations lib — clients route uses useOrganization
+// Mock organizations lib — settings route uses useOrganization
 vi.mock('../lib/organizations', () => ({
   getUserOrganization: vi.fn().mockResolvedValue(null),
   listMembers: vi.fn().mockResolvedValue([]),
@@ -140,13 +130,11 @@ vi.mock('../lib/firm-profile', () => ({
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
-  authRoute,
+  publicRootRoute.addChildren([authRoute, shareTokenRoute]),
   casesNewRoute,
   caseIdRoute,
-  clientsRoute,
-  deadlinesRoute,
   settingsRoute,
-  shareTokenRoute,
+  blogIndexRoute,
 ]);
 
 async function renderRoute(path: string) {
@@ -171,20 +159,15 @@ describe('router > root layout', () => {
   it('renders layout with sidebar navigation links', async () => {
     await renderRoute('/');
 
-    // Sidebar nav items from AppLayout — some labels also appear as page headings,
-    // so use getAllByText and check at least 1 match
-    expect(screen.getAllByText('Dashboard').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('New Case').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Clients').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Deadlines').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Settings').length).toBeGreaterThanOrEqual(1);
+    // Unauthenticated: sidebar shows only "Sign In"; full nav is hidden
+    expect(screen.getAllByText('Sign In').length).toBeGreaterThanOrEqual(1);
   });
 
   it('renders the app branding in sidebar', async () => {
     await renderRoute('/');
 
-    expect(screen.getByText('Inheritance')).toBeInTheDocument();
-    expect(screen.getByText('Philippine Succession Law')).toBeInTheDocument();
+    expect(screen.getAllByText('Inheritance').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText('Philippine Succession Law').length).toBeGreaterThanOrEqual(1);
   });
 });
 
@@ -192,32 +175,28 @@ describe('router > index route (/)', () => {
   it('renders the dashboard page at /', async () => {
     await renderRoute('/');
 
-    // The dashboard heading from indexRoute component
-    const headings = screen.getAllByText('Dashboard');
-    // At least the page heading should be present (nav may also show "Dashboard")
-    expect(headings.length).toBeGreaterThanOrEqual(1);
+    // Unauthenticated state shows the landing hero
+    const main = document.querySelector('main') ?? document.body;
+    expect(main.innerHTML.length).toBeGreaterThan(0);
+    expect(screen.getByText(/Estate Distribution/i)).toBeInTheDocument();
   });
 
-  it('shows sign-in prompt on dashboard', async () => {
+  it('shows hero content on dashboard when unauthenticated', async () => {
     await renderRoute('/');
 
     expect(
-      screen.getByText(/sign in to view your cases/i),
+      screen.getByText(/Compute inheritance shares instantly/i),
     ).toBeInTheDocument();
   });
 });
 
 describe('router > /cases/new renders wizard', () => {
-  it('renders the wizard container at /cases/new', async () => {
+  it('redirects /cases/new to sign-in when unauthenticated', async () => {
     await renderRoute('/cases/new');
 
-    // The WizardContainer is rendered — it has a "Decedent Information" step
-    // or similar content from the wizard
+    // Unauthenticated: beforeLoad throws redirect to /auth
     await waitFor(() => {
-      // The wizard should render some form content
-      const main = document.querySelector('main');
-      expect(main).toBeTruthy();
-      expect(main!.innerHTML.length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Sign In').length).toBeGreaterThanOrEqual(1);
     });
   });
 });
@@ -226,7 +205,7 @@ describe('router > /auth renders login page', () => {
   it('renders the sign-in card at /auth', async () => {
     await renderRoute('/auth');
 
-    expect(screen.getByText('Sign In')).toBeInTheDocument();
+    expect(screen.getAllByText('Sign In').length).toBeGreaterThanOrEqual(1);
     expect(
       screen.getByText(/sign in to save cases and access premium features/i),
     ).toBeInTheDocument();
@@ -261,56 +240,38 @@ describe('router > /share/:token renders without auth', () => {
 });
 
 describe('router > /cases/:caseId renders case editor', () => {
-  it('renders case editor page for a given case ID', async () => {
+  it('redirects /cases/:caseId to sign-in when unauthenticated', async () => {
     await renderRoute('/cases/case-42');
 
-    // The case editor loads the case asynchronously — shows loading or error state
+    // Unauthenticated: beforeLoad throws redirect to /auth
     await waitFor(() => {
-      // Either a loading spinner or error message should be present
-      const hasContent = document.querySelector('main')?.innerHTML.length ?? 0;
-      expect(hasContent).toBeGreaterThan(0);
+      expect(screen.getByText(/sign in to save cases and access premium features/i)).toBeInTheDocument();
     });
   });
 });
 
 describe('router > authenticated routes show sign-in prompt', () => {
-  it('/clients renders sign-in prompt when unauthenticated', async () => {
-    await renderRoute('/clients');
-
-    // "Clients" appears in both sidebar nav and page heading
-    expect(screen.getAllByText('Clients').length).toBeGreaterThanOrEqual(2);
-    expect(screen.getByText(/sign in to manage your clients/i)).toBeInTheDocument();
-  });
-
-  it('/deadlines renders sign-in prompt when unauthenticated', async () => {
-    await renderRoute('/deadlines');
-
-    // "Deadlines" appears in both sidebar nav and page heading
-    expect(screen.getAllByText('Deadlines').length).toBeGreaterThanOrEqual(2);
-    expect(screen.getByText(/sign in to view your settlement deadlines/i)).toBeInTheDocument();
-  });
-
   it('/settings renders sign-in prompt when unauthenticated', async () => {
     await renderRoute('/settings');
 
-    // "Settings" appears in both sidebar nav and page heading
-    expect(screen.getAllByText('Settings').length).toBeGreaterThanOrEqual(2);
+    // "Settings" appears in the page heading
+    expect(screen.getAllByText('Settings').length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText(/sign in to manage your firm settings/i)).toBeInTheDocument();
   });
 });
 
 describe('layout > navigation structure', () => {
-  it('sidebar contains exactly 5 nav items', async () => {
+  it('sidebar shows sign-in link when unauthenticated', async () => {
     await renderRoute('/');
 
-    // The sidebar nav should have links for Dashboard, New Case, Clients, Deadlines, Settings
     const sidebar = document.querySelector('aside nav');
     expect(sidebar).toBeTruthy();
     const links = sidebar!.querySelectorAll('a');
-    expect(links).toHaveLength(5);
+    // Unauthenticated sidebar shows only "Sign In"
+    expect(links).toHaveLength(1);
   });
 
-  it('sidebar links point to correct paths', async () => {
+  it('sign-in link points to /auth', async () => {
     await renderRoute('/');
 
     const sidebar = document.querySelector('aside nav');
@@ -318,10 +279,6 @@ describe('layout > navigation structure', () => {
     const links = Array.from(sidebar!.querySelectorAll('a'));
     const hrefs = links.map((link) => link.getAttribute('href'));
 
-    expect(hrefs).toContain('/');
-    expect(hrefs).toContain('/cases/new');
-    expect(hrefs).toContain('/clients');
-    expect(hrefs).toContain('/deadlines');
-    expect(hrefs).toContain('/settings');
+    expect(hrefs).toContain('/auth?mode=signin&redirect=');
   });
 });
