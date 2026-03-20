@@ -8,6 +8,15 @@ import { z } from 'zod';
 // Tab 1 — Decedent Details
 // ============================================================================
 
+export const worldwideELITSchema = z.object({
+  claimsAgainstEstate: z.number().nonnegative(),
+  claimsVsInsolvent: z.number().nonnegative(),
+  unpaidMortgages: z.number().nonnegative(),
+  casualtyLosses: z.number().nonnegative(),
+  funeralExpenses: z.number().nonnegative(),
+  judicialAdminExpenses: z.number().nonnegative(),
+});
+
 export const decedentDetailsSchema = z.object({
   name: z.string().min(1, 'Name is required').max(300),
   dateOfDeath: z
@@ -20,6 +29,7 @@ export const decedentDetailsSchema = z.object({
   maritalStatus: z.enum(['single', 'married', 'widowed', 'legally_separated', 'annulled']),
   propertyRegime: z.enum(['ACP', 'CPG', 'CSP']).nullable(),
   worldwideGrossEstate: z.number().nonnegative().nullable(),
+  worldwideELIT: worldwideELITSchema.nullable(),
 });
 
 // ============================================================================
@@ -114,13 +124,26 @@ export const deductionItemSchema = z.object({
   amount: z.number().nonnegative(),
 });
 
+export const vanishingDeductionPropertySchema = z.object({
+  id: z.string(),
+  description: z.string(),
+  priorTransferType: z.enum(['INHERITANCE', 'GIFT']),
+  priorTransferDate: z.string(),
+  priorFMV: z.number().nonnegative(),
+  currentFMV: z.number().nonnegative(),
+  mortgageOnProperty: z.number().nonnegative(),
+  priorTaxWasPaid: z.boolean(),
+  ownership: z.enum(['exclusive', 'conjugal', 'community']),
+  isPhilippineSitus: z.boolean(),
+});
+
 export const ordinaryDeductionsSchema = z.object({
   claimsAgainstEstate: z.array(deductionItemSchema),
   claimsAgainstInsolvent: z.array(deductionItemSchema),
   unpaidMortgages: z.array(deductionItemSchema),
   unpaidTaxes: z.array(deductionItemSchema),
   casualtyLosses: z.array(deductionItemSchema),
-  vanishingDeduction: z.number().nonnegative(),
+  vanishingDeductionProperties: z.array(vanishingDeductionPropertySchema),
   publicUseTransfers: z.array(deductionItemSchema),
   funeralExpenses: z.number().nonnegative().nullable(),
   judicialAdminExpenses: z.number().nonnegative().nullable(),
@@ -130,10 +153,17 @@ export const ordinaryDeductionsSchema = z.object({
 // Tab 7 — Special Deductions
 // ============================================================================
 
+export const foreignTaxCreditClaimSchema = z.object({
+  id: z.string(),
+  country: z.string(),
+  foreignTaxPaid: z.number().nonnegative(),
+  foreignPropertyFMV: z.number().nonnegative(),
+});
+
 export const specialDeductionsSchema = z.object({
   medicalExpenses: z.number().nonnegative(),
   ra4917Benefits: z.number().nonnegative(),
-  foreignTaxCredits: z.number().nonnegative(),
+  foreignTaxCreditClaims: z.array(foreignTaxCreditClaimSchema),
   standardDeduction: z.number().nonnegative(),
   familyHomeDeduction: z.number().nonnegative(),
 });
@@ -152,6 +182,12 @@ export const filingDataSchema = z.object({
   hasPcggViolation: z.boolean(),
   hasRa3019Violation: z.boolean(),
   hasRa9160Violation: z.boolean(),
+  taxFullyPaidBeforeMay2022: z.boolean(),
+  priorReturnFiled: z.boolean(),
+  previouslyDeclaredNetEstate: z.number().nonnegative().nullable(),
+  hasPendingCourtCasePreAmnestyAct: z.boolean(),
+  hasUnexplainedWealthCases: z.boolean(),
+  hasPendingRPCFelonies: z.boolean(),
 });
 
 // ============================================================================

@@ -68,6 +68,15 @@ export const TAXABLE_TRANSFER_TYPES: readonly TaxableTransferType[] = [
 // Tab 1 — Decedent Details
 // ============================================================================
 
+export interface WorldwideELIT {
+  claimsAgainstEstate: number;
+  claimsVsInsolvent: number;
+  unpaidMortgages: number;
+  casualtyLosses: number;
+  funeralExpenses: number;
+  judicialAdminExpenses: number;
+}
+
 export interface DecedentDetails {
   name: string;
   dateOfDeath: string;
@@ -77,6 +86,7 @@ export interface DecedentDetails {
   maritalStatus: MaritalStatus;
   propertyRegime: PropertyRegime | null;
   worldwideGrossEstate: number | null;
+  worldwideELIT: WorldwideELIT | null;
 }
 
 // ============================================================================
@@ -162,13 +172,26 @@ export interface DeductionItem {
   amount: number;
 }
 
+export interface VanishingDeductionProperty {
+  id: string;
+  description: string;
+  priorTransferType: 'INHERITANCE' | 'GIFT';
+  priorTransferDate: string;
+  priorFMV: number;
+  currentFMV: number;
+  mortgageOnProperty: number;
+  priorTaxWasPaid: boolean;
+  ownership: PropertyOwnership;
+  isPhilippineSitus: boolean;
+}
+
 export interface OrdinaryDeductions {
   claimsAgainstEstate: DeductionItem[];
   claimsAgainstInsolvent: DeductionItem[];
   unpaidMortgages: DeductionItem[];
   unpaidTaxes: DeductionItem[];
   casualtyLosses: DeductionItem[];
-  vanishingDeduction: number;
+  vanishingDeductionProperties: VanishingDeductionProperty[];
   publicUseTransfers: DeductionItem[];
   funeralExpenses: number | null;
   judicialAdminExpenses: number | null;
@@ -178,10 +201,17 @@ export interface OrdinaryDeductions {
 // Tab 7 — Special Deductions
 // ============================================================================
 
+export interface ForeignTaxCreditClaim {
+  id: string;
+  country: string;
+  foreignTaxPaid: number;
+  foreignPropertyFMV: number;
+}
+
 export interface SpecialDeductions {
   medicalExpenses: number;
   ra4917Benefits: number;
-  foreignTaxCredits: number;
+  foreignTaxCreditClaims: ForeignTaxCreditClaim[];
   standardDeduction: number;
   familyHomeDeduction: number;
 }
@@ -200,6 +230,12 @@ export interface FilingData {
   hasPcggViolation: boolean;
   hasRa3019Violation: boolean;
   hasRa9160Violation: boolean;
+  taxFullyPaidBeforeMay2022: boolean;
+  priorReturnFiled: boolean;
+  previouslyDeclaredNetEstate: number | null;
+  hasPendingCourtCasePreAmnestyAct: boolean;
+  hasUnexplainedWealthCases: boolean;
+  hasPendingRPCFelonies: boolean;
 }
 
 // ============================================================================
@@ -251,6 +287,7 @@ export function createDefaultEstateTaxState(): EstateTaxWizardState {
       maritalStatus: 'single',
       propertyRegime: null,
       worldwideGrossEstate: null,
+      worldwideELIT: null,
     },
     executor: {
       name: '',
@@ -271,7 +308,7 @@ export function createDefaultEstateTaxState(): EstateTaxWizardState {
       unpaidMortgages: [],
       unpaidTaxes: [],
       casualtyLosses: [],
-      vanishingDeduction: 0,
+      vanishingDeductionProperties: [],
       publicUseTransfers: [],
       funeralExpenses: null,
       judicialAdminExpenses: null,
@@ -279,7 +316,7 @@ export function createDefaultEstateTaxState(): EstateTaxWizardState {
     specialDeductions: {
       medicalExpenses: 0,
       ra4917Benefits: 0,
-      foreignTaxCredits: 0,
+      foreignTaxCreditClaims: [],
       standardDeduction: 5_000_000,
       familyHomeDeduction: 0,
     },
@@ -293,6 +330,12 @@ export function createDefaultEstateTaxState(): EstateTaxWizardState {
       hasPcggViolation: false,
       hasRa3019Violation: false,
       hasRa9160Violation: false,
+      taxFullyPaidBeforeMay2022: false,
+      priorReturnFiled: false,
+      previouslyDeclaredNetEstate: null,
+      hasPendingCourtCasePreAmnestyAct: false,
+      hasUnexplainedWealthCases: false,
+      hasPendingRPCFelonies: false,
     },
   };
 }
@@ -333,6 +376,7 @@ export function prePopulateFromEngineInput(
       maritalStatus,
       propertyRegime,
       worldwideGrossEstate: null,
+      worldwideELIT: null,
     },
   };
 }

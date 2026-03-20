@@ -80,7 +80,7 @@ describe('estate-tax > createDefaultEstateTaxState', () => {
     expect(state.ordinaryDeductions.unpaidMortgages).toEqual([]);
     expect(state.ordinaryDeductions.unpaidTaxes).toEqual([]);
     expect(state.ordinaryDeductions.casualtyLosses).toEqual([]);
-    expect(state.ordinaryDeductions.vanishingDeduction).toBe(0);
+    expect(state.ordinaryDeductions.vanishingDeductionProperties).toEqual([]);
     expect(state.ordinaryDeductions.publicUseTransfers).toEqual([]);
     expect(state.ordinaryDeductions.funeralExpenses).toBeNull();
     expect(state.ordinaryDeductions.judicialAdminExpenses).toBeNull();
@@ -91,7 +91,7 @@ describe('estate-tax > createDefaultEstateTaxState', () => {
     expect(state.specialDeductions.standardDeduction).toBe(5_000_000);
     expect(state.specialDeductions.medicalExpenses).toBe(0);
     expect(state.specialDeductions.ra4917Benefits).toBe(0);
-    expect(state.specialDeductions.foreignTaxCredits).toBe(0);
+    expect(state.specialDeductions.foreignTaxCreditClaims).toEqual([]);
     expect(state.specialDeductions.familyHomeDeduction).toBe(0);
   });
 
@@ -348,5 +348,38 @@ describe('estate-tax > constants', () => {
     expect(TAXABLE_TRANSFER_TYPES).toContain('CONTEMPLATION_OF_DEATH');
     expect(TAXABLE_TRANSFER_TYPES).toContain('LIFE_INSURANCE');
     expect(TAXABLE_TRANSFER_TYPES).toContain('INSUFFICIENT_CONSIDERATION');
+  });
+});
+
+describe('estate-tax > WorldwideELIT', () => {
+  it('is present on default state as null', () => {
+    const state = createDefaultEstateTaxState();
+    expect(state.decedent.worldwideELIT).toBeNull();
+  });
+});
+
+describe('estate-tax > VanishingDeductionProperty', () => {
+  it('defaults to empty array', () => {
+    const state = createDefaultEstateTaxState();
+    expect(state.ordinaryDeductions.vanishingDeductionProperties).toEqual([]);
+  });
+});
+
+describe('estate-tax > ForeignTaxCreditClaim', () => {
+  it('defaults to empty array', () => {
+    const state = createDefaultEstateTaxState();
+    expect(state.specialDeductions.foreignTaxCreditClaims).toEqual([]);
+  });
+});
+
+describe('estate-tax > FilingData extensions', () => {
+  it('has all estate flags with correct defaults', () => {
+    const state = createDefaultEstateTaxState();
+    expect(state.filing.taxFullyPaidBeforeMay2022).toBe(false);
+    expect(state.filing.priorReturnFiled).toBe(false);
+    expect(state.filing.previouslyDeclaredNetEstate).toBeNull();
+    expect(state.filing.hasPendingCourtCasePreAmnestyAct).toBe(false);
+    expect(state.filing.hasUnexplainedWealthCases).toBe(false);
+    expect(state.filing.hasPendingRPCFelonies).toBe(false);
   });
 });

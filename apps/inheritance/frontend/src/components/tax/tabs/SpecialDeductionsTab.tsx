@@ -41,14 +41,10 @@ export function SpecialDeductionsTab({ data, onChange }: SpecialDeductionsTabPro
       </div>
 
       <div>
-        <label htmlFor="foreign-tax-credits">Foreign Tax Credits</label>
-        <input
-          id="foreign-tax-credits"
-          data-testid="foreign-tax-credits"
-          type="number"
-          value={data.foreignTaxCredits}
-          onChange={(e) => update({ foreignTaxCredits: Number(e.target.value) || 0 })}
-        />
+        <label>Foreign Tax Credits</label>
+        <p data-testid="foreign-tax-credits">
+          {data.foreignTaxCreditClaims.length} claim(s) — edit coming in Task 18
+        </p>
       </div>
 
       <div>
