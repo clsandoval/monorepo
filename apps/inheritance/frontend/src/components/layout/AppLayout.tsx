@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LayoutDashboard, FilePlus, FolderOpen, Users, CalendarClock, Settings, Scale, LogIn, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, FilePlus, FolderOpen, BookOpen, Settings, Scale, LogIn, LogOut, Menu, X } from 'lucide-react';
 import { useMatchRoute, Link } from '@tanstack/react-router';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
@@ -8,8 +8,7 @@ const mainNavItems = [
   { to: '/' as const,          label: 'Dashboard', icon: LayoutDashboard },
   { to: '/cases' as const,     label: 'Cases',     icon: FolderOpen      },
   { to: '/cases/new' as const, label: 'New Case',  icon: FilePlus        },
-  { to: '/clients' as const,   label: 'Clients',   icon: Users           },
-  { to: '/deadlines' as const, label: 'Deadlines', icon: CalendarClock   },
+  { to: '/blog' as const,      label: 'Blog',      icon: BookOpen        },
 ] as const;
 
 const settingsNavItems = [
