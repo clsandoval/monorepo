@@ -1,10 +1,10 @@
 import { createRoute } from '@tanstack/react-router';
-import { publicRootRoute } from '@/routes/__root';
+import { rootRoute } from '@/routes/__root';
 import { BlogLayout } from '@/components/blog/BlogLayout';
 import { getBlogPost } from '@/lib/blog-posts';
 
 export const blogNoWillRoute = createRoute({
-  getParentRoute: () => publicRootRoute,
+  getParentRoute: () => rootRoute,
   path: '/blog/no-will-philippines',
   component: BlogNoWillPage,
 });
