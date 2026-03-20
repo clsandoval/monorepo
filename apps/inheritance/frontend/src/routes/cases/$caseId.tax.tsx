@@ -1,15 +1,27 @@
 import { createRoute, redirect, useNavigate } from '@tanstack/react-router';
 import { rootRoute } from '../__root';
 import { useState, useEffect, useCallback } from 'react';
-import { Loader2, AlertCircle } from 'lucide-react';
-import { loadCase, updateCaseTaxInput } from '@/lib/cases';
+import { Loader2, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { toast } from 'sonner';
+import { loadCase, updateCaseTaxInput, updateCaseOutput } from '@/lib/cases';
 import { EstateTaxWizard } from '@/components/tax/EstateTaxWizard';
+import { TaxResultsPanel } from '@/components/tax/results/TaxResultsPanel';
 import {
   createDefaultEstateTaxState,
   type EstateTaxWizardState,
 } from '@/types/estate-tax';
 import type { AutoSaveStatus } from '@/types';
+import type { EngineOutput } from '@/types';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import {
+  computeEstateTax,
+  runAdvisor,
+  runSensitivity,
+  type EstateTaxFullOutput,
+  type Suggestion,
+  type SensitivityResult,
+} from '@/lib/estate-tax-engine';
+import { saveTaxOutput, runTaxBridge } from '@/lib/tax-bridge';
 
 export const caseTaxRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -29,6 +41,11 @@ function CaseTaxPage() {
   const [decedentName, setDecedentName] = useState('');
   const [taxState, setTaxState] = useState<EstateTaxWizardState>(createDefaultEstateTaxState());
   const [autoSaveStatus, setAutoSaveStatus] = useState<AutoSaveStatus>('idle');
+  const [taxOutput, setTaxOutput] = useState<EstateTaxFullOutput | null>(null);
+  const [previousState, setPreviousState] = useState<EstateTaxWizardState | null>(null);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [sensitivityResults, setSensitivityResults] = useState<SensitivityResult[]>([]);
+  const [wizardCollapsed, setWizardCollapsed] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -65,6 +82,73 @@ function CaseTaxPage() {
     navigate({ to: '/cases/$caseId', params: { caseId } });
   }, [caseId, navigate]);
 
+  const runCompute = useCallback(async (stateToCompute: EstateTaxWizardState) => {
+    const output = computeEstateTax(stateToCompute);
+
+    // Save tax output
+    await saveTaxOutput(caseId, output);
+
+    // Auto-bridge: load case, get inheritance input, run bridge
+    try {
+      const row = await loadCase(caseId);
+      if (row.input_json) {
+        const { bridgedOutput } = await runTaxBridge(row.input_json, output);
+        await updateCaseOutput(caseId, bridgedOutput as EngineOutput);
+      }
+    } catch {
+      // Bridge failure is non-fatal — skip silently
+    }
+
+    setTaxOutput(output);
+    setSuggestions(runAdvisor(stateToCompute, output));
+    setSensitivityResults(runSensitivity(stateToCompute, output));
+    setWizardCollapsed(true);
+
+    toast('Estate tax computed — heir shares updated');
+
+    return output;
+  }, [caseId]);
+
+  const handleCompute = useCallback(async () => {
+    try {
+      await runCompute(taxState);
+    } catch (err) {
+      toast.error('Failed to compute estate tax: ' + (err instanceof Error ? err.message : String(err)));
+    }
+  }, [taxState, runCompute]);
+
+  const handleApply = useCallback(async (patch: Partial<EstateTaxWizardState>) => {
+    setPreviousState(taxState);
+    const newState = { ...taxState, ...patch };
+    setTaxState(newState);
+    await updateCaseTaxInput(caseId, newState as object);
+    try {
+      await runCompute(newState);
+    } catch (err) {
+      toast.error('Failed to re-compute after applying suggestion: ' + (err instanceof Error ? err.message : String(err)));
+    }
+  }, [taxState, caseId, runCompute]);
+
+  const handleRevert = useCallback(async () => {
+    if (!previousState) return;
+    const stateToRestore = previousState;
+    setPreviousState(null);
+    setTaxState(stateToRestore);
+    await updateCaseTaxInput(caseId, stateToRestore as object);
+    try {
+      await runCompute(stateToRestore);
+    } catch (err) {
+      toast.error('Failed to re-compute after revert: ' + (err instanceof Error ? err.message : String(err)));
+    }
+  }, [previousState, caseId, runCompute]);
+
+  const handleWhatIfCompute = useCallback(
+    (state: EstateTaxWizardState): EstateTaxFullOutput => {
+      return computeEstateTax(state);
+    },
+    [],
+  );
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -86,14 +170,49 @@ function CaseTaxPage() {
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <EstateTaxWizard
-        state={taxState}
-        onChange={handleChange}
-        autoSaveStatus={autoSaveStatus}
-        decedentName={decedentName}
-        onBack={handleBack}
-      />
+    <div className="p-6 max-w-4xl mx-auto space-y-6">
+      {taxOutput ? (
+        <div>
+          <button
+            data-testid="toggle-wizard"
+            className="flex items-center gap-2 text-sm text-muted-foreground mb-2"
+            onClick={() => setWizardCollapsed((c) => !c)}
+          >
+            {wizardCollapsed ? <ChevronDown className="size-4" /> : <ChevronUp className="size-4" />}
+            {wizardCollapsed ? 'Show wizard' : 'Collapse wizard'}
+          </button>
+
+          {!wizardCollapsed && (
+            <EstateTaxWizard
+              state={taxState}
+              onChange={handleChange}
+              autoSaveStatus={autoSaveStatus}
+              decedentName={decedentName}
+              onBack={handleBack}
+              onCompute={handleCompute}
+            />
+          )}
+
+          <TaxResultsPanel
+            output={taxOutput}
+            suggestions={suggestions}
+            sensitivityResults={sensitivityResults}
+            wizardState={taxState}
+            onApply={handleApply}
+            onRevert={previousState ? handleRevert : undefined}
+            onCompute={handleWhatIfCompute}
+          />
+        </div>
+      ) : (
+        <EstateTaxWizard
+          state={taxState}
+          onChange={handleChange}
+          autoSaveStatus={autoSaveStatus}
+          decedentName={decedentName}
+          onBack={handleBack}
+          onCompute={handleCompute}
+        />
+      )}
     </div>
   );
 }
