@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 218
-- **Pending:** 295
-- **Convergence:** 42.5%
+- **Analyzed:** 245
+- **Pending:** 268
+- **Convergence:** 47.8%
 
 ---
 
@@ -197,7 +197,7 @@
 - [ ] 1.14c — Peaceful mode as accessibility escape valve: sandbox mode for configure-and-test without mission pressure; ghost preview vs. full simulation; interaction with plan screen design
 - [ ] 1.14d — The "everything is visible" vs. "temporal separation" design philosophy: Factorio shows everything always; Robot Uprising hides internals until Inspector; when each approach works better
 - [ ] 1.14e — Friday Facts as community-building pattern: weekly dev blog as trust engine; 500+ posts building Factorio's community; what Robot Uprising's development transparency model looks like for an AI-engineering game
-- [ ] 1.15 — Shapez: pure factory puzzle stripped of combat, focus on throughput and layout
+- [x] 1.15 — Shapez: pure factory puzzle stripped of combat, focus on throughput and layout
 - [x] 1.16 — Mindustry: tower defense + factory + RTS hybrid, conveyor logistics under pressure
 
 ### Tactical / Information Games
@@ -218,8 +218,8 @@
 - [ ] 1.24 — Northgard: macro-focused RTS with limited micro, territory control
 
 ### Adjacent / Unique Mechanics
-- [ ] 1.25 — Noita: emergent physics interactions creating unexpected combos
-- [ ] 1.26 — Oxygen Not Included: resource/attention management sim, priority system, duplicant AI
+- [x] 1.25 — Noita: emergent physics interactions creating unexpected combos
+- [x] 1.26 — Oxygen Not Included: resource/attention management sim, priority system, duplicant AI
 - [ ] 1.27 — Rimworld: colonist AI management, priority/schedule system, emergent stories
 - [ ] 1.28 — Dwarf Fortress: legendary complexity, emergent behavior from deep simulation
 - [x] 1.17a — The animated tooltip pattern as universal design principle: Into the Breach's breakthrough of "show, don't describe" applied to Robot Uprising's rules/hooks/skills; what a micro-simulation preview looks like for each building block type; the "animated rule card" that plays a 3-second scenario when hovered
@@ -249,16 +249,16 @@
 - [x] 2.16 — Counter-intelligence as offensive mechanic: deliberately leaving enemy-injected hooks active and routing deceptive signals through them; "hook judo" — using enemy infrastructure against them; how the game scaffolds this discovery moment; risk/reward of leaving a known intrusion active
 - [x] 2.17 — Fabrication as tactical resource: spawn cost as a per-mission resource that creates trade-offs between pre-placed agents and dynamic spawning; fabrication point allocation as a pre-mission decision; how the resource cap interacts with spawn storm failure mode
 - [x] 2.18 — Signal acknowledgment as optional mechanic: a lightweight "ACK" hook that fires automatically when a signal is processed — a soft middle ground between fire-and-forget (no delivery info) and blocking (full rendezvous); configurable ACK_TIMEOUT after which sender continues without confirmation
-- [ ] 2.19 — Variable scenario seeds as difficulty axis: replacing a single difficulty slider with a "scenario variance" dial — narrow variance makes missions more deterministic (tutorial-friendly), wide variance makes them extremely randomization-dependent (expert challenge); the dial as an explicit player control
+- [x] 2.19 — Variable scenario seeds as difficulty axis: replacing a single difficulty slider with a "scenario variance" dial — narrow variance makes missions more deterministic (tutorial-friendly), wide variance makes them extremely randomization-dependent (expert challenge); the dial as an explicit player control
 - [x] 2.20 — Asynchronous observation gap as core design pattern: agents always act on last-tick's world state (frozen snapshot); Robot Uprising's 1-hop-1-tick latency is the architectural embodiment of this; how is the gap communicated during onboarding, visualized during execution, and taught in the debrief? What does "acting on stale intelligence" look like vs. "acting on fresh intelligence"?
   - [ ] 2.20a — Confidence meter as a first-class unit stat: full design of the per-unit confidence metric — calculation formula (weighted average of buffer entry ages), display in plan screen preview, use as a rule condition ("IF confidence < 50% → fallback to patrol"), and how the player learns to read and optimize for it
   - [ ] 2.20b — Enemy observation gap as exploitable weakness: design of player strategies that outrun enemy intelligence — fast scouts that reposition before enemy relay chains update, "stealth through speed" as a tactic distinct from EM silence, asymmetric gap exploitation
   - [ ] 2.20c — Maximum Signal Latency readout in the plan screen channel map: a real-time topology analysis showing the longest signal path in the player's architecture, with a warning threshold; how this diagnostic shifts from hidden (missions 1-4) to visible (mission 5+) to optimized (missions 8-10)
   - [ ] 2.20d — The "observation gap budget" as a design constraint per mission: mission designers set a target maximum observation gap; if the player's architecture exceeds it, the mission becomes significantly harder; the gap budget as an implicit difficulty dial that teaches tighter architecture without explicit difficulty settings
   - [ ] 2.20e — Temporal fog vs. spatial fog: the philosophical design distinction: a cross-cutting analysis comparing Robot Uprising's temporal uncertainty model with traditional spatial fog of war; what each model teaches the player, what each makes visceral, and why Robot Uprising's choice is core to the "you're an AI, not a general" identity
-- [ ] 2.21 — Context efficiency asymmetry (tight vs. fat budgets): should a player who designs a minimal-footprint context architecture actually outperform a player who just maxes every buffer? The "budget players vs. big spenders" balance; analogous to Screeps CPU-efficient creeps outperforming naive brute-force bots; does Robot Uprising want this performance asymmetry baked in?
-- [ ] 2.23 — Echo suppression as agent mechanic: when a signal propagates through a peer-to-peer mesh, the same signal can arrive multiple times through different paths; design options: signal identity (source-agent + tick ID = unique key), TTL decrement, deduplication rule vocabulary, configurable vs. default behavior
-- [ ] 2.22 — AI-generated adversary configs as difficulty axis: instead of designer-scripted enemies, enemy configurations generated by an adversarial AI that learns to defeat the player's specific architecture; the "red team" AI as a game system — vocabulary, escalation, avoiding gameable heuristics; how deep can this go without being an LLM?
+- [x] 2.21 — Context efficiency asymmetry (tight vs. fat budgets): should a player who designs a minimal-footprint context architecture actually outperform a player who just maxes every buffer? The "budget players vs. big spenders" balance; analogous to Screeps CPU-efficient creeps outperforming naive brute-force bots; does Robot Uprising want this performance asymmetry baked in?
+- [x] 2.23 — Echo suppression as agent mechanic: when a signal propagates through a peer-to-peer mesh, the same signal can arrive multiple times through different paths; design options: signal identity (source-agent + tick ID = unique key), TTL decrement, deduplication rule vocabulary, configurable vs. default behavior
+- [x] 2.22 — AI-generated adversary configs as difficulty axis: instead of designer-scripted enemies, enemy configurations generated by an adversarial AI that learns to defeat the player's specific architecture; the "red team" AI as a game system — vocabulary, escalation, avoiding gameable heuristics; how deep can this go without being an LLM?
 - [x] 3.19a — Self-replicating agent configs: agent configurations that explicitly include spawn of near-copies of themselves; the puzzle/achievement of the minimal self-replicator; when is this a cool advanced mechanic vs. a degenerate strategy that breaks missions; design guardrails
 
 ### Buffer Models
@@ -280,9 +280,9 @@
 
 ### Shared Buffer Deep Dives
 - [ ] 2.05a — Shared buffer pooling tax calibration: what's the right capacity reduction coefficient (0.7? 0.8? 0.9?) and should it scale with squad size?
-- [ ] 2.05b — Shared buffer write conflict resolution: when two units write to the shared pool on the same tick, who goes first? Deterministic ordering vs. priority-based vs. random?
-- [ ] 2.05c — Enemy-targeted shared buffer attacks: noise bombs, hack-the-pool, poison-the-cache — offensive tactics specifically designed to exploit shared memory vulnerabilities
-- [ ] 2.05d — Shared buffer + categorized buffer interaction: can a shared pool use typed compartments (Model A × 2.04)? Does that create too many configuration knobs?
+- [x] 2.05b — Shared buffer write conflict resolution: when two units write to the shared pool on the same tick, who goes first? Deterministic ordering vs. priority-based vs. random?
+- [x] 2.05c — Enemy-targeted shared buffer attacks: noise bombs, hack-the-pool, poison-the-cache — offensive tactics specifically designed to exploit shared memory vulnerabilities
+- [x] 2.05d — Shared buffer + categorized buffer interaction: can a shared pool use typed compartments (Model A × 2.04)? Does that create too many configuration knobs?
 - [ ] 2.05e — Stigmergy-only variant (Model F as primary coordination): a game mode or mission where hooks are disabled and units can ONLY communicate through tile marks — pure environmental coordination
 
 ### Weighted Buffer Deep Dives
@@ -409,9 +409,9 @@
   - [ ] 3.12e — "Attention budget" as first-class resource metric: total information processing bandwidth across all units displayed in production queue alongside minerals and energy
 - [ ] 3.13 — Context config presets vs. custom: pre-built configs for beginners, full control for veterans?
 
-- [ ] 3.01a — Skill parameterization depth: binary on/off vs. 1-3 slider parameters vs. fully configurable behavior curves per skill; impact on workbench complexity and mastery ceiling
-- [ ] 3.01b — Passive vs. active skill distinction: some skills fire automatically (evade, engage), others require rule triggers (compress, reassign); should this be formalized in UI? Mental model implications
-- [ ] 3.01c — Skill interaction matrix: 12 skills × 12 skills = 144 potential cross-unit interactions; which are synergistic, which conflict, which are neutral; emergent combo catalog
+- [x] 3.01a — Skill parameterization depth: binary on/off vs. 1-3 slider parameters vs. fully configurable behavior curves per skill; impact on workbench complexity and mastery ceiling
+- [x] 3.01b — Passive vs. active skill distinction: some skills fire automatically (evade, engage), others require rule triggers (compress, reassign); should this be formalized in UI? Mental model implications
+- [x] 3.01c — Skill interaction matrix: 12 skills × 12 skills = 144 potential cross-unit interactions; which are synergistic, which conflict, which are neutral; emergent combo catalog
 - [ ] 3.01d — The "silence detection" skill gap: detecting ABSENCE of signals on a channel for N ticks; is this a missing skill or achievable through rules alone? The "watchdog timer" pattern
 - [ ] 3.01e — Skill visual language consistency: do the 12 skills' visual metaphors (ripples, flashes, lines, rings, arrows) form a learnable grammar? Can a player identify skills from the battlefield view alone?
 
@@ -446,14 +446,14 @@
 - [x] 4.05 — The combo discovery moment: how the UI celebrates emergent interactions
 - [x] 4.06 — Campaign map: how missions are presented, branching, narrative integration
 - [x] 4.07 — The "oh no" moment: how information overload is visualized on units
-- [ ] 4.07a — "Blocked" visual state: agents that are waiting for input should be visually distinct from agents that are executing — prevents opacity that frustrates players in TIS-100 (deadlock detection gap)
-- [ ] 4.09 — The histogram as player communication layer: deep dive on histogram design for Robot Uprising — axes, distribution shape, friend overlay, no-reward philosophy, when to show vs. hide; informed by Opus Magnum histogram psychology
+- [x] 4.07a — "Blocked" visual state: agents that are waiting for input should be visually distinct from agents that are executing — prevents opacity that frustrates players in TIS-100 (deadlock detection gap)
+- [x] 4.09 — The histogram as player communication layer: deep dive on histogram design for Robot Uprising — axes, distribution shape, friend overlay, no-reward philosophy, when to show vs. hide; informed by Opus Magnum histogram psychology
 - [x] 6.09 — GIF/clip export as primary viral mechanic: designing replay clips that are shareable, beautiful, and self-explanatory without context; the hook-cascade clip as a viral moment; technical and design requirements for a Robot Uprising replay export
   - [ ] 6.09c — Replay link deep-linking with tick parameter: `?t=47` format for timestamp sharing; "jump to the cool part" culture; interaction with community analysis posts
   - [ ] 6.09d — Export analytics as game health signal: tracking which moments get exported reveals game strengths; anonymous aggregate export heuristics as playtesting data
   - [ ] 6.09e — "Before/After" comparison clip mode: side-by-side same-seed replays with two configurations; split-screen export with shared timeline; the most powerful teaching artifact
-- [ ] 4.04a — Debrief as debugger: step-through replay of execution with per-agent state, buffer contents, and hook activation — the primary teaching mechanic, not just a stats screen
-- [ ] 4.15 — The probe hook as first-class debugging primitive: how probes are created, what they cost, how debrief surfaces output, whether they auto-strip before Gauntlet deploy; "always-be-observable" as a designed game mechanic
+- [x] 4.04a — Debrief as debugger: step-through replay of execution with per-agent state, buffer contents, and hook activation — the primary teaching mechanic, not just a stats screen
+- [x] 4.15 — The probe hook as first-class debugging primitive: how probes are created, what they cost, how debrief surfaces output, whether they auto-strip before Gauntlet deploy; "always-be-observable" as a designed game mechanic
 - [ ] 4.16 — Signal genealogy as visualization: the full network graph of signal propagation across all agents for a given tick range; legibility at 5 vs. 15 agents; comparable: network traffic analyzers, dependency trees, call graphs in profilers
 - [ ] 4.12 — The spawn genealogy tree: how the debrief visualizes which agents spawned which, cycle-by-cycle ancestry; what information to show per spawn event (inherited buffer snapshot, spawn trigger cause, fabrication cost consumed, whether the spawn was a hook consequence or skill consequence)
 - [ ] 4.13 — Latency visualization as primary diagnostic: signal age at time of action overlay in debrief — each agent action annotated with age of most recent signal that influenced it; fresh = bright, stale = dimmed; teaches that deeper architectures carry older intelligence
@@ -461,7 +461,7 @@
 - [ ] 4.14 — The scenario parameter panel: a pre-execution panel showing what varies in the 100 test cases (ranges, distributions, variable types) so players can reason about edge cases before configuring; whether to show always or unlock via a "tactical briefing" skill
 - [ ] 4.10 — Config integrity as a persistent resource: the "integrity %" as a cross-mission resource; some missions degrade it more, repair actions restore it; trade-off between speed and thoroughness of pre-mission audits; does low integrity persist into next mission if unaddressed?
 - [ ] 4.11 — The "foreign fingerprint" visual language: three-way visual vocabulary for elements in the workbench (mine / system-default / enemy-injected) that must be immediately parseable; how to make enemy modifications visually distinct without requiring a tooltip to understand; the Papers Please discrepancy-detection UI model applied to agent config
-- [ ] 4.08 — Unit portraits and identity: how units look, how you distinguish them, personality
+- [x] 4.08 — Unit portraits and identity: how units look, how you distinguish them, personality
 - [ ] 4.21 — The materialization sound design as learned signal: designing the seal-break materialization sequence sounds (scrubber assembling, gold diamond ping, signal genealogy trace) as a conditioned vocabulary that becomes meaningful over many replays; what the sound should trigger in a veteran that it doesn't in a new player; UX design of satisfaction-at-first / meaning-later sound
 - [ ] 4.22 — Act 2 tool introduction sequence: the order in which Act 2 tools appear during the materialization and what the sequence communicates about priority; gold diamond first (primary diagnostic) vs. scrubber first (navigation) vs. signal genealogy last (expert); materialization as compressed onboarding arc; does tool order affect which tool players reach for first?
 - [ ] 4.23 — Replay annotated export format: the shareable debrief artifact including Act 1 timestamp annotations, Act 2 notes, gold diamond location, false pivot markers — a file format designed for config necropsy culture; what gets exported vs. what stays local; interaction with workshop and community sharing systems; replay as community artifact vs. personal record
@@ -643,9 +643,9 @@
 
 - [x] 6.01 — Art direction: pixel art vs. vector vs. abstract vs. minimalist vs. detailed
 - [x] 6.02 — Audio design: soundtrack mood, sound effects for buffer events, attention alerts; four options analyzed (A "Kulintang Machine" — Philippine gong electronica with game-state-driven layering, B "Server Room" — industrial-electronic ambient procedural from data center sounds, C "Neon Pulse" — synthwave with rondalla/kundiman Filipino elements, D "Adaptive Silence" — minimal procedural where SFX IS the soundtrack); full SFX taxonomy for all three screens (Plan/Sealed Watch/Inspector); 3 player journeys per option (Reyes Filipino dev recognizing kulintang, Sarah audio designer discovering emergent rhythm, Tomás 14yo first-time gamer entrained by agung pulse, Alex SRE experiencing professional anxiety, Min-ji music student hearing generative composition, Kenji Factorio veteran synthwave comfort); interaction effects with building blocks, sealed watch, mobile/touch, onboarding, art direction; comparable games (Into the Breach Prunty guitar breakthrough, Factorio sound accents, Cyberpunk 2077 anti-synthwave, Pantayo kulintang-electronic fusion, Shenzhen I/O ambient); TikTok clip per option; 8-dimension recommendation matrix; 5 new aspects discovered
-  - [ ] 6.02a — Dynamic music layering implementation in Pixi.js/Web Audio: technical feasibility of game-state-driven music layers (adding/removing gong voices as units occupy columns); Web Audio API AudioWorklet vs. Tone.js vs. Howler.js; latency constraints for tick-synchronized audio; performance on mobile browsers
-  - [ ] 6.02b — Audio accessibility: subtitles for sound cues, visual-only mode for deaf/HoH players, audio description mode for blind players; how to communicate signal-success vs. signal-failure without sound; vibration-only mode on mobile
-  - [ ] 6.02c — Adaptive mixing for information density: when 14 units are active with overlapping signals, how does the audio mix prevent cacophony? Priority-based ducking, spatial audio panning per grid position, frequency-band reservation per event type; the "cocktail party problem" in game audio
+  - [x] 6.02a — Dynamic music layering implementation in Pixi.js/Web Audio: technical feasibility of game-state-driven music layers (adding/removing gong voices as units occupy columns); Web Audio API AudioWorklet vs. Tone.js vs. Howler.js; latency constraints for tick-synchronized audio; performance on mobile browsers
+  - [x] 6.02b — Audio accessibility: subtitles for sound cues, visual-only mode for deaf/HoH players, audio description mode for blind players; how to communicate signal-success vs. signal-failure without sound; vibration-only mode on mobile
+  - [x] 6.02c — Adaptive mixing for information density: when 14 units are active with overlapping signals, how does the audio mix prevent cacophony? Priority-based ducking, spatial audio panning per grid position, frequency-band reservation per event type; the "cocktail party problem" in game audio
   - [x] 6.02d — Audio identity per named channel: each player-created channel gets a procedurally generated sonic signature derived from its name string (hash → pitch + timbre parameters); players learn to recognize channels by sound; the channel-as-instrument metaphor; "The Sonic Identicon" — six variations explored (A "The Ping" single-note, B "The Motif" multi-note melodic fragment, C "The Instrument" persistent timbral identity, D "The Tuning Fork" player-configurable override, E "The Chorus" traffic-adaptive volume, F "The Babel Problem" failure mode analysis); hash-to-sound pipeline using Web Audio API OscillatorNode + BiquadFilterNode + GainNode (zero samples, ~39M perceptually distinct combinations from 11 hash bytes); pentatonic constraint guarantees harmonic safety; recommended B+E+D accessibility (motif + traffic mixing + configurable override); Spore libpd creature vocalizations, Sonic-Hash jQuery password melody, Slack notification fatigue anti-reference, Factorio "hear the broken belt" rhythm; 4 player journeys (Sofia 15 Manila first-timer learning architecture through sound, Marcus 38 DevOps hearing PagerDuty incident in sealed watch, Aisha 14 Tagalog channel names creating cultural audio vocabulary, Dr. Tanaka 58 presbycusis accessibility with frequency floor + visual waveforms); interaction effects with kulintang ensemble (babendil becomes channel family), hook visualization (dual-coded color+sound), EM emissions (beauty=vulnerability), Inspector (solo-channel audio isolation), signal latency (hops as musical spacing), context overload (cacophony-then-silence), mobile haptic pairing, co-op shared vocabulary, streaming/content creation; TikTok: "I didn't compose this. I just named the channels."; 5 new aspects discovered (6.02d-i through 6.02d-v)
   - [ ] 6.02e — Plan phase silence vs. music debate: Into the Breach cuts music during deployment; should Robot Uprising's Plan phase have authored music at all, or is silence + SFX more conducive to deep configuration thinking? The "focus music" question — when does music help vs. hinder complex cognitive work?
 - [x] 6.03 — Narrative voice: GLaDOS-style narrator, silent, text-log, radio chatter
@@ -846,14 +846,14 @@
 - [x] 8.03e — Unified aesthetic direction: can Warm Filipino Cyberpunk serve competitive readability requirements, or does competitive play demand the Circuit Board's dark minimalism?
 - [x] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
 - [x] 8.04a — The "second session" test for the MVG: what creates pull-back to a 5-mission prototype without progression systems or new content? "One more try" psychology for the minimum viable game
-- [ ] 8.04b — The Relay essentiality debate: could a two-unit MVG work if scouts had built-in compress? Minimum topology for emergence vs. simplest onboarding
+- [x] 8.04b — The Relay essentiality debate: could a two-unit MVG work if scouts had built-in compress? Minimum topology for emergence vs. simplest onboarding
 - [ ] 8.04c — Inspector engagement metrics: time-on-Inspector, unit clicks per debrief, scrubber positions visited as quality signals; how to detect and respond to Inspector skip behavior
 - [x] 8.04d — The "factory shock" at Mission 5: Mission 5 introduces blueprints + production queue + economy simultaneously after 4 pre-placed-unit missions; should there be a Mission 4.5?
 - [x] 8.04e — The MVG as web demo: 5-mission browser-playable demo as viral acquisition funnel; React + Pixi.js, under 5 minutes, shareable URL; the demo-to-full-game conversion path
 - [x] 8.06 — The "first ugly solution" as tutorial completion: designing missions to be beatable with brute-force configurations so the histogram teaches optimization rather than a tutorial system; the Opus Magnum "no required optimization" pattern applied to agent configuration
-- [ ] 8.05 — The maximum viable game: everything at once — does it cohere or collapse?
+- [x] 8.05 — The maximum viable game: everything at once — does it cohere or collapse?
 - [ ] 8.10 — The Gauntlet map template system: a library of Gauntlet-approved map templates with documented match-length distributions from playtesting; map selection for each Gauntlet season as a balance decision; community map submission with validation criteria (≥80% of matches in 60–150 tick range to be Gauntlet-eligible); map approval pipeline
-- [ ] 8.07 — Robustness vs. efficiency as fundamental tension: highly efficient architectures may be brittle (works 90% of cases, fast); robust architectures may be inefficient (works 100%, slow); how do histograms communicate both dimensions simultaneously?
+- [x] 8.07 — Robustness vs. efficiency as fundamental tension: highly efficient architectures may be brittle (works 90% of cases, fast); robust architectures may be inefficient (works 100%, slow); how do histograms communicate both dimensions simultaneously?
 - [ ] 8.09 — The diagnostic layer as teaching mechanic: cross-cutting synthesis of inspector sidebar / probe hooks / signal genealogy / diagnostic ring as a unified system for making information architecture legible; how this system scales across all three acts; what should be always-on vs. opt-in vs. expert-only; a full design pass on the diagnostic teaching arc
 - [ ] 8.13 — Three-act metric mapping: formally defining the primary career stat for each act (Campaign: pass rate / Advanced Campaign: robustness % / Gauntlet: eEDT) and designing the transition moments where a new primary stat becomes visible for the first time
 - [x] 8.08 — The real-language vocabulary claim: Robot Uprising asserts its primitives (skills/rules/hooks/context) map 1:1 to real agentic AI engineering; design exercise — map a real Claude Code ralph loop to Robot Uprising primitives and test whether the vocabulary actually holds; where does the metaphor break down, and does that matter?
