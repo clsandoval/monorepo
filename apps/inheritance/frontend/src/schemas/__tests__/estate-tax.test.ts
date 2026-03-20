@@ -34,6 +34,7 @@ describe('estate-tax schemas > decedentDetailsSchema', () => {
     maritalStatus: 'married' as const,
     propertyRegime: 'ACP' as const,
     worldwideGrossEstate: null,
+    worldwideELIT: null,
   };
 
   it('accepts valid decedent details', () => {
@@ -385,7 +386,7 @@ describe('estate-tax schemas > specialDeductionsSchema', () => {
     const result = specialDeductionsSchema.safeParse({
       medicalExpenses: 100_000,
       ra4917Benefits: 0,
-      foreignTaxCredits: 0,
+      foreignTaxCreditClaims: [],
       standardDeduction: 5_000_000,
       familyHomeDeduction: 10_000_000,
     });
@@ -396,7 +397,7 @@ describe('estate-tax schemas > specialDeductionsSchema', () => {
     const result = specialDeductionsSchema.safeParse({
       medicalExpenses: -100,
       ra4917Benefits: 0,
-      foreignTaxCredits: 0,
+      foreignTaxCreditClaims: [],
       standardDeduction: 5_000_000,
       familyHomeDeduction: 0,
     });
@@ -425,6 +426,12 @@ describe('estate-tax schemas > filingDataSchema', () => {
       hasPcggViolation: true,
       hasRa3019Violation: true,
       hasRa9160Violation: true,
+      taxFullyPaidBeforeMay2022: true,
+      priorReturnFiled: true,
+      previouslyDeclaredNetEstate: 1_000_000,
+      hasPendingCourtCasePreAmnestyAct: true,
+      hasUnexplainedWealthCases: true,
+      hasPendingRPCFelonies: true,
     });
     expect(result.success).toBe(true);
   });

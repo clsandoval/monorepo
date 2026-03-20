@@ -7,9 +7,10 @@ import type { FilingData, AmnestyDeductionMode } from '@/types/estate-tax';
 export interface FilingAmnestyTabProps {
   data: FilingData;
   onChange: (data: FilingData) => void;
+  onCompute?: () => void;
 }
 
-export function FilingAmnestyTab({ data, onChange }: FilingAmnestyTabProps) {
+export function FilingAmnestyTab({ data, onChange, onCompute }: FilingAmnestyTabProps) {
   const update = (partial: Partial<FilingData>) => {
     onChange({ ...data, ...partial });
   };
@@ -53,6 +54,81 @@ export function FilingAmnestyTab({ data, onChange }: FilingAmnestyTabProps) {
             />
             Narrow
           </label>
+
+          <fieldset data-testid="amnesty-eligibility-section">
+            <legend>Estate Tax Amnesty Eligibility</legend>
+
+            <label>
+              <input
+                type="checkbox"
+                data-testid="tax-fully-paid"
+                checked={data.taxFullyPaidBeforeMay2022}
+                onChange={(e) => update({ taxFullyPaidBeforeMay2022: e.target.checked })}
+              />
+              Estate tax was fully paid before May 2022
+            </label>
+
+            <label>
+              <input
+                type="checkbox"
+                data-testid="prior-return-filed"
+                checked={data.priorReturnFiled}
+                onChange={(e) => update({ priorReturnFiled: e.target.checked })}
+              />
+              A prior estate tax return was filed
+            </label>
+
+            {data.priorReturnFiled && (
+              <div>
+                <label htmlFor="previously-declared-net-estate">
+                  Previously declared net estate (₱)
+                </label>
+                <input
+                  id="previously-declared-net-estate"
+                  data-testid="previously-declared-net-estate"
+                  type="number"
+                  value={data.previouslyDeclaredNetEstate ?? ''}
+                  onChange={(e) =>
+                    update({
+                      previouslyDeclaredNetEstate: e.target.value
+                        ? Number(e.target.value)
+                        : null,
+                    })
+                  }
+                />
+              </div>
+            )}
+
+            <label>
+              <input
+                type="checkbox"
+                data-testid="pending-court-case"
+                checked={data.hasPendingCourtCasePreAmnestyAct}
+                onChange={(e) => update({ hasPendingCourtCasePreAmnestyAct: e.target.checked })}
+              />
+              Has pending court case pre-Amnesty Act
+            </label>
+
+            <label>
+              <input
+                type="checkbox"
+                data-testid="unexplained-wealth"
+                checked={data.hasUnexplainedWealthCases}
+                onChange={(e) => update({ hasUnexplainedWealthCases: e.target.checked })}
+              />
+              Has unexplained wealth cases
+            </label>
+
+            <label>
+              <input
+                type="checkbox"
+                data-testid="pending-rpc-felonies"
+                checked={data.hasPendingRPCFelonies}
+                onChange={(e) => update({ hasPendingRPCFelonies: e.target.checked })}
+              />
+              Has pending RPC felonies
+            </label>
+          </fieldset>
         </div>
       )}
 
@@ -126,6 +202,17 @@ export function FilingAmnestyTab({ data, onChange }: FilingAmnestyTabProps) {
           RA 9160 Violation
         </label>
       </fieldset>
+
+      {onCompute && (
+        <div>
+          <button
+            data-testid="compute-estate-tax"
+            onClick={onCompute}
+          >
+            Compute Estate Tax
+          </button>
+        </div>
+      )}
     </div>
   );
 }
