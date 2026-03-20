@@ -108,7 +108,7 @@ function AuthenticatedDashboard({ user }: { user: User }) {
         <EmptyState
           icon={Building2}
           title="Set up your firm first"
-          description="Create your organization to unlock clients, deadlines, and team features."
+          description="Create your organization to unlock cases and team features."
           action={{ label: 'Set Up Firm Profile', onClick: () => navigate({ to: '/settings' }) }}
         />
       </div>
