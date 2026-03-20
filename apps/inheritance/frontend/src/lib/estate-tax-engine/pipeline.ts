@@ -223,44 +223,44 @@ export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): Eng
   const unpaidMortgages: UnpaidMortgage[] = ws.ordinaryDeductions.unpaidMortgages.map((m) => ({
     description: m.description,
     ownershipType: 'exclusive' as const,
-    amount: m.amount,
+    amount: toCentavos(m.amount),
   }));
 
   // Unpaid taxes
   const unpaidTaxes: UnpaidTax[] = ws.ordinaryDeductions.unpaidTaxes.map((t) => ({
     description: t.description,
-    amount: t.amount,
+    amount: toCentavos(t.amount),
   }));
 
   // Casualty losses
   const casualtyLosses: CasualtyLoss[] = ws.ordinaryDeductions.casualtyLosses.map((l) => ({
     description: l.description,
-    amount: l.amount,
+    amount: toCentavos(l.amount),
   }));
 
   // Vanishing deduction properties
   const vanishingDeductionProperties: VanishingDeductionProperty[] =
     ws.ordinaryDeductions.vanishingDeductionProperties.map((v) => ({
       description: v.description,
-      fmvAtDeath: v.currentFMV,
-      fmvAtPriorTransfer: v.priorFMV,
+      fmvAtDeath: toCentavos(v.currentFMV),
+      fmvAtPriorTransfer: toCentavos(v.priorFMV),
       priorTransferDate: v.priorTransferDate,
-      priorTaxesPaid: v.priorTaxWasPaid ? 1 : 0, // Boolean → centavos (nonzero = eligible)
-      encumbrances: v.mortgageOnProperty,
+      priorTaxesPaid: v.priorTaxWasPaid ? 1 : 0,
+      encumbrances: toCentavos(v.mortgageOnProperty),
     }));
 
   // Public use transfers
   const publicUseTransfers: PublicUseTransfer[] = ws.ordinaryDeductions.publicUseTransfers.map(
     (t) => ({
       description: t.description,
-      amount: t.amount,
+      amount: toCentavos(t.amount),
     }),
   );
 
   // Funeral expenses
   const funeralExpenses: FuneralExpense[] =
     ws.ordinaryDeductions.funeralExpenses != null && ws.ordinaryDeductions.funeralExpenses > 0
-      ? [{ description: 'Funeral expenses', amount: ws.ordinaryDeductions.funeralExpenses }]
+      ? [{ description: 'Funeral expenses', amount: toCentavos(ws.ordinaryDeductions.funeralExpenses) }]
       : [];
 
   // Judicial/admin expenses
@@ -270,7 +270,7 @@ export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): Eng
       ? [
           {
             description: 'Judicial/admin expenses',
-            amount: ws.ordinaryDeductions.judicialAdminExpenses,
+            amount: toCentavos(ws.ordinaryDeductions.judicialAdminExpenses),
           },
         ]
       : [];
@@ -278,21 +278,21 @@ export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): Eng
   // Medical expenses
   const medicalExpenses: MedicalExpense[] =
     ws.specialDeductions.medicalExpenses > 0
-      ? [{ description: 'Medical expenses', amount: ws.specialDeductions.medicalExpenses }]
+      ? [{ description: 'Medical expenses', amount: toCentavos(ws.specialDeductions.medicalExpenses) }]
       : [];
 
   // RA 4917 benefits
   const ra4917Benefits =
     ws.specialDeductions.ra4917Benefits > 0
-      ? [{ description: 'RA 4917 benefits', amount: ws.specialDeductions.ra4917Benefits }]
+      ? [{ description: 'RA 4917 benefits', amount: toCentavos(ws.specialDeductions.ra4917Benefits) }]
       : [];
 
   // Foreign tax credits
   const foreignTaxCredits: (ForeignTaxCreditEntry & { foreignPropertyFMV?: number })[] =
-    ws.specialDeductions.foreignTaxCreditClaims.map((c) => ({
-      country: c.country,
-      taxPaid: c.foreignTaxPaid,
-      foreignPropertyFMV: c.foreignPropertyFMV,
+    ws.specialDeductions.foreignTaxCreditClaims.map((ftc) => ({
+      country: ftc.country,
+      taxPaid: toCentavos(ftc.foreignTaxPaid),
+      foreignPropertyFMV: toCentavos(ftc.foreignPropertyFMV),
     }));
 
   // Filing info
