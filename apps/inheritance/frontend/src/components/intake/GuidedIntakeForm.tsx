@@ -8,7 +8,7 @@
  *        Settlement Track → Family Composition → Asset Summary → Review & Save
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { INTAKE_STEPS, INTAKE_STEP_COUNT, type IntakeFormState } from '@/types/intake';
 import { createInitialIntakeState, isStepComplete } from '@/lib/intake';
@@ -19,6 +19,9 @@ import { FamilyCompositionStep } from './FamilyCompositionStep';
 import { AssetSummaryStep } from './AssetSummaryStep';
 import { SettlementTrackStep } from './SettlementTrackStep';
 import { IntakeReviewStep } from './IntakeReviewStep';
+import { toast } from 'sonner';
+
+const INTAKE_STORAGE_KEY = 'inheritance-intake-draft';
 
 export interface GuidedIntakeFormProps {
   orgId: string;
@@ -33,8 +36,21 @@ export function GuidedIntakeForm({
   onComplete,
   onCancel,
 }: GuidedIntakeFormProps) {
-  const [state, setState] = useState<IntakeFormState>(createInitialIntakeState);
+  const [state, setState] = useState<IntakeFormState>(() => {
+    try {
+      const saved = localStorage.getItem(INTAKE_STORAGE_KEY);
+      if (saved) return JSON.parse(saved) as IntakeFormState;
+    } catch { /* ignore parse errors */ }
+    return createInitialIntakeState();
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Save to localStorage on every state change
+  useEffect(() => {
+    try {
+      localStorage.setItem(INTAKE_STORAGE_KEY, JSON.stringify(state));
+    } catch { /* ignore quota errors */ }
+  }, [state]);
 
   const currentStep = state.currentStep;
 
@@ -98,9 +114,12 @@ export function GuidedIntakeForm({
         throw new Error(caseError?.message ?? 'Failed to create case');
       }
 
+      // Clear saved draft on success
+      localStorage.removeItem(INTAKE_STORAGE_KEY);
       onComplete(caseRow.id, client.id);
     } catch (err) {
       console.error('Intake form submission error:', err);
+      toast.error(err instanceof Error ? err.message : 'Failed to create case. Please try again.');
       setIsSubmitting(false);
     }
   }, [state, orgId, userId, onComplete]);
@@ -239,6 +258,16 @@ export function GuidedIntakeForm({
 
       {/* Cancel / actions bar */}
       <div className="flex justify-end gap-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => {
+            localStorage.removeItem(INTAKE_STORAGE_KEY);
+            setState(createInitialIntakeState());
+          }}
+        >
+          Clear Draft
+        </Button>
         <Button variant="outline" size="sm" onClick={onCancel}>
           Cancel
         </Button>
