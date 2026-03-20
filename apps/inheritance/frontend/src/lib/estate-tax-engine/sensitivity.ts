@@ -59,7 +59,7 @@ function leverFamilyHome(
   );
   if (firstResidentialIdx === -1) return null;
 
-  const prop = state.realProperties[firstResidentialIdx];
+  const prop = state.realProperties[firstResidentialIdx]!;
   const currentClaimed = prop.isFamilyHome;
 
   const patchedRealProperties = state.realProperties.map((p, idx) =>

@@ -399,27 +399,11 @@ export function computeOrdinaryDeductions(
     total: claims.total + judicial.total,
   };
 
-  // Compute total
-  const allComponents = [
-    funeral,          // 5a
-    claimsAndJudicial,// 5b
-    insolvent,        // 5c
-    mortgages,        // 5d (mortgages portion)
-    zeroCV(),         // 5e (taxes separate — but we already combined in mortgages above)
-    casualties,       // 5f
-    vanishing,        // 5g
-    publicTransfers,  // 5h
-  ];
-
-  // Wait — mortgages already combines mortgages + taxes into one ColumnValues.
-  // types.ts has item5d_unpaid_mortgages and item5e_unpaid_taxes as separate fields.
-  // We need to split them. Let me re-compute mortgages and taxes separately.
-
-  // Re-compute separately for separate fields
+  // Re-compute mortgages and taxes separately for output fields
   const mortgagesOnly = computeMortgagesOnly(input.unpaidMortgages);
   const taxesOnly = computeTaxesOnly(input.unpaidTaxes);
 
-  const allComponentsFixed = [
+  const allComponents = [
     funeral,           // 5a (item5a_standard_deduction)
     claimsAndJudicial, // 5b (item5b_claims_against_estate)
     insolvent,         // 5c (item5c_claims_vs_insolvent)
@@ -430,8 +414,8 @@ export function computeOrdinaryDeductions(
     publicTransfers,   // 5h (item5h_transfers_for_public_use)
   ];
 
-  const totalExclusive = allComponentsFixed.reduce((s, c) => s + c.exclusive, 0);
-  const totalConjugal = allComponentsFixed.reduce((s, c) => s + c.conjugal, 0);
+  const totalExclusive = allComponents.reduce((s, c) => s + c.exclusive, 0);
+  const totalConjugal = allComponents.reduce((s, c) => s + c.conjugal, 0);
 
   return {
     item5a_standard_deduction: funeral,

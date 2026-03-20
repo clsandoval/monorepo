@@ -17,7 +17,7 @@
 import type { EstateTaxWizardState } from '@/types/estate-tax';
 import type { EstateTaxFullOutput } from './types';
 import { computeEstateTax } from './pipeline';
-import { AMNESTY_COVERAGE_CUTOFF, MEDICAL_EXPENSE_CAP, TRAIN_RATE } from './constants';
+import { AMNESTY_COVERAGE_CUTOFF, MEDICAL_EXPENSE_CAP } from './constants';
 
 // ── Suggestion shape ──────────────────────────────────────────────────────────
 
@@ -37,12 +37,13 @@ export interface Suggestion {
  * `target` entirely (element-level merging would require item IDs and is
  * out of scope here). Returns a new object; never mutates inputs.
  */
-export function deepMerge<T extends object>(target: T, patch: Partial<T>): T {
-  const result: Record<string, unknown> = { ...target };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function deepMerge<T>(target: T, patch: Partial<T>): T {
+  const result: any = { ...target };
 
-  for (const key of Object.keys(patch) as Array<keyof T>) {
-    const patchVal = patch[key];
-    const targetVal = target[key];
+  for (const key of Object.keys(patch as any)) {
+    const patchVal = (patch as any)[key];
+    const targetVal = (target as any)[key];
 
     if (
       patchVal !== null &&
@@ -52,13 +53,9 @@ export function deepMerge<T extends object>(target: T, patch: Partial<T>): T {
       typeof targetVal === 'object' &&
       !Array.isArray(targetVal)
     ) {
-      // Both sides are plain objects — recurse
-      result[key as string] = deepMerge(
-        targetVal as object,
-        patchVal as Partial<typeof targetVal>,
-      );
+      result[key] = deepMerge(targetVal, patchVal);
     } else {
-      result[key as string] = patchVal;
+      result[key] = patchVal;
     }
   }
 

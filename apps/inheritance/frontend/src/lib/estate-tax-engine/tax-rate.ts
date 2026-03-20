@@ -52,14 +52,14 @@ function computePreTrainTax(nte: number): TaxResult {
   // Bracket 0 (min=0) always applies as a floor; higher brackets only when nte strictly exceeds their min.
   let bracketIndex = 0;
   for (let i = 1; i < PRE_TRAIN_BRACKETS.length; i++) {
-    if (nte > PRE_TRAIN_BRACKETS[i].min) {
+    if (nte > PRE_TRAIN_BRACKETS[i]!.min) {
       bracketIndex = i;
     } else {
       break;
     }
   }
 
-  const bracket = PRE_TRAIN_BRACKETS[bracketIndex];
+  const bracket = PRE_TRAIN_BRACKETS[bracketIndex]!;
   const excessAmount = nte - bracket.min;
   const taxOnExcess = Math.floor(excessAmount * bracket.rate);
   const totalTax = bracket.baseTax + taxOnExcess;

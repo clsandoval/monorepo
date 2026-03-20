@@ -36,7 +36,6 @@ import type {
   ForeignTaxCreditEntry,
   GrossEstateResult,
   OrdinaryDeductionsResult,
-  SpouseShareResult,
   ColumnValues,
 } from './types';
 
