@@ -21,6 +21,7 @@ export interface EstateTaxWizardProps {
   autoSaveStatus: AutoSaveStatus;
   decedentName: string;
   onBack: () => void;
+  onCompute?: () => void;
 }
 
 export function EstateTaxWizard({
@@ -29,6 +30,7 @@ export function EstateTaxWizard({
   autoSaveStatus,
   decedentName,
   onBack,
+  onCompute,
 }: EstateTaxWizardProps) {
   const [activeTab, setActiveTab] = useState<TabIndex>(0);
 
@@ -145,6 +147,7 @@ export function EstateTaxWizard({
           <FilingAmnestyTab
             data={state.filing}
             onChange={(filing) => updateState({ filing })}
+            onCompute={onCompute}
           />
         )}
       </div>
