@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 245
-- **Pending:** 268
-- **Convergence:** 47.8%
+- **Analyzed:** 254
+- **Pending:** 259
+- **Convergence:** 49.5%
 
 ---
 
@@ -202,7 +202,7 @@
 
 ### Tactical / Information Games
 - [x] 1.17 — Into the Breach: perfect information tactics, consequence preview, small-scale precision
-- [ ] 1.18 — Invisible Inc: information as primary resource, stealth + turn-based, alarm escalation
+- [x] 1.18 — Invisible Inc: information as primary resource, stealth + turn-based, alarm escalation
 - [x] 1.19 — XCOM series: fog of war, probability management, squad persistence, permadeath stakes
 - [x] 1.20 — Cogmind: robot-themed roguelike, part-swapping system, information-dense UI
 - [ ] 1.20a — The "salvage reveal" mechanic as enemy blueprint inspection: when a Robot Uprising unit dies, should the Inspector reveal the enemy unit's full configuration as a knowledge-looting pattern? Cogmind scatters destroyed robot parts visually; Robot Uprising could scatter destroyed robot configurations informationally
@@ -212,16 +212,16 @@
 - [ ] 1.20e — The Polymind inversion as Robot Uprising variant mode: a variant where the player directly controls one unit while the rest run autonomously — the "field commander" mode testing whether blueprints work without intervention
 
 ### Auto-Battler / Hands-Off Execution Games
-- [ ] 1.21 — Teamfight Tactics / Dota Underlords: plan then watch, positioning matters, synergy traits
-- [ ] 1.22 — Totally Accurate Battle Simulator: physics comedy from planning, unit placement as only input
-- [ ] 1.23 — Bad North: minimalist RTS, positioning-only control, island defense
-- [ ] 1.24 — Northgard: macro-focused RTS with limited micro, territory control
+- [x] 1.21 — Teamfight Tactics / Dota Underlords: plan then watch, positioning matters, synergy traits
+- [x] 1.22 — Totally Accurate Battle Simulator: physics comedy from planning, unit placement as only input
+- [x] 1.23 — Bad North: minimalist RTS, positioning-only control, island defense
+- [x] 1.24 — Northgard: macro-focused RTS with limited micro, territory control
 
 ### Adjacent / Unique Mechanics
 - [x] 1.25 — Noita: emergent physics interactions creating unexpected combos
 - [x] 1.26 — Oxygen Not Included: resource/attention management sim, priority system, duplicant AI
-- [ ] 1.27 — Rimworld: colonist AI management, priority/schedule system, emergent stories
-- [ ] 1.28 — Dwarf Fortress: legendary complexity, emergent behavior from deep simulation
+- [x] 1.27 — Rimworld: colonist AI management, priority/schedule system, emergent stories
+- [x] 1.28 — Dwarf Fortress: legendary complexity, emergent behavior from deep simulation
 - [x] 1.17a — The animated tooltip pattern as universal design principle: Into the Breach's breakthrough of "show, don't describe" applied to Robot Uprising's rules/hooks/skills; what a micro-simulation preview looks like for each building block type; the "animated rule card" that plays a 3-second scenario when hovered
 - [ ] 1.17b — The consequence preview gap: Into the Breach previews every consequence before execution; Robot Uprising's sealed watch removes this entirely; where does consequence preview live in the plan screen (ghost preview, simulated first 5 ticks, "dry run" mode)?
 - [ ] 1.17c — Positional play as information play: Into the Breach's push/pull repositioning is spatial information warfare; Robot Uprising's signal routing is temporal information warfare; mapping the Into the Breach combo taxonomy (push-into-attack, push-into-water, block-emergence) to Robot Uprising equivalents (route-to-striker, overload-enemy-buffer, block-channel)
@@ -279,11 +279,11 @@
 - [x] 2.05 — Shared buffer: group of units shares a collective memory pool
 
 ### Shared Buffer Deep Dives
-- [ ] 2.05a — Shared buffer pooling tax calibration: what's the right capacity reduction coefficient (0.7? 0.8? 0.9?) and should it scale with squad size?
+- [x] 2.05a — Shared buffer pooling tax calibration: what's the right capacity reduction coefficient (0.7? 0.8? 0.9?) and should it scale with squad size?
 - [x] 2.05b — Shared buffer write conflict resolution: when two units write to the shared pool on the same tick, who goes first? Deterministic ordering vs. priority-based vs. random?
 - [x] 2.05c — Enemy-targeted shared buffer attacks: noise bombs, hack-the-pool, poison-the-cache — offensive tactics specifically designed to exploit shared memory vulnerabilities
 - [x] 2.05d — Shared buffer + categorized buffer interaction: can a shared pool use typed compartments (Model A × 2.04)? Does that create too many configuration knobs?
-- [ ] 2.05e — Stigmergy-only variant (Model F as primary coordination): a game mode or mission where hooks are disabled and units can ONLY communicate through tile marks — pure environmental coordination
+- [x] 2.05e — Stigmergy-only variant (Model F as primary coordination): a game mode or mission where hooks are disabled and units can ONLY communicate through tile marks — pure environmental coordination
 
 ### Weighted Buffer Deep Dives
 - [ ] 2.02a — Weight value design space: what's the right weight range (1-3 ternary vs. 1-5 granular vs. 1-10 simulation-heavy); weight inflation across campaign missions; balance implications
@@ -293,7 +293,7 @@
 - [ ] 2.02e — Tutorial progression from fixed-slot to weighted: designing the M1-4 → M5 transition; the "bookshelf upgrade" moment; avoiding invalidating fixed-slot tutorial lessons
 
 ### Fixed-Slot Buffer Deep Dives
-- [ ] 2.01a — Buffer insertion order as hidden complexity: deterministic but opaque ordering of simultaneous arrivals (clockwise observations, alphabetical channels); should this be visible/configurable? What happens when renaming a channel changes insertion priority?
+- [x] 2.01a — Buffer insertion order as hidden complexity: deterministic but opaque ordering of simultaneous arrivals (clockwise observations, alphabetical channels); should this be visible/configurable? What happens when renaming a channel changes insertion priority?
 - [ ] 2.01b — Transit eviction in multi-hop chains: signals that arrive at a Relay and are evicted before compression can process them; "data dies in transit" problem; how common is this? Core tension or degenerate edge case?
 - [ ] 2.01c — Empty buffer slots as strategic signal: half-empty buffers indicate information starvation; can the player deliberately engineer buffer headroom ("always keep 2 slots free for emergency signals") as a strategy?
 - [ ] 2.01d — Buffer health as spectator readability tool: buffer bars as the "health bars" of information architecture for streamers/esports; design implications for casting vocabulary and overlay design
@@ -412,8 +412,8 @@
 - [x] 3.01a — Skill parameterization depth: binary on/off vs. 1-3 slider parameters vs. fully configurable behavior curves per skill; impact on workbench complexity and mastery ceiling
 - [x] 3.01b — Passive vs. active skill distinction: some skills fire automatically (evade, engage), others require rule triggers (compress, reassign); should this be formalized in UI? Mental model implications
 - [x] 3.01c — Skill interaction matrix: 12 skills × 12 skills = 144 potential cross-unit interactions; which are synergistic, which conflict, which are neutral; emergent combo catalog
-- [ ] 3.01d — The "silence detection" skill gap: detecting ABSENCE of signals on a channel for N ticks; is this a missing skill or achievable through rules alone? The "watchdog timer" pattern
-- [ ] 3.01e — Skill visual language consistency: do the 12 skills' visual metaphors (ripples, flashes, lines, rings, arrows) form a learnable grammar? Can a player identify skills from the battlefield view alone?
+- [x] 3.01d — The "silence detection" skill gap: detecting ABSENCE of signals on a channel for N ticks; is this a missing skill or achievable through rules alone? The "watchdog timer" pattern
+- [x] 3.01e — Skill visual language consistency: do the 12 skills' visual metaphors (ripples, flashes, lines, rings, arrows) form a learnable grammar? Can a player identify skills from the battlefield view alone?
 
 ### The Workbench Itself
 - [x] 3.14 — Workbench layout: what does the full agent configuration screen look like? Panels, flow, information hierarchy
@@ -725,7 +725,7 @@
 - [x] 7.02b — Co-op production queue negotiation: when two players share one production queue (Archon, Specialist, War Room), build order becomes a diplomacy problem; resource allocation as cooperative tension; comparable to Factorio's "you used all the iron" conflict
 - [x] 7.02c — 2v2 co-op PvP mode combinations: pairing co-op models with PvP models; Specialist co-op (4 distinct roles in a 2v2) as the deepest competitive format; mixed co-op models as asymmetric advantage
 - [x] 7.02d — Co-op Inspector as teaching tool: War Room co-op forces deep Inspector usage; how co-op debrief habits transfer to improved single-player analysis; co-op as the "Inspector tutorial" the game otherwise lacks
-- [ ] 7.02e — Cross-boundary EM emission budget as cooperative resource: in Divided Front co-op, both players' combined EM emissions create shared detection risk; the "emission budget" as a cooperative resource that neither player can individually control; comparable to shared radio frequency allocation
+- [x] 7.02e — Cross-boundary EM emission budget as cooperative resource: in Divided Front co-op, both players' combined EM emissions create shared detection risk; the "emission budget" as a cooperative resource that neither player can individually control; comparable to shared radio frequency allocation
 - [x] 7.03 — Async challenges: "beat my architecture" shareable puzzles
 - [x] 7.03a — Config Code format design: exact encoding format, compression strategy, version migration, URL scheme, QR code generation, backward compatibility when game primitives change between versions
 - [x] 7.03b — Community moderation infrastructure: grief prevention (impossible bounties, bad Evolution Chain contributions, offensive names), report system, automated quality detection, trust levels; six models analyzed (A "Circuit Breaker" automated validation pipeline with structural/quality/text tiers and diagnostic rejection UX, B "Trust Circuit" progressive TL0-5 system gating community features with decay mechanics and diegetic boot-log ceremonies, C "Necropsy Norm" self-moderation via categorized comments/inline diffs/fork trees/inline fact-checking/Better Explanation mechanic, D "Emission Scanner" behavioral pattern detection for vote rings/grief targeting/chain poisoning/smurf detection with Inspector-native dashboard, E "Breaker Panel" visible moderation events with amber hazard stripe/diagnostic framing/circuit-breaker metaphor, F "Relay Network" distributed moderation channels with expertise-matched review pools/jury model/agreement rate tracking); recommended "Three-Layer Grid" hybrid (Layer 1 automated validation, Layer 2 trust-gated access + cultural norms, Layer 3 behavioral detection + distributed review + visible moderation); 4-phase implementation plan (Config Codes only → Puzzles/Seeds → Chains/Necropsies → full community); Filipino cultural filter calibration (Penistone Problem for Philippine place names/cultural terms); comparable games (Riot GATES 15× detection improvement, Dota 2 Behavior Score, OW2 Endorsement decay, Steam Workshop moderation tiers, Opus Magnum creator-must-solve, Roblox 750K RPS text filtering, Factorio unmoderated cautionary tale, Wikipedia edit-don't-argue norm); 4 player journeys (Rosa 62 retired EE first puzzle creation + report + reviewer queue, Kai 19 CS student detecting vote ring + Emission Scanner validation, Tala 17 first-timer encountering text filter on Filipino channel name + appeal resolution, DeepAgent_TTV 28 streamer diagnosing Evolution Chain poisoning on stream); interaction effects (×Config Code text filtering, ×necropsy commentary moderation, ×Gauntlet competitive integrity, ×channel audio signatures, ×boot log diegetic notifications, ×Inspector-native dashboard, ×Blueprint Codex guidelines, ×Filipino cultural content); 5 new aspects discovered (7.03b-i through 7.03b-v)
@@ -852,9 +852,9 @@
 - [x] 8.04e — The MVG as web demo: 5-mission browser-playable demo as viral acquisition funnel; React + Pixi.js, under 5 minutes, shareable URL; the demo-to-full-game conversion path
 - [x] 8.06 — The "first ugly solution" as tutorial completion: designing missions to be beatable with brute-force configurations so the histogram teaches optimization rather than a tutorial system; the Opus Magnum "no required optimization" pattern applied to agent configuration
 - [x] 8.05 — The maximum viable game: everything at once — does it cohere or collapse?
-- [ ] 8.10 — The Gauntlet map template system: a library of Gauntlet-approved map templates with documented match-length distributions from playtesting; map selection for each Gauntlet season as a balance decision; community map submission with validation criteria (≥80% of matches in 60–150 tick range to be Gauntlet-eligible); map approval pipeline
+- [x] 8.10 — The Gauntlet map template system: a library of Gauntlet-approved map templates with documented match-length distributions from playtesting; map selection for each Gauntlet season as a balance decision; community map submission with validation criteria (≥80% of matches in 60–150 tick range to be Gauntlet-eligible); map approval pipeline
 - [x] 8.07 — Robustness vs. efficiency as fundamental tension: highly efficient architectures may be brittle (works 90% of cases, fast); robust architectures may be inefficient (works 100%, slow); how do histograms communicate both dimensions simultaneously?
-- [ ] 8.09 — The diagnostic layer as teaching mechanic: cross-cutting synthesis of inspector sidebar / probe hooks / signal genealogy / diagnostic ring as a unified system for making information architecture legible; how this system scales across all three acts; what should be always-on vs. opt-in vs. expert-only; a full design pass on the diagnostic teaching arc
+- [x] 8.09 — The diagnostic layer as teaching mechanic: cross-cutting synthesis of inspector sidebar / probe hooks / signal genealogy / diagnostic ring as a unified system for making information architecture legible; how this system scales across all three acts; what should be always-on vs. opt-in vs. expert-only; a full design pass on the diagnostic teaching arc
 - [ ] 8.13 — Three-act metric mapping: formally defining the primary career stat for each act (Campaign: pass rate / Advanced Campaign: robustness % / Gauntlet: eEDT) and designing the transition moments where a new primary stat becomes visible for the first time
 - [x] 8.08 — The real-language vocabulary claim: Robot Uprising asserts its primitives (skills/rules/hooks/context) map 1:1 to real agentic AI engineering; design exercise — map a real Claude Code ralph loop to Robot Uprising primitives and test whether the vocabulary actually holds; where does the metaphor break down, and does that matter?
 - [ ] 8.08a — "Translate Your Architecture" post-game bridge: game-to-code conversion tool design; auto-generate Claude Agent SDK Python from Mission 10 config; literal translations (hooks→topics, context→model selection, skills→tools) vs. adaptations (spatial→non-spatial, tick→async); comparable to Screeps export-to-real-server

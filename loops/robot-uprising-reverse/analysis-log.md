@@ -1,5 +1,27 @@
 # Robot Uprising — Analysis Log
 
+## 2026-03-20 — Batch: Rimworld, Dwarf Fortress, Shared Buffer Tax, Stigmergy, Buffer Insertion Order
+
+**Aspects analyzed:** 5
+**Files written:** 5
+
+| Aspect | File | Type | Words |
+|--------|------|------|-------|
+| 1.27 — Rimworld | `competitive-analysis/rimworld.md` | Competitive analysis | ~2500 |
+| 1.28 — Dwarf Fortress | `competitive-analysis/dwarf-fortress.md` | Competitive analysis | ~2500 |
+| 2.05a — Shared buffer pooling tax calibration | `core-mechanic/shared-buffer-pooling-tax.md` | Design exploration | ~2200 |
+| 2.05e — Stigmergy-only variant | `core-mechanic/stigmergy-only-variant.md` | Design exploration | ~2300 |
+| 2.01a — Buffer insertion order as hidden complexity | `core-mechanic/buffer-insertion-order.md` | Design exploration | ~2400 |
+
+**Key findings:**
+- RimWorld's Work tab (grid of 1-4 priority numbers per colonist per work type) is the closest existing precedent to Robot Uprising's blueprint workbench. The community's top mod category is "expanded work management," validating the demand for more expressive behavioral programming that Robot Uprising provides natively.
+- Dwarf Fortress's tantrum spiral (emotional cascade through social graph) is the structural analog to Robot Uprising's context overload cascade (informational cascade through channel topology). Both are positive feedback loops where one failure makes subsequent failures more likely; both are the game's signature dramatic event.
+- The tiered pooling tax (90/80/70/60% for 2/3/4/5-unit squads) is the recommended calibration for shared buffers. Four discrete breakpoints that are instantly memorizable, create a clear strategic gradient, and interact cleanly with compress skills, EM emissions, and factory economy. The tax IS the curriculum — each tier teaches a new lesson about coordination cost.
+- Stigmergy-only mode (hooks disabled, communication through tile marks only) creates a fundamentally different game where information travels at movement speed, not signal speed. Recommended as a progressive integration: introduced in Mission 4, blackout phase in Mission 7, full Ant Colony doctrine in Gauntlet. Zero EM emissions make it the stealthiest coordination model.
+- Buffer insertion order should follow a Progressive Reveal pattern: hidden Missions 1-4, Inspector-visible Missions 5-7, configurable via Input Priority panel Missions 8-10. Channel names must never affect ordering (eliminating the "aaa-threat" naming exploit). The FIFO-inversion insight (expendable data enters first, precious data enters last) becomes a mid-campaign learning moment teaching real queue theory.
+
+**Stats after:** 250 analyzed / 513 total (48.7%)
+
 ## 2026-03-20 — Batch: Mindustry, XCOM, Idle vs. Sealed Watch, SpaceChem Dual-Agent, SpaceChem Flip-Flop
 
 **Aspects analyzed:** 5
