@@ -34,11 +34,11 @@ export function TaxResultsPanel({
   const hasComparison = output.dualPathComparison !== null;
 
   return (
-    <div data-testid="tax-results-panel">
+    <div data-testid="tax-results-panel" className="space-y-4">
       <WarningsBanner warnings={output.warnings} />
 
       <Tabs defaultValue="form1801">
-        <TabsList>
+        <TabsList className="w-full justify-start overflow-x-auto flex-nowrap">
           <TabsTrigger value="form1801" data-testid="tab-form1801">Form 1801</TabsTrigger>
           <TabsTrigger value="explainer" data-testid="tab-explainer">Explainer</TabsTrigger>
           <TabsTrigger value="optimizer" data-testid="tab-optimizer">Optimizer</TabsTrigger>
@@ -47,15 +47,15 @@ export function TaxResultsPanel({
           )}
         </TabsList>
 
-        <TabsContent value="form1801">
+        <TabsContent value="form1801" className="mt-4">
           <Form1801View output={output} />
         </TabsContent>
 
-        <TabsContent value="explainer">
+        <TabsContent value="explainer" className="mt-4">
           <ExplainerView explainer={output.explainer} />
         </TabsContent>
 
-        <TabsContent value="optimizer">
+        <TabsContent value="optimizer" className="mt-4">
           <OptimizerView
             suggestions={suggestions}
             sensitivityResults={sensitivityResults}
@@ -68,7 +68,7 @@ export function TaxResultsPanel({
         </TabsContent>
 
         {hasComparison && (
-          <TabsContent value="comparison">
+          <TabsContent value="comparison" className="mt-4">
             <ComparisonView dualPathComparison={output.dualPathComparison!} />
           </TabsContent>
         )}

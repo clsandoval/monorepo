@@ -5,7 +5,11 @@
 import { useState } from 'react';
 import type { EstateTaxWizardState } from '@/types/estate-tax';
 import type { EstateTaxFullOutput } from '@/lib/estate-tax-engine';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
+import { TrendingDown, TrendingUp, Minus } from 'lucide-react';
 
 export interface WhatIfPanelProps {
   wizardState: EstateTaxWizardState;
@@ -23,6 +27,7 @@ function formatPesos(centavos: number): string {
 interface Lever {
   id: string;
   label: string;
+  description: string;
   getState: (state: EstateTaxWizardState, toggled: boolean) => EstateTaxWizardState;
   currentLabel: (state: EstateTaxWizardState) => string;
 }
@@ -31,6 +36,7 @@ const LEVERS: Lever[] = [
   {
     id: 'amnesty',
     label: 'Estate Tax Amnesty',
+    description: 'Toggle amnesty election to compare amnesty vs. regular rates.',
     currentLabel: (state) => (state.filing.userElectsAmnesty ? 'Elected' : 'Not elected'),
     getState: (state, toggled) => ({
       ...state,
@@ -40,6 +46,7 @@ const LEVERS: Lever[] = [
   {
     id: 'family-home',
     label: 'Family Home Designation',
+    description: 'Toggle family home designation on the first real property (up to ₱10M deduction).',
     currentLabel: (state) =>
       state.realProperties.some((p) => p.isFamilyHome) ? 'Claimed' : 'Not claimed',
     getState: (state, toggled) => ({
@@ -72,7 +79,7 @@ export function WhatIfPanel({ wizardState, currentOutput, onCompute }: WhatIfPan
   return (
     <div data-testid="what-if-panel" className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        Toggle scenarios to see the tax impact side-by-side.
+        Toggle scenarios below to see the tax impact side-by-side.
       </p>
 
       {LEVERS.map((lever) => {
@@ -83,47 +90,69 @@ export function WhatIfPanel({ wizardState, currentOutput, onCompute }: WhatIfPan
 
         return (
           <Card key={lever.id} data-testid={`what-if-lever-${lever.id}`}>
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-semibold">{lever.label}</CardTitle>
-                <label className="flex items-center gap-2 text-sm">
-                  <span className="text-muted-foreground">
+            <CardHeader className="pb-3">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <CardTitle className="text-sm font-semibold">{lever.label}</CardTitle>
+                  <CardDescription className="text-xs mt-1">{lever.description}</CardDescription>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-xs text-muted-foreground">
                     {lever.currentLabel(wizardState)}
                   </span>
-                  <input
-                    type="checkbox"
+                  <Checkbox
+                    id={`what-if-toggle-${lever.id}`}
                     data-testid={`what-if-toggle-${lever.id}`}
                     checked={isToggled}
-                    onChange={() => handleToggle(lever)}
+                    onCheckedChange={() => handleToggle(lever)}
                   />
-                  <span>Toggled</span>
-                </label>
+                  <Label
+                    htmlFor={`what-if-toggle-${lever.id}`}
+                    className="text-xs cursor-pointer font-normal"
+                  >
+                    Toggle
+                  </Label>
+                </div>
               </div>
             </CardHeader>
 
             {altOutput && (
-              <CardContent>
+              <CardContent className="space-y-3">
+                <Separator />
                 <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <p className="text-muted-foreground">Current Tax</p>
-                    <p className="font-mono font-semibold">₱{formatPesos(currentTax)}</p>
+                  <div className="space-y-1">
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Current Tax</p>
+                    <p className="font-mono font-semibold text-[#1e3a5f]">₱{formatPesos(currentTax)}</p>
                   </div>
-                  <div>
-                    <p className="text-muted-foreground">Alternative Tax</p>
-                    <p className="font-mono font-semibold">₱{formatPesos(altTax!)}</p>
+                  <div className="space-y-1">
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Alternative Tax</p>
+                    <p className="font-mono font-semibold text-[#1e3a5f]">₱{formatPesos(altTax!)}</p>
                   </div>
                 </div>
                 {delta !== null && (
-                  <p
+                  <div
                     data-testid={`what-if-delta-${lever.id}`}
-                    className={`text-sm font-semibold mt-2 ${delta < 0 ? 'text-green-600' : delta > 0 ? 'text-red-600' : 'text-muted-foreground'}`}
+                    className={`flex items-center gap-2 text-sm font-semibold ${
+                      delta < 0
+                        ? 'text-green-600'
+                        : delta > 0
+                          ? 'text-red-600'
+                          : 'text-muted-foreground'
+                    }`}
                   >
+                    {delta < 0 ? (
+                      <TrendingDown className="h-4 w-4" />
+                    ) : delta > 0 ? (
+                      <TrendingUp className="h-4 w-4" />
+                    ) : (
+                      <Minus className="h-4 w-4" />
+                    )}
                     {delta < 0
                       ? `Save ₱${formatPesos(Math.abs(delta))}`
                       : delta > 0
                         ? `Cost +₱${formatPesos(delta)}`
                         : 'No change'}
-                  </p>
+                  </div>
                 )}
               </CardContent>
             )}
