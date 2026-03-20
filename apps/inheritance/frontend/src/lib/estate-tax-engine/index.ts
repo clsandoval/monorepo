@@ -1,3 +1,6 @@
 export { computeEstateTax, wizardStateToEngineInput } from './pipeline';
+export { runAdvisor } from './advisor';
+export { runSensitivity } from './sensitivity';
 export type { EstateTaxFullOutput, EstateTaxScheduleSummary } from './types';
-// Placeholder exports for advisor/sensitivity (to be implemented)
+export type { Suggestion } from './advisor';
+export type { SensitivityResult } from './sensitivity';
