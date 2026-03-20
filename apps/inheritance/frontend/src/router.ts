@@ -10,10 +10,6 @@ import { casesIndexRoute } from './routes/cases/index';
 import { casesNewRoute } from './routes/cases/new';
 import { caseIdRoute } from './routes/cases/$caseId';
 import { caseTaxRoute } from './routes/cases/$caseId.tax';
-import { clientsRoute } from './routes/clients/index';
-import { newClientRoute } from './routes/clients/new';
-import { clientDetailRoute } from './routes/clients/$clientId';
-import { deadlinesRoute } from './routes/deadlines';
 import { settingsRoute } from './routes/settings/index';
 import { settingsTeamRoute } from './routes/settings/team';
 import { shareTokenRoute } from './routes/share/$token';
@@ -48,25 +44,21 @@ const routeTree = rootRoute.addChildren([
     illegitimateChildInheritanceRoute,
     parentsInheritanceShareRoute,
     noWillInheritanceRoute,
-    blogIndexRoute,
-    blogIntestateVsTestateRoute,
-    blogHowToComputeLegitimeRoute,
-    blogIllegitimateChildrenRightsRoute,
-    blogNoWillRoute,
-    blogPreteritionRoute,
-    blogParentsInheritanceRoute,
   ]),
   indexRoute,
   casesIndexRoute,
   casesNewRoute,
   caseIdRoute,
   caseTaxRoute,
-  clientsRoute,
-  newClientRoute,
-  clientDetailRoute,
-  deadlinesRoute,
   settingsRoute,
   settingsTeamRoute,
+  blogIndexRoute,
+  blogIntestateVsTestateRoute,
+  blogHowToComputeLegitimeRoute,
+  blogIllegitimateChildrenRightsRoute,
+  blogNoWillRoute,
+  blogPreteritionRoute,
+  blogParentsInheritanceRoute,
 ]);
 
 export const router = createRouter({
