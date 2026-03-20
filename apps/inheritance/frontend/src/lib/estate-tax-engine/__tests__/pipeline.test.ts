@@ -296,3 +296,213 @@ describe('computeEstateTax - Zero estate', () => {
     expect(result.total_amount_due).toBe(0);
   });
 });
+
+// ── End-to-end test vectors ──────────────────────────────────────────────────
+
+describe('end-to-end test vectors', () => {
+  // TV-01: TRAIN simple — single citizen, 1 real property, no deductions
+  it('TV-01: TRAIN simple — single citizen, 1 real property, tax = ₱300K', () => {
+    const state = createDefaultEstateTaxState();
+    state.decedent.name = 'Juan Dela Cruz';
+    state.decedent.dateOfDeath = '2023-06-15';
+    state.decedent.citizenship = 'Filipino';
+    state.decedent.maritalStatus = 'single';
+    state.decedent.address = 'Manila';
+    state.realProperties = [
+      {
+        id: '1',
+        titleNumber: 'TCT-123',
+        taxDecNumber: 'TD-456',
+        location: 'Manila',
+        lotArea: 200,
+        improvementArea: null,
+        classification: 'residential',
+        fmvTaxDec: 800_000_000,      // ₱8M
+        fmvBirZonal: 1_000_000_000,  // ₱10M — higher → gross estate = ₱10M
+        ownership: 'exclusive',
+        isFamilyHome: false,
+        hasBarangayCert: false,
+      },
+    ];
+
+    const result = computeEstateTax(state);
+
+    // Regime
+    expect(result.regimeDetection.regime).toBe('TRAIN');
+
+    // Gross estate = ₱10M (max of fmvTaxDec, fmvBirZonal)
+    expect(result.grossEstate.total.total).toBe(1_000_000_000);
+
+    // Standard deduction = ₱5M → Net taxable estate = ₱5M
+    expect(result.taxComputation.netTaxableEstate).toBe(500_000_000);
+
+    // Tax = ₱5M × 6% = ₱300K
+    expect(result.taxComputation.netEstateTaxDue).toBe(30_000_000);
+  });
+
+  // TV-02: TRAIN with family home — married, ACP, family home deduction zeroes out tax
+  it('TV-02: TRAIN with family home — married ACP, tax = 0', () => {
+    const state = createDefaultEstateTaxState();
+    state.decedent.name = 'Maria Santos';
+    state.decedent.dateOfDeath = '2023-06-15';
+    state.decedent.citizenship = 'Filipino';
+    state.decedent.maritalStatus = 'married';
+    state.decedent.propertyRegime = 'ACP';
+    state.decedent.address = 'Quezon City';
+    state.realProperties = [
+      {
+        id: '1',
+        titleNumber: 'TCT-001',
+        taxDecNumber: 'TD-001',
+        location: 'Quezon City',
+        lotArea: 300,
+        improvementArea: null,
+        classification: 'residential',
+        fmvTaxDec: 1_500_000_000,  // ₱15M
+        fmvBirZonal: 1_500_000_000, // ₱15M
+        ownership: 'conjugal',
+        isFamilyHome: true,
+        hasBarangayCert: true,
+      },
+      {
+        id: '2',
+        titleNumber: 'TCT-002',
+        taxDecNumber: 'TD-002',
+        location: 'Manila',
+        lotArea: 100,
+        improvementArea: null,
+        classification: 'residential',
+        fmvTaxDec: 500_000_000,  // ₱5M
+        fmvBirZonal: 500_000_000, // ₱5M
+        ownership: 'exclusive',
+        isFamilyHome: false,
+        hasBarangayCert: false,
+      },
+    ];
+
+    const result = computeEstateTax(state);
+
+    // Gross estate = ₱5M (excl) + ₱15M (conj) = ₱20M
+    expect(result.grossEstate.total.total).toBe(2_000_000_000);
+
+    // Standard deduction = ₱5M. Family home deduction = min(₱15M × 0.5, ₱10M) = ₱7.5M.
+    // Total special deductions = ₱12.5M.
+    // Spouse share = ₱7.5M (half of ₱15M conjugal).
+    // Net taxable estate = ₱20M - ₱12.5M special - ₱7.5M spouse = ₱0 (floored at 0).
+    expect(result.taxComputation.netTaxableEstate).toBe(0);
+    expect(result.taxComputation.netEstateTaxDue).toBe(0);
+  });
+
+  // TV-03: Pre-TRAIN graduated bracket
+  it('TV-03: Pre-TRAIN — graduated bracket, tax = ₱355K', () => {
+    const state = createDefaultEstateTaxState();
+    state.decedent.name = 'Pedro Reyes';
+    state.decedent.dateOfDeath = '2015-03-01';
+    state.decedent.citizenship = 'Filipino';
+    state.decedent.maritalStatus = 'single';
+    state.decedent.address = 'Cebu City';
+    state.realProperties = [
+      {
+        id: '1',
+        titleNumber: 'TCT-789',
+        taxDecNumber: 'TD-789',
+        location: 'Cebu',
+        lotArea: 150,
+        improvementArea: null,
+        classification: 'residential',
+        fmvTaxDec: 500_000_000,  // ₱5M
+        fmvBirZonal: 400_000_000, // ₱4M — fmvTaxDec is higher → gross = ₱5M
+        ownership: 'exclusive',
+        isFamilyHome: false,
+        hasBarangayCert: false,
+      },
+    ];
+
+    const result = computeEstateTax(state);
+
+    // Regime
+    expect(result.regimeDetection.regime).toBe('PRE_TRAIN');
+
+    // Gross = ₱5M. Pre-TRAIN standard deduction = ₱1M. NTE = ₱4M.
+    expect(result.taxComputation.netTaxableEstate).toBe(400_000_000);
+
+    // Bracket: ₱2M-₱5M at 11%, base = ₱135K.
+    // Tax = ₱135K + (₱4M - ₱2M) × 11% = ₱135K + ₱220K = ₱355K
+    expect(result.taxComputation.netEstateTaxDue).toBe(35_500_000);
+  });
+
+  // TV-04: Zero estate — no assets, no deductions
+  it('TV-04: Zero estate — everything zero, tax = 0', () => {
+    const state = createDefaultEstateTaxState();
+    state.decedent.name = 'Ana Lopez';
+    state.decedent.dateOfDeath = '2023-01-01';
+    state.decedent.citizenship = 'Filipino';
+    state.decedent.maritalStatus = 'single';
+    state.decedent.address = 'Davao City';
+    // No assets, no deductions (defaults)
+
+    const result = computeEstateTax(state);
+
+    expect(result.grossEstate.total.total).toBe(0);
+    expect(result.taxComputation.netEstateTaxDue).toBe(0);
+  });
+
+  // TV-05: Bridge compatibility fields
+  it('TV-05: Bridge compatibility — required output fields present', () => {
+    const state = createDefaultEstateTaxState();
+    state.decedent.name = 'Carlos Bautista';
+    state.decedent.dateOfDeath = '2023-06-15';
+    state.decedent.citizenship = 'Filipino';
+    state.decedent.maritalStatus = 'single';
+    state.decedent.address = 'Makati';
+    state.realProperties = [
+      {
+        id: '1',
+        titleNumber: 'TCT-555',
+        taxDecNumber: 'TD-555',
+        location: 'Makati',
+        lotArea: 100,
+        improvementArea: null,
+        classification: 'residential',
+        fmvTaxDec: 1_000_000_000, // ₱10M
+        fmvBirZonal: 1_000_000_000,
+        ownership: 'exclusive',
+        isFamilyHome: false,
+        hasBarangayCert: false,
+      },
+    ];
+
+    const result = computeEstateTax(state);
+
+    // Bridge-compatible fields must exist and be numbers
+    expect(typeof result.item40_gross_estate).toBe('number');
+    expect(typeof result.item44_total_deductions).toBe('number');
+    expect(typeof result.tax_due).toBe('number');
+
+    // Surcharge fields default to zero
+    expect(result.surcharges).toBe(0);
+    expect(result.interest).toBe(0);
+    expect(result.compromise_penalty).toBe(0);
+
+    // Schedules object exists
+    expect(result.schedules).toBeDefined();
+    expect(typeof result.schedules.schedule1_real_properties).toBe('number');
+    expect(result.schedules.schedule1_real_properties).toBeGreaterThan(0);
+  });
+
+  // TV-06: Validation errors propagated — missing date of death
+  it('TV-06: Validation errors — missing date of death produces error warnings', () => {
+    const state = createDefaultEstateTaxState();
+    state.decedent.name = 'Unknown';
+    state.decedent.dateOfDeath = ''; // Missing
+    state.decedent.citizenship = 'Filipino';
+    state.decedent.maritalStatus = 'single';
+    state.decedent.address = 'Manila';
+
+    const result = computeEstateTax(state);
+
+    expect(result.warnings.length).toBeGreaterThan(0);
+    const hasErrorCode = result.warnings.some((w) => w.includes('ERR_'));
+    expect(hasErrorCode).toBe(true);
+  });
+});
