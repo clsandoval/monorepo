@@ -71,52 +71,18 @@ export function GuidedIntakeForm({
   const handleCreateCase = useCallback(async () => {
     setIsSubmitting(true);
     try {
-      // Import dynamically to avoid pulling supabase into test bundle unnecessarily
-      const { supabase } = await import('@/lib/supabase');
-      const {
-        mapIntakeToClientData,
-        mapIntakeToEngineInput,
-        mapIntakeToIntakeData,
-      } = await import('@/lib/intake');
+      const { mapIntakeToEngineInput } = await import('@/lib/intake');
+      const { createCase } = await import('@/lib/cases');
 
-      // 1. Create client row
-      const clientData = mapIntakeToClientData(state, orgId, userId);
-      const { data: client, error: clientError } = await supabase
-        .from('clients')
-        .insert(clientData)
-        .select('id')
-        .single();
-
-      if (clientError || !client) {
-        throw new Error(clientError?.message ?? 'Failed to create client');
-      }
-
-      // 2. Create case row with pre-populated input_json and intake_data
+      // Build EngineInput from intake state
       const engineInput = mapIntakeToEngineInput(state);
-      const intakeData = mapIntakeToIntakeData(state);
 
-      const { data: caseRow, error: caseError } = await supabase
-        .from('cases')
-        .insert({
-          org_id: orgId,
-          created_by: userId,
-          client_id: client.id,
-          decedent_name: state.decedentInfo.full_name,
-          date_of_death: state.decedentInfo.date_of_death || null,
-          input_json: engineInput,
-          intake_data: intakeData,
-          status: 'draft',
-        })
-        .select('id')
-        .single();
-
-      if (caseError || !caseRow) {
-        throw new Error(caseError?.message ?? 'Failed to create case');
-      }
+      // Create case using existing createCase function (uses correct DB columns)
+      const { id: caseId } = await createCase(userId, orgId, engineInput, null);
 
       // Clear saved draft on success
       localStorage.removeItem(INTAKE_STORAGE_KEY);
-      onComplete(caseRow.id, client.id);
+      onComplete(caseId, '');
     } catch (err) {
       console.error('Intake form submission error:', err);
       toast.error(err instanceof Error ? err.message : 'Failed to create case. Please try again.');
