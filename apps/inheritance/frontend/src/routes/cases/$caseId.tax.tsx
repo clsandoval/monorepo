@@ -88,15 +88,20 @@ function CaseTaxPage() {
     // Save tax output
     await saveTaxOutput(caseId, output);
 
-    // Auto-bridge: load case, get inheritance input, run bridge
-    try {
-      const row = await loadCase(caseId);
-      if (row.input_json) {
-        const { bridgedOutput } = await runTaxBridge(row.input_json, output);
-        await updateCaseOutput(caseId, bridgedOutput as EngineOutput);
+    // Auto-bridge: only if tax computation produced a non-zero gross estate.
+    // Otherwise we'd overwrite the inheritance estate value with 0.
+    const hasGrossEstate = output.item40_gross_estate > 0 || output.tax_due > 0;
+    if (hasGrossEstate) {
+      try {
+        const row = await loadCase(caseId);
+        if (row.input_json) {
+          const { bridgedOutput } = await runTaxBridge(row.input_json, output);
+          await updateCaseOutput(caseId, bridgedOutput as EngineOutput);
+          toast('Estate tax applied — heir shares updated');
+        }
+      } catch {
+        // Bridge failure is non-fatal — skip silently
       }
-    } catch {
-      // Bridge failure is non-fatal — skip silently
     }
 
     setTaxOutput(output);
@@ -104,7 +109,9 @@ function CaseTaxPage() {
     setSensitivityResults(runSensitivity(stateToCompute, output));
     setWizardCollapsed(true);
 
-    toast('Estate tax computed — heir shares updated');
+    if (!hasGrossEstate) {
+      toast('Estate tax computed (no assets entered — inheritance shares unchanged)');
+    }
 
     return output;
   }, [caseId]);
