@@ -34,40 +34,48 @@ The engine runs client-side as pure functions. No backend computation needed.
 
 ## 3. Engine Architecture
 
-### 3.1 Directory: `src/lib/estate-tax-engine/`
+### 3.1 Monetary Unit Convention
+
+**All monetary values throughout the engine use centavos (integer).** This matches the existing `tax-bridge.ts` convention. The engine spec uses pesos; the adapter (`wizardStateToEngineInput()`) converts peso inputs to centavos at the boundary. All internal computation, output values, and advisor savings use centavos. Display formatting converts centavos → pesos at the UI layer only.
+
+### 3.2 Directory: `src/lib/estate-tax-engine/`
 
 | File | Responsibility | Spec Section |
 |------|---------------|-------------|
 | `types.ts` | Engine-specific types (`ColumnValues`, `RegimeDetectionResult`, `GrossEstateResult`, output types) | §5.7 |
-| `constants.ts` | Hardcoded rates, caps, brackets, dates | §4 |
+| `constants.ts` | Hardcoded rates, caps, brackets, dates (all monetary constants in centavos) | §4 |
+| `validation.ts` | `validateInput()` — Phase 0 input validation with error codes (`ERR_DATE_REQUIRED`, `ERR_DATE_FUTURE`, `ERR_DATE_IMPLAUSIBLE`, `ERR_TRACK_B_MISSING`, `ERR_PRIOR_NEGATIVE`, `ERR_MULTIPLE_FAMILY_HOMES`, `ERR_WORLDWIDE_ESTATE_ZERO`, `ERR_PH_EXCEEDS_WORLDWIDE`) | §6 |
 | `regime-detection.ts` | `detectRegime()` — TRAIN/PRE_TRAIN/AMNESTY + deductionRules from death date and flags | §6 |
 | `sec87-exclusions.ts` | `applySec87Exclusions()` — filters exempt assets before gross estate | §7 |
 | `gross-estate.ts` | `computeGrossEstate()` — Items 29–34 with Column A/B/C splits | §8 |
-| `ordinary-deductions.ts` | `computeOrdinaryDeductions()` — ELIT, vanishing, public transfers, funeral/judicial (pre-TRAIN) | §9 |
+| `ordinary-deductions.ts` | `computeOrdinaryDeductions()` — ELIT (5A–5D), vanishing (5E), public transfers (5F), funeral (5G, pre-TRAIN), judicial (5H, pre-TRAIN). Internal sub-functions for each phase to match spec phases 4–10 ordering | §9 |
 | `special-deductions.ts` | `computeSpecialDeductions()` — standard, family home, medical, RA 4917 | §10 |
 | `spouse-share.ts` | `computeSpouseShare()` — Schedule 6A: net conjugal property ÷ 2 | §11 |
-| `tax-rate.ts` | `computeTax()` — flat 6% (TRAIN), graduated table (pre-TRAIN), amnesty (6% + ₱5K floor) | §12 |
-| `foreign-tax-credit.ts` | `computeForeignTaxCredit()` — per-country and worldwide credit limits | §13 |
-| `nra-proportional.ts` | `applyNRAProportional()` — scales ELIT by PH-situs/worldwide ratio | §15 |
+| `tax-rate.ts` | `computeTax()` — flat 6% (TRAIN), graduated table (pre-TRAIN), amnesty (6% + ₱5K floor). Returns bracket detail for explainer. | §12 |
+| `foreign-tax-credit.ts` | `computeForeignTaxCredit()` — per-country and worldwide credit limits using `ForeignTaxCreditClaim[]` | §13 |
+| `nra-proportional.ts` | `computeNRAFactor()` — computes PH-situs/worldwide ratio. Returns factor only; passed into `computeOrdinaryDeductions()` which applies it to ELIT items internally | §15 |
 | `amnesty.ts` | `computeAmnesty()` — Track A/B, eligibility, comparison output | §14 |
-| `explainer.ts` | `generateExplainer()` — plain-English narrative per computation step | §18 |
-| `advisor.ts` | `runAdvisor()` — scans for unclaimed deductions, computes savings | new |
-| `sensitivity.ts` | `runSensitivity()` — varies key inputs, ranks by tax impact | new |
+| `explainer.ts` | `generateExplainer()` — plain-English narrative per computation step, uses bracket detail from `taxComputation` | §18 |
+| `advisor.ts` | `runAdvisor()` — scans for unclaimed deductions, computes savings via patch-and-rerun | new |
+| `sensitivity.ts` | `runSensitivity()` — varies key inputs, ranks by tax impact. Reuses advisor's patch-and-rerun pattern for shared toggles (family home, amnesty, regime) | new |
 | `pipeline.ts` | `computeEstateTax()` — orchestrates all steps; `wizardStateToEngineInput()` adapter | §16 |
 | `index.ts` | Public API: re-exports `computeEstateTax`, `runAdvisor`, `runSensitivity`, types | — |
 
-### 3.2 Pipeline Flow
+### 3.3 Pipeline Flow
 
 ```
-wizardStateToEngineInput(wizardState)
+wizardStateToEngineInput(wizardState)         // adapter: wizard types → engine types, pesos → centavos
+  → validateInput(engineInput)                 // Phase 0: error codes if invalid
   → detectRegime(decedent, estateFlags, userElectsAmnesty)
   → applySec87Exclusions(assets, sec87ExemptAssets)
   → computeGrossEstate(filteredAssets)
-  → applyNRAProportional(grossEstate, worldwideGrossEstate)  // if NRA
+  → computeNRAFactor(grossEstate, worldwideGrossEstate, worldwideELIT)  // if NRA; returns factor
   → computeOrdinaryDeductions(deductionInputs, deductionRules, nraFactor)
+      // internally: computeELIT → computeFuneral → computeJudicial → computeELITTotal
+      //           → computeVanishing → computePublicTransfers → assembleOrdinary
   → computeSpecialDeductions(specialInputs, deductionRules, citizenship, grossEstate)
   → computeSpouseShare(grossEstate, ordinaryDeductions, propertyRegime, maritalStatus)
-  → computeTax(netTaxableEstate, regime, deductionRules)
+  → computeTax(netTaxableEstate, regime, deductionRules)  // returns bracket detail
   → computeForeignTaxCredit(foreignTaxClaims, grossEstate, estateTaxDue)
   → computeAmnesty(...)  // if dual-path
   → generateExplainer(allResults)
@@ -80,9 +88,63 @@ Every step is a **pure function**: inputs + accumulated state → results. No si
 
 ## 4. Input/Output Contract
 
-### 4.1 Input
+### 4.1 Input — Wizard Type Extensions Required
 
-The engine consumes the existing `EstateTaxWizardState` from `types/estate-tax.ts`. A thin adapter function `wizardStateToEngineInput()` in `pipeline.ts` maps wizard form state to the engine's internal input shape. No changes to wizard types needed.
+The engine consumes the existing `EstateTaxWizardState` from `types/estate-tax.ts` via `wizardStateToEngineInput()`. However, the existing wizard types are missing several fields required by the engine spec. The following changes are needed:
+
+**Extend `FilingData` with missing `EstateFlags` fields:**
+- `taxFullyPaidBeforeMay2022: boolean` — critical for amnesty eligibility
+- `priorReturnFiled: boolean` — Track A vs Track B amnesty
+- `previouslyDeclaredNetEstate: number | null` — required when `priorReturnFiled = true`
+- `hasPendingCourtCasePreAmnestyAct: boolean`
+- `hasUnexplainedWealthCases: boolean`
+- `hasPendingRPCFelonies: boolean`
+
+(The existing `hasPcggViolation`, `hasRa3019Violation`, `hasRa9160Violation` fields are already present.)
+
+**Extend `DecedentDetails` with NRA worldwide inputs:**
+- `worldwideELIT: WorldwideELIT | null` — required when `isNonResidentAlien = true` and ELIT deductions are declared
+
+```typescript
+interface WorldwideELIT {
+  claimsAgainstEstate: number;
+  claimsVsInsolvent: number;
+  unpaidMortgages: number;
+  casualtyLosses: number;
+  funeralExpenses: number;     // pre-TRAIN NRA only
+  judicialAdminExpenses: number; // pre-TRAIN NRA only
+}
+```
+
+**Extend `OrdinaryDeductions` with structured vanishing deduction inputs:**
+- Replace `vanishingDeduction: number` with `vanishingDeductionProperties: VanishingDeductionProperty[]`
+
+```typescript
+interface VanishingDeductionProperty {
+  description: string;
+  priorTransferType: 'INHERITANCE' | 'GIFT';
+  priorTransferDate: string;    // ISO date
+  priorFMV: number;
+  currentFMV: number;
+  mortgageOnProperty: number;
+  priorTaxWasPaid: boolean;
+  ownership: PropertyOwnership;
+  isPhilippineSitus: boolean;   // for NRA
+}
+```
+
+**Extend `SpecialDeductions` with per-country foreign tax credits:**
+- Replace `foreignTaxCredits: number` with `foreignTaxCreditClaims: ForeignTaxCreditClaim[]`
+
+```typescript
+interface ForeignTaxCreditClaim {
+  country: string;
+  foreignTaxPaid: number;
+  foreignPropertyFMV: number;
+}
+```
+
+**UI changes:** The Filing & Amnesty tab, Decedent tab (NRA section), and Ordinary Deductions tab will need additional form fields for these inputs. The Zod schemas in `schemas/estate-tax.ts` must be updated to match.
 
 ### 4.2 Output
 
@@ -93,13 +155,13 @@ The engine produces `EstateTaxEngineOutput` (in `types.ts`) that is a superset o
 - `ordinaryDeductions` — itemized ELIT, vanishing, public transfers, funeral/judicial
 - `specialDeductions` — standard, family home, medical, RA 4917
 - `spouseShare` — Schedule 6A detail
-- `taxComputation` — Items 40–44, bracket detail (pre-TRAIN), amnesty detail
+- `taxComputation` — Items 40–44, bracket detail (pre-TRAIN including `bracketMin`, `bracketMax`, `bracketRate`, `baseTax`, `excessAmount`, `taxOnExcess`), amnesty detail
 - `dualPathComparison` — regular vs amnesty side-by-side (when applicable)
-- `explainer` — plain-English narrative sections
+- `explainer` — plain-English narrative sections (references bracket detail fields from `taxComputation`)
 - `warnings` — regime notes, eligibility issues, edge cases
 - `nraProportionalFactor` — PH-situs/worldwide ratio (if NRA)
 
-**Backward compatibility**: The output includes `item40_gross_estate`, `item44_total_deductions`, `tax_due`, and `schedules` fields that `tax-bridge.ts` already expects.
+**Backward compatibility**: The output includes `item40_gross_estate`, `item44_total_deductions`, `tax_due`, and `schedules` fields that `tax-bridge.ts` already expects. Fields `surcharges`, `interest`, `compromise_penalty`, and `total_amount_due` are zero-filled in the output assembler (these are out of scope for the engine but required by the existing bridge interface).
 
 ---
 
@@ -116,7 +178,7 @@ The Filing & Amnesty tab (last tab) gets a **"Compute Estate Tax"** button. On c
 
 On successful computation:
 1. `runTaxBridge()` fires with the new output
-2. `net_distributable_estate = max(0, gross_estate - total_deductions)`
+2. Bridge formula: `net_distributable_estate = max(0, item40_net_taxable_estate - item44_net_estate_tax_due)` — note: `item40` in the bridge interface is the **net taxable estate** (after all deductions and spouse share), not the gross estate. The field name is misleading but preserved for backward compatibility.
 3. Re-runs inheritance WASM engine with bridged value
 4. Updates `output_json` on the case row
 5. Toast notification: "Estate tax applied — heir shares updated"
@@ -125,11 +187,21 @@ On successful computation:
 
 `saveTaxOutput()` writes the full engine output to `tax_output_json` on the case row. Existing function, no changes needed.
 
-### 5.4 No Changes Required To
+### 5.4 Changes Required
+
+- **`types/estate-tax.ts`** — extend `FilingData`, `DecedentDetails`, `OrdinaryDeductions`, `SpecialDeductions` (see §4.1)
+- **`schemas/estate-tax.ts`** — update Zod schemas to match new type fields
+- **`components/tax/tabs/FilingAmnestyTab.tsx`** — add fields for missing estate flags + compute button
+- **`components/tax/tabs/DecedentTab.tsx`** — add WorldwideELIT section (conditional on NRA)
+- **`components/tax/tabs/OrdinaryDeductionsTab.tsx`** — replace single vanishing deduction field with structured property list
+- **`components/tax/tabs/SpecialDeductionsTab.tsx`** — replace single foreign tax credit field with per-country list
+- **`routes/cases/$caseId.tax.tsx`** — add state for engine output, compute handler, bridge integration, render `TaxResultsPanel`
+
+### 5.5 No Changes Required To
 
 - Inheritance engine (Rust/WASM)
 - Inheritance wizard
-- Existing tax-bridge functions (they consume the same interface)
+- Existing tax-bridge functions (they consume the same interface; output zero-fills surcharges/interest/penalty)
 - Database schema (`tax_input_json` and `tax_output_json` columns already exist)
 
 ---
@@ -272,6 +344,7 @@ Both directions work:
 
 | Test file | Coverage |
 |-----------|----------|
+| `validation.test.ts` | All error codes from Phase 0 (missing date, future date, Track B missing fields, NRA worldwide checks) |
 | `regime-detection.test.ts` | TRAIN/PRE_TRAIN/AMNESTY routing, edge dates, eligibility, error cases |
 | `gross-estate.test.ts` | Column A/B/C splits, real property max(zonal, assessed), transfer net amounts |
 | `ordinary-deductions.test.ts` | ELIT items, vanishing deduction % table, funeral/judicial (pre-TRAIN), NRA proportional |
