@@ -48,8 +48,8 @@ describe('computeEstateTax - Simple TRAIN citizen', () => {
           lotArea: 200,
           improvementArea: null,
           classification: 'residential',
-          fmvTaxDec: 1_500_000_000, // ₱15M in centavos
-          fmvBirZonal: 1_400_000_000,
+          fmvTaxDec: 15_000_000, // ₱15M
+          fmvBirZonal: 14_000_000,
           ownership: 'exclusive',
           isFamilyHome: false,
           hasBarangayCert: false,
@@ -102,8 +102,8 @@ describe('wizardStateToEngineInput', () => {
           lotArea: 100,
           improvementArea: null,
           classification: 'residential',
-          fmvTaxDec: 500_000_000,
-          fmvBirZonal: 600_000_000,
+          fmvTaxDec: 5_000_000,
+          fmvBirZonal: 6_000_000,
           ownership: 'exclusive',
           isFamilyHome: true,
           hasBarangayCert: true,
@@ -126,7 +126,7 @@ describe('wizardStateToEngineInput', () => {
         userElectsAmnesty: true,
         hasPcggViolation: true,
         priorReturnFiled: true,
-        previouslyDeclaredNetEstate: 100_000_000,
+        previouslyDeclaredNetEstate: 1_000_000,
       },
     });
     const input = wizardStateToEngineInput(state);
@@ -143,7 +143,7 @@ describe('wizardStateToEngineInput', () => {
         taxableTransfers: [],
         businessInterests: [],
         exemptAssets: [
-          { id: 'ex1', description: 'Usufruct', fmv: 100_000_000, legalBasis: 'Sec. 87(a)' },
+          { id: 'ex1', description: 'Usufruct', fmv: 1_000_000, legalBasis: 'Sec. 87(a)' },
         ],
       },
     });
@@ -159,7 +159,7 @@ describe('wizardStateToEngineInput', () => {
       ordinaryDeductions: {
         ...createDefaultEstateTaxState().ordinaryDeductions,
         claimsAgainstInsolvent: [
-          { id: 'ci1', description: 'Receivable from X', amount: 50_000_000 },
+          { id: 'ci1', description: 'Receivable from X', amount: 500_000 },
         ],
       },
     });
@@ -184,8 +184,8 @@ describe('computeEstateTax - Bridge output fields', () => {
           lotArea: 100,
           improvementArea: null,
           classification: 'residential',
-          fmvTaxDec: 1_500_000_000,
-          fmvBirZonal: 1_000_000_000,
+          fmvTaxDec: 15_000_000,
+          fmvBirZonal: 10_000_000,
           ownership: 'exclusive',
           isFamilyHome: false,
           hasBarangayCert: false,
@@ -259,8 +259,8 @@ describe('computeEstateTax - Pre-TRAIN', () => {
           lotArea: 100,
           improvementArea: null,
           classification: 'residential',
-          fmvTaxDec: 500_000_000, // ₱5M
-          fmvBirZonal: 400_000_000,
+          fmvTaxDec: 5_000_000, // ₱5M
+          fmvBirZonal: 4_000_000,
           ownership: 'exclusive',
           isFamilyHome: false,
           hasBarangayCert: false,
@@ -317,8 +317,8 @@ describe('end-to-end test vectors', () => {
         lotArea: 200,
         improvementArea: null,
         classification: 'residential',
-        fmvTaxDec: 800_000_000,      // ₱8M
-        fmvBirZonal: 1_000_000_000,  // ₱10M — higher → gross estate = ₱10M
+        fmvTaxDec: 8_000_000,      // ₱8M
+        fmvBirZonal: 10_000_000,  // ₱10M — higher → gross estate = ₱10M
         ownership: 'exclusive',
         isFamilyHome: false,
         hasBarangayCert: false,
@@ -358,8 +358,8 @@ describe('end-to-end test vectors', () => {
         lotArea: 300,
         improvementArea: null,
         classification: 'residential',
-        fmvTaxDec: 1_500_000_000,  // ₱15M
-        fmvBirZonal: 1_500_000_000, // ₱15M
+        fmvTaxDec: 15_000_000,  // ₱15M
+        fmvBirZonal: 15_000_000, // ₱15M
         ownership: 'conjugal',
         isFamilyHome: true,
         hasBarangayCert: true,
@@ -372,8 +372,8 @@ describe('end-to-end test vectors', () => {
         lotArea: 100,
         improvementArea: null,
         classification: 'residential',
-        fmvTaxDec: 500_000_000,  // ₱5M
-        fmvBirZonal: 500_000_000, // ₱5M
+        fmvTaxDec: 5_000_000,  // ₱5M
+        fmvBirZonal: 5_000_000, // ₱5M
         ownership: 'exclusive',
         isFamilyHome: false,
         hasBarangayCert: false,
@@ -410,8 +410,8 @@ describe('end-to-end test vectors', () => {
         lotArea: 150,
         improvementArea: null,
         classification: 'residential',
-        fmvTaxDec: 500_000_000,  // ₱5M
-        fmvBirZonal: 400_000_000, // ₱4M — fmvTaxDec is higher → gross = ₱5M
+        fmvTaxDec: 5_000_000,  // ₱5M
+        fmvBirZonal: 4_000_000, // ₱4M — fmvTaxDec is higher → gross = ₱5M
         ownership: 'exclusive',
         isFamilyHome: false,
         hasBarangayCert: false,
@@ -464,8 +464,8 @@ describe('end-to-end test vectors', () => {
         lotArea: 100,
         improvementArea: null,
         classification: 'residential',
-        fmvTaxDec: 1_000_000_000, // ₱10M
-        fmvBirZonal: 1_000_000_000,
+        fmvTaxDec: 10_000_000, // ₱10M
+        fmvBirZonal: 10_000_000,
         ownership: 'exclusive',
         isFamilyHome: false,
         hasBarangayCert: false,
