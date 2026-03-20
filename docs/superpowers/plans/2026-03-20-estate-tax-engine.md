@@ -233,9 +233,11 @@ describe('FilingData extensions', () => {
 });
 ```
 
-- [ ] **Step 2: Run tests — expect FAIL**
+- [ ] **Step 2: Run only the new describe blocks — expect FAIL**
 
 Run: `cd apps/inheritance/frontend && npx vitest run src/types/__tests__/estate-tax.test.ts`
+
+Note: The existing tests in this file will still pass. Only the newly added `describe` blocks (`WorldwideELIT`, `VanishingDeductionProperty`, `ForeignTaxCreditClaim`, `FilingData extensions`) should fail because the types/defaults don't exist yet.
 
 - [ ] **Step 3: Extend types in estate-tax.ts**
 
@@ -529,6 +531,7 @@ git commit -m "feat(estate-tax): add special deductions (37A-37D)"
 - TRAIN: obligations exclude funeral + judicial
 - Zero conjugal assets → share = 0
 - Obligations exceed assets → net floored at 0
+- **EC-SS-06**: Vanishing deduction (5E) on conjugal property does NOT reduce community pool for spouse share (only ELIT 5A–5D Column B reduces it)
 
 - [ ] **Step 2: Run tests — expect FAIL**
 
@@ -665,6 +668,7 @@ git commit -m "feat(estate-tax): add amnesty computation with Track A/B and dual
 - Deductions section lists each applied deduction
 - Tax computation section shows Items 40–44
 - NRA output mentions proportional deductions
+- AMNESTY regime output includes "filing window closed June 14, 2025" notice (required by spec §21)
 
 - [ ] **Step 2: Run tests — expect FAIL**
 
@@ -701,6 +705,13 @@ Use test vectors from spec §19. At minimum:
 - Zero estate → tax = 0
 - Validation error input → throws/returns errors
 - Bridge-compatible output: verify `item40_gross_estate`, `item44_total_deductions`, `tax_due`, `schedules`, and zero-filled `surcharges`/`interest`/`compromise_penalty`/`total_amount_due`
+
+**CRITICAL NOTE on bridge field naming:** The existing `tax-bridge.ts` field `item40_gross_estate` is **misleadingly named**. It actually contains the **net taxable estate** (Item 40 = after ALL deductions and spouse share), NOT the gross estate (Item 34). The pipeline output assembler MUST map `taxComputation.netTaxableEstate` → `item40_gross_estate`. Mapping actual gross estate here would break the bridge formula. See design spec §5.2.
+
+Additional pipeline tests for documented corrections (spec §20):
+- Amnesty with pre-TRAIN death: verify funeral/judicial expenses ARE deductible
+- TRAIN-era amnesty: verify standard deduction is ₱5M (not ₱1M)
+- Amnesty regime: verify vanishing deduction IS computed (not zeroed)
 
 Test the adapter:
 - `wizardStateToEngineInput()` converts peso values to centavos
@@ -942,7 +953,7 @@ Toggle switches for key levers:
 - Amnesty elected (Switch)
 - Property regime (Select: ACP/CPG/CSP)
 
-On toggle → calls `computeEstateTax()` with modified state → shows side-by-side table (current vs scenario) with delta.
+On toggle → calls `onCompute(modifiedState)` callback prop (not direct engine import) → shows side-by-side table (current vs scenario) with delta. The callback is wired in the route to call `computeEstateTax()`. This keeps UI components decoupled from the engine.
 
 - [ ] **Step 7: Build SensitivityPanel**
 
@@ -962,7 +973,17 @@ Tabbed container (shadcn Tabs) with:
 
 WarningsBanner rendered above the tabs.
 
-- [ ] **Step 10: Commit**
+- [ ] **Step 10: Add smoke render tests**
+
+Create `src/components/tax/results/__tests__/TaxResultsPanel.test.tsx` with basic render tests:
+- `TaxResultsPanel` renders without crashing when given a valid `EstateTaxFullOutput`
+- `Form1801View` renders all Items 29–44
+- `TaxResultsPanel` shows Comparison tab only when `dualPathComparison` is non-null
+- `AdvisorPanel` renders suggestion cards
+
+These are import/type-error catchers, not exhaustive UI tests.
+
+- [ ] **Step 11: Commit**
 
 ```bash
 git add src/components/tax/results/
@@ -1069,14 +1090,25 @@ git commit -m "feat(estate-tax): finalize public API exports"
 
 - [ ] **Step 1: Add comprehensive end-to-end test vectors**
 
-From spec §19, add test cases that exercise the full pipeline:
-1. TRAIN citizen, married ACP, 2 real properties (1 family home), personal property, 1 claim against estate, medical expenses → verify all Items 29–44
-2. Pre-TRAIN citizen, single, 1 real property, no deductions → verify graduated bracket
-3. NRA, married CPG, proportional deductions → verify factor applied correctly
-4. Amnesty pre-TRAIN, Track A → verify amnesty tax and dual-path comparison
-5. Amnesty pre-TRAIN, Track B → verify base = NTE - previous
-6. Zero estate → all Items = 0, tax = 0
-7. All Sec. 87 exemptions → assets excluded from gross estate
+Reference spec §19 test vectors by ID. Each TV has exact expected centavo values in the spec — use those for assertion:
+
+1. **TV-01**: TRAIN simple — single citizen, 1 real property, no deductions
+2. **TV-02**: TRAIN complex — married ACP, 2 real properties (1 family home), personal property, claims, medical
+3. **TV-03**: TRAIN with vanishing deduction at 80% (2-year elapsed)
+4. **TV-04**: NRA — married CPG, proportional deductions, ₱500K standard deduction
+5. **TV-05**: Zero estate → all Items = 0, tax = 0
+6. **TV-06**: TRAIN zero tax — ELIT + special exceeds gross estate, flooring behavior at Item 38
+7. **TV-07**: Pre-TRAIN simple — single citizen, graduated bracket
+8. **TV-08**: Pre-TRAIN complex — CPG 2010, funeral + judicial + spouse share
+9. **TV-09**: Amnesty pre-TRAIN Track A — dual-path comparison, recommended path
+10. **TV-09b**: Amnesty minimum floor — NTE small enough that computed < ₱5K
+11. **TV-10**: 100% vanishing deduction — 1-year boundary
+
+Additional edge cases from spec §20:
+12. **EC-SS-06**: Vanishing deduction on conjugal property does NOT reduce community pool for spouse share
+13. All Sec. 87 exemptions → assets excluded from gross estate
+
+Look up exact expected values for each TV in the engine spec §19. If a TV provides Input + Expected Output, hardcode the Input and assert exact Expected Output centavo values.
 
 - [ ] **Step 2: Run full test suite**
 
