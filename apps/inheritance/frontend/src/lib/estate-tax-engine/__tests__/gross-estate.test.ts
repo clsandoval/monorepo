@@ -138,7 +138,7 @@ describe('computeGrossEstate', () => {
       expect(result.realProperty.total).toBe(100_000_000);
     });
 
-    it('NRA decedent: Item 30 (family home) is always 0', () => {
+    it('NRA decedent: Item 30 = 0, but family home property appears in Item 29', () => {
       const assets: GrossEstateAssets = {
         ...emptyAssets(),
         realProperties: [
@@ -153,15 +153,11 @@ describe('computeGrossEstate', () => {
         ],
       };
       const result = computeGrossEstate(makeDecedent(true /* isNRA */), assets);
+      // Item 30 = 0 for NRA (no family home deduction available)
       expect(result.familyHome).toEqual({ exclusive: 0, conjugal: 0, total: 0 });
-      // The property is NOT in real property either since it's flagged as family home
-      // (family homes are excluded from Item 29 and go to 30; for NRAs, 30 = 0)
-      expect(result.realProperty.total).toBe(0);
-      // Total gross estate for NRA includes the property in neither item — this is per spec §8.2
-      // NRA: family home not available; however the property itself is still part of PH assets.
-      // NOTE: Per spec, Item 30 = 0 for NRA, but the property's FMV is dropped entirely
-      // (family home is excluded from both items for NRA per the spec intent).
-      expect(result.total.total).toBe(0);
+      // But the property itself goes into Item 29 — it's still part of gross estate
+      expect(result.realProperty.exclusive).toBe(600_000_000);
+      expect(result.total.total).toBe(600_000_000);
     });
   });
 

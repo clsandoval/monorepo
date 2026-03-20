@@ -83,10 +83,14 @@ export function computeGrossEstate(
   } = assets;
 
   // ── Item 29: Real Properties excluding family home ────────────────────────
+  // NRA: family home property goes into Item 29 (since Item 30 = 0 for NRA)
+  // Citizens/residents: family home goes into Item 30 only
 
-  const nonFamilyHomeProps = realProperties.filter((p) => !p.isDesignatedFamilyHome);
+  const item29Props = decedent.isNRA
+    ? realProperties // NRA: all properties in Item 29 (no family home separation)
+    : realProperties.filter((p) => !p.isDesignatedFamilyHome);
   const item29 = sumByOwnership(
-    nonFamilyHomeProps.map((p) => ({
+    item29Props.map((p) => ({
       ownershipType: p.ownershipType,
       amount: resolveRealPropertyFMV(p),
     })),
@@ -94,6 +98,7 @@ export function computeGrossEstate(
 
   // ── Item 30: Family Home ──────────────────────────────────────────────────
   // NRA: always 0 (family home deduction not available to NRAs per spec §8.2)
+  // The property itself is in Item 29 for NRA — only the deduction (§10.2) is unavailable
   let item30 = zeroCV();
   if (!decedent.isNRA) {
     const familyHomeProps = realProperties.filter((p) => p.isDesignatedFamilyHome);
