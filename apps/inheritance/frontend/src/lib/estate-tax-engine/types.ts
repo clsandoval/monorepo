@@ -131,7 +131,7 @@ export interface TaxComputationResult {
 export interface DualPathComparisonResult {
   amnestyResult: TaxComputationResult;
   preTRAINResult: TaxComputationResult;
-  recommendedPath: 'AMNESTY' | 'PRE_TRAIN';
+  recommendedPath: 'AMNESTY' | 'PRE_TRAIN' | 'EQUAL';
   crossoverNTE: number;
   filingWindowClosed: boolean;
 }
