@@ -1,0 +1,16 @@
+[   56744ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed:  @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   58759ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   60764ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   62768ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   64773ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   66780ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   68789ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   70480ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   72501ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   74529ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   76591ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   78678ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   80902ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   83113ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   85568ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48
+[   88481ms] [ERROR] WebSocket connection to 'ws://localhost:8080/ws' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:8080/assets/index-BURvzCFZ.js:48

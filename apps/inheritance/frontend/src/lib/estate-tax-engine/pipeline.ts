@@ -104,9 +104,13 @@ function zeroTaxComputation(): TaxComputationResult {
 
 /**
  * Adapter: maps wizard state types → engine input types.
+ * Wizard stores monetary values in pesos; engine uses centavos.
+ * All monetary fields are multiplied by 100 at this boundary.
  */
 export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): EngineInput {
   const ws = wizardState;
+  /** Convert pesos → centavos */
+  const toCentavos = (pesos: number | null | undefined): number => Math.round((pesos ?? 0) * 100);
 
   // Decedent
   const isMarried = ws.decedent.maritalStatus === 'married';
@@ -121,7 +125,7 @@ export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): Eng
     isFilipino,
     isNRA,
     isMarried,
-    worldwideGrossEstate: ws.decedent.worldwideGrossEstate,
+    worldwideGrossEstate: toCentavos(ws.decedent.worldwideGrossEstate),
   };
 
   // Executor
@@ -138,7 +142,7 @@ export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): Eng
     hasNRAAssets: isNRA,
     hasForeignAssets: false, // Not directly in wizard state
     priorReturnFiled: ws.filing.priorReturnFiled,
-    previouslyDeclaredNetEstate: ws.filing.previouslyDeclaredNetEstate,
+    previouslyDeclaredNetEstate: toCentavos(ws.filing.previouslyDeclaredNetEstate),
     taxFullyPaidBeforeMay2022: ws.filing.taxFullyPaidBeforeMay2022,
     subjectToPCGGJurisdiction: ws.filing.hasPcggViolation,
     hasRA3019Violations: ws.filing.hasRa3019Violation,
@@ -153,8 +157,8 @@ export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): Eng
     description: `${p.classification} property at ${p.location}`,
     location: p.location,
     ownershipType: normalizeOwnership(p.ownership),
-    fmvTaxDeclaration: p.fmvTaxDec,
-    fmvBir: p.fmvBirZonal,
+    fmvTaxDeclaration: toCentavos(p.fmvTaxDec),
+    fmvBir: toCentavos(p.fmvBirZonal),
     isDesignatedFamilyHome: p.isFamilyHome,
   }));
 
@@ -165,21 +169,21 @@ export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): Eng
     .map((p) => ({
       description: p.description,
       ownershipType: normalizeOwnership(p.ownership),
-      fmv: p.fmv,
+      fmv: toCentavos(p.fmv),
     }));
   const personalPropertiesTangible: PersonalPropertyTangible[] = ws.personalProperties
     .filter((p) => !financialSubtypes.has(p.subtype))
     .map((p) => ({
       description: p.description,
       ownershipType: normalizeOwnership(p.ownership),
-      fmv: p.fmv,
+      fmv: toCentavos(p.fmv),
     }));
 
   // Taxable transfers
   const taxableTransfers: TaxableTransfer[] = ws.otherAssets.taxableTransfers.map((t) => ({
     description: t.description,
     transferType: t.type,
-    fmvAtDeath: t.fmv,
+    fmvAtDeath: toCentavos(t.fmv),
     considerationReceived: 0, // Not in wizard state; user provides net fmv
     ownershipType: 'exclusive' as const,
   }));
@@ -188,30 +192,30 @@ export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): Eng
   const businessInterests: BusinessInterest[] = ws.otherAssets.businessInterests.map((b) => ({
     description: b.description,
     ownershipType: 'exclusive' as const,
-    netEquity: b.fmv,
+    netEquity: toCentavos(b.fmv),
   }));
 
   // Sec. 87 exempt assets
   const sec87ExemptAssets: Sec87ExemptAsset[] = ws.otherAssets.exemptAssets.map((e) => ({
     description: e.description,
     exemptionType: e.legalBasis,
-    fmv: e.fmv,
+    fmv: toCentavos(e.fmv),
   }));
 
   // Claims against estate
   const claimsAgainstEstate: ClaimAgainstEstate[] = ws.ordinaryDeductions.claimsAgainstEstate.map(
-    (c) => ({
-      description: c.description,
+    (item) => ({
+      description: item.description,
       ownershipType: 'exclusive' as const,
-      amount: c.amount,
+      amount: toCentavos(item.amount),
     }),
   );
 
   // Claims vs insolvent
   const claimsVsInsolvent: ClaimVsInsolvent[] = ws.ordinaryDeductions.claimsAgainstInsolvent.map(
-    (c) => ({
-      description: c.description,
-      amount: c.amount,
+    (item) => ({
+      description: item.description,
+      amount: toCentavos(item.amount),
     }),
   );
 

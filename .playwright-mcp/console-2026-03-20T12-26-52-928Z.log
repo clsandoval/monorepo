@@ -1,0 +1,3 @@
+[  493090ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://cmvbjgvlglaxfdqhlgex.supabase.co/rest/v1/cases?select=id:0
+[  493091ms] [ERROR] Intake form submission error: Error: Could not find the 'created_by' column of 'cases' in the schema cache
+    at https://inheritance-frontend.fly.dev/assets/index-Q2zzlzBT.js:134:109820 @ https://inheritance-frontend.fly.dev/assets/index-Q2zzlzBT.js:133
