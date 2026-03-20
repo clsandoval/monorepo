@@ -1,4 +1,4 @@
-import { createRoute, redirect } from '@tanstack/react-router';
+import { createRoute, redirect, Link } from '@tanstack/react-router';
 import { rootRoute } from '../__root';
 import { useState, useEffect } from 'react';
 import { Loader2, AlertCircle } from 'lucide-react';
@@ -180,6 +180,13 @@ function CaseEditorPage() {
 
       {state.phase === 'results' && (
         <>
+          <div className="mb-4">
+            <Link to="/cases/$caseId/tax" params={{ caseId }}>
+              <Button variant="outline">
+                Estate Tax →
+              </Button>
+            </Link>
+          </div>
           <ResultsView
             input={state.input}
             output={state.output}
