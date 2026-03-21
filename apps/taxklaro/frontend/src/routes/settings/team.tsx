@@ -7,6 +7,7 @@ import { useOrganization } from '../../hooks/useOrganization';
 import { InviteMemberForm } from '../../components/settings/InviteMemberForm';
 import { MembersTable } from '../../components/settings/MembersTable';
 import { PendingInvitationsTable } from '../../components/settings/PendingInvitationsTable';
+import { CenteredColumn } from '../../components/layout/CenteredColumn';
 import { supabase } from '../../lib/supabase';
 
 interface Member {
@@ -83,7 +84,7 @@ function SettingsTeamPage() {
   if (isLoading) {
     return (
       <div data-testid="settings-team-page" className="flex items-center justify-center min-h-[40vh]">
-        <p className="text-muted-foreground">Loading team…</p>
+        <p className="text-zinc-500">Loading team…</p>
       </div>
     );
   }
@@ -110,27 +111,29 @@ function SettingsTeamPage() {
   }
 
   return (
-    <div data-testid="settings-team-page" className="space-y-8 max-w-3xl">
-      <h1 className="font-display text-foreground" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Team Management</h1>
+    <CenteredColumn wide data-testid="settings-team-page" className="py-10">
+      <h1 className="font-display text-zinc-50 mb-10" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Team Management</h1>
 
       {canInvite && <InviteMemberForm onInvite={handleInvite} />}
 
-      <section className="space-y-4">
-        <h2 className="font-semibold text-foreground" style={{ fontSize: 'var(--text-h3)', lineHeight: 'var(--text-h3-lh)' }}>Members</h2>
-        <MembersTable
-          members={members}
-          currentUserId={user?.id}
-          onRemove={canInvite ? handleRemoveMember : undefined}
-        />
+      <section>
+        <p className="text-[11px] uppercase tracking-wide text-zinc-500 mb-4">Members</p>
+        <div className="mb-8">
+          <MembersTable
+            members={members}
+            currentUserId={user?.id}
+            onRemove={canInvite ? handleRemoveMember : undefined}
+          />
+        </div>
       </section>
 
-      <section className="space-y-4">
-        <h2 className="font-semibold text-foreground" style={{ fontSize: 'var(--text-h3)', lineHeight: 'var(--text-h3-lh)' }}>Pending Invitations</h2>
+      <section>
+        <p className="text-[11px] uppercase tracking-wide text-zinc-500 mb-4">Pending Invitations</p>
         <PendingInvitationsTable
           invitations={invitations}
           onRevoke={canInvite ? handleRevokeInvitation : undefined}
         />
       </section>
-    </div>
+    </CenteredColumn>
   );
 }

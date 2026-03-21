@@ -7,6 +7,7 @@ import { PersonalInfoSection } from '../../components/settings/PersonalInfoSecti
 import { BirInfoSection } from '../../components/settings/BirInfoSection';
 import { FirmBrandingSection } from '../../components/settings/FirmBrandingSection';
 import { DangerZoneSection } from '../../components/settings/DangerZoneSection';
+import { CenteredColumn } from '../../components/layout/CenteredColumn';
 import { supabase } from '../../lib/supabase';
 
 export const SettingsIndexRoute = createRoute({
@@ -23,7 +24,7 @@ function SettingsPage() {
   if (isLoading) {
     return (
       <div data-testid="settings-page" className="flex items-center justify-center min-h-[40vh]">
-        <p className="text-muted-foreground">Loading settings…</p>
+        <p className="text-zinc-500">Loading settings…</p>
       </div>
     );
   }
@@ -65,8 +66,8 @@ function SettingsPage() {
   }
 
   return (
-    <div data-testid="settings-page" className="space-y-8 max-w-2xl">
-      <h1 className="font-display text-foreground" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Settings</h1>
+    <CenteredColumn data-testid="settings-page" className="py-10">
+      <h1 className="font-display text-zinc-50 mb-10" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Settings</h1>
 
       <PersonalInfoSection
         fullName={user?.user_metadata?.full_name ?? ''}
@@ -93,6 +94,6 @@ function SettingsPage() {
           onDeleteOrg={handleDeleteOrg}
         />
       )}
-    </div>
+    </CenteredColumn>
   );
 }

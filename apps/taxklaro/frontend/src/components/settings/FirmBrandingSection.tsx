@@ -23,23 +23,23 @@ export function FirmBrandingSection({ firmName, logoUrl, onSave, onUploadLogo }:
   }
 
   return (
-    <div className="bg-card rounded-xl shadow-sm border border-border/50 p-6">
+    <div className="border-b border-zinc-800 pb-8 mb-8">
+      <p className="text-[11px] uppercase tracking-wide text-zinc-500 mb-4">Firm Branding</p>
       <form onSubmit={handleSubmit} className="space-y-5">
-        <h2 className="font-display text-xl text-foreground">Firm Branding</h2>
         <div className="space-y-1.5">
-          <Label htmlFor="firmName">Firm Name</Label>
-          <Input id="firmName" name="firmName" defaultValue={firmName} className="h-11" />
+          <Label htmlFor="firmName" className="text-zinc-300">Firm Name</Label>
+          <Input id="firmName" name="firmName" defaultValue={firmName} className="h-11 bg-zinc-900 border-zinc-800 text-zinc-50 placeholder:text-zinc-600" />
         </div>
         <div className="space-y-1.5">
-          <Label>Logo</Label>
+          <Label className="text-zinc-300">Logo</Label>
           <label className="cursor-pointer block">
-            <div className="border-2 border-dashed border-border rounded-lg p-6 flex flex-col items-center justify-center gap-2 hover:border-primary/50 hover:bg-muted/30 transition-colors">
+            <div className="border-2 border-dashed border-zinc-800 rounded-lg p-6 flex flex-col items-center justify-center gap-2 hover:border-zinc-600 hover:bg-zinc-800/30 transition-colors">
               {logoUrl ? (
                 <img src={logoUrl} alt="Firm logo" className="h-16 object-contain" />
               ) : (
-                <Upload className="h-8 w-8 text-muted-foreground" />
+                <Upload className="h-8 w-8 text-zinc-500" />
               )}
-              <span className="text-sm text-muted-foreground">{logoUrl ? 'Change Logo' : 'Upload Logo'}</span>
+              <span className="text-sm text-zinc-500">{logoUrl ? 'Change Logo' : 'Upload Logo'}</span>
             </div>
             <input type="file" accept="image/*" className="hidden" onChange={handleLogoChange} />
           </label>
