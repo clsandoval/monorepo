@@ -13,7 +13,7 @@ WORKDIR /app
 
 COPY engine/ ./engine/
 RUN . $HOME/.cargo/env && \
-    wasm-pack build engine --target web --out-dir frontend/src/wasm/pkg
+    wasm-pack build engine --target web --out-dir /app/wasm-out
 
 # ---- Build Frontend ----
 FROM node:20-alpine AS frontend-build
@@ -36,7 +36,7 @@ COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci
 
 COPY frontend/ ./
-COPY --from=wasm-build /app/frontend/src/wasm/pkg ./src/wasm/pkg
+COPY --from=wasm-build /app/wasm-out ./src/wasm/pkg
 
 RUN npm run build
 
