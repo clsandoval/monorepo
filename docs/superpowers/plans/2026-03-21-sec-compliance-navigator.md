@@ -30,8 +30,7 @@ apps/sec-compliance/
 ├── supabase/
 │   ├── config.toml
 │   └── migrations/
-│       ├── 001_schema.sql             # users, corporations, filing_records, computations
-│       └── 002_penalty_data.sql       # seed penalty schedule tables
+│       └── 001_schema.sql             # users, corporations, filing_records, computations
 │
 ├── src/
 │   ├── app/
@@ -62,6 +61,7 @@ apps/sec-compliance/
 │   │   ├── penalties.ts              # compute penalties per missed filing
 │   │   ├── status.ts                 # determine compliance status
 │   │   ├── reinstatement.ts          # compute reinstatement cost estimate
+│   │   ├── amnesty.ts               # amnesty program config + comparison
 │   │   └── compute.ts               # orchestrator — takes inputs, returns full result
 │   │
 │   ├── components/
@@ -80,7 +80,9 @@ apps/sec-compliance/
 │   │   │   └── results-summary.tsx    # total + CTA to remediation
 │   │   ├── remediation/
 │   │   │   ├── cost-estimate.tsx      # reinstatement cost breakdown
+│   │   │   ├── amnesty-comparison.tsx # amnesty vs. standard path (when active)
 │   │   │   ├── document-checklist.tsx # required documents list
+│   │   │   ├── petition-generator.tsx # template-fill petition cover letter
 │   │   │   └── step-guide.tsx         # step-by-step remediation guide
 │   │   └── layout/
 │   │       ├── header.tsx             # site header/nav
@@ -180,7 +182,7 @@ mkdir -p apps/sec-compliance
 `next.config.ts`:
 ```ts
 import type { NextConfig } from "next";
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = { output: "standalone" };
 export default nextConfig;
 ```
 
@@ -285,12 +287,12 @@ git commit -m "feat(sec-compliance): scaffold Next.js project with design tokens
 **Files:**
 - Create: `apps/sec-compliance/src/engine/types.ts`
 - Create: `apps/sec-compliance/src/engine/penalty-schedule.ts`
-- Test: `apps/sec-compliance/__tests__/engine/penalties.test.ts`
+- Test: `apps/sec-compliance/__tests__/engine/penalty-schedule.test.ts`
 
 - [ ] **Step 1: Write failing test for penalty lookup**
 
 ```ts
-// __tests__/engine/penalties.test.ts
+// __tests__/engine/penalty-schedule.test.ts
 import { describe, it, expect } from "vitest";
 import { lookupPenalty } from "@/engine/penalty-schedule";
 
@@ -328,16 +330,48 @@ describe("lookupPenalty", () => {
     expect(result).toEqual({ penaltyAmount: 10000, monthlySurcharge: 0 });
   });
 
-  it("caps offense number at 5", () => {
+  it("caps offense number at 5 for offenses 5+", () => {
     const result = lookupPenalty({
       domicile: "domestic",
       corpType: "stock",
       violationType: "non_filing",
       reBracket: "above_10m",
-      offenseNumber: 7,
+      offenseNumber: 5,
     });
-    // Should return 5th offense values
     expect(result).toEqual({ penaltyAmount: 54000, monthlySurcharge: 1000 });
+  });
+
+  it("returns 6th offense with 100% surcharge on total assessed fines", () => {
+    // 6th offense = 5th offense penalty + 100% surcharge flag
+    const result = lookupPenalty({
+      domicile: "domestic",
+      corpType: "stock",
+      violationType: "non_filing",
+      reBracket: "above_10m",
+      offenseNumber: 6,
+    });
+    // 6th offense returns 5th offense values + revocationSurcharge flag
+    expect(result.penaltyAmount).toBe(54000);
+    expect(result.monthlySurcharge).toBe(1000);
+    expect(result.revocationSurcharge).toBe(true);
+  });
+
+  it("uses stock table for OPC", () => {
+    const stockResult = lookupPenalty({
+      domicile: "domestic",
+      corpType: "stock",
+      violationType: "non_filing",
+      reBracket: "100k_500k",
+      offenseNumber: 1,
+    });
+    const opcResult = lookupPenalty({
+      domicile: "domestic",
+      corpType: "opc",
+      violationType: "non_filing",
+      reBracket: "100k_500k",
+      offenseNumber: 1,
+    });
+    expect(opcResult).toEqual(stockResult);
   });
 });
 ```
@@ -345,7 +379,7 @@ describe("lookupPenalty", () => {
 - [ ] **Step 2: Run test to verify it fails**
 
 ```bash
-cd apps/sec-compliance && npx vitest run __tests__/engine/penalties.test.ts
+cd apps/sec-compliance && npx vitest run __tests__/engine/penalty-schedule.test.ts
 ```
 
 Expected: FAIL — module not found.
@@ -366,15 +400,15 @@ Expected: FAIL — module not found.
 
 - [ ] **Step 4: Implement penalty-schedule.ts**
 
-Encode all 4 penalty tables from the spec as typed lookup data. Export `lookupPenalty(params) => { penaltyAmount, monthlySurcharge }`. OPC uses the same table as stock. Offense number capped at 5.
+Encode all 4 penalty tables from the spec as typed lookup data. Export `lookupPenalty(params) => { penaltyAmount, monthlySurcharge, revocationSurcharge }`. OPC uses the same table as stock. For offense 1-5: lookup directly. For offense 6+: return 5th offense values with `revocationSurcharge: true` (signals the 100% surcharge on total assessed fines per spec).
 
 - [ ] **Step 5: Run tests to verify they pass**
 
 ```bash
-cd apps/sec-compliance && npx vitest run __tests__/engine/penalties.test.ts
+cd apps/sec-compliance && npx vitest run __tests__/engine/penalty-schedule.test.ts
 ```
 
-Expected: All 4 tests PASS.
+Expected: All 7 tests PASS.
 
 - [ ] **Step 6: Commit**
 
@@ -537,6 +571,71 @@ describe("computePenalties", () => {
     expect(result.lineItems).toHaveLength(0);
     expect(result.totalPenalty).toBe(0);
   });
+
+  it("treats current-year missed filings as late_filing, prior years as non_filing", () => {
+    // Corp incorporated 2023, checking in Nov 2024
+    // 2023 GIS missed (>1 year since May 31 2023 deadline) = non_filing
+    // 2024 GIS missed (<1 year since May 31 2024 deadline) = late_filing
+    const result = computePenalties({
+      domicile: "domestic",
+      corpType: "stock",
+      reBracket: "0_100k",
+      mc28Compliant: true,
+      filedReports: [],
+      incorporationYear: 2023,
+      currentDate: new Date("2024-11-15"),
+    });
+    const gis2023 = result.lineItems.find(
+      (i) => i.reportType === "GIS" && i.year === 2023
+    );
+    const gis2024 = result.lineItems.find(
+      (i) => i.reportType === "GIS" && i.year === 2024
+    );
+    expect(gis2023?.violationType).toBe("non_filing");
+    expect(gis2024?.violationType).toBe("late_filing");
+    // Late filing base penalty should be lower than non-filing for same bracket
+    expect(gis2024!.basePenalty).toBeLessThan(gis2023!.basePenalty);
+  });
+
+  it("computes BO daily penalties with 2M cap", () => {
+    // Corp incorporated 2020, missed BO for 2020 — check in 2026
+    // BO 2020 deadline = May 31, 2020. Days to March 21, 2026 ≈ 2121 days
+    // ₱1,000/day × 2121 = ₱2,121,000 → capped at ₱2,000,000
+    const result = computePenalties({
+      domicile: "domestic",
+      corpType: "stock",
+      reBracket: "0_100k",
+      mc28Compliant: true,
+      filedReports: [
+        // File everything except BO
+        { reportType: "GIS", year: 2020, status: "filed_on_time" },
+        { reportType: "AFS", year: 2020, status: "filed_on_time" },
+      ],
+      incorporationYear: 2020,
+      currentDate: new Date("2026-03-21"),
+    });
+    const bo2020 = result.boPenalties.find((i) => i.year === 2020);
+    expect(bo2020?.totalPenalty).toBe(2000000); // capped
+  });
+
+  it("applies 6th offense revocation surcharge to total", () => {
+    // 6 missed GIS filings = 6th is revocation with 100% surcharge
+    const result = computePenalties({
+      domicile: "domestic",
+      corpType: "stock",
+      reBracket: "0_100k",
+      mc28Compliant: true,
+      filedReports: [],
+      incorporationYear: 2018,
+      currentDate: new Date("2026-03-21"),
+    });
+    // GIS offenses: 2018=1st, 2019=2nd, 2020=3rd, 2021=4th, 2022=5th, 2023=6th
+    const gis2023 = result.lineItems.find(
+      (i) => i.reportType === "GIS" && i.year === 2023
+    );
+    expect(gis2023?.offenseNumber).toBe(6);
+    expect(gis2023?.revocationSurcharge).toBe(true);
+  });
 });
 ```
 
@@ -577,13 +676,75 @@ git commit -m "feat(sec-compliance): penalty computation engine with surcharge c
 
 ```ts
 // __tests__/engine/status.test.ts
+import { describe, it, expect } from "vitest";
+import { determineStatus } from "@/engine/status";
+
 describe("determineStatus", () => {
-  it("returns active when no missed filings", () => { ... });
-  it("returns delinquent after 3 consecutive years of non-filing", () => { ... });
-  it("returns delinquent after 5 intermittent years of non-filing", () => { ... });
-  it("returns suspended when suspension date is provided", () => { ... });
-  it("returns revoked when revocation date is provided", () => { ... });
-  it("flags revocation risk when offense count reaches 4-5", () => { ... });
+  it("returns active when no missed filings", () => {
+    const result = determineStatus({ missedFilingYears: [], suspensionDate: null, revocationDate: null });
+    expect(result.status).toBe("active");
+    expect(result.riskLevel).toBe("none");
+  });
+
+  it("returns delinquent after 3 consecutive years of non-filing", () => {
+    // GIS missed 2021, 2022, 2023 = 3 consecutive
+    const result = determineStatus({
+      missedFilingYears: [2021, 2022, 2023],
+      suspensionDate: null,
+      revocationDate: null,
+    });
+    expect(result.status).toBe("delinquent");
+    expect(result.riskMessage).toContain("3 consecutive");
+  });
+
+  it("returns delinquent after 5 intermittent years of non-filing", () => {
+    // Missed 2016, 2018, 2020, 2022, 2024 = 5 intermittent
+    const result = determineStatus({
+      missedFilingYears: [2016, 2018, 2020, 2022, 2024],
+      suspensionDate: null,
+      revocationDate: null,
+    });
+    expect(result.status).toBe("delinquent");
+    expect(result.riskMessage).toContain("5");
+  });
+
+  it("does NOT return delinquent for 2 consecutive years", () => {
+    const result = determineStatus({
+      missedFilingYears: [2022, 2023],
+      suspensionDate: null,
+      revocationDate: null,
+    });
+    expect(result.status).not.toBe("delinquent");
+  });
+
+  it("returns suspended when suspension date is provided", () => {
+    const result = determineStatus({
+      missedFilingYears: [2020, 2021, 2022],
+      suspensionDate: new Date("2023-06-15"),
+      revocationDate: null,
+    });
+    expect(result.status).toBe("suspended");
+  });
+
+  it("returns revoked when revocation date is provided", () => {
+    const result = determineStatus({
+      missedFilingYears: [2018, 2019, 2020, 2021, 2022, 2023],
+      suspensionDate: null,
+      revocationDate: new Date("2024-01-10"),
+    });
+    expect(result.status).toBe("revoked");
+  });
+
+  it("flags revocation risk when max offense count reaches 4-5", () => {
+    const result = determineStatus({
+      missedFilingYears: [2019, 2020, 2021, 2022],
+      suspensionDate: null,
+      revocationDate: null,
+      maxOffenseCount: 5,
+    });
+    expect(result.riskLevel).toBe("high");
+    expect(result.riskMessage).toContain("revocation");
+  });
 });
 ```
 
@@ -659,7 +820,9 @@ git commit -m "feat(sec-compliance): status, reinstatement, and full computation
 - Create: `apps/sec-compliance/src/lib/supabase/middleware.ts`
 - Create: `apps/sec-compliance/src/middleware.ts`
 
-- [ ] **Step 1: Create Supabase migration**
+- [ ] **Step 1: Create Supabase config and migration**
+
+`supabase/config.toml` — standard Supabase config (copy from `apps/taxklaro/supabase/config.toml` and update project name).
 
 `supabase/migrations/001_schema.sql`:
 ```sql
@@ -761,7 +924,7 @@ git commit -m "feat(sec-compliance): Supabase schema, auth helpers, and route pr
 cd apps/sec-compliance && npx shadcn@latest init
 ```
 
-Configure: New York style, Charcoal/SEC Blue theme, `src/components/ui`.
+Configure: New York style, `src/components/ui`. **Important:** shadcn init may overwrite `globals.css`. After init, re-apply the design tokens (`--color-charcoal`, `--color-sec-blue`, `--color-crimson`, `--font-display`, `--font-body`) from Task 1 Step 3 into the generated `globals.css`.
 
 - [ ] **Step 2: Add required shadcn components**
 
@@ -783,7 +946,13 @@ Step 2: Date picker for incorporation date. Select dropdown for RE bracket (7 op
 
 - [ ] **Step 6: Build filings-step.tsx**
 
-Step 3: Grid of checkboxes — rows = years (from incorporation to present), columns = GIS, AFS, BO (BO only from 2019+). "Filed all through year X" shortcut dropdown at top. Group years by 5-year blocks with collapse/expand for corps with 10+ years. Each unchecked box = not filed.
+Step 3: Grid of checkboxes — rows = years (from incorporation to present), columns = GIS, AFS, BO (BO only from 2019+). Each unchecked box = not filed.
+
+**UX details:**
+- At the top: a "Filed all reports through" dropdown with year options. Selecting 2020 checks all GIS+AFS boxes for incorporation year through 2020 (and BO for 2019-2020 if applicable). Individual boxes can still be toggled after.
+- If the grid has 10+ years, group into 5-year blocks (e.g., "2010-2014", "2015-2019", "2020-2024") with collapse/expand. Most recent block expanded by default.
+- BO column only renders for years >= 2019. For earlier years, that cell is empty/grayed.
+- Default state: all boxes unchecked (assume non-filing). The shortcut makes it easy to mark compliant years in bulk.
 
 - [ ] **Step 7: Build suspension-step.tsx**
 
@@ -847,7 +1016,15 @@ Shows total penalty amount (large, Newsreader, charcoal), MC28 penalty if applic
 
 - [ ] **Step 7: Build results page**
 
-`src/app/results/page.tsx` — reads `?data=` from URL params, calls compute API on mount, renders: disclaimer → status badge → compliance timeline → penalty table → risk flag → results summary with CTA.
+`src/app/results/page.tsx` — client component.
+
+**Data flow:** The wizard serializes its state as JSON, base64-encodes it, and puts it in `?data=<base64>`. The results page decodes this on mount, calls `POST /api/compute` with the decoded JSON, and renders the response.
+
+**Encoding utility:** Add `encodeWizardData(data: ComputationInput): string` and `decodeWizardData(encoded: string): ComputationInput` to `src/lib/utils.ts`. Used by wizard (encode) and results page (decode).
+
+**Renders:** disclaimer → status badge → compliance timeline → penalty table → risk flag → results summary with CTA.
+
+**Congratulations screen:** If the computation returns zero penalties (all filings on time), render a green "All Clear" badge, a short congratulations message ("Your corporation appears to be in good standing with the SEC"), and a note to keep filing on time. Do NOT show the penalty table or risk flag.
 
 - [ ] **Step 8: Build legal disclaimer component**
 
@@ -879,7 +1056,9 @@ git commit -m "feat(sec-compliance): results page with compliance timeline and p
 
 - [ ] **Step 2: Build signup page**
 
-Email + password form with Zod validation. Google OAuth button. On successful signup, save computation data from URL params to Supabase (corporation + filing_records + computation), then redirect to `/remediation`.
+Email + password form with Zod validation. Google OAuth button.
+
+**Data persistence through signup gate:** The CTA on the results page links to `/signup?data=<same-base64-encoded-data>`. The signup page preserves this `data` param through the auth flow (pass it as `redirectTo` query param to Supabase auth, or store in `sessionStorage` before initiating signup). On successful signup, decode the data, save to Supabase (insert corporation + filing_records rows, run computation, insert computation row), then redirect to `/remediation`.
 
 - [ ] **Step 3: Build login page**
 
@@ -914,7 +1093,17 @@ Table showing reinstatement cost breakdown: petition fee (₱3,060), accumulated
 
 Interactive checklist of 10 required documents (from spec). Each item has a checkbox, document name, and brief description. Checkboxes are local state only (tracking progress).
 
-- [ ] **Step 3: Build step-guide.tsx**
+- [ ] **Step 3: Build amnesty-comparison.tsx**
+
+Conditionally rendered — only shows when an amnesty program is active (check `amnesty_config` or hardcoded config). When no amnesty active (current state): render nothing. When active: side-by-side comparison table showing amnesty cost vs. standard reinstatement cost. The component reads amnesty config from the computation result and renders the comparison.
+
+For MVP, the amnesty config is empty so this component renders a "No amnesty program is currently active" note. The structure is in place for when SEC launches a new ECIP.
+
+- [ ] **Step 4: Build petition-generator.tsx**
+
+A "Generate Petition Cover Letter" button that produces a basic template-filled HTML document. Template includes: corporation name (from wizard data), SEC registration number (if provided), list of unfiled reports, total penalties, and a standard petition cover letter structure. Rendered as a printable HTML page opened in a new tab (CSS `@media print` styles). No server-side PDF generation needed at MVP — the user can print-to-PDF from their browser.
+
+- [ ] **Step 5: Build step-guide.tsx**
 
 Static content organized by compliance status:
 - **Delinquent**: 5-step guide (gather documents → settle penalties → file backlog reports → register MC28 → confirm active status)
@@ -1000,19 +1189,25 @@ export default defineConfig({
 });
 ```
 
-- [ ] **Step 2: Write wizard flow test**
+- [ ] **Step 2: Install Playwright browsers**
+
+```bash
+cd apps/sec-compliance && npx playwright install
+```
+
+- [ ] **Step 3: Write wizard flow test**
 
 Navigate to `/wizard` → fill all 4 steps with worked example data → submit → verify redirect to `/results` → verify penalty total is visible and > ₱300,000.
 
-- [ ] **Step 3: Write results page test**
+- [ ] **Step 4: Write results page test**
 
 Navigate directly to `/results` with pre-encoded data → verify: status badge shows "Delinquent", compliance timeline renders, penalty table has rows, total is displayed, CTA button links to signup.
 
-- [ ] **Step 4: Write auth gate test**
+- [ ] **Step 5: Write auth gate test**
 
 Navigate to `/remediation` without auth → verify redirect to `/login`. (Full auth E2E with Supabase deferred — too complex for initial E2E.)
 
-- [ ] **Step 5: Run E2E tests**
+- [ ] **Step 6: Run E2E tests**
 
 ```bash
 cd apps/sec-compliance && npx playwright test
@@ -1020,7 +1215,7 @@ cd apps/sec-compliance && npx playwright test
 
 Expected: All PASS.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 7: Commit**
 
 ```bash
 git add apps/sec-compliance/__tests__/e2e/ apps/sec-compliance/playwright.config.ts
@@ -1077,17 +1272,19 @@ git commit -m "feat(sec-compliance): Dockerfile and Fly.io deployment config"
 | Task | What | Engine Tests | E2E Tests |
 |------|------|:---:|:---:|
 | 1 | Project scaffold | — | — |
-| 2 | Types + penalty schedule lookup | 4 | — |
+| 2 | Types + penalty schedule lookup | 7 | — |
 | 3 | Filing timeline generator | 4 | — |
-| 4 | Penalty computation engine | 2+ | — |
-| 5 | Status + reinstatement + orchestrator | 6+ | — |
+| 4 | Penalty computation engine | 6 | — |
+| 5 | Status + reinstatement + orchestrator | 8+ | — |
 | 6 | Supabase schema + auth | — | — |
 | 7 | Wizard UI (4 steps) | — | — |
 | 8 | Results page + compliance timeline | — | — |
 | 9 | Auth pages (login + signup) | — | — |
-| 10 | Remediation page (gated) | — | — |
+| 10 | Remediation + amnesty + doc gen | — | — |
 | 11 | Landing page + layout polish | — | — |
 | 12 | E2E tests | — | 3 |
 | 13 | Deployment setup | — | — |
 
 **Build order rationale:** Engine first (tasks 2-5), then infrastructure (task 6), then UI consuming the engine (tasks 7-11), then verification (task 12), then deployment (task 13). Engine is pure functions with no deps — fastest to build and test. UI depends on engine types and output shapes.
+
+**Architectural note — penalty data as code, not DB:** The penalty schedule is encoded as typed TypeScript data in `penalty-schedule.ts`, not as database config tables. This is simpler for MVP (no seed migration, no admin UI, penalty data is version-controlled). The spec's `penalty_schedule`, `bo_penalty_schedule`, `mc28_penalty`, and `amnesty_config` DB tables are deferred to when an admin needs to update rates without a code deploy.
