@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { PesoInput } from '@/components/shared/PesoInput';
@@ -9,8 +8,6 @@ import type { WizardFormData } from '@/types/wizard';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 function parseAmt(v: string | undefined): number {
@@ -24,7 +21,7 @@ function fmt(n: number): string {
 
 const ZERO = '0.00';
 
-export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
+export function WS07BFinancialItems({ data, onChange }: Props) {
   const ie = data.itemizedExpenses ?? {};
   const [interestExpense, setInterestExpense] = useState(ie.interestExpense ?? ZERO);
   const [finalTaxedInterestIncome, setFinalTaxedInterestIncome] = useState(ie.finalTaxedInterestIncome ?? ZERO);
@@ -61,22 +58,8 @@ export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
     return Object.keys(errs).length === 0;
   }
 
-  function handleNext() {
-    if (!validate()) return;
-    onChange({
-      itemizedExpenses: {
-        ...ie,
-        interestExpense,
-        finalTaxedInterestIncome,
-        casualtyTheftLosses,
-        isAccrualBasis,
-        badDebts,
-        charitableContributions,
-        charitableAccredited,
-        researchDevelopment,
-      },
-    });
-    onNext?.();
+  function commitField(key: string, value: string | boolean) {
+    onChange({ itemizedExpenses: { ...ie, [key]: value } });
   }
 
   return (
@@ -90,7 +73,7 @@ export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
         <PesoInput
           id="interest-expense"
           value={interestExpense}
-          onChange={(v) => { setInterestExpense(v); setErrors((e) => ({ ...e, interestExpense: '' })); }}
+          onChange={(v) => { setInterestExpense(v); setErrors((e) => ({ ...e, interestExpense: '' })); commitField('interestExpense', v); }}
           placeholder="0.00"
         />
         <p className="text-xs text-muted-foreground">
@@ -109,7 +92,7 @@ export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
           <PesoInput
             id="final-taxed-interest"
             value={finalTaxedInterestIncome}
-            onChange={(v) => { setFinalTaxedInterestIncome(v); setErrors((e) => ({ ...e, finalTaxedInterestIncome: '' })); }}
+            onChange={(v) => { setFinalTaxedInterestIncome(v); setErrors((e) => ({ ...e, finalTaxedInterestIncome: '' })); commitField('finalTaxedInterestIncome', v); }}
             placeholder="0.00"
           />
           <p className="text-xs text-muted-foreground">
@@ -135,7 +118,7 @@ export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
         <PesoInput
           id="casualty-losses"
           value={casualtyTheftLosses}
-          onChange={(v) => { setCasualtyTheftLosses(v); setErrors((e) => ({ ...e, casualtyTheftLosses: '' })); }}
+          onChange={(v) => { setCasualtyTheftLosses(v); setErrors((e) => ({ ...e, casualtyTheftLosses: '' })); commitField('casualtyTheftLosses', v); }}
           placeholder="0.00"
         />
         <p className="text-xs text-muted-foreground">
@@ -153,6 +136,7 @@ export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
             onCheckedChange={(checked) => {
               setIsAccrualBasis(checked);
               if (!checked) setErrors((e) => ({ ...e, badDebts: '' }));
+              commitField('isAccrualBasis', checked);
             }}
           />
           <Label htmlFor="accrual-basis">Do you use accrual accounting?</Label>
@@ -170,7 +154,7 @@ export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
           <PesoInput
             id="bad-debts"
             value={badDebts}
-            onChange={(v) => { setBadDebts(v); setErrors((e) => ({ ...e, badDebts: '' })); }}
+            onChange={(v) => { setBadDebts(v); setErrors((e) => ({ ...e, badDebts: '' })); commitField('badDebts', v); }}
             placeholder="0.00"
           />
           <p className="text-xs text-muted-foreground">
@@ -188,7 +172,7 @@ export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
         <PesoInput
           id="charitable"
           value={charitableContributions}
-          onChange={(v) => { setCharitableContributions(v); setErrors((e) => ({ ...e, charitableContributions: '' })); }}
+          onChange={(v) => { setCharitableContributions(v); setErrors((e) => ({ ...e, charitableContributions: '' })); commitField('charitableContributions', v); }}
           placeholder="0.00"
         />
         <p className="text-xs text-muted-foreground">
@@ -205,7 +189,7 @@ export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
             <Switch
               id="charitable-accredited"
               checked={charitableAccredited}
-              onCheckedChange={setCharitableAccredited}
+              onCheckedChange={(v) => { setCharitableAccredited(v); commitField('charitableAccredited', v); }}
             />
             <Label htmlFor="charitable-accredited">
               Is the recipient a BIR-accredited charitable organization?
@@ -231,7 +215,7 @@ export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
         <PesoInput
           id="research-development"
           value={researchDevelopment}
-          onChange={(v) => { setResearchDevelopment(v); setErrors((e) => ({ ...e, researchDevelopment: '' })); }}
+          onChange={(v) => { setResearchDevelopment(v); setErrors((e) => ({ ...e, researchDevelopment: '' })); commitField('researchDevelopment', v); }}
           placeholder="0.00"
         />
         <p className="text-xs text-muted-foreground">
@@ -241,10 +225,6 @@ export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
         {errors.researchDevelopment && <p className="text-sm text-destructive">{errors.researchDevelopment}</p>}
       </div>
 
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

@@ -18,8 +18,6 @@ import type { Form2307Entry } from '@/types/engine-input';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 const ATC_OPTIONS = [
@@ -170,7 +168,7 @@ function getWithholdingHint(atcCode: string, incomePayment: string): string | nu
   return null;
 }
 
-export function WS08CwtForm2307({ data, onChange, onNext, onBack }: Props) {
+export function WS08CwtForm2307({ data, onChange }: Props) {
   const taxYear = data.taxYear ?? new Date().getFullYear();
   const existing = data.cwt2307Entries ?? [];
 
@@ -216,34 +214,10 @@ export function WS08CwtForm2307({ data, onChange, onNext, onBack }: Props) {
     setAllErrors((prev) => prev.filter((_, idx) => idx !== i));
   }
 
-  function handleNext() {
-    if (has2307 === 'no') {
-      onChange({ cwt2307Entries: [] });
-      onNext?.();
-      return;
-    }
-
-    if (drafts.length > 50) {
-      return;
-    }
-
-    const newErrors = drafts.map((d) => validateDraft(d, taxYear));
-    setAllErrors(newErrors);
-    if (newErrors.some((e) => Object.keys(e).length > 0)) return;
-
-    const entries: Form2307Entry[] = drafts.map((d) => ({
-      payorName: d.payorName.trim(),
-      payorTin: d.payorTin || '',
-      atcCode: d.atcCode === 'OTHER' ? d.atcOther.trim() : d.atcCode,
-      incomePayment: d.incomePayment || '0.00',
-      taxWithheld: d.taxWithheld || '0.00',
-      periodFrom: d.periodFrom,
-      periodTo: d.periodTo,
-      quarterOfCredit: null,
-    }));
-
-    onChange({ cwt2307Entries: entries });
-    onNext?.();
+  // Wire radio change to immediately commit empty array when user selects 'no'
+  function handleHas2307Change(v: 'yes' | 'no') {
+    setHas2307(v);
+    if (v === 'no') onChange({ cwt2307Entries: [] });
   }
 
   // Running totals
@@ -284,7 +258,7 @@ export function WS08CwtForm2307({ data, onChange, onNext, onBack }: Props) {
         </Label>
         <RadioGroup
           value={has2307}
-          onValueChange={(v) => setHas2307(v as 'yes' | 'no')}
+          onValueChange={(v) => handleHas2307Change(v as 'yes' | 'no')}
           className="flex gap-4"
         >
           <div className="flex items-center gap-2">
@@ -505,10 +479,6 @@ export function WS08CwtForm2307({ data, onChange, onNext, onBack }: Props) {
         </div>
       )}
 
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

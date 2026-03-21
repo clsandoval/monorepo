@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { cn } from '@/lib/utils';
@@ -12,8 +11,6 @@ export type ExpenseInputMethod = 'ITEMIZED' | 'OSD' | 'NO_EXPENSES';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 const OPTIONS: { value: ExpenseInputMethod; title: string; description: string }[] = [
@@ -46,7 +43,7 @@ function formatPeso(amount: number): string {
   return amount.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-export function WS06ExpenseMethod({ data, onChange, onNext, onBack }: Props) {
+export function WS06ExpenseMethod({ data, onChange }: Props) {
   const [method, setMethod] = useState<ExpenseInputMethod | null>(
     data.osdElected === true ? 'OSD' : data.osdElected === false ? 'ITEMIZED' : null
   );
@@ -60,18 +57,6 @@ export function WS06ExpenseMethod({ data, onChange, onNext, onBack }: Props) {
 
   const showOsdAdvisory =
     (method === 'OSD' || method === 'NO_EXPENSES') && grossAmt > 0;
-
-  function handleNext() {
-    if (!method) {
-      setError("Please select how you'll enter your expenses.");
-      return;
-    }
-    const isItemized = method === 'ITEMIZED';
-    onChange({
-      osdElected: !isItemized,
-    });
-    onNext?.();
-  }
 
   return (
     <div className="space-y-6">
@@ -88,8 +73,10 @@ export function WS06ExpenseMethod({ data, onChange, onNext, onBack }: Props) {
       <RadioGroup
         value={method ?? ''}
         onValueChange={(v) => {
-          setMethod(v as ExpenseInputMethod);
+          const m = v as ExpenseInputMethod;
+          setMethod(m);
           setError(null);
+          onChange({ osdElected: m !== 'ITEMIZED' });
         }}
         className="gap-3"
       >
@@ -130,13 +117,6 @@ export function WS06ExpenseMethod({ data, onChange, onNext, onBack }: Props) {
       </p>
 
       {error && <p className="text-sm text-destructive">{error}</p>}
-
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">
-          Back
-        </Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

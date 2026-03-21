@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -11,8 +10,6 @@ import type { RegimeElection } from '@/types/common';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 export type RegimeElectionOption = 'ELECT_EIGHT_PCT' | 'ELECT_OSD' | 'ELECT_ITEMIZED' | null;
@@ -51,7 +48,7 @@ const OPTIONS: { value: string; title: string; description: string }[] = [
   },
 ];
 
-export function WS11RegimeElection({ data, onChange, onNext, onBack }: Props) {
+export function WS11RegimeElection({ data, onChange }: Props) {
   const initial = data.electedRegime === null || data.electedRegime === undefined
     ? NULL_VALUE
     : data.electedRegime;
@@ -78,23 +75,6 @@ export function WS11RegimeElection({ data, onChange, onNext, onBack }: Props) {
     return null;
   }
 
-  function handleNext() {
-    if (!selected) {
-      setSubmitError('Please select your regime election status.');
-      return;
-    }
-    if (eightPctBlocked) {
-      setSubmitError(getEightPctBlockingMessage()!);
-      return;
-    }
-    setSubmitError(null);
-    const regime: RegimeElection | null = selected === NULL_VALUE
-      ? null
-      : (selected as RegimeElection);
-    onChange({ electedRegime: regime });
-    onNext?.();
-  }
-
   return (
     <div className="space-y-6">
       <div>
@@ -107,7 +87,12 @@ export function WS11RegimeElection({ data, onChange, onNext, onBack }: Props) {
 
       <RadioGroup
         value={selected}
-        onValueChange={(v) => { setSelected(v); setSubmitError(null); }}
+        onValueChange={(v) => {
+          setSelected(v);
+          setSubmitError(null);
+          const regime: RegimeElection | null = v === NULL_VALUE ? null : (v as RegimeElection);
+          onChange({ electedRegime: regime });
+        }}
         className="gap-3"
       >
         {OPTIONS.map((opt) => (
@@ -154,11 +139,6 @@ export function WS11RegimeElection({ data, onChange, onNext, onBack }: Props) {
       )}
 
       {submitError && <p className="text-sm text-destructive">{submitError}</p>}
-
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-        <Button onClick={handleNext} disabled={eightPctBlocked} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

@@ -17,8 +17,6 @@ import type { TaxpayerType } from '@/types/common';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 const TAXPAYER_OPTIONS: { value: TaxpayerType; title: string; description: string }[] = [
@@ -42,7 +40,7 @@ const TAXPAYER_OPTIONS: { value: TaxpayerType; title: string; description: strin
   },
 ];
 
-export function WS01TaxpayerProfile({ data, onChange, onNext, onBack }: Props) {
+export function WS01TaxpayerProfile({ data, onChange }: Props) {
   const [selected, setSelected] = useState<TaxpayerType | null>(data.taxpayerType ?? null);
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -50,18 +48,11 @@ export function WS01TaxpayerProfile({ data, onChange, onNext, onBack }: Props) {
   function handleSelect(value: TaxpayerType) {
     setSelected(value);
     setError(null);
-  }
-
-  function handleNext() {
-    if (!selected) {
-      setError('Please tell us which best describes you.');
-      return;
-    }
-    if (selected === 'COMPENSATION_ONLY') {
+    if (value === 'COMPENSATION_ONLY') {
       setShowModal(true);
-      return;
+    } else {
+      commitAndAdvance(value);
     }
-    commitAndAdvance(selected);
   }
 
   function commitAndAdvance(type: TaxpayerType) {
@@ -69,7 +60,6 @@ export function WS01TaxpayerProfile({ data, onChange, onNext, onBack }: Props) {
       taxpayerType: type,
       isMixedIncome: type === 'MIXED_INCOME',
     });
-    onNext?.();
   }
 
   return (
@@ -109,11 +99,6 @@ export function WS01TaxpayerProfile({ data, onChange, onNext, onBack }: Props) {
       </RadioGroup>
 
       {error && <p className="text-sm text-destructive">{error}</p>}
-
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
 
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent>

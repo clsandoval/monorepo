@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -9,8 +8,6 @@ import type { WizardFormData } from '@/types/wizard';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 export type VatStatus = 'YES' | 'NO';
@@ -20,7 +17,7 @@ function parseGross(v: string | undefined): number {
   return parseFloat((v ?? '0').replace(/,/g, '')) || 0;
 }
 
-export function WS10Registration({ data, onChange, onNext, onBack }: Props) {
+export function WS10Registration({ data, onChange }: Props) {
   const [birRegistered, setBirRegistered] = useState<BirRegistrationStatus>(
     'YES'
   );
@@ -34,16 +31,6 @@ export function WS10Registration({ data, onChange, onNext, onBack }: Props) {
   const [error, setError] = useState<string | null>(null);
 
   const grossReceipts = parseGross(data.grossReceipts);
-
-  function handleNext() {
-    setError(null);
-    onChange({
-      isVatRegistered: vatStatus === 'YES',
-      isBmbeRegistered: bmbe,
-      subjectToSec117128: sec117128,
-    });
-    onNext?.();
-  }
 
   return (
     <div className="space-y-6">
@@ -94,7 +81,7 @@ export function WS10Registration({ data, onChange, onNext, onBack }: Props) {
         <Label>Are you VAT-registered?</Label>
         <RadioGroup
           value={vatStatus}
-          onValueChange={(v) => setVatStatus(v as VatStatus)}
+          onValueChange={(v) => { setVatStatus(v as VatStatus); onChange({ isVatRegistered: v === 'YES' }); }}
           className="space-y-2"
         >
           <div className="flex items-start gap-2">
@@ -141,7 +128,7 @@ export function WS10Registration({ data, onChange, onNext, onBack }: Props) {
           <Switch
             id="bmbe"
             checked={bmbe}
-            onCheckedChange={setBmbe}
+            onCheckedChange={(v) => { setBmbe(v); onChange({ isBmbeRegistered: v }); }}
             className="mt-0.5"
           />
           <div className="space-y-1">
@@ -168,7 +155,7 @@ export function WS10Registration({ data, onChange, onNext, onBack }: Props) {
           <Switch
             id="sec117128"
             checked={sec117128}
-            onCheckedChange={setSec117128}
+            onCheckedChange={(v) => { setSec117128(v); onChange({ subjectToSec117128: v }); }}
             className="mt-0.5"
           />
           <div className="space-y-1">
@@ -194,11 +181,6 @@ export function WS10Registration({ data, onChange, onNext, onBack }: Props) {
       </div>
 
       {error && <p className="text-sm text-destructive">{error}</p>}
-
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

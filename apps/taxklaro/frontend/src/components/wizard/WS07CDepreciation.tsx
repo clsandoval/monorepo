@@ -18,8 +18,6 @@ import type { DepreciationEntry } from '@/types/engine-input';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 type AssetDraft = {
@@ -94,7 +92,7 @@ function validateDraft(draft: AssetDraft, taxYear: number): AssetErrors {
   return errs;
 }
 
-export function WS07CDepreciation({ data, onChange, onNext, onBack }: Props) {
+export function WS07CDepreciation({ data, onChange }: Props) {
   const ie = data.itemizedExpenses ?? {};
   const taxYear = data.taxYear ?? new Date().getFullYear();
 
@@ -140,7 +138,6 @@ export function WS07CDepreciation({ data, onChange, onNext, onBack }: Props) {
   function handleSkip() {
     setSkipped(true);
     onChange({ itemizedExpenses: { ...ie, depreciationEntries: [] } });
-    onNext?.();
   }
 
   function handleNext() {
@@ -159,7 +156,6 @@ export function WS07CDepreciation({ data, onChange, onNext, onBack }: Props) {
     }));
 
     onChange({ itemizedExpenses: { ...ie, depreciationEntries: entries } });
-    onNext?.();
   }
 
   if (skipped) return null;
@@ -313,14 +309,10 @@ export function WS07CDepreciation({ data, onChange, onNext, onBack }: Props) {
         + Add another asset
       </Button>
 
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-        <div className="flex gap-2">
-          <Button variant="outline" onClick={handleSkip} className="h-11">
-            Skip depreciation — I have no qualifying assets
-          </Button>
-          <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-        </div>
+      <div className="flex justify-end">
+        <Button variant="outline" onClick={handleSkip} className="h-11">
+          Skip depreciation — I have no qualifying assets
+        </Button>
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import {
   Accordion,
@@ -14,8 +13,6 @@ import type { WizardFormData } from '@/types/wizard';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 function parseAmount(val: string | undefined): number {
@@ -23,7 +20,7 @@ function parseAmount(val: string | undefined): number {
   return parseFloat(val.replace(/,/g, '')) || 0;
 }
 
-export function WS04GrossReceipts({ data, onChange, onNext, onBack }: Props) {
+export function WS04GrossReceipts({ data, onChange }: Props) {
   const [grossReceipts, setGrossReceipts] = useState<string>(data.grossReceipts ?? '');
   const [salesReturns, setSalesReturns] = useState<string>(data.salesReturnsAllowances ?? '0.00');
   const [nonOpIncome, setNonOpIncome] = useState<string>(data.nonOperatingIncome ?? '0.00');
@@ -57,39 +54,6 @@ export function WS04GrossReceipts({ data, onChange, onNext, onBack }: Props) {
     };
   }
 
-  function handleNext() {
-    const errs: Record<string, string> = {};
-    if (grossReceipts === '') {
-      errs.grossReceipts = 'Please enter your gross receipts. Enter ₱0 if you had no income this period.';
-    } else if (grossAmt < 0) {
-      errs.grossReceipts = 'Gross receipts cannot be negative.';
-    } else if (grossAmt > 9999999999.99) {
-      errs.grossReceipts = 'Amount exceeds maximum allowed value. If your income exceeds ₱10 billion, please contact us.';
-    } else if (returnsAmt > grossAmt) {
-      errs.grossReceipts = 'Gross receipts cannot be less than your sales returns and allowances.';
-    }
-    if (parseAmount(salesReturns) < 0) {
-      errs.salesReturns = 'Sales returns and allowances cannot be negative.';
-    }
-    if (parseAmount(nonOpIncome) < 0) {
-      errs.nonOpIncome = 'Income cannot be negative.';
-    }
-    if (parseAmount(fwtIncome) < 0) {
-      errs.fwtIncome = 'Amount cannot be negative.';
-    }
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      return;
-    }
-    onChange({
-      grossReceipts: grossReceipts || '0.00',
-      salesReturnsAllowances: salesReturns,
-      nonOperatingIncome: nonOpIncome,
-      fwtIncome,
-    });
-    onNext?.();
-  }
-
   const advisory = getGrossAdvisory();
 
   return (
@@ -106,6 +70,7 @@ export function WS04GrossReceipts({ data, onChange, onNext, onBack }: Props) {
           onChange={(v) => {
             setGrossReceipts(v);
             setErrors((e) => ({ ...e, grossReceipts: '' }));
+            onChange({ grossReceipts: v || '0.00' });
           }}
           placeholder="0.00"
         />
@@ -138,6 +103,7 @@ export function WS04GrossReceipts({ data, onChange, onNext, onBack }: Props) {
           onChange={(v) => {
             setSalesReturns(v);
             setErrors((e) => ({ ...e, salesReturns: '' }));
+            onChange({ salesReturnsAllowances: v });
           }}
           placeholder="0.00"
         />
@@ -162,6 +128,7 @@ export function WS04GrossReceipts({ data, onChange, onNext, onBack }: Props) {
                 onChange={(v) => {
                   setNonOpIncome(v);
                   setErrors((e) => ({ ...e, nonOpIncome: '' }));
+                  onChange({ nonOperatingIncome: v });
                 }}
                 placeholder="0.00"
               />
@@ -182,6 +149,7 @@ export function WS04GrossReceipts({ data, onChange, onNext, onBack }: Props) {
                 onChange={(v) => {
                   setFwtIncome(v);
                   setErrors((e) => ({ ...e, fwtIncome: '' }));
+                  onChange({ fwtIncome: v });
                 }}
                 placeholder="0.00"
               />
@@ -198,12 +166,6 @@ export function WS04GrossReceipts({ data, onChange, onNext, onBack }: Props) {
         </AccordionItem>
       </Accordion>
 
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">
-          Back
-        </Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

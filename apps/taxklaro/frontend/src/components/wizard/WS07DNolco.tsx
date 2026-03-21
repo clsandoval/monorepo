@@ -16,8 +16,6 @@ import type { NolcoEntry } from '@/types/engine-input';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 type NolcoDraft = {
@@ -78,7 +76,7 @@ function validateDraft(draft: NolcoDraft, taxYear: number, allDrafts: NolcoDraft
   return errs;
 }
 
-export function WS07DNolco({ data, onChange, onNext, onBack }: Props) {
+export function WS07DNolco({ data, onChange }: Props) {
   const ie = data.itemizedExpenses ?? {};
   const taxYear = data.taxYear ?? new Date().getFullYear();
 
@@ -132,28 +130,6 @@ export function WS07DNolco({ data, onChange, onNext, onBack }: Props) {
   function removeDraft(i: number) {
     setDrafts((prev) => prev.filter((_, idx) => idx !== i));
     setAllErrors((prev) => prev.filter((_, idx) => idx !== i));
-  }
-
-  function handleNext() {
-    if (hasNolco === 'no') {
-      onChange({ itemizedExpenses: { ...ie, nolcoEntries: [] } });
-      onNext?.();
-      return;
-    }
-
-    const newErrors = drafts.map((d, i) => validateDraft(d, taxYear, drafts, i));
-    setAllErrors(newErrors);
-    if (newErrors.some((e) => Object.keys(e).length > 0)) return;
-
-    const entries: NolcoEntry[] = drafts.map((d) => ({
-      lossYear: parseInt(d.lossYear, 10),
-      originalLoss: d.originalLoss || '0.00',
-      remainingBalance: d.remainingBalance || '0.00',
-      expiryYear: parseInt(d.lossYear, 10) + 3,
-    }));
-
-    onChange({ itemizedExpenses: { ...ie, nolcoEntries: entries } });
-    onNext?.();
   }
 
   return (
@@ -276,26 +252,6 @@ export function WS07DNolco({ data, onChange, onNext, onBack }: Props) {
         </div>
       )}
 
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">
-          Back
-        </Button>
-        <div className="flex gap-2">
-          {hasNolco === 'yes' && (
-            <Button
-              variant="outline"
-              className="h-11"
-              onClick={() => {
-                onChange({ itemizedExpenses: { ...ie, nolcoEntries: [] } });
-                onNext?.();
-              }}
-            >
-              Skip — I have no prior-year losses to carry over
-            </Button>
-          )}
-          <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-        </div>
-      </div>
     </div>
   );
 }

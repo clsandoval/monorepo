@@ -29,8 +29,6 @@ import { WS13PriorYearCredits } from '@/components/wizard/WS13PriorYearCredits'
 const STEP_COMPONENTS: Record<WizardStepId, React.ComponentType<{
   data: Partial<WizardFormData>
   onChange: (u: Partial<WizardFormData>) => void
-  onNext?: () => void
-  onBack?: () => void
 }>> = {
   WS00: WS00ModeSelection,
   WS01: WS01TaxpayerProfile,
@@ -149,9 +147,6 @@ export function AccordionWizard({ data, onChange, onCompute, computing }: Accord
 
   const completedCount = SECTIONS.filter((s) => isSectionCompleted(s.id)).length
 
-  // No-op handlers for step components that expect onNext/onBack
-  const noop = useCallback(() => {}, [])
-
   return (
     <div>
       <SectionProgressBar total={SECTIONS.length} completed={completedCount} />
@@ -182,8 +177,6 @@ export function AccordionWizard({ data, onChange, onCompute, computing }: Accord
                     key={stepId}
                     data={data}
                     onChange={onChange}
-                    onNext={noop}
-                    onBack={noop}
                   />
                 )
               })}

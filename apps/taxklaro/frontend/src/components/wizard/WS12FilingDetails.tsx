@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
@@ -12,13 +11,11 @@ import type { ReturnType } from '@/types/common';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 export type ReturnTypeOption = 'ORIGINAL' | 'AMENDED';
 
-export function WS12FilingDetails({ data, onChange, onNext, onBack }: Props) {
+export function WS12FilingDetails({ data, onChange }: Props) {
   const [returnType, setReturnType] = useState<ReturnType>(
     data.returnType ?? 'ORIGINAL'
   );
@@ -54,17 +51,6 @@ export function WS12FilingDetails({ data, onChange, onNext, onBack }: Props) {
     return Object.keys(newErrors).length === 0;
   }
 
-  function handleNext() {
-    if (!validate()) return;
-
-    onChange({
-      returnType,
-      priorPaymentForReturn: returnType === 'AMENDED' ? priorPayment : '0.00',
-      actualFilingDate: isLateFiling ? actualFilingDate : null,
-    });
-    onNext?.();
-  }
-
   return (
     <div className="space-y-6">
       <div>
@@ -79,7 +65,11 @@ export function WS12FilingDetails({ data, onChange, onNext, onBack }: Props) {
         <Label>Is this an original or amended return?</Label>
         <RadioGroup
           value={returnType}
-          onValueChange={(v) => { setReturnType(v as ReturnType); setErrors({}); }}
+          onValueChange={(v) => {
+            setReturnType(v as ReturnType);
+            setErrors({});
+            onChange({ returnType: v as ReturnType, priorPaymentForReturn: v === 'AMENDED' ? priorPayment : '0.00' });
+          }}
           className="space-y-2"
         >
           <div className="flex items-start gap-2">
@@ -118,7 +108,7 @@ export function WS12FilingDetails({ data, onChange, onNext, onBack }: Props) {
           <Label htmlFor="prior-payment">Amount already paid on your original return</Label>
           <PesoInput
             value={priorPayment}
-            onChange={setPriorPayment}
+            onChange={(v) => { setPriorPayment(v); onChange({ priorPaymentForReturn: v }); }}
             placeholder="0.00"
           />
           <p className="text-xs text-muted-foreground">
@@ -136,7 +126,7 @@ export function WS12FilingDetails({ data, onChange, onNext, onBack }: Props) {
         <Switch
           id="late-filing"
           checked={isLateFiling}
-          onCheckedChange={(v) => { setIsLateFiling(v); setErrors({}); }}
+          onCheckedChange={(v) => { setIsLateFiling(v); setErrors({}); onChange({ actualFilingDate: v ? actualFilingDate : null }); }}
           className="mt-0.5"
         />
         <div className="space-y-1">
@@ -169,7 +159,7 @@ export function WS12FilingDetails({ data, onChange, onNext, onBack }: Props) {
             id="filing-date"
             type="date"
             value={actualFilingDate}
-            onChange={(e) => { setActualFilingDate(e.target.value); setErrors({}); }}
+            onChange={(e) => { setActualFilingDate(e.target.value); setErrors({}); onChange({ actualFilingDate: e.target.value }); }}
           />
           <p className="text-xs text-muted-foreground">
             Enter today's date if you are computing penalties as of today. Enter a future date if
@@ -181,10 +171,6 @@ export function WS12FilingDetails({ data, onChange, onNext, onBack }: Props) {
         </div>
       )}
 
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

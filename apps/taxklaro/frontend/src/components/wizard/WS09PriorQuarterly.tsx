@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { PesoInput } from '@/components/shared/PesoInput';
@@ -11,8 +10,6 @@ import type { FilingPeriod } from '@/types/common';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 type QuarterSlot = { quarter: 1 | 2 | 3; label: string; period: 'Q1' | 'Q2' | 'Q3' };
@@ -47,7 +44,7 @@ function parseAmt(v: string): number {
   return parseFloat(v.replace(/,/g, '')) || 0;
 }
 
-export function WS09PriorQuarterly({ data, onChange, onNext, onBack }: Props) {
+export function WS09PriorQuarterly({ data, onChange }: Props) {
   const filingPeriod = (data.filingPeriod ?? 'ANNUAL') as FilingPeriod;
   const existingPayments = data.priorQuarterlyPayments ?? [];
 
@@ -78,40 +75,6 @@ export function WS09PriorQuarterly({ data, onChange, onNext, onBack }: Props) {
 
   const [errors, setErrors] = useState<Record<number, string>>({});
 
-  function validate(): boolean {
-    const newErrors: Record<number, string> = {};
-    for (const q of visibleQuarters) {
-      const amt = parseAmt(amounts[q.quarter] ?? '');
-      if (amt < 0) {
-        newErrors[q.quarter] = 'Payment amount cannot be negative.';
-      }
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  }
-
-  function handleNext() {
-    if (hasPrior === 'no') {
-      onChange({ priorQuarterlyPayments: [] });
-      onNext?.();
-      return;
-    }
-
-    if (!validate()) return;
-
-    const payments: QuarterlyPayment[] = visibleQuarters
-      .filter((q) => parseAmt(amounts[q.quarter] ?? '') > 0)
-      .map((q) => ({
-        quarter: q.quarter,
-        amountPaid: amounts[q.quarter] || '0.00',
-        datePaid: dates[q.quarter] || null,
-        form1701qPeriod: q.period,
-      }));
-
-    onChange({ priorQuarterlyPayments: payments });
-    onNext?.();
-  }
-
   // If filing period is Q1 (no prior quarters), skip directly
   if (visibleQuarters.length === 0) {
     return (
@@ -121,10 +84,6 @@ export function WS09PriorQuarterly({ data, onChange, onNext, onBack }: Props) {
           <p className="text-sm text-muted-foreground mt-1">
             This is a Q1 return — no prior quarterly payments apply.
           </p>
-        </div>
-        <div className="flex justify-between">
-          <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-          <Button onClick={() => { onChange({ priorQuarterlyPayments: [] }); onNext?.(); }} className="h-11 px-6">Continue</Button>
         </div>
       </div>
     );
@@ -141,7 +100,10 @@ export function WS09PriorQuarterly({ data, onChange, onNext, onBack }: Props) {
         <Label>Did you make any quarterly income tax payments this year?</Label>
         <RadioGroup
           value={hasPrior}
-          onValueChange={(v) => setHasPrior(v as 'yes' | 'no')}
+          onValueChange={(v) => {
+            setHasPrior(v as 'yes' | 'no');
+            if (v === 'no') onChange({ priorQuarterlyPayments: [] });
+          }}
           className="flex gap-4"
         >
           <div className="flex items-center gap-2">
@@ -173,9 +135,21 @@ export function WS09PriorQuarterly({ data, onChange, onNext, onBack }: Props) {
                   <Label>{q.label}</Label>
                   <PesoInput
                     value={amt}
-                    onChange={(v) =>
-                      setAmounts((prev) => ({ ...prev, [q.quarter]: v }))
-                    }
+                    onChange={(v) => {
+                      setAmounts((prev) => {
+                        const updated = { ...prev, [q.quarter]: v };
+                        const payments: QuarterlyPayment[] = visibleQuarters
+                          .filter((qq) => parseAmt(updated[qq.quarter] ?? '') > 0)
+                          .map((qq) => ({
+                            quarter: qq.quarter,
+                            amountPaid: updated[qq.quarter] || '0.00',
+                            datePaid: dates[qq.quarter] || null,
+                            form1701qPeriod: qq.period,
+                          }));
+                        onChange({ priorQuarterlyPayments: payments });
+                        return updated;
+                      });
+                    }}
                     placeholder="0.00"
                   />
                   <p className="text-xs text-muted-foreground">
@@ -209,10 +183,6 @@ export function WS09PriorQuarterly({ data, onChange, onNext, onBack }: Props) {
         </div>
       )}
 
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

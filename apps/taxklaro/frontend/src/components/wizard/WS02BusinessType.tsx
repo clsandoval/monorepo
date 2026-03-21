@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -19,8 +18,6 @@ export type BusinessCategory =
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 const CATEGORY_OPTIONS: { value: BusinessCategory; title: string; description: string }[] = [
@@ -55,7 +52,7 @@ const CATEGORY_OPTIONS: { value: BusinessCategory; title: string; description: s
   },
 ];
 
-export function WS02BusinessType({ data, onChange, onNext, onBack }: Props) {
+export function WS02BusinessType({ data, onChange }: Props) {
   const [category, setCategory] = useState<BusinessCategory | null>(null);
   const [isGppPartner, setIsGppPartner] = useState<boolean>(data.isGppPartner ?? false);
   const [cogs, setCogs] = useState<string>(data.costOfGoodsSold ?? '0.00');
@@ -68,18 +65,12 @@ export function WS02BusinessType({ data, onChange, onNext, onBack }: Props) {
   function handleSelect(value: BusinessCategory) {
     setCategory(value);
     setError(null);
-  }
-
-  function handleNext() {
-    if (!category || category === 'NOT_SURE') {
-      setError('Please select a business category before continuing.');
-      return;
+    if (value !== 'NOT_SURE') {
+      onChange({
+        isGppPartner: value === 'REGULATED_PROFESSIONAL' ? isGppPartner : false,
+        costOfGoodsSold: (value === 'TRADER' || value === 'MIXED_BUSINESS') ? cogs : '0.00',
+      });
     }
-    onChange({
-      isGppPartner: showGpp ? isGppPartner : false,
-      costOfGoodsSold: showCogs ? cogs : '0.00',
-    });
-    onNext?.();
   }
 
   return (
@@ -135,7 +126,7 @@ export function WS02BusinessType({ data, onChange, onNext, onBack }: Props) {
             <Switch
               id="gpp-partner"
               checked={isGppPartner}
-              onCheckedChange={(checked) => setIsGppPartner(checked)}
+              onCheckedChange={(checked) => { setIsGppPartner(checked); onChange({ isGppPartner: checked }); }}
             />
             <Label htmlFor="gpp-partner" className="cursor-pointer">
               Do you practice through a General Professional Partnership (GPP)?
@@ -161,7 +152,7 @@ export function WS02BusinessType({ data, onChange, onNext, onBack }: Props) {
       {showCogs && (
         <div className="space-y-2">
           <Label htmlFor="cogs">Cost of goods sold (COGS)</Label>
-          <PesoInput id="cogs" value={cogs} onChange={setCogs} placeholder="0.00" />
+          <PesoInput id="cogs" value={cogs} onChange={(v) => { setCogs(v); onChange({ costOfGoodsSold: v }); }} placeholder="0.00" />
           <p className="text-xs text-muted-foreground">
             Enter the total cost of goods you purchased or manufactured for sale. Do NOT include
             salaries, rent, or overhead — those go in the expenses section.
@@ -170,13 +161,6 @@ export function WS02BusinessType({ data, onChange, onNext, onBack }: Props) {
       )}
 
       {error && <p className="text-sm text-destructive">{error}</p>}
-
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">
-          Back
-        </Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

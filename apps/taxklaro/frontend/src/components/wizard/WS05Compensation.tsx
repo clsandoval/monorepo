@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import {
   Select,
@@ -15,8 +14,6 @@ import type { WizardFormData } from '@/types/wizard';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 function parseAmount(val: string | undefined): number {
@@ -24,7 +21,7 @@ function parseAmount(val: string | undefined): number {
   return parseFloat(val.replace(/,/g, '')) || 0;
 }
 
-export function WS05Compensation({ data, onChange, onNext, onBack }: Props) {
+export function WS05Compensation({ data, onChange }: Props) {
   const [taxableComp, setTaxableComp] = useState<string>(data.taxableCompensation ?? '');
   const [numEmployers, setNumEmployers] = useState<string>('1');
   const [compCwt, setCompCwt] = useState<string>(data.compensationCwt ?? '');
@@ -32,30 +29,6 @@ export function WS05Compensation({ data, onChange, onNext, onBack }: Props) {
 
   const compAmt = parseAmount(taxableComp);
   const cwtAmt = parseAmount(compCwt);
-
-  function handleNext() {
-    const errs: Record<string, string> = {};
-    if (taxableComp === '') {
-      errs.taxableComp =
-        'Please enter your taxable compensation. Use ₱0 if your compensation was fully excluded.';
-    } else if (compAmt < 0) {
-      errs.taxableComp = 'Taxable compensation cannot be negative.';
-    }
-    if (compCwt === '') {
-      errs.compCwt = 'Please enter the total tax withheld from your salary.';
-    } else if (cwtAmt < 0) {
-      errs.compCwt = 'Amount cannot be negative.';
-    }
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      return;
-    }
-    onChange({
-      taxableCompensation: taxableComp || '0.00',
-      compensationCwt: compCwt || '0.00',
-    });
-    onNext?.();
-  }
 
   const showZeroCompAdvisory = taxableComp !== '' && compAmt === 0;
   const showHighCwtWarning = compAmt > 0 && cwtAmt > compAmt;
@@ -80,6 +53,7 @@ export function WS05Compensation({ data, onChange, onNext, onBack }: Props) {
           onChange={(v) => {
             setTaxableComp(v);
             setErrors((e) => ({ ...e, taxableComp: '' }));
+            onChange({ taxableCompensation: v || '0.00' });
           }}
           placeholder="0.00"
         />
@@ -136,6 +110,7 @@ export function WS05Compensation({ data, onChange, onNext, onBack }: Props) {
           onChange={(v) => {
             setCompCwt(v);
             setErrors((e) => ({ ...e, compCwt: '' }));
+            onChange({ compensationCwt: v || '0.00' });
           }}
           placeholder="0.00"
         />
@@ -153,12 +128,6 @@ export function WS05Compensation({ data, onChange, onNext, onBack }: Props) {
         )}
       </div>
 
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">
-          Back
-        </Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

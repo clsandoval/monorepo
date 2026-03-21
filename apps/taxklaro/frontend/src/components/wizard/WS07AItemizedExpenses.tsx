@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { PesoInput } from '@/components/shared/PesoInput';
@@ -9,8 +8,6 @@ import type { WizardFormData } from '@/types/wizard';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 function parseAmt(v: string | undefined): number {
@@ -24,7 +21,7 @@ function fmt(n: number): string {
 
 const ZERO = '0.00';
 
-export function WS07AItemizedExpenses({ data, onChange, onNext, onBack }: Props) {
+export function WS07AItemizedExpenses({ data, onChange }: Props) {
   const ie = data.itemizedExpenses ?? {};
   const [salariesAndWages, setSalariesAndWages] = useState(ie.salariesAndWages ?? ZERO);
   const [sssPhilhealthPagibigEmployerShare, setSss] = useState(ie.sssPhilhealthPagibigEmployerShare ?? ZERO);
@@ -47,18 +44,22 @@ export function WS07AItemizedExpenses({ data, onChange, onNext, onBack }: Props)
   const homeOfficeAmt = parseAmt(homeOfficeExpense);
   const entertainmentCap = (grossAmt - returnsAmt) * 0.01;
 
-  const fields: Array<{ key: string; label: string; help: string; val: string; set: (v: string) => void }> = [
-    { key: 'salariesAndWages', label: 'Salaries and wages paid to employees', help: 'Total gross salaries and wages you paid to your employees or helpers during the year. Do NOT include your own compensation.', val: salariesAndWages, set: setSalariesAndWages },
-    { key: 'sss', label: "Employer's share of SSS, PhilHealth, and Pag-IBIG contributions", help: "Only the mandatory employer's share paid for your employees is deductible. The employee's share is not your expense. Your own voluntary contributions as a self-employed individual are NOT deductible under this line.", val: sssPhilhealthPagibigEmployerShare, set: setSss },
-    { key: 'rent', label: 'Office or workspace rent', help: 'Rent paid for your dedicated office space, co-working desk, or business premises. For home offices, use the \'Home office\' field instead.', val: rent, set: setRent },
-    { key: 'utilities', label: 'Utilities (electricity, water — business portion)', help: 'Electricity and water bills attributable to your business operations. If you work from home, enter only the business-use portion.', val: utilities, set: setUtilities },
-    { key: 'communication', label: 'Communication and internet costs (business portion)', help: 'Phone, mobile load, and internet subscription costs for business use. If your internet is used for both personal and business purposes, enter only the business portion.', val: communication, set: setCommunication },
-    { key: 'officeSupplies', label: 'Office supplies and materials', help: 'Stationery, printer ink and paper, small tools, and other consumable supplies used in your business. Do NOT include computers or equipment lasting more than one year — those are depreciated.', val: officeSupplies, set: setOfficeSupplies },
-    { key: 'professionalFeesPaid', label: 'Professional fees paid to others', help: 'Fees paid to accountants, lawyers, consultants, subcontractors, or other professionals who helped your business. Do NOT include your own professional income here.', val: professionalFeesPaid, set: setProfessionalFeesPaid },
-    { key: 'travelTransportation', label: 'Business travel and transportation', help: 'Transportation costs for business-related travel: fuel, parking, Grab/taxi rides to client sites, airfare and hotel for business trips within the Philippines. Personal travel is NOT deductible.', val: travelTransportation, set: setTravelTransportation },
-    { key: 'insurancePremiums', label: 'Business insurance premiums', help: 'Premiums for business insurance policies: general liability, professional indemnity, property insurance on business assets. Life insurance is deductible ONLY if the death benefit goes to the business, not to your family.', val: insurancePremiums, set: setInsurancePremiums },
-    { key: 'taxesAndLicenses', label: 'Business taxes and licenses (excluding income tax)', help: 'Business registration fees (barangay, municipal, city), professional tax receipts (PTR), documentary stamp taxes paid, and other taxes that are NOT income tax. Do NOT include your income tax or percentage tax here.', val: taxesAndLicenses, set: setTaxesAndLicenses },
+  const fields: Array<{ key: string; ieKey: string; label: string; help: string; val: string; set: (v: string) => void }> = [
+    { key: 'salariesAndWages', ieKey: 'salariesAndWages', label: 'Salaries and wages paid to employees', help: 'Total gross salaries and wages you paid to your employees or helpers during the year. Do NOT include your own compensation.', val: salariesAndWages, set: setSalariesAndWages },
+    { key: 'sss', ieKey: 'sssPhilhealthPagibigEmployerShare', label: "Employer's share of SSS, PhilHealth, and Pag-IBIG contributions", help: "Only the mandatory employer's share paid for your employees is deductible. The employee's share is not your expense. Your own voluntary contributions as a self-employed individual are NOT deductible under this line.", val: sssPhilhealthPagibigEmployerShare, set: setSss },
+    { key: 'rent', ieKey: 'rent', label: 'Office or workspace rent', help: 'Rent paid for your dedicated office space, co-working desk, or business premises. For home offices, use the \'Home office\' field instead.', val: rent, set: setRent },
+    { key: 'utilities', ieKey: 'utilities', label: 'Utilities (electricity, water — business portion)', help: 'Electricity and water bills attributable to your business operations. If you work from home, enter only the business-use portion.', val: utilities, set: setUtilities },
+    { key: 'communication', ieKey: 'communication', label: 'Communication and internet costs (business portion)', help: 'Phone, mobile load, and internet subscription costs for business use. If your internet is used for both personal and business purposes, enter only the business portion.', val: communication, set: setCommunication },
+    { key: 'officeSupplies', ieKey: 'officeSupplies', label: 'Office supplies and materials', help: 'Stationery, printer ink and paper, small tools, and other consumable supplies used in your business. Do NOT include computers or equipment lasting more than one year — those are depreciated.', val: officeSupplies, set: setOfficeSupplies },
+    { key: 'professionalFeesPaid', ieKey: 'professionalFeesPaid', label: 'Professional fees paid to others', help: 'Fees paid to accountants, lawyers, consultants, subcontractors, or other professionals who helped your business. Do NOT include your own professional income here.', val: professionalFeesPaid, set: setProfessionalFeesPaid },
+    { key: 'travelTransportation', ieKey: 'travelTransportation', label: 'Business travel and transportation', help: 'Transportation costs for business-related travel: fuel, parking, Grab/taxi rides to client sites, airfare and hotel for business trips within the Philippines. Personal travel is NOT deductible.', val: travelTransportation, set: setTravelTransportation },
+    { key: 'insurancePremiums', ieKey: 'insurancePremiums', label: 'Business insurance premiums', help: 'Premiums for business insurance policies: general liability, professional indemnity, property insurance on business assets. Life insurance is deductible ONLY if the death benefit goes to the business, not to your family.', val: insurancePremiums, set: setInsurancePremiums },
+    { key: 'taxesAndLicenses', ieKey: 'taxesAndLicenses', label: 'Business taxes and licenses (excluding income tax)', help: 'Business registration fees (barangay, municipal, city), professional tax receipts (PTR), documentary stamp taxes paid, and other taxes that are NOT income tax. Do NOT include your income tax or percentage tax here.', val: taxesAndLicenses, set: setTaxesAndLicenses },
   ];
+
+  function commitField(key: string, value: string | boolean) {
+    onChange({ itemizedExpenses: { ...ie, [key]: value } });
+  }
 
   function validate(): boolean {
     const errs: Record<string, string> = {};
@@ -72,29 +73,6 @@ export function WS07AItemizedExpenses({ data, onChange, onNext, onBack }: Props)
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
-  }
-
-  function handleNext() {
-    if (!validate()) return;
-    onChange({
-      itemizedExpenses: {
-        ...ie,
-        salariesAndWages,
-        sssPhilhealthPagibigEmployerShare,
-        rent,
-        utilities,
-        communication,
-        officeSupplies,
-        professionalFeesPaid,
-        travelTransportation,
-        insurancePremiums,
-        taxesAndLicenses,
-        entertainmentRepresentation,
-        homeOfficeExpense,
-        homeOfficeExclusiveUse,
-      },
-    });
-    onNext?.();
   }
 
   return (
@@ -111,7 +89,7 @@ export function WS07AItemizedExpenses({ data, onChange, onNext, onBack }: Props)
       {fields.map((f) => (
         <div key={f.key} className="space-y-1">
           <Label>{f.label}</Label>
-          <PesoInput value={f.val} onChange={(v) => { f.set(v); setErrors((e) => ({ ...e, [f.key]: '' })); }} placeholder="0.00" />
+          <PesoInput value={f.val} onChange={(v) => { f.set(v); setErrors((e) => ({ ...e, [f.key]: '' })); commitField(f.ieKey, v); }} placeholder="0.00" />
           <p className="text-xs text-muted-foreground">{f.help}</p>
           {errors[f.key] && <p className="text-sm text-destructive">{errors[f.key]}</p>}
         </div>
@@ -121,7 +99,7 @@ export function WS07AItemizedExpenses({ data, onChange, onNext, onBack }: Props)
         <Label>Entertainment, meals, and representation expenses</Label>
         <PesoInput
           value={entertainmentRepresentation}
-          onChange={(v) => { setEntertainment(v); setErrors((e) => ({ ...e, entertainment: '' })); }}
+          onChange={(v) => { setEntertainment(v); setErrors((e) => ({ ...e, entertainment: '' })); commitField('entertainmentRepresentation', v); }}
           placeholder="0.00"
         />
         <p className="text-xs text-muted-foreground">
@@ -146,7 +124,7 @@ export function WS07AItemizedExpenses({ data, onChange, onNext, onBack }: Props)
         <Label>Home office expense (monthly rent or mortgage interest)</Label>
         <PesoInput
           value={homeOfficeExpense}
-          onChange={(v) => { setHomeOfficeExpense(v); setErrors((e) => ({ ...e, homeOffice: '' })); }}
+          onChange={(v) => { setHomeOfficeExpense(v); setErrors((e) => ({ ...e, homeOffice: '' })); commitField('homeOfficeExpense', v); }}
           placeholder="0.00"
         />
         <p className="text-xs text-muted-foreground">
@@ -164,7 +142,7 @@ export function WS07AItemizedExpenses({ data, onChange, onNext, onBack }: Props)
             <Switch
               id="home-office-exclusive"
               checked={homeOfficeExclusiveUse}
-              onCheckedChange={setHomeOfficeExclusiveUse}
+              onCheckedChange={(v) => { setHomeOfficeExclusiveUse(v); commitField('homeOfficeExclusiveUse', v); }}
             />
             <Label htmlFor="home-office-exclusive">
               Is this space used exclusively and regularly for business?
@@ -187,10 +165,6 @@ export function WS07AItemizedExpenses({ data, onChange, onNext, onBack }: Props)
         </div>
       )}
 
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Select,
@@ -16,8 +15,6 @@ import type { FilingPeriod } from '@/types/common';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 const TAX_YEARS = [
@@ -38,31 +35,11 @@ function deriveMode(data: Partial<WizardFormData>): 'ANNUAL' | 'QUARTERLY' | 'PE
   return 'ANNUAL';
 }
 
-export function WS03TaxYear({ data, onChange, onNext, onBack }: Props) {
+export function WS03TaxYear({ data, onChange }: Props) {
   const mode = deriveMode(data);
   const [taxYear, setTaxYear] = useState<number>(data.taxYear ?? 2025);
   const [filingPeriod, setFilingPeriod] = useState<FilingPeriod>(data.filingPeriod ?? 'ANNUAL');
   const [errors, setErrors] = useState<{ taxYear?: string; filingPeriod?: string }>({});
-
-  function handleNext() {
-    const errs: typeof errors = {};
-    if (!taxYear || taxYear < 2018 || taxYear > 2026) {
-      errs.taxYear = 'Please select a valid tax year between 2018 and 2026.';
-    }
-    if (mode === 'ANNUAL' && taxYear === 2026) {
-      errs.taxYear =
-        'You cannot file an Annual ITR for a year that has not yet ended. For quarterly returns in progress, select \'Quarterly Income Tax Return\' mode.';
-    }
-    if (!filingPeriod) {
-      errs.filingPeriod = 'Please select the filing period.';
-    }
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      return;
-    }
-    onChange({ taxYear, filingPeriod });
-    onNext?.();
-  }
 
   const quarterlyOptions: { value: FilingPeriod; label: string; due: string }[] = [
     { value: 'Q1', label: 'Q1 — January 1 through March 31', due: 'Due May 15' },
@@ -83,6 +60,7 @@ export function WS03TaxYear({ data, onChange, onNext, onBack }: Props) {
           onValueChange={(v) => {
             setTaxYear(Number(v));
             setErrors((e) => ({ ...e, taxYear: undefined }));
+            onChange({ taxYear: Number(v) });
           }}
         >
           <SelectTrigger id="tax-year">
@@ -135,6 +113,7 @@ export function WS03TaxYear({ data, onChange, onNext, onBack }: Props) {
               onValueChange={(v) => {
                 setFilingPeriod(v as FilingPeriod);
                 setErrors((e) => ({ ...e, filingPeriod: undefined }));
+                onChange({ filingPeriod: v as FilingPeriod });
               }}
               className="gap-2"
             >
@@ -161,10 +140,6 @@ export function WS03TaxYear({ data, onChange, onNext, onBack }: Props) {
         {errors.filingPeriod && <p className="text-sm text-destructive">{errors.filingPeriod}</p>}
       </div>
 
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

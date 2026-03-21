@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { PesoInput } from '@/components/shared/PesoInput';
 import type { WizardFormData } from '@/types/wizard';
@@ -8,15 +7,13 @@ import type { WizardFormData } from '@/types/wizard';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
-  onBack?: () => void;
 }
 
 function parseAmt(v: string): number {
   return parseFloat(v.replace(/,/g, '')) || 0;
 }
 
-export function WS13PriorYearCredits({ data, onChange, onNext, onBack }: Props) {
+export function WS13PriorYearCredits({ data, onChange }: Props) {
   const existingAmt = data.priorYearExcessCwt ?? '0.00';
   const [hasPriorCarryover, setHasPriorCarryover] = useState<boolean>(
     parseAmt(existingAmt) > 0
@@ -39,14 +36,6 @@ export function WS13PriorYearCredits({ data, onChange, onNext, onBack }: Props) 
     return true;
   }
 
-  function handleNext() {
-    if (!validate()) return;
-    onChange({
-      priorYearExcessCwt: hasPriorCarryover ? amount || '0.00' : '0.00',
-    });
-    onNext?.();
-  }
-
   return (
     <div className="space-y-6">
       <div>
@@ -65,6 +54,7 @@ export function WS13PriorYearCredits({ data, onChange, onNext, onBack }: Props) 
           onCheckedChange={(v) => {
             setHasPriorCarryover(v);
             setError('');
+            if (!v) onChange({ priorYearExcessCwt: '0.00' });
           }}
           className="mt-0.5"
         />
@@ -90,6 +80,7 @@ export function WS13PriorYearCredits({ data, onChange, onNext, onBack }: Props) 
             onChange={(v) => {
               setAmount(v);
               setError('');
+              onChange({ priorYearExcessCwt: v || '0.00' });
             }}
             placeholder="0.00"
           />
@@ -101,10 +92,6 @@ export function WS13PriorYearCredits({ data, onChange, onNext, onBack }: Props) 
         </div>
       )}
 
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }

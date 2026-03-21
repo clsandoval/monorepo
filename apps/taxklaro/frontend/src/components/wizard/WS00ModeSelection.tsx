@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import type { WizardFormData } from '@/types/wizard';
@@ -11,7 +10,6 @@ export type WizardMode = 'ANNUAL' | 'QUARTERLY' | 'PENALTY';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext?: () => void;
 }
 
 const MODE_OPTIONS: { value: WizardMode; title: string; description: string }[] = [
@@ -35,7 +33,7 @@ const MODE_OPTIONS: { value: WizardMode; title: string; description: string }[] 
   },
 ];
 
-export function WS00ModeSelection({ data, onChange, onNext }: Props) {
+export function WS00ModeSelection({ data, onChange }: Props) {
   const [selected, setSelected] = useState<WizardMode | null>(
     (data.filingPeriod === 'Q1' || data.filingPeriod === 'Q2' || data.filingPeriod === 'Q3')
       ? 'QUARTERLY'
@@ -43,24 +41,14 @@ export function WS00ModeSelection({ data, onChange, onNext }: Props) {
       ? 'ANNUAL'
       : null
   );
-  const [error, setError] = useState<string | null>(null);
 
   function handleSelect(value: WizardMode) {
     setSelected(value);
-    setError(null);
     if (value === 'ANNUAL') {
       onChange({ filingPeriod: 'ANNUAL' });
     } else if (value === 'QUARTERLY') {
       onChange({ filingPeriod: 'Q1' });
     }
-  }
-
-  function handleNext() {
-    if (!selected) {
-      setError("Please select what you'd like to compute.");
-      return;
-    }
-    onNext?.();
   }
 
   return (
@@ -97,11 +85,6 @@ export function WS00ModeSelection({ data, onChange, onNext }: Props) {
         ))}
       </RadioGroup>
 
-      {error && <p className="text-sm text-destructive">{error}</p>}
-
-      <div className="flex justify-end">
-        <Button onClick={handleNext} className="h-11 px-6">Continue</Button>
-      </div>
     </div>
   );
 }
