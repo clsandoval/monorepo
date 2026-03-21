@@ -9,8 +9,8 @@ interface ClientInfoCardProps {
 
 export function ClientInfoCard({ email, phone, tin, notes }: ClientInfoCardProps) {
   return (
-    <div className="rounded-xl bg-card shadow-sm p-6 space-y-4">
-      <h2 className="font-display text-lg font-normal text-muted-foreground">Client Information</h2>
+    <div className="rounded-xl bg-zinc-900 p-6 space-y-4">
+      <h2 className="text-lg font-normal text-zinc-400">Client Information</h2>
       <div className="divide-y">
         {email && (
           <div className="py-3 flex gap-4">

@@ -66,7 +66,7 @@ export function WS00ModeSelection({ data, onChange, onNext }: Props) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-display text-2xl font-normal">What would you like to compute?</h2>
+        <h2 className="text-2xl font-normal">What would you like to compute?</h2>
         <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">Choose the type of computation to get started.</p>
       </div>
 
@@ -83,14 +83,9 @@ export function WS00ModeSelection({ data, onChange, onNext }: Props) {
                 className={cn(
                   'transition-all duration-200',
                   selected === opt.value
-                    ? 'border-primary ring-2 ring-primary/20 bg-primary/5'
-                    : 'hover:border-primary/40'
+                    ? 'border-zinc-50 ring-2 ring-zinc-400/20 bg-zinc-800'
+                    : 'hover:border-zinc-600'
                 )}
-                style={{
-                  boxShadow: selected === opt.value
-                    ? 'var(--shadow-md)'
-                    : 'var(--shadow-sm)',
-                }}
               >
                 <CardContent className="p-5">
                   <div className="font-medium text-[0.9375rem]">{opt.title}</div>

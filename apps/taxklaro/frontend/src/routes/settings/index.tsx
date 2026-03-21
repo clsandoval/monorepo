@@ -67,7 +67,7 @@ function SettingsPage() {
 
   return (
     <CenteredColumn data-testid="settings-page" className="py-10">
-      <h1 className="font-display text-zinc-50 mb-10" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Settings</h1>
+      <h1 className="text-zinc-50 mb-10" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Settings</h1>
 
       <PersonalInfoSection
         fullName={user?.user_metadata?.full_name ?? ''}

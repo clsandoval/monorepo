@@ -27,7 +27,7 @@ export function OnboardingForm({ onCreateOrg }: OnboardingFormProps) {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
         <h1
-          className="font-display text-foreground"
+          className="text-zinc-50"
           style={{ fontSize: 'var(--text-h2)', lineHeight: 'var(--text-h2-lh)' }}
         >
           Create your firm

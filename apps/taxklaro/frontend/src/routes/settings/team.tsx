@@ -112,7 +112,7 @@ function SettingsTeamPage() {
 
   return (
     <CenteredColumn wide data-testid="settings-team-page" className="py-10">
-      <h1 className="font-display text-zinc-50 mb-10" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Team Management</h1>
+      <h1 className="text-zinc-50 mb-10" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Team Management</h1>
 
       {canInvite && <InviteMemberForm onInvite={handleInvite} />}
 

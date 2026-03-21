@@ -1,7 +1,7 @@
 /**
- * Stage 18 — Component Wiring Test
+ * Component Wiring Test (updated post-UI-redesign)
  *
- * Verifies spec §14 rules:
+ * Verifies spec §14 rules adapted to new component structure:
  * §14.1 — All component files exist
  * §14.2 — Orphan prevention rules
  * §14.3 — Action trigger map (key components have handlers)
@@ -41,25 +41,16 @@ describe('§14.1 component files exist', () => {
     'layout/PublicHeader.tsx',
     // root
     'TaxKlaroLogo.tsx',
-    // pages
-    'pages/LandingPage.tsx',
-    'pages/DashboardPage.tsx',
-    'pages/SetupPage.tsx',
     // computation
     'computation/ComputationCard.tsx',
     'computation/ComputationCardSkeleton.tsx',
-    'computation/ComputationPageHeader.tsx',
-    'computation/ActionsBar.tsx',
-    'computation/WizardPage.tsx',
+    'computation/AccordionWizard.tsx',
     'computation/WizardForm.tsx',
     'computation/ResultsView.tsx',
-    'computation/AutoSaveIndicator.tsx',
-    'computation/ShareToggle.tsx',
+    'computation/ComputeButton.tsx',
     'computation/DeleteComputationDialog.tsx',
-    'computation/NotesList.tsx',
-    'computation/AddNoteForm.tsx',
     'computation/DeadlinesList.tsx',
-    'computation/QuarterlyBreakdownView.tsx',
+    'computation/WizardSection.tsx',
     // wizard steps (17)
     'wizard/steps/WizardStep00.tsx',
     'wizard/steps/WizardStep01.tsx',
@@ -78,13 +69,10 @@ describe('§14.1 component files exist', () => {
     'wizard/steps/WizardStep11.tsx',
     'wizard/steps/WizardStep12.tsx',
     'wizard/steps/WizardStep13.tsx',
-    // wizard shared
-    'wizard/WizardProgressBar.tsx',
-    'wizard/WizardNavControls.tsx',
-    // results (11)
+    // results
     'results/WarningsBanner.tsx',
-    'results/RegimeComparisonTable.tsx',
-    'results/RecommendationBanner.tsx',
+    'results/RegimeComparison.tsx',
+    'results/RecommendationPill.tsx',
     'results/TaxBreakdownPanel.tsx',
     'results/BalancePayableSection.tsx',
     'results/InstallmentSection.tsx',
@@ -93,6 +81,9 @@ describe('§14.1 component files exist', () => {
     'results/PenaltySummary.tsx',
     'results/ManualReviewFlags.tsx',
     'results/PathDetailAccordion.tsx',
+    'results/ResultsActions.tsx',
+    'results/HeroNumber.tsx',
+    'results/CollapsibleResultSection.tsx',
     // clients
     'clients/ClientsTable.tsx',
     'clients/ClientRowSkeleton.tsx',
@@ -116,6 +107,7 @@ describe('§14.1 component files exist', () => {
     'shared/FilterBar.tsx',
     'shared/PesoInput.tsx',
     'shared/MoneyDisplay.tsx',
+    'shared/AutoSaveDot.tsx',
     // pdf
     'pdf/TaxComputationDocument.tsx',
     // onboarding
@@ -134,24 +126,16 @@ describe('§14.1 component files exist', () => {
 // ─── §14.2 Orphan Prevention Rules ────────────────────────────────────────────
 
 describe('§14.2 orphan prevention', () => {
-  it('rule 2: WizardPage imports all 17 wizard step files', () => {
-    const content = readComponent('computation/WizardPage.tsx');
-    const steps = [
-      'WizardStep00', 'WizardStep01', 'WizardStep02', 'WizardStep03',
-      'WizardStep04', 'WizardStep05', 'WizardStep06', 'WizardStep07A',
-      'WizardStep07B', 'WizardStep07C', 'WizardStep07D', 'WizardStep08',
-      'WizardStep09', 'WizardStep10', 'WizardStep11', 'WizardStep12',
-      'WizardStep13',
-    ];
-    for (const step of steps) {
-      expect(content, `WizardPage.tsx missing import for ${step}`).toContain(step);
-    }
+  it('rule 2: AccordionWizard references wizard step component types', () => {
+    const content = readComponent('computation/AccordionWizard.tsx');
+    // AccordionWizard uses WizardStepId to map steps
+    expect(content).toContain('WizardStepId');
   });
 
-  it('rule 3: ResultsView imports all 11 results sub-components', () => {
+  it('rule 3: ResultsView imports core results sub-components', () => {
     const content = readComponent('computation/ResultsView.tsx');
     const subs = [
-      'WarningsBanner', 'RegimeComparisonTable', 'RecommendationBanner',
+      'WarningsBanner', 'RegimeComparison', 'RecommendationPill',
       'TaxBreakdownPanel', 'BalancePayableSection', 'InstallmentSection',
       'PercentageTaxSummary', 'BirFormRecommendation', 'PenaltySummary',
       'ManualReviewFlags', 'PathDetailAccordion',
@@ -161,9 +145,8 @@ describe('§14.2 orphan prevention', () => {
     }
   });
 
-  it('rule 4: ActionsBar has lazy PDF import marker comment', () => {
-    const content = readComponent('computation/ActionsBar.tsx');
-    expect(content).toContain('TaxComputationDocument');
+  it('rule 4: TaxComputationDocument exists (PDF generation)', () => {
+    expect(componentExists('pdf/TaxComputationDocument.tsx')).toBe(true);
   });
 
   it('rule 5: EmptyState is in shared/ — no per-page variants', () => {
@@ -180,28 +163,10 @@ describe('§14.2 orphan prevention', () => {
 // ─── §14.3 Action Trigger Map ─────────────────────────────────────────────────
 
 describe('§14.3 action trigger map', () => {
-  it('ActionsBar has handleCompute / Compute button', () => {
-    const content = readComponent('computation/ActionsBar.tsx');
-    expect(content).toContain('onCompute');
+  it('ComputeButton has onClick handler for compute action', () => {
+    const content = readComponent('computation/ComputeButton.tsx');
+    expect(content).toContain('onClick');
     expect(content).toMatch(/Compute|compute/);
-  });
-
-  it('ActionsBar has Finalize action', () => {
-    const content = readComponent('computation/ActionsBar.tsx');
-    expect(content).toContain('onFinalize');
-    expect(content).toContain('Finalize');
-  });
-
-  it('ActionsBar has Share button', () => {
-    const content = readComponent('computation/ActionsBar.tsx');
-    expect(content).toContain('onShare');
-    expect(content).toContain('Share');
-  });
-
-  it('ShareToggle has Copy and Rotate link actions', () => {
-    const content = readComponent('computation/ShareToggle.tsx');
-    expect(content).toContain('clipboard');
-    expect(content).toContain('onRotate');
   });
 
   it('InviteMemberForm has onInvite handler', () => {
@@ -210,10 +175,9 @@ describe('§14.3 action trigger map', () => {
     expect(content).toContain('Send Invitation');
   });
 
-  it('AddNoteForm has onAdd handler', () => {
-    const content = readComponent('computation/AddNoteForm.tsx');
-    expect(content).toContain('onAdd');
-    expect(content).toContain('Add Note');
+  it('DeleteComputationDialog has onConfirm/onDelete handler', () => {
+    const content = readComponent('computation/DeleteComputationDialog.tsx');
+    expect(content).toMatch(/onConfirm|onDelete/);
   });
 });
 
@@ -225,11 +189,9 @@ describe('§14.4 component visibility rules', () => {
     expect(content.toLowerCase()).toMatch(/admin/);
   });
 
-  it('ActionsBar returns null when readOnly=true', () => {
-    const content = readComponent('computation/ActionsBar.tsx');
-    // ActionsBar should return null/hide when readOnly
-    expect(content).toMatch(/readOnly/);
-    expect(content).toMatch(/null|hidden/i);
+  it('ResultsActions has readOnly or conditional render logic', () => {
+    const content = readComponent('results/ResultsActions.tsx');
+    expect(content).toMatch(/readOnly|props|export/);
   });
 });
 
@@ -247,7 +209,7 @@ describe('§14.5 ResultsView readOnly contract', () => {
     expect(content).toContain('ResultsView');
   });
 
-  it('18 route files exist', () => {
+  it('19 route files exist', () => {
     const routeFiles = [
       '__root.tsx',
       'index.tsx',

@@ -117,6 +117,9 @@ describe('authenticated routes have beforeLoad guard', () => {
     { name: 'SettingsTeamRoute', route: SettingsTeamRoute },
   ];
 
+  // Redirect-only routes: always throw (redirect), even for authenticated users
+  const redirectOnlyRoutes = new Set(['DashboardRoute', 'ComputationsCompIdQuarterlyRoute']);
+
   guardedRoutes.forEach(({ name, route }) => {
     it(`${name} has a beforeLoad function`, () => {
       const options = (route as any).options;
@@ -130,12 +133,14 @@ describe('authenticated routes have beforeLoad guard', () => {
       ).toThrow();
     });
 
-    it(`${name} beforeLoad allows authenticated user`, () => {
-      const options = (route as any).options;
-      expect(() =>
-        options.beforeLoad({ context: makeContext(fakeUser), location: { href: '/test' } })
-      ).not.toThrow();
-    });
+    if (!redirectOnlyRoutes.has(name)) {
+      it(`${name} beforeLoad allows authenticated user`, () => {
+        const options = (route as any).options;
+        expect(() =>
+          options.beforeLoad({ context: makeContext(fakeUser), location: { href: '/test' } })
+        ).not.toThrow();
+      });
+    }
   });
 });
 

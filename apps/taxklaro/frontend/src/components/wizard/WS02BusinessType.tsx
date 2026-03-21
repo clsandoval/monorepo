@@ -85,7 +85,7 @@ export function WS02BusinessType({ data, onChange, onNext, onBack }: Props) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-display text-2xl font-normal">
+        <h2 className="text-2xl font-normal">
           What type of business or profession do you have?
         </h2>
       </div>
@@ -101,10 +101,10 @@ export function WS02BusinessType({ data, onChange, onNext, onBack }: Props) {
             <Label htmlFor={`biz-${opt.value}`} className="cursor-pointer block">
               <Card
                 className={cn(
-                  'transition-all duration-200 shadow-sm',
+                  'transition-all duration-200',
                   category === opt.value
-                    ? 'border-primary ring-2 ring-primary/20 bg-primary/5 shadow-md'
-                    : 'hover:border-primary/40 hover:shadow-md'
+                    ? 'border-zinc-50 ring-2 ring-zinc-400/20 bg-zinc-800'
+                    : 'hover:border-zinc-600'
                 )}
               >
                 <CardContent className="p-5">

@@ -144,7 +144,7 @@ function ComputationDetailPage() {
       <div className="flex items-start justify-between gap-4 mb-6">
         <div className="space-y-1.5 min-w-0">
           <h1
-            className="font-display text-zinc-50 truncate"
+            className="text-zinc-50 truncate"
             style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}
           >
             {computation.title || 'Untitled Computation'}

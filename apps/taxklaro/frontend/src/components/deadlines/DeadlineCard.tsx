@@ -45,11 +45,11 @@ export function DeadlineCard({ milestoneKey, dueDate, description, completed, co
 
   return (
     <div
-      className={`bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex ${getUrgencyClasses(dueDate, !!completed)} ${completed ? 'opacity-60' : ''}`}
+      className={`bg-zinc-900 rounded-lg transition-colors duration-200 overflow-hidden flex ${getUrgencyClasses(dueDate, !!completed)} ${completed ? 'opacity-60' : ''}`}
     >
       {/* Date column */}
       <div className="flex flex-col items-center justify-center px-4 py-4 min-w-[4rem] bg-muted/40 text-center">
-        <span className="font-display text-2xl leading-none text-foreground">{day}</span>
+        <span className="text-2xl leading-none text-zinc-50">{day}</span>
         <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide mt-0.5">{month}</span>
         <span className="text-xs text-muted-foreground">{year}</span>
       </div>
@@ -57,7 +57,7 @@ export function DeadlineCard({ milestoneKey, dueDate, description, completed, co
       {/* Content */}
       <div className="flex-1 px-4 py-4 space-y-1 min-w-0">
         <div className="flex items-start justify-between gap-2">
-          <p className="text-sm font-medium text-foreground leading-snug">{description ?? milestoneKey}</p>
+          <p className="text-sm font-medium text-zinc-50 leading-snug">{description ?? milestoneKey}</p>
           {completed ? (
             <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0 mt-0.5" />
           ) : urgencyLabel ? (

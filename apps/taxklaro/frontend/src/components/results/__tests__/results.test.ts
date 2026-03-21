@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 
 // Results sub-components
 import { WarningsBanner } from '@/components/results/WarningsBanner';
-import { RegimeComparisonTable } from '@/components/results/RegimeComparisonTable';
-import { RecommendationBanner } from '@/components/results/RecommendationBanner';
+import { RegimeComparison } from '@/components/results/RegimeComparison';
+import { RecommendationPill } from '@/components/results/RecommendationPill';
 import { TaxBreakdownPanel } from '@/components/results/TaxBreakdownPanel';
 import { BalancePayableSection } from '@/components/results/BalancePayableSection';
 import { InstallmentSection } from '@/components/results/InstallmentSection';
@@ -36,12 +36,12 @@ describe('Results component exports', () => {
     expect(typeof WarningsBanner).toBe('function');
   });
 
-  it('RegimeComparisonTable is a function', () => {
-    expect(typeof RegimeComparisonTable).toBe('function');
+  it('RegimeComparison is a function', () => {
+    expect(typeof RegimeComparison).toBe('function');
   });
 
-  it('RecommendationBanner is a function', () => {
-    expect(typeof RecommendationBanner).toBe('function');
+  it('RecommendationPill is a function', () => {
+    expect(typeof RecommendationPill).toBe('function');
   });
 
   it('TaxBreakdownPanel is a function', () => {

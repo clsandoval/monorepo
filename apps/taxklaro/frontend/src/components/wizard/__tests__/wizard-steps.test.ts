@@ -26,7 +26,6 @@ import {
   WS11RegimeElection,
   WS12FilingDetails,
   WS13PriorYearCredits,
-  WizardReview,
 } from '@/components/wizard';
 import type { WizardMode } from '@/components/wizard/WS00ModeSelection';
 import type { BusinessCategory } from '@/components/wizard/WS02BusinessType';
@@ -649,9 +648,6 @@ describe('Stage 11 wizard step component exports', () => {
     expect(typeof WS13PriorYearCredits).toBe('function');
   });
 
-  it('WizardReview is a function', () => {
-    expect(typeof WizardReview).toBe('function');
-  });
 });
 
 // ============================================================================
@@ -960,10 +956,6 @@ describe('WS13 prior year credits — DEFAULT_WIZARD_DATA', () => {
 // ============================================================================
 
 describe('WizardReview step', () => {
-  it('WizardReview is a function', () => {
-    expect(typeof WizardReview).toBe('function');
-  });
-
   it('DEFAULT_WIZARD_DATA has returnType field', async () => {
     const { DEFAULT_WIZARD_DATA } = await import('@/types/wizard');
     expect(DEFAULT_WIZARD_DATA).toHaveProperty('returnType');

@@ -76,7 +76,7 @@ export function WS06ExpenseMethod({ data, onChange, onNext, onBack }: Props) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-display text-2xl font-normal">
+        <h2 className="text-2xl font-normal">
           How would you like to handle your business expenses?
         </h2>
         <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
@@ -99,10 +99,10 @@ export function WS06ExpenseMethod({ data, onChange, onNext, onBack }: Props) {
             <Label htmlFor={`expense-${opt.value}`} className="cursor-pointer block">
               <Card
                 className={cn(
-                  'transition-all duration-200 shadow-sm',
+                  'transition-all duration-200',
                   method === opt.value
-                    ? 'border-primary ring-2 ring-primary/20 bg-primary/5 shadow-md'
-                    : 'hover:border-primary/40 hover:shadow-md'
+                    ? 'border-zinc-50 ring-2 ring-zinc-400/20 bg-zinc-800'
+                    : 'hover:border-zinc-600'
                 )}
               >
                 <CardContent className="p-5">
