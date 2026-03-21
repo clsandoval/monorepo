@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 314
-- **Pending:** 199
-- **Convergence:** 61.2%
+- **Analyzed:** 315
+- **Pending:** 198
+- **Convergence:** 61.4%
 
 ---
 
@@ -161,9 +161,9 @@
 ### Combo Discovery / Deckbuilding Games
 - [x] 1.09 — Slay the Spire: combo discovery, synergy between cards, run structure, ascension difficulty
 - [x] 1.09a — The "drawback as fuel" cross-agent pattern: deliberately designing hook/skill drawbacks (EM emissions, buffer pollution, processing delay) that become triggers or resources for other agents; Slay the Spire's Wild Strike + Evolve as template; the combinatorial space of "my weakness is your strength" agent pairings
-- [ ] 1.09b — The skip-as-power principle for slot allocation: how Robot Uprising communicates that empty hook/rule/skill slots are sometimes optimal; visual language for deliberate emptiness vs. unfilled potential; Slay the Spire's deck thinning as reference model for "less is more" in agent configuration
+- [x] 1.09b — The skip-as-power principle for slot allocation: how Robot Uprising communicates that empty hook/rule/skill slots are sometimes optimal; visual language for deliberate emptiness vs. unfilled potential; Slay the Spire's deck thinning as reference model for "less is more" in agent configuration
 - [x] 1.09c — Cumulative Gauntlet modifiers as skill teachers: designing 15-20 specific Gauntlet difficulty modifiers where each one teaches a defensive technique (wider enemy perception → stealth design, pre-filled noise → eviction mastery, channel pollution → authentication, latency increase → loose coupling); Slay the Spire Ascension as template
-- [ ] 1.09d — Near-miss visibility as retention engine: how the Inspector must surface "the one configuration change that would have changed the outcome" to create Slay the Spire's "I was SO close" psychology; the difference between "you lost" and "you lost because Rule 3 evaluated stale data from tick 12"
+- [x] 1.09d — Near-miss visibility as retention engine: how the Inspector must surface "the one configuration change that would have changed the outcome" to create Slay the Spire's "I was SO close" psychology; the difference between "you lost" and "you lost because Rule 3 evaluated stale data from tick 12"
 - [x] 1.09e — Slay the Spire 2 co-op design lessons: how the sequel's cooperative multiplayer (shared run with distinct roles) maps to Robot Uprising co-op models; 3M copies in one week as market validation for cooperative deckbuilder-adjacent design; what changed from solo to co-op and what broke
 - [x] 1.10 — The Bazaar: real-time autobattler deckbuilding, item synergies, economic meta
   - [ ] 1.10a — The Bazaar's adjacency-first synergy vs. Robot Uprising's topology-first synergy: deep comparison of 1D positional synergy (adjacency on a line) vs. 2D+temporal synergy (spatial positioning + signal latency); which creates more memorable discovery moments; which is more accessible; can Robot Uprising borrow instant-feedback adjacency effects
@@ -296,12 +296,12 @@
 - [x] 2.01a — Buffer insertion order as hidden complexity: deterministic but opaque ordering of simultaneous arrivals (clockwise observations, alphabetical channels); should this be visible/configurable? What happens when renaming a channel changes insertion priority?
 - [x] 2.01b — Transit eviction in multi-hop chains: signals that arrive at a Relay and are evicted before compression can process them; "data dies in transit" problem; how common is this? Core tension or degenerate edge case?
 - [x] 2.01c — Empty buffer slots as strategic signal: half-empty buffers indicate information starvation; can the player deliberately engineer buffer headroom ("always keep 2 slots free for emergency signals") as a strategy?
-- [ ] 2.01d — Buffer health as spectator readability tool: buffer bars as the "health bars" of information architecture for streamers/esports; design implications for casting vocabulary and overlay design
+- [x] 2.01d — Buffer health as spectator readability tool: buffer bars as the "health bars" of information architecture for streamers/esports; design implications for casting vocabulary and overlay design
 - [ ] 2.01e — Polling-vs-event-driven tradeoff in buffer management: heartbeat (polling) vs. pure event-driven hooks; the game naturally teaches both patterns through buffer pressure; formal analysis of when each approach is optimal
 
 ### Eviction Policies
 - [x] 2.06 — Player-configured eviction: drag to set priority order of what gets kept
-- [ ] 2.07 — Automatic eviction with player-set rules: "always keep threat data, evict terrain first"
+- [x] 2.07 — Automatic eviction with player-set rules: "always keep threat data, evict terrain first"
 - [ ] 2.08 — Panic eviction: under pressure, buffer dumps aggressively — unit "forgets" rapidly
 - [ ] 2.09 — Sticky memories: some entries are "pinned" and never evict (costs permanent capacity)
 
@@ -390,12 +390,12 @@
 - [ ] 3.10f — Visualization density scaling across the 10-mission arc: 2 units/0 channels (M1) to 12+ units/8+ channels (M10); paradigm breakdown thresholds; progressive disclosure gates
 - [x] 3.11 — Hooks UI: how does the player create and manage hooks?
 - [x] 3.11a — Hook template presets per unit type: should each unit type come with pre-suggested hooks? How do presets help onboarding without limiting creativity?
-- [ ] 3.11b — The "dead hook" diagnostic: when a hook has fired 0 times in the last N executes, should the Inspector flag it as misconfigured? Amber warning on unused hooks
+- [x] 3.11b — The "dead hook" diagnostic: when a hook has fired 0 times in the last N executes, should the Inspector flag it as misconfigured? Amber warning on unused hooks
 - [ ] 3.11c — Hook copy-paste between blueprints: channel names carry over, but trigger availability may differ by unit type; handling incompatible triggers on paste
 - [ ] 3.11d — Channel subscriber count as competitive intelligence: can the opponent estimate your channel count from EM emissions? EM footprint surfaced in hooks UI as you add hooks
 - [ ] 3.11e — Expert keyboard workflow for hook wiring: Ctrl+H to add hook, Tab between fields, Enter to confirm, Ctrl+Up/Down to reorder; full mouseless speedrun
 - [x] 3.08a — Trigger-to-rule vocabulary alignment: should triggers and rules use the same condition primitives (shared vocabulary reduces learning cost) or distinct vocabularies (independent evolution)?
-- [ ] 3.08b — Channel naming conventions as emergent culture: standard channel libraries, community naming conventions, competitive meta around channel naming
+- [x] 3.08b — Channel naming conventions as emergent culture: standard channel libraries, community naming conventions, competitive meta around channel naming
 - [ ] 3.08c — Hook slot economy as strategic constraint: choosing which hooks to install when you have more ideas than slots; slot scarcity as design pressure
 - [ ] 3.08d — Trigger evaluation order within a single tick: simultaneous vs. sequential evaluation when multiple hooks match; can one hook's firing affect another hook's trigger?
 - [ ] 3.08e — Hook inheritance and blueprint templates: blueprint-level hook loadouts, instance-specific vs. shared channels when cloning units from the same blueprint
@@ -455,8 +455,8 @@
 - [x] 4.04a — Debrief as debugger: step-through replay of execution with per-agent state, buffer contents, and hook activation — the primary teaching mechanic, not just a stats screen
 - [x] 4.15 — The probe hook as first-class debugging primitive: how probes are created, what they cost, how debrief surfaces output, whether they auto-strip before Gauntlet deploy; "always-be-observable" as a designed game mechanic
 - [x] 4.16 — Signal genealogy as visualization: the full network graph of signal propagation across all agents for a given tick range; legibility at 5 vs. 15 agents; comparable: network traffic analyzers, dependency trees, call graphs in profilers
-- [ ] 4.12 — The spawn genealogy tree: how the debrief visualizes which agents spawned which, cycle-by-cycle ancestry; what information to show per spawn event (inherited buffer snapshot, spawn trigger cause, fabrication cost consumed, whether the spawn was a hook consequence or skill consequence)
-- [ ] 4.13 — Latency visualization as primary diagnostic: signal age at time of action overlay in debrief — each agent action annotated with age of most recent signal that influenced it; fresh = bright, stale = dimmed; teaches that deeper architectures carry older intelligence
+- [x] 4.12 — The spawn genealogy tree: how the debrief visualizes which agents spawned which, cycle-by-cycle ancestry; what information to show per spawn event (inherited buffer snapshot, spawn trigger cause, fabrication cost consumed, whether the spawn was a hook consequence or skill consequence)
+- [x] 4.13 — Latency visualization as primary diagnostic: signal age at time of action overlay in debrief — each agent action annotated with age of most recent signal that influenced it; fresh = bright, stale = dimmed; teaches that deeper architectures carry older intelligence
 - [ ] 4.17 — Match duration as diagnostic indicator in debrief analytics: win-rate bucketed by match duration (sub-50 / 50-90 / 90+); allows players to identify early-game vs. mid/late-game losses; the tactical self-coaching tool; how to make this legible without turning the game into a spreadsheet
 - [ ] 4.14 — The scenario parameter panel: a pre-execution panel showing what varies in the 100 test cases (ranges, distributions, variable types) so players can reason about edge cases before configuring; whether to show always or unlock via a "tactical briefing" skill
 - [x] 4.10 — Config integrity as a persistent resource: the "integrity %" as a cross-mission resource; some missions degrade it more, repair actions restore it; trade-off between speed and thoroughness of pre-mission audits; does low integrity persist into next mission if unaddressed?
@@ -620,7 +620,7 @@
 - [x] 5.20 — Always-on anxiety vs. self-contained missions: Screeps World's 24/7 persistence creates ownership feeling but also "vacation death" anxiety (base destroyed while offline); Robot Uprising's mission structure eliminates anxiety but loses persistence fantasy; what compensatory design choices restore the ownership feeling? Named units? Between-mission camp state? Campaign memory?
 - [ ] 5.21 — Open-source architecture as community mechanic: Screeps' culture of publishing full bot code on GitHub + writing architectural blog posts is a deliberately-designed community mechanic; what's the Robot Uprising equivalent? Exportable agent configs, shareable hook wiring diagrams, community config repositories?
 - [x] 5.22 — The Gauntlet as a third act: structuring the game as three acts — campaign (learn mechanics), advanced campaign (develop robustness), Gauntlet (prove against infinite adversarial creativity); the Gauntlet as designed destination, not optional appendage; how campaign's final cutscene/mission opens the Gauntlet and what that transition feels like
-- [ ] 5.22a — Multi-round mission retry granularity: when a player fails Round 3 of 5, do they restart from Round 1 or retry Round 3? Round-level checkpointing vs. mission-level reset; how retry granularity affects emotional stakes and learning speed; the "I have to redo rounds I already passed" frustration vs. the "context from earlier rounds matters" argument
+- [x] 5.22a — Multi-round mission retry granularity: when a player fails Round 3 of 5, do they restart from Round 1 or retry Round 3? Round-level checkpointing vs. mission-level reset; how retry granularity affects emotional stakes and learning speed; the "I have to redo rounds I already passed" frustration vs. the "context from earlier rounds matters" argument
 - [ ] 5.22b — Gauntlet ELO calibration match design: the first 5 Gauntlet matches are calibration — how the game communicates this, whether the player knows their rating is being determined, whether calibration matches feel different from regular matches; the "placement anxiety" problem from League of Legends/Overwatch applied to architecture design
 - [x] 5.20a — Boot log as session resume mechanism: the boot log's "operator last active" summary as a diegetic save-state recap; how much context to surface, how to handle multi-day gaps vs. same-day returns, whether the boot log's tone changes based on gap length
 - [ ] 5.20b — Architect Profile archetype design: the full set of architectural style archetypes (Switchboard Operator, Sniper, Sentinel, etc.); how many, how they're computed, how they change over the campaign, whether they're visible to other players
@@ -756,7 +756,7 @@
 - [x] 7.11a — The Pulse as spectator broadcast overlay: heartbeat line and stomp index displayed during tournament streams; casters reference it to contextualize matches; the overlay as meta-literacy tool for casual viewers
 - [x] 7.11b — Duration-based matchmaking weighting: using average match duration as a matchmaking factor (pairing rush vs. rush, macro vs. macro at same rating); "play style ELO"; risk of meta echo chambers vs. experience quality
 - [x] 7.11c — Historical Pulse archive as community memory: full season-by-season Pulse data archive as "Meta History Museum"; scrubbing through past seasons; educational tool and competitive intelligence resource
-- [ ] 7.11d — Anomaly detection for meta-breaking discoveries: rate-of-change in duration metrics to detect sudden shifts indicating a broken discovery; "the spike detector"; auto-flagging configs at inflection points for designer review
+- [x] 7.11d — Anomaly detection for meta-breaking discoveries: rate-of-change in duration metrics to detect sudden shifts indicating a broken discovery; "the spike detector"; auto-flagging configs at inflection points for designer review
 - [ ] 7.11e — Per-tier Pulse decomposition: separate Pulse dashboards per ranked tier (Bronze through Diamond); tier-specific metas differ; prevents population-level averages from hiding tier-specific problems; comparable to LoL rank-stratified balance
 - [x] 7.10 — The "config necropsy" as community artifact: a community practice where high-Elo players post config evolution retrospectives ("here's v1, here's the attack that broke it, here's v5"); designing the infrastructure to make this easy — version history export, annotatable replay sharing, readable config diff views
 - [x] 7.07 — Three orthogonal optimization axes: speed / efficiency / elegance as genuinely in-tension post-mission goals; a cycle-optimal army config and a buffer-minimal config should require different approaches
