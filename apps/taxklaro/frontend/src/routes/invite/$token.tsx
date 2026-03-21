@@ -72,12 +72,12 @@ function InvitePage() {
 
   if (invite === undefined) {
     return (
-      <div className="min-h-screen bg-zinc-950" data-testid="invite-page">
+      <div className="min-h-screen bg-background" data-testid="invite-page">
         <PublicHeader />
         <div className="flex items-center justify-center p-4 pt-16">
           <div className="w-full max-w-sm space-y-4">
-            <Skeleton className="h-8 w-48 mx-auto bg-zinc-800" />
-            <Skeleton className="h-32 w-full bg-zinc-800" />
+            <Skeleton className="h-8 w-48 mx-auto" />
+            <Skeleton className="h-32 w-full" />
           </div>
         </div>
       </div>
@@ -86,14 +86,14 @@ function InvitePage() {
 
   if (invite === null) {
     return (
-      <div className="min-h-screen bg-zinc-950" data-testid="invite-page">
+      <div className="min-h-screen bg-background" data-testid="invite-page">
         <PublicHeader />
         <div className="flex items-center justify-center p-4 pt-16">
           <div className="text-center space-y-3">
-            <h1 className="text-lg font-semibold text-zinc-50">Invitation Not Found</h1>
-            <p className="text-sm text-zinc-500">This invitation link is invalid or has expired.</p>
+            <h1 className="text-lg font-semibold text-foreground">Invitation Not Found</h1>
+            <p className="text-sm text-muted-foreground">This invitation link is invalid or has expired.</p>
             <button
-              className="mt-2 text-sm text-zinc-400 hover:text-zinc-200 transition-colors"
+              className="mt-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
               onClick={() => navigate({ to: '/auth', search: { redirect: '/', mode: 'signin' } })}
             >
               Sign In
@@ -113,10 +113,10 @@ function InvitePage() {
       <div className="flex items-center justify-center p-4 pt-16">
         <div className="w-full max-w-sm">
           <div className="text-center mb-8 space-y-1">
-            <h1 className="text-lg font-semibold text-zinc-50">You're Invited</h1>
-            <p className="text-sm text-zinc-500">
-              Join <span className="text-zinc-300 font-medium">{invite.orgName}</span> as a{' '}
-              <span className="text-zinc-300 font-medium capitalize">{invite.role}</span>.
+            <h1 className="text-lg font-semibold text-foreground">You're Invited</h1>
+            <p className="text-sm text-muted-foreground">
+              Join <span className="text-gray-700 font-medium">{invite.orgName}</span> as a{' '}
+              <span className="text-gray-700 font-medium capitalize">{invite.role}</span>.
             </p>
           </div>
 
@@ -132,14 +132,14 @@ function InvitePage() {
 
           <div className="space-y-3">
             <button
-              className="w-full h-11 rounded-lg bg-zinc-50 px-4 text-sm font-medium text-zinc-900 hover:bg-zinc-200 transition-colors disabled:opacity-50"
+              className="w-full h-11 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50"
               onClick={handleAccept}
               disabled={isAccepting || isExpired || isUsed}
             >
               {isAccepting ? 'Accepting...' : 'Accept Invite'}
             </button>
             <button
-              className="w-full text-sm text-zinc-500 hover:text-zinc-300 transition-colors py-2"
+              className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
               onClick={() => navigate({ to: '/auth', search: { redirect: '/', mode: 'signin' } })}
             >
               Decline

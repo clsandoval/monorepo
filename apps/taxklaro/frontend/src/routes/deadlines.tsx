@@ -154,7 +154,7 @@ function DeadlinesPage() {
         <h1 className="text-2xl font-semibold mb-6">Deadlines</h1>
         <div className="flex flex-col gap-px rounded-md overflow-hidden">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-14 bg-zinc-900/50 animate-pulse" />
+            <div key={i} className="h-14 bg-gray-100/50 animate-pulse" />
           ))}
         </div>
       </CenteredColumn>
@@ -173,9 +173,9 @@ function DeadlinesPage() {
       ) : (
         <>
           <section className="mb-8">
-            <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-3">Upcoming</h2>
+            <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">Upcoming</h2>
             {upcoming.length === 0 ? (
-              <p className="text-sm text-zinc-600">All deadlines completed.</p>
+              <p className="text-sm text-muted-foreground">All deadlines completed.</p>
             ) : (
               <div className="flex flex-col gap-px rounded-md overflow-hidden">
                 {upcoming.map((d) => (
@@ -185,7 +185,7 @@ function DeadlinesPage() {
                     subtitle={`Due ${formatDueDate(d.dueDate)} · ${d.computationTitles.join(', ')}`}
                     className={d.isUrgent ? 'bg-red-500/5 border border-red-500/10' : undefined}
                     rightContent={
-                      <span className={`text-xs ml-4 shrink-0 ${d.isUrgent ? 'text-red-400' : 'text-zinc-600'}`}>
+                      <span className={`text-xs ml-4 shrink-0 ${d.isUrgent ? 'text-red-600' : 'text-muted-foreground'}`}>
                         {formatDueDate(d.dueDate)}
                       </span>
                     }
@@ -196,9 +196,9 @@ function DeadlinesPage() {
           </section>
 
           <section>
-            <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-3">Completed</h2>
+            <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">Completed</h2>
             {completed.length === 0 ? (
-              <p className="text-sm text-zinc-600">No completed deadlines yet.</p>
+              <p className="text-sm text-muted-foreground">No completed deadlines yet.</p>
             ) : (
               <div className="flex flex-col gap-px rounded-md overflow-hidden opacity-60">
                 {completed.map((d) => (
@@ -207,7 +207,7 @@ function DeadlinesPage() {
                     title={d.description}
                     subtitle={`Due ${formatDueDate(d.dueDate)} · ${d.computationTitles.join(', ')}`}
                     rightContent={
-                      <span className="text-xs text-zinc-600 ml-4 shrink-0">✓</span>
+                      <span className="text-xs text-muted-foreground ml-4 shrink-0">✓</span>
                     }
                   />
                 ))}

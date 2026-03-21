@@ -84,7 +84,7 @@ function SettingsTeamPage() {
   if (isLoading) {
     return (
       <div data-testid="settings-team-page" className="flex items-center justify-center min-h-[40vh]">
-        <p className="text-zinc-500">Loading team…</p>
+        <p className="text-muted-foreground">Loading team…</p>
       </div>
     );
   }
@@ -112,12 +112,12 @@ function SettingsTeamPage() {
 
   return (
     <CenteredColumn wide data-testid="settings-team-page" className="py-10">
-      <h1 className="text-zinc-50 mb-10" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Team Management</h1>
+      <h1 className="text-foreground mb-10" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Team Management</h1>
 
       {canInvite && <InviteMemberForm onInvite={handleInvite} />}
 
       <section>
-        <p className="text-[11px] uppercase tracking-wide text-zinc-500 mb-4">Members</p>
+        <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-4">Members</p>
         <div className="mb-8">
           <MembersTable
             members={members}
@@ -128,7 +128,7 @@ function SettingsTeamPage() {
       </section>
 
       <section>
-        <p className="text-[11px] uppercase tracking-wide text-zinc-500 mb-4">Pending Invitations</p>
+        <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-4">Pending Invitations</p>
         <PendingInvitationsTable
           invitations={invitations}
           onRevoke={canInvite ? handleRevokeInvitation : undefined}

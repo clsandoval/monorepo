@@ -26,18 +26,18 @@ function SharePage() {
 
   if (data === undefined) {
     return (
-      <div className="min-h-screen bg-zinc-950">
+      <div className="min-h-screen bg-background">
         <PublicHeader label="Shared Computation" />
         <div className="max-w-4xl mx-auto py-10 px-4 space-y-6">
           <div className="space-y-2">
-            <Skeleton className="h-7 w-56 bg-zinc-800" />
-            <Skeleton className="h-4 w-40 bg-zinc-800" />
+            <Skeleton className="h-7 w-56" />
+            <Skeleton className="h-4 w-40" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="rounded-xl bg-zinc-900 border border-zinc-800 p-5 space-y-3">
-                <Skeleton className="h-5 w-1/2 bg-zinc-800" />
-                <Skeleton className="h-8 w-3/4 bg-zinc-800" />
+              <div key={i} className="rounded-xl bg-gray-50 border border-border p-5 space-y-3">
+                <Skeleton className="h-5 w-1/2" />
+                <Skeleton className="h-8 w-3/4" />
               </div>
             ))}
           </div>
@@ -48,7 +48,7 @@ function SharePage() {
 
   if (data === null) {
     return (
-      <div className="min-h-screen bg-zinc-950">
+      <div className="min-h-screen bg-background">
         <PublicHeader label="Shared Computation" />
         <div className="flex items-center justify-center py-20 px-4">
           <SharedComputationNotFound />
@@ -63,8 +63,8 @@ function SharePage() {
 
       <div className="max-w-4xl mx-auto py-10 px-4 space-y-6">
         <div className="space-y-1">
-          <h1 className="text-2xl font-bold text-zinc-50">{data.title}</h1>
-          <p className="text-sm text-zinc-500">
+          <h1 className="text-2xl font-bold text-foreground">{data.title}</h1>
+          <p className="text-sm text-muted-foreground">
             Tax Year {data.taxYear} · Shared by {data.orgName}
           </p>
         </div>
@@ -74,7 +74,7 @@ function SharePage() {
             readOnly={true}
           />
         ) : (
-          <p className="text-zinc-500">No computation results available.</p>
+          <p className="text-muted-foreground">No computation results available.</p>
         )}
       </div>
     </div>

@@ -24,7 +24,7 @@ function SettingsPage() {
   if (isLoading) {
     return (
       <div data-testid="settings-page" className="flex items-center justify-center min-h-[40vh]">
-        <p className="text-zinc-500">Loading settings…</p>
+        <p className="text-muted-foreground">Loading settings…</p>
       </div>
     );
   }
@@ -67,7 +67,7 @@ function SettingsPage() {
 
   return (
     <CenteredColumn wide data-testid="settings-page" className="py-10">
-      <h1 className="text-zinc-50 mb-10" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Settings</h1>
+      <h1 className="text-foreground mb-10" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Settings</h1>
 
       <PersonalInfoSection
         fullName={user?.user_metadata?.full_name ?? ''}

@@ -12,18 +12,18 @@ interface ListRowProps {
 export function ListRow({ title, subtitle, onClick, className, children, rightContent }: ListRowProps) {
   return (
     <div
-      className={cn('flex items-center justify-between px-4 py-3 bg-zinc-900/50 cursor-pointer hover:bg-zinc-900', className)}
+      className={cn('flex items-center justify-between px-4 py-3 bg-gray-50 cursor-pointer hover:bg-gray-100', className)}
       onClick={onClick}
       role={onClick ? 'button' : undefined}
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') onClick() } : undefined}
     >
       <div className="min-w-0">
-        <div className="text-sm font-medium text-zinc-50 truncate">{title}</div>
-        {subtitle && <div className="text-xs text-zinc-500 mt-0.5 truncate">{subtitle}</div>}
+        <div className="text-sm font-medium text-foreground truncate">{title}</div>
+        {subtitle && <div className="text-xs text-muted-foreground mt-0.5 truncate">{subtitle}</div>}
         {children}
       </div>
-      {rightContent ?? <span className="text-xs text-zinc-600 ml-4 shrink-0">›</span>}
+      {rightContent ?? <span className="text-xs text-muted-foreground ml-4 shrink-0">›</span>}
     </div>
   )
 }

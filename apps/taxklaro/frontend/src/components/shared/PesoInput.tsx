@@ -13,7 +13,7 @@ interface PesoInputProps {
 export function PesoInput({ value, onChange, placeholder = '0.00', disabled, className, id }: PesoInputProps) {
   return (
     <div className={cn('relative', className)}>
-      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">₱</span>
+      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">₱</span>
       <Input
         id={id}
         type="text"
@@ -22,7 +22,7 @@ export function PesoInput({ value, onChange, placeholder = '0.00', disabled, cla
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         disabled={disabled}
-        className="pl-7 h-11 bg-zinc-900 border-zinc-700 text-zinc-50 placeholder:text-zinc-600 focus-visible:ring-zinc-600"
+        className="pl-7 h-11"
       />
     </div>
   )
