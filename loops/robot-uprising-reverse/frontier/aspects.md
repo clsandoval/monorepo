@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 294
-- **Pending:** 219
-- **Convergence:** 57.3%
+- **Analyzed:** 295
+- **Pending:** 218
+- **Convergence:** 57.5%
 
 ---
 
@@ -407,7 +407,7 @@
   - [ ] 3.12c — Context config A/B testing between executes: "Compare Configs" mode running same scenario with two context configs side by side
   - [ ] 3.12d — Context config templates per unit type: default configs (scout high-observations, relay high-channel, command high-priority) as starting points; interaction with Progressive Lens and onboarding
   - [ ] 3.12e — "Attention budget" as first-class resource metric: total information processing bandwidth across all units displayed in production queue alongside minerals and energy
-- [ ] 3.13 — Context config presets vs. custom: pre-built configs for beginners, full control for veterans?
+- [x] 3.13 — Context config presets vs. custom: pre-built configs for beginners, full control for veterans?
 
 - [x] 3.01a — Skill parameterization depth: binary on/off vs. 1-3 slider parameters vs. fully configurable behavior curves per skill; impact on workbench complexity and mastery ceiling
 - [x] 3.01b — Passive vs. active skill distinction: some skills fire automatically (evade, engage), others require rule triggers (compress, reassign); should this be formalized in UI? Mental model implications
