@@ -14,9 +14,6 @@ import { ComputationsIndexRoute } from './routes/computations/index';
 import { ComputationsNewRoute } from './routes/computations/new';
 import { ComputationsCompIdRoute } from './routes/computations/$compId';
 import { ComputationsCompIdQuarterlyRoute } from './routes/computations/$compId.quarterly';
-import { ClientsIndexRoute } from './routes/clients/index';
-import { ClientsNewRoute } from './routes/clients/new';
-import { ClientsClientIdRoute } from './routes/clients/$clientId';
 import { DeadlinesRoute } from './routes/deadlines';
 import { SettingsIndexRoute } from './routes/settings/index';
 import { SettingsTeamRoute } from './routes/settings/team';
@@ -39,9 +36,6 @@ const routeTree = rootRoute.addChildren([
     ComputationsNewRoute,
     ComputationsCompIdRoute,
     ComputationsCompIdQuarterlyRoute,
-    ClientsIndexRoute,
-    ClientsNewRoute,
-    ClientsClientIdRoute,
     DeadlinesRoute,
     SettingsIndexRoute,
     SettingsTeamRoute,

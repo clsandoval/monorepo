@@ -71,7 +71,7 @@ function ComputationsPage() {
 
   if (isLoading) {
     return (
-      <CenteredColumn>
+      <CenteredColumn fluid>
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-semibold">Computations</h1>
         </div>
@@ -86,7 +86,7 @@ function ComputationsPage() {
 
   if (error) {
     return (
-      <CenteredColumn>
+      <CenteredColumn fluid>
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-semibold">Computations</h1>
           <Button onClick={() => navigate({ to: '/computations/new' })}>+ New</Button>
@@ -101,7 +101,7 @@ function ComputationsPage() {
   }
 
   return (
-    <CenteredColumn>
+    <CenteredColumn fluid>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold">Computations</h1>
         <Button onClick={() => navigate({ to: '/computations/new' })}>+ New</Button>

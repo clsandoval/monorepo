@@ -138,33 +138,6 @@ describe('ComputationCardSkeleton.tsx (§8.5.15)', () => {
   });
 });
 
-describe('ClientRowSkeleton.tsx (§8.5.15)', () => {
-  it('file exists', () => {
-    expect(componentExists('clients/ClientRowSkeleton.tsx')).toBe(true);
-  });
-
-  const content = readComponent('clients/ClientRowSkeleton.tsx');
-
-  it('<tr> element has border-b class (anti-scaffolding §8.5.15)', () => {
-    expect(content).toContain('<tr');
-    expect(content).toContain('border-b');
-  });
-
-  it('is NOT a bare <tr> — has className attribute', () => {
-    // Must have className="border-b" not just <tr>
-    expect(content).toMatch(/<tr\s+className=/);
-  });
-
-  it('contains 5 <td> cells matching spec', () => {
-    const tdMatches = content.match(/<td/g) ?? [];
-    expect(tdMatches.length).toBe(5);
-  });
-
-  it('uses Skeleton primitive in each cell', () => {
-    expect(content).toContain('Skeleton');
-  });
-});
-
 // ─── §8.5.11 SharedComputationNotFound ───────────────────────────────────────
 
 describe('SharedComputationNotFound.tsx (§8.5.11)', () => {

@@ -1,7 +1,7 @@
 import { createRootRouteWithContext, createRoute, Outlet } from '@tanstack/react-router';
 import { Toaster } from 'sonner';
 import type { User } from '@supabase/supabase-js';
-import { TopBar } from '../components/layout/TopBar';
+import { Sidebar } from '../components/layout/Sidebar';
 import { SaveStatusProvider } from '../lib/save-status-context';
 
 export interface RouterContext {
@@ -31,17 +31,19 @@ export const publicRootRoute = createRoute({
 function AuthenticatedLayout() {
   return (
     <SaveStatusProvider>
-      <div className="flex flex-col h-screen bg-zinc-950 text-zinc-50">
-        <TopBar />
-        <main className="flex-1 overflow-y-auto py-10">
-          <Outlet />
-        </main>
+      <div className="flex h-screen bg-zinc-950 text-zinc-50">
+        <Sidebar />
+        <div className="flex flex-col flex-1 min-w-0">
+          <main className="flex-1 overflow-y-auto py-10">
+            <Outlet />
+          </main>
+        </div>
       </div>
     </SaveStatusProvider>
   );
 }
 
-// Authenticated sub-root: wraps all app routes behind TopBar
+// Authenticated sub-root: wraps all app routes behind Sidebar
 export const authenticatedRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: 'authenticated',
