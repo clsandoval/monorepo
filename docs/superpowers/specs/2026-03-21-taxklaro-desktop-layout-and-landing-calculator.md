@@ -25,6 +25,7 @@ Three changes:
 
 - Left sidebar, fixed position, 240px wide expanded
 - Collapsible to 64px icon-only mode (toggle button at bottom)
+- Collapse/expand animates over 200ms with CSS transition
 - Sidebar state persisted in localStorage
 - Content area fills remaining width
 
@@ -32,7 +33,7 @@ Three changes:
 - Logo (full in expanded, icon-only in collapsed)
 - Nav items: Computations, Deadlines, Settings
 - Spacer
-- Save status indicator
+- Save status indicator (wire `useSaveStatus()` context hook — current TopBar receives an unused optional prop, use the context directly instead)
 - User email + avatar (at bottom)
 
 ### Mobile (< md)
@@ -53,7 +54,8 @@ Three changes:
 - **Delete:** `src/components/layout/TopBar.tsx`
 - **Create:** `src/components/layout/Sidebar.tsx`
 - **Modify:** `src/routes/__root.tsx` (swap TopBar for Sidebar in authenticated layout)
-- **Modify:** `src/components/layout/CenteredColumn.tsx` (add fluid mode or adjust defaults)
+- **Modify:** `src/components/layout/CenteredColumn.tsx` (add `fluid?: boolean` prop that removes `max-w-*` constraints)
+- **Keep/modify:** `src/routes/dashboard.tsx` — redirect stays, but target changes to `/computations` directly
 - **Modify:** All route pages that use `CenteredColumn` to decide fluid vs centered
 
 ---
@@ -66,6 +68,8 @@ Three changes:
 - `src/routes/clients/new.tsx`
 - `src/routes/clients/$clientId.tsx`
 - `src/components/clients/ClientsTable.tsx`
+- `src/components/clients/ClientRowSkeleton.tsx`
+- `src/components/clients/ClientInfoCard.tsx`
 
 ### Modify
 
@@ -85,7 +89,7 @@ Three changes:
 
 1. User lands on `/` (not authenticated)
 2. Sees hero section with value prop + inline calculator form
-3. Fills in: **Annual Gross Receipts** (number input) and **Taxpayer Type** (dropdown: Freelancer, Mixed Income, Employed Only)
+3. Fills in: **Annual Gross Receipts** (number input) and **Taxpayer Type** (dropdown: Freelancer, Mixed Income)
 4. Clicks "Calculate"
 5. WASM engine runs with the input + sensible defaults for all other fields
 6. Results displayed inline below the form:
@@ -103,9 +107,10 @@ The simplified form collects 2 fields and maps to the full `TaxpayerInput`:
 | Annual Gross Receipts | `grossReceipts` (as string "0.00" format) |
 | Taxpayer Type: Freelancer | `taxpayerType: 'PURELY_SE'` |
 | Taxpayer Type: Mixed Income | `taxpayerType: 'MIXED_INCOME'`, `isMixedIncome: true` |
-| Taxpayer Type: Employed Only | `taxpayerType: 'COMPENSATION_ONLY'` (receipts → `taxableCompensation`) |
 
-All other fields default to zero/false/empty. `electedRegime: null` enables optimizer mode (engine computes all 3 paths).
+"Employed Only" is excluded — the engine has no regime comparison for compensation-only taxpayers (all path details return null), so the calculator would show meaningless results.
+
+Build the input by starting from `createDefaultTaxpayerInput()` (which sets `taxYear` to current year, `filingPeriod: 'ANNUAL'`, and all monetary fields to `"0.00"`) and overriding only the mapped fields. `electedRegime: null` enables optimizer mode (engine computes all 3 paths).
 
 ### Signup Gate
 
@@ -139,6 +144,10 @@ You could save PHP 28,200/year with the right regime.
 - **Create:** `src/components/landing/QuickCalculator.tsx` — calculator form + results
 - **Uses:** `src/wasm/bridge.ts` (`computeTax`) — same WASM bridge as authenticated app
 
+### WASM Loading State
+
+The WASM engine must be fetched and compiled before `computeTax` can run. On the landing page this is the user's first load, so it may take 1-3s on slow connections. The "Calculate" button shows a spinner/disabled state while WASM initializes and computes. Optionally, eagerly start `ensureInit()` on page mount so the engine is ready by the time the user fills the form.
+
 ---
 
 ## 4. Design & Styling
@@ -146,7 +155,7 @@ You could save PHP 28,200/year with the right regime.
 - Sidebar: dark background consistent with current theme, subtle border on the right edge
 - Landing page: same dark theme, calculator form uses existing card/input component styles
 - Results table: clean, minimal, uses existing typography tokens
-- Light/dark toggle (from earlier conversation) applies to all of this
+- Light/dark toggle (from earlier conversation, assumed to already exist or be implemented separately) applies to all of this
 
 ---
 
