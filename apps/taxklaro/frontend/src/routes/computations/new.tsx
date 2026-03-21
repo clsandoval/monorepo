@@ -108,7 +108,7 @@ function ComputationsNewPage() {
   }
 
   return (
-    <CenteredColumn>
+    <CenteredColumn wide>
       <div className="text-[11px] uppercase tracking-wide text-zinc-500 mb-2">New Computation</div>
       <h1 className="text-2xl font-semibold mb-8">Tell us about this taxpayer</h1>
 
