@@ -113,8 +113,8 @@ function ComputationDetailPage() {
     return (
       <CenteredColumn wide>
         <div className="animate-pulse space-y-4" data-testid="computation-detail-page">
-          <div className="h-8 bg-zinc-800 rounded w-1/3" />
-          <div className="h-64 bg-zinc-800 rounded" />
+          <div className="h-8 bg-gray-100 rounded w-1/3" />
+          <div className="h-64 bg-gray-100 rounded" />
         </div>
       </CenteredColumn>
     );
@@ -124,9 +124,9 @@ function ComputationDetailPage() {
     return (
       <CenteredColumn wide>
         <div className="text-center space-y-4" data-testid="computation-detail-page">
-          <p className="text-zinc-400">{error ?? 'Computation not found'}</p>
+          <p className="text-muted-foreground">{error ?? 'Computation not found'}</p>
           <button
-            className="text-sm text-zinc-300 hover:text-zinc-50 underline underline-offset-2 transition-colors"
+            className="text-sm text-gray-700 hover:text-foreground underline underline-offset-2 transition-colors"
             onClick={() => navigate({ to: '/computations' })}
           >
             ← Back to Computations
@@ -144,13 +144,13 @@ function ComputationDetailPage() {
       <div className="flex items-start justify-between gap-4 mb-6">
         <div className="space-y-1.5 min-w-0">
           <h1
-            className="text-zinc-50 truncate"
+            className="text-foreground truncate"
             style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}
           >
             {computation.title || 'Untitled Computation'}
           </h1>
           <div className="flex items-center gap-2.5 flex-wrap">
-            <span className="text-sm text-zinc-400">Tax Year {computation.taxYear}</span>
+            <span className="text-sm text-muted-foreground">Tax Year {computation.taxYear}</span>
             <Badge
               variant={
                 computation.status === 'computed' || computation.status === 'finalized'
@@ -168,7 +168,7 @@ function ComputationDetailPage() {
           </div>
         </div>
         <button
-          className="inline-flex items-center py-2 text-sm text-zinc-400 hover:text-zinc-50 underline underline-offset-2 shrink-0 transition-colors"
+          className="inline-flex items-center py-2 text-sm text-muted-foreground hover:text-foreground underline underline-offset-2 shrink-0 transition-colors"
           onClick={() => navigate({ to: '/computations' })}
         >
           ← Back
@@ -210,9 +210,9 @@ function ComputationDetailPage() {
           {displayResult ? (
             <ResultsView result={displayResult} />
           ) : (
-            <div className="rounded-xl border border-zinc-800 p-10 text-center text-zinc-400">
+            <div className="rounded-xl border border-border p-10 text-center text-muted-foreground">
               <p className="text-[0.9375rem]">This computation has not been run yet.</p>
-              <p className="text-sm mt-1 text-zinc-500">
+              <p className="text-sm mt-1 text-muted-foreground">
                 Switch to the Input tab and click Compute to generate results.
               </p>
             </div>

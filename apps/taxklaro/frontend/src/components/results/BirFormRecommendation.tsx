@@ -32,19 +32,19 @@ export function BirFormRecommendation({
   return (
     <div className="space-y-4">
       <div className="flex items-start gap-3">
-        <span className="mt-0.5 shrink-0 text-xs border border-zinc-700 text-zinc-50 rounded px-2 py-0.5 font-semibold tabular-nums">
+        <span className="mt-0.5 shrink-0 text-xs border border-border text-foreground rounded px-2 py-0.5 font-semibold tabular-nums">
           {formInfo.name}
         </span>
-        <p className="text-sm text-zinc-400">{formInfo.description}</p>
+        <p className="text-sm text-muted-foreground">{formInfo.description}</p>
       </div>
 
       {requiredAttachments.length > 0 && (
         <div>
-          <p className="text-xs uppercase tracking-wide text-zinc-500 mb-2">Required attachments:</p>
+          <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Required attachments:</p>
           <ul className="space-y-1">
             {requiredAttachments.map((attachment, i) => (
-              <li key={i} className="text-sm flex items-start gap-2 text-zinc-400">
-                <span className="text-zinc-500 mt-0.5">•</span>
+              <li key={i} className="text-sm flex items-start gap-2 text-muted-foreground">
+                <span className="text-muted-foreground mt-0.5">•</span>
                 <span>{attachment}</span>
               </li>
             ))}

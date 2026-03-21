@@ -67,7 +67,7 @@ export function ComputationCard({ computation, onDelete, onArchive }: Computatio
 
   return (
     <div
-      className="rounded-xl bg-zinc-900 transition-colors hover:bg-zinc-800 p-5 space-y-3 cursor-pointer"
+      className="rounded-xl bg-gray-50 transition-colors hover:bg-gray-100 p-5 space-y-3 cursor-pointer"
       onClick={handleCardClick}
       data-testid="computation-card"
     >
@@ -102,7 +102,7 @@ export function ComputationCard({ computation, onDelete, onArchive }: Computatio
       <p className="text-[0.8125rem] text-muted-foreground">Tax Year {computation.taxYear}</p>
       <div className="flex items-center gap-2 text-[0.8125rem] text-muted-foreground">
         {computation.regimeSelected && (
-          <span className="font-medium text-zinc-50">{formatRegimePath(computation.regimeSelected)}</span>
+          <span className="font-medium text-foreground">{formatRegimePath(computation.regimeSelected)}</span>
         )}
         <span>Modified {formatDate(computation.updatedAt)}</span>
       </div>

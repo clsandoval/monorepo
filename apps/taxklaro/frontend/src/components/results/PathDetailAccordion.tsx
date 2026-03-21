@@ -14,9 +14,9 @@ function formatPeso(value: string): string {
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex justify-between text-sm py-1 even:bg-zinc-900/30">
-      <span className="text-zinc-400">{label}</span>
-      <span className="tabular-nums text-zinc-50">{formatPeso(value)}</span>
+    <div className="flex justify-between text-sm py-1 even:bg-gray-50/50">
+      <span className="text-muted-foreground">{label}</span>
+      <span className="tabular-nums text-foreground">{formatPeso(value)}</span>
     </div>
   );
 }
@@ -27,15 +27,15 @@ export function PathDetailAccordion({ pathADetails, pathBDetails, pathCDetails }
 
   return (
     <div className="space-y-1">
-      <p className="text-xs uppercase tracking-wide text-zinc-500 mb-2">Path Details</p>
+      <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Path Details</p>
       <Accordion type="multiple" className="space-y-1">
         {pathADetails && (
-          <AccordionItem value="path-a" className="border border-zinc-800 rounded-md px-4">
-            <AccordionTrigger className="text-sm font-medium text-zinc-50 hover:no-underline py-3 hover:text-zinc-200">
+          <AccordionItem value="path-a" className="border border-border rounded-md px-4">
+            <AccordionTrigger className="text-sm font-medium text-foreground hover:no-underline py-3 hover:text-foreground">
               <div className="flex items-center gap-2">
                 <span>{pathADetails.pathLabel}</span>
                 {!pathADetails.eligible && (
-                  <span className="text-xs border border-zinc-700 text-zinc-500 rounded px-1.5 py-0.5">Ineligible</span>
+                  <span className="text-xs border border-border text-muted-foreground rounded px-1.5 py-0.5">Ineligible</span>
                 )}
               </div>
             </AccordionTrigger>
@@ -55,8 +55,8 @@ export function PathDetailAccordion({ pathADetails, pathBDetails, pathCDetails }
         )}
 
         {pathBDetails && (
-          <AccordionItem value="path-b" className="border border-zinc-800 rounded-md px-4">
-            <AccordionTrigger className="text-sm font-medium text-zinc-50 hover:no-underline py-3 hover:text-zinc-200">
+          <AccordionItem value="path-b" className="border border-border rounded-md px-4">
+            <AccordionTrigger className="text-sm font-medium text-foreground hover:no-underline py-3 hover:text-foreground">
               <span>{pathBDetails.pathLabel}</span>
             </AccordionTrigger>
             <AccordionContent className="space-y-0 pt-0 pb-3">
@@ -70,12 +70,12 @@ export function PathDetailAccordion({ pathADetails, pathBDetails, pathCDetails }
         )}
 
         {pathCDetails && (
-          <AccordionItem value="path-c" className="border border-zinc-800 rounded-md px-4">
-            <AccordionTrigger className="text-sm font-medium text-zinc-50 hover:no-underline py-3 hover:text-zinc-200">
+          <AccordionItem value="path-c" className="border border-border rounded-md px-4">
+            <AccordionTrigger className="text-sm font-medium text-foreground hover:no-underline py-3 hover:text-foreground">
               <div className="flex items-center gap-2">
                 <span>{pathCDetails.pathLabel}</span>
                 {!pathCDetails.eligible && (
-                  <span className="text-xs border border-zinc-700 text-zinc-500 rounded px-1.5 py-0.5">Ineligible</span>
+                  <span className="text-xs border border-border text-muted-foreground rounded px-1.5 py-0.5">Ineligible</span>
                 )}
               </div>
             </AccordionTrigger>
@@ -90,7 +90,7 @@ export function PathDetailAccordion({ pathADetails, pathBDetails, pathCDetails }
               )}
               <Row label="Total Income Tax" value={pathCDetails.totalIncomeTax} />
               {pathCDetails.ptWaived && (
-                <p className="text-xs text-zinc-500 pt-1">
+                <p className="text-xs text-muted-foreground pt-1">
                   Percentage tax waived (8% flat rate election)
                 </p>
               )}
@@ -98,7 +98,7 @@ export function PathDetailAccordion({ pathADetails, pathBDetails, pathCDetails }
                 <div className="pt-1 space-y-0.5">
                   <p className="text-xs font-medium text-red-500">Ineligibility reasons:</p>
                   {pathCDetails.ineligibleReasons.map((r, i) => (
-                    <p key={i} className="text-xs text-zinc-400">{r}</p>
+                    <p key={i} className="text-xs text-muted-foreground">{r}</p>
                   ))}
                 </div>
               )}

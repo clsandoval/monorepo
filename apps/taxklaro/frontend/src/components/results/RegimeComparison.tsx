@@ -8,18 +8,18 @@ export function RegimeComparison({ options }: { options: RegimeOption[] }) {
         {options.map((option, i) => (
           <div key={option.name} className={cn(
             'flex items-center justify-between px-4 py-3',
-            option.isRecommended ? 'bg-green-500/5 border border-green-500/10' : 'bg-zinc-900/50 border border-zinc-800',
+            option.isRecommended ? 'bg-green-500/5 border border-green-500/10' : 'bg-gray-50 border border-border',
             i === 0 && 'rounded-t-md', i === options.length - 1 && 'rounded-b-md'
           )}>
             <div className="flex items-center gap-2">
-              <div className={cn('w-1.5 h-1.5 rounded-full', option.isRecommended ? 'bg-green-500' : 'bg-zinc-600')} />
-              <span className={cn('text-[13px]', option.isRecommended ? 'font-medium' : 'text-zinc-500')}>{option.name}</span>
+              <div className={cn('w-1.5 h-1.5 rounded-full', option.isRecommended ? 'bg-green-500' : 'bg-gray-300')} />
+              <span className={cn('text-[13px]', option.isRecommended ? 'font-medium' : 'text-muted-foreground')}>{option.name}</span>
             </div>
             <div className="flex items-baseline gap-3">
-              <span className={cn('text-[13px] tabular-nums', option.isRecommended ? 'font-semibold' : 'text-zinc-500')}>
+              <span className={cn('text-[13px] tabular-nums', option.isRecommended ? 'font-semibold' : 'text-muted-foreground')}>
                 ₱{typeof option.amount === 'number' ? option.amount.toLocaleString() : option.amount}
               </span>
-              <span className="text-[11px] text-zinc-500">{option.effectiveRate} eff.</span>
+              <span className="text-[11px] text-muted-foreground">{option.effectiveRate} eff.</span>
             </div>
           </div>
         ))}

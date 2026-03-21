@@ -28,24 +28,24 @@ export function TaxBreakdownPanel({
 
   return (
     <div>
-      <p className="text-xs uppercase tracking-wide text-zinc-500 mb-3">{PATH_LABELS[selectedPath]}</p>
+      <p className="text-xs uppercase tracking-wide text-muted-foreground mb-3">{PATH_LABELS[selectedPath]}</p>
       <table className="w-full text-sm">
         <tbody>
-          <tr className="even:bg-zinc-900/30">
-            <td className="py-1.5 text-zinc-400">Income Tax Due</td>
-            <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatPeso(selectedIncomeTaxDue)}</td>
+          <tr className="even:bg-gray-50/50">
+            <td className="py-1.5 text-muted-foreground">Income Tax Due</td>
+            <td className="py-1.5 text-right tabular-nums text-foreground">{formatPeso(selectedIncomeTaxDue)}</td>
           </tr>
           {ptDue > 0 && (
-            <tr className="even:bg-zinc-900/30">
-              <td className="py-1.5 text-zinc-400">Percentage Tax (3%)</td>
-              <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatPeso(selectedPercentageTaxDue)}</td>
+            <tr className="even:bg-gray-50/50">
+              <td className="py-1.5 text-muted-foreground">Percentage Tax (3%)</td>
+              <td className="py-1.5 text-right tabular-nums text-foreground">{formatPeso(selectedPercentageTaxDue)}</td>
             </tr>
           )}
         </tbody>
         <tfoot>
-          <tr className="border-t border-zinc-800">
-            <td className="pt-2.5 text-zinc-50 font-medium">Total Tax Burden</td>
-            <td className="pt-2.5 text-right tabular-nums text-red-500 font-semibold text-base">{formatPeso(selectedTotalTax)}</td>
+          <tr className="border-t border-border">
+            <td className="pt-2.5 text-foreground font-medium">Total Tax Burden</td>
+            <td className="pt-2.5 text-right tabular-nums text-red-600 font-semibold text-base">{formatPeso(selectedTotalTax)}</td>
           </tr>
         </tfoot>
       </table>

@@ -77,7 +77,7 @@ function ComputationsPage() {
         </div>
         <div className="flex flex-col gap-px rounded-md overflow-hidden">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-14 bg-zinc-900/50 animate-pulse" />
+            <div key={i} className="h-14 bg-gray-100/50 animate-pulse" />
           ))}
         </div>
       </CenteredColumn>
