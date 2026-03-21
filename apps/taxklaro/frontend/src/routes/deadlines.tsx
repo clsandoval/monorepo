@@ -150,7 +150,7 @@ function DeadlinesPage() {
 
   if (orgLoading || isLoading) {
     return (
-      <CenteredColumn data-testid="deadlines-page">
+      <CenteredColumn fluid data-testid="deadlines-page">
         <h1 className="text-2xl font-semibold mb-6">Deadlines</h1>
         <div className="flex flex-col gap-px rounded-md overflow-hidden">
           {Array.from({ length: 4 }).map((_, i) => (
@@ -165,7 +165,7 @@ function DeadlinesPage() {
   const completed = deadlines.filter((d) => d.completed);
 
   return (
-    <CenteredColumn data-testid="deadlines-page">
+    <CenteredColumn fluid data-testid="deadlines-page">
       <h1 className="text-2xl font-semibold mb-6">Deadlines</h1>
 
       {deadlines.length === 0 ? (
