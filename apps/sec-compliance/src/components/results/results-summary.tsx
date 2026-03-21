@@ -6,12 +6,14 @@ interface ResultsSummaryProps {
   totalPenalty: number;
   mc28Penalty: number;
   boSubtotal: number;
+  dataParam?: string;
 }
 
 export function ResultsSummary({
   totalPenalty,
   mc28Penalty,
   boSubtotal,
+  dataParam,
 }: ResultsSummaryProps) {
   return (
     <div className="space-y-4 rounded-lg border border-divider bg-white p-6">
@@ -46,7 +48,7 @@ export function ResultsSummary({
       )}
 
       <div className="pt-2">
-        <Link href="/signup">
+        <Link href={dataParam ? `/signup?data=${dataParam}` : "/signup"}>
           <Button className="w-full bg-sec-blue text-white hover:bg-sec-blue/90 font-body">
             How do I fix this? &rarr;
           </Button>

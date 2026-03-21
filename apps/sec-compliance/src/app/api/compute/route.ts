@@ -6,7 +6,7 @@ import type { ReportType } from "@/engine/types";
 const filingSchema = z.object({
   reportType: z.string(),
   year: z.number(),
-  status: z.enum(["not_filed", "filed_late", "filed_on_time"]),
+  status: z.enum(["not_filed", "filed_late", "filed_on_time", "filed"]),
 });
 
 const inputSchema = z.object({
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
       filedReports: parsed.filedReports.map((r) => ({
         reportType: r.reportType as ReportType,
         year: r.year,
-        status: r.status,
+        status: r.status === "filed" ? "filed_on_time" : r.status,
       })),
     };
 

@@ -87,7 +87,11 @@ export function DetailsStep({
             onValueChange={(v) => onReBracketChange(v || null)}
           >
             <SelectTrigger id="re-bracket" className="w-full">
-              <SelectValue placeholder="Select RE bracket" />
+              <SelectValue placeholder="Select RE bracket">
+                {reBracket
+                  ? reBrackets.find((b) => b.value === reBracket)?.label ?? reBracket
+                  : "Select RE bracket"}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {reBrackets.map((b) => (

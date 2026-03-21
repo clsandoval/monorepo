@@ -84,7 +84,7 @@ function buildTimelineCells(
       const filedStatus = filedSet.get(key);
       let status: CellStatus;
 
-      if (filedStatus === "filed_on_time") {
+      if (filedStatus === "filed_on_time" || filedStatus === "filed") {
         status = "filed_on_time";
       } else if (filedStatus === "filed_late") {
         status = "filed_late";

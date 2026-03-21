@@ -219,6 +219,7 @@ function ResultsContent() {
         totalPenalty={result.totalPenalty}
         mc28Penalty={result.mc28Penalty}
         boSubtotal={boSubtotal}
+        dataParam={searchParams.get("data") ?? undefined}
       />
     </div>
   );

@@ -32,8 +32,12 @@ export function SuspensionStep({
       onSuspensionDateChange(null);
       onHasRevocationChange(false);
       onRevocationDateChange(null);
+    } else if (value === "yes") {
+      // Default to suspension when "yes" is first selected
+      if (!hasSuspension && !hasRevocation) {
+        onHasSuspensionChange(true);
+      }
     }
-    // If "yes", keep current sub-state
   };
 
   return (

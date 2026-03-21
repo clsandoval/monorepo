@@ -41,7 +41,7 @@ export function CorpTypeStep({ value, onChange }: CorpTypeStepProps) {
           <Label
             key={opt.value}
             htmlFor={`corp-${opt.value}`}
-            className="flex cursor-pointer items-start gap-3 rounded-lg border border-divider p-4 transition-colors hover:border-sec-blue has-[[data-state=checked]]:border-sec-blue has-[[data-state=checked]]:bg-sec-blue/5"
+            className="flex cursor-pointer items-start gap-3 rounded-lg border border-divider p-4 transition-colors hover:border-sec-blue has-[[data-checked]]:border-sec-blue has-[[data-checked]]:bg-sec-blue/5"
           >
             <RadioGroupItem value={opt.value} id={`corp-${opt.value}`} />
             <div>
