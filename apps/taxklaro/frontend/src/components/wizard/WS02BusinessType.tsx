@@ -103,8 +103,8 @@ export function WS02BusinessType({ data, onChange, onNext, onBack }: Props) {
                 className={cn(
                   'transition-all duration-200',
                   category === opt.value
-                    ? 'border-zinc-50 ring-2 ring-zinc-400/20 bg-zinc-800'
-                    : 'hover:border-zinc-600'
+                    ? 'border-primary ring-2 ring-primary/20 bg-primary/5'
+                    : 'hover:border-gray-400'
                 )}
               >
                 <CardContent className="p-5">
