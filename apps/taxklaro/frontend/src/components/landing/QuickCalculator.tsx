@@ -91,9 +91,9 @@ export function QuickCalculator({ onSignupGate }: { onSignupGate: () => void }) 
 
   return (
     <div className="w-full max-w-md">
-      <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 space-y-4">
+      <div className="rounded-xl border border-border bg-gray-50 p-6 space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="grossReceipts" className="text-sm text-zinc-300">Annual Gross Receipts (₱)</Label>
+          <Label htmlFor="grossReceipts" className="text-sm text-gray-700">Annual Gross Receipts (₱)</Label>
           <Input
             id="grossReceipts"
             type="text"
@@ -101,13 +101,13 @@ export function QuickCalculator({ onSignupGate }: { onSignupGate: () => void }) 
             placeholder="e.g. 500,000"
             value={grossReceipts}
             onChange={(e) => setGrossReceipts(e.target.value)}
-            className="h-11 bg-zinc-900 border-zinc-700 focus-visible:ring-zinc-600"
+            className="h-11"
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="taxpayerType" className="text-sm text-zinc-300">I am a...</Label>
+          <Label htmlFor="taxpayerType" className="text-sm text-gray-700">I am a...</Label>
           <Select value={taxpayerType} onValueChange={(v) => setTaxpayerType(v as 'PURELY_SE' | 'MIXED_INCOME')}>
-            <SelectTrigger className="h-11 bg-zinc-900 border-zinc-700">
+            <SelectTrigger className="h-11">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -116,40 +116,40 @@ export function QuickCalculator({ onSignupGate }: { onSignupGate: () => void }) 
             </SelectContent>
           </Select>
         </div>
-        {error && <p className="text-sm text-red-400">{error}</p>}
+        {error && <p className="text-sm text-red-600">{error}</p>}
         <Button onClick={handleCalculate} disabled={computing} className="w-full h-11">
           {computing ? <><Loader2 className="h-4 w-4 animate-spin mr-2" />Calculating...</> : 'Calculate My Tax'}
         </Button>
       </div>
 
       {result && (
-        <div className="mt-6 rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 space-y-4">
+        <div className="mt-6 rounded-xl border border-border bg-gray-50 p-6 space-y-4">
           <div className="text-center">
-            <p className="text-xs text-zinc-500 uppercase tracking-wider">Recommended Regime</p>
-            <p className="text-lg font-semibold text-zinc-50 mt-1">{result.recommended}</p>
-            <p className="text-2xl font-bold text-zinc-50 mt-2">{result.totalTax}</p>
-            <p className="text-xs text-zinc-500">estimated annual tax</p>
+            <p className="text-xs text-muted-foreground uppercase tracking-wider">Recommended Regime</p>
+            <p className="text-lg font-semibold text-foreground mt-1">{result.recommended}</p>
+            <p className="text-2xl font-bold text-foreground mt-2">{result.totalTax}</p>
+            <p className="text-xs text-muted-foreground">estimated annual tax</p>
           </div>
 
-          <div className="border-t border-zinc-800 pt-4">
-            <p className="text-xs text-zinc-500 uppercase tracking-wider mb-3">Compare All Options</p>
+          <div className="border-t border-border pt-4">
+            <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">Compare All Options</p>
             <div className="space-y-2">
               {result.paths.map((p) => (
                 <div key={p.label} className="flex items-center justify-between text-sm">
-                  <span className="text-zinc-400">{p.label}</span>
-                  <span className="text-zinc-200 font-medium tabular-nums">{p.taxDue}</span>
+                  <span className="text-muted-foreground">{p.label}</span>
+                  <span className="text-gray-700 font-medium tabular-nums">{p.taxDue}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {result.savings !== '₱0.00' && (
-            <p className="text-center text-sm text-green-400">
+            <p className="text-center text-sm text-green-600">
               You could save {result.savings}/year with the right regime.
             </p>
           )}
 
-          <p className="text-center text-xs text-zinc-500 pt-2">
+          <p className="text-center text-xs text-muted-foreground pt-2">
             Sign up to save results and run detailed computations.
           </p>
         </div>

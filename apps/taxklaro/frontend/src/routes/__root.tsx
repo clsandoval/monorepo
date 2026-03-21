@@ -31,7 +31,7 @@ export const publicRootRoute = createRoute({
 function AuthenticatedLayout() {
   return (
     <SaveStatusProvider>
-      <div className="flex h-screen bg-zinc-950 text-zinc-50">
+      <div className="flex h-screen bg-background text-foreground">
         <Sidebar />
         <div className="flex flex-col flex-1 min-w-0">
           <main className="flex-1 overflow-y-auto py-10">

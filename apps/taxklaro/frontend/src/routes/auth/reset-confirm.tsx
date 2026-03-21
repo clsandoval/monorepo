@@ -50,20 +50,20 @@ function AuthResetConfirmPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-4 bg-zinc-950"
+      className="min-h-screen flex items-center justify-center p-4 bg-background"
       data-testid="auth-reset-confirm-page"
     >
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
-          <span className="text-[22px] font-bold text-zinc-50">TaxKlaro</span>
+          <span className="text-[22px] font-bold text-foreground">TaxKlaro</span>
         </div>
 
         {/* Card */}
-        <div className="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-zinc-800">
+        <div className="bg-background rounded-xl p-6 sm:p-8 border border-border">
           <div className="mb-6">
-            <h1 className="text-lg font-semibold text-zinc-50">Set New Password</h1>
-            <p className="text-sm text-zinc-500 mt-1">
+            <h1 className="text-lg font-semibold text-foreground">Set New Password</h1>
+            <p className="text-sm text-muted-foreground mt-1">
               Enter your new password below.
             </p>
           </div>
@@ -74,7 +74,7 @@ function AuthResetConfirmPage() {
                 Your password has been updated successfully.
               </p>
               <button
-                className="text-sm text-zinc-400 hover:text-zinc-200 transition-colors"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => navigate({ to: '/' })}
               >
                 Go to Dashboard
@@ -85,7 +85,7 @@ function AuthResetConfirmPage() {
               <div>
                 <label
                   htmlFor="new-password"
-                  className="block text-sm font-medium text-zinc-300 mb-1.5"
+                  className="block text-sm font-medium text-gray-700 mb-1.5"
                 >
                   New Password
                 </label>
@@ -97,7 +97,7 @@ function AuthResetConfirmPage() {
                   required
                   minLength={6}
                   disabled={!hashReady}
-                  className="w-full h-11 rounded-lg border border-zinc-700 bg-zinc-800 px-3 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-colors disabled:opacity-50"
+                  className="w-full h-11 rounded-lg border border-border bg-background px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring transition-colors disabled:opacity-50"
                   placeholder="Min. 6 characters"
                 />
               </div>
@@ -109,7 +109,7 @@ function AuthResetConfirmPage() {
               <button
                 type="submit"
                 disabled={isSubmitting || !hashReady}
-                className="w-full h-11 rounded-lg bg-zinc-50 px-4 text-sm font-medium text-zinc-900 hover:bg-zinc-200 transition-colors disabled:opacity-50"
+                className="w-full h-11 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50"
               >
                 {isSubmitting ? 'Updating...' : 'Update Password'}
               </button>
@@ -117,7 +117,7 @@ function AuthResetConfirmPage() {
               <div className="text-center">
                 <button
                   type="button"
-                  className="text-sm text-zinc-400 hover:text-zinc-200 transition-colors"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   onClick={() => navigate({ to: '/auth', search: { redirect: '/', mode: 'signin' } })}
                 >
                   Back to Sign In

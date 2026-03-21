@@ -27,10 +27,10 @@ function IndexPage() {
   if (user) return null
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-zinc-950 px-6 py-16" data-testid="index-page">
+    <div className="flex flex-col items-center min-h-screen bg-background px-6 py-16" data-testid="index-page">
       <div className="text-center mb-10">
-        <span className="text-[32px] font-bold text-zinc-50 mb-2 block">TaxKlaro</span>
-        <p className="text-base text-zinc-400 max-w-md mx-auto">
+        <span className="text-[32px] font-bold text-foreground mb-2 block">TaxKlaro</span>
+        <p className="text-base text-muted-foreground max-w-md mx-auto">
           Find the best tax regime for your situation. Philippine tax computation for freelancers and professionals.
         </p>
       </div>
@@ -40,13 +40,13 @@ function IndexPage() {
       <div className="flex flex-col sm:flex-row items-center gap-3 mt-8">
         <button
           onClick={() => navigate({ to: '/auth', search: { redirect: '/', mode: 'signin' } })}
-          className="flex items-center gap-2 h-10 px-6 rounded-lg bg-zinc-50 text-zinc-900 text-sm font-medium hover:bg-zinc-200 transition-colors"
+          className="flex items-center gap-2 h-10 px-6 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
         >
           Sign In <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </button>
         <button
           onClick={() => navigate({ to: '/auth', search: { redirect: '/', mode: 'signup' } })}
-          className="h-10 px-6 rounded-lg border border-zinc-700 text-zinc-400 text-sm font-medium hover:border-zinc-500 hover:text-zinc-300 transition-colors"
+          className="h-10 px-6 rounded-lg border border-border text-muted-foreground text-sm font-medium hover:border-gray-400 hover:text-foreground transition-colors"
         >
           Create account
         </button>
@@ -54,10 +54,10 @@ function IndexPage() {
 
       {/* Signup gate modal */}
       <Dialog open={showGate} onOpenChange={setShowGate}>
-        <DialogContent className="bg-zinc-900 border-zinc-800 max-w-sm">
+        <DialogContent className="bg-background border-border max-w-sm">
           <DialogHeader>
-            <DialogTitle className="text-zinc-50">Create a Free Account</DialogTitle>
-            <DialogDescription className="text-zinc-400">
+            <DialogTitle className="text-foreground">Create a Free Account</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
               Sign up to save your results and run unlimited detailed computations.
             </DialogDescription>
           </DialogHeader>

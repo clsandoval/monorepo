@@ -40,14 +40,14 @@ function AuthCallbackPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-zinc-950"
+      className="min-h-screen flex items-center justify-center bg-background"
       data-testid="auth-callback-page"
     >
       {error ? (
         <div className="text-center space-y-4">
-          <p className="text-sm text-red-400">{error}</p>
+          <p className="text-sm text-red-600">{error}</p>
           <button
-            className="text-sm text-zinc-400 hover:text-zinc-200 transition-colors underline"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors underline"
             onClick={() => navigate({ to: '/auth', search: { redirect: '/', mode: 'signin' } })}
           >
             Back to Sign In
