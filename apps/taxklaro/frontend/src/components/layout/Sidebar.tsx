@@ -56,7 +56,7 @@ export function Sidebar() {
   const desktopSidebar = (
     <aside
       className={cn(
-        'hidden md:flex flex-col h-screen border-r border-border bg-background shrink-0 transition-[width] duration-200',
+        'hidden md:flex flex-col sticky top-0 h-screen border-r border-border bg-background shrink-0 transition-[width] duration-200',
         collapsed ? 'w-16' : 'w-60'
       )}
     >
