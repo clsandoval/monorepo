@@ -84,10 +84,6 @@ describe('§14.1 component files exist', () => {
     'results/ResultsActions.tsx',
     'results/HeroNumber.tsx',
     'results/CollapsibleResultSection.tsx',
-    // clients
-    'clients/ClientsTable.tsx',
-    'clients/ClientRowSkeleton.tsx',
-    'clients/ClientInfoCard.tsx',
     // deadlines
     'deadlines/DeadlineCard.tsx',
     // settings
@@ -209,7 +205,7 @@ describe('§14.5 ResultsView readOnly contract', () => {
     expect(content).toContain('ResultsView');
   });
 
-  it('19 route files exist', () => {
+  it('16 route files exist', () => {
     const routeFiles = [
       '__root.tsx',
       'index.tsx',
@@ -221,9 +217,6 @@ describe('§14.5 ResultsView readOnly contract', () => {
       'computations/new.tsx',
       'computations/$compId.tsx',
       'computations/$compId.quarterly.tsx',
-      'clients/index.tsx',
-      'clients/new.tsx',
-      'clients/$clientId.tsx',
       'deadlines.tsx',
       'settings/index.tsx',
       'settings/team.tsx',

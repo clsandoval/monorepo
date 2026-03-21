@@ -9,7 +9,6 @@ import { useOrganization } from '@/hooks/useOrganization'
 
 const NAV_ITEMS = [
   { label: 'Computations', to: '/computations' },
-  { label: 'Clients', to: '/clients' },
   { label: 'Deadlines', to: '/deadlines' },
   { label: 'Settings', to: '/settings' },
 ]

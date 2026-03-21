@@ -31,9 +31,6 @@ import { ComputationsIndexRoute } from '../computations/index';
 import { ComputationsNewRoute } from '../computations/new';
 import { ComputationsCompIdRoute } from '../computations/$compId';
 import { ComputationsCompIdQuarterlyRoute } from '../computations/$compId.quarterly';
-import { ClientsIndexRoute } from '../clients/index';
-import { ClientsNewRoute } from '../clients/new';
-import { ClientsClientIdRoute } from '../clients/$clientId';
 import { DashboardRoute } from '../dashboard';
 import { DeadlinesRoute } from '../deadlines';
 import { SettingsIndexRoute } from '../settings/index';
@@ -109,9 +106,6 @@ describe('authenticated routes have beforeLoad guard', () => {
     { name: 'ComputationsNewRoute', route: ComputationsNewRoute },
     { name: 'ComputationsCompIdRoute', route: ComputationsCompIdRoute },
     { name: 'ComputationsCompIdQuarterlyRoute', route: ComputationsCompIdQuarterlyRoute },
-    { name: 'ClientsIndexRoute', route: ClientsIndexRoute },
-    { name: 'ClientsNewRoute', route: ClientsNewRoute },
-    { name: 'ClientsClientIdRoute', route: ClientsClientIdRoute },
     { name: 'DeadlinesRoute', route: DeadlinesRoute },
     { name: 'SettingsIndexRoute', route: SettingsIndexRoute },
     { name: 'SettingsTeamRoute', route: SettingsTeamRoute },
@@ -227,18 +221,6 @@ describe('route paths match spec §11.2', () => {
     expect((ComputationsCompIdQuarterlyRoute as any).options.path).toBe('/computations/$compId/quarterly');
   });
 
-  it('ClientsIndexRoute path is /clients', () => {
-    expect((ClientsIndexRoute as any).options.path).toBe('/clients');
-  });
-
-  it('ClientsNewRoute path is /clients/new', () => {
-    expect((ClientsNewRoute as any).options.path).toBe('/clients/new');
-  });
-
-  it('ClientsClientIdRoute path is /clients/$clientId', () => {
-    expect((ClientsClientIdRoute as any).options.path).toBe('/clients/$clientId');
-  });
-
   it('DeadlinesRoute path is /deadlines', () => {
     expect((DeadlinesRoute as any).options.path).toBe('/deadlines');
   });
@@ -288,8 +270,8 @@ describe('RouterContext', () => {
 
 // ─── Total route count ────────────────────────────────────────────────────────
 
-describe('all 19 routes are registered', () => {
-  it('router has 19 leaf routes', () => {
+describe('all 16 routes are registered', () => {
+  it('router has 16 leaf routes', () => {
     // Count routes that have a path (leaf routes)
     function countLeaves(node: any): number {
       if (!node) return 0;
@@ -299,7 +281,7 @@ describe('all 19 routes are registered', () => {
     }
     const routeTree = (router as any).routeTree;
     const count = countLeaves(routeTree);
-    // We have 19 named routes + __root + public sub-root
-    expect(count).toBeGreaterThanOrEqual(19);
+    // We have 16 named routes + __root + public sub-root
+    expect(count).toBeGreaterThanOrEqual(16);
   });
 });
