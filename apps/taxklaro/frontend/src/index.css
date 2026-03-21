@@ -3,29 +3,29 @@
 
 @theme {
   --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
-  --color-background: #09090B;
-  --color-foreground: #FAFAFA;
-  --color-surface: #18181B;
-  --color-border: #27272A;
-  --color-muted: #A1A1AA;
-  --color-savings: #22C55E;
-  --color-due: #EF4444;
-  --color-amber: #F59E0B;
-  --color-primary: #FAFAFA;
-  --color-primary-foreground: #09090B;
-  --color-secondary: #27272A;
-  --color-secondary-foreground: #FAFAFA;
-  --color-destructive: #EF4444;
-  --color-destructive-foreground: #FAFAFA;
-  --color-accent: #27272A;
-  --color-accent-foreground: #FAFAFA;
-  --color-card: #18181B;
-  --color-card-foreground: #FAFAFA;
-  --color-popover: #18181B;
-  --color-popover-foreground: #FAFAFA;
-  --color-muted-foreground: #A1A1AA;
-  --color-input: #27272A;
-  --color-ring: #A1A1AA;
+  --color-background: #FFFFFF;
+  --color-foreground: #1A1A1A;
+  --color-surface: #F9FAFB;
+  --color-border: #E5E7EB;
+  --color-muted: #F3F4F6;
+  --color-savings: #16A34A;
+  --color-due: #DC2626;
+  --color-amber: #D97706;
+  --color-primary: #1A1A1A;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #F3F4F6;
+  --color-secondary-foreground: #1A1A1A;
+  --color-destructive: #DC2626;
+  --color-destructive-foreground: #FFFFFF;
+  --color-accent: #F3F4F6;
+  --color-accent-foreground: #1A1A1A;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1A1A1A;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #1A1A1A;
+  --color-muted-foreground: #6B7280;
+  --color-input: #E5E7EB;
+  --color-ring: #6B7280;
   --radius: 6px;
 }
 
