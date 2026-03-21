@@ -16,8 +16,8 @@ interface ClientsTableProps {
 export function ClientsTable({ clients, isLoading, onSelect }: ClientsTableProps) {
   if (isLoading) {
     return (
-      <div className="overflow-x-auto rounded-xl">
-        <div className="min-w-[480px] bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden">
+      <div className="overflow-x-auto rounded-xl shadow-sm">
+        <div className="min-w-[480px] bg-card rounded-xl overflow-hidden">
           <table className="w-full">
             <tbody>
               {Array.from({ length: 5 }).map((_, i) => <ClientRowSkeleton key={i} />)}

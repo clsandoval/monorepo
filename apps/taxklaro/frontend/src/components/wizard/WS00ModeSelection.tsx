@@ -81,11 +81,16 @@ export function WS00ModeSelection({ data, onChange, onNext }: Props) {
             <Label htmlFor={`mode-${opt.value}`} className="cursor-pointer block">
               <Card
                 className={cn(
-                  'transition-all duration-200 bg-zinc-800 border-zinc-700',
+                  'transition-all duration-200',
                   selected === opt.value
-                    ? 'border-zinc-400 ring-2 ring-zinc-400/20 bg-zinc-700/30'
-                    : 'hover:border-zinc-500'
+                    ? 'border-primary ring-2 ring-primary/20 bg-primary/5'
+                    : 'hover:border-primary/40'
                 )}
+                style={{
+                  boxShadow: selected === opt.value
+                    ? 'var(--shadow-md)'
+                    : 'var(--shadow-sm)',
+                }}
               >
                 <CardContent className="p-5">
                   <div className="font-medium text-[0.9375rem]">{opt.title}</div>
