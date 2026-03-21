@@ -41,8 +41,8 @@ export function Sidebar() {
           className={cn(
             'flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors',
             isActive(item.to)
-              ? 'text-zinc-50 bg-zinc-800'
-              : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
+              ? 'text-foreground bg-gray-100'
+              : 'text-muted-foreground hover:text-foreground hover:bg-gray-100'
           )}
         >
           <item.icon className="h-4 w-4 shrink-0" />
@@ -56,13 +56,13 @@ export function Sidebar() {
   const desktopSidebar = (
     <aside
       className={cn(
-        'hidden md:flex flex-col h-screen border-r border-zinc-800 bg-zinc-950 shrink-0 transition-[width] duration-200',
+        'hidden md:flex flex-col h-screen border-r border-border bg-background shrink-0 transition-[width] duration-200',
         collapsed ? 'w-16' : 'w-60'
       )}
     >
       {/* Logo */}
       <div className="flex items-center h-12 px-4">
-        <Link to="/computations" className="text-sm font-bold text-zinc-50 truncate">
+        <Link to="/computations" className="text-sm font-bold text-foreground truncate">
           {collapsed ? 'TK' : 'TaxKlaro'}
         </Link>
       </div>
@@ -73,12 +73,12 @@ export function Sidebar() {
       </div>
 
       {/* Bottom section */}
-      <div className="px-2 py-3 border-t border-zinc-800">
+      <div className="px-2 py-3 border-t border-border">
         {saveStatus !== 'idle' && (
           <div className={cn('flex items-center gap-2 px-3 py-1 mb-2', collapsed && 'justify-center')}>
             <AutoSaveDot status={saveStatus} />
             {!collapsed && (
-              <span className="text-xs text-zinc-500">
+              <span className="text-xs text-muted-foreground">
                 {saveStatus === 'saving' ? 'Saving...' : saveStatus === 'saved' ? 'Saved' : saveStatus === 'error' ? 'Error' : ''}
               </span>
             )}
@@ -93,7 +93,7 @@ export function Sidebar() {
         )}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="flex items-center gap-2 w-full px-3 py-2 rounded-md text-xs text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50 transition-colors"
+          className="flex items-center gap-2 w-full px-3 py-2 rounded-md text-xs text-muted-foreground hover:text-foreground hover:bg-gray-100 transition-colors"
         >
           {collapsed ? (
             <ChevronsRight className="h-4 w-4" />
@@ -110,22 +110,22 @@ export function Sidebar() {
 
   // Mobile top bar + sheet
   const mobileHeader = (
-    <header className="md:hidden flex items-center justify-between h-12 px-4 border-b border-zinc-800 bg-zinc-950 shrink-0">
-      <Link to="/computations" className="text-sm font-bold text-zinc-50">TaxKlaro</Link>
+    <header className="md:hidden flex items-center justify-between h-12 px-4 border-b border-border bg-background shrink-0">
+      <Link to="/computations" className="text-sm font-bold text-foreground">TaxKlaro</Link>
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetTrigger>
-          <Menu className="h-5 w-5 text-zinc-400" />
+          <Menu className="h-5 w-5 text-muted-foreground" />
         </SheetTrigger>
         <SheetContent side="left" className="w-64 p-0">
           <div className="flex flex-col h-full">
-            <div className="h-12 flex items-center px-4 border-b border-zinc-800">
-              <span className="text-sm font-bold text-zinc-50">TaxKlaro</span>
+            <div className="h-12 flex items-center px-4 border-b border-border">
+              <span className="text-sm font-bold text-foreground">TaxKlaro</span>
             </div>
             <div className="flex-1 px-2 py-4">
               {navContent(() => setMobileOpen(false))}
             </div>
-            <div className="px-4 py-3 border-t border-zinc-800">
-              <span className="text-xs text-zinc-500 truncate block">
+            <div className="px-4 py-3 border-t border-border">
+              <span className="text-xs text-muted-foreground truncate block">
                 {org?.name ? `${org.name} · ` : ''}{user?.email}
               </span>
             </div>
