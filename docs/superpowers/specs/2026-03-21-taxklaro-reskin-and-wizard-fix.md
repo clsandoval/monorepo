@@ -22,7 +22,7 @@ Replace all values in `src/index.css` `@theme` block:
 | `--color-foreground` | `#FAFAFA` | `#1A1A1A` | Primary text |
 | `--color-surface` | `#18181B` | `#F9FAFB` | Cards, sidebar, elevated surfaces |
 | `--color-border` | `#27272A` | `#E5E7EB` | All borders |
-| `--color-muted` | `#A1A1AA` | `#6B7280` | Secondary/muted text |
+| `--color-muted` | `#A1A1AA` | `#F3F4F6` | Muted backgrounds (e.g., disabled states, subtle fills) |
 | `--color-savings` | `#22C55E` | `#16A34A` | Savings indicators (slightly darker for contrast on white) |
 | `--color-due` | `#EF4444` | `#DC2626` | Due/error (slightly darker) |
 | `--color-amber` | `#F59E0B` | `#D97706` | Warning/amber |
@@ -68,12 +68,40 @@ Components that hardcode dark colors (e.g., `bg-zinc-950`, `text-zinc-50`) inste
 **Root layout (`src/routes/__root.tsx`):**
 - `bg-zinc-950 text-zinc-50` → `bg-background text-foreground`
 
-**Results view, computation detail, deadlines, settings:**
-- Any hardcoded `zinc-*` dark classes → semantic tokens
+**Results view + computation detail (`src/components/results/*.tsx`, `src/routes/computations/$compId.tsx`, `new.tsx`):**
+- Tables, cards, text colors all use hardcoded `zinc-900/30`, `zinc-800`, `zinc-50`, `zinc-400`, `zinc-500`
+- Replace with semantic tokens
+
+**Shared components (`src/components/shared/*.tsx`):**
+- `MoneyDisplay`, `Spinner`, `EmptyState`, `PesoInput`, `ListRow`, `ErrorState` — all have hardcoded zinc classes
+
+**Wizard chrome (`src/components/computation/WizardSection.tsx`, `ComputationCard.tsx`, `ComputationCardSkeleton.tsx`):**
+- Hardcoded dark backgrounds and text colors
+
+**Other pages:**
+- `src/routes/onboarding.tsx` — full-page dark background
+- `src/routes/share/$token.tsx` — full-page dark background
+- `src/routes/invite/$token.tsx` — full-page dark background
+- `src/routes/auth/reset.tsx`, `src/routes/auth/reset-confirm.tsx` — dark form backgrounds
+- `src/routes/deadlines.tsx` — hardcoded zinc
+- `src/routes/settings/index.tsx`, `src/routes/settings/team.tsx` — hardcoded zinc
+- `src/components/deadlines/DeadlineCard.tsx`
+- `src/components/onboarding/OnboardingForm.tsx`
+- `src/components/layout/PublicHeader.tsx`
+
+**shadcn/ui components (`src/components/ui/*.tsx`):**
+- Files like `button.tsx`, `input.tsx`, `accordion.tsx`, `select.tsx`, `dialog.tsx`, `sheet.tsx`, etc. hardcode zinc classes in variant definitions (e.g., `bg-zinc-50`, `hover:bg-zinc-900`). These will NOT change from the CSS property swap alone — each needs manual updates to use semantic tokens or correct light-mode values.
 
 ### Approach
 
-Most of the reskin happens via the CSS custom property swap. Hardcoded Tailwind classes (`bg-zinc-950`, etc.) are the surgical fixes needed per-component. After the theme swap, do a grep for remaining `zinc-9` and `zinc-8` classes to catch stragglers.
+1. Swap CSS custom properties in `index.css` — this handles ~60% of the reskin automatically for components using semantic tokens.
+2. Update shadcn/ui component files to replace hardcoded zinc classes — this is the highest-impact manual work.
+3. Update all route and component files with hardcoded zinc classes. Use `grep -r 'zinc-[789]' src/` to find all remaining instances.
+4. Visual verification of every page after changes.
+
+### Dead Code Note
+
+`src/components/wizard/steps/` contains an older parallel set of wizard step files (`WizardStep00.tsx`, etc.). These are NOT imported by `AccordionWizard.tsx` and are dead code. They should be deleted as part of cleanup but are not targets for button removal.
 
 ---
 
@@ -91,7 +119,7 @@ The AccordionWizard shows all sub-steps within each accordion section simultaneo
 
 3. **Remove `onNext`/`onBack` props** from step component interfaces and the `AccordionWizard` parent. Clean up the `noop` handler.
 
-4. **Keep inline validation.** Steps that validate before allowing continue (e.g., WS04 checks gross receipts > 0) should still show validation messages inline when fields are invalid, but without a button gate.
+4. **Keep inline validation.** Steps that validate on field change/blur (e.g., WS04 checks gross receipts > 0) should still show validation messages inline. Validation triggers on `onChange` or `onBlur`, not on button click (since buttons are removed).
 
 ### Files to modify (button removal)
 
@@ -123,13 +151,11 @@ Also modify:
 
 **Solution:** Mirror the auto-save pattern from `$compId.tsx`:
 
-1. On first meaningful field change in `new.tsx`, create a draft computation record in Supabase (status: `draft`).
-2. Store the returned `compId` in component state.
-3. On subsequent changes, debounce-save the form data to that record (1000ms, matching existing pattern).
-4. Navigate to `/computations/$compId` after creation so the URL reflects the saved draft.
-5. The existing `$compId.tsx` auto-save takes over from there.
+1. When the user clicks "+ New Computation", `new.tsx` immediately creates a draft computation record in Supabase via `createComputation()` with explicit `status: 'draft'`. (Verify the DB default — if it's already `draft`, the explicit pass is defensive but harmless.)
+2. Navigate to `/computations/$compId` with the new record's ID.
+3. The existing `$compId.tsx` auto-save (1000ms debounce) takes over from there.
 
-This means `new.tsx` becomes a thin redirect — it creates the draft and immediately navigates to the detail page in edit mode. The detail page handles everything from there.
+This means `new.tsx` becomes a thin redirect — it creates the draft and immediately navigates to the detail page in edit mode. The detail page handles everything from there. The inline `ResultsView` currently in `new.tsx` (lines 78-108) is removed entirely — results are always shown via the `$compId.tsx` detail page.
 
 ---
 
