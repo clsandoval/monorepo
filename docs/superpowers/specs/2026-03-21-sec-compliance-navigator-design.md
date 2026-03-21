@@ -31,11 +31,12 @@ A standalone web app that tells Philippine corporations their SEC compliance sta
 
 1. Land on homepage → "Is your corporation in trouble with the SEC?"
 2. Start wizard (no signup required):
-   - Corporation domicile (domestic / foreign)
+   - Corporation domicile (domestic only at MVP — foreign corps deferred)
    - Corporate type (stock / non-stock / OPC — OPC only for domestic)
    - Date of incorporation
    - Retained earnings / fund balance bracket (7 tiers — see penalty schedule below)
-   - Which annual reports have you filed? (GIS, AFS, BO — checklist per year, pre-populated from incorporation date to present)
+   - MC 28 compliance (have you registered official email/contact with SEC? yes/no)
+   - Which annual reports have you filed? (GIS, AFS, BO — checklist per year, pre-populated from incorporation date to present). **UX note**: for corps with many years, provide a "filed all reports through year X" shortcut to avoid 50+ individual checkboxes. Group by 5-year blocks with expand/collapse. BO column only appears from 2019 onward.
    - Have you received a suspension or revocation order?
 3. Results page (anonymous):
    - Compliance status badge (Active / Delinquent / Suspended / Revoked)
@@ -64,11 +65,12 @@ A standalone web app that tells Philippine corporations their SEC compliance sta
 ## Computation Engine
 
 ### Inputs
-- Corporation domicile (domestic / foreign)
+- Corporation domicile (domestic only at MVP — foreign corps deferred)
 - Corporate type (stock / non-stock / OPC)
 - SEC registration date
-- Retained earnings bracket (or fund balance bracket for non-stock)
+- Retained earnings bracket (or fund balance bracket for non-stock). Note: "Capital deficiency" bracket applies to stock/OPC only; non-stock uses "Negative fund balance" as the lowest bracket.
 - List of filed reports per year (GIS, AFS, BO)
+- MC 28 compliance status (have you registered official email/contact with SEC? yes/no — defaults to "no" if unknown)
 - Suspension/revocation order date (if any)
 
 ### Computation Steps
@@ -78,15 +80,16 @@ A standalone web app that tells Philippine corporations their SEC compliance sta
    - BO: from 2019 onward (MC No. 17, s. 2018 first required BO in GIS; current regime: MC No. 15, s. 2025 effective Jan 1, 2026). All corp types.
 2. Diff expected vs. actual filings → list of missed filings
 3. Per missed filing, determine:
-   - **Late filing vs. non-filing**: late = submitted after deadline but within 1 year; non-filing = beyond 1 year
-   - **Offense number**: count of prior offenses for the same report type (1st through 5th)
-   - **Base penalty**: lookup from penalty schedule using (domicile, corp_type, report_type, late_or_nonfiling, RE_bracket, offense_number)
-   - **Monthly surcharge**: ₱1,000/month (or ₱500/month for negative RE/fund balance and capital deficiency) for continuing violations beyond deadline
+   - **Late filing vs. non-filing**: late = submitted after deadline but within 1 year; non-filing = beyond 1 year. For the wizard, since we don't ask filing dates, all missed filings from prior years are treated as **non-filing**. Current-year missed filings (not yet 1 year overdue) are treated as **late filing**.
+   - **Offense number**: counted **per report type** (GIS and AFS counted separately), **chronologically** (oldest missed year = 1st offense). A late filing and a non-filing both increment the same counter. The counter does NOT reset across regime boundaries (pre/post-2024). Example: missed GIS in 2020, 2021, 2023 = 1st, 2nd, 3rd offense for GIS.
+   - **Base penalty**: lookup from penalty schedule using (domicile, corp_type, report_type, late_or_nonfiling, RE_bracket, offense_number). Apply the penalty rate that was in effect at the time of the violation (use `effective_from`/`effective_until`).
+   - **Monthly surcharge**: starts from the **filing deadline date** for each missed report. Stops when the report is filed or when the penalty is paid/settled. For the wizard computation (where we don't know exact payment date), surcharge accrues from deadline to **today**. Rate: ₱1,000/month, or ₱500/month for negative RE/fund balance and capital deficiency, or ₱0 for capital deficiency with no surcharge.
 4. Accumulate total penalties across all missed filings
-5. Add BO-specific penalties if applicable (₱1,000/day late under MC 10 s. 2022, capped at ₱2,000,000)
-6. Determine compliance status:
+5. Add MC 28 non-compliance penalty if applicable (flat ₱20,000)
+6. Add BO-specific penalties if applicable. For MVP, use simplified model: ₱1,000/day from BO deadline to today, capped at ₱2,000,000 per missed BO filing (MC 10 s. 2022 regime). MC 15 s. 2025 penalties (₱50K-₱1M by frequency) supersede from Jan 1, 2026 — the `bo_penalty_schedule` config table should use `effective_from`/`effective_until` to switch regimes.
+7. Determine compliance status:
    - **Active**: all reports filed
-   - **Delinquent**: 3+ missed filings (consecutive or intermittent) within 5 years (RA 11232 Sec. 177)
+   - **Delinquent**: per RA 11232 Sec. 177 — either 3 consecutive years of non-filing OR a combination totaling 5 years of intermittent non-filing of reportorial requirements
    - **Suspended**: SEC suspension order received
    - **Revoked**: SEC revocation order received (6th offense = grounds for revocation + 100% surcharge)
 7. If any amnesty program is active (configurable): compute amnesty settlement amount
@@ -157,9 +160,9 @@ Penalties depend on 4 dimensions: domicile+corp_type, report type (late vs. non-
 | ₱5M-₱10M | ₱17,500 | ₱21,000 | ₱24,500 | ₱28,000 | ₱31,500 | +₱1,000/mo |
 | Above ₱10M | ₱20,000 | ₱24,000 | ₱28,000 | ₱32,000 | ₱36,000 | +₱1,000/mo |
 
-#### Foreign Corporations
+#### Foreign Corporations (Deferred)
 
-Foreign stock and non-stock corporations have **higher penalty rates** (₱10,000-₱90,000 range). Full tables to be extracted from MC No. 6 s. 2024 during implementation — same schema, different amounts.
+Foreign stock and non-stock corporations have **higher penalty rates** (₱10,000-₱90,000 range). Deferred from MVP. The wizard shows "domestic only" at launch. Foreign corp support is a post-MVP feature — same schema, different amounts, to be extracted from MC No. 6 s. 2024.
 
 #### MC 28 Non-Compliance (Contact Registration)
 
@@ -178,11 +181,7 @@ A 6th offense = grounds for revocation of Certificate of Registration. Monetary 
 
 #### Old Regime (pre-April 1, 2024)
 
-For penalties assessed before April 1, 2024, the old rates under the previous scale of fines apply:
-- Stock: ₱1,000-₱10,000 per report per year
-- Non-stock: ₱500-₱5,000 per report per year
-
-The penalty schedule data table handles this via `effective_from`/`effective_until` date ranges.
+**MVP simplification:** All penalties computed using the current MC 6 s. 2024 rates regardless of when the violation occurred. This slightly overstates penalties for pre-2024 violations but is consistent with how the SEC assesses penalties today (they apply current rates). The old rates (stock: ₱1,000-₱10,000; non-stock: ₱500-₱5,000) are documented here for reference. A future version could add old-regime rates to the penalty schedule data table via `effective_from`/`effective_until` for historical accuracy.
 
 ### Penalty Schedule Schema
 
@@ -193,6 +192,7 @@ penalty_schedule:
     report_type: "GIS" | "AFS"
     violation_type: "late_filing" | "non_filing"
     re_bracket: "capital_deficiency" | "negative" | "0_100k" | "100k_500k" | "500k_5m" | "5m_10m" | "above_10m"
+    # Note: "capital_deficiency" only valid for stock/OPC. Non-stock uses "negative" as lowest bracket.
     offense_number: 1-5
     penalty_amount: number       # in PHP
     monthly_surcharge: number    # in PHP (0, 500, or 1000)
@@ -274,6 +274,40 @@ All corporation types must file. No exemptions. Changes in BO must be reported w
 
 The expected-filings generator includes BO reports starting from the later of: incorporation year or 2019.
 
+### Validation Rules
+
+- OPC can only be selected when domicile = domestic
+- "Capital deficiency" RE bracket only available for stock/OPC, not non-stock
+- Incorporation date must be in the past, no earlier than 1906 (oldest Philippine corporation registry)
+- If suspension order date is provided, it must be after incorporation date
+- BO filing checkboxes only appear from 2019 onward
+- At least one missed filing required to produce a penalty result (if zero missed → "congratulations" screen)
+
+### Worked Example
+
+**Scenario:** Domestic stock corporation, incorporated 2018, RE bracket ₱100K-₱500K, missed GIS for 2020-2023 (4 years), missed AFS for 2022-2023 (2 years), no BO filed since 2019 (5 years), MC 28 non-compliant. No suspension order.
+
+**GIS penalties (4 offenses, all non-filing since >1 year overdue):**
+- 2020 (1st offense): ₱15,000 + surcharge ₱1,000/mo × ~66 months = ₱81,000
+- 2021 (2nd offense): ₱18,000 + surcharge ₱1,000/mo × ~54 months = ₱72,000
+- 2022 (3rd offense): ₱21,000 + surcharge ₱1,000/mo × ~42 months = ₱63,000
+- 2023 (4th offense): ₱24,000 + surcharge ₱1,000/mo × ~30 months = ₱54,000
+
+**AFS penalties (2 offenses, non-filing):**
+- 2022 (1st offense): ₱15,000 + surcharge ₱1,000/mo × ~42 months = ₱57,000
+- 2023 (2nd offense): ₱18,000 + surcharge ₱1,000/mo × ~30 months = ₱48,000
+
+**BO penalties (5 missed years, ₱1,000/day per missed filing, cap ₱2M):**
+- Simplified: 5 × (₱1,000/day × days since deadline), each capped at ₱2M
+
+**MC 28:** ₱20,000
+
+**GIS+AFS subtotal:** ₱375,000
+**Status:** Delinquent (3+ consecutive years non-filing of GIS)
+**Risk:** 2 more GIS offenses → revocation grounds
+
+*(Surcharge months are approximate as of March 2026. BO daily penalties would add substantially.)*
+
 ### Legal Disclaimer
 
 All computation results pages must display a prominent disclaimer: **"This is an estimate based on publicly available SEC penalty schedules. It is not legal advice. Consult a lawyer or corporate secretary for your specific situation."** This affects results page UI layout — the disclaimer must be visible without scrolling, not buried in a footer.
@@ -353,7 +387,8 @@ filing_records
   - id, corporation_id
   - report_type (GIS | AFS | BO)
   - year
-  - filed (boolean)
+  - status (not_filed | filed_late | filed_on_time)
+  - filed_date (nullable — for late filings, used to determine late vs. non-filing)
 
 computations
   - id, corporation_id, computed_at
