@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 254
-- **Pending:** 259
-- **Convergence:** 49.5%
+- **Analyzed:** 264
+- **Pending:** 249
+- **Convergence:** 51.5%
 
 ---
 
@@ -286,8 +286,8 @@
 - [x] 2.05e — Stigmergy-only variant (Model F as primary coordination): a game mode or mission where hooks are disabled and units can ONLY communicate through tile marks — pure environmental coordination
 
 ### Weighted Buffer Deep Dives
-- [ ] 2.02a — Weight value design space: what's the right weight range (1-3 ternary vs. 1-5 granular vs. 1-10 simulation-heavy); weight inflation across campaign missions; balance implications
-- [ ] 2.02b — Delivery richness as progressive unlock: stripped/tagged/structured trichotomy per-channel; when does this unlock; boot log framing; interaction with hook taxonomy (3.08)
+- [x] 2.02a — Weight value design space: what's the right weight range (1-3 ternary vs. 1-5 granular vs. 1-10 simulation-heavy); weight inflation across campaign missions; balance implications
+- [x] 2.02b — Delivery richness as progressive unlock: stripped/tagged/structured trichotomy per-channel; when does this unlock; boot log framing; interaction with hook taxonomy (3.08)
 - [ ] 2.02c — Weight-aware eviction policy design space: FIFO-weight, lightest-first, heaviest-first, priority-tagged, weight-matched, random-weighted; which strategies create interesting decisions vs. degenerate ones
 - [ ] 2.02d — The "compress as refinery" skill identity: if weight makes compress essential, does the Relay become mandatory? Diversity implications; alternative weight-reduction skills; weight management as a skill category
 - [ ] 2.02e — Tutorial progression from fixed-slot to weighted: designing the M1-4 → M5 transition; the "bookshelf upgrade" moment; avoiding invalidating fixed-slot tutorial lessons
@@ -370,7 +370,7 @@
 - [x] 3.07a — Rules panel layout at scale: what does 12-20 rules look like on a Command unit? Scrolling vs. pagination vs. collapsible groups; the "wall of rules" readability problem
 - [x] 3.07b — Rules copy-paste between blueprints: can the player copy a rule strip from one blueprint and paste it into another? Cross-unit-type compatibility for shared conditions
 - [x] 3.07c — Rules diff view in Inspector: show which rules changed since last execute; "you added rule 4 and reordered 2-3" as explicit debrief feedback
-- [ ] 3.07d — Rules panel keyboard shortcuts: expert keyboard-only workflow for rule creation and reordering; Ctrl+N, Ctrl+Up/Down, Ctrl+D; the mouseless speedrun
+- [x] 3.07d — Rules panel keyboard shortcuts: expert keyboard-only workflow for rule creation and reordering; Ctrl+N, Ctrl+Up/Down, Ctrl+D; the mouseless speedrun
 - [x] 3.07e — The "rule graveyard" — disabled but preserved rules: gray out a rule without deleting; A/B testing rule configurations without losing work; visual treatment of disabled rules
 
 ### Hooks (Reactive Wiring)
@@ -380,7 +380,7 @@
   - [ ] 3.09c — Hot/cold as enemy design lever: enemy architectures using hot/cold strategically; all-hot (fast but detectable via EM), all-cold (stealthy but slow); boss enemies dynamically switching modes mid-battle
   - [ ] 3.09d — Emergent patterns from delayed chaining: catalog of "Factorio combinator" patterns from 1-tick-delay cold hooks — heartbeat generators, edge detectors, memory locks, priority arbiters, load balancers; advanced techniques veterans discover
   - [ ] 3.09e — Cascade depth as competitive meta: optimal cascade depth as strategic variable in Gauntlet; shallow-and-fast (2-hop hot) vs. deep-and-slow (4-hop mixed) as distinct competitive archetypes
-- [ ] 3.09a — Blocking hook semantics: hooks that require both sender and receiver to be "ready" (not busy, in range, buffer not full) — implicit timing without a global clock (from TIS-100 blocking port model)
+- [x] 3.09a — Blocking hook semantics: hooks that require both sender and receiver to be "ready" (not busy, in range, buffer not full) — implicit timing without a global clock (from TIS-100 blocking port model)
 - [ ] 3.10a — Hook range as spatial mechanic: hooks that only fire within a configurable range radius; design options (fixed range, configurable per hook, range extenders as skill, relay positioning as tactical mini-game); how range requirements choreograph agent deployment
 - [x] 3.10 — Hook visualization: how does the player see the wiring between agents? How are active hooks shown during execution?
 - [x] 3.10b — Signal latency legibility: how the player learns and predicts multi-tick signal travel times; spatial vs temporal distance; paradigm-specific latency communication
@@ -511,8 +511,8 @@
   - [ ] 5.15d — The Logistics Desk 4 character in Voice C: can a bureaucrat who communicates only through passive-aggressive memos become someone the player cares about? The recurring institutional character as community meme
   - [ ] 5.15e — Voice-specific corruption detection difficulty: each voice has different corruption legibility; designing the corruption difficulty curve per-voice; Voice A corruption easiest to detect, Voice D hardest; voice-layered corruption difficulty in hybrid A+B
 - [x] 5.16 — The non-alt-tab embedded document UI: design exploration of a togglable in-workbench reference panel that maintains diegetic framing without alt-tab friction; panel behavior, docking, visual treatment
-- [ ] 5.16a — Terminal content authoring pipeline: how ~30 term entries + cross-cutting interaction descriptions are authored; manual vs. templated vs. player-behavior-driven prioritization; combinatorial explosion management
-- [ ] 5.16b — Terminal in Inspector mode: detailed design of how the reference terminal functions during Inspector phase; tick-state-aware context, "why did X fire at tick N" queries, replay-grounded reference
+- [x] 5.16a — Terminal content authoring pipeline: how ~30 term entries + cross-cutting interaction descriptions are authored; manual vs. templated vs. player-behavior-driven prioritization; combinatorial explosion management
+- [x] 5.16b — Terminal in Inspector mode: detailed design of how the reference terminal functions during Inspector phase; tick-state-aware context, "why did X fire at tick N" queries, replay-grounded reference
 - [ ] 5.16c — Terminal as community sharing surface: shareable query result links; "here's the interaction between compress and EM" as URL that opens terminal to that entry; community knowledge sharing
 - [x] 5.16d — Terminal progressive disclosure across campaign: which terminal features unlock when (M1 context only, M3 query, M5 related, M7 cross-cutting synthesis, M10 full); the terminal itself teaches over time
 - [ ] 5.16e — Terminal accessibility: screen reader navigation of three-column layout, keyboard-only operation, high-contrast mode, reduced-motion scan-line removal, audio descriptions of micro-scenarios
@@ -697,8 +697,8 @@
 - [x] 6.10a — Corruption audio learning curve design: how the first corruption encounter (Mission 7-8) introduces the audio vocabulary without overwhelming; pacing of new corruption sounds across campaign's second half; which sounds appear when
 - [x] 6.10b — Corruption audio in competitive/PvP context: does the opponent hear YOUR corruption audio? Can EM emissions include corruption detection sounds? Audio as competitive intelligence leak
 - [x] 6.10c — Hybrid corruption audio vocabulary: combining elements of multiple options (Geiger clicking for detection + heartbeat for severity + whispers for deep corruption narrative); the layered approach
-- [ ] 6.10d — Accessibility alternatives for corruption audio: screen-reader integration, visual-only corruption modes for deaf/hard-of-hearing players, haptic-only modes; ensuring corruption detection doesn't become audio-gated
-- [ ] 6.10e — Player-configurable corruption audio intensity: settings slider from "subtle" (perturbation only) to "aggressive" (full alarm cascade); player agency over corruption layer's attention demand
+- [x] 6.10d — Accessibility alternatives for corruption audio: screen-reader integration, visual-only corruption modes for deaf/hard-of-hearing players, haptic-only modes; ensuring corruption detection doesn't become audio-gated
+- [x] 6.10e — Player-configurable corruption audio intensity: settings slider from "subtle" (perturbation only) to "aggressive" (full alarm cascade); player agency over corruption layer's attention demand
 - [ ] 6.10f — Corruption audio in the sealed watch phase: what corruption sounds like DURING battle (not just workbench); EMP buffer degradation audio mid-fight; sealed watch corruption vocabulary distinct from plan phase
 - [ ] 6.10g — Player-authored corruption audio modding: custom sound pack support for corruption vocabulary; modding hooks for audio system; community horror/comedy/minimal packs
 - [ ] 6.10h — Cross-player corruption audio in spectator mode: which player's corruption audio does spectator hear in PvP; merged "god view" showing both corruption states; audio mixing for broadcast
@@ -847,7 +847,7 @@
 - [x] 8.04 — The minimum viable game: smallest set of mechanics that captures the core magic
 - [x] 8.04a — The "second session" test for the MVG: what creates pull-back to a 5-mission prototype without progression systems or new content? "One more try" psychology for the minimum viable game
 - [x] 8.04b — The Relay essentiality debate: could a two-unit MVG work if scouts had built-in compress? Minimum topology for emergence vs. simplest onboarding
-- [ ] 8.04c — Inspector engagement metrics: time-on-Inspector, unit clicks per debrief, scrubber positions visited as quality signals; how to detect and respond to Inspector skip behavior
+- [x] 8.04c — Inspector engagement metrics: time-on-Inspector, unit clicks per debrief, scrubber positions visited as quality signals; how to detect and respond to Inspector skip behavior
 - [x] 8.04d — The "factory shock" at Mission 5: Mission 5 introduces blueprints + production queue + economy simultaneously after 4 pre-placed-unit missions; should there be a Mission 4.5?
 - [x] 8.04e — The MVG as web demo: 5-mission browser-playable demo as viral acquisition funnel; React + Pixi.js, under 5 minutes, shareable URL; the demo-to-full-game conversion path
 - [x] 8.06 — The "first ugly solution" as tutorial completion: designing missions to be beatable with brute-force configurations so the histogram teaches optimization rather than a tutorial system; the Opus Magnum "no required optimization" pattern applied to agent configuration
@@ -855,7 +855,7 @@
 - [x] 8.10 — The Gauntlet map template system: a library of Gauntlet-approved map templates with documented match-length distributions from playtesting; map selection for each Gauntlet season as a balance decision; community map submission with validation criteria (≥80% of matches in 60–150 tick range to be Gauntlet-eligible); map approval pipeline
 - [x] 8.07 — Robustness vs. efficiency as fundamental tension: highly efficient architectures may be brittle (works 90% of cases, fast); robust architectures may be inefficient (works 100%, slow); how do histograms communicate both dimensions simultaneously?
 - [x] 8.09 — The diagnostic layer as teaching mechanic: cross-cutting synthesis of inspector sidebar / probe hooks / signal genealogy / diagnostic ring as a unified system for making information architecture legible; how this system scales across all three acts; what should be always-on vs. opt-in vs. expert-only; a full design pass on the diagnostic teaching arc
-- [ ] 8.13 — Three-act metric mapping: formally defining the primary career stat for each act (Campaign: pass rate / Advanced Campaign: robustness % / Gauntlet: eEDT) and designing the transition moments where a new primary stat becomes visible for the first time
+- [x] 8.13 — Three-act metric mapping: formally defining the primary career stat for each act (Campaign: pass rate / Advanced Campaign: robustness % / Gauntlet: eEDT) and designing the transition moments where a new primary stat becomes visible for the first time
 - [x] 8.08 — The real-language vocabulary claim: Robot Uprising asserts its primitives (skills/rules/hooks/context) map 1:1 to real agentic AI engineering; design exercise — map a real Claude Code ralph loop to Robot Uprising primitives and test whether the vocabulary actually holds; where does the metaphor break down, and does that matter?
 - [ ] 8.08a — "Translate Your Architecture" post-game bridge: game-to-code conversion tool design; auto-generate Claude Agent SDK Python from Mission 10 config; literal translations (hooks→topics, context→model selection, skills→tools) vs. adaptations (spatial→non-spatial, tick→async); comparable to Screeps export-to-real-server
 - [ ] 8.08b — Blueprint Codex "Real-World Parallel" sections: content design for 30+ Codex entries connecting game terms to professional vocabulary; tone, depth, gating; comparable to Civilization's Civilopedia real-history sections
