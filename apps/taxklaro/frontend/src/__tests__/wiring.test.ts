@@ -36,7 +36,7 @@ function readRoute(relPath: string): string {
 describe('§14.1 component files exist', () => {
   const required = [
     // layout
-    'layout/TopBar.tsx',
+    'layout/Sidebar.tsx',
     'layout/CenteredColumn.tsx',
     'layout/PublicHeader.tsx',
     // root
