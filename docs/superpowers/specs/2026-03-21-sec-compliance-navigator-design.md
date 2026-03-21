@@ -21,7 +21,15 @@ A standalone web app that tells Philippine corporations their SEC compliance sta
 
 ## User Flows
 
-### Free Tier — Small Business Owner
+### Three User States
+
+The app has three user states, not two:
+
+1. **Anonymous** — no account. Can use the wizard and see full penalty computation.
+2. **Signed-in (free)** — free signup. Unlocks remediation content (ECIP comparison, guides, checklists, basic doc gen). This is the MVP conversion moment.
+3. **Pro (paid, post-MVP)** — subscription. Multi-corp dashboard, branded PDF reports, batch upload, credits system.
+
+### Anonymous → Signed-in Free Flow (Small Business Owner)
 
 1. Land on homepage → "Is your corporation in trouble with the SEC?"
 2. Start wizard (no signup required):
@@ -29,16 +37,16 @@ A standalone web app that tells Philippine corporations their SEC compliance sta
    - Date of incorporation
    - Which annual reports have you filed? (GIS, AFS, BO — checklist per year, pre-populated from incorporation date to present)
    - Have you received a suspension or revocation order?
-3. Results page:
+3. Results page (anonymous):
    - Compliance status badge (Active / Delinquent / Suspended / Revoked)
    - Itemized penalty table by year and report type
    - Total penalties owed
-4. CTA: "Want to know how to fix this?" → signup gate
-5. Post-signup — remediation flow:
+4. CTA: "Want to know how to fix this?" → **free signup gate** (email + password or Google OAuth)
+5. Post-signup (free tier) — remediation flow:
    - ECIP vs. reinstatement comparison with cost breakdown
-   - Step-by-step remediation guide
+   - Step-by-step remediation guide (static content per compliance status — not dynamically generated)
    - Required documents checklist
-   - Generated documents (ECIP application, cover letter)
+   - Basic document generation (ECIP application, cover letter — simple template fill, HTML/PDF output)
 
 ### Pro Tier — Corporate Secretaries / Law Firms (Post-MVP)
 
@@ -81,6 +89,40 @@ A standalone web app that tells Philippine corporations their SEC compliance sta
 ### Penalty Schedule as Data Table
 The exact penalty amounts per report type per year are specified in SEC memorandum circulars and get updated. The penalty schedule lives in a **configurable data table, not hardcoded logic**. When SEC issues a new circular, update a config row, not application code.
 
+**Penalty schedule schema** (to be populated from SEC MC-019-2016 and RA 11232 Sec. 162 during implementation):
+
+```
+penalty_schedule:
+  - corp_type: "stock" | "non_stock" | "opc"
+    report_type: "GIS" | "AFS" | "BO"
+    year_of_delinquency: number  # 1st year, 2nd year, etc.
+    penalty_amount: number       # in PHP
+    effective_from: date         # when this rate took effect (for regime changes)
+    effective_until: date | null # null = current
+    notes: string | null         # e.g., "per SEC MC-019-2016 Sec. 3(a)"
+```
+
+**Note:** Actual penalty amounts must be extracted from SEC circulars as a research task before implementation. The schema above defines the shape; the data population is a prerequisite to building the engine.
+
+### ECIP Eligibility & Availability
+
+ECIP (Early Compliance Incentive Program) is a **periodic SEC amnesty program** — it is not always open. The tool must handle this:
+
+- **ECIP availability** is a configurable flag with date range (`ecip_active_from`, `ecip_active_until`). When ECIP is not active, the tool still shows full penalty computation but the ECIP comparison section says "No amnesty program is currently active" instead of showing a comparison.
+- **ECIP eligibility rules** (to be confirmed from SEC circulars during implementation): generally, suspended corporations that have not been revoked are eligible. Revoked corporations must petition for revival first. The eligibility logic should be a configurable rule set, not hardcoded, since SEC may change criteria per program cycle.
+
+### Pre-2019 Corporations
+
+Corporations incorporated before RA 11232 (effective Feb 23, 2019) were governed by BP 68 (old Corporation Code). The penalty regime may differ for years of delinquency that fall before vs. after the transition. The penalty schedule data table handles this via `effective_from`/`effective_until` date ranges — the computation engine applies the penalty rate that was in effect for each year of delinquency.
+
+### Legal Disclaimer
+
+All computation results pages must display a prominent disclaimer: **"This is an estimate based on publicly available SEC penalty schedules. It is not legal advice. Consult a lawyer or corporate secretary for your specific situation."** This affects results page UI layout — the disclaimer must be visible without scrolling, not buried in a footer.
+
+### BO Report Applicability
+
+Beneficial Ownership reports are required from 2022 onward per SEC MC-028-2020. All corporation types (stock, non-stock, OPC) must file. The expected-filings generator includes BO reports starting from the later of: incorporation year or 2022.
+
 ---
 
 ## Document Upload & OCR Pre-fill (Deferred)
@@ -98,20 +140,20 @@ This is a convenience feature, not a core dependency.
 
 ## Monetization
 
-### Free vs. Pro Feature Split
+### Feature Split by Tier
 
-| Feature | Free | Pro |
-|---|---|---|
-| Wizard + penalty computation | ✅ | ✅ |
-| Compliance status | ✅ | ✅ |
-| Itemized penalty breakdown | ✅ | ✅ |
-| ECIP vs. reinstatement comparison | ❌ | ✅ |
-| Remediation guide + checklist | ❌ | ✅ |
-| Document generation | ❌ | ✅ |
-| Multi-corporation dashboard | ❌ | ✅ |
-| Branded client-facing PDF reports | ❌ | ✅ (credits) |
-| Batch CSV upload | ❌ | ✅ |
-| Document upload pre-fill | ❌ | ✅ |
+| Feature | Anonymous | Free (signed in) | Pro (paid, post-MVP) |
+|---|---|---|---|
+| Wizard + penalty computation | ✅ | ✅ | ✅ |
+| Compliance status | ✅ | ✅ | ✅ |
+| Itemized penalty breakdown | ✅ | ✅ | ✅ |
+| ECIP vs. reinstatement comparison | ❌ | ✅ | ✅ |
+| Remediation guide + checklist | ❌ | ✅ | ✅ |
+| Basic document generation (template fill) | ❌ | ✅ | ✅ |
+| Multi-corporation dashboard | ❌ | ❌ | ✅ |
+| Branded client-facing PDF reports | ❌ | ❌ | ✅ (credits) |
+| Batch CSV upload | ❌ | ❌ | ✅ |
+| Document upload pre-fill | ❌ | ❌ | ✅ |
 
 ### Pricing Structure
 - Base subscription: monthly fee for dashboard access + N included corporations + M included reports
@@ -126,11 +168,47 @@ This is a convenience feature, not a core dependency.
 - **Frontend:** Next.js, standalone repo/deploy, own domain
 - **Computation engine:** Standalone pure-function module. Takes inputs → returns penalty breakdown. Designed to be reusable as shared infrastructure for other compliance tools.
 - **Auth:** Email + password, or Google OAuth
-- **Database:** Postgres — users, corporations, filing history, computation results, subscription status
+- **Database:** Postgres (see Data Model below)
 - **File storage:** S3-compatible for uploaded documents (deferred)
 - **OCR:** Google Cloud Vision or similar with LLM parsing layer (deferred)
-- **PDF generation:** Server-side (puppeteer or similar) for branded client reports (deferred)
+- **PDF generation:** MVP uses simple HTML-to-PDF for basic doc gen (ECIP application, cover letter). Branded puppeteer-based PDF reports are deferred to Pro tier.
 - **Deployment:** Vercel or similar for Next.js frontend, separate API service for computation + PDF gen
+
+### API Boundary
+
+For MVP, the computation engine is an **in-process module** called from Next.js API routes / server actions. No separate service. The engine is structured as a pure-function library so it can be extracted into a standalone service later when Pro tier needs it, but at MVP there's no reason to add deployment complexity.
+
+### Data Model
+
+```
+users
+  - id, email, name, auth_provider, created_at
+
+corporations
+  - id, user_id (nullable — anonymous computations have no user)
+  - corp_type (stock | non_stock | opc)
+  - registration_date, sec_registration_number (optional)
+  - suspension_date (nullable), revocation_date (nullable)
+
+filing_records
+  - id, corporation_id
+  - report_type (GIS | AFS | BO)
+  - year
+  - filed (boolean)
+
+computations
+  - id, corporation_id, computed_at
+  - result_json (full penalty breakdown, status, ECIP comparison)
+  - Note: computations are stored so users can re-visit results.
+    One corporation can have multiple computations (recompute after updating filings).
+
+penalty_schedule (config table)
+  - id, corp_type, report_type, year_of_delinquency
+  - penalty_amount, effective_from, effective_until, notes
+
+ecip_config
+  - id, active_from, active_until, eligibility_rules_json, fee_schedule_json
+```
 
 ---
 
