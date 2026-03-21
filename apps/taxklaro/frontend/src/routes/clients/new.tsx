@@ -4,6 +4,7 @@ import { authenticatedRoute } from '../__root';
 import { authGuard } from '../../lib/auth-guard';
 import { supabase } from '../../lib/supabase';
 import { useOrganization } from '../../hooks/useOrganization';
+import { CenteredColumn } from '../../components/layout/CenteredColumn';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
@@ -52,11 +53,11 @@ function ClientsNewPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto space-y-6" data-testid="clients-new-page">
-      <div className="flex items-center justify-between">
-        <h1 className="font-display text-foreground" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>New Client</h1>
+    <CenteredColumn data-testid="clients-new-page">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-semibold">New Client</h1>
         <button
-          className="inline-flex items-center py-2.5 text-[0.8125rem] text-muted-foreground hover:text-foreground transition-colors"
+          className="inline-flex items-center py-2.5 text-[0.8125rem] text-zinc-500 hover:text-zinc-200 transition-colors"
           onClick={() => navigate({ to: '/clients' })}
         >
           ← Back to Clients
@@ -64,40 +65,40 @@ function ClientsNewPage() {
       </div>
 
       {error && (
-        <div className="rounded-lg border border-destructive bg-destructive/10 p-4 text-sm text-destructive">
+        <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-400 mb-4">
           {error}
         </div>
       )}
 
-      <div className="rounded-xl bg-card shadow-md p-4 sm:p-8">
+      <div className="rounded-xl bg-zinc-900/50 border border-zinc-800 p-6 sm:p-8">
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-1.5">
-            <Label htmlFor="name">Client Name *</Label>
+            <Label htmlFor="name" className="text-zinc-400 text-xs font-medium uppercase tracking-wide">Client Name *</Label>
             <Input
               id="name"
               data-testid="client-name-input"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Juan dela Cruz"
-              className="h-11"
+              className="h-11 bg-zinc-900 border-zinc-700 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-zinc-500"
               required
             />
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="tin">TIN</Label>
+            <Label htmlFor="tin" className="text-zinc-400 text-xs font-medium uppercase tracking-wide">TIN</Label>
             <Input
               id="tin"
               data-testid="client-tin-input"
               value={tin}
               onChange={(e) => setTin(e.target.value)}
               placeholder="e.g. 123-456-789-000"
-              className="h-11"
+              className="h-11 bg-zinc-900 border-zinc-700 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-zinc-500"
             />
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="text-zinc-400 text-xs font-medium uppercase tracking-wide">Email</Label>
             <Input
               id="email"
               type="email"
@@ -105,12 +106,12 @@ function ClientsNewPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="e.g. juan@example.com"
-              className="h-11"
+              className="h-11 bg-zinc-900 border-zinc-700 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-zinc-500"
             />
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="phone">Phone</Label>
+            <Label htmlFor="phone" className="text-zinc-400 text-xs font-medium uppercase tracking-wide">Phone</Label>
             <Input
               id="phone"
               type="tel"
@@ -118,19 +119,19 @@ function ClientsNewPage() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="e.g. +63 912 345 6789"
-              className="h-11"
+              className="h-11 bg-zinc-900 border-zinc-700 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-zinc-500"
             />
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="notes">Notes</Label>
+            <Label htmlFor="notes" className="text-zinc-400 text-xs font-medium uppercase tracking-wide">Notes</Label>
             <Input
               id="notes"
               data-testid="client-notes-input"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="e.g. Additional client notes"
-              className="h-11"
+              className="h-11 bg-zinc-900 border-zinc-700 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-zinc-500"
             />
           </div>
 
@@ -148,6 +149,6 @@ function ClientsNewPage() {
           </div>
         </form>
       </div>
-    </div>
+    </CenteredColumn>
   );
 }

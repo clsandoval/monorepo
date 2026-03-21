@@ -1,13 +1,13 @@
 import { createRoute } from '@tanstack/react-router';
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { Plus, FileText } from 'lucide-react';
 import { authenticatedRoute } from '../__root';
 import { authGuard } from '../../lib/auth-guard';
 import { listComputations, deleteComputation, updateComputationStatus } from '../../lib/computations';
 import { useOrganization } from '../../hooks/useOrganization';
-import { ComputationCard } from '../../components/computation/ComputationCard';
-import { ComputationCardSkeleton } from '../../components/computation/ComputationCardSkeleton';
+import { CenteredColumn } from '../../components/layout/CenteredColumn';
+import { ListRow } from '../../components/shared/ListRow';
+import { EmptyState } from '../../components/shared/EmptyState';
 import { Button } from '../../components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '../../components/ui/tabs';
 import type { ComputationListItem, ComputationStatus } from '../../types/org';
@@ -20,6 +20,10 @@ export const ComputationsIndexRoute = createRoute({
 });
 
 type StatusFilter = 'all' | ComputationStatus;
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-PH', { year: 'numeric', month: 'short', day: 'numeric' });
+}
 
 function ComputationsPage() {
   const navigate = useNavigate();
@@ -57,52 +61,53 @@ function ComputationsPage() {
     );
   }
 
+  // Suppress unused variable warnings — kept for potential future use
+  void handleDelete;
+  void handleArchive;
+
   const filtered = statusFilter === 'all'
     ? computations
     : computations.filter((c) => c.status === statusFilter);
 
   if (isLoading) {
     return (
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="font-display text-foreground" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Computations</h1>
+      <CenteredColumn>
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-semibold">Computations</h1>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="flex flex-col gap-px rounded-md overflow-hidden">
           {Array.from({ length: 6 }).map((_, i) => (
-            <ComputationCardSkeleton key={i} />
+            <div key={i} className="h-14 bg-zinc-900/50 animate-pulse" />
           ))}
         </div>
-      </div>
+      </CenteredColumn>
     );
   }
 
   if (error) {
     return (
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="font-display text-foreground" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Computations</h1>
-          <Button onClick={() => navigate({ to: '/computations/new' })}>
-            <Plus className="h-4 w-4 mr-2" /> New Computation
-          </Button>
+      <CenteredColumn>
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-semibold">Computations</h1>
+          <Button onClick={() => navigate({ to: '/computations/new' })}>+ New</Button>
         </div>
-        <div className="text-center py-16">
-          <p className="text-muted-foreground mb-4">Unable to load computations. There was a problem fetching your computations. Please try again.</p>
-          <Button variant="outline" onClick={load}>Try again</Button>
-        </div>
-      </div>
+        <EmptyState
+          message="Unable to load computations. Please try again."
+          actionLabel="Try again"
+          onAction={load}
+        />
+      </CenteredColumn>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-y-3">
-        <h1 className="font-display text-foreground" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Computations</h1>
-        <Button onClick={() => navigate({ to: '/computations/new' })}>
-          <Plus className="h-4 w-4 mr-2" /> New Computation
-        </Button>
+    <CenteredColumn>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-semibold">Computations</h1>
+        <Button onClick={() => navigate({ to: '/computations/new' })}>+ New</Button>
       </div>
 
-      <Tabs value={statusFilter} onValueChange={(v) => setStatusFilter(v as StatusFilter)}>
+      <Tabs value={statusFilter} onValueChange={(v) => setStatusFilter(v as StatusFilter)} className="mb-4">
         <TabsList variant="line">
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="draft">Draft</TabsTrigger>
@@ -113,43 +118,29 @@ function ComputationsPage() {
       </Tabs>
 
       {computations.length === 0 ? (
-        <div className="text-center py-20 space-y-4" data-testid="empty-computations">
-          <div className="mx-auto w-16 h-16 rounded-full bg-muted flex items-center justify-center">
-            <FileText className="h-8 w-8 text-muted-foreground" />
-          </div>
-          <div>
-            <p className="font-display text-xl font-normal">No computations yet</p>
-            <p className="text-[0.9375rem] text-muted-foreground mt-1 max-w-sm mx-auto">
-              Create a computation to get BIR-compliant tax analysis for any freelancer or self-employed client.
-            </p>
-          </div>
-          <Button onClick={() => navigate({ to: '/computations/new' })}>New Computation</Button>
-        </div>
+        <EmptyState
+          message="No computations yet"
+          actionLabel="+ New Computation"
+          onAction={() => navigate({ to: '/computations/new' })}
+        />
       ) : filtered.length === 0 ? (
-        <div className="text-center py-20 space-y-4">
-          <div className="mx-auto w-16 h-16 rounded-full bg-muted flex items-center justify-center">
-            <FileText className="h-8 w-8 text-muted-foreground" />
-          </div>
-          <div>
-            <p className="font-display text-xl font-normal">No results</p>
-            <p className="text-[0.9375rem] text-muted-foreground max-w-sm mx-auto">
-              No computations match the selected filters. Try adjusting your status filter.
-            </p>
-          </div>
-          <Button variant="outline" onClick={() => setStatusFilter('all')}>Clear filters</Button>
-        </div>
+        <EmptyState
+          message="No computations match the selected filter."
+          actionLabel="Clear filter"
+          onAction={() => setStatusFilter('all')}
+        />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="flex flex-col gap-px rounded-md overflow-hidden" data-testid="computations-list">
           {filtered.map((c) => (
-            <ComputationCard
+            <ListRow
               key={c.id}
-              computation={c}
-              onDelete={handleDelete}
-              onArchive={handleArchive}
+              title={`${c.title} — ${c.taxYear}`}
+              subtitle={`${c.status}${c.regimeSelected ? ` · ${c.regimeSelected}` : ''} · ${formatDate(c.updatedAt)}`}
+              onClick={() => navigate({ to: '/computations/$compId', params: { compId: c.id } })}
             />
           ))}
         </div>
       )}
-    </div>
+    </CenteredColumn>
   );
 }

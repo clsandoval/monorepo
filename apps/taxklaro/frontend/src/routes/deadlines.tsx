@@ -4,7 +4,9 @@ import { authenticatedRoute } from './__root';
 import { authGuard } from '../lib/auth-guard';
 import { useOrganization } from '../hooks/useOrganization';
 import { listComputations } from '../lib/computations';
-import { DeadlineCard } from '../components/deadlines/DeadlineCard';
+import { CenteredColumn } from '../components/layout/CenteredColumn';
+import { ListRow } from '../components/shared/ListRow';
+import { EmptyState } from '../components/shared/EmptyState';
 import type { ComputationListItem } from '../types/org';
 
 export const DeadlinesRoute = createRoute({
@@ -31,6 +33,23 @@ interface GroupedDeadline {
   description: string;
   completed: boolean;
   computationTitles: string[];
+  isUrgent: boolean;
+}
+
+function isUrgentDate(dueDate: string): boolean {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const due = new Date(dueDate + 'T00:00:00');
+  const daysUntil = Math.ceil((due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  return daysUntil <= 30;
+}
+
+function formatDueDate(dueDate: string): string {
+  return new Date(dueDate + 'T00:00:00').toLocaleDateString('en-PH', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
 }
 
 /** Derive filing deadlines from computation metadata, grouped by date+type. */
@@ -99,11 +118,17 @@ function deriveDeadlines(computations: ComputationListItem[]): GroupedDeadline[]
         description: e.description,
         completed: e.completed,
         computationTitles: [e.computationTitle],
+        isUrgent: !e.completed && isUrgentDate(e.dueDate),
       });
     }
   }
 
-  const grouped = Array.from(groupMap.values());
+  // Recompute isUrgent after grouping (completed flag may have changed)
+  const grouped = Array.from(groupMap.values()).map((d) => ({
+    ...d,
+    isUrgent: !d.completed && isUrgentDate(d.dueDate),
+  }));
+
   grouped.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
   return grouped;
 }
@@ -125,14 +150,14 @@ function DeadlinesPage() {
 
   if (orgLoading || isLoading) {
     return (
-      <div className="space-y-4" data-testid="deadlines-page">
-        <h1 className="font-display text-foreground" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Deadlines</h1>
-        <div className="animate-pulse space-y-3">
+      <CenteredColumn data-testid="deadlines-page">
+        <h1 className="text-2xl font-semibold mb-6">Deadlines</h1>
+        <div className="flex flex-col gap-px rounded-md overflow-hidden">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-20 bg-muted rounded-lg" />
+            <div key={i} className="h-14 bg-zinc-900/50 animate-pulse" />
           ))}
         </div>
-      </div>
+      </CenteredColumn>
     );
   }
 
@@ -140,53 +165,50 @@ function DeadlinesPage() {
   const completed = deadlines.filter((d) => d.completed);
 
   return (
-    <div className="space-y-6" data-testid="deadlines-page">
-      <h1 className="font-display text-foreground" style={{ fontSize: 'var(--text-h1)', lineHeight: 'var(--text-h1-lh)' }}>Deadlines</h1>
+    <CenteredColumn data-testid="deadlines-page">
+      <h1 className="text-2xl font-semibold mb-6">Deadlines</h1>
 
       {deadlines.length === 0 ? (
-        <div className="rounded-lg bg-card shadow-sm border border-border/50 p-12 flex flex-col items-center text-center">
-          <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center mb-4">
-            <span className="text-2xl text-muted-foreground">📅</span>
-          </div>
-          <p className="font-medium text-foreground mb-1">No deadlines yet</p>
-          <p className="text-sm text-muted-foreground">Create a computation to see filing deadlines.</p>
-        </div>
+        <EmptyState message="No deadlines yet. Create a computation to see filing deadlines." />
       ) : (
         <>
-          <section className="space-y-3">
-            <h2 className="font-semibold text-foreground" style={{ fontSize: 'var(--text-h3)', lineHeight: 'var(--text-h3-lh)' }}>Upcoming</h2>
+          <section className="mb-8">
+            <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-3">Upcoming</h2>
             {upcoming.length === 0 ? (
-              <p className="text-sm text-muted-foreground">All deadlines completed.</p>
+              <p className="text-sm text-zinc-600">All deadlines completed.</p>
             ) : (
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-px rounded-md overflow-hidden">
                 {upcoming.map((d) => (
-                  <DeadlineCard
+                  <ListRow
                     key={d.groupKey}
-                    milestoneKey={d.milestoneKey}
-                    dueDate={d.dueDate}
-                    description={d.description}
-                    completed={d.completed}
-                    computationTitles={d.computationTitles}
+                    title={d.description}
+                    subtitle={`Due ${formatDueDate(d.dueDate)} · ${d.computationTitles.join(', ')}`}
+                    className={d.isUrgent ? 'bg-red-500/5 border border-red-500/10' : undefined}
+                    rightContent={
+                      <span className={`text-xs ml-4 shrink-0 ${d.isUrgent ? 'text-red-400' : 'text-zinc-600'}`}>
+                        {formatDueDate(d.dueDate)}
+                      </span>
+                    }
                   />
                 ))}
               </div>
             )}
           </section>
 
-          <section className="space-y-3">
-            <h2 className="font-semibold text-foreground" style={{ fontSize: 'var(--text-h3)', lineHeight: 'var(--text-h3-lh)' }}>Completed</h2>
+          <section>
+            <h2 className="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-3">Completed</h2>
             {completed.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No completed deadlines yet.</p>
+              <p className="text-sm text-zinc-600">No completed deadlines yet.</p>
             ) : (
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-px rounded-md overflow-hidden opacity-60">
                 {completed.map((d) => (
-                  <DeadlineCard
+                  <ListRow
                     key={d.groupKey}
-                    milestoneKey={d.milestoneKey}
-                    dueDate={d.dueDate}
-                    description={d.description}
-                    completed={d.completed}
-                    computationTitles={d.computationTitles}
+                    title={d.description}
+                    subtitle={`Due ${formatDueDate(d.dueDate)} · ${d.computationTitles.join(', ')}`}
+                    rightContent={
+                      <span className="text-xs text-zinc-600 ml-4 shrink-0">✓</span>
+                    }
                   />
                 ))}
               </div>
@@ -194,6 +216,6 @@ function DeadlinesPage() {
           </section>
         </>
       )}
-    </div>
+    </CenteredColumn>
   );
 }
