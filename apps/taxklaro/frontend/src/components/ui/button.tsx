@@ -5,16 +5,16 @@ import { Slot } from "radix-ui"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        default: "bg-zinc-50 text-zinc-950 hover:bg-zinc-200",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive: "bg-red-500 text-white hover:bg-red-600",
-        outline: "border border-zinc-800 bg-transparent text-zinc-50 hover:bg-zinc-900",
-        secondary: "bg-zinc-800 text-zinc-50 hover:bg-zinc-700",
-        ghost: "text-zinc-400 hover:text-zinc-50 hover:bg-zinc-900",
-        link: "text-zinc-400 underline underline-offset-4 hover:text-zinc-50",
+        outline: "border border-border bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "text-muted-foreground hover:text-foreground hover:bg-accent",
+        link: "text-muted-foreground underline underline-offset-4 hover:text-foreground",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
