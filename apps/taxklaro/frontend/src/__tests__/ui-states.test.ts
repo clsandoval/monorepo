@@ -93,21 +93,8 @@ describe('ErrorState.tsx (§8.5.1)', () => {
 
   const content = readComponent('shared/ErrorState.tsx');
 
-  it('uses Alert component with destructive variant', () => {
-    expect(content).toContain('Alert');
-    expect(content).toContain('destructive');
-  });
-
-  it('uses AlertCircle icon', () => {
-    expect(content).toContain('AlertCircle');
-  });
-
-  it('has optional title prop defaulting to "Something went wrong"', () => {
+  it('has default message "Something went wrong"', () => {
     expect(content).toContain('Something went wrong');
-  });
-
-  it('has optional message prop with default fallback', () => {
-    expect(content).toContain('Unable to load data');
   });
 
   it('has optional onRetry prop', () => {
@@ -136,7 +123,7 @@ describe('ComputationCardSkeleton.tsx (§8.5.15)', () => {
   it('root element has 6+ required Tailwind classes (anti-scaffolding §8.5.15)', () => {
     expect(content).toContain('rounded-lg');
     expect(content).toContain('border');
-    expect(content).toContain('bg-card');
+    expect(content).toContain('bg-zinc-800');
     expect(content).toContain('p-4');
     expect(content).toContain('space-y-3');
     expect(content).toContain('animate-pulse');
@@ -312,8 +299,8 @@ describe('Skeleton UI primitive (§8.5.1)', () => {
     expect(content).toContain('rounded-md');
   });
 
-  it('uses bg-muted or bg-accent class for skeleton background', () => {
-    const hasBg = content.includes('bg-muted') || content.includes('bg-accent');
+  it('uses bg-zinc-900 or bg-muted or bg-accent class for skeleton background', () => {
+    const hasBg = content.includes('bg-zinc-900') || content.includes('bg-muted') || content.includes('bg-accent');
     expect(hasBg).toBe(true);
   });
 

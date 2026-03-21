@@ -99,10 +99,10 @@ export function WS06ExpenseMethod({ data, onChange, onNext, onBack }: Props) {
             <Label htmlFor={`expense-${opt.value}`} className="cursor-pointer block">
               <Card
                 className={cn(
-                  'transition-all duration-200 shadow-sm',
+                  'transition-all duration-200 bg-zinc-800 border-zinc-700',
                   method === opt.value
-                    ? 'border-primary ring-2 ring-primary/20 bg-primary/5 shadow-md'
-                    : 'hover:border-primary/40 hover:shadow-md'
+                    ? 'border-zinc-400 ring-2 ring-zinc-400/20 bg-zinc-700/30'
+                    : 'hover:border-zinc-500'
                 )}
               >
                 <CardContent className="p-5">

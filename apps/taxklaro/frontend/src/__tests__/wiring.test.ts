@@ -134,24 +134,25 @@ describe('§14.1 component files exist', () => {
 // ─── §14.2 Orphan Prevention Rules ────────────────────────────────────────────
 
 describe('§14.2 orphan prevention', () => {
-  it('rule 2: WizardPage imports all 17 wizard step files', () => {
-    const content = readComponent('computation/WizardPage.tsx');
+  it('rule 2: AccordionWizard (WizardPage) imports all 17 wizard step files', () => {
+    // WizardPage.tsx re-exports AccordionWizard; check the canonical implementation
+    const content = readComponent('computation/AccordionWizard.tsx');
     const steps = [
-      'WizardStep00', 'WizardStep01', 'WizardStep02', 'WizardStep03',
-      'WizardStep04', 'WizardStep05', 'WizardStep06', 'WizardStep07A',
-      'WizardStep07B', 'WizardStep07C', 'WizardStep07D', 'WizardStep08',
-      'WizardStep09', 'WizardStep10', 'WizardStep11', 'WizardStep12',
-      'WizardStep13',
+      'WS00ModeSelection', 'WS01TaxpayerProfile', 'WS02BusinessType', 'WS03TaxYear',
+      'WS04GrossReceipts', 'WS05Compensation', 'WS06ExpenseMethod', 'WS07AItemizedExpenses',
+      'WS07BFinancialItems', 'WS07CDepreciation', 'WS07DNolco', 'WS08CwtForm2307',
+      'WS09PriorQuarterly', 'WS10Registration', 'WS11RegimeElection', 'WS12FilingDetails',
+      'WS13PriorYearCredits',
     ];
     for (const step of steps) {
-      expect(content, `WizardPage.tsx missing import for ${step}`).toContain(step);
+      expect(content, `AccordionWizard.tsx missing import for ${step}`).toContain(step);
     }
   });
 
   it('rule 3: ResultsView imports all 11 results sub-components', () => {
     const content = readComponent('computation/ResultsView.tsx');
     const subs = [
-      'WarningsBanner', 'RegimeComparisonTable', 'RecommendationBanner',
+      'WarningsBanner', 'RegimeComparison', 'RecommendationPill',
       'TaxBreakdownPanel', 'BalancePayableSection', 'InstallmentSection',
       'PercentageTaxSummary', 'BirFormRecommendation', 'PenaltySummary',
       'ManualReviewFlags', 'PathDetailAccordion',

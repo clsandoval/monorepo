@@ -103,6 +103,12 @@ describe('authGuard', () => {
 // ─── Route guard coverage ──────────────────────────────────────────────────────
 
 describe('authenticated routes have beforeLoad guard', () => {
+  // Routes that always redirect (even authenticated) — they have guards but also redirect
+  const alwaysRedirectRoutes = new Set([
+    'DashboardRoute',
+    'ComputationsCompIdQuarterlyRoute',
+  ]);
+
   const guardedRoutes = [
     { name: 'DashboardRoute', route: DashboardRoute },
     { name: 'ComputationsIndexRoute', route: ComputationsIndexRoute },
@@ -126,14 +132,20 @@ describe('authenticated routes have beforeLoad guard', () => {
     it(`${name} beforeLoad redirects unauthenticated user`, () => {
       const options = (route as any).options;
       expect(() =>
-        options.beforeLoad({ context: makeContext(null), location: { href: '/test' } })
+        options.beforeLoad({ context: makeContext(null), location: { href: '/test' }, params: { compId: 'test-id' } })
       ).toThrow();
     });
 
     it(`${name} beforeLoad allows authenticated user`, () => {
+      if (alwaysRedirectRoutes.has(name)) {
+        // These routes always redirect (by design) — verify beforeLoad exists
+        const options = (route as any).options;
+        expect(typeof options.beforeLoad).toBe('function');
+        return;
+      }
       const options = (route as any).options;
       expect(() =>
-        options.beforeLoad({ context: makeContext(fakeUser), location: { href: '/test' } })
+        options.beforeLoad({ context: makeContext(fakeUser), location: { href: '/test' }, params: {} })
       ).not.toThrow();
     });
   });

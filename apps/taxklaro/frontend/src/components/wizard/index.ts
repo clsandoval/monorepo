@@ -15,3 +15,4 @@ export { WS10Registration, default as WS10 } from './WS10Registration';
 export { WS11RegimeElection, default as WS11 } from './WS11RegimeElection';
 export { WS12FilingDetails, default as WS12 } from './WS12FilingDetails';
 export { WS13PriorYearCredits, default as WS13 } from './WS13PriorYearCredits';
+export { WizardReview } from './WizardReview';
