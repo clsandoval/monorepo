@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Archivo, Lora } from "next/font/google";
+import { Inter, Archivo, Lora, Geist } from "next/font/google";
 import { AuthProvider } from "@/lib/auth/auth-context";
 import { DaimonToaster } from "@/components/ui/toast";
 import { NavigationProgressBar } from "@/components/layout/progress-bar";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -112,7 +115,7 @@ export default function RootLayout({
     <html
       lang="en"
       dir="ltr"
-      className={`${inter.variable} ${archivo.variable} ${lora.variable}`}
+      className={cn(inter.variable, archivo.variable, lora.variable, "font-sans", geist.variable)}
     >
       <body className="font-body text-navy bg-white antialiased">
         <a
