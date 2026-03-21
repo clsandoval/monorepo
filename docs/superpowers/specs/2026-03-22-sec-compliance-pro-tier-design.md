@@ -68,7 +68,7 @@ Pro users can still access `/wizard` and `/results` — the wizard is how they a
 | `user_id` | uuid | FK → auth.users |
 | `role` | enum | owner / member |
 
-Single-seat at launch (owner only). Table exists to avoid migration when multi-seat is added later.
+Single-seat at launch (owner only). Table exists to avoid migration when multi-seat is added later. RLS policies for `member` role deferred — only `owner` policies at launch.
 
 **`reports`**
 | Column | Type | Notes |
@@ -87,7 +87,7 @@ Single-seat at launch (owner only). Table exists to avoid migration when multi-s
 
 **`corporations`**
 - Add `organization_id`: uuid, nullable FK → organizations. Null for free users, set for pro users.
-- Add `name`: text. Free users don't need this (single corp). Pro users need it to distinguish corps in the portfolio.
+- Add `name`: text, nullable. Free users don't need this (single corp). Pro users need it to distinguish corps in the portfolio. For Pro users, the wizard gets a "Corporation Name" text field added to Step 1 (corporation type step). For free users, the field is hidden.
 
 ### RLS Updates
 
@@ -132,7 +132,7 @@ Merges the existing results page and remediation page into a single Pro view:
 - **Penalty Table** — existing itemized breakdown, reused as-is
 - **Remediation Section** — existing cost estimate, step guide, document checklist (no auth gate for Pro)
 - **"Generate Report" button** — produces branded PDF
-- **"Edit Filing History" button** — re-opens wizard step 3 pre-filled with current data for updates and recomputation
+- **"Edit Filing History" button** — opens wizard step 3 in a modal overlay, pre-filled with current filing data. On save, recomputes penalties and refreshes the detail page without navigating away.
 
 No new computation logic. Composes existing components with Pro-specific layout.
 
@@ -155,7 +155,7 @@ Client-facing deliverable the accountant hands to their client. Justifies the ac
 
 ### Implementation
 
-- Server-side HTML-to-PDF generation (Puppeteer or `@react-pdf/renderer`)
+- Server-side PDF generation using `@react-pdf/renderer` (pure Node.js, no headless browser dependency — lighter for Fly.io deployment). Note: the compliance timeline visualization will need a dedicated `@react-pdf` reimplementation using its SVG primitives — the existing React/DOM component cannot be reused directly.
 - Generated PDFs stored in Supabase Storage, linked to `reports` table
 - Report history preserved — accountant can show client progress over time ("here vs 3 months ago")
 
@@ -225,14 +225,23 @@ PayMongo has no native trial support. Trials are handled entirely in app logic:
 5. Banner: "Your trial has ended. [Subscribe to continue]"
 6. No PayMongo involvement until user subscribes
 
+### Webhook Endpoint
+
+**Route:** `POST /api/webhooks/paymongo`
+
+- Verify webhook signature using the webhook's `secret_key` (provided when webhook is created via PayMongo API)
+- Subscribe to events: `subscription.invoice.paid`, `subscription.invoice.payment_failed`, `subscription.past_due`, `subscription.unpaid`, `subscription.updated`
+- Webhook registered once during initial PayMongo setup (manual or seed script)
+- PayMongo does not re-send missed events — implement a daily reconciliation cron that checks subscription status via PayMongo API as a fallback
+
 ### Subscription Lifecycle
 
 | Event | Action |
 |-------|--------|
 | User subscribes | Create PayMongo Customer + Subscription, update org status to `active` |
-| Invoice paid (webhook) | Update `current_period_ends_at` |
-| Payment failed (webhook) | Set status to `past_due`, show banner |
-| Unpaid (webhook) | Set status to `unpaid`, go read-only |
+| `subscription.invoice.paid` (webhook) | Update `current_period_ends_at` |
+| `subscription.invoice.payment_failed` (webhook) | Set status to `past_due`, show banner |
+| `subscription.past_due` → 7 days with no payment (app logic) | Set status to `unpaid`, go read-only |
 | User cancels | Cancel PayMongo Subscription, set status to `canceled` |
 | Plan change | PayMongo `change plan` API, takes effect next billing cycle |
 
@@ -240,7 +249,7 @@ PayMongo has no native trial support. Trials are handled entirely in app logic:
 
 - Current plan + status
 - Corp usage ("17 of 25")
-- Change plan (upgrade/downgrade — takes effect next cycle, no proration)
+- Change plan (upgrade/downgrade — takes effect next cycle, no proration). Downgrade blocked if current corp count exceeds the target plan's limit: "You have N corporations but the Solo plan allows 5. Remove corporations before downgrading."
 - Update payment method
 - Cancel subscription
 - Built in-app (PayMongo has no customer portal)
@@ -260,9 +269,12 @@ PayMongo has no native trial support. Trials are handled entirely in app logic:
 ## Pro Signup Flow
 
 1. User visits `/pro` — sees pricing page with 3 tiers + "Start 14-day free trial" CTA
-2. `/pro/signup` — creates user account + organization in one step
-3. Redirect to `/dashboard` — full functionality, trial banner showing
-4. When ready to subscribe: `/settings/billing` → select plan → PayMongo Checkout → first invoice → paid → active
+2. `/pro/signup` — collects: email, password, organization name. Google OAuth also supported (org name collected on next screen after OAuth). Logo upload deferred to `/settings` — not part of signup.
+3. Creates user (role=pro) + organization (plan=solo default, status=trialing, trial_ends_at=now+14d) + organization_member (role=owner)
+4. Redirect to `/dashboard` — full functionality, trial banner showing
+5. When ready to subscribe: `/settings/billing` → select plan → PayMongo Checkout → first invoice → paid → active
+
+**Note:** This spec supersedes the MVP spec's billing model (which described hybrid billing with credits). The flat tier pricing defined here is the canonical billing model.
 
 ## Explicitly Out of Scope
 
