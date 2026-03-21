@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 284
-- **Pending:** 229
-- **Convergence:** 55.4%
+- **Analyzed:** 294
+- **Pending:** 219
+- **Convergence:** 57.3%
 
 ---
 
@@ -294,7 +294,7 @@
 
 ### Fixed-Slot Buffer Deep Dives
 - [x] 2.01a — Buffer insertion order as hidden complexity: deterministic but opaque ordering of simultaneous arrivals (clockwise observations, alphabetical channels); should this be visible/configurable? What happens when renaming a channel changes insertion priority?
-- [ ] 2.01b — Transit eviction in multi-hop chains: signals that arrive at a Relay and are evicted before compression can process them; "data dies in transit" problem; how common is this? Core tension or degenerate edge case?
+- [x] 2.01b — Transit eviction in multi-hop chains: signals that arrive at a Relay and are evicted before compression can process them; "data dies in transit" problem; how common is this? Core tension or degenerate edge case?
 - [ ] 2.01c — Empty buffer slots as strategic signal: half-empty buffers indicate information starvation; can the player deliberately engineer buffer headroom ("always keep 2 slots free for emergency signals") as a strategy?
 - [ ] 2.01d — Buffer health as spectator readability tool: buffer bars as the "health bars" of information architecture for streamers/esports; design implications for casting vocabulary and overlay design
 - [ ] 2.01e — Polling-vs-event-driven tradeoff in buffer management: heartbeat (polling) vs. pure event-driven hooks; the game naturally teaches both patterns through buffer pressure; formal analysis of when each approach is optimal
@@ -386,7 +386,7 @@
 - [x] 3.10b — Signal latency legibility: how the player learns and predicts multi-tick signal travel times; spatial vs temporal distance; paradigm-specific latency communication
 - [x] 3.10c — Channel color assignment and palette management: auto-assignment vs player choice; color-blind palettes; palette exhaustion at 8+ channels
 - [x] 3.10d — Wire routing algorithms for the subway map paradigm: path-finding along grid edges, crossing handling, parallel lane stacking, manual waypoints, Bézier vs right-angle
-- [ ] 3.10e — EM emission visualization: making detectable noise visible; separate overlay vs integrated; relationship between "signals you see" and "signals the enemy detects"
+- [x] 3.10e — EM emission visualization: making detectable noise visible; separate overlay vs integrated; relationship between "signals you see" and "signals the enemy detects"
 - [ ] 3.10f — Visualization density scaling across the 10-mission arc: 2 units/0 channels (M1) to 12+ units/8+ channels (M10); paradigm breakdown thresholds; progressive disclosure gates
 - [x] 3.11 — Hooks UI: how does the player create and manage hooks?
 - [ ] 3.11a — Hook template presets per unit type: should each unit type come with pre-suggested hooks? How do presets help onboarding without limiting creativity?
@@ -573,8 +573,8 @@
 - [x] 5.09 — Replayability: what makes someone start a new campaign
 - [x] 5.09a — Blueprint presets as replay currency: unlocking pre-designed blueprint loadouts (like Into the Breach squads) that fundamentally change approach; "The Stealth Doctrine," "The Swarm," "The Singleton" as named playstyle presets
 - [x] 5.09b — The "impossible challenge" community layer: community-submitted challenges with verified-impossible or extremely-difficult mutator combos; leaderboards for beautiful failure, not just victory
-- [ ] 5.09c — Predecessor memory as light replay narrative: minimal-writing variant of narrative replay — 5-10 new Predecessor lines per cycle referencing specific mission outcomes; low dev cost, high emotional return
-- [ ] 5.09d — The "remix tape" — curated mutator playlists: developer- or community-curated sequences of mutator combos across all 10 missions, packaged as named experiences; playlists as shareable content units
+- [x] 5.09c — Predecessor memory as light replay narrative: minimal-writing variant of narrative replay — 5-10 new Predecessor lines per cycle referencing specific mission outcomes; low dev cost, high emotional return
+- [x] 5.09d — The "remix tape" — curated mutator playlists: developer- or community-curated sequences of mutator combos across all 10 missions, packaged as named experiences; playlists as shareable content units
 - [ ] 5.09e — Cross-campaign persistent architecture museum: gallery saving the player's best architecture from each mission across all campaigns/cycles/ascension levels; historical preservation showing evolution of design philosophy
 - [x] 5.10 — The "product as puzzle" narrative method: working backwards from fictional mission objects to determine which agent configurations matter (from Shenzhen I/O); six approaches (A "The Contract" — formal engineering specs, B "The Predecessor's Problem" — narrative-framed failure challenges, C "The Scenario" — board-state-as-specification Into the Breach style, D "The Reverse Engineering" — diagnose failure before building, E "The Escalating Request" — progressive product complexity on same board, F "The Hybrid Brief" RECOMMENDED — narrative + specification + board triple-layer for all learning styles); detailed interaction with Blueprint Codex as Shenzhen I/O manual analog; product portfolio as campaign narrative arc; specification explicitness as difficulty dial; comparable (Shenzhen I/O products, Opus Magnum recipes + histograms, Into the Breach implicit specs, Factorio production chains, EXAPUNKS heist targets, Baba Is You stable-goal-shifting-meaning); 4 player journeys (Mei 24 CS student first amplify chain from contract spec, Marcus 42 IT manager speed-building network architecture, Sofia 15 first-timer discovering hooks from Predecessor's "eyes but no voice" story, Kwame 32 streamer final mission golden reroute cascade — 180K view clip); TikTok clip: golden reroute wave + "I didn't write code, I designed the backup plan"; 5 new aspects discovered (5.10a–5.10e)
   - [ ] 5.10a — The "product portfolio" as campaign narrative: 10 mission products as coherent story arc from "wake up and see" to "destroy the adaptive factory"; designing products-as-narrative-beats; interaction with Predecessor arc (6.03a) and campaign structure (5.05)
@@ -705,10 +705,10 @@
 - [x] 6.10i — Corruption audio adaptation over campaign arc: vocabulary evolution from Mission 7 (minimal) to Mission 10 (full); audio complexity growing with player corruption literacy; graduated introduction of hybrid layers
 - [x] 6.11 — The web demo: browser-playable demo as acquisition funnel — six demo models (vertical slice, extended tutorial, sandbox, replay theater, persistent playground, rotating featured mission), layered pipeline recommendation, funnel metrics, conversion mechanics, technical implementation
 - [x] 6.11a — Demo-to-full-game save migration: localStorage → Steam Cloud sync, account linking, handling demo progress incompatible with newer game versions, "thank you for playing the demo" emotional beat
-- [ ] 6.11b — Demo-specific analytics dashboard: funnel visualization, drop-off points, retry rates per mission, Inspector engagement heatmap, conversion attribution — developers applying the game's Inspector philosophy to business metrics
+- [x] 6.11b — Demo-specific analytics dashboard: funnel visualization, drop-off points, retry rates per mission, Inspector engagement heatmap, conversion attribution — developers applying the game's Inspector philosophy to business metrics
 - [x] 6.11c — Embeddable demo widget for gaming press: lightweight iframe embed for review articles, "Play Mission 1 right here," <2s load, Steam widget on completion, responsive width, message-passing API; six embed models (A "Snapshot" passive battle replay 225KB, B "Puzzle" one-challenge micro-mission 353KB with core configure→execute→watch loop, C "Workbench Slice" full Mission 1 575KB, D "Replay Theater" Inspector-mode curated battle 415KB, E "Configurator" blueprint editor generating Config Codes 240KB no Pixi.js, F "Layered Widget" RECOMMENDED parameterized URL with mode selection + postMessage API); facade pattern (static PNG + preconnect-on-hover + click-to-load); full postMessage specification (6 embed→host events, 5 host→embed commands, origin whitelisting, sandbox attributes); publisher integration (WordPress shortcode plugin, Ghost raw HTML, Discord Open Graph card); educational mode with CS terminology overlay; adaptive one-line embed (auto-selects mode by viewport+connection); 4 player journeys (Alex 26 Kotaku reader mobile puzzle conversion, Sarah 34 game designer GDC article triple-embed path, Tomás 14 Philippine student jeepney snapshot discovery, Dr. Reyes 45 CS professor Canvas LMS educational replay); comparable (itch.io game embeds, NYT interactive journalism, Chess.com/Lichess analysis boards, GameDistribution DGI); 5 new aspects discovered (6.11c-i through 6.11c-v)
 - [x] 6.11d — Demo as competitive event infrastructure: weekly community challenges on sandbox mode, fixed config constraints, leaderboard on demo page, demo as ongoing community infrastructure not just acquisition
-- [ ] 6.11e — QR code physical-to-digital funnel: convention booths, poster campaigns, attribution-tracked QR codes linking to demo, physical world → browser → Steam wishlist three-step funnel
+- [x] 6.11e — QR code physical-to-digital funnel: convention booths, poster campaigns, attribution-tracked QR codes linking to demo, physical world → browser → Steam wishlist three-step funnel
 
 ---
 
@@ -753,8 +753,8 @@
   - [ ] 7.09d — The "field condition order" as weather metaphor: full vocabulary design for environmental adjustments (clarity, turbulence, calm, storm); how the weather metaphor shapes player perception of meta-intervention vs. balance-patch perception; notification UX for mid-season adjustments
   - [ ] 7.09e — Season transition ceremony design: the boot log, map animation, palette shift, first-match calibration experience; how to make the moment feel like an event, not a reset; preserving deployed configs across seasons while communicating that adaptation is needed
 - [x] 7.11 — Match duration as community health signal: season meta reports tracking average match length across the Gauntlet population; dropping average match length as indicator of a dominant strategy (stomps increasing); "match length as meta health indicator" as a designed ecosystem diagnostic; when to trigger season resets based on this signal
-- [ ] 7.11a — The Pulse as spectator broadcast overlay: heartbeat line and stomp index displayed during tournament streams; casters reference it to contextualize matches; the overlay as meta-literacy tool for casual viewers
-- [ ] 7.11b — Duration-based matchmaking weighting: using average match duration as a matchmaking factor (pairing rush vs. rush, macro vs. macro at same rating); "play style ELO"; risk of meta echo chambers vs. experience quality
+- [x] 7.11a — The Pulse as spectator broadcast overlay: heartbeat line and stomp index displayed during tournament streams; casters reference it to contextualize matches; the overlay as meta-literacy tool for casual viewers
+- [x] 7.11b — Duration-based matchmaking weighting: using average match duration as a matchmaking factor (pairing rush vs. rush, macro vs. macro at same rating); "play style ELO"; risk of meta echo chambers vs. experience quality
 - [ ] 7.11c — Historical Pulse archive as community memory: full season-by-season Pulse data archive as "Meta History Museum"; scrubbing through past seasons; educational tool and competitive intelligence resource
 - [ ] 7.11d — Anomaly detection for meta-breaking discoveries: rate-of-change in duration metrics to detect sudden shifts indicating a broken discovery; "the spike detector"; auto-flagging configs at inflection points for designer review
 - [ ] 7.11e — Per-tier Pulse decomposition: separate Pulse dashboards per ranked tier (Bronze through Diamond); tier-specific metas differ; prevents population-level averages from hiding tier-specific problems; comparable to LoL rank-stratified balance
@@ -861,5 +861,5 @@
 - [x] 8.08b — Blueprint Codex "Real-World Parallel" sections: content design for 30+ Codex entries connecting game terms to professional vocabulary; tone, depth, gating; comparable to Civilization's Civilopedia real-history sections
 - [x] 8.08c — The synchronous tool call gap: whether Robot Uprising should add a synchronous communication primitive (blocking call); TIS-100 blocking port model; how this changes information warfare dynamics; pedagogical cost vs. vocabulary completeness
 - [x] 8.08d — Vocabulary fidelity testing across player archetypes: research design for testing game-to-real transfer; A/B study Robot Uprising players vs. control on agentic AI tasks; which archetypes transfer most; CS education partnership
-- [ ] 8.08e — The "God Object" anti-pattern as game design lesson: M8-10 scenarios teaching distributed systems via God Object Command agent failure; single point of failure destroyed/overwhelmed; "don't centralize all logic" through visceral failure-then-insight
-- [ ] 8.11 — The two-act structure as pedagogical framework: cross-cutting synthesis of how the emotional-first, analytical-second debrief sequence maps to real professional methodologies (blameless postmortems, incident review, chaos engineering); what does Robot Uprising teach by making this structure visceral and habitual over hundreds of play sessions; the "film room" culture as designed outcome
+- [x] 8.08e — The "God Object" anti-pattern as game design lesson: M8-10 scenarios teaching distributed systems via God Object Command agent failure; single point of failure destroyed/overwhelmed; "don't centralize all logic" through visceral failure-then-insight
+- [x] 8.11 — The two-act structure as pedagogical framework: cross-cutting synthesis of how the emotional-first, analytical-second debrief sequence maps to real professional methodologies (blameless postmortems, incident review, chaos engineering); what does Robot Uprising teach by making this structure visceral and habitual over hundreds of play sessions; the "film room" culture as designed outcome
