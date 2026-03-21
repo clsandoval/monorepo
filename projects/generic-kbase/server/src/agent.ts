@@ -68,6 +68,7 @@ export async function* runAgent(
   const generator = query({
     prompt: session.stream,
     options: {
+      model: 'claude-sonnet-4-6',
       cwd: WORKSPACE_DIR,
       permissionMode: 'bypassPermissions',
       allowDangerouslySkipPermissions: true,

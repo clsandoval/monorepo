@@ -1,0 +1,122 @@
+<h2>Section 3: Results View</h2>
+<p class="subtitle">Bold headline number, then progressive disclosure for everything else</p>
+
+<div class="section">
+  <h3>Results Mockup</h3>
+  <div class="mockup">
+    <div class="mockup-header">Computation Results</div>
+    <div class="mockup-body" style="padding:0; min-height:600px; display:flex; flex-direction:column;">
+      <!-- Top bar -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 24px; border-bottom:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02);">
+        <div style="display:flex; align-items:center; gap:24px;">
+          <span style="font-weight:700; font-size:15px;">TaxKlaro</span>
+          <div style="display:flex; gap:16px; font-size:13px; opacity:0.5;">
+            <span style="opacity:1; color:#fafafa;">Computations</span>
+            <span>Clients</span>
+            <span>Deadlines</span>
+          </div>
+        </div>
+        <div style="width:28px;height:28px;border-radius:50%;background:#27272a;"></div>
+      </div>
+
+      <!-- Content -->
+      <div style="flex:1; display:flex; justify-content:center; padding:40px 24px;">
+        <div style="width:100%; max-width:560px;">
+
+          <!-- Back link -->
+          <div style="font-size:12px; opacity:0.4; margin-bottom:24px; cursor:pointer;">← Back to computations</div>
+
+          <!-- Hero number -->
+          <div style="text-align:center; margin-bottom:40px;">
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.06em; opacity:0.4; margin-bottom:8px;">Total Tax Due</div>
+            <div style="font-size:52px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-0.02em;">₱42,350.00</div>
+            <div style="display:inline-flex; align-items:center; gap:6px; margin-top:12px; padding:5px 12px; border-radius:999px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.2);">
+              <span style="font-size:13px; color:#22c55e;">Graduated rates recommended</span>
+              <span style="font-size:12px; opacity:0.5; color:#22c55e;">· saves ₱18,200</span>
+            </div>
+          </div>
+
+          <!-- Regime comparison — compact -->
+          <div style="margin-bottom:24px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="font-size:13px; font-weight:500;">Regime Comparison</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+              <!-- Graduated - recommended -->
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:rgba(34,197,94,0.05); border:1px solid rgba(34,197,94,0.1); border-radius:6px 6px 0 0;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div style="width:6px;height:6px;border-radius:50%;background:#22c55e;"></div>
+                  <span style="font-size:13px; font-weight:500;">Graduated Rates</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:12px;">
+                  <span style="font-size:13px; font-variant-numeric:tabular-nums; font-weight:600;">₱42,350</span>
+                  <span style="font-size:11px; opacity:0.4;">15.2% eff.</span>
+                </div>
+              </div>
+              <!-- 8% flat -->
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:0 0 6px 6px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);"></div>
+                  <span style="font-size:13px; opacity:0.6;">8% Flat Rate</span>
+                </div>
+                <div style="display:flex; align-items:baseline; gap:12px;">
+                  <span style="font-size:13px; font-variant-numeric:tabular-nums; opacity:0.6;">₱60,550</span>
+                  <span style="font-size:11px; opacity:0.3;">21.8% eff.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Collapsible sections -->
+          <div style="display:flex; flex-direction:column; gap:1px; margin-bottom:24px;">
+            <!-- Tax Breakdown - collapsed -->
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:13px 16px; background:rgba(255,255,255,0.03); border-radius:6px 6px 0 0; cursor:pointer;">
+              <span style="font-size:13px;">Tax Breakdown</span>
+              <span style="font-size:12px; opacity:0.3;">›</span>
+            </div>
+            <!-- Quarterly Installments - collapsed -->
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:13px 16px; background:rgba(255,255,255,0.03); cursor:pointer;">
+              <span style="font-size:13px;">Quarterly Installments</span>
+              <span style="font-size:12px; opacity:0.3;">›</span>
+            </div>
+            <!-- Balance Payable - collapsed -->
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:13px 16px; background:rgba(255,255,255,0.03); cursor:pointer;">
+              <span style="font-size:13px;">Balance Payable</span>
+              <span style="font-size:12px; opacity:0.3;">›</span>
+            </div>
+            <!-- Penalties - collapsed -->
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:13px 16px; background:rgba(255,255,255,0.03); cursor:pointer;">
+              <span style="font-size:13px;">Penalties & Surcharges</span>
+              <span style="font-size:12px; opacity:0.3;">›</span>
+            </div>
+            <!-- BIR Form - collapsed -->
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:13px 16px; background:rgba(255,255,255,0.03); border-radius:0 0 6px 6px; cursor:pointer;">
+              <span style="font-size:13px;">BIR Form Recommendation</span>
+              <span style="font-size:12px; opacity:0.3;">›</span>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div style="display:flex; gap:8px;">
+            <div style="flex:1; padding:10px; text-align:center; font-size:13px; font-weight:500; border-radius:6px; background:#fafafa; color:#09090b; cursor:pointer;">Download PDF</div>
+            <div style="flex:1; padding:10px; text-align:center; font-size:13px; font-weight:500; border-radius:6px; border:1px solid rgba(255,255,255,0.1); cursor:pointer;">Share Link</div>
+            <div style="flex:1; padding:10px; text-align:center; font-size:13px; font-weight:500; border-radius:6px; border:1px solid rgba(255,255,255,0.1); cursor:pointer;">Edit Inputs</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>How It Works</h3>
+  <div style="display:flex; flex-direction:column; gap:8px; font-size:14px; opacity:0.8;">
+    <p>• <strong>Hero number:</strong> The single most important output — total tax due — huge and centered. No ambiguity about what this page is telling you.</p>
+    <p>• <strong>Recommendation pill:</strong> Green badge below the number. Which regime, how much you save. One line.</p>
+    <p>• <strong>Regime comparison:</strong> Always visible, compact two-row format. Recommended regime highlighted with green left dot. Shows amount + effective rate.</p>
+    <p>• <strong>Detail sections:</strong> All collapsed by default. Click to expand. Each contains the detailed breakdown (tax computation steps, quarterly amounts, penalties, etc.).</p>
+    <p>• <strong>Actions bar:</strong> Three equal buttons at bottom — PDF, Share, Edit. No hierarchy tricks, all equally accessible.</p>
+    <p>• <strong>Warnings:</strong> If there are warnings (e.g., late filing), they appear as a subtle amber banner above the hero number. Not in a detail section — warnings should be seen.</p>
+  </div>
+</div>

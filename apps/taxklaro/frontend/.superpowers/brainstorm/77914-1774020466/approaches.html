@@ -1,0 +1,49 @@
+<h2>Three Design Approaches</h2>
+<p class="subtitle">Minimal, monochrome, Linear/Vercel-inspired — same data, different structures. Click to select.</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Focused Flow</h3>
+      <p><strong>Navigation:</strong> Minimal top bar (logo + nav links + avatar). No sidebar at all.</p>
+      <p><strong>Wizard:</strong> 4-5 consolidated sections on a single centered column (max-w-2xl), each section is a collapsible card. Fill top-to-bottom, compute at the end.</p>
+      <p><strong>Results:</strong> Big hero number at top ("₱42,350 total tax due"), regime recommendation badge, then collapsible detail sections below.</p>
+      <p><strong>Feel:</strong> Like a Typeform meets Linear — one focused task at a time, lots of whitespace, almost no chrome.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Split Workspace</h3>
+      <p><strong>Navigation:</strong> Ultra-thin left rail (icons only, ~48px) + top breadcrumb bar.</p>
+      <p><strong>Wizard:</strong> Left column shows section outline (4-5 groups), right column shows the active section's fields. Click a section to jump.</p>
+      <p><strong>Results:</strong> Same hero number pattern, but results live in a two-column layout — summary left, detail panels right.</p>
+      <p><strong>Feel:</strong> Like Vercel's dashboard — structured but airy, icon-driven navigation, content-forward.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Document Style</h3>
+      <p><strong>Navigation:</strong> Minimal header (logo left, nav right). Pages feel like standalone documents.</p>
+      <p><strong>Wizard:</strong> Single long-scroll form styled like a document — section headers break up the flow, sticky progress indicator on the side shows where you are.</p>
+      <p><strong>Results:</strong> Reads like a report — hero number, then flowing sections with clear typographic hierarchy. No cards or boxes, just type and space.</p>
+      <p><strong>Feel:</strong> Like Notion or a well-designed tax document — editorial, typographic, content is the interface.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 2rem; padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
+  <h3 style="margin-top:0">Shared across all approaches</h3>
+  <ul style="margin:0; padding-left: 1.2rem; opacity: 0.8;">
+    <li>Monochrome palette — near-black backgrounds or pure white, minimal accent color</li>
+    <li>System font stack or Inter/Geist — no decorative serif fonts</li>
+    <li>Keep Tailwind + shadcn (restyle, don't replace)</li>
+    <li>17 wizard steps → 4-5 consolidated sections</li>
+    <li>Results: bold headline number + progressive disclosure</li>
+    <li>All existing functionality preserved (auth, sharing, PDF, clients, deadlines)</li>
+  </ul>
+</div>

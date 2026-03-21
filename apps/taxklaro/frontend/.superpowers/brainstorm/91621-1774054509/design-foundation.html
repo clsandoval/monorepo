@@ -1,0 +1,105 @@
+<h2>Section 1: Visual Foundation</h2>
+<p class="subtitle">Color, type, spacing, and the app shell that wraps everything</p>
+
+<div class="section">
+  <h3>Color Palette</h3>
+  <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px;">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <div style="width:64px;height:64px;border-radius:8px;background:#09090b;border:1px solid rgba(255,255,255,0.1);"></div>
+      <span style="font-size:12px;opacity:0.6;">Background<br/>#09090B</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <div style="width:64px;height:64px;border-radius:8px;background:#fafafa;"></div>
+      <span style="font-size:12px;opacity:0.6;">Foreground<br/>#FAFAFA</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <div style="width:64px;height:64px;border-radius:8px;background:#18181b;border:1px solid rgba(255,255,255,0.06);"></div>
+      <span style="font-size:12px;opacity:0.6;">Card/Surface<br/>#18181B</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <div style="width:64px;height:64px;border-radius:8px;background:#27272a;"></div>
+      <span style="font-size:12px;opacity:0.6;">Border/Muted<br/>#27272A</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <div style="width:64px;height:64px;border-radius:8px;background:#a1a1aa;"></div>
+      <span style="font-size:12px;opacity:0.6;">Muted text<br/>#A1A1AA</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <div style="width:64px;height:64px;border-radius:8px;background:#22c55e;"></div>
+      <span style="font-size:12px;opacity:0.6;">Savings/Good<br/>#22C55E</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <div style="width:64px;height:64px;border-radius:8px;background:#ef4444;"></div>
+      <span style="font-size:12px;opacity:0.6;">Due/Warning<br/>#EF4444</span>
+    </div>
+  </div>
+  <p style="opacity:0.7; font-size:14px;">Dark-first. Zinc scale from Tailwind. Only two semantic colors: green for savings, red for amounts due. No brand accent — the monochrome IS the brand.</p>
+</div>
+
+<div class="section">
+  <h3>Typography</h3>
+  <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:12px;">
+    <div>
+      <span class="label">Font</span>
+      <p style="font-family: Inter, system-ui, sans-serif; font-size:32px; font-weight:600; margin:4px 0;">Inter or Geist Sans</p>
+      <p style="opacity:0.6; font-size:13px; margin:0;">One font family for everything. No display/serif fonts. Weight and size create hierarchy.</p>
+    </div>
+    <div style="display:flex; gap:32px; flex-wrap:wrap;">
+      <div>
+        <span class="label">Hero number</span>
+        <p style="font-size:48px; font-weight:700; margin:4px 0; font-variant-numeric:tabular-nums;">₱42,350</p>
+      </div>
+      <div>
+        <span class="label">Page heading</span>
+        <p style="font-size:24px; font-weight:600; margin:4px 0;">New Computation</p>
+      </div>
+      <div>
+        <span class="label">Section label</span>
+        <p style="font-size:13px; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; opacity:0.5; margin:4px 0;">Income Details</p>
+      </div>
+      <div>
+        <span class="label">Body</span>
+        <p style="font-size:14px; margin:4px 0; opacity:0.8;">Regular text at 14px for form labels, descriptions, and content.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>App Shell</h3>
+  <div class="mockup">
+    <div class="mockup-header">Layout Structure</div>
+    <div class="mockup-body" style="padding:0; min-height:300px; display:flex; flex-direction:column;">
+      <!-- Top bar -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 24px; border-bottom:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02);">
+        <div style="display:flex; align-items:center; gap:24px;">
+          <span style="font-weight:700; font-size:15px;">TaxKlaro</span>
+          <div style="display:flex; gap:16px; font-size:13px; opacity:0.5;">
+            <span style="opacity:1; color:#fafafa;">Computations</span>
+            <span>Clients</span>
+            <span>Deadlines</span>
+            <span>Settings</span>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; font-size:13px; opacity:0.5;">
+          <span>carlos@firm.com</span>
+          <div style="width:28px;height:28px;border-radius:50%;background:#27272a;"></div>
+        </div>
+      </div>
+      <!-- Content area -->
+      <div style="flex:1; display:flex; justify-content:center; padding:48px 24px;">
+        <div style="width:100%; max-width:640px;">
+          <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.05em; opacity:0.4; margin-bottom:8px;">New Computation</div>
+          <div style="font-size:22px; font-weight:600; margin-bottom:32px;">Tell us about this taxpayer</div>
+          <div style="height:1px; background:rgba(255,255,255,0.06); margin-bottom:24px;"></div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div style="height:40px; background:rgba(255,255,255,0.04); border-radius:6px; border:1px solid rgba(255,255,255,0.08);"></div>
+            <div style="height:40px; background:rgba(255,255,255,0.04); border-radius:6px; border:1px solid rgba(255,255,255,0.08);"></div>
+            <div style="height:40px; background:rgba(255,255,255,0.04); border-radius:6px; border:1px solid rgba(255,255,255,0.08);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="opacity:0.7; font-size:14px; margin-top:12px;">Thin top bar with flat text nav. Content centered at max-width 640px. Generous vertical padding. No cards wrapping the form — just fields on the background.</p>
+</div>

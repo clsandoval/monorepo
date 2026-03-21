@@ -1,0 +1,153 @@
+<h2>Section 2: Wizard → Consolidated Form</h2>
+<p class="subtitle">17 granular steps become 5 sections on a single scrollable page</p>
+
+<div class="section">
+  <h3>Section Grouping</h3>
+  <div style="display:flex; flex-direction:column; gap:2px; margin-bottom:20px;">
+    <div style="display:flex; gap:12px; padding:12px 16px; background:rgba(255,255,255,0.04); border-radius:6px 6px 0 0;">
+      <span style="font-size:13px; font-weight:600; color:#fafafa; min-width:24px;">1</span>
+      <div>
+        <span style="font-size:14px; font-weight:500;">Taxpayer Profile</span>
+        <p style="font-size:12px; opacity:0.5; margin:2px 0 0;">Mode (self/client) · Name · Business type · Registration</p>
+        <p style="font-size:11px; opacity:0.3; margin:2px 0 0;">← WS-00, WS-01, WS-02, WS-10</p>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px; padding:12px 16px; background:rgba(255,255,255,0.04);">
+      <span style="font-size:13px; font-weight:600; color:#fafafa; min-width:24px;">2</span>
+      <div>
+        <span style="font-size:14px; font-weight:500;">Period & Income</span>
+        <p style="font-size:12px; opacity:0.5; margin:2px 0 0;">Tax year · Filing period · Gross receipts · Compensation (if mixed)</p>
+        <p style="font-size:11px; opacity:0.3; margin:2px 0 0;">← WS-03, WS-04, WS-05</p>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px; padding:12px 16px; background:rgba(255,255,255,0.04);">
+      <span style="font-size:13px; font-weight:600; color:#fafafa; min-width:24px;">3</span>
+      <div>
+        <span style="font-size:14px; font-weight:500;">Deductions & Expenses</span>
+        <p style="font-size:12px; opacity:0.5; margin:2px 0 0;">Expense method (OSD/itemized) · Itemized details · NOLCO</p>
+        <p style="font-size:11px; opacity:0.3; margin:2px 0 0;">← WS-06, WS-07A/B/C/D</p>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px; padding:12px 16px; background:rgba(255,255,255,0.04);">
+      <span style="font-size:13px; font-weight:600; color:#fafafa; min-width:24px;">4</span>
+      <div>
+        <span style="font-size:14px; font-weight:500;">Tax Credits & Payments</span>
+        <p style="font-size:12px; opacity:0.5; margin:2px 0 0;">CWT/Form 2307 · Prior quarterly payments · Prior-year credits</p>
+        <p style="font-size:11px; opacity:0.3; margin:2px 0 0;">← WS-08, WS-09, WS-13</p>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px; padding:12px 16px; background:rgba(255,255,255,0.04); border-radius:0 0 6px 6px;">
+      <span style="font-size:13px; font-weight:600; color:#fafafa; min-width:24px;">5</span>
+      <div>
+        <span style="font-size:14px; font-weight:500;">Regime & Filing</span>
+        <p style="font-size:12px; opacity:0.5; margin:2px 0 0;">8% eligibility · Regime selection · Filing details</p>
+        <p style="font-size:11px; opacity:0.3; margin:2px 0 0;">← WS-11, WS-12</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Form Layout Mockup</h3>
+  <div class="mockup">
+    <div class="mockup-header">New Computation — scrollable form</div>
+    <div class="mockup-body" style="padding:0; min-height:500px; display:flex; flex-direction:column;">
+      <!-- Top bar -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 24px; border-bottom:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02);">
+        <div style="display:flex; align-items:center; gap:24px;">
+          <span style="font-weight:700; font-size:15px;">TaxKlaro</span>
+          <div style="display:flex; gap:16px; font-size:13px; opacity:0.5;">
+            <span style="opacity:1; color:#fafafa;">Computations</span>
+            <span>Clients</span>
+            <span>Deadlines</span>
+          </div>
+        </div>
+        <div style="width:28px;height:28px;border-radius:50%;background:#27272a;"></div>
+      </div>
+
+      <!-- Content -->
+      <div style="flex:1; display:flex; justify-content:center; padding:40px 24px; overflow-y:auto;">
+        <div style="width:100%; max-width:560px;">
+
+          <!-- Sticky progress -->
+          <div style="display:flex; gap:4px; margin-bottom:32px;">
+            <div style="flex:1;height:2px;background:#fafafa;border-radius:1px;"></div>
+            <div style="flex:1;height:2px;background:#fafafa;border-radius:1px;"></div>
+            <div style="flex:1;height:2px;background:rgba(255,255,255,0.1);border-radius:1px;"></div>
+            <div style="flex:1;height:2px;background:rgba(255,255,255,0.1);border-radius:1px;"></div>
+            <div style="flex:1;height:2px;background:rgba(255,255,255,0.1);border-radius:1px;"></div>
+          </div>
+
+          <!-- Section 1: Complete (collapsed) -->
+          <div style="padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center; opacity:0.5;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:18px;height:18px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;font-size:10px;">✓</div>
+              <span style="font-size:14px;">Taxpayer Profile</span>
+            </div>
+            <span style="font-size:12px; opacity:0.5;">Juan Dela Cruz · Sole Prop</span>
+          </div>
+
+          <!-- Section 2: Active (expanded) -->
+          <div style="padding:20px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+              <div style="width:18px;height:18px;border-radius:50%;border:2px solid #fafafa;font-size:10px;display:flex;align-items:center;justify-content:center;">2</div>
+              <span style="font-size:14px; font-weight:600;">Period & Income</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:14px; padding-left:28px;">
+              <div>
+                <label style="font-size:12px; opacity:0.5; display:block; margin-bottom:4px;">Tax Year</label>
+                <div style="height:36px; background:rgba(255,255,255,0.04); border-radius:6px; border:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; padding:0 12px; font-size:13px;">2025</div>
+              </div>
+              <div>
+                <label style="font-size:12px; opacity:0.5; display:block; margin-bottom:4px;">Filing Period</label>
+                <div style="display:flex; gap:8px;">
+                  <div style="padding:6px 14px; border-radius:6px; background:rgba(255,255,255,0.08); font-size:13px; border:1px solid rgba(255,255,255,0.15);">Annual</div>
+                  <div style="padding:6px 14px; border-radius:6px; background:rgba(255,255,255,0.02); font-size:13px; opacity:0.4; border:1px solid rgba(255,255,255,0.06);">Q1</div>
+                  <div style="padding:6px 14px; border-radius:6px; background:rgba(255,255,255,0.02); font-size:13px; opacity:0.4; border:1px solid rgba(255,255,255,0.06);">Q2</div>
+                  <div style="padding:6px 14px; border-radius:6px; background:rgba(255,255,255,0.02); font-size:13px; opacity:0.4; border:1px solid rgba(255,255,255,0.06);">Q3</div>
+                </div>
+              </div>
+              <div>
+                <label style="font-size:12px; opacity:0.5; display:block; margin-bottom:4px;">Gross Receipts / Sales</label>
+                <div style="height:36px; background:rgba(255,255,255,0.04); border-radius:6px; border:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; padding:0 12px; font-size:13px;">
+                  <span style="opacity:0.3; margin-right:4px;">₱</span> 1,200,000
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Upcoming (collapsed) -->
+          <div style="padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; gap:10px; opacity:0.3;">
+            <div style="width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);font-size:10px;display:flex;align-items:center;justify-content:center;">3</div>
+            <span style="font-size:14px;">Deductions & Expenses</span>
+          </div>
+
+          <!-- Section 4: Upcoming -->
+          <div style="padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; gap:10px; opacity:0.3;">
+            <div style="width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);font-size:10px;display:flex;align-items:center;justify-content:center;">4</div>
+            <span style="font-size:14px;">Tax Credits & Payments</span>
+          </div>
+
+          <!-- Section 5: Upcoming -->
+          <div style="padding:14px 0; display:flex; align-items:center; gap:10px; opacity:0.3;">
+            <div style="width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);font-size:10px;display:flex;align-items:center;justify-content:center;">5</div>
+            <span style="font-size:14px;">Regime & Filing</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Interaction Patterns</h3>
+  <div style="display:flex; flex-direction:column; gap:8px; font-size:14px; opacity:0.8;">
+    <p>• <strong>Accordion behavior:</strong> Completed sections collapse to a summary line. Active section is expanded. Upcoming sections show title only. Click any section to expand/edit.</p>
+    <p>• <strong>Progress bar:</strong> Thin segmented line at top — fills as sections complete. Not sticky (stays at top of page).</p>
+    <p>• <strong>Conditional fields:</strong> Fields appear/disappear within sections based on selections (e.g., compensation fields only show if "Mixed Income" is selected). No full-section hiding — all 5 sections always visible.</p>
+    <p>• <strong>Compute button:</strong> Appears at the bottom after all required fields are filled. Single button: "Compute Tax".</p>
+    <p>• <strong>No review step:</strong> The collapsed summary lines ARE the review. Scan them before hitting compute.</p>
+    <p>• <strong>Auto-save:</strong> Still debounced at 1500ms, but indicator is a subtle dot in the top bar, not a banner.</p>
+  </div>
+</div>
