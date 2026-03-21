@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 315
-- **Pending:** 198
-- **Convergence:** 61.4%
+- **Analyzed:** 317
+- **Pending:** 196
+- **Convergence:** 61.8%
 
 ---
 
@@ -407,7 +407,7 @@
   - [ ] 3.12c — Context config A/B testing between executes: "Compare Configs" mode running same scenario with two context configs side by side
   - [ ] 3.12d — Context config templates per unit type: default configs (scout high-observations, relay high-channel, command high-priority) as starting points; interaction with Progressive Lens and onboarding
   - [ ] 3.12e — "Attention budget" as first-class resource metric: total information processing bandwidth across all units displayed in production queue alongside minerals and energy
-- [ ] 3.13 — Context config presets vs. custom: pre-built configs for beginners, full control for veterans?
+- [x] 3.13 — Context config presets vs. custom: pre-built configs for beginners, full control for veterans?
 
 - [x] 3.01a — Skill parameterization depth: binary on/off vs. 1-3 slider parameters vs. fully configurable behavior curves per skill; impact on workbench complexity and mastery ceiling
 - [x] 3.01b — Passive vs. active skill distinction: some skills fire automatically (evade, engage), others require rule triggers (compress, reassign); should this be formalized in UI? Mental model implications
@@ -618,7 +618,7 @@
   - [ ] 5.25e — The posthumous signal as emergent narrative archetype: cataloging emergent narratives that only appear blind — sacrifice play, cascade failure, last-tick save, friendly fire; designing hooks to maximize dramatic moment probability; streamer/TikTok virality interaction
 - [x] 5.19 — The "pass-rate plateau" problem: players who get 80/100 and feel done — designing campaign gates that require 90% rather than 100% for progression, while reserving 100% for cosmetic/leaderboard rewards; the psychological difference between "good enough" and "provably correct"
 - [x] 5.20 — Always-on anxiety vs. self-contained missions: Screeps World's 24/7 persistence creates ownership feeling but also "vacation death" anxiety (base destroyed while offline); Robot Uprising's mission structure eliminates anxiety but loses persistence fantasy; what compensatory design choices restore the ownership feeling? Named units? Between-mission camp state? Campaign memory?
-- [ ] 5.21 — Open-source architecture as community mechanic: Screeps' culture of publishing full bot code on GitHub + writing architectural blog posts is a deliberately-designed community mechanic; what's the Robot Uprising equivalent? Exportable agent configs, shareable hook wiring diagrams, community config repositories?
+- [x] 5.21 — Open-source architecture as community mechanic: Screeps' culture of publishing full bot code on GitHub + writing architectural blog posts is a deliberately-designed community mechanic; what's the Robot Uprising equivalent? Exportable agent configs, shareable hook wiring diagrams, community config repositories?
 - [x] 5.22 — The Gauntlet as a third act: structuring the game as three acts — campaign (learn mechanics), advanced campaign (develop robustness), Gauntlet (prove against infinite adversarial creativity); the Gauntlet as designed destination, not optional appendage; how campaign's final cutscene/mission opens the Gauntlet and what that transition feels like
 - [x] 5.22a — Multi-round mission retry granularity: when a player fails Round 3 of 5, do they restart from Round 1 or retry Round 3? Round-level checkpointing vs. mission-level reset; how retry granularity affects emotional stakes and learning speed; the "I have to redo rounds I already passed" frustration vs. the "context from earlier rounds matters" argument
 - [ ] 5.22b — Gauntlet ELO calibration match design: the first 5 Gauntlet matches are calibration — how the game communicates this, whether the player knows their rating is being determined, whether calibration matches feel different from regular matches; the "placement anxiety" problem from League of Legends/Overwatch applied to architecture design
