@@ -41,6 +41,8 @@ describe('§14.1 component files exist', () => {
     'layout/PublicHeader.tsx',
     // root
     'TaxKlaroLogo.tsx',
+    // landing
+    'landing/QuickCalculator.tsx',
     // computation
     'computation/ComputationCard.tsx',
     'computation/ComputationCardSkeleton.tsx',
