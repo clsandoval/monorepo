@@ -116,17 +116,29 @@ The **one memorable thing** — a horizontal timeline visualization showing the 
 - MC 28 compliance status (have you registered official email/contact with SEC? yes/no — defaults to "no" if unknown)
 - Suspension/revocation order date (if any)
 
+### Filing Deadlines (MVP Simplification)
+
+Actual SEC deadlines vary by corporation (GIS is due within 30 days of annual meeting, AFS within 120 days of fiscal year end). For MVP, use these **simplified assumptions**:
+
+| Report Type | Assumed Deadline | Rationale |
+|---|---|---|
+| GIS | **May 31** of each year | Most corps hold annual meetings in Q1-Q2; 30 days after a typical May meeting |
+| AFS | **April 30** of each year | Most corps use calendar fiscal year; 120 days after Dec 31 = April 30 |
+| BO | **May 31** of each year | Filed alongside GIS in practice |
+
+These defaults are used for surcharge month counting. The data model could later support per-corporation custom deadlines for the Pro tier.
+
 ### Computation Steps
 1. Generate expected filing timeline — from incorporation year to present:
-   - GIS: annually, all corp types, all years
-   - AFS: annually, all corp types, all years
-   - BO: from 2019 onward (MC No. 17, s. 2018 first required BO in GIS; current regime: MC No. 15, s. 2025 effective Jan 1, 2026). All corp types.
+   - GIS: annually, all corp types, all years. Deadline: May 31.
+   - AFS: annually, all corp types, all years. Deadline: April 30.
+   - BO: from 2019 onward (MC No. 17, s. 2018 first required BO in GIS; current regime: MC No. 15, s. 2025 effective Jan 1, 2026). All corp types. Deadline: May 31. **BO does not use the offense counting system** — it uses daily penalties instead (see step 6).
 2. Diff expected vs. actual filings → list of missed filings
 3. Per missed filing, determine:
    - **Late filing vs. non-filing**: late = submitted after deadline but within 1 year; non-filing = beyond 1 year. For the wizard, since we don't ask filing dates, all missed filings from prior years are treated as **non-filing**. Current-year missed filings (not yet 1 year overdue) are treated as **late filing**.
    - **Offense number**: counted **per report type** (GIS and AFS counted separately), **chronologically** (oldest missed year = 1st offense). A late filing and a non-filing both increment the same counter. The counter does NOT reset across regime boundaries (pre/post-2024). Example: missed GIS in 2020, 2021, 2023 = 1st, 2nd, 3rd offense for GIS.
    - **Base penalty**: lookup from penalty schedule using (domicile, corp_type, report_type, late_or_nonfiling, RE_bracket, offense_number). Apply the penalty rate that was in effect at the time of the violation (use `effective_from`/`effective_until`).
-   - **Monthly surcharge**: starts from the **filing deadline date** for each missed report. Stops when the report is filed or when the penalty is paid/settled. For the wizard computation (where we don't know exact payment date), surcharge accrues from deadline to **today**. Rate: ₱1,000/month, or ₱500/month for negative RE/fund balance and capital deficiency, or ₱0 for capital deficiency with no surcharge.
+   - **Monthly surcharge**: starts from the **filing deadline date** (see Filing Deadlines table above) for each missed report. Stops when the report is filed or when the penalty is paid/settled. For the wizard computation (where we don't know exact payment date), surcharge accrues from deadline to **today**. Rates per the penalty tables: ₱1,000/month for most brackets, ₱500/month for negative RE/fund balance, ₱0 (no surcharge) for capital deficiency. The tables are authoritative — use the "Monthly Surcharge" column value directly.
 4. Accumulate total penalties across all missed filings
 5. Add MC 28 non-compliance penalty if applicable (flat ₱20,000)
 6. Add BO-specific penalties if applicable. For MVP, use simplified model: ₱1,000/day from BO deadline to today, capped at ₱2,000,000 per missed BO filing (MC 10 s. 2022 regime). MC 15 s. 2025 penalties (₱50K-₱1M by frequency) supersede from Jan 1, 2026 — the `bo_penalty_schedule` config table should use `effective_from`/`effective_until` to switch regimes.
@@ -135,8 +147,8 @@ The **one memorable thing** — a horizontal timeline visualization showing the 
    - **Delinquent**: per RA 11232 Sec. 177 — either 3 consecutive years of non-filing OR a combination totaling 5 years of intermittent non-filing of reportorial requirements
    - **Suspended**: SEC suspension order received
    - **Revoked**: SEC revocation order received (6th offense = grounds for revocation + 100% surcharge)
-7. If any amnesty program is active (configurable): compute amnesty settlement amount
-8. Compute reinstatement cost estimate:
+8. If any amnesty program is active (configurable): compute amnesty settlement amount
+9. Compute reinstatement cost estimate:
    - Petition fee: ₱3,060
    - Accumulated penalties (from step 4)
    - Newspaper publication: ₱3,000-₱5,000 estimate
@@ -424,6 +436,7 @@ corporations
   - corp_type (stock | non_stock | opc)
   - re_bracket (retained earnings / fund balance bracket)
   - registration_date, sec_registration_number (optional)
+  - mc28_compliant (boolean, default false)
   - suspension_date (nullable), revocation_date (nullable)
 
 filing_records
