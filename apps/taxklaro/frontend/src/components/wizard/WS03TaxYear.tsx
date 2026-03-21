@@ -118,7 +118,7 @@ export function WS03TaxYear({ data, onChange }: Props) {
               className="gap-2"
             >
               {quarterlyOptions.map((opt) => (
-                <div key={opt.value} className="flex items-center gap-3 p-3 rounded-md border cursor-pointer hover:border-zinc-400 data-[state=checked]:border-zinc-50">
+                <div key={opt.value} className="flex items-center gap-3 p-3 rounded-md border cursor-pointer hover:border-gray-400 data-[state=checked]:border-primary">
                   <RadioGroupItem value={opt.value} id={`period-${opt.value}`} />
                   <Label htmlFor={`period-${opt.value}`} className="cursor-pointer flex-1">
                     <span className="font-medium">{opt.label}</span>

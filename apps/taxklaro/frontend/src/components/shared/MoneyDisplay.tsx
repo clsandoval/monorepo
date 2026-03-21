@@ -14,7 +14,7 @@ function formatPeso(amount: string | number): string {
 
 export function MoneyDisplay({ amount, className, prefix }: MoneyDisplayProps) {
   return (
-    <span className={cn('tabular-nums text-sm text-zinc-50', className)}>
+    <span className={cn('tabular-nums text-sm text-foreground', className)}>
       {prefix}{formatPeso(amount)}
     </span>
   )

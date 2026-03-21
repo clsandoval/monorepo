@@ -10,8 +10,8 @@ export function DangerZoneSection({ orgName, onDeleteOrg }: DangerZoneSectionPro
   return (
     <div className="border border-red-900/50 bg-red-950/20 rounded-xl p-6 space-y-3">
       <p className="text-[11px] uppercase tracking-wide text-red-500/70 mb-4">Danger Zone</p>
-      <p className="text-sm text-zinc-400">
-        Delete the organization <strong className="text-zinc-200">{orgName}</strong>. This action is irreversible.
+      <p className="text-sm text-muted-foreground">
+        Delete the organization <strong className="text-foreground">{orgName}</strong>. This action is irreversible.
       </p>
       <Button variant="destructive" size="sm" onClick={onDeleteOrg}>
         Delete Organization

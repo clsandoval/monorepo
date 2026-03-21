@@ -9,8 +9,8 @@ interface ErrorStateProps {
 export function ErrorState({ message = 'Something went wrong', description, onRetry }: ErrorStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-16">
-      <p className="text-sm text-zinc-50 mb-1">{message}</p>
-      {description && <p className="text-xs text-zinc-500 mb-4">{description}</p>}
+      <p className="text-sm text-foreground mb-1">{message}</p>
+      {description && <p className="text-xs text-muted-foreground mb-4">{description}</p>}
       {onRetry && (
         <Button variant="outline" size="sm" onClick={onRetry}>Try again</Button>
       )}

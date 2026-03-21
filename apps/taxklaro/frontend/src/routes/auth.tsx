@@ -186,7 +186,7 @@ function AuthPage() {
               <div>
                 <span className="text-muted-foreground">Already have an account? </span>
                 <button
-                  className="text-zinc-400 hover:text-zinc-200 transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                   onClick={() => { setMode('signin'); setError(null); setInfo(null); }}
                 >
                   Sign in
@@ -195,7 +195,7 @@ function AuthPage() {
             )}
             {mode === 'magic' && (
               <button
-                className="text-zinc-400 hover:text-zinc-200 transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => { setMode('signin'); setError(null); setInfo(null); }}
               >
                 Sign in with password instead

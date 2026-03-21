@@ -86,7 +86,7 @@ export function Sidebar() {
         )}
         {!collapsed && (
           <div className="px-3 py-1">
-            <span className="text-xs text-zinc-500 truncate block">
+            <span className="text-xs text-muted-foreground truncate block">
               {org?.name ? `${org.name}` : ''}{user?.email ? ` · ${user.email}` : ''}
             </span>
           </div>

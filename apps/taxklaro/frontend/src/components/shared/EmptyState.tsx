@@ -42,10 +42,10 @@ export function EmptyState({
         </div>
       )}
       {title && (
-        <h3 className="text-base font-semibold text-zinc-100 mb-1">{title}</h3>
+        <h3 className="text-base font-semibold text-foreground mb-1">{title}</h3>
       )}
       {resolvedDescription && (
-        <p className="text-sm text-zinc-500 mb-4 max-w-sm">{resolvedDescription}</p>
+        <p className="text-sm text-muted-foreground mb-4 max-w-sm">{resolvedDescription}</p>
       )}
       <div className="flex gap-2">
         {resolvedCtaLabel && resolvedOnCta && (

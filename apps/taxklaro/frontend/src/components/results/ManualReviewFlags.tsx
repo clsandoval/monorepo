@@ -24,11 +24,11 @@ export function ManualReviewFlags({ manualReviewFlags }: ManualReviewFlagsProps)
               </span>
               <span className="text-sm text-amber-400 font-medium">{flag.title}</span>
             </div>
-            <p className="text-sm text-zinc-400">{flag.message}</p>
-            <p className="text-xs text-zinc-500">
-              Field: <span className="font-mono text-zinc-400">{flag.fieldAffected}</span>
+            <p className="text-sm text-muted-foreground">{flag.message}</p>
+            <p className="text-xs text-muted-foreground">
+              Field: <span className="font-mono text-muted-foreground">{flag.fieldAffected}</span>
             </p>
-            <p className="text-xs text-zinc-500">
+            <p className="text-xs text-muted-foreground">
               Engine action: {flag.engineAction}
             </p>
           </li>

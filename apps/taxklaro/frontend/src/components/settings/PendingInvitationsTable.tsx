@@ -15,7 +15,7 @@ interface PendingInvitationsTableProps {
 
 export function PendingInvitationsTable({ invitations, onRevoke }: PendingInvitationsTableProps) {
   if (invitations.length === 0) {
-    return <p className="text-sm text-zinc-500">No pending invitations.</p>;
+    return <p className="text-sm text-muted-foreground">No pending invitations.</p>;
   }
 
   return (
