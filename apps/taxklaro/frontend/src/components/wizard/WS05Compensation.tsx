@@ -15,8 +15,8 @@ import type { WizardFormData } from '@/types/wizard';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 function parseAmount(val: string | undefined): number {
@@ -54,7 +54,7 @@ export function WS05Compensation({ data, onChange, onNext, onBack }: Props) {
       taxableCompensation: taxableComp || '0.00',
       compensationCwt: compCwt || '0.00',
     });
-    onNext();
+    onNext?.();
   }
 
   const showZeroCompAdvisory = taxableComp !== '' && compAmt === 0;

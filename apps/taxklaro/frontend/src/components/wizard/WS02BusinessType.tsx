@@ -19,8 +19,8 @@ export type BusinessCategory =
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 const CATEGORY_OPTIONS: { value: BusinessCategory; title: string; description: string }[] = [
@@ -79,7 +79,7 @@ export function WS02BusinessType({ data, onChange, onNext, onBack }: Props) {
       isGppPartner: showGpp ? isGppPartner : false,
       costOfGoodsSold: showCogs ? cogs : '0.00',
     });
-    onNext();
+    onNext?.();
   }
 
   return (

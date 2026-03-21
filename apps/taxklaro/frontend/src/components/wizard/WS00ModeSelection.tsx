@@ -11,7 +11,7 @@ export type WizardMode = 'ANNUAL' | 'QUARTERLY' | 'PENALTY';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
+  onNext?: () => void;
 }
 
 const MODE_OPTIONS: { value: WizardMode; title: string; description: string }[] = [
@@ -60,7 +60,7 @@ export function WS00ModeSelection({ data, onChange, onNext }: Props) {
       setError("Please select what you'd like to compute.");
       return;
     }
-    onNext();
+    onNext?.();
   }
 
   return (

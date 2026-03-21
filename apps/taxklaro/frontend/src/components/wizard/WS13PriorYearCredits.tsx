@@ -8,8 +8,8 @@ import type { WizardFormData } from '@/types/wizard';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 function parseAmt(v: string): number {
@@ -44,7 +44,7 @@ export function WS13PriorYearCredits({ data, onChange, onNext, onBack }: Props) 
     onChange({
       priorYearExcessCwt: hasPriorCarryover ? amount || '0.00' : '0.00',
     });
-    onNext();
+    onNext?.();
   }
 
   return (

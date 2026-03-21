@@ -18,8 +18,8 @@ import type { Form2307Entry } from '@/types/engine-input';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 const ATC_OPTIONS = [
@@ -219,7 +219,7 @@ export function WS08CwtForm2307({ data, onChange, onNext, onBack }: Props) {
   function handleNext() {
     if (has2307 === 'no') {
       onChange({ cwt2307Entries: [] });
-      onNext();
+      onNext?.();
       return;
     }
 
@@ -243,7 +243,7 @@ export function WS08CwtForm2307({ data, onChange, onNext, onBack }: Props) {
     }));
 
     onChange({ cwt2307Entries: entries });
-    onNext();
+    onNext?.();
   }
 
   // Running totals

@@ -12,8 +12,8 @@ export type ExpenseInputMethod = 'ITEMIZED' | 'OSD' | 'NO_EXPENSES';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 const OPTIONS: { value: ExpenseInputMethod; title: string; description: string }[] = [
@@ -70,7 +70,7 @@ export function WS06ExpenseMethod({ data, onChange, onNext, onBack }: Props) {
     onChange({
       osdElected: !isItemized,
     });
-    onNext();
+    onNext?.();
   }
 
   return (

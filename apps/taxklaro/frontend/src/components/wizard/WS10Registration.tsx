@@ -9,8 +9,8 @@ import type { WizardFormData } from '@/types/wizard';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 export type VatStatus = 'YES' | 'NO';
@@ -42,7 +42,7 @@ export function WS10Registration({ data, onChange, onNext, onBack }: Props) {
       isBmbeRegistered: bmbe,
       subjectToSec117128: sec117128,
     });
-    onNext();
+    onNext?.();
   }
 
   return (

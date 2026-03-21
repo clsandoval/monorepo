@@ -9,8 +9,8 @@ import type { WizardFormData } from '@/types/wizard';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 function parseAmt(v: string | undefined): number {
@@ -76,7 +76,7 @@ export function WS07BFinancialItems({ data, onChange, onNext, onBack }: Props) {
         researchDevelopment,
       },
     });
-    onNext();
+    onNext?.();
   }
 
   return (

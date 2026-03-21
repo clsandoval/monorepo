@@ -12,8 +12,8 @@ import type { ReturnType } from '@/types/common';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 export type ReturnTypeOption = 'ORIGINAL' | 'AMENDED';
@@ -62,7 +62,7 @@ export function WS12FilingDetails({ data, onChange, onNext, onBack }: Props) {
       priorPaymentForReturn: returnType === 'AMENDED' ? priorPayment : '0.00',
       actualFilingDate: isLateFiling ? actualFilingDate : null,
     });
-    onNext();
+    onNext?.();
   }
 
   return (

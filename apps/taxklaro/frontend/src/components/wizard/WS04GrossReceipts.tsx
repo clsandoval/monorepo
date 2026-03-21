@@ -14,8 +14,8 @@ import type { WizardFormData } from '@/types/wizard';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 function parseAmount(val: string | undefined): number {
@@ -87,7 +87,7 @@ export function WS04GrossReceipts({ data, onChange, onNext, onBack }: Props) {
       nonOperatingIncome: nonOpIncome,
       fwtIncome,
     });
-    onNext();
+    onNext?.();
   }
 
   const advisory = getGrossAdvisory();

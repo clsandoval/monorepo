@@ -17,8 +17,8 @@ import type { TaxpayerType } from '@/types/common';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 const TAXPAYER_OPTIONS: { value: TaxpayerType; title: string; description: string }[] = [
@@ -69,7 +69,7 @@ export function WS01TaxpayerProfile({ data, onChange, onNext, onBack }: Props) {
       taxpayerType: type,
       isMixedIncome: type === 'MIXED_INCOME',
     });
-    onNext();
+    onNext?.();
   }
 
   return (

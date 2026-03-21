@@ -16,8 +16,8 @@ import type { FilingPeriod } from '@/types/common';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 const TAX_YEARS = [
@@ -61,7 +61,7 @@ export function WS03TaxYear({ data, onChange, onNext, onBack }: Props) {
       return;
     }
     onChange({ taxYear, filingPeriod });
-    onNext();
+    onNext?.();
   }
 
   const quarterlyOptions: { value: FilingPeriod; label: string; due: string }[] = [

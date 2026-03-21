@@ -1,53 +1,61 @@
 // WizardForm: Flat form (all steps stacked). Used in "Input" tab of ComputationDetailPage.
-// Uses the same step sub-components as WizardPage (spec §14.6).
+// Uses the same step sub-components as AccordionWizard.
 import type { WizardFormData } from '@/types/wizard';
 import { computeActiveSteps } from '@/lib/wizard-routing';
-import { WizardReview } from '@/components/wizard/WizardReview';
-import WizardStep00 from '@/components/wizard/steps/WizardStep00';
-import WizardStep01 from '@/components/wizard/steps/WizardStep01';
-import WizardStep02 from '@/components/wizard/steps/WizardStep02';
-import WizardStep03 from '@/components/wizard/steps/WizardStep03';
-import WizardStep04 from '@/components/wizard/steps/WizardStep04';
-import WizardStep05 from '@/components/wizard/steps/WizardStep05';
-import WizardStep06 from '@/components/wizard/steps/WizardStep06';
-import WizardStep07A from '@/components/wizard/steps/WizardStep07A';
-import WizardStep07B from '@/components/wizard/steps/WizardStep07B';
-import WizardStep07C from '@/components/wizard/steps/WizardStep07C';
-import WizardStep07D from '@/components/wizard/steps/WizardStep07D';
-import WizardStep08 from '@/components/wizard/steps/WizardStep08';
-import WizardStep09 from '@/components/wizard/steps/WizardStep09';
-import WizardStep10 from '@/components/wizard/steps/WizardStep10';
-import WizardStep11 from '@/components/wizard/steps/WizardStep11';
-import WizardStep12 from '@/components/wizard/steps/WizardStep12';
-import WizardStep13 from '@/components/wizard/steps/WizardStep13';
+import { WS00ModeSelection } from '@/components/wizard/WS00ModeSelection';
+import { WS01TaxpayerProfile } from '@/components/wizard/WS01TaxpayerProfile';
+import { WS02BusinessType } from '@/components/wizard/WS02BusinessType';
+import { WS03TaxYear } from '@/components/wizard/WS03TaxYear';
+import { WS04GrossReceipts } from '@/components/wizard/WS04GrossReceipts';
+import { WS05Compensation } from '@/components/wizard/WS05Compensation';
+import { WS06ExpenseMethod } from '@/components/wizard/WS06ExpenseMethod';
+import { WS07AItemizedExpenses } from '@/components/wizard/WS07AItemizedExpenses';
+import { WS07BFinancialItems } from '@/components/wizard/WS07BFinancialItems';
+import { WS07CDepreciation } from '@/components/wizard/WS07CDepreciation';
+import { WS07DNolco } from '@/components/wizard/WS07DNolco';
+import { WS08CwtForm2307 } from '@/components/wizard/WS08CwtForm2307';
+import { WS09PriorQuarterly } from '@/components/wizard/WS09PriorQuarterly';
+import { WS10Registration } from '@/components/wizard/WS10Registration';
+import { WS11RegimeElection } from '@/components/wizard/WS11RegimeElection';
+import { WS12FilingDetails } from '@/components/wizard/WS12FilingDetails';
+import { WS13PriorYearCredits } from '@/components/wizard/WS13PriorYearCredits';
+import type { WizardStepId } from '@/types/wizard';
 
-const STEP_MAP: Record<string, React.ComponentType<{ data: Partial<WizardFormData>; onBack: () => void; onSubmit: () => void }>> = {
-  'WS-00': WizardStep00 as never,
-  'WS-01': WizardStep01 as never,
-  'WS-02': WizardStep02 as never,
-  'WS-03': WizardStep03 as never,
-  'WS-04': WizardStep04 as never,
-  'WS-05': WizardStep05 as never,
-  'WS-06': WizardStep06 as never,
-  'WS-07A': WizardStep07A as never,
-  'WS-07B': WizardStep07B as never,
-  'WS-07C': WizardStep07C as never,
-  'WS-07D': WizardStep07D as never,
-  'WS-08': WizardStep08 as never,
-  'WS-09': WizardStep09 as never,
-  'WS-10': WizardStep10 as never,
-  'WS-11': WizardStep11 as never,
-  'WS-12': WizardStep12 as never,
-  'WS-13': WizardStep13 as never,
+const STEP_MAP: Record<WizardStepId, React.ComponentType<{
+  data: Partial<WizardFormData>;
+  onChange: (u: Partial<WizardFormData>) => void;
+  onNext?: () => void;
+  onBack?: () => void;
+}>> = {
+  WS00: WS00ModeSelection,
+  WS01: WS01TaxpayerProfile,
+  WS02: WS02BusinessType,
+  WS03: WS03TaxYear,
+  WS04: WS04GrossReceipts,
+  WS05: WS05Compensation,
+  WS06: WS06ExpenseMethod,
+  WS07A: WS07AItemizedExpenses,
+  WS07B: WS07BFinancialItems,
+  WS07C: WS07CDepreciation,
+  WS07D: WS07DNolco,
+  WS08: WS08CwtForm2307,
+  WS09: WS09PriorQuarterly,
+  WS10: WS10Registration,
+  WS11: WS11RegimeElection,
+  WS12: WS12FilingDetails,
+  WS13: WS13PriorYearCredits,
+  REVIEW: () => null,
 };
 
 interface WizardFormProps {
   data: Partial<WizardFormData>;
+  onChange?: (updates: Partial<WizardFormData>) => void;
   onSubmit?: () => void;
 }
 
-export function WizardForm({ data, onSubmit }: WizardFormProps) {
+export function WizardForm({ data, onChange }: WizardFormProps) {
   const activeSteps = computeActiveSteps(data as WizardFormData).filter((s) => s !== 'REVIEW');
+  const noop = () => {};
 
   return (
     <div className="space-y-8">
@@ -56,11 +64,10 @@ export function WizardForm({ data, onSubmit }: WizardFormProps) {
         if (!StepComponent) return null;
         return (
           <div key={stepId} className="border rounded-lg p-4">
-            <StepComponent data={data} onBack={() => {}} onSubmit={() => {}} />
+            <StepComponent data={data} onChange={onChange ?? noop} />
           </div>
         );
       })}
-      <WizardReview data={data} onBack={() => {}} onSubmit={onSubmit ?? (() => {})} />
     </div>
   );
 }

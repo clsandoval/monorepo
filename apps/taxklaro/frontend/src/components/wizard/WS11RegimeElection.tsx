@@ -11,8 +11,8 @@ import type { RegimeElection } from '@/types/common';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 export type RegimeElectionOption = 'ELECT_EIGHT_PCT' | 'ELECT_OSD' | 'ELECT_ITEMIZED' | null;
@@ -92,7 +92,7 @@ export function WS11RegimeElection({ data, onChange, onNext, onBack }: Props) {
       ? null
       : (selected as RegimeElection);
     onChange({ electedRegime: regime });
-    onNext();
+    onNext?.();
   }
 
   return (

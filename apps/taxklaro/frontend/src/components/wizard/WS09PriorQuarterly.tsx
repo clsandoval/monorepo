@@ -11,8 +11,8 @@ import type { FilingPeriod } from '@/types/common';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 type QuarterSlot = { quarter: 1 | 2 | 3; label: string; period: 'Q1' | 'Q2' | 'Q3' };
@@ -93,7 +93,7 @@ export function WS09PriorQuarterly({ data, onChange, onNext, onBack }: Props) {
   function handleNext() {
     if (hasPrior === 'no') {
       onChange({ priorQuarterlyPayments: [] });
-      onNext();
+      onNext?.();
       return;
     }
 
@@ -109,7 +109,7 @@ export function WS09PriorQuarterly({ data, onChange, onNext, onBack }: Props) {
       }));
 
     onChange({ priorQuarterlyPayments: payments });
-    onNext();
+    onNext?.();
   }
 
   // If filing period is Q1 (no prior quarters), skip directly
@@ -124,7 +124,7 @@ export function WS09PriorQuarterly({ data, onChange, onNext, onBack }: Props) {
         </div>
         <div className="flex justify-between">
           <Button variant="outline" onClick={onBack} className="h-11 px-5">Back</Button>
-          <Button onClick={() => { onChange({ priorQuarterlyPayments: [] }); onNext(); }} className="h-11 px-6">Continue</Button>
+          <Button onClick={() => { onChange({ priorQuarterlyPayments: [] }); onNext?.(); }} className="h-11 px-6">Continue</Button>
         </div>
       </div>
     );

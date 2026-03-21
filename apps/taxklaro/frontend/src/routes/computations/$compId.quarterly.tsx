@@ -3,7 +3,7 @@ import { createRoute, useNavigate } from '@tanstack/react-router';
 import { authenticatedRoute } from '../__root';
 import { authGuard } from '../../lib/auth-guard';
 import { loadComputation } from '../../lib/computations';
-import { QuarterlyBreakdownView } from '../../components/computation/QuarterlyBreakdownView';
+// QuarterlyBreakdownView removed — will be rebuilt in a later task
 import type { ComputationRow } from '../../types/org';
 import type { TaxComputationResult } from '../../types/engine-output';
 
@@ -84,7 +84,9 @@ function QuarterlyPage() {
       </div>
 
       {result ? (
-        <QuarterlyBreakdownView results={[result]} taxYear={computation.taxYear} />
+        <div className="bg-card rounded-xl border p-10 text-center text-sm text-zinc-400">
+          Quarterly breakdown view coming soon.
+        </div>
       ) : (
         <div className="bg-card rounded-xl shadow-sm border border-border/50 p-10 text-center space-y-2">
           <p className="font-medium text-foreground">No results yet</p>

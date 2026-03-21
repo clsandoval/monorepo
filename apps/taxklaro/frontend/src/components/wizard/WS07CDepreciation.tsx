@@ -18,8 +18,8 @@ import type { DepreciationEntry } from '@/types/engine-input';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 type AssetDraft = {
@@ -140,7 +140,7 @@ export function WS07CDepreciation({ data, onChange, onNext, onBack }: Props) {
   function handleSkip() {
     setSkipped(true);
     onChange({ itemizedExpenses: { ...ie, depreciationEntries: [] } });
-    onNext();
+    onNext?.();
   }
 
   function handleNext() {
@@ -159,7 +159,7 @@ export function WS07CDepreciation({ data, onChange, onNext, onBack }: Props) {
     }));
 
     onChange({ itemizedExpenses: { ...ie, depreciationEntries: entries } });
-    onNext();
+    onNext?.();
   }
 
   if (skipped) return null;

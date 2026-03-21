@@ -16,8 +16,8 @@ import type { NolcoEntry } from '@/types/engine-input';
 interface Props {
   data: Partial<WizardFormData>;
   onChange: (updates: Partial<WizardFormData>) => void;
-  onNext: () => void;
-  onBack: () => void;
+  onNext?: () => void;
+  onBack?: () => void;
 }
 
 type NolcoDraft = {
@@ -137,7 +137,7 @@ export function WS07DNolco({ data, onChange, onNext, onBack }: Props) {
   function handleNext() {
     if (hasNolco === 'no') {
       onChange({ itemizedExpenses: { ...ie, nolcoEntries: [] } });
-      onNext();
+      onNext?.();
       return;
     }
 
@@ -153,7 +153,7 @@ export function WS07DNolco({ data, onChange, onNext, onBack }: Props) {
     }));
 
     onChange({ itemizedExpenses: { ...ie, nolcoEntries: entries } });
-    onNext();
+    onNext?.();
   }
 
   return (
@@ -287,7 +287,7 @@ export function WS07DNolco({ data, onChange, onNext, onBack }: Props) {
               className="h-11"
               onClick={() => {
                 onChange({ itemizedExpenses: { ...ie, nolcoEntries: [] } });
-                onNext();
+                onNext?.();
               }}
             >
               Skip — I have no prior-year losses to carry over
