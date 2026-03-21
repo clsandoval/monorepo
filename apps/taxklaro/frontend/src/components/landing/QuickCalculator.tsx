@@ -65,22 +65,27 @@ export function QuickCalculator({ onSignupGate }: { onSignupGate: () => void }) 
     setComputing(true)
     setError(null)
 
-    const input = createDefaultTaxpayerInput()
-    input.taxpayerType = taxpayerType as TaxpayerType
-    input.isMixedIncome = taxpayerType === 'MIXED_INCOME'
-    input.grossReceipts = amount.toFixed(2)
-    if (taxpayerType === 'MIXED_INCOME') {
-      input.taxableCompensation = '0.00'
-    }
+    try {
+      const input = createDefaultTaxpayerInput()
+      input.taxpayerType = taxpayerType as TaxpayerType
+      input.isMixedIncome = taxpayerType === 'MIXED_INCOME'
+      input.grossReceipts = amount.toFixed(2)
+      if (taxpayerType === 'MIXED_INCOME') {
+        input.taxableCompensation = '0.00'
+      }
 
-    const wasmResult = await computeTax(input)
-    setComputing(false)
+      const wasmResult = await computeTax(input)
 
-    if (wasmResult.status === 'ok' && wasmResult.data) {
-      setResult(parseResult(wasmResult.data))
-      localStorage.setItem(FREE_CALC_KEY, 'true')
-    } else {
+      if (wasmResult.status === 'ok' && wasmResult.data) {
+        setResult(parseResult(wasmResult.data))
+        localStorage.setItem(FREE_CALC_KEY, 'true')
+      } else {
+        setError('Computation failed. Please try again.')
+      }
+    } catch {
       setError('Computation failed. Please try again.')
+    } finally {
+      setComputing(false)
     }
   }
 
