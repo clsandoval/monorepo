@@ -58,7 +58,7 @@ function SharePage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950">
+    <div className="min-h-screen bg-background">
       <PublicHeader label="Shared Computation" />
 
       <div className="max-w-4xl mx-auto py-10 px-4 space-y-6">

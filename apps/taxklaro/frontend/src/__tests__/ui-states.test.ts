@@ -123,7 +123,7 @@ describe('ComputationCardSkeleton.tsx (§8.5.15)', () => {
   it('root element has 6+ required Tailwind classes (anti-scaffolding §8.5.15)', () => {
     expect(content).toContain('rounded-lg');
     expect(content).toContain('border');
-    expect(content).toContain('bg-zinc-900');
+    expect(content).toContain('bg-gray-50');
     expect(content).toContain('p-4');
     expect(content).toContain('space-y-3');
     expect(content).toContain('animate-pulse');

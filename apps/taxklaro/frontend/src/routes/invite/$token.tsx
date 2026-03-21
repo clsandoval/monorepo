@@ -108,7 +108,7 @@ function InvitePage() {
   const isUsed = invite.status !== 'pending';
 
   return (
-    <div className="min-h-screen bg-zinc-950" data-testid="invite-page">
+    <div className="min-h-screen bg-background" data-testid="invite-page">
       <PublicHeader />
       <div className="flex items-center justify-center p-4 pt-16">
         <div className="w-full max-w-sm">
