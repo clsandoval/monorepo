@@ -95,7 +95,7 @@ The exact penalty amounts per report type per year are specified in SEC memorand
 penalty_schedule:
   - corp_type: "stock" | "non_stock" | "opc"
     report_type: "GIS" | "AFS" | "BO"
-    year_of_delinquency: number  # 1st year, 2nd year, etc.
+    year_of_delinquency: number  # years overdue (e.g., missed 2020 GIS in 2026 = 6)
     penalty_amount: number       # in PHP
     effective_from: date         # when this rate took effect (for regime changes)
     effective_until: date | null # null = current
@@ -185,7 +185,7 @@ users
   - id, email, name, auth_provider, created_at
 
 corporations
-  - id, user_id (nullable — anonymous computations have no user)
+  - id, user_id (nullable — see anonymous persistence note below)
   - corp_type (stock | non_stock | opc)
   - registration_date, sec_registration_number (optional)
   - suspension_date (nullable), revocation_date (nullable)
@@ -199,8 +199,13 @@ filing_records
 computations
   - id, corporation_id, computed_at
   - result_json (full penalty breakdown, status, ECIP comparison)
-  - Note: computations are stored so users can re-visit results.
-    One corporation can have multiple computations (recompute after updating filings).
+  - One corporation can have multiple computations (recompute after updating filings).
+
+Anonymous Persistence: Anonymous computations are **ephemeral** — computed on-the-fly,
+held in client state (React state / URL params), not persisted to DB. When an anonymous
+user signs up at the remediation gate, the current computation inputs are saved to their
+new account and the computation is persisted. No tokens, no local storage, no DB rows
+for anonymous users.
 
 penalty_schedule (config table)
   - id, corp_type, report_type, year_of_delinquency
