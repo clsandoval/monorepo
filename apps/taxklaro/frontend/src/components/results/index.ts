@@ -1,6 +1,4 @@
 export { WarningsBanner } from './WarningsBanner';
-export { RegimeComparisonTable } from './RegimeComparisonTable';
-export { RecommendationBanner } from './RecommendationBanner';
 export { TaxBreakdownPanel } from './TaxBreakdownPanel';
 export { BalancePayableSection } from './BalancePayableSection';
 export { InstallmentSection } from './InstallmentSection';
@@ -9,3 +7,8 @@ export { BirFormRecommendation } from './BirFormRecommendation';
 export { PenaltySummary } from './PenaltySummary';
 export { ManualReviewFlags } from './ManualReviewFlags';
 export { PathDetailAccordion } from './PathDetailAccordion';
+export { HeroNumber } from './HeroNumber';
+export { RecommendationPill } from './RecommendationPill';
+export { RegimeComparison } from './RegimeComparison';
+export { CollapsibleResultSection } from './CollapsibleResultSection';
+export { ResultsActions } from './ResultsActions';
