@@ -1,5 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import type { Peso, RegimePath } from '@/types/common';
 
 interface TaxBreakdownPanelProps {
@@ -29,29 +27,29 @@ export function TaxBreakdownPanel({
   const ptDue = parseFloat(selectedPercentageTaxDue);
 
   return (
-    <Card className="shadow-sm">
-      <CardHeader className="pb-3">
-        <CardTitle className="font-display text-xl font-normal">Tax Breakdown</CardTitle>
-        <p className="text-sm text-muted-foreground">{PATH_LABELS[selectedPath]}</p>
-      </CardHeader>
-      <CardContent className="space-y-2.5">
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Income Tax Due</span>
-          <span className="font-medium tabular-nums">{formatPeso(selectedIncomeTaxDue)}</span>
-        </div>
-        {ptDue > 0 && (
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Percentage Tax (3%)</span>
-            <span className="font-medium tabular-nums">{formatPeso(selectedPercentageTaxDue)}</span>
-          </div>
-        )}
-        <Separator />
-        <div className="flex justify-between items-baseline pt-1">
-          <span className="text-sm font-semibold text-foreground">Total Tax Burden</span>
-          <span className="font-display text-[1.75rem] tabular-nums text-foreground">{formatPeso(selectedTotalTax)}</span>
-        </div>
-      </CardContent>
-    </Card>
+    <div>
+      <p className="text-xs uppercase tracking-wide text-zinc-500 mb-3">{PATH_LABELS[selectedPath]}</p>
+      <table className="w-full text-sm">
+        <tbody>
+          <tr className="even:bg-zinc-900/30">
+            <td className="py-1.5 text-zinc-400">Income Tax Due</td>
+            <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatPeso(selectedIncomeTaxDue)}</td>
+          </tr>
+          {ptDue > 0 && (
+            <tr className="even:bg-zinc-900/30">
+              <td className="py-1.5 text-zinc-400">Percentage Tax (3%)</td>
+              <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatPeso(selectedPercentageTaxDue)}</td>
+            </tr>
+          )}
+        </tbody>
+        <tfoot>
+          <tr className="border-t border-zinc-800">
+            <td className="pt-2.5 text-zinc-50 font-medium">Total Tax Burden</td>
+            <td className="pt-2.5 text-right tabular-nums text-red-500 font-semibold text-base">{formatPeso(selectedTotalTax)}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   );
 }
 

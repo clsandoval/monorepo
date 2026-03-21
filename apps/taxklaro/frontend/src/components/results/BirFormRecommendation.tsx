@@ -1,5 +1,3 @@
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { FormType } from '@/types/common';
 import type { FormOutputUnion } from '@/types/engine-output';
 
@@ -32,33 +30,28 @@ export function BirFormRecommendation({
   const formInfo = FORM_LABELS[formType];
 
   return (
-    <Card className="border-blue-200/70 bg-blue-50/30 shadow-sm dark:bg-blue-900/10 dark:border-blue-800/40">
-      <CardHeader className="pb-3">
-        <CardTitle className="font-display text-xl font-normal">Recommended BIR Form</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-start gap-3">
-          <Badge className="mt-0.5 text-sm font-semibold shrink-0 bg-primary/10 text-primary hover:bg-primary/20 border-primary/20" variant="outline">
-            {formInfo.name}
-          </Badge>
-          <p className="text-sm text-muted-foreground">{formInfo.description}</p>
-        </div>
+    <div className="space-y-4">
+      <div className="flex items-start gap-3">
+        <span className="mt-0.5 shrink-0 text-xs border border-zinc-700 text-zinc-50 rounded px-2 py-0.5 font-semibold tabular-nums">
+          {formInfo.name}
+        </span>
+        <p className="text-sm text-zinc-400">{formInfo.description}</p>
+      </div>
 
-        {requiredAttachments.length > 0 && (
-          <div>
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Required attachments:</p>
-            <ul className="space-y-1">
-              {requiredAttachments.map((attachment, i) => (
-                <li key={i} className="text-sm flex items-start gap-2">
-                  <span className="text-primary mt-0.5 font-bold">•</span>
-                  <span>{attachment}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+      {requiredAttachments.length > 0 && (
+        <div>
+          <p className="text-xs uppercase tracking-wide text-zinc-500 mb-2">Required attachments:</p>
+          <ul className="space-y-1">
+            {requiredAttachments.map((attachment, i) => (
+              <li key={i} className="text-sm flex items-start gap-2 text-zinc-400">
+                <span className="text-zinc-500 mt-0.5">•</span>
+                <span>{attachment}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 }
 

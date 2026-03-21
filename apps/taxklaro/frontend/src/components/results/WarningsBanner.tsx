@@ -1,4 +1,3 @@
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import type { ValidationWarning } from '@/types/common';
 
 interface WarningsBannerProps {
@@ -11,12 +10,15 @@ export function WarningsBanner({ warnings }: WarningsBannerProps) {
   return (
     <div className="space-y-2">
       {warnings.map((w) => (
-        <Alert key={w.code} variant={w.severity === 'WARNING' ? 'destructive' : 'default'}>
-          <AlertTitle>
+        <div
+          key={w.code}
+          className="bg-amber-500/10 border border-amber-500/20 text-amber-500 text-sm px-4 py-3 rounded-md"
+        >
+          <p className="font-medium mb-0.5">
             {w.severity === 'WARNING' ? 'Warning' : 'Notice'}
-          </AlertTitle>
-          <AlertDescription>{w.message}</AlertDescription>
-        </Alert>
+          </p>
+          <p className="text-amber-400">{w.message}</p>
+        </div>
       ))}
     </div>
   );

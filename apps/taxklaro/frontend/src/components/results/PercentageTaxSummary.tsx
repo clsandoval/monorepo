@@ -1,6 +1,3 @@
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import type { PercentageTaxResult } from '@/types/engine-output';
 
 interface PercentageTaxSummaryProps {
@@ -20,41 +17,39 @@ function formatRate(value: string): string {
 export function PercentageTaxSummary({ ptResult }: PercentageTaxSummaryProps) {
   if (!ptResult.ptApplies) {
     return (
-      <Alert>
-        <AlertDescription className="text-sm text-muted-foreground">
-          {ptResult.reason}
-        </AlertDescription>
-      </Alert>
+      <p className="text-sm text-zinc-500">
+        {ptResult.reason}
+      </p>
     );
   }
 
   return (
-    <Card className="shadow-sm">
-      <CardHeader className="pb-3">
-        <CardTitle className="font-display text-xl font-normal">Percentage Tax (BIR Form 2551Q)</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-2">
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Tax Base (Gross Receipts)</span>
-          <span className="tabular-nums">{formatPeso(ptResult.ptBase)}</span>
-        </div>
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Rate</span>
-          <span className="tabular-nums">{formatRate(ptResult.ptRate)}</span>
-        </div>
-        <Separator />
-        <div className="flex justify-between text-sm font-semibold">
-          <span>Percentage Tax Due</span>
-          <span className="tabular-nums">{formatPeso(ptResult.ptDue)}</span>
-        </div>
-        <p className="text-xs text-muted-foreground pt-1">{ptResult.reason}</p>
-        {ptResult.form2551qRequired && ptResult.filingDeadline && (
-          <p className="text-xs text-muted-foreground">
-            Filing deadline: {ptResult.filingDeadline}
-          </p>
-        )}
-      </CardContent>
-    </Card>
+    <div>
+      <table className="w-full text-sm mb-2">
+        <tbody>
+          <tr className="even:bg-zinc-900/30">
+            <td className="py-1.5 text-zinc-400">Tax Base (Gross Receipts)</td>
+            <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatPeso(ptResult.ptBase)}</td>
+          </tr>
+          <tr className="even:bg-zinc-900/30">
+            <td className="py-1.5 text-zinc-400">Rate</td>
+            <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatRate(ptResult.ptRate)}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr className="border-t border-zinc-800">
+            <td className="pt-2.5 text-zinc-50 font-medium">Percentage Tax Due</td>
+            <td className="pt-2.5 text-right tabular-nums text-red-500 font-semibold">{formatPeso(ptResult.ptDue)}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <p className="text-xs text-zinc-500 pt-1">{ptResult.reason}</p>
+      {ptResult.form2551qRequired && ptResult.filingDeadline && (
+        <p className="text-xs text-zinc-500">
+          Filing deadline: {ptResult.filingDeadline}
+        </p>
+      )}
+    </div>
   );
 }
 

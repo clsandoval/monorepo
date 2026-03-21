@@ -1,6 +1,3 @@
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import type { PenaltyResult } from '@/types/engine-output';
 
 interface PenaltySummaryProps {
@@ -15,11 +12,9 @@ function formatPeso(value: string): string {
 export function PenaltySummary({ penalties }: PenaltySummaryProps) {
   if (!penalties.applies) {
     return (
-      <Alert>
-        <AlertDescription className="text-sm text-muted-foreground">
-          No late filing penalties apply. Filing is on time.
-        </AlertDescription>
-      </Alert>
+      <p className="text-sm text-zinc-500">
+        No late filing penalties apply. Filing is on time.
+      </p>
     );
   }
 
@@ -27,61 +22,66 @@ export function PenaltySummary({ penalties }: PenaltySummaryProps) {
   const hasPtPenalties = parseFloat(ptPenalties.total) > 0;
 
   return (
-    <Card className="border-amber-400/60 bg-amber-50/40 shadow-sm dark:bg-amber-900/10">
-      <CardHeader className="pb-3">
-        <CardTitle className="font-display text-xl font-normal text-amber-800 dark:text-amber-300">
-          Late Filing Penalties
-        </CardTitle>
-        <p className="text-sm text-muted-foreground">
-          {daysLate} day{daysLate !== 1 ? 's' : ''} late ({monthsLate} month{monthsLate !== 1 ? 's' : ''})
-        </p>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <div>
-          <p className="text-xs font-medium text-muted-foreground mb-1">Income Tax Penalties</p>
-          <div className="space-y-1">
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Surcharge (25%)</span>
-              <span className="tabular-nums">{formatPeso(itPenalties.surcharge)}</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Interest (12% p.a.)</span>
-              <span className="tabular-nums">{formatPeso(itPenalties.interest)}</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Compromise Penalty</span>
-              <span className="tabular-nums">{formatPeso(itPenalties.compromise)}</span>
-            </div>
-          </div>
-        </div>
+    <div>
+      <p className="text-xs uppercase tracking-wide text-zinc-500 mb-3">
+        {daysLate} day{daysLate !== 1 ? 's' : ''} late ({monthsLate} month{monthsLate !== 1 ? 's' : ''})
+      </p>
 
-        {hasPtPenalties && (
-          <div>
-            <p className="text-xs font-medium text-muted-foreground mb-1">Percentage Tax Penalties</p>
-            <div className="space-y-1">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Surcharge</span>
-                <span className="tabular-nums">{formatPeso(ptPenalties.surcharge)}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Interest</span>
-                <span className="tabular-nums">{formatPeso(ptPenalties.interest)}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Compromise</span>
-                <span className="tabular-nums">{formatPeso(ptPenalties.compromise)}</span>
-              </div>
-            </div>
-          </div>
-        )}
+      <table className="w-full text-sm mb-4">
+        <thead>
+          <tr>
+            <th className="text-left pb-1.5 text-xs uppercase tracking-wide text-zinc-500 font-normal" colSpan={2}>
+              Income Tax Penalties
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="even:bg-zinc-900/30">
+            <td className="py-1.5 text-zinc-400">Surcharge (25%)</td>
+            <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatPeso(itPenalties.surcharge)}</td>
+          </tr>
+          <tr className="even:bg-zinc-900/30">
+            <td className="py-1.5 text-zinc-400">Interest (12% p.a.)</td>
+            <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatPeso(itPenalties.interest)}</td>
+          </tr>
+          <tr className="even:bg-zinc-900/30">
+            <td className="py-1.5 text-zinc-400">Compromise Penalty</td>
+            <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatPeso(itPenalties.compromise)}</td>
+          </tr>
+        </tbody>
+      </table>
 
-        <Separator />
-        <div className="flex justify-between items-baseline">
-          <span className="text-sm font-semibold text-amber-800 dark:text-amber-300">Total Penalties</span>
-          <span className="font-display text-2xl tabular-nums text-amber-800 dark:text-amber-300">{formatPeso(totalPenalties)}</span>
-        </div>
-      </CardContent>
-    </Card>
+      {hasPtPenalties && (
+        <table className="w-full text-sm mb-4">
+          <thead>
+            <tr>
+              <th className="text-left pb-1.5 text-xs uppercase tracking-wide text-zinc-500 font-normal" colSpan={2}>
+                Percentage Tax Penalties
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="even:bg-zinc-900/30">
+              <td className="py-1.5 text-zinc-400">Surcharge</td>
+              <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatPeso(ptPenalties.surcharge)}</td>
+            </tr>
+            <tr className="even:bg-zinc-900/30">
+              <td className="py-1.5 text-zinc-400">Interest</td>
+              <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatPeso(ptPenalties.interest)}</td>
+            </tr>
+            <tr className="even:bg-zinc-900/30">
+              <td className="py-1.5 text-zinc-400">Compromise</td>
+              <td className="py-1.5 text-right tabular-nums text-zinc-50">{formatPeso(ptPenalties.compromise)}</td>
+            </tr>
+          </tbody>
+        </table>
+      )}
+
+      <div className="flex justify-between items-baseline pt-2.5 border-t border-zinc-800">
+        <span className="text-sm text-amber-500 font-medium">Total Penalties</span>
+        <span className="tabular-nums text-amber-500 font-semibold text-lg">{formatPeso(totalPenalties)}</span>
+      </div>
+    </div>
   );
 }
 

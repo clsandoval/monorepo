@@ -1,5 +1,3 @@
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Peso } from '@/types/common';
 
 interface InstallmentSectionProps {
@@ -20,39 +18,36 @@ export function InstallmentSection({
 }: InstallmentSectionProps) {
   if (!installmentEligible) {
     return (
-      <Alert>
-        <AlertDescription className="text-sm text-muted-foreground">
-          Installment payment not applicable (balance due is ₱2,000 or less, or no balance payable).
-        </AlertDescription>
-      </Alert>
+      <p className="text-sm text-zinc-500">
+        Installment payment not applicable (balance due is ₱2,000 or less, or no balance payable).
+      </p>
     );
   }
 
   return (
-    <Card className="shadow-sm">
-      <CardHeader className="pb-3">
-        <CardTitle className="font-display text-xl font-normal">Installment Payment Schedule</CardTitle>
-        <p className="text-sm text-muted-foreground">
-          Balance exceeds ₱2,000 — eligible for 2-installment payment
-        </p>
-      </CardHeader>
-      <CardContent className="space-y-2">
-        <div className="flex justify-between text-sm">
-          <div>
-            <span className="font-medium">1st Installment</span>
-            <p className="text-sm text-foreground/70">Due: April 15</p>
-          </div>
-          <span className="tabular-nums font-semibold text-base">{formatPeso(installmentFirstDue)}</span>
-        </div>
-        <div className="flex justify-between text-sm">
-          <div>
-            <span className="font-medium">2nd Installment</span>
-            <p className="text-sm text-foreground/70">Due: July 15</p>
-          </div>
-          <span className="tabular-nums font-semibold text-base">{formatPeso(installmentSecondDue)}</span>
-        </div>
-      </CardContent>
-    </Card>
+    <div>
+      <p className="text-xs uppercase tracking-wide text-zinc-500 mb-3">
+        Balance exceeds ₱2,000 — eligible for 2-installment payment
+      </p>
+      <table className="w-full text-sm">
+        <tbody>
+          <tr className="even:bg-zinc-900/30">
+            <td className="py-2">
+              <span className="text-zinc-50 font-medium">1st Installment</span>
+              <p className="text-xs text-zinc-500 mt-0.5">Due: April 15</p>
+            </td>
+            <td className="py-2 text-right tabular-nums text-zinc-50 font-semibold">{formatPeso(installmentFirstDue)}</td>
+          </tr>
+          <tr className="even:bg-zinc-900/30">
+            <td className="py-2">
+              <span className="text-zinc-50 font-medium">2nd Installment</span>
+              <p className="text-xs text-zinc-500 mt-0.5">Due: July 15</p>
+            </td>
+            <td className="py-2 text-right tabular-nums text-zinc-50 font-semibold">{formatPeso(installmentSecondDue)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }
 

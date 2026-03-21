@@ -1,5 +1,4 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Badge } from '@/components/ui/badge';
 import type { PathAResult, PathBResult, PathCResult } from '@/types/engine-output';
 
 interface PathDetailAccordionProps {
@@ -15,9 +14,9 @@ function formatPeso(value: string): string {
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex justify-between text-sm py-0.5">
-      <span className="text-muted-foreground">{label}</span>
-      <span className="tabular-nums">{formatPeso(value)}</span>
+    <div className="flex justify-between text-sm py-1 even:bg-zinc-900/30">
+      <span className="text-zinc-400">{label}</span>
+      <span className="tabular-nums text-zinc-50">{formatPeso(value)}</span>
     </div>
   );
 }
@@ -28,17 +27,19 @@ export function PathDetailAccordion({ pathADetails, pathBDetails, pathCDetails }
 
   return (
     <div className="space-y-1">
-      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Path Details</p>
-      <Accordion type="multiple" className="space-y-2">
+      <p className="text-xs uppercase tracking-wide text-zinc-500 mb-2">Path Details</p>
+      <Accordion type="multiple" className="space-y-1">
         {pathADetails && (
-          <AccordionItem value="path-a" className="border rounded-xl px-4 shadow-sm bg-card hover:shadow-md transition-shadow">
-            <AccordionTrigger className="text-[0.9375rem] font-medium hover:no-underline py-4">
+          <AccordionItem value="path-a" className="border border-zinc-800 rounded-md px-4">
+            <AccordionTrigger className="text-sm font-medium text-zinc-50 hover:no-underline py-3 hover:text-zinc-200">
               <div className="flex items-center gap-2">
                 <span>{pathADetails.pathLabel}</span>
-                {!pathADetails.eligible && <Badge variant="outline" className="text-xs">Ineligible</Badge>}
+                {!pathADetails.eligible && (
+                  <span className="text-xs border border-zinc-700 text-zinc-500 rounded px-1.5 py-0.5">Ineligible</span>
+                )}
               </div>
             </AccordionTrigger>
-            <AccordionContent className="space-y-1.5 pt-0 pb-4">
+            <AccordionContent className="space-y-0 pt-0 pb-3">
               <Row label="Total Deductions" value={pathADetails.totalDeductions} />
               <Row label="Business NTI" value={pathADetails.bizNti} />
               <Row label="Total NTI" value={pathADetails.totalNti} />
@@ -54,11 +55,11 @@ export function PathDetailAccordion({ pathADetails, pathBDetails, pathCDetails }
         )}
 
         {pathBDetails && (
-          <AccordionItem value="path-b" className="border rounded-xl px-4 shadow-sm bg-card hover:shadow-md transition-shadow">
-            <AccordionTrigger className="text-[0.9375rem] font-medium hover:no-underline py-4">
+          <AccordionItem value="path-b" className="border border-zinc-800 rounded-md px-4">
+            <AccordionTrigger className="text-sm font-medium text-zinc-50 hover:no-underline py-3 hover:text-zinc-200">
               <span>{pathBDetails.pathLabel}</span>
             </AccordionTrigger>
-            <AccordionContent className="space-y-1.5 pt-0 pb-4">
+            <AccordionContent className="space-y-0 pt-0 pb-3">
               <Row label="OSD Base" value={pathBDetails.osdBase} />
               <Row label="OSD Amount (40%)" value={pathBDetails.osdAmount} />
               <Row label="Business NTI" value={pathBDetails.bizNti} />
@@ -69,14 +70,16 @@ export function PathDetailAccordion({ pathADetails, pathBDetails, pathCDetails }
         )}
 
         {pathCDetails && (
-          <AccordionItem value="path-c" className="border rounded-xl px-4 shadow-sm bg-card hover:shadow-md transition-shadow">
-            <AccordionTrigger className="text-[0.9375rem] font-medium hover:no-underline py-4">
+          <AccordionItem value="path-c" className="border border-zinc-800 rounded-md px-4">
+            <AccordionTrigger className="text-sm font-medium text-zinc-50 hover:no-underline py-3 hover:text-zinc-200">
               <div className="flex items-center gap-2">
                 <span>{pathCDetails.pathLabel}</span>
-                {!pathCDetails.eligible && <Badge variant="outline" className="text-xs">Ineligible</Badge>}
+                {!pathCDetails.eligible && (
+                  <span className="text-xs border border-zinc-700 text-zinc-500 rounded px-1.5 py-0.5">Ineligible</span>
+                )}
               </div>
             </AccordionTrigger>
-            <AccordionContent className="space-y-1.5 pt-0 pb-4">
+            <AccordionContent className="space-y-0 pt-0 pb-3">
               {parseFloat(pathCDetails.exemptAmount) > 0 && (
                 <Row label="Exempt Amount (₱250K)" value={pathCDetails.exemptAmount} />
               )}
@@ -87,15 +90,15 @@ export function PathDetailAccordion({ pathADetails, pathBDetails, pathCDetails }
               )}
               <Row label="Total Income Tax" value={pathCDetails.totalIncomeTax} />
               {pathCDetails.ptWaived && (
-                <p className="text-xs text-muted-foreground pt-1">
+                <p className="text-xs text-zinc-500 pt-1">
                   Percentage tax waived (8% flat rate election)
                 </p>
               )}
               {!pathCDetails.eligible && pathCDetails.ineligibleReasons.length > 0 && (
                 <div className="pt-1 space-y-0.5">
-                  <p className="text-xs font-medium text-destructive">Ineligibility reasons:</p>
+                  <p className="text-xs font-medium text-red-500">Ineligibility reasons:</p>
                   {pathCDetails.ineligibleReasons.map((r, i) => (
-                    <p key={i} className="text-xs text-muted-foreground">{r}</p>
+                    <p key={i} className="text-xs text-zinc-400">{r}</p>
                   ))}
                 </div>
               )}

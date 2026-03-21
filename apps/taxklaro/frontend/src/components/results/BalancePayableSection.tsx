@@ -1,6 +1,3 @@
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import type { BalanceDisposition, OverpaymentDisposition, Peso } from '@/types/common';
 
 interface BalancePayableSectionProps {
@@ -19,10 +16,10 @@ function formatPeso(value: Peso): string {
   return '₱' + num.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-const DISPOSITION_LABELS: Record<BalanceDisposition, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline' }> = {
-  BALANCE_PAYABLE: { label: 'Balance Payable', variant: 'destructive' },
-  ZERO_BALANCE: { label: 'Zero Balance', variant: 'secondary' },
-  OVERPAYMENT: { label: 'Overpayment', variant: 'outline' },
+const DISPOSITION_LABELS: Record<BalanceDisposition, string> = {
+  BALANCE_PAYABLE: 'Balance Payable',
+  ZERO_BALANCE: 'Zero Balance',
+  OVERPAYMENT: 'Overpayment',
 };
 
 const OVERPAYMENT_LABELS: Record<OverpaymentDisposition, string> = {
@@ -42,77 +39,82 @@ export function BalancePayableSection({
   quarterlyPayments,
   priorYearExcess,
 }: BalancePayableSectionProps) {
-  const { label, variant } = DISPOSITION_LABELS[disposition];
   const hasCredits = parseFloat(totalItCredits) > 0;
   const hasOverpayment = disposition === 'OVERPAYMENT' && parseFloat(overpayment) > 0;
 
   return (
-    <Card className="shadow-sm">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle className="font-display text-xl font-normal">Balance &amp; Credits</CardTitle>
-          <Badge variant={variant} className="text-xs">{label}</Badge>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-2.5">
-        {hasCredits && (
-          <>
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Tax Credits Applied</p>
+    <div>
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-xs uppercase tracking-wide text-zinc-500">Balance &amp; Credits</span>
+        <span className="text-xs text-zinc-400">{DISPOSITION_LABELS[disposition]}</span>
+      </div>
+
+      {hasCredits && (
+        <table className="w-full text-sm mb-3">
+          <thead>
+            <tr>
+              <th className="text-left pb-1.5 text-xs uppercase tracking-wide text-zinc-500 font-normal" colSpan={2}>
+                Tax Credits Applied
+              </th>
+            </tr>
+          </thead>
+          <tbody>
             {parseFloat(cwtCredits) > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Creditable Withholding Tax (CWT)</span>
-                <span className="tabular-nums">({formatPeso(cwtCredits)})</span>
-              </div>
+              <tr className="even:bg-zinc-900/30">
+                <td className="py-1.5 text-zinc-400">Creditable Withholding Tax (CWT)</td>
+                <td className="py-1.5 text-right tabular-nums text-green-500">({formatPeso(cwtCredits)})</td>
+              </tr>
             )}
             {parseFloat(quarterlyPayments) > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Quarterly Payments (1701Q)</span>
-                <span className="tabular-nums">({formatPeso(quarterlyPayments)})</span>
-              </div>
+              <tr className="even:bg-zinc-900/30">
+                <td className="py-1.5 text-zinc-400">Quarterly Payments (1701Q)</td>
+                <td className="py-1.5 text-right tabular-nums text-green-500">({formatPeso(quarterlyPayments)})</td>
+              </tr>
             )}
             {parseFloat(priorYearExcess) > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Prior Year Excess Credits</span>
-                <span className="tabular-nums">({formatPeso(priorYearExcess)})</span>
-              </div>
+              <tr className="even:bg-zinc-900/30">
+                <td className="py-1.5 text-zinc-400">Prior Year Excess Credits</td>
+                <td className="py-1.5 text-right tabular-nums text-green-500">({formatPeso(priorYearExcess)})</td>
+              </tr>
             )}
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground font-medium">Total Credits</span>
-              <span className="tabular-nums font-medium">({formatPeso(totalItCredits)})</span>
-            </div>
-            <Separator />
-          </>
-        )}
+          </tbody>
+          <tfoot>
+            <tr className="border-t border-zinc-800">
+              <td className="pt-2 text-zinc-400 font-medium">Total Credits</td>
+              <td className="pt-2 text-right tabular-nums text-green-500 font-medium">({formatPeso(totalItCredits)})</td>
+            </tr>
+          </tfoot>
+        </table>
+      )}
 
-        {disposition === 'BALANCE_PAYABLE' && (
-          <div className="flex justify-between items-baseline pt-1">
-            <span className="text-sm font-semibold text-foreground">Net Balance Payable</span>
-            <span className="font-display tabular-nums text-destructive" style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)' }}>{formatPeso(balance)}</span>
-          </div>
-        )}
+      {disposition === 'BALANCE_PAYABLE' && (
+        <div className="flex justify-between items-baseline pt-1 border-t border-zinc-800">
+          <span className="text-sm text-zinc-50 font-medium">Net Balance Payable</span>
+          <span className="tabular-nums text-red-500 font-semibold text-lg">{formatPeso(balance)}</span>
+        </div>
+      )}
 
-        {disposition === 'ZERO_BALANCE' && (
+      {disposition === 'ZERO_BALANCE' && (
+        <div className="flex justify-between items-baseline pt-1 border-t border-zinc-800">
+          <span className="text-sm text-zinc-400">Net Balance</span>
+          <span className="tabular-nums text-zinc-400 text-lg">₱0.00</span>
+        </div>
+      )}
+
+      {hasOverpayment && (
+        <div className="pt-1 border-t border-zinc-800">
           <div className="flex justify-between items-baseline">
-            <span className="text-sm font-semibold text-muted-foreground">Net Balance</span>
-            <span className="font-display text-2xl tabular-nums text-muted-foreground">₱0.00</span>
+            <span className="text-sm text-green-500 font-medium">Overpayment</span>
+            <span className="tabular-nums text-green-500 font-semibold text-lg">{formatPeso(overpayment)}</span>
           </div>
-        )}
-
-        {hasOverpayment && (
-          <div className="space-y-1">
-            <div className="flex justify-between items-baseline">
-              <span className="text-sm font-semibold text-green-700 dark:text-green-400">Overpayment</span>
-              <span className="font-display text-2xl tabular-nums text-green-700 dark:text-green-400">{formatPeso(overpayment)}</span>
-            </div>
-            {overpaymentDisposition && (
-              <p className="text-xs text-muted-foreground">
-                Disposition: {OVERPAYMENT_LABELS[overpaymentDisposition]}
-              </p>
-            )}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+          {overpaymentDisposition && (
+            <p className="text-xs text-zinc-500 mt-1">
+              Disposition: {OVERPAYMENT_LABELS[overpaymentDisposition]}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
 
