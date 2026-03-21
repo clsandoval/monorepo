@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { createRoute, useNavigate } from '@tanstack/react-router';
 import { publicRootRoute } from '../__root';
 import { supabase } from '../../lib/supabase';
+import { Spinner } from '../../components/shared/Spinner';
 
 export const AuthCallbackRoute = createRoute({
   getParentRoute: () => publicRootRoute,
@@ -38,19 +39,22 @@ function AuthCallbackPage() {
   }, [navigate]);
 
   return (
-    <div className="flex items-center justify-center min-h-[60vh]" data-testid="auth-callback-page">
+    <div
+      className="min-h-screen flex items-center justify-center bg-zinc-950"
+      data-testid="auth-callback-page"
+    >
       {error ? (
         <div className="text-center space-y-4">
-          <p className="text-sm text-red-600">{error}</p>
+          <p className="text-sm text-red-400">{error}</p>
           <button
-            className="text-sm text-primary underline"
+            className="text-sm text-zinc-400 hover:text-zinc-200 transition-colors underline"
             onClick={() => navigate({ to: '/auth', search: { redirect: '/', mode: 'signin' } })}
           >
             Back to Sign In
           </button>
         </div>
       ) : (
-        <p className="text-sm text-muted-foreground">Processing authentication...</p>
+        <Spinner className="h-6 w-6" />
       )}
     </div>
   );

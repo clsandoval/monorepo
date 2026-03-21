@@ -5,6 +5,7 @@ import { getSharedComputation, type SharedComputationData } from '@/lib/share';
 import { SharedComputationNotFound } from '@/components/shared-computation/SharedComputationNotFound';
 import { ResultsView } from '@/components/computation/ResultsView';
 import { Skeleton } from '@/components/ui/skeleton';
+import { PublicHeader } from '@/components/layout/PublicHeader';
 import type { TaxComputationResult } from '@/types/engine-output';
 
 export const ShareTokenRoute = createRoute({
@@ -25,41 +26,45 @@ function SharePage() {
 
   if (data === undefined) {
     return (
-      <div className="max-w-4xl mx-auto py-10 px-4 space-y-6">
-        <div className="space-y-2">
-          <Skeleton className="h-7 w-56" />
-          <Skeleton className="h-4 w-40" />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="rounded-xl bg-card shadow-sm p-5 space-y-3">
-              <Skeleton className="h-5 w-1/2" />
-              <Skeleton className="h-8 w-3/4" />
-            </div>
-          ))}
+      <div className="min-h-screen bg-zinc-950">
+        <PublicHeader label="Shared Computation" />
+        <div className="max-w-4xl mx-auto py-10 px-4 space-y-6">
+          <div className="space-y-2">
+            <Skeleton className="h-7 w-56 bg-zinc-800" />
+            <Skeleton className="h-4 w-40 bg-zinc-800" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="rounded-xl bg-zinc-900 border border-zinc-800 p-5 space-y-3">
+                <Skeleton className="h-5 w-1/2 bg-zinc-800" />
+                <Skeleton className="h-8 w-3/4 bg-zinc-800" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
   }
 
   if (data === null) {
-    return <SharedComputationNotFound />;
+    return (
+      <div className="min-h-screen bg-zinc-950">
+        <PublicHeader label="Shared Computation" />
+        <div className="flex items-center justify-center py-20 px-4">
+          <SharedComputationNotFound />
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Shared via TaxKlaro banner */}
-      <div className="border-b border-border/60 bg-card px-4 py-3">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="font-display text-base text-foreground">TaxKlaro</span>
-          <span className="text-xs text-muted-foreground">Shared computation · read-only</span>
-        </div>
-      </div>
+    <div className="min-h-screen bg-zinc-950">
+      <PublicHeader label="Shared Computation" />
 
       <div className="max-w-4xl mx-auto py-10 px-4 space-y-6">
         <div className="space-y-1">
-          <h1 className="font-display text-3xl text-foreground">{data.title}</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-2xl font-bold text-zinc-50">{data.title}</h1>
+          <p className="text-sm text-zinc-500">
             Tax Year {data.taxYear} · Shared by {data.orgName}
           </p>
         </div>
@@ -69,7 +74,7 @@ function SharePage() {
             readOnly={true}
           />
         ) : (
-          <p className="text-muted-foreground">No computation results available.</p>
+          <p className="text-zinc-500">No computation results available.</p>
         )}
       </div>
     </div>

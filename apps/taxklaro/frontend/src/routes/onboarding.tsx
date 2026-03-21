@@ -27,16 +27,15 @@ function OnboardingPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-4 bg-background"
+      className="min-h-screen flex items-center justify-center p-4 bg-zinc-950"
       data-testid="onboarding-page"
     >
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <span className="font-display text-3xl tracking-tight text-foreground">
-            <span className="text-primary">₱</span>TaxKlaro
-          </span>
+          <span className="text-[22px] font-bold text-zinc-50">TaxKlaro</span>
+          <p className="text-sm text-zinc-500 mt-1">Set up your firm to get started.</p>
         </div>
-        <div className="bg-white rounded-xl p-4 sm:p-8 shadow-[var(--shadow-lg)]">
+        <div className="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-zinc-800">
           <OnboardingForm onCreateOrg={handleCreateOrg} />
         </div>
       </div>

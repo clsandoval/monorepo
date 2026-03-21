@@ -2,7 +2,7 @@ import { createRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { publicRootRoute } from '../__root';
 import { supabase } from '../../lib/supabase';
-import { Button } from '../../components/ui/button';
+import { PublicHeader } from '../../components/layout/PublicHeader';
 import { Skeleton } from '../../components/ui/skeleton';
 
 export const InviteTokenRoute = createRoute({
@@ -62,7 +62,7 @@ function InvitePage() {
         .update({ status: 'accepted' })
         .eq('id', invite.id);
       if (updateError) throw updateError;
-      navigate({ to: '/dashboard' });
+      navigate({ to: '/computations' });
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -72,10 +72,13 @@ function InvitePage() {
 
   if (invite === undefined) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4" data-testid="invite-page">
-        <div className="w-full max-w-sm space-y-4">
-          <Skeleton className="h-8 w-48 mx-auto" />
-          <Skeleton className="h-32 w-full" />
+      <div className="min-h-screen bg-zinc-950" data-testid="invite-page">
+        <PublicHeader />
+        <div className="flex items-center justify-center p-4 pt-16">
+          <div className="w-full max-w-sm space-y-4">
+            <Skeleton className="h-8 w-48 mx-auto bg-zinc-800" />
+            <Skeleton className="h-32 w-full bg-zinc-800" />
+          </div>
         </div>
       </div>
     );
@@ -83,13 +86,19 @@ function InvitePage() {
 
   if (invite === null) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4" data-testid="invite-page">
-        <div className="text-center space-y-4">
-          <h1 className="font-display text-xl text-foreground">Invitation Not Found</h1>
-          <p className="text-sm text-muted-foreground">This invitation link is invalid or has expired.</p>
-          <Button variant="outline" onClick={() => navigate({ to: '/auth', search: { redirect: '/', mode: 'signin' } })}>
-            Sign In
-          </Button>
+      <div className="min-h-screen bg-zinc-950" data-testid="invite-page">
+        <PublicHeader />
+        <div className="flex items-center justify-center p-4 pt-16">
+          <div className="text-center space-y-3">
+            <h1 className="text-lg font-semibold text-zinc-50">Invitation Not Found</h1>
+            <p className="text-sm text-zinc-500">This invitation link is invalid or has expired.</p>
+            <button
+              className="mt-2 text-sm text-zinc-400 hover:text-zinc-200 transition-colors"
+              onClick={() => navigate({ to: '/auth', search: { redirect: '/', mode: 'signin' } })}
+            >
+              Sign In
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -99,51 +108,42 @@ function InvitePage() {
   const isUsed = invite.status !== 'pending';
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-background" data-testid="invite-page">
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <span className="font-display text-3xl tracking-tight text-foreground">
-            <span className="text-primary">₱</span>TaxKlaro
-          </span>
-        </div>
-        <div className="bg-white rounded-xl p-6 sm:p-8 shadow-[var(--shadow-lg)]">
-          <h1
-            className="font-display text-foreground mb-2"
-            style={{ fontSize: 'var(--text-h2)', lineHeight: 'var(--text-h2-lh)' }}
-          >
-            You&apos;re Invited
-          </h1>
-          <p className="text-sm text-muted-foreground mb-6">
-            You&apos;ve been invited to join{' '}
-            <strong className="text-foreground">{invite.orgName}</strong> as a{' '}
-            <strong className="text-foreground capitalize">{invite.role}</strong>.
-          </p>
+    <div className="min-h-screen bg-zinc-950" data-testid="invite-page">
+      <PublicHeader />
+      <div className="flex items-center justify-center p-4 pt-16">
+        <div className="w-full max-w-sm">
+          <div className="text-center mb-8 space-y-1">
+            <h1 className="text-lg font-semibold text-zinc-50">You're Invited</h1>
+            <p className="text-sm text-zinc-500">
+              Join <span className="text-zinc-300 font-medium">{invite.orgName}</span> as a{' '}
+              <span className="text-zinc-300 font-medium capitalize">{invite.role}</span>.
+            </p>
+          </div>
 
           {(isExpired || isUsed) && (
-            <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2 mb-4">
+            <p className="text-sm text-red-400 bg-red-950 border border-red-900 rounded-lg px-3 py-2 mb-4 text-center">
               {isExpired ? 'This invitation has expired.' : 'This invitation has already been used.'}
             </p>
           )}
 
           {error && (
-            <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2 mb-4">{error}</p>
+            <p className="text-sm text-red-400 bg-red-950 border border-red-900 rounded-lg px-3 py-2 mb-4 text-center">{error}</p>
           )}
 
           <div className="space-y-3">
-            <Button
-              className="w-full"
+            <button
+              className="w-full h-11 rounded-lg bg-zinc-50 px-4 text-sm font-medium text-zinc-900 hover:bg-zinc-200 transition-colors disabled:opacity-50"
               onClick={handleAccept}
               disabled={isAccepting || isExpired || isUsed}
             >
-              {isAccepting ? 'Accepting...' : 'Accept Invitation'}
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full"
+              {isAccepting ? 'Accepting...' : 'Accept Invite'}
+            </button>
+            <button
+              className="w-full text-sm text-zinc-500 hover:text-zinc-300 transition-colors py-2"
               onClick={() => navigate({ to: '/auth', search: { redirect: '/', mode: 'signin' } })}
             >
-              Sign In Instead
-            </Button>
+              Decline
+            </button>
           </div>
         </div>
       </div>

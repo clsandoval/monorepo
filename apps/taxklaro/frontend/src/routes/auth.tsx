@@ -63,24 +63,22 @@ function AuthPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-4 bg-background"
+      className="min-h-screen flex items-center justify-center p-4 bg-zinc-950"
       data-testid="auth-page"
     >
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
-          <span className="font-display text-3xl tracking-tight text-foreground">
-            <span className="text-primary">₱</span>TaxKlaro
-          </span>
+          <span className="text-[22px] font-bold text-zinc-50">TaxKlaro</span>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-xl p-4 sm:p-8 shadow-[var(--shadow-lg)] border-l-[3px] border-l-primary">
+        <div className="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-zinc-800">
           <div className="mb-6">
-            <h1 className="font-display text-foreground" style={{ fontSize: 'var(--text-h2)', lineHeight: 'var(--text-h2-lh)' }}>
+            <h1 className="text-lg font-semibold text-zinc-50">
               {mode === 'signup' ? 'Create Account' : mode === 'magic' ? 'Magic Link' : 'Sign In'}
             </h1>
-            <p className="text-sm text-muted-foreground mt-1">
+            <p className="text-sm text-zinc-500 mt-1">
               {mode === 'magic'
                 ? 'We will send a magic link to your email.'
                 : mode === 'signup'
@@ -93,7 +91,7 @@ function AuthPage() {
             <div>
               <label
                 htmlFor="auth-email"
-                className="block text-sm font-medium text-foreground mb-1.5"
+                className="block text-sm font-medium text-zinc-300 mb-1.5"
               >
                 Email
               </label>
@@ -104,7 +102,7 @@ function AuthPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
-                className="w-full h-11 rounded-lg border border-border bg-white px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                className="w-full h-11 rounded-lg border border-zinc-700 bg-zinc-800 px-3 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-colors"
                 placeholder="you@example.com"
               />
             </div>
@@ -113,7 +111,7 @@ function AuthPage() {
               <div>
                 <label
                   htmlFor="auth-password"
-                  className="block text-sm font-medium text-foreground mb-1.5"
+                  className="block text-sm font-medium text-zinc-300 mb-1.5"
                 >
                   Password
                 </label>
@@ -125,24 +123,24 @@ function AuthPage() {
                   required
                   minLength={6}
                   autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
-                  className="w-full h-11 rounded-lg border border-border bg-white px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
+                  className="w-full h-11 rounded-lg border border-zinc-700 bg-zinc-800 px-3 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-zinc-500 transition-colors"
                   placeholder="••••••••"
                 />
-                <p className="text-xs text-muted-foreground mt-1.5">Min. 6 characters</p>
+                <p className="text-xs text-zinc-500 mt-1.5">Min. 6 characters</p>
               </div>
             )}
 
             {error && (
-              <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">{error}</p>
+              <p className="text-sm text-red-400 bg-red-950 border border-red-900 rounded-lg px-3 py-2">{error}</p>
             )}
             {info && (
-              <p className="text-sm text-green-700 bg-green-50 rounded-lg px-3 py-2">{info}</p>
+              <p className="text-sm text-emerald-400 bg-emerald-950 border border-emerald-900 rounded-lg px-3 py-2">{info}</p>
             )}
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-11 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-primary/90 transition-colors disabled:opacity-50 mt-1"
+              className="w-full h-11 rounded-lg bg-zinc-50 px-4 text-sm font-medium text-zinc-900 hover:bg-zinc-200 transition-colors disabled:opacity-50 mt-1"
             >
               {isSubmitting
                 ? 'Please wait...'
@@ -159,16 +157,16 @@ function AuthPage() {
               <>
                 <div>
                   <button
-                    className="text-primary hover:underline"
+                    className="text-zinc-400 hover:text-zinc-200 transition-colors"
                     onClick={() => { setMode('magic'); setError(null); setInfo(null); }}
                   >
                     Sign in with magic link instead
                   </button>
                 </div>
                 <div>
-                  <span className="text-muted-foreground">No account? </span>
+                  <span className="text-zinc-600">No account? </span>
                   <button
-                    className="text-primary hover:underline"
+                    className="text-zinc-400 hover:text-zinc-200 transition-colors"
                     onClick={() => { setMode('signup'); setError(null); setInfo(null); }}
                   >
                     Create one
@@ -176,7 +174,7 @@ function AuthPage() {
                 </div>
                 <div>
                   <button
-                    className="text-muted-foreground hover:text-foreground hover:underline"
+                    className="text-zinc-600 hover:text-zinc-400 transition-colors"
                     onClick={() => navigate({ to: '/auth/reset' })}
                   >
                     Forgot password?
@@ -186,9 +184,9 @@ function AuthPage() {
             )}
             {mode === 'signup' && (
               <div>
-                <span className="text-muted-foreground">Already have an account? </span>
+                <span className="text-zinc-600">Already have an account? </span>
                 <button
-                  className="text-primary hover:underline"
+                  className="text-zinc-400 hover:text-zinc-200 transition-colors"
                   onClick={() => { setMode('signin'); setError(null); setInfo(null); }}
                 >
                   Sign in
@@ -197,7 +195,7 @@ function AuthPage() {
             )}
             {mode === 'magic' && (
               <button
-                className="text-primary hover:underline"
+                className="text-zinc-400 hover:text-zinc-200 transition-colors"
                 onClick={() => { setMode('signin'); setError(null); setInfo(null); }}
               >
                 Sign in with password instead
