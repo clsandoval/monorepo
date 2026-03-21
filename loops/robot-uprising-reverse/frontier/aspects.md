@@ -192,7 +192,7 @@
   - [ ] 1.13d — The control group / hotkey vocabulary as plan-screen UX precedent: StarCraft's Ctrl+1-9 as original "named attention unit collections"; how this maps to blueprint naming, channel naming, production group management; keyboard-first expert workflows
   - [ ] 1.13e — The replay culture as Inspector precedent: Brood War replay-watching culture (Day9 dailies, community analysis, tournament VODs) as direct precedent for Inspector and async sharing; designing Inspector to support "learn by watching others" ecosystem
 - [x] 1.14 — Factorio: belt/logistics systems, throughput optimization, infinite scalability, mod community
-- [ ] 1.14a — The "Ratio Calculator" gap: in-game vs. external optimization tools; Robot Uprising's Inspector as built-in optimizer vs. Factorio's external calculator dependency; pre-execution signal latency predictions in the workbench
+- [x] 1.14a — The "Ratio Calculator" gap: in-game vs. external optimization tools; Robot Uprising's Inspector as built-in optimizer vs. Factorio's external calculator dependency; pre-execution signal latency predictions in the workbench
 - [x] 1.14b — The spaghetti-to-bus progression as emergent tutorial: how Factorio players naturally evolve from spaghetti→bus→trains; channel topology should follow same arc (all-to-all→hierarchy→relay-mediated); designing walls that motivate architectural evolution
 - [ ] 1.14c — Peaceful mode as accessibility escape valve: sandbox mode for configure-and-test without mission pressure; ghost preview vs. full simulation; interaction with plan screen design
 - [ ] 1.14d — The "everything is visible" vs. "temporal separation" design philosophy: Factorio shows everything always; Robot Uprising hides internals until Inspector; when each approach works better
@@ -208,7 +208,7 @@
 - [x] 1.20a — The "salvage reveal" mechanic as enemy blueprint inspection: when a Robot Uprising unit dies, should the Inspector reveal the enemy unit's full configuration as a knowledge-looting pattern? Cogmind scatters destroyed robot parts visually; Robot Uprising could scatter destroyed robot configurations informationally
 - [ ] 1.20b — Gradual degradation vs. binary death: Cogmind's part-by-part degradation creates a rich mid-state between functional and dead; should Robot Uprising explore a "damaged" state where units lose context slots from near-misses or EM attacks? The design space between one-shot-one-kill and HP bars
 - [ ] 1.20c — The "naked core" recovery moment: Cogmind's most iconic moment is being stripped to a bare core and rebuilding from salvage; what is Robot Uprising's equivalent when the factory is destroyed? Does the game have a "rebuild from nothing" mechanic or is factory loss immediate defeat?
-- [ ] 1.20d — Audio-as-intelligence in sealed watch: Cogmind players identify threats by sound before seeing them; should Robot Uprising's sealed watch include audio signals that experienced players learn to decode? Signal chain sounds whose pitch/pattern indicates network health
+- [x] 1.20d — Audio-as-intelligence in sealed watch: Cogmind players identify threats by sound before seeing them; should Robot Uprising's sealed watch include audio signals that experienced players learn to decode? Signal chain sounds whose pitch/pattern indicates network health
 - [ ] 1.20e — The Polymind inversion as Robot Uprising variant mode: a variant where the player directly controls one unit while the rest run autonomously — the "field commander" mode testing whether blueprints work without intervention
 
 ### Auto-Battler / Hands-Off Execution Games
@@ -302,7 +302,7 @@
 ### Eviction Policies
 - [x] 2.06 — Player-configured eviction: drag to set priority order of what gets kept
 - [x] 2.07 — Automatic eviction with player-set rules: "always keep threat data, evict terrain first"
-- [ ] 2.08 — Panic eviction: under pressure, buffer dumps aggressively — unit "forgets" rapidly
+- [x] 2.08 — Panic eviction: under pressure, buffer dumps aggressively — unit "forgets" rapidly
 - [ ] 2.09 — Sticky memories: some entries are "pinned" and never evict (costs permanent capacity)
 
 ### Signal & Information Types
@@ -315,7 +315,7 @@
 - [ ] 2.24 — Buffer miss fallback behaviors as a design vocabulary: what does an agent do when a rule's buffer query finds no match? (skip/fall-through, suspend for 1 tick, configurable defensive default, broadcast "need data" to its channel); which model teaches the right habits and prevents frustrating behavioral lockdown
 - [ ] 2.25 — The "last known position" prediction chain: when a positional buffer entry is too old for direct action, can the agent dead-reckon (last-known + elapsed ticks + velocity estimate)? Options: built-in skill, query modifier, or dedicated Specialist unit for position prediction; where does prediction live in the architecture?
 - [x] 2.11 — Signal fidelity: signals degrade as they travel (telephone game mechanic)
-- [ ] 2.12 — Deception signals: enemy can inject false information into your network
+- [x] 2.12 — Deception signals: enemy can inject false information into your network
 - [ ] 2.26 — Fidelity spoofing as attack primitive: enemy crafts signals with artificially-high fidelity specifically to pass the player's confidence filters; the workbench UI for signal authentication (checksums, source signatures, Counter-Intelligence skill that verifies provenance before buffer entry); makes the attention language itself an adversarial interface
 - [ ] 2.13 — Signal priority: urgent vs routine, and how priority affects buffer eviction and routing
 - [ ] 2.27 — Buffer exhaustion as late-game mechanic: long matches (100+ ticks) create a new failure mode — eviction policy breaking down as buffers fill with stale data; "buffer hygiene" as a skill; how architectures gracefully manage a full buffer mid-match; the context-window-overflow problem in Robot Uprising terms
@@ -396,7 +396,7 @@
 - [ ] 3.11e — Expert keyboard workflow for hook wiring: Ctrl+H to add hook, Tab between fields, Enter to confirm, Ctrl+Up/Down to reorder; full mouseless speedrun
 - [x] 3.08a — Trigger-to-rule vocabulary alignment: should triggers and rules use the same condition primitives (shared vocabulary reduces learning cost) or distinct vocabularies (independent evolution)?
 - [x] 3.08b — Channel naming conventions as emergent culture: standard channel libraries, community naming conventions, competitive meta around channel naming
-- [ ] 3.08c — Hook slot economy as strategic constraint: choosing which hooks to install when you have more ideas than slots; slot scarcity as design pressure
+- [x] 3.08c — Hook slot economy as strategic constraint: choosing which hooks to install when you have more ideas than slots; slot scarcity as design pressure
 - [ ] 3.08d — Trigger evaluation order within a single tick: simultaneous vs. sequential evaluation when multiple hooks match; can one hook's firing affect another hook's trigger?
 - [ ] 3.08e — Hook inheritance and blueprint templates: blueprint-level hook loadouts, instance-specific vs. shared channels when cloning units from the same blueprint
 
@@ -458,12 +458,12 @@
 - [x] 4.12 — The spawn genealogy tree: how the debrief visualizes which agents spawned which, cycle-by-cycle ancestry; what information to show per spawn event (inherited buffer snapshot, spawn trigger cause, fabrication cost consumed, whether the spawn was a hook consequence or skill consequence)
 - [x] 4.13 — Latency visualization as primary diagnostic: signal age at time of action overlay in debrief — each agent action annotated with age of most recent signal that influenced it; fresh = bright, stale = dimmed; teaches that deeper architectures carry older intelligence
 - [ ] 4.17 — Match duration as diagnostic indicator in debrief analytics: win-rate bucketed by match duration (sub-50 / 50-90 / 90+); allows players to identify early-game vs. mid/late-game losses; the tactical self-coaching tool; how to make this legible without turning the game into a spreadsheet
-- [ ] 4.14 — The scenario parameter panel: a pre-execution panel showing what varies in the 100 test cases (ranges, distributions, variable types) so players can reason about edge cases before configuring; whether to show always or unlock via a "tactical briefing" skill
+- [x] 4.14 — The scenario parameter panel: a pre-execution panel showing what varies in the 100 test cases (ranges, distributions, variable types) so players can reason about edge cases before configuring; whether to show always or unlock via a "tactical briefing" skill
 - [x] 4.10 — Config integrity as a persistent resource: the "integrity %" as a cross-mission resource; some missions degrade it more, repair actions restore it; trade-off between speed and thoroughness of pre-mission audits; does low integrity persist into next mission if unaddressed?
 - [ ] 4.11 — The "foreign fingerprint" visual language: three-way visual vocabulary for elements in the workbench (mine / system-default / enemy-injected) that must be immediately parseable; how to make enemy modifications visually distinct without requiring a tooltip to understand; the Papers Please discrepancy-detection UI model applied to agent config
 - [x] 4.08 — Unit portraits and identity: how units look, how you distinguish them, personality
 - [x] 4.21 — The materialization sound design as learned signal: designing the seal-break materialization sequence sounds (scrubber assembling, gold diamond ping, signal genealogy trace) as a conditioned vocabulary that becomes meaningful over many replays; what the sound should trigger in a veteran that it doesn't in a new player; UX design of satisfaction-at-first / meaning-later sound
-- [ ] 4.22 — Act 2 tool introduction sequence: the order in which Act 2 tools appear during the materialization and what the sequence communicates about priority; gold diamond first (primary diagnostic) vs. scrubber first (navigation) vs. signal genealogy last (expert); materialization as compressed onboarding arc; does tool order affect which tool players reach for first?
+- [x] 4.22 — Act 2 tool introduction sequence: the order in which Act 2 tools appear during the materialization and what the sequence communicates about priority; gold diamond first (primary diagnostic) vs. scrubber first (navigation) vs. signal genealogy last (expert); materialization as compressed onboarding arc; does tool order affect which tool players reach for first?
 - [ ] 4.23 — Replay annotated export format: the shareable debrief artifact including Act 1 timestamp annotations, Act 2 notes, gold diamond location, false pivot markers — a file format designed for config necropsy culture; what gets exported vs. what stays local; interaction with workshop and community sharing systems; replay as community artifact vs. personal record
 - [ ] 4.24 — The "hot take vs. cold analysis" temporal gap: analysis done immediately post-match is biased toward outcome (hot take mode); analysis 24+ hours later is more accurate (cold mode); should Robot Uprising's debrief offer a "24-hour cold mode" that unlocks additional insight markers only after temporal distance? Or would this friction destroy fast iteration loops entirely?
 - [x] 4.01a — Resizable split-screen divider UX: drag handle design, snap points (20/80, 35/65, 50/50), position persistence across sessions, responsive reflow of both panels during drag, minimum panel widths, accessibility keyboard alternative (Ctrl+arrows)
@@ -757,7 +757,7 @@
 - [x] 7.11b — Duration-based matchmaking weighting: using average match duration as a matchmaking factor (pairing rush vs. rush, macro vs. macro at same rating); "play style ELO"; risk of meta echo chambers vs. experience quality
 - [x] 7.11c — Historical Pulse archive as community memory: full season-by-season Pulse data archive as "Meta History Museum"; scrubbing through past seasons; educational tool and competitive intelligence resource
 - [x] 7.11d — Anomaly detection for meta-breaking discoveries: rate-of-change in duration metrics to detect sudden shifts indicating a broken discovery; "the spike detector"; auto-flagging configs at inflection points for designer review
-- [ ] 7.11e — Per-tier Pulse decomposition: separate Pulse dashboards per ranked tier (Bronze through Diamond); tier-specific metas differ; prevents population-level averages from hiding tier-specific problems; comparable to LoL rank-stratified balance
+- [x] 7.11e — Per-tier Pulse decomposition: separate Pulse dashboards per ranked tier (Bronze through Diamond); tier-specific metas differ; prevents population-level averages from hiding tier-specific problems; comparable to LoL rank-stratified balance
 - [x] 7.10 — The "config necropsy" as community artifact: a community practice where high-Elo players post config evolution retrospectives ("here's v1, here's the attack that broke it, here's v5"); designing the infrastructure to make this easy — version history export, annotatable replay sharing, readable config diff views
 - [x] 7.07 — Three orthogonal optimization axes: speed / efficiency / elegance as genuinely in-tension post-mission goals; a cycle-optimal army config and a buffer-minimal config should require different approaches
 - [x] 7.08 — Deferred community metric invention: designing the scoring system to be extensible so the community can invent new evaluation axes; the Opus Magnum "MechA" pattern; what composite metrics might the Robot Uprising community invent?
