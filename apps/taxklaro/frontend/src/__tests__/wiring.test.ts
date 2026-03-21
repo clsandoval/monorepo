@@ -36,8 +36,9 @@ function readRoute(relPath: string): string {
 describe('§14.1 component files exist', () => {
   const required = [
     // layout
-    'layout/AppLayout.tsx',
-    'layout/SidebarContent.tsx',
+    'layout/TopBar.tsx',
+    'layout/CenteredColumn.tsx',
+    'layout/PublicHeader.tsx',
     // root
     'TaxKlaroLogo.tsx',
     // pages
