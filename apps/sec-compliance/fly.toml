@@ -1,0 +1,11 @@
+app = "sec-compliance"
+primary_region = "sin"
+
+[build]
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+
+[env]
+  NODE_ENV = "production"
