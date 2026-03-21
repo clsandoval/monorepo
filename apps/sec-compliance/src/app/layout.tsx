@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Newsreader, Public_Sans, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -30,7 +32,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn(newsreader.variable, publicSans.variable, "font-sans", geist.variable)}>
-      <body className="font-body antialiased">{children}</body>
+      <body className="font-body antialiased flex flex-col min-h-screen">
+        <Header />
+        <div className="flex-1">{children}</div>
+        <Footer />
+      </body>
     </html>
   );
 }
