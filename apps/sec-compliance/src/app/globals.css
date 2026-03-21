@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-charcoal: #1C1C1E;
+  --color-sec-blue: #1B4F72;
+  --color-crimson: #A63232;
+  --color-gray-secondary: #6B7280;
+  --color-gray-muted: #9CA3AF;
+  --color-divider: #F0F0F0;
+
+  --font-display: "Newsreader", serif;
+  --font-body: "Public Sans", sans-serif;
+}
