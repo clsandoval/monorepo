@@ -108,7 +108,7 @@ function ComputationsPage() {
       </div>
 
       <Tabs value={statusFilter} onValueChange={(v) => setStatusFilter(v as StatusFilter)} className="mb-4">
-        <TabsList variant="line">
+        <TabsList>
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="draft">Draft</TabsTrigger>
           <TabsTrigger value="computed">Computed</TabsTrigger>

@@ -102,7 +102,7 @@ const SECTIONS: SectionDef[] = [
     stepIds: ['WS10', 'WS11', 'WS12'],
     getSummary: (d) => {
       if (d.electedRegime === 'ELECT_EIGHT_PCT') return '8% Flat Rate'
-      if (d.electedRegime === 'ELECT_GRADUATED') return 'Graduated'
+      if (d.electedRegime === 'ELECT_OSD') return 'OSD'
       if (d.electedRegime === 'ELECT_ITEMIZED') return 'Itemized'
       return ''
     },

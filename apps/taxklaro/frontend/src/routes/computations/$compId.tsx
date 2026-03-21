@@ -104,7 +104,7 @@ function ComputationDetailPage() {
       const { error: saveError } = await saveComputationOutput(computation.id, wasmResult.data);
       setStatus(saveError ? 'error' : 'saved');
       if (!saveError) {
-        setComputation((prev) => prev ? { ...prev, status: 'computed', outputJson: wasmResult.data } : prev);
+        setComputation((prev) => prev ? { ...prev, status: 'computed' as const, outputJson: wasmResult.data as unknown as Record<string, unknown> } : prev);
       }
     }
   }, [formData, computation, runCompute, setStatus]);
@@ -180,7 +180,7 @@ function ComputationDetailPage() {
         value={activeTab}
         onValueChange={(v) => setActiveTab(v as 'input' | 'results')}
       >
-        <TabsList variant="line">
+        <TabsList>
           <TabsTrigger value="input">Input</TabsTrigger>
           <TabsTrigger value="results">
             Results

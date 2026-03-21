@@ -38,7 +38,7 @@ RUN npm ci
 COPY frontend/ ./
 COPY --from=wasm-build /app/wasm-out ./src/wasm/pkg
 
-RUN npm run build
+RUN npx vite build
 
 # ---- Serve Stage ----
 FROM nginx:alpine
