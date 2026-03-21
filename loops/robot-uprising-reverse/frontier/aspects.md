@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 264
-- **Pending:** 249
-- **Convergence:** 51.5%
+- **Analyzed:** 274
+- **Pending:** 239
+- **Convergence:** 53.4%
 
 ---
 
@@ -288,8 +288,8 @@
 ### Weighted Buffer Deep Dives
 - [x] 2.02a — Weight value design space: what's the right weight range (1-3 ternary vs. 1-5 granular vs. 1-10 simulation-heavy); weight inflation across campaign missions; balance implications
 - [x] 2.02b — Delivery richness as progressive unlock: stripped/tagged/structured trichotomy per-channel; when does this unlock; boot log framing; interaction with hook taxonomy (3.08)
-- [ ] 2.02c — Weight-aware eviction policy design space: FIFO-weight, lightest-first, heaviest-first, priority-tagged, weight-matched, random-weighted; which strategies create interesting decisions vs. degenerate ones
-- [ ] 2.02d — The "compress as refinery" skill identity: if weight makes compress essential, does the Relay become mandatory? Diversity implications; alternative weight-reduction skills; weight management as a skill category
+- [x] 2.02c — Weight-aware eviction policy design space: FIFO-weight, lightest-first, heaviest-first, priority-tagged, weight-matched, random-weighted; which strategies create interesting decisions vs. degenerate ones
+- [x] 2.02d — The "compress as refinery" skill identity: if weight makes compress essential, does the Relay become mandatory? Diversity implications; alternative weight-reduction skills; weight management as a skill category
 - [ ] 2.02e — Tutorial progression from fixed-slot to weighted: designing the M1-4 → M5 transition; the "bookshelf upgrade" moment; avoiding invalidating fixed-slot tutorial lessons
 
 ### Fixed-Slot Buffer Deep Dives
@@ -381,10 +381,10 @@
   - [ ] 3.09d — Emergent patterns from delayed chaining: catalog of "Factorio combinator" patterns from 1-tick-delay cold hooks — heartbeat generators, edge detectors, memory locks, priority arbiters, load balancers; advanced techniques veterans discover
   - [ ] 3.09e — Cascade depth as competitive meta: optimal cascade depth as strategic variable in Gauntlet; shallow-and-fast (2-hop hot) vs. deep-and-slow (4-hop mixed) as distinct competitive archetypes
 - [x] 3.09a — Blocking hook semantics: hooks that require both sender and receiver to be "ready" (not busy, in range, buffer not full) — implicit timing without a global clock (from TIS-100 blocking port model)
-- [ ] 3.10a — Hook range as spatial mechanic: hooks that only fire within a configurable range radius; design options (fixed range, configurable per hook, range extenders as skill, relay positioning as tactical mini-game); how range requirements choreograph agent deployment
+- [x] 3.10a — Hook range as spatial mechanic: hooks that only fire within a configurable range radius; design options (fixed range, configurable per hook, range extenders as skill, relay positioning as tactical mini-game); how range requirements choreograph agent deployment
 - [x] 3.10 — Hook visualization: how does the player see the wiring between agents? How are active hooks shown during execution?
 - [x] 3.10b — Signal latency legibility: how the player learns and predicts multi-tick signal travel times; spatial vs temporal distance; paradigm-specific latency communication
-- [ ] 3.10c — Channel color assignment and palette management: auto-assignment vs player choice; color-blind palettes; palette exhaustion at 8+ channels
+- [x] 3.10c — Channel color assignment and palette management: auto-assignment vs player choice; color-blind palettes; palette exhaustion at 8+ channels
 - [ ] 3.10d — Wire routing algorithms for the subway map paradigm: path-finding along grid edges, crossing handling, parallel lane stacking, manual waypoints, Bézier vs right-angle
 - [ ] 3.10e — EM emission visualization: making detectable noise visible; separate overlay vs integrated; relationship between "signals you see" and "signals the enemy detects"
 - [ ] 3.10f — Visualization density scaling across the 10-mission arc: 2 units/0 channels (M1) to 12+ units/8+ channels (M10); paradigm breakdown thresholds; progressive disclosure gates
@@ -513,9 +513,9 @@
 - [x] 5.16 — The non-alt-tab embedded document UI: design exploration of a togglable in-workbench reference panel that maintains diegetic framing without alt-tab friction; panel behavior, docking, visual treatment
 - [x] 5.16a — Terminal content authoring pipeline: how ~30 term entries + cross-cutting interaction descriptions are authored; manual vs. templated vs. player-behavior-driven prioritization; combinatorial explosion management
 - [x] 5.16b — Terminal in Inspector mode: detailed design of how the reference terminal functions during Inspector phase; tick-state-aware context, "why did X fire at tick N" queries, replay-grounded reference
-- [ ] 5.16c — Terminal as community sharing surface: shareable query result links; "here's the interaction between compress and EM" as URL that opens terminal to that entry; community knowledge sharing
+- [x] 5.16c — Terminal as community sharing surface: shareable query result links; "here's the interaction between compress and EM" as URL that opens terminal to that entry; community knowledge sharing
 - [x] 5.16d — Terminal progressive disclosure across campaign: which terminal features unlock when (M1 context only, M3 query, M5 related, M7 cross-cutting synthesis, M10 full); the terminal itself teaches over time
-- [ ] 5.16e — Terminal accessibility: screen reader navigation of three-column layout, keyboard-only operation, high-contrast mode, reduced-motion scan-line removal, audio descriptions of micro-scenarios
+- [x] 5.16e — Terminal accessibility: screen reader navigation of three-column layout, keyboard-only operation, high-contrast mode, reduced-motion scan-line removal, audio descriptions of micro-scenarios
 - [x] 5.17 — The hybrid tutorial architecture: mapping the transition from interactive first-touch tutorial (teaches procedures) to diegetic document (teaches concepts and provides reference) — where the handoff happens and what the transition feels like; six handoff models (A "Clean Break" dark-souls-cliff, B "Gradual Fade" BotW-style invisible graduation, C "Dual Track" Civ6-civilopedia simultaneous-from-start, D "Materialization" cards-crystallize-from-experience Inscryption-inspired, E "Mentor Withdrawal" Unit-0-leaves-but-lives-in-archive emotional-beat, F "Living Handoff" procedure/concept-division parallel-tracks); RECOMMENDED D+F hybrid "The Experiential Archive" — interactive procedures generate Codex concept cards (M1-4), Codex initialization ceremony at M5 (cards lift/sort/grid with kulintang chord), Inspector-Codex bridge as mature teaching cycle (failure→diagnostic→concept-link→fix→retest = Kolb's experiential learning cycle); three-mission-delay relevance cycle (M1 concepts become meaningful at M4 when new situations create genuine questions); 4 player journeys (Sofia 15 discovering Codex is answer-key-to-failures not decoration, Marcus 42 Factorio-vet pre-reading Codex as pilot-checklist, Aisha 14 first-strategy-gamer using Inspector-Codex bridge to diagnose eviction priority failure, Dr. Ramirez 55 CS professor evaluating constructivist pedagogy + Vygotsky tension); interaction effects with boot log narrative role-shift, vocabulary pacing handrails, Blueprint Codex collection design, Inspector deep-linking, filter puzzle card-generation, voice candidates register-shift (Reyes=procedure, Unit 0=concept); comparable: Shenzhen I/O (no handoff), EXAPUNKS (early TWN handoff), Into the Breach (invisible fade), Slay the Spire (community-dependent), TUNIC (discovery-based), Baba Is You (zero-text)
   - [ ] 5.17a — The "three-mission-delay" relevance cycle: detailed design of how the Codex surfaces old entries when new situations make them relevant; beyond Inspector links, should the Codex itself suggest "related reading" based on recent failures? Risk of noise vs. benefit of connection-making
   - [ ] 5.17b — Codex entry quality and voice calibration: what makes a good Codex entry? Length, tone, abstraction level, use of examples, inclusion of edge cases; entry writing as a design discipline — each entry must serve both the first-time reader and the fifth-time re-reader
@@ -699,8 +699,8 @@
 - [x] 6.10c — Hybrid corruption audio vocabulary: combining elements of multiple options (Geiger clicking for detection + heartbeat for severity + whispers for deep corruption narrative); the layered approach
 - [x] 6.10d — Accessibility alternatives for corruption audio: screen-reader integration, visual-only corruption modes for deaf/hard-of-hearing players, haptic-only modes; ensuring corruption detection doesn't become audio-gated
 - [x] 6.10e — Player-configurable corruption audio intensity: settings slider from "subtle" (perturbation only) to "aggressive" (full alarm cascade); player agency over corruption layer's attention demand
-- [ ] 6.10f — Corruption audio in the sealed watch phase: what corruption sounds like DURING battle (not just workbench); EMP buffer degradation audio mid-fight; sealed watch corruption vocabulary distinct from plan phase
-- [ ] 6.10g — Player-authored corruption audio modding: custom sound pack support for corruption vocabulary; modding hooks for audio system; community horror/comedy/minimal packs
+- [x] 6.10f — Corruption audio in the sealed watch phase: what corruption sounds like DURING battle (not just workbench); EMP buffer degradation audio mid-fight; sealed watch corruption vocabulary distinct from plan phase
+- [x] 6.10g — Player-authored corruption audio modding: custom sound pack support for corruption vocabulary; modding hooks for audio system; community horror/comedy/minimal packs
 - [ ] 6.10h — Cross-player corruption audio in spectator mode: which player's corruption audio does spectator hear in PvP; merged "god view" showing both corruption states; audio mixing for broadcast
 - [ ] 6.10i — Corruption audio adaptation over campaign arc: vocabulary evolution from Mission 7 (minimal) to Mission 10 (full); audio complexity growing with player corruption literacy; graduated introduction of hybrid layers
 - [x] 6.11 — The web demo: browser-playable demo as acquisition funnel — six demo models (vertical slice, extended tutorial, sandbox, replay theater, persistent playground, rotating featured mission), layered pipeline recommendation, funnel metrics, conversion mechanics, technical implementation
@@ -857,8 +857,8 @@
 - [x] 8.09 — The diagnostic layer as teaching mechanic: cross-cutting synthesis of inspector sidebar / probe hooks / signal genealogy / diagnostic ring as a unified system for making information architecture legible; how this system scales across all three acts; what should be always-on vs. opt-in vs. expert-only; a full design pass on the diagnostic teaching arc
 - [x] 8.13 — Three-act metric mapping: formally defining the primary career stat for each act (Campaign: pass rate / Advanced Campaign: robustness % / Gauntlet: eEDT) and designing the transition moments where a new primary stat becomes visible for the first time
 - [x] 8.08 — The real-language vocabulary claim: Robot Uprising asserts its primitives (skills/rules/hooks/context) map 1:1 to real agentic AI engineering; design exercise — map a real Claude Code ralph loop to Robot Uprising primitives and test whether the vocabulary actually holds; where does the metaphor break down, and does that matter?
-- [ ] 8.08a — "Translate Your Architecture" post-game bridge: game-to-code conversion tool design; auto-generate Claude Agent SDK Python from Mission 10 config; literal translations (hooks→topics, context→model selection, skills→tools) vs. adaptations (spatial→non-spatial, tick→async); comparable to Screeps export-to-real-server
-- [ ] 8.08b — Blueprint Codex "Real-World Parallel" sections: content design for 30+ Codex entries connecting game terms to professional vocabulary; tone, depth, gating; comparable to Civilization's Civilopedia real-history sections
+- [x] 8.08a — "Translate Your Architecture" post-game bridge: game-to-code conversion tool design; auto-generate Claude Agent SDK Python from Mission 10 config; literal translations (hooks→topics, context→model selection, skills→tools) vs. adaptations (spatial→non-spatial, tick→async); comparable to Screeps export-to-real-server
+- [x] 8.08b — Blueprint Codex "Real-World Parallel" sections: content design for 30+ Codex entries connecting game terms to professional vocabulary; tone, depth, gating; comparable to Civilization's Civilopedia real-history sections
 - [ ] 8.08c — The synchronous tool call gap: whether Robot Uprising should add a synchronous communication primitive (blocking call); TIS-100 blocking port model; how this changes information warfare dynamics; pedagogical cost vs. vocabulary completeness
 - [ ] 8.08d — Vocabulary fidelity testing across player archetypes: research design for testing game-to-real transfer; A/B study Robot Uprising players vs. control on agentic AI tasks; which archetypes transfer most; CS education partnership
 - [ ] 8.08e — The "God Object" anti-pattern as game design lesson: M8-10 scenarios teaching distributed systems via God Object Command agent failure; single point of failure destroyed/overwhelmed; "don't centralize all logic" through visceral failure-then-insight
