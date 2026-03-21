@@ -1,30 +1,21 @@
-import { AlertCircle } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button'
 
 interface ErrorStateProps {
-  title?: string;
-  message?: string;
-  onRetry?: () => void;
-  className?: string;
+  message?: string
+  description?: string
+  onRetry?: () => void
 }
 
-export function ErrorState({ title, message, onRetry, className }: ErrorStateProps) {
+export function ErrorState({ message = 'Something went wrong', description, onRetry }: ErrorStateProps) {
   return (
-    <Alert variant="destructive" className={cn('my-6', className)}>
-      <AlertCircle className="h-4 w-4" />
-      <AlertTitle>{title ?? 'Something went wrong'}</AlertTitle>
-      <AlertDescription className="mt-2">
-        {message ?? 'Unable to load data. Please check your connection and try again.'}
-        {onRetry && (
-          <Button variant="outline" size="sm" onClick={onRetry} className="mt-3 block">
-            Try again
-          </Button>
-        )}
-      </AlertDescription>
-    </Alert>
-  );
+    <div className="flex flex-col items-center justify-center py-16">
+      <p className="text-sm text-zinc-50 mb-1">{message}</p>
+      {description && <p className="text-xs text-zinc-500 mb-4">{description}</p>}
+      {onRetry && (
+        <Button variant="outline" size="sm" onClick={onRetry}>Try again</Button>
+      )}
+    </div>
+  )
 }
 
-export default ErrorState;
+export default ErrorState
