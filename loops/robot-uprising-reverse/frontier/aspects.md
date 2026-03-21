@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 274
-- **Pending:** 239
-- **Convergence:** 53.4%
+- **Analyzed:** 284
+- **Pending:** 229
+- **Convergence:** 55.4%
 
 ---
 
@@ -290,7 +290,7 @@
 - [x] 2.02b — Delivery richness as progressive unlock: stripped/tagged/structured trichotomy per-channel; when does this unlock; boot log framing; interaction with hook taxonomy (3.08)
 - [x] 2.02c — Weight-aware eviction policy design space: FIFO-weight, lightest-first, heaviest-first, priority-tagged, weight-matched, random-weighted; which strategies create interesting decisions vs. degenerate ones
 - [x] 2.02d — The "compress as refinery" skill identity: if weight makes compress essential, does the Relay become mandatory? Diversity implications; alternative weight-reduction skills; weight management as a skill category
-- [ ] 2.02e — Tutorial progression from fixed-slot to weighted: designing the M1-4 → M5 transition; the "bookshelf upgrade" moment; avoiding invalidating fixed-slot tutorial lessons
+- [x] 2.02e — Tutorial progression from fixed-slot to weighted: designing the M1-4 → M5 transition; the "bookshelf upgrade" moment; avoiding invalidating fixed-slot tutorial lessons
 
 ### Fixed-Slot Buffer Deep Dives
 - [x] 2.01a — Buffer insertion order as hidden complexity: deterministic but opaque ordering of simultaneous arrivals (clockwise observations, alphabetical channels); should this be visible/configurable? What happens when renaming a channel changes insertion priority?
@@ -385,7 +385,7 @@
 - [x] 3.10 — Hook visualization: how does the player see the wiring between agents? How are active hooks shown during execution?
 - [x] 3.10b — Signal latency legibility: how the player learns and predicts multi-tick signal travel times; spatial vs temporal distance; paradigm-specific latency communication
 - [x] 3.10c — Channel color assignment and palette management: auto-assignment vs player choice; color-blind palettes; palette exhaustion at 8+ channels
-- [ ] 3.10d — Wire routing algorithms for the subway map paradigm: path-finding along grid edges, crossing handling, parallel lane stacking, manual waypoints, Bézier vs right-angle
+- [x] 3.10d — Wire routing algorithms for the subway map paradigm: path-finding along grid edges, crossing handling, parallel lane stacking, manual waypoints, Bézier vs right-angle
 - [ ] 3.10e — EM emission visualization: making detectable noise visible; separate overlay vs integrated; relationship between "signals you see" and "signals the enemy detects"
 - [ ] 3.10f — Visualization density scaling across the 10-mission arc: 2 units/0 channels (M1) to 12+ units/8+ channels (M10); paradigm breakdown thresholds; progressive disclosure gates
 - [x] 3.11 — Hooks UI: how does the player create and manage hooks?
@@ -568,11 +568,11 @@
 - [x] 5.08a — The "Phase Shift" mission structure: missions that change TYPE mid-battle (relay network → siege → infiltration); multi-phase sealed watch pacing
 - [x] 5.08b — Community mission editor: tools for creating custom missions of each type; mission type as template system with adjustable parameters
 - [x] 5.08c — Mission type as difficulty language: using type names instead of star ratings; player self-selection into preferred types
-- [ ] 5.08d — The Gauntlet Rotation meta-structure: how Gauntlet cycles through mission types; rotation schedule as meta-puzzle
+- [x] 5.08d — The Gauntlet Rotation meta-structure: how Gauntlet cycles through mission types; rotation schedule as meta-puzzle
 - [x] 5.08e — Escort mission anti-frustration design: why escorts are hated elsewhere; "design-then-watch" as core differentiator; VIP-as-configured-agent
 - [x] 5.09 — Replayability: what makes someone start a new campaign
 - [x] 5.09a — Blueprint presets as replay currency: unlocking pre-designed blueprint loadouts (like Into the Breach squads) that fundamentally change approach; "The Stealth Doctrine," "The Swarm," "The Singleton" as named playstyle presets
-- [ ] 5.09b — The "impossible challenge" community layer: community-submitted challenges with verified-impossible or extremely-difficult mutator combos; leaderboards for beautiful failure, not just victory
+- [x] 5.09b — The "impossible challenge" community layer: community-submitted challenges with verified-impossible or extremely-difficult mutator combos; leaderboards for beautiful failure, not just victory
 - [ ] 5.09c — Predecessor memory as light replay narrative: minimal-writing variant of narrative replay — 5-10 new Predecessor lines per cycle referencing specific mission outcomes; low dev cost, high emotional return
 - [ ] 5.09d — The "remix tape" — curated mutator playlists: developer- or community-curated sequences of mutator combos across all 10 missions, packaged as named experiences; playlists as shareable content units
 - [ ] 5.09e — Cross-campaign persistent architecture museum: gallery saving the player's best architecture from each mission across all campaigns/cycles/ascension levels; historical preservation showing evolution of design philosophy
@@ -701,8 +701,8 @@
 - [x] 6.10e — Player-configurable corruption audio intensity: settings slider from "subtle" (perturbation only) to "aggressive" (full alarm cascade); player agency over corruption layer's attention demand
 - [x] 6.10f — Corruption audio in the sealed watch phase: what corruption sounds like DURING battle (not just workbench); EMP buffer degradation audio mid-fight; sealed watch corruption vocabulary distinct from plan phase
 - [x] 6.10g — Player-authored corruption audio modding: custom sound pack support for corruption vocabulary; modding hooks for audio system; community horror/comedy/minimal packs
-- [ ] 6.10h — Cross-player corruption audio in spectator mode: which player's corruption audio does spectator hear in PvP; merged "god view" showing both corruption states; audio mixing for broadcast
-- [ ] 6.10i — Corruption audio adaptation over campaign arc: vocabulary evolution from Mission 7 (minimal) to Mission 10 (full); audio complexity growing with player corruption literacy; graduated introduction of hybrid layers
+- [x] 6.10h — Cross-player corruption audio in spectator mode: which player's corruption audio does spectator hear in PvP; merged "god view" showing both corruption states; audio mixing for broadcast
+- [x] 6.10i — Corruption audio adaptation over campaign arc: vocabulary evolution from Mission 7 (minimal) to Mission 10 (full); audio complexity growing with player corruption literacy; graduated introduction of hybrid layers
 - [x] 6.11 — The web demo: browser-playable demo as acquisition funnel — six demo models (vertical slice, extended tutorial, sandbox, replay theater, persistent playground, rotating featured mission), layered pipeline recommendation, funnel metrics, conversion mechanics, technical implementation
 - [x] 6.11a — Demo-to-full-game save migration: localStorage → Steam Cloud sync, account linking, handling demo progress incompatible with newer game versions, "thank you for playing the demo" emotional beat
 - [ ] 6.11b — Demo-specific analytics dashboard: funnel visualization, drop-off points, retry rates per mission, Inspector engagement heatmap, conversion attribution — developers applying the game's Inspector philosophy to business metrics
@@ -729,7 +729,7 @@
 - [x] 7.03 — Async challenges: "beat my architecture" shareable puzzles
 - [x] 7.03a — Config Code format design: exact encoding format, compression strategy, version migration, URL scheme, QR code generation, backward compatibility when game primitives change between versions
 - [x] 7.03b — Community moderation infrastructure: grief prevention (impossible bounties, bad Evolution Chain contributions, offensive names), report system, automated quality detection, trust levels; six models analyzed (A "Circuit Breaker" automated validation pipeline with structural/quality/text tiers and diagnostic rejection UX, B "Trust Circuit" progressive TL0-5 system gating community features with decay mechanics and diegetic boot-log ceremonies, C "Necropsy Norm" self-moderation via categorized comments/inline diffs/fork trees/inline fact-checking/Better Explanation mechanic, D "Emission Scanner" behavioral pattern detection for vote rings/grief targeting/chain poisoning/smurf detection with Inspector-native dashboard, E "Breaker Panel" visible moderation events with amber hazard stripe/diagnostic framing/circuit-breaker metaphor, F "Relay Network" distributed moderation channels with expertise-matched review pools/jury model/agreement rate tracking); recommended "Three-Layer Grid" hybrid (Layer 1 automated validation, Layer 2 trust-gated access + cultural norms, Layer 3 behavioral detection + distributed review + visible moderation); 4-phase implementation plan (Config Codes only → Puzzles/Seeds → Chains/Necropsies → full community); Filipino cultural filter calibration (Penistone Problem for Philippine place names/cultural terms); comparable games (Riot GATES 15× detection improvement, Dota 2 Behavior Score, OW2 Endorsement decay, Steam Workshop moderation tiers, Opus Magnum creator-must-solve, Roblox 750K RPS text filtering, Factorio unmoderated cautionary tale, Wikipedia edit-don't-argue norm); 4 player journeys (Rosa 62 retired EE first puzzle creation + report + reviewer queue, Kai 19 CS student detecting vote ring + Emission Scanner validation, Tala 17 first-timer encountering text filter on Filipino channel name + appeal resolution, DeepAgent_TTV 28 streamer diagnosing Evolution Chain poisoning on stream); interaction effects (×Config Code text filtering, ×necropsy commentary moderation, ×Gauntlet competitive integrity, ×channel audio signatures, ×boot log diegetic notifications, ×Inspector-native dashboard, ×Blueprint Codex guidelines, ×Filipino cultural content); 5 new aspects discovered (7.03b-i through 7.03b-v)
-- [ ] 7.03c — Reputation economy design: circuit tokens, contributor badges, featured-creator program, reputation decay, and how reputation interacts with Gauntlet rating as parallel social currencies
+- [x] 7.03c — Reputation economy design: circuit tokens, contributor badges, featured-creator program, reputation decay, and how reputation interacts with Gauntlet rating as parallel social currencies
 - [x] 7.03d — Workshop search and discovery UX: full design of search, filtering, tag taxonomy, recommendation engine, trending algorithms, and config similarity detection
 - [x] 7.03e — Cross-platform sharing infrastructure: Config Codes, Workshop entries, challenge invitations across PC/mobile/web demo; account linking; progress sync; QR code flow
 - [x] 7.04 — Modding: custom missions, custom building blocks, total conversions
@@ -745,7 +745,7 @@
   - [ ] 7.13c — The "Crowd Wisdom" metric: tracking how often the histogram peak (modal guess) matches the EDT; aggregated intuition vs. individual expert accuracy; community diagnostic calibration as a meta-metric
   - [ ] 7.13d — Find-the-pivot for campaign missions (single-player variant): sealed-only replay after mission completion; self-diagnostic training without community; the "diagnostic journal" as solo accuracy tracker
   - [ ] 7.13e — Pivot difficulty rating for match selection: algorithmic difficulty score based on false-pivot count, EDT distance from nearest combat event, signal-vs-combat ratio, relay chain depth; automated match curation for daily/weekly formats
-- [ ] 7.14 — Annotation accuracy leaderboard: a global leaderboard tracking not win rate but "annotation accuracy" — players who consistently mark within ±5 ticks of the diamond before revealing; top annotators as the "diagnosticians" of the competitive community whose config necropsies carry authority because their manual pivot-identification is provably calibrated
+- [x] 7.14 — Annotation accuracy leaderboard: a global leaderboard tracking not win rate but "annotation accuracy" — players who consistently mark within ±5 ticks of the diamond before revealing; top annotators as the "diagnosticians" of the competitive community whose config necropsies carry authority because their manual pivot-identification is provably calibrated
 - [x] 7.09 — The arms race as designed meta-evolution: Gauntlet meta not controlled by designers but evolving from player innovation; how to design a game that supports meta-evolution without locking into a dominant strategy; intervention points (seasonal resets, new skill/hook unlocks) vs. pure player-driven evolution
   - [x] 7.09a — Seasonal modifier design space: exhaustive catalog of possible modifiers (EM range, signal latency, buffer size, perception range, starting noise, unit cost scaling, terrain effects) with interaction matrices and archetype impact analysis; which modifiers create healthy meta-shifts vs. which create degenerate dominant strategies
   - [ ] 7.09b — Community Pulse panel UX: real-time archetype distribution visualization in the Gauntlet lobby; bar chart vs. pie chart vs. network graph; how archetype classification works (rule-based vs. ML clustering); privacy implications of showing population-level strategy data
@@ -859,7 +859,7 @@
 - [x] 8.08 — The real-language vocabulary claim: Robot Uprising asserts its primitives (skills/rules/hooks/context) map 1:1 to real agentic AI engineering; design exercise — map a real Claude Code ralph loop to Robot Uprising primitives and test whether the vocabulary actually holds; where does the metaphor break down, and does that matter?
 - [x] 8.08a — "Translate Your Architecture" post-game bridge: game-to-code conversion tool design; auto-generate Claude Agent SDK Python from Mission 10 config; literal translations (hooks→topics, context→model selection, skills→tools) vs. adaptations (spatial→non-spatial, tick→async); comparable to Screeps export-to-real-server
 - [x] 8.08b — Blueprint Codex "Real-World Parallel" sections: content design for 30+ Codex entries connecting game terms to professional vocabulary; tone, depth, gating; comparable to Civilization's Civilopedia real-history sections
-- [ ] 8.08c — The synchronous tool call gap: whether Robot Uprising should add a synchronous communication primitive (blocking call); TIS-100 blocking port model; how this changes information warfare dynamics; pedagogical cost vs. vocabulary completeness
-- [ ] 8.08d — Vocabulary fidelity testing across player archetypes: research design for testing game-to-real transfer; A/B study Robot Uprising players vs. control on agentic AI tasks; which archetypes transfer most; CS education partnership
+- [x] 8.08c — The synchronous tool call gap: whether Robot Uprising should add a synchronous communication primitive (blocking call); TIS-100 blocking port model; how this changes information warfare dynamics; pedagogical cost vs. vocabulary completeness
+- [x] 8.08d — Vocabulary fidelity testing across player archetypes: research design for testing game-to-real transfer; A/B study Robot Uprising players vs. control on agentic AI tasks; which archetypes transfer most; CS education partnership
 - [ ] 8.08e — The "God Object" anti-pattern as game design lesson: M8-10 scenarios teaching distributed systems via God Object Command agent failure; single point of failure destroyed/overwhelmed; "don't centralize all logic" through visceral failure-then-insight
 - [ ] 8.11 — The two-act structure as pedagogical framework: cross-cutting synthesis of how the emotional-first, analytical-second debrief sequence maps to real professional methodologies (blameless postmortems, incident review, chaos engineering); what does Robot Uprising teach by making this structure visceral and habitual over hundreds of play sessions; the "film room" culture as designed outcome
