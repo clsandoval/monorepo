@@ -19,6 +19,49 @@ A standalone web app that tells Philippine corporations their SEC compliance sta
 
 ---
 
+## Design Direction
+
+### Aesthetic
+**Authoritative/institutional** — a government portal that actually works. Clean, serious, trustworthy. The SEC itself has terrible UX; this is the version of SEC.gov.ph that corporations wish existed.
+
+### Typography
+- **Display:** Newsreader (serif, variable optical sizing) — gravitas and authority
+- **Body:** Public Sans (sans-serif) — literally designed by USWDS (US government design system). Clean, neutral, institutional DNA.
+
+### Color Palette
+**Charcoal + SEC Blue** — pulled from SEC.gov.ph's actual blue for familiarity, with crimson for penalty/warning states.
+
+| Role | Color | Hex |
+|---|---|---|
+| Primary text | Charcoal | `#1C1C1E` |
+| Primary action / accent | SEC Blue | `#1B4F72` |
+| Danger / penalties | Crimson | `#A63232` |
+| Secondary text | Gray | `#6B7280` |
+| Muted text / disclaimers | Light gray | `#9CA3AF` |
+| Background | White | `#FFFFFF` |
+| Dividers / borders | Light | `#F0F0F0` |
+| Status badge (suspended) | Crimson on white | `#A63232` |
+| Active tab underline | SEC Blue | `#1B4F72` |
+| Total line border-top | SEC Blue | `#1B4F72` |
+| CTA button | SEC Blue bg, white text | `#1B4F72` |
+
+### Signature Element: Compliance Timeline
+The **one memorable thing** — a horizontal timeline visualization showing the corporation's entire life, with green segments for compliant years and red segments for missed filings. The user sees the damage at a glance. This is the hero element on the results page.
+
+- Timeline runs from incorporation year to present
+- Each year is a segment, subdivided by report type (GIS, AFS, BO)
+- Green = filed on time, amber = filed late, red = not filed
+- Hovering a segment shows the penalty for that specific filing
+- The timeline makes the cumulative pattern of non-compliance visceral — not just a number in a table
+
+### Anti-References (What to Avoid)
+- Generic AI aesthetics (purple gradients, Inter/Roboto, rounded cards with drop shadows)
+- Overly playful or startup-y (this is serious compliance, not a SaaS onboarding)
+- Dark mode (government portals are light — match expectations)
+- Cluttered dashboards (the free tier is a wizard → results page, not a dashboard)
+
+---
+
 ## User Flows
 
 ### Three User States
