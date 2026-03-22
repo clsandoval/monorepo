@@ -26,15 +26,11 @@ import type { ComputationInput } from '../types';
 //   - Post-finality: 12% from finality until June 30, 2013;
 //                    6% from July 1, 2013 until satisfaction
 //
-// NOTE (implementation concern): The current post-finality engine does NOT split
-// the post-finality period at the BSP 799 transition. It uses getPostFinalityRate()
-// which returns a single rate based on the finality date. Since finality is
-// 2008-05-27 (pre-BSP), it applies 12% for the entire post-finality period
-// — including the portion after July 1, 2013. This means the engine does NOT
-// implement the Nacar ruling's explicit directive that "thereafter, 6% p.a."
-// applies after BSP Circular 799 takes effect.
-//
-// See: flag below in the post-finality tests.
+// Post-finality: since finality is 2008-05-27 (pre-BSP) and target is 2013-10-15
+// (post-BSP), the post-finality period spans the BSP 799 transition.
+// Per Nacar, the engine splits at July 1, 2013:
+//   - 2008-05-27 → 2013-06-30: 12% (pre-BSP)
+//   - 2013-07-01 → 2013-10-15: 6% (post-BSP)
 // ---------------------------------------------------------------------------
 
 describe('Case law: Nacar v. Gallery Frames', () => {
@@ -126,26 +122,28 @@ describe('Case law: Nacar v. Gallery Frames', () => {
   });
 
   /**
-   * SPEC COMPLIANCE CONCERN — Post-Finality BSP Transition Split:
+   * Post-finality splits at BSP 799 transition (July 1, 2013).
    *
    * Nacar v. Gallery Frames explicitly rules that once BSP Circular 799 takes
    * effect on July 1, 2013, ALL monetary obligations earn only 6% p.a. —
    * including those whose judgment finality predates BSP 799.
    *
-   * The current post-finality implementation does NOT split at July 1, 2013.
-   * It calls getPostFinalityRate(judgmentFinalityDate) which returns 12% for
-   * pre-BSP finality dates and applies that single rate for the ENTIRE
-   * post-finality period, even the portion after July 1, 2013.
-   *
-   * This test documents the CURRENT (non-conforming) behavior. It should be
-   * updated when the engine is fixed to split post-finality at BSP transition.
+   * The target date (2013-10-15) is after July 1, 2013, so the post-finality
+   * period (2008-05-27 → 2013-10-15) spans the transition and must split into:
+   *   - 2008-05-27 → 2013-06-30: 12% (pre-BSP)
+   *   - 2013-07-01 → 2013-10-15: 6% (post-BSP)
    */
-  it('[KNOWN ISSUE] post-finality uses single 12% rate (should split at 2013-07-01)', () => {
+  it('post-finality splits at 2013-07-01 — 12% before, 6% after BSP 799', () => {
     const result = compute(input);
-    // Current behavior: single period at 12% (finality pre-BSP)
-    // Correct behavior per Nacar: 12% until 2013-06-30, 6% from 2013-07-01
-    expect(result.postFinality!.length).toBe(1);
-    expect(result.postFinality![0].rateBps).toBe(1200); // 12% — documents current bug
+    expect(result.postFinality!.length).toBe(2);
+    // First sub-period: pre-BSP at 12%
+    expect(result.postFinality![0].startDate).toBe('2008-05-27');
+    expect(result.postFinality![0].endDate).toBe('2013-06-30');
+    expect(result.postFinality![0].rateBps).toBe(1200);
+    // Second sub-period: post-BSP at 6%
+    expect(result.postFinality![1].startDate).toBe('2013-07-01');
+    expect(result.postFinality![1].endDate).toBe('2013-10-15');
+    expect(result.postFinality![1].rateBps).toBe(600);
   });
 });
 

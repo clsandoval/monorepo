@@ -5,7 +5,7 @@ import {
   RATE_POST_BSP,
   RATE_PRE_BSP_POST_FINALITY,
 } from './constants';
-import { daysBetween } from './dates';
+import { daysBetween, splitPeriodsAtTransition } from './dates';
 import { computeInterest } from './interest';
 
 /**
@@ -30,10 +30,14 @@ function getPostFinalityRate(judgmentFinalityDate: string): number {
  * Computes post-finality interest.
  *
  * Under Nacar v. Gallery Frames:
- * - Without stipulated rate: 6% (or 12% if final before BSP) on totalJudgment
- * - With stipulated rate: stipulated continues on principal PLUS 6% on totalJudgment
+ * - Without stipulated rate: 6% (or 12% if final before BSP) on totalJudgment,
+ *   splitting at the BSP 799 transition (July 1, 2013) when the finality date
+ *   is before that transition.
+ * - With stipulated rate: stipulated continues on principal (no split — the
+ *   stipulated rate is the law between the parties per Lara's Gifts) PLUS
+ *   6%/12% on totalJudgment, split at BSP 799 transition when applicable.
  *
- * @returns ComputationPeriod, ComputationPeriod[], or null if no finality date
+ * @returns ComputationPeriod[], or null if no finality date
  */
 export function computePostFinality(
   totalJudgment: number,
@@ -46,36 +50,64 @@ export function computePostFinality(
     return null;
   }
 
-  const days = daysBetween(judgmentFinalityDate, targetDate);
-  const legalRateBps = getPostFinalityRate(judgmentFinalityDate);
   const citation = `${CITATIONS.NACAR}; ${CITATIONS.BSP_799}`;
 
   if (!stipulatedRate) {
-    // Simple case: legal rate on total judgment
-    const interest = computeInterest(totalJudgment, legalRateBps, days);
-    return {
-      label: 'Post-Finality Interest',
-      startDate: judgmentFinalityDate,
-      endDate: targetDate,
-      days,
-      rateBps: legalRateBps,
-      rateLabel: legalRateBps === RATE_POST_BSP ? '6% per annum' : '12% per annum',
-      baseAmount: totalJudgment,
-      interest,
-      legalCitation: citation,
-    };
+    // Legal rate on total judgment, split at BSP transition if needed
+    const subPeriods = splitPeriodsAtTransition(judgmentFinalityDate, targetDate);
+
+    if (subPeriods.length === 1) {
+      const sp = subPeriods[0];
+      const rateBps = sp.regime === 'post' ? RATE_POST_BSP : RATE_PRE_BSP_POST_FINALITY;
+      const days = daysBetween(sp.start, sp.end);
+      const interest = computeInterest(totalJudgment, rateBps, days);
+      return {
+        label: 'Post-Finality Interest',
+        startDate: sp.start,
+        endDate: sp.end,
+        days,
+        rateBps,
+        rateLabel: rateBps === RATE_POST_BSP ? '6% per annum' : '12% per annum',
+        baseAmount: totalJudgment,
+        interest,
+        legalCitation: citation,
+      };
+    }
+
+    // Two sub-periods spanning the BSP transition
+    return subPeriods.map((sp) => {
+      const rateBps = sp.regime === 'post' ? RATE_POST_BSP : RATE_PRE_BSP_POST_FINALITY;
+      const days = daysBetween(sp.start, sp.end);
+      const interest = computeInterest(totalJudgment, rateBps, days);
+      return {
+        label: sp.regime === 'pre'
+          ? 'Post-Finality Interest (pre-BSP 799)'
+          : 'Post-Finality Interest (post-BSP 799)',
+        startDate: sp.start,
+        endDate: sp.end,
+        days,
+        rateBps,
+        rateLabel: rateBps === RATE_POST_BSP ? '6% per annum' : '12% per annum',
+        baseAmount: totalJudgment,
+        interest,
+        legalCitation: citation,
+      } satisfies ComputationPeriod;
+    });
   }
 
-  // With stipulated rate: two components
+  // With stipulated rate: two components.
+  // Stipulated rate does NOT split — it continues at the contracted rate throughout
+  // (per Lara's Gifts & Decors: stipulated rate is the law between the parties).
+  // Legal component (6%/12% on total judgment) DOES split at BSP transition.
   const stipulatedRateBps = rateToBps(stipulatedRate);
-  const stipulatedInterest = computeInterest(principalCentavos, stipulatedRateBps, days);
-  const legalInterest = computeInterest(totalJudgment, legalRateBps, days);
+  const stipulatedDays = daysBetween(judgmentFinalityDate, targetDate);
+  const stipulatedInterest = computeInterest(principalCentavos, stipulatedRateBps, stipulatedDays);
 
   const stipulatedPeriod: ComputationPeriod = {
     label: 'Post-Finality: Stipulated Interest on Principal',
     startDate: judgmentFinalityDate,
     endDate: targetDate,
-    days,
+    days: stipulatedDays,
     rateBps: stipulatedRateBps,
     rateLabel: `${stipulatedRate * 100}% per annum (stipulated)`,
     baseAmount: principalCentavos,
@@ -83,17 +115,47 @@ export function computePostFinality(
     legalCitation: citation,
   };
 
-  const legalPeriod: ComputationPeriod = {
-    label: 'Post-Finality: Legal Interest on Total Judgment',
-    startDate: judgmentFinalityDate,
-    endDate: targetDate,
-    days,
-    rateBps: legalRateBps,
-    rateLabel: legalRateBps === RATE_POST_BSP ? '6% per annum' : '12% per annum',
-    baseAmount: totalJudgment,
-    interest: legalInterest,
-    legalCitation: citation,
-  };
+  // Legal component — split at BSP transition when needed
+  const legalSubPeriods = splitPeriodsAtTransition(judgmentFinalityDate, targetDate);
 
-  return [stipulatedPeriod, legalPeriod];
+  if (legalSubPeriods.length === 1) {
+    const sp = legalSubPeriods[0];
+    const rateBps = sp.regime === 'post' ? RATE_POST_BSP : RATE_PRE_BSP_POST_FINALITY;
+    const days = daysBetween(sp.start, sp.end);
+    const interest = computeInterest(totalJudgment, rateBps, days);
+    const legalPeriod: ComputationPeriod = {
+      label: 'Post-Finality: Legal Interest on Total Judgment',
+      startDate: sp.start,
+      endDate: sp.end,
+      days,
+      rateBps,
+      rateLabel: rateBps === RATE_POST_BSP ? '6% per annum' : '12% per annum',
+      baseAmount: totalJudgment,
+      interest,
+      legalCitation: citation,
+    };
+    return [stipulatedPeriod, legalPeriod];
+  }
+
+  // Two sub-periods for the legal component
+  const legalPeriods: ComputationPeriod[] = legalSubPeriods.map((sp) => {
+    const rateBps = sp.regime === 'post' ? RATE_POST_BSP : RATE_PRE_BSP_POST_FINALITY;
+    const days = daysBetween(sp.start, sp.end);
+    const interest = computeInterest(totalJudgment, rateBps, days);
+    return {
+      label: sp.regime === 'pre'
+        ? 'Post-Finality: Legal Interest on Total Judgment (pre-BSP 799)'
+        : 'Post-Finality: Legal Interest on Total Judgment (post-BSP 799)',
+      startDate: sp.start,
+      endDate: sp.end,
+      days,
+      rateBps,
+      rateLabel: rateBps === RATE_POST_BSP ? '6% per annum' : '12% per annum',
+      baseAmount: totalJudgment,
+      interest,
+      legalCitation: citation,
+    } satisfies ComputationPeriod;
+  });
+
+  return [stipulatedPeriod, ...legalPeriods];
 }
