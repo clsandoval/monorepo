@@ -64,7 +64,10 @@ function LoginContent() {
       return;
     }
 
-    router.push("/remediation");
+    // Check user role and redirect accordingly
+    const { data: { user } } = await supabase.auth.getUser();
+    const role = user?.user_metadata?.role ?? "free";
+    router.push(role === "pro" ? "/dashboard" : "/remediation");
   }
 
   async function handleGoogleLogin() {
