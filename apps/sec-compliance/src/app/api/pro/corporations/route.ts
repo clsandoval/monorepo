@@ -73,3 +73,76 @@ export async function GET() {
 
   return NextResponse.json({ corporations: result });
 }
+
+export async function POST(request: Request) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  const { data: membership } = await supabase
+    .from("organization_members")
+    .select("organization_id")
+    .eq("user_id", user.id)
+    .single();
+
+  if (!membership) {
+    return NextResponse.json({ error: "No organization" }, { status: 403 });
+  }
+
+  // Check corp limit
+  const { data: org } = await supabase
+    .from("organizations")
+    .select("corp_limit")
+    .eq("id", membership.organization_id)
+    .single();
+
+  const { count } = await supabase
+    .from("corporations")
+    .select("*", { count: "exact", head: true })
+    .eq("organization_id", membership.organization_id);
+
+  if ((count ?? 0) >= (org?.corp_limit ?? 5)) {
+    return NextResponse.json({ error: "Corporation limit reached" }, { status: 400 });
+  }
+
+  const body = await request.json();
+
+  // Insert corporation
+  const { data: corp, error: corpError } = await supabase
+    .from("corporations")
+    .insert({
+      name: body.name,
+      organization_id: membership.organization_id,
+      user_id: user.id,
+      corp_type: body.corpType,
+      re_bracket: body.reBracket,
+      registration_date: `${body.incorporationYear}-01-01`,
+      domicile: "domestic",
+      mc28_compliant: body.mc28Compliant ?? false,
+      suspension_date: body.suspensionDate,
+      revocation_date: body.revocationDate,
+    })
+    .select("id")
+    .single();
+
+  if (corpError || !corp) {
+    return NextResponse.json({ error: corpError?.message ?? "Failed to create" }, { status: 500 });
+  }
+
+  // Insert filing records
+  if (body.filedReports?.length > 0) {
+    await supabase.from("filing_records").insert(
+      body.filedReports.map((r: { reportType: string; year: number; status: string }) => ({
+        corporation_id: corp.id,
+        report_type: r.reportType,
+        year: r.year,
+        status: r.status,
+      }))
+    );
+  }
+
+  return NextResponse.json({ corporationId: corp.id });
+}

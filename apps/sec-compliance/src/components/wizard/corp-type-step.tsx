@@ -8,6 +8,9 @@ export type CorpType = "stock" | "non_stock" | "opc";
 interface CorpTypeStepProps {
   value: CorpType | null;
   onChange: (value: CorpType) => void;
+  isProUser?: boolean;
+  corpName?: string | null;
+  onCorpNameChange?: (name: string) => void;
 }
 
 const options: { value: CorpType; label: string; note?: string }[] = [
@@ -20,7 +23,7 @@ const options: { value: CorpType; label: string; note?: string }[] = [
   },
 ];
 
-export function CorpTypeStep({ value, onChange }: CorpTypeStepProps) {
+export function CorpTypeStep({ value, onChange, isProUser, corpName, onCorpNameChange }: CorpTypeStepProps) {
   return (
     <div className="space-y-6">
       <div>
@@ -31,6 +34,22 @@ export function CorpTypeStep({ value, onChange }: CorpTypeStepProps) {
           Select the type of corporation you are filing for.
         </p>
       </div>
+
+      {isProUser && (
+        <div className="space-y-1.5 mb-6">
+          <Label htmlFor="corp-name" className="font-body text-sm text-charcoal">
+            Corporation Name
+          </Label>
+          <input
+            id="corp-name"
+            type="text"
+            value={corpName ?? ""}
+            onChange={(e) => onCorpNameChange?.(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 font-body text-sm text-charcoal placeholder:text-gray-muted focus:border-sec-blue focus:outline-none focus:ring-2 focus:ring-sec-blue/20"
+            placeholder="e.g. ABC Holdings Corp."
+          />
+        </div>
+      )}
 
       <RadioGroup
         value={value ?? ""}

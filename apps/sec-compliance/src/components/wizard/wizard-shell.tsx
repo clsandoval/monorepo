@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { encodeWizardData } from "@/lib/utils";
+import { createClient } from "@/lib/supabase/client";
 import { CorpTypeStep, type CorpType } from "./corp-type-step";
 import { DetailsStep } from "./details-step";
 import { FilingsStep, type FilingRecord } from "./filings-step";
@@ -12,6 +13,7 @@ import { SuspensionStep } from "./suspension-step";
 
 export interface WizardState {
   corpType: CorpType | null;
+  corpName: string | null;
   incorporationYear: number | null;
   reBracket: string | null;
   mc28Compliant: boolean;
@@ -31,6 +33,7 @@ const STEPS = [
 
 const initialState: WizardState = {
   corpType: null,
+  corpName: null,
   incorporationYear: null,
   reBracket: null,
   mc28Compliant: false,
@@ -60,6 +63,14 @@ export function WizardShell() {
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [state, setState] = useState<WizardState>(initialState);
+  const [isProUser, setIsProUser] = useState(false);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user?.user_metadata?.role === "pro") setIsProUser(true);
+    });
+  }, []);
 
   const updateState = useCallback(
     <K extends keyof WizardState>(key: K, value: WizardState[K]) => {
@@ -68,11 +79,30 @@ export function WizardShell() {
     []
   );
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step < STEPS.length - 1) {
       setStep((s) => s + 1);
     } else {
-      // Final step — navigate to results
+      if (isProUser) {
+        const res = await fetch("/api/pro/corporations", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: state.corpName,
+            corpType: state.corpType,
+            incorporationYear: state.incorporationYear,
+            reBracket: state.reBracket,
+            mc28Compliant: state.mc28Compliant,
+            filedReports: state.filedReports,
+            suspensionDate: state.hasSuspension ? state.suspensionDate : null,
+            revocationDate: state.hasRevocation ? state.revocationDate : null,
+          }),
+        });
+        const { corporationId } = await res.json();
+        router.push(`/dashboard/${corporationId}`);
+        return;
+      }
+      // Non-pro: encode and redirect to /results
       const encoded = encodeWizardData(state);
       router.push(`/results?data=${encoded}`);
     }
@@ -129,6 +159,9 @@ export function WizardShell() {
           <CorpTypeStep
             value={state.corpType}
             onChange={(v) => updateState("corpType", v)}
+            isProUser={isProUser}
+            corpName={state.corpName}
+            onCorpNameChange={(v) => updateState("corpName", v)}
           />
         )}
         {step === 1 && (
