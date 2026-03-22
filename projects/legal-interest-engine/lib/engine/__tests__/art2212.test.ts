@@ -36,20 +36,36 @@ describe('computeArt2212', () => {
     expect(result!.accruedStipulatedInterest).toBeGreaterThan(0);
   });
 
-  it('uses legal rate (not stipulated) for interest on accrued interest', () => {
-    // Pre-2013 case: legal rate for non-loan would be 6%, for loan 12%
-    // The Art.2212 layer uses legal rate on the accrued amount
+  it('uses legal rate (not stipulated) for interest on accrued interest — pre-BSP loan uses 12%', () => {
+    // Pre-2013 loan case: legal rate should be 12%
     const result = computeArt2212(
       50_000_000,
       0.18, // high stipulated rate
       '2010-01-01',
       '2010-07-01',
       '2012-01-01',
+      undefined,
+      'loan_forbearance',
     );
     expect(result).not.toBeNull();
-    // Rate should be legal rate (1200 for pre-BSP, since this is filing-to-target)
-    // The spec says "legal rate" for Art.2212, which for pre-BSP is 12%
+    // Rate should be legal rate (1200 for pre-BSP loan)
     expect(result!.rateBps).toBe(1200);
+  });
+
+  it('pre-BSP non-loan uses 6% (not 12%) for Art.2212 layer', () => {
+    // Pre-2013 non-loan case: legal rate should be 6%, not 12%
+    const result = computeArt2212(
+      50_000_000,
+      0.18,
+      '2010-01-01',
+      '2010-07-01',
+      '2012-01-01',
+      undefined,
+      'non_loan',
+    );
+    expect(result).not.toBeNull();
+    // Rate should be 600 bps (6%) for pre-BSP non-loan, not 1200 (12%)
+    expect(result!.rateBps).toBe(600);
   });
 
   it('cites Art. 2212', () => {

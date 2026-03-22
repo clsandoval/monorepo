@@ -169,8 +169,55 @@ describe('compute', () => {
 
     it('postFinality uses 6%', () => {
       const result = compute(input);
-      const postFin = Array.isArray(result.postFinality) ? result.postFinality[0] : result.postFinality!;
-      expect(postFin.rateBps).toBe(600);
+      expect(result.postFinality).toBeDefined();
+      expect(result.postFinality![0].rateBps).toBe(600);
+    });
+
+    it('postFinality is an array', () => {
+      const result = compute(input);
+      expect(Array.isArray(result.postFinality)).toBe(true);
+    });
+  });
+
+  describe('with stipulated rate and finality — postFinality has two periods', () => {
+    const input: ComputationInput = {
+      obligationType: 'loan_forbearance',
+      claimType: 'liquidated',
+      principalAmount: 50_000_000,
+      demandDate: '2020-01-01',
+      filingDate: '2020-03-01',
+      judgmentDate: '2021-01-01',
+      judgmentFinalityDate: '2021-06-01',
+      targetDate: '2024-01-01',
+      stipulatedRate: 0.12,
+    };
+
+    it('postFinality has two periods (stipulated on principal + 6% on total judgment)', () => {
+      const result = compute(input);
+      expect(result.postFinality).toBeDefined();
+      expect(result.postFinality!.length).toBe(2);
+    });
+
+    it('first postFinality period uses stipulated rate on principal', () => {
+      const result = compute(input);
+      const first = result.postFinality![0];
+      expect(first.rateBps).toBe(1200); // 12% stipulated
+      expect(first.baseAmount).toBe(50_000_000);
+    });
+
+    it('second postFinality period uses 6% legal rate on total judgment', () => {
+      const result = compute(input);
+      const second = result.postFinality![1];
+      expect(second.rateBps).toBe(600); // 6% legal
+    });
+
+    it('grandTotal accounts for both postFinality period interests', () => {
+      const result = compute(input);
+      const postFinalitySum = result.postFinality!.reduce((sum, p) => sum + p.interest, 0);
+      // grandTotal should include postFinality interest
+      expect(result.grandTotal).toBeGreaterThan(result.totalPrincipal);
+      // totalInterest should include postFinality interest
+      expect(result.totalInterest).toBeGreaterThanOrEqual(postFinalitySum);
     });
   });
 

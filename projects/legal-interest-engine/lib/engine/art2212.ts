@@ -1,7 +1,8 @@
-import type { Art2212Layer } from './types';
-import { BSP_799_EFFECTIVE, CITATIONS, RATE_PRE_BSP_LOAN, RATE_POST_BSP } from './constants';
+import type { Art2212Layer, ObligationType } from './types';
+import { BSP_799_EFFECTIVE, CITATIONS } from './constants';
 import { daysBetween } from './dates';
 import { computeInterest } from './interest';
+import { getLegalRate } from './rates';
 
 /**
  * Converts a decimal rate (e.g. 0.12) to basis points (1200).
@@ -34,6 +35,7 @@ export function computeArt2212(
   filingDate: string,
   targetDate: string,
   judgmentFinalityDate?: string,
+  obligationType: ObligationType = 'loan_forbearance',
 ): Art2212Layer | null {
   if (!stipulatedRate) {
     return null;
@@ -51,10 +53,10 @@ export function computeArt2212(
   // Step 2: The accrued interest earns legal interest from filing → target
   const filingToTargetDays = daysBetween(filingDate, targetDate);
 
-  // Determine legal rate based on filing date regime
-  // Pre-BSP: use 12% (loan rate, since interest on interest is treated as monetary obligation)
-  // Post-BSP: 6%
-  const legalRateBps = filingDate >= BSP_799_EFFECTIVE ? RATE_POST_BSP : RATE_PRE_BSP_LOAN;
+  // Determine legal rate based on filing date regime and obligation type
+  // Post-BSP: 6% regardless of obligation type
+  // Pre-BSP: depends on obligationType (loan = 12%, non-loan = 6%)
+  const legalRateBps = getLegalRate(obligationType, filingDate, false);
 
   const art2212Interest = computeInterest(accruedStipulatedInterest, legalRateBps, filingToTargetDays);
 

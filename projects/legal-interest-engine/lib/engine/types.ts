@@ -54,7 +54,7 @@ export interface ComputationResult {
   input: ComputationInput;
   periods: ComputationPeriod[];
   art2212?: Art2212Layer;
-  postFinality?: ComputationPeriod;
+  postFinality?: ComputationPeriod[];
   additionalAwards?: AdditionalAwardBreakdown[];
   totalPrincipal: number;
   totalInterest: number;

@@ -104,6 +104,7 @@ export function compute(input: ComputationInput): ComputationResult {
         filingDate,
         preFinalityEnd,
         judgmentFinalityDate,
+        obligationType,
       ) ?? undefined
     : undefined;
 
@@ -122,18 +123,17 @@ export function compute(input: ComputationInput): ComputationResult {
     targetDate,
   );
 
-  // Normalize postFinality — always store as single period (take first if array)
-  let postFinality: ComputationPeriod | undefined;
+  // Normalize postFinality — always store as array
+  let postFinality: ComputationPeriod[] | undefined;
   let postFinalityInterestTotal = 0;
 
   if (postFinalityResult !== null) {
     if (Array.isArray(postFinalityResult)) {
       // Multiple post-finality periods (stipulated case)
-      // Store first one in postFinality, sum all interests
-      postFinality = postFinalityResult[0];
+      postFinality = postFinalityResult;
       postFinalityInterestTotal = postFinalityResult.reduce((sum, p) => sum + p.interest, 0);
     } else {
-      postFinality = postFinalityResult;
+      postFinality = [postFinalityResult];
       postFinalityInterestTotal = postFinalityResult.interest;
     }
   }
