@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -5,6 +6,12 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { SessionProvider } from '@/components/providers/session-provider';
 import { Card, CardBody, CardHeader } from '@/components/ui/card';
+
+export const metadata: Metadata = {
+  title: 'Pricing',
+  description:
+    'Simple, transparent pricing for the Legal Interest Engine. Start free with 3 computations per month. Upgrade for unlimited computations, document generation, and case management.',
+};
 
 function CheckIcon() {
   return (

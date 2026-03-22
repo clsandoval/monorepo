@@ -1,9 +1,16 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { SessionProvider } from '@/components/providers/session-provider';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+
+export const metadata: Metadata = {
+  title: 'Philippine Legal Interest Calculator — Nacar Engine',
+  description:
+    'Eliminate computation errors in your legal filings. Nacar-compliant interest calculations with court-ready documents — built for Philippine practitioners.',
+};
 
 export default async function LandingPage() {
   const session = await getServerSession(authOptions);

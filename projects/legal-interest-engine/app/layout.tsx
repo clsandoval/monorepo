@@ -22,8 +22,18 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Legal Interest Engine",
-  description: "Legal interest computation for the Philippine market",
+  title: {
+    default: "Legal Interest Engine — Nacar Engine",
+    template: "%s — Legal Interest Engine",
+  },
+  description:
+    "Philippine legal interest calculator built on Nacar v. Gallery Frames. Compute Nacar-compliant interest, generate court-ready documents, and manage cases — built for Philippine practitioners.",
+  metadataBase: new URL("https://legalinterestengine.ph"),
+  openGraph: {
+    siteName: "Legal Interest Engine",
+    locale: "en_PH",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

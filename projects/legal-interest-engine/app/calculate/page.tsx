@@ -1,9 +1,16 @@
+import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { SessionProvider } from '@/components/providers/session-provider';
 import { CalculatorClient } from './calculator-client';
+
+export const metadata: Metadata = {
+  title: 'Free Nacar Interest Computation',
+  description:
+    'Free Philippine legal interest calculator. Compute Nacar-compliant interest with correct 12%→6% rate transitions and Art. 2212 compounding. No signup required.',
+};
 
 export default async function CalculatePage() {
   const session = await getServerSession(authOptions);
