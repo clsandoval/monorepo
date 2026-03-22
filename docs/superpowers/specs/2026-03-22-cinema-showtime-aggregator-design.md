@@ -393,6 +393,43 @@ apps/cinemagic/
 - Showtime results: "Premium users get personalized picks" inline
 - After browsing 3+ movies: subtle bottom bar "Save time — let us suggest"
 
+## UI Direction: Monochrome Minimal
+
+**Aesthetic:** Pure black and white. No color whatsoever — not even grays for accents. Brutalist, data-first. The showtimes ARE the interface.
+
+**Typography:**
+- Headings: Bebas Neue (all-caps, heavy, tight tracking)
+- Body/showtimes: Space Mono (monospace — reinforces the data-first feel)
+- Movie titles: Bold sans-serif, all uppercase
+
+**Palette:**
+- Background: pure black (#000)
+- Text: pure white (#fff)
+- Borders/dividers: dark gray (#111, #222)
+- Muted text: mid-gray (#444)
+- Selected/highlighted: white fill on black text (inverted)
+- No accent color. No gold, no red, no blue. Black and white only.
+
+**Layout principles:**
+- **Date-picker-first homepage** — horizontal date strip at top. Pick a day, see what's playing. No hero banner, no marketing fluff.
+- **Movie rows** — poster thumbnail, uppercase title, metadata, showtime pills in a horizontal row. Arrow to detail page.
+- **Showtime pills** — bordered white-on-black by default. Selected/premium formats (IMAX, 4DX, Dolby) get inverted (white fill, black text).
+- **Generous vertical spacing** — each movie row breathes. Dense information but not cramped.
+- **No rounded corners** — sharp edges throughout. Border-radius: 2px max.
+- **Minimal chrome** — no icons except essential (search, location). No emojis. No illustrations.
+
+**Mobile behavior:**
+- Date strip scrolls horizontally
+- Movie rows stack vertically, full width
+- Showtime pills wrap to multiple lines
+- Bottom nav: Now / Soon / Cinemas / Profile (text only, no icons)
+
+**Premium distinction:**
+- Free dashboard: same monochrome aesthetic, showtime list
+- Premium dashboard: adds a "Suggested for you" section above the list — same visual style but with a thin top border separating it. Suggestion reason text in gray below each pick.
+
+**Reference mood:** A departures board at an airport. Functional. Scannable. You find what you need in seconds.
+
 ## Out of Scope for v1
 
 - Native mobile apps (iOS/Android)
