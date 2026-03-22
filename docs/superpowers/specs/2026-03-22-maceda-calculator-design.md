@@ -85,17 +85,25 @@ A standalone single-page calculator for Philippine residential real estate buyer
 
 ### RA 6552 Rules
 
-**Cash Surrender Value:**
+**Cash Surrender Value (Section 3 — 2+ years paid):**
 - Buyer must have paid at least 2 years of installments
-- Base: 50% of total payments made
-- After year 2: +5% per year of additional payments
+- Base: 50% of total payments made (flat for years 2–5)
+- After year 5: +5% per year of additional payments
 - Cap: 90% of total payments
-- Formula: `CSV = totalPayments × min(0.90, 0.50 + 0.05 × max(0, yearsPaid - 2))`
+- Formula: `CSV = totalPayments × min(0.90, 0.50 + 0.05 × max(0, yearsPaid - 5))`
+- `totalPayments = downPayment + sum(payments[].amount)` (includes down payment, deposits, option money per RA 6552)
 
-**Grace Period:**
-- 1 month per year of installments paid
+**Section 4 — Under 2 years paid:**
+- Buyer gets a 60-day grace period from date of default
+- No CSV entitlement
+- If buyer fails to pay within 60 days, developer may cancel with 30-day notice
+
+**Grace Period (Section 3):**
+- `floor(yearsPaid)` months (1 month per full year of installments paid)
 - Can only be exercised once every 5 years
 - Buyer must pay installments due during grace period (without additional interest)
+
+**Computation reference date:** All computations use today's date as the "as of" date for determining yearsPaid. No separate input needed in v1.
 
 **Cancellation Rules (informational display):**
 - Developer must send notarial notice of cancellation
@@ -112,8 +120,11 @@ interface MacedaInput {
   contractStartDate: string;       // ISO date
   payments: PaymentEntry[];        // { date: string, amount: number }
   previousGracePeriod: boolean;
-  previousGracePeriodDate?: string; // ISO date, if applicable
+  previousGracePeriodDate?: string; // ISO date — required when previousGracePeriod is true
 }
+
+// yearsPaid derivation: floor(months between contractStartDate and latest payment date / 12)
+// totalPayments derivation: downPayment + sum(payments[].amount)
 ```
 
 ### Engine Outputs
@@ -122,14 +133,16 @@ interface MacedaInput {
 interface MacedaResult {
   eligible: boolean;               // met 2-year threshold?
   totalPayments: number;           // sum of all payments
-  yearsPaid: number;               // computed from payment history
-  csvPercentage: number;           // 0.50–0.90
+  yearsPaid: number;               // floor(months from contractStart to latest payment / 12)
+  csvPercentage: number;           // 0.50–0.90 (0 if under 2 years)
   csvAmount: number;               // totalPayments × csvPercentage
+  section4: boolean;               // true if under 2 years (Section 4 applies instead)
   gracePeriod: {
     eligible: boolean;
-    months: number;                // 1 per year paid
+    months: number;                // floor(yearsPaid) — 1 month per full year paid
     canExercise: boolean;          // false if exercised within last 5 years
     nextEligibleDate?: string;     // if canExercise is false
+    section4GraceDays?: number;    // 60 days if section4 is true
   };
   timeline: TimelineEntry[];       // for visualization
 }
@@ -175,10 +188,19 @@ Three card sections stacked:
 4. **Calculate button** — Full-width, dark charcoal (#2C2418), "Calculate my rights"
 
 ### Zone 3 — Results (appears after calculation)
+
+**If eligible (2+ years — Section 3):**
 1. **Hero card** — Accent bar top, centered: "You are owed" label, large peso amount in JetBrains Mono, percentage breakdown, green eligibility badge
 2. **Grace period card** — Row layout: label + description on left, duration in green mono on right
-3. **Timeline** — Horizontal segmented bar (base / bonus / remaining) with year labels and 2-year threshold marker. Explanatory note below.
-4. **Legal basis** — Collapsible card with RA 6552 section citations
+3. **Timeline** — Horizontal segmented bar (base 50% / bonus / remaining) with year labels, 2-year threshold and 5-year bonus markers. Explanatory note below.
+4. **Legal basis** — Collapsible card with RA 6552 Section 3 citations
+
+**If not eligible (under 2 years — Section 4):**
+1. **Info card** — Explains that CSV does not apply yet, but the buyer has a 60-day grace period from date of default under Section 4
+2. **Progress indicator** — Shows how close they are to the 2-year threshold
+3. **Legal basis** — Collapsible card with RA 6552 Section 4 citations
+
+**Validation errors:** Inline below each field. Calculate button disabled until all required fields are filled.
 
 ### Responsive Behavior
 - Single column on all breakpoints
