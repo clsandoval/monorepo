@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Tier {
+  free
+  consumer
+  professional
+}
+
+enum AuthProvider {
+  email
+  google
+}
+
+enum CaseStatus {
+  active
+  demand_sent
+  filed
+  judgment
+  execution
+  closed
+}
+
+enum DocumentType {
+  worksheet
+  demand_letter
+  court_filing
+  summary_memo
+}
+
+enum SubscriptionStatus {
+  active
+  cancelled
+  past_due
+}
+
+enum SubscriptionPlan {
+  consumer
+  professional
+}
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  name          String?
+  avatarUrl     String?
+  tier          Tier           @default(free)
+  authProvider  AuthProvider   @default(email)
+  passwordHash  String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  computations  Computation[]
+  cases         Case[]
+  subscriptions Subscription[]
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Computation {
+  id        String   @id @default(uuid())
+  userId    String?
+  inputs    Json
+  result    Json
+  label     String?
+  tags      String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User?             @relation(fields: [userId], references: [id])
+  cases     ComputationCase[]
+  documents Document[]
+}
+
+model Case {
+  id            String     @id @default(uuid())
+  userId        String
+  caseTitle     String
+  caseNumber    String?
+  courtBranch   String?
+  clientName    String?
+  opposingParty String?
+  status        CaseStatus @default(active)
+  notes         String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  user         User              @relation(fields: [userId], references: [id])
+  computations ComputationCase[]
+}
+
+model ComputationCase {
+  computationId String
+  caseId        String
+
+  computation Computation @relation(fields: [computationId], references: [id])
+  case        Case        @relation(fields: [caseId], references: [id])
+
+  @@id([computationId, caseId])
+}
+
+model Document {
+  id            String       @id @default(uuid())
+  computationId String
+  type          DocumentType
+  content       Json
+  pdfUrl        String?
+  createdAt     DateTime     @default(now())
+
+  computation Computation @relation(fields: [computationId], references: [id])
+}
+
+model Subscription {
+  id                     String             @id @default(uuid())
+  userId                 String
+  plan                   SubscriptionPlan
+  paymongoSubscriptionId String
+  status                 SubscriptionStatus @default(active)
+  currentPeriodEnd       DateTime
+  createdAt              DateTime           @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
