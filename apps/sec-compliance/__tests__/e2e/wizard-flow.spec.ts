@@ -14,10 +14,10 @@ test("wizard flow — worked example produces results with penalty > ₱300,000"
 
   // --- Step 1: Corporation Type ---
   // Select "Stock Corporation" radio
-  await page.getByRole("radio", { name: /stock corporation/i }).click();
+  await page.getByRole("radio", { name: "Stock Corporation", exact: true }).click();
 
   // Next button should be enabled; advance
-  await page.getByRole("button", { name: /next/i }).click();
+  await page.getByRole("button", { name: /next/i }).first().click();
 
   // --- Step 2: Corporation Details ---
   // Select incorporation year 2018
@@ -30,7 +30,7 @@ test("wizard flow — worked example produces results with penalty > ₱300,000"
 
   // MC28 checkbox — leave unchecked (default)
 
-  await page.getByRole("button", { name: /next/i }).click();
+  await page.getByRole("button", { name: /next/i }).first().click();
 
   // --- Step 3: Filing History ---
   // Check GIS 2018
@@ -46,7 +46,7 @@ test("wizard flow — worked example produces results with penalty > ₱300,000"
   // Check AFS 2021
   await page.getByRole("checkbox", { name: /afs 2021/i }).check();
 
-  await page.getByRole("button", { name: /next/i }).click();
+  await page.getByRole("button", { name: /next/i }).first().click();
 
   // --- Step 4: Suspension/Orders ---
   // No suspension or revocation — defaults are "No"; just submit

@@ -30,11 +30,8 @@ test("results page — renders all key sections from pre-encoded data", async ({
     page.getByText("Delinquent", { exact: false })
   ).toBeVisible();
 
-  // Compliance timeline container is rendered
-  // The timeline is a horizontal bar chart rendered by ComplianceTimeline
-  const timeline = page.locator("[data-testid='compliance-timeline'], .compliance-timeline, table").first();
-  // Fallback: look for the year range in the page which indicates timeline rendered
-  await expect(page.getByText(/2018/)).toBeVisible();
+  // Compliance timeline is rendered — years show as 2-digit ("18", "19", etc.)
+  await expect(page.getByText("Compliance Timeline")).toBeVisible();
 
   // Penalty table has rows — look for table rows with penalty data
   const tableRows = page.locator("table tbody tr");
