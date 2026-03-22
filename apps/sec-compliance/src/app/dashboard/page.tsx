@@ -79,7 +79,11 @@ export default async function DashboardPage() {
         compliantCount={compliantCount}
       />
 
-      <DashboardClient corporations={corpRows} />
+      <DashboardClient
+        corporations={corpRows}
+        corpLimit={org.corp_limit}
+        currentCorpCount={corpRows.length}
+      />
     </main>
   );
 }

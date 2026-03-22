@@ -11,8 +11,8 @@ import { CostEstimate } from "@/components/remediation/cost-estimate";
 import { StepGuide } from "@/components/remediation/step-guide";
 import { DocumentChecklist } from "@/components/remediation/document-checklist";
 import Link from "next/link";
-import { ArrowLeft, FileText, Pencil } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { DetailActions } from "./detail-client";
 
 interface PageProps {
   params: Promise<{ corpId: string }>;
@@ -108,20 +108,15 @@ export default async function CorporationDetailPage({ params }: PageProps) {
         </div>
 
         {/* Action buttons */}
-        <div className="flex gap-3">
-          <Button variant="outline" size="default" className="gap-1.5 font-body text-sm">
-            <Pencil className="h-3.5 w-3.5" />
-            Edit Filing History
-          </Button>
-          <Button
-            variant="default"
-            size="default"
-            className="gap-1.5 font-body text-sm bg-sec-blue hover:bg-sec-blue/90"
-          >
-            <FileText className="h-3.5 w-3.5" />
-            Generate Report
-          </Button>
-        </div>
+        <DetailActions
+          corpId={corpId}
+          incorporationYear={incYear}
+          existingFilings={filings.map((f) => ({
+            reportType: f.report_type,
+            year: f.year,
+            status: f.status,
+          }))}
+        />
       </div>
 
       {/* Legal disclaimer */}
