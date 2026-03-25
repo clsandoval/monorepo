@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 352
-- **Pending:** 161
-- **Convergence:** 68.6%
+- **Analyzed:** 357
+- **Pending:** 156
+- **Convergence:** 69.6%
 
 ---
 
@@ -87,7 +87,7 @@
 - [x] 4.86 — Agree-to-disagree as mission design constraint: "Fork Missions" as a mission archetype specifically designed to trigger agree-to-disagree divergence; the player's choice (Focused vs. Structural) determines which half of the mission they get credit for; teaches goal-dependent diagnosis as a first-class skill; interaction with mission-design-*.md
 - [x] 4.87 — "What if I'd chosen the other fix?" post-apply counterfactual in agree-to-disagree: after applying one fix, a one-click simulation showing what pass rate would have been if the other fix had been applied; teaches what was traded; reduces regret; interaction with 4.38 counterfactual history and 4.80 "what if I had applied QUICK?" counterfactual
 - [x] 4.88 — Adaptive weight suggestion from divergence history: after 10+ divergence events, the game surfaces a data-driven weight recommendation ("your pre-ranking accuracy improves 23% when recency is below 20% in sessions with ≤2 config changes"); automatic prior recommendation from empirical session data; teaches Bayesian updating of diagnostic priors; interaction with 4.63 and 4.64
-- [ ] 4.89 — Weight preset import/export as config string: pre-ranking weight presets are serializable to a short config string (e.g., `PA:66,R:25,V:8`) that can be pasted in community channels; standardized sharing format for "optimal presets" for specific mission types; connects the in-game mechanic to real-world config-sharing culture (dotfiles, .eslintrc, etc.)
+- [x] 4.89 — Weight preset import/export as config string: pre-ranking weight presets are serializable to a short config string (e.g., `PA:66,R:25,V:8`) that can be pasted in community channels; standardized sharing format for "optimal presets" for specific mission types; connects the in-game mechanic to real-world config-sharing culture (dotfiles, .eslintrc, etc.)
 - [ ] 4.90 — Weight configuration review prompt on campaign chapter transitions: when entering a new chapter, an optional prompt asks "your pre-ranking weights were saved in Chapter 2 — mission patterns have changed, do you want to review your diagnostic priors?"; temporal configuration hygiene as a campaign mechanic; prevents stale priors silently degrading performance
 - [ ] 4.91 — Visual weight interpolation animation when switching presets: when the player selects a different named preset, the three slider thumbs animate to their new positions over 500ms in sequence (pivot first, recency second, volatility third); the results list reshuffles during the animation; tactile preset switching that makes weight-change legible as motion; memory aid for what each preset "feels like"
 - [ ] 4.92 — Per-mission-type weight performance heatmap in career stats: a career stats panel showing which weight configurations produced highest QUICK accuracy for each mission type (wave 1 relay missions, wave 3 armor missions, etc.); color-coded grid: rows = mission types, columns = presets; teaches that heuristic configuration is context-dependent, not globally optimal
@@ -195,7 +195,7 @@
 - [x] 1.14a — The "Ratio Calculator" gap: in-game vs. external optimization tools; Robot Uprising's Inspector as built-in optimizer vs. Factorio's external calculator dependency; pre-execution signal latency predictions in the workbench
 - [x] 1.14b — The spaghetti-to-bus progression as emergent tutorial: how Factorio players naturally evolve from spaghetti→bus→trains; channel topology should follow same arc (all-to-all→hierarchy→relay-mediated); designing walls that motivate architectural evolution
 - [x] 1.14c — Peaceful mode as accessibility escape valve: sandbox mode for configure-and-test without mission pressure; ghost preview vs. full simulation; interaction with plan screen design
-- [ ] 1.14d — The "everything is visible" vs. "temporal separation" design philosophy: Factorio shows everything always; Robot Uprising hides internals until Inspector; when each approach works better
+- [x] 1.14d — The "everything is visible" vs. "temporal separation" design philosophy: Factorio shows everything always; Robot Uprising hides internals until Inspector; when each approach works better
 - [ ] 1.14e — Friday Facts as community-building pattern: weekly dev blog as trust engine; 500+ posts building Factorio's community; what Robot Uprising's development transparency model looks like for an AI-engineering game
 - [x] 1.15 — Shapez: pure factory puzzle stripped of combat, focus on throughput and layout
 - [x] 1.16 — Mindustry: tower defense + factory + RTS hybrid, conveyor logistics under pressure
@@ -303,7 +303,7 @@
 - [x] 2.06 — Player-configured eviction: drag to set priority order of what gets kept
 - [x] 2.07 — Automatic eviction with player-set rules: "always keep threat data, evict terrain first"
 - [x] 2.08 — Panic eviction: under pressure, buffer dumps aggressively — unit "forgets" rapidly
-- [ ] 2.09 — Sticky memories: some entries are "pinned" and never evict (costs permanent capacity)
+- [x] 2.09 — Sticky memories: some entries are "pinned" and never evict (costs permanent capacity)
 
 ### Signal & Information Types
 - [x] 2.10 — Signal taxonomy: what kinds of information exist in the game world (threats, resources, terrain, orders, rumors)
@@ -391,7 +391,7 @@
 - [x] 3.11 — Hooks UI: how does the player create and manage hooks?
 - [x] 3.11a — Hook template presets per unit type: should each unit type come with pre-suggested hooks? How do presets help onboarding without limiting creativity?
 - [x] 3.11b — The "dead hook" diagnostic: when a hook has fired 0 times in the last N executes, should the Inspector flag it as misconfigured? Amber warning on unused hooks
-- [ ] 3.11c — Hook copy-paste between blueprints: channel names carry over, but trigger availability may differ by unit type; handling incompatible triggers on paste
+- [x] 3.11c — Hook copy-paste between blueprints: channel names carry over, but trigger availability may differ by unit type; handling incompatible triggers on paste
 - [ ] 3.11d — Channel subscriber count as competitive intelligence: can the opponent estimate your channel count from EM emissions? EM footprint surfaced in hooks UI as you add hooks
 - [ ] 3.11e — Expert keyboard workflow for hook wiring: Ctrl+H to add hook, Tab between fields, Enter to confirm, Ctrl+Up/Down to reorder; full mouseless speedrun
 - [x] 3.08a — Trigger-to-rule vocabulary alignment: should triggers and rules use the same condition primitives (shared vocabulary reduces learning cost) or distinct vocabularies (independent evolution)?
@@ -597,7 +597,7 @@
   - [ ] 5.12e — Cross-predecessor dialogue: annotations referencing other predecessors' work; The Paranoid commenting on The Architect's relay chain; multi-voice epistolary narrative within the config
 - [x] 5.11 — Solitaire distraction risk: when a secondary mechanic (debrief analysis, sandbox mode) becomes more engaging than the core loop — how to prevent and exploit
 - [x] 5.14a — The fidelity threshold as onboarding gate: fidelity thresholds are the mechanic that teaches players to think about information quality, not just presence; design pass on the "first fidelity moment" — a mission where default threshold fails, debrief explains why, fix is a single slider adjustment; the designed teaching moment for buffer quality awareness
-- [ ] 5.14b — Per-channel fidelity thresholds: advanced mode where each listened channel gets its own threshold slider; UI complexity management, when to introduce vs. keep behind "Advanced" toggle, interaction with channel map panel
+- [x] 5.14b — Per-channel fidelity thresholds: advanced mode where each listened channel gets its own threshold slider; UI complexity management, when to introduce vs. keep behind "Advanced" toggle, interaction with channel map panel
 - [ ] 5.14c — Fidelity threshold as rule condition: rules that reference fidelity threshold as a variable; "IF signal fidelity < threshold AND source = relay-B → compress before processing"; the threshold becoming part of the rule language rather than just a config parameter
 - [ ] 5.14d — Adaptive fidelity threshold (The Immune System model): auto-adjusting threshold that responds to buffer pressure; the pressure curve, two-parameter configuration, sealed watch visualization of threshold shifting in real-time
 - [ ] 5.14e — Enemy fidelity spoofing: late-game enemy tactic with artificially inflated fidelity scores; forces secondary quality checks beyond threshold slider; source authentication, signal chain verification; the arms race as difficulty escalator
