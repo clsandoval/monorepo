@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 347
-- **Pending:** 166
-- **Convergence:** 67.6%
+- **Analyzed:** 352
+- **Pending:** 161
+- **Convergence:** 68.6%
 
 ---
 
@@ -86,7 +86,7 @@
 - [x] 4.85 — Predictability index for Gauntlet agree-to-disagree: each card shows a "predictability score" based on aggregate data from players in similar config states — "high predictability" means skilled opponents are likely to have predicted this fix; turns agree-to-disagree into adversarial information game; interaction with 4.39 adversarial counterfactual and 4.57 threat model report
 - [x] 4.86 — Agree-to-disagree as mission design constraint: "Fork Missions" as a mission archetype specifically designed to trigger agree-to-disagree divergence; the player's choice (Focused vs. Structural) determines which half of the mission they get credit for; teaches goal-dependent diagnosis as a first-class skill; interaction with mission-design-*.md
 - [x] 4.87 — "What if I'd chosen the other fix?" post-apply counterfactual in agree-to-disagree: after applying one fix, a one-click simulation showing what pass rate would have been if the other fix had been applied; teaches what was traded; reduces regret; interaction with 4.38 counterfactual history and 4.80 "what if I had applied QUICK?" counterfactual
-- [ ] 4.88 — Adaptive weight suggestion from divergence history: after 10+ divergence events, the game surfaces a data-driven weight recommendation ("your pre-ranking accuracy improves 23% when recency is below 20% in sessions with ≤2 config changes"); automatic prior recommendation from empirical session data; teaches Bayesian updating of diagnostic priors; interaction with 4.63 and 4.64
+- [x] 4.88 — Adaptive weight suggestion from divergence history: after 10+ divergence events, the game surfaces a data-driven weight recommendation ("your pre-ranking accuracy improves 23% when recency is below 20% in sessions with ≤2 config changes"); automatic prior recommendation from empirical session data; teaches Bayesian updating of diagnostic priors; interaction with 4.63 and 4.64
 - [ ] 4.89 — Weight preset import/export as config string: pre-ranking weight presets are serializable to a short config string (e.g., `PA:66,R:25,V:8`) that can be pasted in community channels; standardized sharing format for "optimal presets" for specific mission types; connects the in-game mechanic to real-world config-sharing culture (dotfiles, .eslintrc, etc.)
 - [ ] 4.90 — Weight configuration review prompt on campaign chapter transitions: when entering a new chapter, an optional prompt asks "your pre-ranking weights were saved in Chapter 2 — mission patterns have changed, do you want to review your diagnostic priors?"; temporal configuration hygiene as a campaign mechanic; prevents stale priors silently degrading performance
 - [ ] 4.91 — Visual weight interpolation animation when switching presets: when the player selects a different named preset, the three slider thumbs animate to their new positions over 500ms in sequence (pivot first, recency second, volatility third); the results list reshuffles during the animation; tactile preset switching that makes weight-change legible as motion; memory aid for what each preset "feels like"
@@ -194,7 +194,7 @@
 - [x] 1.14 — Factorio: belt/logistics systems, throughput optimization, infinite scalability, mod community
 - [x] 1.14a — The "Ratio Calculator" gap: in-game vs. external optimization tools; Robot Uprising's Inspector as built-in optimizer vs. Factorio's external calculator dependency; pre-execution signal latency predictions in the workbench
 - [x] 1.14b — The spaghetti-to-bus progression as emergent tutorial: how Factorio players naturally evolve from spaghetti→bus→trains; channel topology should follow same arc (all-to-all→hierarchy→relay-mediated); designing walls that motivate architectural evolution
-- [ ] 1.14c — Peaceful mode as accessibility escape valve: sandbox mode for configure-and-test without mission pressure; ghost preview vs. full simulation; interaction with plan screen design
+- [x] 1.14c — Peaceful mode as accessibility escape valve: sandbox mode for configure-and-test without mission pressure; ghost preview vs. full simulation; interaction with plan screen design
 - [ ] 1.14d — The "everything is visible" vs. "temporal separation" design philosophy: Factorio shows everything always; Robot Uprising hides internals until Inspector; when each approach works better
 - [ ] 1.14e — Friday Facts as community-building pattern: weekly dev blog as trust engine; 500+ posts building Factorio's community; what Robot Uprising's development transparency model looks like for an AI-engineering game
 - [x] 1.15 — Shapez: pure factory puzzle stripped of combat, focus on throughput and layout
@@ -297,7 +297,7 @@
 - [x] 2.01b — Transit eviction in multi-hop chains: signals that arrive at a Relay and are evicted before compression can process them; "data dies in transit" problem; how common is this? Core tension or degenerate edge case?
 - [x] 2.01c — Empty buffer slots as strategic signal: half-empty buffers indicate information starvation; can the player deliberately engineer buffer headroom ("always keep 2 slots free for emergency signals") as a strategy?
 - [x] 2.01d — Buffer health as spectator readability tool: buffer bars as the "health bars" of information architecture for streamers/esports; design implications for casting vocabulary and overlay design
-- [ ] 2.01e — Polling-vs-event-driven tradeoff in buffer management: heartbeat (polling) vs. pure event-driven hooks; the game naturally teaches both patterns through buffer pressure; formal analysis of when each approach is optimal
+- [x] 2.01e — Polling-vs-event-driven tradeoff in buffer management: heartbeat (polling) vs. pure event-driven hooks; the game naturally teaches both patterns through buffer pressure; formal analysis of when each approach is optimal
 
 ### Eviction Policies
 - [x] 2.06 — Player-configured eviction: drag to set priority order of what gets kept
@@ -387,7 +387,7 @@
 - [x] 3.10c — Channel color assignment and palette management: auto-assignment vs player choice; color-blind palettes; palette exhaustion at 8+ channels
 - [x] 3.10d — Wire routing algorithms for the subway map paradigm: path-finding along grid edges, crossing handling, parallel lane stacking, manual waypoints, Bézier vs right-angle
 - [x] 3.10e — EM emission visualization: making detectable noise visible; separate overlay vs integrated; relationship between "signals you see" and "signals the enemy detects"
-- [ ] 3.10f — Visualization density scaling across the 10-mission arc: 2 units/0 channels (M1) to 12+ units/8+ channels (M10); paradigm breakdown thresholds; progressive disclosure gates
+- [x] 3.10f — Visualization density scaling across the 10-mission arc: 2 units/0 channels (M1) to 12+ units/8+ channels (M10); paradigm breakdown thresholds; progressive disclosure gates
 - [x] 3.11 — Hooks UI: how does the player create and manage hooks?
 - [x] 3.11a — Hook template presets per unit type: should each unit type come with pre-suggested hooks? How do presets help onboarding without limiting creativity?
 - [x] 3.11b — The "dead hook" diagnostic: when a hook has fired 0 times in the last N executes, should the Inspector flag it as misconfigured? Amber warning on unused hooks
@@ -575,7 +575,7 @@
 - [x] 5.09b — The "impossible challenge" community layer: community-submitted challenges with verified-impossible or extremely-difficult mutator combos; leaderboards for beautiful failure, not just victory
 - [x] 5.09c — Predecessor memory as light replay narrative: minimal-writing variant of narrative replay — 5-10 new Predecessor lines per cycle referencing specific mission outcomes; low dev cost, high emotional return
 - [x] 5.09d — The "remix tape" — curated mutator playlists: developer- or community-curated sequences of mutator combos across all 10 missions, packaged as named experiences; playlists as shareable content units
-- [ ] 5.09e — Cross-campaign persistent architecture museum: gallery saving the player's best architecture from each mission across all campaigns/cycles/ascension levels; historical preservation showing evolution of design philosophy
+- [x] 5.09e — Cross-campaign persistent architecture museum: gallery saving the player's best architecture from each mission across all campaigns/cycles/ascension levels; historical preservation showing evolution of design philosophy
 - [x] 5.10 — The "product as puzzle" narrative method: working backwards from fictional mission objects to determine which agent configurations matter (from Shenzhen I/O); six approaches (A "The Contract" — formal engineering specs, B "The Predecessor's Problem" — narrative-framed failure challenges, C "The Scenario" — board-state-as-specification Into the Breach style, D "The Reverse Engineering" — diagnose failure before building, E "The Escalating Request" — progressive product complexity on same board, F "The Hybrid Brief" RECOMMENDED — narrative + specification + board triple-layer for all learning styles); detailed interaction with Blueprint Codex as Shenzhen I/O manual analog; product portfolio as campaign narrative arc; specification explicitness as difficulty dial; comparable (Shenzhen I/O products, Opus Magnum recipes + histograms, Into the Breach implicit specs, Factorio production chains, EXAPUNKS heist targets, Baba Is You stable-goal-shifting-meaning); 4 player journeys (Mei 24 CS student first amplify chain from contract spec, Marcus 42 IT manager speed-building network architecture, Sofia 15 first-timer discovering hooks from Predecessor's "eyes but no voice" story, Kwame 32 streamer final mission golden reroute cascade — 180K view clip); TikTok clip: golden reroute wave + "I didn't write code, I designed the backup plan"; 5 new aspects discovered (5.10a–5.10e)
   - [ ] 5.10a — The "product portfolio" as campaign narrative: 10 mission products as coherent story arc from "wake up and see" to "destroy the adaptive factory"; designing products-as-narrative-beats; interaction with Predecessor arc (6.03a) and campaign structure (5.05)
   - [ ] 5.10b — Specification language explicitness as difficulty dial: explicit hints ("use amplify") vs. implicit challenges ("enemies are nearly invisible"); progressive implicit-ification across campaign; interaction with accessibility (6.08) and vocabulary pacing (5.00a)
