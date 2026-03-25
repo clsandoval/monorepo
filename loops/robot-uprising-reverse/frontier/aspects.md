@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 362
-- **Pending:** 151
-- **Convergence:** 70.6%
+- **Analyzed:** 367
+- **Pending:** 146
+- **Convergence:** 71.5%
 
 ---
 
@@ -89,7 +89,7 @@
 - [x] 4.88 — Adaptive weight suggestion from divergence history: after 10+ divergence events, the game surfaces a data-driven weight recommendation ("your pre-ranking accuracy improves 23% when recency is below 20% in sessions with ≤2 config changes"); automatic prior recommendation from empirical session data; teaches Bayesian updating of diagnostic priors; interaction with 4.63 and 4.64
 - [x] 4.89 — Weight preset import/export as config string: pre-ranking weight presets are serializable to a short config string (e.g., `PA:66,R:25,V:8`) that can be pasted in community channels; standardized sharing format for "optimal presets" for specific mission types; connects the in-game mechanic to real-world config-sharing culture (dotfiles, .eslintrc, etc.)
 - [x] 4.90 — Weight configuration review prompt on campaign chapter transitions: when entering a new chapter, an optional prompt asks "your pre-ranking weights were saved in Chapter 2 — mission patterns have changed, do you want to review your diagnostic priors?"; temporal configuration hygiene as a campaign mechanic; prevents stale priors silently degrading performance
-- [ ] 4.91 — Visual weight interpolation animation when switching presets: when the player selects a different named preset, the three slider thumbs animate to their new positions over 500ms in sequence (pivot first, recency second, volatility third); the results list reshuffles during the animation; tactile preset switching that makes weight-change legible as motion; memory aid for what each preset "feels like"
+- [x] 4.91 — Visual weight interpolation animation when switching presets: when the player selects a different named preset, the three slider thumbs animate to their new positions over 500ms in sequence (pivot first, recency second, volatility third); the results list reshuffles during the animation; tactile preset switching that makes weight-change legible as motion; memory aid for what each preset "feels like"
 - [ ] 4.92 — Per-mission-type weight performance heatmap in career stats: a career stats panel showing which weight configurations produced highest QUICK accuracy for each mission type (wave 1 relay missions, wave 3 armor missions, etc.); color-coded grid: rows = mission types, columns = presets; teaches that heuristic configuration is context-dependent, not globally optimal
 - [ ] 4.93 — Accuracy stat confidence interval display: showing not just "71%" but "71% ± 14pp (n=30)"; the confidence interval shrinks as n grows, making data accumulation feel meaningful; teaches statistical uncertainty without a statistics lecture; interaction with 8.08 vocabulary claim (statistical confidence as transferable engineering concept)
 - [ ] 4.94 — "Committed to QUICK" sessions only accuracy: tracking accuracy specifically in sessions where the player ran QUICK and made a config change without verifying with THOROUGH — the "did you trust it correctly?" metric; eliminates survivorship bias from selective THOROUGH usage; requires tracking whether THOROUGH was run before vs. after the config change was applied; the most honest possible accuracy measurement
@@ -206,7 +206,7 @@
 - [x] 1.19 — XCOM series: fog of war, probability management, squad persistence, permadeath stakes
 - [x] 1.20 — Cogmind: robot-themed roguelike, part-swapping system, information-dense UI
 - [x] 1.20a — The "salvage reveal" mechanic as enemy blueprint inspection: when a Robot Uprising unit dies, should the Inspector reveal the enemy unit's full configuration as a knowledge-looting pattern? Cogmind scatters destroyed robot parts visually; Robot Uprising could scatter destroyed robot configurations informationally
-- [ ] 1.20b — Gradual degradation vs. binary death: Cogmind's part-by-part degradation creates a rich mid-state between functional and dead; should Robot Uprising explore a "damaged" state where units lose context slots from near-misses or EM attacks? The design space between one-shot-one-kill and HP bars
+- [x] 1.20b — Gradual degradation vs. binary death: Cogmind's part-by-part degradation creates a rich mid-state between functional and dead; should Robot Uprising explore a "damaged" state where units lose context slots from near-misses or EM attacks? The design space between one-shot-one-kill and HP bars
 - [ ] 1.20c — The "naked core" recovery moment: Cogmind's most iconic moment is being stripped to a bare core and rebuilding from salvage; what is Robot Uprising's equivalent when the factory is destroyed? Does the game have a "rebuild from nothing" mechanic or is factory loss immediate defeat?
 - [x] 1.20d — Audio-as-intelligence in sealed watch: Cogmind players identify threats by sound before seeing them; should Robot Uprising's sealed watch include audio signals that experienced players learn to decode? Signal chain sounds whose pitch/pattern indicates network health
 - [ ] 1.20e — The Polymind inversion as Robot Uprising variant mode: a variant where the player directly controls one unit while the rest run autonomously — the "field commander" mode testing whether blueprints work without intervention
@@ -313,7 +313,7 @@
   - [ ] 2.10d — Enemy signal type spoofing depth: three levels of spoofing sophistication (wrong type, plausible payload, confidence spoofing); detection skill requirements per level
   - [ ] 2.10e — Type-aware compression ratios: per-content-type compression config on relay compress skill; THREAT 1:1 passthrough vs. POSITION 5:1 summary vs. TERRAIN drop
 - [x] 2.24 — Buffer miss fallback behaviors as a design vocabulary: what does an agent do when a rule's buffer query finds no match? (skip/fall-through, suspend for 1 tick, configurable defensive default, broadcast "need data" to its channel); which model teaches the right habits and prevents frustrating behavioral lockdown
-- [ ] 2.25 — The "last known position" prediction chain: when a positional buffer entry is too old for direct action, can the agent dead-reckon (last-known + elapsed ticks + velocity estimate)? Options: built-in skill, query modifier, or dedicated Specialist unit for position prediction; where does prediction live in the architecture?
+- [x] 2.25 — The "last known position" prediction chain: when a positional buffer entry is too old for direct action, can the agent dead-reckon (last-known + elapsed ticks + velocity estimate)? Options: built-in skill, query modifier, or dedicated Specialist unit for position prediction; where does prediction live in the architecture?
 - [x] 2.11 — Signal fidelity: signals degrade as they travel (telephone game mechanic)
 - [x] 2.12 — Deception signals: enemy can inject false information into your network
 - [ ] 2.26 — Fidelity spoofing as attack primitive: enemy crafts signals with artificially-high fidelity specifically to pass the player's confidence filters; the workbench UI for signal authentication (checksums, source signatures, Counter-Intelligence skill that verifies provenance before buffer entry); makes the attention language itself an adversarial interface
@@ -393,7 +393,7 @@
 - [x] 3.11b — The "dead hook" diagnostic: when a hook has fired 0 times in the last N executes, should the Inspector flag it as misconfigured? Amber warning on unused hooks
 - [x] 3.11c — Hook copy-paste between blueprints: channel names carry over, but trigger availability may differ by unit type; handling incompatible triggers on paste
 - [x] 3.11d — Channel subscriber count as competitive intelligence: can the opponent estimate your channel count from EM emissions? EM footprint surfaced in hooks UI as you add hooks
-- [ ] 3.11e — Expert keyboard workflow for hook wiring: Ctrl+H to add hook, Tab between fields, Enter to confirm, Ctrl+Up/Down to reorder; full mouseless speedrun
+- [x] 3.11e — Expert keyboard workflow for hook wiring: Ctrl+H to add hook, Tab between fields, Enter to confirm, Ctrl+Up/Down to reorder; full mouseless speedrun
 - [x] 3.08a — Trigger-to-rule vocabulary alignment: should triggers and rules use the same condition primitives (shared vocabulary reduces learning cost) or distinct vocabularies (independent evolution)?
 - [x] 3.08b — Channel naming conventions as emergent culture: standard channel libraries, community naming conventions, competitive meta around channel naming
 - [x] 3.08c — Hook slot economy as strategic constraint: choosing which hooks to install when you have more ideas than slots; slot scarcity as design pressure
@@ -599,7 +599,7 @@
 - [x] 5.14a — The fidelity threshold as onboarding gate: fidelity thresholds are the mechanic that teaches players to think about information quality, not just presence; design pass on the "first fidelity moment" — a mission where default threshold fails, debrief explains why, fix is a single slider adjustment; the designed teaching moment for buffer quality awareness
 - [x] 5.14b — Per-channel fidelity thresholds: advanced mode where each listened channel gets its own threshold slider; UI complexity management, when to introduce vs. keep behind "Advanced" toggle, interaction with channel map panel
 - [x] 5.14c — Fidelity threshold as rule condition: rules that reference fidelity threshold as a variable; "IF signal fidelity < threshold AND source = relay-B → compress before processing"; the threshold becoming part of the rule language rather than just a config parameter
-- [ ] 5.14d — Adaptive fidelity threshold (The Immune System model): auto-adjusting threshold that responds to buffer pressure; the pressure curve, two-parameter configuration, sealed watch visualization of threshold shifting in real-time
+- [x] 5.14d — Adaptive fidelity threshold (The Immune System model): auto-adjusting threshold that responds to buffer pressure; the pressure curve, two-parameter configuration, sealed watch visualization of threshold shifting in real-time
 - [ ] 5.14e — Enemy fidelity spoofing: late-game enemy tactic with artificially inflated fidelity scores; forces secondary quality checks beyond threshold slider; source authentication, signal chain verification; the arms race as difficulty escalator
 - [ ] 5.14f — The "overcautious" diagnostic in Inspector: post-mission diagnostic identifying unnecessarily high thresholds; quantified false-positive feedback as teaching tool; "You rejected 47 signals, but only 3 were genuine noise"
 - [x] 5.14 — Detection skills as complexity gate: the "intrusion detection" skill as an advanced mechanic that reveals hidden corruption to players who invest in it; scales difficulty with player sophistication rather than with a separate difficulty slider; advanced players uncover more depth, beginners get clean experience
