@@ -87,6 +87,21 @@ def generate_boundary_map(
         arrowprops=dict(arrowstyle="->", lw=2),
     )
 
+    # Auto-scale to lot extents (patches don't trigger autoscale)
+    all_pts = list(coords)
+    if neighbor_lots:
+        for nb in neighbor_lots:
+            all_pts.extend(nb["coords"])
+    if field_points:
+        all_pts.extend([(fp[0], fp[1]) for fp in field_points])
+    if all_pts:
+        xs = [c[0] for c in all_pts]
+        ys = [c[1] for c in all_pts]
+        margin_x = (max(xs) - min(xs)) * 0.1 or 10
+        margin_y = (max(ys) - min(ys)) * 0.1 or 10
+        ax.set_xlim(min(xs) - margin_x, max(xs) + margin_x)
+        ax.set_ylim(min(ys) - margin_y, max(ys) + margin_y)
+
     ax.set_xlabel("Easting (m)")
     ax.set_ylabel("Northing (m)")
     ax.set_aspect("equal")
@@ -113,6 +128,16 @@ def generate_overview_map(lots: list, output_path: str, project_id: str = "") ->
     ax.set_title(title, fontsize=14, fontweight="bold", pad=20)
     ax.annotate("N", xy=(0.95, 0.95), xycoords="axes fraction", fontsize=14, fontweight="bold", ha="center")
     ax.annotate("", xy=(0.95, 0.95), xycoords="axes fraction", xytext=(0.95, 0.88), textcoords="axes fraction", arrowprops=dict(arrowstyle="->", lw=2))
+    # Auto-scale to lot extents (patches don't trigger autoscale)
+    all_coords = [c for lot in lots for c in lot["coords"]]
+    if all_coords:
+        xs = [c[0] for c in all_coords]
+        ys = [c[1] for c in all_coords]
+        margin_x = (max(xs) - min(xs)) * 0.1 or 10
+        margin_y = (max(ys) - min(ys)) * 0.1 or 10
+        ax.set_xlim(min(xs) - margin_x, max(xs) + margin_x)
+        ax.set_ylim(min(ys) - margin_y, max(ys) + margin_y)
+
     ax.set_xlabel("Easting (m)")
     ax.set_ylabel("Northing (m)")
     ax.set_aspect("equal")
