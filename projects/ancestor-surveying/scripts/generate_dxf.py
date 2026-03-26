@@ -143,3 +143,43 @@ def _compute_text_height(coords: list) -> float:
     ns = [c[1] for c in coords]
     extent = max(max(es) - min(es), max(ns) - min(ns))
     return max(0.5, extent / 40.0)
+
+
+def generate_consolidated_plan(lots: list, output_path: str, project_id: str = "") -> str:
+    """Generate a consolidated DXF with all lots on one plan."""
+    doc = ezdxf.new("R2010")
+    msp = doc.modelspace()
+    doc.layers.add("BOUNDARY", color=7)
+    doc.layers.add("LABELS", color=3)
+    doc.layers.add("ANNOTATIONS", color=1)
+
+    all_coords = []
+    for lot_data in lots:
+        coords = lot_data["coords"]
+        all_coords.extend(coords)
+        n = len(coords)
+        # Boundary polygon
+        points = list(coords) + [coords[0]]
+        for i in range(len(points) - 1):
+            msp.add_line(points[i], points[i + 1], dxfattribs={"layer": "BOUNDARY"})
+        # Corner markers
+        text_height = _compute_text_height(coords)
+        marker_size = text_height * 0.3
+        for i, (e, n_coord) in enumerate(coords):
+            msp.add_line((e - marker_size, n_coord), (e + marker_size, n_coord), dxfattribs={"layer": "LABELS"})
+            msp.add_line((e, n_coord - marker_size), (e, n_coord + marker_size), dxfattribs={"layer": "LABELS"})
+        # Lot label
+        centroid = (sum(c[0] for c in coords) / n, sum(c[1] for c in coords) / n)
+        msp.add_text(lot_data["lot_name"], height=text_height, dxfattribs={"layer": "ANNOTATIONS"}).set_placement(centroid)
+        if lot_data.get("area_sqm"):
+            msp.add_text(f"Area: {lot_data['area_sqm']:,.0f} sq.m.", height=text_height * 0.6, dxfattribs={"layer": "ANNOTATIONS"}).set_placement((centroid[0], centroid[1] - text_height * 1.5))
+
+    # Project title
+    if project_id and all_coords:
+        overall_th = _compute_text_height(all_coords)
+        max_n = max(c[1] for c in all_coords)
+        mid_e = (min(c[0] for c in all_coords) + max(c[0] for c in all_coords)) / 2
+        msp.add_text(f"Project: {project_id}", height=overall_th * 2, dxfattribs={"layer": "ANNOTATIONS"}).set_placement((mid_e, max_n + overall_th * 5))
+
+    doc.saveas(output_path)
+    return output_path

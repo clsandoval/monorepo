@@ -95,3 +95,58 @@ def generate_survey_report(report_data: dict, output_path: str) -> str:
 
     doc.save(output_path)
     return output_path
+
+
+def generate_project_report(project_data: dict, output_path: str) -> str:
+    """Generate a project-level report covering all lots."""
+    doc = Document()
+    doc.add_heading("Survey Project Report", level=0)
+    doc.add_heading(f"{project_data['project_id']} — {project_data.get('project_type', '').title()} Survey", level=1)
+    doc.add_paragraph(f"Location: {project_data.get('location', '')}")
+    doc.add_paragraph("")
+
+    doc.add_heading("Lot Results Summary", level=2)
+    lot_table = doc.add_table(rows=1, cols=5)
+    lot_table.style = "Table Grid"
+    hdr = lot_table.rows[0].cells
+    hdr[0].text = "Lot"
+    hdr[1].text = "Title"
+    hdr[2].text = "Closure"
+    hdr[3].text = "Area Check"
+    hdr[4].text = "Stated Area (sqm)"
+    for lr in project_data.get("lot_results", []):
+        row = lot_table.add_row().cells
+        row[0].text = lr["lot_name"]
+        row[1].text = lr.get("title_number", "")
+        row[2].text = "PASS" if lr.get("closure_passed") else "FAIL"
+        row[3].text = "PASS" if lr.get("area_passed") else "FAIL"
+        row[4].text = f"{lr.get('stated_area', 0):,.0f}"
+
+    doc.add_heading("Document Seniority", level=2)
+    sen_table = doc.add_table(rows=1, cols=3)
+    sen_table.style = "Table Grid"
+    hdr = sen_table.rows[0].cells
+    hdr[0].text = "Survey"
+    hdr[1].text = "Year"
+    hdr[2].text = "Rank"
+    for s in project_data.get("seniority_chain", []):
+        row = sen_table.add_row().cells
+        row[0].text = s["survey"]
+        row[1].text = str(s.get("year", ""))
+        row[2].text = str(s["rank"])
+
+    doc.add_heading("QA Summary", level=2)
+    qa_table = doc.add_table(rows=1, cols=3)
+    qa_table.style = "Table Grid"
+    hdr = qa_table.rows[0].cells
+    hdr[0].text = "Check"
+    hdr[1].text = "Result"
+    hdr[2].text = "Details"
+    for q in project_data.get("qa_summary", []):
+        row = qa_table.add_row().cells
+        row[0].text = q["check"]
+        row[1].text = q["result"]
+        row[2].text = q["details"]
+
+    doc.save(output_path)
+    return output_path

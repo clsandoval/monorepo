@@ -96,3 +96,28 @@ def generate_boundary_map(
     fig.savefig(output_path, format="pdf", dpi=150, bbox_inches="tight")
     plt.close(fig)
     return output_path
+
+
+def generate_overview_map(lots: list, output_path: str, project_id: str = "") -> str:
+    """Generate a PDF overview map showing all lots."""
+    fig, ax = plt.subplots(1, 1, figsize=(11, 8.5))
+    colors = ["#e8f4e8", "#e8e8f4", "#f4e8e8", "#f4f4e8", "#e8f4f4", "#f4e8f4"]
+    for i, lot in enumerate(lots):
+        coords = lot["coords"]
+        color = colors[i % len(colors)]
+        polygon = plt.Polygon(coords, fill=True, facecolor=color, edgecolor="black", linewidth=1.5)
+        ax.add_patch(polygon)
+        centroid = (sum(c[0] for c in coords) / len(coords), sum(c[1] for c in coords) / len(coords))
+        ax.annotate(lot["lot_name"], centroid, fontsize=7, ha="center", va="center", fontweight="bold")
+    title = f"Project Overview — {project_id}" if project_id else "Project Overview"
+    ax.set_title(title, fontsize=14, fontweight="bold", pad=20)
+    ax.annotate("N", xy=(0.95, 0.95), xycoords="axes fraction", fontsize=14, fontweight="bold", ha="center")
+    ax.annotate("", xy=(0.95, 0.95), xycoords="axes fraction", xytext=(0.95, 0.88), textcoords="axes fraction", arrowprops=dict(arrowstyle="->", lw=2))
+    ax.set_xlabel("Easting (m)")
+    ax.set_ylabel("Northing (m)")
+    ax.set_aspect("equal")
+    ax.grid(True, alpha=0.3)
+    plt.tight_layout()
+    fig.savefig(output_path, format="pdf", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    return output_path
