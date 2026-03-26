@@ -1,0 +1,681 @@
+/* ============================================================
+   Kosmas Athletic Ventures Co. — Knowledge Base
+   Aesthetic: Athletic, Premium, Bold
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+@import "tailwindcss";
+
+/* ---- CSS Custom Properties ---- */
+
+:root {
+  --surface-0: #ffffff;
+  --surface-1: #f9f8f6;
+  --surface-2: #f0eeeb;
+  --surface-3: #e3e0db;
+  --surface-4: #d1cec8;
+
+  --text-primary: #282d27;
+  --text-secondary: #5a5e58;
+  --text-muted: #8b8e88;
+  --text-inverse: #ffffff;
+
+  --accent-primary: #d67e4b;
+  --accent-primary-hover: #c06a3a;
+  --accent-primary-subtle: rgba(214, 126, 75, 0.08);
+
+  --accent-secondary: #e8a87c;
+  --accent-secondary-hover: #d99568;
+  --accent-secondary-subtle: rgba(232, 168, 124, 0.08);
+
+  --status-success: #4a9a5b;
+  --status-warning: #d6964b;
+  --status-error: #c44a3a;
+  --status-info: #5a8ab4;
+
+  --border-default: rgba(40, 45, 39, 0.12);
+  --border-strong: rgba(40, 45, 39, 0.25);
+
+  --code-bg: #f5f4f2;
+  --code-text: #374131;
+
+  --tool-bg: #f5f4f2;
+  --tool-border: #e3e0db;
+  --tool-border-active: #d67e4b;
+
+  --shadow-sm: 0 1px 2px rgba(40, 45, 39, 0.06);
+  --shadow-md: 0 4px 12px rgba(40, 45, 39, 0.08);
+  --shadow-focus: 0 0 0 2px var(--accent-primary);
+
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+}
+
+/* ---- Base Reset & Defaults ---- */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--surface-1);
+    color: var(--text-primary);
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Bebas Neue", system-ui, sans-serif;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+  }
+
+  a {
+    color: var(--accent-primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--accent-primary-hover);
+    text-decoration: underline;
+  }
+
+  ::selection {
+    background-color: var(--accent-primary-subtle);
+    color: var(--text-primary);
+  }
+
+  /* Focus styles — orange ring */
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+}
+
+/* ---- Scrollbar ---- */
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--surface-4) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--surface-4);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-muted);
+  }
+}
+
+/* ---- Component Layer ---- */
+
+@layer components {
+  /* -- Header -- */
+  .app-header {
+    height: 48px;
+    background: var(--text-primary);
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+  }
+
+  .app-header-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-inverse);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* -- Chat Area -- */
+  .chat-area {
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 64px 20px 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* -- Message: User -- */
+  .msg-user {
+    align-self: flex-end;
+    max-width: 85%;
+    background: var(--surface-0);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.6;
+    animation: fade-in-up 200ms ease-out;
+  }
+
+  /* -- Message: Assistant -- */
+  .msg-assistant {
+    align-self: flex-start;
+    max-width: 72ch;
+    padding: 12px 0;
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.6;
+    animation: fade-in-up 200ms ease-out;
+  }
+
+  /* -- Tool Use Block -- */
+  .tool-block {
+    background: var(--tool-bg);
+    border-left: 2px solid var(--tool-border);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 12px 16px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    animation: fade-in-up 200ms ease-out;
+  }
+
+  .tool-block--active {
+    border-left-color: var(--accent-primary);
+  }
+
+  .tool-block-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .tool-block-header:hover {
+    color: var(--text-primary);
+  }
+
+  .tool-block-name {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .tool-block-input {
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .tool-block-duration {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .tool-block-output {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-default);
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  /* -- Chat Input -- */
+  .chat-input-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--surface-0);
+    border-top: 1px solid var(--border-default);
+    padding: 12px 20px 16px;
+  }
+
+  .chat-input-inner {
+    max-width: 768px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .chat-input {
+    flex: 1;
+    background: var(--surface-0);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 44px;
+    max-height: 200px;
+    resize: none;
+    transition: border-color 120ms ease;
+  }
+
+  .chat-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .chat-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+  }
+
+  /* Slash command mode */
+  .chat-input--slash {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+  }
+
+  .chat-input-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  /* -- Buttons -- */
+  .btn-primary {
+    background: var(--accent-primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 120ms ease, transform 80ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-primary-hover);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-ghost:hover {
+    background: var(--surface-3);
+    color: var(--text-primary);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 120ms ease, color 120ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+  }
+
+  .btn-icon {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px;
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-icon:hover {
+    background: var(--surface-3);
+    color: var(--text-primary);
+  }
+
+  /* -- Status Indicators -- */
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .status-dot--connected {
+    background: var(--status-success);
+  }
+
+  .status-dot--streaming {
+    background: var(--accent-primary);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .status-dot--error {
+    background: var(--status-error);
+  }
+
+  /* -- Error Banner -- */
+  .error-banner {
+    background: rgba(196, 74, 58, 0.08);
+    border: 1px solid rgba(196, 74, 58, 0.24);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+/* ---- Markdown Prose Styles ---- */
+
+@layer components {
+  .prose-chat h1 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-top: 24px;
+    margin-bottom: 12px;
+  }
+
+  .prose-chat h2 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+
+  .prose-chat h3 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  .prose-chat p {
+    margin: 0 0 12px;
+  }
+
+  .prose-chat p:last-child {
+    margin-bottom: 0;
+  }
+
+  .prose-chat ul,
+  .prose-chat ol {
+    margin: 0 0 12px;
+    padding-left: 20px;
+  }
+
+  .prose-chat li {
+    margin-bottom: 4px;
+  }
+
+  .prose-chat li::marker {
+    color: var(--accent-primary);
+  }
+
+  .prose-chat blockquote {
+    border-left: 2px solid var(--accent-primary);
+    margin: 0 0 12px;
+    padding: 4px 16px;
+    color: var(--text-secondary);
+  }
+
+  .prose-chat hr {
+    border: none;
+    border-top: 1px solid var(--border-default);
+    margin: 20px 0;
+  }
+
+  .prose-chat table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 12px;
+    font-size: 13px;
+  }
+
+  .prose-chat th {
+    text-align: left;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .prose-chat td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-default);
+    color: var(--text-secondary);
+  }
+
+  /* Inline code */
+  .prose-chat code:not(pre code) {
+    background: var(--code-bg);
+    border: 1px solid var(--border-default);
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 13px;
+    color: var(--code-text);
+  }
+
+  /* Code blocks */
+  .prose-chat pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin: 0 0 12px;
+    overflow-x: auto;
+    position: relative;
+  }
+
+  .prose-chat pre code {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--code-text);
+  }
+
+  .prose-chat strong {
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .prose-chat em {
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+}
+
+/* ---- Syntax Highlighting (Warm neutral) ---- */
+
+@layer components {
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-built_in,
+  .hljs-type {
+    color: #8b5e3c;
+  }
+
+  .hljs-string,
+  .hljs-attr,
+  .hljs-symbol,
+  .hljs-template-variable {
+    color: #4a7a4f;
+  }
+
+  .hljs-number,
+  .hljs-literal,
+  .hljs-variable.constant_ {
+    color: #d67e4b;
+  }
+
+  .hljs-comment,
+  .hljs-quote,
+  .hljs-doctag {
+    color: #8b8e88;
+    font-style: italic;
+  }
+
+  .hljs-function,
+  .hljs-title {
+    color: #374131;
+  }
+
+  .hljs-variable,
+  .hljs-params {
+    color: #5a5e58;
+  }
+
+  .hljs-operator,
+  .hljs-punctuation {
+    color: #8b8e88;
+  }
+
+  .hljs-title.class_ {
+    color: #8b5e3c;
+  }
+
+  .hljs-meta,
+  .hljs-meta .hljs-keyword {
+    color: #6b6e68;
+  }
+
+  .hljs-section {
+    color: var(--accent-primary);
+  }
+
+  .hljs-addition {
+    color: var(--status-success);
+    background: rgba(74, 154, 91, 0.08);
+  }
+
+  .hljs-deletion {
+    color: var(--status-error);
+    background: rgba(196, 74, 58, 0.08);
+  }
+}
+
+/* ---- Animations ---- */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
