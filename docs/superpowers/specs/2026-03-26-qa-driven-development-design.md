@@ -63,7 +63,9 @@ PHASE 1: DESIGN SPEC
 │   ├─ Spec self-review
 │   └─ User reviews spec ← GATE
 │
-│   (brainstorming normally invokes writing-plans here — orchestrator intercepts)
+│   (brainstorming's terminal state is invoking writing-plans — the orchestrator
+│    skill instructs brainstorming to STOP after user spec approval and return
+│    control, so the orchestrator can insert Phase 2 before planning begins)
 
 PHASE 2: QA SPEC
 ├─ Dispatch QA agent subagent (using qa-specification skill)
