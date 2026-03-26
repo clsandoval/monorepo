@@ -12,6 +12,31 @@ This document is the operational reference for a geodetic/land surveying consult
 - Team: upper management (direction + technical decisions), project managers (scheduling + assignment), engineers (2-3 yr experience, fieldwork + data processing)
 - Tools: Excel, Google Sheets, AutoCAD, total stations, GPS/GNSS, drones
 
+## How to Process a Project
+
+To process a complete survey project folder, follow the orchestrator skill: `skills/project-orchestrator.md`
+
+Quick reference:
+1. `project_scanner.scan_project(path)` — scan the folder, identify lots and files
+2. `xlsm_parser.parse_xlsm(path)` — parse each XLSM TD file
+3. `field_parser.parse_field_directory(path)` — parse field CSVs
+4. `subdivision_tree.build_tree(lots)` — build lot hierarchy
+5. `lot_processor.process_lot(parsed)` — process one lot (coordinates, closure, area, reconciliation)
+6. Generate outputs: `generate_dxf`, `generate_docx`, `generate_pdf`, `coordinate_export`
+
+### Input Formats
+- **Technical Descriptions:** XLSM files with E2C sheets (bearing-distance traverse data)
+- **Field Measurements:** CSV files (id, easting, northing, elevation, point_code)
+- **Project Structure:** 7-folder layout (Proposal / From Client / Research / Field / Reports / Sent / Closing)
+
+### Output Formats
+- `.dxf` — AutoCAD boundary plans (per-lot + consolidated)
+- `.docx` — Project report with per-lot findings and QA summary
+- `.pdf` — Overview map with all lots
+- `.csv` — Coordinate tables (all points, control points, per-lot)
+
+---
+
 ## Service Types
 
 ### Boundary Survey
