@@ -1,6 +1,6 @@
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
-from xlsm_parser import parse_title_data, parse_e2c
+from xlsm_parser import parse_title_data, parse_e2c, parse_xlsm
 
 REAL_FILE = os.path.join(
     os.path.dirname(__file__), '..', 'real-data', 'PGS2146',
@@ -104,3 +104,48 @@ def test_parse_e2c_computed_coordinates():
     # First point should be in PRS92 range for Isabela
     assert coords[0]["northing"] > 1800000
     assert coords[0]["easting"] > 300000
+
+
+# --- Combined parse_xlsm Tests ---
+
+def test_parse_xlsm_combined():
+    result = parse_xlsm(REAL_FILE)
+    assert result["title_number"] == "CLOA-43796"
+    assert result["stated_area"] == 55848.0
+    assert len(result["lines"]) == 4
+    assert result["config"]["scale"] == 1000
+
+def test_parse_xlsm_backward_compatible():
+    """Output should work with coord_compute.py."""
+    from coord_compute import compute_coordinates
+    result = parse_xlsm(REAL_FILE)
+    coords = compute_coordinates(result["lines"], origin=(0, 0))
+    assert len(coords) == 5
+
+def test_parse_xlsm_closure_check():
+    from coord_compute import compute_coordinates
+    from closure_check import check_closure
+    result = parse_xlsm(REAL_FILE)
+    coords = compute_coordinates(result["lines"], origin=(0, 0))
+    closure = check_closure(coords, tolerance_m=1.0)
+    assert closure["passed"], f"Closure error: {closure['linear_error']}m"
+
+def test_parse_xlsm_area_check():
+    from coord_compute import compute_coordinates
+    from area_compute import compute_area
+    result = parse_xlsm(REAL_FILE)
+    coords = compute_coordinates(result["lines"], origin=(0, 0))
+    area = compute_area(coords[:-1])
+    stated = result["stated_area"]
+    pct_diff = abs(area - stated) / stated * 100
+    assert pct_diff < 5.0, f"Area diff: {pct_diff:.1f}%"
+
+def test_parse_xlsm_adjoining_lot():
+    adj_file = os.path.join(
+        os.path.dirname(__file__), '..', 'real-data', 'PGS2146',
+        '3 Research', 'LDC Adjoining Lots', 'LOT 30.xlsm'
+    )
+    if os.path.exists(adj_file):
+        result = parse_xlsm(adj_file)
+        assert result["lot_name"] is not None
+        assert len(result["lines"]) > 0

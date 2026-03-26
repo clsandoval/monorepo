@@ -104,7 +104,7 @@ def parse_e2c(file_path: str) -> dict:
         dist_raw = cell(row, 20)  # T
         dist = float(dist_raw) if dist_raw is not None else 0.0
         return {
-            "bearing": {"ns": ns, "ew": ew, "degrees": deg or 0, "minutes": mins or 0},
+            "bearing": {"ns": ns, "ew": ew, "degrees": deg or 0, "minutes": mins or 0, "seconds": 0},
             "distance": dist,
         }
 
@@ -189,4 +189,35 @@ def parse_e2c(file_path: str) -> dict:
         "lot_name": lot_name,
         "lines": lines,
         "computed_coordinates": computed_coordinates,
+    }
+
+
+def parse_xlsm(file_path: str) -> dict:
+    """
+    Parse a complete XLSM file — combines Title Data + E2C into one dict.
+
+    Returns a dict compatible with downstream scripts (coord_compute, closure_check, etc.)
+    The 'lines' array has the same shape as td_parser.py output.
+    """
+    title = parse_title_data(file_path)
+    e2c = parse_e2c(file_path)
+
+    return {
+        "title_number": title["title_number"],
+        "lot_name": e2c["lot_name"] or title["lot_name"],
+        "survey_number": title["survey_number"],
+        "date_of_original_survey": title["date_of_original_survey"],
+        "owner": title["owner"],
+        "barangay": title["barangay"],
+        "municipality": title["municipality"],
+        "province": title["province"],
+        "island": title["island"],
+        "tie_point": title["tie_point"],
+        "stated_area": title["stated_area"],
+        "config": e2c["config"],
+        "tie_line": e2c["tie_line"],
+        "lines": e2c["lines"],
+        "computed_coordinates": e2c["computed_coordinates"],
+        "plan_number": title["survey_number"],
+        "references": [],
     }
