@@ -2,13 +2,60 @@
 type: place
 name: Tela Park
 location: Las Piñas, Metro Manila, Philippines
-related: [[Pod Play SEA]], [[Pod Play]]
+related: [[Pod Play SEA]], [[Pod Play]], [[Kosmas Athletic Ventures]]
 tags: [venue, podplay, philippines, installation]
 ---
 
-# Tela Park — PodPlay Facility Checklist
+# Tela Park (Telepark)
 
-Target venue for PodPlay installation in Las Piñas, Metro Manila. This checklist covers **every facility detail** that must be verified before installation day so setup goes smoothly on arrival.
+First PodPlay venue deployment in the Philippines. 8 courts, Pro tier (replay, no autonomous). PodPlay app name: "Telepark". Dashboard already created by PodPlay.
+
+## Current Status (as of 2026-03-26)
+
+- **Site survey**: Done — site is fine, ISP is fine
+- **Cabling**: Done — under concrete/ground, installed by facility owners
+- **Camera fabrication**: In progress — custom mounts being fabricated. **Possibly different camera model** than standard PodPlay (Dahua) — needs compatibility verification
+- **Hardware**: Owners are IT hardware distributors — may source some hardware from them
+- **PodPlay dialog**: Started November 2025, communication gap occurred, now re-engaged
+- **Telepark dashboard**: Already created by PodPlay
+
+### Owners' Pre-Setup Work
+
+The Tela Park owners are IT hardware distributors. They've done significant pre-work:
+- Ethernet cabling installed under concrete (not ripping this out)
+- Camera mount fabrication in progress
+- They want to do some pre-setup (their own router, managed PoEs, switch configuration)
+- Had concerns about Cat6 distance due to facility size
+
+### Our Decision on Custom Setup
+
+**Rule**: As long as the PodPlay Control Center looks exactly like a standard configuration, we can leverage whatever they've set up. We will NOT do a fully custom installation because we have SLAs with PodPlay — if something breaks, we are liable.
+
+What's acceptable:
+- Their cabling (same thing, just already done)
+- Their camera mounts/fabrication (not too custom)
+
+What needs clarification:
+- Router/switch setup — unclear if their managed PoE / switch-to-switch setup differs from standard PodPlay config
+- Nico confirmed: as long as traffic hits port 4000 on the UDM, it's fine
+- **Need to fully understand the standard PodPlay network setup** to evaluate their proposed deviations
+
+### Current Blockers
+
+1. **Apple Business Manager** — waiting on Apple verification so we can ask PodPlay to license us via VPP
+2. **Legal** — need to contact legal for replay scripts/licensing
+3. **Camera compatibility** — probably getting a different camera model, must verify it works with PodPlay replay pipeline
+4. **Network setup clarity** — need to understand standard PodPlay router/switch/traffic flow to evaluate Telepark's proposed setup
+
+### Timeline
+
+~1 month (estimated ~late April 2026), but depends on ABM verification and hardware sourcing. Internally, Telepark doesn't know about the ABM blocker.
+
+---
+
+## PodPlay Facility Checklist
+
+This checklist covers **every facility detail** for installation. Items checked off have been verified via site survey or training.
 
 All items derived from the [[PodPlay Config Guide v1]] and [[PodPlay Asia Infrastructure Analysis]].
 
@@ -16,7 +63,7 @@ All items derived from the [[PodPlay Config Guide v1]] and [[PodPlay Asia Infras
 
 ## 1. Court Information
 
-- [ ] **Total number of courts** — How many courts will have PodPlay installed? (Determines quantity of ALL per-court hardware: cameras, iPads, Apple TVs, POE chargers, monitors/TVs)
+- [x] **Total number of courts** — 8 courts, Pro tier (with replay, no autonomous)
 - [ ] **Court numbering** — What is the numbering scheme? (C1, C2, C3… or do they have their own labels?) Needed for labeling every piece of equipment
 - [ ] **Court dimensions** — Length × width of each court (affects camera positioning and field of view)
 - [ ] **Court layout / floor plan** — Get a diagram or photo showing court positions relative to each other and the equipment room. Need to understand cable run distances
@@ -25,11 +72,11 @@ All items derived from the [[PodPlay Config Guide v1]] and [[PodPlay Asia Infras
 
 ## 2. Camera Mounting & Positioning
 
-- [ ] **Camera mount points** — Where will each court's camera be mounted? (wall, ceiling, pole?) Each court gets exactly 1 replay camera
+- [x] **Camera mount points** — Facility owners fabricating custom mounts. Possibly different camera model than standard Dahua — needs compatibility check
 - [ ] **Camera mounting height** — What height is available? Need clear overhead or elevated angle of the full court
 - [ ] **Obstructions** — Any pillars, beams, netting, lighting fixtures, or other obstructions that would block camera view of the court?
 - [ ] **Mounting surface material** — Concrete wall, drywall, metal beam, wood? (Determines mounting hardware needed)
-- [ ] **Cable routing from camera to switch** — How will ethernet cable run from each camera mount point back to the network equipment? Through conduit, cable trays, exposed run? Measure the distance for each court
+- [x] **Cable routing from camera to switch** — Cabling done under concrete by facility owners. Note: Cat6 distance concerns raised due to facility size — may need evaluation
 
 ---
 
@@ -54,7 +101,7 @@ All items derived from the [[PodPlay Config Guide v1]] and [[PodPlay Asia Infras
 
 ### On-Site Network Infrastructure
 - [ ] **Existing network equipment** — Is there any existing network infrastructure we need to work around, or is this a clean install?
-- [ ] **Ethernet cabling in place?** — Are there ethernet runs from a central location to each court? If not, cabling needs to be installed BEFORE we arrive
+- [x] **Ethernet cabling in place?** — Yes, installed under concrete by facility owners
 - [ ] **Ethernet cable category** — Cat5e minimum, Cat6 preferred. Each court needs runs for: camera, iPad (POE), Apple TV
 - [ ] **Number of ethernet drops per court** — Need at minimum 3 per court: (1) camera, (2) iPad via POE, (3) Apple TV. Confirm these are in place or planned
 
@@ -73,7 +120,7 @@ All items derived from the [[PodPlay Config Guide v1]] and [[PodPlay Asia Infras
 
 ## 6. Power
 
-- [ ] **Voltage standard** — Philippines is 220V/60Hz. All equipment (UDM, switch, Mac Mini, etc.) must be compatible or have correct power adapters
+- [x] **Voltage standard** — Philippines is 220V/60Hz. Resolved during NJ training: just swap the PDU. Apple/Ubiquiti gear is universal 100-240V.
 - [ ] **Power stability** — Is the power supply stable? Frequent brownouts? If so, a UPS (uninterruptible power supply) is strongly recommended
 - [ ] **Power outlets at each court** — For Apple TV and TV/monitor at each court location
 - [ ] **POE switch port count** — Enough ports on the switch for all iPads (POE-powered) + cameras + Apple TVs? This is on us to spec, but need total court count first
@@ -110,7 +157,7 @@ All items derived from the [[PodPlay Config Guide v1]] and [[PodPlay Asia Infras
 - [ ] **Video standard confirmation** — Philippines uses PAL. Need to confirm during NJ training whether PAL works with the replay pipeline or if NTSC must be used regardless
 - [ ] **Camera compatibility** — Confirm camera model works with PAL settings (25fps vs 30fps NTSC). Pending answer from NJ training
 - [ ] **Payment terminal** — If there's an on-site payment kiosk or QR code display for GCash ([[Magpie]]), where does it go?
-- [ ] **Time zone** — Asia/Manila (UTC+8). Needed for camera date/time config and replay timestamps
+- [x] **Time zone** — Asia/Manila (UTC+8)
 
 ---
 

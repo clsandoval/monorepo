@@ -3,7 +3,7 @@ type: business
 name: Ping Pod
 category: sports-entertainment
 location: [[United States]]
-people: [[Sequoia]], [[Condor]], [[Osprey]], [[Drift]], [[Reef]], [[Fern]]
+people: []
 related: [[Pod Play]]
 tags: [table-tennis, franchise, investment]
 ---
@@ -14,7 +14,7 @@ Table tennis / ping pong venue business. Originally one company with [[Pod Play]
 
 ## Investment History
 
-- Team invested pre-Series A after [[Sequoia]] offered the opportunity
+- Team invested pre-Series A after PodPlay leadership offered the opportunity
 - Ping Pod raised an $8M Series A from a fund with strategic value (franchising/technology focus)
 - A second round of fundraising was initiated for Ping Pod after the split; team invested again
 

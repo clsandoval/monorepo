@@ -441,34 +441,34 @@ REPLAY VLAN (192.168.32.0/24):
 
 ---
 
-## Summary of All Unknowns
+## Summary of All Unknowns (Updated 2026-03-26)
 
-| # | Unknown | Category | Blocking? |
-|---|---------|----------|-----------|
-| 1 | How does app route to Magpie vs Stripe? (venue config? region? per-build?) | Payment | CRITICAL |
-| 2 | What data flows over port 4000? Sync or async? | Architecture | CRITICAL |
-| 3 | What happens if port 4000 connection drops? | Architecture | CRITICAL |
-| 4 | Bandwidth requirements per court? | Architecture | CRITICAL |
-| 5 | Fallback if port 4000 blocked by ISP? | Architecture | CRITICAL |
-| 6 | Deployment server accessible remotely from PH? | Deployment | CRITICAL |
-| 7 | What does deploy.py produce? Can we run our own? | Deployment | CRITICAL |
-| 8 | Does PAL (25fps) break the replay pipeline? | Video | CRITICAL |
-| 9 | Camera firmware region-locked? | Video | CRITICAL |
-| 10 | All hardware confirmed 220V compatible? | Power | CRITICAL |
-| 11 | Admin Dashboard — shared US instance or own? | Cloud Services | CRITICAL |
-| 12 | Mosyle MDM — shared or own instance? | Cloud Services | CRITICAL |
-| 13 | Apple Business Manager — works globally? | Cloud Services | CRITICAL |
-| 14 | FreeDNS — same domain for Asia? | Cloud Services | CRITICAL |
-| 15 | Unifi Account — shared or own? | Cloud Services | CRITICAL |
-| 16 | App binary — same worldwide or regional? | App | HIGH |
-| 17 | How does CUSTOMERNAME config route to correct backend? | App | HIGH |
-| 18 | Mac Mini chip (M1/M2/M4) and year? | Hardware | HIGH |
-| 19 | Cross-venue credits or venue-locked? | Wallet | MEDIUM |
-| 20 | Settlement across different venue owners? | Wallet | MEDIUM |
-| 21 | Credit expiration, transfer, multi-currency? | Wallet | LOW |
-| 22 | Brother label maker model? | Hardware | LOW |
-| 23 | EmpireTech cameras available in PH? | Sourcing | MEDIUM |
-| 24 | Flic buttons available in PH? | Sourcing | MEDIUM |
-| 25 | Kisi ships to PH? | Sourcing | MEDIUM |
+| # | Unknown | Category | Status |
+|---|---------|----------|--------|
+| 1 | How does app route to Magpie vs Stripe? | Payment | ✅ RESOLVED — per-facility app with per-venue config. Each facility has own app binary + location ID. |
+| 2 | What data flows over port 4000? Sync or async? | Architecture | ⚠️ PARTIAL — health checks confirmed. Clip uploads to Google Cloud. Booking data flow unclear. |
+| 3 | What happens if port 4000 connection drops? | Architecture | ❌ OPEN |
+| 4 | Bandwidth requirements per court? | Architecture | ✅ RESOLVED — ~105 GB/week for 6-court site. Bandwidth not a concern. |
+| 5 | Fallback if port 4000 blocked by ISP? | Architecture | ❌ OPEN — CGNAT kills it entirely. Must have static IP. |
+| 6 | Deployment server accessible remotely from PH? | Deployment | ✅ RESOLVED — access granted. V2 runs from dashboard, no VPN needed. |
+| 7 | What does deploy.py produce? Can we run our own? | Deployment | ✅ RESOLVED — creates package with replay service code. V2 eliminates need for deployment server. |
+| 8 | Does PAL (25fps) break the replay pipeline? | Video | ❌ OPEN — PH is 60Hz like US, so NTSC 30fps should work. Not tested. |
+| 9 | Camera firmware region-locked? | Video | ❌ OPEN |
+| 10 | All hardware confirmed 220V compatible? | Power | ✅ RESOLVED — just swap PDU. All other gear universal 100-240V. |
+| 11 | Admin Dashboard — shared US instance or own? | Cloud Services | ✅ RESOLVED — PodPlay deploys it. Telepark dashboard already done. |
+| 12 | Mosyle MDM — shared or own instance? | Cloud Services | ✅ RESOLVED — own separate instance. First club under PodPlay's, then migrate. |
+| 13 | Apple Business Manager — works globally? | Cloud Services | ✅ RESOLVED — need own ABM. **CURRENT BLOCKER**: waiting on Apple verification. |
+| 14 | FreeDNS — same domain for Asia? | Cloud Services | ⚠️ PARTIAL — can use any DDNS provider. |
+| 15 | Unifi Account — shared or own? | Cloud Services | ✅ RESOLVED — Nico transferring ownership. |
+| 16 | App binary — same worldwide or regional? | App | ✅ RESOLVED — per-facility branded app. Each gets own binary. |
+| 17 | How does CUSTOMERNAME config route to correct backend? | App | ✅ RESOLVED — P-List contains location ID string from developers. |
+| 18 | Mac Mini chip (M1/M2/M4) and year? | Hardware | ❌ OPEN — still need exact specs. |
+| 19 | Cross-venue credits or venue-locked? | Wallet | ❌ OPEN |
+| 20 | Settlement across different venue owners? | Wallet | ❌ OPEN |
+| 21 | Credit expiration, transfer, multi-currency? | Wallet | ❌ OPEN |
+| 22 | Brother label maker model? | Hardware | ❌ OPEN |
+| 23 | EmpireTech cameras available in PH? | Sourcing | ❌ OPEN — Tela Park may use different camera model entirely |
+| 24 | Flic buttons available in PH? | Sourcing | ❌ OPEN |
+| 25 | Kisi ships to PH? | Sourcing | ❌ OPEN |
 
-**Resolves at:** NJ Training Trip (March 2–10, 2026)
+**NJ Training Trip completed March 2–10, 2026. ~60% of critical unknowns resolved. Magpie integration details still largely open.**

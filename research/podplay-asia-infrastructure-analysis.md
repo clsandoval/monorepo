@@ -174,15 +174,15 @@ Confirm during training which accounts are shared vs. need separate instances:
 
 | Account / Service | Shared with US? | Own Instance? | Status | Notes |
 |---|---|---|---|---|
-| Mosyle (MDM) | ? | ? | ❓ Ask | Device management for iPads & Apple TVs |
-| FreeDNS (podplaydns.com) | ? | ? | ❓ Ask | DDNS for Mac Mini reachability |
-| 1Password | ? | ? | ❓ Ask | Shared credentials |
-| PingPodIT Unifi Account | ? | ? | ❓ Ask | UDM setup and management |
-| PodPlay Admin Dashboard | ? | ? | ❓ Ask | Venue/court/replay configuration |
-| Apple Business Manager | ? | ? | ❓ Ask | Device enrollment |
-| Deployment Server | ? | ? | ❓ Ask | Package building |
-| Stripe / Payment Gateway | Shared | Own (Magpie) | ✅ Known | Asia uses [[Magpie]], not Stripe |
-| App Store / TestFlight | ? | ? | ❓ Ask | How app gets distributed |
+| Mosyle (MDM) | No | ✅ Own | ✅ Resolved | Own separate instance. First club under PodPlay's Mosyle, then migrate by releasing devices + factory reset + re-enroll. |
+| FreeDNS (podplaydns.com) | TBD | TBD | ⚠️ Partial | Can use any DDNS provider. Still need to decide on same domain vs own. |
+| 1Password | ? | ? | ❓ Open | Nico showed master accounts spreadsheet but vault access for Kosmas not clarified. |
+| PingPodIT Unifi Account | No | ✅ Own | ✅ Resolved | Nico transferring ownership. |
+| PodPlay Admin Dashboard | Shared | N/A | ✅ Resolved | PodPlay deploys per-venue dashboards. Telepark's already done. |
+| Apple Business Manager | No | ✅ Own | ⚠️ Blocker | Need own ABM. **Waiting on Apple verification.** Need Apple ID → ABM → VPP licenses. |
+| Deployment Server | Shared (V1) | N/A (V2) | ✅ Resolved | Access granted. V2 runs from dashboard — no VPN needed. Follow-up call with Nico for V2 walkthrough. |
+| Stripe / Payment Gateway | Shared | Own (Magpie) | ✅ Known | Asia uses [[Magpie]], not Stripe. Per-facility app handles routing. |
+| App Store / TestFlight | N/A | N/A | ✅ Resolved | Apps distributed via VPP licenses through ABM → Mosyle MDM. Not on public App Store. |
 
 ---
 

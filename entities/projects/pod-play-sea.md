@@ -2,32 +2,59 @@
 type: project
 name: Pod Play Southeast Asia
 status: active
-people: [[Cedar]], [[Sequoia]], [[Birch]], [[Basalt]], [[Ridge]]
+people: [[Carlos Sandoval]], [[Richard Bachman]], [[Isabel Lapus]], [[Sophia Lapus]], [[Kim Lapus]], [[Marco Basug]]
 places: [[Philippines]], [[Singapore]], [[Thailand]]
-related: [[Pod Play]], [[Ping Pod]], [[Magpie]], [[Digital Wallet]], [[Ping Pod Asia Franchise]]
+related: [[Pod Play]], [[Ping Pod]], [[Magpie]], [[Digital Wallet]], [[Ping Pod Asia Franchise]], [[Kosmas Athletic Ventures]]
 tags: [business, franchise, asia, distribution]
 ---
 
 # Pod Play Southeast Asia
 
-Master distribution and franchise operation for [[Pod Play]] and [[Ping Pod]] across Southeast Asia.
+Master distribution and franchise operation for [[Pod Play]] and [[Ping Pod]] across Southeast Asia, operated by [[Kosmas Athletic Ventures]].
 
-## Status
+## Kosmas Team
+
+| Person | Role |
+|--------|------|
+| Richard Bachman | Presenting org chart + hiring recommendations |
+| Isabel Lapus | Team member |
+| Sophia Lapus | Team member |
+| Carlos Sandoval | Operations, technical lead |
+| Kim Lapus | Team member |
+| Marco Basug | Operations, traveled to NJ training with Carlos |
+
+## Status (as of 2026-03-26)
 
 - **Pod Play rights**: Team holds Southeast Asia distribution rights
 - **Philippines deployment**: Payment platform working via [[Magpie]], booking system functional
 - **HQ location**: [[Singapore]] being evaluated — EDB supportive with tax incentives and visa support
-- **First venue target**: [[Tela Park]] in Las Piñas — facility checklist created, pre-installation site survey needed
+- **NJ Training Trip**: Completed (March 2–10, 2026) — see [[2026-03 NJ PodPlay Training]]
 
-### Current Activity (as of 2026-02-25)
+### Venue Pipeline
 
-- Ridge training overview call completed (2026-02-25) — see [[2026-02-25 Ridge PodPlay Training Overview]]
-- [[Falcon]] (PodPlay project manager) to send install document and schedule kickoff call
-- [[Granite]] to decide on account setup (shared vs. separate Mosyle, UniFi, etc.)
-- Payment integration (Stripe alternative) confirmed in progress by developer team ([[Ember]])
-- V2 replay service in final testing — will learn both V1 and V2 during NJ trip
-- [[2026-03 NJ PodPlay Training]] booked for March 2–10; staying at Hampton Inn Newark Harrison Riverwalk
-- [[Tela Park]] facility checklist created — need someone to do site survey before NJ training
+| Venue | Courts | Type | Timeline | Status |
+|-------|--------|------|----------|--------|
+| [[Tela Park]] (Telepark) | 8 | Pro (replay) | ~1 month (late April 2026) | Site survey done, cabling done, blocked on ABM + legal |
+| [[Temporary Facility]] | 14 | Tent | ~6 months (Sept 2026) | Dialog started with PodPlay, waiting on Ernesto's requirements list |
+| [[Helios]] | 20 | 10-story building | ~2 years (2028) | JV with Robinsons Land (RLC), design phase |
+
+### Current Blockers
+
+1. **Apple Business Manager** — waiting on Apple verification to get VPP licensing from PodPlay
+2. **Legal** — need to contact legal for replay script licensing
+3. **Camera compatibility** — Tela Park may use different camera model than standard Dahua; needs verification
+4. **Network setup clarity** — need to fully understand standard PodPlay router/switch/traffic flow to evaluate Telepark's proposed custom setup
+
+### Key Resolved Items (from NJ Training)
+
+- Per-facility branded apps (not one global app) — each venue gets own app + dashboard
+- Own Mosyle MDM instance needed (separate from PodPlay's)
+- Own Apple Business Manager needed
+- Deployment server access granted; V2 replay service coming (runs from dashboard, no VPN needed)
+- Power: just swap PDU for 220V; all other gear is universal 100-240V
+- Telepark dashboard already created by PodPlay
+- BOM: Chad's Google Sheets MRP tool auto-generates per club; will duplicate for Kosmas
+- Support: 3-tier escalation (PH team → Nico → Patrick)
 
 ## Revenue Model
 
@@ -40,41 +67,18 @@ Master distribution and franchise operation for [[Pod Play]] and [[Ping Pod]] ac
 - [[Ping Pod]] franchise distribution (see [[Ping Pod Asia Franchise]])
 - [[Magpie]] payment platform partnership
 - [[Central Group]] potential Thailand franchise deal
+- [[Robinsons Land]] joint venture for Helios
 - EDB Singapore for HQ setup
-
-## Training & Deployment Readiness
-
-- **NJ Training Trip**: [[2026-03 NJ PodPlay Training]] — March 2–10, 2026 in Jersey City
-- **Config Guide**: [[PodPlay Config Guide v1]] — full hardware setup documentation
-- **Infrastructure Analysis**: [[PodPlay Asia Infrastructure Analysis]] — shared vs. local components, payment questions, PAL/NTSC issues
-- Key blocker: Payment integration (Stripe → [[Magpie]]) needs API surface understanding from training
-
-## Current Status (2026-02-25)
-
-- Ridge training overview call completed — full infrastructure walkthrough done
-- Falcon to send detailed install document (camera positions, specs, hardware placement)
-- Falcon to schedule installer kickoff call with Cedar
-- Granite deciding on credential/account setup for Asia operations
-- Payment integration nearly done — devs aware of Philippines requirements
-- NJ training trip in ~5 days (March 2-10)
-- Cedar and [[Basalt]] traveling together
-
-## Automation
-
-- OpenClaw bot being set up for daily Telegram briefings (see `automations/openclaw/`)
-- Morning status report covers: project status, meetings, action items, people to message, blockers
 
 ## Action Items
 
-- **Site survey [[Tela Park]]** — send someone or go personally to check all items on the facility checklist before NJ training
-- ~~Meeting with [[Ridge]] (week of 2026-02-23)~~ — completed 2026-02-25
-- Wait for [[Falcon]] to send install document and schedule kickoff call
-- Wait for [[Granite]] to decide on account setup (Mosyle, UniFi, deployment server)
-- Complete NJ training trip and document all Asia-specific configuration differences
-- Learn V2 replay service migration during NJ trip
-- Set up Google Cloud alerting for our own locations
-- Get PodPlay Stripe integration details for Magpie compatibility assessment
-- Finalize legal agreements urgently
-- Follow up with Cutie on legal completion
-- Schedule Singapore EDB briefing visit
-- Negotiate wallet partnership terms with [[Magpie]]
+- [ ] Get Apple Business Manager verified → VPP licensing
+- [ ] Contact legal for replay script licensing
+- [ ] Verify camera compatibility for Tela Park (different model than Dahua)
+- [ ] Clarify Tela Park network setup (managed PoEs, switch-to-switch) against standard PodPlay config
+- [ ] Get Ernesto's requirements list for Temporary Facility app development
+- [ ] Finalize legal agreements
+- [ ] Set up Google Cloud alerting for our own locations
+- [ ] Negotiate wallet partnership terms with [[Magpie]]
+- [ ] Schedule Singapore EDB briefing visit
+- [ ] Richard to present org chart with hiring recommendations
