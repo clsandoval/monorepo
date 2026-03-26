@@ -1,0 +1,38 @@
+{
+  "expected_flags": [
+    {
+      "type": "neighbor_mismatch",
+      "description": "Shared boundary mismatch: Lot 5-A says 24.00m, Lot 5-B says 25.00m",
+      "lots": ["Lot 5-A", "Lot 5-B"],
+      "severity": "error"
+    },
+    {
+      "type": "seniority_ambiguity",
+      "description": "Parent (Lot 5, 1978) says 49.00m total. Children: 25m + 24m = 49m. Both children same year (2003).",
+      "resolution_hint": "Field measurements support 25m (Lot 5-B). Lot 5-A likely has transcription error."
+    },
+    {
+      "type": "outlier_point",
+      "description": "Corner 4 has larger residual than other corners. Monument: wooden peg (degraded).",
+      "recommendation": "Re-monumentation recommended for corner 4."
+    }
+  ],
+  "expected_closure": {
+    "lot_5b_closes": true,
+    "lot_5a_closes": true,
+    "lot_5_parent_closes": true
+  },
+  "expected_areas": {
+    "lot_5b_computed": 1300.0,
+    "lot_5a_computed": 1248.0,
+    "lot_5_parent_computed": 2548.0,
+    "children_sum_matches_parent": true
+  },
+  "expected_seniority_chain": [
+    {"title": "OCT No. 1234", "year": 1952, "rank": 1},
+    {"title": "TCT No. 56789", "year": 1978, "rank": 2},
+    {"title": "TCT No. 98765", "year": 2003, "rank": 3},
+    {"title": "TCT No. 98766", "year": 2003, "rank": 3}
+  ],
+  "expected_conclusion": "Lot 5-B boundary per TCT No. 98766 is correct. Lot 5-A contains transcription error. Corner 4 monument degraded."
+}
