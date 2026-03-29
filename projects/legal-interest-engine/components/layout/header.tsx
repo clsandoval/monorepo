@@ -10,7 +10,7 @@ export function Header() {
   const [avatarOpen, setAvatarOpen] = useState(false);
 
   const navLinks = [
-    { href: '/compute', label: 'Calculate' },
+    { href: '/calculate', label: 'Calculate' },
     { href: '/pricing', label: 'Pricing' },
   ];
 
@@ -26,7 +26,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 bg-background border-b border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="relative flex h-16 items-center justify-between">
           {/* Logo / Product name */}
           <Link
             href="/"
@@ -35,8 +35,8 @@ export function Header() {
             Legal Interest Engine
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
+          {/* Desktop nav — absolutely centered */}
+          <nav className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2" aria-label="Main navigation">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
