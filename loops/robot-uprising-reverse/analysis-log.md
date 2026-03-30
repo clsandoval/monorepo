@@ -1,5 +1,30 @@
 # Robot Uprising — Analysis Log
 
+## 2026-03-30 — Batch: Canary Rotation, Anti-Canary Heuristic, Fog of Canaries, Canary Notation, Honest Decoy, Genealogy Neighborhood, Counterfactual Overlay, Vocabulary Audit, Signal Dropped Panel, Enemy Genealogy Link
+
+**Aspects analyzed:** 10
+**Files written:** 10
+
+| Aspect | File | Type | Words |
+|--------|------|------|-------|
+| 4.97 — Canary rotation as season meta-strategy | `ui-ux/canary-rotation-meta-strategy.md` | Design exploration | ~5000 |
+| 4.98 — Anti-canary heuristic (4th pre-ranking signal) | `ui-ux/anti-canary-heuristic.md` | Design exploration | ~3000 |
+| 4.99 — "Fog of canaries" architecture | `ui-ux/fog-of-canaries-architecture.md` | Design exploration | ~3000 |
+| 4.100 — Canary-aware community notation | `multiplayer/canary-aware-community-notation.md` | Design exploration | ~3000 |
+| 4.101 — The "honest decoy" variant | `ui-ux/honest-decoy-poisoning.md` | Design exploration | ~3000 |
+| 4.102 — Genealogy neighborhood expansion | `ui-ux/genealogy-neighborhood-expansion.md` | Design exploration | ~3000 |
+| 4.103 — Counterfactual genealogy overlay | `ui-ux/counterfactual-genealogy-overlay.md` | Design exploration | ~3000 |
+| 4.104 — Signal vocabulary consistency audit | `core-mechanic/signal-vocabulary-consistency-audit.md` | Design exploration | ~3000 |
+| 4.105 — "Why was this signal dropped?" sub-panel | `ui-ux/why-signal-dropped-subpanel.md` | Design exploration | ~3000 |
+| 4.106 — Enemy genealogy cross-tool link | `ui-ux/enemy-genealogy-cross-tool-link.md` | Design exploration | ~3000 |
+
+**Key findings:**
+- The canary poisoning meta-game (4.97-4.101) forms a complete arms race: single canary → rotation to avoid detection → fog-of-canaries distributed noise → anti-canary heuristic (Bloodhound Signal) as counter → honest decoy as the pinnacle defense. Community notation (The Canary Lexicon) emerges organically to document this meta.
+- The genealogy tool cluster (4.102-4.106) deepens the Inspector's diagnostic power: neighborhood expansion (The Spotlight Reveal) prevents information overload on first visit, counterfactual overlay (The Phantom Circuit) shows whether a proposed fix actually resolves the broken signal path, the signal-dropped sub-panel (The Coroner's Slab) provides the deepest forensic view of buffer-full silence, and the enemy genealogy link (Know Thy Enemy's Wiring) teaches that diagnostic tools apply symmetrically to both sides.
+- The Rosetta Constraint (4.104) establishes a hard data-model requirement: all diagnostic surfaces must render from a single canonical data model to maintain vocabulary consistency — critical for the game's 1:1 real-AI-vocabulary claim.
+
+**Stats after:** 382 analyzed / 513 total (74.5%)
+
 ## 2026-03-20 — Batch: Rimworld, Dwarf Fortress, Shared Buffer Tax, Stigmergy, Buffer Insertion Order
 
 **Aspects analyzed:** 5
