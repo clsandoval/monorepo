@@ -79,7 +79,7 @@ export function ResultsPanel({ result }: Props) {
       {/* Print button */}
       <button
         onClick={() => window.print()}
-        className="h-[44px] w-full rounded-md border-2 border-border text-text-primary font-body text-sm font-semibold hover:bg-bg transition-colors cursor-pointer"
+        className="no-print h-[44px] w-full rounded-md border-2 border-border text-text-primary font-body text-sm font-semibold hover:bg-bg transition-colors cursor-pointer"
       >
         Print Summary
       </button>

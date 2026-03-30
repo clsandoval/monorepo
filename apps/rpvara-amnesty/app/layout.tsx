@@ -31,11 +31,32 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "RPVARA Tax Amnesty Calculator",
+    description:
+      "Calculate real property tax amnesty savings under Republic Act 12001 Section 30",
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "PHP",
+    },
+  };
+
   return (
     <html
       lang="en"
       className={`${sourceSerif.variable} ${inter.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col font-body">{children}</body>
     </html>
   );

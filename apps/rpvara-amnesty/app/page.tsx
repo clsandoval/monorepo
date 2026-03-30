@@ -19,11 +19,13 @@ export default function Home() {
         <DeadlineBanner />
       </div>
       <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <CalculatorForm onResult={setResult} />
+        <div className="no-print">
+          <CalculatorForm onResult={setResult} />
+        </div>
         {result ? (
           <ResultsPanel result={result} />
         ) : (
-          <div className="rounded-lg border border-border-subtle bg-bg-panel p-6 flex items-center justify-center">
+          <div className="no-print rounded-lg border border-border-subtle bg-bg-panel p-6 flex items-center justify-center">
             <p className="text-center text-text-tertiary font-body text-sm">
               Enter your delinquent years and click{" "}
               <strong>Compute Amnesty Savings</strong> to see your results.
