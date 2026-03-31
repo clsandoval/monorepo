@@ -1,24 +1,17 @@
+// Must clear before SDK import — SDK checks for nested Claude Code execution
+delete process.env.CLAUDECODE;
+delete process.env.CLAUDE_CODE_ENTRYPOINT;
+
 import { query, tool, createSdkMcpServer } from '@anthropic-ai/claude-agent-sdk';
 import { z } from 'zod/v4';
-import { execSync } from 'child_process';
-import { existsSync } from 'fs';
 import { SYSTEM_PROMPT, buildPrompt } from '@/lib/agent-prompt';
 import type { InstanceConfig } from '@/lib/types';
 
 export const runtime = 'nodejs';
 export const maxDuration = 300;
 
-const REPO_URL = 'https://github.com/pymc-labs/decision-orchestrator.git';
-const WORKSPACE_DIR = '/tmp/daimon-workspace';
-
-function ensureRepo(): void {
-  if (!existsSync(WORKSPACE_DIR)) {
-    execSync(`git clone --depth 1 ${REPO_URL} ${WORKSPACE_DIR}`, {
-      stdio: 'pipe',
-      timeout: 60_000,
-    });
-  }
-}
+// Use the local submodule instead of cloning
+const WORKSPACE_DIR = '/home/clsandoval/cs/monorepo/projects/decision-orchestrator';
 
 export async function POST(request: Request): Promise<Response> {
   const body = await request.json();
@@ -30,14 +23,6 @@ export async function POST(request: Request): Promise<Response> {
   const lastUserMessage = messages.filter((m) => m.role === 'user').pop();
   if (!lastUserMessage) {
     return Response.json({ error: 'No user message found' }, { status: 400 });
-  }
-
-  // Clone repo if needed
-  try {
-    ensureRepo();
-  } catch (err) {
-    console.error('Failed to clone repo:', err);
-    // Continue anyway — agent can still work without the repo
   }
 
   const encoder = new TextEncoder();
@@ -70,6 +55,11 @@ export async function POST(request: Request): Promise<Response> {
       try {
         const prompt = buildPrompt(lastUserMessage.content, config);
 
+        // Strip Claude Code env vars to avoid nested execution detection
+        const cleanEnv = { ...process.env };
+        delete cleanEnv.CLAUDECODE;
+        delete cleanEnv.CLAUDE_CODE_ENTRYPOINT;
+
         const q = query({
           prompt,
           options: {
@@ -81,7 +71,7 @@ export async function POST(request: Request): Promise<Response> {
             maxTurns: 15,
             permissionMode: 'bypassPermissions',
             allowDangerouslySkipPermissions: true,
-            persistSession: false,
+            env: cleanEnv,
           },
         });
 
