@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Libre_Franklin, Archivo } from "next/font/google";
-import { TopBar } from "@/components/TopBar";
 import "./globals.css";
 
 const libreFranklin = Libre_Franklin({
@@ -30,7 +29,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${libreFranklin.variable} ${archivo.variable}`}>
       <body>
-        <TopBar />
         {children}
       </body>
     </html>
