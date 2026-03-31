@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { TopBar } from '@/components/TopBar';
-import { ConfigPanel } from '@/components/ConfigPanel';
+import { ReactCanvas } from '@/components/ReactCanvas';
 import { ChatPanel } from '@/components/ChatPanel';
 import { getInstance, saveInstance } from '@/lib/store';
 import { InstanceConfig } from '@/lib/types';
@@ -14,6 +14,7 @@ export default function InstanceDetailPage() {
   const id = params.id as string;
 
   const [config, setConfig] = useState<InstanceConfig | null>(null);
+  const [jsx, setJsx] = useState<string | null>(null);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Load instance on mount
@@ -56,8 +57,8 @@ export default function InstanceDetailPage() {
     <>
       <TopBar />
       <div className="main-split">
-        <ConfigPanel config={config} onChange={handleChange} isNew={false} />
-        <ChatPanel config={config} onConfigChange={handleChange} />
+        <ReactCanvas jsx={jsx} config={config} onConfigChange={handleChange} />
+        <ChatPanel config={config} onConfigChange={handleChange} onRender={setJsx} />
       </div>
     </>
   );
