@@ -2,22 +2,22 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { InstanceConfig, ChatMessage } from '@/lib/types';
+import { DeploymentBrief, ChatMessage } from '@/lib/types';
 
 const SYSTEM_MESSAGE: ChatMessage = {
   role: 'system',
-  content: "Tell me what this bot instance needs. I'll update the configuration as we go.",
+  content: "Describe the client and what the bot should do. I'll build the deployment brief as we go.",
 };
 
 interface ChatPanelProps {
-  config: InstanceConfig;
-  onConfigChange: (config: InstanceConfig) => void;
+  brief: DeploymentBrief;
+  onBriefChange: (brief: DeploymentBrief) => void;
   onRender?: (jsx: string) => void;
   initialMessages?: ChatMessage[];
   onMessagesChange?: (messages: ChatMessage[]) => void;
 }
 
-export function ChatPanel({ config, onConfigChange, onRender, initialMessages, onMessagesChange }: ChatPanelProps) {
+export function ChatPanel({ brief, onBriefChange, onRender, initialMessages, onMessagesChange }: ChatPanelProps) {
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
     if (initialMessages && initialMessages.length > 0) return initialMessages;
     return [SYSTEM_MESSAGE];
@@ -25,11 +25,11 @@ export function ChatPanel({ config, onConfigChange, onRender, initialMessages, o
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const configRef = useRef(config);
+  const briefRef = useRef(brief);
 
   useEffect(() => {
-    configRef.current = config;
-  }, [config]);
+    briefRef.current = brief;
+  }, [brief]);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -61,7 +61,7 @@ export function ChatPanel({ config, onConfigChange, onRender, initialMessages, o
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: chatMessages, config: configRef.current }),
+        body: JSON.stringify({ messages: chatMessages, brief: briefRef.current }),
       });
 
       const reader = response.body!.getReader();
@@ -95,8 +95,8 @@ export function ChatPanel({ config, onConfigChange, onRender, initialMessages, o
               });
             } else if (eventType === 'render') {
               onRender?.(data.jsx);
-            } else if (eventType === 'config') {
-              onConfigChange(data.config);
+            } else if (eventType === 'brief') {
+              onBriefChange(data.brief);
             } else if (eventType === 'done') {
               // Finalize
             }
@@ -105,7 +105,6 @@ export function ChatPanel({ config, onConfigChange, onRender, initialMessages, o
         }
       }
 
-      // Ensure final assistant message is in history
       if (assistantText) {
         setMessages(prev => {
           const last = prev[prev.length - 1];
@@ -141,7 +140,7 @@ export function ChatPanel({ config, onConfigChange, onRender, initialMessages, o
           </svg>
         </div>
         <div className="chat-title-group">
-          <div className="chat-title">Config Assistant</div>
+          <div className="chat-title">Deploy Assistant</div>
           <div className="chat-status">
             <span className={`chat-status-dot${loading ? ' thinking' : ''}`} />
             {loading ? 'Thinking' : 'Ready'}
@@ -167,7 +166,6 @@ export function ChatPanel({ config, onConfigChange, onRender, initialMessages, o
             );
           }
 
-          // assistant
           return (
             <div key={i} className="msg msg-b msg-markdown">
               <ReactMarkdown>{msg.content}</ReactMarkdown>
@@ -190,7 +188,7 @@ export function ChatPanel({ config, onConfigChange, onRender, initialMessages, o
         <div className="chat-input-row">
           <input
             className="chat-field"
-            placeholder="Describe what the bot needs..."
+            placeholder="Describe the client and what the bot should do..."
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
