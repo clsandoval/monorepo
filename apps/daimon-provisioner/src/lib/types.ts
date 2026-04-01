@@ -4,16 +4,37 @@ export interface DeploymentBrief {
   summary: string;
   status: 'brainstorming' | 'ready' | 'deploying' | 'deployed';
 
+  // Section data
+  organization: OrganizationSection | null;
+  discord_setup: DiscordSetupSection | null;
   integrations: Integration[];
   journeys: Journey[];
   credentials: Credential[];
+  infrastructure: InfrastructureSection | null;
   notes: string[];
 
+  // Interaction state
+  pending_question: PendingQuestion | null;
+  locked_sections: string[];
+
   annotations: Annotation[];
-  chat_messages: ChatMessage[];
-  current_jsx: string | null;
+  current_jsx: string | null; // deprecated — ignored by ProgressiveBrief, kept so existing DB rows don't break
+  chat_messages: ChatMessage[]; // deprecated — kept for DB compat
   created_at: string;
   updated_at: string;
+}
+
+export interface OrganizationSection {
+  company_name: string;
+  description: string;
+  team_size: string | null;
+  bot_purpose: string;
+}
+
+export interface DiscordSetupSection {
+  guild_id: string;
+  channels: string[];
+  channel_mappings: Record<string, string>;
 }
 
 export interface Integration {
@@ -40,6 +61,26 @@ export interface Credential {
   platform: string;
   status: 'needed' | 'have' | 'unknown';
   note: string | null;
+}
+
+export interface InfrastructureSection {
+  fly_region: string;
+  supabase_project: string | null;
+  langfuse_workspace: string | null;
+  e2b_template: string | null;
+}
+
+export interface PendingQuestion {
+  id: string;
+  section: string;
+  text: string;
+  options: QuestionOption[] | null; // null = free-text only
+}
+
+export interface QuestionOption {
+  key: string;   // "A", "B", "C"
+  label: string;
+  description: string | null;
 }
 
 export interface Annotation {
