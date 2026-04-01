@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { TopBar } from '@/components/TopBar';
 import { ReactCanvas } from '@/components/ReactCanvas';
 import { ChatPanel } from '@/components/ChatPanel';
@@ -12,25 +12,24 @@ export default function NewInstancePage() {
   const [jsx, setJsx] = useState<string | null>(null);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Auto-save with 300ms debounce
-  useEffect(() => {
+  const handleChange = useCallback((updated: InstanceConfig) => {
+    setConfig(updated);
+
     if (saveTimerRef.current) {
       clearTimeout(saveTimerRef.current);
     }
     saveTimerRef.current = setTimeout(() => {
-      saveInstance(config);
+      saveInstance(updated);
     }, 300);
+  }, []);
 
+  useEffect(() => {
     return () => {
       if (saveTimerRef.current) {
         clearTimeout(saveTimerRef.current);
       }
     };
-  }, [config]);
-
-  function handleChange(updated: InstanceConfig) {
-    setConfig(updated);
-  }
+  }, []);
 
   return (
     <>
