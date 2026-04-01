@@ -1,10 +1,11 @@
 'use client';
 
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { InstanceConfig } from '@/lib/types';
 
 interface InstanceTableProps {
   instances: InstanceConfig[];
+  onDelete?: (id: string) => void;
 }
 
 const discordSvg = (
@@ -42,7 +43,9 @@ function statusLabel(status: InstanceConfig['status']): string {
   return status.charAt(0).toUpperCase() + status.slice(1);
 }
 
-export function InstanceTable({ instances }: InstanceTableProps) {
+export function InstanceTable({ instances, onDelete }: InstanceTableProps) {
+  const router = useRouter();
+
   return (
     <div className="table-wrap">
       <table className="table">
@@ -53,16 +56,15 @@ export function InstanceTable({ instances }: InstanceTableProps) {
             <th>Frontend</th>
             <th>Alerts</th>
             <th>Last Deploy</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {instances.map(instance => (
-            <tr key={instance.id}>
+            <tr key={instance.id} onClick={() => router.push(`/instances/${instance.id}`)} style={{ cursor: 'pointer' }}>
               <td>
-                <Link href={`/instances/${instance.id}`} style={{ display: 'block' }}>
-                  <div className="client-name">{instance.client.name}</div>
-                  <div className="client-desc">{instance.client.description}</div>
-                </Link>
+                <div className="client-name">{instance.client.name || '(unnamed)'}</div>
+                <div className="client-desc">{instance.client.description}</div>
               </td>
               <td>
                 <span className={`status-badge ${statusClass(instance.status)}`}>
@@ -94,6 +96,22 @@ export function InstanceTable({ instances }: InstanceTableProps) {
               </td>
               <td>
                 <span className="timestamp">{formatTimestamp(instance.updated_at)}</span>
+              </td>
+              <td>
+                {onDelete && (
+                  <button
+                    className="delete-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDelete(instance.id);
+                    }}
+                    title="Delete instance"
+                  >
+                    <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14">
+                      <path d="M5.75 1a.75.75 0 00-.75.75V3H2a.75.75 0 000 1.5h.37l.63 9.49A1.75 1.75 0 004.75 15.5h6.5A1.75 1.75 0 0013 13.99l.63-9.49H14A.75.75 0 0014 3h-3V1.75A.75.75 0 0010.25 1h-4.5zM6.5 3V2.5h3V3h-3zm-2.13 1.5h7.26l-.62 9.31a.25.25 0 01-.25.19h-6.5a.25.25 0 01-.25-.19L4.37 4.5z" />
+                    </svg>
+                  </button>
+                )}
               </td>
             </tr>
           ))}

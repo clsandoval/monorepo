@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { TopBar } from '@/components/TopBar';
 import { InstanceTable } from '@/components/InstanceTable';
-import { getInstances } from '@/lib/store';
+import { getInstances, deleteInstance } from '@/lib/store';
 import { InstanceConfig } from '@/lib/types';
 
 export default function Home() {
@@ -35,7 +35,10 @@ export default function Home() {
             Loading instances...
           </div>
         ) : (
-          <InstanceTable instances={instances} />
+          <InstanceTable instances={instances} onDelete={async (id) => {
+            await deleteInstance(id);
+            setInstances(prev => prev.filter(i => i.id !== id));
+          }} />
         )}
       </div>
     </>
