@@ -86,11 +86,8 @@ export async function POST(request: Request): Promise<Response> {
                 send('text', { content: block.text });
               }
             }
-          } else if (message.type === 'result') {
-            if ('result' in message && message.result) {
-              send('text', { content: message.result });
-            }
           }
+          // Skip 'result' events — they duplicate text already sent via 'assistant' events
         }
       } catch (err) {
         console.error('Agent SDK error:', err);
