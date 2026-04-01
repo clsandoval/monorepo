@@ -34,6 +34,9 @@ export async function POST(request: Request): Promise<Response> {
         );
       };
 
+      // Track accumulated brief state across tool calls within a single turn
+      let currentBrief = { ...brief };
+
       const askQuestionTool = tool(
         'ask_question',
         'Present a question to the user in the progressive brief UI. The question appears at the frontier (bottom edge) of the brief.',
@@ -64,9 +67,14 @@ export async function POST(request: Request): Promise<Response> {
         },
         async ({ section, content, brief_updates }) => {
           send('section_lock', { section, content });
-          if (brief_updates && Object.keys(brief_updates).length > 0) {
-            send('brief', { brief: { ...brief, [section]: content, ...brief_updates, locked_sections: [...new Set([...brief.locked_sections, section])] } });
-          }
+          // Always update accumulated brief state and send a brief event for persistence
+          currentBrief = {
+            ...currentBrief,
+            [section]: content,
+            ...brief_updates,
+            locked_sections: [...new Set([...currentBrief.locked_sections, section])],
+          };
+          send('brief', { brief: currentBrief });
           return { content: [{ type: 'text' as const, text: `Section "${section}" locked.` }] };
         },
       );
