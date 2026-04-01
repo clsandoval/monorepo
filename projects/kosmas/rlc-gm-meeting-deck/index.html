@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kosmas Athletic Ventures — RLC</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #004170;
+    --navy-deep: #00243F;
+    --red: #E30613;
+    --white: #FFFFFF;
+    --gold: #CEAB5D;
+    --gold-light: #E8D5A0;
+    --cream: #F7F5F0;
+    --ink: #0B1520;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Geist', -apple-system, sans-serif;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .deck { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    display: flex;
+  }
+
+  .slide.active { opacity: 1; pointer-events: auto; }
+
+  .nav {
+    position: fixed;
+    bottom: 24px;
+    right: 32px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  body:hover .nav { opacity: 1; }
+
+  .nav-btn {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    display: grid; place-items: center;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  .nav-count {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress {
+    position: fixed; top: 0; left: 0;
+    height: 2px;
+    background: var(--red);
+    transition: width 0.4s ease;
+    z-index: 100;
+  }
+
+  /* ── COVER ── */
+  .s-cover {
+    background: var(--ink);
+    width: 100%; display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .s-cover::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(0,65,112,0.25), transparent),
+                radial-gradient(ellipse 50% 40% at 85% 20%, rgba(227,6,19,0.1), transparent);
+  }
+  .s-cover::after {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, var(--navy), var(--red));
+  }
+  .cover-main {
+    flex: 1; position: relative; z-index: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 10%;
+  }
+  .cover-logo-row {
+    display: flex; align-items: center; gap: 18px; margin-bottom: 48px;
+  }
+  .cover-icon {
+    width: 44px; height: 44px;
+    border: 1.5px solid var(--gold);
+    display: grid; place-items: center;
+  }
+  .cover-icon svg { width: 22px; height: 22px; fill: var(--gold); }
+  .cover-logotype {
+    font-size: 12px; font-weight: 700; letter-spacing: 8px;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .cover-headline {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400; line-height: 1.15;
+    color: var(--white); max-width: 70%;
+  }
+  .cover-headline em { font-style: italic; color: var(--gold-light); }
+  .cover-foot {
+    position: relative; z-index: 1;
+    padding: 24px 10%;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .cover-foot span {
+    font-size: 10px; letter-spacing: 3px;
+    color: rgba(255,255,255,0.2); text-transform: uppercase;
+  }
+
+  /* ── ECOSYSTEM ── */
+  .s-eco { background: var(--cream); width: 100%; display: flex; }
+  .eco-left {
+    width: 38%; background: var(--navy-deep);
+    padding: 8% 6%;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .eco-left::after {
+    content: ''; position: absolute; right: 0; top: 15%; bottom: 15%;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--gold), transparent);
+  }
+  .eco-left h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 400; color: var(--white); line-height: 1.2; margin-bottom: 16px;
+  }
+  .eco-left p { font-size: 15px; color: rgba(255,255,255,0.4); line-height: 1.8; }
+  .eco-right {
+    flex: 1; padding: 6% 7%;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .eco-row {
+    display: grid; grid-template-columns: 90px 1fr;
+    align-items: center; padding: 18px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .eco-row:last-child { border-bottom: none; }
+  .eco-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 3px;
+    color: var(--navy); text-transform: uppercase;
+  }
+  .eco-desc { font-size: 16px; color: #666; line-height: 1.5; }
+  .eco-desc strong { color: var(--navy-deep); font-weight: 600; }
+
+  /* ── OPPORTUNITY ── */
+  .s-opp {
+    background: var(--ink); width: 100%; display: flex; position: relative;
+  }
+  .s-opp::before {
+    content: ''; position: absolute; top: 0; left: 50%; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent 10%, rgba(206,171,93,0.3) 50%, transparent 90%);
+  }
+  .opp-left {
+    flex: 1; padding: 8% 8% 8% 10%;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .opp-left h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 400; line-height: 1.15; color: var(--white); margin-bottom: 24px;
+  }
+  .opp-left h2 em { color: var(--gold-light); font-style: italic; }
+  .opp-left p {
+    font-size: 16px; color: rgba(255,255,255,0.4); line-height: 1.8; max-width: 420px;
+  }
+  .opp-right {
+    flex: 1; padding: 8% 10% 8% 8%;
+    display: flex; flex-direction: column; justify-content: center; gap: 32px;
+  }
+  .opp-metric { display: flex; align-items: baseline; gap: 20px; }
+  .opp-metric .num {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(40px, 5vw, 56px);
+    font-weight: 400; color: var(--gold);
+    min-width: 110px; text-align: right; line-height: 1;
+  }
+  .opp-metric .desc { font-size: 15px; color: rgba(255,255,255,0.4); line-height: 1.6; }
+  .opp-sep { width: 30px; height: 1px; background: var(--red); margin-left: 80px; }
+
+  /* ── WHO IS KOSMAS ── */
+  .s-who {
+    background: var(--white); width: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8% 10%;
+  }
+  .who-top { margin-bottom: 48px; }
+  .who-top h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 400; color: var(--navy-deep); margin-bottom: 16px;
+  }
+  .who-top p { font-size: 17px; color: #777; line-height: 1.8; max-width: 700px; }
+  .who-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 2px solid var(--navy);
+  }
+  .who-stat {
+    padding: 28px 24px 28px 0;
+    border-right: 1px solid rgba(0,0,0,0.06);
+  }
+  .who-stat:last-child { border-right: none; }
+  .who-stat .ws-val {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(24px, 3vw, 32px);
+    color: var(--navy); margin-bottom: 6px;
+  }
+  .who-stat .ws-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    color: #aaa; text-transform: uppercase;
+  }
+
+  /* ── TECHNOLOGY ── */
+  .s-tech {
+    background: var(--navy-deep); width: 100%;
+    display: flex; flex-direction: column; padding: 6% 8%;
+    position: relative; overflow: hidden;
+  }
+  .s-tech::after {
+    content: ''; position: absolute; right: -5%; top: -10%;
+    width: 45%; height: 120%;
+    background: radial-gradient(ellipse at center, rgba(0,65,112,0.3), transparent 70%);
+    pointer-events: none;
+  }
+  .tech-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 40px; position: relative; z-index: 1;
+  }
+  .tech-head h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 400; color: var(--white); line-height: 1.2;
+  }
+  .tech-head h2 em { color: var(--gold-light); font-style: italic; }
+  .tech-badge {
+    font-size: 9px; font-weight: 700; letter-spacing: 3px;
+    color: var(--gold); border: 1px solid rgba(206,171,93,0.4);
+    padding: 8px 16px; text-transform: uppercase; white-space: nowrap;
+  }
+  .tech-body {
+    flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    position: relative; z-index: 1;
+  }
+  .tech-item {
+    padding: 28px 32px; background: rgba(255,255,255,0.03);
+    border-left: 2px solid var(--red);
+  }
+  .tech-item h4 {
+    font-size: 14px; font-weight: 700; letter-spacing: 2px;
+    color: var(--white); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .tech-item p { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+  .tech-stat {
+    margin-top: 12px;
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px; color: var(--gold);
+  }
+
+  /* ── AUTONOMOUS MODEL ── */
+  .s-auto { background: var(--white); width: 100%; display: flex; }
+  .auto-left {
+    flex: 1; padding: 7% 6% 7% 10%;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .auto-left h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 400; color: var(--navy-deep);
+    margin-bottom: 16px; line-height: 1.2;
+  }
+  .auto-left p { font-size: 16px; color: #777; line-height: 1.8; margin-bottom: 28px; }
+  .auto-verticals { display: flex; flex-wrap: wrap; gap: 6px; }
+  .auto-vert {
+    font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+    padding: 8px 16px; text-transform: uppercase;
+  }
+  .auto-vert.active { background: var(--navy); color: white; }
+  .auto-vert.other { border: 1px solid #ccc; color: #999; }
+  .auto-right {
+    flex: 1; background: var(--navy); padding: 7% 8%;
+    display: flex; flex-direction: column; justify-content: center; gap: 28px;
+  }
+  .auto-case-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 3px;
+    color: var(--gold); text-transform: uppercase; margin-bottom: -18px;
+  }
+  .auto-case-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px; color: var(--white); margin-bottom: 4px;
+  }
+  .auto-case-desc { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+  .auto-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .auto-met { padding: 16px 0; border-top: 1px solid rgba(255,255,255,0.1); }
+  .auto-met .am-val {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px; color: var(--gold); line-height: 1; margin-bottom: 4px;
+  }
+  .auto-met .am-label {
+    font-size: 11px; color: rgba(255,255,255,0.35);
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+
+  /* ── VENUE SLIDES ── */
+  .venue-photo {
+    flex: 1; background: var(--navy);
+    display: grid; place-items: center;
+    position: relative; overflow: hidden;
+  }
+  .venue-photo::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.015) 20px, rgba(255,255,255,0.015) 21px);
+  }
+  .venue-photo .ph-text {
+    font-size: 11px; letter-spacing: 3px;
+    color: rgba(255,255,255,0.15); text-transform: uppercase; position: relative;
+  }
+  .venue-detail {
+    flex: 1; padding: 7% 8%;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .venue-detail.dark { background: var(--ink); }
+  .venue-detail.navy-bg { background: var(--navy-deep); }
+  .vd-status {
+    font-size: 12px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+  .vd-status.live { color: #5cb85c; }
+  .vd-status.wip { color: var(--gold); }
+  .vd-status.flag { color: var(--red); }
+  .vd-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 400; color: var(--white); line-height: 1.1; margin-bottom: 8px;
+  }
+  .vd-type {
+    font-size: 15px; color: rgba(255,255,255,0.3);
+    letter-spacing: 0.5px; margin-bottom: 32px;
+  }
+  .vd-specs { display: flex; flex-direction: column; gap: 12px; }
+  .vd-spec {
+    display: grid; grid-template-columns: 80px 1fr; gap: 14px; align-items: baseline;
+  }
+  .vd-spec dt {
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .vd-spec dd { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+
+  /* ── HELIOS ── */
+  .s-helios {
+    background: var(--ink); width: 100%;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .helios-render {
+    flex: 6; background: var(--navy-deep);
+    display: grid; place-items: center; position: relative;
+  }
+  .helios-render::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 60%, rgba(0,65,112,0.3), transparent),
+                repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.01) 40px, rgba(255,255,255,0.01) 41px);
+  }
+  .helios-render .ph-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: 16px; letter-spacing: 4px;
+    color: rgba(255,255,255,0.12); text-transform: uppercase; position: relative;
+  }
+  .helios-jv {
+    position: absolute; top: 20px; right: 24px;
+    font-size: 9px; font-weight: 700; letter-spacing: 3px;
+    color: var(--gold); background: rgba(0,0,0,0.5);
+    padding: 8px 16px; text-transform: uppercase; backdrop-filter: blur(4px);
+  }
+  .helios-info {
+    flex: 4; padding: 4% 8%;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(206,171,93,0.15);
+  }
+  .helios-nums { display: flex; gap: 48px; }
+  .helios-num { text-align: center; }
+  .helios-num .hn-val {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(36px, 4vw, 48px);
+    color: var(--gold); line-height: 1;
+  }
+  .helios-num .hn-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    color: rgba(255,255,255,0.25); text-transform: uppercase; margin-top: 6px;
+  }
+
+  /* ── MULTI-SPORT ── */
+  .s-multi {
+    background: var(--cream); width: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8% 10%;
+  }
+  .multi-head { margin-bottom: 48px; }
+  .multi-head h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 400; color: var(--navy-deep); margin-bottom: 10px;
+  }
+  .multi-head p { font-size: 16px; color: #999; }
+  .multi-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-top: 2px solid var(--navy);
+  }
+  .multi-sport {
+    padding: 36px 32px;
+    border-right: 1px solid rgba(0,0,0,0.06);
+  }
+  .multi-sport:last-child { border-right: none; }
+  .multi-sport h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px; font-weight: 400;
+    color: var(--navy-deep); margin-bottom: 6px;
+  }
+  .ms-status {
+    font-size: 13px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 10px; color: var(--navy);
+  }
+  .ms-desc { font-size: 15px; color: #999; line-height: 1.7; }
+
+  /* ── PARTNERSHIP ── */
+  .s-partner {
+    background: var(--ink); width: 100%; display: flex;
+  }
+  .partner-side {
+    flex: 1; padding: 7% 8%;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .partner-side h3 {
+    font-size: 13px; font-weight: 700; letter-spacing: 4px;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 32px;
+  }
+  .partner-side ul { list-style: none; }
+  .partner-side li {
+    font-size: 17px; color: rgba(255,255,255,0.5);
+    padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.5;
+  }
+  .partner-side li:last-child { border-bottom: none; }
+
+  /* ── CLOSE ── */
+  .s-close {
+    background: var(--ink); width: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .s-close::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,65,112,0.15), transparent);
+  }
+  .close-inner { position: relative; z-index: 1; text-align: center; }
+  .close-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(44px, 5vw, 60px);
+    font-weight: 400; color: var(--white); letter-spacing: 14px; margin-bottom: 10px;
+  }
+  .close-rule { width: 40px; height: 2px; background: var(--red); margin: 20px auto; }
+  .close-tag {
+    font-size: 11px; letter-spacing: 4px;
+    color: var(--gold); text-transform: uppercase; font-weight: 300;
+  }
+  .close-contact {
+    margin-top: 48px; font-size: 12px;
+    color: rgba(255,255,255,0.2); letter-spacing: 1px;
+  }
+  .close-conf {
+    position: absolute; bottom: 24px; left: 0; right: 0;
+    text-align: center; font-size: 9px; letter-spacing: 3px;
+    color: rgba(255,255,255,0.1); text-transform: uppercase; z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <!-- 01 COVER -->
+  <div class="slide active" data-slide="1">
+    <div class="s-cover">
+      <div class="cover-main">
+        <div class="cover-logo-row">
+          <div class="cover-icon"><svg viewBox="0 0 24 24"><path d="M13 3L4 14h5l-1 7 9-11h-5l1-7z"/></svg></div>
+          <div class="cover-logotype">Kosmas</div>
+        </div>
+        <div class="cover-headline">Building the <em>Multi-Sport Ecosystem</em> in Southeast Asia</div>
+      </div>
+      <div class="cover-foot">
+        <span>Kosmas Athletic Ventures Co.</span>
+        <span>Prepared for Robinsons Land Corporation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 ECOSYSTEM -->
+  <div class="slide" data-slide="2">
+    <div class="s-eco">
+      <div class="eco-left">
+        <h2>The Kosmas Ecosystem</h2>
+        <p>Venues, technology, and operations — integrated under one platform, expanding across sports.</p>
+      </div>
+      <div class="eco-right">
+        <div class="eco-row"><div class="eco-label">Venues</div><div class="eco-desc"><strong>Bridgetowne campus</strong> — Atleta 63, Temporary Facility, Helios. All within RLC's flagship estate.</div></div>
+        <div class="eco-row"><div class="eco-label">Tech</div><div class="eco-desc"><strong>PodPlay</strong> — autonomous venue OS. Booking, replay, payments, access control, analytics.</div></div>
+        <div class="eco-row"><div class="eco-label">Sports</div><div class="eco-desc"><strong>Pickleball</strong> · <strong>Football</strong></div></div>
+        <div class="eco-row"><div class="eco-label">Ops</div><div class="eco-desc"><strong>Programming, events, coaching, F&B</strong> — full-stack facility operations</div></div>
+        <div class="eco-row"><div class="eco-label">Payments</div><div class="eco-desc"><strong>Magpie</strong> — GCash, credit cards, in-app payments</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 OPPORTUNITY -->
+  <div class="slide" data-slide="3">
+    <div class="s-opp">
+      <div class="opp-left">
+        <h2>The Sports Facility <em>Opportunity</em></h2>
+        <p>The Philippines is experiencing a sports infrastructure boom. Pickleball has exploded, football is institutionalizing, and new formats keep emerging. The demand is here — the facilities haven't caught up.</p>
+      </div>
+      <div class="opp-right">
+        <div class="opp-metric"><div class="num">200+</div><div class="desc">Pickleball courts opened<br>in PH since 2023</div></div>
+        <div class="opp-sep"></div>
+        <div class="opp-metric"><div class="num">1</div><div class="desc">FIFA Quality Pro-certified<br>football pitch in the country</div></div>
+        <div class="opp-sep"></div>
+        <div class="opp-metric"><div class="num">0</div><div class="desc">Integrated sports facility<br>operators at scale</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 WHO IS KOSMAS -->
+  <div class="slide" data-slide="4">
+    <div class="s-who">
+      <div class="who-top">
+        <h2>Kosmas Athletic Ventures Co.</h2>
+        <p>Southeast Asia's integrated sports facility operator. We combine real estate partnerships, proprietary technology, and operational expertise to build and run world-class multi-sport venues.</p>
+      </div>
+      <div class="who-stats">
+        <div class="who-stat"><div class="ws-val">2025</div><div class="ws-label">Founded</div></div>
+        <div class="who-stat"><div class="ws-val">PH · SG · TH</div><div class="ws-label">Markets</div></div>
+        <div class="who-stat"><div class="ws-val">3</div><div class="ws-label">Venues</div></div>
+        <div class="who-stat"><div class="ws-val">SE Asia</div><div class="ws-label">Exclusive PodPlay Rights</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 TECHNOLOGY -->
+  <div class="slide" data-slide="5">
+    <div class="s-tech">
+      <div class="tech-head">
+        <h2>The Technology:<br><em>PodPlay</em></h2>
+        <div class="tech-badge">Exclusive SEA Distribution</div>
+      </div>
+      <div class="tech-body">
+        <div class="tech-item"><h4>Autonomous Operations</h4><p>24/7 venue operation without on-site staff. Contactless entry, remote security, access control via Kisi. Reduce labor costs by up to 66%.</p></div>
+        <div class="tech-item"><h4>Smart Court Replay</h4><p>Patent-pending camera system. Players tap to capture. Clips emailed after session. 110M+ social impressions from user-generated replays.</p><div class="tech-stat">1.5M+ replays served</div></div>
+        <div class="tech-item"><h4>Booking & Payments</h4><p>White-label branded apps per venue. Algorithmic court assignment maximizes utilization. GCash + cards via Magpie for PH market.</p><div class="tech-stat">1M+ users</div></div>
+        <div class="tech-item"><h4>Analytics & Dashboard</h4><p>Real-time utilization, revenue, retention. Tableau-powered advanced analytics. Cloud-based fleet management across all locations.</p><div class="tech-stat">200+ locations</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 AUTONOMOUS MODEL -->
+  <div class="slide" data-slide="6">
+    <div class="s-auto">
+      <div class="auto-left">
+        <h2>Not Just Courts.<br>An Operating System.</h2>
+        <p>PodPlay powers autonomous venues across verticals — from billiard lounges to golf simulators. The same tech stack that runs Kosmas venues runs 200+ locations globally.</p>
+        <div class="auto-verticals">
+          <span class="auto-vert active">Pickleball</span>
+          <span class="auto-vert active">Football</span>
+          <span class="auto-vert other">Pool / Billiards</span>
+          <span class="auto-vert other">Golf Sims</span>
+          <span class="auto-vert other">Dog Wash</span>
+          <span class="auto-vert other">Racing Sims</span>
+        </div>
+      </div>
+      <div class="auto-right">
+        <div class="auto-case-label">Case Study</div>
+        <div><div class="auto-case-name">Sharks Pool Club, NYC</div><div class="auto-case-desc">First autonomous billiard lounge. PodPlay tech added post-acquisition.</div></div>
+        <div class="auto-metrics">
+          <div class="auto-met"><div class="am-val">+76%</div><div class="am-label">Revenue</div></div>
+          <div class="auto-met"><div class="am-val">37%</div><div class="am-label">Operating Margin</div></div>
+          <div class="auto-met"><div class="am-val">+50%</div><div class="am-label">Capacity</div></div>
+          <div class="auto-met"><div class="am-val">24/7</div><div class="am-label">Operation</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 ATLETA 63 -->
+  <div class="slide" data-slide="7">
+    <div class="venue-photo"><div class="ph-text">Venue Photography</div></div>
+    <div class="venue-detail dark">
+      <div class="vd-status live">● Operational</div>
+      <div class="vd-name">Atleta 63</div>
+      <div class="vd-type">Football · Bridgetowne, Pasig</div>
+      <dl class="vd-specs">
+        <div class="vd-spec"><dt>Field</dt><dd>104m × 66m artificial turf</dd></div>
+        <div class="vd-spec"><dt>Rating</dt><dd>Only FIFA Quality Pro pitch in PH</dd></div>
+        <div class="vd-spec"><dt>Hours</dt><dd>24/7 operation</dd></div>
+        <div class="vd-spec"><dt>Location</dt><dd>Robinsons Land — Bridgetowne</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <!-- 08 TEMPORARY FACILITY -->
+  <div class="slide" data-slide="8">
+    <div class="venue-detail navy-bg">
+      <div class="vd-status wip">◆ In Progress — Sept 2026</div>
+      <div class="vd-name">Temporary Facility</div>
+      <div class="vd-type">Pickleball · Bridgetowne</div>
+      <dl class="vd-specs">
+        <div class="vd-spec"><dt>Courts</dt><dd>14 pickleball courts</dd></div>
+        <div class="vd-spec"><dt>Type</dt><dd>Tent structure — rapid deployment</dd></div>
+        <div class="vd-spec"><dt>Tech</dt><dd>Full PodPlay autonomous stack</dd></div>
+        <div class="vd-spec"><dt>Status</dt><dd>Requirements gathering with PodPlay</dd></div>
+      </dl>
+    </div>
+    <div class="venue-photo"><div class="ph-text">Concept Render</div></div>
+  </div>
+
+  <!-- 09 HELIOS -->
+  <div class="slide" data-slide="9">
+    <div class="s-helios">
+      <div class="helios-render">
+        <div class="ph-text">Architectural Render</div>
+        <div class="helios-jv">Joint Venture with Robinsons Land</div>
+      </div>
+      <div class="helios-info">
+        <div>
+          <div class="vd-status flag">★ Flagship — 2028</div>
+          <div class="vd-name" style="font-size:36px;margin-bottom:4px;">Helios</div>
+          <div class="vd-type" style="margin-bottom:0;">Pickleball · 10-Story Building · Bridgetowne</div>
+        </div>
+        <div class="helios-nums">
+          <div class="helios-num"><div class="hn-val">20</div><div class="hn-label">Courts</div></div>
+          <div class="helios-num"><div class="hn-val">10</div><div class="hn-label">Stories</div></div>
+          <div class="helios-num"><div class="hn-val">2028</div><div class="hn-label">Target</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10 MULTI-SPORT -->
+  <div class="slide" data-slide="10">
+    <div class="s-multi">
+      <div class="multi-head">
+        <h2>Two Sports. One Platform. One Campus.</h2>
+        <p>Same infrastructure, same technology, same estate — expanding the Bridgetowne sports ecosystem.</p>
+      </div>
+      <div class="multi-row">
+        <div class="multi-sport"><h3>Pickleball</h3><div class="ms-status">Active — 14 courts planned</div><div class="ms-desc">Fastest-growing sport in PH. Temporary Facility launching Sept 2026, scaling to Helios. Full PodPlay tech stack with replay.</div></div>
+        <div class="multi-sport"><h3>Football</h3><div class="ms-status">Operational — Atleta 63</div><div class="ms-desc">Only FIFA Quality Pro field in the country. 24/7 operation. Professional clubs, academies, and recreational players. Already in Bridgetowne.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11 PARTNERSHIP -->
+  <div class="slide" data-slide="11">
+    <div class="s-partner">
+      <div class="partner-side" style="border-right:1px solid rgba(255,255,255,0.04);">
+        <h3>RLC Brings</h3>
+        <ul>
+          <li>Prime Bridgetowne real estate</li>
+          <li>Development & construction capability</li>
+          <li>Foot traffic from the Robinsons ecosystem</li>
+          <li>Brand credibility & institutional scale</li>
+          <li>Proven: Atleta 63 already in Bridgetowne</li>
+        </ul>
+      </div>
+      <div class="partner-side">
+        <h3>Kosmas Brings</h3>
+        <ul>
+          <li>Exclusive PodPlay technology rights for SE Asia</li>
+          <li>Autonomous venue operations expertise</li>
+          <li>Multi-sport programming & events</li>
+          <li>Revenue optimization & analytics</li>
+          <li>Execution track record across verticals</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12 CLOSE -->
+  <div class="slide" data-slide="12">
+    <div class="s-close">
+      <div class="close-inner">
+        <div class="close-logo">KOSMAS</div>
+        <div class="close-rule"></div>
+        <div class="close-tag">Athletic Ventures Co.</div>
+        <div class="close-contact">contact details</div>
+      </div>
+      <div class="close-conf">Confidential · Kosmas Athletic Ventures Co. © 2026</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav">
+  <button class="nav-btn" onclick="prev()">←</button>
+  <span class="nav-count" id="counter">1 / 12</span>
+  <button class="nav-btn" onclick="next()">→</button>
+</div>
+
+<script>
+  let current = 1;
+  const total = 12;
+  function show(n) {
+    current = Math.max(1, Math.min(total, n));
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.querySelector(`[data-slide="${current}"]`).classList.add('active');
+    document.getElementById('counter').textContent = `${current} / ${total}`;
+    document.getElementById('progress').style.width = `${(current / total) * 100}%`;
+  }
+  function next() { show(current + 1); }
+  function prev() { show(current - 1); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+  let touchX = 0;
+  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const diff = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(diff) > 50) diff < 0 ? next() : prev();
+  });
+  show(1);
+</script>
+</body>
+</html>
