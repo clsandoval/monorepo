@@ -64,6 +64,8 @@ export function createEmptyConfig(): InstanceConfig {
     workflows: [],
     alerts: [],
     status: 'draft',
+    chat_messages: [],
+    current_jsx: null,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   };

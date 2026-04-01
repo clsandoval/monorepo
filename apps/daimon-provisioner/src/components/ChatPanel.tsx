@@ -2,26 +2,26 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { InstanceConfig } from '@/lib/types';
+import { InstanceConfig, ChatMessage } from '@/lib/types';
+
+const SYSTEM_MESSAGE: ChatMessage = {
+  role: 'system',
+  content: "Tell me what this bot instance needs. I'll update the configuration as we go.",
+};
 
 interface ChatPanelProps {
   config: InstanceConfig;
   onConfigChange: (config: InstanceConfig) => void;
   onRender?: (jsx: string) => void;
+  initialMessages?: ChatMessage[];
+  onMessagesChange?: (messages: ChatMessage[]) => void;
 }
 
-interface DisplayMessage {
-  role: 'system' | 'user' | 'assistant';
-  content: string;
-}
-
-export function ChatPanel({ config, onConfigChange, onRender }: ChatPanelProps) {
-  const [messages, setMessages] = useState<DisplayMessage[]>([
-    {
-      role: 'system',
-      content: "Tell me what this bot instance needs. I'll update the configuration as we go.",
-    },
-  ]);
+export function ChatPanel({ config, onConfigChange, onRender, initialMessages, onMessagesChange }: ChatPanelProps) {
+  const [messages, setMessages] = useState<ChatMessage[]>(() => {
+    if (initialMessages && initialMessages.length > 0) return initialMessages;
+    return [SYSTEM_MESSAGE];
+  });
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -39,12 +39,16 @@ export function ChatPanel({ config, onConfigChange, onRender }: ChatPanelProps) 
     scrollToBottom();
   }, [messages, scrollToBottom]);
 
+  useEffect(() => {
+    onMessagesChange?.(messages);
+  }, [messages]); // eslint-disable-line react-hooks/exhaustive-deps
+
   async function sendMessage(content?: string) {
     const text = (content ?? input).trim();
     if (!text || loading) return;
 
     setInput('');
-    const userMsg: DisplayMessage = { role: 'user', content: text };
+    const userMsg: ChatMessage = { role: 'user', content: text };
     setMessages(prev => [...prev, userMsg]);
     setLoading(true);
 

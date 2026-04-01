@@ -6,7 +6,7 @@ import { TopBar } from '@/components/TopBar';
 import { ReactCanvas } from '@/components/ReactCanvas';
 import { ChatPanel } from '@/components/ChatPanel';
 import { getInstance, saveInstance } from '@/lib/store';
-import { InstanceConfig } from '@/lib/types';
+import { InstanceConfig, ChatMessage } from '@/lib/types';
 
 export default function InstanceDetailPage() {
   const params = useParams();
@@ -15,8 +15,10 @@ export default function InstanceDetailPage() {
 
   const [config, setConfig] = useState<InstanceConfig | null>(null);
   const [jsx, setJsx] = useState<string | null>(null);
+  const [initialMessages, setInitialMessages] = useState<ChatMessage[]>([]);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Load instance on mount
   useEffect(() => {
     getInstance(id).then(instance => {
       if (!instance) {
@@ -24,12 +26,16 @@ export default function InstanceDetailPage() {
         return;
       }
       setConfig(instance);
+      if (instance.current_jsx) {
+        setJsx(instance.current_jsx);
+      }
+      if (instance.chat_messages?.length > 0) {
+        setInitialMessages(instance.chat_messages);
+      }
     });
   }, [id, router]);
 
-  const handleChange = useCallback((updated: InstanceConfig) => {
-    setConfig(updated);
-
+  const save = useCallback((updated: InstanceConfig) => {
     if (saveTimerRef.current) {
       clearTimeout(saveTimerRef.current);
     }
@@ -38,6 +44,31 @@ export default function InstanceDetailPage() {
     }, 300);
   }, []);
 
+  const handleRender = useCallback((newJsx: string) => {
+    setJsx(newJsx);
+    setConfig(prev => {
+      if (!prev) return prev;
+      const updated = { ...prev, current_jsx: newJsx };
+      save(updated);
+      return updated;
+    });
+  }, [save]);
+
+  const handleChange = useCallback((updated: InstanceConfig) => {
+    setConfig(updated);
+    save(updated);
+  }, [save]);
+
+  const handleMessagesChange = useCallback((msgs: ChatMessage[]) => {
+    setConfig(prev => {
+      if (!prev) return prev;
+      const updated = { ...prev, chat_messages: msgs };
+      save(updated);
+      return updated;
+    });
+  }, [save]);
+
+  // Cleanup timer on unmount
   useEffect(() => {
     return () => {
       if (saveTimerRef.current) {
@@ -55,7 +86,13 @@ export default function InstanceDetailPage() {
       <TopBar />
       <div className="main-split">
         <ReactCanvas jsx={jsx} config={config} onConfigChange={handleChange} />
-        <ChatPanel config={config} onConfigChange={handleChange} onRender={setJsx} />
+        <ChatPanel
+          config={config}
+          onConfigChange={handleChange}
+          onRender={handleRender}
+          initialMessages={initialMessages}
+          onMessagesChange={handleMessagesChange}
+        />
       </div>
     </>
   );

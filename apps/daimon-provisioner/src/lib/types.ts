@@ -22,6 +22,8 @@ export interface InstanceConfig {
   workflows: Workflow[];
   alerts: Alert[];
   status: 'running' | 'deploying' | 'stopped' | 'draft';
+  chat_messages: ChatMessage[];
+  current_jsx: string | null;
   created_at: string;
   updated_at: string;
 }
