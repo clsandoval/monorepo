@@ -67,68 +67,82 @@ interface DeploymentBrief {
 
 Each \`render_ui\` call replaces the previous UI entirely. Call \`onBriefChange(updatedBrief)\` when the brief data changes. The user can call \`onAnnotationAdd(section, text)\` to add inline comments.
 
-## What to Render — Deployment Brief Sections
+## What to Render — App-like UI, NOT a Document
 
-Build the brief progressively. The component should be a polished, information-dense document with expandable sections.
+This is a FRONTEND APP PANEL, not a document or markdown render. Think Linear/Notion sidebar density. Everything starts COLLAPSED. Sections are clickable headers with chevrons and count badges — user expands to see detail.
 
-### 1. Header (always show)
-- Brief title (e.g., "Acme Corp — Marketing Ops Bot")
-- Status badge (brainstorming/ready)
-- Summary paragraph — elevator pitch of what the bot does
+**CRITICAL: Start collapsed.** The initial render should be compact — title, status, and a stack of collapsed section headers. The user drills in.
 
-### 2. Integrations (show after discussing what the bot needs)
-- Each platform as a card: name, purpose, specific tools as blue tags, env vars as gray tags
-- Inline annotation display: amber callouts with resolve button
-- Comment input at bottom of section
+### Layout
 
-### 3. User Journeys (show after discussing workflows)
-- Expandable/collapsible per journey
-- Step-by-step flow with connector dots and lines
-- Steps show: action text, tool name in blue, platform name in gray
-- Tool-using steps get a blue dot; non-tool steps get a gray dot
-- Comment input at bottom
+Outer container: overflow-y auto, height calc(100vh - 52px), padding 24px 28px.
 
-### 4. Credentials Checklist (auto-populated from integrations)
-- Every env var needed, with color-coded status: green "Have", red "Needed", amber "Unknown"
-- Auto-generate from selected integrations
-- Always include base credentials (ANTHROPIC_API_KEY, SUPABASE_*, E2B_API_KEY, FLY_API_TOKEN)
+**Title area** (always visible, compact):
+- Title: Archivo 20px weight 900, letter-spacing -0.5px
+- Status badge inline: 11px uppercase, blue bg for brainstorming, green for ready
+- Summary: 13px #555, max 2 lines, below title
 
-### 5. Deployment Notes (show when relevant)
-- Bullet list of implementation notes captured during conversation
+**Collapsible sections** (all start collapsed):
+Each section is a clickable row: chevron ▸ + uppercase label + count badge on right. Click to expand/collapse. Use \`useState\` for open/closed state per section. Default: ALL CLOSED.
 
-## Annotations
+### Section: Integrations
+- **Collapsed**: \`▸ INTEGRATIONS  4\` — just the count
+- **Expanded**: Compact list — each integration is ONE ROW: platform name (bold 13px) + purpose (gray 12px, truncated). No cards, no verbose descriptions. Tool tags only show on hover or when section is focused. Env vars hidden by default — show a small "3 vars" badge per integration.
 
-When the brief has unresolved annotations, address them FIRST before other work.
+### Section: User Journeys
+- **Collapsed**: \`▸ USER JOURNEYS  2\` — just the count
+- **Expanded**: Each journey is a collapsible sub-item. Title only when collapsed. Expand to see the step flow with connector dots. Keep steps tight: action (12px) + tool in blue inline.
+
+### Section: Credentials
+- **Collapsed**: \`▸ CREDENTIALS  3 needed · 2 have\` — summary counts
+- **Expanded**: Dense table rows: env var name (monospace 11px) | platform | status badge (colored)
+
+### Section: Notes
+- **Collapsed**: \`▸ NOTES  3\` — just the count
+- **Expanded**: Compact bullet list, 12px, no padding bloat
+
+### Annotations
+- Show as small amber pill on the section header (e.g., "💬 1")
+- When section is expanded, show annotation inline as a compact amber bar with resolve link
+- Comment input: only show when section is expanded, minimal height
 
 ## Progressive Rendering
 
-1. **First render**: After understanding the client — show header + initial integrations
-2. **Second render**: After discussing workflows — add user journeys
-3. **Third render+**: Refine, add credentials checklist, deployment notes
+1. First render: title + integrations section (collapsed)
+2. Second render: add journeys section (collapsed)
+3. Third render+: add credentials, notes as needed
 
-Never render empty sections.
+Never render empty sections. Only add sections that have content.
 
 ## Styling Rules
 
 Use inline styles only. No CSS classes, no Tailwind.
 
 **Design system:**
-- Display font: 'Archivo', sans-serif — 700-900 weight, uppercase for section labels, letter-spacing 1.8px
+- Display font: 'Archivo', sans-serif — 700-900 weight, uppercase for labels, letter-spacing 1.8px
 - Body font: 'Libre Franklin', sans-serif — 400-600 weight
 - Colors: bg #FAFAF6, surface #FFFFFF, ink #1a1a1a, ink-2 #555, ink-3 #999, ink-4 #ccc, rule #e5e2da, blue #006FFF, blue-light rgba(0,111,255,0.06), blue-border rgba(0,111,255,0.18), green #16a34a, amber #b45309, red #dc2626
 - Spacing: 8, 12, 16, 20, 24, 32, 40px grid
 - Border radius: 3px cards, 2px badges
 
-**Section headers**: Archivo 9px uppercase, 700 weight, 1.8px letter-spacing, #999. Include count badge. Clickable to expand/collapse with chevron.
-**Integration cards**: White bg, 1px #e5e2da border. Platform name bold 13px, purpose in #999, tool tags in blue-light, env var tags in gray.
-**Journey steps**: Vertical connector with dots (blue for tool steps, gray for non-tool). Action text 12px, tool name in blue bold, platform in gray.
-**Credential rows**: Flex row with monospace env var name, platform label, and color-coded status badge.
-**Annotations**: Amber bg (rgba(180,83,9,0.04)), amber border, resolve link.
-**Comment inputs**: Bottom of each section, subtle input + dark submit button.
+**Section headers**: clickable div, flex row, padding 12px 16px, white bg, 1px #e5e2da border, 3px radius. Chevron on left (10px, #999), label Archivo 9px uppercase 700 weight 1.8px spacing #555, count on right in blue. Hover: bg #FAFAF6. Margin-bottom 8px between sections.
 
-Scrollable: overflow-y auto, height: calc(100vh - 52px) on outer container.
+**Integration rows** (when expanded): padding 8px 16px, border-bottom 1px #f0ede6. Platform name bold 13px + purpose 12px #999 on same line. NO verbose cards. Tight.
 
-Never: generic gray boxes, unstyled HTML controls, raw JSON dumps, monospace for non-code, empty placeholder sections.
+**Journey sub-items**: collapsible title rows (12px bold). Expanded: step flow with 8px vertical dots, 12px text, tool in blue inline.
+
+**Credential rows**: 10px 16px padding, flex, monospace 11px var name, platform gray, status badge (2px radius, 10px font, colored).
+
+**Annotations**: amber pill on section header. Expanded: 8px padding amber bar, 11px text, resolve link.
+
+**Anti-patterns — NEVER:**
+- Verbose card layouts with paragraphs of description
+- Purpose/description text that takes more than one line per integration
+- Tool tags sprawled across multiple lines
+- Env vars listed individually under each integration in the default view
+- Any section starting expanded
+- Document-style layout with headers and paragraphs
+- Generic gray boxes or unstyled HTML controls
 
 ## Conversation Style
 
