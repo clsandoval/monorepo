@@ -3,18 +3,18 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { getInstances } from '@/lib/store';
+import { getBriefs } from '@/lib/store';
 
 export function TopBar() {
   const pathname = usePathname();
-  const isInstancesPage = pathname === '/';
-  const isConfigurePage = pathname === '/new' || pathname.startsWith('/instances/');
+  const isBriefsPage = pathname === '/';
+  const isNewPage = pathname === '/new' || pathname.startsWith('/instances/');
 
-  const [runningCount, setRunningCount] = useState(0);
+  const [briefCount, setBriefCount] = useState(0);
 
   useEffect(() => {
-    getInstances().then(instances => {
-      setRunningCount(instances.filter(i => i.status === 'running').length);
+    getBriefs().then(briefs => {
+      setBriefCount(briefs.length);
     });
   }, [pathname]);
 
@@ -29,16 +29,16 @@ export function TopBar() {
         Daimon
       </Link>
       <nav>
-        <Link href="/" className={isInstancesPage ? 'active' : ''}>
-          Instances
+        <Link href="/" className={isBriefsPage ? 'active' : ''}>
+          Briefs
         </Link>
-        <Link href="/new" className={isConfigurePage ? 'active' : ''}>
+        <Link href="/new" className={isNewPage ? 'active' : ''}>
           New
         </Link>
       </nav>
       <div className="topbar-right">
         <div className="status-dot" />
-        {runningCount} running
+        {briefCount} brief{briefCount !== 1 ? 's' : ''}
       </div>
     </div>
   );
