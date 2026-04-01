@@ -4,16 +4,17 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { TopBar } from '@/components/TopBar';
 import { InstanceTable } from '@/components/InstanceTable';
-import { seedMockData } from '@/lib/mock-data';
 import { getInstances } from '@/lib/store';
 import { InstanceConfig } from '@/lib/types';
 
 export default function Home() {
   const [instances, setInstances] = useState<InstanceConfig[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    seedMockData();
-    setInstances(getInstances());
+    getInstances()
+      .then(setInstances)
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -29,7 +30,13 @@ export default function Home() {
             New Instance
           </Link>
         </div>
-        <InstanceTable instances={instances} />
+        {loading ? (
+          <div style={{ padding: '40px 0', textAlign: 'center', color: '#999', fontSize: '13px' }}>
+            Loading instances...
+          </div>
+        ) : (
+          <InstanceTable instances={instances} />
+        )}
       </div>
     </>
   );

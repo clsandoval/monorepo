@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getInstances } from '@/lib/store';
-import { MOCK_INSTANCES } from '@/lib/mock-data';
 
 export function TopBar() {
   const pathname = usePathname();
@@ -14,9 +13,9 @@ export function TopBar() {
   const [runningCount, setRunningCount] = useState(0);
 
   useEffect(() => {
-    const stored = getInstances();
-    const all = stored.length > 0 ? stored : MOCK_INSTANCES;
-    setRunningCount(all.filter(i => i.status === 'running').length);
+    getInstances().then(instances => {
+      setRunningCount(instances.filter(i => i.status === 'running').length);
+    });
   }, [pathname]);
 
   return (
