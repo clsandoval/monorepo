@@ -4,54 +4,67 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { TopBar } from '@/components/TopBar';
 import { ReactCanvas } from '@/components/ReactCanvas';
 import { ChatPanel } from '@/components/ChatPanel';
-import { createEmptyConfig, saveInstance } from '@/lib/store';
-import { InstanceConfig, ChatMessage } from '@/lib/types';
+import { createEmptyBrief, saveBrief } from '@/lib/store';
+import { DeploymentBrief, Annotation } from '@/lib/types';
 
-export default function NewInstancePage() {
-  const [config, setConfig] = useState<InstanceConfig>(() => createEmptyConfig());
+export default function NewBriefPage() {
+  const [brief, setBrief] = useState<DeploymentBrief>(() => createEmptyBrief());
   const [jsx, setJsx] = useState<string | null>(null);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const savedRef = useRef(false);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const save = useCallback((updated: InstanceConfig) => {
+  const save = useCallback((updated: DeploymentBrief) => {
     if (saveTimerRef.current) {
       clearTimeout(saveTimerRef.current);
     }
     saveTimerRef.current = setTimeout(() => {
-      saveInstance(updated);
+      saveBrief(updated);
     }, 300);
   }, []);
 
   const handleRender = useCallback((newJsx: string) => {
     setJsx(newJsx);
-    // First render triggers the initial save
     if (!savedRef.current) {
       savedRef.current = true;
     }
-    setConfig(prev => {
+    setBrief(prev => {
       const updated = { ...prev, current_jsx: newJsx };
       save(updated);
       return updated;
     });
   }, [save]);
 
-  const handleChange = useCallback((updated: InstanceConfig) => {
-    setConfig(updated);
+  const handleBriefChange = useCallback((updated: DeploymentBrief) => {
+    setBrief(updated);
     if (savedRef.current) {
       save(updated);
     }
   }, [save]);
 
-  const handleMessagesChange = useCallback((msgs: ChatMessage[]) => {
-    setMessages(msgs);
-    if (savedRef.current) {
-      setConfig(prev => {
-        const updated = { ...prev, chat_messages: msgs };
+  const handleAnnotationAdd = useCallback((section: string, text: string) => {
+    const annotation: Annotation = {
+      id: crypto.randomUUID(),
+      section,
+      text,
+      resolved: false,
+    };
+    setBrief(prev => {
+      const updated = { ...prev, annotations: [...prev.annotations, annotation] };
+      if (savedRef.current) {
         save(updated);
-        return updated;
-      });
-    }
+      }
+      return updated;
+    });
+  }, [save]);
+
+  const handleMessagesChange = useCallback((msgs: import('@/lib/types').ChatMessage[]) => {
+    setBrief(prev => {
+      const updated = { ...prev, chat_messages: msgs };
+      if (savedRef.current) {
+        save(updated);
+      }
+      return updated;
+    });
   }, [save]);
 
   // Cleanup timer on unmount
@@ -67,10 +80,15 @@ export default function NewInstancePage() {
     <>
       <TopBar />
       <div className="main-split">
-        <ReactCanvas jsx={jsx} config={config} onConfigChange={handleChange} />
+        <ReactCanvas
+          jsx={jsx}
+          brief={brief}
+          onBriefChange={handleBriefChange}
+          onAnnotationAdd={handleAnnotationAdd}
+        />
         <ChatPanel
-          config={config}
-          onConfigChange={handleChange}
+          brief={brief}
+          onBriefChange={handleBriefChange}
           onRender={handleRender}
           onMessagesChange={handleMessagesChange}
         />
