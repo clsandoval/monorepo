@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { TopBar } from '@/components/TopBar';
 import { ReactCanvas } from '@/components/ReactCanvas';
@@ -17,37 +17,34 @@ export default function InstanceDetailPage() {
   const [jsx, setJsx] = useState<string | null>(null);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Load instance on mount
   useEffect(() => {
-    const instance = getInstance(id);
-    if (!instance) {
-      router.push('/');
-      return;
-    }
-    setConfig(instance);
+    getInstance(id).then(instance => {
+      if (!instance) {
+        router.push('/');
+        return;
+      }
+      setConfig(instance);
+    });
   }, [id, router]);
 
-  // Auto-save with 300ms debounce
-  useEffect(() => {
-    if (!config) return;
+  const handleChange = useCallback((updated: InstanceConfig) => {
+    setConfig(updated);
 
     if (saveTimerRef.current) {
       clearTimeout(saveTimerRef.current);
     }
     saveTimerRef.current = setTimeout(() => {
-      saveInstance(config);
+      saveInstance(updated);
     }, 300);
+  }, []);
 
+  useEffect(() => {
     return () => {
       if (saveTimerRef.current) {
         clearTimeout(saveTimerRef.current);
       }
     };
-  }, [config]);
-
-  function handleChange(updated: InstanceConfig) {
-    setConfig(updated);
-  }
+  }, []);
 
   if (!config) {
     return null;
