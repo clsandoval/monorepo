@@ -5,48 +5,48 @@ import { useParams, useRouter } from 'next/navigation';
 import { TopBar } from '@/components/TopBar';
 import { ReactCanvas } from '@/components/ReactCanvas';
 import { ChatPanel } from '@/components/ChatPanel';
-import { getInstance, saveInstance } from '@/lib/store';
-import { InstanceConfig, ChatMessage } from '@/lib/types';
+import { getBrief, saveBrief } from '@/lib/store';
+import { DeploymentBrief, Annotation, ChatMessage } from '@/lib/types';
 
-export default function InstanceDetailPage() {
+export default function BriefDetailPage() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
 
-  const [config, setConfig] = useState<InstanceConfig | null>(null);
+  const [brief, setBrief] = useState<DeploymentBrief | null>(null);
   const [jsx, setJsx] = useState<string | null>(null);
   const [initialMessages, setInitialMessages] = useState<ChatMessage[]>([]);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Load instance on mount
+  // Load brief on mount
   useEffect(() => {
-    getInstance(id).then(instance => {
-      if (!instance) {
+    getBrief(id).then(loaded => {
+      if (!loaded) {
         router.push('/');
         return;
       }
-      setConfig(instance);
-      if (instance.current_jsx) {
-        setJsx(instance.current_jsx);
+      setBrief(loaded);
+      if (loaded.current_jsx) {
+        setJsx(loaded.current_jsx);
       }
-      if (instance.chat_messages?.length > 0) {
-        setInitialMessages(instance.chat_messages);
+      if (loaded.chat_messages?.length > 0) {
+        setInitialMessages(loaded.chat_messages);
       }
     });
   }, [id, router]);
 
-  const save = useCallback((updated: InstanceConfig) => {
+  const save = useCallback((updated: DeploymentBrief) => {
     if (saveTimerRef.current) {
       clearTimeout(saveTimerRef.current);
     }
     saveTimerRef.current = setTimeout(() => {
-      saveInstance(updated);
+      saveBrief(updated);
     }, 300);
   }, []);
 
   const handleRender = useCallback((newJsx: string) => {
     setJsx(newJsx);
-    setConfig(prev => {
+    setBrief(prev => {
       if (!prev) return prev;
       const updated = { ...prev, current_jsx: newJsx };
       save(updated);
@@ -54,13 +54,28 @@ export default function InstanceDetailPage() {
     });
   }, [save]);
 
-  const handleChange = useCallback((updated: InstanceConfig) => {
-    setConfig(updated);
+  const handleBriefChange = useCallback((updated: DeploymentBrief) => {
+    setBrief(updated);
     save(updated);
   }, [save]);
 
+  const handleAnnotationAdd = useCallback((section: string, text: string) => {
+    const annotation: Annotation = {
+      id: crypto.randomUUID(),
+      section,
+      text,
+      resolved: false,
+    };
+    setBrief(prev => {
+      if (!prev) return prev;
+      const updated = { ...prev, annotations: [...prev.annotations, annotation] };
+      save(updated);
+      return updated;
+    });
+  }, [save]);
+
   const handleMessagesChange = useCallback((msgs: ChatMessage[]) => {
-    setConfig(prev => {
+    setBrief(prev => {
       if (!prev) return prev;
       const updated = { ...prev, chat_messages: msgs };
       save(updated);
@@ -77,7 +92,7 @@ export default function InstanceDetailPage() {
     };
   }, []);
 
-  if (!config) {
+  if (!brief) {
     return null;
   }
 
@@ -85,10 +100,15 @@ export default function InstanceDetailPage() {
     <>
       <TopBar />
       <div className="main-split">
-        <ReactCanvas jsx={jsx} config={config} onConfigChange={handleChange} />
+        <ReactCanvas
+          jsx={jsx}
+          brief={brief}
+          onBriefChange={handleBriefChange}
+          onAnnotationAdd={handleAnnotationAdd}
+        />
         <ChatPanel
-          config={config}
-          onConfigChange={handleChange}
+          brief={brief}
+          onBriefChange={handleBriefChange}
           onRender={handleRender}
           initialMessages={initialMessages}
           onMessagesChange={handleMessagesChange}
