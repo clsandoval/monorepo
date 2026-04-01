@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 387
-- **Pending:** 126
-- **Convergence:** 75.4%
+- **Analyzed:** 397
+- **Pending:** 116
+- **Convergence:** 77.4%
 
 ---
 
@@ -224,9 +224,9 @@
 - [x] 1.28 — Dwarf Fortress: legendary complexity, emergent behavior from deep simulation
 - [x] 1.17a — The animated tooltip pattern as universal design principle: Into the Breach's breakthrough of "show, don't describe" applied to Robot Uprising's rules/hooks/skills; what a micro-simulation preview looks like for each building block type; the "animated rule card" that plays a 3-second scenario when hovered
 - [x] 1.17b — The consequence preview gap: Into the Breach previews every consequence before execution; Robot Uprising's sealed watch removes this entirely; where does consequence preview live in the plan screen (ghost preview, simulated first 5 ticks, "dry run" mode)?
-- [ ] 1.17c — Positional play as information play: Into the Breach's push/pull repositioning is spatial information warfare; Robot Uprising's signal routing is temporal information warfare; mapping the Into the Breach combo taxonomy (push-into-attack, push-into-water, block-emergence) to Robot Uprising equivalents (route-to-striker, overload-enemy-buffer, block-channel)
-- [ ] 1.17d — The Tactical Breach Wizards lineage: how TBW built on Into the Breach's perfect information model with character-specific ability previews, humor, and longer missions; what Robot Uprising can learn from the second generation of ItB-inspired design
-- [ ] 1.17e — Steel Judoka as Robot Uprising prototype: the zero-direct-damage squad that wins entirely through repositioning is the closest existing gameplay to Robot Uprising's attention-architecture-not-damage philosophy; analyzing every Steel Judoka strategy pattern for translation potential
+- [x] 1.17c — Positional play as information play: Into the Breach's push/pull repositioning is spatial information warfare; Robot Uprising's signal routing is temporal information warfare; mapping the Into the Breach combo taxonomy (push-into-attack, push-into-water, block-emergence) to Robot Uprising equivalents (route-to-striker, overload-enemy-buffer, block-channel)
+- [x] 1.17d — The Tactical Breach Wizards lineage: how TBW built on Into the Breach's perfect information model with character-specific ability previews, humor, and longer missions; what Robot Uprising can learn from the second generation of ItB-inspired design
+- [x] 1.17e — Steel Judoka as Robot Uprising prototype: the zero-direct-damage squad that wins entirely through repositioning is the closest existing gameplay to Robot Uprising's attention-architecture-not-damage philosophy; analyzing every Steel Judoka strategy pattern for translation potential
 
 ---
 
@@ -316,7 +316,7 @@
 - [x] 2.25 — The "last known position" prediction chain: when a positional buffer entry is too old for direct action, can the agent dead-reckon (last-known + elapsed ticks + velocity estimate)? Options: built-in skill, query modifier, or dedicated Specialist unit for position prediction; where does prediction live in the architecture?
 - [x] 2.11 — Signal fidelity: signals degrade as they travel (telephone game mechanic)
 - [x] 2.12 — Deception signals: enemy can inject false information into your network
-- [ ] 2.26 — Fidelity spoofing as attack primitive: enemy crafts signals with artificially-high fidelity specifically to pass the player's confidence filters; the workbench UI for signal authentication (checksums, source signatures, Counter-Intelligence skill that verifies provenance before buffer entry); makes the attention language itself an adversarial interface
+- [x] 2.26 — Fidelity spoofing as attack primitive: enemy crafts signals with artificially-high fidelity specifically to pass the player's confidence filters; the workbench UI for signal authentication (checksums, source signatures, Counter-Intelligence skill that verifies provenance before buffer entry); makes the attention language itself an adversarial interface
 - [x] 2.13 — Signal priority: urgent vs routine, and how priority affects buffer eviction and routing
 - [ ] 2.27 — Buffer exhaustion as late-game mechanic: long matches (100+ ticks) create a new failure mode — eviction policy breaking down as buffers fill with stale data; "buffer hygiene" as a skill; how architectures gracefully manage a full buffer mid-match; the context-window-overflow problem in Robot Uprising terms
 - [x] 2.28 — Scenario fingerprinting: giving each of the 100 randomized test cases a persistent visual identity (distinct color tag, icon, or seed number) so players can identify which specific scenarios fail across multiple runs; designing the scenario taxonomy to be learnable, not opaque; whether cases should be named or numbered in player-facing UI; interaction with sealed progressive reveal
@@ -397,8 +397,8 @@
 - [x] 3.08a — Trigger-to-rule vocabulary alignment: should triggers and rules use the same condition primitives (shared vocabulary reduces learning cost) or distinct vocabularies (independent evolution)?
 - [x] 3.08b — Channel naming conventions as emergent culture: standard channel libraries, community naming conventions, competitive meta around channel naming
 - [x] 3.08c — Hook slot economy as strategic constraint: choosing which hooks to install when you have more ideas than slots; slot scarcity as design pressure
-- [ ] 3.08d — Trigger evaluation order within a single tick: simultaneous vs. sequential evaluation when multiple hooks match; can one hook's firing affect another hook's trigger?
-- [ ] 3.08e — Hook inheritance and blueprint templates: blueprint-level hook loadouts, instance-specific vs. shared channels when cloning units from the same blueprint
+- [x] 3.08d — Trigger evaluation order within a single tick: simultaneous vs. sequential evaluation when multiple hooks match; can one hook's firing affect another hook's trigger?
+- [x] 3.08e — Hook inheritance and blueprint templates: blueprint-level hook loadouts, instance-specific vs. shared channels when cloning units from the same blueprint
 
 ### Context Config
 - [x] 3.12 — Context config UI: how does the player set buffer size, filters, eviction priorities?
@@ -423,7 +423,7 @@
   - [ ] 3.14d — Workbench micro-animations and interaction juice: section reveal, layout morph, collapse/expand, cross-quadrant highlighting, drag operations; animation timing budget for 60fps in React
   - [ ] 3.14e — The workbench-to-sealed-watch transition ceremony: precise animation sequence when EXECUTE is pressed — workbench retracting, board expanding, UI chrome dissolving; timing, sound, visual metaphor
 - [x] 3.15 — Army overview: how does the player see all agents and their wiring at once?
-- [ ] 3.16 — Copy/paste/template: can you duplicate agent configs? Save templates? Share builds?
+- [x] 3.16 — Copy/paste/template: can you duplicate agent configs? Save templates? Share builds?
 
 ### The Meta-Level
 - [x] 3.17 — Command agents: agents that manage other agents — what skills/rules/hooks do THEY get?
@@ -600,8 +600,8 @@
 - [x] 5.14b — Per-channel fidelity thresholds: advanced mode where each listened channel gets its own threshold slider; UI complexity management, when to introduce vs. keep behind "Advanced" toggle, interaction with channel map panel
 - [x] 5.14c — Fidelity threshold as rule condition: rules that reference fidelity threshold as a variable; "IF signal fidelity < threshold AND source = relay-B → compress before processing"; the threshold becoming part of the rule language rather than just a config parameter
 - [x] 5.14d — Adaptive fidelity threshold (The Immune System model): auto-adjusting threshold that responds to buffer pressure; the pressure curve, two-parameter configuration, sealed watch visualization of threshold shifting in real-time
-- [ ] 5.14e — Enemy fidelity spoofing: late-game enemy tactic with artificially inflated fidelity scores; forces secondary quality checks beyond threshold slider; source authentication, signal chain verification; the arms race as difficulty escalator
-- [ ] 5.14f — The "overcautious" diagnostic in Inspector: post-mission diagnostic identifying unnecessarily high thresholds; quantified false-positive feedback as teaching tool; "You rejected 47 signals, but only 3 were genuine noise"
+- [x] 5.14e — Enemy fidelity spoofing: late-game enemy tactic with artificially inflated fidelity scores; forces secondary quality checks beyond threshold slider; source authentication, signal chain verification; the arms race as difficulty escalator
+- [x] 5.14f — The "overcautious" diagnostic in Inspector: post-mission diagnostic identifying unnecessarily high thresholds; quantified false-positive feedback as teaching tool; "You rejected 47 signals, but only 3 were genuine noise"
 - [x] 5.14 — Detection skills as complexity gate: the "intrusion detection" skill as an advanced mechanic that reveals hidden corruption to players who invest in it; scales difficulty with player sophistication rather than with a separate difficulty slider; advanced players uncover more depth, beginners get clean experience
 - [x] 5.18 — The "first deadlock" tutorial mission: a deliberately crafted Mission 7 ("Gridlock") scenario where naive BLOCKING hook use creates a deadlock — and the debrief shows exactly why, tick by tick, as the frozen agents' last actions play back; designed failure, designed recovery, designed insight; five approaches (A "Hard Freeze" pure discovery, B "Predecessor's Warning" narrative foreshadowing, C "Two-Phase Mission" forced success then forced failure demonstrating chain vs star topology, D "Deadlock Detector" Inspector tool unlock as reward, E "Sandbox Deadlock Lab" pre-mission experimentation); recommended hybrid B+C+D with Predecessor warning + two-phase topology lesson + tool materialization; three prerequisite timing options for when blocking hooks become available; full sensory design (silence as deadlock's sound, 40Hz sub-bass hum, hourglass animation, amber→red blocking lines, haptic heartbeat pulse); 4 player journeys (Tomás 16 first-timer phone-call metaphor discovery, Dr. Priya 38 ML infrastructure lead evaluating against Jaeger/Zipkin, Aisha 14 struggling player "held door" metaphor + texts cousin about deadlocks, Kwame 32 Twitch streamer 180K-view clip "chat was right"); interaction effects with hook semantics (1.04d), hook chaining (3.09), buffer model (2.01), sealed watch, Predecessor arc (6.03a), Gauntlet competitive, multiplayer; comparable games (TIS-100, EXAPUNKS, Go unbuffered channels, Into the Breach, Factorio belt deadlock); 5 new aspects discovered (5.18a–e)
   - [ ] 5.18a — Deadlock-inducing enemy strategies: can enemy configurations deliberately create deadlocks in the player's architecture? Deadlock as an adversarial weapon — enemy units flooding relays with blocking requests
@@ -609,7 +609,7 @@
   - [ ] 5.18c — Self-resolving deadlocks: transient vs. permanent deadlocks as a spectrum; if a unit's ENGAGE completes and cycles back to RECEIVE, the deadlock breaks after N ticks; should the Deadlock Detector distinguish between them?
   - [ ] 5.18d — The Deadlock Detector as competitive intelligence: in PvP, detecting opponent deadlocks from observable behavior (sudden freeze, stopped signal chains); deadlock detection as an observational skill
   - [ ] 5.18e — Deadlock prevention vs. deadlock recovery: tutorial teaches prevention (fire-and-forget to break cycles); advanced mission teaches recovery (Command agent REROUTE dynamically switching blocked hooks mid-battle)
-- [ ] 5.24 — The "false pivot literacy" tutorial mission: a campaign mission explicitly teaching the false pivot phenomenon through a scripted demonstration replay where the player must identify the genuine pivot by scrubbing backward through the debrief; completing it unlocks the "Diagnostic" achievement and advanced signal genealogy visualization mode
+- [x] 5.24 — The "false pivot literacy" tutorial mission: a campaign mission explicitly teaching the false pivot phenomenon through a scripted demonstration replay where the player must identify the genuine pivot by scrubbing backward through the debrief; completing it unlocks the "Diagnostic" achievement and advanced signal genealogy visualization mode
 - [x] 5.25 — The "oracle preview" anti-pattern: players who alt-tab to look up a tier list or YouTube solution to discover the expected pass rate before watching their sealed replay; designing against this by making the sealed experience fast enough and surprising enough that spoiling it feels like opting out of the fun; whether the game should lean into spoilability (some players genuinely prefer guides) or resist it
   - [ ] 5.25a — The "Blind Run" badge as social signal: designing a first-party blind run toggle that records whether the player used Community Insights or paused during pre-execute; blind run completions as special achievements; streamer integration; social pressure/prestige of blind vs. optimized runs
   - [ ] 5.25b — Community Insights population bootstrapping: populating Community Insights before player population is large enough; synthetic data from AI opponents, dev team seeds, beta tester ghosts; cold start problem for community-dependent anti-oracle features
