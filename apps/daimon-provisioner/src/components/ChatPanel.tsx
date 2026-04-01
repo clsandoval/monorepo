@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { InstanceConfig } from '@/lib/types';
 
 interface ChatPanelProps {
@@ -132,15 +133,15 @@ export function ChatPanel({ config, onConfigChange, onRender }: ChatPanelProps) 
       <div className="chat-head">
         <div className="chat-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-            <line x1="9" y1="9" x2="9.01" y2="9" />
-            <line x1="15" y1="9" x2="15.01" y2="9" />
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
           </svg>
         </div>
         <div className="chat-title-group">
           <div className="chat-title">Config Assistant</div>
-          <div className="chat-sub">Describe your needs in plain language</div>
+          <div className="chat-status">
+            <span className={`chat-status-dot${loading ? ' thinking' : ''}`} />
+            {loading ? 'Thinking' : 'Ready'}
+          </div>
         </div>
       </div>
 
@@ -164,15 +165,17 @@ export function ChatPanel({ config, onConfigChange, onRender }: ChatPanelProps) 
 
           // assistant
           return (
-            <div key={i} className="msg msg-b">
-              {msg.content}
+            <div key={i} className="msg msg-b msg-markdown">
+              <ReactMarkdown>{msg.content}</ReactMarkdown>
             </div>
           );
         })}
 
         {loading && (
-          <div className="msg msg-b" style={{ opacity: 0.6 }}>
-            Thinking...
+          <div className="typing-indicator">
+            <span className="typing-dot" />
+            <span className="typing-dot" />
+            <span className="typing-dot" />
           </div>
         )}
 
@@ -196,6 +199,7 @@ export function ChatPanel({ config, onConfigChange, onRender }: ChatPanelProps) 
             </svg>
           </button>
         </div>
+        <div className="chat-hint">Enter to send · Shift+Enter for new line</div>
       </div>
     </div>
   );
