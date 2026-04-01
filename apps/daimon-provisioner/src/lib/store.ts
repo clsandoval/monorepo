@@ -1,31 +1,49 @@
+import { supabase } from './supabase';
 import { InstanceConfig } from './types';
 
-const STORAGE_KEY = 'daimon-provisioner-instances';
+export async function getInstances(): Promise<InstanceConfig[]> {
+  const { data, error } = await supabase
+    .from('instance_configs')
+    .select('config')
+    .order('updated_at', { ascending: false });
 
-export function getInstances(): InstanceConfig[] {
-  if (typeof window === 'undefined') return [];
-  const raw = localStorage.getItem(STORAGE_KEY);
-  return raw ? JSON.parse(raw) : [];
+  if (error) throw error;
+  return (data ?? []).map(row => row.config as InstanceConfig);
 }
 
-export function getInstance(id: string): InstanceConfig | null {
-  return getInstances().find(i => i.id === id) || null;
+export async function getInstance(id: string): Promise<InstanceConfig | null> {
+  const { data, error } = await supabase
+    .from('instance_configs')
+    .select('config')
+    .eq('id', id)
+    .single();
+
+  if (error && error.code !== 'PGRST116') throw error;
+  return data ? (data.config as InstanceConfig) : null;
 }
 
-export function saveInstance(config: InstanceConfig): void {
-  const instances = getInstances();
-  const idx = instances.findIndex(i => i.id === config.id);
-  if (idx >= 0) {
-    instances[idx] = { ...config, updated_at: new Date().toISOString() };
-  } else {
-    instances.push(config);
-  }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(instances));
+export async function saveInstance(config: InstanceConfig): Promise<void> {
+  const now = new Date().toISOString();
+  const updated = { ...config, updated_at: now };
+
+  const { error } = await supabase
+    .from('instance_configs')
+    .upsert({
+      id: config.id,
+      config: updated,
+      updated_at: now,
+    });
+
+  if (error) throw error;
 }
 
-export function deleteInstance(id: string): void {
-  const instances = getInstances().filter(i => i.id !== id);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(instances));
+export async function deleteInstance(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('instance_configs')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
 }
 
 export function createEmptyConfig(): InstanceConfig {
