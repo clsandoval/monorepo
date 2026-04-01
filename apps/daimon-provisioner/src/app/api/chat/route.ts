@@ -5,7 +5,7 @@ delete process.env.CLAUDE_CODE_ENTRYPOINT;
 import { query, tool, createSdkMcpServer } from '@anthropic-ai/claude-agent-sdk';
 import { z } from 'zod/v4';
 import { SYSTEM_PROMPT, buildPrompt } from '@/lib/agent-prompt';
-import type { InstanceConfig } from '@/lib/types';
+import type { DeploymentBrief } from '@/lib/types';
 
 export const runtime = 'nodejs';
 export const maxDuration = 300;
@@ -15,9 +15,9 @@ const WORKSPACE_DIR = '/home/clsandoval/cs/monorepo/projects/decision-orchestrat
 
 export async function POST(request: Request): Promise<Response> {
   const body = await request.json();
-  const { messages, config } = body as {
+  const { messages, brief } = body as {
     messages: Array<{ role: string; content: string }>;
-    config: InstanceConfig;
+    brief: DeploymentBrief;
   };
 
   const lastUserMessage = messages.filter((m) => m.role === 'user').pop();
@@ -38,8 +38,8 @@ export async function POST(request: Request): Promise<Response> {
       // Define render_ui tool — its handler writes directly to the SSE stream
       const renderTool = tool(
         'render_ui',
-        'Render a React component in the user\'s config panel. The component will be transpiled and rendered live in the browser. The component must be named ConfigPanel and receives props: { config, onConfigChange }. Use inline styles only.',
-        { jsx: z.string().describe('Complete React function component. Must be named ConfigPanel. Receives props: { config, onConfigChange }. Use inline styles only.') },
+        'Render a React component in the user\'s deployment brief panel. The component will be transpiled and rendered live in the browser. The component must be named ConfigPanel and receives props: { brief, onBriefChange, onAnnotationAdd }. Use inline styles only.',
+        { jsx: z.string().describe('Complete React function component. Must be named ConfigPanel. Receives props: { brief, onBriefChange, onAnnotationAdd }. Use inline styles only.') },
         async ({ jsx }) => {
           send('render', { jsx });
           return { content: [{ type: 'text' as const, text: 'Component rendered successfully.' }] };
@@ -53,7 +53,7 @@ export async function POST(request: Request): Promise<Response> {
       });
 
       try {
-        const prompt = buildPrompt(lastUserMessage.content, config);
+        const prompt = buildPrompt(lastUserMessage.content, brief);
 
         // Strip Claude Code env vars to avoid nested execution detection
         const cleanEnv = { ...process.env };
