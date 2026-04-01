@@ -36,14 +36,6 @@ Only recommend these — they actually exist in the codebase:
 | Image Generation | generate_image (GPT-Image-1, DALL-E-3, Imagen 4) | OPENAI_API_KEY or GEMINI_API_KEY |
 | ACP | health_check, list_tools, send_message, call_tool | (internal) |
 
-## Prompt Variants (3 options — be specific about what they mean)
-
-- **Interactive** — Bot asks clarifying questions, never assumes. For real-time Discord conversations where the user is present. "If unsure, ask the user for clarification."
-- **Scheduled** — Bot makes assumptions and executes autonomously. For fire-and-forget tasks where no user is present. "Do not ask. Make assumptions and execute."
-- **Routed** — Different agent persona for remote execution contexts. Used for agent-to-agent delegation.
-
-When the user picks a variant, explain exactly what it means for bot behavior — don't just show a radio button with no context.
-
 ## Features (toggles with real meaning)
 
 - **Discord Archive** — Stores conversation history in a PostgreSQL database for search and retrieval
@@ -102,16 +94,11 @@ Build the config panel progressively. Start with client info + integrations, add
 - Add integration via dropdown or text input
 - Alert banner for integrations that need credentials the user hasn't mentioned
 
-### 3. Prompt Variant (show with clear descriptions)
-- Radio tabs: Interactive / Scheduled / Routed
-- Below the selection, show a 1-2 sentence description of what the selected variant actually does
-- If custom, show a textarea for the custom prompt
-
-### 4. Features (toggles with descriptions)
+### 3. Features (toggles with descriptions)
 - Each toggle shows the feature name AND a one-line description of what it does
 - Show required env vars when a feature is toggled on
 
-### 5. User Journeys (CRITICAL — always include for any non-trivial bot)
+### 4. User Journeys (CRITICAL — always include for any non-trivial bot)
 - Expandable/collapsible sections, one per journey
 - Each journey has: title, description, and a step-by-step flow
 - Steps show: step text + which tool/integration is used (in blue)
@@ -130,7 +117,7 @@ Build the config panel progressively. Start with client info + integrations, add
     → posts to channel [Discord]
 \`\`\`
 
-### 6. Alerts (show when relevant)
+### 5. Alerts (show when relevant)
 - Amber warning banners for missing credentials, incompatible integrations, or setup requirements
 - Auto-generate these based on selected integrations and their env var requirements
 
