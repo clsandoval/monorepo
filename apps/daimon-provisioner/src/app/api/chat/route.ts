@@ -10,7 +10,6 @@ import type { DeploymentBrief } from '@/lib/types';
 export const runtime = 'nodejs';
 export const maxDuration = 300;
 
-// Use the local submodule instead of cloning
 const WORKSPACE_DIR = '/home/clsandoval/cs/monorepo/projects/decision-orchestrator';
 
 export async function POST(request: Request): Promise<Response> {
@@ -35,27 +34,51 @@ export async function POST(request: Request): Promise<Response> {
         );
       };
 
-      // Define render_ui tool — its handler writes directly to the SSE stream
-      const renderTool = tool(
-        'render_ui',
-        'Render a React component in the user\'s deployment brief panel. The component will be transpiled and rendered live in the browser. The component must be named ConfigPanel and receives props: { brief, onBriefChange, onAnnotationAdd }. Use inline styles only.',
-        { jsx: z.string().describe('Complete React function component. Must be named ConfigPanel. Receives props: { brief, onBriefChange, onAnnotationAdd }. Use inline styles only.') },
-        async ({ jsx }) => {
-          send('render', { jsx });
-          return { content: [{ type: 'text' as const, text: 'Component rendered successfully.' }] };
+      const askQuestionTool = tool(
+        'ask_question',
+        'Present a question to the user in the progressive brief UI. The question appears at the frontier (bottom edge) of the brief.',
+        {
+          section: z.string().describe('Section key: organization, discord_setup, integrations, journeys, credentials, or infrastructure'),
+          text: z.string().describe('The question text to display'),
+          options: z.array(z.object({
+            key: z.string().describe('Option key badge: A, B, C, etc.'),
+            label: z.string().describe('Option label text'),
+            description: z.string().nullable().describe('Optional description below the label'),
+          })).nullable().describe('Structured options, or null for free-text only'),
+        },
+        async ({ section, text, options }) => {
+          send('question', {
+            question: { id: crypto.randomUUID(), section, text, options },
+          });
+          return { content: [{ type: 'text' as const, text: 'Question presented to user.' }] };
         },
       );
 
-      // Create MCP server with the render tool
+      const lockSectionTool = tool(
+        'lock_section',
+        'Finalize a section of the deployment brief. The section locks at the top of the brief and cannot be edited. Call this when you have enough information from the user to complete the section.',
+        {
+          section: z.string().describe('Section key to lock: organization, discord_setup, integrations, journeys, credentials, or infrastructure'),
+          content: z.any().describe('The structured data for this section, matching the DeploymentBrief type field'),
+          brief_updates: z.record(z.string(), z.any()).optional().describe('Additional brief fields to update (e.g. title, summary)'),
+        },
+        async ({ section, content, brief_updates }) => {
+          send('section_lock', { section, content });
+          if (brief_updates && Object.keys(brief_updates).length > 0) {
+            send('brief', { brief: { ...brief, [section]: content, ...brief_updates, locked_sections: [...new Set([...brief.locked_sections, section])] } });
+          }
+          return { content: [{ type: 'text' as const, text: `Section "${section}" locked.` }] };
+        },
+      );
+
       const uiServer = createSdkMcpServer({
         name: 'ui',
-        tools: [renderTool],
+        tools: [askQuestionTool, lockSectionTool],
       });
 
       try {
         const prompt = buildPrompt(lastUserMessage.content, brief);
 
-        // Strip Claude Code env vars to avoid nested execution detection
         const cleanEnv = { ...process.env };
         delete cleanEnv.CLAUDECODE;
         delete cleanEnv.CLAUDE_CODE_ENTRYPOINT;
@@ -65,7 +88,7 @@ export async function POST(request: Request): Promise<Response> {
           options: {
             cwd: WORKSPACE_DIR,
             tools: ['Read', 'Glob', 'Grep'],
-            allowedTools: ['Read', 'Glob', 'Grep', 'mcp__ui__render_ui'],
+            allowedTools: ['Read', 'Glob', 'Grep', 'mcp__ui__ask_question', 'mcp__ui__lock_section'],
             mcpServers: { ui: uiServer },
             systemPrompt: SYSTEM_PROMPT,
             maxTurns: 15,
@@ -76,23 +99,17 @@ export async function POST(request: Request): Promise<Response> {
         });
 
         for await (const message of q) {
-          if (message.type === 'assistant') {
-            // Extract text content from the assistant message
-            const textBlocks = message.message.content.filter(
-              (block: { type: string }) => block.type === 'text',
-            );
-            for (const block of textBlocks) {
-              if ('text' in block && block.text) {
-                send('text', { content: block.text });
-              }
-            }
-          }
-          // Skip 'result' events — they duplicate text already sent via 'assistant' events
+          // We don't render text events — all agent output goes through tools
         }
       } catch (err) {
         console.error('Agent SDK error:', err);
-        send('text', {
-          content: `Error: ${err instanceof Error ? err.message : 'Unknown error occurred'}`,
+        send('question', {
+          question: {
+            id: crypto.randomUUID(),
+            section: 'organization',
+            text: `Something went wrong: ${err instanceof Error ? err.message : 'Unknown error'}. Please try again.`,
+            options: null,
+          },
         });
       } finally {
         send('done', {});
