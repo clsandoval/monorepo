@@ -12,6 +12,11 @@ export default function NewInstancePage() {
   const [jsx, setJsx] = useState<string | null>(null);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Save as draft immediately on creation
+  useEffect(() => {
+    saveInstance(config);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const handleChange = useCallback((updated: InstanceConfig) => {
     setConfig(updated);
 
