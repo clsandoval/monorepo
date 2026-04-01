@@ -2,15 +2,16 @@
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { transform } from 'sucrase';
-import { InstanceConfig } from '@/lib/types';
+import { DeploymentBrief } from '@/lib/types';
 
 interface ReactCanvasProps {
   jsx: string | null;
-  config: InstanceConfig;
-  onConfigChange: (config: InstanceConfig) => void;
+  brief: DeploymentBrief;
+  onBriefChange: (brief: DeploymentBrief) => void;
+  onAnnotationAdd: (section: string, text: string) => void;
 }
 
-export function ReactCanvas({ jsx, config, onConfigChange }: ReactCanvasProps) {
+export function ReactCanvas({ jsx, brief, onBriefChange, onAnnotationAdd }: ReactCanvasProps) {
   const rendered = useMemo(() => {
     if (jsx === null) return null;
 
@@ -43,7 +44,7 @@ export function ReactCanvas({ jsx, config, onConfigChange }: ReactCanvasProps) {
       <div className="config">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
           <p style={{ color: '#999', fontSize: '14px' }}>
-            Start a conversation to generate the config panel.
+            Start a conversation to build the deployment brief.
           </p>
         </div>
       </div>
@@ -71,7 +72,7 @@ export function ReactCanvas({ jsx, config, onConfigChange }: ReactCanvasProps) {
 
   return (
     <div className="config">
-      <ConfigPanel config={config} onConfigChange={onConfigChange} />
+      <ConfigPanel brief={brief} onBriefChange={onBriefChange} onAnnotationAdd={onAnnotationAdd} />
     </div>
   );
 }
