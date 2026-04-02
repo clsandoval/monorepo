@@ -26,7 +26,8 @@ export function ProgressiveBrief({ brief, onBriefChange }: ProgressiveBriefProps
   const briefRef = useRef(brief);
   briefRef.current = brief;
 
-  const progress = brief.locked_sections.length / TOTAL_SECTIONS;
+  const lockedSections = brief.locked_sections ?? [];
+  const progress = lockedSections.length / TOTAL_SECTIONS;
 
   const sendAnswer = useCallback(async (answer: string) => {
     if (!answer.trim() || loading) return;
@@ -121,7 +122,7 @@ export function ProgressiveBrief({ brief, onBriefChange }: ProgressiveBriefProps
   }, [handleTextSubmit]);
 
   // If no question and no locked sections, trigger initial question
-  const needsInit = !brief.pending_question && brief.locked_sections.length === 0 && !loading;
+  const needsInit = !brief.pending_question && lockedSections.length === 0 && !loading;
 
   return (
     <div className="brief-container">
@@ -133,7 +134,7 @@ export function ProgressiveBrief({ brief, onBriefChange }: ProgressiveBriefProps
               {brief.title}
             </h1>
             <p style={{ fontSize: '13px', color: '#999', marginBottom: '28px' }}>
-              {brief.summary || 'Building deployment brief'} &middot; {brief.locked_sections.length} of {TOTAL_SECTIONS} sections
+              {brief.summary || 'Building deployment brief'} &middot; {lockedSections.length} of {TOTAL_SECTIONS} sections
             </p>
           </>
         ) : (
@@ -147,7 +148,7 @@ export function ProgressiveBrief({ brief, onBriefChange }: ProgressiveBriefProps
         </div>
 
         {/* Locked sections */}
-        {brief.locked_sections.map(sectionKey => (
+        {lockedSections.map(sectionKey => (
           <LockedSection key={sectionKey} sectionKey={sectionKey} brief={brief} />
         ))}
 
@@ -171,7 +172,7 @@ export function ProgressiveBrief({ brief, onBriefChange }: ProgressiveBriefProps
         {/* Frontier + active question */}
         {brief.pending_question && !shimmeringSection && (
           <>
-            {brief.locked_sections.length > 0 && (
+            {lockedSections.length > 0 && (
               <div className="brief-frontier">
                 <div className="brief-frontier-line" />
                 <div className="brief-frontier-label">Current Question</div>
