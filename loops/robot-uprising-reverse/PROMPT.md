@@ -439,6 +439,70 @@ Each aspect in this wave = one image asset. The prompt must be highly specific: 
 
 **The GEMINI_API_KEY environment variable must be set for this wave to work.**
 
+### Wave 10: QA Subagent Specs (Claude Code `.claude/agents/`)
+
+Design specialized Claude Code subagents (`.claude/agents/*.md` files) for automated game development QA. Each aspect produces a complete, production-ready agent definition file following Claude Code subagent best practices.
+
+**Why subagents, not raw agents:** The Meta-Harness paper (arxiv 2603.28052) shows that the *harness* around an LLM — what context to surface, what to store, what to retrieve — can produce up to 6× performance improvements. A naked Claude agent asked "is this fun?" gives generic answers. A subagent with a constrained toolset, a specific rubric, structured output format, and accumulated memory gives actionable, verifiable QA results.
+
+**Each subagent spec must include:**
+
+1. **Complete `.claude/agents/*.md` file** with valid frontmatter:
+   - `name`: lowercase-hyphenated identifier
+   - `description`: when the parent agent should delegate to this subagent (Claude reads this to decide auto-delegation)
+   - `tools`: explicit allowlist (least-privilege — a reviewer should NOT have Edit/Write)
+   - `model`: appropriate model selection (`haiku` for fast/cheap checks, `sonnet` for balanced, `opus` for deep analysis)
+   - `maxTurns`: prevent runaway agents
+   - `color`: visual identification in terminal
+   - Optional: `memory`, `hooks`, `mcpServers`, `skills`, `effort`
+
+2. **System prompt body** following proven patterns:
+   - Role declaration ("You are a specialist at...")
+   - Core responsibilities as numbered lists (2-4 categories)
+   - Step-by-step analysis strategy
+   - Structured output format with concrete examples
+   - "What NOT to Do" anti-patterns section
+   - Definition of Done conditions
+   - STOP-and-escalate conditions for ambiguity
+
+3. **The rubric/lens** — the specific decomposition that makes "is it good?" into verifiable sub-questions:
+   - What dimensions does this agent evaluate?
+   - What thresholds separate pass/warn/fail?
+   - What reference data does the agent need (comparable games, design specs, prior results)?
+
+4. **Input/output contract:**
+   - What the parent agent passes to this subagent (match replay? screenshot? mission spec?)
+   - What structured output the subagent returns
+   - How the output feeds into other subagents or the parent conversation
+
+5. **Three example invocations** — concrete scenarios showing what the parent agent sends and what comes back, demonstrating the subagent earning its harness (producing better results than a generic agent would)
+
+**The subagents to spec:**
+
+| Agent | Lens | Eval Signal |
+|-------|------|-------------|
+| `pacing-analyst` | Complexity ramp, concept spacing, breather placement | Pacing graph with annotations vs. comparable game curves |
+| `cognitive-load-auditor` | Information density per screen, visual hierarchy, decision prerequisites | Per-screen cognitive load score with overload flags |
+| `combo-discoverer` | Emergent interactions from skill/rule/hook composition | Ranked surprise-combos with exploitation/fun ratings |
+| `sealed-watch-narrator` | Emotional beats during autonomous execution | Beat map, excitement density, TikTok-clip moments |
+| `tutorial-completeness-checker` | Concept coverage gaps between what's taught and what's needed | Gap analysis per mission transition |
+| `degenerate-strategy-finder` | Dominant strategies, degenerate configs, balance holes | Win-rate distribution + suggested counter-play |
+| `information-architecture-reviewer` | Signal flow legibility, channel naming, hook wiring clarity | Legibility score per architecture with specific confusion points |
+| `accessibility-auditor` | Color contrast, screen reader compatibility, cognitive accessibility | WCAG-mapped checklist with specific violations |
+| `onboarding-friction-detector` | First-session friction points, vocabulary overload, action paralysis | Friction map with severity ratings per minute of play |
+| `meta-qa-orchestrator` | Coordinates other QA subagents, synthesizes results, identifies gaps | Unified QA report with per-agent summaries and cross-cutting findings |
+
+**Key design constraint:** These subagents must work with the game's actual artifacts (mission specs, blueprint configs, match replay logs, screenshots, design docs) — NOT with hypothetical or simulated inputs. Each spec should define what real files/data it reads from the Robot Uprising codebase.
+
+**Claude Code subagent best practices to follow:**
+- Explicit tool allowlists (never omit `tools:` — that inherits ALL tools)
+- Read-only tools for analysis agents (Grep, Glob, Read, Bash for non-destructive commands)
+- `maxTurns` to prevent runaway exploration
+- Output format templates with concrete examples
+- "What NOT to Do" sections to prevent common failure modes
+- File:line references for all claims about code
+- Subagents cannot spawn other subagents — composition happens at the parent level
+
 ### Wave 10+: Removed
 
 No further expansion. Complete existing aspects and converge.
