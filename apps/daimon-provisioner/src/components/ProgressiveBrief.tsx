@@ -23,6 +23,7 @@ export function ProgressiveBrief({ brief, onBriefChange }: ProgressiveBriefProps
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [shimmeringSection, setShimmeringSection] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
   const briefRef = useRef(brief);
   briefRef.current = brief;
 
@@ -104,8 +105,25 @@ export function ProgressiveBrief({ brief, onBriefChange }: ProgressiveBriefProps
   }, [brief.pending_question, loading, onBriefChange]);
 
   const handleOptionClick = useCallback((label: string) => {
-    sendAnswer(label);
-  }, [sendAnswer]);
+    const isMultiselect = brief.pending_question?.multiselect ?? false;
+    if (isMultiselect) {
+      setSelected(prev => {
+        const next = new Set(prev);
+        if (next.has(label)) next.delete(label);
+        else next.add(label);
+        return next;
+      });
+    } else {
+      sendAnswer(label);
+    }
+  }, [sendAnswer, brief.pending_question]);
+
+  const handleMultiselectSubmit = useCallback(() => {
+    if (selected.size > 0) {
+      sendAnswer(Array.from(selected).join(', '));
+      setSelected(new Set());
+    }
+  }, [selected, sendAnswer]);
 
   const handleTextSubmit = useCallback(() => {
     if (input.trim()) {
@@ -192,7 +210,7 @@ export function ProgressiveBrief({ brief, onBriefChange }: ProgressiveBriefProps
                 {brief.pending_question.options?.map(opt => (
                   <button
                     key={opt.key}
-                    className="brief-option"
+                    className={`brief-option${selected.has(opt.label) ? ' brief-option-selected' : ''}`}
                     onClick={() => handleOptionClick(opt.label)}
                     disabled={loading}
                   >
@@ -201,8 +219,22 @@ export function ProgressiveBrief({ brief, onBriefChange }: ProgressiveBriefProps
                       <div className="brief-option-label">{opt.label}</div>
                       {opt.description && <div className="brief-option-desc">{opt.description}</div>}
                     </div>
+                    {(brief.pending_question?.multiselect) && (
+                      <span className="brief-option-check">{selected.has(opt.label) ? '✓' : ''}</span>
+                    )}
                   </button>
                 ))}
+
+                {(brief.pending_question?.multiselect) && selected.size > 0 && (
+                  <button
+                    className="brief-send"
+                    style={{ width: '100%', marginTop: '8px', padding: '10px' }}
+                    onClick={handleMultiselectSubmit}
+                    disabled={loading}
+                  >
+                    Submit {selected.size} selected
+                  </button>
+                )}
 
                 <div className="brief-text-input">
                   <input

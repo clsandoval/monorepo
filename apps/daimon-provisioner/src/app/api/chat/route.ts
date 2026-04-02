@@ -48,10 +48,11 @@ export async function POST(request: Request): Promise<Response> {
             label: z.string().describe('Option label text'),
             description: z.string().nullable().describe('Optional description below the label'),
           })).nullable().describe('Structured options, or null for free-text only'),
+          multiselect: z.boolean().optional().describe('If true, user can select multiple options before submitting. Use for "select all that apply" questions.'),
         },
-        async ({ section, text, options }) => {
+        async ({ section, text, options, multiselect }) => {
           send('question', {
-            question: { id: crypto.randomUUID(), section, text, options },
+            question: { id: crypto.randomUUID(), section, text, options, multiselect: multiselect ?? false },
           });
           return { content: [{ type: 'text' as const, text: 'Question presented to user.' }] };
         },

@@ -75,6 +75,7 @@ export interface PendingQuestion {
   section: string;
   text: string;
   options: QuestionOption[] | null; // null = free-text only
+  multiselect: boolean; // true = toggle options, submit all selected at once
 }
 
 export interface QuestionOption {

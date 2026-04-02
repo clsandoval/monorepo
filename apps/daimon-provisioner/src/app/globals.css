@@ -857,6 +857,15 @@ a {
   transition: border-color 0.15s, background 0.15s;
 }
 .brief-option:hover { border-color: var(--blue); background: var(--blue-light); }
+.brief-option-selected { border-color: var(--blue); background: var(--blue-light); }
+.brief-option-check {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue);
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
 .brief-option-key {
   font-family: 'Archivo', monospace;
   font-size: 11px;
