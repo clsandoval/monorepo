@@ -2,9 +2,9 @@
 
 ## Statistics
 - **Total aspects:** 513
-- **Analyzed:** 397
-- **Pending:** 116
-- **Convergence:** 77.4%
+- **Analyzed:** 407
+- **Pending:** 106
+- **Convergence:** 79.3%
 
 ---
 
@@ -207,9 +207,9 @@
 - [x] 1.20 — Cogmind: robot-themed roguelike, part-swapping system, information-dense UI
 - [x] 1.20a — The "salvage reveal" mechanic as enemy blueprint inspection: when a Robot Uprising unit dies, should the Inspector reveal the enemy unit's full configuration as a knowledge-looting pattern? Cogmind scatters destroyed robot parts visually; Robot Uprising could scatter destroyed robot configurations informationally
 - [x] 1.20b — Gradual degradation vs. binary death: Cogmind's part-by-part degradation creates a rich mid-state between functional and dead; should Robot Uprising explore a "damaged" state where units lose context slots from near-misses or EM attacks? The design space between one-shot-one-kill and HP bars
-- [ ] 1.20c — The "naked core" recovery moment: Cogmind's most iconic moment is being stripped to a bare core and rebuilding from salvage; what is Robot Uprising's equivalent when the factory is destroyed? Does the game have a "rebuild from nothing" mechanic or is factory loss immediate defeat?
+- [x] 1.20c — The "naked core" recovery moment: Cogmind's most iconic moment is being stripped to a bare core and rebuilding from salvage; what is Robot Uprising's equivalent when the factory is destroyed? Does the game have a "rebuild from nothing" mechanic or is factory loss immediate defeat?
 - [x] 1.20d — Audio-as-intelligence in sealed watch: Cogmind players identify threats by sound before seeing them; should Robot Uprising's sealed watch include audio signals that experienced players learn to decode? Signal chain sounds whose pitch/pattern indicates network health
-- [ ] 1.20e — The Polymind inversion as Robot Uprising variant mode: a variant where the player directly controls one unit while the rest run autonomously — the "field commander" mode testing whether blueprints work without intervention
+- [x] 1.20e — The Polymind inversion as Robot Uprising variant mode: a variant where the player directly controls one unit while the rest run autonomously — the "field commander" mode testing whether blueprints work without intervention
 
 ### Auto-Battler / Hands-Off Execution Games
 - [x] 1.21 — Teamfight Tactics / Dota Underlords: plan then watch, positioning matters, synergy traits
@@ -318,13 +318,13 @@
 - [x] 2.12 — Deception signals: enemy can inject false information into your network
 - [x] 2.26 — Fidelity spoofing as attack primitive: enemy crafts signals with artificially-high fidelity specifically to pass the player's confidence filters; the workbench UI for signal authentication (checksums, source signatures, Counter-Intelligence skill that verifies provenance before buffer entry); makes the attention language itself an adversarial interface
 - [x] 2.13 — Signal priority: urgent vs routine, and how priority affects buffer eviction and routing
-- [ ] 2.27 — Buffer exhaustion as late-game mechanic: long matches (100+ ticks) create a new failure mode — eviction policy breaking down as buffers fill with stale data; "buffer hygiene" as a skill; how architectures gracefully manage a full buffer mid-match; the context-window-overflow problem in Robot Uprising terms
+- [x] 2.27 — Buffer exhaustion as late-game mechanic: long matches (100+ ticks) create a new failure mode — eviction policy breaking down as buffers fill with stale data; "buffer hygiene" as a skill; how architectures gracefully manage a full buffer mid-match; the context-window-overflow problem in Robot Uprising terms
 - [x] 2.28 — Scenario fingerprinting: giving each of the 100 randomized test cases a persistent visual identity (distinct color tag, icon, or seed number) so players can identify which specific scenarios fail across multiple runs; designing the scenario taxonomy to be learnable, not opaque; whether cases should be named or numbered in player-facing UI; interaction with sealed progressive reveal
 - [x] 2.14a — Dynamic connectivity as emergent gameplay: when mobile agents (scouts) move in and out of relay range during execution, the information network topology changes every tick; patrol-path-range intersection visualization as a first-class plan screen tool; predicting which ticks have full connectivity vs. partial
-- [ ] 2.14b — Relay chain latency vs. range tradeoff: short relay chains (low latency, limited coverage) vs. long relay chains (high latency, full coverage); optimal relay density for an 8x8 grid; mathematical analysis of coverage vs. latency for different relay counts and ranges
+- [x] 2.14b — Relay chain latency vs. range tradeoff: short relay chains (low latency, limited coverage) vs. long relay chains (high latency, full coverage); optimal relay density for an 8x8 grid; mathematical analysis of coverage vs. latency for different relay counts and ranges
 - [x] 2.14c — Relay destruction as the primary loss condition: in range-limited models, destroying a relay severs an entire flank's communication; should relay destruction be MORE dramatic than scout or striker destruction? A "communication blackout" visual effect; interaction with sealed watch emotional beat
-- [ ] 2.14d — Factory-spawned relay positioning problem: relays are stationary; the factory spawns units at the base; a replacement relay spawns at the base position, not the destroyed relay's position; pre-positioned backup relays vs. "deploy to position" mechanic for stationary units
-- [ ] 2.14e — Terrain-as-mission-identity: if terrain modifies signal routing, each mission's terrain creates a unique routing puzzle; distinct terrain archetypes (the wall, the moat, the island, the corridor); interaction with the existing mission arc structure
+- [x] 2.14d — Factory-spawned relay positioning problem: relays are stationary; the factory spawns units at the base; a replacement relay spawns at the base position, not the destroyed relay's position; pre-positioned backup relays vs. "deploy to position" mechanic for stationary units
+- [x] 2.14e — Terrain-as-mission-identity: if terrain modifies signal routing, each mission's terrain creates a unique routing puzzle; distinct terrain archetypes (the wall, the moat, the island, the corridor); interaction with the existing mission arc structure
 
 ---
 
@@ -433,7 +433,7 @@
   - [ ] 3.17d — Command agent elimination recovery design: graceful degradation vs. catastrophic collapse vs. automatic succession when the sole Command agent dies; strategic tension around Command protection
   - [ ] 3.17e — The "production requeue" skill gap: should Command agents modify the production queue mid-battle? A 4th Command skill or out of scope? Interaction with factory vs. factory missions
 - [x] 3.18 — Dynamic reconfiguration: can a command agent change subordinate skills/rules/hooks mid-battle? What are the constraints?
-- [ ] 3.19 — Hierarchies of command: command agents managing command agents — how deep can it go? When does it collapse?
+- [x] 3.19 — Hierarchies of command: command agents managing command agents — how deep can it go? When does it collapse?
 
 ---
 
@@ -621,10 +621,10 @@
 - [x] 5.21 — Open-source architecture as community mechanic: Screeps' culture of publishing full bot code on GitHub + writing architectural blog posts is a deliberately-designed community mechanic; what's the Robot Uprising equivalent? Exportable agent configs, shareable hook wiring diagrams, community config repositories?
 - [x] 5.22 — The Gauntlet as a third act: structuring the game as three acts — campaign (learn mechanics), advanced campaign (develop robustness), Gauntlet (prove against infinite adversarial creativity); the Gauntlet as designed destination, not optional appendage; how campaign's final cutscene/mission opens the Gauntlet and what that transition feels like
 - [x] 5.22a — Multi-round mission retry granularity: when a player fails Round 3 of 5, do they restart from Round 1 or retry Round 3? Round-level checkpointing vs. mission-level reset; how retry granularity affects emotional stakes and learning speed; the "I have to redo rounds I already passed" frustration vs. the "context from earlier rounds matters" argument
-- [ ] 5.22b — Gauntlet ELO calibration match design: the first 5 Gauntlet matches are calibration — how the game communicates this, whether the player knows their rating is being determined, whether calibration matches feel different from regular matches; the "placement anxiety" problem from League of Legends/Overwatch applied to architecture design
+- [x] 5.22b — Gauntlet ELO calibration match design: the first 5 Gauntlet matches are calibration — how the game communicates this, whether the player knows their rating is being determined, whether calibration matches feel different from regular matches; the "placement anxiety" problem from League of Legends/Overwatch applied to architecture design
 - [x] 5.20a — Boot log as session resume mechanism: the boot log's "operator last active" summary as a diegetic save-state recap; how much context to surface, how to handle multi-day gaps vs. same-day returns, whether the boot log's tone changes based on gap length
-- [ ] 5.20b — Architect Profile archetype design: the full set of architectural style archetypes (Switchboard Operator, Sniper, Sentinel, etc.); how many, how they're computed, how they change over the campaign, whether they're visible to other players
-- [ ] 5.20c — Blueprint lineage as competitive stat: blueprint performance histories (survival rate, average lifespan, kills per unit) as competitive Gauntlet metadata; whether opponents can see your blueprint lineages; the "intimidation" factor of a blueprint with 200+ deployed units
+- [x] 5.20b — Architect Profile archetype design: the full set of architectural style archetypes (Switchboard Operator, Sniper, Sentinel, etc.); how many, how they're computed, how they change over the campaign, whether they're visible to other players
+- [x] 5.20c — Blueprint lineage as competitive stat: blueprint performance histories (survival rate, average lifespan, kills per unit) as competitive Gauntlet metadata; whether opponents can see your blueprint lineages; the "intimidation" factor of a blueprint with 200+ deployed units
 - [ ] 5.20d — The Camp's scope boundary: how much is "too much Camp"? The line between a warm hub and a time-wasting distraction; Hades spends 5-10 minutes between runs; without dialogue/relationships, how long does the Camp hold attention; minimum viable Camp design
 - [ ] 5.20e — Architecture Gallery encoding format: encoding a full architecture (blueprints + channels + production queue + context configs) as a shareable string without a backend; Factorio blueprint strings as model; length constraints for Discord/Reddit sharing; QR codes for physical sharing
 - [ ] 5.22c — The Predecessor's Codex presence post-campaign: after the Predecessor "stops" at the Gauntlet transition, they persist in the Blueprint Codex as a reference voice; how the Codex entries change tone from tutorial-mode to archival-mode; the Predecessor as ghost-in-the-documentation
