@@ -114,6 +114,14 @@ impl GameState {
             }
         }
 
+        // Block terrain tiles
+        let (width, height) = btype.tile_size();
+        for dy in 0..height {
+            for dx in 0..width {
+                self.map.set_blocked((x + dx as i32) as usize, (y + dy as i32) as usize, true);
+            }
+        }
+
         e
     }
 

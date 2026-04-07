@@ -102,4 +102,4 @@ pub const STARTING_WORKERS: u8 = 4;
 pub const SUPPLY_PER_CC: u8 = 15;
 pub const GATHER_RATE_PER_TICK: u32 = 1;
 pub const WORKER_CARRY_CAPACITY: u16 = 50;
-pub const ORE_NODE_STARTING_AMOUNT: u32 = 1500;
+pub const ORE_NODE_STARTING_AMOUNT: u32 = 5000;
