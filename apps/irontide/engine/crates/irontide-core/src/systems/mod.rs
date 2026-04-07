@@ -4,3 +4,4 @@ pub mod pathfinding;
 pub mod cleanup;
 pub mod resource;
 pub mod construction;
+pub mod production;

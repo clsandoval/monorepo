@@ -116,6 +116,14 @@ impl GameState {
             }
         }
 
+        // Give completed buildings their production queue
+        match btype {
+            BuildingType::CommandCenter | BuildingType::Barracks => {
+                self.world.production_queue[i] = Some(ProductionQueue::new());
+            }
+            _ => {}
+        }
+
         // Block terrain tiles
         let (width, height) = btype.tile_size();
         for dy in 0..height {
@@ -163,6 +171,9 @@ impl GameState {
         // 2. Process build commands (needs GameState access for resources + map)
         self.process_build_commands(&all_commands_owned);
 
+        // 2b. Process train commands
+        self.process_train_commands(&all_commands_owned);
+
         // 3. Process move commands
         systems::pathfinding::apply_move_commands(
             &mut self.world,
@@ -181,6 +192,12 @@ impl GameState {
 
         // 7. Construction
         systems::construction::construction_system(&mut self.world);
+
+        // 7b. Production
+        let spawns = systems::production::production_system(&mut self.world);
+        for spawn in spawns {
+            self.spawn_unit(spawn.unit_type, spawn.team, spawn.x, spawn.y);
+        }
 
         // 8. Fog of war
         self.update_fog();
@@ -288,6 +305,79 @@ impl GameState {
                 });
                 self.world.gather_target[bi] = None;
                 self.world.attack_target[bi] = None;
+            }
+        }
+    }
+
+    /// Process Train commands: validate, deduct cost, check supply, push to queue.
+    fn process_train_commands(&mut self, commands: &[PlayerCommand]) {
+        for cmd in commands {
+            if let PlayerCommand::Train {
+                building,
+                unit_type,
+            } = cmd
+            {
+                let bi = *building as usize;
+
+                // Verify building is alive
+                if !self.world.is_alive(*building) {
+                    continue;
+                }
+
+                // Must be a building (not a unit)
+                let btype = match self.world.building_type[bi] {
+                    Some(bt) => bt,
+                    None => continue,
+                };
+
+                // Must NOT be under construction
+                if self.world.build_progress[bi].is_some() {
+                    continue;
+                }
+
+                // Must have a production queue
+                if self.world.production_queue[bi].is_none() {
+                    continue;
+                }
+
+                // Must be able to train this unit type
+                if !btype.trainable_units().contains(unit_type) {
+                    continue;
+                }
+
+                // Get team
+                let team = match self.world.team[bi] {
+                    Some(t) => t,
+                    None => continue,
+                };
+                let player_idx = team.0 as usize;
+
+                // Check cost
+                let ucfg = config::unit_config(*unit_type);
+                if player_idx >= self.player_resources.len() {
+                    continue;
+                }
+                if self.player_resources[player_idx] < ucfg.build_cost {
+                    continue;
+                }
+
+                // Check supply
+                let supply_cap = self.player_supply_cap.get(player_idx).copied().unwrap_or(0);
+                let supply_used = self.player_supply_used.get(player_idx).copied().unwrap_or(0);
+                if supply_used + ucfg.supply_cost > supply_cap {
+                    continue;
+                }
+
+                // Deduct cost and increment supply
+                self.player_resources[player_idx] -= ucfg.build_cost;
+                if let Some(supply) = self.player_supply_used.get_mut(player_idx) {
+                    *supply = supply.saturating_add(ucfg.supply_cost);
+                }
+
+                // Push to production queue
+                if let Some(ref mut pq) = self.world.production_queue[bi] {
+                    pq.queue.push(*unit_type);
+                }
             }
         }
     }
