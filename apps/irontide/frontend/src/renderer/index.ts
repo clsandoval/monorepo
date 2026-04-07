@@ -4,7 +4,8 @@
 
 import { Camera } from './camera';
 import { TerrainRenderer } from './terrain';
-import { getTerrainData, getFogData, getMapSize } from '../wasm/bridge';
+import { SpriteRenderer } from './sprites';
+import { getTerrainData, getFogData, getMapSize, getRenderData } from '../wasm/bridge';
 
 export class Renderer {
   readonly camera = new Camera();
@@ -13,6 +14,7 @@ export class Renderer {
   private context!: GPUCanvasContext;
   private format!: GPUTextureFormat;
   private terrain!: TerrainRenderer;
+  private sprites!: SpriteRenderer;
 
   /** Cached terrain data (map doesn't change at runtime). */
   private terrainData!: Uint8Array;
@@ -42,6 +44,8 @@ export class Renderer {
     // Init sub-renderers
     this.terrain = new TerrainRenderer();
     await this.terrain.init(this.device, this.format);
+    this.sprites = new SpriteRenderer();
+    await this.sprites.init(this.device, this.format);
 
     // Cache terrain (it never changes)
     this.terrainData = getTerrainData();
@@ -82,6 +86,11 @@ export class Renderer {
     });
 
     this.terrain.render(passEncoder);
+
+    // Sprite pass — units and buildings
+    const renderData = getRenderData(viewerTeam);
+    this.sprites.updateInstances(this.device, this.camera, renderData, width, height);
+    this.sprites.render(passEncoder);
 
     passEncoder.end();
     this.device.queue.submit([commandEncoder.finish()]);
