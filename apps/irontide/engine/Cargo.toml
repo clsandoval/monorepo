@@ -3,4 +3,5 @@ resolver = "2"
 members = [
     "crates/irontide-core",
     "crates/irontide-wasm",
+    "crates/irontide-server",
 ]
