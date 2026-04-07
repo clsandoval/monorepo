@@ -22,11 +22,11 @@ pub struct GameState {
 }
 
 impl GameState {
-    pub fn new(seed: u64, map_seed: u64, player_count: u8) -> Self {
+    pub fn new(seed: u64, _map_seed: u64, player_count: u8) -> Self {
         let mut state = GameState {
             tick: 0,
             world: World::new(),
-            map: TerrainMap::generate(map_seed),
+            map: TerrainMap::fighting_spirit(),
             fog: FogMap::new(player_count),
             rng: DeterministicRng::new(seed),
             player_resources: vec![config::STARTING_RESOURCES; player_count as usize],

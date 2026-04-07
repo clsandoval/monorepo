@@ -45,6 +45,154 @@ impl TerrainMap {
         }
     }
 
+    /// Hand-crafted 256x256 map inspired by SC2's Fighting Spirit.
+    /// 180-degree rotational symmetry: tile at (x,y) == tile at (255-x, 255-y).
+    /// Starting bases in opposite corners with natural chokes, water obstacles,
+    /// and multiple resource clusters.
+    pub fn fighting_spirit() -> Self {
+        let mut map = TerrainMap::new(MAP_SIZE, MAP_SIZE);
+
+        // Helper: place a tile and its 180-degree mirror
+        let set_sym = |tiles: &mut Vec<TileType>, x: usize, y: usize, t: TileType| {
+            if x < MAP_SIZE && y < MAP_SIZE {
+                tiles[y * MAP_SIZE + x] = t;
+                let mx = MAP_SIZE - 1 - x;
+                let my = MAP_SIZE - 1 - y;
+                tiles[my * MAP_SIZE + mx] = t;
+            }
+        };
+
+        // Helper: place a filled circle symmetrically
+        let circle_sym = |tiles: &mut Vec<TileType>, cx: usize, cy: usize, r: usize, t: TileType| {
+            for dy in 0..r * 2 + 1 {
+                for dx in 0..r * 2 + 1 {
+                    let x = cx + dx - r;
+                    let y = cy + dy - r;
+                    if x < MAP_SIZE && y < MAP_SIZE {
+                        let dist_sq = (dx as i32 - r as i32).pow(2) + (dy as i32 - r as i32).pow(2);
+                        if dist_sq <= (r as i32 * r as i32) {
+                            tiles[y * MAP_SIZE + x] = t;
+                            let mx = MAP_SIZE - 1 - x;
+                            let my = MAP_SIZE - 1 - y;
+                            tiles[my * MAP_SIZE + mx] = t;
+                        }
+                    }
+                }
+            }
+        };
+
+        // Helper: place a rectangle symmetrically
+        let rect_sym = |tiles: &mut Vec<TileType>, x0: usize, y0: usize, w: usize, h: usize, t: TileType| {
+            for dy in 0..h {
+                for dx in 0..w {
+                    let x = x0 + dx;
+                    let y = y0 + dy;
+                    if x < MAP_SIZE && y < MAP_SIZE {
+                        tiles[y * MAP_SIZE + x] = t;
+                        let mx = MAP_SIZE - 1 - x;
+                        let my = MAP_SIZE - 1 - y;
+                        tiles[my * MAP_SIZE + mx] = t;
+                    }
+                }
+            }
+        };
+
+        // ===== WATER BODIES =====
+        // Large lake left of center (strategic obstacle)
+        circle_sym(&mut map.tiles, 90, 100, 12, TileType::Water);
+        circle_sym(&mut map.tiles, 85, 110, 8, TileType::Water);
+
+        // Medium lake near top-right (forces pathing around)
+        circle_sym(&mut map.tiles, 190, 60, 10, TileType::Water);
+
+        // Small ponds near natural expansions
+        circle_sym(&mut map.tiles, 55, 55, 5, TileType::Water);
+
+        // ===== ROCK FORMATIONS (chokes and walls) =====
+
+        // Main base choke: rock wall south of P0 base with a narrow gap
+        // Wall runs from x=2 to x=35, at y=28..32, with a gap at x=18..22
+        rect_sym(&mut map.tiles, 2, 28, 16, 4, TileType::Rock);   // left section
+        rect_sym(&mut map.tiles, 23, 28, 13, 4, TileType::Rock);  // right section
+
+        // Natural expansion choke: rocks forming a passage near (50, 40)
+        rect_sym(&mut map.tiles, 38, 36, 5, 8, TileType::Rock);
+        rect_sym(&mut map.tiles, 50, 36, 5, 8, TileType::Rock);
+
+        // Ridge along the diagonal (creates interesting center terrain)
+        for i in 0..20 {
+            let x = 105 + i;
+            let y = 105 + i;
+            rect_sym(&mut map.tiles, x, y, 3, 2, TileType::Rock);
+        }
+
+        // Scattered rock clusters for cover in mid-map
+        rect_sym(&mut map.tiles, 70, 75, 4, 4, TileType::Rock);
+        rect_sym(&mut map.tiles, 115, 85, 3, 5, TileType::Rock);
+
+        // Rock formations along edges to funnel movement
+        rect_sym(&mut map.tiles, 0, 50, 3, 20, TileType::Rock);
+        rect_sym(&mut map.tiles, 60, 0, 20, 3, TileType::Rock);
+
+        // Additional choke rocks near third base location
+        rect_sym(&mut map.tiles, 68, 25, 4, 6, TileType::Rock);
+        rect_sym(&mut map.tiles, 78, 22, 4, 6, TileType::Rock);
+
+        // ===== RESOURCE CLUSTERS =====
+
+        // Safe main base minerals (P0 near (7,7), close by for workers)
+        // Cluster of 4 resource tiles near starting CC
+        set_sym(&mut map.tiles, 3, 3, TileType::Resource);
+        set_sym(&mut map.tiles, 4, 3, TileType::Resource);
+        set_sym(&mut map.tiles, 3, 4, TileType::Resource);
+        set_sym(&mut map.tiles, 22, 5, TileType::Resource);
+
+        // Natural expansion resources (behind the first choke, semi-exposed)
+        set_sym(&mut map.tiles, 44, 40, TileType::Resource);
+        set_sym(&mut map.tiles, 45, 40, TileType::Resource);
+        set_sym(&mut map.tiles, 44, 41, TileType::Resource);
+
+        // Third base resources (more exposed, near edge)
+        set_sym(&mut map.tiles, 73, 15, TileType::Resource);
+        set_sym(&mut map.tiles, 74, 15, TileType::Resource);
+
+        // Contested center resources (high risk, high reward)
+        // These are placed on the symmetry line so they don't double-count
+        // Place them slightly off-center so each side gets one set
+        set_sym(&mut map.tiles, 120, 115, TileType::Resource);
+        set_sym(&mut map.tiles, 121, 116, TileType::Resource);
+
+        // Far gold base (very exposed, high value position)
+        set_sym(&mut map.tiles, 30, 70, TileType::Resource);
+        set_sym(&mut map.tiles, 31, 70, TileType::Resource);
+
+        // ===== ENSURE STARTING AREAS ARE CLEAR =====
+        // P0: clear 18x18 around the base (covers 2..20)
+        // P1: automatically cleared by symmetry
+        for y in 2..22 {
+            for x in 2..22 {
+                let idx = y * MAP_SIZE + x;
+                if map.tiles[idx] == TileType::Water || map.tiles[idx] == TileType::Rock {
+                    map.tiles[idx] = TileType::Ground;
+                }
+                // Mirror
+                let mx = MAP_SIZE - 1 - x;
+                let my = MAP_SIZE - 1 - y;
+                let midx = my * MAP_SIZE + mx;
+                if map.tiles[midx] == TileType::Water || map.tiles[midx] == TileType::Rock {
+                    map.tiles[midx] = TileType::Ground;
+                }
+            }
+        }
+
+        // Re-place resources that may have been cleared (only the ones inside starting area)
+        set_sym(&mut map.tiles, 3, 3, TileType::Resource);
+        set_sym(&mut map.tiles, 4, 3, TileType::Resource);
+        set_sym(&mut map.tiles, 3, 4, TileType::Resource);
+
+        map
+    }
+
     /// Generate a playable map from a seed. Deterministic.
     pub fn generate(seed: u64) -> Self {
         let mut rng = DeterministicRng::new(seed);
@@ -177,5 +325,66 @@ mod tests {
         assert!(!map.is_passable(-1, 0));
         assert!(!map.is_passable(256, 0));
         assert_eq!(map.get_tile(-1, 0), TileType::Rock);
+    }
+
+    #[test]
+    fn test_handcrafted_map_symmetric() {
+        let map = TerrainMap::fighting_spirit();
+        for y in 0..MAP_SIZE {
+            for x in 0..MAP_SIZE {
+                let tile = map.tiles[y * MAP_SIZE + x];
+                let mx = MAP_SIZE - 1 - x;
+                let my = MAP_SIZE - 1 - y;
+                let mirror_tile = map.tiles[my * MAP_SIZE + mx];
+                assert_eq!(
+                    tile, mirror_tile,
+                    "Symmetry broken at ({},{}) vs ({},{}): {:?} != {:?}",
+                    x, y, mx, my, tile, mirror_tile
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn test_handcrafted_map_starting_areas_clear() {
+        let map = TerrainMap::fighting_spirit();
+        // P0 starting area around (5..20, 5..20)
+        for y in 5..20 {
+            for x in 5..20 {
+                assert!(
+                    map.is_passable(x as i32, y as i32),
+                    "P0 starting area tile ({},{}) should be passable", x, y
+                );
+            }
+        }
+        // P1 starting area (mirrored)
+        for y in (MAP_SIZE - 20)..(MAP_SIZE - 5) {
+            for x in (MAP_SIZE - 20)..(MAP_SIZE - 5) {
+                assert!(
+                    map.is_passable(x as i32, y as i32),
+                    "P1 starting area tile ({},{}) should be passable", x, y
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn test_handcrafted_map_has_resources() {
+        let map = TerrainMap::fighting_spirit();
+        let resource_count = map.tiles.iter().filter(|t| **t == TileType::Resource).count();
+        assert!(
+            resource_count >= 12,
+            "Expected at least 12 resource tiles, found {}", resource_count
+        );
+    }
+
+    #[test]
+    fn test_handcrafted_map_has_chokepoints() {
+        let map = TerrainMap::fighting_spirit();
+        let impassable_count = map.tiles.iter().filter(|t| !t.is_passable()).count();
+        assert!(
+            impassable_count >= 100,
+            "Expected at least 100 impassable tiles for chokepoints, found {}", impassable_count
+        );
     }
 }
