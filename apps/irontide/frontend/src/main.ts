@@ -17,7 +17,7 @@ import { NetClient } from './net/client.js';
 import { LockstepManager } from './net/lockstep.js';
 import type { ServerMessage } from './net/protocol.js';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL ?? 'ws://localhost:8080';
+const SERVER_URL = import.meta.env.VITE_SERVER_URL ?? 'ws://localhost:8090';
 
 const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
 const hudEl = document.getElementById('hud')!;
