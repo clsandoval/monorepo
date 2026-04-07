@@ -1,5 +1,10 @@
 # Iron Tide - Browser RTS Game Architecture Plan
 
+> **SUPERSEDED** — This document is the original scaffold spec. The authoritative specs are:
+> - `docs/superpowers/specs/2026-04-07-irontide-game-design.md` — Game design
+> - `docs/superpowers/specs/2026-04-07-irontide-technical-architecture.md` — Technical architecture
+> - `docs/superpowers/specs/2026-04-07-irontide-qa-spec.md` — QA specification
+
 ## Context
 
 Build a "Krunker for RTS" - an instant-play browser real-time strategy game. The goal is 5 seconds from URL to playing, no downloads, no login. Inspired by StarCraft 2 and Red Alert. The game lives at `apps/irontide/` in the monorepo.
