@@ -1,0 +1,16 @@
+{
+  "name": "irontide-wasm",
+  "type": "module",
+  "description": "Iron Tide RTS - WebAssembly bindings",
+  "version": "0.1.0",
+  "files": [
+    "irontide_bg.wasm",
+    "irontide.js",
+    "irontide.d.ts"
+  ],
+  "main": "irontide.js",
+  "types": "irontide.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
