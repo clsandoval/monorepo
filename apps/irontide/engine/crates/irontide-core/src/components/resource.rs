@@ -21,3 +21,17 @@ pub struct ResourceNode {
     pub remaining: u32,
     pub gather_rate: u16, // Per tick
 }
+
+#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+pub struct GatherTarget {
+    pub node_entity: u32,
+    pub deposit_entity: u32, // CC to deposit at
+    pub state: GatherState,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub enum GatherState {
+    MovingToNode,
+    Gathering,
+    ReturningToDeposit,
+}

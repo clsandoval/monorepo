@@ -2,6 +2,7 @@ use crate::command::{PlayerCommand, TurnCommands};
 use crate::components::*;
 use crate::config;
 use crate::ecs::World;
+use crate::map::terrain::TileType;
 use crate::map::{FogMap, TerrainMap};
 use crate::math::Fixed;
 use crate::rng::DeterministicRng;
@@ -39,6 +40,7 @@ impl GameState {
 
         // Spawn starting units for each player
         state.spawn_starting_units();
+        state.spawn_resource_nodes();
         state
     }
 
@@ -125,6 +127,24 @@ impl GameState {
         e
     }
 
+    /// Spawn resource node entities at every TileType::Resource location on the map.
+    fn spawn_resource_nodes(&mut self) {
+        for y in 0..self.map.height {
+            for x in 0..self.map.width {
+                if self.map.tiles[y * self.map.width + x] == TileType::Resource {
+                    let e = self.world.spawn();
+                    let i = e as usize;
+                    self.world.position[i] = Some(Position::from_ints(x as i32, y as i32));
+                    self.world.resource_node[i] = Some(ResourceNode {
+                        remaining: config::ORE_NODE_STARTING_AMOUNT,
+                        gather_rate: config::GATHER_RATE_PER_TICK as u16,
+                    });
+                    self.world.sprite_id[i] = Some(200); // Resource node sprite ID
+                }
+            }
+        }
+    }
+
     /// Advance the simulation by one tick with the given player commands.
     pub fn tick(&mut self, turn_commands: &[TurnCommands]) {
         // 1. Apply player commands (sorted for determinism)
@@ -150,13 +170,16 @@ impl GameState {
         // 4. Combat
         systems::combat::combat_system(&mut self.world);
 
-        // 5. Fog of war
+        // 5. Resource gathering
+        systems::resource::resource_system(&mut self.world, &self.map, &mut self.player_resources);
+
+        // 6. Fog of war
         self.update_fog();
 
-        // 6. Cleanup dead entities
+        // 7. Cleanup dead entities
         systems::cleanup::cleanup_system(&mut self.world);
 
-        // 7. Advance tick
+        // 8. Advance tick
         self.tick += 1;
     }
 
@@ -271,8 +294,8 @@ mod tests {
     fn test_game_init() {
         let state = GameState::new(42, 100, 2);
         assert_eq!(state.tick, 0);
-        // 1 CC + 4 Workers per player = 5 entities * 2 players = 10
-        assert_eq!(state.unit_count(), 10);
+        // 1 CC + 4 Workers per player = 10 units + 26 resource node entities
+        assert!(state.unit_count() > 10, "Should have units + resource nodes");
         assert_eq!(state.player_resources[0], config::STARTING_RESOURCES);
         // Each player has 1 CC providing 15 supply
         assert_eq!(state.player_supply_cap[0], config::SUPPLY_PER_CC);

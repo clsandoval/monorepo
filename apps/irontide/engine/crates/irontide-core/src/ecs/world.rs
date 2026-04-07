@@ -35,6 +35,9 @@ pub struct World {
     pub production_queue: Vec<Option<ProductionQueue>>,
     pub building_type: Vec<Option<BuildingType>>,
 
+    // Gathering
+    pub gather_target: Vec<Option<GatherTarget>>,
+
     // Rendering hint
     pub sprite_id: Vec<Option<u16>>,
 }
@@ -59,6 +62,7 @@ impl World {
             build_progress: Vec::new(),
             production_queue: Vec::new(),
             building_type: Vec::new(),
+            gather_target: Vec::new(),
             sprite_id: Vec::new(),
         }
     }
@@ -86,6 +90,7 @@ impl World {
             self.build_progress.push(None);
             self.production_queue.push(None);
             self.building_type.push(None);
+            self.gather_target.push(None);
             self.sprite_id.push(None);
             id
         }
@@ -121,6 +126,7 @@ impl World {
         self.build_progress[i] = None;
         self.production_queue[i] = None;
         self.building_type[i] = None;
+        self.gather_target[i] = None;
         self.sprite_id[i] = None;
     }
 
