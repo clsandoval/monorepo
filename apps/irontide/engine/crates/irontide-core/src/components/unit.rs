@@ -2,19 +2,25 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum UnitType {
-    Harvester,
+    Worker,
     Rifleman,
     Tank,
-    Builder,
 }
 
 impl UnitType {
     pub fn sprite_id(self) -> u16 {
         match self {
-            UnitType::Harvester => 0,
+            UnitType::Worker => 0,
             UnitType::Rifleman => 1,
             UnitType::Tank => 2,
-            UnitType::Builder => 3,
+        }
+    }
+
+    /// Returns true if this unit type can engage in combat.
+    pub fn is_combat(self) -> bool {
+        match self {
+            UnitType::Worker => false,
+            UnitType::Rifleman | UnitType::Tank => true,
         }
     }
 }

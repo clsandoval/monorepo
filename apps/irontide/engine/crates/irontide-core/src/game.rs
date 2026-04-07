@@ -15,6 +15,10 @@ pub struct GameState {
     pub rng: DeterministicRng,
     pub player_resources: Vec<u32>,
     pub player_count: u8,
+    pub player_supply_cap: Vec<u8>,
+    pub player_supply_used: Vec<u8>,
+    pub game_over: bool,
+    pub winner: Option<u8>,
 }
 
 impl GameState {
@@ -27,6 +31,10 @@ impl GameState {
             rng: DeterministicRng::new(seed),
             player_resources: vec![config::STARTING_RESOURCES; player_count as usize],
             player_count,
+            player_supply_cap: vec![0; player_count as usize],
+            player_supply_used: vec![0; player_count as usize],
+            game_over: false,
+            winner: None,
         };
 
         // Spawn starting units for each player
@@ -35,21 +43,21 @@ impl GameState {
     }
 
     fn spawn_starting_units(&mut self) {
-        // Player 0: top-left corner
-        self.spawn_unit(UnitType::Builder, TeamId::PLAYER_0, 8, 8);
-        self.spawn_unit(UnitType::Harvester, TeamId::PLAYER_0, 10, 8);
-        self.spawn_unit(UnitType::Harvester, TeamId::PLAYER_0, 8, 10);
-        self.spawn_unit(UnitType::Rifleman, TeamId::PLAYER_0, 12, 8);
-        self.spawn_unit(UnitType::Rifleman, TeamId::PLAYER_0, 8, 12);
+        // Player 0: top-left corner — 1 CC + 4 Workers
+        self.spawn_building(BuildingType::CommandCenter, TeamId::PLAYER_0, 7, 7);
+        self.spawn_unit(UnitType::Worker, TeamId::PLAYER_0, 10, 8);
+        self.spawn_unit(UnitType::Worker, TeamId::PLAYER_0, 8, 10);
+        self.spawn_unit(UnitType::Worker, TeamId::PLAYER_0, 11, 9);
+        self.spawn_unit(UnitType::Worker, TeamId::PLAYER_0, 9, 11);
 
         if self.player_count >= 2 {
-            // Player 1: bottom-right corner
+            // Player 1: bottom-right corner — 1 CC + 4 Workers
             let s = crate::map::terrain::MAP_SIZE as i32;
-            self.spawn_unit(UnitType::Builder, TeamId::PLAYER_1, s - 9, s - 9);
-            self.spawn_unit(UnitType::Harvester, TeamId::PLAYER_1, s - 11, s - 9);
-            self.spawn_unit(UnitType::Harvester, TeamId::PLAYER_1, s - 9, s - 11);
-            self.spawn_unit(UnitType::Rifleman, TeamId::PLAYER_1, s - 13, s - 9);
-            self.spawn_unit(UnitType::Rifleman, TeamId::PLAYER_1, s - 9, s - 13);
+            self.spawn_building(BuildingType::CommandCenter, TeamId::PLAYER_1, s - 10, s - 10);
+            self.spawn_unit(UnitType::Worker, TeamId::PLAYER_1, s - 11, s - 9);
+            self.spawn_unit(UnitType::Worker, TeamId::PLAYER_1, s - 9, s - 11);
+            self.spawn_unit(UnitType::Worker, TeamId::PLAYER_1, s - 12, s - 10);
+            self.spawn_unit(UnitType::Worker, TeamId::PLAYER_1, s - 10, s - 12);
         }
     }
 
@@ -74,8 +82,36 @@ impl GameState {
             ));
         }
 
-        if matches!(utype, UnitType::Harvester) {
-            self.world.resource_carry[i] = Some(ResourceCarry::new(50));
+        if matches!(utype, UnitType::Worker) {
+            self.world.resource_carry[i] = Some(ResourceCarry::new(config::WORKER_CARRY_CAPACITY));
+        }
+
+        // Track supply usage
+        let supply_cost = config::unit_config(utype).supply_cost;
+        if let Some(supply) = self.player_supply_used.get_mut(team.0 as usize) {
+            *supply = supply.saturating_add(supply_cost);
+        }
+
+        e
+    }
+
+    /// Spawn a completed building at the given tile position.
+    pub fn spawn_building(&mut self, btype: BuildingType, team: TeamId, x: i32, y: i32) -> u32 {
+        let bcfg = config::building_config(btype);
+        let e = self.world.spawn();
+        let i = e as usize;
+
+        self.world.position[i] = Some(Position::from_ints(x, y));
+        self.world.health[i] = Some(Health::new(bcfg.health, bcfg.armor));
+        self.world.team[i] = Some(team);
+        self.world.building_type[i] = Some(btype);
+        self.world.sprite_id[i] = Some(btype.sprite_id());
+
+        // Track supply cap
+        if bcfg.supply_provided > 0 {
+            if let Some(cap) = self.player_supply_cap.get_mut(team.0 as usize) {
+                *cap = cap.saturating_add(bcfg.supply_provided);
+            }
         }
 
         e
@@ -126,16 +162,20 @@ impl GameState {
             if !self.world.alive[i] {
                 continue;
             }
-            let (pos, team, utype) = match (
-                &self.world.position[i],
-                &self.world.team[i],
-                &self.world.unit_type[i],
-            ) {
-                (Some(p), Some(t), Some(ut)) => (p, t, ut),
+            let (pos, team) = match (&self.world.position[i], &self.world.team[i]) {
+                (Some(p), Some(t)) => (p, t),
                 _ => continue,
             };
 
-            let vision = config::unit_config(*utype).vision_range;
+            // Determine vision range from unit type or building type
+            let vision = if let Some(utype) = &self.world.unit_type[i] {
+                config::unit_config(*utype).vision_range
+            } else if let Some(btype) = &self.world.building_type[i] {
+                btype.vision_range()
+            } else {
+                continue;
+            };
+
             self.fog.reveal(team.0, pos.tile_x(), pos.tile_y(), vision);
         }
     }
@@ -223,8 +263,17 @@ mod tests {
     fn test_game_init() {
         let state = GameState::new(42, 100, 2);
         assert_eq!(state.tick, 0);
-        assert_eq!(state.unit_count(), 10); // 5 per player
+        // 1 CC + 4 Workers per player = 5 entities * 2 players = 10
+        assert_eq!(state.unit_count(), 10);
         assert_eq!(state.player_resources[0], config::STARTING_RESOURCES);
+        // Each player has 1 CC providing 15 supply
+        assert_eq!(state.player_supply_cap[0], config::SUPPLY_PER_CC);
+        assert_eq!(state.player_supply_cap[1], config::SUPPLY_PER_CC);
+        // Each player has 4 Workers using 1 supply each
+        assert_eq!(state.player_supply_used[0], 4);
+        assert_eq!(state.player_supply_used[1], 4);
+        assert!(!state.game_over);
+        assert_eq!(state.winner, None);
     }
 
     #[test]
@@ -290,7 +339,7 @@ mod tests {
     fn test_render_data() {
         let state = GameState::new(42, 100, 2);
         let data = state.render_data(0);
-        // Player 0 should see their own 5 units
+        // Player 0 should see their own 5 entities (1 CC + 4 Workers)
         assert!(data.len() >= 5);
     }
 }
