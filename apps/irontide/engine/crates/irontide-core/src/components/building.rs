@@ -83,3 +83,8 @@ impl ProductionQueue {
         }
     }
 }
+
+#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+pub struct BuildTarget {
+    pub building_entity: u32,
+}

@@ -157,30 +157,139 @@ impl GameState {
             }
         }
 
-        // 2. Process move commands
+        let all_commands_owned: Vec<PlayerCommand> =
+            all_commands.iter().map(|c| (*c).clone()).collect();
+
+        // 2. Process build commands (needs GameState access for resources + map)
+        self.process_build_commands(&all_commands_owned);
+
+        // 3. Process move commands
         systems::pathfinding::apply_move_commands(
             &mut self.world,
             &self.map,
-            &all_commands.iter().map(|c| (*c).clone()).collect::<Vec<_>>(),
+            &all_commands_owned,
         );
 
-        // 3. Movement
+        // 4. Movement
         systems::movement::movement_system(&mut self.world, &self.map);
 
-        // 4. Combat
+        // 5. Combat
         systems::combat::combat_system(&mut self.world);
 
-        // 5. Resource gathering
+        // 6. Resource gathering
         systems::resource::resource_system(&mut self.world, &self.map, &mut self.player_resources);
 
-        // 6. Fog of war
+        // 7. Construction
+        systems::construction::construction_system(&mut self.world);
+
+        // 8. Fog of war
         self.update_fog();
 
-        // 7. Cleanup dead entities
+        // 9. Cleanup dead entities
         systems::cleanup::cleanup_system(&mut self.world);
 
-        // 8. Advance tick
+        // 10. Advance tick
         self.tick += 1;
+    }
+
+    /// Process Build commands: validate, deduct cost, spawn building, assign worker.
+    fn process_build_commands(&mut self, commands: &[PlayerCommand]) {
+        for cmd in commands {
+            if let PlayerCommand::Build {
+                builder,
+                building_type,
+                x,
+                y,
+            } = cmd
+            {
+                let bi = *builder as usize;
+
+                // Verify builder is alive and is a Worker
+                if !self.world.is_alive(*builder) {
+                    continue;
+                }
+                if self.world.unit_type[bi] != Some(UnitType::Worker) {
+                    continue;
+                }
+
+                // Get builder's team
+                let team = match self.world.team[bi] {
+                    Some(t) => t,
+                    None => continue,
+                };
+
+                // Check cost
+                let bcfg = config::building_config(*building_type);
+                let player_idx = team.0 as usize;
+                if player_idx >= self.player_resources.len() {
+                    continue;
+                }
+                if self.player_resources[player_idx] < bcfg.build_cost {
+                    continue;
+                }
+
+                // Check tile validity: all tiles in footprint must be passable
+                let (width, height) = building_type.tile_size();
+                let mut all_passable = true;
+                for dy in 0..height as i32 {
+                    for dx in 0..width as i32 {
+                        if !self.map.is_passable(*x + dx, *y + dy) {
+                            all_passable = false;
+                            break;
+                        }
+                    }
+                    if !all_passable {
+                        break;
+                    }
+                }
+                if !all_passable {
+                    continue;
+                }
+
+                // Deduct cost
+                self.player_resources[player_idx] -= bcfg.build_cost;
+
+                // Spawn building entity (under construction)
+                let building_e = self.world.spawn();
+                let building_i = building_e as usize;
+
+                self.world.position[building_i] = Some(Position::from_ints(*x, *y));
+                self.world.health[building_i] = Some(Health::new(bcfg.health, bcfg.armor));
+                self.world.team[building_i] = Some(team);
+                self.world.building_type[building_i] = Some(*building_type);
+                self.world.sprite_id[building_i] = Some(building_type.sprite_id());
+                self.world.build_progress[building_i] = Some(BuildProgress {
+                    building_type: *building_type,
+                    ticks_remaining: bcfg.build_time_ticks,
+                    total_ticks: bcfg.build_time_ticks,
+                });
+
+                // Block terrain tiles
+                for dy in 0..height {
+                    for dx in 0..width {
+                        self.map
+                            .set_blocked((*x + dx as i32) as usize, (*y + dy as i32) as usize, true);
+                    }
+                }
+
+                // Track supply if CC
+                if bcfg.supply_provided > 0 {
+                    if let Some(cap) = self.player_supply_cap.get_mut(player_idx) {
+                        *cap = cap.saturating_add(bcfg.supply_provided);
+                    }
+                }
+
+                // Set worker's move_target toward building center, set build_target, clear gather_target
+                let center_x = Fixed::from_int(*x) + Fixed::HALF;
+                let center_y = Fixed::from_int(*y) + Fixed::HALF;
+                self.world.move_target[bi] = Some(MoveTarget::new(center_x, center_y));
+                self.world.build_target[bi] = Some(BuildTarget {
+                    building_entity: building_e,
+                });
+                self.world.gather_target[bi] = None;
+                self.world.attack_target[bi] = None;
+            }
+        }
     }
 
     fn update_fog(&mut self) {
