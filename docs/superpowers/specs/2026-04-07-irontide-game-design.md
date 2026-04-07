@@ -27,7 +27,7 @@
 - 2D isometric, classic sprite art
 - Red Alert / Command & Conquer aesthetic
 - 8-directional unit sprites with animation frames
-- Isometric camera angle (~30-45 degrees), Red Alert/SC2 perspective — NOT top-down
+- Isometric camera angle matching SC2's perspective (~55-60 degrees from horizontal, 3/4 top-down view)
 
 ## Factions
 

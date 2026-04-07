@@ -209,7 +209,7 @@ WebGPU only — no WebGL2 fallback for V1. Targets Chrome, Edge, Safari 18+.
 
 ### Isometric Projection
 
-Rust computes screen coordinates from tile positions. The renderer doesn't need to know about game logic — it just draws sprites at the positions Rust provides.
+SC2-style camera angle (~55-60 degrees from horizontal). Rust computes screen coordinates from tile positions using this projection. The renderer doesn't need to know about game logic — it just draws sprites at the positions Rust provides.
 
 ### Camera
 
