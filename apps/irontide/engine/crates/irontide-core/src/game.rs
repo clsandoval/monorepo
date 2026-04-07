@@ -41,6 +41,7 @@ impl GameState {
         // Spawn starting units for each player
         state.spawn_starting_units();
         state.spawn_resource_nodes();
+        state.update_fog();
         state
     }
 
@@ -205,7 +206,10 @@ impl GameState {
         // 9. Cleanup dead entities
         systems::cleanup::cleanup_system(&mut self.world);
 
-        // 10. Advance tick
+        // 10. Check win condition
+        self.check_win_condition();
+
+        // 11. Advance tick
         self.tick += 1;
     }
 
@@ -382,6 +386,30 @@ impl GameState {
         }
     }
 
+    fn check_win_condition(&mut self) {
+        if self.game_over {
+            return;
+        }
+        if self.player_count < 2 {
+            return;
+        }
+        for player in 0..self.player_count {
+            let team = TeamId(player);
+            let has_cc = (0..self.world.next_entity).any(|e| {
+                let i = e as usize;
+                self.world.alive[i]
+                    && self.world.team[i] == Some(team)
+                    && self.world.building_type[i] == Some(BuildingType::CommandCenter)
+            });
+            if !has_cc {
+                self.game_over = true;
+                // For 2-player: winner is the other player
+                self.winner = Some(1 - player);
+                return;
+            }
+        }
+    }
+
     fn update_fog(&mut self) {
         for team in 0..self.player_count {
             self.fog.begin_frame(team);
@@ -401,6 +429,12 @@ impl GameState {
             let vision = if let Some(utype) = &self.world.unit_type[i] {
                 config::unit_config(*utype).vision_range
             } else if let Some(btype) = &self.world.building_type[i] {
+                // Skip buildings still under construction
+                if let Some(bp) = &self.world.build_progress[i] {
+                    if !bp.is_complete() {
+                        continue;
+                    }
+                }
                 btype.vision_range()
             } else {
                 continue;
@@ -571,5 +605,170 @@ mod tests {
         let data = state.render_data(0);
         // Player 0 should see their own 5 entities (1 CC + 4 Workers)
         assert!(data.len() >= 5);
+    }
+
+    #[test]
+    fn test_win_condition_destroy_cc() {
+        let mut state = GameState::new(42, 100, 2);
+
+        // Find Player 1's CC (entity with building_type == CommandCenter and team == PLAYER_1)
+        let p1_cc = (0..state.world.next_entity)
+            .find(|&e| {
+                let i = e as usize;
+                state.world.alive[i]
+                    && state.world.team[i] == Some(TeamId::PLAYER_1)
+                    && state.world.building_type[i] == Some(BuildingType::CommandCenter)
+            })
+            .expect("Player 1 should have a CC");
+
+        // Set P1's CC health to 0
+        state.world.health[p1_cc as usize].as_mut().unwrap().current = 0;
+
+        // Tick once (cleanup removes the dead CC, then win condition fires)
+        state.tick(&[]);
+
+        assert!(state.game_over, "Game should be over after CC destroyed");
+        assert_eq!(state.winner, Some(0), "Player 0 should win when Player 1 loses CC");
+    }
+
+    #[test]
+    fn test_win_condition_no_trigger_with_cc_alive() {
+        let mut state = GameState::new(42, 100, 2);
+        state.tick(&[]);
+        assert!(!state.game_over, "Game should not be over when both CCs alive");
+        assert_eq!(state.winner, None);
+    }
+
+    #[test]
+    fn test_building_fog_completed_cc_provides_vision() {
+        let state = GameState::new(42, 100, 2);
+        // Player 0's CC is at (7, 7). It should provide vision there.
+        let vis = state.fog.get(0, 7, 7);
+        assert_eq!(vis, crate::map::fog_map::Visibility::Visible,
+            "Completed CC should provide vision at its location");
+    }
+
+    #[test]
+    fn test_worker_has_no_attack_stats() {
+        let state = GameState::new(42, 100, 2);
+        // Find a Worker
+        let worker = (0..state.world.next_entity)
+            .find(|&e| {
+                let i = e as usize;
+                state.world.alive[i] && state.world.unit_type[i] == Some(UnitType::Worker)
+            })
+            .expect("Should have a worker");
+        assert!(
+            state.world.attack_stats[worker as usize].is_none(),
+            "Workers should not have attack_stats (damage=0 in config)"
+        );
+    }
+
+    #[test]
+    fn test_attack_move_sets_move_target_for_rifleman() {
+        let mut state = GameState::new(42, 100, 2);
+
+        // Spawn a Rifleman for Player 0
+        let rifle = state.spawn_unit(UnitType::Rifleman, TeamId::PLAYER_0, 15, 15);
+
+        let cmds = vec![TurnCommands {
+            tick: 0,
+            player_id: 0,
+            commands: vec![PlayerCommand::AttackMove {
+                unit_ids: vec![rifle],
+                target_x: 30,
+                target_y: 30,
+            }],
+            checksum: None,
+        }];
+
+        state.tick(&cmds);
+
+        // After tick, rifleman should have a move_target set
+        let ri = rifle as usize;
+        assert!(
+            state.world.move_target[ri].is_some() || !state.world.is_alive(rifle),
+            "Rifleman should have move_target after AttackMove"
+        );
+    }
+
+    #[test]
+    fn test_attack_move_ignores_workers() {
+        let mut state = GameState::new(42, 100, 2);
+
+        // Find a Worker for Player 0
+        let worker = (0..state.world.next_entity)
+            .find(|&e| {
+                let i = e as usize;
+                state.world.alive[i]
+                    && state.world.unit_type[i] == Some(UnitType::Worker)
+                    && state.world.team[i] == Some(TeamId::PLAYER_0)
+            })
+            .expect("Should have a worker");
+
+        // Clear worker's move target first
+        state.world.move_target[worker as usize] = None;
+
+        let cmds = vec![TurnCommands {
+            tick: 0,
+            player_id: 0,
+            commands: vec![PlayerCommand::AttackMove {
+                unit_ids: vec![worker],
+                target_x: 30,
+                target_y: 30,
+            }],
+            checksum: None,
+        }];
+
+        state.tick(&cmds);
+
+        // Worker should NOT have gotten a move_target from AttackMove
+        // (movement system may have set it for gather cycle, but attack_move should not)
+        // The key check: worker should not have an attack_target
+        assert!(
+            state.world.attack_target[worker as usize].is_none(),
+            "Workers should not get attack_target from AttackMove"
+        );
+    }
+
+    #[test]
+    fn test_attack_command_non_resource_skips_workers() {
+        let mut state = GameState::new(42, 100, 2);
+
+        // Find Player 0 Worker and Player 1 CC
+        let worker = (0..state.world.next_entity)
+            .find(|&e| {
+                let i = e as usize;
+                state.world.alive[i]
+                    && state.world.unit_type[i] == Some(UnitType::Worker)
+                    && state.world.team[i] == Some(TeamId::PLAYER_0)
+            })
+            .expect("Should have a worker");
+
+        let p1_cc = (0..state.world.next_entity)
+            .find(|&e| {
+                let i = e as usize;
+                state.world.alive[i]
+                    && state.world.team[i] == Some(TeamId::PLAYER_1)
+                    && state.world.building_type[i] == Some(BuildingType::CommandCenter)
+            })
+            .expect("Player 1 should have a CC");
+
+        let cmds = vec![TurnCommands {
+            tick: 0,
+            player_id: 0,
+            commands: vec![PlayerCommand::Attack {
+                unit_ids: vec![worker],
+                target: p1_cc,
+            }],
+            checksum: None,
+        }];
+
+        state.tick(&cmds);
+
+        assert!(
+            state.world.attack_target[worker as usize].is_none(),
+            "Workers should not get attack_target when attacking a building"
+        );
     }
 }

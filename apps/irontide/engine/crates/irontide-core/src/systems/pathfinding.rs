@@ -1,5 +1,5 @@
 use crate::command::PlayerCommand;
-use crate::components::{GatherState, GatherTarget, MoveTarget, UnitType};
+use crate::components::{AttackTarget, GatherState, GatherTarget, MoveTarget, UnitType};
 use crate::ecs::World;
 use crate::map::TerrainMap;
 use crate::math::Fixed;
@@ -25,6 +25,31 @@ pub fn apply_move_commands(world: &mut World, _map: &TerrainMap, commands: &[Pla
                 ));
                 world.attack_target[i] = None; // Cancel attack on move
                 world.gather_target[i] = None; // Cancel gather on move
+            }
+        }
+
+        if let PlayerCommand::AttackMove { unit_ids, target_x, target_y } = cmd {
+            for &uid in unit_ids {
+                let i = uid as usize;
+                if !world.is_alive(uid) {
+                    continue;
+                }
+                if world.position[i].is_none() {
+                    continue;
+                }
+                // Only combat units can attack-move
+                let is_combat = world.unit_type[i]
+                    .map(|ut| ut.is_combat())
+                    .unwrap_or(false);
+                if !is_combat {
+                    continue;
+                }
+                world.move_target[i] = Some(MoveTarget::new(
+                    Fixed::from_int(*target_x) + Fixed::HALF,
+                    Fixed::from_int(*target_y) + Fixed::HALF,
+                ));
+                world.attack_target[i] = None; // Combat system will auto-acquire
+                world.gather_target[i] = None;
             }
         }
 
@@ -65,6 +90,24 @@ pub fn apply_move_commands(world: &mut World, _map: &TerrainMap, commands: &[Pla
                         world.move_target[i] = Some(MoveTarget::new(
                             node_pos.x + Fixed::HALF,
                             node_pos.y + Fixed::HALF,
+                        ));
+                    }
+                } else if world.resource_node[target_i].is_none() {
+                    // Non-resource target: only combat units can attack
+                    let is_combat = world.unit_type[i]
+                        .map(|ut| ut.is_combat())
+                        .unwrap_or(false);
+                    if !is_combat {
+                        continue;
+                    }
+                    world.attack_target[i] = Some(AttackTarget { target: *target });
+                    world.gather_target[i] = None;
+
+                    // Move toward the target
+                    if let Some(target_pos) = world.position[target_i] {
+                        world.move_target[i] = Some(MoveTarget::new(
+                            target_pos.x + Fixed::HALF,
+                            target_pos.y + Fixed::HALF,
                         ));
                     }
                 }
