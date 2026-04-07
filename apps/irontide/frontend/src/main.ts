@@ -102,26 +102,35 @@ async function startNetworkedGame(seed: number, mapSeed: number, playerCount: nu
 }
 
 async function initRendererAndUI() {
-  lobby.setStatus('Initializing WebGPU renderer...');
-  renderer = new Renderer();
-  await renderer.init(canvas);
+  // Try WebGPU renderer — if it fails, run headless (debug API only)
+  try {
+    lobby.setStatus('Initializing WebGPU renderer...');
+    renderer = new Renderer();
+    await renderer.init(canvas);
+    renderer.camera.centerOn(10, 10);
 
-  renderer.camera.centerOn(10, 10);
+    inputManager = new InputManager(clientState);
+    inputManager.attach(canvas, renderer.camera);
 
-  inputManager = new InputManager(clientState);
-  inputManager.attach(canvas, renderer.camera);
+    hud = new HUD();
+    minimap = new Minimap(renderer.camera);
+    minimap.init();
+    commandCard = new CommandCard();
+  } catch (err) {
+    console.warn('[IronTide] WebGPU not available, running headless (debug API only):', err);
+    renderer = null;
+  }
 
-  hud = new HUD();
-  minimap = new Minimap(renderer.camera);
-  minimap.init();
-  commandCard = new CommandCard();
+  // Debug API always initializes — uses a dummy camera if no renderer
+  const cam = renderer?.camera ?? new (await import('./renderer/camera.js')).Camera();
+  if (!renderer) cam.centerOn(10, 10);
 
   const tickFn = (commandsJson?: string) => {
     const t0 = performance.now();
     tick(commandsJson ?? '');
     debugManager!.tickTimes.push(performance.now() - t0);
   };
-  debugManager = new DebugManager(renderer.camera, clientState, tickFn);
+  debugManager = new DebugManager(cam, clientState, tickFn);
   debugManager.install();
 
   lobby.hide();
@@ -203,11 +212,11 @@ function handleServerMessage(msg: ServerMessage): void {
 // ===== Game loops =====
 
 function localGameLoop() {
-  if (!running || !renderer || !inputManager || !debugManager) return;
+  if (!running || !debugManager) return;
   const frameStart = performance.now();
 
   if (debugManager.tickMode === 'realtime') {
-    const commands = inputManager.flushCommands();
+    const commands = inputManager?.flushCommands() ?? [];
     const cardCmds = commandCard?.flushCommands() ?? [];
     const allCmds: GameCommand[] = [...commands, ...cardCmds];
 
@@ -218,8 +227,10 @@ function localGameLoop() {
     debugManager.tickTimes.push(performance.now() - t0);
   }
 
-  inputManager.update(renderer.camera);
-  renderer.renderFrame(clientState.playerId);
+  if (inputManager && renderer) {
+    inputManager.update(renderer.camera);
+    renderer.renderFrame(clientState.playerId);
+  }
 
   frameCount++;
   if (frameCount % 5 === 0) {

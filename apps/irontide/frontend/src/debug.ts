@@ -16,6 +16,10 @@ export interface DebugAPI {
 
   // Resources
   getResources(playerId: number): number;
+  getResourceNodes(): Array<{ id: number; x: number; y: number; remaining: number }>;
+
+  // Game result
+  getGameResult(): { winner: number | null; reason: string };
 
   // Units
   getUnitCount(): number;
@@ -134,6 +138,10 @@ export class DebugManager {
 
       // Resources
       getResources: (pid) => bridge.getResources(pid),
+      getResourceNodes: () => bridge.getResourceNodes(),
+
+      // Game result
+      getGameResult: () => bridge.getGameResult(),
 
       // Units
       getUnitCount: () => bridge.getUnitCount(),
