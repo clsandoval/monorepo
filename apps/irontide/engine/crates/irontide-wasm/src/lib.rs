@@ -1,5 +1,7 @@
 use wasm_bindgen::prelude::*;
 use irontide_core::{GameState, PlayerCommand, TurnCommands};
+use irontide_core::components::{UnitType, BuildingType};
+use irontide_core::map::fog_map::Visibility;
 use std::cell::RefCell;
 
 thread_local! {
@@ -156,4 +158,185 @@ pub fn get_terrain_data() -> Vec<u8> {
 #[wasm_bindgen]
 pub fn get_map_size() -> usize {
     irontide_core::map::terrain::MAP_SIZE
+}
+
+// ===== Debug API bindings =====
+
+#[wasm_bindgen]
+pub fn get_game_state() -> String {
+    GAME.with(|g| {
+        match g.borrow().as_ref() {
+            None => "lobby".to_string(),
+            Some(game) => game.get_game_state_str().to_string(),
+        }
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_game_result() -> String {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        let (winner, reason) = game.get_game_result();
+        match winner {
+            Some(w) => format!(r#"{{"winner":{},"reason":"{}"}}"#, w, reason),
+            None => format!(r#"{{"winner":null,"reason":"{}"}}"#, reason),
+        }
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_unit_count_for_player(player_id: u8) -> usize {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        game.get_unit_count_for_player(player_id)
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_units_by_type(player_id: u8, unit_type_str: &str) -> String {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        let utype = match unit_type_str {
+            "worker" => UnitType::Worker,
+            "rifleman" => UnitType::Rifleman,
+            "tank" => UnitType::Tank,
+            _ => return "[]".to_string(),
+        };
+        let ids = game.get_units_by_type(player_id, utype);
+        format!("[{}]", ids.iter().map(|id| id.to_string()).collect::<Vec<_>>().join(","))
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_unit_health(entity: u32) -> String {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        match game.get_unit_health(entity) {
+            Some((current, max)) => format!(r#"{{"current":{},"max":{}}}"#, current, max),
+            None => "null".to_string(),
+        }
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_unit_state(entity: u32) -> String {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        game.get_unit_state(entity).unwrap_or("unknown").to_string()
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_unit_carrying(entity: u32) -> u16 {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        game.get_unit_carrying(entity)
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_building_count_for_player(player_id: u8) -> usize {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        game.get_building_count_for_player(player_id)
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_buildings_by_type(player_id: u8, building_type_str: &str) -> String {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        let btype = match building_type_str {
+            "command_center" => BuildingType::CommandCenter,
+            "barracks" => BuildingType::Barracks,
+            "turret" => BuildingType::Turret,
+            _ => return "[]".to_string(),
+        };
+        let ids = game.get_buildings_by_type(player_id, btype);
+        format!("[{}]", ids.iter().map(|id| id.to_string()).collect::<Vec<_>>().join(","))
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_building_progress(entity: u32) -> f32 {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        game.get_building_progress(entity)
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_production_queue(entity: u32) -> String {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        let queue = game.get_production_queue(entity);
+        let items: Vec<String> = queue.iter().map(|(name, progress)| {
+            format!(r#"{{"unitType":"{}","progress":{:.4}}}"#, name, progress)
+        }).collect();
+        format!("[{}]", items.join(","))
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_resource_nodes() -> String {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        let nodes = game.get_resource_nodes();
+        let items: Vec<String> = nodes.iter().map(|(id, x, y, remaining)| {
+            format!(r#"{{"id":{},"x":{:.2},"y":{:.2},"remaining":{}}}"#, id, x, y, remaining)
+        }).collect();
+        format!("[{}]", items.join(","))
+    })
+}
+
+#[wasm_bindgen]
+pub fn is_tile_visible(player_id: u8, x: i32, y: i32) -> bool {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        game.fog.get(player_id, x, y) == Visibility::Visible
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_visible_tile_count(player_id: u8) -> u32 {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        game.fog.team_buffer(player_id).iter().filter(|&&b| b == 2).count() as u32
+    })
+}
+
+#[wasm_bindgen]
+pub fn get_tile_type(x: i32, y: i32) -> String {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        match game.map.get_tile(x, y) {
+            irontide_core::map::terrain::TileType::Ground => "grass".to_string(),
+            irontide_core::map::terrain::TileType::Water => "water".to_string(),
+            irontide_core::map::terrain::TileType::Rock => "rock".to_string(),
+            irontide_core::map::terrain::TileType::Resource => "ore".to_string(),
+        }
+    })
+}
+
+#[wasm_bindgen]
+pub fn is_pathable(x: i32, y: i32) -> bool {
+    GAME.with(|g| {
+        let game = g.borrow();
+        let game = game.as_ref().expect("Game not initialized");
+        game.map.is_passable(x, y)
+    })
 }

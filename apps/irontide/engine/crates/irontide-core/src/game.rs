@@ -506,6 +506,180 @@ impl GameState {
         }
         self.world.position[i].map(|p| (p.x.to_f32(), p.y.to_f32()))
     }
+
+    // ===== Debug API query methods =====
+
+    pub fn get_unit_count_for_player(&self, player_id: u8) -> usize {
+        let team = TeamId(player_id);
+        (0..self.world.next_entity)
+            .filter(|&e| {
+                let i = e as usize;
+                self.world.alive[i]
+                    && self.world.team[i] == Some(team)
+                    && self.world.unit_type[i].is_some()
+            })
+            .count()
+    }
+
+    pub fn get_units_by_type(&self, player_id: u8, unit_type: UnitType) -> Vec<u32> {
+        let team = TeamId(player_id);
+        (0..self.world.next_entity)
+            .filter(|&e| {
+                let i = e as usize;
+                self.world.alive[i]
+                    && self.world.team[i] == Some(team)
+                    && self.world.unit_type[i] == Some(unit_type)
+            })
+            .collect()
+    }
+
+    pub fn get_building_count_for_player(&self, player_id: u8) -> usize {
+        let team = TeamId(player_id);
+        (0..self.world.next_entity)
+            .filter(|&e| {
+                let i = e as usize;
+                self.world.alive[i]
+                    && self.world.team[i] == Some(team)
+                    && self.world.building_type[i].is_some()
+            })
+            .count()
+    }
+
+    pub fn get_buildings_by_type(&self, player_id: u8, building_type: BuildingType) -> Vec<u32> {
+        let team = TeamId(player_id);
+        (0..self.world.next_entity)
+            .filter(|&e| {
+                let i = e as usize;
+                self.world.alive[i]
+                    && self.world.team[i] == Some(team)
+                    && self.world.building_type[i] == Some(building_type)
+            })
+            .collect()
+    }
+
+    pub fn get_unit_health(&self, entity: u32) -> Option<(u16, u16)> {
+        let i = entity as usize;
+        if !self.world.is_alive(entity) {
+            return None;
+        }
+        self.world.health[i].map(|h| (h.current, h.max))
+    }
+
+    pub fn get_unit_state(&self, entity: u32) -> Option<&'static str> {
+        let i = entity as usize;
+        if !self.world.is_alive(entity) {
+            return None;
+        }
+        // Must be a unit (not a building or resource node)
+        if self.world.unit_type[i].is_none() {
+            return None;
+        }
+        // Priority order: dead, building, gathering, moving, attacking, idle
+        if let Some(ref h) = self.world.health[i] {
+            if h.is_dead() {
+                return Some("dead");
+            }
+        }
+        if self.world.build_target[i].is_some() {
+            return Some("building");
+        }
+        if let Some(ref gt) = self.world.gather_target[i] {
+            if gt.state == GatherState::Gathering {
+                return Some("gathering");
+            }
+            // MovingToNode or ReturningToDeposit count as moving
+            return Some("moving");
+        }
+        if self.world.move_target[i].is_some() {
+            return Some("moving");
+        }
+        if self.world.attack_target[i].is_some() {
+            return Some("attacking");
+        }
+        Some("idle")
+    }
+
+    pub fn get_resource_nodes(&self) -> Vec<(u32, f32, f32, u32)> {
+        let mut nodes = Vec::new();
+        for e in 0..self.world.next_entity {
+            let i = e as usize;
+            if !self.world.alive[i] {
+                continue;
+            }
+            if let (Some(rn), Some(pos)) = (&self.world.resource_node[i], &self.world.position[i]) {
+                nodes.push((e, pos.x.to_f32(), pos.y.to_f32(), rn.remaining));
+            }
+        }
+        nodes
+    }
+
+    pub fn get_building_progress(&self, entity: u32) -> f32 {
+        let i = entity as usize;
+        if !self.world.is_alive(entity) {
+            return 0.0;
+        }
+        match &self.world.build_progress[i] {
+            None => 1.0,
+            Some(bp) => bp.progress_fraction(),
+        }
+    }
+
+    pub fn get_production_queue(&self, entity: u32) -> Vec<(String, f32)> {
+        let i = entity as usize;
+        if !self.world.is_alive(entity) {
+            return Vec::new();
+        }
+        let pq = match &self.world.production_queue[i] {
+            Some(pq) => pq,
+            None => return Vec::new(),
+        };
+        let mut result = Vec::new();
+        for (idx, &utype) in pq.queue.iter().enumerate() {
+            let name = match utype {
+                UnitType::Worker => "worker",
+                UnitType::Rifleman => "rifleman",
+                UnitType::Tank => "tank",
+            };
+            let progress = if idx == 0 {
+                // First item is actively being built
+                let total = config::unit_config(utype).build_time_ticks;
+                if total == 0 {
+                    1.0
+                } else {
+                    1.0 - (pq.ticks_remaining as f32 / total as f32)
+                }
+            } else {
+                0.0
+            };
+            result.push((name.to_string(), progress));
+        }
+        result
+    }
+
+    pub fn get_game_state_str(&self) -> &'static str {
+        if self.game_over {
+            "ended"
+        } else {
+            "playing"
+        }
+    }
+
+    pub fn get_game_result(&self) -> (Option<u8>, &'static str) {
+        if !self.game_over {
+            return (None, "none");
+        }
+        (self.winner, "cc_destroyed")
+    }
+
+    pub fn get_unit_carrying(&self, entity: u32) -> u16 {
+        let i = entity as usize;
+        if !self.world.is_alive(entity) {
+            return 0;
+        }
+        self.world.resource_carry[i]
+            .map(|rc| rc.amount)
+            .unwrap_or(0)
+    }
 }
 
 #[derive(Clone, Debug)]
