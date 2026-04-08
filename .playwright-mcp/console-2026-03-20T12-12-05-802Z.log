@@ -1,3 +1,0 @@
-[   27205ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://inheritance-frontend.fly.dev/assets/clone-xwvkTvot.js:0
-[   27209ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://inheritance-frontend.fly.dev/assets/FamilyTreeTab-DCiJid7r.js:0
-[   27439ms] [ERROR] TypeError: Failed to fetch dynamically imported module: https://inheritance-frontend.fly.dev/assets/FamilyTreeTab-DCiJid7r.js @ https://inheritance-frontend.fly.dev/assets/index-D9Xf1qk8.js:8

@@ -9,6 +9,15 @@ __pycache__/
 .venv/
 venv/
 
+# Build artifacts
+node_modules/
+target/
+.next/
+
+# Tool caches
+.ruff_cache/
+.playwright-mcp/
+
 # Data dumps and caches (large files, regenerable)
 data/Timeline.json
 data/Timeline.json:Zone.Identifier

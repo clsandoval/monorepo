@@ -1,4 +1,0 @@
-[     716ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://taxklaro.fly.dev/favicon.ico:0
-[   45727ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://vxyargtagollehxujurg.supabase.co/auth/v1/signup?redirect_to=https%3A%2F%2Ftaxklaro.fly.dev%2Fauth%2Fcallback:0
-[  113194ms] [ERROR] Failed to load resource: the server responded with a status of 406 () @ https://vxyargtagollehxujurg.supabase.co/rest/v1/organization_members?select=org_id%2Crole&user_id=eq.fe9cdf06-e603-42a9-af42-0bb57deba05e:0
-[  113289ms] [ERROR] Failed to load resource: the server responded with a status of 406 () @ https://vxyargtagollehxujurg.supabase.co/rest/v1/organization_members?select=org_id%2Crole&user_id=eq.fe9cdf06-e603-42a9-af42-0bb57deba05e:0

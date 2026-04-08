@@ -1,4 +1,0 @@
-[    2324ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5178/favicon.ico:0
-[  108122ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:5178/src/App.tsx?t=1774100372020:0
-[  108125ms] [ERROR] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:5178/@vite/client:881
-[  109267ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ chrome-error://chromewebdata/:0
