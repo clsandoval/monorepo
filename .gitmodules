@@ -10,3 +10,6 @@
 [submodule "projects/angkin"]
 	path = projects/angkin
 	url = git@github.com:getbutanding/angkin.git
+[submodule "projects/hermes-agent"]
+	path = projects/hermes-agent
+	url = git@github.com:getbutanding/hermes-agent.git
