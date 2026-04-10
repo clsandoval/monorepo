@@ -79,26 +79,25 @@ SESSION_ID="<id from Step 1 response>"
 BASE_BRANCH="$BASE_BRANCH"  # from Q3
 CONSTRAINTS="$CONSTRAINTS"  # from Q4, may be empty
 
-MESSAGE=$(jq -n \
+MESSAGE_TEXT=$(jq -n -r \
   --arg brief "$BRIEF" \
   --arg repo "$REPO_URL" \
   --arg branch "autopilot/$SLUG" \
   --arg base_branch "$BASE_BRANCH" \
   --arg constraints "$CONSTRAINTS" \
-  '{
-    type: "user.message",
-    message: {
-      role: "user",
-      content: ("Brief: " + $brief + "\nRepository: " + $repo + "\nBranch for Work: " + $branch + "\nBase Branch: " + $base_branch + (if $constraints != "" then "\nConstraints: " + $constraints else "" end))
-    }
-  }')
+  '"Brief: " + $brief + "\nRepository: " + $repo + "\nBranch for Work: " + $branch + "\nBase Branch: " + $base_branch + (if $constraints != "" then "\nConstraints: " + $constraints else "" end)')
 
 curl -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
   -H "x-api-key: $ANTHROPIC_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -H "anthropic-beta: managed-agents-2026-04-01" \
   -H "content-type: application/json" \
-  -d "$MESSAGE"
+  -d "$(jq -n --arg text "$MESSAGE_TEXT" '{
+    events: [{
+      type: "user.message",
+      content: [{type: "text", text: $text}]
+    }]
+  }')"
 ```
 
 ### Step 3: Save Session to Local State

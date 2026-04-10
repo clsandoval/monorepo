@@ -118,9 +118,9 @@ AGENT_RESPONSE=$(curl -sS https://api.anthropic.com/v1/agents \
       system: $system,
       mcp_servers: [
         {
+          type: "url",
           name: "github",
-          url: "https://api.githubcopilot.com/mcp/",
-          authorization_source: "vault"
+          url: "https://api.githubcopilot.com/mcp/"
         }
       ],
       tools: [
@@ -218,10 +218,12 @@ if [ -n "$GITHUB_TOKEN" ]; then
       -d "$(jq -n \
         --arg token "$GITHUB_TOKEN" \
         '{
-          name: "github_token",
-          type: "bearer_token",
-          value: $token,
-          mcp_server_name: "github"
+          display_name: "GitHub MCP OAuth",
+          auth: {
+            type: "mcp_oauth",
+            mcp_server_url: "https://api.githubcopilot.com/mcp/",
+            access_token: $token
+          }
         }')")
 
     echo "$CRED_RESPONSE" | jq .

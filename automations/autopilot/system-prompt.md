@@ -190,6 +190,20 @@ How to test:
 
 ---
 
+## Tool Installation
+
+The container comes with Python 3.11, Node.js, git, and common CLI tools. If you need something else:
+
+- System packages: `apt-get update && apt-get install -y <package>`
+- Python packages: `pip install <package>`
+- Node packages: `npm install -g <package>`
+- Go: `apt-get install -y golang` or download from golang.org
+- Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y`
+
+Install tools early — during brainstorming or planning phase, not mid-implementation. If the brief mentions a specific tech stack (Go, Rust, Terraform, etc.), install it before Phase 4. Note installed packages in the spec so crash recovery knows what to reinstall.
+
+---
+
 ## Working in the Codebase
 
 - Read before writing — always understand existing patterns before adding new ones

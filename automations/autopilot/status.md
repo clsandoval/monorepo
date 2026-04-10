@@ -62,12 +62,12 @@ PENDING_OPTIONS=$(echo "$PENDING" | jq -r '.input.options // [] | to_entries | m
 
 Decisions: scan agent.message events for lines starting with "**Decision:**"
 ```bash
-DECISIONS=$(echo "$EVENTS" | jq -r '[.data[] | select(.type == "agent.message") | .content // "" | split("\n")[] | select(startswith("**Decision:**"))] | join("\n")')
+DECISIONS=$(echo "$EVENTS" | jq -r '[.data[] | select(.type == "agent.message") | .content[]? | select(.type == "text") | .text | split("\n")[] | select(startswith("**Decision:**"))] | join("\n")')
 ```
 
 Artifacts: scan agent.message events for lines starting with "**Committed:**"
 ```bash
-ARTIFACTS=$(echo "$EVENTS" | jq -r '[.data[] | select(.type == "agent.message") | .content // "" | split("\n")[] | select(startswith("**Committed:**"))] | join("\n")')
+ARTIFACTS=$(echo "$EVENTS" | jq -r '[.data[] | select(.type == "agent.message") | .content[]? | select(.type == "text") | .text | split("\n")[] | select(startswith("**Committed:**"))] | join("\n")')
 ```
 
 ## Display Format
@@ -100,11 +100,13 @@ curl -s -X POST "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
   -H "anthropic-version: 2023-06-01" \
   -H "anthropic-beta: managed-agents-2026-04-01" \
   -H "Content-Type: application/json" \
-  -d "{
-    \"type\": \"user.custom_tool_result\",
-    \"custom_tool_use_id\": \"$PENDING_ID\",
-    \"content\": \"$USER_ANSWER\"
-  }"
+  -d "$(jq -n --arg id "$PENDING_ID" --arg answer "$USER_ANSWER" '{
+    events: [{
+      type: "user.custom_tool_result",
+      custom_tool_use_id: $id,
+      content: [{type: "text", text: $answer}]
+    }]
+  }')"
 ```
 4. Tell user "Answer sent! Agent is resuming."
 
