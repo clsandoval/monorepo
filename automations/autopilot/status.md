@@ -1,11 +1,13 @@
+# Autopilot Status Check
+
 ## Loading Sessions
-Read .superpowers/autopilot-sessions.json, check session count. If one: use it. If multiple: show list, ask which one.
+Read `.superpowers/autopilot-sessions.json`, check session count. If one: use it. If multiple: show list, ask which one.
 
 ## Fetching Status
 
 ### Step 1: Get Session Status
 ```bash
-SESSION_RESPONSE=$(curl -s -X GET "https://api.anthropic.com/v1/sessions/$SESSION_ID" \
+SESSION_RESPONSE=$(curl -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID" \
   -H "x-api-key: $ANTHROPIC_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -H "anthropic-beta: managed-agents-2026-04-01")
@@ -14,93 +16,123 @@ STATUS=$(echo "$SESSION_RESPONSE" | jq -r '.status')
 
 ### Step 2: Fetch Events
 ```bash
-EVENTS=$(curl -s -X GET "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
+EVENTS=$(curl -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
   -H "x-api-key: $ANTHROPIC_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -H "anthropic-beta: managed-agents-2026-04-01")
 ```
 
-### Step 3: Parse Events for Display
+### Step 3: Check for Blocked Actions (CRITICAL)
 
-Current phase: first try from ask_user tool calls, then fall back to scanning agent messages for phase headers (the system prompt instructs the agent to emit "## Phase N:" headers).
+The most important check: is the session idle because it's DONE or because it NEEDS SOMETHING?
+
+Look at the `session.status_idle` event's `stop_reason`:
+- `stop_reason.type == "end_turn"` → Agent finished, no action needed
+- `stop_reason.type == "requires_action"` → Agent is BLOCKED waiting for a response
 
 ```bash
-# Primary: from ask_user tool calls
-LATEST_PHASE=$(echo "$EVENTS" | jq -r '[.data[] | select(.type == "agent.custom_tool_use" and .tool_name == "ask_user") | .input.phase] | last // empty')
-
-# Fallback: scan agent messages for phase transition headers
-if [ -z "$LATEST_PHASE" ]; then
-  LATEST_PHASE=$(echo "$EVENTS" | jq -r '
-    [.data[]
-     | select(.type == "agent.message")
-     | .content[]?
-     | select(.type == "text")
-     | .text
-     | capture("## Phase [0-9]+: (?<phase>[A-Za-z]+)"; "g")
-     | .phase
-     | ascii_downcase
-    ] | last // "starting"')
-fi
-```
-
-Pending question: agent.custom_tool_use events with tool_name=="ask_user" that have no matching user.custom_tool_result (compare by event ID).
-```bash
-# Collect IDs of all answered tool_use events
-ANSWERED_IDS=$(echo "$EVENTS" | jq -r '[.data[] | select(.type == "user.custom_tool_result") | .custom_tool_use_id] | unique | @json')
-
-# Find unanswered ask_user events
-PENDING=$(echo "$EVENTS" | jq --argjson answered "$ANSWERED_IDS" '
-  [.data[] | select(.type == "agent.custom_tool_use" and .tool_name == "ask_user")
-   | select(.id as $id | $answered | index($id) == null)]
-  | last
+# Get the latest idle event's stop_reason
+STOP_REASON=$(echo "$EVENTS" | jq -r '
+  [.data[] | select(.type == "session.status_idle")] | last | .stop_reason.type // "unknown"
 ')
 
-PENDING_ID=$(echo "$PENDING" | jq -r '.id // empty')
-PENDING_QUESTION=$(echo "$PENDING" | jq -r '.input.question // empty')
-PENDING_OPTIONS=$(echo "$PENDING" | jq -r '.input.options // [] | to_entries | map("\(.key | . + 65 | implode)) \(.value)") | join("\n")')
+BLOCKED_EVENT_IDS=$(echo "$EVENTS" | jq -r '
+  [.data[] | select(.type == "session.status_idle")] | last | .stop_reason.event_ids // [] | .[]
+')
 ```
 
-Decisions: scan agent.message events for lines starting with "**Decision:**"
+If `requires_action`, find what's blocked:
 ```bash
-DECISIONS=$(echo "$EVENTS" | jq -r '[.data[] | select(.type == "agent.message") | .content[]? | select(.type == "text") | .text | split("\n")[] | select(startswith("**Decision:**"))] | join("\n")')
+for EVENT_ID in $BLOCKED_EVENT_IDS; do
+  echo "$EVENTS" | jq --arg id "$EVENT_ID" '.data[] | select(.id == $id) | {type, name, input}'
+done
 ```
 
-Artifacts: scan agent.message events for lines starting with "**Committed:**"
+Blocked events can be:
+- `agent.custom_tool_use` → Custom tool (like `ask_user`) needs a response
+- `agent.mcp_tool_use` with `evaluated_permission: "ask"` → MCP tool needs user approval
+- `agent.tool_use` with `evaluated_permission: "ask"` → Built-in tool needs user approval
+
+### Step 4: Parse Agent Messages
+
+Current phase: scan agent messages for phase headers.
 ```bash
-ARTIFACTS=$(echo "$EVENTS" | jq -r '[.data[] | select(.type == "agent.message") | .content[]? | select(.type == "text") | .text | split("\n")[] | select(startswith("**Committed:**"))] | join("\n")')
+LATEST_PHASE=$(echo "$EVENTS" | jq -r '
+  [.data[]
+   | select(.type == "agent.message")
+   | .content[]?
+   | select(.type == "text")
+   | .text
+   | capture("## Phase [0-9]+[^:]*: (?<phase>[A-Za-z]+)"; "g")
+   | .phase
+   | ascii_downcase
+  ] | last // "starting"')
+```
+
+Decisions:
+```bash
+DECISIONS=$(echo "$EVENTS" | jq -r '[.data[] | select(.type == "agent.message") | .content[]? | select(.type == "text") | .text | split("\n")[] | select(startswith("Decision:") or startswith("**Decision:**"))] | join("\n")')
+```
+
+Artifacts:
+```bash
+ARTIFACTS=$(echo "$EVENTS" | jq -r '[.data[] | select(.type == "agent.message") | .content[]? | select(.type == "text") | .text | split("\n")[] | select(startswith("Artifact:") or startswith("**Committed:**"))] | join("\n")')
 ```
 
 ## Display Format
+
+### If running:
 ```
 ## Autopilot: <brief-slug>
 
 **Phase:** <phase>
-**Status:** <running | Waiting for your input | idle | terminated>
-**Branch:** <branch>
+**Status:** Running
 **Running since:** <relative time>
 
-### Pending Question
-<question text>
-Options: A) ... B) ... C) ...
-
-### Decisions Made
-1. <decision>
-
-### Artifacts
-- <path> (committed)
+### Recent Activity
+<last agent message snippet>
 ```
 
-## Answering a Pending Question
-1. Display question and options
-2. Ask user for answer (use AskUserQuestion tool with options if multiple choice)
-3. Send answer via POST to sessions events endpoint with user.custom_tool_result event:
+### If idle — end_turn (done):
+```
+## Autopilot: <brief-slug>
+
+**Phase:** <phase>
+**Status:** Complete
+**Branch:** <branch>
+
+### Decisions Made
+<decisions>
+
+### Artifacts
+<artifacts>
+```
+
+### If idle — requires_action (BLOCKED):
+```
+## Autopilot: <brief-slug>
+
+**Phase:** <phase>
+**Status:** ⚠️ BLOCKED — waiting for your input
+
+### Blocked Action
+<description of what's blocked — tool confirmation, custom tool response, etc.>
+
+### Options
+<if tool confirmation: Approve or Deny>
+<if custom tool: show question and options>
+```
+
+## Responding to Blocked Actions
+
+### For custom tool calls (ask_user):
 ```bash
-curl -s -X POST "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
+curl -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
   -H "x-api-key: $ANTHROPIC_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -H "anthropic-beta: managed-agents-2026-04-01" \
-  -H "Content-Type: application/json" \
-  -d "$(jq -n --arg id "$PENDING_ID" --arg answer "$USER_ANSWER" '{
+  -H "content-type: application/json" \
+  -d "$(jq -n --arg id "$EVENT_ID" --arg answer "$USER_ANSWER" '{
     events: [{
       type: "user.custom_tool_result",
       custom_tool_use_id: $id,
@@ -108,10 +140,26 @@ curl -s -X POST "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
     }]
   }')"
 ```
-4. Tell user "Answer sent! Agent is resuming."
+
+### For tool confirmations (MCP or built-in tools needing approval):
+```bash
+curl -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
+  -H "x-api-key: $ANTHROPIC_API_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "anthropic-beta: managed-agents-2026-04-01" \
+  -H "content-type: application/json" \
+  -d "$(jq -n --arg id "$EVENT_ID" --argjson approved true '{
+    events: [{
+      type: "user.tool_confirmation",
+      event_id: $id,
+      approved: $approved
+    }]
+  }')"
+```
+
+After responding, tell user: "Response sent! Agent is resuming."
 
 ## Updating Local State
-Update sessions file with current status and last_checked_at timestamp:
 ```bash
 jq --arg id "$SESSION_ID" --arg status "$STATUS" --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" '
   .sessions = [.sessions[] | if .id == $id then . + {status: $status, last_checked_at: $ts} else . end]
