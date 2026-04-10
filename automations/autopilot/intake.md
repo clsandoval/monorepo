@@ -2,16 +2,23 @@
 
 ## Flow Overview
 
-Autopilot intake is a LOCAL conversation. All design decisions, approach selection, and ambiguity resolution happen here — the agent will NOT ask questions. The output is a fully-formed brief and a tailored agent configuration.
+Two modes of intake, chosen based on user preference:
 
+### Mode 1: Brainstorm Locally, Then Dispatch
 ```
 Local brainstorm → Configure agent (skills, tools) → Create agent → Create session → Dispatch brief
 ```
 
-## Phase 1: Brainstorm the Brief
+### Mode 2: Dispatch Fast, Answer Questions Later
+```
+Gather brief + repo → Configure agent (with ask_user) → Create agent → Dispatch → User answers via /autopilot status
+```
 
-Use the superpowers brainstorming skill pattern locally:
+**Ask the user which mode they want.** If they say "just dispatch it" or seem eager to move on, use Mode 2.
 
+## Phase 1: Gather the Brief
+
+### Mode 1 (Local Brainstorm):
 1. **Understand the task** — Ask: "What are you trying to build or figure out?"
 2. **Explore context** — Read relevant files in the repo, check existing specs/plans
 3. **Clarify one question at a time** — Resolve ambiguities, constraints, success criteria
@@ -25,6 +32,11 @@ The brief should be specific enough that the agent can execute without interpret
 - Pointers to relevant files in the repo
 - What the deliverable is (spec only? code? research?)
 - Constraints (stop after Phase N, no code, specific tech stack, etc.)
+
+### Mode 2 (Fast Dispatch):
+1. **Get the brief** — Can be vague ("add a useful automation to the monorepo")
+2. **Confirm repo and branch** — Default to this repo, main branch
+3. **Dispatch immediately** — The agent will explore, brainstorm, and ask questions via `ask_user`
 
 ## Phase 2: Configure the Agent
 
@@ -92,7 +104,21 @@ AGENT_RESPONSE=$(curl -sS https://api.anthropic.com/v1/agents \
       system: $system,
       skills: $skills,
       tools: [
-        { type: "agent_toolset_20260401" }
+        { type: "agent_toolset_20260401" },
+        {
+          type: "custom",
+          name: "ask_user",
+          description: "Ask the user a question. The session will pause until the user responds via /autopilot status. Use this for approach confirmation, ambiguous requirements, and key decision points.",
+          input_schema: {
+            type: "object",
+            properties: {
+              question: {type: "string", description: "The question to ask"},
+              options: {type: "array", items: {type: "string"}, description: "Options to choose from"},
+              context: {type: "string", description: "Why this question matters"}
+            },
+            required: ["question", "context"]
+          }
+        }
       ]
     }')")
 
