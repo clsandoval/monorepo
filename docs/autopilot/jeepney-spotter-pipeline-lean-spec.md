@@ -1,236 +1,309 @@
-# Jeepney Spotter V1 — Cloud-Only Pipeline Spec
+# Jeepney Spotter Pipeline — V1 Cloud-Only Spec
 
 **Date:** 2026-04-10
 **Status:** Draft
-**Parent spec:** `docs/superpowers/specs/2026-04-08-jeepney-spotter-design.md`
-**Project home:** `projects/jeepney-spotter/`
+**Base design:** `docs/superpowers/specs/2026-04-08-jeepney-spotter-design.md`
+**Output location:** `projects/jeepney-spotter/`
 
 ---
 
 ## Problem
 
-The `mm-transit-routes-reverse` loop compiled 609 canonical jeepney routes, but 96.4% (587 routes) lack polyline geometry. The parent design spec proposes a 5-stage video pipeline (EXTRACT → GEOLOCATE → DETECT → IDENTIFY → ASSEMBLE) to reconstruct route shapes from YouTube dashcam footage. That spec defines the stages and data model but leaves the execution environment open. This spec pins V1 to a concrete cloud-only implementation that requires zero local setup.
+The `mm-transit-routes-reverse` loop produced 609 canonical jeepney routes for Metro Manila, but **587 (97%) lack polyline geometry**. They have names, endpoints, and fares — no route shapes. Every successful informal transit mapping project (Digital Matatus, WhereIsMyTransport, Trufi) required human riders with GPS phones. No automated system exists for extracting transit routes from video.
 
-## Chosen Approach
+The existing design spec (`2026-04-08-jeepney-spotter-design.md`) describes a 5-stage pipeline that processes YouTube dashcam footage to detect jeepneys, read route placards, and geolocate frames — producing structured observations that can later be clustered into route polylines.
 
-**GitHub Actions workflow + ephemeral frame processing.** The entire pipeline runs as a `workflow_dispatch` job on a standard CI runner. Frames are extracted to the runner's temp filesystem, processed through VLM API calls, and discarded. Only the final observation dataset and quality report are committed back to the repo.
+**This spec** refines that design into a concrete, fully cloud-executed V1 pipeline with zero local dependencies.
 
-### Why This Approach
+---
 
-| Factor | GitHub Actions | Fly.io Machine | Cloud Functions |
-|--------|---------------|----------------|-----------------|
-| New infrastructure | None | New Dockerfile + service | New cloud account/project |
-| Consistent with repo | Yes — 6 existing workflows, ralph-loops use same pattern | Partially — Fly.io used for web apps, not batch jobs | No — no existing GCP/AWS infra |
-| V1 runtime | ~15-25 min (fits in 6hr limit) | ~15-25 min | ~15-25 min |
-| Cost | Free (GitHub Actions minutes) | ~$0.01 per run (ephemeral machine) | Free tier likely covers |
-| Complexity | Low — one workflow YAML + Python package | Medium — Dockerfile, deploy config, trigger mechanism | High — multiple functions, IAM, triggers, storage |
-| Path to V2 | Extract Python package → run anywhere | Already containerized | Rewrite for scale |
+## Chosen Approach: Lean Cloud Pipeline
 
-The V1 workload is small (1 video, 60 frames, ~250 API calls). GitHub Actions is the leanest execution environment that requires zero new infrastructure while matching the repo's existing automation patterns.
+A single Python project (`projects/jeepney-spotter/`) that runs entirely on cloud compute. All ML inference via cloud APIs (Anthropic Claude, Google Gemini). Video/frame processing via standard tools (yt-dlp, ffmpeg) running inside a Docker container on the cloud.
 
-## Architecture
+### Why this approach
 
-### Pipeline Flow
+- **Cloud-only:** No local GPU, no local machine. Runs on GitHub Actions, a cloud VM, Fly.io, or any Docker host.
+- **Lean:** Minimal infrastructure. No message queues, no serverless functions, no managed ML endpoints. One container, one CLI command.
+- **Validation-first:** V1 exists to test viability thresholds. If VLM geolocation doesn't work, no amount of infra will help. Ship the experiment fast.
+
+### What this is NOT
+
+- Not a production pipeline (no autoscaling, no job queues, no monitoring)
+- Not a real-time system
+- Not a training pipeline (no model fine-tuning, no custom detectors)
+
+---
+
+## Pipeline Architecture
+
+Five sequential stages. Each stage reads the previous stage's output. All stages are idempotent — re-running skips already-processed items.
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│  GitHub Actions Runner (ubuntu-latest)                          │
-│                                                                 │
-│  ┌──────────┐   ┌───────────┐   ┌──────────┐   ┌───────────┐  │
-│  │ EXTRACT  │──▶│ GEOLOCATE │──▶│  DETECT  │──▶│    OCR    │  │
-│  │ yt-dlp + │   │ Claude /  │   │ Claude / │   │ Claude /  │  │
-│  │ ffmpeg   │   │ Gemini    │   │ Gemini   │   │ Gemini    │  │
-│  └──────────┘   └───────────┘   └──────────┘   └───────────┘  │
-│       │               │               │               │        │
-│       ▼               ▼               ▼               ▼        │
-│    /tmp/frames/   geo.jsonl      detect.jsonl     ocr.jsonl    │
-│    (PNGs)         (per-frame)    (per-frame)     (per-jeepney) │
-│                                                                 │
-│  ┌───────────────────────────────────────────────────────────┐  │
-│  │                      ASSEMBLE                             │  │
-│  │  Join geo + detect + ocr → observations.jsonl             │  │
-│  │  Fuzzy-match placards against 609 canonical routes        │  │
-│  │  Generate quality_report.json + unmatched_placards.json   │  │
-│  └───────────────────────────────────────────────────────────┘  │
-│       │                                                         │
-│       ▼                                                         │
-│  git commit + push results to repo                              │
-└─────────────────────────────────────────────────────────────────┘
+┌──────────┐    ┌───────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
+│ EXTRACT  │───▶│ GEOLOCATE │───▶│  DETECT  │───▶│   OCR    │───▶│ ASSEMBLE │
+│ frames   │    │ VLM+maps  │    │ jeepneys │    │ placards │    │ observations│
+└──────────┘    └───────────┘    └──────────┘    └──────────┘    └──────────┘
+  yt-dlp +        Claude +         Claude +        Claude +        Python
+  ffmpeg          Gemini           Gemini           Gemini         JSON merge
 ```
 
-### Trigger
+### Stage 1 — Frame Extraction
 
-```yaml
-on:
-  workflow_dispatch:
-    inputs:
-      video_url:
-        description: "YouTube video URL"
-        required: true
-      sample_rate:
-        description: "Seconds between frame samples (default: 60)"
-        default: "60"
-      geo_provider:
-        description: "VLM provider for geolocation"
-        default: "both"
-        type: choice
-        options: [claude, gemini, both]
-```
+- Download video via `yt-dlp` (runs inside container)
+- Extract frames via `ffmpeg` at configurable sample rate
+- **V1 default:** 1 frame per 30 seconds (120 frames from 1 hour of footage)
+- Output: `data/frames/{video_id}/{video_id}_f{timestamp_s}.png`
+- Metadata sidecar: `data/frames/{video_id}/manifest.json` — maps frame filenames to timestamps, video metadata
 
-### Stage Details
+**Design choice — 30s vs 60s sampling:**
+The original spec used 1 frame/minute (60 frames). We use 30s to increase observation density while staying within reasonable API cost (~$4-8 per video). Configurable via `--sample-rate` flag.
 
-All stages follow the parent design spec. Key V1 decisions:
+### Stage 2 — Geolocation (VLM)
 
-**Stage 1 — Extract:** `yt-dlp` downloads to `/tmp`, `ffmpeg` extracts frames at `sample_rate` interval. Frames stored as `/tmp/frames/{video_id}_f{timestamp_s}.png`. Max resolution 1920x1080 (downscale if higher to reduce API costs).
+For each extracted frame, call vision model APIs to estimate geographic coordinates from visible clues.
 
-**Stage 2 — Geolocate:** Each frame sent to Claude and/or Gemini vision API. Structured output: `{lat, lon, confidence, landmarks[]}`. When `geo_provider=both`, call both APIs concurrently and take the higher-confidence result. Frames with confidence < 0.3 are skipped for remaining stages.
+**Prompt strategy:** Structured prompt asking the model to:
+1. List all visible text (street signs, business names, building labels)
+2. Identify visible landmarks or distinctive features
+3. Estimate the cross-street or intersection
+4. Return lat/lon estimate with confidence score (0.0–1.0)
+5. Return a `reasoning` field explaining the geolocation logic
 
-**Stage 3 — Detect:** Each geolocated frame sent to vision API with prompt: identify all jeepneys, return bounding boxes. Structured output: `{jeepneys: [{bbox, confidence}]}`. Frames with zero detections are logged but not processed further.
+**Dual-model approach:** Send each frame to both Claude (Sonnet) and Gemini (Flash). Take the response with higher confidence. If both are confident (>0.6) and disagree by >500m, log as conflicting and take the one with more specific landmark references.
 
-**Stage 4 — OCR:** For each detected jeepney, crop the bounding box region from the frame and send the crop to vision API. Prompt: read the route placard text. Structured output: `{placard_text_raw, placard_text_clean}`. Then fuzzy-match against the 609 canonical routes from `loops/mm-transit-routes-reverse/raw/canonical-jeepney-routes.json`.
+**Output:** `data/geo/{video_id}/geo_results.jsonl` — one line per frame with lat, lon, confidence, landmarks, reasoning.
 
-**Stage 5 — Assemble:** Join all stage outputs by frame into the observation schema (defined in parent spec). Filter by confidence thresholds. Write:
-- `observations.jsonl` — all observations above threshold
-- `quality_report.json` — hit rates per stage, API call counts, costs
-- `unmatched_placards.json` — placard readings with no route match
+**Cost envelope:** ~240 API calls for 120 frames (2 models × 120). At ~$0.01-0.02 per vision call, ~$2.40-4.80 per video.
 
-### Combined VLM Calls (Optimization)
+### Stage 3 — Jeepney Detection (VLM)
 
-To reduce API call count and cost, stages 2-4 can be partially combined:
+For each frame, detect all jeepneys present and return bounding boxes.
 
-**Option A (sequential, parent spec):** 3 separate API calls per frame minimum. ~180-260 calls total.
+**Prompt strategy:** Ask the vision model to identify all jeepneys in the frame, returning:
+1. Count of jeepneys visible
+2. For each: bounding box `[x1, y1, x2, y2]` in pixel coordinates
+3. Approximate distance (near/mid/far) — far jeepneys won't have readable placards
+4. Confidence score per detection
 
-**Option B (combined prompt):** Single API call per frame that returns geolocation + jeepney detections + placard readings in one structured response. ~60-120 calls total.
+**Single-model approach (V1):** Use Claude Sonnet only. Gemini cross-reference not needed for detection — the task is simpler than geolocation.
 
-**V1 decision: Start with Option A (sequential).** Easier to debug, clearer per-stage metrics, and the cost difference is ~$2 vs ~$5 — negligible for V1. Option B is a V1.1 optimization if API latency becomes the bottleneck.
+**Output:** `data/detections/{video_id}/detections.jsonl` — one line per frame with list of detected jeepneys.
 
-## Data Model
+**Cost envelope:** ~120 API calls, ~$1.20-2.40 per video.
 
-Unchanged from parent spec. The observation schema is:
+### Stage 4 — Route Identification (OCR)
 
-| Field | Type | Source Stage |
+For each detected jeepney with distance = "near" or "mid":
+1. Crop the bounding box region from the source frame (using Pillow)
+2. Send cropped image to vision API with prompt to read route placard text
+3. Normalize raw text (uppercase, trim, standardize separators like `–`, `-`, `→`)
+4. Fuzzy-match against the 609 canonical routes from `canonical-jeepney-routes.json`
+
+**Fuzzy matching tiers:**
+- Score ≥ 0.80 → auto-match (high confidence)
+- Score 0.50–0.79 → candidate match (logged for review)
+- Score < 0.50 → unmatched (logged separately)
+
+**Route reference data:** Copy `loops/mm-transit-routes-reverse/raw/canonical-jeepney-routes.json` into `projects/jeepney-spotter/data/routes.json` as the matching dictionary. Extract just route names, origin/destination pairs, and aliases for the fuzzy matcher.
+
+**Output:** `data/ocr/{video_id}/ocr_results.jsonl` — one line per cropped jeepney with raw text, clean text, matched route, match score.
+
+**Cost envelope:** Variable — depends on detection count. Estimate 20-60 crops per video, ~$0.40-1.20.
+
+### Stage 5 — Assembly
+
+Pure Python. No API calls. Joins outputs from stages 2-4 into the final observation schema.
+
+For each frame:
+1. Load geo result (stage 2)
+2. Load detections (stage 3)
+3. For each detection, load OCR result (stage 4)
+4. Join by `video_id + frame_timestamp_s + jeepney_idx`
+5. Apply confidence filters: drop observations where geo_confidence < 0.3 OR detection_confidence < 0.3
+6. Write to `data/output/{video_id}/observations.jsonl`
+
+**Additional outputs:**
+- `quality_report.json` — hit rates per stage, overall funnel metrics
+- `unmatched_placards.json` — placard texts that didn't match any known route
+- `high_confidence_observations.geojson` — GeoJSON of observations with geo_confidence > 0.5 AND match_confidence > 0.5 (for quick map visualization)
+
+---
+
+## Observation Schema
+
+Each row is one jeepney sighting:
+
+| Field | Type | Description |
 |-------|------|-------------|
-| `observation_id` | `{video_id}_{frame_ts}_{jeepney_idx}` | Assembly |
-| `source_video` | YouTube video ID | Extract |
-| `frame_timestamp_s` | int | Extract |
-| `lat`, `lon` | float | Geolocate |
-| `geo_confidence` | float 0-1 | Geolocate |
-| `geo_landmarks` | string[] | Geolocate |
-| `placard_text_raw` | string | OCR |
-| `placard_text_clean` | string | OCR |
-| `matched_route` | string (route_id from canonical list) | OCR/Assembly |
-| `match_confidence` | float | OCR/Assembly |
-| `bbox` | int[4] `[x1, y1, x2, y2]` | Detect |
-| `detection_confidence` | float | Detect |
+| `observation_id` | string | `{video_id}_{frame_ts}_{jeepney_idx}` |
+| `source_video` | string | YouTube video ID |
+| `frame_timestamp_s` | int | Seconds into video |
+| `frame_path` | string | Relative path to extracted frame PNG |
+| `lat` | float | Estimated latitude |
+| `lon` | float | Estimated longitude |
+| `geo_confidence` | float | 0.0–1.0 |
+| `geo_model` | string | Which model provided the geo (claude/gemini) |
+| `geo_landmarks` | string[] | Visible clues used for geolocation |
+| `geo_reasoning` | string | Model's reasoning for the estimate |
+| `placard_text_raw` | string | Raw OCR output from placard |
+| `placard_text_clean` | string | Normalized (uppercase, trimmed) |
+| `matched_route_id` | string | Route ID from canonical dataset, null if no match |
+| `matched_route_name` | string | Human-readable route name |
+| `match_confidence` | float | Fuzzy match score |
+| `bbox` | int[4] | Bounding box `[x1, y1, x2, y2]` |
+| `detection_confidence` | float | From detector model |
+| `detection_distance` | string | near/mid/far |
+
+---
 
 ## Project Structure
 
 ```
 projects/jeepney-spotter/
 ├── README.md
-├── pyproject.toml                    # uv project, Python 3.12+
+├── pyproject.toml                 # uv project, Python 3.12+
+├── Dockerfile                     # Bundles yt-dlp + ffmpeg + Python deps
 ├── src/
 │   └── jeepney_spotter/
 │       ├── __init__.py
-│       ├── extract.py                # Stage 1: yt-dlp + ffmpeg
-│       ├── geolocate.py              # Stage 2: VLM geolocation
-│       ├── detect.py                 # Stage 3: jeepney detection
-│       ├── ocr.py                    # Stage 4: placard OCR + fuzzy match
-│       ├── assemble.py               # Stage 5: join + filter + report
-│       ├── pipeline.py               # Orchestrator: stages 1-5
-│       ├── models.py                 # Pydantic models for observation schema
-│       └── prompts.py                # VLM prompt templates
+│       ├── cli.py                 # CLI entry point (click or argparse)
+│       ├── extract.py             # Stage 1: yt-dlp + ffmpeg
+│       ├── geolocate.py           # Stage 2: dual-model VLM geolocation
+│       ├── detect.py              # Stage 3: jeepney detection
+│       ├── ocr.py                 # Stage 4: placard OCR + fuzzy matching
+│       ├── assemble.py            # Stage 5: join + filter + output
+│       ├── models.py              # Pydantic models for observation schema
+│       ├── prompts.py             # All VLM prompt templates
+│       ├── matching.py            # Fuzzy route matching logic
+│       └── config.py              # Configuration (API keys, paths, thresholds)
 ├── tests/
 │   ├── test_extract.py
 │   ├── test_geolocate.py
 │   ├── test_detect.py
 │   ├── test_ocr.py
 │   ├── test_assemble.py
-│   └── fixtures/                     # Sample API responses for testing
+│   └── test_matching.py
 ├── data/
-│   └── routes.json                   # Symlink or copy of canonical-jeepney-routes.json
+│   ├── routes.json                # Copied from mm-transit-routes-reverse canonical
+│   ├── frames/                    # Extracted PNGs (gitignored)
+│   ├── geo/                       # Stage 2 output (gitignored)
+│   ├── detections/                # Stage 3 output (gitignored)
+│   ├── ocr/                       # Stage 4 output (gitignored)
+│   └── output/                    # Final observations (gitignored)
 └── v1/
-    └── results/                      # V1 run outputs committed here
+    ├── input.txt                  # YouTube URL(s) for V1 validation run
+    └── results/                   # V1 output committed for reference
 ```
 
-```
-.github/workflows/
-└── jeepney-spotter.yml               # Workflow dispatch pipeline
-```
+---
 
 ## Dependencies
 
-```toml
-[project]
-name = "jeepney-spotter"
-requires-python = ">=3.12"
-dependencies = [
-    "anthropic>=0.45",       # Claude vision API
-    "google-genai>=1.0",     # Gemini vision API
-    "thefuzz[speedup]>=0.22",# Fuzzy string matching
-    "pillow>=11.0",          # Image cropping for bounding boxes
-    "pydantic>=2.0",         # Observation schema validation
-]
+```
+# Core
+anthropic          # Claude vision API
+google-genai       # Gemini vision API
+Pillow             # Image cropping for bounding boxes
+thefuzz[speedup]   # Fuzzy string matching (with python-Levenshtein)
+pydantic           # Data models and validation
 
-[project.optional-dependencies]
-dev = ["pytest>=8.0", "pytest-asyncio"]
+# Pipeline tools (in container)
+# yt-dlp           # Installed via pip in Dockerfile
+# ffmpeg           # Installed via apt in Dockerfile
+
+# Dev/test
+pytest
+pytest-asyncio     # If using async API calls
 ```
 
-System dependencies (installed in workflow): `yt-dlp`, `ffmpeg`.
+No ML frameworks. No GPU. All inference is cloud API-based.
 
-## Secrets Required
+---
 
-| Secret | Purpose |
-|--------|---------|
-| `ANTHROPIC_API_KEY` | Claude vision API calls |
-| `GEMINI_API_KEY` | Gemini vision API calls |
-| `GH_PAT` | Push results back to repo (existing) |
+## Docker Container
 
-## V1 Scope
+```dockerfile
+FROM python:3.12-slim
+RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
+COPY . /app
+WORKDIR /app
+RUN pip install -e .
+ENTRYPOINT ["python", "-m", "jeepney_spotter.cli"]
+```
 
-- **Input:** 1 YouTube video (user-supplied via workflow dispatch), ~1 hour dashcam footage from Metro Manila
-- **Processing:** 60 frames (1 per minute), sequential stages, ~250 API calls
-- **Output:** `observations.jsonl`, `quality_report.json`, `unmatched_placards.json` committed to `projects/jeepney-spotter/v1/results/`
-- **Runtime:** ~15-25 minutes on GitHub Actions
-- **Cost:** ~$2-5 in API calls per run
+Runs on: GitHub Actions runner, Fly.io machine, any cloud VM with Docker, or locally.
+
+---
+
+## CLI Interface
+
+```bash
+# Full pipeline — single video
+jeepney-spotter run --video "YOUTUBE_URL" --sample-rate 30 --output data/output/
+
+# Individual stages (for debugging/reprocessing)
+jeepney-spotter extract --video "YOUTUBE_URL" --sample-rate 30
+jeepney-spotter geolocate --video-id "VIDEO_ID"
+jeepney-spotter detect --video-id "VIDEO_ID"
+jeepney-spotter ocr --video-id "VIDEO_ID"
+jeepney-spotter assemble --video-id "VIDEO_ID"
+```
+
+All stages are idempotent — keyed by `video_id + frame_timestamp_s`. Re-running skips existing results.
+
+---
+
+## V1 Validation Scope
+
+- **Input:** 1-3 YouTube dashcam videos of Metro Manila (1 hour each)
+- **Processing:** ~120 frames per video at 30s sampling
+- **API cost budget:** ~$5-10 per video, ~$15-30 total for V1
+- **Output:** Observations JSONL, quality report, GeoJSON for map visualization
 
 ### V1 Success Criteria
 
-Same as parent spec:
-
-| Stage | Metric | Viable (>proceed) | Marginal | Kill (<rethink) |
-|-------|--------|--------------------|----------|------------------|
+| Stage | Metric | Viable (proceed) | Marginal (investigate) | Kill (rethink) |
+|-------|--------|-------------------|------------------------|----------------|
 | Geolocation | % frames with confident location (>0.5) | >40% | 20-40% | <20% |
 | Detection | % frames with ≥1 jeepney detected | >30% | 15-30% | <15% |
 | OCR | % detected jeepneys with readable placard | >25% | 10-25% | <10% |
 | Matching | % readable placards matching a known route | >50% | 25-50% | <25% |
 
-**End-to-end:** At least 5-10 high-confidence observations that can be plotted on a map and verified against known route paths.
+**End-to-end target:** 5-10 high-confidence observations per video that can be plotted on a map and visually verified against known route paths.
+
+---
 
 ## Key Decisions
 
-1. **GitHub Actions over Fly.io/Cloud Functions** — Zero new infra for a V1 that processes 60 frames. The Python package is portable; if V1 proves viable, it can be extracted to run on any cloud service.
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Execution model | Single Docker container, sequential stages | Simplest thing that works for V1 validation |
+| ML inference | Cloud APIs only (Claude + Gemini) | No GPU needed, pay-per-use, fast iteration on prompts |
+| Geo approach | Dual-model (Claude + Gemini), take higher confidence | Cross-referencing reduces hallucination risk on geolocation |
+| Detection model | Claude only | Detection is simpler than geo — single model sufficient |
+| Frame rate | 30s default (vs 60s in original spec) | 2× more observations for marginal cost increase |
+| Route matching | thefuzz against canonical-jeepney-routes.json | 609 routes already compiled with aliases — don't reinvent |
+| Storage | Filesystem JSONL (not a database) | Simplest possible. Git-committed V1 results for reproducibility |
+| Orchestration | CLI with per-video sequential stages | No job queue needed for 1-3 videos |
 
-2. **Ephemeral frames, no storage service** — Frames exist only during the workflow run. Only observations are persisted (committed to git). If frame re-inspection is needed, re-run the pipeline.
+---
 
-3. **Sequential stages over combined prompts** — Clearer per-stage metrics for V1 validation. The cost difference is negligible ($2 vs $5).
+## Out of Scope (V1)
 
-4. **Pydantic models for schema validation** — Catches malformed VLM responses early. Structured output from Claude/Gemini maps directly to Pydantic models.
+- Custom model training (SAM 3 distillation, YOLO detector)
+- Dense video processing (1fps with interpolation)
+- OSM road network snapping
+- Route polyline reconstruction from observations
+- Multi-video route clustering
+- Web UI or visualization dashboard
+- Production deployment or autoscaling
+- GTFS shapes.txt generation (that's V2 after validation)
 
-5. **Route matching uses existing canonical dataset** — The 609 routes from `mm-transit-routes-reverse` are the ground truth. No new route research in V1.
-
-## Out of Scope
-
-- Dense video processing (1fps) — V2
-- SAM 3 distillation / custom detector — V2
-- OSM road network snapping / interpolation — V2
-- Web visualization / heatmap — V2
-- Multi-video batch processing — V2
-- Frame persistence / cloud storage — V2
-- Route polyline reconstruction from observations — V2 (V1 just proves observations are viable)
+---
 
 ## Open Questions
 
-1. **YouTube video selection:** Which specific video to use for V1? Needs to be a Metro Manila dashcam with visible jeepneys, route placards in frame, and identifiable street landmarks. A ~1 hour drive through Manila city proper (Divisoria–Quiapo–EDSA corridor) would maximize jeepney density.
-
-2. **VLM structured output reliability:** Claude and Gemini may return inconsistent JSON. Need to test whether `response_format` / tool-use structured output is reliable enough, or if we need regex/JSON extraction fallbacks.
+1. **Video selection:** Which YouTube videos make the best V1 test cases? Need dashcam-style footage in Metro Manila with visible street signage. Commuter vlog compilations or driving POV videos along major corridors (EDSA, Commonwealth, Taft) would be ideal.
+2. **Gemini model choice:** Gemini 2.0 Flash vs Gemini 2.5 Pro for geolocation. Flash is cheaper but Pro may be significantly better at landmark recognition.
+3. **Rate limiting:** Both Anthropic and Google APIs have rate limits. May need to add simple backoff/retry logic. Not complex, but needs to be there.
