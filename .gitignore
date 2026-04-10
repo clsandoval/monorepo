@@ -36,3 +36,5 @@ entities/people/
 .DS_Store
 *.Zone.Identifier
 .worktrees/
+.superpowers/autopilot-config.json
+.superpowers/autopilot-sessions.json

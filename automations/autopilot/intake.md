@@ -1,39 +1,113 @@
 # Autopilot Intake & Dispatch
 
-## Intake Questions (ask one at a time):
+## Flow Overview
 
-Q1: "What are you trying to build or figure out?" — free text brief
-Q2: "Which repo?" — GitHub URL, "this repo", or local path. Resolve to GitHub URL via `git remote get-url origin`. Validate looks like https://github.com/<owner>/<repo>
-Q3: "Which branch to base off?" — default: main
-Q4: "Any constraints or context?" — optional, press enter to skip
+Autopilot intake is a LOCAL conversation. All design decisions, approach selection, and ambiguity resolution happen here — the agent will NOT ask questions. The output is a fully-formed brief and a tailored agent configuration.
 
-## Slugifying the Brief
-```bash
-SLUG=$(echo "$BRIEF" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-50)
+```
+Local brainstorm → Configure agent (skills, tools) → Create agent → Create session → Dispatch brief
 ```
 
-## Dispatching the Session
+## Phase 1: Brainstorm the Brief
 
-### Step 1: Create Session
-Use curl POST to /v1/sessions with:
-- agent: {type: "agent", id: $AGENT_ID, version: $AGENT_VERSION (as number)}
-- environment_id
-- title: "autopilot: $SLUG"
-- resources: github_repository with url, mount_path /workspace/repo, authorization_token, checkout branch
-- vault_ids: [$VAULT_ID] if vault exists
+Use the superpowers brainstorming skill pattern locally:
+
+1. **Understand the task** — Ask: "What are you trying to build or figure out?"
+2. **Explore context** — Read relevant files in the repo, check existing specs/plans
+3. **Clarify one question at a time** — Resolve ambiguities, constraints, success criteria
+4. **Propose 2-3 approaches** — With trade-offs and your recommendation
+5. **Get user's choice** — Lock in the approach before proceeding
+
+The brief should be specific enough that the agent can execute without interpretation. Include:
+- What to build and why
+- Chosen approach and rationale
+- Key decisions already made
+- Pointers to relevant files in the repo
+- What the deliverable is (spec only? code? research?)
+- Constraints (stop after Phase N, no code, specific tech stack, etc.)
+
+## Phase 2: Configure the Agent
+
+Based on the task, decide what the agent needs.
+
+### Q1: Which repo?
+GitHub URL, "this repo", or local path. Resolve to GitHub URL via `git remote get-url origin`.
+
+### Q2: Which branch to base off?
+Default: main.
+
+### Q3: Which skills does this task need?
+
+Present relevant options based on the task type:
+
+**Anthropic pre-built skills** (available by ID):
+- `xlsx` — Excel/spreadsheet work
+- `pptx` — PowerPoint/presentation work
+- `docx` — Word/document work
+- `pdf` — PDF generation
+
+**Custom skills** — Upload from local skill directories if needed. Any `.claude/skills/` skill or superpowers skill can be packaged and uploaded.
+
+To upload a custom skill:
+```bash
+# Upload skill directory as custom skill
+curl -X POST "https://api.anthropic.com/v1/skills" \
+  -H "x-api-key: $ANTHROPIC_API_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "anthropic-beta: skills-2025-10-02" \
+  -F "display_title=Skill Name" \
+  -F "files[]=@skill_dir/SKILL.md;filename=skill_dir/SKILL.md" \
+  -F "files[]=@skill_dir/other_file.md;filename=skill_dir/other_file.md"
+```
+
+The response returns a `skill_id` (like `skill_01AbCdEf...`) to attach to the agent.
+
+### Q4: Any additional constraints?
+Optional — tech stack, timeline, what NOT to do, etc.
+
+## Phase 3: Create the Agent
+
+Create a fresh agent tailored to this specific job. Each dispatch gets its own agent with the right skills and tools.
 
 ```bash
-# Read config
-AGENT_ID=$(jq -r '.agent_id' .superpowers/autopilot-config.json)
-AGENT_VERSION=$(jq -r '.agent_version' .superpowers/autopilot-config.json)
+SYSTEM_PROMPT=$(cat "$SKILL_DIR/system-prompt.md")
+
+SKILLS_JSON=$(jq -n '$ARGS.positional' --jsonargs "${SKILL_ENTRIES[@]}")
+# Each entry is like: '{"type":"anthropic","skill_id":"xlsx"}' or '{"type":"custom","skill_id":"skill_01...","version":"latest"}'
+
+AGENT_RESPONSE=$(curl -sS https://api.anthropic.com/v1/agents \
+  -X POST \
+  -H "x-api-key: $ANTHROPIC_API_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "anthropic-beta: managed-agents-2026-04-01" \
+  -H "content-type: application/json" \
+  -d "$(jq -n \
+    --arg name "Autopilot: $SLUG" \
+    --arg model "claude-opus-4-6" \
+    --arg system "$SYSTEM_PROMPT" \
+    --argjson skills "$SKILLS_JSON" \
+    '{
+      name: $name,
+      model: $model,
+      system: $system,
+      skills: $skills,
+      tools: [
+        { type: "agent_toolset_20260401" }
+      ]
+    }')")
+
+AGENT_ID=$(echo "$AGENT_RESPONSE" | jq -r '.id')
+AGENT_VERSION=$(echo "$AGENT_RESPONSE" | jq -r '.version')
+```
+
+## Phase 4: Create Session & Dispatch
+
+### Step 1: Create Session
+```bash
 ENVIRONMENT_ID=$(jq -r '.environment_id' .superpowers/autopilot-config.json)
 VAULT_ID=$(jq -r '.vault_id // empty' .superpowers/autopilot-config.json)
-GITHUB_TOKEN=$(jq -r '.github_token' .superpowers/autopilot-config.json)
-
-# Build vault_ids array conditionally
 VAULT_IDS=$([ -n "$VAULT_ID" ] && echo "[\"$VAULT_ID\"]" || echo "[]")
 
-# Build and send request
 curl -sS https://api.anthropic.com/v1/sessions \
   -H "x-api-key: $ANTHROPIC_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
@@ -41,7 +115,7 @@ curl -sS https://api.anthropic.com/v1/sessions \
   -H "content-type: application/json" \
   -d "$(jq -n \
     --arg agent_id "$AGENT_ID" \
-    --argjson agent_version "$AGENT_VERSION" \
+    --argjson agent_version $AGENT_VERSION \
     --arg environment_id "$ENVIRONMENT_ID" \
     --arg title "autopilot: $SLUG" \
     --arg repo_url "$REPO_URL" \
@@ -63,36 +137,14 @@ curl -sS https://api.anthropic.com/v1/sessions \
     }')"
 ```
 
-Headers:
-```
--H "x-api-key: $ANTHROPIC_API_KEY"
--H "anthropic-version: 2023-06-01" 
--H "anthropic-beta: managed-agents-2026-04-01"
--H "content-type: application/json"
-```
-
 ### Step 2: Send the Brief
-Compose message from intake answers: Brief, Repository, Branch for Work, and optional Constraints.
-
 ```bash
-SESSION_ID="<id from Step 1 response>"
-BASE_BRANCH="$BASE_BRANCH"  # from Q3
-CONSTRAINTS="$CONSTRAINTS"  # from Q4, may be empty
-
-MESSAGE_TEXT=$(jq -n -r \
-  --arg brief "$BRIEF" \
-  --arg repo "$REPO_URL" \
-  --arg branch "autopilot/$SLUG" \
-  --arg base_branch "$BASE_BRANCH" \
-  --arg constraints "$CONSTRAINTS" \
-  '"Brief: " + $brief + "\nRepository: " + $repo + "\nBranch for Work: " + $branch + "\nBase Branch: " + $base_branch + (if $constraints != "" then "\nConstraints: " + $constraints else "" end)')
-
 curl -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
   -H "x-api-key: $ANTHROPIC_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
   -H "anthropic-beta: managed-agents-2026-04-01" \
   -H "content-type: application/json" \
-  -d "$(jq -n --arg text "$MESSAGE_TEXT" '{
+  -d "$(jq -n --arg text "$BRIEF_TEXT" '{
     events: [{
       type: "user.message",
       content: [{type: "text", text: $text}]
@@ -101,22 +153,17 @@ curl -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
 ```
 
 ### Step 3: Save Session to Local State
-Add to .superpowers/autopilot-sessions.json using jq:
-- id, brief, repo, branch (autopilot/$SLUG), base_branch, started_at, status: "running", last_checked_at: null
-
 ```bash
 STARTED_AT=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-
-# Initialize file if it doesn't exist
 [ -f .superpowers/autopilot-sessions.json ] || echo '{"sessions": []}' > .superpowers/autopilot-sessions.json
 
-# Append new session entry
 jq \
   --arg id "$SESSION_ID" \
   --arg brief "$BRIEF" \
   --arg repo "$REPO_URL" \
   --arg branch "autopilot/$SLUG" \
   --arg base_branch "$BASE_BRANCH" \
+  --arg agent_id "$AGENT_ID" \
   --arg started_at "$STARTED_AT" \
   '.sessions += [{
     id: $id,
@@ -124,6 +171,7 @@ jq \
     repo: $repo,
     branch: $branch,
     base_branch: $base_branch,
+    agent_id: $agent_id,
     started_at: $started_at,
     status: "running",
     last_checked_at: null
@@ -132,8 +180,6 @@ jq \
 ```
 
 ### Step 4: Confirm to User
-Display session ID, brief, repo, branch, base branch, and remind about /autopilot status.
-
 ```
 Session dispatched.
 
@@ -142,6 +188,12 @@ Session dispatched.
   Repo       : <REPO_URL>
   Branch     : autopilot/<SLUG>
   Base branch: <BASE_BRANCH>
+  Agent      : <AGENT_ID> (skills: <skill list>)
 
-The agent is running on Anthropic's infrastructure. Use /autopilot status to check in.
+The agent is executing on Anthropic's infrastructure. Use /autopilot status to check progress.
+```
+
+## Slugifying the Brief
+```bash
+SLUG=$(echo "$BRIEF" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-50)
 ```
