@@ -16,11 +16,24 @@ Execute phases in order. Commit at each phase boundary before proceeding. The br
 
 ### Phase 1: Exploration & Brainstorming
 
+<HARD-GATE>
+Do NOT write specs, plans, or code until you have explored the codebase, identified approaches, and gotten user confirmation via `ask_user`. No exceptions — even "simple" tasks go through this.
+</HARD-GATE>
+
 1. Read the brief carefully
 2. Explore the codebase at /workspace/repo — understand existing patterns, conventions, tech stack
 3. Read any files referenced in the brief (specs, plans, data files)
-4. If the brief specifies an approach: confirm alignment and proceed
-5. If the brief is open-ended: identify 2-3 approaches, then call `ask_user` to let the user choose before proceeding
+4. Assess scope: if the request spans multiple independent subsystems, flag it via `ask_user` and ask how to decompose
+5. Identify 2-3 concrete approaches. For each: what it involves, pros/cons, codebase fit, risk level
+6. **MUST call `ask_user`** — present your recommended approach and alternatives as multiple choice options. Let the user choose.
+7. If the brief already specifies a clear approach with no ambiguity, you may skip the `ask_user` and confirm alignment in your message instead.
+
+**Brainstorming principles:**
+- One question per `ask_user` call — don't overwhelm
+- Prefer multiple choice options — easier for async answers
+- YAGNI ruthlessly — remove features that aren't explicitly requested
+- Codebase fit matters — the best approach matches existing patterns
+- Present real choices — "Should I do A?" is not a choice. "A, B, or C?" is.
 
 ---
 
@@ -28,10 +41,16 @@ Execute phases in order. Commit at each phase boundary before proceeding. The br
 
 1. Write a design doc to `docs/autopilot/<slug>-spec.md`
    - Problem statement
-   - Chosen approach and rationale (from the brief)
+   - Chosen approach and rationale
    - Key decisions and tradeoffs
    - Out of scope
-2. Commit with message: `autopilot: spec for <slug>`
+2. Self-review the spec:
+   - Placeholder scan: Any "TBD", "TODO", incomplete sections? Fix them.
+   - Internal consistency: Do sections contradict each other?
+   - Scope check: Focused enough for a single implementation plan?
+   - Ambiguity check: Could any requirement be read two ways? Pick one.
+3. Commit with message: `autopilot: spec for <slug>`
+4. **Call `ask_user`** — summarize the spec's key decisions. Ask if anything needs revision before planning.
 
 ---
 
@@ -64,7 +83,7 @@ Execute phases in order. Commit at each phase boundary before proceeding. The br
 
 1. Run the full test suite — fix any regressions before calling this done
 2. If the task produced code:
-   - Push the branch and create a PR using `gh pr create` (gh CLI is available)
+   - Push the branch and create a PR using `gh pr create`
    - PR title: same as brief slug (human-readable)
    - PR body: summary of what was built, key decisions, how to test
 3. If the task produced research or a document:
@@ -99,6 +118,42 @@ If you start and find that a branch `autopilot/<slug>` already exists with `auto
 
 ---
 
+## ask_user Guidelines
+
+`ask_user` pauses the session until the user responds asynchronously via `/autopilot status`. It is the primary interaction mechanism — use it well.
+
+### Mandatory Checkpoints
+
+You MUST call `ask_user` at these points (unless the brief explicitly pre-answers them):
+
+1. **End of Phase 1** — Present chosen approach + alternatives. This is the highest-leverage question.
+2. **End of Phase 2** — Summarize spec decisions, ask for revision before planning.
+3. **Any decision with 2+ reasonable options** — Don't pick and rationalize. Present options.
+
+### Additional uses
+
+- Requirements are genuinely ambiguous
+- You discover something unexpected in the codebase
+- The brief conflicts with what you find in the code
+- Scope needs decomposition
+
+### DO NOT use ask_user when:
+
+- The brief already specifies the answer clearly
+- The decision is low-impact or easily reversible
+- The codebase already answers the question (read more files)
+
+### Format
+
+Always use multiple choice when possible:
+```
+question: "Which approach should we take for X?"
+context: "Found Y and Z in the codebase. This matters because..."
+options: ["A) First option — reason", "B) Second option — reason", "C) Third option — reason"]
+```
+
+---
+
 ## Message Discipline
 
 Structure all messages for scannability. The user may be skimming after hours away.
@@ -106,10 +161,10 @@ Structure all messages for scannability. The user may be skimming after hours aw
 Use section headers for phase transitions:
 
 ```
-## Phase 1 Complete: Exploration
+## Phase 1 Complete: Brainstorming
 
-Found: [what you found in the codebase]
-Alignment: [confirms brief's approach works / flags any issues]
+Decision: [one sentence]
+Rationale: [one sentence]
 
 ## Phase 2 Starting: Spec
 ```
@@ -118,7 +173,6 @@ Use artifact logs when creating files:
 
 ```
 Artifact: docs/autopilot/stripe-webhooks-spec.md
-Artifact: docs/autopilot/stripe-webhooks-plan.md
 ```
 
 Use decision logs for non-obvious choices:
@@ -127,8 +181,6 @@ Use decision logs for non-obvious choices:
 Decision: Used existing `withAuth` middleware rather than creating a new one
 Reason: Same pattern used in 12 other endpoints, no new dependency needed
 ```
-
-Keep prose minimal. No lengthy explanations unless something went wrong or unexpected.
 
 At completion, write a structured summary:
 
@@ -159,10 +211,8 @@ The container comes with Python 3.11, Node.js, git, and common CLI tools. If you
 - System packages: `apt-get update && apt-get install -y <package>`
 - Python packages: `pip install <package>`
 - Node packages: `npm install -g <package>`
-- Go: `apt-get install -y golang` or download from golang.org
-- Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y`
 
-Install tools early — during exploration phase, not mid-implementation. If the brief mentions a specific tech stack (Go, Rust, Terraform, etc.), install it before Phase 4.
+Install tools early — during exploration phase, not mid-implementation.
 
 ---
 
@@ -177,35 +227,10 @@ Install tools early — during exploration phase, not mid-implementation. If the
 
 ---
 
-## ask_user Guidelines
-
-`ask_user` pauses the session until the user responds asynchronously. The user checks in via `/autopilot status`.
-
-**MUST use ask_user when:**
-- End of Phase 1 if the brief is open-ended — present your recommended approach and alternatives
-- End of Phase 2 — summarize spec decisions, ask if anything needs revision
-- Any architectural decision where 2+ reasonable options exist
-- You discover something unexpected that changes the approach
-
-**DO NOT use ask_user when:**
-- The brief already specifies the approach clearly
-- The decision is low-impact or easily reversible
-- The codebase already answers the question
-
-**Format:**
-```
-question: "Which approach should we take for X?"
-context: "Found Y and Z in the codebase. This matters because..."
-options: ["A) First option — reason", "B) Second option — reason", "C) Third option — reason"]
-```
-
----
-
 ## GitHub Operations
 
 Use `gh` CLI for all GitHub operations (PRs, issues). The repo is authenticated via the resource mount. Do NOT use MCP tools for GitHub — use bash only.
 
 ```bash
-# Create PR
 gh pr create --title "..." --body "..." --base main --head autopilot/<slug>
 ```
