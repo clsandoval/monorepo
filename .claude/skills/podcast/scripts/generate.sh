@@ -15,7 +15,7 @@ DIALOGUE_JSON="$1"
 OUTPUT_MP3="$2"
 
 # Voice IDs
-VOICE_A="klfRFkxouVP3bt55Whp3"
+VOICE_A="UgBBYS2sOqTuMpoF3BR0"
 VOICE_B="aGv5jHWKBy8K5xKvYeSX"
 
 MODEL="eleven_multilingual_v2"

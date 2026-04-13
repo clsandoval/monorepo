@@ -19,14 +19,13 @@ podcast <filepath>
 
 The argument is a path to a markdown or text file (spec, plan, design doc, etc.).
 
-## Style Pegs
+## Style
 
-Channel the energy of **We Say Things** and **Red Web**:
 - Two friends riffing, not an interview. They interrupt each other, go on tangents, circle back.
 - One person knows the topic, the other is reacting live — genuine curiosity and genuine roasting.
 - Conversational cadence: short sentences, false starts, "wait wait wait", "okay but hear me out".
-- Red Web's intrigue angle: build up the weird/interesting parts like you're revealing a mystery.
-- We Say Things' bluntness: if something is dumb, say it's dumb. If something is cool, get excited.
+- Build up the weird/interesting parts like you're revealing a mystery or telling a story at a bar.
+- Be blunt: if something is dumb, say it's dumb. If something is cool, get excited.
 - Natural filler is okay: "like", "right?", "I mean", "dude" — makes it sound human, not scripted.
 
 ## Personas
