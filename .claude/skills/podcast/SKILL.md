@@ -19,15 +19,26 @@ podcast <filepath>
 
 The argument is a path to a markdown or text file (spec, plan, design doc, etc.).
 
+## Style Pegs
+
+Channel the energy of **We Say Things** and **Red Web**:
+- Two friends riffing, not an interview. They interrupt each other, go on tangents, circle back.
+- One person knows the topic, the other is reacting live — genuine curiosity and genuine roasting.
+- Conversational cadence: short sentences, false starts, "wait wait wait", "okay but hear me out".
+- Red Web's intrigue angle: build up the weird/interesting parts like you're revealing a mystery.
+- We Say Things' bluntness: if something is dumb, say it's dumb. If something is cool, get excited.
+- Natural filler is okay: "like", "right?", "I mean", "dude" — makes it sound human, not scripted.
+
 ## Personas
 
-**Host** — Late-night interviewer. Witty, sharp, asks pointed questions. Roasts weak ideas.
-Pushes on implications. Loves a good "but what happens when..." question. Think: someone who
-actually read the spec and has opinions.
+**Person A** — The one who read the spec. Brings the topic, explains the core idea, but also
+has opinions about what's sketchy. Think: the friend who found something weird on the internet
+and is telling you about it at a bar. Goes on tangents. Gets genuinely excited about the
+clever parts.
 
-**Guest** — The person who "built" the thing. Enthusiastic about their work, a bit defensive
-when challenged, but honest when caught. Self-deprecating humor. Will admit "yeah okay that
-part is held together with duct tape."
+**Person B** — Reacting in real time. Hasn't read it. Asks the obvious questions, calls out
+the parts that sound insane, gets pulled into the interesting bits despite themselves. The
+"wait, they did WHAT?" energy. Skeptical but fair.
 
 ## Workflow
 
@@ -38,16 +49,16 @@ part is held together with duct tape."
    - The questionable or hand-wavy parts
    - The implications the author may not have considered
    - Anything that's unintentionally funny
-3. Generate a dialogue as a JSON array. Each entry has `speaker` ("host" or "guest") and `text`:
+3. Generate a dialogue as a JSON array. Each entry has `speaker` ("a" or "b") and `text`:
    ```json
    [
-     {"speaker": "host", "text": "So you built a thing that..."},
-     {"speaker": "guest", "text": "Yes, and I can explain..."}
+     {"speaker": "a", "text": "Dude, okay, so I was reading this spec and..."},
+     {"speaker": "b", "text": "Wait, you actually read a spec? Voluntarily?"}
    ]
    ```
 4. Save the transcript to `docs/superpowers/podcasts/<name>-transcript.md`
    - The `<name>` is derived from the input filename (strip extension)
-   - Format the transcript as readable markdown with **Host:** and **Guest:** prefixes
+   - Format the transcript as readable markdown with **A:** and **B:** prefixes
 5. Write the JSON array to a temp file
 6. Run the audio generation script:
    ```bash
@@ -64,25 +75,30 @@ part is held together with duct tape."
 episode. A 3000-word design doc gets ~6 minutes. Each minute is roughly 150 words of dialogue.
 
 **Structure:**
-- **Cold open** — Host introduces the guest and what they built, with a joke
-- **The pitch** — Guest explains the core idea, host reacts
-- **The grilling** — Host digs into questionable decisions, guest defends (or doesn't)
-- **The "wait, actually"** — Something in the spec that's better than expected, host gives credit
-- **The closer** — Host summarizes their take, guest gets last word
+- **The hook** — A drops the topic casually, B is immediately curious or skeptical
+- **The buildup** — A explains the core idea, B reacts live, interrupts with questions
+- **The deep dive** — They get into the weirdest/most interesting part, riff on it
+- **The roast** — B catches something dumb or hand-wavy, A has to defend it (or can't)
+- **The "okay actually that's sick"** — Genuine moment where something clicks for B
+- **The closer** — Quick, natural wrap. No formal summary. Just vibes.
 
 **Tone rules:**
-- Humor comes from specificity, not generic jokes. Reference actual details from the spec.
-- The host is skeptical but fair — they give credit where it's due
-- The guest can be wrong and admit it — this makes the conversation feel real
-- Avoid: puns, "that's a great question", corporate speak, AI-sounding filler
-- Include at least one moment where the host catches something the spec glossed over
-- Include at least one moment where the guest's enthusiasm is genuinely infectious
+- Write like people talk, not like people write. Short bursts. Interruptions. Reactions.
+- Humor comes from specificity and genuine reactions, not setups and punchlines.
+- Reference actual details from the spec — the funnier the detail, the better.
+- Let them disagree. Let them be wrong. Let them change their mind mid-sentence.
+- Avoid: puns, "that's a great question", corporate speak, AI filler, anything that
+  sounds like a scripted podcast ad read.
+- At least one "wait, go back" moment where B catches something A glossed over.
+- At least one moment where they both get genuinely excited about the same thing.
 
 **Do NOT:**
 - Summarize the spec linearly — this is a conversation, not a reading
-- Be mean-spirited — roasting is affectionate, not cruel
+- Sound scripted — no clean transitions, no "speaking of which", no "on that note"
+- Be mean-spirited — roasting is between friends, not from a critic
 - Skip the interesting parts to cover everything — depth over breadth
 - Generate dialogue longer than the content warrants — short specs get short episodes
+- Use "Host:" and "Guest:" labels — use "A:" and "B:" to reinforce the peer dynamic
 
 ## Output
 

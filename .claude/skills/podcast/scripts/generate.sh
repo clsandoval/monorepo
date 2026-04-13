@@ -5,6 +5,9 @@
 # Usage: generate.sh <dialogue.json> <output.mp3>
 #
 # Requires: ELEVENLABS_API_KEY env var, curl, jq, ffmpeg
+#
+# Uses request stitching (previous_text/next_text) for smooth transitions
+# between dialogue lines. See: github.com/elevenlabs/skills/tree/main/text-to-speech
 
 set -euo pipefail
 
@@ -12,8 +15,8 @@ DIALOGUE_JSON="$1"
 OUTPUT_MP3="$2"
 
 # Voice IDs
-HOST_VOICE="pNInz6obpgDQGcFmaJgB"   # Adam — deeper, authoritative
-GUEST_VOICE="ErXwobaYiN019PkySvjV"   # Antoni — lighter, energetic
+VOICE_A="klfRFkxouVP3bt55Whp3"
+VOICE_B="aGv5jHWKBy8K5xKvYeSX"
 
 MODEL="eleven_multilingual_v2"
 API_BASE="https://api.elevenlabs.io/v1/text-to-speech"
@@ -37,7 +40,7 @@ if [[ ! -f "$DIALOGUE_JSON" ]]; then
   exit 1
 fi
 
-# --- Generate audio chunks ---
+# --- Generate audio chunks with request stitching ---
 
 TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
@@ -49,10 +52,10 @@ for i in $(seq 0 $((TOTAL - 1))); do
   SPEAKER=$(jq -r ".[$i].speaker" "$DIALOGUE_JSON")
   TEXT=$(jq -r ".[$i].text" "$DIALOGUE_JSON")
 
-  if [[ "$SPEAKER" == "host" ]]; then
-    VOICE_ID="$HOST_VOICE"
+  if [[ "$SPEAKER" == "a" ]]; then
+    VOICE_ID="$VOICE_A"
   else
-    VOICE_ID="$GUEST_VOICE"
+    VOICE_ID="$VOICE_B"
   fi
 
   PADDED=$(printf "%03d" "$i")
@@ -70,9 +73,9 @@ for i in $(seq 0 $((TOTAL - 1))); do
         text: $text,
         model_id: $model,
         voice_settings: {
-          stability: 0.65,
-          similarity_boost: 0.80,
-          style: 0.15,
+          stability: 0.5,
+          similarity_boost: 0.75,
+          style: 0.5,
           use_speaker_boost: true
         }
       }')" \
