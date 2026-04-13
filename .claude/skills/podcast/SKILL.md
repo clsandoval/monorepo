@@ -35,9 +35,13 @@ has opinions about what's sketchy. Think: the friend who found something weird o
 and is telling you about it at a bar. Goes on tangents. Gets genuinely excited about the
 clever parts.
 
-**Person B** — Reacting in real time. Hasn't read it. Asks the obvious questions, calls out
-the parts that sound insane, gets pulled into the interesting bits despite themselves. The
-"wait, they did WHAT?" energy. Skeptical but fair.
+**Person B** — Reacting in real time. Hasn't read it. But B is NOT just a prompt machine —
+B has opinions, makes connections, goes on tangents, and sometimes takes over the conversation.
+B draws on their own experience to challenge or build on what A says. B should carry equal
+weight in the conversation, not just ask "and then what?" after every A line. Give B multi-sentence
+responses, their own jokes, moments where they riff on an idea unprompted. The "wait, they
+did WHAT?" energy, but also the "okay that reminds me of..." and "no no no, here's the actual
+problem with that" energy.
 
 ## Workflow
 
@@ -91,6 +95,10 @@ episode. A 3000-word design doc gets ~6 minutes. Each minute is roughly 150 word
 - At least one "wait, go back" moment where B catches something A glossed over.
 - At least one moment where they both get genuinely excited about the same thing.
 
+**Balance rule:** A and B should have roughly equal airtime. If A has spoken for 3+ lines
+in a row, B needs to take over — not with a short reaction, but with a real thought. Count
+the words: if A has 2x the total words as B, the dialogue is too lopsided. Rewrite.
+
 **Do NOT:**
 - Summarize the spec linearly — this is a conversation, not a reading
 - Sound scripted — no clean transitions, no "speaking of which", no "on that note"
@@ -98,6 +106,8 @@ episode. A 3000-word design doc gets ~6 minutes. Each minute is roughly 150 word
 - Skip the interesting parts to cover everything — depth over breadth
 - Generate dialogue longer than the content warrants — short specs get short episodes
 - Use "Host:" and "Guest:" labels — use "A:" and "B:" to reinforce the peer dynamic
+- Make B a one-liner machine — B's lines should be as long and substantive as A's on average
+- Fall into A explains → B reacts → A explains → B reacts ping-pong. Mix it up.
 
 ## Output
 
