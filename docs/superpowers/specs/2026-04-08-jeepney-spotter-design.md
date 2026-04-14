@@ -20,13 +20,15 @@ All credentials are mounted at `/workspace/.env`. Source this file before runnin
 
 | Credential | Env Var | Used By | Purpose |
 |------------|---------|---------|---------|
-| Anthropic API Key | `ANTHROPIC_API_KEY` | Stages 2, 3, 4 | Claude vision API for geolocation, detection, OCR |
+| Anthropic API Key | `ANTHROPIC_API_KEY` | Stages 2, 4 | Claude vision API for geolocation and OCR |
 | Google AI API Key | `GOOGLE_API_KEY` | Stage 2 | Gemini vision API for cross-reference geolocation |
+| Replicate API Token | `REPLICATE_API_TOKEN` | Stage 3 | SAM 3 segmentation for jeepney detection |
 
 ### Minimum API Tier Requirements
 
-- **Anthropic**: Any paid tier. V1 uses ~180 API calls (60 frames × 3 stages). Claude Sonnet is sufficient; Opus not required. Rate limit: at least 60 requests/minute on the vision endpoint.
-- **Google AI (Gemini)**: Any paid tier with vision access. V1 uses ~60 API calls (geolocation only). Gemini 2.0 Flash or 2.5 Flash is sufficient. Rate limit: at least 30 requests/minute.
+- **Anthropic**: Any paid tier. Claude Sonnet is sufficient; Opus not required. Rate limit: at least 60 requests/minute on the vision endpoint.
+- **Google AI (Gemini)**: Any paid tier with vision access. Gemini 2.0 Flash or 2.5 Flash is sufficient. Rate limit: at least 30 requests/minute.
+- **Replicate**: Any account with billing enabled. SAM 3 runs on Replicate's GPU infrastructure. No minimum tier — pay per prediction.
 
 ### Tools
 
@@ -54,6 +56,14 @@ curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flas
   -H "Content-Type: application/json" \
   -d '{"contents":[{"parts":[{"text":"ping"}]}]}' \
   | python3 -c "import sys,json; r=json.load(sys.stdin); print('OK' if 'candidates' in r else f'FAIL: {r}')"
+```
+
+**Replicate API Token:**
+```bash
+source /workspace/.env
+curl -s -H "Authorization: Bearer $REPLICATE_API_TOKEN" \
+  https://api.replicate.com/v1/account \
+  | python3 -c "import sys,json; r=json.load(sys.stdin); print('OK' if 'username' in r else f'FAIL: {r}')"
 ```
 
 **yt-dlp:**
@@ -107,6 +117,27 @@ else:
         errors.append(f'Anthropic API: {e}')
         print(f'[FAIL] Anthropic API: {e}')
 
+# Check Replicate API token
+rkey = os.environ.get('REPLICATE_API_TOKEN', '')
+if not rkey:
+    errors.append('REPLICATE_API_TOKEN not set')
+    print('[FAIL] REPLICATE_API_TOKEN not set')
+else:
+    req = urllib.request.Request(
+        'https://api.replicate.com/v1/account',
+        headers={'Authorization': f'Bearer {rkey}'}
+    )
+    try:
+        resp = json.loads(urllib.request.urlopen(req).read())
+        if 'username' in resp:
+            print(f'[OK] Replicate API (user: {resp[\"username\"]})')
+        else:
+            errors.append('Replicate: unexpected response')
+            print('[FAIL] Replicate API')
+    except Exception as e:
+        errors.append(f'Replicate: {e}')
+        print(f'[FAIL] Replicate API: {e}')
+
 # Check Google AI API key
 gkey = os.environ.get('GOOGLE_API_KEY', '')
 if not gkey:
@@ -159,14 +190,13 @@ from video frames       in frame   placards     into dataset
 ### Stage 1 — Frame Extraction
 
 - Download video via `yt-dlp`
-- Extract frames with `ffmpeg` at configurable sample rate
-- V1: 1 frame per minute (60 frames from 1 hour of footage)
+- Extract frames with `ffmpeg` at 1fps (dense sampling for trajectory linking)
 - Output: PNG frames named `{video_id}_f{timestamp_s}.png`
 - Runs on any machine, no GPU needed
 
 #### Frame Deduplication Strategy
 
-Dashcam footage from stopped vehicles (traffic jams, red lights) produces near-identical consecutive frames. At 1 frame/minute sampling, this wastes API calls on redundant data.
+Dashcam footage from stopped vehicles (traffic jams, red lights) produces near-identical consecutive frames. At 1fps sampling, this wastes compute on redundant data.
 
 **Approach: Perceptual hash deduplication**
 
@@ -185,7 +215,7 @@ def is_duplicate(frame_path: str, prev_hash: imagehash.ImageHash, threshold: int
     return abs(current_hash - prev_hash) <= threshold
 ```
 
-**Expected impact:** In heavy Manila traffic, 10-20% of frames at 1/min sampling will be near-duplicates. This saves ~12-24 API calls per video.
+**Expected impact:** In heavy Manila traffic, 10-20% of frames at 1fps sampling will be near-duplicates. At 1fps on a 1-hour video (3,600 frames), this saves 360-720 redundant detections.
 
 **Dependencies added:** `imagehash` (adds to `pyproject.toml`).
 
@@ -202,13 +232,11 @@ def is_duplicate(frame_path: str, prev_hash: imagehash.ImageHash, threshold: int
 
 ### Stage 2 — Geolocation (VLM)
 
-For each frame, call a vision model API to identify location from visual clues.
+Geolocate frames using sparse anchoring — VLM calls on anchor frames every 10-15 seconds, with intermediate positions interpolated along the OSM road network graph between anchors.
 
-**V1 approach:** Send each frame to both Claude and Gemini vision APIs. Take the higher-confidence result, or average if both are confident. ~120 API calls for 60 frames.
+**Approach:** Send each anchor frame to both Claude and Gemini vision APIs. Take the higher-confidence result, or average if both are confident. Interpolate non-anchor frames along the road network between confirmed anchors. This gives continuous trajectories with far fewer VLM calls than per-frame geolocation.
 
-**Expected hit rate:** 40-60% of frames will have enough visual clues for a usable geolocation. Frames of blank roads, tunnels, or dense traffic with no signage return low confidence and are skipped.
-
-**V2 approach (Approach 3 — Sparse Anchoring):** For dense video (1fps), geolocate only anchor frames every 10-15 seconds. Interpolate intermediate positions along the OSM road network graph between anchors. Far fewer VLM calls, more accurate continuous trajectories.
+**Expected hit rate:** 40-60% of anchor frames will have enough visual clues for a usable geolocation. Frames of blank roads, tunnels, or dense traffic with no signage return low confidence and are skipped.
 
 #### Geolocation Prompt Template
 
@@ -235,15 +263,16 @@ Respond with ONLY valid JSON matching this schema:
   "lat": <float, estimated latitude, e.g. 14.5965>,
   "lon": <float, estimated longitude, e.g. 121.0012>,
   "confidence": <float, 0.0-1.0, how certain you are of this location>,
+  "geo_radius_m": <int, estimated error radius in meters — how far off could this estimate be?>,
   "landmarks": [<string, each visible clue used for the estimate>],
   "reasoning": "<string, brief explanation of how you determined the location>"
 }
 
 Confidence guidelines:
-- 0.8-1.0: Exact street visible on sign, or unmistakable landmark (e.g. "SM Megamall" sign)
-- 0.5-0.7: Identifiable area from multiple contextual clues (building cluster, road type)
-- 0.2-0.4: General area only (e.g. "looks like Quezon City" from road width and building style)
-- 0.0-0.1: No useful clues, pure guess — return this rather than fabricating a location
+- 0.8-1.0: Exact street visible on sign, or unmistakable landmark (e.g. "SM Megamall" sign). geo_radius_m: 50-200
+- 0.5-0.7: Identifiable area from multiple contextual clues (building cluster, road type). geo_radius_m: 200-1000
+- 0.2-0.4: General area only (e.g. "looks like Quezon City" from road width and building style). geo_radius_m: 1000-5000
+- 0.0-0.1: No useful clues, pure guess — return this rather than fabricating a location. geo_radius_m: 5000+
 ```
 
 **Example input:** A dashcam frame showing a wide 6-lane road with an elevated MRT track overhead, a "Quezon Avenue" street sign visible, and SM North EDSA mall signage in the background.
@@ -254,6 +283,7 @@ Confidence guidelines:
   "lat": 14.6510,
   "lon": 121.0325,
   "confidence": 0.85,
+  "geo_radius_m": 100,
   "landmarks": ["Quezon Avenue street sign", "MRT-3 elevated track", "SM North EDSA signage"],
   "reasoning": "The Quezon Avenue street sign combined with the MRT-3 elevated guideway and SM North EDSA mall visible in the background places this near the Quezon Avenue MRT station on EDSA, Quezon City."
 }
@@ -296,13 +326,33 @@ def haversine_m(lat1, lon1, lat2, lon2):
 
 ### Stage 3 — Jeepney Detection
 
-Detect all jeepneys present in each frame.
+Detect all jeepneys present in each frame using SAM 3 segmentation.
 
-**V1 approach:** Use a vision API (Claude or Gemini) to identify and return bounding boxes of all jeepneys. ~60 API calls.
+**Primary approach:** Use SAM 3 via Replicate API with text prompt "jeepney" to generate segmentation masks. Extract bounding boxes from masks. For scale processing, distill SAM 3 outputs (~5,000 labeled frames) into a lightweight YOLO-class detector deployed on a cheap Replicate endpoint.
 
-**V2 approach:** Use SAM 3 on cloud GPU (RunPod, Replicate) with text prompt "jeepney" to generate high-quality segmentation masks on a training subset (~5,000 frames). Distill into a lightweight YOLO-class detector. Deploy the small model on a cheap cloud endpoint for scale processing.
+**Fallback:** If SAM 3 is unavailable or for quick prototyping, use a VLM (Claude or Gemini) to identify and return approximate bounding boxes. The VLM path is less accurate but requires no GPU.
 
-#### Jeepney Detection Prompt Template
+#### Bbox Overlap Deduplication
+
+After detection (SAM 3 or VLM), check for duplicate detections by computing IoU (intersection over union) between all pairs of bounding boxes. If two bboxes overlap by more than 80% IoU, keep the one with higher confidence and discard the other.
+
+```python
+def iou(box1, box2):
+    x1 = max(box1[0], box2[0])
+    y1 = max(box1[1], box2[1])
+    x2 = min(box1[2], box2[2])
+    y2 = min(box1[3], box2[3])
+    inter = max(0, x2 - x1) * max(0, y2 - y1)
+    area1 = (box1[2] - box1[0]) * (box1[3] - box1[1])
+    area2 = (box2[2] - box2[0]) * (box2[3] - box2[1])
+    return inter / (area1 + area2 - inter) if (area1 + area2 - inter) > 0 else 0
+```
+
+#### E-Jeepney vs Classic Distinction
+
+The detection prompt excludes modern e-jeepneys, but some newer traditional jeepneys look similar to e-jeepneys. To reduce false negatives, include a `vehicle_type` field in the detection output: `"classic"`, `"e-jeepney"`, or `"uncertain"`. Log all detections but only route-match classic and uncertain types. This avoids losing borderline detections while keeping the data clean for analysis.
+
+#### Jeepney Detection Prompt Template (VLM Fallback)
 
 ```
 You are a vehicle detection expert. Analyze this dashcam frame from Metro Manila, Philippines.
@@ -326,6 +376,7 @@ Respond with ONLY valid JSON matching this schema:
       "bbox": [<int x1>, <int y1>, <int x2>, <int y2>],
       "confidence": <float, 0.0-1.0>,
       "orientation": "<string: 'front'|'rear'|'side'|'partial'>",
+      "vehicle_type": "<string: 'classic'|'e-jeepney'|'uncertain'>",
       "placard_visible": <boolean, true if route signboard text might be readable>
     }
   ],
@@ -345,12 +396,14 @@ If no jeepneys are visible, return: {"jeepneys": [], "frame_summary": "<descript
       "bbox": [120, 280, 580, 520],
       "confidence": 0.92,
       "orientation": "front",
+      "vehicle_type": "classic",
       "placard_visible": true
     },
     {
       "bbox": [650, 310, 890, 480],
       "confidence": 0.78,
       "orientation": "rear",
+      "vehicle_type": "classic",
       "placard_visible": false
     }
   ],
@@ -450,8 +503,12 @@ Rationale: Jeepney placard text has three properties that make `token_set_ratio`
 1. Uppercase both placard text and GTFS route names
 2. Remove punctuation: `—`, `–`, `-`, `/`, `(`, `)`, `,`
 3. Replace multiple spaces with single space, trim
-4. Remove common noise words: `"MODERN PUJ"`, `"TRADITIONAL JEEPNEY"`, `"VIA"`, `"LOOP"`
+4. Remove common noise words: `"MODERN PUJ"`, `"TRADITIONAL JEEPNEY"`, `"LOOP"`
 5. Normalize Filipino abbreviations: `"STA."` → `"SANTA"`, `"STO."` → `"SANTO"`, `"SM "` → `"SM "`
+
+**Important:** Do NOT strip `"VIA"` — it carries route-distinguishing signal. "Baclaran-Divisoria" and "Baclaran-Divisoria via Quiapo" are different routes that take different streets. Use a two-pass matching approach:
+1. First pass: match with "VIA" and intermediate stops intact
+2. Second pass (only if first pass scores <50): strip "VIA" and retry — catches cases where the GTFS entry doesn't include the via clause
 
 **Match thresholds:** score ≥80 = auto-match, 50-79 = candidate (logged for review), <50 = unmatched.
 
@@ -472,9 +529,29 @@ Rationale: Jeepney placard text has three properties that make `token_set_ratio`
 | Crop dimensions too large (>2000px) | Resize to 1000px max dimension before sending to API. |
 | Fuzzy match returns score <50 for all routes | Log in `unmatched_placards.json`. This is not an error — it may be a new route. |
 
-### Stage 5 — Assembly
+### Stage 5 — Assembly & Trajectory Linking
 
 Combine outputs from stages 2-4 into the observation schema. Filter out entries below confidence thresholds. Write to JSONL dataset file and generate a quality report.
+
+#### Trajectory Linking (Within-Video)
+
+Sequential frames from the same video can track the same physical jeepney across multiple sightings. If frame N and frame N+k both show a jeepney with the same route placard, and the geolocations are consistent with forward motion along a road, these are likely the same vehicle — giving two (or more) points on the actual route shape.
+
+**Same-vehicle hypothesis:** Two observations are linked as the same physical jeepney if:
+1. Same matched route (or same raw placard text if unmatched)
+2. Timestamps are sequential (within 5 minutes of each other)
+3. Geolocations are consistent: distance between points is plausible for road travel at jeepney speed (5-30 km/h in Manila traffic)
+
+Linked observations get a shared `trajectory_id` field. Each trajectory is a sequence of points along a route, far more valuable than isolated sightings.
+
+#### Cross-Video Aggregation
+
+The assembly stage supports multi-video aggregation — not just concatenation of observations, but synthesis across videos:
+
+1. **Route clustering:** Group all observations by `matched_route`. For each route, collect all geolocated sightings across all videos.
+2. **Point deduplication:** Observations from different videos at the same location (within 50m) for the same route are merged, boosting confidence.
+3. **Route shape reconstruction:** When a route has enough clustered points (≥5), snap them to the OSM road network to produce a candidate polyline geometry. Use shortest-path routing between consecutive points on the road graph.
+4. **Coverage scoring:** For each route, report how many unique observation points exist and what percentage of the estimated route length they cover.
 
 #### Error Handling — Stage 5
 
@@ -501,14 +578,17 @@ Each row is one jeepney sighting:
 | `lat` | float \| null | Estimated latitude (null if geolocation failed) |
 | `lon` | float \| null | Estimated longitude (null if geolocation failed) |
 | `geo_confidence` | float | 0-1, from VLM |
-| `geo_source` | string | `"claude"`, `"gemini"`, `"averaged"`, `"low_confidence_single"`, `"failed"` |
+| `geo_radius_m` | int \| null | Estimated error radius in meters (null if geolocation failed) |
+| `geo_source` | string | `"claude"`, `"gemini"`, `"averaged"`, `"interpolated"`, `"low_confidence_single"`, `"failed"` |
 | `geo_landmarks` | string[] | Clues used for geolocation |
 | `placard_text_raw` | string | Raw OCR output from placard |
 | `placard_text_clean` | string | Normalized (uppercase, trimmed) |
 | `matched_route` | string \| null | Matched route from GTFS dataset, null if no match |
 | `match_confidence` | float | Fuzzy match score (0-100) |
 | `bbox` | int[4] | Bounding box in frame `[x1, y1, x2, y2]` |
+| `vehicle_type` | string | `"classic"`, `"e-jeepney"`, `"uncertain"` |
 | `detection_confidence` | float | From detector |
+| `trajectory_id` | string \| null | Shared ID linking observations of the same physical jeepney across frames |
 | `stage_errors` | object | Per-stage error tracking (see below) |
 
 #### `stage_errors` Schema
@@ -567,7 +647,7 @@ with open('data/routes.json') as f:
     routes = json.load(f)
 
 # Preprocessing
-NOISE = ['MODERN PUJ', 'TRADITIONAL JEEPNEY', 'VIA', 'LOOP']
+NOISE = ['MODERN PUJ', 'TRADITIONAL JEEPNEY', 'LOOP']
 def clean(s):
     s = s.upper()
     for c in '—–-/(),':
@@ -605,9 +685,9 @@ for raw, expected_id, threshold in tests:
 "
 ```
 
-## Candidate YouTube Videos for V1 Testing
+## Candidate YouTube Videos
 
-These videos were selected for V1 testing based on: (a) dashcam/driving tour format with forward-facing camera, (b) coverage of major jeepney corridors in Metro Manila, (c) sufficient duration for meaningful frame extraction, (d) HD/4K resolution for readable signage.
+These videos were selected based on: (a) dashcam/driving tour format with forward-facing camera, (b) coverage of major jeepney corridors in Metro Manila, (c) sufficient duration for meaningful frame extraction, (d) HD/4K resolution for readable signage.
 
 ### Video 1: EDSA Full Drive — Monumento to Mall of Asia
 
@@ -639,7 +719,7 @@ These videos were selected for V1 testing based on: (a) dashcam/driving tour for
 | Route Coverage | Rizal province → Manila via major arterials (likely Marcos Highway or Ortigas Ave Extension corridor). Covers eastern approach routes into Metro Manila. |
 | Why Ideal | Actual dashcam footage (70mai A810 camera) rather than vlog-style driving tour — more representative of the input format the pipeline will process. Covers jeepney corridors between Rizal/Antipolo and Metro Manila (Cubao-Antipolo, Cubao-Angono, Cubao-Cainta routes from our GTFS data). |
 
-### Video Selection Criteria for Additional V1 Candidates
+### Video Selection Criteria for Additional Candidates
 
 When selecting additional test videos, prioritize:
 1. **Forward-facing dashcam or driving tour** — not walking tours, not vlogs with frequent camera movement
@@ -657,18 +737,19 @@ projects/jeepney-spotter/
 ├── pyproject.toml              # uv project, Python 3.12+
 ├── src/
 │   ├── extract.py              # Stage 1: yt-dlp + ffmpeg frame extraction
-│   ├── geolocate.py            # Stage 2: VLM geolocation API calls
-│   ├── detect.py               # Stage 3: jeepney detection (vision API or SAM 3)
-│   ├── ocr.py                  # Stage 4: placard OCR + fuzzy route matching
-│   ├── assemble.py             # Stage 5: combine into observations.jsonl
+│   ├── geolocate.py            # Stage 2: VLM geolocation + sparse anchoring
+│   ├── detect.py               # Stage 3: SAM 3 segmentation (VLM fallback)
+│   ├── ocr.py                  # Stage 4: placard OCR + two-pass fuzzy route matching
+│   ├── assemble.py             # Stage 5: combine, trajectory link, cross-video aggregate
+│   ├── trajectory.py           # Trajectory linking and same-vehicle hypothesis
 │   └── pipeline.py             # Orchestrator: runs stages 1-5 sequentially
 ├── data/
 │   ├── frames/                 # Extracted PNGs (gitignored)
 │   ├── routes.json             # Copied from mm-transit-routes-reverse for matching
 │   └── output/                 # observations.jsonl, quality_report.json (gitignored)
-└── v1/
-    ├── input.txt               # YouTube URL(s) for V1 run
-    └── results/                # V1 output committed to repo for reference
+└── tests/
+    ├── test_fuzzy_matching.py  # Regression tests for placard matching
+    └── test_trajectory.py      # Trajectory linking tests
 ```
 
 ## Dependencies
@@ -680,46 +761,58 @@ projects/jeepney-spotter/
 - `thefuzz` — fuzzy string matching for route placards
 - `Pillow` — image cropping for jeepney bounding boxes
 - `imagehash` — perceptual hashing for frame deduplication
-
-No ML frameworks for V1. All model inference is cloud API-based.
+- `replicate` — SAM 3 segmentation API for jeepney detection
+- `osmnx` — OSM road network graph for route snapping and interpolation
+- `networkx` — graph operations for shortest-path routing between observation points
 
 ## Compute & Infrastructure
 
-All inference runs in the cloud — no local GPU.
+All inference runs in the cloud — no local GPU required locally.
 
-**V1:** Pure API calls. ~200-260 vision API calls total. Estimated cost: $2-5.
-
-**V2:** Cloud GPU (RunPod, Replicate, or similar) for SAM 3 labeling and lightweight model training. Deployed model endpoint for scale inference.
+- **VLM calls (geolocation + OCR):** Cloud API calls to Claude and Gemini. Cost scales with number of anchor frames and detected jeepneys.
+- **SAM 3 (detection):** Replicate API. Used for segmentation on all frames. Once ~5,000 frames are labeled, distill into YOLO-class detector for cheaper scale inference on Replicate.
+- **OSM routing (assembly):** Local computation using osmnx. Downloads Metro Manila road network once, caches locally.
 
 ## CLI Interface
 
 ```
-python -m src.pipeline --video "YOUTUBE_URL" --sample-rate 60 --output data/output/
+# Single video
+python -m src.pipeline --video "YOUTUBE_URL" --output data/output/
+
+# Multiple videos (aggregates observations across all)
+python -m src.pipeline --video "URL1" --video "URL2" --output data/output/
+
+# Anchor interval for geolocation (default: 10s)
+python -m src.pipeline --video "URL" --anchor-interval 15 --output data/output/
 ```
 
-Runs all 5 stages sequentially. Each stage reads the previous stage's output. Stages are idempotent — re-running skips already-processed frames (keyed by `observation_id`).
+Runs all 5 stages sequentially. Each stage reads the previous stage's output. Stages are idempotent — re-running skips already-processed frames (keyed by `observation_id`). Multi-video runs aggregate observations and produce cross-video trajectory links and route shapes.
 
-## V1 Scope
+## Scope
 
-- **Input:** 1 YouTube video (user-supplied), 1 hour of dashcam footage from Metro Manila
-- **Processing:** 60 frames (1 per minute), each run independently through all stages
+- **Input:** YouTube videos (user-supplied), dashcam footage from Metro Manila. Process multiple videos and aggregate.
+- **Processing:** Dense 1fps frame extraction, sparse anchor geolocation every 10-15s, SAM 3 detection on all frames, OCR on detected jeepneys, trajectory linking and cross-video aggregation.
 - **Output:**
-  - `observations.jsonl` — all jeepney sightings with geolocation, placard reading, route match
+  - `observations.jsonl` — all jeepney sightings with geolocation, placard reading, route match, trajectory IDs
+  - `trajectories.jsonl` — linked sequences of same-vehicle observations
+  - `route_shapes.geojson` — reconstructed route polylines snapped to OSM road network
   - `quality_report.json` — hit rates per stage
   - `unmatched_placards.json` — placard readings that didn't match a known route
 
-### V1 Success Criteria
+### Success Criteria
 
-| Stage | Metric | Viable (proceed) | Marginal (investigate) | Kill (rethink) |
-|-------|--------|-------------------|------------------------|----------------|
-| Geolocation | % frames with confident location (>0.5) | >40% | 20-40% | <20% |
-| Detection | % frames with ≥1 jeepney detected | >30% | 15-30% | <15% |
-| OCR | % detected jeepneys with readable placard | >25% | 10-25% | <10% |
-| Matching | % readable placards matching a known route | >50% | 25-50% | <25% |
+| Stage | Metric | Viable (proceed) | Marginal (investigate) | Kill (stop) |
+|-------|--------|-------------------|------------------------|-------------|
+| Geolocation | % anchor frames with confident location (>0.5) | >40% | 20-40% | <20% |
+| Detection | % frames with ≥1 jeepney detected | >30% | 20-30% | <20% |
+| OCR | % detected jeepneys with readable placard | >25% | 15-25% | <15% |
+| Matching | % readable placards matching a known route | >50% | 30-50% | <30% |
 
-**End-to-end success:** At least 5-10 high-confidence observations — geolocated, detected, placard read, route matched — that can be plotted on a map and visually verified against known route paths.
+Kill means stop — if detection is below 20% on a major corridor like EDSA, the approach is fundamentally broken, not just miscalibrated.
 
-### Automated V1 Success Criteria Checks
+**End-to-end success:** At least 5-10 high-confidence observations — geolocated, detected, placard read, route matched — that can be plotted on a map and visually verified against known route paths. At least 1 trajectory (same jeepney tracked across multiple frames).
+
+### Automated Success Criteria Checks
 
 After a pipeline run produces `observations.jsonl` and `quality_report.json`, run these commands to evaluate each metric against the thresholds above:
 
@@ -848,7 +941,7 @@ else:
 "
 ```
 
-## How to Validate V1
+## How to Validate
 
 Step-by-step commands to run the pipeline on a single frame and verify each stage's output independently. This validates the full pipeline works before committing to a full video run.
 
@@ -1008,7 +1101,7 @@ import json, re
 with open('data/routes.json') as f:
     routes = json.load(f)
 
-NOISE = ['MODERN PUJ', 'TRADITIONAL JEEPNEY', 'VIA', 'LOOP']
+NOISE = ['MODERN PUJ', 'TRADITIONAL JEEPNEY', 'LOOP']
 def clean(s):
     s = s.upper()
     for c in '—–-/(),':
@@ -1058,8 +1151,8 @@ for o in obs[:3]:
 
 # Verify schema
 required_fields = ['observation_id', 'source_video', 'frame_timestamp_s', 'lat', 'lon',
-    'geo_confidence', 'placard_text_raw', 'matched_route', 'match_confidence',
-    'bbox', 'detection_confidence', 'stage_errors']
+    'geo_confidence', 'geo_radius_m', 'placard_text_raw', 'matched_route', 'match_confidence',
+    'bbox', 'vehicle_type', 'detection_confidence', 'trajectory_id', 'stage_errors']
 for o in obs:
     for field in required_fields:
         assert field in o, f'Missing field: {field} in {o[\"observation_id\"]}'
@@ -1067,19 +1160,25 @@ print('Schema validation passed')
 "
 ```
 
-## V2 Roadmap (contingent on V1 viability)
+## Roadmap
 
-1. **Dense video processing** — 1fps sampling, implement sparse anchoring + OSM road network interpolation (Approach 3)
-2. **SAM 3 distillation** — label ~5,000 frames with SAM 3 on cloud GPU → train YOLO-based jeepney detector → deploy on cheap endpoint
-3. **Route reconstruction** — cluster observations by matched route, snap to OSM road network, produce polyline geometries
-4. **GTFS export** — generate `shapes.txt` entries for the 604 jeepney routes in the existing `mm-transit-routes-reverse` feed
-5. **Visualization** — heatmap web app showing observation density and reconstructed routes
+1. **Research-based geolocation** — Replace single-shot VLM coordinate guessing with a two-step approach: (a) VLM reads visible text from the frame (business names, street signs, landmarks), (b) feed those text observations into Google Places API or web search to get real coordinates. The VLM does what it's good at (reading), the Places API does what it's good at (geocoding). Multiple candidate locations with confidence scores instead of one guess. Investigation showed Gemini beats Claude at sign reading by 14km — but both models are bad at converting "PSBank EDSA Pasay" into accurate lat/lon. Let the geocoding API handle that. Cost: Google Places is basically free at this scale (cents per hundreds of lookups), cheaper than the VLM calls.
+
+2. **Collective route snapping (map matching)** — Current assembly snaps observations independently to the road network. Better approach: snap all observations for a route *collectively* — find the path on the OSM road graph that best fits all observations as a group. Noisy geolocations (off by 500m-2km) cancel out when 20 observations all roughly follow the same corridor. The road network constrains the solution — there are only so many paths between Cubao and Divisoria. This is the same map-matching algorithm Uber uses for GPS traces, except with 200-2000m accuracy instead of 5m. Enables route reconstruction even with mediocre per-observation accuracy.
+
+3. **YOLO distillation** — Once SAM 3 has labeled ~5,000 frames, train a YOLO-class jeepney detector and deploy on a cheap endpoint. Replaces SAM 3 for scale processing at lower cost.
+
+4. **GTFS export** — Generate `shapes.txt` entries for the 604 jeepney routes in the existing `mm-transit-routes-reverse` feed. This is the end goal — filling in the 97% geometry gap.
+
+5. **Visualization** — Web app showing observation density heatmap and reconstructed route polylines on a map.
+
+6. **Community video ingestion** — Accept dashcam footage submissions from Manila drivers to scale observation coverage beyond YouTube.
 
 ## Prior Art
 
 No existing system extracts transit routes from video. All successful informal transit mapping (Digital Matatus/Nairobi, WhereIsMyTransport/Cape Town, Trufi Association) required human riders with GPS phones.
 
-SAM 3 (Nov 2025) enables text-prompted vehicle segmentation and tracking. VLMs (Claude, Gemini) can geolocate street-level imagery from visible landmarks. This pipeline combines both capabilities in a novel way.
+SAM 3 (Nov 2025) enables text-prompted vehicle segmentation and tracking — used in Stage 3 for jeepney detection. VLMs (Claude, Gemini) can geolocate street-level imagery from visible landmarks — used in Stage 2 for sparse anchor geolocation. This pipeline combines both capabilities in a novel way.
 
 Existing datasets with the geometry gap:
 - Sakay.ph GTFS (GitHub): 296-349 routes, frozen since 2020

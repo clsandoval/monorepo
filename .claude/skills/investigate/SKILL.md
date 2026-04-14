@@ -31,6 +31,7 @@ The argument is a path to a spec, plan, or design doc with executable steps.
    - CLI tools (yt-dlp, ffmpeg, jq, curl, python, etc.)
    - Accounts or access (Supabase, cloud services, etc.)
    - Data files or assets referenced in the spec
+   - Telegram delivery (optional): `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`
 3. Check what is already available:
    - Source `.env` files in the project directory and repo root
    - Check environment variables with `echo $VAR_NAME`
@@ -101,6 +102,18 @@ For each step, in dependency order:
 - If the next step does NOT depend on this one: continue
 - If the next step DOES depend on this one: skip it and log "skipped: depends on failed step N"
 - If a step exceeds its timeout: kill it, log as timeout, continue
+
+**Surprise handling — branch and explore:**
+When a step produces a surprising result (unexpected failure, large divergence between expected
+and actual, two approaches disagreeing wildly), don't just log it and move on. Investigate WHY.
+- If two models disagree by a huge margin, dig into what each one saw and why they diverged
+- If a result contradicts the spec's expectations, propose what would fix it — try an alternative
+  approach if cheap and fast (e.g., "the VLM guessed coordinates badly — what if we took the
+  business names it read and geocoded them via a Places API instead?")
+- If something failed in a way the spec didn't anticipate, note it as a spec gap with a concrete
+  suggestion for how to address it
+- Budget: spend up to 2 extra API calls per surprise to explore alternatives. These branching
+  explorations are often the most interesting content for the podcast.
 
 **Total timeout:** 30 minutes for the entire investigation. If hit, stop execution, generate
 the report with whatever has completed so far.
@@ -267,12 +280,22 @@ Reuse the existing podcast audio pipeline:
    ```bash
    bash .claude/skills/podcast/scripts/generate.sh <temp-json> docs/superpowers/podcasts/<name>.mp3
    ```
-5. Report to the user:
+5. If `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` are available, upload the MP3:
+   ```bash
+   curl -s -X POST \
+     "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendAudio" \
+     -F chat_id=${TELEGRAM_CHAT_ID} \
+     -F audio=@"<output.mp3>" \
+     -F title="<spec name> — Investigation" \
+     -F caption="<one-line summary of what the hosts discovered>"
+   ```
+6. Report to the user:
    - Audio file path and duration
    - Transcript file path
    - Investigation directory path
    - Report file path
    - Total cost
+   - Telegram delivery status
 
 ## Output
 
