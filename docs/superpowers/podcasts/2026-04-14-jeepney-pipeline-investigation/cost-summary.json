@@ -1,0 +1,11 @@
+{
+  "total_usd": 1.96,
+  "by_service": {
+    "anthropic_claude": { "calls": 130, "cost_usd": 1.64 },
+    "google_gemini": { "calls": 18, "cost_usd": 0.02 },
+    "replicate_grounding_dino": { "calls": 30, "cost_usd": 0.30 }
+  },
+  "duration_seconds": 1800,
+  "prior_investigations_total_usd": 0.49,
+  "cumulative_total_usd": 2.45
+}

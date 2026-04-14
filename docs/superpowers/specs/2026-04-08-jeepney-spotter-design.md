@@ -1,12 +1,14 @@
 # Jeepney Spotter — Video-Based Jeepney Route Reconstruction
 
 **Date:** 2026-04-08
-**Status:** Draft
+**Status:** Draft — **PREMISE INVALIDATED (see note below)**
 **Project:** `projects/jeepney-spotter/`
 
 ## Problem
 
 The `mm-transit-routes-reverse` loop compiled 604 jeepney routes into a GTFS feed, but 97% lack polyline geometry — they have names, endpoints, and fares but no route shapes. Every successful informal transit mapping project globally (Digital Matatus, WhereIsMyTransport, Trufi) required human riders with GPS phones. No automated system exists for extracting transit routes from video.
+
+> **UPDATE (2026-04-14): Core premise invalidated.** Investigation of Sakay.ph's live Route Explorer (`explore.sakay.ph/jeeps`) revealed **458 jeepney routes with full geometry, stop lists (11-156 per route), fares, and schedules** — all actively maintained. The "97% geometry gap" was based on the stale 2020 GitHub GTFS export; Sakay.ph kept updating their live site. Of our 609 routes, ~293 (48%) match Sakay routes. The geometry data EXISTS — it's a data import problem, not a field collection or video extraction problem. This spec remains valuable as a proof-of-concept for video-based transit data extraction, but the specific Manila jeepney use case is better solved by importing Sakay.ph data. See "New Applications" section in the investigation report for where this pipeline architecture IS the right tool.
 
 ## Idea
 
@@ -22,7 +24,7 @@ All credentials are mounted at `/workspace/.env`. Source this file before runnin
 |------------|---------|---------|---------|
 | Anthropic API Key | `ANTHROPIC_API_KEY` | Stages 2, 4 | Claude vision API for geolocation and OCR |
 | Google AI API Key | `GOOGLE_API_KEY` | Stage 2 | Gemini vision API for cross-reference geolocation |
-| Replicate API Token | `REPLICATE_API_TOKEN` | Stage 3 | SAM 3 segmentation for jeepney detection |
+| Replicate API Token | `REPLICATE_API_TOKEN` | Stage 3 | Grounding DINO detection + optional SAM 3 segmentation |
 
 ### Minimum API Tier Requirements
 
@@ -179,12 +181,12 @@ else:
 
 ### Pipeline Overview
 
-Five sequential stages per video:
+Six sequential stages per video:
 
 ```
-EXTRACT → GEOLOCATE → DETECT → IDENTIFY → ASSEMBLE
-frames     VLM anchor   jeepneys   OCR route    observations
-from video frames       in frame   placards     into dataset
+EXTRACT → CLASSIFY → GEOLOCATE → DETECT → IDENTIFY → ASSEMBLE
+frames     filter      read+geocode  Grounding   OCR route    observations
+from video  aerial      anchor frames DINO        placards     + trajectories
 ```
 
 ### Stage 1 — Frame Extraction
@@ -230,11 +232,25 @@ def is_duplicate(frame_path: str, prev_hash: imagehash.ImageHash, threshold: int
 | Video shorter than expected | Extract what's available. Log actual frame count vs expected. Continue if ≥10 frames. |
 | Disk full during extraction | Check available disk space before extraction (need ~500MB per hour of video for frames). Abort early if insufficient. |
 
-### Stage 2 — Geolocation (VLM)
+### Stage 1b — Frame Classification (Pre-filter)
 
-Geolocate frames using sparse anchoring — VLM calls on anchor frames every 10-15 seconds, with intermediate positions interpolated along the OSM road network graph between anchors.
+Before geolocation or detection, classify each frame as street-level dashcam or non-dashcam (aerial views, map overlays, title cards, interior shots). YouTube dashcam videos often start with Google Earth flyovers or contain mid-video map overlays that waste API calls if processed.
 
-**Approach:** Send each anchor frame to both Claude and Gemini vision APIs. Take the higher-confidence result, or average if both are confident. Interpolate non-anchor frames along the road network between confirmed anchors. This gives continuous trajectories with far fewer VLM calls than per-frame geolocation.
+**Approach:** Lightweight VLM call or basic CNN classifier. The prompt is simple: "Is this a street-level dashcam frame showing a road? Yes or no." Non-dashcam frames are skipped for all downstream stages but logged in the quality report.
+
+**Why this matters:** Investigation found that the EDSA test video starts with Google Earth aerial imagery. These frames have completely different visual signatures from dashcam footage — perceptual hash dedup doesn't catch them because they're not similar to *each other* or to street-level frames. Two of 14 extracted frames were aerial views, wasting detection API calls and skewing hit rate metrics.
+
+### Stage 2 — Geolocation (Read + Geocode)
+
+Geolocate frames using a two-step approach: VLM reads visible text, then a geocoding step converts those text observations into coordinates. Sparse anchoring — process anchor frames every 10-15 seconds, interpolate intermediate positions along the OSM road network graph.
+
+**Primary approach (Read + Geocode):**
+1. **Step 2a — Text extraction:** Send anchor frame to Claude vision API. Ask it to read ALL visible text: business names, street signs, billboards, landmarks. No coordinates, no location guessing. Claude is a sign reader, not a coordinate guesser.
+2. **Step 2b — Research geocoding:** Send the extracted text observations to Gemini with geographic context (e.g., "these businesses were seen on EDSA, Metro Manila"). Gemini reasons about business clustering to produce precise coordinates with an error radius.
+
+**Why two steps:** Investigation showed that single-shot VLM geolocation is fundamentally broken. Claude seeing "Jollibee" on a frame tries to guess which of 200+ Jollibee branches in Metro Manila it is — an impossible task. When we split read and geocode, the same frame went from 7,800m error to 25m accuracy. The cost difference is negligible (Gemini research call is ~$0.005).
+
+**Fallback:** If the research geocoding step fails, fall back to single-shot VLM geolocation from both Claude and Gemini with tiebreaker logic (see below).
 
 **Expected hit rate:** 40-60% of anchor frames will have enough visual clues for a usable geolocation. Frames of blank roads, tunnels, or dense traffic with no signage return low confidence and are skipped.
 
@@ -293,7 +309,7 @@ Confidence guidelines:
 
 When both models return a geolocation for the same frame:
 
-1. **Both confident (≥0.5):** If the two estimates are within 500m of each other (haversine distance), average the lat/lon and take the higher confidence score. If they are >500m apart, take the estimate with the higher confidence. If confidences are within 0.1 of each other and locations disagree, prefer Claude (empirically better at reading Filipino text on signs).
+1. **Both confident (≥0.5):** If the two estimates are within 500m of each other (haversine distance), average the lat/lon and take the higher confidence score. If they are >500m apart, take the estimate with the higher confidence. If confidences are within 0.1 of each other and locations disagree, take the higher confidence regardless of model — investigation showed Gemini consistently outperforms Claude at sign reading and geolocation in Manila (14km disagreement on 2 of 3 frames, Gemini correct each time).
 2. **One confident, one not:** Take the confident estimate (≥0.5). Discard the low-confidence one.
 3. **Neither confident (<0.5):** Take the higher confidence estimate but cap the reported `geo_confidence` at the raw score (no boosting). Flag the observation with `geo_source: "low_confidence_single"`.
 4. **One model errors out:** Use the successful model's result. Log the failure in `stage_errors`.
@@ -326,11 +342,15 @@ def haversine_m(lat1, lon1, lat2, lon2):
 
 ### Stage 3 — Jeepney Detection
 
-Detect all jeepneys present in each frame using SAM 3 segmentation.
+Detect all jeepneys present in each frame using Grounding DINO, optionally refined with SAM 3.
 
-**Primary approach:** Use SAM 3 via Replicate API with text prompt "jeepney" to generate segmentation masks. Extract bounding boxes from masks. For scale processing, distill SAM 3 outputs (~5,000 labeled frames) into a lightweight YOLO-class detector deployed on a cheap Replicate endpoint.
+**Primary approach: Grounding DINO** — Use Grounding DINO via Replicate API with text prompt "jeepney". This is a text-prompted object detector that produces tight, pixel-accurate bounding boxes. Cost: ~$0.01/frame.
 
-**Fallback:** If SAM 3 is unavailable or for quick prototyping, use a VLM (Claude or Gemini) to identify and return approximate bounding boxes. The VLM path is less accurate but requires no GPU.
+**Investigation results:** Grounding DINO found 5.75x more jeepneys than Claude VLM on the same frames (23 vs 4 across 4 test frames). On frame 10, Claude found zero jeepneys while Grounding DINO found eight. The bounding boxes are dramatically tighter — Grounding DINO is a real object detector, not a VLM guessing at pixel coordinates. This difference cascades into OCR quality: tight bounding boxes produce crops that actually contain the jeepney placard, while VLM bounding boxes often captured power lines and road surface instead.
+
+**Optional refinement: SAM 3** — For even tighter segmentation masks (useful for OCR crops), stack SAM 3 on top of Grounding DINO detections. DINO finds the jeepney, SAM segments it precisely. This two-stage approach gives the best of both: fast text-prompted detection + precise segmentation.
+
+**Fallback:** If Grounding DINO is unavailable, use a VLM (Claude or Gemini) to identify and return approximate bounding boxes. The VLM path is less accurate (4x fewer detections, approximate bounding boxes) but requires no Replicate account. For scale processing, distill Grounding DINO + SAM 3 outputs (~5,000 labeled frames) into a lightweight YOLO-class detector.
 
 #### Bbox Overlap Deduplication
 
@@ -738,7 +758,8 @@ projects/jeepney-spotter/
 ├── src/
 │   ├── extract.py              # Stage 1: yt-dlp + ffmpeg frame extraction
 │   ├── geolocate.py            # Stage 2: VLM geolocation + sparse anchoring
-│   ├── detect.py               # Stage 3: SAM 3 segmentation (VLM fallback)
+│   ├── classify.py             # Stage 1b: frame classification (dashcam vs aerial/metadata)
+│   ├── detect.py               # Stage 3: Grounding DINO detection + optional SAM 3 refinement
 │   ├── ocr.py                  # Stage 4: placard OCR + two-pass fuzzy route matching
 │   ├── assemble.py             # Stage 5: combine, trajectory link, cross-video aggregate
 │   ├── trajectory.py           # Trajectory linking and same-vehicle hypothesis
@@ -761,7 +782,7 @@ projects/jeepney-spotter/
 - `thefuzz` — fuzzy string matching for route placards
 - `Pillow` — image cropping for jeepney bounding boxes
 - `imagehash` — perceptual hashing for frame deduplication
-- `replicate` — SAM 3 segmentation API for jeepney detection
+- `replicate` — Grounding DINO detection + optional SAM 3 segmentation via Replicate API
 - `osmnx` — OSM road network graph for route snapping and interpolation
 - `networkx` — graph operations for shortest-path routing between observation points
 
@@ -769,8 +790,8 @@ projects/jeepney-spotter/
 
 All inference runs in the cloud — no local GPU required locally.
 
-- **VLM calls (geolocation + OCR):** Cloud API calls to Claude and Gemini. Cost scales with number of anchor frames and detected jeepneys.
-- **SAM 3 (detection):** Replicate API. Used for segmentation on all frames. Once ~5,000 frames are labeled, distill into YOLO-class detector for cheaper scale inference on Replicate.
+- **VLM calls (text extraction + geocoding + OCR):** Cloud API calls to Claude (text extraction, OCR) and Gemini (research geocoding). Cost scales with number of anchor frames and detected jeepneys. Two-step geolocation adds ~$0.005/anchor frame for Gemini research call.
+- **Grounding DINO (detection):** Replicate API. ~$0.01/frame. Primary detector — 5.75x more detections than VLM with tighter bounding boxes. Optional SAM 3 refinement for segmentation masks. Once ~5,000 frames are labeled, distill into YOLO-class detector for cheaper scale inference.
 - **OSM routing (assembly):** Local computation using osmnx. Downloads Metro Manila road network once, caches locally.
 
 ## CLI Interface
@@ -804,11 +825,12 @@ Runs all 5 stages sequentially. Each stage reads the previous stage's output. St
 | Stage | Metric | Viable (proceed) | Marginal (investigate) | Kill (stop) |
 |-------|--------|-------------------|------------------------|-------------|
 | Geolocation | % anchor frames with confident location (>0.5) | >40% | 20-40% | <20% |
+| Geolocation accuracy | Median geo_radius_m of confident locations | <500m | 500m-2km | >2km |
 | Detection | % frames with ≥1 jeepney detected | >30% | 20-30% | <20% |
 | OCR | % detected jeepneys with readable placard | >25% | 15-25% | <15% |
 | Matching | % readable placards matching a known route | >50% | 30-50% | <30% |
 
-Kill means stop — if detection is below 20% on a major corridor like EDSA, the approach is fundamentally broken, not just miscalibrated.
+Kill means stop — if detection is below 20% on a major corridor like EDSA, the approach is fundamentally broken, not just miscalibrated. Geolocation accuracy matters as much as hit rate: 40% of frames getting a location that's 10km off is noise, not data.
 
 **End-to-end success:** At least 5-10 high-confidence observations — geolocated, detected, placard read, route matched — that can be plotted on a map and visually verified against known route paths. At least 1 trajectory (same jeepney tracked across multiple frames).
 
@@ -1160,13 +1182,42 @@ print('Schema validation passed')
 "
 ```
 
+## Investigation Results
+
+Two investigations were run on real EDSA dashcam footage (total cost: $0.49). Key findings that shaped the current architecture:
+
+### Investigation 1 — Baseline Pipeline (Cost: $0.36)
+
+- **14 frames** extracted from a 60-second EDSA clip
+- **Detection:** 50% of frames had ≥1 jeepney (viable, above 30% threshold). 8 jeepneys detected across 14 frames via Claude VLM
+- **Geolocation:** Claude and Gemini disagreed by **14km** on frame 7 and **12km** on frame 14. Gemini won every tiebreaker by reading signage text (PSBank, BDO branch names, politician billboards). The "prefer Claude" tiebreaker was empirically wrong
+- **OCR:** 1/5 readable placards (20%, below 25% viable threshold). The placard read "BOTOLAN" — a Zambales provincial route, not in the 604-route database. Fuzzy match score: 42 (correctly flagged as unmatched). Discovery pathway validated
+- **Bounding box quality:** VLM bounding boxes were so approximate that several OCR crops contained power lines and road surface, not jeepneys. The 20% OCR rate was a detection quality problem, not an OCR problem
+- **Frame classification gap:** First 2 frames were Google Earth aerial views (video intro), wasting API calls. Perceptual hash dedup doesn't catch aerial-to-dashcam mode switches
+
+### Investigation 2 — Improved Pipeline (Cost: $0.13)
+
+- **Read + Geocode geolocation:** Claude reads text (Jollibee, ACLC College, Philippine Heart Center), Gemini geocodes the cluster → 25m accuracy on frame 10 (vs 7,800m with single-shot). Frame 14: 10m accuracy (vs 3,600m). Splitting the task produces orders-of-magnitude improvement at near-zero extra cost
+- **Grounding DINO detection:** 23 jeepneys found across 4 frames vs Claude's 4 on the same frames (**5.75x improvement**). Frame 10: DINO found 8 jeepneys where Claude found zero. Cost: $0.01/frame. Tighter bounding boxes cascade into better OCR crops
+- **SAM 2 video on Replicate:** Model ID was wrong, didn't work for single images. But unnecessary — Grounding DINO's bounding boxes are already tight enough for OCR crops. SAM useful as optional refinement layer on top of DINO, not as primary detector
+
+### Actionable Changes Made to This Spec
+
+1. **Stage 2:** Research-based geolocation (read + geocode) is now the primary approach, not a roadmap item
+2. **Stage 3:** Grounding DINO is now the primary detector, SAM 3 is optional refinement
+3. **Stage 1b:** Frame classification added as pre-filter for aerial/metadata frames
+4. **Tiebreaker:** "Prefer Claude" rule dropped — use highest confidence regardless of model
+5. **Fuzzy matching:** Two-pass approach preserves "via" signal (previously stripped)
+6. **Success criteria:** Added geolocation accuracy threshold (median geo_radius_m)
+7. **Kill thresholds:** Tightened detection kill from 15% to 20%
+
 ## Roadmap
 
-1. **Research-based geolocation** — Replace single-shot VLM coordinate guessing with a two-step approach: (a) VLM reads visible text from the frame (business names, street signs, landmarks), (b) feed those text observations into Google Places API or web search to get real coordinates. The VLM does what it's good at (reading), the Places API does what it's good at (geocoding). Multiple candidate locations with confidence scores instead of one guess. Investigation showed Gemini beats Claude at sign reading by 14km — but both models are bad at converting "PSBank EDSA Pasay" into accurate lat/lon. Let the geocoding API handle that. Cost: Google Places is basically free at this scale (cents per hundreds of lookups), cheaper than the VLM calls.
+1. **Collective route snapping (map matching)** — Current assembly snaps observations independently to the road network. Better approach: snap all observations for a route *collectively* — find the path on the OSM road graph that best fits all observations as a group. Noisy geolocations (off by 500m-2km) cancel out when 20 observations all roughly follow the same corridor. The road network constrains the solution — there are only so many paths between Cubao and Divisoria. This is the same map-matching algorithm Uber uses for GPS traces, except with 200-2000m accuracy instead of 5m. Enables route reconstruction even with mediocre per-observation accuracy.
 
-2. **Collective route snapping (map matching)** — Current assembly snaps observations independently to the road network. Better approach: snap all observations for a route *collectively* — find the path on the OSM road graph that best fits all observations as a group. Noisy geolocations (off by 500m-2km) cancel out when 20 observations all roughly follow the same corridor. The road network constrains the solution — there are only so many paths between Cubao and Divisoria. This is the same map-matching algorithm Uber uses for GPS traces, except with 200-2000m accuracy instead of 5m. Enables route reconstruction even with mediocre per-observation accuracy.
+2. **Google Places API geocoding** — Current research geocoding uses Gemini for the geocode step. For production, replace with Google Places API for deterministic, cacheable results. Cost: basically free at this scale (cents per hundreds of lookups).
 
-3. **YOLO distillation** — Once SAM 3 has labeled ~5,000 frames, train a YOLO-class jeepney detector and deploy on a cheap endpoint. Replaces SAM 3 for scale processing at lower cost.
+3. **YOLO distillation** — Once Grounding DINO + SAM 3 have labeled ~5,000 frames, train a YOLO-class jeepney detector and deploy on a cheap endpoint. Replaces DINO for scale processing at lower cost.
 
 4. **GTFS export** — Generate `shapes.txt` entries for the 604 jeepney routes in the existing `mm-transit-routes-reverse` feed. This is the end goal — filling in the 97% geometry gap.
 
@@ -1178,7 +1229,7 @@ print('Schema validation passed')
 
 No existing system extracts transit routes from video. All successful informal transit mapping (Digital Matatus/Nairobi, WhereIsMyTransport/Cape Town, Trufi Association) required human riders with GPS phones.
 
-SAM 3 (Nov 2025) enables text-prompted vehicle segmentation and tracking — used in Stage 3 for jeepney detection. VLMs (Claude, Gemini) can geolocate street-level imagery from visible landmarks — used in Stage 2 for sparse anchor geolocation. This pipeline combines both capabilities in a novel way.
+Grounding DINO enables text-prompted object detection with tight bounding boxes — used in Stage 3 for jeepney detection (5.75x more detections than VLM approach at $0.01/frame). VLMs (Claude, Gemini) can read text from street-level imagery — used in Stage 2 for text extraction, with a separate geocoding step for coordinate estimation. Investigation validated this split approach: 25m accuracy vs 7,800m with single-shot VLM geolocation. This pipeline combines both capabilities in a novel way.
 
 Existing datasets with the geometry gap:
 - Sakay.ph GTFS (GitHub): 296-349 routes, frozen since 2020

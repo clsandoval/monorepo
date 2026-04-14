@@ -162,7 +162,7 @@ Only 22 of 609 routes (3.6%) have any geometry source:
 | SM North EDSA–Katipunan via Tandang Sora | OSM relation 4515958 (marked disused) |
 | LTFRB bulk set (349–600+ routes) | Sakay.ph simplified polylines (low detail) |
 
-**The extreme geometry gap (96.4% without shape data) is the primary obstacle to GTFS synthesis.**
+**UPDATE (2026-04-14):** The "96.4% geometry gap" was based on our local copy of the stale 2020 GitHub GTFS export. Investigation of Sakay.ph's live Route Explorer (`explore.sakay.ph`) revealed **458 jeepney routes with full geometry, stop lists (11-156 per route), fares, and schedules** — all actively maintained. Of our 609 routes, ~293 (48%) fuzzy-match to Sakay routes by name. Sakay also has ~115 routes we don't have. The geometry gap is a **data import problem**, not a field collection problem. Priority action: scrape/import Sakay.ph's live route data.
 
 ---
 
@@ -285,7 +285,7 @@ Below is a representative sample of high-confidence routes by area:
 
 1. **Prioritize 216 high-confidence routes** for Wave 3 GTFS generation — these can be synthesized from stop data and road network geometry
 2. **Flag 45 low-confidence routes** as `confidence_level=low` in GTFS notes; exclude from default routing unless validated
-3. **Geometry gap is critical**: Need to use OSM road network to estimate shapes for ~587 routes without polyline data
+3. **Geometry gap is solvable via import**: Sakay.ph's live Route Explorer has geometry for 458 jeepney routes (verified 2026-04-14). Scraping/importing this data resolves the majority of the gap. OSM road network estimation is fallback for the ~66 routes not on Sakay.
 4. **Modern PUJ routes** (~105) should use separate `route_type` or color coding in GTFS to distinguish from traditional jeepneys
 5. **Cross-boundary routes** (67): Document only the NCR portion for GTFS; add note about provincial extension
 6. **Orphan low-confidence routes**: Consider a separate `provisional` GTFS feed rather than including in main validated feed

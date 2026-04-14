@@ -139,11 +139,11 @@ Based on synthesis from validation analyses:
 | P2P bus routes (~45) | 2–3 waypoints | ⚠️ Straight-line approx |
 | Jeepney routes (604) | 0 geometry for 587; 17 from OSM/Sakay | ❌ Mostly missing |
 
-### Critical geometry gap
+### Critical geometry gap — UPDATE (2026-04-14)
 
-Only **17 of 604 jeepney routes (2.8%)** have meaningful polyline geometry. The remaining 587 jeepney routes appear as straight lines between endpoints in routing engines — unsuitable for turn-by-turn navigation or accurate isochrone mapping.
+**Original finding:** Only 17 of 604 jeepney routes (2.8%) in our local GTFS had meaningful polyline geometry.
 
-**Root cause:** No GTFS feed or open data source provides complete jeepney shapes. OSM has ~150 jeepney relations, but only a fraction were accessible and extractable during research.
+**Corrected finding:** Sakay.ph's live Route Explorer (`explore.sakay.ph`) has **458 jeepney routes with full geometry, stop lists, fares, and schedules** — actively maintained. Our local GTFS was built from the stale 2020 GitHub export, which froze while Sakay.ph continued updating their live site. The "97% geometry gap" is a **data staleness problem**, not an absence of data. Of our 609 routes, ~293 (48%) fuzzy-match Sakay routes. Sakay also has ~115 routes we lack entirely. Priority: import Sakay.ph live data to resolve the gap.
 
 ---
 
@@ -229,9 +229,9 @@ Frequency records lacking trip-level (non-exact-times) are all marked `exact_tim
 
 ### Critical Gaps (block routing engine use)
 
-1. **Jeepney geometry (587 routes)** — No polyline data for 97% of jeepney routes. Routing engines show straight lines. Requires: OSM jeepney relation extraction, Sakay route shape scraping, or GPS trace collection.
+1. **Jeepney geometry (587 routes)** — ~~No polyline data for 97% of jeepney routes.~~ **UPDATE (2026-04-14):** Sakay.ph live Route Explorer has geometry for 458 jeepney routes. Importing this data resolves the majority of this gap. Remaining ~66 routes not on Sakay require OSM extraction or GPS traces.
 
-2. **Jeepney intermediate stops (~560 routes)** — Only origin/destination defined. Routing engines cannot identify intermediate boarding points. Requires: stop-level field survey or Sakay/Moovit stop coordinate extraction.
+2. **Jeepney intermediate stops (~560 routes)** — ~~Only origin/destination defined.~~ **UPDATE (2026-04-14):** Sakay.ph has detailed stop lists (11-156 stops per route) for all 458 of their routes. Import resolves this gap for matched routes.
 
 3. **561 jeepney route stubs (no trips)** — Routes exist in routes.txt but have no trip or stop_time records. Not usable by OpenTripPlanner, Valhalla, or similar. Minimum fix: generate 2-stop stub trips.
 
@@ -320,6 +320,6 @@ Frequency records lacking trip-level (non-exact-times) are all marked `exact_tim
 
 The feed is **production-ready for rail lines, EDSA Carousel, BGC Bus, QCity Bus, all numbered city buses (1–68), UV Express, and P2P routes** — these 254 routes are fully routable with trips, stops, shapes, frequencies, and fares.
 
-The **604 jeepney routes** are research-quality — they establish the network map and fare structure but lack the geometric and stop-level detail needed for turn-by-turn navigation. The primary blocker is geometry: a focused OSM extraction + Sakay scraping effort could resolve ~150 routes; field GPS traces would be needed for the rest.
+The **604 jeepney routes** are research-quality — they establish the network map and fare structure but lack the geometric and stop-level detail needed for turn-by-turn navigation. **UPDATE (2026-04-14):** The primary blocker (geometry) is now solvable: Sakay.ph's live Route Explorer has 458 jeepney routes with full geometry, stops (11-156 per route), fares, and schedules. Importing this data would make ~293 of our routes navigator-grade. The remaining ~66 unmatched routes require OSM extraction or field GPS traces.
 
-This feed is a strong foundation. For a navigator-grade product, the jeepney geometry gap is the primary remaining task.
+This feed is a strong foundation. For a navigator-grade product, **importing Sakay.ph live data is the highest-ROI next step** — not field collection or video-based extraction.

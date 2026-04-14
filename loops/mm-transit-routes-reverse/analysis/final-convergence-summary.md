@@ -59,7 +59,7 @@ These 254 routes are ready for import into OpenTripPlanner, Valhalla, or any GTF
 
 604 jeepney routes are in `routes.txt` and `fare_rules.txt` but have:
 - No trip records (561 routes)
-- No geometry (587 routes — only 17 have shapes)
+- No geometry in local GTFS (587 routes — only 17 have shapes). **UPDATE: Sakay.ph has geometry for 458 routes; import resolves this.**
 - No intermediate stops
 
 These routes document the jeepney network as a reference but cannot be used for navigation.
@@ -84,34 +84,39 @@ The feed synthesizes data from **81 JSON source files** representing **2,489 raw
 
 ---
 
-## The Jeepney Problem
+## The Jeepney Problem — UPDATE (2026-04-14)
 
-The dominant remaining gap is jeepney geometry. This deserves its own section.
+~~The dominant remaining gap is jeepney geometry.~~ **This gap is now solvable via data import.**
 
-**What we know:**
-- ~604 jeepney routes documented (est. 40–50% of active NCR network)
-- All routes have: name, mode, origin, destination, fare structure
-- Only 17/604 have polyline geometry (from OSM + Sakay research)
-- No source provides a complete jeepney GTFS feed for NCR
+**Original assessment (2026-03-02):**
+- Only 17/604 have polyline geometry in our local GTFS
+- "No source provides a complete jeepney GTFS feed for NCR"
 
-**Root cause:** The jeepney network was never formally mapped by any official agency. LTFRB franchises define routes by legal description (e.g., "from Cubao to Divisoria via EDSA"), not by GPS trace. The only route geometry that exists is from:
-1. OSM community mapping (~150 jeepney relations, partially accessible)
-2. Sakay.ph proprietary shapes (not open)
-3. GPS traces from tracking apps (Chalo, etc. — proprietary)
+**Corrected assessment (2026-04-14):**
+Sakay.ph's live Route Explorer (`explore.sakay.ph/jeeps`) has **458 jeepney routes** (55 MPUJ + 403 traditional PUJ) with:
+- Full polyline geometry (route shapes on Mapbox maps)
+- Detailed stop lists (11-156 stops per route, with intersection-level names)
+- Fare matrices (base + per-km rates, current LTFRB rates)
+- Operating schedules (hours + days)
+- Both directions (outbound + return with separate stop lists)
 
-**Path forward:**
-1. **OSM extraction** (highest ROI): Overpass API query for NCR transit relations could yield shapes for ~100–150 routes in a single automated run.
-2. **Sakay.ph scrape**: Route shapes accessible via their public-facing map; would require careful scraping with respect for ToS.
-3. **GPS trace crowdsourcing**: Ultimate solution but requires user participation.
+Of our 609 routes, ~293 (48%) fuzzy-match to Sakay routes by name. Sakay also has ~115 routes we don't have at all.
+
+**The "97% geometry gap" was a data staleness problem.** Our GTFS was built from the frozen 2020 GitHub export. Sakay.ph kept updating their live site — they have the geometry, it's just not in the stale export.
+
+**Revised path forward:**
+1. **Import Sakay.ph live data** (highest ROI): Scrape 458 routes with geometry, stops, fares, schedules. Resolves majority of the gap immediately.
+2. **OSM extraction**: Fallback for ~66 routes not on Sakay.
+3. **Video pipeline**: Reframe as validation/change-detection tool, not discovery. Useful for confirming routes are still active and detecting route changes over time.
 
 ---
 
 ## Known Gaps Summary
 
-### Critical
-1. Jeepney geometry missing for 587/604 routes (97%)
-2. 561 jeepney routes have no trip records (invisible to routing engines)
-3. Jeepney intermediate stops undefined (~560 routes)
+### Critical — REVISED (2026-04-14)
+1. ~~Jeepney geometry missing for 587/604 routes (97%)~~ → **Solvable: Sakay.ph has geometry for 458 routes.** Import resolves ~293 of our routes. ~66 remain unmatched.
+2. ~~561 jeepney routes have no trip records~~ → **Partially solvable: Sakay.ph has schedules for all 458 routes.** Trip generation possible from imported schedule data.
+3. ~~Jeepney intermediate stops undefined~~ → **Solvable: Sakay.ph has 11-156 stops per route.** Import resolves stop data for matched routes.
 
 ### Significant
 4. UV Express: ~55% of estimated N-code routes undocumented
@@ -180,6 +185,6 @@ The dominant remaining gap is jeepney geometry. This deserves its own section.
 
 The loop produced a comprehensive, validated GTFS feed that correctly represents the structure, fare rules, and route geography of Metro Manila's entire formal transit network. For rail, BRT, BGC Bus, P2P, UV Express, and numbered city buses, the feed is production-ready.
 
-The primary limitation is jeepney geometry — a problem that reflects the actual state of open data for Manila, not a failure of research effort. No open data source provides complete jeepney route shapes for NCR. Resolving this requires either OSM community data extraction, API access to proprietary transit app databases, or field GPS collection.
+~~The primary limitation is jeepney geometry — a problem that reflects the actual state of open data for Manila, not a failure of research effort. No open data source provides complete jeepney route shapes for NCR.~~ **UPDATE (2026-04-14):** Sakay.ph's live Route Explorer has geometry for 458 jeepney routes. The data exists — it's accessible via headless browser (Playwright). The primary remaining task is importing this data into our GTFS feed.
 
 This feed is a strong foundation for any transit research, urban planning, or routing application focused on Metro Manila's formal transit corridors.

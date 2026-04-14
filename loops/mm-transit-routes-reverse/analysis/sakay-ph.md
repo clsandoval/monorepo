@@ -150,14 +150,27 @@ Currently active P2P routes confirmed from the live platform:
 
 | Dimension | GitHub GTFS (2020) | Live Explorer (2024–2026) |
 |-----------|-------------------|--------------------------|
-| Completeness | ~296 routes | Unknown total, likely 1,000+ |
+| Completeness | ~296 routes | **458 jeepney routes (confirmed 2026-04-14)**: 55 MPUJ + 403 traditional PUJ |
 | Accuracy | Low (outdated) | Moderate-high |
 | Freshness | Frozen Jun 2020 | ~1-month lag for new routes |
-| Geometry/shapes | Yes (shapes.txt) | Yes (via app) |
-| Stop coordinates | 2,078 stops with lat/lon | More stops, not extractable |
-| Automated access | Full (raw GitHub) | Blocked (HTTP 403) |
-| Fare data | Outdated fares | Current LTFRB fares |
-| Frequency data | Yes (frequencies.txt) | Yes |
+| Geometry/shapes | Yes (shapes.txt) | **Yes — all 458 routes have polyline geometry on Mapbox maps** |
+| Stop coordinates | 2,078 stops with lat/lon | **All 458 routes have detailed stop lists (11-156 stops each, intersection-level names)** |
+| Automated access | Full (raw GitHub) | **Accessible via Playwright** (HTTP 403 blocks curl/wget but headless browser works) |
+| Fare data | Outdated fares | **Current LTFRB fares (base + per-km rate for all routes)** |
+| Frequency data | Yes (frequencies.txt) | **Yes — operating hours and days for all routes** |
+
+### UPDATE (2026-04-14): Live Explorer Data Confirmed
+
+A Playwright-based investigation confirmed that every route on the live Route Explorer has:
+- Route shape rendered on a Mapbox map (polyline geometry)
+- Complete stop list with pick-up/drop-off designation (both directions)
+- Fare matrix (PHP 13-15 base + PHP 1.80-2.20/km)
+- Schedule (operating hours and days)
+- Operator info (LTFRB MPUJ/PUJ designation)
+
+Sample routes verified: Novaliches-Malinta (79 stops), Baclaran-Divisoria (59 stops), Alabang-Baclaran (109 stops), Antipolo-Cubao (156 stops).
+
+**This means the "97% geometry gap" in our local GTFS is a data staleness problem, not an absence of data.** The geometry exists on Sakay.ph — it just wasn't in the frozen 2020 GitHub export we were working from.
 
 ### Key data quality challenges (from Sakay.ph CTO statements)
 - ~1 month required to fully process and verify new route data
