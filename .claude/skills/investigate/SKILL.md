@@ -198,9 +198,25 @@ Also generate `cost-summary.json`:
 }
 ```
 
+## Prior Investigation Awareness
+
+Before generating narration, check for prior investigation reports and podcasts for the same spec:
+- Look in `docs/superpowers/podcasts/` for existing `*-investigation/report.md` files matching this spec
+- Look for existing transcripts and audio files
+
+If prior investigations exist:
+- Read their reports to understand what was already tried and found
+- The new podcast REPLACES all prior episodes — it is the single definitive episode
+- Incorporate prior findings as baseline knowledge, not as "last time we found..."
+- The hosts should present a complete picture: everything discovered across all runs
+- Delete or note that prior audio files are superseded (don't delete without asking)
+
+The goal: someone receiving this ONE file gets the full story. No "part 1 of 3." No "as we
+discussed in the previous episode." One standalone episode with everything.
+
 ## Phase 2 — Narration
 
-Generate podcast dialogue from the investigation results.
+Generate podcast dialogue from ALL investigation results (current run + any prior runs).
 
 ### Personas
 
