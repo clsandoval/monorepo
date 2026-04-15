@@ -1,0 +1,291 @@
+last_run: "2026-04-15T08:57:00Z"
+current_task: null
+summary:
+  total: 48
+  testable_now: 48
+  passed: 46
+  failed: 0
+  blocked: 0
+  discovery: 2
+
+items:
+  # F1: Upload Button & File Picker
+  F1.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "qa-evidence/f1-1-landing.png — Paperclip button visible left of textarea on landing page (ref=e51 'Attach files'). Re-verified in QA v3 run."
+  F1.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Clicking attach button triggers [File chooser] modal (Playwright state confirmed). Re-verified in QA v3 run."
+  F1.3:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "client/src/lib/file-upload.ts:6-18 — ALLOWED_TYPES array includes all spec MIME types (image/png, image/jpeg, image/gif, image/webp, application/pdf, text/csv, text/plain, text/markdown, text/yaml, application/json, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet). ChatInput.tsx:130 uses accept={ACCEPT_STRING}. Re-verified in QA v3 run."
+  F1.4:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "qa-evidence/f1-4-preview-bar-image.png — Preview bar shows thumbnail (red square), filename 'test-image.png', size '287 B', remove button. Re-verified in QA v3 run."
+
+  # F2: Drag-and-Drop Upload
+  F2.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Static: DropOverlay component (DropOverlay.tsx:1-12) renders 'Drop files here' with Upload icon. ChatPage.tsx:382-396 dragEnter/dragLeave handlers manage isDragging state. ChatPage.tsx:514 conditionally renders <DropOverlay />. Drag simulation limited in Playwright — code-level verification confirms correct wiring."
+  F2.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Static: ChatPage.tsx:402-421 handleDrop validates files via validateFile(), passes valid files to chatInputRef.current.addFiles(). Code path confirmed correct."
+  F2.3:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Static: ChatPage.tsx:410-413 — invalid files in handleDrop get toast.error(error), only valid files are forwarded. validateFile (file-upload.ts:35-37) checks ALLOWED_TYPES."
+
+  # F3: Clipboard Paste Upload
+  F3.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Static: ChatInput.tsx:95-111 handlePaste iterates clipboardData.items, collects image files, calls addFiles(). Code path correctly wired. Playwright paste simulation limited for image data."
+  F3.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Static: ChatInput.tsx:95-111 handlePaste checks item.kind==='file' && type.startsWith('image/'), only prevents default when imageFiles.length > 0 — plain text paste falls through normally."
+
+  # F4: File Preview Bar
+  F4.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "qa-evidence/f1-4-preview-bar-image.png — Image thumbnail rendered in preview bar (red square visible at ref=e66). FilePreviewBar.tsx:19-24 renders <img> for image types. Re-verified in QA v3 run."
+  F4.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Snapshot: CSV shows as FileText icon (ref=e76) with 'test.csv' (ref=e80) and '44 B' (ref=e81) in preview bar. FilePreviewBar.tsx:26 renders FileText icon for non-image types. Re-verified in QA v3 run."
+  F4.3:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "After clicking Remove test-image.png (ref=e70), snapshot shows only test.csv remaining in preview bar with remove button (ref=e82). Re-verified in QA v3 run."
+  F4.4:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "After removing last file (test.csv), preview bar fully removed from DOM — snapshot shows no preview bar, send button disabled. FilePreviewBar.tsx:10 returns null when files.length===0. Re-verified in QA v3 run."
+  F4.5:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "qa-evidence/f6-3-csv-message.png — After send, preview bar cleared, textarea empty, message rendered in chat with file chip. ChatInput.tsx:73-74 clears value and files on submit. Re-verified in QA v3 run."
+
+  # F5: File Validation
+  F5.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Static: client/src/lib/file-upload.ts:38-39 checks file.size > MAX_FILE_SIZE (10*1024*1024=10MB) returns 'File exceeds 10MB limit'. Re-verified in QA v3 run."
+  F5.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Static: client/src/lib/file-upload.ts:32-34 checks currentCount >= MAX_FILES (5) returns 'Maximum 5 files per message'. Server also validates at sessions.ts:74-75. Re-verified in QA v3 run."
+  F5.3:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Static: client/src/lib/file-upload.ts:35-37 checks !ALLOWED_TYPES.includes(file.type) returns 'File type not supported'. Re-verified in QA v3 run."
+
+  # F6: User Message File Display
+  F6.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "qa-evidence/f6-1-image-message.png — User message bubble shows 'QA v3 image test' text AND red square image thumbnail (clickable button ref=e414). Agent responded 'Solid red square'. Re-verified in QA v3 run."
+  F6.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "qa-evidence/f6-2-image-modal.png — Full-size image modal opens with red square, dimmed background, Close button (ref=e424) in top-right. ImageModal component renders correctly. Re-verified in QA v3 run."
+  F6.3:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "qa-evidence/f6-3-csv-message.png — User message shows 'QA v3 CSV test' + file chip with document icon, 'test.csv', '44 B'. Agent responded with parsed CSV data. Re-verified in QA v3 run."
+  F6.4:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "JS evaluate: 'Just text, no files' message has childCount=1 in bubble, hasFileUI=false. No file artifacts in text-only messages. Re-verified in QA v3 run."
+  F6.5:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "qa-evidence/f6-5-file-only.png — File-only message shows file chip only (test.csv 44 B), no empty text section. JS evaluate: 6 file-only messages found, each has 1 child (FileAttachmentDisplay). Re-verified in QA v3 run."
+
+  # F7: Agent File Download Links
+  F7.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "MessageBubble.tsx:21-49 detectFilesInToolResults() parses push_files/create_or_update_file tool names, extracts path and content from tool.input; renders DetectedFile[] as AgentFilePreview components. Re-verified in QA v3 run."
+  F7.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "MessageBubble.tsx:11-13 PREVIEWABLE_EXTENSIONS set (yaml/yml/md/json/csv/txt/toml). AgentFilePreview (lines 51-88): collapsible preview with expanded state, ChevronDown/ChevronRight toggle, <pre><code> block gated by expanded, Download button. Re-verified in QA v3 run."
+  F7.3:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "MessageBubble.tsx:73 href={`${API_URL}/api/github/${file.path}`} — routes through proxy, not raw.githubusercontent.com. API_URL from VITE_API_URL. Re-verified in QA v3 run."
+
+  # F8: Supabase Storage Infrastructure
+  F8.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "00002_chat_attachments.sql:19-37 — insert into storage.buckets creates 'chat-attachments' with file_size_limit=10485760 (10MB), allowed_mime_types array includes all 11 spec types. Re-verified in QA v3 run."
+  F8.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "00002_chat_attachments.sql:1-10 — all columns present: id uuid PK default gen_random_uuid(), user_id uuid FK references auth.users(id) NOT NULL, session_id text NOT NULL, file_name text NOT NULL, file_path text NOT NULL, mime_type text NOT NULL, size_bytes integer NOT NULL, created_at timestamptz default now(). Re-verified in QA v3 run."
+  F8.3:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "00002_chat_attachments.sql:14-17 — RLS policy 'Users see own attachments' uses auth.uid()=user_id. Lines 39-55: three storage.objects policies (insert/select/delete) restrict to bucket_id='chat-attachments' AND (storage.foldername(name))[1]=auth.uid()::text. Re-verified in QA v3 run."
+
+  # F9: Server File Processing Pipeline
+  F9.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "server/src/routes/sessions.ts:63-68 — POST /:id/messages destructures { text, attachments } with type { text: string; attachments?: FileAttachment[] } from request body. Validates empty at line 70. Re-verified in QA v3 run."
+  F9.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "server/src/lib/supabase.ts:10 — createClient uses SUPABASE_SERVICE_ROLE_KEY (not anon). file-processing.ts:35-37 downloads via supabase.storage.from('chat-attachments').download(att.storagePath). Re-verified in QA v3 run."
+  F9.3:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "file-processing.ts:48-57 — IMAGE_TYPES check, builds { type: 'image', source: { type: 'base64', media_type: att.mimeType, data: buffer.toString('base64') } }. Re-verified in QA v3 run."
+  F9.4:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "file-processing.ts:58-66 — PDF check builds { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: buffer.toString('base64') } }. Re-verified in QA v3 run."
+  F9.5:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "file-processing.ts:91-96 — TEXT_TYPES (csv, plain, markdown, yaml, json) read as .text(), wrapped as { type: 'text', text: `${att.fileName}:\\n${text}` }. Re-verified in QA v3 run."
+  F9.6:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "file-processing.ts:1 imports { read, utils } from 'xlsx'; lines 72-89 parses workbook via read(buffer), iterates SheetNames, converts each sheet to CSV via utils.sheet_to_csv(), wraps as text block. Re-verified in QA v3 run."
+  F9.7:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "anthropic.ts:3-6 — ContentBlock type = text | image | document union. Line 36: sendMessage(sessionId: string, content: ContentBlock[]) accepts array, wraps in events[{type:'user.message',content}]. Re-verified in QA v3 run."
+
+  # F10: Client API Changes
+  F10.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "client/src/lib/api.ts:35-44 — sendMessage(sessionId: string, text: string, attachments?: FileAttachment[]) with body JSON.stringify({ text, attachments }). FileAttachment type at lines 22-27. Re-verified in QA v3 run."
+  F10.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "client/src/lib/file-upload.ts:58-79 — uploadFiles() uses supabase.storage.from('chat-attachments').upload(path, pf.file) with path=userId/sessionId/timestamp-filename. ChatPage.tsx:454-456 and 483-485 call uploadFiles before sendMessage. Re-verified in QA v3 run."
+  F10.3:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "ChatPage.tsx:457-462 and 488-491 — catch block on uploadFiles: toast.error() with error message, removes optimistic message via setMessages filter, returns early (message not sent). Re-verified in QA v3 run."
+
+  # F11: SSE User Message Echo Dedup (Gap G1) — VERIFIED WORKING
+  F11.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "PASS — qa-evidence/f6-5-file-only.png shows file-only user bubble (test.csv 44 B). JS evaluate after send+SSE echo+agent response: totalUserBubbles=16 (13 historical + 3 new v3 messages). No duplicates. File-only count stable at 6."
+  F11.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "PASS — JS evaluate: qaV3ImgCount=1, qaV3CsvCount=1. Only one bubble each for 'QA v3 image test' and 'QA v3 CSV test' after SSE echo + agent response. No duplicates."
+  F11.3:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "PASS — ChatPage.tsx:44 pendingSendRef = useRef(0). Incremented at line 439 in handleSend. Decremented at lines 79-81 in handleEvent case 'user.message' when pendingSendRef.current > 0. Resets on component remount for fresh sessions. Re-verified in QA v3 run."
+
+  # F12: History Reload Preserves Attachments (Gaps G2/G3) — FIXED
+  F12.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: |
+      PASS — Race condition FIXED. qa-evidence/f12-history-scroll-top.png and f12-reload-verify.png show:
+      'Here's a test image' renders blue square image thumbnail (clickable button ref=e105).
+      'QA test with image' renders red square thumbnail (button ref=e151).
+      Multiple image messages all show proper thumbnails on history reload.
+      Fix: ChatPage.tsx:260-378 now loads history FIRST via getHistory(), tracks known event IDs in historyEventIdsRef,
+      then connects SSE AFTER. SSE handler at line 70 skips replayed events via historyEventIdsRef.
+      No more race condition where SSE replays discard attachment-enriched state.
+  F12.2:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: |
+      PASS — qa-evidence/f12-history-scroll-top.png shows file-only CSV messages render as file chips:
+      'test.csv 27 B' (ref=e113), 'test.csv 42 B' (ref=e160), NOT raw text like 'test.csv:\nname,age...'
+      All 6 file-only CSV messages in history render as proper file chips with icon + filename + size.
+      Verified via both screenshots and accessibility snapshot parsing.
+  F12.3:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Static PASS — ChatPage.tsx:260-378 getHistory then-block: (1) iterates content blocks checking block.type for 'image'/'document' (line 284), (2) pattern-matches text blocks against attQueue[0].fileName+':\\n' (line 299), (3) consumes attachments from queue to build MessageAttachment[]. Server GET /:id/history (sessions.ts:142-186) returns { events, attachments } with signed URLs. Algorithm re-verified correct in QA v3."
+
+  # F13: GitHub Proxy Download (Gap G8) — FIXED
+  F13.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "server/src/routes/github.ts:50-65 — checks data.content && data.encoding === 'base64', decodes via Buffer.from(data.content.replace(/\\n/g,''), 'base64'). Serves with Content-Type from MIME_TYPES map (lines 11-17), sets Content-Disposition: attachment header. Cache stores decoded buffer. Does NOT return c.json(data) for decoded content — only for non-base64 responses (line 67). Re-verified in QA v3 run."
+
+  # F14: Keyboard Behavior (Gap G9) — FIXED
+  F14.1:
+    status: passed
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "PASS — ChatInput.tsx:141-143 onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}. Playwright verified: focused 'Attach files' button (document.activeElement confirmed), pressed Enter — NO [File chooser] triggered. Re-verified in QA v3 run."
+
+  # F15: Discovery Findings
+  F15.1:
+    status: info
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "Page title is 'client' on all routes (/, /chat/:id, /projects, /inventory, /financials, /guide) — should be 'PodPlay Chat' or route-specific. Confirmed via document.title evaluation. [MINOR — polish]"
+  F15.2:
+    status: info
+    testable_after: null
+    last_verified: "2026-04-15"
+    evidence: "/projects page now shows 'Venue Installations / No projects found.' — clean render, no wikilink artifacts. [RESOLVED]"
