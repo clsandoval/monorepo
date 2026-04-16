@@ -12,7 +12,7 @@ A new repo (`daimon-managed`) that follows the daimon pattern — a platform-agn
 - Platform-agnostic core that adapters (Discord, Slack, web) import as a library
 - FastMCP tool server for external integrations, same pattern as daimon
 - Skills as versioned `.md` files in the repo, uploaded via the Skills API
-- No database — Managed Agents handles session state
+- Supabase for config persistence and session mappings
 - Clean scaffold with one example tool, easy to extend per-deployment
 
 ## Architecture
@@ -39,7 +39,7 @@ Thin async wrapper over the Managed Agents HTTP API using `httpx`. Three concern
 env = await client.create_environment(name="daimon")
 ```
 
-Creates a cloud environment with unrestricted networking. Done once, ID persisted in config.
+Creates a cloud environment with unrestricted networking. Done once, ID persisted in Supabase `config` table.
 
 ### Agent Lifecycle (create once, reuse)
 
@@ -149,9 +149,11 @@ src/daimon/tools/
 
 Tool definition:
 ```python
-from mcp import tool
+from fastmcp import FastMCP
 
-@tool(description="Example tool that echoes input")
+mcp = FastMCP("daimon-tools")
+
+@mcp.tool(description="Example tool that echoes input")
 async def echo(message: str) -> str:
     return f"Echo: {message}"
 
@@ -188,13 +190,27 @@ daimon-web = "daimon.adapters.web:main"
 
 ### Session Mapping
 
-In-memory registry mapping platform thread IDs to managed agent session IDs:
+Supabase `session_mappings` table persists the mapping between platform thread IDs and managed agent session IDs. Survives adapter restarts.
 
-```python
-sessions: dict[str, str]  # platform_thread_id -> managed_agent_session_id
+```sql
+create table config (
+    key text primary key,             -- 'environment_id', 'agent_id', etc.
+    value text not null,
+    updated_at timestamptz default now()
+);
+
+create table session_mappings (
+    id uuid primary key default gen_random_uuid(),
+    platform text not null,           -- 'discord', 'slack', 'web'
+    platform_thread_id text not null, -- Discord thread ID, Slack thread_ts, etc.
+    managed_session_id text not null, -- Anthropic session ID
+    agent_id text not null,           -- Anthropic agent ID used
+    created_at timestamptz default now(),
+    unique (platform, platform_thread_id)
+);
 ```
 
-Swap for a persistent backend later if needed.
+The core provides a `SessionStore` that wraps Supabase queries. Adapters call `store.get_session(platform, thread_id)` and `store.create_session(...)`.
 
 ### Scaffold
 
@@ -205,15 +221,19 @@ The scaffold ships with entry point stubs only — no adapter implementations. T
 ```
 daimon-managed/
 ├── pyproject.toml              # uv, single package "daimon"
-├── .env.example                # ANTHROPIC_API_KEY, GITHUB_TOKEN, etc.
+├── .env.example                # ANTHROPIC_API_KEY, GITHUB_TOKEN, SUPABASE_URL, SUPABASE_KEY
 ├── .gitignore
+├── supabase/
+│   └── migrations/
+│       └── 00000000000000_init.sql  # config + session_mappings tables
 ├── src/daimon/
 │   ├── __init__.py
 │   ├── core/
 │   │   ├── __init__.py
 │   │   ├── client.py           # Managed Agents API wrapper (httpx)
 │   │   ├── events.py           # Typed event models (dataclasses)
-│   │   └── sessions.py         # Session registry (in-memory)
+│   │   ├── sessions.py         # SessionStore (Supabase-backed)
+│   │   └── config.py           # Config store (environment ID, agent IDs)
 │   ├── skills/
 │   │   └── brainstorming.md    # Example skill
 │   ├── tools/
@@ -238,7 +258,7 @@ daimon-managed/
 | Sandbox lifecycle (create, health check, recover) | Environment + session API |
 | SDK event file tailing + stream parser | SSE streaming from API |
 | FastMCP running inside sandbox | FastMCP as remote HTTP server |
-| Supabase for sessions, routines, credentials | No database — API handles sessions |
+| Supabase for sessions, routines, credentials | Supabase for config + session mappings only |
 | Discord-only | Platform-agnostic with adapter pattern |
 
 ## What Carries Over
@@ -250,7 +270,7 @@ daimon-managed/
 
 ## Non-Goals
 
-- No database in the scaffold
+- Supabase is minimal — config + session mappings only, no user tables or credentials
 - No specific adapter implementations (stubs only)
 - No migration of daimon's 17 tool integrations — empty scaffold with example
 - No scheduled routines (managed agents may support this separately)
