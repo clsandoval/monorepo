@@ -68,6 +68,8 @@ daimon-cma/
 mkdir -p /home/clsandoval/cs/daimon-cma
 cd /home/clsandoval/cs/daimon-cma
 git init
+mkdir -p tests
+touch tests/__init__.py
 ```
 
 - [ ] **Step 2: Create pyproject.toml**
@@ -183,12 +185,11 @@ git commit -m "feat: init daimon-cma repo with project config"
 **Files:**
 - Create: `src/daimon/core/__init__.py`
 - Create: `src/daimon/core/events.py`
-- Create: `tests/__init__.py`
 - Create: `tests/test_events.py`
 
 - [ ] **Step 1: Write the failing test**
 
-Create `tests/__init__.py` (empty) and `tests/test_events.py`:
+Create `tests/test_events.py`:
 
 ```python
 from daimon.core.events import (
@@ -762,22 +763,29 @@ API_BASE = "https://api.anthropic.com/v1"
 
 
 @pytest.fixture
-def client():
-    return DaimonClient(api_key="test-key")
+def mock_transport():
+    """Create a respx mock transport for injecting into DaimonClient."""
+    with respx.mock(assert_all_called=False) as router:
+        yield router
 
 
-@respx.mock
-async def test_create_environment(client):
-    respx.post(f"{API_BASE}/environments").mock(
+@pytest.fixture
+def client(mock_transport):
+    """DaimonClient with a mocked httpx transport."""
+    mock_http = httpx.AsyncClient(transport=mock_transport.handler)
+    return DaimonClient(api_key="test-key", http_client=mock_http)
+
+
+async def test_create_environment(mock_transport, client):
+    mock_transport.post(f"{API_BASE}/environments").mock(
         return_value=httpx.Response(200, json={"id": "env_123", "name": "daimon"})
     )
     result = await client.create_environment(name="daimon")
     assert result["id"] == "env_123"
 
 
-@respx.mock
-async def test_create_agent(client):
-    respx.post(f"{API_BASE}/agents").mock(
+async def test_create_agent(mock_transport, client):
+    mock_transport.post(f"{API_BASE}/agents").mock(
         return_value=httpx.Response(200, json={"id": "agent_abc", "version": 1})
     )
     result = await client.create_agent(
@@ -791,9 +799,8 @@ async def test_create_agent(client):
     assert result["version"] == 1
 
 
-@respx.mock
-async def test_create_session(client):
-    respx.post(f"{API_BASE}/sessions").mock(
+async def test_create_session(mock_transport, client):
+    mock_transport.post(f"{API_BASE}/sessions").mock(
         return_value=httpx.Response(200, json={"id": "sess_789"})
     )
     result = await client.create_session(
@@ -804,17 +811,15 @@ async def test_create_session(client):
     assert result["id"] == "sess_789"
 
 
-@respx.mock
-async def test_send_message(client):
-    respx.post(f"{API_BASE}/sessions/sess_789/events").mock(
+async def test_send_message(mock_transport, client):
+    mock_transport.post(f"{API_BASE}/sessions/sess_789/events").mock(
         return_value=httpx.Response(200, json={"ok": True})
     )
     await client.send_message(session_id="sess_789", text="Hello")
 
 
-@respx.mock
-async def test_send_tool_result(client):
-    respx.post(f"{API_BASE}/sessions/sess_789/events").mock(
+async def test_send_tool_result(mock_transport, client):
+    mock_transport.post(f"{API_BASE}/sessions/sess_789/events").mock(
         return_value=httpx.Response(200, json={"ok": True})
     )
     await client.send_tool_result(
@@ -824,9 +829,8 @@ async def test_send_tool_result(client):
     )
 
 
-@respx.mock
-async def test_upload_skill(client):
-    respx.post(f"{API_BASE}/skills").mock(
+async def test_upload_skill(mock_transport, client):
+    mock_transport.post(f"{API_BASE}/skills").mock(
         return_value=httpx.Response(200, json={"id": "skill_01"})
     )
     result = await client.upload_skill(
@@ -836,9 +840,8 @@ async def test_upload_skill(client):
     assert result == "skill_01"
 
 
-@respx.mock
-async def test_get_events(client):
-    respx.get(f"{API_BASE}/sessions/sess_789/events").mock(
+async def test_get_events(mock_transport, client):
+    mock_transport.get(f"{API_BASE}/sessions/sess_789/events").mock(
         return_value=httpx.Response(200, json={"data": [{"id": "evt_01", "type": "agent.message"}]})
     )
     result = await client.get_events(session_id="sess_789")
@@ -880,9 +883,9 @@ BETA_SKILLS = "skills-2025-10-02"
 class DaimonClient:
     """Thin async wrapper over the Managed Agents HTTP API."""
 
-    def __init__(self, api_key: str) -> None:
+    def __init__(self, api_key: str, http_client: httpx.AsyncClient | None = None) -> None:
         self._api_key = api_key
-        self._http = httpx.AsyncClient(timeout=60)
+        self._http = http_client or httpx.AsyncClient(timeout=60)
 
     def _headers(self, beta: str = BETA_AGENTS) -> dict[str, str]:
         return {
