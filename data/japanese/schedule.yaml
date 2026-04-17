@@ -1,185 +1,290 @@
-# Japanese Curriculum Schedule
-# Pre-allocated vocab and grammar per episode — prevents parallel dispatch collisions.
-# Status: queued | dispatched | completed
-# Goal: conversational fluency (JLPT N5 → natural speech)
-#
-# Absorption model (podcast, no drills):
-#   - 5-6 new vocab per episode (Pimsleur does 5 with drills; podcast is passive, so fewer)
-#   - 1 new grammar pattern per episode
-#   - Japanese ratio holds for ~8-10 episodes before bumping
-#   - An item moves solid only after appearing in ~4 episodes as review
-#
-# Ratio ramp:
-#   0.20  ep  1-10  (English dominant, Japanese words and phrases)
-#   0.30  ep 11-18  (full Japanese sentences appear, English paraphrase follows)
-#   0.45  ep 19-26  (code-switching normalized, listener follows without paraphrase)
-#   0.60  ep 27-34  (Japanese dominant, English for new/complex only)
-#   0.80  ep 35-44  (near full Japanese)
-#   1.00  ep 45+    (full Japanese, English only for clarification if needed)
-
 episode_3:
   status: dispatched
-  japanese_ratio: 0.20
-  theme: "Philippine regulatory compliance (angkin.ph)"
+  japanese_ratio: 0.2
+  theme: Philippine regulatory compliance (angkin.ph)
   vocab:
-    - { word: 壊す, reading: こわす, meaning: "to break (transitive)" }
-    - { word: 壊れる, reading: こわれる, meaning: "to break (intransitive)" }
-    - { word: 落とす, reading: おとす, meaning: "to drop" }
-    - { word: 落ちる, reading: おちる, meaning: "to fall" }
-    - { word: 増える, reading: ふえる, meaning: "to increase" }
-    - { word: 減る, reading: へる, meaning: "to decrease" }
+  - word: 壊す
+    reading: こわす
+    meaning: to break (transitive)
+  - word: 壊れる
+    reading: こわれる
+    meaning: to break (intransitive)
+  - word: 落とす
+    reading: おとす
+    meaning: to drop
+  - word: 落ちる
+    reading: おちる
+    meaning: to fall
+  - word: 増える
+    reading: ふえる
+    meaning: to increase
+  - word: 減る
+    reading: へる
+    meaning: to decrease
   grammar:
-    - { pattern: "〜なくてはいけない", meaning: "must / have to" }
-
+  - pattern: 〜なくてはいけない
+    meaning: must / have to
 episode_4:
-  status: queued
-  japanese_ratio: 0.20
-  theme: "Plans and appointments"
+  status: dispatched
+  japanese_ratio: 0.2
+  theme: Plans and appointments
   vocab:
-    - { word: 用事, reading: ようじ, meaning: "errand; business to handle" }
-    - { word: 予定, reading: よてい, meaning: "plan; schedule" }
-    - { word: 約束, reading: やくそく, meaning: "promise; appointment" }
-    - { word: 連絡, reading: れんらく, meaning: "contact; getting in touch" }
-    - { word: 返事, reading: へんじ, meaning: "reply; response" }
+  - word: 用事
+    reading: ようじ
+    meaning: errand; business to handle
+  - word: 予定
+    reading: よてい
+    meaning: plan; schedule
+  - word: 約束
+    reading: やくそく
+    meaning: promise; appointment
+  - word: 連絡
+    reading: れんらく
+    meaning: contact; getting in touch
+  - word: 返事
+    reading: へんじ
+    meaning: reply; response
   grammar:
-    - { pattern: "〜なくちゃ", meaning: "gotta / must (casual spoken)" }
-
+  - pattern: 〜なくちゃ
+    meaning: gotta / must (casual spoken)
 episode_5:
   status: queued
-  japanese_ratio: 0.20
-  theme: "Preparation and consultation"
+  japanese_ratio: 0.2
+  theme: Preparation and consultation
   vocab:
-    - { word: 相談, reading: そうだん, meaning: "consultation; talking something over" }
-    - { word: 準備, reading: じゅんび, meaning: "preparation" }
-    - { word: 予約, reading: よやく, meaning: "reservation; booking" }
-    - { word: 経験, reading: けいけん, meaning: "experience" }
-    - { word: 意味, reading: いみ, meaning: "meaning" }
+  - word: 相談
+    reading: そうだん
+    meaning: consultation; talking something over
+  - word: 準備
+    reading: じゅんび
+    meaning: preparation
+  - word: 予約
+    reading: よやく
+    meaning: reservation; booking
+  - word: 経験
+    reading: けいけん
+    meaning: experience
+  - word: 意味
+    reading: いみ
+    meaning: meaning
   grammar:
-    - { pattern: "〜なくてもいい", meaning: "don't have to / it's fine not to" }
-
+  - pattern: 〜なくてもいい
+    meaning: don't have to / it's fine not to
 episode_6:
   status: queued
-  japanese_ratio: 0.20
-  theme: "Reasons and explanations"
+  japanese_ratio: 0.2
+  theme: Reasons and explanations
   vocab:
-    - { word: 理由, reading: りゆう, meaning: "reason" }
-    - { word: 説明, reading: せつめい, meaning: "explanation" }
-    - { word: 特に, reading: とくに, meaning: "especially; in particular" }
-    - { word: 最近, reading: さいきん, meaning: "recently; lately" }
-    - { word: 必ず, reading: かならず, meaning: "without fail; certainly" }
+  - word: 理由
+    reading: りゆう
+    meaning: reason
+  - word: 説明
+    reading: せつめい
+    meaning: explanation
+  - word: 特に
+    reading: とくに
+    meaning: especially; in particular
+  - word: 最近
+    reading: さいきん
+    meaning: recently; lately
+  - word: 必ず
+    reading: かならず
+    meaning: without fail; certainly
   grammar:
-    - { pattern: "〜ほうがいい", meaning: "you should / had better (giving advice)" }
-
+  - pattern: 〜ほうがいい
+    meaning: you should / had better (giving advice)
 episode_7:
   status: queued
-  japanese_ratio: 0.20
-  theme: "Sudden changes and choices"
+  japanese_ratio: 0.2
+  theme: Sudden changes and choices
   vocab:
-    - { word: 急に, reading: きゅうに, meaning: "suddenly; all of a sudden" }
-    - { word: 足りる, reading: たりる, meaning: "to be sufficient; to be enough" }
-    - { word: 間に合う, reading: まにあう, meaning: "to be in time; to make it" }
-    - { word: 上げる, reading: あげる, meaning: "to raise; to give (upward)" }
-    - { word: 下げる, reading: さげる, meaning: "to lower; to reduce" }
+  - word: 急に
+    reading: きゅうに
+    meaning: suddenly; all of a sudden
+  - word: 足りる
+    reading: たりる
+    meaning: to be sufficient; to be enough
+  - word: 間に合う
+    reading: まにあう
+    meaning: to be in time; to make it
+  - word: 上げる
+    reading: あげる
+    meaning: to raise; to give (upward)
+  - word: 下げる
+    reading: さげる
+    meaning: to lower; to reduce
   grammar:
-    - { pattern: "〜にする", meaning: "to decide on / I'll go with (making a choice)" }
-
+  - pattern: 〜にする
+    meaning: to decide on / I'll go with (making a choice)
 episode_8:
   status: queued
-  japanese_ratio: 0.20
-  theme: "Places and getting around"
+  japanese_ratio: 0.2
+  theme: Places and getting around
   vocab:
-    - { word: 場所, reading: ばしょ, meaning: "place; location" }
-    - { word: 出発, reading: しゅっぱつ, meaning: "departure" }
-    - { word: 到着, reading: とうちゃく, meaning: "arrival" }
-    - { word: 交通, reading: こうつう, meaning: "traffic; transportation" }
-    - { word: 住所, reading: じゅうしょ, meaning: "address" }
+  - word: 場所
+    reading: ばしょ
+    meaning: place; location
+  - word: 出発
+    reading: しゅっぱつ
+    meaning: departure
+  - word: 到着
+    reading: とうちゃく
+    meaning: arrival
+  - word: 交通
+    reading: こうつう
+    meaning: traffic; transportation
+  - word: 住所
+    reading: じゅうしょ
+    meaning: address
   grammar:
-    - { pattern: "〜は〜より...です", meaning: "A is more ... than B (comparison)" }
-
+  - pattern: 〜は〜より...です
+    meaning: A is more ... than B (comparison)
 episode_9:
   status: queued
-  japanese_ratio: 0.20
-  theme: "Preferences and scenery"
+  japanese_ratio: 0.2
+  theme: Preferences and scenery
   vocab:
-    - { word: 景色, reading: けしき, meaning: "scenery; view" }
-    - { word: 季節, reading: きせつ, meaning: "season" }
-    - { word: 趣味, reading: しゅみ, meaning: "hobby; interest" }
-    - { word: 特別, reading: とくべつ, meaning: "special" }
-    - { word: 将来, reading: しょうらい, meaning: "future; one's future" }
+  - word: 景色
+    reading: けしき
+    meaning: scenery; view
+  - word: 季節
+    reading: きせつ
+    meaning: season
+  - word: 趣味
+    reading: しゅみ
+    meaning: hobby; interest
+  - word: 特別
+    reading: とくべつ
+    meaning: special
+  - word: 将来
+    reading: しょうらい
+    meaning: future; one's future
   grammar:
-    - { pattern: "〜より〜ほうが", meaning: "prefer A over B (expressing preference)" }
-
+  - pattern: 〜より〜ほうが
+    meaning: prefer A over B (expressing preference)
 episode_10:
   status: queued
-  japanese_ratio: 0.20
-  theme: "Seasons and time markers"
+  japanese_ratio: 0.2
+  theme: Seasons and time markers
   vocab:
-    - { word: 春, reading: はる, meaning: "spring" }
-    - { word: 夏, reading: なつ, meaning: "summer" }
-    - { word: 秋, reading: あき, meaning: "autumn" }
-    - { word: 冬, reading: ふゆ, meaning: "winter" }
-    - { word: 最初, reading: さいしょ, meaning: "first; the beginning" }
+  - word: 春
+    reading: はる
+    meaning: spring
+  - word: 夏
+    reading: なつ
+    meaning: summer
+  - word: 秋
+    reading: あき
+    meaning: autumn
+  - word: 冬
+    reading: ふゆ
+    meaning: winter
+  - word: 最初
+    reading: さいしょ
+    meaning: first; the beginning
   grammar:
-    - { pattern: "〜の中で〜が一番", meaning: "among X, Y is the most... (superlative)" }
-
+  - pattern: 〜の中で〜が一番
+    meaning: among X, Y is the most... (superlative)
 episode_11:
   status: queued
-  japanese_ratio: 0.30
-  theme: "Past experiences and stories"
+  japanese_ratio: 0.3
+  theme: Past experiences and stories
   vocab:
-    - { word: 最後, reading: さいご, meaning: "last; the end" }
-    - { word: 最近, reading: さいきん, meaning: "recently (adverb use)" }
-    - { word: 経済, reading: けいざい, meaning: "economy" }
-    - { word: 社会, reading: しゃかい, meaning: "society" }
-    - { word: 文化, reading: ぶんか, meaning: "culture" }
+  - word: 最後
+    reading: さいご
+    meaning: last; the end
+  - word: 最近
+    reading: さいきん
+    meaning: recently (adverb use)
+  - word: 経済
+    reading: けいざい
+    meaning: economy
+  - word: 社会
+    reading: しゃかい
+    meaning: society
+  - word: 文化
+    reading: ぶんか
+    meaning: culture
   grammar:
-    - { pattern: "〜たことがある", meaning: "have done before (expressing experience)" }
-
+  - pattern: 〜たことがある
+    meaning: have done before (expressing experience)
 episode_12:
   status: queued
-  japanese_ratio: 0.30
-  theme: "World and history"
+  japanese_ratio: 0.3
+  theme: World and history
   vocab:
-    - { word: 歴史, reading: れきし, meaning: "history" }
-    - { word: 世界, reading: せかい, meaning: "world" }
-    - { word: 国, reading: くに, meaning: "country; nation" }
-    - { word: 自然, reading: しぜん, meaning: "nature" }
-    - { word: 環境, reading: かんきょう, meaning: "environment" }
+  - word: 歴史
+    reading: れきし
+    meaning: history
+  - word: 世界
+    reading: せかい
+    meaning: world
+  - word: 国
+    reading: くに
+    meaning: country; nation
+  - word: 自然
+    reading: しぜん
+    meaning: nature
+  - word: 環境
+    reading: かんきょう
+    meaning: environment
   grammar:
-    - { pattern: "〜ことができる", meaning: "can / be able to do (expressing ability)" }
-
+  - pattern: 〜ことができる
+    meaning: can / be able to do (expressing ability)
 episode_13:
   status: queued
-  japanese_ratio: 0.30
-  theme: "Doing two things at once, sequence"
+  japanese_ratio: 0.3
+  theme: Doing two things at once, sequence
   vocab:
-    - { word: 外国, reading: がいこく, meaning: "foreign country" }
-    - { word: 外国人, reading: がいこくじん, meaning: "foreigner" }
-    - { word: 事故, reading: じこ, meaning: "accident" }
-    - { word: 番号, reading: ばんごう, meaning: "number" }
-    - { word: 名前, reading: なまえ, meaning: "name" }
+  - word: 外国
+    reading: がいこく
+    meaning: foreign country
+  - word: 外国人
+    reading: がいこくじん
+    meaning: foreigner
+  - word: 事故
+    reading: じこ
+    meaning: accident
+  - word: 番号
+    reading: ばんごう
+    meaning: number
+  - word: 名前
+    reading: なまえ
+    meaning: name
   grammar:
-    - { pattern: "〜ながら", meaning: "while doing (simultaneous actions)" }
-
+  - pattern: 〜ながら
+    meaning: while doing (simultaneous actions)
 episode_14:
   status: queued
-  japanese_ratio: 0.30
-  theme: "Events and timing"
+  japanese_ratio: 0.3
+  theme: Events and timing
   vocab:
-    - { word: お祭り, reading: おまつり, meaning: "festival" }
-    - { word: お正月, reading: おしょうがつ, meaning: "New Year holiday" }
-    - { word: 地震, reading: じしん, meaning: "earthquake" }
-    - { word: 火事, reading: かじ, meaning: "fire (disaster)" }
-    - { word: 政治, reading: せいじ, meaning: "politics" }
+  - word: お祭り
+    reading: おまつり
+    meaning: festival
+  - word: お正月
+    reading: おしょうがつ
+    meaning: New Year holiday
+  - word: 地震
+    reading: じしん
+    meaning: earthquake
+  - word: 火事
+    reading: かじ
+    meaning: fire (disaster)
+  - word: 政治
+    reading: せいじ
+    meaning: politics
   grammar:
-    - { pattern: "〜あとで", meaning: "after doing X (then Y)" }
-
+  - pattern: 〜あとで
+    meaning: after doing X (then Y)
 episode_15:
   status: queued
-  japanese_ratio: 0.30
-  theme: "When things happen"
+  japanese_ratio: 0.3
+  theme: When things happen
   vocab:
-    - { word: 最近, reading: さいきん, meaning: "recent (events)" }
-    # remaining vocab TBD from vocabulary.yaml not_started pool
+  - word: 最近
+    reading: さいきん
+    meaning: recent (events)
   grammar:
-    - { pattern: "〜とき", meaning: "when / at the time of (clause)" }
+  - pattern: 〜とき
+    meaning: when / at the time of (clause)
