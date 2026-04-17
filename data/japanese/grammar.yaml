@@ -252,9 +252,9 @@
 
 - pattern: "〜てある"
   meaning: "something has been done (resulting state)"
-  status: not_started
+  status: new
   exposures: 0
-  introduced_in: null
+  introduced_in: episode_1
   examples:
     - jp: 窓が開けてあります
       en: The window has been opened (and remains open)
@@ -286,9 +286,9 @@
 
 - pattern: "〜つもり"
   meaning: "plan to / intend to"
-  status: not_started
+  status: new
   exposures: 0
-  introduced_in: null
+  introduced_in: episode_2
   examples:
     - jp: 来年日本に行くつもりです
       en: I plan to go to Japan next year
@@ -344,9 +344,9 @@
 
 - pattern: "〜ないで"
   meaning: "without doing"
-  status: not_started
+  status: new
   exposures: 0
-  introduced_in: null
+  introduced_in: episode_2
   examples:
     - jp: 朝ご飯を食べないで学校に行きました
       en: I went to school without eating breakfast
@@ -354,9 +354,9 @@
 
 - pattern: "〜ないといけない"
   meaning: "must / have to"
-  status: not_started
+  status: new
   exposures: 0
-  introduced_in: null
+  introduced_in: episode_2
   examples:
     - jp: 宿題をしないといけない
       en: I have to do homework
