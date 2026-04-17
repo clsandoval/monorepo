@@ -90,9 +90,9 @@ episode_6:
     meaning: without fail; certainly
   grammar: []
 episode_7:
-  status: queued
+  status: dispatched
   japanese_ratio: 0.2
-  theme: Time pressure and pacing
+  theme: "Comparing two Python repos: daimon-lite vs daimon-cma (weaves pacing/time-pressure vocab naturally)"
   vocab:
   - word: 急に
     reading: きゅうに
