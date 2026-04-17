@@ -1,6 +1,16 @@
 target: N5
 baseline: duolingo-section-3
-episodes_completed: 2
-total_exposure_hours: 1.0
+episodes_completed: 3
+total_exposure_hours: 2.5
 japanese_ratio: 0.20
 started_at: 2026-04-17
+cadence: 4_per_day
+
+# Ratio ramp (4 episodes/day = ~2 days per tier)
+# Ramp every 8 episodes (~2 days at current cadence)
+# 0.20  ep  1-10  (English dominant — building vocabulary base)
+# 0.30  ep 11-18  (Japanese sentences appear, English paraphrase follows)
+# 0.45  ep 19-26  (code-switching natural, listener follows)
+# 0.60  ep 27-34  (Japanese dominant, English for new items only)
+# 0.80  ep 35-44  (near full Japanese)
+# 1.00  ep 45+    (full Japanese)
