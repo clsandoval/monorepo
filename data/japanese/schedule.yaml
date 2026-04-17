@@ -113,9 +113,9 @@ episode_7:
   - pattern: 〜なくてもいい
     meaning: don't have to / it's fine not to
 episode_8:
-  status: queued
+  status: dispatched
   japanese_ratio: 0.2
-  theme: Places and getting around
+  theme: "In-depth 1-hour comparison of agent frameworks: Claude Managed Agents vs Vercel Open Agents vs OpenHands vs Mastra vs Suna (tradeoffs, pros/cons, potential, gaps, insights)"
   vocab:
   - word: 場所
     reading: ばしょ
