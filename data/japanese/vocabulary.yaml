@@ -1,4176 +1,4499 @@
-# JLPT N5 Vocabulary Database
-# Learner profile: Completed Duolingo Japanese Section 3
-# solid = known from Duolingo Section 3
-# not_started = remaining N5 vocab to learn
-
-# ============================================================
-# SOLID — Duolingo Section 3 vocabulary
-# ============================================================
-
-# --- Core Verbs ---
-
 - word: 食べる
   reading: たべる
   meaning: to eat
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 飲む
   reading: のむ
   meaning: to drink
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 行く
   reading: いく
   meaning: to go
   status: solid
-  exposures: 0
+  exposures: 2
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 来る
   reading: くる
   meaning: to come
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, irregular]
-
+  tags:
+  - verb
+  - irregular
 - word: 見る
   reading: みる
   meaning: to see; to watch
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 聞く
   reading: きく
   meaning: to listen; to ask
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 読む
   reading: よむ
   meaning: to read
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 書く
   reading: かく
   meaning: to write
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 話す
   reading: はなす
   meaning: to speak; to talk
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 買う
   reading: かう
   meaning: to buy
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: する
   reading: する
   meaning: to do
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, irregular]
-
+  tags:
+  - verb
+  - irregular
 - word: なる
   reading: なる
   meaning: to become
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: ある
   reading: ある
   meaning: to exist (inanimate)
   status: solid
-  exposures: 0
+  exposures: 48
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: いる
   reading: いる
   meaning: to exist (animate)
   status: solid
-  exposures: 0
+  exposures: 29
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 思う
   reading: おもう
   meaning: to think
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 知る
   reading: しる
   meaning: to know
   status: solid
-  exposures: 0
+  exposures: 1
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 分かる
   reading: わかる
   meaning: to understand
   status: solid
-  exposures: 0
+  exposures: 3
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 使う
   reading: つかう
   meaning: to use
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 作る
   reading: つくる
   meaning: to make; to create
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 持つ
   reading: もつ
   meaning: to hold; to have
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 待つ
   reading: まつ
   meaning: to wait
   status: solid
-  exposures: 0
+  exposures: 1
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 住む
   reading: すむ
   meaning: to live; to reside
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 働く
   reading: はたらく
   meaning: to work
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 勉強する
   reading: べんきょうする
   meaning: to study
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, suru]
-
+  tags:
+  - verb
+  - suru
 - word: 練習する
   reading: れんしゅうする
   meaning: to practice
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, suru]
-
+  tags:
+  - verb
+  - suru
 - word: 教える
   reading: おしえる
   meaning: to teach; to tell
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 学ぶ
   reading: まなぶ
   meaning: to learn
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 遊ぶ
   reading: あそぶ
   meaning: to play; to hang out
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 歩く
   reading: あるく
   meaning: to walk
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 走る
   reading: はしる
   meaning: to run
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 泳ぐ
   reading: およぐ
   meaning: to swim
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 歌う
   reading: うたう
   meaning: to sing
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 踊る
   reading: おどる
   meaning: to dance
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 寝る
   reading: ねる
   meaning: to sleep; to go to bed
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 起きる
   reading: おきる
   meaning: to wake up; to get up
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 入る
   reading: はいる
   meaning: to enter
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 出る
   reading: でる
   meaning: to leave; to go out
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 帰る
   reading: かえる
   meaning: to return home
   status: solid
-  exposures: 0
+  exposures: 1
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 乗る
   reading: のる
   meaning: to ride; to get on
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 降りる
   reading: おりる
   meaning: to get off; to descend
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 開ける
   reading: あける
   meaning: to open
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 閉める
   reading: しめる
   meaning: to close
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 始める
   reading: はじめる
   meaning: to begin (transitive)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 終わる
   reading: おわる
   meaning: to end; to finish
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 会う
   reading: あう
   meaning: to meet
   status: solid
-  exposures: 0
+  exposures: 5
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 送る
   reading: おくる
   meaning: to send
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: もらう
   reading: もらう
   meaning: to receive
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: あげる
   reading: あげる
   meaning: to give
   status: solid
-  exposures: 0
+  exposures: 4
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 借りる
   reading: かりる
   meaning: to borrow
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 返す
   reading: かえす
   meaning: to return (something)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 洗う
   reading: あらう
   meaning: to wash
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 着る
   reading: きる
   meaning: to wear (upper body)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 脱ぐ
   reading: ぬぐ
   meaning: to take off (clothes)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 置く
   reading: おく
   meaning: to put; to place
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 取る
   reading: とる
   meaning: to take
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 座る
   reading: すわる
   meaning: to sit
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 立つ
   reading: たつ
   meaning: to stand
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 止まる
   reading: とまる
   meaning: to stop
   status: solid
-  exposures: 0
+  exposures: 5
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 曲がる
   reading: まがる
   meaning: to turn; to bend
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 渡る
   reading: わたる
   meaning: to cross over
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 払う
   reading: はらう
   meaning: to pay
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [verb, godan]
-
-# --- Nouns: Food/Drink ---
-
+  tags:
+  - verb
+  - godan
 - word: ごはん
   reading: ごはん
   meaning: rice; meal
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: パン
   reading: ぱん
   meaning: bread
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 肉
   reading: にく
   meaning: meat
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 魚
   reading: さかな
   meaning: fish
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 野菜
   reading: やさい
   meaning: vegetable
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 果物
   reading: くだもの
   meaning: fruit
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 卵
   reading: たまご
   meaning: egg
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 牛乳
   reading: ぎゅうにゅう
   meaning: milk
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, drink]
-
+  tags:
+  - noun
+  - drink
 - word: 水
   reading: みず
   meaning: water
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, drink]
-
+  tags:
+  - noun
+  - drink
 - word: お茶
   reading: おちゃ
   meaning: tea
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, drink]
-
+  tags:
+  - noun
+  - drink
 - word: コーヒー
   reading: こーひー
   meaning: coffee
   status: solid
-  exposures: 0
+  exposures: 3
   introduced_in: duolingo
-  tags: [noun, drink]
-
+  tags:
+  - noun
+  - drink
 - word: ジュース
   reading: じゅーす
   meaning: juice
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, drink]
-
+  tags:
+  - noun
+  - drink
 - word: ビール
   reading: びーる
   meaning: beer
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, drink]
-
+  tags:
+  - noun
+  - drink
 - word: お酒
   reading: おさけ
   meaning: alcohol; sake
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, drink]
-
+  tags:
+  - noun
+  - drink
 - word: 朝ごはん
   reading: あさごはん
   meaning: breakfast
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 昼ごはん
   reading: ひるごはん
   meaning: lunch
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 晩ごはん
   reading: ばんごはん
   meaning: dinner
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: りんご
   reading: りんご
   meaning: apple
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: みかん
   reading: みかん
   meaning: mandarin orange
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: バナナ
   reading: ばなな
   meaning: banana
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: ケーキ
   reading: けーき
   meaning: cake
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: アイスクリーム
   reading: あいすくりーむ
   meaning: ice cream
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: ラーメン
   reading: らーめん
   meaning: ramen
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: すし
   reading: すし
   meaning: sushi
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 弁当
   reading: べんとう
   meaning: boxed lunch
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 料理
   reading: りょうり
   meaning: cooking; cuisine
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 砂糖
   reading: さとう
   meaning: sugar
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 塩
   reading: しお
   meaning: salt
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
+  tags:
+  - noun
+  - food
 - word: 味
   reading: あじ
   meaning: flavor; taste
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, food]
-
-# --- Nouns: People/Family ---
-
+  tags:
+  - noun
+  - food
 - word: 人
   reading: ひと
   meaning: person
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: 男
   reading: おとこ
   meaning: man
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: 女
   reading: おんな
   meaning: woman
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: 子供
   reading: こども
   meaning: child
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: 大人
   reading: おとな
   meaning: adult
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: お父さん
   reading: おとうさん
   meaning: father
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, family]
-
+  tags:
+  - noun
+  - family
 - word: お母さん
   reading: おかあさん
   meaning: mother
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, family]
-
+  tags:
+  - noun
+  - family
 - word: お兄さん
   reading: おにいさん
   meaning: older brother
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, family]
-
+  tags:
+  - noun
+  - family
 - word: お姉さん
   reading: おねえさん
   meaning: older sister
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, family]
-
+  tags:
+  - noun
+  - family
 - word: 弟
   reading: おとうと
   meaning: younger brother
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, family]
-
+  tags:
+  - noun
+  - family
 - word: 妹
   reading: いもうと
   meaning: younger sister
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, family]
-
+  tags:
+  - noun
+  - family
 - word: 家族
   reading: かぞく
   meaning: family
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, family]
-
+  tags:
+  - noun
+  - family
 - word: 友達
   reading: ともだち
   meaning: friend
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: 先生
   reading: せんせい
   meaning: teacher
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: 学生
   reading: がくせい
   meaning: student
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: 彼
   reading: かれ
   meaning: he; boyfriend
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: 彼女
   reading: かのじょ
   meaning: she; girlfriend
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: みんな
   reading: みんな
   meaning: everyone
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: 赤ちゃん
   reading: あかちゃん
   meaning: baby
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, people]
-
+  tags:
+  - noun
+  - people
 - word: おじいさん
   reading: おじいさん
   meaning: grandfather; old man
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, family]
-
+  tags:
+  - noun
+  - family
 - word: おばあさん
   reading: おばあさん
   meaning: grandmother; old woman
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, family]
-
-# --- Nouns: Places ---
-
+  tags:
+  - noun
+  - family
 - word: 家
   reading: いえ
   meaning: house; home
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 学校
   reading: がっこう
   meaning: school
   status: solid
-  exposures: 0
+  exposures: 2
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 大学
   reading: だいがく
   meaning: university
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 会社
   reading: かいしゃ
   meaning: company
   status: solid
-  exposures: 0
+  exposures: 6
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 病院
   reading: びょういん
   meaning: hospital
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 駅
   reading: えき
   meaning: station
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 空港
   reading: くうこう
   meaning: airport
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: ホテル
   reading: ほてる
   meaning: hotel
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: レストラン
   reading: れすとらん
   meaning: restaurant
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: コンビニ
   reading: こんびに
   meaning: convenience store
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: スーパー
   reading: すーぱー
   meaning: supermarket
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: デパート
   reading: でぱーと
   meaning: department store
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 図書館
   reading: としょかん
   meaning: library
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 銀行
   reading: ぎんこう
   meaning: bank
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 郵便局
   reading: ゆうびんきょく
   meaning: post office
   status: solid
-  exposures: 0
+  exposures: 3
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 公園
   reading: こうえん
   meaning: park
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 山
   reading: やま
   meaning: mountain
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 海
   reading: うみ
   meaning: sea; ocean
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 川
   reading: かわ
   meaning: river
   status: solid
-  exposures: 0
+  exposures: 1
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 町
   reading: まち
   meaning: town
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 道
   reading: みち
   meaning: road; way
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 部屋
   reading: へや
   meaning: room
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: 教室
   reading: きょうしつ
   meaning: classroom
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: トイレ
   reading: といれ
   meaning: toilet; restroom
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
+  tags:
+  - noun
+  - place
 - word: お店
   reading: おみせ
   meaning: shop; store
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, place]
-
-# --- Nouns: Things ---
-
+  tags:
+  - noun
+  - place
 - word: 本
   reading: ほん
   meaning: book
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 新聞
   reading: しんぶん
   meaning: newspaper
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 雑誌
   reading: ざっし
   meaning: magazine
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 手紙
   reading: てがみ
   meaning: letter
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 電話
   reading: でんわ
   meaning: telephone
   status: solid
-  exposures: 0
+  exposures: 3
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: テレビ
   reading: てれび
   meaning: television
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: パソコン
   reading: ぱそこん
   meaning: personal computer
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 写真
   reading: しゃしん
   meaning: photograph
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 映画
   reading: えいが
   meaning: movie
   status: solid
-  exposures: 0
+  exposures: 2
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 音楽
   reading: おんがく
   meaning: music
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 車
   reading: くるま
   meaning: car
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 自転車
   reading: じてんしゃ
   meaning: bicycle
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 電車
   reading: でんしゃ
   meaning: train
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: バス
   reading: ばす
   meaning: bus
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 飛行機
   reading: ひこうき
   meaning: airplane
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: お金
   reading: おかね
   meaning: money
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 財布
   reading: さいふ
   meaning: wallet
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 鍵
   reading: かぎ
   meaning: key
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 傘
   reading: かさ
   meaning: umbrella
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: かばん
   reading: かばん
   meaning: bag
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 時計
   reading: とけい
   meaning: clock; watch
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: メガネ
   reading: めがね
   meaning: glasses
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 薬
   reading: くすり
   meaning: medicine
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 切符
   reading: きっぷ
   meaning: ticket
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
+  tags:
+  - noun
+  - thing
 - word: 地図
   reading: ちず
   meaning: map
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, thing]
-
-# --- Nouns: Body ---
-
+  tags:
+  - noun
+  - thing
 - word: 頭
   reading: あたま
   meaning: head
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, body]
-
+  tags:
+  - noun
+  - body
 - word: 目
   reading: め
   meaning: eye
   status: solid
-  exposures: 0
+  exposures: 72
   introduced_in: duolingo
-  tags: [noun, body]
-
+  tags:
+  - noun
+  - body
 - word: 耳
   reading: みみ
   meaning: ear
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, body]
-
+  tags:
+  - noun
+  - body
 - word: 口
   reading: くち
   meaning: mouth
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, body]
-
+  tags:
+  - noun
+  - body
 - word: 手
   reading: て
   meaning: hand
   status: solid
-  exposures: 0
+  exposures: 224
   introduced_in: duolingo
-  tags: [noun, body]
-
+  tags:
+  - noun
+  - body
 - word: 足
   reading: あし
   meaning: foot; leg
   status: solid
-  exposures: 0
+  exposures: 30
   introduced_in: duolingo
-  tags: [noun, body]
-
+  tags:
+  - noun
+  - body
 - word: 体
   reading: からだ
   meaning: body
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, body]
-
+  tags:
+  - noun
+  - body
 - word: お腹
   reading: おなか
   meaning: stomach; belly
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, body]
-
+  tags:
+  - noun
+  - body
 - word: 顔
   reading: かお
   meaning: face
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, body]
-
+  tags:
+  - noun
+  - body
 - word: 歯
   reading: は
   meaning: tooth
   status: solid
-  exposures: 0
+  exposures: 121
   introduced_in: duolingo
-  tags: [noun, body]
-
-# --- Nouns: Nature/Weather ---
-
+  tags:
+  - noun
+  - body
 - word: 天気
   reading: てんき
   meaning: weather
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, weather]
-
+  tags:
+  - noun
+  - weather
 - word: 雨
   reading: あめ
   meaning: rain
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, weather]
-
+  tags:
+  - noun
+  - weather
 - word: 雪
   reading: ゆき
   meaning: snow
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, weather]
-
+  tags:
+  - noun
+  - weather
 - word: 風
   reading: かぜ
   meaning: wind
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, weather]
-
+  tags:
+  - noun
+  - weather
 - word: 空
   reading: そら
   meaning: sky
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, nature]
-
+  tags:
+  - noun
+  - nature
 - word: 花
   reading: はな
   meaning: flower
   status: solid
-  exposures: 0
+  exposures: 56
   introduced_in: duolingo
-  tags: [noun, nature]
-
+  tags:
+  - noun
+  - nature
 - word: 木
   reading: き
   meaning: tree
   status: solid
-  exposures: 0
+  exposures: 2
   introduced_in: duolingo
-  tags: [noun, nature]
-
+  tags:
+  - noun
+  - nature
 - word: 動物
   reading: どうぶつ
   meaning: animal
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, nature]
-
+  tags:
+  - noun
+  - nature
 - word: 犬
   reading: いぬ
   meaning: dog
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, nature]
-
+  tags:
+  - noun
+  - nature
 - word: 猫
   reading: ねこ
   meaning: cat
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, nature]
-
-# --- Nouns: Time ---
-
+  tags:
+  - noun
+  - nature
 - word: 今日
   reading: きょう
   meaning: today
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 昨日
   reading: きのう
   meaning: yesterday
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 明日
   reading: あした
   meaning: tomorrow
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 今
   reading: いま
   meaning: now
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 朝
   reading: あさ
   meaning: morning
   status: solid
-  exposures: 0
+  exposures: 2
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 昼
   reading: ひる
   meaning: noon; daytime
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 夜
   reading: よる
   meaning: night
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 午前
   reading: ごぜん
   meaning: morning; A.M.
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 午後
   reading: ごご
   meaning: afternoon; P.M.
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 毎日
   reading: まいにち
   meaning: every day
   status: solid
-  exposures: 0
+  exposures: 2
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 毎週
   reading: まいしゅう
   meaning: every week
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 毎月
   reading: まいつき
   meaning: every month
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 毎年
   reading: まいとし
   meaning: every year
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 今年
   reading: ことし
   meaning: this year
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 去年
   reading: きょねん
   meaning: last year
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 来年
   reading: らいねん
   meaning: next year
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 今週
   reading: こんしゅう
   meaning: this week
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 先週
   reading: せんしゅう
   meaning: last week
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 来週
   reading: らいしゅう
   meaning: next week
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
+  tags:
+  - noun
+  - time
 - word: 時間
   reading: じかん
   meaning: time; hour
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, time]
-
-# --- Nouns: Clothes ---
-
+  tags:
+  - noun
+  - time
 - word: 服
   reading: ふく
   meaning: clothes
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, clothes]
-
+  tags:
+  - noun
+  - clothes
 - word: シャツ
   reading: しゃつ
   meaning: shirt
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, clothes]
-
+  tags:
+  - noun
+  - clothes
 - word: ズボン
   reading: ずぼん
   meaning: trousers; pants
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, clothes]
-
+  tags:
+  - noun
+  - clothes
 - word: スカート
   reading: すかーと
   meaning: skirt
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, clothes]
-
+  tags:
+  - noun
+  - clothes
 - word: 靴
   reading: くつ
   meaning: shoes
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, clothes]
-
+  tags:
+  - noun
+  - clothes
 - word: 帽子
   reading: ぼうし
   meaning: hat; cap
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, clothes]
-
+  tags:
+  - noun
+  - clothes
 - word: コート
   reading: こーと
   meaning: coat
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, clothes]
-
+  tags:
+  - noun
+  - clothes
 - word: セーター
   reading: せーたー
   meaning: sweater
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, clothes]
-
-# --- Nouns: School/Work ---
-
+  tags:
+  - noun
+  - clothes
 - word: 授業
   reading: じゅぎょう
   meaning: class; lesson
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, school]
-
+  tags:
+  - noun
+  - school
 - word: テスト
   reading: てすと
   meaning: test
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, school]
-
+  tags:
+  - noun
+  - school
 - word: 宿題
   reading: しゅくだい
   meaning: homework
   status: solid
-  exposures: 0
+  exposures: 2
   introduced_in: duolingo
-  tags: [noun, school]
-
+  tags:
+  - noun
+  - school
 - word: 質問
   reading: しつもん
   meaning: question
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, school]
-
+  tags:
+  - noun
+  - school
 - word: 答え
   reading: こたえ
   meaning: answer
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, school]
-
+  tags:
+  - noun
+  - school
 - word: 問題
   reading: もんだい
   meaning: problem; question
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, school]
-
+  tags:
+  - noun
+  - school
 - word: 仕事
   reading: しごと
   meaning: work; job
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, work]
-
+  tags:
+  - noun
+  - work
 - word: 休み
   reading: やすみ
   meaning: rest; holiday
   status: solid
-  exposures: 0
+  exposures: 5
   introduced_in: duolingo
-  tags: [noun, work]
-
+  tags:
+  - noun
+  - work
 - word: 旅行
   reading: りょこう
   meaning: travel; trip
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, activity]
-
+  tags:
+  - noun
+  - activity
 - word: スポーツ
   reading: すぽーつ
   meaning: sports
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, activity]
-
-# --- I-adjectives ---
-
+  tags:
+  - noun
+  - activity
 - word: 大きい
   reading: おおきい
   meaning: big; large
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 小さい
   reading: ちいさい
   meaning: small; little
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 高い
   reading: たかい
   meaning: high; expensive
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 安い
   reading: やすい
   meaning: cheap; inexpensive
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 新しい
   reading: あたらしい
   meaning: new
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 古い
   reading: ふるい
   meaning: old (things)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 良い
   reading: よい
   meaning: good
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 悪い
   reading: わるい
   meaning: bad
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 長い
   reading: ながい
   meaning: long
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 短い
   reading: みじかい
   meaning: short
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 暑い
   reading: あつい
   meaning: hot (weather)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 寒い
   reading: さむい
   meaning: cold (weather)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 暖かい
   reading: あたたかい
   meaning: warm
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 涼しい
   reading: すずしい
   meaning: cool (weather)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 熱い
   reading: あつい
   meaning: hot (to touch)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 冷たい
   reading: つめたい
   meaning: cold (to touch)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 美味しい
   reading: おいしい
   meaning: delicious
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 楽しい
   reading: たのしい
   meaning: fun; enjoyable
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 面白い
   reading: おもしろい
   meaning: interesting; funny
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: つまらない
   reading: つまらない
   meaning: boring
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 難しい
   reading: むずかしい
   meaning: difficult
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 易しい
   reading: やさしい
   meaning: easy
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 近い
   reading: ちかい
   meaning: near; close
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 遠い
   reading: とおい
   meaning: far
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 早い
   reading: はやい
   meaning: early; fast
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 遅い
   reading: おそい
   meaning: late; slow
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 多い
   reading: おおい
   meaning: many; much
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 少ない
   reading: すくない
   meaning: few; little
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 忙しい
   reading: いそがしい
   meaning: busy
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 若い
   reading: わかい
   meaning: young
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 広い
   reading: ひろい
   meaning: wide; spacious
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 狭い
   reading: せまい
   meaning: narrow; cramped
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 重い
   reading: おもい
   meaning: heavy
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 軽い
   reading: かるい
   meaning: light (weight)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 甘い
   reading: あまい
   meaning: sweet
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 辛い
   reading: からい
   meaning: spicy; hot
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 痛い
   reading: いたい
   meaning: painful
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 強い
   reading: つよい
   meaning: strong
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 弱い
   reading: よわい
   meaning: weak
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 明るい
   reading: あかるい
   meaning: bright
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 暗い
   reading: くらい
   meaning: dark
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: うるさい
   reading: うるさい
   meaning: noisy; annoying
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, i-adjective]
-
-# --- Na-adjectives ---
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 元気
   reading: げんき
   meaning: healthy; energetic
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 好き
   reading: すき
   meaning: like; fond of
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 嫌い
   reading: きらい
   meaning: dislike; hate
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 上手
   reading: じょうず
   meaning: skillful; good at
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 下手
   reading: へた
   meaning: unskillful; bad at
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 有名
   reading: ゆうめい
   meaning: famous
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 大切
   reading: たいせつ
   meaning: important; precious
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 大丈夫
   reading: だいじょうぶ
   meaning: all right; okay
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 静か
   reading: しずか
   meaning: quiet
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: にぎやか
   reading: にぎやか
   meaning: lively; bustling
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: きれい
   reading: きれい
   meaning: beautiful; clean
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 便利
   reading: べんり
   meaning: convenient
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 不便
   reading: ふべん
   meaning: inconvenient
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 大変
   reading: たいへん
   meaning: terrible; very
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 簡単
   reading: かんたん
   meaning: simple; easy
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adjective, na-adjective]
-
-# --- Adverbs ---
-
+  tags:
+  - adjective
+  - na-adjective
 - word: とても
   reading: とても
   meaning: very
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: すごく
   reading: すごく
   meaning: extremely; terribly
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: ちょっと
   reading: ちょっと
   meaning: a little; a bit
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: たくさん
   reading: たくさん
   meaning: a lot; many
   status: solid
-  exposures: 0
+  exposures: 3
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: 少し
   reading: すこし
   meaning: a little
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: もう
   reading: もう
   meaning: already; soon
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: まだ
   reading: まだ
   meaning: still; not yet
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: いつも
   reading: いつも
   meaning: always
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: 時々
   reading: ときどき
   meaning: sometimes
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: よく
   reading: よく
   meaning: often; well
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: あまり
   reading: あまり
   meaning: not very (with negative)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: 全然
   reading: ぜんぜん
   meaning: not at all (with negative)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: たぶん
   reading: たぶん
   meaning: probably; maybe
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: もちろん
   reading: もちろん
   meaning: of course
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: 一緒に
   reading: いっしょに
   meaning: together
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [adverb]
-
-# --- Pronouns/Demonstratives ---
-
+  tags:
+  - adverb
 - word: 私
   reading: わたし
   meaning: I; me
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [pronoun]
-
+  tags:
+  - pronoun
 - word: あなた
   reading: あなた
   meaning: you
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [pronoun]
-
+  tags:
+  - pronoun
 - word: これ
   reading: これ
   meaning: this (thing)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [pronoun, demonstrative]
-
+  tags:
+  - pronoun
+  - demonstrative
 - word: それ
   reading: それ
   meaning: that (thing)
   status: solid
-  exposures: 0
+  exposures: 2
   introduced_in: duolingo
-  tags: [pronoun, demonstrative]
-
+  tags:
+  - pronoun
+  - demonstrative
 - word: あれ
   reading: あれ
   meaning: that (thing over there)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [pronoun, demonstrative]
-
+  tags:
+  - pronoun
+  - demonstrative
 - word: この
   reading: この
   meaning: this (adjective)
   status: solid
-  exposures: 0
+  exposures: 2
   introduced_in: duolingo
-  tags: [determiner, demonstrative]
-
+  tags:
+  - determiner
+  - demonstrative
 - word: その
   reading: その
   meaning: that (adjective)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [determiner, demonstrative]
-
+  tags:
+  - determiner
+  - demonstrative
 - word: あの
   reading: あの
   meaning: that (adjective, far)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [determiner, demonstrative]
-
+  tags:
+  - determiner
+  - demonstrative
 - word: ここ
   reading: ここ
   meaning: here
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [pronoun, demonstrative]
-
+  tags:
+  - pronoun
+  - demonstrative
 - word: そこ
   reading: そこ
   meaning: there
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [pronoun, demonstrative]
-
+  tags:
+  - pronoun
+  - demonstrative
 - word: あそこ
   reading: あそこ
   meaning: over there
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [pronoun, demonstrative]
-
+  tags:
+  - pronoun
+  - demonstrative
 - word: どこ
   reading: どこ
   meaning: where
   status: solid
-  exposures: 0
+  exposures: 3
   introduced_in: duolingo
-  tags: [pronoun, interrogative]
-
+  tags:
+  - pronoun
+  - interrogative
 - word: どれ
   reading: どれ
   meaning: which one
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [pronoun, interrogative]
-
+  tags:
+  - pronoun
+  - interrogative
 - word: 何
   reading: なに
   meaning: what
   status: solid
-  exposures: 0
+  exposures: 5
   introduced_in: duolingo
-  tags: [pronoun, interrogative]
-
+  tags:
+  - pronoun
+  - interrogative
 - word: 誰
   reading: だれ
   meaning: who
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [pronoun, interrogative]
-
-# --- Numbers/Counters ---
-
+  tags:
+  - pronoun
+  - interrogative
 - word: 一つ
   reading: ひとつ
   meaning: one (thing)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: 二つ
   reading: ふたつ
   meaning: two (things)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: 三つ
   reading: みっつ
   meaning: three (things)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: 四つ
   reading: よっつ
   meaning: four (things)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: 五つ
   reading: いつつ
   meaning: five (things)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: 一人
   reading: ひとり
   meaning: one person
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: 二人
   reading: ふたり
   meaning: two people
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: 三人
   reading: さんにん
   meaning: three people
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: ～個
   reading: ～こ
   meaning: counter for small objects
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: ～本
   reading: ～ほん
   meaning: counter for long objects
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: ～枚
   reading: ～まい
   meaning: counter for flat objects
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: ～匹
   reading: ～ひき
   meaning: counter for small animals
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: ～台
   reading: ～だい
   meaning: counter for machines/vehicles
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: ～冊
   reading: ～さつ
   meaning: counter for books
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
+  tags:
+  - counter
 - word: ～杯
   reading: ～はい
   meaning: counter for cups/glasses
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [counter]
-
-# --- Conjunctions/Expressions ---
-
+  tags:
+  - counter
 - word: でも
   reading: でも
   meaning: but; however
   status: solid
-  exposures: 0
+  exposures: 1
   introduced_in: duolingo
-  tags: [conjunction]
-
+  tags:
+  - conjunction
 - word: しかし
   reading: しかし
   meaning: however
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [conjunction]
-
+  tags:
+  - conjunction
 - word: そして
   reading: そして
   meaning: and then
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [conjunction]
-
+  tags:
+  - conjunction
 - word: それから
   reading: それから
   meaning: after that; and then
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [conjunction]
-
+  tags:
+  - conjunction
 - word: だから
   reading: だから
   meaning: therefore; so
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [conjunction]
-
+  tags:
+  - conjunction
 - word: ですから
   reading: ですから
   meaning: therefore (polite)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [conjunction]
-
+  tags:
+  - conjunction
 - word: すみません
   reading: すみません
   meaning: excuse me; sorry
   status: solid
-  exposures: 0
+  exposures: 3
   introduced_in: duolingo
-  tags: [expression]
-
+  tags:
+  - expression
 - word: ありがとう
   reading: ありがとう
   meaning: thank you
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [expression]
-
+  tags:
+  - expression
 - word: おはよう
   reading: おはよう
   meaning: good morning
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [expression, greeting]
-
+  tags:
+  - expression
+  - greeting
 - word: こんにちは
   reading: こんにちは
   meaning: hello; good afternoon
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [expression, greeting]
-
+  tags:
+  - expression
+  - greeting
 - word: こんばんは
   reading: こんばんは
   meaning: good evening
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [expression, greeting]
-
+  tags:
+  - expression
+  - greeting
 - word: さようなら
   reading: さようなら
   meaning: goodbye
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [expression, greeting]
-
+  tags:
+  - expression
+  - greeting
 - word: お願いします
   reading: おねがいします
   meaning: please
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [expression]
-
+  tags:
+  - expression
 - word: いただきます
   reading: いただきます
   meaning: bon appetit (before eating)
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [expression]
-
+  tags:
+  - expression
 - word: ごちそうさま
   reading: ごちそうさま
   meaning: thank you for the meal
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [expression]
-
-# --- Direction/Position ---
-
+  tags:
+  - expression
 - word: 右
   reading: みぎ
   meaning: right
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, direction]
-
+  tags:
+  - noun
+  - direction
 - word: 左
   reading: ひだり
   meaning: left
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, direction]
-
+  tags:
+  - noun
+  - direction
 - word: 上
   reading: うえ
   meaning: above; on top
   status: solid
-  exposures: 0
+  exposures: 29
   introduced_in: duolingo
-  tags: [noun, direction]
-
+  tags:
+  - noun
+  - direction
 - word: 下
   reading: した
   meaning: below; under
   status: solid
-  exposures: 0
+  exposures: 26
   introduced_in: duolingo
-  tags: [noun, direction]
-
+  tags:
+  - noun
+  - direction
 - word: 前
   reading: まえ
   meaning: front; before
   status: solid
-  exposures: 0
+  exposures: 3
   introduced_in: duolingo
-  tags: [noun, direction]
-
+  tags:
+  - noun
+  - direction
 - word: 後ろ
   reading: うしろ
   meaning: behind; back
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, direction]
-
+  tags:
+  - noun
+  - direction
 - word: 中
   reading: なか
   meaning: inside; middle
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, direction]
-
+  tags:
+  - noun
+  - direction
 - word: 外
   reading: そと
   meaning: outside
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, direction]
-
+  tags:
+  - noun
+  - direction
 - word: 隣
   reading: となり
   meaning: next to; neighbor
   status: solid
   exposures: 0
   introduced_in: duolingo
-  tags: [noun, direction]
-
+  tags:
+  - noun
+  - direction
 - word: 間
   reading: あいだ
   meaning: between; during
   status: solid
-  exposures: 0
+  exposures: 46
   introduced_in: duolingo
-  tags: [noun, direction]
-
-# ============================================================
-# NOT_STARTED — Remaining N5 vocabulary to learn
-# ============================================================
-
-# --- Additional Verbs ---
-
+  tags:
+  - noun
+  - direction
 - word: 届く
   reading: とどく
   meaning: to reach; to be delivered
   status: new
-  exposures: 0
+  exposures: 34
   introduced_in: episode_1
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 届ける
   reading: とどける
   meaning: to deliver
   status: new
-  exposures: 0
+  exposures: 25
   introduced_in: episode_1
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 並ぶ
   reading: ならぶ
   meaning: to line up
   status: new
-  exposures: 0
+  exposures: 17
   introduced_in: episode_1
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 並べる
   reading: ならべる
   meaning: to line up (transitive)
   status: new
-  exposures: 0
+  exposures: 15
   introduced_in: episode_1
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 決める
   reading: きめる
   meaning: to decide
   status: new
-  exposures: 0
+  exposures: 22
   introduced_in: episode_1
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 決まる
   reading: きまる
   meaning: to be decided
   status: new
-  exposures: 0
+  exposures: 17
   introduced_in: episode_1
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 変わる
   reading: かわる
   meaning: to change (intransitive)
   status: new
-  exposures: 0
+  exposures: 33
   introduced_in: episode_1
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 変える
   reading: かえる
   meaning: to change (transitive)
   status: new
-  exposures: 0
+  exposures: 24
   introduced_in: episode_1
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 続ける
   reading: つづける
   meaning: to continue (transitive)
   status: new
-  exposures: 0
+  exposures: 31
   introduced_in: episode_1
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 続く
   reading: つづく
   meaning: to continue (intransitive)
   status: new
-  exposures: 0
+  exposures: 35
   introduced_in: episode_1
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 残る
   reading: のこる
   meaning: to remain
   status: new
-  exposures: 0
+  exposures: 33
   introduced_in: episode_2
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 集める
   reading: あつめる
   meaning: to collect; to gather
   status: new
-  exposures: 0
+  exposures: 26
   introduced_in: episode_2
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 捨てる
   reading: すてる
   meaning: to throw away
   status: new
-  exposures: 0
+  exposures: 23
   introduced_in: episode_2
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 拾う
   reading: ひろう
   meaning: to pick up
   status: new
-  exposures: 0
+  exposures: 22
   introduced_in: episode_2
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 選ぶ
   reading: えらぶ
   meaning: to choose
   status: new
-  exposures: 0
+  exposures: 20
   introduced_in: episode_2
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 比べる
   reading: くらべる
   meaning: to compare
   status: new
-  exposures: 0
+  exposures: 31
   introduced_in: episode_2
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 調べる
   reading: しらべる
   meaning: to investigate; to look up
   status: new
-  exposures: 0
+  exposures: 25
   introduced_in: episode_2
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 見つける
   reading: みつける
   meaning: to find; to discover
   status: new
-  exposures: 0
+  exposures: 22
   introduced_in: episode_2
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 気をつける
   reading: きをつける
   meaning: to be careful
   status: new
-  exposures: 0
+  exposures: 19
   introduced_in: episode_2
-  tags: [verb, ichidan, expression]
-
+  tags:
+  - verb
+  - ichidan
+  - expression
 - word: 直す
   reading: なおす
   meaning: to fix; to repair
   status: new
-  exposures: 0
+  exposures: 31
   introduced_in: episode_2
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 壊す
   reading: こわす
   meaning: to break (transitive)
-  status: not_started
-  exposures: 0
+  status: new
+  exposures: 42
   introduced_in: null
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 壊れる
   reading: こわれる
   meaning: to break (intransitive)
-  status: not_started
-  exposures: 0
+  status: new
+  exposures: 42
   introduced_in: null
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 落とす
   reading: おとす
   meaning: to drop (transitive)
-  status: not_started
-  exposures: 0
+  status: new
+  exposures: 36
   introduced_in: null
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 落ちる
   reading: おちる
   meaning: to fall
-  status: not_started
-  exposures: 0
+  status: new
+  exposures: 28
   introduced_in: null
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 上げる
   reading: あげる
   meaning: to raise
-  status: not_started
-  exposures: 0
+  status: new
+  exposures: 22
   introduced_in: null
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 下げる
   reading: さげる
   meaning: to lower
-  status: not_started
-  exposures: 0
+  status: new
+  exposures: 26
   introduced_in: null
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 増える
   reading: ふえる
   meaning: to increase (intransitive)
-  status: not_started
-  exposures: 0
+  status: new
+  exposures: 48
   introduced_in: null
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 減る
   reading: へる
   meaning: to decrease (intransitive)
-  status: not_started
-  exposures: 0
+  status: new
+  exposures: 44
   introduced_in: null
-  tags: [verb, godan]
-
+  tags:
+  - verb
+  - godan
 - word: 足りる
   reading: たりる
   meaning: to be sufficient
-  status: not_started
-  exposures: 0
+  status: new
+  exposures: 30
   introduced_in: null
-  tags: [verb, ichidan]
-
+  tags:
+  - verb
+  - ichidan
 - word: 間に合う
   reading: まにあう
   meaning: to be in time
-  status: not_started
-  exposures: 0
+  status: new
+  exposures: 41
   introduced_in: null
-  tags: [verb, godan, expression]
-
-# --- Additional Nouns ---
-
+  tags:
+  - verb
+  - godan
+  - expression
 - word: 用事
   reading: ようじ
   meaning: errand; business
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 予定
   reading: よてい
   meaning: plan; schedule
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 約束
   reading: やくそく
   meaning: promise; appointment
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 相談
   reading: そうだん
   meaning: consultation
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 準備
   reading: じゅんび
   meaning: preparation
-  status: not_started
-  exposures: 0
+  status: new
+  exposures: 9
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 経験
   reading: けいけん
   meaning: experience
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 意味
   reading: いみ
   meaning: meaning
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 理由
   reading: りゆう
   meaning: reason
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 説明
   reading: せつめい
   meaning: explanation
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 連絡
   reading: れんらく
   meaning: contact; communication
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 返事
   reading: へんじ
   meaning: reply
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 予約
   reading: よやく
   meaning: reservation
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 出発
   reading: しゅっぱつ
   meaning: departure
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 到着
   reading: とうちゃく
   meaning: arrival
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 番号
   reading: ばんごう
   meaning: number
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 住所
   reading: じゅうしょ
   meaning: address
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 名前
   reading: なまえ
   meaning: name
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 場所
   reading: ばしょ
   meaning: place; location
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 景色
   reading: けしき
   meaning: scenery
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 交通
   reading: こうつう
   meaning: traffic; transportation
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 事故
   reading: じこ
   meaning: accident
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 地震
   reading: じしん
   meaning: earthquake
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 火事
   reading: かじ
   meaning: fire (disaster)
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: お祭り
   reading: おまつり
   meaning: festival
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: お正月
   reading: おしょうがつ
   meaning: New Year
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 季節
   reading: きせつ
   meaning: season
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 春
   reading: はる
   meaning: spring
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, season]
-
+  tags:
+  - noun
+  - season
 - word: 夏
   reading: なつ
   meaning: summer
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, season]
-
+  tags:
+  - noun
+  - season
 - word: 秋
   reading: あき
   meaning: autumn
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, season]
-
+  tags:
+  - noun
+  - season
 - word: 冬
   reading: ふゆ
   meaning: winter
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, season]
-
+  tags:
+  - noun
+  - season
 - word: 趣味
   reading: しゅみ
   meaning: hobby
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 将来
   reading: しょうらい
   meaning: future
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 社会
   reading: しゃかい
   meaning: society
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 政治
   reading: せいじ
   meaning: politics
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 経済
   reading: けいざい
   meaning: economy
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 文化
   reading: ぶんか
   meaning: culture
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 歴史
   reading: れきし
   meaning: history
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 自然
   reading: しぜん
   meaning: nature
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 環境
   reading: かんきょう
   meaning: environment
   status: not_started
-  exposures: 0
+  exposures: 2
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 世界
   reading: せかい
   meaning: world
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 国
   reading: くに
   meaning: country
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 外国
   reading: がいこく
   meaning: foreign country
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 外国人
   reading: がいこくじん
   meaning: foreigner
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 最近
   reading: さいきん
   meaning: recently
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, adverb]
-
+  tags:
+  - noun
+  - adverb
 - word: 最初
   reading: さいしょ
   meaning: first; beginning
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 最後
   reading: さいご
   meaning: last; end
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 特に
   reading: とくに
   meaning: especially
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: 必ず
   reading: かならず
   meaning: surely; certainly
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: 急に
   reading: きゅうに
   meaning: suddenly
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: 特別
   reading: とくべつ
   meaning: special
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, na-adjective]
-
-# --- Additional Adjectives ---
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 正しい
   reading: ただしい
   meaning: correct; right
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 珍しい
   reading: めずらしい
   meaning: rare; unusual
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 恥ずかしい
   reading: はずかしい
   meaning: embarrassing; ashamed
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 懐かしい
   reading: なつかしい
   meaning: nostalgic
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 素晴らしい
   reading: すばらしい
   meaning: wonderful; splendid
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: うれしい
   reading: うれしい
   meaning: happy; glad
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 悲しい
   reading: かなしい
   meaning: sad
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 寂しい
   reading: さびしい
   meaning: lonely
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 怖い
   reading: こわい
   meaning: scary; afraid
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 厳しい
   reading: きびしい
   meaning: strict; harsh
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 優しい
   reading: やさしい
   meaning: kind; gentle
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, i-adjective]
-
+  tags:
+  - adjective
+  - i-adjective
 - word: 丁寧
   reading: ていねい
   meaning: polite; careful
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 立派
   reading: りっぱ
   meaning: splendid; fine
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 複雑
   reading: ふくざつ
   meaning: complicated
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 単純
   reading: たんじゅん
   meaning: simple
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 自由
   reading: じゆう
   meaning: free; freedom
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 安全
   reading: あんぜん
   meaning: safe; safety
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 危険
   reading: きけん
   meaning: dangerous
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 必要
   reading: ひつよう
   meaning: necessary
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, na-adjective]
-
+  tags:
+  - adjective
+  - na-adjective
 - word: 十分
   reading: じゅうぶん
   meaning: enough; sufficient
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adjective, na-adjective]
-
-# --- Additional Adverbs ---
-
+  tags:
+  - adjective
+  - na-adjective
 - word: だんだん
   reading: だんだん
   meaning: gradually
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: そろそろ
   reading: そろそろ
   meaning: soon; before long
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: なかなか
   reading: なかなか
   meaning: quite; not easily (with negative)
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: やはり
   reading: やはり
   meaning: as expected; after all
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: やっぱり
   reading: やっぱり
   meaning: as expected (casual)
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: ぜひ
   reading: ぜひ
   meaning: by all means
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: きっと
   reading: きっと
   meaning: surely; certainly
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: はっきり
   reading: はっきり
   meaning: clearly
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: ゆっくり
   reading: ゆっくり
   meaning: slowly; at ease
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: しっかり
   reading: しっかり
   meaning: firmly; properly
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: ちゃんと
   reading: ちゃんと
   meaning: properly; exactly
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: そのまま
   reading: そのまま
   meaning: as it is
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: まっすぐ
   reading: まっすぐ
   meaning: straight
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: 初めて
   reading: はじめて
   meaning: for the first time
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb]
-
+  tags:
+  - adverb
 - word: 久しぶり
   reading: ひさしぶり
   meaning: long time no see
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [adverb, expression]
-
-# --- Additional N5 Nouns/Misc ---
-
+  tags:
+  - adverb
+  - expression
 - word: お土産
   reading: おみやげ
   meaning: souvenir
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: お釣り
   reading: おつり
   meaning: change (money)
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: お見舞い
   reading: おみまい
   meaning: visiting the sick
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 生活
   reading: せいかつ
   meaning: life; living
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 習慣
   reading: しゅうかん
   meaning: habit; custom
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 気持ち
   reading: きもち
   meaning: feeling
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 気分
   reading: きぶん
   meaning: mood; feeling
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 心配
   reading: しんぱい
   meaning: worry; concern
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 興味
   reading: きょうみ
   meaning: interest
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 注意
   reading: ちゅうい
   meaning: caution; attention
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 挨拶
   reading: あいさつ
   meaning: greeting
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 紹介
   reading: しょうかい
   meaning: introduction
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 引っ越し
   reading: ひっこし
   meaning: moving (house)
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 散歩
   reading: さんぽ
   meaning: walk; stroll
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 買い物
   reading: かいもの
   meaning: shopping
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 食事
   reading: しょくじ
   meaning: meal
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 洗濯
   reading: せんたく
   meaning: laundry
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 掃除
   reading: そうじ
   meaning: cleaning
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 運動
   reading: うんどう
   meaning: exercise
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 卒業
   reading: そつぎょう
   meaning: graduation
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 入学
   reading: にゅうがく
   meaning: enrollment; entering school
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 出席
   reading: しゅっせき
   meaning: attendance
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 欠席
   reading: けっせき
   meaning: absence
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 遅刻
   reading: ちこく
   meaning: being late
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 留学
   reading: りゅうがく
   meaning: study abroad
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun, suru-verb]
-
+  tags:
+  - noun
+  - suru-verb
 - word: 試験
   reading: しけん
   meaning: examination
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 文法
   reading: ぶんぽう
   meaning: grammar
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 漢字
   reading: かんじ
   meaning: kanji; Chinese characters
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 言葉
   reading: ことば
   meaning: word; language
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 会話
   reading: かいわ
   meaning: conversation
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 発音
   reading: はつおん
   meaning: pronunciation
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 意見
   reading: いけん
   meaning: opinion
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 計画
   reading: けいかく
   meaning: plan; project
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 関係
   reading: かんけい
   meaning: relation; connection
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 原因
   reading: げんいん
   meaning: cause; origin
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 結果
   reading: けっか
   meaning: result
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 方法
   reading: ほうほう
   meaning: method; way
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 目的
   reading: もくてき
   meaning: purpose; objective
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 値段
   reading: ねだん
   meaning: price
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 種類
   reading: しゅるい
   meaning: kind; type
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 形
   reading: かたち
   meaning: shape; form
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 色
   reading: いろ
   meaning: color
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 音
   reading: おと
   meaning: sound
   status: not_started
-  exposures: 0
+  exposures: 1
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 声
   reading: こえ
   meaning: voice
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 匂い
   reading: におい
   meaning: smell; scent
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 力
   reading: ちから
   meaning: power; strength
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 夢
   reading: ゆめ
   meaning: dream
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 島
   reading: しま
   meaning: island
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 港
   reading: みなと
   meaning: port; harbor
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 橋
   reading: はし
   meaning: bridge
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 階段
   reading: かいだん
   meaning: stairs
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: エレベーター
   reading: えれべーたー
   meaning: elevator
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 交差点
   reading: こうさてん
   meaning: intersection
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
-
+  tags:
+  - noun
 - word: 信号
   reading: しんごう
   meaning: traffic light
   status: not_started
   exposures: 0
   introduced_in: null
-  tags: [noun]
+  tags:
+  - noun
