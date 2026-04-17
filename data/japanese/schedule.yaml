@@ -69,9 +69,9 @@ episode_5:
   - pattern: 〜なくちゃ
     meaning: gotta / must (casual spoken)
 episode_6:
-  status: queued
+  status: dispatched
   japanese_ratio: 0.2
-  theme: Reasons and explanations
+  theme: "Comparing Claude Managed Agents vs Vercel Open Agents (hosts disagree — one prefers each)"
   vocab:
   - word: 理由
     reading: りゆう
