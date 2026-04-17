@@ -1,0 +1,1099 @@
+# JLPT N5 Kanji (~103 kanji)
+# status: solid = confident recognition/recall, not_started = not yet studied
+# exposures: SRS exposure count (starts at 0)
+# introduced_in: where the kanji was first encountered
+
+# ── Numbers ──────────────────────────────────────────────────────────────────
+
+- kanji: 一
+  readings:
+    on: [イチ, イツ]
+    kun: [ひと, ひと.つ]
+  meaning: one
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 二
+  readings:
+    on: [ニ]
+    kun: [ふた, ふた.つ]
+  meaning: two
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 三
+  readings:
+    on: [サン]
+    kun: [み, み.つ, みっ.つ]
+  meaning: three
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 四
+  readings:
+    on: [シ]
+    kun: [よ, よ.つ, よっ.つ, よん]
+  meaning: four
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 五
+  readings:
+    on: [ゴ]
+    kun: [いつ, いつ.つ]
+  meaning: five
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 六
+  readings:
+    on: [ロク]
+    kun: [む, む.つ, むっ.つ, むい]
+  meaning: six
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 七
+  readings:
+    on: [シチ]
+    kun: [なな, なな.つ, なの]
+  meaning: seven
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 八
+  readings:
+    on: [ハチ]
+    kun: [や, や.つ, やっ.つ, よう]
+  meaning: eight
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 九
+  readings:
+    on: [キュウ, ク]
+    kun: [ここの, ここの.つ]
+  meaning: nine
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 十
+  readings:
+    on: [ジュウ, ジッ]
+    kun: [とお, と]
+  meaning: ten
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 百
+  readings:
+    on: [ヒャク, ビャク]
+    kun: []
+  meaning: hundred
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 千
+  readings:
+    on: [セン]
+    kun: [ち]
+  meaning: thousand
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 万
+  readings:
+    on: [マン, バン]
+    kun: [よろず]
+  meaning: ten thousand
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+# ── Days of the week / nature ────────────────────────────────────────────────
+
+- kanji: 日
+  readings:
+    on: [ニチ, ジツ]
+    kun: [ひ, か]
+  meaning: day, sun
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 月
+  readings:
+    on: [ゲツ, ガツ]
+    kun: [つき]
+  meaning: month, moon
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 火
+  readings:
+    on: [カ]
+    kun: [ひ, ほ]
+  meaning: fire
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 水
+  readings:
+    on: [スイ]
+    kun: [みず]
+  meaning: water
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 木
+  readings:
+    on: [モク, ボク]
+    kun: [き, こ]
+  meaning: tree, wood
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 金
+  readings:
+    on: [キン, コン]
+    kun: [かね, かな]
+  meaning: gold, money
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 土
+  readings:
+    on: [ド, ト]
+    kun: [つち]
+  meaning: earth, soil
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+# ── Time ─────────────────────────────────────────────────────────────────────
+
+- kanji: 年
+  readings:
+    on: [ネン]
+    kun: [とし]
+  meaning: year
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 時
+  readings:
+    on: [ジ]
+    kun: [とき]
+  meaning: time, hour
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 分
+  readings:
+    on: [ブン, フン, ブ]
+    kun: [わ.ける, わ.かる]
+  meaning: minute, part, divide
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 半
+  readings:
+    on: [ハン]
+    kun: [なか.ば]
+  meaning: half
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 毎
+  readings:
+    on: [マイ]
+    kun: [ごと]
+  meaning: every, each
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 今
+  readings:
+    on: [コン, キン]
+    kun: [いま]
+  meaning: now, present
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 先
+  readings:
+    on: [セン]
+    kun: [さき, ま.ず]
+  meaning: previous, ahead
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 来
+  readings:
+    on: [ライ]
+    kun: [く.る, きた.る, きた.す]
+  meaning: come, next
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 前
+  readings:
+    on: [ゼン]
+    kun: [まえ]
+  meaning: before, in front
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 後
+  readings:
+    on: [ゴ, コウ]
+    kun: [のち, うし.ろ, あと]
+  meaning: after, behind
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 午
+  readings:
+    on: [ゴ]
+    kun: [うま]
+  meaning: noon
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+# ── Adjectives / size ────────────────────────────────────────────────────────
+
+- kanji: 大
+  readings:
+    on: [ダイ, タイ]
+    kun: [おお, おお.きい, おお.いに]
+  meaning: big, large
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 小
+  readings:
+    on: [ショウ]
+    kun: [ちい.さい, こ, お]
+  meaning: small, little
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 高
+  readings:
+    on: [コウ]
+    kun: [たか.い, たか]
+  meaning: tall, high, expensive
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 安
+  readings:
+    on: [アン]
+    kun: [やす.い, やす]
+  meaning: cheap, peaceful
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 長
+  readings:
+    on: [チョウ]
+    kun: [なが.い]
+  meaning: long, leader
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 新
+  readings:
+    on: [シン]
+    kun: [あたら.しい, あら.た, にい]
+  meaning: new
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 古
+  readings:
+    on: [コ]
+    kun: [ふる.い, ふる]
+  meaning: old
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 多
+  readings:
+    on: [タ]
+    kun: [おお.い]
+  meaning: many, much
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 少
+  readings:
+    on: [ショウ]
+    kun: [すく.ない, すこ.し]
+  meaning: few, little
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+# ── People / family ──────────────────────────────────────────────────────────
+
+- kanji: 人
+  readings:
+    on: [ジン, ニン]
+    kun: [ひと]
+  meaning: person
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 男
+  readings:
+    on: [ダン, ナン]
+    kun: [おとこ]
+  meaning: man, male
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 女
+  readings:
+    on: [ジョ, ニョ]
+    kun: [おんな, め]
+  meaning: woman, female
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 子
+  readings:
+    on: [シ, ス]
+    kun: [こ]
+  meaning: child
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 母
+  readings:
+    on: [ボ]
+    kun: [はは, かあ]
+  meaning: mother
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 父
+  readings:
+    on: [フ]
+    kun: [ちち, とう]
+  meaning: father
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 友
+  readings:
+    on: [ユウ]
+    kun: [とも]
+  meaning: friend
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+# ── School ───────────────────────────────────────────────────────────────────
+
+- kanji: 学
+  readings:
+    on: [ガク]
+    kun: [まな.ぶ]
+  meaning: study, learning
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 生
+  readings:
+    on: [セイ, ショウ]
+    kun: [い.きる, う.まれる, なま]
+  meaning: life, birth, student
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 校
+  readings:
+    on: [コウ]
+    kun: []
+  meaning: school
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+# ── Verbs ────────────────────────────────────────────────────────────────────
+
+- kanji: 食
+  readings:
+    on: [ショク]
+    kun: [た.べる, く.う]
+  meaning: eat, food
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 飲
+  readings:
+    on: [イン]
+    kun: [の.む]
+  meaning: drink
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 見
+  readings:
+    on: [ケン]
+    kun: [み.る, み.せる]
+  meaning: see, look
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 聞
+  readings:
+    on: [ブン, モン]
+    kun: [き.く, き.こえる]
+  meaning: hear, ask, listen
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 読
+  readings:
+    on: [ドク, トク, トウ]
+    kun: [よ.む]
+  meaning: read
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 書
+  readings:
+    on: [ショ]
+    kun: [か.く]
+  meaning: write
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 話
+  readings:
+    on: [ワ]
+    kun: [はな.す, はなし]
+  meaning: talk, speak, story
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 行
+  readings:
+    on: [コウ, ギョウ]
+    kun: [い.く, ゆ.く, おこな.う]
+  meaning: go, carry out
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 出
+  readings:
+    on: [シュツ, スイ]
+    kun: [で.る, だ.す]
+  meaning: exit, leave, put out
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 入
+  readings:
+    on: [ニュウ]
+    kun: [い.る, はい.る, い.れる]
+  meaning: enter, insert
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 買
+  readings:
+    on: [バイ]
+    kun: [か.う]
+  meaning: buy
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+# ── Nature / geography ───────────────────────────────────────────────────────
+
+- kanji: 国
+  readings:
+    on: [コク]
+    kun: [くに]
+  meaning: country
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 外
+  readings:
+    on: [ガイ, ゲ]
+    kun: [そと, ほか, はず.す]
+  meaning: outside, foreign
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 山
+  readings:
+    on: [サン]
+    kun: [やま]
+  meaning: mountain
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 川
+  readings:
+    on: [セン]
+    kun: [かわ]
+  meaning: river
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 天
+  readings:
+    on: [テン]
+    kun: [あめ, あま]
+  meaning: heaven, sky
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 気
+  readings:
+    on: [キ, ケ]
+    kun: []
+  meaning: spirit, energy, mood
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 雨
+  readings:
+    on: [ウ]
+    kun: [あめ, あま]
+  meaning: rain
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 花
+  readings:
+    on: [カ]
+    kun: [はな]
+  meaning: flower
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+# ── Transport ────────────────────────────────────────────────────────────────
+
+- kanji: 車
+  readings:
+    on: [シャ]
+    kun: [くるま]
+  meaning: car, vehicle
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 電
+  readings:
+    on: [デン]
+    kun: []
+  meaning: electricity
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 駅
+  readings:
+    on: [エキ]
+    kun: []
+  meaning: station
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+# ── Directions / position ────────────────────────────────────────────────────
+
+- kanji: 東
+  readings:
+    on: [トウ]
+    kun: [ひがし]
+  meaning: east
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 西
+  readings:
+    on: [セイ, サイ]
+    kun: [にし]
+  meaning: west
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 南
+  readings:
+    on: [ナン, ナ]
+    kun: [みなみ]
+  meaning: south
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 北
+  readings:
+    on: [ホク]
+    kun: [きた]
+  meaning: north
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 右
+  readings:
+    on: [ウ, ユウ]
+    kun: [みぎ]
+  meaning: right
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 左
+  readings:
+    on: [サ]
+    kun: [ひだり]
+  meaning: left
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 上
+  readings:
+    on: [ジョウ, ショウ]
+    kun: [うえ, あ.げる, のぼ.る, かみ]
+  meaning: up, above
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 下
+  readings:
+    on: [カ, ゲ]
+    kun: [した, さ.げる, くだ.る, お.りる]
+  meaning: down, below
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+- kanji: 中
+  readings:
+    on: [チュウ]
+    kun: [なか]
+  meaning: middle, inside
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+
+# ══════════════════════════════════════════════════════════════════════════════
+# NOT STARTED — remaining N5 kanji not explicitly covered in Duolingo Sec. 3
+# ══════════════════════════════════════════════════════════════════════════════
+
+- kanji: 白
+  readings:
+    on: [ハク, ビャク]
+    kun: [しろ, しろ.い, しら]
+  meaning: white
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 名
+  readings:
+    on: [メイ, ミョウ]
+    kun: [な]
+  meaning: name
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 語
+  readings:
+    on: [ゴ]
+    kun: [かた.る, かた.らう]
+  meaning: language, word
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 何
+  readings:
+    on: [カ]
+    kun: [なに, なん]
+  meaning: what
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 間
+  readings:
+    on: [カン, ケン]
+    kun: [あいだ, ま]
+  meaning: interval, between
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 休
+  readings:
+    on: [キュウ]
+    kun: [やす.む, やす.み]
+  meaning: rest, vacation
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 店
+  readings:
+    on: [テン]
+    kun: [みせ]
+  meaning: store, shop
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 社
+  readings:
+    on: [シャ]
+    kun: [やしろ]
+  meaning: company, shrine
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 会
+  readings:
+    on: [カイ, エ]
+    kun: [あ.う]
+  meaning: meet, society
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 道
+  readings:
+    on: [ドウ, トウ]
+    kun: [みち]
+  meaning: road, way, path
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 門
+  readings:
+    on: [モン]
+    kun: [かど]
+  meaning: gate
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 足
+  readings:
+    on: [ソク]
+    kun: [あし, た.りる, た.す]
+  meaning: foot, leg, sufficient
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 手
+  readings:
+    on: [シュ]
+    kun: [て, た]
+  meaning: hand
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 目
+  readings:
+    on: [モク, ボク]
+    kun: [め, ま]
+  meaning: eye
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 耳
+  readings:
+    on: [ジ]
+    kun: [みみ]
+  meaning: ear
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 口
+  readings:
+    on: [コウ, ク]
+    kun: [くち]
+  meaning: mouth
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 力
+  readings:
+    on: [リョク, リキ]
+    kun: [ちから]
+  meaning: power, strength
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 立
+  readings:
+    on: [リツ, リュウ]
+    kun: [た.つ, た.てる]
+  meaning: stand
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 本
+  readings:
+    on: [ホン]
+    kun: [もと]
+  meaning: book, origin, main
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 円
+  readings:
+    on: [エン]
+    kun: [まる.い]
+  meaning: circle, yen
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 週
+  readings:
+    on: [シュウ]
+    kun: []
+  meaning: week
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 空
+  readings:
+    on: [クウ]
+    kun: [そら, あ.く, から]
+  meaning: sky, empty
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 田
+  readings:
+    on: [デン]
+    kun: [た]
+  meaning: rice paddy, field
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 王
+  readings:
+    on: [オウ]
+    kun: []
+  meaning: king
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 玉
+  readings:
+    on: [ギョク]
+    kun: [たま]
+  meaning: jewel, ball
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 正
+  readings:
+    on: [セイ, ショウ]
+    kun: [ただ.しい, まさ]
+  meaning: correct, justice
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 文
+  readings:
+    on: [ブン, モン]
+    kun: [ふみ]
+  meaning: sentence, writing, culture
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 字
+  readings:
+    on: [ジ]
+    kun: [あざ]
+  meaning: character, letter
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 言
+  readings:
+    on: [ゲン, ゴン]
+    kun: [い.う, こと]
+  meaning: say, word
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 方
+  readings:
+    on: [ホウ]
+    kun: [かた]
+  meaning: direction, person, method
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 知
+  readings:
+    on: [チ]
+    kun: [し.る]
+  meaning: know
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 思
+  readings:
+    on: [シ]
+    kun: [おも.う]
+  meaning: think
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 体
+  readings:
+    on: [タイ, テイ]
+    kun: [からだ]
+  meaning: body
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 心
+  readings:
+    on: [シン]
+    kun: [こころ]
+  meaning: heart, mind
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 魚
+  readings:
+    on: [ギョ]
+    kun: [うお, さかな]
+  meaning: fish
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 肉
+  readings:
+    on: [ニク]
+    kun: []
+  meaning: meat, flesh
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 犬
+  readings:
+    on: [ケン]
+    kun: [いぬ]
+  meaning: dog
+  status: not_started
+  exposures: 0
+  introduced_in: null
+
+- kanji: 鳥
+  readings:
+    on: [チョウ]
+    kun: [とり]
+  meaning: bird
+  status: not_started
+  exposures: 0
+  introduced_in: null

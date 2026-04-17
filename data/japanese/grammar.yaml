@@ -1,0 +1,983 @@
+# JLPT N5 Grammar Points (84 total)
+# Status: solid = covered by Duolingo Section 3, not_started = not yet studied
+# Exposures: 0 = initial count, incremented by review sessions
+
+# ============================================================
+# PARTICLES
+# ============================================================
+
+- pattern: "は"
+  meaning: "topic marker"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 私は学生です
+      en: I am a student
+  tags: [particle, topic]
+
+- pattern: "が"
+  meaning: "subject marker / identifier"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 猫がいます
+      en: There is a cat
+    - jp: 誰が来ましたか
+      en: Who came?
+  tags: [particle, subject]
+
+- pattern: "を"
+  meaning: "direct object marker"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 水を飲みます
+      en: I drink water
+  tags: [particle, object]
+
+- pattern: "に"
+  meaning: "target / time / location of existence"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 学校に行きます
+      en: I go to school
+    - jp: 七時に起きます
+      en: I wake up at seven
+  tags: [particle, location, time]
+
+- pattern: "で"
+  meaning: "location of action / means / reason"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 図書館で勉強します
+      en: I study at the library
+    - jp: バスで行きます
+      en: I go by bus
+  tags: [particle, location, means]
+
+- pattern: "へ"
+  meaning: "direction / toward"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 日本へ行きたいです
+      en: I want to go to Japan
+  tags: [particle, direction]
+
+- pattern: "と"
+  meaning: "and / with / quotation"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 友達と映画を見ました
+      en: I watched a movie with a friend
+    - jp: りんごとみかん
+      en: Apples and oranges
+  tags: [particle, conjunction, quotation]
+
+- pattern: "も"
+  meaning: "also / too"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 私も日本語を勉強しています
+      en: I am also studying Japanese
+  tags: [particle, inclusion]
+
+- pattern: "か"
+  meaning: "question marker"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: これは何ですか
+      en: What is this?
+  tags: [particle, question]
+
+- pattern: "の"
+  meaning: "possessive / noun modifier"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 私の本
+      en: My book
+    - jp: 日本語の先生
+      en: Japanese language teacher
+  tags: [particle, possessive]
+
+- pattern: "や"
+  meaning: "and (non-exhaustive list)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 肉や野菜を買いました
+      en: I bought meat, vegetables, and so on
+  tags: [particle, listing]
+
+- pattern: "よ"
+  meaning: "emphasis / asserting new information"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: このケーキはおいしいですよ
+      en: This cake is delicious, you know!
+  tags: [particle, sentence-ending]
+
+- pattern: "ね"
+  meaning: "seeking agreement / confirmation"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: いい天気ですね
+      en: Nice weather, isn't it?
+  tags: [particle, sentence-ending]
+
+# ============================================================
+# COPULA & EXISTENCE
+# ============================================================
+
+- pattern: "だ・です"
+  meaning: "is / am / are (copula)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: これはペンです
+      en: This is a pen
+    - jp: 学生だ
+      en: (I) am a student
+  tags: [copula, basic]
+
+- pattern: "じゃない・ではない"
+  meaning: "is not (negative copula)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: あれは猫じゃないです
+      en: That is not a cat
+    - jp: 学生ではありません
+      en: (I) am not a student
+  tags: [copula, negative]
+
+- pattern: "〜があります"
+  meaning: "there is (inanimate)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 机の上に本があります
+      en: There is a book on the desk
+  tags: [existence, inanimate]
+
+- pattern: "〜がいます"
+  meaning: "there is (animate)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 庭に犬がいます
+      en: There is a dog in the garden
+  tags: [existence, animate]
+
+# ============================================================
+# TE-FORM & RELATED
+# ============================================================
+
+- pattern: "〜ている"
+  meaning: "ongoing action / current state"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 日本語を勉強している
+      en: I'm studying Japanese
+    - jp: 東京に住んでいます
+      en: I live in Tokyo
+  tags: [te-form, progressive, state]
+
+- pattern: "〜てから"
+  meaning: "after doing"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: ご飯を食べてから出かけます
+      en: I'll go out after eating
+  tags: [te-form, sequence]
+
+- pattern: "〜てください"
+  meaning: "please do (polite request)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: ここに名前を書いてください
+      en: Please write your name here
+  tags: [te-form, request]
+
+- pattern: "〜てもいいです"
+  meaning: "it's okay to / may I"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 写真を撮ってもいいですか
+      en: May I take a photo?
+  tags: [te-form, permission]
+
+- pattern: "〜てはいけない"
+  meaning: "must not / may not"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: ここで泳いではいけません
+      en: You must not swim here
+  tags: [te-form, prohibition]
+
+- pattern: "〜てある"
+  meaning: "something has been done (resulting state)"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 窓が開けてあります
+      en: The window has been opened (and remains open)
+  tags: [te-form, resultative]
+
+# ============================================================
+# DESIRE & VOLITION
+# ============================================================
+
+- pattern: "〜たい"
+  meaning: "want to do"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 日本に行きたいです
+      en: I want to go to Japan
+  tags: [tai-form, desire]
+
+- pattern: "〜がほしい"
+  meaning: "want (something)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 新しいパソコンがほしいです
+      en: I want a new computer
+  tags: [desire, noun]
+
+- pattern: "〜つもり"
+  meaning: "plan to / intend to"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 来年日本に行くつもりです
+      en: I plan to go to Japan next year
+  tags: [volition, plan]
+
+# ============================================================
+# SUGGESTIONS & INVITATIONS
+# ============================================================
+
+- pattern: "〜ましょう"
+  meaning: "let's do"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 一緒に食べましょう
+      en: Let's eat together
+  tags: [suggestion, volitional]
+
+- pattern: "〜ましょうか"
+  meaning: "shall I / shall we"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 手伝いましょうか
+      en: Shall I help?
+  tags: [suggestion, offer]
+
+- pattern: "〜ませんか"
+  meaning: "won't you / would you like to"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 一緒に映画を見ませんか
+      en: Would you like to watch a movie together?
+  tags: [invitation]
+
+# ============================================================
+# NEGATIVE REQUESTS & OBLIGATIONS
+# ============================================================
+
+- pattern: "〜ないでください"
+  meaning: "please don't"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: ここでタバコを吸わないでください
+      en: Please don't smoke here
+  tags: [negative, request]
+
+- pattern: "〜ないで"
+  meaning: "without doing"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 朝ご飯を食べないで学校に行きました
+      en: I went to school without eating breakfast
+  tags: [negative, without]
+
+- pattern: "〜ないといけない"
+  meaning: "must / have to"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 宿題をしないといけない
+      en: I have to do homework
+  tags: [obligation, must]
+
+- pattern: "〜なくてはいけない"
+  meaning: "must / have to"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 薬を飲まなくてはいけません
+      en: I must take medicine
+  tags: [obligation, must]
+
+- pattern: "〜なくてはならない"
+  meaning: "must / have to (formal)"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: レポートを出さなくてはならない
+      en: I must submit the report
+  tags: [obligation, must, formal]
+
+- pattern: "〜なくちゃ"
+  meaning: "gotta / must (casual)"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: もう行かなくちゃ
+      en: I gotta go now
+  tags: [obligation, must, casual]
+
+- pattern: "〜なくてもいい"
+  meaning: "don't have to"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 明日は来なくてもいいです
+      en: You don't have to come tomorrow
+  tags: [permission, no-obligation]
+
+# ============================================================
+# ADJECTIVES
+# ============================================================
+
+- pattern: "い-adjective conjugation"
+  meaning: "い-adjective forms (negative, past, te-form)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: このラーメンは美味しくなかった
+      en: This ramen was not delicious
+    - jp: 高くて買えません
+      en: It's expensive so I can't buy it
+  tags: [adjective, i-adjective, conjugation]
+
+- pattern: "な-adjective conjugation"
+  meaning: "な-adjective forms (negative, past, te-form)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: この部屋は静かじゃなかった
+      en: This room was not quiet
+    - jp: 元気で安心しました
+      en: I'm relieved that you're well
+  tags: [adjective, na-adjective, conjugation]
+
+# ============================================================
+# CONJUNCTIONS & REASONS
+# ============================================================
+
+- pattern: "から"
+  meaning: "because / since"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 暑いから窓を開けました
+      en: I opened the window because it's hot
+  tags: [conjunction, reason]
+
+- pattern: "〜ので"
+  meaning: "because / since (softer)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 雨が降っているので傘を持っていきます
+      en: Since it's raining, I'll bring an umbrella
+  tags: [conjunction, reason, polite]
+
+- pattern: "でも"
+  meaning: "but / however"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 日本語は難しいです。でも、楽しいです
+      en: Japanese is difficult. But it's fun
+  tags: [conjunction, contrast]
+
+- pattern: "けど・けれど"
+  meaning: "but / although (clause connector)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 行きたいけど、時間がない
+      en: I want to go, but I don't have time
+  tags: [conjunction, contrast]
+
+- pattern: "けれども"
+  meaning: "although / however (formal)"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 高かったけれども、買いました
+      en: Although it was expensive, I bought it
+  tags: [conjunction, contrast, formal]
+
+- pattern: "しかし"
+  meaning: "however / but (formal)"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 勉強しました。しかし、テストに落ちました
+      en: I studied. However, I failed the test
+  tags: [conjunction, contrast, formal]
+
+- pattern: "それから"
+  meaning: "and then / after that"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 買い物をしました。それから、映画を見ました
+      en: I went shopping. And then, I watched a movie
+  tags: [conjunction, sequence]
+
+- pattern: "そして"
+  meaning: "and / and then"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 朝起きました。そして、散歩をしました
+      en: I woke up in the morning. And then, I took a walk
+  tags: [conjunction, sequence]
+
+# ============================================================
+# LISTING ACTIONS
+# ============================================================
+
+- pattern: "〜たり〜たり"
+  meaning: "doing things like A and B"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 週末は本を読んだり映画を見たりします
+      en: On weekends I do things like read books and watch movies
+  tags: [listing, actions]
+
+# ============================================================
+# COMPARISONS
+# ============================================================
+
+- pattern: "〜は〜より...です"
+  meaning: "A is more ... than B"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 東京は大阪より大きいです
+      en: Tokyo is bigger than Osaka
+  tags: [comparison]
+
+- pattern: "〜より〜ほうが"
+  meaning: "A is more ... than B (preferred)"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: バスより電車のほうが速いです
+      en: The train is faster than the bus
+  tags: [comparison, preference]
+
+- pattern: "〜の中で〜が一番"
+  meaning: "among ..., ... is the most"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 果物の中でりんごが一番好きです
+      en: Among fruits, I like apples the most
+  tags: [comparison, superlative]
+
+- pattern: "一番"
+  meaning: "the most / number one"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 何が一番好きですか
+      en: What do you like the most?
+  tags: [comparison, superlative]
+
+- pattern: "〜ほうがいい"
+  meaning: "had better / should"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 早く寝たほうがいいですよ
+      en: You'd better go to bed early
+  tags: [advice, comparison]
+
+# ============================================================
+# BECOMING & DECIDING
+# ============================================================
+
+- pattern: "〜になる"
+  meaning: "to become"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 医者になりたいです
+      en: I want to become a doctor
+    - jp: 暗くなりました
+      en: It got dark
+  tags: [change, become]
+
+- pattern: "〜にする"
+  meaning: "to decide on"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: コーヒーにします
+      en: I'll have coffee (I'll go with coffee)
+  tags: [decision]
+
+# ============================================================
+# PURPOSE & SEQUENCE
+# ============================================================
+
+- pattern: "〜に行く"
+  meaning: "go to do (purpose)"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 映画を見に行きます
+      en: I'm going to watch a movie
+  tags: [purpose, movement]
+
+- pattern: "〜前に"
+  meaning: "before doing"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 寝る前に歯を磨きます
+      en: I brush my teeth before sleeping
+  tags: [time, sequence]
+
+# ============================================================
+# TIME & FREQUENCY
+# ============================================================
+
+- pattern: "まだ"
+  meaning: "still / not yet"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: まだ食べていません
+      en: I haven't eaten yet
+    - jp: まだ雨が降っています
+      en: It's still raining
+  tags: [time, adverb]
+
+- pattern: "もう"
+  meaning: "already / anymore"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: もう宿題をしました
+      en: I already did my homework
+  tags: [time, adverb]
+
+- pattern: "いつも"
+  meaning: "always"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: いつも七時に起きます
+      en: I always wake up at seven
+  tags: [frequency, adverb]
+
+- pattern: "まだ〜ていません"
+  meaning: "have not yet done"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: まだ昼ご飯を食べていません
+      en: I haven't eaten lunch yet
+  tags: [time, negative, te-form]
+
+- pattern: "まで"
+  meaning: "until / up to"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 五時まで働きます
+      en: I work until five o'clock
+    - jp: 駅まで歩きました
+      en: I walked to the station
+  tags: [time, particle]
+
+- pattern: "〜とき"
+  meaning: "when / at the time of"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 子供のとき、よく遊びました
+      en: When I was a child, I played a lot
+  tags: [time, clause]
+
+# ============================================================
+# DEGREE & EXCESS
+# ============================================================
+
+- pattern: "とても"
+  meaning: "very"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: この映画はとても面白いです
+      en: This movie is very interesting
+  tags: [degree, adverb]
+
+- pattern: "〜すぎる"
+  meaning: "too much / excessively"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 食べすぎました
+      en: I ate too much
+  tags: [degree, excess]
+
+# ============================================================
+# EXPERIENCE
+# ============================================================
+
+- pattern: "〜たことがある"
+  meaning: "have done before (experience)"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 日本に行ったことがあります
+      en: I have been to Japan before
+  tags: [experience, past]
+
+# ============================================================
+# ABILITY & SKILL
+# ============================================================
+
+- pattern: "〜のが上手"
+  meaning: "good at doing"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 彼女は料理をするのが上手です
+      en: She is good at cooking
+  tags: [ability, skill]
+
+- pattern: "〜のが下手"
+  meaning: "bad at doing"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 私は歌うのが下手です
+      en: I am bad at singing
+  tags: [ability, skill]
+
+- pattern: "〜のが好き"
+  meaning: "like doing"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 本を読むのが好きです
+      en: I like reading books
+  tags: [preference, nominalization]
+
+# ============================================================
+# EXPLANATORY TONE
+# ============================================================
+
+- pattern: "〜んです・のです"
+  meaning: "it is that... (explanatory)"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: どうしたんですか
+      en: What happened? (What's the matter?)
+    - jp: 明日テストがあるんです
+      en: It's that I have a test tomorrow
+  tags: [explanatory, emphasis]
+
+# ============================================================
+# QUESTIONS & EXPRESSIONS
+# ============================================================
+
+- pattern: "どんな"
+  meaning: "what kind of"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: どんな音楽が好きですか
+      en: What kind of music do you like?
+  tags: [question, interrogative]
+
+- pattern: "どうして"
+  meaning: "why"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: どうして日本語を勉強していますか
+      en: Why are you studying Japanese?
+  tags: [question, interrogative]
+
+- pattern: "どうやって"
+  meaning: "how / by what means"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: どうやって駅に行きますか
+      en: How do you get to the station?
+  tags: [question, interrogative, means]
+
+- pattern: "〜はどうですか"
+  meaning: "how about / how is"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 日本の生活はどうですか
+      en: How is life in Japan?
+  tags: [question, suggestion]
+
+- pattern: "か〜か"
+  meaning: "whether A or B / or"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 行くか行かないか決めてください
+      en: Please decide whether to go or not
+  tags: [question, choice]
+
+# ============================================================
+# TOGETHERNESS & MISC EXPRESSIONS
+# ============================================================
+
+- pattern: "一緒に"
+  meaning: "together"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 一緒に行きましょう
+      en: Let's go together
+  tags: [adverb, togetherness]
+
+- pattern: "〜をください"
+  meaning: "please give me"
+  status: solid
+  exposures: 0
+  introduced_in: duolingo
+  examples:
+    - jp: 水をください
+      en: Water, please
+  tags: [request, giving]
+
+# ============================================================
+# WAYS & METHODS
+# ============================================================
+
+- pattern: "〜方"
+  meaning: "way of doing / how to"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: この漢字の読み方を教えてください
+      en: Please teach me how to read this kanji
+  tags: [method, nominalization]
+
+# ============================================================
+# HONORIFICS
+# ============================================================
+
+- pattern: "お・ご (prefix)"
+  meaning: "honorific/beautifying prefix"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: お名前は何ですか
+      en: What is your name? (polite)
+    - jp: お茶をどうぞ
+      en: Please have some tea
+  tags: [honorific, prefix, politeness]
+
+# ============================================================
+# SENTENCE-ENDING PARTICLES
+# ============================================================
+
+- pattern: "〜なあ"
+  meaning: "I wish / how nice (emotive ending)"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 夏休みに旅行したいなあ
+      en: I wish I could travel during summer vacation
+  tags: [sentence-ending, emotion]
+
+# ============================================================
+# CASUAL PROHIBITION
+# ============================================================
+
+- pattern: "〜ちゃいけない・じゃいけない"
+  meaning: "must not (casual)"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: ここで遊んじゃいけないよ
+      en: You mustn't play here
+  tags: [prohibition, casual]
+
+# ============================================================
+# PROBABILITY & CONJECTURE
+# ============================================================
+
+- pattern: "〜だろう・でしょう"
+  meaning: "probably / I think / right?"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 明日は雨が降るでしょう
+      en: It will probably rain tomorrow
+    - jp: あの映画は面白いだろう
+      en: That movie is probably interesting
+  tags: [conjecture, probability]
+
+# ============================================================
+# ABILITY
+# ============================================================
+
+- pattern: "〜ことができる"
+  meaning: "can do / be able to"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 日本語を話すことができます
+      en: I can speak Japanese
+  tags: [ability, potential]
+
+# ============================================================
+# SIMULTANEOUS ACTION
+# ============================================================
+
+- pattern: "〜ながら"
+  meaning: "while doing"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 音楽を聞きながら勉強します
+      en: I study while listening to music
+  tags: [simultaneous, time]
+
+# ============================================================
+# AFTER
+# ============================================================
+
+- pattern: "〜あとで"
+  meaning: "after doing"
+  status: not_started
+  exposures: 0
+  introduced_in: null
+  examples:
+    - jp: 仕事のあとで飲みに行きましょう
+      en: Let's go drinking after work
+  tags: [time, sequence]
