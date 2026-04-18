@@ -134,9 +134,9 @@ episode_8:
     meaning: address
   grammar: []
 episode_9:
-  status: queued
+  status: dispatched
   japanese_ratio: 0.2
-  theme: Preferences and scenery
+  theme: "Skeptical investigation of daimon-cma repo: hosts start believing it's a worthless, badly-designed project with no real use case. They research online comparisons (similar projects, frameworks), dig through the code, quantify design-decision dimensions, and argue through tradeoffs/pros/cons/gaps/what-it-unlocks. 1-hour long."
   vocab:
   - word: 景色
     reading: けしき
