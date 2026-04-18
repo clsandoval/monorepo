@@ -1,21 +1,7 @@
 target: N5
 baseline: duolingo-section-3
-episodes_completed: 11
+episodes_completed: 12
 total_exposure_hours: 4.0
-japanese_ratio: 0.20
+japanese_ratio: 0.2
 started_at: 2026-04-17
 cadence: 4_per_day
-
-# Pacing rules:
-#   - 5-6 new vocab per episode
-#   - 1 new grammar pattern every 2 episodes (preserves N5 grammar pool to ep ~50)
-#   - Ratio bump: only when items from 2 episodes ago have exposures >= 8 (strict gating)
-#   - Calendar fallback: bump after 28 episodes regardless
-
-# Ratio ramp (strict gating, ~28 episodes per tier = ~7 days at 4/day):
-# 0.20  ep   1-28  (English dominant — building vocabulary base)
-# 0.30  ep  29-56  (Japanese sentences appear, English paraphrase follows)
-# 0.45  ep  57-84  (code-switching natural, listener follows without paraphrase)
-# 0.60  ep  85-112 (Japanese dominant, English for new/abstract concepts)
-# 0.80  ep 113-140 (near full Japanese)
-# 1.00  ep 141+    (full Japanese — English only for clarification)

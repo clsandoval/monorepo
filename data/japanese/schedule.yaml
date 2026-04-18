@@ -71,7 +71,8 @@ episode_5:
 episode_6:
   status: dispatched
   japanese_ratio: 0.2
-  theme: "Comparing Claude Managed Agents vs Vercel Open Agents (hosts disagree — one prefers each)"
+  theme: Comparing Claude Managed Agents vs Vercel Open Agents (hosts disagree — one
+    prefers each)
   vocab:
   - word: 理由
     reading: りゆう
@@ -92,7 +93,8 @@ episode_6:
 episode_7:
   status: dispatched
   japanese_ratio: 0.2
-  theme: "Comparing two Python repos: daimon-lite vs daimon-cma (weaves pacing/time-pressure vocab naturally)"
+  theme: 'Comparing two Python repos: daimon-lite vs daimon-cma (weaves pacing/time-pressure
+    vocab naturally)'
   vocab:
   - word: 急に
     reading: きゅうに
@@ -115,7 +117,9 @@ episode_7:
 episode_8:
   status: dispatched
   japanese_ratio: 0.2
-  theme: "In-depth 1-hour comparison of agent frameworks: Claude Managed Agents vs Vercel Open Agents vs OpenHands vs Mastra vs Suna (tradeoffs, pros/cons, potential, gaps, insights)"
+  theme: 'In-depth 1-hour comparison of agent frameworks: Claude Managed Agents vs
+    Vercel Open Agents vs OpenHands vs Mastra vs Suna (tradeoffs, pros/cons, potential,
+    gaps, insights)'
   vocab:
   - word: 場所
     reading: ばしょ
@@ -136,7 +140,11 @@ episode_8:
 episode_9:
   status: dispatched
   japanese_ratio: 0.2
-  theme: "Skeptical investigation of daimon-cma repo: hosts start believing it's a worthless, badly-designed project with no real use case. They research online comparisons (similar projects, frameworks), dig through the code, quantify design-decision dimensions, and argue through tradeoffs/pros/cons/gaps/what-it-unlocks. 1-hour long."
+  theme: 'Skeptical investigation of daimon-cma repo: hosts start believing it''s
+    a worthless, badly-designed project with no real use case. They research online
+    comparisons (similar projects, frameworks), dig through the code, quantify design-decision
+    dimensions, and argue through tradeoffs/pros/cons/gaps/what-it-unlocks. 1-hour
+    long.'
   vocab:
   - word: 景色
     reading: けしき
@@ -180,7 +188,10 @@ episode_10:
 episode_11:
   status: dispatched
   japanese_ratio: 0.2
-  theme: "Skeptical investigation of mystic-os-ph-legal repo — a newcomer to Claude (Maninilip) is convinced he's figured out how to build a Philippine sovereign LLM with its own power plant in Puerto Galera; hosts read the actual repo and probe the gap between ambition and code"
+  theme: Skeptical investigation of mystic-os-ph-legal repo — a newcomer to Claude
+    (Maninilip) is convinced he's figured out how to build a Philippine sovereign
+    LLM with its own power plant in Puerto Galera; hosts read the actual repo and
+    probe the gap between ambition and code
   vocab:
   - word: 番号
     reading: ばんごう
@@ -201,9 +212,12 @@ episode_11:
   - pattern: 〜にする
     meaning: to decide on / I'll go with
 episode_12:
-  status: queued
+  status: dispatched
   japanese_ratio: 0.2
-  theme: Society and culture
+  theme: 'Exhaustive 90-minute deep dive on daimon-cma: current Anthropic-locked architecture,
+    the agents/environments/skills/tools/credentials-as-config philosophy, and the
+    complete landscape of BYO-infra (harness/sandbox/vault/runtime) alternatives —
+    every related project, use case, and philosophical angle covered, no fluff'
   vocab:
   - word: 社会
     reading: しゃかい
