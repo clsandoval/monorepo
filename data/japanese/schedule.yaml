@@ -178,9 +178,9 @@ episode_10:
     meaning: first; the beginning
   grammar: []
 episode_11:
-  status: queued
+  status: dispatched
   japanese_ratio: 0.2
-  theme: Names, numbers, and society
+  theme: "Skeptical investigation of mystic-os-ph-legal repo — a newcomer to Claude (Maninilip) is convinced he's figured out how to build a Philippine sovereign LLM with its own power plant in Puerto Galera; hosts read the actual repo and probe the gap between ambition and code"
   vocab:
   - word: 番号
     reading: ばんごう
