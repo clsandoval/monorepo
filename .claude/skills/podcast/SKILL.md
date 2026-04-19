@@ -45,6 +45,20 @@ problem with that" energy.
 
 ## Workflow
 
+### Outcome checklist (gate before generation)
+
+Before running the numbered workflow below, produce a short outcome checklist inline and show it to the user:
+
+- [ ] Source artifact: `<filepath>`
+- [ ] Episode name / slug: `<derived-from-filename>`
+- [ ] Target duration: `<minutes>` (from the length guidelines below)
+- [ ] One non-obvious thread the episode will make (fill in after reading)
+- [ ] Done criteria: transcript saved, MP3 generated, duration within ±20% of target
+
+Wait for user approval (or inline edits) before proceeding to step 1. This keeps the local podcast flow conceptually aligned with the three-gate remote flow (`autopilot/dispatch.md`) — same outcome-first discipline, minus the credentials and payload gates.
+
+### Numbered steps
+
 1. Read the artifact at the given filepath
 2. Identify the key material:
    - The core thesis / what this thing actually does
