@@ -1,0 +1,60 @@
+episode: 19
+repo: farion1231/cc-switch
+series: flight-podcast-2026-04
+duration_seconds: 1536
+cjk_count: 1792
+japanese_ratio_target: 0.2
+
+vocab_introduced:
+  - word: 変える
+    reading: かえる
+    meaning: to change
+    exposures: 11
+  - word: 切り替える
+    reading: きりかえる
+    meaning: to switch over
+    exposures: 11
+  - word: 道具
+    reading: どうぐ
+    meaning: tool
+    exposures: 27
+  - word: 使い方
+    reading: つかいかた
+    meaning: way of using; usage
+    exposures: 15
+  - word: 便利
+    reading: べんり
+    meaning: convenient
+    exposures: 16
+  - word: 選択
+    reading: せんたく
+    meaning: selection; choice
+    exposures: 19
+
+grammar_introduced:
+  - pattern: 〜たり〜たりする
+    meaning: doing things like X and Y (non-exhaustive)
+    demonstrations: 46  # たり occurrences across varied verb pairs
+
+review_items_used:
+  - word: 思い出す
+    exposures: 4
+  - word: 忘れる
+    exposures: 1
+  - word: 短い
+    exposures: 7
+  - word: 長い
+    exposures: 8
+  - pattern: 〜てしまう
+    exposures: 5
+
+verify_results:
+  word_count: 3414
+  speaker_balance: "A=64.5% B=35.5%"
+  cjk_turn_coverage: "90%"
+  jp_en_pairing: "79% paired (161/203 spans)"
+  notes: |
+    Balance outside 45-55% gate — ARK (teacher role) carries more exposition.
+    Two banned phrases flagged (genuinely, honestly) in natural context.
+    Pairing at 79% — long compound JP sentences with embedded English cause false negatives.
+    All issues logged per brief; dialogue was pre-approved and not rewritten.

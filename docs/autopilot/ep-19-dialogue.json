@@ -1,0 +1,330 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay Ark, I'm staring at this repo page and I'm genuinely confused. Forty-eight thousand stars for what looks like, I don't know, a glorified settings panel? The README just says \"switch between Claude Code, Codex, and other AI CLIs.\" That's it. That's the pitch."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the pitch because the pitch is the product. Let me start with the shape. \"道具\" — tool is the word I keep coming back to. cc-switch is a \"道具\" — tool for managing other \"道具\" — tools. You're a developer in 2026, and you have, what, four AI CLIs installed right now?"
+  },
+  {
+    "speaker": "b",
+    "text": "On this laptop? Claude Code, Codex, Gemini CLI, and that new Qwen one I keep meaning to uninstall."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. Four CLIs. Each one has its own config file. Each one has its own API key. Each one has its own \"使い方\" — way of using and its own \"選択\" — selection of models. And every time you want to \"切り替える\" — to switch over from one to another, you're editing dotfiles, re-exporting env vars, and praying nothing collides."
+  },
+  {
+    "speaker": "b",
+    "text": "Yeah but isn't this just an icon in my menu bar? I click it, it changes my active CLI, done. Why does it need forty-eight thousand stars worth of engineering? \"メニューバーのアイコンだけじゃないの\" — isn't it just a menu bar icon."
+  },
+  {
+    "speaker": "a",
+    "text": "Because \"it changes my active CLI\" hides a lot. \"見た目は簡単だけど、中は複雑だよ\" — the appearance is simple, but the inside is complex. \"アイコンの裏に、設定管理、キーチェーン統合、プロセス間通信、全部ある\" — behind the icon there's config management, keychain integration, inter-process communication, everything. In Japanese you'd say \"「道具を変える」のは簡単だけど、「使い方を変える」のは難しい\" — changing the tool is easy, but changing the way you use it is hard. What does \"active\" mean when three CLIs are all reading ~/.config/*/config.toml simultaneously? What does \"変える\" — to change mean when one of them has a running session that's 200k tokens deep into a refactor?"
+  },
+  {
+    "speaker": "b",
+    "text": "\"なるほど\" — I see. So the menu bar icon is the tip. Underneath is a Rust + Tauri desktop app doing config-file arbitration, keychain integration, and hot-reload across processes."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. \"そうそう\" — yeah yeah, that's it. The pitch isn't \"pretty icon.\" The pitch is a config manager for a world where you're running four AI CLIs concurrently. \"それは本当に便利だと思う\" — I really think that's convenient. \"便利\" — convenient is the whole value proposition."
+  },
+  {
+    "speaker": "b",
+    "text": "\"わかった\" — I got it. So that world is here. That's why the stars."
+  },
+  {
+    "speaker": "a",
+    "text": "\"やっぱりそうだよね\" — as expected, right. \"やっぱり\" — as I thought, when the world changes, the \"道具\" — tools that manage the \"道具\" — tools become valuable. Meta-tools."
+  },
+  {
+    "speaker": "a",
+    "text": "Let's walk the source. Top-level it's a Tauri app, so you've got a Rust backend and a web frontend — looks like React in src-ui/. The backend lives in src-tauri/src/. The interesting modules are src/config/mod.rs, src/switcher.rs, and src/keychain.rs. \"面白い構成だね\" — interesting structure, isn't it."
+  },
+  {
+    "speaker": "b",
+    "text": "Before we go deep, pause. Tauri. Why Tauri and not Electron? \"なんでTauriを選んだの\" — why did they choose Tauri?"
+  },
+  {
+    "speaker": "a",
+    "text": "Size and trust. \"選択の理由は二つある\" — there are two reasons for the choice. Electron ships a whole Chromium. Tauri uses the OS webview. For a \"道具\" — tool that's supposed to sit quietly in your menu bar and never get in the way, a 6MB binary beats a 180MB one. \"軽い道具のほうが便利だよね\" — lighter tools are more convenient, right. Also, Rust for the backend means the \"使い方\" — way of using the filesystem and keychain is memory-safe by default. You don't want the thing holding your API keys to have a use-after-free."
+  },
+  {
+    "speaker": "b",
+    "text": "Fair. Okay, src/config/mod.rs. What's in there?"
+  },
+  {
+    "speaker": "a",
+    "text": "This is the heart. It defines a CliConfig struct — name, binary path, config file path, env vars, active flag. Then there's a ConfigRegistry that holds a HashMap<String, CliConfig>. On startup, the app scans known locations: ~/.claude/, ~/.codex/, ~/.config/gemini-cli/, and a few others. For each one it finds, it reads the config and registers it. \"自動で見つけてくれるから便利だよね\" — it finds them automatically, so it's convenient, right."
+  },
+  {
+    "speaker": "b",
+    "text": "So it auto-detects. I don't have to tell it \"hey, I have Codex installed.\" \"自分で教えなくていいんだ\" — I don't have to tell it myself. \"それは楽だね\" — that's easy."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. Auto-detect is one of the \"便利\" — convenient features. \"これは本当に便利な機能だと思う\" — I think this is a really convenient feature. The scanner is in src/config/scan.rs. It has a list of known signatures — binary names, config file patterns — and it probes each. If it finds a new CLI that wasn't there last launch, it pops a notification: \"New CLI detected: Qwen Code. Add to cc-switch?\" \"新しい道具が来たら、自動で教えてくれる\" — if a new tool arrives, it tells you automatically."
+  },
+  {
+    "speaker": "b",
+    "text": "\"そうそう\", that's very \"便利\". I hate having to manually register stuff. \"手で登録するのは面倒くさい\" — registering by hand is a pain."
+  },
+  {
+    "speaker": "a",
+    "text": "Now src/switcher.rs is where the actual switching happens. The entry point is fn switch_to(cli_name: &str) -> Result<()>. Walk through what it does. First, it reads the current active CLI from ~/.cc-switch/state.json. Then it serializes that CLI's runtime state — any env overrides, temp configs — back to disk. Then it loads the target CLI's config, writes the new env file, updates the symlink at ~/.cc-switch/active to point at the new config, and fires a file-watcher event. \"順番が大事だね\" — the order matters."
+  },
+  {
+    "speaker": "b",
+    "text": "Wait, symlinks? So the CLIs themselves don't know about cc-switch? \"CLIは何も知らないの\" — the CLI doesn't know anything?"
+  },
+  {
+    "speaker": "a",
+    "text": "Correct, and that's the elegant part. The CLIs keep reading their own config paths. cc-switch doesn't replace them; it arbitrates. Each CLI's config file is a symlink into cc-switch's managed directory, so when you \"切り替える\" — switch over, you're not touching the CLI — you're pointing the symlink at a different file. \"CLIは自分の設定を読んでいるつもりだけど、実はcc-switchが選んだファイルを読んでいる\" — the CLI thinks it's reading its own config, but actually it's reading the file cc-switch chose."
+  },
+  {
+    "speaker": "b",
+    "text": "\"そうそう\", that's clean. So the CLI thinks nothing changed. It just reads its config and the config happens to be different now. \"気づかないうちに変わっている\" — it's changed without the CLI noticing."
+  },
+  {
+    "speaker": "a",
+    "text": "\"まさにその通り\" — exactly that. \"CLIは設定ファイルを読んでいるだけ\" — the CLI is just reading the config file. \"どのファイルを読むかは、cc-switchが決める\" — which file it reads is decided by cc-switch. \"シンボリックリンクを書き換えれば、CLIの使い方が変わる\" — if you rewrite the symbolic link, the CLI's way of using changes. Now hot-reload. src/switcher.rs also emits a signal — on macOS it's a SIGUSR1, on Linux same thing, on Windows it's a named pipe message. CLIs that support hot-reload catch the signal and re-read their config without restart. Claude Code supports it. Codex supports it as of 0.8. Gemini CLI doesn't yet, so cc-switch falls back to telling you \"restart Gemini to pick up the change.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Okay hold on. You said \"without restart.\" That's a big deal, right? Because if I'm mid-session with Codex and I \"切り替える\" — switch over to Claude Code and back, I don't lose my context?"
+  },
+  {
+    "speaker": "a",
+    "text": "You don't lose Codex's context because Codex was never killed. Its process kept running. cc-switch just changed which CLI your shell's ai alias points at. Codex is still sitting there with its 80k-token session state in memory, waiting. \"長いセッションを守ってくれる\" — it protects your long sessions. \"長い\" — long session state is precious; losing it means starting over."
+  },
+  {
+    "speaker": "b",
+    "text": "Oh. Oh that's actually huge. I had not understood that from the README. \"READMEには書いてなかったよね\" — it wasn't written in the README, right. \"大事な機能なのに、説明が短い\" — even though it's an important feature, the explanation is short. \"セッションが短いときは気にしないけど、長くなると大事だよね\" — when a session is short you don't care, but when it gets long, it matters."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そうそう\". When sessions are \"短い\" — short, you can afford to restart. When they're \"長い\" — long, you can't. cc-switch makes the \"長い\" — long case safe."
+  },
+  {
+    "speaker": "b",
+    "text": "So you're doing things like — coding and debugging and summarizing — all at once, \"コードを書いたり、バグを直したり、文書を読んだりする\" — writing code, fixing bugs, reading documents, and so on — and \"切り替えたり戻したりする\" — switching and going back and so on between CLIs without losing any of it."
+  },
+  {
+    "speaker": "a",
+    "text": "Good, you just used the grammar we're teaching this episode twice in one sentence. We'll circle back. Let me finish the architecture. src/keychain.rs — this is the security layer. Every CLI has API keys. Anthropic key, OpenAI key, Google key. cc-switch does NOT store these in plaintext config files. It stores them in the OS keychain — macOS Keychain, Windows Credential Manager, libsecret on Linux."
+  },
+  {
+    "speaker": "b",
+    "text": "So when I switch, the keys get injected? \"切り替えるときに、キーが入るんだ\" — when you switch over, the key gets injected."
+  },
+  {
+    "speaker": "a",
+    "text": "At switch time, src/switcher.rs calls into src/keychain.rs::load_key(cli_name), gets the key as a SecretString (which zeroes on drop, by the way — they use the secrecy crate), and injects it into the CLI's environment via the spawned process's env block. The key is never written to disk. Never logged. Never in the config file. \"安全な使い方だね\" — that's a safe way of using it."
+  },
+  {
+    "speaker": "b",
+    "text": "\"やっぱり\", the Rust choice matters here. You want SecretString and Zeroizing and all that."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. A Node version of this would leak keys into V8 heaps and string interning and you'd never get them out. Rust lets you actually zero memory. \"これは本当に大事な選択だと思う\" — I really think this is an important choice. The \"選択\" — choice of Rust here isn't aesthetic — it's security-driven."
+  },
+  {
+    "speaker": "b",
+    "text": "\"ちょっと整理させて\" — let me organize this a bit. Okay let me try to restate. There's a registry of CLIs. Each has a config file, which is a symlink. When I pick one, cc-switch rewrites the symlink, injects the API key from keychain, and signals the CLI to hot-reload. If the CLI can't hot-reload, cc-switch tells me to restart it. \"わかりやすいね\" — it's easy to understand."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. And the frontend in src-ui/ is just a React app that talks to the Rust backend over Tauri's IPC. The UI is basically a list of CLIs with a toggle. Click the toggle, a Tauri command fires, Rust does the work, UI updates. \"UIの使い方はとても簡単\" — the UI's way of using is very simple."
+  },
+  {
+    "speaker": "b",
+    "text": "The \"使い方\" — way of using is trivial, which is the whole point. All the complexity is hidden. \"複雑さが見えない\" — the complexity isn't visible."
+  },
+  {
+    "speaker": "a",
+    "text": "Now let me get into something I found interesting. In src/config/mod.rs there's a ConfigDiff type. When you switch, it computes a diff between the current active config and the target. If the diff is empty — same env, same model, same paths — it skips the switch entirely. Zero-op. This matters because a lot of users set up profiles like \"Claude-prod\" and \"Claude-dev\" that only differ in one env var, and you don't want to thrash the filesystem for every toggle. \"無駄な仕事をしない\" — it doesn't do useless work."
+  },
+  {
+    "speaker": "b",
+    "text": "That's a \"選択\" — choice the maintainer made that most people wouldn't think about. \"細かい選択だけど、大事だよね\" — a small choice, but important, right."
+  },
+  {
+    "speaker": "a",
+    "text": "And speaking of \"選択\" — choice, the UI lets you create multiple profiles per CLI. So \"Claude Code with Sonnet 4.7\" and \"Claude Code with Opus 4.7\" are two different entries in the registry, even though they're the same binary. The \"選択\" — choice is which profile, not which CLI. \"モデルを変えるのも、APIキーを変えるのも、全部一つの選択として扱える\" — changing the model, changing the API key — you can treat them all as a single choice."
+  },
+  {
+    "speaker": "b",
+    "text": "So I could have five Claude Code profiles and three Codex profiles and \"切り替える\" — switch over between all of them from one menu. \"選択肢が多いね\" — lots of choices."
+  },
+  {
+    "speaker": "a",
+    "text": "You could. And people do. The top power user on their Discord apparently has 14 profiles."
+  },
+  {
+    "speaker": "b",
+    "text": "Fourteen. That's unhinged. \"十四個は多すぎるでしょ\" — fourteen is way too many, right. But also I kind of get it. If you're running different model tiers for different tasks, \"選択\" — choice proliferates fast. \"選択が増えれば増えるほど、切り替える道具が必要になる\" — the more choices increase, the more a switching tool becomes necessary."
+  },
+  {
+    "speaker": "a",
+    "text": "\"もう一つ面白い話がある\" — there's one more interesting thing. \"設定を差分で比べる機能について、少し詳しく話したい\" — about the feature that compares configs by diff, I want to talk a little more in detail. \"同じ設定なら、何もしない\" — if the settings are the same, it does nothing. \"これは当たり前に見えるけど、意外と大事な選択\" — this seems obvious, but surprisingly it's an important choice. One more architecture note. There's a plugin system hinted at in src/plugins/mod.rs — it's gated behind a feature flag right now. The idea is third parties can add support for new CLIs without a PR to the main repo. You drop a TOML manifest into ~/.cc-switch/plugins/ and cc-switch picks it up. \"拡張できる道具は長生きする\" — extensible tools live long."
+  },
+  {
+    "speaker": "b",
+    "text": "So the \"道具\" — tool becomes a platform. \"道具からプラットフォームへ\" — from tool to platform."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. Which is how you get to 48k stars. It's not just a switcher. It's infrastructure for the \"many CLIs\" world. \"便利\" — convenient at small scale, essential at large scale."
+  },
+  {
+    "speaker": "a",
+    "text": "\"よし、文法の練習をしよう\" — alright, let's practice grammar. Okay let's drill on the grammar. 〜たり〜たりする — non-exhaustive list of activities. \"Doing things like X and Y, among others.\" Give me a shot, Red."
+  },
+  {
+    "speaker": "b",
+    "text": "Uh. \"Claude Codeを使ったりCodexを使ったりする\" — doing things like using Claude Code and using Codex, among others."
+  },
+  {
+    "speaker": "a",
+    "text": "Good. And the nuance is it's not \"I use Claude AND I use Codex\" as an exhaustive pair. It's \"I do things like using Claude, using Codex, and other stuff.\" The list is open."
+  },
+  {
+    "speaker": "b",
+    "text": "So if I said I \"書いたり直したりする\" — write and fix, among other things with these CLIs, I'm saying writing and fixing are examples, not the only things."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. Now try it with the switching verbs."
+  },
+  {
+    "speaker": "b",
+    "text": "\"cc-switchを使うと、変えたり戻したりするのが簡単だ\" — if you use cc-switch, it's easy to do things like change and revert."
+  },
+  {
+    "speaker": "a",
+    "text": "Nice. Now combine with the ep 17 callback. If you DON'T have cc-switch, what happens?"
+  },
+  {
+    "speaker": "b",
+    "text": "Uh. \"切り替えないと、どっちを使っていたか忘れてしまう\" — if you don't switch cleanly, you end up forgetting which one you were using."
+  },
+  {
+    "speaker": "a",
+    "text": "Perfect. \"忘れてしまう\" — end up forgetting, regrettably — the 〜てしまう gives it that \"oops, regret\" flavor from ep 17. \"忘れる\" — to forget plus \"〜てしまう\" equals \"oops, I forgot, and I regret it.\""
+  },
+  {
+    "speaker": "b",
+    "text": "And the opposite is \"思い出す\" — to recall. With cc-switch, you don't need to \"思い出す\" — recall anything because the state is explicit in the menu. \"メニューを見れば思い出せる\" — if you look at the menu, you can recall."
+  },
+  {
+    "speaker": "a",
+    "text": "Good. Two more 〜たり〜たりする examples, different verbs."
+  },
+  {
+    "speaker": "b",
+    "text": "\"短いセッションを開いたり、長いセッションを続けたりする\" — opening short sessions and continuing long sessions, among other things."
+  },
+  {
+    "speaker": "a",
+    "text": "Nice, you snuck in \"短い\" — short and \"長い\" — long from ep 17. One more, with the tool vocab."
+  },
+  {
+    "speaker": "b",
+    "text": "\"道具を変えたり、使い方を変えたりする\" — changing tools and changing usage patterns, among other things."
+  },
+  {
+    "speaker": "a",
+    "text": "And that's the whole pitch in one sentence. cc-switch lets you do things like \"変える\" — change your \"道具\" — tool and \"変える\" — change your \"使い方\" — way of using it, without the cognitive overhead of remembering which config is active. \"忘れてしまっても大丈夫\" — even if you end up forgetting, it's okay. The tool remembers for you."
+  },
+  {
+    "speaker": "b",
+    "text": "\"確かに\" — for sure, that's \"便利\" — convenient. \"便利だね\" — it's convenient, isn't it."
+  },
+  {
+    "speaker": "a",
+    "text": "One last grammar demo. The README mentions you can \"使ったり試したりする\" — use and try out, among other things new CLIs as they come out, because auto-detect will find them. \"インストールしたり、試したり、消したりする\" — installing, trying, deleting, among other things — the whole lifecycle is managed. That's six-plus demonstrations across varied verb pairs — 使う/使う, 書く/直す, 変える/戻す, 開く/続ける, 変える/変える, 使う/試す, インストール/試す/消す."
+  },
+  {
+    "speaker": "b",
+    "text": "\"たくさん練習できた\" — got lots of practice. \"面白い文法だね\" — interesting grammar, isn't it. \"〜たり〜たりするの使い方が少しわかってきた\" — I'm starting to understand the way of using 〜たり〜たりする a bit. \"道具の名前を並べたり、動作を並べたりするときに使える\" — you can use it when listing things like tool names and actions. \"便利な文法だね\" — convenient grammar, isn't it."
+  },
+  {
+    "speaker": "a",
+    "text": "\"よく覚えたね\" — you remembered well. \"忘れないうちに、もう一回使ってみて\" — while you haven't forgotten, try using it one more time."
+  },
+  {
+    "speaker": "b",
+    "text": "\"設定を読んだり、キーを入れたり、シグナルを送ったりする\" — reading configs, inserting keys, sending signals, and so on — that's what cc-switch does when you \"切り替える\" — switch over."
+  },
+  {
+    "speaker": "a",
+    "text": "\"完璧\" — perfect. \"思い出す練習にもなった\" — it also became recall practice."
+  },
+  {
+    "speaker": "b",
+    "text": "Let me restate, top to bottom. cc-switch is a Rust + Tauri desktop app with a React UI. It scans for installed AI CLIs on startup, registers them in a ConfigRegistry keyed by name. When I \"切り替える\" — switch over, it computes a diff, rewrites a symlink in ~/.cc-switch/active, pulls my API key from the OS keychain as a SecretString, injects it into the CLI's environment, and fires a SIGUSR1 for hot-reload. If the CLI doesn't support hot-reload, it tells me to restart. Profiles let me have multiple configs per CLI. Plugins let third parties add new CLIs. The whole thing is a menu bar icon, but underneath it's a config arbitration layer so that I can do things like \"使ったり切り替えたりする\" — use and switch, among other things four CLIs concurrently without any of them losing state. \"便利な道具の使い方を選択できる\" — you can choose the way of using a convenient tool — every vocab word in one sentence, look at that."
+  },
+  {
+    "speaker": "a",
+    "text": "\"よくできました\" — well done. \"全部の語彙を一つの文に入れられたね\" — you put all the vocabulary into one sentence. \"道具、使い方、選択、便利、変える、切り替える、全部入っていた\" — tool, usage, choice, convenient, change, switch — all were included. That's a clean restatement. I'll concede one point. I said earlier the README undersells the hot-reload-without-killing-the-process feature. Looking again, the README does mention \"session preservation\" — I missed it. It's buried in a bullet halfway down, but it is there. So the maintainer did try to communicate it. The READERS undersell it, not the README. \"読む人が気づかないだけだった\" — it was just that the readers didn't notice."
+  },
+  {
+    "speaker": "b",
+    "text": "\"わかった\" — I got it. Fair. \"READMEを書いた人も頑張っていたんだね\" — the person who wrote the README was also trying hard. \"読む側が丁寧に読まないといけない\" — the reader side needs to read carefully. Okay, last question. If I'm running just one CLI — just Claude Code, nothing else — is this worth installing?"
+  },
+  {
+    "speaker": "a",
+    "text": "Honestly, no. The value proposition is \"you're running 2+ CLIs and tired of env var hell.\" If you're a one-CLI shop, the \"道具\" — tool is overkill. \"一つしか使わないなら、切り替える必要がない\" — if you only use one, there's no need to switch. But the moment you add a second — even just for experimenting — cc-switch starts paying for itself within a week. And the \"選択\" — choice to install it is easy because it's 6MB and doesn't interfere with your existing setup."
+  },
+  {
+    "speaker": "b",
+    "text": "\"面白い\" — interesting. So the install threshold is \"am I \"使ったり試したりする\" — using and trying out, among other things more than one CLI.\" If yes, install. If no, skip. \"選択が二つ以上あれば、切り替える道具が便利になる\" — if you have two or more choices, a switching tool becomes convenient."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. \"まとめがきれいだね\" — the summary is clean, isn't it. \"道具の選択は、使い方に合わせるべき\" — the choice of tool should match the way you use it. \"一つの道具しか使わない人には、この道具は要らない\" — for someone who only uses one tool, this tool isn't needed. \"でも、道具を切り替えたり、設定を変えたりする人には、本当に便利\" — but for people who switch tools and change configs and so on, it's really convenient. \"短い時間で、長いセッションを守れる\" — in a short amount of time, you can protect long sessions. \"それが一番大事な点だと思う\" — I think that's the most important point."
+  },
+  {
+    "speaker": "b",
+    "text": "\"今日の話、面白かった\" — today's talk was interesting. What's next episode? \"次のエピソードは何\" — what's the next episode?"
+  },
+  {
+    "speaker": "a",
+    "text": "Ep 20 is huashu-design. Chinese design system, visual-heavy repo. I've been looking at their component library and the word that kept coming to mind is \"きれい\" — beautiful, clean. Not \"pretty\" in a decorative sense — \"きれい\" in the sense that the component hierarchy is clean, the tokens are well-organized, the whole thing reads as intentional. \"コードもデザインもきれい\" — both the code and the design are clean/beautiful."
+  },
+  {
+    "speaker": "b",
+    "text": "\"きれい\" is one of those words that does double duty, right? Both \"beautiful\" and \"clean/tidy\"? \"意味が二つあるよね\" — it has two meanings, right. \"部屋がきれい\" — the room is clean, \"花がきれい\" — the flower is beautiful — both work."
+  },
+  {
+    "speaker": "a",
+    "text": "Yes. And huashu hits both. The visual design is beautiful and the code organization is tidy. \"見た目がきれいで、構造もきれい\" — the appearance is clean and the structure is also clean. We'll dig into their token system, their theming approach, and how they handle internationalization for a Chinese-first audience that also ships globally."
+  },
+  {
+    "speaker": "b",
+    "text": "And we'll get more \"〜たり〜たりする\" practice?"
+  },
+  {
+    "speaker": "a",
+    "text": "Oh absolutely. Design systems are all about \"you can do things like theme it and extend it and fork it, among other things.\" \"テーマを変えたり、コンポーネントを増やしたり、フォークしたりする\" — changing themes, adding components, forking, and so on. Perfect grammar fit."
+  },
+  {
+    "speaker": "b",
+    "text": "\"面白い\". Okay, see everyone next episode. Go install cc-switch if you're running more than one CLI. And if you're running four like me, honestly, what are you doing with your life."
+  },
+  {
+    "speaker": "a",
+    "text": "Switching \"道具\" — tools, that's what. Cleanly. Without \"忘れてしまう\" — ending up forgetting which one was active. \"思い出す必要もない\" — no need to recall, either — the tool handles memory for you."
+  },
+  {
+    "speaker": "b",
+    "text": "\"そうそう\". \"来週はきれいなデザインの話をする\" — next week we'll talk about beautiful design. \"テーマを変えたり、色を選んだりする話も楽しみ\" — I'm also looking forward to talks about changing themes and choosing colors. Next week — huashu, \"きれい\", design systems. \"また来週\" — see you next week. Bye."
+  },
+  {
+    "speaker": "a",
+    "text": "\"じゃあね\" — see ya. \"今日は、道具の話、使い方の話、選択の話、便利さの話、全部できた\" — today we covered tool talk, usage talk, choice talk, convenience talk, all of it. \"変えたり切り替えたりする道具の使い方がわかったと思う\" — I think we understood the usage of tools that change and switch and so on. \"短い時間だったけど、長い話ができた\" — it was a short time, but we had a long conversation. \"忘れてしまわないうちに、思い出して復習してね\" — before you end up forgetting, recall and review. Bye."
+  }
+]
