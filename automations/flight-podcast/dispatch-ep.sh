@@ -137,7 +137,7 @@ BRIEF_TEXT=$(cat <<EOF
 
 ## PRE-WRITTEN DIALOGUE MODE — DO NOT REGENERATE
 
-A fully pre-written, reviewed dialogue script is mounted at \`/workspace/dialogue.md\`.
+A fully pre-written, reviewed dialogue script was uploaded as a file resource. **Mount paths to try in order**: \`/mnt/session/uploads/workspace/dialogue.md\`, \`/workspace/dialogue.md\`, fallback \`/workspace/repo/briefs/2026-04-22-flight-podcast/ep_${EP}.md\`. If none resolve, run \`find / -name dialogue.md 2>/dev/null\` — use whatever you find.
 
 **YOUR JOB:** Convert that script to the \`dialogue.json\` array format expected by \`scripts/generate.sh\`, render it to MP3, and post to Telegram. DO NOT write a new dialogue. DO NOT change the content, vocab, grammar, or structure. The script has been reviewed and approved.
 
@@ -145,9 +145,18 @@ Speaker mapping:
 - \`ARK\` → speaker \`A\` (Charon voice)
 - \`RED\` → speaker \`B\` (Kore voice)
 
+## Step 0: Load credentials
+
+The shell env is empty. File resources mount under \`/mnt/session/uploads/workspace/\` NOT \`/workspace/\`. Before anything else:
+\`\`\`bash
+set -a; source /mnt/session/uploads/workspace/.env; set +a
+export GOOGLE_API_KEY=\${GOOGLE_API_KEY:-\$GEMINI_API_KEY}
+\`\`\`
+Confirm GOOGLE_API_KEY, GEMINI_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID are all set (\`echo "\${GOOGLE_API_KEY:0:20}"\`) before proceeding. If the file isn't there, \`find / -name .env 2>/dev/null | head -5\`.
+
 ## Outcome checklist
 
-1. Read \`/workspace/dialogue.md\` end-to-end.
+1. Locate the dialogue file (see paths above) and read it end-to-end.
 2. Convert to a JSON array of \`{speaker, text}\` objects at \`/tmp/dialogue.json\`. Preserve every JP word in kana-or-kanji. Wrap Japanese spans in double-quotes per the skill's quoting rules. Strip YAML frontmatter and segment markers from the spoken dialogue.
 3. Run \`scripts/verify-dialogue.py\` on the JSON. Report CJK count + pairing check. If pairing fails (>20% unpaired), do NOT rewrite — just flag it and proceed.
 4. Render with \`scripts/generate.sh /tmp/dialogue.json /tmp/ep_${EP}.mp3\` using Gemini TTS.

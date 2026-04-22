@@ -948,3 +948,35 @@ episode_42:
   review_targets: all
   vocab: []
   grammar: []
+episode_43:
+  status: queued
+  japanese_ratio: 0.2
+  series: bonus
+  one_off: true
+  format: repo-deep-dive
+  theme: 'NousResearch/hermes-agent (109.6k⭐) — self-improving agent with learning
+    loop, skills self-creation, Honcho user modeling, messaging gateway, serverless
+    backends. "The agent that grows with you."'
+  hosts: Ark vs Red
+  vocab:
+  - word: 育つ
+    reading: そだつ
+    meaning: to grow (intransitive)
+  - word: 育てる
+    reading: そだてる
+    meaning: to raise; to nurture
+  - word: 付き合う
+    reading: つきあう
+    meaning: to keep company with; to associate
+  - word: 深める
+    reading: ふかめる
+    meaning: to deepen
+  - word: 信頼
+    reading: しんらい
+    meaning: trust; confidence
+  - word: 任せる
+    reading: まかせる
+    meaning: to entrust; to leave to
+  grammar:
+  - pattern: 〜につれて
+    meaning: as X happens, Y happens (gradual parallel change)
