@@ -1,0 +1,50 @@
+episode: 35
+repo: topoteretes/cognee
+date: 2026-04-22
+duration_seconds: 1729
+duration_minutes: 28.8
+
+cjk_count: 1677
+turn_count: 83
+word_count: 4159
+
+vocab_introduced:
+  - word: 記憶
+    reading: きおく
+    meaning: memory
+  - word: 図
+    reading: ず
+    meaning: diagram
+  - word: 思考
+    reading: しこう
+    meaning: thinking
+  - word: 辞書
+    reading: じしょ
+    meaning: dictionary
+  - word: 繋がり
+    reading: つながり
+    meaning: connection
+  - word: 関係
+    reading: かんけい
+    meaning: relationship
+
+grammar_introduced:
+  - pattern: 〜という
+    meaning: called / named / that
+    demos: 5+ (記憶という概念, cogneeというライブラリ, LiteLLMというルーター, 関係という意味で, graph-RAGというアプローチ)
+
+review_items_used:
+  - 神話 (myth)
+  - 真実 (truth)
+  - 再現 (reproduction)
+  - 想像 (imagination)
+  - 謎 (mystery)
+  - 深い (deep)
+  - 〜かもしれない (may be)
+
+verification_notes:
+  - "Balance gate failed: A=78.7% (ARK carries longer technical exposition)"
+  - "JP-EN pairing: 69% paired (31% unpaired — intentional repeat-without-gloss Pimsleur pattern)"
+  - "Banned phrase 'literally' detected once"
+  - "Combat marker 'next time' is false positive (episode tease context)"
+  - "Dialogue approved as-is per brief; issues logged for human review"

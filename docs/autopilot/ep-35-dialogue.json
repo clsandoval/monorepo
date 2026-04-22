@@ -1,0 +1,334 @@
+[
+  {
+    "speaker": "b",
+    "text": "So I skimmed the cognee README on the flight out and the pitch is basically \"AI memory in six lines of code.\" `remember`, `recall`, `forget`, `improve`. That's it. Four verbs. I'm ready to delete our whole RAG stack."
+  },
+  {
+    "speaker": "a",
+    "text": "Yeah, about that。README の 上 だけ 読んだ でしょう — you only read the top. Keep scrolling."
+  },
+  {
+    "speaker": "b",
+    "text": "What did I miss?"
+  },
+  {
+    "speaker": "a",
+    "text": "The six lines are an API veneer over a pipeline that, when you run `cognee.cognify()`, touches an LLM four separate times per chunk, writes to a vector database, writes to a graph database, and — optionally — fans out to Modal workers over named queues. 小さい ライブラリ じゃない — not a small library. It's a knowledge engine packaged to feel small."
+  },
+  {
+    "speaker": "b",
+    "text": "So \"AI memory\" という 言葉 — the word \"AI memory\" — is doing a lot of work in that sentence."
+  },
+  {
+    "speaker": "a",
+    "text": "記憶 — memory という 概念 — the concept called \"memory\" — for cognee means: chunk the doc, ask an LLM to pull entities out, ask it again to pull relations, ask it a third time to build edge triplets, store the typed graph in Kuzu or Neo4j, store the embeddings in LanceDB or Qdrant, and keep a SQLAlchemy table of what you ingested. つまり — in other words — `remember` の 中身 は 深い — the insides of `remember` are deep."
+  },
+  {
+    "speaker": "b",
+    "text": "Isn't this just more overhead? Vanilla RAG is one embedding call and one vector lookup. Cognee は 書き込み の 時 に LLM を 四回 呼ぶ — cognee calls the LLM four times on write."
+  },
+  {
+    "speaker": "a",
+    "text": "Correct。それ が 全部 の 考え方 — that is the whole idea. cognee という ライブラリ — the library called cognee — bets that you pay more on write so you pay less, and get better answers, on read. コスト の カーブ が 違う — the cost curve is different. Whether it's worth it depends on your query distribution."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Unpack that, because \"worth it\" is doing even more work than \"memory\" was."
+  },
+  {
+    "speaker": "a",
+    "text": "Let's walk the architecture。本当 の パス、本当 の 関数 — real paths, real functions."
+  },
+  {
+    "speaker": "a",
+    "text": "First axis: compute topology. Where does this thing actually run? Look at `pyproject.toml` — the hard dependencies are `openai`, `litellm`, `sqlalchemy`, `aiosqlite`, `lancedb`, `kuzu`, `networkx`, `fastapi`, `alembic`. That's the default stack. No Docker required. You `uv pip install cognee`, set `LLM_API_KEY`, and everything runs in your Python process, with SQLite for metadata, LanceDB for vectors, and Kuzu — an embedded graph database — for the graph。全部 ローカル で 動く — everything runs locally."
+  },
+  {
+    "speaker": "b",
+    "text": "Embedded meaning it's a file on disk, not a server."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. Kuzu is to graphs what SQLite is to relational. Single-file, in-process, Cypher queries. So the default cognee is a library, not a service. Cold start is \"import cognee, open three local files.\" 起動 は 速い — startup is fast."
+  },
+  {
+    "speaker": "b",
+    "text": "図 — diagram — what does the 図 look like?"
+  },
+  {
+    "speaker": "a",
+    "text": "Your Python process on one side. Three data stores: SQLite at `.data/databases/cognee_db`, LanceDB at `.data/databases/cognee.lancedb`, Kuzu at `.data/databases/cognee.kuzu`. Then outbound HTTPS to an LLM provider. That's it. この 図 というのは — what we call this diagram — is just four boxes。四つ の 箱 だけ — only four boxes。シンプル な 図 ですね — a simple diagram, right."
+  },
+  {
+    "speaker": "b",
+    "text": "図 を 頭 の 中 で 描ける — I can draw the 図 in my head. And if I don't want embedded?"
+  },
+  {
+    "speaker": "a",
+    "text": "Look at the `optional-dependencies` in pyproject. There's `neo4j`, `postgres`, `chromadb`, `redis`, `aws`, and a `distributed` extra that pulls in `modal>=1.0.5`。同じ コード、違う バックエンド — same code, different backends. The `cognee/infrastructure/databases` directory has adapters. You swap LanceDB for Qdrant by config, you swap Kuzu for Neo4j by config, you swap SQLite for Postgres by config. No code change。設定 だけ — config only."
+  },
+  {
+    "speaker": "b",
+    "text": "So it's pluggable all the way down. Fine. Axis two — LLM locus. Which model?"
+  },
+  {
+    "speaker": "a",
+    "text": "It doesn't care. `pyproject.toml` pins `litellm>=1.83.0`. LiteLLM という ルーター — the router called LiteLLM — normalizes OpenAI, Anthropic, Gemini, local Ollama, vLLM, anything with an HTTP endpoint, into one call signature. Cognee calls `litellm.acompletion(...)` and the backend is chosen by the `LLM_PROVIDER` and `LLM_MODEL` env vars。モデル は 交換可能 — the model is swappable."
+  },
+  {
+    "speaker": "b",
+    "text": "So the LLM is not at query time?"
+  },
+  {
+    "speaker": "a",
+    "text": "It is and it isn't. On write — `cognify()` — the LLM does heavy enrichment: entity extraction, relation extraction, summarization。重い 処理 は 書き込み の 時 — heavy work happens at write time. On read — `recall()` — you can configure it to use the LLM for query rewriting or entity linking, but the actual retrieval is vector-plus-graph lookup. The LLM is not doing per-turn inference over the whole graph. That would be insane at scale。大規模 では 無理 — impossible at scale."
+  },
+  {
+    "speaker": "b",
+    "text": "So the 思考 — thinking happens once, at ingestion, and the 辞書 — dictionary is what you query after."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. The 思考 is amortized。思考 を 一回 だけ やって — you do the 思考 only once — and the resulting 辞書 — structured typed graph plus vectors — is what answers queries。辞書 を 引く だけ — you just look things up in the 辞書. Compare to vanilla RAG: no 思考 at write, all at read, every query。毎回 思考 する の は 高い — doing the 思考 every time is expensive."
+  },
+  {
+    "speaker": "b",
+    "text": "Axis three — tool mechanics. What is the actual API surface?"
+  },
+  {
+    "speaker": "a",
+    "text": "Open `cognee/api/v1/` in the tree. You'll see subdirectories: `add`, `cognify`, `search`, `remember`, `recall`, `forget`, `improve`, `session`, `prune`. Each is a module. The top-level `cognee.remember()` is a convenience wrapper that calls `add` then `cognify` then `improve`. Look at `cognee/api/v1/cognify/cognify.py` — the `cognify()` function takes a dataset name, a Pydantic `graph_model` (default `KnowledgeGraph`), a chunker, chunk size, vector_db_config, graph_db_config, and builds a pipeline."
+  },
+  {
+    "speaker": "b",
+    "text": "Pipeline of what?"
+  },
+  {
+    "speaker": "a",
+    "text": "Literal `Task` objects. The function imports from `cognee.tasks`: `classify_documents`, `extract_chunks_from_documents`, `extract_graph_from_data`, `add_data_points`, `summarize_text`, `extract_events_and_timestamps`。各 段階 が 一つ の 関数 — each stage is one function。関数 の 繋がり が pipeline — the connection of functions is the pipeline. Each is an async function wrapped as a `Task`. They're passed to `run_pipeline` from `cognee.modules.pipelines`. That's the core abstraction — a `Task` is an async callable with typed input and output, and a pipeline is an ordered list of them, with the output of stage N becoming the input to stage N+1。前 の Task の 出力 が 次 の 入力 — the previous Task's output is the next one's input。型 が 合わない と 動かない — if the types don't match, it doesn't run。"
+  },
+  {
+    "speaker": "b",
+    "text": "So it's a DAG runner with LLM-aware stages."
+  },
+  {
+    "speaker": "a",
+    "text": "Linear by default, but yes。基本 は 直列 — basic is serial. And axis four — extension loading — is about how you add your own `Task`。自分 の Task を 追加 する 方法 — how to add your own Task. Look at `cognee/tasks/graph/extract_graph_from_data_v2.py`. The function is just `async def extract_graph_from_data(data_chunks, n_rounds=2, ontology_adapter=None)`。型 は 単純 — the type is simple。chunk の リスト が 入って、chunk の リスト が 出る — a list of chunks in, a list of chunks out. It's decorated with `@task_summary(\"Extracted graph from {n} chunk(s)\")` which is a cosmetic hook for logs。ログ の ため だけ の 装飾 — decoration just for logs. To register a custom task, you write an async function matching the pipeline's chunk-in, chunk-out contract, and slot it into your `run_pipeline` call。契約 に 合わせる だけ — just match the contract。There's no plugin registry, no entry-points magic。登録 の 魔法 は 無い — no registration magic。It's just Python composition。関数 を 並べる だけ — just line up functions。想像 より シンプル — simpler than imagined。"
+  },
+  {
+    "speaker": "b",
+    "text": "So \"tasks\" は plugin じゃなくて — tasks are not plugins — they're just functions you pass in。登録 の 儀式 が 無い — no registration ceremony。"
+  },
+  {
+    "speaker": "a",
+    "text": "正確 に そう です — exactly so. Which is good — low ceremony。儀式 が 少ない の は 良い こと — few ceremonies is a good thing. And bad — no isolation, no sandbox。隔離 が 無い — no isolation。sandbox の 神話 は ここ に 無い — the 神話 of the sandbox is not here. A bad task can corrupt your graph。悪い task は graph を 壊せる — a bad task can break the graph。想像 して みて — imagine it — an LLM hallucinating types into your ontology。でも library だ から 適切 な 選択 — but because it's a library, it's an appropriate choice。サービス なら 別 の 話 — if it were a service, different story。"
+  },
+  {
+    "speaker": "b",
+    "text": "What does the cascade extraction actually do? I saw `n_rounds=2`。二 回 の ラウンド は 何 の 意味 — what does two rounds mean?"
+  },
+  {
+    "speaker": "a",
+    "text": "This is where it gets interesting. `extract_graph_from_data_v2` does four LLM passes per chunk。一 つ の chunk に LLM を 四 回 呼ぶ — calls the LLM four times per chunk. First, `extract_nodes(chunk.text, n_rounds)` — ask the LLM to list the entities in the chunk, and do it `n_rounds` times, merging。同じ 質問 を 二 回 聞いて、答え を 合わせる — ask the same question twice, merge the answers。想像 より 丁寧 — more careful than you'd imagine. Second, `extract_content_nodes_and_relationship_names` — given the entities, ask what relations exist between them, again over rounds。関係 の 名前 を 抽出 — extract the names of the relationships. Third, `extract_edge_triplets` — given entities and relation names, extract concrete (subject, predicate, object) triples。三 つ 組 を 作る — make triples. Fourth, `integrate_chunk_graphs` — merge into the existing graph, doing entity coreference across chunks。chunk を 越えて 同じ 実体 を 繋ぐ — connect the same entity across chunks。これ が 一番 深い 処理 — this is the deepest processing。"
+  },
+  {
+    "speaker": "b",
+    "text": "Four LLM calls per chunk. For a 100-page PDF chunked at 1000 tokens, that's maybe... 400 calls?"
+  },
+  {
+    "speaker": "a",
+    "text": "With GPT-4o-mini at current rates, call it three to five dollars for the whole doc. For GPT-4o, twenty to forty. For a local model on your own hardware, electricity。コスト の 差 は 大きい — the cost difference is big。安い モデル を 使う と 神話 的 に 安い かもしれない — with a cheap model it may be mythically cheap。"
+  },
+  {
+    "speaker": "b",
+    "text": "Which brings us to axis five — context strategy. The key axis."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. So vanilla RAG: chunk the doc, embed the chunks, store in a vector DB. On query: embed the question, cosine-similarity lookup, top-k chunks, stuff into the prompt. That's it. 繋がり (つながり) — connection — between chunks is implicit, via whatever the embedding model thinks is similar."
+  },
+  {
+    "speaker": "b",
+    "text": "And cognee?"
+  },
+  {
+    "speaker": "a",
+    "text": "Cognee builds an explicit typed graph. Entities are nodes with types — Person, Organization, Concept, whatever the `graph_model` schema says. Edges are relations with types — `worksAt`, `partOf`, `mentions`. The 関係 — relationship is first-class。関係 に 型 が ある — the relationship has a type。関係 の 種類 が 大事 — the kind of relationship matters. So on query, you don't just retrieve chunks by vector similarity. You can traverse the graph: \"find all entities connected to X within two hops, filter by type, then retrieve the chunks that mention them.\""
+  },
+  {
+    "speaker": "b",
+    "text": "That's a different 繋がり — connection という 意味で — in the sense of \"connection.\" Vector similarity is fuzzy continuous; graph traversal is discrete typed。繋がり の 形 が 違う — the shape of the connection is different。繋がり が 明確 — the connection is explicit。繋がり を 辿れる — you can trace the connection."
+  },
+  {
+    "speaker": "a",
+    "text": "Precisely. And this is where the HippoRAG line of research sits. The paper from last year — Gutiérrez et al., \"HippoRAG: Neurobiologically Inspired Long-Term Memory\" — showed that on multi-hop QA benchmarks like MuSiQue and 2WikiMultiHopQA, graph-augmented retrieval beats dense vector retrieval by 3 to 20 F1 points, depending on the hop count. The more hops the question needs, the bigger the gap. Two-hop — maybe 5 points. Three-hop — 15 plus."
+  },
+  {
+    "speaker": "b",
+    "text": "And cognee is doing that 種類 の thing — that kind of thing?"
+  },
+  {
+    "speaker": "a",
+    "text": "It's in the same family. Microsoft's GraphRAG paper from 2024 made the same point: for \"global sensemaking\" queries over a corpus — \"summarize the main themes across all these docs\" — graph-based approaches win decisively because vector similarity can't see structure。ベクトル は 構造 が 見えない — vectors can't see structure。図 が 無いと 全体像 が 分からない — without a 図 you can't see the whole picture. Vanilla RAG literally cannot answer \"what are the main communities of entities in this corpus\" without a graph。繋がり の コミュニティ は グラフ でしか 見えない — communities of connections are only visible in a graph。"
+  },
+  {
+    "speaker": "b",
+    "text": "So the cost curve you mentioned earlier. Write-time cost is 10 to 50 times vanilla RAG. Query-time?"
+  },
+  {
+    "speaker": "a",
+    "text": "Query-time is a wash or slightly cheaper, because you retrieve fewer chunks per answer — the graph filters before the vector lookup。グラフ が 先 に 絞る — the graph narrows first. Answer quality on multi-hop and global queries is meaningfully better。複数 ホップ の 質問 に 強い — strong on multi-hop questions. Answer quality on single-fact lookups is roughly the same。一 つ の 事実 を 引く だけ なら 差 は 無い — for single-fact lookup there's no difference. So the equation is: if your queries are mostly \"what did the email from 2022-Q3 say about pricing,\" vanilla RAG wins on cost。単純 な 質問 は vanilla RAG が 勝つ — simple queries, vanilla RAG wins. If your queries are \"what connects our Q3 pricing decision to the churn we saw in Q4,\" graph-RAG wins on quality。繋がり を 問う 質問 は graph-RAG が 勝つ — queries that ask about connections, graph-RAG wins。"
+  },
+  {
+    "speaker": "b",
+    "text": "深い — deep — answers cost more upfront。深い 洞察 は 前払い — deep insight is paid upfront。"
+  },
+  {
+    "speaker": "a",
+    "text": "深い 洞察 は 高い かもしれない — deep insight may be expensive。でも 安い 洞察 は 浅い かもしれない — but cheap insight may be shallow. That callback is the honest framing。選択 の 問題 — it's a matter of choice。謎 じゃない — not a 謎 — just a tradeoff。"
+  },
+  {
+    "speaker": "b",
+    "text": "Axis six — scaling. How does this run in production?"
+  },
+  {
+    "speaker": "a",
+    "text": "Default: single Python process。一 つ の プロセス だけ — just one process. Fine for one user, a few hundred MB of docs, a laptop. Look at `distributed/` in the repo for the scale-out story. `distributed/app.py` is literally `from modal import App; app = App(\"cognee_modal_distributed\")`. They chose Modal — serverless Python with GPU support — as the reference distributed deployment。Modal という serverless platform を 選んだ — they chose the serverless platform called Modal。"
+  },
+  {
+    "speaker": "b",
+    "text": "Not Celery. Not DBOS. Modal。面白い 選択 — interesting choice。"
+  },
+  {
+    "speaker": "a",
+    "text": "`distributed/queues.py` declares Modal queues: `add_nodes_and_edges_queue`, `add_data_points_queue`, via `Queue.from_name(..., create_if_missing=True)`. And `distributed/workers/` has `data_point_saving_worker.py` and `graph_saving_worker.py`。二 つ の worker — two workers。一 つ は graph 用、もう 一 つ は data point 用 — one for the graph, one for data points. So the scale-out topology is: one dispatcher process runs the cognify pipeline up through the extraction stage, then pushes graph-update events and data-point events onto Modal queues, and dedicated Modal workers drain those queues into the graph and vector DBs。書き込み を 分離 する — separate the writes。"
+  },
+  {
+    "speaker": "b",
+    "text": "Why that split?"
+  },
+  {
+    "speaker": "a",
+    "text": "Because graph writes — especially into Neo4j or Kuzu — are serialized。並列 で 書けない — can't write in parallel. You don't want your LLM extraction thread blocked on a database lock。LLM の スレッド を ブロック したくない — don't want to block the LLM thread. And because Modal workers auto-scale on queue depth, so if you ingest a hundred thousand documents, you spin up a hundred workers for an hour and then scale to zero。自動 で 増えて、自動 で ゼロ に 戻る — auto-scales up, auto-scales back to zero。アイドル コスト が 無い — no idle cost。"
+  },
+  {
+    "speaker": "b",
+    "text": "Cost profile — pay-per-second of worker compute, plus the LLM bill."
+  },
+  {
+    "speaker": "a",
+    "text": "Correct。アイドル で お金 を 払わない — you don't pay for idle。. And — compare this to the alternatives. Mem0, Zep, LangChain memory modules, LlamaIndex。四 つ の 候補 を 比べる — compare four candidates。. Mem0 is a managed service wrapping a similar idea with less graph structure — they do entity extraction but store in a simpler schema。Mem0 の 図 は 浅い — Mem0's 図 is shallow。ontology が 弱い — the ontology is weak. Zep is a standalone server written in Go, very production-focused, does temporal knowledge graphs well but lighter on ontology。Zep は 時間 の 関係 に 強い — Zep is strong on temporal relationships。時系列 の 繋がり が 得意 — good at time-series connections. LangChain memory is basically \"buffer the last N messages and summarize when it overflows\" — it's not graph memory, it's conversation memory。会話 の 記憶 だけ — just conversation memory。graph じゃない — not a graph. LlamaIndex has graph features but they're bolted on; it's primarily an index abstraction。index が 主、graph は 後付け — index is primary, graph is bolted on。"
+  },
+  {
+    "speaker": "b",
+    "text": "Honest ranking? 正直 な 順番 を 教えて — tell me the honest ranking。"
+  },
+  {
+    "speaker": "a",
+    "text": "For a hackathon demo with chat memory — LangChain。一 日 で 動く — runs in a day。. For a hosted product with medium complexity — Mem0 or Zep, because you don't want to run graph DBs。graph DB の 運用 は 痛い — running a graph DB is painful。. For deep research systems, multi-hop QA over your own corpus, ontology-grounded extraction, and you're willing to run infrastructure — cognee。深い 研究 なら cognee — for 深い research, cognee。. For pure vector RAG at scale — don't use any of these, use a vector DB directly。大規模 な 単純 検索 は 別 の 道 — large-scale simple search is a separate path。"
+  },
+  {
+    "speaker": "b",
+    "text": "And the 謎 — mystery of when to pick what resolves into: query shape, corpus size, willingness to pay upfront。謎 が 解けた — the 謎 is solved。三 つ の 軸 で 決める — decide on three axes。"
+  },
+  {
+    "speaker": "a",
+    "text": "That's the whole decision tree。木 の 図 を 描けば 見える — draw a tree 図 and it's visible。"
+  },
+  {
+    "speaker": "b",
+    "text": "Let's anchor this. Last episode we had 神話 — myth and 真実 — truth. Where do those apply here?"
+  },
+  {
+    "speaker": "a",
+    "text": "The 神話 of \"six lines of code gives you AI memory\" is the marketing surface. The 真実 is the four LLM calls, three databases, and optional Modal fleet we just walked through。神話 と 真実 の 間 に ギャップ が ある — there is a gap between 神話 and 真実. Both are true in a sense — the six lines do work。でも 真実 について 深い 理解 は — but deep understanding of the 真実 — requires reading the source。コード を 読まない と 真実 は 見えない — if you don't read the code, the 真実 is not visible。"
+  },
+  {
+    "speaker": "b",
+    "text": "And 再現 — reproduction — can I rebuild a smaller version?"
+  },
+  {
+    "speaker": "a",
+    "text": "You could. Spin up SQLite plus pgvector plus a small Python script that calls OpenAI for entity extraction. You'd 再現 maybe 40 percent of cognee in a weekend。週末 で 再現 できる の は 四割 だけ — only 40 percent is reproducible in a weekend. You would not 再現 the pipeline abstraction, the ontology resolver, the session memory, or the Modal scaleout。完全 な 再現 は 無理 — complete 再現 is impossible. The 想像 — imagination of \"this is simple\" breaks on contact with the actual DAG。想像 と 現実 は 違う — imagination and reality differ。想像 の 簡単さ は 神話 — the imagined simplicity is a 神話."
+  },
+  {
+    "speaker": "b",
+    "text": "〜かもしれない — may be — callback: 自分 で 作る 価値 が ある かもしれない — it might be worth building your own。それとも 作らない 方 が いい かもしれない — or it might be better not to."
+  },
+  {
+    "speaker": "a",
+    "text": "正解. Now — new grammar for this episode. 〜という. Means \"called\" or \"named\" or \"that (is).\" 五 つ の 使い方 — five uses."
+  },
+  {
+    "speaker": "b",
+    "text": "So it's basically scare quotes plus a category label."
+  },
+  {
+    "speaker": "a",
+    "text": "Close. It's introducing a name and binding it to a category in one move. Also used for hearsay — 「X が Y だ という 話」 — \"the story that X is Y.\" But in technical text, it's mostly the naming use。技術 文書 では 命名 の 使い方 が 多い — in technical docs, the naming use dominates."
+  },
+  {
+    "speaker": "b",
+    "text": "記憶 という 概念 は 辞書 より 深い かもしれない — the concept called \"memory\" may be deeper than a dictionary。謎 が 残る — a mystery remains."
+  },
+  {
+    "speaker": "a",
+    "text": "謎 — mystery 〜という 言葉 — the word \"mystery\" — 良い 繋ぎ ですね — a good connector. And on the vocab — 繋がり we used a lot for graph edges. 図 for diagrams. 関係 for relationships. 思考 for the thinking cognee does at ingestion. 辞書 for the lookup-structure you query after. 全部 の 新しい 言葉 を 四回 以上 使った — we used every new word at least four times."
+  },
+  {
+    "speaker": "b",
+    "text": "記憶 と 繋がり と 関係 と 思考 と 辞書 と 図 — memory, connection, relationship, thinking, dictionary, diagram — graph-RAG の 中心 かもしれない — may be the center of graph-RAG。深い 謎 が 少し 解けた かもしれない — a 深い 謎 has maybe been partly solved。"
+  },
+  {
+    "speaker": "a",
+    "text": "Callback to 〜かもしれない. Nice。そして 謎 の 再現 も — and a callback to 謎 and 再現 too."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, plain terms. Cognee is a Python library that turns documents into a typed knowledge graph plus a vector index, using an LLM to do the extraction. You call `remember` to ingest, `recall` to query. Under the hood, ingestion is a pipeline of async Python functions called Tasks, each of which either chunks, embeds, extracts entities, extracts relations, or writes to storage. The default deployment is embedded — SQLite, LanceDB, Kuzu, all on disk. The scale-out deployment pushes graph-write events onto Modal queues and lets serverless workers drain them。要するに — in short — pipeline of tasks plus three databases plus optional Modal fleet。"
+  },
+  {
+    "speaker": "a",
+    "text": "One nuance. The real differentiator is not the graph itself — Neo4j has existed for twenty years。Neo4j という データベース は 古い — the database called Neo4j is old. It's the pipeline composition plus the ontology grounding。パイプライン の 設計 と ontology の 接地 が 鍵 — pipeline design and ontology grounding are the key. `cognify()` takes a Pydantic `graph_model` parameter. Default is `KnowledgeGraph`. But you can pass your own Pydantic schema — say, a LegalCase model with Parties, Holdings, Citations — and cognee will extract into that schema specifically。スキーマ という 枠 を あなた が 決める — you decide the frame called \"schema.\" The LLM is instructed to fit its output to the types you provided。その 型 に 沿って 出力 する — it outputs along those types. That's the lever. Generic knowledge graphs are brittle and full of duplicate entities。重複 だらけ の グラフ は 使えない — a graph full of duplicates is unusable. Schema-constrained ones are queryable。型 が あれば 検索 できる — if there are types, you can query."
+  },
+  {
+    "speaker": "b",
+    "text": "So the 辞書 you get is exactly as structured as the 関係 you defined upfront。辞書 の 質 は スキーマ の 質 — the quality of the 辞書 is the quality of the schema。"
+  },
+  {
+    "speaker": "a",
+    "text": "Right. Garbage schema, garbage graph. Careful schema, useful graph。丁寧 な スキーマ が 必要 — a careful schema is necessary. And that's the work cognee doesn't hide — you have to actually think about your ontology。ontology について 思考 しないと 駄目 — you have to 思考 about the ontology。思考 の コスト は 隠れない — the cost of 思考 is not hidden. The \"six lines of code\" only works with the default KnowledgeGraph schema, which is generic and mediocre。デフォルト の 図 は 平凡 — the default 図 is mediocre. Every serious user of cognee writes their own Pydantic schema。本気 の ユーザー は 自分 の schema を 書く — serious users write their own schema."
+  },
+  {
+    "speaker": "b",
+    "text": "The 記憶 という 概念 — the concept called memory — turns out to be 「あなた の schema の 型付き グラフ、LLM が 作って、ベクトル と 辿る で 引く もの」 — a typed graph using your schema, built by an LLM, queried by vector-plus-traversal。"
+  },
+  {
+    "speaker": "a",
+    "text": "That's the honest definition. Not \"AI memory。\" 正直 に 言えば — if we're being honest — \"Typed graph memory with LLM extraction and configurable backends。\" Less catchy, more true。キャッチー じゃない けど、真実 に 近い — not catchy, but closer to the 真実."
+  },
+  {
+    "speaker": "a",
+    "text": "Episode 36 は interlude です — is an interlude. We'll take the last three — DSPy from 33, the browser-use agent from 34, and cognee from today — and sweep them across the six axes side by side. Compute topology, LLM locus, tools, extensions, context, scaling。三つ の repo を 並べて 比べる — we line up three repos and compare. All three are Python. All three wrap an LLM. None of them do the same thing。同じ 言語、違う 目的 — same language, different purposes. The 繋がり between them is the interesting part。三つ の 繋がり を 探す — we hunt for the three connections。"
+  },
+  {
+    "speaker": "b",
+    "text": "So the callforward word is 繋がり — connection。次回 も 繋がり を たくさん 使う — we will use 繋がり a lot next time when we compare how each repo connects its pieces。"
+  },
+  {
+    "speaker": "a",
+    "text": "And the 関係 between the three repos — the relationships — is the whole interlude。repo 間 の 関係 が 全部 — the 関係 between repos is everything. Who's solving which problem, and where the axes actually matter versus where they're N/A。どの 軸 が 効く か、どの 軸 が 関係ない か — which axis bites, which axis is irrelevant。"
+  },
+  {
+    "speaker": "b",
+    "text": "記憶 という テーマ は 繋がり という テーマ に 変わる — the theme called \"memory\" turns into the theme called \"connection。\" 良い 橋 かもしれない — may be a good bridge。"
+  },
+  {
+    "speaker": "a",
+    "text": "Good bridge。次回 で 会いましょう — see you next time — in 36。繋がり を お楽しみ に — look forward to \"connection。\" 三 つ の repo、六 つ の 軸、一 つ の 大きな 図 — three repos, six axes, one big 図。"
+  },
+  {
+    "speaker": "b",
+    "text": "お疲れ様 でした。次回 も 深い 話 を しましょう — let's have another 深い talk next time。繋がり の 謎 を 解く 時間 かもしれない — it may be time to solve the 謎 of connections。"
+  }
+]
