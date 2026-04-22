@@ -1,0 +1,135 @@
+# Episode 38: ruvnet/RuView — Pimsleur Japanese
+
+**B:** OK so I pulled up ruvnet/RuView, 49.1k stars, and the tagline literally says "See through walls with WiFi." So it's... a WiFi xray?
+
+**A:** Functionally, yes.
+
+**B:** Wait.
+
+**A:** I mean it. Not metaphorically. The repo is a WiFi sensing platform. Your router is already flooding your apartment with 2.4 and 5 GHz radio. When a "体" — body moves through that field, it perturbs the multipath. Every WiFi chipset above a certain tier can, in principle, measure those perturbations — it's called Channel State Information, CSI. RuView captures CSI off a nine-dollar ESP32-S3, pipes it into a neural net called WiFlow, and gets you seventeen COCO keypoints. A skeleton. Of you. Through drywall.
+
+**B:** This is a joke repo, right. This is a GPT-generated ReadMe.
+
+**A:** It's a real repo with 1,463 passing tests, a Rust workspace of nineteen crates, an ESP-IDF firmware tree, and a HuggingFace model card at ruv/ruview. The CMU paper from 2022, DensePose From WiFi, proved the core trick. RuView is the commodity-hardware port. 本物の実装だ。電波で体を見る。姿が浮かび上がる。見えない信号が、見える姿になる。驚くべき話だが、論文を読めば納得するわけだ。
+
+**B:** So when it says I can see through walls it means it literally renders my "姿" — figure/silhouette from "電波" — radio waves alone.
+
+**A:** "見えない" — invisible light bouncing off you, yes. You emit nothing. You don't wear anything. You're just standing there, and the radio is doing tomography on your torso. Which is why, before we even open the README, the question isn't "how does it work" — it's "should this exist." We'll get to that. First, architecture.
+
+**A:** Six axes. Compute topology, LLM locus — which is largely N/A, fine — tool mechanics, extension loading, context strategy, scaling. Let's walk it.
+
+**A:** Axis one — compute topology.. Three tiers, and the README is honest about them. Tier one: docker pull ruvnet/wifi-densepose:latest, docker run -p 3000:3000, open localhost:3000, you get the viewer fed by simulated CSI. Zero hardware, demo quality. Tier two: one ESP32-S3 flashed with the firmware under firmware/esp32-csi-node/. You run python firmware/esp32-csi-node/provision.py --port COM9 --ssid YourWiFi --password secret --target-ip 192.168.1.20, the board associates to your AP, starts capturing CSI per frame, UDP-streams ADR-018 binary frames to the target IP. Tier three: a mesh of three to six ESP32-S3 nodes plus the Cognitum Seed, which is their $131 companion box — 140 bucks total BOM for the whole deployment.
+
+**B:** So the ESP32 is the sensor, not the brain.
+
+**A:** Correct. The ESP32-S3 does phase and amplitude extraction per subcarrier — 64 subcarriers on 20 MHz channels, 20-frame windows — and streams raw or lightly preprocessed frames over UDP. Notice one thing the README calls out in the Beta warning block: ESP32-C3 and the original ESP32 are unsupported. Single-core, not enough DSP headroom for the windowing.
+
+**B:** What's doing the inference?
+
+**A:** Depends which pipeline. The Rust workspace lives at rust-port/wifi-densepose-rs/. Nineteen crates. The ones that matter for compute topology: wifi-densepose-signal does the bandpass, FFT, subcarrier selection; wifi-densepose-nn is the model runtime; wifi-densepose-sensing-server hosts the HTTP API; wifi-densepose-pointcloud is the new thing in PR #405 that fuses MiDaS monocular depth, CSI occupancy grid, and WiFlow pose into a unified 3D point cloud. You build it with cargo build --release -p wifi-densepose-pointcloud and launch it via ./target/release/ruview-pointcloud serve --bind 127.0.0.1:9880. Note the loopback bind — they explicitly don't expose 0.0.0.0 by default. The privacy surface is non-trivial and they know it.
+
+**B:** Startup cost?
+
+**A:** Firmware cold start is sub-second — the ESP32 boots, associates to the AP, opens the UDP socket, starts emitting CSI frames. The Rust service is on the order of fifty to a hundred milliseconds. The WiFlow model itself, at the 974-kilobyte "lite" preset, loads in maybe twenty milliseconds. End-to-end pipeline latency they quote as 22ms for the point-cloud fusion path, API throughput 905 requests per second. The bottleneck is not compute — it's the CSI capture cadence, which is bounded by how often you're legally allowed to inject action frames on your own WiFi channel.
+
+**B:** And the firmware itself — Rust or C?
+
+**A:** ESP-IDF, which is C and C++, plus some Rust bindings where they can. Look at firmware/esp32-csi-node/main/ — CMakeLists.txt, partitions_4mb.csv, sdkconfig.defaults. Standard ESP32 layout. Components live in firmware/esp32-csi-node/components/. The build artifacts — bootloader.bin, partition-table.bin, ota_data_initial.bin, esp32-csi-node.bin — are what you flash with the esptool command from the README. OTA support is there, which matters at mesh scale because you do not want to physically walk to six sensors to update firmware.
+
+**A:** Axis two — LLM locus.. N/A for the hot path. This isn't an LLM repo. But there's a seam — the README mentions an "MCP proxy" on the Cognitum Seed, and the brain integration paragraph says spatial observations sync to a ruOS brain every sixty seconds "for agent reasoning." So the architecture is: the CSI pipeline is pure CV and signal processing, but the outputs — "Red is in the kitchen, breathing at 14 BPM, stationary" — are surfaced to an LLM agent via MCP. The LLM is downstream of sensing, not in it. Moving on.
+
+**A:** Axis three — tool mechanics.. The "tools" here aren't agent tools. They're the signal-processing and NN primitives. Let me walk one concrete path — pose estimation — end to end.
+
+**B:** Please. Because I still don't "感じる" — feel this is real.
+
+**A:** ESP32-S3 firmware in firmware/esp32-csi-node/main/ enables CSI callback on the Wi-Fi driver. Every received 802.11 frame — including beacons from neighbor APs, which they exploit later as free "illuminators" — yields a CSI payload: one complex number per subcarrier per antenna pair. The firmware packs these into ADR-018 binary frames and UDP-sends to port 5006. Step one is raw capture — the script node scripts/rf-scan.js --port 5006 --duration 30 does a live spectrum visualization so you can sanity-check that you're actually seeing signal. Step two: windowing and preprocessing. The WiFlow training script at scripts/train-wiflow.js shows the pipeline header explicitly — Phase 0: CSI data loading plus amplitude extraction plus 20-frame windowing. Twenty frames, sixty-four subcarriers, amplitude and phase — that's a tensor shaped roughly 20 by 64 by 2 per window. Step three: subcarrier selection. In ADR-079, they added variance-based top-K selection — drop the 50% least informative subcarriers, down from 70 to 35. Cuts the input dimensionality and, interestingly, improves accuracy because the low-variance subcarriers were mostly noise. Step four: the model. WiFlow — the architecture documented in docs/adr/ADR-072-wiflow-architecture.md — is a temporal convolutional network with axial attention and a pose decoder head. Four presets: lite at 189K params, small at 474K, medium at 800K, full at 7.7M. The 974KB number you see in the README is the lite model post-quantization. It outputs seventeen COCO keypoints — nose, eyes, shoulders, elbows, hips, knees, ankles — same keypoint schema Detectron uses, which is deliberate. If you've trained anything pose-related on images, you can reuse your downstream code verbatim. Step five: the training infrastructure itself. This is the part that'll "驚く" — surprise you. scripts/train-wiflow.js requires vendor/ruvector/npm/packages/ruvllm/src/contrastive.js, training.js, lora.js, sona.js, export.js. Six phases: contrastive pretraining with temporal consistency loss, supervised pose training with SmoothL1 plus a bone-length constraint loss — that's the clever one, it enforces that the model's predicted humerus doesn't change length between frames because real humeri don't — then LoRA room-specific adaptation, TurboQuant INT8 quantization targeting 2.5 MB, and export as SafeTensors plus ONNX plus their RVF format.
+
+**B:** Wait, rewind. Bone-length constraint loss.
+
+**A:** It's the anti-hallucination regularizer for pose models. A neural network left to its own devices will sometimes predict the elbow six feet from the shoulder because the gradient flow was chaotic that frame. A bone-length prior — in scripts/wiflow-model.js they export a BONE_LENGTH_PRIORS table alongside BONE_CONNECTIONS and COCO_KEYPOINTS — penalizes that. The README reports 0.008 bone constraint loss post-training, which is essentially zero drift.
+
+**B:** And this is running on the laptop, not the ESP32?
+
+**A:** Training is on the laptop — 19 minutes on an M4 Pro per the v0.7.0 section. Inference, the quantized model, runs in either the Rust wifi-densepose-nn crate on a Mac Mini as a server, or — and this is the wild part — the 4-bit model-q4.bin, 8 kilobytes, fits inside ESP32-S3 SRAM and runs on-device with zero network roundtrip. That's the "edge intelligence" bullet. 0.008 ms per embedding, 164K embeddings per second throughput.
+
+**A:** Axis four — extension loading.. Two extension surfaces. First, sensing "applications" — there are seventeen of them listed, each a Node script in scripts/. sleep-monitor.js, apnea-detector.js, stress-monitor.js, gait-analyzer.js, mincut-person-counter.js, room-fingerprint.js, material-detector.js, device-fingerprint.js, rf-tomography.js, passive-radar.js, material-classifier.js, through-wall-detector.js. All consume either the live UDP stream on port 5006 or a replay file via --replay data/recordings/.csi.jsonl. So extension is "write a script that subscribes to the CSI firehose and does something with it." Not pluggable in the formal sense — no manifest, no registration — but the input contract is stable. Second: the model layer. Per-room LoRA adapters. node-1.json, node-2.json, twenty-one kilobytes each. You swap adapters when you move the sensor to a different room. That's the hot-swap mechanism. You can also retrain the base with train-ruvllm.js --data data/recordings/.csi.jsonl to bake your own contrastive encoder.
+
+**B:** So if I want to add a new body-parts taxonomy — say, detect hands-open versus hands-closed — what do I do?
+
+**A:** You extend COCO_KEYPOINTS in scripts/wiflow-model.js, update the bone connection graph, collect ground-truth with scripts/collect-ground-truth.py which uses MediaPipe at 30 fps, pair it with ESP32 CSI via scripts/align-ground-truth.js, retrain. The training script is explicitly parameterized on keypoint count. It's not zero-effort — you need camera ground truth — but it's a well-trodden path. ADR-079 reports 92.9% PCK@20 from a five-minute collection session, so the data appetite is low.
+
+**A:** Axis five — context strategy.. Temporal coherence. This is where pose-from-WiFi lives or dies, because a single CSI window is ambiguous — many body configurations produce similar subcarrier perturbations. You need frame history.
+
+**B:** Kalman filter?
+
+**A:** Not explicitly. The temporal structure is baked into the model — the 20-frame window is the context. The TCN in WiFlow does dilated causal convolutions across those twenty frames, which is effectively a learned temporal prior. Then the contrastive pretraining stage — phase 1 in train-wiflow.js — uses a temporal consistency loss: embeddings from adjacent windows should be close, embeddings from distant windows should be far. That's InfoNCE-style contrastive learning, imported from ruvllm/src/contrastive.js as infoNCELoss and tripletLoss. There's also a second context layer — the Cognitum Seed persistent store. The README calls it "persistent vector store, kNN search, witness chain." Every sixty seconds the current observation state — motion, vitals, skeleton, occupancy — gets checkpointed. So the system has short-term memory (20-frame window inside the model) and long-term memory (60-second observations in the Seed's RVF store). That's not Kalman but it's the same functional shape: a prior that smooths out noise.
+
+**B:** Witness chain?
+
+**A:** Ed25519 signatures on every measurement. Cryptographic attestation that "this CSI frame at this timestamp produced this pose estimate, signed by the node's key." Forensic provenance. Useful if, for example, you're using this in a medical context and need to prove the breathing-rate reading wasn't fabricated.
+
+**A:** Axis six — scaling.. Single-sensor single-room is the demo. One ESP32, one laptop, one room, you get pose plus breathing plus heart rate plus presence. Next tier: mesh. Three to six ESP32 nodes placed at corners, all UDP-streaming to the Cognitum Seed bridge. The Seed acts as aggregator — fuses the streams, runs the mincut person counter which does Stoer-Wagner minimum cut on the subcarrier correlation graph to separate multiple people. That's ADR-075, and per the README it fixes issue #348 where the old single-sensor counter always returned "4 people" regardless of ground truth. Beyond that: multi-frequency mesh. Channel hopping across six WiFi bands, 1/6/11 on 2.4 GHz plus three 5 GHz channels. The --hop-channels "1,6,11" provisioning flag on the firmware. And the passive-radar trick — scripts/passive-radar.js — uses your neighbors' routers as bistatic radar illuminators. You didn't install them. You don't control them. But their beacons illuminate your space, and your ESP32 listens to the echoes. Three-x sensing bandwidth at zero marginal hardware cost.
+
+**B:** ちょっと待って。近所のルーターを勝手に使うのか。
+
+**A:** 厳密には「使う」ではない。彼らのビーコンは空中に放出されている公共の電波だ。ESP32はただ耳を傾けて、エコーを測る。送信はしない、復号もしない。パッシブレシーバーに近い。合法性はグレーゾーンだが、物理的には誰にも何も送っていない。電波は勝手に体にぶつかって、勝手に跳ね返って、勝手に届く。それを記録するだけだ。感じるだけ、というわけだ。
+
+**B:** それでも、隣の家の中の姿が分かるのは、かなり怖い話だ。
+
+**A:** そう。だから倫理の議論が必要になる。個人の能力の問題ではなく、社会全体の問題だ。技術は既に存在する。論文は2022年に出た。ファームウェアもモデルもMITライセンスで公開されている。誰でも九ドルで体験できる。もう戻せない。慣れるしかない、という段階に来ているわけだ。 Building-scale? Theoretically yes, practically uncharted. The README quotes "one Mac Mini handles 1,600+ ESP32 nodes" based on the 164K embeddings/sec throughput number. So the inference tier scales horizontally — you shard by node, each node's stream lands on whichever Mac in the pool is least loaded. Storage scales via the Seed's RVF store. There's no durable-workflow layer — no Temporal, no Inngest — because the workload is streaming, not batch. The state that matters is the 20-frame sliding window inside each inference process, plus the 60-second checkpoint to the Seed. If a node crashes, you lose at most one minute of history. The streaming layer is UDP, which is a choice. No retransmit, no ordering guarantee — because if you drop a frame in a 200-frames-per-second CSI stream, you just wait 5 milliseconds and get the next one. Retransmit would actively hurt latency.
+
+**B:** What about the Docker image — is that the whole stack?
+
+**A:** It's the server plus the web viewer plus a simulator. docker pull ruvnet/wifi-densepose:latest gives you a multi-arch image, amd64 plus arm64, which maps to docker/ in the repo. Inside, the simulator fabricates CSI frames with known-ground-truth poses so you can validate the rendering pipeline without hardware. It's how you evaluate the repo in 90 seconds without soldering. The README is explicit: "Docker runs with simulated data for evaluation." The Docker path is the marketing path; the real path is flash-the-firmware-and-stream.
+
+**B:** And the ethics angle.
+
+**A:** Has to be named. This is a 49,000-star open-source repo that publishes firmware, training scripts, and pre-trained weights for through-wall human detection using hardware that costs less than a sandwich. The README acknowledges this — loopback binding by default, explicit opt-in for 0.0.0.0, cryptographic attestation of every measurement. But the capability is now a commodity. That's the publication-ethics question. Is it safe to publish? The counter-argument is that the CMU paper did it in 2022 and the information was already in the open literature. RuView just makes it push-button. I don't have a clean answer. I don't think one exists.
+
+**B:** Time check. Review from ep 37 — we were on Maninilip/guide-system and we had six words. Hit me.
+
+**A:** "指導" — guidance — the top-down knowledge-transfer mode. "学ぶ" — to learn — what the learner does. "慣れる" — to get used to — the embodied phase. "個人" — individual versus collective. "能力" — ability as the measurable outcome. "成長" — growth as the arc. 指導を受けて、学んで、慣れて、個人の能力が成長する。そういう流れだったわけだ。
+
+**B:** And the grammar was 〜ようになる.
+
+**A:** Right — "come to do" or "reach the point of doing." 走れるようになった — came to be able to run. Used for acquired capability. So if we phrase RuView in that grammar: CSIから姿勢が推定できるようになった — "it came to be possible to estimate posture from CSI." That's the arc of the WiFi-DensePose research program from 2022 to now. 研究者たちは信号を学んで、数式に慣れて、少しずつモデルが姿を出力できるようになった。個人の能力ではなく、分野全体の成長だったわけだ。
+
+**B:** New grammar for this episode.
+
+**A:** 〜わけだ. "It makes sense that." "So that's why." "Naturally." It's the grammar of inference-from-evidence. You observe X; you know the rule; you utter わけだ to mark that Y follows. Different from 〜からだ which is explicit causation. わけだ is conclusion drawing — the speaker marking that the conclusion is the logical consequence of premises both parties share. Five mini-dialogues, slow. One: 電波が体を通るから、壁の向こうの姿が見えるわけだ。 "Radio waves pass through the body, so naturally you can see the figure behind the wall." Two: ESP32は九ドルで買えるから、世界中に広まるわけだ。 "ESP32 costs nine dollars, so of course it spreads worldwide." Three: モデルが八キロバイトまで小さくなったから、エッジで動くわけだ。 "The model shrank down to eight kilobytes, so naturally it runs on edge." Four: CSIの情報量が豊かだから、姿勢が分かるわけだ。 "CSI is information-rich, so it makes sense that posture is recoverable." Five: 四万九千の星がついているから、みんな驚くわけだ。 "It has 49,000 stars, so of course everyone is surprised."
+
+**B:** Layer the review in.
+
+**A:** 個人の能力が成長して、新しい技術に慣れるようになるわけだ。 "So naturally an individual's abilities grow and they come to get used to new tech." That's 個人 + 能力 + 成長 + 慣れる + 〜ようになる + 〜わけだ all in one sentence. Stacked. More. 指導を受けた技術者は、CSIの処理に慣れて、電波から姿を再構成できるようになったわけだ。 "Engineers who received guidance got used to CSI processing and naturally came to be able to reconstruct figures from radio waves." 学ぶ姿勢があれば、見えない信号も感じるようになるわけだ。 "If you have a learning posture, you'll naturally come to feel even invisible signals."
+
+**B:** OK the cadence clicks. 〜わけだ is the "aha" particle.
+
+**A:** The "naturally-follows" particle. Use it when the listener should already have assembled the premise. If they haven't, they'll be confused — わけだ assumes shared context. 驚くのは当然だ、という気持ちを伝える形だ。論理の結論を声に出す、そんなわけだ。
+
+**B:** Give me the Japanese-side recap of the architecture. I want to hear it in the target language.
+
+**A:** OK. ゆっくり行く。RuViewは、WiFiの電波を使って、人の体の姿を推定するシステムだ。カメラは使わない。見えない電波だけで、体の形を感じ取る。仕組みはこうだ。まず、ESP32-S3という九ドルの小さな部品が、WiFiのチャンネル情報、つまりCSIを集める。CSIは、六十四個のサブキャリアごとに、電波の強さと位相を記録する信号だ。人が部屋で動くと、電波の反射が変わる。その変化を二十フレーム分まとめて、ニューラルネットワークに入れる。ネットワークの名前はWiFlow。畳み込み層と、軸方向アテンションと、ポーズデコーダで出来ている。出力は十七個のキーポイント。鼻、目、肩、肘、腰、膝、足首。その並びで、体の姿が画面に浮かび上がるわけだ。
+
+**B:** 驚く。本当に九ドルで動くのか。
+
+**A:** 動く。モデルは四ビット量子化で八キロバイトまで縮んで、ESP32のSRAMに収まる。クラウドも要らない、インターネットも要らない、カメラも要らない。個人の家でも、壁の向こうの部屋の様子が分かる。呼吸数も、心拍数も、歩き方の癖も、全部CSIから取れる。能力としては、もう研究段階を超えている。だから49kスターがついているわけだ。
+
+**B:** 慣れるまで時間がかかりそうだけど、仕組みの大枠は分かった気がする。
+
+**A:** 慣れる必要はある。信号処理と深層学習の両方の指導を受けないと、細かいところまでは理解できない。でも、全体像は今の説明で十分だ。電波が体を通る、体が電波を歪める、ネットワークがその歪みから姿を復元する。三段階の流れ。それがRuViewの中心だ。倫理の問題は別の話。技術の成長は、倫理の成長より速く進むわけだから。
+
+**B:** Let me try to say this back in plain terms. RuView takes a nine-dollar WiFi sniffer, captures the way your body perturbs radio waves in the room, and runs those perturbations through a small neural net to produce a stick-figure skeleton of you — through walls, without a camera. The brain sits on the laptop or a 131-dollar companion box. The same pipeline gives you breathing rate from the low-frequency component, heart rate from a higher band. And the extension model is "write a Node script that subscribes to the CSI firehose."
+
+**A:** One nuance. The thing that makes this work — and the thing that makes it scary — is the same thing. WiFi CSI is vastly richer than anyone assumed for twenty years. Every commodity chipset was measuring it; nobody was reading it. The CMU paper showed you could, and now ruvnet has packaged it into a deployable edge system with LoRA adapters for per-room calibration, Ed25519 attestation for provenance, and a 4-bit model that fits in 8 kilobytes of SRAM. The sensing signal was always there. The reason you couldn't see the 姿 — the figure — through the wall wasn't physics. It was that nobody had built the decoder. 電波は長い間、体の周りを流れていた。ただ、誰も読んでいなかっただけだ。見えないのは当然だったわけだ。今はデコーダが存在する。モデルも、ファームウェアも、ドキュメントも、全部公開されている。四万九千の星が、みんなが驚いているという事実を示しているわけだ。個人の能力だけでは到達できなかった場所に、分野の成長が届いた、というわけだ。
+
+**B:** So the 体 was always being scanned. We just didn't know.
+
+**A:** Every router in every room since 802.11n. Fifteen years of latent surveillance capacity, newly legible. 電波に慣れた技術者たちが、少しずつ姿を感じ取れるようになった。学ぶ姿勢、指導の蓄積、オープンソースの文化、全部が重なって、今ここに49kスターのレポがあるわけだ。驚くわけだ。そして、怖いわけだ。
+
+**B:** Next episode.
+
+**A:** Ep 39 we swerve. The axis we've been walking — compute topology, context strategy, scaling — it's been consistent across agent frameworks and sensing systems. But there's an axis we've dodged: language. Specifically, how systems "翻訳" — translation between representations. Human language to tool call. CSI tensor to pose vector. English docs to Japanese runtime. That's the subject of next week's repo — a multilingual translation-layer system that handles all three of those shifts with the same primitive. One grammar pattern to preview: 〜にする, "decide on" or "turn into." 日本語にする — render into Japanese. 翻訳にする — make it a translation. 電波を姿にする、CSIをポーズにする、英語を日本語にする。全部同じ形で表せるわけだ。
+
+**B:** Noted. 電波が姿になるわけだ — it makes sense that radio becomes figure. Now CSIが翻訳になるわけだ.
+
+**A:** Close. More like: representation becomes translation. 信号から意味へ、意味から言語へ。見えないものを、見える形にする。そういう話になるわけだ。翻訳の技術に慣れた個人が、能力を成長させて、指導なしでも新しい言語に移れるようになる。電波の話と、翻訳の話は、実は同じ構造を持っているわけだ。表現を別の表現に写す、ただそれだけの話だ。驚くことに、同じ数学で説明できる。See you on 39.

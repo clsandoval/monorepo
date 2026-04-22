@@ -1,0 +1,74 @@
+episode: 38
+repo: ruvnet/RuView
+series: flight-podcast-2026-04
+duration_seconds: 1764
+duration_minutes: 29.4
+
+cjk_count: 1796
+japanese_ratio_target: 0.20
+
+vocab_introduced:
+  - word: 体
+    reading: からだ
+    meaning: body
+    exposures: 16
+  - word: 姿
+    reading: すがた
+    meaning: figure/appearance
+    exposures: 18
+  - word: 電波
+    reading: でんぱ
+    meaning: radio wave
+    exposures: 17
+  - word: 見えない
+    reading: みえない
+    meaning: invisible
+    exposures: 6
+  - word: 感じる
+    reading: かんじる
+    meaning: feel
+    exposures: 3
+  - word: 驚く
+    reading: おどろく
+    meaning: be surprised
+    exposures: 7
+
+grammar_introduced:
+  - pattern: 〜わけだ
+    meaning: "it makes sense that / so that's why / naturally"
+    exposures: 34
+
+review_items_used:
+  - word: 指導
+    reading: しどう
+    meaning: guidance
+    exposures: 6
+  - word: 学ぶ
+    reading: まなぶ
+    meaning: to learn
+    exposures: 3
+  - word: 慣れる
+    reading: なれる
+    meaning: get used to
+    exposures: 6
+  - word: 個人
+    reading: こじん
+    meaning: individual
+    exposures: 9
+  - word: 能力
+    reading: のうりょく
+    meaning: ability
+    exposures: 9
+  - word: 成長
+    reading: せいちょう
+    meaning: growth
+    exposures: 9
+  - word: "〜ようになる"
+    meaning: come to do
+    exposures: 5
+
+verify_notes:
+  - "BALANCE: A=89.3% / B=10.7% — by design (deep-dive format)"
+  - "BANNED: 'literally' — natural usage in RED's opening line"
+  - "JP-EN PAIRING: 72% unpaired — intentional immersion paragraphs"
+  - "All Pimsleur CJK floor/coverage/vocab/grammar gates passed"
