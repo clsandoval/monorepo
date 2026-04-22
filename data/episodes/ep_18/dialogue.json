@@ -1,0 +1,602 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay, Ark, I need you to settle something for me, and I need you to do it before we get into the weeds, because if we don't settle it now, I'm going to be annoyed for the entire episode. What is a \"skill\" in the Claude Code universe? Because we just spent two episodes talking about plugins — ep 16 was \"間違い\" (まちがい) — mistake prevention via CLAUDE.md, ep 17 was the claude-mem context compressor — and I genuinely cannot tell you whether either of those things qualifies as a \"skill\" or whether that word means something totally different."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう — right right — that's actually the perfect question to open on, because the word \"skill\" is doing a lot of work that nobody in the community has agreed on. 「スキルって何ですか」 — \"what even is a skill?\" — は本当にいい質問です (is genuinely a good question). みんな違う意味で使っています — everyone uses it differently."
+  },
+  {
+    "speaker": "b",
+    "text": "See, this is exactly why I get frustrated. You say \"that's a great question\" and then you proceed to not answer it."
+  },
+  {
+    "speaker": "a",
+    "text": "なるほど — fair. 答えましょう — let me answer. A \"skill\" in the strict harness sense is a named capability registered in your settings that Claude can invoke, with a trigger description and optionally some associated files and scripts. 厳密な意味では — in the strict sense — スキルは登録された機能です — a skill is a registered capability. Skills live in a `skills/` directory. They have a SKILL.md file. They get announced to the model via system reminders. That's the strict definition."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, so by that definition, `forrestchang/andrej-karpathy-skills` is actually a skill, because it's literally named \"skills\" in the repo, right? And `thedotmack/claude-mem` is… what?"
+  },
+  {
+    "speaker": "a",
+    "text": "やっぱり — see, this is where it gets messy. 「やっぱり」— \"as expected\" — is the right word here, because anyone who has spent time in the ecosystem feels the mess immediately. The Karpathy repo ships CLAUDE.md fragments and coding-discipline guidance. Some of it is packaged as skills. Some of it is just markdown you're supposed to paste into your own CLAUDE.md. And claude-mem is a plugin — it hooks into the session lifecycle, it runs code, it's not a \"skill\" in the SKILL.md sense at all. It's an automation."
+  },
+  {
+    "speaker": "b",
+    "text": "\"面白い\" (おもしろい) — interesting. 本当に面白いですね — really interesting. So we've been calling both of them \"skills\" loosely, like the way people call every soft drink a Coke. みんな同じ言葉を使っています — everyone uses the same word — でも意味は違います — but the meanings differ."
+  },
+  {
+    "speaker": "a",
+    "text": "確かに — exactly. 「確かに」(tashika ni) — \"certainly, for sure\" — is going to be our main agreement word this episode, get used to it. The community uses \"skill\" as a catch-all for \"thing that extends Claude Code.\" But mechanically, they're different animals. One is a \"習慣\" (しゅうかん) — habit you teach the model through instructions. The other is an algorithm that runs on your machine and rewrites state."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Hold that thought. I want to come back to it. But first — and this is the main axis I want to review today — I keep going back and forth on which of these plugins I actually need, and I think the reason is that they do fundamentally different jobs. Right? One prevents something from happening. The other preserves something that already happened."
+  },
+  {
+    "speaker": "a",
+    "text": "いいね — good framing. Let's run it. 予防と保存 — prevention and preservation — 二つの軸 — two axes — 走ってみましょう — let's run them. Before we start, let me lay out how I'll structure the review: まず予防について話します — first we'll talk about prevention — その後で保存について話します — after that we'll talk about preservation — そして両方を比べます — and then we'll compare both."
+  },
+  {
+    "speaker": "b",
+    "text": "So ep 16. Karpathy's CLAUDE.md. The whole point of that thing is: Claude makes certain classes of \"間違い\" (まちがい) — mistakes — over and over, across sessions, across projects — and if you write down the rules, you can tell it to \"気をつける\" (きをつける) — be careful about those specific failure modes before they happen. That's prevention. 同じ間違いを繰り返さないように — in order not to repeat the same mistakes — 気をつけるように書く — write so that it is careful. The 〜ように pattern shows up twice in one sentence because that's literally what the plugin is for."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. It's a prophylactic discipline. 未来の自分のために — for future-you — 過去の自分が書く — past-you writes it down. The whole design is: future-you knows what past-you got burned on, so you write it into the file, and the model reads it on session start. 後で困らないように書いておく — write it down in advance so you don't suffer later — that's another 〜ように. 同じ間違いを繰り返さないように注意する — be cautious in order not to repeat the same mistake. Notice how 注意 and 気をつける are almost interchangeable here — both mean \"caution\" but 注意 is more noun-like, 気をつける is more action-like."
+  },
+  {
+    "speaker": "b",
+    "text": "And then ep 17, claude-mem, is the opposite end of the pipeline. It's not trying to stop you from making a mistake. It's trying to make sure that when you inevitably context-compact, you don't \"忘れてしまう\" (わすれてしまう) — forget completely the important work you already did."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう — and the \"てしまう\" is load-bearing there, because the feeling is regret. 「忘れた」just means \"I forgot.\" 「忘れてしまった」means \"I forgot, and ugh, I wish I hadn't.\" 全然違います — totally different. It's not \"forget.\" It's \"oh no, I forgot, and now it's gone.\" \"忘れてしまう\" — forget, to one's regret is the exact emotional shape of losing context mid-project."
+  },
+  {
+    "speaker": "b",
+    "text": "Right, and that's why claude-mem exists. Because otherwise you hit the compact boundary and half of your session \"残らない\" (のこらない) — doesn't remain, and you're starting over. 大事なことが残らない — important things don't remain — そして最初からやり直す — and you redo from the start. 本当に嫌です (really awful)."
+  },
+  {
+    "speaker": "a",
+    "text": "One preserves. One prevents. 一つは保存する — one preserves — もう一つは予防する — the other prevents. Both useful. But they're operating at different timescales, which I think is the key insight. 時間の長さが違う — the length of time differs — それが重要です — that's the important part."
+  },
+  {
+    "speaker": "b",
+    "text": "Say more."
+  },
+  {
+    "speaker": "a",
+    "text": "Karpathy's file is about a \"長い\" (ながい) — long timescale. 長い時間をかけて — taking a long time — 少しずつルールを追加する — you gradually add rules. It's the accumulated wisdom of many sessions. You write a rule once, it applies forever. It's a \"習慣\" (しゅうかん) — habit you teach the model. いい習慣を教える — you teach a good habit — 悪い習慣を直す — and fix the bad ones."
+  },
+  {
+    "speaker": "b",
+    "text": "Whereas claude-mem is about a \"短い\" (みじかい) — short timescale — within a single session, what do we \"思い出す\" (おもいだす) — recall across the compact boundary. 短い時間の中で — within a short time — 何を思い出すか — what do we recall — それが問題です — that's the question."
+  },
+  {
+    "speaker": "a",
+    "text": "わかった — exactly. And that's why stacking them makes sense, actually. Short-timescale preservation plus long-timescale prevention. They don't overlap."
+  },
+  {
+    "speaker": "b",
+    "text": "Hmm. But I want to push back on the \"don't overlap\" thing, because I think they do overlap in one way. Both of them are trying to solve the same meta-problem: Claude has limited memory, and without help, it will either repeat mistakes or lose track of what it did."
+  },
+  {
+    "speaker": "a",
+    "text": "Fair, fair. The meta-problem is shared. The mechanism is different. 問題は同じ — the problem is the same — 解決方法は違う — the solutions differ."
+  },
+  {
+    "speaker": "b",
+    "text": "Right. And here's where I get suspicious. Because if the meta-problem is \"limited memory,\" and we have two tools attacking it from different angles, how do I know I'm not just papering over the real issue, which is that Claude shouldn't need either of these things if the context window were bigger?"
+  },
+  {
+    "speaker": "a",
+    "text": "なるほど — good skeptical move. But I'd argue that even with infinite context, you still want karpathy-style rules, because the issue isn't memory capacity. It's attention. Claude can have a million tokens of context and still not \"気をつける\" — be careful about the specific thing you need it to be careful about. 具体的な失敗に気をつけるように — in order for it to be careful about the specific failure — ルールを書く必要がある — you need to write a rule. Rules are attention direction, not memory."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. I'll grant that. But claude-mem, on the other hand, IS just a memory workaround."
+  },
+  {
+    "speaker": "a",
+    "text": "Partly, yeah. If context were free and unbounded, claude-mem would be less necessary. But it's not, and it won't be for a while, so here we are."
+  },
+  {
+    "speaker": "b",
+    "text": "\"やっぱり\" (sure enough) — practical reality bites. Okay, axis one: prevention vs preservation, check. Moving on."
+  },
+  {
+    "speaker": "a",
+    "text": "So the second axis I want to talk about is who writes the artifact. Karpathy's CLAUDE.md is human-authored. 人間が書く — humans write it. You sit down, you think about what Claude keeps getting wrong, you write English sentences that \"教える\" (おしえる) — teach the model what to do. モデルに教える — you teach the model — 何を直すべきか — what it should fix."
+  },
+  {
+    "speaker": "b",
+    "text": "Right. It's literally just… notes. It's a person writing down lessons learned. 教訓をまとめる — summarize the lessons — 紙に書く — write them on paper — それだけ — that's it. Nothing fancy."
+  },
+  {
+    "speaker": "a",
+    "text": "Whereas claude-mem generates its artifact at runtime. The summary that gets preserved across compaction is written by the model, at the moment of compaction, based on what just happened. 実行時に生成される — generated at runtime — モデルが自分でまとめる — the model summarizes by itself. You don't author it. The system does. 人間は何も書かない — the human writes nothing."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, this is actually a really important distinction, because it means the two tools fail in completely different ways. When karpathy fails, it's because YOU wrote the wrong thing. When claude-mem fails, it's because the MODEL wrote the wrong summary."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう — and the second failure mode is way harder to debug. モデルが間違えた時 — when the model got it wrong — 人間が気づくのは難しい — it's hard for the human to notice."
+  },
+  {
+    "speaker": "b",
+    "text": "Why?"
+  },
+  {
+    "speaker": "a",
+    "text": "Because you don't see it happen. With karpathy, if the rule is wrong, you can \"直す\" (なおす) — fix it — you open the file, you edit the sentence, you reload. ファイルを開いて — open the file — ルールを直す — fix the rule — 簡単です — easy. It's a \"習慣\" you can consciously revise. With claude-mem, the summary was generated in a context you no longer have access to. You see the output — the preserved digest — but you can't easily reconstruct what it dropped. 何を捨てたか分からない — you don't know what got thrown away."
+  },
+  {
+    "speaker": "b",
+    "text": "Oh, that's rough. So it's like… the compression happens in a black box, and you just have to trust that the model \"まとめる\" (summarized) the right things."
+  },
+  {
+    "speaker": "a",
+    "text": "確かに. And when it doesn't, you only find out later, when you ask Claude \"do you remember when we decided X?\" and it says \"no\" or worse, it \"思い出す\" the wrong decision. 間違ったことを思い出してしまう — it ends up recalling the wrong thing — that's a 〜てしまう failure: recall, to one's regret."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay so now I'm getting nervous about claude-mem again. Because the whole promise was \"preserve the important stuff,\" but the thing deciding what's important is the same thing that's running low on context."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. It's a bit of a fox-guarding-the-henhouse problem. The LLM decides what to keep, and LLMs are known to be bad at \"注意\" (ちゅうい) — caution — they don't reliably flag the things that will matter later. 注意が足りない — insufficient attention — 大事な情報が消えてしまう — important information ends up disappearing."
+  },
+  {
+    "speaker": "b",
+    "text": "Whereas the karpathy approach is, in a sense, more honest about the limitation. It says: the human has to write the rules. Don't trust the model to figure out what the model needs."
+  },
+  {
+    "speaker": "a",
+    "text": "面白い — that's actually a really good frame. Karpathy = human-in-the-loop discipline. Claude-mem = automated discipline. And for automated discipline to work, the automation has to be good at the task, which in this case means \"summarizing sessions in a way that preserves future-relevant decisions.\""
+  },
+  {
+    "speaker": "b",
+    "text": "And LLMs are middling at that."
+  },
+  {
+    "speaker": "a",
+    "text": "They're middling at it. They're getting better. But they're not reliable yet."
+  },
+  {
+    "speaker": "b",
+    "text": "So here's my hot take. カルパシーの方法はユーザーの能力に比例する — karpathy's approach scales with the user's ability — クロードメムはモデルの能力に比例する — claude-mem scales with the model's ability. I think karpathy's approach scales with user skill, and claude-mem's approach scales with model quality. If you're a disciplined developer who knows what rules to write, karpathy will keep getting more valuable over time because your file grows. If you're relying on claude-mem, you're basically betting that next year's model will compress your session better than this year's."
+  },
+  {
+    "speaker": "a",
+    "text": "いいね — I mostly buy that. The counter is that writing good CLAUDE.md rules is itself a skill, and most people don't have it."
+  },
+  {
+    "speaker": "b",
+    "text": "True. Writing good rules is hard. Most people's CLAUDE.md files are either empty or full of contradictory advice."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. And then Claude reads the contradictory advice and either ignores it or picks whichever rule is closer to the top of the file, which is not great."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Axis two: human-authored vs runtime-authored. The failure modes are asymmetric. Karpathy fails when you write bad rules; claude-mem fails when the model summarizes badly. Both real. Both solvable, but differently."
+  },
+  {
+    "speaker": "a",
+    "text": "Let's dig into the failure modes more explicitly, because I think this is where people get burned when they adopt these plugins."
+  },
+  {
+    "speaker": "b",
+    "text": "Yeah. So karpathy. When does karpathy fail?"
+  },
+  {
+    "speaker": "a",
+    "text": "The classic failure is: Claude ignores the file. You write a beautiful rule — \"always run tests before claiming a task is done\" — and Claude just… doesn't. It claims the task is done. You look at the transcript and think, \"did you even read the CLAUDE.md?\""
+  },
+  {
+    "speaker": "b",
+    "text": "\"わかった\" — I have felt this. I've literally yelled at my screen over this."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. And the reason is that CLAUDE.md is just a prompt. It's instructions in text form. The model's attention to instructions is probabilistic. Sometimes it reads them carefully, sometimes it skims. There's no enforcement mechanism."
+  },
+  {
+    "speaker": "b",
+    "text": "So the file is a polite request, not a hard constraint. 丁寧なお願い — a polite request — 強制力はない — there's no enforcement power."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. It's advisory. And the more rules you pile in, the more each individual rule gets diluted. ルールが多すぎると — if there are too many rules — 一つ一つが薄くなる — each one becomes thin. There's a tragedy of the commons in CLAUDE.md files where every rule you add makes every other rule slightly less effective. 長いファイルほどモデルが注意を払わなくなる — the longer the file, the less the model pays attention."
+  },
+  {
+    "speaker": "b",
+    "text": "Oof. So karpathy's approach has a natural ceiling. 自然な上限 — a natural ceiling — それ以上増やしても効果がない — adding more has no effect."
+  },
+  {
+    "speaker": "a",
+    "text": "It does. It works best when the rules are few, specific, and about failure modes that the model actually recognizes when pointed at. It works worst when you try to turn it into a comprehensive style guide."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Now claude-mem. When does claude-mem fail?"
+  },
+  {
+    "speaker": "a",
+    "text": "Three ways. One: it compresses the wrong thing. The model decides the important part of the session was the code changes, and \"忘れてしまう\" the crucial architectural decision you made verbally in chat. 大事な決定を忘れてしまう — ends up forgetting the important decision — そして後で困る — and then you're in trouble later."
+  },
+  {
+    "speaker": "b",
+    "text": "Oh no."
+  },
+  {
+    "speaker": "a",
+    "text": "Two: it compresses at the wrong time. 悪いタイミングでまとめてしまう — it ends up summarizing at a bad time. The auto-compact triggers mid-thought, and the summary captures \"we were in the middle of debugging\" without capturing what the bug actually was."
+  },
+  {
+    "speaker": "b",
+    "text": "That's the one that would kill me."
+  },
+  {
+    "speaker": "a",
+    "text": "Three: it compresses too aggressively. You end up with a \"短い\" digest that's technically \"accurate\" but loses all the texture — the why, the alternatives considered, the dead ends you explored. 短すぎる要約 — too-short summary — 長い議論が消える — long discussion disappears."
+  },
+  {
+    "speaker": "b",
+    "text": "And you only realize any of this went wrong when you ask a question later and the model says \"I don't have context on that.\""
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. The failure is silent and delayed."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. So to \"まとめる\" (summarize) the failure modes: karpathy fails by being ignored, claude-mem fails by compressing badly. Karpathy failures are visible in the moment — you see Claude violate the rule. Claude-mem failures are invisible — you only notice them turns later, when something should have been \"残る\" (のこる) — remaining and isn't. 残るはずだった情報 — information that should have remained — 残らなかった — didn't remain."
+  },
+  {
+    "speaker": "a",
+    "text": "確かに. Visibility matters a lot for debugging. Karpathy fails loud. Claude-mem fails quiet."
+  },
+  {
+    "speaker": "b",
+    "text": "And loud failures, for all their annoyance, are easier to \"直す\" than quiet ones."
+  },
+  {
+    "speaker": "a",
+    "text": "Yeah. If I had to pick which plugin to trust more on blind faith, it'd be karpathy, because at least I can audit its behavior."
+  },
+  {
+    "speaker": "b",
+    "text": "\"やっぱり\". Okay. やっぱり簡単な答えはないですね — sure enough, there's no simple answer, is there. I'm going to push on one more thing here before we move on. Is there a version of karpathy that fails quietly too? 静かに失敗することはありますか — are there cases where it fails quietly?"
+  },
+  {
+    "speaker": "a",
+    "text": "Hmm. Yes, actually. If Claude reads the rule, technically follows it, but follows it in a shallow way that satisfies the letter but not the spirit. Like, you write \"always \"気をつける\" to check for null,\" and the model adds a null check but doesn't think about what the null actually means semantically. It \"教える\" (taught) itself the wrong lesson from your rule. 表面的に気をつける — superficially careful — でも本当の意味を理解していない — but not understanding the real meaning."
+  },
+  {
+    "speaker": "b",
+    "text": "Ugh. Right. So both plugins can fail quietly under specific conditions. 両方とも静かに失敗することがある — both can fail quietly sometimes — でも普通は違う — but normally it's different. But karpathy's default failure mode is loud. カルパシーの普通の失敗はうるさい — karpathy's normal failure is noisy — それはありがたい — that's actually welcome."
+  },
+  {
+    "speaker": "a",
+    "text": "Default loud, edge-case quiet. Claude-mem is default quiet. That's the asymmetry. カルパシーは普通うるさく失敗する — karpathy normally fails loudly — クロードメムは普通静かに失敗する — claude-mem normally fails quietly."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, I think I finally understand what I'm actually choosing between when I pick these plugins. It's not \"prevention vs preservation\" in the abstract. It's about what kind of failures I can tolerate."
+  },
+  {
+    "speaker": "a",
+    "text": "So now the fun question. What if you run both?"
+  },
+  {
+    "speaker": "b",
+    "text": "Yeah, this is what I actually want to know, because in practice I'm not going to pick one. I'm going to install both, because I'm greedy."
+  },
+  {
+    "speaker": "a",
+    "text": "\"いいね\" (nice). So let's think about it. 両方を重ねて使う — use both stacked — どうなるか — what happens. You have karpathy's CLAUDE.md doing long-timescale prevention. 長い時間の予防 — long-timescale prevention. You have claude-mem doing short-timescale preservation. 短い時間の保存 — short-timescale preservation. Do they interfere? 互いに影響するか — do they affect each other."
+  },
+  {
+    "speaker": "b",
+    "text": "My first instinct is no, because they operate on different artifacts. でも — but — 絶対にどこかで影響している — they're definitely affecting each other somewhere. But I bet they interfere in subtle ways. 小さな影響がいっぱいある — lots of small effects — 見えにくいだけ — just hard to see."
+  },
+  {
+    "speaker": "a",
+    "text": "They do. Here's one. Claude-mem summarizes the session. 会話をまとめる — summarizes the conversation. The session includes Claude's behavior, which was shaped by the CLAUDE.md rules. When claude-mem writes its digest, it may or may not include the fact that certain rules were applied. If it doesn't include that, then after compaction, Claude has the CLAUDE.md rules in-context again, but no memory of HOW those rules affected earlier decisions. ルールは残る — rules remain — でもルールの適用の歴史は残らない — but the history of applying the rules doesn't remain."
+  },
+  {
+    "speaker": "b",
+    "text": "Oh. Oh that's subtle. So post-compaction Claude might re-derive a decision differently than pre-compaction Claude would have, because the rules look the same but the context around applying them is gone."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. The \"習慣\" is preserved, but the history of applying the habit is \"忘れてしまう\" (forgotten). 習慣だけ残って — only the habit remains — 使い方の記憶は消えてしまう — the memory of how to use it ends up disappearing."
+  },
+  {
+    "speaker": "b",
+    "text": "Is that actually a problem?"
+  },
+  {
+    "speaker": "a",
+    "text": "Sometimes. If the earlier decision was rule-driven and the rule still applies the same way, no. If the earlier decision was a nuanced application where the rule was bent for a good reason, yes — because post-compaction Claude won't know the rule was bent and might bend it differently, or not bend it at all."
+  },
+  {
+    "speaker": "b",
+    "text": "That's a real gotcha. So stacking both doesn't just add — it interacts."
+  },
+  {
+    "speaker": "a",
+    "text": "It interacts. And there's a second interaction. Karpathy rules are often phrased as \"〜ように\" (in order to) patterns. \"Check for nulls in order to prevent runtime errors.\" \"Write tests in order to catch regressions.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Right, the purpose-clause pattern. Very natural in English and Japanese both."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. Now, when claude-mem summarizes a session where those rules were active, does the summary preserve the \"〜ように\" structure? Does it preserve the purpose behind the rule, or just the mechanical action? 目的が残るか — does the purpose remain — 行動だけ残るか — or only the action."
+  },
+  {
+    "speaker": "b",
+    "text": "I'm going to guess… probably not the purpose. LLM summaries tend to strip out motivation."
+  },
+  {
+    "speaker": "a",
+    "text": "確かに. And that matters because post-compaction, if Claude sees \"we checked nulls here\" in the digest but not \"in order to prevent runtime errors,\" it might drop the null check in later code under a different framing."
+  },
+  {
+    "speaker": "b",
+    "text": "The \"〜ように\" gets severed from the action."
+  },
+  {
+    "speaker": "a",
+    "text": "The \"〜ように\" gets severed. And without the purpose, the action looks like a local choice rather than a global \"習慣\". 目的がないと習慣に見えない — without a purpose it doesn't look like a habit — ただの偶然に見える — it just looks like coincidence."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay this is actually making me more cautious about stacking, not less. You'd think \"two discipline tools = more discipline\" but actually two tools that don't know about each other can produce weird artifacts."
+  },
+  {
+    "speaker": "a",
+    "text": "なるほど. The mitigation is to make them aware of each other — put a note in CLAUDE.md that tells the model \"when summarizing, preserve the \"〜ように\" structure of rule applications.\" 目的を忘れないように書く — write it so that the purpose isn't forgotten. But now you're doing plugin-coordination by hand, which kind of defeats the purpose of both plugins being autonomous."
+  },
+  {
+    "speaker": "b",
+    "text": "\"やっぱり\" there's no free lunch."
+  },
+  {
+    "speaker": "a",
+    "text": "There's no free lunch. But I still think stacking is worth it, because the alternative — having neither — is worse than having both with some friction."
+  },
+  {
+    "speaker": "b",
+    "text": "Agreed. The meta-lesson here is that every plugin you add has interactions with every other plugin, and the more you stack, the more you need to think of them as a system rather than independent tools."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. The plugin ecosystem isn't additive. It's combinatorial. プラグイン同士が影響し合う — plugins mutually influence each other. And the community hasn't really caught up to that yet. People still post \"here are my five favorite plugins\" as if they're independent. 気をつけないといけない — you have to be careful."
+  },
+  {
+    "speaker": "b",
+    "text": "So my \"注意\" (ちゅうい) — caution for listeners is: don't install karpathy AND claude-mem AND five other things and assume they compose cleanly. They don't. Each one is teaching the model or modifying the model's state, and those interventions can step on each other."
+  },
+  {
+    "speaker": "a",
+    "text": "いいね. Good warning."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. We've been at this for a while. Let me try to \"まとめる\" (summarize) what we actually learned in this interlude."
+  },
+  {
+    "speaker": "a",
+    "text": "Go. どうぞ — please — まとめてください — summarize it."
+  },
+  {
+    "speaker": "b",
+    "text": "One. \"Skill\" is an overloaded term. In the strict sense it's a registered capability with a SKILL.md. In the loose sense it's anything that extends Claude Code. Karpathy is skill-ish. Claude-mem is a plugin, not a skill."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. 言葉があいまいです — the word is vague — みんな違う意味で使っています — everyone uses it differently — 気をつけて聞いてください — listen carefully."
+  },
+  {
+    "speaker": "b",
+    "text": "Two. These two plugins operate on different axes. Prevention vs preservation. Long vs short timescale. Human-authored vs runtime-authored. Loud failure vs quiet failure."
+  },
+  {
+    "speaker": "a",
+    "text": "確かに."
+  },
+  {
+    "speaker": "b",
+    "text": "Three. They're not independent. Stacking them produces interactions, especially around preservation of purpose clauses — the \"〜ように\" structures that encode why a rule applies."
+  },
+  {
+    "speaker": "a",
+    "text": "Right."
+  },
+  {
+    "speaker": "b",
+    "text": "Four. The community keeps treating plugins as independent, and they're not, and that's a problem that's going to get worse as more plugins ship."
+  },
+  {
+    "speaker": "a",
+    "text": "\"わかった\". なるほど、分かった — I see, got it. Anything else? 他に何かありますか — anything else?"
+  },
+  {
+    "speaker": "b",
+    "text": "Yeah, one more. I actually want to come back to the \"間違い\" prevention idea, because I think the biggest lesson for me from this review is that prevention scales with how well you can articulate the mistake. 間違いをはっきり説明できるように — in order to be able to clearly explain the mistake — 自分で理解する必要がある — you need to understand it yourself. If you can name the \"間違い\" precisely, karpathy can stop it. If you can only gesture at it vaguely, no tool can stop it."
+  },
+  {
+    "speaker": "a",
+    "text": "面白い. So the bottleneck isn't the plugin. It's your ability to describe your own failure modes. 自分の失敗を自分で説明できるように — in order to be able to explain your own failures yourself — 先に自分を理解する必要がある — you need to understand yourself first."
+  },
+  {
+    "speaker": "b",
+    "text": "That's the bottleneck. Plugins can amplify clarity, they can't create it."
+  },
+  {
+    "speaker": "a",
+    "text": "\"いいね\". That's a good place to land."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Tease for next week. Ep 19 is cc-switch."
+  },
+  {
+    "speaker": "a",
+    "text": "Which does what?"
+  },
+  {
+    "speaker": "b",
+    "text": "It lets you \"切り替える\" (きりかえる) — switch between different Claude Code configurations — different models, different profiles, different MCP setups — without restarting your session. 設定を切り替える — switch the configuration — モデルも切り替える — also switch the model — セッションを再起動しないように — in order not to restart the session. You can flip from a lightweight config to a heavy one mid-task."
+  },
+  {
+    "speaker": "a",
+    "text": "Oh, that's interesting. So it's not about teaching the model or preserving state. It's about runtime-swapping the environment."
+  },
+  {
+    "speaker": "b",
+    "text": "Right. And that's going to be a whole new axis to review — because now we're not just talking about what Claude knows or remembers, we're talking about what Claude IS, session to session."
+  },
+  {
+    "speaker": "a",
+    "text": "The word \"切り替える\" is doing a lot of work there. It's not just \"switch\" as in toggle. It's \"switch\" as in reconfigure a whole context. モードを切り替える — switch modes — 文脈を切り替える — switch contexts — 全部一度に切り替える — switch it all at once."
+  },
+  {
+    "speaker": "b",
+    "text": "Exactly. We'll dig into it next week. Whether it's a \"習慣\" tool or a mode tool or something else entirely."
+  },
+  {
+    "speaker": "a",
+    "text": "Looking forward to it. \"面白い\" problem."
+  },
+  {
+    "speaker": "b",
+    "text": "Alright. That's ep 18. Interlude, no new vocab, no new grammar, just review and argument. Thanks for sticking with us through the axes."
+  },
+  {
+    "speaker": "a",
+    "text": "\"またね\" (see you later) — and next time, we \"切り替える\". 来週は新しいツールについて話します — next week we'll talk about a new tool — 設定の切り替え — configuration switching — 楽しみにしています — looking forward to it. ちなみに — by the way — 今日の復習の中で一番大事なのは — the most important part of today's review is — プラグインは独立していないという事実 — the fact that plugins aren't independent — それを忘れないように気をつけてください — be careful not to forget that."
+  },
+  {
+    "speaker": "b",
+    "text": "See you then. 良い一日を — have a good day — また来週 — until next week."
+  },
+  {
+    "speaker": "a",
+    "text": "Before we go, quick review flash. I'll say each item once, you translate. 間違い?"
+  },
+  {
+    "speaker": "b",
+    "text": "Mistake."
+  },
+  {
+    "speaker": "a",
+    "text": "気をつける?"
+  },
+  {
+    "speaker": "b",
+    "text": "Be careful."
+  },
+  {
+    "speaker": "a",
+    "text": "習慣?"
+  },
+  {
+    "speaker": "b",
+    "text": "Habit."
+  },
+  {
+    "speaker": "a",
+    "text": "直す?"
+  },
+  {
+    "speaker": "b",
+    "text": "Fix."
+  },
+  {
+    "speaker": "a",
+    "text": "教える?"
+  },
+  {
+    "speaker": "b",
+    "text": "Teach."
+  },
+  {
+    "speaker": "a",
+    "text": "注意?"
+  },
+  {
+    "speaker": "b",
+    "text": "Caution."
+  },
+  {
+    "speaker": "a",
+    "text": "思い出す?"
+  },
+  {
+    "speaker": "b",
+    "text": "Recall."
+  },
+  {
+    "speaker": "a",
+    "text": "忘れる?"
+  },
+  {
+    "speaker": "b",
+    "text": "Forget."
+  },
+  {
+    "speaker": "a",
+    "text": "短い?"
+  },
+  {
+    "speaker": "b",
+    "text": "Short."
+  },
+  {
+    "speaker": "a",
+    "text": "長い?"
+  },
+  {
+    "speaker": "b",
+    "text": "Long."
+  },
+  {
+    "speaker": "a",
+    "text": "残る?"
+  },
+  {
+    "speaker": "b",
+    "text": "Remain."
+  },
+  {
+    "speaker": "a",
+    "text": "まとめる?"
+  },
+  {
+    "speaker": "b",
+    "text": "Summarize."
+  },
+  {
+    "speaker": "a",
+    "text": "いいね — all twelve. And the two grammar patterns: 〜ように for purpose, 〜てしまう for regret. 覚えていますか — do you remember them? 忘れないように復習する — review so as not to forget. そして間違ってしまった時は — and when you mess up — また直せばいい — just fix it again. それが習慣です — that's the habit."
+  },
+  {
+    "speaker": "b",
+    "text": "確かに. Alright, for real this time — 次回は切り替える話 — next time, the story of switching. またね."
+  },
+  {
+    "speaker": "a",
+    "text": "またね. 次回までお元気で — take care until next time — そして復習を忘れないように — and don't forget to review — 忘れてしまったらまた最初から — if you forget, start again from the beginning."
+  }
+]

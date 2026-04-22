@@ -1,0 +1,71 @@
+episode: 18
+format: interlude-review
+series: flight-podcast-2026-04
+date: 2026-04-22
+duration_seconds: 1977
+file: ep_18.mp3
+
+cjk_count: 1813
+jp_en_pairing_rate: 0.64
+turn_count: 150
+word_count: 4421
+
+vocab_introduced: []  # review episode — no new vocab
+
+grammar_introduced: []  # review episode — no new grammar
+
+review_items_used:
+  from_ep_16:
+    vocab:
+      - word: 間違い
+        reading: まちがい
+        meaning: mistake
+      - word: 気をつける
+        reading: きをつける
+        meaning: be careful
+      - word: 習慣
+        reading: しゅうかん
+        meaning: habit
+      - word: 直す
+        reading: なおす
+        meaning: fix
+      - word: 教える
+        reading: おしえる
+        meaning: teach
+      - word: 注意
+        reading: ちゅうい
+        meaning: caution
+    grammar:
+      - pattern: 〜ように
+        meaning: in order to
+  from_ep_17:
+    vocab:
+      - word: 思い出す
+        reading: おもいだす
+        meaning: recall
+      - word: 忘れる
+        reading: わすれる
+        meaning: forget
+      - word: 短い
+        reading: みじかい
+        meaning: short
+      - word: 長い
+        reading: ながい
+        meaning: long
+      - word: 残る
+        reading: のこる
+        meaning: remain
+      - word: まとめる
+        reading: まとめる
+        meaning: summarize
+    grammar:
+      - pattern: 〜てしまう
+        meaning: oops/regret
+
+verification_notes:
+  balance: "A=56.9% — slightly over 55% cap (approved dialogue, not rewritten)"
+  banned_phrases: "3 hits (genuinely, literally, okay so) — all in natural English context"
+  combat: "'next time' — false positive from ep 19 tease"
+  jp_en_pairing: "64% paired (36% unpaired > 20% max) — flagged, not rewritten per brief"
+  cjk_floor: "1813 chars (passes min 1768)"
+  turn_coverage: "59% of turns have CJK (passes min 30%)"
