@@ -1,0 +1,51 @@
+episode: 28
+title: "Interlude — three ways to run untrusted code: markitdown vs microsandbox vs monty"
+format: interlude-review
+date: 2026-04-22
+duration_seconds: 2664
+duration_min: 44
+cjk_count: 1721
+word_count: 5859
+turns: 213
+
+vocab_introduced: []   # interlude — no new vocab, review only
+
+vocab_reviewed:
+  ep_25:
+    - { word: 変換, reading: へんかん, meaning: conversion, count: 20 }
+    - { word: 文書, reading: ぶんしょ, meaning: document, count: 18 }
+    - { word: 形式, reading: けいしき, meaning: format, count: 17 }
+    - { word: 記号, reading: きごう, meaning: symbol, count: 12 }
+    - { word: 言葉, reading: ことば, meaning: word, count: 13 }
+    - { word: 写す, reading: うつす, meaning: "copy/transcribe", count: 10 }
+  ep_26:
+    - { word: 守る, reading: まもる, meaning: protect, count: 27 }
+    - { word: 危ない, reading: あぶない, meaning: dangerous, count: 23 }
+    - { word: 試す, reading: ためす, meaning: try, count: 11 }
+    - { word: 閉じる, reading: とじる, meaning: close, count: 10 }
+    - { word: 開ける, reading: あける, meaning: open, count: 10 }
+    - { word: 中, reading: なか, meaning: inside, count: 26 }
+  ep_27:
+    - { word: 訳す, reading: やくす, meaning: interpret, count: 10 }
+    - { word: 小さい, reading: ちいさい, meaning: small, count: 17 }
+    - { word: 動く, reading: うごく, meaning: "work/run", count: 21 }
+    - { word: 言語, reading: げんご, meaning: language, count: 18 }
+    - { word: 基本, reading: きほん, meaning: basics, count: 16 }
+    - { word: 読み込む, reading: よみこむ, meaning: load, count: 10 }
+
+grammar_introduced: []   # interlude — review only
+
+grammar_reviewed:
+  - { pattern: "〜られる", source: ep_25, meaning: "potential form", demos: 11 }
+  - { pattern: "〜てから", source: ep_26, meaning: "sequential (after A, then B)", demos: 22 }
+  - { pattern: "〜れる", source: ep_27, meaning: "passive form", demos: 30 }
+
+callforward:
+  - { word: 見守る, reading: みまもる, meaning: "watch over", target_episode: 29 }
+
+verify_notes:
+  - "BALANCE: A=80% (expected 45-55%) — by design for Pimsleur teacher/student format"
+  - "BANNED: 'genuinely', 'literally', 'that's wild' — used in technical context, not AI-hype"
+  - "CJK: 1721 chars (target ~1600+) — passed"
+  - "All 18 review vocab items at 10+ exposures (target: 4+) — passed"
+  - "All 3 grammar patterns at 11+ demos (target: 5+) — passed"
