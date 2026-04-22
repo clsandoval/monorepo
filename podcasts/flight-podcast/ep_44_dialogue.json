@@ -1,0 +1,566 @@
+[
+  {
+    "speaker": "B",
+    "text": "Okay. So. I did the thing I always do, which is I read the README and then I told myself I understood the repo."
+  },
+  {
+    "speaker": "A",
+    "text": "Uh oh."
+  },
+  {
+    "speaker": "B",
+    "text": "And my one-sentence summary was — this is a memory thing. It summarizes your conversations so the agent \"[JP: 思い出す (おもいだす) — to recall]\" stuff later. Right? That's — that's what memory libraries do. They compress, they summarize, they hand you back the gist."
+  },
+  {
+    "speaker": "A",
+    "text": "No. That's — that's the whole point of this repo. It does NOT summarize. It stores verbatim."
+  },
+  {
+    "speaker": "B",
+    "text": "Wait."
+  },
+  {
+    "speaker": "A",
+    "text": "Verbatim. Raw words. No LLM at ingestion. No extraction. No \"the user prefers PostgreSQL\" fact cards. The conversation goes into the store as the conversation was said, with a little framing-noise stripped, and then semantic search plus BM25 does the lifting at query time."
+  },
+  {
+    "speaker": "B",
+    "text": "Hmm. Okay so my README misread is actually the thesis of the repo running the other way."
+  },
+  {
+    "speaker": "A",
+    "text": "Yeah. And the Japanese word for today is basically the name of the library — \"[JP: 記憶 (きおく) — memory]\". 記憶. 「この repo は 記憶 を保存し、操作し、取り出す」 — this repo stores, manipulates, and retrieves memory. 「次の三十分、この単語を頭に置いてほしい」 — keep that word in your head for the next thirty minutes. 「architecture のどの軸も、記憶 を別の角度から見ているだけだ」 — every axis of the architecture is just a different angle on memory."
+  },
+  {
+    "speaker": "B",
+    "text": "記憶. Got it. So — verbatim is the claim. Where does that claim earn its keep? Because \"just store the raw text and search it\" sounds like the dumbest possible baseline."
+  },
+  {
+    "speaker": "A",
+    "text": "That's the punchline. On LongMemEval — 500 questions, session granularity — raw verbatim plus the default MiniLM embedder hits 96.6% R@5. No LLM anywhere in the retrieval path. The academic dense retrievers the paper benchmarks sit at 70 to 85."
+  },
+  {
+    "speaker": "B",
+    "text": "Wait, 96.6 with no model calls?"
+  },
+  {
+    "speaker": "A",
+    "text": "No model calls. `benchmarks/longmemeval_bench.py` — that's the harness. It builds an ephemeral ChromaDB collection per question, queries, scores with recall and nDCG. And the result JSONLs are checked in. You can diff them."
+  },
+  {
+    "speaker": "B",
+    "text": "Okay. That — that reframes the cold open. We are not here to ask \"is this legit.\" We are here to ask \"how does a dumb baseline get that number, and what's the structure around it that makes it usable.\" Yeah?"
+  },
+  {
+    "speaker": "A",
+    "text": "Respect first, then curiosity. Let's walk the six axes."
+  },
+  {
+    "speaker": "A",
+    "text": "Six axes. Compute topology, LLM locus, tool mechanics, extension loading, context and memory strategy, and scaling. And I'm going to spend most of our time on axis five — memory strategy — because that's where the empirical finding lives. The other five are context for it."
+  },
+  {
+    "speaker": "B",
+    "text": "Copy."
+  },
+  {
+    "speaker": "A",
+    "text": "Axis one. Compute topology. MemPalace is a Python library plus two thin process wrappers. One CLI — `mempalace = mempalace.cli:main`. One MCP stdio server — `mempalace-mcp = mempalace.mcp_server:main`. The typical deployment is: Claude Code spawns the MCP server as a subprocess, the server reads and writes a local palace directory through `ChromaBackend`, and when the caller dies the server dies with it. No daemon. No network port."
+  },
+  {
+    "speaker": "B",
+    "text": "So a \"[JP: 倉庫 (そうこ) — warehouse]\" on your laptop, basically."
+  },
+  {
+    "speaker": "A",
+    "text": "そうそう — 倉庫 is actually a decent frame for it. 「palace directory が 倉庫 だ」 — the palace directory is the warehouse. 「その中で ChromaDB が persistence を持つ」 — inside it, ChromaDB owns persistence. 「MCP server は、agent が入ってこられる前の小さな扉だ」 — the MCP server is a little door at the front that lets an agent walk in. One detail that tells you someone has actually shipped an MCP server before — `mempalace/mcp_server.py` has a preamble that fd-level-redirects stdout to stderr before importing chromadb and onnxruntime."
+  },
+  {
+    "speaker": "B",
+    "text": "Why?"
+  },
+  {
+    "speaker": "A",
+    "text": "Because those libraries print banners on import. And MCP stdio multiplexes the JSON-RPC protocol over stdout. If chromadb prints \"Anonymized telemetry enabled\" on your JSON-RPC channel, your client barfs. So they intercept at the file-descriptor level before the heavy imports."
+  },
+  {
+    "speaker": "B",
+    "text": "That's the kind of thing you learn the hard way."
+  },
+  {
+    "speaker": "A",
+    "text": "That's exactly the kind of thing. やっぱり — 「一度噛まれない限り、そんな preamble は書かない」 — as long as you haven't been bitten once, you don't write that preamble."
+  },
+  {
+    "speaker": "B",
+    "text": "Okay. Axis two — LLM locus."
+  },
+  {
+    "speaker": "A",
+    "text": "Core retrieval path uses zero LLM. Default embedder is ChromaDB's `all-MiniLM-L6-v2` — 384-dim, local, runs on CPU. Optional fastembed models — `bge-base`, `bge-large`, `nomic`, `mxbai` — are flagged in `benchmarks/longmemeval_bench.py` via `--embed-model`. An LLM only enters the pipeline at two optional sites — the rerank stage in hybrid benchmark mode, and `mempalace/closet_llm.py` / `fact_checker.py` for enrichment."
+  },
+  {
+    "speaker": "B",
+    "text": "And the rerank is model-agnostic."
+  },
+  {
+    "speaker": "A",
+    "text": "Model-agnostic. They reproduce the number with Haiku, Sonnet, and a minimax-m2.7 running locally through Ollama. The `pyproject.toml` hard dependencies are literally just `chromadb` and `pyyaml`. No provider SDK. \"Works offline, no API key, one dependency\" is the product story, and the code lives up to it."
+  },
+  {
+    "speaker": "B",
+    "text": "確かに. That's honest. Axis three — tool mechanics."
+  },
+  {
+    "speaker": "A",
+    "text": "The MCP surface in `mempalace/mcp_server.py` is about 29 tools. Reads — `mempalace_status`, `mempalace_list_wings`, `mempalace_list_rooms`, `mempalace_get_taxonomy`, `mempalace_search`, `mempalace_check_duplicate`. Writes — `mempalace_add_drawer`, `mempalace_delete_drawer`. Maintenance — `mempalace_reconnect`. CLI has the parallel subcommands — `mempalace mine`, `mempalace search`, `mempalace wake-up`, `mempalace init`."
+  },
+  {
+    "speaker": "B",
+    "text": "Wings, rooms, drawers. That's the taxonomy."
+  },
+  {
+    "speaker": "A",
+    "text": "That's the 倉庫 taxonomy. We'll get into it on axis five. Under the hood every tool routes through `mempalace/palace.py` — specifically `get_collection` and `get_closets_collection` — which return a `BaseCollection` from the backend registry. The primitives are just `query`, `get`, `add`, `delete` on a typed collection interface defined in `mempalace/backends/base.py`. `QueryResult`, `GetResult`, `PalaceRef`. The MCP layer is thin. The semantics live in the backend contract."
+  },
+  {
+    "speaker": "B",
+    "text": "So if I ever wanted to swap ChromaDB for Qdrant, I'd implement that interface."
+  },
+  {
+    "speaker": "A",
+    "text": "Exactly that. Which leads to axis four — extension loading. 「`pyproject.toml` で entry-point group を二つ宣言している」 — the package declares two entry-point groups in that file. 「`mempalace.backends` は vector store 用」 — backends for vector stores. 「`mempalace.sources` は RFC 002 の source adapter 用で、新しい content type を mine するためのもの」 — sources for RFC 002 adapters, new content types to mine from. 「in-tree の backend は `ChromaBackend` だけ」 — only ChromaBackend is in-tree. 「でも、Qdrant、Weaviate、server-mode Chroma を足す配管は、\"entry point を登録して wheel を出荷する\" だけ」 — but the plumbing to add those is just \"register an entry point, ship a wheel\". Plugin architecture by the book."
+  },
+  {
+    "speaker": "B",
+    "text": "なるほど. Library, CLI, MCP server, all from the same package."
+  },
+  {
+    "speaker": "A",
+    "text": "Hybrid distribution. First-class MCP. The MCP server is not grafted on — it's a peer."
+  },
+  {
+    "speaker": "B",
+    "text": "Okay. Axis five. Memory strategy. Where the thesis lives."
+  },
+  {
+    "speaker": "A",
+    "text": "Here we go. Three sub-pieces — verbatim storage, the taxonomy schema, and the retrieval algorithm. Then we'll talk about how the 96.6 number gets operationalized. I'll spend real time here. Piece one. Verbatim. `mempalace/palace.py` defines a `NORMALIZE_VERSION = 2` constant. Its only job is to strip framing noise — system tags, hook chrome — from Claude Code JSONL before storage. The actual conversational content is never summarized, paraphrased, or extracted. \"保つ\"  —"
+  },
+  {
+    "speaker": "B",
+    "text": "\"[JP: 保つ (たもつ) — to keep; to maintain]\""
+  },
+  {
+    "speaker": "A",
+    "text": "保つ — that's what the storage layer does to your words. It keeps them. 「\"I prefer PostgreSQL because the MVCC story is cleaner than MySQL's\" と言ったら、そのまま store に入る」 — if you say that sentence, it goes into the store as-is. 「`{user_pref: \"PostgreSQL\", reason: \"MVCC\"}` には変換されない」 — it doesn't get converted into that fact card. 「元の文は 保たれる」 — the original sentence is preserved."
+  },
+  {
+    "speaker": "B",
+    "text": "And when `NORMALIZE_VERSION` bumps?"
+  },
+  {
+    "speaker": "A",
+    "text": "The mining pipeline detects drawers stored under an older version and silently rebuilds. Users don't re-mine. The 記憶 gets re-normalized as the normalization rules evolve. That's a quiet quality-of-life thing."
+  },
+  {
+    "speaker": "B",
+    "text": "Why does verbatim beat extracted, though? Intuitively I'd expect extracted memories to be more retrievable — smaller, cleaner, no noise."
+  },
+  {
+    "speaker": "A",
+    "text": "That's the intuition that the whole Mem0 / Mastra / Supermemory / Hindsight generation of the space runs on. Extract facts at ingestion, index facts, query facts. 「MemPalace の経験的な主張は ― 抽出は情報を壊す、ということだ」 — MemPalace's empirical claim is that extraction destroys information. 「`benchmarks/longmemeval_bench.py` で再現できる」 — you can reproduce it from that harness. 「捨てた \"noise\" が、時には答えそのものだ」 — the \"noise\" you throw away is sometimes the answer itself. 比較 —"
+  },
+  {
+    "speaker": "B",
+    "text": "\"[JP: 比較 (ひかく) — comparison]\""
+  },
+  {
+    "speaker": "A",
+    "text": "比較 — that's what `benchmarks/BENCHMARKS.md` does. It puts raw verbatim next to extracted-memory systems on the same LongMemEval split. And raw verbatim wins. Not by a little — by fifteen to twenty-five points of R@5. The hypothesis the repo states out loud is \"raw verbatim with good embeddings is a stronger baseline than anyone realized — because it doesn't lose information.\""
+  },
+  {
+    "speaker": "B",
+    "text": "Huh. That's a finding."
+  },
+  {
+    "speaker": "A",
+    "text": "That IS the finding. Let's sit with it for a second. 「AI-memory の分野は二年間、ingestion に LLM が必要だと仮定してきた」 — the AI-memory space spent two years assuming you needed an LLM at ingestion. 「intelligent compression のために LLM を入れる、という前提」 — putting an LLM in for intelligent compression, that was the assumption. 「この repo はそれに対してこう言う ― 22MB の MiniLM と BM25 で勝てる」 — this repo says: a 22-megabyte MiniLM and BM25 can beat you. 「なぜなら、ingestion で signal を捨てなかったからだ」 — because they didn't throw away signal at ingestion."
+  },
+  {
+    "speaker": "B",
+    "text": "Okay, piece two — taxonomy."
+  },
+  {
+    "speaker": "A",
+    "text": "Three-level hierarchy. Wings are people or projects. Rooms are topics inside a wing. Drawers are the chunks — the actual content. `build_where_filter` in `mempalace/searcher.py` shows the ChromaDB `$and` predicate that scopes a query to a wing or room. So the 倉庫 is not flat — it has floors and aisles and shelves. Plus a second collection, `mempalace_closets`, which holds compact pointer documents. Format is roughly `topic | entities | → drawer_id_a, drawer_id_b`. Closets are a topical index that points into drawers."
+  },
+  {
+    "speaker": "B",
+    "text": "And a third store —"
+  },
+  {
+    "speaker": "A",
+    "text": "A third store, SQLite-backed, powers the temporal entity-relationship graph in `mempalace/knowledge_graph.py`. Validity windows. Facts can be invalidated rather than destructively overwritten. So if \"Red works at Company A\" becomes false on 2026-04-01, the old edge stays in the graph with an end-date; it doesn't get deleted. The 記憶 is append-mostly, not overwrite."
+  },
+  {
+    "speaker": "B",
+    "text": "That preserves history."
+  },
+  {
+    "speaker": "A",
+    "text": "Preserves history — and lets the retrieval path reason about \"what was true when.\""
+  },
+  {
+    "speaker": "B",
+    "text": "Piece three. Retrieval algorithm."
+  },
+  {
+    "speaker": "A",
+    "text": "`mempalace/searcher.py`. This is where I got most impressed, actually. Hybrid ranking. Drawer-level vector query is the floor — quote, \"always runs.\" Closet hits can only boost. Closets are explicitly a ranking signal, NOT a gate. Which means if you have a noisy closet — some hallucinated topic pointer — it cannot hide a drawer that the direct vector path would have found."
+  },
+  {
+    "speaker": "B",
+    "text": "Why is that a big deal?"
+  },
+  {
+    "speaker": "A",
+    "text": "Because the naive design is to use closets as a filter. \"Find the matching closet, then look inside.\" That's fast, and it's wrong under noise. The moment your closet index has a bad pointer, you've made certain drawers unreachable. By making closets signal-only, they get the speed benefit when the closet is good and lose nothing when it's bad. That's a careful design decision. It shows up in `_CLOSET_DRAWER_REF_RE` and `_extract_drawer_ids_from_closet` in `searcher.py` — the regex matches pointer rows, and the extracted IDs go into a boost map, not a whitelist."
+  },
+  {
+    "speaker": "B",
+    "text": "なるほど. Signal not gate."
+  },
+  {
+    "speaker": "A",
+    "text": "Signal not gate. And then the `_hybrid_rank` function is a convex combination — vector similarity plus BM25. Vector similarity is `max(0, 1 - distance)` over ChromaDB's cosine distance. BM25 uses smoothed IDF over the candidate set — `log((N - df + 0.5) / (df + 0.5) + 1)`. That's textbook Okapi. BM25 scores get min-max normalized so they live on the same scale as vector sims, and then the weights — 0.6 vector, 0.4 BM25 by default — are actually commensurable."
+  },
+  {
+    "speaker": "B",
+    "text": "That normalization matters."
+  },
+  {
+    "speaker": "A",
+    "text": "It matters a lot. A lot of naive hybrid systems add raw BM25 to raw cosine and the BM25 side dominates or vanishes depending on corpus size. This one normalizes first. 正確 —"
+  },
+  {
+    "speaker": "B",
+    "text": "\"[JP: 正確 (せいかく) — accuracy; precision]\""
+  },
+  {
+    "speaker": "A",
+    "text": "正確 — accuracy. 「正規化が買ってくれるのは、corpus size を越えた精度だ」 — what the normalization buys is precision across corpus sizes. 「drawers が 5 でも 50000 でも、hybrid の重みが同じ意味を持つ」 — whether you have 5 drawers or 50,000, the hybrid weights mean the same thing."
+  },
+  {
+    "speaker": "B",
+    "text": "And when a drawer hits, what comes back?"
+  },
+  {
+    "speaker": "A",
+    "text": "`_expand_with_neighbors`. It fetches the plus-or-minus-radius sibling chunks from the same source file. So retrieval doesn't clip mid-thought. If your matched drawer is chunk 17 of a transcript, you get 16, 17, 18 back. Small thing, real UX gain over naive chunk retrieval."
+  },
+  {
+    "speaker": "B",
+    "text": "That's the kind of polish you only add after watching real queries."
+  },
+  {
+    "speaker": "A",
+    "text": "Exactly. 「誰かが query を実行して、文の途中で切れる問題を見た」 — somebody ran queries and saw the mid-sentence clip problem. 「それから `_expand_with_neighbors` を書いた ― 経験から出てきた code だ」 — then wrote that function — code that came out of lived experience."
+  },
+  {
+    "speaker": "B",
+    "text": "Context budget — wake-up protocol."
+  },
+  {
+    "speaker": "A",
+    "text": "`mempalace/layers.py`. Four layers. Layer 0 is about 100 tokens — `~/.mempalace/identity.txt`. Always loaded. Layer 1 is 500 to 800 tokens — top moments. Always loaded. Layer 2 loads on demand per wing or room. Layer 3 is unbounded semantic search. Total wake-up budget — 600 to 900 tokens. Leaves 95 percent of the model's context window free."
+  },
+  {
+    "speaker": "B",
+    "text": "So the agent boots with a tiny 記憶 footprint and pulls more when it needs to 思い出す."
+  },
+  {
+    "speaker": "A",
+    "text": "思い出す on demand. That's the exact shape. 「layers に名前が付いている限り、heuristics は prompt engineering の中に隠れない」 — as long as the layers are named, the heuristics don't hide inside prompt engineering. 「Layer 1 を指して \"これが常に loaded される\" と言える」 — you can point at Layer 1 and say \"this is what always loads\". 「context budget に対する誠実さだ、多くの memory system が提供しない種類の」 — it's a kind of honesty about the context budget most memory systems don't offer."
+  },
+  {
+    "speaker": "B",
+    "text": "Okay. How does the 96.6 get operationalized? Walk me through the harness."
+  },
+  {
+    "speaker": "A",
+    "text": "`benchmarks/longmemeval_bench.py`. Source of truth. For each of the 500 LongMemEval questions — it's a published benchmark, `longmemeval_s_cleaned.json` is the dataset — the harness builds a fresh ephemeral ChromaDB collection from that question's haystack sessions. Queries the collection with the question text. Scores with `recall_any`, `recall_all`, and `nDCG`."
+  },
+  {
+    "speaker": "B",
+    "text": "Fresh collection per question — why?"
+  },
+  {
+    "speaker": "A",
+    "text": "To prevent cross-question leakage. 「各質問は dataset の中で自分の haystack を持っている」 — each question has its own haystack in the dataset. 「質問間で collection を共有する限り、他の質問の haystack から retrieve してしまう」 — as long as you share a collection across questions, you'd retrieve from other questions' haystacks. 「それは benchmark が測っているものではない」 — that's not what the benchmark measures. 「fresh な ephemeral collection が、正確 なやり方だ」 — a fresh ephemeral collection is the accurate way to do it."
+  },
+  {
+    "speaker": "B",
+    "text": "And the raw mode is —"
+  },
+  {
+    "speaker": "A",
+    "text": "Raw mode uses ChromaDB's default embedder against session- or turn-granularity docs. No hybrid rerank. No LLM. That's 96.6% R@5."
+  },
+  {
+    "speaker": "B",
+    "text": "And hybrid v4."
+  },
+  {
+    "speaker": "A",
+    "text": "Hybrid v4 adds keyword boosting, temporal-proximity boosting, and preference-pattern extraction. 「50 問の dev split の上で tune する」 — tuned on a 50-question dev split. 「`benchmarks/lme_split_50_450.json` が、どの 50 が dev で、どの 450 が held-out かを固定する」 — that file pins which 50 are dev and which 450 are held-out. 「held-out 450 の上で 98.4% R@5 を報告する」 — reports 98.4% R@5 on the held-out 450."
+  },
+  {
+    "speaker": "B",
+    "text": "That's the tuning discipline."
+  },
+  {
+    "speaker": "A",
+    "text": "Right. 「500 全部で tune して 98 と言わなかった ― それは leakage だ」 — they didn't tune on all 500 and report 98; that'd be leakage. 「split を固定して、50 で tune、450 で報告」 — they pinned the split, tuned on 50, reported on 450. 「optional な LLM-rerank を足せば、99 を超える」 — if you add the optional LLM-rerank, you push past 99."
+  },
+  {
+    "speaker": "B",
+    "text": "And the result JSONLs are —"
+  },
+  {
+    "speaker": "A",
+    "text": "`benchmarks/results_mempal_raw_session_*.jsonl` and `benchmarks/results_mempal_hybrid_v4_*.jsonl`. Per-question. Committed in-repo. So any disagreement is a diff, not a dispute. 比較 is auditable."
+  },
+  {
+    "speaker": "B",
+    "text": "信頼できる. You can actually 比較 your own run to theirs."
+  },
+  {
+    "speaker": "A",
+    "text": "Exactly. 「自分の run と彼らの run を 比較 できる限り、信頼 は測定可能だ」 — as long as you can compare your run to theirs, trust is measurable. 「意見ではなく、diff で話せる」 — you speak in diffs, not opinions."
+  },
+  {
+    "speaker": "B",
+    "text": "Axis six. Scaling topology."
+  },
+  {
+    "speaker": "A",
+    "text": "This one is short because the repo is honest about it. Reference deployment is single-process, single-user, local filesystem. ChromaDB owns persistence. No queue. No shard. No multi-tenancy in-tree. The `BaseBackend` ABC in `mempalace/backends/base.py` anticipates scale-out — `PalaceRef` carries a `namespace` field for server-mode tenant routing, `HealthStatus` is a uniform health signal every backend must implement — but the only shipped backend is `ChromaBackend`."
+  },
+  {
+    "speaker": "B",
+    "text": "So scaling is \"N/A for now, but the hook is there.\""
+  },
+  {
+    "speaker": "A",
+    "text": "N/A for now. Hook is there. 「誰かが Qdrant か server-mode Chroma backend を書きたい限り、ABC は受け入れる」 — as long as someone wants to write a Qdrant or server-mode Chroma backend, the ABC accepts it. 「でも、これは laptop のための library で、SaaS ではない」 — but this is a library for a laptop, not a SaaS. 「そうでないふりをしないし、pad もしない」 — don't pretend otherwise, don't pad."
+  },
+  {
+    "speaker": "B",
+    "text": "That's the whole walk?"
+  },
+  {
+    "speaker": "A",
+    "text": "That's the whole walk. Six axes, with the bulk of the weight on axis five because axis five is where the contribution is."
+  },
+  {
+    "speaker": "B",
+    "text": "So — the big question. How much do we 信頼 the 96.6?"
+  },
+  {
+    "speaker": "A",
+    "text": "That's the right question to sit with. And I want to introduce today's grammar pattern to ask it properly. 〜限り. \"[JP: 〜限り — as long as X; to the extent of X].\" It marks a conditional boundary. Something is true WITHIN the limit of some condition."
+  },
+  {
+    "speaker": "B",
+    "text": "Okay, give me the template sentence."
+  },
+  {
+    "speaker": "A",
+    "text": "「held-out split が本当に held-out である限り、この数字は信頼できる」 — as long as the held-out split is actually held out, this number is trustworthy — the 限り clause is the boundary; 信頼 lives inside it."
+  },
+  {
+    "speaker": "B",
+    "text": "信頼 — trust. From last week."
+  },
+  {
+    "speaker": "A",
+    "text": "「先週の ep 43 で、信頼は付き合う時間の中で育てるものだと話した」 — last week in ep 43, we said trust is something you grow through time spent together. 「同じように、この 96.6 という数字も、眺めているだけでは信頼は深まらない」 — in the same way, this number 96.6, just staring at it, the trust doesn't deepen. 「自分で harness を動かして、自分の結果と 比較する限り、信頼は育つ」 — as long as you run the harness yourself and compare to your own results, trust grows."
+  },
+  {
+    "speaker": "B",
+    "text": "なるほど。信頼は 比較 の中で育つ。"
+  },
+  {
+    "speaker": "A",
+    "text": "そう。もう一つ 〜限り: 「自分のワークフローで試さない限り、本当の限界はわからない」 — as long as you don't try it on your own workflow, you can't know the real limit. 「benchmark が教えてくれるのは LongMemEval の形だけだ」 — what the benchmark tells you is only the shape of LongMemEval. 「自分の会話分布がどうなっているかは、benchmark には書いていない」 — how your own conversation distribution looks, the benchmark doesn't say."
+  },
+  {
+    "speaker": "B",
+    "text": "So 信頼 depends on distribution match."
+  },
+  {
+    "speaker": "A",
+    "text": "信頼 depends on distribution match. 「分布が似ている限り、数字は当てになる」 — as long as the distributions resemble each other, the number is reliable. 「似ていない限り、数字はただの参考値だ」 — as long as they don't resemble each other, the number is just a reference point. Third one: 「検索が 正確 である限り、要約は不要」 — as long as retrieval is accurate, summarization is unnecessary — that's basically the one-line thesis of the repo. 「LLM を ingestion に入れる必要はない」 — there's no need to put an LLM at ingestion. 「正確 な retrieval が動く限り、architecture は下流の話になる」 — as long as accurate retrieval works, the architecture becomes a downstream matter."
+  },
+  {
+    "speaker": "B",
+    "text": "Okay, and if retrieval ISN'T 正確 —"
+  },
+  {
+    "speaker": "A",
+    "text": "— 「retrieval が 正確 でない限り、rerank と BM25 側に頼ることになる」 — as long as retrieval isn't accurate, you end up leaning on rerank and the BM25 side. 「でも headline の主張は、retrieval が 正確 である限りしか成り立たない」 — but the headline claim only holds as long as retrieval stays accurate. Fourth 〜限り: 「倉庫 のスケールが一台に収まる限り、ChromaBackend で十分」 — as long as the warehouse scale fits on one machine, ChromaBackend is enough. 「一台を超えない限り、daemon も queue も shard もいらない」 — as long as you don't exceed one machine, no daemon, no queue, no shard needed. 「一台を超える限り、別の backend を登録することになる」 — to the extent that you exceed one machine, you end up registering a different backend."
+  },
+  {
+    "speaker": "B",
+    "text": "And a fifth."
+  },
+  {
+    "speaker": "A",
+    "text": "「ベンチマークを 保つ 限り、新しい refactor は安全だ」 — as long as you keep the benchmark passing, a new refactor is safe. 「searcher.py を書き直しても、harness を再実行して、新しい JSONL を古い JSONL と 比較 する」 — even if you rewrite searcher.py, you rerun the harness, you compare the new JSONL to the old JSONL. 「数字が 保たれる限り、出荷していい」 — as long as the numbers are preserved, you can ship."
+  },
+  {
+    "speaker": "B",
+    "text": "So 〜限り is the engineer's honesty operator. It marks where your claim stops."
+  },
+  {
+    "speaker": "A",
+    "text": "そうそう。「正確 は 限り の中にある」 — accuracy lives inside a limit. 「どこでも 正確 というわけではない」 — it's not that things are accurate everywhere."
+  },
+  {
+    "speaker": "B",
+    "text": "And one callback to ep 43. 〜につれて."
+  },
+  {
+    "speaker": "A",
+    "text": "「使い続けるにつれて、記憶が深まる」 — as you keep using it, the memory deepens. 深める — \"[JP: 深める (ふかめる) — to deepen]\" — from last week. 「palace に mine していくにつれて、倉庫 の中身が豊かになる」 — as you keep mining into the palace, the contents of the warehouse become richer. 「corpus が育つにつれて、agent の 思い出す 能力が上がる」 — as the corpus grows, the agent's ability to recall improves."
+  },
+  {
+    "speaker": "B",
+    "text": "深める your 記憶."
+  },
+  {
+    "speaker": "A",
+    "text": "深める your 記憶。「システムへの 信頼 も、自分の 記憶 と 比較 するにつれて深まる」 — trust in the system also deepens as you compare against your own memory. 「自分の質問に対して 正確 に答えるのを見るにつれて、信頼 は育つ」 — as you watch it answer your own questions accurately, the trust grows."
+  },
+  {
+    "speaker": "B",
+    "text": "なるほど. 〜限り marks boundaries. 〜につれて marks gradients."
+  },
+  {
+    "speaker": "A",
+    "text": "「限り は壁だ。〜につれて は坂だ」 — 限り is a wall; 〜につれて is a slope. 「今日の文法は壁、先週の文法は坂」 — today's grammar is walls, last week's grammar was slopes."
+  },
+  {
+    "speaker": "B",
+    "text": "Alright. Let me 思い出す the architecture back to you, plain."
+  },
+  {
+    "speaker": "A",
+    "text": "Go."
+  },
+  {
+    "speaker": "B",
+    "text": "要するに、「MemPalace は会話をそのまま 保つ Python library だ」 — basically, MemPalace is a Python library that keeps conversations as-is. 「ingestion に LLM はいない、要約もしない」 — no LLM at ingestion, no summarization. 「倉庫 は三階建てだ ― wings、rooms、drawers」 — the warehouse has three levels: wings, rooms, drawers. 「その上に closet の pointer collection と、時間つきの entity graph が載っている」 — on top sit the closet pointer collection and a temporal entity graph. 「retrieval は vector と BM25 の hybrid、closet は boost するだけで gate しない」 — retrieval is a hybrid of vector and BM25; closets only boost, never gate. 「hit した drawer は neighbor chunk に広がるので、文章が途中で切れない」 — a hit drawer expands to neighbor chunks so nothing gets clipped mid-thought. 「wake-up は四層で、context budget は小さい」 — wake-up is four layers, context budget is small. 「benchmarks/longmemeval_bench.py で再現できる数字は、raw で 96.6% R@5、tuned hybrid で 98.4%、rerank 付きで 99 超え」 — numbers reproducible via that harness: 96.6 raw, 98.4 tuned, over 99 with rerank. 「model-agnostic で、default の依存は二つだけ」 — model-agnostic, default deps are just two."
+  },
+  {
+    "speaker": "A",
+    "text": "That's the architecture. Clean restatement."
+  },
+  {
+    "speaker": "B",
+    "text": "And the contribution framing —"
+  },
+  {
+    "speaker": "A",
+    "text": "— is empirical, not architectural. 「raw verbatim と良い埋め込みで十分だ」 — raw verbatim plus good embeddings is enough. 「benchmarks/BENCHMARKS.md にはっきり書いてある」 — it's written plainly in that file. 「誰も気づかなかった強い baseline だ、情報を捨てないから」 — a stronger baseline than anyone realized, because it doesn't throw information away. 「taxonomy も、MCP tool も、四層 wake-up も、その経験的な主張の wrapper に過ぎない」 — the taxonomy, MCP tools, 4-layer wake-up are just a wrapper around the empirical claim. 「useful で、出荷済みで、磨かれた wrapper だ」 — useful, shipped, polished wrapper. 「でも、load-bearing なのは benchmark の数字だ」 — but the load-bearing thing is the benchmark number."
+  },
+  {
+    "speaker": "B",
+    "text": "And the caveat?"
+  },
+  {
+    "speaker": "A",
+    "text": "Here's the honest one. 「96.6 は LongMemEval の形の上では 正確 だ」 — 96.6 is accurate on the shape of LongMemEval. 「LongMemEval は特定の benchmark だ ― 500 問、session 単位、英語、Claude と GPT っぽい会話」 — LongMemEval is a specific benchmark: 500 questions, session granularity, English, Claude and GPT style conversations. 「verbatim が extracted に勝つ、という発見が他の領域にも届くかは、別の話だ」 — whether the verbatim-beats-extracted finding reaches other domains is a separate question. 「長期の software engineering 記憶、多言語の customer support log、医療の transcription ― generalize するかもしれない、しないかもしれない」 — long-horizon software engineering memory, multilingual support logs, medical transcription — it might generalize, it might not. 「機構としては general に聞こえる ― \"ingestion で情報を捨てるな\"」 — the mechanism sounds general: \"don't throw away information at ingestion\". 「でも、general に聞こえる のと、general だと測定された のは別物だ」 — but \"sounds general\" and \"measured as general\" are different things."
+  },
+  {
+    "speaker": "B",
+    "text": "So 「LongMemEval の分布に似ている限り、この数字は当てになる」 — as long as your distribution resembles LongMemEval's, the number is reliable."
+  },
+  {
+    "speaker": "A",
+    "text": "そうそう。「その 限り の外では、わからない」 — outside that limit, we don't know. 「論文として書くなら、limitations の節に入る話だ」 — if this were written as a paper, it'd go in the limitations section. 「repo 自身の BENCHMARKS.md も隠していない ― \"a baseline\" と明示している」 — the repo's own BENCHMARKS.md doesn't hide it; it says \"a baseline\" explicitly."
+  },
+  {
+    "speaker": "B",
+    "text": "That's a caveat, not a hit."
+  },
+  {
+    "speaker": "A",
+    "text": "Honest caveat. 「repo は legitimate だ、数字も legitimate だ」 — the repo is legitimate, the number is legitimate. 「open question は、どこまで届くか、だけ」 — the open question is just how far it travels. 「それは engineering の話だ」 — that's just engineering. 「自分の 倉庫 で試す、retrieval が 正確 かを見る、benchmark を regression test として 保つ、使うにつれて 信頼 を 深める」 — try it on your own warehouse, watch whether retrieval stays accurate, keep the benchmark as a regression test, deepen your trust as you use it."
+  },
+  {
+    "speaker": "B",
+    "text": "確かに. Verdict?"
+  },
+  {
+    "speaker": "A",
+    "text": "Verdict — 「この repo は、literature に欠けていた well-measured な baseline だ」 — this repo is a well-measured baseline that was missing from the literature. 「production-ready な library として出荷されていて、MCP surface も Claude Code に今日差し込める広さだ」 — shipped as a production-ready library, with an MCP surface wide enough to plug into Claude Code today. 「細部の engineering choice が効いている ― closet は signal で gate じゃない、BM25 の min-max 正規化、hit 時の neighbor 展開、MCP preamble の fd-redirect、per-question の result JSONL が commit されている」 — the engineering choices count: closets as signal not gate, BM25 min-max normalization, neighbor expansion on hit, fd-redirect in the MCP preamble, per-question result JSONLs committed in-repo. 「実際に出荷して使った人が積み上げる細部だ」 — the kind of details that accumulate when someone has actually shipped and used the thing. 「発見を 信頼 しろ、自分の workflow と 比較 しろ、generalize を仮定せず試せ」 — respect the finding, compare to your own workflow, don't assume generalization without testing."
+  },
+  {
+    "speaker": "B",
+    "text": "信頼 with homework."
+  },
+  {
+    "speaker": "A",
+    "text": "信頼 with homework."
+  },
+  {
+    "speaker": "B",
+    "text": "Ep 45."
+  },
+  {
+    "speaker": "A",
+    "text": "OpenHands. The org — OpenHands/OpenHands. 72k stars. AI software-development agent. Which means we go from \"memory library\" to \"the thing that consumes memory libraries.\" The caller side of the stack."
+  },
+  {
+    "speaker": "B",
+    "text": "Callforward word?"
+  },
+  {
+    "speaker": "A",
+    "text": "Today's bonus word — \"[JP: 手を出す (てをだす) — to get involved; to lay hands on]\". Literal meaning: to put your hand on something. Figurative meaning: to meddle, to start doing, to pick up a new pursuit. Double meaning with \"OpenHands\" — hands open, hands laid on code. 手を出す to the codebase."
+  },
+  {
+    "speaker": "B",
+    "text": "So next week we 手を出す OpenHands."
+  },
+  {
+    "speaker": "A",
+    "text": "We 手を出す OpenHands. We'll walk the same six axes — compute topology, LLM locus, tools, extensions, context, scale — and we'll pay attention to whether OpenHands's memory layer looks anything like MemPalace, or whether it reinvented a different 記憶 shape entirely. 比較 across repos."
+  },
+  {
+    "speaker": "B",
+    "text": "比較 is going to be the throughline of this series, huh."
+  },
+  {
+    "speaker": "A",
+    "text": "That's the whole format. Every repo is a 比較 against every other repo. You 深める understanding by watching which choices recur and which don't."
+  },
+  {
+    "speaker": "B",
+    "text": "わかった. Vocab check — we covered 記憶, 思い出す, 保つ, 正確, 比較, 倉庫. Grammar — 〜限り, five demonstrations. Callbacks — 信頼, 深める, 〜につれて once. Bonus — 手を出す for next week."
+  },
+  {
+    "speaker": "A",
+    "text": "それで今日は終わり. See you at OpenHands."
+  },
+  {
+    "speaker": "B",
+    "text": "手を出す まで。"
+  },
+  {
+    "speaker": "A",
+    "text": "手を出す まで。"
+  }
+]

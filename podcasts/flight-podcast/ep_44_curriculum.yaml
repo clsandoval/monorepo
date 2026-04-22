@@ -1,0 +1,70 @@
+episode: 44
+repo: milla-jovovich/mempalace
+format: repo-deep-dive
+date: "2026-04-22"
+duration_seconds: 2107
+duration_display: "35m 7s"
+file_size_mb: 32.2
+tts_engine: gemini-3.1-flash-tts-preview
+voices:
+  A: Charon
+  B: Kore
+dialogue_lines: 141
+lines_rendered: 140
+lines_skipped: 1
+skipped_reason: "Line 129 ('Ep 45.') — TTS failed after 5 retries on very short utterance"
+
+cjk_count: 2002
+japanese_ratio: 0.2
+
+vocab_introduced:
+  - word: 記憶
+    reading: きおく
+    meaning: memory
+    exposures: 14
+  - word: 思い出す
+    reading: おもいだす
+    meaning: to recall
+    exposures: 5
+  - word: 保つ
+    reading: たもつ
+    meaning: to keep; to maintain
+    exposures: 6
+  - word: 正確
+    reading: せいかく
+    meaning: accuracy; precision
+    exposures: 8
+  - word: 比較
+    reading: ひかく
+    meaning: comparison
+    exposures: 8
+  - word: 倉庫
+    reading: そうこ
+    meaning: warehouse
+    exposures: 7
+
+grammar_introduced:
+  - pattern: 〜限り
+    meaning: as long as X; to the extent of X
+    demonstrations: 9
+
+review_items_used:
+  - word: 信頼
+    source_episode: 43
+    exposures: 8
+  - word: 深める
+    source_episode: 43
+    exposures: 4
+  - pattern: 〜につれて
+    source_episode: 43
+    demonstrations: 4
+
+bonus_callforward:
+  - word: 手を出す
+    reading: てをだす
+    meaning: to get involved; to lay hands on
+    target_episode: 45
+
+telegram:
+  message_id: 726
+  caption: "Ep 44: milla-jovovich/mempalace (flight-podcast 2026-04)"
