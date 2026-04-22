@@ -1,0 +1,498 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay so I pulled up `mayocream/koharu` and the README opens with \"ML-powered manga translator, written in Rust.\" And I read that and I went, \"oh, so it's a CLI that you pipe a page into and it spits out a translated PNG, right? Like `cat page.jpg | koharu --to english > out.jpg`.\""
+  },
+  {
+    "speaker": "a",
+    "text": "No."
+  },
+  {
+    "speaker": "b",
+    "text": "It's not a pipe?"
+  },
+  {
+    "speaker": "a",
+    "text": "It's a Tauri desktop app. There's a canvas. You load a page, you zoom with \"Ctrl plus mouse wheel\" like the README says, you get draggable text blocks. Headless mode exists — `koharu --headless --port 4000` — but the primary shape of this thing is a GUI with a hand-tuned text renderer."
+  },
+  {
+    "speaker": "a",
+    "text": "言い換えると — iikaeru to — in other words — これはCLIじゃない、ちゃんとした絵 (e — picture) を扱うアプリだ. The Rust binary ships a full OpenType shaping stack — \"harfrust\", \"skrifa\", \"tiny-skia\", \"fontdue\" — because rendering vertical CJK 吹き出し (fukidashi — speech bubbles) is the whole point."
+  },
+  {
+    "speaker": "b",
+    "text": "吹き出し — fukidashi — speech bubbles. わかった. If you pipe a JPEG at it you haven't touched ninety percent of the app."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう — exactly. So it's not a translator. It's a lettering studio with ML baked in. レタリング・スタジオだ、翻訳 (honyaku — translation) はおまけに近い."
+  },
+  {
+    "speaker": "b",
+    "text": "なるほど — I see. 翻訳はおまけ (honyaku wa omake — translation is a side-dish). 面白い angle."
+  },
+  {
+    "speaker": "a",
+    "text": "That's actually the thesis. Keep that in your 体 (karada — body, shape) for the next thirty minutes. 漫画 (manga) の 絵 (e — picture) を 残したまま (nokoshita mama — keeping it preserved) で、字だけ入れ替える — that is the whole product."
+  },
+  {
+    "speaker": "b",
+    "text": "絵はそのまま、字だけ入れ替える — picture as is, only letters swapped. そうか — got it."
+  },
+  {
+    "speaker": "a",
+    "text": "Alright so the repo is a Cargo workspace. Top-level `Cargo.toml`, and under `[workspace] members` you get ten crates. Let me list them because the decomposition is the architecture — `koharu`, `koharu-app`, `koharu-core`, `koharu-ml`, `koharu-llm`, `koharu-runtime`, `koharu-rpc`, `koharu-renderer`, `koharu-psd`, plus a `tests/integration-tests` crate."
+  },
+  {
+    "speaker": "a",
+    "text": "日本語で言うと — nihongo de iu to — said in Japanese — この 体 (karada — body) は10個のcrateに分かれている (wakarete iru — is divided). 一つ一つが別の仕事 (shigoto — job) をする. Every crate is a concern. You can read the pipeline off the workspace members before you open a single `.rs` file."
+  },
+  {
+    "speaker": "b",
+    "text": "10個のcrate — 10 crates — for a manga translator? やっぱり多いな."
+  },
+  {
+    "speaker": "a",
+    "text": "It's not bloat, it's decoupling. `koharu-ml` is vision inference — candle, the Rust deep-learning framework from Hugging Face. `koharu-llm` is the language model layer — wraps \"llama.cpp\" via bindgen, plus hosted providers. `koharu-runtime` is the accelerator abstraction — CUDA, Metal, Vulkan, ZLUDA, CPU fallback. `koharu-rpc` is the axum HTTP server plus the \"rmcp\" MCP server. `koharu-renderer` is the text renderer. `koharu-psd` writes layered Photoshop files. `koharu-app` wires the pipeline together. And `koharu` is the thin binary — it just boots Tauri or headless."
+  },
+  {
+    "speaker": "a",
+    "text": "つまり — tsumari — in short — `koharu-ml` は 絵 (e — picture) を見る、`koharu-llm` は文字を読む、`koharu-renderer` は文字を書く — three different jobs, three different crates."
+  },
+  {
+    "speaker": "b",
+    "text": "見る、読む、書く — see, read, write — simple. いいね."
+  },
+  {
+    "speaker": "a",
+    "text": "Crates mean you can cargo-test `koharu-ml` without loading llama.cpp. That matters when llama.cpp takes fifteen seconds to initialize a model."
+  },
+  {
+    "speaker": "a",
+    "text": "Single binary, runs local. The README literally says \"Koharu runs its vision models and LLMs locally on your machine to keep your data private and secure.\" ローカルで動く (ugoku — to run/move), 全部自分のマシンで — all on your own machine. The lifetime is the desktop process — Tauri 2.9 hosts a webview plus a Rust backend. Bun is the frontend toolchain, the UI lives under `ui/`."
+  },
+  {
+    "speaker": "b",
+    "text": "Bun? JavaScriptの新しいruntime — new runtime. 確かに (tashika ni — indeed) 速い."
+  },
+  {
+    "speaker": "a",
+    "text": "You can also launch it as an HTTP server with `--headless --port 4000`, which gives you the same pipeline behind a web client at `http://localhost:4000`. The lifetime of that binding is the `koharu` process — kill the process, kill the server. There's no background daemon, no systemd unit."
+  },
+  {
+    "speaker": "a",
+    "text": "言い方を変えると — iikata wo kaeru to — to put it differently — サーバーは 姿 (sugata — form, appearance) を持たない裏方じゃなくて、アプリそのもの. Kill the app, the server disappears."
+  },
+  {
+    "speaker": "b",
+    "text": "姿が消える (sugata ga kieru — the form vanishes). なるほど."
+  },
+  {
+    "speaker": "a",
+    "text": "Cold start: model files get lazy-loaded on first use, so the first page through any given stage eats ten to thirty seconds while a \"safetensors\" or \"GGUF\" model paginates into VRAM."
+  },
+  {
+    "speaker": "b",
+    "text": "So the 場面 (bamen — scene/stage) is always \"user opens app, user drops a 漫画 (manga) page, pipeline runs.\" 固定 (kotei — fixed) な 場面."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. 場面は固定されているけど、中で動くモデルは自由 — the scene is fixed, but the models running inside are free. And because every model download is on-demand, you can run for weeks without ever loading the OCR model if you never OCR."
+  },
+  {
+    "speaker": "a",
+    "text": "`koharu-runtime` negotiates the accelerator — CUDA 13.0 DLLs get extracted to the app data dir on first Windows run, Metal on Apple silicon, Vulkan for OCR and small LLMs on AMD and Intel. ZLUDA is the compatibility layer for running CUDA kernels on AMD hardware. There's a `--cpu` flag in the README that forces everything to CPU, useful for debugging or airplanes."
+  },
+  {
+    "speaker": "b",
+    "text": "飛行機の中でも動く — even on an airplane it runs. やっぱり (yappari — as I thought) ローカル最強だ. 電波 (denpa — signal) がなくても 翻訳 できる — even without signal, translation works. 驚く (odoroku — to be surprised) ほど独立している."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. 電波 が 見えない 山の中でも、漫画 の 場面 を 絵 のまま保って翻訳できる (tamotte honyaku dekiru — can preserve and translate). それが売り (uri — selling point) だ."
+  },
+  {
+    "speaker": "b",
+    "text": "売りが明確 (meikaku — clear) だ. 感じる のは自由 (jiyuu — freedom)."
+  },
+  {
+    "speaker": "b",
+    "text": "Where does the 翻訳 (honyaku — translation) actually happen?"
+  },
+  {
+    "speaker": "a",
+    "text": "Two loci. Local and remote, selected at runtime. Look at `koharu-llm/src/providers/` — the directory literally lists them — \"openai.rs\", \"claude.rs\", \"gemini.rs\", \"deepseek.rs\", \"openai_compatible.rs\", \"google_translate.rs\", \"deepl.rs\", \"caiyun.rs\". That's nine cloud or hosted-translation providers."
+  },
+  {
+    "speaker": "a",
+    "text": "9社 — kyuu-sha — nine companies — のAPIを一つのcrateの中にまとめている. And then `koharu-llm/src/safe/` is the local path — `llama_backend.rs`, `llama_batch.rs`, `model.rs`, `sampling.rs`, `token.rs`, `kv_cache.rs`. That entire `safe/` module is a hand-written safe-Rust wrapper around llama.cpp's C API. The `sys/` module is the raw FFI — bindgen-generated — and `safe/` is what the rest of the app actually calls."
+  },
+  {
+    "speaker": "b",
+    "text": "So \"safe\" means \"safe Rust wrapper over an unsafe C binding.\" 安全な皮を被せる (anzen na kawa wo kabuseru — put a safe skin over it)."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. And here's the detail I didn't expect. In `koharu-llm/src/safe/grammar/` there's `japanese.gbnf`, `json.gbnf`, `json_arr.gbnf`. Those are GBNF grammar files — GGML BNF — that llama.cpp uses for constrained decoding."
+  },
+  {
+    "speaker": "a",
+    "text": "説明すると — setsumei suru to — to explain — \"japanese.gbnf\" forces the sampler to only emit tokens that match a Japanese-character grammar. つまり、小さなローカルモデル — say the 1.2B \"lfm2.5-instruct\" the README mentions — に 日本語のまま (nihongo no mama — Japanese as-is) しか出させない."
+  },
+  {
+    "speaker": "b",
+    "text": "日本語のまま出す (nihongo no mama dasu — output in Japanese as is). 面白い. ローマ字に逃げない (roomaji ni nigenai — doesn't escape into romaji)."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. That's a real engineering move — you can't do constrained decoding through the OpenAI API, so the local path has a capability the cloud path lacks."
+  },
+  {
+    "speaker": "b",
+    "text": "ローカルの 翻訳 (honyaku — translation) は 日本語のまま 読める (yomeru — can be read), クラウドの 翻訳 はそれができない. そうか — got it — 全然違うわけだ (zenzen chigau wake da — so they're totally different, makes sense)."
+  },
+  {
+    "speaker": "a",
+    "text": "Well, for source-language OCR verification you'd keep it 日本語のまま. For the target direction you'd swap grammars. Point is the constraint is there and it's per-language. Provider selection happens through `providers/credentials.rs` plus the \"keyring\" crate — API keys go to the OS keychain. macOS keychain, Windows credential store, Linux secret-service. Not to a plaintext config."
+  },
+  {
+    "speaker": "a",
+    "text": "つまり、APIキーは 見えない (mienai — invisible) ところにしまう. Users never 感じる (kanjiru — feel) the secrets leaking. That's why the README calls out \"API keys are stored securely in your system keychain instead of plain text config files.\""
+  },
+  {
+    "speaker": "b",
+    "text": "鍵が 見えない ところに 残る (nokoru — remains), プレーンテキストには 残さない (nokosanai — don't leave). 安心だ."
+  },
+  {
+    "speaker": "a",
+    "text": "So if you rate-limit on Claude? `reqwest-middleware` plus `reqwest-retry` are in the workspace deps — `Cargo.toml` names both. That's the retry layer. You configure \"HTTP connect timeout, read timeout, and retry count\" in the runtime config, the README says so explicitly. If local, there's no rate limit — you're the only caller — but there's a VRAM ceiling. The user picks the model size to fit their card."
+  },
+  {
+    "speaker": "a",
+    "text": "This is where the repo earns its stars. The pipeline is a graph of \"engines\", each one an independent ML model with a uniform interface. Look at `koharu-app/src/pipeline/engines/`. The files are — and I'm reading from the tree — `aot.rs`, `bubble_segmentation.rs`, `comic_text_bubble.rs`, `ctd_full.rs`, `ctd_segment.rs`, `lama.rs`, `llm_translate.rs`, `manga_ocr.rs`, `mit48px_ocr.rs`, `paddle_ocr.rs`, `pp_doclayout.rs`, `renderer.rs`, `yuzumarker_font.rs`, plus `support.rs` and `mod.rs`."
+  },
+  {
+    "speaker": "a",
+    "text": "14個のエンジン・ファイル — juu-yon ko no enjin fairu — fourteen engine files. Each is a \"tool\" in the agentic sense — takes an input 絵 (e — picture), returns a typed artifact. 絵を入れる、結果が出る — put in a picture, a result comes out."
+  },
+  {
+    "speaker": "b",
+    "text": "14個の道具 (dougu — tools). 一つの 場面 (bamen — scene) に対して14の見方 (mikata — ways of seeing)."
+  },
+  {
+    "speaker": "a",
+    "text": "Name the actual models. For detection: \"comic-text-and-bubble-detector\" by the user ogkalu on Hugging Face — that's the `comic_text_bubble.rs` engine — joint text-block and speech-bubble detection. `bubble_segmentation.rs` loads `mayocream/speech-bubble-segmentation` for dedicated 吹き出し (fukidashi — speech-bubble) masks."
+  },
+  {
+    "speaker": "b",
+    "text": "吹き出し専用のマスク — bubble-only masks. 確かに、漫画 (manga) には 吹き出し がなきゃ始まらない — without speech bubbles, manga doesn't start."
+  },
+  {
+    "speaker": "a",
+    "text": "`pp_doclayout.rs` loads PaddlePaddle's \"PP-DocLayoutV3\" for general document layout — useful when a page has non-bubble captions, sound effects, sidebar text. For OCR: `manga_ocr.rs` loads `mayocream/manga-ocr` — the Rust-friendly safetensors conversion of the kha-white manga-ocr model. `mit48px_ocr.rs` is the MIT 48-pixel line OCR from the manga-image-translator project. `paddle_ocr.rs` loads \"PaddleOCR-VL-1.5\", PaddlePaddle's multilingual vision-language OCR."
+  },
+  {
+    "speaker": "a",
+    "text": "三つのOCRモデル — mittsu no OCR moderu — three OCR models — 一つじゃ足りない、漫画によって得意・不得意がある (tokui fukutoki ga aru — each has strengths and weaknesses)."
+  },
+  {
+    "speaker": "b",
+    "text": "漫画 によって使い分ける (tsukaiwakeru — use them differently). なるほど."
+  },
+  {
+    "speaker": "a",
+    "text": "For inpainting — removing the original lettering, so the 絵 (e — picture) 残るけど文字は消える (nokoru kedo moji wa kieru — the picture remains but the letters vanish) — `aot.rs` runs \"aot-inpainting\" and `lama.rs` runs \"lama-manga\", the LaMa architecture fine-tuned on manga. For font matching: `yuzumarker_font.rs` runs \"YuzuMarker.FontDetection\" to guess the source font family and colorway so the translated text can mimic it."
+  },
+  {
+    "speaker": "b",
+    "text": "絵は 残す (nokosu — preserve), 文字は消す (kesu — erase), そして新しい文字を 残された (nokosareta — preserved) 絵の上に書く. 三段階 (san-dankai — three stages)."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう — exactly. And `llm_translate.rs` — that calls into `koharu-llm`? Yes. That engine is the glue between the vision pipeline and the language pipeline. It takes the OCR output — a string of Japanese — bundles it with the page context, hands it to whichever provider is active, streams back the 翻訳 (honyaku — translation). The engine interface is uniform — every engine implements the same trait, probably something like `async fn run(input: EngineInput) -> Result<EngineArtifact>` — which means the pipeline orchestrator in `pipeline/engine.rs` and `pipeline/artifacts.rs` doesn't care whether a given stage is vision or language. Homogeneous interface, heterogeneous implementations."
+  },
+  {
+    "speaker": "b",
+    "text": "How do the 場面 (bamen — stages) actually pass data?"
+  },
+  {
+    "speaker": "a",
+    "text": "`pipeline/artifacts.rs` — I haven't opened it, but the name tells you — typed artifact structs. Detection stage emits bounding boxes. Segmentation emits a mask. OCR emits strings per box. Inpainting emits an image with lettering removed. 翻訳 emits target-language strings. Rendering emits the composited final page."
+  },
+  {
+    "speaker": "a",
+    "text": "言い直すと — iinaosu to — restating — 絵 は 残したまま (nokoshita mama — preserved as is), 文字だけ変わる (moji dake kawaru — only letters change). That is 〜まま grammar we'll hit later — the original art is held constant while everything else mutates around it."
+  },
+  {
+    "speaker": "b",
+    "text": "残したまま変換する (nokoshita mama henkan suru — transform while preserving). 分かってきた."
+  },
+  {
+    "speaker": "a",
+    "text": "Permission model? Sandboxing? N/A here. Models run in the same process as the UI. There's no sandbox because there's no untrusted code. The only external surface is the HTTP server and the MCP server — axum endpoints with CORS via \"tower-http\". That's in the workspace deps."
+  },
+  {
+    "speaker": "a",
+    "text": "The README says \"Koharu includes a built-in MCP server for local agent integrations.\" That's `koharu-rpc`. The workspace pulls \"rmcp\" — the Rust MCP library — with the `transport-streamable-http-server` feature flag. So it's HTTP-transport MCP, not stdio. You run `koharu --port 9999`, point an MCP client at `http://localhost:9999/mcp`, and you get a tool surface. The README points to `koharu.rs/reference/mcp-tools/` for the tool catalog."
+  },
+  {
+    "speaker": "b",
+    "text": "So koharu isn't hosting an agent — it's exposing its pipeline as tools for someone else's agent? 逆 (gyaku — reverse) じゃん."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly the inversion I want you to hold. Most apps we've covered host an agent and consume MCP tools. Koharu は 道具 (dougu — tool) になる側. Your Claude Code or your custom agent can say \"detect bubbles on this page,\" \"OCR this region,\" \"translate this string,\" \"inpaint this mask\" — each one a typed MCP tool call, each one backed by one of the fourteen engine files."
+  },
+  {
+    "speaker": "b",
+    "text": "つまり、koharu は 姿 (sugata — form) を変えて agent になることもできる、道具になることもできる. 両方 (ryouhou — both) いける."
+  },
+  {
+    "speaker": "a",
+    "text": "Can you swap models? The README lists thirteen LLMs you can pick from the UI — four Gemma-4 sizes, six Qwen-3.5 sizes, uncensored variants, plus the specialized translation models — \"vntl-llama3-8b-v2\", \"sugoi-14b-ultra\", \"sakura-galtransl-7b-v3.7\", \"hunyuan-mt-7b\". The catalog is in the LLM settings panel. \"LLMs are downloaded on demand when you activate a model\" — `koharu-llm/src/model.rs` plus the `hf-hub` crate in workspace deps handles the fetch from Hugging Face. Vision models have a similar catalog through `koharu-ml`. So yes, you can swap, but it's UI-driven, not a plugin API — you're picking from a vetted list, not dropping in your own ONNX file."
+  },
+  {
+    "speaker": "b",
+    "text": "選べるけど、自由じゃない (erabareru kedo jiyuu ja nai — you can choose, but not freely). リストの中から選ぶ."
+  },
+  {
+    "speaker": "a",
+    "text": "Language packs? Ties into the grammar files I mentioned — `japanese.gbnf`, and the `koharu-llm/src/language.rs` module. The README also mentions \"Koharu tries to preselect sensible defaults based on your system locale.\" So source language auto-detects, target language picks from your locale, and the grammar file constrains decoding if the chosen model is local."
+  },
+  {
+    "speaker": "b",
+    "text": "Load time — hot swap or reboot?"
+  },
+  {
+    "speaker": "a",
+    "text": "Model swaps are runtime — you pick a new model in the UI, the app unloads the old one and pulls the new one. モデルの 姿 (sugata — form) が入れ替わる, in-process. The runtime config values for data-path and HTTP timeouts, those require a restart — the README says \"Those values are loaded at startup, so changing them saves the config and restarts the app.\" Explicit restart. Small but honest."
+  },
+  {
+    "speaker": "a",
+    "text": "For an LLM — not much. 翻訳 is single-shot per 吹き出し (fukidashi — bubble), maybe with a page-level context window. There's no episodic memory, no RAG. The conversation state doesn't persist because there's no conversation — it's translate, emit, done."
+  },
+  {
+    "speaker": "b",
+    "text": "So where's the context that matters?"
+  },
+  {
+    "speaker": "a",
+    "text": "The reading order. On a 漫画 page, 吹き出し are read top-right, down, then next column to the left. Whoever detected the bubbles needs to order them correctly, because the translator needs to know which line of dialogue precedes which. That's a \"per-page context\" — the detected bounding boxes get sorted into reading order before they hit `llm_translate`, and then ideally the translator sees all 吹き出し in a page at once so it can keep voice consistent across a dialogue exchange."
+  },
+  {
+    "speaker": "a",
+    "text": "一枚のページの 場面 (bamen — scene) の中で、順番 (junban — order) が大事. 右上から左下へ — top-right to bottom-left."
+  },
+  {
+    "speaker": "b",
+    "text": "日本語の 漫画 の読み方そのまま (sono mama — as is). 確かに."
+  },
+  {
+    "speaker": "a",
+    "text": "The `koharu-app/src/session.rs` module — I'm inferring — manages per-page state. And `koharu-app/src/history.rs` plus `autosave.rs` keep edit history so you can undo a 翻訳 and re-run it."
+  },
+  {
+    "speaker": "b",
+    "text": "And the state file?"
+  },
+  {
+    "speaker": "a",
+    "text": "`autosave.rs` plus the project files via `projects.rs`. Persistence is \"atomicwrites\" plus \"fs4\" for file locking — both in workspace deps. That's flat-file persistence, not SQLite. Koharu is project-oriented, so one chapter equals one project directory, and the app serializes the artifacts — OCR strings, translations, inpainted layers — as it goes. When you export, `koharu-psd` packages it all into a layered Photoshop file with \"editable text layers,\" so an editor can open it in Photoshop and hand-tune."
+  },
+  {
+    "speaker": "a",
+    "text": "編集者 (henshuusha — editor) は PSD を開いて、吹き出し の中の文字をそのまま (sono mama — as is) 触れる — can touch the text directly. 絵 のレイヤーは 残したまま (nokoshita mama — kept as is), 文字のレイヤーだけ編集できる."
+  },
+  {
+    "speaker": "b",
+    "text": "絵 と文字を別のレイヤーに分ける — separate the picture and the text into different layers. 漫画 の作業の仕方そのまま — exactly like the manga workflow."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. 場面 ごとに PSD が残る (nokoru — remains). 後から 驚く ような修正があっても、元の 絵 はそのまま 残っている (nokotte iru — is preserved)."
+  },
+  {
+    "speaker": "b",
+    "text": "Can you batch a 漫画 chapter?"
+  },
+  {
+    "speaker": "a",
+    "text": "Single-process, single-user. Scaling happens within the process. \"rayon\" is in the deps — that's Rust's data-parallelism crate — so the per-page CPU work parallelizes across cores. Vision inference is GPU-bound, one page at a time per model, but you can pipeline — while page N+1 is being OCR'd, page N+2 is being detected. Whether the current code does that or just runs serially per page, I'd need to open `pipeline/engine.rs` to know for sure. The fact that each engine is async-trait shaped suggests the scaffolding is there even if the orchestrator is conservative."
+  },
+  {
+    "speaker": "b",
+    "text": "So no queue, no workers?"
+  },
+  {
+    "speaker": "a",
+    "text": "No Celery, no BullMQ, no Temporal. The scaling is vertical — pick a bigger GPU, pick a smaller model, or batch more pages per session. The README calls out compute-capability 7.5 or higher on NVIDIA. That's Turing and up — RTX 20-series and newer."
+  },
+  {
+    "speaker": "a",
+    "text": "On an RTX 4090 you could probably run a whole twenty-page chapter in a few minutes, most of the time spent in inpainting rather than 翻訳. Cloud LLM calls are network-bound — five hundred milliseconds per 吹き出し, a few thousand milliseconds total for a page."
+  },
+  {
+    "speaker": "b",
+    "text": "吹き出し 一つあたり0.5秒 — half a second per bubble. 速いな."
+  },
+  {
+    "speaker": "a",
+    "text": "What about the MCP server exposing this over HTTP — could you throw a queue in front of it? You could. Nothing in the current shape, but because every engine is uniform and the MCP server is a streamable-HTTP endpoint, a reverse proxy plus a batch queue in front of `koharu --headless` is a small afternoon. The headless server is stateless per request — authentication is optional, CORS is configurable."
+  },
+  {
+    "speaker": "a",
+    "text": "And compared to cloud alternatives — DeepL for raw text, Papago, Google Translate — there is nothing at this level of integration. Those services take text and return text. Koharu takes a 絵 (e — picture) and returns a 絵. That gap is the moat."
+  },
+  {
+    "speaker": "b",
+    "text": "絵 から 絵 — picture to picture. 文字じゃなくて (moji ja nakute — not letters). そこが違う (chigau — different)."
+  },
+  {
+    "speaker": "a",
+    "text": "Hosted-service equivalent? Manga Image Translator, \"manga-image-translator\" on GitHub, runs a similar stack in Python. But that's a research-grade CLI with a Gradio demo, not a product. There is no \"DeepL for manga pages.\" If you want the pipeline end-to-end you're running koharu, or you're paying a scanlation group."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, episode 38 vocab check — we had 体 (karada — body), 姿 (sugata — shape, appearance), 電波 (denpa — radio wave), 見えない (mienai — invisible), 感じる (kanjiru — to feel), 驚く (odoroku — to be surprised), plus the grammar 〜わけだ (wake da — it makes sense that, naturally)."
+  },
+  {
+    "speaker": "a",
+    "text": "The whole koharu pipeline is 見えない (mienai — invisible) to the end user. You drop a page, you get a page. The 体 (karada — body) of the Rust workspace is ten crates but the 姿 (sugata — appearance) is one Tauri window. Users never 感じる (kanjiru — feel) the model-swapping gymnastics."
+  },
+  {
+    "speaker": "b",
+    "text": "ruview の 電波 (denpa — radio wave) は 体 (karada) を透かして 見えない ものを 見る. koharu の パイプラインは 絵 を 残したまま 文字だけ変える. 電波 で 体 を 見る ruview と、漫画 の 絵 を 残す koharu — 全然違うわけだ (zenzen chigau wake da — totally different, naturally makes sense)."
+  },
+  {
+    "speaker": "a",
+    "text": "面白い比較 (omoshiroi hikaku — interesting comparison). 片方は 見えない ものを見せる、片方は 見える ものを 残す — one shows the invisible, the other preserves the visible."
+  },
+  {
+    "speaker": "b",
+    "text": "そうそう — exactly. そしてどちらも、ユーザーは裏の 体 (karada — body) を 感じない (kanjinai — don't feel) — users don't feel the underlying body in either."
+  },
+  {
+    "speaker": "a",
+    "text": "And when you hear it's all local — そうか、プライバシーのためにローカルで動くわけだ (sou ka, puraibashii no tame ni rookaru de ugoku wake da — ah, naturally runs locally for privacy) — the 〜わけだ lands perfectly. 最初聞いた時は 驚く (odoroku — to be surprised) けど、理由を聞くと 納得するわけだ (nattoku suru wake da — naturally you're convinced)."
+  },
+  {
+    "speaker": "b",
+    "text": "最初 驚く、後で 納得するわけだ. いい流れ (ii nagare — nice flow)."
+  },
+  {
+    "speaker": "b",
+    "text": "Good. New grammar this episode — 〜まま (mama) — in the state of, as is. What's the shape?"
+  },
+  {
+    "speaker": "a",
+    "text": "〜まま attaches to a verb in past-plain form, an i-adjective, a na-adjective with \"な\", or a noun with \"の\". It means \"leaving it in that state.\" Most natural translation: \"as is\", \"still\", \"keeping it that way.\" Five demos."
+  },
+  {
+    "speaker": "a",
+    "text": "One — 絵はそのまま、文字だけ翻訳する (e wa sono mama, moji dake honyaku suru — the picture stays as is, only the text is translated). That's literally what koharu does. 絵 (e — picture) is a new word today."
+  },
+  {
+    "speaker": "b",
+    "text": "Two — 吹き出しの形を残したまま、中の文字を入れ替える (fukidashi no katachi wo nokoshita mama, naka no moji wo irekaeru — keeping the speech-bubble shape preserved, we swap the text inside). 吹き出し (fukidashi — speech bubble), 残す (nokosu — to leave, preserve)."
+  },
+  {
+    "speaker": "a",
+    "text": "Three — 日本語のまま見る人もいれば、翻訳を読む人もいる (nihongo no mama miru hito mo ireba, honyaku wo yomu hito mo iru — there are people who watch it in Japanese as-is, and people who read the translation). Here 〜のまま attaches to a noun. 翻訳 (honyaku — translation)."
+  },
+  {
+    "speaker": "b",
+    "text": "Four — 場面はそのままにして、セリフだけ英語にする (bamen wa sono mama ni shite, serifu dake eigo ni suru — leaving the scene as-is, we turn only the dialogue into English). 場面 (bamen — scene)."
+  },
+  {
+    "speaker": "a",
+    "text": "Five — 漫画の雰囲気をそのままの姿で残す、それがkoharuの目標だ (manga no fun'iki wo sono mama no sugata de nokosu, sore ga koharu no mokuhyou da — preserving the atmosphere of the manga in its exact form — that's koharu's goal). And look — 姿 from episode 38 plus そのままの — combines old and new. 漫画 (manga)."
+  },
+  {
+    "speaker": "b",
+    "text": "Bonus six — 漫画の線はそのまま保つ (manga no sen wa sono mama tamotsu — keep the manga line art as is). 線 — lines of the drawing, preserved exactly."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. And the meta-moment — if you're learning Japanese and you're frustrated with scanlation quality, this repo actually solves your problem. Run koharu locally, pick a bigger 翻訳 model, and read your 漫画 with your own translator, keeping the art そのまま."
+  },
+  {
+    "speaker": "b",
+    "text": "絵 はそのまま、翻訳 は自分の好きなモデルで、漫画 を読みながら日本語を学ぶ — read manga while learning Japanese."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the honest pitch. It's also the rare case where the tool the podcast covers is directly useful to the podcast's audience. Don't expect that often."
+  },
+  {
+    "speaker": "b",
+    "text": "Let me restate. Koharu is a Tauri desktop app written in Rust, organized as a ten-crate Cargo workspace. The crates map one-to-one to concerns — `koharu-ml` for vision, `koharu-llm` for language, `koharu-runtime` for accelerators, `koharu-rpc` for HTTP and MCP, `koharu-renderer` for type, `koharu-psd` for export, `koharu-app` for the pipeline, `koharu-core` for shared types, plus the thin `koharu` entry binary."
+  },
+  {
+    "speaker": "a",
+    "text": "日本語でまとめると — nihongo de matomeru to — summarizing in Japanese — koharu は 漫画 (manga) を翻訳する Rust のアプリだ. 中身は10個のcrate、外から見える 姿 (sugata — form) は一つのTauriウィンドウ. 絵 (e — picture) はそのまま残す (sono mama nokosu — preserve as is), 文字だけ 翻訳 (honyaku — translation) する."
+  },
+  {
+    "speaker": "b",
+    "text": "そうそう. 14個のエンジンが一つずつ違う仕事をする (shigoto wo suru — do a job) — detection, segmentation, OCR × 3, inpainting × 2, font-match, translation, rendering. 全部 場面 (bamen — stages) の中に並ぶ."
+  },
+  {
+    "speaker": "a",
+    "text": "The pipeline is fourteen ML \"engines\" under `koharu-app/src/pipeline/engines/`, each a cited real model — ogkalu's comic-text-and-bubble-detector, PaddleOCR-VL-1.5, manga-ocr, MIT 48-pixel OCR, LaMa-manga, aot-inpainting, PP-DocLayoutV3, YuzuMarker font detection. 翻訳 happens through `koharu-llm` which has a safe-Rust wrapper over llama.cpp for local models plus nine cloud provider adapters, with GBNF grammar files for constrained-decoding local LLMs into valid 日本語のまま output."
+  },
+  {
+    "speaker": "b",
+    "text": "Everything runs locally — CUDA, Metal, Vulkan, ZLUDA, or CPU. MCP server built in via the `rmcp` crate with streamable-HTTP transport on port 9999, so external agents can consume each pipeline stage as a typed tool. No queue, no workers, no daemon — single process, vertical scaling. And the original art stays そのまま throughout, which is the whole product promise."
+  },
+  {
+    "speaker": "a",
+    "text": "One nuance. The architectural bet that actually matters isn't the ten crates. It's the decision to treat every ML model as an engine with a uniform interface. That's why koharu can absorb any new detector or any new OCR model without touching the pipeline orchestrator — `pipeline/engine.rs` doesn't know or care that `paddle_ocr.rs` and `manga_ocr.rs` are different."
+  },
+  {
+    "speaker": "a",
+    "text": "言い換えれば — iikaereba — in other words — 新しいエンジンが明日出ても、同じ 姿 (sugata — form) をしていれば、パイプラインに 残ったまま (nokotta mama — staying as it is) のorchestrator が受け入れる."
+  },
+  {
+    "speaker": "b",
+    "text": "驚かない (odorokanai — won't be surprised), 予想どおりに動くわけだ (yosou doori ni ugoku wake da — it works as expected, naturally)."
+  },
+  {
+    "speaker": "a",
+    "text": "You wouldn't be 驚く (odoroku — surprised) to see a new engine file land tomorrow for some 2026 model and just slot in. The 電波 (denpa — signal) of the repo is that homogeneity. Everything else — the Tauri shell, the PSD export, the MCP endpoint — are consequences of that one commitment."
+  },
+  {
+    "speaker": "b",
+    "text": "電波 が一つに揃っている (hitotsu ni sorotte iru — aligned as one). だから 驚かない. だから 感じる のは静けさ (shizukesa — stillness) — users feel stillness, not complexity."
+  },
+  {
+    "speaker": "a",
+    "text": "もう一度まとめると — mou ichido matomeru to — summarizing once more — 漫画 の 絵 はそのまま 残す、吹き出し の形もそのまま 残す、中の文字だけ 翻訳 する. 場面 の順番は右上から左下へ、日本語の読み方のまま. 体 は10個のcrate、姿 は一つのウィンドウ、電波 は均一なインターフェース. 見えない ところで14個のエンジンが動いて、ユーザーは 感じない. 驚く ほどきれいな 姿 だ — naturally, わけだ."
+  },
+  {
+    "speaker": "b",
+    "text": "完璧な要約 (kanpeki na youyaku — perfect summary). 絵 はそのまま、翻訳 だけ変わる、それが koharu — picture as is, only translation changes, that's koharu."
+  },
+  {
+    "speaker": "b",
+    "text": "Episode forty — next one — is an interlude."
+  },
+  {
+    "speaker": "a",
+    "text": "Interlude, yes. We sweep the last three repos along the six axes — compare compute, LLM locus, tools, extensions, context, scaling side by side. Review-dense, vocab-dense, no new repo. And we'll bring back 〜わけだ — which is why, naturally — as the grammar spine, since interlude episodes live on review."
+  },
+  {
+    "speaker": "b",
+    "text": "One callforward word. Let's take 視点 (shiten — viewpoint, perspective). Because an interlude is exactly a shift of 視点 — looking at three things from one angle instead of one thing from three angles."
+  },
+  {
+    "speaker": "a",
+    "text": "視点 (shiten — viewpoint) が次回の主役だ — viewpoint is the star next time. 漫画 を 一つの 視点 で読むように、三つの repo を一つの 視点 で見る. 視点 lands in episode forty. Your homework — find it in the wild before then. Read any Japanese blog post reviewing software, 視点 shows up in the first paragraph. Watch for it."
+  },
+  {
+    "speaker": "b",
+    "text": "そのまま (sono mama — as is) — go write some code, try koharu on a page, and we'll see you in episode forty."
+  },
+  {
+    "speaker": "a",
+    "text": "翻訳はkoharuに任せて、あなたは日本語を学ぼう (honyaku wa koharu ni makasete, anata wa nihongo wo manabou — leave the translation to koharu, you learn Japanese). 漫画 の 絵 はそのまま、吹き出し の中の文字だけあなたの目で読む — picture as is, read only the bubble text with your own eyes. それが一番の勉強 (benkyou — study) だ. おつかれさま (otsukaresama — good work, see you)."
+  }
+]

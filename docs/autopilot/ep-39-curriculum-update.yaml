@@ -1,0 +1,83 @@
+episode: 39
+repo: mayocream/koharu
+duration_seconds: 1887
+duration_display: "31m28s"
+cjk_count: 1907
+word_count: 4321
+turns: 124
+
+vocab_introduced:
+  - word: 絵
+    reading: え
+    gloss: picture
+    occurrences: 27
+  - word: 吹き出し
+    reading: ふきだし
+    gloss: speech bubble
+    occurrences: 15
+  - word: 翻訳
+    reading: ほんやく
+    gloss: translation
+    occurrences: 23
+  - word: 漫画
+    reading: まんが
+    gloss: manga
+    occurrences: 20
+  - word: 場面
+    reading: ばめん
+    gloss: scene / stage
+    occurrences: 12
+  - word: 残す
+    reading: のこす
+    gloss: to preserve / to leave
+    occurrences: 8
+
+grammar_introduced:
+  - pattern: 〜まま
+    gloss: in the state of / as is
+    occurrences: 38
+
+review_items_used:
+  - word: 体
+    reading: からだ
+    gloss: body / shape
+    occurrences: 8
+  - word: 姿
+    reading: すがた
+    gloss: form / appearance
+    occurrences: 12
+  - word: 電波
+    reading: でんぱ
+    gloss: radio wave / signal
+    occurrences: 8
+  - word: 見えない
+    reading: みえない
+    gloss: invisible / can't see
+    occurrences: 8
+  - word: 感じる
+    reading: かんじる
+    gloss: to feel
+    occurrences: 5
+  - word: 驚く
+    reading: おどろく
+    gloss: to be surprised
+    occurrences: 7
+  - word: 〜わけだ
+    reading: わけだ
+    gloss: it makes sense that / naturally
+    occurrences: 10
+
+callforward:
+  - word: 視点
+    reading: してん
+    gloss: viewpoint / perspective
+    target_episode: 40
+
+verify_notes:
+  - "BALANCE: A 75.7% — expected for repo deep-dive format (ARK explains architecture)"
+  - "BANNED: 'literally' and 'okay so' — minor, in natural context"
+  - "COMBAT: 'next time' — false positive, refers to next episode tease"
+  - "CJK count 1907 exceeds ~1600 target"
+  - "All new vocab ≥8 occurrences (well above 4+ threshold)"
+  - "Grammar まま at 38 occurrences (well above 5+ threshold)"
+  - "All 7 review items present with 5+ occurrences each"
