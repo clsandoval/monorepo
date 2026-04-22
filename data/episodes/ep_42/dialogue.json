@@ -1,0 +1,634 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay. Wheels are down in — what, forty minutes? The captain just did the \"ladies and gentlemen we've begun our descent\" thing."
+  },
+  {
+    "speaker": "a",
+    "text": "\"耳\" (\"みみ\" — ears) popping. Ears popping."
+  },
+  {
+    "speaker": "b",
+    "text": "Thirty episodes ago this was just supposed to keep us awake on a flight. And now we have opinions. Like, actual ones. I have a take on queue topologies."
+  },
+  {
+    "speaker": "a",
+    "text": "You have several takes on queue topologies. \"やっぱり\" (yappari — as expected) you do."
+  },
+  {
+    "speaker": "b",
+    "text": "I have a take on why Rust beat Python for the agent-infra layer. That was not a thing I had a take on when we boarded in Manila."
+  },
+  {
+    "speaker": "a",
+    "text": "You also learned about a hundred and forty Japanese \"言葉\" (\"ことば\" — words)."
+  },
+  {
+    "speaker": "b",
+    "text": "A hundred and forty. Let me sit with that. \"面白かったね\" (omoshirokatta ne — that was interesting, right)."
+  },
+  {
+    "speaker": "a",
+    "text": "Sit briefly. We have one more episode to land. \"最後\" (\"さいご\" — the last) \"の一本\"."
+  },
+  {
+    "speaker": "b",
+    "text": "Right. So — meta outro. No new repo. No new vocab. Just — what did we actually learn about the state of AI tooling, from thirty-thousand feet, watching the April 2026 open-source wave go by."
+  },
+  {
+    "speaker": "a",
+    "text": "And what we do with it on Monday. \"月曜日\" (\"げつようび\" — Monday) \"から\"."
+  },
+  {
+    "speaker": "b",
+    "text": "If we survive re-entry."
+  },
+  {
+    "speaker": "a",
+    "text": "We will survive re-entry. The 787 is a very competent aircraft."
+  },
+  {
+    "speaker": "b",
+    "text": "The 787 is held together by \"七つ の 翼\" and a dream."
+  },
+  {
+    "speaker": "a",
+    "text": "Not a word we learned. Also not true. Moving on."
+  },
+  {
+    "speaker": "b",
+    "text": "Before we go macro, let me do the fast callback pass. The whole series in one breath. Ready?"
+  },
+  {
+    "speaker": "a",
+    "text": "Ready. \"一気に\" (\"いっきに\" — in one go) \"行こう\" (\"いこう\" — let's go)."
+  },
+  {
+    "speaker": "b",
+    "text": "Agent layer first. eliza \"は 性格\" (\"せいかく\" — personality). multica \"は 仕事\" (\"しごと\" — work). hermes \"は 育つ\" (\"そだつ\" — grows) agent runtime. \"性格\" that you \"信頼\" (\"しんらい\" — trust), \"仕事\" that ships, \"エージェント\" that \"育つ\" over time. Three \"柱\" (\"はしら\" — pillars). \"性格 と 仕事 と 育つ 力\" (\"ちから\" — strength)."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そうそう\" (sou sou — yeah yeah). 〜\"ようになる\" pattern everywhere — agents \"仕事 が できる ように なる\" (came to do work). Agents \"信頼 される ように なる\" (came to be trusted). Agents \"育つ ように なる\" (came to grow). Three 〜\"ようになる\" in three sentences. \"そうそう\"."
+  },
+  {
+    "speaker": "b",
+    "text": "And the skill-management tier. karpathy-skills \"は 習慣\" (\"しゅうかん\" — habits) \"を\" Claude \"に 教える\" (\"おしえる\" — teach). claude-mem \"は 忘れ\" (\"わすれ\" — forgetting) \"にくく する\". The agent's \"記憶\" (\"きおく\" — memory) \"を 守る\" (\"まもる\" — protect). \"習慣 が 記憶 を 作る\" (\"つくる\" — make). Habits build memory."
+  },
+  {
+    "speaker": "a",
+    "text": "\"なるほど\" (naruhodo — I see). 〜\"につれて 習慣 が 深く\" (\"ふかく\" — deep) \"なる\". As habits deepen, memory consolidates. 〜\"につれて\" the agent \"育つ\". 〜\"につれて 信頼\" build."
+  },
+  {
+    "speaker": "b",
+    "text": "Claude-code episodes — cc-switch \"で モデル を 切り替える\" (\"きりかえる\" — switch). huashu \"で デザイン を 描く\" (\"えがく\" — draw). \"間違い\" (\"まちがい\" — mistakes) \"を 比べる\" (\"くらべる\" — compare) across providers. \"プロバイダ を 切り替える\", \"結果\" (\"けっか\" — result) \"を 比べる\", \"間違い を 見つける\" (\"みつける\" — find)."
+  },
+  {
+    "speaker": "a",
+    "text": "\"確かに\" (tashika ni — certainly). Three verbs in one loop: \"切り替える\", \"比べる\", \"直す\" (\"なおす\" — fix). That's the dev-tools workflow. \"毎日\" (\"まいにち\" — every day) \"の 習慣\"."
+  },
+  {
+    "speaker": "b",
+    "text": "\"面白かったね\" (omoshirokatta ne — interesting, right). dev-tools layer — \"変換\" (\"へんかん\" — conversion) tools, \"見守る\" (\"みまもる\" — watch over) daemons, \"画面\" (\"がめん\" — screen) recorders, \"信号\" (\"しんごう\" — signal) routers. That was two weeks of plumbing. \"変換 して\", \"見守って\", \"画面 を 録画\" (\"ろくが\" — record) \"して\", \"信号 を 送る\" (\"おくる\" — send)."
+  },
+  {
+    "speaker": "a",
+    "text": "\"道具\" (\"どうぐ\" — tools) \"の 層\" (\"そう\" — layer). Tools layer. \"全部\" (\"ぜんぶ\" — all) \"地味\" (\"じみ\" — plain) \"だけど 大切\" (\"たいせつ\" — important). Plain but important."
+  },
+  {
+    "speaker": "b",
+    "text": "Context layer — \"秘密\" (\"ひみつ\" — secrets) management, \"記憶\" (\"きおく\" — memory) stores, \"関係\" (\"かんけい\" — relationships) graphs between turns. \"秘密 を 守る\", \"記憶 を 残す\" (\"のこす\" — leave behind), \"関係 を 描く\" (\"えがく\" — draw). \"良かった\" (yokatta — it was good) stuff."
+  },
+  {
+    "speaker": "a",
+    "text": "\"やっぱり\" (yappari — as expected) the context layer is where the moat forms. \"秘密 と 記憶 と 関係\". Three nouns. Three moats. 〜\"わけだ\"."
+  },
+  {
+    "speaker": "b",
+    "text": "Wildcards — \"成長\" (\"せいちょう\" — growth) curves for agent evals, \"体\" (\"からだ\" — body) of the framework built out of repetition, \"翻訳\" (\"ほんやく\" — translation) layers between MCP transports. \"面白かった\" (omoshirokatta — was interesting) all of it. \"成長 と 体 と 翻訳\"."
+  },
+  {
+    "speaker": "a",
+    "text": "Forty-one repos. Six axes. One breath. Not bad. \"良かった\", \"本当に\" (hontou ni — really). \"全部 覚えた\" (\"おぼえた\" — remembered)? No. \"でも 十分\" (\"じゅうぶん\" — enough)."
+  },
+  {
+    "speaker": "b",
+    "text": "Forty-one repos compressed into twelve JP nouns and three JP verbs. \"性格\". \"仕事\". \"育つ\". \"習慣\". \"記憶\". \"間違い\". \"切り替える\". \"比べる\". \"変換\". \"守る\". \"見守る\". \"画面\". \"信号\". \"秘密\". \"関係\". \"成長\". \"体\". \"翻訳\". \"信頼\". \"任せる\". That's the whole series. \"二十 の 言葉\" (\"にじゅう の ことば\" — twenty words). \"二十 で 足りる\" (\"たりる\" — is enough)."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Pattern one. I want to say it out loud because I've been circling it since episode maybe twenty-two."
+  },
+  {
+    "speaker": "a",
+    "text": "Go. \"どうぞ\" (douzo — please)."
+  },
+  {
+    "speaker": "b",
+    "text": "Everything in this series — every single repo we looked at — was someone selling picks and shovels."
+  },
+  {
+    "speaker": "a",
+    "text": "Expand."
+  },
+  {
+    "speaker": "b",
+    "text": "Agent frameworks. Provider switchers. Skill packs. Sandbox runtimes. Memory libraries. Context routers. Tracing daemons. Not one of the forty-one repos was an end-user product. They're all — infrastructure for building the thing. Tooling for the tool-makers."
+  },
+  {
+    "speaker": "a",
+    "text": "And your worry is —"
+  },
+  {
+    "speaker": "b",
+    "text": "My worry is that's what a gold rush looks like right before the shovel market gets saturated. 「一斉に みんな が シャベル を 売り 始める」— everyone starts selling shovels at once — and then nobody's mining. Like — \"習慣\" (\"しゅうかん\" — habit) — we've all formed the same habit. The habit of shipping agent infrastructure instead of agents that do something."
+  },
+  {
+    "speaker": "a",
+    "text": "\"道具\" (\"どうぐ\" — tools) \"が 全部\" (\"ぜんぶ\" — all) \"普通\" (\"ふつう\" — ordinary) \"に なった。違い\" (\"ちがい\" — difference) \"が なくなった\". Tools all became ordinary. The difference disappeared. That's the thesis in one JP sentence."
+  },
+  {
+    "speaker": "b",
+    "text": "\"確かに\" (tashika ni — certainly) that's it."
+  },
+  {
+    "speaker": "a",
+    "text": "Mm. I half-agree though."
+  },
+  {
+    "speaker": "b",
+    "text": "Only half?"
+  },
+  {
+    "speaker": "a",
+    "text": "The picks-and-shovels thesis assumes the market is solved and now we're just selling accessories. I don't think the market is solved. I think we're at the stage where the primitives genuinely aren't stable yet. Look at what we covered — three different sandbox designs, four different skill-loading conventions, MCP over stdio versus SSE versus streamable-http still unresolved. The shovels aren't commodity. They're prototypes of shovels."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, but — \"比べる と\" (\"くらべる と\" — when you compare) — when you compare the repos pairwise, a lot of them overlap significantly. Three separate sandbox projects. Two separate skill managers. Multiple provider switchers doing identical \"仕事\" (\"しごと\" — work)."
+  },
+  {
+    "speaker": "a",
+    "text": "True. But overlap at the prototype stage is healthy. You want five teams prototyping the same primitive. You don't want them prototyping on top of each other yet."
+  },
+  {
+    "speaker": "b",
+    "text": "So when does the party end."
+  },
+  {
+    "speaker": "a",
+    "text": "The party ends when the primitives stabilize. When MCP wins or loses, when the sandbox interface becomes a standard instead of six competing standards, when skill loading becomes a thing you npm install instead of a thing you re-invent. That's the moment when picks-and-shovels becomes commoditized, and the margin moves somewhere else."
+  },
+  {
+    "speaker": "b",
+    "text": "How far out?"
+  },
+  {
+    "speaker": "a",
+    "text": "Twelve to eighteen months."
+  },
+  {
+    "speaker": "b",
+    "text": "That's a number."
+  },
+  {
+    "speaker": "a",
+    "text": "That's a guess. But the pattern rhymes — browsers went through this around 2010, container runtimes went through it around 2016. The primitive stabilizes, the margin migrates. \"やっぱり\" (yappari — as expected) history rhymes."
+  },
+  {
+    "speaker": "b",
+    "text": "〜\"わけだ\" (\"わけだ\" — that's why). \"道具 が 普通 に なる わけだ\". That's why tools become ordinary — the pattern always converges."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. 〜\"わけだ\". So the commoditization is not a maybe. It's a when."
+  },
+  {
+    "speaker": "b",
+    "text": "Migrates where? Which sets up pattern two, actually."
+  },
+  {
+    "speaker": "a",
+    "text": "Which sets up pattern two."
+  },
+  {
+    "speaker": "b",
+    "text": "Pattern two. If the infra layer is going to commoditize — where does the actual moat live?"
+  },
+  {
+    "speaker": "a",
+    "text": "Four places, and we saw each of them in the series without fully naming them. \"データ\" (data) \"と 学ぶ\" (\"まなぶ\" — learning) \"と 信頼\" (\"しんらい\" — trust) \"が\" moat. That's the JP compression."
+  },
+  {
+    "speaker": "b",
+    "text": "\"データ と 学ぶ と 信頼\". I'll repeat it so listeners hear it twice. \"データ と 学ぶ と 信頼 が\" moat. Plus community. Four."
+  },
+  {
+    "speaker": "a",
+    "text": "Enumerate?"
+  },
+  {
+    "speaker": "b",
+    "text": "One — data. Two — learning loops. Three — vertical specialization. Four — community distribution."
+  },
+  {
+    "speaker": "a",
+    "text": "Walk through data first."
+  },
+  {
+    "speaker": "b",
+    "text": "The agent framework is free. The logs of a million production agent runs are not free. The repos that treated tracing seriously — the Langfuse-style ones, the eval harnesses — those teams were quietly sitting on the actually-valuable asset. Every production trace is a training \"信号\" (\"しんごう\" — signal). The \"関係\" (\"かんけい\" — relationship) between a user turn and an agent outcome is what you can't download from HuggingFace."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そうそう\" (sou sou — yeah). \"データ が 秘密\" (\"ひみつ\" — secret) \"に なる\". Data becomes the secret."
+  },
+  {
+    "speaker": "b",
+    "text": "Learning loops."
+  },
+  {
+    "speaker": "a",
+    "text": "The repos that had a feedback path baked in — where the agent's \"間違い\" (\"まちがい\" — mistakes) got captured, routed to a reviewer, and fed back as a correction — those were three percent of what we saw. Maybe five. Everyone else is running a stateless inference pipe and calling it an agent. 〜\"につれて\" (ni tsurete — as X progresses) — \"時間 が 経つ\" (\"じかん が たつ\" — time passes) \"に つれて\", the repos with learning loops will pull ahead of the ones without, because theirs will \"育つ\" (\"そだつ\" — grow) and the others will just — stay."
+  },
+  {
+    "speaker": "b",
+    "text": "〜\"につれて\", the gap opens. 〜\"につれて\", \"信頼\" (\"しんらい\" — trust) builds on the loop side. 〜\"につれて\", the stateless pipes fall behind."
+  },
+  {
+    "speaker": "a",
+    "text": "Three uses of 〜\"につれて\" in one breath. \"良かった\" (yokatta — good)."
+  },
+  {
+    "speaker": "b",
+    "text": "Vertical specialization."
+  },
+  {
+    "speaker": "a",
+    "text": "The horizontal agent framework is a race to zero. The vertical agent that knows it's a paralegal, or a radiologist, or a claims adjuster — that thing has a moat because the \"性格\" (\"せいかく\" — personality) is baked into the domain. You can't port it by swapping a system prompt. The \"仕事\" (\"しごと\" — work) is the moat. The \"性格\" is the moat. The two together 〜\"ようになる\" (you ni naru — come to be) the unique thing."
+  },
+  {
+    "speaker": "b",
+    "text": "And community distribution."
+  },
+  {
+    "speaker": "a",
+    "text": "This is the one I didn't see coming. Nous Research, the eliza ecosystem, the half-million-Discord-member agent communities — they're not selling software. They're selling a \"仲間\" (\"なかま\" — tribe/companions) that happens to ship software. When the infra commoditizes, the tribe is what's left. Whoever owns the tribe owns distribution."
+  },
+  {
+    "speaker": "b",
+    "text": "So if I'm building —"
+  },
+  {
+    "speaker": "a",
+    "text": "If you're building, you don't compete on the framework. You pick one, commit, and then you differentiate on data, on the loop, on the vertical, or on the tribe. Ideally two of the four."
+  },
+  {
+    "speaker": "b",
+    "text": "〜\"ようになる\" (you ni naru — came to be able to) — that's the pattern I want to reach. I want my agents to \"信頼 できる ように なる\" (reach the point where they can be trusted) and that's a learning-loop problem, not a framework problem."
+  },
+  {
+    "speaker": "a",
+    "text": "〜\"ようになる\". Exactly. Agents that \"育つ 〜ようになる\". Agents that \"信頼 を 得る\" (\"しんらい を える\" — earn trust) 〜\"ようになる\". Agents that \"間違い を 直す\" (\"まちがい を なおす\" — fix mistakes) 〜\"ようになる\". Three uses. Done."
+  },
+  {
+    "speaker": "b",
+    "text": "Right. And the framework choice is almost fungible. The learning loop is not."
+  },
+  {
+    "speaker": "a",
+    "text": "〜\"わけだ\". \"データ と 学ぶ と 信頼 が\" moat \"に なる わけだ\". That's why data + learning + trust become the moat — it's the only axis that compounds."
+  },
+  {
+    "speaker": "b",
+    "text": "Pattern three. I have been sitting on this one. Ready?"
+  },
+  {
+    "speaker": "a",
+    "text": "Ready."
+  },
+  {
+    "speaker": "b",
+    "text": "Microsandbox. Monty. Rio. Dora. Koharu. Sniffnet. Every serious control-plane project we touched in the last two batches was written in Rust. Every. One."
+  },
+  {
+    "speaker": "a",
+    "text": "I noticed. \"確かに\" (tashika ni — certainly) I noticed."
+  },
+  {
+    "speaker": "b",
+    "text": "Why. The JP compression is — \"速い\" (\"はやい\" — fast) \"言語\" (\"げんご\" — language) \"が 新しい\" (\"あたらしい\" — new) control plane \"を 作る\" (\"つくる\" — build). A fast language builds a new control plane. That's the thesis in ten words of Japanese."
+  },
+  {
+    "speaker": "a",
+    "text": "\"速い 言語 が 新しい\" control plane \"を 作る\". \"良かった\". Keep that one."
+  },
+  {
+    "speaker": "a",
+    "text": "A few reasons, interlocking. One — the agent-infra layer is becoming a control plane, and control planes need predictable latency. When your sandbox has to cold-start in under two hundred milliseconds and your router has to multiplex ten thousand concurrent agent sessions, a garbage collector becomes a liability. Not an optimization problem. A correctness problem."
+  },
+  {
+    "speaker": "b",
+    "text": "Mm. \"なるほど\" (naruhodo — I see)."
+  },
+  {
+    "speaker": "a",
+    "text": "Two — these are systems that need to \"守る\" (\"まもる\" — protect) a boundary. Sandbox isolation, capability tokens, process sandboxing, network namespaces. Rust's ownership model makes that kind of \"見守る\" (\"みまもる\" — watch over) concrete. The compiler enforces the boundary you care about. \"守る\" and \"見守る\" at the type level."
+  },
+  {
+    "speaker": "b",
+    "text": "Three?"
+  },
+  {
+    "speaker": "a",
+    "text": "Three — the FFI story finally works. You can ship a Rust core and bind it into Python, Node, Swift, Go. One core, many harnesses. \"変換\" (\"へんかん\" — conversion) from Rust to each host language is cheap now. That's what microsandbox does. That's what dora does. That's what koharu does. You can't do that as cleanly from Go and you definitely can't do it from Python."
+  },
+  {
+    "speaker": "b",
+    "text": "And four?"
+  },
+  {
+    "speaker": "a",
+    "text": "Four is the one I find most interesting. The agent-infra layer is converging on Rust the way browser engines converged on C++ ten years ago. Remember when Chrome, Safari, and Firefox were the three surviving browser engines and the long tail died? That's where we are with agent sandboxes. Three or four Rust projects will eat this category, and the Python and Node sandboxes will become hobby projects."
+  },
+  {
+    "speaker": "b",
+    "text": "That's a bold claim."
+  },
+  {
+    "speaker": "a",
+    "text": "It is. But look at the \"信号\" (\"しんごう\" — signals) — microsandbox has corporate adoption, Fly.io is hiring Rust agent-infra people, Replit rewrote their container layer in Rust last quarter. The \"画面\" (\"がめん\" — screen) — the surface you see on Twitter — is Python. The plumbing underneath is quietly becoming Rust. \"画面\" is Python, \"体\" (\"からだ\" — body) is Rust."
+  },
+  {
+    "speaker": "b",
+    "text": "〜\"わけだ\" (wake da — makes sense) — 「つまり Rust \"に 切り替える わけだ」\" — so that's why the shift to Rust makes sense. Performance unlocks control-plane designs that GC'd languages can't express. 〜\"わけだ\"."
+  },
+  {
+    "speaker": "a",
+    "text": "〜\"わけだ\", yes. \"速い 言語 が 新しい\" control plane \"を 作る わけだ\". Fast languages build new control planes — that's why — 〜\"わけだ\". Three uses."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. And it means the barrier to building the next generation of agent infra just got higher. You don't build a serious sandbox in a weekend in Python anymore. The Python hobbyist era of this layer is ending."
+  },
+  {
+    "speaker": "b",
+    "text": "That's a little sad."
+  },
+  {
+    "speaker": "a",
+    "text": "It is, and it isn't. Python becomes the harness language — the place you write agents. Rust becomes the runtime language — the place agents run. Same split as web: JavaScript for pages, C++ for the engine. Python \"は 画面\" (gamen — screen), Rust \"は 体\" (karada — body). That's the JP way to say it."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Three patterns. Commoditization timeline. Where the moat migrates. Rust eating the control plane."
+  },
+  {
+    "speaker": "a",
+    "text": "Those are our three takeaways. \"道具 が 普通 に なる\". \"データ と 学ぶ が\" moat. \"速い 言語 が 体 を 作る\". Three JP one-liners."
+  },
+  {
+    "speaker": "b",
+    "text": "So what do you do with this? On Monday. In the job."
+  },
+  {
+    "speaker": "a",
+    "text": "Depends on the job."
+  },
+  {
+    "speaker": "b",
+    "text": "That's a cop-out answer."
+  },
+  {
+    "speaker": "a",
+    "text": "It's not, actually. If you're an infra-layer founder — the job is to stop thinking the framework is the product. The framework is a distribution vehicle for the thing that actually has a moat, which is the \"記憶\" (\"きおく\" — memory) of production usage. If you're an application builder — the job is to pick a framework and stop re-evaluating. The framework choice is a \"秘密\" (\"ひみつ\" — secret) that nobody cares about. Your users don't ask. If you're a systems person — the job is to learn Rust if you haven't. The next five years of interesting plumbing is in that \"言語\" (\"げんご\" — language)."
+  },
+  {
+    "speaker": "b",
+    "text": "And if you're us."
+  },
+  {
+    "speaker": "a",
+    "text": "And if you're us —"
+  },
+  {
+    "speaker": "b",
+    "text": "— but the flight's landing, Ark. What do WE do."
+  },
+  {
+    "speaker": "a",
+    "text": "We do nothing. We're tired. \"疲れた\" (\"つかれた\" — tired)."
+  },
+  {
+    "speaker": "b",
+    "text": "We're so tired."
+  },
+  {
+    "speaker": "a",
+    "text": "We go home. We sleep. We do not — crucially — open the laptop at the hotel and try to start a Rust sandbox project at two in the morning."
+  },
+  {
+    "speaker": "b",
+    "text": "I was going to do that."
+  },
+  {
+    "speaker": "a",
+    "text": "I know you were. Don't."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay."
+  },
+  {
+    "speaker": "a",
+    "text": "On Monday we pick one of the three patterns and we apply it to one real thing we own. Not all three. One."
+  },
+  {
+    "speaker": "b",
+    "text": "Which one would you pick."
+  },
+  {
+    "speaker": "a",
+    "text": "I'd pick the learning-loop one. Because the commoditization timeline is twelve-to-eighteen months out — we have time. The Rust shift is already priced in — we know. But the learning loop — that's the thing where every day you don't have one is a day of wasted \"信号\" (\"しんごう\" — signal). Ship that first. \"信頼\" (\"しんらい\" — trust) comes from the loop. \"信頼\" does not come from the framework."
+  },
+  {
+    "speaker": "b",
+    "text": "\"育つ\" (\"そだつ\" — to grow) agents. Callback."
+  },
+  {
+    "speaker": "a",
+    "text": "Agents that \"育つ\". The ones that don't are furniture."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Let me do the sentimental part before we land."
+  },
+  {
+    "speaker": "a",
+    "text": "Please."
+  },
+  {
+    "speaker": "b",
+    "text": "A hundred and forty words of Japanese."
+  },
+  {
+    "speaker": "a",
+    "text": "Roughly."
+  },
+  {
+    "speaker": "b",
+    "text": "Roughly. Starting from \"翻訳\" (\"ほんやく\" — translation) in episode — what was it — three? Four?"
+  },
+  {
+    "speaker": "a",
+    "text": "Three, I think."
+  },
+  {
+    "speaker": "b",
+    "text": "Three. And now we're at \"見守る\", 〜\"につれて\", \"信頼\", \"秘密\", \"切り替える\", \"性格\", \"仕事\", \"育つ\", \"間違い\", \"習慣\", \"比べる\", \"変換\", \"守る\", \"画面\", \"信号\", \"記憶\", \"関係\", \"成長\", \"体\", \"翻訳\", and \"任せる\". Not bad for airplane time."
+  },
+  {
+    "speaker": "a",
+    "text": "Not bad for airplane time. \"本当に\" (hontou ni — really) not bad."
+  },
+  {
+    "speaker": "b",
+    "text": "I think the thing I want to say — and this is sentimental, skip forward fifteen seconds if you hate this kind of thing — is that the structure worked. Not because the repos were especially deep, although some were. Because the discipline of pulling every repo onto the same six axes — compute, LLM, tools, extensions, context, scaling — made each new repo cost less to understand than the last one."
+  },
+  {
+    "speaker": "a",
+    "text": "〜\"ようになる\" again. We came to be able to read an agent repo in about twelve minutes flat by episode thirty. \"読める\" (\"よめる\" — can read) 〜\"ようになった\"."
+  },
+  {
+    "speaker": "b",
+    "text": "Yeah. The \"体\" (\"からだ\" — body) of the framework built itself. Every repo added a little more muscle memory. Every axis got easier to probe. We \"成長 した\" (\"せいちょう した\" — we grew). Not because we studied. Because we repeated. 〜\"につれて\" we grew."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the thesis of the whole series, actually. Spaced repetition works on architecture the same way it works on vocab. The Japanese layer was the proof. \"習慣\" (\"しゅうかん\" — habit) \"が 体 を 作る\". Habits build the body."
+  },
+  {
+    "speaker": "b",
+    "text": "\"習慣 に なった\" (shuukan ni natta — it became a habit). 〜\"ようになった\" also works. Habit form reached."
+  },
+  {
+    "speaker": "a",
+    "text": "It became a habit. And habits are the only thing that scales. 〜\"わけだ\". \"成長 は 習慣 から 来る わけだ\". Growth comes from habit — that's why."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Real question before we land. Do you think we'll do another one?"
+  },
+  {
+    "speaker": "a",
+    "text": "Another series?"
+  },
+  {
+    "speaker": "b",
+    "text": "Yeah. Flight home. Whatever's next."
+  },
+  {
+    "speaker": "a",
+    "text": "Probably. Not the same format though. I want to do forty episodes on a single repo someday. Pick the hardest one and just — drill. Sixteen hours on one codebase. No rotation."
+  },
+  {
+    "speaker": "b",
+    "text": "That sounds exhausting."
+  },
+  {
+    "speaker": "a",
+    "text": "It sounds correct."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Save it for the return flight."
+  },
+  {
+    "speaker": "a",
+    "text": "Saved."
+  },
+  {
+    "speaker": "b",
+    "text": "Anything else before we land?"
+  },
+  {
+    "speaker": "a",
+    "text": "One thing. To whoever listened to all forty-two of these — you didn't have to. We were doing this for us. But if you're still here, you probably picked up some of the patterns, and maybe some of the Japanese, and maybe you have your own opinions about Rust in the control plane now."
+  },
+  {
+    "speaker": "b",
+    "text": "And if you do — the next move isn't another episode. It isn't another framework survey. It isn't another meta-analysis of agent tooling."
+  },
+  {
+    "speaker": "a",
+    "text": "The next move is — you try one thing."
+  },
+  {
+    "speaker": "b",
+    "text": "One of the three patterns. Applied to one real thing you own."
+  },
+  {
+    "speaker": "a",
+    "text": "Don't wait for episode forty-three of somebody else's podcast to tell you which one. Pick the one that rhymes with your job, and \"任せて みて\" (makasete mite — try entrusting it)."
+  },
+  {
+    "speaker": "b",
+    "text": "\"任せて みて\". Callback. \"任せる\" (\"まかせる\" — to entrust). \"任せて みて\" — try leaving it to yourself."
+  },
+  {
+    "speaker": "a",
+    "text": "Trust yourself with it. We handed you the map. You fly the plane from here."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Landing gear down. I can hear it."
+  },
+  {
+    "speaker": "a",
+    "text": "I can too."
+  },
+  {
+    "speaker": "b",
+    "text": "\"皆さん\" (\"みなさん\" — everyone), \"聞いて くれて\" (\"きいて くれて\" — for listening) \"ありがとう ございました\". \"四十二\" (\"よんじゅうに\" — forty-two) \"の エピソード を 一緒\" (\"いっしょ\" — together) \"に 飛んで\" (\"とんで\" — flew through) \"くれて、本当に ありがとう ございました\". \"長かった\" (\"ながかった\" — was long) \"ね\". \"でも 楽しかった\" (\"たのしかった\" — was fun)."
+  },
+  {
+    "speaker": "a",
+    "text": "\"日本語\" (\"にほんご\" — Japanese) \"を 一緒 に 勉強\" (\"べんきょう\" — study) \"して くれて ありがとう\". \"百四十\" (\"ひゃくよんじゅう\" — one hundred forty) \"の 言葉\" (\"ことば\" — words). \"完璧\" (\"かんぺき\" — perfect) \"じゃない\". \"でも 習慣\" (\"しゅうかん\" — habit) \"に なった\". \"それで 十分\" (\"じゅうぶん\" — enough). \"習慣 が 残る\" (\"のこる\" — remain) \"言葉 より 大切\" (\"たいせつ\" — important)."
+  },
+  {
+    "speaker": "b",
+    "text": "〜\"につれて 飛行機\" (\"ひこうき\" — airplane) \"が 降りる\" (\"おりる\" — descend) \"に つれて\", \"この シリーズ も 終わる\" (\"おわる\" — end). \"寂しい\" (\"さびしい\" — lonely) \"ね\". \"でも 良かった\" (yokatta — it was good). \"寂しい と 良かった\", \"両方\" (\"りょうほう\" — both) \"本当\" (\"ほんとう\" — true)."
+  },
+  {
+    "speaker": "a",
+    "text": "\"良かった\", \"本当に\". \"この 旅\" (\"たび\" — journey) \"は 四十二 時間\" (\"じかん\" — hours) \"の 旅\". \"一つ\" (\"ひとつ\") \"の 飛行機\" (\"ひこうき\"), \"二人\" (\"ふたり\" — two people), \"四十一 の レポ\", \"そして 一つ の 最後\" (\"さいご\" — final) \"の 振り返り\" (\"ふりかえり\" — review). \"全部\" (\"ぜんぶ\" — all) \"繋がる\" (\"つながる\" — connect)."
+  },
+  {
+    "speaker": "b",
+    "text": "〜\"ようになる で 終わろう\" (\"おわろう\" — let's end). \"私たち\" (\"わたしたち\" — we) \"は 読める\" (\"よめる\" — can read) \"ように なった\". \"聞ける\" (\"きける\" — can listen) \"ように なった\". \"話せる\" (\"はなせる\" — can speak) \"ように なった\". \"少し\" (\"すこし\" — a little) \"だけ\". \"でも 少し で 十分\" (\"じゅうぶん\" — enough). 〜\"ようになる が 全て\" (\"すべて\" — everything)."
+  },
+  {
+    "speaker": "a",
+    "text": "\"また 今度\" (\"こんど\" — next time) \"会おう\" (\"あおう\" — let's meet). \"無事\" (\"ぶじ\" — safe) \"に 着きましょう\" (\"つきましょう\" — let's arrive). \"そして 月曜日\" (\"げつようび\" — Monday) \"に、一つ だけ 選んで\" (\"えらんで\" — choose), \"それ を 信じて\" (\"しんじて\" — trust), \"任せる\". \"一つ で 十分\". 〜\"わけだ\"."
+  },
+  {
+    "speaker": "b",
+    "text": "\"皆さん の 旅 も 続く\" (\"つづく\" — continues). \"私たち の 旅 は 降りる\" (\"おりる\" — descend) \"けど\", \"皆さん は まだ 飛んで\" (\"とんで\" — fly) \"いる\". \"どこ へ 行く\" (\"いく\" — go) \"か 分からない\" (\"わからない\" — don't know). \"でも 行って ほしい\" (go, please). \"試して\" (\"ためして\" — try) \"ほしい\". \"任せて みて ほしい\"."
+  },
+  {
+    "speaker": "a",
+    "text": "\"最後\" (\"さいご\" — last) \"に 一つ\". \"今日\" (\"きょう\" — today) \"覚えた\" (\"おぼえた\" — learned) \"こと が 明日\" (\"あした\" — tomorrow) \"の 習慣\" (\"しゅうかん\") \"に なる\". \"明日 の 習慣 が 来月\" (\"らいげつ\" — next month) \"の 体\" (\"からだ\" — body) \"に なる\". \"来月 の 体 が 来年\" (\"らいねん\" — next year) \"の 成長\" (\"せいちょう\" — growth) \"に なる\". 〜\"につれて\", \"全部 繋がる\" (\"つながる\" — connects)."
+  },
+  {
+    "speaker": "b",
+    "text": "\"じゃあ、皆さん、お疲れ様 でした\" (\"おつかれさま\" — thank you for the hard work). \"ありがとう ございました\". \"また 会いましょう\" (\"あいましょう\" — let's meet again). \"良い\" (\"よい\" — good) \"旅 を\"."
+  },
+  {
+    "speaker": "a",
+    "text": "\"ありがとう ございました。また 今度。無事 に、皆さん。\""
+  },
+  {
+    "speaker": "b",
+    "text": "\"じゃあ、任せて みて。\""
+  }
+]

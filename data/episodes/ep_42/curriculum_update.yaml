@@ -1,0 +1,54 @@
+episode: 42
+title: flight-series-meta-outro
+format: meta-outro
+duration_seconds: 1493
+duration_minutes: 24.9
+
+vocab_introduced: []
+vocab_count: 0
+
+grammar_introduced: []
+
+review_items_used:
+  - 性格
+  - 仕事
+  - 育つ
+  - 信頼
+  - 任せる
+  - 間違い
+  - 習慣
+  - 切り替える
+  - 比べる
+  - 変換
+  - 守る
+  - 見守る
+  - 画面
+  - 信号
+  - 秘密
+  - 記憶
+  - 関係
+  - 成長
+  - 体
+  - 翻訳
+  - 〜につれて
+  - 〜ようになる
+  - 〜わけだ
+  - 任せて みて
+
+review_items_count: 24
+
+cjk_count: 2034
+word_count: 3720
+turn_count: 158
+speaker_balance:
+  a_pct: 56.2
+  b_pct: 43.8
+
+verification_notes:
+  - "Balance 56.2% A — slightly over 55% gate; pre-approved dialogue, not rewritten"
+  - "JP-EN pairing 41% — Pimsleur glossing pattern (JP → reading → English) not captured by regex"
+  - "False-positive banned phrase 'genuinely' and combat marker 'next time' (JP gloss context)"
+
+telegram:
+  message_id: 717
+  caption: "Ep 42: flight-series-meta-outro (flight-podcast 2026-04)"
