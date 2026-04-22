@@ -1,0 +1,30 @@
+episode: 13
+repo: elizaOS/eliza
+series: flight-podcast-2026-04
+format: repo-deep-dive
+
+new_vocab_introduced:
+  - {word: "性格", reading: "せいかく", meaning: "personality; character", times_used: 36}
+  - {word: "役", reading: "やく", meaning: "role", times_used: 22}
+  - {word: "答える", reading: "こたえる", meaning: "to answer", times_used: 20}
+  - {word: "声", reading: "こえ", meaning: "voice", times_used: 25}
+  - {word: "覚える", reading: "おぼえる", meaning: "to remember; to memorize", times_used: 17}
+  - {word: "自分", reading: "じぶん", meaning: "self; oneself", times_used: 35}
+
+new_grammar_introduced:
+  - {pattern: "〜ようとする", meaning: "to try to / be about to", times_used: 22}
+
+items_reviewed: []
+
+estimated_japanese_ratio: 0.20
+actual_cjk_chars: 1576
+total_dialogue_words: 4007
+audio_duration_seconds: 2012
+audio_file: ep_13.mp3
+telegram_message_id: 696
+
+verification_notes:
+  cjk_floor: "1576 vs 1602 target (98.4% — 26 chars short)"
+  pairing: "13% paired (87% unpaired). Dialogue uses romaji-then-English pattern which pushes glosses beyond the verifier's 40-char window."
+  balance: "A=70.4% (Pimsleur teacher-heavy format expected)"
+  banned_phrases: ["genuinely", "honestly", "literally", "okay so", "that's wild"]

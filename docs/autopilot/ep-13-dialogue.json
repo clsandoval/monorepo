@@ -1,0 +1,846 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay okay okay, I have been skimming the README on the flight over, and I'm gonna call it right now. elizaOS slash eliza? It's basically just a Discord bot framework with extra steps, right? Like, you plug in an API key, it posts messages, the end. I don't get why this thing is at eighteen thousand stars."
+  },
+  {
+    "speaker": "a",
+    "text": "Nope."
+  },
+  {
+    "speaker": "b",
+    "text": "Nope?"
+  },
+  {
+    "speaker": "a",
+    "text": "Nope. \"ちょっと待って。\" Discord bots are stateless command handlers. You type a slash command, they reply, the function returns, memory is gone. eliza is the opposite."
+  },
+  {
+    "speaker": "b",
+    "text": "\"なるほど。違うの？\""
+  },
+  {
+    "speaker": "a",
+    "text": "\"全然違う。\" Completely different. It's a framework for running a single persistent character across multiple platforms. そのキャラクターは、\"性格\" — personality — \"を持っている。覚えている。自分で話すかどうか決める。\""
+  },
+  {
+    "speaker": "b",
+    "text": "Wait, slow down. Say that in English."
+  },
+  {
+    "speaker": "a",
+    "text": "The character has a personality. It remembers. It decides on its own whether to speak. The Discord adapter is just one of maybe six plugins. Same character on Discord, X, Telegram, Farcaster — \"全部同じエージェント。\" Zenbu onaji agent. All the same agent."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, so it's not a Discord bot, it's like… a personality container that happens to have a Discord mouth."
+  },
+  {
+    "speaker": "a",
+    "text": "That's actually a clean way to put it. The thesis in one sentence: eliza is \"character, not chatbot.\" キャラクターだよ、チャットボットじゃない。Character da yo, chatbot janai."
+  },
+  {
+    "speaker": "b",
+    "text": "Character da yo, chatbot janai. I like that. That's the tweet."
+  },
+  {
+    "speaker": "a",
+    "text": "Everything downstream of that — the schema, the runtime, the memory layer — falls out of that decision. 全部 \"性格\" — personality — \"から始まる。\" Everything starts from the seikaku."
+  },
+  {
+    "speaker": "b",
+    "text": "Seikaku. Personality. Got it. And I'm guessing this is where you start saying words in Japanese at me."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そうそう。\" We're gonna learn six of them tonight. You ready？"
+  },
+  {
+    "speaker": "b",
+    "text": "\"準備できた。\" I was born ready. I skimmed six flashcards on the way over. Let's go."
+  },
+  {
+    "speaker": "a",
+    "text": "Six vocab, one grammar pattern. By the end of this flight, the word \"character\" will have a Japanese shape in your head. \"形だよ。\" Katachi da yo. A shape. Not a translation."
+  },
+  {
+    "speaker": "b",
+    "text": "That is ominous in a really nice way."
+  },
+  {
+    "speaker": "a",
+    "text": "\"いいね。日本語で考えると、英語で見えない形が見える。\" Nihongo de kangaeru to, eigo de mienai katachi ga mieru. \"When you think in Japanese, you see shapes you can't see in English.\" それが今夜の狙い。Sore ga konya no nerai. \"That's tonight's aim.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Nihongo de kangaeru. Think in Japanese. Okay."
+  },
+  {
+    "speaker": "a",
+    "text": "Pull up the repo. `elizaOS/eliza`, TypeScript monorepo, pnpm workspaces. Let's actually read the thing."
+  },
+  {
+    "speaker": "a",
+    "text": "Open `packages/core/src/types.ts`. The first thing you want to look at is the `Character` type. That's the root object. Everything in eliza hangs off of it. Name, bio, lore, adjectives, topics, style guidelines, message examples, and a list of plugins."
+  },
+  {
+    "speaker": "b",
+    "text": "Wait, lore? Like D&D backstory?"
+  },
+  {
+    "speaker": "a",
+    "text": "Functionally yes. It's a free-text array the runtime injects into the system prompt so the model has stable backstory for the character every time it generates."
+  },
+  {
+    "speaker": "b",
+    "text": "Interesting."
+  },
+  {
+    "speaker": "a",
+    "text": "Combined with `bio`, `adjectives`, and `style`, it forms the personality spec. In Japanese you'd call that the \"性格\" of the agent. \"エージェントの性格。\" Agent no seikaku. Seikaku means personality, the inner disposition kind."
+  },
+  {
+    "speaker": "b",
+    "text": "Say it again?"
+  },
+  {
+    "speaker": "a",
+    "text": "\"性格。\" Seikaku. \"このエージェントは優しい性格を持っている。\" Kono agent wa yasashii seikaku o motte iru. \"This agent has a kind personality.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Kono agent wa yasashii seikaku. This agent has a kind personality."
+  },
+  {
+    "speaker": "a",
+    "text": "\"違う性格のエージェントもいる。\" Chigau seikaku no agent mo iru. \"There are also agents with different personalities.\""
+  },
+  {
+    "speaker": "b",
+    "text": "So seikaku is like the DNA of the bot."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そうだね。\" Exactly. And the whole file `packages/core/src/character.schema.json` is basically a formal specification of that \"性格\". It's validated on load. If the JSON is malformed, the agent refuses to start."
+  },
+  {
+    "speaker": "b",
+    "text": "Strict."
+  },
+  {
+    "speaker": "a",
+    "text": "\"厳しい。\" Kibishii. Which matters, because \"性格\" is not a prompt — it's a contract. \"約束だよ。\" Yakusoku da yo. A promise."
+  },
+  {
+    "speaker": "b",
+    "text": "Ohhh. Okay. So the seikaku is strict. The bot can't just freestyle who it is."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. Now, the Character defines who the agent is. But there's a separate concept for what role the agent plays in a given context. Look at `packages/core/src/runtime.ts`, around line 400. There's a function called `composeContext`. It pulls in the character, the recent messages, and something called a template. The template tells the runtime what \"役\" — role — the agent is performing in this turn."
+  },
+  {
+    "speaker": "b",
+    "text": "Yaku. Like \"role\"? Is that the same yaku as in, like, \"useful\"?"
+  },
+  {
+    "speaker": "a",
+    "text": "\"違う漢字だよ。\" Chigau kanji da yo. Different kanji, same pronunciation. This one is \"役\". Role, duty, the part an actor plays."
+  },
+  {
+    "speaker": "b",
+    "text": "Actor part. Okay."
+  },
+  {
+    "speaker": "a",
+    "text": "In eliza, the \"役\" changes turn by turn. DM\"だと、役は「信頼できる友達」。\" DM da to, yaku wa \"shinrai dekiru tomodachi.\" \"In a DM, the role is 'trusted friend.'\" 公開チャンネルだと、役は「みんなのキャラクター」。Koukai channel da to, yaku wa \"minna no character.\" \"In a public channel, the role is 'community character.'\""
+  },
+  {
+    "speaker": "b",
+    "text": "So same seikaku, different yaku."
+  },
+  {
+    "speaker": "a",
+    "text": "\"同じ性格、違う役。\" Onaji seikaku, chigau yaku. That's the insight right there."
+  },
+  {
+    "speaker": "b",
+    "text": "Wait, so the personality is fixed but the role rotates. That's kinda how people work too."
+  },
+  {
+    "speaker": "a",
+    "text": "That's literally the design insight. \"親と晩ご飯を食べる時の自分と、友達とチャットしている時の自分。\" Oya to bangohan o taberu toki no jibun to, tomodachi to chat shite iru toki no jibun. \"The self at dinner with your parents and the self chatting with friends.\" Same \"性格\", different \"役\"."
+  },
+  {
+    "speaker": "b",
+    "text": "I caught \"jibun\" in there. Self, right?"
+  },
+  {
+    "speaker": "a",
+    "text": "\"そう、先取りしちゃった。\" Yeah, I jumped ahead. We'll come back to \"自分\" later."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, I'm into this. What happens next? Message comes in, then what?"
+  },
+  {
+    "speaker": "a",
+    "text": "Runtime loop. `packages/core/src/runtime.ts`, the `processActions` method. Message arrives from a platform adapter — Discord, Telegram, X, whatever. The adapter normalizes it into a `Memory` object. That memory gets written to the database through the `IDatabaseAdapter` interface. Then the runtime evaluates: should the agent respond at all?"
+  },
+  {
+    "speaker": "b",
+    "text": "Wait, it might not respond?"
+  },
+  {
+    "speaker": "a",
+    "text": "Right. エージェントは \"答える\" — to answer — \"かどうか、まず考える。\" Agent wa kotaeru ka douka, mazu kangaeru. \"The agent first thinks about whether to answer.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Kotaeru. To answer."
+  },
+  {
+    "speaker": "a",
+    "text": "There's a whole module called `evaluators`. One of them is `shouldRespond`. It looks at who was pinged, what channel it's in, whether the agent was addressed by name, and critically — whether the agent has already said something recently."
+  },
+  {
+    "speaker": "b",
+    "text": "Because spamming replies feels like a bot."
+  },
+  {
+    "speaker": "a",
+    "text": "\"確かに。\" Tashika ni. Exactly. \"本当の性格を持つキャラクターは、時々黙っている。\" Hontou no seikaku o motsu character wa, tokidoki damatte iru. \"A character with a real personality is sometimes silent.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Sometimes the character just shuts up."
+  },
+  {
+    "speaker": "a",
+    "text": "\"答えない時もある。\" Kotaenai toki mo aru. \"There are times it doesn't answer.\" That's part of the \"性格\"."
+  },
+  {
+    "speaker": "b",
+    "text": "Oh that's smart. So how does it actually decide what to say when it does kotaeru?"
+  },
+  {
+    "speaker": "a",
+    "text": "Three-stage generation. Stage one, `composeState` — pulls recent messages, relevant memories, the character definition, the current \"役\". Stage two, the model call — generates a candidate response. Stage three, `processActions` — runs post-generation actions like \"remember this fact,\" \"follow this user,\" \"reply in-thread versus new message.\" The model doesn't just emit text. It emits text plus structured actions."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay hold on. How does the agent remember stuff? Like across sessions?"
+  },
+  {
+    "speaker": "a",
+    "text": "Good question. That's the memory layer. `packages/core/src/memory.ts`. エージェントは情報を \"覚える\" — to remember / to memorize — \"必要がある。\" Agent wa jouhou o oboeru hitsuyou ga aru. \"The agent needs to remember information.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Oboeru. To remember."
+  },
+  {
+    "speaker": "a",
+    "text": "\"名前を覚える。\" Namae o oboeru. \"Remember the name.\" 会話を覚える。Kaiwa o oboeru. \"Remember the conversation.\" 大事な事実を覚える。Daiji na jijitsu o oboeru. \"Remember important facts.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Three flavors of oboeru. Nice."
+  },
+  {
+    "speaker": "a",
+    "text": "Every Memory object has an embedding. When a new message comes in, the runtime does a vector similarity search over past memories, pulls the top-k relevant ones, and injects them into the context."
+  },
+  {
+    "speaker": "b",
+    "text": "Ah."
+  },
+  {
+    "speaker": "a",
+    "text": "So if you told the agent three weeks ago that your cat's name is Mochi, and you mention Mochi today, the runtime already \"覚えている。\" Sudeni oboete iru. \"Already remembers it.\" The agent can reference it naturally."
+  },
+  {
+    "speaker": "b",
+    "text": "Wait, how do you say \"I remember\" versus \"I want to remember\"? Because that feels important for a bot that's actively trying to hold onto stuff."
+  },
+  {
+    "speaker": "a",
+    "text": "\"ちょうどいい質問。\" Choudo ii shitsumon. Perfect question. Hold that thought, I'm gonna come back to it in the grammar block."
+  },
+  {
+    "speaker": "b",
+    "text": "Ooh. Foreshadowing."
+  },
+  {
+    "speaker": "a",
+    "text": "So the memory layer has three tables in the default Postgres schema — `memories`, `relationships`, and `goals`. Memories are facts and past messages. Relationships are edges between accounts — \"this X handle and this Discord user are the same person.\" Goals are longer-arc objectives the agent is pursuing."
+  },
+  {
+    "speaker": "b",
+    "text": "Wait, goals?? The bot has goals??"
+  },
+  {
+    "speaker": "a",
+    "text": "\"エージェントに目標がある。\" Agent ni mokuhyou ga aru. \"The agent has objectives.\" That's the \"autonomous\" part of \"autonomous agents for everyone.\" Goals are optional, but when enabled, the evaluator loop checks progress on each goal every N messages."
+  },
+  {
+    "speaker": "b",
+    "text": "That is genuinely wild. Okay. So we have \"性格\", \"役\", and \"覚える\". What about the actual voice of the character? Like how it talks?"
+  },
+  {
+    "speaker": "a",
+    "text": "Great timing. キャラクターの \"声\" — voice — \"は、二つの場所で決まる。\" Character no koe wa, futatsu no basho de kimaru. \"The voice of the character is decided in two places.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Koe. Voice."
+  },
+  {
+    "speaker": "a",
+    "text": "First, `character.style` — an object with three arrays: `all`, `chat`, and `post`. Style rules like \"never use emojis,\" \"always lowercase,\" \"favor short sentences.\" それが書く時の声。Sore ga kaku toki no koe. \"That's the voice when writing.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Written voice."
+  },
+  {
+    "speaker": "a",
+    "text": "Second, if you enable the voice plugin, there's `packages/plugin-node/src/services/speech.ts`. That handles TTS through ElevenLabs or local models. \"それが話す時の声。\" Sore ga hanasu toki no koe. \"That's the voice when speaking.\""
+  },
+  {
+    "speaker": "b",
+    "text": "So the \"声\" is both how it writes and how it sounds."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そう。書く声と話す声。\" Kaku koe to hanasu koe. \"Writing-voice and speaking-voice.\" And those two are meant to be coherent. \"書く声と話す声は合わないといけない。\" Kaku koe to hanasu koe wa awanai to ikenai. \"The writing-voice and speaking-voice have to match.\""
+  },
+  {
+    "speaker": "b",
+    "text": "A dry, terse written \"声\" should not have a bubbly TTS \"声\"."
+  },
+  {
+    "speaker": "a",
+    "text": "\"正解。\" Seikai. Correct."
+  },
+  {
+    "speaker": "b",
+    "text": "That's the kind of detail that separates a toy from a product."
+  },
+  {
+    "speaker": "a",
+    "text": "It's also where most people mess up when they fork eliza. They copy a character file, change the name, and forget to retune the \"声\". \"そうすると、声が合わない。\" Sou suru to, koe ga awanai. \"Then the voice doesn't match.\" The community can tell instantly."
+  },
+  {
+    "speaker": "b",
+    "text": "Brutal. Okay so far I've got — \"性格\" is who you are, \"役\" is what role you're playing, \"声\" is how you sound, and \"覚える\" is the memory verb. What else."
+  },
+  {
+    "speaker": "a",
+    "text": "Self-reference. One of the subtler things eliza does well. The character needs a stable concept of \"自分\" — self / oneself —."
+  },
+  {
+    "speaker": "b",
+    "text": "Jibun. Self."
+  },
+  {
+    "speaker": "a",
+    "text": "The runtime maintains a `self` object. \"自分の名前、自分の目標、自分が言ったこと、自分についての事実。\" Jibun no namae, jibun no mokuhyou, jibun ga itta koto, jibun ni tsuite no jijitsu. \"Its own name, its own goals, things it said, facts about itself.\""
+  },
+  {
+    "speaker": "b",
+    "text": "That's a lot of jibun."
+  },
+  {
+    "speaker": "a",
+    "text": "\"全部自分。\" Zenbu jibun. All self. So when someone asks \"who are you,\" the agent doesn't just regenerate an answer from scratch. \"自分のことは、自分で知っている。\" Jibun no koto wa, jibun de shitte iru. \"It knows its own self.\""
+  },
+  {
+    "speaker": "b",
+    "text": "The bot knows who it is."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そう。\" The answer is consistent across platforms. Discord\"で聞いても、\" Telegram\"で聞いても、同じ自分。\" Discord de kiite mo, Telegram de kiite mo, onaji jibun. \"Whether you ask on Discord or Telegram, same self.\" The \"自分\" is canonical."
+  },
+  {
+    "speaker": "b",
+    "text": "That's wild because most LLM apps, the bot is like, amnesia patient every single call."
+  },
+  {
+    "speaker": "a",
+    "text": "Which is why they feel hollow. \"自分がない。\" Jibun ga nai. \"There's no self.\" eliza's \"自分\" layer is the antidote."
+  },
+  {
+    "speaker": "b",
+    "text": "Alright, last one. You said we had six."
+  },
+  {
+    "speaker": "a",
+    "text": "Last one is the verb for what the agent actually does when it decides to reply. \"答える。\" Kotaeru. To answer."
+  },
+  {
+    "speaker": "b",
+    "text": "Kotaeru again. Okay."
+  },
+  {
+    "speaker": "a",
+    "text": "\"ユーザーにちゃんと答える。\" User ni chanto kotaeru. \"Answer the user properly.\" 質問に答える。Shitsumon ni kotaeru. \"Answer the question.\" 性格に合うように答える。Seikaku ni au you ni kotaeru. \"Answer in a way that matches the personality.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Three kinds of kotaeru."
+  },
+  {
+    "speaker": "a",
+    "text": "The whole runtime loop, from message ingestion to final output, is essentially this: \"答えるかどうか決める。それから、性格、役、声、自分に合うように答える。それと同時に、新しい情報を覚える。\" Kotaeru ka douka kimeru. Sorekara, seikaku, yaku, koe, jibun ni au you ni kotaeru. Sore to douji ni, atarashii jouhou o oboeru."
+  },
+  {
+    "speaker": "b",
+    "text": "Whoa. Say that in English."
+  },
+  {
+    "speaker": "a",
+    "text": "\"Decide whether to answer. Then answer in a way consistent with your personality, role, voice, and self. At the same time, remember the new information.\" That's the entire thesis compressed using all six words."
+  },
+  {
+    "speaker": "b",
+    "text": "Dude. That sentence just made the whole architecture click for me. Say the Japanese again slowly."
+  },
+  {
+    "speaker": "a",
+    "text": "\"答えるかどうか決める。\" Kotaeru ka douka kimeru. \"それから、性格、役、声、自分に合うように答える。\" Sorekara, seikaku, yaku, koe, jibun ni au you ni kotaeru."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. That's the t-shirt. That's the merch."
+  },
+  {
+    "speaker": "a",
+    "text": "Now the plugin system. Quick tour. `packages/` at the root — `plugin-bootstrap`, `plugin-node`, `plugin-solana`, `plugin-evm`, `plugin-image-generation`, `plugin-tee`, bunch more. Each plugin exports `actions`, `evaluators`, and `providers`. Actions are things the agent can do — post a tweet, send a transaction, generate an image. Evaluators run after each turn to update state. Providers inject context into generation — current time, wallet balance, trending topics."
+  },
+  {
+    "speaker": "b",
+    "text": "So plugins are basically how the agent gets arms and legs."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そうそう。\" Exactly. \"コアは頭、プラグインは手と足。\" Core wa atama, plugin wa te to ashi. \"Core is the head, plugins are hands and feet.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Oh I like that. Head and hands."
+  },
+  {
+    "speaker": "a",
+    "text": "The core runtime is pure logic — \"性格\", memory, decide-to-respond. Plugins are how it touches the world."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay the monorepo. Walk me through the layout."
+  },
+  {
+    "speaker": "a",
+    "text": "pnpm workspaces, Turbo for build orchestration. `packages/core` is the runtime. `packages/client-discord`, `client-telegram`, `client-twitter` — each is a platform adapter that implements a common `Client` interface defined in core. `packages/adapter-postgres`, `adapter-sqlite`, `adapter-supabase` — each implements `IDatabaseAdapter`. `agent/` at the root is the actual executable."
+  },
+  {
+    "speaker": "b",
+    "text": "So if I want to spin up my own character, I basically just write a JSON file and pick which plugins and adapters to load?"
+  },
+  {
+    "speaker": "a",
+    "text": "That's the happy path. `characters/` directory has examples. You copy one, edit the name, bio, lore, adjectives, topics, style, message examples, adjust the plugin list, point it at a Postgres URL, and run `pnpm start --character=characters/yours.json`. \"二十分で、キャラクターが生きている。\" Nijuppun de, character ga ikite iru. \"In twenty minutes, the character is alive.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Twenty minutes to a persistent character across three platforms. That's the viral moment. That's why HN lost its mind."
+  },
+  {
+    "speaker": "a",
+    "text": "\"壁が低くなった。\" Kabe ga hikuku natta. \"The wall got low.\" 前は、六ヶ月かかった。今は、週末でできる。Mae wa, rokkagetsu kakatta. Ima wa, shuumatsu de dekiru. \"Before, it took six months. Now, you can do it in a weekend.\" The barrier to \"community has its own AI mascot that actually remembers things\" collapsed."
+  },
+  {
+    "speaker": "b",
+    "text": "Alright I need to pause. My brain is melting."
+  },
+  {
+    "speaker": "a",
+    "text": "\"いいよ。\" Good timing. Let's review."
+  },
+  {
+    "speaker": "a",
+    "text": "Six words. \"性格\", \"役\", \"答える\", \"声\", \"覚える\", \"自分\". Let's rotate through them with different sentence shapes so they stick."
+  },
+  {
+    "speaker": "b",
+    "text": "Hit me."
+  },
+  {
+    "speaker": "a",
+    "text": "\"性格\"— personality. \"このエージェントの性格は優しい。\" Kono agent no seikaku wa yasashii. \"This agent's personality is kind.\" 性格をコピーしても、自分のものにならない。Seikaku o copy shite mo, jibun no mono ni naranai. \"Even if you copy the personality, it doesn't become yours.\" 新しい性格を作りたい。Atarashii seikaku o tsukuritai. \"I want to make a new personality.\""
+  },
+  {
+    "speaker": "b",
+    "text": "So three shapes — the personality IS kind, copying the personality, making a new personality."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そう。役\"— role. DM\"で、役は友達。\" DM de, yaku wa tomodachi. \"In a DM, the role is friend.\" グループチャットで、役はリーダー。Group chat de, yaku wa leader. \"In a group chat, the role is leader.\" 役は会話ごとに変わる。Yaku wa kaiwa goto ni kawaru. \"The role changes per conversation.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Yaku is context-dependent. Got it."
+  },
+  {
+    "speaker": "a",
+    "text": "\"答える\"— to answer. \"エージェントは質問に答える。\" Agent wa shitsumon ni kotaeru. \"The agent answers the question.\" でも、時々答えない。Demo, tokidoki kotaenai. \"But sometimes doesn't answer.\" 答えない事も、性格の一部。Kotaenai koto mo, seikaku no ichibu. \"Not answering is also part of the personality.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Sometimes the best kotaeru is no kotaeru."
+  },
+  {
+    "speaker": "a",
+    "text": "\"黙る事も、答えの一つ。\" Damaru koto mo, kotae no hitotsu. \"Silence is also an answer.\" そう考えると、エージェントの設計が深くなる。Sou kangaeru to, agent no sekkei ga fukaku naru. \"When you think that way, agent design gets deeper.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Damaru koto mo, kotae no hitotsu. Silence is also a kotaeru."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. Now here's the grammar pattern I teased. \"〜ようとする\". It attaches to a verb and means \"to try to do\" or \"to be about to do.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Ooh okay."
+  },
+  {
+    "speaker": "a",
+    "text": "\"答える\" becomes \"答えようとする\". Kotaeru becomes kotaeyou to suru. \"To try to answer.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Kotae-you-to-suru. It's a mouthful."
+  },
+  {
+    "speaker": "a",
+    "text": "Say it slower. Ko-ta-e-yo-u-to-su-ru. You drop the final -ru of \"答える\", add -you, then -to-suru."
+  },
+  {
+    "speaker": "b",
+    "text": "Kotaeyou to suru. Trying to answer."
+  },
+  {
+    "speaker": "a",
+    "text": "Let's do a mini-dialogue. Imagine a user pings the bot."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay."
+  },
+  {
+    "speaker": "a",
+    "text": "Me: \"ユーザーがメッセージを送った。\" User ga message o okutta. \"The user sent a message.\" You: \"エージェントはどうする？\" Agent wa dou suru? \"What does the agent do?\" Me: \"エージェントは答えようとする。\" Agent wa kotaeyou to suru. \"The agent is trying to answer.\""
+  },
+  {
+    "speaker": "b",
+    "text": "\"エージェントは答えようとする。\" The agent is trying to answer. Because it hasn't committed yet — it might stay quiet."
+  },
+  {
+    "speaker": "a",
+    "text": "\"正解。\" Seikai. And this is the perfect verb for describing what an eliza agent actually does. The agent doesn't just \"答える\"— the agent \"答えようとする\". It's actively trying, running evaluators, composing context, weighing silence versus speech."
+  },
+  {
+    "speaker": "b",
+    "text": "The trying is the whole loop."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そうだね。\" Same pattern with memory. \"覚える\" is to remember. \"覚えようとする\" is to try to remember."
+  },
+  {
+    "speaker": "b",
+    "text": "Oboeyou to suru."
+  },
+  {
+    "speaker": "a",
+    "text": "Mini-dialogue. Me: \"新しい事実が入ってきた。\" Atarashii jijitsu ga haitte kita. \"A new fact came in.\" You: \"エージェントはどうする？\" Me: \"エージェントは覚えようとする。\" Agent wa oboeyou to suru. \"The agent is trying to remember.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Agent wa oboeyou to suru. Trying to remember."
+  },
+  {
+    "speaker": "a",
+    "text": "If the evaluator decides it's important, the agent fully \"覚える\"— stored. If not, the attempt fails gracefully."
+  },
+  {
+    "speaker": "b",
+    "text": "So \"ようとする\" is like the intention phase before the verb actually succeeds."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly the nuance. \"試み、努力、これから。\" Kokoromi, doryoku, kore kara. Attempt, effort, about-to. Not accomplishment."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay give me one more."
+  },
+  {
+    "speaker": "a",
+    "text": "\"声\". Voice. The TTS plugin \"書く声に合わせようとする。\" Kaku koe ni awaseyou to suru. \"Tries to match the written voice.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Awaseyou to suru. Trying to match."
+  },
+  {
+    "speaker": "a",
+    "text": "So a character with a dry, clipped written \"声\" should have a TTS \"声\" that matches. The plugin \"合わせようとする\"— tries to match. If they clash, the illusion breaks."
+  },
+  {
+    "speaker": "b",
+    "text": "Koe is voice. Both written and spoken. And the plugin awaseyou to suru — tries to match them."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そう。\" And one more grammar pass. \"エージェントは性格に合う声で答えようとする。\" Agent wa seikaku ni au koe de kotaeyou to suru. \"The agent tries to answer in a voice that matches the personality.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Kotaeyou to suru. With a consistent koe. My brain is rewiring in real time."
+  },
+  {
+    "speaker": "a",
+    "text": "\"自分\". Self. \"エージェントは自分のことを知っている。\" Agent wa jibun no koto o shitte iru. \"The agent knows itself.\" 自分の名前。自分の目標。自分の歴史。Jibun no namae. Jibun no mokuhyou. Jibun no rekishi. \"Own name. Own goals. Own history.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Jibun three times. Self."
+  },
+  {
+    "speaker": "a",
+    "text": "And one more \"〜ようとする\" for the road — the agent \"自分を守ろうとする。\" Jibun o mamorou to suru. \"Tries to protect its self.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Mamorou to suru."
+  },
+  {
+    "speaker": "a",
+    "text": "When someone tries to jailbreak the character, the evaluator layer \"自分を守ろうとする\"— trying to preserve the character's self-concept against adversarial prompts. \"悪いプロンプトから、自分を守ろうとする。\" Warui prompt kara, jibun o mamorou to suru. \"Tries to protect the self from bad prompts.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Jibun o mamorou to suru. Trying to protect the self."
+  },
+  {
+    "speaker": "a",
+    "text": "The jailbreak resistance isn't perfect, but the attempt is architected. \"完璧じゃないけど、守ろうとする。\" Kanpeki janai kedo, mamorou to suru. \"Not perfect, but tries to protect.\""
+  },
+  {
+    "speaker": "b",
+    "text": "So the three grammar uses were \"答えようとする\", \"覚えようとする\", \"守ろうとする\". Trying to answer, trying to remember, trying to protect. Plus \"合わせようとする\" for the voices."
+  },
+  {
+    "speaker": "a",
+    "text": "\"四つ。\" Yottsu. Four uses. Which is honestly a decent summary of what any agent framework is doing."
+  },
+  {
+    "speaker": "b",
+    "text": "\"性格\", \"役\", \"答える\", \"声\", \"覚える\", \"自分\", and \"ようとする\". Seven things. I can hold seven things."
+  },
+  {
+    "speaker": "a",
+    "text": "You can hold seven things. \"大丈夫。\" Daijoubu."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay let me try to play it back. Stop me when I'm wrong."
+  },
+  {
+    "speaker": "a",
+    "text": "\"どうぞ。\" Douzo. Go."
+  },
+  {
+    "speaker": "b",
+    "text": "eliza is not a Discord bot. It's a framework for running a persistent character — a \"性格\"— across multiple platforms. The \"性格\" is defined in a JSON file with bio, lore, adjectives, style, and message examples. Everything downstream hangs off of that one Character object."
+  },
+  {
+    "speaker": "a",
+    "text": "\"正解。\" Correct."
+  },
+  {
+    "speaker": "b",
+    "text": "The agent plays a \"役\", which changes per context. DMs versus public channels, the \"役\" rotates, even though the \"性格\" stays the same."
+  },
+  {
+    "speaker": "a",
+    "text": "\"正解。\""
+  },
+  {
+    "speaker": "b",
+    "text": "When a message comes in, the runtime decides whether the agent should \"答える\". There's an evaluator called `shouldRespond`, and sometimes the right move is silence. Sometimes \"答えない\"— doesn't answer. If it does \"答える\", it composes context from memory — the vector-search thing, where the agent has already \"覚えた\" past facts — and generates a response that matches the \"性格\"'s \"声\", both written and spoken."
+  },
+  {
+    "speaker": "a",
+    "text": "Mostly correct. \"ちょっと違う。\" Chotto chigau. One small fix — the agent doesn't \"覚える\" the past facts at retrieval time. It \"覚えた\" them at write time, when they first came in. At read time, it's retrieving what was already \"覚えた\"."
+  },
+  {
+    "speaker": "b",
+    "text": "Oh right. \"覚える\" is the write, retrieve is the read. Okay."
+  },
+  {
+    "speaker": "a",
+    "text": "\"書く時が覚える時。\" Kaku toki ga oboeru toki. \"Writing-time is remembering-time.\" 読む時は、もう覚えている。Yomu toki wa, mou oboete iru. \"At reading-time, it already remembers.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Got it. Oboeru happens once, up front."
+  },
+  {
+    "speaker": "a",
+    "text": "Small thing, but the distinction matters because the evaluator that decides what to \"覚える\" is different from the provider that does the retrieval."
+  },
+  {
+    "speaker": "b",
+    "text": "Got it. And the \"自分\"— the self object — is what keeps the character consistent across platforms. Same backstory, same facts about itself, whether you ping it on Discord or X. \"自分は変わらない。\" Jibun wa kawaranai. Self doesn't change."
+  },
+  {
+    "speaker": "a",
+    "text": "\"おお、使えたね。\" Ooh, you used it. \"正解。\" Correct."
+  },
+  {
+    "speaker": "b",
+    "text": "And plugins are how the agent gets arms and legs. Actions are the outputs. Evaluators run after each turn to update state. Providers inject fresh context at generation time. The core runtime is platform-agnostic; plugins and adapters are where the real world plugs in."
+  },
+  {
+    "speaker": "a",
+    "text": "\"正解。\" One more small correction — you said \"plugins and adapters\" like they're separate. In eliza they're both packages under `packages/`, and the character JSON lists them under the same plugin-style config. The distinction is conceptual, not structural."
+  },
+  {
+    "speaker": "b",
+    "text": "Ah okay. So in the monorepo they're all just TypeScript packages."
+  },
+  {
+    "speaker": "a",
+    "text": "\"全部パッケージ。\" Zenbu package. All packages. Turbo orchestrates the build. pnpm workspaces handles linking. The character file is the composition root."
+  },
+  {
+    "speaker": "b",
+    "text": "And the whole thing is \"答えようとする\". Trying to answer. Constantly."
+  },
+  {
+    "speaker": "a",
+    "text": "\"常に答えようとする。\" Tsune ni kotaeyou to suru. \"Constantly trying to answer.\" Every message is a chance to \"答える\" or stay silent, to \"覚える\" or to forget, and the agent is always \"自分を守ろうとする\" against drift."
+  },
+  {
+    "speaker": "b",
+    "text": "That's the bot's inner life. \"性格\", \"役\", \"声\", \"自分\", and the constant \"ようとする\"."
+  },
+  {
+    "speaker": "a",
+    "text": "You got it. \"本当にいい要約。\" Hontou ni ii youyaku. \"Really good summary.\" Better than most blog posts about this repo."
+  },
+  {
+    "speaker": "b",
+    "text": "I feel like I actually understand what eighteen thousand stars means now. It's not a Discord bot with extra steps. It's a personality runtime, and Discord is just one mouth."
+  },
+  {
+    "speaker": "a",
+    "text": "\"キャラクターだよ、チャットボットじゃない。\" Character da yo, chatbot janai. That's the whole thesis."
+  },
+  {
+    "speaker": "b",
+    "text": "Character da yo, chatbot janai. I'm gonna say that until I land."
+  },
+  {
+    "speaker": "a",
+    "text": "\"十八千個のスターの理由がそれ。\" Juuhassen ko no star no riyuu ga sore. \"That's the reason for eighteen thousand stars.\" 人格のランタイム。Jinkaku no runtime. \"A personality runtime.\" Discord \"は口の一つだけ。\" Discord wa kuchi no hitotsu dake. \"Discord is just one mouth.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Jinkaku no runtime. Personality runtime. That's so much better than \"agent framework.\""
+  },
+  {
+    "speaker": "a",
+    "text": "Next episode, we flip it. We're going into `multica-ai/multica`. Another agent platform, trending this week, but with a completely different philosophy from eliza."
+  },
+  {
+    "speaker": "b",
+    "text": "Oh interesting. Different how?"
+  },
+  {
+    "speaker": "a",
+    "text": "eliza is character-first. The \"性格\" is the root object, and everything — memory, role, voice — hangs off of who the agent is. multica is work-first. The root object is the \"仕事\" — work / job —."
+  },
+  {
+    "speaker": "b",
+    "text": "Shigoto. Work."
+  },
+  {
+    "speaker": "a",
+    "text": "multica \"の考え方は、性格は忘れて、仕事から始める。\" Multica no kangaekata wa, seikaku wa wasurete, shigoto kara hajimeru. \"Multica's way of thinking is, forget personality, start from the work.\" You define a \"仕事\", you decompose it into subtasks, and the agent's identity is emergent from the work, not pre-specified."
+  },
+  {
+    "speaker": "b",
+    "text": "So eliza asks who am I, multica asks what am I doing."
+  },
+  {
+    "speaker": "a",
+    "text": "\"正解。\" eliza \"は「自分は誰？」。\" Eliza wa \"jibun wa dare?\" multica \"は「仕事は何？」。\" Multica wa \"shigoto wa nani?\" Opposite ontology."
+  },
+  {
+    "speaker": "b",
+    "text": "Jibun wa dare versus shigoto wa nani. Clean contrast."
+  },
+  {
+    "speaker": "a",
+    "text": "And the architectural consequences are huge. multica's memory layer is task-scoped, not character-scoped. Their runtime is closer to a workflow engine than a personality container. \"違う原理、違う失敗の仕方、違うコミュニティ。\" Chigau genri, chigau shippai no shikata, chigau community. \"Different primitives, different failure modes, different community.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Oh I'm excited for this. Character-versus-work is such a clean comparison."
+  },
+  {
+    "speaker": "a",
+    "text": "\"性格から始めるか、仕事から始めるか。\" Seikaku kara hajimeru ka, shigoto kara hajimeru ka. \"Start from personality, or start from work.\" 二つの道。Futatsu no michi. \"Two paths.\" 同じゴール、違う入り口。Onaji goal, chigau iriguchi. \"Same goal, different entrance.\""
+  },
+  {
+    "speaker": "a",
+    "text": "And we'll get another four or five vocab words, including \"仕事\". \"仕事は、本当によく使う言葉。\" Shigoto wa, hontou ni yoku tsukau kotoba. \"Shigoto is a really commonly used word.\" You'll hear it constantly."
+  },
+  {
+    "speaker": "b",
+    "text": "Shigoto. I will obnoxiously drop this into conversation until I die."
+  },
+  {
+    "speaker": "a",
+    "text": "\"完璧。\" Kanpeki. Perfect. That's the whole game."
+  },
+  {
+    "speaker": "b",
+    "text": "Alright. \"性格\", \"役\", \"答える\", \"声\", \"覚える\", \"自分\", \"ようとする\", and a preview of \"仕事\". Episode thirteen in the books."
+  },
+  {
+    "speaker": "a",
+    "text": "Flight one of twenty, done. \"十九個のレポがまだ残っている。\" Juukyuu ko no repo ga mada nokotte iru. \"Nineteen repos still remain.\" A lot more vocab, and we're gonna build you a real vocabulary out of this."
+  },
+  {
+    "speaker": "b",
+    "text": "Character da yo, chatbot janai. And always \"答えようとする\"."
+  },
+  {
+    "speaker": "a",
+    "text": "\"常に答えようとする。\" Tsune ni kotaeyou to suru. See you in ep fourteen."
+  },
+  {
+    "speaker": "b",
+    "text": "\"おやすみ。\" Oyasumi."
+  },
+  {
+    "speaker": "a",
+    "text": "\"おやすみ。\""
+  }
+]
