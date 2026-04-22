@@ -238,67 +238,713 @@ episode_12:
 episode_13:
   status: queued
   japanese_ratio: 0.2
-  theme: World and travel
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'elizaOS/eliza (18.2k⭐) — autonomous agents framework; TS runtime for multi-platform
+    AI character bots with persistent personalities across Discord/X/Telegram'
+  hosts: Ark (deep/architecture) vs Red (layman/README-skimmer)
   vocab:
-  - word: 世界
-    reading: せかい
-    meaning: world
-  - word: 国
-    reading: くに
-    meaning: country; nation
-  - word: 外国
-    reading: がいこく
-    meaning: foreign country
-  - word: 外国人
-    reading: がいこくじん
-    meaning: foreigner
-  - word: お土産
-    reading: おみやげ
-    meaning: souvenir
+  - word: 性格
+    reading: せいかく
+    meaning: personality; character
+  - word: 役
+    reading: やく
+    meaning: role
+  - word: 答える
+    reading: こたえる
+    meaning: to answer
+  - word: 声
+    reading: こえ
+    meaning: voice
+  - word: 覚える
+    reading: おぼえる
+    meaning: to remember; to memorize
+  - word: 自分
+    reading: じぶん
+    meaning: self; oneself
   grammar:
-  - pattern: 〜は〜より...です
-    meaning: A is more ... than B (comparison)
+  - pattern: 〜ようとする
+    meaning: to try to / be about to
 episode_14:
   status: queued
   japanese_ratio: 0.2
-  theme: Emergencies and safety
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'multica-ai/multica (18.9k⭐) — open-source managed-agents platform; agents
+    you hire and fire like teammates'
+  hosts: Ark vs Red
   vocab:
-  - word: 事故
-    reading: じこ
-    meaning: accident
-  - word: 地震
-    reading: じしん
-    meaning: earthquake
-  - word: 火事
-    reading: かじ
-    meaning: fire (disaster)
-  - word: 安全
-    reading: あんぜん
-    meaning: safe; safety
-  - word: 危険
-    reading: きけん
-    meaning: dangerous; danger
-  grammar: []
+  - word: 仕事
+    reading: しごと
+    meaning: work; job
+  - word: 手伝う
+    reading: てつだう
+    meaning: to help; to assist
+  - word: 頼む
+    reading: たのむ
+    meaning: to request; to ask a favor
+  - word: 代わりに
+    reading: かわりに
+    meaning: instead of; in place of
+  - word: 集まる
+    reading: あつまる
+    meaning: to gather; to assemble
+  - word: 選ぶ
+    reading: えらぶ
+    meaning: to choose; to select
+  grammar:
+  - pattern: 〜てもらう
+    meaning: to have someone do something for me
 episode_15:
   status: queued
   japanese_ratio: 0.2
-  theme: Comparisons and preferences
+  series: flight-podcast-2026-04
+  format: interlude-review
+  theme: 'Interlude — eliza vs multica side-by-side: two agent frameworks, totally
+    different philosophies. Review only, no new vocab.'
+  hosts: Ark vs Red
+  review_targets: [episode_13, episode_14]
+  vocab: []
+  grammar: []
+episode_16:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'forrestchang/andrej-karpathy-skills (73.9k⭐) — Karpathy''s coding-pitfall
+    notes packaged as a single drop-in CLAUDE.md skill'
+  hosts: Ark vs Red
   vocab:
-  - word: 最後
-    reading: さいご
-    meaning: last; the end
-  - word: 上げる
-    reading: あげる
-    meaning: to raise; to give (upward)
-  - word: 下げる
-    reading: さげる
-    meaning: to lower; to reduce
-  - word: お祭り
-    reading: おまつり
-    meaning: festival
-  - word: お正月
-    reading: おしょうがつ
-    meaning: New Year holiday
+  - word: 間違い
+    reading: まちがい
+    meaning: mistake; error
+  - word: 気をつける
+    reading: きをつける
+    meaning: to be careful
+  - word: 習慣
+    reading: しゅうかん
+    meaning: habit; custom
+  - word: 直す
+    reading: なおす
+    meaning: to fix; to correct
+  - word: 教える
+    reading: おしえる
+    meaning: to teach; to tell
+  - word: 注意
+    reading: ちゅうい
+    meaning: caution; attention
   grammar:
-  - pattern: 〜より〜ほうが
-    meaning: prefer A over B
+  - pattern: 〜ように
+    meaning: in order to / so that
+episode_17:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'thedotmack/claude-mem (65.4k⭐) — Claude Code plugin that compresses session
+    context so long projects don''t blow the window'
+  hosts: Ark vs Red
+  vocab:
+  - word: 思い出す
+    reading: おもいだす
+    meaning: to recall; to remember
+  - word: 忘れる
+    reading: わすれる
+    meaning: to forget
+  - word: 短い
+    reading: みじかい
+    meaning: short
+  - word: 長い
+    reading: ながい
+    meaning: long
+  - word: 残る
+    reading: のこる
+    meaning: to remain; to be left
+  - word: まとめる
+    reading: まとめる
+    meaning: to summarize; to compile
+  grammar:
+  - pattern: 〜てしまう
+    meaning: to do completely / regretfully
+episode_18:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: interlude-review
+  theme: 'Interlude — Claude Code plugin review: karpathy-skills, claude-mem, and
+    the meta-question of what a "skill" even is. Review only.'
+  hosts: Ark vs Red
+  review_targets: [episode_16, episode_17]
+  vocab: []
+  grammar: []
+episode_19:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'farion1231/cc-switch (48.8k⭐) — Rust desktop app to hot-swap between Claude
+    Code, Codex, and other AI CLIs'
+  hosts: Ark vs Red
+  vocab:
+  - word: 変える
+    reading: かえる
+    meaning: to change
+  - word: 切り替える
+    reading: きりかえる
+    meaning: to switch over
+  - word: 道具
+    reading: どうぐ
+    meaning: tool
+  - word: 使い方
+    reading: つかいかた
+    meaning: way of using; usage
+  - word: 便利
+    reading: べんり
+    meaning: convenient
+  - word: 選択
+    reading: せんたく
+    meaning: selection; choice
+  grammar:
+  - pattern: 〜たり〜たりする
+    meaning: doing things like X and Y
+episode_20:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'alchaincyf/huashu-design (3.9k⭐) — skill that makes Claude output polished
+    HTML/CSS designs natively instead of wireframes'
+  hosts: Ark vs Red
+  vocab:
+  - word: きれい
+    reading: きれい
+    meaning: beautiful; clean
+  - word: 色
+    reading: いろ
+    meaning: color
+  - word: 形
+    reading: かたち
+    meaning: shape; form
+  - word: 見せる
+    reading: みせる
+    meaning: to show
+  - word: 描く
+    reading: かく
+    meaning: to draw; to depict
+  - word: 作り方
+    reading: つくりかた
+    meaning: how to make
+  grammar:
+  - pattern: 〜より〜のほうが
+    meaning: comparative — A is more X than B
+episode_21:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: interlude-review
+  theme: 'Interlude — coding-agent ecosystem review: switching tools, native design
+    output, the Claude Code UX war. Review only.'
+  hosts: Ark vs Red
+  review_targets: [episode_19, episode_20]
+  vocab: []
+  grammar: []
+episode_22:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'bradAGI/awesome-cli-coding-agents (245⭐) — curated directory of every terminal-native
+    coding agent + harness'
+  hosts: Ark vs Red
+  vocab:
+  - word: 比べる
+    reading: くらべる
+    meaning: to compare
+  - word: 表
+    reading: ひょう
+    meaning: chart; table; list
+  - word: 違い
+    reading: ちがい
+    meaning: difference
+  - word: いろいろ
+    reading: いろいろ
+    meaning: various
+  - word: 全部
+    reading: ぜんぶ
+    meaning: all; everything
+  - word: 情報
+    reading: じょうほう
+    meaning: information
+  grammar:
+  - pattern: 〜ば〜ほど
+    meaning: the more X, the more Y
+episode_23:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'badlogic/pi-mono (38.5k⭐) — all-in-one coding-agent CLI bundling unified
+    LLM API, TUI lib, and Slack bot'
+  hosts: Ark vs Red
+  vocab:
+  - word: 部品
+    reading: ぶひん
+    meaning: parts; components
+  - word: 揃える
+    reading: そろえる
+    meaning: to gather together; to make uniform
+  - word: 簡単
+    reading: かんたん
+    meaning: simple; easy
+  - word: 軽い
+    reading: かるい
+    meaning: light (weight)
+  - word: 強い
+    reading: つよい
+    meaning: strong
+  - word: 速い
+    reading: はやい
+    meaning: fast
+  grammar:
+  - pattern: compound verbs (〜始める, 〜続ける, 〜終わる)
+    meaning: starting / continuing / finishing an action
+episode_24:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: interlude-review
+  theme: 'Interlude — midpoint synthesis: the agent-tooling landscape so far. Review
+    only; no new items.'
+  hosts: Ark vs Red
+  review_targets: [episode_13, episode_14, episode_16, episode_17, episode_19, episode_20,
+    episode_22, episode_23]
+  vocab: []
+  grammar: []
+episode_25:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'microsoft/markitdown (114.4k⭐) — Microsoft''s universal file-to-Markdown
+    converter (PDF, DOCX, XLSX, images → MD)'
+  hosts: Ark vs Red
+  vocab:
+  - word: 変換
+    reading: へんかん
+    meaning: conversion; transformation
+  - word: 文書
+    reading: ぶんしょ
+    meaning: document
+  - word: 形式
+    reading: けいしき
+    meaning: format; form
+  - word: 記号
+    reading: きごう
+    meaning: symbol; mark
+  - word: 言葉
+    reading: ことば
+    meaning: word; language
+  - word: 写す
+    reading: うつす
+    meaning: to copy; to transcribe
+  grammar:
+  - pattern: 〜られる (potential form)
+    meaning: to be able to do
+episode_26:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'superradcompany/microsandbox (5.7k⭐) — secure programmable micro-sandboxes
+    for running agent-generated code locally'
+  hosts: Ark vs Red
+  vocab:
+  - word: 守る
+    reading: まもる
+    meaning: to protect; to keep safe
+  - word: 危ない
+    reading: あぶない
+    meaning: dangerous
+  - word: 試す
+    reading: ためす
+    meaning: to try; to test
+  - word: 閉じる
+    reading: とじる
+    meaning: to close; to shut
+  - word: 開ける
+    reading: あける
+    meaning: to open
+  - word: 中
+    reading: なか
+    meaning: inside; within
+  grammar:
+  - pattern: 〜てから
+    meaning: after doing X
+episode_27:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'pydantic/monty (6.9k⭐) — minimal Rust-implemented Python interpreter for
+    AI tool sandboxing'
+  hosts: Ark vs Red
+  vocab:
+  - word: 訳す
+    reading: やくす
+    meaning: to translate; to interpret
+  - word: 小さい
+    reading: ちいさい
+    meaning: small
+  - word: 動く
+    reading: うごく
+    meaning: to move; to work (machine)
+  - word: 言語
+    reading: げんご
+    meaning: language
+  - word: 基本
+    reading: きほん
+    meaning: basics; foundation
+  - word: 読み込む
+    reading: よみこむ
+    meaning: to load; to read in
+  grammar:
+  - pattern: 〜れる (passive form)
+    meaning: to be done (by)
+episode_28:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: interlude-review
+  theme: 'Interlude — sandbox and interpreter review: why isolation matters when agents
+    run wild. Review only.'
+  hosts: Ark vs Red
+  review_targets: [episode_25, episode_26, episode_27]
+  vocab: []
+  grammar: []
+episode_29:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'GyulyVGC/sniffnet (35.3k⭐) — polished cross-platform network traffic monitor
+    with a proper TUI'
+  hosts: Ark vs Red
+  vocab:
+  - word: 見守る
+    reading: みまもる
+    meaning: to watch over
+  - word: 通信
+    reading: つうしん
+    meaning: communication; transmission
+  - word: 記録
+    reading: きろく
+    meaning: record; log
+  - word: 流れ
+    reading: ながれ
+    meaning: flow; stream
+  - word: 気づく
+    reading: きづく
+    meaning: to notice
+  - word: 調べる
+    reading: しらべる
+    meaning: to investigate; to look up
+  grammar:
+  - pattern: 〜ながら
+    meaning: while doing X
+episode_30:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'raphamorim/rio (6.7k⭐) — GPU-accelerated terminal emulator that runs on
+    desktop and in the browser'
+  hosts: Ark vs Red
+  vocab:
+  - word: 画面
+    reading: がめん
+    meaning: screen
+  - word: 表示
+    reading: ひょうじ
+    meaning: display; indication
+  - word: 動き
+    reading: うごき
+    meaning: movement; motion
+  - word: 画像
+    reading: がぞう
+    meaning: image
+  - word: 光
+    reading: ひかり
+    meaning: light
+  - word: 描画
+    reading: びょうが
+    meaning: drawing; rendering
+  grammar:
+  - pattern: 〜ために
+    meaning: for the purpose of / in order to
+episode_31:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'dora-rs/dora (3.7k⭐) — dataflow-oriented robotics middleware in Rust; robotics
+    × LLM crossover'
+  hosts: Ark vs Red
+  vocab:
+  - word: 信号
+    reading: しんごう
+    meaning: signal
+  - word: 流れる
+    reading: ながれる
+    meaning: to flow (intransitive)
+  - word: 機械
+    reading: きかい
+    meaning: machine
+  - word: 動作
+    reading: どうさ
+    meaning: action; operation
+  - word: 繋ぐ
+    reading: つなぐ
+    meaning: to connect; to tie
+  - word: 命令
+    reading: めいれい
+    meaning: command; order
+  grammar:
+  - pattern: 〜そうだ
+    meaning: looks like / I heard that
+episode_32:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: interlude-review
+  theme: 'Interlude — dev tools & runtimes review: terminals, networks, dataflow.
+    Review only.'
+  hosts: Ark vs Red
+  review_targets: [episode_29, episode_30, episode_31]
+  vocab: []
+  grammar: []
+episode_33:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'elder-plinius/CL4R1T4S (22.4k⭐) — repo of leaked/extracted system prompts
+    from major AI products'
+  hosts: Ark vs Red
+  vocab:
+  - word: 秘密
+    reading: ひみつ
+    meaning: secret
+  - word: 漏れる
+    reading: もれる
+    meaning: to leak (intransitive)
+  - word: 指示
+    reading: しじ
+    meaning: instruction; direction
+  - word: 正直
+    reading: しょうじき
+    meaning: honest
+  - word: 隠す
+    reading: かくす
+    meaning: to hide
+  - word: 明らか
+    reading: あきらか
+    meaning: clear; obvious
+  grammar:
+  - pattern: 〜はずだ
+    meaning: it should be / supposed to be
+episode_34:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'kyegomez/OpenMythos (7.9k⭐) — attempt to reconstruct the "Claude Mythos"
+    architecture from public literature'
+  hosts: Ark vs Red
+  vocab:
+  - word: 神話
+    reading: しんわ
+    meaning: myth; legend
+  - word: 真実
+    reading: しんじつ
+    meaning: truth
+  - word: 再現
+    reading: さいげん
+    meaning: reproduction; reconstruction
+  - word: 想像
+    reading: そうぞう
+    meaning: imagination
+  - word: 謎
+    reading: なぞ
+    meaning: mystery; riddle
+  - word: 深い
+    reading: ふかい
+    meaning: deep
+  grammar:
+  - pattern: 〜かもしれない
+    meaning: might / maybe
+episode_35:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'topoteretes/cognee (16.6k⭐) — agent memory + knowledge graph in ~6 lines
+    of code'
+  hosts: Ark vs Red
+  vocab:
+  - word: 記憶
+    reading: きおく
+    meaning: memory (mental)
+  - word: 繋がり
+    reading: つながり
+    meaning: connection; link
+  - word: 図
+    reading: ず
+    meaning: diagram; figure
+  - word: 関係
+    reading: かんけい
+    meaning: relationship
+  - word: 思考
+    reading: しこう
+    meaning: thinking; thought
+  - word: 辞書
+    reading: じしょ
+    meaning: dictionary
+  grammar:
+  - pattern: 〜という
+    meaning: called / named / that
+episode_36:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: interlude-review
+  theme: 'Interlude — context & memory theme review: prompts, myths, knowledge graphs.
+    Review only.'
+  hosts: Ark vs Red
+  review_targets: [episode_33, episode_34, episode_35]
+  vocab: []
+  grammar: []
+episode_37:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'HKUDS/DeepTutor (20.9k⭐) — agent-native personalized learning assistant'
+  hosts: Ark vs Red
+  vocab:
+  - word: 指導
+    reading: しどう
+    meaning: guidance; instruction
+  - word: 学ぶ
+    reading: まなぶ
+    meaning: to learn
+  - word: 慣れる
+    reading: なれる
+    meaning: to get used to
+  - word: 個人
+    reading: こじん
+    meaning: individual
+  - word: 能力
+    reading: のうりょく
+    meaning: ability
+  - word: 成長
+    reading: せいちょう
+    meaning: growth
+  grammar:
+  - pattern: 〜ようになる
+    meaning: to come to be able to / come to do
+episode_38:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'ruvnet/RuView (49.1k⭐) — WiFi-DensePose: infer real-time human body pose
+    from raw WiFi signals'
+  hosts: Ark vs Red
+  vocab:
+  - word: 体
+    reading: からだ
+    meaning: body
+  - word: 姿
+    reading: すがた
+    meaning: figure; appearance
+  - word: 電波
+    reading: でんぱ
+    meaning: radio wave
+  - word: 見えない
+    reading: みえない
+    meaning: invisible; cannot be seen
+  - word: 感じる
+    reading: かんじる
+    meaning: to feel; to sense
+  - word: 驚く
+    reading: おどろく
+    meaning: to be surprised
+  grammar:
+  - pattern: 〜わけだ
+    meaning: it makes sense that / so that's why
+episode_39:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: repo-deep-dive
+  theme: 'mayocream/koharu (3.8k⭐) — ML-powered manga translator that keeps original
+    art and typesets translation in-panel'
+  hosts: Ark vs Red
+  vocab:
+  - word: 翻訳
+    reading: ほんやく
+    meaning: translation
+  - word: 絵
+    reading: え
+    meaning: picture; drawing
+  - word: 吹き出し
+    reading: ふきだし
+    meaning: speech bubble
+  - word: 漫画
+    reading: まんが
+    meaning: manga; comics
+  - word: 場面
+    reading: ばめん
+    meaning: scene
+  - word: 残す
+    reading: のこす
+    meaning: to leave (behind); to preserve
+  grammar:
+  - pattern: 〜まま
+    meaning: in the state of / as is
+episode_40:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: interlude-review
+  theme: 'Interlude — wildcards & research review: WiFi pose, manga translation, personalized
+    tutoring. Review only.'
+  hosts: Ark vs Red
+  review_targets: [episode_37, episode_38, episode_39]
+  vocab: []
+  grammar: []
+episode_41:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: interlude-review
+  theme: 'Interlude — full-series vocabulary review: spaced recall across all 20 repo
+    episodes.'
+  hosts: Ark vs Red
+  review_targets: [episode_13, episode_14, episode_16, episode_17, episode_19, episode_20,
+    episode_22, episode_23, episode_25, episode_26, episode_27, episode_29, episode_30,
+    episode_31, episode_33, episode_34, episode_35, episode_37, episode_38, episode_39]
+  vocab: []
+  grammar: []
+episode_42:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04
+  format: interlude-outro
+  theme: 'Outro — meta-reflection on the April 2026 open-source wave: agent frameworks,
+    Claude Code skills, sandbox safety, the commodification of LLM tooling. Landing-the-plane
+    episode.'
+  hosts: Ark vs Red
+  review_targets: all
+  vocab: []
+  grammar: []
