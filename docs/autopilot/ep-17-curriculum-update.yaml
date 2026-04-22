@@ -1,0 +1,71 @@
+episode: 17
+repo: thedotmack/claude-mem
+series: flight-podcast-2026-04
+format: repo-deep-dive
+duration_seconds: 1559
+duration_display: "25m 59s"
+file_size_mb: 29.7
+
+vocab_introduced:
+  - word: 思い出す
+    reading: おもいだす
+    meaning: to recall; to remember
+  - word: 忘れる
+    reading: わすれる
+    meaning: to forget
+  - word: 短い
+    reading: みじかい
+    meaning: short
+  - word: 長い
+    reading: ながい
+    meaning: long
+  - word: 残る
+    reading: のこる
+    meaning: to remain; to be left
+  - word: まとめる
+    reading: まとめる
+    meaning: to summarize; to compile
+
+grammar_introduced:
+  - pattern: 〜てしまう
+    meaning: to do completely / regretfully ("oops" grammar)
+    demos:
+      - 長くなってしまった (got too long, regretfully)
+      - 忘れてしまった (forgot, oops)
+      - 残ってしまう (ends up staying)
+      - まとめるのを忘れてしまった (forgot to summarize)
+      - 切れてしまう (session cuts out, regretfully)
+
+review_items_used:
+  - word: 間違い
+    reading: まちがい
+    meaning: mistake; error
+    from_episode: 16
+  - word: 気をつける
+    reading: きをつける
+    meaning: to be careful
+    from_episode: 16
+  - word: 直す
+    reading: なおす
+    meaning: to fix; to correct
+    from_episode: 16
+  - word: 教える
+    reading: おしえる
+    meaning: to teach; to tell
+    from_episode: 16
+  - pattern: 〜ように
+    meaning: in order to / so that
+    from_episode: 16
+
+cjk_count: 1690
+turn_count: 170
+word_count: 3132
+
+verify_results:
+  cjk_floor: pass  # 1690 >= 1252
+  turn_coverage: pass  # 64% >= 30%
+  speaker_balance: flagged  # A=63.8%, gate is 45-55% (expected for Pimsleur teacher format)
+  banned_phrases: flagged  # "literally" x1 (conversational usage)
+  jp_en_pairing: flagged  # 82% unpaired (many contextual glosses, not structural em-dash pairs)
+  sycophancy: pass
+  combat: pass
