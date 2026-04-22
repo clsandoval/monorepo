@@ -980,3 +980,67 @@ episode_43:
   grammar:
   - pattern: 〜につれて
     meaning: as X happens, Y happens (gradual parallel change)
+episode_44:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04-ext
+  format: repo-deep-dive
+  theme: 'milla-jovovich/mempalace (49k⭐ Python) — local-first AI memory library.
+    Stores conversation/project content verbatim (no LLM summarization) in a wings/rooms/drawers
+    taxonomy; retrieves via hybrid BM25+vector with no LLM at retrieval time. Reports
+    96.6% R@5 on LongMemEval (500q) raw / 98.4% on held-out 450 with tuned hybrid.
+    Ships as MCP server, CLI, PyPI package.'
+  hosts: Ark vs Red
+  vocab:
+  - word: 記憶
+    reading: きおく
+    meaning: memory; recollection
+  - word: 思い出す
+    reading: おもいだす
+    meaning: to recall; to call to mind
+  - word: 保つ
+    reading: たもつ
+    meaning: to keep; to maintain
+  - word: 正確
+    reading: せいかく
+    meaning: accuracy; precision
+  - word: 比較
+    reading: ひかく
+    meaning: comparison
+  - word: 倉庫
+    reading: そうこ
+    meaning: warehouse; storage
+  grammar:
+  - pattern: 〜限り
+    meaning: as long as X; to the extent of X
+episode_45:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04-ext
+  format: repo-steelman
+  theme: 'OpenHands/OpenHands (72k⭐ Python) — AI software-development agent, well-funded,
+    well-shipped. Steelman: what does it do that earlier coding agents didn''t? Then
+    where does the architecture strain under real-world tasks.'
+  hosts: Ark vs Red
+  vocab:
+  - word: 手を出す
+    reading: てをだす
+    meaning: to get involved; to lay hands on
+  - word: 代わり
+    reading: かわり
+    meaning: substitute; instead (of)
+  - word: 自動
+    reading: じどう
+    meaning: automatic
+  - word: 失敗
+    reading: しっぱい
+    meaning: failure
+  - word: 進める
+    reading: すすめる
+    meaning: to advance; to proceed with
+  - word: 頼る
+    reading: たよる
+    meaning: to rely on; to depend on
+  grammar:
+  - pattern: 〜ずに
+    meaning: without doing X

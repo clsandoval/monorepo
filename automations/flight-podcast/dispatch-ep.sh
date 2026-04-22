@@ -7,9 +7,33 @@ cd /home/clsandoval/cs/monorepo
 
 SKILL_DIR=/home/clsandoval/.claude/skills/autopilot
 EP=${EP:-13}
-SLUG="ep-${EP}-eliza-pimsleur"
+
+# Extract repo name + vocab + grammar from schedule.yaml for this episode
+EP_META=$(python3 <<PY
+import yaml, re, shlex
+d = yaml.safe_load(open('data/japanese/schedule.yaml'))
+e = d.get('episode_${EP}', {})
+theme = e.get('theme', '')
+m = re.search(r'([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)', theme)
+repo = m.group(1) if m else 'unknown/unknown'
+slug_name = repo.split('/')[-1].lower().replace('.', '-').replace('_', '-')
+vocab = ', '.join(v.get('word', '') for v in (e.get('vocab') or []))
+grammar = ', '.join(g.get('pattern', '') for g in (e.get('grammar') or []))
+print(f"REPO={shlex.quote(repo)}")
+print(f"SLUG_NAME={shlex.quote(slug_name)}")
+print(f"VOCAB={shlex.quote(vocab)}")
+print(f"GRAMMAR={shlex.quote(grammar)}")
+PY
+)
+eval "$EP_META"
+
+SLUG="${SLUG_OVERRIDE:-ep-${EP}-${SLUG_NAME}-pimsleur}"
 BRIEF_DIR="briefs/2026-04-22-${SLUG}"
 mkdir -p "$BRIEF_DIR"
+
+echo "EP=$EP REPO=$REPO SLUG=$SLUG"
+echo "VOCAB=$VOCAB"
+echo "GRAMMAR=$GRAMMAR"
 
 H_KEY="x-api-key: $ANTHROPIC_API_KEY"
 H_VER="anthropic-version: 2023-06-01"
@@ -133,11 +157,17 @@ echo "session_id=$SESSION_ID"
 BRIEF_TEXT=$(cat <<EOF
 [PIMSLEUR]
 
-# Episode ${EP}: elizaOS/eliza — Pimsleur Japanese podcast
+# Episode ${EP}: ${REPO} — Pimsleur Japanese podcast
 
 ## PRE-WRITTEN DIALOGUE MODE — DO NOT REGENERATE
 
-A fully pre-written, reviewed dialogue script was uploaded as a file resource. **Mount paths to try in order**: \`/mnt/session/uploads/workspace/dialogue.md\`, \`/workspace/dialogue.md\`, fallback \`/workspace/repo/briefs/2026-04-22-flight-podcast/ep_${EP}.md\`. If none resolve, run \`find / -name dialogue.md 2>/dev/null\` — use whatever you find.
+A fully pre-written, reviewed dialogue script was uploaded as a file resource.
+
+**Dialogue file — try these mount paths in order:**
+1. \`/mnt/session/uploads/workspace/dialogue.md\` (PRIMARY — Files API mount convention prefixes \`/mnt/session/uploads/\` onto the declared mount_path)
+2. \`/workspace/dialogue.md\` (fallback if mount convention differs)
+3. \`/workspace/repo/briefs/2026-04-22-flight-podcast/ep_${EP}.md\` (fallback via git checkout)
+4. \`find / -name dialogue.md 2>/dev/null\` if none resolve
 
 **YOUR JOB:** Convert that script to the \`dialogue.json\` array format expected by \`scripts/generate.sh\`, render it to MP3, and post to Telegram. DO NOT write a new dialogue. DO NOT change the content, vocab, grammar, or structure. The script has been reviewed and approved.
 
@@ -145,35 +175,62 @@ Speaker mapping:
 - \`ARK\` → speaker \`A\` (Charon voice)
 - \`RED\` → speaker \`B\` (Kore voice)
 
-## Step 0: Load credentials
+## Step 0: Load credentials — CRITICAL, DO THIS FIRST
 
-The shell env is empty. File resources mount under \`/mnt/session/uploads/workspace/\` NOT \`/workspace/\`. Before anything else:
+The container's shell environment is EMPTY. Your API keys and Telegram tokens live in a \`.env\` file mounted as a file resource. **The Files API mount convention prefixes \`/mnt/session/uploads/\` onto the \`mount_path\` declared at session creation.**
+
+**Credentials are mounted at:**
+- PRIMARY: \`/mnt/session/uploads/workspace/.env\`
+- FALLBACK 1: \`/workspace/.env\` (in case mount convention differs)
+- FALLBACK 2: \`find / -name .env 2>/dev/null | head -5\` then pick the result under \`/mnt/session/uploads/\` or \`/workspace/\`
+
+**Run exactly this block first:**
 \`\`\`bash
-set -a; source /mnt/session/uploads/workspace/.env; set +a
-export GOOGLE_API_KEY=\${GOOGLE_API_KEY:-\$GEMINI_API_KEY}
+# Try primary, fall back through candidates until one sources successfully.
+ENV_FILE=""
+for candidate in /mnt/session/uploads/workspace/.env /workspace/.env; do
+  if [ -f "\$candidate" ]; then ENV_FILE="\$candidate"; break; fi
+done
+if [ -z "\$ENV_FILE" ]; then
+  ENV_FILE=\$(find / -name .env -type f 2>/dev/null | grep -E '(mnt/session/uploads|workspace)' | head -1)
+fi
+echo "Using env file: \$ENV_FILE"
+set -a; source "\$ENV_FILE"; set +a
+
+# generate.sh reads GOOGLE_API_KEY, but our .env defines GEMINI_API_KEY.
+export GOOGLE_API_KEY="\${GOOGLE_API_KEY:-\$GEMINI_API_KEY}"
+
+# Confirm all four are present. This MUST print non-empty values for each.
+for var in GOOGLE_API_KEY GEMINI_API_KEY TELEGRAM_BOT_TOKEN TELEGRAM_CHAT_ID ANTHROPIC_API_KEY; do
+  val=\$(eval echo \\\$\$var)
+  echo "\$var: \${val:0:20}\${val:+...}"
+  [ -z "\$val" ] && echo "  ⚠ MISSING"
+done
 \`\`\`
-Confirm GOOGLE_API_KEY, GEMINI_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID are all set (\`echo "\${GOOGLE_API_KEY:0:20}"\`) before proceeding. If the file isn't there, \`find / -name .env 2>/dev/null | head -5\`.
+
+If any required credential is missing after that block, STOP and use \`ask_user\` with the missing-credential names — do not proceed with partial credentials.
 
 ## Outcome checklist
 
-1. Locate the dialogue file (see paths above) and read it end-to-end.
-2. Convert to a JSON array of \`{speaker, text}\` objects at \`/tmp/dialogue.json\`. Preserve every JP word in kana-or-kanji. Wrap Japanese spans in double-quotes per the skill's quoting rules. Strip YAML frontmatter and segment markers from the spoken dialogue.
-3. Run \`scripts/verify-dialogue.py\` on the JSON. Report CJK count + pairing check. If pairing fails (>20% unpaired), do NOT rewrite — just flag it and proceed.
-4. Render with \`scripts/generate.sh /tmp/dialogue.json /tmp/ep_${EP}.mp3\` using Gemini TTS.
-5. Post the MP3 to Telegram using \$TELEGRAM_BOT_TOKEN and \$TELEGRAM_CHAT_ID. Caption: "Ep ${EP}: elizaOS/eliza (flight-podcast 2026-04)".
-6. Write \`/tmp/curriculum_update.yaml\` summarizing: episode number, vocab introduced, grammar introduced, review items used, CJK count.
-7. Commit any script artifacts on branch \`autopilot/${SLUG}\` and push.
+1. Load credentials per Step 0. Every required variable (\`GOOGLE_API_KEY\`, \`TELEGRAM_BOT_TOKEN\`, \`TELEGRAM_CHAT_ID\`) must print a non-empty prefix before continuing.
+2. Locate the dialogue file (see mount paths above) and read it end-to-end.
+3. Convert to a JSON array of \`{speaker, text}\` objects at \`/tmp/dialogue.json\`. Preserve every JP word in kana-or-kanji. Wrap Japanese spans in double-quotes per the skill's quoting rules. Strip YAML frontmatter and segment markers from the spoken dialogue.
+4. Run \`scripts/verify-dialogue.py\` on the JSON. Report CJK count + pairing check. If pairing fails (>20% unpaired), do NOT rewrite — just flag it and proceed.
+5. Render with \`scripts/generate.sh /tmp/dialogue.json /tmp/ep_${EP}.mp3\` using Gemini TTS.
+6. Post the MP3 to Telegram using \$TELEGRAM_BOT_TOKEN and \$TELEGRAM_CHAT_ID. Caption: "Ep ${EP}: ${REPO} (flight-podcast 2026-04)".
+7. Write \`/tmp/curriculum_update.yaml\` summarizing: episode number, vocab introduced, grammar introduced, review items used, CJK count.
+8. Commit any script artifacts on branch \`autopilot/${SLUG}\` and push.
 
 ## Behavior notes
 
-- The dialogue has been reworked to hit the Pimsleur quality gates (~1,600 JP chars, all vocab 4+ exposures, grammar 5+ demos, explicit em-dash glossing). It is APPROVED. Your role is rendering, not editing.
+- The dialogue has been reworked to hit the Pimsleur quality gates (~2000 JP chars, all vocab 4+ exposures, grammar 5+ demos, explicit em-dash glossing). It is APPROVED. Your role is rendering, not editing.
 - If the verify-dialogue.py pairing check flags issues, log them for the human — don't rewrite the script.
-- If you hit a blocker (TTS quota, Telegram send fail), use \`ask_user\` with specific context. Don't silently skip steps.
+- If you hit a blocker (TTS quota, Telegram send fail, missing credential), use \`ask_user\` with specific context. Don't silently skip steps.
 - Commit-and-push is nice-to-have; MP3 in Telegram is the hard deliverable.
 
 ## Curriculum context (FYI, don't use to regenerate)
 
-- Ep 13 introduces: 性格, 役, 答える, 声, 覚える, 自分; grammar 〜ようとする
+- Ep ${EP} introduces: ${VOCAB}; grammar ${GRAMMAR}
 - japanese_ratio: 0.2
 - The dialogue script was pre-verified against those targets.
 EOF
@@ -189,7 +246,7 @@ echo "event response written to /tmp/event_resp.json"
 STARTED_AT=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 jq \
   --arg id "$SESSION_ID" \
-  --arg brief "Ep ${EP}: elizaOS/eliza pimsleur podcast render" \
+  --arg brief "Ep ${EP}: ${REPO} pimsleur podcast render" \
   --arg repo "$REPO_URL" \
   --arg branch "autopilot/$SLUG" \
   --arg base "main" \
