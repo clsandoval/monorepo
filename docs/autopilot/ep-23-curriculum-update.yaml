@@ -1,0 +1,65 @@
+episode: 23
+repo: badlogic/pi-mono
+date: 2026-04-22
+duration_seconds: 1275
+cjk_count: 1772
+turns: 99
+
+vocab_introduced:
+  - word: 部品
+    reading: ぶひん
+    meaning: parts/components
+    exposures: 14
+  - word: 揃える
+    reading: そろえる
+    meaning: to gather together; to make uniform
+    exposures: 7
+  - word: 簡単
+    reading: かんたん
+    meaning: simple; easy
+    exposures: 13
+  - word: 軽い
+    reading: かるい
+    meaning: light (weight)
+    exposures: 11
+  - word: 速い
+    reading: はやい
+    meaning: fast
+    exposures: 10
+  - word: 強い
+    reading: つよい
+    meaning: strong
+    exposures: 8
+
+grammar_introduced:
+  - pattern: 〜始める
+    meaning: start doing
+    demos: 14
+  - pattern: 〜続ける
+    meaning: keep doing
+    demos: 22
+  - pattern: 〜終わる
+    meaning: finish doing
+    demos: 14
+
+review_items_used:
+  - item: 比べる
+    exposures: 9
+  - item: 表
+    exposures: 8
+  - item: 違い
+    exposures: 9
+  - item: いろいろ
+    exposures: 9
+  - item: 全部
+    exposures: 12
+  - item: 情報
+    exposures: 13
+  - item: 〜ば〜ほど
+    exposures: 7
+
+verify_notes:
+  - "Balance check failed: A=68.9% (Pimsleur teacher role skews word count)"
+  - "Combat false positives: 'next time' (farewell), 'reinvented' (describes streaming formats)"
+  - "CJK 1772 chars exceeds 1600 target — good coverage"
+  - "All vocab ≥7 exposures, all grammar ≥14 demos — well above minimums"

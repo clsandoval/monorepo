@@ -1,0 +1,398 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay, Ark, I'm looking at this repo, `badlogic/pi-mono`, 38.5k stars, TypeScript, and the tagline is basically \"everything you need to build a coding agent in one box.\" My first reaction is — why? Composition is supposed to be the whole point of modern software. You grab Anthropic SDK here, a TUI library there, a Slack bolt framework from somewhere else. Why bundle?"
+  },
+  {
+    "speaker": "a",
+    "text": "Right, and in theory, I completely agree with you. Composition is beautiful on paper. But in practice, what happens is you spend an entire weekend wiring LLM SDKs together. You're writing adapter code. You're reconciling three different streaming formats. You haven't built anything yet, and it's Sunday night."
+  },
+  {
+    "speaker": "b",
+    "text": "So pi-mono's pitch is — \"部品\" — parts/components — come as one package. You don't go shopping."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. The 部品 are pre-fitted. And there's a Japanese word I keep thinking about when I look at this repo — \"揃える\" — to gather together; to make uniform. That's the whole philosophy. pi-mono 部品 を 全部 揃える — it gathers all the parts into one coherent stack. 必要な 部品 が 最初から 揃っている — the necessary parts are already gathered from the start — and that changes how you think about building."
+  },
+  {
+    "speaker": "b",
+    "text": "全部 揃える — gather all — so it's less \"framework\" and more \"starter pantry.\""
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう — right. 自分で 部品 を 探し続ける の は 大変 だ — hunting for parts yourself is exhausting. pi-mono は その 手間 を 全部 省く — pi-mono removes all that effort. 情報 も ドキュメント も 一箇所 に 揃っている — info and docs are gathered in one place."
+  },
+  {
+    "speaker": "a",
+    "text": "Good framing. Let's actually walk through what's in the pantry."
+  },
+  {
+    "speaker": "a",
+    "text": "First package, `packages/llm/src/index.ts`. This is the unified LLM API. The idea is: you import one client, and under the hood it wraps Anthropic, OpenAI, Gemini, and local models — Ollama, llama.cpp, whatever you've got running."
+  },
+  {
+    "speaker": "b",
+    "text": "So one interface, four backends."
+  },
+  {
+    "speaker": "a",
+    "text": "Five if you count local. And the API is deliberately \"簡単\" — simple; easy. You call `client.chat({ model, messages, stream: true })` and that's it. The wrapper handles the fact that Anthropic uses `content blocks`, OpenAI uses `choices[0].delta`, Gemini uses `candidates[0].content.parts`."
+  },
+  {
+    "speaker": "b",
+    "text": "そうそう — every provider reinvented the streaming format."
+  },
+  {
+    "speaker": "a",
+    "text": "And pi-mono normalizes all of that into one event stream. `token`, `tool_call`, `tool_result`, `done`. Four events. That's it."
+  },
+  {
+    "speaker": "b",
+    "text": "\"簡単\" — simple is kind of underrated as a design goal. Everyone wants \"powerful,\" nobody wants \"simple.\""
+  },
+  {
+    "speaker": "a",
+    "text": "確かに — true. 使い方 が 簡単 だ と、覚え始める の が 早い — when usage is simple, you start learning it fast. 新しい 開発者 でも すぐ 書き始める こと が できる — even new developers can start writing right away. それ が 一番 大事 な 情報 だ と 思う — I think that's the most important info."
+  },
+  {
+    "speaker": "b",
+    "text": "なるほど。 簡単 は 軽い と 似ている — \"simple\" is similar to \"light.\" どちら も ユーザー の 負担 を 減らす — both reduce the user's burden."
+  },
+  {
+    "speaker": "a",
+    "text": "And simple has a cost. Because the API is 簡単, it's also opinionated. If Anthropic ships a new feature — say, prompt caching with some weird TTL knob — pi-mono might not expose it on day one. You trade surface area for consistency. 全部 の 機能 を 揃える わけ に は いかない — you can't gather every single feature — ので、優先順位 を 決め続ける — so you keep deciding priorities."
+  },
+  {
+    "speaker": "b",
+    "text": "Fair trade?"
+  },
+  {
+    "speaker": "a",
+    "text": "For 90% of coding-agent use cases, yes. If you need the bleeding edge, you drop down to the raw SDK. pi-mono re-exports the underlying clients for exactly this escape hatch."
+  },
+  {
+    "speaker": "a",
+    "text": "Package two, `packages/tui/src/render.ts`. This is the terminal UI library."
+  },
+  {
+    "speaker": "b",
+    "text": "TUIs are having a moment. Every coding agent ships one now."
+  },
+  {
+    "speaker": "a",
+    "text": "Because the terminal is where developers live. And pi-mono's TUI is — \"軽い\" — light (weight). No React reconciliation, no virtual DOM. It's a line-diff renderer. You give it a frame, it diffs against the previous frame, and writes ANSI escape codes for just the changed cells."
+  },
+  {
+    "speaker": "b",
+    "text": "軽い is the right word. How 軽い are we talking?"
+  },
+  {
+    "speaker": "a",
+    "text": "The whole TUI package is under 200KB minified. Compare that to Ink, which pulls in React and probably 2MB of dependencies. And the render loop is \"速い\" — fast — 120 frames per second if your terminal can keep up."
+  },
+  {
+    "speaker": "b",
+    "text": "速いね — that's fast."
+  },
+  {
+    "speaker": "a",
+    "text": "本当に 速い。 レンダリング が 速ければ 速いほど、ユーザー の 体験 が 良くなる — the faster the rendering, the better the user experience. 〜ば〜ほど の 典型的 な 例 だ — a typical example of the 〜ば〜ほど pattern. そして、軽ければ 軽いほど、起動 が 速い — the lighter it is, the faster it starts. 全部 が つながっている — everything is connected."
+  },
+  {
+    "speaker": "b",
+    "text": "いろいろ な メリット が 一気 に 出てくる — various benefits come out all at once."
+  },
+  {
+    "speaker": "a",
+    "text": "Keybindings are declarative. You write `bind(\"ctrl+r\", () => regenerate())` and it just works across Windows Terminal, iTerm, Alacritty, whatever. Layouts are a simple flexbox-like DSL — `split(\"horizontal\", [sidebar(30), main()])`. That's a whole three-pane layout."
+  },
+  {
+    "speaker": "b",
+    "text": "And streaming render?"
+  },
+  {
+    "speaker": "a",
+    "text": "This is the part I love. The TUI knows about LLM token streams natively. You hand it an async iterator of tokens and it renders them as they arrive, with proper word-wrapping that doesn't re-flow the whole screen every token. That's the thing most naive implementations get wrong — they re-render on every chunk and the terminal flickers."
+  },
+  {
+    "speaker": "b",
+    "text": "やっぱり the details matter — as expected, the details."
+  },
+  {
+    "speaker": "a",
+    "text": "細かい 部品 が 強い と、全体 も 強くなる — when the small parts are strong, the whole becomes strong too. ターミナル の 表示 が 速くて 軽い と、エージェント 自体 が 速く 感じる — when the terminal display is fast and light, the agent itself feels fast. ユーザー の 印象 は 表示 速度 で 決まる — user impressions are decided by display speed. それ は 情報 として 大事 だ — that's important info."
+  },
+  {
+    "speaker": "b",
+    "text": "そうそう、見た目 の 速さ は 本当 の 速さ と 同じくらい 重要 だ — apparent speed is as important as real speed."
+  },
+  {
+    "speaker": "a",
+    "text": "Package three, `packages/slack/src/bot.ts`. The Slack bot harness."
+  },
+  {
+    "speaker": "b",
+    "text": "Why Slack specifically?"
+  },
+  {
+    "speaker": "a",
+    "text": "Because a huge number of internal coding agents live in Slack. You DM the bot \"fix the flaky test in auth.ts\" and it opens a PR. pi-mono gives you that harness out of the box. Event subscriptions, message threading, file uploads for code attachments, slash commands for explicit invocations."
+  },
+  {
+    "speaker": "b",
+    "text": "And it's wired to the unified LLM API?"
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. The Slack bot is just a thin adapter — it translates Slack events into the pi-mono `chat` call and streams responses back as message edits. So your agent logic is the same whether it runs in the TUI, in Slack, or headless in CI."
+  },
+  {
+    "speaker": "b",
+    "text": "That's the kitchen-sink payoff right there. One agent loop, three surfaces. 一つ の ロジック を 書き終わる と、三つ の 場所 で 動き始める — once you finish writing one logic, it starts running in three places. これ は 本当 に 便利 だ — this is really convenient."
+  },
+  {
+    "speaker": "a",
+    "text": "確かに。 普通 なら、Slack 用 と TUI 用 と CLI 用 を 別々 に 書き続ける こと に なる — normally, you'd keep writing separate versions for Slack, TUI, and CLI. pi-mono なら、その 手間 が いらない — with pi-mono, that effort isn't needed. 情報 の 流れ が 一本化 されている — the info flow is unified into one line."
+  },
+  {
+    "speaker": "a",
+    "text": "And the bot handles the annoying stuff — rate limits, socket-mode reconnection, DM-vs-channel routing, thread context windows. Things you'd spend a week rediscovering."
+  },
+  {
+    "speaker": "a",
+    "text": "Fourth piece, `packages/config/src/index.ts`. Shared configuration system."
+  },
+  {
+    "speaker": "b",
+    "text": "Config is usually the most boring part."
+  },
+  {
+    "speaker": "a",
+    "text": "Which is why it's worth getting right. pi-mono uses a layered config — defaults, then `~/.config/pi-mono/config.toml`, then project-level `pi.toml`, then environment variables, then CLI flags. Each layer overrides the previous."
+  },
+  {
+    "speaker": "b",
+    "text": "いろいろ — various — layers."
+  },
+  {
+    "speaker": "a",
+    "text": "いろいろ な 情報 (information) が 一箇所 に 集まる — various information collects in one place. And it's typed. The config schema is a Zod schema, so if you typo `model_name` instead of `model`, you get a helpful error at startup, not a cryptic crash three prompts in."
+  },
+  {
+    "speaker": "b",
+    "text": "\"強い\" — strong typing saves you from yourself."
+  },
+  {
+    "speaker": "a",
+    "text": "強い な — yeah, strong. 型 が 強ければ 強いほど、バグ が 減る — the stronger the types, the fewer the bugs. And because every pi-mono package reads from the same config, you don't end up with five different `OPENAI_API_KEY` conventions. One variable, one place, all packages see it. 設定 の 情報 が 全部 一つ の ファイル に 揃っている — all config info is gathered in one file. 探し続ける 必要 が ない — no need to keep searching."
+  },
+  {
+    "speaker": "b",
+    "text": "便利 だね — convenient. 簡単 で、軽くて、速い。 三拍子 揃っている — three beats all gathered — all three boxes checked."
+  },
+  {
+    "speaker": "b",
+    "text": "Let me try to summarize what we've covered with the episode 22 framing. We were \"比べる\" — compare kitchen-sink versus a-la-carte. If we make a 表 — chart — of the 違い — difference —"
+  },
+  {
+    "speaker": "a",
+    "text": "Go for it. 表 を 作る と、情報 が 整理 される — when you make a chart, info gets organized."
+  },
+  {
+    "speaker": "b",
+    "text": "A-la-carte: maximum flexibility, maximum wiring cost. Kitchen-sink: less flexibility, almost zero wiring cost. 比べる と 違い が はっきり する — when you compare, the difference becomes clear. いろいろ な 選択肢 を 並べて、一つ ずつ 比べる — you line up various options and compare them one by one."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう。 そして 比べる だけ で なく、自分 の プロジェクト に 合う か どう か を 考え続ける こと が 大事 — it's important to keep thinking about whether it fits your project, not just compare. 情報 を 集めて、表 を 作って、違い を 書き出す — gather info, make a chart, write out the differences."
+  },
+  {
+    "speaker": "b",
+    "text": "違い を 書き終わった 後、決断 する — after you finish writing out the differences, you decide. 〜終わる の 良い 使い方 だ — a good use of 〜終わる."
+  },
+  {
+    "speaker": "a",
+    "text": "And there's a grammar point that captures this perfectly — 〜ば〜ほど. 使えば 使うほど、pi-mono の 便利 さ が わかる — the more you use it, the more you understand its convenience. 比べれば 比べるほど、違い が はっきり する — the more you compare, the clearer the difference. 読めば 読むほど、情報 が 増える — the more you read, the more info grows."
+  },
+  {
+    "speaker": "b",
+    "text": "いろいろ な 例 が あるね — there are various examples. 軽ければ 軽いほど、起動 が 速い。 強ければ 強いほど、安心 できる。 簡単 であれば あるほど、使い始める の が 楽 だ — the simpler it is, the easier to start using."
+  },
+  {
+    "speaker": "a",
+    "text": "完璧 — perfect. 全部 の 形容詞 で 〜ば〜ほど が 使える — you can use 〜ば〜ほど with all adjectives. パターン を 覚えれば 覚えるほど、自然 に 出てくる — the more you memorize the pattern, the more naturally it comes out."
+  },
+  {
+    "speaker": "b",
+    "text": "Nice. Now the new grammar — compound verbs. You promised me 〜始める, 〜続ける, 〜終わる."
+  },
+  {
+    "speaker": "a",
+    "text": "Let's do mini-dialogues. Scenario one: you just cloned the repo."
+  },
+  {
+    "speaker": "a",
+    "text": "プロジェクト を 使い始める — I'm starting to use the project. 始める attaches to the verb stem. 使う → 使い → 使い始める."
+  },
+  {
+    "speaker": "b",
+    "text": "So if I install pi-mono and fire up the TUI — TUI が 動き始める — the TUI starts running."
+  },
+  {
+    "speaker": "a",
+    "text": "Perfect. 動く → 動き → 動き始める."
+  },
+  {
+    "speaker": "b",
+    "text": "Scenario two: I'm reading the docs."
+  },
+  {
+    "speaker": "a",
+    "text": "ドキュメント を 読み続ける — I keep reading the docs. 読む → 読み → 読み続ける. The 続ける form means \"keep doing.\""
+  },
+  {
+    "speaker": "b",
+    "text": "And when I'm evaluating which backend to use — モデル を 選び続ける — I keep picking models."
+  },
+  {
+    "speaker": "a",
+    "text": "選ぶ → 選び → 選び続ける。 そうそう。"
+  },
+  {
+    "speaker": "b",
+    "text": "Scenario three: I ship."
+  },
+  {
+    "speaker": "a",
+    "text": "コード を 書き終わる — I finish writing the code. 書く → 書き → 書き終わる."
+  },
+  {
+    "speaker": "b",
+    "text": "終わる feels definitive. Not \"I stopped writing,\" but \"I completed writing.\""
+  },
+  {
+    "speaker": "a",
+    "text": "確かに — exactly. That's the nuance. 〜終わる implies completion, not just cessation. If you abandoned it halfway, you'd say 書くのをやめた."
+  },
+  {
+    "speaker": "b",
+    "text": "Let me string them together. プロジェクト を 使い始めて、ドキュメント を 読み続けて、最後 に コード を 書き終わる — I start using the project, keep reading the docs, and finally finish writing the code."
+  },
+  {
+    "speaker": "a",
+    "text": "なるほど、完璧です — I see, perfect. もう 一つ の 例 — another example. pi-mono を インストール する と、TUI が 動き始める — when you install pi-mono, the TUI starts moving. 設定 ファイル を 読み込み続ける — it keeps loading the config file. そして 最初 の プロンプト を 書き終わる と、エージェント が 反応 する — and when you finish writing the first prompt, the agent responds. 三つ の 〜動詞 が 一つ の 流れ に 揃っている — three compound verbs gathered into one flow."
+  },
+  {
+    "speaker": "b",
+    "text": "流れ が 見えると、文法 が 簡単 に 感じる — when you can see the flow, the grammar feels simple. 確かに、〜始める と 〜続ける と 〜終わる は 物語 の 構造 と 同じ — start, middle, end. 始め、途中、終わり — beginning, middle, end. And notice all three 部品 — 始める, 続ける, 終わる — are themselves simple verbs that got 揃える'd into a compound system. The language does the same thing pi-mono does."
+  },
+  {
+    "speaker": "b",
+    "text": "やっぱり grammar is a kitchen-sink too."
+  },
+  {
+    "speaker": "a",
+    "text": "いろいろ な 情報 が compound verb で 全部 表現できる — various information can all be expressed with compound verbs. That's the 強い part of Japanese."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, zooming out. If I'm a layman skimming the README, what's my one-sentence takeaway?"
+  },
+  {
+    "speaker": "a",
+    "text": "pi-mono is a starter-kit for coding agents. You don't build an agent from scratch; you configure one."
+  },
+  {
+    "speaker": "b",
+    "text": "And the tradeoff?"
+  },
+  {
+    "speaker": "a",
+    "text": "You inherit opinions. The streaming format is pi-mono's. The config layering is pi-mono's. The TUI primitives are pi-mono's. If you disagree with any of them, you're fighting the framework."
+  },
+  {
+    "speaker": "b",
+    "text": "Is that a trap?"
+  },
+  {
+    "speaker": "a",
+    "text": "I'd call it a productive constraint. Because here's the thing — the opinions pi-mono encodes are mostly correct. Four streaming events. Layered config. Line-diff TUI. These aren't controversial choices; they're the ones you'd arrive at independently after six months of building. pi-mono just skips you to month six."
+  },
+  {
+    "speaker": "b",
+    "text": "So the 38.5k stars are people saying \"thank you for skipping me to month six.\""
+  },
+  {
+    "speaker": "a",
+    "text": "Essentially. And the fact that it's \"軽い\" — light and \"速い\" — fast means the cost of adopting it is low. If you outgrow it, you can rip individual packages out and go a-la-carte for just that piece."
+  },
+  {
+    "speaker": "b",
+    "text": "The 部品 are separable even though they're 揃える'd together."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the architectural discipline. Monorepo, but not monolith. Each package stands alone. The unification is at the config and API layer, not at the code-coupling layer."
+  },
+  {
+    "speaker": "b",
+    "text": "比べる と 違い が わかる — compared to a true monolith, pi-mono is 軽い and modular. 比べる と 違い が わかる — compared to a-la-carte, pi-mono is 簡単 and 速い. いろいろ な 角度 から 見て も、バランス が いい — from various angles, the balance is good."
+  },
+  {
+    "speaker": "a",
+    "text": "You have absorbed the lesson. 情報 が 頭 の 中 で 揃い始めている — the info is starting to gather in your head. 毎週 新しい リポ を 比べ続ける と、自分 の 判断 力 が 強くなる — the more you keep comparing new repos weekly, the stronger your judgment gets. 〜ば〜ほど の 精神 だ — the spirit of 〜ば〜ほど."
+  },
+  {
+    "speaker": "b",
+    "text": "やっぱり、練習 を 続けれ ば 続けるほど、上達 する — the more you keep practicing, the better you get. 今日 の 部品 を 全部 揃えて、次 の エピソード に 進む — gather all of today's parts and advance to the next episode."
+  },
+  {
+    "speaker": "a",
+    "text": "もう 一つ 大事 な 点 — one more important point. pi-mono の 作者 は、開発者 が 同じ 問題 を 何度 も 解き続ける の を 見て、「これ は 部品 化 できる」と 考えた — the pi-mono author saw developers repeatedly solving the same problem and thought \"this can be turned into parts.\" それ が 全部 の フレームワーク の 始まり だ — that's the start of every framework. 情報 が 溜まって、パターン が 見え始めて、抽象化 が 終わる と、ライブラリ が 生まれる — info accumulates, patterns start to appear, and when the abstraction finishes, a library is born."
+  },
+  {
+    "speaker": "b",
+    "text": "なるほど。 簡単 に 聞こえる けど、実際 に 作る の は 難しい — it sounds simple, but actually making it is hard. 軽くて 速くて 強い ライブラリ を 設計 する の は、年 単位 の 仕事 だ — designing a light, fast, strong library is a years-long job."
+  },
+  {
+    "speaker": "a",
+    "text": "確かに。 だから こそ、38.5k の スター が 付く — that's exactly why it gets 38.5k stars. 皆 が 「この 部品 が 欲しかった」と 思っている — everyone thinks \"I wanted this component.\" いろいろ な 会社 が 同じ 結論 に 到達 して、pi-mono に 集まる — various companies reach the same conclusion and gather at pi-mono."
+  },
+  {
+    "speaker": "b",
+    "text": "What's on deck for episode 24?"
+  },
+  {
+    "speaker": "a",
+    "text": "Midpoint interlude. We're going to slow down and do a vocab-consolidation episode. No new repo. We'll revisit the 部品 we've gathered — 比べる, 表, 違い, 揃える, 簡単, 軽い, 強い, 速い — and drill them in new contexts. Think of it as letting the compound verbs 〜続ける settle before we 使い始める new ones."
+  },
+  {
+    "speaker": "b",
+    "text": "そうそう — a breather."
+  },
+  {
+    "speaker": "a",
+    "text": "And one word I want to plant for recycling: 便利 — convenient. We've circled around it implicitly — pi-mono is 便利 because it's 簡単. Ep 24 will make that word explicit and we'll 使い続ける it through the rest of the season."
+  },
+  {
+    "speaker": "b",
+    "text": "Got it. 便利 — convenient — on the watch list."
+  },
+  {
+    "speaker": "a",
+    "text": "そして、今日 の 情報 を 全部 覚えて、次回 また 会いましょう — remember all of today's info and let's meet next time. 部品 を 揃えて、比べて、違い を 表 に 書き続ける — gather parts, compare, keep writing differences into the chart. それ が 僕たち の 習慣 だ — that's our habit."
+  },
+  {
+    "speaker": "b",
+    "text": "確かに — exactly. 習慣 に すれば する ほど、自然 に なる — the more you make it a habit, the more natural it becomes. いろいろ な リポ を 見続ける と、自分 の 目 が 強く なる — the more you keep looking at various repos, the stronger your eye gets. 軽い リポ、重い リポ、簡単 な リポ、複雑 な リポ — 全部 比べる — light ones, heavy ones, simple ones, complex ones — compare them all."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう。 じゃあ、また 次回 — well then, until next time. コード を 書き終わる 前 に、少し 休んで ね — before you finish writing code, rest a little. 疲れた 頭 で 書き続ける の は 良くない — writing with a tired head isn't good. 休憩 も 部品 の 一つ だ と 考えて ください — please think of breaks as one of the parts too. Thanks everyone."
+  },
+  {
+    "speaker": "b",
+    "text": "See you in episode 24. じゃあまた。"
+  }
+]
