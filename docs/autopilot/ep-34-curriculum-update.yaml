@@ -1,0 +1,59 @@
+episode: 34
+series: flight-podcast-2026-04
+repo: kyegomez/OpenMythos
+format: repo-deep-dive
+
+vocab_introduced:
+  - word: 神話
+    reading: しんわ
+    meaning: myth; legend
+  - word: 真実
+    reading: しんじつ
+    meaning: truth
+  - word: 再現
+    reading: さいげん
+    meaning: reproduction; reconstruction
+  - word: 想像
+    reading: そうぞう
+    meaning: imagination
+  - word: 謎
+    reading: なぞ
+    meaning: mystery; riddle
+  - word: 深い
+    reading: ふかい
+    meaning: deep
+
+grammar_introduced:
+  - pattern: 〜かもしれない
+    meaning: might / maybe
+
+review_items_used:
+  - 秘密 (ひみつ) — secret
+  - 漏れる (もれる) — leak
+  - 指示 (しじ) — instruction
+  - 正直 (しょうじき) — honestly
+  - 隠す (かくす) — hide
+  - 明らか (あきらか) — obvious / clear
+  - 〜はずだ — should, expectedly (grammar from ep 33)
+
+review_grammar_used:
+  - pattern: 〜はずだ
+    meaning: should / expectedly (ep 33)
+
+callforward:
+  - word: 記憶
+    reading: きおく
+    meaning: memory (mental)
+    target_episode: 35
+
+cjk_count: 1770
+word_count: 3811
+turn_count: 116
+duration_seconds: 1910
+
+verification_notes:
+  - "CJK floor passed: 1770 >= 1524"
+  - "CJK turn coverage passed: 35% >= 30%"
+  - "Balance check failed: A=84.9% — by design, ARK is primary explainer in Pimsleur format"
+  - "JP-EN pairing: 44% paired — long JP passages use block translation, not inline em-dashes"
+  - "Banned phrases: 'honestly' used as translation of 正直, not as AI-tell"

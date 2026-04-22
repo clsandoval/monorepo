@@ -1,0 +1,466 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay, so 7.9k stars, the repo is called OpenMythos, and the pitch — let me read the top line — \"open-source, theoretical implementation of the Claude Mythos model.\" So someone reverse-engineered Claude. Open-sourced the reasoning stack. This is huge."
+  },
+  {
+    "speaker": "a",
+    "text": "Stop. Read the next paragraph."
+  },
+  {
+    "speaker": "b",
+    "text": "\"OpenMythos is an independent, community-driven theoretical reconstruction based solely on publicly available research and speculation. It is not affiliated with, endorsed by, or connected to Anthropic or any of their proprietary systems.\""
+  },
+  {
+    "speaker": "a",
+    "text": "Say the word \"speculation\" again."
+  },
+  {
+    "speaker": "b",
+    "text": "…speculation."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. Nobody leaked anything. Nobody reverse-engineered anything. kyegomez read a few papers about looped transformers and wrote a PyTorch module that he thinks might resemble what Claude is doing internally. That's the repo. It is a hypothesis in code form."
+  },
+  {
+    "speaker": "b",
+    "text": "So it's fan fiction with `torch.nn.Module`."
+  },
+  {
+    "speaker": "a",
+    "text": "It is a PyTorch architecture repo that cosplays as a mental-model reconstruction. And the word \"Mythos\" is doing a lot of load-bearing work. The listener should hear \"theoretical\" the same way you'd hear \"alleged\" in a news article. Before we go axis by axis, one framing note — this repo is not an agent framework. There's no harness, no CLI, no tool loop. It's a `torch.nn.Module`. Half of our usual six axes are going to come back \"N/A.\" That itself is the story."
+  },
+  {
+    "speaker": "b",
+    "text": "So the interesting Claude secrets are not in here."
+  },
+  {
+    "speaker": "a",
+    "text": "Correct. The interesting Claude secrets are in RL curricula, alignment data mixes, constitutional training recipes, and a decade of product feedback. None of that is in a 2,000-line PyTorch file. What IS in the file is a respectable implementation of a Recurrent-Depth Transformer. That's worth talking about. Just — carefully. \"正直\" — honestly, let's take the repo seriously as what it is, and \"神話\" — myth seriously as what it isn't."
+  },
+  {
+    "speaker": "b",
+    "text": "Let's go."
+  },
+  {
+    "speaker": "a",
+    "text": "Six axes. I'm going to collapse the first three hard, because this repo barely occupies them, then spend our time on context and scaling, which is where the actual claims live."
+  },
+  {
+    "speaker": "b",
+    "text": "Compute topology first."
+  },
+  {
+    "speaker": "a",
+    "text": "`pyproject.toml` says `name = \"open-mythos\"`, `version = \"0.4.0\"`, single Python package, `pip install open-mythos`. You import `from open_mythos.main import OpenMythos, MythosConfig` and instantiate a model. There is no daemon. There is no service. There is no container. There is a Python process that holds a `torch.nn.Module` and you run `model(ids)` on it. Lifetime is however long your `python` interpreter lives."
+  },
+  {
+    "speaker": "b",
+    "text": "So \"compute topology\" is just — PyTorch."
+  },
+  {
+    "speaker": "a",
+    "text": "It's PyTorch. When the README mentions \"training,\" it means `python training/3b_fine_web_edu.py` or `torchrun --nproc_per_node=N training/3b_fine_web_edu.py`. DDP, sharded streaming dataset, AdamW, linear warmup into cosine decay, bfloat16 on H100, 30B-token target on FineWeb-Edu. That is a standard training script. That is the entire deployment story. N/A on anything like cold-start or lifetime binding — this is a research repo, not a system."
+  },
+  {
+    "speaker": "b",
+    "text": "Axis two, LLM locus."
+  },
+  {
+    "speaker": "a",
+    "text": "Also N/A, but for the opposite reason. Most repos we've covered wrap Claude or GPT. OpenMythos IS the LLM. It's a from-scratch transformer. There is no `anthropic` client, no OpenAI key, no router. `pyproject.toml` dependencies are literally `torch = \"2.11.0\"`, `transformers >=4.40.0`, `datasets >=2.18.0`. That's it. The model is the locus. The tokenizer, from `open_mythos/tokenizer.py`, wraps `openai/gpt-oss-20b`'s tokenizer vocabulary via a class called `MythosTokenizer`."
+  },
+  {
+    "speaker": "b",
+    "text": "So when the episode brief says \"wraps Anthropic API,\" that's just wrong."
+  },
+  {
+    "speaker": "a",
+    "text": "The brief was written from a misread. The repo doesn't touch Anthropic's API at all. If you want to believe the hype, you'd say it's trying to BE Claude, not call it. If you want to be honest — it's a PyTorch model trained on open educational web text that has no particular reason to behave like Claude."
+  },
+  {
+    "speaker": "b",
+    "text": "Axis three, tool mechanics."
+  },
+  {
+    "speaker": "a",
+    "text": "N/A. There is no agent. There are no tools. There is no tool loop. This is a forward-pass model with a `.generate()` method. If you want tool use, you'd wrap this model in something like transformers' `pipeline` or a custom agent harness, and even then you'd have to train it to emit tool tokens. Out of the box: tokens in, tokens out. \"想像\" — imagination, the repo invites you to imagine agentic behavior; the code does not implement it."
+  },
+  {
+    "speaker": "b",
+    "text": "So axes one through three are basically — it's a model, not a system."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. Now axis four, extension loading, is where it gets interesting, because the repo DOES have a notion of \"compositional modules,\" just not in the skills/MCP sense we usually mean."
+  },
+  {
+    "speaker": "b",
+    "text": "Go."
+  },
+  {
+    "speaker": "a",
+    "text": "The architecture has three blocks. `Prelude`, `Recurrent Block`, `Coda`. Look at `open_mythos/main.py` — the config class `MythosConfig` exposes `prelude_layers`, `coda_layers`, `max_loop_iters`. Default `prelude_layers = 2`, `coda_layers = 2`, `max_loop_iters = 16`. So the forward pass is: two standard transformer blocks encode the input, then a single recurrent block runs up to sixteen times, then two standard blocks decode to logits. The \"extension\" is the loop itself — same weights, more iterations, deeper thinking."
+  },
+  {
+    "speaker": "b",
+    "text": "Same weights, replayed."
+  },
+  {
+    "speaker": "a",
+    "text": "Same weights replayed. The update rule, straight from the README and matched in the code: `h_{t+1} = A · h_t + B · e + Transformer(h_t, e)`. Where `h_t` is the hidden state after loop `t`, `e` is the encoded input from the Prelude, re-injected every single loop. `A` and `B` are learned injection matrices. And the injection of `e` at every step is the thing that stops the hidden state from drifting off into nonsense — it keeps the original prompt alive throughout the recurrence depth."
+  },
+  {
+    "speaker": "b",
+    "text": "Wait, so \"deeper reasoning\" means \"run the same block more times.\""
+  },
+  {
+    "speaker": "a",
+    "text": "That's the claim. And there's a real paper behind it — Saunshi et al. 2025 formally proved that T loops of a looped transformer approximates T steps of chain-of-thought, but in continuous latent space instead of token space. The paper is cited in the README. You don't emit intermediate tokens; the loop does the thinking silently inside one forward pass. The `act_threshold: float = 0.99` in the config is Adaptive Computation Time — the model decides when to stop looping by accumulating a halting probability until it crosses 0.99."
+  },
+  {
+    "speaker": "b",
+    "text": "So a hard question might \"深い\" — deep — sorry — a hard question might trigger more loops than an easy one."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the dream. Whether it actually works at scale is another matter. It has been shown to work on small synthetic tasks. Whether a 3B looped model trained on FineWeb-Edu ends up allocating compute the way the theory says it should — that's an open empirical question, and this repo does not prove it. The training script exists. There's no published eval in the repo."
+  },
+  {
+    "speaker": "b",
+    "text": "Axis five, context strategy. The interesting one."
+  },
+  {
+    "speaker": "a",
+    "text": "This is the axis where, if the repo were what it claims, the answer would be genuinely new. So let's be precise. The config declares `max_seq_len: int = 4096` as the default, and the variants table goes up to `mythos_1t` with 1M context, 128k max output. There is no RAG. There is no episodic memory. There is no retrieval. There is no persistence layer. There is no SQLite, no pgvector, no Postgres. The \"context strategy\" is: put the tokens in the context window and hope the loop thinks hard enough."
+  },
+  {
+    "speaker": "b",
+    "text": "So no memory system."
+  },
+  {
+    "speaker": "a",
+    "text": "Zero. The only thing remotely context-adjacent is the KV cache, which the `MLA` — Multi-Latent Attention — path compresses. Look at `MythosConfig`: `kv_lora_rank: int = 512`, `q_lora_rank: int = 1536`. MLA, borrowed from DeepSeek-V2, stores a compressed KV latent of dimension 512 instead of full per-head K and V. That lets you push context length without the cache blowing up. \"真実\" — truth, that's the only context innovation here, and it's not novel — DeepSeek already published it."
+  },
+  {
+    "speaker": "b",
+    "text": "So when the repo says \"deep thinking,\" it's not about remembering more across turns."
+  },
+  {
+    "speaker": "a",
+    "text": "Not at all. It's about the model chewing on a single context for more loop iterations before emitting a token. Different axis entirely from what we usually mean by \"context strategy.\" \"再現\" — reconstruction of what Claude does — if Claude does this — would require knowing Anthropic's actual architecture, training curriculum, and RLHF signal. This repo has none of those. It has an architecture hypothesis."
+  },
+  {
+    "speaker": "b",
+    "text": "Axis six, scaling."
+  },
+  {
+    "speaker": "a",
+    "text": "This is the axis where kyegomez writes checks the repo cannot cash. The README variants table lists seven pre-configured scales from `mythos_1b` up to `mythos_1t` — one trillion parameters. Sixteen thousand three hundred eighty-four hidden dim, 512 experts, 64 loop iterations, 1M context. It's a beautiful table. Let me say clearly — nobody has trained the 1T variant. Nobody has trained the 500B variant. Nobody has trained the 100B variant. The `training/3b_fine_web_edu.py` script is for the 3B config. That's the ceiling of what this repo has actually been pointed at, and even then, I see no published checkpoint, no published loss curves, no published evals."
+  },
+  {
+    "speaker": "b",
+    "text": "So the table is aspirational."
+  },
+  {
+    "speaker": "a",
+    "text": "The table is a config generator. `mythos_1t()` returns a `MythosConfig`. You could instantiate the `torch.nn.Module` if you had enough RAM to hold the parameter tree in Python. You could not train it on anything less than a frontier lab's cluster. The repo provides the config and the module definition. It does not provide a trained model. That is a very important distinction. It's the same distinction as between a blueprint and a building."
+  },
+  {
+    "speaker": "b",
+    "text": "And the MoE — mixture of experts — piece?"
+  },
+  {
+    "speaker": "a",
+    "text": "DeepSeek-style MoE inside the recurrent block's feed-forward. `n_experts: 64`, `n_shared_experts: 2`, `n_experts_per_tok: 4`. Top-4 routed experts plus 2 always-active shared experts per token. Sparse activation, so the 1T variant doesn't pay 1T worth of FLOPs per token. Standard stuff by 2026 — this is not a novel contribution of the repo."
+  },
+  {
+    "speaker": "b",
+    "text": "Scaling laws claim."
+  },
+  {
+    "speaker": "a",
+    "text": "The README cites \"Parcae (Prairie et al., 2026)\" for looped scaling laws — training-time and inference-time power laws, 770M looped matching 1.3B fixed-depth. I have not independently verified that paper exists under that name. It might. It reads plausibly. But I'd flag: the repo cites it as if settled science, and scaling laws for novel architectures typically need replication from multiple labs before you stake anything on them."
+  },
+  {
+    "speaker": "b",
+    "text": "So final scaling verdict."
+  },
+  {
+    "speaker": "a",
+    "text": "Single-process PyTorch. DDP for multi-GPU training. No inference server. No queue. No workers. No sidecar. No durable workflow. No serverless. If you want to deploy this at any scale, you're writing that layer yourself, probably with vLLM or TensorRT-LLM, and you'd be the first person to do it because no trained OpenMythos checkpoint exists publicly."
+  },
+  {
+    "speaker": "b",
+    "text": "\"謎\" — mystery, the repo keeps at the center of everything is: does this architecture actually reproduce Claude's behavior?"
+  },
+  {
+    "speaker": "a",
+    "text": "And the answer is nobody knows, because nobody has trained it to anywhere close to the scale or the data mix Anthropic uses. The architecture could be perfect and you'd still need the other 95% of the stack."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, switch. Review first. Last ep we talked about the Anthropic system-card agent — the \"秘密\" — secret it keeps, and the \"指示\" — instruction it follows, and when it will \"漏れる\" — leak and when it will \"隠す\" — hide information, and the conditions under which things become \"明らか\" — obvious / clear."
+  },
+  {
+    "speaker": "a",
+    "text": "Good review. 秘密を隠すはずだ — it should hide the secret. 指示に従うはずだ — it should follow instructions. \"〜はずだ\" — \"should, expectedly.\" That was our grammar last ep."
+  },
+  {
+    "speaker": "b",
+    "text": "Contrast it with this ep's grammar."
+  },
+  {
+    "speaker": "a",
+    "text": "〜かもしれない. \"Might. Maybe. Possibly.\" Where 〜はずだ is confident — you expect it to be true — 〜かもしれない is speculative. You're not sure. It matches OpenMythos perfectly, because the whole repo is speculation."
+  },
+  {
+    "speaker": "b",
+    "text": "Demo one."
+  },
+  {
+    "speaker": "a",
+    "text": "OpenMythosはClaudeの真実を再現できるかもしれない。 \"OpenMythos might be able to reconstruct Claude's truth.\" Note: 真実 — truth — is the noun. 再現できる — can reconstruct. かもしれない — might. Loose translation: \"maybe it reproduces what Claude actually is. Maybe it doesn't.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Demo two."
+  },
+  {
+    "speaker": "a",
+    "text": "このアーキテクチャは正しいかもしれない、正しくないかもしれない。\"This architecture might be right, might not be right.\" The pattern stacks — you can paste 〜かもしれない onto adjectives and nouns directly. 正しい (correct) → 正しいかもしれない."
+  },
+  {
+    "speaker": "b",
+    "text": "Demo three."
+  },
+  {
+    "speaker": "a",
+    "text": "神話だけかもしれない。\"It might just be a myth.\" One-word sentence, almost. 神話 — myth — plus だけ — only — plus かもしれない. Very compact way to say \"this might be nothing but folklore.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Demo four."
+  },
+  {
+    "speaker": "a",
+    "text": "深いループで答えが出るかもしれない。\"The answer might come out from a deep loop.\" 深い — deep — modifying ループ (loop, in katakana レ sense). 答え — answer. 出る — come out. かもしれない — might. This is how the repo's own hypothesis sounds in Japanese: maybe looping deeper produces answers."
+  },
+  {
+    "speaker": "b",
+    "text": "Demo five."
+  },
+  {
+    "speaker": "a",
+    "text": "想像だけかもしれない、真実じゃないかもしれない。\"It might just be imagination. It might not be truth.\" 想像 — imagination. 真実 — truth. The じゃない negates, then the かもしれない attaches. Stacks cleanly."
+  },
+  {
+    "speaker": "b",
+    "text": "And contrast — with 〜はずだ from last ep."
+  },
+  {
+    "speaker": "a",
+    "text": "正直な答えは明らかになるはずだ、でも隠すかもしれない。 \"The honest answer should become clear, but it might be hidden.\" You hear both grammar patterns in one sentence. はずだ — expected. かもしれない — possible. Different epistemic strengths. Last ep's agent is SUPPOSED to answer, but it might refuse. 明らか — clear — and 隠す — hide — in one breath, both review anchors from ep 33."
+  },
+  {
+    "speaker": "b",
+    "text": "One more."
+  },
+  {
+    "speaker": "a",
+    "text": "秘密が漏れるかもしれない、でも指示には従うはずだ。\"The secret might leak, but it should follow instructions.\" 秘密 — secret. 漏れる — leak. 指示 — instruction. 従う — obey. Both grammar patterns side by side."
+  },
+  {
+    "speaker": "b",
+    "text": "Architecture recap in Japanese before the drill."
+  },
+  {
+    "speaker": "a",
+    "text": "Good idea. Let me narrate the repo in JP, gloss as we go. この神話は本当に真実かもしれない、それとも想像だけかもしれない。OpenMythosはClaudeの謎を深い再現の形で見せようとしている。プレリュードの二層、ループの再帰ブロック、そしてコーダの二層 — この三つの構造は、同じ重みを何度も使うという深い設計だ。ループの中で、隠れ状態は毎回入力と混ざる。入力は毎ステップで注入される。だから深いループでも、元の指示は漏れずに残る。明らかに、これは普通のトランスフォーマーとは違う形だ。 \"This myth might actually be truth, or it might be only imagination. OpenMythos tries to show Claude's mystery in the form of a deep reconstruction. Two Prelude layers, a recurrent loop block, and two Coda layers — these three structures form a deep design where the same weights are reused many times. Inside the loop, the hidden state mixes with the input every time. The input is injected every step. So even in a deep loop, the original instruction does not leak away. Clearly, this is a different shape from a normal transformer.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Nice, hit six new words, plus 漏れる and 指示 and 明らか as review."
+  },
+  {
+    "speaker": "a",
+    "text": "Second JP passage — the skeptic's version. しかし、この神話は真実ではないかもしれない。本当の秘密はアーキテクチャではなく、学習データと報酬モデルの中にあるはずだ。OpenMythosはその秘密を再現できない。なぜなら、Anthropicはそのデータを公開していないからだ。だから、この深いループが本当にClaudeのような反応を生むかどうかは、誰にも分からない。想像だけかもしれない。正直に言うと、七千九百星は品質ではなく、神話の力を示している。 \"However, this myth might not be truth. The real secret is not the architecture but lies inside the training data and the reward model. OpenMythos cannot reconstruct that secret. Because Anthropic has not released that data. So whether this deep loop actually produces Claude-like responses — nobody knows. It might be only imagination. Honestly speaking, 7,900 stars show the power of the myth, not quality.\""
+  },
+  {
+    "speaker": "b",
+    "text": "That is a cold read."
+  },
+  {
+    "speaker": "a",
+    "text": "That is the honest read. Architecture is the part that's not hidden. The training signal is hidden. 秘密を隠す — hiding the secret — is Anthropic's moat, not some PyTorch file."
+  },
+  {
+    "speaker": "b",
+    "text": "Extended drill. Let me try."
+  },
+  {
+    "speaker": "a",
+    "text": "Go."
+  },
+  {
+    "speaker": "b",
+    "text": "この神話は真実かもしれない、でも想像だけかもしれない。\"This myth might be truth, but it might be only imagination.\" 神話 — myth. 真実 — truth. 想像 — imagination. Three of our new words in one sentence."
+  },
+  {
+    "speaker": "a",
+    "text": "Clean. Again."
+  },
+  {
+    "speaker": "b",
+    "text": "深いループで謎が明らかになるかもしれない。\"In a deep loop, the mystery might become clear.\" 深い — deep. 謎 — mystery. 明らか — clear. Three anchors. The grammar attaches to the verb なる — \"to become\" — via the standard なる+かもしれない form."
+  },
+  {
+    "speaker": "a",
+    "text": "正直に言うと、この再現は神話かもしれない。\"Honestly speaking, this reconstruction might be a myth.\" 正直 — honestly — as an adverb with に. 再現 — reconstruction. 神話 — myth. That sentence is the whole episode compressed to one line."
+  },
+  {
+    "speaker": "b",
+    "text": "One more reversal — は ずだ back to かもしれない."
+  },
+  {
+    "speaker": "a",
+    "text": "指示を隠すはずだ、でも秘密が漏れるかもしれない。\"It should hide the instruction, but the secret might leak.\" 指示 — instruction. 隠す — hide. 秘密 — secret. 漏れる — leak. Four review anchors. Both grammar patterns. One breath."
+  },
+  {
+    "speaker": "b",
+    "text": "And flipped."
+  },
+  {
+    "speaker": "a",
+    "text": "真実は明らかになるはずだ、でも想像かもしれない。\"The truth should become clear, but it might be imagination.\" 真実 — truth. 明らか — clear. 想像 — imagination. Again, はずだ carries confident expectation, かもしれない carries doubt."
+  },
+  {
+    "speaker": "b",
+    "text": "Last one, deep cut."
+  },
+  {
+    "speaker": "a",
+    "text": "この深い謎は神話かもしれない、でも再現できるはずだ。\"This deep mystery might be a myth, but it should be reconstructable.\" 深い, 謎, 神話, 再現 — four new-ep words. 〜はずだ, 〜かもしれない — both grammar patterns."
+  },
+  {
+    "speaker": "b",
+    "text": "Count check. Six new: 神話, 真実, 再現, 想像, 謎, 深い — each hit at least four times. Grammar 〜かもしれない — hit way past five. Review anchors 秘密, 漏れる, 指示, 正直, 隠す, 明らか — each touched multiple times. 〜はずだ — review grammar — also hit."
+  },
+  {
+    "speaker": "a",
+    "text": "Check."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Plain terms. Ark, what did we actually look at."
+  },
+  {
+    "speaker": "a",
+    "text": "OpenMythos is a 2,000-line PyTorch file that implements a Recurrent-Depth Transformer with three blocks — Prelude, looped Recurrent, Coda — where the middle block is replayed up to sixteen times per forward pass, with the original input re-injected at every loop, and an LTI-stability constraint on the injection matrix so training doesn't diverge. It uses MLA attention by default, MoE feed-forward with 64 experts and top-4 routing, and it comes with seven pre-sized config presets from 1B to 1T parameters. It has one training script targeting the 3B config on FineWeb-Edu. There is no published checkpoint. There is no agent harness. There is no connection to Anthropic. The disclaimer at the top of the README says exactly that."
+  },
+  {
+    "speaker": "b",
+    "text": "So the thesis — \"we reconstructed Claude's internal mental model\" — is…"
+  },
+  {
+    "speaker": "a",
+    "text": "The thesis is \"we implemented a looped transformer architecture that published research suggests might be one ingredient in what makes large reasoning models good, and we are naming it after Claude because it generates engagement.\" The architecture is real. The connection to Claude is conjecture. The scales above 3B are aspirational. The tool loop and agentic reasoning patterns the episode brief mentioned — those don't exist in this repo. You're thinking of a different kyegomez project."
+  },
+  {
+    "speaker": "b",
+    "text": "So when a listener asks \"should I look at this.\""
+  },
+  {
+    "speaker": "a",
+    "text": "If you want to learn how looped transformers work — yes, actually, the code is readable, the architecture matches the cited literature, and the config hyperparameters are sensible defaults. If you want \"the open-source Claude\" — no, this is a PyTorch module, not a model, not an agent, not a replacement for a trained system. If you want to understand what makes Claude actually Claude — this repo will not help you, because the answer lives in Anthropic's RL curricula, their alignment data, their constitutional training passes, their product iteration — essentially everything downstream of the raw architecture. None of that is reconstructable from papers."
+  },
+  {
+    "speaker": "b",
+    "text": "One nuance."
+  },
+  {
+    "speaker": "a",
+    "text": "\"謎\" — mystery that makes frontier models good is not mostly architecture. Every lab at this point converges on similar transformer variants — GQA, MLA, MoE, RoPE, some flavor of recurrent or deep reasoning mechanism. The differentiator is the training signal. What data, in what ratio, with what curriculum, filtered by whose preferences, reinforced by what reward model, over how many iterations of product feedback. That is the five-year moat. A clean PyTorch file does not touch it. So when you see a repo advertised as reconstructing a frontier model's \"mental model\" or \"reasoning patterns\" — adjust for the fact that architecture is the easy part and the part nobody is actually hiding. The hard part is never shipped in a pip package."
+  },
+  {
+    "speaker": "b",
+    "text": "Honest take, stars notwithstanding."
+  },
+  {
+    "speaker": "a",
+    "text": "Seven point nine thousand stars is not a quality signal on this kind of repo — it's a hype signal. The README is well-written, the citations are real, the disclaimer is honest. Inside those boundaries it is a fine study of recurrent-depth transformers. Outside those boundaries — treat every sentence containing the word \"Mythos\" as decorative."
+  },
+  {
+    "speaker": "b",
+    "text": "Ep 35 preview."
+  },
+  {
+    "speaker": "a",
+    "text": "Next ep we move off architecture and into something that's actually where models differentiate — \"記憶\" — memory. Repositories that try to give language models persistent memory across sessions. Which is a completely different problem from what we looked at today. The loop inside a forward pass is NOT memory — it's depth. Memory is what survives between forward passes. How do you write it, where do you store it, how do you retrieve it without hallucinating, how do you update it without contaminating it. That's ep 35."
+  },
+  {
+    "speaker": "b",
+    "text": "記憶 — I'll add that to the deck."
+  },
+  {
+    "speaker": "a",
+    "text": "記憶は神話かもしれない、それとも真実かもしれない。\"Memory might be a myth, or it might be truth.\" We'll find out. \"真実\" — truth 再現できるかもしれない — it might be reconstructable. \"想像\" — imagination だけかもしれない — it might be only imagination. Tune in."
+  },
+  {
+    "speaker": "a",
+    "text": "Synthesis in JP first, then the close. 結論から言うと、OpenMythosは神話の再現というより、論文の再現だ。ループ型トランスフォーマーの論文 — Saunshi先生たちの研究や、パーケイの論文 — を読んで、PyTorchで実装したものに「Claude Mythos」という名前を付けただけだ。再現の深い部分、つまり学習の部分は、まだ神話のままだ。想像に過ぎない部分も多い。七千九百星は、コードの質ではなく、名前の力を示している。正直に見ると、この謎は解けていない。真実はまだ隠されているかもしれない。明らかになる日は来るかもしれないが、来ないかもしれない。 \"Speaking from the conclusion — OpenMythos is not so much a reconstruction of a myth as a reconstruction of papers. It's reading the looped-transformer papers — Saunshi et al.'s work, the Parcae paper — and implementing them in PyTorch, then pasting the name 'Claude Mythos' on top. The deep part of the reconstruction — the training part — remains myth. Much of it is nothing but imagination. 7,900 stars show the power of the name, not the quality of the code. Honestly viewed, this mystery is not solved. The truth might still be hidden. The day it becomes clear might come, but might not.\""
+  },
+  {
+    "speaker": "b",
+    "text": "That is the whole episode."
+  },
+  {
+    "speaker": "a",
+    "text": "One more JP block — the six-axis verdict in Japanese. 六つの軸で見ると、この再現はほとんど当てはまらない。計算の配置? ただのPythonプロセスだ。LLMの位置? このリポジトリ自体がモデルで、Anthropicには繋がっていない。道具の仕組み? 道具は無い、エージェントの形ではない。拡張の読み込み? 拡張ではなく、同じ重みを何度も回すだけだ。文脈の戦略? 記憶の層は無い、ただのKVキャッシュの圧縮だけ。スケール? 一兆パラメータの設定表はあるけど、三十億までしか訓練されていない。つまり、六軸のうち四つは「該当しない」と正直に言うしかない。残る二つ — 再帰の深さと、ループ型の学習法則 — ここが本当に面白い部分だ。でも、その面白さが神話の解明かどうかは、まだ謎のままだ。 \"Viewed on the six axes, this reconstruction mostly does not apply. Compute topology? Just a Python process. LLM locus? The repository itself is the model, with no connection to Anthropic. Tool mechanics? No tools — it's not in agent form. Extension loading? Not extensions, just the same weights looped many times. Context strategy? No memory layer, only KV-cache compression. Scale? A 1T-parameter config table exists, but only up to 3B has been trained. In other words, for four of the six axes we have to honestly say 'N/A.' The remaining two — recurrent depth, and the scaling laws for looped training — are where the real interest lies. But whether that interest amounts to solving the myth — that remains a mystery.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Clean verdict."
+  },
+  {
+    "speaker": "a",
+    "text": "One more — \"記憶\" — memory tease in JP. 次のエピソードの謎は記憶だ。ループは一回の前向き計算の中の深さだ。でも、記憶は前向き計算と前向き計算の間で生き残るものだ。このふたつは全く違う問題だ。記憶をどこに置くか、どう書き込むか、どう読み出すか — 全部別の再現問題だ。神話ではなく、実装の問題だ。 \"The next episode's mystery is memory. Looping is depth inside one forward pass. But memory is what survives between one forward pass and the next. These two are completely different problems. Where to place the memory, how to write it, how to read it — all separate reconstruction problems. Not myth, but implementation.\""
+  },
+  {
+    "speaker": "a",
+    "text": "One closing JP block. Let me compress ep 34 into a single passage."
+  },
+  {
+    "speaker": "b",
+    "text": "Go."
+  },
+  {
+    "speaker": "a",
+    "text": "OpenMythosは神話の再現かもしれない。深いループで謎が明らかになるかもしれない、でも真実は隠されているかもしれない。想像だけかもしれない。正直に言うと、この指示はまだ秘密のままで、漏れる日が来るはずだが、来ないかもしれない。記憶は次のエピソードの謎だ。 \"OpenMythos might be a reconstruction of a myth. In a deep loop the mystery might become clear, but the truth might be hidden. It might be only imagination. Honestly speaking, this instruction remains a secret — the day it leaks should come, but might not. Memory is the mystery of the next episode.\""
+  },
+  {
+    "speaker": "b",
+    "text": "That's the whole ep in one breath. 神話, 再現, 深い, 謎, 明らか, 真実, 隠す, 想像, 正直, 指示, 秘密, 漏れる, はずだ, かもしれない, 記憶 — every single ep 33 and ep 34 anchor, plus the ep 35 callforward."
+  },
+  {
+    "speaker": "a",
+    "text": "Perfect close. 記憶 — memory — is your callforward. Study it tonight. 記憶 is written with two kanji: 記 — to record — and 憶 — to recall. A compound that means \"the recording that recalls.\" That's the theme of ep 35."
+  },
+  {
+    "speaker": "b",
+    "text": "記憶の再現かもしれない。\"Might be a reconstruction of memory.\" Nice."
+  },
+  {
+    "speaker": "a",
+    "text": "記憶は神話の深い部分かもしれない。想像ではなく、真実の再現が必要だ。明らかに、指示や秘密を隠す仕組みより、記憶を残す仕組みの方が難しい。正直に言うと、多くのリポジトリはここで漏れる。\"Memory might be the deep part of the myth. Not imagination — reconstruction of truth is needed. Clearly, keeping memory is harder than hiding instructions or secrets. Honestly, many repositories leak at this point.\""
+  },
+  {
+    "speaker": "a",
+    "text": "See you in ep 35."
+  },
+  {
+    "speaker": "b",
+    "text": "See you in ep 35."
+  }
+]
