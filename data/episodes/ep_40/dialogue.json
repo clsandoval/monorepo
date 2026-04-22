@@ -1,0 +1,502 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay, interlude. I read all three READMEs back-to-back last night and I have a hot take."
+  },
+  {
+    "speaker": "a",
+    "text": "Go."
+  },
+  {
+    "speaker": "b",
+    "text": "These three repos have nothing to do with each other. DeepTutor is a Next.js tutoring app. RuView is a Rust thing that reads WiFi signals off an ESP32. Koharu is a Tauri desktop app that translates manga. We put them in the same batch because — what, they all had stars? This is a grab bag."
+  },
+  {
+    "speaker": "a",
+    "text": "That is exactly the point. そうそう (exactly), 全部 (all) バラバラ (scattered) だよ — they're all scattered, yes."
+  },
+  {
+    "speaker": "b",
+    "text": "なるほど (I see). So you agree it's a grab bag?"
+  },
+  {
+    "speaker": "a",
+    "text": "やっぱり (as I thought) 違うアプリ (different apps) だ — they really are different apps. でも (but) それが面白い (interesting) — but that's what's interesting. That's why we put them together. The last nine episodes were all agent substrates — eliza, multica, hermes, claude-flow, that whole family. General-purpose. \"Be anything.\" These three are the inverse. Each one solves one specific problem end-to-end and stops. Specialist, not platform. The grab-bag feeling is the signal."
+  },
+  {
+    "speaker": "b",
+    "text": "So the whole point of this interlude is: \"here are three things that don't compose.\""
+  },
+  {
+    "speaker": "a",
+    "text": "Here are three things that don't want to compose. And that's a different engineering category, with different tradeoffs, and we should know when to pick it."
+  },
+  {
+    "speaker": "b",
+    "text": "確かに (certainly). Huh. Okay. Walk me through."
+  },
+  {
+    "speaker": "a",
+    "text": "Six axes, three repos, side-by-side. By the end you'll see which axis each repo actually bet on, and which axes it let atrophy because it didn't need them. 三つ (three) のアプリ、六つ (six) の軸 (axis) で比べる (compare) — three apps, compare on six axes. 全部 (all) 違うけど (but different), 全部 (all) 面白い (interesting)."
+  },
+  {
+    "speaker": "a",
+    "text": "Start with where each thing runs, because that determines everything else."
+  },
+  {
+    "speaker": "b",
+    "text": "DeepTutor first. I have the release notes open. It's Python 3.11+ backend, Next.js 16 frontend, WebSocket between them. There's a CLI. There's Docker. There's a thing called TutorBot that lives per-workspace with its own memory."
+  },
+  {
+    "speaker": "a",
+    "text": "Correct. Compute topology: it is a classic full-stack web app plus a sidecar CLI. Backend process, frontend process, WebSocket for streaming chat, SQLite or Postgres underneath for sessions and knowledge bases. They call it \"agent-native\" but structurally it's a Python service with a plugin model — Tools and Capabilities — that the frontend calls into over WebSocket."
+  },
+  {
+    "speaker": "b",
+    "text": "And the LLM locus?"
+  },
+  {
+    "speaker": "a",
+    "text": "Multi-provider. OpenAI, Anthropic, DeepSeek, Qwen, local vLLM, llama.cpp, LM Studio. The release notes call out `agents.yaml` as the config file — per-stage token limits, per-stage model selection. So the locus is \"hosted API by default, with explicit local-LLM support as a first-class path.\" Not \"pick one,\" more like \"route per stage.\""
+  },
+  {
+    "speaker": "b",
+    "text": "指導 (しどう) — instruction/tutoring is the whole product."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. The 指導 is the product, the LLM is a swappable backend. ユーザー (user) が 学ぶ (learn) ための 指導 だ — it's tutoring for users to learn. Now RuView."
+  },
+  {
+    "speaker": "b",
+    "text": "Completely different universe. README says ESP32-S3 hardware, $9 per sensor node. Rust. WiFi Channel State Information — CSI — streamed over UDP. There's a 3D point cloud viewer. There's something called Cognitum Seed for persistent memory. Tests: 1463 passed, apparently."
+  },
+  {
+    "speaker": "a",
+    "text": "Compute topology for RuView is: cheap embedded sensor mesh plus an edge compute host. The ESP32-S3 runs firmware — you can see the `esptool --chip esp32s3` flash command in the README. It streams CSI frames over UDP to a Rust host process, which in the new version has a `wifi-densepose-pointcloud` binary at `rust-port/wifi-densepose-rs`. That host process does the DSP — bandpass filters for breathing at 0.1 to 0.5 Hz, heart rate at 0.8 to 2.0 Hz — and ships results to a viewer at `http://localhost:9880`."
+  },
+  {
+    "speaker": "b",
+    "text": "So no LLM at all?"
+  },
+  {
+    "speaker": "a",
+    "text": "LLM is not central. There's an MCP proxy mentioned for the Cognitum Seed, and there's RF fingerprinting via a spiking neural network, but the core pipeline is signal processing, not language. If you asked \"what's the LLM locus\" for RuView, the honest answer is \"N/A, this repo isn't in that plane.\" It's in the signal plane."
+  },
+  {
+    "speaker": "b",
+    "text": "電波 (でんぱ) — radio waves doing the work, not tokens."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう (exactly). 電波 — radio waves — are the substrate. 体 (からだ) — body の動き (movement) を 電波 で 感じる (かんじる, to sense) — the system senses body movement via radio waves. カメラ (camera) なしで 姿 (すがた, form) が分かる — you can tell the form without a camera. The SNN on top is learned, not prompted. Now koharu."
+  },
+  {
+    "speaker": "b",
+    "text": "Koharu is a Tauri desktop app, Rust, uses candle and llama.cpp for local inference. Object detection, OCR, inpainting, LLM translation, all chained."
+  },
+  {
+    "speaker": "a",
+    "text": "Compute topology: single desktop process, bundled models, optional headless mode on a port, optional built-in MCP server on another port. README shows `koharu --port 9999` pins the MCP endpoint and `koharu --port 4000 --headless` runs without the GUI. So the lifetime is \"while the app is open\" or \"while the headless process runs.\" No backend cluster, no cloud."
+  },
+  {
+    "speaker": "b",
+    "text": "And the LLM locus is local."
+  },
+  {
+    "speaker": "a",
+    "text": "Local by design. They call it out in the README: \"runs its vision models and LLMs locally.\" llama.cpp for the language model, candle for the vision models. CUDA on Windows NVIDIA, Metal on Mac, Vulkan fallback, CPU fallback. The LLM here is a stage in a fixed pipeline — detect bubbles, OCR the Japanese, inpaint the raw page, translate the extracted text, render back. The LLM is one worker in a four-worker chain. 漫画 (まんが) — manga の 翻訳 (ほんやく) — translation を ローカル (local) で 全部 (all) やる — it does all the manga translation locally."
+  },
+  {
+    "speaker": "b",
+    "text": "面白い (interesting). So same six axes, three radically different answers just on these first two. DeepTutor: hosted-first, multi-provider, per-stage routing. RuView: no LLM, it's a signal-processing platform. Koharu: local-only, fixed pipeline position."
+  },
+  {
+    "speaker": "a",
+    "text": "And notice what that already tells you. \"LLM locus\" was load-bearing for DeepTutor — they had to build a provider abstraction. For RuView it's irrelevant. For koharu it's constrained on purpose — local privacy is part of the pitch. Same axis, three different pressure levels."
+  },
+  {
+    "speaker": "b",
+    "text": "Host summary time. DeepTutor は 指導 (guidance) のアプリ。RuView は 電波 (radio waves) の実験 (experiment)。koharu は 翻訳 (translation) の 道具 (tool, dōgu)。全部 (all) 違う (different) けど、全部 (all) 面白い (interesting)."
+  },
+  {
+    "speaker": "a",
+    "text": "確かに (certainly)、三つ (three) バラバラ (scattered) の 姿 (forms) だ — they really are three scattered forms."
+  },
+  {
+    "speaker": "a",
+    "text": "Now tools and extensions. This is where specialist-versus-platform shows up hardest."
+  },
+  {
+    "speaker": "b",
+    "text": "DeepTutor has Tools and Capabilities. Capabilities listed in the README: Chat, Deep Solve, Quiz Generation, Deep Research, Math Animator, Visualize. Each capability is a mode that can use tools — retrieval, search, question-bank lookup, save-to-notebook."
+  },
+  {
+    "speaker": "a",
+    "text": "Tool mechanics: in-process Python functions registered against the agent runtime. Retrieval is a RAG pipeline — they mention Docling support for RAG-Anything, SearXNG fallback, Serper as a search provider. All wired as tools the agent can call. Skills system was added in v1.2.2: user-authored skills with CRUD and chat integration. So skills are a first-class extension path."
+  },
+  {
+    "speaker": "b",
+    "text": "Plus an MCP server? They mention a `SKILL.md` that lets external agents operate DeepTutor."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the reverse — DeepTutor exposes a SKILL.md so other agents can drive it, like Claude Code spawning DeepTutor as a subordinate. The internal skills are Python-side. So you have two extension surfaces: user-authored skills loaded by the DeepTutor runtime, and a SKILL.md + CLI so DeepTutor itself is a tool for upstream agents. 個人 (こじん) — personal/individual tutoring is the frame, and extensions are the personalization surface."
+  },
+  {
+    "speaker": "b",
+    "text": "なるほど (I see). 個人 の 能力 (のうりょく, ability) に合わせて (matching) 指導 する — it tutors matching the individual's ability. やっぱり (after all) DeepTutor は plugin ベース だ — DeepTutor is plugin-based after all."
+  },
+  {
+    "speaker": "a",
+    "text": "RuView extensions?"
+  },
+  {
+    "speaker": "a",
+    "text": "\"Edge modules\" per the README — small programs that run directly on the ESP32. Not an LLM tool call model at all. Extension loading for RuView means: new firmware payload, new SNN model weights, new filter pipeline. The extensibility is at the DSP and firmware layer. They mention ADR-041 for edge intelligence and ADR-018 for the binary CSI frame format — that's how you'd plug in a new signal channel."
+  },
+  {
+    "speaker": "b",
+    "text": "So \"tools\" doesn't really apply."
+  },
+  {
+    "speaker": "a",
+    "text": "The mechanics exist but they're sensor mechanics, not agent tool mechanics. The system's hands are on radio hardware, not filesystems. Multi-frequency mesh hopping across 6 channels, neighbor AP illuminators — those are \"tools\" the system wields, but they're physical primitives, not JSON-RPC calls."
+  },
+  {
+    "speaker": "b",
+    "text": "And koharu."
+  },
+  {
+    "speaker": "a",
+    "text": "Koharu has an MCP server built in. Port flag pins it. The MCP tools — the README links to an \"MCP Tools Reference\" page — give external agents hands on koharu's pipeline: load a page, detect bubbles, OCR, translate, inpaint, export PSD. So koharu is both a desktop app and an MCP-addressable service. That's the whole extension story. It doesn't have a plugin model for its own pipeline stages — the stages are fixed. You don't add a \"new OCR engine\" via user skills. You fork."
+  },
+  {
+    "speaker": "b",
+    "text": "Fixed pipeline, exposed as MCP. 漫画 (まんが) — manga translation is the whole scope, and the pipeline stays the way it is. 元 (original) の 絵 (え, picture) を そのまま (as-is) 残す (のこす, preserve) — leave the original picture as-is."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. The 漫画 pipeline is 〜まま (as-is, unchanged) — six stages, ordered, no user-swappable middle. 場面 (ばめん, scene) の 雰囲気 (atmosphere) を 壊さない (not break) まま 訳す (translate) — translate without breaking the scene's atmosphere. Contrast with DeepTutor where the middle is explicitly a plugin surface. Same axis, completely opposite philosophy."
+  },
+  {
+    "speaker": "b",
+    "text": "So: DeepTutor is the most \"platform-like\" of the three — runtime skills plus SKILL.md exposure plus tool registry. Koharu is a vertical with one external handle, the MCP server. RuView doesn't have agent tools at all, it has a DSP and firmware extension path."
+  },
+  {
+    "speaker": "a",
+    "text": "And now you can see the grab-bag isn't a grab-bag. It's three points on the specialist-to-platform gradient. DeepTutor leans toward platform. Koharu is solidly vertical with a thin agent handle. RuView is pure domain system with no agent framing at all."
+  },
+  {
+    "speaker": "b",
+    "text": "Host summary. DeepTutor は plugin で 成長 (せいちょう, growth) する — DeepTutor grows via plugins. koharu は 漫画 の 場面 を まま にして 翻訳 する — koharu translates leaving the scene as-is. RuView は 電波 の 道具 (tool) を 使う (use) — RuView uses radio-wave tools."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう (exactly)、三つ (three) の 姿 (forms) が はっきり (clearly) 見える (can see) — the three forms are clearly visible."
+  },
+  {
+    "speaker": "b",
+    "text": "Context strategy. DeepTutor?"
+  },
+  {
+    "speaker": "a",
+    "text": "Persistent memory is a headline feature. \"Living profile\" — what you've studied, how you learn. Shared across TutorBots. Underneath: RAG pipeline with configurable embedding providers, per-knowledge-base pipeline selection, an embedding registry. Session persistence since v0.6. URL-based bookmarkable sessions since v1.1.0-beta. So the context strategy is: learner profile pinned, per-session chat compressed or summarized, RAG over uploaded documents as needed."
+  },
+  {
+    "speaker": "b",
+    "text": "Token budget?"
+  },
+  {
+    "speaker": "a",
+    "text": "Per-stage in `agents.yaml`. v1.2.1 added per-stage chat token limits — 8000-token responses by default. So compression is configured at the stage boundary, not a dynamic trigger based on drift."
+  },
+  {
+    "speaker": "b",
+    "text": "なるほど. 個人 の 学び (learning) の 履歴 (history) を 残す わけだ — it preserves the individual's learning history, makes sense."
+  },
+  {
+    "speaker": "a",
+    "text": "RuView memory?"
+  },
+  {
+    "speaker": "a",
+    "text": "Cognitum Seed. Persistent vector store, kNN search, Ed25519 witness chain. Overnight sleep monitoring stores vital signs every 60 seconds into a \"ruOS brain.\" So memory here is temporal and spatial — a time series of CSI snapshots plus learned environment fingerprints. Not episodic memory in the conversational sense. No chat context at all."
+  },
+  {
+    "speaker": "b",
+    "text": "感じる (かんじる) — to sense/feel the room, and the 姿 (すがた) — form/figure comes out of many snapshots. 見えない (みえない, invisible) はず (supposed to be) の 物 (thing) を 感じる わけだ — so it senses things that should be invisible, makes sense."
+  },
+  {
+    "speaker": "a",
+    "text": "驚く (おどろく, be surprised) よ、本当に (really) — surprising, really. The memory is a signal archive, not a dialogue archive. And that's a totally different data structure — you want fast kNN over embedding vectors of CSI frames, not token-aware compression of chat turns."
+  },
+  {
+    "speaker": "b",
+    "text": "Koharu memory?"
+  },
+  {
+    "speaker": "a",
+    "text": "Per-project. Page is the unit. Runtime config at startup — shared local data path, HTTP timeouts, retry count, cached Google Fonts. A project holds a set of pages, each with detected regions, OCR output, translations, inpainted layers. Exported as PSD with editable text layers. So the \"context\" is the page plus the project's glossary and prior translations for consistency, not a rolling window of dialogue."
+  },
+  {
+    "speaker": "b",
+    "text": "吹き出し (ふきだし, speech bubble) ごとに (per) 翻訳 を 残す — preserve the translation per speech bubble. 元 の 絵 は いじらない (don't touch) まま — leaving the original picture untouched."
+  },
+  {
+    "speaker": "a",
+    "text": "Three very different memory primitives. DeepTutor: learner profile + session + RAG. RuView: time-series signal archive with crypto attestation. Koharu: project + page + translation history."
+  },
+  {
+    "speaker": "b",
+    "text": "Host summary. DeepTutor は 個人 の 記憶 (memory) を 残す。RuView は 電波 の 記録 (record) を 残す。koharu は 漫画 の 場面 と 翻訳 を 残す。全部 (all) 残す けど、残す もの (things) が 違う (differ)."
+  },
+  {
+    "speaker": "a",
+    "text": "Now scaling, which is the big one."
+  },
+  {
+    "speaker": "b",
+    "text": "DeepTutor scaling."
+  },
+  {
+    "speaker": "a",
+    "text": "Reference deployment: Docker Compose, pre-built images on GHCR since v0.3. Python backend, Next.js frontend, WebSocket. Single-tenant per install. You could run it as a shared service with multiple users, but the memory model is per-user learner profile, so multi-tenant means one install per user or careful row-level separation. Release notes don't mention tenant isolation — they mention LAN remote access fix in v1.2.2, which suggests the canonical case is one instance per home or lab."
+  },
+  {
+    "speaker": "b",
+    "text": "So it scales horizontally by deploying more instances."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. No queue, no durable workflow, no sharded dispatcher. One Python process, one Node process, one DB. That's the whole picture for a single user. 成長 (せいちょう) — growth scales by replication, not by orchestration. 個人 ごとに (per) インスタンス を 立てる (stand up) わけだ — one instance per individual, makes sense."
+  },
+  {
+    "speaker": "b",
+    "text": "RuView scaling."
+  },
+  {
+    "speaker": "a",
+    "text": "The scaling axis is mesh density. Multiple ESP32-S3 nodes, multi-frequency hopping across 6 WiFi channels. $54 for a 3-to-6 node mesh, $140 with a Cognitum Seed. The system gets better as you add sensor nodes — more spatial resolution, more coverage, more triangulation. So scaling is literally \"buy more $9 radios and deploy them.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Horizontal, but in physical space."
+  },
+  {
+    "speaker": "a",
+    "text": "Horizontal in physical space and in RF spectrum. And the compute scales with the number of streams — more CSI frames per second to process, which is why they moved to Rust, and why they call out \"171K embeddings per second on M4 Pro\" as a throughput number. 電波 の 密度 (density) を 上げる (raise) と、見えない 所 (place) も 見える (visible) ようになる — raise the radio-wave density and invisible places come to be visible."
+  },
+  {
+    "speaker": "b",
+    "text": "驚く ね — surprising, right."
+  },
+  {
+    "speaker": "a",
+    "text": "Koharu scaling."
+  },
+  {
+    "speaker": "a",
+    "text": "Koharu scales by chapter batch. Single-process desktop app, but headless mode on a port means you can drive it from a script and feed it a directory of pages. GPU acceleration — CUDA, Metal, Vulkan — is the per-page acceleration story. If you want to translate a 200-page volume, you batch the pages through the pipeline. No queue, no worker pool in the README. The MCP server is single-server."
+  },
+  {
+    "speaker": "b",
+    "text": "So if you want to translate a thousand volumes, you run a thousand koharu processes on a thousand machines?"
+  },
+  {
+    "speaker": "a",
+    "text": "Or you run one per machine and feed it chapters serially. There's no built-in fleet orchestration. Which is fine — because the target user is a translator working on a project, not a publishing house running a factory. The scaling story matches the use case."
+  },
+  {
+    "speaker": "b",
+    "text": "全部 (ぜんぶ) — all, everything the pages go through, one pipeline per machine. 漫画 の 場面 を 全部 そのまま 残す — preserve all manga scenes as-is."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the callforward — we said in episode 22, 全部 cannot be tried. Specialists don't try to do 全部. They do one thing and assume you'll run many of them if you need many. Platforms try to be 全部 and take the complexity hit."
+  },
+  {
+    "speaker": "b",
+    "text": "Host summary. DeepTutor は レプリカ (replica) で 成長 する。RuView は 電波 の 網 (net, mesh) を 広げて (spread), 密度 (density) を 上げる ようになる。koharu は 一台 (one machine) ずつ (each) 動かす (run) わけだ — you run it one machine at a time, makes sense."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, before we synthesize — we have three episodes of vocab to review. Densest JP episode we've done."
+  },
+  {
+    "speaker": "a",
+    "text": "Let's run episode 37 first. DeepTutor orbit. 指導 (しどう) — instruction/tutoring, 学ぶ (まなぶ) — to learn, 慣れる (なれる) — to get used to, 個人 (こじん) — personal/individual, 能力 (のうりょく) — ability, 成長 (せいちょう) — growth. Grammar: 〜ようになる — come to do / reach the point where."
+  },
+  {
+    "speaker": "b",
+    "text": "Use them in context."
+  },
+  {
+    "speaker": "a",
+    "text": "DeepTutor の 指導 は 個人 向けだ — DeepTutor's tutoring is personalized. ユーザー が 学ぶ ほど TutorBot が 成長 する — the more the user learns, the more the TutorBot grows. LLM の API に 慣れる と、複数プロバイダー を 切り替える 能力 がつく — once you get used to the LLM APIs, you gain the ability to switch providers."
+  },
+  {
+    "speaker": "b",
+    "text": "Mini-dialogue on 〜ようになる, four demos."
+  },
+  {
+    "speaker": "a",
+    "text": "A: 最初 は 英語 だけ だった — at first it was English only。B: 今 は 日本語 も 使える ようになった — now it can use Japanese too。 A: RAG を 入れる と、PDF から 答えられる ようになる — add RAG and it comes to answer from PDFs。B: なるほど、慣れる と 便利 だ — I see, it becomes useful once you get used to it。 A: 個人 の 学習 履歴 を 覚える ようになる の? — will it come to remember personal learning history?。B: そうそう、MCP 経由 で 呼べる ようになった — yes, it became callable via MCP。 A: 成長 して、自分 で 質問 を 作れる ようになる — it grows to the point of generating its own questions。B: 確かに、個人 の 能力 に 合う ようになる わけだ — indeed, it comes to match individual ability, makes sense。"
+  },
+  {
+    "speaker": "b",
+    "text": "やっぱり five demos, good. Episode 38. RuView. 体 (からだ) — body, 姿 (すがた) — form/figure, 電波 (でんぱ) — radio waves, 見えない (みえない) — invisible/can't see, 感じる (かんじる) — to sense/feel, 驚く (おどろく) — to be surprised. Grammar: 〜わけだ — it makes sense that / that's why."
+  },
+  {
+    "speaker": "a",
+    "text": "ESP32 は 電波 で 体 を 検出 する — the ESP32 detects bodies via radio waves. カメラ がない のに 姿 が 見える、わけだ — you can see the form even without a camera, which makes sense. 見えない はず の 壁 の 向こう を 感じる — it senses beyond the supposedly invisible wall."
+  },
+  {
+    "speaker": "b",
+    "text": "Mini-dialogue on 〜わけだ, four demos."
+  },
+  {
+    "speaker": "a",
+    "text": "A: 電波 の 乱れ を 測る から、呼吸 も 感じる わけだ — it measures wave disturbances, so of course it senses breathing。B: そうそう、道理 (reason) で 驚く わけだ — right, no wonder I'm surprised。 A: 最初 に 見た とき 驚いた — I was surprised when I first saw it。B: CSI を 使えば 見えない もの が 見える わけだ — if you use CSI, the invisible becomes visible, makes sense。 A: 6 チャンネル で hop する から、密度 が 上がる わけだ — it hops on 6 channels, so density rises, makes sense。B: なるほど、姿 が はっきり する わけだ — I see, that's why the form becomes clear。 A: ESP32 が 安い から、全部 の 部屋 に 置ける わけだ — the ESP32 is cheap, so you can put one in every room。B: 確かに、体 の 動き を 全部 見える ようになる — indeed, body movement all comes to be visible。"
+  },
+  {
+    "speaker": "b",
+    "text": "わけだ four mini-dialogues, good. Episode 39. Koharu. 翻訳 (ほんやく) — translation, 絵 (え) — picture, 吹き出し (ふきだし) — speech bubble, 漫画 (まんが) — manga, 場面 (ばめん) — scene, 残す (のこす) — to leave / preserve. Grammar: 〜まま — in the state of / as-is."
+  },
+  {
+    "speaker": "a",
+    "text": "Koharu は 漫画 を 翻訳 する アプリ — koharu is an app that translates manga. 吹き出し の 中 の 日本語 を OCR で 読む — it OCRs Japanese inside speech bubbles. 元 の 絵 を そのまま 残す — leave the original picture as-is."
+  },
+  {
+    "speaker": "b",
+    "text": "Mini-dialogue on 〜まま, four demos."
+  },
+  {
+    "speaker": "a",
+    "text": "A: 場面 の 雰囲気 を 壊さない まま 訳す — translate without breaking the scene's atmosphere。B: なるほど、絵 は 触らない まま で 吹き出し だけ 変える わけだ — I see, leave the picture untouched and change only the bubbles, makes sense。 A: インペイント で 元 の フォント を 消した まま 新しい 文字 を 置く — place new text while leaving the original font erased。B: そうそう、PSD で 編集可能 な まま エクスポート する — right, export in an editable state。 A: 原文 を 残す まま 翻訳 レイヤー を 追加 する — add a translation layer while preserving the original text。B: 確かに、漫画 の 姿 を そのまま 残す わけだ — indeed, it preserves the manga's form as-is。 A: 場面 の 色 を 変えない まま 文字 だけ 訳す — translate only the text without changing the scene's colors。B: やっぱり、翻訳 の 道具 として よく 慣れる ようになる — as I thought, you come to get used to it as a translation tool。"
+  },
+  {
+    "speaker": "b",
+    "text": "まま four mini-dialogues nailed down. 全部 (all) 復習 (review) した (did) — we reviewed it all."
+  },
+  {
+    "speaker": "a",
+    "text": "Three episodes, eighteen words, three grammar points, all exercised. 〜ようになる, 〜わけだ, 〜まま. 慣れる ほど、自然 に 使える ようになる — the more you get used to it, the more you come to use it naturally."
+  },
+  {
+    "speaker": "b",
+    "text": "Synthesize. Plain English, with JP running commentary."
+  },
+  {
+    "speaker": "a",
+    "text": "The three wildcards sit at different points on one gradient: specialist-to-platform. DeepTutor is leaning platform — plugin capabilities, skills system, SKILL.md for upstream agents, per-stage model routing. It wants to host more of your learning life over time. RuView is pure specialist in a non-agent domain — WiFi CSI to spatial intelligence, with firmware and edge modules as its extensibility story. Koharu is a specialist with a thin agent handle — fixed six-stage pipeline, MCP server on a port, headless mode for scripting."
+  },
+  {
+    "speaker": "b",
+    "text": "三つ (three) の アプリ は 一つ (one) の 軸 (axis) の 上 (on) に ある — the three apps are on one axis。DeepTutor は platform 寄り (leaning toward), RuView は 電波 の 専門家 (specialist), koharu は 漫画 の 専門家。全部 違う けど、全部 自分 の 場面 で 強い (strong) — all different, but all strong in their own scene。"
+  },
+  {
+    "speaker": "a",
+    "text": "And why it matters for engineering."
+  },
+  {
+    "speaker": "a",
+    "text": "When you're building, you pick one of these shapes and commit. If you try to turn koharu into a \"manga platform\" with user-authored stages, you kill the thing that makes it ship — the fixed pipeline with every stage tuned to the next. If you try to turn DeepTutor into a vertical app with one rigid flow, you lose the plugin surface that makes it adaptable to different subjects. If you try to make RuView \"agent-native\" by wrapping everything in LLM tool calls, you add latency to a sub-millisecond sensing loop and destroy the product."
+  },
+  {
+    "speaker": "b",
+    "text": "なるほど. So the nuance is: axis weight is not uniform across repos."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the nuance. The six axes we keep hitting — compute topology, LLM locus, tool mechanics, extensions, context, scaling — they don't weigh the same for every repo. For each repo, two or three axes are load-bearing and the rest are vestigial. When you evaluate a repo, the first question isn't \"how does it score on all six.\" It's \"which axes is this repo betting on.\" And then you evaluate those axes hard and move past the rest."
+  },
+  {
+    "speaker": "b",
+    "text": "DeepTutor bet on extensions and context. RuView bet on compute topology and scaling. Koharu bet on LLM locus — local — and tool mechanics via MCP."
+  },
+  {
+    "speaker": "a",
+    "text": "ARK running commentary: DeepTutor は 個人 の 能力 に 合わせる 指導 を 残す ために plugin を 選んだ — DeepTutor chose plugins to preserve tutoring that matches individual ability。RuView は 電波 で 見えない 姿 を 感じる ために Rust を 選んだ — RuView chose Rust to sense invisible forms via radio waves。koharu は 漫画 の 場面 を そのまま 残す ために ローカル を 選んだ — koharu chose local to preserve manga scenes as-is。 That's the decomposition."
+  },
+  {
+    "speaker": "b",
+    "text": "確かに, \"these three repos have nothing to do with each other\" stops being a complaint and becomes the lesson."
+  },
+  {
+    "speaker": "a",
+    "text": "Specialist systems don't compose. They ship. 漫画 translation is 漫画 translation. 電波 sensing is 電波 sensing. 個人 tutoring is 個人 tutoring. You don't build one big system that does 全部. You build three small systems and let them stay separate."
+  },
+  {
+    "speaker": "b",
+    "text": "And the engineers who keep trying to composite agent frameworks into one 全部 platform are the ones who ship nothing. 全部 を やろう とする 人 は 何も (nothing) 残さない — people who try to do everything preserve nothing."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. That's the blunt version. Specialist isn't a lesser category. It's the category most shipping software lives in. Platforms are rarer and harder, and the ones that work — the ones that actually become platforms rather than pretending to be — grow out of a successful specialist, not the other way around. 専門家 (specialist) が 慣れて、能力 を 付けて、段々 (gradually) platform に 成長 する ようになる — the specialist gets used to it, gains ability, gradually comes to grow into a platform。"
+  },
+  {
+    "speaker": "b",
+    "text": "Next up, episode 41. Also an interlude."
+  },
+  {
+    "speaker": "a",
+    "text": "Two interludes back-to-back, because we're not done. Episode 40 was the specialist-versus-platform axis. Episode 41 zooms in on one meta-question that keeps surfacing across 全部 — 全部 of these episodes."
+  },
+  {
+    "speaker": "b",
+    "text": "The callforward word from episode 22. 全部 — all of it — we still haven't answered the question that started the batch: can any one repo do 全部, or does the 全部 itself have to be distributed across specialists."
+  },
+  {
+    "speaker": "a",
+    "text": "全部 を 一つ の アプリ で やる の は 無理 (impossible) か、それ とも できる ようになる の か — is doing everything in one app impossible, or will it become possible? 次回 (next time) 話す (talk) わけだ — that's what we'll discuss next time。 Episode 41 will argue a direction. You can guess which direction."
+  },
+  {
+    "speaker": "b",
+    "text": "Specialist."
+  },
+  {
+    "speaker": "a",
+    "text": "Probably. But with a twist. See you there."
+  },
+  {
+    "speaker": "b",
+    "text": "じゃあ、次回で。全部 の 話 (story) は 次回 に 残す — we leave the whole story for next time。"
+  },
+  {
+    "speaker": "a",
+    "text": "One last drill before we close. 全部 の 単語 (word) を もう一度 (once more) 通す (run through) — run through all the vocab one more time。"
+  },
+  {
+    "speaker": "b",
+    "text": "Go."
+  },
+  {
+    "speaker": "a",
+    "text": "指導 の アプリ は 個人 の 能力 に 合わせて 学ぶ 人 を 成長 させる、慣れる ほど 深く 使える ようになる — the tutoring app matches individual ability, grows the learner, and comes to be used deeply the more you get used to it。 電波 は 見えない けど 体 の 姿 を 感じる こと が できる、初めて 見た とき は 本当 に 驚いた わけだ — radio waves are invisible, but you can sense the body's form; when I first saw it I was really surprised, makes sense。 漫画 の 翻訳 は 元 の 絵 と 吹き出し を そのまま 残す、場面 の 雰囲気 を 壊さない まま 文字 だけ 訳す — manga translation preserves the original picture and speech bubbles as-is, translating only the text while leaving the scene's atmosphere intact。"
+  },
+  {
+    "speaker": "b",
+    "text": "確かに、全部 の 復習 が 一文 (one sentence) に 入った — indeed, all the review fit into one sentence each。"
+  },
+  {
+    "speaker": "a",
+    "text": "三つ (three) の アプリ、三つ の 文法 (grammar), 三つ の 姿 — three apps, three grammars, three forms。〜ようになる、〜わけだ、〜まま、全部 慣れる ようになった — 〜ようになる, 〜わけだ, 〜まま, we've come to get used to them all。"
+  },
+  {
+    "speaker": "b",
+    "text": "やっぱり 復習 は 大事 (important) だ — review really is important after all。 See you in episode 41."
+  },
+  {
+    "speaker": "a",
+    "text": "次回 で 全部 の 答え (answer) を 出す わけだ — we'll deliver all the answers next time, makes sense。 専門家 の アプリ が 集まって (gather), 一つ の 大きな (big) 絵 を 描く (draw) ようになる か、それ とも バラバラ の まま で 良い (good) の か — will specialist apps gather and come to draw one big picture, or are they fine staying scattered? これ が 次回 の 本当 (true) の 問い (question) だ — that is the true question next time。"
+  },
+  {
+    "speaker": "b",
+    "text": "面白い 問い だ — interesting question。全部 の リポジトリ を 見て、全部 の 軸 を 並べて (line up), 全部 の 場面 で 考える — we look at all repos, line up all axes, think through all scenes。慣れる ほど、三つ の 姿 が もっと (more) はっきり 見える ようになる わけだ — the more we get used to it, the more clearly the three forms come to be visible, makes sense。"
+  },
+  {
+    "speaker": "a",
+    "text": "じゃあね。"
+  }
+]

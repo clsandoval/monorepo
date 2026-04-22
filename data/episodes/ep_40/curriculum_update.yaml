@@ -1,0 +1,112 @@
+episode: 40
+title: "wildcards-interlude"
+series: flight-podcast-2026-04
+format: interlude-review
+duration_seconds: 1915
+duration_minutes: 31.9
+
+# Dialogue stats
+total_turns: 125
+speaker_a_turns: 65
+speaker_b_turns: 60
+total_words: 4556
+cjk_chars: 1852
+turns_with_cjk: 63
+
+# No new vocab or grammar — review-only episode
+vocab_introduced: []
+grammar_introduced: []
+
+# Review items exercised (from ep 37, 38, 39)
+review_items:
+  ep37_vocab:
+    - word: 指導
+      reading: しどう
+      meaning: instruction/tutoring
+    - word: 学ぶ
+      reading: まなぶ
+      meaning: to learn
+    - word: 慣れる
+      reading: なれる
+      meaning: to get used to
+    - word: 個人
+      reading: こじん
+      meaning: personal/individual
+    - word: 能力
+      reading: のうりょく
+      meaning: ability
+    - word: 成長
+      reading: せいちょう
+      meaning: growth
+  ep37_grammar:
+    - pattern: 〜ようになる
+      meaning: come to do / reach the point where
+      demos_in_episode: 5+
+  ep38_vocab:
+    - word: 体
+      reading: からだ
+      meaning: body
+    - word: 姿
+      reading: すがた
+      meaning: form/figure
+    - word: 電波
+      reading: でんぱ
+      meaning: radio waves
+    - word: 見えない
+      reading: みえない
+      meaning: invisible/can't see
+    - word: 感じる
+      reading: かんじる
+      meaning: to sense/feel
+    - word: 驚く
+      reading: おどろく
+      meaning: to be surprised
+  ep38_grammar:
+    - pattern: 〜わけだ
+      meaning: it makes sense that / that's why
+      demos_in_episode: 5+
+  ep39_vocab:
+    - word: 翻訳
+      reading: ほんやく
+      meaning: translation
+    - word: 絵
+      reading: え
+      meaning: picture
+    - word: 吹き出し
+      reading: ふきだし
+      meaning: speech bubble
+    - word: 漫画
+      reading: まんが
+      meaning: manga
+    - word: 場面
+      reading: ばめん
+      meaning: scene
+    - word: 残す
+      reading: のこす
+      meaning: to leave/preserve
+  ep39_grammar:
+    - pattern: 〜まま
+      meaning: in the state of / as-is
+      demos_in_episode: 5+
+  callforward:
+    - word: 全部
+      reading: ぜんぶ
+      meaning: all/everything
+      source_episode: 22
+
+# Verification notes
+verify_checks:
+  cjk_count: 1852
+  cjk_minimum: 1822
+  cjk_pass: true
+  turn_coverage: 50%
+  turn_coverage_minimum: 30%
+  turn_coverage_pass: true
+  review_items_present: 19/19
+  review_pass: true
+  jp_en_pairing: 63%
+  pairing_threshold: 80%
+  pairing_pass: false
+  pairing_note: "37% unpaired spans — logged for human review, not rewritten per brief"
+  balance: "73.1% A / 26.9% B — structural (explainer/interviewer format)"
+  balance_note: "Pre-approved interlude format, ARK explains, RED prompts"
