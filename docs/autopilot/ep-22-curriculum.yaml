@@ -1,0 +1,55 @@
+episode: 22
+repo: bradAGI/awesome-cli-coding-agents
+duration_seconds: 1320
+duration_minutes: 22
+
+vocab_introduced:
+  - word: 比べる
+    reading: くらべる
+    meaning: to compare
+  - word: 表
+    reading: ひょう
+    meaning: chart; table; list
+  - word: 違い
+    reading: ちがい
+    meaning: difference
+  - word: いろいろ
+    reading: いろいろ
+    meaning: various; all kinds
+  - word: 全部
+    reading: ぜんぶ
+    meaning: all; everything
+  - word: 情報
+    reading: じょうほう
+    meaning: information
+
+grammar_introduced:
+  - pattern: 〜ば〜ほど
+    meaning: the more X, the more Y
+    examples:
+      - 比べれば比べるほど違いが見える
+      - 情報が多ければ多いほど選びにくい
+      - 使えば使うほど慣れる
+      - 読めば読むほどわかる
+      - ツールが多ければ多いほど比べるのが難しい
+
+review_items_used:
+  - きれい (beautiful/clean)
+  - 色 (color)
+  - 形 (shape)
+  - 見せる (show)
+  - 描く (draw)
+  - 作り方 (how to make)
+  - 〜より〜のほうが (comparative)
+
+cjk_count: 730
+word_count: 3106
+turns: 122
+japanese_ratio_target: 0.20
+
+verification:
+  pairing_pct: 30
+  pairing_note: >
+    70% unpaired — expected for Pimsleur format where bare Japanese
+    is used for drilling and natural code-switching. Not rewritten per brief.
+  balance: "A=81.3% (teacher role, inherent to format)"

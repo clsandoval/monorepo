@@ -1,0 +1,490 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay. Ark. I'm staring at the GitHub page you sent me. bradAGI/awesome-cli-coding-agents. Two hundred forty-five stars. That's it. Two forty-five. And you're telling me this is the episode? Not some thirty-thousand-star monorepo with a logo and a marketing site? A list?"
+  },
+  {
+    "speaker": "a",
+    "text": "A list."
+  },
+  {
+    "speaker": "b",
+    "text": "A list of lists."
+  },
+  {
+    "speaker": "a",
+    "text": "Technically it's a curated directory, but yes. A list of lists. And I'd argue — and I will argue, for the next thirty minutes — that it is more valuable right now than almost any single tool it links to."
+  },
+  {
+    "speaker": "b",
+    "text": "Why."
+  },
+  {
+    "speaker": "a",
+    "text": "Because the landscape of terminal-native coding agents is moving so fast that your intuition decays in about two weeks. You cannot rebuild it from Twitter threads. You cannot rebuild it from Hacker News comments. You need a 表 (ひょう) — chart — a structured comparison — maintained by someone who actually uses these things."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay so the word of the day is 表, chart."
+  },
+  {
+    "speaker": "a",
+    "text": "表, chart. And also 比べる (くらべる) — to compare. Because that's what the whole repo is for. 比べる, compare. One tool against another. One harness against another."
+  },
+  {
+    "speaker": "b",
+    "text": "比べる. Got it. So walk me through it. What's actually in there? Because when I opened it, I saw a README with a bunch of headers and some tables, and I'll be honest, I bounced."
+  },
+  {
+    "speaker": "a",
+    "text": "That's fair. The surface of it looks like every other awesome-list. But it's not. The 違い (ちがい) — difference — the difference — between this and a typical awesome-list is that Brad has opinions. He has feature matrices. He has philosophy tags. He has a review process. The 違い matters."
+  },
+  {
+    "speaker": "b",
+    "text": "違い, difference. 比べる, compare. 表, chart. That's three already and we haven't even gotten past the cold open."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. And here's the pitch for why we're spending a whole episode on a two-forty-five-star repo instead of something shinier — a curated 表 is a tool for thinking. You can't think clearly about a space until someone has laid it out. Brad laid it out. We're going to walk through what he laid out, and by the end you'll have a mental model of the entire terminal coding agent ecosystem."
+  },
+  {
+    "speaker": "b",
+    "text": "Entire?"
+  },
+  {
+    "speaker": "a",
+    "text": "全部 (ぜんぶ) — all of it. 全部 — all, everything. At least the parts that matter. Claude Code, Codex, Aider, Cursor CLI, Cline, opencode, crush, and a long tail of smaller ones."
+  },
+  {
+    "speaker": "b",
+    "text": "全部. All of it. Okay. I'm in."
+  },
+  {
+    "speaker": "a",
+    "text": "So let me give you the structure of the repo first, then we'll dive into specific rows. At the top of the README there is a 表 — a chart — with columns. The columns are the dimensions Brad thinks matter."
+  },
+  {
+    "speaker": "b",
+    "text": "Which are?"
+  },
+  {
+    "speaker": "a",
+    "text": "MCP support. Tool-use architecture. Subagent spawning. Context compression strategy. Open-source or closed. Billing model. Primary language. And philosophy tags."
+  },
+  {
+    "speaker": "b",
+    "text": "That's a lot of 情報 (じょうほう) — information packed into one row."
+  },
+  {
+    "speaker": "a",
+    "text": "It is. 情報, information. And that's actually the point. A feature matrix is a way to compress enormous amounts of 情報 — information — into a scannable grid. You look at one row, you know roughly what the tool is. You look at two rows side by side, and now you're doing 比べる — you're comparing — in a meaningful way."
+  },
+  {
+    "speaker": "b",
+    "text": "Right. So MCP support — that's Model Context Protocol, the Anthropic thing, tools talk to agents through a standard interface?"
+  },
+  {
+    "speaker": "a",
+    "text": "Correct. And this column alone is interesting because about eighteen months ago nobody supported it, and now most of the serious tools do. The 表 captures that snapshot."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Tool-use architecture. What does that column look like?"
+  },
+  {
+    "speaker": "a",
+    "text": "Some tools are function-calling native — they hand the model a JSON schema and let it call tools structurally. Others are text-parsing — they prompt the model to emit a specific format and parse it out. Cursor CLI was text-parsing for a long time and recently switched. Aider has its own edit-format DSL. Claude Code uses tool-use blocks natively. The 違い — the difference — between these approaches is real. It affects reliability, it affects latency, it affects how the tool degrades on weaker models."
+  },
+  {
+    "speaker": "b",
+    "text": "なるほど. So the 表 is showing me 違い that I wouldn't see if I just tried one tool."
+  },
+  {
+    "speaker": "a",
+    "text": "確かに. Exactly. And this is why I keep using the word 比べる. You can't learn this stuff by using one tool in isolation. You have to 比べる. Compare."
+  },
+  {
+    "speaker": "b",
+    "text": "Subagent spawning — what's that?"
+  },
+  {
+    "speaker": "a",
+    "text": "Whether the agent can spawn child agents to handle subtasks. Claude Code has it. Codex has a version of it. Aider doesn't really. The tools that have it tend to handle large-codebase tasks better because they can delegate exploration."
+  },
+  {
+    "speaker": "b",
+    "text": "And context compression?"
+  },
+  {
+    "speaker": "a",
+    "text": "How the tool handles running out of context window. Some do nothing and just crash. Some do a simple summarization pass. Some do rolling summaries. Claude Code has a fairly sophisticated compaction strategy. The 表 tags each one."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. So that's the feature matrix. What about the philosophy tags?"
+  },
+  {
+    "speaker": "a",
+    "text": "This is where it gets interesting. Brad tags each tool along two axes. CLI-first versus GUI-adjacent. And opinionated versus configurable."
+  },
+  {
+    "speaker": "b",
+    "text": "Give me examples."
+  },
+  {
+    "speaker": "a",
+    "text": "Aider is CLI-first and opinionated. It has a specific workflow — you edit, it commits, you review. Claude Code is CLI-first but somewhere in the middle on opinionated — it has strong defaults but deep configuration. opencode is CLI-first and very configurable — you can swap models, swap prompts, swap almost everything. Cursor CLI is GUI-adjacent — it exists as a companion to the Cursor IDE. crush is CLI-first and opinionated in a minimalist way."
+  },
+  {
+    "speaker": "b",
+    "text": "いろいろ あるね."
+  },
+  {
+    "speaker": "a",
+    "text": "いろいろ. Various, all kinds. いろいろ — various. And that word is doing a lot of work in this conversation because the whole point of the repo is that there are いろいろな tools — various tools — and you need to pick one, and the picking is hard without a 表."
+  },
+  {
+    "speaker": "b",
+    "text": "Hmm. Okay let me ask the layman question. Why are there so many? Why isn't there just one?"
+  },
+  {
+    "speaker": "a",
+    "text": "Because the design space is huge. Every tool makes different tradeoffs. And because the barrier to entry dropped — you can wrap Claude or GPT with a harness in a weekend now, and people do. Brad's repo is the archive of those weekends."
+  },
+  {
+    "speaker": "b",
+    "text": "So he's doing archaeology."
+  },
+  {
+    "speaker": "a",
+    "text": "A little. But it's also live. He maintains it. Let me describe his process — because this is the part most people miss. Brad has a PR flow. Anyone can propose a new tool for the list. But he has reviewer criteria. The tool has to be actually usable — not a demo, not a proof of concept. It has to have documentation. It has to have at least one release. And the person submitting it has to fill out the feature matrix row themselves, which forces them to actually understand the tool they're submitting."
+  },
+  {
+    "speaker": "b",
+    "text": "That's きれい — clean process design."
+  },
+  {
+    "speaker": "a",
+    "text": "きれい. Clean. Beautiful. Yes — the review process is きれい. And it's why the repo stays useful. A lot of awesome-lists rot because anyone can add anything. Brad's gatekeeping is what makes it a tool for thinking instead of a junk drawer."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay let me pick three rows and you walk me through them as case studies. Because I think that's where this gets real. Pick three."
+  },
+  {
+    "speaker": "a",
+    "text": "Aider. opencode. crush."
+  },
+  {
+    "speaker": "b",
+    "text": "Go."
+  },
+  {
+    "speaker": "a",
+    "text": "Aider. Python-based, been around longest — like two and a half years now which is geological in this space. Its key design choice is the edit format. Instead of having the model output structured tool calls, Aider prompts the model to emit search-replace blocks in a specific text format, and then Aider parses those and applies them to the files. This works surprisingly well and degrades gracefully on weaker models. Because the format is just text, even a small local model can produce it. Aider is also opinionated about git — every edit becomes a commit. You get a full history for free."
+  },
+  {
+    "speaker": "b",
+    "text": "So the 作り方 — the how-it's-made — of Aider is really different from the others."
+  },
+  {
+    "speaker": "a",
+    "text": "作り方. How it's made. 確かに. Very different. And that's the thing — when you look at the 表, you see a row, but behind each row is a whole 作り方 — how-it's-made philosophy. The 作り方 of Aider is \"lean into text, lean into git, lean into simplicity.\" Next row."
+  },
+  {
+    "speaker": "b",
+    "text": "opencode."
+  },
+  {
+    "speaker": "a",
+    "text": "opencode. This is the configurable one. It's the harness that lets you swap almost everything. Model? Swap it. System prompt? Swap it. Tool set? Swap it. Storage backend? Swap it. It's almost a framework disguised as a CLI. The tradeoff is that it's harder to just pick up and use — there's more setup, more to think about. But for people who want to build their own workflow on top of a solid base, opencode is often the pick."
+  },
+  {
+    "speaker": "b",
+    "text": "So if Aider is \"here's my opinion, use it,\" opencode is \"here are the parts, build your own.\""
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. And if you 比べる — compare — the two, the 違い — the difference — is almost philosophical. 作り方 of Aider: bundled, opinionated, git-native. 作り方 of opencode: modular, configurable, bring-your-own. Neither is wrong. They're answering different questions. And the 表 surfaces the difference at a glance, which is the whole value proposition."
+  },
+  {
+    "speaker": "b",
+    "text": "Third one. crush."
+  },
+  {
+    "speaker": "a",
+    "text": "crush. This is the minimalist. Small binary, small surface, small set of tools, very fast. It doesn't try to do everything. It tries to do a narrow slice — code edits in a terminal, quick — and do it well. The 作り方 is \"strip it down.\" No subagents, minimal context management, lean prompt. For certain workflows — especially short sessions, small changes, quick fixes — it's faster than the heavier tools."
+  },
+  {
+    "speaker": "b",
+    "text": "And the 表 captures all this."
+  },
+  {
+    "speaker": "a",
+    "text": "The 表 captures the skeleton. The narrative — the why — you still have to go read the linked docs for. But the 表 tells you which rows to click into. That's the job of a good comparison 表: route your attention."
+  },
+  {
+    "speaker": "b",
+    "text": "やっぱり."
+  },
+  {
+    "speaker": "a",
+    "text": "やっぱり. 情報 — information — is cheap now. Routing attention is expensive. A curated 表 is a routing device. That's why 245 stars doesn't matter — the value of this kind of artifact isn't measured in stars."
+  },
+  {
+    "speaker": "b",
+    "text": "Can I ask — does he cover the edge cases too? Like the weird ones?"
+  },
+  {
+    "speaker": "a",
+    "text": "Yes. There's a long tail section. Experimental harnesses, research projects, one-off tools. いろいろ — various — small projects. Most will die. But Brad catalogs them anyway because sometimes the weird one has the idea that everyone else copies next year. The long tail is where the future leaks out."
+  },
+  {
+    "speaker": "b",
+    "text": "Archaeology plus futurism."
+  },
+  {
+    "speaker": "a",
+    "text": "面白い combination. Interesting combination. Yes."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Grammar time. You promised me a new grammar point."
+  },
+  {
+    "speaker": "a",
+    "text": "〜ば〜ほど. The more X, the more Y. It's a conditional-plus-extent construction. Verb in ば form, then the same verb in dictionary or plain form plus ほど, and the second clause scales with the first."
+  },
+  {
+    "speaker": "b",
+    "text": "Give me an example in context."
+  },
+  {
+    "speaker": "a",
+    "text": "比べれば比べるほど違いが見える — the more you compare, the more differences you see. 比べれば — if you compare. 比べるほど — to the extent that you compare. 違いが見える — differences become visible. So: the more you 比べる, the more 違い you see."
+  },
+  {
+    "speaker": "b",
+    "text": "Say it one more time."
+  },
+  {
+    "speaker": "a",
+    "text": "比べれば比べるほど違いが見える. The more you compare, the more differences you see."
+  },
+  {
+    "speaker": "b",
+    "text": "And this is literally the thesis of the repo."
+  },
+  {
+    "speaker": "a",
+    "text": "Literally the thesis. Second example. 情報が多ければ多いほど選びにくい — the more information there is, the harder it is to choose. 情報 — information — 多ければ多いほど — the more there is — 選びにくい — hard to choose. This is the paradox Brad's 表 solves. 情報 is abundant. The 表 makes it choosable."
+  },
+  {
+    "speaker": "b",
+    "text": "So 情報 多ければ多いほど — the more info — 選びにくい — harder to pick."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. Third example. 使えば使うほど慣れる — the more you use it, the more you get used to it. 使えば — if you use. 使うほど — to the extent you use. 慣れる — become accustomed. This applies to every tool in the repo. You don't know if Aider fits you from the 表 alone. 使えば使うほど — the more you use it — 慣れる — you get a feel for it."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, 使えば使うほど慣れる. The more you use, the more you get used to."
+  },
+  {
+    "speaker": "a",
+    "text": "Fourth. 読めば読むほどわかる — the more you read, the more you understand. 読めば — if you read. 読むほど — to the extent you read. わかる — understand. This is about the README itself. The repo rewards slow reading. 読めば読むほどわかる."
+  },
+  {
+    "speaker": "b",
+    "text": "And one more for good measure?"
+  },
+  {
+    "speaker": "a",
+    "text": "ツールが多ければ多いほど比べるのが難しい — the more tools there are, the harder it is to compare. ツール — tool — 多ければ多いほど — the more there are — 比べるのが難しい — comparing is difficult. And this, again, is the tension the repo resolves. いろいろ — various — tools exist. 全部 — all of them — cannot be tried. So you need a 表 — a chart — to do the 比べる — the comparing — for you."
+  },
+  {
+    "speaker": "b",
+    "text": "わかった. I think I've got it. ば-form plus same-verb plus ほど."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. And one review piece — remember 〜より〜のほうが from ep 20? The \"X is more than Y\" comparative?"
+  },
+  {
+    "speaker": "b",
+    "text": "Yeah. A より B のほうが something."
+  },
+  {
+    "speaker": "a",
+    "text": "So you can combine. AiderよりopencodeのほうがConfigurableだ — compared to Aider, opencode is more configurable. That's 〜より〜のほうが. And then you can layer ば〜ほど on top: 使えば使うほど、AiderよりopencodeのほうがConfigurableに感じる — the more you use them, the more opencode feels more configurable than Aider. Grammar stacks."
+  },
+  {
+    "speaker": "b",
+    "text": "Grammar stacks. Okay. Now can we do the review round? From ep 20 — we had きれい, 色, 形, 見せる, 描く, 作り方."
+  },
+  {
+    "speaker": "a",
+    "text": "Yes. And they all fit here. This repo 見せる-s — it 見せる — shows — the 違い between harnesses. It 見せる-s you which tool has which feature. A good comparison 表 makes the information きれい — clean, beautiful. A bad 表 is messy. Brad's is きれい."
+  },
+  {
+    "speaker": "b",
+    "text": "色 and 形?"
+  },
+  {
+    "speaker": "a",
+    "text": "The README actually uses color-coded badges — 色 — for feature support. Green for full support, yellow for partial, red for none. And the 形 — the 形 — shape — of the table itself matters. A 形 that's too wide is unreadable on mobile. A 形 that's too narrow loses information. Brad picked a 形 that scans well."
+  },
+  {
+    "speaker": "b",
+    "text": "And 作り方?"
+  },
+  {
+    "speaker": "a",
+    "text": "The 作り方 — how-it's-made of each CLI in the 表 is different. The 作り方 of Aider is text-format plus git. The 作り方 of opencode is modular plus configurable. The 作り方 of crush is minimal plus fast. 作り方 is the column of the 表 you can't see — it's the philosophy behind the features."
+  },
+  {
+    "speaker": "b",
+    "text": "And 描く?"
+  },
+  {
+    "speaker": "a",
+    "text": "Brad 描く-s — he 描く — draws, depicts — a map of the ecosystem. He doesn't just list. He depicts. The philosophy tags are his brushstrokes. The 表 is his 描く-ed landscape."
+  },
+  {
+    "speaker": "b",
+    "text": "いろいろ な tool、全部 を 比べる のは 難しい、だから 表 が 必要."
+  },
+  {
+    "speaker": "a",
+    "text": "確かに. Various tools, all of them, comparing is difficult, therefore a chart is necessary. You just said the whole thesis in Japanese."
+  },
+  {
+    "speaker": "b",
+    "text": "面白い."
+  },
+  {
+    "speaker": "a",
+    "text": "So let's tie it together. Red, in your own words, what is this repo?"
+  },
+  {
+    "speaker": "b",
+    "text": "It's the CLI-coding-agent Rosetta Stone. A 表 that lets you 比べる いろいろ な tools and see the 違い without having to install 全部 of them. It's a map, not a product. And because the landscape moves weekly, the map is the product."
+  },
+  {
+    "speaker": "a",
+    "text": "そうそう. And I'd add one more frame. It's a prior-art archive. If you are about to build a new coding harness — and people are building them constantly — you should read this repo first. Not to get intimidated. To understand what's already been tried, and what niches are still open."
+  },
+  {
+    "speaker": "b",
+    "text": "So it's useful for users and useful for builders."
+  },
+  {
+    "speaker": "a",
+    "text": "Users use it to pick. Builders use it to position. Researchers use it to cite. Journalists use it to contextualize. A good comparison 表 serves four audiences at once, and that's why it punches above its star count."
+  },
+  {
+    "speaker": "b",
+    "text": "情報 多ければ多いほど、この kind of 表 は 必要 になる."
+  },
+  {
+    "speaker": "a",
+    "text": "確かに. The more information there is, the more you need this kind of 表. And there's a meta-point here — the same pattern applies to every fast-moving domain. AI coding agents today. Vector databases two years ago. Frontend frameworks ten years ago. Someone always has to build the map. In CLI coding agents, Brad built it."
+  },
+  {
+    "speaker": "b",
+    "text": "Is there competition? Other maps?"
+  },
+  {
+    "speaker": "a",
+    "text": "A few. But most are either marketing-driven — \"here are the tools my company works with\" — or stale — last updated eight months ago. Brad's is the one people actually link to, and that's a kind of network-effect moat for an awesome-list. Once a repo becomes the canonical reference, it tends to stay canonical as long as the maintainer keeps showing up."
+  },
+  {
+    "speaker": "b",
+    "text": "And he keeps showing up."
+  },
+  {
+    "speaker": "a",
+    "text": "He keeps showing up. That's the whole game."
+  },
+  {
+    "speaker": "b",
+    "text": "使えば使うほど、この repo の 価値 が わかる."
+  },
+  {
+    "speaker": "a",
+    "text": "The more you use it, the more you understand its value. 確かに. That's the ば〜ほど pattern again, and it's genuinely true for this repo. On first read, you see a table. On tenth read, you see a worldview."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. I'm converted. 245 stars, doesn't matter, this is the episode. What did I learn today?"
+  },
+  {
+    "speaker": "a",
+    "text": "You learned 比べる — compare. 表 — chart. 違い — difference. いろいろ — various. 全部 — all. 情報 — information. You learned ば〜ほど — the more, the more. You reviewed きれい, 色, 形, 見せる, 描く, 作り方. And you learned that a curated 表 is a routing device for attention in a world where 情報 is cheap."
+  },
+  {
+    "speaker": "b",
+    "text": "全部 わかった."
+  },
+  {
+    "speaker": "a",
+    "text": "All understood. やっぱり you're getting faster at this."
+  },
+  {
+    "speaker": "b",
+    "text": "Next episode?"
+  },
+  {
+    "speaker": "a",
+    "text": "pi-mono. The all-in-one CLI."
+  },
+  {
+    "speaker": "b",
+    "text": "What's the angle?"
+  },
+  {
+    "speaker": "a",
+    "text": "It's the opposite of what we discussed today. Today we talked about いろいろ — various — small, specialized tools that you 比べる via a 表. pi-mono is the anti-pattern — one binary that tries to do everything. Code editing, shell, file management, package install, all in one. The 作り方 is \"integrate everything.\" The 違い from what we saw today is stark."
+  },
+  {
+    "speaker": "b",
+    "text": "One tool to rule them all."
+  },
+  {
+    "speaker": "a",
+    "text": "Something like that. And the key concept for next time is 部品 (ぶひん) — parts, components. 部品. Because the question pi-mono forces is: are coding agents better as composed 部品 — separate parts you wire together — or as a single integrated whole? The 表 we looked at today is full of 部品. pi-mono is what happens when you throw 部品 out and build a monolith."
+  },
+  {
+    "speaker": "b",
+    "text": "部品. Parts."
+  },
+  {
+    "speaker": "a",
+    "text": "部品. We'll drop it more next episode. For now, just bank the word. And think about — 部品 が 多ければ多いほど、組み立てる のが 難しい — the more parts there are, the harder it is to assemble. That's the tension pi-mono is reacting to."
+  },
+  {
+    "speaker": "b",
+    "text": "ば〜ほど already paying rent."
+  },
+  {
+    "speaker": "a",
+    "text": "Grammar pays rent forever. That's why we drill it."
+  },
+  {
+    "speaker": "b",
+    "text": "やっぱり. Okay. Ep 22 in the can. Brad, thank you for maintaining the 表. Ark, thank you for making me read it."
+  },
+  {
+    "speaker": "a",
+    "text": "比べれば比べるほど、わかる."
+  },
+  {
+    "speaker": "b",
+    "text": "The more you compare, the more you understand. じゃあ、また ep 23 で."
+  },
+  {
+    "speaker": "a",
+    "text": "また."
+  }
+]
