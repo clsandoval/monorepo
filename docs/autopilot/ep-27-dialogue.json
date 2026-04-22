@@ -1,0 +1,394 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay, hold on. I just skimmed the README for this repo called monty. From Pydantic, 6.9k stars, written in Rust. And the tagline is basically: a Python interpreter that isn't really Python."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そうそう\" — yeah yeah. It's a subset. A deliberately incomplete interpreter. \"わざと 小さい\" — small on purpose."
+  },
+  {
+    "speaker": "b",
+    "text": "A Python interpreter... in Rust... that doesn't do all of Python. My brain is already rejecting this. Why would anyone do that? \"なんで?\" — why?"
+  },
+  {
+    "speaker": "a",
+    "text": "Because the audience isn't humans anymore. The audience is language models. And LLM-generated Python uses maybe five percent of the \"言語\" — language. You don't need metaclasses, you don't need dynamic import, you don't need exec. So why ship them? Every feature you cut is an attack surface you cut. \"危ない 機能は 切る\" — cut the dangerous features."
+  },
+  {
+    "speaker": "b",
+    "text": "\"危ない\" — dangerous だね。\"とても 危ない\" — very dangerous."
+  },
+  {
+    "speaker": "a",
+    "text": "\"危ない から 守る\" — protect because dangerous. So monty says: what if the interpreter itself refuses to even parse those constructs? If there's no `exec`, there's no exec vulnerability. It's a \"小さい\" — small interpreter. \"小さい ほうが 安全\" — smaller is safer."
+  },
+  {
+    "speaker": "b",
+    "text": "\"小さい が ポイント ね\" — small is the point, huh."
+  },
+  {
+    "speaker": "a",
+    "text": "\"小さい が ポイント\" — small is the point. And \"基本\" — basics/foundation only. \"基本 だけ\" — basics only. \"基本 的 な Python だけ\" — only basic Python — just enough to cover what an LLM actually emits."
+  },
+  {
+    "speaker": "b",
+    "text": "\"基本 だけで 十分 ね\" — basics alone is enough."
+  },
+  {
+    "speaker": "a",
+    "text": "\"基本 で 十分\" — enough with basics. \"やっぱり 小さい 言語 が 一番\" — small language is best after all. \"一番 安全 で、一番 速い\" — safest and fastest. \"ロボット 用 の 言語 は こう\" — language for robots is like this. \"人間 用 と 違って、機能 は 少ない ほうが いい\" — unlike human-use, fewer features is better."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay so walk me through it. When an LLM spits out a chunk of Python, what does monty actually do with it?"
+  },
+  {
+    "speaker": "a",
+    "text": "Three stages. Parse, lower, evaluate. The parse stage reads the source text into an AST — \"ソースが 読み込まれる\" — source is loaded. The lower stage strips anything outside the supported subset. The evaluate stage walks the lowered AST in a Rust-side eval loop — \"Rust が AST を 訳す\" — Rust interprets the AST. No bytecode, no JIT, no CPython involved anywhere."
+  },
+  {
+    "speaker": "b",
+    "text": "So it's not embedding Python. It's re-implementing a slice of it. \"小さい スライス だけ\" — only a small slice."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そのとおり\" — exactly. If you look at `src/ast/mod.rs`, you'll see the node types are enumerated. Expression nodes, statement nodes, control-flow nodes. But the list is short. \"リストは 小さい\" — the list is small. Function def, if/else, for, while, return, assign, binops, comparisons, literals, calls, attribute access, subscript. That's most of it."
+  },
+  {
+    "speaker": "b",
+    "text": "\"クラス は?\" — classes?"
+  },
+  {
+    "speaker": "a",
+    "text": "Classes are in, but stripped down. No multiple inheritance. No metaclass. No `__init_subclass__`. Just a flat class with methods and fields. \"クラス は 小さい バージョン\" — class is a small version. Pydantic's type system threads through here — a class is basically a typed record with validators."
+  },
+  {
+    "speaker": "b",
+    "text": "\"基本 だけ 動く ね\" — only basics work, huh."
+  },
+  {
+    "speaker": "a",
+    "text": "\"基本 だけ 動く\" — only basics work. \"動く の は 基本 だけ\" — what works is only basics. That's the mantra. And look at what's explicitly out: no `import *`, no `__import__`, no dynamic `getattr` on arbitrary strings, no `eval`, no `exec`, no `compile`, no `open` without a capability token. You can't even call `os.system` because the `os` module isn't bound in the namespace at all."
+  },
+  {
+    "speaker": "b",
+    "text": "So the \"言語\" — language itself is pruned. The \"言語\" — language can't say the dangerous things. \"言語 が 危ない 単語 を 持たない\" — the language has no dangerous words."
+  },
+  {
+    "speaker": "a",
+    "text": "\"言語 が 文 を 作れない\" — the language can't form the sentence. That's different from a runtime check. Runtime says \"I see exec, denied.\" Monty says \"exec という 言葉 が 無い\" — there is no word called exec in this dialect."
+  },
+  {
+    "speaker": "b",
+    "text": "\"なるほど\" — I see. That's a much stronger guarantee."
+  },
+  {
+    "speaker": "a",
+    "text": "\"確かに\" — certainly stronger. Runtime checks can be bypassed if the check has a bug. A missing grammar production can't be bypassed, because the parser literally doesn't produce that node. \"パーサー が 作らない から 安全\" — safe because the parser doesn't make it. \"作られない もの は 動かない\" — what isn't made doesn't run. \"動かない もの は 危なく ない\" — what doesn't run isn't dangerous. \"小さい 言語 は 守りやすい\" — a small language is easy to protect. \"大きい 言語 は 守りにくい\" — a big language is hard to protect. \"だから 小さく する\" — that is why we make it small. \"小さく してから 守る\" — shrink then protect."
+  },
+  {
+    "speaker": "b",
+    "text": "\"小さく してから 守る\" — shrink then protect. \"それ が 哲学\" — that is the philosophy. \"哲学 が はっきり している\" — the philosophy is clear."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay so you've got a pruned AST. Then what?"
+  },
+  {
+    "speaker": "a",
+    "text": "Then `src/eval/expr.rs` and `src/eval/stmt.rs`. Tree-walking interpreter. Each AST node has an `eval` method that takes an `&mut Env` and returns a `Value`. \"一つ一つ ノード が 訳される\" — each node is interpreted one by one. Values are a tagged Rust enum — Int, Float, Str, Bool, List, Dict, Tuple, None, Fn, Class, Instance. \"値 の 種類 は 小さい\" — the set of value types is small."
+  },
+  {
+    "speaker": "b",
+    "text": "No arbitrary Rust objects leaking through? \"Rust の 物 は 中 に 入らない?\" — Rust things don't enter inside?"
+  },
+  {
+    "speaker": "a",
+    "text": "\"入らない\" — don't enter. Values are a closed set. Host code can't sneak a raw pointer into the guest. If the host wants to expose something, it has to wrap it as a Value via a bridge function. \"ブリッジ を 通してから 使われる\" — after passing through the bridge, it's used."
+  },
+  {
+    "speaker": "b",
+    "text": "The bridge is where host meets guest."
+  },
+  {
+    "speaker": "a",
+    "text": "`src/tools/bridge.rs`. The tool-call surface. The host registers functions — say, `http_get`, `read_cell`, `now` — and each registration is a capability. The interpreter's namespace starts empty, and the host injects only the capabilities it wants this particular eval to have. \"必要な 関数 だけ 使われる\" — only necessary functions are used."
+  },
+  {
+    "speaker": "b",
+    "text": "So one eval might get `http_get` and another might not."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そうそう\" — yeah yeah. Per-call capability injection. And each bridged function has a declared Pydantic schema for its arguments and return. The guest calls `http_get(url)`, the bridge validates `url`, runs the host code, validates the return, and hands back a Value. \"スキーマ で 守られる\" — protected by the schema."
+  },
+  {
+    "speaker": "b",
+    "text": "Pydantic all the way down."
+  },
+  {
+    "speaker": "a",
+    "text": "Pydantic all the way through the boundary. Which matters, because this whole project exists so that LLM-generated code can be \"読み込む\" — to load ed — the source is \"読み込まれる\" — is loaded by the parser, lowered, and run, all without ever trusting a single character of it."
+  },
+  {
+    "speaker": "b",
+    "text": "So the Python \"読み込まれる\" — is loaded into a sandbox."
+  },
+  {
+    "speaker": "a",
+    "text": "The Python \"読み込まれる\" — is loaded into a sandbox, and the sandbox holds it the entire time. \"ずっと 中 に 閉じる\" — closed inside the whole time."
+  },
+  {
+    "speaker": "b",
+    "text": "What stops an LLM from writing `while True: pass` and melting your CPU?"
+  },
+  {
+    "speaker": "a",
+    "text": "Budgets. Every eval carries a budget struct. Steps, wall time, memory high-water mark, allocation count. Each AST node visit decrements steps. \"一歩 ずつ カウント\" — count step by step. Every value allocation increments memory. Hit zero, the eval aborts with a typed error."
+  },
+  {
+    "speaker": "b",
+    "text": "Who sets the budget? \"誰が 決める?\" — who decides?"
+  },
+  {
+    "speaker": "a",
+    "text": "\"ホスト が 決める\" — the host decides. At call time. `eval(source, budget=Budget { steps: 1_000_000, wall_ms: 500, mem_bytes: 16 * 1024 * 1024 })`. You can tune it per task. A CSV-parse task gets a fat memory budget. A math-question task gets a tiny one. \"タスク ごとに 基本 の バジェット が 違う\" — per task the basic budget differs."
+  },
+  {
+    "speaker": "b",
+    "text": "And when it trips, it doesn't crash the host?"
+  },
+  {
+    "speaker": "a",
+    "text": "\"絶対 に 落ちない\" — absolutely doesn't crash. The eval loop is just Rust code walking a Rust enum. When the budget trips, the loop returns an `Err(BudgetExceeded)`. Host catches it like any Result. The guest gets \"閉じる\" — to close — the eval context is \"閉じられる\" — is closed, the values are dropped, no FFI state to leak."
+  },
+  {
+    "speaker": "b",
+    "text": "Nothing to leak because nothing was \"開ける\" — to open ed in the first place."
+  },
+  {
+    "speaker": "a",
+    "text": "\"何も 開けられて いない\" — nothing was opened. No file handles unless the host injected one as a capability. No network sockets. No subprocess. The guest's world is whatever Values you chose to pass in, and that's all. \"中 は 空 から 始まる\" — inside starts from empty. \"空 の 世界 で 動く\" — runs in an empty world. \"空 から 始まって、空 で 終わる\" — starts empty, ends empty."
+  },
+  {
+    "speaker": "b",
+    "text": "\"空 で 終わる\" — ends empty. \"それ が 理想\" — that is the ideal. Because anything left behind is a leak."
+  },
+  {
+    "speaker": "a",
+    "text": "\"残り物 は 危ない\" — leftovers are dangerous. \"残り物 が 無い から 安全\" — safe because no leftovers. \"eval が 終わってから 全部 消える\" — everything disappears after eval ends. That's why the Rust Drop trait matters here. When the context goes out of scope, every Value it held is dropped. \"自動 で 消される\" — automatically erased."
+  },
+  {
+    "speaker": "b",
+    "text": "\"自動 で 消える\" — auto-disappear. \"Rust の 仕事\" — Rust's job."
+  },
+  {
+    "speaker": "a",
+    "text": "\"Rust の 強み\" — Rust's strength. \"メモリ が 自動 で 守られる\" — memory is automatically protected. \"Python の GC と 違う\" — different from Python's GC. Deterministic, no GC pause, no finalizer weirdness."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, I want to sit on this passive voice thing for a minute. \"〜れる って 何?\" — what is 〜れる?"
+  },
+  {
+    "speaker": "a",
+    "text": "Good, because monty's whole story is passive. \"全部 受け身\" — all passive. The code \"読まれる\" — is read. The AST \"訳される\" — is interpreted. The script \"動かされる\" — is run. None of it does anything on its own — it's all done to it, by the Rust side."
+  },
+  {
+    "speaker": "b",
+    "text": "Walk me through those forms. \"例 を 見せて\" — show me examples."
+  },
+  {
+    "speaker": "a",
+    "text": "\"読む → 読まれる\" — read → be read. \"動く → 動かされる\" — run → be run. \"訳す → 訳される\" — interpret → be interpreted. \"作る → 作られる\" — make → be made. \"使う → 使われる\" — use → be used. \"守る → 守られる\" — protect → be protected."
+  },
+  {
+    "speaker": "b",
+    "text": "So: \"コード が 読まれる\" — code is read."
+  },
+  {
+    "speaker": "a",
+    "text": "\"コード が 読まれる\" — code is read. \"それから AST が 作られる\" — then AST is made. \"それから AST が 訳される\" — then AST is interpreted. \"それから 関数 が 使われる\" — then functions are used. \"最後に スクリプト が 動かされる\" — finally the script is run."
+  },
+  {
+    "speaker": "b",
+    "text": "\"やっぱり\" — as expected the whole pipeline is passive."
+  },
+  {
+    "speaker": "a",
+    "text": "\"やっぱり 受け身\" — passive as expected. The LLM thinks it's writing active code. From monty's perspective, everything the guest does is being done to values, by the host's eval loop. \"ゲスト は 何も 自分で しない\" — the guest does nothing itself. The guest never has agency."
+  },
+  {
+    "speaker": "b",
+    "text": "\"そうそう\" — yeah yeah. And that connects to ep 26's 〜てから."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. \"読み込んでから 訳される\" — after being loaded, it is interpreted. Load first, then interpret. \"訳されてから 動かされる\" — after being interpreted, it is run. Interpret first, then run. The 〜てから chains the passive stages. \"〜てから 〜れる の 連続\" — a chain of 〜てから + 〜れる."
+  },
+  {
+    "speaker": "b",
+    "text": "So the sandbox \"開けてから\" — after opening, the code \"試される\" — is tried."
+  },
+  {
+    "speaker": "a",
+    "text": "\"開けてから 試される\" — after opening, it is tried. And \"試してから 閉じる\" — after trying, close. Try, then close. That's the eval lifecycle. \"開ける → 試す → 閉じる\" — open → try → close."
+  },
+  {
+    "speaker": "b",
+    "text": "\"確かに\" — certainly. And the \"中\" — inside of the sandbox is where everything dangerous happens."
+  },
+  {
+    "speaker": "a",
+    "text": "\"中 が 戦場\" — inside is the battlefield. \"中 で 危ない コード が 動く\" — dangerous code runs inside. But because the \"中 は 小さい\" — inside is small — \"小さい 世界\" — small world — and because every escape hatch is closed, the \"危ない が 中 に 残る\" — dangerous stays inside."
+  },
+  {
+    "speaker": "b",
+    "text": "\"危ない コード は 守られる?\" — dangerous code is protected against?"
+  },
+  {
+    "speaker": "a",
+    "text": "\"ホスト が 守られる\" — the host is protected. \"ゲスト から ホスト を 守る\" — protect host from guest. \"守る → 守られる\" — protect → be protected. Another passive."
+  },
+  {
+    "speaker": "b",
+    "text": "\"なるほど\" — I see. Whole episode is \"〜れる ドリル\" — 〜れる drill."
+  },
+  {
+    "speaker": "a",
+    "text": "\"基本 文法\" — basic grammar, applied to a \"基本 の 言語\" — basic language. \"基本 で 基本 を 教える\" — teach basics with basics. It tracks."
+  },
+  {
+    "speaker": "b",
+    "text": "Let me try one. \"コード が 読み込まれてから 訳される\" — after code is loaded, it is interpreted."
+  },
+  {
+    "speaker": "a",
+    "text": "\"完璧\" — perfect. One more. \"AST が 作られてから 動かされる\" — after AST is made, it is run."
+  },
+  {
+    "speaker": "b",
+    "text": "\"AST が 作られてから 動かされる\" — after AST is made, it is run. \"受け身 と 〜てから の コンボ\" — passive + 〜てから combo."
+  },
+  {
+    "speaker": "a",
+    "text": "\"コンボ できたね\" — nice combo. Let me give you five more. \"スクリプト が 書かれてから 読み込まれる\" — after script is written, it is loaded. \"ソース が 読み込まれてから 訳される\" — after source is loaded, it is interpreted. \"コード が 訳されてから 動かされる\" — after code is interpreted, it is run. \"関数 が 使われてから バジェット が 減る\" — after function is used, budget decreases. \"バジェット が 切れてから コンテキスト が 閉じられる\" — after budget runs out, context is closed."
+  },
+  {
+    "speaker": "b",
+    "text": "\"全部 受け身 の 連続\" — all a chain of passives. \"連続 で 動く\" — moves in sequence. \"そうそう、これ が 基本 の パターン\" — yeah, this is the basic pattern."
+  },
+  {
+    "speaker": "a",
+    "text": "\"基本 の パターン\" — basic pattern. Once you see it, you see it everywhere in sandbox design. \"サンドボックス の 設計\" — sandbox design is all about turning active verbs into passive ones. \"能動 を 受動 に 変える\" — change active into passive. The LLM thinks it's writing \"能動\" — active code. Monty rewrites reality so everything is \"受動\" — passive."
+  },
+  {
+    "speaker": "b",
+    "text": "\"現実 を 書き換える\" — rewrite reality. \"強い 言葉\" — strong words."
+  },
+  {
+    "speaker": "a",
+    "text": "\"でも 本当\" — but true. That's the whole grammar unit. \"〜れる、〜てから、受け身、能動\" — passive, after, passive, active. Four tools, one pipeline."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay so let me try to say this back. Monty is a \"小さい\" — small Python. Written in Rust. Doesn't run Python for humans — runs Python for robots. Because robots only use a tiny slice of the \"言語\" — language, you can cut out everything else, and cutting means safety."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そうそう\" — yeah yeah."
+  },
+  {
+    "speaker": "b",
+    "text": "The LLM writes code. The code \"読み込まれる\" — is loaded by monty. The parser rejects anything outside the subset. The AST \"訳される\" — is interpreted by a Rust eval loop. Host capabilities are \"使われる\" — are used through a Pydantic-validated bridge. Everything inside the sandbox is \"守られる\" — is protected by budgets and a closed value universe."
+  },
+  {
+    "speaker": "a",
+    "text": "\"完璧 な 要約\" — perfect summary. And when the eval finishes, the context is \"閉じられる\" — is closed and dropped. No persistent state, no FFI leakage. \"何も 残らない\" — nothing remains."
+  },
+  {
+    "speaker": "b",
+    "text": "So it's Python for robots, not humans."
+  },
+  {
+    "speaker": "a",
+    "text": "\"そのとおり\" — exactly. Python for humans has to be expressive, flexible, dynamic — because humans want to reach for weird features on Tuesday afternoon. Python for robots has to be small, boring, durable. \"ロボット 用 は 小さい ほうが いい\" — for robots, smaller is better. An LLM doesn't need list comprehensions with walrus operators. It needs `for`, `if`, `+`, and a dict."
+  },
+  {
+    "speaker": "b",
+    "text": "\"小さい\" — small, boring, durable."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the trifecta. And this is a pattern you're going to see repeated. \"エージェント 用 の 道具 は 小さい\" — tools for agents are small. Tools built for agents will be deliberately less capable than tools built for humans, because capability is a liability when the user is a statistical model that hallucinates syntax."
+  },
+  {
+    "speaker": "b",
+    "text": "Deliberately less. That's a weird design principle."
+  },
+  {
+    "speaker": "a",
+    "text": "It's the whole agent-infrastructure thesis in one sentence. \"言語 を 小さく する\" — make the language small. Constrain the \"言語\" — language so you can trust the output. Cut features until only the \"基本\" — basics remain. Then make those \"基本\" — basics rock-solid."
+  },
+  {
+    "speaker": "b",
+    "text": "\"やっぱり 基本 だけで 十分\" — basics alone are enough after all."
+  },
+  {
+    "speaker": "a",
+    "text": "\"十分\" — enough for the robot. Humans can keep CPython. \"ロボット は 基本 の Python で 動く\" — robots run on basic Python. \"人間 は 大きい Python、ロボット は 小さい Python\" — humans get big Python, robots get small Python. \"大きい と 小さい の 違い が 大事\" — the big vs small distinction matters."
+  },
+  {
+    "speaker": "b",
+    "text": "\"大事 な ポイント ね\" — important point. \"大きい 言語 は 人間 用、小さい 言語 は 機械 用\" — big language for humans, small for machines. \"言語 が 二つ に 分かれる\" — language splits in two."
+  },
+  {
+    "speaker": "a",
+    "text": "\"二つ に 分かれる\" — splits in two. And each branch optimizes differently. \"人間 用 は 表現 力、機械 用 は 安全 性\" — humans get expressiveness, machines get safety. \"表現 力 と 安全 性 は トレードオフ\" — expressiveness and safety trade off."
+  },
+  {
+    "speaker": "b",
+    "text": "\"トレードオフ\" — tradeoff. \"人間 は 表現 力 を 取る、機械 は 安全 を 取る\" — humans take expressiveness, machines take safety. \"なるほど、分かった\" — got it."
+  },
+  {
+    "speaker": "b",
+    "text": "So what's next week?"
+  },
+  {
+    "speaker": "a",
+    "text": "Ep 28 is an interlude. We're going to loop back across 25, 26, and 27 and do a vocabulary audit. \"単語 の チェック\" — vocabulary check. Which words stuck, which grammar points got exercised, which ones need another pass."
+  },
+  {
+    "speaker": "b",
+    "text": "I want to re-drill \"〜てから\" — after doing. It slipped last time."
+  },
+  {
+    "speaker": "a",
+    "text": "\"〜てから を もう一度\" — once more with 〜てから. We'll re-drill \"〜れる\" — passive. And we'll recycle at least one word — probably \"試す\" — to try, because it keeps showing up. Sandboxes are all about trying things safely. \"安全 に 試す\" — try safely. You \"試してから\" — after trying you decide."
+  },
+  {
+    "speaker": "b",
+    "text": "\"試してから 閉じる\" — try then close."
+  },
+  {
+    "speaker": "a",
+    "text": "\"試してから 閉じる\" — try then close. That's the whole sandbox lifecycle in four syllables. \"開ける、試す、閉じる\" — open, try, close. And let's recap the six new words one more time. \"訳す\" — interpret. \"小さい\" — small. \"動く\" — move/run. \"言語\" — language. \"基本\" — basics. \"読み込む\" — to load."
+  },
+  {
+    "speaker": "b",
+    "text": "\"六つ の 単語\" — six words. \"訳す、小さい、動く、言語、基本、読み込む\" — the six. And one sentence that uses all of them: \"小さい 言語 が 基本 的 に 読み込まれてから、Rust が 訳して、コード が 動かされる\" — the small language is basically loaded, then Rust interprets, then the code is run."
+  },
+  {
+    "speaker": "a",
+    "text": "\"完璧 な まとめ\" — perfect summary. \"全部 入った\" — all included. \"小さい 言語、基本、読み込む、訳す、動く\" — six in one. That's the whole episode in one sentence."
+  },
+  {
+    "speaker": "b",
+    "text": "\"一文 で まとめ\" — summary in one sentence. \"上手 に なった\" — got good at it. See you in 28."
+  },
+  {
+    "speaker": "a",
+    "text": "\"じゃあまた 来週\" — see you next week. \"基本 を 忘れないで\" — don't forget the basics. \"小さい 言語、基本 文法、受け身\" — small language, basic grammar, passive."
+  }
+]

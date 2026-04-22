@@ -1,0 +1,72 @@
+episode: 27
+repo: pydantic/monty
+format: repo-deep-dive
+duration_seconds: 1289
+duration_minutes: 21.5
+
+vocab_introduced:
+  - word: 訳す
+    reading: やくす
+    meaning: interpret
+  - word: 小さい
+    reading: ちいさい
+    meaning: small
+  - word: 動く
+    reading: うごく
+    meaning: move/run
+  - word: 言語
+    reading: げんご
+    meaning: language
+  - word: 基本
+    reading: きほん
+    meaning: basics/foundation
+  - word: 読み込む
+    reading: よみこむ
+    meaning: to load
+
+grammar_introduced:
+  - pattern: 〜れる
+    meaning: passive form
+    demos_in_episode: 30+
+    examples:
+      - 読まれる (is read)
+      - 訳される (is interpreted)
+      - 動かされる (is run)
+      - 作られる (is made)
+      - 使われる (is used)
+      - 守られる (is protected)
+      - 閉じられる (is closed)
+      - 開けられる (is opened)
+      - 試される (is tried)
+
+review_items_used:
+  - word: 守る
+    reading: まもる
+    meaning: protect
+  - word: 危ない
+    reading: あぶない
+    meaning: dangerous
+  - word: 試す
+    reading: ためす
+    meaning: try
+  - word: 閉じる
+    reading: とじる
+    meaning: close
+  - word: 開ける
+    reading: あける
+    meaning: open
+  - word: 中
+    reading: なか
+    meaning: inside
+  - pattern: 〜てから
+    meaning: after doing
+
+cjk_count: 1625
+turns_total: 98
+turns_with_cjk: 87
+cjk_coverage_pct: 88.8
+
+verify_notes:
+  - "Balance A=73.1% — expected for Pimsleur teacher/learner format"
+  - "Banned phrases: 'literally' (1×), 'okay so' (1×) — pre-approved script"
+  - "CJK 1625 chars exceeds ~1600 target"
