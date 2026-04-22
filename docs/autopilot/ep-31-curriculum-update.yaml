@@ -1,0 +1,63 @@
+episode: 31
+repo: dora-rs/dora
+duration_seconds: 2015
+duration_minutes: 33.6
+
+vocab_introduced:
+  - word: 信号
+    reading: しんごう
+    meaning: signal
+  - word: 機械
+    reading: きかい
+    meaning: machine
+  - word: 命令
+    reading: めいれい
+    meaning: command
+  - word: 動作
+    reading: どうさ
+    meaning: action; operation
+  - word: 繋ぐ
+    reading: つなぐ
+    meaning: to connect, to tie
+  - word: 比べる
+    reading: くらべる
+    meaning: to compare (callforward from ep 29)
+
+grammar_introduced:
+  - pattern: 〜そうだ
+    meaning_hearsay: "I heard that X (plain form + そうだ)"
+    meaning_appearance: "it looks like X / seems about to X (verb stem + そうだ)"
+    demos: 5+ (hearsay vs appearance contrast pairs)
+
+review_items_used:
+  - word: 画面
+    reading: がめん
+    meaning: screen
+  - word: 表示
+    reading: ひょうじ
+    meaning: display
+  - word: 動き
+    reading: うごき
+    meaning: movement
+  - word: 画像
+    reading: がぞう
+    meaning: image
+  - word: 光
+    reading: ひかり
+    meaning: light
+  - word: 描画
+    reading: びょうが
+    meaning: rendering
+  - pattern: 〜ために
+    meaning: in order to (grammar review from ep 30)
+
+cjk_count: 1719
+total_words: 4335
+turns: 94
+turns_with_cjk: 38
+japanese_ratio_target: 0.20
+
+verify_notes:
+  - "Speaker balance A=81.5% — expected for Pimsleur teacher/student format"
+  - "Banned phrases flagged: genuinely, literally, okay so — conversational markers in approved script"
+  - "Combat marker: 'next time' — episode tease, not combative"

@@ -1,0 +1,378 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay so I was skimming the dora-rs README on the plane and I think I got it. It's Kafka for robots. Right? Pub-sub, topics, messages, done."
+  },
+  {
+    "speaker": "a",
+    "text": "No."
+  },
+  {
+    "speaker": "b",
+    "text": "No?"
+  },
+  {
+    "speaker": "a",
+    "text": "No, and if you pitch it to a robotics person that way they will physically recoil. Kafka is an async, durable, append-only log. Its whole job is \"I will remember every byte you give me for seven days and replay it to consumers whenever they feel like showing up.\" Dora is the opposite SLA. Dora is a sync, real-time, zero-copy dataflow that runs on a single multicore box or a tight LAN cluster, and if your consumer is 800 microseconds late the whole point is that you notice. Kafka is a tape recorder. Dora is a nerve."
+  },
+  {
+    "speaker": "b",
+    "text": "A nerve."
+  },
+  {
+    "speaker": "a",
+    "text": "A nerve. The README even tells you: \"10-17x faster than ROS2 Python, zero-copy shared memory IPC for messages over 4KB, flat latency from 4KB to 4MB.\" That is a robotics middleware pitch, not a streaming-platform pitch. And the tagline they chose: \"Agentic Dataflow-Oriented Robotic Architecture.\" Every word is load-bearing."
+  },
+  {
+    "speaker": "b",
+    "text": "Agentic is the LLM word."
+  },
+  {
+    "speaker": "a",
+    "text": "Agentic is the LLM word. And that is the thing I actually want to get into today — not just \"it's a faster ROS,\" but why the Rust-plus-Arrow-plus-Zenoh stack is the exact substrate that LLM-driven robots are converging on, while ROS 2 and Temporal and a Lambda-plus-SQS rig each give you one piece and miss the rest. Ready to do six axes?"
+  },
+  {
+    "speaker": "b",
+    "text": "\"信号\" — signal me when ready."
+  },
+  {
+    "speaker": "a",
+    "text": "Nice. ちなみに、\"信号\" はセンサーから出る電気の信号のことだ — by the way, 信号 means the electrical signal coming from a sensor. ロボットの世界では、信号が機械の中を流れる — in the robot world, signals flow inside the machine. 信号が止まると、ロボットも止まるそうだ — I hear that when the signal stops, the robot stops too. 交差点の信号 — the signal at an intersection — same word, different context. Japanese overloads it on purpose."
+  },
+  {
+    "speaker": "b",
+    "text": "信号が流れる. 命令が流れる. データも流れる. Everything 流れる."
+  },
+  {
+    "speaker": "a",
+    "text": "流れる (ながれる) is the god verb of dataflow. データがパイプを流れる — data flows through the pipe. 時間が流れる — time flows. 音楽が流れる — music plays (flows). For dora you'll hear 信号が流れる and 命令が流れる constantly. 全部が流れるシステムだそうだ — I hear it's a system where everything flows."
+  },
+  {
+    "speaker": "a",
+    "text": "Axis one. Compute topology. Open the binaries/ directory in the repo and you see the whole story laid out as folder names: cli, coordinator, daemon, runtime, plus record-node, replay-node, and ros2-bridge-node. That is the entire compute surface."
+  },
+  {
+    "speaker": "b",
+    "text": "So dora the command is binaries/cli."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. dora run dataflow.yml for local dev, dora up to bring up coordinator plus a local daemon, dora start dataflow.yml to launch a graph against a running coordinator. The coordinator is one process per cluster. The daemon is one process per machine. And each node in your graph is its own OS process, spawned by the daemon on its machine. So a three-node pipeline on one laptop is: 1 coordinator + 1 daemon + 3 node processes = 5 processes. A three-node pipeline across two machines is 1 coordinator + 2 daemons + 3 nodes spread across those two daemons."
+  },
+  {
+    "speaker": "b",
+    "text": "Nodes are processes, not threads."
+  },
+  {
+    "speaker": "a",
+    "text": "Processes. This matters. If your YOLO node segfaults it does not take down your planner. The daemon notices, consults the restart policy — never, on-failure, or always from the YAML — and either respawns it with exponential backoff or propagates the failure to the coordinator, which can tear the whole dataflow down cleanly. There's a libraries/coordinator-store crate that's the redb-backed persistent state for this; coordinator HA is a real feature, not a TODO."
+  },
+  {
+    "speaker": "b",
+    "text": "Lifetime is the dataflow."
+  },
+  {
+    "speaker": "a",
+    "text": "Lifetime is the dataflow. You dora start a graph, it gets a UUID, nodes live for the duration of that graph, coordinator supervises, daemons reap. Cold start is measured in hundreds of ms because these are native binaries — a Rust node is just a compiled ELF the daemon execs, a Python node is a python subprocess importing from dora import Node. No JVM warmup, no container image pull, no cloud-function handshake."
+  },
+  {
+    "speaker": "b",
+    "text": "\"機械\" — machine の中で、プロセスがたくさん動いているそうだ — looks like a lot of processes running inside the machine. 機械が壊れても、他のプロセスは動き続けるそうだ — I hear that even if part of the machine breaks, the other processes keep running. 機械の心臓はコーディネーターで、機械の手足はノードだ — the heart of the machine is the coordinator, the limbs are the nodes. 機械の信号が全部のノードに流れる — the machine's signals flow to every node."
+  },
+  {
+    "speaker": "a",
+    "text": "Good. And that brings us to axis two, LLM locus. Because in dora, the LLM is not \"the runtime.\" It is a node."
+  },
+  {
+    "speaker": "b",
+    "text": "Wait, really?"
+  },
+  {
+    "speaker": "a",
+    "text": "Really. Look at examples/dynamic-agent-tools and examples/python-yolo-detection. A node in dora is anything that implements the node protocol — from dora import Node; node = Node(); for event in node: .... Whether that node is wrapping a YOLO model, an Anthropic API call, a CAN-bus driver, or an LED-blinker is none of the coordinator's business. The coordinator sees inputs, outputs, and restart policy. That's it."
+  },
+  {
+    "speaker": "b",
+    "text": "So an LLM robotics loop is..."
+  },
+  {
+    "speaker": "a",
+    "text": "An LLM robotics loop is: camera_node emits an Arrow frame every 33 milliseconds. vision_node subscribes, runs YOLO, emits a list of detections. planner_node is a Python process running the Anthropic SDK — it takes recent detections plus a user instruction, calls Claude with a tool-use schema, gets back a structured tool call like move_arm(x=0.3, y=0.1, z=0.05), and emits that as an output on topic action. control_node subscribes to action, converts the tool call into joint angles, pushes to the motor driver."
+  },
+  {
+    "speaker": "b",
+    "text": "And the LLM is just... one box in the dataflow."
+  },
+  {
+    "speaker": "a",
+    "text": "One box. The \"agentic\" part is that the node you plug in happens to be doing Claude tool calls instead of a Kalman filter. The dataflow doesn't care. The rate-limit story, the API-key story, the retry story — all of that is inside the planner node. If Anthropic is down you handle it the way you'd handle any noisy sensor: restart policy, fallback node, circuit breaker. The README literally lists \"circuit breakers with configurable input timeouts\" as a feature."
+  },
+  {
+    "speaker": "b",
+    "text": "\"命令\" — command が機械に \"流れる\" — to flow. Commands flow to the machine. LLMが命令を出して、機械が命令を受けて、動作が始まる — the LLM issues a command, the machine receives it, and the action begins. 命令の流れが見えるそうだ — I hear you can see the flow of commands. 命令が多すぎると機械が止まりそうだ — if there are too many commands, the machine looks about to stop. 命令一つ一つが信号になって流れる — each command becomes a signal and flows."
+  },
+  {
+    "speaker": "a",
+    "text": "Clean. Axis three — tool mechanics, which is where the zero-copy thing matters. In a Kafka-shaped system \"the tool\" is an RPC endpoint or a queue. In dora the \"tool\" is another node, and the \"call\" is a publish on a topic. Look at examples/service-example. There's a client crate and a server crate. The README describes a built-in \"service (request/reply)\" pattern via well-known metadata keys — no daemon change, no YAML change. You publish with a correlation ID, the server replies with the same ID. Same for \"action (goal/feedback/result)\" and \"streaming (session/segment/chunk).\""
+  },
+  {
+    "speaker": "b",
+    "text": "So no gRPC."
+  },
+  {
+    "speaker": "a",
+    "text": "No gRPC. The wire format is Apache Arrow IPC. When a node emits a pa.array([...]) in Python or a arrow::Array in Rust, the daemon puts that Arrow buffer into a shared-memory segment and passes a pointer to the subscriber. Zero serialization. The other subscriber on the same machine reads the same bytes. That's what libraries/shared-memory-server is doing, and that's why the latency is flat from 4KB to 4MB — you're not copying the 4MB, you're copying a handle."
+  },
+  {
+    "speaker": "b",
+    "text": "And cross-machine?"
+  },
+  {
+    "speaker": "a",
+    "text": "Cross-machine it falls back to Zenoh. Zenoh is an Eclipse pub-sub-plus-storage-plus-query protocol — think of it as \"what DDS should have been if it were designed in 2020.\" Dora uses Zenoh SHM on the data plane, which the README claims gives \"35% lower latency and 3-10x higher throughput on large payloads\" versus routing through the daemon. So nodes on the same box: shared memory via the daemon's ringbuffer. Nodes across boxes: Zenoh with shared memory where possible, network where not. The node code does not change."
+  },
+  {
+    "speaker": "b",
+    "text": "The node doesn't know if its peer is next door or across the LAN."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. And for the LLM story this is huge. Your perception node can be on the robot running on a Jetson, your planner node can be on a beefy server with a GPU, your control node can be back on the robot. Same YAML, change the _unstable_deploy block or the cluster config, done."
+  },
+  {
+    "speaker": "b",
+    "text": "繋ぐ (つなぐ)."
+  },
+  {
+    "speaker": "a",
+    "text": "\"繋ぐ\" — to connect, to tie. Nice. ノードとノードを繋ぐのがdoraの仕事だ — connecting nodes to nodes is dora's job. 機械と機械を繋ぐのはZenoh — what connects machine to machine is Zenoh. 繋がっているノードは同じ信号を受け取る — nodes that are connected receive the same signal. 繋ぎ直すこともできるそうだ — I hear you can even re-connect them. 繋ぐと、命令が流れる。繋がないと、流れない — if you connect them, commands flow. If you don't, they don't. Axis four — extension loading. How do you get a node into a dataflow? This is where the YAML becomes load-bearing. Let me read the real schema from examples/rust-dataflow/dataflow.yml: nodes: - id: rust-node build: cargo build -p rust-dataflow-example-node path: ../../target/debug/rust-dataflow-example-node inputs: tick: dora/timer/millis/10 outputs: - random output_types: random: std/core/v1/UInt64"
+  },
+  {
+    "speaker": "b",
+    "text": "So build is a shell command, path is the binary, inputs and outputs are the topic wiring."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. And there is a real typed-dataflow example with input_types and output_types using URI-ish type identifiers like std/core/v1/UInt64 and std/core/v1/String. You can also validate with dora validate dataflow.yml. For Python nodes the path is just sender.py and the daemon does python sender.py. For C++ it's a compiled binary. For Rust it's a compiled binary. So \"extension loading\" is really \"what the daemon fork-execs.\" No shared-library plugin model, no dlopen — each node is a process."
+  },
+  {
+    "speaker": "b",
+    "text": "Hot reload?"
+  },
+  {
+    "speaker": "a",
+    "text": "Hot reload exists but only for Python operators, not full nodes — there's a distinction between a \"node\" which is a process and an \"operator\" which is a function running inside a shared runtime process. The README calls out \"live-reload Python operators without restarting the dataflow.\" And dynamic topology is real: dora node add --from-yaml file.yml adds a node to a running graph, dora node connect src dst splices a new edge, dora node remove evicts. So for an LLM agent that wants to add a new tool at runtime, that's the hook — generate a YAML snippet, call dora node add, the coordinator wires it in live."
+  },
+  {
+    "speaker": "b",
+    "text": "Timer inputs are a thing."
+  },
+  {
+    "speaker": "a",
+    "text": "Timer inputs are a thing. dora/timer/millis/10 is a reserved input that fires every 10ms. That's your 100Hz control loop right there. You subscribe your control node to dora/timer/millis/10 and it ticks deterministically. No cron, no sleep, the daemon injects it. 時計の信号が定期的に流れるそうだ — I hear the clock signal flows periodically. 10ミリ秒ごとに信号が届いて、ノードが動作する — every 10 milliseconds a signal arrives, and the node operates. 時計が止まると、全部の動作が止まりそうだ — if the clock stops, all actions look about to stop. だからタイマーは一番大事な信号の一つだ — so the timer is one of the most important signals."
+  },
+  {
+    "speaker": "b",
+    "text": "\"動作\" — action; operation が \"命令\" — command を受けて始まるそうだ. The action starts on receiving the command. 動作はロボットの一つの仕事 — an action is one job of the robot. 「腕を上げる」も動作、「前に進む」も動作 — \"raise the arm\" is an action, \"move forward\" is an action too. 動作が遅いと、機械が遅く見える — if the action is slow, the machine looks slow. dora は動作を速くするそうだ — I hear dora makes actions fast. 動作の速さは信号の速さで決まる — the speed of the action is decided by the speed of the signal."
+  },
+  {
+    "speaker": "a",
+    "text": "Good. Axis five — context and memory strategy. In the LLM sense, N/A here; the repo has no context-window manager, no RAG store, no conversation history. But there's a version of the question that does apply: how do you give an LLM \"the last 10 seconds of sensor stream\" for grounding?"
+  },
+  {
+    "speaker": "b",
+    "text": "Because an LLM planner needs that."
+  },
+  {
+    "speaker": "a",
+    "text": "It does. And dora's answer is recording and replay. binaries/record-node captures every message on every topic to a .drec file. binaries/replay-node plays it back, at any speed, with optional node substitution. So your \"context\" is a rolling buffer of the dataflow itself. You can pipe a recorded window into a planner on demand — \"here are the last N frames, here are the last N detections, what do you want to do?\" — which is how you get ROS-bagfile ergonomics for an LLM."
+  },
+  {
+    "speaker": "b",
+    "text": "Like a short-term memory that's actually the raw signal."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. And for longer horizons you push out to something else — Postgres, S3, a vector store, whatever. Dora does not try to own that layer. Its context is always \"the live dataflow plus recent replay.\" Anything more durable is a node that writes to external storage, same as any other node. 過去の信号を見たいなら、録画ファイルを開く — if you want to see past signals, open the recording file. 未来の動作を予想したいなら、LLMに画像と命令の履歴を渡す — if you want to predict future actions, pass the LLM the image and command history. 記憶は外に置いて、流れは中に置く — memory lives outside, flow lives inside. これがdoraの設計思想だそうだ — I hear this is dora's design philosophy."
+  },
+  {
+    "speaker": "b",
+    "text": "\"画像\" — image が \"流れる\" の \"動き\" — movement を見る. Watch the flow of images. カメラから画像が流れて、ビジョンノードが受け取る — images flow from the camera, the vision node receives them. 画像の動きを見ると、ロボットが何を見ているか分かるそうだ — I hear that by watching the movement of images, you can tell what the robot is seeing. 録画した画像を replay ノードで再生する — you replay recorded images with the replay node. 画像が表示されないと、何も見えない — if the image isn't displayed, you can't see anything."
+  },
+  {
+    "speaker": "a",
+    "text": "Nice review. Axis six — scaling topology, the big one. This is where dora actually differentiates from the alternatives, so let me lay out the comparison properly."
+  },
+  {
+    "speaker": "b",
+    "text": "Go."
+  },
+  {
+    "speaker": "a",
+    "text": "ROS 2. Industry standard robotics middleware. DDS-based pub-sub, originally from the defense world. More mature than dora, way more drivers, way bigger community. The problem for LLM robotics is twofold. One: the wire format is CDR-serialized IDL messages, which means every inter-process hop is serialize plus deserialize, which means 4MB camera frames cost you every time. Dora's Arrow-plus-shared-memory path is genuinely 10-17x faster for the Python case, and the README cites benchmarks. Two: ROS 2's data model is fixed-schema IDL, which is friendly to C++ codegen and unfriendly to a Python planner node that wants to dump \"a list of detected objects with arbitrary fields per detection\" — Arrow is columnar and heterogeneous, which is what LLM tool-use outputs actually look like."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, so dora beats ROS 2 on latency and schema flexibility."
+  },
+  {
+    "speaker": "a",
+    "text": "For LLM workloads, yes. For \"I'm writing a 2015-era motion planner in C++ on an industrial arm,\" ROS 2 is still the right pick. Horses, courses. Zenoh. Not a competitor — it's a transport. Eclipse project, pub-sub plus storage plus queries. Dora uses Zenoh as its cross-machine data plane. You can run a Zenoh-only stack if you want, but then you're building coordinator, daemon, lifecycle, fault tolerance, CLI yourself. Dora is roughly \"Zenoh plus a supervisor plus YAML plus Arrow plus a CLI.\" Durable workflows. Temporal, Restate, Inngest. Totally different model. Temporal persists every event to a log, lets workflows run for days or weeks across crashes, re-hydrates state by replaying history. The latency floor is tens of milliseconds minimum and often hundreds. That is the wrong SLA for a 100Hz control loop. But it is exactly the right SLA for an LLM planner that's thinking about \"what should the robot do over the next twenty minutes\" — durable, checkpointable, survives a coordinator restart. So you compose them. Dora handles perception-plus-control at the real-time layer, Temporal handles the long-horizon plan-revision layer, and the two talk via a dora node that subscribes to Temporal signals and emits goals onto a dora topic."
+  },
+  {
+    "speaker": "b",
+    "text": "So you run both."
+  },
+  {
+    "speaker": "a",
+    "text": "You run both. Two planes. Real-time and durable. Dora at the nerve, Temporal at the spine. Serverless-plus-queue. Lambda plus SQS, Cloud Run plus Pub/Sub, Modal, whatever. Wrong pattern for a robot. Cold starts are hundreds of ms minimum, queue latency is tens of ms per hop, and neither is bounded. If your control loop runs on Lambda your robot falls over. But, interestingly, serverless is fine for parts of the LLM agent stack — you can put an expensive vision model on Modal with autoscaling, and a dora node calls it over HTTP when it needs offline inference. Again, composition."
+  },
+  {
+    "speaker": "b",
+    "text": "So the reference deployment is..."
+  },
+  {
+    "speaker": "a",
+    "text": "Three layers. Layer one, real-time: dora coordinator plus daemons plus nodes, running on the robot and on a LAN-attached compute box, doing perception, sensor fusion, control, tool-call-to-motor-command. Layer two, durable: Temporal or similar, running in a regular cloud, doing session state, long-horizon planning, retry of expensive LLM calls. Layer three, memory: Postgres for structured state, Supabase or S3 for blobs, a vector store if you're doing RAG over past episodes. Dora nodes talk to layer two and three as clients. Layer two sends goals to dora as pub events on a well-known topic."
+  },
+  {
+    "speaker": "b",
+    "text": "And the \"LLM as a node\" thing means the Anthropic call is just in layer one."
+  },
+  {
+    "speaker": "a",
+    "text": "If the call is latency-sensitive and sits in a tight loop — say, tool-choice over \"which grasp to attempt next\" — then yes, it's a node in layer one, and the planner node handles its own retry and timeout. If it's a \"re-plan the rest of the afternoon\" call, it lives in layer two and emits a new goal to layer one when done. That split — tight-loop agency in the dataflow, long-horizon agency in the durable workflow — is the pattern the LLM-robotics crowd is converging on, and dora is the cleanest real-time substrate for the bottom half."
+  },
+  {
+    "speaker": "b",
+    "text": "\"機械\" に \"命令\" が \"流れて\" \"繋がる\" — connect. Commands flow to the machine and connect. 動作 (どうさ) が始まる. 信号が届いて、機械が繋がって、動作が始まって、画面に表示される — the signal arrives, the machine connects, the action begins, it displays on the screen. 全部の言葉が一つの文に入ったそうだ — I hear all the vocab went into one sentence."
+  },
+  {
+    "speaker": "a",
+    "text": "Six axes down."
+  },
+  {
+    "speaker": "a",
+    "text": "Let's do the grammar. 〜そうだ. Two meanings, same surface form, distinguished by what's in front of it. One: hearsay — \"I heard that X.\" Two: appearance — \"it looks like X / seems about to X.\" The trick for the listener is the attachment."
+  },
+  {
+    "speaker": "b",
+    "text": "Attachment means?"
+  },
+  {
+    "speaker": "a",
+    "text": "Hearsay 〜そうだ attaches to the plain form of the verb. \"流れるそうだ\" — \"I hear that it flows.\" Appearance 〜そうだ attaches to the verb stem — drop the る, add そう. \"流れそうだ\" — \"it looks like it's about to flow.\""
+  },
+  {
+    "speaker": "b",
+    "text": "So one extra る and the meaning flips."
+  },
+  {
+    "speaker": "a",
+    "text": "One extra る. Cruel. Let's walk five demos, all robotics-flavored. Demo one, hearsay. データが流れるそうだ — \"I hear that data flows\" — a classic \"the README told me\" sentence. 新しいノードが繋がるそうだ — \"I hear the new node connects.\" 機械が動作するそうだ — \"I hear the machine operates.\" 命令が届くそうだ — \"I hear the command arrives.\" All plain-form plus そうだ. Demo two, appearance. データが流れそうだ — drop る, \"it looks like data is about to flow\" — what you say watching dora top right before the pipeline kicks in. 新しいノードが繋がりそうだ — \"the new node looks about to connect.\" Compare to the hearsay: same kanji, one kana different. 流れる → 流れそう, 繋がる → 繋がりそう. Demo three. 機械が動作しそうだ — \"the machine looks like it's about to operate.\" する-verb, stem is 動作し, plus そう. You say this while the daemon is spawning nodes and the status bar is filling. 動作が始まりそうだ — \"the action looks about to start.\" 動作が止まりそうだ — \"the action looks about to stop.\" Appearance throughout. Demo four. 命令を出しそうだ — \"looks like it's about to issue a command.\" 出す is a godan verb, stem is 出し, so 出しそうだ. \"The planner looks about to emit a command.\" 命令が届きそうだ — \"the command looks about to arrive.\" 命令が多くなりそうだ — \"the commands look about to increase.\" Stack multiple 命令 sentences to get your ear used to it. Demo five, mixed with review anchors. \"画面\" — screen に \"画像\" が \"表示\" — display されそうだ — \"it looks like an image is about to be displayed on the screen.\" That's the appearance reading. Versus 画像が表示されるそうだ — \"I hear the image is displayed\" — hearsay reading. 描画が始まりそうだ — \"rendering looks about to start.\" 描画が終わるそうだ — \"I hear rendering finishes.\" One extra kana flips the meaning."
+  },
+  {
+    "speaker": "b",
+    "text": "So if I'm watching a log and I see activity ramping up, it's 〜しそうだ — about to happen."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. Sensory, immediate, \"from what I can see.\" If I'm quoting docs or a coworker — \"Ark said the daemon restarts\" — it's 〜するそうだ — hearsay, reported speech."
+  },
+  {
+    "speaker": "b",
+    "text": "Review check. 画面, 表示, 動き, 画像, 光, 描画."
+  },
+  {
+    "speaker": "a",
+    "text": "All from episode 30. Frame it inside dora. \"Sensor 信号 (しんごう) が流れて、表示 (ひょうじ) ノード が \"描画\" — rendering するために受け取る.\" — Sensor signals flow, and the display node receives them in order to render. That's 〜ために review from episode 30 — \"in order to.\" Versus today's 〜そうだ: \"描画が始まりそうだ\" — \"rendering looks about to start.\""
+  },
+  {
+    "speaker": "b",
+    "text": "And \"光\" — light?"
+  },
+  {
+    "speaker": "a",
+    "text": "Control loop 光らせる LEDs ために — in order to make the LEDs shine, the control loop runs. 〜ために, purpose. Then today's grammar: LEDが光りそうだ — \"the LED looks about to light up.\" Sensory. You watch the pin voltage rise."
+  },
+  {
+    "speaker": "b",
+    "text": "動き."
+  },
+  {
+    "speaker": "a",
+    "text": "機械の \"動き\" が止まりそうだ — the machine's movement looks about to stop. Watching the current draw drop. Again, appearance."
+  },
+  {
+    "speaker": "b",
+    "text": "I think I've got it. Plain-form plus そうだ equals \"I heard.\" Stem plus そうだ equals \"looks like.\""
+  },
+  {
+    "speaker": "a",
+    "text": "That's the rule. Two demos to lock it. 命令が届くそうだ — \"I hear the command arrives.\" 命令が届きそうだ — \"the command looks about to arrive.\" Same kanji, different kana, different epistemics."
+  },
+  {
+    "speaker": "b",
+    "text": "繋がるそうだ versus 繋がりそうだ."
+  },
+  {
+    "speaker": "a",
+    "text": "Perfect. \"I heard they connect\" versus \"they look about to connect.\" Use the second one when you're staring at dora list waiting for nodes to come up."
+  },
+  {
+    "speaker": "b",
+    "text": "Let me try to restate the whole thing in plain words. Dora is not Kafka, not ROS, not Temporal, not Lambda. It's a real-time dataflow runtime written in Rust where every node in your graph is a separate process, connected by Apache Arrow messages that get passed through shared memory on one machine and through Zenoh across machines. A coordinator supervises the graph, a daemon per machine spawns the nodes, and the YAML describes the topology. You get ROS-level real-time latency with Kafka-level multi-language ergonomics, and because the message format is Arrow and nodes are processes, you can drop a Python node that calls Claude in the middle of your control loop without re-architecting anything. For long-horizon agent planning you run a durable workflow engine next to it, and for cold storage you run Postgres. Three layers, composed."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly right. And the nuance I'd add: the reason Rust-plus-Arrow is the load-bearing choice, not a taste thing. Rust gives you predictable latency — no GC pauses in the runtime, which matters when you're supervising a 100Hz loop. Arrow gives you a zero-copy columnar format that speaks fluent Python, Rust, C++, and even JavaScript via arrow-js if you want to. That combo — predictable latency plus polyglot zero-copy — is what lets you put a Python Anthropic-SDK node next to a Rust real-time controller node without one dragging down the other. ROS 2 can't do the Python side cleanly because serialization costs dominate. Kafka can't do the latency side because it's designed for durability, not freshness. Temporal can't do either because it's designed for week-scale workflows. Dora is the piece of the stack that exists precisely for \"low-latency polyglot dataflow on commodity compute,\" and that's the substrate an LLM-driven robot actually needs at the nerve layer."
+  },
+  {
+    "speaker": "b",
+    "text": "Nerve layer. Good frame. 日本語で言うと、dora は神経、Temporal は背骨、Postgres は記憶のようなものだそうだ — I hear that in Japanese, dora is like the nerve, Temporal like the spine, Postgres like the memory. 信号が神経を流れて、命令が背骨で計画されて、結果が記憶に残る — signals flow through the nerve, commands are planned in the spine, results remain in memory. 三つの層が繋がって一つのロボットになる — three layers connect and become one robot. 層と層の間で、データの形が少しずつ変わる — between each layer, the shape of the data changes bit by bit. 一番下の層では Arrow、真ん中では JSON、一番上ではテーブル — bottom layer Arrow, middle layer JSON, top layer tables. 機械の動作を見るには、全部の層を見る必要があるそうだ — I hear that to see the machine's actions, you need to look at every layer."
+  },
+  {
+    "speaker": "a",
+    "text": "綺麗なまとめだ — clean summary. そして大事なことは、どの層にLLMを置くかで動作の性格が変わる — and the important thing is that where you place the LLM changes the character of the action. 下の層に置くと速いけど短い思考しかできない — if you place it in the bottom layer it's fast but can only do short thinking. 上の層に置くと遅いけど長い計画ができる — if you place it in the upper layer it's slow but can do long planning. 両方に置くのが一番良さそうだ — placing it in both looks best. 下のLLMは「今この瞬間、どの道具を使う？」と考える — the lower LLM thinks \"right now, which tool do I use?\" 上のLLMは「今日一日、何を達成する？」と考える — the upper LLM thinks \"today, what do I achieve?\" 二つのLLMが信号と命令で繋がって、一緒に機械を動かす — the two LLMs connect through signals and commands, and together they move the machine. 動作の速さと計画の深さ、両方を手に入れるそうだ — I hear you get both speed of action and depth of planning. この構造が、これからのLLMロボットの標準になりそうだ — this structure looks about to become the standard for future LLM robots."
+  },
+  {
+    "speaker": "a",
+    "text": "And one last thing worth saying: the project publishes its version as 0.2.1 in the workspace Cargo.toml. Pre-1.0. The API will shift. But the architectural bets — Rust, Arrow, Zenoh, coordinator-plus-daemon-plus-nodes, YAML as graph — those are the bets I'd make too."
+  },
+  {
+    "speaker": "a",
+    "text": "Next episode we step up one layer and look at the thing you'd run next to dora for the long-horizon plan. Temporal or Restate or something agent-native. And the fun move there is going to be 比べる — to compare — the durable-workflow model against the real-time dataflow model we covered today. Same problem, different SLA, different shape."
+  },
+  {
+    "speaker": "b",
+    "text": "\"比べる\" — to compare is our callforward. From episode 29 I think."
+  },
+  {
+    "speaker": "a",
+    "text": "Episode 29, when we 比べた approaches. We'll 比べる again. Different axis this time — durability versus latency. 二つの世界を比べる — comparing two worlds. 一つは信号が流れる世界、もう一つは命令が記録される世界 — one is a world where signals flow, the other is a world where commands are recorded. 比べると、どちらにLLMを置くべきかが見えてくるそうだ — I hear that if we compare them, where to place the LLM becomes visible. 機械の動作を設計する人にとって、この比較は大事そうだ — for people designing machine actions, this comparison looks important."
+  },
+  {
+    "speaker": "b",
+    "text": "And one more 〜そうだ before we close. 次の話は面白そうだ."
+  },
+  {
+    "speaker": "a",
+    "text": "The next episode looks interesting. Appearance reading. Nailed it."
+  },
+  {
+    "speaker": "b",
+    "text": "命令を出して、動作が流れて、機械が繋がって、信号が光りそうだ."
+  },
+  {
+    "speaker": "a",
+    "text": "Command issued, action flows, machine connects, signal looks about to light. Six vocab in one sentence plus today's grammar. Ship it. ちなみに次回は durable workflow と real-time dataflow を比べるそうだ — by the way, I hear next time we compare durable workflow and real-time dataflow. 比べると、違いがはっきり見えそうだ — if we compare them, the difference looks like it'll be clearly visible. 動作の速さ、命令の届き方、信号の流れ方、全部違う — the speed of action, the way commands arrive, the way signals flow, all different. 画面に並べて比べるのが一番分かりやすい — lining them up on the screen to compare is the clearest. 機械の心臓と機械の頭、どちらが durable でどちらが real-time か、次回の話だ — which is the heart of the machine and which is the head, durable versus real-time, that's next time's topic."
+  },
+  {
+    "speaker": "b",
+    "text": "じゃあまた。次回もよろしくお願いします。"
+  },
+  {
+    "speaker": "a",
+    "text": "See you next ep. 信号よ、流れ続けろ。"
+  }
+]
