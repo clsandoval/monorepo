@@ -1,0 +1,56 @@
+episode: 30
+repo: raphamorim/rio
+date: 2026-04-22
+duration_seconds: 1831
+duration_minutes: 30.5
+file_size_mb: 7.0
+
+vocab_introduced:
+  - word: 画面
+    reading: がめん
+    meaning: screen
+  - word: 表示
+    reading: ひょうじ
+    meaning: display
+  - word: 動き
+    reading: うごき
+    meaning: movement
+  - word: 画像
+    reading: がぞう
+    meaning: image
+  - word: 光
+    reading: ひかり
+    meaning: light
+  - word: 描画
+    reading: びょうが
+    meaning: drawing; rendering
+
+grammar_introduced:
+  - pattern: 〜ために
+    meaning: for the purpose of / in order to
+    demos: 8+
+
+review_items_used:
+  - 見守る (watch over)
+  - 通信 (communication)
+  - 記録 (record)
+  - 流れ (flow)
+  - 気づく (notice)
+  - 調べる (investigate)
+  - 〜ながら (while doing)
+
+cjk_count: 1800
+total_words: 4750
+turns: 82
+speaker_a_turns: 43
+speaker_b_turns: 39
+
+verify_notes:
+  - "Balance: A=85.4% (expected for teaching-heavy episode)"
+  - "Banned phrase false positives: honestly, literally, okay so (in natural context)"
+  - "Combat false positive: 'next time' is '復習 して おいて — review before next time'"
+
+tease_vocab:
+  - word: 信号
+    reading: しんごう
+    meaning: signal

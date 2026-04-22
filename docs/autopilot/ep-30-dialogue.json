@@ -1,0 +1,330 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay so I opened the rio README and I see \"modern terminal, runs everywhere, WebAssembly target\" — and my brain immediately went, wait, people are gonna run their shell inside a browser tab? Why? Isn't that just ssh-plus-steps? And also — isn't Alacritty already good enough? It's GPU, it's fast, it's been stable for years. What is rio actually doing that's different?"
+  },
+  {
+    "speaker": "a",
+    "text": "You fused three questions into one, let me pull them apart. First, yes, rio is GPU-accelerated and yes Alacritty is also GPU-accelerated, but they are not the same architecture. Alacritty is glued to OpenGL and one window per process. Rio is built on [JP: 描画 (びょうが) — rendering] crate called `sugarloaf`, which sits on top of `wgpu` — that's the Rust binding to WebGPU, which means the same pipeline targets Metal on Mac, Vulkan on Linux, DirectX on Windows, and — this is the trick — WebGPU-in-browser when compiled to WASM. Second, the README literally says \"Sugarloaf is ready but Rio still needs to be ported\" for the browser target. So the renderer crate is portable today; the full terminal binary isn't yet. But that's the bet."
+  },
+  {
+    "speaker": "b",
+    "text": "So the browser thing is aspirational for the top-level binary, but the drawing layer already runs in a tab."
+  },
+  {
+    "speaker": "a",
+    "text": "Correct. And that matters because `sugarloaf` is a standalone crate — you can embed it in other apps. That's why the workspace at the root `Cargo.toml` lists `sugarloaf`, `teletypewriter`, `corcovado`, `copa`, `rio-backend`, `rio-window`, `rio-notifier`, `rio-grapheme-width`, and `frontends/rioterm` as separate workspace members. Each has a reason to exist."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay let me write these down. Eight crates, one frontend. That's a lot for a terminal."
+  },
+  {
+    "speaker": "a",
+    "text": "It's a lot because rio made the choice most terminal emulators dodge — they factored the [JP: 画面 (がめん) — screen] pipeline cleanly from the parser, the parser from the PTY, the PTY from the window, and the window from the GPU. So let me actually walk the topology."
+  },
+  {
+    "speaker": "a",
+    "text": "Axis one, compute topology. Where does rio run, what binds its lifetime, what's the cold start. On desktop, it's a native Rust binary — `frontends/rioterm` is the actual executable crate, depends on everything else. Lifetime is the OS window. One rio process per window, by default, though there's a config switch for multi-window-per-process. When you launch rio, the startup path is: `rio-window` creates a platform window — on Mac that's an NSWindow via objc bindings, on Linux it's Wayland or X11, on Windows it's a Win32 HWND — then `sugarloaf` initializes a `wgpu::Instance`, requests an adapter, creates a `wgpu::Device` and `wgpu::Queue`, allocates a swap chain surface tied to that window handle. That's the cold start. On a warm machine it's single-digit milliseconds past the binary load. The [JP: 描画] device is per-window. You can't share GPU state across rio windows without IPC."
+  },
+  {
+    "speaker": "b",
+    "text": "So every window pays for its own GPU context?"
+  },
+  {
+    "speaker": "a",
+    "text": "Yes, but the adapter is shared at the driver level — wgpu is smart enough to let multiple devices coexist on one physical adapter. The real cost per window is the swap chain and the staging buffers for glyph atlases. Not huge. Call it ten, fifteen megabytes of VRAM per window baseline. Now the WASM target — this is where it gets interesting. When `sugarloaf` compiles with the `wasm-bindgen` feature, the same `wgpu` code paths hit WebGPU through the browser. Look at the root `Cargo.toml`: `wasm-bindgen = \"0.2.87\"`, `wasm-bindgen-futures`, `console_error_panic_hook` — those deps only exist because the renderer needs to bootstrap inside a browser tab. Lifetime there is the tab. Cold start is worse — you pay WASM instantiation plus WebGPU adapter negotiation, which can be two hundred to five hundred milliseconds depending on browser and driver."
+  },
+  {
+    "speaker": "b",
+    "text": "So the browser pays a half second before anything renders."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. But once it's up, you're running the exact same glyph shaping and rendering as desktop, just with a different platform surface. That's the real architectural point. [JP: 画面に表示するために — to display on the screen], the same code path runs in both places."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. And axis two, the LLM thing — this is a terminal, there's no model."
+  },
+  {
+    "speaker": "a",
+    "text": "N/A here, rio isn't in that plane. Move on. Axis three, tool mechanics — what primitives does rio actually have its hands on. And here \"tool\" means the OS, not an agent's tool call. The primitive is the pseudoterminal. On Unix that's `openpty` — kernel allocates a master-slave pair, the master is a file descriptor rio holds, the slave is `dup2`'d onto the child shell's stdin, stdout, stderr. The `teletypewriter` crate is rio's abstraction over this. On Windows you can't openpty the same way because the NT kernel doesn't have pty semantics, so Microsoft ships ConPTY — the conhost subsystem — and `teletypewriter` has a Windows branch that talks to ConPTY via `CreatePseudoConsole`. Same API shape from rio's side, very different kernel underneath."
+  },
+  {
+    "speaker": "b",
+    "text": "So rio launches bash or zsh or pwsh as a child process, and then just reads bytes off a file descriptor."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the physical layer. Then it has to parse those bytes. Shell output isn't plain text — it's plain text interleaved with escape sequences. `\\x1b[31m` for red foreground, `\\x1b[2J` for clear screen, `\\x1b]0;title\\x07` for OSC title set, DEC private modes, mouse tracking, bracketed paste, Sixel graphics, Kitty keyboard protocol, the whole VT100-plus-extensions stew. Parsing that is what the `copa` crate does. Copa is rio's fork of Alacritty's `vte` parser — it's a state machine that consumes bytes and emits parsed events: `Print('a')`, `CSI([31m)`, `OSC(0, \"title\")`. The frontend wires those events to a grid data structure. The grid lives in `rio-backend`. It's a two-dimensional array of `Cell` structs — each cell has a glyph, foreground color, background color, style bits. Scrollback is a ring buffer of rows above the visible viewport."
+  },
+  {
+    "speaker": "b",
+    "text": "How big is that ring buffer?"
+  },
+  {
+    "speaker": "a",
+    "text": "Configurable. Default is around ten thousand rows. We'll come back to this on the context axis because it matters. Axis four, extension loading. Rio is config-driven, not plugin-driven. There's no dylib loader, no Lua runtime like wezterm, no kitty-style remote control protocol — though some of that is on the roadmap. What you get is a TOML config at `~/.config/rio/config.toml` on Linux, equivalent paths elsewhere. The config has sections for colors, fonts, keybindings, window behavior, shell, navigation. Themes are TOML files referenced by name; rio ships a handful and you can drop your own in a `themes/` directory. Fonts are resolved through the system font provider plus `sugarloaf/src/font/` which handles shaping — rio uses `swash` for font introspection and shaping, visible as `font_introspector` inside `sugarloaf/src`. Hot reload exists for config — there's a file watcher via `rio-notifier`, which wraps `notify` under the hood. Change a color in the TOML, rio picks it up within a tick. That's the extension story. Lean. Opinionated. No [JP: 画像 (がぞう) — image]-plugin system."
+  },
+  {
+    "speaker": "b",
+    "text": "So no, like, custom shaders for screen effects?"
+  },
+  {
+    "speaker": "a",
+    "text": "The CRT filter you saw in the README demo is built in, not a plugin. It's a `wgpu::RenderPipeline` with a post-process fragment shader that sugarloaf owns. You can toggle it via config. You cannot ship your own yet. Axis five, context strategy — and this is where I want to slow down because it maps surprisingly well onto LLM context reasoning. Terminal scrollback is the analog. You have a finite buffer. You have arriving data. You have to decide what to keep verbatim, what to compress, what to evict, and how to recall it when the user searches."
+  },
+  {
+    "speaker": "b",
+    "text": "I never thought about scrollback as context management but okay."
+  },
+  {
+    "speaker": "a",
+    "text": "Rio's grid in `rio-backend` keeps the visible viewport in a dense 2D array — rows times columns, one Cell per character. Above the viewport, scrollback is a VecDeque of rows. When the deque hits the configured max, the oldest row is dropped. That's the eviction policy — pure FIFO, no heuristics. There's no \"important\" row detection. No summarization. If you run a long compile and it emits fifty thousand lines and your scrollback limit is ten thousand, forty thousand lines are gone. Compare that to how an LLM agent manages context — usually there's a compaction step, keep the first system prompt, keep recent turns verbatim, summarize middle turns. Rio doesn't do that. It's pure recency. But — and this is the clever part — rio keeps style metadata per cell, which means a copy-on-search through scrollback stays color-aware, and the search implementation in `rio-backend` uses regex — the `regex = \"1.12.3\"` in the workspace Cargo is exactly for this."
+  },
+  {
+    "speaker": "b",
+    "text": "So you can regex-search your scrollback with color context preserved."
+  },
+  {
+    "speaker": "a",
+    "text": "Yes. And there's Sixel and iTerm2 inline image support — those images live in a separate graphics cache, not the cell grid, because they'd blow up the Cell struct. That's another parallel to LLM context — big blobs go in a side store, referenced by handle, not inlined. The [JP: 記録 (きろく) — record] of your session is in memory only by default; rio doesn't persist scrollback across restarts, though you can pipe through `tmux` or `screen` if you want durability."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay I buy the scrollback-as-context framing now."
+  },
+  {
+    "speaker": "a",
+    "text": "Before the last axis, let me narrate the render loop in Japanese because it makes the pipeline concrete. sugarloaf は フレーム 毎 に グリッド を 調べる — sugarloaf investigates the grid every frame. 変わった セル に 気づく と、ダーティ 領域 を 記録する — when it notices changed cells, it records the dirty region. 描画 を 速く するために、変わっていない 行 は 再利用する — in order to keep rendering fast, unchanged rows are reused. グリフ アトラス を 見守りながら、必要な 画像 を GPU に アップロード する — while watching over the glyph atlas, it uploads needed images to the GPU. 最後に、シェーダー が 光 を 計算して、画面 に 表示する — finally, the shader calculates light and displays on the screen. 動き の 流れ は グリッド から シェーダー まで 一方向 — the flow of motion is one-way from grid to shader. That is literally the pipeline — 画面表示 の 全部 の 流れ — the full flow of screen display — in six Japanese sentences."
+  },
+  {
+    "speaker": "b",
+    "text": "And the PTY side, in the same style?"
+  },
+  {
+    "speaker": "a",
+    "text": "シェル が バイト を 出力する と、teletypewriter が ファイル ディスクリプタ から 読む — when the shell outputs bytes, teletypewriter reads from the file descriptor. corcovado が fd を 見守りながら 通信 の 流れ を 記録する — corcovado watches over the fd while recording the communication flow. エスケープ 列 を 解析するために、copa が 状態機械 を 走らせる — in order to parse the escape sequences, copa runs its state machine. 解析 の 結果 は rio-backend の グリッド に 書かれる — the parse results are written into rio-backend's grid. 書き換え に 気づく と、sugarloaf が 再描画 を 始める — when it notices a write, sugarloaf starts re-rendering. 全体 の 流れ は バイト から 画面 まで 一秒 未満 — the whole flow from byte to screen is under a second — 普通 は 数 ミリ秒 — usually a few milliseconds."
+  },
+  {
+    "speaker": "b",
+    "text": "So the Japanese just described the whole rio data path."
+  },
+  {
+    "speaker": "a",
+    "text": "Yes. And that's why 〜ために is the grammar for today — every stage has a purpose, and purpose-first phrasing matches how engineers actually think about pipelines. なぜ この 段階 が あるか — why does this stage exist — 答え は 〜ために — the answer is \"in order to.\""
+  },
+  {
+    "speaker": "a",
+    "text": "Axis six, scaling topology, and this is where rio distinguishes itself from the field. Let me lay out the landscape. Alacritty: one process per window, no multiplexing, no tabs, no splits — you use tmux or your window manager. Kitty: one process per window by default, but kitty has a remote control protocol over a Unix socket, so `kitty @ set-background-opacity` from inside a kitty window talks to the running instance. Kitty also has tabs and splits natively. Wezterm: one daemon process, many client windows, SSH multiplexing built in — you can `wezterm ssh` and it transparently multiplexes sessions over one connection. Ghostty: Swift on Mac, Zig core, per-window process, no daemon, focused on native performance. Rio: per-window by default, with a config flag for multi-window-in-one-process, tabs and splits native, no daemon, no SSH multiplexing, but the big distinctive move is the browser target via `sugarloaf`."
+  },
+  {
+    "speaker": "b",
+    "text": "So among native terminals rio is kind of middle-of-the-pack architecturally — the wild card is the WASM story."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. Think about what that unlocks. You embed sugarloaf in a web dashboard. You have a remote shell running on some box. You stream the PTY output over a WebSocket to the browser. Sugarloaf in the tab parses escape sequences and renders the grid on WebGPU. From the user's perspective it's a real terminal — full color, full keyboard protocol, full mouse, eventually full Sixel graphics — in a browser. Not ttyd, which is DOM-based and slow on big output. Not xterm.js, which is canvas-based and has its own rendering quirks. A real GPU-accelerated terminal in a browser tab. For remote-dev tools, for educational platforms, for embedded consoles in admin UIs — that's the pitch."
+  },
+  {
+    "speaker": "b",
+    "text": "And the cost is the half-second cold start and you need a server somewhere running the actual shell."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. Rio doesn't solve the \"where does the shell live\" question for the browser case. You still need a backend — something like a `ttyd`-shaped server that owns the PTY and pipes bytes over WebSocket. Rio handles rendering; someone else handles the transport. The architectural split is clean. Desktop: rio owns the full stack, PTY through render. Browser: rio-as-renderer, plus your transport, plus your PTY-host backend. [JP: 通信 (つうしん) — communication] over WebSocket replaces the local fd read."
+  },
+  {
+    "speaker": "a",
+    "text": "Let me put the scaling picture in Japanese too because the comparison reads cleanly. Alacritty は 一 つ の 窓 に 一 つ の プロセス — Alacritty uses one process per window. 多重化 は tmux に 任せる — multiplexing is delegated to tmux. kitty は タブ と スプリット を 内蔵し、Unix ソケット で 制御 通信 を 受け付ける — kitty has built-in tabs and splits and accepts control communication over a Unix socket. wezterm は 一 つ の デーモン が 多く の 窓 を 管理し、SSH 多重化 も 担当する — wezterm uses one daemon to manage many windows and also handles SSH multiplexing. Ghostty は 窓 毎 に プロセス、デーモン 無し、ネイティブ の 速さ を 追求する — Ghostty uses per-window processes, no daemon, pursues native speed. rio は 窓 毎 に プロセス が 基本、設定 で 一 プロセス 多 窓 も 選べる、タブ と スプリット は 内蔵、SSH 多重化 は 無し — rio defaults to per-window processes, a config allows one-process-multi-window, tabs and splits are built in, no SSH multiplexing. 一番 の 違い は ブラウザ に 描画 できる こと — the biggest difference is that it can render in the browser. WebSocket で PTY の 通信 を 流しながら、sugarloaf が タブ 内 で 画面 を 描く — while streaming PTY communication over WebSocket, sugarloaf draws the screen inside the tab. 遠隔 の シェル を 埋め込むために、ブラウザ 対応 の 描画 エンジン が 必要 — in order to embed remote shells, a browser-capable rendering engine is required. rio が 狙う の は まさに そこ — that is exactly what rio targets."
+  },
+  {
+    "speaker": "b",
+    "text": "So scaling topology: per-window on desktop, per-tab in browser, no built-in multiplexing beyond tabs-and-splits, browser target is the differentiator."
+  },
+  {
+    "speaker": "a",
+    "text": "Yes. And `corcovado` deserves one more mention — it's rio's event-loop abstraction, a fork of `mio`. Cross-platform readiness-based I/O. That's what wakes up on PTY bytes arriving, on window events from `rio-window`, on notifier events from `rio-notifier`. The event loop is 見守る-ing every fd and window handle simultaneously, dispatching to the right handler. Classic reactor pattern but in Rust."
+  },
+  {
+    "speaker": "b",
+    "text": "Let me see if I can tie this back to what we had last episode. We talked about 見守る — to watch over — in the context of a daemon observing child processes. Does that apply here?"
+  },
+  {
+    "speaker": "a",
+    "text": "Directly. `corcovado` is the thing 見守る-ing all the rio file descriptors. It's watching over the PTY master fd, the window socket, the notifier fd, and when any of them becomes readable it dispatches. Same pattern, same word."
+  },
+  {
+    "speaker": "b",
+    "text": "Good. And 通信 — communication — we used that for network messaging. Here?"
+  },
+  {
+    "speaker": "a",
+    "text": "Here it's the PTY channel, and for the browser target it's the WebSocket 通信 between the server-side PTY host and the sugarloaf tab. 流れ (ながれ) — flow — also fits: the byte 流れ from the shell goes into copa, copa emits events into rio-backend's grid, the grid diff flows into sugarloaf, sugarloaf draws frames. One pipeline, one 流れ."
+  },
+  {
+    "speaker": "b",
+    "text": "And 記録 — record — is scrollback."
+  },
+  {
+    "speaker": "a",
+    "text": "The scrollback is the 記録 of your session, yes. And 調べる (しらべる) — to investigate — is what you do when you regex-search that scrollback. You're 調べる-ing the record. Good, now — new grammar. Today's pattern is 〜ために."
+  },
+  {
+    "speaker": "b",
+    "text": "Translation?"
+  },
+  {
+    "speaker": "a",
+    "text": "\"For the purpose of\" or \"in order to.\" You attach it to a verb in dictionary form or to a noun with の. It expresses purpose. Let me give you the demos tied to today's architecture. Demo one: 速く描画するために、rio は wgpu を使う。 — In order to render quickly, rio uses wgpu. The [JP: 描画 (びょうが) — rendering] verb 描画する takes 〜ために and now you've got \"for fast drawing, use wgpu.\" Demo two: 画面を光らせるために、シェーダーが走る。 — In order to make the [JP: 画面] light up, the shader runs. Here [JP: 光 (ひかり) — light] is nominalized into the verb 光らせる, \"cause to shine,\" and 〜ために says \"for the purpose of lighting the screen.\" Demo three: データを表示するために、copa はバイトを解析する。 — In order to [JP: 表示 (ひょうじ) — display] data, copa parses bytes. This is literally how the pipeline works — you parse 〜ために display. Demo four: スムーズな動きのために、sugarloaf は六十フレームを狙う。 — For smooth [JP: 動き (うごき) — movement], sugarloaf targets sixty frames. Here 〜ために attaches to a noun with の: スムーズな動き + のために. Different surface form, same meaning. Demo five: 画像をキャッシュするために、別のストアを持つ。 — In order to cache [JP: 画像], it holds a separate store. This ties back to the Sixel-and-inline-image side cache we discussed. Demo six: 描画を速くするために、GPU を使う。 — In order to speed up drawing, use the GPU. Simple and clean. Demo seven: 画面の動きを滑らかにするために、六十フレーム毎秒で描画する。 — In order to make the screen's movement smooth, render at sixty frames per second. Nesting a の inside another clause. Demo eight: 画像を画面に表示するために、シェーダーが光を計算する。 — In order to display the image on the screen, the shader calculates the light. Four of today's vocab in one sentence — 画像, 画面, 表示, 光."
+  },
+  {
+    "speaker": "b",
+    "text": "I notice you keep stacking 画面 and 表示 together. Is that natural?"
+  },
+  {
+    "speaker": "a",
+    "text": "Very natural. 画面表示 as a compound means \"screen display.\" 画面 is the physical surface, 表示 is the act of showing. In a terminal context you constantly say 画面に文字を表示する — \"display characters on the screen.\" The grid-to-glyph pipeline is literally 画面表示 の 流れ — the flow of screen display. And 描画 は 表示 の 前段階 — rendering is the stage before display. 描画 computes the pixels, 表示 shows them. Sugarloaf is the 描画 engine; the OS compositor does the final 表示. Two words, two stages."
+  },
+  {
+    "speaker": "b",
+    "text": "And 動き — movement — where does that actually apply in a terminal? Nothing moves."
+  },
+  {
+    "speaker": "a",
+    "text": "Cursor 動き. Scroll 動き. Window 動き. Selection 動き. Animation 動き in the CRT filter. The terminal is actually full of 動き — the cursor blink is 動き, the scroll offset change is 動き, the reflow on resize is a massive 動き. Rio measures all of these in milliseconds because any jank in 画面の動き is something the eye 気づく-es immediately. 〜ながら scrolling, 〜ために the 動き stays smooth, sugarloaf diffs the grid and only redraws the dirty rows."
+  },
+  {
+    "speaker": "b",
+    "text": "And 光 — light — the shader thing?"
+  },
+  {
+    "speaker": "a",
+    "text": "The fragment shader in sugarloaf is literally a 光 calculation — for each pixel, what is the 光 value. The CRT filter bends the 光 to mimic a phosphor tube. Background transparency blends the 光 of the terminal with the 光 of the wallpaper. 光 の 計算 is half of what any GPU renderer does. The other half is geometry. For a terminal, geometry is simple — rectangles — so 光 dominates the work."
+  },
+  {
+    "speaker": "b",
+    "text": "Let me try building my own sentence. 速く画面を描画するために、rio は wgpu を選んだ。"
+  },
+  {
+    "speaker": "a",
+    "text": "Clean. \"In order to quickly render the screen, rio chose wgpu.\" 選んだ past tense, purpose in front. Natural."
+  },
+  {
+    "speaker": "b",
+    "text": "And — 画像の表示を調べるために、ログを記録する。"
+  },
+  {
+    "speaker": "a",
+    "text": "\"In order to investigate image display, record the log.\" Perfect stack of review vocab — 表示, 調べる, 記録 — with new vocab 画像 and 〜ために grammar. That sentence is Episode 29 and Episode 30 fused."
+  },
+  {
+    "speaker": "b",
+    "text": "通信の流れを見守りながら、問題に気づくために、ツールを使う。"
+  },
+  {
+    "speaker": "a",
+    "text": "Three grammar patterns, six vocab. \"While watching over the flow of communication, in order to notice problems, use the tool.\" That is the observability story for next episode and you just wrote the thesis in Japanese."
+  },
+  {
+    "speaker": "b",
+    "text": "So 〜ために is like English \"in order to\" but it goes before the main clause, not after."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. Purpose first, action second. And it naturally pairs with 〜ながら from last episode — \"while doing X\" versus \"in order to do X.\" You can combine them: 画面を更新しながら、速く描画するために、別スレッドで走る。 — While updating the screen, in order to render fast, it runs on a separate thread. That's the sugarloaf rendering loop in one sentence — it 気づく (きづく) — notices — dirty cells, and 〜ながら updating state, 〜ために maintain framerate, it pipelines on a worker."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay that sentence actually compressed a whole architecture diagram."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the point of the grammar. Purpose and concurrency bolt together cleanly in Japanese."
+  },
+  {
+    "speaker": "b",
+    "text": "Let me try to restate the whole thing in plain English. Rio is a terminal emulator written in Rust. It's split into crates so each piece — the PTY wrapper teletypewriter, the parser copa, the event loop corcovado, the window layer rio-window, the file watcher rio-notifier, the grapheme-width crate for East Asian character sizing, the grid and scrollback in rio-backend, and the GPU renderer sugarloaf — each piece stands alone. The top-level binary `frontends/rioterm` glues them. On desktop you get one process per window, per-window wgpu device targeting Metal or Vulkan or DX12. The wild card is that sugarloaf compiles to WebAssembly and runs in a browser tab on WebGPU, which means the exact same rendering code paths work remotely. The browser binary isn't fully ported yet but the renderer is, which means anyone can embed a real GPU terminal UI in a web dashboard if they bring their own PTY-over-WebSocket backend. No plugins, no Lua, no daemon, no SSH multiplexing — config-driven, opinionated, clean crate boundaries."
+  },
+  {
+    "speaker": "a",
+    "text": "Before I add my nuance — let me restate your summary in Japanese because it compresses well. rio は Rust の 端末 エミュレータ — rio is a Rust terminal emulator. 八 つ の クレート に 分かれている — it is divided into eight crates. 画面 の 描画 を sugarloaf が 担当する — sugarloaf handles screen rendering. PTY の 通信 を teletypewriter が 担当する — teletypewriter handles PTY communication. バイト の 解析 を copa が 担当する — copa handles byte parsing. イベント ループ を corcovado が 見守る — corcovado watches the event loop. 設定 ファイル の 変更 に 気づくために、rio-notifier が ファイル を 調べる — in order to notice config file changes, rio-notifier investigates files. グリッド と スクロールバック の 記録 を rio-backend が 持つ — rio-backend holds the grid and scrollback record. これら の 部品 を 組み立てるために、frontends/rioterm が 存在する — in order to assemble these parts, frontends/rioterm exists. WASM ビルド で ブラウザ に 描画するために、sugarloaf は 独立している — in order to render in the browser via WASM build, sugarloaf is independent. 他 の エミュレータ と 違って、ブラウザ 対応 が 設計 の 中心 — unlike other emulators, browser support is at the center of the design."
+  },
+  {
+    "speaker": "b",
+    "text": "That was maybe the densest technical paragraph I've ever heard in Japanese."
+  },
+  {
+    "speaker": "a",
+    "text": "Good. Repeat after me — 画面, 表示, 動き, 画像, 光, 描画 — 六 つ の 単語 が 今日 の 骨組み — six words are today's skeleton."
+  },
+  {
+    "speaker": "b",
+    "text": "画面, 表示, 動き, 画像, 光, 描画. Got them."
+  },
+  {
+    "speaker": "a",
+    "text": "One nuance. The thing that actually makes this design work is that sugarloaf is not rio-specific. The examples directory in `sugarloaf/` has standalone demos that render terminal-shaped UI without any rio infrastructure around them. That separation is load-bearing. It means the browser bet has a path: get sugarloaf stable as a standalone embeddable renderer, then port the minimal rio shell on top of it. If sugarloaf were tangled with teletypewriter or rio-window, the WASM story would be dead. It isn't. That's why the six-crate factoring exists. It's architecture in service of portability. Alacritty never paid that tax, which is why Alacritty will never run in a browser tab without a rewrite."
+  },
+  {
+    "speaker": "b",
+    "text": "So the answer to \"isn't Alacritty good enough\" is: yes, if you only need desktop. No, if you want the same terminal renderer in a browser."
+  },
+  {
+    "speaker": "a",
+    "text": "日本 語 で 一 行 に まとめる と — summarized in one line in Japanese — デスクトップ だけ で 良い なら Alacritty で 十分、ブラウザ で 端末 を 描画 したい なら rio — if desktop alone is enough, Alacritty suffices; if you want to render terminals in the browser, rio. もう 一 つ の 言い方 — another way to say it — 画面 の 描画 を 場所 に 依存 させない ために、rio は クレート を 分けた — in order to make screen rendering not depend on the location, rio split its crates. 画像 と 光 と 動き を どこ で も 同じ 流れ で 表示する ために、sugarloaf が 独立 して いる — in order to display image and light and motion with the same flow everywhere, sugarloaf stands independent. これ が 今日 の 核心 — this is today's core. 他 の 端末 は 描画 を ネイティブ に 縛った、rio は 縛らなかった、それ だけ の 話 — other terminals bound rendering to native, rio did not, that's the whole story."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the one-line summary. And by the way — Ghostty made the opposite bet. Swift on Mac, Zig core, optimize hard for native, ship a polished per-platform experience. Zero browser ambition. Both are valid. Rio is betting the ambient-compute future wants terminal UIs in web surfaces and ssh-less dev environments. Ghostty is betting native is forever. We'll find out who's right in three years."
+  },
+  {
+    "speaker": "b",
+    "text": "I want both to be right honestly."
+  },
+  {
+    "speaker": "a",
+    "text": "They mostly can be. These aren't zero-sum."
+  },
+  {
+    "speaker": "b",
+    "text": "What are we on next episode?"
+  },
+  {
+    "speaker": "a",
+    "text": "Episode thirty-one we shift layers entirely. We're going into an observability repo — the kind of thing where a running system emits [JP: 信号 (しんごう) — signal]-level events and something else 見守る-s them at scale. Distributed tracing, span collection, the whole OpenTelemetry-adjacent world. Very different compute topology — queues, collectors, backends — but the same six axes apply and you'll see the LLM-locus axis suddenly come alive because AI-agent tracing is where that world is bending right now."
+  },
+  {
+    "speaker": "b",
+    "text": "信号 — signal. Got it. Purpose is purpose, signal is signal."
+  },
+  {
+    "speaker": "a",
+    "text": "信号 を 記録 するために, you build a collector. That's the whole spec for next week. 分散 システム の 中 で、たくさん の サービス が 信号 を 出す — inside a distributed system, many services emit signals. それら の 信号 を 集めるために、コレクタ が 必要 — in order to collect those signals, a collector is needed. コレクタ が 信号 を 見守りながら、バックエンド に 流す — while the collector watches over the signals, it flows them to a backend. バックエンド は 信号 を 記録し、後 で 調べる ため に 保存 する — the backend records the signals and stores them for later investigation. 問題 に 気づくために、人 は ダッシュボード を 見る — in order to notice problems, humans look at dashboards. ダッシュボード は 流れ を 画面 に 表示する — the dashboard displays the flow on the screen. ここ で 今日 の 全部 の 単語 が 戻って くる — here all of today's vocabulary comes back — 画面, 表示, 流れ, 記録, 信号, 見守る, 気づく, 調べる, 通信, 〜ながら, 〜ために — 次回 まで に 全部 を 復習 して おいて — review them all before next time."
+  },
+  {
+    "speaker": "b",
+    "text": "了解。 次回 の 話 を 楽しみ に している。 — Understood. Looking forward to next episode."
+  },
+  {
+    "speaker": "a",
+    "text": "僕 も。 描画 の 話 から 信号 の 話 へ、綺麗 な 繋がり。 — Me too. A clean connection from the rendering story to the signal story."
+  },
+  {
+    "speaker": "b",
+    "text": "See you then. 最後 に 一つ だけ 質問 — one last question. 今日 の 六 つ の 単語 の 中 で、一番 覚え にくい の は どれ?"
+  },
+  {
+    "speaker": "a",
+    "text": "描画 (びょうが) だと 思う — I think it's 描画. 読み が 珍しい、音 が 他 の 日常 語 と 違う、でも エンジニア なら 絶対 に 出会う 単語 — the reading is unusual, the sound differs from everyday words, but engineers will definitely encounter it. 画 が 二 回 出て くる の で、画面 と 画像 と 描画 を 一緒 に 覚える の が 近道 — since 画 appears twice, learning 画面 and 画像 and 描画 together is the shortcut. 三 つ の 単語 で 一 つ の 漢字 を 共有 する と、記憶 が 繋がる — when three words share one kanji, memory links up. 今日 は そこ が 設計 に なっている — that is by design today."
+  },
+  {
+    "speaker": "b",
+    "text": "なるほど。 来週 まで に 復習 する。 — Got it. I'll review before next week."
+  },
+  {
+    "speaker": "a",
+    "text": "See you."
+  }
+]
