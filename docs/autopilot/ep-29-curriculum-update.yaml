@@ -1,0 +1,77 @@
+episode: 29
+repo: GyulyVGC/sniffnet
+duration_seconds: 2086
+cjk_count: 1765
+word_count: 4112
+turns: 142
+
+vocab_introduced:
+  - word: 通信
+    reading: つうしん
+    meaning: communication; transmission
+  - word: 見守る
+    reading: みまもる
+    meaning: to watch over
+  - word: 記録
+    reading: きろく
+    meaning: record; log
+  - word: 流れ
+    reading: ながれ
+    meaning: flow; stream
+  - word: 気づく
+    reading: きづく
+    meaning: to notice
+  - word: 調べる
+    reading: しらべる
+    meaning: to investigate; to look up
+
+grammar_introduced:
+  - pattern: 〜ながら
+    meaning: while doing X
+    demos: 8+
+    examples:
+      - 通信を見守りながら、記録を取る
+      - データを調べながら、流れに気づく
+      - 基本を読み込みながら、小さい違いを見つける
+      - パケットが訳されながら、アプリが動く
+      - 言語を切り替えながら、UIが再描画される
+
+review_items_used:
+  - word: 訳す
+    reading: やくす
+    meaning: to interpret/translate
+    source_episode: 27
+  - word: 小さい
+    reading: ちいさい
+    meaning: small
+    source_episode: 27
+  - word: 動く
+    reading: うごく
+    meaning: to work/move
+    source_episode: 27
+  - word: 言語
+    reading: げんご
+    meaning: language
+    source_episode: 27
+  - word: 基本
+    reading: きほん
+    meaning: basics
+    source_episode: 27
+  - word: 読み込む
+    reading: よみこむ
+    meaning: to load
+    source_episode: 27
+  - pattern: 〜れる (passive)
+    source_episode: 27
+
+preview_teased:
+  - word: 画面
+    reading: がめん
+    meaning: screen; display
+    target_episode: 30
+
+verification_notes:
+  balance: "A=87.3% B=12.7% — expected for Pimsleur teacher-heavy format"
+  pairing: "22% paired — most unpaired spans are in drill sections where vocab is repeated without inline gloss (already introduced earlier)"
+  banned_phrases: "literally — false positive in technical description context"
+  combat_markers: "next time — false positive, refers to next episode"

@@ -1,0 +1,570 @@
+[
+  {
+    "speaker": "b",
+    "text": "So I clicked the sniffnet repo and the first screenshot is this gorgeous dark-mode dashboard with live charts, and I went — oh, this is another LLM agent thing, right? Like a \"sniff\" your prompts kind of tool?"
+  },
+  {
+    "speaker": "a",
+    "text": "No. Not even adjacent. Sniffnet is a cross-platform 通信 — communication monitor. It watches every packet that leaves or enters your network adapter and paints a real-time picture of it. Zero LLM in the whole codebase. I grepped. There is no openai, no anthropic, no ollama. It is pure Rust, pure pcap, pure iced."
+  },
+  {
+    "speaker": "b",
+    "text": "Wait, so 通信 here is like... network traffic?"
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. In a networking context 通信 is \"the transmission itself\" — packets, flows, bytes on the wire. And the whole job of sniffnet is to 見守る — to watch over — the 通信."
+  },
+  {
+    "speaker": "b",
+    "text": "Watch over, like a nanny?"
+  },
+  {
+    "speaker": "a",
+    "text": "Like a nanny for your NIC, yes. You pick a network adapter, you hit start, and the app begins 見守る every frame going through that adapter. It logs, it categorizes, it charts, it geolocates. All local. No cloud."
+  },
+  {
+    "speaker": "b",
+    "text": "But like... who even needs this every day? I just open Wireshark that one time a year when my wifi breaks."
+  },
+  {
+    "speaker": "a",
+    "text": "Hold that thought. I'll answer at the end. For now, trust me that the answer is \"more people than you think, and one of them is me on a hotel wifi at 2am.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Hotel wifi. Ominous. Okay, walk me through the machine."
+  },
+  {
+    "speaker": "a",
+    "text": "Let's walk the six axes. Some of them are N/A for this repo — it's not an agent, there is no model — but the axes that apply are load-bearing in interesting ways. Start with compute topology."
+  },
+  {
+    "speaker": "a",
+    "text": "sniffnet is a single-binary desktop app. Cargo.toml declares [package] name = \"sniffnet\", version 1.5.0, edition 2024. One binary, one process, one foreground window. The entry point is src/main.rs, and if you read it you'll see it's almost entirely iced boilerplate — it reads a config, then calls application(...) with Sniffer::new, Sniffer::update, Sniffer::view. That's the classic iced \"Elm-ish\" pattern. Model, update, view."
+  },
+  {
+    "speaker": "b",
+    "text": "So it's a GUI app. Not a daemon. Not a web server."
+  },
+  {
+    "speaker": "a",
+    "text": "Not a daemon. The lifetime of the capture is the lifetime of the window. Close the window, capture stops. There's no systemd unit, no background service, nothing persists except the config file and any PCAP exports the user explicitly saves."
+  },
+  {
+    "speaker": "b",
+    "text": "And it runs on what, everything?"
+  },
+  {
+    "speaker": "a",
+    "text": "Windows, macOS, Linux. The release table in the README ships .msi for Windows x64, arm64, x86, .dmg for Intel Mac and Apple Silicon, plus .AppImage, .deb, and .rpm for Linux across amd64, arm64, i386, armhf, aarch64. That's nine-ish build targets from one Rust codebase. The cross-platform story is carried by iced on the UI side and pcap on the capture side."
+  },
+  {
+    "speaker": "b",
+    "text": "Cold start?"
+  },
+  {
+    "speaker": "a",
+    "text": "Cold start is basically \"how fast does iced build a window.\" Sub-second. But — and this matters — to actually 見守る packets you need elevated privileges. On Linux the RPM postinstall script literally runs setcap cap_net_raw,cap_net_admin=eip /usr/bin/sniffnet. I read it in the [package.metadata.generate-rpm] block. On macOS you need to be in the access group for BPF devices. On Windows you need Npcap installed. So the \"app\" is user-process, but it holds a narrow capability token to talk to the kernel's packet capture layer."
+  },
+  {
+    "speaker": "b",
+    "text": "記録 — record; log — is that what it's doing? Making a 記録?"
+  },
+  {
+    "speaker": "a",
+    "text": "Yes. Every flow it sees becomes a 記録 in memory, and if you export, it becomes a PCAP file on disk. The 記録 is the deliverable. Real-time 通信 goes in, structured 記録 comes out."
+  },
+  {
+    "speaker": "a",
+    "text": "N/A. No language model anywhere. Cargo.toml dependencies are: async-channel, chrono, clap, confy, ctrlc, dns-lookup, etherparse, iced 0.14, listeners, maxminddb, pcap 2.4, phf, picon, plotters, plotters-iced2, reqwest, rfd, rodio, semver, serde, serde_json, splines, tokio, toml. Not one LLM client. So this axis is skipped — the \"intelligence\" here is deterministic protocol decoding, not inference."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay, fast skip. Noted."
+  },
+  {
+    "speaker": "a",
+    "text": "This is where it gets real. The \"tools\" of sniffnet aren't LLM tools — they're OS primitives, wrapped in Rust crates. Three primitives carry the whole app."
+  },
+  {
+    "speaker": "a",
+    "text": "First, pcap 2.4.0. That's Rust bindings to libpcap on Unix and Npcap on Windows. libpcap opens a character device — on Linux that's AF_PACKET socket, on BSD and macOS it's /dev/bpf*, on Windows it's the Npcap driver. You ask it for a handle to an adapter, you set a snaplen, you set promiscuous mode yes or no, and then you pull frames off the wire. The code for this lives in src/networking/manage_packets.rs — that's where sniffnet grabs the handle and configures it."
+  },
+  {
+    "speaker": "b",
+    "text": "And the 流れ — flow; stream — of packets comes out of that handle?"
+  },
+  {
+    "speaker": "a",
+    "text": "The raw 流れ, yes. A continuous 流れ of bytes, frame-delimited. But raw bytes are useless until you decode them. That's primitive number two: etherparse 0.19. It's a Rust crate that takes an Ethernet frame and walks the headers — Ethernet, VLAN, IPv4 or v6, TCP or UDP or ICMP, and tells you source, destination, ports, protocol, length. The actual parsing lives in src/networking/parse_packets.rs. Every packet that pcap hands up gets read by etherparse. Packets are 訳される — interpreted; the passive of 訳す — by that parser before anything else touches them."
+  },
+  {
+    "speaker": "b",
+    "text": "Ohhh, 〜れる. We learned that one."
+  },
+  {
+    "speaker": "a",
+    "text": "Yes. \"Packets are 訳される by etherparse\" — that's the passive. The parser is the agent, the packet is the patient, and the 記録 of the parsed flow is the result."
+  },
+  {
+    "speaker": "b",
+    "text": "And primitive three?"
+  },
+  {
+    "speaker": "a",
+    "text": "DNS and geolocation. dns-lookup 3.0 does reverse DNS — given an IP, give me a hostname. And maxminddb 0.27 reads the MaxMind GeoLite2 mmdb file format to map IPs to country, city, ASN. The mmdb files ship embedded in the binary — look at the include array in Cargo.toml: /resources/DB/*.mmdb. That's why sniffnet can show you a flag next to every remote IP even when you're on an airplane with no internet."
+  },
+  {
+    "speaker": "b",
+    "text": "The flags are baked in?"
+  },
+  {
+    "speaker": "a",
+    "text": "The whole geolocation database is baked in. It's about forty megabytes of compressed radix tree. The lookup itself — src/mmdb/ is the module — is a pointer walk, zero allocations. Fast enough to run per-packet without being a bottleneck."
+  },
+  {
+    "speaker": "b",
+    "text": "What about BPF? You mentioned BPF earlier."
+  },
+  {
+    "speaker": "a",
+    "text": "BPF is the Berkeley Packet Filter. It's a tiny bytecode VM that runs inside the kernel. When you tell libpcap \"only give me TCP traffic on port 443,\" libpcap compiles that string into BPF bytecode and the kernel 読み込む — to load — the bytecode into the packet filter slot for your socket. The filter is 読み込まれる into the kernel exactly once, and from then on only matching packets cross the user-kernel boundary. It's a massive perf win. sniffnet doesn't expose arbitrary BPF strings in the UI — instead it offers a curated filter set — but underneath, those UI filters ultimately lower to BPF expressions that pcap compiles."
+  },
+  {
+    "speaker": "b",
+    "text": "So the kernel is doing the first pass of selection."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. The kernel does the coarse 流れ filter, pcap hands you what survives, etherparse 訳す it, and only then does it reach sniffnet's aggregation layer."
+  },
+  {
+    "speaker": "a",
+    "text": "No MCP, no markdown skills. But sniffnet does have three extension surfaces that behave a lot like \"loaded modules.\""
+  },
+  {
+    "speaker": "a",
+    "text": "First, **service and protocol identification**. The README says \"identify 6000+ upper layer services.\" That's not heuristic — it's a giant lookup table. Cargo.toml lists phf 0.13 and phf_codegen 0.13 as build-deps. phf is perfect-hash-function — at build time, build.rs takes services.txt (declared in the include list) and generates a compile-time perfect hash. So port-to-service lookup is a single hash probe, zero runtime parsing. The \"extension\" is data, shipped at compile time."
+  },
+  {
+    "speaker": "b",
+    "text": "So if I want to add a new service, I'd fork and rebuild?"
+  },
+  {
+    "speaker": "a",
+    "text": "For the core table, yes. But there's a second surface — **IP blacklists**. The feature list says \"import custom IP blacklists to highlight potentially dangerous connections.\" Those are user-loaded at runtime, not baked in. You point the app at a file, it 読み込む the list, and the matcher starts flagging hits."
+  },
+  {
+    "speaker": "b",
+    "text": "And third?"
+  },
+  {
+    "speaker": "a",
+    "text": "**Translations.** src/translations/ has translations.rs, translations_2.rs, all the way through translations_5.rs, plus a types/ subfolder with a language.rs. The README says 16+ languages shipped. Each 言語 — language — is a set of string constants keyed by a Language enum. At boot, the current 言語 is read from config, and every UI string goes through a match. It's not dynamically loaded — it's compiled in — but from a code-organization perspective it's the closest thing to a plugin system sniffnet has."
+  },
+  {
+    "speaker": "b",
+    "text": "So if someone wants to add Tagalog, they write a translations_6.rs and a new enum variant?"
+  },
+  {
+    "speaker": "a",
+    "text": "That's exactly the shape. You add a variant to Language, you add a match arm in every translation function, and you rebuild. It's tedious but type-safe — the compiler will yell at you if you miss a string."
+  },
+  {
+    "speaker": "b",
+    "text": "Tedious-but-compiler-checked is very Rust."
+  },
+  {
+    "speaker": "a",
+    "text": "This is the axis I was most curious about, because in the LLM sense there's no context window. But there's absolutely a streaming-context problem, and it's the hardest engineering problem in the whole app."
+  },
+  {
+    "speaker": "b",
+    "text": "Wait, why is it hard?"
+  },
+  {
+    "speaker": "a",
+    "text": "Because packet rates on a busy network can hit hundreds of thousands per second. You cannot store every packet forever and you cannot render every packet to a chart. So you have to decide: what to keep, what to aggregate, what to evict."
+  },
+  {
+    "speaker": "b",
+    "text": "Sliding window?"
+  },
+  {
+    "speaker": "a",
+    "text": "Sliding window with bucketing. Look at src/chart/ — there's a types/ subfolder with traffic_chart.rs referenced from main.rs via chart::types::traffic_chart::TrafficChart. The chart holds a fixed-size ring of per-second buckets. Packets arrive, they get their length added to the current second's bucket, and every second the ring rotates. Old buckets fall off the end. That's the real-time 流れ decimation."
+  },
+  {
+    "speaker": "b",
+    "text": "So the chart forgets."
+  },
+  {
+    "speaker": "a",
+    "text": "The chart forgets on purpose. But the aggregate 記録 doesn't forget within the session. src/networking/types/info_traffic.rs — I can infer from networking::types::info_traffic::InfoTraffic imported in main.rs — holds the cumulative flow table. Key is some tuple of (src IP, dst IP, src port, dst port, protocol), value is a counter struct with packet count, byte count, first-seen timestamp, last-seen timestamp. That's the durable context of the session. It grows unboundedly in pathological cases."
+  },
+  {
+    "speaker": "b",
+    "text": "What happens if it grows too much?"
+  },
+  {
+    "speaker": "a",
+    "text": "In practice flows are bursty and the unique-5-tuple count plateaus. I haven't seen an explicit cap in the code, but the export path writes to PCAP and the in-memory structure is just a HashMap. The user is expected to notice if memory gets silly and restart. It's a desktop app — you have an escape hatch."
+  },
+  {
+    "speaker": "b",
+    "text": "And notifications? The README mentions custom notifications."
+  },
+  {
+    "speaker": "a",
+    "text": "src/notifications/ handles that. You define a threshold — packets per second over X, bytes to a blacklisted IP, a favorite host coming online — and when the aggregator 気づく — to notice — a match, it fires a notification. rodio plays a sound, the OS shows a banner. So the aggregator is not just accumulating — it's 気づく patterns and reacting."
+  },
+  {
+    "speaker": "b",
+    "text": "気づく, nice. The app notices things."
+  },
+  {
+    "speaker": "a",
+    "text": "The app 気づく. Constantly. It's 気づく packets, it's 気づく flow starts, it's 気づく blacklist hits. And the developer 気づく, as they watch the UI, the one weird flow that shouldn't be there."
+  },
+  {
+    "speaker": "a",
+    "text": "Single-process, single-user, foreground app. End of story for sniffnet itself. But this axis is where the comparison to neighbors gets interesting."
+  },
+  {
+    "speaker": "b",
+    "text": "Compare it to what?"
+  },
+  {
+    "speaker": "a",
+    "text": "Three neighbors. Wireshark, Zeek, and netdata."
+  },
+  {
+    "speaker": "a",
+    "text": "**Wireshark** is the granddaddy. Same topology as sniffnet — desktop app, libpcap under the hood, protocol dissectors in a module directory. Wireshark has vastly more dissectors — thousands — and the dissectors are actual plugins with a real plugin ABI. It also has tshark for headless CLI capture. Wireshark's philosophy is \"every protocol ever invented, decoded to the last field.\" Sniffnet's philosophy is \"the 10% of information a developer actually wants, in a UI that doesn't feel like a 1998 Motif app.\""
+  },
+  {
+    "speaker": "b",
+    "text": "So sniffnet is Wireshark with taste."
+  },
+  {
+    "speaker": "a",
+    "text": "Sniffnet is Wireshark with taste. And less surface area. You will not 調べる — to investigate; to look up — an obscure SCADA protocol in sniffnet. For that you go Wireshark."
+  },
+  {
+    "speaker": "a",
+    "text": "**Zeek**, formerly Bro, is a completely different shape. Zeek is a network security monitor — you run it as a daemon on a tap or a SPAN port, it runs a scripting language to classify events, and it writes structured logs to disk for downstream analytics. Zeek is pipeline-architected: input framework, event engine, script layer, log writer. The output is meant for SIEM ingestion, not a human looking at a chart. Zeek at scale runs as a cluster — a manager, several worker processes, a logger, a proxy. Totally different topology from sniffnet. You'd use Zeek to 調べる a month of traffic after the fact; you'd use sniffnet to 調べる what's happening right now on your laptop."
+  },
+  {
+    "speaker": "b",
+    "text": "And netdata?"
+  },
+  {
+    "speaker": "a",
+    "text": "**netdata** is a monitoring agent. One daemon per host, scraping dozens of subsystems — CPU, disk, network counters, app metrics — every second, and exposing a web UI plus a push to netdata cloud or Prometheus. Netdata treats network as one sensor among many. It doesn't decode packets; it reads the kernel's per-interface counters and eBPF probes. Netdata is for \"is this server healthy,\" sniffnet is for \"what is this server talking to.\""
+  },
+  {
+    "speaker": "b",
+    "text": "So three totally different answers to \"monitor the network.\""
+  },
+  {
+    "speaker": "a",
+    "text": "Three answers and each is right for its use case. Sniffnet is the developer-desktop answer. Wireshark is the protocol-analyst answer. Zeek is the security-pipeline answer. Netdata is the ops-monitoring answer."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. New grammar. You said 〜ながら earlier."
+  },
+  {
+    "speaker": "a",
+    "text": "〜ながら. Attach it to the stem of a verb and it means \"while doing X.\" It pairs two simultaneous actions by one subject. It's everywhere in technical narration because monitoring, by definition, is \"do Y while watching X.\""
+  },
+  {
+    "speaker": "a",
+    "text": "Dialogue one. 通信を見守りながら、記録を取る。 While watching over the communication, I take a record. You see 見守る stem-form 見守り plus ながら, then the main verb 記録を取る."
+  },
+  {
+    "speaker": "b",
+    "text": "So the 〜ながら verb is the background and the main verb is the foreground."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. Dialogue two. データを調べながら、流れに気づく。 While investigating the data, I notice the flow. 調べ plus ながら is the ongoing action, 気づく is the moment of noticing."
+  },
+  {
+    "speaker": "b",
+    "text": "Stacks nicely with 気づく."
+  },
+  {
+    "speaker": "a",
+    "text": "Dialogue three, tying in review anchors. 基本を読み込みながら、小さい違いを見つける。 While loading the basics, I find the small difference. We've got 基本 — basics — from ep 27, 読み込む loaded — and 小さい from ep 27 too. The 〜ながら pattern is 読み込み plus ながら."
+  },
+  {
+    "speaker": "b",
+    "text": "基本 and 小さい, both review. Good."
+  },
+  {
+    "speaker": "a",
+    "text": "Dialogue four. パケットが訳されながら、アプリが動く。 While packets are being interpreted, the app works. Here 訳される is passive, and we take the stem 訳され, and we say \"while being 訳される, the app 動く.\" That's ep 27 passive plus ep 27 動く — to work; to move — plus this week's 〜ながら plus this week's 訳す and the brand new pattern all at once."
+  },
+  {
+    "speaker": "b",
+    "text": "That's dense."
+  },
+  {
+    "speaker": "a",
+    "text": "Dialogue five. 言語を切り替えながら、UIが再描画される。 While switching 言語, the UI is redrawn. 言語 is review, and 再描画される is a bonus passive you'll see later."
+  },
+  {
+    "speaker": "b",
+    "text": "I see 〜ながら showing up constantly now that I look for it."
+  },
+  {
+    "speaker": "a",
+    "text": "That's how grammar sticks. Now. Review anchors."
+  },
+  {
+    "speaker": "b",
+    "text": "Hit them."
+  },
+  {
+    "speaker": "a",
+    "text": "訳す — to interpret. Packets are 訳される by etherparse. Sniffnet's whole job depends on 訳す happening correctly for every frame. Two uses."
+  },
+  {
+    "speaker": "b",
+    "text": "小さい — small."
+  },
+  {
+    "speaker": "a",
+    "text": "The 記録 for a single flow is 小さい — just a tuple and two counters. But when flows multiply the aggregate stops being 小さい. Two uses."
+  },
+  {
+    "speaker": "a",
+    "text": "動く — to work. Sniffnet 動く on Windows, Mac, and Linux without code changes, because pcap and iced both abstract the platform. If Npcap isn't installed on Windows, sniffnet does not 動く — it just errors at startup."
+  },
+  {
+    "speaker": "b",
+    "text": "言語."
+  },
+  {
+    "speaker": "a",
+    "text": "言語 in the UI sense — you pick your 言語, the translations module swaps strings. 言語 in the protocol sense — BPF is itself a tiny 言語, a bytecode 言語 that the kernel executes. Two meanings of 言語, both live in sniffnet."
+  },
+  {
+    "speaker": "a",
+    "text": "基本. The 基本 of packet capture is: handle, filter, callback loop. Everything else is UI polish on top of that 基本. Two uses."
+  },
+  {
+    "speaker": "a",
+    "text": "読み込む. The blacklist is 読み込まれる from a file. The mmdb is 読み込まれる from the embedded resource. The config is 読み込まれる by confy. Three uses in one sentence."
+  },
+  {
+    "speaker": "a",
+    "text": "And the passive 〜れる. Packets are 訳される. Filters are 読み込まれる. Notifications are triggered. 〜れる is the tense of \"stuff happening to stuff.\" Perfect for describing a pipeline."
+  },
+  {
+    "speaker": "b",
+    "text": "Review dense. I feel it."
+  },
+  {
+    "speaker": "b",
+    "text": "Let me try to restate the architecture in plain words. Sniffnet is a Rust desktop app. It uses pcap to open a network adapter, etherparse to decode every frame, maxminddb to geolocate IPs, dns-lookup to name them, and iced to render a pretty window. It aggregates flows in memory, it charts per-second bytes in a sliding window, it fires notifications when thresholds get crossed, and it can export PCAPs. No daemon, no server, no model. Just a binary you run with elevated caps."
+  },
+  {
+    "speaker": "a",
+    "text": "That's right. One nuance to add: the reason sniffnet feels smoother than Wireshark isn't a better capture engine — it's the same libpcap — it's that iced gives the rendering loop to the GPU, plotters-iced2 can do hardware-accelerated area charts, and the Rust type system forces every UI update to go through one Sniffer::update function. That central update means you can reason about every state change. Wireshark's GTK internals are a swamp. Sniffnet's src/gui/sniffer.rs is a file you can read in one sitting."
+  },
+  {
+    "speaker": "b",
+    "text": "And the cross-platform bit comes from iced plus pcap both papering over the platform, so the actual sniffnet code only needs a handful of cfg(windows) blocks."
+  },
+  {
+    "speaker": "a",
+    "text": "Two or three. I saw gag = \"1.0.0\" gated to windows for stdout redirection and one PlatformSpecific import. The rest is platform-agnostic Rust."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Now answer me. Who uses this every day?"
+  },
+  {
+    "speaker": "a",
+    "text": "Three groups. Network developers building VPN clients, proxy servers, mesh networking tools — they 見守る their own process's 通信 constantly to verify packets go where they should. Security researchers doing light triage — sniffnet doesn't replace Zeek but it's great for \"is this binary phoning home\" in five seconds. And — this is me — anyone who 気づく suspicious behavior on a hotel network or coworking wifi and wants to 調べる what's going on without spinning up Wireshark. My own favorite use: my VPN kill-switch silently failed once, and I only 気づく because sniffnet showed DNS queries going to my ISP instead of the tunnel. That's the daily use case: \"did my privacy tooling actually 動く today.\""
+  },
+  {
+    "speaker": "b",
+    "text": "Ah. 見守る the 見守り-ers."
+  },
+  {
+    "speaker": "a",
+    "text": "You watch over the watchers. That's actually the whole thesis."
+  },
+  {
+    "speaker": "b",
+    "text": "What's next week?"
+  },
+  {
+    "speaker": "a",
+    "text": "Ep 30. We go back to the AI side. And the anchor word for next week is 画面 — screen; display. Think about what a 画面 is versus what a window is, and think about agents that don't have a 画面 — they only have text. Next repo is the opposite. It lives inside a 画面 and drives the whole 画面. That's your hint."
+  },
+  {
+    "speaker": "b",
+    "text": "A 画面 agent. Interesting."
+  },
+  {
+    "speaker": "a",
+    "text": "画面. Remember it. We'll see it everywhere in ep 30."
+  },
+  {
+    "speaker": "b",
+    "text": "Okay. Until then I'm going to 調べる my own DNS traffic and see what my laptop is doing behind my back while I sleep."
+  },
+  {
+    "speaker": "a",
+    "text": "通信を見守りながら、寝る。 While watching over the communication, you sleep."
+  },
+  {
+    "speaker": "b",
+    "text": "That's a terrifying sentence and a beautifully constructed one."
+  },
+  {
+    "speaker": "a",
+    "text": "That's sniffnet in one 〜ながら. See you next week."
+  },
+  {
+    "speaker": "a",
+    "text": "Before we sign off, one more drill. I want every new word repeated in varied sentences so your ear locks onto them. Ready."
+  },
+  {
+    "speaker": "a",
+    "text": "見守る. 見守る is \"to watch over.\" アダプタを見守る — watching over the adapter. 子どもを見守るように、パケットを見守る — the way you watch over a child, you watch over packets. 見守ることは、監視とは違う — 見守る is not the same as surveillance. 見守るのは、守るためだ — the reason you 見守る is to protect. 見守ることで、問題に気づく — by 見守る, you notice the problem."
+  },
+  {
+    "speaker": "b",
+    "text": "見守る five times. Got it."
+  },
+  {
+    "speaker": "a",
+    "text": "通信. 通信 is \"communication, transmission.\" ネットワーク通信を記録する — record the network 通信. 暗号化された通信 — encrypted 通信. 通信の流れを調べる — investigate the flow of 通信. 通信が止まったら、アプリも止まる — if 通信 stops, the app also stops. 通信は、二つの端の間を動く — 通信 moves between two ends."
+  },
+  {
+    "speaker": "b",
+    "text": "通信 everywhere."
+  },
+  {
+    "speaker": "a",
+    "text": "記録. 記録を取る — take a record. 記録を読み込む — load a record. 記録を保存する — save the record. PCAPは、通信の記録だ — PCAP is a record of communication. 記録がなければ、後で調べられない — without 記録, you can't investigate later."
+  },
+  {
+    "speaker": "a",
+    "text": "流れ. 流れを見守る — watch over the flow. データの流れ — flow of data. 流れが早いと、記録が追いつかない — if the 流れ is fast, the record can't keep up. 通信の流れを訳す — interpret the flow of 通信. 流れの中で、小さい違いに気づく — in the 流れ, notice the small difference."
+  },
+  {
+    "speaker": "b",
+    "text": "流れ in five flavors."
+  },
+  {
+    "speaker": "a",
+    "text": "気づく. 気づくのが早い — fast to notice. 気づかないと、問題が大きくなる — if you don't 気づく, the problem grows. ブラックリストに気づく — notice the blacklist hit. 通信の異常に気づく — notice an anomaly in the 通信. 気づいた時には、もう遅い — by the time you 気づく, it's already too late."
+  },
+  {
+    "speaker": "a",
+    "text": "調べる. パケットを調べる — investigate the packet. 原因を調べる — investigate the cause. 言語を調べる — look up the language. ログを調べながら、気づく — notice while investigating the log. 調べることは、基本の仕事だ — investigating is the basic job."
+  },
+  {
+    "speaker": "b",
+    "text": "調べる, 基本, all linked."
+  },
+  {
+    "speaker": "a",
+    "text": "Now review anchors in longer sentences. 訳す — パケットは、etherparseによって訳される — packets are interpreted by etherparse. 読み込む — 設定ファイルは、confyによって読み込まれる — the config file is loaded by confy. 動く — sniffnetは、Windowsでも動くし、Macでも動く — sniffnet works on Windows and also works on Mac. 言語 — BPFという言語は、カーネルで動く小さい言語だ — the language called BPF is a small language that runs in the kernel. 基本 — pcapの基本は、ハンドル、フィルタ、コールバックだ — the basics of pcap are handle, filter, callback. 小さい — 一つの記録は、とても小さい。でも、集めれば大きい — a single record is very small, but collected together, big."
+  },
+  {
+    "speaker": "b",
+    "text": "訳される, 読み込まれる — the passives keep stacking."
+  },
+  {
+    "speaker": "a",
+    "text": "And 〜ながら once more. 通信を見守りながら、記録を取りながら、流れに気づきながら、原因を調べる。 While watching over communication, while taking records, while noticing the flow, I investigate the cause. Four 〜ながら in one chain. Japanese is surprisingly okay with that when the subject is stable."
+  },
+  {
+    "speaker": "b",
+    "text": "That sentence feels like sniffnet the application, described as one breath."
+  },
+  {
+    "speaker": "a",
+    "text": "That is sniffnet the application, described as one breath. 通信を見守りながら、記録を取る。 That's the whole product spec."
+  },
+  {
+    "speaker": "b",
+    "text": "次回は、画面の話。 Next time, talk of the 画面."
+  },
+  {
+    "speaker": "a",
+    "text": "画面の中で動くエージェントの話。 The talk of an agent that works inside the 画面. Until then."
+  },
+  {
+    "speaker": "a",
+    "text": "One more pass. Let's retell each axis in Japanese-leaning sentences so the grammar locks in with the architecture."
+  },
+  {
+    "speaker": "a",
+    "text": "計算の形について話す。 Let's talk about the compute shape. sniffnetは、デスクトップで動くアプリだ。 sniffnet is an app that runs on the desktop. サーバーでは動かない。 It does not run on a server. 一つのプロセス、一つのウィンドウ、一つのユーザー。 One process, one window, one user. ウィンドウが閉じると、通信の記録も止まる。 When the window closes, the recording of communication also stops. 常駐するデーモンではない。 It is not a resident daemon. カーネルの権限だけを小さく借りて、パケットを読む。 It borrows only a small kernel capability and reads packets."
+  },
+  {
+    "speaker": "b",
+    "text": "計算の形、いい言い方。"
+  },
+  {
+    "speaker": "a",
+    "text": "道具の話。 The talk of tools. 道具は三つ。pcap、etherparse、maxminddb。 Three tools: pcap, etherparse, maxminddb. pcapはカーネルから通信を引き出す道具。 pcap is the tool that draws communication from the kernel. etherparseは、パケットを訳す道具。 etherparse is the tool that interprets packets. maxminddbは、IPを国に変える道具。 maxminddb is the tool that turns an IP into a country. 三つの道具が一緒に動くから、sniffnetは動く。 Because the three tools work together, sniffnet works. 一つでも欠けたら、基本の機能が止まる。 If even one is missing, the basic function stops."
+  },
+  {
+    "speaker": "a",
+    "text": "拡張の話。 The talk of extensions. 拡張の入り口は三つある。 There are three extension entry points. サービスの表、ブラックリスト、そして言語。 The services table, the blacklist, and the language. サービスの表は、ビルド時に読み込まれる。 The services table is loaded at build time. ブラックリストは、実行時に読み込まれる。 The blacklist is loaded at runtime. 言語も実行時に切り替えられる。 The language can also be switched at runtime. 新しい言語を足すには、enumに変種を足して、全部の翻訳関数に分岐を足す。 To add a new language, add a variant to the enum and add a branch in every translation function."
+  },
+  {
+    "speaker": "b",
+    "text": "enumに変種を足す、良い。"
+  },
+  {
+    "speaker": "a",
+    "text": "文脈の話。 The talk of context. ここでの文脈は、LLMの文脈ではない。 The context here is not the LLM context. 流れる通信の文脈だ。 It is the context of flowing communication. 一秒ごとに、バイト数をバケットに集める。 Every second, bytes are collected into buckets. 古いバケットは、リングから落ちる。 Old buckets fall out of the ring. 流れは早いから、全部は覚えない。 The flow is fast, so not everything is remembered. 集約された記録だけが、セッションの中で残る。 Only aggregated records remain within the session. セッションが終われば、全部消える。 When the session ends, everything is erased. 保存したければ、PCAPに書き出す。 If you want to save, you export to PCAP."
+  },
+  {
+    "speaker": "a",
+    "text": "規模の話。 The talk of scale. sniffnetは、一人のためのアプリだ。 sniffnet is an app for one person. 複数のユーザーを同時に見ない。 It does not watch multiple users at once. クラスターでは動かない。 It does not run as a cluster. 拡張したければ、Zeekを使う。 If you want to scale, you use Zeek. 常時監視したければ、netdataを使う。 If you want constant monitoring, you use netdata. プロトコルを深く訳したければ、Wiresharkを使う。 If you want to interpret protocols deeply, you use Wireshark. sniffnetは、開発者の机の上で、今の通信を見守るための道具だ。 sniffnet is a tool, on the developer's desk, for watching over the communication of right now."
+  },
+  {
+    "speaker": "b",
+    "text": "規模が違うと、道具も違う。"
+  },
+  {
+    "speaker": "a",
+    "text": "そう。道具は規模に合わせて選ぶ。 Right. You choose the tool to match the scale. 小さい問題には、小さい道具。 For a small problem, a small tool. 大きい問題には、大きい道具。 For a big problem, a big tool. sniffnetは、小さい道具だけど、基本が強い。 sniffnet is a small tool, but its basics are strong."
+  },
+  {
+    "speaker": "a",
+    "text": "最後に一つ。 One last thing. 通信を見守りながら、記録を取りながら、流れに気づきながら、原因を調べながら、言語を切り替えながら、アプリは動く。 While watching over communication, while taking records, while noticing flows, while investigating causes, while switching languages, the app works. これがsniffnetの一行のまとめ。 This is sniffnet's one-line summary."
+  },
+  {
+    "speaker": "b",
+    "text": "〜ながらが五つ。 Five 〜ながら."
+  },
+  {
+    "speaker": "a",
+    "text": "五つ重ねても、日本語は壊れない。 Even stacked five, Japanese does not break. 主語が安定していれば、〜ながらは重ねられる。 If the subject is stable, 〜ながら can be stacked."
+  },
+  {
+    "speaker": "b",
+    "text": "次回、画面の話。 Next, the talk of 画面."
+  },
+  {
+    "speaker": "a",
+    "text": "画面の中のエージェントが、どうやって画面を読み、どうやって画面を動かすか。 How the agent inside the 画面 reads the 画面 and how it moves the 画面. それが次の基本。 That is the next basic. では、また来週。 Then, see you next week."
+  },
+  {
+    "speaker": "b",
+    "text": "また来週。"
+  }
+]
