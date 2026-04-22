@@ -1,0 +1,47 @@
+episode: 37
+repo: HKUDS/DeepTutor
+series: flight-podcast-2026-04
+
+vocab_introduced:
+  - word: 指導
+    reading: しどう
+    meaning: guidance; instruction
+  - word: 学ぶ
+    reading: まなぶ
+    meaning: to learn
+  - word: 慣れる
+    reading: なれる
+    meaning: to get used to
+  - word: 個人
+    reading: こじん
+    meaning: individual
+  - word: 能力
+    reading: のうりょく
+    meaning: ability
+  - word: 成長
+    reading: せいちょう
+    meaning: growth
+
+grammar_introduced:
+  - pattern: 〜ようになる
+    meaning: to come to be able to / come to do
+
+review_items_used:
+  - 記憶
+  - 繋がり
+  - 図
+  - 関係
+  - 思考
+  - 辞書
+  - 〜という
+
+cjk_count: 1782
+word_count: 4294
+turn_count: 67
+duration_seconds: 1714
+
+verification_notes:
+  balance: "A=71.1% — exceeds 55% gate (long architecture turns). Flagged, not rewritten."
+  banned: "'literally' ×1"
+  pairing: "58% paired (gate 80%). Many inline JP spans without ±50-char gloss."
+  status: "pre-approved dialogue rendered as-is per brief"

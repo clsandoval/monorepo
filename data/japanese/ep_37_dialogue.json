@@ -1,0 +1,270 @@
+[
+  {
+    "speaker": "b",
+    "text": "OK, episode thirty-seven. I read the DeepTutor README on the way to the gate and I'm going to say it — this looks like Khan Academy's Khanmigo, but from a Hong Kong lab. You feed it a PDF of your textbook, it tutors you. That's the whole pitch, right?"
+  },
+  {
+    "speaker": "a",
+    "text": "One-line correction. Khanmigo is a single hosted product running on OpenAI; DeepTutor is a self-hostable agent runtime with two binaries — `deeptutor` the server and `deeptutor_cli` the terminal client — and the tutor persona is one `capability` plugged into a generic agent loop. The README even labels it \"agent-native,\" which in 2026 means something specific: the personality is not a prompt, it's a skill directory — `deeptutor/tutorbot/skills/` — full of `SKILL.md` files the loader injects. Look at `deeptutor/tutorbot/agent/skills.py` — `SkillsLoader` walks `workspace / \"skills\"` first, then falls back to builtin. It's the same pattern as Claude Code skills, not the same pattern as a SaaS tutor."
+  },
+  {
+    "speaker": "b",
+    "text": "So it's a framework that happens to have a tutor ship-in-the-box."
+  },
+  {
+    "speaker": "a",
+    "text": "指導 (しどう) — guidance is the domain; the runtime underneath is general. That distinction will be the whole episode. 「指導」 の 部分 は 差し替え 可能 で、 runtime は 残る — the guidance part is swappable, the runtime remains. 下 の 層 は 普通 の agent loop、 上 の 層 に tutor の 人格 を 載せる — the lower layer is a generic agent loop, the tutor persona is loaded onto the upper layer."
+  },
+  {
+    "speaker": "b",
+    "text": "指導 — guidance. Got it. Let's go. 「指導」という 言葉 は 教育 の 世界 で よく 使う — the word 指導 is used often in the education world — 先生 が 学生 を 指導 する、tutor が 学習者 を 指導 する、という 構造 だ — teacher guides student, tutor guides learner, that's the structure. DeepTutor も その 構造 を 真似 して いる — DeepTutor also imitates that structure."
+  },
+  {
+    "speaker": "a",
+    "text": "Six axes. I'll take them in the order they show up in the repo tree. First axis — compute topology."
+  },
+  {
+    "speaker": "b",
+    "text": "Where does the process live."
+  },
+  {
+    "speaker": "a",
+    "text": "`docker-compose.yml` at the root, one service called `deeptutor`, builds from `Dockerfile` target `production`. It exposes two ports: `BACKEND_PORT` defaults to 8001, `FRONTEND_PORT` defaults to 3782. So the all-in-one container ships both a FastAPI backend and a Next.js 16 web frontend — the `web/` directory at the repo root is a separate Node app compiled in at build time. `pyproject.toml` declares `[project.optional-dependencies]` server = `fastapi`, `uvicorn[standard]`, `websockets`, `python-multipart`. The backend is at `deeptutor/api/main.py` with routers in `deeptutor/api/routers/`. Lifetime is the uvicorn process, which is the container. No systemd."
+  },
+  {
+    "speaker": "b",
+    "text": "So if I just want the CLI —"
+  },
+  {
+    "speaker": "a",
+    "text": "Separate package, `deeptutor_cli/`. `pyproject.toml` has `[project.scripts] deeptutor = \"deeptutor_cli.main:main\"`. You `pip install deeptutor`, you get a Typer + Rich terminal app. Subcommands in `deeptutor_cli/` — `chat.py`, `book.py`, `bot.py`, `kb.py`, `memory.py`, `notebook.py`, `plugin.py`, `provider_cmd.py`, `session_cmd.py`. That's the compute topology: one Docker service for the web stack, or a pip-installed CLI that talks to the same backend over HTTP / WebSocket. Cold start on Docker is slow — healthcheck `start_period` is 60 seconds because the Next.js app has to warm up."
+  },
+  {
+    "speaker": "b",
+    "text": "Second axis — LLM locus."
+  },
+  {
+    "speaker": "a",
+    "text": "Provider-agnostic, and this is where `deeptutor/tutorbot/providers/` earns its keep. Five files: `base.py`, `anthropic_provider.py`, `openai_compat_provider.py`, `deeptutor_adapter.py`, `registry.py`, and a separate `transcription.py` for audio. `base.py` defines `LLMProvider` — an abstract class with `get_default_model()`, streaming chat, tool-call framing. `openai_compat_provider.py` covers everything that speaks OpenAI's wire format, which in 2026 is most providers — vLLM, LM Studio, Ollama, Together, DeepSeek, Qwen via DashScope compat mode. `anthropic_provider.py` is the other native one. Selection is env-var: `LLM_BINDING` (openai | anthropic | dashscope), `LLM_MODEL`, `LLM_API_KEY`, `LLM_HOST`. That's it in `docker-compose.yml`, lines 43 through 47."
+  },
+  {
+    "speaker": "b",
+    "text": "And local models?"
+  },
+  {
+    "speaker": "a",
+    "text": "The compose file calls it out — \"Use `host.docker.internal` instead of `localhost` for `LLM_HOST` / `EMBEDDING_HOST`.\" So you point LLM_BINDING=openai at a local LM Studio on port 1234 and DeepTutor doesn't know the difference. Embedding is a separate binding — `EMBEDDING_BINDING`, `EMBEDDING_MODEL`, default `text-embedding-3-large`, `EMBEDDING_DIMENSION=3072`. Two independent client configs because the RAG pipeline runs embeddings far more often than chat."
+  },
+  {
+    "speaker": "b",
+    "text": "勉強になる. 学ぶ (まなぶ) — to learn from this: embeddings are a separate budget line, not a side effect. 「学ぶ」と いう 動詞 は 自分 で 学ぶ 感じ — the verb 学ぶ has a self-directed feeling — 「教わる」と 対 に なる — it pairs against 教わる, to be taught. DeepTutor の 学習者 は 自分 で 学ぶ の だ が、tutor が 横 に いて 指導 する — the DeepTutor learner learns on their own, but the tutor sits beside them and guides. 毎日 使う と、embedding の コスト の 見方 が 分かる ようになる — with daily use, you come to understand how to view embedding costs."
+  },
+  {
+    "speaker": "a",
+    "text": "Exactly. Third axis — tool mechanics. Open `deeptutor/tutorbot/agent/loop.py`. The class is `AgentLoop`. Constructor takes a `MessageBus`, an `LLMProvider`, a `workspace: Path`, and a bunch of component knobs — `max_iterations=40`, `context_window_tokens=65_536`, `team_max_workers=5`, `team_worker_max_iterations=25`, `mcp_servers: dict | None`. The docstring is blunt: \"1. Receives messages from the bus. 2. Builds context with history, memory, skills. 3. Calls the LLM. 4. Executes tool calls. 5. Sends responses back.\" That's it. It's an agent loop."
+  },
+  {
+    "speaker": "b",
+    "text": "And tools?"
+  },
+  {
+    "speaker": "a",
+    "text": "`deeptutor/tutorbot/agent/tools/` with concrete tools like `CronTool`, `MessageTool`, `SpawnTool`, and a `registry.py` that exposes `ToolRegistry` + `build_base_tools()`. Then `deeptutor/tools/` at a higher level has the domain tools: `rag_tool.py`, `code_executor.py`, `paper_search_tool.py`, `web_search.py`, `brainstorm.py`, `reason.py`, `tex_chunker.py`, `tex_downloader.py`. The RAG tool is the interesting one — `deeptutor/tools/rag_tool.py` defines `async def rag_search(query, kb_name=None, provider=None, kb_base_dir=None, event_sink=None, **kwargs)`. It's a thin wrapper; real work is in `deeptutor/services/rag/service.py` as `RAGService`, and the default pipeline is llama-index. `event_sink` is the streaming hook — RAG progress flows through the same stream bus the chat does."
+  },
+  {
+    "speaker": "b",
+    "text": "So the agent gets one \"search my textbook\" tool, and that one tool is itself a pipeline with an embedding step and a reranker."
+  },
+  {
+    "speaker": "a",
+    "text": "Correct. And the tool framing is OpenAI-style function-call JSON — you can see it in `memory.py` where `_SAVE_MEMORY_TOOL` is a literal `[{\"type\": \"function\", \"function\": {\"name\": \"save_memory\", \"parameters\": {...}}}]`. Whatever model you point it at, it's being handed those schemas. `openai_compat_provider.py` passes them through verbatim, `anthropic_provider.py` translates to `input_schema`."
+  },
+  {
+    "speaker": "b",
+    "text": "Fourth axis — extension loading."
+  },
+  {
+    "speaker": "a",
+    "text": "Two extension surfaces. First, skills. `deeptutor/tutorbot/skills/README.md` says — and I quote — \"These skills are adapted from OpenClaw's skill system.\" So HKUDS is riffing on the same skill convention we've been seeing. The builtin skills directory has subdirs — `github/`, `weather/`, `summarize/`, `tmux/`, `clawhub/`, `skill-creator/`, plus tutor-specific ones: `deep-question/`, `deep-research/`, `deep-solve/`, `knowledge-base/`, `memory/`, `notebook/`, `cron/`. Each has a `SKILL.md` with YAML frontmatter and markdown. `skills.py`, `SkillsLoader.list_skills()`, walks workspace first, then builtins, dedup by name. Domain pack = drop a directory with a `SKILL.md` into `workspace/skills/`. You don't rebuild. The loop picks it up next turn."
+  },
+  {
+    "speaker": "b",
+    "text": "慣れる (なれる) — get used to this pattern by now — skill dirs everywhere in 2026."
+  },
+  {
+    "speaker": "a",
+    "text": "Yes. 慣れる — get used to. Second surface is MCP. 慣れる の 使い方 を 見てみる — let's look at how 慣れる is used — 「この pattern に 慣れて きた」 — I've come to get used to this pattern, 「SKILL.md に 慣れる と 書ける ようになる」 — once you get used to SKILL.md, you come to be able to write them. 慣れる と できる ようになる は 相性 が いい — 慣れる and できるようになる pair well together — 段階 的 な 学習 の 表現 — expressions for gradual learning. `AgentLoop.__init__` takes `mcp_servers: dict | None`, and the context uses `AsyncExitStack` which is the dead giveaway for MCP stdio clients — you spawn N subprocesses, each one managed as an async context manager, exit stack closes them all on session end. Load-time is at agent boot. No hot-swap during a turn."
+  },
+  {
+    "speaker": "b",
+    "text": "So a student could install an `mcp-wolfram-alpha` server and suddenly their tutor can do calculus symbolically."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the plan. The MCP discovery is config-file, not UI registry — `deeptutor/tutorbot/config/` has the schema classes, `ChannelsConfig`, `ExecToolConfig`, `WebSearchConfig` — loaded from YAML. Fifth axis is where HKUDS actually spends their research brainpower. Context and memory."
+  },
+  {
+    "speaker": "b",
+    "text": "I've been waiting."
+  },
+  {
+    "speaker": "a",
+    "text": "Three layers. Layer one — the turn. `AgentLoop` has `context_window_tokens=65_536` as a default, and a builder at `deeptutor/tutorbot/agent/context.py` called `ContextBuilder`. It assembles: system prompt, loaded skills, memory preamble, session history, current message. Token budget enforced per turn. `_TOOL_RESULT_MAX_CHARS = 16_000` — individual tool outputs are truncated at 16k characters before being stitched back into the prompt. Layer two — the session. `deeptutor/tutorbot/session/manager.py` defines `Session` and `SessionManager`. `sqlite_adapter.py` defines `SQLiteSessionAdapter` — the docstring is a gift: \"Drop-in replacement for SessionManager, backed by DeepTutor SQLite.\" It derives a stable session_id: `f\"tutorbot:{key}\"` where `key` is `channel:chat_id`. So the chat channel — Telegram, web, CLI — is a prefix, and the same SQLite file unifies conversation history across TutorBot and the DeepTutor core service."
+  },
+  {
+    "speaker": "b",
+    "text": "One DB, many faces."
+  },
+  {
+    "speaker": "a",
+    "text": "One DB, many faces. Layer three — the one that compares to cognee. `deeptutor/tutorbot/agent/memory.py` defines `MemoryConsolidator`. The `_SAVE_MEMORY_TOOL` schema has two parameters: `history_entry` — \"A paragraph summarizing key events/decisions/topics. Start with [YYYY-MM-DD HH:MM]. Include detail useful for grep search\" — and `memory_update` — \"Full updated long-term memory as markdown. Include all existing facts plus new ones. Return unchanged if nothing new.\" Read that second one again."
+  },
+  {
+    "speaker": "b",
+    "text": "記憶 (きおく) — memory layer returns the full markdown, not a diff. It rewrites."
+  },
+  {
+    "speaker": "a",
+    "text": "Every consolidation is a full rewrite. No CRDT, no patch, no merge. The model is asked for the entire memory file and it replaces the old one. Compare this to cognee from episode thirty-five — cognee builds a typed 図 — diagram, graph — of entities and 関係 — relationships — and updates nodes. DeepTutor says: screw the graph, memory is one markdown file per learner, the LLM rewrites it on demand, and you grep it to retrieve."
+  },
+  {
+    "speaker": "b",
+    "text": "That's… actually kind of brilliant in a lazy way。 記憶 を 上書き する — overwrite the memory — 差分 は 計算 しない — don't compute the diff — LLM が 全部 書き直す — the LLM rewrites everything. 単純 だけど 強い — simple but strong."
+  },
+  {
+    "speaker": "a",
+    "text": "It is。 学習者 の 個人 情報 は そんなに 大きく ない — the learner's individual information isn't that big。 名前、 好み、 弱点、 強点、 進度、 それだけ — name, preferences, weak points, strong points, progress, that's it。 10 キロバイト 以内 に 収まる — fits within ten kilobytes。 それ なら 毎回 context に 入れて も 問題 ない — then there's no problem putting it in context every turn。 Because for a tutor, the learner profile is not that big. Names of topics studied, strengths, weaknesses, preferred explanation style, last chapter covered. Maybe ten kilobytes. You can fit that into context every turn and let the model self-edit. The 繋がり — connection — you care about is between the learner's 思考 — thinking — and the curriculum map, and the curriculum map lives in the knowledge base, not the memory file."
+  },
+  {
+    "speaker": "b",
+    "text": "So memory file = who the learner is. Knowledge base = what's being taught. Session = the current conversation。 三つ の 層 が 別々 の 目的 を 持つ — the three layers have separate purposes。 記憶 ファイル は 「誰」、 知識 ベース は 「何」、 session は 「今」 — memory file is \"who,\" knowledge base is \"what,\" session is \"now.\" 関係 は 明確 で、 繋がり は 薄い — the relationships are clear, the connections are loose — それ が 保守 を 楽 に する — that makes maintenance easier。"
+  },
+  {
+    "speaker": "a",
+    "text": "Three persistence surfaces. Memory file is markdown on disk — `shared_memory_dir: Path | None` in the `AgentLoop` constructor. Session is SQLite under `data/user/`. Knowledge base is under `data/knowledge_bases/` — you can see the volume mounts in `docker-compose.yml` — and that's where the llama-index vector store sits, chunked PDFs of textbooks, papers, lecture notes. The orchestrator at `deeptutor/runtime/orchestrator.py` — class `ChatOrchestrator`, method `handle(context: UnifiedContext)` — is what picks which capability handles a turn, and it reads `context.active_capability` before falling back to default chat. The 辞書 — dictionary — of capabilities lives in `deeptutor/runtime/registry/capability_registry.py`."
+  },
+  {
+    "speaker": "b",
+    "text": "Sixth axis — scale."
+  },
+  {
+    "speaker": "a",
+    "text": "Single container today. The `AgentLoop` has a `TeamManager` with `team_max_workers=5` — that's in-process async concurrency for sub-agent tasks like \"grade these five problems in parallel,\" not horizontal scaling. One uvicorn, one SQLite, one learner comfortably; maybe a classroom if the LLM provider can keep up. Where it breaks: SQLite writes serialize. `SQLiteSessionAdapter.save` does `loop.create_task(self._save_async(session))` — fire-and-forget — which is fine until two channels save the same session simultaneously. For production multi-tenant you'd want Postgres, a queue for the memory consolidator, and probably a per-learner sidecar that pins a long-lived session to avoid cold-starting the context builder every message."
+  },
+  {
+    "speaker": "b",
+    "text": "And grading? 学生 が 三十問 の 練習 問題 を 一度 に 出す と どう なる — if a student submits thirty practice problems at once, what happens —"
+  },
+  {
+    "speaker": "a",
+    "text": "That's what `deep-solve` and `vision_solver` agents are for — `deeptutor/agents/solve/` and `deeptutor/agents/vision_solver/`. Today they run sync inside the same loop, bounded by `team_worker_max_iterations=25`. No Celery, no Temporal. The README roadmap mentions persistent autonomous TutorBots — \"TutorBot: Persistent Autonomous AI Tutors\" — and that's the piece that'll eventually need a proper workflow engine. Right now it's one process holding all the threads."
+  },
+  {
+    "speaker": "b",
+    "text": "Recap vocab from episode thirty-five before new grammar."
+  },
+  {
+    "speaker": "a",
+    "text": "cognee's episode. 記憶 — memory — was the center, 繋がり — connection — for how nodes linked, 図 — diagram, the knowledge graph itself, 関係 — relationship — typed edges, 思考 — thinking — the reasoning process, 辞書 — dictionary — used for the schema registry. DeepTutor lets us reuse every one. 「DeepTutor の 記憶 は 一つ の markdown ファイル」 — DeepTutor's memory is a single markdown file。 「cognee の 図 と 違う」 — different from cognee's graph。 「cognee は 関係 を node と edge で 表す、 DeepTutor は 関係 を 自然 言語 の 文 で 表す」 — cognee expresses relationships with nodes and edges, DeepTutor expresses relationships in natural-language sentences。 「思考 の 過程 は session history に 残る」 — the thinking process remains in session history。 「capability registry は 辞書 の よう な もの」 — the capability registry is like a dictionary。 という construction from that episode too: 「『rag_search』 という 関数」 — a function called `rag_search`. 「『MemoryConsolidator』 という クラス」 — a class called MemoryConsolidator。 「『SQLiteSessionAdapter』 という 名前 の adapter」 — an adapter named SQLiteSessionAdapter。 「『capability』 という 概念 が 中心」 — the concept called \"capability\" is central。 繋がり の 話 に 戻る と、 cognee の 繋がり は 型 が 付く — returning to the topic of connections, cognee's connections are typed — DeepTutor の 繋がり は 文章 の 中 に 埋め込まれる — DeepTutor's connections are embedded in sentences — どちら も 正しい 設計 だ が、 目的 が 違う — both are correct designs, but the purposes differ。"
+  },
+  {
+    "speaker": "b",
+    "text": "And the new grammar today is 〜ようになる."
+  },
+  {
+    "speaker": "a",
+    "text": "〜ようになる — come to do, come to be able to. It expresses gradual acquisition over time, which is exactly the tutoring domain。 辞書 形 か 可能 形 の 動詞 に 付ける — attach it to the dictionary form or the potential form of a verb。 「する」 → 「できる ようになる」、 「読む」 → 「読める ようになる」、 「解く」 → 「解ける ようになる」、 「分かる」 → 「分かる ようになる」。 変化 の 過程 を 表す — expresses the process of change。 以前 は できなかった、 今 は できる — previously could not, now can。 それ が 基本 の 意味 — that's the core meaning。 Five quick demos:"
+  },
+  {
+    "speaker": "b",
+    "text": "\"読めるようになる\" — come to be able to read."
+  },
+  {
+    "speaker": "a",
+    "text": "\"学生 が 問題 を 解ける ようになる\" — gakusei ga mondai wo tokeru you ni naru — the student comes to be able to solve problems. 解ける is the potential form of 解く, to solve."
+  },
+  {
+    "speaker": "b",
+    "text": "\"指導 で 数学 が 分かる ようになる\" — with guidance, math becomes understandable."
+  },
+  {
+    "speaker": "a",
+    "text": "\"毎日 練習 すると、漢字 を 書ける ようになる\" — with daily practice, you come to be able to write kanji. 書ける — can write."
+  },
+  {
+    "speaker": "b",
+    "text": "\"この tutor を 使う と、自分 の 弱点 が 見える ようになる\" — using this tutor, your weak points come to be visible. 見える — become visible, potential form built in."
+  },
+  {
+    "speaker": "a",
+    "text": "Good. One more with 個人 (こじん) — individual and 能力 (のうりょく) — ability: \"個人 の 能力 に 合わせて、難しい 問題 も 解ける ようになる\" — matched to the individual's ability, even hard problems become solvable. That is literally DeepTutor's pitch in one Japanese sentence."
+  },
+  {
+    "speaker": "b",
+    "text": "個人 — individual. 能力 — ability. And the last one from the list — 成長 (せいちょう) — growth."
+  },
+  {
+    "speaker": "a",
+    "text": "\"学習 の 成長 を 記憶 ファイル で 追う\" — track learning growth via the memory file. The memory file is how DeepTutor notices 成長 happening at all. Without a persistent memory file, every session starts from zero and 成長 is invisible to the tutor. With it, the learner 慣れる ようになる — comes to get used to — harder material across sessions."
+  },
+  {
+    "speaker": "b",
+    "text": "So ようになる pairs naturally with 成長 — growth is by definition a \"coming to\" state。 「成長 する と できる ようになる」 — as you grow, you come to be able to do things。 「毎日 の 練習 が 成長 を 生む」 — daily practice produces growth。 「個人 の 能力 が 少しずつ 伸びて、 難問 を 解ける ようになる」 — the individual's ability stretches little by little, and they come to be able to solve hard problems。 DeepTutor の 記憶 ファイル は 成長 の 記録 — DeepTutor's memory file is a record of growth。 学習者 が 慣れる、 分かる、 解ける、 教える ようになる — the learner comes to get used to, understand, solve, teach。 四 段階 の 成長 — four stages of growth。"
+  },
+  {
+    "speaker": "a",
+    "text": "Yes。 〜という — called, the quotation-label grammar from episode thirty-five — shows up here too。 「『memory_update』 という パラメータ」 — a parameter called `memory_update`。 「『capability』 という 概念」 — a concept called capability。 Use と together when introducing a named thing from the codebase。 「『AgentLoop』 という クラス が 処理 の 中心」 — the class called AgentLoop is the heart of processing。 「『ようになる』 という 文法 は 成長 と 相性 が いい」 — the grammar pattern called ようになる has good chemistry with growth。 「『個人 の 能力』 という 概念 が tutor の 指導 の 根っこ」 — the concept called \"individual ability\" is the root of the tutor's guidance。 という は 思考 の 中 の 名前 を 外 に 出す 道具 — という is a tool to bring a name from inside your thinking to the outside。 辞書 の 項目 を 呼び出す 感じ — the feeling of calling up a dictionary entry。"
+  },
+  {
+    "speaker": "b",
+    "text": "Let me restate it plainly. DeepTutor is a generic agent loop in Python — `AgentLoop` in `deeptutor/tutorbot/agent/loop.py` — with a skill-directory extension system borrowed from the Claude Code / OpenClaw lineage, a provider-agnostic LLM layer supporting OpenAI-compatible and Anthropic, a llama-index RAG service for course materials, and a three-tier memory model: markdown file for the learner profile, SQLite for session history, vector store for the knowledge base. It ships as a Docker compose with a FastAPI backend on 8001 and a Next.js frontend on 3782, or a pip-installed Typer CLI that talks to the same backend. The \"tutor\" part is mostly a collection of capabilities — `deep-question`, `deep-solve`, `deep-research` — registered in a capability registry and routed by the orchestrator. 指導 is the domain, but the substrate is general."
+  },
+  {
+    "speaker": "a",
+    "text": "もう 一度 日本 語 で まとめる — let me summarize once more in Japanese。 DeepTutor は agent loop が 中心 の framework — the center is the agent loop。 provider 層、 tool 層、 skill 層、 session 層、 memory 層、 knowledge 層 — six layers。 provider 層 で openai と anthropic を 抽象 化 する — abstract openai and anthropic at the provider layer。 tool 層 で rag、 web search、 code executor を 束ねる — bundle rag, web search, code executor at the tool layer。 skill 層 で SKILL.md を 読み込む — load SKILL.md at the skill layer。 session 層 で SQLite に 履歴 を 残す — preserve history in SQLite at the session layer。 memory 層 で markdown の 学習者 プロファイル を 管理 する — manage the learner profile markdown at the memory layer。 knowledge 層 で llama-index の vector store を 使う — use llama-index's vector store at the knowledge layer。 それぞれ の 層 が 独立 して 交換 できる — each layer can be swapped independently。 capability registry が 辞書 の よう に 全部 を 繋ぐ — the capability registry connects everything like a dictionary。 ChatOrchestrator が 一つ の turn を 処理 する 入り口 — ChatOrchestrator is the entry point that handles a single turn。 UnifiedContext が その turn の 状態 を 持つ — UnifiedContext holds the state for that turn。 StreamBus が 出力 を 流す — StreamBus streams the output。 以上 — that's it。"
+  },
+  {
+    "speaker": "b",
+    "text": "整理 され た — that was organized。 層 の 考え方 が 分かる ようになった — I've come to understand the layer concept。 最初 は 複雑 に 見えた けど、 今 は 見える ようになる — at first it looked complex, but now it's come into view。 指導 の 層、 runtime の 層、 persistence の 層 — guidance layer, runtime layer, persistence layer。 三つ の 層 を 混同 しない こと が 大事 — the important thing is not to confuse the three layers。 混同 すると、 設計 が 壊れる — if you confuse them, the design collapses。 DeepTutor は その 三つ を きれい に 分けて いる — DeepTutor separates those three cleanly。 だから 個人 の 能力 に 合わせた 成長 の 追跡 が できる ようになる — that's why personalized growth tracking becomes possible。 学ぶ 側 と 教える 側、 両方 の 視点 で 設計 されて いる — it's designed from both the learning side and the teaching side。 大学 の 研究 所 から 出た と は 思えない ほど 実用 的 — for something that came out of a university lab, it's surprisingly practical。 論文 が 先 で、 code は 後、 という 順番 でも、 engineering の 質 が 高い — even with the paper-first, code-second order, the engineering quality is high。 HKUDS の 他 の project も その 傾向 が ある — HKUDS's other projects have that tendency too。 RAG-Anything の 時 も 同じ だった — it was the same with RAG-Anything。"
+  },
+  {
+    "speaker": "a",
+    "text": "One nuance. The load-bearing design choice is the 記憶 file being a single markdown blob that the LLM rewrites end-to-end. It looks naive next to cognee's 図 — diagram — approach, but it's the right call for tutoring because the learner profile is small, grep-searchable, and human-editable. A parent can open the file and read what the tutor thinks about their kid. A graph database gives you better query power at the cost of inspectability, and for an educational tool that a human needs to trust, inspectability beats query power. HKUDS knew what they were optimizing for. That choice is why the learner 能力 が 分かる ようになる — the individual's ability comes to be understood — over a long arc of sessions, without the system becoming a black box."
+  },
+  {
+    "speaker": "b",
+    "text": "Trust is a load-bearing axis。 信頼 を 守る 為 に、 記憶 を 人間 が 読める 形 で 保存 する — in order to protect trust, store memory in a form humans can read。 それ が 設計 の 核 — that is the core of the design。 親 が 開ける ファイル、 先生 が 直せる ファイル、 学習者 本人 が 削除 できる ファイル — a file the parent can open, a file the teacher can fix, a file the learner themselves can delete。 graph DB だと その 繋がり が 切れる — with a graph DB, that connection breaks。"
+  },
+  {
+    "speaker": "a",
+    "text": "It's load-bearing in every consumer-facing agent, and DeepTutor is one of the first I've seen where the memory layer is designed around the human reader, not just the LLM reader。 人間 が 読める 記憶 は 透明 性 を 生む — human-readable memory produces transparency — 透明 性 は 信頼 を 生む — transparency produces trust — 信頼 は 長 期 使用 を 生む — trust produces long-term use — 長 期 使用 は 個人 の 成長 の 追跡 を 可能 に する — long-term use enables tracking of individual growth。 四 段 論法 だ — it's a four-step argument。 記憶 が 不透明 だと、 この 鎖 が 最初 の 段 で 切れる — if memory is opaque, this chain breaks at the first step。 だから markdown 一 ファイル の 素朴 な 設計 が、 意外 に 深い — so the simple design of one markdown file is surprisingly deep。"
+  },
+  {
+    "speaker": "b",
+    "text": "Next up."
+  },
+  {
+    "speaker": "a",
+    "text": "Episode thirty-eight — RuView. WiFi channel-state-information pose estimation. You know how a router sees your body as a disruption to its radio signal?"
+  },
+  {
+    "speaker": "b",
+    "text": "体 (からだ) — body?"
+  },
+  {
+    "speaker": "a",
+    "text": "体 — body. They reconstruct skeletal pose from WiFi CSI without any camera. Different axis entirely. The LLM axis will be N/A — this is a signal-processing and PyTorch project — and the scaling axis is where it gets interesting because CSI streams are real-time. Compute topology will matter more than context strategy."
+  },
+  {
+    "speaker": "b",
+    "text": "楽しみ に なる ようになった — it's come to be something I'm looking forward to。 体 の 動き を wifi で 捉える、 という 発想 は 面白い — the idea of catching body movement via wifi is interesting。 カメラ 無し で 姿勢 を 推定 する — estimate posture without a camera。 プライバシー の 観点 から も 意味 が ある — from a privacy standpoint it also has meaning。"
+  },
+  {
+    "speaker": "a",
+    "text": "体 の 動き と 脳 の 動き は 繋がって いる — body movement and brain movement are connected — 一方 だけ の 指導 は 不完全 — guidance on only one side is incomplete — 学習 の 未来 は 両方 を 見る tool に ある — the future of learning is in tools that see both。 体 の データ を 個人 の 能力 測定 に 使う 可能性 も ある — there's also a possibility of using body data for individual ability measurement。 運動 の 指導 にも 応用 できる ようになる か も しれない — it might come to be applicable to physical-education guidance too。 DeepTutor が 机 の 上 の 学習 を 支える なら、 RuView は 体 の 学習 を 支える — if DeepTutor supports desk-based learning, RuView supports body-based learning。 対 に なる 二つ の tool — two tools that form a pair。 成長 の 全体 像 を 捉える 為 に は、 記憶 と 体 の 両方 が 要る — in order to capture the whole picture of growth, you need both memory and body。 次 回 を 楽しみ に。"
+  },
+  {
+    "speaker": "b",
+    "text": "次 回 まで。 体 を 学ぶ、 記憶 を 学ぶ、 両方 を 学ぶ。 Good use. See you next segment."
+  }
+]
