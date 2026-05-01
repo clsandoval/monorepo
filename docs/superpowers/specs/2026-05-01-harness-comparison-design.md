@@ -28,6 +28,34 @@ Capability matrix (doc-research) **plus** hands-on bake-off on a shared testbed.
 
 **Xiaomi MiMo V2.5 Pro** via Xiaomi's native API (not OpenRouter). Per-harness shim work may be required if MiMo's tool-call schema diverges from strict OpenAI format.
 
+### Provider details (verified 2026-05-01 via P1 curl probes)
+
+- **Service:** MiMo Code (Xiaomi)
+- **Model ID:** `mimo-v2.5-pro` (confirmed via `/v1/models` listing; other available IDs include `mimo-v2-pro`, `mimo-v2.5`, `mimo-v2-omni`, plus several TTS variants)
+- **OpenAI-compatible endpoint:** `https://token-plan-sgp.xiaomimimo.com/v1` — `/chat/completions` works with standard schema; `/models` lists the catalog
+- **Anthropic-compatible endpoint:** `https://token-plan-sgp.xiaomimimo.com/anthropic` — `/v1/messages` works with standard Anthropic schema (including `x-api-key` + `anthropic-version` headers)
+- **Auth:** Bearer token (OpenAI shape) or `x-api-key` header (Anthropic shape) — same key works for both
+
+### Key MiMo behaviors discovered in P1 (must be accommodated)
+
+1. **MiMo V2.5 Pro is a reasoning model.** Responses contain a separate reasoning channel:
+   - OpenAI shape: `choices[0].message.reasoning_content` populated, `content` may be empty until reasoning completes
+   - Anthropic shape: `content` array contains `{type: "thinking", thinking: "..."}` blocks before any `text` block
+   - Implication: harnesses that ignore the reasoning channel will look stalled or empty; harnesses that surface it should display it cleanly. **Phase 2 capability matrix gains a sub-row under "Tool calling" or a new dimension: "reasoning-channel handling."**
+2. **`max_tokens` must be generous.** A 20-token cap was fully consumed by reasoning, returning empty `content` with `finish_reason: "length"`. Bake-off probes and runs should set `max_tokens` ≥ 4096 (or whatever the harness exposes as a sensible default) to leave room for reasoning + visible answer.
+3. **Server-side prompt caching is active.** First "What is 2+2?" call reported `cache_read_input_tokens: 192` on the Anthropic side (and equivalent in `prompt_tokens_details.cached_tokens` on OpenAI side). Xiaomi appears to cache a system preamble automatically — useful, but means token-cost extrapolations should report both raw and cache-adjusted numbers.
+4. **Both endpoints inflate prompt size.** "What is 2+2?" measured `prompt_tokens=263` (OpenAI) — Xiaomi injects an internal system prompt. Cost math should account for this floor.
+
+### Tangent worth noting
+
+The Anthropic-compatible endpoint means **Claude Code itself could be pointed at MiMo** via `ANTHROPIC_BASE_URL` override. Out of scope for this investigation, but a useful follow-up to revisit.
+
+## Credentials handling
+
+- API key stored in `~/.config/mimo-code/env` (chmod 600), exporting `MIMO_API_KEY`, `MIMO_BASE_URL`, `MIMO_ANTHROPIC_URL`.
+- Never committed to the repo. Never written into transcripts, notes, or run logs.
+- Each harness config references the env vars by name; redact in any captured config snippets.
+
 ## Testbed
 
 `~/cs/hermit-cma` — Python FastAPI + Slack Bolt + Supabase + fastmcp. Real, non-trivial codebase. All bake-off tasks operate on a clean checkout per run.
@@ -56,16 +84,35 @@ research/2026-05-01-harness-comparison/
 
 ### Phase 1 — Wiring + smoke tests (gating)
 
-Per harness, two gates before proceeding:
+Three escalating probes per harness:
 
-- **Gate 1 — Hello-world chat:** single-turn, no tools. Prompt: *"What is 2+2?"* Confirms auth + endpoint + base inference.
-- **Gate 2 — Tool-call sanity:** minimal task with one shell + one file-read tool call. Prompt: *"Run `pwd`, then read `pyproject.toml` and tell me the project name."* Confirms MiMo's tool-call format round-trips through the harness.
+- **P1 — Raw curl baseline (DONE 2026-05-01).** Both OpenAI-compat and Anthropic-compat endpoints returned valid responses for a hello-world prompt. See "Key MiMo behaviors discovered in P1" above. Performed once, not per harness.
+- **P2 — Harness hello.** Minimal config file pointing the harness at MiMo (OpenAI-compat for opencode and pi-mono; Anthropic-compat likely the right path for Copilot CLI's BYO). Single chat turn, no tools, `max_tokens` ≥ 4096. Confirms harness can speak the protocol AND surfaces reasoning content sensibly.
+- **P3 — Harness tool round-trip.** Single shell tool call (e.g., `pwd`), then a file read. Confirms MiMo's tool-call schema survives the round trip through the harness. **Most likely failure point.**
 
-Each smoke test produces `wiring/<harness>-mimo.md` with: redacted config, Gate 1 result + raw response, Gate 2 result + tool-call trace, pass/fail, any required shims.
+Each probe writes `wiring/<harness>-mimo.md` with: redacted config snippet, P2 result + raw response excerpt, P3 result + tool-call trace, pass/fail, any required shims, plus notes on how the harness handles MiMo's reasoning channel.
 
-If a harness fails Gate 2: document the failure, optionally try one workaround (e.g., proxy that rewrites tool-call schema). If still failing, drop from bake-off with a clear note in the report.
+If P3 fails: capture the raw request/response, attempt one workaround (e.g., proxy that rewrites tool-call schema, or switch the harness to the Anthropic-compat endpoint), then either fix or drop the harness from bake-off with a clear note in the report.
 
-Phase 1 also pins **exact MiMo pricing** (input/output $/M tokens) from Xiaomi's API docs for use in the cost section.
+Phase 1 also pins **exact MiMo pricing** (input/output $/M tokens, cache discount) from Xiaomi's developer docs for use in the cost section.
+
+### Phase 1 status as of 2026-05-01 (handoff state)
+
+Picking this up later. Current state:
+
+- **Credentials:** stored in `~/.config/mimo-code/env` (chmod 600). Verified working for both endpoints.
+- **Research dir:** scaffolded at `research/2026-05-01-harness-comparison/` with full subtree (`runs/{harness}/{taskA-D}`, `wiring/`, `podcast/`).
+- **opencode:** already installed at `~/.opencode/bin/opencode`. P2/P3 not yet run.
+- **pi-mono:** cloned to `/tmp/pi-mono` (TypeScript monorepo with `packages/`). Build/install **not yet performed**. Decision still open: `npm link` global vs. local `node packages/.../dist/cli.js` invocation.
+- **GitHub Copilot CLI:** `gh` is installed (v2.83.2), but the standalone Copilot CLI binary and its BYO-endpoint mechanism are **unconfirmed**. Open question for next session: which Copilot CLI does the user mean (`gh copilot` extension vs. the newer standalone CLI), and what's the documented path to a non-GitHub model endpoint?
+- **P1 results:** both endpoints work; key behavior findings documented above.
+
+### Open questions for next session
+
+1. **Copilot CLI BYO-endpoint mechanism** — env var? config file? proxy? user has indicated it's possible but the exact path is unspecified.
+2. **pi-mono install style** — global link vs. local invocation (mostly aesthetic; either works).
+3. **Reasoning-channel handling per harness** — do opencode / pi-mono / Copilot CLI render `reasoning_content` / `thinking` blocks, hide them, or stall on them? P2 will answer.
+4. **Tool-call schema compatibility** — does MiMo emit OpenAI-shape `tool_calls` correctly when the prompt requests one? P3 will answer; if not, decide between the OpenAI-compat endpoint with a shim vs. switching to the Anthropic-compat endpoint where applicable.
 
 ### Phase 2 — Capability matrix (doc/source research, no runs)
 
@@ -87,6 +134,7 @@ Dimensions:
 12. **License + cost** — OSS? hosted? telemetry?
 13. **Skills / prompt packs** — composable skill abstraction? user-defined skills with frontmatter? auto-discovery and matching? bundled skill libraries?
 14. **CLI scriptability** — non-interactive/headless mode? stdin/stdout piping? machine-readable output (JSON)? exit codes? cron/CI-friendly invocation? slash commands?
+15. **Reasoning-channel handling** — does the harness render, hide, or stall on `reasoning_content` / `thinking` blocks from MiMo? Added in response to P1 findings.
 
 ### Phase 3 — Bake-off (4 tasks × 3 harnesses = 12 runs)
 
