@@ -1,0 +1,68 @@
+episode: 45
+title: "1jehuang/jcode — Pimsleur Japanese podcast"
+repo: "1jehuang/jcode + badlogic/pi-mono + anomalyco/opencode"
+format: interlude-review
+duration_seconds: 1332
+cjk_count: 1704
+word_count: 2790
+turns: 75
+
+vocab_introduced:
+  - word: 手を出す
+    reading: てをだす
+    meaning: to lay hands on
+    occurrences: 13
+  - word: 代わり
+    reading: かわり
+    meaning: substitute, instead-of
+    occurrences: 12
+  - word: 自動
+    reading: じどう
+    meaning: automatic
+    occurrences: 25
+  - word: 失敗
+    reading: しっぱい
+    meaning: failure
+    occurrences: 21
+  - word: 進める
+    reading: すすめる
+    meaning: to advance, to push forward
+    occurrences: 11
+  - word: 頼る
+    reading: たよる
+    meaning: to rely on
+    occurrences: 10
+
+grammar_introduced:
+  - pattern: 〜ずに
+    meaning: without doing X
+    occurrences: 37
+
+review_items_used:
+  ep_43:
+    - word: 信頼
+      reading: しんらい
+      meaning: trust
+    - pattern: 〜につれて
+      meaning: as X happens, Y happens
+  ep_44:
+    - word: 記憶
+      reading: きおく
+      meaning: memory
+    - word: 倉庫
+      reading: そうこ
+      meaning: warehouse
+    - word: 比較
+      reading: ひかく
+      meaning: comparison
+
+callforward:
+  - word: 軌道
+    reading: きどう
+    meaning: orbit, track
+    target_episode: 46
+
+verification_notes:
+  - "Balance check failed: A=69.6%, B=30.4% (gate: 45-55%)"
+  - "Banned phrases detected: 'genuinely', 'honestly'"
+  - "Both flagged for human review; dialogue rendered as-is per brief approval"
