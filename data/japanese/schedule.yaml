@@ -1017,10 +1017,15 @@ episode_45:
   status: queued
   japanese_ratio: 0.2
   series: flight-podcast-2026-04-ext
-  format: repo-steelman
-  theme: 'OpenHands/OpenHands (72k⭐ Python) — AI software-development agent, well-funded,
-    well-shipped. Steelman: what does it do that earlier coding agents didn''t? Then
-    where does the architecture strain under real-world tasks.'
+  format: interlude-review
+  theme: '1jehuang/jcode (3k⭐ Rust) + badlogic/pi-mono (44k⭐ TS) + anomalyco/opencode
+    (154k⭐ TS) — three coding-agent harnesses compared along the six-axis framework.
+    jcode: single-server multi-client, semantic memory graph, swarm + ambient + self-dev,
+    contentious self-published benchmarks. pi-mono: 4 default tools, no MCP / no sub-agents
+    / no built-in todos by design, JSONL session tree with /tree branching, TS extensions.
+    opencode: 8 per-model system prompts, build/plan agents, structured compaction
+    template (PRUNE_MIN=20k), MCP+plugins+skills shipped. Three philosophies of where
+    curation responsibility lives: user, maintainer, agent.'
   hosts: Ark vs Red
   vocab:
   - word: 手を出す
@@ -1044,3 +1049,26 @@ episode_45:
   grammar:
   - pattern: 〜ずに
     meaning: without doing X
+episode_46:
+  status: queued
+  japanese_ratio: 0.2
+  series: flight-podcast-2026-04-ext
+  format: repo-deep-dive-standalone
+  theme: 'ruvnet/ruflo — Multi-agent orchestration platform for Claude Code (rebrand of Claude Flow). 32 plugins, 314 MCP tools, Rust WASM kernels, federation roadmap. Steelman: one architectural bet (Rust kernels) carries the whole stack; federation is the differentiator if it ships.'
+  hosts: Ark vs Red
+  vocab:
+  - word: 核
+    reading: かく
+    meaning: core; kernel
+  - word: 連携
+    reading: れんけい
+    meaning: coordination; cooperation
+  - word: 委ねる
+    reading: ゆだねる
+    meaning: to entrust; to delegate
+  - word: 境界
+    reading: きょうかい
+    meaning: boundary
+  grammar:
+  - pattern: 〜にすぎない
+    meaning: nothing more than X

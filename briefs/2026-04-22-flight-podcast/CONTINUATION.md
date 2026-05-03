@@ -1,16 +1,17 @@
 # Flight Podcast Steelman Series — Continuation Notes
 
-**Last session:** 2026-04-23. Dispatched ep 44 (milla-jovovich/mempalace) as straight deep-dive. Introduced the `/autopilot podcast steelman` skill.
+**Last session:** 2026-05-02. Dispatched ep 45 (3-way harness comparison interlude: jcode + pi-mono + opencode) as flight-prep. Brief drafted locally and ironed before dispatch.
 
 ## Where we are
 
 ### Dispatched
 
 - **Ep 44** — milla-jovovich/mempalace — session `sesn_011CaKHL8rmGcm2dyVLzTxv7`, agent `agent_011CaKHKxUvpCn8asWGLfHgd`. Format: `repo-deep-dive` (straight, not steelman). Dialogue at `briefs/2026-04-22-flight-podcast/ep_44.md` — 2002 JP / 3909 EN, all gates pass.
+- **Ep 45** — 1jehuang/jcode + badlogic/pi-mono + anomalyco/opencode (3-way interlude) — session `sesn_011CafAZSm9dxttVD7Zk8nKC`, agent `agent_011CafAZMux2dUp66szYQ9vw`. Format: `interlude-review`. Dialogue at `briefs/2026-04-22-flight-podcast/ep_45.md` — 1810 JP / 2354 EN. Slot was originally OpenHands; user repurposed it for harness comparison. Vocab/grammar kept (手を出す/代わり/自動/失敗/進める/頼る + 〜ずに) — fit harness theme cleanly.
 
 ### Queued, not yet researched
 
-- **Ep 45** — OpenHands/OpenHands (72k⭐) — slot exists in `data/japanese/schedule.yaml`. Format still `repo-steelman` (change if user wants straight deep-dive, as with ep 44). Vocab: 手を出す, 代わり, 自動, 失敗, 進める, 頼る; grammar 〜ずに.
+- **OpenHands/OpenHands (72k⭐)** — formerly ep_45, displaced by harness interlude. Re-queue at next available slot (ep_47+ since ep_46 = ruvnet/ruflo). Vocab/grammar to be re-picked when slot is assigned.
 
 ### Dropped
 
