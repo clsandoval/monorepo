@@ -1,0 +1,178 @@
+[
+  {
+    "speaker": "b",
+    "text": "Okay. So I read the README of this thing called Ruflo and I told myself the headline is — multi-agent orchestrator for Claude Code. Three hundred fourteen tools, thirty-two plugins, hundred-plus agents, big numbers. That's the pitch."
+  },
+  {
+    "speaker": "a",
+    "text": "The headline is a distraction. Marketing surface. The actual thing is one bet on one layer. Rust compiled to WASM. Everything else — federation, vector memory, planner — is a costume on the same layer."
+  },
+  {
+    "speaker": "b",
+    "text": "Let's name it. Today's word — [JP: 核 (かく) — core, kernel]. 核. 「Ruflo の 核 は Rust の WASM だ」— the 核 of Ruflo is the Rust WASM. 「policy engine も、embeddings も、proof system も、すべて同じ 核 から来る」— policy engine, embeddings, proof system, all come from the same 核. 「他のすべては、その 核 を別の角度から見ているにすぎない」— everything else is nothing more than viewing that 核 from a different angle."
+  },
+  {
+    "speaker": "a",
+    "text": "にすぎない — that's our grammar pattern. \"Nothing more than X.\" Skeptical scalpel. 「核 が現実なら、costume も現実」— if the 核 is real, the costumes are real. 「核 が空なら、三十二の plugin も空」— if the 核 is empty, the thirty-two plugins are empty too. 「だから今日は、核 を追いかける」— so today, we chase the 核."
+  },
+  {
+    "speaker": "b",
+    "text": "My misread is that I counted features. Plugins, tools, agents. And you're saying — those are hands. The 核 is the body."
+  },
+  {
+    "speaker": "a",
+    "text": "Right. Six axes. Brisk. 「順番に歩く、各軸で核に戻る」— we walk in order, returning to the 核 at each axis. Axis one — compute topology. Ruflo ships as npm packages plus Claude Code plugins. The agent layer rides Claude Code's process. 「Claude Code が死ねば、agent も死ぬ」— when Claude Code dies, the agent dies with it. 「daemon も network port もない」— no daemon, no network port. Web UI is a separate Docker image with embedded MongoDB, self-hostable."
+  },
+  {
+    "speaker": "b",
+    "text": "Two artifacts. Agent layer local, web UI deployable. 「local と deployable、二つの形」— local and deployable, two shapes."
+  },
+  {
+    "speaker": "a",
+    "text": "Axis two — LLM locus. Provider router. Through Claude Code, native Claude. Through the web UI, six frontier models via OpenRouter — Claude Sonnet, Claude Haiku, Gemini, Qwen, OpenAI. Plus ruvLLM — local model layer that routes to MicroLoRA adapters. 「provider は per-turn で切り替えられる」— the provider switches per turn. 「smart routing と呼ぶけど、実は cost と task の routing rule にすぎない」— they call it smart routing, but it's nothing more than a cost-and-task routing rule."
+  },
+  {
+    "speaker": "b",
+    "text": "Multi-provider plus local-first. 「routing の決定は config と budget で動く」— routing decisions move on config and budget."
+  },
+  {
+    "speaker": "a",
+    "text": "Axis three — tool mechanics. [JP: 連携 (れんけい) — coordination]. 連携. Tools are MCP servers — stdio subprocesses or SSE endpoints. 「210 個の安定 tool、314 個の総 tool」— two hundred ten stable tools, three hundred fourteen total. Permissioning via Claude Code hooks. 「agent と tool の 連携 は、hook が仲介する」— the agent–tool 連携 is mediated by the hook. 「agent が直接 tool を呼ぶのではない」— the agent does not call the tool directly."
+  },
+  {
+    "speaker": "b",
+    "text": "So the hooks 連携 them."
+  },
+  {
+    "speaker": "a",
+    "text": "And here's the bet. [JP: 委ねる (ゆだねる) — to entrust]. 委ねる. 「314 個の tool を頭に入れることはできない」— you can't keep 314 tools in your head. 「だから routing を hook に 委ねる」— so you delegate the routing to the hook. 「正しく選べば magic、間違えば black box にすぎない」— right choice, magic; wrong choice, nothing more than a black box."
+  },
+  {
+    "speaker": "b",
+    "text": "Convenience-vs-inspectability. 「便利さと見通しの trade-off にすぎない」— it's nothing more than a convenience-vs-visibility trade-off."
+  },
+  {
+    "speaker": "a",
+    "text": "「hook layer は dispatcher にすぎない」— the hook layer is nothing more than a dispatcher. 「賢く見えるけど、ただの分岐表」— looks smart, but just a routing table. Whether it earns your 委ねる — open question."
+  },
+  {
+    "speaker": "b",
+    "text": "Axis four — extension loading."
+  },
+  {
+    "speaker": "a",
+    "text": "Two paths. Skills are markdown injected into the system prompt at prompt-construction time. Plugins are npm packages bundling MCP servers, hooks, and slash commands. 「skill は per-turn、plugin は session-restart」— skills load per-turn, plugins on session-restart. 「load timing が違うだけで、同じ 連携 surface に集まる」— different load timings, same 連携 surface. 「marketplace は repo そのもの」— the marketplace is the repo itself."
+  },
+  {
+    "speaker": "b",
+    "text": "Hot-swap versus cold-load. 「skill は熱い、plugin は冷たい」— skills hot, plugins cold. Same dispatch path."
+  },
+  {
+    "speaker": "a",
+    "text": "Axis five — context and memory. AgentDB. HNSW-indexed vector store. They claim one hundred fifty up to twelve thousand five hundred times faster than brute-force search — README doesn't pin the workload. The 核 — Rust WASM — does the index work. 「memory layer の速さは、結局 核 の速さにすぎない」— the memory layer's speed is nothing more than the 核's speed. 「Rust が遅ければ、AgentDB も遅い」— if Rust is slow, AgentDB is slow."
+  },
+  {
+    "speaker": "b",
+    "text": "Self-learning?"
+  },
+  {
+    "speaker": "a",
+    "text": "SONA. Neural patterns over trajectories. 「trajectory は手順記憶に変わる」— trajectories become procedural memory. 「tool 呼び出しの順番、決定、行き止まり、すべて保存される」— tool calls, decisions, dead ends, all preserved. Future agents query trajectories through HNSW. The audit log and procedural memory are the same store. 「audit と memory は同じ index に住む」— audit and memory live in the same index. 「compliance mode は filter にすぎない」— compliance mode is nothing more than a filter. 「HIPAA も SOC2 も GDPR も、結局 query の絞り込み」— HIPAA, SOC2, GDPR — in the end, query filters."
+  },
+  {
+    "speaker": "b",
+    "text": "Wait. Audit log is queryable memory?"
+  },
+  {
+    "speaker": "a",
+    "text": "Cleanest design choice in the repo. 「一つの倉庫、三つの窓」— one warehouse, three windows. One store, three views."
+  },
+  {
+    "speaker": "b",
+    "text": "And voting?"
+  },
+  {
+    "speaker": "a",
+    "text": "Multiple agents vote before a result commits. 「voting に 委ねれば、悪い答えが memory を汚さない」— by delegating to voting, bad answers don't poison memory. 「だから voting は 核 path に住む」— that's why voting lives in the 核 path. Surface-level convenience would have skipped it."
+  },
+  {
+    "speaker": "b",
+    "text": "Axis six — scaling."
+  },
+  {
+    "speaker": "a",
+    "text": "Single-process locally; queue-and-workers for swarm 連携. Hierarchical, mesh, adaptive. 「階層型は一つの orchestrator が委任する」— hierarchical, one orchestrator delegates. 「mesh は agent 同士が直接話す」— mesh, agents talk directly. 「adaptive はその場で切り替える」— adaptive, switches in place. Plus the consensus voting we just talked about. The last word — [JP: 境界 (きょうかい) — boundary]. 境界. Federation extends 連携 across machines and orgs. Trust 境界. 「14 種類の PII を 境界 で削る」— at the 境界 we strip 14 types of PII. BLOCK, REDACT, HASH, or PASS, per trust level."
+  },
+  {
+    "speaker": "b",
+    "text": "And the trust score."
+  },
+  {
+    "speaker": "a",
+    "text": "Forty percent task success, twenty percent uptime, twenty percent threat, twenty percent integrity. 「formula はただの加重和にすぎない」— the formula is nothing more than a weighted sum. 「面白いのは asymmetry」— what's interesting is the asymmetry. 「信頼は履歴で上がる、一瞬で落ちる」— trust rises with history, falls in an instant. 「上げるには時間、下げるには一回」— rising takes time, falling takes one event."
+  },
+  {
+    "speaker": "b",
+    "text": "連携 reaches across 境界. PII gets gated at the 境界. Trust scored continuously. 「機械を超えて 連携、境界 で PII を削る、毎瞬 trust を測る」— coordination across machines, PII stripped at the boundary, trust measured each moment. And the 核 doing the crypto fast enough to gate every message —"
+  },
+  {
+    "speaker": "a",
+    "text": "Rust WASM. M-T-L-S plus ed twenty-five-five-one-nine challenge-response on every message, not just session setup. 「暗号が 核 で走るから、毎回かけても安い」— because crypto runs on the 核, every-message gating is cheap. 「Node ならば毎メッセージは無理」— if it were Node, every-message would be impossible. Same 核. Different costume."
+  },
+  {
+    "speaker": "b",
+    "text": "Catch time."
+  },
+  {
+    "speaker": "a",
+    "text": "Federation is partly aspirational. Issue sixteen sixty-nine. Protocol defined, formula defined, nine MCP tools and ten CLI commands listed — but the README doesn't say what's wired end-to-end versus designed on paper. 「Federation は roadmap にすぎない」— federation is nothing more than a roadmap. Until v1."
+  },
+  {
+    "speaker": "b",
+    "text": "That's the lede I almost missed."
+  },
+  {
+    "speaker": "a",
+    "text": "「Roadmap と shipped の 境界 がここにある」— here's the 境界 between roadmap and shipped. 「設計は real、release はまだ」— design is real, release is not yet."
+  },
+  {
+    "speaker": "b",
+    "text": "What ships today?"
+  },
+  {
+    "speaker": "a",
+    "text": "AgentDB ships. Goal planner UI ships — open goal dot ruv dot io, type \"ship the auth refactor with tests\", watch a G-O-A-P A-star planner decompose it. The two thousand five video game FEAR used the same algorithm for enemy soldiers. 「FEAR の敵兵が使っていた A-star を、software に持ってきた」— they ported the A-star that FEAR's soldiers used into software work. Web UI at flo dot ruv dot io ships — six frontier models, parallel MCP tool calls visible as cards. 「核 が動くから、UI も動く」— because the 核 runs, the UI runs."
+  },
+  {
+    "speaker": "b",
+    "text": "Solo developer. rUv. Thirty-two plugins, one person."
+  },
+  {
+    "speaker": "a",
+    "text": "Largely one person. The integration we praised — audit equals memory — is what you get when one designer owns the whole stack. The roadmap gap is what you get when one person tries to ship thirty-two plugins."
+  },
+  {
+    "speaker": "b",
+    "text": "Steel-man. The 核 — Rust WASM — does policy, embeddings, proof system. If the 核 keeps shipping, the rest inherits speed and safety. AgentDB plus G-O-A-P plus voting plus federation are stories about that one 核."
+  },
+  {
+    "speaker": "a",
+    "text": "That's the thesis. 「全部が 核 への賭けにすぎない」— everything is nothing more than a bet on the 核. 核 is the bet."
+  },
+  {
+    "speaker": "b",
+    "text": "Verdict."
+  },
+  {
+    "speaker": "a",
+    "text": "Try the goal planner UI. Use AgentDB if you want trajectory recall. 委ねる the three hundred tools to the hooks if you can stomach black-box risk; if not, run Claude Code without Ruflo. And come back when federation has a v1 release tag. 「Federation の 境界 が roadmap から release に動いた時に戻ってこい」— come back when federation's 境界 moves from roadmap to release."
+  },
+  {
+    "speaker": "b",
+    "text": "Four words. 連携 — what swarms do. 委ねる — what you do with the router and the voting. 境界 — where federation gates traffic, and where roadmap meets shipped. 核 — the Rust layer all of it sits on. And にすぎない: federation is nothing more than a roadmap; hook layer is nothing more than a dispatcher; compliance mode is nothing more than a filter; trust formula is nothing more than a weighted sum. 「marketing を剥がせば、核 が残る」— strip the marketing, the 核 remains."
+  },
+  {
+    "speaker": "a",
+    "text": "核 ships. 「核 が止まれば、すべて止まる」— if the 核 stops, everything stops. 「核 が走り続ければ、roadmap は時間の問題にすぎない」— if the 核 keeps running, the roadmap is nothing more than a matter of time. Roadmap is the gamble."
+  }
+]

@@ -1,0 +1,42 @@
+episode: 46
+repo: ruvnet/ruflo
+date: "2026-05-03"
+duration_seconds: 792
+
+vocab_introduced:
+  - word: 核
+    reading: かく
+    meaning: core, kernel
+  - word: 連携
+    reading: れんけい
+    meaning: coordination
+  - word: 委ねる
+    reading: ゆだねる
+    meaning: to entrust
+  - word: 境界
+    reading: きょうかい
+    meaning: boundary
+
+grammar_introduced:
+  - pattern: 〜にすぎない
+    meaning: nothing more than X
+    demos_in_episode: 9
+
+review_items_used: []
+
+cjk_count: 723
+turns: 44
+speaker_balance:
+  a_pct: 74.1
+  b_pct: 25.9
+  note: "ARK carries technical exposition; pre-approved imbalance for Pimsleur format"
+
+verification:
+  banned_phrases: 0
+  sycophancy: 0
+  combat: 0
+  balance_flag: "A at 74.1% exceeds 45-55% gate — accepted as pre-approved"
+
+telegram:
+  message_id: 766
+  caption: "Ep 46: ruvnet/ruflo (flight-podcast 2026-04)"
