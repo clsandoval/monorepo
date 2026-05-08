@@ -54,7 +54,7 @@ cwd=$(echo "$input" | jq -r '.cwd // ""')
 cwd_display=$(echo "$cwd" | sed "s|^$HOME|~|")
 cwd_part=""
 if [ -n "$cwd_display" ]; then
-  cwd_part=" | \033[48;2;184;230;184;38;2;26;58;26m ${cwd_display} \033[0m"
+  cwd_part=" | \033[48;2;255;215;95;38;2;0;0;0;1m ${cwd_display} \033[0m"
 fi
 
 state=$(cat /home/clsandoval/.claude/.statusline-state 2>/dev/null || echo running)
