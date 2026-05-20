@@ -1,0 +1,4 @@
+# Bulky regenerable artifacts — re-run scripts to recreate
+scan_out/
+scan.log
+maps/
