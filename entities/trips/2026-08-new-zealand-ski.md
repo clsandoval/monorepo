@@ -96,7 +96,7 @@ Trail maps: sent to Telegram 2026-05-19; high-res PNGs at `automations/nz-ski-tr
 ## Next Actions
 
 - [x] Book flights MNL ↔ ZQN — Qantas, 60k PHP flat ✅
-- [ ] Apply NZeTA + IVL (have flight info ready)
+- [ ] Apply **Visitor Visa** (online) + pay IVL — Filipino passport needs a full visitor visa, NOT an NZeTA. Tracker: `documents/applications/2026-nz-visitor-visa/TRACKER.md`
 - [ ] Buy travel insurance with snow-sports rider
 - [ ] Buy lift passes (early-bird windows close end May/early Jun)
 - [ ] Reserve snowboard rental (Wanaka shop) late June
