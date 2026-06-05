@@ -1,47 +1,71 @@
 # The Globe — Interactive Portfolio (Design Draft v2)
 
-> **STATUS: DRAFT — converged on a consolidated direction 2026-06-05.**
-> Earlier exploration (two-layer Earth/Mind toggle, a separate knowledge-graph layer,
-> a timeline scrubber) was explored and **dropped** in favor of the single bare-UI
-> surface described below. Rejected/superseded mockups are kept in `assets/` with
-> `-rejected` / `-superseded` / `-dark` / `-mapghost` suffixes for provenance.
+> **STATUS: DRAFT — converged 2026-06-05 (rev: two-plane model).**
+> The site is **two sibling spheres** — a physical plane (the globe) and a mental plane
+> (the mind palace) — rendered in the *same* bare-UI terrain-on-curve language. An earlier
+> "Mind layer" was a flat abstract graph bolted onto the globe and felt disjoint; that is
+> rejected. The current Mind plane is its own SPHERE, so the two read as siblings. A
+> timeline scrubber was also explored and dropped. Superseded mockups kept in `assets/`
+> with `-rejected` / `-superseded` / `-dark` / `-mapghost` suffixes for provenance.
 >
 > **Deliverable is NOT code.** This session produces a *design artifact bundle*
 > (this spec + mockups) to hand off to a cloud design/build tool.
 
 ## Premise
 
-A personal portfolio that is a single interactive instrument, not a set of pages. The
-visitor lands on a dot-matrix globe that *is* Carlos — the places he returns to and the
-work he's built, rendered as **terrain**. It mirrors the through-line of his work
+A personal portfolio built on one idea: **a person exists in two planes — the physical and
+the mental.** The site is two sibling spheres rendered as **terrain on the curve**: the
+**globe** (the world Carlos moves through) and the **mind palace** (how he thinks). Same
+dot-matrix material, same bone palette, same deliberately **bare** UI — no chrome, no
+menus, just the field and what rises from it. It mirrors the through-line of his work
 (Daimon, Lakbai, neo4j-graphrag): convergent systems that turn messy information into
-something navigable. Here the move is pointed at himself, and the result is deliberately
-**bare** — no chrome, no menus, just the field and what rises from it.
+something navigable, here pointed at himself.
 
 ## The Whole Site in One Paragraph
 
-You arrive; the dots briefly assemble into a word, then settle into a **dot-matrix globe
-on warm bone paper** (the "terrain on the curve" look — see `HERO-terrain-on-curve.png`).
-Scattered across its surface are **peaks**: your projects (taller, labeled) and your
-frequent places (soft swells). You **drift freely** — drag to rotate, scroll to zoom.
-As you approach a peak its dots **rise and assemble** (the Memory Field); hovering resolves
-a quiet in-world card. There is no other UI. Your philosophy surfaces occasionally as a
-sparse ambient fragment. That's the entire site.
+You arrive; the dots briefly assemble into a word, then settle into the **physical plane**:
+a dot-matrix globe on warm bone paper (`HERO-terrain-on-curve.png`). Across it are **peaks**
+— your projects (taller, labeled) and frequent places (soft swells). You **drift freely**
+(drag to rotate, scroll to zoom); approaching a peak makes its dots **rise and assemble**
+(the Memory Field), and hovering resolves a quiet in-world card. A single gesture flips you
+to the **mental plane** — the same dots disperse and recompose into a second sphere
+(`mental-sphere-HERO.png`): ~60 concept-peaks from your work, *wired* by hairline edges. Same
+language, same Memory Field, but it's your mind instead of your map. No other UI. Philosophy
+surfaces occasionally as a sparse ambient fragment. That's the entire site.
+
+## The Two Planes
+
+Both planes are the same object — a bare terrain-on-curve sphere — which is what makes them
+read as one person's two halves rather than two unrelated screens.
+
+- **PHYSICAL (the globe)** — real Earth. Peaks at geographic coordinates: projects where
+  built, places by `visitCount`. Peaks **stand alone** (geography has no edges).
+- **MENTAL (the mind palace)** — abstract sphere, no continents. **~60 concept-peaks**
+  (larger labeled hubs + smaller swells) **wired by thin hairline edges** = relationships.
+  The one visual difference from the physical plane: it's *wired*. Concepts are extracted
+  from Carlos's actual body of work (projects, the things he's built and done), not generic
+  mind-words. ~60 chosen for legibility + fillability (vs the country-scale ~195 option,
+  which risked being unfillable with real meaning).
+- **TRANSITION** — one particle system. Toggling planes disperses the dots of one sphere and
+  recomposes them into the other; the same mechanism spells the entry word. One material,
+  three uses (entry / physical terrain / mental terrain).
 
 ## Decisions Locked
 
 | Decision | Choice |
 |----------|--------|
-| Structure | **Single bare-UI globe.** No pages, no menus, no chrome. The globe is everything. |
-| Canonical look | **"Terrain on the curve"** (P2 / `HERO-terrain-on-curve.png`) — M1-style dots, soft peaks, globe curvature. |
-| What's on it | **Peaks at real locations** — projects (taller, labeled) + frequent places (soft swells). |
+| Structure | **Two sibling spheres** — physical (globe) + mental (mind palace). Bare UI, no chrome. Toggle/transition between planes. |
+| Canonical look | **"Terrain on the curve"** (P2 / `HERO-terrain-on-curve.png`) — M1-style dots, soft peaks, sphere curvature. Both planes use it. |
+| Physical plane | **Peaks at real geo-locations** — projects (taller, labeled) + frequent places (soft swells). Peaks stand alone (geography). |
+| Mental plane | **~60 concept hubs** wired by thin hairline edges (relationships). Same terrain, but visibly *wired*. `mental-sphere-HERO.png`. Concepts are real (from Carlos's work), not generic mind-words. |
 | Significance | **The Memory Field** — encoded as *gravity/height*, never loud labels. Height ∝ `visitCount` (places) / weight (projects). Dots rise + assemble on approach; hover → quiet card. |
 | Movement | **Free drift** — drag to rotate/pan, scroll to zoom. No buttons. ("No navigation" = no chrome.) |
 | Entry | **Dots → words moment.** On load, dots assemble into a name/epigraph, disperse, settle into the globe. One flourish, then bare. |
 | Aesthetic | **NieR: Automata × Nous Research** — bone/off-white palette, diegetic margin marks only, grain. |
 | Voice | **Ambient fragments** — sparse aphorisms, no manifesto page. |
 | Data | **Static build-time snapshot** from `entities/` + `cs/` repos. |
-| DROPPED | the two-layer Earth/Mind toggle; the separate knowledge-graph layer; the timeline scrubber. |
+| Transition | **Dots disperse + recompose** between the two spheres — the globe's particles fly apart and reassemble as the mental sphere (and back). Same particle system as the entry moment. |
+| DROPPED | the *flat* abstract-graph Mind layer (felt disjoint); the timeline scrubber. |
 
 ## The Surface
 
@@ -117,6 +141,11 @@ A build step reads source and emits clean JSON the site bakes in (no runtime ser
 
 ## Open / Undecided (resume here)
 
+- [ ] **Define the ~60 mental-plane concepts** — run GraphRAG over Carlos's work + life and
+      curate down to ~60 real, meaningful concept-hubs (+ their edges). The data half of the
+      "visual-first, then fit the graph" plan.
+- [ ] **Transition gesture** — what flips physical ↔ mental? (key, scroll-past-pole, a
+      dedicated corner mark, an idle auto-flip?) Must stay within "bare UI."
 - [ ] **Project geographic anchors** — assign each project a point on the globe (most have
       no location in frontmatter). Manual list, or GraphRAG auto-placement?
 - [ ] **Cloud design/build target** — which tool? (affects final artifact format)
@@ -137,7 +166,11 @@ image-gen noise, not intended copy.
 
 | File | Role |
 |------|------|
-| `HERO-terrain-on-curve.png` | **CANONICAL look** (P2) — bare globe, peaks on the curve |
+| `HERO-terrain-on-curve.png` | **CANONICAL physical plane** (P2) — bare globe, peaks on the curve |
+| `mental-sphere-HERO.png` | **CANONICAL mental plane** (MS2, ~60 hubs) — concept-peaks wired by edges |
+| `mental-sphere-sparse.png` | density study ~15 (too thin) |
+| `mental-sphere-dense.png` | density study ~180 / country-scale (beautiful, not chosen) |
+| `mental-sphere-continents.png` | thematic-continents arrangement (alt structure) |
 | `memoryfield-peak.png` | M1 — the core gravity-rise (chosen depth style) |
 | `memoryfield-relief.png` | side-angle proving the dots have height (+4.2mm) |
 | `memoryfield-assemble.png` | approach state — dots gathering inward |
