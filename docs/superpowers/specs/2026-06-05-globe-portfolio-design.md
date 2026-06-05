@@ -27,6 +27,7 @@ philosophy, not a description of it.
 | Timeline role | **Passive ambient playback** (scrubber DROPPED). Movement auto-plays on a slow loop; nav is spatial (rotate + click) |
 | Aesthetic | **NieR: Automata × Nous Research** — diegetic instrument, esoteric-technical, authored |
 | Voice / philosophy | **Ambient fragments** — sparse aphorisms in margins / as system messages, no manifesto page |
+| Place significance | **The Memory Field** — significance encoded as *gravity*, not labels. Gravity ∝ `visitCount` (auto) + curated one-line notes on a hand-picked few (hybrid). See section. |
 | Data freshness | **Static build-time snapshot** from monorepo `entities/` → JSON (nightly auto-rebuild later) |
 
 ## One Knowledge Graph, Two Projections
@@ -73,6 +74,40 @@ Primary navigation is **spatial**: rotate the globe, click places. The "alive /
 real-time-ish" quality is preserved through the ambient loop + static-snapshot rebuilds,
 not through a user-driven timeline.
 
+## The Memory Field (Earth — zoomed interaction)
+
+The signature interaction of the Earth layer. **Significance is encoded as gravity, never
+as labels or loud pins** ("no HEY I LIKE THIS CAFE"). The dots are the material; their
+*behavior* carries meaning. The metaphor is memory/recall: signal assembles out of noise as
+you reach for it — "it's not how much you store, it's what assembles when you attend to it."
+
+**Three states (must be SUBTLE — a little touch, not dots flying everywhere):**
+1. **Resting** — the whole dot field has faint ambient life. Nothing shouts. Noteworthy
+   spots are not visibly marked at rest.
+2. **Approach** — as the camera/cursor nears a significant point, the dots there
+   **gravitate inward and rise**, assembling into a soft peak (the depth/wave effect). A
+   handful of dots cohering — restrained. Triggered by *proximity*, not constant motion.
+3. **Hover / focus** — the cluster resolves to a point and information surfaces quietly.
+
+**Gravity weight = `visitCount`** (already in place frontmatter; range 1 → 152). The cafe
+visited 53× pulls harder than the one seen once. The field's behavior IS the real
+life-data; no manual tagging needed for the *behavior*.
+
+**Significance model: HYBRID**
+- **Auto:** every place participates; gravity/assembly strength scales with `visitCount`.
+  Frequents naturally rise; one-offs stay quiet background.
+- **Curated:** a hand-picked subset carries a personal **one-line note** (a new optional
+  `note:` field on those place entities) — the only copy Carlos writes.
+
+**Hover content (restrained — ~"7 little things"):**
+- Place name (primary).
+- One quiet personal line (the curated `note`) — only on curated places.
+- Small mono metadata: visit count, date range, category.
+- No reviews, no ratings-shouting, no photos-by-default.
+
+This **replaces the old `#08` side-panel** as the place-detail mechanism: hover-surfaced,
+in-world, minimal — not a docked panel.
+
 ## Aesthetic Spec
 
 - **Palette:** bone/khaki paper `#c9c1ad`, oil-black `#2b2823`, faded sepia accents
@@ -102,6 +137,8 @@ Ingest everything and resolve entities + relationships into a single graph:
 - **Travel history / Google Maps / timeline data** — the raw movement + place visits that
   produced the 979 places (coordinates, visit dates, categories).
 - **Activities** — stat-rich logs (e.g. skiing Niigata 2025: 22 sessions, 307.5 km).
+- **`visitCount`** per place drives Memory-Field gravity (no new data needed). A new
+  optional **`note:`** field on a curated subset carries the one-line personal text.
 - GraphRAG discovers the *soft* cross-links the frontmatter doesn't encode (a place
   cluster ↔ the project being built during those visits; shared tech across projects).
 
@@ -129,6 +166,10 @@ Source of truth: `/home/clsandoval/cs/monorepo/` + sibling repos in `~/cs/`.
 ## Open / Undecided (resume here)
 
 - [ ] Confirm the three "Proposed" calls above (activities placement, side-panel, phasing).
+      [Note: side-panel #08 superseded by the Memory-Field hover.]
+- [ ] Memory Field: tune the SUBTLETY (how many dots rise, how far, how fast) — needs a
+      motion prototype; static mockups can only hint at it.
+- [ ] Memory Field: which places get curated `note:` lines, and write them (Carlos).
 - [ ] Confirm the Mind render rule (projects = labeled hubs; ~979 places unlabeled in Mind).
 - [ ] Need a good **node-selected detail card on the bone palette** (the light attempt G5
       drifted off-brief; no clean light "card" comp exists yet).
