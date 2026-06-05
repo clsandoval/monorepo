@@ -21,7 +21,7 @@ philosophy, not a description of it.
 | Decision | Choice |
 |----------|--------|
 | Core structure | **Globe IS the whole site** — no traditional pages; the globe is the navigation |
-| Layers | **Two projections of ONE knowledge graph** — Earth (geographic/lit) + Mind (relational/dark), toggled |
+| Layers | **Two projections of ONE knowledge graph** — Earth (geographic) + Mind (relational). **Both on the bone/off-white palette** (dark-Mind reversed 2026-06-05). |
 | Graph build | **GraphRAG / neo4j at build time** over *everything* (repos, docs, travel, places, Maps data, activities, people) → export nodes+edges to static JSON. neo4j is an offline extraction engine, not a runtime server. |
 | Globe treatment | **Dot-matrix** (chosen over wireframe / inked) — dots are the kinetic material |
 | Timeline role | **Passive ambient playback** (scrubber DROPPED). Movement auto-plays on a slow loop; nav is spatial (rotate + click) |
@@ -39,20 +39,26 @@ projecting that one graph — the toggle literally re-projects the same nodes.
   that have coordinates (~979 places) are placed on the globe; denser dots form land;
   visited places glow. Travel arcs drawn between trip nodes. This is where *individual
   places* get their detail.
-- **MIND (relational projection / dark)** — the same nodes recompose into a force-directed
-  graph in full-screen night. **Projects are the labeled hubs**; everything else (trips,
-  places, people, tech, concepts) hangs off them as clustered fine dots — the dandelion
-  look. GraphRAG is what discovers the cross-links (e.g. a restaurant cluster lighting up
-  around the project you were building while you ate there).
+- **MIND (relational projection / bone palette)** — the same nodes recompose into a
+  force-directed graph **on the same off-white paper** (not dark). **Projects are the
+  labeled hubs**; everything else (trips, places, people, tech, concepts) hangs off them as
+  clustered fine dots — the dandelion look. GraphRAG is what discovers the cross-links
+  (e.g. a restaurant cluster lighting up around the project you were building while you ate
+  there). Real structure (from `entities/` + `cs/` repos): an **AI-tools** cluster
+  (Daimon, Cheerful, Lakbai, neo4j-graphrag), a **Ventures** cluster (Pod Play SEA, Kosmas,
+  Magpie, Digital Wallet, Ping Pod), a **Life** cluster (scuba, snowboard, jiu-jitsu,
+  travel), with **Carlos** bridging.
   - **Render rule:** do NOT label all ~979 places individually in Mind — that's noise.
     Labeled = projects (the hubs). The long tail is unlabeled clustered dots, revealed on
     hover/click. Per-place detail lives on Earth, not Mind.
-  - **RULE (locked):** the Mind layer is **full-screen night** — the *entire* instrument
-    inverts to a warm near-black (`#1c1a17`), frame/margins/labels redrawn in bone/cream.
-    It is NEVER a dark panel sitting inside the bone-paper frame (that reads disjoint —
-    two palettes fighting). The graph is **purely abstract**: no world map, no continents,
-    no Earth silhouette behind it. The toggle is therefore a full paper→night crossfade,
-    not a box opening.
+  - **RULE (locked, revised 2026-06-05):** the Mind layer stays on the **bone/off-white
+    palette** (`#c9c1ad` bg, oil-black `#2b2823` nodes/edges, faint sepia-gold hub glow) —
+    NOT a dark/black background. Earth and Mind share one palette; the toggle is a
+    re-layout of nodes, not a color inversion. (Earlier full-screen-night version reversed.)
+  - **RULE (locked):** the graph is **purely abstract** — NO world-map silhouette, no
+    continents behind it. Several mockups drifted into a map-ghost because a globe image
+    was used as the gen reference; avoid that. Layout is force-directed, projects = labeled
+    hubs, long tail = unlabeled dot clusters.
 - **TOGGLE** — particle-dissolve animation: continents fly apart and reform as the graph.
   The signature moment of the site (one material, two states).
 
@@ -124,6 +130,9 @@ Source of truth: `/home/clsandoval/cs/monorepo/` + sibling repos in `~/cs/`.
 
 - [ ] Confirm the three "Proposed" calls above (activities placement, side-panel, phasing).
 - [ ] Confirm the Mind render rule (projects = labeled hubs; ~979 places unlabeled in Mind).
+- [ ] Need a good **node-selected detail card on the bone palette** (the light attempt G5
+      drifted off-brief; no clean light "card" comp exists yet).
+- [ ] Pick the canonical Mind layout: overview (G1) vs domain-regions (G6) — or support both.
 - [ ] What exactly is the **cloud design/build target**? (affects final artifact format)
 - [ ] **Frontend** tech stack (likely three.js / react-three-fiber for the dot globe).
       [Graph extraction tech is decided: GraphRAG/neo4j at build time → static JSON.]
@@ -146,16 +155,19 @@ Full 10-piece set spanning the whole concept (all in `assets/2026-06-05-globe-po
 | 01 | `earth-dotmatrix.png` | **CHOSEN** Earth treatment — dot-matrix globe |
 | 01a | `earth-wireframe-rejected.png` | alt treatment (rejected) |
 | 01b | `earth-inked-rejected.png` | alt treatment (rejected) |
-| 02 | `mind-constellation.png` | Mind base layer — **full-bleed dark**, abstract graph (locked) |
-| 03 | `toggle-transition.png` | signature toggle — globe dissolving into graph |
+| 02 | `mind-graph-overview.png` | **CHOSEN** Mind base (G1) — bone palette, real project hubs, Carlos bridging clusters |
+| 02b | `mind-graph-domains.png` | strong alt (G6) — AI TOOLS / VENTURES / LIFE regions, most legible |
+| 02c | `mind-graph-travel-work.png` | concept (G4) — project hubs ringed by cities visited while building them |
+| 02d | `mind-graph-ventures.png` | detail (G3) — Pod Play SEA business web (people/places/orgs) |
+| 03 | `toggle-transition.png` | signature toggle — globe re-laying-out into the graph |
 | 06 | `06-boot-invocation.png` | entry/boot screen, globe forming, opening epigraph |
 | 07 | `07-earth-ambient.png` | Earth in **ambient mode** — arcs breathing, NO scrubber, faint margin date (locked) |
 | — | `07-play-my-life-scrubber-rejected.png` | earlier scrubber version (rejected — scrubber dropped) |
 | 08 | `08-place-detail-panel.png` | slim diegetic place side-panel |
 | 09 | `09-activity-readout.png` | activity telemetry (real Niigata ski log: 22 sessions / 307.5 km) |
-| 10 | `10-mind-node-fragment.png` | **CHOSEN (10c)** — Mind node selected, dense dandelion-cluster graph, full-bleed dark. Card/fragment text in render is gibberish image-gen noise; real copy will be clean. |
-| 10alt | `10-mind-node-fragment-altB.png` | alt (10b) — cleaner/sparser graph, readable card. Kept as reference. |
-| — | `*-disjoint-rejected.png` | earlier Mind comps with the dark-panel-on-paper flaw (rejected) |
+| — | `mind-graph-*-mapghost.png` | atmospheric refs (G2/G7) — drifted to a world-map silhouette; off-rule, kept for mood |
+| — | `*-dark-superseded.png` | the full-bleed-dark Mind comps — superseded by the off-white decision |
+| — | `*-disjoint-rejected.png` | earliest Mind comps with the dark-panel-on-paper flaw (rejected) |
 
 ## Reference Anchors
 
