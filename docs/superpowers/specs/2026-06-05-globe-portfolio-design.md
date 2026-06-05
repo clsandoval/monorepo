@@ -21,21 +21,32 @@ philosophy, not a description of it.
 | Decision | Choice |
 |----------|--------|
 | Core structure | **Globe IS the whole site** — no traditional pages; the globe is the navigation |
-| Layers | **Two: Earth (outer/lit) + Mind (inner/dark)**, toggled |
+| Layers | **Two projections of ONE knowledge graph** — Earth (geographic/lit) + Mind (relational/dark), toggled |
+| Graph build | **GraphRAG / neo4j at build time** over *everything* (repos, docs, travel, places, Maps data, activities, people) → export nodes+edges to static JSON. neo4j is an offline extraction engine, not a runtime server. |
 | Globe treatment | **Dot-matrix** (chosen over wireframe / inked) — dots are the kinetic material |
 | Timeline role | **Passive ambient playback** (scrubber DROPPED). Movement auto-plays on a slow loop; nav is spatial (rotate + click) |
 | Aesthetic | **NieR: Automata × Nous Research** — diegetic instrument, esoteric-technical, authored |
 | Voice / philosophy | **Ambient fragments** — sparse aphorisms in margins / as system messages, no manifesto page |
 | Data freshness | **Static build-time snapshot** from monorepo `entities/` → JSON (nightly auto-rebuild later) |
 
-## The Two Layers, One Material
+## One Knowledge Graph, Two Projections
 
-- **EARTH (outer / lit)** — dot-matrix globe on bone paper. ~979 geo-located places
-  rendered as dots; denser dots form land; visited places glow brighter. Travel arcs
-  drawn between trip nodes.
-- **MIND (inner / dark)** — the same dots recompose into a force-directed knowledge-graph
-  constellation: projects, ideas, people, philosophy as nodes. Going inward darkens the
-  scene.
+The site is built on a **single unified knowledge graph**, extracted at build time via
+GraphRAG / neo4j over *everything* (see Data Model). The two layers are two ways of
+projecting that one graph — the toggle literally re-projects the same nodes.
+
+- **EARTH (geographic projection / lit)** — dot-matrix globe on bone paper. Graph nodes
+  that have coordinates (~979 places) are placed on the globe; denser dots form land;
+  visited places glow. Travel arcs drawn between trip nodes. This is where *individual
+  places* get their detail.
+- **MIND (relational projection / dark)** — the same nodes recompose into a force-directed
+  graph in full-screen night. **Projects are the labeled hubs**; everything else (trips,
+  places, people, tech, concepts) hangs off them as clustered fine dots — the dandelion
+  look. GraphRAG is what discovers the cross-links (e.g. a restaurant cluster lighting up
+  around the project you were building while you ate there).
+  - **Render rule:** do NOT label all ~979 places individually in Mind — that's noise.
+    Labeled = projects (the hubs). The long tail is unlabeled clustered dots, revealed on
+    hover/click. Per-place detail lives on Earth, not Mind.
   - **RULE (locked):** the Mind layer is **full-screen night** — the *entire* instrument
     inverts to a warm near-black (`#1c1a17`), frame/margins/labels redrawn in bone/cream.
     It is NEVER a dark panel sitting inside the bone-paper frame (that reads disjoint —
@@ -71,16 +82,31 @@ not through a user-driven timeline.
 Ambient fragments — short lines of Carlos's thinking surface diegetically in the frame
 and on interaction, like system epigraphs. Sparse, poetic. Felt, never lectured.
 
-## Data Model (build-time snapshot)
+## Data Model — GraphRAG over everything → static snapshot
 
-Build step crawls `entities/` and emits clean JSON:
-- **places** — `coordinates`, `visits[]`, `visitCount`, `category`, `name` (979 files, 970 with dates, 2024–2026)
-- **trips** — `dates`, `countries`, `locations`, flight routes → travel arcs (22 files)
-- **activities** — stat-rich logs (e.g. skiing Niigata 2025: 22 sessions, 307.5 km)
-- **projects / ideas / people** — entity nodes + `[[wikilink]]` relationships → Mind graph
+The build pipeline produces ONE knowledge graph from *all* available signal, then exports
+it to static JSON. Two stages:
 
-Source of truth: `/home/clsandoval/cs/monorepo/entities/`. Sibling repos in `~/cs/`
-(daimon, cheerful, lakbai, neo4j-graphrag, podplay-data) are the project subjects.
+**Stage 1 — Extraction (build time, offline, neo4j/GraphRAG):**
+Ingest everything and resolve entities + relationships into a single graph:
+- **Project source** — repos + docs (daimon, cheerful, lakbai, neo4j-graphrag,
+  podplay-data) → README/CLAUDE.md/docs, surfacing tech, orgs, people, concepts.
+- **Monorepo entities** — `entities/` projects/people/places/trips/activities + their
+  `[[wikilink]]` relationships (reliable backbone).
+- **Travel history / Google Maps / timeline data** — the raw movement + place visits that
+  produced the 979 places (coordinates, visit dates, categories).
+- **Activities** — stat-rich logs (e.g. skiing Niigata 2025: 22 sessions, 307.5 km).
+- GraphRAG discovers the *soft* cross-links the frontmatter doesn't encode (a place
+  cluster ↔ the project being built during those visits; shared tech across projects).
+
+**Stage 2 — Export:** flatten the graph to static JSON (nodes with type/coords/label/stats,
+edges with type/weight). Site bakes it in. **neo4j is a build-time engine, never queried at
+runtime.** Graduates to scheduled auto-rebuild later.
+
+Source of truth: `/home/clsandoval/cs/monorepo/` + sibling repos in `~/cs/`.
+
+> **Node types:** a node may have coordinates (→ appears on Earth), be relational-only
+> (→ Mind), or both. The toggle re-projects the same node set between the two views.
 
 ## Proposed (made a call — confirm on resume)
 
@@ -97,12 +123,16 @@ Source of truth: `/home/clsandoval/cs/monorepo/entities/`. Sibling repos in `~/c
 ## Open / Undecided (resume here)
 
 - [ ] Confirm the three "Proposed" calls above (activities placement, side-panel, phasing).
+- [ ] Confirm the Mind render rule (projects = labeled hubs; ~979 places unlabeled in Mind).
 - [ ] What exactly is the **cloud design/build target**? (affects final artifact format)
-- [ ] Tech stack recommendation (likely three.js / react-three-fiber for the dot globe).
-- [ ] Content/copy checklist — the ambient fragments + any credo text are Carlos-authored;
-      need a list of what to write.
+- [ ] **Frontend** tech stack (likely three.js / react-three-fiber for the dot globe).
+      [Graph extraction tech is decided: GraphRAG/neo4j at build time → static JSON.]
+- [ ] **Raw travel data:** do we have the original Google Maps/timeline export, or only the
+      derived `entities/places/` files? Affects how rich Stage-1 extraction can be.
+- [ ] Content/copy checklist — the ambient fragments are Carlos-authored; need a list.
 - [ ] Per-place / per-node panel content depth (photos? sourced from where?).
-- [ ] How "real-time up until a month ago" maps to rebuild cadence.
+- [ ] How "real-time up until a month ago" maps to rebuild cadence (more load-bearing now
+      that the scrubber is gone — aliveness rests on rebuild frequency).
 
 ## Mockups
 
