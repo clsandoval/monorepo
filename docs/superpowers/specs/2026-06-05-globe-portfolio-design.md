@@ -98,8 +98,16 @@ touch, never dots flying everywhere):
    `memoryfield-wave.png` (ripple).
 3. **Hover / focus** — the peak resolves and a slim **in-world card** appears on the same
    bone paper (thin bracket frame, NOT a dark box): name + one quiet personal line + small
-   mono metadata (visit count / dates / category for places; a line + stats for projects).
-   See `memoryfield-hover.png`, `project-focus-card.png`.
+   mono metadata (visit count / dates / category for places; a line + stats for projects;
+   title + linked-concepts list for mental-plane nodes). See `memoryfield-hover.png`,
+   `project-focus-card.png`, `hover-card-inworld.png`.
+
+**Text reveal mechanic (both planes), layered so text never just dumps on screen:**
+*rest* → no text · *approach* → dots rise (still no text) · *hover* → just the **name** ·
+*focus (dwell/click)* → the full **in-world card** (H1 style). **Anti-occlusion (required
+for the wired ~60-node mental sphere):** on focus, non-focused nodes/edges dim back; the
+card auto-positions into open space with a thin leader line to its node; only **one card at
+a time**.
 
 **Significance model = HYBRID:** auto height from `visitCount` (range 1 → 152, already in
 data) for every place; a curated subset of places + the projects carry a hand-written
