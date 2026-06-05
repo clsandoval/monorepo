@@ -23,7 +23,7 @@ philosophy, not a description of it.
 | Core structure | **Globe IS the whole site** — no traditional pages; the globe is the navigation |
 | Layers | **Two: Earth (outer/lit) + Mind (inner/dark)**, toggled |
 | Globe treatment | **Dot-matrix** (chosen over wireframe / inked) — dots are the kinetic material |
-| Timeline role | **Primary navigation — "play my life"**: cinematic autobiography across 2024→2026 |
+| Timeline role | **Passive ambient playback** (scrubber DROPPED). Movement auto-plays on a slow loop; nav is spatial (rotate + click) |
 | Aesthetic | **NieR: Automata × Nous Research** — diegetic instrument, esoteric-technical, authored |
 | Voice / philosophy | **Ambient fragments** — sparse aphorisms in margins / as system messages, no manifesto page |
 | Data freshness | **Static build-time snapshot** from monorepo `entities/` → JSON (nightly auto-rebuild later) |
@@ -45,12 +45,16 @@ philosophy, not a description of it.
 - **TOGGLE** — particle-dissolve animation: continents fly apart and reform as the graph.
   The signature moment of the site (one material, two states).
 
-## Time Is the Spine (Earth layer)
+## Time Is Ambient, Not a Tool (Earth layer)
 
-The timeline scrubber is the primary control. Hit play → cinematic autobiography:
-movement city-to-city across 2024→2026, arcs draw as flights happen, pins ignite on
-arrival, projects and activities surface at the moment they began. Scrub freely; pause
-anywhere to explore that moment.
+**The scrubber is dropped.** Time is atmosphere, not navigation. Your movement across
+2024→2026 quietly auto-plays on a slow loop in the background — arcs drawing, pins
+igniting on arrival — so the globe feels alive/breathing without any controls. The only
+nod to time is an optional faint, **non-interactive** date stamp in a margin corner.
+
+Primary navigation is **spatial**: rotate the globe, click places. The "alive /
+real-time-ish" quality is preserved through the ambient loop + static-snapshot rebuilds,
+not through a user-driven timeline.
 
 ## Aesthetic Spec
 
@@ -115,7 +119,8 @@ Full 10-piece set spanning the whole concept (all in `assets/2026-06-05-globe-po
 | 02 | `mind-constellation.png` | Mind base layer — **full-bleed dark**, abstract graph (locked) |
 | 03 | `toggle-transition.png` | signature toggle — globe dissolving into graph |
 | 06 | `06-boot-invocation.png` | entry/boot screen, globe forming, opening epigraph |
-| 07 | `07-play-my-life.png` | timeline scrubber mid-animation, arcs drawing, date readout |
+| 07 | `07-earth-ambient.png` | Earth in **ambient mode** — arcs breathing, NO scrubber, faint margin date (locked) |
+| — | `07-play-my-life-scrubber-rejected.png` | earlier scrubber version (rejected — scrubber dropped) |
 | 08 | `08-place-detail-panel.png` | slim diegetic place side-panel |
 | 09 | `09-activity-readout.png` | activity telemetry (real Niigata ski log: 22 sessions / 307.5 km) |
 | 10 | `10-mind-node-fragment.png` | **CHOSEN (10c)** — Mind node selected, dense dandelion-cluster graph, full-bleed dark. Card/fragment text in render is gibberish image-gen noise; real copy will be clean. |
