@@ -36,6 +36,12 @@ philosophy, not a description of it.
 - **MIND (inner / dark)** — the same dots recompose into a force-directed knowledge-graph
   constellation: projects, ideas, people, philosophy as nodes. Going inward darkens the
   scene.
+  - **RULE (locked):** the Mind layer is **full-screen night** — the *entire* instrument
+    inverts to a warm near-black (`#1c1a17`), frame/margins/labels redrawn in bone/cream.
+    It is NEVER a dark panel sitting inside the bone-paper frame (that reads disjoint —
+    two palettes fighting). The graph is **purely abstract**: no world map, no continents,
+    no Earth silhouette behind it. The toggle is therefore a full paper→night crossfade,
+    not a box opening.
 - **TOGGLE** — particle-dissolve animation: continents fly apart and reform as the graph.
   The signature moment of the site (one material, two states).
 
@@ -106,13 +112,14 @@ Full 10-piece set spanning the whole concept (all in `assets/2026-06-05-globe-po
 | 01 | `earth-dotmatrix.png` | **CHOSEN** Earth treatment — dot-matrix globe |
 | 01a | `earth-wireframe-rejected.png` | alt treatment (rejected) |
 | 01b | `earth-inked-rejected.png` | alt treatment (rejected) |
-| 02 | `mind-constellation.png` | Mind layer — inner knowledge graph (dark) |
+| 02 | `mind-constellation.png` | Mind base layer — **full-bleed dark**, abstract graph (locked) |
 | 03 | `toggle-transition.png` | signature toggle — globe dissolving into graph |
 | 06 | `06-boot-invocation.png` | entry/boot screen, globe forming, opening epigraph |
 | 07 | `07-play-my-life.png` | timeline scrubber mid-animation, arcs drawing, date readout |
 | 08 | `08-place-detail-panel.png` | slim diegetic place side-panel |
 | 09 | `09-activity-readout.png` | activity telemetry (real Niigata ski log: 22 sessions / 307.5 km) |
-| 10 | `10-mind-node-fragment.png` | Mind node selected + ambient philosophy fragment in margin |
+| 10 | `10-mind-node-fragment.png` | Mind node selected + ambient fragment — **full-bleed dark** (locked) |
+| — | `*-disjoint-rejected.png` | earlier Mind comps with the dark-panel-on-paper flaw (rejected) |
 
 ## Reference Anchors
 
