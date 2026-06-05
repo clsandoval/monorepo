@@ -118,7 +118,8 @@ Full 10-piece set spanning the whole concept (all in `assets/2026-06-05-globe-po
 | 07 | `07-play-my-life.png` | timeline scrubber mid-animation, arcs drawing, date readout |
 | 08 | `08-place-detail-panel.png` | slim diegetic place side-panel |
 | 09 | `09-activity-readout.png` | activity telemetry (real Niigata ski log: 22 sessions / 307.5 km) |
-| 10 | `10-mind-node-fragment.png` | Mind node selected + ambient fragment — **full-bleed dark** (locked) |
+| 10 | `10-mind-node-fragment.png` | **CHOSEN (10c)** — Mind node selected, dense dandelion-cluster graph, full-bleed dark. Card/fragment text in render is gibberish image-gen noise; real copy will be clean. |
+| 10alt | `10-mind-node-fragment-altB.png` | alt (10b) — cleaner/sparser graph, readable card. Kept as reference. |
 | — | `*-disjoint-rejected.png` | earlier Mind comps with the dark-panel-on-paper flaw (rejected) |
 
 ## Reference Anchors
