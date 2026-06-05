@@ -46,9 +46,12 @@ read as one person's two halves rather than two unrelated screens.
   from Carlos's actual body of work (projects, the things he's built and done), not generic
   mind-words. ~60 chosen for legibility + fillability (vs the country-scale ~195 option,
   which risked being unfillable with real meaning).
-- **TRANSITION** — one particle system. Toggling planes disperses the dots of one sphere and
-  recomposes them into the other; the same mechanism spells the entry word. One material,
-  three uses (entry / physical terrain / mental terrain).
+- **TRANSITION** — one particle system. A **single diegetic toggle button** (a small
+  bracketed monospace control in a frame corner, e.g. `[ PHYSICAL · MENTAL ]` with the
+  active plane lit) disperses the dots of one sphere and recomposes them into the other; the
+  same mechanism spells the entry word. One material, three uses (entry / physical terrain /
+  mental terrain). The toggle is the *only* persistent chrome beyond the diegetic frame
+  marks — everything else stays bare.
 
 ## Decisions Locked
 
@@ -64,7 +67,7 @@ read as one person's two halves rather than two unrelated screens.
 | Aesthetic | **NieR: Automata × Nous Research** — bone/off-white palette, diegetic margin marks only, grain. |
 | Voice | **Ambient fragments** — sparse aphorisms, no manifesto page. |
 | Data | **Static build-time snapshot** from `entities/` + `cs/` repos. |
-| Transition | **Dots disperse + recompose** between the two spheres — the globe's particles fly apart and reassemble as the mental sphere (and back). Same particle system as the entry moment. |
+| Transition | **A single diegetic toggle button** flips planes → fires the dot dispersal-and-recompose transition. The one allowed piece of chrome. Small bracketed monospace control in a frame corner (e.g. `[ PHYSICAL · MENTAL ]`, active plane lit). |
 | DROPPED | the *flat* abstract-graph Mind layer (felt disjoint); the timeline scrubber. |
 
 ## The Surface
@@ -144,8 +147,8 @@ A build step reads source and emits clean JSON the site bakes in (no runtime ser
 - [ ] **Define the ~60 mental-plane concepts** — run GraphRAG over Carlos's work + life and
       curate down to ~60 real, meaningful concept-hubs (+ their edges). The data half of the
       "visual-first, then fit the graph" plan.
-- [ ] **Transition gesture** — what flips physical ↔ mental? (key, scroll-past-pole, a
-      dedicated corner mark, an idle auto-flip?) Must stay within "bare UI."
+- [x] **Transition gesture** — DECIDED: a single diegetic toggle button in a frame corner
+      (`[ PHYSICAL · MENTAL ]`). Exact label/placement still to finalize visually.
 - [ ] **Project geographic anchors** — assign each project a point on the globe (most have
       no location in frontmatter). Manual list, or GraphRAG auto-placement?
 - [ ] **Cloud design/build target** — which tool? (affects final artifact format)
