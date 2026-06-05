@@ -99,11 +99,20 @@ Source of truth: `/home/clsandoval/cs/monorepo/entities/`. Sibling repos in `~/c
 Generated via nano-banana, pushed to Telegram 2026-06-05. (Garbled label text in images
 is image-gen noise, not intended copy.)
 
-- `assets/2026-06-05-globe-portfolio/earth-dotmatrix.png` — **CHOSEN** Earth treatment
-- `assets/2026-06-05-globe-portfolio/earth-wireframe-rejected.png` — alt (rejected)
-- `assets/2026-06-05-globe-portfolio/earth-inked-rejected.png` — alt (rejected)
-- `assets/2026-06-05-globe-portfolio/mind-constellation.png` — Mind layer
-- `assets/2026-06-05-globe-portfolio/toggle-transition.png` — signature toggle animation
+Full 10-piece set spanning the whole concept (all in `assets/2026-06-05-globe-portfolio/`):
+
+| # | File | Shows |
+|---|------|-------|
+| 01 | `earth-dotmatrix.png` | **CHOSEN** Earth treatment — dot-matrix globe |
+| 01a | `earth-wireframe-rejected.png` | alt treatment (rejected) |
+| 01b | `earth-inked-rejected.png` | alt treatment (rejected) |
+| 02 | `mind-constellation.png` | Mind layer — inner knowledge graph (dark) |
+| 03 | `toggle-transition.png` | signature toggle — globe dissolving into graph |
+| 06 | `06-boot-invocation.png` | entry/boot screen, globe forming, opening epigraph |
+| 07 | `07-play-my-life.png` | timeline scrubber mid-animation, arcs drawing, date readout |
+| 08 | `08-place-detail-panel.png` | slim diegetic place side-panel |
+| 09 | `09-activity-readout.png` | activity telemetry (real Niigata ski log: 22 sessions / 307.5 km) |
+| 10 | `10-mind-node-fragment.png` | Mind node selected + ambient philosophy fragment in margin |
 
 ## Reference Anchors
 
