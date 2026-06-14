@@ -4,9 +4,6 @@
 [submodule "apps/podplay"]
 	path = apps/podplay
 	url = git@github.com:clsandoval/podplay-ops.git
-[submodule "automations/nanoclaw"]
-	path = automations/nanoclaw
-	url = git@github.com:nuts-and-bolts-ai/nanoclaw.git
 [submodule "projects/angkin"]
 	path = projects/angkin
 	url = git@github.com:getbutanding/angkin.git
