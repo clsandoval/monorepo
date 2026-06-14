@@ -220,8 +220,67 @@ ceiling. Two compounding accelerators:
   the only variable that can blow the budget, and it's exactly what archaeology
   measures.
 
+## Dataset bootstrapping (two-track)
+
+The real venue dataset doesn't exist yet, but it has **two independent jobs**,
+and only one needs real footage. We bootstrap both now so that when real data
+lands it's a *calibration* pass, not a cold start.
+
+### Track A — Synthetic event logs (validates cost + metadata logic)
+
+Needs event logs, not video: bookings, occupancy state, operator flags,
+timesteps. Fully synthesizable today. **First concrete deliverable.**
+
+A synthetic-log generator that models:
+
+- A venue: N tables, a booking schedule, arrival/departure/overstay
+  distributions, sprinkled anomalies (no-shows, after-hours, equipment).
+- A synthetic operator policy that flags per rules + noise (produces the
+  ground-truth action stream).
+- Output: a stream of `(timestep, screen, occupancy, booking_state,
+  operator_action)` rows matching the expected real-data schema.
+
+Replaying this through the metadata layer and cost model validates:
+
+- Overtime / no-show / after-hours timer logic end-to-end.
+- **Trigger-rate sensitivity** — the single variable that drives the cost
+  question — across a parameter sweep.
+
+**Limitation:** synthetic operator labels are circular for measuring *detection
+quality* (scoring against our own assumptions). Track A validates **cost and
+logic only**, not recall.
+
+### Track B — Real-footage proxies (validates VLM vision fidelity)
+
+Safety recall and visual classification need real footage with real labels.
+Do **not** synthesize this — photoreal falls/disputes are hard to fake, and the
+point is testing the VLM on real scenes.
+
+| Source | Gives | Effort |
+|---|---|---|
+| Public datasets — fall-detection (UR Fall, Le2i), anomaly (UCF-Crime), sports action-recognition | Real footage + labels for safety-like / action events | Low |
+| Stage our own — camera at a real/mock table, act out falls/disputes/overstays | Venue-accurate, controlled edge cases | Medium |
+| Repurpose accessible venue CCTV | Closest to target distribution | Access/privacy-dependent |
+
+Run the triggered VLM classify step against these to confirm it can hit safety
+recall on real footage. Staging a couple hours of own clips fills gaps in rare
+high-stakes events.
+
+### What bootstrapping does and doesn't prove
+
+- **Proves:** feasibility of the architecture, the cost-collapse case, safety
+  recall on representative real footage.
+- **Doesn't prove:** the *venues' specific event distribution* — especially the
+  trigger rate per screen-hour. Synthetic sweeps bound it; real data confirms it.
+
 ## Next steps
 
-If this study clears the bar, the follow-on projects (each its own spec) are:
+The synthetic-log generator (Track A) is the **first buildable deliverable** —
+it unblocks the cost/logic validation before any real data exists. Track B
+(public proxies + a little staged footage) runs in parallel to validate VLM
+vision fidelity. Real venue data, when it lands, calibrates both against true
+ground truth.
+
+If the study clears the bar, the follow-on projects (each its own spec) are:
 a deployable prototype (Approach B), then a full production spec including
 operator-handoff UI and alerting (Approach C).
