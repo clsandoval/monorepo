@@ -46,9 +46,10 @@ Floor beats ceiling when both are in tension (hitting protein matters more than 
   |---|---|---|---|---|---|
   | Protein powder (1 scoop) | 38 g | 140 | ~24 g | 12 g (3g fiber, 6g sugar) | 1 g |
   | Chobani Greek yogurt, whole 4% | 160 g cup | 138 | 13.7 g | 6.2 g (4.3g sugar) | 6.4 g |
-  | Almond milk, unsweetened (Koko) — *est., need label* | 250 ml | ~30 | ~1 g | ~1 g | ~2.5 g |
-  - **Almond milk is his mixer** (matcha/shake), not a protein source. ~30 kcal/cup — much leaner than oat
-    (~100 kcal), good for the cut. Stopped buying oat milk. Macros are an estimate — confirm from label.
+  | Unsweetened almond milk | 250 ml | ~30–40 | ~1 g | ~1 g | ~2.5 g |
+  - **Almond milk is his mixer** (matcha/shake), not a protein source. ~30–40 kcal/cup — near-free vs oat
+    (~100 kcal), good for the cut. Stopped buying oat milk. (NB: "Koko" brand is coconut, not almond —
+    his is generic unsweetened almond; macros per online avg, fine to treat as ~negligible.)
   - **Cottage cheese:** no label captured yet — send it and I'll add it.
 - **Whole-food protein is expensive** — don't build the plan around it.
 - **When out / occasional:** steak, salmon.
