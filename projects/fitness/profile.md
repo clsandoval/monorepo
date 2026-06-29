@@ -32,7 +32,7 @@ Keep it current — when weight/targets/equipment change, edit here.
 At the 2000 ceiling that's a **~800 kcal deficit ≈ ~0.7 kg/week** fat loss. Reasonable, sustainable.
 
 **How to answer any food/macro question:**
-1. Protein under 160 g? → add protein. (The shake is the default gap-filler.)
+1. Protein under 160 g? → add protein. (Shake is the default gap-filler: 24g / 140 kcal per scoop.)
 2. Calories under 2000 with room? → adding the shake/food is fine.
 3. Calories at/over 2000? → ceiling wins; skip extra unless protein floor is badly missed,
    then pick the leanest protein source.
@@ -41,10 +41,14 @@ Floor beats ceiling when both are in tension (hitting protein matters more than 
 ## Food
 
 - **Restrictions:** none.
-- **Cheap, reliable protein (counts on these):**
-  - Protein shake — **25 g protein / 120 kcal per scoop** (the gap-filler)
-  - Greek yogurt
-  - Cottage cheese
+- **Staple protein — actual label macros (use these, not estimates):**
+  | Item | Serving | kcal | Protein | Carb | Fat |
+  |---|---|---|---|---|---|
+  | Protein powder (1 scoop) | 38 g | 140 | ~24 g | 12 g (3g fiber, 6g sugar) | 1 g |
+  | Chobani Greek yogurt, whole 4% | 160 g cup | 138 | 13.7 g | 6.2 g (4.3g sugar) | 6.4 g |
+  | Oat milk, unsweetened (Sanitarium) | 250 ml | 100 | 1 g | 15 g (4g sugar) | 4 g |
+  - **Oat milk is a mixer, not a protein source** (1g) — it's ~100 kcal of silent calories per matcha/shake. Count it.
+  - **Cottage cheese:** no label captured yet — send it and I'll add it.
 - **Whole-food protein is expensive** — don't build the plan around it.
 - **When out / occasional:** steak, salmon.
 

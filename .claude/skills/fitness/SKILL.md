@@ -41,7 +41,7 @@ days requested. Flag the expensive items.
 ### Question (the default)
 Answer using the **decision rule** in profile.md:
 - **Protein 160g = floor, calories 2000 = ceiling.**
-- Under protein? → add protein (shake is the default gap-filler: 25g / 120 kcal).
+- Under protein? → add protein (shake is the default gap-filler: 24g / 140 kcal per scoop).
 - Under cals with room? → eating more is fine.
 - At/over the ceiling? → ceiling wins, unless protein is badly missed → leanest protein source.
 - Floor beats ceiling when they conflict.
