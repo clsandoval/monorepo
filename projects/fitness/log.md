@@ -10,6 +10,12 @@ Format: `## YYYY-MM-DD` then:
 
 ---
 
+## 2026-07-02
+- **Weight:** 96.8 kg (fasted AM)
+- **Cals / Protein:** ~2189 / ~193g (breakfast: 2 scoops vanilla protein ~280/48g + 1/2 cup Greek yogurt ~69/7g; Starbucks turkey egg white fontina sandwich ~330/21g; tall ruby grapefruit honey tea ~100/0g; malatang: lean beef ~190/28g + tofu skin ~170/20g + tofu ~120/15g + cabbage ~20/1g + mushrooms ~25/2g + sipped broth ~75/1g; small Llaollao no toppings ~110/4g; brown sugar hojicha latte ~200/6g; David's protein bar ~150/28g; spaghetti ~350/12g [est. modest bowl w/ sauce])
+- **Trained:** stiff leg RDL 3×8 @ 20 lb dumbbell · ab crunch 3×12 @ 80 lb
+- **Notes:** Spaghetti tipped it ~190 over the 2000 ceiling, but protein landed huge at ~193g. One overshoot day at a strong protein number is noise, not a problem — deficit is still ~600 vs TDEE. Day's closed: stop eating.
+
 ## 2026-07-01
 - **Weight:** 97.3 kg
 - **Cals / Protein:** ~1565 / ~166g so far (breakfast: ~1/3 cup dry oats ~100/4g + ~1/2 cup Greek yogurt ~100/10g + 1.5 scoops vanilla protein ~210/36g; mid shake: 60g Greek yogurt ~52/5g + 100ml oat milk ~46/1g + 2.5 scoops protein ~350/60g; ~150g prawn omelette ~225/21g; ~200g khao soi chicken w/ noodles ~293/16g; 3 pcs hamachi sushi w/ nam jim ~190/13g).
