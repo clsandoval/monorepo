@@ -63,10 +63,12 @@ Floor beats ceiling when both are in tension (hitting protein matters more than 
   press needed). Free barbell is for floor-start lifts: deadlift, rows. Cable opens up lat
   pulldowns, cable rows, face pulls, tricep/curl isolation, cable lateral raises — and lat
   pulldown is a real progression tool toward pull-ups.
-- **Priority: consistency over intensity.** Travels often, which breaks rigid programs —
-  so the program IS "train daily," not any fixed split.
-- **Daily session:** 30–40 min = **≥5 min jump rope** + **≥4 lifts**, always full body.
-- **Staple lifts:** pull-ups, overhead press, bench, bicep curls, deadlifts, rows.
+- **Priority: consistency over intensity.** Travels often — miss a day, pick up the cycle where it left off. Travel = just the rope.
+- **Daily session:** 30–40 min = **5 min jump rope** + **4 lifts**, always full body (push + pull + hinge/squat + core).
+- **3-day rotation** — cycle A → B → C → repeat:
+  - **Day A:** Smith bench 3×8 · cable rows 3×10 · RDLs 3×8 · ab crunch 3×12
+  - **Day B:** OHP 3×8 · pull-ups (strict-then-assisted) · goblet squat 3×10 · leg raises 2×12
+  - **Day C:** Smith incline bench 3×8 · pull-ups (strict-then-assisted) · cable rows 3×10 · bicep curls 3×10 + cable lateral raises 3×12
 - **Intensity:** trains at **70–80% deliberately**. 8 yrs judo + overtraining history —
   will not and should not max out. Don't prescribe failure sets / all-out work.
 
