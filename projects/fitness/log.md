@@ -12,7 +12,7 @@ Format: `## YYYY-MM-DD` then:
 
 ## 2026-07-03
 - **Weight:** 96.4 kg (fasted AM)
-- **Cals / Protein:** ~346 / ~53g so far (shake: 2 scoops vanilla protein ~280/48g + 2 tbsp Greek yogurt ~46/5g + 50ml oat milk ~20/0g)
+- **Cals / Protein:** ~966 / ~115g so far (shake: 2 scoops vanilla protein ~280/48g + 2 tbsp Greek yogurt ~46/5g + 50ml oat milk ~20/0g; Gatorade 20oz ~140/0g; lunch: 150g beef tataki ~170/30g + 2 large scallops w/ cheese & mayo ~160/12g + 100g hamachi seviche ~150/20g)
 - **Trained:** —
 - **Notes:** New low. Down 0.4 from yesterday, ~0.9 over the week (97.3 → 96.4).
 
