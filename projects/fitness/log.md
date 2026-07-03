@@ -10,6 +10,12 @@ Format: `## YYYY-MM-DD` then:
 
 ---
 
+## 2026-07-03
+- **Weight:** 96.4 kg (fasted AM)
+- **Cals / Protein:** —
+- **Trained:** —
+- **Notes:** New low. Down 0.4 from yesterday, ~0.9 over the week (97.3 → 96.4).
+
 ## 2026-07-02
 - **Weight:** 96.8 kg (fasted AM)
 - **Cals / Protein:** ~2189 / ~193g (breakfast: 2 scoops vanilla protein ~280/48g + 1/2 cup Greek yogurt ~69/7g; Starbucks turkey egg white fontina sandwich ~330/21g; tall ruby grapefruit honey tea ~100/0g; malatang: lean beef ~190/28g + tofu skin ~170/20g + tofu ~120/15g + cabbage ~20/1g + mushrooms ~25/2g + sipped broth ~75/1g; small Llaollao no toppings ~110/4g; brown sugar hojicha latte ~200/6g; David's protein bar ~150/28g; spaghetti ~350/12g [est. modest bowl w/ sauce])

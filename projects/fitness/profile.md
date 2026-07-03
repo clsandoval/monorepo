@@ -3,7 +3,7 @@ type: project
 name: Fitness
 status: active
 tags: [health, fat-loss, training]
-updated: 2026-06-29
+updated: 2026-07-03
 
 ---
 
@@ -16,7 +16,7 @@ Keep it current — when weight/targets/equipment change, edit here.
 
 - **Age / sex:** 26, male
 - **Height:** 185 cm
-- **Current:** ~98 kg, ~30% body fat → lean mass ≈ 68–69 kg
+- **Current:** ~96.5 kg, ~30% body fat → lean mass ≈ 68–69 kg
 - **Goal:** fat loss → **15% body fat**
 - **Target weight band:** ~80–85 kg (15% BF lands ~80–81 kg if muscle is kept; sub-90 is acceptable)
 - **Context:** not starting from zero — definition returns within 30–40 days of consistency.
@@ -47,17 +47,22 @@ Floor beats ceiling when both are in tension (hitting protein matters more than 
   | Protein powder (1 scoop) | 38 g | 140 | ~24 g | 12 g (3g fiber, 6g sugar) | 1 g |
   | Chobani Greek yogurt, whole 4% | 160 g cup | 138 | 13.7 g | 6.2 g (4.3g sugar) | 6.4 g |
   | Unsweetened almond milk | 250 ml | ~30–40 | ~1 g | ~1 g | ~2.5 g |
+  | Bulla High Protein Cottage Cheese (Original) | 100 g | 82 | 12 g | 4 g | 1.8 g |
   - **Almond milk is his mixer** (matcha/shake), not a protein source. ~30–40 kcal/cup — near-free vs oat
     (~100 kcal), good for the cut. Stopped buying oat milk. (NB: "Koko" brand is coconut, not almond —
     his is generic unsweetened almond; macros per online avg, fine to treat as ~negligible.)
-  - **Cottage cheese:** no label captured yet — send it and I'll add it.
+  - **Cottage cheese:** Bulla High Protein (Original) — 12g protein / 82 kcal per 100g. Lean, cheap, scalable protein for closing the floor (macros above; per CalorieKing AU + MyNetDiary).
 - **Whole-food protein is expensive** — don't build the plan around it.
 - **When out / occasional:** steak, salmon.
 
 ## Training
 
-- **Setup:** home gym — Smith machine, dumbbells, pull-up bar, ab trainer, jump rope,
-  treadmill, barbell (**floor only, no rack** — limits to floor-start lifts: deadlift, floor press, rows).
+- **Setup:** home gym — Smith machine, **cable machine**, dumbbells, **bench**, pull-up bar, ab
+  trainer, jump rope, treadmill, free barbell (**no rack**). The Smith machine + bench cover
+  horizontal/vertical pressing safely (built-in safeties = solo benching, no spotter, no floor
+  press needed). Free barbell is for floor-start lifts: deadlift, rows. Cable opens up lat
+  pulldowns, cable rows, face pulls, tricep/curl isolation, cable lateral raises — and lat
+  pulldown is a real progression tool toward pull-ups.
 - **Priority: consistency over intensity.** Travels often, which breaks rigid programs —
   so the program IS "train daily," not any fixed split.
 - **Daily session:** 30–40 min = **≥5 min jump rope** + **≥4 lifts**, always full body.
@@ -91,6 +96,23 @@ genetics (lower belly goes last) + the deficit.
   (add weight = real growth): 2–4 sets, add load over time, leave a rep in tank. Leg raises 2–3
   sets for lower abs.
 - **The move:** relentless cut for visibility + 2–3 quality ab sessions/week for size.
+
+## Mobility (a real limitation — factor into lower-body advice)
+
+**Lower-body flexibility is poor** — tight hamstrings AND hip flexors. This matters:
+tight hamstrings cause **lower-back rounding at the bottom of a deadlift**, which with his
+back-caution history is the thing to respect, not muscle through.
+
+- **Deadlift accordingly:** pull from a **height he can reach with a flat back** (elevate the
+  bar on blocks/mats = block pull), lower the start as mobility improves. A clean partial beats
+  a rounded full rep. Or make **RDLs the main hinge** — lower only to where hamstrings say stop,
+  never past a flat back (trains the hinge + loaded-stretches the hamstrings).
+- **Post-workout 5-min routine (frequency > length, like his training):**
+  - Half-kneeling hip flexor stretch, 2×45–60s/side (likely his biggest unlock — tight hip
+    flexors tilt the pelvis and make hamstrings *feel* tighter). Progress to the couch stretch.
+  - Hamstring stretch 60–90s + RDLs as loaded-stretch.
+  - Deep goblet/bodyweight squat hold 60s; 90/90 hip switches.
+  - Do it **warm** (after training / on rest days) — cold stretching does little.
 
 ## Advice style
 
