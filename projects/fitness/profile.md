@@ -15,6 +15,7 @@ Keep it current — when weight/targets/equipment change, edit here.
 ## Body & Goal
 
 - **Age / sex:** 26, male
+- **Timezone:** GMT+8 (log dates are local)
 - **Height:** 185 cm
 - **Current:** ~96.5 kg, ~30% body fat → lean mass ≈ 68–69 kg
 - **Goal:** fat loss → **15% body fat**
