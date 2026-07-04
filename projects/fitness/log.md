@@ -12,9 +12,9 @@ Format: `## YYYY-MM-DD` then:
 
 ## 2026-07-04
 - **Weight:** 97.3 kg (fasted AM)
-- **Cals / Protein:** ~150 / ~28g (breakfast: David's protein bar ~150/28g)
-- **Trained:** —
-- **Notes:** 
+- **Cals / Protein:** ~1496 / ~187g (breakfast: David's protein bar ~150/28g; lunch: 60g Greek yogurt ~52/5g + 60g cottage cheese ~49/7g + 150g smoked salmon ~180/32g + 60g dry protein pasta ~210/15g; dinner: Ikinari Steak tenderloin 200g ~412/44.5g + veggies & oil ~100/2g; shake: 50g oat milk ~20/0.5g + 50g Greek yogurt ~43/4g + 2 scoops protein ~280/48g)
+- **Trained:** pull-ups
+- **Notes:** Rest of Day B (OHP, leg curls, leg raises) pending later.
 
 ## 2026-07-03
 - **Weight:** 96.4 kg (fasted AM)
