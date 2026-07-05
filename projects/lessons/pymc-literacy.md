@@ -9,11 +9,12 @@ phase: 1-literacy
 level: Strong structural intuition (prior, hierarchy, generative thinking — has ML/stats reflexes);
   blank on operational vocab — diagnostics (r-hat/divergences), sampler mechanics, MMM jargon.
 hours_estimate: 350   # Phase 1 literacy ~40h + Phase 2 mastery ~300h (hands-on modeling across the tree)
-hours_done: 1.0
-next_up: Rung 7 — Reparameterization & geometry (the FIX for the divergences/low-ESS we diagnosed):
-  centered vs non-centered, the "funnel," why rewriting a model helps it sample without changing it.
-  Warm-up: review divergences + likelihood-as-P(data|params). NOTE still-open: Rung 6 (priors) —
-  interleave it in soon so it isn't orphaned.
+hours_done: 1.4
+next_up: Rung 6 — Priors done PROPERLY (natural next click after prior-basics + hierarchy):
+  weakly-informative vs tight, prior predictive checks (sanity-check assumptions BEFORE data),
+  sensitivity, ZeroSumNormal/HalfNormal. Warm-up: shrinkage one-liner + the no-pooling/complete/
+  partial trio. NOTE neglect-scan: Rung 8 (compute stack: PyTensor/JAX) & Rung 9 (causal/DAGs)
+  untouched — pull one in within ~2 sessions so priors doesn't become a 3rd straight cluster.
 ---
 
 # PyMC Labs Discord literacy
@@ -55,13 +56,13 @@ Two phases over the same 14-rung tree:
 
 Learn top-down and the chat stops being gibberish fastest.
 
-- [ ] **1. Bayesian vocabulary — the bedrock** (~5h) — prior, likelihood, posterior, prior/posterior predictive, "sampling," generative model. "prior" alone appears ~2,500×. *(everyone; Fonnesbeck, Vincent)*
+- [x] **1. Bayesian vocabulary — the bedrock** (~5h) — prior, likelihood, posterior, prior/posterior predictive, "sampling," generative model. "prior" alone appears ~2,500×. *(everyone; Fonnesbeck, Vincent)*
 - [x] **2. MMM — Marketing Mix Modeling** (~5h) — attribute sales to spend; **adstock** (lagged carryover), **saturation** (diminishing returns), channels, budget optimization, incrementality. Most-discussed applied topic. *(Vincent, Orduz, Säilynoja, Wiecki)*
-- [ ] **3. Hierarchical / multilevel models** (~4h) — **partial pooling** vs complete vs none, random effects, shrinkage, per-brand/geo structure. Default shape of nearly every model. *(Paz, Vincent; Fonnesbeck)*
+- [x] **3. Hierarchical / multilevel models** (~4h) — **partial pooling** vs complete vs none, random effects, shrinkage, per-brand/geo structure. Default shape of nearly every model. *(Paz, Vincent; Fonnesbeck)*
 - [x] **4. Sampling & the NUTS sampler** (~3h) — MCMC, chains/draws, NUTS/HMC, **nutpie**, target_accept, warmup. "It won't sample" lives here. *(Seyboldt, Vieira, Paz)*
 - [x] **5. Convergence diagnostics** (~3h) — **divergences**, **R-hat**, **ESS**, ArviZ as the tool. The "is my model broken?" talk. *(Abril, Paz)*
 - [ ] **6. Priors done properly** (~3h) — weakly-informative vs tight, prior predictive checks, sensitivity, ZeroSumNormal, HalfNormal. *(Vincent, Säilynoja, Seyboldt)*
-- [ ] **7. Reparameterization & geometry** (~3h) — centered vs **non-centered**, "funnel" geometry, transforms — why rewriting helps it sample. The fix after divergences. *(Seyboldt, Paz)*
+- [x] **7. Reparameterization & geometry** (~3h) — centered vs **non-centered**, "funnel" geometry, transforms — why rewriting helps it sample. The fix after divergences. *(Seyboldt, Paz)*
 - [ ] **8. The compute stack** (~3h) — PyMC builds a symbolic **PyTensor** graph; **JAX/NumPyro** are speed/GPU backends. Shapes, broadcasting, `mode="JAX"`. *(Vieira, Paz)*
 - [ ] **9. Causal inference & DAGs** (~4h) — correlation≠causation, **DAGs**, confounders, interventions (`pm.do`), incrementality. Frames most MMM work. *(Vincent, Orduz, Luhmann)*
 - [ ] **10. Model comparison** (~2h) — **LOO / ELPD / WAIC**, PSIS **k-hat**, "better predictive fit." *(Abril, Engels)*
@@ -71,6 +72,40 @@ Learn top-down and the chat stops being gibberish fastest.
 - [ ] **14. Frontier / niche — know the words exist** (~2h) — **variational inference / normalizing flows**, **Laplace approximation**, **drift-diffusion/HSSM**, R2D2/PC priors. *(Seyboldt, Fengler)*
 
 ## Sessions (newest at top)
+
+### 2026-07-05 · 9 min · Rung 3 (hierarchical / partial pooling / shrinkage)
+- Ran straight on from the Rung 7 session (same day). Focus: hierarchical models.
+- Covered via a 5-cities conversion-rate example: the trio — **no pooling** (each group alone,
+  fooled by tiny samples) / **complete pooling** (one bucket, erases real differences) / **partial
+  pooling** (the hierarchical in-between). Two-level structure: shared parent (mu, sigma) over
+  per-group rate_c ~ Normal(mu, sigma).
+- **Shrinkage** landed: each group's estimate pulled from its raw number toward the group mean; the
+  gap shrinks. Pull strength = f(how little data, how far from the crowd). Correctly predicted
+  Baguio (0% off 30) shrinks hard, Manila (10% off 1000) barely moves — and named both drivers.
+- Cross-link nailed unprompted: recognized `rate_c ~ Normal(mu, sigma)` IS the funnel setup →
+  hierarchical models get non-centered in practice. Rungs 3+7 now connected.
+- Read: vocab lag persists (fumbled the *word* "shrinkage" while clearly grasping the *mechanism*) —
+  keep handing him the crisp definition after he reasons it out; concept-first, term-second works.
+- Next: Rung 6 priors-done-properly.
+
+### 2026-07-05 · 19 min · Rung 7 (reparameterization) + Rung 1 bedrock (priors)
+- Warm-up: divergences = don't-trust-it even if r-hat/ESS fine ✓; likelihood = P(data|params) ✓.
+- Planned focus was Rung 7, but hit a real gap mid-session: "where do Normal/HalfNormal even come
+  from?" — no stats background. Backed up to Rung 1 bedrock and rebuilt from there.
+- Covered (bedrock): a prior = an assumption YOU write (`~` = "is distributed as" = "shape I assume");
+  a distribution = a *shape of plausible values*, not a 4th object. Normal = symmetric, can go
+  negative; HalfNormal = positive-only. Decision rule locked: **can it be negative? yes→Normal,
+  no→HalfNormal.** (nailed height=Normal, self-corrected temp-change=Normal, SD=HalfNormal ✓)
+- Covered (Rung 7): the funnel = theta's width depends on sigma, sigma slides toward 0 → needle →
+  one step-size can't fit both needle & bell → divergences OR low ESS. Fix = non-centered: sample a
+  fixed helper `z ~ Normal(0,1)` + `sigma` separately, then `theta = mu + z*sigma`. Same model
+  (algebra identity: z*sigma is exactly Normal(0,sigma)), friendlier coordinates. Sampler walks the
+  fixed shapes, reconstructs theta by multiplication each draw.
+- Big unlocks: distributions are assumptions we choose, not discoveries; non-centering loses ZERO
+  expressiveness (same landscape, different street-grid); "stretch a standard bell into the assumed
+  shape" — and that this works because Normal is location-scale.
+- Needed /discretize once (funnel) — dense at first, landed after numbers.
+- Next: Rung 3 hierarchical (the structure the funnel lives in). Interleave Rung 6 prior-depth soon.
 
 ### 2026-07-05 · 41 min · Rungs 4+5 (sampling & diagnostics)
 - Warm-up (interleaved): retested MMM adstock/saturation ✓ and partial pooling ✓.
