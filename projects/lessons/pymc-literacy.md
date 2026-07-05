@@ -13,12 +13,12 @@ level: Strong structural intuition (prior, hierarchy, generative thinking — ha
 hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
-hours_done: 1.4
-next_up: Rung 6 — Priors done PROPERLY (natural next click after prior-basics + hierarchy):
-  weakly-informative vs tight, prior predictive checks (sanity-check assumptions BEFORE data),
-  sensitivity, ZeroSumNormal/HalfNormal. Warm-up: shrinkage one-liner + the no-pooling/complete/
-  partial trio. NOTE neglect-scan: Rung 8 (compute stack: PyTensor/JAX) & Rung 9 (causal/DAGs)
-  untouched — pull one in within ~2 sessions so priors doesn't become a 3rd straight cluster.
+hours_done: 1.7
+next_up: Rung 9 — Causal inference & DAGs (started same-day right after Rung 8; heavier rung, frames
+  the promo-vs-forward-buying business problem). confounders, colliders, backdoor paths, pm.do /
+  interventions, correlation≠causation. Warm-up: graph=compile-target one-liner + prior flat-vs-weak.
+  NEGLECT-SCAN remaining: 10 (model comparison/LOO), 11 (likelihoods/GLMs), 12 (GP/HSGP),
+  13 (state-space), 14 (frontier). 11 is foundational — slot soon.
 ---
 
 # PyMC Labs Discord literacy
@@ -65,9 +65,9 @@ Learn top-down and the chat stops being gibberish fastest.
 - [x] **3. Hierarchical / multilevel models** (~4h) — **partial pooling** vs complete vs none, random effects, shrinkage, per-brand/geo structure. Default shape of nearly every model. *(Paz, Vincent; Fonnesbeck)*
 - [x] **4. Sampling & the NUTS sampler** (~3h) — MCMC, chains/draws, NUTS/HMC, **nutpie**, target_accept, warmup. "It won't sample" lives here. *(Seyboldt, Vieira, Paz)*
 - [x] **5. Convergence diagnostics** (~3h) — **divergences**, **R-hat**, **ESS**, ArviZ as the tool. The "is my model broken?" talk. *(Abril, Paz)*
-- [ ] **6. Priors done properly** (~3h) — weakly-informative vs tight, prior predictive checks, sensitivity, ZeroSumNormal, HalfNormal. *(Vincent, Säilynoja, Seyboldt)*
+- [x] **6. Priors done properly** (~3h) — weakly-informative vs tight, prior predictive checks, sensitivity, ZeroSumNormal, HalfNormal. *(Vincent, Säilynoja, Seyboldt)*
 - [x] **7. Reparameterization & geometry** (~3h) — centered vs **non-centered**, "funnel" geometry, transforms — why rewriting helps it sample. The fix after divergences. *(Seyboldt, Paz)*
-- [ ] **8. The compute stack** (~3h) — PyMC builds a symbolic **PyTensor** graph; **JAX/NumPyro** are speed/GPU backends. Shapes, broadcasting, `mode="JAX"`. *(Vieira, Paz)*
+- [x] **8. The compute stack** (~3h) — PyMC builds a symbolic **PyTensor** graph; **JAX/NumPyro** are speed/GPU backends. Shapes, broadcasting, `mode="JAX"`. *(Vieira, Paz)*
 - [ ] **9. Causal inference & DAGs** (~4h) — correlation≠causation, **DAGs**, confounders, interventions (`pm.do`), incrementality. Frames most MMM work. *(Vincent, Orduz, Luhmann)*
 - [ ] **10. Model comparison** (~2h) — **LOO / ELPD / WAIC**, PSIS **k-hat**, "better predictive fit." *(Abril, Engels)*
 - [ ] **11. Likelihoods, GLMs & regression** (~3h) — picking a likelihood (Normal/Poisson/Student-T/Binomial), link functions, marginalizing discrete latents. *(Vincent, Paz, Luhmann)*
@@ -108,6 +108,26 @@ fly. The six below are a MENU for opportunistic grounding, not a committed proje
    w/ exogenous shock).
 
 ## Sessions (newest at top)
+
+### 2026-07-05 · 19 min · Rungs 6 (priors done properly) + 8 (compute stack)
+- Warm-up: partial-pooling → Qatar(thin data) leans on group, = shrinkage ✓.
+- Rung 6: the flat→weakly-informative→tight spectrum (knob = the prior's width/2nd number); flat≠
+  objective, it's a TRAP (weight on absurd values + bad sampling); thin data leans on prior (=
+  shrinkage's engine); prior predictive check = run model forward on priors only, sanity-check the
+  fake data BEFORE fitting; prior sensitivity = if reasonable priors disagree, answer is prior-driven.
+  Checks nailed: diagnosed Normal(0,10000) as absurd-range flat prior; caught that neg sales→HalfNormal
+  (shape) AND 10M→tighten scale (2 separate fixes); "two priors disagree → we don't have enough data" ✓.
+- Rung 8 (his home turf — fast): PyMC = a COMPILER front-end. You write a symbolic PyTensor graph
+  (nodes=ops, not numbers), autodiff walks it → gradients → which is what NUTS requires. Backend
+  (C / JAX-NumPyro / Numba) = the codegen target you point the SAME graph at; JAX = XLA→GPU/TPU.
+  "set backend to JAX" changes machine code, not the model. Shape/broadcast bugs = type-checking an IR.
+- Checks: Q2 (JAX changes compile target not graph) perfect. Q1 corrected: he said "needs data" — real
+  reason for the GRAPH specifically is GRADIENTS (autodiff), data-deferral is just a side effect.
+- Detour: asked to disable Claude Code prompt autocomplete (spoiling quiz answers). Confirmed can't be
+  skill-scoped (no skill-lifecycle hook, static settings); global toggle only —
+  CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION=false in ~/.claude/settings.json. He'll set it later. Docked
+  ~4min detour from timer.
+- Next: Rung 9 causal/DAGs (going straight into it same day).
 
 ### 2026-07-05 · 9 min · Rung 3 (hierarchical / partial pooling / shrinkage)
 - Ran straight on from the Rung 7 session (same day). Focus: hierarchical models.
