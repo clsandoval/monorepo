@@ -9,10 +9,11 @@ phase: 1-literacy
 level: Strong structural intuition (prior, hierarchy, generative thinking — has ML/stats reflexes);
   blank on operational vocab — diagnostics (r-hat/divergences), sampler mechanics, MMM jargon.
 hours_estimate: 350   # Phase 1 literacy ~40h + Phase 2 mastery ~300h (hands-on modeling across the tree)
-hours_done: 0.3
-next_up: Rung 4+5 — Sampling & diagnostics ("why won't it sample / is it broken"): MCMC/NUTS,
-  chains & draws, nutpie, then r-hat, divergences, ESS, ArviZ. Biggest blank from the diagnostic.
-  Quick spot-check Rung 3 (hierarchical) first — intuition already there, just attach terms.
+hours_done: 1.0
+next_up: Rung 7 — Reparameterization & geometry (the FIX for the divergences/low-ESS we diagnosed):
+  centered vs non-centered, the "funnel," why rewriting a model helps it sample without changing it.
+  Warm-up: review divergences + likelihood-as-P(data|params). NOTE still-open: Rung 6 (priors) —
+  interleave it in soon so it isn't orphaned.
 ---
 
 # PyMC Labs Discord literacy
@@ -57,8 +58,8 @@ Learn top-down and the chat stops being gibberish fastest.
 - [ ] **1. Bayesian vocabulary — the bedrock** (~5h) — prior, likelihood, posterior, prior/posterior predictive, "sampling," generative model. "prior" alone appears ~2,500×. *(everyone; Fonnesbeck, Vincent)*
 - [x] **2. MMM — Marketing Mix Modeling** (~5h) — attribute sales to spend; **adstock** (lagged carryover), **saturation** (diminishing returns), channels, budget optimization, incrementality. Most-discussed applied topic. *(Vincent, Orduz, Säilynoja, Wiecki)*
 - [ ] **3. Hierarchical / multilevel models** (~4h) — **partial pooling** vs complete vs none, random effects, shrinkage, per-brand/geo structure. Default shape of nearly every model. *(Paz, Vincent; Fonnesbeck)*
-- [ ] **4. Sampling & the NUTS sampler** (~3h) — MCMC, chains/draws, NUTS/HMC, **nutpie**, target_accept, warmup. "It won't sample" lives here. *(Seyboldt, Vieira, Paz)*
-- [ ] **5. Convergence diagnostics** (~3h) — **divergences**, **R-hat**, **ESS**, ArviZ as the tool. The "is my model broken?" talk. *(Abril, Paz)*
+- [x] **4. Sampling & the NUTS sampler** (~3h) — MCMC, chains/draws, NUTS/HMC, **nutpie**, target_accept, warmup. "It won't sample" lives here. *(Seyboldt, Vieira, Paz)*
+- [x] **5. Convergence diagnostics** (~3h) — **divergences**, **R-hat**, **ESS**, ArviZ as the tool. The "is my model broken?" talk. *(Abril, Paz)*
 - [ ] **6. Priors done properly** (~3h) — weakly-informative vs tight, prior predictive checks, sensitivity, ZeroSumNormal, HalfNormal. *(Vincent, Säilynoja, Seyboldt)*
 - [ ] **7. Reparameterization & geometry** (~3h) — centered vs **non-centered**, "funnel" geometry, transforms — why rewriting helps it sample. The fix after divergences. *(Seyboldt, Paz)*
 - [ ] **8. The compute stack** (~3h) — PyMC builds a symbolic **PyTensor** graph; **JAX/NumPyro** are speed/GPU backends. Shapes, broadcasting, `mode="JAX"`. *(Vieira, Paz)*
@@ -70,6 +71,18 @@ Learn top-down and the chat stops being gibberish fastest.
 - [ ] **14. Frontier / niche — know the words exist** (~2h) — **variational inference / normalizing flows**, **Laplace approximation**, **drift-diffusion/HSSM**, R2D2/PC priors. *(Seyboldt, Fengler)*
 
 ## Sessions (newest at top)
+
+### 2026-07-05 · 41 min · Rungs 4+5 (sampling & diagnostics)
+- Warm-up (interleaved): retested MMM adstock/saturation ✓ and partial pooling ✓.
+- Covered: why we sample (posterior has no closed form → Monte Carlo); MCMC/chains/draws; NUTS/HMC
+  = gradient-guided walker (vs dumb random-walk), nutpie = fast Rust NUTS; tuning/target_accept.
+  Diagnostics: divergences (puck flew off at tight geometry), r-hat (chain agreement ≈1.0), ESS
+  (effective independent samples), ArviZ = the dashboard.
+- Big unlocks: **sampling ≠ optimization** (map the whole distribution, don't hunt a peak);
+  **likelihood = P(data | params)** (self-corrected the reversal); params = a length-D vector, D =
+  count of unknowns; the matmul is X@β (data matrix × param vector) → predictions → likelihood.
+- Cleared: read r-hat/ESS/divergence numbers and gave the right "inefficient vs broken" verdict.
+- Next: Rung 7 reparameterization — the fix for the divergences/low-ESS he can now diagnose.
 
 ### 2026-07-05 · ~20 min · Diagnostic + Rung 2 (MMM)
 - Diagnostic: strong structural intuition (prior, hierarchy, generative thinking); blank on ops
