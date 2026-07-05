@@ -80,10 +80,12 @@ Learn top-down and the chat stops being gibberish fastest.
 Decided 2026-07-05: drop toy examples. Carlos's family runs **Mama Sita's** (Marigold Manufacturing
 Corp.) — premium/heritage Filipino sauces & condiment mixes (oyster sauce, sinigang/kare-kare mixes,
 vinegars), diaspora-first export brand. **Middle East is the single biggest market**; also US/Canada/
-AU-NZ/Europe/Asia. Since 2014 distributed exclusively by **Monde Nissin** as master marketer — so
-there may be a layer between Marigold and overseas distributors. **OPEN Q for Carlos: does the family/
-Marigold side see distributor- or country-level data, or does Monde Nissin sit in front of all of it?
-That + "what's your clean anchor" decides what's actually modelable.** He likely can't share real
+AU-NZ/Europe/Asia. **Division of labor (Carlos, confirmed 2026-07-05): Monde Nissin handles LOCAL PH
+distribution; the family/Marigold handles EXPORT directly.** So the entire modeling domain of interest
+(overseas distributors, per-country hierarchy, reporting bias, diaspora seasonality) sits on data the
+family OWNS — no master-marketer curtain. Kills the "is this modelable" risk. **Still-OPEN Q: what's
+the clean anchor** — a channel/period/audited number they trust — needed to make the latent-bias model
+identifiable (else "low true demand" vs "distributor skimming" can't be separated). He likely can't share real
 data but will recognize a real problem instantly (it's his brand) — that recognition is the teaching
 lever. Every remaining literacy rung gets re-skinned in Mama Sita's; Phase 2 builds one running model.
 
