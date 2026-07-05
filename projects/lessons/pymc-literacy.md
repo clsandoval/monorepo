@@ -91,6 +91,14 @@ identifiable (else "low true demand" vs "distributor skimming" can't be separate
 data but will recognize a real problem instantly (it's his brand) — that recognition is the teaching
 lever. Every remaining literacy rung gets re-skinned in Mama Sita's; Phase 2 builds one running model.
 
+TOOL NOTE (2026-07-05): the PyMC ecosystem maps 1:1 to the rungs. PyTensor=Rung8, PyMC core=most
+rungs, nutpie=4, ArviZ=5, Pathfinder(pymc-extras)=14, PyMC-Marketing=2/3/9, CausalPy=9 (retrospective
+quasi-experiment), **pathmc** (pymc-labs, new June-2026 beta)=9: structural DAG→do() PLUS identifiability
+checks & unmeasured-confounding SENSITIVITY. pathmc is a strong candidate Phase-2 tool for the latent-
+bias/true-demand model — it does exactly the do-operator + confounding-sensitivity we flagged as the crux.
+Org split: core (PyMC/PyTensor/pymc-extras/nutpie) = pymc-devs (community); applied (marketing/causalpy/
+pathmc) = pymc-labs (company Carlos works at).
+
 HOW TO USE THIS (Carlos, 2026-07-05): do NOT pre-pick a spine or 10-point an exercise up front. Just
 run the normal rung-by-rung plan with generic examples; when one comes up, Carlos flags the real-world
 Mama Sita's nuance ("this is fine, but in the real world here's the wrinkle") and you fit it in on the
