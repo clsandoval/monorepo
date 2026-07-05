@@ -2,12 +2,12 @@
 type: lesson
 topic: Japanese
 started: 2026-07-05
-goal: Conversational Japanese + basic reading (manga/text). Talk to people, follow everyday
-  Japanese, read simple written material. (Default goal — revise if he names a narrower target.)
+goal: FLUENCY — hold real conversations, work/live in Japanese, read native material (news, novels,
+  manga), watch shows without subs. Roughly JLPT N2→N1 / professional working proficiency.
 level: Advanced beginner (~high N5, entering N4). Reads hiragana fluently, knows core greetings,
   the X は Y です copula, and recognizes common kanji (日本語/私/食べる) with readings. Gaps: verb
   conjugation (mixed up hoshii vs ～tai), particles (は/を/が confusion), and output/typing on JP IME.
-hours_estimate: 300   # to comfortable conversational + basic reading; already has a chunk done
+hours_estimate: 2200   # FSI Category-IV estimate to professional fluency; ~150h already banked from prior exposure
 hours_done: 0.4
 next_up: Verb groups — ru-verbs vs u-verbs and the stem hop (飲む→飲み, mu→mi). He keeps defaulting
   to dictionary-form + たい (のむたい) for u-verbs; ru-verbs (食べたい) he gets. Drill u-verb stems, then
@@ -20,6 +20,14 @@ Not starting from zero — reads kana, knows basic copula sentences and common k
 grammar mechanics (verbs, particles) → vocab → kanji → output. He wants to practice typing on his
 Japanese keyboard (IME), so lean on production drills.
 
+**Languages:** English + Tagalog (native-level, Philippines). Tagalog gives a real pronunciation
+head start — its clean 5-vowel system (a/e/i/o/u) maps almost 1:1 onto Japanese vowels, and both
+are roughly syllable/mora-timed, so kana sounds and rhythm come easily (already showing — he reads
+kana fluently). Structurally Japanese is unrelated (SOV, agglutinative vs Austronesian VSO), so
+grammar is still the heavy lift — the estimate stands. Also a handful of shared loanwords
+(e.g. Tagalog has some via Spanish/English that Japanese also borrowed). Leverage: lean on his ear
+for pronunciation; don't expect grammar transfer.
+
 ## Roadmap (time-based, easy → hard)
 
 - [~] **Kana — hiragana + katakana** (~6h) — hiragana solid; confirm/shore up katakana.
@@ -29,8 +37,11 @@ Japanese keyboard (IME), so lean on production drills.
 - [ ] **Core vocab N5→N4** (~45h) — ~800 everyday words.
 - [ ] **Kanji N5→N4** (~45h) — ~300 kanji with readings.
 - [ ] **Everyday grammar patterns** (~45h) — giving/receiving, potential, conditionals, connectors.
-- [ ] **Listening + speaking** (~50h) — comprehension + spoken production.
-- [ ] **Reading practice** (~54h) — graded readers → simple manga.
+- [ ] **Listening + speaking (N4→N3)** (~120h) — comprehension + spoken production, everyday fluency.
+- [ ] **Reading practice (N4→N3)** (~120h) — graded readers → manga → simple articles.
+- [ ] **N3→N2 grammar + vocab** (~400h) — the big middle: ~1000 kanji, ~6000 words, nuanced grammar.
+- [ ] **N2→N1 + native immersion** (~800h) — news/novels/podcasts unassisted, keigo, idiom, nuance.
+- [ ] **Active fluency polish** (~400h) — sustained conversation, writing, thinking in Japanese.
 
 ## Sessions (newest at top)
 
