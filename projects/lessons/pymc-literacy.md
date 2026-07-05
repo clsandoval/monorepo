@@ -13,12 +13,14 @@ level: Strong structural intuition (prior, hierarchy, generative thinking — ha
 hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
-hours_done: 1.7
-next_up: Rung 9 — Causal inference & DAGs (started same-day right after Rung 8; heavier rung, frames
-  the promo-vs-forward-buying business problem). confounders, colliders, backdoor paths, pm.do /
-  interventions, correlation≠causation. Warm-up: graph=compile-target one-liner + prior flat-vs-weak.
-  NEGLECT-SCAN remaining: 10 (model comparison/LOO), 11 (likelihoods/GLMs), 12 (GP/HSGP),
-  13 (state-space), 14 (frontier). 11 is foundational — slot soon.
+hours_done: 1.9
+next_up: Rung 11 — Likelihoods, GLMs & regression (foundational; picking the likelihood: Normal /
+  Poisson / Student-T / Binomial, link functions, why count data ≠ Normal). Warm-up: confounder-vs-
+  collider one-liner (include the fork, drop the collider) + the negative?→Normal/HalfNormal rule.
+  Only 5 rungs left: 10 (model comparison/LOO), 11 (do next), 12 (GP/HSGP), 13 (state-space),
+  14 (frontier). Phase-1 literacy nearly done — likely 2-3 more short sessions.
+  OPEN thread to revisit in Phase 2: confounder (observed, include) vs latent variable (unobserved,
+  model) — Carlos kept conflating; untangle when building the Mama Sita's true-demand model.
 ---
 
 # PyMC Labs Discord literacy
@@ -68,7 +70,7 @@ Learn top-down and the chat stops being gibberish fastest.
 - [x] **6. Priors done properly** (~3h) — weakly-informative vs tight, prior predictive checks, sensitivity, ZeroSumNormal, HalfNormal. *(Vincent, Säilynoja, Seyboldt)*
 - [x] **7. Reparameterization & geometry** (~3h) — centered vs **non-centered**, "funnel" geometry, transforms — why rewriting helps it sample. The fix after divergences. *(Seyboldt, Paz)*
 - [x] **8. The compute stack** (~3h) — PyMC builds a symbolic **PyTensor** graph; **JAX/NumPyro** are speed/GPU backends. Shapes, broadcasting, `mode="JAX"`. *(Vieira, Paz)*
-- [ ] **9. Causal inference & DAGs** (~4h) — correlation≠causation, **DAGs**, confounders, interventions (`pm.do`), incrementality. Frames most MMM work. *(Vincent, Orduz, Luhmann)*
+- [x] **9. Causal inference & DAGs** (~4h) — correlation≠causation, **DAGs**, confounders, interventions (`pm.do`), incrementality. Frames most MMM work. *(Vincent, Orduz, Luhmann)*
 - [ ] **10. Model comparison** (~2h) — **LOO / ELPD / WAIC**, PSIS **k-hat**, "better predictive fit." *(Abril, Engels)*
 - [ ] **11. Likelihoods, GLMs & regression** (~3h) — picking a likelihood (Normal/Poisson/Student-T/Binomial), link functions, marginalizing discrete latents. *(Vincent, Paz, Luhmann)*
 - [ ] **12. Gaussian Processes & HSGP** (~3h) — GP = flexible prior over functions; lengthscale/kernel; **HSGP** fast approximation; spatial/smooth trends. *(Engels, Fonnesbeck)*
@@ -108,6 +110,21 @@ fly. The six below are a MENU for opportunistic grounding, not a committed proje
    w/ exogenous shock).
 
 ## Sessions (newest at top)
+
+### 2026-07-05 · 14 min · Rung 9 (causal inference & DAGs) — the hardest rung, cleared
+- Continued same-day from Rungs 6+8. Covered: data fits correlation, only the DAG encodes causal
+  direction (arrows = your assumption). Confounder/fork (Promo←Season→Sales) = common cause, INCLUDE
+  it (close the backdoor) or the treatment over-attributes. Collider (Quality→Shelf←AdSpend) = common
+  effect, EXCLUDE it — controlling it invents a fake relationship between its causes. The asymmetry:
+  confounder open-by-default (control closes), collider closed-by-default (control opens) — same action,
+  opposite effect, so you MUST have the DAG. pm.do = intervention P(y|do(x)), severs incoming arrows =
+  the real budget question vs contaminated P(y|x observed).
+- He GOT the mechanisms cold (stated collider bias correctly unprompted; nailed both re-lock checks:
+  omit confounder→over-attribute, control collider→invent relationship). Needed the "why is it *bad*"
+  grounded in a concrete false-business-belief (quality & adspend look like substitutes) to click.
+- Flagged (deferred to Phase 2): he kept conflating confounder (observed→include) with latent variable
+  (unobserved→model). Both live in the DAG, different roles. Untangle when building Mama Sita's model.
+- Next: Rung 11 likelihoods/GLMs.
 
 ### 2026-07-05 · 19 min · Rungs 6 (priors done properly) + 8 (compute stack)
 - Warm-up: partial-pooling → Qatar(thin data) leans on group, = shrinkage ✓.
