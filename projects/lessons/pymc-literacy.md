@@ -2,13 +2,17 @@
 type: lesson
 topic: PyMC Labs Discord literacy
 started: 2026-07-05
-goal: MASTERY of the PyMC Labs stack, reached literacy-first. Phase 1 = follow the technical
-  channels (recognize the vocab/concepts). Phase 2 = actually build it (specify, sample, diagnose,
-  ship the models the experts do). Climb literacy across the whole tree, then a mastery pass per rung.
+goal: Become a Bayesian modeling DIRECTOR + CRITIC (not an author). Carlos works fully agentically —
+  never hand-writes code — so mastery = specify a model in words/pseudocode, direct an agent to build
+  it in PyMC, then READ & REFEREE the output (catch a missing observation layer, the funnel,
+  non-identifiability, an r-hat you shouldn't trust). Reading fluency IN, authoring fluency OUT.
+  Phase 1 = literacy (follow the Discord). Phase 2 = build the real Mama Sita's model, agentically.
 phase: 1-literacy
-level: Strong structural intuition (prior, hierarchy, generative thinking — has ML/stats reflexes);
-  blank on operational vocab — diagnostics (r-hat/divergences), sampler mechanics, MMM jargon.
-hours_estimate: 350   # Phase 1 literacy ~40h + Phase 2 mastery ~300h (hands-on modeling across the tree)
+level: Strong structural intuition (prior, hierarchy, generative thinking — has ML/stats reflexes),
+  learns concepts FAST; gap is vocab (word lags mechanism) + hands-on judgment, not raw ability.
+hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
+  needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
+  real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
 hours_done: 1.4
 next_up: Rung 6 — Priors done PROPERLY (natural next click after prior-basics + hierarchy):
   weakly-informative vs tight, prior predictive checks (sanity-check assumptions BEFORE data),
@@ -70,6 +74,33 @@ Learn top-down and the chat stops being gibberish fastest.
 - [ ] **12. Gaussian Processes & HSGP** (~3h) — GP = flexible prior over functions; lengthscale/kernel; **HSGP** fast approximation; spatial/smooth trends. *(Engels, Fonnesbeck)*
 - [ ] **13. State-space & structural time series** (~3h) — trend+seasonality+regression components, **Kalman filter**, counterfactual forecasting. *(Grabowski, Fonnesbeck)*
 - [ ] **14. Frontier / niche — know the words exist** (~2h) — **variational inference / normalizing flows**, **Laplace approximation**, **drift-diffusion/HSSM**, R2D2/PC priors. *(Seyboldt, Fengler)*
+
+## Phase 2 project — Mama Sita's (the family business, real application domain)
+
+Decided 2026-07-05: drop toy examples. Carlos's family runs **Mama Sita's** (Marigold Manufacturing
+Corp.) — premium/heritage Filipino sauces & condiment mixes (oyster sauce, sinigang/kare-kare mixes,
+vinegars), diaspora-first export brand. **Middle East is the single biggest market**; also US/Canada/
+AU-NZ/Europe/Asia. Since 2014 distributed exclusively by **Monde Nissin** as master marketer — so
+there may be a layer between Marigold and overseas distributors. **OPEN Q for Carlos: does the family/
+Marigold side see distributor- or country-level data, or does Monde Nissin sit in front of all of it?
+That + "what's your clean anchor" decides what's actually modelable.** He likely can't share real
+data but will recognize a real problem instantly (it's his brand) — that recognition is the teaching
+lever. Every remaining literacy rung gets re-skinned in Mama Sita's; Phase 2 builds one running model.
+
+Candidate Phase 2 spines (Carlos to pick which he'd most want solved — flagship = #1 or #3):
+1. **True demand vs biased distributor sell-through reporting** (latent-variable / measurement model):
+   reported = true_demand × per-distributor bias × noise. Recover true demand, rank distributor
+   reliability. Maps to the real sell-in/sell-through visibility cliff.
+2. **Hierarchical demand: SKU → distributor → country → region** (partial pooling) — sparse cells
+   (niche mix in Kuwait) borrow strength; new distributors shouldn't be trusted at face value.
+3. **Promo uplift vs forward-buying, under-the-table discount as confounder** (causal/DAG) — post-promo
+   sell-in trough reveals pantry-loading; recover true incremental demand.
+4. **Dual-calendar diaspora seasonality** (structural time series) — fixed-Q4 Noche Buena (West) +
+   lunar-drifting Ramadan/Eid (Gulf); why month-dummies fail for Ramadan.
+5. **Sell-in → sell-through reconciliation, distributor inventory as hidden state** (state-space):
+   inv_t = inv_{t-1} + sell-in − true-demand. Plays to his systems/pipeline intuition.
+6. **Oyster-extract supply/cost shock → price pass-through & diaspora price-elasticity** (regression
+   w/ exogenous shock).
 
 ## Sessions (newest at top)
 
