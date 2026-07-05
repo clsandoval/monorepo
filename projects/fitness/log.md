@@ -11,7 +11,7 @@ Format: `## YYYY-MM-DD` then:
 ---
 
 ## 2026-07-05
-- **Cals / Protein:** ~326 / ~51g (shake: 2 tbsp Greek yogurt ~26/2.6g + 50g oat milk ~20/0.5g + 2 scoops protein ~280/48g + water)
+- **Cals / Protein:** ~826 / ~104g (shake: 2 tbsp Greek yogurt ~26/2.6g + 50g oat milk ~20/0.5g + 2 scoops protein ~280/48g + water; light malaxiangguo bowl ~500/53g [250g lean beef+squid, 200g mushroom, 200g cabbage raw; left a lot of the oily sauce])
 - **Trained:** OHP 10/10/6 @ 40/side · leg curl 3×8 @ 175
 - **Notes:** Finishing Day B (skipped 7/04). Just leg raises left to close it out.
 
