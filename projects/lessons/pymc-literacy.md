@@ -89,7 +89,10 @@ identifiable (else "low true demand" vs "distributor skimming" can't be separate
 data but will recognize a real problem instantly (it's his brand) — that recognition is the teaching
 lever. Every remaining literacy rung gets re-skinned in Mama Sita's; Phase 2 builds one running model.
 
-Candidate Phase 2 spines (Carlos to pick which he'd most want solved — flagship = #1 or #3):
+HOW TO USE THIS (Carlos, 2026-07-05): do NOT pre-pick a spine or 10-point an exercise up front. Just
+run the normal rung-by-rung plan with generic examples; when one comes up, Carlos flags the real-world
+Mama Sita's nuance ("this is fine, but in the real world here's the wrinkle") and you fit it in on the
+fly. The six below are a MENU for opportunistic grounding, not a committed project:
 1. **True demand vs biased distributor sell-through reporting** (latent-variable / measurement model):
    reported = true_demand × per-distributor bias × noise. Recover true demand, rank distributor
    reliability. Maps to the real sell-in/sell-through visibility cliff.
