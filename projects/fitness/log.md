@@ -5,15 +5,46 @@ Append-only. Newest at top. One line per day.
 Format: `## YYYY-MM-DD` then:
 - **Weight:** kg
 - **Cals / Protein:** e.g. 1820 / 165g
+- **Carbs / Sodium:** rough estimates, e.g. ~140g / ~3g (sodium floor ~3–5g; carbs ≥130g on training days)
 - **Trained:** e.g. 6min rope, pull-ups, OHP, deadlift, rows
 - **Notes:** optional
 
 ---
 
+## 2026-07-10
+- **Weight:** 96.1 kg (fasted AM)
+ - **Cals / Protein:** ~1860 / ~143g (half reuben ~320/16g; homemade cola ~140/0g; matcha latte oat milk ~130/2g; post-workout shake: 2 scoops ~280/48g + Greek yogurt cup ~138/14g; tonkatsu 200g thin-coat ~460/40g + salmon sashimi 100g ~130/20g + ½ cup rice ~130/3g + 2 tbsp tartar sauce ~120/0g + soy sauce wasabi ~10/0g)
+ - **Carbs / Sodium:** ~110g / ~2.5g (rye + cola sugar + oat milk + rice + tonkatsu breading + tartar sauce; corned beef + soy sauce + kraut carry sodium — solid)
+- **Trained:** pull-ups 2×2 strict + 2×6 assisted · ab crunch machine 2×12 @ 80 + 1×8 @ 90 (start @ 90 next time) · Smith incline bench 3×10 @ 55/side (set 1 in triceps — repositioned bench, bar to upper chest, fixed: chest felt sets 2–3) · goblet squats 2×10 @ 30 lb (skipped 3rd, legs shaking)
+- **Notes:** Partial bounce off yesterday's 95.1 as food volume normalizes post-gut-episode — expected, called it in the 7/09 entry. Still 0.3 under the 7/03 low (96.4); trend intact.
+
+## 2026-07-09
+- **Weight:** 95.1 kg (fasted AM)
+- **Cals / Protein:** ~1930 / ~131g so far (breakfast: lamb kebab 100g cooked ~260/25g + pita ~270/9g + yogurt ~80/5g; lunch: Bob's Red Mill protein pancake mix 1 cup dry ~510/48g [label: 1/3 cup 45g = 170/16g] + water + 2 tbsp honey ~130/0g; dinner: fried rice ~1.5 cups ~450/9g + baked cod ~170g ~160/35g; iced tea 200ml ~70/0g)
+- **Carbs / Sodium:** ~200g / ~2–3g (pancakes + honey + rice carry the carbs; fried rice + kebab carry most of the sodium)
+- **Notes:** New low — down 1.3 from the 7/03 low (96.4). Some of that is the gut episode + light eating flushing through, so expect a partial bounce as food volume normalizes; trend is still clearly down. 7/08 unlogged. ~29g to protein floor with ~70 cal room — 1 scoop shake lands ~155g at ~2070 (floor beats ceiling; that's close enough, cottage cheese optional if still hungry).
+
+## 2026-07-07
+- **Cals / Protein:** ~500 / ~15g so far (breakfast: bacon + garlic rice ~500/15g — salty + carby, exactly right for dive morning; ~1g+ sodium)
+- **Notes:** Morning check-in: feels a lot better — no loose stools overnight/this morning, appetite back. Gut episode resolving on schedule. Real salted breakfast eaten → dive is a go if urine's pale. Small coffee pre-dive OK per yesterday's plan. Protein is way behind (~145g to floor) — front-load a shake after the dive, don't get cornered at night. Rotation resumes 7/08 (Day B remainder: leg raises, then Day C).
+
+## 2026-07-06
+- **Weight:** ~98 kg (evening, post-rehydration — NOT comparable to fasted AM numbers; ~2L fluid + 2g sodium + loperamide retention. Disregard for trend.)
+- **Cals / Protein:** ~555 / ~6g by evening (2 big pomelo slices ~100, 2 bananas ~210, 4 Liquid IV ~180, misc) — appetite suppressed. Shake still owed before bed; ~1200 target.
+- **Notes:** Woke with constipation → loose stools; cold sweat + headache that cleared right after the BM (vasovagal from straining, most likely). Context: yesterday ~1415 cal / ~110g carbs, near-zero fiber, week of deep deficits + confirmed sodium depletion. Plan: electrolytes + salt this morning, fiber + carbs today, eat closer to the 2000 ceiling. One-off = fine; recurs or blood/black stool/fever → doctor.
+- **Midday update (~1pm):** Slept another ~4h, feels better. Stool still loose; hydrating with water + electrolytes. Rest day — no lifting. Doctor threshold: loose stools past ~48h (i.e., still loose 7/08), blood/black stool, fever, or dizziness that electrolytes don't fix.
+- **Diving 7/07:** Go/no-go tomorrow AM = stool improving, no dizziness, pale urine, real breakfast. Dehydration is a DCS risk factor — today is full rehydration (water + electrolytes + salted food, eat near the 2000 ceiling, skip dairy). Dive = tomorrow's training; rotation resumes 7/08.
+- **Fluids:** ~1.5L by mid-afternoon; 4× Liquid IV (~2g Na / ~180 kcal) — cap ~5 today, stop when it stops tasting good; rest of sodium from food. Urine still yellow mid-afternoon → noticeably lighter by evening (rehydration landing).
+- **Meds:** 2× Diatabs (4mg loperamide) mid-afternoon; loose stool ~1h later (pre-drug residual, expected) → +1 cap = 6mg. One cap left in today's 8mg budget — only if another loose stool. Firming stack: rice/oats base + 2–3 bananas, no dairy/fatty/big fructose loads.
+- **Temp:** felt warm early evening; thermometer 37.2°C = normal, no fever. Consistent with dehydration-impaired cooling, not infection.
+- **Evening:** gas passing without stool = gut settling, loperamide holding. Appetite returning (croissant + banana + shake plan, ~1200 target). Saliva still thick = hydration lagging but pee much lighter.
+- **Coffee:** none in 2 days — caffeine withdrawal likely contributed to yesterday's headache/fog (alongside sodium) and quitting the bowel stimulant during a zero-fiber week fed the constipation. No coffee today (motility); small cup tomorrow AM pre-dive.
+
 ## 2026-07-05
-- **Cals / Protein:** ~826 / ~104g (shake: 2 tbsp Greek yogurt ~26/2.6g + 50g oat milk ~20/0.5g + 2 scoops protein ~280/48g + water; light malaxiangguo bowl ~500/53g [250g lean beef+squid, 200g mushroom, 200g cabbage raw; left a lot of the oily sauce])
+- **Cals / Protein:** ~1415 / ~155g (rounded up for buffer; shake: 2 tbsp Greek yogurt ~26/2.6g + 50g oat milk ~20/0.5g + 2 scoops protein ~280/48g + water; light malaxiangguo bowl ~500/53g [250g lean beef+squid, 200g mushroom, 200g cabbage raw; left a lot of the oily sauce]; 2nd shake: 2 scoops protein ~280/48g + almond milk mixer ~35/1g [assumed standard 2-scoop]; dinner: ~100g mashed potato + mango ~170/3g; Liquid IV ~45/0g [~500mg sodium, 11g carbs])
+- **Carbs / Sodium:** ~110g / ~2–3g (malaxiangguo ~1.5–2.5g even sans sauce + Liquid IV 0.5g; home food near-zero)
 - **Trained:** OHP 10/10/6 @ 40/side · leg curl 3×8 @ 175
-- **Notes:** Finishing Day B (skipped 7/04). Just leg raises left to close it out.
+- **Notes:** Finishing Day B (skipped 7/04). Just leg raises left to close it out. Reported fatigue + headaches + brain fog — week has run ~100g carbs/day on deep deficits (today ~1430 under TDEE pre-fix). Took Liquid IV as the electrolyte test → **headache gone within the hour = test positive, it was sodium/fluids** (also craved it — salt hunger, consistent). Cause fits: daily rope sweat + unsalted lean whole food. Fix going forward: salt food / electrolytes on sweat days, don't wait for the headache. Carb+protein meal still owed tonight (~585 cal room, 5g to protein floor); fog/fatigue = fuel half, verdict tomorrow after normal carbs.
 
 ## 2026-07-04
 - **Weight:** 97.3 kg (fasted AM)
