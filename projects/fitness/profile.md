@@ -17,11 +17,32 @@ Keep it current — when weight/targets/equipment change, edit here.
 - **Age / sex:** 26, male
 - **Timezone:** GMT+8 (log dates are local)
 - **Height:** 185 cm
-- **Current:** ~96 kg, ~30% body fat → lean mass ≈ 68–69 kg
-- **Goal:** fat loss → **15% body fat**
-- **Target weight band:** ~80–85 kg (15% BF lands ~80–81 kg if muscle is kept; sub-90 is acceptable)
+- **Current:** ~94.6 kg (7/13 low), ~30% body fat → lean mass ≈ 68–69 kg
+- **Goal (two-phase — added 2026-07-13):** the real target is **ripped in the mid-80s**, which is a
+  muscle goal, not just a fat goal. At today's ~68–69 kg lean mass he'd be ripped at only ~78 kg
+  (12% BF) — the lightweight look he says is *too lean*. Being shredded at ~84 kg needs ~74 kg lean
+  mass = **build ~5–6 kg of muscle**. So:
+  1. **Phase 1 — CUT to ~15% BF (~80–81 kg).** Current active phase. Get lean first: at 30% BF a
+     surplus adds mostly fat, and he can't see what he's building. Lever = diet + consistency.
+  2. **Phase 2 — LEAN-BULK toward mid-80s at 10–12% BF.** Slow surplus (~200–300 over TDEE), protein
+     high, progressive overload on the rotation. Target ~74 kg lean mass (+5–6 kg from now).
+  - **Reference (184–185cm ripped spectrum):** ~79 kg lean/lightweight (LM ~70) · **~84 kg
+    athletic-muscular sweet spot (LM ~74, FFMI ~21–22)** · ~88 kg advanced (LM ~78). Mid-80s = the
+    middle, a genuine natural target — but it's the destination *after* Phase 2, not what the cut reaches.
+  - **MUSCLE MEMORY — the decisive factor (added 2026-07-13):** he competed in judo at **~115 kg**.
+    A heavyweight judoka carries ~80–86 kg lean mass even at 25–30% BF — i.e. he has *already built and
+    held far more muscle than the ~74 kg Phase 2 target*. So Phase 2 is **reclamation, not new
+    construction.** Myonuclei persist for years → reclaimed muscle rebuilds at near-beginner rates.
+    Revised estimate: **+5–6 kg lean is realistic in ~6–9 months** of consistent training + slight
+    surplus, front-loaded early — NOT the 12–18 mo a from-scratch build would take. **Competed ~3 years
+    ago** → muscle memory fully intact, no meaningful re-stimulus ramp; expect the faster end of 6–9 mo,
+    first kilos back noticeably fast. Caution: his overtraining history is from this exact era, and
+    strength returns even faster than size after a 3-yr layoff — the 70–80% / no-failure rule is doubly
+    important. Connective tissue re-adapts slower than muscle, so grinding on returning strength is
+    where re-injury lives. Reclaimed muscle comes back fine on submaximal volume.
 - **Context:** not starting from zero — definition returns within 30–40 days of consistency.
-  This is a cleanup phase. The lever is **diet + consistency**, not training harder.
+  Phase 1 is a cleanup phase. The lever is **diet + consistency**, not training harder.
+  Muscle preservation (protein floor + lifts) matters doubly now: it's also the base Phase 2 builds on.
 
 ## Targets (the decision rule)
 

@@ -13,8 +13,8 @@ Format: `## YYYY-MM-DD` then:
 
 ## 2026-07-13
 - **Weight:** 94.6 kg (fasted AM)
-- **Cals / Protein:** ~1480 / ~137g so far (dinner: beef tenderloin 150g confit in olive oil + garlic ~390/40g [lean cut ~270 + ~1 tbsp absorbed oil]; baked salmon 200g ~415/42g; ½ cup rice ~120/2g; no-sugar milk tea ~150/3g; double shake 2 scoops ~280/48g; Liquid IV ~45/0g; white toast 1 slice ~80/2g)
-- **Carbs / Sodium:** ~88g / ~2.5–3g so far (rice ~26g + milk tea ~12g + shake ~24g + Liquid IV ~11g + toast ~15g; salmon + beef were salted ~1–1.5g + Liquid IV ~0.5g — sodium floor basically met)
+- **Cals / Protein:** ~1960 / ~160g (dinner: beef tenderloin 150g confit in olive oil + garlic ~390/40g [lean cut ~270 + ~1 tbsp absorbed oil]; baked salmon 200g ~415/42g; ½ cup rice ~120/2g; no-sugar milk tea ~150/3g; double shake 2 scoops ~280/48g; Liquid IV ~45/0g; white toast 1 slice ~80/2g; peanut butter cup ~105/2g; nightcap: 160g Bulla cottage cheese ~131/19g + 2 small bananas + 1 tbsp honey ~244/2g)
+- **Carbs / Sodium:** ~155g / ~2.5–3g (rice ~26g + milk tea ~12g + shake ~24g + Liquid IV ~11g + toast ~15g + 2 bananas ~46g + honey ~17g; salmon + beef salted ~1–1.5g + Liquid IV ~0.5g — sodium floor basically met; bananas add fiber + potassium to break the near-zero-fiber pattern that triggered 7/06)
 - **Gut:** bloated post-dinner — rice (flagged bloater 7/12) + milk tea dairy the suspects. Settled enough for the double shake after all.
 - **Trained:** Day A (modified) — Smith incline bench 3×10 @ 55/side · RDL 3×8 @ 45/side · barbell rows 3×9 @ 45/side (swapped in for cable rows) · leg extensions 3×12 @ 175 (up from 3×10)
 - **Health:** Full STI panel — all clear.
