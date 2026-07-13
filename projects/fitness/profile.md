@@ -3,7 +3,7 @@ type: project
 name: Fitness
 status: active
 tags: [health, fat-loss, training]
-updated: 2026-07-03
+updated: 2026-07-13
 
 ---
 
@@ -17,7 +17,7 @@ Keep it current — when weight/targets/equipment change, edit here.
 - **Age / sex:** 26, male
 - **Timezone:** GMT+8 (log dates are local)
 - **Height:** 185 cm
-- **Current:** ~96.5 kg, ~30% body fat → lean mass ≈ 68–69 kg
+- **Current:** ~96 kg, ~30% body fat → lean mass ≈ 68–69 kg
 - **Goal:** fat loss → **15% body fat**
 - **Target weight band:** ~80–85 kg (15% BF lands ~80–81 kg if muscle is kept; sub-90 is acceptable)
 - **Context:** not starting from zero — definition returns within 30–40 days of consistency.
@@ -27,7 +27,20 @@ Keep it current — when weight/targets/equipment change, edit here.
 
 - **Calories ≤ 2000/day** — this is a **CEILING**.
 - **Protein ≥ 160 g/day** — this is a **FLOOR** (180 g is optimal but not realistic, don't push it).
-- Carbs/fat: flexible, fill whatever's left under the ceiling.
+- **Sodium ~3–5 g/day** — a FLOOR for him (added 2026-07-05 after confirmed depletion: lower-carb
+  eating dumps sodium + daily rope sweat + unsalted staples). Salt cooked meals (1 tsp salt ≈ 2.3g
+  Na); Liquid IV (~0.5g Na, 45 kcal) = convenience for sweat days / eating out, not the supply line.
+- **Minerals to watch (from food, not obsessive tracking):** potassium ~3.5g (fruit, potatoes,
+  yogurt, vegetables — his staples mostly cover it), magnesium ~400mg (nuts, leafy greens; the one
+  most likely short — cheap glycinate supplement is fine if cramps/sleep issues show).
+- Carbs/fat: flexible, fill whatever's left under the ceiling — but **~130–150g carbs is the
+  practical training-day minimum** (fog/flat lifts below that, see 7/05).
+- **Calories ≥ ~1700/day — a FLOOR** (added 2026-07-06). Repeated ~1400 days caused the
+  constipation → straining → vasovagal → diarrhea episode of 7/06. The deficit at 2000 is already
+  ~800; deeper buys nothing.
+- **Fiber daily — a FLOOR** (added 2026-07-06): his staples (shake, yogurt, lean meat) are
+  near-zero fiber. Practical rule: 2 fruit + a fist of vegetables + oats/potatoes daily (~25g,
+  no tracking needed). A zero-fiber week is how 7/06 happened.
 
 **TDEE estimate:** Mifflin BMR ≈ 2010, light daily training (×1.4) ≈ **~2800 kcal/day**.
 At the 2000 ceiling that's a **~800 kcal deficit ≈ ~0.7 kg/week** fat loss. Reasonable, sustainable.
@@ -41,7 +54,8 @@ Floor beats ceiling when both are in tension (hitting protein matters more than 
 
 ## Food
 
-- **Restrictions:** none.
+- **Restrictions:** none hard, but **rice, pasta, AND potatoes bloat him** (added 2026-07-12) —
+  **fruit (bananas especially) and oats are his carb sources.** Bananas double as potassium + fiber.
 - **Staple protein — actual label macros (use these, not estimates):**
   | Item | Serving | kcal | Protein | Carb | Fat |
   |---|---|---|---|---|---|
@@ -55,6 +69,11 @@ Floor beats ceiling when both are in tension (hitting protein matters more than 
   - **Cottage cheese:** Bulla High Protein (Original) — 12g protein / 82 kcal per 100g. Lean, cheap, scalable protein for closing the floor (macros above; per CalorieKing AU + MyNetDiary).
 - **Whole-food protein is expensive** — don't build the plan around it.
 - **When out / occasional:** steak, salmon.
+- **Sodium matters for him** (confirmed 2026-07-05): daily rope sweat + mostly-unsalted lean whole
+  food → headache/lightheadedness that a Liquid IV (~500mg Na, ~45 kcal) cleared within the hour.
+  Rule: salt food or one electrolyte packet on sweat days, preemptively. Also: don't run days at
+  ~100g carbs / <1600 kcal repeatedly — fog + flat lifts follow; ~130–150g carbs is the practical
+  training-day minimum.
 
 ## Training
 
@@ -67,7 +86,7 @@ Floor beats ceiling when both are in tension (hitting protein matters more than 
 - **Priority: consistency over intensity.** Travels often — miss a day, pick up the cycle where it left off. Travel = just the rope.
 - **Daily session:** 30–40 min = **5 min jump rope** + **4 lifts**, always full body (push + pull + hinge/squat + core).
 - **3-day rotation** — cycle A → B → C → repeat:
-  - **Day A:** Smith bench 3×8 · cable rows 3×10 · RDLs 3×8 · leg extensions 3×10
+  - **Day A:** Smith incline bench 3×8 · cable rows 3×10 · RDLs 3×8 · leg extensions 3×10 (no flat bench — incline only, both press days)
   - **Day B:** OHP 3×8 · pull-ups (strict-then-assisted) · leg curl 3×10 · leg raises 2×12
   - **Day C:** Smith incline bench 3×8 · cable rows 3×10 · goblet squat 3×10 · bicep curls 3×10 + cable lateral raises 3×12
 - **Intensity:** trains at **70–80% deliberately**. 8 yrs judo + overtraining history —

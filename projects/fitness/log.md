@@ -11,9 +11,28 @@ Format: `## YYYY-MM-DD` then:
 
 ---
 
+## 2026-07-13
+- **Weight:** 94.6 kg (fasted AM)
+- **Cals / Protein:** ~1480 / ~137g so far (dinner: beef tenderloin 150g confit in olive oil + garlic ~390/40g [lean cut ~270 + ~1 tbsp absorbed oil]; baked salmon 200g ~415/42g; ½ cup rice ~120/2g; no-sugar milk tea ~150/3g; double shake 2 scoops ~280/48g; Liquid IV ~45/0g; white toast 1 slice ~80/2g)
+- **Carbs / Sodium:** ~88g / ~2.5–3g so far (rice ~26g + milk tea ~12g + shake ~24g + Liquid IV ~11g + toast ~15g; salmon + beef were salted ~1–1.5g + Liquid IV ~0.5g — sodium floor basically met)
+- **Gut:** bloated post-dinner — rice (flagged bloater 7/12) + milk tea dairy the suspects. Settled enough for the double shake after all.
+- **Trained:** Day A (modified) — Smith incline bench 3×10 @ 55/side · RDL 3×8 @ 45/side · barbell rows 3×9 @ 45/side (swapped in for cable rows) · leg extensions 3×12 @ 175 (up from 3×10)
+- **Health:** Full STI panel — all clear.
+- **Notes:** New low — down 1.0 from yesterday's AM (95.6) and 1.8 under the 7/03 low (96.4). Correction to the 7/12 fluid-deficit read: he actually took in a LOT of sodium + water in the evening (rehydrated hard after the backwards evening weigh-in). High sodium/water usually *inflates* the next fasted AM number — dropping a full kilo anyway makes this low more credible, not less. Trend ~0.9 kg/week since 7/01, tracking the ~0.7 model.
+
+## 2026-07-12
+- **Weight:** 95.6 kg (fasted AM)
+- **Cals / Protein:** ~1705 / ~121g so far (shake: 2 scoops ~280/48g, water; kare-kare no rice: 3–4 tbsp beef + peanut sauce ~140/11g [revised down from 1-cup estimate] + boiled veggies ~40/2g + 1 tbsp bagoong ~30/1g; sweet oat latte ~180/2g; pizza slice ~500/20g; evening: 2× Liquid IV ~90/0g + small cake slice 30–40g ~130/2g [revised down]; dinner: protein pasta ~40g dry ~150/11g + 200g cottage cheese blended w/ blanched garlic ~164/24g, no oil)
+- **Carbs / Sodium:** ~165g / ~3.5g so far (bagoong + kare-kare sauce + pizza carry the sodium, Liquid IVs close the floor; latte ~30g + pizza ~55g + cake ~15g + Liquid IV ~22g carbs — carb minimum met; bananas/oats are the fill, rice/pasta/potatoes now flagged as bloaters)
+- **Evening weigh-in:** 95.0 kg — BELOW the fasted AM 95.6, which is backwards (evening normally runs +0.5–1.5 over AM from food/fluid in transit). Read: fluid deficit, not fat — light intake (~1450 cal), low carbs (~110g = less glycogen water), sodium under floor (~2.5g). Not comparable to AM trend numbers; disregard for trend. Action tonight: water + salt/electrolytes. Shake ×2 still owed → lands ~1985 / ~169g (floor hit, under ceiling).
+
+## 2026-07-11
+- **Weight:** 95.8 kg (fasted AM)
+- **Cals / Protein:** ~2070 / ~132g so far (David's protein bar ~150/28g; lunch: caesar salad ~460/10g + beef souvlaki 2 sticks 150g ~750/90g + pita ~500/12g + yoghurt sauce ~210/4g)
+
 ## 2026-07-10
 - **Weight:** 96.1 kg (fasted AM)
- - **Cals / Protein:** ~1860 / ~143g (half reuben ~320/16g; homemade cola ~140/0g; matcha latte oat milk ~130/2g; post-workout shake: 2 scoops ~280/48g + Greek yogurt cup ~138/14g; tonkatsu 200g thin-coat ~460/40g + salmon sashimi 100g ~130/20g + ½ cup rice ~130/3g + 2 tbsp tartar sauce ~120/0g + soy sauce wasabi ~10/0g)
+ - **Cals / Protein:** ~1970 / ~167g (half reuben ~320/16g; homemade cola ~140/0g; matcha latte oat milk ~130/2g; post-workout shake: 2 scoops ~280/48g + Greek yogurt cup ~138/14g; tonkatsu 200g thin-coat ~460/40g + salmon sashimi 100g ~130/20g + ½ cup rice ~130/3g + 2 tbsp tartar sauce ~120/0g + soy sauce wasabi ~10/0g; evening: 80g canned tuna ~85/20g + 2 tbsp cottage cheese ~25/4g)
  - **Carbs / Sodium:** ~110g / ~2.5g (rye + cola sugar + oat milk + rice + tonkatsu breading + tartar sauce; corned beef + soy sauce + kraut carry sodium — solid)
 - **Trained:** pull-ups 2×2 strict + 2×6 assisted · ab crunch machine 2×12 @ 80 + 1×8 @ 90 (start @ 90 next time) · Smith incline bench 3×10 @ 55/side (set 1 in triceps — repositioned bench, bar to upper chest, fixed: chest felt sets 2–3) · goblet squats 2×10 @ 30 lb (skipped 3rd, legs shaking)
 - **Notes:** Partial bounce off yesterday's 95.1 as food volume normalizes post-gut-episode — expected, called it in the 7/09 entry. Still 0.3 under the 7/03 low (96.4); trend intact.
