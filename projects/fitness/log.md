@@ -11,6 +11,12 @@ Format: `## YYYY-MM-DD` then:
 
 ---
 
+## 2026-07-14
+- **Weight:** 95.0 kg (fasted AM)
+- **Cals / Protein:** ~1000 / ~77g so far (grilled lamb skewer 60g ~150/15g; fried potatoes 60g + 1 tbsp sour cream ~120/2g; half rotisserie chicken ~225g meat ~530/57g; latte ~200/3g)
+- **Carbs / Sodium:** ~70g / ~2–3g so far (potatoes ~12g + latte ~20g + chicken baste/seasoning; rotisserie skin + fried potatoes carry most sodium)
+- **Notes:** +0.4 off yesterday's 94.6 low — noise, not a real move (7/13 dinner was high-sodium + a lot of evening water/Liquid IV, exactly the setup that inflates the next AM). Still 1.4 under the 7/03 low; ~0.9 kg/week trend intact.
+
 ## 2026-07-13
 - **Weight:** 94.6 kg (fasted AM)
 - **Cals / Protein:** ~1960 / ~160g (dinner: beef tenderloin 150g confit in olive oil + garlic ~390/40g [lean cut ~270 + ~1 tbsp absorbed oil]; baked salmon 200g ~415/42g; ½ cup rice ~120/2g; no-sugar milk tea ~150/3g; double shake 2 scoops ~280/48g; Liquid IV ~45/0g; white toast 1 slice ~80/2g; peanut butter cup ~105/2g; nightcap: 160g Bulla cottage cheese ~131/19g + 2 small bananas + 1 tbsp honey ~244/2g)
