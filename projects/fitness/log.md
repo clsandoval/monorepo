@@ -11,10 +11,16 @@ Format: `## YYYY-MM-DD` then:
 
 ---
 
+## 2026-07-15
+- **Weight:** 95.5 kg (fasted AM)
+- **Cals / Protein:** ~1685 / ~98g so far (½ cup rice ~120/2g; grilled salmon 150g ~310/30g; Kenny Rogers rotisserie chicken thigh 150g ~345/36g; corn + carrots w/ butter 50g ~60/1g; ½ corn muffin ~105/2g; 25%-sugar milk tea ~155/3g; ½ cup rice ~120/2g; 100g pork salpicao ~270/19g; 1 mango ~100/1.5g; 1 banana ~100/1.2g)
+- **Carbs / Sodium:** ~150g / ~3.5g so far (rice ~26g + corn/carrots ~8g + corn muffin ~16g + milk tea ~18g + rice ~26g + mango ~25g + banana ~25g; rotisserie skin + salted salmon + butter + muffin + salpicao soy sauce carry the sodium)
+- **Notes:** +0.5 off yesterday's 95.0 — noise, not fat. 7/14 ran high carb (~188g) + high sodium (~4–5g, multiple Liquid IVs) + late matcha/banana; that's exactly the water-retention setup that inflates the next fasted AM. Still 0.9 under the 7/03 low (96.4); ~0.7–0.9 kg/week trend intact. Watch the 3-day average, not the daily tick. Protein 62g under floor with ~315 cal room — shake + cottage cheese still owed.
+
 ## 2026-07-14
 - **Weight:** 95.0 kg (fasted AM)
-- **Cals / Protein:** ~1730 / ~107g so far (grilled lamb skewer 60g ~150/15g; fried potatoes 60g + 1 tbsp sour cream ~120/2g; half rotisserie chicken ~225g meat ~530/57g; latte ~200/3g; 2× Liquid IV ~90/0g; 2 street tacos 1 shrimp + 1 fish battered, corn tortilla, salsa, tomato, cilantro sauce, onion ~460/28g; strawberry matcha ~180/2g)
-- **Carbs / Sodium:** ~165g / ~4–5g so far (potatoes ~12g + latte ~20g + chicken baste/seasoning + Liquid IV ~22g + tacos ~41g + matcha ~32g; rotisserie skin + fried potatoes + Liquid IV + taco batter carry sodium)
+- **Cals / Protein:** ~1820 / ~108g so far (grilled lamb skewer 60g ~150/15g; fried potatoes 60g + 1 tbsp sour cream ~120/2g; half rotisserie chicken ~225g meat ~530/57g; latte ~200/3g; 2× Liquid IV ~90/0g; 2 street tacos 1 shrimp + 1 fish battered, corn tortilla, salsa, tomato, cilantro sauce, onion ~460/28g; strawberry matcha ~180/2g; small banana ~90/1g)
+- **Carbs / Sodium:** ~188g / ~4–5g so far (potatoes ~12g + latte ~20g + chicken baste/seasoning + Liquid IV ~22g + tacos ~41g + matcha ~32g + banana ~23g; rotisserie skin + fried potatoes + Liquid IV + taco batter carry sodium)
 - **Notes:** +0.4 off yesterday's 94.6 low — noise, not a real move (7/13 dinner was high-sodium + a lot of evening water/Liquid IV, exactly the setup that inflates the next AM). Still 1.4 under the 7/03 low; ~0.9 kg/week trend intact.
 
 ## 2026-07-13
