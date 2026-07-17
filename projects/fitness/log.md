@@ -11,6 +11,19 @@ Format: `## YYYY-MM-DD` then:
 
 ---
 
+## 2026-07-17
+- **Weight:** 94.8 kg (fasted AM)
+- **Cals / Protein:** ~2375 / ~147g so far (rice, flattened cup unfinished ~¾ cup ~150/3g; salmon aburi 150g w/ Japanese mayo, mayo mostly finished ~410/32g; ~50g maguro [transcribed "male" — assumed tuna sashimi] ~55/12g; fried calamari ~75g [150g serving, ate half] ~140/11g; garlic aioli ~2 tbsp ~170/0g; cucumbers ~10/0.5g; edamame sprinkling ~30/3g; mango few pieces ~40/0.5g; seaweed ~50/1g; cold brew milk latte ~200/3g; 2 street tacos 1 fish + 1 shrimp battered, corn tortilla, cilantro/onion/tomato, no cheese ~460/28g [per 7/14]; 2× sugar-free Liquid IV ~0 kcal / ~1g Na; dinner: turkey breast 50g ~55/12g + baked potato 50g ~45/1g + cottage cheese 200g Bulla ~164/24g + 2 tbsp honey ~130/0g + bacon bits 30g ~150/9g + 1 slice ham ~30/4g + slider dinner roll ~90/3g)
+- **Carbs / Sodium:** ~180g / ~5.4g so far (rice ~34g + mango ~10g + latte ~15g + edamame/batter ~10g + tacos ~40g + honey ~34g + roll ~15g + potato ~10g + cottage ~8g; soy/seaweed/calamari + taco batter/salsa + 2× sugar-free Liquid IV + bacon bits/ham/deli turkey carry the sodium — floor met)
+- **Trained:** rest day (recovering; ~4–5k steps)
+- **Notes:** 94.8 — mid-band, trend intact (~1.6 under the 7/03 low). Yesterday closed under BOTH floors (1460 cal / 109g protein, ~55g carbs, near-zero fiber) — don't repeat. Dinner (~660/53g) fixed that: over the 2000 ceiling by ~375 but rest-day deficit vs TDEE still ~400. No shake tonight (user call) — day closed at ~147g, 13g under floor; already ~375 over ceiling so not chasing it. Baked potato only 50g — flagged bloater, watch it.
+
+## 2026-07-16
+- **Weight:** 95.0 kg (fasted AM)
+- **Cals / Protein:** ~1460 / ~109g (day closed; grilled lamb souvlaki 200g ~500/50g [~250/25g per 100g, per 7/14 skewer]; grilled shrimp ~100g ~100/22g; grilled pork ~100g ~230/25g; roka salata ~180/5g [greens, parmesan, olive oil dressing]; yogurt garlic sauce ~2–3 tbsp ~100/3g; matcha latte ~150/2g; cookie ~200/2g)
+- **Carbs / Sodium:** ~55g / ~2g (matcha ~20g + cookie ~25g + salad/sauce; marinated grilled meats + sauce carry the sodium)
+- **Notes:** 95.0 — the 7/15 bump (95.5) flushed out as predicted (water from 7/14's high carb/sodium day). Back on the 94.6–95.0 band, 1.4 under the 7/03 low; trend intact. Day closed at ~1460 — UNDER the 1700 cal floor, 51g under protein floor, carbs ~55g and near-zero fiber. This is the exact pattern that built the 7/06 episode (deep deficit + low carb + no fiber + low sodium). Shake still recommended even if "done eating."
+
 ## 2026-07-15
 - **Weight:** 95.5 kg (fasted AM)
 - **Cals / Protein:** ~1685 / ~98g so far (½ cup rice ~120/2g; grilled salmon 150g ~310/30g; Kenny Rogers rotisserie chicken thigh 150g ~345/36g; corn + carrots w/ butter 50g ~60/1g; ½ corn muffin ~105/2g; 25%-sugar milk tea ~155/3g; ½ cup rice ~120/2g; 100g pork salpicao ~270/19g; 1 mango ~100/1.5g; 1 banana ~100/1.2g)

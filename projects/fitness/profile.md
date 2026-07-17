@@ -3,7 +3,7 @@ type: project
 name: Fitness
 status: active
 tags: [health, fat-loss, training]
-updated: 2026-07-13
+updated: 2026-07-17
 
 ---
 
@@ -50,7 +50,8 @@ Keep it current — when weight/targets/equipment change, edit here.
 - **Protein ≥ 160 g/day** — this is a **FLOOR** (180 g is optimal but not realistic, don't push it).
 - **Sodium ~3–5 g/day** — a FLOOR for him (added 2026-07-05 after confirmed depletion: lower-carb
   eating dumps sodium + daily rope sweat + unsalted staples). Salt cooked meals (1 tsp salt ≈ 2.3g
-  Na); Liquid IV (~0.5g Na, 45 kcal) = convenience for sweat days / eating out, not the supply line.
+  Na); Liquid IV (~0.5g Na, 45 kcal; sugar-free version = 0 kcal, same Na — prefer it on the cut) =
+  convenience for sweat days / eating out, not the supply line.
 - **Minerals to watch (from food, not obsessive tracking):** potassium ~3.5g (fruit, potatoes,
   yogurt, vegetables — his staples mostly cover it), magnesium ~400mg (nuts, leafy greens; the one
   most likely short — cheap glycinate supplement is fine if cramps/sleep issues show).
