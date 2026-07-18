@@ -13,6 +13,9 @@ Append-only. Newest at top. One line per day.
 
 ---
 
+## 2026-07-19
+- **Weight:** 95.6 kg (fasted AM)
+
 ## 2026-07-18
 - **Weight:** 95.4 kg (fasted AM)
 - **Cals / Protein:** ~2400 / ~187g so far (cold brew/milk latte ~200/3g; snack: grilled chicken breast 70g ~115/24g + black forest ham 2 slices [light marbling] ~60/10g + cranberry jam 1 slice ~30/0g + corn small serving ~45/1.5g + small dinner roll ~90/3g; sashimi platter: salmon ×10 slices ~150g ~300/30g + tuna/maguro ×5 slices ~75g ~90/18g + tamago ×5 slices ~100g ~150/10g; baked prawns 8 medium w/ butter/cheese ~220/24g; baked scallops 12 w/ butter/cheese ~250/27g; slice of cake ~350/4g; glazed ham 6 slices ~300/34g)
