@@ -17,7 +17,7 @@ Append-only. Newest at top. One line per day.
 - **Weight:** 95.4 kg (fasted AM)
 - **Cals / Protein:** ~1080 / ~99g so far (cold brew/milk latte ~200/3g; snack: grilled chicken breast 70g ~115/24g + black forest ham 2 slices [light marbling] ~60/10g + cranberry jam 1 slice ~30/0g + corn small serving ~45/1.5g + small dinner roll ~90/3g; sashimi platter: salmon ×10 slices ~150g ~300/30g + tuna/maguro ×5 slices ~75g ~90/18g + tamago ×5 slices ~100g ~150/10g)
 - **Carbs / Sodium:** ~65g / ~2.5g so far (latte ~15g + cranberry ~8g + corn ~10g + roll ~15g + tamago ~12g; ham + roll + soy sauce carry the sodium)
-- **Trained:** Day C — bicep curls 3×6 @ 35 lb (rest TBD)
+- **Trained:** Day C — bicep curls 3×6 @ 35 lb · barbell rows 3×10 @ 45 · goblet squat 3×10 @ 30 lb (in progress)
 
 ## ~2026-07-14 to 07-17 (unlogged Day B)
 - **Trained:** Day B (partial) — OHP 3×10 @ 40 lb DB · pull-ups · leg curl · leg raises skipped
