@@ -1,8 +1,10 @@
 # Fitness Log
 
-Append-only. Newest at top. One line per day.
+# !! COMMIT THIS FILE AFTER EVERY EDIT !!
+# `git add projects/fitness/log.md && git commit -m "fitness log"`
+# Logs have been lost before because sessions ended without committing. No exceptions.
 
-Format: `## YYYY-MM-DD` then:
+Append-only. Newest at top. One line per day.
 - **Weight:** kg
 - **Cals / Protein:** e.g. 1820 / 165g
 - **Carbs / Sodium:** rough estimates, e.g. ~140g / ~3g (sodium floor ~3–5g; carbs ≥130g on training days)
@@ -11,6 +13,15 @@ Format: `## YYYY-MM-DD` then:
 
 ---
 
+
+## 2026-07-18
+- **Weight:** 95.4 kg (fasted AM)
+- **Cals / Protein:** ~1080 / ~99g so far (cold brew/milk latte ~200/3g; snack: grilled chicken breast 70g ~115/24g + black forest ham 2 slices [light marbling] ~60/10g + cranberry jam 1 slice ~30/0g + corn small serving ~45/1.5g + small dinner roll ~90/3g; sashimi platter: salmon ×10 slices ~150g ~300/30g + tuna/maguro ×5 slices ~75g ~90/18g + tamago ×5 slices ~100g ~150/10g)
+- **Carbs / Sodium:** ~65g / ~2.5g so far (latte ~15g + cranberry ~8g + corn ~10g + roll ~15g + tamago ~12g; ham + roll + soy sauce carry the sodium)
+
+## ~2026-07-14 to 07-17 (unlogged Day B)
+- **Trained:** Day B (partial) — OHP 3×10 @ 40 lb DB · pull-ups · leg curl · leg raises skipped
+- **Notes:** Logged late from memory; exact date forgotten.
 ## 2026-07-17
 - **Weight:** 94.8 kg (fasted AM)
 - **Cals / Protein:** ~2375 / ~147g so far (rice, flattened cup unfinished ~¾ cup ~150/3g; salmon aburi 150g w/ Japanese mayo, mayo mostly finished ~410/32g; ~50g maguro [transcribed "male" — assumed tuna sashimi] ~55/12g; fried calamari ~75g [150g serving, ate half] ~140/11g; garlic aioli ~2 tbsp ~170/0g; cucumbers ~10/0.5g; edamame sprinkling ~30/3g; mango few pieces ~40/0.5g; seaweed ~50/1g; cold brew milk latte ~200/3g; 2 street tacos 1 fish + 1 shrimp battered, corn tortilla, cilantro/onion/tomato, no cheese ~460/28g [per 7/14]; 2× sugar-free Liquid IV ~0 kcal / ~1g Na; dinner: turkey breast 50g ~55/12g + baked potato 50g ~45/1g + cottage cheese 200g Bulla ~164/24g + 2 tbsp honey ~130/0g + bacon bits 30g ~150/9g + 1 slice ham ~30/4g + slider dinner roll ~90/3g)
