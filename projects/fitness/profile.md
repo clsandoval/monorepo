@@ -3,21 +3,22 @@ type: project
 name: Fitness
 status: active
 tags: [health, fat-loss, training]
-updated: 2026-07-17
+updated: 2026-07-18
 
 ---
 
 # Fitness Profile
 
 The internalized context for the `/fitness` command. Every answer keys off this.
+> **COMMIT RULE:** Every edit to `log.md` MUST be immediately followed by
+> `git add projects/fitness/log.md && git commit -m "fitness log"`. No deferring.
 Keep it current — when weight/targets/equipment change, edit here.
 
-## Body & Goal
 
 - **Age / sex:** 26, male
 - **Timezone:** GMT+8 (log dates are local)
 - **Height:** 185 cm
-- **Current:** ~94.6 kg (7/13 low), ~30% body fat → lean mass ≈ 68–69 kg
+- **Current:** ~95.4 kg (7/18 AM), ~30% body fat → lean mass ≈ 68–69 kg
 - **Goal (two-phase — added 2026-07-13):** the real target is **ripped in the mid-80s**, which is a
   muscle goal, not just a fat goal. At today's ~68–69 kg lean mass he'd be ripped at only ~78 kg
   (12% BF) — the lightweight look he says is *too lean*. Being shredded at ~84 kg needs ~74 kg lean
