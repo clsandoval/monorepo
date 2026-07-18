@@ -86,10 +86,13 @@ recommendation is a real dish at a real place with an estimated macro line. No "
      ```
    - **Field mask on ALL Text Search listing calls MUST include `nextPageToken`** or pagination
      silently dies — use: `places.id,places.displayName,places.primaryType,places.types,places.rating,places.userRatingCount,places.priceLevel,places.location,places.formattedAddress,places.googleMapsUri,places.websiteUri,nextPageToken`.
-5. **Dedup by `places.id`** across every result (jq: gather `.places[]`, unique by `.id`). Keep only
-   food types (`primaryType`/`types` containing restaurant|cafe|food|bakery|meal_*); drop retail/services.
-   This union is your tenant list — and, for an open area, the coverage denominator (you cased what you
-   enumerated; you don't claim to know every spot in a whole district).
+5. **Dedup by `places.id`** across every result (jq: gather `.places[]`, unique by `.id`). Keep an
+   entry only if its **`primaryType`** is an eatery type (`restaurant|cafe|coffee|food|bakery|meal_|
+   bar_and_grill|ice_cream|sandwich|fast_food` etc.), and **explicitly drop containers/retail even if
+   their `types` array mentions food** — `shopping_mall, department_store, supermarket, grocery_store,
+   convenience_store, gas_station, lodging, hotel` all leak in via a broad `types` match, so filter on
+   `primaryType`, not `types`. This union is your tenant list — and, for an open area, the coverage
+   denominator (you cased what you enumerated; you don't claim to know every spot in a whole district).
 6. **Bound it to what's reachable:**
    - **(6a) Named venue:** keep tenants whose `formattedAddress` names the venue even if slightly
      past 1km (a deep-interior tenant may still be missed — note it in coverage).
@@ -119,6 +122,7 @@ On go, run the fan-out — one research agent per restaurant:
 - **Primary (`Workflow` tool, available to the main agent):** a `pipeline()` over the tenant list;
   `agent()`'s `schema` option enforces `DISH_SCHEMA` and concurrency is capped automatically. Shape:
   ```
+  const tenants = typeof args === 'string' ? JSON.parse(args) : args  // Workflow args arrive stringified — guard or pipeline() throws
   pipeline(tenants, t => agent(researchPrompt(t), {schema: DISH_SCHEMA, label: t.name}))
   ```
 - **Fallback (no `Workflow`, e.g. running inside a subagent):** dispatch parallel `Agent` calls in
@@ -132,12 +136,16 @@ Each agent's job, for its one restaurant:
 - Pull the **high-protein candidate dishes** (grilled meats, bowls, seafood, eggs — skip the fries).
 - **Estimate macros per dish** the way the fitness skill does: published/label macros if it's a known
   chain; otherwise estimate from named ingredients + portion + photo. **Flag confidence L/M/H.**
+- **Also capture `serving` (portion size / weight as menued, e.g. "12 oz / ~340g", "6 pcs", "solo")
+  and `price` (local currency as listed, e.g. "₱890").** These drive the macro estimate and let the
+  user judge value — pull them from the same menu source. Use `""` if a field genuinely isn't listed.
 - Return the schema below. If no menu is findable, return `dishes: []` with a reason.
 
 `DISH_SCHEMA`:
 ```json
 { "restaurant": "string", "maps_uri": "string",
-  "dishes": [ { "name": "string", "protein_g": 0, "cal": 0,
+  "dishes": [ { "name": "string", "serving": "string", "price": "string",
+                "protein_g": 0, "cal": 0,
                 "confidence": "L|M|H", "note": "why it's a good macro pick / caveat" } ],
   "no_menu_reason": "string (only if dishes empty)" }
 ```
@@ -154,7 +162,7 @@ Each agent's job, for its one restaurant:
 4. **Output** (actionable, scannable):
    ```
    ### 🥇 Top picks near <place>
-   1. **<Dish>** @ <Restaurant> — ~<P>g protein / ~<C> cal (<density> g/100kcal). <why> [conf: <L/M/H>]
+   1. **<Dish>** (<serving>, <price>) @ <Restaurant> — ~<P>g protein / ~<C> cal (<density> g/100kcal). <why> [conf: <L/M/H>]
    ...
    ### Also solid
    ...
