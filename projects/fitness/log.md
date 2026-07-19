@@ -15,9 +15,9 @@ Append-only. Newest at top. One line per day.
 
 ## 2026-07-19
 - **Weight:** 95.6 kg (fasted AM)
-- **Cals / Protein:** ~1050 / ~79g so far (Cibo Ortigas lunch: Tagliata di Manzo sliced beef tenderloin over rucola ~500/42g; roast chicken solo portion ~430/35g; ½ cup rice ~120/2g)
-- **Carbs / Sodium:** ~37g / ~2g so far (½ cup rice ~22g + greens/veg ~10g + chicken glaze ~5g; salted restaurant meal carries the sodium)
-- **Notes:** rice = flagged bloater, kept to half. Big protein lunch — ~81g protein / ~950 cal room left to hit 160/2000.
+- **Cals / Protein:** ~1350 / ~104g so far (Cibo Ortigas lunch: Tagliata di Manzo sliced beef tenderloin over rucola ~500/42g; roast chicken solo portion ~430/35g; ½ cup rice ~120/2g; latte ~200/3g; grilled shrimp 100g ~100/22g)
+- **Carbs / Sodium:** ~53g / ~2g so far (½ cup rice ~22g + greens/veg ~10g + chicken glaze ~5g + latte ~15g + shrimp ~1g; salted restaurant meal carries the sodium)
+- **Notes:** rice = flagged bloater, kept to half. Lean shrimp closes protein gap cheaply — ~56g protein / ~650 cal room left to hit 160/2000.
 
 ## 2026-07-18
 - **Weight:** 95.4 kg (fasted AM)
