@@ -17,6 +17,7 @@ Append-only. Newest at top. One line per day.
 - **Weight:** 95.6 kg (fasted AM)
 - **Cals / Protein:** ~2005 / ~168g so far (Cibo Ortigas lunch: Tagliata di Manzo sliced beef tenderloin over rucola ~500/42g; roast chicken solo portion ~430/35g; ½ cup rice ~120/2g; latte ~200/3g; grilled shrimp 100g ~100/22g; Chagee brewed apple tea, no sugar ~15/0g; gouda 2 slices ~200/14g; blue cheese 1 slice ~100/6g; tuna spread ½ cup [avg tuna + pickles + relish + mayo] ~190/16g; David bar ~150/28g)
 - **Carbs / Sodium:** ~68g / ~3.5g so far (½ cup rice ~22g + greens/veg ~10g + chicken glaze ~5g + latte ~15g + shrimp ~1g + apple tea ~3g + cheeses ~2g + tuna spread ~5g + David bar ~5g; salted restaurant meal + cheeses + tuna relish carry the sodium)
+- **Trained:** rest day from lifts — 10k steps (~350–400 kcal NEAT, brings today's TDEE ~2750, deficit ~750)
 - **Notes:** cheese + tuna spread + David bar closed the protein gap — floor cleared at ~168g, landed right on the 2000 ceiling. Day's done, no shake owed.
 
 ## 2026-07-18
