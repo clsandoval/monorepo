@@ -13,6 +13,13 @@ Append-only. Newest at top. One line per day.
 
 ---
 
+## 2026-07-20
+- **Weight:** — (not logged)
+- **Cals / Protein:** ~620 / ~23g so far (breakfast: flat white ~120/6g; tao cheese rolls ×2 ~350/10g; fruit ~80/1g; hard-boiled egg ~70/6g)
+- **Carbs / Sodium:** ~65g / ~1.5g so far (cheese rolls ~45g + fruit ~18g + latte ~2g; low so far — salt lunch)
+- **Trained:** —
+- **Notes:** carb-heavy, protein-poor breakfast (~23g). Day has full runway on cals (~1380 left) — needs to go protein-dominant from lunch on to clear the 160g floor.
+
 ## 2026-07-19
 - **Weight:** 95.6 kg (fasted AM)
 - **Cals / Protein:** ~2005 / ~168g so far (Cibo Ortigas lunch: Tagliata di Manzo sliced beef tenderloin over rucola ~500/42g; roast chicken solo portion ~430/35g; ½ cup rice ~120/2g; latte ~200/3g; grilled shrimp 100g ~100/22g; Chagee brewed apple tea, no sugar ~15/0g; gouda 2 slices ~200/14g; blue cheese 1 slice ~100/6g; tuna spread ½ cup [avg tuna + pickles + relish + mayo] ~190/16g; David bar ~150/28g)
