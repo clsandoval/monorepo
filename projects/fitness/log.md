@@ -15,10 +15,10 @@ Append-only. Newest at top. One line per day.
 
 ## 2026-07-20
 - **Weight:** — (not logged)
-- **Cals / Protein:** ~620 / ~23g so far (breakfast: flat white ~120/6g; tao cheese rolls ×2 ~350/10g; fruit ~80/1g; hard-boiled egg ~70/6g)
-- **Carbs / Sodium:** ~65g / ~1.5g so far (cheese rolls ~45g + fruit ~18g + latte ~2g; low so far — salt lunch)
+- **Cals / Protein:** ~950 / ~58g so far (breakfast: flat white ~120/6g; tao cheese rolls ×2 ~350/10g; fruit ~80/1g; hard-boiled egg ~70/6g; lunch: 100g chicken breast ~165/31g + gravy ~35/1g + mash ~130/3g ≈ 330/35g)
+- **Carbs / Sodium:** ~90g / ~3g so far (cheese rolls ~45g + fruit ~18g + latte ~2g + mash ~20g + gravy ~5g; gravy + salted mash lift sodium toward floor)
 - **Trained:** —
-- **Notes:** carb-heavy, protein-poor breakfast (~23g). Day has full runway on cals (~1380 left) — needs to go protein-dominant from lunch on to clear the 160g floor.
+- **Notes:** lunch added ~35g protein — at ~58g total with ~1050 cals of runway left. Still needs ~102g protein from ~2 more meals to clear the 160g floor; go protein-dominant the rest of the day. Mash bloats him (potatoes) — one serving is fine, don't stack more.
 
 ## 2026-07-19
 - **Weight:** 95.6 kg (fasted AM)
