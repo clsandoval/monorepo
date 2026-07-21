@@ -18,7 +18,7 @@ Append-only. Newest at top. One line per day.
 - **Cals / Protein:** ~1050 / ~44g so far (latte ~200/3g; Malaysian plate, ~50g each: beef rendang ~120/9g; squid sambal ~60/8g; grilled prawn ~50/11g; fish cake ~80/6g; eggplant [sambal-style, oiled] ~40/0.5g; 1 cup rice ~200/4g; shaved ice ~300/3g)
 - **Carbs / Sodium:** ~120g / ~2g so far (rice ~45g + shaved ice ~45g + latte ~15g + fish cake ~7g + sambals/eggplant ~8g; rendang + sambal + fish cake carry the sodium)
 - **Trained:** —
-- **Notes:** rice logged despite bloat flag — one cup, don't stack more. ~116g protein still owed with ~950 cal runway — protein-only from here.
+- **Notes:** on a business trip (Malaysian food, no shake/cottage cheese access) — protein floor not realistically reachable; travel target is ~100–120g via protein-dense orders, keep cals under the ceiling. Rice logged despite bloat flag — one cup, don't stack more.
 
 ## 2026-07-20
 - **Weight:** — (not logged)
