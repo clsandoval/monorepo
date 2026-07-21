@@ -13,6 +13,13 @@ Append-only. Newest at top. One line per day.
 
 ---
 
+## 2026-07-21
+- **Weight:** 95.2 kg (fasted AM)
+- **Cals / Protein:** —
+- **Carbs / Sodium:** —
+- **Trained:** —
+- **Notes:** —
+
 ## 2026-07-20
 - **Weight:** — (not logged)
 - **Cals / Protein:** ~950 / ~58g so far (breakfast: flat white ~120/6g; tao cheese rolls ×2 ~350/10g; fruit ~80/1g; hard-boiled egg ~70/6g; lunch: 100g chicken breast ~165/31g + gravy ~35/1g + mash ~130/3g ≈ 330/35g)
