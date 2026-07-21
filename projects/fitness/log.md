@@ -15,10 +15,10 @@ Append-only. Newest at top. One line per day.
 
 ## 2026-07-21
 - **Weight:** 95.2 kg (fasted AM)
-- **Cals / Protein:** ~1470 / ~63g so far (latte ~200/3g; Malaysian plate, ~50g each: beef rendang ~120/9g; squid sambal ~60/8g; grilled prawn ~50/11g; fish cake ~80/6g; eggplant [sambal-style, oiled] ~40/0.5g; 1 cup rice ~200/4g; shaved ice ~300/3g; chicken satay 1 stick ~70/6.5g; half shaved ice ~150/1.5g; fried fish 50g ~110/9g; nasi lemak rice 50g ~90/1.5g)
-- **Carbs / Sodium:** ~160g / ~2.7g so far (rice ~45g + shaved ice 1.5× ~67g + latte ~15g + nasi lemak ~13g + fish cake ~7g + sambals/eggplant/batter ~11g; rendang + sambal + fish cake + satay + nasi lemak carry the sodium)
+- **Cals / Protein:** ~1790 / ~79g (day closed; latte ~200/3g; Malaysian plate, ~50g each: beef rendang ~120/9g; squid sambal ~60/8g; grilled prawn ~50/11g; fish cake ~80/6g; eggplant [sambal-style, oiled] ~40/0.5g; 1 cup rice ~200/4g; shaved ice ~300/3g; chicken satay 3 sticks ~210/19.5g; half shaved ice ~150/1.5g; fried fish 50g ~110/9g; nasi lemak rice 50g ~90/1.5g; gelato 1 scoop ~180/3g)
+- **Carbs / Sodium:** ~185g / ~3g (rice ~45g + shaved ice 1.5× ~67g + gelato ~22g + latte ~15g + nasi lemak ~13g + fish cake ~7g + sambals/eggplant/batter/satay ~16g; rendang + sambal + fish cake + satay + nasi lemak carry the sodium)
 - **Trained:** —
-- **Notes:** on a business trip (Malaysian food, no shake/cottage cheese access) — protein floor not realistically reachable; travel target is ~100–120g via protein-dense orders, keep cals under the ceiling. Rice logged despite bloat flag — one cup, don't stack more.
+- **Notes:** on a business trip (Malaysian food, no shake/cottage cheese access) — protein floor not realistically reachable; travel target is ~100–120g via protein-dense orders, keep cals under the ceiling. Closed ~1790 (under ceiling, above 1700 floor) but only ~79g protein — desserts (1.5 shaved ice + gelato ≈ 630 cal) took the protein budget. Third straight sub-floor protein day.
 
 ## 2026-07-20
 - **Weight:** — (not logged)
