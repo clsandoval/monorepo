@@ -15,10 +15,10 @@ Append-only. Newest at top. One line per day.
 
 ## 2026-07-21
 - **Weight:** 95.2 kg (fasted AM)
-- **Cals / Protein:** —
-- **Carbs / Sodium:** —
+- **Cals / Protein:** ~750 / ~41g so far (latte ~200/3g; Malaysian plate, ~50g each: beef rendang ~120/9g; squid sambal ~60/8g; grilled prawn ~50/11g; fish cake ~80/6g; eggplant [sambal-style, oiled] ~40/0.5g; 1 cup rice ~200/4g)
+- **Carbs / Sodium:** ~75g / ~2g so far (rice ~45g + latte ~15g + fish cake ~7g + sambals/eggplant ~8g; rendang + sambal + fish cake carry the sodium)
 - **Trained:** —
-- **Notes:** —
+- **Notes:** rice logged despite bloat flag — one cup, don't stack more. ~119g protein still owed with ~1250 cal runway.
 
 ## 2026-07-20
 - **Weight:** — (not logged)
