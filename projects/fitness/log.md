@@ -22,10 +22,10 @@ Append-only. Newest at top. One line per day.
 
 ## 2026-07-20
 - **Weight:** — (not logged)
-- **Cals / Protein:** ~950 / ~58g so far (breakfast: flat white ~120/6g; tao cheese rolls ×2 ~350/10g; fruit ~80/1g; hard-boiled egg ~70/6g; lunch: 100g chicken breast ~165/31g + gravy ~35/1g + mash ~130/3g ≈ 330/35g)
-- **Carbs / Sodium:** ~90g / ~3g so far (cheese rolls ~45g + fruit ~18g + latte ~2g + mash ~20g + gravy ~5g; gravy + salted mash lift sodium toward floor)
+- **Cals / Protein:** ~2415 / ~120g (day closed; breakfast: flat white ~120/6g; tao cheese rolls ×2 ~350/10g; fruit ~80/1g; hard-boiled egg ~70/6g; lunch: 100g chicken breast ~165/31g + gravy ~35/1g + mash ~130/3g ≈ 330/35g; dinner: Hainanese chicken rice plate ~600/35g; Liquid IV ~45/0g [assumed regular, not sugar-free]; fried beancurd ×2 ~100/7g; durian shaved ice ~300/3g; braised pork belly 2 slices + white pao ~360/13g; steamed broccoli + mushroom ~60/4g)
+- **Carbs / Sodium:** ~235g / ~5g (cheese rolls ~45g + fruit ~18g + latte ~2g + mash ~20g + gravy ~5g + chicken rice ~55g + LIV ~11g + shaved ice ~45g + pao ~30g + veg ~5g; gravy/mash + chicken-rice sauces + braised pork + LIV carry the sodium — floor met)
 - **Trained:** —
-- **Notes:** lunch added ~35g protein — at ~58g total with ~1050 cals of runway left. Still needs ~102g protein from ~2 more meals to clear the 160g floor; go protein-dominant the rest of the day. Mash bloats him (potatoes) — one serving is fine, don't stack more.
+- **Notes:** logged retroactively 7/21. Closed ~415 over the 2000 ceiling and 40g under the protein floor — carbs (rice + pao + shaved ice) ate the budget. High carb + sodium day likely inflated nothing: 7/21 AM still read 95.2, trend intact.
 
 ## 2026-07-19
 - **Weight:** 95.6 kg (fasted AM)
