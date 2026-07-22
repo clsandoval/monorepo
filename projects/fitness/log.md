@@ -13,6 +13,13 @@ Append-only. Newest at top. One line per day.
 
 ---
 
+## 2026-07-22
+- **Weight:** 94.3 kg (fasted AM)
+- **Cals / Protein:** —
+- **Carbs / Sodium:** —
+- **Trained:** —
+- **Notes:** new low — 0.5 under the 7/17 low (94.8), 2.1 off the 7/03 baseline. Trip carbs/sodium flushed; trend intact.
+
 ## 2026-07-21
 - **Weight:** 95.2 kg (fasted AM)
 - **Cals / Protein:** ~1790 / ~79g (day closed; latte ~200/3g; Malaysian plate, ~50g each: beef rendang ~120/9g; squid sambal ~60/8g; grilled prawn ~50/11g; fish cake ~80/6g; eggplant [sambal-style, oiled] ~40/0.5g; 1 cup rice ~200/4g; shaved ice ~300/3g; chicken satay 3 sticks ~210/19.5g; half shaved ice ~150/1.5g; fried fish 50g ~110/9g; nasi lemak rice 50g ~90/1.5g; gelato 1 scoop ~180/3g)
