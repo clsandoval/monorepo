@@ -12,6 +12,12 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-07-23
+- **Weight:** 94.8 kg (fasted AM)
+- **Cals / Protein:** —
+- **Carbs / Sodium:** —
+- **Trained:** —
+- **Notes:** +0.5 off yesterday's 94.3 low — re-equilibration post-trip flush, not fat. Matches the 7/17 low exactly. ~1.6 under the 7/03 baseline (96.4); trend intact.
 
 ## 2026-07-22
 - **Weight:** 94.3 kg (fasted AM)
