@@ -13,14 +13,17 @@ level: Strong structural intuition (prior, hierarchy, generative thinking — ha
 hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
-hours_done: 1.9
-next_up: Rung 11 — Likelihoods, GLMs & regression (foundational; picking the likelihood: Normal /
-  Poisson / Student-T / Binomial, link functions, why count data ≠ Normal). Warm-up: confounder-vs-
-  collider one-liner (include the fork, drop the collider) + the negative?→Normal/HalfNormal rule.
-  Only 5 rungs left: 10 (model comparison/LOO), 11 (do next), 12 (GP/HSGP), 13 (state-space),
-  14 (frontier). Phase-1 literacy nearly done — likely 2-3 more short sessions.
+hours_done: 3.0
+session_start: 1783678684
+next_up: Rung 12 — Gaussian Processes & HSGP (GP = flexible prior over functions, lengthscale/kernel,
+  HSGP as the fast approximation). Warm-up (interleave): (1) funnel/non-centered re-test (Rung 7,
+  untouched since 7/05 morning — one check: why does non-centering fix divergences); (2) LOO one-liner
+  (planned twice, never run). Watch for his recurring (w−1) vs (1−w) sign slip if marginalization
+  resurfaces. Then rungs 13, 14 — Phase 1 likely done in 2 short sessions. TEACHING STYLE (locked,
+  2026-07-05): brief, HIGH-VARIANCE example domains, NO Mama Sita's re-skinning (Phase 2 build target
+  only).
   OPEN thread to revisit in Phase 2: confounder (observed, include) vs latent variable (unobserved,
-  model) — Carlos kept conflating; untangle when building the Mama Sita's true-demand model.
+  model) — Carlos kept conflating; untangle when building the true-demand model.
 ---
 
 # PyMC Labs Discord literacy
@@ -71,8 +74,8 @@ Learn top-down and the chat stops being gibberish fastest.
 - [x] **7. Reparameterization & geometry** (~3h) — centered vs **non-centered**, "funnel" geometry, transforms — why rewriting helps it sample. The fix after divergences. *(Seyboldt, Paz)*
 - [x] **8. The compute stack** (~3h) — PyMC builds a symbolic **PyTensor** graph; **JAX/NumPyro** are speed/GPU backends. Shapes, broadcasting, `mode="JAX"`. *(Vieira, Paz)*
 - [x] **9. Causal inference & DAGs** (~4h) — correlation≠causation, **DAGs**, confounders, interventions (`pm.do`), incrementality. Frames most MMM work. *(Vincent, Orduz, Luhmann)*
-- [ ] **10. Model comparison** (~2h) — **LOO / ELPD / WAIC**, PSIS **k-hat**, "better predictive fit." *(Abril, Engels)*
-- [ ] **11. Likelihoods, GLMs & regression** (~3h) — picking a likelihood (Normal/Poisson/Student-T/Binomial), link functions, marginalizing discrete latents. *(Vincent, Paz, Luhmann)*
+- [x] **10. Model comparison** (~2h) — **LOO / ELPD / WAIC**, PSIS **k-hat**, "better predictive fit." *(Abril, Engels)*
+- [x] **11. Likelihoods, GLMs & regression** (~3h) — picking a likelihood (Normal/Poisson/Student-T/Binomial), link functions, marginalizing discrete latents. *(Vincent, Paz, Luhmann)*
 - [ ] **12. Gaussian Processes & HSGP** (~3h) — GP = flexible prior over functions; lengthscale/kernel; **HSGP** fast approximation; spatial/smooth trends. *(Engels, Fonnesbeck)*
 - [ ] **13. State-space & structural time series** (~3h) — trend+seasonality+regression components, **Kalman filter**, counterfactual forecasting. *(Grabowski, Fonnesbeck)*
 - [ ] **14. Frontier / niche — know the words exist** (~2h) — **variational inference / normalizing flows**, **Laplace approximation**, **drift-diffusion/HSSM**, R2D2/PC priors. *(Seyboldt, Fengler)*
@@ -99,10 +102,12 @@ bias/true-demand model — it does exactly the do-operator + confounding-sensiti
 Org split: core (PyMC/PyTensor/pymc-extras/nutpie) = pymc-devs (community); applied (marketing/causalpy/
 pathmc) = pymc-labs (company Carlos works at).
 
-HOW TO USE THIS (Carlos, 2026-07-05): do NOT pre-pick a spine or 10-point an exercise up front. Just
-run the normal rung-by-rung plan with generic examples; when one comes up, Carlos flags the real-world
-Mama Sita's nuance ("this is fine, but in the real world here's the wrinkle") and you fit it in on the
-fly. The six below are a MENU for opportunistic grounding, not a committed project:
+HOW TO USE THIS (Carlos, revised 2026-07-05): do NOT pre-pick a spine or 10-point an exercise up
+front, and — per his explicit feedback later that day — do NOT re-skin teaching examples in Mama
+Sita's. Keep examples brief, concise, and HIGH-VARIANCE across domains (he wants to avoid overfitting
+his assumptions to one business). Mama Sita's remains the Phase 2 BUILD target only; he'll flag
+real-world wrinkles himself when relevant. The six below are a MENU for Phase 2, not for Phase 1
+teaching:
 1. **True demand vs biased distributor sell-through reporting** (latent-variable / measurement model):
    reported = true_demand × per-distributor bias × noise. Recover true demand, rank distributor
    reliability. Maps to the real sell-in/sell-through visibility cliff.
@@ -118,6 +123,52 @@ fly. The six below are a MENU for opportunistic grounding, not a committed proje
    w/ exogenous shock).
 
 ## Sessions (newest at top)
+
+### 2026-07-08 · 29 min · Marginalization remediation (Rung 11 follow-up) — cleared cold
+- He opened with "still struggling with that last one" → full session of mapping reps, 5 fresh
+  domains (ER waits, support tickets, loan defaults, vineyard fungus, noise complaints). No GPs.
+- Reps 1–3 (mapping only): latent/data/w slots. Key correction rep 2: he justified the decoy
+  (escalated y/n) as "unrelated to resolution time" — WRONG test. Locked the real discriminator:
+  **latent vs data is about VISIBILITY, not relevance** — "is this column in my spreadsheet?"
+  Rep 3 caught him listing only one of two recorded columns as data (default y/n is data too, even
+  though the latent causes it — the outcome most caused by the latent always feels latent-ish).
+- Rep 4 (equation): two slips — (w−1) for (1−w), and w·P(branch) instead of w·P(data|branch)
+  (double-counts the branch, never touches data). "P(sugar|fungus) = ?" drew "no idea" → micro-step
+  with numbers: it's a Rung-11 bell-curve lookup, height of Normal(15,2) at the observed 16. Landed.
+- Capstone (noise complaints, no scaffolding): all five parts cold. Bonus: for "where does w come
+  from" he gave the identifiability answer unprompted (branches predict different shapes → data
+  forces w) — deeper than the asked-for "a parameter the model infers." Both now locked.
+- Watch: (w−1) sign slip recurred twice; killed via "negative weight = nonsense" hook, but re-check.
+- ~2 min GitHub PAT detour docked from timer.
+- Next: Rung 12 GPs/HSGP for real this time; warm-up = funnel/non-centered (Rung 7) + LOO one-liner.
+
+### 2026-07-05 · 35 min · Rungs 11 (likelihoods/GLMs) + 10 (model comparison), Rung 9 warm-up
+- Warm-up (his own question): PyMC vs CausalPy vs pathmc — locked the discriminator: CausalPy =
+  retrospective/design-based ("event happened, measure it"), pathmc = prospective/structure-based
+  ("here's my DAG — simulate do(), check identifiability, stress unmeasured confounding"). Re-locked
+  do-operator = arrow surgery (severs arrows INTO X). He nailed Ramadan=confounder; corrected his
+  Q2 miss (distributor-bias worry → pathmc identifiability check, NOT CausalPy — no event to
+  difference around). New pair taught: statistical (condition on the fork) vs surgical (randomize /
+  do()) backdoor closing.
+- Rung 11: likelihood matches data's shape (Normal/Student-T/Poisson/NegBinomial/Bernoulli table
+  given at his request); Student-T robustness mechanism ✓ (his words: Normal forced to drag μ/σ
+  toward spikes, T already prices them in); GLM = likelihood + link + linear part; log/logit links —
+  no-link Poisson time bomb ✓ after correction (breaks on negative-line counterfactuals like
+  spend→0, NOT on Christmas spikes); Bernoulli+logit blank-fill ✓.
+- **Marginalizing discrete latents was a 3-round fight** — mixture equation and factory example both
+  bounced; breakthrough came from micro-stepping (he spontaneously wrote full total-probability for
+  the bike/drive setup — mechanics were never the block, the MAPPING was). Landed via the mapping
+  table: latent = invisible cause / data = visible effect / w = its odds. His swap error (mapped
+  hit-vs-miss to the DATA role) was the crux. Cleared the fresh-domain test (insurance fraud) incl.
+  "odds = the thing we calculate" unprompted. Then asked THE question — "how do we get w without the
+  labels?" → answered via bump-shapes forcing w, and the flip side: identical branch predictions =
+  non-identifiable = pathmc's check = the true-demand-vs-skimming crux. Best moment of the session.
+- Rung 10 (fast, 8 min): ELPD = predict-unseen score; LOO = extreme CV; PSIS-LOO = free from one
+  fit; k-hat = per-point lie detector (>0.7 don't trust); diff vs 2×SE rule ✓ unprompted; tie →
+  take simpler model; WAIC = older, prefer LOO; raw-likelihood-picks-overfitter one-liner ✓.
+- **Feedback (durable): STOP re-skinning examples in Mama Sita's** — he wants brief, high-variance
+  domains to avoid overfitting his assumptions. Frontmatter + Phase-2 note updated.
+- Next: Rung 12 GPs/HSGP; warm-up = marginalization mapping on a fresh domain + LOO one-liner.
 
 ### 2026-07-05 · 14 min · Rung 9 (causal inference & DAGs) — the hardest rung, cleared
 - Continued same-day from Rungs 6+8. Covered: data fits correlation, only the DAG encodes causal

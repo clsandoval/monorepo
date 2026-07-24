@@ -8,10 +8,11 @@ level: Advanced beginner (~high N5, entering N4). Reads hiragana fluently, knows
   the X は Y です copula, and recognizes common kanji (日本語/私/食べる) with readings. Gaps: verb
   conjugation (mixed up hoshii vs ～tai), particles (は/を/が confusion), and output/typing on JP IME.
 hours_estimate: 2200   # FSI Category-IV estimate to professional fluency; ~150h already banked from prior exposure
-hours_done: 0.4
-next_up: Verb groups — ru-verbs vs u-verbs and the stem hop (飲む→飲み, mu→mi). He keeps defaulting
-  to dictionary-form + たい (のむたい) for u-verbs; ru-verbs (食べたい) he gets. Drill u-verb stems, then
-  extend 〜たい to more verbs. Quick warm-up: retest を (typed as wo, not お).
+hours_done: 2.0
+next_up: Core particles focus — は vs が vs を (the roadmap's stated weak branch, untouched so far).
+  Warm-up (interleave): (1) stem-hop retest, 3 mixed unlabeled verbs incl. ONE outlaw (帰る/走る);
+  (2) the を IME retest he dodged all session — make him actually type "すしを食べる" before anything
+  else; don't teach past the dodge this time. If stem hop survives the retest, mark it stable.
 ---
 
 # Japanese
@@ -32,7 +33,8 @@ for pronunciation; don't expect grammar transfer.
 
 - [~] **Kana — hiragana + katakana** (~6h) — hiragana solid; confirm/shore up katakana.
 - [ ] **Core particles** (~15h) — は を が に へ で の と か. The glue; source of his current errors.
-- [ ] **Verb conjugation basics** (~30h) — masu-form, past, negative, 〜たい (want to do), te-form.
+- [~] **Verb conjugation basics** (~30h) — masu-form, past, negative, 〜たい (want to do), te-form.
+  Started: verb groups + u-verb stem hop + 〜たい cleared 2026-07-08.
 - [ ] **Adjectives** (~10h) — い- vs な-adjectives, past/negative.
 - [ ] **Core vocab N5→N4** (~45h) — ~800 everyday words.
 - [ ] **Kanji N5→N4** (~45h) — ~300 kanji with readings.
@@ -44,6 +46,19 @@ for pronunciation; don't expect grammar transfer.
 - [ ] **Active fluency polish** (~400h) — sustained conversation, writing, thinking in Japanese.
 
 ## Sessions (newest at top)
+
+### 2026-07-08 · 95 min wall-clock (long gaps between replies; engaged time well under that) · Verb groups + stem hop
+- Focus: ru-verbs vs u-verbs and the u-verb stem hop (u-column → i-column), gluing 〜たい.
+- Rocky start: 1/3 on the first labeled set (matsutai/tsukutai — gluing onto dict form even when
+  told the family). Fix that worked: full 9-row hop table + forcing a two-step protocol (name
+  family → then move) + isolating the stem as its own answer. Same micro-stepping pattern that
+  works for him in the pymc track.
+- Then 4/4 on mixed labeled set (帰る trap incl.), and 2/3 on the unlabeled capstone using the
+  -eru/-iru heuristic (missed 走る outlaw, corrected, then recited both outlaws right).
+- Cleared: hop mechanics (う→い, く→き, つ→ち, ぶ→び, る→り), ru-verb chop, -eru/-iru family
+  heuristic, outlaws 帰る/走る as memorized exceptions.
+- NOT done: the を IME warm-up retest — asked 3×, never typed it. Front-load it next session.
+- Next: particles は/が/を (rotation to the weak branch); warm-up = unlabeled stem-hop retest.
 
 ### 2026-07-05 · ~25 min · Diagnostic + 〜たい / を / IME basics
 - Diagnostic: advanced beginner (~high N5). Reads hiragana, knows greetings + X は Y です, reads

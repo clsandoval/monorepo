@@ -29,6 +29,10 @@ automations/anime-recap-engine/data/
 # Worktrees
 .worktrees/
 
+# PII — passports, IDs, bank statements. This repo is PUBLIC. Never commit.
+projects/dad-au-visa/
+snap.md
+
 # People entities (private)
 entities/people/
 

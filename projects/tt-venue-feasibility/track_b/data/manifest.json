@@ -1,0 +1,261 @@
+{
+  "dataset": "UR Fall Detection Dataset (URFD)",
+  "dataset_url": "http://fenix.ur.edu.pl/~mkepski/ds/uf.html",
+  "license": "CC BY-NC-SA 4.0 (non-commercial)",
+  "purpose": "Track B triage recall sanity floor for tt-venue-feasibility. Frames are read directly by Claude Code vision subagents; this prep step performs NO model calls.",
+  "frames_per_clip": 3,
+  "label_mapping": {
+    "fall-NN (real fall sequence)": "injury",
+    "adl-NN (activities of daily living)": "normal"
+  },
+  "triage_labels": [
+    "injury",
+    "dispute",
+    "equipment",
+    "normal"
+  ],
+  "note": "dispute and equipment have no public proxy in URFD; this floor covers injury (fall) recall + normal specificity only.",
+  "clip_count": 20,
+  "clips": [
+    {
+      "id": "urfd-fall-01",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-01-cam0-rgb.zip",
+      "source_frame_count": 160,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-01/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-01/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-01/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-fall-02",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-02-cam0-rgb.zip",
+      "source_frame_count": 110,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-02/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-02/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-02/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-fall-03",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-03-cam0-rgb.zip",
+      "source_frame_count": 215,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-03/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-03/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-03/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-fall-04",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-04-cam0-rgb.zip",
+      "source_frame_count": 96,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-04/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-04/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-04/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-fall-05",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-05-cam0-rgb.zip",
+      "source_frame_count": 151,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-05/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-05/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-05/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-fall-06",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-06-cam0-rgb.zip",
+      "source_frame_count": 100,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-06/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-06/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-06/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-fall-07",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-07-cam0-rgb.zip",
+      "source_frame_count": 156,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-07/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-07/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-07/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-fall-08",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-08-cam0-rgb.zip",
+      "source_frame_count": 91,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-08/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-08/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-08/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-fall-09",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-09-cam0-rgb.zip",
+      "source_frame_count": 185,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-09/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-09/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-09/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-fall-10",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-10-cam0-rgb.zip",
+      "source_frame_count": 130,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-10/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-10/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-10/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-fall-11",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-11-cam0-rgb.zip",
+      "source_frame_count": 130,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-11/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-11/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-11/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-fall-12",
+      "trueLabel": "injury",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/fall-12-cam0-rgb.zip",
+      "source_frame_count": 110,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-12/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-12/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-fall-12/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-adl-01",
+      "trueLabel": "normal",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/adl-01-cam0-rgb.zip",
+      "source_frame_count": 150,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-01/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-01/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-01/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-adl-02",
+      "trueLabel": "normal",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/adl-02-cam0-rgb.zip",
+      "source_frame_count": 180,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-02/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-02/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-02/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-adl-03",
+      "trueLabel": "normal",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/adl-03-cam0-rgb.zip",
+      "source_frame_count": 180,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-03/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-03/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-03/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-adl-04",
+      "trueLabel": "normal",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/adl-04-cam0-rgb.zip",
+      "source_frame_count": 150,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-04/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-04/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-04/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-adl-05",
+      "trueLabel": "normal",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/adl-05-cam0-rgb.zip",
+      "source_frame_count": 180,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-05/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-05/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-05/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-adl-06",
+      "trueLabel": "normal",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/adl-06-cam0-rgb.zip",
+      "source_frame_count": 230,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-06/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-06/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-06/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-adl-07",
+      "trueLabel": "normal",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/adl-07-cam0-rgb.zip",
+      "source_frame_count": 180,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-07/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-07/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-07/frame_02.png"
+      ]
+    },
+    {
+      "id": "urfd-adl-08",
+      "trueLabel": "normal",
+      "source": "UR Fall Detection Dataset (URFD)",
+      "source_url": "https://fenix.ur.edu.pl/~mkepski/ds/data/adl-08-cam0-rgb.zip",
+      "source_frame_count": 180,
+      "frames": [
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-08/frame_00.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-08/frame_01.png",
+        "/home/clsandoval/cs/monorepo/projects/tt-venue-feasibility/track_b/data/urfd-adl-08/frame_02.png"
+      ]
+    }
+  ]
+}
