@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-07-24
+- **Weight:** 96.2 kg (fasted AM)
+- **Cals / Protein:** —
+- **Carbs / Sodium:** —
+- **Trained:** —
+- **Notes:** +1.4 off yesterday (94.8) — water/glycogen, not fat (1.4 kg of fat = ~10,800 kcal surplus, impossible in a day). Back at the 7/03 baseline (96.4) though, so the 2-week trend has flattened; the 94.3 low on 7/22 was the trip flush, not a new set point. Post-trip carbs/sodium the likely driver. Watch the next 2–3 fasted readings before calling anything.
+
 ## 2026-07-23
 - **Weight:** 94.8 kg (fasted AM)
 - **Cals / Protein:** —
