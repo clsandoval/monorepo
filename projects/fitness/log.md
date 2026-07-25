@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-07-25
+- **Weight:** 97.4 kg (fasted AM)
+- **Cals / Protein:** —
+- **Carbs / Sodium:** —
+- **Trained:** —
+- **Notes:** +1.2 off yesterday, +3.1 over the 7/22 low (94.3) in three days. Physically can't be fat (3.1 kg fat = ~24,000 kcal surplus), but this is now the 3rd straight rise and 1.0 kg ABOVE the 7/03 baseline (96.4) — the flattening called on 7/24 is real. Likely driver: no macro logging since 7/21 + post-trip carbs/sodium. Fix is to resume logging cals/protein today, not to cut harder.
+
 ## 2026-07-24
 - **Weight:** 96.2 kg (fasted AM)
 - **Cals / Protein:** —
