@@ -3,7 +3,7 @@ type: project
 name: Fitness
 status: active
 tags: [health, fat-loss, training]
-updated: 2026-07-24
+updated: 2026-07-25
 
 ---
 
@@ -90,6 +90,11 @@ Floor beats ceiling when both are in tension (hitting protein matters more than 
     (~100 kcal), good for the cut. Stopped buying oat milk. (NB: "Koko" brand is coconut, not almond —
     his is generic unsweetened almond; macros per online avg, fine to treat as ~negligible.)
   - **Cottage cheese:** Bulla High Protein (Original) — 12g protein / 82 kcal per 100g. Lean, cheap, scalable protein for closing the floor (macros above; per CalorieKing AU + MyNetDiary).
+- **Eating window: first meal ~11am** (resumed 2026-07-25, an old habit of his). Timing is
+  macro-neutral — total cals/protein drive fat loss, not when they land. The real consequence is
+  **the protein floor gets harder in a compressed window**: 160g across ~3 meals = ~55g/meal, so
+  every meal must be protein-anchored (no carb-only meals) and the shake covers the gap. Don't
+  let the shorter window quietly become a sub-1700 day — the cal FLOOR still applies.
 - **Whole-food protein is expensive** — don't build the plan around it.
 - **When out / occasional:** steak, salmon.
 - **Sodium matters for him** (confirmed 2026-07-05): daily rope sweat + mostly-unsalted lean whole
