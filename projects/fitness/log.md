@@ -17,7 +17,7 @@ Append-only. Newest at top. One line per day.
 - **Cals / Protein:** ~700 / ~45g so far (lamb youvetsi, orzo swapped for shirataki: ~180g braised lamb shoulder ~450/44g + tomato/onion sauce + rendered lamb fat/oil ~220/1g [noted as visibly oily — revised up from ~100]; 2 cups shirataki rice ~30/0g)
 - **Carbs / Sodium:** ~20g / ~1.5g so far (tomato/onion ~10g + shirataki ~10g, near-all fiber; braise salt carries the sodium)
 - **Trained:** —
-- **Notes:** shirataki swap for the orzo kills ~200 cal / ~45g carbs vs the classic — good trade given rice/pasta bloat him. Portion assumed ~180g cooked lamb; correct it if it was bigger.
+- **Notes:** shirataki swap for the orzo kills ~200 cal / ~45g carbs vs the classic — good trade given rice/pasta bloat him. Portion assumed ~180g cooked lamb; correct it if it was bigger. Post-meal (non-fasted) scale read 99.0 — not comparable to the fasted series; ignore. Fasted AM reading still pending.
 
 ## 2026-07-25
 - **Weight:** 97.4 kg (fasted AM)
