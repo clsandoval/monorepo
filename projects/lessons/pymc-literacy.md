@@ -13,15 +13,23 @@ level: Strong structural intuition (prior, hierarchy, generative thinking — ha
 hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
-hours_done: 3.0
-session_start: 1783678684
-next_up: Rung 12 — Gaussian Processes & HSGP (GP = flexible prior over functions, lengthscale/kernel,
-  HSGP as the fast approximation). Warm-up (interleave): (1) funnel/non-centered re-test (Rung 7,
-  untouched since 7/05 morning — one check: why does non-centering fix divergences); (2) LOO one-liner
-  (planned twice, never run). Watch for his recurring (w−1) vs (1−w) sign slip if marginalization
-  resurfaces. Then rungs 13, 14 — Phase 1 likely done in 2 short sessions. TEACHING STYLE (locked,
-  2026-07-05): brief, HIGH-VARIANCE example domains, NO Mama Sita's re-skinning (Phase 2 build target
-  only).
+hours_done: 3.3
+next_up: Rung 13 — state-space & structural time series (trend+seasonality+regression components,
+  Kalman filter, counterfactual forecasting). Enter via the LIVE HOOK from 7/26: a GP lengthscale
+  landing at ~7 days on daily data means day-of-week periodicity the GP is faking — state-space models
+  it explicitly. Warm-up (interleave): (1) HSGP one-sentence literacy check ONLY — "when someone says we
+  switched to HSGP, what do they mean, and which knob if the fit's too smooth?" (do NOT reopen the
+  basis-function machinery); (2) LOO — out-of-SAMPLE not out-of-distribution, + k-hat > 0.7 (corrected
+  7/26, untested); (3) periodic-vs-ExpQuad kernel (he missed this cold). Then Rung 14 → Phase 1 done.
+  TEACHING STYLE (locked, 2026-07-05): brief, HIGH-VARIANCE example domains, NO Mama Sita's re-skinning
+  (Phase 2 build target only).
+  TEACHING STYLE (added 2026-07-26, IMPORTANT): before teaching any mechanism, ask "does Phase-1
+  LITERACY require this, or is it Phase-2 MASTERY?" Rung 12 blew up because I taught the Fourier bridge
+  behind HSGP — derivation-level material — when literacy needed one sentence. Second time a
+  mechanism-heavy rung bounced (marginalization was a 3-round fight). Pattern: he tolerates deep
+  mechanism when it's the CONCEPT (funnel, collider, single-flight) but not when it's implementation
+  machinery beneath an API he'll never hand-write. Default to the one-sentence version and let HIM pull
+  for depth — he reliably does when he wants it.
   OPEN thread to revisit in Phase 2: confounder (observed, include) vs latent variable (unobserved,
   model) — Carlos kept conflating; untangle when building the true-demand model.
 ---
@@ -76,7 +84,7 @@ Learn top-down and the chat stops being gibberish fastest.
 - [x] **9. Causal inference & DAGs** (~4h) — correlation≠causation, **DAGs**, confounders, interventions (`pm.do`), incrementality. Frames most MMM work. *(Vincent, Orduz, Luhmann)*
 - [x] **10. Model comparison** (~2h) — **LOO / ELPD / WAIC**, PSIS **k-hat**, "better predictive fit." *(Abril, Engels)*
 - [x] **11. Likelihoods, GLMs & regression** (~3h) — picking a likelihood (Normal/Poisson/Student-T/Binomial), link functions, marginalizing discrete latents. *(Vincent, Paz, Luhmann)*
-- [ ] **12. Gaussian Processes & HSGP** (~3h) — GP = flexible prior over functions; lengthscale/kernel; **HSGP** fast approximation; spatial/smooth trends. *(Engels, Fonnesbeck)*
+- [~] **12. Gaussian Processes & HSGP** (~3h) — GP = flexible prior over functions; lengthscale/kernel; **HSGP** fast approximation; spatial/smooth trends. *(Engels, Fonnesbeck)* — PARTIAL 7/26: GP conceptual half CLEARED (prior-on-functions, kernel, lengthscale + both failure directions). HSGP at literacy level delivered as one sentence; the basis-function machinery bounced hard and is DEFERRED TO PHASE 2. Do not reopen it in Phase 1.
 - [ ] **13. State-space & structural time series** (~3h) — trend+seasonality+regression components, **Kalman filter**, counterfactual forecasting. *(Grabowski, Fonnesbeck)*
 - [ ] **14. Frontier / niche — know the words exist** (~2h) — **variational inference / normalizing flows**, **Laplace approximation**, **drift-diffusion/HSSM**, R2D2/PC priors. *(Seyboldt, Fengler)*
 
@@ -123,6 +131,39 @@ teaching:
    w/ exogenous shock).
 
 ## Sessions (newest at top)
+
+### 2026-07-26 · 18 min · Rung 12 (GPs) — GP half cleared, HSGP over-taught and bounced
+- Warm-up, both stale and both partial: non-centering ("adjusting the geometry so sharp peaks/valleys
+  are more manageable") — right instinct, mechanism fuzzy; re-locked as **sever the dependency → the
+  space is the same scale everywhere → ONE step size works**. LOO: he said "out of DISTRIBUTION data" —
+  corrected to out-of-**sample** (same distribution; OOD is a different problem). Remembered there was a
+  threshold number but not `k-hat` / >0.7. Vocab-lag pattern holding exactly as recorded.
+- GP taught: regression forces a functional form → GP puts the prior on the FUNCTION; kernel sets
+  covariance by distance → smoothness falls out; knobs = lengthscale (the knob), amplitude, kernel family.
+- **Cleared cold:** soil-nitrogen → short lengthscale, with the right reason AND framed as "something
+  you're forcing" (Rung 6 prior-as-assumption reflex, unprompted). Added both failure directions
+  (oversmoothing vs chasing noise).
+- **Missed:** GP on daily traffic with ~7-day lengthscale → he said "highly correlated across time, want
+  a smoother kernel". Real answer: 7 days = day-of-week PERIODICITY the smooth kernel is faking; want
+  Periodic (or Periodic × ExpQuad). Transferable tell taught: lengthscale landing near a calendar cycle =
+  model the seasonality explicitly. Untested — retest next session.
+- **BLEW UP — my miscalibration, not his.** I taught the HSGP bridge (fixed sine basis, weight variances
+  from the kernel, "spectral density", "eigenfunctions of the Laplacian") — i.e. Phase-2 derivation
+  material — to a stated Phase-1 LITERACY goal. He pushed back twice ("explain at my level, step by
+  step"), I invoked /discretize and rebuilt it with 5-point numbers + the Cholesky→non-centering hook
+  (`curve = L @ z` is Rung 7 with a matrix). He then asked the best question of the session — "what are
+  we basing the assumptions on?" — which I answered (sines are generic/assumption-free; the assumption
+  stays in kernel+lengthscale; lengthscale is still INFERRED, only the basis is precomputed). Landed
+  briefly, then collapsed entirely on the retry of C/D: "i'm so fucking confused, i don't know what's
+  going on." Withdrew both questions, reset HSGP to the one-sentence literacy version, ended session.
+- Stopped at: HSGP = "GP too slow past a few thousand points; m = can capture faster wiggles, c = edge
+  padding; too smooth → raise m." That is the entire Phase-1 requirement. Machinery deferred to Phase 2.
+- Next: Rung 13 state-space, entered via the 7-day-periodicity hook (live, unresolved, his own miss).
+
+### 2026-07-10 · 0 min · ABORTED — no content
+- Timer was started (`session_start` 1783678684 = Jul 10 10:18 UTC) and the session never ran; no
+  teaching happened and nothing was logged. Timer left running 16 days, cleared 2026-07-26.
+- 0h credited — nothing was demonstrated. Recorded only so the gap in the log is explained.
 
 ### 2026-07-08 · 29 min · Marginalization remediation (Rung 11 follow-up) — cleared cold
 - He opened with "still struggling with that last one" → full session of mapping reps, 5 fresh
