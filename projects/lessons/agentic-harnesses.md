@@ -51,6 +51,44 @@ analytical spine — the axes along which harnesses vary — and uses live frame
       axes; extract design moves for Daimon (~6h)
 
 ## Sessions (newest at top)
+### 2026-07-27 (part 2) · 15 min · Rung 2 — the agent loop (core spine cleared)
+- Ran Aider-vs-Claude-Code (human gate vs while-tools) as the live hook. Every payload below was HIS,
+  named by me after the fact — the Socratic-first protocol is confirmed as the right mode for him.
+- **Human gate tradeoff:** got control/safety vs autonomy immediately, then found the hard
+  discriminator himself — **CI**. Correctly framed it as a capability line, not a preference.
+- **Verifier as the human's replacement:** ranked the substitute ladder unprompted — prompt guidance
+  weakest, hooks middling, "at the end of the day the only thing you can do is tests and verification
+  criteria." Named for him: **loop length is bounded by verifier quality**, and why coding agents ran
+  ahead of all others (free verifiers: compiler/types/tests/lint).
+- **Loop shapes:** picked plan-execute as worse on long tasks. Premise correction issued — plan-execute
+  DOES observe, it just won't REVISE; the failure is commitment, not blindness. Referee heuristic given:
+  ask *when is it allowed to replan*, not whether it observes.
+- **ReAct failure, cold:** "jitter, drift, and lumps tend to go narrowly into one path" — that's
+  goal drift + depth-first tunneling from firsthand observation. Named both.
+- **Closing question landed perfectly:** cost of re-injecting a plan every turn → he said context bloat
+  AND staleness if the plan needs to change, concluding "plans should be written to an artifact with
+  guarantees, not just context storage." That's the callback (read-only re-injection = plan-execute in
+  disguise) plus the design requirement (the artifact must be MUTABLE) in one answer.
+- Spine now owned: control flow / who holds the plan / stop condition = verifier / mutable artifact.
+- PACE CORRECTION from the user: he wants 20-30 min PER TOPIC, not short rounds. The earlier read that
+  he fades after ~2 topics was WRONG — he re-engaged completely and produced his best work of the day
+  in part 2. Do not cut sessions short on a perceived fade; push.
+
+### 2026-07-27 (part 1) · 6 min · Aider case study — bounding axes (22-day gap)
+- Warm-up: graded Aider cold on his two coined lenses. Had to describe Aider first (never used it):
+  manual /add context curation, tree-sitter repo map ranked by centrality, SEARCH/REPLACE text edits
+  (not tool-calls), architect/editor split, git auto-commit as state layer, turn-based + human gate.
+- First answer "yes to both, relies on git" — collapsed both lenses onto one mechanism. One counter-
+  question (what does a commit actually PREVENT?) and he self-corrected immediately and unprompted,
+  landing on the right answer: the real bound is /add, i.e. control over surface area of actions.
+- **Two reusable axes named** (exactly the vocab gap his level note calls out):
+  1. **Reversibility vs containment** — recovery-after vs prevention. Harnesses market #1 as #2.
+  2. **Context surface vs action surface** — separately bounded. Aider bounds context (manual /add),
+     leaves actions unbounded (arbitrary shell via test/lint). Claude Code is the near-exact inverse:
+     unbounded autonomous search, bounded per-tool permission gates.
+- Daimon tie-in: multi-tenant needs BOTH surfaces bounded; neither single-user design is a template,
+  and git-style reversibility is worthless as a tenancy answer.
+
 ### 2026-07-05 · 22 min · Diagnostic + Rung 1 (landscape)
 - Covered: full diagnostic (nailed model/harness boundary + found the provider-reasoning edge;
   carves space by stack layer; strong critic — steelmanned Hermes, found audit + multi-tenant
