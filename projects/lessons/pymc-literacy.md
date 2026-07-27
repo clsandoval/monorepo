@@ -13,15 +13,14 @@ level: Strong structural intuition (prior, hierarchy, generative thinking — ha
 hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
-hours_done: 3.5
-next_up: Rung 13 CONTINUED — state-space, the identifiability half. He has the component list and
-  the trend-vs-seasonal ridge conceptually but produced NOTHING himself on it (faded mid-rung; the whole
-  back half was exposition, not demonstration). Retest cold: (1) "what does a lengthscale of 365 on daily
-  data tell you?" (2) given a stretched-sausage pair plot of trend-innovation vs seasonal-scale, what is
-  wrong and what's the fix? — answer must be PRIORS, not more data. Then finish the rung with the director
-  drill he never completed: specify the Mama Sita's structural model in words, components + one prior
-  justification each. Warm-up (interleave): HSGP m-vs-lengthscale oversmoothing check (he owns this now,
-  keep it cheap).
+hours_done: 3.8
+next_up: Rung 13 CLOSE-OUT then Rung 14. The one thing he did NOT produce is the **observation
+  layer** — he swapped questions when asked and it had to be taught. Retest cold on a fresh outcome
+  type (a proportion, e.g. conversion rate, or a duration, e.g. time-to-resolution): "what's the
+  observation distribution and what breaks under Gaussian?" He should reach for the physical nature of
+  the outcome FIRST. Warm-up (interleave): the three fixes for a ridge (priors / reparameterize as
+  sum+ratio / sum-to-zero constraint) — he produced 2 of 3 conceptually, retest for the named third.
+  DO NOT use Mama Sita's for teaching examples (durable feedback, 2026-07-05) — high-variance domains only.
 ---
 
 # PyMC Labs Discord literacy
@@ -121,6 +120,33 @@ teaching:
    w/ exogenous shock).
 
 ## Sessions (newest at top)
+
+### 2026-07-27 (part 2) · 19 min · Rung 13 — identifiability, made visual + director drill
+- **365-lengthscale retest: PASSED cold** ("it's modeling the year").
+- **He didn't know what a pair plot IS** — asked directly, good question. Generated a 3-panel matplotlib
+  figure (identified blob / non-identified ridge / Neal's funnel) and sent it to Telegram.
+  **VISUALS ARE A REAL UNLOCK FOR HIM — he went from blocked to fluent immediately after seeing it.
+  Generate diagnostic plots on demand for this topic; don't try to describe geometry in prose.**
+  Reusable script: `projects/lessons/assets-pairplots.py` (needs a venv w/ matplotlib+numpy).
+- **Post-image, answered the ridge question well:** more data "just magnifies the same shape" (correct —
+  the ridge is structural, not sampling noise), and the fix is to "bake in more assumptions / change the
+  model / decorrelate the terms" = priors + reparameterization, both unprompted.
+- Taught: **structural vs weak non-identifiability**; the three levers (tight prior on sigma_trend /
+  reparameterize as sum+ratio / **sum-to-zero on the seasonal component** — the named standard fix he
+  didn't have); and the principle **non-identifiability is a property of the MODEL, not the data.**
+- **Director drill on a fresh domain (daily ER admissions — deliberately not Mama Sita's).** Components
+  correct cold: level, trend, seasonal, regressors, noise; weather as regressor; and BOTH seasonal
+  periods unprompted (7-day weekly + yearly pollen/flu).
+- **STANDOUT: he found the weather x yearly-seasonality collinearity himself**, one question before it
+  was asked — "you won't know if the effect is the weather or the season." That is today's ridge lesson
+  applied cold to a domain he'd never seen. Transfer is happening, not just recall.
+- **GAP — the observation layer.** Asked for the count distribution he swapped questions and answered
+  the confounding one instead. Had to be taught: log link + NegBinomial, the three Gaussian failures
+  (negative predictions / constant variance vs var-grows-with-mean / additive when reality is
+  multiplicative), overdispersion as the Poisson->NegBin tell. Heuristic given: **look at what the
+  outcome physically IS — count, proportion, duration, strictly positive — before anything else.**
+  He did NOT produce this; it is the retest target.
+
 
 ### 2026-07-27 · 11 min · HSGP check + state-space entry (Rung 13, partial)
 - **HSGP literacy: PASSED cold.** Unprompted: "different representation using close-enough sine waves
