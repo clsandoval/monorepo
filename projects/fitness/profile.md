@@ -123,9 +123,10 @@ post-trip flush low or a water-rebound high manufactures a phantom gap.
 - **Priority: consistency over intensity.** Travels often — miss a day, pick up the cycle where it left off. Travel = just the rope.
 - **Daily session:** 30–40 min = **5 min jump rope** + **4 lifts**, always full body (push + pull + hinge/squat + core).
 - **3-day rotation** — cycle A → B → C → repeat:
-  - **Day A:** Smith incline bench 3×8 · cable rows 3×10 · RDLs 3×8 · leg extensions 3×10 (no flat bench — incline only, both press days)
+  - **Day A:** Smith incline bench 3×8 · **barbell rows 3×10** · RDLs 3×8 · leg extensions 3×10 (no flat bench — incline only, both press days)
   - **Day B:** OHP 3×8 · pull-ups (strict-then-assisted) · leg curl 3×10 · leg raises 2×12
-  - **Day C:** Smith incline bench 3×8 · cable rows 3×10 · goblet squat 3×10 · bicep curls 3×10 + cable lateral raises 3×12
+  - **Day C:** Smith incline bench 3×8 · **barbell rows 3×10** · goblet squat 3×10 · bicep curls 3×10 + cable lateral raises 3×12
+  - **Rows are barbell, not cable** (locked 2026-07-27, his call — and what he's actually been logging since 7/03). Free barbell, floor-start. Working load 45/side (135 lb) × 10; progress to 55/side × 8 when 3×10 is clean.
 - **Intensity:** trains at **70–80% deliberately**. 8 yrs judo + overtraining history —
   will not and should not max out. Don't prescribe failure sets / all-out work.
 
