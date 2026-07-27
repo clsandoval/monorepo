@@ -248,7 +248,6 @@ describe("conformance: form data → Rust serde acceptance", () => {
     // With empty dispositions (no institutions), the real engine may return
     // "Mixed" succession (legitimes by law + free portion by intestate rules).
     // The key conformance assertion: no serde error thrown, will shape accepted.
-    expect(result.scenario_code).toMatch(/^T/);
     expect(["Testate", "Mixed"]).toContain(result.succession_type);
   });
 

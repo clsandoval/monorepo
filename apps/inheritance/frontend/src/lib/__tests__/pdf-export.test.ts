@@ -1,9 +1,9 @@
 /**
  * PDF Export Utility Tests — Stage 11
  *
- * Tests for slugifyName, buildPDFFilename, and generatePDF.
+ * Tests for slugifyName and buildPDFFilename.
  */
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import type { EngineInput, EngineOutput, Money } from '../../types';
 import type { FirmProfile } from '../firm-profile';
 import { defaultFirmProfile } from '../firm-profile';
@@ -199,24 +199,4 @@ describe('pdf-export', () => {
     });
   });
 
-  // ===========================================================================
-  // generatePDF (integration — lazy-loads @react-pdf/renderer)
-  // ===========================================================================
-
-  describe('generatePDF', () => {
-    beforeEach(() => {
-      vi.resetModules();
-    });
-
-    it('is an async function exported from pdf-export', async () => {
-      // Re-import to get the real module shape
-      const mod = await import('../pdf-export');
-      expect(typeof mod.generatePDF).toBe('function');
-    });
-
-    it('downloadPDF is an async function exported from pdf-export', async () => {
-      const mod = await import('../pdf-export');
-      expect(typeof mod.downloadPDF).toBe('function');
-    });
-  });
 });

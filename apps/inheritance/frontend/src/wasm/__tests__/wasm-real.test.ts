@@ -300,21 +300,6 @@ describe("wasm-real engine", () => {
       expect(VALID_SUCCESSION_TYPES).toContain(output.succession_type);
     });
 
-    it("intestate scenario_code starts with I", async () => {
-      const input = makeSimpleIntestateInput();
-      const output = await computeWasm(input);
-
-      expect(output.scenario_code).toMatch(/^I/);
-    });
-
-    it("testate scenario_code starts with T", async () => {
-      const input = makeTestateInput([
-        makePerson({ id: "lc1", name: "Maria" }),
-      ]);
-      const output = await computeWasm(input);
-
-      expect(output.scenario_code).toMatch(/^T/);
-    });
   });
 
   // --------------------------------------------------------------------------

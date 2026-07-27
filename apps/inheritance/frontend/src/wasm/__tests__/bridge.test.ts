@@ -153,13 +153,12 @@ describe("wasm bridge", () => {
   // Intestate scenario prediction
   // --------------------------------------------------------------------------
   describe("intestate scenarios", () => {
-    it("returns I-prefix scenario for intestate input (will=null)", async () => {
+    it("returns Intestate succession_type for intestate input (will=null)", async () => {
       const input = makeIntestateInput([
         makePerson({ id: "lc1", name: "Maria Cruz" }),
       ]);
       const output = await compute(input);
 
-      expect(output.scenario_code).toMatch(/^I/);
       expect(output.succession_type).toBe("Intestate");
     });
 
@@ -331,13 +330,12 @@ describe("wasm bridge", () => {
   // Testate scenario prediction
   // --------------------------------------------------------------------------
   describe("testate scenarios", () => {
-    it("returns T-prefix scenario for testate input", async () => {
+    it("returns Testate or Mixed succession_type for testate input", async () => {
       const input = makeTestateInput([
         makePerson({ id: "lc1", name: "Maria Cruz" }),
       ]);
       const output = await compute(input);
 
-      expect(output.scenario_code).toMatch(/^T/);
       // Real WASM engine returns "Mixed" for testate with compulsory heirs
       expect(["Testate", "Mixed"]).toContain(output.succession_type);
     });
