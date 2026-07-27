@@ -178,26 +178,103 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 
 ## Traceability
 
-To be populated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| _(pending roadmap)_ | — | Pending |
+| GATE-01 | Phase 1 | Pending |
+| GATE-02 | Phase 1 | Pending |
+| GATE-03 | Phase 1 | Pending |
+| GATE-04 | Phase 1 | Pending |
+| GATE-05 | Phase 3 | Pending |
+| GATE-06 | Phase 3 | Pending |
+| GATE-07 | Phase 3 | Pending |
+| GATE-08 | Phase 3 | Pending |
+| GATE-09 | Phase 3 | Pending |
+| LOOP-01 | Phase 2 | Pending |
+| LOOP-02 | Phase 2 | Pending |
+| LOOP-03 | Phase 2 | Pending |
+| LOOP-04 | Phase 2 | Pending |
+| LOOP-05 | Phase 2 | Pending |
+| LOOP-06 | Phase 2 | Pending |
+| LAWYER-01 | Phase 4 | Pending |
+| LAWYER-02 | Phase 4 | Pending |
+| LAWYER-03 | Phase 4 | Pending |
+| LAWYER-04 | Phase 4 | Pending |
+| LAWYER-05 | Phase 4 | Pending |
+| LAWYER-06 | Phase 4 | Pending |
+| LAWYER-07 | Phase 4 | Pending |
+| LAWYER-08 | Phase 4 | Pending |
+| LAWYER-09 | Phase 4 | Pending |
+| LAWYER-10 | Phase 4 | Pending |
+| OBS-01 | Phase 5 | Pending |
+| OBS-02 | Phase 5 | Pending |
+| OBS-03 | Phase 5 | Pending |
+| OBS-04 | Phase 5 | Pending |
+| OBS-05 | Phase 5 | Pending |
+| OBS-06 | Phase 5 | Pending |
+| OBS-07 | Phase 5 | Pending |
+| OBS-08 | Phase 5 | Pending |
+| OBS-09 | Phase 5 | Pending |
+| COV-01 | Phase 6 | Pending |
+| COV-02 | Phase 6 | Pending |
+| COV-03 | Phase 6 | Pending |
+| COV-04 | Phase 6 | Pending |
+| COV-05 | Phase 6 | Pending |
+| LAW-01 | Phase 7 | Pending |
+| LAW-02 | Phase 7 | Pending |
+| LAW-03 | Phase 7 | Pending |
+| LAW-04 | Phase 7 | Pending |
+| LAW-05 | Phase 8 | Pending |
+| LAW-08 | Phase 8 | Pending |
+| LAW-09 | Phase 8 | Pending |
+| LAW-10 | Phase 8 | Pending |
+| LAW-11 | Phase 8 | Pending |
+| EXT-01 | Phase 9 | Pending |
+| EXT-02 | Phase 9 | Pending |
+| EXT-03 | Phase 9 | Pending |
+| EXT-04 | Phase 9 | Pending |
+| JRNY-01 | Phase 10 | Pending |
+| JRNY-09 | Phase 10 | Pending |
+| JRNY-10 | Phase 10 | Pending |
+| JRNY-12 | Phase 10 | Pending |
+| JRNY-02 | Phase 11 | Pending |
+| JRNY-03 | Phase 11 | Pending |
+| JRNY-04 | Phase 11 | Pending |
+| COV-06 | Phase 11 | Pending |
+| JRNY-05 | Phase 12 | Pending |
+| JRNY-06 | Phase 12 | Pending |
+| JRNY-07 | Phase 12 | Pending |
+| JRNY-08 | Phase 12 | Pending |
+| JRNY-11 | Phase 12 | Pending |
+| PDF-01 | Phase 13 | Pending |
+| PDF-02 | Phase 13 | Pending |
+| PDF-03 | Phase 13 | Pending |
+| PDF-04 | Phase 13 | Pending |
+| PDF-05 | Phase 13 | Pending |
+| LAW-06 | Phase 14 | Pending |
+| LAW-07 | Phase 14 | Pending |
+| LAW-12 | Phase 14 | Pending |
+| LAW-13 | Phase 14 | Pending |
+| LAW-14 | Phase 14 | Pending |
+| LAW-15 | Phase 14 | Pending |
+| EXT-05 | Phase 15 | Pending |
+| EXT-06 | Phase 15 | Pending |
+| EXT-07 | Phase 15 | Pending |
+| EXT-08 | Phase 15 | Pending |
 
 **Coverage:**
 - v1 requirements: **80** total (GATE 9, OBS 9, LAW 15, COV 6, JRNY 12, PDF 5, EXT 8, LAWYER 10, LOOP 6)
-- Mapped to phases: 0
-- Unmapped: 80 ⚠️ (roadmap not yet created)
+- Mapped to phases: 80
+- Unmapped: 0 ✓
 
-**Known dependency edges for the roadmapper:**
-- GATE-01…04 block every other gate — nothing is verifiable until the suites execute
-- OBS-01…04 block all LAW-\* verification — with `warnings: []` hardcoded, a legal fix cannot be observed
-- LAW-01 is the root cause of LAW-02, LAW-03, LAW-04 — one line, four defects
-- LAWYER-04 blocks LAW-07; LAWYER-06 blocks LAW-06; LAWYER-08 blocks LAW-12
-- JRNY-01 blocks JRNY-02…08 — per-step screenshots are unaffordable without state seeding
-- GATE-05…07 block COV-06 and every DB-touching journey gate
-- EXT-01 should precede JRNY-05, or screenshot gates will certify a wrong "Predicted:" badge
+**Known dependency edges for the roadmapper (resolved in ROADMAP.md):**
+- GATE-01…04 (Phase 1) block every other gate — nothing is verifiable until the suites execute
+- OBS-01…04 (Phase 5) block all LAW-\* verification — with `warnings: []` hardcoded, a legal fix cannot be observed. LAW phases (7, 8, 14) are sequenced after Phase 5.
+- LAW-01 is the root cause of LAW-02, LAW-03, LAW-04 — one line, four defects — grouped together in Phase 7.
+- LAWYER-04 blocks LAW-07; LAWYER-06 blocks LAW-06; LAWYER-08 blocks LAW-12 — LAWYER-\* recorded early in Phase 4; the three blocked LAW items deferred to Phase 14, late enough that a lawyer sitting the bar exam has weeks to answer without stalling the loop.
+- JRNY-01 (Phase 10) blocks JRNY-02…08 (Phases 11-12) — per-step screenshots are unaffordable without state seeding.
+- GATE-05…07 (Phase 3) block COV-06 and every DB-touching journey gate (Phase 11).
+- EXT-01 (Phase 9) precedes JRNY-05 (Phase 12), so screenshot gates cannot certify a wrong "Predicted:" badge.
 
 ---
 *Requirements defined: 2026-07-27*
-*Last updated: 2026-07-27 after initial definition*
+*Last updated: 2026-07-27 after roadmap creation (15 phases, 80/80 requirements mapped)*
