@@ -19,16 +19,13 @@ level: Strong senior distributed-systems reflexes (6y backend, Python). DIAGNOSE
   methodology problem, not a disclosure problem. Zero read on live authoring under a clock — untested
   and structurally the biggest risk.
 hours_estimate: 105
-hours_done: 0.3
-next_up: Rung 6×3 — SPOKEN OPENERS. He blanked completely on producing a 45-sec verbal opener despite
-  owning the underlying mechanisms; this is the real bottleneck, not knowledge. Drill the 4-beat scaffold
-  (invariants → data structures → concurrency decision + why → what you're deferring) cold on three
-  fresh prompts: thread-safe LRU+TTL cache, reservation service with concurrency constraints, token-bucket
-  rate limiter. Out loud, timed, no code. Warm-up (interleave): (1) three names cold, no hints —
-  single-global-lock problem, `+=` bug, 50-threads-one-hot-key bug + its fix; (2) blast radius of a
-  blocking call in a coroutine (corrected at end of session 1, untested). NEGLECT WATCH: Rung 4 (LLM
-  serving / continuous batching) was a total blank in the diagnostic and is adjacent to his day job —
-  give it the session after next at the latest.
+hours_done: 0.9
+next_up: Rung 4 — LLM serving / continuous batching. NEGLECT DEBT IS NOW DUE: total blank in the
+  diagnostic, adjacent to his day job, and deferred twice. Do it before any more concurrency.
+  Warm-up (interleave): (1) the LRU opener he never assembled end-to-end — make him deliver all 4 beats
+  in one unbroken 45-sec take, no scaffolding questions from me; (2) three names cold again: lost update,
+  cache stampede, lock striping (he had contention + the single-flight FIX but blanked on both NAMES).
+  (3) blast radius of a blocking call in a coroutine — STILL untested across two sessions, stop skipping it.
 ---
 
 # Anthropic-tier SWE interview (L4+, AI infra)
@@ -54,6 +51,31 @@ eliminates technically-strong candidates.
       honesty when results conflict with what a launch needs
 
 ## Sessions (newest at top)
+
+### 2026-07-27 · 37 min · Concurrency names + the LRU+TTL spoken opener
+- **Names warm-up, 2.5/3 (was 0/3 last session):** "lock contention" correct cold; "read-modify-write"
+  correct for the mechanism (gave him **lost update** for the bug, **atomicity** for the missing
+  property); blanked on **cache stampede** as a name but produced the FIX unprompted — "placeholder
+  future," which is exactly single-flight. Pattern holds hard: mechanism owned, vocabulary missing.
+- **The opener drill — real progress.** Last session: total blank. This session he asked for the
+  derivation process rather than freezing, then produced all three invariants cold and in his own
+  words (fresh/unexpired · size bounded by N · map<->list agree bidirectionally).
+- **What unlocked it:** teaching invariants as *"true BETWEEN operations, temporarily false DURING one"*
+  → therefore **you find your critical section by finding where the invariant breaks**. That reframe
+  turned invariants from recitation into a tool. Reuse this framing verbatim.
+- **Best moment of the session:** answered the RWLock trap cold and correctly — "in an LRU the get also
+  writes, it moves the node to the front." That's the discriminating insight for this question and he
+  got it with no prompting.
+- Then hedged on sharding ("I don't know the exact answer") despite having produced lock striping
+  himself 20 min earlier on the rate limiter. **Confidence lags competence — call this out every time.**
+- Taught on request: sharding mechanics (hash & (N-1), per-segment map/list/lock, approximate LRU,
+  capacity skew, expensive size()) and the Caffeine trick (lock-free ring buffer of access records,
+  tryLock batch replay, droppable records). Generalized principle delivered: **eviction policy is a
+  hint, not a correctness requirement** — separate correctness state from policy state and relax
+  consistency only where correctness doesn't depend on it.
+- NOT DONE: beat 4 (deferring) and a full unbroken 45-sec delivery. He assembled beats 1 and 3 only
+  in fragments, with me prompting each. **The end-to-end take is still untested — that IS the round.**
+
 ### 2026-07-26 · 18 min · Diagnostic + Rung 1 (concurrency names) — mostly cleared
 - Diagnostic: 6 questions across all branches. See `level` above. Headline: verdicts good, names wrong.
 - Covered: contention vs deadlock (one lock can't deadlock — no cycle possible); lock ordering as the
