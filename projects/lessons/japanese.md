@@ -8,11 +8,13 @@ level: Advanced beginner (~high N5, entering N4). Reads hiragana fluently, knows
   the X は Y です copula, and recognizes common kanji (日本語/私/食べる) with readings. Gaps: verb
   conjugation (mixed up hoshii vs ～tai), particles (は/を/が confusion), and output/typing on JP IME.
 hours_estimate: 2200   # FSI Category-IV estimate to professional fluency; ~150h already banked from prior exposure
-hours_done: 2.0
-next_up: Core particles focus — は vs が vs を (the roadmap's stated weak branch, untouched so far).
-  Warm-up (interleave): (1) stem-hop retest, 3 mixed unlabeled verbs incl. ONE outlaw (帰る/走る);
-  (2) the を IME retest he dodged all session — make him actually type "すしを食べる" before anything
-  else; don't teach past the dodge this time. If stem hop survives the retest, mark it stable.
+hours_done: 2.4
+next_up: Core particles — は vs が (を is now CLEARED, drop it from the warm-up). This branch has
+  been "next" for two sessions running and is still untouched; do not let a third session pass on verbs.
+  Warm-up (interleave): (1) 待つ retest cold — the つ→ち spelling quirk was taught, never demonstrated;
+  add 話す for す→し; (2) the bucket rule as a one-liner ("which verbs do you actually have to memorize?").
+  NOTE ON GLUE DRIFT: he defaults to ~tai every time regardless of what's asked — the stems are right
+  but masu isn't automatic. Ask for masu explicitly and make him produce it.
 ---
 
 # Japanese
@@ -46,6 +48,22 @@ for pronunciation; don't expect grammar transfer.
 - [ ] **Active fluency polish** (~400h) — sustained conversation, writing, thinking in Japanese.
 
 ## Sessions (newest at top)
+
+### 2026-07-27 · 25 min · Refresher + stem-hop rebuild (19-day gap)
+- Opened cold: "no idea" on the stem hop after 19 days off — full re-teach needed, not a retest.
+- **CLEARED: the を IME retest**, dodged 3 sessions running. Typed すしをたべる unprompted and correct
+  (`wo` not `o`). Retire it.
+- Rebuilt the hop via one-verb-at-a-time micro-steps (the pattern that works for him in every topic):
+  見る chop → 帰る outlaw → 走る cold, self-named "u-verb, はしります" correct.
+- **のみたい correct** — the exact session-1 error (のむたい) is repaired. 食べたい clean.
+- BIG UNLOCK — he asked *why* miru→mimasu but hashiru→hashirimasu, and again how you can even hear a
+  consonant stem in a syllabary. Reframed ru/u-verbs as **vowel-stem vs consonant-stem + a linking `i`**
+  (hashir + i + masu); the "hop" is just r+i written as one kana. Then the bucket rule: non-る = always
+  consonant-stem; る with a/o/u = always consonant-stem; **only -eru/-iru is ambiguous** = the entire
+  memorization burden. His questions are driving the good content — follow them.
+- Shaky at the end: drifted to いきます when asked for 待つ (answered a different verb); つ→ち and す→し
+  taught but NOT demonstrated by him. Retest cold next time.
+- Stem hop: **recovered, not yet stable** — it decayed over 19 days once already. Keep it in warm-ups.
 
 ### 2026-07-08 · 95 min wall-clock (long gaps between replies; engaged time well under that) · Verb groups + stem hop
 - Focus: ru-verbs vs u-verbs and the u-verb stem hop (u-column → i-column), gluing 〜たい.

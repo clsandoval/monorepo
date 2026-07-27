@@ -20,6 +20,7 @@ level: Strong senior distributed-systems reflexes (6y backend, Python). DIAGNOSE
   and structurally the biggest risk.
 hours_estimate: 105
 hours_done: 0.3
+session_start: 1785132670
 next_up: Rung 6×3 — SPOKEN OPENERS. He blanked completely on producing a 45-sec verbal opener despite
   owning the underlying mechanisms; this is the real bottleneck, not knowledge. Drill the 4-beat scaffold
   (invariants → data structures → concurrency decision + why → what you're deferring) cold on three

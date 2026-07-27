@@ -14,6 +14,7 @@ hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
 hours_done: 3.3
+session_start: 1785132670
 next_up: Rung 13 — state-space & structural time series (trend+seasonality+regression components,
   Kalman filter, counterfactual forecasting). Enter via the LIVE HOOK from 7/26: a GP lengthscale
   landing at ~7 days on daily data means day-of-week periodicity the GP is faking — state-space models

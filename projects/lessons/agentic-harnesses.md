@@ -16,6 +16,7 @@ level: EXPERT practitioner. Diagnostic was strong across the board — defined t
 hours_estimate: 25    # revised DOWN from 40 — he already owns the fundamentals + the critic reflex.
   What he's buying: vocabulary, breadth/currency, and reps. Moving target (field ships weekly).
 hours_done: 0.4
+session_start: 1785132670
 next_up: Rung 2 — the agent loop (control-flow designs: ReAct vs plan-execute vs while-tools; stop
   conditions; who holds the plan). Warm-up interleave: retest the two reusable referee lenses he
   coined — "can I SEE it (audit/provenance)?" + "can I BOUND it (scope/tenancy)?" — against a NEW
