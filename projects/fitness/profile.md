@@ -76,10 +76,13 @@ At the 2000 ceiling that's a **~800 kcal deficit ≈ ~0.7 kg/week** fat loss. Re
 Floor beats ceiling when both are in tension (hitting protein matters more than a small cal overshoot).
 
 **Accounting convention for unlogged days (his call, 2026-07-27):** a day with no macros logged counts
-as **+500 kcal over TDEE (~3300 intake)**, not as a compliant day. Applies when reconciling the weight
-trend against the ledger. Note this is deliberately pessimistic and still doesn't close the gap — the
-larger leak is **days logged "so far" and never closed** (20 of 27 in July), so treat any open day's
-number as a floor, not a total.
+as **+500 kcal over TDEE (~3300 intake)**, not as a compliant day.
+
+**His logging is accurate — validated 2026-07-27.** Over 7/01–7/21 (avg 1844 kcal/day logged, 7/08
+charged at +500) the ledger predicts −2.6 kg vs **−2.3 kg actual** (97.5 → 95.2 fasted). Implied
+TDEE **2687**, within noise of the 2800 estimate. Days marked "so far" are effectively complete —
+don't treat them as undercounts. **Reconcile only across matched fasted endpoints**; anchoring on a
+post-trip flush low or a water-rebound high manufactures a phantom gap.
 
 ## Food
 

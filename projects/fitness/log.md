@@ -17,7 +17,7 @@ Append-only. Newest at top. One line per day.
 - **Cals / Protein:** ~400 / ~54g so far (double-scoop protein shake ~280/48g [76g powder, label macros]; flat white ~120/6g)
 - **Carbs / Sodium:** ~34g / ~0.4g so far (shake ~24g incl. 6g fiber; flat white ~10g lactose)
 - **Trained:** —
-- **Notes:** assumes shake mixed with water or almond milk (negligible) and a standard dairy flat white. Strong open — 34% of the protein floor for 20% of the cal ceiling; ~1600 cal left for ~106g protein, very reachable. Weight: second straight down-tick (97.4 → 97.0 → 96.7), the post-trip water is coming off. Still +0.3 over the 7/03 baseline (96.4) and +2.4 over the 7/22 low — the flattening called 7/24 stands until a logged-macro week moves it.
+- **Notes:** assumes shake mixed with water or almond milk (negligible) and a standard dairy flat white. Strong open — 34% of the protein floor for 20% of the cal ceiling; ~1600 cal left for ~106g protein, very reachable. Weight: second straight down-tick (97.4 → 97.0 → 96.7), the post-trip water is coming off. **The "flattening" called on 7/24–7/26 was an artifact — retracted.** Reconciling 7/01–7/21 (the window he confirms is accurately logged): avg 1844 kcal/day, predicted −2.6 kg vs −2.3 kg actual (97.5 → 95.2), implied TDEE 2687 ≈ the 2800 estimate. Logging and TDEE both check out. The 94.3 on 7/22 was a trip-flush low, not a set point; 7/22→today is +2.4 kg but the 5 invisible days at +500 only buy 0.32 kg of fat, so ~2 kg is water/glycogen/gut. **True weight ≈ 95.5 kg, trend −0.77 kg/wk, on plan.** Prior notes anchoring on the 96.4 baseline or the 94.3 low compared mismatched endpoints.
 
 ## 2026-07-26
 - **Weight:** 97.0 kg (fasted AM)
