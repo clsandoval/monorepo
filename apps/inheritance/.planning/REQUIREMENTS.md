@@ -185,9 +185,9 @@ To be populated during roadmap creation.
 | _(pending roadmap)_ | — | Pending |
 
 **Coverage:**
-- v1 requirements: **86** total
+- v1 requirements: **80** total (GATE 9, OBS 9, LAW 15, COV 6, JRNY 12, PDF 5, EXT 8, LAWYER 10, LOOP 6)
 - Mapped to phases: 0
-- Unmapped: 86 ⚠️ (roadmap not yet created)
+- Unmapped: 80 ⚠️ (roadmap not yet created)
 
 **Known dependency edges for the roadmapper:**
 - GATE-01…04 block every other gate — nothing is verifiable until the suites execute
