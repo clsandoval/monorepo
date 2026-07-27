@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-07-27
+- **Weight:** — (not logged)
+- **Cals / Protein:** ~400 / ~54g so far (double-scoop protein shake ~280/48g [76g powder, label macros]; flat white ~120/6g)
+- **Carbs / Sodium:** ~34g / ~0.4g so far (shake ~24g incl. 6g fiber; flat white ~10g lactose)
+- **Trained:** —
+- **Notes:** assumes shake mixed with water or almond milk (negligible) and a standard dairy flat white. Strong open — 34% of the protein floor for 20% of the cal ceiling; ~1600 cal left for ~106g protein, very reachable.
+
 ## 2026-07-26
 - **Weight:** 97.0 kg (fasted AM)
 - **Cals / Protein:** ~1170 / ~76g so far (lamb youvetsi, orzo swapped for shirataki: ~180g braised lamb shoulder ~450/44g + tomato/onion sauce + rendered lamb fat/oil ~220/1g [noted as visibly oily — revised up from ~100]; 2 cups shirataki rice ~30/0g; dinner tasting plate: braised pork 50g ~150/8g + chili crab ~100g ~180/14g [doubled from initial 50g estimate] + caviar 20g ~50/5g + blue cheese 20g ~70/4g + raspberry jam 1 tsp ~20/0g)
