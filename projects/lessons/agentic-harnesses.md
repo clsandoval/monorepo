@@ -15,12 +15,13 @@ level: EXPERT practitioner. Diagnostic was strong across the board — defined t
   design-axes frame to compare same-layer engines, (c) currency on specific frontier frameworks.
 hours_estimate: 25    # revised DOWN from 40 — he already owns the fundamentals + the critic reflex.
   What he's buying: vocabulary, breadth/currency, and reps. Moving target (field ships weekly).
-hours_done: 0.4
-session_start: 1785132670
-next_up: Rung 2 — the agent loop (control-flow designs: ReAct vs plan-execute vs while-tools; stop
-  conditions; who holds the plan). Warm-up interleave: retest the two reusable referee lenses he
-  coined — "can I SEE it (audit/provenance)?" + "can I BOUND it (scope/tenancy)?" — against a NEW
-  framework he hasn't seen (e.g. OpenCode or Aider). Then into loop shapes.
+hours_done: 0.5
+next_up: Rung 2 proper — loop shapes (ReAct vs plan-execute vs while-tools; stop conditions; who
+  holds the plan). Enter via the LIVE HOOK from 7/27: Aider is turn-based with a human gate and does NOT
+  spin unattended — make him contrast that against a while-tools loop and say what the human gate is
+  actually buying (and costing). Warm-up (interleave): retest the two axes coined 7/27 — reversibility
+  vs containment, context surface vs action surface — by grading ONE new framework cold (OpenCode or
+  Codex). He should now refuse to accept git/undo as a containment answer.
 ---
 
 # Frontier of agentic harnesses & agent frameworks
