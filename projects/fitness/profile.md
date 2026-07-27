@@ -3,7 +3,7 @@ type: project
 name: Fitness
 status: active
 tags: [health, fat-loss, training]
-updated: 2026-07-25
+updated: 2026-07-27
 
 ---
 
@@ -74,6 +74,12 @@ At the 2000 ceiling that's a **~800 kcal deficit ≈ ~0.7 kg/week** fat loss. Re
 3. Calories at/over 2000? → ceiling wins; skip extra unless protein floor is badly missed,
    then pick the leanest protein source.
 Floor beats ceiling when both are in tension (hitting protein matters more than a small cal overshoot).
+
+**Accounting convention for unlogged days (his call, 2026-07-27):** a day with no macros logged counts
+as **+500 kcal over TDEE (~3300 intake)**, not as a compliant day. Applies when reconciling the weight
+trend against the ledger. Note this is deliberately pessimistic and still doesn't close the gap — the
+larger leak is **days logged "so far" and never closed** (20 of 27 in July), so treat any open day's
+number as a floor, not a total.
 
 ## Food
 
