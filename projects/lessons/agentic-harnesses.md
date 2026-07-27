@@ -15,13 +15,13 @@ level: EXPERT practitioner. Diagnostic was strong across the board — defined t
   design-axes frame to compare same-layer engines, (c) currency on specific frontier frameworks.
 hours_estimate: 25    # revised DOWN from 40 — he already owns the fundamentals + the critic reflex.
   What he's buying: vocabulary, breadth/currency, and reps. Moving target (field ships weekly).
-hours_done: 0.5
-next_up: Rung 2 proper — loop shapes (ReAct vs plan-execute vs while-tools; stop conditions; who
-  holds the plan). Enter via the LIVE HOOK from 7/27: Aider is turn-based with a human gate and does NOT
-  spin unattended — make him contrast that against a while-tools loop and say what the human gate is
-  actually buying (and costing). Warm-up (interleave): retest the two axes coined 7/27 — reversibility
-  vs containment, context surface vs action surface — by grading ONE new framework cold (OpenCode or
-  Codex). He should now refuse to accept git/undo as a containment answer.
+hours_done: 0.8
+next_up: Rung 3 — context & memory (window packing, compaction/summarization, procedural vs episodic,
+  the rolling-window problem). Natural continuation: he ended 7/27 on "plans should be written to an
+  artifact with guarantees, not just context storage" — that IS the memory rung, enter straight through it.
+  Warm-up (interleave): grade ONE new framework cold (OpenCode or Codex) on the 7/27 axes — reversibility
+  vs containment, context vs action surface, who holds the plan. Rotation cap: Rung 2 has had 1 session,
+  Rung 3 next, do NOT return to loop shapes for a third.
 ---
 
 # Frontier of agentic harnesses & agent frameworks
@@ -34,8 +34,9 @@ analytical spine — the axes along which harnesses vary — and uses live frame
 - [x] Rung 1 — Landscape & the core thesis: who's who (pi/earendil, Hermes/Nous, Multica, Claude
       Code, Codex, OpenCode, Aider…), and the harness-vs-model boundary (~3h) — pi/Hermes/Multica/
       Codex mapped on both axes; core thesis (harness > converged model) established
-- [ ] Rung 2 — The agent loop: control flow designs (ReAct vs plan-execute vs while-tools; stop
-      conditions; who holds the plan) (~4h)
+- [~] Rung 2 — The agent loop: control flow designs (ReAct vs plan-execute vs while-tools; stop
+      conditions; who holds the plan) (~4h) — CORE SPINE CLEARED 7/27 (4 points, all self-produced).
+      Remaining: concrete loop-shape reps on real frameworks; multi-agent/subagent loops untouched.
 - [ ] Rung 3 — Context & memory: window packing, compaction/summarization, procedural vs episodic
       memory, the rolling-window problem (~5h)
 - [ ] Rung 4 — Tool interface: tool-calling API vs code-as-action (CodeAct) vs bash/computer-use;
