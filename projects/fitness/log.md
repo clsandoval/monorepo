@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-07-28
+- **Weight:** 96.0 kg (fasted AM)
+- **Cals / Protein:** ~310 / ~21g so far (Starbucks turkey ham, egg white & fontina sandwich ~310/21g)
+- **Carbs / Sodium:** ~32g / ~0.7g so far (sandwich bread ~32g; cured ham + cheese carry the sodium)
+- **Trained:** —
+- **Notes:** fourth straight down-tick (97.4 → 97.0 → 96.7 → 96.0), −0.7 off yesterday and now 0.4 under the 7/03 baseline (96.4). Post-trip water fully off; the 7/24–7/26 "flattening" call stays retracted. Trend from the 7/27 reconciliation (~−0.77 kg/wk) holds. Next up in the rotation: Day B (OHP · pull-ups · leg curl · leg raises) — 7/27's Day A was logged in progress.
+
 ## 2026-07-27
 - **Weight:** 96.7 kg (fasted AM)
 - **Cals / Protein:** ~1835 / ~177g (double-scoop protein shake ~280/48g [76g powder, label macros]; flat white ~120/6g; Cibo lunch: Tagliata di Manzo sliced beef tenderloin over rucola ~500/42g [same estimate as 7/19]; bread basket ~2 slices ~200/6g; small peanut butter cup ~80/2g; 1 L fresh coconut water, nothing added ~190/2g; Liquid IV ×2 sugar-free ~0/0g [confirmed sugar-free]; David's peanut butter protein bar ~150/28g [label]; 2 sticks Filipino-style chicken BBQ ~240/24g; steamed fish 50g ~50/10g; 1 tsp mustard ~5/0g; pinoy bistek 50g ~110/9g)
