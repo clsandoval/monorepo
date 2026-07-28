@@ -13,13 +13,19 @@ level: Strong structural intuition (prior, hierarchy, generative thinking — ha
 hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
-hours_done: 3.8
-next_up: Rung 13 CLOSE-OUT then Rung 14. The one thing he did NOT produce is the **observation
-  layer** — he swapped questions when asked and it had to be taught. Retest cold on a fresh outcome
-  type (a proportion, e.g. conversion rate, or a duration, e.g. time-to-resolution): "what's the
-  observation distribution and what breaks under Gaussian?" He should reach for the physical nature of
-  the outcome FIRST. Warm-up (interleave): the three fixes for a ridge (priors / reparameterize as
-  sum+ratio / sum-to-zero constraint) — he produced 2 of 3 conceptually, retest for the named third.
+hours_done: 4.1
+next_up: **Rung 14 (frontier vocab)** — rotation cap hit, Rung 13 has been the focus 3 sessions running.
+  Warm-up (interleave, both are Rung 9/13 misses from 7/28): (1) **observed is not the test — "is it a
+  term in the model" is.** Fresh domain, a confounder present in the data but omitted from the model:
+  is the estimated effect trustworthy? He said "yes cause its observed" and must produce the
+  over-attribution answer cold. (2) **sum-to-zero on the seasonal component** — failed cold once, 0/1.
+  If time remains, have him produce the counterfactual-forecast recipe cold (fit → level path → replay
+  with regressor=0 → per-draw uplift distribution); it was exposition only, never demonstrated.
+  WATCH: he swaps questions under pressure — answers the confounding/structure question when asked
+  about the observation layer. Twice now. Re-ask verbatim rather than accepting the adjacent answer.
+  VISUALS UNLOCK HIM — generate plots for geometry, don't describe it (see assets-pairplots.py).
+  PHASE-2 RULE (validated 7/28): answering derivation-depth questions he ASKS is fine if flagged
+  read-only; volunteering machinery and then quizzing on it is what broke him on HSGP 7/26.
   DO NOT use Mama Sita's for teaching examples (durable feedback, 2026-07-05) — high-variance domains only.
 ---
 
@@ -74,7 +80,7 @@ Learn top-down and the chat stops being gibberish fastest.
 - [x] **10. Model comparison** (~2h) — **LOO / ELPD / WAIC**, PSIS **k-hat**, "better predictive fit." *(Abril, Engels)*
 - [x] **11. Likelihoods, GLMs & regression** (~3h) — picking a likelihood (Normal/Poisson/Student-T/Binomial), link functions, marginalizing discrete latents. *(Vincent, Paz, Luhmann)*
 - [~] **12. Gaussian Processes & HSGP** (~3h) — GP = flexible prior over functions; lengthscale/kernel; **HSGP** fast approximation; spatial/smooth trends. *(Engels, Fonnesbeck)* — PARTIAL 7/26: GP conceptual half CLEARED (prior-on-functions, kernel, lengthscale + both failure directions). HSGP at literacy level delivered as one sentence; the basis-function machinery bounced hard and is DEFERRED TO PHASE 2. Do not reopen it in Phase 1.
-- [ ] **13. State-space & structural time series** (~3h) — trend+seasonality+regression components, **Kalman filter**, counterfactual forecasting. *(Grabowski, Fonnesbeck)*
+- [~] **13. State-space & structural time series** (~3h) — trend+seasonality+regression components, **Kalman filter**, counterfactual forecasting. *(Grabowski, Fonnesbeck)* — PARTIAL 7/28: components ✓, identifiability/ridge ✓, observation layer ✓ (cleared cold on durations), Kalman marginalization ✓ (mechanism, not the word). **Counterfactual forecasting NOT demonstrated** — exposition only, and the causal check under it failed (omitted-confounder). Retest as warm-up, don't reopen the rung.
 - [ ] **14. Frontier / niche — know the words exist** (~2h) — **variational inference / normalizing flows**, **Laplace approximation**, **drift-diffusion/HSSM**, R2D2/PC priors. *(Seyboldt, Fengler)*
 
 ## Phase 2 project — Mama Sita's (the family business, real application domain)
@@ -120,6 +126,47 @@ teaching:
    w/ exogenous shock).
 
 ## Sessions (newest at top)
+
+### 2026-07-28 · 17 min · Rung 13 close-out — observation layer CLEARED, Rung 9 regression found
+- Warm-up FAILED cold ("idk"): the third ridge fix, **sum-to-zero on the seasonal component**. Re-locked
+  with numbers (quarterly [+10,-5,+2,-7] + 100 to each, -100 to level = identical fit → the ridge is a
+  constant offset sliding between components; sum-to-zero leaves exactly one decomposition). Tied to
+  `ZeroSumNormal`, the Rung 6 name he'd seen without knowing why it existed. **Retest this again — 0/1.**
+- **Observation-layer retest #1 (close rate, k of n): needed 2 micro-steps.** Answered "the outcome is
+  closed rate" — the derived number, not the physical count. Nudge ("what did somebody actually count?")
+  → Bernoulli → given Binomial. Gaussian failures: got **negative** ✓, but said "fractional values"
+  which is wrong (proportions ARE fractional; the leak is **>1**). Taught the two he missed: variance is
+  `n·p·(1-p)` not constant, and modeling the *rate* throws away n so 2-of-3 outweighs nothing —
+  Binomial keeps n so thin reps auto-shrink under the Rung 3 hierarchy.
+- **He asked for the full likelihood table** (same as 7/05 — he likes the reference). Gave 13 rows:
+  support / use / tell.
+- **SWAPPED QUESTIONS AGAIN** on the duration rep — answered "seasonality, work vs non-work days" to an
+  observation-layer question. Named the repeat and drew the two-slot picture: `mu_t = level+trend+
+  seasonal+regressors` (where seasonality lives) vs `y_t ~ Dist(mu_t)` (the observation layer). Watch
+  for this a third time; it's his most reliable failure mode.
+- **Observation-layer retest #2 (time-to-resolution, hours): CLEARED COLD.** Gamma, then unprompted
+  "negative values and constant variance." Added symmetry (mean>median for durations; a symmetric
+  likelihood only fits the tail by inflating sigma, which then predicts negative hours — same failure).
+  **Rung 13's stated gap is closed.**
+- **Kalman filter taught (literacy):** predict → correct, gain K as a trust dial (obs noise R big → K→0
+  keep the prediction; innovation Q big → K→1 believe the data). The payoff framing: it **marginalizes
+  the whole latent state path** so NUTS samples only the variance params instead of a 1,100-dim
+  correlated snake. Asked what that move was called on Rung 11 — **mechanism produced, word gone**
+  ("when we multiplied a different distribution... the steps"). Vocab lag, exactly as recorded. Locked
+  the parallel: discrete latent → sum, continuous state path → integral; linear+Gaussian is the one
+  family closed under linear maps AND conditioning, which is *why* state-space models are stated that way.
+- **He asked for the closed-form Kalman equations** — Phase-2 depth. Gave them explicitly flagged
+  read-only/not-retested, one screen, with only K-as-trust-dial marked as the keeper. **This worked —
+  no blow-up, unlike the 7/26 HSGP failure. The rule that distinguishes them: answering a Phase-2
+  question he ASKS is fine; volunteering the machinery and then quizzing him on it is what broke him.**
+- Counterfactual forecasting: he invoked /discretize ("toy example step by step"), got the 5-week
+  walkthrough — fit → level path with promo stripped → replay with promo=0 → uplift 26 → once per
+  posterior draw = a distribution. Exposition, not demonstrated.
+- **REGRESSION on Rung 9.** Check: price was cut in the same weeks as the promo and is not in the model
+   — is the 26 trustworthy? He said **"yes cause its observed."** Wrong, and it's the confounder/latent
+  conflation flagged on 7/05 resurfacing. Locked the discriminator: **observed is not the test —
+  "is it a term in the model" is.** Observed-but-omitted is exactly as broken as unobserved; being
+  observed only helps if you use it. Omit the confounder → over-attribute (his own Rung 9 rule).
 
 ### 2026-07-27 (part 2) · 19 min · Rung 13 — identifiability, made visual + director drill
 - **365-lengthscale retest: PASSED cold** ("it's modeling the year").
