@@ -14,10 +14,10 @@ Append-only. Newest at top. One line per day.
 ---
 ## 2026-07-28
 - **Weight:** 96.0 kg (fasted AM)
-- **Cals / Protein:** ~310 / ~21g so far (Starbucks turkey ham, egg white & fontina sandwich ~310/21g)
-- **Carbs / Sodium:** ~32g / ~0.7g so far (sandwich bread ~32g; cured ham + cheese carry the sodium)
+- **Cals / Protein:** ~1610 / ~83g (Starbucks turkey ham, egg white & fontina sandwich ~310/21g; 2 sliders ~500/28g; medium nachos ~600/18g; 2 fried chicken wings ~200/16g)
+- **Carbs / Sodium:** ~135g / ~3.0g (sandwich bread ~32g; slider buns ~44g; nacho chips + toppings ~55g; wings ~4g. Sodium: nachos [cheese/chips ~1.5g] + slider buns/cheese + wing coating carry it — lands in range without adding salt)
 - **Trained:** —
-- **Notes:** fourth straight down-tick (97.4 → 97.0 → 96.7 → 96.0), −0.7 off yesterday and now 0.4 under the 7/03 baseline (96.4). Post-trip water fully off; the 7/24–7/26 "flattening" call stays retracted. Trend from the 7/27 reconciliation (~−0.77 kg/wk) holds. Next up in the rotation: Day B (OHP · pull-ups · leg curl · leg raises) — 7/27's Day A was logged in progress.
+- **Notes:** **protein floor badly missed — 83g vs the 160 floor, 77g short, and he's calling the day done at 1610 cal.** Under the ceiling with ~390 cal of room; the fix is a 3-scoop shake (~420/72g) → ~2030 cal / ~155g, i.e. 30 over the ceiling to recover 72g of protein. Floor beats ceiling. Liquid, so "stuffed" isn't a blocker. Day shape: only ~5g protein per 100 cal — nachos are the culprit (600 cal for 18g). If the shake doesn't happen this is the worst protein day since the unlogged stretch. Fourth straight down-tick (97.4 → 97.0 → 96.7 → 96.0), −0.7 off yesterday and now 0.4 under the 7/03 baseline (96.4). Post-trip water fully off; the 7/24–7/26 "flattening" call stays retracted. Trend from the 7/27 reconciliation (~−0.77 kg/wk) holds. Next up in the rotation: Day B (OHP · pull-ups · leg curl · leg raises) — 7/27's Day A was logged in progress.
 
 ## 2026-07-27
 - **Weight:** 96.7 kg (fasted AM)
