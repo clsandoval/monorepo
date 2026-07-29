@@ -14,8 +14,8 @@ Append-only. Newest at top. One line per day.
 ---
 ## 2026-07-29
 - **Weight:** 96.0 kg (fasted AM)
- - **Cals / Protein:** ~1534 / ~138g so far (3 tbsp rice ~58/1g; ½ grilled peri-peri chicken ~580/72g; 12 oz sweet latte ~280/9g; 200g ribeye ~580/50g; 1 slice pizza ~285/12g; corn ~100g ~96/3g; 50g cake ~175/2g)
- - **Carbs / Sodium:** ~116g / ~2.8g so far (rice ~13g; latte ~35g; chicken ~3g; pizza ~35g; corn ~21g; cake ~25g. Peri marinade + ribeye seasoning carry sodium)
+ - **Cals / Protein:** ~2054 / ~149g (3 tbsp rice ~58/1g; ½ grilled peri-peri chicken ~580/72g; 12 oz sweet latte ~280/9g; 200g ribeye ~580/50g; 1 slice pizza ~285/12g; corn ~100g ~96/3g; 50g cake ~175/2g)
+ - **Carbs / Sodium:** ~116g / ~2.8g (rice ~13g; latte ~35g; chicken ~3g; pizza ~35g; corn ~21g; cake ~25g. Peri marinade + ribeye seasoning carry sodium)
  - **Trained:** —
 - **Notes:** flat off yesterday (96.0 → 96.0) after four straight down-ticks (97.4 → 97.0 → 96.7 → 96.0). One flat day is noise, not a stall — and 7/28 closed over the ceiling (~2185 + whatever the 2-scoop rescue added), so a flat morning is exactly what that day buys. Still 0.4 under the 7/03 baseline (96.4); the ~−0.77 kg/wk trend from the 7/27 reconciliation holds. Next in the rotation: **Day B** (OHP 3×8 · pull-ups strict-then-assisted · leg curl 3×10 · leg raises 2×12) — 7/28 was untrained and 7/27's Day A was logged in progress.
 
