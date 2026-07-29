@@ -13,13 +13,8 @@ level: Advanced beginner. Frenzel EXISTS but is unreliable and hybrid — descen
   the 6m failure (see below).
 hours_estimate: 100   # ~15 min/day of dry drills for a year is ~90h. Gated by water access, which is
   still UNKNOWN — ask. If pool/ocean access is rare, rungs 4/5/6/8 stall and this number is optimistic.
-hours_done: 0.1
-next_up: Rung 1 is DONE (physics landed in the diagnostic). Next session opens Rung 2 — dry Frenzel
-  mechanics — and the FIRST thing to do is differential-diagnose the 6m failure, because until that's
-  named he's drilling blind. Run him through the four suspects one at a time and get a self-report on
-  each: head/neck position, EQ frequency (early & often vs waiting for pressure), soft palate drift,
-  chest involvement (the belly-hand test). Warm-up (interleave, Rung 1): re-ask the volume table cold —
-  half at 10m, and the payoff that the SHALLOWS are the steepest part of the curve.
+hours_done: 0.4
+next_up: **Rung 2 — dry Frenzel mechanics, palate/tongue DECOUPLING.** Open by asking for a report on the hum-and-piston drill (can he complete a full stroke without the hum breaking? how many days ran?) — that single number tells you whether to stay on decoupling or move on. Then differential-diagnose the 6m failure across the four suspects one at a time: head/neck position, EQ frequency (early-and-often vs waiting for pressure), palate drift, chest involvement (belly-hand test). Warm-up (interleave, Rung 1): volume table cold — half at 10m, and the payoff that the SHALLOWS are the steepest part of the curve.
   ALSO STILL UNANSWERED from the diagnostic: static/dynamic PB numbers, and water access (pool? ocean?
   how often?). Get both — the roadmap's water rungs depend on it.
 ---
@@ -78,27 +73,71 @@ He has NOT yet been walked through these one at a time. That's the top of the ne
       surface protocol, one-up-one-down. Pull this EARLIER than its position if water time starts.
 - [ ] **8. Depth progression** (~10h) — the actual dives, conservative laddering.
 
-## Daily drill list (issued 2026-07-29)
+## Daily drill list (FINAL, revised 2026-07-29 after the palate-coupling report)
 
-~12 min dry, every day. Deliberately conservative — he's 2 months detrained.
+**His blocker, self-reported: the soft palate rises whenever the tongue pistons — they move together.**
+That's the standard Frenzel wall (tongue base + palate are synergists in swallowing and in every velar
+stop). NOTE MY OWN ERROR: the original list's "silent K" cue actively trains the coupling, because K is
+an ORAL stop requiring velar closure. Replaced with NG-anchored drills.
 
-1. **Soft palate isolation — 2 min.** Nose-in/mouth-out, switch, alternate fast; then hum→"ng" and hold.
-   Learn the three states: palate up (nose sealed), down (mouth sealed), **neutral = the Frenzel
-   position**, which is the one most people can't find.
-2. **Tongue lock ladder — 2 min.** T (tip at the ridge) and K (back at the palate), 5s holds. T is the
-   shallow tool; K is what makes mouthfill possible later.
-3. **Balloon drill — 3 min.** Inflate using the TONGUE AS A PISTON only. Hand on the stomach — if it
-   moves, that's Valsalva and the rep is wasted. Small pumps, 10-15, rest, ×3. Highest-value item.
-4. **Dry Frenzel on command — 3 min.** Nose pinched, mouth shut, tongue only. Target 10 clean pops in
-   20s. Then the hard version: **face-down off the edge of a bed, head hanging, chin neutral** — drill
-   the position that actually fails.
-5. **Diaphragmatic breathing — 2 min.** Belly rises, chest doesn't; exhale ~2× the inhale.
+Key fact the fix rests on: **K and NG are the same tongue position and opposite palate positions.**
+"NG" is physically impossible with a raised palate, so it's a free anchor.
 
-3×/week add: thoracic + diaphragm stretch (~5 min), dry CO2 table (~10 min, seated or lying, never near
-water).
+### Daily, dry, ~14 min
+1. **Palate isolation — 1 min.** Hold "aaah" → nasalize to "ãããh" (French *an*) → alternate. Tongue
+   completely still. Isolates the palate with zero tongue involvement.
+2. **NG↔K flip — 1 min.** Tongue welded to one contact point; only the palate opens/closes behind it.
+3. **Hum-and-piston — 3 min. ⭐ HIS #1 DRILL.** Hum continuous "nnnng" and piston while humming. The hum
+   is a live palate monitor — sound continues = palate stayed down; sound cuts = caught in the act.
+   Instant per-rep feedback, which is why it beats everything else for decoupling. Silent variant: strip
+   of tissue under the nostrils, must keep fluttering.
+4. **Balloon — NOSE PINCHED — 3 min.** The pinch matters: inflating a balloon normally requires the
+   palate UP to seal the nose, so the un-pinched version reinforces the exact coupling he's fighting.
+   Pinched = nose sealed mechanically, palate free to relax. Hand on belly, must not move.
+5. **Frenzel on command, face-down off the edge of a bed, head hanging, chin neutral — 3 min.** Target
+   10 clean pops in 20s. Drill the position that actually fails.
+6. **Diaphragmatic breathing — 3 min.** Belly rises, chest doesn't, exhale ≈2× inhale.
+
+Drills 1-3 are the coupling fix. If short on time, those three only.
+Stroke cue (palate anchored down): NOT "complete a K" — it's squeezing toothpaste front-to-back,
+displacing volume up and rearward. Verification set: belly still, Adam's apple still, cheeks slack,
+and the gold standard — equalize with the MOUTH OPEN (impossible via Valsalva).
+
+### 3×/week, dry
+7. **Thoracic + diaphragm stretch — 5 min.** Slow to develop; start early for mouthfill later.
+8. **CO2 table — ~13 min.** Once first: measure dry max static **M** (lying down, timer, normal breathing
+   before, no hyperventilation). Then **hold = 50% of M every round; rest starts 2:00 and drops 15s per
+   round; 8 rounds.** Holds stay easy — the shrinking rest is the stimulus. Training contraction
+   tolerance, not max time. Not daily; it needs recovery.
+
+### Not yet (in rough order of when)
+O2 tables → apnea walks → packing → reverse packing → mouthfill. All downstream of a reliable Frenzel.
+
+### Safety, stated once and not softened
+- **Never hyperventilate before a hold** — including "a few big breaths to get ready." It strips CO2,
+  which is the entire warning system, without meaningfully adding O2, so blackout arrives before the
+  urge to breathe. This is the mechanism behind most shallow-water blackouts.
+- **No breath-holding in water without a qualified buddy watching.** He volunteered this rule himself
+  (2026-07-29) — "this is all assuming I have an instructor, I'm not going to do any water training
+  alone." Hold him to it; do not soften it if he later asks for solo water drills.
+
+## In-water track (instructor present — separate from the daily list)
+
+**First sessions:**
+- Static face-in, **one-up-one-down**, hand-signal check every 15s, full surface protocol every time
+  (hook breaths → "I'm OK" → sign).
+- Duck dive: hips high, one clean fold, no splash.
+- **Line descents 5-10m ONLY.** Sole goal is head neutral + equalize every metre BEFORE feeling anything.
+  Not depth. He will be tempted to chase depth immediately.
+
+**Once shallow EQ is boring:** hands-free descents → entering freefall → FRC/negative-pressure dives
+(**instructor-supervised only** — this is the drill that both solves and exposes his 6m problem, and the
+one that hurts people who do it unsupervised).
+
+**Question to bring the instructor:** "watch my head position and tell me if my palate is locking at 6m."
 
 ## Sessions (newest at top)
-### 2026-07-29 · 4 min · Diagnostic + Rung 1 (physics) + daily drill list issued
+### 2026-07-29 · 25 min · Diagnostic + Rung 1 (physics) + Rung 2 opened + FINAL drill list
 - Diagnostic answers: Frenzel present but weak/unreliable, 15-20ft clean then it quits ~20ft; can't
   reliably produce it on command dry right now; knows mouthfill conceptually, never tried; never reverse
   packed; didn't know the half-volume depth. Self-identified relaxation/water comfort as the #1 gap.
@@ -107,5 +146,22 @@ water).
 - Rung 1 physics: 10m/33ft for half volume, plus the table and the counterintuitive payoff — **the
   biggest volume change in the whole dive is in the first 10m**, so the shallows are the steepest and
   busiest part of the curve, and it gets easier per metre with depth. Directly explains his experience.
-- Issued the daily drill list (above) and the not-yet list.
-- Did not get: static/dynamic PB, water access frequency. Ask next time — the estimate depends on it.
+- Issued a first daily drill list, then he asked for the actual tongue-piston mechanics — taught the
+  syringe model: three seals (glottis closed = the Frenzel-defining one, palate neutral = the router,
+  lips/nose) plus one stroke. Sound-based cues for each: "aaah" cut dead = glottis; "puh"/"mmm"/
+  simultaneous nose+mouth inhale = the three palate states; T-lock vs K-lock and what each is *for*.
+- **He then reported the real blocker himself: palate rises with the tongue, they move together.** This
+  is the standard wall AND it exposed an error in my own cue — "silent K" trains the coupling, since K
+  is an oral stop requiring velar closure. Owned it and rebuilt the list around **NG** (same tongue,
+  opposite palate; impossible to produce with a raised palate). Hum-and-piston is now his #1 drill
+  because the hum is real-time per-rep feedback on palate position.
+- Also caught: the balloon drill as originally issued **reinforces** the coupling (inflating requires
+  palate-up to seal the nose). Fixed by pinching the nose during the drill.
+- Rebuilt the FINAL list on request to include breath-hold: added a self-calibrating CO2 table
+  (hold = 50% of measured dry max static M, rest 2:00 dropping 15s, 8 rounds, 3×/week) and split out a
+  separate instructor-only in-water track. Set expectation that decoupling takes 2-4 weeks of daily
+  short reps, not one session — so he doesn't read slow progress as failure.
+- **He volunteered the safety rule unprompted** ("this is all assuming I have an instructor, I'm not
+  going to do any water training alone"). Logged as his own commitment.
+- Still did not get: static/dynamic PB, water access frequency. Ask next time — the estimate depends
+  on it. Also unknown whether he has an instructor lined up or is speaking hypothetically.
