@@ -2,17 +2,22 @@
 type: lesson
 topic: Freediving — equalization & depth
 started: 2026-07-29
-goal: Reliable, relaxed depth. Concretely — a Frenzel that works on command in any head position and
-  holds to 20-30m, mouthfill entered and working past ~25m, and the relaxation/breath-hold base to make
-  those dives calm rather than a fight. Unlike his other tracks this is a PHYSICAL skill: he has to do
-  the reps, not just referee them. Daily dry drills are the engine; water time is the test.
+goal: **80 feet / 24m, and a 2-minute breath hold** (stated 2026-07-29, his words). Relaxed and
+  repeatable, not a max attempt. Unlike his other tracks this is a PHYSICAL skill — he has to do the
+  reps, not just referee them. Daily dry drills are the engine; water time is the test.
+  IMPORTANT CONSEQUENCE OF THIS GOAL: 24m sits just under the line where mouthfill becomes necessary
+  (~25-30m), so **mouthfill and deep adaptation are OFF the roadmap** — a working Frenzel alone reaches
+  this. That deletes the longest, hardest phase. Told him to target a **3:00 static** rather than 2:00,
+  since a relaxed 24m dive runs 1:15-1:45 and you want static comfortably >2x dive time.
+  Breath-hold is NOT his limiter — 2:00 dry is modest. Equalization is the entire problem.
 level: Advanced beginner. Frenzel EXISTS but is unreliable and hybrid — descends 15-20ft without
   Valsalva, then it quits around 20ft/6m. Detrained (~2 months out). Knows OF mouthfill, never tried.
   Never reverse-packed. No formal cert, self-taught. Did not know the half-volume depth. Correctly
   self-identified relaxation + water comfort as his weakest area — right instinct, wrong diagnosis for
   the 6m failure (see below).
-hours_estimate: 100   # ~15 min/day of dry drills for a year is ~90h. Gated by water access, which is
-  still UNKNOWN — ask. If pool/ocean access is rare, rungs 4/5/6/8 stall and this number is optimistic.
+hours_estimate: 50   # REVISED DOWN from 100 once he named the goal (80ft/2min, not deep). ~6 months:
+  ~30h of daily dry drills + ~20h water. Gated by water access, still UNKNOWN — ask. Monthly instead of
+  weekly water pushes this to 9-12 months, and the dry portion caps out at ~2 months regardless.
 hours_done: 0.4
 next_up: **Rung 2 — dry Frenzel mechanics, palate/tongue DECOUPLING.** Open by asking for a report on the hum-and-piston drill (can he complete a full stroke without the hum breaking? how many days ran?) — that single number tells you whether to stay on decoupling or move on. Then differential-diagnose the 6m failure across the four suspects one at a time: head/neck position, EQ frequency (early-and-often vs waiting for pressure), palate drift, chest involvement (belly-hand test). Warm-up (interleave, Rung 1): volume table cold — half at 10m, and the payoff that the SHALLOWS are the steepest part of the curve.
   ALSO STILL UNANSWERED from the diagnostic: static/dynamic PB numbers, and water access (pool? ocean?
@@ -30,8 +35,8 @@ and `hours_done` should absorb his own drill time, not just tutoring. He reports
 **Never breath-hold in water without a buddy watching who can pull him out.** Not a pool, not the
 shallows, not "just one." Dry drills alone are fine. This is not negotiable and does not get softened.
 
-Also not yet, all downstream of a reliable Frenzel: mouthfill, reverse packing, packing, O2 tables.
-Reverse packing on an untrained diaphragm is a shallow squeeze waiting to happen.
+Also not yet: O2 tables, apnea walks, packing. And per the 80ft goal, mouthfill / reverse packing /
+aggressive negative dives are not "later" — they are OFF the plan entirely unless the goal changes.
 
 ## The central diagnosis (2026-07-29)
 
@@ -50,28 +55,33 @@ and balloon strength work will not fix a mechanism fault. Four suspects, in orde
 
 He has NOT yet been walked through these one at a time. That's the top of the next session.
 
-## Roadmap (time-based, easy→hard)
+## Roadmap — milestone-gated (revised 2026-07-29 for the 80ft/2min goal)
 
-- [x] **1. Physics & anatomy literacy** (~3h) — Boyle's law, the volume table, why the shallows are the
-      hardest part, eustachian tubes, soft palate / glottis / tongue as separate controllables, the
-      three EQ families (Valsalva / Frenzel / BTV), what mouthfill is *for*. CLEARED 7/29 in the
-      diagnostic — half-volume-at-10m plus the shallow-is-steepest payoff both delivered.
-- [ ] **2. Dry Frenzel mechanics** (~20h) — palate neutral on command, T-lock and K-lock, tongue-piston
-      isolation (balloon), 10 clean pops in 20s, and the same thing FACE-DOWN with the head hanging.
-      Differential-diagnose the 6m failure first. This is the main rung; most daily drill time lives here.
-- [ ] **3. Relaxation & breath-hold base** (~15h) — diaphragmatic breathing, why NOT to hyperventilate,
-      dry CO2 tables, contractions as a normal signal rather than an emergency, dive reflex. He named
-      this as his #1 gap and he's right that it's the ceiling on enjoyment, even though it isn't what's
-      capping him at 6m.
-- [ ] **4. In-water shallow mechanics** (~15h) — duck dive, neutral head, hands-free descent, equalize
-      early and often, relaxed finning, entering freefall.
-- [ ] **5. Flexibility & depth adaptation** (~15h) — thoracic and diaphragm stretching (slow to develop,
-      start early), then reverse packing dry, then negative-pressure dives WITH SUPERVISION.
-- [ ] **6. Mouthfill** (~20h) — why it exists, charge depth, holding the fill, locking the soft palate,
-      the standard failure modes (swallowing it, losing it to the throat, charging too deep).
-- [ ] **7. Safety & buddy protocol** (~5h) — blackout vs samba, lung squeeze recognition, rescue and
-      surface protocol, one-up-one-down. Pull this EARLIER than its position if water time starts.
-- [ ] **8. Depth progression** (~10h) — the actual dives, conservative laddering.
+Advance on demonstration, never on elapsed time. Elapsed figures assume ~weekly water once past Phase 1.
+
+- [x] **Phase -1. Physics & anatomy literacy** (~3h) — Boyle, the volume table, why the shallows are the
+      steepest part, eustachian tubes, glottis/palate/tongue as separate controllables, the three EQ
+      families, what mouthfill is for. CLEARED 7/29.
+- [ ] **Phase 0. Decoupling** (~8h · weeks 1-4) — palate stays down through a full tongue stroke.
+      EXIT: full-range slow stroke with the hum unbroken, then the same WITH pressure.
+      GATE: his daily reps. Fully in his control. ← HE IS HERE
+- [ ] **Phase 1. Reliable dry Frenzel** (~12h · weeks 4-8) — on command, any head position.
+      EXIT: 10 clean pops in 20s face-down head-hanging, cold, PLUS the mouth-open test (unfakeable).
+      Static should cross 2:00 incidentally here off the CO2 tables + breathing work.
+      **END OF PHASE 1 = THE DRY CEILING. Everything after is gated by water, not effort.**
+- [ ] **Phase 2. Water transfer** (~20h · weeks 8-16) — take the dry skill into the water.
+      EXIT: 15-20m relaxed, hands-free, no EQ struggle.
+      GATE: instructor + water time. NOT in his control.
+      His 6m wall resolves here: either gone because the mechanism is fixed, or an instructor names it
+      in one dive (head position / timing).
+- [ ] **Phase 3. Consolidation to 24m** (~10h · months 4-6) — **80ft, relaxed, repeatable. GOAL.**
+      GATE: dive frequency. Technique is done by now; this is comfort and dive-reflex maturation.
+
+DROPPED from the original roadmap once the goal was named: mouthfill (needed past ~25-30m), reverse
+packing, aggressive negative dives. Keep the thoracic/diaphragm stretch — it makes 24m comfortable
+rather than tight — but it is no longer a gate.
+
+Timeline: ~2 months to the dry ceiling · ~4 months to 15-20m · **~6 months to 80ft** with weekly water.
 
 ## Daily drill list (FINAL, revised 2026-07-29 after the palate-coupling report)
 
@@ -163,5 +173,23 @@ one that hurts people who do it unsupervised).
   short reps, not one session — so he doesn't read slow progress as failure.
 - **He volunteered the safety rule unprompted** ("this is all assuming I have an instructor, I'm not
   going to do any water training alone"). Logged as his own commitment.
-- Still did not get: static/dynamic PB, water access frequency. Ask next time — the estimate depends
-  on it. Also unknown whether he has an instructor lined up or is speaking hypothetically.
+- **Drill 3 attempted live and reported back** — hum breaks, tongue wiggles but produces no pressure.
+  Correct outcome for day 1 and reframed as such: the hum breaking IS the drill working, since an hour
+  earlier he had no signal at all. Two corrections issued: (a) **stop chasing pressure for 1-2 weeks** —
+  reaching for pressure recruits the palate and chest, which rehearses the coupling; drill 3 is a
+  MOVEMENT drill for now. (b) **Shrink the range until the hum survives, and work at that edge** — tip
+  only → mid → small back-of-tongue rise. Every rep past the break rehearses the fault. Plus: go slower,
+  hum louder, listen for the tone SHIFT before the break, and try piston-then-hum as an easier check.
+- **Second report: "I can't distinguish keeping the palate down from pistoning — they feel the same."**
+  Important, and the answer is that he doesn't need to. Told him: (1) the soft palate is nearly
+  proprioceptively silent — almost nobody feels it; control arrives without sensation. Attend to the
+  TONGUE (richly innervated), outsource the palate to the hum. (2) **At zero load a piston feels like
+  nothing** — sensation comes from resistance, so "feels like just moving my tongue" is exactly what a
+  correctly-performed no-pressure drill feels like. (3) If he can hum while moving mid-to-back tongue,
+  the decoupling ALREADY happened; the hum surviving is the proof, no felt confirmation needed.
+  Load goes back in when he can run a full slow stroke, full range, hum unbroken, several days running.
+- **GOAL NAMED at the end: 80ft / 2min.** Recalibrated everything — mouthfill and deep adaptation
+  dropped, hours_estimate 100 → 50, timeline ~6 months with weekly water. Told him to aim for a 3:00
+  static rather than 2:00 (24m dive runs 1:15-1:45; want static comfortably >2× dive time).
+- Still did not get, THIRD ask: static/dynamic PB, water access frequency, whether an instructor is
+  actually lined up. The timeline is fiction without these — get them before doing any more planning.
