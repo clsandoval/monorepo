@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-07-29
+- **Weight:** 96.0 kg (fasted AM)
+- **Cals / Protein:** —
+- **Carbs / Sodium:** —
+- **Trained:** —
+- **Notes:** flat off yesterday (96.0 → 96.0) after four straight down-ticks (97.4 → 97.0 → 96.7 → 96.0). One flat day is noise, not a stall — and 7/28 closed over the ceiling (~2185 + whatever the 2-scoop rescue added), so a flat morning is exactly what that day buys. Still 0.4 under the 7/03 baseline (96.4); the ~−0.77 kg/wk trend from the 7/27 reconciliation holds. Next in the rotation: **Day B** (OHP 3×8 · pull-ups strict-then-assisted · leg curl 3×10 · leg raises 2×12) — 7/28 was untrained and 7/27's Day A was logged in progress.
+
 ## 2026-07-28
 - **Weight:** 96.0 kg (fasted AM)
 - **Cals / Protein:** ~2185 / ~122g (Starbucks turkey ham, egg white & fontina sandwich ~310/21g; 2 sliders ~500/28g; medium nachos ~600/18g; 2 fried chicken wings ~200/16g; David's protein bar ~150/28g [label]; puff-pastry guava tart ~220/3g; 1 tbsp honey ~64/0g; 2 slices blue cheese ~40g ~140/8g)
