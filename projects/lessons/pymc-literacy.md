@@ -13,14 +13,19 @@ level: Strong structural intuition (prior, hierarchy, generative thinking — ha
 hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
-hours_done: 4.6
-next_up: **Rung 14 (frontier vocab)** — the last Phase-1 rung, still untouched. Warm-up (interleave):
-  (1) **counterfactual forecasting recipe, cold** — fit → level path → replay with regressor=0 →
-  per-draw uplift distribution. Exposition only on 7/28, never demonstrated; it is Rung 13's last
-  open item. (2) **NEGLECT PICK: Rung 2 MMM** — adstock/saturation/budget-optimization, untouched
-  since 7/05 (~3.5 weeks) and the single most-discussed applied topic in the Discord. One-line
-  retest each: what adstock's knob is, what saturation implies for budget, what "equalize marginal
-  return" means.
+hours_done: 4.9
+next_up: **START WITH RUNG 14 (frontier vocab) — do not open with warm-ups.** It has now been
+  scheduled 3 sessions running and never reached, because warm-ups ate the whole sitting both times
+  today. Teach the rung FIRST (VI / normalizing flows, Laplace approximation, Pathfinder in
+  pymc-extras, drift-diffusion + HSSM, R2D2 & PC priors — vocab only, "recognize the word"), THEN
+  warm up if time remains. That completes the Phase-1 ladder.
+  Warm-up bank (use at the END, ~5 min max, pick 2):
+  (1) **Rung 2 MMM, cold retest** — decayed badly on 7/29; adstock's knob (decay rate), saturation =
+  diminishing returns *within* a channel, optimization = equalize the marginal slopes.
+  (2) **the re-fit trap mechanism** — he got the verdict ("no") but not the why: dropping the promo
+  term lets the level/trend ABSORB the lift, so you compare attributions, not effects.
+  (3) **the near-zero-adstock referee list** — does the spend vary / are there dark weeks; did the
+  posterior move off the prior; what's the time resolution; what else absorbed it.
   WATCH: he swaps questions under pressure — answers the adjacent question, not the asked one.
   Happened 3×. Re-ask VERBATIM and demand yes/no; that is what finally separated bias-vs-fixability
   on 7/29.
@@ -74,7 +79,7 @@ Two phases over the same 14-rung tree:
 Learn top-down and the chat stops being gibberish fastest.
 
 - [x] **1. Bayesian vocabulary — the bedrock** (~5h) — prior, likelihood, posterior, prior/posterior predictive, "sampling," generative model. "prior" alone appears ~2,500×. *(everyone; Fonnesbeck, Vincent)*
-- [x] **2. MMM — Marketing Mix Modeling** (~5h) — attribute sales to spend; **adstock** (lagged carryover), **saturation** (diminishing returns), channels, budget optimization, incrementality. Most-discussed applied topic. *(Vincent, Orduz, Säilynoja, Wiecki)*
+- [~] **2. MMM — Marketing Mix Modeling** (~5h) — attribute sales to spend; **adstock** (lagged carryover), **saturation** (diminishing returns), channels, budget optimization, incrementality. Most-discussed applied topic. *(Vincent, Orduz, Säilynoja, Wiecki)* — PASSED 7/05, **DECAYED on the 7/29 retest** (all three items partial: adstock→"recall?", saturation confused with cross-channel comparison, optimization vague). Re-taught + visual. Retest cold; this is the highest-volume topic in the Discord, don't let it rot again.
 - [x] **3. Hierarchical / multilevel models** (~4h) — **partial pooling** vs complete vs none, random effects, shrinkage, per-brand/geo structure. Default shape of nearly every model. *(Paz, Vincent; Fonnesbeck)*
 - [x] **4. Sampling & the NUTS sampler** (~3h) — MCMC, chains/draws, NUTS/HMC, **nutpie**, target_accept, warmup. "It won't sample" lives here. *(Seyboldt, Vieira, Paz)*
 - [x] **5. Convergence diagnostics** (~3h) — **divergences**, **R-hat**, **ESS**, ArviZ as the tool. The "is my model broken?" talk. *(Abril, Paz)*
@@ -85,7 +90,7 @@ Learn top-down and the chat stops being gibberish fastest.
 - [x] **10. Model comparison** (~2h) — **LOO / ELPD / WAIC**, PSIS **k-hat**, "better predictive fit." *(Abril, Engels)*
 - [x] **11. Likelihoods, GLMs & regression** (~3h) — picking a likelihood (Normal/Poisson/Student-T/Binomial), link functions, marginalizing discrete latents. *(Vincent, Paz, Luhmann)*
 - [~] **12. Gaussian Processes & HSGP** (~3h) — GP = flexible prior over functions; lengthscale/kernel; **HSGP** fast approximation; spatial/smooth trends. *(Engels, Fonnesbeck)* — PARTIAL 7/26: GP conceptual half CLEARED (prior-on-functions, kernel, lengthscale + both failure directions). HSGP at literacy level delivered as one sentence; the basis-function machinery bounced hard and is DEFERRED TO PHASE 2. Do not reopen it in Phase 1.
-- [~] **13. State-space & structural time series** (~3h) — trend+seasonality+regression components, **Kalman filter**, counterfactual forecasting. *(Grabowski, Fonnesbeck)* — PARTIAL 7/29: components ✓, identifiability/ridge ✓, observation layer ✓ (cold, durations), Kalman marginalization ✓ (mechanism), **sum-to-zero ✓ CLEARED 7/29** (3rd attempt, via the visual + a novel transfer variant). **Counterfactual forecasting still NOT demonstrated** — the one open item; retest as warm-up, don't reopen the rung.
+- [x] **13. State-space & structural time series** (~3h) — trend+seasonality+regression components, **Kalman filter**, counterfactual forecasting. *(Grabowski, Fonnesbeck)* — CLEARED 7/29: components ✓, identifiability/ridge ✓, observation layer ✓ (cold, durations), Kalman marginalization ✓ (mechanism), **sum-to-zero ✓** (3rd attempt, via visual + novel transfer variant), **counterfactual forecasting ✓** (produced "two equations, graph the difference" after one micro-step). Residual retest items, not blockers: the re-fit trap *mechanism* (level absorbs the lift) and per-draw → distribution.
 - [ ] **14. Frontier / niche — know the words exist** (~2h) — **variational inference / normalizing flows**, **Laplace approximation**, **drift-diffusion/HSSM**, R2D2/PC priors. *(Seyboldt, Fengler)*
 
 ## Phase 2 project — Mama Sita's (the family business, real application domain)
@@ -131,6 +136,45 @@ teaching:
    w/ exogenous shock).
 
 ## Sessions (newest at top)
+
+### 2026-07-29 (part 2) · 16 min · Rung 13 CLOSED + Rung 2 MMM found decayed — he refereed ME twice
+- His call to run a 3rd topic in one sitting; warned him about the documented fade and went anyway.
+- **Counterfactual forecasting: swapped the question AGAIN (4th time)** — asked for the *procedure*,
+  described the model *equation*. Re-asked verbatim with a micro-step ("the March weeks were fit with
+  promo_on=1; what one number do you change?") → **"you make two equations and graph the difference."**
+  That's the core; Rung 13's last open item is done and the rung is now [x].
+- **The re-fit trap: right verdict, wrong mechanism.** Asked whether re-fitting without the promo term
+  gives the same answer — he said no, but because "either the promo was on or not for a given week."
+  Real reason: **level and trend ABSORB the lift** when the term is gone, so you compare attributions,
+  not effects. Same disease as the omitted confounder. Supplied the two missing pieces: replay (don't
+  re-fit) reusing the inferred level path, and once per draw → a distribution.
+- **Decision framing landed as new material.** Given median +240, 94% CI [−30, +510] → he said "go."
+  Taught: the uplift posterior is the INPUT, the breakeven is what makes it a decision;
+  `(uplift_draws > be).mean()` is the whole move. Also explicitly warned him OFF the frequentist reflex
+  ("CI crosses zero → no effect") — crossing zero means can't-rule-out-zero, not zero.
+- **HE CAUGHT MY INVENTED NUMBERS** — "whered u get 100 units and 81/19%." Both were fabricated
+  illustration. Owned it, then actually computed it (Normal(240,144) implied by the interval →
+  P(>100) = 0.84, not 0.81) and showed the sensitivity table: same posterior, breakeven 0/100/240/300
+  → 0.95/0.84/0.50/0.34. **This is the single best thing he did today** — it's precisely the Phase-2
+  referee reflex, aimed at me unprompted. He also caught a second slip ("what three channels?" — I'd
+  said three, the example had two). Praise this behavior when it happens; don't smooth over the errors.
+- **Rung 2 MMM retest: DECAYED on all three** (untouched since 7/05). adstock → "recall??" (right
+  intuition, missing the modeling statement + decay-rate knob); saturation → described the
+  cross-channel comparison instead of within-channel diminishing returns; budget optimization →
+  "optimizing the saturation across channels," circling but not the equal-marginal-slopes condition.
+  Re-taught + plotted (`assets-saturation.py`, sent to Telegram): FB slope 0.43 vs TV 4.33 at the
+  current split = the arbitrage; the ₱300k allocation curve peaking at 96/204 and the current split
+  leaving 305 sales on the table. Added the honest caveat that the peak is FLAT — MMM finds big
+  misallocations, not the last peso.
+- **Faded exactly as documented.** Referee question on a near-zero fitted TV adstock: "something is
+  wrong idk what to ask." Gave the 4-item list (does spend vary / dark weeks · did the posterior move
+  off the prior · time resolution vs carryover length · what else absorbed it) and closed the session.
+- **Unifying line handed to him:** three of those four are one question — *did the data contain the
+  variation needed to answer this, or did another term take the credit?* That question closed the
+  confounder, the sum-to-zero, and the counterfactual today.
+- **PROCESS FIX (recorded in next_up): warm-ups ate BOTH sittings today and Rung 14 has now been
+  scheduled 3 sessions without being reached.** Next session opens with Rung 14; warm-ups move to the
+  end and get ~5 min, 2 items max.
 
 ### 2026-07-29 · 30 min · Both standing misses CLOSED — Rung 9 regression + sum-to-zero, both via visuals
 - **Rung 9 omitted-confounder retest #2: FAILED again, third time.** Fresh domain (opt-in university
