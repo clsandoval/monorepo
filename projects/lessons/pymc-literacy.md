@@ -13,17 +13,22 @@ level: Strong structural intuition (prior, hierarchy, generative thinking — ha
 hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
-hours_done: 4.1
-next_up: **Rung 14 (frontier vocab)** — rotation cap hit, Rung 13 has been the focus 3 sessions running.
-  Warm-up (interleave, both are Rung 9/13 misses from 7/28): (1) **observed is not the test — "is it a
-  term in the model" is.** Fresh domain, a confounder present in the data but omitted from the model:
-  is the estimated effect trustworthy? He said "yes cause its observed" and must produce the
-  over-attribution answer cold. (2) **sum-to-zero on the seasonal component** — failed cold once, 0/1.
-  If time remains, have him produce the counterfactual-forecast recipe cold (fit → level path → replay
-  with regressor=0 → per-draw uplift distribution); it was exposition only, never demonstrated.
-  WATCH: he swaps questions under pressure — answers the confounding/structure question when asked
-  about the observation layer. Twice now. Re-ask verbatim rather than accepting the adjacent answer.
-  VISUALS UNLOCK HIM — generate plots for geometry, don't describe it (see assets-pairplots.py).
+hours_done: 4.6
+next_up: **Rung 14 (frontier vocab)** — the last Phase-1 rung, still untouched. Warm-up (interleave):
+  (1) **counterfactual forecasting recipe, cold** — fit → level path → replay with regressor=0 →
+  per-draw uplift distribution. Exposition only on 7/28, never demonstrated; it is Rung 13's last
+  open item. (2) **NEGLECT PICK: Rung 2 MMM** — adstock/saturation/budget-optimization, untouched
+  since 7/05 (~3.5 weeks) and the single most-discussed applied topic in the Discord. One-line
+  retest each: what adstock's knob is, what saturation implies for budget, what "equalize marginal
+  return" means.
+  WATCH: he swaps questions under pressure — answers the adjacent question, not the asked one.
+  Happened 3×. Re-ask VERBATIM and demand yes/no; that is what finally separated bias-vs-fixability
+  on 7/29.
+  VISUALS UNLOCK HIM — twice-validated 7/29. Generate the plot, don't describe geometry. Recipe:
+  `uv run --with matplotlib --with numpy python <script>` (no global matplotlib), then Telegram via
+  `set -a; . ~/cs/monorepo/.env; set +a; curl -sF chat_id=$TELEGRAM_CHAT_ID -F caption=... -F
+  photo=@shot.png https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendPhoto`. Assets:
+  `assets-pairplots.py`, `assets-omitted-confounder.py`, `assets-sumtozero.py`.
   PHASE-2 RULE (validated 7/28): answering derivation-depth questions he ASKS is fine if flagged
   read-only; volunteering machinery and then quizzing on it is what broke him on HSGP 7/26.
   DO NOT use Mama Sita's for teaching examples (durable feedback, 2026-07-05) — high-variance domains only.
@@ -80,7 +85,7 @@ Learn top-down and the chat stops being gibberish fastest.
 - [x] **10. Model comparison** (~2h) — **LOO / ELPD / WAIC**, PSIS **k-hat**, "better predictive fit." *(Abril, Engels)*
 - [x] **11. Likelihoods, GLMs & regression** (~3h) — picking a likelihood (Normal/Poisson/Student-T/Binomial), link functions, marginalizing discrete latents. *(Vincent, Paz, Luhmann)*
 - [~] **12. Gaussian Processes & HSGP** (~3h) — GP = flexible prior over functions; lengthscale/kernel; **HSGP** fast approximation; spatial/smooth trends. *(Engels, Fonnesbeck)* — PARTIAL 7/26: GP conceptual half CLEARED (prior-on-functions, kernel, lengthscale + both failure directions). HSGP at literacy level delivered as one sentence; the basis-function machinery bounced hard and is DEFERRED TO PHASE 2. Do not reopen it in Phase 1.
-- [~] **13. State-space & structural time series** (~3h) — trend+seasonality+regression components, **Kalman filter**, counterfactual forecasting. *(Grabowski, Fonnesbeck)* — PARTIAL 7/28: components ✓, identifiability/ridge ✓, observation layer ✓ (cleared cold on durations), Kalman marginalization ✓ (mechanism, not the word). **Counterfactual forecasting NOT demonstrated** — exposition only, and the causal check under it failed (omitted-confounder). Retest as warm-up, don't reopen the rung.
+- [~] **13. State-space & structural time series** (~3h) — trend+seasonality+regression components, **Kalman filter**, counterfactual forecasting. *(Grabowski, Fonnesbeck)* — PARTIAL 7/29: components ✓, identifiability/ridge ✓, observation layer ✓ (cold, durations), Kalman marginalization ✓ (mechanism), **sum-to-zero ✓ CLEARED 7/29** (3rd attempt, via the visual + a novel transfer variant). **Counterfactual forecasting still NOT demonstrated** — the one open item; retest as warm-up, don't reopen the rung.
 - [ ] **14. Frontier / niche — know the words exist** (~2h) — **variational inference / normalizing flows**, **Laplace approximation**, **drift-diffusion/HSSM**, R2D2/PC priors. *(Seyboldt, Fengler)*
 
 ## Phase 2 project — Mama Sita's (the family business, real application domain)
@@ -126,6 +131,41 @@ teaching:
    w/ exogenous shock).
 
 ## Sessions (newest at top)
+
+### 2026-07-29 · 30 min · Both standing misses CLOSED — Rung 9 regression + sum-to-zero, both via visuals
+- **Rung 9 omitted-confounder retest #2: FAILED again, third time.** Fresh domain (opt-in university
+  tutoring, prior GPA in the registrar's DB but not a model term, b = +4.5). He said **"yes, jts still
+  fit on observation"** — verbatim the same error as 7/28 ("yes cause its observed"). Prose had now
+  failed twice, so: numbers, then a plot.
+- Killed it with arithmetic: two groups (GPA 2.5 → 2h → 62; GPA 3.7 → 10h → 100), true effect +1/hr,
+  pooled slope = 38/8 = **+4.75 ≈ 5× the truth**. The fit hands GPA's 30-point gap to the only column
+  standing there.
+- **Follow-up check exposed a SECOND misconception:** asked which is more trustworthy, (A) confounder
+  observed-but-omitted vs (B) never measured — he said **"A, its quantitative."** Wrong. Corrected:
+  both fit the *identical* model to the *identical* columns, so `b` is identically biased. **Bias:
+  same. Fixability: (A) trivial, (B) hard.** Trustworthiness is a property of the model you fit, not
+  of data sitting on some other server. Also flagged: no ArviZ diagnostic catches this — r-hat/ESS/LOO
+  are all clean because the model samples a well-posed *wrong* question perfectly.
+- **Generated the visual** (`assets-omitted-confounder.py`): left = one gray cloud + one steep line
+  (b=+4.44); right = same 120 points with GPA revealed, two clouds, within-group slopes ≈ +1, the
+  omitted fit ghosted over reality as the line connecting two group means. Sent to Telegram.
+- **CLEARED after the picture** — re-asked verbatim with a forced yes/no, and he produced both:
+  (A) biased, fix = add the term and re-fit; (B) biased, **"because its not in the equation."** That
+  phrasing IS the discriminator. Rung 9 regression closed.
+- **Sum-to-zero retest #2: FAILED cold** ("things just go up and up and up" — that's trend drift, wrong
+  mechanism). 0 for 2 going in. Re-taught with the 3-row table (level 100/0/250 with the matching
+  seasonal offsets → byte-identical y), then plotted it (`assets-sumtozero.py`, 3 panels: the observed
+  series / two decompositions through the same points / the r=−1 posterior ridge with the constrained
+  point marked). Sent to Telegram.
+- **CLEARED, and on a novel transfer variant.** Asked: level now known and fixed at 100 — still need
+  sum-to-zero? He said **"no, no more trading of free constant."** Correct, and it's the general
+  principle (the constraint has to land on one side or the other), not the memorized rule.
+- **METHOD FINDING (twice-validated in one session): when a concept has failed twice in prose, go
+  straight to a generated plot.** Both blocks broke open immediately after the image, in the same
+  pattern as the 7/27 pair plot. This is now three-for-three. Stop re-explaining; render it.
+- **Question-swapping recurred (3rd time)** — answered the fixability question when asked about bias.
+  The fix that worked: re-ask verbatim and demand one word. Do that by default now.
+- Stopped at: warm-ups done, Rung 14 not started (3rd topic = his documented fade point).
 
 ### 2026-07-28 · 17 min · Rung 13 close-out — observation layer CLEARED, Rung 9 regression found
 - Warm-up FAILED cold ("idk"): the third ridge fix, **sum-to-zero on the seasonal component**. Re-locked
