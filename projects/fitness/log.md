@@ -14,9 +14,9 @@ Append-only. Newest at top. One line per day.
 ---
 ## 2026-07-29
 - **Weight:** 96.0 kg (fasted AM)
-- **Cals / Protein:** —
-- **Carbs / Sodium:** —
-- **Trained:** —
+ - **Cals / Protein:** ~918 / ~82g so far (3 tbsp rice ~58/1g; ½ grilled peri-peri chicken ~580/72g; 12 oz sweet latte ~280/9g)
+ - **Carbs / Sodium:** ~51g / ~2g so far (rice ~13g; latte ~35g; chicken ~3g. Peri marinade carries the sodium)
+ - **Trained:** —
 - **Notes:** flat off yesterday (96.0 → 96.0) after four straight down-ticks (97.4 → 97.0 → 96.7 → 96.0). One flat day is noise, not a stall — and 7/28 closed over the ceiling (~2185 + whatever the 2-scoop rescue added), so a flat morning is exactly what that day buys. Still 0.4 under the 7/03 baseline (96.4); the ~−0.77 kg/wk trend from the 7/27 reconciliation holds. Next in the rotation: **Day B** (OHP 3×8 · pull-ups strict-then-assisted · leg curl 3×10 · leg raises 2×12) — 7/28 was untrained and 7/27's Day A was logged in progress.
 
 ## 2026-07-28
