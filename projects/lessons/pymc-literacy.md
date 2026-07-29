@@ -13,13 +13,25 @@ level: Strong structural intuition (prior, hierarchy, generative thinking — ha
 hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
-hours_done: 4.9
-next_up: **START WITH RUNG 14 (frontier vocab) — do not open with warm-ups.** It has now been
-  scheduled 3 sessions running and never reached, because warm-ups ate the whole sitting both times
-  today. Teach the rung FIRST (VI / normalizing flows, Laplace approximation, Pathfinder in
-  pymc-extras, drift-diffusion + HSSM, R2D2 & PC priors — vocab only, "recognize the word"), THEN
-  warm up if time remains. That completes the Phase-1 ladder.
-  Warm-up bank (use at the END, ~5 min max, pick 2):
+hours_done: 5.6
+next_up: **PHASE 1 LADDER IS COMPLETE (all 14 rungs).** Next session is the Phase-1 EXIT CHECK, then the
+  Phase-2 kickoff — do not just keep drilling rungs.
+  (A) **Exit check (~10 min, cold, mixed):** pull 5-6 items ACROSS rungs in one pass, no warning of which
+  rung. Must include the two known-soft spots: **the R2D2/joint-prior objection** (variances add → implied
+  R²→1; he had the word but not the mechanism, 7/29) and **the Rung 2 MMM triple** (adstock decay knob,
+  saturation = diminishing returns WITHIN a channel, optimization = equalize marginal slopes — decayed once
+  already, retest until it holds cold twice). Also retest **"a tight prior hides a ridge"** — delivered
+  7/29 and it's the same failure as the R2D2 miss, so if it sticks that one probably sticks too. And
+  **identifiability via the 3-row table** (several parameter pairs, one observable, same prediction) —
+  he owns this now via rank/null-space; check it survives a week.
+  (B) **Phase 2 kickoff — the real unknown.** hours_estimate is a guess because he has NEVER been observed
+  specifying + refereeing a live model. First Phase-2 session should be a DIRECTOR drill, not more theory:
+  give him a plain-language business question, have him spec the model in words/pseudocode (likelihood,
+  hierarchy, observation layer, what identifies what), then hand him a deliberately flawed PyMC
+  implementation to referee. That gives the first real read on his director/critic pace and lets
+  hours_estimate be re-set from evidence. Mama Sita's IS the Phase-2 build target (menu of 6 in this file);
+  still-open blocker = the clean anchor for identifiability.
+  Old warm-up bank (still valid, use at the END, ~5 min max, pick 2):
   (1) **Rung 2 MMM, cold retest** — decayed badly on 7/29; adstock's knob (decay rate), saturation =
   diminishing returns *within* a channel, optimization = equalize the marginal slopes.
   (2) **the re-fit trap mechanism** — he got the verdict ("no") but not the why: dropping the promo
@@ -29,7 +41,16 @@ next_up: **START WITH RUNG 14 (frontier vocab) — do not open with warm-ups.** 
   WATCH: he swaps questions under pressure — answers the adjacent question, not the asked one.
   Happened 3×. Re-ask VERBATIM and demand yes/no; that is what finally separated bias-vs-fixability
   on 7/29.
-  VISUALS UNLOCK HIM — twice-validated 7/29. Generate the plot, don't describe geometry. Recipe:
+  **METAPHORS HURT HIM, NUMBERS FIX HIM (2× validated 7/29, both in one session).** When he says he's
+  confused, do NOT explain again at more length — that made it worse twice. Strip ALL domain vocabulary
+  and go to concrete arithmetic: "two numbers multiply to 12, now they also add to 7" cleared
+  identifiability in 5 lines after two full explanations failed; a 3-row table of parameter values all
+  predicting 95% cleared "ridge" after the hill metaphor stalled for 10 min. Words like "ridge", "walk
+  for free", "flat direction" are jargon disguised as plain English — define them with numbers on first
+  use or don't use them.
+  VISUALS UNLOCK HIM — but the figure's QUANTITY must match the words (7/29: a sample-cloud labeled with
+  curvature eigenvalues confused him, since wide spread = LOW curvature; redrawing as a topo contour map
+  of the log-likelihood fixed it). Generate the plot, don't describe geometry. Recipe:
   `uv run --with matplotlib --with numpy python <script>` (no global matplotlib), then Telegram via
   `set -a; . ~/cs/monorepo/.env; set +a; curl -sF chat_id=$TELEGRAM_CHAT_ID -F caption=... -F
   photo=@shot.png https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendPhoto`. Assets:
@@ -91,7 +112,7 @@ Learn top-down and the chat stops being gibberish fastest.
 - [x] **11. Likelihoods, GLMs & regression** (~3h) — picking a likelihood (Normal/Poisson/Student-T/Binomial), link functions, marginalizing discrete latents. *(Vincent, Paz, Luhmann)*
 - [~] **12. Gaussian Processes & HSGP** (~3h) — GP = flexible prior over functions; lengthscale/kernel; **HSGP** fast approximation; spatial/smooth trends. *(Engels, Fonnesbeck)* — PARTIAL 7/26: GP conceptual half CLEARED (prior-on-functions, kernel, lengthscale + both failure directions). HSGP at literacy level delivered as one sentence; the basis-function machinery bounced hard and is DEFERRED TO PHASE 2. Do not reopen it in Phase 1.
 - [x] **13. State-space & structural time series** (~3h) — trend+seasonality+regression components, **Kalman filter**, counterfactual forecasting. *(Grabowski, Fonnesbeck)* — CLEARED 7/29: components ✓, identifiability/ridge ✓, observation layer ✓ (cold, durations), Kalman marginalization ✓ (mechanism), **sum-to-zero ✓** (3rd attempt, via visual + novel transfer variant), **counterfactual forecasting ✓** (produced "two equations, graph the difference" after one micro-step). Residual retest items, not blockers: the re-fit trap *mechanism* (level absorbs the lift) and per-draw → distribution.
-- [ ] **14. Frontier / niche — know the words exist** (~2h) — **variational inference / normalizing flows**, **Laplace approximation**, **drift-diffusion/HSSM**, R2D2/PC priors. *(Seyboldt, Fengler)*
+- [x] **14. Frontier / niche — know the words exist** (~2h) — **variational inference / normalizing flows**, **Laplace approximation**, **drift-diffusion/HSSM**, R2D2/PC priors. *(Seyboldt, Fengler)* — CLEARED 7/29. All six words delivered + quizzed; Laplace/VI/flows nailed cold. **PHASE 1 LADDER COMPLETE.**
 
 ## Phase 2 project — Mama Sita's (the family business, real application domain)
 
@@ -136,6 +157,79 @@ teaching:
    w/ exogenous shock).
 
 ## Sessions (newest at top)
+### 2026-07-29 (part 3) · 40 min · Rung 14 — frontier vocab · **PHASE 1 LADDER COMPLETE**
+- Ran the rung FIRST with zero warm-ups, per the standing instruction. It worked — the rung that had been
+  scheduled 3 sessions running finally landed. **Keep this rule: teach first, warm up only with leftover time.**
+- Taught in two blocks (chunking, not one dump — the HSGP-7/26 failure mode avoided). Block 1 framed the
+  four approximate-inference words as ONE ladder off NUTS ("MCMC is too slow, what else?"): Laplace →
+  VI → normalizing flows → Pathfinder. Block 2 = the two orphans, HSSM and R2D2/PC.
+- **3/3 cold on block 1.** Laplace-on-a-funnel ("only if Gaussian-shaped, else wrong"), mean-field VI
+  ("you threw away uncertainty"), and flows-as-geometry-fixer for NUTS. Under-answered the funnel
+  *specific* (no single scale; mode sits in the neck → absurdly narrow Gaussian, confidently wrong in the
+  "everything is fine" direction) — supplied, not re-asked, since this is a vocab rung.
+- Block 2 was weaker, as expected — no prior hooks for either.
+  - Asked to rephrase the DDM identifiability question (fair — it was posed obliquely). Recast as
+    accuracy-alone-can't-separate-high-drift-from-wide-boundaries, i.e. the same ridge as Rung 13. That
+    framing is the one to reuse.
+  - #3 (which two words = "learned approximation replacing an exact thing") — said flows + Pathfinder.
+    Half right. Corrected: the operative word is LEARNED, i.e. a trained neural net → flows + HSSM's
+    surrogate likelihood. Pathfinder/Laplace/VI are cheap ANALYTIC fits, nothing is trained.
+  - Asked for a one-line recap of all six mid-quiz — good self-directed move, gave the glossary.
+- **The R2D2 question is the retest item.** Got the fix word instantly ("r2d2") but could not produce the
+  objection even after a direct push; landed on "14 is a lot of coefficients" and stopped. Delivered:
+  variances ADD, so 14 × Normal(0,5) implies prior R² mass piled near 1 = "marketing explains all of
+  sales." Rule given: **"weakly informative" is a property of the JOINT, not of one prior, and it degrades
+  with dimension** — and the prior predictive check (Rung 6) is how you catch it. RETEST THIS COLD.
+- Wound down mid-quiz (short answers, "i don't know") but then **re-engaged hard on his own** and drove
+  the last 9 min himself — the 7/27-harness pattern again. Do not read a fade as the end.
+- **TEACHING FAILURE + RECOVERY, worth keeping.** I introduced drift rate / boundary separation / RT with
+  no experimental setup and he blew up ("what the fuck is drift rate... are you racing"). Entirely fair —
+  I gave the abstraction before the concrete referent. Recovery sequence that worked, in order:
+  1. The actual experiment in plain words (dots on a screen, press left/right, record button + milliseconds).
+  2. **The visual** (`assets-ddm.py` → Telegram): two panels, sharp subject (steep drift, narrow bounds,
+     95% @ 0.21s) vs cautious (flat drift, wide bounds, 93% @ 1.09s). Same accuracy, different reason.
+     Visuals-unlock-him confirmed a THIRD time.
+  3. He then asked the good generalizing question — "so #parameters must equal #observables?" — and was
+     still confused after a full answer. **What finally landed was pure arithmetic, zero vocabulary:**
+     "two numbers multiply to 12" (ridge) → "they also add to 7" (identified) → "they really really
+     multiply to 12, measured 1000×" (learned nothing). More facts ≠ different facts.
+  LESSON: when he's lost, strip ALL domain vocab and go to arithmetic. Adding more correct explanation
+  made it worse; the 5-line numeric analogy fixed it instantly.
+- **He closed it himself with "so it's like diagonalizing a matrix"** — right instinct, and the payoff was
+  good: exact word is RANK / null space (Ax=b, redundant row doesn't raise rank = linear independence IS
+  "different facts"), AND eigendecomposing the Hessian/posterior covariance is literally how you find the
+  flat direction — near-zero eigenvalue = ridge, its eigenvector names WHICH parameter combination is
+  unidentified. Pairplot banana = that direction drawn. Gave structural (exactly flat) vs practical
+  (nearly flat) as the closing vocab. **Lean on linear algebra with him — it's his native frame.**
+- Net: identifiability is now owned at a deeper level than Rung 13 left it, via linear algebra rather
+  than via Bayesian phrasing.
+- **Then he kept going for another 15 min on foundations, all self-directed.** Asked in sequence: "what's
+  an eigenvalue/vector again", "what's a Hessian and a log-likelihood", "wtf does ridge / walk for free
+  mean", "so the goal is to always have no ridge?". He will ask for the floor when he needs it — never
+  assume a foundation is present, but also don't pre-teach it; he flags the gap himself.
+  - Delivered: likelihood as "how probable is the data I saw, if the parameters were THIS" (coin, 7/10
+    heads, curve peaks at 0.7); log purely for underflow + differentiability + monotonicity; gradient =
+    slope vs Hessian = curvature; **why the Hessian and not the gradient — at the peak the gradient is
+    ZERO for every model, so only curvature carries information about confidence**; and the loop closure
+    that inverse-Hessian-at-the-mode IS the Laplace approximation from the top of the same session.
+  - **VISUAL FAILURE worth logging.** First eigen figure used a SAMPLE CLOUD labeled with CURVATURE
+    eigenvalues — wide spread = low curvature, an inversion I never stated. He said "the picture doesn't
+    make sense" and he was right. Redrew as a **topographic contour map of the log-likelihood** (hill,
+    contour spacing, walk each way and record height). That worked. RULE: match the figure's quantity to
+    the words — don't label a spread picture with curvature numbers.
+  - **"Ridge" and "walk for free" are jargon disguised as plain English and they cost ~10 min.** What
+    finally landed was a 3-row TABLE of concrete parameter values (drift 3.0/boundary 0.8, 1.5/1.6,
+    0.9/2.5) all predicting 95% accuracy, plus a contrasting row that breaks the fit. Second confirmation
+    of the day's meta-lesson: **when he's lost, kill the metaphor and show numbers.** Metaphors (hill,
+    ridge, walking) actively hurt him; tables and arithmetic fix it instantly.
+  - Closed on his own good question — "so the goal is always no ridge?" Answer given: no, only in the
+    quantities you'll make claims about; prediction can be identified while attribution isn't (the MMM
+    case); three fixes (new measurement / reparameterize to the identified combination / report honestly);
+    and the real goal is **knowing where your ridges are**, because the danger isn't a wide interval, it's
+    a confident point estimate parked arbitrarily. **Landed the key trap: a tight prior HIDES a ridge** —
+    posterior looks narrow and beautiful, and the confidence is 100% prior. Same failure as the R2D2
+    question he missed earlier, which makes that retest more valuable.
+
 
 ### 2026-07-29 (part 2) · 16 min · Rung 13 CLOSED + Rung 2 MMM found decayed — he refereed ME twice
 - His call to run a 3rd topic in one sitting; warned him about the documented fade and went anyway.
