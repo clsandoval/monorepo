@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-07-30
+- **Weight:** — (not logged)
+- **Cals / Protein:** ~1445 / ~85g so far (cold brew black ~5/0g; chicken BBQ salad: grilled chicken ~150g ~250/32g + lettuce + tomatoes ~25/1g + BBQ drizzle 2 tbsp ~70/0g + ranch 3 tbsp ~195/1.5g + nacho chips ~50g ~250/3g + corn ~75g ~65/2g + beans ~75g ~85/5g; Mediterranean wrap ~500/40g [as given])
+- **Carbs / Sodium:** ~119g / ~3.5g so far (chips ~28g + corn ~15g + beans ~15g + BBQ ~14g + ranch ~3g + veg ~4g; wrap tortilla + fillings ~40g. Ranch + BBQ + chips + beans + wrap [tortilla, feta/sauce] carry sodium)
+- **Trained:** —
+- **Notes:** wrap was the good buy of the day — 500 cal for 40g (12.5 cal/g) vs the salad's chips + extra ranch sink (~390 cal for 4.5g). ~555 cal / ~75g protein left. That gap only closes with near-pure protein: **3 scoops in water (~420/72g)** lands ~1865 / ~157g — 3g shy of the floor and under the ceiling. Any solid food tonight has to be lean (chicken breast / cottage cheese), not another mixed plate.
+
 ## 2026-07-29
 - **Weight:** 96.0 kg (fasted AM)
  - **Cals / Protein:** ~2054 / ~149g (3 tbsp rice ~58/1g; ½ grilled peri-peri chicken ~580/72g; 12 oz sweet latte ~280/9g; 200g ribeye ~580/50g; 1 slice pizza ~285/12g; corn ~100g ~96/3g; 50g cake ~175/2g)
