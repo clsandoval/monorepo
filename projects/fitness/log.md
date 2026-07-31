@@ -12,6 +12,12 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-07-31
+- **Weight:** 95.2 kg (fasted AM)
+- **Cals / Protein:** —
+- **Carbs / Sodium:** —
+- **Trained:** —
+- **Notes:** down 0.8 off 7/29's 96.0 (7/30 unweighed). Matches 7/21 exactly — back to the pre-trip level after the post-trip water bump (97.4 peak on 7/25). 1.2 under the 7/03 baseline (96.4); 0.9 above the 7/22 all-time low (94.3). Trend intact: ~0.7–0.8 kg/wk since 7/03.
 ## 2026-07-30
 - **Weight:** — (not logged)
 - **Cals / Protein:** ~1445 / ~85g so far (cold brew black ~5/0g; chicken BBQ salad: grilled chicken ~150g ~250/32g + lettuce + tomatoes ~25/1g + BBQ drizzle 2 tbsp ~70/0g + ranch 3 tbsp ~195/1.5g + nacho chips ~50g ~250/3g + corn ~75g ~65/2g + beans ~75g ~85/5g; Mediterranean wrap ~500/40g [as given])
