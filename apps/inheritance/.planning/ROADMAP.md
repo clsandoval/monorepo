@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Loop Durability & Commit Discipline** - Make the month-long autonomous grind survivable and self-reporting (completed 2026-07-31)
 - [x] **Phase 3: Reproducible Environment & Gate Reporting** - Local Supabase, seed data, storage buckets, machine-readable gate results (completed 2026-07-31)
 - [x] **Phase 4: Lawyer Review Agenda Recorded** - Send the eight interpretive questions out now, while the lawyer is unreachable (completed 2026-07-31)
-- [x] **Phase 5: Engine Observability Restored** - Turn `warnings` and the legitime/free-portion split back on (completed 2026-07-31)
+- [ ] **Phase 5: Engine Observability Restored** - Turn `warnings` and the legitime/free-portion split back on (7/7 plans executed 2026-07-31; NOT complete — gate G3 is red and OBS-05/OBS-06 are BLOCKED on one product decision, see `.planning/phases/05-engine-observability-restored/05-05-SUMMARY.md`)
 - [ ] **Phase 6: Property-Test Coverage Depth** - Make the generator reach the heir shapes that currently break the engine
 - [ ] **Phase 7: Intestate Order & Representation Root-Cause Fixes** - Fix the one line that causes four critical defects
 - [ ] **Phase 8: Remaining Unblocked Legal & Tax-Bridge Defects** - Preterition, medical deduction, vanishing deduction, tax-bridge, reserva troncal
@@ -286,7 +286,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 2. Loop Durability & Commit Discipline | 6/6 | Complete   | 2026-07-31 |
 | 3. Reproducible Environment & Gate Reporting | 5/5 | Complete    | 2026-07-31 |
 | 4. Lawyer Review Agenda Recorded | 5/5 | Complete    | 2026-07-31 |
-| 5. Engine Observability Restored | 7/7 | Complete   | 2026-07-31 |
+| 5. Engine Observability Restored | 7/7 | Blocked    | 2026-07-31 |
 | 6. Property-Test Coverage Depth | 0/TBD | Not started | - |
 | 7. Intestate Order & Representation Root-Cause Fixes | 0/TBD | Not started | - |
 | 8. Remaining Unblocked Legal & Tax-Bridge Defects | 0/TBD | Not started | - |
