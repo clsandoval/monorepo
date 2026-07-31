@@ -2,4 +2,3 @@ node_modules/
 dist/
 .vite/
 src/wasm/pkg/*.wasm
-src/wasm/pkg/inheritance_engine_bg.js
