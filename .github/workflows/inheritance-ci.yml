@@ -1,0 +1,63 @@
+# Inheritance CI — the enforcement point for GATE-01 through GATE-04.
+#
+# All gate logic lives in apps/inheritance/scripts/ci-gates.sh, not in this file,
+# so what CI runs and what a developer runs are the same bytes and a failure here
+# is reproducible and debuggable locally rather than only after a push.
+#
+# No step in this workflow may be made non-blocking. Non-blocking step options,
+# error swallowing, and unconditionally-run gate steps are all prohibited: a gate
+# that can report green while failing certifies nothing, and in this project a
+# wrong legal number reaching a lawyer silently is the failure mode that matters
+# most.
+#
+# This is a separate workflow from inheritance.yml (the Ralph forward-loop
+# runner), which is unrelated and must not be modified.
+
+name: Inheritance CI
+
+on:
+  # No branches filter: this must fire on every branch.
+  # The paths scope is necessary because this monorepo has a concurrent
+  # auto-committer producing frequent unrelated commits; without it every
+  # unrelated commit would trigger a full Rust + WASM + Node run.
+  push:
+    paths:
+      - 'apps/inheritance/**'
+      - '.github/workflows/inheritance-ci.yml'
+  pull_request:
+    paths:
+      - 'apps/inheritance/**'
+      - '.github/workflows/inheritance-ci.yml'
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      # wasm-pack resolves the wasm-bindgen version from the committed
+      # engine/Cargo.lock, so no version is pinned here.
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: apps/inheritance/frontend/package-lock.json
+
+      # npm ci, strictly from the committed package-lock.json (lockfileVersion 3),
+      # which is the only lockfile this tree has.
+      - name: Install frontend dependencies
+        working-directory: apps/inheritance/frontend
+        run: npm ci
+
+      - name: Run all gates
+        run: bash apps/inheritance/scripts/ci-gates.sh
