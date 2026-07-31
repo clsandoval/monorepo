@@ -81,6 +81,29 @@ const OBSERVATION_SOURCE = {
 const SUPPRESSION_MARKERS = ['@ts-ignore', '@ts-nocheck', '@ts-expect-error'];
 const SCANNED_EXTENSIONS = ['.ts', '.tsx'];
 
+/**
+ * `@ts-expect-error` inside a `*.typetest.ts` file is an ASSERTION, not a
+ * suppression, and is therefore not a skip.
+ *
+ * The difference is that it is self-verifying. If the error it expects stops
+ * occurring — i.e. the type protection it guards regressed away — TypeScript
+ * raises TS2578 "unused '@ts-expect-error' directive" and the typecheck gate
+ * fails. A directive that goes red when the thing it protects breaks cannot
+ * hide a regression, which is the entire property this gate exists to enforce.
+ *
+ * Deliberately narrow: this applies ONLY to `@ts-expect-error`, and ONLY in
+ * `*.typetest.ts`. `@ts-ignore` and `@ts-nocheck` silently swallow whatever
+ * follows them and stay skips everywhere, typetest files included.
+ *
+ * Exposed by EXT-03's negative type test (`src/types/money-units.typetest.ts`),
+ * whose four directives were verified in both directions: erasing the Pesos /
+ * Centavos brand produced exactly four TS2578 errors and exit 1; restoring it
+ * gave exit 0.
+ */
+function isSelfVerifyingAssertion(marker, relPath) {
+  return marker === '@ts-expect-error' && relPath.endsWith('.typetest.ts');
+}
+
 /** Exit 1 with SKIP SCAN UNREADABLE. Never exit 0 on an internal error. */
 function unreadable(message) {
   console.error('SKIP SCAN UNREADABLE: ' + message);
@@ -232,6 +255,7 @@ function observeTypecheck() {
     for (let i = 0; i < lines.length; i += 1) {
       for (const marker of SUPPRESSION_MARKERS) {
         if (lines[i].includes(marker)) {
+          if (isSelfVerifyingAssertion(marker, rel)) break;
           skips.push({ id: 'suppression:' + rel + ':' + (i + 1), source: rel });
           break;
         }
