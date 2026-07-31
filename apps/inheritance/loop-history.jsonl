@@ -14,3 +14,17 @@
 {"ts":"2026-07-31T06:21:09Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
 {"ts":"2026-07-31T06:47:26Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
 {"ts":"2026-07-31T06:49:57Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
+{"ts":"2026-07-31T06:56:37Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
+{"ts":"2026-07-31T07:02:48Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
+{"ts":"2026-07-31T07:10:02Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
+{"ts":"2026-07-31T07:12:16Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
+{"ts":"2026-07-31T07:28:41Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
+{"ts":"2026-07-31T07:33:46Z","outcome":"fail","failure_signature":"G8:1","gates_run":8,"gates_total":8,"only":""}
+{"ts":"2026-07-31T07:34:44Z","outcome":"pass","failure_signature":"","gates_run":8,"gates_total":8,"only":""}
+{"ts":"2026-07-31T07:36:52Z","outcome":"pass","failure_signature":"","gates_run":8,"gates_total":8,"only":""}
+{"ts":"2026-07-31T07:41:04Z","outcome":"pass","failure_signature":"","gates_run":8,"gates_total":8,"only":""}
+{"ts":"2026-07-31T07:41:04Z","outcome":"fail","failure_signature":"G1:3","gates_run":4,"gates_total":8,"only":""}
+{"ts":"2026-07-31T07:41:04Z","outcome":"cannot-run","failure_signature":"PREFLIGHT:cargo","gates_run":0,"gates_total":8,"only":""}
+{"ts":"2026-07-31T07:42:10Z","outcome":"pass","failure_signature":"","gates_run":8,"gates_total":8,"only":""}
+{"ts":"2026-07-31T07:44:24Z","outcome":"pass","failure_signature":"","gates_run":9,"gates_total":9,"only":""}
+{"ts":"2026-07-31T07:48:00Z","outcome":"pass","failure_signature":"","gates_run":9,"gates_total":9,"only":""}
