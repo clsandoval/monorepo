@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Journey Fixture — basic</title>
+<style>
+  html, body { background: #ffffff; margin: 0; padding: 0; }
+  body { font-family: sans-serif; color: #111111; padding: 24px; }
+  h1 { font-size: 20px; margin: 0 0 16px 0; }
+  .row { border: 1px solid #cccccc; padding: 8px; margin: 0 0 8px 0; }
+  .banner { background: #fff4e5; border: 1px solid #e0a800; padding: 8px; margin: 0 0 16px 0; }
+  .readout { font-family: sans-serif; font-size: 12px; color: #333333; margin-top: 16px; }
+</style>
+</head>
+<body>
+<h1 data-testid="page-title">Distribution Summary</h1>
+<div data-testid="heir-name">Maria Santos</div>
+<div data-testid="heir-share">PHP 1,500,000.00</div>
+<div data-testid="heir-row" class="row">Maria Santos — legitimate child</div>
+<div data-testid="heir-row" class="row">Jose Santos — legitimate child</div>
+<div data-testid="heir-row" class="row">Ana Santos — legitimate child</div>
+<p><a data-testid="case-link" href="/cases/a0000000-0000-4000-8000-000000000004">Open case</a></p>
+<div data-testid="seed-readout" class="readout"></div>
+<script>
+  function readOrAbsent(fn) {
+    try {
+      var v = fn();
+      return (v === null || v === undefined) ? 'absent' : String(v);
+    } catch (e) {
+      return 'absent';
+    }
+  }
+  var draft = readOrAbsent(function () { return localStorage.getItem('inheritance-intake-draft'); });
+  var quick = readOrAbsent(function () { return sessionStorage.getItem('quick-calc-used'); });
+  var step = readOrAbsent(function () { return new URLSearchParams(location.search).get('step'); });
+  document.querySelector('[data-testid="seed-readout"]').textContent = [draft, quick, step].join('|');
+</script>
+</body>
+</html>
