@@ -8,6 +8,8 @@ import './index.css';
 import { supabase, supabaseConfigured } from '@/lib/supabase';
 import { router } from './router';
 import { SetupPage } from '@/components/SetupPage';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { installGlobalErrorHandlers } from '@/lib/error-reporting';
 import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js';
 
 function RouterWithAuth() {
@@ -41,10 +43,16 @@ function RouterWithAuth() {
   );
 }
 
+// Module scope on purpose: a React remount must not re-run this. The remover is
+// discarded because the handlers live for the whole page session.
+installGlobalErrorHandlers();
+
 if (!supabaseConfigured) {
-  ReactDOM.createRoot(document.getElementById('root')!).render(<SetupPage />);
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <ErrorBoundary><SetupPage /></ErrorBoundary>
+  );
 } else {
   ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode><RouterWithAuth /></React.StrictMode>
+    <React.StrictMode><ErrorBoundary><RouterWithAuth /></ErrorBoundary></React.StrictMode>
   );
 }
