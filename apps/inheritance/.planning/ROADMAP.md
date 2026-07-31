@@ -238,7 +238,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Gate Foundations | 4/4 | Complete | 2026-07-31 |
-| 2. Loop Durability & Commit Discipline | 0/6 | Planned | - |
+| 2. Loop Durability & Commit Discipline | 3/6 | In Progress|  |
 | 3. Reproducible Environment & Gate Reporting | 0/TBD | Not started | - |
 | 4. Lawyer Review Agenda Recorded | 0/TBD | Not started | - |
 | 5. Engine Observability Restored | 0/TBD | Not started | - |
