@@ -1,0 +1,32 @@
+{
+  "rubricId": "intake-step-2",
+  "assertions": [
+    {
+      "id": "form",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"guided-intake-form\"]"
+    },
+    {
+      "id": "position",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"guided-intake-form\"]",
+      "expect": "Step 3 of 7"
+    },
+    {
+      "id": "step-name",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"guided-intake-form\"]",
+      "expect": "Step 3: About the Decedent"
+    },
+    {
+      "id": "no-crash",
+      "kind": "text_absent",
+      "selector": "body",
+      "expect": "Something went wrong!"
+    },
+    {
+      "id": "clean-console",
+      "kind": "no_console_error"
+    }
+  ]
+}

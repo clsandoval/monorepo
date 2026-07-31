@@ -1,0 +1,39 @@
+{
+  "rubricId": "intake-draft-recovered",
+  "assertions": [
+    {
+      "id": "form",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"guided-intake-form\"]"
+    },
+    {
+      "id": "position",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"guided-intake-form\"]",
+      "expect": "Step 2 of 7"
+    },
+    {
+      "id": "recovered-name",
+      "kind": "attribute_equals",
+      "selector": "#client-name",
+      "attr": "value",
+      "expect": "Recovered Client"
+    },
+    {
+      "id": "clear-draft",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"guided-intake-form\"]",
+      "expect": "Clear Draft"
+    },
+    {
+      "id": "no-crash",
+      "kind": "text_absent",
+      "selector": "body",
+      "expect": "Something went wrong!"
+    },
+    {
+      "id": "clean-console",
+      "kind": "no_console_error"
+    }
+  ]
+}
