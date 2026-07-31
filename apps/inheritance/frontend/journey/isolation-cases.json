@@ -1,0 +1,22 @@
+{
+  "$comment": "The committed tenant-isolation case table for COV-06. EVERY NEGATIVE CASE IS PRECEDED BY A POSITIVE CONTROL ON THE SAME TABLE WITH THE SAME VERB, because a denial and an empty table are indistinguishable from the negative alone — before the API-role grants landed, every table answered 42501 to every role, so 'org A sees none of org B's rows' was true only because org A saw no rows at all. A suite whose positive control fails is a RED suite, not a green one. The two negative outcomes are deliberately different expectations: 'no-rows' is the row-level-security outcome (the request succeeded and returned nothing), while 'denied' is the missing-grant outcome (the request failed with PostgREST code 42501). Collapsing them would stop a red run from saying whether RLS or a grant produced it. No uuid, email or token appears in this file: the script resolves every id from frontend/supabase/fixtures.json at runtime, which scripts/check-seed-fixture.mjs keeps in agreement with seed.sql.",
+  "cases": [
+    { "id": "org-alpha-reads-own",      "surface": "org",         "actor": "alpha", "operation": "read-own",        "expect": "rows" },
+    { "id": "org-alpha-reads-beta",     "surface": "org",         "actor": "alpha", "operation": "read-other",      "expect": "no-rows" },
+
+    { "id": "cases-alpha-reads-own",    "surface": "cases",       "actor": "alpha", "operation": "read-own",        "expect": "rows" },
+    { "id": "cases-alpha-reads-beta",   "surface": "cases",       "actor": "alpha", "operation": "read-other",      "expect": "no-rows" },
+    { "id": "cases-beta-reads-own",     "surface": "cases",       "actor": "beta",  "operation": "read-own",        "expect": "rows" },
+    { "id": "cases-anon-reads",         "surface": "cases",       "actor": "anon",  "operation": "read-own",        "expect": "denied" },
+    { "id": "cases-alpha-updates-own",  "surface": "cases",       "actor": "alpha", "operation": "update-own",      "expect": "rows" },
+    { "id": "cases-alpha-updates-beta", "surface": "cases",       "actor": "alpha", "operation": "update-other",    "expect": "no-rows" },
+
+    { "id": "pdfs-alpha-reads-own",     "surface": "pdfs",        "actor": "alpha", "operation": "read-own",        "expect": "rows" },
+    { "id": "pdfs-alpha-reads-beta",    "surface": "pdfs",        "actor": "alpha", "operation": "read-other",      "expect": "no-rows" },
+    { "id": "pdfs-alpha-inserts-beta",  "surface": "pdfs",        "actor": "alpha", "operation": "insert-other",    "expect": "denied" },
+
+    { "id": "share-anon-alpha-token",   "surface": "share-links", "actor": "anon",  "operation": "rpc-own-token",   "expect": "rows" },
+    { "id": "share-anon-beta-token",    "surface": "share-links", "actor": "anon",  "operation": "rpc-other-token", "expect": "no-rows" },
+    { "id": "share-alpha-enumerates",   "surface": "share-links", "actor": "alpha", "operation": "read-other",      "expect": "no-rows" }
+  ]
+}
