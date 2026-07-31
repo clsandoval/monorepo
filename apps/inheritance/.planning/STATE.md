@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: ready_to_plan
-stopped_at: Phase 3 complete (5/5) — ready to discuss Phase 4
-last_updated: 2026-07-31T07:47:05.547Z
-last_activity: 2026-07-31 -- Phase 03 execution started
+status: executing
+stopped_at: "Phase 4 PLANNED. `04-RESEARCH.md`, `04-VALIDATION.md` and five `PLAN.md` files written across 5 strictly sequential waves. LAWYER-01..10 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 on all 20 plan files across 83 tasks, and `gsd-sdk query verify.plan-structure` reports valid with zero errors on each of the five new plans. Anchors measured live: all ten decision-to-code grep patterns match their file exactly once, and two shorter candidates were rejected for matching twice. Structural finding that shaped the design: gate G9 fails with RESULTS INCOMPLETE on any gate ordered after it, so the new gate G10 takes order 8 and G9 moves to order 10. The phase ends at 10 gates. Next step is `/gsd:execute-phase 4`. Previously: Phase 3 PLANNED. `03-RESEARCH.md`, `03-VALIDATION.md` and five `PLAN.md` files written across 5 strictly sequential waves (waves 2 and 3 share one database; waves 4 and 5 share `scripts/ci-gates.sh`, `gates.manifest.json`, `gates.manifest.lock` and `GATES.md`). GATE-05..09 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` passes on all 15 plan files across 68 tasks, and `bash scripts/ci-gates.sh` exits 0 with `ALL GATES PASSED (7/7)`. The phase ends at 9 gates. Planning measurements taken live in this tree: Supabase CLI absent but v2.110.0 downloadable, Docker reachable, ports 54321–54324 bound by a sibling app, 55320–55329 free, one storage bucket referenced in code and zero created by migration, `seed.sql` absent while `[db.seed]` already points at it, and a skip baseline of exactly one declared skip (`skipLibCheck`) with zero undeclared. Next step is `/gsd:execute-phase 3`."
+last_updated: "2026-07-31T08:09:02.272Z"
+last_activity: 2026-07-31 -- Phase 4 planning complete
 progress:
   total_phases: 15
-  completed_phases: 2
-  total_plans: 15
+  completed_phases: 3
+  total_plans: 20
   completed_plans: 15
-  percent: 13
+  percent: 20
 ---
 
 # Project State
@@ -27,8 +27,8 @@ See: .planning/PROJECT.md (updated 2026-07-27)
 
 Phase: 4
 Plan: Not started
-Status: Ready to plan
-Last activity: 2026-07-31
+Status: Ready to execute
+Last activity: 2026-07-31 -- Phase 4 planning complete
 
 Progress: [█░░░░░░░░░] 7%
 
@@ -90,6 +90,14 @@ Recent decisions affecting current work:
 - Phase 3: `gate-results.json` is a **new committed artifact**, not an un-gitignoring of `.gate-runs/latest.json`. The run record carries no gate name, no `proves` text and no requirement mapping; the published file is the join. The four statuses `pass`, `fail`, `cannot-run`, `not-run` reach it verbatim, and a status of `skipped` is explicitly rejected.
 - Phase 3: `check-env-ready.mjs` is deliberately **not** registered as a blocking gate. It needs Docker and a running stack, which GitHub Actions has neither of; that registration belongs to Phase 11 alongside the DB-touching journey gates.
 - Phase 3: no point of Philippine law arises anywhere in this phase — nothing added to the lawyer review agenda.
+- Phase 4: the agenda is a **restructuring of `.planning/research/LEGAL-CONFORMANCE.md` section 3**, not a re-derivation. All eight questions already exist there in a uniform shape with verified citations, so no plan asks an executor to state what an article says or to weigh a reading. Copying is the whole job.
+- Phase 4: three artifacts rather than one, because the audiences differ — `.planning/LAWYER-AGENDA.md` is what the lawyer answers, `.planning/lawyer-decisions.json` is what the gate checks, `.planning/LEGAL-CORRECTION-WORKFLOW.md` is what happens after an answer arrives. Keeping them separate is also what lets gate G10 compare two of them; a single file cannot disagree with itself.
+- Phase 4: the decision-to-code link is **bidirectional and gate-checked in both directions** — the registry names `{file, pattern}` anchors, and each anchored site carries a `LAWYER-DECISION: LAWYER-0N` comment. `DECISION ANCHOR BROKEN` catches a renamed rule; `DECISION MARKER MISSING` catches a dropped comment.
+- Phase 4: anchors are **grep patterns, never line numbers**. Phases 5, 7 and 8 rewrite the exact files the registry points at. Measured: all ten patterns match exactly once; two shorter candidates were rejected for matching twice, and the gate treats a count other than 1 as broken.
+- Phase 4: `DECISION STATUS INVALID` is the load-bearing verdict. Any status other than `awaiting-answer` requires `answered_by`, `answered_on` and `answer`, so an agent cannot unblock LAW-06, LAW-07 or LAW-12 by editing one word of JSON without writing a visible lie into the diff.
+- Phase 4: measured structural constraint — `scripts/check-gate-results.mjs` (G9) fails with `RESULTS INCOMPLETE` when any gate other than itself is `not-run`, and the runner republishes after every gate. A gate ordered after G9 would therefore fail G9 on every run. New gate **G10 takes order 8**, G8 moves to 9, G9 moves to 10. `order` is deliberately unlocked, and this placement also puts G10 ahead of the skip-accounting gate so its own `GATE-SKIPS` line is checked rather than exempted.
+- Phase 4: the Q7 spec hedge at `specs/estate-tax-engine-spec.md:1008` is **replaced by a pointer, never deleted**. Deleting it would leave the spec asserting the ½ rule unqualified, which is an unrecorded ruling on a contested point of law. The replacement text is written literally into plan 04-03 so the executor copies rather than composes it.
+- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** awaiting-answer` with three unticked boxes, and `grep -c "\[x\]"` returning 0 is an acceptance criterion in four of the five plans.
 
 ### Pending Todos
 
@@ -97,7 +105,9 @@ Recent decisions affecting current work:
 - Phase 11 or 12 owns the `logo_url`-holds-a-path defect surfaced by Phase 3 research: `uploadLogo` returns `data.path` (for example `user-1/logo.png`), which is stored in `logo_url` and fed straight to `<img src>`. A path is not a URL. Recorded in `03-RESEARCH.md` section 4.3 so a screenshot gate does not certify a broken image as expected.
 - Phase 10 owns any seed growth the journey gates need beyond Phase 3's two-tenant fixture (invitations, deadlines, PDFs). `frontend/supabase/fixtures.json` is designed to be appended to.
 - Phase 15 (EXT-05) owns the final `CLAUDE.md` invariants pass. Phase 2 adds only the three loop invariants: commit scope, gate immutability, halt over guess.
-- `.planning/LAWYER-AGENDA.md` is referenced by the BLOCKED protocol but is created and populated by Phase 4. Plan 02-02 documents append-and-create-if-absent without creating the file.
+- `.planning/LAWYER-AGENDA.md` is referenced by the BLOCKED protocol but is created and populated by Phase 4. Plan 02-02 documents append-and-create-if-absent without creating the file. **Closed by Phase 4 plans 04-01 (creates the file) and 04-05 (rewrites `PLAN-STANDARD.md` section 3 to point at the real structure).**
+- Phase 4 plan 04-03 inserts nine comment lines into seven `engine/src/*.rs` files, shifting every line below them by one. Any later phase citing an engine line number should re-measure rather than trust `LEGAL-CONFORMANCE.md`'s 2026-07-27 numbers. The decision anchors themselves are patterns and are unaffected.
+- Phase 14 owns filling `answered_by`, `answered_on`, `answer` and `vectors` in `.planning/lawyer-decisions.json`. Phase 4 ships all eight entries `awaiting-answer` with those four fields empty, and gate G10 rejects any other status without them.
 
 ### Blockers/Concerns
 
@@ -120,7 +130,8 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-07-31
-Stopped at: Phase 3 PLANNED. `03-RESEARCH.md`, `03-VALIDATION.md` and five `PLAN.md` files written across 5 strictly sequential waves (waves 2 and 3 share one database; waves 4 and 5 share `scripts/ci-gates.sh`, `gates.manifest.json`, `gates.manifest.lock` and `GATES.md`). GATE-05..09 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` passes on all 15 plan files across 68 tasks, and `bash scripts/ci-gates.sh` exits 0 with `ALL GATES PASSED (7/7)`. The phase ends at 9 gates. Planning measurements taken live in this tree: Supabase CLI absent but v2.110.0 downloadable, Docker reachable, ports 54321–54324 bound by a sibling app, 55320–55329 free, one storage bucket referenced in code and zero created by migration, `seed.sql` absent while `[db.seed]` already points at it, and a skip baseline of exactly one declared skip (`skipLibCheck`) with zero undeclared. Next step is `/gsd:execute-phase 3`.
+Stopped at: Phase 4 PLANNED. `04-RESEARCH.md`, `04-VALIDATION.md` and five `PLAN.md` files written across 5 strictly sequential waves (waves 1 and 2 share `.planning/LAWYER-AGENDA.md`; wave 3 mirrors it into `.planning/lawyer-decisions.json` and marks nine code sites plus one spec site; wave 4 gates the pair as G10; waves 4 and 5 share `README.md`). LAWYER-01..10 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 20 plan file(s), 83 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` plus `verify.plan-structure` report valid with zero errors on each of the five new plans. Planning measurements taken live in this tree: all ten decision-to-code anchor patterns match their file exactly once under `grep -Fc` (two shorter candidates were rejected for matching twice), `.planning/LAWYER-AGENDA.md` does not yet exist while `PLAN-STANDARD.md:180-183` already routes legal questions to it, the Q7 spec hedge sits at exactly `specs/estate-tax-engine-spec.md:1008`, and gate G9 fails with `RESULTS INCOMPLETE` on any gate ordered after it — so G10 takes order 8 and G9 moves to order 10. The phase ends at 10 gates. Next step is `/gsd:execute-phase 4`.
+Previously stopped at: Phase 3 PLANNED. `03-RESEARCH.md`, `03-VALIDATION.md` and five `PLAN.md` files written across 5 strictly sequential waves (waves 2 and 3 share one database; waves 4 and 5 share `scripts/ci-gates.sh`, `gates.manifest.json`, `gates.manifest.lock` and `GATES.md`). GATE-05..09 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` passes on all 15 plan files across 68 tasks, and `bash scripts/ci-gates.sh` exits 0 with `ALL GATES PASSED (7/7)`. The phase ends at 9 gates. Planning measurements taken live in this tree: Supabase CLI absent but v2.110.0 downloadable, Docker reachable, ports 54321–54324 bound by a sibling app, 55320–55329 free, one storage bucket referenced in code and zero created by migration, `seed.sql` absent while `[db.seed]` already points at it, and a skip baseline of exactly one declared skip (`skipLibCheck`) with zero undeclared. Next step is `/gsd:execute-phase 3`.
 Previously stopped at: Phase 2 PLANNED. `02-RESEARCH.md`, `02-VALIDATION.md` and six `PLAN.md` files written across 4 waves (wave 1 = 02-01/02-02/02-03 in parallel with disjoint file sets; waves 2, 3, 4 strictly sequential, each editing `scripts/ci-gates.sh` in turn). LOOP-01..06 all covered and marked Planned in REQUIREMENTS.md. The closed-world lint specified in 02-02 was implemented as a throwaway pre-check and run against all ten existing plan files — Phase 1's four unmodified plus Phase 2's six — and passed with zero violations, so plan 02-02's central feasibility claim is measured rather than assumed. Next step is `/gsd:execute-phase 2`.
 Previously stopped at: Phase 1 EXECUTED AND VERIFIED. Four commits: a89d58b6 (WASM build command), 181ae68c (jsdom polyfills, 342 to 46 failures), c79e8714 (known-failure ledger gate), 0edf861b (CI workflow + runner + README). `bash apps/inheritance/scripts/ci-gates.sh` exits 0 with ALL GATES PASSED (4/4) from a WASM-less starting state. GATE-01..04 all Complete. Caveat: the GitHub workflow has never actually executed — 24 commits including this phase's four are unpushed, so criterion 4 is verified structurally (parsed YAML triggers) and behaviorally (the runner it invokes was observed exiting 1 on an injected regression), not by a real CI run. Next step is `/gsd:plan-phase 2`.
 Previously stopped at: Phase 1 planned — 01-RESEARCH.md, 01-VALIDATION.md, and 4 PLAN.md files written across 4 sequential waves. GATE-01..04 all covered and marked Planned in REQUIREMENTS.md. Baseline was measured, not assumed: engine 442/442 green, `tsc -b --force` clean, WASM builds, frontend 342/2416 failing of which 296 are a jsdom polyfill gap. Next step is `/gsd:execute-phase 1`.

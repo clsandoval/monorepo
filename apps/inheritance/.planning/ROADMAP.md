@@ -112,7 +112,22 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Each recorded decision is machine-readable and linked from the specific code location or rule it governs, so no agent re-decides it later.
   3. The three highest-stakes questions that block later code changes (Q4/LAWYER-04 blocking LAW-07, Q6/LAWYER-06 blocking LAW-06, Q8/LAWYER-08 blocking LAW-12) are phrased so the lawyer can answer "confirm" or "change to B" in one sitting.
   4. A written workflow exists describing how a lawyer's future "this is wrong" turns into a named test vector, a failing gate, and a fix.
-**Plans**: TBD
+**Plans**: 5 plans, 5 waves (strictly sequential — waves 1 and 2 share one file, wave 3 mirrors what wave 2 wrote, wave 4 gates what wave 3 built, and waves 4 and 5 share `README.md`)
+  - **Wave 1** — `04-01` Agenda file, answering instructions, blocking index, and entries LAWYER-01…04 (LAWYER-01, LAWYER-02, LAWYER-03, LAWYER-04)
+  - **Wave 2** *(blocked on Wave 1: it appends to the file wave 1 creates and reuses its entry structure)* — `04-02` Entries LAWYER-05…08 and the status table (LAWYER-05, LAWYER-06, LAWYER-07, LAWYER-08)
+  - **Wave 3** *(blocked on Wave 2: the registry is a copy of the completed agenda)* — `04-03` Machine-readable `lawyer-decisions.json`, ten `LAWYER-DECISION` markers, and the Q7 spec-hedge replacement (LAWYER-07, LAWYER-09)
+  - **Wave 4** *(blocked on Wave 3: the gate has nothing to check until the registry and markers exist)* — `04-04` `check-lawyer-agenda.mjs`, seven fixtures, gate G10 at order 8, `GATES.md` section 8 (LAWYER-09)
+  - **Wave 5** *(blocked on Wave 4: the workflow cites gate G10 by id and command)* — `04-05` `LEGAL-CORRECTION-WORKFLOW.md`, the `PLAN-STANDARD.md` section 3 closeout, README pointer (LAWYER-10)
+
+  Cross-cutting constraints (appear in 2+ plans):
+  - No point of Philippine law may be decided. Every entry is recorded with `**Status:** awaiting-answer`, all Answer boxes unticked, and `grep -c "\[x\]"` returning 0 is an acceptance criterion in four plans
+  - Every commit stages explicit file paths via `bash scripts/safe-commit.sh`; `git add -A`, `git add .`, and `git commit -a` are prohibited (concurrent auto-committer on this monorepo)
+  - No gate, test, or assertion may be weakened to pass; a gate that cannot legitimately pass is reported BLOCKED with the real command output
+  - No locked gate `command` string may change. Gate G10 is added by appending to `gates.manifest.json` and `gates.manifest.lock` together; `order` is unlocked, so G10 takes order 8 and G9 stays last
+  - No check may rewrite its own input — no `--fix`, `--update`, `--accept`, `--regenerate`, or waiver flag on any artifact in this phase
+  - Every failure path of every check must be observed firing against a committed fixture
+  - Every new check is dependency-free Node ESM using only `node:` builtins; no package.json is created and no dependency is installed
+  - Source-file edits add comment lines only; `cd engine && cargo test` must still report 442 passed and `npx tsc -b --force` must still produce zero output
 
 ### Phase 5: Engine Observability Restored
 **Goal**: The two hardcoded lines that make every legal defect invisible are fixed, so from this phase forward a legal fix (or a legal bug) actually shows up in engine output instead of reproducing with an empty `warnings` array.
@@ -255,7 +270,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 1. Gate Foundations | 4/4 | Complete | 2026-07-31 |
 | 2. Loop Durability & Commit Discipline | 6/6 | Complete   | 2026-07-31 |
 | 3. Reproducible Environment & Gate Reporting | 5/5 | Complete    | 2026-07-31 |
-| 4. Lawyer Review Agenda Recorded | 0/TBD | Not started | - |
+| 4. Lawyer Review Agenda Recorded | 0/5 | Planned | - |
 | 5. Engine Observability Restored | 0/TBD | Not started | - |
 | 6. Property-Test Coverage Depth | 0/TBD | Not started | - |
 | 7. Intestate Order & Representation Root-Cause Fixes | 0/TBD | Not started | - |
