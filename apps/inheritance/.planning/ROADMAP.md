@@ -421,7 +421,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 9. Single Source of Truth — Dedup Classifiers & Money Types | 0/TBD | Not started | - |
 | 10. Journey Gate Infrastructure | 0/TBD | Not started | - |
 | 11. Account, Org & Case Journey Gates | 0/8 | Planned | - |
-| 12. Wizard & Output Journey Gates | 1/9 | In Progress|  |
+| 12. Wizard & Output Journey Gates | 2/9 | In Progress|  |
 | 13. PDF Verification | 0/TBD | Not started | - |
 | 14. Lawyer-Blocked Legal Fixes & Legal Traceability | 0/TBD | Not started | - |
 | 15. Extendability & Documentation Closeout | 0/TBD | Not started | - |

@@ -76,10 +76,10 @@ Screenshot plus vision, per step, for the money path. `.planning/codebase/ARCHIT
 - [ ] **JRNY-02**: Signup, email verification, login, logout, and session persistence each produce a screenshot verified against an approved reference and a rubric
 - [ ] **JRNY-03**: Org creation and invite acceptance are verified the same way
 - [x] **JRNY-04**: Case intake, including the `localStorage` draft-recovery path, is verified step by step
-- [ ] **JRNY-05**: Every step of the succession wizard is verified step by step
-- [ ] **JRNY-06**: Every tab of the estate-tax wizard is verified tab by tab
-- [ ] **JRNY-07**: The results view and family-tree visualizer are verified, including that displayed peso figures match engine output exactly
-- [ ] **JRNY-08**: The public share-link view is verified, including that it exposes only what it should
+- [x] **JRNY-05**: Every step of the succession wizard is verified step by step
+- [x] **JRNY-06**: Every tab of the estate-tax wizard is verified tab by tab
+- [x] **JRNY-07**: The results view and family-tree visualizer are verified, including that displayed peso figures match engine output exactly
+- [x] **JRNY-08**: The public share-link view is verified, including that it exposes only what it should
 - [ ] **JRNY-09**: A vision rubric is a fixed list of yes/no assertions returning structured output, never free-form judgment
 - [ ] **JRNY-10**: A perceptual-diff failure is distinguishable from a rubric failure, and reference images have a documented re-approval flow
 - [ ] **JRNY-11**: Landing, blog, and SEO routes have a smoke gate: renders, no console error, no 404
