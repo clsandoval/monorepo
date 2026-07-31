@@ -36,7 +36,7 @@ Run these four commands in order. Steps 1 and 2 are one-time toolchain setup.
    bash scripts/ci-gates.sh
    ```
 
-The fourth command runs every gate and prints `ALL GATES PASSED (7/7)` on success. It is the
+The fourth command runs every gate and prints `ALL GATES PASSED (8/8)` on success. It is the
 exact command CI executes, so a green result there is what the CI check verifies — nothing is
 reproducible only on a push.
 
@@ -44,7 +44,7 @@ You do not need to build the WASM artifact separately: gate G2 does it. Note tha
 `frontend/src/wasm/pkg/inheritance_engine_bg.wasm` is a build artifact and is gitignored, so a clean
 checkout has no WASM binary until a build runs.
 
-## The seven gates
+## The eight gates
 
 The gate list is not hardcoded in the runner. It lives in `gates.manifest.json`, and
 `scripts/ci-gates.sh` iterates it in `order`. The three cheap meta-gates run first, so a tampered
@@ -60,6 +60,7 @@ manifest or an open-world plan is caught in seconds rather than after a five-min
 | G2. WASM build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`. The script verifies existence, a 100 KB size floor, and the `0061736d` WebAssembly magic number — `wasm-pack` exiting 0 is not accepted as proof on its own. |
 | G3. Frontend suite | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. See below. |
 | G4. Typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors. `--force` is required, not optional: `tsconfig.tsbuildinfo` was historically committed, and an incremental run can no-op against a stale cache and report clean on a tree that has type errors. |
+| G8. Gate skip accounting | `node scripts/check-gate-skips.mjs` | Every gate reports how many of its own assertions it skipped, and every skip is declared in the shrink-only `gate-skips.lock` ledger. See [`GATES.md`](./GATES.md) section 5. |
 
 `bash scripts/ci-gates.sh --only <gate-id>` (for example `--only G5`) runs a single gate for local
 iteration, and its final line says explicitly that the run was partial. There is no option

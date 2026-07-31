@@ -91,6 +91,19 @@
       "requirements": [
         "GATE-02"
       ]
+    },
+    {
+      "id": "G8",
+      "name": "gate skip accounting",
+      "order": 8,
+      "command": "node scripts/check-gate-skips.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f gate-skips.lock",
+      "blocking": true,
+      "proves": "Every gate reports how many of its own assertions it skipped, and every skip is declared in the shrink-only gate-skips.lock ledger.",
+      "requirements": [
+        "GATE-09"
+      ]
     }
   ]
 }

@@ -192,6 +192,16 @@ if (numTotalTests < ledger.min_total_tests) {
 
 // --- verdict ----------------------------------------------------------------
 
+// --- GATE-09 skip accounting ------------------------------------------------
+// total  = total collected tests
+// skipped = numPendingTests + numTodoTests + skippedNames.length — the three
+// values check 3 already computes. Every one is 0 today, and check 3 still
+// treats any of them being nonzero as a HARD FAILURE. This line only reports.
+function reportSkips() {
+  const skipped = numPendingTests + numTodoTests + skippedNames.length;
+  console.log('GATE-SKIPS total=' + numTotalTests + ' skipped=' + skipped);
+}
+
 if (violations.length > 0) {
   console.error('');
   console.error('=========================================================');
@@ -202,6 +212,7 @@ if (violations.length > 0) {
     console.error(v);
   }
   console.error('');
+  reportSkips();
   process.exit(1);
 }
 
@@ -220,4 +231,5 @@ console.log('  passed              : ' + (report.numPassedTests || 0));
 console.log('  known failures met  : ' + matched);
 console.log('  LEDGER SIZE (debt)  : ' + ledgerEntries.size + '   <-- this number must only go down');
 console.log('');
+reportSkips();
 process.exit(0);

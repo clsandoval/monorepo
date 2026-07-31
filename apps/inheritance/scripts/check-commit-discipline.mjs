@@ -162,7 +162,9 @@ if (fromJson !== null) {
 const violations = [];
 let appTouching = 0;
 
+let auditedCount = 0;
 for (const c of commits) {
+  auditedCount += 1;
   const touchesApp = c.files.some(isAppPath);
   if (!touchesApp) continue;
   appTouching += 1;
@@ -179,6 +181,12 @@ for (const c of commits) {
   }
 }
 
+// --- GATE-09 skip accounting ------------------------------------------------
+// total = commits in the audited range; skipped = in range but not audited.
+function reportSkips() {
+  console.log('GATE-SKIPS total=' + commits.length + ' skipped=' + (commits.length - auditedCount));
+}
+
 if (violations.length > 0) {
   console.error('');
   console.error('=========================================================');
@@ -193,6 +201,7 @@ if (violations.length > 0) {
   console.error('History is never rewritten to clear this. Report the finding.');
   console.error('Commit with: bash apps/inheritance/scripts/safe-commit.sh -m "<msg>" <path>...');
   console.error('');
+  reportSkips();
   process.exit(1);
 }
 
@@ -200,4 +209,5 @@ console.log(
   'COMMIT DISCIPLINE OK — ' + commits.length + ' commit(s) audited over ' + sourceLabel +
     ', ' + appTouching + ' touching ' + ALLOWED_PREFIX + ', 0 mixed',
 );
+reportSkips();
 process.exit(0);

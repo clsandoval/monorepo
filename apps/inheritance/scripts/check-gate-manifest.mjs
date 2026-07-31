@@ -219,6 +219,18 @@ for (const [id, gate] of manifestById) {
   }
 }
 
+
+// --- GATE-09 skip accounting ------------------------------------------------
+// total  = gates in the manifest
+// skipped = manifest gates not comparable against the lock (no usable id)
+// Printed on EVERY exit path: a skip report that only appears on success says
+// nothing about the run that needs investigating.
+function reportSkips() {
+  const total = Array.isArray(manifest.gates) ? manifest.gates.length : 0;
+  const skipped = total - manifestById.size;
+  console.log('GATE-SKIPS total=' + total + ' skipped=' + skipped);
+}
+
 // --- verdict ----------------------------------------------------------------
 
 if (violations.length > 0) {
@@ -236,10 +248,12 @@ if (violations.length > 0) {
   console.error('The gate set may only grow. Never remove, rename, retarget, or');
   console.error('un-block a gate to make a run green — report BLOCKED instead.');
   console.error('');
+  reportSkips();
   process.exit(1);
 }
 
 console.log(
   'MANIFEST OK — ' + manifest.gates.length + ' gates, ' + lock.locked_gates.length + ' locked',
 );
+reportSkips();
 process.exit(0);

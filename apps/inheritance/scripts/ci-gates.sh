@@ -41,6 +41,16 @@
 # and pastes the real command output. Editing a gate, a precondition, the
 # manifest, or a test to make the halt go away is prohibited.
 #
+# PER-GATE LOGS. Each gate's combined stdout and stderr is shown on the console
+# and simultaneously written to .gate-runs/logs/<GATE_ID>.log. Every such log
+# begins with a `GSD-RUN <timestamp>` stamp equal to this run's start time, and
+# the same stamp is written to .gate-runs/logs/RUN.stamp. The directory is
+# cleared at the start of every run. scripts/check-gate-skips.mjs reads these
+# logs, and treats a missing log or one carrying a different stamp as a FAILURE
+# rather than as zero skips — otherwise deleting a log would be a way to look
+# clean. The gate's own exit status is read from ${PIPESTATUS[0]}, never from $?,
+# so piping through tee cannot turn a red gate green.
+#
 # Every exit path — success, gate failure and halt alike — writes
 # .gate-runs/latest.json via a trap. A recorder that only runs on success records
 # nothing about the situation it exists to detect.
@@ -51,6 +61,7 @@ APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MANIFEST="$APP_DIR/gates.manifest.json"
 RUN_DIR="$APP_DIR/.gate-runs"
 RUN_FILE="$RUN_DIR/latest.json"
+LOG_DIR="$RUN_DIR/logs"
 
 STARTED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
@@ -238,6 +249,14 @@ GATES_TOTAL="$(printf '%s\n' "$GATE_LINES" | head -1 | cut -f3)"
 GATE_LINES="$(printf '%s\n' "$GATE_LINES" | tail -n +2)"
 GATE_IDS="$(printf '%s\n' "$GATE_LINES" | cut -f1)"
 
+# Per-gate logs live here. The directory is cleared first so a log from a
+# previous run can never be mistaken for this one's, and every log — plus this
+# stamp file — carries the run's start time so a bypassed clear is still
+# detectable. See scripts/check-gate-skips.mjs.
+rm -rf "$LOG_DIR"
+mkdir -p "$LOG_DIR"
+echo "GSD-RUN $STARTED_AT" > "$LOG_DIR/RUN.stamp"
+
 if [ -n "$ONLY" ]; then
   if ! printf '%s\n' "$GATE_IDS" | grep -qx -- "$ONLY"; then
     echo "unknown gate id: $ONLY" >&2
@@ -312,9 +331,12 @@ while IFS=$'\t' read -r GATE_ID GATE_NAME GATE_CMD GATE_PRE GATE_BLOCKING; do
     EFFECTIVE_CMD="definitely-not-a-real-binary-xyz"
   fi
 
+  GATE_LOG="$LOG_DIR/$GATE_ID.log"
+  echo "GSD-RUN $STARTED_AT" > "$GATE_LOG"
+
   set +e
-  ( cd "$APP_DIR" && bash -c "$EFFECTIVE_CMD" )
-  rc=$?
+  ( cd "$APP_DIR" && bash -c "$EFFECTIVE_CMD" ) 2>&1 | tee -a "$GATE_LOG"
+  rc=${PIPESTATUS[0]}
   set -e
 
   GATE_ENDED="$(date -u +%Y-%m-%dT%H:%M:%SZ)"

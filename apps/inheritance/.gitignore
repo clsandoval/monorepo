@@ -2,4 +2,8 @@
 # committing them would be pure churn in a repo that already has a concurrent
 # auto-committer. LOOP-STATUS.md and loop-history.jsonl are the committed,
 # bounded summaries; this directory is the raw per-run detail.
+#
+# .gate-runs/logs/ holds one <GATE_ID>.log per gate plus RUN.stamp, each
+# stamped with the run's start time. scripts/check-gate-skips.mjs reads them to
+# account for skipped assertions; they are per-run detail, not a committed record.
 .gate-runs/

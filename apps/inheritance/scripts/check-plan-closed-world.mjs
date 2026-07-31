@@ -435,9 +435,17 @@ const knownRequirements = new Set(
 );
 
 const violations = [];
+let lintedCount = 0;
 let taskTotal = 0;
 for (const f of files) {
   taskTotal += lintFile(f, knownRequirements, violations);
+  lintedCount += 1;
+}
+
+// --- GATE-09 skip accounting ------------------------------------------------
+// total  = *-PLAN.md files discovered; skipped = discovered but not linted.
+function reportSkips() {
+  console.log('GATE-SKIPS total=' + files.length + ' skipped=' + (files.length - lintedCount));
 }
 
 if (violations.length > 0) {
@@ -452,8 +460,10 @@ if (violations.length > 0) {
   console.error('See .planning/PLAN-STANDARD.md for each rule. There is no waiver');
   console.error('mechanism: the fix is to state the missing decision concretely.');
   console.error('');
+  reportSkips();
   process.exit(1);
 }
 
 console.log('PLANS OK — ' + files.length + ' plan file(s), ' + taskTotal + ' task(s) checked');
+reportSkips();
 process.exit(0);

@@ -311,3 +311,82 @@ network dependency. The signal is exactly two things:
 as modified immediately after any commit of them. That is expected. They are always staged
 explicitly — with `bash scripts/safe-commit.sh` or a named `git add` path — and **never** with a
 broad stage, because this monorepo has a concurrent auto-committer.
+
+## 5. Skip accounting
+
+GATE-09 requires every gate's output to distinguish **skipped** from **passed**. The failure it
+closes is specific: a gate that ran half its assertions and exited 0 is indistinguishable, from an
+exit code alone, from a gate that ran all of them. A partially-loaded suite then reads as a clean
+pass, and coverage falls with no signal at all. Silent wrongness is categorically worse than loud
+failure, so absence of a skip report is treated as a failure rather than as zero skips.
+
+### Where each gate's skip count comes from
+
+`scripts/ci-gates.sh` tees each gate's combined stdout and stderr into
+`.gate-runs/logs/<GATE_ID>.log`. `node scripts/check-gate-skips.mjs` (gate G8) reads those logs
+against this fixed table. Nothing is inferred.
+
+| Gate | Command | Source of `total` / `skipped` |
+|---|---|---|
+| G1. Engine tests | `cd engine && cargo test` | **Derived.** Every `test result:` line's `N ignored` and `N filtered out` fields are the skips; the `N passed` fields are the total. |
+| G2. WASM build | `bash engine/build-wasm.sh` | **Emitted** `GATE-SKIPS` line. `total` is 3 — existence, size floor, magic number. |
+| G3. Frontend suite | `cd frontend && npm run test:gate` | **Emitted.** `total` is the collected test count; `skipped` is `numPendingTests + numTodoTests + skippedNames.length`. |
+| G4. Typecheck | `cd frontend && npx tsc -b --force` | **Static.** `skipLibCheck` and `skipDefaultLibCheck` in `frontend/tsconfig.json`, plus every `@ts-ignore`, `@ts-nocheck` and `@ts-expect-error` under `frontend/src`. `total` is those two switches plus the number of source files covered. |
+| G5. Gate manifest integrity | `node scripts/check-gate-manifest.mjs` | **Emitted.** `total` is the manifest's gate count. |
+| G6. Plan closed-world lint | `node scripts/check-plan-closed-world.mjs` | **Emitted.** `total` is the number of `*-PLAN.md` files discovered. |
+| G7. Commit discipline audit | `node scripts/check-commit-discipline.mjs` | **Emitted.** `total` is the number of commits in the audited range. |
+| G8. Gate skip accounting | `node scripts/check-gate-skips.mjs` | **Itself.** It accounts for one assertion per manifest gate. |
+
+G1 and G4 are derived rather than emitted for one reason: `cargo test` and `tsc` are external tools.
+They cannot be asked to print this project's accounting line, and `gates.manifest.lock` freezes their
+command strings so they cannot be wrapped in something that would. Reading their real output — or,
+for `tsc`, the configuration that governs what it checks — is the only honest option left.
+
+### The declared-skip ledger may only shrink
+
+`gate-skips.lock` at the app root declares every skip this gate set knowingly accepts. **The ledger
+may only shrink.** Two checks enforce that in both directions:
+
+- `UNDECLARED SKIP` — an observed skip that the ledger does not declare.
+- `STALE SKIP DECLARATION` — a declared skip that was not observed. This is the direction that
+  forces the ledger down: the day a skip is removed, its declaration must go with it or G8 turns red.
+
+Three ledgers now exist in this project and all three point the same direction, toward more
+verification over time, never less:
+
+| Ledger | Direction | Enforced by |
+|---|---|---|
+| `gates.manifest.lock` | may only **grow** | `node scripts/check-gate-manifest.mjs` |
+| `frontend/test-baseline.json` | may only **shrink** | `cd frontend && npm run test:gate` |
+| `gate-skips.lock` | may only **shrink** | `node scripts/check-gate-skips.mjs` |
+
+### What the ledger currently contains
+
+Exactly one entry:
+
+| Gate | Id | Source | Reason |
+|---|---|---|---|
+| G4 | `tsconfig.skipLibCheck` | `frontend/tsconfig.json` | TypeScript does not type-check the `.d.ts` files of dependencies. Turning this off is a real change to what gate G4 verifies and was not in scope for Phase 3. |
+
+Every other skip mechanism measures zero: no `#[ignore]` in the engine, no `.skip`, `.only`,
+`.todo`, `xit` or `xdescribe` under `frontend/src`, and no `@ts-ignore`, `@ts-nocheck` or
+`@ts-expect-error` anywhere in the frontend sources.
+
+### The prohibition
+
+**Adding an entry to `gate-skips.lock` to turn a red run green is forbidden.** The fix is to remove
+the skip, not to declare it. `scripts/check-gate-skips.mjs` has no flag of any kind that writes,
+repairs or regenerates the ledger, by design — a check that can rewrite its own baseline is not a
+check. Its only three flags are `--logs`, `--lock` and `--manifest`, all read-only path overrides.
+
+### The logs are per-run detail, not a record
+
+`.gate-runs/logs/` is gitignored. The directory is cleared at the start of every run, and every log
+plus a sibling `RUN.stamp` carries that run's `GSD-RUN <timestamp>` start time on its first line. A
+missing log, or one whose stamp does not match `RUN.stamp`, fires `SKIP REPORT MISSING` — it is
+never read as zero skips, because otherwise deleting a log would be a way to look clean.
+
+All five verdicts — `SKIP REPORT MISSING`, `UNDECLARED SKIP`, `STALE SKIP DECLARATION`,
+`SKIP COUNT MISMATCH` and `SKIP SCAN UNREADABLE` — have been observed firing against the committed
+fixtures in `scripts/fixtures/logs-ignored/`, `scripts/fixtures/logs-stale/` and
+`scripts/fixtures/skips-stale.lock`. A check nobody has seen fail is not known to be a check.

@@ -1,0 +1,12 @@
+{
+  "$comment": "OWNER-OWNED FILE. This ledger declares every skip the gate set knowingly accepts. IT MAY ONLY SHRINK. Adding an entry here to turn a red run green is prohibited — the fix is to remove the skip, not to declare it. scripts/check-gate-skips.mjs enforces both directions: an observed skip that is not declared here fails with UNDECLARED SKIP, and a declaration that is no longer observed fails with STALE SKIP DECLARATION, so the ledger cannot accumulate dead entries either. That script has no flag that writes this file, by design — a check that can rewrite its own baseline is not a check. This is the exact inverse of gates.manifest.lock, which may only GROW. Both point the same direction: more verification over time, never less.",
+  "frozen_at": "2026-07-31",
+  "declared_skips": [
+    {
+      "gate": "G4",
+      "id": "tsconfig.skipLibCheck",
+      "source": "frontend/tsconfig.json",
+      "reason": "TypeScript does not type-check the .d.ts files of dependencies. Turning this off is a real change to what gate G4 verifies and is not in scope for Phase 3."
+    }
+  ]
+}

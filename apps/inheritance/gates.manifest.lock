@@ -36,6 +36,11 @@
       "id": "G7",
       "command": "node scripts/check-commit-discipline.mjs",
       "blocking": true
+    },
+    {
+      "id": "G8",
+      "command": "node scripts/check-gate-skips.mjs",
+      "blocking": true
     }
   ]
 }
