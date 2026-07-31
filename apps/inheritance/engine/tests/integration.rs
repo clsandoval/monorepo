@@ -2067,6 +2067,263 @@ fn test_law03_total_repudiation_promotes_the_following_degree() {
 }
 
 // ══════════════════════════════════════════════════════════════════════
+// LAW-05a: Preterition preserves a non-inofficious legacy (Art. 854)
+//
+// Closes the `.planning/research/LEGAL-CONFORMANCE.md` §2a Art. 854 row.
+//
+// Art. 854 annuls the institution of heir "but the devises and legacies shall
+// be valid insofar as they are not inofficious." Art. 888 gives two legitimate
+// children a collective legitime of one half, so on a ₱30,000,000 estate the
+// free portion is ₱15,000,000 and a ₱3,000,000 legacy is not inofficious.
+// The residue 3000000000 − 300000000 = 2700000000 divides equally between the
+// two children under Art. 980, giving 1350000000 each.
+//
+// BEFORE (08-RESEARCH.md §1.2, measured 2026-07-31): ana=1500000000,
+// ben=1500000000, and NO ROW FOR carlos AT ALL — the legacy was silently
+// dropped.
+// ══════════════════════════════════════════════════════════════════════
+
+fn law05a_will(legacy_pesos: i64) -> Will {
+    Will {
+        institutions: vec![InstitutionOfHeir {
+            id: "I1".into(),
+            heir: HeirReference {
+                person_id: None,
+                name: "Kevin".into(),
+                is_collective: false,
+                class_designation: None,
+            },
+            share: ShareSpec::EntireFreePort,
+            conditions: vec![],
+            substitutes: vec![],
+            is_residuary: false,
+        }],
+        legacies: vec![Legacy {
+            id: "L1".into(),
+            legatee: HeirReference {
+                person_id: Some("carlos".into()),
+                name: "Carlos".into(),
+                is_collective: false,
+                class_designation: None,
+            },
+            property: LegacySpec::FixedAmount(Money::from_pesos(legacy_pesos)),
+            conditions: vec![],
+            substitutes: vec![],
+            is_preferred: false,
+        }],
+        devises: vec![],
+        disinheritances: vec![],
+        date_executed: "2025-01-01".into(),
+    }
+}
+
+fn law05a_input(legacy_pesos: i64) -> EngineInput {
+    EngineInput {
+        net_distributable_estate: Money::from_pesos(30_000_000),
+        decedent: default_decedent("Bienvenido Salas", false),
+        family_tree: vec![
+            person("ana", "Ana", Relationship::LegitimateChild),
+            person("ben", "Ben", Relationship::LegitimateChild),
+        ],
+        will: Some(law05a_will(legacy_pesos)),
+        donations: vec![],
+        config: default_config(),
+    }
+}
+
+#[test]
+fn test_law05a_preterition_preserves_a_non_inofficious_legacy() {
+    let input = law05a_input(3_000_000);
+    let output = run_pipeline(&input);
+
+    check_sum_invariant(&output, &input.net_distributable_estate);
+    assert_eq!(
+        output.succession_type,
+        SuccessionType::IntestateByPreterition,
+        "LAW-05a: both children are omitted, so Art. 854 applies"
+    );
+
+    assert_total_centavos(find_share(&output, "carlos"), 300000000, "LAW-05a carlos");
+    assert_total_centavos(find_share(&output, "ana"), 1350000000, "LAW-05a ana");
+    assert_total_centavos(find_share(&output, "ben"), 1350000000, "LAW-05a ben");
+
+    assert!(
+        output.per_heir_shares.iter().all(|s| s.heir_id != "Kevin"),
+        "LAW-05a: Art. 854 annulled the institution of the stranger"
+    );
+    assert!(
+        output.warnings.iter().any(|w| w.category == "preterition"),
+        "LAW-05a: preterition must be flagged, never applied silently"
+    );
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// LAW-05a (second half): an inofficious legacy is REDUCED, not dropped
+//
+// Σ legacies 2000000000 exceeds the ₱15,000,000 disposable free portion by
+// 500000000. Art. 911 reduces the single non-preferred legacy pro rata, which
+// on one legacy is the whole excess, leaving 1500000000. The residue
+// 3000000000 − 1500000000 = 1500000000 divides equally, so each child receives
+// exactly the ₱7,500,000 legitime Art. 888 guarantees — which is the assertion
+// that proves the reduction stopped in the right place.
+//
+// BEFORE (08-RESEARCH.md §1.2): ana=1500000000, ben=1500000000, no carlos row.
+// ══════════════════════════════════════════════════════════════════════
+
+#[test]
+fn test_law05a_inofficious_legacy_is_reduced_not_dropped() {
+    let input = law05a_input(20_000_000);
+    let output = run_pipeline(&input);
+
+    check_sum_invariant(&output, &input.net_distributable_estate);
+    assert_eq!(
+        output.succession_type,
+        SuccessionType::IntestateByPreterition,
+        "LAW-05a reduced: Art. 854 still applies"
+    );
+
+    assert_total_centavos(find_share(&output, "carlos"), 1500000000, "LAW-05a reduced carlos");
+    assert_total_centavos(find_share(&output, "ana"), 750000000, "LAW-05a reduced ana");
+    assert_total_centavos(find_share(&output, "ben"), 750000000, "LAW-05a reduced ben");
+
+    assert!(
+        output.warnings.iter().any(|w| w.category == "inofficiousness"),
+        "LAW-05a reduced: the Art. 911 reduction must be flagged"
+    );
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// LAW-05b: a collated donation inter vivos defeats preterition
+//
+// Closes the `.planning/research/LEGAL-CONFORMANCE.md` §2a Art. 854 row, second
+// half.
+//
+// Art. 1061 brings a donation to a compulsory heir into the mass "in order that
+// it may be computed in the determination of the legitime", making it an
+// advance on the legitime. *Morales v. Olondriz*, G.R. No. 198994 (2016),
+// requires the omission to be TOTAL: the heir "did not also receive any
+// legacies, devises, or advances on his legitime." An heir holding such an
+// advance is therefore not preterited and the will stands.
+//
+// The expected values are the MEASURED output of the `b-after-proxy` input in
+// 08-RESEARCH.md §1.2 — the identical family with `ben` named in the will — so
+// the post-fix figures were measured rather than predicted.
+//
+// BEFORE (08-RESEARCH.md §1.2, measured 2026-07-31): the engine returned
+// IntestateByPreterition and gave `ben` the whole 3000000000, destroying the
+// will.
+// ══════════════════════════════════════════════════════════════════════
+
+fn law05b_donation(expressly_exempt: bool) -> Donation {
+    Donation {
+        id: "don1".into(),
+        recipient_heir_id: Some("ben".into()),
+        recipient_is_stranger: false,
+        value_at_time_of_donation: Money::from_pesos(10_000_000),
+        date: "2020-01-01".into(),
+        description: "Donation to Ben".into(),
+        is_expressly_exempt: expressly_exempt,
+        is_support_education_medical: false,
+        is_customary_gift: false,
+        is_professional_expense: false,
+        professional_expense_parent_required: false,
+        professional_expense_imputed_savings: None,
+        is_joint_from_both_parents: false,
+        is_to_child_spouse_only: false,
+        is_joint_to_child_and_spouse: false,
+        is_wedding_gift: false,
+        is_debt_payment_for_child: false,
+        is_election_expense: false,
+        is_fine_payment: false,
+    }
+}
+
+fn law05b_input(expressly_exempt: bool) -> EngineInput {
+    EngineInput {
+        net_distributable_estate: Money::from_pesos(30_000_000),
+        decedent: default_decedent("Corazon Villar", false),
+        family_tree: vec![person("ben", "Ben", Relationship::LegitimateChild)],
+        will: Some(Will {
+            institutions: vec![InstitutionOfHeir {
+                id: "I1".into(),
+                heir: HeirReference {
+                    person_id: None,
+                    name: "Kevin".into(),
+                    is_collective: false,
+                    class_designation: None,
+                },
+                share: ShareSpec::EntireFreePort,
+                conditions: vec![],
+                substitutes: vec![],
+                is_residuary: false,
+            }],
+            legacies: vec![],
+            devises: vec![],
+            disinheritances: vec![],
+            date_executed: "2025-01-01".into(),
+        }),
+        donations: vec![law05b_donation(expressly_exempt)],
+        config: default_config(),
+    }
+}
+
+#[test]
+fn test_law05b_collated_donation_defeats_preterition() {
+    let input = law05b_input(false);
+    let output = run_pipeline(&input);
+
+    check_sum_invariant(&output, &input.net_distributable_estate);
+    assert_eq!(
+        output.succession_type,
+        SuccessionType::Testate,
+        "LAW-05b: an heir holding an advance on the legitime is not totally omitted"
+    );
+
+    assert_total_centavos(find_share(&output, "ben"), 1500000000, "LAW-05b ben");
+    assert_total_centavos(find_share(&output, "Kevin"), 1500000000, "LAW-05b Kevin");
+
+    assert!(
+        output.warnings.iter().all(|w| w.category != "preterition"),
+        "LAW-05b: preterition must not fire when the heir holds a collated donation"
+    );
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// LAW-05b (second half): an EXEMPT donation still preterites, and says so
+//
+// Art. 1062 lets the donor provide expressly against collation, so this
+// donation is not an advance on the legitime and Art. 1061 does not reach it.
+// Whether it nevertheless defeats *Morales*' total-omission test is the
+// recorded question LAWYER-09 in `.planning/LAWYER-AGENDA.md`, whose status is
+// `awaiting-answer`.
+//
+// The 3000000000 figure asserted here is the UNCHANGED PRE-FIX MEASUREMENT and
+// is asserted for that reason. This vector takes NO position on LAWYER-09. Its
+// load-bearing assertion is the presence of the flag.
+// ══════════════════════════════════════════════════════════════════════
+
+#[test]
+fn test_law05b_exempt_donation_still_preterites_and_flags() {
+    let input = law05b_input(true);
+    let output = run_pipeline(&input);
+
+    check_sum_invariant(&output, &input.net_distributable_estate);
+    assert_eq!(
+        output.succession_type,
+        SuccessionType::IntestateByPreterition,
+        "LAW-05b exempt: an uncollated donation does not defeat preterition"
+    );
+
+    assert_total_centavos(find_share(&output, "ben"), 3000000000, "LAW-05b exempt ben");
+
+    assert!(
+        output.warnings.iter().any(|w| w.category == "preterition_exempt_donation"
+            && w.related_heir_id == Some("ben".to_string())),
+        "LAW-05b exempt: the arguable case must be flagged, naming the heir"
+    );
+}
+
+// ══════════════════════════════════════════════════════════════════════
 // Cross-cutting invariant tests
 // ══════════════════════════════════════════════════════════════════════
 
