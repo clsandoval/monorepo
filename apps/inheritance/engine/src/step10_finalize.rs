@@ -229,6 +229,26 @@ pub fn format_peso(amount: &Money) -> String {
     }
 }
 
+/// Format a legitime fraction for the machine-readable `legitime_fraction` field.
+///
+/// Deliberately NOT the same function as `format_fraction` above: that one is the
+/// §11.6 *narrative* formatter and renders Unicode glyphs (`½`, `¼`) for prose.
+/// This one renders plain ASCII, because `legitime_fraction` crosses the WASM
+/// boundary into JSON and is read by the frontend and the PDF exporter.
+///
+/// `Frac` is a `num_rational::BigRational`, always stored in lowest terms, so no
+/// reduction step is needed. A whole number renders bare (`"1"`, `"0"`); anything
+/// else renders `numer/denom` (`"1/4"`, `"2/9"`).
+///
+/// This is a report of what Step 5 computed. It never recomputes a legitime.
+fn format_legitime_fraction(f: &Frac) -> String {
+    if f.denom().is_one() {
+        f.numer().to_string()
+    } else {
+        format!("{}/{}", f.numer(), f.denom())
+    }
+}
+
 /// Format a BigInt with comma thousands separators.
 fn format_with_commas(n: &BigInt) -> String {
     let s = n.to_string();
@@ -354,6 +374,70 @@ pub fn allocate_with_rounding(
         .into_iter()
         .map(|(id, c)| (id, Money { centavos: c }))
         .collect()
+}
+
+/// Split one heir's already-rounded `target` into its legitime, free-portion and
+/// intestate sub-components, using the fractional split Step 7 computed.
+///
+/// Guarantees the identity
+/// `from_legitime + from_free_portion + from_intestate == target`, exactly, in
+/// centavos. Nothing here changes `target` itself — this is a report of how an
+/// amount the engine already decided divides up, not a new allocation.
+///
+/// The rule, in full, so it is not re-derived:
+/// 1. The components are ordered `[legitime, free_portion, intestate]` — fixed,
+///    so there is no tie to break.
+/// 2. `allocate_with_rounding` floors each to centavos and distributes any
+///    positive shortfall by largest remainder, the same rule the estate level
+///    uses, so the two levels cannot disagree about a half-centavo.
+/// 3. `allocate_with_rounding` distributes only a *positive* remainder. Because
+///    `target` is itself already rounded, flooring can overshoot it. Any negative
+///    difference is absorbed from the first component in the fixed order large
+///    enough to take it without going negative; if none is, each takes as much as
+///    it can in that same order until the difference is exhausted.
+fn split_components(dist: &HeirDistribution, target: &Money) -> (Money, Money, Money) {
+    let shares: Vec<(HeirId, Frac)> = vec![
+        ("legitime".to_string(), dist.from_legitime.clone()),
+        ("free_portion".to_string(), dist.from_free_portion.clone()),
+        ("intestate".to_string(), dist.from_intestate.clone()),
+    ];
+
+    let allocated = allocate_with_rounding(&shares, target);
+    let mut parts: Vec<BigInt> = allocated.into_iter().map(|(_, m)| m.centavos).collect();
+
+    // Step 3: absorb a negative difference in the fixed order legitime -> free
+    // portion -> intestate, never driving a component below zero.
+    let sum: BigInt = parts.iter().sum();
+    let mut deficit = &sum - &target.centavos; // > 0 means the floors overshot
+    if deficit > BigInt::zero() {
+        for part in parts.iter_mut() {
+            if deficit <= BigInt::zero() {
+                break;
+            }
+            let take = if *part < deficit {
+                part.clone()
+            } else {
+                deficit.clone()
+            };
+            *part -= &take;
+            deficit -= &take;
+        }
+    }
+
+    let mut it = parts.into_iter();
+    let legitime = it.next().unwrap_or_else(BigInt::zero);
+    let free_portion = it.next().unwrap_or_else(BigInt::zero);
+    let intestate = it.next().unwrap_or_else(BigInt::zero);
+
+    (
+        Money { centavos: legitime },
+        Money {
+            centavos: free_portion,
+        },
+        Money {
+            centavos: intestate,
+        },
+    )
 }
 
 // ── Narrative Generation (§11) ──────────────────────────────────────
@@ -533,17 +617,33 @@ pub fn step10_finalize(input: &Step10Input) -> Step10Output {
             .unwrap_or(InheritanceMode::OwnRight);
         let represents = heir.and_then(|h| h.represents.clone());
 
+        // Report how this heir's already-rounded gross entitlement divides between
+        // protected legitime, testamentary free portion and intestate share. The
+        // three sum to `gross` exactly; no peso amount moves.
+        let (from_legitime, from_free_portion, from_intestate) =
+            split_components(dist, &total_money);
+
+        // Reported from Step 5, never recomputed. Heirs with no legitime entry
+        // (non-compulsory heirs, and beneficiaries who are not in the family tree)
+        // report "0" rather than an empty string.
+        let legitime_fraction = input
+            .heir_legitimes
+            .iter()
+            .find(|hl| hl.heir_id == dist.heir_id)
+            .map(|hl| format_legitime_fraction(&hl.legitime_fraction))
+            .unwrap_or_else(|| "0".to_string());
+
         per_heir_shares.push(InheritanceShare {
             heir_id: dist.heir_id.clone(),
             heir_name,
             heir_category: heir_cat,
             inherits_by,
             represents,
-            from_legitime: Money::new(0), // TODO: round sub-components
-            from_free_portion: Money::new(0),
-            from_intestate: Money::new(0),
+            from_legitime,
+            from_free_portion,
+            from_intestate,
             total: total_money,
-            legitime_fraction: String::new(),
+            legitime_fraction,
             legal_basis: dist.legal_basis.clone(),
             donations_imputed,
             gross_entitlement: gross,
@@ -556,17 +656,25 @@ pub fn step10_finalize(input: &Step10Input) -> Step10Output {
     for heir in &input.heirs {
         let already_has_share = per_heir_shares.iter().any(|s| s.heir_id == heir.id);
         if !already_has_share && (heir.has_renounced || (heir.is_disinherited && heir.disinheritance_valid) || !heir.is_eligible) {
+            let legitime_fraction = input
+                .heir_legitimes
+                .iter()
+                .find(|hl| hl.heir_id == heir.id)
+                .map(|hl| format_legitime_fraction(&hl.legitime_fraction))
+                .unwrap_or_else(|| "0".to_string());
             per_heir_shares.push(InheritanceShare {
                 heir_id: heir.id.clone(),
                 heir_name: heir.name.clone(),
                 heir_category: heir.effective_category,
                 inherits_by: heir.inherits_by,
                 represents: heir.represents.clone(),
+                // These heirs receive nothing; zero is the correct value here, not
+                // a placeholder.
                 from_legitime: Money::new(0),
                 from_free_portion: Money::new(0),
                 from_intestate: Money::new(0),
                 total: Money::new(0),
-                legitime_fraction: String::new(),
+                legitime_fraction,
                 legal_basis: vec![],
                 donations_imputed: Money::new(0),
                 gross_entitlement: Money::new(0),
@@ -1330,5 +1438,193 @@ mod tests {
             output.computation_log.steps[2].step_name,
             "Finalize + Narrate"
         );
+    }
+
+    // ── Sub-component split + legitime fraction tests (OBS-03, OBS-04) ──
+
+    fn test_heir(id: &str, name: &str) -> Heir {
+        Heir {
+            id: id.to_string(),
+            name: name.to_string(),
+            raw_category: HeirCategory::LegitimateChild,
+            effective_category: EffectiveCategory::LegitimateChildGroup,
+            is_compulsory: true,
+            is_alive: true,
+            is_eligible: true,
+            filiation_proved: true,
+            filiation_proof_type: None,
+            is_unworthy: false,
+            unworthiness_condoned: false,
+            is_disinherited: false,
+            disinheritance_valid: false,
+            has_renounced: false,
+            adoption: None,
+            has_valid_adoption: false,
+            is_stepparent_adoptee: false,
+            legal_separation_guilty: false,
+            articulo_mortis_marriage: false,
+            degree_from_decedent: 1,
+            line: None,
+            blood_type: None,
+            representation_trigger: None,
+            represented_by: vec![],
+            represents: None,
+            inherits_by: InheritanceMode::OwnRight,
+            line_ancestor: None,
+            children: vec![],
+        }
+    }
+
+    fn dist(id: &str, l: Frac, f: Frac, i: Frac) -> HeirDistribution {
+        let total = l.clone() + f.clone() + i.clone();
+        HeirDistribution {
+            heir_id: id.to_string(),
+            effective_category: EffectiveCategory::LegitimateChildGroup,
+            from_legitime: l,
+            from_free_portion: f,
+            from_intestate: i,
+            total,
+            legal_basis: vec![],
+        }
+    }
+
+    #[test]
+    fn test_split_components_sums_to_target() {
+        // Three exact thirds of 1000 centavos: 333.33... each. Flooring gives
+        // 333 + 333 + 333 = 999, one centavo short of the 1000 target.
+        let d = dist(
+            "h1",
+            frac(1000, 3),
+            frac(1000, 3),
+            frac(1000, 3),
+        );
+        let target = Money::new(1000);
+        let (l, f, i) = split_components(&d, &target);
+
+        let sum = &l.centavos + &f.centavos + &i.centavos;
+        assert_eq!(sum, BigInt::from(1000));
+        assert_eq!(l.centavos, BigInt::from(334));
+        assert_eq!(f.centavos, BigInt::from(333));
+        assert_eq!(i.centavos, BigInt::from(333));
+    }
+
+    #[test]
+    fn test_split_components_absorbs_overshoot() {
+        // The three components are exact integers summing to 1002, but the
+        // already-rounded target is 1000. Flooring cannot undershoot here, so the
+        // signed correction must remove 2 centavos, in the fixed order.
+        let d = dist("h1", frac(400, 1), frac(302, 1), frac(300, 1));
+        let target = Money::new(1000);
+        let (l, f, i) = split_components(&d, &target);
+
+        let sum = &l.centavos + &f.centavos + &i.centavos;
+        assert_eq!(sum, BigInt::from(1000));
+        assert!(l.centavos >= BigInt::zero(), "legitime went negative");
+        assert!(f.centavos >= BigInt::zero(), "free portion went negative");
+        assert!(i.centavos >= BigInt::zero(), "intestate went negative");
+        // Absorbed entirely by the first component in the fixed order.
+        assert_eq!(l.centavos, BigInt::from(398));
+        assert_eq!(f.centavos, BigInt::from(302));
+        assert_eq!(i.centavos, BigInt::from(300));
+    }
+
+    #[test]
+    fn test_split_components_absorbs_overshoot_across_components() {
+        // The first component is too small to absorb the whole overshoot, so the
+        // correction must walk on to the next one in the fixed order.
+        let d = dist("h1", frac(1, 1), frac(500, 1), frac(501, 1));
+        let target = Money::new(999);
+        let (l, f, i) = split_components(&d, &target);
+
+        let sum = &l.centavos + &f.centavos + &i.centavos;
+        assert_eq!(sum, BigInt::from(999));
+        assert_eq!(l.centavos, BigInt::zero());
+        assert_eq!(f.centavos, BigInt::from(498));
+        assert_eq!(i.centavos, BigInt::from(501));
+    }
+
+    #[test]
+    fn test_format_fraction_whole() {
+        assert_eq!(format_legitime_fraction(&frac(1, 1)), "1");
+        assert_eq!(format_legitime_fraction(&frac(0, 1)), "0");
+    }
+
+    #[test]
+    fn test_format_fraction_proper() {
+        assert_eq!(format_legitime_fraction(&frac(1, 4)), "1/4");
+        assert_eq!(format_legitime_fraction(&frac(2, 9)), "2/9");
+    }
+
+    #[test]
+    fn test_every_share_has_a_legitime_fraction() {
+        let mut input = minimal_step10_input(vec![], vec![]);
+        input.net_estate = Money::new(1000);
+        input.heirs = vec![test_heir("h1", "Heir One"), test_heir("h2", "Heir Two")];
+        input.final_distributions = vec![
+            dist("h1", frac(600, 1), frac(0, 1), frac(0, 1)),
+            dist("h2", frac(400, 1), frac(0, 1), frac(0, 1)),
+        ];
+        // Only h1 carries a Step 5 legitime entry; h2 must still report a fraction.
+        input.heir_legitimes = vec![HeirLegitime {
+            heir_id: "h1".to_string(),
+            effective_category: EffectiveCategory::LegitimateChildGroup,
+            legitime_fraction: frac(1, 4),
+            legitime_amount: frac(250, 1),
+            cap_applied: false,
+            legal_basis: vec![],
+        }];
+
+        let output = step10_finalize(&input);
+
+        assert_eq!(output.per_heir_shares.len(), 2);
+        for share in &output.per_heir_shares {
+            assert!(
+                !share.legitime_fraction.is_empty(),
+                "heir {} has an empty legitime_fraction",
+                share.heir_id
+            );
+        }
+        let h1 = output
+            .per_heir_shares
+            .iter()
+            .find(|s| s.heir_id == "h1")
+            .expect("h1 share");
+        assert_eq!(h1.legitime_fraction, "1/4");
+        let h2 = output
+            .per_heir_shares
+            .iter()
+            .find(|s| s.heir_id == "h2")
+            .expect("h2 share");
+        assert_eq!(h2.legitime_fraction, "0");
+    }
+
+    #[test]
+    fn test_components_sum_to_gross_entitlement() {
+        let mut input = minimal_step10_input(vec![], vec![]);
+        input.net_estate = Money::new(1_000_000);
+        input.heirs = vec![
+            test_heir("h1", "Heir One"),
+            test_heir("h2", "Heir Two"),
+            test_heir("h3", "Heir Three"),
+        ];
+        input.final_distributions = vec![
+            dist("h1", frac(1_000_000, 3), frac(0, 1), frac(0, 1)),
+            dist("h2", frac(0, 1), frac(1_000_000, 3), frac(1_000_000, 6)),
+            dist("h3", frac(1_000_000, 12), frac(1_000_000, 12), frac(0, 1)),
+        ];
+
+        let output = step10_finalize(&input);
+
+        assert_eq!(output.per_heir_shares.len(), 3);
+        for share in &output.per_heir_shares {
+            let sum = &share.from_legitime.centavos
+                + &share.from_free_portion.centavos
+                + &share.from_intestate.centavos;
+            assert_eq!(
+                sum, share.gross_entitlement.centavos,
+                "heir {} sub-components do not sum to gross_entitlement",
+                share.heir_id
+            );
+        }
     }
 }
