@@ -110,16 +110,16 @@ What makes it "functionally impossible to screw up."
 
 ### Lawyer Readiness
 
-- [ ] **LAWYER-01**: The interpretive choice on Art. 996 vs the testate table for one child plus spouse is recorded (*Santillon v. Miranda*)
-- [ ] **LAWYER-02**: The spouse's legitime under Art. 892 ¶1 vs Art. 897 is recorded
-- [ ] **LAWYER-03**: Whether Art. 1006's blood ratio survives per-capita nephew succession is recorded, before the dead branch is enabled
-- [ ] **LAWYER-04**: The reach of *Aquino v. Aquino* into the collateral line is recorded — blocks LAW-07, and the highest-stakes item
-- [ ] **LAWYER-05**: Whether Art. 907 reduction self-executes or is disclosed as a claim the heir must assert is recorded
-- [ ] **LAWYER-06**: Whether an heir's donation-excess entitlement is modelled as estate pesos or as a claim against the donee is recorded — blocks LAW-06
-- [ ] **LAWYER-07**: The conjugal family-home deduction reading is recorded and the spec hedge removed
-- [ ] **LAWYER-08**: RA 11642 Sec. 41 retroactivity is recorded — blocks LAW-12
-- [ ] **LAWYER-09**: A recorded decision is machine-readable and linked from the rule it governs, so no agent re-decides it
-- [ ] **LAWYER-10**: A workflow exists for turning a lawyer's "this is wrong" into a named test vector, a failing gate, and a fix
+- [x] **LAWYER-01**: The interpretive choice on Art. 996 vs the testate table for one child plus spouse is recorded (*Santillon v. Miranda*)
+- [x] **LAWYER-02**: The spouse's legitime under Art. 892 ¶1 vs Art. 897 is recorded
+- [x] **LAWYER-03**: Whether Art. 1006's blood ratio survives per-capita nephew succession is recorded, before the dead branch is enabled
+- [x] **LAWYER-04**: The reach of *Aquino v. Aquino* into the collateral line is recorded — blocks LAW-07, and the highest-stakes item
+- [x] **LAWYER-05**: Whether Art. 907 reduction self-executes or is disclosed as a claim the heir must assert is recorded
+- [x] **LAWYER-06**: Whether an heir's donation-excess entitlement is modelled as estate pesos or as a claim against the donee is recorded — blocks LAW-06
+- [x] **LAWYER-07**: The conjugal family-home deduction reading is recorded and the spec hedge removed
+- [x] **LAWYER-08**: RA 11642 Sec. 41 retroactivity is recorded — blocks LAW-12
+- [x] **LAWYER-09**: A recorded decision is machine-readable and linked from the rule it governs, so no agent re-decides it
+- [x] **LAWYER-10**: A workflow exists for turning a lawyer's "this is wrong" into a named test vector, a failing gate, and a fix
 
 ### Loop Durability
 
@@ -195,16 +195,16 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | LOOP-04 | Phase 2 | Complete |
 | LOOP-05 | Phase 2 | Complete |
 | LOOP-06 | Phase 2 | Complete |
-| LAWYER-01 | Phase 4 | Planned |
-| LAWYER-02 | Phase 4 | Planned |
-| LAWYER-03 | Phase 4 | Planned |
-| LAWYER-04 | Phase 4 | Planned |
-| LAWYER-05 | Phase 4 | Planned |
-| LAWYER-06 | Phase 4 | Planned |
-| LAWYER-07 | Phase 4 | Planned |
-| LAWYER-08 | Phase 4 | Planned |
-| LAWYER-09 | Phase 4 | Planned |
-| LAWYER-10 | Phase 4 | Planned |
+| LAWYER-01 | Phase 4 | Complete |
+| LAWYER-02 | Phase 4 | Complete |
+| LAWYER-03 | Phase 4 | Complete |
+| LAWYER-04 | Phase 4 | Complete |
+| LAWYER-05 | Phase 4 | Complete |
+| LAWYER-06 | Phase 4 | Complete |
+| LAWYER-07 | Phase 4 | Complete |
+| LAWYER-08 | Phase 4 | Complete |
+| LAWYER-09 | Phase 4 | Complete |
+| LAWYER-10 | Phase 4 | Complete |
 | OBS-01 | Phase 5 | Pending |
 | OBS-02 | Phase 5 | Pending |
 | OBS-03 | Phase 5 | Pending |

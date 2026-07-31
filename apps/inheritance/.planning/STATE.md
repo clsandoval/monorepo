@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: "Phase 4 PLANNED. `04-RESEARCH.md`, `04-VALIDATION.md` and five `PLAN.md` files written across 5 strictly sequential waves. LAWYER-01..10 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 on all 20 plan files across 83 tasks, and `gsd-sdk query verify.plan-structure` reports valid with zero errors on each of the five new plans. Anchors measured live: all ten decision-to-code grep patterns match their file exactly once, and two shorter candidates were rejected for matching twice. Structural finding that shaped the design: gate G9 fails with RESULTS INCOMPLETE on any gate ordered after it, so the new gate G10 takes order 8 and G9 moves to order 10. The phase ends at 10 gates. Next step is `/gsd:execute-phase 4`. Previously: Phase 3 PLANNED. `03-RESEARCH.md`, `03-VALIDATION.md` and five `PLAN.md` files written across 5 strictly sequential waves (waves 2 and 3 share one database; waves 4 and 5 share `scripts/ci-gates.sh`, `gates.manifest.json`, `gates.manifest.lock` and `GATES.md`). GATE-05..09 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` passes on all 15 plan files across 68 tasks, and `bash scripts/ci-gates.sh` exits 0 with `ALL GATES PASSED (7/7)`. The phase ends at 9 gates. Planning measurements taken live in this tree: Supabase CLI absent but v2.110.0 downloadable, Docker reachable, ports 54321–54324 bound by a sibling app, 55320–55329 free, one storage bucket referenced in code and zero created by migration, `seed.sql` absent while `[db.seed]` already points at it, and a skip baseline of exactly one declared skip (`skipLibCheck`) with zero undeclared. Next step is `/gsd:execute-phase 3`."
-last_updated: "2026-07-31T08:09:02.272Z"
+status: ready_to_plan
+stopped_at: Phase 4 complete (5/5) — ready to discuss Phase 5
+last_updated: 2026-07-31T08:32:32.703Z
 last_activity: 2026-07-31 -- Phase 4 planning complete
 progress:
   total_phases: 15
   completed_phases: 3
   total_plans: 20
-  completed_plans: 15
+  completed_plans: 20
   percent: 20
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-27)
 
 **Core value:** A change to this codebase must be cheap and safe to make — a passing gate set genuinely implies a working app, and a wrong legal number can never reach a lawyer silently.
-**Current focus:** Phase 4 — lawyer review agenda recorded
+**Current focus:** Phase 5 — engine observability restored
 
 ## Current Position
 
-Phase: 4
+Phase: 5
 Plan: Not started
 Status: Ready to execute
-Last activity: 2026-07-31 -- Phase 4 planning complete
+Last activity: 2026-07-31
 
 Progress: [█░░░░░░░░░] 7%
 
@@ -36,7 +36,7 @@ Progress: [█░░░░░░░░░] 7%
 
 **Velocity:**
 
-- Total plans completed: 15
+- Total plans completed: 20
 - Average duration: ~5 min
 - Total execution time: ~0.35 hours
 
@@ -47,6 +47,7 @@ Progress: [█░░░░░░░░░] 7%
 | 1. Gate Foundations | 4 | ~21 min | ~5 min |
 | 02 | 6 | - | - |
 | 3 | 5 | - | - |
+| 4 | 5 | - | - |
 
 **Recent Trend:**
 
@@ -97,7 +98,7 @@ Recent decisions affecting current work:
 - Phase 4: `DECISION STATUS INVALID` is the load-bearing verdict. Any status other than `awaiting-answer` requires `answered_by`, `answered_on` and `answer`, so an agent cannot unblock LAW-06, LAW-07 or LAW-12 by editing one word of JSON without writing a visible lie into the diff.
 - Phase 4: measured structural constraint — `scripts/check-gate-results.mjs` (G9) fails with `RESULTS INCOMPLETE` when any gate other than itself is `not-run`, and the runner republishes after every gate. A gate ordered after G9 would therefore fail G9 on every run. New gate **G10 takes order 8**, G8 moves to 9, G9 moves to 10. `order` is deliberately unlocked, and this placement also puts G10 ahead of the skip-accounting gate so its own `GATE-SKIPS` line is checked rather than exempted.
 - Phase 4: the Q7 spec hedge at `specs/estate-tax-engine-spec.md:1008` is **replaced by a pointer, never deleted**. Deleting it would leave the spec asserting the ½ rule unqualified, which is an unrecorded ruling on a contested point of law. The replacement text is written literally into plan 04-03 so the executor copies rather than composes it.
-- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** awaiting-answer` with three unticked boxes, and `grep -c "\[x\]"` returning 0 is an acceptance criterion in four of the five plans.
+- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** Ready to plan
 
 ### Pending Todos
 
