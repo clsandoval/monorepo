@@ -1,0 +1,181 @@
+{
+  "$comment": "The committed registry of every estate-tax wizard tab (JRNY-06, plan 12-04). A step is DATA, never code. Every url carries ?tab= alone, read once at mount by readInitialTab() in EstateTaxWizard.tsx:55, so a tab is reachable without clicking the seven before it -- no record performs a click or a fill, because a click-through would not prove the URL seam JRNY-01 requires. Every record declares reset case-alpha-no-output. A tax tab mutates nothing itself, so noop would seem right -- but $caseId.tax.tsx:56 renders the header from `row.decedent_name ?? 'Decedent'`, and decedent_name is a column the SUCCESSION wizard's autosave writes. With noop these eight steps rendered 'Estate of Pedro' or 'Estate of Decedent' depending purely on whether a wizard step had run first, and all eight failed with diffPixels=947 the moment the full suite ran in registry order. A step must not depend on what ran before it; the reset makes the observed row deterministic. It is a restore, not a mutation. NO tax_input_json IS SEEDED anywhere in Phase 12; these tabs render the wizard's own createDefaultEstateTaxState() defaults, which is the state a lawyer opening the tax wizard for the first time actually sees. Each rubric PAIRS the selected tab button with the panel it renders: tab-<n>'s aria-selected must read true AND that tab's panel root must be the one visible AND the next tab's panel root must be absent, so a tab strip that highlights one tab while rendering another is red rather than green.",
+  "steps": [
+    {
+      "id": "tax-tab-0",
+      "requirement": "JRNY-06",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004/tax?tab=0",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"estate-tax-wizard\"]"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"decedent-tab\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "tax-tab-0.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "tax-tab-1",
+      "requirement": "JRNY-06",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004/tax?tab=1",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"estate-tax-wizard\"]"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"executor-tab\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "tax-tab-1.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "tax-tab-2",
+      "requirement": "JRNY-06",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004/tax?tab=2",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"estate-tax-wizard\"]"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"real-properties-tab\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "tax-tab-2.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "tax-tab-3",
+      "requirement": "JRNY-06",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004/tax?tab=3",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"estate-tax-wizard\"]"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"personal-properties-tab\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "tax-tab-3.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "tax-tab-4",
+      "requirement": "JRNY-06",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004/tax?tab=4",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"estate-tax-wizard\"]"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"other-assets-tab\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "tax-tab-4.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "tax-tab-5",
+      "requirement": "JRNY-06",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004/tax?tab=5",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"estate-tax-wizard\"]"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"ordinary-deductions-tab\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "tax-tab-5.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "tax-tab-6",
+      "requirement": "JRNY-06",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004/tax?tab=6",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"estate-tax-wizard\"]"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"special-deductions-tab\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "tax-tab-6.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "tax-tab-7",
+      "requirement": "JRNY-06",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004/tax?tab=7",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"estate-tax-wizard\"]"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"filing-amnesty-tab\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "tax-tab-7.json",
+      "allowConsoleErrors": false
+    }
+  ]
+}

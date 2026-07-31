@@ -1,0 +1,31 @@
+{
+  "rubricId": "tax-tab-0",
+  "assertions": [
+    {
+      "id": "wizard-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"estate-tax-wizard\"]"
+    },
+    {
+      "id": "panel-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"decedent-tab\"]"
+    },
+    {
+      "id": "tab-selected",
+      "kind": "attribute_equals",
+      "selector": "[data-testid=\"tab-0\"]",
+      "attr": "aria-selected",
+      "expect": "true"
+    },
+    {
+      "id": "other-panel-absent",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"executor-tab\"]"
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}
