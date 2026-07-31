@@ -543,6 +543,22 @@ function computeEstateTaxFromInput(input: EngineInput): EstateTaxFullOutput {
     isNRA: input.decedent.isNRA,
   });
 
+  // A transfer for public use is NOT subtracted from the distributable estate.
+  // RR 12-2018 Sec. 6(6) defines it as a bequest, legacy, devise or transfer to
+  // the Government; a bequest, legacy or devise is entered in the succession
+  // engine's own will.legacies or will.devises and paid out of the free portion
+  // by step 7, so subtracting it here as well would pay it twice. A transfer
+  // made otherwise than by will is not double-counted and needs a human.
+  if (ordinaryDeductions.item5h_transfers_for_public_use.total > 0) {
+    warnings.push(
+      'Transfers for public use are not deducted from the distributable estate. ' +
+        'The succession engine expects a bequest, legacy or devise to the Government ' +
+        "to appear among the will's legacies or devises and pays it from the free " +
+        'portion. A transfer made otherwise than by will requires manual review ' +
+        'before the per-heir figures are relied on.',
+    );
+  }
+
   // ── Assemble schedules ────────────────────────────────────────────────
   const schedules: EstateTaxScheduleSummary = {
     schedule1_real_properties: grossEstate.realProperty.total + grossEstate.familyHome.total,
@@ -571,7 +587,19 @@ function computeEstateTaxFromInput(input: EngineInput): EstateTaxFullOutput {
     explainer,
     warnings,
 
-    // Bridge-compatible fields
+    // Art. 908 components — the base the heirs actually divide.
+    item34c_gross_estate: grossEstate.total.total,
+    item35_debts_and_charges:
+      ordinaryDeductions.total.total -
+      ordinaryDeductions.item5g_vanishing_deduction.total -
+      ordinaryDeductions.item5h_transfers_for_public_use.total,
+    item39_spouse_net_share: spouseShareResult.spouseShare,
+    item44_net_estate_tax_due: taxComputation.netEstateTaxDue,
+
+    // Bridge-compatible fields.
+    // Both names below are HISTORICAL and neither means what it says. They are
+    // retained so `cases.tax_output_json` rows written before Phase 8 still
+    // parse; the bridge no longer reads either of them.
     item40_gross_estate: netTaxableEstate, // NTE, NOT gross estate (backward compat)
     item44_total_deductions: taxComputation.netEstateTaxDue, // Net estate tax due
     tax_due: taxComputation.estateTaxDue,
@@ -619,6 +647,10 @@ function makeErrorOutput(warnings: string[]): EstateTaxFullOutput {
     dualPathComparison: null,
     explainer: { sections: [] },
     warnings,
+    item34c_gross_estate: 0,
+    item35_debts_and_charges: 0,
+    item39_spouse_net_share: 0,
+    item44_net_estate_tax_due: 0,
     item40_gross_estate: 0,
     item44_total_deductions: 0,
     tax_due: 0,

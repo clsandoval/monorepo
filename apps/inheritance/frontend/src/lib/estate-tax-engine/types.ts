@@ -192,6 +192,30 @@ export interface EstateTaxFullOutput {
   explainer: ExplainerOutput;
   warnings: string[];
 
+  // Art. 908 components — the base the heirs actually divide.
+  // Art. 908: "the value of the property left at the death of the testator,
+  // deducting all debts and charges".
+
+  /** Item 34 column C — the whole gross estate (centavos). */
+  item34c_gross_estate: number;
+  /**
+   * Item 35 restricted to actual debts and charges of the decedent (centavos).
+   *
+   * The standard deduction, the family-home deduction, the RA 4917 deduction,
+   * the medical deduction and the vanishing deduction are DELIBERATELY excluded:
+   * none of them is a debt or a charge of the decedent, they are tax reliefs.
+   * Transfers for public use are excluded because they are dispositions the
+   * succession engine pays out of the free portion; subtracting them here as
+   * well would pay them twice.
+   */
+  item35_debts_and_charges: number;
+  /** Item 39 — the surviving spouse's net conjugal share, which never belonged
+   *  to the estate (centavos). */
+  item39_spouse_net_share: number;
+  /** Item 44 — the estate tax the estate must pay, named for what it is
+   *  (centavos). It is a charge on the estate under Art. 908. */
+  item44_net_estate_tax_due: number;
+
   // Bridge-compatible fields (mirrors EstateTaxEngineOutput in tax-bridge.ts)
   item40_gross_estate: number; // centavos
   item44_total_deductions: number; // centavos

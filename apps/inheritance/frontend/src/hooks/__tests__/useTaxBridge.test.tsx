@@ -76,6 +76,13 @@ function createTestInput(overrides: Partial<EngineInput> = {}): EngineInput {
 
 function createTaxOutput(overrides: Partial<EstateTaxEngineOutput> = {}): EstateTaxEngineOutput {
   return {
+    // Art. 908 components. Chosen so that gross 500000000 less charges
+    // (0 + 0 + 300000000) = 200000000, the same bridged net estate the
+    // historical item40/item44 pair produced, so no existing expectation moves.
+    item34c_gross_estate: 500000000, // ₱5,000,000
+    item35_debts_and_charges: 0,
+    item39_spouse_net_share: 0,
+    item44_net_estate_tax_due: 300000000, // ₱3,000,000
     item40_gross_estate: 500000000, // ₱5,000,000
     item44_total_deductions: 300000000, // ₱3,000,000
     tax_due: 12000000,
@@ -260,6 +267,27 @@ describe('useTaxBridge hook', () => {
     expect(result.current.error!.message).toBe('WASM engine error');
   });
 
+  it('sets error state when the tax output predates the Art. 908 bridge fix', async () => {
+    mockCompute.mockResolvedValue(createBridgedOutput());
+
+    const stale = createTaxOutput();
+    delete (stale as Partial<EstateTaxEngineOutput>).item34c_gross_estate;
+
+    const { result } = renderHook(() =>
+      useTaxBridge({
+        inheritanceInput: createTestInput(),
+        taxOutput: stale,
+      }),
+    );
+
+    await waitFor(() => {
+      expect(result.current.state).toBe('error');
+    });
+
+    expect(result.current.error).toBeInstanceOf(Error);
+    expect(result.current.error!.message).toMatch(/item34c_gross_estate/);
+  });
+
   it('calls onBridgedResult callback when computation completes', async () => {
     const bridgedOutput = createBridgedOutput();
     mockCompute.mockResolvedValue(bridgedOutput);
@@ -286,8 +314,10 @@ describe('useTaxBridge hook', () => {
     mockCompute.mockResolvedValue(createBridgedOutput());
 
     const initialTaxOutput = createTaxOutput({
-      item40_gross_estate: 500000000,
-      item44_total_deductions: 300000000,
+      // Inputs restated in the Art. 908 field names (Phase 8, LAW-10). The
+      // expected values below are UNCHANGED.
+      item34c_gross_estate: 500000000,
+      item44_net_estate_tax_due: 300000000,
     });
 
     const { result, rerender } = renderHook(
@@ -305,8 +335,8 @@ describe('useTaxBridge hook', () => {
     expect(result.current.netDistributableEstate).toBe(200000000);
 
     const updatedTaxOutput = createTaxOutput({
-      item40_gross_estate: 800000000,
-      item44_total_deductions: 200000000,
+      item34c_gross_estate: 800000000,
+      item44_net_estate_tax_due: 200000000,
     });
 
     rerender({ taxOutput: updatedTaxOutput });
@@ -369,8 +399,10 @@ describe('useTaxBridge hook', () => {
     mockCompute.mockResolvedValue(createBridgedOutput());
 
     const taxOutput = createTaxOutput({
-      item40_gross_estate: 100000000,
-      item44_total_deductions: 500000000,
+      // Inputs restated in the Art. 908 field names (Phase 8, LAW-10). The
+      // expected value below is UNCHANGED.
+      item34c_gross_estate: 100000000,
+      item44_net_estate_tax_due: 500000000,
     });
 
     const { result } = renderHook(() =>

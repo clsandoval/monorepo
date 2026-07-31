@@ -8,6 +8,7 @@ import type { EngineInput, EngineOutput } from '@/types';
 import type { EstateTaxEngineOutput, TaxBridgeState } from '@/lib/tax-bridge';
 import {
   computeNetDistributableEstate,
+  computeDistributableCharges,
   buildBridgedInput,
 } from '@/lib/tax-bridge';
 
@@ -63,8 +64,8 @@ export function useTaxBridge({
     try {
       const { compute } = await import('@/wasm/bridge');
       const netEstate = computeNetDistributableEstate(
-        currentTaxOutput.item40_gross_estate,
-        currentTaxOutput.item44_total_deductions,
+        currentTaxOutput.item34c_gross_estate,
+        computeDistributableCharges(currentTaxOutput),
       );
       setNetDistributableEstate(netEstate);
 
@@ -84,7 +85,7 @@ export function useTaxBridge({
 
   // Derive a stable key from tax output to trigger recompute
   const taxOutputKey = taxOutput
-    ? `${taxOutput.item40_gross_estate}-${taxOutput.item44_total_deductions}`
+    ? `${taxOutput.item34c_gross_estate}-${taxOutput.item35_debts_and_charges}-${taxOutput.item39_spouse_net_share}-${taxOutput.item44_net_estate_tax_due}`
     : null;
 
   useEffect(() => {

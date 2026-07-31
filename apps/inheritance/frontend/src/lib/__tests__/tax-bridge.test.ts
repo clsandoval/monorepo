@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { EngineInput, EngineOutput, Money, Person } from '@/types';
 import {
   computeNetDistributableEstate,
+  computeDistributableCharges,
   buildBridgedInput,
   runTaxBridge,
   saveTaxOutput,
@@ -100,6 +101,13 @@ function createDefaultSchedules(): EstateTaxScheduleSummary {
 
 function createTaxOutput(overrides: Partial<EstateTaxEngineOutput> = {}): EstateTaxEngineOutput {
   return {
+    // Art. 908 components. Chosen so that gross 500000000 less charges
+    // (0 + 0 + 300000000) = 200000000, the same bridged net estate the
+    // historical item40/item44 pair produced, so no existing expectation moves.
+    item34c_gross_estate: 500000000, // ₱5,000,000
+    item35_debts_and_charges: 0,
+    item39_spouse_net_share: 0,
+    item44_net_estate_tax_due: 300000000, // ₱3,000,000
     item40_gross_estate: 500000000, // ₱5,000,000
     item44_total_deductions: 300000000, // ₱3,000,000
     tax_due: 12000000, // ₱120,000
@@ -333,14 +341,75 @@ describe('tax-bridge > runTaxBridge', () => {
     mockCompute.mockResolvedValue(createBridgedOutput());
 
     const taxOutput = createTaxOutput({
-      item40_gross_estate: 100000000, // ₱1,000,000
-      item44_total_deductions: 300000000, // ₱3,000,000
+      // Inputs restated in the Art. 908 field names (Phase 8, LAW-10). The
+      // expected value below is UNCHANGED; only which field carries it moved.
+      item34c_gross_estate: 100000000, // ₱1,000,000
+      item44_net_estate_tax_due: 300000000, // ₱3,000,000
     });
 
     await runTaxBridge(createTestInput(), taxOutput);
 
     const calledWith = mockCompute.mock.calls[0][0];
     expect(calledWith.net_distributable_estate.centavos).toBe(0);
+  });
+});
+
+describe('tax-bridge > computeDistributableCharges', () => {
+  it('LEGAL-CONFORMANCE §6 worked example: ₱30,000,000 estate (LAW-10)', () => {
+    const taxOutput = createTaxOutput({
+      item34c_gross_estate: 3000000000, // ₱30,000,000
+      item35_debts_and_charges: 0,
+      item39_spouse_net_share: 1500000000, // ₱15,000,000
+      item44_net_estate_tax_due: 24000000, // ₱240,000
+    });
+
+    // Art. 908 deducts debts and charges only: 0 + 1500000000 + 24000000.
+    expect(computeDistributableCharges(taxOutput)).toBe(1524000000);
+    expect(
+      computeNetDistributableEstate(
+        taxOutput.item34c_gross_estate,
+        computeDistributableCharges(taxOutput),
+      ),
+    ).toBe(1476000000);
+    // BEFORE the fix the bridge produced 376000000, from item40_gross_estate
+    // 400000000 (net taxable estate) minus item44_total_deductions 24000000 —
+    // a 74.5% understatement. ₱14,760,000 divided among a spouse and two
+    // children is ₱4,920,000 each.
+  });
+
+  it('debts and charges enter the deduction', () => {
+    const taxOutput = createTaxOutput({
+      item34c_gross_estate: 3000000000,
+      item35_debts_and_charges: 100000000, // ₱1,000,000
+      item39_spouse_net_share: 1500000000,
+      item44_net_estate_tax_due: 24000000,
+    });
+
+    expect(computeDistributableCharges(taxOutput)).toBe(1624000000);
+    expect(
+      computeNetDistributableEstate(
+        taxOutput.item34c_gross_estate,
+        computeDistributableCharges(taxOutput),
+      ),
+    ).toBe(1376000000);
+  });
+
+  it('throws naming the field when a component is missing (a pre-Phase-8 blob)', () => {
+    for (const field of [
+      'item34c_gross_estate',
+      'item35_debts_and_charges',
+      'item39_spouse_net_share',
+      'item44_net_estate_tax_due',
+    ] as const) {
+      const bad = createTaxOutput();
+      delete (bad as Partial<EstateTaxEngineOutput>)[field];
+      expect(() => computeDistributableCharges(bad)).toThrow(new RegExp(field));
+    }
+  });
+
+  it('throws on a NaN component rather than coercing it to zero', () => {
+    const bad = createTaxOutput({ item39_spouse_net_share: Number.NaN });
+    expect(() => computeDistributableCharges(bad)).toThrow(/item39_spouse_net_share/);
   });
 });
 

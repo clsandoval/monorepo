@@ -1,7 +1,16 @@
 /**
  * Tax Bridge — BIR Form 1801 Integration (spec §4.9)
  *
- * Bridge formula: net_distributable_estate = max(0, item40_gross_estate - item44_total_deductions)
+ * Bridge formula (Art. 908): net_distributable_estate =
+ *   max(0, item34c_gross_estate - (debts and charges + spouse's net conjugal
+ *   share + estate tax due))
+ *
+ * Art. 908 sets the base as "the value of the property left at the death of the
+ * testator, deducting all debts and charges". Before Phase 8 this bridge passed
+ * net taxable estate minus tax, which subtracted the standard deduction, the
+ * family-home deduction, the RA 4917 deduction and the vanishing deduction —
+ * none of which is a debt or a charge — and understated the heirs' shares.
+ *
  * Re-runs inheritance engine with bridged value when tax output changes.
  */
 import type { EngineInput, EngineOutput } from '@/types';
@@ -10,8 +19,12 @@ import type { EngineInput, EngineOutput } from '@/types';
 
 /** Minimal estate tax engine output used by the bridge formula. */
 export interface EstateTaxEngineOutput {
-  item40_gross_estate: number; // centavos
-  item44_total_deductions: number; // centavos
+  item34c_gross_estate: number; // centavos — Item 34 column C, the whole gross estate
+  item35_debts_and_charges: number; // centavos — actual debts and charges only
+  item39_spouse_net_share: number; // centavos — the spouse's net conjugal share
+  item44_net_estate_tax_due: number; // centavos — the estate tax due
+  item40_gross_estate: number; // centavos — HISTORICAL name, holds net taxable estate
+  item44_total_deductions: number; // centavos — HISTORICAL name, holds net estate tax due
   tax_due: number; // centavos
   surcharges: number; // centavos
   interest: number; // centavos
@@ -51,6 +64,50 @@ export function computeNetDistributableEstate(
 }
 
 /**
+ * Assemble the charges Art. 908 deducts from the property left at death.
+ *
+ * Art. 908 sets the base as the property left at death "deducting all debts and
+ * charges". Three things are deducted here and nothing else:
+ *   - `item35_debts_and_charges` — the decedent's actual debts and charges
+ *   - `item39_spouse_net_share`  — the spouse's half of the conjugal property,
+ *      which never belonged to the estate at all
+ *   - `item44_net_estate_tax_due` — the estate tax, a charge on the estate
+ *
+ * The standard deduction, the family-home deduction, the RA 4917 deduction, the
+ * medical deduction and the vanishing deduction are NOT subtracted: none of them
+ * is a debt or a charge, they are tax reliefs.
+ *
+ * Worked example (`.planning/research/LEGAL-CONFORMANCE.md` §6), ₱30,000,000
+ * gross estate: charges are 0 + 1500000000 + 24000000 = 1524000000 and the base
+ * is 1476000000 centavos, against the 376000000 the pre-fix bridge produced.
+ *
+ * Throws — never coerces — when a component is missing or not finite. A
+ * `cases.tax_output_json` row written before Phase 8 carries none of these
+ * fields, and silently reading it as zero would understate every heir's share.
+ */
+export function computeDistributableCharges(taxOutput: EstateTaxEngineOutput): number {
+  const required: [string, number][] = [
+    ['item34c_gross_estate', taxOutput.item34c_gross_estate],
+    ['item35_debts_and_charges', taxOutput.item35_debts_and_charges],
+    ['item39_spouse_net_share', taxOutput.item39_spouse_net_share],
+    ['item44_net_estate_tax_due', taxOutput.item44_net_estate_tax_due],
+  ];
+  for (const [name, value] of required) {
+    if (!Number.isFinite(value)) {
+      throw new Error(
+        `tax-bridge.ts: ${name} is missing or not a finite number. This tax output ` +
+          'predates the Art. 908 bridge fix and must be recomputed.',
+      );
+    }
+  }
+  return (
+    taxOutput.item35_debts_and_charges +
+    taxOutput.item39_spouse_net_share +
+    taxOutput.item44_net_estate_tax_due
+  );
+}
+
+/**
  * Build a bridged EngineInput with updated net_distributable_estate from tax output.
  */
 export function buildBridgedInput(
@@ -72,8 +129,8 @@ export async function runTaxBridge(
 ): Promise<{ bridgedInput: EngineInput; bridgedOutput: EngineOutput }> {
   const { compute } = await import('@/wasm/bridge');
   const netEstate = computeNetDistributableEstate(
-    taxOutput.item40_gross_estate,
-    taxOutput.item44_total_deductions,
+    taxOutput.item34c_gross_estate,
+    computeDistributableCharges(taxOutput),
   );
   const bridgedInput = buildBridgedInput(inheritanceInput, netEstate);
   const bridgedOutput = await compute(bridgedInput);
