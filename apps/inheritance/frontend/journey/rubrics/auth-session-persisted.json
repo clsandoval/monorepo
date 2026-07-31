@@ -1,0 +1,11 @@
+{
+  "rubricId": "auth-session-persisted",
+  "assertions": [
+    { "id": "dashboard",      "kind": "element_visible", "selector": "[data-testid=\"dashboard-page\"]" },
+    { "id": "signed-in-email","kind": "text_contains",   "selector": "body", "expect": "alpha@example.test" },
+    { "id": "seeded-case",    "kind": "text_contains",   "selector": "[data-testid=\"dashboard-page\"]", "expect": "Seeded Case Alpha" },
+    { "id": "sign-out",       "kind": "element_visible", "selector": "[data-testid=\"sign-out-desktop\"]" },
+    { "id": "no-auth-card",   "kind": "element_absent",  "selector": "[data-testid=\"auth-page\"]" },
+    { "id": "clean-console",  "kind": "no_console_error" }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "$comment": "The committed registry of every account-level screen this project screenshots. A step is DATA, never code: run.mjs reads every *.json in journey/steps/ in alphabetical file order and concatenates their steps arrays. A record carrying an unknown field, an out-of-set enumerated value (requirement, session, reset, action kind), a duplicate id, an id not matching ^[a-z0-9-]+$, a missing rubric file, or a settleMs that is not a non-negative integer is REJECTED as STEPS INVALID rather than ignored — an ignored record is a screen nobody screenshots and nobody notices. Gate G16 (plan 11-08) reads this file statically. Sibling files: org.json (plan 11-06), intake.json (plan 11-07).",
+  "$comment": "The committed registry of every account-level screen this project screenshots. A step is DATA, never code: run.mjs reads every *.json in journey/steps/ in alphabetical file order and concatenates their steps arrays. A record carrying an unknown field, an out-of-set enumerated value (requirement, session, reset, action kind), a duplicate id, an id not matching ^[a-z0-9-]+$, a missing rubric file, or a settleMs that is not a non-negative integer is REJECTED as STEPS INVALID rather than ignored \u2014 an ignored record is a screen nobody screenshots and nobody notices. Gate G16 (plan 11-08) reads this file statically. Sibling files: org.json (plan 11-06), intake.json (plan 11-07). BLOCKED, NOT REGISTERED: auth-signed-out. Its rubric file exists but no step names it and no reference was approved, because signing out does not reach the sign-in card that the rubric asserts - see journey/JOURNEY.md.",
   "steps": [
     {
       "id": "auth-signin",
@@ -9,9 +9,86 @@
       "localStorage": {},
       "sessionStorage": {},
       "reset": null,
-      "actions": [{ "kind": "waitForSelector", "selector": "[data-testid=\"auth-page\"]" }],
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"auth-page\"]"
+        }
+      ],
       "settleMs": 1200,
       "rubric": "auth-signin.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "auth-signup",
+      "requirement": "JRNY-02",
+      "url": "/auth?mode=signup",
+      "session": "none",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": null,
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"auth-page\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "auth-signup.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "auth-verify-nocode",
+      "requirement": "JRNY-02",
+      "url": "/auth/callback",
+      "session": "none",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": null,
+      "actions": [
+        {
+          "kind": "waitForUrlContains",
+          "value": "/auth?mode=signin"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "auth-verify-nocode.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "auth-verify-badcode",
+      "requirement": "JRNY-02",
+      "url": "/auth/callback?code=journey-invalid-code",
+      "session": "none",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": null,
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"auth-callback-error\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "auth-verify-badcode.json",
+      "allowConsoleErrors": true
+    },
+    {
+      "id": "auth-session-persisted",
+      "requirement": "JRNY-02",
+      "url": "/",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": null,
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"dashboard-page\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "auth-session-persisted.json",
       "allowConsoleErrors": false
     }
   ]

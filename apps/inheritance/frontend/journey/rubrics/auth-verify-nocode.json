@@ -1,0 +1,9 @@
+{
+  "rubricId": "auth-verify-nocode",
+  "assertions": [
+    { "id": "landed-on-signin", "kind": "text_equals",    "selector": "[data-testid=\"auth-title\"]", "expect": "Sign In" },
+    { "id": "no-callback-error","kind": "element_absent", "selector": "[data-testid=\"auth-callback-error\"]" },
+    { "id": "no-spinner",       "kind": "element_absent", "selector": "[data-testid=\"auth-callback-pending\"]" },
+    { "id": "clean-console",    "kind": "no_console_error" }
+  ]
+}

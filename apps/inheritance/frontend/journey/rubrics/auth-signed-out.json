@@ -1,0 +1,10 @@
+{
+  "rubricId": "auth-signed-out",
+  "assertions": [
+    { "id": "back-on-auth",  "kind": "element_visible", "selector": "[data-testid=\"auth-page\"]" },
+    { "id": "title",         "kind": "text_equals",     "selector": "[data-testid=\"auth-title\"]", "expect": "Sign In" },
+    { "id": "no-dashboard",  "kind": "element_absent",  "selector": "[data-testid=\"dashboard-page\"]" },
+    { "id": "no-sign-out",   "kind": "element_absent",  "selector": "[data-testid=\"sign-out-desktop\"]" },
+    { "id": "clean-console", "kind": "no_console_error" }
+  ]
+}

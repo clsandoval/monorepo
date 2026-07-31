@@ -1,0 +1,9 @@
+{
+  "rubricId": "auth-verify-badcode",
+  "assertions": [
+    { "id": "error-block",   "kind": "element_visible", "selector": "[data-testid=\"auth-callback-error\"]" },
+    { "id": "expired-copy",  "kind": "text_contains",   "selector": "[data-testid=\"auth-callback-error\"]", "expect": "Your confirmation link may have expired." },
+    { "id": "return-link",   "kind": "text_contains",   "selector": "[data-testid=\"auth-callback-error\"]", "expect": "Return to sign in" },
+    { "id": "no-dashboard",  "kind": "element_absent",  "selector": "[data-testid=\"dashboard-page\"]" }
+  ]
+}

@@ -130,3 +130,75 @@ This is the only wizard state not reachable from `step` by itself.
 - **`journey/seed-smoke.mjs` is not a registered gate.** It needs Docker and a running local Supabase
   stack, which GitHub Actions has neither of. Run it on demand; it exits **2** (cannot-run), not 1, when
   the stack is down.
+
+---
+
+## The account journey, and what it does not cover
+
+Phase 11 registered the JRNY-02 account steps. Each is a record in `journey/steps/account.json`,
+driven by `node journey/run.mjs`, asserted by a rubric in `journey/rubrics/` and layout-frozen by a
+reference in `journey/references/` at `maxDiffPixels` `0`.
+
+**Covered — five steps, all green:**
+
+| Step id | How it is reached |
+|---|---|
+| `auth-signin` | `/auth` with no session; the sign-in card is the default mode. |
+| `auth-signup` | `/auth?mode=signup`; the mode is a validated search param, so the signup card needs no click-through. |
+| `auth-verify-nocode` | `/auth/callback` with no `code`; the route redirects to `/auth?mode=signin`, which is the "verification link with nothing in it" state. |
+| `auth-verify-badcode` | `/auth/callback?code=journey-invalid-code`; GoTrue refuses the exchange and the route renders its error block. |
+| `auth-session-persisted` | `/` with a real Alpha session installed in `localStorage` before first paint; `src/main.tsx` reads it on mount, so the dashboard arrives with no reload. |
+
+`auth-verify-badcode` is the **only** step in the whole registry that sets `allowConsoleErrors`. That
+is not a concession: GoTrue legitimately answers 400 to a code with no verifier, so the console error
+is the product behaving correctly. Every other step carries a `no_console_error` assertion and the
+flag stays `false`.
+
+### Deferred: the happy-path email confirmation
+
+The confirmation-mail round trip is **not** verified, and the reason is measured rather than assumed.
+
+`frontend/supabase/config.toml` sets `[auth.email] enable_confirmations = false`. With that setting
+`signUp` returns a session immediately, `src/routes/auth.tsx` takes the auto-confirmed branch, and the
+"Check your email" interstitial is **unreachable in this stack** — which is also why the
+`auth-check-email` testid exists on a screen no step drives.
+
+Even with confirmations enabled, the exchange cannot be driven from outside the browser that started
+it: supabase-js uses PKCE, so `exchangeCodeForSession` needs a `code_verifier` that only the
+initiating client holds. A link minted out of band therefore fails with exactly
+`invalid request: both auth code and code verifier should be non-empty` — the live string that
+`auth-verify-badcode` now asserts against.
+
+The work is deferred, not impossible: the local mail container is Mailpit v1.30.2 on port 55324 and
+its `GET /api/v1/messages` endpoint answers 200, so a future plan can read the real confirmation link
+out of the inbox and drive it in the same browser context that initiated the signup.
+
+### BLOCKED, not registered: `auth-signed-out`
+
+Logout has **no** passing gate. `journey/rubrics/auth-signed-out.json` is committed but **no step
+names it and no reference was approved for it**, so the registry does not claim coverage it does not
+have.
+
+What was measured, with a real Alpha session, clicking the real `sign-out-desktop` control on `/`:
+
+```
+URL before click: http://127.0.0.1:4173/
+URL after click:  http://127.0.0.1:4173/
+auth-page count: 0     dashboard-page count: 0     sign-out-desktop count: 0
+console errors: []
+sb- localStorage keys after signout: []
+```
+
+The sign-out itself works and works safely — the supabase session key is **removed** from
+`localStorage`, so a reload cannot restore it, and the signed-in chrome is gone. But the application
+stays on `/` and renders the anonymous marketing landing page; it does **not** navigate to `/auth`.
+The planned rubric asserts `[data-testid="auth-page"]` visible and `auth-title` equal to `Sign In`,
+neither of which exists on that page.
+
+Whether logout should land on the sign-in card or on the public landing page is a **product decision
+that plan 11-05 does not contain**, and no research measurement recorded this state. Deleting the two
+failing assertions would have made the step pass while quietly redefining what "logout is verified"
+means, so the step was withheld instead. An owner decision is needed: either the route redirects to
+`/auth` after sign-out (a source change, and then the rubric as written is correct), or landing on the
+public page is intended (and the rubric should assert the landing page plus the absence of the session
+key).
