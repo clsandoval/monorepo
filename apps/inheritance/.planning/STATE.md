@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: ready_to_plan
-stopped_at: Phase 13 complete (7/7) — ready to discuss Phase 14
-last_updated: 2026-07-31T23:06:06.698Z
-last_activity: 2026-07-31 -- Phase 13 executed and verified
+status: executing
+stopped_at: "Phase 13 PLANNED. `13-RESEARCH.md`, `13-VALIDATION.md` and seven `PLAN.md` files across 4 waves (wave 1 = 13-01 currency formatter and 13-02 poppler seam in parallel; wave 2 = 13-03 capture and 13-04 print layout; wave 3 = 13-05 structure and 13-06 visual; wave 4 = 13-07 gate registration). PDF-01..05 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 80 plan file(s), 302 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` reports valid with zero missing keys on each of the seven new plans. Every number in the research was measured live in this tree: `@react-pdf/renderer` rendering a PDF in plain Node, `pdffonts` showing three non-embedded WinAnsi base-14 fonts, `pdftotext` extracting the peso sign as `M-BM-1` (U+00B1), a crop image showing the glyph overprinting the leading digit, the same probe extracting cleanly with `PHP `, `pdftoppm` producing identical `md5sum` twice, `pdfinfo` reporting `595.28 x 841.89 pts (A4)`, and the release engine returning 4 heirs at 150000000 centavos each with `legal_basis` `["Art. 996"]` and 4 narratives containing `₱`. The phase ends at 24 gates. Note for the executor: `gsd-sdk query verify.plan-structure` reports `Task missing <name> element` on all seven, exactly as it does on every one of the 73 pre-existing plans, because this project uses the `<task id="1" name="...">` attribute form throughout; the authoritative check is gate G6, which passes. Next step is `/gsd:execute-phase 13`."
+last_updated: "2026-07-31T23:40:00.291Z"
+last_activity: 2026-07-31
 progress:
   total_phases: 15
-  completed_phases: 12
-  total_plans: 80
+  completed_phases: 13
+  total_plans: 86
   completed_plans: 80
-  percent: 80
+  percent: 87
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-07-27)
 
 Phase: 14 (Lawyer-Blocked Legal Fixes & Legal Traceability) — not started
 Plan: Not started
-Status: Phase 13 COMPLETE and verified. Ready to discuss Phase 14.
+Status: Ready to execute
 
 ## Phase 13 — PDF Verification, COMPLETE
 
@@ -73,12 +73,15 @@ correct.
    after. Proven **pre-existing** — reproduced with Phase 13's source edits stashed away. No ledger was
    appended and no test touched. A flaky *blocking* gate will occasionally paint the unattended loop
    red for no product reason.
+
 2. **CI has still never executed.** Whether 24 gates fit the 60-minute timeout on a hosted runner, and
    whether its substitution fonts match `fonts-urw-base35 20200910-1`, are unmeasured. The workflow
    installs `poppler-utils` and `fonts-urw-base35` and records both as risks.
+
 3. **Three cosmetic PDF issues, deliberately not fixed** (no requirement covers them, no plan
    authorised the change): raw `**` markdown reaches the page, citations render `Art. 996: Art. 996`,
    `Legitime Fraction:` prints a bare `0`. All three are now pinned by G24's zero-tolerance references.
+
 4. **The firm header is uncovered because no PDF a user can obtain has one** — `ActionsBar` calls
    `downloadPDF(input, output, null)`. Recorded in `frontend/journey/JOURNEY.md`.
 
@@ -229,7 +232,7 @@ Recent decisions affecting current work:
 - Phase 5: emitting a `ManualFlag` decides nothing — it is the engine saying a human must decide. Every detector is a field comparison transcribed from the spec table, and the five new input members are facts the person entering the case asserts, never conclusions the engine derives. **No point of Philippine law arises in this phase and nothing was added to the lawyer review agenda.**
 - Phase 5: two anti-regression mechanisms rather than one. `engine/tests/observability.rs` (under existing gate G1) catches a behavioral regression across the whole 140-case corpus; new gate `G11` (`node scripts/check-observability.mjs`) catches a source regression — the reappearance of the empty-warnings literal or a re-zeroed sub-component on a path no test happens to cover. Both hardcoded lines survived unnoticed for the codebase's entire life, which is what justifies a grep-level guard alongside a behavioral one.
 - Phase 5: G11 takes `order` 9, pushing G8 to 10 and G9 to 11 — the same constraint Phase 4 discovered, that `scripts/check-gate-results.mjs` fails with `RESULTS INCOMPLETE` on any gate it sees as `not-run`, so G9 must stay last. The phase ends at 11 gates.
-- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** Ready to plan
+- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** Ready to execute
 
 - Phase 6: measured, not assumed — `LEGAL-CONFORMANCE.md:76`'s three claims all reproduce. Across all 140 committed inputs, `NephewNiece` appears in **0** files, `recipient_is_stranger: true` in **0** files, and the maximum donation/estate ratio is **0.5524**. Five of eleven `Relationship` variants appear nowhere at all.
 - Phase 6: two of COV-01's three shapes BREAK sum conservation today. A donation to an heir at ratio > 1.0 and a donation to a **stranger at any ratio** (measured at 0.1) both make the per-heir sum exceed the estate. Both are the documented LAW-06 defect, lawyer-blocked on LAWYER-06 and owned by Phase 14.

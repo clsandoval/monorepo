@@ -418,7 +418,33 @@ Cross-cutting constraints (appear in 2+ plans):
   4. The spec's four misstated-law passages (Art. 992 pre-*Aquino* framing, Art. 900 ¶2 trigger, Art. 972 ¶1 omission, vanishing-deduction paragraph list) read correctly.
   5. Every implemented legal rule has exactly one named test vector citing its governing article, checkable by grep.
   6. `engine/BUGS.md` reflects reality: BUG-001 is closed as non-reproducing with a note, and a new entry is filed against the real defect at `step7_distribute.rs:313`.
-**Plans**: TBD
+**Plans**: 6 plans, 4 waves (strictly sequential across the engine-touching plans, because 14-01, 14-02 and 14-05 each measure `cargo test` counts and a concurrent run would move another plan's baseline)
+
+  Planning measured the ground truth for all six requirements, and it changes the shape of this phase:
+  criteria 1–3 are **not achievable** — LAWYER-04, LAWYER-06 and LAWYER-08 are all still
+  `awaiting-answer` in `.planning/lawyer-decisions.json` (the lawyer is sitting the bar exam), so
+  LAW-06, LAW-07 and LAW-12 are planned as a gated BLOCKED record, never as a guessed implementation.
+  Criterion 4 is three-quarters open and one-quarter already done: the vanishing-deduction paragraph
+  list was corrected in Phase 8 under LAW-09, while the Art. 992, Art. 900 ¶2 and Art. 972 ¶1
+  passages are untouched (`grep -rin aquino specs/` returns zero hits). Criterion 6's line number has
+  moved: BUG-001's committed JSON now sums to exactly ₱30,000,000 with both disinherited children at
+  ₱0, so it does not reproduce, and the real defect it was masking is at `step7_distribute.rs:421`
+  after the Phase 7 and Phase 8 fixes, not `:313`. Criterion 5 is sized by measurement: the engine's
+  production code cites 79 distinct articles, 63 of which already have a passing test that cites the
+  same article, so the phase traces those 63 and declares the remaining 16 in a shrink-only ledger.
+
+  - **Wave 1** — `14-01` 63 `LEGAL-VECTOR` markers, one per traced article (LAW-14) · `14-03` blocked-requirements ledger and gate G26 for LAW-06/LAW-07/LAW-12 (LAW-06, LAW-07, LAW-12) · `14-04` the spec's four misstatements of law and gate G27 (LAW-13)
+  - **Wave 2** *(blocked on Wave 1: both plans measure `cargo test` counts)* — `14-02` BUGS.md reconciliation, `engine/tests/bugs_ledger.rs` and gate G29 (LAW-15)
+  - **Wave 3** *(blocked on Wave 2: consumes 14-01's markers and must not race 14-02's new test file)* — `14-05` traceability registry, shrink-only untraced ledger and gate G28 (LAW-14)
+  - **Wave 4** *(blocked on Waves 1–3: registers the four gates the earlier plans built)* — `14-06` gates G26–G29 at orders 21–24, `GATES.md`, requirement records, full runner (LAW-06, LAW-07, LAW-12, LAW-13, LAW-14, LAW-15)
+
+  Cross-cutting constraints (appear in 2+ plans):
+  - No point of Philippine law may be decided. LAW-06, LAW-07 and LAW-12 stay open on LAWYER-06, LAWYER-04 and LAWYER-08; every legal sentence written into a spec or into `engine/BUGS.md` is a verbatim quotation already transcribed in `.planning/research/LEGAL-CONFORMANCE.md`, attributed as such
+  - Every commit stages explicit file paths via `bash scripts/safe-commit.sh`; `git add -A`, `git add .` and `git commit -a` are prohibited (concurrent auto-committer on this monorepo)
+  - No gate, test or assertion may be weakened to pass; a check that cannot legitimately pass is reported BLOCKED with the real pasted command output
+  - Every failure path of every new check is observed firing against a committed fixture, and no new check has a `--fix`, `--update`, `--accept`, `--regenerate` or waiver flag
+  - Every new check emits exactly one `GATE-SKIPS total=<n> skipped=0` line; `gate-skips.lock` is owner-owned and gains no entry, so declared coverage gaps go in `engine/legal-traceability.lock` instead
+  - `G14` stays reserved and unregistered for Phase 9's `09-06`; the new ids are G26–G29 at orders 21–24, G10/G11/G8/G9 shift to 25–28 with `G9` still last, and `bash scripts/ci-gates.sh` must print `ALL GATES PASSED (28/28)`
 
 ### Phase 15: Extendability & Documentation Closeout
 **Goal**: A returning owner or a new collaborator can determine current state, what's verified, and what's next from the planning directory alone, and `CLAUDE.md` states the invariants that prevent the regressions no test would catch.
