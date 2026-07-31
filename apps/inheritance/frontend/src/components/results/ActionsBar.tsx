@@ -75,6 +75,7 @@ export function ActionsBar({ input, output, onEditInput, caseId, shareToken, sha
         <Button
           type="button"
           variant="outline"
+          data-testid="export-pdf"
           onClick={handleExportPDF}
           disabled={pdfLoading}
         >

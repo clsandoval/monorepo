@@ -133,6 +133,17 @@ describe('results > ActionsBar', () => {
       expect(screen.getByRole('button', { name: /Export PDF/i })).toBeInTheDocument();
     });
 
+    // The PDF journey gates (journey/pdf-capture.mjs) reach this control by its
+    // test hook and click it in a real browser. A rename of the button, or a
+    // dropped attribute, would silently orphan every PDF gate — this assertion
+    // makes that a test failure instead.
+    it('exposes the Export PDF button under data-testid="export-pdf"', () => {
+      renderActions();
+      const button = screen.getByTestId('export-pdf');
+      expect(button).toBeInTheDocument();
+      expect(button.textContent).toContain('Export PDF');
+    });
+
     it('renders "Export JSON" button', () => {
       renderActions();
       expect(screen.getByRole('button', { name: /Export JSON/i })).toBeInTheDocument();
