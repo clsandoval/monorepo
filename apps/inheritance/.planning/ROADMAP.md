@@ -13,7 +13,7 @@ Nothing in this codebase is currently verifiable, and two hardcoded lines make e
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Gate Foundations — Suites Execute At All** - Make `npm test`, `tsc -b`, the WASM build, and CI itself real
-- [ ] **Phase 2: Loop Durability & Commit Discipline** - Make the month-long autonomous grind survivable and self-reporting
+- [x] **Phase 2: Loop Durability & Commit Discipline** - Make the month-long autonomous grind survivable and self-reporting (completed 2026-07-31)
 - [ ] **Phase 3: Reproducible Environment & Gate Reporting** - Local Supabase, seed data, storage buckets, machine-readable gate results
 - [ ] **Phase 4: Lawyer Review Agenda Recorded** - Send the eight interpretive questions out now, while the lawyer is unreachable
 - [ ] **Phase 5: Engine Observability Restored** - Turn `warnings` and the legitime/free-portion split back on
@@ -238,7 +238,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Gate Foundations | 4/4 | Complete | 2026-07-31 |
-| 2. Loop Durability & Commit Discipline | 3/6 | In Progress|  |
+| 2. Loop Durability & Commit Discipline | 6/6 | Complete   | 2026-07-31 |
 | 3. Reproducible Environment & Gate Reporting | 0/TBD | Not started | - |
 | 4. Lawyer Review Agenda Recorded | 0/TBD | Not started | - |
 | 5. Engine Observability Restored | 0/TBD | Not started | - |

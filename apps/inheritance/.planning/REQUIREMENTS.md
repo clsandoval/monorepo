@@ -128,9 +128,9 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 - [x] **LOOP-01**: Each plan is closed-world — an executing agent needs no decision the plan does not contain
 - [x] **LOOP-02**: A plan whose gates cannot run halts and reports, rather than proceeding or redefining success
 - [x] **LOOP-03**: The gate manifest is immutable to the executing agent; widening or weakening a gate requires owner action
-- [ ] **LOOP-04**: Progress is measured against the frozen gate manifest, so a narrowed scope is visible as reduced coverage
+- [x] **LOOP-04**: Progress is measured against the frozen gate manifest, so a narrowed scope is visible as reduced coverage
 - [x] **LOOP-05**: Work is committed with scoped, explicit file lists — never `git add -A` — because a concurrent auto-committer on this monorepo will otherwise absorb staged changes into unrelated commits
-- [ ] **LOOP-06**: A stalled or repeatedly-failing loop surfaces without the owner having to poll
+- [x] **LOOP-06**: A stalled or repeatedly-failing loop surfaces without the owner having to poll
 
 ---
 

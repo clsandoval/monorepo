@@ -2,3 +2,9 @@
 {"ts":"2026-07-31T06:12:19Z","outcome":"cannot-run","failure_signature":"CANNOT_RUN:G6","gates_run":2,"gates_total":7,"only":""}
 {"ts":"2026-07-31T06:13:02Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
 {"ts":"2026-07-31T06:14:39Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
+{"ts":"2026-07-31T06:15:56Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
+{"ts":"2026-07-31T06:15:56Z","outcome":"fail","failure_signature":"G6:3","gates_run":2,"gates_total":7,"only":""}
+{"ts":"2026-07-31T06:15:56Z","outcome":"cannot-run","failure_signature":"CANNOT_RUN:G6","gates_run":2,"gates_total":7,"only":""}
+{"ts":"2026-07-31T06:15:56Z","outcome":"cannot-run","failure_signature":"CANNOT_RUN:G6","gates_run":2,"gates_total":7,"only":""}
+{"ts":"2026-07-31T06:15:56Z","outcome":"cannot-run","failure_signature":"PREFLIGHT:cargo","gates_run":0,"gates_total":7,"only":""}
+{"ts":"2026-07-31T06:16:44Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
