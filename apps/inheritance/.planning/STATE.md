@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 6 COMPLETE and gate-verified (5/5 plans, 6 commits). COV-01..COV-05 all proven by commands actually run: corpus reaches all 11 Relationship variants (was 6) with a stranger donee and a 1.5 donation ratio (was 0.5524 max); fuzz_invariants.rs is 17 cargo tests instead of 1, so cargo itself names the broken invariant; engine/tests/defect_ledger.rs is bidirectional over a shrink-only engine/defect-baseline.json; all 23 legal vectors pin exact ScenarioCode + SuccessionType + row count + per-heir centavos (was 0 asserting a scenario code); engine/COVERAGE.md reports 17 modules with gate G12; gate G13 fails the build on assertion-free or weak-only tests over 112 files / 2383 blocks. Gate set grew 11 -> 13, no locked command changed. Full `bash scripts/ci-gates.sh` exits 1 at G3 (gate 8 of 13) -- the SAME five Phase 5 OBS-05/OBS-06 tests, untouched by this phase. `ALL GATES PASSED (13/13)` is NOT achievable until that one product decision is answered; the plans said so up front and it is not claimed. One deviation to know about: engine/defect-baseline.json was corrected during 06-02 (unpadded invariant ids renamed to the canonical INV01 namespace, and SAFETY01 added to case 02 which genuinely violates it -- lc2 gets 125000000 centavos of a 100000000 estate). It declares MORE wrongness, not less, and still holds exactly 3 entries. Next step: answer the OBS-05/OBS-06 question, then Phase 7."
-last_updated: "2026-07-31T14:30:00.000Z"
-last_activity: 2026-07-31 -- Phase 6 executed and gate-verified
+stopped_at: "Phase 6 PLANNED. `06-RESEARCH.md`, `06-VALIDATION.md` and five `PLAN.md` files across 4 waves (wave 1 = 06-01 corpus and 06-03 vector tightening in parallel; wave 2 = 06-02 invariant split; waves 3 and 4 serialize on the four gate-infrastructure files). COV-01..05 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 32 plan file(s), 117 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` plus `verify.plan-structure` report valid with zero errors on each of the five new plans. Every number in the research was measured live in this tree, including a bisection that reproduced the collateral duplicate-heir defect to the centavo. The phase ends at 13 gates; a full `ci-gates.sh` run will still halt at G3 until Phase 5's product decision is answered. Next step is `/gsd:execute-phase 6`."
+last_updated: "2026-07-31T14:17:24.684Z"
+last_activity: 2026-07-31 -- Phase 7 planning complete
 progress:
   total_phases: 15
   completed_phases: 6
-  total_plans: 32
+  total_plans: 36
   completed_plans: 32
   percent: 40
 ---
@@ -27,9 +27,9 @@ See: .planning/PROJECT.md (updated 2026-07-27)
 
 Phase: 06 (property-test-coverage-depth) — COMPLETE
 Plan: 5 of 5 executed
-Status: Verified — every COV requirement proven by a command that was run and whose output was read
+Status: Ready to execute
 Carried forward: Phase 05 remains BLOCKED on one product decision (OBS-05/OBS-06). Gate G3 is still red and `bash scripts/ci-gates.sh` still halts there, now at gate 8 of 13. Phase 6 did not touch it and did not hide it: both new gates (G12 order 4, G13 order 5) sit ahead of G3 and run on every invocation, and the same five tests fail with the same messages as before.
-Last activity: 2026-07-31 -- Phase 6 executed and gate-verified
+Last activity: 2026-07-31 -- Phase 7 planning complete
 
 Progress: [█░░░░░░░░░] 7%
 

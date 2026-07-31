@@ -193,7 +193,19 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Total repudiation by the nearest-degree heirs passes the estate to the next living degree in their own right (Art. 969) rather than escheating while living grandchildren exist.
   4. No representation scenario credits a predeceased ascendant's share by walking up the line; representation strictly follows the descending line only (Art. 972 ¶1).
   5. The property tests strengthened in Phase 6 (which now generate these exact shapes) pass against the fixed code.
-**Plans**: TBD
+**Plans**: 4 plans, 4 waves (strictly sequential — three of the four plans edit both `engine/src/step2_lines.rs` and `engine/src/step7_distribute.rs`, and each tier must be fixed end to end so `cargo test` is green between waves)
+  - **Wave 1** — `07-01` Ascendant tier end to end: per-category anchor selection, the ascending-line representation ban, and Regime B distribution by nearest living degree and by line (LAW-01, LAW-04)
+  - **Wave 2** *(blocked on Wave 1: extends the same `anchor_ids_for_category` function and the same step-7 file)* — `07-02` Collateral tier: sibling anchors at degree 2, one-level collateral representation, anchor-aware step-7 filters, the LAWYER-03 mixed-blood flag, and the defect-ledger shrink (LAW-02)
+  - **Wave 3** *(blocked on Wave 2: reuses the `degree_yields_a_line` predicate wave 2 adds and edits the same two files plus step 9)* — `07-03` Descendant tier: Art. 969 promotion of the following degree, `get_lc_lines` routed through the shared anchor set, degree-scoped total-repudiation detection (LAW-03)
+  - **Wave 4** *(blocked on Waves 1–3: the vectors assert the behaviour all three produce)* — `07-04` Four named regression vectors, WASM rebuild, frontend ledger comparison, requirement closeout (LAW-01, LAW-02, LAW-03, LAW-04)
+
+  Cross-cutting constraints (appear in 2+ plans):
+  - Every commit stages explicit file paths via `bash scripts/safe-commit.sh`; `git add -A`, `git add .`, and `git commit -a` are prohibited (concurrent auto-committer on this monorepo)
+  - No test, assertion or gate may be deleted, skipped, weakened or loosened; a gate that cannot legitimately pass is reported BLOCKED with the real command output. No pre-existing expected value in `engine/tests/integration.rs` may be edited — `07-RESEARCH.md` §6.1 establishes that TV-15, TV-19, TV-20 and TV-23 do not move
+  - `cd engine && cargo test` must report 0 failed at the end of every task, and the passing count may not fall below 481
+  - The recorded question LAWYER-03 must not be answered. Making collateral representation real makes `distribute_nephews_only` reachable for the first time; its arithmetic, its `Art. 975` basis and its `LAWYER-DECISION: LAWYER-03` marker stay untouched, a manual-review flag fires on the mixed-blood shape, and no test pins a centavo value for that shape
+  - `engine/defect-baseline.json` may only shrink; the LAW-02 entry is deleted by the plan that makes it stale, and the two LAW-06 entries stay
+  - No gate is added, removed, reordered or given a new command; `gates.manifest.json`, `gates.manifest.lock`, `gate-skips.lock`, `frontend/test-baseline.json` and `GATES.md` are not touched. `bash scripts/ci-gates.sh` still halts at G3 for Phase 5's unresolved OBS-05/OBS-06 decision, so `ALL GATES PASSED (13/13)` is not achievable in this phase and must not be claimed
 
 ### Phase 8: Remaining Unblocked Legal & Tax-Bridge Defects
 **Goal**: The remaining critical and high-severity legal defects that need no lawyer input are fixed, closing the ₱30M-from-₱10M donation overpay, the 74.5% estate-tax-bridge understatement, the repealed medical deduction, the vanishing-deduction ratio gap, and the silent reserva troncal omission.
@@ -303,7 +315,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 4. Lawyer Review Agenda Recorded | 5/5 | Complete    | 2026-07-31 |
 | 5. Engine Observability Restored | 7/7 | Blocked    | 2026-07-31 |
 | 6. Property-Test Coverage Depth | 0/5 | Planned | - |
-| 7. Intestate Order & Representation Root-Cause Fixes | 0/TBD | Not started | - |
+| 7. Intestate Order & Representation Root-Cause Fixes | 0/4 | Planned | - |
 | 8. Remaining Unblocked Legal & Tax-Bridge Defects | 0/TBD | Not started | - |
 | 9. Single Source of Truth — Dedup Classifiers & Money Types | 0/TBD | Not started | - |
 | 10. Journey Gate Infrastructure | 0/TBD | Not started | - |
