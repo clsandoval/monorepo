@@ -82,7 +82,7 @@ Screenshot plus vision, per step, for the money path. `.planning/codebase/ARCHIT
 - [x] **JRNY-08**: The public share-link view is verified, including that it exposes only what it should
 - [ ] **JRNY-09**: A vision rubric is a fixed list of yes/no assertions returning structured output, never free-form judgment
 - [ ] **JRNY-10**: A perceptual-diff failure is distinguishable from a rubric failure, and reference images have a documented re-approval flow
-- [ ] **JRNY-11**: Landing, blog, and SEO routes have a smoke gate: renders, no console error, no 404
+- [x] **JRNY-11**: Landing, blog, and SEO routes have a smoke gate: renders, no console error, no 404
 - [ ] **JRNY-12**: Every gate failure emits the screenshot, the diff, and the failing assertion as durable artifacts
 
 ### PDF Verification
