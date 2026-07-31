@@ -251,6 +251,7 @@ pub fn step5_compute_legitimes(input: &Step5Input) -> Step5Output {
         }
 
         ScenarioCode::T2 => {
+            // LAWYER-DECISION: LAWYER-02 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
             // 1 LC + Spouse (Arts. 888, 892 ¶1): LC = E/2, Spouse = E/4
             add_lc_legitimes(&mut heir_legitimes, &input.heirs, &frac(1, 2), e, false, vec!["Art. 888".into()]);
             let sp = frac(1, 4);

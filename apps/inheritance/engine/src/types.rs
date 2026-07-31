@@ -343,6 +343,7 @@ pub struct Adoption {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EngineConfig {
+    // LAWYER-DECISION: LAWYER-08 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
     pub retroactive_ra_11642: bool,
     pub max_pipeline_restarts: i32,
 }

@@ -66,6 +66,7 @@ pub struct Step4Output {
 
 // ── Public API ──────────────────────────────────────────────────────
 
+// LAWYER-DECISION: LAWYER-06 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
 /// Compute the adjusted estate base by evaluating each donation's collatability
 /// and adding collatable amounts to the net estate.
 ///

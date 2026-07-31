@@ -90,6 +90,7 @@ pub struct Step8Output {
 
 // ── Public API ──────────────────────────────────────────────────────
 
+// LAWYER-DECISION: LAWYER-06 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
 /// Perform collation adjustment: impute each donee-heir's collatable donations
 /// against their gross entitlement to determine what they receive from the
 /// physical estate.

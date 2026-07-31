@@ -171,6 +171,7 @@ pub fn is_compulsory_heir(raw: HeirCategory) -> bool {
     )
 }
 
+// LAWYER-DECISION: LAWYER-04 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer. Art. 992's iron curtain would be enforced here; no barrier is implemented today.
 /// Check eligibility of an heir per §4.3 eligibility gate.
 /// Returns `true` if the heir is eligible to participate.
 pub fn check_eligibility(person: &Person, category: HeirCategory) -> bool {

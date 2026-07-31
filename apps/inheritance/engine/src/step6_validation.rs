@@ -552,6 +552,7 @@ pub fn check_inofficiousness(
     }
 }
 
+// LAWYER-DECISION: LAWYER-05 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
 /// Art. 911 three-phase reduction algorithm.
 ///
 /// Reduces dispositions in strict order:

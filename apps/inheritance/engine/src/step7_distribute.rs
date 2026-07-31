@@ -552,6 +552,7 @@ fn distribute_i1(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
     distribute_lc_lines(&lines, &per_line, vec!["Art. 980".into()])
 }
 
+// LAWYER-DECISION: LAWYER-01 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
 /// I2: n LC + Spouse (Art. 996) — spouse = one child-line's share.
 fn distribute_i2(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
     let lines = get_lc_lines(heirs);
@@ -941,6 +942,7 @@ fn distribute_siblings_with_representation(
     result
 }
 
+// LAWYER-DECISION: LAWYER-03 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
 /// Branch 3: Nephews/nieces only — per capita (Art. 975).
 fn distribute_nephews_only(amount: &Frac, nephews: &[&Heir]) -> Vec<HeirDistribution> {
     let per_nephew = amount / &frac(nephews.len() as i64, 1);

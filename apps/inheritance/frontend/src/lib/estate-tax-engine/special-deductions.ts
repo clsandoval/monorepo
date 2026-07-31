@@ -68,6 +68,7 @@ function computeFamilyHome(
 
   const cap = deductionRules === 'TRAIN' ? FAMILY_HOME_CAP_TRAIN : FAMILY_HOME_CAP_PRE_TRAIN;
 
+  // LAWYER-DECISION: LAWYER-07 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
   if (familyHome.ownershipType === 'conjugal') {
     return Math.min(Math.floor(familyHome.fmv * 0.5), cap);
   }

@@ -1005,7 +1005,8 @@ function computeFamilyHomeDeduction(grossEstate, decedent, deductionRules) → P
     return min(fmv * 0.5, cap)  // Decedent's half only; spouse's half via Item 39
 
 // The full FMV appears in Item 30 (gross estate); only the capped/halved amount is the deduction here
-// Note: Some commentary uses full FMV for conjugal; this engine implements the NIRC text (½ for conjugal)
+// LAWYER-DECISION: LAWYER-07 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
+// Engine implements Reading A, ½ for conjugal, per RR 12-2018 §7.2.3 ("whichever is lower"). Status: awaiting-answer. Reading B, full FMV to the cap, is recorded in the agenda and has not been ruled out.
 // Only one property may be designated as family home; multiple flagged → ERR_MULTIPLE_FAMILY_HOMES
 ```
 
