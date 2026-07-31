@@ -10,6 +10,7 @@
     "postbuild": "tsx scripts/generate-sitemap.ts",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:gate": "node scripts/check-test-baseline.mjs",
     "test:watch": "vitest"
   },
   "dependencies": {

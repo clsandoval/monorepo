@@ -1,0 +1,442 @@
+{
+  "numTotalTests": 2416,
+  "numPassedTests": 2371,
+  "numFailedTests": 45,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "success": false,
+  "testResults": [
+    {
+      "name": "/home/clsandoval/cs/monorepo/apps/inheritance/frontend/src/components/quick-calc/__tests__/landing-integration.test.tsx",
+      "status": "failed",
+      "assertionResults": [
+        {
+          "fullName": "Landing page (unauthenticated) still renders feature cards",
+          "title": "Landing page (unauthenticated) still renders feature cards",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "/home/clsandoval/cs/monorepo/apps/inheritance/frontend/src/components/settings/__tests__/InviteMemberDialog.test.tsx",
+      "status": "failed",
+      "assertionResults": [
+        {
+          "fullName": "InviteMemberDialog shows role dropdown with 4 options",
+          "title": "InviteMemberDialog shows role dropdown with 4 options",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "InviteMemberDialog submit creates invitation with email and role",
+          "title": "InviteMemberDialog submit creates invitation with email and role",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "/home/clsandoval/cs/monorepo/apps/inheritance/frontend/src/components/shared/__tests__/EnumSelect.test.tsx",
+      "status": "failed",
+      "assertionResults": [
+        {
+          "fullName": "shared > EnumSelect BloodType options renders exactly 2 blood type options",
+          "title": "shared > EnumSelect BloodType options renders exactly 2 blood type options",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > EnumSelect BloodType options selecting \"Full\" updates form value",
+          "title": "shared > EnumSelect BloodType options selecting \"Full\" updates form value",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > EnumSelect filtering applies filter to restrict available options",
+          "title": "shared > EnumSelect filtering applies filter to restrict available options",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > EnumSelect grouped options renders \"Collateral Heirs\" group",
+          "title": "shared > EnumSelect grouped options renders \"Collateral Heirs\" group",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > EnumSelect grouped options renders \"Compulsory Heirs\" group",
+          "title": "shared > EnumSelect grouped options renders \"Compulsory Heirs\" group",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > EnumSelect grouped options renders option groups when options have group property",
+          "title": "shared > EnumSelect grouped options renders option groups when options have group property",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > EnumSelect selection fires onChange and updates form value on selection",
+          "title": "shared > EnumSelect selection fires onChange and updates form value on selection",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > EnumSelect selection pre-selects from default value",
+          "title": "shared > EnumSelect selection pre-selects from default value",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > EnumSelect selection uses PascalCase enum values (not snake_case)",
+          "title": "shared > EnumSelect selection uses PascalCase enum values (not snake_case)",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "/home/clsandoval/cs/monorepo/apps/inheritance/frontend/src/components/shared/__tests__/PersonPicker.test.tsx",
+      "status": "failed",
+      "assertionResults": [
+        {
+          "fullName": "shared > PersonPicker filtering applies excludeIds to hide specific persons",
+          "title": "shared > PersonPicker filtering applies excludeIds to hide specific persons",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > PersonPicker filtering applies filter to restrict available options",
+          "title": "shared > PersonPicker filtering applies filter to restrict available options",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > PersonPicker rendering renders all person options",
+          "title": "shared > PersonPicker rendering renders all person options",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > PersonPicker selection pre-selects person from default value",
+          "title": "shared > PersonPicker selection pre-selects person from default value",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > PersonPicker selection selects a person and updates form value to their ID",
+          "title": "shared > PersonPicker selection selects a person and updates form value to their ID",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > PersonPicker selection shows person name + relationship badge in options",
+          "title": "shared > PersonPicker selection shows person name + relationship badge in options",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > PersonPicker stranger option selecting stranger sets person_id to null",
+          "title": "shared > PersonPicker stranger option selecting stranger sets person_id to null",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "shared > PersonPicker stranger option shows \"Other (not in family tree)\" option when allowStranger=true",
+          "title": "shared > PersonPicker stranger option shows \"Other (not in family tree)\" option when allowStranger=true",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "/home/clsandoval/cs/monorepo/apps/inheritance/frontend/src/components/tax/__tests__/EstateTaxWizard.test.tsx",
+      "status": "failed",
+      "assertionResults": [
+        {
+          "fullName": "tax-wizard > EstateTaxWizard shows \"Error saving\" when autoSaveStatus is error",
+          "title": "tax-wizard > EstateTaxWizard shows \"Error saving\" when autoSaveStatus is error",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "tax-wizard > EstateTaxWizard shows checkmark on tab 0 when decedent fields are filled",
+          "title": "tax-wizard > EstateTaxWizard shows checkmark on tab 0 when decedent fields are filled",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "tax-wizard > EstateTaxWizard shows checkmark on tab 1 when executor name is filled",
+          "title": "tax-wizard > EstateTaxWizard shows checkmark on tab 1 when executor name is filled",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "tax-wizard > EstateTaxWizard tabs 2-7 always show checkmark (empty = valid)",
+          "title": "tax-wizard > EstateTaxWizard tabs 2-7 always show checkmark (empty = valid)",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "tax-wizard > OtherAssetsTab renders three sections",
+          "title": "tax-wizard > OtherAssetsTab renders three sections",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "/home/clsandoval/cs/monorepo/apps/inheritance/frontend/src/components/wizard/__tests__/DonationsStep.test.tsx",
+      "status": "failed",
+      "assertionResults": [
+        {
+          "fullName": "wizard-step5 > DonationsStep cross-step validation PersonPicker is populated from family_tree persons",
+          "title": "wizard-step5 > DonationsStep cross-step validation PersonPicker is populated from family_tree persons",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "/home/clsandoval/cs/monorepo/apps/inheritance/frontend/src/components/wizard/__tests__/HeirReferenceForm.test.tsx",
+      "status": "failed",
+      "assertionResults": [
+        {
+          "fullName": "wizard-step4 > HeirReferenceForm person selection selecting a person populates name as read-only",
+          "title": "wizard-step4 > HeirReferenceForm person selection selecting a person populates name as read-only",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "/home/clsandoval/cs/monorepo/apps/inheritance/frontend/src/components/wizard/__tests__/ReviewStep.test.tsx",
+      "status": "failed",
+      "assertionResults": [
+        {
+          "fullName": "wizard-step6 > ReviewStep summary sections renders donations count",
+          "title": "wizard-step6 > ReviewStep summary sections renders donations count",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "wizard-step6 > ReviewStep summary sections renders estate summary with formatted amount",
+          "title": "wizard-step6 > ReviewStep summary sections renders estate summary with formatted amount",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "wizard-step6 > ReviewStep summary sections renders family tree person count",
+          "title": "wizard-step6 > ReviewStep summary sections renders family tree person count",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "wizard-step6 > ReviewStep summary sections renders will disposition counts when hasWill=true",
+          "title": "wizard-step6 > ReviewStep summary sections renders will disposition counts when hasWill=true",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "/home/clsandoval/cs/monorepo/apps/inheritance/frontend/src/components/wizard/__tests__/WillStep.test.tsx",
+      "status": "failed",
+      "assertionResults": [
+        {
+          "fullName": "wizard-step4 > WillStep rendering renders 4 sub-tabs",
+          "title": "wizard-step4 > WillStep rendering renders 4 sub-tabs",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "/home/clsandoval/cs/monorepo/apps/inheritance/frontend/src/lib/__tests__/supabase.test.ts",
+      "status": "failed",
+      "assertionResults": [
+        {
+          "fullName": "supabase client throws if VITE_SUPABASE_ANON_KEY is missing",
+          "title": "supabase client throws if VITE_SUPABASE_ANON_KEY is missing",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "supabase client throws if VITE_SUPABASE_URL is missing",
+          "title": "supabase client throws if VITE_SUPABASE_URL is missing",
+          "status": "passed",
+          "failureMessages": []
+        }
+      ]
+    },
+    {
+      "name": "/home/clsandoval/cs/monorepo/apps/inheritance/frontend/src/routes/settings/__tests__/team.test.tsx",
+      "status": "failed",
+      "assertionResults": [
+        {
+          "fullName": "TeamSettingsPage hides invite button for non-admin roles",
+          "title": "TeamSettingsPage hides invite button for non-admin roles",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "TeamSettingsPage opens invite dialog when invite button clicked",
+          "title": "TeamSettingsPage opens invite dialog when invite button clicked",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "TeamSettingsPage renders organization name",
+          "title": "TeamSettingsPage renders organization name",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "TeamSettingsPage renders team member list",
+          "title": "TeamSettingsPage renders team member list",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "TeamSettingsPage renders team settings page with title",
+          "title": "TeamSettingsPage renders team settings page with title",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "TeamSettingsPage shows error state",
+          "title": "TeamSettingsPage shows error state",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "TeamSettingsPage shows invite button for admin",
+          "title": "TeamSettingsPage shows invite button for admin",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "TeamSettingsPage shows loading state",
+          "title": "TeamSettingsPage shows loading state",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "TeamSettingsPage shows no organization message when user has no org",
+          "title": "TeamSettingsPage shows no organization message when user has no org",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "TeamSettingsPage shows plan info",
+          "title": "TeamSettingsPage shows plan info",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "TeamSettingsPage shows seat usage count",
+          "title": "TeamSettingsPage shows seat usage count",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        },
+        {
+          "fullName": "TeamSettingsPage shows solo plan restriction message",
+          "title": "TeamSettingsPage shows solo plan restriction message",
+          "status": "failed",
+          "failureMessages": [
+            "synthetic fixture failure"
+          ]
+        }
+      ]
+    }
+  ]
+}
