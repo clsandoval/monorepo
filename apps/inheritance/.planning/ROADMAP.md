@@ -139,7 +139,22 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. A deliberately corrupted per-heir output (sum ≠ estate, or a duplicate `heir_id`) is rejected at runtime by a new conservation/duplicate check, not merely flagged by a test assertion.
   4. A malformed `EngineInput` produces a structured validation error at the WASM boundary in a frontend test, instead of an uncaught trap or unhandled rejection.
   5. A frontend error is captured and reportable, and the engine's per-step `computation_log` can be inspected for any case a lawyer questions.
-**Plans**: TBD
+**Plans**: 7 plans, 5 waves (wave 1 is two independent artifacts — one engine, one frontend; waves 2–5 are constrained by shared files, since six of the seven plans touch `engine/src/pipeline.rs`, `engine/src/step10_finalize.rs` or `engine/src/wasm.rs`)
+  - **Wave 1** — `05-01` Warning and per-step computation-log propagation through the pipeline (OBS-01, OBS-09) · `05-02` Frontend error capture behind a root error boundary (OBS-08)
+  - **Wave 2** *(blocked on Wave 1: `05-03` edits the file wave 1 reshaped, `05-04` edits the pipeline wave 1 rewired)* — `05-03` Per-heir legitime/free-portion/intestate rounding and `legitime_fraction` (OBS-03, OBS-04) · `05-04` All ten spec-defined manual review flag codes and their detectors (OBS-02)
+  - **Wave 3** *(blocked on Waves 2: shares `engine/src/lib.rs` and `engine/src/pipeline.rs` with `05-04`)* — `05-05` Runtime conservation and duplicate-heir rejection at the checked entry point (OBS-05, OBS-06)
+  - **Wave 4** *(blocked on Wave 3: shares `engine/src/wasm.rs`)* — `05-06` Structured validation error at the WASM boundary, typed on the frontend (OBS-07)
+  - **Wave 5** *(blocked on Waves 1–4: asserts the inverted baseline every prior wave produced)* — `05-07` Corpus observability test, static anti-regression gate G11, `GATES.md` section 9 (OBS-01…OBS-09)
+
+  Cross-cutting constraints (appear in 2+ plans):
+  - Every commit stages explicit file paths via `bash scripts/safe-commit.sh`; `git add -A`, `git add .`, and `git commit -a` are prohibited (concurrent auto-committer on this monorepo)
+  - No gate, test, or assertion may be weakened to pass; a gate that cannot legitimately pass is reported BLOCKED with the real command output
+  - `pub fn run_pipeline(input: &EngineInput) -> EngineOutput` keeps its signature; the checked behavior arrives as a new function, because `engine/tests/fuzz_invariants.rs` wraps the old one in `catch_unwind` and all 30 integration tests use a private copy
+  - `engine/tests/integration.rs` holds its own inline copy of the pipeline and constructs `Step10Input` directly; any change to that struct must be mirrored there or the test binary does not compile
+  - No peso amount may change anywhere in this phase. The estate-level sum invariant asserted over 100 fuzz cases must still pass, and the 140 committed inputs under `engine/examples/` may not be edited
+  - `frontend/test-baseline.json` may only shrink and `gate-skips.lock` may only shrink; `gates.manifest.json` and `gates.manifest.lock` may only grow, and gate G9 must stay last
+  - The `LAWYER-DECISION: LAWYER-08` marker on `pub retroactive_ra_11642: bool` in `engine/src/types.rs` must survive verbatim and adjacent; `node scripts/check-lawyer-agenda.mjs` is a per-plan verification step
+  - No point of Philippine law arises anywhere in this phase. Emitting a manual review flag is the engine saying a human must decide, which decides nothing; every detector is a field comparison transcribed from `specs/inheritance-engine-spec.md` §13.1
 
 ### Phase 6: Property-Test Coverage Depth
 **Goal**: The property-test generator and the assertion discipline around it are strong enough that the corpus can actually reach the shapes that break the engine, and a violation says which invariant broke.
@@ -271,7 +286,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 2. Loop Durability & Commit Discipline | 6/6 | Complete   | 2026-07-31 |
 | 3. Reproducible Environment & Gate Reporting | 5/5 | Complete    | 2026-07-31 |
 | 4. Lawyer Review Agenda Recorded | 5/5 | Complete    | 2026-07-31 |
-| 5. Engine Observability Restored | 0/TBD | Not started | - |
+| 5. Engine Observability Restored | 0/7 | Planned | - |
 | 6. Property-Test Coverage Depth | 0/TBD | Not started | - |
 | 7. Intestate Order & Representation Root-Cause Fixes | 0/TBD | Not started | - |
 | 8. Remaining Unblocked Legal & Tax-Bridge Defects | 0/TBD | Not started | - |
