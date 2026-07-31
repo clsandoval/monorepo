@@ -51,6 +51,11 @@
       "id": "G10",
       "command": "node scripts/check-lawyer-agenda.mjs",
       "blocking": true
+    },
+    {
+      "id": "G11",
+      "command": "node scripts/check-observability.mjs",
+      "blocking": true
     }
   ]
 }

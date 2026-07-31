@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 9,
+      "order": 10,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 10,
+      "order": 11,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -129,6 +129,25 @@
       "proves": "Every recorded interpretive choice exists in both the agenda and the registry, still resolves to the rule it governs, and cannot have its status advanced without a recorded answer.",
       "requirements": [
         "LAWYER-09"
+      ]
+    },
+    {
+      "id": "G11",
+      "name": "engine observability",
+      "order": 9,
+      "command": "node scripts/check-observability.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f engine/src/step10_finalize.rs",
+      "blocking": true,
+      "proves": "The engine still emits warnings, the legitime and free-portion split, and a structured boundary error. All ten spec-defined manual review flag codes are declared and exercised, and neither hardcoded line that suppressed observability has returned.",
+      "requirements": [
+        "OBS-01",
+        "OBS-02",
+        "OBS-03",
+        "OBS-04",
+        "OBS-05",
+        "OBS-06",
+        "OBS-07"
       ]
     }
   ]

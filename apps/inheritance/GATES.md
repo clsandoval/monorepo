@@ -548,3 +548,79 @@ rather than being emitted after it and ignored.
 
 **Changing a status.** `.planning/LEGAL-CORRECTION-WORKFLOW.md` is the only procedure by which a
 recorded decision's status changes. Editing the registry or the agenda directly is not it.
+
+---
+
+## 9. Engine observability
+
+**The failure this closes: an empty warnings array is indistinguishable from a correct one.**
+
+Two lines did the damage. `engine/src/step10_finalize.rs` hardcoded `warnings` to an empty vector, and
+the same file hardcoded all three per-heir sub-components to zero with an empty `legitime_fraction`
+beside them. Both survived for the whole life of this codebase, unnoticed. The consequence is the
+reason this phase came before every legal-fix phase: **every one of the nine defects catalogued in
+`.planning/research/LEGAL-CONFORMANCE.md` reproduced with `warnings: []`.** A lawyer reading engine
+output could not tell a corrected case from a broken one, and neither could a gate.
+
+### Measured, before and after
+
+Taken live over all 140 committed inputs (20 `examples/cases`, 100 `examples/fuzz-cases`,
+20 `examples/testate-cases`) and the 564 per-heir rows they produce.
+
+| Quantity | Before Phase 5 | After Phase 5 |
+|---|---|---|
+| per-heir rows with a nonzero `from_legitime` | 0 | 105 |
+| per-heir rows with a nonzero `from_free_portion` | 0 | 25 |
+| per-heir rows with a nonzero `from_intestate` | 0 | 457 |
+| per-heir rows with a non-empty `legitime_fraction` | 0 | 564 (every row) |
+| cases emitting at least one warning | 0 of 140 | 42 of 140 |
+| `computation_log.steps` length | exactly 1, every case | 10 with no restart, 18 with one |
+| rows where the three sub-components ≠ `gross_entitlement` | n/a (all three were zero) | 0 |
+| manual review flag codes declared in the crate | 0 of the spec's 10 | 10 of 10 |
+
+### The six verdicts of `node scripts/check-observability.mjs`
+
+| Marker | Fires when |
+|---|---|
+| `WARNINGS SUPPRESSED` | the finalize file re-hardcodes an empty warnings vector on a non-comment line |
+| `SUBCOMPONENTS ZEROED` | the finalize file re-empties `legitime_fraction`, or the old round-sub-components TODO returns |
+| `FLAG CODE MISSING` | one of the ten spec §13.1 flag codes is not declared in `engine/src/flags.rs` |
+| `FLAG CODE UNTESTED` | a declared code appears in neither the flags file's `#[cfg(test)]` region nor `engine/tests/observability.rs` |
+| `OUTPUT CHECK MISSING` | `SumMismatch` or `DuplicateHeirId` is gone, or `engine/src/wasm.rs` no longer calls `run_pipeline_checked` |
+| `BOUNDARY ERROR UNSTRUCTURED` | `engine/src/wasm.rs` stops naming any of the three failure kinds `invalid_input`, `output_check`, `serialize` |
+
+A seventh condition, `OBSERVABILITY SCAN UNREADABLE`, exits 1 immediately when a named file is missing
+or unreadable. The script never exits 0 on an internal error, and has no `--fix`, `--update`,
+`--accept`, `--regenerate` or waiver flag — its five flags are read-only path overrides so the
+fixtures under `scripts/fixtures/obs-*.rs` can drive each failure path.
+
+All matching is **literal, never regular-expression**. The searched strings contain `[`, `]`, `!`, `:`
+and `(`, which are regex metacharacters; treating them as a pattern would silently change what is
+checked. Verdicts 1 and 2 skip lines whose trimmed form begins with `//`, so this manual and the
+script's own header can quote the forbidden literals as prose without re-triggering the gate that
+documents them.
+
+### Why two mechanisms rather than one
+
+`engine/tests/observability.rs` runs under **G1** (`cd engine && cargo test`) and catches a
+**behavioral** regression: a step changes, the fractions go empty again, and the corpus test says so
+across every row of every case. **G11** catches a **source** regression: the literal reappears on a
+path no test happens to cover. The two hardcoded lines this phase removed are the existence proof
+that the second failure mode is real — they were never covered by a test, which is precisely why
+nobody noticed them.
+
+### The corpus floor
+
+`engine/tests/observability.rs` asserts the committed corpus holds **at least 140** `.json` inputs
+before it asserts anything else. Deleting committed inputs to make an assertion vacuous fails on that
+line first, so the corpus cannot shrink silently.
+
+### Ordering note — G9 still stays last
+
+Same constraint section 8 records. `scripts/check-gate-results.mjs` (G9) fails with
+`RESULTS INCOMPLETE` when any gate other than itself is `not-run`, and `scripts/ci-gates.sh`
+republishes results after every gate, so a gate ordered after G9 would fail G9 on every run. **G11
+takes `order: 9`, G8 moves to 10, and G9 moves to 11 and stays last.** `order` is deliberately unlocked
+(see section 1), so this is a reordering, not a weakening. Placing G11 ahead of G8 is also strictly
+stronger: G11's own `GATE-SKIPS` line gets checked by the skip-accounting gate rather than being
+emitted after it and ignored.
