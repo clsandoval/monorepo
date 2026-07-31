@@ -36,25 +36,48 @@ Run these four commands in order. Steps 1 and 2 are one-time toolchain setup.
    bash scripts/ci-gates.sh
    ```
 
-The fourth command runs all four gates and prints `ALL GATES PASSED (4/4)` on success. It is the
+The fourth command runs every gate and prints `ALL GATES PASSED (7/7)` on success. It is the
 exact command CI executes, so a green result there is what the CI check verifies — nothing is
 reproducible only on a push.
 
-You do not need to build the WASM artifact separately: gate 2 does it. Note that
+You do not need to build the WASM artifact separately: gate G2 does it. Note that
 `frontend/src/wasm/pkg/inheritance_engine_bg.wasm` is a build artifact and is gitignored, so a clean
 checkout has no WASM binary until a build runs.
 
-## The four gates
+## The seven gates
+
+The gate list is not hardcoded in the runner. It lives in `gates.manifest.json`, and
+`scripts/ci-gates.sh` iterates it in `order`. The three cheap meta-gates run first, so a tampered
+manifest or an open-world plan is caught in seconds rather than after a five-minute build. See
+[`GATES.md`](./GATES.md).
 
 | Gate | Command | What it proves |
 |---|---|---|
-| 1. Engine tests | `cd engine && cargo test` | The Rust succession engine's 442 unit, integration, and fuzz-invariant tests pass. |
-| 2. WASM build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`. The script verifies existence, a 100 KB size floor, and the `0061736d` WebAssembly magic number — `wasm-pack` exiting 0 is not accepted as proof on its own. |
-| 3. Frontend suite | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. See below. |
-| 4. Typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors. `--force` is required, not optional: `tsconfig.tsbuildinfo` was historically committed, and an incremental run can no-op against a stale cache and report clean on a tree that has type errors. |
+| G5. Gate manifest integrity | `node scripts/check-gate-manifest.mjs` | The frozen gate set has not shrunk, had a locked command changed, or stopped blocking. The gate set may only grow. |
+| G6. Plan closed-world lint | `node scripts/check-plan-closed-world.mjs` | Every plan file is closed-world by the nine rules in `.planning/PLAN-STANDARD.md` — no hedge phrasing, no request to decide law, no ungrounded requirement id. |
+| G7. Commit discipline audit | `node scripts/check-commit-discipline.mjs` | No commit since project init mixes `apps/inheritance/` with paths outside it. |
+| G1. Engine tests | `cd engine && cargo test` | The Rust succession engine's 442 unit, integration, and fuzz-invariant tests pass. |
+| G2. WASM build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`. The script verifies existence, a 100 KB size floor, and the `0061736d` WebAssembly magic number — `wasm-pack` exiting 0 is not accepted as proof on its own. |
+| G3. Frontend suite | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. See below. |
+| G4. Typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors. `--force` is required, not optional: `tsconfig.tsbuildinfo` was historically committed, and an incremental run can no-op against a stale cache and report clean on a tree that has type errors. |
 
-`bash scripts/ci-gates.sh --only <1-4>` runs a single gate for local iteration. There is no option
+`bash scripts/ci-gates.sh --only <gate-id>` (for example `--only G5`) runs a single gate for local
+iteration, and its final line says explicitly that the run was partial. There is no option
 for omitting a gate — you cannot run "all gates except one" and get a success message.
+
+### Exit codes
+
+The runner has three exit values, because a gate that *failed* and a gate that *could not run* are
+opposite situations:
+
+| Exit | Meaning | Marker |
+|---:|---|---|
+| 0 | Every gate ran and passed | `ALL GATES PASSED (n/n)` |
+| 1 | A gate ran and failed | `GATE FAILED: <id> (exit <rc>)` |
+| 2 | A gate could not run at all | `GATE CANNOT RUN: <id>` + `HALT: <reason>` |
+
+Exit 2 is a halt: report BLOCKED with the real command output rather than editing a gate to clear
+it. Full detail, including the `.gate-runs/latest.json` run record, is in [`GATES.md`](./GATES.md).
 
 ## Known test failures
 

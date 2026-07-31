@@ -21,6 +21,21 @@
       "id": "G4",
       "command": "cd frontend && npx tsc -b --force",
       "blocking": true
+    },
+    {
+      "id": "G5",
+      "command": "node scripts/check-gate-manifest.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G6",
+      "command": "node scripts/check-plan-closed-world.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G7",
+      "command": "node scripts/check-commit-discipline.mjs",
+      "blocking": true
     }
   ]
 }

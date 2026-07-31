@@ -4,9 +4,48 @@
   "frozen_at": "2026-07-31",
   "gates": [
     {
+      "id": "G5",
+      "name": "gate manifest integrity",
+      "order": 1,
+      "command": "node scripts/check-gate-manifest.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f gates.manifest.json",
+      "blocking": true,
+      "proves": "The frozen gate set has not shrunk, had a locked command changed, or stopped blocking.",
+      "requirements": [
+        "LOOP-03"
+      ]
+    },
+    {
+      "id": "G6",
+      "name": "plan closed-world lint",
+      "order": 2,
+      "command": "node scripts/check-plan-closed-world.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -d .planning/phases",
+      "blocking": true,
+      "proves": "Every plan file is closed-world by the nine rules in .planning/PLAN-STANDARD.md.",
+      "requirements": [
+        "LOOP-01"
+      ]
+    },
+    {
+      "id": "G7",
+      "name": "commit discipline audit",
+      "order": 3,
+      "command": "node scripts/check-commit-discipline.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "git rev-parse --git-dir",
+      "blocking": true,
+      "proves": "No commit since project init mixes apps/inheritance/ with paths outside it.",
+      "requirements": [
+        "LOOP-05"
+      ]
+    },
+    {
       "id": "G1",
       "name": "engine tests",
-      "order": 1,
+      "order": 4,
       "command": "cd engine && cargo test",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/Cargo.toml",
@@ -17,35 +56,41 @@
     {
       "id": "G2",
       "name": "wasm build",
-      "order": 2,
+      "order": 5,
       "command": "bash engine/build-wasm.sh",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/build-wasm.sh",
       "blocking": true,
       "proves": "The engine compiles to WebAssembly and lands a real binary in frontend/src/wasm/pkg/. The script verifies existence, a 100 KB size floor, and the 0061736d WebAssembly magic number — wasm-pack exiting 0 is not accepted as proof on its own.",
-      "requirements": ["GATE-03"]
+      "requirements": [
+        "GATE-03"
+      ]
     },
     {
       "id": "G3",
       "name": "frontend suite vs ledger",
-      "order": 3,
+      "order": 6,
       "command": "cd frontend && npm run test:gate",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
       "blocking": true,
       "proves": "The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger.",
-      "requirements": ["GATE-01"]
+      "requirements": [
+        "GATE-01"
+      ]
     },
     {
       "id": "G4",
       "name": "typecheck",
-      "order": 4,
+      "order": 7,
       "command": "cd frontend && npx tsc -b --force",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
       "blocking": true,
       "proves": "Zero TypeScript errors. --force is required, not optional: tsconfig.tsbuildinfo was historically committed, and an incremental run can no-op against a stale cache and report clean on a tree that has type errors.",
-      "requirements": ["GATE-02"]
+      "requirements": [
+        "GATE-02"
+      ]
     }
   ]
 }

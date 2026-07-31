@@ -12,12 +12,23 @@ output, never to edit the manifest.
 
 ### Current gates
 
+`scripts/ci-gates.sh` reads this table from `gates.manifest.json` and runs the gates in `order`. It
+contains no hardcoded gate command, which is what makes the manifest real rather than documentation:
+a gate can only stop running by being removed from the manifest, and that is rejected below.
+
 | id | order | name | command (run from `apps/inheritance`) | what it proves |
 |---|---:|---|---|---|
-| G1 | 1 | engine tests | `cd engine && cargo test` | The Rust succession engine's 442 unit, integration, and fuzz-invariant tests pass. |
-| G2 | 2 | wasm build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`, verified by existence, a 100 KB size floor, and the `0061736d` magic number. |
-| G3 | 3 | frontend suite vs ledger | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. |
-| G4 | 4 | typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors, with `--force` so a stale `tsconfig.tsbuildinfo` cannot mask them. |
+| G5 | 1 | gate manifest integrity | `node scripts/check-gate-manifest.mjs` | The frozen gate set has not shrunk, had a locked command changed, or stopped blocking. |
+| G6 | 2 | plan closed-world lint | `node scripts/check-plan-closed-world.mjs` | Every plan file is closed-world by the nine rules in `.planning/PLAN-STANDARD.md`. |
+| G7 | 3 | commit discipline audit | `node scripts/check-commit-discipline.mjs` | No commit since project init mixes `apps/inheritance/` with paths outside it. |
+| G1 | 4 | engine tests | `cd engine && cargo test` | The Rust succession engine's 442 unit, integration, and fuzz-invariant tests pass. |
+| G2 | 5 | wasm build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`, verified by existence, a 100 KB size floor, and the `0061736d` magic number. |
+| G3 | 6 | frontend suite vs ledger | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. |
+| G4 | 7 | typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors, with `--force` so a stale `tsconfig.tsbuildinfo` cannot mask them. |
+
+The three meta-gates run **first** on purpose. They finish in seconds, while G1–G4 take minutes, and
+a tampered manifest or an open-world plan should be caught before a full Rust, WASM and Vitest run
+rather than after it. `order` is deliberately not covered by the lock, so reordering is legal.
 
 Each gate also carries a `cwd`, a `precondition` shell expression, a `blocking` flag, and the
 requirement ids it proves. A false `precondition` means the gate **cannot run**, which is a halt
@@ -89,3 +100,76 @@ node scripts/check-gate-manifest.mjs --manifest scripts/fixtures/manifest-grown.
 
 All four exit 1. `manifest-grown.json` exits 0 only when it is run against a lock that also contains
 the added gate — which is the growth path above, demonstrated rather than asserted.
+
+## 2. Halt and report
+
+`scripts/ci-gates.sh` has a **three-valued exit contract**, because "the gate failed" and "the gate
+could not run" are opposite situations. The first is information about the product; the second is
+information about the environment. Conflating them is how a month-long unattended loop quietly
+redefines success.
+
+| Exit code | Meaning | Marker printed |
+|---:|---|---|
+| 0 | Every gate ran and passed | `ALL GATES PASSED (n/n)` |
+| 1 | A gate ran and failed | `GATE FAILED: <id> (exit <rc>)` |
+| 2 | A gate could not run at all | `GATE CANNOT RUN: <id>` followed by `HALT: <reason>` |
+
+### The cannot-run conditions, enumerated
+
+There are exactly four, so nobody has to judge which bucket a situation falls into:
+
+1. A missing required tool — `cargo`, `rustup`, `wasm-pack`, `node`, `npm`, or `frontend/node_modules`.
+2. A false `precondition` on the gate being run.
+3. A gate command exiting **127** (command not found). A command that does not exist did not run.
+4. An unreadable or unparseable `gates.manifest.json`.
+
+### What to do on exit code 2
+
+**Exit code 2 is a halt, not a failure to route around.** Stop at that point. Make no further edits.
+Report **BLOCKED** using the five-field template in `.planning/PLAN-STANDARD.md` section 3, pasting
+the real command output rather than a paraphrase.
+
+Editing a gate, a precondition, `gates.manifest.json`, `gates.manifest.lock`, a test, or an
+assertion in order to make the halt go away is **prohibited**. Doing so converts a loud failure into
+a silent wrong answer, which is the one tradeoff this project never accepts.
+
+### The run record
+
+Every exit path — success, gate failure and halt alike — writes `.gate-runs/latest.json` from a bash
+`trap ... EXIT`. A recorder that only fires on success records nothing about the situation it exists
+to detect.
+
+The record holds `schema`, `started_at`, `ended_at`, `outcome` (`pass` / `fail` / `cannot-run`),
+`failure_signature`, `manifest_version`, `gates_total`, `only`, and a `gates` array carrying **every
+manifest gate** with `{id, status, exit_code, started_at, ended_at}`. `status` is one of `pass`,
+`fail`, `cannot-run`, `not-run`. Gates after the aborting gate are recorded as `not-run` — that
+absence-as-data is what the coverage check reads.
+
+`failure_signature` grammar:
+
+| Outcome | Signature |
+|---|---|
+| pass | `""` |
+| a gate ran and failed | `<gate_id>:<exit_code>` |
+| a gate could not run | `CANNOT_RUN:<gate_id>` |
+| preflight halted | `PREFLIGHT:<missing_tool_or_reason>` |
+
+`.gate-runs/` is **gitignored**. Per-run records are pure churn in a repo with a concurrent
+auto-committer; the committed, bounded summaries live elsewhere.
+
+### Keeping the exit contract under test
+
+Four environment variables exist solely so the three exit codes stay exercised. They are
+**fail-closed only**: each can turn a green run red, and none can turn a red run green. There is no
+variable and no flag anywhere in the runner that skips a gate, marks a gate optional, or converts a
+nonzero result into a success. When any is set, the runner prints `INJECTED FAILURE ACTIVE`.
+
+| Variable | Effect | Expected result |
+|---|---|---|
+| `GATES_INJECT_MISSING_TOOL=<tool>` | preflight treats the tool as absent | exit 2, `PREFLIGHT:<tool>` |
+| `GATES_INJECT_PRECONDITION_FAIL=<gate id>` | that gate's precondition fails | exit 2, `CANNOT_RUN:<id>` |
+| `GATES_INJECT_NOT_FOUND=<gate id>` | that gate's command becomes a nonexistent binary | exit 2, `CANNOT_RUN:<id>` |
+| `GATES_INJECT_GATE_FAIL=<gate id>` | that gate's command becomes `exit 3` | exit 1, `<id>:3` |
+
+The last two rows are the whole point: the same gate, one case exiting 2 because the command never
+ran and one case exiting 1 because it ran and failed.
