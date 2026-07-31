@@ -1824,6 +1824,249 @@ fn test_tv23_ascendant_only() {
 }
 
 // ══════════════════════════════════════════════════════════════════════
+// LAW-01: I5 -- Grandparents inherit under Regime B (Arts. 985-987)
+//
+// Closes the `.planning/research/LEGAL-CONFORMANCE.md` §2a ascendant-order row.
+//
+// Art. 987 ¶1: "In default of the father and mother, the ascendants nearest in
+// degree shall inherit." Art. 987 ¶2: "should they be of different lines but of
+// equal degree, one-half shall go to the paternal and the other half to the
+// maternal ascendants. In each line the division shall be made per capita."
+//
+// 1200000000 centavos → 600000000 to the paternal line, split per capita
+// between gp1 and gp2 at 300000000 each; 600000000 to the sole maternal
+// grandparent gp3.
+//
+// BEFORE (07-RESEARCH.md §1.1, measured 2026-07-31): scenario I15 with a single
+// STATE row of 1200000000 — the estate escheated while three grandparents lived.
+// ══════════════════════════════════════════════════════════════════════
+
+#[test]
+fn test_law01_grandparents_inherit_under_regime_b() {
+    let mut gp1 = person("gp1", "Lolo Paterno", Relationship::LegitimateAscendant);
+    gp1.line = Some(LineOfDescent::Paternal);
+    let mut gp2 = person("gp2", "Lola Paterna", Relationship::LegitimateAscendant);
+    gp2.line = Some(LineOfDescent::Paternal);
+    let mut gp3 = person("gp3", "Lola Materna", Relationship::LegitimateAscendant);
+    gp3.line = Some(LineOfDescent::Maternal);
+
+    let input = EngineInput {
+        net_distributable_estate: Money::from_pesos(12_000_000),
+        decedent: default_decedent("Karla Mendoza", false),
+        family_tree: vec![gp1, gp2, gp3],
+        will: None,
+        donations: vec![],
+        config: default_config(),
+    };
+
+    let output = run_pipeline(&input);
+
+    check_sum_invariant(&output, &input.net_distributable_estate);
+    assert_vector_shape(&output, ScenarioCode::I5, SuccessionType::Intestate, 3, "LAW-01");
+    check_scenario_consistency(&output, ScenarioCode::I5);
+
+    assert_total_centavos(find_share(&output, "gp1"), 300000000, "LAW-01 gp1");
+    assert_total_centavos(find_share(&output, "gp2"), 300000000, "LAW-01 gp2");
+    assert_total_centavos(find_share(&output, "gp3"), 600000000, "LAW-01 gp3");
+
+    assert!(
+        output.per_heir_shares.iter().all(|s| s.heir_id != "STATE"),
+        "LAW-01: the estate must not escheat while ascendants survive"
+    );
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// LAW-04: I5 -- No representation in the ascending line (Art. 972 ¶1)
+//
+// Closes the `.planning/research/LEGAL-CONFORMANCE.md` §2a representation row.
+//
+// Art. 972 ¶1: "The right of representation takes place in the direct
+// descending line, but never in the ascending." The predeceased father is
+// therefore not represented by his own children, who are the decedent's
+// siblings. Art. 986 ¶2 gives the whole estate to the sole surviving parent,
+// and Art. 985 excludes the collaterals entirely while an ascendant survives.
+//
+// BEFORE (07-RESEARCH.md §1.4, measured 2026-07-31): fa=6000000000 and
+// mo=6000000000 — the dead father's half was credited through his sibling
+// children — against a sibling-free control of fa=0 and mo=12000000000.
+// ══════════════════════════════════════════════════════════════════════
+
+#[test]
+fn test_law04_no_representation_in_the_ascending_line() {
+    let mut fa = parent("fa", "Ignacio", LineOfDescent::Paternal);
+    fa.is_alive_at_succession = false;
+    fa.children = vec!["sib1".into()];
+    let mo = parent("mo", "Modesta", LineOfDescent::Maternal);
+    let mut sib1 = person("sib1", "Nestor", Relationship::Sibling);
+    sib1.blood_type = Some(BloodType::Full);
+
+    let input = EngineInput {
+        net_distributable_estate: Money::from_pesos(12_000_000),
+        decedent: default_decedent("Olivia Ramos", false),
+        family_tree: vec![fa, mo, sib1],
+        will: None,
+        donations: vec![],
+        config: default_config(),
+    };
+
+    let output = run_pipeline(&input);
+
+    check_sum_invariant(&output, &input.net_distributable_estate);
+    // Exactly one row: the surviving mother. The predeceased father is credited
+    // nothing and the sibling is not an heir at all.
+    assert_vector_shape(&output, ScenarioCode::I5, SuccessionType::Intestate, 1, "LAW-04");
+    check_scenario_consistency(&output, ScenarioCode::I5);
+
+    assert_total_centavos(find_share(&output, "mo"), 1200000000, "LAW-04 mo");
+    assert!(
+        output
+            .per_heir_shares
+            .iter()
+            .find(|s| s.heir_id == "fa")
+            .map_or(true, |s| s.total.centavos == BigInt::zero()),
+        "LAW-04: a predeceased ascendant is credited nothing"
+    );
+    assert!(
+        output.per_heir_shares.iter().all(|s| s.heir_id != "sib1"),
+        "LAW-04: a collateral takes nothing while an ascendant survives"
+    );
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// LAW-02: I13 -- Collateral representation conserves the estate
+//
+// Closes the `.planning/research/LEGAL-CONFORMANCE.md` §2a collateral row.
+//
+// Art. 1005: surviving brothers and sisters inherit per capita and the children
+// of brothers and sisters per stirpes. Art. 1006: the full blood take double the
+// portion of the half blood. Art. 1008 carries that ratio to the
+// representatives.
+//
+// One full-blood line at 2 units plus one half-blood line at 1 unit is 3 units
+// of 200000000 centavos: sib1 takes 400000000, and n1 and n2 split their line's
+// 200000000 into 100000000 each.
+//
+// BEFORE (07-RESEARCH.md §1.2, measured 2026-07-31): five rows with n1 and n2
+// each appearing twice, a per-heir sum of 480000000 against a 600000000 estate,
+// and a CLI exit code of 2.
+// ══════════════════════════════════════════════════════════════════════
+
+#[test]
+fn test_law02_collateral_representation_conserves_the_estate() {
+    let mut sib1 = person("sib1", "Paulo", Relationship::Sibling);
+    sib1.blood_type = Some(BloodType::Full);
+
+    let mut sib2 = person("sib2", "Quirino", Relationship::Sibling);
+    sib2.is_alive_at_succession = false;
+    sib2.blood_type = Some(BloodType::Half);
+    sib2.children = vec!["n1".into(), "n2".into()];
+
+    let mut n1 = person("n1", "Rosa", Relationship::NephewNiece);
+    n1.blood_type = Some(BloodType::Half);
+    let mut n2 = person("n2", "Sixto", Relationship::NephewNiece);
+    n2.blood_type = Some(BloodType::Half);
+
+    let input = EngineInput {
+        net_distributable_estate: Money::from_pesos(6_000_000),
+        decedent: default_decedent("Teodora Cruz", false),
+        family_tree: vec![sib1, sib2, n1, n2],
+        will: None,
+        donations: vec![],
+        config: default_config(),
+    };
+
+    let output = run_pipeline(&input);
+
+    check_sum_invariant(&output, &input.net_distributable_estate);
+    assert_vector_shape(&output, ScenarioCode::I13, SuccessionType::Intestate, 3, "LAW-02");
+    check_scenario_consistency(&output, ScenarioCode::I13);
+
+    assert_total_centavos(find_share(&output, "sib1"), 400000000, "LAW-02 sib1");
+    assert_total_centavos(find_share(&output, "n1"), 100000000, "LAW-02 n1");
+    assert_total_centavos(find_share(&output, "n2"), 100000000, "LAW-02 n2");
+
+    let mut ids: Vec<&str> = output
+        .per_heir_shares
+        .iter()
+        .map(|s| s.heir_id.as_str())
+        .collect();
+    let before = ids.len();
+    ids.sort();
+    ids.dedup();
+    assert_eq!(ids.len(), before, "LAW-02: duplicate heir_id in per_heir_shares");
+
+    assert!(
+        output.per_heir_shares.iter().all(|s| s.heir_id != "sib2"),
+        "LAW-02: the predeceased sibling receives no row"
+    );
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// LAW-03: I1 -- Total repudiation promotes the following degree (Art. 969)
+//
+// Closes the `.planning/research/LEGAL-CONFORMANCE.md` §2a repudiation row.
+//
+// Art. 969: when the relatives nearest in degree repudiate, "those of the
+// following degree shall inherit in their own right and cannot represent the
+// person or persons repudiating the inheritance." Art. 962 ¶1 divides among
+// relatives of the same degree "in equal shares", and Art. 977 bars the
+// grandchildren from representing the repudiators.
+//
+// 12000000000 centavos divides three ways into 4000000000 each. The family is
+// deliberately symmetric — one grandchild per repudiating child — so an
+// own-right per-capita division and a per-stirpes division give identical
+// amounts, and the vector proves the promotion without pinning a division this
+// plan has not derived from a quoted article.
+//
+// BEFORE (07-RESEARCH.md §1.3, measured 2026-07-31): scenario I15 with a single
+// STATE row of 12000000000 and the three grandchildren absent entirely.
+// ══════════════════════════════════════════════════════════════════════
+
+#[test]
+fn test_law03_total_repudiation_promotes_the_following_degree() {
+    let mut family: Vec<Person> = Vec::new();
+    for (cid, gid, cname, gname) in [
+        ("lc1", "gc1", "Ubaldo", "Ximena"),
+        ("lc2", "gc2", "Vicente", "Yolanda"),
+        ("lc3", "gc3", "Wilfredo", "Zenaida"),
+    ] {
+        let mut child = person(cid, cname, Relationship::LegitimateChild);
+        child.has_renounced = true;
+        child.children = vec![gid.into()];
+        family.push(child);
+
+        let mut gc = person(gid, gname, Relationship::LegitimateChild);
+        gc.degree = 2;
+        family.push(gc);
+    }
+
+    let input = EngineInput {
+        net_distributable_estate: Money::from_pesos(120_000_000),
+        decedent: default_decedent("Amelia Bautista", false),
+        family_tree: family,
+        will: None,
+        donations: vec![],
+        config: default_config(),
+    };
+
+    let output = run_pipeline(&input);
+
+    check_sum_invariant(&output, &input.net_distributable_estate);
+    assert_vector_shape(&output, ScenarioCode::I1, SuccessionType::Intestate, 6, "LAW-03");
+    check_scenario_consistency(&output, ScenarioCode::I1);
+
+    assert_total_centavos(find_share(&output, "gc1"), 4000000000, "LAW-03 gc1");
+    assert_total_centavos(find_share(&output, "gc2"), 4000000000, "LAW-03 gc2");
+    assert_total_centavos(find_share(&output, "gc3"), 4000000000, "LAW-03 gc3");
+    assert_total_centavos(find_share(&output, "lc1"), 0, "LAW-03 lc1");
+
+    assert!(
+        output.per_heir_shares.iter().all(|s| s.heir_id != "STATE"),
+        "LAW-03: the estate must not escheat while grandchildren survive"
+    );
+}
+
+// ══════════════════════════════════════════════════════════════════════
 // Cross-cutting invariant tests
 // ══════════════════════════════════════════════════════════════════════
 

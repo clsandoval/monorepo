@@ -41,10 +41,10 @@ Two hardcoded lines currently make every defect below invisible. Nothing else is
 
 Each item is a defect reproduced by running the engine, documented in `LEGAL-CONFORMANCE.md` §2. All currently fail silently.
 
-- [ ] **LAW-01**: Ascendants above the parent tier can inherit — fixes the `degree_from_decedent == 1` anchor filter at `step2_lines.rs:70`, root cause of LAW-01 through LAW-04
-- [ ] **LAW-02**: Collateral succession through predeceased siblings produces no duplicate heirs and conserves the estate (Arts. 972 ¶2, 974–975, 1005–1008)
-- [ ] **LAW-03**: Total repudiation by the nearest degree passes the estate to the next degree in their own right, not to the State (Art. 969)
-- [ ] **LAW-04**: Representation never operates in the ascending line (Art. 972 ¶1)
+- [x] **LAW-01**: Ascendants above the parent tier can inherit — fixes the `degree_from_decedent == 1` anchor filter at `step2_lines.rs:70`, root cause of LAW-01 through LAW-04
+- [x] **LAW-02**: Collateral succession through predeceased siblings produces no duplicate heirs and conserves the estate (Arts. 972 ¶2, 974–975, 1005–1008)
+- [x] **LAW-03**: Total repudiation by the nearest degree passes the estate to the next degree in their own right, not to the State (Art. 969)
+- [x] **LAW-04**: Representation never operates in the ascending line (Art. 972 ¶1)
 - [ ] **LAW-05**: Preterition preserves devises and legacies insofar as they are not inofficious, and does not fire on an heir who received advances on their legitime (Art. 854, *Morales v. Olondriz*)
 - [ ] **LAW-06**: A donation *inter vivos* never causes distributed shares to exceed the estate; an heir's excess entitlement is modelled as a reduction claim against a named donee (Arts. 771, 911)
 - [ ] **LAW-07**: Art. 992's iron curtain is implemented for the collateral line, per the answer to LAWYER-04
@@ -219,10 +219,10 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | COV-03 | Phase 6 | Complete |
 | COV-04 | Phase 6 | Complete |
 | COV-05 | Phase 6 | Complete |
-| LAW-01 | Phase 7 | Pending |
-| LAW-02 | Phase 7 | Pending |
-| LAW-03 | Phase 7 | Pending |
-| LAW-04 | Phase 7 | Pending |
+| LAW-01 | Phase 7 | Complete |
+| LAW-02 | Phase 7 | Complete |
+| LAW-03 | Phase 7 | Complete |
+| LAW-04 | Phase 7 | Complete |
 | LAW-05 | Phase 8 | Pending |
 | LAW-08 | Phase 8 | Pending |
 | LAW-09 | Phase 8 | Pending |
@@ -277,4 +277,4 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 
 ---
 *Requirements defined: 2026-07-27*
-*Last updated: 2026-07-31 after Phase 3 execution and verification (GATE-05..09 Complete; the gate set grew from 7 to 9)*
+*Last updated: 2026-07-31 after Phase 7 execution and verification (LAW-01..04 Complete; the single `degree_from_decedent == 1` anchor filter is replaced by per-category anchoring and four named regression vectors)*
