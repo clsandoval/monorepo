@@ -542,6 +542,118 @@ fn distribute_lc_lines(
     result
 }
 
+// ── Ascendant Selection (Art. 987) ──────────────────────────────────
+
+/// Select the ascendants that actually inherit, applying the same tiers that
+/// `step5_legitimes::divide_among_ascendants` applies, so the two places in the
+/// engine that divide among ascendants cannot disagree.
+///
+/// 1. Only ascendants that are `is_alive && is_eligible`. A predeceased
+///    ascendant receives nothing — it cannot be represented (Art. 972 ¶1).
+/// 2. The parent tier (degree 1) when it is non-empty, otherwise the nearest
+///    degree present. Art. 987 ¶1: "In default of the father and mother, the
+///    ascendants nearest in degree shall inherit."
+fn select_inheriting_ascendants(heirs: &[Heir]) -> Vec<&Heir> {
+    let living: Vec<&Heir> = heirs
+        .iter()
+        .filter(|h| {
+            h.effective_category == EffectiveCategory::LegitimateAscendantGroup
+                && h.is_alive
+                && h.is_eligible
+        })
+        .collect();
+
+    if living.is_empty() {
+        return vec![];
+    }
+
+    let parents: Vec<&Heir> = living
+        .iter()
+        .filter(|h| h.degree_from_decedent == 1)
+        .copied()
+        .collect();
+
+    if !parents.is_empty() {
+        return parents;
+    }
+
+    // Art. 987 ¶1: nearest degree among the higher ascendants.
+    let min_degree = living
+        .iter()
+        .map(|h| h.degree_from_decedent)
+        .min()
+        .expect("living ascendants is non-empty");
+
+    living
+        .iter()
+        .filter(|h| h.degree_from_decedent == min_degree)
+        .copied()
+        .collect()
+}
+
+/// Divide an ascendant collective between the paternal and the maternal line.
+///
+/// Art. 987 ¶2: "should they be of different lines but of equal degree, one-half
+/// shall go to the paternal and the other half to the maternal ascendants. In
+/// each line the division shall be made per capita."
+///
+/// When only one line is present it takes the whole collective, mirroring
+/// `divide_among_ascendants`'s own single-line fallback. When no selected
+/// ascendant carries a line at all, the collective is divided per capita among
+/// all of them.
+fn split_ascendant_amount_by_line(amount: &Frac, ascendants: &[&Heir]) -> Vec<(HeirId, Frac)> {
+    if ascendants.is_empty() {
+        return vec![];
+    }
+
+    let paternal: Vec<&Heir> = ascendants
+        .iter()
+        .filter(|h| h.line == Some(LineOfDescent::Paternal))
+        .copied()
+        .collect();
+    let maternal: Vec<&Heir> = ascendants
+        .iter()
+        .filter(|h| h.line == Some(LineOfDescent::Maternal))
+        .copied()
+        .collect();
+
+    let per_capita = |group: &[&Heir], total: &Frac| -> Vec<(HeirId, Frac)> {
+        let each = total / &frac(group.len() as i64, 1);
+        group.iter().map(|h| (h.id.clone(), each.clone())).collect()
+    };
+
+    if !paternal.is_empty() && !maternal.is_empty() {
+        let half = amount / &frac(2, 1);
+        let mut result = per_capita(&paternal, &half);
+        result.extend(per_capita(&maternal, &half));
+        result
+    } else if !paternal.is_empty() {
+        per_capita(&paternal, amount)
+    } else if !maternal.is_empty() {
+        per_capita(&maternal, amount)
+    } else {
+        // No selected ascendant carries a line — divide per capita among all.
+        per_capita(ascendants, amount)
+    }
+}
+
+/// Build the ascendant rows of a Regime B distributor.
+fn ascendant_rows(amount: &Frac, heirs: &[Heir], basis: &[&str]) -> Vec<HeirDistribution> {
+    let selected = select_inheriting_ascendants(heirs);
+    let basis_vec: Vec<String> = basis.iter().map(|s| (*s).to_string()).collect();
+    split_ascendant_amount_by_line(amount, &selected)
+        .into_iter()
+        .map(|(id, share)| {
+            make_intestate_dist(
+                &id,
+                EffectiveCategory::LegitimateAscendantGroup,
+                share,
+                basis_vec.clone(),
+            )
+        })
+        .collect()
+}
+
 // ── Intestate Formulas I1-I15 ───────────────────────────────────────
 
 /// I1: n LC Only (Art. 980) — equal shares per line.
@@ -636,33 +748,16 @@ fn distribute_i4(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
 
 /// I5: Ascendants Only (Arts. 985-987) — equal shares.
 fn distribute_i5(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
-    let ascendants: Vec<&Heir> = heirs
-        .iter()
-        .filter(|h| h.effective_category == EffectiveCategory::LegitimateAscendantGroup)
-        .collect();
-    let n = frac(ascendants.len() as i64, 1);
-    let per_asc = amount / &n;
-    ascendants
-        .iter()
-        .map(|h| make_intestate_dist(&h.id, h.effective_category, per_asc.clone(), vec!["Art. 985".into()]))
-        .collect()
+    ascendant_rows(amount, heirs, &["Art. 985"])
 }
 
 /// I6: Ascendants + Spouse (Art. 997) — spouse 1/2, ascendants split 1/2.
 fn distribute_i6(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
-    let ascendants: Vec<&Heir> = heirs
-        .iter()
-        .filter(|h| h.effective_category == EffectiveCategory::LegitimateAscendantGroup)
-        .collect();
     let spouse = heirs
         .iter()
         .find(|h| h.effective_category == EffectiveCategory::SurvivingSpouseGroup);
     let half = amount / &frac(2, 1);
-    let per_asc = &half / &frac(ascendants.len() as i64, 1);
-    let mut result = Vec::new();
-    for h in &ascendants {
-        result.push(make_intestate_dist(&h.id, h.effective_category, per_asc.clone(), vec!["Art. 997".into()]));
-    }
+    let mut result = ascendant_rows(&half, heirs, &["Art. 997"]);
     if let Some(s) = spouse {
         result.push(make_intestate_dist(&s.id, s.effective_category, half, vec!["Art. 997".into()]));
     }
@@ -705,21 +800,13 @@ fn distribute_i8(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
 
 /// I9: Ascendants + m IC (Art. 991) — ascendants 1/2, ICs 1/2.
 fn distribute_i9(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
-    let ascendants: Vec<&Heir> = heirs
-        .iter()
-        .filter(|h| h.effective_category == EffectiveCategory::LegitimateAscendantGroup)
-        .collect();
     let ics: Vec<&Heir> = heirs
         .iter()
         .filter(|h| h.effective_category == EffectiveCategory::IllegitimateChildGroup)
         .collect();
     let half = amount / &frac(2, 1);
-    let per_asc = &half / &frac(ascendants.len() as i64, 1);
     let per_ic = &half / &frac(ics.len() as i64, 1);
-    let mut result = Vec::new();
-    for h in &ascendants {
-        result.push(make_intestate_dist(&h.id, h.effective_category, per_asc.clone(), vec!["Art. 991".into()]));
-    }
+    let mut result = ascendant_rows(&half, heirs, &["Art. 991"]);
     for h in &ics {
         result.push(make_intestate_dist(&h.id, h.effective_category, per_ic.clone(), vec!["Art. 991".into()]));
     }
@@ -728,10 +815,6 @@ fn distribute_i9(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
 
 /// I10: Ascendants + m IC + Spouse (Art. 1000) — asc 1/2, IC 1/4, spouse 1/4.
 fn distribute_i10(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
-    let ascendants: Vec<&Heir> = heirs
-        .iter()
-        .filter(|h| h.effective_category == EffectiveCategory::LegitimateAscendantGroup)
-        .collect();
     let ics: Vec<&Heir> = heirs
         .iter()
         .filter(|h| h.effective_category == EffectiveCategory::IllegitimateChildGroup)
@@ -742,12 +825,8 @@ fn distribute_i10(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
     let asc_total = amount / &frac(2, 1);
     let ic_total = amount / &frac(4, 1);
     let spouse_share = amount / &frac(4, 1);
-    let per_asc = &asc_total / &frac(ascendants.len() as i64, 1);
     let per_ic = &ic_total / &frac(ics.len() as i64, 1);
-    let mut result = Vec::new();
-    for h in &ascendants {
-        result.push(make_intestate_dist(&h.id, h.effective_category, per_asc.clone(), vec!["Art. 1000".into()]));
-    }
+    let mut result = ascendant_rows(&asc_total, heirs, &["Art. 1000"]);
     for h in &ics {
         result.push(make_intestate_dist(&h.id, h.effective_category, per_ic.clone(), vec!["Art. 1000".into()]));
     }
@@ -1423,6 +1502,64 @@ mod tests {
         assert_eq!(result.len(), 2);
         assert_eq!(find_share(&result, "F").from_intestate, estate(5_000_000));
         assert_eq!(find_share(&result, "M").from_intestate, estate(5_000_000));
+    }
+
+    #[test]
+    fn test_i5_splits_between_paternal_and_maternal_lines() {
+        // Art. 987 ¶2: one-half to the paternal ascendants, one-half to the
+        // maternal ascendants, per capita within each line.
+        // Amount 1,200,000,000 centavos; 2 paternal + 1 maternal at degree 2.
+        let amount = frac(1_200_000_000, 1);
+        let heirs = vec![
+            make_ascendant("gp1", 2, LineOfDescent::Paternal),
+            make_ascendant("gp2", 2, LineOfDescent::Paternal),
+            make_ascendant("gp3", 2, LineOfDescent::Maternal),
+        ];
+        let counts = lc(0, 0, 0, 3);
+
+        let result = compute_intestate_distribution(&amount, &heirs, &counts, &ScenarioCode::I5);
+
+        assert_eq!(result.len(), 3);
+        assert_eq!(find_share(&result, "gp1").from_intestate, frac(300_000_000, 1));
+        assert_eq!(find_share(&result, "gp2").from_intestate, frac(300_000_000, 1));
+        assert_eq!(find_share(&result, "gp3").from_intestate, frac(600_000_000, 1));
+    }
+
+    #[test]
+    fn test_i5_ignores_a_predeceased_ascendant() {
+        // Art. 972 ¶1: an ascendant is never represented, so a predeceased
+        // parent receives no row at all and the surviving parent takes the whole
+        // collective (Art. 986 ¶2).
+        let amount = frac(1_200_000_000, 1);
+        let mut dead_father = make_ascendant("fa", 1, LineOfDescent::Paternal);
+        dead_father.is_alive = false;
+        let heirs = vec![dead_father, make_ascendant("mo", 1, LineOfDescent::Maternal)];
+        let counts = lc(0, 0, 0, 1);
+
+        let result = compute_intestate_distribution(&amount, &heirs, &counts, &ScenarioCode::I5);
+
+        assert_eq!(result.len(), 1);
+        assert_eq!(find_share(&result, "mo").from_intestate, frac(1_200_000_000, 1));
+        assert!(result.iter().all(|d| d.heir_id != "fa"));
+    }
+
+    #[test]
+    fn test_i5_prefers_the_parent_tier_over_grandparents() {
+        // Art. 987 ¶1 applies only "in default of the father and mother" — a
+        // surviving parent excludes the grandparents entirely.
+        let amount = frac(1_200_000_000, 1);
+        let heirs = vec![
+            make_ascendant("p1", 1, LineOfDescent::Paternal),
+            make_ascendant("gp1", 2, LineOfDescent::Maternal),
+            make_ascendant("gp2", 2, LineOfDescent::Maternal),
+        ];
+        let counts = lc(0, 0, 0, 1);
+
+        let result = compute_intestate_distribution(&amount, &heirs, &counts, &ScenarioCode::I5);
+
+        assert_eq!(result.len(), 1);
+        assert_eq!(find_share(&result, "p1").from_intestate, frac(1_200_000_000, 1));
+        assert!(result.iter().all(|d| d.heir_id != "gp1" && d.heir_id != "gp2"));
     }
 
     // ── I6: Ascendants + Spouse (Art. 997) ──────────────────────────

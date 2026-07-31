@@ -64,12 +64,18 @@ pub fn step2_build_lines(input: &Step2Input) -> Step2Output {
     let mut heirs = input.heirs.clone();
     let warnings = Vec::new();
 
-    // Phase 1: Identify degree-1 anchors and build lines (immutable pass)
-    let anchor_ids: Vec<HeirId> = heirs
-        .iter()
-        .filter(|h| h.degree_from_decedent == 1)
-        .map(|h| h.id.clone())
-        .collect();
+    // Phase 1: Identify line anchors per category and build lines (immutable pass).
+    // Anchor selection is per-category (see `anchor_ids_for_category`): every
+    // category except the ascendants still anchors at degree 1, while the
+    // ascendants anchor at the nearest living degree (Art. 987 ¶1).
+    let mut anchor_ids: Vec<HeirId> = Vec::new();
+    for category in ANCHOR_CATEGORY_ORDER {
+        for id in anchor_ids_for_category(&heirs, category) {
+            if !anchor_ids.contains(&id) {
+                anchor_ids.push(id);
+            }
+        }
+    }
 
     // Build each line and collect results: (anchor_id, line, trigger)
     // Also collect extinct lines (trigger exists but no representatives) so we can
@@ -85,8 +91,15 @@ pub fn step2_build_lines(input: &Step2Input) -> Step2Output {
             None => {
                 // Line is extinct. If a trigger exists, record it so downstream
                 // stages know this heir had a trigger but no representatives.
-                if let Some(t) = trigger {
-                    extinct_triggers.push((anchor_id.clone(), t));
+                //
+                // Ascendants are never recorded here. `has_extinct_line` in Step 5
+                // reads this field only for the LC and IC groups, and an ascendant
+                // can never be represented (Art. 972 ¶1), so an ascendant has no
+                // "line that went extinct" to report.
+                if anchor.effective_category != EffectiveCategory::LegitimateAscendantGroup {
+                    if let Some(t) = trigger {
+                        extinct_triggers.push((anchor_id.clone(), t));
+                    }
                 }
             }
         }
@@ -160,6 +173,68 @@ pub fn step2_build_lines(input: &Step2Input) -> Step2Output {
 
 // ── Internal helpers ────────────────────────────────────────────────
 
+/// The order in which categories contribute anchors to the line list.
+///
+/// Fixed so that emitted row order stays stable regardless of the order the
+/// heirs happen to appear in the family tree.
+const ANCHOR_CATEGORY_ORDER: [EffectiveCategory; 5] = [
+    EffectiveCategory::LegitimateChildGroup,
+    EffectiveCategory::IllegitimateChildGroup,
+    EffectiveCategory::SurvivingSpouseGroup,
+    EffectiveCategory::LegitimateAscendantGroup,
+    EffectiveCategory::CollateralGroup,
+];
+
+/// Select the heirs of one effective category that anchor an inheritance line.
+///
+/// Descendants, the surviving spouse and collaterals anchor at
+/// `degree_from_decedent == 1`, which is the rule this engine has always
+/// applied.
+///
+/// Ascendants anchor at the nearest **surviving** degree. This transcribes
+/// Art. 987 ¶1: "In default of the father and mother, the ascendants nearest in
+/// degree shall inherit." Before this rule existed, a grandparent at degree 2
+/// could never anchor a line, so `LineCounts.legitimate_ascendant` stayed 0 and
+/// the ascendant intestate regime was unreachable whenever both parents were
+/// gone.
+///
+/// An ascendant only counts toward the nearest degree if it can actually
+/// inherit — `is_alive && is_eligible && !has_renounced` — because a
+/// predeceased ascendant cannot be represented (Art. 972 ¶1) and so cannot
+/// hold a degree open against the ascendants above it.
+pub fn anchor_ids_for_category(heirs: &[Heir], category: EffectiveCategory) -> Vec<HeirId> {
+    match category {
+        EffectiveCategory::LegitimateAscendantGroup => {
+            let candidates: Vec<&Heir> = heirs
+                .iter()
+                .filter(|h| {
+                    h.effective_category == category
+                        && h.is_alive
+                        && h.is_eligible
+                        && !h.has_renounced
+                })
+                .collect();
+
+            // Art. 987 ¶1: the ascendants nearest in degree inherit.
+            let min_degree = match candidates.iter().map(|h| h.degree_from_decedent).min() {
+                Some(d) => d,
+                None => return Vec::new(),
+            };
+
+            candidates
+                .iter()
+                .filter(|h| h.degree_from_decedent == min_degree)
+                .map(|h| h.id.clone())
+                .collect()
+        }
+        _ => heirs
+            .iter()
+            .filter(|h| h.effective_category == category && h.degree_from_decedent == 1)
+            .map(|h| h.id.clone())
+            .collect(),
+    }
+}
+
 /// Determine the representation trigger for an heir.
 ///
 /// Priority:
@@ -195,6 +270,29 @@ fn build_single_line(anchor: &Heir, all_heirs: &[Heir]) -> Option<Line> {
     // Check representation trigger FIRST — a disinherited heir is alive/eligible
     // but should not get OwnRight; their descendants represent them.
     let trigger = get_representation_trigger(anchor);
+
+    // Art. 972 ¶1: "The right of representation takes place in the direct
+    // descending line, but never in the ascending."
+    //
+    // An ascendant anchor therefore never produces a Representation line and
+    // `find_representatives_recursive` is never called on one. That call would
+    // walk the ascendant's `children`, which are the decedent's own siblings —
+    // constructing representation in the ascending line and crediting a
+    // predeceased parent's share to a collateral.
+    if anchor.effective_category == EffectiveCategory::LegitimateAscendantGroup {
+        if trigger.is_some() {
+            return None; // Line extinct — an ascendant is never represented.
+        }
+        if anchor.is_alive && anchor.is_eligible && !anchor.has_renounced {
+            return Some(Line {
+                ancestor_heir_id: anchor.id.clone(),
+                effective_category: anchor.effective_category,
+                mode: InheritanceMode::OwnRight,
+                participants: vec![anchor.id.clone()],
+            });
+        }
+        return None;
+    }
 
     if let Some(_trigger) = trigger {
         // Heir has a representation trigger — find living descendants
@@ -1040,5 +1138,94 @@ mod tests {
         assert_eq!(line.participants.len(), 2);
         assert!(line.participants.contains(&"gc1".to_string()));
         assert!(line.participants.contains(&"ggc1".to_string()));
+    }
+
+    // ── Art. 987 ¶1 / Art. 972 ¶1: per-category anchor selection ────
+
+    /// Shorthand: an ascendant at an arbitrary degree.
+    fn make_ascendant(id: &str, name: &str, degree: i32) -> Heir {
+        make_heir(id, name, EffectiveCategory::LegitimateAscendantGroup, degree)
+    }
+
+    /// Shorthand: a collateral (sibling) at degree 2.
+    fn make_sibling(id: &str, name: &str) -> Heir {
+        make_heir(id, name, EffectiveCategory::CollateralGroup, 2)
+    }
+
+    #[test]
+    fn test_ascendant_anchors_fall_to_grandparents_when_parents_absent() {
+        // Art. 987 ¶1: "In default of the father and mother, the ascendants
+        // nearest in degree shall inherit." No parent is in the tree at all, so
+        // the two living grandparents anchor lines of their own.
+        let heirs = vec![
+            make_ascendant("gp1", "Lolo", 2),
+            make_ascendant("gp2", "Lola", 2),
+        ];
+
+        let anchors =
+            anchor_ids_for_category(&heirs, EffectiveCategory::LegitimateAscendantGroup);
+        assert_eq!(anchors, vec!["gp1".to_string(), "gp2".to_string()]);
+
+        let output = step2_build_lines(&Step2Input { heirs });
+        assert_eq!(output.line_counts.legitimate_ascendant, 2);
+    }
+
+    #[test]
+    fn test_ascendant_anchors_stop_at_the_nearest_living_degree() {
+        // A surviving parent excludes the grandparents entirely (Art. 987 ¶1
+        // applies only "in default of the father and mother").
+        let heirs = vec![
+            make_ascendant("p1", "Pedro", 1),
+            make_ascendant("gp1", "Lolo", 2),
+            make_ascendant("gp2", "Lola", 2),
+        ];
+
+        let anchors =
+            anchor_ids_for_category(&heirs, EffectiveCategory::LegitimateAscendantGroup);
+        assert_eq!(anchors, vec!["p1".to_string()]);
+
+        let output = step2_build_lines(&Step2Input { heirs });
+        assert_eq!(output.line_counts.legitimate_ascendant, 1);
+    }
+
+    #[test]
+    fn test_dead_ascendant_is_never_represented() {
+        // Art. 972 ¶1: representation "takes place in the direct descending
+        // line, but never in the ascending". A predeceased parent whose
+        // `children` list names the decedent's sibling must NOT be represented
+        // by that sibling.
+        let heirs = vec![
+            with_children(dead(make_ascendant("fa", "Father", 1)), &["sib1"]),
+            make_sibling("sib1", "Sibling"),
+        ];
+        let output = step2_build_lines(&Step2Input { heirs });
+
+        let fa = output.heirs.iter().find(|h| h.id == "fa").unwrap();
+        assert!(fa.represented_by.is_empty());
+
+        let sib1 = output.heirs.iter().find(|h| h.id == "sib1").unwrap();
+        assert_eq!(sib1.inherits_by, InheritanceMode::OwnRight);
+        assert_eq!(sib1.represents, None);
+
+        assert_eq!(output.line_counts.legitimate_ascendant, 0);
+    }
+
+    #[test]
+    fn test_descendant_anchors_are_unchanged_by_this_plan() {
+        // Descendant anchoring and descending-line representation are untouched:
+        // two degree-1 legitimate children, one predeceased with a living child.
+        let input = Step2Input {
+            heirs: vec![
+                make_lc("lc1", "Ana"),
+                with_children(dead(make_lc("lc2", "Belen")), &["gc1"]),
+                make_gc("gc1", "Dina"),
+            ],
+        };
+        let output = step2_build_lines(&input);
+
+        assert_eq!(output.line_counts.legitimate_child, 2);
+        let gc1 = output.heirs.iter().find(|h| h.id == "gc1").unwrap();
+        assert_eq!(gc1.inherits_by, InheritanceMode::Representation);
+        assert_eq!(gc1.represents, Some("lc2".to_string()));
     }
 }
