@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planned
-stopped_at: "Phase 13 PLANNED. 13-RESEARCH.md, 13-VALIDATION.md and seven PLAN.md files across 4 waves. PDF-01..05 all covered and marked Planned. Planning measured a real product defect: the PDF's non-embedded WinAnsi base-14 fonts write the peso sign as a plus-minus sign at near-zero advance width. Gates G22-G25 take orders 17-20; the phase ends at 24 gates. Next step is /gsd:execute-phase 13."
-last_updated: "2026-07-31T22:10:00.000Z"
-last_activity: 2026-07-31 -- Phase 13 planned
+status: ready_to_plan
+stopped_at: Phase 13 complete (7/7) — ready to discuss Phase 14
+last_updated: 2026-07-31T23:06:06.698Z
+last_activity: 2026-07-31 -- Phase 13 executed and verified
 progress:
   total_phases: 15
   completed_phases: 12
   total_plans: 80
-  completed_plans: 73
+  completed_plans: 80
   percent: 80
 ---
 
@@ -21,40 +21,70 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-27)
 
 **Core value:** A change to this codebase must be cheap and safe to make — a passing gate set genuinely implies a working app, and a wrong legal number can never reach a lawyer silently.
-**Current focus:** Phase 13 — PDF Verification
+**Current focus:** Phase 14 — lawyer blocked legal fixes & legal traceability
 
 ## Current Position
 
-Phase: 13 (PDF Verification) — PLANNED, ready to execute
-Plan: 0 of 7
-Status: Ready to execute Phase 13
+Phase: 14 (Lawyer-Blocked Legal Fixes & Legal Traceability) — not started
+Plan: Not started
+Status: Phase 13 COMPLETE and verified. Ready to discuss Phase 14.
 
-Seven plans in four waves. Wave 1 is two disjoint artifacts — the PDF-local currency formatter and the
-single PDF-reading seam over poppler. Wave 2 adds the shared browser capture of the product's own
-Export PDF button and the print-layout check. Wave 3 adds the structural/money/citation gate and the
-per-page perceptual gate, which share the capture but modify disjoint files. Wave 4 registers gates
-**G22** pdf toolchain (order 17), **G23** pdf structure (18), **G24** pdf visual (19) and **G25** print
-layout (20), pushing G10, G11, G8 and G9 to 21–24 with G9 still last. The phase ends at 24 gates.
+## Phase 13 — PDF Verification, COMPLETE
 
-**Measured live during planning, not assumed.** The generated PDF's three fonts are PDF base-14
-(`Times-Roman`, `Times-Bold`, `Helvetica`), **not embedded**, WinAnsi-encoded — confirmed by
-`pdffonts`. WinAnsi has no peso sign, so `₱` (U+20B1) is written as the byte `0xB1` and extracts as
-`±` (U+00B1); rasterised, it is drawn at near-zero advance width and overprints the first digit of the
-amount. Every amount in an exported estate report therefore carries a corrupted currency mark, and the
-extraction splits the figure onto its own line, which makes any deterministic text assertion
-unimplementable. The same probe with `PHP ` extracts contiguously. Plan `13-01` fixes it with a
-PDF-only formatter; `frontend/src/types/index.ts` and everything under `engine/` stay untouched, so the
-web user interface keeps rendering `₱`.
+7 of 7 plans executed, all with committed summaries. `bash scripts/ci-gates.sh` prints
+**`ALL GATES PASSED (24/24)`** and exits 0 — observed on five separate runs at ~5m25s each, including
+two consecutive and once more independently after every commit. All five requirements PDF-01…PDF-05
+are gate-proven; requirement coverage rose 29/94 → **34/94**.
 
-**Also measured:** `.planning/codebase/TESTING.md` names two weak tests this phase was expected to
-strengthen — `frontend/src/__tests__/print-layout.test.ts` and a `typeof mod.generatePDF` assertion.
-**Neither exists in the tree**, and the print-layout file has no git history at all. So nothing in
-Phase 13 closes a weak assertion; every requirement is closed by adding verification that was absent.
-`frontend/src/styles/print.css` does exist and is imported by `src/index.css:4`.
+Four gates registered, at the planned orders: **G22** pdf toolchain (17), **G23** pdf structure (18),
+**G24** pdf visual (19), **G25** print layout (20). G10, G11, G8 and G9 shifted to 21–24 with G9 still
+last. `order` is the only field that changed on any pre-existing gate; `gates.manifest.lock` grew by
+exactly four. `G14` remains reserved and unregistered for Phase 9's `09-06`.
+
+**A real product defect was found and fixed, measured rather than hypothesised.** The exported PDF's
+three fonts are PDF base-14 (`Times-Roman`, `Times-Bold`, `Helvetica`), **not embedded**,
+WinAnsi-encoded — confirmed by `pdffonts`. WinAnsi has no peso sign, so `₱` (U+20B1) was written as
+the byte `0xB1`, extracted as `±`, and rasterised at near-zero advance width **overprinting the first
+digit of every amount in every exported estate report**. Plan `13-01` fixed it with a PDF-local
+formatter confined to `src/components/pdf/`; `src/types/index.ts` and everything under `engine/` are
+untouched, so the web interface still renders `₱`. The fix is confirmed end-to-end in G24's approved
+page images.
+
+**Nothing was deleted, skipped or weakened.** The two weak tests the roadmap named — 
+`frontend/src/__tests__/print-layout.test.ts` and the `typeof mod.generatePDF` assertion — **do not
+exist in the tree**, so every requirement was closed by adding verification that was absent. Six
+committed `₱` expectations were *corrected*, not removed, and four tests were added; the frontend
+ledger is unchanged at `LEDGER SIZE (debt) 46`. All five shrink-only ledgers are byte-identical.
+
+Every new gate was observed failing against an injection before being trusted: `SECTION MISSING`,
+`PDF AMOUNT UNEXPECTED` **and** `PDF AMOUNT MISSING` (a one-centavo change turns G23 red in both
+directions), `HEIR EVIDENCE MISSING`, `DIFF FAILURE`, `PDF PAGE COUNT`, `REFERENCE MISSING`,
+`PRINT TOP MARGIN`, `PRINT LEFT MARGIN`, `PRINT CHROME VISIBLE`, plus G22's cannot-run path on an
+emptied `PATH`. Every injection was restored and `git diff --stat frontend/src/` left empty.
+
+No point of Philippine law arose. `grep -c "[x]" .planning/LAWYER-AGENDA.md` still prints `0`.
+G23 asserts the engine's own `legal_basis` string appears in the document — never that the article is
+correct.
+
+### Carried forward from Phase 13, recorded not hidden
+
+1. **G3 is intermittently flaky.** `ReviewStep.test.tsx :: … predicted scenario badge shows the engine
+   scenario code for testate` failed the full suite twice in ~12 runs and passed 6/6 standalone right
+   after. Proven **pre-existing** — reproduced with Phase 13's source edits stashed away. No ledger was
+   appended and no test touched. A flaky *blocking* gate will occasionally paint the unattended loop
+   red for no product reason.
+2. **CI has still never executed.** Whether 24 gates fit the 60-minute timeout on a hosted runner, and
+   whether its substitution fonts match `fonts-urw-base35 20200910-1`, are unmeasured. The workflow
+   installs `poppler-utils` and `fonts-urw-base35` and records both as risks.
+3. **Three cosmetic PDF issues, deliberately not fixed** (no requirement covers them, no plan
+   authorised the change): raw `**` markdown reaches the page, citations render `Art. 996: Art. 996`,
+   `Legitime Fraction:` prints a bare `0`. All three are now pinned by G24's zero-tolerance references.
+4. **The firm header is uncovered because no PDF a user can obtain has one** — `ActionsBar` calls
+   `downloadPDF(input, output, null)`. Recorded in `frontend/journey/JOURNEY.md`.
 
 Phase 12 remains COMPLETE. Phase 11 remains EXECUTED, NOT COMPLETE — its four withheld steps are
-JRNY-02 and JRNY-03 work and Phase 13 does not absorb them. Phase 09 remains PARTIAL — 09-01, 09-02,
-09-04, 09-06 BLOCKED, and `G14` is still reserved and unused for `09-06`.
+JRNY-02 and JRNY-03 work and Phase 13 did not absorb them. Phase 09 remains PARTIAL — 09-01, 09-02,
+09-04, 09-06 BLOCKED.
 
 The detail below is Phase 11's and is unchanged.
 
@@ -111,7 +141,7 @@ and unused for Phase 9's `09-06`.
 **Unmeasured:** this project's CI has still never executed, so whether `supabase start` succeeds on a
 GitHub-hosted runner is a recorded risk in the workflow file, not a claim.
 
-Last activity: 2026-07-31 -- Phase 12 execution started
+Last activity: 2026-07-31
 
 Progress: [███████░░░] 73%
 
@@ -119,7 +149,7 @@ Progress: [███████░░░] 73%
 
 **Velocity:**
 
-- Total plans completed: 20
+- Total plans completed: 27
 - Average duration: ~5 min
 - Total execution time: ~0.35 hours
 
@@ -131,6 +161,7 @@ Progress: [███████░░░] 73%
 | 02 | 6 | - | - |
 | 3 | 5 | - | - |
 | 4 | 5 | - | - |
+| 13 | 7 | - | - |
 
 **Recent Trend:**
 
@@ -198,7 +229,7 @@ Recent decisions affecting current work:
 - Phase 5: emitting a `ManualFlag` decides nothing — it is the engine saying a human must decide. Every detector is a field comparison transcribed from the spec table, and the five new input members are facts the person entering the case asserts, never conclusions the engine derives. **No point of Philippine law arises in this phase and nothing was added to the lawyer review agenda.**
 - Phase 5: two anti-regression mechanisms rather than one. `engine/tests/observability.rs` (under existing gate G1) catches a behavioral regression across the whole 140-case corpus; new gate `G11` (`node scripts/check-observability.mjs`) catches a source regression — the reappearance of the empty-warnings literal or a re-zeroed sub-component on a path no test happens to cover. Both hardcoded lines survived unnoticed for the codebase's entire life, which is what justifies a grep-level guard alongside a behavioral one.
 - Phase 5: G11 takes `order` 9, pushing G8 to 10 and G9 to 11 — the same constraint Phase 4 discovered, that `scripts/check-gate-results.mjs` fails with `RESULTS INCOMPLETE` on any gate it sees as `not-run`, so G9 must stay last. The phase ends at 11 gates.
-- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** Executing Phase 12
+- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** Ready to plan
 
 - Phase 6: measured, not assumed — `LEGAL-CONFORMANCE.md:76`'s three claims all reproduce. Across all 140 committed inputs, `NephewNiece` appears in **0** files, `recipient_is_stranger: true` in **0** files, and the maximum donation/estate ratio is **0.5524**. Five of eleven `Relationship` variants appear nowhere at all.
 - Phase 6: two of COV-01's three shapes BREAK sum conservation today. A donation to an heir at ratio > 1.0 and a donation to a **stranger at any ratio** (measured at 0.1) both make the per-heir sum exceed the estate. Both are the documented LAW-06 defect, lawyer-blocked on LAWYER-06 and owned by Phase 14.
