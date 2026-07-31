@@ -27,6 +27,11 @@ use inheritance_engine::types::*;
 fn run_pipeline(input: &EngineInput) -> EngineOutput {
     let net_estate_frac = money_to_frac(&input.net_distributable_estate.centavos);
 
+    // Mirrors engine/src/pipeline.rs: manual-review flags and per-step log entries
+    // accumulated across Steps 1-9 and handed to Step 10.
+    let mut pipeline_warnings: Vec<ManualFlag> = Vec::new();
+    let mut step_logs: Vec<StepLog> = Vec::new();
+
     // Step 1: Classify heirs
     let disinheritances = input
         .will
@@ -38,10 +43,22 @@ fn run_pipeline(input: &EngineInput) -> EngineOutput {
         family_tree: input.family_tree.clone(),
         disinheritances,
     });
+    pipeline_warnings.extend(step1.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 1,
+        step_name: "Classify Heirs".to_string(),
+        description: "Mapped each person in the family tree to an effective heir category".to_string(),
+    });
 
     // Step 2: Build lines
     let step2 = step2_build_lines(&Step2Input {
         heirs: step1.heirs.clone(),
+    });
+    pipeline_warnings.extend(step2.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 2,
+        step_name: "Build Lines".to_string(),
+        description: "Grouped classified heirs into lines of descent and counted each category".to_string(),
     });
 
     // Step 3: Determine scenario
@@ -61,12 +78,24 @@ fn run_pipeline(input: &EngineInput) -> EngineOutput {
         has_siblings_or_nephews,
         has_other_collaterals,
     });
+    pipeline_warnings.extend(step3.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 3,
+        step_name: "Determine Scenario".to_string(),
+        description: "Selected the scenario code and succession type from the line counts".to_string(),
+    });
 
     // Step 4: Compute estate base (collation)
     let step4 = step4_compute_estate_base(&Step4Input {
         net_estate: net_estate_frac.clone(),
         donations: input.donations.clone(),
         heirs: step2.heirs.clone(),
+    });
+    pipeline_warnings.extend(step4.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 4,
+        step_name: "Compute Estate Base".to_string(),
+        description: "Added collatable donations to the net estate to form the estate base".to_string(),
     });
 
     // Step 5: Compute legitimes
@@ -76,6 +105,12 @@ fn run_pipeline(input: &EngineInput) -> EngineOutput {
         line_counts: step2.line_counts.clone(),
         heirs: step2.heirs.clone(),
         decedent: input.decedent.clone(),
+    });
+    pipeline_warnings.extend(step5.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 5,
+        step_name: "Compute Legitimes".to_string(),
+        description: "Computed each compulsory heir's legitime fraction and amount".to_string(),
     });
 
     // Step 6: Testate validation (only if will exists)
@@ -90,11 +125,22 @@ fn run_pipeline(input: &EngineInput) -> EngineOutput {
             donations: input.donations.clone(),
             scenario_code: step3.scenario_code,
         });
+        pipeline_warnings.extend(s6.warnings.iter().cloned());
+        step_logs.push(StepLog {
+            step_number: 6,
+            step_name: "Validate Will".to_string(),
+            description: "Ran testate validation over the will".to_string(),
+        });
         let st = s6
             .succession_type_override
             .unwrap_or(step3.succession_type);
         (Some(s6), st)
     } else {
+        step_logs.push(StepLog {
+            step_number: 6,
+            step_name: "Validate Will".to_string(),
+            description: "No will supplied; testate validation not applicable".to_string(),
+        });
         (None, step3.succession_type)
     };
 
@@ -113,6 +159,13 @@ fn run_pipeline(input: &EngineInput) -> EngineOutput {
         donations: input.donations.clone(),
     });
 
+    pipeline_warnings.extend(step7.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 7,
+        step_name: "Distribute".to_string(),
+        description: "Allocated the estate base across heirs as legitime, free portion and intestate shares".to_string(),
+    });
+
     // Step 8: Collation adjustment
     let step8 = step8_collation_adjustment(&Step8Input {
         net_estate: net_estate_frac.clone(),
@@ -121,6 +174,13 @@ fn run_pipeline(input: &EngineInput) -> EngineOutput {
         donation_results: step4.donation_results.clone(),
         donations: input.donations.clone(),
         heirs: step2.heirs.clone(),
+    });
+
+    pipeline_warnings.extend(step8.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 8,
+        step_name: "Collation Adjustment".to_string(),
+        description: "Imputed each heir's collatable donations against that heir's share".to_string(),
     });
 
     // Step 9: Vacancy resolution
@@ -137,9 +197,16 @@ fn run_pipeline(input: &EngineInput) -> EngineOutput {
         max_restarts: input.config.max_pipeline_restarts,
     });
 
+    pipeline_warnings.extend(step9.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 9,
+        step_name: "Resolve Vacancies".to_string(),
+        description: "Resolved renunciation, incapacity and accretion vacancies".to_string(),
+    });
+
     // Handle restart if needed (simplified: one level of restart)
     if step9.requires_restart {
-        return run_pipeline_with_restart(input, &step9);
+        return run_pipeline_with_restart(input, &step9, pipeline_warnings, step_logs);
     }
 
     // Step 10: Finalize + narrate
@@ -160,6 +227,8 @@ fn run_pipeline(input: &EngineInput) -> EngineOutput {
         scenario_code: final_scenario,
         narrative_config: NarrativeConfig::default(),
         total_restarts: 0,
+        warnings: pipeline_warnings,
+        step_logs,
     })
 }
 
@@ -169,8 +238,14 @@ fn run_pipeline(input: &EngineInput) -> EngineOutput {
 fn run_pipeline_with_restart(
     input: &EngineInput,
     step9: &inheritance_engine::step9_vacancy::Step9Output,
+    prior_warnings: Vec<ManualFlag>,
+    prior_logs: Vec<StepLog>,
 ) -> EngineOutput {
     let net_estate_frac = money_to_frac(&input.net_distributable_estate.centavos);
+
+    let mut pipeline_warnings: Vec<ManualFlag> = Vec::new();
+    pipeline_warnings.extend(prior_warnings);
+    let mut step_logs: Vec<StepLog> = prior_logs;
 
     // Use updated heirs from step9 (renounced heirs marked, new heirs activated)
     let heirs_for_restart = step9.heirs.clone();
@@ -178,6 +253,12 @@ fn run_pipeline_with_restart(
     // Step 2 on updated heirs
     let step2 = step2_build_lines(&Step2Input {
         heirs: heirs_for_restart,
+    });
+    pipeline_warnings.extend(step2.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 2,
+        step_name: "Build Lines".to_string(),
+        description: "Grouped classified heirs into lines of descent and counted each category".to_string(),
     });
 
     // Step 3 re-evaluate scenario
@@ -197,11 +278,23 @@ fn run_pipeline_with_restart(
         has_siblings_or_nephews,
         has_other_collaterals,
     });
+    pipeline_warnings.extend(step3.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 3,
+        step_name: "Determine Scenario".to_string(),
+        description: "Selected the scenario code and succession type from the line counts".to_string(),
+    });
 
     let step4 = step4_compute_estate_base(&Step4Input {
         net_estate: net_estate_frac.clone(),
         donations: input.donations.clone(),
         heirs: step2.heirs.clone(),
+    });
+    pipeline_warnings.extend(step4.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 4,
+        step_name: "Compute Estate Base".to_string(),
+        description: "Added collatable donations to the net estate to form the estate base".to_string(),
     });
 
     let step5 = step5_compute_legitimes(&Step5Input {
@@ -211,8 +304,19 @@ fn run_pipeline_with_restart(
         heirs: step2.heirs.clone(),
         decedent: input.decedent.clone(),
     });
+    pipeline_warnings.extend(step5.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 5,
+        step_name: "Compute Legitimes".to_string(),
+        description: "Computed each compulsory heir's legitime fraction and amount".to_string(),
+    });
 
     let step6 = None; // Restart cases are intestate
+    step_logs.push(StepLog {
+        step_number: 6,
+        step_name: "Validate Will".to_string(),
+        description: "No will supplied; testate validation not applicable".to_string(),
+    });
     let succession_type = step3.succession_type;
 
     let step7 = step7_distribute(&Step7Input {
@@ -229,6 +333,13 @@ fn run_pipeline_with_restart(
         donations: input.donations.clone(),
     });
 
+    pipeline_warnings.extend(step7.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 7,
+        step_name: "Distribute".to_string(),
+        description: "Allocated the estate base across heirs as legitime, free portion and intestate shares".to_string(),
+    });
+
     let step8 = step8_collation_adjustment(&Step8Input {
         net_estate: net_estate_frac.clone(),
         estate_base: step4.estate_base.clone(),
@@ -236,6 +347,12 @@ fn run_pipeline_with_restart(
         donation_results: step4.donation_results.clone(),
         donations: input.donations.clone(),
         heirs: step2.heirs.clone(),
+    });
+    pipeline_warnings.extend(step8.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 8,
+        step_name: "Collation Adjustment".to_string(),
+        description: "Imputed each heir's collatable donations against that heir's share".to_string(),
     });
 
     let step9b = step9_resolve_vacancies(&Step9Input {
@@ -249,6 +366,12 @@ fn run_pipeline_with_restart(
         will: input.will.clone(),
         restart_count: 1,
         max_restarts: input.config.max_pipeline_restarts,
+    });
+    pipeline_warnings.extend(step9b.warnings.iter().cloned());
+    step_logs.push(StepLog {
+        step_number: 9,
+        step_name: "Resolve Vacancies".to_string(),
+        description: "Resolved renunciation, incapacity and accretion vacancies".to_string(),
     });
 
     step10_finalize(&Step10Input {
@@ -267,6 +390,8 @@ fn run_pipeline_with_restart(
         scenario_code: step3.scenario_code,
         narrative_config: NarrativeConfig::default(),
         total_restarts: 1,
+        warnings: pipeline_warnings,
+        step_logs,
     })
 }
 
@@ -1879,4 +2004,112 @@ fn test_computation_log_populated() {
         !output.computation_log.steps.is_empty(),
         "Computation log should have step entries"
     );
+}
+
+// ══════════════════════════════════════════════════════════════════════
+// Observability: warnings and computation log reach EngineOutput (OBS-01, OBS-09)
+// ══════════════════════════════════════════════════════════════════════
+
+/// Step 6 builds a `preterition` ManualFlag at step6_validation.rs; before this
+/// phase the pipeline discarded it and `warnings` was always empty. Same fixture
+/// as `test_tv07_preterition_annuls_will`.
+#[test]
+fn test_warnings_reach_output_on_preterition() {
+    let input = EngineInput {
+        net_distributable_estate: Money::from_pesos(12_000_000),
+        decedent: default_decedent("Alberto Ramos", true),
+        family_tree: vec![
+            person("lc1", "Bea", Relationship::LegitimateChild),
+            person("lc2", "Cris", Relationship::LegitimateChild),
+            person("lc3", "Dina", Relationship::LegitimateChild),
+            person("sp", "Flora", Relationship::SurvivingSpouse),
+        ],
+        will: Some(simple_will(
+            vec![
+                institution(
+                    "i1",
+                    heir_ref("lc1", "Bea"),
+                    ShareSpec::Fraction(frac(1, 2)),
+                ),
+                institution(
+                    "i2",
+                    heir_ref("lc2", "Cris"),
+                    ShareSpec::Fraction(frac(1, 2)),
+                ),
+                // LC3 (Dina) totally omitted — triggers preterition
+            ],
+            vec![],
+            vec![],
+        )),
+        donations: vec![],
+        config: default_config(),
+    };
+
+    let output = run_pipeline(&input);
+
+    assert!(
+        !output.warnings.is_empty(),
+        "preterition case must emit at least one warning, got none"
+    );
+    assert!(
+        output.warnings.iter().any(|w| w.category == "preterition"),
+        "expected a warning with category \"preterition\", got {:?}",
+        output
+            .warnings
+            .iter()
+            .map(|w| w.category.clone())
+            .collect::<Vec<_>>()
+    );
+}
+
+/// A run with no restart executes Steps 1-9 once and Step 10 once: exactly ten
+/// log entries, first numbered 1 and last numbered 10. Same fixture as
+/// `test_tv01_single_lc_entire_estate`.
+#[test]
+fn test_computation_log_has_ten_steps() {
+    let input = EngineInput {
+        net_distributable_estate: Money::from_pesos(5_000_000),
+        decedent: default_decedent("Juan Cruz", false),
+        family_tree: vec![person("lc1", "Maria Cruz", Relationship::LegitimateChild)],
+        will: None,
+        donations: vec![],
+        config: default_config(),
+    };
+
+    let output = run_pipeline(&input);
+
+    assert_eq!(output.computation_log.total_restarts, 0);
+    assert_eq!(output.computation_log.steps.len(), 10);
+    assert_eq!(output.computation_log.steps[0].step_number, 1);
+    assert_eq!(output.computation_log.steps[9].step_number, 10);
+}
+
+/// A run with one restart executes Steps 1-9, then Steps 2-9 again, then Step 10:
+/// 9 + 8 + 1 = 18 entries. Same fixture as `test_tv19_total_renunciation_restart`.
+#[test]
+fn test_computation_log_has_eighteen_steps_after_restart() {
+    let mut lc1 = person("lc1", "Queenie", Relationship::LegitimateChild);
+    lc1.has_renounced = true;
+    let mut lc2 = person("lc2", "Rafael", Relationship::LegitimateChild);
+    lc2.has_renounced = true;
+
+    let input = EngineInput {
+        net_distributable_estate: Money::from_pesos(12_000_000),
+        decedent: default_decedent("Pablo Dela Rosa", false),
+        family_tree: vec![
+            lc1,
+            lc2,
+            parent("f", "Santiago", LineOfDescent::Paternal),
+            parent("m", "Teresa", LineOfDescent::Maternal),
+        ],
+        will: None,
+        donations: vec![],
+        config: default_config(),
+    };
+
+    let output = run_pipeline(&input);
+
+    assert_eq!(output.computation_log.total_restarts, 1);
+    assert_eq!(output.computation_log.steps.len(), 18);
+    assert_eq!(output.computation_log.steps[17].step_number, 10);
 }

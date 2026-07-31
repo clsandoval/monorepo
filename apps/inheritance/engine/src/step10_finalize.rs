@@ -117,6 +117,10 @@ pub struct Step10Input {
     pub narrative_config: NarrativeConfig,
     /// Total pipeline restarts performed.
     pub total_restarts: i32,
+    /// Manual-review flags accumulated by Steps 1 through 9.
+    pub warnings: Vec<ManualFlag>,
+    /// Per-step log entries recorded by Steps 1 through 9, in run order.
+    pub step_logs: Vec<StepLog>,
 }
 
 /// A single heir's rounded monetary allocation.
@@ -601,13 +605,15 @@ pub fn step10_finalize(input: &Step10Input) -> Step10Output {
     }
 
     // 4. Build computation log
+    let mut steps = input.step_logs.clone();
+    steps.push(StepLog {
+        step_number: 10,
+        step_name: "Finalize + Narrate".to_string(),
+        description: "Converted fractional shares to peso amounts and generated narratives"
+            .to_string(),
+    });
     let computation_log = ComputationLog {
-        steps: vec![StepLog {
-            step_number: 10,
-            step_name: "Finalize + Narrate".to_string(),
-            description: "Converted fractional shares to peso amounts and generated narratives"
-                .to_string(),
-        }],
+        steps,
         total_restarts: input.total_restarts,
         final_scenario: format!("{:?}", input.scenario_code),
     };
@@ -616,7 +622,7 @@ pub fn step10_finalize(input: &Step10Input) -> Step10Output {
         per_heir_shares,
         narratives,
         computation_log,
-        warnings: vec![],
+        warnings: input.warnings.clone(),
         succession_type: input.succession_type,
         scenario_code: input.scenario_code,
     }
@@ -1226,5 +1232,103 @@ mod tests {
         assert!(config.include_collation_detail);
         assert_eq!(config.max_sentences, 15);
         assert_eq!(config.language, "en");
+    }
+
+    // ── Warning + computation-log propagation tests (OBS-01, OBS-09) ──
+
+    /// Smallest `Step10Input` that `step10_finalize` will accept: no heirs, no
+    /// distributions, no donations. Only `warnings` and `step_logs` vary between
+    /// the two tests below, so everything else is held constant here.
+    fn minimal_step10_input(warnings: Vec<ManualFlag>, step_logs: Vec<StepLog>) -> Step10Input {
+        Step10Input {
+            net_estate: Money::new(0),
+            net_estate_frac: frac(0, 1),
+            estate_base: frac(0, 1),
+            decedent: Decedent {
+                id: "d1".to_string(),
+                name: "Test Decedent".to_string(),
+                date_of_death: "2024-01-01".to_string(),
+                is_married: false,
+                date_of_marriage: None,
+                marriage_solemnized_in_articulo_mortis: false,
+                was_ill_at_marriage: false,
+                illness_caused_death: false,
+                years_of_cohabitation: 0,
+                has_legal_separation: false,
+                is_illegitimate: false,
+            },
+            heirs: vec![],
+            heir_legitimes: vec![],
+            free_portion: FreePortion {
+                fp_gross: frac(0, 1),
+                spouse_from_fp: frac(0, 1),
+                ic_from_fp: frac(0, 1),
+                fp_disposable: frac(0, 1),
+                cap_triggered: false,
+            },
+            validation: None,
+            final_distributions: vec![],
+            collation_output: Step8Output {
+                adjustments: vec![],
+                representation_collations: vec![],
+                total_from_estate: frac(0, 1),
+                total_excess: frac(0, 1),
+                // `Vec::new()` rather than an empty `vec![]` literal on purpose: the
+                // static observability gate greps this file for a re-zeroed warnings
+                // literal, and a test fixture must not look like the regression.
+                warnings: Vec::new(),
+            },
+            vacancies: vec![],
+            succession_type: SuccessionType::Intestate,
+            scenario_code: ScenarioCode::I15,
+            narrative_config: NarrativeConfig::default(),
+            total_restarts: 0,
+            warnings,
+            step_logs,
+        }
+    }
+
+    #[test]
+    fn test_step10_emits_input_warnings() {
+        let input = minimal_step10_input(
+            vec![ManualFlag {
+                category: "preterition".to_string(),
+                description: "test flag".to_string(),
+                related_heir_id: None,
+            }],
+            vec![],
+        );
+        let output = step10_finalize(&input);
+        assert_eq!(output.warnings.len(), 1);
+        assert_eq!(output.warnings[0].category, "preterition");
+        assert_eq!(output.warnings[0].description, "test flag");
+    }
+
+    #[test]
+    fn test_step10_appends_own_step_log() {
+        let input = minimal_step10_input(
+            vec![],
+            vec![
+                StepLog {
+                    step_number: 1,
+                    step_name: "Classify Heirs".to_string(),
+                    description: "placeholder".to_string(),
+                },
+                StepLog {
+                    step_number: 2,
+                    step_name: "Build Lines".to_string(),
+                    description: "placeholder".to_string(),
+                },
+            ],
+        );
+        let output = step10_finalize(&input);
+        assert_eq!(output.computation_log.steps.len(), 3);
+        assert_eq!(output.computation_log.steps[0].step_number, 1);
+        assert_eq!(output.computation_log.steps[1].step_number, 2);
+        assert_eq!(output.computation_log.steps[2].step_number, 10);
+        assert_eq!(
+            output.computation_log.steps[2].step_name,
+            "Finalize + Narrate"
+        );
     }
 }
