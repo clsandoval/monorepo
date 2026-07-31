@@ -123,7 +123,39 @@ write_run_record() {
   fi
 }
 
-trap write_run_record EXIT
+# --- EXIT trap --------------------------------------------------------------
+# This runs on EVERY exit path: success, gate failure and halt alike. That is the
+# entire reason the recorder lives here rather than at the bottom of the script —
+# a recorder that only fires on success records nothing about the situations it
+# exists to surface.
+#
+# It MUST NOT change the runner's exit code. The incoming code is captured first
+# and re-exited unconditionally at the end. A status writer that can turn a red
+# run green is a defect, so even a broken recorder only prints a warning.
+#
+# The stall detector (the recorder's other subcommand) is deliberately NOT
+# invoked from here. A stall detector that failed the gate run would make the
+# stall self-perpetuating, because the next run would then also be non-pass.
+on_exit() {
+  EXIT_CODE=$?
+  write_run_record
+
+  if [ -n "${ONLY:-}" ]; then
+    echo "Partial run (--only ${ONLY}) was not recorded in loop-history.jsonl."
+  else
+    set +e
+    node "$APP_DIR/scripts/loop-status.mjs" record --run "$RUN_FILE"
+    LOOP_RC=$?
+    set -e
+    if [ "$LOOP_RC" -ne 0 ]; then
+      echo "LOOP STATUS RECORDER FAILED (exit $LOOP_RC) — the run outcome stands unchanged." >&2
+    fi
+  fi
+
+  exit "$EXIT_CODE"
+}
+
+trap on_exit EXIT
 
 halt() {
   # $1 = gate id or "preflight"/"manifest", $2 = reason, $3 = failure signature

@@ -1,0 +1,6 @@
+{"ts":"2026-07-29T01:00:00Z","outcome":"pass","failure_signature":"","gates_run":7,"gates_total":7,"only":""}
+{"ts":"2026-07-29T02:00:00Z","outcome":"fail","failure_signature":"G1:101","gates_run":4,"gates_total":7,"only":""}
+{"ts":"2026-07-29T03:00:00Z","outcome":"cannot-run","failure_signature":"CANNOT_RUN:G2","gates_run":5,"gates_total":7,"only":""}
+{"ts":"2026-07-29T04:00:00Z","outcome":"fail","failure_signature":"G3:1","gates_run":6,"gates_total":7,"only":""}
+{"ts":"2026-07-29T05:00:00Z","outcome":"cannot-run","failure_signature":"PREFLIGHT:wasm-pack","gates_run":0,"gates_total":7,"only":""}
+{"ts":"2026-07-29T06:00:00Z","outcome":"fail","failure_signature":"G4:2","gates_run":7,"gates_total":7,"only":""}
