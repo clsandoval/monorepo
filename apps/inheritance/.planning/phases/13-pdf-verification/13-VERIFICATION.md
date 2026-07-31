@@ -96,12 +96,39 @@ renders `₱`. Confirmed end-to-end in the approved page images, which show `PHP
 
 ## Open items carried forward, recorded not hidden
 
-1. **G3 is intermittently flaky.** `src/components/wizard/__tests__/ReviewStep.test.tsx :: … predicted
-   scenario badge shows the engine scenario code for testate` failed the full suite twice in roughly
-   twelve runs today, and passed 6/6 standalone immediately afterwards. Proven pre-existing: the same
-   failure reproduced with this phase's source edits stashed away. **No ledger was appended and no
-   test was touched.** This matters for a month-long unattended loop, since a flaky *blocking* gate
-   will occasionally paint the loop red for no product reason.
+1. **G3 is intermittently flaky, and the root cause is identified.** Observed **3 times in ~19 full
+   suite runs** during this phase (~16%), always the same test:
+   `src/components/wizard/__tests__/ReviewStep.test.tsx :: wizard-step6 > ReviewStep predicted
+   scenario badge shows the engine scenario code for testate`. It passes standalone every time
+   (10/10 measured).
+
+   **Proven pre-existing:** the failure reproduced with this phase's source edits `git stash`-ed
+   away, so nothing in Phase 13 caused it.
+
+   **Root cause, from reading the code — the test is racy by construction.**
+   `ReviewStep.tsx:195-210` renders the badge immediately with `scenario` initialised to `null`, so
+   the element exists on first paint showing the placeholder `'—'`, and only *later* does an async
+   `compute(formValues)` — a WASM call — resolve and `setScenario`. The test at
+   `ReviewStep.test.tsx:324` does:
+
+   ```js
+   expect(await screen.findByTestId('predicted-scenario')).toHaveTextContent('T2');
+   ```
+
+   `findByTestId` waits for the **element**, which is present on the first render. The
+   `toHaveTextContent` assertion therefore fires against whatever the badge holds at that instant —
+   `'—'` if the WASM promise has not yet resolved. Under a loaded full-suite run with many parallel
+   workers it sometimes has not. The sibling test at line 296 (`… for intestate … I2`) has the
+   identical shape and the identical latent race.
+
+   **The fix is to await the content rather than the element** — `await screen.findByText('T2')`, or
+   wrapping the assertion in `waitFor`. That is a *strengthening*, not a weakening. It was
+   deliberately **not applied here**: `ReviewStep.test.tsx` is outside every Phase 13 plan's
+   `files_modified` set and no plan contains this decision, so it is reported rather than guessed at,
+   per the project's halt-over-guess rule. **No ledger was appended and no test was touched.**
+
+   This matters for the month-long unattended loop: a flaky *blocking* gate will paint the loop red
+   roughly one run in six for no product reason. Recommended as a small follow-up plan.
 2. **CI has still never executed for this project.** Whether 24 gates fit inside the 60-minute
    timeout on a hosted runner, and whether that runner's substitution fonts rasterise identically to
    `fonts-urw-base35 20200910-1`, are unmeasured from this machine. The workflow installs
