@@ -110,20 +110,27 @@ ok=140 rejected=0
 
 ## BLOCKED — OBS-05 and OBS-06
 
-`cd frontend && npm run test:gate` **exits 1**. Real output:
+`cd frontend && npm run test:gate` **exits 1 with 5 violations**. Real output (test names only; each
+carries the same two-line "Fix the regression / adding it to the ledger is prohibited" body):
 
 ```
+TEST BASELINE GATE FAILED — 5 violation(s)
+
+UNKNOWN FAILURE: src/__tests__/integration.test.tsx :: integration > compute handles invalid input gracefully compute() handles duplicate person IDs
+UNKNOWN FAILURE: src/wasm/__tests__/bridge.test.ts :: wasm bridge invalid input handles negative centavos without crashing
+UNKNOWN FAILURE: src/wasm/__tests__/bridge.test.ts :: wasm bridge invalid input handles duplicate person IDs without crashing
 UNKNOWN FAILURE: src/wasm/__tests__/wasm-real.test.ts :: wasm-real engine computeWasm() with invalid input throws/rejects handles negative estate centavos without crashing
-  This test is failing and is not in test-baseline.json. Fix the regression.
-  Adding it to the ledger to make this gate pass is prohibited.
-
 UNKNOWN FAILURE: src/wasm/__tests__/wasm-real.test.ts :: wasm-real engine computeWasm() with invalid input throws/rejects handles duplicate person IDs without crashing
-  This test is failing and is not in test-baseline.json. Fix the regression.
-  Adding it to the ledger to make this gate pass is prohibited.
 
-GATE-SKIPS total=2430 skipped=0
+GATE-SKIPS total=2436 skipped=0
 GATE_EXIT=1
 ```
+
+> **Correction.** This section originally recorded **2** violations. That count was wrong: the run was
+> inspected with `| tail -10`, which truncated the gate's list. The real count is **5**, across three
+> files, re-measured by checking out the committed 05-05 state of `engine/src/wasm.rs` and
+> `frontend/src/wasm/bridge.ts`, rebuilding the WASM binary, and re-running the gate. All five are the
+> same two conditions below; plan 05-06 adds none of them.
 
 ### Why this is not fixable inside this plan
 
@@ -135,10 +142,10 @@ That measurement was taken over the **Rust corpus only**. The frontend suite con
 inputs the corpus does not, and both hit exactly the two conditions OBS-05 and OBS-06 require the
 engine to reject. Measured directly with the CLI:
 
-| Test | Input | Engine's rendered defect | CLI exit |
-|---|---|---|---|
-| `handles negative estate centavos without crashing` | `net_distributable_estate.centavos = -100`, one LC | `sum conservation violated: per-heir net_from_estate totals 0 centavos, distributable estate is -100 centavos` | 2 |
-| `handles duplicate person IDs without crashing` | two `Person` rows both with `id: "lc1"` | `duplicate heir_id in per_heir_shares: lc1 appears 2 times` | 2 |
+| Condition | Input | Engine's rendered defect | CLI exit | Tests affected |
+|---|---|---|---|---|
+| negative estate | `net_distributable_estate.centavos = -100` | `sum conservation violated: per-heir net_from_estate totals 0 centavos, distributable estate is -100 centavos` | 2 | 2 (`bridge.test.ts`, `wasm-real.test.ts`) |
+| duplicate person ids | two `Person` rows both with `id: "lc1"` | `duplicate heir_id in per_heir_shares: lc1 appears 2 times` | 2 | 3 (`bridge.test.ts`, `wasm-real.test.ts`, `integration.test.tsx`) |
 
 Both rejections are **correct** against the requirements as written:
 
@@ -173,9 +180,17 @@ Exactly one question, no legal content:
 > **(B)** return a best-effort distribution as it did before (what the two `wasm-real.test.ts` tests
 > assert)?
 >
-> If **(A)**: the two tests in `frontend/src/wasm/__tests__/wasm-real.test.ts` must be rewritten to
-> assert the rejection. That is a test rewrite driven by an intended behavior change, not a weakening —
-> but it needs the owner's word, and plan 05-05 forbids editing `frontend/`.
+> If **(A)**: the five tests below must be rewritten to assert the rejection. That is a test rewrite
+> driven by an intended behavior change, not a weakening — but it needs the owner's word, and plan
+> 05-05 forbids editing `frontend/`.
+>
+> | File | Test |
+> |---|---|
+> | `frontend/src/__tests__/integration.test.tsx` | `compute() handles duplicate person IDs` |
+> | `frontend/src/wasm/__tests__/bridge.test.ts` | `handles negative centavos without crashing` |
+> | `frontend/src/wasm/__tests__/bridge.test.ts` | `handles duplicate person IDs without crashing` |
+> | `frontend/src/wasm/__tests__/wasm-real.test.ts` | `handles negative estate centavos without crashing` |
+> | `frontend/src/wasm/__tests__/wasm-real.test.ts` | `handles duplicate person IDs without crashing` |
 >
 > If **(B)**: OBS-05 and OBS-06 need rewording, and the check needs an explicit, documented carve-out
 > for malformed input — which would be better placed as input validation than as an output-check
