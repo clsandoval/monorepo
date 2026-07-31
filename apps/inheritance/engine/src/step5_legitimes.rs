@@ -1255,6 +1255,7 @@ mod tests {
 
     #[test]
     fn test_t8_ascendants_plus_ics() {
+        // LEGAL-VECTOR: Art. 896
         // E=₱8M, 2 parents + 2 IC
         // Ascendants = E/2, IC collective = E/4 (Art. 896 flat)
         // Each IC = E/8

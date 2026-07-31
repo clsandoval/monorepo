@@ -1356,6 +1356,7 @@ mod tests {
 
     #[test]
     fn test_descendant_anchors_are_unchanged_by_this_plan() {
+        // LEGAL-VECTOR: Art. 975
         // Descendant anchoring and descending-line representation are untouched:
         // two degree-1 legitimate children, one predeceased with a living child.
         let input = Step2Input {

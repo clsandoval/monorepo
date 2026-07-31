@@ -503,6 +503,7 @@ mod tests {
 
     #[test]
     fn test_customary_gift_exempt() {
+        // LEGAL-VECTOR: Art. 1067
         // Art. 1067: customary/ordinary gift → not collatable
         let heirs = vec![make_lc("lc1"), make_lc("lc2")];
         let mut donation = make_donation("d1", Some("lc1"), 100_000);
@@ -529,6 +530,7 @@ mod tests {
 
     #[test]
     fn test_joint_gift_to_child_and_spouse_half_collatable() {
+        // LEGAL-VECTOR: Art. 1066
         // Art. 1066 ¶2: joint gift to child + spouse → only ½ collatable
         let heirs = vec![make_lc("lc1"), make_lc("lc2")];
         let mut donation = make_donation("d1", Some("lc1"), 4_000_000);
@@ -544,6 +546,7 @@ mod tests {
 
     #[test]
     fn test_joint_from_both_parents_half_collatable() {
+        // LEGAL-VECTOR: Art. 1072
         // Art. 1072: joint from both parents → ½ to this estate
         let heirs = vec![make_lc("lc1"), make_lc("lc2")];
         let mut donation = make_donation("d1", Some("lc1"), 6_000_000);
@@ -560,6 +563,7 @@ mod tests {
 
     #[test]
     fn test_professional_education_default_exempt() {
+        // LEGAL-VECTOR: Art. 1068
         // Art. 1068: professional education, parent NOT required → exempt
         let heirs = vec![make_lc("lc1"), make_lc("lc2")];
         let mut donation = make_donation("d1", Some("lc1"), 2_000_000);
@@ -623,6 +627,7 @@ mod tests {
 
     #[test]
     fn test_wedding_gift_not_collatable_for_estate_base() {
+        // LEGAL-VECTOR: Art. 1070
         // Art. 1070: wedding gifts are NOT added to estate base
         // (inofficiousness check is deferred to Step 6)
         let heirs = vec![make_lc("lc1"), make_lc("lc2")];
@@ -671,6 +676,7 @@ mod tests {
 
     #[test]
     fn test_debt_payment_collatable() {
+        // LEGAL-VECTOR: Art. 1069
         // Art. 1069: debt payment for child → collatable
         let heirs = vec![make_lc("lc1"), make_lc("lc2")];
         let mut donation = make_donation("d1", Some("lc1"), 1_000_000);
@@ -710,6 +716,7 @@ mod tests {
 
     #[test]
     fn test_standard_donation_to_lc_charged_to_legitime() {
+        // LEGAL-VECTOR: Art. 909
         // Art. 909: standard gift to LC → charged to child's legitime
         let heirs = vec![make_lc("lc1"), make_lc("lc2")];
         let donations = vec![make_donation("d1", Some("lc1"), 2_000_000)];

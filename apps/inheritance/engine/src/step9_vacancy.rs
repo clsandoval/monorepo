@@ -1179,6 +1179,7 @@ mod tests {
 
     #[test]
     fn test_total_renunciation_still_fires_with_no_following_degree() {
+        // LEGAL-VECTOR: Art. 859
         // Two repudiating degree-1 children and nobody at any other degree —
         // the TV-19 shape. The detector still fires.
         let heirs = vec![
@@ -1245,6 +1246,7 @@ mod tests {
 
     #[test]
     fn test_accretion_free_portion_proportional() {
+        // LEGAL-VECTOR: Art. 1019
         // Free portion vacancy → proportional accretion to co-heirs (Art. 1019)
         let distributions = vec![
             make_fp_distribution("h1", EffectiveCategory::LegitimateChildGroup, frac(1, 3)),
@@ -1278,6 +1280,7 @@ mod tests {
 
     #[test]
     fn test_accretion_legitime_triggers_restart() {
+        // LEGAL-VECTOR: Art. 1021
         // Legitime vacancy → Art. 1021: co-heirs succeed "in their own right"
         // → ScenarioRestart
         let distributions = vec![
@@ -1304,6 +1307,7 @@ mod tests {
 
     #[test]
     fn test_accretion_intestate_always_applies() {
+        // LEGAL-VECTOR: Art. 1018
         // Art. 1018: accretion always applies in intestate succession
         let distributions = vec![
             make_intestate_distribution("lc1", EffectiveCategory::LegitimateChildGroup, frac(1, 3)),
@@ -1630,6 +1634,7 @@ mod tests {
 
     #[test]
     fn test_step9_art1020_charges_follow_accreting_share() {
+        // LEGAL-VECTOR: Art. 1020
         // Art. 1020: accreting heirs inherit the vacant share's charges and conditions
         // This is a structural test — the resolution should note legal basis
         let heirs = vec![
@@ -1662,6 +1667,7 @@ mod tests {
 
     #[test]
     fn test_step9_intestate_fallback_testate_last_resort() {
+        // LEGAL-VECTOR: Art. 1022
         // If substitution and accretion both fail in testate → intestate fallback (Art. 1022(2))
         // This happens when there's a determinate property devise that blocks accretion
         // (Art. 1016 exception) and no substitute is named.

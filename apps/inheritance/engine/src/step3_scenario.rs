@@ -454,6 +454,7 @@ mod tests {
     /// Spec §3.7: "n≥2 LC + m IC + spouse"
     #[test]
     fn test_t5b_multiple_lc_ic_spouse() {
+        // LEGAL-VECTOR: Art. 889
         let input = make_input(
             counts(2, 1, 1, 0),
             true,
@@ -537,6 +538,7 @@ mod tests {
     /// Spec §3.7: "m IC + spouse" — Art. 894
     #[test]
     fn test_t10_ic_plus_spouse() {
+        // LEGAL-VECTOR: Art. 901
         let input = make_input(
             counts(0, 3, 1, 0),
             true,
@@ -741,6 +743,7 @@ mod tests {
     /// Spec §3.7: Art. 998
     #[test]
     fn test_i8_ic_plus_spouse() {
+        // LEGAL-VECTOR: Art. 991
         let input = make_input(
             counts(0, 2, 1, 0),
             false,
@@ -991,6 +994,7 @@ mod tests {
     /// I13 takes priority over I14: siblings present and other collaterals present → I13.
     #[test]
     fn test_i13_over_i14_when_siblings() {
+        // LEGAL-VECTOR: Art. 903
         let input = make_input(
             counts(0, 0, 0, 0),
             false,

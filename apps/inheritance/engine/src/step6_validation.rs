@@ -1468,6 +1468,7 @@ mod tests {
 
     #[test]
     fn test_disinheritance_valid_all_checks_pass() {
+        // LEGAL-VECTOR: Art. 923
         // All 4 checks pass: in will, cause specified, cause proven, no reconciliation.
         let lc1 = make_lc("lc1");
         let heirs = vec![lc1];
@@ -1491,6 +1492,7 @@ mod tests {
 
     #[test]
     fn test_disinheritance_valid_tv08() {
+        // LEGAL-VECTOR: Art. 919
         // TV-08: Disinheritance + representation.
         // E=₱16M, 3 LC lines + spouse + friend.
         // LC Karen validly disinherited (maltreatment, Art. 919(6)).
@@ -1516,6 +1518,7 @@ mod tests {
 
     #[test]
     fn test_disinheritance_invalid_cause_not_proven() {
+        // LEGAL-VECTOR: Art. 917
         // Cause specified but not proven → invalid (Art. 917).
         let lc1 = make_lc("lc1");
         let heirs = vec![lc1];
@@ -1535,6 +1538,7 @@ mod tests {
 
     #[test]
     fn test_disinheritance_invalid_cause_not_specified() {
+        // LEGAL-VECTOR: Art. 916
         // Cause not specified in the will → invalid (Art. 916).
         let lc1 = make_lc("lc1");
         let heirs = vec![lc1];
@@ -1554,6 +1558,7 @@ mod tests {
 
     #[test]
     fn test_disinheritance_invalid_reconciliation() {
+        // LEGAL-VECTOR: Art. 922
         // All valid but reconciliation occurred → invalid (Art. 922).
         let lc1 = make_lc("lc1");
         let heirs = vec![lc1];
@@ -1573,6 +1578,7 @@ mod tests {
 
     #[test]
     fn test_disinheritance_valid_no_spouse_representation() {
+        // LEGAL-VECTOR: Art. 855
         // Art. 923: No representation for disinherited spouse.
         // If a spouse is disinherited, they simply get 0 and nobody represents.
         let sp = make_spouse("sp");

@@ -471,6 +471,7 @@ mod tests {
 
     #[test]
     fn test_surviving_spouse_guilty_legal_separation_ineligible() {
+        // LEGAL-VECTOR: Art. 1002
         // Art. 1002: guilty spouse excluded
         let mut p = make_person("sp1", "Maria", Relationship::SurvivingSpouse);
         p.is_guilty_party_in_legal_separation = true;
@@ -485,6 +486,7 @@ mod tests {
 
     #[test]
     fn test_unworthy_heir_ineligible() {
+        // LEGAL-VECTOR: Art. 1032
         // Art. 1032: unworthy heir excluded
         let mut p = make_person("lc1", "Pablo", Relationship::LegitimateChild);
         p.is_unworthy = true;
@@ -494,6 +496,7 @@ mod tests {
 
     #[test]
     fn test_unworthy_heir_condoned_eligible() {
+        // LEGAL-VECTOR: Art. 1033
         // Art. 1033: condoned unworthiness restores eligibility
         let mut p = make_person("lc1", "Pablo", Relationship::LegitimateChild);
         p.is_unworthy = true;

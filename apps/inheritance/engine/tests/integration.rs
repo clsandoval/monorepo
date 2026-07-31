@@ -700,6 +700,7 @@ fn assert_vector_shape(
 
 #[test]
 fn test_tv01_single_lc_entire_estate() {
+    // LEGAL-VECTOR: Art. 996
     let input = EngineInput {
         net_distributable_estate: Money::from_pesos(5_000_000),
         decedent: default_decedent("Juan Cruz", false),
@@ -832,6 +833,7 @@ fn test_tv04_spouse_only() {
 
 #[test]
 fn test_tv05_parents_and_spouse() {
+    // LEGAL-VECTOR: Art. 997
     let input = EngineInput {
         net_distributable_estate: Money::from_pesos(10_000_000),
         decedent: default_decedent("Roberto Garcia", true),
@@ -1530,6 +1532,7 @@ fn test_tv16_articulo_mortis() {
 
 #[test]
 fn test_tv17_ic_only_equal_shares() {
+    // LEGAL-VECTOR: Art. 988
     let input = EngineInput {
         net_distributable_estate: Money::from_pesos(6_000_000),
         decedent: default_decedent("Kevin Ramos", false),
@@ -1567,6 +1570,7 @@ fn test_tv17_ic_only_equal_shares() {
 
 #[test]
 fn test_tv18_escheat_to_state() {
+    // LEGAL-VECTOR: Art. 1011
     let input = EngineInput {
         net_distributable_estate: Money::from_pesos(5_000_000),
         decedent: default_decedent("Oscar Cruz", false),
@@ -1601,6 +1605,7 @@ fn test_tv18_escheat_to_state() {
 
 #[test]
 fn test_tv19_total_renunciation_restart() {
+    // LEGAL-VECTOR: Art. 992
     let mut lc1 = person("lc1", "Queenie", Relationship::LegitimateChild);
     lc1.has_renounced = true;
     let mut lc2 = person("lc2", "Rafael", Relationship::LegitimateChild);
@@ -1650,6 +1655,7 @@ fn test_tv19_total_renunciation_restart() {
 
 #[test]
 fn test_tv20_iron_curtain() {
+    // LEGAL-VECTOR: Art. 872
     let mut decedent = default_decedent("Ulises Reyes", false);
     decedent.is_illegitimate = true;
 
@@ -1694,6 +1700,7 @@ fn test_tv20_iron_curtain() {
 
 #[test]
 fn test_tv21_fideicommissary() {
+    // LEGAL-VECTOR: Art. 1064
     let mut lc1 = person("lc1", "Zara", Relationship::LegitimateChild);
     lc1.children = vec!["gc1".into()];
 
@@ -1796,6 +1803,7 @@ fn test_tv22_representation_collation() {
 
 #[test]
 fn test_tv23_ascendant_only() {
+    // LEGAL-VECTOR: Art. 987
     let input = EngineInput {
         net_distributable_estate: Money::from_pesos(8_000_000),
         decedent: default_decedent("Hannah Villanueva", false),
@@ -1843,6 +1851,8 @@ fn test_tv23_ascendant_only() {
 
 #[test]
 fn test_law01_grandparents_inherit_under_regime_b() {
+    // LEGAL-VECTOR: Art. 972
+    // LEGAL-VECTOR: Art. 985
     let mut gp1 = person("gp1", "Lolo Paterno", Relationship::LegitimateAscendant);
     gp1.line = Some(LineOfDescent::Paternal);
     let mut gp2 = person("gp2", "Lola Paterna", Relationship::LegitimateAscendant);
@@ -1893,6 +1903,9 @@ fn test_law01_grandparents_inherit_under_regime_b() {
 
 #[test]
 fn test_law04_no_representation_in_the_ascending_line() {
+    // LEGAL-VECTOR: Art. 1005
+    // LEGAL-VECTOR: Art. 1006
+    // LEGAL-VECTOR: Art. 1008
     let mut fa = parent("fa", "Ignacio", LineOfDescent::Paternal);
     fa.is_alive_at_succession = false;
     fa.children = vec!["sib1".into()];
@@ -1953,6 +1966,8 @@ fn test_law04_no_representation_in_the_ascending_line() {
 
 #[test]
 fn test_law02_collateral_representation_conserves_the_estate() {
+    // LEGAL-VECTOR: Art. 969
+    // LEGAL-VECTOR: Art. 977
     let mut sib1 = person("sib1", "Paulo", Relationship::Sibling);
     sib1.blood_type = Some(BloodType::Full);
 
@@ -2024,6 +2039,9 @@ fn test_law02_collateral_representation_conserves_the_estate() {
 
 #[test]
 fn test_law03_total_repudiation_promotes_the_following_degree() {
+    // LEGAL-VECTOR: Art. 854
+    // LEGAL-VECTOR: Art. 888
+    // LEGAL-VECTOR: Art. 980
     let mut family: Vec<Person> = Vec::new();
     for (cid, gid, cname, gname) in [
         ("lc1", "gc1", "Ubaldo", "Ximena"),
@@ -2172,6 +2190,8 @@ fn test_law05a_preterition_preserves_a_non_inofficious_legacy() {
 
 #[test]
 fn test_law05a_inofficious_legacy_is_reduced_not_dropped() {
+    // LEGAL-VECTOR: Art. 911
+    // LEGAL-VECTOR: Art. 1061
     let input = law05a_input(20_000_000);
     let output = run_pipeline(&input);
 
@@ -2269,6 +2289,7 @@ fn law05b_input(expressly_exempt: bool) -> EngineInput {
 
 #[test]
 fn test_law05b_collated_donation_defeats_preterition() {
+    // LEGAL-VECTOR: Art. 1062
     let input = law05b_input(false);
     let output = run_pipeline(&input);
 
@@ -2304,6 +2325,7 @@ fn test_law05b_collated_donation_defeats_preterition() {
 
 #[test]
 fn test_law05b_exempt_donation_still_preterites_and_flags() {
+    // LEGAL-VECTOR: Art. 891
     let input = law05b_input(true);
     let output = run_pipeline(&input);
 

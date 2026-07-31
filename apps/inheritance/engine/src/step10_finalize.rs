@@ -1010,6 +1010,7 @@ mod tests {
 
     #[test]
     fn test_raw_label_legitimated_child() {
+        // LEGAL-VECTOR: Art. 179
         let heir = make_heir(
             "ltc1",
             HeirCategory::LegitimatedChild,
@@ -1024,6 +1025,7 @@ mod tests {
 
     #[test]
     fn test_raw_label_illegitimate_child() {
+        // LEGAL-VECTOR: Art. 176
         let heir = make_heir(
             "ic1",
             HeirCategory::IllegitimateChild,
@@ -1040,6 +1042,7 @@ mod tests {
 
     #[test]
     fn test_filiation_description_birth_certificate() {
+        // LEGAL-VECTOR: Art. 172
         assert_eq!(
             filiation_description(FiliationProof::BirthCertificate),
             "record of birth in the civil register (Art. 172(1), FC)"
@@ -1098,6 +1101,7 @@ mod tests {
 
     #[test]
     fn test_spouse_article_testate_with_ic() {
+        // LEGAL-VECTOR: Art. 892
         // T4, T5a, T5b → Art. 892
         assert_eq!(spouse_article(ScenarioCode::T4), Some("Art. 892"));
         assert_eq!(spouse_article(ScenarioCode::T5a), Some("Art. 892"));
@@ -1106,6 +1110,7 @@ mod tests {
 
     #[test]
     fn test_spouse_article_testate_with_ascendants() {
+        // LEGAL-VECTOR: Art. 893
         // T7, T8 → Art. 893
         assert_eq!(spouse_article(ScenarioCode::T7), Some("Art. 893"));
         assert_eq!(spouse_article(ScenarioCode::T8), Some("Art. 893"));
@@ -1113,18 +1118,21 @@ mod tests {
 
     #[test]
     fn test_spouse_article_testate_spouse_only() {
+        // LEGAL-VECTOR: Art. 899
         // T9 → Art. 899
         assert_eq!(spouse_article(ScenarioCode::T9), Some("Art. 899"));
     }
 
     #[test]
     fn test_spouse_article_testate_t11() {
+        // LEGAL-VECTOR: Art. 894
         // T11 → Art. 894
         assert_eq!(spouse_article(ScenarioCode::T11), Some("Art. 894"));
     }
 
     #[test]
     fn test_spouse_article_testate_t12_t13() {
+        // LEGAL-VECTOR: Art. 900
         assert_eq!(spouse_article(ScenarioCode::T12), Some("Art. 900"));
         assert_eq!(spouse_article(ScenarioCode::T13), Some("Art. 900"));
     }
@@ -1142,21 +1150,25 @@ mod tests {
 
     #[test]
     fn test_spouse_article_intestate_i8() {
+        // LEGAL-VECTOR: Art. 998
         assert_eq!(spouse_article(ScenarioCode::I8), Some("Art. 998"));
     }
 
     #[test]
     fn test_spouse_article_intestate_i10() {
+        // LEGAL-VECTOR: Art. 1000
         assert_eq!(spouse_article(ScenarioCode::I10), Some("Art. 1000"));
     }
 
     #[test]
     fn test_spouse_article_intestate_i11() {
+        // LEGAL-VECTOR: Art. 995
         assert_eq!(spouse_article(ScenarioCode::I11), Some("Art. 995"));
     }
 
     #[test]
     fn test_spouse_article_intestate_i12() {
+        // LEGAL-VECTOR: Art. 1001
         assert_eq!(spouse_article(ScenarioCode::I12), Some("Art. 1001"));
     }
 
@@ -1276,6 +1288,7 @@ mod tests {
 
     #[test]
     fn test_assemble_narrative_joins_with_spaces() {
+        // LEGAL-VECTOR: Art. 887
         let sections = vec![
             NarrativeSection {
                 section_type: NarrativeSectionType::Header,
