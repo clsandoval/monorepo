@@ -521,12 +521,20 @@ pub fn detect_vacancies(heirs: &[Heir], distributions: &[HeirDistribution]) -> V
 
 /// Check if all nearest relatives of a degree have renounced (Art. 969).
 ///
+/// The check is **scoped to the nearest degree**: within each category, the
+/// minimum `degree_from_decedent` among the living members defines the pool,
+/// and only that pool's members are asked whether they all repudiated. Pooling
+/// every living member of a category regardless of degree made a wholly
+/// repudiating degree 1 look non-total whenever a living degree-2 relative
+/// existed, which is precisely the Art. 969 case.
+///
 /// If so, the next degree inherits in their own right, triggering a
 /// full scenario restart.
 pub fn check_total_renunciation(heirs: &[Heir]) -> Option<EffectiveCategory> {
     // Art. 969: when ALL nearest relatives of a degree renounce → next degree inherits.
-    // Check each effective category group: if there are living members and ALL of them
-    // have renounced, this is a total renunciation of that degree.
+    // Check each effective category group: if there are living members at the
+    // nearest degree and ALL of them have renounced, this is a total
+    // renunciation of that degree.
 
     let categories = [
         EffectiveCategory::LegitimateChildGroup,
@@ -556,7 +564,18 @@ pub fn check_total_renunciation(heirs: &[Heir]) -> Option<EffectiveCategory> {
             continue;
         }
 
-        let all_renounced = living_members.iter().all(|h| h.has_renounced);
+        // Scope to the nearest degree present among the living members.
+        let min_degree = living_members
+            .iter()
+            .map(|h| h.degree_from_decedent)
+            .min()
+            .expect("living_members is non-empty");
+        let nearest_living: Vec<&&&Heir> = living_members
+            .iter()
+            .filter(|h| h.degree_from_decedent == min_degree)
+            .collect();
+
+        let all_renounced = nearest_living.iter().all(|h| h.has_renounced);
         if all_renounced {
             return Some(*category);
         }
@@ -1134,6 +1153,39 @@ mod tests {
         // eligible LC heirs remain. The check should focus on living heirs who renounced.
         let result = check_total_renunciation(&heirs);
         // All living LC heirs renounced → triggers Art. 969
+        assert_eq!(result, Some(EffectiveCategory::LegitimateChildGroup));
+    }
+
+    #[test]
+    fn test_total_renunciation_is_scoped_to_the_nearest_degree() {
+        // Two repudiating degree-1 children and one living, non-repudiating
+        // degree-2 grandchild. The nearest degree is 1 and BOTH of its living
+        // members repudiated, so Art. 969's condition is met.
+        //
+        // This assertion is what discriminates the fix: pooling every living
+        // member of the category regardless of degree — the behaviour before
+        // this change — saw a non-repudiating grandchild in the pool and
+        // returned None, so a wholly repudiating nearest degree looked partial.
+        let mut gc = make_heir("gc1", EffectiveCategory::LegitimateChildGroup, true, true);
+        gc.degree_from_decedent = 2;
+        let heirs = vec![
+            make_renouncing_heir("lc1", EffectiveCategory::LegitimateChildGroup),
+            make_renouncing_heir("lc2", EffectiveCategory::LegitimateChildGroup),
+            gc,
+        ];
+        let result = check_total_renunciation(&heirs);
+        assert_eq!(result, Some(EffectiveCategory::LegitimateChildGroup));
+    }
+
+    #[test]
+    fn test_total_renunciation_still_fires_with_no_following_degree() {
+        // Two repudiating degree-1 children and nobody at any other degree —
+        // the TV-19 shape. The detector still fires.
+        let heirs = vec![
+            make_renouncing_heir("lc1", EffectiveCategory::LegitimateChildGroup),
+            make_renouncing_heir("lc2", EffectiveCategory::LegitimateChildGroup),
+        ];
+        let result = check_total_renunciation(&heirs);
         assert_eq!(result, Some(EffectiveCategory::LegitimateChildGroup));
     }
 

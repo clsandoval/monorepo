@@ -447,6 +447,24 @@ pub fn compute_intestate_distribution(
 
 // ── Line-Aware Helpers ──────────────────────────────────────────────
 
+/// The descendant anchor set, delegated to Step 2 so the two modules cannot
+/// disagree about which degree inherits.
+fn descendant_anchor_ids(heirs: &[Heir], category: EffectiveCategory) -> Vec<HeirId> {
+    crate::step2_lines::anchor_ids_for_category(heirs, category)
+}
+
+/// The illegitimate children that actually inherit — the Step 2 anchor set.
+fn selected_illegitimate_children(heirs: &[Heir]) -> Vec<&Heir> {
+    let anchors = descendant_anchor_ids(heirs, EffectiveCategory::IllegitimateChildGroup);
+    heirs
+        .iter()
+        .filter(|h| {
+            h.effective_category == EffectiveCategory::IllegitimateChildGroup
+                && anchors.contains(&h.id)
+        })
+        .collect()
+}
+
 /// A distribution unit representing one LC line in intestate succession.
 /// Lines are counted at degree-1 (direct children of decedent), with
 /// represented lines (predeceased/disinherited) splitting per stirpes
@@ -465,13 +483,15 @@ enum LcLine<'a> {
 /// Only degree-1 anchors count as lines. Representatives (degree >= 2)
 /// are grouped under their ancestor's line, not counted separately.
 fn get_lc_lines<'a>(heirs: &'a [Heir]) -> Vec<LcLine<'a>> {
+    let anchors = descendant_anchor_ids(heirs, EffectiveCategory::LegitimateChildGroup);
     let mut lines = Vec::new();
     for h in heirs {
         if h.effective_category != EffectiveCategory::LegitimateChildGroup {
             continue;
         }
-        // Only process degree-1 anchors
-        if h.degree_from_decedent != 1 {
+        // Only process the anchors Step 2 selected (Art. 969 can move that tier
+        // off degree 1 when the whole nearest degree repudiates).
+        if !anchors.contains(&h.id) {
             continue;
         }
         if !h.represented_by.is_empty() {
@@ -688,10 +708,7 @@ fn distribute_i2(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
 /// I3: n LC + m IC (Arts. 983, 895) — 2:1 ratio, no cap in intestate.
 fn distribute_i3(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
     let lc_lines = get_lc_lines(heirs);
-    let ics: Vec<&Heir> = heirs
-        .iter()
-        .filter(|h| h.effective_category == EffectiveCategory::IllegitimateChildGroup)
-        .collect();
+    let ics: Vec<&Heir> = selected_illegitimate_children(heirs);
     let total_units = frac(2 * lc_lines.len() as i64 + ics.len() as i64, 1);
     let per_unit = amount / &total_units;
     let lc_share = &per_unit * &frac(2, 1);
@@ -714,10 +731,7 @@ fn distribute_i3(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
 /// I4: n LC + m IC + Spouse (Arts. 999, 983, 895) — spouse = 2 units.
 fn distribute_i4(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
     let lc_lines = get_lc_lines(heirs);
-    let ics: Vec<&Heir> = heirs
-        .iter()
-        .filter(|h| h.effective_category == EffectiveCategory::IllegitimateChildGroup)
-        .collect();
+    let ics: Vec<&Heir> = selected_illegitimate_children(heirs);
     let spouse = heirs
         .iter()
         .find(|h| h.effective_category == EffectiveCategory::SurvivingSpouseGroup);
@@ -766,10 +780,10 @@ fn distribute_i6(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
 
 /// I7: m IC Only (Art. 988) — equal shares.
 fn distribute_i7(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
-    let ics: Vec<&Heir> = heirs
-        .iter()
-        .filter(|h| h.effective_category == EffectiveCategory::IllegitimateChildGroup)
-        .collect();
+    let ics: Vec<&Heir> = selected_illegitimate_children(heirs);
+    if ics.is_empty() {
+        return vec![];
+    }
     let n = frac(ics.len() as i64, 1);
     let per_ic = amount / &n;
     ics.iter()
@@ -779,56 +793,53 @@ fn distribute_i7(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
 
 /// I8: m IC + Spouse (Art. 998) — spouse 1/2, ICs split 1/2.
 fn distribute_i8(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
-    let ics: Vec<&Heir> = heirs
-        .iter()
-        .filter(|h| h.effective_category == EffectiveCategory::IllegitimateChildGroup)
-        .collect();
+    let ics: Vec<&Heir> = selected_illegitimate_children(heirs);
     let spouse = heirs
         .iter()
         .find(|h| h.effective_category == EffectiveCategory::SurvivingSpouseGroup);
     let half = amount / &frac(2, 1);
-    let per_ic = &half / &frac(ics.len() as i64, 1);
     let mut result = Vec::new();
     if let Some(s) = spouse {
-        result.push(make_intestate_dist(&s.id, s.effective_category, half, vec!["Art. 998".into()]));
+        result.push(make_intestate_dist(&s.id, s.effective_category, half.clone(), vec!["Art. 998".into()]));
     }
-    for h in &ics {
-        result.push(make_intestate_dist(&h.id, h.effective_category, per_ic.clone(), vec!["Art. 998".into()]));
+    if !ics.is_empty() {
+        let per_ic = &half / &frac(ics.len() as i64, 1);
+        for h in &ics {
+            result.push(make_intestate_dist(&h.id, h.effective_category, per_ic.clone(), vec!["Art. 998".into()]));
+        }
     }
     result
 }
 
 /// I9: Ascendants + m IC (Art. 991) — ascendants 1/2, ICs 1/2.
 fn distribute_i9(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
-    let ics: Vec<&Heir> = heirs
-        .iter()
-        .filter(|h| h.effective_category == EffectiveCategory::IllegitimateChildGroup)
-        .collect();
+    let ics: Vec<&Heir> = selected_illegitimate_children(heirs);
     let half = amount / &frac(2, 1);
-    let per_ic = &half / &frac(ics.len() as i64, 1);
     let mut result = ascendant_rows(&half, heirs, &["Art. 991"]);
-    for h in &ics {
-        result.push(make_intestate_dist(&h.id, h.effective_category, per_ic.clone(), vec!["Art. 991".into()]));
+    if !ics.is_empty() {
+        let per_ic = &half / &frac(ics.len() as i64, 1);
+        for h in &ics {
+            result.push(make_intestate_dist(&h.id, h.effective_category, per_ic.clone(), vec!["Art. 991".into()]));
+        }
     }
     result
 }
 
 /// I10: Ascendants + m IC + Spouse (Art. 1000) — asc 1/2, IC 1/4, spouse 1/4.
 fn distribute_i10(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
-    let ics: Vec<&Heir> = heirs
-        .iter()
-        .filter(|h| h.effective_category == EffectiveCategory::IllegitimateChildGroup)
-        .collect();
+    let ics: Vec<&Heir> = selected_illegitimate_children(heirs);
     let spouse = heirs
         .iter()
         .find(|h| h.effective_category == EffectiveCategory::SurvivingSpouseGroup);
     let asc_total = amount / &frac(2, 1);
     let ic_total = amount / &frac(4, 1);
     let spouse_share = amount / &frac(4, 1);
-    let per_ic = &ic_total / &frac(ics.len() as i64, 1);
     let mut result = ascendant_rows(&asc_total, heirs, &["Art. 1000"]);
-    for h in &ics {
-        result.push(make_intestate_dist(&h.id, h.effective_category, per_ic.clone(), vec!["Art. 1000".into()]));
+    if !ics.is_empty() {
+        let per_ic = &ic_total / &frac(ics.len() as i64, 1);
+        for h in &ics {
+            result.push(make_intestate_dist(&h.id, h.effective_category, per_ic.clone(), vec!["Art. 1000".into()]));
+        }
     }
     if let Some(s) = spouse {
         result.push(make_intestate_dist(&s.id, s.effective_category, spouse_share, vec!["Art. 1000".into()]));
@@ -1998,6 +2009,98 @@ mod tests {
         assert_eq!(find_share(&result, "FB1").from_intestate, full_expected);
         assert_eq!(find_share(&result, "N1").from_intestate, half_each);
         assert_eq!(find_share(&result, "N2").from_intestate, half_each);
+    }
+
+    // ── LAW-03: Art. 969 promotion of the following degree ──────────
+
+    fn make_lc_at(id: &str, degree: i32) -> Heir {
+        Heir {
+            degree_from_decedent: degree,
+            ..make_lc(id)
+        }
+    }
+
+    fn repudiating_with_child(id: &str, child: &str) -> Heir {
+        Heir {
+            has_renounced: true,
+            children: vec![child.into()],
+            ..make_lc(id)
+        }
+    }
+
+    #[test]
+    fn test_promoted_grandchildren_receive_equal_own_right_shares() {
+        // Art. 969: three repudiating children, three living grandchildren.
+        // The grandchildren inherit in their own right, per capita.
+        let amount = frac(12_000_000_000, 1);
+        let heirs = vec![
+            repudiating_with_child("lc1", "gc1"),
+            repudiating_with_child("lc2", "gc2"),
+            repudiating_with_child("lc3", "gc3"),
+            make_lc_at("gc1", 2),
+            make_lc_at("gc2", 2),
+            make_lc_at("gc3", 2),
+        ];
+        let counts = lc(3, 0, 0, 0);
+
+        let result = compute_intestate_distribution(&amount, &heirs, &counts, &ScenarioCode::I1);
+
+        assert_eq!(result.len(), 3);
+        for gid in &["gc1", "gc2", "gc3"] {
+            assert_eq!(find_share(&result, gid).from_intestate, frac(4_000_000_000, 1));
+        }
+        for cid in &["lc1", "lc2", "lc3"] {
+            assert!(result.iter().all(|d| d.heir_id != *cid));
+        }
+    }
+
+    #[test]
+    fn test_get_lc_lines_still_groups_representatives_under_a_predeceased_child() {
+        // Predecease still passes per stirpes at degree 1.
+        let amount = frac(12_000_000_000, 1);
+        let mut dead_child = make_lc("lc2");
+        dead_child.is_alive = false;
+        dead_child.representation_trigger = Some(RepresentationTrigger::Predecease);
+        dead_child.represented_by = vec!["gc1".into(), "gc2".into()];
+        dead_child.children = vec!["gc1".into(), "gc2".into()];
+
+        let mut gc1 = make_lc_at("gc1", 2);
+        gc1.inherits_by = InheritanceMode::Representation;
+        gc1.represents = Some("lc2".into());
+        gc1.line_ancestor = Some("lc2".into());
+        let mut gc2 = make_lc_at("gc2", 2);
+        gc2.inherits_by = InheritanceMode::Representation;
+        gc2.represents = Some("lc2".into());
+        gc2.line_ancestor = Some("lc2".into());
+
+        let heirs = vec![make_lc("lc1"), dead_child, gc1, gc2];
+        let counts = lc(2, 0, 0, 0);
+
+        let result = compute_intestate_distribution(&amount, &heirs, &counts, &ScenarioCode::I1);
+
+        assert_eq!(find_share(&result, "lc1").from_intestate, frac(6_000_000_000, 1));
+        assert_eq!(find_share(&result, "gc1").from_intestate, frac(3_000_000_000, 1));
+        assert_eq!(find_share(&result, "gc2").from_intestate, frac(3_000_000_000, 1));
+        assert_eq!(find_share(&result, "lc2").from_intestate, Frac::zero());
+    }
+
+    #[test]
+    fn test_illegitimate_child_selection_ignores_a_non_anchor() {
+        // A degree-2 illegitimate descendant is not an anchor while the degree-1
+        // illegitimate child yields a line.
+        let amount = frac(1_200_000_000, 1);
+        let deeper = Heir {
+            degree_from_decedent: 2,
+            ..make_ic("ic_gc")
+        };
+        let heirs = vec![make_ic("ic1"), deeper];
+        let counts = lc(0, 1, 0, 0);
+
+        let result = compute_intestate_distribution(&amount, &heirs, &counts, &ScenarioCode::I7);
+
+        assert_eq!(result.len(), 1);
+        assert_eq!(find_share(&result, "ic1").from_intestate, frac(1_200_000_000, 1));
+        assert!(result.iter().all(|d| d.heir_id != "ic_gc"));
     }
 
     // ── LAW-02: collateral lines conserve the estate ────────────────

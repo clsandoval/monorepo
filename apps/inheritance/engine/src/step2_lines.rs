@@ -105,6 +105,26 @@ pub fn step2_build_lines(input: &Step2Input) -> Step2Output {
         }
     }
 
+    // Art. 969 promotion can move the descendant anchor tier off degree 1. A
+    // degree-1 descendant left behind by that promotion, whose own line is
+    // extinct, must still carry its representation_trigger: Step 5 reads that
+    // field through `has_extinct_line` to exclude it from the per-line legitime.
+    // Losing the mark would silently pay a predeceased childless heir.
+    for heir in &heirs {
+        let is_descendant = matches!(
+            heir.effective_category,
+            EffectiveCategory::LegitimateChildGroup | EffectiveCategory::IllegitimateChildGroup
+        );
+        if !is_descendant || heir.degree_from_decedent != 1 || anchor_ids.contains(&heir.id) {
+            continue;
+        }
+        if let Some(t) = get_representation_trigger(heir) {
+            if build_single_line(heir, &heirs).is_none() {
+                extinct_triggers.push((heir.id.clone(), t));
+            }
+        }
+    }
+
     // Phase 2: Update heir fields based on computed lines (mutable pass)
     let mut lines = Vec::new();
 
@@ -227,40 +247,64 @@ pub fn anchor_ids_for_category(heirs: &[Heir], category: EffectiveCategory) -> V
                 .map(|h| h.id.clone())
                 .collect()
         }
-        EffectiveCategory::CollateralGroup => {
-            // Collaterals do not sit at degree 1 — a brother or sister is at
-            // degree 2 — so the nearest collateral degree that actually yields a
-            // line is the anchor tier. In the ordinary family that is the
-            // siblings; when no sibling record exists at all it is the nephews,
-            // which is Art. 975 ¶2's "if they alone survive" shape.
-            let mut degrees: Vec<i32> = heirs
-                .iter()
-                .filter(|h| h.effective_category == category)
-                .map(|h| h.degree_from_decedent)
-                .collect();
-            degrees.sort_unstable();
-            degrees.dedup();
-
-            for degree in degrees {
-                if degree_yields_a_line(heirs, category, degree) {
-                    return heirs
-                        .iter()
-                        .filter(|h| {
-                            h.effective_category == category && h.degree_from_decedent == degree
-                        })
-                        .map(|h| h.id.clone())
-                        .collect();
-                }
-            }
-
-            Vec::new()
+        // Descendants: Art. 969. "Should there be more than one of equal degree
+        // belonging to the same line they shall divide the inheritance per
+        // capita; should they be of different lines but of equal degree, one-half
+        // shall go to the paternal and the other half to the maternal
+        // ascendants" — and, operatively here, when the relatives nearest in
+        // degree repudiate, "those of the following degree shall inherit in their
+        // own right and cannot represent the person or persons repudiating the
+        // inheritance."
+        //
+        // A repudiating heir yields no line (Art. 977 makes renunciation neither
+        // a representation trigger nor an own-right claim), so a wholly
+        // repudiating nearest degree promotes the degree below it. A predeceased
+        // heir with living descendants DOES yield a line — a representation line
+        // — so predecease never promotes and the estate still passes per stirpes.
+        EffectiveCategory::LegitimateChildGroup
+        | EffectiveCategory::IllegitimateChildGroup
+        // Collaterals do not sit at degree 1 — a brother or sister is at degree 2
+        // — so the same "first degree that yields a line" rule selects the
+        // siblings in the ordinary family and the nephews when no sibling record
+        // exists at all, which is Art. 975 ¶2's "if they alone survive" shape.
+        | EffectiveCategory::CollateralGroup => {
+            anchor_ids_at_first_line_yielding_degree(heirs, category)
         }
-        _ => heirs
+        // The surviving spouse has exactly one degree and no representation.
+        EffectiveCategory::SurvivingSpouseGroup => heirs
             .iter()
             .filter(|h| h.effective_category == category && h.degree_from_decedent == 1)
             .map(|h| h.id.clone())
             .collect(),
     }
+}
+
+/// Anchor at the lowest `degree_from_decedent` of `category` that actually
+/// yields at least one line, and return every heir of that category at that
+/// degree.
+fn anchor_ids_at_first_line_yielding_degree(
+    heirs: &[Heir],
+    category: EffectiveCategory,
+) -> Vec<HeirId> {
+    let mut degrees: Vec<i32> = heirs
+        .iter()
+        .filter(|h| h.effective_category == category)
+        .map(|h| h.degree_from_decedent)
+        .collect();
+    degrees.sort_unstable();
+    degrees.dedup();
+
+    for degree in degrees {
+        if degree_yields_a_line(heirs, category, degree) {
+            return heirs
+                .iter()
+                .filter(|h| h.effective_category == category && h.degree_from_decedent == degree)
+                .map(|h| h.id.clone())
+                .collect();
+        }
+    }
+
+    Vec::new()
 }
 
 /// True when at least one heir of `category` at `degree` produces a line.
@@ -1408,5 +1452,105 @@ mod tests {
         let output = step2_build_lines(&Step2Input { heirs });
         let n1 = output.heirs.iter().find(|h| h.id == "n1").unwrap();
         assert_eq!(n1.inherits_by, InheritanceMode::OwnRight);
+    }
+
+    // ── Art. 969: total repudiation promotes the following degree ───
+
+    #[test]
+    fn test_art969_promotes_grandchildren_when_all_children_repudiate() {
+        // Art. 969: when the nearest relatives repudiate, "those of the
+        // following degree shall inherit in their own right and cannot
+        // represent the person or persons repudiating the inheritance."
+        let heirs = vec![
+            with_children(renounced(make_lc("lc1", "Ana")), &["gc1"]),
+            with_children(renounced(make_lc("lc2", "Belen")), &["gc2"]),
+            with_children(renounced(make_lc("lc3", "Carlos")), &["gc3"]),
+            make_gc("gc1", "Dina"),
+            make_gc("gc2", "Elena"),
+            make_gc("gc3", "Fiona"),
+        ];
+
+        let anchors =
+            anchor_ids_for_category(&heirs, EffectiveCategory::LegitimateChildGroup);
+        assert_eq!(
+            anchors,
+            vec!["gc1".to_string(), "gc2".to_string(), "gc3".to_string()]
+        );
+
+        let output = step2_build_lines(&Step2Input { heirs });
+        assert_eq!(output.line_counts.legitimate_child, 3);
+
+        for gid in &["gc1", "gc2", "gc3"] {
+            let gc = output.heirs.iter().find(|h| h.id == *gid).unwrap();
+            assert_eq!(gc.inherits_by, InheritanceMode::OwnRight);
+            assert_eq!(gc.represents, None);
+        }
+        for cid in &["lc1", "lc2", "lc3"] {
+            let c = output.heirs.iter().find(|h| h.id == *cid).unwrap();
+            assert!(c.represented_by.is_empty());
+        }
+    }
+
+    #[test]
+    fn test_art969_promotes_on_a_single_repudiating_nearest_relative() {
+        let heirs = vec![
+            with_children(renounced(make_lc("lc1", "Ana")), &["gc1"]),
+            make_gc("gc1", "Dina"),
+        ];
+
+        let anchors =
+            anchor_ids_for_category(&heirs, EffectiveCategory::LegitimateChildGroup);
+        assert_eq!(anchors, vec!["gc1".to_string()]);
+
+        let output = step2_build_lines(&Step2Input { heirs });
+        assert_eq!(output.line_counts.legitimate_child, 1);
+    }
+
+    #[test]
+    fn test_partial_repudiation_does_not_promote() {
+        // Only a WHOLLY repudiating nearest degree promotes. One non-repudiating
+        // child keeps the anchor tier at degree 1, and the grandchildren of the
+        // repudiating children take nothing (Art. 977 bars representation).
+        let heirs = vec![
+            with_children(renounced(make_lc("lc1", "Ana")), &["gc1"]),
+            with_children(renounced(make_lc("lc2", "Belen")), &["gc2"]),
+            with_children(make_lc("lc3", "Carlos"), &["gc3"]),
+            make_gc("gc1", "Dina"),
+            make_gc("gc2", "Elena"),
+            make_gc("gc3", "Fiona"),
+        ];
+
+        let anchors =
+            anchor_ids_for_category(&heirs, EffectiveCategory::LegitimateChildGroup);
+        assert_eq!(
+            anchors,
+            vec!["lc1".to_string(), "lc2".to_string(), "lc3".to_string()]
+        );
+
+        let output = step2_build_lines(&Step2Input { heirs });
+        assert_eq!(output.line_counts.legitimate_child, 1);
+    }
+
+    #[test]
+    fn test_fully_predeceased_degree_still_passes_per_stirpes() {
+        // Predecease does NOT promote — a predeceased child with living
+        // descendants still yields a representation line at degree 1.
+        let heirs = vec![
+            with_children(dead(make_lc("lc1", "Ana")), &["gc1"]),
+            with_children(dead(make_lc("lc2", "Belen")), &["gc2"]),
+            make_gc("gc1", "Dina"),
+            make_gc("gc2", "Elena"),
+        ];
+
+        let anchors =
+            anchor_ids_for_category(&heirs, EffectiveCategory::LegitimateChildGroup);
+        assert_eq!(anchors, vec!["lc1".to_string(), "lc2".to_string()]);
+
+        let output = step2_build_lines(&Step2Input { heirs });
+        assert_eq!(output.line_counts.legitimate_child, 2);
+        for gid in &["gc1", "gc2"] {
+            let gc = output.heirs.iter().find(|h| h.id == *gid).unwrap();
+            assert_eq!(gc.inherits_by, InheritanceMode::Representation);
+        }
     }
 }
