@@ -13,10 +13,10 @@
 
 The precondition for everything else. Until these hold, any report of "tests pass" is unfounded.
 
-- [ ] **GATE-01**: `npm test` executes the frontend suite from a clean checkout and reports real pass/fail counts
-- [ ] **GATE-02**: `npx tsc -b` typechecks the frontend with zero errors
-- [ ] **GATE-03**: The WASM artifact builds reproducibly from `engine/` into `frontend/src/wasm/pkg/` via a single documented command
-- [ ] **GATE-04**: CI runs engine tests, WASM build, frontend tests, and typecheck on every push and pull request, and fails the build on any failure
+- [x] **GATE-01**: `npm test` executes the frontend suite from a clean checkout and reports real pass/fail counts
+- [x] **GATE-02**: `npx tsc -b` typechecks the frontend with zero errors
+- [x] **GATE-03**: The WASM artifact builds reproducibly from `engine/` into `frontend/src/wasm/pkg/` via a single documented command
+- [x] **GATE-04**: CI runs engine tests, WASM build, frontend tests, and typecheck on every push and pull request, and fails the build on any failure
 - [ ] **GATE-05**: A developer can bring up a working local environment (dependencies, WASM, local Supabase, seed data) from a clean checkout by following one documented sequence
 - [ ] **GATE-06**: `supabase/seed.sql` exists and seeds a known org, user, and case fixture that gates can rely on
 - [ ] **GATE-07**: The `firm-logos` storage bucket and any other runtime-required bucket are created by migration, not by hand
@@ -180,10 +180,10 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| GATE-01 | Phase 1 | Planned |
-| GATE-02 | Phase 1 | Planned |
-| GATE-03 | Phase 1 | Planned |
-| GATE-04 | Phase 1 | Planned |
+| GATE-01 | Phase 1 | Complete |
+| GATE-02 | Phase 1 | Complete |
+| GATE-03 | Phase 1 | Complete |
+| GATE-04 | Phase 1 | Complete |
 | GATE-05 | Phase 3 | Pending |
 | GATE-06 | Phase 3 | Pending |
 | GATE-07 | Phase 3 | Pending |

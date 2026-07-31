@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "ROADMAP.md and STATE.md written; REQUIREMENTS.md traceability table updated. Next step is `/gsd:plan-phase 1`."
-last_updated: "2026-07-31T05:00:10.460Z"
-last_activity: 2026-07-31 -- Phase 1 planning complete
+stopped_at: "Phase 1 executed and verified. All four gates green via `bash scripts/ci-gates.sh`. Next step is `/gsd:plan-phase 2`."
+last_updated: "2026-07-31T05:20:00.000Z"
+last_activity: 2026-07-31 -- Phase 1 execution complete (4/4 plans)
 progress:
   total_phases: 15
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 4
-  completed_plans: 0
-  percent: 0
+  completed_plans: 4
+  percent: 7
 ---
 
 # Project State
@@ -21,35 +21,35 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-27)
 
 **Core value:** A change to this codebase must be cheap and safe to make — a passing gate set genuinely implies a working app, and a wrong legal number can never reach a lawyer silently.
-**Current focus:** Phase 1 — Gate Foundations (make `npm test`, `tsc -b`, the WASM build, and CI itself real)
+**Current focus:** Phase 1 complete. Next: Phase 2 — Loop Durability & Commit Discipline
 
 ## Current Position
 
-Phase: 1 of 15 (Gate Foundations — Suites Execute At All)
-Plan: 0 of 4 complete — 01-01 (WASM build), 01-02 (jsdom env), 01-03 (test-baseline gate), 01-04 (CI workflow)
-Status: Ready to execute
-Last activity: 2026-07-31 -- Phase 1 planning complete
+Phase: 1 of 15 (Gate Foundations — Suites Execute At All) — COMPLETE
+Plan: 4 of 4 complete — 01-01 (WASM build), 01-02 (jsdom env), 01-03 (test-baseline gate), 01-04 (CI workflow)
+Status: Phase 1 verified. Ready to plan Phase 2.
+Last activity: 2026-07-31 -- Phase 1 execution complete (4/4 plans)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 7%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0
-- Average duration: N/A
-- Total execution time: 0 hours
+- Total plans completed: 4
+- Average duration: ~5 min
+- Total execution time: ~0.35 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 1. Gate Foundations | 4 | ~21 min | ~5 min |
 
 **Recent Trend:**
 
-- Last 5 plans: N/A
-- Trend: N/A
+- Last 5 plans: 01-01, 01-02, 01-03, 01-04 (all complete, no blocks)
+- Trend: steady — each wave's gate depended on the previous wave's artifact and all landed first-pass
 
 *Updated after each plan completion*
 
@@ -95,5 +95,6 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-07-31
-Stopped at: Phase 1 planned — 01-RESEARCH.md, 01-VALIDATION.md, and 4 PLAN.md files written across 4 sequential waves. GATE-01..04 all covered and marked Planned in REQUIREMENTS.md. Baseline was measured, not assumed: engine 442/442 green, `tsc -b --force` clean, WASM builds, frontend 342/2416 failing of which 296 are a jsdom polyfill gap. Next step is `/gsd:execute-phase 1`.
+Stopped at: Phase 1 EXECUTED AND VERIFIED. Four commits: a89d58b6 (WASM build command), 181ae68c (jsdom polyfills, 342 to 46 failures), c79e8714 (known-failure ledger gate), 0edf861b (CI workflow + runner + README). `bash apps/inheritance/scripts/ci-gates.sh` exits 0 with ALL GATES PASSED (4/4) from a WASM-less starting state. GATE-01..04 all Complete. Caveat: the GitHub workflow has never actually executed — 24 commits including this phase's four are unpushed, so criterion 4 is verified structurally (parsed YAML triggers) and behaviorally (the runner it invokes was observed exiting 1 on an injected regression), not by a real CI run. Next step is `/gsd:plan-phase 2`.
+Previously stopped at: Phase 1 planned — 01-RESEARCH.md, 01-VALIDATION.md, and 4 PLAN.md files written across 4 sequential waves. GATE-01..04 all covered and marked Planned in REQUIREMENTS.md. Baseline was measured, not assumed: engine 442/442 green, `tsc -b --force` clean, WASM builds, frontend 342/2416 failing of which 296 are a jsdom polyfill gap. Next step is `/gsd:execute-phase 1`.
 Resume file: None
