@@ -24,7 +24,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 10: Journey Gate Infrastructure — Seeding, Rubric, Artifacts** - Build the seams every per-step screenshot gate depends on (6/6 plans executed 2026-07-31; NOT complete. JRNY-09, JRNY-10 and JRNY-12 are gate-proven by **G15** (`cd frontend && node journey/selftest.mjs`, order 6, blocking, eleven cases covering all eight rubric kinds and all four diff outcomes), observed exiting 1 on an injected fixture regression and 0 after reverting it. `bash scripts/ci-gates.sh` now exits **0** with `ALL GATES PASSED (14/14)` — the inherited G3 halt is gone, resolved by the owner in `d71f9150e` before this phase ran. JRNY-01 is PARTIAL: the four database-free seams (localStorage, sessionStorage, search param, URL-addressable wizard step and tax tab) are proven reaching a page on first paint, but the live-DB half is BLOCKED — no table in the local stack's `public` schema grants SELECT/INSERT/UPDATE/DELETE to `anon`, `authenticated` or `service_role`, so `journey/seed-smoke.mjs` gets HTTP 403 / PG 42501. Cause measured: `pg_default_acl` grants apply to objects created by `supabase_admin`, but every `public` table is owned by `postgres`. Fixing it needs an owner decision about schema privileges, so it was reported rather than guessed. Phase 11's DB-touching gates hit the same wall)
 - [ ] **Phase 11: Account, Org & Case Journey Gates** - Signup, login, org, invites, case intake, RLS isolation (8/8 plans executed 2026-07-31; NOT complete. `bash scripts/ci-gates.sh` exits **0** with `ALL GATES PASSED (17/17)` — three new gates: **G16** journey registry integrity (static, order 7), **G18** tenant isolation (order 12), **G17** live journey run (order 13). **COV-06 complete**: fourteen isolation cases over four surfaces against a real local Supabase, every negative paired with a positive control, observed going red when `cases_org_member` was widened to `USING (true)` and green again after a reset. **JRNY-04 complete**: all seven guided-intake steps plus the `localStorage` draft-recovery path, each seeded from a complete committed draft. **JRNY-02 PARTIAL**: signup, both email-verification route states, login and session persistence are gated; **logout is not** — sign-out clears the session correctly (`sb-*` keys removed, signed-in chrome gone, zero console errors) but stays on `/` rendering the anonymous landing page instead of the sign-in card the rubric asserts, and whether it should redirect is a product decision no plan contains. **JRNY-03 PARTIAL**: invite acceptance and refusal are gated; **org creation is not** — driving the three onboarding screens found two real defects, a 406 from `getUserOrganization`'s `.single()` over a legitimately empty result, and a 400/PG 23502 that makes `saveFirmProfile` fail for every user because its upsert omits the NOT NULL `email`, swallowed by an empty `catch` so the user sees "You're all set!" while the attorney profile is silently discarded. Four withheld steps keep their rubrics committed but are absent from the registry with no approved reference, so the gate set claims no coverage it does not have. 15 steps registered, 15 references, all at `maxDiffPixels` 0. **Unmeasured:** CI has still never executed, so `supabase start` on a GitHub-hosted runner remains a recorded risk, not a claim)
 - [x] **Phase 12: Wizard & Output Journey Gates** - Succession wizard, tax wizard, results, family tree, share link, SEO smoke (completed 2026-07-31)
-- [ ] **Phase 13: PDF Verification** - Structural, exact-peso, and perceptual gates on the generated PDF
+- [ ] **Phase 13: PDF Verification** - Structural, exact-peso, and perceptual gates on the generated PDF (7 plans in 4 waves, planned 2026-07-31. Planning measured a real defect: the PDF's non-embedded WinAnsi base-14 fonts write `₱` as `±` at near-zero advance width, so every amount in an exported report carries a corrupted currency mark that also splits the figure across lines under text extraction. Plan 13-01 fixes it with a PDF-local formatter. Gates G22–G25 take orders 17–20; the phase ends at 24 gates)
 - [ ] **Phase 14: Lawyer-Blocked Legal Fixes & Legal Traceability** - Apply the lawyer's answers; trace every rule to a named vector
 - [ ] **Phase 15: Extendability & Documentation Closeout** - Invariants a cheap agent must not violate, and a planning dir a stranger can read
 
@@ -377,7 +377,35 @@ Cross-cutting constraints (appear in 2+ plans):
   3. Article citations and a per-heir narrative appear for every heir in the PDF.
   4. Rendered PDF pages are perceptually diffed against approved reference images.
   5. Print layout is verified from rendered page output, not by pattern-matching CSS source text (closing the gap in `print-layout.test.ts`).
-**Plans**: TBD
+**Plans**: 7 plans in 4 waves.
+
+**Wave 1** *(no dependencies; two disjoint file sets)*
+  - `13-01` — a PDF-only money and text formatter, because the PDF's non-embedded WinAnsi base-14 fonts write `₱` as `±` at near-zero width; the four sections that draw money or narrative text route through it and six committed expectations are corrected [PDF-02]
+  - `13-02` — `journey/pdf.mjs`, the single PDF-reading seam over `pdftotext`, `pdfinfo` and `pdftoppm`, plus the probe that proves all three against a document it generates at run time [PDF-01]
+
+**Wave 2** *(blocked on Wave 1 completion)*
+  - `13-03` — the shared capture: `data-testid="export-pdf"` on the product's own button, a fixed page clock so the report date stops moving, and `captureExportedPdf` returning the downloaded bytes beside an engine computation of the same case [PDF-01]
+  - `13-04` — `journey/print-layout.mjs`: print typeface, body size, hidden chrome, shown print-only elements, A4 read out of the browser's printed document, and margins measured as the distance from paper edge to first ink [PDF-05]
+
+**Wave 3** *(blocked on Wave 2 completion)*
+  - `13-05` — `journey/pdf-structure.mjs`: a run-derived required-section list, exact-centavo money comparison in both directions, and per-heir citation and narrative evidence [PDF-01, PDF-02, PDF-03]
+  - `13-06` — `journey/pdf-visual.mjs` plus a separate `pdf-approve.mjs` and a separate `journey/pdf-references/` directory, so the perceptual gate cannot write its own expectation and G16 stays intact [PDF-04]
+
+**Wave 4** *(blocked on Wave 3 completion)*
+  - `13-07` — register **G22** pdf toolchain (order 17), **G23** pdf structure (18), **G24** pdf visual (19) and **G25** print layout (20); `GATES.md` section 15; the `JOURNEY.md` PDF section; the CI poppler install; requirement closeout [PDF-01…PDF-05]
+
+Cross-cutting constraints (appear in 2+ plans):
+  - No test, assertion or gate is deleted, skipped or weakened. Nothing in this phase closes a weak assertion: `print-layout.test.ts` and the `typeof mod.generatePDF` check both **no longer exist in the tree**, so every requirement is closed by adding verification that was absent
+  - No expected peso figure is committed anywhere. Every expected amount is produced by `journey/engine.mjs` during the run, the same discipline gate G19 established
+  - All money comparison is `BigInt`; no tolerance, epsilon, `Math.abs`, `toFixed` or `Number(` appears in any comparison path
+  - `frontend/src/types/index.ts` is not edited and no file under `engine/` is edited — the currency-token fix is confined to `src/components/pdf/`, so the web user interface keeps rendering `₱`
+  - Exactly one attribute is added to application source (`data-testid="export-pdf"`), plus one pre-authorised single-line change to `pdf-export.ts` that applies only if the download probe fails
+  - Every new gate prints `GATE-SKIPS total=<n> skipped=<n>` on both its pass and its fail path and uses the three-valued exit contract 0/1/2, with a missing PDF toolchain always exit 2
+  - PDF page references live under `frontend/journey/pdf-references/`, never `frontend/journey/references/`, because `scripts/check-journey-registry.mjs` raises `ORPHAN REFERENCE` for any image there that is not a declared browser step; `maxDiffPixels` stays `0` and only `journey/pdf-approve.mjs` writes a reference
+  - The five shrink-only ledgers (`frontend/test-baseline.json`, `gate-skips.lock`, `engine/defect-baseline.json`, `assertion-baseline.json`, `coverage-zero.lock`) are read-only; a newly failing test is a BLOCKED condition, never a ledger append
+  - `G14` stays reserved and unused for Phase 9's `09-06`; the new ids are G22–G25, `G9` stays last, and `bash scripts/ci-gates.sh` must print `ALL GATES PASSED (24/24)`
+  - No point of Philippine law arises anywhere in this phase. Article citations are asserted **present and matching the engine's own `legal_basis`**, never asserted correct
+  - **Unmeasured:** this project's CI has still never executed, so whether twenty-four gates fit inside the sixty-minute timeout, and whether a hosted runner's substitution fonts rasterise identically to the observed `fonts-urw-base35 20200910-1`, are recorded risks rather than claims
 
 ### Phase 14: Lawyer-Blocked Legal Fixes & Legal Traceability
 **Goal**: The three legal fixes that needed a lawyer's answer are implemented per the recorded decision from Phase 4, and every legal rule the engine implements is traceable to exactly one named, article-citing test vector.
@@ -422,6 +450,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 10. Journey Gate Infrastructure | 0/TBD | Not started | - |
 | 11. Account, Org & Case Journey Gates | 0/8 | Planned | - |
 | 12. Wizard & Output Journey Gates | 9/9 | Complete   | 2026-07-31 |
-| 13. PDF Verification | 0/TBD | Not started | - |
+| 13. PDF Verification | 0/7 | Planned | - |
 | 14. Lawyer-Blocked Legal Fixes & Legal Traceability | 0/TBD | Not started | - |
 | 15. Extendability & Documentation Closeout | 0/TBD | Not started | - |

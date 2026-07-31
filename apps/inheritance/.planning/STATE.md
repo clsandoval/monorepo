@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: "Phase 12 EXECUTED. 9/9 plans complete, ci-gates.sh ALL GATES PASSED (20/20) three times. JRNY-06/07/08/11 Complete; JRNY-05 PARTIAL (wizard-will BLOCKED: ?hasWill=1 never constructs the will object so WillStep renders an empty div). G19/G20/G21 registered at order 14/15/16."
-last_updated: "2026-07-31T21:17:08.465Z"
-last_activity: 2026-07-31 -- Phase 12 execution started
+status: planned
+stopped_at: "Phase 13 PLANNED. 13-RESEARCH.md, 13-VALIDATION.md and seven PLAN.md files across 4 waves. PDF-01..05 all covered and marked Planned. Planning measured a real product defect: the PDF's non-embedded WinAnsi base-14 fonts write the peso sign as a plus-minus sign at near-zero advance width. Gates G22-G25 take orders 17-20; the phase ends at 24 gates. Next step is /gsd:execute-phase 13."
+last_updated: "2026-07-31T22:10:00.000Z"
+last_activity: 2026-07-31 -- Phase 13 planned
 progress:
   total_phases: 15
   completed_phases: 12
-  total_plans: 73
+  total_plans: 80
   completed_plans: 73
   percent: 80
 ---
@@ -21,16 +21,42 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-27)
 
 **Core value:** A change to this codebase must be cheap and safe to make — a passing gate set genuinely implies a working app, and a wrong legal number can never reach a lawyer silently.
-**Current focus:** Phase 12 — Wizard & Output Journey Gates
+**Current focus:** Phase 13 — PDF Verification
 
 ## Current Position
 
-Phase: 12 (Wizard & Output Journey Gates) — EXECUTING
-Plan: 1 of 9
-Status: Executing Phase 12
+Phase: 13 (PDF Verification) — PLANNED, ready to execute
+Plan: 0 of 7
+Status: Ready to execute Phase 13
 
-Phase 11 remains EXECUTED, NOT COMPLETE — its four withheld steps are JRNY-02 and JRNY-03 work and
-Phase 12 deliberately does not absorb them. The detail below is Phase 11's and is unchanged.
+Seven plans in four waves. Wave 1 is two disjoint artifacts — the PDF-local currency formatter and the
+single PDF-reading seam over poppler. Wave 2 adds the shared browser capture of the product's own
+Export PDF button and the print-layout check. Wave 3 adds the structural/money/citation gate and the
+per-page perceptual gate, which share the capture but modify disjoint files. Wave 4 registers gates
+**G22** pdf toolchain (order 17), **G23** pdf structure (18), **G24** pdf visual (19) and **G25** print
+layout (20), pushing G10, G11, G8 and G9 to 21–24 with G9 still last. The phase ends at 24 gates.
+
+**Measured live during planning, not assumed.** The generated PDF's three fonts are PDF base-14
+(`Times-Roman`, `Times-Bold`, `Helvetica`), **not embedded**, WinAnsi-encoded — confirmed by
+`pdffonts`. WinAnsi has no peso sign, so `₱` (U+20B1) is written as the byte `0xB1` and extracts as
+`±` (U+00B1); rasterised, it is drawn at near-zero advance width and overprints the first digit of the
+amount. Every amount in an exported estate report therefore carries a corrupted currency mark, and the
+extraction splits the figure onto its own line, which makes any deterministic text assertion
+unimplementable. The same probe with `PHP ` extracts contiguously. Plan `13-01` fixes it with a
+PDF-only formatter; `frontend/src/types/index.ts` and everything under `engine/` stay untouched, so the
+web user interface keeps rendering `₱`.
+
+**Also measured:** `.planning/codebase/TESTING.md` names two weak tests this phase was expected to
+strengthen — `frontend/src/__tests__/print-layout.test.ts` and a `typeof mod.generatePDF` assertion.
+**Neither exists in the tree**, and the print-layout file has no git history at all. So nothing in
+Phase 13 closes a weak assertion; every requirement is closed by adding verification that was absent.
+`frontend/src/styles/print.css` does exist and is imported by `src/index.css:4`.
+
+Phase 12 remains COMPLETE. Phase 11 remains EXECUTED, NOT COMPLETE — its four withheld steps are
+JRNY-02 and JRNY-03 work and Phase 13 does not absorb them. Phase 09 remains PARTIAL — 09-01, 09-02,
+09-04, 09-06 BLOCKED, and `G14` is still reserved and unused for `09-06`.
+
+The detail below is Phase 11's and is unchanged.
 
 `bash scripts/ci-gates.sh` exits **0** and prints `ALL GATES PASSED (17/17)`, measured twice. Three
 gates were registered: **G16** journey registry integrity (static, order 7), **G18** tenant isolation
@@ -234,6 +260,17 @@ Recent decisions affecting current work:
 - Phase 12: the four Phase 11 steps withheld as BLOCKED stay withheld. `auth-signed-out` and the three onboarding screens are JRNY-02 and JRNY-03 work, and absorbing them here would mix an owner product decision and two source defects into a verification phase.
 - Phase 12: no point of Philippine law arises anywhere in this phase — nothing added to the lawyer review agenda. The single legal value asserted, the scenario code `I2`, is read out of the engine's own output by running a command.
 
+- Phase 13: measured live, not assumed — the exported PDF's fonts are base-14 `Times-Roman`/`Times-Bold`/`Helvetica`, **not embedded**, WinAnsi-encoded (`pdffonts`). `₱` U+20B1 is written as the byte `0xB1`, extracts as `±` U+00B1, and rasterises at near-zero advance width overprinting the first digit. Every amount in a lawyer's exported report carries a corrupted currency mark. The same probe with `PHP ` extracts as one contiguous line.
+- Phase 13: the fix is a PDF-LOCAL formatter, not a font and not a change to `formatPeso`. Four alternatives were each closed off by a measurement: no `.ttf`/`.otf`/`.woff` exists anywhere in the dependency tree (`@fontsource-variable` ships `woff2` only, which `@react-pdf/renderer` cannot load); a system font path differs between this machine and a CI container; `formatPeso` is the web user interface's formatter and a browser renders `₱` correctly; and the `₱` inside `narratives[].text` is Rust engine output, so editing it would rewrite committed Rust expectations for a display problem the engine does not have. `PHP` is the ISO 4217 code, so no wording is invented.
+- Phase 13: nothing in this phase closes a weak assertion. `.planning/codebase/TESTING.md` names `frontend/src/__tests__/print-layout.test.ts` and a `typeof mod.generatePDF` check; **neither exists in the tree** and the print-layout file has no git history at all. Every requirement is closed by adding verification that was absent, so no test is deleted, skipped or loosened anywhere in the phase.
+- Phase 13: the required-section list is DERIVED FROM THE RUN, never committed. `WarningsSection` returns `null` when the engine emits no warning and the seeded case emits none; `NarrativesSection` returns `null` when there are none and the seeded case has four. `FirmHeaderSection` is excluded outright because `ActionsBar.tsx:49` calls `downloadPDF(input, output, null)`, so no PDF a user can obtain carries a firm header.
+- Phase 13: the PDF is obtained by CLICKING THE PRODUCT'S OWN EXPORT BUTTON in a real browser, extending the Phase 12 decision that the results view is reached by clicking the real compute button. A PDF the harness rendered itself would prove the harness works, not that the lazy `import('@react-pdf/renderer')`, the `profile: null` argument and the blob download all work. One attribute is added to application source, plus one pre-authorised single-line change to `pdf-export.ts`'s blob revocation that applies only if the download probe fails.
+- Phase 13: determinism blocker measured and fixed — `CaseSummarySection` prints `Report Generated:` from `new Date()`, so a zero-tolerance reference would fail the next calendar day. `page.clock.setFixedTime` is used and `page.clock.install` is not: Playwright's own types document the former as keeping timers running, and the latter would stall React scheduling and the debounced autosave. The fixed instant `2026-06-15` is after the seeded decedent's date of death `2026-01-15` and before real time, so a session token minted at real time has its expiry in the fake future and `supabase-js` treats it as live.
+- Phase 13: PDF page references get their OWN directory. `scripts/check-journey-registry.mjs:275` raises `ORPHAN REFERENCE` for any image under `journey/references/` that is not a declared browser step, and its requirement list is frozen to `JRNY-02…JRNY-08`. Widening it would make PDF pages masquerade as browser steps carrying `url`, `session` and `rubric` fields they do not have. `compareToReference` already takes `referencesDir` as a parameter, so the comparator, the five frozen markers and the `maxDiffPixels` contract are reused with no second implementation.
+- Phase 13: no npm package is added for PDF handling. poppler's `pdftotext`, `pdfinfo` and `pdftoppm` cover all five requirements through one seam; `pdfjs-dist` was rejected because rasterising through it needs a native canvas binding, and this project's gates install no compiled dependency. `pdftoppm -png -r 100` was observed byte-identical across two consecutive runs.
+- Phase 13: **recorded as a risk, not a claim** — the base-14 fonts are not embedded, so poppler substitutes from `fonts-urw-base35 20200910-1`. A different poppler or font package on a hosted runner would rasterise differently, and this project's CI has still never executed. Same exposure Phases 11 and 12 accepted for browser references; the workflow installs both packages explicitly and `GATES.md` records both versions.
+- Phase 13: no point of Philippine law arises anywhere in this phase. Article citations are asserted **present and matching the engine's own `legal_basis` entries**, never asserted correct. Nothing is added to `.planning/LAWYER-AGENDA.md`.
+
 ### Pending Todos
 
 - Phase 7 owns `engine/examples/defect-cases/01-collateral-halfblood-nephews.json`. When LAW-02 lands, `engine/tests/defect_ledger.rs` fails with `STALE DEFECT DECLARATION` until that entry is deleted from `engine/defect-baseline.json`. That failure is the intended signal, not a regression.
@@ -271,8 +308,9 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-31T21:17:08.456Z
-Stopped at: Phase 12 EXECUTED. 9/9 plans complete, ci-gates.sh ALL GATES PASSED (20/20) three times. JRNY-06/07/08/11 Complete; JRNY-05 PARTIAL (wizard-will BLOCKED: ?hasWill=1 never constructs the will object so WillStep renders an empty div). G19/G20/G21 registered at order 14/15/16.
+Last session: 2026-07-31T22:10:00.000Z
+Stopped at: Phase 13 PLANNED. `13-RESEARCH.md`, `13-VALIDATION.md` and seven `PLAN.md` files across 4 waves (wave 1 = 13-01 currency formatter and 13-02 poppler seam in parallel; wave 2 = 13-03 capture and 13-04 print layout; wave 3 = 13-05 structure and 13-06 visual; wave 4 = 13-07 gate registration). PDF-01..05 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 80 plan file(s), 302 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` reports valid with zero missing keys on each of the seven new plans. Every number in the research was measured live in this tree: `@react-pdf/renderer` rendering a PDF in plain Node, `pdffonts` showing three non-embedded WinAnsi base-14 fonts, `pdftotext` extracting the peso sign as `M-BM-1` (U+00B1), a crop image showing the glyph overprinting the leading digit, the same probe extracting cleanly with `PHP `, `pdftoppm` producing identical `md5sum` twice, `pdfinfo` reporting `595.28 x 841.89 pts (A4)`, and the release engine returning 4 heirs at 150000000 centavos each with `legal_basis` `["Art. 996"]` and 4 narratives containing `₱`. The phase ends at 24 gates. Note for the executor: `gsd-sdk query verify.plan-structure` reports `Task missing <name> element` on all seven, exactly as it does on every one of the 73 pre-existing plans, because this project uses the `<task id="1" name="...">` attribute form throughout; the authoritative check is gate G6, which passes. Next step is `/gsd:execute-phase 13`.
+Previously stopped at: Phase 12 EXECUTED. 9/9 plans complete, ci-gates.sh ALL GATES PASSED (20/20) three times. JRNY-06/07/08/11 Complete; JRNY-05 PARTIAL (wizard-will BLOCKED: ?hasWill=1 never constructs the will object so WillStep renders an empty div). G19/G20/G21 registered at order 14/15/16.
 Previously stopped at: Phase 8 EXECUTED (8/8 plans, 8 commits: 3583786fa, 6a4361db0, 85319b6b9, 6de15f5cc, 6dde94c9f, 7489bbe90, 780b36a9f, a47d289e5). LAW-05, LAW-08, LAW-09, LAW-10, LAW-11 all Complete. cargo test 543/0 (from 527). Frontend UNKNOWN FAILURE set identical to Phase 5's five, total 2449 tests. Twelve of thirteen gates pass; ci-gates.sh halts at G3 (8/13) on OBS-05/OBS-06. LAWYER-09 recorded awaiting-answer. Next step: /gsd:plan-phase 9.
 Previously stopped at: Phase 6 PLANNED. `06-RESEARCH.md`, `06-VALIDATION.md` and five `PLAN.md` files across 4 waves (wave 1 = 06-01 corpus and 06-03 vector tightening in parallel; wave 2 = 06-02 invariant split; waves 3 and 4 serialize on the four gate-infrastructure files). COV-01..05 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 32 plan file(s), 117 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` plus `verify.plan-structure` report valid with zero errors on each of the five new plans. Every number in the research was measured live in this tree, including a bisection that reproduced the collateral duplicate-heir defect to the centavo. The phase ends at 13 gates; a full `ci-gates.sh` run will still halt at G3 until Phase 5's product decision is answered. Next step is `/gsd:execute-phase 6`.
 Previously stopped at: Phase 5 EXECUTED (7/7 plans, 14 commits) but NOT VERIFIED. OBS-01,02,03,04,07,08,09 complete and gate-proven. OBS-05/OBS-06 BLOCKED: the runtime conservation + duplicate-heir rejection is implemented and correct per the requirement text, but 5 committed frontend tests across integration.test.tsx, bridge.test.ts and wasm-real.test.ts assert the OLD silent-pass behavior for a negative distributable estate and for duplicate person IDs, so gate G3 (frontend known-failure ledger) exits 1 and scripts/ci-gates.sh halts at gate 6 of 11. Nothing was weakened to hide this: no test edited/skipped/deleted, test-baseline.json and gate-skips.lock untouched, no carve-out added to check_output. ONE product decision unblocks it, stated in 05-05-SUMMARY.md: should computeWasm reject a non-distributable input (A, current, what OBS-05/06 require) or return a best-effort distribution (B, what those 5 tests assert)? If A, those 5 tests must be rewritten to assert the rejection. Verified by direct measurement: cargo test 481 passing 0 failed across 6 binaries; 564/564 rows carry a legitime_fraction (was 0); nonzero from_legitime 105, from_free_portion 25, from_intestate 457 (all were 0); 42/140 cases emit a warning (was 0); computation_log.steps is 10 on every corpus case (was 1); 0 sub-component sum mismatches; all ten spec flag detectors have a passing test; G4/G10/G11 each exit 0 run directly; G8/G9 fail only as a cascade of the G3 halt. No point of Philippine law arose; nothing added to LAWYER-AGENDA.md. Next step: answer the OBS-05/06 question, then re-run bash scripts/ci-gates.sh.
