@@ -16,7 +16,7 @@ Append-only. Newest at top. One line per day.
 - **Weight:** 95.2 kg (fasted AM)
 - **Cals / Protein:** ~1405 / ~84g so far (Cyma salmon pasta, shirataki swap: ~200g salmon in cream/olive oil sauce ~450/32g + shirataki noodles ~25/0g; very sweet latte 16 oz ~300/8g; tagliata di manzo beef tenderloin olive oil garlic ~500/42g; 50g focaccia ~155/4g)
 - **Carbs / Sodium:** ~112g so far (shirataki ~6g mostly fiber + cream sauce ~5g; latte ~42g; tagliata ~3g; focaccia ~22g. Sodium: salted restaurant dishes + bread carry it)
-- **Trained:** —
+- **Trained:** light — pull-ups 3 sets + forearm work
 - **Notes:** down 0.8 off 7/29's 96.0 (7/30 unweighed). Matches 7/21 exactly — back to the pre-trip level after the post-trip water bump (97.4 peak on 7/25). 1.2 under the 7/03 baseline (96.4); 0.9 above the 7/22 all-time low (94.3). Trend intact: ~0.7–0.8 kg/wk since 7/03.
 ## 2026-07-30
 - **Weight:** — (not logged)
