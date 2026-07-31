@@ -298,7 +298,30 @@ Cross-cutting constraints:
   2. Org creation and invite acceptance each have a passing screenshot-plus-rubric gate.
   3. Case intake, including recovery from a `localStorage` draft, is verified step by step.
   4. A test run against a real local Supabase proves a user in org A cannot read, write, or enumerate org B's cases, PDFs, or shared links.
-**Plans**: TBD
+**Plans**: 8 plans in 4 waves.
+
+**Wave 1** *(no dependencies)*
+  - `11-01` — PostgREST role grants (migration 014), collapse `get_shared_case` to one signature (migration 015), extend `seed.sql`/`fixtures.json` with two `case_pdfs` rows, an org-less user and a pending invitation, plus `journey/db-access-probe.mjs` [COV-06]
+  - `11-02` — fix the three measured product defects (`createOrganization` argument order at `auth.tsx:85` and `auth/callback.tsx:32`; `/invite/$token` swallowing `success:false`; `settings/team.tsx` reading a non-existent `profiles` table) and add nineteen `data-testid` hooks [JRNY-02, JRNY-03, JRNY-04]
+
+**Wave 2** *(blocked on Wave 1 completion)*
+  - `11-03` — the live journey runner: `journey/serve.mjs`, `session.mjs`, `actions.mjs`, `resets.mjs`, `run.mjs`, the `journey/steps/` registry directory and the first approved reference [JRNY-02]
+  - `11-04` — `journey/rls-isolation.mjs` and its fourteen-case table across four surfaces, every negative paired with a positive control [COV-06]
+
+**Wave 3** *(blocked on Wave 2 completion)*
+  - `11-05` — five account steps: signup, the two email-verification route states, session persistence and logout [JRNY-02]
+  - `11-06` — five org steps: three onboarding screens driven by real form submissions, plus invite acceptance and refusal, each with a named database reset [JRNY-03]
+  - `11-07` — eight guided-intake steps, each seeded from a complete committed draft, including the `localStorage` recovery path [JRNY-04]
+
+**Wave 4** *(blocked on Wave 3 completion)*
+  - `11-08` — register **G16** (static journey registry integrity, order 7), **G18** (tenant isolation, order 12) and **G17** (live journey run, order 13); add `GATES.md` section 13; provision the Supabase CLI, the local stack and chromium in `.github/workflows/inheritance-ci.yml` [JRNY-02, JRNY-03, JRNY-04, COV-06]
+
+**Cross-cutting constraints:**
+  - A reference image may be approved only after that step's rubric has already passed, and `maxDiffPixels` stays at `0` on every sidecar; `journey/approve.mjs` remains the only writer into `journey/references/`.
+  - `anon` receives no table privilege anywhere in this phase; the only anonymous data path is the `SECURITY DEFINER` `get_shared_case` RPC.
+  - The whole gate run moves from 14 gates to 17, and `bash scripts/ci-gates.sh` must print `ALL GATES PASSED (17/17)`.
+  - No point of Philippine law arises anywhere in this phase; nothing is added to `.planning/LAWYER-AGENDA.md`.
+  - **Unmeasured:** whether `supabase start` succeeds on a GitHub-hosted runner is unknown — this project's CI has never executed (Phase 1's GATE-04 finding) — so plan 11-08 records that as a risk rather than a claim.
 **UI hint**: yes
 
 ### Phase 12: Wizard & Output Journey Gates
@@ -367,7 +390,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 8. Remaining Unblocked Legal & Tax-Bridge Defects | 0/8 | Planned | - |
 | 9. Single Source of Truth — Dedup Classifiers & Money Types | 0/TBD | Not started | - |
 | 10. Journey Gate Infrastructure | 0/TBD | Not started | - |
-| 11. Account, Org & Case Journey Gates | 0/TBD | Not started | - |
+| 11. Account, Org & Case Journey Gates | 0/8 | Planned | - |
 | 12. Wizard & Output Journey Gates | 0/TBD | Not started | - |
 | 13. PDF Verification | 0/TBD | Not started | - |
 | 14. Lawyer-Blocked Legal Fixes & Legal Traceability | 0/TBD | Not started | - |

@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 10 EXECUTED (6/6 plans, 6 commits: 2850b8953, 52bd77a7c, a2c6e32ca, 097062a18, f371e3e5d, 3d2bfc176). JRNY-09/10/12 gate-proven by new gate G15 at order 6. `bash scripts/ci-gates.sh` exits 0 — ALL GATES PASSED (14/14), measured twice; the OBS-05/OBS-06 G3 halt inherited by phases 5-9 was resolved by the owner in d71f9150e before this phase ran. JRNY-01 PARTIAL: DB-free seams proven, live-DB seeding BLOCKED because no public table grants SELECT to any API role in the local stack (PG 42501) — needs an owner decision on schema privileges before Phase 11. PREVIOUSLY: Phase 8 EXECUTED (8/8 plans, 8 commits: 3583786fa, 6a4361db0, 85319b6b9, 6de15f5cc, 6dde94c9f, 7489bbe90, 780b36a9f, a47d289e5). LAW-05, LAW-08, LAW-09, LAW-10, LAW-11 all Complete. cargo test 543/0 (from 527). Frontend UNKNOWN FAILURE set identical to Phase 5's five, total 2449 tests. Twelve of thirteen gates pass; ci-gates.sh halts at G3 (8/13) on OBS-05/OBS-06. LAWYER-09 recorded awaiting-answer. Next step: /gsd:plan-phase 9."
-last_updated: "2026-07-31T16:56:33.621Z"
-last_activity: 2026-07-31 -- Phase 10 executed (6/6 plans)
+stopped_at: "Phase 10 PLANNED. `10-RESEARCH.md`, `10-VALIDATION.md` and six `PLAN.md` files across 4 waves (wave 1 = 10-01 alone, the Wave 0 harness; wave 2 = 10-02 rubric and 10-03 diff in parallel, disjoint file sets; wave 3 = 10-04 artifacts and 10-05 seeding in parallel, disjoint file sets; wave 4 = 10-06 gate registration). JRNY-01, JRNY-09, JRNY-10, JRNY-12 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK -- 56 plan file(s), 204 task(s) checked`, `gsd-sdk query verify.plan-structure` reports valid with zero errors and zero warnings on each of the six, `frontmatter.validate --schema plan` reports valid on each, and an intra-wave file-conflict scan found zero collisions. Planning measurements taken live in this tree: the repo has NO browser tooling at all (the one `@vitest/browser-playwright` hit is an unwired transitive lockfile entry); npm is reachable and `playwright@1.56.1` + `pixelmatch@7.2.0` + `pngjs@7.0.0` were installed in a scratch dir and driven end to end -- chromium launched headless, screenshotted, and pixelmatch reported `DIFF pixels = 69` with an 11,448-byte diff image, `PROBE_EXIT=0`; the local Supabase stack is UP (ports 55321-55324, 55327 bound) and Docker is reachable; port 4173 is free; both wizards hold step state in local `useState` with no URL encoding (`WizardContainer.tsx:76`, `EstateTaxWizard.tsx:51`), which is the one real seeding gap and what 10-05 closes. Three decisions were made in the plans so no executor faces them: the rubric backend is a deterministic DOM predicate rather than a model call (no model secret exists in the workflow, and a model verdict IS the free-form judgment JRNY-09 excludes); approval of a reference image is a separate command a gate may not invoke; and the gate id is **G15**, not G14, because Phase 9's unstarted 09-06 reserves G14. G15 takes `order` 6, ahead of the inherited G3 halt, and G9 stays last. The phase ends at 14 gates. `ALL GATES PASSED (14/14)` is NOT achievable this phase -- a full runner invocation is expected to halt at G3 (now order 9) on Phase 5's unresolved OBS-05/OBS-06 product decision. No point of Philippine law arose; nothing added to LAWYER-AGENDA.md. Next step is `/gsd:execute-phase 10`."
+last_updated: "2026-07-31T17:58:13.468Z"
+last_activity: 2026-07-31 -- Phase 11 planning complete
 progress:
   total_phases: 15
-  completed_phases: 9
-  total_plans: 56
+  completed_phases: 10
+  total_plans: 64
   completed_plans: 56
-  percent: 60
+  percent: 67
 ---
 
 # Project State
@@ -27,14 +27,14 @@ See: .planning/PROJECT.md (updated 2026-07-27)
 
 Phase: 10 (journey-gate-infrastructure-seeding-rubric-artifacts) — EXECUTED, NOT COMPLETE
 Plan: 6 plans across 4 waves, all 6 executed and committed
-Status: JRNY-09, JRNY-10 and JRNY-12 closed and gate-proven by G15. JRNY-01 is PARTIAL — see below.
+Status: Ready to execute
 Also open: Phase 09 remains PARTIAL — 2 of 6 executed (09-03, 09-05 complete; 09-01, 09-02, 09-04, 09-06 BLOCKED and awaiting `/gsd:plan-phase 9 --gaps`). Phase 10 does not depend on any of the four, and takes gate id **G15** precisely so a Phase 9 replan can still claim its reserved G14.
 Resolved since Phase 9: the OBS-05/OBS-06 product decision was answered by the owner in commit `d71f9150e` ("the engine rejects inputs it cannot distribute conservatively rather than returning a best-effort distribution"), which rewrote the five tests that encoded the old silent behaviour. The G3 halt inherited by Phases 5, 7, 8 and 9 is gone. `bash scripts/ci-gates.sh` now exits **0** and prints `ALL GATES PASSED (14/14)` — measured twice during Phase 10, with the full per-gate table pasted in `10-06-SUMMARY.md`. Every Phase 10 plan was written on the premise that a G3 halt was unavoidable; that premise was already false when the phase ran, and `GATES.md` was corrected rather than left asserting it.
 
 New blocker recorded by Phase 10 (JRNY-01, live-database half): the local Supabase stack grants **no** SELECT/INSERT/UPDATE/DELETE on any `public` table to `anon`, `authenticated` or `service_role`. `journey/seed-smoke.mjs` and a raw REST call both get PG `42501` / HTTP 403; the rows themselves are correct and present. Cause measured: `pg_default_acl` defines the grants for objects created by `supabase_admin`, but every `public` table is owned by `postgres`, so the default ACLs never applied. No migration contains a REVOKE. Fixing it is a schema/security decision (which roles get which privileges) that plan 10-05 does not contain and that affects the deployed product, so it was reported rather than guessed. **Phase 11's DB-touching journey gates will hit this same wall.** Note also that `scripts/check-env-ready.mjs` reports `ENV READY` and exits 0 despite this, because it checks that the stack is up, not that its tables are reachable through PostgREST.
 
 Historical: Phase 05 was BLOCKED on one product decision (OBS-05/OBS-06), now answered. Gate G3 is still red and `bash scripts/ci-gates.sh` still halts there at gate 8 of 13. Phase 8 did not touch it and did not hide it: the five UNKNOWN FAILURES are byte-identical to the set recorded in 05-05, 05-06, 06-05 and Phase 7, and the WASM binary was rebuilt (616398 bytes, mtime newer than the newest `engine/src/` edit) before the frontend suite was measured, so that comparison is against the new engine and not the old one. Of the gates the runner never reaches, G4, G10 and G11 were run directly and all exit 0; G8 and G9 exit 1 purely as a cascade of the halt (G8 reports SKIP REPORT MISSING for gates that wrote no log, G9 reports RESULTS INCOMPLETE for gates published as not-run).
-Last activity: 2026-07-31 -- Phase 10 executed (6/6 plans, 6 commits)
+Last activity: 2026-07-31 -- Phase 11 planning complete
 
 Progress: [██████░░░░] 60%
 

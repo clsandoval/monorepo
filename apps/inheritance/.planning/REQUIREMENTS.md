@@ -236,10 +236,10 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | JRNY-09 | Phase 10 | Planned (10-02) |
 | JRNY-10 | Phase 10 | Planned (10-03) |
 | JRNY-12 | Phase 10 | Planned (10-01, 10-04) |
-| JRNY-02 | Phase 11 | Pending |
-| JRNY-03 | Phase 11 | Pending |
-| JRNY-04 | Phase 11 | Pending |
-| COV-06 | Phase 11 | Pending |
+| JRNY-02 | Phase 11 | Planned (11-03, 11-05) |
+| JRNY-03 | Phase 11 | Planned (11-02, 11-06) |
+| JRNY-04 | Phase 11 | Planned (11-07) |
+| COV-06 | Phase 11 | Planned (11-01, 11-04) |
 | JRNY-05 | Phase 12 | Pending |
 | JRNY-06 | Phase 12 | Pending |
 | JRNY-07 | Phase 12 | Pending |
