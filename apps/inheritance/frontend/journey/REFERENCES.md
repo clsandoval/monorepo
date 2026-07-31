@@ -87,3 +87,36 @@ first CI run would fail for a reason that has nothing to do with the product.
 So the Phase 10 self-test generates its reference **at run time** from a committed HTML fixture. That
 tests the mechanism without importing the portability problem. Phases 11 and 12 capture and commit the
 real application's references, using exactly the flow written down above.
+
+## PDF page references
+
+Phase 13 added a second reference store, `frontend/journey/pdf-references/`, holding one image per
+page of the estate report that the product's own Export PDF button produces. Gate **G24**
+(`journey/pdf-visual.mjs`) reads it; `journey/pdf-approve.mjs` is the only writer.
+
+Everything above applies unchanged: the five markers, the `maxDiffPixels` default of `0`, the
+prohibition on raising it to clear a red gate, the prohibition on hand-placing a PNG, and the rule
+that no gate ever invokes an approval command.
+
+**The one difference: approval is whole-document, not per-step.** `pdf-approve.mjs` takes no step id
+and approves every page of the newest run at once, because approving one page of a two-page report
+while leaving the other at an older revision would leave the reference set describing a document that
+never existed. It also deletes any reference whose page number exceeds the count just approved, so a
+report that lost a page cannot leave a stale image behind.
+
+```bash
+# 1. Produce the artifact. The gate writes .journey-runs/<timestamp>/pdf/page-<n>.png.
+node journey/pdf-visual.mjs
+
+# 2. Look at every page image with your own eyes. No command. This is the step that
+#    makes the approval mean something.
+
+# 3. Approve the whole document.
+node journey/pdf-approve.mjs
+```
+
+These images live outside `journey/references/` on purpose:
+`scripts/check-journey-registry.mjs` (gate G16) raises `ORPHAN REFERENCE` for any image there that is
+not a declared browser step, and a PDF page has no `url`, no `session` and no `rubric`. See
+`frontend/journey/pdf-references/README.md` for the rasterisation contract — `pdftoppm -png` at 100
+dots per inch — and for the recorded non-embedded-font portability exposure.
