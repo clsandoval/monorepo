@@ -845,12 +845,13 @@ function computeCasualtyLosses(losses) → ColumnValues:
 ### 9.6 Vanishing Deduction (5E) — Sec. 86(A)(2)
 
 ```pseudocode
-function computeVanishingDeduction(properties, grossEstateTotal, elitTotal) → ColumnValues:
-  // elitTotal = sum of 5A + 5B + 5C + 5D (NOT including 5G funeral or 5H judicial for pre-TRAIN)
-  // Note: For pre-TRAIN, ELIT for the ratio DOES include funeral + judicial (5G + 5H)
+function computeVanishingDeduction(properties, grossEstateTotal, ratioDeductionsTotal) → ColumnValues:
+  // ratioDeductionsTotal = the amounts the statute names for the reduction ratio:
+  //   5A + 5B + 5C + 5D + 5F Transfers for Public Use
+  // Note: under the pre-TRAIN rules, 5G funeral and 5H judicial are added as well
 
   result = { exclusive: 0, conjugal: 0, total: 0 }
-  ratio = grossEstateTotal > 0 ? max(0, (grossEstateTotal - elitTotal) / grossEstateTotal) : 0
+  ratio = grossEstateTotal > 0 ? max(0, (grossEstateTotal - ratioDeductionsTotal) / grossEstateTotal) : 0
 
   for each prop in properties:
     elapsed = yearsBetween(prop.priorTransferDate, decedent.dateOfDeath)
@@ -877,7 +878,9 @@ function vanishingPct(elapsedYears):
   else: return 0.00
 ```
 
-**Ordering constraint**: Gross estate (Item 34) and ELIT (5A–5D) must be finalized BEFORE computing the vanishing deduction ratio.
+**Ordering constraint**: Gross estate (Item 34), ELIT (5A–5D) **and 5F Transfers for Public Use** must be finalized BEFORE computing the vanishing deduction ratio. This is why `computePublicUseTransfers` runs before `computeVanishingDeduction` in `ordinary-deductions.ts`.
+
+> **Corrected in Phase 8 (LAW-09).** This spec previously omitted paragraph (6) — 5F Transfers for Public Use — from the reduction ratio. NIRC Sec. 86(A)(5) as amended by RA 10963 and RR 12-2018 Sec. 6(5) are the authority. On the ₱30,000,000 worked example in `.planning/research/LEGAL-CONFORMANCE.md` §2b, the omission overstated the deduction by ₱1,666,666.
 
 **Availability**:
 - TRAIN: ✓ Available

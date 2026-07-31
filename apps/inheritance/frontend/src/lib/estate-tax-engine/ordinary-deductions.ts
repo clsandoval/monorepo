@@ -197,13 +197,15 @@ export function computeCasualtyLosses(losses: CasualtyLoss[]): ColumnValues {
  * §9.6 Vanishing Deduction (spec 5E).
  * @param properties - VD-eligible properties
  * @param grossEstateTotal - Item 34C total gross estate (centavos)
- * @param elitTotal - Total ELIT (5A-5D, plus 5G/5H for PRE_TRAIN) for ratio (centavos)
+ * @param ratioDeductionsTotal - Sum of the deductions the statute names for the
+ *   reduction ratio: ELIT (5A-5D) plus 5F Transfers for Public Use, plus 5G
+ *   funeral and 5H judicial under the pre-TRAIN rules (centavos)
  * @param dateOfDeath - ISO date string
  */
 export function computeVanishingDeduction(
   properties: VanishingDeductionProperty[],
   grossEstateTotal: number,
-  elitTotal: number,
+  ratioDeductionsTotal: number,
   dateOfDeath: string,
 ): ColumnValues {
   const result = zeroCV();
@@ -212,8 +214,8 @@ export function computeVanishingDeduction(
     return result;
   }
 
-  // ratio = max(0, (GE - ELIT) / GE)
-  const ratio = Math.max(0, (grossEstateTotal - elitTotal) / grossEstateTotal);
+  // ratio = max(0, (GE - ratio deductions) / GE)
+  const ratio = Math.max(0, (grossEstateTotal - ratioDeductionsTotal) / grossEstateTotal);
 
   for (const prop of properties) {
     // Eligibility: prior tax must have been paid
@@ -358,23 +360,37 @@ export function computeOrdinaryDeductions(
   // Judicial/admin expenses (5H) — PRE_TRAIN only
   const judicial = computeJudicialAdminExpenses(input.judicialAdminExpenses, deductionRules);
 
-  // ELIT total for VD ratio: 5A+5B+5C(mortgages+taxes)+5D + (5G+5H for PRE_TRAIN)
+  // Public use transfers (5F) — NRA gets proportional amount.
+  // Computed BEFORE the vanishing deduction because it enters that deduction's
+  // reduction ratio (see the comment below).
+  const publicTransfers = computePublicUseTransfers(input.publicUseTransfers, nraFactor);
+
+  // Deductions the statute names for the vanishing-deduction reduction ratio.
+  //
+  // NIRC Sec. 86(A)(5) as amended by RA 10963 reduces against "the amounts
+  // allowed as deductions under paragraphs (2), (3), (4), and (6)", and
+  // paragraph (6) is Transfers for Public Use. RR 12-2018 Sec. 6(5) restates it.
+  // RA 8424 Sec. 86(A)(2) reduced against "paragraphs (1) and (3)", and
+  // pre-TRAIN paragraph (3) was ALSO Transfers for Public Use. The term is
+  // therefore added in both branches.
+  //
+  // Worked example (LEGAL-CONFORMANCE.md §2b): ₱30,000,000 gross estate,
+  // ₱1,000,000 of claims, ₱5,000,000 transfer for public use. The ratio moves
+  // from 29/30 to 24/30, and a ₱10,000,000 qualifying property at 100 percent
+  // moves from ₱9,666,666 to ₱8,000,000.
   const elitBase = claims.total + insolvent.total + mortgages.total + casualties.total;
-  const elitForVD =
+  const ratioDeductionsTotal =
     deductionRules === 'PRE_TRAIN'
-      ? elitBase + funeral.total + judicial.total
-      : elitBase;
+      ? elitBase + funeral.total + judicial.total + publicTransfers.total
+      : elitBase + publicTransfers.total;
 
   // Vanishing deduction (5E)
   const vanishing = computeVanishingDeduction(
     input.vanishingDeductionProperties,
     grossEstateTotal,
-    elitForVD,
+    ratioDeductionsTotal,
     dateOfDeath,
   );
-
-  // Public use transfers (5F) — NRA gets proportional amount
-  const publicTransfers = computePublicUseTransfers(input.publicUseTransfers, nraFactor);
 
   // Map to OrdinaryDeductionsResult fields:
   //   item5a = funeral (5G)

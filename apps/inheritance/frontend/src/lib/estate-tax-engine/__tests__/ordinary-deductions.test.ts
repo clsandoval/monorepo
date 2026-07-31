@@ -455,4 +455,79 @@ describe('computeOrdinaryDeductions', () => {
     );
     expect(result.item5h_transfers_for_public_use.total).toBe(25_000_000);
   });
+
+  it('TRAIN: transfers for public use reduce the vanishing-deduction ratio (LAW-09)', () => {
+    // LEGAL-CONFORMANCE.md §2b worked example. NIRC Sec. 86(A)(5) as amended by
+    // RA 10963 reduces against paragraphs (2), (3), (4) and (6); paragraph (6)
+    // is Transfers for Public Use. RR 12-2018 Sec. 6(5) restates it.
+    const result = computeOrdinaryDeductions(
+      {
+        claimsAgainstEstate: [
+          { description: 'Loan', ownershipType: 'exclusive', amount: 100_000_000 }, // ₱1M
+        ],
+        claimsVsInsolvent: [],
+        unpaidMortgages: [],
+        unpaidTaxes: [],
+        casualtyLosses: [],
+        vanishingDeductionProperties: [
+          {
+            description: 'Inherited lot',
+            fmvAtDeath: 1_000_000_000,         // ₱10M
+            fmvAtPriorTransfer: 1_000_000_000, // ₱10M
+            priorTransferDate: '2023-06-01',   // under one year → vanishingPct 1.00
+            priorTaxesPaid: 100_000,
+            encumbrances: 0,
+          },
+        ],
+        publicUseTransfers: [{ description: 'Donation to the City', amount: 500_000_000 }], // ₱5M
+        funeralExpenses: [],
+        judicialAdminExpenses: [],
+      },
+      'TRAIN',
+      3_000_000_000, // ₱30M gross estate
+      '2024-01-01',
+    );
+    // ratio = (3_000_000_000 − 100_000_000 − 500_000_000) / 3_000_000_000 = 0.8
+    // 0.8 × 1_000_000_000 = 800_000_000
+    // Before this fix the same input produced 966_666_600, because the ratio
+    // omitted paragraph (6).
+    expect(result.item5g_vanishing_deduction.total).toBe(800_000_000);
+    expect(result.item5h_transfers_for_public_use.total).toBe(500_000_000);
+  });
+
+  it('PRE_TRAIN: transfers for public use reduce the vanishing-deduction ratio (LAW-09)', () => {
+    // RA 8424 Sec. 86(A)(2) reduced against paragraphs (1) and (3), and
+    // pre-TRAIN paragraph (3) was ALSO Transfers for Public Use. Funeral and
+    // judicial are empty here so the two regimes differ only by the term under
+    // test.
+    const result = computeOrdinaryDeductions(
+      {
+        claimsAgainstEstate: [
+          { description: 'Loan', ownershipType: 'exclusive', amount: 100_000_000 }, // ₱1M
+        ],
+        claimsVsInsolvent: [],
+        unpaidMortgages: [],
+        unpaidTaxes: [],
+        casualtyLosses: [],
+        vanishingDeductionProperties: [
+          {
+            description: 'Inherited lot',
+            fmvAtDeath: 1_000_000_000,
+            fmvAtPriorTransfer: 1_000_000_000,
+            priorTransferDate: '2014-06-01', // under one year → vanishingPct 1.00
+            priorTaxesPaid: 100_000,
+            encumbrances: 0,
+          },
+        ],
+        publicUseTransfers: [{ description: 'Donation to the City', amount: 500_000_000 }],
+        funeralExpenses: [],
+        judicialAdminExpenses: [],
+      },
+      'PRE_TRAIN',
+      3_000_000_000,
+      '2015-01-01',
+    );
+    expect(result.item5g_vanishing_deduction.total).toBe(800_000_000);
+    expect(result.item5h_transfers_for_public_use.total).toBe(500_000_000);
+  });
 });
