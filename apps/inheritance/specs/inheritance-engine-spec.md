@@ -762,6 +762,7 @@ FC Art. 176 unified classification: ALL illegitimate children get the same share
 - **Per stirpes** (Art. 974): Representatives divide the ancestor's share equally among themselves
 - **Lines not heads**: Count lines (not individuals) for scenario determination. One living child = 1 line. One predeceased child with 5 grandchildren = 1 line.
 - **No depth limit** in the direct descending line (Art. 982): grandchildren, great-grandchildren, etc.
+- **Direct descending line only** (`Art. 972 ¶1`): the right of representation takes place in the direct descending line, but **never in the ascending**. A parent or grandparent therefore never represents anyone, and a predeceased ascendant's share is not passed down a representation chain. Committed vector: `engine/tests/integration.rs`, function `test_law04_no_representation_in_the_ascending_line`.
 - **Collateral limit** (Art. 972): Only children of siblings can represent. Grand-nephews/nieces cannot.
 - **Per capita switch** (Art. 975): When ONLY nephews/nieces survive (all siblings predeceased), they inherit equally regardless of which sibling they descend from
 - **Illegitimate children can be represented** (Art. 902): Both legitimate and illegitimate descendants can represent a predeceased illegitimate child. The representative inherits the illegitimate share.
@@ -928,10 +929,19 @@ All fractions are of the **collation-adjusted estate base** `E_adj` (see Step 4)
 | Spouse | ½ (normal) or ⅓ (articulo mortis, Art. 900 ¶2) |
 | Free portion | ½ or ⅔ |
 
-**Articulo mortis** (Art. 900 ¶2): Spouse's legitime reduced from ½ to ⅓ ONLY when ALL three conditions hold:
-1. Marriage contracted during the illness that caused death
-2. Decedent did not recover
-3. Spouse is the sole compulsory heir (no children, no ascendants, no ICs)
+**Articulo mortis** (Art. 900 ¶2): the spouse's legitime is reduced from ½ to ⅓ only when all of the following hold. The formulation is copied from `specs/inheritance-v2-spec.md` §"Art. 900 ¶2 condition", which this repository already carries correctly:
+
+1. The marriage was solemnized in *articulo mortis*; **and**
+2. the testator **died within three months** after the marriage; **and**
+3. the spouses had **not** been living together as husband and wife for **more than five years** before the marriage. (Cohabitation of more than five years defeats the reduction, so the spouse keeps ½.)
+
+> **KNOWN DIVERGENCE: engine/src/step5_legitimes.rs** — `pub fn is_articulo_mortis` implements a
+> different predicate from the one stated above. It tests `marriage_solemnized_in_articulo_mortis`,
+> `was_ill_at_marriage`, `illness_caused_death` and `years_of_cohabitation < 5`. It **never**
+> differences `date_of_marriage` against `date_of_death`, so condition 2 — the statutory three-month
+> window — is untested by the engine today. No requirement in `.planning/REQUIREMENTS.md` currently
+> owns that code fix. This divergence is recorded here rather than silently closed: correcting the
+> spec is a documentation change, and changing the engine's predicate would change legal numbers.
 
 #### T13: No Compulsory Heirs
 
@@ -1086,6 +1096,10 @@ In intestate succession, the Art. 895 ¶3 cap rule does **not** apply. The 2:1 r
 ### 7.4 Iron Curtain Rule (Art. 992)
 
 For illegitimate decedents: bilateral barrier between the illegitimate child and their parent's legitimate relatives. The parent's legitimate relatives cannot inherit from the illegitimate decedent, and vice versa. **Exception**: The decedent's own parents CAN inherit (Art. 903).
+
+**Post-2021 qualification — the paragraph above states the pre-2021 rule.** In *Aquino v. Aquino, G.R. Nos. 208912 and 209018, En Banc, 7 December 2021*, the Supreme Court adopted "a construction of Article 992 that makes children, regardless of the circumstances of their births, qualified to inherit from their direct ascendants such as their grandparent by their right of representation." The barrier described above therefore does **not** operate against a nonmarital child claiming from a direct ascendant by representation.
+
+The Court limited its own holding: "this ruling will only apply when the nonmarital child has a right of representation to their parent's share in her grandparent's legitime. **It is silent on collateral relatives** where the nonmarital child may inherit by themself." Whether the Art. 992 barrier survives in the **collateral line** is therefore an open interpretive question. It is recorded as `LAWYER-04` in `.planning/LAWYER-AGENDA.md`, status `awaiting-answer`, and **this document takes no position on it**. Do not implement a collateral-line rule from this section.
 
 ### 7.5 Mixed Succession (Art. 960(2))
 
@@ -2405,7 +2419,7 @@ See the full edge case catalog (82 cases across 21 categories) in `loops/inherit
 | TV-13 | T5a | Cap rule triggered: n=1, m=3, spouse priority (ICs reduced 66.7%) |
 | TV-14 | MIXED | Mixed succession: will covers part of FP, ₱1.5M undisposed → intestate (Art. 960(2)) |
 | TV-15 | I13 | Collateral siblings: 2 full + 1 half blood, Art. 1006 2:1 ratio (₱4M/₱4M/₱2M) |
-| TV-16 | T12-AM | Articulo mortis: spouse ½→⅓ (Art. 900 ¶2), 3-condition check, FP increases |
+| TV-16 | T12-AM | Articulo mortis: spouse ½→⅓ (Art. 900 ¶2), three-month window after marriage, FP increases |
 | TV-17 | I7 | IC-only: 3 illegitimate children equal shares (Art. 988), filiation gate |
 | TV-18 | I15 | Escheat: no heirs, entire estate to State (Art. 1011) |
 | TV-19 | I2→I5 | Total renunciation: all children renounce → Art. 969 → parents inherit |
@@ -2557,7 +2571,7 @@ Same inputs → same scenario code → same fractions → same peso amounts → 
 | 960 | Intestate succession opens |
 | 970-977 | Right of representation |
 | 980 | Children inherit equally |
-| 992 | Iron Curtain Rule (illegitimate barrier) |
+| 992 | Iron Curtain Rule (illegitimate barrier), as qualified in the direct line by *Aquino* (2021) |
 | 995-1001 | Intestate distribution articles |
 | 1002 | Guilty spouse forfeits |
 | 1015-1023 | Accretion |
@@ -2580,7 +2594,7 @@ Same inputs → same scenario code → same fractions → same peso amounts → 
 | **Accretion** | The right of co-heirs to receive a proportional increase from a vacant share |
 | **Representation** | The right of descendants to step into the place of a predeceased/disinherited/incapacitated ancestor |
 | **Cap rule** (Art. 895 ¶3) | Total IC legitime cannot exceed the free portion; spouse satisfied first |
-| **Iron Curtain** (Art. 992) | Bilateral barrier between illegitimate child and parent's legitimate relatives |
+| **Iron Curtain** (Art. 992) | Bilateral barrier between illegitimate child and parent's legitimate relatives; lifted in the direct line by *Aquino* (2021), collateral line open as LAWYER-04 |
 | **Articulo mortis** (Art. 900 ¶2) | Marriage during terminal illness — reduces spouse's share from ½ to ⅓ |
 | **Reserva troncal** (Art. 891) | Obligation to reserve property for relatives of the line of origin |
 | **Inofficious** | A testamentary disposition that impairs compulsory heirs' legitimes |

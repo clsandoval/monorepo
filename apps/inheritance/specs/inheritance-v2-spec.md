@@ -1163,6 +1163,10 @@ from an illegitimate child.
 
 Engine applies: `filter out IC from inheriting from LC's collateral relatives and vice versa`.
 
+**Post-2021 qualification — the paragraph above states the pre-2021 rule.** In *Aquino v. Aquino, G.R. Nos. 208912 and 209018, En Banc, 7 December 2021*, the Supreme Court adopted "a construction of Article 992 that makes children, regardless of the circumstances of their births, qualified to inherit from their direct ascendants such as their grandparent by their right of representation." The barrier does **not** operate against a nonmarital child claiming from a direct ascendant by representation.
+
+The Court limited its own holding: "this ruling will only apply when the nonmarital child has a right of representation to their parent's share in her grandparent's legitime. **It is silent on collateral relatives** where the nonmarital child may inherit by themself." Whether the Art. 992 barrier survives in the **collateral line** is an open interpretive question, recorded as `LAWYER-04` in `.planning/LAWYER-AGENDA.md`, status `awaiting-answer`. **This document takes no position on it.**
+
 ### §7.4 Collateral Distribution Sub-Algorithm (Art. 1006)
 
 ```rust
@@ -3466,7 +3470,7 @@ A developer implementing the v2 engine must verify every item:
 | Art. 960 | Intestate succession | Opens when no will or will partly invalid |
 | Art. 970–977 | Representation | Per stirpes; triggers; collateral limit; renunciation exception |
 | Art. 988 | IC intestate only | IC takes full estate if no other heirs |
-| Art. 992 | Iron Curtain | IC cannot inherit from LC's relatives and vice versa |
+| Art. 992 | Iron Curtain | IC cannot inherit from LC's relatives and vice versa; *Aquino* (2021) lifts this in the direct line by representation |
 | Art. 995 | Spouse intestate only | Full estate |
 | Art. 996 | Spouse + LC | Spouse gets child's share |
 | Art. 997 | Spouse + IC | ½ each |
@@ -3511,7 +3515,7 @@ A developer implementing the v2 engine must verify every item:
 | **Hare-Niemeyer** | Method for rounding rational shares to integer centavos preserving total sum |
 | **Institution** | Testamentary designation of an heir for a fraction or amount of the estate |
 | **Inofficiousness** | State where testamentary dispositions or donations impair compulsory legitimes |
-| **Iron Curtain Rule** | Art. 992: IC cannot inherit ab intestato from LC's relatives or vice versa |
+| **Iron Curtain Rule** | Art. 992: IC cannot inherit ab intestato from LC's relatives or vice versa; qualified in the direct line by *Aquino* (2021) |
 | **Legacy** | Testamentary gift of personal (movable) property |
 | **Legitime** | The portion of the estate that compulsory heirs cannot be deprived of |
 | **Legitimation** | Process by which illegitimate children acquire legitimate status via parents' subsequent marriage |

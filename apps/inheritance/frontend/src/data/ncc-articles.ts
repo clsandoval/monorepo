@@ -42,7 +42,7 @@ export const NCC_ARTICLE_DESCRIPTIONS: Record<string, string> = {
   "Art.987": "Relatives of same degree inherit in equal shares",
   "Art.988": "Surviving spouse in intestate succession (Art. 988 NCC)",
   "Art.991": "Illegitimate children may be represented by their descendants",
-  "Art.992": "Iron Curtain Rule — illegitimate child cannot inherit ab intestato from legitimate relatives",
+  "Art.992": "Iron Curtain Rule — illegitimate child cannot inherit ab intestato from legitimate relatives; Aquino v. Aquino (2021) lifts the bar in the direct line by right of representation",
   "Art.995": "Surviving spouse with legitimate children: spouse takes one LC share",
   "Art.996": "Surviving spouse with legitimate children (Art. 996 NCC)",
   "Art.997": "Surviving spouse with legitimate ascendants: each takes 1/2 of estate",
