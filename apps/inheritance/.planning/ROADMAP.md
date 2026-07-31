@@ -242,7 +242,19 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. A documented rule plus an automated check (lint rule, CI grep, or equivalent) fails the build if a second implementation of a legal rule is reintroduced.
   3. A peso value can no longer be passed where a centavo value is expected without a compile error, at every money-handling boundary in both wizards.
   4. `npm run build` produces a bundle with no remaining path capable of computing a legally meaningless number.
-**Plans**: TBD
+**Plans**: 6 plans, 3 waves (wave 1 is three independent artifacts across the engine and the type layer; waves 2 and 3 are strictly sequential because each consumes the previous wave's output)
+  - **Wave 1** — `09-01` Engine-side classification entry point, proven equal to the pipeline on all 173 committed inputs (EXT-01, EXT-04) · `09-02` Revive invariant 6 and clear the engine dead-code inventory (EXT-04) · `09-03` Branded peso and centavo units, negative type test, succession-wizard boundary (EXT-03)
+  - **Wave 2** *(blocked on Wave 1: `09-04` imports the `classify_json` export `09-01` builds, and `09-05` imports the converters `09-03` defines)* — `09-04` Delete both frontend scenario classifiers and back the badge with the engine (EXT-01, EXT-04) · `09-05` Peso and centavo units across the estate-tax wizard boundary, one converter (EXT-03, EXT-02)
+  - **Wave 3** *(blocked on Wave 2: the four registry rules are only at their ceilings once `09-04` and `09-05` have deleted the duplicates)* — `09-06` Single-source-of-truth rule, registry and gate G14 at order 6 (EXT-02)
+
+  Cross-cutting constraints (appear in 2+ plans):
+  - Every commit stages explicit file paths via `bash scripts/safe-commit.sh`; `git add -A`, `git add .`, and `git commit -a` are prohibited (concurrent auto-committer on this monorepo)
+  - No gate, test or assertion may be weakened to pass. The three badge tests are *strengthened* from `/I\d/` and `/T\d/` to the exact codes `I2` and `T2`; adding an `await` to reach an async render is not loosening
+  - `npx tsc -b --force`, never bare `tsc -b`. Gate G4 becomes order 10 and therefore runs after the G3 halt, so EXT-03 is proven by running it directly
+  - A unit error surfaced by the new money types is fixed with the correct conversion or reported BLOCKED — never with `as any`, `as unknown as`, or a field widened back to `number`
+  - The five shrink-only ledgers (`frontend/test-baseline.json`, `gate-skips.lock`, `engine/defect-baseline.json`, `assertion-baseline.json`, `coverage-zero.lock`) are read-only in this phase; a sixth `UNKNOWN FAILURE` is a BLOCKED condition, never a ledger append
+  - G14 is added by appending to `gates.manifest.json` and `gates.manifest.lock` together; `order` is unlocked, so G14 takes order 6 ahead of the G3 halt and G9 stays last. `ALL GATES PASSED (14/14)` is NOT achievable in this phase and must not be claimed
+  - No point of Philippine law arises anywhere in this phase; nothing is added to `.planning/LAWYER-AGENDA.md`
 
 ### Phase 10: Journey Gate Infrastructure — Seeding, Rubric, Artifacts
 **Goal**: The seams every later per-step screenshot gate depends on — direct state seeding, a structured vision rubric, diff/rubric failure separation, and durable failure artifacts — exist before any journey-specific gate is written.

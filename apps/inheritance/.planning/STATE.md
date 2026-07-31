@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 8 EXECUTED. 8/8 plans, 8 commits. LAW-05, LAW-08, LAW-09, LAW-10 and LAW-11 all Complete and individually gate-proven. Verified by direct measurement, not claimed: cargo test 543 passed / 0 failed (from a measured 527 baseline, +16); all four LAW-05 vectors and the LAW-11 vector pass by name in cargo test --test integration (44 passed); the estate-tax-engine suite is 252 passed / 0 failed; tax-bridge plus useTaxBridge is 47 passed / 0 failed; EstateStep is 18 passed / 0 failed; npx tsc -b --force produces zero output. The WASM binary was REBUILT (616398 bytes, mtime 15:41:52, newer than the newest engine/src edit at 15:32:38) BEFORE the frontend was measured, so the frontend judged the fixed engine. The frontend UNKNOWN FAILURE set is IDENTICAL to the five Phase 5 left behind and did not grow; total tests 2449, above the 2416 floor. All four shrink-only ledgers (test-baseline.json, gate-skips.lock, defect-baseline.json, assertion-baseline.json) are unmodified. All 173 committed inputs re-run through the release CLI: exactly the two known LAW-06 defect cases exit 2, all 171 others exit 0, and the seven inputs that moved all now show the legatee row and conserve to the centavo. NOT COMPLETE AS A PHASE VERIFICATION: bash scripts/ci-gates.sh exits 1 at G3, gate 8 of 13, so ALL GATES PASSED (13/13) was never printed. This is Phase 5s unresolved OBS-05/OBS-06 product decision, pre-declared as unreachable in all eight plans; G8 and G9 fail only as a cascade of that halt. ONE point of Philippine law arose and was recorded, never decided: whether an Art. 1062 exempt donation defeats preterition, shipped as LAWYER-09 with status awaiting-answer, wired into gate G10 in both directions, with a preterition_exempt_donation flag firing on exactly that shape. Next step is /gsd:plan-phase 9."
-last_updated: "2026-07-31T15:45:00.000Z"
-last_activity: 2026-07-31 -- Phase 8 executed (8/8 plans)
+stopped_at: "Phase 9 PLANNED. 09-RESEARCH.md, 09-VALIDATION.md and six PLAN.md files across 3 waves (wave 1 = 09-01 engine classification entry point, 09-02 engine dead-code sweep, 09-03 branded money units, all with disjoint file sets; wave 2 = 09-04 frontend classifier deletion plus engine-backed badge, 09-05 estate-tax wizard money boundary; wave 3 = 09-06 single-source registry and gate G14). EXT-01..04 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: node scripts/check-plan-closed-world.mjs exits 0 with PLANS OK - 50 plan file(s), 171 task(s) checked, and gsd-sdk query verify.plan-structure reports valid with zero errors on each of the six new plans. Every number in the research was measured live in this tree, including running the release engine over two purpose-built inputs matching ReviewStep.test.tsx's own fixtures (engine says I2 and T2; the live wizard classifier says I1 and T1), and compiling the proposed money-unit flavouring plus its four @ts-expect-error assertions with this repo's own TypeScript 5.9.3 in both directions. The phase ends at 14 gates; a full ci-gates.sh run will still halt at G3 until Phase 5's product decision is answered, so ALL GATES PASSED (14/14) is not achievable. Next step is /gsd:execute-phase 9."
+last_updated: "2026-07-31T16:15:14.640Z"
+last_activity: 2026-07-31 -- Phase 9 planning complete
 progress:
   total_phases: 15
   completed_phases: 8
-  total_plans: 44
+  total_plans: 50
   completed_plans: 44
   percent: 53
 ---
@@ -21,15 +21,15 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-27)
 
 **Core value:** A change to this codebase must be cheap and safe to make — a passing gate set genuinely implies a working app, and a wrong legal number can never reach a lawyer silently.
-**Current focus:** Phase 08 — remaining unblocked legal & tax-bridge defects
+**Current focus:** Phase 09 — single source of truth: dedup classifiers & money types
 
 ## Current Position
 
-Phase: 08 (remaining-unblocked-legal-tax-bridge-defects) — EXECUTED
-Plan: 8 of 8 executed
-Status: Requirements closed; phase verification blocked on Phase 5's OBS-05/OBS-06 decision
+Phase: 09 (single-source-of-truth-dedup-classifiers-money-types) — PLANNED
+Plan: 0 of 6 executed
+Status: Ready to execute
 Carried forward: Phase 05 remains BLOCKED on one product decision (OBS-05/OBS-06). Gate G3 is still red and `bash scripts/ci-gates.sh` still halts there at gate 8 of 13. Phase 8 did not touch it and did not hide it: the five UNKNOWN FAILURES are byte-identical to the set recorded in 05-05, 05-06, 06-05 and Phase 7, and the WASM binary was rebuilt (616398 bytes, mtime newer than the newest `engine/src/` edit) before the frontend suite was measured, so that comparison is against the new engine and not the old one. Of the gates the runner never reaches, G4, G10 and G11 were run directly and all exit 0; G8 and G9 exit 1 purely as a cascade of the halt (G8 reports SKIP REPORT MISSING for gates that wrote no log, G9 reports RESULTS INCOMPLETE for gates published as not-run).
-Last activity: 2026-07-31 -- Phase 8 executed (8/8 plans, 8 commits)
+Last activity: 2026-07-31 -- Phase 9 planning complete
 
 Progress: [█████░░░░░] 53%
 
@@ -142,12 +142,25 @@ Recent decisions affecting current work:
 - Phase 8: ONE point of Philippine law arose and was RECORDED, NEVER DECIDED. Whether a donation the Code exempts from collation (Arts. 1062, 1066, 1067, 1068, 1070) nevertheless defeats *Morales*' total-omission test is `LAWYER-09`, `awaiting-answer`, added to `REQUIRED_IDS` so it is mandatory rather than tolerated, and anchored bidirectionally to `pub fn heir_received_advance_on_legitime`. The engine implements Reading A and says so out loud via a `preterition_exempt_donation` flag. `grep -c "\[x\]" .planning/LAWYER-AGENDA.md` is still 0.
 - Phase 8: every asserted centavo figure was derived in `08-RESEARCH.md` BEFORE the fix and asserted afterwards. All four LAW-05 vectors and the LAW-11 vector passed on their FIRST run at exactly those values — meaningful confirmation, since a vector written to match whatever the engine produced would be vacuous.
 
+- Phase 9: the "Predicted:" badge is BACKED BY THE ENGINE, not removed. ROADMAP criterion 1 offered both endings and the plans choose one so the executor never has to. Grounds: ROADMAP sequences Phase 9 before Phase 12 specifically so the wizard screenshot gate has a correct badge to certify; `ReviewStep` already holds a complete `EngineInput` via `watch()`; and removal would require deleting three committed tests, whereas engine-backing lets all three be strengthened.
+- Phase 9: measured live, not assumed — the live classifier at `ReviewStep.tsx:34-63` returns `I1` where the release engine returns **I2**, and `T1` where it returns **T2**, on the exact one-legitimate-child-plus-spouse fixtures its own tests use. Two purpose-built inputs were run through `engine/target/release/inheritance-engine` to get those figures. That is the wrong-badge defect, one code off on the most common Philippine family shape.
+- Phase 9: the classification entry point is a NEW `classify_scenario` in `engine/src/pipeline.rs`, and `run_pipeline` is deliberately NOT refactored. Measured justification: all nine `scenario_code` assignments in `pipeline.rs` (including both inside `run_pipeline_with_restart`) are `step3.scenario_code`, so equivalence with the full pipeline is exact and directly testable over all 173 committed inputs. A test that re-checks agreement on every `cargo test` run is a stronger guarantee than a one-time refactor, and it leaves `integration.rs`'s inline pipeline copy untouched.
+- Phase 9: `classify_json` in `wasm.rs` is a two-line parse/call/serialize wrapper with NO native test, on purpose. `coverage-zero.lock` declares `src/wasm.rs` at zero coverage and `check-coverage.mjs` fails with `STALE ZERO COVERAGE DECLARATION` if a declared module gains a covered region. Putting the logic in `pipeline.rs` keeps that ledger untouched.
+- Phase 9: money units use a FLAVOUR (an optional brand property), never a hard brand. Verified end to end against this repo's own TypeScript 5.9.3 before planning: numeric literals and plain `number` stay assignable, `Pesos` and `Centavos` are mutually unassignable, and with the brand removed the proof file emits four `TS2578: Unused '@ts-expect-error' directive` errors. A hard brand would have broken hundreds of fixture literals.
+- Phase 9: measured constraint that moves the EXT-03 proof — **`frontend/tsconfig.json` excludes every test file** (`src/**/__tests__/**`, `*.test.ts(x)`, `*.spec.ts(x)`). Gate G4 typechecks no test. The negative type test therefore lives at `frontend/src/types/money-units.typetest.ts`, a path `include` covers. Recorded and not acted on: that exclusion is arguably a second undeclared G4 skip beside `skipLibCheck`, but `gate-skips.lock` may only shrink and appending is prohibited.
+- Phase 9: EXT-02 is a REGISTRY of four measured rules, not a general duplicated-logic heuristic. `as ScenarioCode` appears in exactly one file today (12 hits, all `ReviewStep.tsx`) and zero elsewhere, which makes it a zero-false-positive detector; the deleted classifier evaded a literal-density grep entirely by building codes with template strings. `SSOT-02` and `SSOT-04` exclude `__tests__` with named evidence, and `SSOT-04` allows three files, two of which compute percentages rather than money.
+- Phase 9: the registry cannot be gutted because `REQUIRED_IDS` is hardcoded in `scripts/check-single-source.mjs` — the same mechanism `check-lawyer-agenda.mjs` already uses and Phase 8 extended. That is why no fourth lock file is introduced.
+- Phase 9: `G14` takes `order` 6, ahead of the `G3` halt at order 9, so it is observable in a real runner invocation rather than merely registered. `G9` stays last, per the constraint Phase 4 measured. **`ALL GATES PASSED (14/14)` is not achievable this phase and must not be claimed.**
+- Phase 9: `check_adoption_equality` is REVIVED BY BEING CALLED, never deleted. It is invariant 6 (adopted share equals legitimate share) with zero call sites; deleting an unused assertion removes verification, which is the one direction this project never moves. Only the three helpers with no assertion and no legal content are deleted. `check_scenario_consistency` keeps its 28 call sites and merely loses a stale attribute.
+- Phase 9: no point of Philippine law arises anywhere in this phase — nothing added to the lawyer review agenda. Every task deletes a duplicate, routes a caller to the engine, or separates two units of currency.
+
 ### Pending Todos
 
 - Phase 7 owns `engine/examples/defect-cases/01-collateral-halfblood-nephews.json`. When LAW-02 lands, `engine/tests/defect_ledger.rs` fails with `STALE DEFECT DECLARATION` until that entry is deleted from `engine/defect-baseline.json`. That failure is the intended signal, not a regression.
 - Phase 14 owns the two donation defect cases the same way, once LAW-06 is unblocked by the answer to LAWYER-06.
 - Phase 5's five failing frontend tests include three of the fifteen weak-only tests ledgered by Phase 6. Answering the OBS-05/OBS-06 product decision clears rows in both `frontend/test-baseline.json` and `assertion-baseline.json` at once.
-- Phase 9 owns removing dead helpers. Phase 6 revives `check_scenario_consistency` by calling it, but leaves `check_adoption_equality` and `find_share_by_name` in place with their `#[allow(dead_code)]` attributes.
+- **Closed by Phase 9 plan 09-02**: `check_adoption_equality` is revived by being called from `test_tv09_adopted_equals_legitimate`, `find_share_by_name` is deleted, and `check_scenario_consistency`'s stale `#[allow(dead_code)]` is removed. Two `#[cfg(test)]` helpers in `step2_lines.rs` and `step8_collation.rs` are deleted with them; the serde `requirement` field in `defect_ledger.rs` stays.
+- Phase 15 or later owns `SSOT-05`, the eleven display-side centavo-to-peso conversions Phase 9 records as out of scope in `SINGLE-SOURCE.md` section 5. The procedure for adding it is section 4 of that document.
 
 - Phase 11 owns registering `node scripts/check-env-ready.mjs` as a blocking gate. Phase 3 builds it but leaves it out of the manifest, because GitHub Actions has no Docker and no Supabase.
 - Phase 11 or 12 owns the `logo_url`-holds-a-path defect surfaced by Phase 3 research: `uploadLogo` returns `data.path` (for example `user-1/logo.png`), which is stored in `logo_url` and fed straight to `<img src>`. A path is not a URL. Recorded in `03-RESEARCH.md` section 4.3 so a screenshot gate does not certify a broken image as expected.

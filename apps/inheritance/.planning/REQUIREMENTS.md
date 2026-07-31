@@ -228,10 +228,10 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | LAW-09 | Phase 8 | Complete |
 | LAW-10 | Phase 8 | Complete |
 | LAW-11 | Phase 8 | Complete |
-| EXT-01 | Phase 9 | Pending |
-| EXT-02 | Phase 9 | Pending |
-| EXT-03 | Phase 9 | Pending |
-| EXT-04 | Phase 9 | Pending |
+| EXT-01 | Phase 9 | Planned |
+| EXT-02 | Phase 9 | Planned |
+| EXT-03 | Phase 9 | Planned |
+| EXT-04 | Phase 9 | Planned |
 | JRNY-01 | Phase 10 | Pending |
 | JRNY-09 | Phase 10 | Pending |
 | JRNY-10 | Phase 10 | Pending |
