@@ -4,20 +4,6 @@
   "frozen_at": "2026-07-31",
   "known_violations": [
     {
-      "case": "01-collateral-halfblood-nephews.json",
-      "invariants_violated": ["INV01", "INV13"],
-      "observed": {
-        "rows": 5,
-        "sum_net_from_estate": 480000000,
-        "estate": 600000000,
-        "duplicate_heir_ids": ["n1", "n2"]
-      },
-      "requirement": "LAW-02",
-      "fixed_by_phase": 7,
-      "source": ".planning/research/LEGAL-CONFORMANCE.md collateral succession row",
-      "note": "The trigger is blood_type set on the NephewNiece rows. The identical family with blood_type null on the nephews conserves the estate and produces three clean rows — that variant is in examples/coverage-cases/ and stays green."
-    },
-    {
       "case": "02-heir-donation-above-estate.json",
       "invariants_violated": ["INV01", "SAFETY01"],
       "observed": {

@@ -196,7 +196,7 @@ pub fn step7_distribute(input: &Step7Input) -> Step7Output {
                 will_coverage: None,
                 final_succession_type: input.succession_type,
                 intestate_scenario: Some(scenario),
-                warnings: vec![],
+                warnings: intestate_warnings(&input.heirs),
             }
         }
         SuccessionType::Testate | SuccessionType::Mixed => {
@@ -895,9 +895,20 @@ fn distribute_i15(amount: &Frac) -> Vec<HeirDistribution> {
 
 /// Distribute among collateral relatives using the sub-algorithm from §7.6.
 pub fn distribute_collaterals(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
+    // Membership is decided by category and liveness, and by the representation
+    // marks Step 2 wrote — never by whether the case entry happened to supply a
+    // `blood_type`. `blood_type` is a weight (Art. 1006), not a membership test:
+    // reading it as membership admitted a predeceased sibling and admitted a
+    // nephew who carried one.
     let siblings: Vec<&Heir> = heirs
         .iter()
-        .filter(|h| h.inherits_by == InheritanceMode::OwnRight && h.blood_type.is_some())
+        .filter(|h| {
+            h.raw_category == HeirCategory::Sibling
+                && h.is_alive
+                && h.is_eligible
+                && !h.has_renounced
+                && h.represented_by.is_empty()
+        })
         .collect();
     let nephews: Vec<&Heir> = heirs
         .iter()
@@ -1031,11 +1042,85 @@ fn distribute_nephews_only(amount: &Frac, nephews: &[&Heir]) -> Vec<HeirDistribu
         .collect()
 }
 
+// LAWYER-DECISION: LAWYER-03 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
+/// Detect the one shape in which the recorded question LAWYER-03 changes the
+/// numbers: nephews alone survive, across predeceased sibling lines of differing
+/// blood.
+///
+/// This predicate decides nothing. It answers "would the undecided ratio matter
+/// here?" so the engine can say so out loud instead of silently picking a
+/// reading. Art. 975 ¶2's per-capita division stays exactly as committed.
+fn collateral_blood_ratio_undecided(heirs: &[Heir]) -> bool {
+    let has_living_sibling = heirs.iter().any(|h| {
+        h.raw_category == HeirCategory::Sibling
+            && h.is_alive
+            && h.is_eligible
+            && !h.has_renounced
+            && h.represented_by.is_empty()
+    });
+    if has_living_sibling {
+        return false;
+    }
+
+    let representatives: Vec<&Heir> = heirs
+        .iter()
+        .filter(|h| h.inherits_by == InheritanceMode::Representation && h.represents.is_some())
+        .collect();
+    if representatives.is_empty() {
+        return false;
+    }
+
+    let mut anchors: Vec<&HeirId> = representatives
+        .iter()
+        .filter_map(|h| h.represents.as_ref())
+        .collect();
+    anchors.sort();
+    anchors.dedup();
+
+    let mut saw_full = false;
+    let mut saw_half = false;
+    for anchor_id in anchors {
+        if let Some(anchor) = heirs.iter().find(|h| h.id == *anchor_id) {
+            match anchor.blood_type {
+                Some(BloodType::Full) => saw_full = true,
+                Some(BloodType::Half) => saw_half = true,
+                None => {}
+            }
+        }
+    }
+
+    saw_full && saw_half
+}
+
+/// Build the intestate warnings for a heir list. Never alters an amount.
+fn intestate_warnings(heirs: &[Heir]) -> Vec<ManualFlag> {
+    let mut warnings = Vec::new();
+    if collateral_blood_ratio_undecided(heirs) {
+        warnings.push(ManualFlag {
+            category: "collateral_blood_ratio_undecided".into(),
+            description: "Nephews and nieces alone survive, across predeceased sibling lines of \
+differing blood (full and half). Whether the Art. 1006 full-blood/half-blood 2:1 ratio survives \
+into the Art. 975 §2 per-capita case is the recorded question LAWYER-03 in \
+.planning/LAWYER-AGENDA.md, whose status is awaiting-answer. The amounts shown divide the \
+collateral share per capita under Art. 975 §2, which is what this engine has always computed; they \
+are NOT an answer to LAWYER-03 and must be reviewed by counsel before use."
+                .into(),
+            related_heir_id: None,
+        });
+    }
+    warnings
+}
+
 /// Branch 4: Other collateral relatives (Arts. 1009-1010).
 fn distribute_other_collaterals(amount: &Frac, heirs: &[Heir]) -> Vec<HeirDistribution> {
+    // Liveness guard: this branch is the fallback, and before collateral lines
+    // existed it was where a predeceased sibling landed. A dead relative is
+    // never paid here.
     let eligible: Vec<&Heir> = heirs
         .iter()
-        .filter(|h| h.degree_from_decedent <= 5)
+        .filter(|h| {
+            h.degree_from_decedent <= 5 && h.is_alive && h.is_eligible && !h.has_renounced
+        })
         .collect();
     if eligible.is_empty() {
         return vec![];
@@ -1199,8 +1284,8 @@ mod tests {
         Heir {
             id: id.into(),
             name: format!("Sibling-{}", id),
-            raw_category: HeirCategory::LegitimateChild, // placeholder
-            effective_category: EffectiveCategory::LegitimateChildGroup, // placeholder
+            raw_category: HeirCategory::Sibling,
+            effective_category: EffectiveCategory::CollateralGroup,
             is_compulsory: false,
             is_alive: true,
             is_eligible: true,
@@ -1230,6 +1315,7 @@ mod tests {
 
     fn make_nephew(id: &str, parent_id: &str) -> Heir {
         Heir {
+            raw_category: HeirCategory::NephewNiece,
             represents: Some(parent_id.into()),
             inherits_by: InheritanceMode::Representation,
             line_ancestor: Some(parent_id.into()),
@@ -1912,6 +1998,94 @@ mod tests {
         assert_eq!(find_share(&result, "FB1").from_intestate, full_expected);
         assert_eq!(find_share(&result, "N1").from_intestate, half_each);
         assert_eq!(find_share(&result, "N2").from_intestate, half_each);
+    }
+
+    // ── LAW-02: collateral lines conserve the estate ────────────────
+
+    /// The defect-case tree: one living full-blood sibling, one predeceased
+    /// half-blood sibling represented by two nephews.
+    fn defect01_heirs() -> Vec<Heir> {
+        let mut dead_half = make_sibling("sib2", BloodType::Half);
+        dead_half.is_alive = false;
+        dead_half.representation_trigger = Some(RepresentationTrigger::Predecease);
+        dead_half.represented_by = vec!["n1".into(), "n2".into()];
+        dead_half.children = vec!["n1".into(), "n2".into()];
+
+        let mut n1 = make_nephew("n1", "sib2");
+        n1.blood_type = Some(BloodType::Half);
+        let mut n2 = make_nephew("n2", "sib2");
+        n2.blood_type = Some(BloodType::Half);
+
+        vec![make_sibling("sib1", BloodType::Full), dead_half, n1, n2]
+    }
+
+    #[test]
+    fn test_collateral_sibling_and_nephew_lines_conserve_the_estate() {
+        // Art. 1005 + Art. 1006 + Art. 1008: one full-blood line worth 2 units
+        // plus one half-blood line worth 1 unit = 3 units of 200,000,000 each.
+        let amount = frac(600_000_000, 1);
+        let heirs = defect01_heirs();
+
+        let result = distribute_collaterals(&amount, &heirs);
+
+        assert_eq!(result.len(), 3);
+        assert_eq!(find_share(&result, "sib1").from_intestate, frac(400_000_000, 1));
+        assert_eq!(find_share(&result, "n1").from_intestate, frac(100_000_000, 1));
+        assert_eq!(find_share(&result, "n2").from_intestate, frac(100_000_000, 1));
+
+        let total = sum_fracs(result.iter().map(|d| &d.total));
+        assert_eq!(total, frac(600_000_000, 1));
+
+        let mut ids: Vec<&str> = result.iter().map(|d| d.heir_id.as_str()).collect();
+        let before = ids.len();
+        ids.sort();
+        ids.dedup();
+        assert_eq!(ids.len(), before, "duplicate heir_id in collateral rows");
+    }
+
+    #[test]
+    fn test_predeceased_sibling_receives_no_row() {
+        let amount = frac(600_000_000, 1);
+        let heirs = defect01_heirs();
+
+        let result = distribute_collaterals(&amount, &heirs);
+
+        assert!(result.iter().all(|d| d.heir_id != "sib2"));
+    }
+
+    #[test]
+    fn test_blood_ratio_flag_fires_only_on_mixed_nephews_alone() {
+        // Case A: nephews alone, both predeceased siblings of the SAME blood.
+        let mut dead_a = make_sibling("da", BloodType::Half);
+        dead_a.is_alive = false;
+        dead_a.represented_by = vec!["na".into()];
+        let mut dead_b = make_sibling("db", BloodType::Half);
+        dead_b.is_alive = false;
+        dead_b.represented_by = vec!["nb".into()];
+        let same_blood = vec![
+            dead_a.clone(),
+            dead_b.clone(),
+            make_nephew("na", "da"),
+            make_nephew("nb", "db"),
+        ];
+        assert!(!collateral_blood_ratio_undecided(&same_blood));
+
+        // Case B: nephews alone, one Full and one Half predeceased sibling.
+        let mut dead_full = make_sibling("df", BloodType::Full);
+        dead_full.is_alive = false;
+        dead_full.represented_by = vec!["nf".into()];
+        let mixed = vec![
+            dead_full.clone(),
+            dead_b.clone(),
+            make_nephew("nf", "df"),
+            make_nephew("nb", "db"),
+        ];
+        assert!(collateral_blood_ratio_undecided(&mixed));
+
+        // Case C: a living sibling concurs with the mixed-blood nephews.
+        let mut with_living = mixed.clone();
+        with_living.push(make_sibling("alive", BloodType::Full));
+        assert!(!collateral_blood_ratio_undecided(&with_living));
     }
 
     // ================================================================

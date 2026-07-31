@@ -227,12 +227,48 @@ pub fn anchor_ids_for_category(heirs: &[Heir], category: EffectiveCategory) -> V
                 .map(|h| h.id.clone())
                 .collect()
         }
+        EffectiveCategory::CollateralGroup => {
+            // Collaterals do not sit at degree 1 — a brother or sister is at
+            // degree 2 — so the nearest collateral degree that actually yields a
+            // line is the anchor tier. In the ordinary family that is the
+            // siblings; when no sibling record exists at all it is the nephews,
+            // which is Art. 975 ¶2's "if they alone survive" shape.
+            let mut degrees: Vec<i32> = heirs
+                .iter()
+                .filter(|h| h.effective_category == category)
+                .map(|h| h.degree_from_decedent)
+                .collect();
+            degrees.sort_unstable();
+            degrees.dedup();
+
+            for degree in degrees {
+                if degree_yields_a_line(heirs, category, degree) {
+                    return heirs
+                        .iter()
+                        .filter(|h| {
+                            h.effective_category == category && h.degree_from_decedent == degree
+                        })
+                        .map(|h| h.id.clone())
+                        .collect();
+                }
+            }
+
+            Vec::new()
+        }
         _ => heirs
             .iter()
             .filter(|h| h.effective_category == category && h.degree_from_decedent == 1)
             .map(|h| h.id.clone())
             .collect(),
     }
+}
+
+/// True when at least one heir of `category` at `degree` produces a line.
+fn degree_yields_a_line(heirs: &[Heir], category: EffectiveCategory, degree: i32) -> bool {
+    heirs
+        .iter()
+        .filter(|h| h.effective_category == category && h.degree_from_decedent == degree)
+        .any(|h| build_single_line(h, heirs).is_some())
 }
 
 /// Determine the representation trigger for an heir.
@@ -294,6 +330,38 @@ fn build_single_line(anchor: &Heir, all_heirs: &[Heir]) -> Option<Line> {
         return None;
     }
 
+    // Art. 972 ¶2: in the collateral line representation "shall take place only
+    // in favor of the children of brothers or sisters, whether they be of the
+    // full or half blood". Only a brother or sister — degree 2 — may therefore
+    // be represented, and only by their own children, one level down. A
+    // grand-nephew never steps into a predeceased nephew's place.
+    if anchor.effective_category == EffectiveCategory::CollateralGroup {
+        if trigger.is_some() {
+            if anchor.degree_from_decedent != 2 {
+                return None; // Only a brother or sister can be represented.
+            }
+            let reps = find_collateral_representatives(anchor, all_heirs);
+            if reps.is_empty() {
+                return None; // Line extinct — no living children of that sibling.
+            }
+            return Some(Line {
+                ancestor_heir_id: anchor.id.clone(),
+                effective_category: anchor.effective_category,
+                mode: InheritanceMode::Representation,
+                participants: reps,
+            });
+        }
+        if anchor.is_alive && anchor.is_eligible && !anchor.has_renounced {
+            return Some(Line {
+                ancestor_heir_id: anchor.id.clone(),
+                effective_category: anchor.effective_category,
+                mode: InheritanceMode::OwnRight,
+                participants: vec![anchor.id.clone()],
+            });
+        }
+        return None;
+    }
+
     if let Some(_trigger) = trigger {
         // Heir has a representation trigger — find living descendants
         let reps = find_representatives_recursive(anchor, all_heirs);
@@ -319,6 +387,38 @@ fn build_single_line(anchor: &Heir, all_heirs: &[Heir]) -> Option<Line> {
     }
 
     None // Line extinct (e.g., renounced with no trigger, or ineligible)
+}
+
+/// Find the representatives of a triggered **collateral** anchor.
+///
+/// Art. 972 ¶2 confines representation in the collateral line to "the children
+/// of brothers or sisters", so this walks `heir.children` exactly one level and
+/// never recurses:
+/// - a child that has repudiated is excluded entirely (Art. 977);
+/// - a child that is alive, eligible and carries no representation trigger is a
+///   representative;
+/// - a child that itself carries a trigger is skipped, not recursed into.
+fn find_collateral_representatives(heir: &Heir, all_heirs: &[Heir]) -> Vec<HeirId> {
+    let mut reps = Vec::new();
+
+    for child_id in &heir.children {
+        let child = match all_heirs.iter().find(|h| h.id == *child_id) {
+            Some(c) => c,
+            None => continue,
+        };
+
+        if child.has_renounced {
+            continue; // Art. 977
+        }
+        if get_representation_trigger(child).is_some() {
+            continue; // One level only — no deeper representation.
+        }
+        if child.is_alive && child.is_eligible {
+            reps.push(child.id.clone());
+        }
+    }
+
+    reps
 }
 
 /// Recursively find living, eligible representatives for a triggered heir.
@@ -1227,5 +1327,86 @@ mod tests {
         let gc1 = output.heirs.iter().find(|h| h.id == "gc1").unwrap();
         assert_eq!(gc1.inherits_by, InheritanceMode::Representation);
         assert_eq!(gc1.represents, Some("lc2".to_string()));
+    }
+
+    // ── Art. 972 ¶2 / Art. 975: collateral anchors ──────────────────
+
+    /// Shorthand: a collateral heir at an arbitrary degree.
+    fn make_collateral(id: &str, name: &str, degree: i32) -> Heir {
+        make_heir(id, name, EffectiveCategory::CollateralGroup, degree)
+    }
+
+    #[test]
+    fn test_predeceased_sibling_is_represented_by_its_own_children() {
+        // Art. 972 ¶2: representation in the collateral line takes place in
+        // favor of the children of brothers or sisters.
+        let input = Step2Input {
+            heirs: vec![
+                make_collateral("sib1", "Sibling One", 2),
+                with_children(dead(make_collateral("sib2", "Sibling Two", 2)), &["n1", "n2"]),
+                make_collateral("n1", "Nephew One", 3),
+                make_collateral("n2", "Nephew Two", 3),
+            ],
+        };
+        let output = step2_build_lines(&input);
+
+        let sib2 = output.heirs.iter().find(|h| h.id == "sib2").unwrap();
+        assert!(sib2.represented_by.contains(&"n1".to_string()));
+        assert!(sib2.represented_by.contains(&"n2".to_string()));
+
+        for nid in &["n1", "n2"] {
+            let n = output.heirs.iter().find(|h| h.id == *nid).unwrap();
+            assert_eq!(n.inherits_by, InheritanceMode::Representation);
+            assert_eq!(n.represents, Some("sib2".to_string()));
+        }
+    }
+
+    #[test]
+    fn test_grand_nephew_cannot_represent_a_predeceased_nephew() {
+        // Art. 972 ¶2 confines collateral representation to the children of
+        // brothers or sisters — a grand-nephew never represents.
+        let input = Step2Input {
+            heirs: vec![
+                with_children(dead(make_collateral("sib1", "Sibling", 2)), &["n1"]),
+                with_children(dead(make_collateral("n1", "Nephew", 3)), &["gn1"]),
+                make_collateral("gn1", "Grand-nephew", 4),
+            ],
+        };
+        let output = step2_build_lines(&input);
+
+        let sib1 = output.heirs.iter().find(|h| h.id == "sib1").unwrap();
+        assert!(sib1.represented_by.is_empty());
+
+        let gn1 = output.heirs.iter().find(|h| h.id == "gn1").unwrap();
+        assert_eq!(gn1.inherits_by, InheritanceMode::OwnRight);
+    }
+
+    #[test]
+    fn test_nephews_anchor_when_no_sibling_record_exists() {
+        // Art. 975 ¶2 shape: the nephews alone survive and no sibling record is
+        // in the tree at all.
+        let heirs = vec![
+            make_collateral("n1", "Nephew One", 3),
+            make_collateral("n2", "Nephew Two", 3),
+        ];
+
+        let anchors = anchor_ids_for_category(&heirs, EffectiveCategory::CollateralGroup);
+        assert_eq!(anchors, vec!["n1".to_string(), "n2".to_string()]);
+    }
+
+    #[test]
+    fn test_living_sibling_still_anchors_over_its_children() {
+        // A living sibling anchors; their child does not become an anchor.
+        let heirs = vec![
+            with_children(make_collateral("sib1", "Sibling", 2), &["n1"]),
+            make_collateral("n1", "Nephew", 3),
+        ];
+
+        let anchors = anchor_ids_for_category(&heirs, EffectiveCategory::CollateralGroup);
+        assert_eq!(anchors, vec!["sib1".to_string()]);
+
+        let output = step2_build_lines(&Step2Input { heirs });
+        let n1 = output.heirs.iter().find(|h| h.id == "n1").unwrap();
+        assert_eq!(n1.inherits_by, InheritanceMode::OwnRight);
     }
 }
