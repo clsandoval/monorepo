@@ -1,270 +1,138 @@
-//! Fuzz invariant tests: loads all generated JSON fixtures from examples/fuzz-cases/
-//! and verifies all 10 spec invariants (§14.2) on each one.
+//! Property invariants over the generated corpora.
 //!
-//! Generate fixtures first:  python3 examples/generate-fuzz-cases.py
-//! Run:                      cargo test test_fuzz_invariants
+//! Reads every case in `examples/fuzz-cases/` (100 files, SEED 20260224) **and**
+//! `examples/coverage-cases/` (30 files, SEED 20260731), and evaluates each named invariant
+//! as its own `#[test]`. Cargo therefore reports *which* invariant broke, not merely that
+//! "a test failed" — that is the whole point of the split, and it is requirement COV-02.
+//!
+//! The predicates themselves live in `tests/common/invariants.rs`, shared with
+//! `tests/defect_ledger.rs` so the two suites cannot drift apart.
+//!
+//! Generate fixtures first:
+//!     python3 examples/generate-fuzz-cases.py
+//!     python3 examples/generate-coverage-cases.py
+//! Run:
+//!     cargo test --test fuzz_invariants
+//!
+//! `examples/defect-cases/` is deliberately NOT read here. Those three inputs are known to
+//! violate sum conservation today; `tests/defect_ledger.rs` owns them and asserts exactly
+//! which invariants each one breaks.
 
-use std::fs;
-use std::path::Path;
+#[path = "common/invariants.rs"]
+mod invariants;
 
-use num_bigint::BigInt;
-use num_traits::Zero;
+use invariants::{load_corpus, Case, INVARIANTS};
 
-use inheritance_engine::pipeline::run_pipeline;
-use inheritance_engine::types::*;
+use inheritance_engine::types::{EngineInput, EngineOutput};
 
-const FUZZ_DIR: &str = "examples/fuzz-cases";
+/// Both generated corpora. `examples/cases` and `examples/testate-cases` are hand-curated
+/// and are covered by `tests/integration.rs`; this suite is the property layer.
+const CORPUS_DIRS: &[&str] = &["examples/fuzz-cases", "examples/coverage-cases"];
 
+/// Floor on the combined file count, so deleting inputs cannot quietly shrink what these
+/// tests cover. 100 fuzz cases + 30 coverage cases = 130 today.
+const MIN_CORPUS_FILES: usize = 130;
+
+fn corpus() -> Vec<Case> {
+    let cases = load_corpus(CORPUS_DIRS);
+    assert!(
+        cases.len() >= MIN_CORPUS_FILES,
+        "corpus shrank: {} case(s) loaded from {:?}, expected at least {}",
+        cases.len(),
+        CORPUS_DIRS,
+        MIN_CORPUS_FILES
+    );
+    cases
+}
+
+/// Run one invariant over the whole corpus and panic with every violation it found.
+fn run_invariant(
+    id: &str,
+    name: &str,
+    check: fn(&EngineInput, &EngineOutput) -> Vec<String>,
+) {
+    let cases = corpus();
+    let mut failing_cases = 0usize;
+    let mut report: Vec<String> = Vec::new();
+
+    for case in &cases {
+        let violations = check(&case.input, &case.output);
+        if !violations.is_empty() {
+            failing_cases += 1;
+            report.push(format!("{}:\n    {}", case.filename, violations.join("\n    ")));
+        }
+    }
+
+    if !report.is_empty() {
+        panic!(
+            "\n{id} {name}: {failing_cases} of {} case(s) violated this invariant:\n\n{}\n",
+            cases.len(),
+            report.join("\n\n")
+        );
+    }
+}
+
+macro_rules! invariant_test {
+    ($test_name:ident, $index:expr) => {
+        #[test]
+        fn $test_name() {
+            let (id, name, check) = INVARIANTS[$index];
+            run_invariant(id, name, check);
+        }
+    };
+}
+
+invariant_test!(test_inv01_sum_conservation, 0);
+invariant_test!(test_inv02_legitime_floor, 1);
+invariant_test!(test_inv03_ic_le_lc, 2);
+invariant_test!(test_inv04_ic_cap, 3);
+invariant_test!(test_inv05_representation_link, 4);
+invariant_test!(test_inv06_adoption_equality, 5);
+invariant_test!(test_inv07_preterition_annulment, 6);
+invariant_test!(test_inv08_disinheritance_zero, 7);
+invariant_test!(test_inv09_collation_identity, 8);
+invariant_test!(test_inv10_scenario_consistency, 9);
+invariant_test!(test_inv11_gross_ge_net, 10);
+invariant_test!(test_inv12_donations_imputed_nonneg, 11);
+invariant_test!(test_inv13_unique_heir_id, 12);
+invariant_test!(test_inv14_legitime_fraction_present, 13);
+invariant_test!(test_safety01_single_share_cap, 14);
+invariant_test!(test_safety02_no_negative_nfe, 15);
+
+/// Roll-up. Kept from the original single-test form and never removed: a case that breaks
+/// four invariants is reported once with all four, instead of appearing as four separate
+/// test failures with no indication they share a cause.
 #[test]
 fn test_fuzz_invariants() {
-    let dir = Path::new(FUZZ_DIR);
-    assert!(dir.exists(), "Fuzz cases directory not found: {FUZZ_DIR}. Run: python3 examples/generate-fuzz-cases.py");
+    let cases = corpus();
 
-    let mut entries: Vec<_> = fs::read_dir(dir)
-        .expect("cannot read fuzz-cases dir")
-        .filter_map(|e| e.ok())
-        .filter(|e| e.path().extension().map_or(false, |ext| ext == "json"))
-        .collect();
-    entries.sort_by_key(|e| e.file_name());
-
-    assert!(!entries.is_empty(), "No .json files found in {FUZZ_DIR}");
-
-    let mut passed = 0;
-    let mut failed = 0;
+    let mut passed = 0usize;
+    let mut failed = 0usize;
     let mut failures: Vec<String> = Vec::new();
 
-    for entry in &entries {
-        let path = entry.path();
-        let filename = path.file_name().unwrap().to_string_lossy().to_string();
-
-        // Parse input
-        let json_str = fs::read_to_string(&path)
-            .unwrap_or_else(|e| panic!("Cannot read {filename}: {e}"));
-        let input: EngineInput = match serde_json::from_str(&json_str) {
-            Ok(i) => i,
-            Err(e) => {
-                failures.push(format!("{filename}: PARSE ERROR: {e}"));
-                failed += 1;
-                continue;
-            }
-        };
-
-        // Run pipeline (catch panics)
-        let output = match std::panic::catch_unwind(|| run_pipeline(&input)) {
-            Ok(o) => o,
-            Err(_) => {
-                failures.push(format!("{filename}: PANIC in run_pipeline"));
-                failed += 1;
-                continue;
-            }
-        };
-
+    for case in &cases {
         let mut case_failures: Vec<String> = Vec::new();
-        let estate = &input.net_distributable_estate.centavos;
-
-        // ── Invariant 1: Sum conservation ──────────────────────────
-        // sum(net_from_estate) == net_distributable_estate
-        let sum_nfe: BigInt = output.per_heir_shares.iter()
-            .map(|s| s.net_from_estate.centavos.clone())
-            .fold(BigInt::zero(), |a, b| a + b);
-        if sum_nfe != *estate {
-            case_failures.push(format!(
-                "INV1 sum_conservation: sum_nfe={sum_nfe} != estate={estate}"));
+        for (_id, _name, check) in INVARIANTS {
+            case_failures.extend(check(&case.input, &case.output));
         }
-
-        // ── Invariant 2: Legitime floor (no negative shares) ──────
-        for share in &output.per_heir_shares {
-            if share.total.centavos < BigInt::zero() {
-                case_failures.push(format!(
-                    "INV2 legitime_floor: {} has negative total={}",
-                    share.heir_name, share.total.centavos));
-            }
-        }
-
-        // ── Invariant 3: IC/LC ratio (testate only) ───────────────
-        // When both LC and IC exist, max(IC_share) <= min(LC_share)
-        if matches!(output.succession_type, SuccessionType::Testate | SuccessionType::Mixed) {
-            let lc_shares: Vec<&BigInt> = output.per_heir_shares.iter()
-                .filter(|s| s.heir_category == EffectiveCategory::LegitimateChildGroup
-                    && matches!(s.inherits_by, InheritanceMode::OwnRight)
-                    && s.total.centavos > BigInt::zero())
-                .map(|s| &s.total.centavos)
-                .collect();
-            let ic_shares: Vec<&BigInt> = output.per_heir_shares.iter()
-                .filter(|s| s.heir_category == EffectiveCategory::IllegitimateChildGroup
-                    && s.total.centavos > BigInt::zero())
-                .map(|s| &s.total.centavos)
-                .collect();
-            if !lc_shares.is_empty() && !ic_shares.is_empty() {
-                let max_ic = ic_shares.iter().max().unwrap();
-                let min_lc = lc_shares.iter().min().unwrap();
-                if max_ic > min_lc {
-                    case_failures.push(format!(
-                        "INV3 ic_lc_ratio: max_ic={max_ic} > min_lc={min_lc}"));
-                }
-            }
-        }
-
-        // ── Invariant 4: IC cap (testate only) ────────────────────
-        // Total IC legitimes should not exceed available free portion.
-        // We check a weaker form: total IC shares <= estate (sanity).
-        if matches!(output.succession_type, SuccessionType::Testate | SuccessionType::Mixed) {
-            let total_ic: BigInt = output.per_heir_shares.iter()
-                .filter(|s| s.heir_category == EffectiveCategory::IllegitimateChildGroup)
-                .map(|s| s.total.centavos.clone())
-                .fold(BigInt::zero(), |a, b| a + b);
-            if total_ic > *estate {
-                case_failures.push(format!(
-                    "INV4 ic_cap: total_ic={total_ic} > estate={estate}"));
-            }
-        }
-
-        // ── Invariant 5: Representation sum ───────────────────────
-        // If heirs inherit by representation, their sum should equal what the
-        // ancestor's line would have received. We check the weaker form:
-        // representatives of the same ancestor should sum to a consistent value.
-        // Group representatives by their represents field.
-        {
-            use std::collections::HashMap;
-            let mut rep_groups: HashMap<&str, BigInt> = HashMap::new();
-            for share in &output.per_heir_shares {
-                if let Some(ref ancestor) = share.represents {
-                    let entry = rep_groups.entry(ancestor.as_str()).or_insert(BigInt::zero());
-                    *entry += &share.net_from_estate.centavos;
-                }
-            }
-            // Each represented ancestor should have representatives with sum > 0
-            // (unless the ancestor was disinherited and had no valid representation)
-            for (ancestor_id, sum) in &rep_groups {
-                if *sum < BigInt::zero() {
-                    case_failures.push(format!(
-                        "INV5 representation_sum: ancestor={ancestor_id} has negative rep sum={sum}"));
-                }
-            }
-        }
-
-        // ── Invariant 6: Adoption equality ────────────────────────
-        // Adopted children should get the same share as legitimate children.
-        // Check: if both AdoptedChild and LegitimateChild exist in output,
-        // their per-heir shares should be equal (in intestate/same-right cases).
-        // This is hard to check generically, so we check the weaker form:
-        // adopted children's shares should be non-negative.
-        for share in &output.per_heir_shares {
-            if share.net_from_estate.centavos < BigInt::zero() {
-                case_failures.push(format!(
-                    "INV6 adoption_equality: {} has negative net_from_estate={}",
-                    share.heir_name, share.net_from_estate.centavos));
-            }
-        }
-
-        // ── Invariant 7: Preterition annulment ────────────────────
-        // If succession type is IntestateByPreterition, it means preterition was detected.
-        if output.succession_type == SuccessionType::IntestateByPreterition {
-            // All compulsory heirs with shares should have got intestate distribution.
-            // Basic check: at least one heir has a positive share.
-            let any_positive = output.per_heir_shares.iter()
-                .any(|s| s.total.centavos > BigInt::zero());
-            if !any_positive {
-                case_failures.push(
-                    "INV7 preterition_annulment: IntestateByPreterition but no heir has positive share"
-                    .to_string());
-            }
-        }
-
-        // ── Invariant 8: Disinheritance validity ──────────────────
-        // Validly disinherited heirs with no representing children should get total == 0.
-        if let Some(ref will) = input.will {
-            for dis in &will.disinheritances {
-                if dis.cause_specified_in_will && dis.cause_proven && !dis.reconciliation_occurred {
-                    if let Some(ref pid) = dis.heir_reference.person_id {
-                        // Check if this heir has children in the family tree
-                        let heir_person = input.family_tree.iter().find(|p| &p.id == pid);
-                        let has_children = heir_person
-                            .map(|p| !p.children.is_empty())
-                            .unwrap_or(false);
-
-                        if !has_children {
-                            // Disinherited with no children -> should get 0
-                            if let Some(share) = output.per_heir_shares.iter()
-                                .find(|s| &s.heir_id == pid)
-                            {
-                                if share.total.centavos != BigInt::zero() {
-                                    case_failures.push(format!(
-                                        "INV8 disinheritance: {} disinherited (no children) but total={}",
-                                        share.heir_name, share.total.centavos));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // ── Invariant 9: Collation sum ────────────────────────────
-        // sum(net_from_estate) == net_distributable_estate (same as INV1 but
-        // specifically verifying that collation doesn't break conservation).
-        // Already checked in INV1; this is a conceptual duplicate.
-
-        // ── Invariant 10: Scenario consistency ────────────────────
-        // Scenario code prefix should match succession type.
-        // Note: IntestateByPreterition keeps the original T-prefixed scenario code
-        // because preterition is detected during testate validation (step 6), so
-        // a T-prefix with IntestateByPreterition is expected and valid.
-        {
-            let sc = format!("{:?}", output.scenario_code);
-            let st = &output.succession_type;
-            let prefix_ok = match st {
-                SuccessionType::Intestate => sc.starts_with('I'),
-                SuccessionType::IntestateByPreterition => {
-                    sc.starts_with('T') || sc.starts_with('I')
-                }
-                SuccessionType::Testate | SuccessionType::Mixed => {
-                    sc.starts_with('T')
-                }
-            };
-            if !prefix_ok {
-                case_failures.push(format!(
-                    "INV10 scenario_consistency: scenario={sc} vs type={st:?}"));
-            }
-        }
-
-        // ── Safety checks (beyond spec) ───────────────────────────
-
-        // No single heir gets more than the estate
-        for share in &output.per_heir_shares {
-            if share.net_from_estate.centavos > *estate {
-                case_failures.push(format!(
-                    "SAFETY single_share_cap: {} net_from_estate={} > estate={estate}",
-                    share.heir_name, share.net_from_estate.centavos));
-            }
-        }
-
-        // No negative net_from_estate
-        for share in &output.per_heir_shares {
-            if share.net_from_estate.centavos < BigInt::zero() {
-                case_failures.push(format!(
-                    "SAFETY no_negative_nfe: {} net_from_estate={}",
-                    share.heir_name, share.net_from_estate.centavos));
-            }
-        }
-
         if case_failures.is_empty() {
             passed += 1;
         } else {
             failed += 1;
-            let joined = case_failures.join("\n    ");
-            failures.push(format!("{filename}:\n    {joined}"));
+            failures.push(format!("{}:\n    {}", case.filename, case_failures.join("\n    ")));
         }
     }
 
-    eprintln!("\n=== Fuzz Invariant Results ===");
+    eprintln!("\n=== Property Invariant Results ===");
+    eprintln!("Corpus: {:?}", CORPUS_DIRS);
+    eprintln!("Invariants: {}", INVARIANTS.len());
     eprintln!("Passed: {passed}/{}", passed + failed);
     eprintln!("Failed: {failed}/{}", passed + failed);
 
     if !failures.is_empty() {
-        let all_failures = failures.join("\n\n");
         panic!(
-            "\n{failed} fuzz case(s) failed invariant checks:\n\n{all_failures}\n"
+            "\n{failed} case(s) failed invariant checks:\n\n{}\n",
+            failures.join("\n\n")
         );
     }
 }
