@@ -7,37 +7,38 @@ goal: Become a Bayesian modeling DIRECTOR + CRITIC (not an author). Carlos works
   it in PyMC, then READ & REFEREE the output (catch a missing observation layer, the funnel,
   non-identifiability, an r-hat you shouldn't trust). Reading fluency IN, authoring fluency OUT.
   Phase 1 = literacy (follow the Discord). Phase 2 = build the real Mama Sita's model, agentically.
-phase: 1-literacy
+phase: 2-mastery
 level: Strong structural intuition (prior, hierarchy, generative thinking — has ML/stats reflexes),
   learns concepts FAST; gap is vocab (word lags mechanism) + hands-on judgment, not raw ability.
 hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
-hours_done: 5.6
-next_up: **PHASE 1 LADDER IS COMPLETE (all 14 rungs).** Next session is the Phase-1 EXIT CHECK, then the
-  Phase-2 kickoff — do not just keep drilling rungs.
-  (A) **Exit check (~10 min, cold, mixed):** pull 5-6 items ACROSS rungs in one pass, no warning of which
-  rung. Must include the two known-soft spots: **the R2D2/joint-prior objection** (variances add → implied
-  R²→1; he had the word but not the mechanism, 7/29) and **the Rung 2 MMM triple** (adstock decay knob,
-  saturation = diminishing returns WITHIN a channel, optimization = equalize marginal slopes — decayed once
-  already, retest until it holds cold twice). Also retest **"a tight prior hides a ridge"** — delivered
-  7/29 and it's the same failure as the R2D2 miss, so if it sticks that one probably sticks too. And
-  **identifiability via the 3-row table** (several parameter pairs, one observable, same prediction) —
-  he owns this now via rank/null-space; check it survives a week.
-  (B) **Phase 2 kickoff — the real unknown.** hours_estimate is a guess because he has NEVER been observed
-  specifying + refereeing a live model. First Phase-2 session should be a DIRECTOR drill, not more theory:
-  give him a plain-language business question, have him spec the model in words/pseudocode (likelihood,
-  hierarchy, observation layer, what identifies what), then hand him a deliberately flawed PyMC
-  implementation to referee. That gives the first real read on his director/critic pace and lets
-  hours_estimate be re-set from evidence. Mama Sita's IS the Phase-2 build target (menu of 6 in this file);
-  still-open blocker = the clean anchor for identifiability.
-  Old warm-up bank (still valid, use at the END, ~5 min max, pick 2):
-  (1) **Rung 2 MMM, cold retest** — decayed badly on 7/29; adstock's knob (decay rate), saturation =
-  diminishing returns *within* a channel, optimization = equalize the marginal slopes.
-  (2) **the re-fit trap mechanism** — he got the verdict ("no") but not the why: dropping the promo
-  term lets the level/trend ABSORB the lift, so you compare attributions, not effects.
-  (3) **the near-zero-adstock referee list** — does the spend vary / are there dark weeks; did the
-  posterior move off the prior; what's the time resolution; what else absorbed it.
+hours_done: 7.5
+next_up: **PHASE 2 IS LIVE — first director session done 7/31 (bear-locker model). The read on his
+  pace: REFEREE = strong, near-independent (caught the confounder unprompted — the July miss, cold).
+  DICTATION = the gap: he knows WHAT's wrong but can't yet produce the STRUCTURE that fixes it
+  (couldn't write the hierarchy, couldn't formalize the trend term, blew up on the offset twice).
+  Phase-2 drills should target FIX-PRODUCTION, not fault-finding.**
+  (A) **Next session: a dictation drill.** New flawed model, DIFFERENT domain (high-variance rule —
+  not bears, not Mama Sita's). Skip the spec phase; go straight to "dictate the corrected model in
+  pseudocode from memory": hierarchy (mu_a/sigma_a/alpha_unit), offset (rate × exposure, coefficient
+  nailed at 1), trend term, sane log-scale priors. The bear model is the reference to rebuild from.
+  Restate the WHOLE problem in the prompt (standing rule).
+  (B) **Warm-up bank (END of session, ≤5 min, 2 max):**
+  (1) **"A tight prior hides a ridge"** — STILL never demonstrated (declined 7/30, not retested 7/31).
+  Retest via the two tests: did the posterior move off the prior; refit 10× wider, does the answer move.
+  (2) **exp / log-scale coefficients — NEW GAP found 7/31.** He didn't know what exp was; landed via
+  multiplier table (0.7→2×, 10→22,000×). Retest cold: "beta_lockers = −0.7 on the log scale — what
+  happens to incidents?" Also retest posterior-vs-prior overlay vs prior predictive check — he
+  conflated the names 7/31 (said "prior predictive" for the did-the-data-speak overlay).
+  (3) **Rung 2 MMM core** (adstock knob / within-channel saturation / equal marginal slopes) — not
+  directly retested since the 7/29 decay; keep cycling it.
+  **R2D2/joint-prior: STOP cold-drilling (decided 7/31, 3rd pass).** He finally produced the mechanism
+  ("variances add, it blows up") with scaffold; arithmetic still slips (used 1 for the variance, not
+  sd²=9). Practice it as prior predictive checks inside Phase-2 builds instead of as a quiz item.
+  **Adstock referee list is now 3-of-4 his** (resolution ✓ 7/31, posterior-moved in spirit ✓ 7/31,
+  absorbed ✓ 7/30; dark-weeks/spend-variation was delivered, not produced — it's the one to re-check,
+  framed as "no variation → ridge").
   WATCH: he swaps questions under pressure — answers the adjacent question, not the asked one.
   Happened 3×. Re-ask VERBATIM and demand yes/no; that is what finally separated bias-vs-fixability
   on 7/29.
@@ -157,6 +158,85 @@ teaching:
    w/ exogenous shock).
 
 ## Sessions (newest at top)
+### 2026-07-31 · ~90 min active (timer wall-clock 188 min — cadence clearly intermittent, gaps docked) · **PHASE 2 KICKOFF** — bear-locker director drill, full arc: spec → referee → dictate
+- Scenario: 25 campgrounds, staggered bear-locker rollout (worst sites first), monthly incident counts,
+  national downtrend since 2021. Deliberately NOT Mama Sita's.
+- **SPEC (strong):** Poisson cold ✓. "Something in between" for site baselines ✓ — but for the wrong
+  reason (said "campers vary"; real reason = unmeasured per-site stuff; corrected). Found the rate
+  himself from the Feb/July rows (400:1 vs 9000:9 → "February, divide nights by incidents") ✓. Both
+  rate-as-Normal breakages cold: throws away n ✓, predicts negative ✓.
+- **REFEREE (the headline):** handed flawed flat-Poisson code. **Caught the worst-sites-first +
+  downtrend confounding UNPROMPTED** — the exact question he missed 3× in July, produced cold. Also
+  ASKED the coefficient-trading question himself ("what stops beta_lockers and beta_nights from one
+  eating all the variance?") — answered: nothing in the model; separable only if install timing is
+  uncorrelated with volume; check the posterior correlation/pairplot. Flagged the priors as
+  uncheckable-without-data (right instinct). Missed the hierarchy until pointed back at his own spec,
+  then caught it ("this equation assumes just one site").
+- **DICTATE (the gap, and the pace-read for hours_estimate):** knows what's wrong, can't yet produce
+  fixes. Conflated offset with trend; **"offset" the word blew up twice** — fixed only by rate ×
+  exposure arithmetic (1/1000 × 400 = 0.4). Got angry-confused ("are you fucking stupid, they ARE
+  using the data") = conflating *using a column* with *learning a coefficient on it*; broke it with the
+  two-sites-doubling table (additive adds the same bump to a 0.2 site and a 6.0 site; multiplication
+  doubles each for free). Couldn't produce the hierarchy structure ("alpha times another parameter?")
+  — delivered mu_a/sigma_a/alpha_site pseudocode; **shrinkage check then PASSED cold** (new site,
+  8 months, 0 incidents → pulled toward parent, right mechanism in his own words). Trend: "multiplies
+  by the decline rate" — right instinct, couldn't formalize; delivered beta_year·t + the payoff
+  (staggered installs are exactly what separate the step from the drift).
+- **NEW FOUNDATION GAP: exp().** Didn't know the word at all. Taught as "the undo button for log";
+  multiplier table (0→1×, 0.7→2×, −0.7→0.5×, 10→22,000×) landed it; Normal(0,10) → "above one it's
+  basically some crazy number" — reached the answer AND PHRASED IT AS A QUESTION again; named the
+  trust-your-number pattern to him mid-session.
+- Asked for a full context restatement once, got it, worked — standing rule validated again.
+- **Warm-up 1, R2D2 3rd pass — best yet, still not clean.** Produced the mechanism ("variances add,
+  blows up") with scaffold; arithmetic slipped (8×1 not 8×9=72, sd 8.5 vs sales sd 10 → prior claims
+  marketing explains ~72%). Punchline half-formed. Decision: stop cold-drilling, fold into Phase-2
+  prior predictive practice.
+- **Warm-up 2, adstock referee list:** produced the resolution check himself (new) and
+  posterior-vs-prior in spirit but **named it wrong** ("prior predictive check" for the overlay);
+  taught the distinction (forward-simulate-before-fit vs did-the-posterior-move). Delivered
+  dark-weeks/spend-variation framed as a ridge (flat spend → decay 0 and 0.9 fit identically).
+  List is now 3-of-4 his across two passes.
+- Stopped at: bear model fully dictated (offset ✓ priors ✓ hierarchy ✓ trend ✓), warm-ups done, his call.
+
+### 2026-07-30 · ~25 min (est — **no timer, his call: watching TV**) · PHASE 1 EXIT CHECK · 3/6 clean
+- Divided attention by design ("no timer im watching a tv show"). Exit check was the right format for it —
+  cold retrieval, short questions, no dense new teaching. **Use this mode again when he's half-attending.**
+- **PASSED cold:**
+  - **Budget optimization (Rung 2)** — slopes across channels, equal = no arbitrage left. The item that
+    DECAYED on 7/29 now holds. Adstock/saturation not directly retested this pass.
+  - **Identifiability, 3-row table (Rungs 13/14)** — best answer of the session and it survived a week:
+    *"depends what the rank is; if we don't have enough rank then nothing changes, the data is just
+    stretching the vector."* Produced in linear algebra unprompted. **Confirms the standing note: lean on
+    linear algebra, it's his native frame.** This one is locked; stop retesting it.
+  - **Prediction vs attribution under a ridge** — he didn't answer it (see below) but owns the principle
+    from 7/29; re-delivered: every point on the ridge predicts identically, tightening only picks WHICH
+    point, so prediction is unaffected and attribution is what's fabricated.
+- **STILL SOFT (3):**
+  - **R2D2 / joint prior — MISSED A 2ND TIME.** Same failure shape as 7/29: got the count intuition
+    ("too many coefficients") and stalled, then said something garbled about "you care about the few that
+    are weakly informative" — which is backwards; the point is the JOINT. Could not name the fix.
+  - **"A tight prior hides a ridge" — DECLINED OUTRIGHT** ("i don't know what a circumstance, i don't
+    want to try"). Delivered a 2nd time with numbers (HalfNormal(0.01) → posterior 0.004 [0.001,0.009],
+    100% prior) plus the two tests: did the posterior move; refit 10× wider.
+  - **Near-zero adstock referee list — 1 of 4.** Gave "another thing in the equation ate it," stopped.
+- **MY QUESTION WAS BROKEN AND HE CAUGHT IT.** Asked about "your sigma_trend prior *fix* from #3" when #3
+  had framed the tight prior as the VILLAIN. He refused: *"i don't know what sigma trend prior fix you're
+  talking about."* Correct referee call — 3rd time he's caught my error unprompted (invented numbers 7/29,
+  "three channels" slip 7/29, this). **Own these immediately, never smooth them over; it's the Phase-2 reflex.**
+- **HE ASKED FOR THE FULL RESTATEMENT** — "give me more context the whole problem, don't just say same as
+  one but different." Right call and worth generalizing: **a transfer variant that says "same setup but N=3"
+  doesn't work on him. Restate the whole problem each time**, even when it feels redundant.
+- **The joint-prior arithmetic half-landed via a TABLE, per the standing rule.** Rows for 1/3/14
+  channels → total variance 25/75/350 → sd 5.0/8.7/18.7 → implied prior R² 6%/19%/88% against sales sd 20.
+  He got to 8.7 himself ("9") **and then talked himself out of it** — the recurring pattern is that he
+  reaches the right number and doesn't trust it. Name that when it happens.
+  Landed principle: *the per-coefficient prior never changed; the joint claim grew with √(#channels)*.
+  Flagged the spend-standardized-to-sd-1 assumption explicitly, since he audits invented numbers.
+- Read: the two misses are the SAME failure — a prior that looks innocent per-parameter but is doing all
+  the work jointly. Both are prior-side (Rung 6), not model-structure. That's the one soft edge left after
+  a complete ladder.
+- Stopped at: exit check finished, Phase-2 kickoff not started.
+
 ### 2026-07-29 (part 3) · 40 min · Rung 14 — frontier vocab · **PHASE 1 LADDER COMPLETE**
 - Ran the rung FIRST with zero warm-ups, per the standing instruction. It worked — the rung that had been
   scheduled 3 sessions running finally landed. **Keep this rule: teach first, warm up only with leftover time.**

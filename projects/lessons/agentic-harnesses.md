@@ -13,17 +13,22 @@ level: EXPERT practitioner. Diagnostic was strong across the board — defined t
   Hermes then found two real failure modes cold — legibility/audit + multi-tenant scoping). Gap is
   NOT judgment — it's (a) legible NAMES for patterns he already reasons about, (b) the horizontal
   design-axes frame to compare same-layer engines, (c) currency on specific frontier frameworks.
-hours_estimate: 25    # revised DOWN from 40 — he already owns the fundamentals + the critic reflex.
-  What he's buying: vocabulary, breadth/currency, and reps. Moving target (field ships weekly).
-hours_done: 1.3
-next_up: Rung 4 — tool interface (tool-calling API vs code-as-action/CodeAct vs bash & computer-use;
-  tool search/deferral; what a "tool" costs in context). Rotation cap: Rung 3 has had 1 session and its
-  spine is cleared — do NOT run it a second time; its leftovers (multi-agent context isolation) belong to
-  Rung 6 anyway. Warm-up (interleave, pull from a NEGLECTED rung): Rung 1 landscape currency — he has zero
-  hands-on with OpenCode and Aider and only just got Codex cloud described to him. Grade OpenCode cold on
-  the full axis set he now owns: reversibility vs containment, perimeter vs working set, eager vs lazy
-  memory, who holds the plan. NOTE the framework-currency gap is his weakest area by far — every session
-  should open with one cold framework grading until it closes.
+hours_estimate: 45    # 25 critic track + ~20 builder extension (rungs 10–14, added 7/31 at his
+  request — he wants to author a specialized harness, not just referee them). Weighted toward
+  Rung 12 (verifier design). Moving target (field ships weekly).
+hours_done: 1.7
+next_up: Rung 5 — skills & self-improvement (Hermes skill docs, Anthropic Skills, learned reuse, where
+  it breaks). He enters with BOTH halves of Daimon's memory architecture self-derived (read gate lazy /
+  write gate reviewed, 7/29) and the Hermes referee done — so the rung should go fast; spend the time on
+  what he lacks: the skill LIFECYCLE at the frontier (when is a skill written, by whom, staleness/decay,
+  wrong-generalization, and skill-collision — which is Rung 4's union/composition problem again: skills
+  from different authors collide like tools from different vendors). Warm-up (currency gap persists —
+  one cold framework grading per session): describe Amp or Devin mechanically, have him grade it on the
+  FULL axis set including the new Rung-4 spectrum (structured calls → injected capabilities → bash →
+  pixels). ALSO: open by making him NAME his own axes cold — on 7/31 he said "I don't know what axes
+  you're talking about" about his own coined lenses. The vocab lag is the one gap that isn't closing on
+  its own; one naming rep per session until it does. Rotation: Rung 2 leftovers (loop-shape reps) and
+  multi-agent belong to Rung 6; don't reopen 3 or 4.
 ---
 
 # Frontier of agentic harnesses & agent frameworks
@@ -43,8 +48,11 @@ analytical spine — the axes along which harnesses vary — and uses live frame
       memory, the rolling-window problem (~5h) — CLEARED 7/29. Full spine: belief-state frame, pinned
       prefix, destructive vs recoverable eviction, compaction's four pathologies, eager/lazy memory,
       authorship-not-category as the eager test, read gate + write gate. Cross-session memory owned.
-- [ ] Rung 4 — Tool interface: tool-calling API vs code-as-action (CodeAct) vs bash/computer-use;
-      tool search/deferral (~4h)
+- [x] Rung 4 — Tool interface: tool-calling API vs code-as-action (CodeAct) vs bash/computer-use;
+      tool search/deferral (~4h) — CLEARED 7/31. Full spectrum owned: eager tax + affordance bias,
+      deferral/progressive disclosure (ships it in Daimon), CodeAct = compiled plan, SEE/BOUND
+      tradeoff, capability injection convergence, bash = CodeAct minus safety, computer-use = bash
+      for screens.
 - [ ] Rung 5 — Skills & self-improvement: Hermes-style skill docs, learned reuse, where it breaks (~4h)
 - [ ] Rung 6 — Multi-agent orchestration: subagents, fan-out, delegation — when it helps vs hurts
       (the Daimon/Multica lens) (~5h)
@@ -54,7 +62,65 @@ analytical spine — the axes along which harnesses vary — and uses live frame
 - [ ] Rung 9 — Frontier synthesis: read & referee 2-3 specific frameworks end-to-end against ALL
       axes; extract design moves for Daimon (~6h)
 
+### Builder extension (added 2026-07-31 — goal upgrade: critic → author. Prereq: finish 5–9, esp. 8.
+Core thesis: a specialized harness = domain verifier + domain-shaped context policy + opinionated
+loop; everything else is commodity. ~20h, weighted toward Rung 12.)
+- [ ] Rung 10 — The naked loop: a harness is ~300–500 lines around an API call (while-loop, tool
+      dispatch, context assembly, stop condition). Read one for real (pi / Claude Agent SDK
+      internals), then write a minimal one (~3h)
+- [ ] Rung 11 — Context assembly as a compiler pass: emit the window every turn — system prompt
+      layout, pinned prefix, and prompt-cache alignment (append-only prefixes, cache breakpoints;
+      editing early context multiplies the bill) (~3h)
+- [ ] Rung 12 — Verifier design: loop length is bounded by verifier quality, read forwards — for a
+      specialized harness the verifier IS the product; niche domains get no free compiler/tests, so
+      build the thing that tells the loop it's done (~6h)
+- [ ] Rung 13 — State, resumability & interruption: checkpointing, journaling, crash recovery,
+      mid-run steering, approvals — production harnesses are mostly this (~4h)
+- [ ] Rung 14 — Eval-driven harness development: run your own ablations as the dev loop — change the
+      harness, hold the model constant, measure; sits on Rung 8 (~4h)
+
 ## Sessions (newest at top)
+### 2026-07-31 · 22 min · Rung 4 — tool interface (CLEARED) + OpenCode warm-up
+- **Warm-up, OpenCode cold** (never used; described mechanically). Graded 1 & 2 correctly — "liberal,
+  nothing assumed, dials not assumptions" = the Claude-Code-family bet. **Missed plan mode** even though
+  it was in the description — but when pointed at it, his own 7/27 criterion graded it instantly
+  (in-context, no artifact → plan-execute in disguise). LSP-eager call correct WITH the right rule
+  (deterministic-verifier authorship → safe to eager-push, his own 7/29 authorship rule); missed the
+  filter/noise referee question (400 diagnostics mid-refactor → recency dominance). Gifted:
+  shareable server-side sessions = his SEE lens shipped as a feature.
+- **Tool cost:** answered with Daimon's fix instead of the failure — he already ships tool search +
+  an eager cluster manifest, i.e. progressive disclosure rederived in production. Missed the
+  model-side cost under infinite context; claimed orthogonality is "on the MCP implementation" —
+  countered with the **composition/union argument** (each vendor designs locally; the collision space
+  is the union nobody designed; the harness is the only party that sees the set → harness owns the
+  namespace; collision surface enumerable offline = his own 7/29 move one level down). Second cost
+  delivered: **schemas are affordances, not data** — visible tools shift the action policy even when
+  no tool is right.
+- **HE FACT-CHECKED ME (5th referee catch across both tracks):** "Toggl doesn't have an MCP server,
+  their API is shit, I built my own." Correct — and the correction PROVED the thesis: Daimon's tools
+  are orthogonal because ONE author (him, harness-side) designed the whole surface. He's the
+  existence proof of harness-owns-the-union, not the counterexample. Own these instantly, as always.
+- **CodeAct:** produced the real discriminator cold — deterministic known-steps → script,
+  unknown intermediate steps → reason between calls. Named for him: that's **compiled plan vs ReAct**,
+  Rung 2's "when may it replan" one level down (a script's answer: never, until exit). **Vocab lag
+  explicit and verbatim: "I don't know what axes you're talking about" — about his OWN coined
+  lenses.** He reasons with them and can't reach for the names; add a naming rep per session.
+  Missed the working-set demolition (framed context-transit as a *benefit*); delivered: model doing
+  group-bys in tokens = learning what arithmetic already knows (same-day rhyme with the bear-model
+  offset).
+- **SEE/BOUND on CodeAct:** got both, thin (permission scope harder; "look at logs and files").
+  Sharpened: structured ledger vs forensic archaeology; "may run code" = one permission containing
+  all permissions. Then delivered the frontier synthesis — **capability injection**: sandbox with no
+  ambient access, action surface = the injected bindings → tools recreated inside the interpreter →
+  the two designs CONVERGE (control plane = tool calls, data plane = code over scoped bindings).
+- **Bash graded well by him:** unbounded catch-all, harness gives up bounding at grant-time, and his
+  own observation that bash subsumes everything ("treat the MCP server as an API and script it").
+  Named: **bash = CodeAct minus the safety features (ambient authority vs injected capability)**;
+  Claude Code's containment must live AROUND bash because it can't live inside it. Computer-use
+  one-liner: bash-for-screens, worst SEE/BOUND, exists because most software has no API.
+- **Spectrum slogan:** structured calls → injected capabilities → bash → pixels; power up, SEE/BOUND down.
+- Stopped at: Rung 4 summit, clean. His call.
+
 ### 2026-07-29 (part 2) · 14 min · Design dialogue — applying Rung 3 to Daimon's MCP read tools
 - He drove this one entirely; came back unprompted with three ideas after the session closed. Confirms
   the pattern: the rung lands, then he immediately re-derives it against his own system. Best mode for him.
