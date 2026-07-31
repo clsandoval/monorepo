@@ -56,6 +56,11 @@
       "id": "G11",
       "command": "node scripts/check-observability.mjs",
       "blocking": true
+    },
+    {
+      "id": "G12",
+      "command": "bash scripts/coverage-report.sh && node scripts/check-coverage.mjs",
+      "blocking": true
     }
   ]
 }

@@ -624,3 +624,108 @@ takes `order: 9`, G8 moves to 10, and G9 moves to 11 and stays last.** `order` i
 (see section 1), so this is a reordering, not a weakening. Placing G11 ahead of G8 is also strictly
 stronger: G11's own `GATE-SKIPS` line gets checked by the skip-accounting gate rather than being
 emitted after it and ignored.
+
+---
+
+## 10. Engine coverage
+
+**Gate G12** — `bash scripts/coverage-report.sh && node scripts/check-coverage.mjs`, `order: 4`,
+blocking. Requirement **COV-04**.
+
+### What it proves
+
+Three things, and deliberately nothing else:
+
+1. A per-module coverage report for the Rust engine can be **produced at all**.
+2. **Every** module under `engine/src/` appears in it.
+3. The set of modules at **exactly zero** coverage matches `coverage-zero.lock`, in both
+   directions.
+
+### There is no percentage threshold, and that is deliberate
+
+COV-04 asks for a report identifying, per engine module, what no test exercises. It does not name a
+target, and nothing else in this repository grounds one. Picking a coverage percentage would be
+precisely the ungrounded decision `.planning/PLAN-STANDARD.md` forbids — a number nobody can defend,
+that later ratchets or gets quietly lowered. So no threshold appears in `coverage-report.sh`, in
+`check-coverage.mjs`, or in `coverage-zero.lock`. The report tells you what is uncovered; a human
+decides whether that matters.
+
+### Regions, not branches
+
+Stable Rust's coverage instrumentation is **region-based**. The `Branches` column of
+`llvm-cov report` is empty on stable, because MC/DC branch counters require a nightly flag. COV-04's
+phrase "which branches no test exercises" is therefore implemented as "which coverage **regions** and
+which **functions** no test enters" — the finer of the two granularities stable Rust can actually
+answer with, and what `llvm-cov` itself calls a region. `engine/COVERAGE.md` says so in its own
+header, so no reader is left wondering why a Branches column is missing.
+
+### No crate is installed
+
+Neither `cargo-llvm-cov` nor `cargo-tarpaulin` is used. `llvm-profdata` and `llvm-cov` ship inside
+the rustc sysroot via the **rustup component** `llvm-tools-preview`, which
+`scripts/coverage-report.sh` resolves through `rustc --print sysroot` rather than assuming `PATH`.
+`engine/Cargo.toml` and `engine/Cargo.lock` are never touched. CI installs the component through the
+existing `dtolnay/rust-toolchain@stable` step.
+
+### The four verdicts
+
+| Marker | Meaning |
+|---|---|
+| `COVERAGE REPORT UNAVAILABLE` | The summary is missing, unparseable, or lists no modules. The gate does not exit 0 on its own internal failure. |
+| `MODULE ABSENT FROM REPORT` | A `.rs` file under `engine/src/` has no entry in the report. A module silently vanishing from a coverage report is the exact failure a coverage report exists to prevent. |
+| `UNDECLARED ZERO COVERAGE` | A module every region of which is uncovered, that `coverage-zero.lock` does not declare. |
+| `STALE ZERO COVERAGE DECLARATION` | A declared module that now has at least one covered region, or that no longer exists. |
+
+All four were observed firing before the gate was registered — three against the committed fixtures
+in `scripts/fixtures/`, and `COVERAGE REPORT UNAVAILABLE` by pointing `--summary` at a path that does
+not exist. A verdict nobody has seen fire is not known to be a verdict.
+
+**One narrow exemption to `MODULE ABSENT FROM REPORT`:** a source file that declares no function at
+all is not required to appear. `llvm-cov` emits an entry per file with at least one coverage region,
+and a file with no `fn` has none, so its absence is correct rather than suspicious.
+`engine/src/lib.rs` — four doc-comment lines and seventeen `pub mod` declarations — is the only such
+file today. The exemption cannot hide a real module: every engine module that computes anything
+declares functions, which is why `scripts/fixtures/coverage-missing-module.json` (which removes
+`src/step7_distribute.rs`) still fails.
+
+### `coverage-zero.lock` may only shrink
+
+It declares exactly two modules today:
+
+| Module | Why no test enters it |
+|---|---|
+| `src/main.rs` | The CLI entry point. No native test invokes `main()`. |
+| `src/wasm.rs` | The `wasm_bindgen` boundary. Unreachable from a native `cargo test`; exercised by the frontend WASM suite through the compiled binary instead. |
+
+Adding an entry to turn a red gate green is prohibited — the fix is to write a test that enters the
+module, not to declare that nobody does. The `STALE ZERO COVERAGE DECLARATION` direction is what
+forces the ledger **down**: the day a module gains its first test, its declaration must go with it.
+This is the exact inverse of `gates.manifest.lock`, which may only **grow**. Both point the same
+direction: more verification over time, never less. No script writes `coverage-zero.lock`.
+
+### Regenerating the committed report
+
+```bash
+bash apps/inheritance/scripts/coverage-report.sh
+```
+
+Writes `engine/COVERAGE.md` (committed) plus `.gate-runs/coverage/export.json` and
+`.gate-runs/coverage/summary.json` (gitignored by the existing `.gate-runs/` entry).
+
+### A missing toolchain halts, it does not fail
+
+G12's `precondition` tests for `llvm-profdata` inside the sysroot. If the component is not installed,
+`scripts/ci-gates.sh` reports **`cannot-run` and exits 2**, per the three-valued exit contract at the
+top of that script. A missing tool is information about the environment and never about the product;
+conflating the two is how a long-running loop silently redefines success.
+
+### Ordering note — why G12 runs at order 4
+
+`scripts/ci-gates.sh` currently halts at **G3** because of Phase 5's unresolved OBS-05/OBS-06 product
+decision, so a gate ordered after G3 would never execute at all. G12 therefore takes `order: 4`,
+ahead of G1, and every gate from G1 down shifted by two (G1→6, G2→7, G3→8, G4→9, G10→10, G11→11,
+G8→12, G9→13). `order` is deliberately unlocked (see section 1), so this is a reordering, not a
+weakening. **G9 remains the highest order and stays last**, for the reason section 8 records.
+
+One consequence worth stating plainly: because G12 builds the engine under instrumentation, a Rust
+compile error now surfaces as `GATE FAILED: G12` **before** G1 is reached.

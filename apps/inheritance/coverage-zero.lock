@@ -1,0 +1,14 @@
+{
+  "$comment": "OWNER-OWNED FILE. This ledger declares every engine module that no test enters AT ALL — every coverage region uncovered. IT MAY ONLY SHRINK. Adding an entry here to turn a red gate green is prohibited: the fix is to write a test that enters the module, not to declare that nobody does. scripts/check-coverage.mjs enforces both directions — a module observed at zero coverage that is not declared here fails with UNDECLARED ZERO COVERAGE, and a declared module that has since gained even one covered region fails with STALE ZERO COVERAGE DECLARATION, so the ledger cannot accumulate dead entries either. That script has no flag that writes this file, by design — a check that can rewrite its own baseline is not a check. This is the exact inverse of gates.manifest.lock, which may only GROW. Both point the same direction: more verification over time, never less. Note what this ledger is NOT: it is not a coverage percentage threshold. Requirement COV-04 asks for a report naming what no test exercises, and nothing in the requirement or this repository grounds a particular percentage, so gate G12 asserts no percentage anywhere.",
+  "frozen_at": "2026-07-31",
+  "zero_coverage_modules": [
+    {
+      "file": "src/main.rs",
+      "reason": "The CLI entry point. No native test invokes main(); the binary is exercised by hand and by scripts/coverage-report.sh only as a build target."
+    },
+    {
+      "file": "src/wasm.rs",
+      "reason": "The wasm_bindgen boundary. Unreachable from a native cargo test because #[wasm_bindgen] entry points are only callable through the compiled WASM binary; it is exercised by the frontend WASM suite (frontend/src/wasm/__tests__/) against that binary instead."
+    }
+  ]
+}

@@ -98,7 +98,7 @@ You do not need to build the WASM artifact separately: gate G2 does it. Note tha
 `frontend/src/wasm/pkg/inheritance_engine_bg.wasm` is a build artifact and is gitignored, so a clean
 checkout has no WASM binary until a build runs.
 
-## The eleven gates
+## The thirteen gates
 
 The gate list is not hardcoded in the runner. It lives in `gates.manifest.json`, and
 `scripts/ci-gates.sh` iterates it in `order`. The three cheap meta-gates run first, so a tampered
@@ -110,6 +110,7 @@ manifest or an open-world plan is caught in seconds rather than after a five-min
 | G5. Gate manifest integrity | `node scripts/check-gate-manifest.mjs` | The frozen gate set has not shrunk, had a locked command changed, or stopped blocking. The gate set may only grow. |
 | G6. Plan closed-world lint | `node scripts/check-plan-closed-world.mjs` | Every plan file is closed-world by the nine rules in `.planning/PLAN-STANDARD.md` — no hedge phrasing, no request to decide law, no ungrounded requirement id. |
 | G7. Commit discipline audit | `node scripts/check-commit-discipline.mjs` | No commit since project init mixes `apps/inheritance/` with paths outside it. |
+| G12. Engine coverage report | `bash scripts/coverage-report.sh && node scripts/check-coverage.mjs` | A per-module coverage report is producible for every engine module, no module has vanished from it, and the set of modules no test enters at all has not grown. No percentage threshold is asserted anywhere — COV-04 asks for a report, not a number. See [`GATES.md`](./GATES.md) section 10. |
 | G1. Engine tests | `cd engine && cargo test` | The Rust succession engine's 442 unit, integration, and fuzz-invariant tests pass. |
 | G2. WASM build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`. The script verifies existence, a 100 KB size floor, and the `0061736d` WebAssembly magic number — `wasm-pack` exiting 0 is not accepted as proof on its own. |
 | G3. Frontend suite | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. See below. |

@@ -1,0 +1,320 @@
+{
+  "generated_at": "2026-07-31T13:43:23.107Z",
+  "modules": [
+    {
+      "file": "src/flags.rs",
+      "regions_total": 538,
+      "regions_uncovered": 3,
+      "functions_total": 39,
+      "functions_uncovered": 1,
+      "lines_total": 358,
+      "lines_uncovered": 1,
+      "uncovered_function_names": [
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine5flags17detect_spec_flagss3_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine5flags17detect_spec_flagss4_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine5flags17detect_spec_flagss4_0B5_"
+      ]
+    },
+    {
+      "file": "src/fraction.rs",
+      "regions_total": 492,
+      "regions_uncovered": 25,
+      "functions_total": 62,
+      "functions_uncovered": 6,
+      "lines_total": 276,
+      "lines_uncovered": 19,
+      "uncovered_function_names": [
+        "_RNCINvXsa_NtCsgmBpYVsZBk3_18inheritance_engine8fractionNtB8_4FracNtNtCs3gJwEGhMpAz_10serde_core2de11Deserialize11deserializeQINtNtCs6muWVFCuwiX_10serde_json2de12DeserializerNtNtB24_4read7StrReadEE0Ba_",
+        "_RNCINvXsa_NtCsgmBpYVsZBk3_18inheritance_engine8fractionNtB8_4FracNtNtCs3gJwEGhMpAz_10serde_core2de11Deserialize11deserializeQINtNtCs6muWVFCuwiX_10serde_json2de12DeserializerNtNtB24_4read7StrReadEEs_0Ba_",
+        "_RNCINvXsa_NtCshd3LUNNtmJM_18inheritance_engine8fractionNtB8_4FracNtNtCs3gJwEGhMpAz_10serde_core2de11Deserialize11deserializeQINtNtCs6muWVFCuwiX_10serde_json2de12DeserializerNtNtB24_4read7StrReadEE0Ba_",
+        "_RNCINvXsa_NtCshd3LUNNtmJM_18inheritance_engine8fractionNtB8_4FracNtNtCs3gJwEGhMpAz_10serde_core2de11Deserialize11deserializeQINtNtCs6muWVFCuwiX_10serde_json2de12DeserializerNtNtB24_4read7StrReadEEs_0Ba_",
+        "_RNvMNtCsgmBpYVsZBk3_18inheritance_engine8fractionNtB2_4Frac11as_rational",
+        "_RNvMNtCsgmBpYVsZBk3_18inheritance_engine8fractionNtB2_4Frac13from_rational",
+        "_RNvMNtCsgmBpYVsZBk3_18inheritance_engine8fractionNtB2_4Frac13into_rational",
+        "_RNvMNtCshd3LUNNtmJM_18inheritance_engine8fractionNtB2_4Frac11as_rational",
+        "_RNvMNtCshd3LUNNtmJM_18inheritance_engine8fractionNtB2_4Frac13from_rational",
+        "_RNvMNtCshd3LUNNtmJM_18inheritance_engine8fractionNtB2_4Frac13into_rational",
+        "_RNvMNtCshd3LUNNtmJM_18inheritance_engine8fractionNtB2_4Frac19to_centavos_rounded",
+        "_RNvMNtCshd3LUNNtmJM_18inheritance_engine8fractionNtB2_4Frac3abs",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine8fraction13bankers_round",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine8fraction16frac_to_centavos",
+        "_RNvXs7_NtCshd3LUNNtmJM_18inheritance_engine8fractionNtB5_4FracNtNtCs27Vx93FoQ6z_4core3fmt7Display3fmt",
+        "_RNvXs8_NtCsgmBpYVsZBk3_18inheritance_engine8fractionNtB5_4FracNtNtCs27Vx93FoQ6z_4core3fmt5Debug3fmt",
+        "_RNvXs8_NtCshd3LUNNtmJM_18inheritance_engine8fractionNtB5_4FracNtNtCs27Vx93FoQ6z_4core3fmt5Debug3fmt"
+      ]
+    },
+    {
+      "file": "src/main.rs",
+      "regions_total": 54,
+      "regions_uncovered": 54,
+      "functions_total": 6,
+      "functions_uncovered": 6,
+      "lines_total": 32,
+      "lines_uncovered": 32,
+      "uncovered_function_names": [
+        "_RNCNvCs8hDnHhfWxjy_18inheritance_engine4main0B3_",
+        "_RNCNvCs8hDnHhfWxjy_18inheritance_engine4mains0_0B3_",
+        "_RNCNvCs8hDnHhfWxjy_18inheritance_engine4mains1_0B3_",
+        "_RNCNvCs8hDnHhfWxjy_18inheritance_engine4mains2_0B3_",
+        "_RNCNvCs8hDnHhfWxjy_18inheritance_engine4mains_0B3_",
+        "_RNCNvCsd2Hoi3BYlOB_18inheritance_engine4main0B3_",
+        "_RNCNvCsd2Hoi3BYlOB_18inheritance_engine4mains0_0B3_",
+        "_RNCNvCsd2Hoi3BYlOB_18inheritance_engine4mains1_0B3_",
+        "_RNCNvCsd2Hoi3BYlOB_18inheritance_engine4mains2_0B3_",
+        "_RNCNvCsd2Hoi3BYlOB_18inheritance_engine4mains_0B3_",
+        "_RNvCs8hDnHhfWxjy_18inheritance_engine4main",
+        "_RNvCsd2Hoi3BYlOB_18inheritance_engine4main"
+      ]
+    },
+    {
+      "file": "src/output_check.rs",
+      "regions_total": 200,
+      "regions_uncovered": 1,
+      "functions_total": 14,
+      "functions_uncovered": 0,
+      "lines_total": 154,
+      "lines_uncovered": 1,
+      "uncovered_function_names": [
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine12output_check12check_outputs1_0B5_"
+      ]
+    },
+    {
+      "file": "src/pipeline.rs",
+      "regions_total": 516,
+      "regions_uncovered": 220,
+      "functions_total": 9,
+      "functions_uncovered": 3,
+      "lines_total": 388,
+      "lines_uncovered": 156,
+      "uncovered_function_names": [
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine8pipeline12run_pipeline0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine8pipeline25run_pipeline_with_restart0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine8pipeline25run_pipeline_with_restarts_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine8pipeline25run_pipeline_with_restart0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine8pipeline25run_pipeline_with_restarts_0B5_",
+        "_RNvNtCsgmBpYVsZBk3_18inheritance_engine8pipeline25run_pipeline_with_restart",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine8pipeline20run_pipeline_checked",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine8pipeline25run_pipeline_with_restart"
+      ]
+    },
+    {
+      "file": "src/step1_classify.rs",
+      "regions_total": 944,
+      "regions_uncovered": 4,
+      "functions_total": 76,
+      "functions_uncovered": 0,
+      "lines_total": 660,
+      "lines_uncovered": 2,
+      "uncovered_function_names": []
+    },
+    {
+      "file": "src/step10_finalize.rs",
+      "regions_total": 1537,
+      "regions_uncovered": 12,
+      "functions_total": 119,
+      "functions_uncovered": 3,
+      "lines_total": 1056,
+      "lines_uncovered": 6,
+      "uncovered_function_names": [
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine15step10_finalize15step10_finalizes1_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine15step10_finalize15step10_finalizes6_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine15step10_finalize15step10_finalizesd_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine15step10_finalize15step10_finalizese_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine15step10_finalize15step10_finalizesf_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine15step10_finalize15step10_finalizes1_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine15step10_finalize15step10_finalizesd_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine15step10_finalize15step10_finalizese_0B5_",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine15step10_finalize14spouse_article",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine15step10_finalize15format_fraction",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine15step10_finalize16unicode_fraction",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine15step10_finalize21filiation_description"
+      ]
+    },
+    {
+      "file": "src/step2_lines.rs",
+      "regions_total": 1117,
+      "regions_uncovered": 17,
+      "functions_total": 73,
+      "functions_uncovered": 4,
+      "lines_total": 659,
+      "lines_uncovered": 9,
+      "uncovered_function_names": [
+        "_RNCNvNtNtCsgmBpYVsZBk3_18inheritance_engine11step2_lines5testss_24test_dead_spouse_no_line0B7_",
+        "_RNCNvNtNtCsgmBpYVsZBk3_18inheritance_engine11step2_lines5testss_37test_renounced_heir_no_representation0B7_",
+        "_RNCNvNtNtCsgmBpYVsZBk3_18inheritance_engine11step2_lines5testss_45test_all_grandchildren_renounced_line_extinct0B7_",
+        "_RNvNtNtCsgmBpYVsZBk3_18inheritance_engine11step2_lines5tests10ineligible"
+      ]
+    },
+    {
+      "file": "src/step3_scenario.rs",
+      "regions_total": 651,
+      "regions_uncovered": 1,
+      "functions_total": 58,
+      "functions_uncovered": 0,
+      "lines_total": 520,
+      "lines_uncovered": 1,
+      "uncovered_function_names": []
+    },
+    {
+      "file": "src/step4_estate_base.rs",
+      "regions_total": 1138,
+      "regions_uncovered": 9,
+      "functions_total": 48,
+      "functions_uncovered": 0,
+      "lines_total": 543,
+      "lines_uncovered": 12,
+      "uncovered_function_names": []
+    },
+    {
+      "file": "src/step5_legitimes.rs",
+      "regions_total": 1877,
+      "regions_uncovered": 3,
+      "functions_total": 111,
+      "functions_uncovered": 0,
+      "lines_total": 1247,
+      "lines_uncovered": 3,
+      "uncovered_function_names": [
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine15step5_legitimes23divide_among_ascendantss1_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine15step5_legitimes23divide_among_ascendantss2_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine15step5_legitimes23divide_among_ascendantss3_0B5_"
+      ]
+    },
+    {
+      "file": "src/step6_validation.rs",
+      "regions_total": 1936,
+      "regions_uncovered": 23,
+      "functions_total": 83,
+      "functions_uncovered": 0,
+      "lines_total": 1287,
+      "lines_uncovered": 22,
+      "uncovered_function_names": [
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine16step6_validation19step6_validate_will0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step6_validation16strip_conditions0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step6_validation16strip_conditionss0_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step6_validation16strip_conditionss1_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step6_validation16strip_conditionss2_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step6_validation18reduce_inofficiouss0_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step6_validation18reduce_inofficiouss1_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step6_validation18reduce_inofficiouss_0B5_"
+      ]
+    },
+    {
+      "file": "src/step7_distribute.rs",
+      "regions_total": 3015,
+      "regions_uncovered": 68,
+      "functions_total": 126,
+      "functions_uncovered": 4,
+      "lines_total": 1528,
+      "lines_uncovered": 38,
+      "uncovered_function_names": [
+        "_RNCNCNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute12get_lc_lines00B7_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute12get_lc_lines0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute16step7_distributes1_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute23determine_will_coverages0_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute23distribute_nephews_only0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute28distribute_other_collaterals0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute28distribute_other_collateralss0_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute28distribute_other_collateralss1_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute13distribute_i90B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute13distribute_i9s_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute14distribute_i100B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute14distribute_i10s0_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute14distribute_i10s_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute23distribute_nephews_only0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute39distribute_siblings_with_representation0B5_",
+        "_RNCNvNtNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute5tests10find_shares_0B7_",
+        "_RNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute14distribute_i14",
+        "_RNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute20compute_devise_value",
+        "_RNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute23distribute_nephews_only",
+        "_RNvNtCsgmBpYVsZBk3_18inheritance_engine16step7_distribute28distribute_other_collaterals",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute13distribute_i9",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute14distribute_i10",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute20compute_devise_value",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute23distribute_nephews_only",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine16step7_distribute39distribute_siblings_with_representation"
+      ]
+    },
+    {
+      "file": "src/step8_collation.rs",
+      "regions_total": 1431,
+      "regions_uncovered": 17,
+      "functions_total": 36,
+      "functions_uncovered": 2,
+      "lines_total": 791,
+      "lines_uncovered": 18,
+      "uncovered_function_names": [
+        "_RNCNvNtNtCsgmBpYVsZBk3_18inheritance_engine15step8_collation5tests15find_adjustments_0B7_",
+        "_RNvNtNtCsgmBpYVsZBk3_18inheritance_engine15step8_collation5tests17make_distribution"
+      ]
+    },
+    {
+      "file": "src/step9_vacancy.rs",
+      "regions_total": 1808,
+      "regions_uncovered": 173,
+      "functions_total": 88,
+      "functions_uncovered": 4,
+      "lines_total": 1099,
+      "lines_uncovered": 127,
+      "uncovered_function_names": [
+        "_RNCNCNvNtCsgmBpYVsZBk3_18inheritance_engine13step9_vacancy23step9_resolve_vacanciess7_00B7_",
+        "_RNCNCNvNtCsgmBpYVsZBk3_18inheritance_engine13step9_vacancy23step9_resolve_vacanciess7_0s_0B7_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine13step9_vacancy16try_substitutions0_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine13step9_vacancy16try_substitutions1_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine13step9_vacancy16try_substitutions2_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine13step9_vacancy16try_substitutions3_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine13step9_vacancy23step9_resolve_vacanciess7_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine13step9_vacancy23step9_resolve_vacanciess8_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine13step9_vacancy16try_substitutions0_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine13step9_vacancy16try_substitutions1_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine13step9_vacancy16try_substitutions2_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine13step9_vacancy16try_substitutions3_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine13step9_vacancy16try_substitutions_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine13step9_vacancy23step9_resolve_vacanciess0_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine13step9_vacancy23step9_resolve_vacanciess1_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine13step9_vacancy23step9_resolve_vacanciess6_0B5_"
+      ]
+    },
+    {
+      "file": "src/types.rs",
+      "regions_total": 49,
+      "regions_uncovered": 28,
+      "functions_total": 6,
+      "functions_uncovered": 2,
+      "lines_total": 35,
+      "lines_uncovered": 12,
+      "uncovered_function_names": [
+        "_RINvXNtCsgmBpYVsZBk3_18inheritance_engine5typesNtB3_5MoneyNtNtCs3gJwEGhMpAz_10serde_core3ser9Serialize9serializepEB5_",
+        "_RINvXNtCshd3LUNNtmJM_18inheritance_engine5typesNtB3_5MoneyNtNtCs3gJwEGhMpAz_10serde_core3ser9Serialize9serializeQINtNtCs6muWVFCuwiX_10serde_json3ser10SerializerNtNtNtCs75vJTIYSa2J_3std2io5stdio6StdoutNtB1Q_15PrettyFormatterEECs8hDnHhfWxjy_18inheritance_engine",
+        "_RINvXNtCshd3LUNNtmJM_18inheritance_engine5typesNtB3_5MoneyNtNtCs3gJwEGhMpAz_10serde_core3ser9Serialize9serializeQINtNtCs6muWVFCuwiX_10serde_json3ser10SerializerQINtNtCsgW8esjfipvk_5alloc3vec3VechEEEB5_",
+        "_RINvXs_NtCsgmBpYVsZBk3_18inheritance_engine5typesNtB5_5MoneyNtNtCs3gJwEGhMpAz_10serde_core2de11Deserialize11deserializepEB7_",
+        "_RINvXs_NtCshd3LUNNtmJM_18inheritance_engine5typesNtB5_5MoneyNtNtCs3gJwEGhMpAz_10serde_core2de11Deserialize11deserializeINtNvNtNtCsfewvJe76aFQ_5serde7private2de13missing_field24MissingFieldDeserializerNtNtCs6muWVFCuwiX_10serde_json5error5ErrorEEB7_",
+        "_RNCINvXs_NtCsgmBpYVsZBk3_18inheritance_engine5typesNtB7_5MoneyNtNtCs3gJwEGhMpAz_10serde_core2de11Deserialize11deserializepE0B9_",
+        "_RNCINvXs_NtCshd3LUNNtmJM_18inheritance_engine5typesNtB7_5MoneyNtNtCs3gJwEGhMpAz_10serde_core2de11Deserialize11deserializeINtNvNtNtCsfewvJe76aFQ_5serde7private2de13missing_field24MissingFieldDeserializerNtNtCs6muWVFCuwiX_10serde_json5error5ErrorEE0B9_",
+        "_RNCINvXs_NtCshd3LUNNtmJM_18inheritance_engine5typesNtB7_5MoneyNtNtCs3gJwEGhMpAz_10serde_core2de11Deserialize11deserializeQINtNtCs6muWVFCuwiX_10serde_json2de12DeserializerNtNtB21_4read7StrReadEE0B9_"
+      ]
+    },
+    {
+      "file": "src/wasm.rs",
+      "regions_total": 52,
+      "regions_uncovered": 51,
+      "functions_total": 6,
+      "functions_uncovered": 6,
+      "lines_total": 39,
+      "lines_uncovered": 39,
+      "uncovered_function_names": [
+        "_RNCNCNvNtCsgmBpYVsZBk3_18inheritance_engine4wasm12compute_jsons_00B7_",
+        "_RNCNCNvNtCshd3LUNNtmJM_18inheritance_engine4wasm12compute_jsons_00B7_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine4wasm12compute_json0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine4wasm12compute_jsons0_0B5_",
+        "_RNCNvNtCsgmBpYVsZBk3_18inheritance_engine4wasm12compute_jsons_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine4wasm12compute_json0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine4wasm12compute_jsons0_0B5_",
+        "_RNCNvNtCshd3LUNNtmJM_18inheritance_engine4wasm12compute_jsons_0B5_",
+        "_RNvNtCsgmBpYVsZBk3_18inheritance_engine4wasm12compute_json",
+        "_RNvNtCsgmBpYVsZBk3_18inheritance_engine4wasm12engine_error",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine4wasm12compute_json",
+        "_RNvNtCshd3LUNNtmJM_18inheritance_engine4wasm12engine_error"
+      ]
+    }
+  ]
+}

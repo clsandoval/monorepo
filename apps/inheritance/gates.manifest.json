@@ -45,7 +45,7 @@
     {
       "id": "G1",
       "name": "engine tests",
-      "order": 4,
+      "order": 6,
       "command": "cd engine && cargo test",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/Cargo.toml",
@@ -56,7 +56,7 @@
     {
       "id": "G2",
       "name": "wasm build",
-      "order": 5,
+      "order": 7,
       "command": "bash engine/build-wasm.sh",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/build-wasm.sh",
@@ -69,7 +69,7 @@
     {
       "id": "G3",
       "name": "frontend suite vs ledger",
-      "order": 6,
+      "order": 8,
       "command": "cd frontend && npm run test:gate",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
@@ -82,7 +82,7 @@
     {
       "id": "G4",
       "name": "typecheck",
-      "order": 7,
+      "order": 9,
       "command": "cd frontend && npx tsc -b --force",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 10,
+      "order": 12,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 11,
+      "order": 13,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -121,7 +121,7 @@
     {
       "id": "G10",
       "name": "lawyer decision registry",
-      "order": 8,
+      "order": 10,
       "command": "node scripts/check-lawyer-agenda.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/lawyer-decisions.json",
@@ -134,7 +134,7 @@
     {
       "id": "G11",
       "name": "engine observability",
-      "order": 9,
+      "order": 11,
       "command": "node scripts/check-observability.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/src/step10_finalize.rs",
@@ -148,6 +148,19 @@
         "OBS-05",
         "OBS-06",
         "OBS-07"
+      ]
+    },
+    {
+      "id": "G12",
+      "name": "engine coverage report",
+      "order": 4,
+      "command": "bash scripts/coverage-report.sh && node scripts/check-coverage.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -x \"$(rustc --print sysroot)/lib/rustlib/$(rustc -vV | sed -n 's/^host: //p')/bin/llvm-profdata\"",
+      "blocking": true,
+      "proves": "A per-module coverage report is producible for every engine module, no module has vanished from it, and the set of modules no test enters at all has not grown. See GATES.md section 10.",
+      "requirements": [
+        "COV-04"
       ]
     }
   ]
