@@ -1,5 +1,5 @@
 {
-  "$comment": "Seeded by frontend/supabase/seed.sql, which supabase db reset applies automatically. These ids are stable and may be referenced literally by tests and gates — that is the point of publishing them here rather than scattering literals through test files. node scripts/check-seed-fixture.mjs fails the build when this file and the SQL disagree, in either direction, so an id can never be changed in one place only. Org Beta exists so a tenant-isolation test has a second tenant to be excluded from: ROADMAP Phase 11 requires proving a user in org A cannot read, write or enumerate org B's cases, PDFs or shared links, and a single-org fixture cannot express that.",
+  "$comment": "Seeded by frontend/supabase/seed.sql, which supabase db reset applies automatically. These ids are stable and may be referenced literally by tests and gates — that is the point of publishing them here rather than scattering literals through test files. node scripts/check-seed-fixture.mjs fails the build when this file and the SQL disagree, in either direction, so an id can never be changed in one place only. Org Beta exists so a tenant-isolation test has a second tenant to be excluded from: ROADMAP Phase 11 requires proving a user in org A cannot read, write or enumerate org B's cases, PDFs or shared links, and a single-org fixture cannot express that. The orphan object publishes a user who belongs to no organization at all, plus one pending invitation addressed to that user in Alpha's org, so the org-less account state and both invite outcomes (acceptance and refusal) are reachable from seeded state instead of requiring a fresh registration mid-gate; each org's pdf_id publishes one seeded case_pdfs row so a PDF isolation assertion compares two populated tables rather than two empty ones.",
   "password": "test-password-123",
   "orgs": {
     "alpha": {
@@ -10,7 +10,8 @@
       "user_email": "alpha@example.test",
       "client_id": "a0000000-0000-4000-8000-000000000003",
       "case_id": "a0000000-0000-4000-8000-000000000004",
-      "share_token": "a0000000-0000-4000-8000-000000000005"
+      "share_token": "a0000000-0000-4000-8000-000000000005",
+      "pdf_id": "a0000000-0000-4000-8000-000000000006"
     },
     "beta": {
       "org_id": "b0000000-0000-4000-8000-000000000001",
@@ -20,7 +21,15 @@
       "user_email": "beta@example.test",
       "client_id": "b0000000-0000-4000-8000-000000000003",
       "case_id": "b0000000-0000-4000-8000-000000000004",
-      "share_token": "b0000000-0000-4000-8000-000000000005"
+      "share_token": "b0000000-0000-4000-8000-000000000005",
+      "pdf_id": "b0000000-0000-4000-8000-000000000006"
     }
+  },
+  "orphan": {
+    "user_id": "c0000000-0000-4000-8000-000000000002",
+    "user_email": "orphan@example.test",
+    "invitation_id": "c0000000-0000-4000-8000-000000000003",
+    "invitation_token": "c0000000-0000-4000-8000-000000000004",
+    "invitation_org_id": "a0000000-0000-4000-8000-000000000001"
   }
 }

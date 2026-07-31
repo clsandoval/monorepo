@@ -22,21 +22,32 @@
 -- No engine result is seeded. A stored per-heir peso figure that nothing computed
 -- is exactly the unverified number this project exists to prevent.
 --
--- The seed is idempotent: it deletes only its own eight known uuids before
--- inserting, so a developer's own local rows are never touched, and every insert
--- converges via ON CONFLICT DO NOTHING.
+-- The seed is idempotent: it deletes only its own known uuids before inserting,
+-- so a developer's own local rows are never touched, and every insert converges
+-- via ON CONFLICT DO NOTHING.
+--
+-- Three further fixtures exist so a tenant-isolation assertion cannot pass
+-- vacuously over empty tables:
+--   * one case_pdfs row per tenant, so "Alpha cannot read Beta's PDFs" compares
+--     a populated table against a populated table rather than two empty ones;
+--   * the Orphan user, who belongs to NO organization, so an org-less account
+--     state is reachable without registering a new user mid-gate;
+--   * one pending invitation addressed to the Orphan user, so invite acceptance
+--     and refusal are both drivable from seeded state.
 
 -- ---------------------------------------------------------------------------
 -- 1. Cleanup — id-scoped, reverse dependency order. Never a truncation.
 -- ---------------------------------------------------------------------------
 
+DELETE FROM case_pdfs            WHERE id      IN ('a0000000-0000-4000-8000-000000000006', 'b0000000-0000-4000-8000-000000000006');
+DELETE FROM organization_invitations WHERE id  =  'c0000000-0000-4000-8000-000000000003';
 DELETE FROM cases                WHERE id      IN ('a0000000-0000-4000-8000-000000000004', 'b0000000-0000-4000-8000-000000000004');
 DELETE FROM clients              WHERE id      IN ('a0000000-0000-4000-8000-000000000003', 'b0000000-0000-4000-8000-000000000003');
-DELETE FROM organization_members WHERE user_id IN ('a0000000-0000-4000-8000-000000000002', 'b0000000-0000-4000-8000-000000000002');
+DELETE FROM organization_members WHERE user_id IN ('a0000000-0000-4000-8000-000000000002', 'b0000000-0000-4000-8000-000000000002', 'c0000000-0000-4000-8000-000000000002');
 DELETE FROM organizations        WHERE id      IN ('a0000000-0000-4000-8000-000000000001', 'b0000000-0000-4000-8000-000000000001');
-DELETE FROM user_profiles        WHERE id      IN ('a0000000-0000-4000-8000-000000000002', 'b0000000-0000-4000-8000-000000000002');
-DELETE FROM auth.identities      WHERE user_id IN ('a0000000-0000-4000-8000-000000000002', 'b0000000-0000-4000-8000-000000000002');
-DELETE FROM auth.users           WHERE id      IN ('a0000000-0000-4000-8000-000000000002', 'b0000000-0000-4000-8000-000000000002');
+DELETE FROM user_profiles        WHERE id      IN ('a0000000-0000-4000-8000-000000000002', 'b0000000-0000-4000-8000-000000000002', 'c0000000-0000-4000-8000-000000000002');
+DELETE FROM auth.identities      WHERE user_id IN ('a0000000-0000-4000-8000-000000000002', 'b0000000-0000-4000-8000-000000000002', 'c0000000-0000-4000-8000-000000000002');
+DELETE FROM auth.users           WHERE id      IN ('a0000000-0000-4000-8000-000000000002', 'b0000000-0000-4000-8000-000000000002', 'c0000000-0000-4000-8000-000000000002');
 
 -- ---------------------------------------------------------------------------
 -- 2. auth.users — passwords hashed with pgcrypto, never stored in plaintext.
@@ -59,6 +70,14 @@ INSERT INTO auth.users (
   ('b0000000-0000-4000-8000-000000000002', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated',
    'beta@example.test', crypt('test-password-123', gen_salt('bf')), NOW(),
    '{"provider":"email","providers":["email"]}'::jsonb, '{}'::jsonb, NOW(), NOW(),
+   '', '', '', ''),
+  -- The Orphan user. Deliberately gets NO organizations row and NO
+  -- organization_members row below: the absence IS the fixture. It is what makes
+  -- the org-less account state (onboarding, invite acceptance) reachable without
+  -- registering a fresh user in the middle of a gate.
+  ('c0000000-0000-4000-8000-000000000002', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated',
+   'orphan@example.test', crypt('test-password-123', gen_salt('bf')), NOW(),
+   '{"provider":"email","providers":["email"]}'::jsonb, '{}'::jsonb, NOW(), NOW(),
    '', '', '', '')
 ON CONFLICT (id) DO NOTHING;
 
@@ -77,6 +96,9 @@ INSERT INTO auth.identities (
    NOW(), NOW(), NOW()),
   (gen_random_uuid(), 'b0000000-0000-4000-8000-000000000002', 'email', 'b0000000-0000-4000-8000-000000000002'::text,
    jsonb_build_object('sub', 'b0000000-0000-4000-8000-000000000002'::text, 'email', 'beta@example.test'),
+   NOW(), NOW(), NOW()),
+  (gen_random_uuid(), 'c0000000-0000-4000-8000-000000000002', 'email', 'c0000000-0000-4000-8000-000000000002'::text,
+   jsonb_build_object('sub', 'c0000000-0000-4000-8000-000000000002'::text, 'email', 'orphan@example.test'),
    NOW(), NOW(), NOW())
 ON CONFLICT (provider_id, provider) DO NOTHING;
 
@@ -87,7 +109,8 @@ ON CONFLICT (provider_id, provider) DO NOTHING;
 
 INSERT INTO user_profiles (id, email, full_name) VALUES
   ('a0000000-0000-4000-8000-000000000002', 'alpha@example.test', 'Alpha Attorney'),
-  ('b0000000-0000-4000-8000-000000000002', 'beta@example.test', 'Beta Attorney')
+  ('b0000000-0000-4000-8000-000000000002', 'beta@example.test', 'Beta Attorney'),
+  ('c0000000-0000-4000-8000-000000000002', 'orphan@example.test', 'Orphan Attorney')
 ON CONFLICT (id) DO NOTHING;
 
 -- ---------------------------------------------------------------------------
@@ -146,4 +169,42 @@ INSERT INTO cases (id, org_id, user_id, client_id, title, status, share_token, s
   "will": null, "donations": [],
   "config": {"retroactive_ra_11642":false,"max_pipeline_restarts":10}
 }$json$::jsonb)
+ON CONFLICT (id) DO NOTHING;
+
+-- ---------------------------------------------------------------------------
+-- 7. case_pdfs — one row per tenant.
+--
+--    These exist so a tenant-isolation assertion over PDFs is meaningful. With
+--    both tables empty, "Alpha reads zero of Beta's PDF rows" is true for the
+--    wrong reason and would keep passing after the isolation policy was deleted.
+--    Each row points at a storage_key under its own tenant prefix. No object is
+--    uploaded to storage — the row is the fixture, and file_size is a literal.
+-- ---------------------------------------------------------------------------
+
+INSERT INTO case_pdfs (id, case_id, user_id, org_id, pdf_type, storage_key, file_size) VALUES
+  ('a0000000-0000-4000-8000-000000000006', 'a0000000-0000-4000-8000-000000000004',
+   'a0000000-0000-4000-8000-000000000002', 'a0000000-0000-4000-8000-000000000001',
+   'distribution_summary', 'alpha/seeded-distribution-summary.pdf', 1024),
+  ('b0000000-0000-4000-8000-000000000006', 'b0000000-0000-4000-8000-000000000004',
+   'b0000000-0000-4000-8000-000000000002', 'b0000000-0000-4000-8000-000000000001',
+   'distribution_summary', 'beta/seeded-distribution-summary.pdf', 1024)
+ON CONFLICT (id) DO NOTHING;
+
+-- ---------------------------------------------------------------------------
+-- 8. organization_invitations — one pending invitation for the Orphan user.
+--
+--    WHY THIS ROW ACCEPTS. accept_invitation matches on four things at once: the
+--    token, status = 'pending', an email equal to the calling user's own address,
+--    and expires_at strictly in the future. All four hold here — the token below
+--    is fixed and published, the status is 'pending', the email is exactly the
+--    Orphan user's own address, and expires_at is seven days out. Alpha's
+--    seat_limit is 5 against 1 existing member, so the seat check passes too.
+--    That makes both the acceptance and the refusal path drivable from seeded
+--    state, with no invitation created mid-gate.
+-- ---------------------------------------------------------------------------
+
+INSERT INTO organization_invitations (id, org_id, email, role, token, status, invited_by, expires_at) VALUES
+  ('c0000000-0000-4000-8000-000000000003', 'a0000000-0000-4000-8000-000000000001',
+   'orphan@example.test', 'attorney', 'c0000000-0000-4000-8000-000000000004', 'pending',
+   'a0000000-0000-4000-8000-000000000002', NOW() + INTERVAL '7 days')
 ON CONFLICT (id) DO NOTHING;
