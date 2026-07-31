@@ -32,7 +32,7 @@ on:
 jobs:
   gates:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -62,6 +62,34 @@ jobs:
       - name: Install frontend dependencies
         working-directory: apps/inheritance/frontend
         run: npm ci
+
+      # Gates G18 (tenant isolation) and G17 (live journey run) drive a REAL local
+      # Supabase stack; G17 additionally needs a built application and a browser.
+      #
+      # UNMEASURED: this project's CI has never executed — that is Phase 1's
+      # GATE-04 finding — so whether `supabase start` succeeds on a GitHub-hosted
+      # runner is not known from the development machine. It is recorded here as a
+      # risk rather than asserted as working.
+      #
+      # If either step fails, the workflow fails. That is deliberate and must not
+      # be softened: scripts/ci-gates.sh halts with exit 2 on a false precondition
+      # and maps every other nonzero to GATE FAILED, and a gate that quietly did
+      # not run certifies nothing.
+      #
+      # The CLI version matches the one measured on the development machine, so CI
+      # and local run the same bytes.
+      - name: Install Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: 2.110.0
+
+      - name: Start local Supabase stack
+        working-directory: apps/inheritance/frontend
+        run: supabase start
+
+      - name: Install Playwright chromium
+        working-directory: apps/inheritance/frontend
+        run: npx playwright install --with-deps chromium
 
       - name: Run all gates
         run: bash apps/inheritance/scripts/ci-gates.sh
