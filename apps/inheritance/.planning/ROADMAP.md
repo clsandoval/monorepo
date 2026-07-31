@@ -39,7 +39,17 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Running `npx tsc -b` in `frontend/` completes with zero type errors.
   3. A single documented command builds `inheritance_engine_bg.wasm` from `engine/` into `frontend/src/wasm/pkg/`, and the WASM-dependent test files (`wasm-real.test.ts`, `conformance.test.ts`, `scenario-coverage.test.ts`, `wasm-live.test.ts`, `bridge.test.ts`) no longer fail at `readFileSync` with ENOENT.
   4. A CI workflow triggers on every push and pull request, runs `cargo test`, the WASM build, `npm test`, and `npx tsc -b`, and fails the check when any of them fails.
-**Plans**: TBD
+**Plans**: 4 plans, 4 waves (strictly sequential — each wave's gate depends on the previous wave's artifact)
+  - **Wave 1** — `01-01` Single reproducible WASM build command (GATE-03)
+  - **Wave 2** *(blocked on Wave 1: the frontend suite cannot run without the WASM artifact)* — `01-02` jsdom environment polyfills, 342 failures to 46 (GATE-01)
+  - **Wave 3** *(blocked on Wave 2: the ledger must record the post-polyfill failure set)* — `01-03` Known-failure ledger gate (GATE-01)
+  - **Wave 4** *(blocked on Waves 1-3: CI runs all three artifacts)* — `01-04` Local gate runner, CI workflow, README (GATE-01, GATE-02, GATE-03, GATE-04)
+
+  Cross-cutting constraints (appear in 2+ plans):
+  - No test, assertion, or `vitest.config.ts` may be modified; `.skip`/`.only`/`.todo`/`xit`/`xdescribe` are prohibited and the gate treats a skipped test as a hard failure
+  - Every commit stages explicit file paths; `git add -A`, `git add .`, and `git commit -a` are prohibited (concurrent auto-committer on this monorepo)
+  - `npx tsc -b --force`, never bare `tsc -b` — the committed `tsconfig.tsbuildinfo` can otherwise mask errors
+  - `engine/Cargo.lock`, `engine/Cargo.toml`, and everything under `engine/src/` are off-limits in this phase
 
 ### Phase 2: Loop Durability & Commit Discipline
 **Goal**: The autonomous execution loop itself — not the product — is durable enough to run unattended for a month without drifting, narrowing scope, or losing work to the concurrent auto-committer.
@@ -215,7 +225,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Gate Foundations | 0/TBD | Not started | - |
+| 1. Gate Foundations | 0/4 | Planned | - |
 | 2. Loop Durability & Commit Discipline | 0/TBD | Not started | - |
 | 3. Reproducible Environment & Gate Reporting | 0/TBD | Not started | - |
 | 4. Lawyer Review Agenda Recorded | 0/TBD | Not started | - |

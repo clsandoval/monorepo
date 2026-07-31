@@ -180,10 +180,10 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| GATE-01 | Phase 1 | Pending |
-| GATE-02 | Phase 1 | Pending |
-| GATE-03 | Phase 1 | Pending |
-| GATE-04 | Phase 1 | Pending |
+| GATE-01 | Phase 1 | Planned |
+| GATE-02 | Phase 1 | Planned |
+| GATE-03 | Phase 1 | Planned |
+| GATE-04 | Phase 1 | Planned |
 | GATE-05 | Phase 3 | Pending |
 | GATE-06 | Phase 3 | Pending |
 | GATE-07 | Phase 3 | Pending |
