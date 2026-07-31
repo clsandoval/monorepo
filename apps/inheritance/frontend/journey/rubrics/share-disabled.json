@@ -1,0 +1,30 @@
+{
+  "rubricId": "share-disabled",
+  "assertions": [
+    {
+      "id": "not-found-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"shared-case-not-found\"]"
+    },
+    {
+      "id": "content-absent",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"shared-case-content\"]"
+    },
+    {
+      "id": "heir-table-absent",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"heir-table\"]"
+    },
+    {
+      "id": "not-found-message",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"shared-case-not-found\"]",
+      "expect": "This shared link is invalid, expired, or sharing has been disabled."
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}

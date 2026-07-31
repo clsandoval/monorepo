@@ -1,0 +1,31 @@
+{
+  "rubricId": "share-uncomputed",
+  "assertions": [
+    {
+      "id": "content-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"shared-case-content\"]"
+    },
+    {
+      "id": "read-only-badge",
+      "kind": "text_equals",
+      "selector": "[data-testid=\"read-only-badge\"]",
+      "expect": "Read Only"
+    },
+    {
+      "id": "no-heir-table",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"heir-table\"]"
+    },
+    {
+      "id": "uncomputed-message",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"shared-case-content\"]",
+      "expect": "Results have not been computed for this case yet."
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}

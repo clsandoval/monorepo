@@ -1,0 +1,59 @@
+{
+  "$comment": "The committed registry of the public share-link states (JRNY-08, plan 12-07). All three are session none: the share view is the product's ONLY anonymous surface, and driving it signed-in would prove nothing about what an anonymous visitor sees. share-populated and share-uncomputed drive the SAME Alpha token and differ purely by the reset each declares -- case-alpha-computed runs the real engine at run time to give the case an output_json, case-alpha-no-output takes it away again. No engine result is committed as SQL; check-seed-fixture.mjs rejects that with SEED WRITES OUTPUT. share-disabled drives the Beta token, whose share_enabled is false. The DOM half of 'exposes only what it should' lives in the rubrics as no-actions-bar, content-absent and heir-table-absent; the data half is gate G20, journey/share-exposure.mjs.",
+  "steps": [
+    {
+      "id": "share-populated",
+      "requirement": "JRNY-08",
+      "url": "/share/a0000000-0000-4000-8000-000000000005",
+      "session": "none",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-computed",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"heir-table\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "share-populated.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "share-uncomputed",
+      "requirement": "JRNY-08",
+      "url": "/share/a0000000-0000-4000-8000-000000000005",
+      "session": "none",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"shared-case-content\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "share-uncomputed.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "share-disabled",
+      "requirement": "JRNY-08",
+      "url": "/share/b0000000-0000-4000-8000-000000000005",
+      "session": "none",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "noop",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"shared-case-not-found\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "share-disabled.json",
+      "allowConsoleErrors": false
+    }
+  ]
+}

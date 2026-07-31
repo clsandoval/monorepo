@@ -1,0 +1,41 @@
+{
+  "rubricId": "share-populated",
+  "assertions": [
+    {
+      "id": "content-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"shared-case-content\"]"
+    },
+    {
+      "id": "read-only-badge",
+      "kind": "text_equals",
+      "selector": "[data-testid=\"read-only-badge\"]",
+      "expect": "Read Only"
+    },
+    {
+      "id": "not-found-absent",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"shared-case-not-found\"]"
+    },
+    {
+      "id": "heir-table-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"heir-table\"]"
+    },
+    {
+      "id": "scenario-code",
+      "kind": "text_equals",
+      "selector": "[data-testid=\"scenario-badge\"]",
+      "expect": "I2"
+    },
+    {
+      "id": "no-actions-bar",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"actions-bar\"]"
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}

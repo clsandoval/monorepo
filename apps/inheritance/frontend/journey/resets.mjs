@@ -123,6 +123,15 @@ export const RESETS = Object.freeze({
    * Drive the Alpha case to a computed state by running the real engine on its
    * own committed input_json. The share-populated step needs a computed case and
    * has no browser in which to press Compute.
+   *
+   * It restores decedent_name and date_of_death to their seeded NULL for the same
+   * reason case-alpha-no-output does, and for a visible reason of its own:
+   * get_shared_case returns decedent_name, and share/$token.tsx renders
+   * "Estate of {decedent_name}". journey/steps/output.json sorts BEFORE
+   * journey/steps/share.json, so its wizard autosave had already written "Pedro"
+   * by the time the share step ran, and share-populated failed at diffPixels=71 —
+   * the whole diff being that one word. status is set explicitly rather than left
+   * as found, so the row does not depend on what ran before it.
    */
   'case-alpha-computed': async (admin) => {
     const caseId = readFixtures().orgs.alpha.case_id;
@@ -142,7 +151,12 @@ export const RESETS = Object.freeze({
     const output = await computeEngineOutput(data.input_json);
     const { error: updateError } = await admin
       .from('cases')
-      .update({ output_json: output })
+      .update({
+        output_json: output,
+        decedent_name: null,
+        date_of_death: null,
+        status: 'computed',
+      })
       .eq('id', caseId);
     if (updateError) {
       throw new Error(`RESET FAILED case-alpha-computed (update): ${updateError.message}`);
