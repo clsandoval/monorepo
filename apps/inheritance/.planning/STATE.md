@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 9 PLANNED. 09-RESEARCH.md, 09-VALIDATION.md and six PLAN.md files across 3 waves (wave 1 = 09-01 engine classification entry point, 09-02 engine dead-code sweep, 09-03 branded money units, all with disjoint file sets; wave 2 = 09-04 frontend classifier deletion plus engine-backed badge, 09-05 estate-tax wizard money boundary; wave 3 = 09-06 single-source registry and gate G14). EXT-01..04 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: node scripts/check-plan-closed-world.mjs exits 0 with PLANS OK - 50 plan file(s), 171 task(s) checked, and gsd-sdk query verify.plan-structure reports valid with zero errors on each of the six new plans. Every number in the research was measured live in this tree, including running the release engine over two purpose-built inputs matching ReviewStep.test.tsx's own fixtures (engine says I2 and T2; the live wizard classifier says I1 and T1), and compiling the proposed money-unit flavouring plus its four @ts-expect-error assertions with this repo's own TypeScript 5.9.3 in both directions. The phase ends at 14 gates; a full ci-gates.sh run will still halt at G3 until Phase 5's product decision is answered, so ALL GATES PASSED (14/14) is not achievable. Next step is /gsd:execute-phase 9."
+stopped_at: "Phase 9 PARTIAL. 2 of 6 plans executed (09-03, 09-05); 4 BLOCKED (09-01, 09-02, 09-04, 09-06). EXT-03 is closed and gate-proven: branded Pesos/Centavos exist in frontend/src/types/money-units.ts with a negative type test observed failing in both directions (4x TS2578 with the brand erased, exit 0 with it restored), both wizard boundaries are unit-typed, and the estate-tax pipeline's duplicate peso-to-centavo converter is deleted in favour of the shared one. Measured after: npx tsc -b --force exit 0; estate-tax suite 252/252; estate-tax + tax-bridge + useTaxBridge 299/299; npm run test:gate still exactly 5 UNKNOWN FAILURE and GATE-SKIPS total=2449 skipped=0; cargo test 543/0; check-commit-discipline exit 0 with 0 mixed. The four blockers are plan defects, not execution failures, and each is recorded with pasted command output in its SUMMARY. The two most important: 09-01 requires classify_scenario to agree with run_pipeline on succession_type, which is false on 59 of 173 committed inputs because step 6 overrides step 3's provisional value (scenario_code agrees 173 of 173, so the classifier itself is fit for purpose); 09-02 requires reviving invariant 6 inside TV-09, which fails because engine/src/step7_distribute.rs:513 emits every instituted stranger with effective_category LegitimateChildGroup and EffectiveCategory has no variant that fits. 09-04 needs 09-01's classify_json; 09-06's G14 would halt ci-gates.sh ahead of the inherited G3 halt. Next step is /gsd:plan-phase 9 --gaps to re-plan 09-01, 09-02, 09-04 and 09-06."
 last_updated: "2026-07-31T16:15:14.640Z"
-last_activity: 2026-07-31 -- Phase 9 planning complete
+last_activity: 2026-07-31 -- Phase 9 partially executed (EXT-03 complete; EXT-01, EXT-02, EXT-04 blocked)
 progress:
   total_phases: 15
   completed_phases: 8
   total_plans: 50
-  completed_plans: 44
+  completed_plans: 46
   percent: 53
 ---
 
@@ -25,11 +25,11 @@ See: .planning/PROJECT.md (updated 2026-07-27)
 
 ## Current Position
 
-Phase: 09 (single-source-of-truth-dedup-classifiers-money-types) — PLANNED
-Plan: 0 of 6 executed
-Status: Ready to execute
+Phase: 09 (single-source-of-truth-dedup-classifiers-money-types) — PARTIAL
+Plan: 2 of 6 executed (09-03, 09-05 complete; 09-01, 09-02, 09-04, 09-06 BLOCKED)
+Status: Blocked — four plans need re-planning; see each plan's SUMMARY for the pasted failure output
 Carried forward: Phase 05 remains BLOCKED on one product decision (OBS-05/OBS-06). Gate G3 is still red and `bash scripts/ci-gates.sh` still halts there at gate 8 of 13. Phase 8 did not touch it and did not hide it: the five UNKNOWN FAILURES are byte-identical to the set recorded in 05-05, 05-06, 06-05 and Phase 7, and the WASM binary was rebuilt (616398 bytes, mtime newer than the newest `engine/src/` edit) before the frontend suite was measured, so that comparison is against the new engine and not the old one. Of the gates the runner never reaches, G4, G10 and G11 were run directly and all exit 0; G8 and G9 exit 1 purely as a cascade of the halt (G8 reports SKIP REPORT MISSING for gates that wrote no log, G9 reports RESULTS INCOMPLETE for gates published as not-run).
-Last activity: 2026-07-31 -- Phase 9 planning complete
+Last activity: 2026-07-31 -- Phase 9 partially executed (EXT-03 complete; EXT-01, EXT-02, EXT-04 blocked)
 
 Progress: [█████░░░░░] 53%
 

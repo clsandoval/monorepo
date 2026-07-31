@@ -101,7 +101,7 @@ What makes it "functionally impossible to screw up."
 
 - [ ] **EXT-01**: Exactly one implementation of scenario classification exists — the engine — with the dead copy in `bridge.ts` and the live wrong copy in `ReviewStep.tsx:34-63` deleted
 - [ ] **EXT-02**: No legal rule is implemented in more than one place, enforced by a documented rule and a check
-- [ ] **EXT-03**: Money units are type-enforced so pesos cannot be assigned where centavos are expected, at every boundary
+- [x] **EXT-03**: Money units are type-enforced so pesos cannot be assigned where centavos are expected, at every boundary
 - [ ] **EXT-04**: Dead code that could produce legally meaningless numbers if imported is deleted, including the `computeMock` path
 - [ ] **EXT-05**: `CLAUDE.md` states the invariants an implementing agent must not violate — unit conventions, single-source-of-truth rules, what requires a lawyer
 - [ ] **EXT-06**: Adding a new legal rule has a documented procedure: article, vector, implementation, gate
@@ -228,10 +228,10 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | LAW-09 | Phase 8 | Complete |
 | LAW-10 | Phase 8 | Complete |
 | LAW-11 | Phase 8 | Complete |
-| EXT-01 | Phase 9 | Planned |
-| EXT-02 | Phase 9 | Planned |
-| EXT-03 | Phase 9 | Planned |
-| EXT-04 | Phase 9 | Planned |
+| EXT-01 | Phase 9 | Blocked (09-01 plan defect; see 09-01-SUMMARY.md) |
+| EXT-02 | Phase 9 | Partial (one duplicate converter deleted by 09-05; registry gate G14 blocked on 09-04) |
+| EXT-03 | Phase 9 | Complete (09-03, 09-05) |
+| EXT-04 | Phase 9 | Blocked (09-02 exposed an engine defect out of plan scope; 09-04 blocked on 09-01) |
 | JRNY-01 | Phase 10 | Pending |
 | JRNY-09 | Phase 10 | Pending |
 | JRNY-10 | Phase 10 | Pending |
