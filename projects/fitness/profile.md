@@ -18,7 +18,7 @@ Keep it current — when weight/targets/equipment change, edit here.
 - **Age / sex:** 26, male
 - **Timezone:** GMT+8 (log dates are local)
 - **Height:** 185 cm
-- **Current:** ~96.2 kg (7/24 AM), ~29% body fat → lean mass ≈ 67–68 kg
+- **Current:** ~95.2 kg (7/31 AM), ~29% body fat → lean mass ≈ 67–68 kg
 - **Goal (two-phase — added 2026-07-13):** the real target is **ripped in the mid-80s**, which is a
   muscle goal, not just a fat goal. At today's ~68–69 kg lean mass he'd be ripped at only ~78 kg
   (12% BF) — the lightweight look he says is *too lean*. Being shredded at ~84 kg needs ~74 kg lean
