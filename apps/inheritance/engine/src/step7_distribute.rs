@@ -173,15 +173,8 @@ fn compute_devise_value(devise: &Devise) -> Frac {
 /// Main entry point: distribute the estate based on succession type.
 pub fn step7_distribute(input: &Step7Input) -> Step7Output {
     match input.succession_type {
-        SuccessionType::Intestate | SuccessionType::IntestateByPreterition => {
-            // For IntestateByPreterition, the scenario_code from Step 3 is still a
-            // testate code (e.g. T3). Derive the correct intestate scenario from
-            // line counts so compute_intestate_distribution gets an I-code.
-            let scenario = if input.succession_type == SuccessionType::IntestateByPreterition {
-                derive_intestate_scenario(&input.line_counts)
-            } else {
-                input.scenario_code
-            };
+        SuccessionType::Intestate => {
+            let scenario = input.scenario_code;
             // Distribute on estate_base (collation-adjusted) so that Step 8 can
             // impute donations against gross entitlements. When there are no
             // donations, estate_base == net_estate and this is a no-op change.
@@ -197,6 +190,121 @@ pub fn step7_distribute(input: &Step7Input) -> Step7Output {
                 final_succession_type: input.succession_type,
                 intestate_scenario: Some(scenario),
                 warnings: intestate_warnings(&input.heirs),
+            }
+        }
+        // Art. 854: preterition annuls the institution of heir "but the devises
+        // and legacies shall be valid insofar as they are not inofficious."
+        // `fp_disposable` is the ceiling of what is not inofficious — Step 5
+        // computed it as the estate base less the collective legitime and less
+        // the spouse and illegitimate-child shares charged to the free portion.
+        // Surviving legacies are therefore paid first, capped at that ceiling,
+        // and only the residue divides intestate.
+        //
+        // Measured (08-RESEARCH.md §1.5), ₱30,000,000 estate, two legitimate
+        // children, ₱15,000,000 free portion:
+        //   a ₱3,000,000 legacy  → carlos=300000000,  ana=1350000000, ben=1350000000
+        //   a ₱20,000,000 legacy → carlos=1500000000, ana=750000000,  ben=750000000
+        // The second is each child's exact Art. 888 legitime: the legacy was
+        // reduced to the free portion and could reach no further.
+        SuccessionType::IntestateByPreterition => {
+            // The scenario_code from Step 3 is still a testate code (e.g. T3).
+            // Derive the correct intestate scenario from line counts so
+            // compute_intestate_distribution gets an I-code.
+            let scenario = derive_intestate_scenario(&input.line_counts);
+
+            // Build the surviving-legacy list, applying any Art. 911 reduction
+            // Step 6 computed. Same lookup shape as the testate arm below.
+            let empty_legacies: Vec<Legacy> = vec![];
+            let legacies: &[Legacy] = match input.will.as_ref() {
+                Some(w) => &w.legacies,
+                None => &empty_legacies,
+            };
+
+            let mut remaining_fp = input.free_portion.fp_disposable.clone();
+            let mut payable: Vec<(String, Frac)> = Vec::new();
+            for legacy in legacies {
+                let mut legacy_value = compute_legacy_value(legacy);
+                if let Some(ref validation) = input.validation {
+                    if validation.inofficiousness.detected {
+                        for reduction in &validation.inofficiousness.reductions {
+                            if reduction.target_id == legacy.id {
+                                legacy_value = reduction.remaining_amount.clone();
+                                break;
+                            }
+                        }
+                    }
+                }
+                let legatee_id = legacy
+                    .legatee
+                    .person_id
+                    .as_deref()
+                    .unwrap_or(&legacy.legatee.name);
+                let capped = std::cmp::min(legacy_value, remaining_fp.clone());
+                if capped.is_positive() {
+                    remaining_fp = &remaining_fp - &capped;
+                    payable.push((legatee_id.to_string(), capped));
+                }
+            }
+
+            let mut payable_total = Frac::zero();
+            for (_, amount) in &payable {
+                payable_total = &payable_total + amount;
+            }
+            let residue = &input.estate_base - &payable_total;
+
+            let mut distributions = compute_intestate_distribution(
+                &residue,
+                &input.heirs,
+                &input.line_counts,
+                &scenario,
+            );
+            for (legatee_id, amount) in payable {
+                add_fp_to_distributions(&mut distributions, &legatee_id, amount);
+            }
+
+            // Art. 854 preserves devises too, but the engine's input model
+            // carries no asset inventory, so a devise and a specific-asset
+            // legacy both value to zero. Paying them ₱0 in silence would imply
+            // the devisee was considered and found entitled to nothing.
+            let mut warnings = intestate_warnings(&input.heirs);
+            if let Some(will) = input.will.as_ref() {
+                if !will.devises.is_empty() {
+                    warnings.push(ManualFlag {
+                        category: "preterition_unvalued_disposition".into(),
+                        description: "Art. 854 preserves devises insofar as they are not \
+                                      inofficious, but DeviseSpec::SpecificProperty and \
+                                      DeviseSpec::FractionalInterest both name an asset the \
+                                      engine's input model does not carry. This devise is NOT \
+                                      paid from the estate by this computation; a human must \
+                                      value it."
+                            .into(),
+                        related_heir_id: None,
+                    });
+                }
+                if will
+                    .legacies
+                    .iter()
+                    .any(|l| matches!(l.property, LegacySpec::SpecificAsset(_)))
+                {
+                    warnings.push(ManualFlag {
+                        category: "preterition_unvalued_disposition".into(),
+                        description: "Art. 854 preserves legacies insofar as they are not \
+                                      inofficious, but LegacySpec::SpecificAsset names an asset \
+                                      the engine's input model does not carry. This legacy is \
+                                      NOT paid from the estate by this computation; a human must \
+                                      value it."
+                            .into(),
+                        related_heir_id: None,
+                    });
+                }
+            }
+
+            Step7Output {
+                distributions,
+                will_coverage: None,
+                final_succession_type: input.succession_type,
+                intestate_scenario: Some(scenario),
+                warnings,
             }
         }
         SuccessionType::Testate | SuccessionType::Mixed => {
@@ -2585,5 +2693,146 @@ mod tests {
         // Sum = estate
         let total = sum_fracs(result.distributions.iter().map(|d| &d.total));
         assert_eq!(total, estate(10_000_000));
+    }
+
+    // ================================================================
+    // Art. 854 preterition: surviving legacies (LAW-05)
+    // ================================================================
+
+    /// ₱30,000,000 estate, two legitimate children, ₱15,000,000 disposable free
+    /// portion, plus whatever legacies and devises the caller supplies.
+    fn preterition_step7_input(legacies: Vec<Legacy>, devises: Vec<Devise>) -> Step7Input {
+        let heirs = vec![make_lc("ana"), make_lc("ben")];
+        let heir_legitimes = vec![
+            make_heir_legitime("ana", EffectiveCategory::LegitimateChildGroup, frac(1, 4), estate(7_500_000)),
+            make_heir_legitime("ben", EffectiveCategory::LegitimateChildGroup, frac(1, 4), estate(7_500_000)),
+        ];
+        Step7Input {
+            net_estate: estate(30_000_000),
+            estate_base: estate(30_000_000),
+            heirs,
+            line_counts: lc(2, 0, 0, 0),
+            scenario_code: ScenarioCode::T3,
+            succession_type: SuccessionType::IntestateByPreterition,
+            heir_legitimes,
+            free_portion: make_fp(
+                estate(15_000_000),
+                frac(0, 1),
+                frac(0, 1),
+                estate(15_000_000),
+            ),
+            validation: None,
+            will: Some(Will {
+                institutions: vec![],
+                legacies,
+                devises,
+                disinheritances: vec![],
+                date_executed: "2025-01-01".into(),
+            }),
+            donations: vec![],
+        }
+    }
+
+    #[test]
+    fn test_law05_preterition_pays_non_inofficious_legacy() {
+        // Art. 854: the institution is annulled but the legacy is valid insofar
+        // as it is not inofficious. ₱3M sits well inside the ₱15M free portion.
+        let input = preterition_step7_input(
+            vec![make_legacy("L1", "carlos", 3_000_000)],
+            vec![],
+        );
+        let result = step7_distribute(&input);
+
+        assert_eq!(find_share(&result.distributions, "carlos").total, estate(3_000_000));
+        assert_eq!(find_share(&result.distributions, "ana").total, estate(13_500_000));
+        assert_eq!(find_share(&result.distributions, "ben").total, estate(13_500_000));
+
+        let total = sum_fracs(result.distributions.iter().map(|d| &d.total));
+        assert_eq!(total, estate(30_000_000));
+    }
+
+    #[test]
+    fn test_law05_preterition_caps_legacy_at_the_free_portion() {
+        // A ₱20M legacy cannot reach past the ₱15M free portion; each child is
+        // left with exactly the Art. 888 legitime of ₱7.5M.
+        let input = preterition_step7_input(
+            vec![make_legacy("L1", "carlos", 20_000_000)],
+            vec![],
+        );
+        let result = step7_distribute(&input);
+
+        assert_eq!(find_share(&result.distributions, "carlos").total, estate(15_000_000));
+        assert_eq!(find_share(&result.distributions, "ana").total, estate(7_500_000));
+        assert_eq!(find_share(&result.distributions, "ben").total, estate(7_500_000));
+
+        let total = sum_fracs(result.distributions.iter().map(|d| &d.total));
+        assert_eq!(total, estate(30_000_000));
+    }
+
+    #[test]
+    fn test_law05_preterition_with_no_legacy_matches_plain_intestate() {
+        // The 29 committed preterition cases that carry no legacy must not move.
+        let with_will = preterition_step7_input(vec![], vec![]);
+        let result = step7_distribute(&with_will);
+
+        let plain = compute_intestate_distribution(
+            &estate(30_000_000),
+            &with_will.heirs,
+            &with_will.line_counts,
+            &ScenarioCode::I1,
+        );
+
+        assert_eq!(result.distributions.len(), plain.len());
+        for (got, want) in result.distributions.iter().zip(plain.iter()) {
+            assert_eq!(got.heir_id, want.heir_id);
+            assert_eq!(got.total, want.total);
+            assert_eq!(got.from_legitime, want.from_legitime);
+            assert_eq!(got.from_free_portion, want.from_free_portion);
+            assert_eq!(got.from_intestate, want.from_intestate);
+        }
+    }
+
+    #[test]
+    fn test_law05_preterition_devise_is_flagged_not_valued_at_zero() {
+        let devise = Devise {
+            id: "D1".into(),
+            devisee: HeirReference {
+                person_id: Some("carlos".into()),
+                name: "Carlos".into(),
+                is_collective: false,
+                class_designation: None,
+            },
+            property: DeviseSpec::SpecificProperty("asset-1".into()),
+            conditions: vec![],
+            substitutes: vec![],
+            is_preferred: false,
+        };
+        let input = preterition_step7_input(vec![], vec![devise]);
+        let result = step7_distribute(&input);
+
+        assert!(
+            result
+                .warnings
+                .iter()
+                .any(|w| w.category == "preterition_unvalued_disposition"),
+            "An unvaluable devise must be flagged, never paid zero in silence"
+        );
+    }
+
+    #[test]
+    fn test_law05_preterition_fixed_amount_legacy_is_not_flagged() {
+        let input = preterition_step7_input(
+            vec![make_legacy("L1", "carlos", 3_000_000)],
+            vec![],
+        );
+        let result = step7_distribute(&input);
+
+        assert!(
+            !result
+                .warnings
+                .iter()
+                .any(|w| w.category == "preterition_unvalued_disposition"),
+            "A FixedAmount legacy is fully valuable and must not be flagged"
+        );
     }
 }

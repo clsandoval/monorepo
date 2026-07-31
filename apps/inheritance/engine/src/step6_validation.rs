@@ -225,18 +225,32 @@ pub fn step6_validate_will(input: &Step6Input) -> Step6Output {
                 related_heir_id: Some(heir_id.clone()),
             });
         }
+        // Art. 854 annuls the institution of heir "but the devises and legacies
+        // shall be valid insofar as they are not inofficious." Whether a legacy
+        // is inofficious is exactly the question Check 4 answers, so returning a
+        // zeroed InofficiousnessResult on this path made the surviving-legacy
+        // rule unreachable: Step 7 had no reduction to consult and no ceiling.
+        let inofficiousness = check_inofficiousness(
+            &input.will,
+            &input.donations,
+            &input.free_portion,
+            &input.estate_base,
+        );
+        if inofficiousness.detected {
+            warnings.push(ManualFlag {
+                category: "inofficiousness".into(),
+                description: "Arts. 908-912: the will's legacies exceed the disposable free \
+                              portion and have been reduced under Art. 911, even though the \
+                              institution of heirs is annulled under Art. 854"
+                    .into(),
+                related_heir_id: None,
+            });
+        }
         return Step6Output {
             preterition,
             disinheritance_results: vec![],
             underprovision_results: vec![],
-            inofficiousness: InofficiousnessResult {
-                detected: false,
-                excess: Frac::zero(),
-                reductions: vec![],
-                total_reduced: Frac::zero(),
-                unresolved_excess: Frac::zero(),
-                phases_used: vec![],
-            },
+            inofficiousness,
             condition_stripping: vec![],
             preterition_terminates: true,
             succession_type_override: Some(SuccessionType::IntestateByPreterition),
@@ -2115,6 +2129,63 @@ mod tests {
         assert!(!output.preterition.detected);
         // No succession type override needed
         assert!(output.succession_type_override.is_none());
+    }
+
+    /// Build a preterition Step6Input: two LCs, only lc1 instituted, ₱10M estate,
+    /// ₱5M disposable free portion, and whatever legacies the caller supplies.
+    fn preterition_input_with_legacies(legacies: Vec<Legacy>) -> Step6Input {
+        let e = estate(10_000_000);
+        Step6Input {
+            will: Will {
+                institutions: vec![make_institution("i1", "lc1", ShareSpec::EntireEstate)],
+                legacies,
+                devises: vec![],
+                disinheritances: vec![],
+                date_executed: "2025-01-01".into(),
+            },
+            heirs: vec![make_lc("lc1"), make_lc("lc2")],
+            heir_legitimes: vec![
+                make_heir_legitime("lc1", estate(2_500_000)),
+                make_heir_legitime("lc2", estate(2_500_000)),
+            ],
+            free_portion: make_fp(5_000_000),
+            estate_base: e.clone(),
+            net_estate: e,
+            donations: vec![],
+            scenario_code: ScenarioCode::T1,
+        }
+    }
+
+    #[test]
+    fn test_preterition_path_computes_inofficiousness_within_fp() {
+        // Art. 854 keeps legacies valid insofar as they are not inofficious.
+        // A ₱3M legacy against a ₱5M disposable free portion is not inofficious.
+        let input = preterition_input_with_legacies(vec![make_legacy(
+            "leg1", "friend", 3_000_000, false,
+        )]);
+        let output = step6_validate_will(&input);
+        assert!(output.preterition.detected);
+        assert!(!output.inofficiousness.detected);
+        assert!(output.inofficiousness.reductions.is_empty());
+    }
+
+    #[test]
+    fn test_preterition_path_reduces_inofficious_legacy() {
+        // A ₱8M legacy against a ₱5M disposable free portion is reduced to ₱5M.
+        let input = preterition_input_with_legacies(vec![make_legacy(
+            "leg1", "friend", 8_000_000, false,
+        )]);
+        let output = step6_validate_will(&input);
+        assert!(output.preterition.detected);
+        assert!(output.inofficiousness.detected);
+        assert_eq!(output.inofficiousness.reductions.len(), 1);
+        let r = &output.inofficiousness.reductions[0];
+        assert_eq!(r.target_id, "leg1");
+        assert_eq!(r.remaining_amount, input.free_portion.fp_disposable);
+        assert!(output
+            .warnings
+            .iter()
+            .any(|w| w.category == "inofficiousness"));
     }
 
     #[test]
