@@ -1,0 +1,12 @@
+{
+  "rubricId": "auth-signin",
+  "assertions": [
+    { "id": "page-present",  "kind": "element_visible", "selector": "[data-testid=\"auth-page\"]" },
+    { "id": "title",         "kind": "text_equals",     "selector": "[data-testid=\"auth-title\"]", "expect": "Sign In" },
+    { "id": "email-field",   "kind": "element_visible", "selector": "#email" },
+    { "id": "password-field","kind": "element_visible", "selector": "#password" },
+    { "id": "submit",        "kind": "text_equals",     "selector": "[data-testid=\"auth-submit\"]", "expect": "Sign In" },
+    { "id": "no-signup-firm","kind": "element_absent",  "selector": "#firmName" },
+    { "id": "clean-console", "kind": "no_console_error" }
+  ]
+}
