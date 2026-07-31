@@ -138,7 +138,8 @@ STANDARD_DEDUCTION_NRA              = 500_000     // same across all regimes
 FAMILY_HOME_CAP_TRAIN       = 10_000_000
 FAMILY_HOME_CAP_PRE_TRAIN   = 1_000_000
 
-// Medical expense cap (all regimes)
+// Medical expense cap (pre-TRAIN deaths only — RA 10963 Sec. 23 repealed
+// NIRC Sec. 86(A)(6) for deaths on or after 2018-01-01)
 MEDICAL_EXPENSE_CAP         = 500_000
 
 // Funeral expense limit (pre-TRAIN only)
@@ -1010,10 +1011,14 @@ function computeFamilyHomeDeduction(grossEstate, decedent, deductionRules) → P
 // Only one property may be designated as family home; multiple flagged → ERR_MULTIPLE_FAMILY_HOMES
 ```
 
-### 10.3 Medical Expenses (Item 37C) — Sec. 86(A)(6)
+### 10.3 Medical Expenses (Item 37C) — RA 8424 Sec. 86(A)(6), PRE-TRAIN ONLY
+
+Repealed by RA 10963 (TRAIN) Sec. 23 for deaths on or after 2018-01-01. RR 12-2018 Sec. 6
+enumerates the nine deductions available under TRAIN and none of them is medical expenses.
 
 ```pseudocode
-function computeMedicalExpenseDeduction(medicalExpenses, decedent) → Pesos:
+function computeMedicalExpenseDeduction(medicalExpenses, decedent, deductionRules) → Pesos:
+  if deductionRules == TRAIN: return 0   // RA 10963 Sec. 23 repealed NIRC Sec. 86(A)(6)
   if decedent.isNonResidentAlien: return 0   // Not available to NRAs
   if medicalExpenses == null: return 0
 
@@ -1770,7 +1775,7 @@ Complete integration test cases with all inputs and expected outputs.
 
 ---
 
-### TV-02: TRAIN Standard (married ACP, exclusive family home, medical)
+### TV-02: TRAIN Standard (married ACP, exclusive family home; medical repealed)
 
 **Regime**: TRAIN | **Decedent**: Married Filipino citizen, ACP | **Date of death**: 2023-06-20
 
@@ -1796,18 +1801,20 @@ Complete integration test cases with all inputs and expected outputs.
 | Item 36 (Estate after Ordinary) | max(0, ₱15,000,000 − ₱500,000) = **₱14,500,000** |
 | 37A standard deduction | ₱5,000,000 (citizen, TRAIN) |
 | 37B family home | min(₱6,000,000, ₱10,000,000) = ₱6,000,000 (exclusive — full FMV, no halving) |
-| 37C medical | min(₱400,000, ₱500,000) = ₱400,000 |
+| 37C medical | min(₱400,000, cap) = ₱0 — repealed for TRAIN by RA 10963 Sec. 23 |
 | 37D RA 4917 | ₱0 |
-| Item 37 (Special Deductions) | ₱5,000,000 + ₱6,000,000 + ₱400,000 = **₱11,400,000** |
-| Item 38 (Net Estate) | max(0, ₱14,500,000 − ₱11,400,000) = **₱3,100,000** |
+| Item 37 (Special Deductions) | ₱5,000,000 + ₱6,000,000 = **₱11,000,000** |
+| Item 38 (Net Estate) | max(0, ₱14,500,000 − ₱11,000,000) = **₱3,500,000** |
 | Schedule 6A (Spouse share — ACP) | Community assets (Col B): ₱3,000,000; ELIT obligations (Col B): ₱500,000; net community: ₱2,500,000; spouse share = ₱2,500,000 × 0.50 = **₱1,250,000** |
 | Item 39 | **₱1,250,000** |
-| Item 40 (Net Taxable Estate) | max(0, ₱3,100,000 − ₱1,250,000) = **₱1,850,000** |
-| Item 42 (Estate Tax Due) | ₱1,850,000 × 0.06 = **₱111,000** |
+| Item 40 (Net Taxable Estate) | max(0, ₱3,500,000 − ₱1,250,000) = **₱2,250,000** |
+| Item 42 (Estate Tax Due) | ₱2,250,000 × 0.06 = **₱135,000** |
 | Item 43 (Foreign Credit) | ₱0 |
-| Item 44 (Net Estate Tax Due) | **₱111,000** |
+| Item 44 (Net Estate Tax Due) | **₱135,000** |
 
-**Rules exercised**: ACP property regime (community assets in Col B; exclusive in Col A); exclusive family home deducted at full FMV (no halving — halving applies only to conjugal/communal family homes); medical deduction within ₱500K cap; surviving spouse share computed on net conjugal (Col B gross estate minus Col B ELIT obligations only; Col A excluded).
+**Rules exercised**: ACP property regime (community assets in Col B; exclusive in Col A); exclusive family home deducted at full FMV (no halving — halving applies only to conjugal/communal family homes); medical deduction is zero because the death postdates TRAIN; surviving spouse share computed on net conjugal (Col B gross estate minus Col B ELIT obligations only; Col A excluded).
+
+> **Corrected in Phase 8 (LAW-08).** This vector previously stated ₱400,000 of medical deduction, Item 37 ₱11,400,000, Item 38 ₱3,100,000, Item 40 ₱1,850,000 and a tax of ₱111,000. RA 10963 (TRAIN) Sec. 23 deleted NIRC Sec. 86(A)(6) effective 2018-01-01 and RR 12-2018 Sec. 6 enumerates nine deductions, none of them medical. The date of death here is 2023-06-20, so the deduction is unavailable.
 
 ---
 

@@ -103,11 +103,25 @@ function computeJudicialAdminDeduction(
   return judicialAdminExpenses.reduce((sum, e) => sum + e.amount, 0);
 }
 
+/**
+ * Medical expense deduction — PRE-TRAIN ONLY.
+ *
+ * RA 10963 (TRAIN) Sec. 23 deleted NIRC Sec. 86(A)(6) effective 2018-01-01,
+ * removing funeral, judicial/administrative AND medical expenses together.
+ * RR 12-2018 Sec. 6 enumerates the nine deductions available under the TRAIN
+ * regime and none of them is medical expenses.
+ *
+ * The pre-TRAIN entitlement under RA 8424 Sec. 86(A)(6) survives unchanged:
+ * medical expenses incurred within one year before death, capped at
+ * PHP 500,000 (`MEDICAL_EXPENSE_CAP`).
+ */
 function computeMedicalDeduction(
   decedent: DecedentInfo,
+  deductionRules: DeductionRules,
   medicalExpenses?: MedicalExpense[],
 ): number {
   if (decedent.isNRA) return 0;
+  if (deductionRules === 'TRAIN') return 0;
   if (!medicalExpenses || medicalExpenses.length === 0) return 0;
 
   const total = medicalExpenses.reduce((sum, e) => sum + e.amount, 0);
@@ -130,7 +144,8 @@ function computeRa4917Deduction(decedent: DecedentInfo, ra4917Amount?: number): 
  * @param familyHomeAsset - Optional family home details
  * @param funeralExpenses - Optional funeral expense items (pre-TRAIN only)
  * @param judicialAdminExpenses - Optional judicial/admin expense items (pre-TRAIN only)
- * @param medicalExpenses - Optional medical expense items
+ * @param medicalExpenses - Optional medical expense items; honoured only under PRE_TRAIN
+ *   (RA 10963 Sec. 23 repealed NIRC Sec. 86(A)(6) for deaths on or after 2018-01-01)
  * @param ra4917Amount - Optional RA 4917 benefit amount (centavos)
  */
 export function computeSpecialDeductions(
@@ -147,7 +162,7 @@ export function computeSpecialDeductions(
   const familyHome = computeFamilyHome(decedent, deductionRules, familyHomeAsset);
   const funeral = computeFuneralDeduction(decedent, deductionRules, grossEstateTotal, funeralExpenses);
   const judicial = computeJudicialAdminDeduction(decedent, deductionRules, judicialAdminExpenses);
-  const medical = computeMedicalDeduction(decedent, medicalExpenses);
+  const medical = computeMedicalDeduction(decedent, deductionRules, medicalExpenses);
   const ra4917 = computeRa4917Deduction(decedent, ra4917Amount);
 
   const total = standardDeduction + familyHome + funeral + judicial + medical + ra4917;

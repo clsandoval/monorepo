@@ -264,11 +264,60 @@ describe('advisor: amnesty-eligible', () => {
 // ── Test 3: no-medical-claimed ────────────────────────────────────────────────
 
 describe('advisor: no-medical-claimed', () => {
-  it('married decedent with no medical expenses → no-medical-claimed suggestion', () => {
+  it('TRAIN-era death with no medical expenses → no suggestion (deduction repealed)', () => {
     const state = makeWizardState({
       decedent: {
         name: 'Test Decedent',
         dateOfDeath: '2022-01-01',
+        address: '123 Test St',
+        citizenship: 'Filipino',
+        isNonResidentAlien: false,
+        maritalStatus: 'married',
+        propertyRegime: 'ACP',
+        worldwideGrossEstate: null,
+        worldwideELIT: null,
+      },
+      realProperties: [
+        {
+          id: 'rp1',
+          titleNumber: 'T-001',
+          taxDecNumber: 'TD-001',
+          location: 'Manila',
+          lotArea: 200,
+          improvementArea: null,
+          classification: 'residential',
+          fmvTaxDec: 2_000_000_000, // ₱20M — enough to owe tax
+          fmvBirZonal: 1_800_000_000,
+          ownership: 'exclusive',
+          isFamilyHome: false,
+          hasBarangayCert: false,
+        },
+      ],
+      specialDeductions: {
+        medicalExpenses: 0, // none claimed
+        ra4917Benefits: 0,
+        foreignTaxCreditClaims: [],
+        standardDeduction: 500_000_000,
+        familyHomeDeduction: 0,
+      },
+    });
+
+    const output = computeEstateTax(state);
+    const suggestions = runAdvisor(state, output);
+
+    // This assertion previously expected the suggestion to be defined with
+    // positive savings. RA 10963 (TRAIN) Sec. 23 repealed the medical-expense
+    // deduction for deaths on or after 2018-01-01, so recommending it for a
+    // 2022 death was recommending a deduction that no longer exists.
+    const medSuggestion = suggestions.find((s) => s.id === 'no-medical-claimed');
+    expect(medSuggestion).toBeUndefined();
+  });
+
+  it('pre-TRAIN death with no medical expenses → no-medical-claimed suggestion', () => {
+    const state = makeWizardState({
+      decedent: {
+        name: 'Test Decedent',
+        dateOfDeath: '2015-03-01',
         address: '123 Test St',
         citizenship: 'Filipino',
         isNonResidentAlien: false,

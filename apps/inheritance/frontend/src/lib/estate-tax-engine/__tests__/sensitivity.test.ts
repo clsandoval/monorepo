@@ -225,8 +225,49 @@ describe('sensitivity: amnesty lever', () => {
 // ── Test 6: medical lever ────────────────────────────────────────────────────
 
 describe('sensitivity: medical expenses lever', () => {
-  it('zeroing existing medical expenses produces positive delta', () => {
+  it('TRAIN death: no medical-expenses lever, because the deduction is repealed', () => {
     const state = makeWizardState({
+      realProperties: [
+        {
+          id: 'rp1',
+          titleNumber: 'T-001',
+          taxDecNumber: 'TD-001',
+          location: 'Manila',
+          lotArea: 200,
+          improvementArea: null,
+          classification: 'residential',
+          fmvTaxDec: 2_000_000_000,
+          fmvBirZonal: 1_800_000_000,
+          ownership: 'exclusive',
+          isFamilyHome: false,
+          hasBarangayCert: false,
+        },
+      ],
+      specialDeductions: {
+        medicalExpenses: 30_000_000, // ₱300K claimed
+        ra4917Benefits: 0,
+        foreignTaxCreditClaims: [],
+        standardDeduction: 500_000_000,
+        familyHomeDeduction: 0,
+      },
+    });
+
+    const output = computeEstateTax(state);
+    const results = runSensitivity(state, output);
+
+    // makeWizardState defaults dateOfDeath to '2022-06-15', a TRAIN-era death.
+    // These assertions previously expected the lever to be defined with a
+    // positive taxDelta. RA 10963 (TRAIN) Sec. 23 repealed the medical-expense
+    // deduction, so the claimed ₱300K contributes nothing and the lever's delta
+    // is 0, which leverMedicalExpenses reports as no lever at all.
+    const medLever = results.find((r) => r.inputName === 'medical-expenses');
+    expect(medLever).toBeUndefined();
+    expect(output.specialDeductions.item37d_medical_expenses).toBe(0);
+  });
+
+  it('pre-TRAIN death: zeroing existing medical expenses produces positive delta', () => {
+    const state = makeWizardState({
+      decedent: { dateOfDeath: '2015-06-15' } as EstateTaxWizardState['decedent'],
       realProperties: [
         {
           id: 'rp1',

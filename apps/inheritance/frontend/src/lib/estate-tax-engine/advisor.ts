@@ -17,7 +17,7 @@
 import type { EstateTaxWizardState } from '@/types/estate-tax';
 import type { EstateTaxFullOutput } from './types';
 import { computeEstateTax } from './pipeline';
-import { AMNESTY_COVERAGE_CUTOFF, MEDICAL_EXPENSE_CAP } from './constants';
+import { AMNESTY_COVERAGE_CUTOFF, MEDICAL_EXPENSE_CAP, TRAIN_EFFECTIVE_DATE } from './constants';
 
 // ── Suggestion shape ──────────────────────────────────────────────────────────
 
@@ -223,18 +223,23 @@ function ruleMissingStandardDeduction(
 
 /**
  * Rule 4 — no-medical-claimed
- * Married or recent death (TRAIN era), no medical expenses entered.
+ * PRE-TRAIN death only, no medical expenses entered.
+ * RA 10963 (TRAIN) Sec. 23 deleted NIRC Sec. 86(A)(6) effective 2018-01-01, so
+ * the deduction exists only for deaths before TRAIN_EFFECTIVE_DATE. Before
+ * Phase 8 this gate was inverted and the rule fired only for TRAIN-era deaths,
+ * recommending a deduction the statute had already repealed.
  * This is informational: we can't auto-patch with a real amount, so we
- * show maximum possible savings (cap × 6% for TRAIN).
+ * show maximum possible savings (cap × the applicable rate).
  * Patch: set medicalExpenses to the cap.
  */
 function ruleNoMedicalClaimed(
   state: EstateTaxWizardState,
   currentTax: number,
 ): Suggestion | null {
-  // Only applicable under TRAIN rules (post-2018)
+  // Only applicable to pre-TRAIN deaths; RA 10963 Sec. 23 repealed the
+  // deduction for deaths on or after TRAIN_EFFECTIVE_DATE.
   const { dateOfDeath } = state.decedent;
-  if (!dateOfDeath || dateOfDeath < '2018-01-01') return null;
+  if (!dateOfDeath || dateOfDeath >= TRAIN_EFFECTIVE_DATE) return null;
 
   // Only when nothing has been claimed
   if (state.specialDeductions.medicalExpenses > 0) return null;
@@ -254,8 +259,10 @@ function ruleNoMedicalClaimed(
     id: 'no-medical-claimed',
     title: 'Claim Medical Expenses',
     description:
-      'No medical expenses have been claimed. Under TRAIN, up to ₱500,000 of medical expenses ' +
-      'incurred within one year before death are deductible. This could save up to ₱30,000 in tax.',
+      'No medical expenses have been claimed. This death predates TRAIN, so up to ₱500,000 of ' +
+      'medical expenses incurred within one year before death are deductible under RA 8424 ' +
+      'Sec. 86(A)(6). RA 10963 (TRAIN) Sec. 23 repealed this deduction for deaths on or after ' +
+      '2018-01-01.',
     estimatedSavings: savings,
     patch,
     affectedTab: 6, // Spec. Ded.

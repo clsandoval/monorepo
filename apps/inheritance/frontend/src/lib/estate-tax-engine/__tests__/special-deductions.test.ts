@@ -204,22 +204,48 @@ describe('judicial admin expenses in special deductions', () => {
 // ── §10.3 Medical Expenses ───────────────────────────────────────────────────
 
 describe('medical expenses', () => {
-  it('qualifying within 1 year: min(total, ₱500K cap)', () => {
+  it('TRAIN death: repealed, deduction is 0 whatever amount is entered', () => {
     const decedent = makeDecedent({ dateOfDeath: '2021-06-01' });
+    const medical: MedicalExpense[] = [
+      { description: 'Hospital', amount: 40_000_000 }, // ₱400K
+    ];
+    const result = computeSpecialDeductions(decedent, 'TRAIN', 0, undefined, undefined, undefined, medical);
+    // This assertion previously expected 40_000_000. The medical-expense
+    // deduction was repealed by RA 10963 (TRAIN) Sec. 23, which deleted
+    // NIRC Sec. 86(A)(6) for deaths on or after 2018-01-01.
+    expect(result.item37d_medical_expenses).toBe(0);
+  });
+
+  it('TRAIN death: the ₱500K cap is unreachable because the deduction is 0', () => {
+    const decedent = makeDecedent({ dateOfDeath: '2021-06-01' });
+    const medical: MedicalExpense[] = [
+      { description: 'Hospital A', amount: 40_000_000 },
+      { description: 'Hospital B', amount: 30_000_000 }, // total ₱700K
+    ];
+    const result = computeSpecialDeductions(decedent, 'TRAIN', 0, undefined, undefined, undefined, medical);
+    // This assertion previously expected MEDICAL_EXPENSE_CAP. The deduction was
+    // repealed by RA 10963 (TRAIN) Sec. 23, so the cap can never bind here.
+    expect(result.item37d_medical_expenses).toBe(0);
+  });
+
+  it('PRE_TRAIN death: within cap → full amount deductible', () => {
+    // Preserves the coverage the two corrections above would otherwise lose.
+    // RA 8424 Sec. 86(A)(6) survives for deaths before 2018-01-01.
+    const decedent = makeDecedent({ dateOfDeath: '2015-06-01' });
     const medical: MedicalExpense[] = [
       { description: 'Hospital', amount: 40_000_000 }, // ₱400K, within cap
     ];
-    const result = computeSpecialDeductions(decedent, 'TRAIN', 0, undefined, undefined, undefined, medical);
+    const result = computeSpecialDeductions(decedent, 'PRE_TRAIN', 0, undefined, undefined, undefined, medical);
     expect(result.item37d_medical_expenses).toBe(40_000_000);
   });
 
-  it('total exceeds ₱500K cap → capped', () => {
-    const decedent = makeDecedent({ dateOfDeath: '2021-06-01' });
+  it('PRE_TRAIN death: total exceeds ₱500K cap → capped', () => {
+    const decedent = makeDecedent({ dateOfDeath: '2015-06-01' });
     const medical: MedicalExpense[] = [
       { description: 'Hospital A', amount: 40_000_000 },
       { description: 'Hospital B', amount: 30_000_000 }, // total ₱700K > ₱500K cap
     ];
-    const result = computeSpecialDeductions(decedent, 'TRAIN', 0, undefined, undefined, undefined, medical);
+    const result = computeSpecialDeductions(decedent, 'PRE_TRAIN', 0, undefined, undefined, undefined, medical);
     expect(result.item37d_medical_expenses).toBe(MEDICAL_EXPENSE_CAP); // ₱500K
   });
 
@@ -242,7 +268,7 @@ describe('medical expenses', () => {
 // ── Total ────────────────────────────────────────────────────────────────────
 
 describe('total special deductions', () => {
-  it('TRAIN citizen with family home and medical: total = SD + FH + medical', () => {
+  it('TRAIN citizen with family home and medical: total = SD + FH (medical repealed)', () => {
     const decedent = makeDecedent();
     const familyHome = {
       fmv: 600_000_000, // ₱6M
@@ -251,8 +277,10 @@ describe('total special deductions', () => {
     };
     const medical: MedicalExpense[] = [{ description: 'Hospital', amount: 40_000_000 }];
     const result = computeSpecialDeductions(decedent, 'TRAIN', 0, familyHome, undefined, undefined, medical);
-    // SD = ₱5M, FH = ₱6M, medical = ₱400K → total = ₱11.4M
-    const expected = STANDARD_DEDUCTION_TRAIN_CITIZEN + 600_000_000 + 40_000_000;
+    // SD = ₱5M, FH = ₱6M, medical = ₱0 → total = ₱11M
+    // This expectation previously carried a `+ 40_000_000` medical term. That
+    // deduction was repealed by RA 10963 (TRAIN) Sec. 23.
+    const expected = STANDARD_DEDUCTION_TRAIN_CITIZEN + 600_000_000;
     expect(result.total).toBe(expected);
   });
 
@@ -266,8 +294,11 @@ describe('total special deductions', () => {
     expect(result.total).toBe(expected);
   });
 
-  it('TV-02 scenario: TRAIN married, exclusive FH ₱6M, medical ₱400K', () => {
-    // From spec TV-02: SD ₱5M + FH ₱6M + medical ₱400K = ₱11.4M
+  it('TV-02 scenario: TRAIN married, exclusive FH ₱6M', () => {
+    // From spec TV-02: SD ₱5M + FH ₱6M = ₱11M.
+    // The spec's TV-02 previously totalled ₱11,400,000 by allowing ₱400,000 of
+    // medical expenses; that deduction was repealed by RA 10963 (TRAIN) Sec. 23
+    // and RR 12-2018 Sec. 6 does not list it.
     const decedent = makeDecedent({ isMarried: true });
     const familyHome = {
       fmv: 600_000_000,
@@ -276,10 +307,10 @@ describe('total special deductions', () => {
     };
     const medical: MedicalExpense[] = [{ description: 'Hospital', amount: 40_000_000 }];
     const result = computeSpecialDeductions(decedent, 'TRAIN', 0, familyHome, undefined, undefined, medical);
-    expect(result.total).toBe(1_140_000_000); // ₱11.4M in centavos? No...
-    // Wait: ₱5M = 500_000_000 centavos; ₱6M = 600_000_000; ₱400K = 40_000_000
-    // Total = 500M + 600M + 40M = 1_140_000_000 centavos = ₱11,400,000
-    expect(result.total).toBe(500_000_000 + 600_000_000 + 40_000_000);
+    // ₱5M = 500_000_000 centavos; ₱6M = 600_000_000; medical = 0
+    // Total = 500M + 600M = 1_100_000_000 centavos = ₱11,000,000
+    expect(result.total).toBe(1_100_000_000);
+    expect(result.total).toBe(500_000_000 + 600_000_000);
   });
 });
 
