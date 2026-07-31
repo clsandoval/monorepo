@@ -99,8 +99,20 @@ install_supabase_cli() {
   curl -fsSL "$SUPABASE_URL" -o "$tmpdir/$SUPABASE_TARBALL"
   tar -xzf "$tmpdir/$SUPABASE_TARBALL" -C "$tmpdir"
   mkdir -p "$HOME/.local/bin"
-  mv "$tmpdir/supabase" "$HOME/.local/bin/supabase"
-  chmod +x "$HOME/.local/bin/supabase"
+
+  # The tarball ships TWO binaries: `supabase` and its companion `supabase-go`.
+  # Installing only the first leaves a CLI where `supabase start` works but
+  # `supabase db reset` fails with LegacyDbBootstrapError ("Could not find the
+  # supabase-go binary required to bootstrap the local database"). Both are
+  # required; neither is optional.
+  for binary in supabase supabase-go; do
+    if [ ! -f "$tmpdir/$binary" ]; then
+      rm -rf "$tmpdir"
+      cannot_run "$SUPABASE_TARBALL did not contain expected binary '$binary'"
+    fi
+    mv "$tmpdir/$binary" "$HOME/.local/bin/$binary"
+    chmod +x "$HOME/.local/bin/$binary"
+  done
   rm -rf "$tmpdir"
 
   if ! command -v supabase >/dev/null 2>&1 \
