@@ -1,0 +1,45 @@
+{
+  "$comment": "The five JRNY-03 organization steps. All five carry requirement JRNY-03 and run as the seeded org-less Orphan user, because /onboarding redirects away for a user who already has an organization and redirects anonymously to /auth?mode=signin. EVERY MUTATING STEP NAMES A RESET: creating an organization inserts an organizations row and an organization_members row, and accepting an invitation inserts a membership and flips the invitation to accepted, so without a reset the second run would assert against a different fixture than the first. The token 00000000-0000-4000-8000-0000000000ff in org-invite-rejected is DELIBERATELY absent from fixtures.json - it is the token the database must refuse, and the step exists to hold in place the fix that makes a refusal visible instead of a silent redirect to /settings/team. BLOCKED, NOT REGISTERED: org-onboarding-firm, org-onboarding-profile and org-onboarding-done. Their rubrics are committed but no step names them and no reference was approved, because all three fail clean-console on two REAL product defects (a 406 from a .single() over a legitimately-empty query, and a 400/23502 NOT NULL violation that makes saveFirmProfile silently lose the attorney profile). See journey/JOURNEY.md.",
+  "steps": [
+    {
+      "id": "org-invite-accepted",
+      "requirement": "JRNY-03",
+      "url": "/invite/c0000000-0000-4000-8000-000000000004",
+      "session": "orphan",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "orphan-invitation-pending",
+      "actions": [
+        {
+          "kind": "waitForUrlContains",
+          "value": "/settings/team"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"team-page\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "org-invite-accepted.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "org-invite-rejected",
+      "requirement": "JRNY-03",
+      "url": "/invite/00000000-0000-4000-8000-0000000000ff",
+      "session": "orphan",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "orphan-invitation-pending",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"invite-error\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "org-invite-rejected.json",
+      "allowConsoleErrors": false
+    }
+  ]
+}

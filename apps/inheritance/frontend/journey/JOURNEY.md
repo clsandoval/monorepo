@@ -202,3 +202,87 @@ means, so the step was withheld instead. An owner decision is needed: either the
 `/auth` after sign-out (a source change, and then the rubric as written is correct), or landing on the
 public page is intended (and the rubric should assert the landing page plus the absence of the session
 key).
+
+---
+
+## The organization journey, and two defects it found
+
+**Covered — two steps, both green:**
+
+| Step id | How it is reached |
+|---|---|
+| `org-invite-accepted` | `/invite/<the seeded pending token>` as the org-less Orphan user, after the `orphan-invitation-pending` reset. The captured page is `/settings/team` showing Test Firm Alpha at `Seats: 2 / 5` with `orphan@example.test` as `Attorney` — the acceptance really happened. |
+| `org-invite-rejected` | `/invite/00000000-0000-4000-8000-0000000000ff`, a token deliberately absent from `fixtures.json`. The page renders `Invitation expired, revoked, or not found` and does **not** reach `/settings/team`. |
+
+`org-invite-rejected` is the step that holds the D-2 fix in place. Before it, `/invite/<any token>`
+navigated to `/settings/team` on any resolved promise, so a refused invitation was indistinguishable
+from an accepted one.
+
+Both steps name a reset, because both mutate the database. `journey/resets.mjs` defines
+`orphan-no-org` and `orphan-invitation-pending`; a step that mutates and names no reset is
+prohibited, since the second run would then assert against a different fixture than the first.
+
+### BLOCKED, not registered: the three onboarding steps
+
+`org-onboarding-firm`, `org-onboarding-profile` and `org-onboarding-done` have committed rubrics but
+**no step record and no approved reference**. All three fail their `no_console_error` assertion, and
+the cause is two real product defects rather than harness noise.
+
+**Defect 1 — a 406 on every `/onboarding` load.**
+
+```
+HTTP 406 http://127.0.0.1:55321/rest/v1/organization_members?select=org_id&user_id=eq.<orphan>&limit=1
+Console: "Failed to load resource: the server responded with a status of 406 (Not Acceptable)"
+```
+
+`getUserOrganization` (`src/lib/organizations.ts:32`) calls `.single()` on a query that legitimately
+matches **zero** rows for a user with no organization. PostgREST answers 406 for `.single()` over an
+empty result. The calling code handles it (`if (error || !data) return null`), so the screen is
+correct — but every anonymous-of-org page load logs a browser error. `.maybeSingle()` is the query
+that expresses "zero or one row".
+
+**Defect 2 — the attorney profile is silently discarded.**
+
+```
+HTTP 400 http://127.0.0.1:55321/rest/v1/user_profiles
+Console: "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+
+Reproduced directly:
+UPSERT ERROR: { "code": "23502",
+  "message": "null value in column \"email\" of relation \"user_profiles\" violates not-null constraint" }
+```
+
+`saveFirmProfile` (`src/lib/firm-profile.ts:97`) builds its upsert payload from the supplied fields
+only and never includes `email`, but `user_profiles.email` is `NOT NULL` with no default. Postgres
+evaluates the proposed INSERT row before the `ON CONFLICT` clause, so the upsert fails **for every
+user**, not only for a new one.
+
+`src/routes/onboarding.tsx:72` catches it with an empty `catch` commented "Non-fatal — profile can be
+updated later in Settings" and advances to the done screen regardless. The user sees
+`You're all set!` while nothing was saved:
+
+```
+select id, counsel_name from user_profiles where id='<orphan>';
+c0000000-0000-4000-8000-000000000002|          <-- counsel_name is empty
+```
+
+That is silent data loss on a screen that reports success, which this project ranks as strictly worse
+than a loud failure.
+
+Neither defect could be fixed here: plan 11-06 constraint 4 forbids editing application source, and
+constraint 5 forbids deleting or loosening the `no_console_error` assertion. Setting
+`allowConsoleErrors` on these steps was also rejected — that flag exists for a console error that is
+*correct* product behaviour, and silencing these two would hide exactly what the gate just found. The
+three steps are therefore withheld until the defects are fixed, at which point the rubrics are ready
+to register unchanged.
+
+**Confirmed working despite the above:** the organization created through the real onboarding form is
+named correctly, which is the D-1 fix taking effect in the running application:
+
+```
+select name from organizations where id not in (<alpha>, <beta>);
+Journey Test Firm
+```
+
+Before the fix this row would have been named after the user's uuid, with the firm name stored as the
+slug. No unit test in this repository covers that.

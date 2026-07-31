@@ -1,0 +1,10 @@
+{
+  "rubricId": "org-onboarding-profile",
+  "assertions": [
+    { "id": "step-card",    "kind": "element_visible", "selector": "[data-testid=\"onboarding-step-profile\"]" },
+    { "id": "heading",      "kind": "text_contains",   "selector": "[data-testid=\"onboarding-step-profile\"]", "expect": "Attorney profile" },
+    { "id": "counsel-field","kind": "element_visible", "selector": "#counsel-name" },
+    { "id": "not-firm",     "kind": "element_absent",  "selector": "[data-testid=\"onboarding-step-firm\"]" },
+    { "id": "clean-console","kind": "no_console_error" }
+  ]
+}

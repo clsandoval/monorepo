@@ -1,0 +1,10 @@
+{
+  "rubricId": "org-onboarding-done",
+  "assertions": [
+    { "id": "step-card",    "kind": "element_visible", "selector": "[data-testid=\"onboarding-step-done\"]" },
+    { "id": "heading",      "kind": "text_contains",   "selector": "[data-testid=\"onboarding-step-done\"]", "expect": "You're all set!" },
+    { "id": "first-case",   "kind": "text_contains",   "selector": "[data-testid=\"onboarding-step-done\"]", "expect": "Create Your First Case" },
+    { "id": "not-profile",  "kind": "element_absent",  "selector": "[data-testid=\"onboarding-step-profile\"]" },
+    { "id": "clean-console","kind": "no_console_error" }
+  ]
+}

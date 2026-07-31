@@ -1,0 +1,9 @@
+{
+  "rubricId": "org-invite-accepted",
+  "assertions": [
+    { "id": "team-page",    "kind": "element_visible", "selector": "[data-testid=\"team-page\"]" },
+    { "id": "no-error",     "kind": "element_absent",  "selector": "[data-testid=\"invite-error\"]" },
+    { "id": "no-spinner",   "kind": "element_absent",  "selector": "[data-testid=\"invite-pending\"]" },
+    { "id": "clean-console","kind": "no_console_error" }
+  ]
+}

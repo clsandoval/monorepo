@@ -1,0 +1,11 @@
+{
+  "rubricId": "org-onboarding-firm",
+  "assertions": [
+    { "id": "step-card",   "kind": "element_visible", "selector": "[data-testid=\"onboarding-step-firm\"]" },
+    { "id": "heading",     "kind": "text_contains",   "selector": "[data-testid=\"onboarding-step-firm\"]", "expect": "Set up your firm" },
+    { "id": "firm-field",  "kind": "element_visible", "selector": "#firm-name" },
+    { "id": "not-profile", "kind": "element_absent",  "selector": "[data-testid=\"onboarding-step-profile\"]" },
+    { "id": "not-done",    "kind": "element_absent",  "selector": "[data-testid=\"onboarding-step-done\"]" },
+    { "id": "clean-console","kind": "no_console_error" }
+  ]
+}
