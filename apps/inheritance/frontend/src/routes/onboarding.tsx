@@ -97,7 +97,7 @@ function OnboardingPage() {
         </div>
 
         {step === 'firm' && (
-          <div className="bg-card border rounded-xl p-6 shadow-sm space-y-4">
+          <div data-testid="onboarding-step-firm" className="bg-card border rounded-xl p-6 shadow-sm space-y-4">
             <div>
               <h1 className="text-xl font-bold font-serif">Set up your firm</h1>
               <p className="text-sm text-muted-foreground mt-1">This takes 30 seconds and unlocks all features.</p>
@@ -121,7 +121,7 @@ function OnboardingPage() {
                 <Label htmlFor="firm-address">Address <span className="text-xs text-muted-foreground">(optional)</span></Label>
                 <Input id="firm-address" placeholder="123 Main St, Makati City" value={firmAddress} onChange={(e) => setFirmAddress(e.target.value)} />
               </div>
-              <Button type="submit" className="w-full gap-2" disabled={submitting || !firmName.trim()}>
+              <Button data-testid="onboarding-firm-submit" type="submit" className="w-full gap-2" disabled={submitting || !firmName.trim()}>
                 {submitting ? <><Loader2 className="h-4 w-4 animate-spin" />Creating…</> : 'Continue →'}
               </Button>
             </form>
@@ -129,7 +129,7 @@ function OnboardingPage() {
         )}
 
         {step === 'profile' && (
-          <div className="bg-card border rounded-xl p-6 shadow-sm space-y-4">
+          <div data-testid="onboarding-step-profile" className="bg-card border rounded-xl p-6 shadow-sm space-y-4">
             <div>
               <h1 className="text-xl font-bold font-serif">Attorney profile</h1>
               <p className="text-sm text-muted-foreground mt-1">Used in PDF reports. You can update this later in Settings.</p>
@@ -148,7 +148,7 @@ function OnboardingPage() {
                 <Input id="ptr-no" placeholder="7654321" value={ptrNo} onChange={(e) => setPtrNo(e.target.value)} />
               </div>
               <div className="flex gap-3">
-                <Button type="submit" className="flex-1 gap-2" disabled={submitting}>
+                <Button data-testid="onboarding-profile-submit" type="submit" className="flex-1 gap-2" disabled={submitting}>
                   {submitting ? <><Loader2 className="h-4 w-4 animate-spin" />Saving…</> : 'Continue →'}
                 </Button>
                 <Button type="button" variant="outline" onClick={() => setStep('done')} disabled={submitting}>
@@ -160,7 +160,7 @@ function OnboardingPage() {
         )}
 
         {step === 'done' && (
-          <div className="bg-card border rounded-xl p-8 shadow-sm text-center space-y-4">
+          <div data-testid="onboarding-step-done" className="bg-card border rounded-xl p-8 shadow-sm text-center space-y-4">
             <div className="inline-flex items-center justify-center rounded-full bg-success/10 p-4 mb-2">
               <CheckCircle2 className="h-8 w-8 text-success" />
             </div>

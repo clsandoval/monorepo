@@ -69,6 +69,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <p className="text-xs text-sidebar-foreground/60 truncate">{user.email}</p>
             </div>
             <button
+              data-testid="sign-out-desktop"
               onClick={() => signOut()}
               className="group flex items-center gap-3 h-9 px-3 w-full rounded-md text-sm border-l-[3px] border-transparent text-sidebar-foreground/75 hover:bg-white/[0.08] hover:text-sidebar-foreground transition-colors duration-100 ease-out"
             >
@@ -173,6 +174,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                     <p className="text-xs text-sidebar-foreground/60 truncate">{user.email}</p>
                   </div>
                   <button
+                    data-testid="sign-out-mobile"
                     onClick={() => { signOut(); setDrawerOpen(false); }}
                     className="flex items-center gap-3 h-11 px-3 w-full rounded-md text-sm border-l-[3px] border-transparent text-sidebar-foreground/75 hover:bg-white/[0.08] hover:text-sidebar-foreground transition-colors duration-100 ease-out"
                   >

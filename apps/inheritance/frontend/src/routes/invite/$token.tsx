@@ -19,7 +19,16 @@ function InviteCallbackPage() {
   useEffect(() => {
     if (!token) { setError('Invalid invitation link.'); return; }
     acceptInvitation(token)
-      .then(() => navigate({ to: '/settings/team' }))
+      .then((result) => {
+        // accept_invitation returns { success: false, error } WITHOUT raising, so a
+        // resolved promise is not an accepted invitation. Navigating on any
+        // resolution made a refused invite look exactly like an accepted one.
+        if (result.success) {
+          navigate({ to: '/settings/team' });
+          return;
+        }
+        setError(result.error ?? 'This invitation link is invalid or has expired.');
+      })
       .catch((err: unknown) => {
         const message = err instanceof Error ? err.message : 'This invitation link is invalid or has expired.';
         setError(message);
@@ -28,7 +37,7 @@ function InviteCallbackPage() {
 
   if (error) {
     return (
-      <div className="max-w-md mx-auto py-20 text-center space-y-4">
+      <div data-testid="invite-error" className="max-w-md mx-auto py-20 text-center space-y-4">
         <p className="text-destructive font-medium">{error}</p>
         <Link to="/auth" search={{ mode: 'signin' as const, redirect: '' }} className="text-primary text-sm underline">Return to sign in</Link>
       </div>
@@ -37,7 +46,7 @@ function InviteCallbackPage() {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="flex items-center gap-3 text-muted-foreground">
+      <div data-testid="invite-pending" className="flex items-center gap-3 text-muted-foreground">
         <Loader2 className="h-5 w-5 animate-spin text-primary" />
         Accepting invitation…
       </div>

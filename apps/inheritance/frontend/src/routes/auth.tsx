@@ -82,7 +82,7 @@ function AuthPage() {
         const result = await signUp(email, password, fullName || undefined);
         if (result?.session) {
           // Auto-confirmed (enable_confirmations = false in dev):
-          await createOrganization(result.user!.id, firmName || 'My Firm');
+          await createOrganization(firmName || 'My Firm');
           navigate({ to: '/onboarding' as any });
         } else {
           // Pending confirmation (production with enable_confirmations = true):
@@ -100,7 +100,7 @@ function AuthPage() {
 
   if (signUpSuccess) {
     return (
-      <div className="max-w-md mx-auto py-12 px-4">
+      <div data-testid="auth-check-email" className="max-w-md mx-auto py-12 px-4">
         <Card>
           <CardHeader className="text-center">
             <CardTitle className="font-serif">Check your email</CardTitle>
@@ -134,7 +134,7 @@ function AuthPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto py-12 px-4">
+    <div data-testid="auth-page" className="max-w-md mx-auto py-12 px-4">
       <Card>
         <CardHeader className="text-center">
           <div className="flex justify-center mb-2">
@@ -144,7 +144,7 @@ function AuthPage() {
               <UserPlus className="h-8 w-8 text-primary" />
             )}
           </div>
-          <CardTitle className="font-serif">
+          <CardTitle data-testid="auth-title" className="font-serif">
             {mode === 'signin' ? 'Sign In' : 'Create Account'}
           </CardTitle>
           <CardDescription>
@@ -230,7 +230,7 @@ function AuthPage() {
             )}
 
             {error && !error.includes('match') && (
-              <Alert variant="destructive">
+              <Alert data-testid="auth-error" variant="destructive">
                 <AlertCircle className="h-4 w-4" />
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
@@ -242,7 +242,7 @@ function AuthPage() {
               </Button>
             )}
 
-            <Button type="submit" className="w-full gap-2" disabled={submitting}>
+            <Button data-testid="auth-submit" type="submit" className="w-full gap-2" disabled={submitting}>
               {submitting ? (
                 <><div className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full" />Please wait…</>
               ) : mode === 'signin' ? 'Sign In' : 'Create Account'}

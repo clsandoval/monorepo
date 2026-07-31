@@ -45,7 +45,7 @@ function TeamSettingsPage() {
     if (members.length === 0) return;
     const userIds = members.map((m) => m.user_id);
     supabase
-      .from('profiles')
+      .from('user_profiles')
       .select('id, full_name, email')
       .in('id', userIds)
       .then(({ data }: { data: Array<{ id: string; full_name: string | null; email: string }> | null }) => {
@@ -56,7 +56,9 @@ function TeamSettingsPage() {
         }
         setMemberProfiles(map);
       })
-      .catch(() => {});
+      .catch((err: unknown) => {
+        console.error('team member profile load failed', err);
+      });
   }, [members]);
 
   if (loading) {
@@ -112,7 +114,7 @@ function TeamSettingsPage() {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
+    <div data-testid="team-page" className="p-6 max-w-4xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold">Team</h1>

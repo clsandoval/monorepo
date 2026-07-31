@@ -43,6 +43,10 @@ export function SettlementTrackStep({
   const milestones = state.track ? getSettlementMilestones(state.track) : [];
 
   return (
+    // The inner data-testid is asserted by src/components/intake/__tests__/intake-form.test.tsx,
+    // so it is preserved verbatim; the outer wrapper carries the journey-gate hook because an
+    // element can only carry one data-testid.
+    <div data-testid="intake-settlement-track">
     <div data-testid="settlement-track-step" className="space-y-6">
       <div>
         <h2 className="text-lg font-semibold">Step 6: Settlement Track</h2>
@@ -109,6 +113,7 @@ export function SettlementTrackStep({
           Next: Review →
         </Button>
       </div>
+    </div>
     </div>
   );
 }
