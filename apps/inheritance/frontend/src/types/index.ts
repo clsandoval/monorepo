@@ -247,9 +247,31 @@ export interface EngineInput {
   config: EngineConfig;
 }
 
+/**
+ * Facts the person entering the case asserts, which the engine cannot derive.
+ * Mirrors `ManualReviewFacts` in `engine/src/types.rs`. Every member is optional
+ * so existing config literals stay valid; the Rust side is `#[serde(default)]`.
+ *
+ * These exist so the spec §13.1 manual-review detectors can fire. Nothing here
+ * affects a peso amount.
+ */
+export interface ManualReviewFacts {
+  /** Donations the parties dispute as to collatability or value (Art. 1077). */
+  disputed_donation_ids?: string[];
+  /** Legacies or devises giving a usufruct or a life annuity (Art. 911 3). */
+  usufruct_or_annuity_disposition_ids?: string[];
+  /** Persons appearing in both the paternal and the maternal ascending line (Art. 890). */
+  dual_line_ascendant_ids?: string[];
+  /** Persons disinherited by the will who were unborn when it was executed (Arts. 915-923). */
+  unborn_disinherited_ids?: string[];
+  /** Estate includes property acquired by gratuitous title from an ascendant, brother or sister (Art. 891). */
+  reserva_troncal_property_present?: boolean;
+}
+
 export interface EngineConfig {
   retroactive_ra_11642: boolean;
   max_pipeline_restarts: number;
+  manual_review_facts?: ManualReviewFacts;
 }
 
 export interface Decedent {

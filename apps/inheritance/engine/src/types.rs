@@ -341,11 +341,38 @@ pub struct Adoption {
     pub rescission_date: Option<Date>,
 }
 
+/// Facts the person entering the case asserts, which the engine cannot derive from
+/// the family tree, the will or the donations.
+///
+/// Every member here is an *assertion by the case-enterer*, never a conclusion the
+/// engine reaches. They exist solely so that spec §13.1's manual-review detectors
+/// (`engine/src/flags.rs`) can fire. Nothing in this struct affects a peso amount.
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct ManualReviewFacts {
+    /// Ids of donations the parties dispute as to collatability or value (Art. 1077).
+    #[serde(default)]
+    pub disputed_donation_ids: Vec<DonationId>,
+    /// Ids of legacies or devises that give a usufruct or a life annuity (Art. 911 ¶3).
+    #[serde(default)]
+    pub usufruct_or_annuity_disposition_ids: Vec<DispositionId>,
+    /// Ids of persons appearing in both the paternal and the maternal ascending line (Art. 890).
+    #[serde(default)]
+    pub dual_line_ascendant_ids: Vec<PersonId>,
+    /// Ids of persons disinherited by the will who were not yet born when it was executed (Arts. 915-923).
+    #[serde(default)]
+    pub unborn_disinherited_ids: Vec<PersonId>,
+    /// True when the estate includes property the decedent acquired by gratuitous title from an ascendant, brother or sister (Art. 891).
+    #[serde(default)]
+    pub reserva_troncal_property_present: bool,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EngineConfig {
     // LAWYER-DECISION: LAWYER-08 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
     pub retroactive_ra_11642: bool,
     pub max_pipeline_restarts: i32,
+    #[serde(default)]
+    pub manual_review_facts: ManualReviewFacts,
 }
 
 impl Default for EngineConfig {
@@ -353,6 +380,7 @@ impl Default for EngineConfig {
         Self {
             retroactive_ra_11642: false,
             max_pipeline_restarts: 10,
+            manual_review_facts: ManualReviewFacts::default(),
         }
     }
 }

@@ -662,6 +662,14 @@ export const DecedentSchema = z
 // Section 13: EngineConfig Schema
 // ============================================================================
 
+export const ManualReviewFactsSchema = z.object({
+  disputed_donation_ids: z.array(z.string()).optional(),
+  usufruct_or_annuity_disposition_ids: z.array(z.string()).optional(),
+  dual_line_ascendant_ids: z.array(z.string()).optional(),
+  unborn_disinherited_ids: z.array(z.string()).optional(),
+  reserva_troncal_property_present: z.boolean().optional(),
+});
+
 export const EngineConfigSchema = z.object({
   retroactive_ra_11642: z.boolean().default(false),
   max_pipeline_restarts: z
@@ -670,6 +678,7 @@ export const EngineConfigSchema = z.object({
     .min(1, { message: "Must allow at least 1 pipeline restart" })
     .max(100, { message: "Unreasonably high restart limit" })
     .default(10),
+  manual_review_facts: ManualReviewFactsSchema.optional(),
 });
 
 // ============================================================================

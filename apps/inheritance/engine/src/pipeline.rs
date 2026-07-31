@@ -3,6 +3,7 @@
 //! Runs Steps 1-10 in sequence, handling restarts when needed
 //! (e.g., total renunciation triggers scenario re-evaluation).
 
+use crate::flags::detect_spec_flags;
 use crate::fraction::money_to_frac;
 use crate::step1_classify::{step1_classify, Step1Input};
 use crate::step2_lines::{step2_build_lines, Step2Input};
@@ -23,6 +24,10 @@ pub fn run_pipeline(input: &EngineInput) -> EngineOutput {
     // Manual-review flags built by Steps 1-9. Every step owns a `warnings` field;
     // this accumulator is what carries them to Step 10 and out to EngineOutput.
     let mut pipeline_warnings: Vec<ManualFlag> = Vec::new();
+    // Spec §13.1 manual-review flags come first, so they sit at a deterministic
+    // position at the head of the array. Called once per function: run_pipeline
+    // returns early on the restart branch, so exactly one of the two completes.
+    pipeline_warnings.extend(detect_spec_flags(input));
     // One entry per step that actually ran, in run order. Step 10 appends its own.
     let mut step_logs: Vec<StepLog> = Vec::new();
 
@@ -243,6 +248,7 @@ fn run_pipeline_with_restart(
     let net_estate_frac = money_to_frac(&input.net_distributable_estate.centavos);
 
     let mut pipeline_warnings: Vec<ManualFlag> = Vec::new();
+    pipeline_warnings.extend(detect_spec_flags(input));
     pipeline_warnings.extend(prior_warnings);
     let mut step_logs: Vec<StepLog> = prior_logs;
 

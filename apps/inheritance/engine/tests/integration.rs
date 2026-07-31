@@ -6,6 +6,7 @@
 use num_bigint::BigInt;
 use num_traits::Zero;
 
+use inheritance_engine::flags::detect_spec_flags;
 use inheritance_engine::fraction::{frac, money_to_frac};
 use inheritance_engine::step1_classify::{step1_classify, Step1Input};
 use inheritance_engine::step2_lines::{step2_build_lines, Step2Input};
@@ -30,6 +31,7 @@ fn run_pipeline(input: &EngineInput) -> EngineOutput {
     // Mirrors engine/src/pipeline.rs: manual-review flags and per-step log entries
     // accumulated across Steps 1-9 and handed to Step 10.
     let mut pipeline_warnings: Vec<ManualFlag> = Vec::new();
+    pipeline_warnings.extend(detect_spec_flags(input));
     let mut step_logs: Vec<StepLog> = Vec::new();
 
     // Step 1: Classify heirs
@@ -244,6 +246,7 @@ fn run_pipeline_with_restart(
     let net_estate_frac = money_to_frac(&input.net_distributable_estate.centavos);
 
     let mut pipeline_warnings: Vec<ManualFlag> = Vec::new();
+    pipeline_warnings.extend(detect_spec_flags(input));
     pipeline_warnings.extend(prior_warnings);
     let mut step_logs: Vec<StepLog> = prior_logs;
 
@@ -2112,4 +2115,86 @@ fn test_computation_log_has_eighteen_steps_after_restart() {
     assert_eq!(output.computation_log.total_restarts, 1);
     assert_eq!(output.computation_log.steps.len(), 18);
     assert_eq!(output.computation_log.steps[17].step_number, 10);
+}
+
+/// A spec §13.1 flag detected from the input survives the whole pipeline and lands
+/// in EngineOutput, which a unit test on flags.rs alone cannot show.
+#[test]
+fn test_spec_flag_reaches_output_end_to_end() {
+    let mut decedent = default_decedent("Alberto Ramos", true);
+    decedent.marriage_solemnized_in_articulo_mortis = true;
+
+    let input = EngineInput {
+        net_distributable_estate: Money::from_pesos(12_000_000),
+        decedent,
+        family_tree: vec![
+            person("lc1", "Bea", Relationship::LegitimateChild),
+            person("sp", "Flora", Relationship::SurvivingSpouse),
+        ],
+        will: None,
+        donations: vec![],
+        config: default_config(),
+    };
+
+    let output = run_pipeline(&input);
+
+    assert!(
+        output
+            .warnings
+            .iter()
+            .any(|w| w.category == "ARTICULO_MORTIS"),
+        "expected an ARTICULO_MORTIS spec flag, got {:?}",
+        output
+            .warnings
+            .iter()
+            .map(|w| w.category.clone())
+            .collect::<Vec<_>>()
+    );
+}
+
+/// The ten spec codes and the six internal category strings must coexist. This is
+/// what stops a later refactor from replacing one set with the other.
+#[test]
+fn test_pipeline_warnings_still_carry_internal_categories() {
+    let input = EngineInput {
+        net_distributable_estate: Money::from_pesos(12_000_000),
+        decedent: default_decedent("Alberto Ramos", true),
+        family_tree: vec![
+            person("lc1", "Bea", Relationship::LegitimateChild),
+            person("lc2", "Cris", Relationship::LegitimateChild),
+            person("lc3", "Dina", Relationship::LegitimateChild),
+            person("sp", "Flora", Relationship::SurvivingSpouse),
+        ],
+        will: Some(simple_will(
+            vec![
+                institution(
+                    "i1",
+                    heir_ref("lc1", "Bea"),
+                    ShareSpec::Fraction(frac(1, 2)),
+                ),
+                institution(
+                    "i2",
+                    heir_ref("lc2", "Cris"),
+                    ShareSpec::Fraction(frac(1, 2)),
+                ),
+                // LC3 (Dina) totally omitted — triggers preterition
+            ],
+            vec![],
+            vec![],
+        )),
+        donations: vec![],
+        config: default_config(),
+    };
+
+    let output = run_pipeline(&input);
+
+    assert!(
+        output.warnings.iter().any(|w| w.category == "preterition"),
+        "internal category \"preterition\" must still reach output, got {:?}",
+        output
+            .warnings
+            .iter()
+            .map(|w| w.category.clone())
+            .collect::<Vec<_>>()
+    );
 }
