@@ -55,6 +55,7 @@ const DEFAULT_AGENDA = path.join(APP_DIR, '.planning', 'LAWYER-AGENDA.md');
 const REQUIRED_IDS = [
   'LAWYER-01', 'LAWYER-02', 'LAWYER-03', 'LAWYER-04',
   'LAWYER-05', 'LAWYER-06', 'LAWYER-07', 'LAWYER-08',
+  'LAWYER-09',
 ];
 
 const REQUIRED_KEYS = [

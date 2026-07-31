@@ -74,6 +74,11 @@ pub struct PreteritionResult {
     pub legacies_devises_survive: bool,
     /// Legal basis citation.
     pub legal_basis: Vec<String>,
+    /// Preterited heirs whose ONLY donation is one the Code does not bring to
+    /// collation (Arts. 1062, 1066, 1067, 1068, 1070). Whether such a donation
+    /// nevertheless defeats *Morales*' total-omission test is recorded as
+    /// LAWYER-09 in `.planning/LAWYER-AGENDA.md` and is not decided here.
+    pub exempt_donation_heirs: Vec<HeirId>,
 }
 
 /// Result of Check 2: Disinheritance validity for a single heir.
@@ -194,11 +199,32 @@ pub struct ConditionStrippingResult {
 /// if detected.
 pub fn step6_validate_will(input: &Step6Input) -> Step6Output {
     // Check 1: Preterition (Art. 854)
-    let preterition = check_preterition(&input.will, &input.heirs);
+    let preterition = check_preterition(&input.will, &input.heirs, &input.donations);
 
     // If preterition detected, pipeline terminates.
     // ALL institutions annulled. Remainder distributes intestate.
     if preterition.detected {
+        let mut warnings = vec![ManualFlag {
+            category: "preterition".into(),
+            description: "Art. 854: compulsory heir totally omitted — all institutions annulled"
+                .into(),
+            related_heir_id: None,
+        }];
+        for heir_id in &preterition.exempt_donation_heirs {
+            warnings.push(ManualFlag {
+                category: "preterition_exempt_donation".into(),
+                description: format!(
+                    "Heir {} received a donation the Civil Code does not bring to collation \
+                     (Arts. 1062, 1066, 1067, 1068, 1070). Art. 1061 therefore does not make it an \
+                     advance on the legitime. Whether it nevertheless defeats the total-omission \
+                     test of Morales v. Olondriz is recorded as LAWYER-09 in \
+                     .planning/LAWYER-AGENDA.md and has not been answered; the engine has applied \
+                     preterition pending that answer.",
+                    heir_id
+                ),
+                related_heir_id: Some(heir_id.clone()),
+            });
+        }
         return Step6Output {
             preterition,
             disinheritance_results: vec![],
@@ -214,11 +240,7 @@ pub fn step6_validate_will(input: &Step6Input) -> Step6Output {
             condition_stripping: vec![],
             preterition_terminates: true,
             succession_type_override: Some(SuccessionType::IntestateByPreterition),
-            warnings: vec![ManualFlag {
-                category: "preterition".into(),
-                description: "Art. 854: compulsory heir totally omitted — all institutions annulled".into(),
-                related_heir_id: None,
-            }],
+            warnings,
         };
     }
 
@@ -291,7 +313,11 @@ pub fn step6_validate_will(input: &Step6Input) -> Step6Output {
 ///
 /// Scope: Only LC, IC, adopted, legitimated, ascendants. Spouse omission
 /// is NEVER preterition.
-pub fn check_preterition(will: &Will, heirs: &[Heir]) -> PreteritionResult {
+pub fn check_preterition(
+    will: &Will,
+    heirs: &[Heir],
+    donations: &[Donation],
+) -> PreteritionResult {
     // Art. 854 annuls the "institution of heirs." If the will contains no
     // institutions (only legacies/devises), there is nothing to annul and
     // preterition cannot occur.
@@ -302,6 +328,7 @@ pub fn check_preterition(will: &Will, heirs: &[Heir]) -> PreteritionResult {
             institutions_annulled: false,
             legacies_devises_survive: true,
             legal_basis: vec![],
+            exempt_donation_heirs: vec![],
         };
     }
 
@@ -340,9 +367,19 @@ pub fn check_preterition(will: &Will, heirs: &[Heir]) -> PreteritionResult {
         .collect();
 
     let mut preterited_heirs = Vec::new();
+    let mut exempt_donation_heirs = Vec::new();
     for heir in &direct_line_compulsory {
-        if !heir_addressed_in_will(will, &heir.id) {
+        // Morales v. Olondriz: the omission must be TOTAL — the heir "did not
+        // also receive any legacies, devises, or advances on his legitime."
+        // Art. 1061 makes a collated donation an advance on the legitime, so an
+        // heir holding one is not totally omitted.
+        if !heir_addressed_in_will(will, &heir.id)
+            && !heir_received_advance_on_legitime(donations, &heir.id)
+        {
             preterited_heirs.push(heir.id.clone());
+            if heir_received_only_uncollated_donation(donations, &heir.id) {
+                exempt_donation_heirs.push(heir.id.clone());
+            }
         }
     }
 
@@ -357,6 +394,7 @@ pub fn check_preterition(will: &Will, heirs: &[Heir]) -> PreteritionResult {
         } else {
             vec![]
         },
+        exempt_donation_heirs,
     }
 }
 
@@ -854,6 +892,54 @@ pub fn heir_addressed_in_will(will: &Will, heir_id: &str) -> bool {
     false
 }
 
+/// Determine whether an heir received an advance on their legitime.
+///
+/// Art. 1061 makes a donation to a compulsory heir who succeeds with other
+/// compulsory heirs an advance on the legitime: it is brought into the mass
+/// "in order that it may be computed in the determination of the legitime."
+///
+/// *Morales v. Olondriz*, G.R. No. 198994 (2016), states the preterition test
+/// as requiring the omission to be **total**, meaning the heir "did not also
+/// receive any legacies, devises, or advances on his legitime." An heir holding
+/// such an advance is therefore not totally omitted.
+///
+/// Each excluded flag names the article that removes that donation from
+/// collation, so that it is not an advance on the legitime under Art. 1061:
+///   - `is_expressly_exempt` — Art. 1062 (testator expressly provided otherwise)
+///   - `is_support_education_medical`, `is_customary_gift` — Art. 1067
+///   - `is_to_child_spouse_only` — Art. 1066
+///   - `is_wedding_gift` — Art. 1070
+///   - `is_professional_expense` without `professional_expense_parent_required`
+///     — Art. 1068
+// LAWYER-DECISION: LAWYER-09 — recorded interpretive choice, see .planning/LAWYER-AGENDA.md. Do not change this rule without a recorded answer.
+pub fn heir_received_advance_on_legitime(donations: &[Donation], heir_id: &str) -> bool {
+    donations.iter().any(|d| {
+        d.recipient_heir_id.as_deref() == Some(heir_id)
+            && d.value_at_time_of_donation.centavos > num_bigint::BigInt::from(0)
+            && !d.is_expressly_exempt
+            && !d.is_support_education_medical
+            && !d.is_customary_gift
+            && !d.is_to_child_spouse_only
+            && !d.is_wedding_gift
+            && !(d.is_professional_expense && !d.professional_expense_parent_required)
+    })
+}
+
+/// Determine whether an heir's ONLY donations are ones the Code does not bring
+/// to collation.
+///
+/// This is the exact shape governed by the open question recorded as LAWYER-09:
+/// the heir did receive property from the decedent during the decedent's
+/// lifetime, but Arts. 1062, 1066, 1067, 1068 or 1070 keep it out of collation,
+/// so Art. 1061 does not make it an advance on the legitime. Whether it
+/// nevertheless makes the omission less than total is not decided here.
+pub fn heir_received_only_uncollated_donation(donations: &[Donation], heir_id: &str) -> bool {
+    let has_any_donation = donations.iter().any(|d| {
+        d.recipient_heir_id.as_deref() == Some(heir_id) && d.value_at_time_of_donation.centavos > num_bigint::BigInt::from(0)
+    });
+    has_any_donation && !heir_received_advance_on_legitime(donations, heir_id)
+}
+
 // ═══════════════════════════════════════════════════════════════════
 // Tests
 // ═══════════════════════════════════════════════════════════════════
@@ -1080,7 +1166,7 @@ mod tests {
             date_executed: "2025-01-01".into(),
         };
 
-        let result = check_preterition(&will, &heirs);
+        let result = check_preterition(&will, &heirs, &[]);
         assert!(result.detected, "Preterition should be detected when LC is omitted");
         assert!(result.preterited_heirs.contains(&"lc2".to_string()));
         assert!(result.institutions_annulled, "All institutions must be annulled");
@@ -1109,7 +1195,7 @@ mod tests {
             date_executed: "2025-01-01".into(),
         };
 
-        let result = check_preterition(&will, &heirs);
+        let result = check_preterition(&will, &heirs, &[]);
         assert!(result.detected);
         assert_eq!(result.preterited_heirs, vec!["lc3".to_string()]);
         assert!(result.institutions_annulled);
@@ -1134,7 +1220,7 @@ mod tests {
             date_executed: "2025-01-01".into(),
         };
 
-        let result = check_preterition(&will, &heirs);
+        let result = check_preterition(&will, &heirs, &[]);
         assert!(!result.detected, "Spouse omission is never preterition");
         assert!(result.preterited_heirs.is_empty());
     }
@@ -1155,7 +1241,7 @@ mod tests {
             date_executed: "2025-01-01".into(),
         };
 
-        let result = check_preterition(&will, &heirs);
+        let result = check_preterition(&will, &heirs, &[]);
         assert!(!result.detected, "Token legacy defeats preterition");
     }
 
@@ -1181,7 +1267,7 @@ mod tests {
             date_executed: "2025-01-01".into(),
         };
 
-        let result = check_preterition(&will, &heirs);
+        let result = check_preterition(&will, &heirs, &[]);
         assert!(
             !result.detected,
             "Invalid disinheritance still addresses heir → no preterition"
@@ -1205,7 +1291,7 @@ mod tests {
             date_executed: "2025-01-01".into(),
         };
 
-        let result = check_preterition(&will, &heirs);
+        let result = check_preterition(&will, &heirs, &[]);
         assert!(!result.detected, "IC omission without IC institution is not preterition");
     }
 
@@ -1228,7 +1314,7 @@ mod tests {
             date_executed: "2025-01-01".into(),
         };
 
-        let result = check_preterition(&will, &heirs);
+        let result = check_preterition(&will, &heirs, &[]);
         assert!(result.detected, "IC omission when other IC is instituted triggers preterition");
         assert!(result.preterited_heirs.contains(&"ic2".to_string()));
     }
@@ -1248,7 +1334,7 @@ mod tests {
             date_executed: "2025-01-01".into(),
         };
 
-        let result = check_preterition(&will, &heirs);
+        let result = check_preterition(&will, &heirs, &[]);
         assert!(!result.detected, "No institutions means no preterition");
     }
 
@@ -1269,7 +1355,7 @@ mod tests {
             date_executed: "2025-01-01".into(),
         };
 
-        let result = check_preterition(&will, &heirs);
+        let result = check_preterition(&will, &heirs, &[]);
         assert!(result.detected, "Omitted ascendant triggers preterition");
         assert!(result.preterited_heirs.contains(&"p1".to_string()));
     }
@@ -1292,9 +1378,74 @@ mod tests {
             date_executed: "2025-01-01".into(),
         };
 
-        let result = check_preterition(&will, &heirs);
+        let result = check_preterition(&will, &heirs, &[]);
         assert!(!result.detected);
         assert!(result.preterited_heirs.is_empty());
+    }
+
+    // ── Check 1 continued: donations as advances on the legitime ─────
+
+    #[test]
+    fn test_plain_donation_is_an_advance_on_the_legitime() {
+        // Art. 1061: a collated donation is an advance on the legitime, so the
+        // omission is not total under Morales v. Olondriz.
+        let donations = vec![make_donation("d1", Some("lc2"), 10_000_000, "2020-01-01")];
+        assert!(heir_received_advance_on_legitime(&donations, "lc2"));
+        assert!(!heir_received_only_uncollated_donation(&donations, "lc2"));
+        // Another heir is untouched by lc2's donation.
+        assert!(!heir_received_advance_on_legitime(&donations, "lc1"));
+    }
+
+    #[test]
+    fn test_expressly_exempt_donation_is_not_an_advance() {
+        // Art. 1062: an expressly exempted donation is not brought to collation,
+        // so it is not an advance on the legitime.
+        let mut d = make_donation("d1", Some("lc2"), 10_000_000, "2020-01-01");
+        d.is_expressly_exempt = true;
+        let donations = vec![d];
+        assert!(!heir_received_advance_on_legitime(&donations, "lc2"));
+        assert!(heir_received_only_uncollated_donation(&donations, "lc2"));
+    }
+
+    #[test]
+    fn test_preterition_defeated_by_collated_donation() {
+        let heirs = vec![make_lc("lc1"), make_lc("lc2")];
+        let will = Will {
+            institutions: vec![make_institution("i1", "lc1", ShareSpec::EntireEstate)],
+            legacies: vec![],
+            devises: vec![],
+            disinheritances: vec![],
+            date_executed: "2025-01-01".into(),
+        };
+        let donations = vec![make_donation("d1", Some("lc2"), 10_000_000, "2020-01-01")];
+
+        let result = check_preterition(&will, &heirs, &donations);
+        assert!(
+            !result.detected,
+            "An heir holding an advance on the legitime is not totally omitted"
+        );
+        assert!(result.preterited_heirs.is_empty());
+        assert!(result.exempt_donation_heirs.is_empty());
+    }
+
+    #[test]
+    fn test_preterition_survives_exempt_donation_and_is_flagged() {
+        let heirs = vec![make_lc("lc1"), make_lc("lc2")];
+        let will = Will {
+            institutions: vec![make_institution("i1", "lc1", ShareSpec::EntireEstate)],
+            legacies: vec![],
+            devises: vec![],
+            disinheritances: vec![],
+            date_executed: "2025-01-01".into(),
+        };
+        let mut d = make_donation("d1", Some("lc2"), 10_000_000, "2020-01-01");
+        d.is_expressly_exempt = true;
+        let donations = vec![d];
+
+        let result = check_preterition(&will, &heirs, &donations);
+        assert!(result.detected, "An uncollated donation does not defeat preterition");
+        assert!(result.preterited_heirs.contains(&"lc2".to_string()));
+        assert_eq!(result.exempt_donation_heirs, vec!["lc2".to_string()]);
     }
 
     // ═══════════════════════════════════════════════════════════════

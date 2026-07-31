@@ -33,6 +33,7 @@ Three of the eight block code changes already scheduled for Phase 14. They are l
 | `LAWYER-04` | Q4 — the reach of *Aquino v. Aquino* into the collateral line | `LAW-07` | Confirm the collateral bar survives, so it can be implemented |
 | `LAWYER-06` | Q6 — an heir's donation-excess entitlement, estate pesos or a claim against the donee | `LAW-06` | Confirm the claim-against-donee shape, which changes the output schema |
 | `LAWYER-08` | Q8 — RA 11642 Sec. 41 retroactivity to pre-2022 decrees | `LAW-12` | Answer, or say the engine should refuse the fact pattern |
+| `LAWYER-09` | Q9 — does a donation exempt from collation defeat preterition | none | Confirm Reading A, or change to Reading B |
 
 The remaining five entries can be answered at any time, and no scheduled work waits on them.
 
@@ -481,6 +482,60 @@ Refuse to compute Sec. 41 fact patterns instead of answering? yes / no:
 
 ---
 
+## LAWYER-09 — Q9: Does a donation the Code exempts from collation defeat preterition?
+
+**Status:** awaiting-answer
+**Engine implements:** A
+**Blocks:** nothing scheduled
+**Governing code:** `engine/src/step6_validation.rs` — `pub fn heir_received_advance_on_legitime`
+
+### The question
+
+*Morales v. Olondriz* requires the omission to be total: the heir "did not also receive any legacies,
+devises, or advances on his legitime." Arts. 1062, 1066, 1067, 1068 and 1070 each declare a class of
+donation not brought to collation. Does such a donation nevertheless make the omission less than
+total?
+
+### Reading A
+
+No. Art. 1061 makes a donation an advance on the legitime because it is brought into the mass "in
+order that it may be computed in the determination of the legitime." A donation the Code removes
+from collation is by definition not an advance on the legitime, so it does not satisfy that limb of
+the *Morales* test and preterition still applies.
+
+### Reading B
+
+Yes. *Morales*' operative word is "total". An heir who received property from the decedent during
+the decedent's lifetime was not totally omitted, whatever the collation treatment of that property,
+so preterition does not apply.
+
+### What the engine does today
+
+Reading A, and it now says so out loud. A collated donation defeats preterition; a donation in one of
+the five exempted classes does not, and the engine emits a manual-review flag with category
+`preterition_exempt_donation` naming the heir and the articles. Before Phase 8 the engine consulted
+no donation at all, so a child holding a ₱10,000,000 plain donation destroyed the will.
+
+### What I need from you
+
+Confirm Reading A, or change to Reading B. The stakes are the whole will: under Reading A the
+institution of heirs is annulled and the estate distributes intestate; under Reading B the will
+stands.
+
+### Answer
+
+- [ ] Confirm Reading A
+- [ ] Change to Reading B
+- [ ] Neither — see notes
+
+Answered by:
+Date:
+Notes:
+
+*Source: engine behaviour recorded during Phase 8, plan 08-01; the underlying test is quoted in `.planning/research/LEGAL-CONFORMANCE.md` section 2a, Art. 854 row.*
+
+---
+
 ## Status at a glance
 
 | Decision | Question | Engine implements | Blocks | Status |
@@ -493,8 +548,9 @@ Refuse to compute Sec. 41 fact patterns instead of answering? yes / no:
 | `LAWYER-06` | Q6 — donation-excess entitlement, estate pesos or a claim | A | LAW-06 | awaiting-answer |
 | `LAWYER-07` | Q7 — family home deduction on a conjugal home | A | nothing scheduled | awaiting-answer |
 | `LAWYER-08` | Q8 — RA 11642 Sec. 41 retroactivity to pre-2022 decrees | neither | LAW-12 | awaiting-answer |
+| `LAWYER-09` | Q9 — does a donation exempt from collation defeat preterition | A | nothing scheduled | awaiting-answer |
 
-Eight of eight decisions are awaiting an answer.
+Nine of nine decisions are awaiting an answer.
 
 `.planning/lawyer-decisions.json` is the machine-readable form of this table, and gate `G10` fails
 the build when the two disagree.

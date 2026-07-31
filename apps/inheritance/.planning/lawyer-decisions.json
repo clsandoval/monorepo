@@ -185,6 +185,35 @@
       "answered_by": null,
       "answered_on": null,
       "answer": null
+    },
+    {
+      "id": "LAWYER-09",
+      "question": "Q9",
+      "title": "Does a donation the Code exempts from collation defeat preterition?",
+      "articles": [
+        "Art. 854",
+        "Art. 1061",
+        "Art. 1062",
+        "Art. 1066",
+        "Art. 1067",
+        "Art. 1068",
+        "Art. 1070"
+      ],
+      "authority": ["Morales v. Olondriz, G.R. No. 198994 (2016)"],
+      "reading_implemented": "A",
+      "status": "awaiting-answer",
+      "blocks": [],
+      "agenda_section": "LAWYER-09",
+      "anchors": [
+        {
+          "file": "engine/src/step6_validation.rs",
+          "pattern": "pub fn heir_received_advance_on_legitime"
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
     }
   ]
 }
