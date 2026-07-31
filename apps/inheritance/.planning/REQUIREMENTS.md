@@ -34,7 +34,7 @@ Two hardcoded lines currently make every defect below invisible. Nothing else is
 - [ ] **OBS-05**: A runtime conservation check asserts that per-heir shares sum exactly to the distributable estate, and rejects the output if not
 - [ ] **OBS-06**: A runtime check rejects duplicate `heir_id` values in `per_heir_shares`
 - [ ] **OBS-07**: A malformed engine input produces a structured validation error at the WASM boundary rather than a trap or an unhandled rejection
-- [ ] **OBS-08**: Frontend errors are captured and reportable
+- [x] **OBS-08**: Frontend errors are captured and reportable
 - [x] **OBS-09**: The engine's per-step `computation_log` is retained and inspectable for any computation a lawyer questions
 
 ### Legal Conformance
