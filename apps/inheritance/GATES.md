@@ -390,3 +390,93 @@ All five verdicts — `SKIP REPORT MISSING`, `UNDECLARED SKIP`, `STALE SKIP DECL
 `SKIP COUNT MISMATCH` and `SKIP SCAN UNREADABLE` — have been observed firing against the committed
 fixtures in `scripts/fixtures/logs-ignored/`, `scripts/fixtures/logs-stale/` and
 `scripts/fixtures/skips-stale.lock`. A check nobody has seen fail is not known to be a check.
+
+## 6. Published results
+
+`gate-results.json` at the app root is the **committed**, machine-readable view of the most recent
+gate run. `.gate-runs/latest.json` stays gitignored per-run detail. They are two artifacts rather
+than one file with the ignore rule deleted, for a concrete reason: the run record carries only
+`{id, status, exit_code, started_at, ended_at}` — no gate name, no `proves` text and no requirement
+mapping. `scripts/loop-status.mjs` already records the missing gate name as a known limitation. The
+published file is the **join** of the frozen manifest's descriptive fields onto the run's
+observations, plus the per-gate skip counts from section 5 and a per-requirement roll-up.
+
+`scripts/publish-gate-results.mjs` writes it. `node scripts/check-gate-results.mjs` (gate G9)
+validates it. Nothing else writes it, and the validator has no flag that repairs it.
+
+### Schema
+
+Four top-level keys:
+
+| Key | Meaning |
+|---|---|
+| `schema` | the integer `1` |
+| `generated_at` | ISO timestamp of the write |
+| `run` | `started_at`, `ended_at`, `outcome`, `failure_signature`, `manifest_version`, `gates_total`, `gates_run` |
+| `gates` | one entry per manifest gate, in `order` |
+| `requirements` | one entry per distinct requirement id any gate carries |
+
+Thirteen per-gate keys:
+
+| Key | Source |
+|---|---|
+| `id`, `name`, `order`, `blocking`, `proves`, `requirements` | `gates.manifest.json` |
+| `status`, `exit_code`, `started_at`, `ended_at` | `.gate-runs/latest.json` |
+| `duration_seconds` | `ended_at` minus `started_at`, or `null` |
+| `assertions_total`, `assertions_skipped` | the gate's `GATE-SKIPS` log line, or `null` for a gate that emits none (G1 and G4) |
+
+Three per-requirement keys: `id`, `gates` (ids carrying it, in manifest order) and `status`.
+A requirement is `pass` only when **every** one of its gates passed; `fail` when any failed;
+`incomplete` otherwise. There is no fourth value and nothing defaults to `pass`.
+
+### Statuses are copied verbatim
+
+The four legal gate statuses are `pass`, `fail`, `cannot-run` and `not-run`. They are copied out of
+the run record with no mapping, normalising, coalescing or defaulting. A gate absent from the run
+record entirely becomes `not-run`, which is what `scripts/ci-gates.sh` already writes for a gate that
+never started.
+
+`RESULTS STATUS INVALID` rejects anything else. The value it was specifically observed rejecting is
+**`skipped`** — the plausible-looking status this project does not use. Accepting it would be exactly
+the collapse of "skipped" into "passed" that GATE-09 exists to prevent, in the one place a reader
+would never think to check.
+
+`RESULTS INCOMPLETE` additionally fails on any gate published as `not-run`, with a single exemption:
+gate `G9` itself, whose own run-record entry is still being written while it runs.
+
+### Published on every exit path
+
+`publish_results` is called after every gate in the loop and again from the `on_exit` trap, so the
+file exists and is current after a pass, after a gate failure, and after a halt. Observed:
+
+| Run | Runner exit | `run.outcome` | Gate statuses |
+|---|---|---|---|
+| `bash scripts/ci-gates.sh` | 0 | `pass` | all nine `pass` |
+| `GATES_INJECT_GATE_FAIL=G1 bash scripts/ci-gates.sh` | 1 | `fail`, signature `G1:3` | `G5 G6 G7` pass, `G1` fail, the rest `not-run` |
+| `GATES_INJECT_MISSING_TOOL=cargo bash scripts/ci-gates.sh` | 2 | `cannot-run` | every gate `not-run` |
+
+A failing publisher can **never** change the runner's exit code. It is wrapped in the same
+`set +e` / capture / warn structure the run-record writer already uses; on failure it prints
+`WARNING: could not publish gate-results.json` to stderr and nothing else happens. This was observed
+directly: with the publisher removed from disk, a green run still exited 0 and an injected gate
+failure still exited 1.
+
+## 7. Reading the gate set as a whole
+
+One table, the whole set, rendered from `gates.manifest.json`.
+
+| Order | Gate | Command | Requirements |
+|---|---|---|---|
+| 1 | G5 gate manifest integrity | `node scripts/check-gate-manifest.mjs` | LOOP-03 |
+| 2 | G6 plan closed-world lint | `node scripts/check-plan-closed-world.mjs` | LOOP-01 |
+| 3 | G7 commit discipline audit | `node scripts/check-commit-discipline.mjs` | LOOP-05 |
+| 4 | G1 engine tests | `cd engine && cargo test` | — |
+| 5 | G2 wasm build | `bash engine/build-wasm.sh` | GATE-03 |
+| 6 | G3 frontend suite vs ledger | `cd frontend && npm run test:gate` | GATE-01 |
+| 7 | G4 typecheck | `cd frontend && npx tsc -b --force` | GATE-02 |
+| 8 | G8 gate skip accounting | `node scripts/check-gate-skips.mjs` | GATE-09 |
+| 9 | G9 published gate results | `node scripts/check-gate-results.mjs` | GATE-08 |
+
+The three cheap meta-gates run first, so a tampered manifest or an open-world plan is caught in
+seconds rather than after a five-minute build. G8 and G9 run last, because both read artifacts the
+preceding gates produce.

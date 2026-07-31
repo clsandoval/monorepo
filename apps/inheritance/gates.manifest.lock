@@ -41,6 +41,11 @@
       "id": "G8",
       "command": "node scripts/check-gate-skips.mjs",
       "blocking": true
+    },
+    {
+      "id": "G9",
+      "command": "node scripts/check-gate-results.mjs",
+      "blocking": true
     }
   ]
 }

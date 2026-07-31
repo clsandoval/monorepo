@@ -1,0 +1,224 @@
+{
+  "schema": 1,
+  "generated_at": "2026-07-31T07:44:24Z",
+  "run": {
+    "started_at": "2020-01-01T00:00:00Z",
+    "ended_at": "2026-07-31T07:44:24Z",
+    "outcome": "pass",
+    "failure_signature": "",
+    "manifest_version": 1,
+    "gates_total": 9,
+    "gates_run": 9
+  },
+  "gates": [
+    {
+      "id": "G5",
+      "name": "gate manifest integrity",
+      "order": 1,
+      "blocking": true,
+      "proves": "The frozen gate set has not shrunk, had a locked command changed, or stopped blocking.",
+      "requirements": [
+        "LOOP-03"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T07:43:40Z",
+      "ended_at": "2026-07-31T07:43:40Z",
+      "duration_seconds": 0,
+      "assertions_total": 9,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G6",
+      "name": "plan closed-world lint",
+      "order": 2,
+      "blocking": true,
+      "proves": "Every plan file is closed-world by the nine rules in .planning/PLAN-STANDARD.md.",
+      "requirements": [
+        "LOOP-01"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T07:43:40Z",
+      "ended_at": "2026-07-31T07:43:40Z",
+      "duration_seconds": 0,
+      "assertions_total": 15,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G7",
+      "name": "commit discipline audit",
+      "order": 3,
+      "blocking": true,
+      "proves": "No commit since project init mixes apps/inheritance/ with paths outside it.",
+      "requirements": [
+        "LOOP-05"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T07:43:40Z",
+      "ended_at": "2026-07-31T07:43:40Z",
+      "duration_seconds": 0,
+      "assertions_total": 59,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G1",
+      "name": "engine tests",
+      "order": 4,
+      "blocking": true,
+      "proves": "The Rust succession engine's 442 unit, integration, and fuzz-invariant tests pass.",
+      "requirements": [],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T07:43:40Z",
+      "ended_at": "2026-07-31T07:43:40Z",
+      "duration_seconds": 0,
+      "assertions_total": null,
+      "assertions_skipped": null
+    },
+    {
+      "id": "G2",
+      "name": "wasm build",
+      "order": 5,
+      "blocking": true,
+      "proves": "The engine compiles to WebAssembly and lands a real binary in frontend/src/wasm/pkg/. The script verifies existence, a 100 KB size floor, and the 0061736d WebAssembly magic number — wasm-pack exiting 0 is not accepted as proof on its own.",
+      "requirements": [
+        "GATE-03"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T07:43:40Z",
+      "ended_at": "2026-07-31T07:43:50Z",
+      "duration_seconds": 10,
+      "assertions_total": 3,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G3",
+      "name": "frontend suite vs ledger",
+      "order": 6,
+      "blocking": true,
+      "proves": "The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger.",
+      "requirements": [
+        "GATE-01"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T07:43:50Z",
+      "ended_at": "2026-07-31T07:44:17Z",
+      "duration_seconds": 27,
+      "assertions_total": 2416,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G4",
+      "name": "typecheck",
+      "order": 7,
+      "blocking": true,
+      "proves": "Zero TypeScript errors. --force is required, not optional: tsconfig.tsbuildinfo was historically committed, and an incremental run can no-op against a stale cache and report clean on a tree that has type errors.",
+      "requirements": [
+        "GATE-02"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T07:44:17Z",
+      "ended_at": "2026-07-31T07:44:24Z",
+      "duration_seconds": 7,
+      "assertions_total": null,
+      "assertions_skipped": null
+    },
+    {
+      "id": "G8",
+      "name": "gate skip accounting",
+      "order": 8,
+      "blocking": true,
+      "proves": "Every gate reports how many of its own assertions it skipped, and every skip is declared in the shrink-only gate-skips.lock ledger.",
+      "requirements": [
+        "GATE-09"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T07:44:24Z",
+      "ended_at": "2026-07-31T07:44:24Z",
+      "duration_seconds": 0,
+      "assertions_total": 9,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G9",
+      "name": "published gate results",
+      "order": 9,
+      "blocking": true,
+      "proves": "gate-results.json describes the current run, covers every manifest gate, and never reports a status outside pass, fail, cannot-run and not-run.",
+      "requirements": [
+        "GATE-08"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T07:44:24Z",
+      "ended_at": "2026-07-31T07:44:24Z",
+      "duration_seconds": 0,
+      "assertions_total": 9,
+      "assertions_skipped": 0
+    }
+  ],
+  "requirements": [
+    {
+      "id": "LOOP-03",
+      "gates": [
+        "G5"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "LOOP-01",
+      "gates": [
+        "G6"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "LOOP-05",
+      "gates": [
+        "G7"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "GATE-03",
+      "gates": [
+        "G2"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "GATE-01",
+      "gates": [
+        "G3"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "GATE-02",
+      "gates": [
+        "G4"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "GATE-09",
+      "gates": [
+        "G8"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "GATE-08",
+      "gates": [
+        "G9"
+      ],
+      "status": "pass"
+    }
+  ]
+}

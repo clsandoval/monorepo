@@ -54,6 +54,16 @@
 # Every exit path — success, gate failure and halt alike — writes
 # .gate-runs/latest.json via a trap. A recorder that only runs on success records
 # nothing about the situation it exists to detect.
+#
+# PUBLISHED RESULTS. gate-results.json at the app root is the COMMITTED, joined
+# view: the frozen manifest's name, `proves` text and requirement ids, joined onto
+# this run's observed status, exit code, timings and skip counts, plus a
+# per-requirement roll-up. .gate-runs/latest.json remains the gitignored,
+# runner-internal record and carries none of those descriptive fields. Publication
+# happens after every gate AND from the EXIT trap, for exactly the reason the run
+# record does: a results file that exists only after a green run describes the one
+# situation nobody needs to investigate. A failing publisher can never change this
+# script's exit code.
 
 set -euo pipefail
 
@@ -134,6 +144,23 @@ write_run_record() {
   fi
 }
 
+# Publish gate-results.json — the COMMITTED, joined view. This is a different
+# artifact from $RUN_FILE, not a copy of it: the run record carries no gate name,
+# no `proves` text and no requirement mapping, and .gate-runs/ stays gitignored.
+#
+# Same rule as write_run_record above, for the same reason: this MUST NOT change
+# the caller's exit code. A status writer that can turn a red run green is a
+# defect, so a failing publisher prints a warning and returns.
+publish_results() {
+  set +e
+  node "$APP_DIR/scripts/publish-gate-results.mjs" --run "$RUN_FILE" >/dev/null
+  PUB_RC=$?
+  set -e
+  if [ "$PUB_RC" -ne 0 ]; then
+    echo "WARNING: could not publish gate-results.json" >&2
+  fi
+}
+
 # --- EXIT trap --------------------------------------------------------------
 # This runs on EVERY exit path: success, gate failure and halt alike. That is the
 # entire reason the recorder lives here rather than at the bottom of the script —
@@ -150,6 +177,7 @@ write_run_record() {
 on_exit() {
   EXIT_CODE=$?
   write_run_record
+  publish_results
 
   if [ -n "${ONLY:-}" ]; then
     echo "Partial run (--only ${ONLY}) was not recorded in loop-history.jsonl."
@@ -357,6 +385,12 @@ while IFS=$'\t' read -r GATE_ID GATE_NAME GATE_CMD GATE_PRE GATE_BLOCKING; do
   fi
 
   record_gate "$GATE_ID" "pass" "$rc" "$GATE_STARTED" "$GATE_ENDED"
+  # Refresh the run record and republish after every gate, so gate-results.json
+  # reflects the run IN PROGRESS. That is what lets gate G9 validate a file which
+  # already contains every gate before it. The cannot-run and fail paths above
+  # exit immediately and reach the same two calls through the EXIT trap.
+  write_run_record
+  publish_results
   RAN=$((RAN + 1))
 done <<< "$GATE_LINES"
 
