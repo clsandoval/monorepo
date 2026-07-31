@@ -648,6 +648,52 @@ fn assert_net_from_estate_pesos(share: &InheritanceShare, expected_pesos: i64, l
     );
 }
 
+/// Exact-centavo assertion.
+///
+/// `assert_total_pesos` multiplies a whole-peso `i64` by 100 and therefore cannot express
+/// 166666666 or 166666667 centavos, which are the values TV-10 and TV-13 actually produce
+/// under the largest-remainder distribution in `step10_finalize.rs`. This helper can.
+/// It does not replace `assert_total_pesos` — every existing call to that helper stays.
+fn assert_total_centavos(share: &InheritanceShare, expected_centavos: i64, label: &str) {
+    let expected = BigInt::from(expected_centavos);
+    assert_eq!(
+        share.total.centavos, expected,
+        "{}: total {} centavos != expected {} centavos",
+        label, share.total.centavos, expected_centavos
+    );
+}
+
+/// Whole-vector shape assertion: scenario code, succession type and heir-row count.
+///
+/// The row-count assertion is what makes a duplicated or dropped heir row a test failure
+/// rather than a silent change.
+fn assert_vector_shape(
+    output: &EngineOutput,
+    expected_code: ScenarioCode,
+    expected_type: SuccessionType,
+    expected_rows: usize,
+    label: &str,
+) {
+    assert_eq!(
+        output.scenario_code, expected_code,
+        "{}: scenario_code {:?} != expected {:?}",
+        label, output.scenario_code, expected_code
+    );
+    assert_eq!(
+        output.succession_type, expected_type,
+        "{}: succession_type {:?} != expected {:?}",
+        label, output.succession_type, expected_type
+    );
+    assert_eq!(
+        output.per_heir_shares.len(),
+        expected_rows,
+        "{}: per_heir_shares.len() {} != expected {}",
+        label,
+        output.per_heir_shares.len(),
+        expected_rows
+    );
+}
+
 // ══════════════════════════════════════════════════════════════════════
 // TV-01: I1 -- Single LC, entire estate
 // ══════════════════════════════════════════════════════════════════════
@@ -667,6 +713,11 @@ fn test_tv01_single_lc_entire_estate() {
 
     assert_eq!(output.succession_type, SuccessionType::Intestate);
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    assert_vector_shape(&output, ScenarioCode::I1, SuccessionType::Intestate, 1, "TV-01");
+    check_scenario_consistency(&output, ScenarioCode::I1);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "lc1"), 500000000, "TV-01 lc1");
 
     let maria = find_share(&output, "lc1");
     assert_total_pesos(maria, 5_000_000, "Maria");
@@ -696,6 +747,13 @@ fn test_tv02_married_3lc_spouse_equal() {
 
     assert_eq!(output.succession_type, SuccessionType::Intestate);
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    assert_vector_shape(&output, ScenarioCode::I2, SuccessionType::Intestate, 4, "TV-02");
+    check_scenario_consistency(&output, ScenarioCode::I2);
+    assert_total_centavos(find_share(&output, "lc1"), 300000000, "TV-02 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 300000000, "TV-02 lc2");
+    assert_total_centavos(find_share(&output, "lc3"), 300000000, "TV-02 lc3");
+    assert_total_centavos(find_share(&output, "sp"), 300000000, "TV-02 sp");
 
     // Each gets 1/4 = P3,000,000
     for id in &["lc1", "lc2", "lc3", "sp"] {
@@ -728,6 +786,12 @@ fn test_tv03_2lc_1ic_ratio() {
     assert_eq!(output.succession_type, SuccessionType::Intestate);
     check_sum_invariant(&output, &input.net_distributable_estate);
 
+    assert_vector_shape(&output, ScenarioCode::I3, SuccessionType::Intestate, 3, "TV-03");
+    check_scenario_consistency(&output, ScenarioCode::I3);
+    assert_total_centavos(find_share(&output, "lc1"), 400000000, "TV-03 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 400000000, "TV-03 lc2");
+    assert_total_centavos(find_share(&output, "ic1"), 200000000, "TV-03 ic1");
+
     // 2:1 ratio, total units=5: LC get 2/5=P4M each, IC gets 1/5=P2M
     assert_total_pesos(find_share(&output, "lc1"), 4_000_000, "Elena");
     assert_total_pesos(find_share(&output, "lc2"), 4_000_000, "Felix");
@@ -753,6 +817,11 @@ fn test_tv04_spouse_only() {
 
     assert_eq!(output.succession_type, SuccessionType::Intestate);
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    assert_vector_shape(&output, ScenarioCode::I11, SuccessionType::Intestate, 1, "TV-04");
+    check_scenario_consistency(&output, ScenarioCode::I11);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "sp"), 800000000, "TV-04 sp");
 
     assert_total_pesos(find_share(&output, "sp"), 8_000_000, "Lucia");
 }
@@ -780,6 +849,12 @@ fn test_tv05_parents_and_spouse() {
 
     assert_eq!(output.succession_type, SuccessionType::Intestate);
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    assert_vector_shape(&output, ScenarioCode::I6, SuccessionType::Intestate, 3, "TV-05");
+    check_scenario_consistency(&output, ScenarioCode::I6);
+    assert_total_centavos(find_share(&output, "f"), 250000000, "TV-05 f");
+    assert_total_centavos(find_share(&output, "m"), 250000000, "TV-05 m");
+    assert_total_centavos(find_share(&output, "sp"), 500000000, "TV-05 sp");
 
     // Art. 997: 1/2 to spouse, 1/2 to ascendants (equal)
     assert_total_pesos(find_share(&output, "sp"), 5_000_000, "Teresa");
@@ -816,6 +891,12 @@ fn test_tv06_testate_fp_to_charity() {
     let output = run_pipeline(&input);
 
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    assert_vector_shape(&output, ScenarioCode::T1, SuccessionType::Testate, 3, "TV-06");
+    check_scenario_consistency(&output, ScenarioCode::T1);
+    assert_total_centavos(find_share(&output, "lc1"), 250000000, "TV-06 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 250000000, "TV-06 lc2");
+    assert_total_centavos(find_share(&output, "Charity C"), 500000000, "TV-06 Charity C");
 
     // LC1 and LC2 each get legitime only = P2.5M
     assert_total_pesos(find_share(&output, "lc1"), 2_500_000, "Daniel");
@@ -876,6 +957,14 @@ fn test_tv07_preterition_annuls_will() {
     );
     check_sum_invariant(&output, &input.net_distributable_estate);
 
+    // spec 14.2 writes "T3 to I2": the T3 institution is detected then annulled, so the code stays T3 and the type becomes IntestateByPreterition. fuzz_invariants.rs INV10 documents the same rule.
+    assert_vector_shape(&output, ScenarioCode::T3, SuccessionType::IntestateByPreterition, 4, "TV-07");
+    check_scenario_consistency(&output, ScenarioCode::T3);
+    assert_total_centavos(find_share(&output, "lc1"), 300000000, "TV-07 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 300000000, "TV-07 lc2");
+    assert_total_centavos(find_share(&output, "lc3"), 300000000, "TV-07 lc3");
+    assert_total_centavos(find_share(&output, "sp"), 300000000, "TV-07 sp");
+
     // All 4 heirs get equal shares = P3M each (I2 rules)
     for id in &["lc1", "lc2", "lc3", "sp"] {
         assert_total_pesos(find_share(&output, id), 3_000_000, id);
@@ -924,6 +1013,17 @@ fn test_tv08_disinheritance_representation() {
     let output = run_pipeline(&input);
 
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    assert_vector_shape(&output, ScenarioCode::T3, SuccessionType::Testate, 7, "TV-08");
+    check_scenario_consistency(&output, ScenarioCode::T3);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "lc1"), 266666667, "TV-08 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 266666667, "TV-08 lc2");
+    assert_total_centavos(find_share(&output, "lc3"), 0, "TV-08 lc3");
+    assert_total_centavos(find_share(&output, "gc1"), 133333333, "TV-08 gc1");
+    assert_total_centavos(find_share(&output, "gc2"), 133333333, "TV-08 gc2");
+    assert_total_centavos(find_share(&output, "sp"), 266666667, "TV-08 sp");
+    assert_total_centavos(find_share(&output, "Friend F"), 533333333, "TV-08 Friend F");
 
     // Karen (disinherited) gets 0
     let karen = find_share(&output, "lc3");
@@ -989,6 +1089,15 @@ fn test_tv09_adopted_equals_legitimate() {
 
     check_sum_invariant(&output, &input.net_distributable_estate);
 
+    assert_vector_shape(&output, ScenarioCode::T3, SuccessionType::Testate, 5, "TV-09");
+    check_scenario_consistency(&output, ScenarioCode::T3);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "lc1"), 250000000, "TV-09 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 250000000, "TV-09 lc2");
+    assert_total_centavos(find_share(&output, "ac1"), 250000000, "TV-09 ac1");
+    assert_total_centavos(find_share(&output, "sp"), 250000000, "TV-09 sp");
+    assert_total_centavos(find_share(&output, "University U"), 500000000, "TV-09 University U");
+
     // Invariant 6: adopted child == legitimate child
     let lc1 = find_share(&output, "lc1");
     let ac1 = find_share(&output, "ac1");
@@ -1036,6 +1145,17 @@ fn test_tv10_representation_per_stirpes() {
 
     assert_eq!(output.succession_type, SuccessionType::Intestate);
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    assert_vector_shape(&output, ScenarioCode::I2, SuccessionType::Intestate, 7, "TV-10");
+    check_scenario_consistency(&output, ScenarioCode::I2);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "lc1"), 500000000, "TV-10 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 0, "TV-10 lc2");
+    assert_total_centavos(find_share(&output, "gc1"), 166666667, "TV-10 gc1");
+    assert_total_centavos(find_share(&output, "gc2"), 166666667, "TV-10 gc2");
+    assert_total_centavos(find_share(&output, "gc3"), 166666666, "TV-10 gc3");
+    assert_total_centavos(find_share(&output, "lc3"), 500000000, "TV-10 lc3");
+    assert_total_centavos(find_share(&output, "sp"), 500000000, "TV-10 sp");
 
     // 3 lines + spouse = 4 shares of P5M each
     assert_total_pesos(find_share(&output, "lc1"), 5_000_000, "Faye");
@@ -1095,6 +1215,15 @@ fn test_tv11_collation_cap_inofficious() {
     let output = run_pipeline(&input);
 
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    assert_vector_shape(&output, ScenarioCode::T5b, SuccessionType::Testate, 5, "TV-11");
+    check_scenario_consistency(&output, ScenarioCode::T5b);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "lc1"), 500000000, "TV-11 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 500000000, "TV-11 lc2");
+    assert_total_centavos(find_share(&output, "sp"), 500000000, "TV-11 sp");
+    assert_total_centavos(find_share(&output, "ic1"), 250000000, "TV-11 ic1");
+    assert_total_centavos(find_share(&output, "Friend G"), 250000000, "TV-11 Friend G");
 
     // Invariant 9: from_estate_sum = net_estate
     let from_estate_sum: BigInt = output
@@ -1162,6 +1291,13 @@ fn test_tv12_inofficious_legacy_spouse_recovery() {
 
     check_sum_invariant(&output, &input.net_distributable_estate);
 
+    assert_vector_shape(&output, ScenarioCode::T2, SuccessionType::Testate, 3, "TV-12");
+    check_scenario_consistency(&output, ScenarioCode::T2);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "lc1"), 500000000, "TV-12 lc1");
+    assert_total_centavos(find_share(&output, "sp"), 250000000, "TV-12 sp");
+    assert_total_centavos(find_share(&output, "Friend H"), 250000000, "TV-12 Friend H");
+
     // LC1 = P5M, Spouse = P2.5M, Friend H reduced from P6M to P2.5M
     assert_total_pesos(find_share(&output, "lc1"), 5_000_000, "Wes");
     assert_total_pesos(find_share(&output, "sp"), 2_500_000, "Xena");
@@ -1212,6 +1348,15 @@ fn test_tv13_cap_rule_triggered() {
 
     check_sum_invariant(&output, &input.net_distributable_estate);
 
+    assert_vector_shape(&output, ScenarioCode::T5a, SuccessionType::Testate, 5, "TV-13");
+    check_scenario_consistency(&output, ScenarioCode::T5a);
+    assert_total_centavos(find_share(&output, "lc1"), 1000000000, "TV-13 lc1");
+    assert_total_centavos(find_share(&output, "sp"), 500000000, "TV-13 sp");
+    assert_total_centavos(find_share(&output, "ic1"), 166666667, "TV-13 ic1");
+    assert_total_centavos(find_share(&output, "ic2"), 166666667, "TV-13 ic2");
+    // spec 14.3 displays P1,666,666.67 for all three ICs, which would sum to P5,000,000.01. The engine emits 166666667 / 166666667 / 166666666, summing to exactly 5000000000 centavos, under the largest-remainder distribution in step10_finalize.rs. Conservation requires it; the spec figure is a rounded display.
+    assert_total_centavos(find_share(&output, "ic3"), 166666666, "TV-13 ic3");
+
     // LC: P10M, Spouse: P5M, each IC: P5M/3 = P1,666,666.67
     assert_total_pesos(find_share(&output, "lc1"), 10_000_000, "Bianca");
     assert_total_pesos(find_share(&output, "sp"), 5_000_000, "Fiona");
@@ -1260,6 +1405,14 @@ fn test_tv14_mixed_succession() {
 
     check_sum_invariant(&output, &input.net_distributable_estate);
 
+    // spec 14.2 writes "MIXED", which is the succession type, not a ScenarioCode. spec 14.4 states "Scenario T3, detected as MIXED".
+    assert_vector_shape(&output, ScenarioCode::T3, SuccessionType::Mixed, 4, "TV-14");
+    check_scenario_consistency(&output, ScenarioCode::T3);
+    assert_total_centavos(find_share(&output, "lc1"), 300000000, "TV-14 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 300000000, "TV-14 lc2");
+    assert_total_centavos(find_share(&output, "sp"), 300000000, "TV-14 sp");
+    assert_total_centavos(find_share(&output, "Charity A"), 100000000, "TV-14 Charity A");
+
     // Belen: P2.5M (legitime) + P500K (intestate) = P3M
     assert_total_pesos(find_share(&output, "lc1"), 3_000_000, "Belen");
     assert_total_pesos(find_share(&output, "lc2"), 3_000_000, "Cesar");
@@ -1297,6 +1450,13 @@ fn test_tv15_collateral_siblings() {
 
     assert_eq!(output.succession_type, SuccessionType::Intestate);
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    // The full-blood to half-blood ratio under Art. 1006 is the recorded question LAWYER-DECISION: LAWYER-03. These amounts are pinned as a characterization of current behaviour, not as an answer to it.
+    assert_vector_shape(&output, ScenarioCode::I13, SuccessionType::Intestate, 3, "TV-15");
+    check_scenario_consistency(&output, ScenarioCode::I13);
+    assert_total_centavos(find_share(&output, "sib1"), 400000000, "TV-15 sib1");
+    assert_total_centavos(find_share(&output, "sib2"), 400000000, "TV-15 sib2");
+    assert_total_centavos(find_share(&output, "sib3"), 200000000, "TV-15 sib3");
 
     // Art. 1006: full=2units, full=2units, half=1unit. Total units=5.
     // Per unit = P10M/5 = P2M
@@ -1346,6 +1506,13 @@ fn test_tv16_articulo_mortis() {
 
     check_sum_invariant(&output, &input.net_distributable_estate);
 
+    // spec 14.2 writes "T12-AM"; -AM is the spec's articulo-mortis annotation and T12 is the enum variant.
+    assert_vector_shape(&output, ScenarioCode::T12, SuccessionType::Testate, 2, "TV-16");
+    check_scenario_consistency(&output, ScenarioCode::T12);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "sp"), 300000000, "TV-16 sp");
+    assert_total_centavos(find_share(&output, "Nephew N"), 600000000, "TV-16 Nephew N");
+
     // Articulo mortis: spouse 1/3 (reduced from 1/2)
     assert_total_pesos(find_share(&output, "sp"), 3_000_000, "Julia");
     // Nephew gets 2/3 FP = P6M
@@ -1381,6 +1548,13 @@ fn test_tv17_ic_only_equal_shares() {
     assert_eq!(output.succession_type, SuccessionType::Intestate);
     check_sum_invariant(&output, &input.net_distributable_estate);
 
+    assert_vector_shape(&output, ScenarioCode::I7, SuccessionType::Intestate, 3, "TV-17");
+    check_scenario_consistency(&output, ScenarioCode::I7);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "ic1"), 200000000, "TV-17 ic1");
+    assert_total_centavos(find_share(&output, "ic2"), 200000000, "TV-17 ic2");
+    assert_total_centavos(find_share(&output, "ic3"), 200000000, "TV-17 ic3");
+
     // Art. 988: ICs share equally = P2M each
     assert_total_pesos(find_share(&output, "ic1"), 2_000_000, "Lara");
     assert_total_pesos(find_share(&output, "ic2"), 2_000_000, "Marco");
@@ -1406,6 +1580,11 @@ fn test_tv18_escheat_to_state() {
 
     assert_eq!(output.succession_type, SuccessionType::Intestate);
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    assert_vector_shape(&output, ScenarioCode::I15, SuccessionType::Intestate, 1, "TV-18");
+    check_scenario_consistency(&output, ScenarioCode::I15);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "STATE"), 500000000, "TV-18 STATE");
 
     // Art. 1011: entire estate to State
     assert_eq!(output.per_heir_shares.len(), 1, "One share (State)");
@@ -1444,6 +1623,15 @@ fn test_tv19_total_renunciation_restart() {
     let output = run_pipeline(&input);
 
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    // spec 14.2 writes "I2 to I5": I2 before the renunciation restart, I5 after. I5 is the final emitted code.
+    assert_vector_shape(&output, ScenarioCode::I5, SuccessionType::Intestate, 4, "TV-19");
+    check_scenario_consistency(&output, ScenarioCode::I5);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "f"), 600000000, "TV-19 f");
+    assert_total_centavos(find_share(&output, "m"), 600000000, "TV-19 m");
+    assert_total_centavos(find_share(&output, "lc1"), 0, "TV-19 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 0, "TV-19 lc2");
 
     // After restart: parents inherit P6M each
     assert_total_pesos(find_share(&output, "f"), 6_000_000, "Santiago");
@@ -1490,6 +1678,12 @@ fn test_tv20_iron_curtain() {
 
     check_sum_invariant(&output, &input.net_distributable_estate);
 
+    // spec 14.2 writes "I-ID", which is not a ScenarioCode variant (types.rs declares T1-T15 and I1-I15 only). I5 is the measured value and is pinned here as a characterization. Art. 992's reach into the collateral line is the recorded question LAWYER-DECISION: LAWYER-04, which blocks LAW-07 in phase 14; when that answer arrives this expected value is the one to revisit.
+    assert_vector_shape(&output, ScenarioCode::I5, SuccessionType::Intestate, 1, "TV-20");
+    check_scenario_consistency(&output, ScenarioCode::I5);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "f"), 800000000, "TV-20 f");
+
     // Victor (parent) gets everything, siblings blocked
     assert_total_pesos(find_share(&output, "f"), 8_000_000, "Victor");
 }
@@ -1527,6 +1721,12 @@ fn test_tv21_fideicommissary() {
 
     check_sum_invariant(&output, &input.net_distributable_estate);
 
+    assert_vector_shape(&output, ScenarioCode::T1, SuccessionType::Mixed, 2, "TV-21");
+    check_scenario_consistency(&output, ScenarioCode::T1);
+    // characterization: locks current behaviour so any change is visible in a diff.
+    assert_total_centavos(find_share(&output, "lc1"), 500000000, "TV-21 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 500000000, "TV-21 lc2");
+
     // Zara: P5M, Adam: P5M (Bella has expectancy only, P0 now)
     assert_total_pesos(find_share(&output, "lc1"), 5_000_000, "Zara");
     assert_total_pesos(find_share(&output, "lc2"), 5_000_000, "Adam");
@@ -1559,6 +1759,13 @@ fn test_tv22_representation_collation() {
     let output = run_pipeline(&input);
 
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    assert_vector_shape(&output, ScenarioCode::I1, SuccessionType::Intestate, 4, "TV-22");
+    check_scenario_consistency(&output, ScenarioCode::I1);
+    assert_total_centavos(find_share(&output, "lc1"), 600000000, "TV-22 lc1");
+    assert_total_centavos(find_share(&output, "lc2"), 300000000, "TV-22 lc2");
+    assert_total_centavos(find_share(&output, "gc1"), 300000000, "TV-22 gc1");
+    assert_total_centavos(find_share(&output, "gc2"), 300000000, "TV-22 gc2");
 
     // Invariant 9: from_estate_sum = P9M (net estate)
     let from_estate_sum: BigInt = output
@@ -1605,6 +1812,11 @@ fn test_tv23_ascendant_only() {
 
     assert_eq!(output.succession_type, SuccessionType::Intestate);
     check_sum_invariant(&output, &input.net_distributable_estate);
+
+    assert_vector_shape(&output, ScenarioCode::I5, SuccessionType::Intestate, 2, "TV-23");
+    check_scenario_consistency(&output, ScenarioCode::I5);
+    assert_total_centavos(find_share(&output, "f"), 400000000, "TV-23 f");
+    assert_total_centavos(find_share(&output, "m"), 400000000, "TV-23 m");
 
     // Arts. 985-987: parents equal shares
     assert_total_pesos(find_share(&output, "f"), 4_000_000, "Ismael");
