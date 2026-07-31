@@ -99,10 +99,10 @@ Most PDF breakage is structural and catchable without a model in the loop.
 
 What makes it "functionally impossible to screw up."
 
-- [ ] **EXT-01**: Exactly one implementation of scenario classification exists — the engine — with the dead copy in `bridge.ts` and the live wrong copy in `ReviewStep.tsx:34-63` deleted
+- [x] **EXT-01**: Exactly one implementation of scenario classification exists — the engine — with the dead copy in `bridge.ts` and the live wrong copy in `ReviewStep.tsx:34-63` deleted
 - [ ] **EXT-02**: No legal rule is implemented in more than one place, enforced by a documented rule and a check
 - [x] **EXT-03**: Money units are type-enforced so pesos cannot be assigned where centavos are expected, at every boundary
-- [ ] **EXT-04**: Dead code that could produce legally meaningless numbers if imported is deleted, including the `computeMock` path
+- [x] **EXT-04**: Dead code that could produce legally meaningless numbers if imported is deleted, including the `computeMock` path
 - [ ] **EXT-05**: `CLAUDE.md` states the invariants an implementing agent must not violate — unit conventions, single-source-of-truth rules, what requires a lawyer
 - [ ] **EXT-06**: Adding a new legal rule has a documented procedure: article, vector, implementation, gate
 - [ ] **EXT-07**: Planning docs and specs contain no stale claims contradicted by the code
