@@ -1,0 +1,25 @@
+{
+  "$comment": "Seeded by frontend/supabase/seed.sql, which supabase db reset applies automatically. These ids are stable and may be referenced literally by tests and gates — that is the point of publishing them here rather than scattering literals through test files. node scripts/check-seed-fixture.mjs fails the build when this file and the SQL disagree, in either direction, so an id can never be changed in one place only. Org Beta exists so a tenant-isolation test has a second tenant to be excluded from: ROADMAP Phase 11 requires proving a user in org A cannot read, write or enumerate org B's cases, PDFs or shared links, and a single-org fixture cannot express that.",
+  "password": "test-password-123",
+  "orgs": {
+    "alpha": {
+      "org_id": "a0000000-0000-4000-8000-000000000001",
+      "org_name": "Test Firm Alpha",
+      "org_slug": "test-firm-alpha",
+      "user_id": "a0000000-0000-4000-8000-000000000002",
+      "user_email": "alpha@example.test",
+      "client_id": "a0000000-0000-4000-8000-000000000003",
+      "case_id": "a0000000-0000-4000-8000-000000000004",
+      "share_token": "a0000000-0000-4000-8000-000000000005"
+    },
+    "beta": {
+      "org_id": "b0000000-0000-4000-8000-000000000001",
+      "org_name": "Test Firm Beta",
+      "org_slug": "test-firm-beta",
+      "user_id": "b0000000-0000-4000-8000-000000000002",
+      "user_email": "beta@example.test",
+      "case_id": "b0000000-0000-4000-8000-000000000004",
+      "share_token": "b0000000-0000-4000-8000-000000000005"
+    }
+  }
+}
