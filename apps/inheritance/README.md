@@ -88,3 +88,20 @@ vars.
 This app lives inside a monorepo that has a concurrent auto-committer running against it. Every
 commit must therefore stage **explicit file paths**. `git add -A`, `git add .`, and `git commit -a`
 are prohibited — a broad stage will absorb unrelated in-flight work that is not yours.
+
+Use the wrapper. It is the shortest path as well as the safe one:
+
+```bash
+bash scripts/safe-commit.sh -m "<message>" <path> ...
+```
+
+`scripts/safe-commit.sh` refuses every broad-stage form (`-A`, `--all`, `-a`, `.`, `:/`, `*`),
+refuses any path outside `apps/inheritance/` other than `.github/workflows/inheritance-ci.yml`,
+refuses to commit on top of a pre-populated index (someone else staged that), and verifies that the
+staged set is exactly what you asked for before it commits — unstaging and aborting if the stage
+reached further.
+
+`node scripts/check-commit-discipline.mjs` audits every commit since project init and fails on any
+commit that touches `apps/inheritance/` together with paths outside it. It filters by path scope,
+never by author: a commit where the auto-committer's stage swallowed our work is precisely the
+commit that must be surfaced, so hiding it behind an author filter would defeat the audit.

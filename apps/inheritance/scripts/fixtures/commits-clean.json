@@ -1,0 +1,24 @@
+[
+  {
+    "sha": "1111111111111111111111111111111111111111",
+    "subject": "build(02): a commit that touches only this app",
+    "files": [
+      "apps/inheritance/scripts/safe-commit.sh",
+      "apps/inheritance/README.md"
+    ]
+  },
+  {
+    "sha": "2222222222222222222222222222222222222222",
+    "subject": "fitness log",
+    "files": [
+      "projects/lessons/pymc-literacy.md"
+    ]
+  },
+  {
+    "sha": "3333333333333333333333333333333333333333",
+    "subject": "ci: adjust the inheritance workflow",
+    "files": [
+      ".github/workflows/inheritance-ci.yml"
+    ]
+  }
+]

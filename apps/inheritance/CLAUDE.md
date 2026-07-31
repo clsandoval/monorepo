@@ -308,6 +308,25 @@ Note the ordering this implies: correctness is not the top-line goal, *low cost 
 No project skills found. Add skills to any of: `.claude/skills/`, `.agents/skills/`, `.cursor/skills/`, `.github/skills/`, or `.codex/skills/` with a `SKILL.md` index file.
 <!-- GSD:skills-end -->
 
+## Loop invariants
+
+Three rules an implementing agent must not violate. Each names the command that enforces it, so none
+of them depends on an agent remembering to be careful.
+
+1. **Commit scope.** Every commit stages explicit paths. `git add -A`, `git add .` and
+   `git commit -a` are prohibited, because a concurrent auto-committer runs on this monorepo and a
+   broad stage absorbs its in-flight work — or lets its next commit absorb yours. Commit with
+   `bash scripts/safe-commit.sh -m "<message>" <path> ...`. Enforced by
+   `node scripts/check-commit-discipline.mjs`, which fails on any commit mixing `apps/inheritance/`
+   with paths outside it.
+2. **Gate immutability.** The gate set in `gates.manifest.json` may only grow. Removing a gate,
+   changing a locked command string, or setting a blocking gate non-blocking requires owner action,
+   never agent action. Enforced by `node scripts/check-gate-manifest.mjs`; see `GATES.md`.
+3. **Halt over guess.** When a gate cannot run, when a plan does not contain a decision the task
+   needs, or when any point of Philippine law arises, stop and report **BLOCKED** with the real,
+   pasted command output. Do not guess, and do not pick whichever reading looks defensible. See
+   `.planning/PLAN-STANDARD.md` for the report format and where a legal question is recorded.
+
 <!-- GSD:workflow-start source:GSD defaults -->
 ## GSD Workflow Enforcement
 
