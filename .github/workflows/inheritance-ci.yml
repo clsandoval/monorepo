@@ -40,6 +40,10 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: wasm32-unknown-unknown
+          # llvm-profdata and llvm-cov, used by gate G12 (scripts/coverage-report.sh).
+          # A rustup component, not a crate: no cargo-llvm-cov, no tarpaulin, and
+          # engine/Cargo.toml and engine/Cargo.lock stay untouched.
+          components: llvm-tools-preview
 
       # wasm-pack resolves the wasm-bindgen version from the committed
       # engine/Cargo.lock, so no version is pinned here.
