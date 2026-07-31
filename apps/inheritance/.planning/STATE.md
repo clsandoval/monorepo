@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: ready_to_execute
-stopped_at: "Phase 5 PLANNED (7 plans, 5 waves). Next step is `/gsd:execute-phase 5`. Previously: Phase 4 PLANNED. `04-RESEARCH.md`, `04-VALIDATION.md` and five `PLAN.md` files written across 5 strictly sequential waves (waves 1 and 2 share `.planning/LAWYER-AGENDA.md`; wave 3 mirrors it into `.planning/lawyer-decisions.json` and marks nine code sites plus one spec site; wave 4 gates the pair as G10; waves 4 and 5 share `README.md`). LAWYER-01..10 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 20 plan file(s), 83 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` plus `verify.plan-structure` report valid with zero errors on each of the five new plans. Planning measurements taken live in this tree: all ten decision-to-code anchor patterns match their file exactly once under `grep -Fc` (two shorter candidates were rejected for matching twice), `.planning/LAWYER-AGENDA.md` does not yet exist while `PLAN-STANDARD.md:180-183` already routes legal questions to it, the Q7 spec hedge sits at exactly `specs/estate-tax-engine-spec.md:1008`, and gate G9 fails with `RESULTS INCOMPLETE` on any gate ordered after it — so G10 takes order 8 and G9 moves to order 10. The phase ends at 10 gates. Next step is `/gsd:execute-phase 4`."
-last_updated: "2026-07-31T12:07:57.685Z"
-last_activity: 2026-07-31 -- Phase 5 planning complete
+status: executing
+stopped_at: "Phase 5 PLANNED. `05-RESEARCH.md`, `05-VALIDATION.md` and seven `PLAN.md` files written across 5 waves (wave 1 = `05-01` engine and `05-02` frontend in parallel with disjoint file sets; waves 2-5 constrained by shared files, since six of the seven plans touch `engine/src/pipeline.rs`, `engine/src/step10_finalize.rs` or `engine/src/wasm.rs`). OBS-01..09 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 27 plan file(s), 102 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` plus `verify.plan-structure` report valid with zero errors on each of the seven new plans. Planning measurements taken live in this tree by building a debug CLI and running all 140 committed inputs: 564 per-heir rows with 0 nonzero sub-components and 0 non-empty `legitime_fraction`, 0 of 140 cases emitting a warning, `computation_log.steps` length 1 in every case, 0 duplicate `heir_id` values and 0 empty distributions with a nonzero estate. The last two are why OBS-05 and OBS-06 can become runtime rejections without turning a green suite red. The phase ends at 11 gates. Next step is `/gsd:execute-phase 5`."
+last_updated: "2026-07-31T12:11:02.472Z"
+last_activity: 2026-07-31 -- Phase 05 execution started
 progress:
   total_phases: 15
   completed_phases: 4
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-27)
 
 **Core value:** A change to this codebase must be cheap and safe to make — a passing gate set genuinely implies a working app, and a wrong legal number can never reach a lawyer silently.
-**Current focus:** Phase 5 — engine observability restored
+**Current focus:** Phase 05 — engine-observability-restored
 
 ## Current Position
 
-Phase: 5
-Plan: Not started
-Status: Ready to execute
-Last activity: 2026-07-31 -- Phase 5 planning complete
+Phase: 05 (engine-observability-restored) — EXECUTING
+Plan: 1 of 7
+Status: Executing Phase 05
+Last activity: 2026-07-31 -- Phase 05 execution started
 
 Progress: [█░░░░░░░░░] 7%
 
@@ -106,7 +106,7 @@ Recent decisions affecting current work:
 - Phase 5: emitting a `ManualFlag` decides nothing — it is the engine saying a human must decide. Every detector is a field comparison transcribed from the spec table, and the five new input members are facts the person entering the case asserts, never conclusions the engine derives. **No point of Philippine law arises in this phase and nothing was added to the lawyer review agenda.**
 - Phase 5: two anti-regression mechanisms rather than one. `engine/tests/observability.rs` (under existing gate G1) catches a behavioral regression across the whole 140-case corpus; new gate `G11` (`node scripts/check-observability.mjs`) catches a source regression — the reappearance of the empty-warnings literal or a re-zeroed sub-component on a path no test happens to cover. Both hardcoded lines survived unnoticed for the codebase's entire life, which is what justifies a grep-level guard alongside a behavioral one.
 - Phase 5: G11 takes `order` 9, pushing G8 to 10 and G9 to 11 — the same constraint Phase 4 discovered, that `scripts/check-gate-results.mjs` fails with `RESULTS INCOMPLETE` on any gate it sees as `not-run`, so G9 must stay last. The phase ends at 11 gates.
-- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** Ready to execute
+- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** Executing Phase 05
 
 ### Pending Todos
 
