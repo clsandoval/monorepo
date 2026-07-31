@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Reproducible Environment & Gate Reporting** - Local Supabase, seed data, storage buckets, machine-readable gate results (completed 2026-07-31)
 - [x] **Phase 4: Lawyer Review Agenda Recorded** - Send the eight interpretive questions out now, while the lawyer is unreachable (completed 2026-07-31)
 - [ ] **Phase 5: Engine Observability Restored** - Turn `warnings` and the legitime/free-portion split back on (7/7 plans executed 2026-07-31; NOT complete — gate G3 is red and OBS-05/OBS-06 are BLOCKED on one product decision, see `.planning/phases/05-engine-observability-restored/05-05-SUMMARY.md`)
-- [ ] **Phase 6: Property-Test Coverage Depth** - Make the generator reach the heir shapes that currently break the engine
+- [x] **Phase 6: Property-Test Coverage Depth** - Make the generator reach the heir shapes that currently break the engine (5/5 plans executed 2026-07-31; COV-01…COV-05 all gate-proven. Gates G12 and G13 added at orders 4 and 5; the full runner passes G5, G6, G7, G12, G13, G1, G2 and then still fails at G3 for Phase 5's unresolved OBS-05/OBS-06 decision, which this phase did not touch)
 - [ ] **Phase 7: Intestate Order & Representation Root-Cause Fixes** - Fix the one line that causes four critical defects
 - [ ] **Phase 8: Remaining Unblocked Legal & Tax-Bridge Defects** - Preterition, medical deduction, vanishing deduction, tax-bridge, reserva troncal
 - [ ] **Phase 9: Single Source of Truth — Dedup Classifiers & Money Types** - Delete the two wrong scenario classifiers and dead mock output before wizard gates exist
@@ -166,6 +166,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Every legal test vector asserts the exact expected scenario code and exact per-heir centavo amounts; none is left asserting a prefix or a range.
   4. A coverage report identifies, per engine module, which branches no test currently exercises.
   5. A CI check fails the build if any test asserts nothing, or asserts only `toBeDefined`/`toBeTruthy` as its sole check.
+**Status**: 5/5 Complete
 **Plans**: 5 plans, 4 waves (wave 1 is two independent artifacts — one corpus, one test file; waves 2–4 are constrained by shared files, since 06-04 and 06-05 both edit the four gate-infrastructure files)
   - **Wave 1** — `06-01` Second generator, thirty green coverage cases, three defect cases, shrink-only defect ledger (COV-01) · `06-03` Every legal vector pinned to an exact scenario code, succession type, row count and per-heir centavos (COV-03)
   - **Wave 2** *(blocked on Wave 1: the invariant suite reads the corpora `06-01` creates)* — `06-02` One cargo test per named invariant, plus the bidirectional defect-ledger test (COV-01, COV-02)

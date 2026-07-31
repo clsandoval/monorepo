@@ -61,11 +61,11 @@ Each item is a defect reproduced by running the engine, documented in `LEGAL-CON
 
 The existing suite's failure is a generator problem, not an assertion-count problem.
 
-- [ ] **COV-01**: The property-test generator produces `NephewNiece` heirs, stranger donees, and donation/estate ratios above 1.0 — the shapes the current 100-case corpus cannot reach
-- [ ] **COV-02**: Each named invariant is individually identified in output, so a violation says which invariant broke
-- [ ] **COV-03**: Every legal test vector asserts the exact expected scenario code and exact per-heir centavo amounts, never a prefix or a range
-- [ ] **COV-04**: A coverage report shows, per engine module, which branches no test exercises
-- [ ] **COV-05**: The test suite fails if any test asserts nothing, or asserts only `toBeDefined`/`toBeTruthy` as its sole check
+- [x] **COV-01**: The property-test generator produces `NephewNiece` heirs, stranger donees, and donation/estate ratios above 1.0 — the shapes the current 100-case corpus cannot reach
+- [x] **COV-02**: Each named invariant is individually identified in output, so a violation says which invariant broke
+- [x] **COV-03**: Every legal test vector asserts the exact expected scenario code and exact per-heir centavo amounts, never a prefix or a range
+- [x] **COV-04**: A coverage report shows, per engine module, which branches no test exercises
+- [x] **COV-05**: The test suite fails if any test asserts nothing, or asserts only `toBeDefined`/`toBeTruthy` as its sole check
 - [ ] **COV-06**: RLS and org isolation are exercised against a real local Supabase: a user in org A cannot read, write, or enumerate org B's cases, PDFs, or shared links
 
 ### Journey Verification
@@ -214,11 +214,11 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | OBS-07 | Phase 5 | Complete |
 | OBS-08 | Phase 5 | Complete |
 | OBS-09 | Phase 5 | Complete |
-| COV-01 | Phase 6 | Planned |
-| COV-02 | Phase 6 | Planned |
-| COV-03 | Phase 6 | Planned |
-| COV-04 | Phase 6 | Planned |
-| COV-05 | Phase 6 | Planned |
+| COV-01 | Phase 6 | Complete |
+| COV-02 | Phase 6 | Complete |
+| COV-03 | Phase 6 | Complete |
+| COV-04 | Phase 6 | Complete |
+| COV-05 | Phase 6 | Complete |
 | LAW-01 | Phase 7 | Pending |
 | LAW-02 | Phase 7 | Pending |
 | LAW-03 | Phase 7 | Pending |
