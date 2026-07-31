@@ -3,6 +3,8 @@
  * Source of truth: ../inheritance-frontend-reverse/analysis/synthesis/types.ts
  */
 
+import type { Centavos } from "./money-units";
+
 // ============================================================================
 // Type Aliases
 // ============================================================================
@@ -235,7 +237,7 @@ export const DISINHERITANCE_CAUSES: readonly DisinheritanceCause[] = [
 // ============================================================================
 
 export interface Money {
-  centavos: number | string;
+  centavos: Centavos | string;
 }
 
 export interface EngineInput {
@@ -493,16 +495,18 @@ export const WARNING_SEVERITY: Record<string, "error" | "warning" | "info"> = {
 // Utility Functions
 // ============================================================================
 
-export function pesosToCentavos(pesos: number): number {
-  return Math.round(pesos * 100);
-}
+// Peso↔centavo conversion has exactly one implementation, in ./money-units.
+// It is re-exported here so every existing `import { pesosToCentavos } from '../../types'`
+// keeps working unchanged.
+export {
+  pesosToCentavos,
+  centavosToPesos,
+  asCentavos,
+  asPesos,
+} from "./money-units";
+export type { Pesos, Centavos } from "./money-units";
 
-export function centavosToPesos(centavos: number | string): number {
-  const c = typeof centavos === "string" ? Number(centavos) : centavos;
-  return c / 100;
-}
-
-export function formatPeso(centavos: number | string): string {
+export function formatPeso(centavos: Centavos | string): string {
   const c = typeof centavos === "string" ? BigInt(centavos) : BigInt(centavos);
   const pesos = c / 100n;
   const cents = c % 100n;
@@ -513,7 +517,7 @@ export function formatPeso(centavos: number | string): string {
   return `₱${pesosStr}.${cents.toString().padStart(2, "0")}`;
 }
 
-export function serializeCentavos(centavos: number | bigint): number | string {
+export function serializeCentavos(centavos: Centavos | bigint): number | string {
   if (typeof centavos === "bigint") {
     return centavos <= BigInt(Number.MAX_SAFE_INTEGER)
       ? Number(centavos)

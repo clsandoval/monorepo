@@ -1,6 +1,6 @@
 import { useState, useCallback, type ChangeEvent } from 'react';
 import { Control, FieldValues, Path, useController } from 'react-hook-form';
-import { pesosToCentavos, centavosToPesos } from '../../types';
+import { pesosToCentavos, centavosToPesos, asPesos } from '../../types';
 import { Input } from '@/components/ui/input';
 
 export interface MoneyInputProps<T extends FieldValues> {
@@ -17,6 +17,10 @@ export interface MoneyInputProps<T extends FieldValues> {
 /**
  * MoneyInput — Accepts peso amounts from user, stores as centavos internally.
  * Displays "₱" prefix, formats on blur.
+ *
+ * That peso-in / centavo-out contract is now a compile-time one: the two units are
+ * the mutually-unassignable `Pesos` and `Centavos` declared in
+ * `frontend/src/types/money-units.ts`.
  */
 export function MoneyInput<T extends FieldValues>({
   name,
@@ -35,6 +39,7 @@ export function MoneyInput<T extends FieldValues>({
   // Display value is what the user sees in the input (in pesos)
   const [displayValue, setDisplayValue] = useState<string>(() => {
     if (field.value == null || field.value === '') return '';
+    // field.value arrives untyped from react-hook-form; Number(...) is the widening point.
     const pesos = centavosToPesos(Number(field.value));
     return formatDisplay(pesos);
   });
@@ -64,7 +69,7 @@ export function MoneyInput<T extends FieldValues>({
       return;
     }
 
-    const centavos = pesosToCentavos(parsed);
+    const centavos = pesosToCentavos(asPesos(parsed));
     field.onChange(centavos as unknown as T[typeof name]);
     setDisplayValue(formatDisplay(parsed));
   }, [displayValue, field]);
@@ -82,7 +87,7 @@ export function MoneyInput<T extends FieldValues>({
       }
       const parsed = parseFloat(raw);
       if (!isNaN(parsed)) {
-        const centavos = pesosToCentavos(parsed);
+        const centavos = pesosToCentavos(asPesos(parsed));
         field.onChange(centavos as unknown as T[typeof name]);
       }
     },
