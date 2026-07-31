@@ -286,3 +286,102 @@ Journey Test Firm
 
 Before the fix this row would have been named after the user's uuid, with the firm name stored as the
 slug. No unit test in this repository covers that.
+
+---
+
+## The wizard journey
+
+Thirteen registered screens across the product's two wizards, added by Phase 12. Every one is reached
+by a search param alone, because a real browser cannot reach into a React tree — it can set a URL, a
+cookie or web storage, and nothing else.
+
+**The succession wizard** — `steps/wizard.json`, requirement JRNY-05, five registered screens.
+`readInitialWizardState()` reads `step` once at mount and `src/routes/cases/$caseId.tsx` declares no
+`validateSearch`, so the router does not strip it.
+
+| step | reached by |
+|---|---|
+| `wizard-estate` | `/cases/<alpha>?step=0` |
+| `wizard-decedent` | `/cases/<alpha>?step=1` |
+| `wizard-family-tree` | `/cases/<alpha>?step=2` |
+| `wizard-donations` | `/cases/<alpha>?step=3` |
+| `wizard-review` | `/cases/<alpha>?step=4` |
+
+`wizard-review` pins the "Predicted:" badge to `I2` with `text_equals` — the code the release binary
+prints for the case `supabase/seed.sql` copies. Before Phase 12's plan 12-01, `ReviewStep.tsx` held a
+second, hand-written classifier that returned `I1` for this exact family shape. The badge is now the
+engine's own `scenario_code`, and this assertion is what keeps a duplicate classifier from ever
+silently returning.
+
+**BLOCKED, not registered: `wizard-will`.** Its rubric file exists but no step names it and no
+reference was approved. `?hasWill=1` makes the will step *visible* but never constructs the `will`
+object that `EstateStep`'s radio handler constructs, and the seeded case has `will: null`, so
+`WillStep.tsx:28` returns an empty `<div data-testid="will-step" />` and `waitForSelector` times out
+on a zero-size element. This is a sharper statement of "Known limitation: the will step" above: the
+step is reachable, but reaching it yields a blank screen. Closing it needs either an application
+change to `readInitialWizardState` or a seeded will, and neither was a decision Phase 12 contained.
+
+**The estate-tax wizard** — `steps/tax.json`, requirement JRNY-06, all eight `TAB_NAMES` tabs,
+`tax-tab-0` … `tax-tab-7`, reached by `/cases/<alpha>/tax?tab=<n>`. No record performs a click or a
+fill; a click-through would not prove the URL seam. Each rubric **pairs** the tab strip with the
+panel: `tab-<n>`'s `aria-selected` must read `true`, that tab's panel root must be the one visible,
+and the next tab's panel root must be absent — so a strip that highlights one tab while rendering
+another is red rather than green.
+
+**No `tax_input_json` is seeded anywhere.** These tabs render the wizard's own
+`createDefaultEstateTaxState()` defaults, which is exactly what a lawyer opening the tax wizard for
+the first time sees. Seeding a filled tax state would have made the screenshots depend on a fixture
+nobody reads rather than on the product's own defaults.
+
+---
+
+## The output journey, and what it does not cover
+
+**The results view and the family tree** — `steps/output.json`, requirement JRNY-07. Both
+`results-view` and `results-family-tree` navigate to `?step=4` and then **click the real Compute
+button**. Neither reads a stored result.
+
+That is not a stylistic choice. `scripts/check-seed-fixture.mjs` rejects a seeded `output_json` with
+the marker `SEED WRITES OUTPUT` — "a seeded engine result is a per-heir peso figure nothing computed"
+— so the only honest way to reach a results view is to make the product compute one. Both steps
+declare the `case-alpha-no-output` reset so each run starts from a wizard-phase case and computes
+fresh.
+
+Both `element_count` expectations were measured rather than reasoned about: four heir rows, from the
+engine's non-zero share count, and four tree nodes, counted on a real captured page.
+
+**The share link** — `steps/share.json`, requirement JRNY-08, three states, all `session: none`
+because the share view is the product's only anonymous surface. `share-populated` and
+`share-uncomputed` drive the **same** token and differ purely by the reset each declares:
+`case-alpha-computed` runs the real engine at run time to give the case an output, and
+`case-alpha-no-output` takes it away again. `share-disabled` drives the Beta token, whose
+`share_enabled` is false.
+
+The DOM half of "exposes only what it should" lives in these rubrics as `no-actions-bar`,
+`content-absent` and `heir-table-absent`. The data half is gate **G20**.
+
+**Three checks that are not rubrics.** `journey/money-parity.mjs` (G19), `journey/share-exposure.mjs`
+(G20) and `journey/seo-smoke.mjs` (G21) are scripts, not step records, because none of them is a
+question about how a screen looks. See `GATES.md` section 14.
+
+### Two honest limitations
+
+1. **The SEO surface has no reference image, by design.** Fourteen public routes are smoke-checked —
+   renders, clean console, no 4xx — and none is layout-frozen. JRNY-11 asks for a smoke check, and
+   fourteen images of long marketing pages would be fourteen re-blessings on every copy edit.
+   A layout regression on a blog post will not be caught here.
+
+2. **The results steps prove the product computes, not that it can restore.** They compute in the
+   browser every run because a seeded `output_json` is forbidden. Nothing in this registry therefore
+   covers *loading* an already-computed case from the database and rendering it — the path a lawyer
+   takes on their second visit. That is uncovered and is not claimed.
+
+### A rule this phase learned the hard way
+
+**A reset must restore every column any step can write, not merely the one its name mentions.**
+`case-alpha-no-output` began by nulling `output_json` alone. It now also restores `decedent_name`,
+`date_of_death` and `status`, and every one of those three was added because a previously-green gate
+turned red — never because someone read the schema. Merely *opening* the wizard makes `useAutoSave`
+write two of them; pressing Compute writes the third. A step that leaves a column dirty makes some
+later step's result depend on registry ordering, which is indistinguishable from a product defect
+until someone spends an hour on it.

@@ -76,7 +76,7 @@ Screenshot plus vision, per step, for the money path. `.planning/codebase/ARCHIT
 - [ ] **JRNY-02**: Signup, email verification, login, logout, and session persistence each produce a screenshot verified against an approved reference and a rubric
 - [ ] **JRNY-03**: Org creation and invite acceptance are verified the same way
 - [x] **JRNY-04**: Case intake, including the `localStorage` draft-recovery path, is verified step by step
-- [x] **JRNY-05**: Every step of the succession wizard is verified step by step
+- [ ] **JRNY-05**: Every step of the succession wizard is verified step by step *(five of six; `wizard-will` BLOCKED — see status table)*
 - [x] **JRNY-06**: Every tab of the estate-tax wizard is verified tab by tab
 - [x] **JRNY-07**: The results view and family-tree visualizer are verified, including that displayed peso figures match engine output exactly
 - [x] **JRNY-08**: The public share-link view is verified, including that it exposes only what it should
@@ -240,11 +240,11 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | JRNY-03 | Phase 11 | PARTIAL (11-02, 11-06) — invite acceptance and refusal gated by G16/G17; **org creation BLOCKED** on two product defects found by driving it (a 406 from `.single()` over an empty result, and a 400/23502 that makes `saveFirmProfile` silently discard the attorney profile) |
 | JRNY-04 | Phase 11 | Complete (11-07) — eight steps gated by G16/G17 |
 | COV-06 | Phase 11 | Complete (11-01, 11-04) — gated by G18, fourteen cases over four surfaces |
-| JRNY-05 | Phase 12 | Planned (12-01, 12-03, 12-09) |
-| JRNY-06 | Phase 12 | Planned (12-04, 12-09) |
-| JRNY-07 | Phase 12 | Planned (12-02, 12-06, 12-08, 12-09) |
-| JRNY-08 | Phase 12 | Planned (12-02, 12-07, 12-09) |
-| JRNY-11 | Phase 12 | Planned (12-05, 12-09) |
+| JRNY-05 | Phase 12 | PARTIAL (12-01, 12-03, 12-09) — five of six succession-wizard screens gated by G16/G17, proved by `node journey/run.mjs --all` (steps `wizard-estate`, `wizard-decedent`, `wizard-family-tree`, `wizard-donations`, `wizard-review`); the review badge is pinned to the engine's `I2`. **`wizard-will` BLOCKED**: `?hasWill=1` never constructs the `will` object, so `WillStep.tsx:28` renders an empty div and `waitForSelector` times out |
+| JRNY-06 | Phase 12 | Complete (12-04, 12-09) — all eight `TAB_NAMES` tabs gated by G16/G17, proved by `node journey/run.mjs --all` (steps `tax-tab-0` … `tax-tab-7`), each rubric pairing the selected tab with the panel it renders |
+| JRNY-07 | Phase 12 | Complete (12-02, 12-06, 12-08, 12-09) — results view and family tree gated by G16/G17, proved by `node journey/run.mjs --all` (steps `results-view`, `results-family-tree`); every displayed peso figure proved equal to a same-run engine computation by G19, `node journey/money-parity.mjs` |
+| JRNY-08 | Phase 12 | Complete (12-02, 12-07, 12-09) — three share states gated by G16/G17, proved by `node journey/run.mjs --all` (steps `share-populated`, `share-uncomputed`, `share-disabled`); the anonymous RPC's exact six-column set proved by G20, `node journey/share-exposure.mjs` |
+| JRNY-11 | Phase 12 | Complete (12-05, 12-09) — fourteen public routes gated by G21, proved by `node journey/seo-smoke.mjs`: each renders a non-empty `h1`, logs no console error, and fetches nothing answering HTTP 400 or above |
 | PDF-01 | Phase 13 | Pending |
 | PDF-02 | Phase 13 | Pending |
 | PDF-03 | Phase 13 | Pending |

@@ -31,18 +31,27 @@ a gate can only stop running by being removed from the manifest, and that is rej
 | G4 | 11 | typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors, with `--force` so a stale `tsconfig.tsbuildinfo` cannot mask them. |
 | G18 | 12 | tenant isolation | `cd frontend && node journey/rls-isolation.mjs` | Against a real local Supabase, a user in org A reads zero of org B's cases, PDFs and share tokens, changes zero of org B's rows, and is refused a cross-tenant insert — each paired with a positive control. Section 13. |
 | G17 | 13 | live journey run | `cd frontend && node journey/run.mjs --all` | Every declared account, organization and case-intake screen is driven in a real headless browser against the built application and a real local Supabase, checked by both a DOM rubric and a zero-tolerance perceptual diff. Section 13. |
-| G10 | 14 | lawyer decision registry | `node scripts/check-lawyer-agenda.mjs` | Every recorded interpretive choice exists in both the agenda and the registry and cannot have its status advanced without a recorded answer. Section 8. |
-| G11 | 15 | engine observability | `node scripts/check-observability.mjs` | The engine still emits warnings, the legitime/free-portion split and a structured boundary error. Section 9. |
-| G8 | 16 | gate skip accounting | `node scripts/check-gate-skips.mjs` | Every gate reports how many of its own assertions it skipped, and every skip is declared in `gate-skips.lock`. Section 5. |
-| G9 | 17 | published gate results | `node scripts/check-gate-results.mjs` | `gate-results.json` describes the current run and covers every manifest gate. Section 6. |
+| G19 | 14 | money parity | `cd frontend && node journey/money-parity.mjs` | Every peso figure the results view displays equals, as an exact integer number of centavos, a distribution the compiled engine computed during the same run — and the row the product stored equals it too. No expected figure is committed anywhere. Section 14. |
+| G20 | 15 | share exposure | `cd frontend && node journey/share-exposure.mjs` | The product's one anonymous data path returns exactly the six columns migration 015 enumerates and none of nine forbidden ones; a disabled share and an unknown token each return zero rows. Section 14. |
+| G21 | 16 | seo smoke | `cd frontend && node journey/seo-smoke.mjs` | All fourteen public landing, blog and marketing routes load in a real browser, each rendering a non-empty `h1`, logging no console error, and fetching nothing answering HTTP 400 or above. Section 14. |
+| G10 | 17 | lawyer decision registry | `node scripts/check-lawyer-agenda.mjs` | Every recorded interpretive choice exists in both the agenda and the registry and cannot have its status advanced without a recorded answer. Section 8. |
+| G11 | 18 | engine observability | `node scripts/check-observability.mjs` | The engine still emits warnings, the legitime/free-portion split and a structured boundary error. Section 9. |
+| G8 | 19 | gate skip accounting | `node scripts/check-gate-skips.mjs` | Every gate reports how many of its own assertions it skipped, and every skip is declared in `gate-skips.lock`. Section 5. |
+| G9 | 20 | published gate results | `node scripts/check-gate-results.mjs` | `gate-results.json` describes the current run and covers every manifest gate. Section 6. |
 
-**The gate set is now seventeen.** Phase 6 added **G12** (engine coverage, section 10) and **G13**
+**The gate set is now twenty.** Phase 6 added **G12** (engine coverage, section 10) and **G13**
 (assertion discipline, section 11) and placed them at `order` **4 and 5, ahead of G1**, shifting
 every gate from G1 down by two. Phase 10 then added **G15** (journey harness self-test, section 12)
 at `order` **6**, shifting every gate from G1 down by one more. Phase 11 added three more
 (section 13): **G16** at `order` **7**, static and ahead of G1 for the same reason; and **G18** and
 **G17** at `order` **12 and 13**, after the typecheck because both need a running local Supabase and
 G17 additionally needs a build and a browser.
+Phase 12 added three more (section 14): **G19** at `order` **14**, **G20** at **15** and **G21** at
+**16**, immediately after G17 so that every gate needing a container, a build or a browser sits in
+one contiguous block, and ahead of the four bookkeeping gates that close a run. **G9 stays last**,
+because `scripts/check-gate-results.mjs` inspects the record of a completed run. **G14 remains
+reserved and unused** for Phase 9's `scripts/check-single-source.mjs`; reserved-but-unregistered is
+still reserved, which is why Phase 10 took G15 and this phase took G19 through G21.
 
 The gates placed **ahead of G1** — G12, G13, G15 and G16 — are all static, engine-only or
 fixture-only checks that do not depend on the frontend suite. The reason for those placements was
@@ -1018,3 +1027,81 @@ This section deliberately does not restate them:
   and the blockers currently keeping specific steps out of the registry.
 - `frontend/journey/REFERENCES.md` — the approval flow and the two legitimate reasons to replace a
   reference.
+
+## 14. The wizard and output gates
+
+Three gates, added by Phase 12, alongside twenty-eight new screens that need no gate of their own.
+
+### What the twenty-eight new screens are covered by
+
+Phase 12 registered five succession-wizard screens, eight estate-tax tabs, the results view, the
+family-tree visualizer and three share-link states — twenty-eight step records in total across
+`steps/wizard.json`, `steps/tax.json`, `steps/output.json` and `steps/share.json`. **None of them
+adds a gate.** `G16` already validates every step record and rubric statically, and `G17` already
+drives every registered step in a real browser and checks it twice. A screen is covered the moment
+its record is committed, which is the property that makes the registry worth having: adding a screen
+is a data change, not a manifest change.
+
+### Gate G19 — money parity
+
+`cd frontend && node journey/money-parity.mjs`, `order: 14`, blocking. Requirement **JRNY-07**.
+
+Resets the seeded case to a wizard state, asks the compiled engine for the distribution, then makes
+the product compute the same case in a real browser and compares **what it displays**. Five
+comparisons, none short-circuiting: each heir's amount, the *set* of heir rows, the total estate
+against both the input and the sum of the rows, the breakdown section against the distribution table,
+and the `output_json` the product persisted against the same engine result.
+
+Every comparison is between two `BigInt` centavo counts. There is no approximate comparison and no
+rounding helper anywhere in the file — a figure that is "close" is a wrong figure — and
+`parsePesoText` is a proven inverse of `formatPeso`, exercised up to `900719925474099` centavos,
+above the largest exactly-representable double.
+
+**It commits no expected peso figure and formats none.** The expected value is computed during the
+run, so this gate cannot drift into asserting a stale number: if the engine's answer changes, the
+gate compares against the new answer and the product is what must agree. That is also why the
+results screens compute in the browser rather than reading a seeded result — see G21's neighbour note
+below and `scripts/check-seed-fixture.mjs`, which rejects a seeded `output_json` outright.
+
+`HEIR ROW SET MISMATCH` is the assertion that makes the check total rather than sampled: without it,
+a results view that dropped an heir entirely would display only correct figures and pass.
+
+### Gate G20 — share exposure
+
+`cd frontend && node journey/share-exposure.mjs`, `order: 15`, blocking. Requirement **JRNY-08**.
+
+`get_shared_case` is the only function an unauthenticated caller may execute, and it is
+`SECURITY DEFINER` precisely so it can bypass RLS for the one row a valid token names. That makes its
+returned column list a security boundary, not an implementation detail. The gate calls it through the
+**anon** key — never service-role, which bypasses everything and would pass against any function at
+all — and checks six things: exactly one row for a valid enabled token, a key set **equal** to the
+expected six, none of nine forbidden names, zero rows for a real token whose sharing is off, zero
+rows for an unknown token, and no PostgREST error.
+
+**The six names are transcribed from `supabase/migrations/015_shared_case_single_signature.sql`.**
+Widening what an anonymous share link exposes is an owner decision, so a red run here means the
+contract moved — not that the check is stale. Editing the array to match a new response is the one
+change that would turn this gate into a mirror of whatever the database happens to return.
+
+The set is compared for equality rather than containment for the same reason: containment would pass
+a widened response silently.
+
+### Gate G21 — seo smoke
+
+`cd frontend && node journey/seo-smoke.mjs`, `order: 16`, blocking. Requirement **JRNY-11**.
+
+Loads all fourteen committed public routes in a real browser against the built application and
+asserts three things per route: an `h1` exists with non-empty text, nothing was logged to
+`console.error`, and no response observed while loading carried an HTTP status of 400 or above.
+Failures are collected per route rather than short-circuited. No route is exempted and no status is
+allow-listed.
+
+`src/router.ts` declares no `notFoundComponent`, so "no 404" cannot mean "no not-found screen
+rendered"; it is implemented as the checkable thing, the network status.
+
+**It freezes no layout, on purpose.** JRNY-11 asks for a smoke check, not for layout verification,
+and fourteen reference images of long marketing pages would be fourteen images to re-bless on every
+copy edit — on the one part of the product where no peso figure appears. Its route list is committed
+data rather than a scan of `src/routes/`, so a route that stops being covered is a visible deletion
+in a diff; the price is that a *new* public route is covered only once someone adds it to
+`frontend/journey/seo-routes.json`, and no check enforces that.

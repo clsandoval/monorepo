@@ -1,5 +1,5 @@
 {
-  "$comment": "OWNER-OWNED FILE. This manifest is the single source of truth for which gates exist and what each one runs. An executing agent may ADD a gate, but may never remove a gate, change a locked command string, rename a gate id, or turn a blocking gate non-blocking. gates.manifest.lock is the freeze record of {id, command, blocking} and scripts/check-gate-manifest.mjs enforces the difference. The gate set may only grow. If a gate will not pass, the correct response is to report BLOCKED with the real command output \u2014 never to edit this file.",
+  "$comment": "OWNER-OWNED FILE. This manifest is the single source of truth for which gates exist and what each one runs. An executing agent may ADD a gate, but may never remove a gate, change a locked command string, rename a gate id, or turn a blocking gate non-blocking. gates.manifest.lock is the freeze record of {id, command, blocking} and scripts/check-gate-manifest.mjs enforces the difference. The gate set may only grow. If a gate will not pass, the correct response is to report BLOCKED with the real command output — never to edit this file.",
   "version": 1,
   "frozen_at": "2026-07-31",
   "gates": [
@@ -61,7 +61,7 @@
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/build-wasm.sh",
       "blocking": true,
-      "proves": "The engine compiles to WebAssembly and lands a real binary in frontend/src/wasm/pkg/. The script verifies existence, a 100 KB size floor, and the 0061736d WebAssembly magic number \u2014 wasm-pack exiting 0 is not accepted as proof on its own.",
+      "proves": "The engine compiles to WebAssembly and lands a real binary in frontend/src/wasm/pkg/. The script verifies existence, a 100 KB size floor, and the 0061736d WebAssembly magic number — wasm-pack exiting 0 is not accepted as proof on its own.",
       "requirements": [
         "GATE-03"
       ]
@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 16,
+      "order": 19,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 17,
+      "order": 20,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -121,7 +121,7 @@
     {
       "id": "G10",
       "name": "lawyer decision registry",
-      "order": 14,
+      "order": 17,
       "command": "node scripts/check-lawyer-agenda.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/lawyer-decisions.json",
@@ -134,7 +134,7 @@
     {
       "id": "G11",
       "name": "engine observability",
-      "order": 15,
+      "order": 18,
       "command": "node scripts/check-observability.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/src/step10_finalize.rs",
@@ -215,7 +215,7 @@
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/supabase/fixtures.json",
       "blocking": true,
-      "proves": "Against a real local Supabase, a user in org A reads zero of org B's cases, PDFs and share tokens, changes zero of org B's rows, and is refused a cross-tenant insert \u2014 each paired with a positive control on the same table so a denial cannot be mistaken for an empty table. See GATES.md section 13.",
+      "proves": "Against a real local Supabase, a user in org A reads zero of org B's cases, PDFs and share tokens, changes zero of org B's rows, and is refused a cross-tenant insert — each paired with a positive control on the same table so a denial cannot be mistaken for an empty table. See GATES.md section 13.",
       "requirements": [
         "COV-06"
       ]
@@ -228,11 +228,50 @@
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
       "blocking": true,
-      "proves": "Every declared account, organization and case-intake screen is driven in a real headless browser against the built application and a real local Supabase, and each is checked twice \u2014 a fixed list of yes/no DOM assertions and a zero-tolerance perceptual diff against an approved reference. See GATES.md section 13.",
+      "proves": "Every declared account, organization and case-intake screen is driven in a real headless browser against the built application and a real local Supabase, and each is checked twice — a fixed list of yes/no DOM assertions and a zero-tolerance perceptual diff against an approved reference. See GATES.md section 13.",
       "requirements": [
         "JRNY-02",
         "JRNY-03",
         "JRNY-04"
+      ]
+    },
+    {
+      "id": "G19",
+      "name": "money parity",
+      "order": 14,
+      "command": "cd frontend && node journey/money-parity.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f frontend/src/wasm/pkg/inheritance_engine_bg.wasm",
+      "blocking": true,
+      "proves": "Every peso figure the results view displays is equal, as an exact integer number of centavos, to a distribution the compiled engine computed during the same run — and the result the product stored in the database equals it too. No expected figure is committed anywhere. See GATES.md section 14.",
+      "requirements": [
+        "JRNY-07"
+      ]
+    },
+    {
+      "id": "G20",
+      "name": "share exposure",
+      "order": 15,
+      "command": "cd frontend && node journey/share-exposure.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f frontend/supabase/fixtures.json",
+      "blocking": true,
+      "proves": "The product's one anonymous data path returns exactly the six columns migration 015 enumerates and none of nine forbidden ones, a disabled share returns zero rows, and an unknown token returns zero rows — all through the anon key. See GATES.md section 14.",
+      "requirements": [
+        "JRNY-08"
+      ]
+    },
+    {
+      "id": "G21",
+      "name": "seo smoke",
+      "order": 16,
+      "command": "cd frontend && node journey/seo-smoke.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f frontend/journey/seo-routes.json",
+      "blocking": true,
+      "proves": "All fourteen public landing, blog and marketing routes load in a real browser, each rendering a non-empty h1, logging no console error, and fetching nothing that answers HTTP 400 or above. See GATES.md section 14.",
+      "requirements": [
+        "JRNY-11"
       ]
     }
   ]

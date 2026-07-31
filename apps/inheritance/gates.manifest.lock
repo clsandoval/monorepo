@@ -86,6 +86,21 @@
       "id": "G17",
       "command": "cd frontend && node journey/run.mjs --all",
       "blocking": true
+    },
+    {
+      "id": "G19",
+      "command": "cd frontend && node journey/money-parity.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G20",
+      "command": "cd frontend && node journey/share-exposure.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G21",
+      "command": "cd frontend && node journey/seo-smoke.mjs",
+      "blocking": true
     }
   ]
 }

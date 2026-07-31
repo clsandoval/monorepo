@@ -32,7 +32,13 @@ on:
 jobs:
   gates:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # Raised 45 -> 60 by phase 12, which added G19, G20 and G21: one more
+    # `npm run build`, one more browser launch and fourteen page loads. The
+    # whole set takes ~4m12s on the owner's machine. UNMEASURED, and recorded
+    # as a risk rather than a claim: no CI run has ever executed for this
+    # project, so whether twenty gates fit inside sixty minutes on a
+    # GitHub-hosted runner is not known from that machine.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
