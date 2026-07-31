@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 1 executed and verified. All four gates green via `bash scripts/ci-gates.sh`. Next step is `/gsd:plan-phase 2`."
-last_updated: "2026-07-31T05:20:00.000Z"
-last_activity: 2026-07-31 -- Phase 1 execution complete (4/4 plans)
+stopped_at: "Phase 2 planned — 02-RESEARCH.md, 02-VALIDATION.md and 6 PLAN.md files across 4 waves. LOOP-01..06 all covered and marked Planned. Next step is `/gsd:execute-phase 2`."
+last_updated: "2026-07-31T06:05:00.000Z"
+last_activity: 2026-07-31 -- Phase 2 planning complete (6 plans, 4 waves)
 progress:
   total_phases: 15
   completed_phases: 1
-  total_plans: 4
+  total_plans: 10
   completed_plans: 4
   percent: 7
 ---
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-27)
 
 **Core value:** A change to this codebase must be cheap and safe to make — a passing gate set genuinely implies a working app, and a wrong legal number can never reach a lawyer silently.
-**Current focus:** Phase 1 complete. Next: Phase 2 — Loop Durability & Commit Discipline
+**Current focus:** Phase 2 planned and ready to execute — Loop Durability & Commit Discipline
 
 ## Current Position
 
-Phase: 1 of 15 (Gate Foundations — Suites Execute At All) — COMPLETE
-Plan: 4 of 4 complete — 01-01 (WASM build), 01-02 (jsdom env), 01-03 (test-baseline gate), 01-04 (CI workflow)
-Status: Phase 1 verified. Ready to plan Phase 2.
-Last activity: 2026-07-31 -- Phase 1 execution complete (4/4 plans)
+Phase: 2 of 15 (Loop Durability & Commit Discipline) — PLANNED
+Plan: 0 of 6 executed — 02-01 (gate manifest), 02-02 (plan lint), 02-03 (commit discipline), 02-04 (halt protocol + manifest-driven runner), 02-05 (coverage), 02-06 (loop status)
+Status: Phase 2 planned and verified against its own lint. Ready to execute.
+Last activity: 2026-07-31 -- Phase 2 planning complete (6 plans, 4 waves)
 
 Progress: [█░░░░░░░░░] 7%
 
@@ -69,10 +69,21 @@ Recent decisions affecting current work:
 - Phase 1: CI enforces a **known-failure ledger**, not a bare `npm test`. The complete unmodified suite runs; the gate fails on any failure not in the ledger, on any ledger entry that starts passing (forcing the ledger to shrink), on any skipped/pending/todo test, and on the total test count dropping below 2416. This is strictly stronger than plain `npm test`, where a `.skip` is silently green. The ledger may only shrink; appending to it to go green is prohibited.
 - Phase 1: all gate logic lives in `apps/inheritance/scripts/ci-gates.sh`, and the GitHub workflow's only project-check step invokes that script. CI behavior is therefore reproducible and debuggable on a developer machine rather than only after a push.
 - Phase 1: no point of Philippine law arises anywhere in this phase — nothing added to the lawyer review agenda.
+- Phase 2: LOOP-03 is enforced by a **growth-only** gate manifest — the exact inverse of Phase 1's shrink-only test ledger. `gates.manifest.lock` freezes `{id, command, blocking}`; `order`, `name`, `proves` and `requirements` are deliberately unlocked, because reordering and prose are not weakening.
+- Phase 2: `scripts/ci-gates.sh` becomes a **manifest interpreter** rather than a hardcoded list. This is what makes the manifest real: a gate can only stop running by being removed from the manifest, which the integrity check rejects.
+- Phase 2: the runner adopts a **three-valued exit contract** — 0 all gates ran and passed, 1 a gate ran and failed, 2 a gate could not run. Conflating the last two is how a month-long loop silently redefines success.
+- Phase 2: coverage is computed by joining two independent sources — the frozen manifest as expectation, the run record as observation — and fails a *passing* run that skipped a blocking gate (`SCOPE NARROWED`). A halted run is exempt, so the halt behavior stays usable.
+- Phase 2: the commit-discipline audit filters by **path scope, not author**. Filtering out the auto-committer would hide the exact commit the audit exists to catch. Measured: zero mixed commits over `bdee3c498..HEAD`, so the audit starts green.
+- Phase 2: the closed-world lint skips fenced code blocks and inline code spans. Measured against the Phase 1 corpus, all 20 candidate hedge phrases score zero hits (`TODO` only matched case-insensitively on `.todo`/`numTodoTests`), so the blacklist is satisfiable with no waiver mechanism — and none is built.
+- Phase 2: the stall rule is fixed, not discovered — three consecutive non-pass runs sharing a failure signature, or five consecutive non-pass runs regardless. `loop-status.mjs check` is deliberately **not** wired into `ci-gates.sh`, because a stall detector that fails the gate run makes the stall self-perpetuating.
+- Phase 2: no notification channel is invented. None is configured in this repo, so the visible signal is a committed `LOOP-STATUS.md` plus the CI check that already fails on any nonzero runner exit. Inventing a channel would be an ungrounded decision.
+- Phase 2: no point of Philippine law arises anywhere in this phase — nothing added to the lawyer review agenda.
 
 ### Pending Todos
 
-None yet.
+- Phase 3 (GATE-08) extends `.gate-runs/latest.json` into the published gate-results format a status page consumes. Phase 2 builds the precursor only.
+- Phase 15 (EXT-05) owns the final `CLAUDE.md` invariants pass. Phase 2 adds only the three loop invariants: commit scope, gate immutability, halt over guess.
+- `.planning/LAWYER-AGENDA.md` is referenced by the BLOCKED protocol but is created and populated by Phase 4. Plan 02-02 documents append-and-create-if-absent without creating the file.
 
 ### Blockers/Concerns
 
@@ -95,6 +106,7 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-07-31
-Stopped at: Phase 1 EXECUTED AND VERIFIED. Four commits: a89d58b6 (WASM build command), 181ae68c (jsdom polyfills, 342 to 46 failures), c79e8714 (known-failure ledger gate), 0edf861b (CI workflow + runner + README). `bash apps/inheritance/scripts/ci-gates.sh` exits 0 with ALL GATES PASSED (4/4) from a WASM-less starting state. GATE-01..04 all Complete. Caveat: the GitHub workflow has never actually executed — 24 commits including this phase's four are unpushed, so criterion 4 is verified structurally (parsed YAML triggers) and behaviorally (the runner it invokes was observed exiting 1 on an injected regression), not by a real CI run. Next step is `/gsd:plan-phase 2`.
+Stopped at: Phase 2 PLANNED. `02-RESEARCH.md`, `02-VALIDATION.md` and six `PLAN.md` files written across 4 waves (wave 1 = 02-01/02-02/02-03 in parallel with disjoint file sets; waves 2, 3, 4 strictly sequential, each editing `scripts/ci-gates.sh` in turn). LOOP-01..06 all covered and marked Planned in REQUIREMENTS.md. The closed-world lint specified in 02-02 was implemented as a throwaway pre-check and run against all ten existing plan files — Phase 1's four unmodified plus Phase 2's six — and passed with zero violations, so plan 02-02's central feasibility claim is measured rather than assumed. Next step is `/gsd:execute-phase 2`.
+Previously stopped at: Phase 1 EXECUTED AND VERIFIED. Four commits: a89d58b6 (WASM build command), 181ae68c (jsdom polyfills, 342 to 46 failures), c79e8714 (known-failure ledger gate), 0edf861b (CI workflow + runner + README). `bash apps/inheritance/scripts/ci-gates.sh` exits 0 with ALL GATES PASSED (4/4) from a WASM-less starting state. GATE-01..04 all Complete. Caveat: the GitHub workflow has never actually executed — 24 commits including this phase's four are unpushed, so criterion 4 is verified structurally (parsed YAML triggers) and behaviorally (the runner it invokes was observed exiting 1 on an injected regression), not by a real CI run. Next step is `/gsd:plan-phase 2`.
 Previously stopped at: Phase 1 planned — 01-RESEARCH.md, 01-VALIDATION.md, and 4 PLAN.md files written across 4 sequential waves. GATE-01..04 all covered and marked Planned in REQUIREMENTS.md. Baseline was measured, not assumed: engine 442/442 green, `tsc -b --force` clean, WASM builds, frontend 342/2416 failing of which 296 are a jsdom polyfill gap. Next step is `/gsd:execute-phase 1`.
 Resume file: None

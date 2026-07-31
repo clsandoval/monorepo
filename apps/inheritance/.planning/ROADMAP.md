@@ -62,7 +62,19 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Progress is measured against the frozen gate manifest, so a narrowed scope becomes visible as reduced coverage rather than false completion.
   5. Every commit made during this project lists explicit files (never `git add -A`), documented as mandatory given the concurrent auto-committer on this monorepo.
   6. A stalled or repeatedly-failing loop produces a visible signal (a status file, a flagged report) without the owner needing to poll for it.
-**Plans**: TBD
+**Plans**: 6 plans, 4 waves (wave 1 is three independent artifacts; waves 2–4 are strictly sequential because each consumes the previous wave's output)
+  - **Wave 1** — `02-01` Frozen, growth-only gate manifest (LOOP-03) · `02-02` Closed-world plan lint and the BLOCKED protocol (LOOP-01, LOOP-02) · `02-03` Safe-commit wrapper and mixed-commit history audit (LOOP-05)
+  - **Wave 2** *(blocked on Wave 1: registers all three wave-1 checks as gates G5–G7)* — `02-04` Manifest-driven runner with a cannot-run halt distinct from a failure (LOOP-02, LOOP-03)
+  - **Wave 3** *(blocked on Wave 2: consumes the per-gate run record the runner emits)* — `02-05` Coverage against the frozen manifest (LOOP-04)
+  - **Wave 4** *(blocked on Waves 2–3: renders a status page from the run record and coverage)* — `02-06` Committed loop status with a fixed stall rule (LOOP-06)
+
+  Cross-cutting constraints (appear in 2+ plans):
+  - Every new check is dependency-free Node ESM or Bash using only `node:` builtins; no package.json is created at the app root and no dependency is installed
+  - No check may rewrite its own input — no `--update`, `--fix`, `--accept`, `--regenerate`, or waiver flag on any artifact in this phase
+  - Every failure path of every check must be observed firing against a committed fixture; a gate nobody has seen fail is not known to be a gate
+  - Every commit stages explicit file paths; `git add -A`, `git add .`, and `git commit -a` are prohibited (concurrent auto-committer on this monorepo)
+  - No gate, test, or assertion may be weakened to pass; a gate that cannot legitimately pass is reported BLOCKED with the real command output
+  - No point of Philippine law arises anywhere in this phase; if one appears, the executor halts rather than deciding it
 
 ### Phase 3: Reproducible Environment & Gate Reporting
 **Goal**: A developer (or agent) can stand up a complete working environment from a clean checkout in one documented pass, and every gate run produces machine-readable, skip-aware results.
@@ -226,7 +238,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Gate Foundations | 4/4 | Complete | 2026-07-31 |
-| 2. Loop Durability & Commit Discipline | 0/TBD | Not started | - |
+| 2. Loop Durability & Commit Discipline | 0/6 | Planned | - |
 | 3. Reproducible Environment & Gate Reporting | 0/TBD | Not started | - |
 | 4. Lawyer Review Agenda Recorded | 0/TBD | Not started | - |
 | 5. Engine Observability Restored | 0/TBD | Not started | - |
