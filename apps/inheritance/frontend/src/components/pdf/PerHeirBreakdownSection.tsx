@@ -4,7 +4,7 @@
  */
 import { View, Text, StyleSheet } from '@react-pdf/renderer';
 import type { InheritanceShare, Person } from '../../types';
-import { formatPeso } from '../../types';
+import { formatPesoPdf } from './pdf-text';
 import { NCC_ARTICLE_DESCRIPTIONS } from '../../data/ncc-articles';
 
 export interface PerHeirBreakdownSectionProps {
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 function formatCentavosIfNonZero(label: string, centavos: number | string): string | null {
   const c = typeof centavos === 'string' ? Number(centavos) : centavos;
   if (c === 0) return null;
-  return `${label}: ${formatPeso(centavos)}`;
+  return `${label}: ${formatPesoPdf(centavos)}`;
 }
 
 export function PerHeirBreakdownSection({ shares }: PerHeirBreakdownSectionProps) {
@@ -70,15 +70,15 @@ export function PerHeirBreakdownSection({ shares }: PerHeirBreakdownSectionProps
         const fromIntestate = formatCentavosIfNonZero('From Intestate', share.from_intestate.centavos);
         if (fromIntestate) lines.push(fromIntestate);
 
-        lines.push(`Gross Entitlement: ${formatPeso(share.gross_entitlement.centavos)}`);
+        lines.push(`Gross Entitlement: ${formatPesoPdf(share.gross_entitlement.centavos)}`);
 
         const donationsImputed = typeof share.donations_imputed.centavos === 'string'
           ? Number(share.donations_imputed.centavos) : share.donations_imputed.centavos;
         if (donationsImputed > 0) {
-          lines.push(`Donations Imputed: -${formatPeso(share.donations_imputed.centavos)}`);
+          lines.push(`Donations Imputed: -${formatPesoPdf(share.donations_imputed.centavos)}`);
         }
 
-        lines.push(`Net From Estate: ${formatPeso(share.net_from_estate.centavos)}`);
+        lines.push(`Net From Estate: ${formatPesoPdf(share.net_from_estate.centavos)}`);
 
         if (share.legitime_fraction && share.legitime_fraction !== '0/1') {
           lines.push(`Legitime Fraction: ${share.legitime_fraction}`);

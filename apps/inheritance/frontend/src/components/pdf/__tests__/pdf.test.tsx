@@ -450,7 +450,23 @@ describe('pdf', () => {
           output={createEngineOutput()}
         />
       );
-      expect(container.textContent).toContain('₱1,000,000');
+      // The PDF's fonts are non-embedded WinAnsi base-14 and cannot represent U+20B1,
+      // so the rendered currency token is 'PHP ' (13-RESEARCH.md section 2).
+      expect(container.textContent).toContain('PHP 1,000,000');
+    });
+
+    // Regression guard for 13-RESEARCH.md section 2: the PDF's three fonts are
+    // non-embedded, WinAnsi-encoded base-14 fonts. U+20B1 is written as the byte
+    // 0xB1, extracts as U+00B1 and overprints the leading digit. Any character the
+    // fonts cannot represent must never reach a PDF section again.
+    it('renders no unrepresentable peso sign anywhere in its output', () => {
+      const { container } = render(
+        <CaseSummarySection
+          input={createEngineInput()}
+          output={createEngineOutput()}
+        />
+      );
+      expect(container.textContent).not.toContain('\u20B1');
     });
   });
 
@@ -522,7 +538,9 @@ describe('pdf', () => {
           shares={[createShare({ net_from_estate: money(1234567) })]}
         />
       );
-      expect(container.textContent).toContain('₱1,234,567');
+      // The PDF's fonts are non-embedded WinAnsi base-14 and cannot represent U+20B1,
+      // so the rendered currency token is 'PHP ' (13-RESEARCH.md section 2).
+      expect(container.textContent).toContain('PHP 1,234,567');
     });
 
     it('renders empty table when no shares', () => {
@@ -539,6 +557,19 @@ describe('pdf', () => {
       for (let i = 1; i <= 10; i++) {
         expect(container.textContent).toContain(`Heir ${i}`);
       }
+    });
+
+    // Regression guard for 13-RESEARCH.md section 2: the PDF's three fonts are
+    // non-embedded, WinAnsi-encoded base-14 fonts. U+20B1 is written as the byte
+    // 0xB1, extracts as U+00B1 and overprints the leading digit. Any character the
+    // fonts cannot represent must never reach a PDF section again.
+    it('renders no unrepresentable peso sign anywhere in its output', () => {
+      const { container } = render(
+        <DistributionTableSection
+          shares={[createShare({ net_from_estate: money(1234567) })]}
+        />
+      );
+      expect(container.textContent).not.toContain('\u20B1');
     });
   });
 
@@ -575,7 +606,9 @@ describe('pdf', () => {
         />
       );
       expect(container.textContent).toContain('From Legitime');
-      expect(container.textContent).toContain('₱300,000');
+      // The PDF's fonts are non-embedded WinAnsi base-14 and cannot represent U+20B1,
+      // so the rendered currency token is 'PHP ' (13-RESEARCH.md section 2).
+      expect(container.textContent).toContain('PHP 300,000');
     });
 
     it('hides from_legitime when zero', () => {
@@ -616,7 +649,9 @@ describe('pdf', () => {
         />
       );
       expect(container.textContent).toContain('Gross Entitlement');
-      expect(container.textContent).toContain('₱500,000');
+      // The PDF's fonts are non-embedded WinAnsi base-14 and cannot represent U+20B1,
+      // so the rendered currency token is 'PHP ' (13-RESEARCH.md section 2).
+      expect(container.textContent).toContain('PHP 500,000');
     });
 
     it('renders net from estate always', () => {
@@ -627,7 +662,9 @@ describe('pdf', () => {
         />
       );
       expect(container.textContent).toContain('Net From Estate');
-      expect(container.textContent).toContain('₱450,000');
+      // The PDF's fonts are non-embedded WinAnsi base-14 and cannot represent U+20B1,
+      // so the rendered currency token is 'PHP ' (13-RESEARCH.md section 2).
+      expect(container.textContent).toContain('PHP 450,000');
     });
 
     it('renders donations imputed with negative sign when > 0', () => {
@@ -638,7 +675,9 @@ describe('pdf', () => {
         />
       );
       expect(container.textContent).toContain('Donations Imputed');
-      expect(container.textContent).toMatch(/-.*₱50,000/);
+      // The PDF's fonts are non-embedded WinAnsi base-14 and cannot represent U+20B1,
+      // so the rendered currency token is 'PHP ' (13-RESEARCH.md section 2).
+      expect(container.textContent).toMatch(/-.*PHP 50,000/);
     });
 
     it('hides donations imputed when zero', () => {
@@ -704,6 +743,28 @@ describe('pdf', () => {
       );
       expect(container.textContent).not.toContain('Legal Basis');
     });
+
+    // Regression guard for 13-RESEARCH.md section 2: the PDF's three fonts are
+    // non-embedded, WinAnsi-encoded base-14 fonts. U+20B1 is written as the byte
+    // 0xB1, extracts as U+00B1 and overprints the leading digit. Any character the
+    // fonts cannot represent must never reach a PDF section again.
+    it('renders no unrepresentable peso sign anywhere in its output', () => {
+      const { container } = render(
+        <PerHeirBreakdownSection
+          shares={[
+            createShare({
+              from_legitime: money(300000),
+              from_free_portion: money(200000),
+              gross_entitlement: money(500000),
+              donations_imputed: money(50000),
+              net_from_estate: money(450000),
+            }),
+          ]}
+          persons={[createPerson()]}
+        />
+      );
+      expect(container.textContent).not.toContain('\u20B1');
+    });
   });
 
   // ===========================================================================
@@ -734,6 +795,22 @@ describe('pdf', () => {
     it('returns null when narratives array is empty', () => {
       const { container } = render(<NarrativesSection narratives={[]} />);
       expect(container.textContent).toBe('');
+    });
+
+    // Regression guard for 13-RESEARCH.md section 2: the PDF's three fonts are
+    // non-embedded, WinAnsi-encoded base-14 fonts. U+20B1 is written as the byte
+    // 0xB1, extracts as U+00B1 and overprints the leading digit. Any character the
+    // fonts cannot represent must never reach a PDF section again.
+    it('converts the engine-written peso sign in narrative text to the PDF token', () => {
+      const narratives = [
+        createNarrative({
+          heir_name: 'Maria Santos',
+          text: 'Maria receives \u20B11,500,000 as her legitime.',
+        }),
+      ];
+      const { container } = render(<NarrativesSection narratives={narratives} />);
+      expect(container.textContent).toContain('PHP 1,500,000');
+      expect(container.textContent).not.toContain('\u20B1');
     });
   });
 

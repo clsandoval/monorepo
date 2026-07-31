@@ -4,7 +4,8 @@
  */
 import { View, Text, StyleSheet } from '@react-pdf/renderer';
 import type { InheritanceShare } from '../../types';
-import { formatPeso, EFFECTIVE_CATEGORY_LABELS } from '../../types';
+import { EFFECTIVE_CATEGORY_LABELS } from '../../types';
+import { formatPesoPdf } from './pdf-text';
 
 export interface DistributionTableSectionProps {
   shares: InheritanceShare[];
@@ -56,7 +57,7 @@ export function DistributionTableSection({ shares }: DistributionTableSectionPro
           </Text>
           <Text style={styles.colMode}>{share.inherits_by}</Text>
           <Text style={styles.colShare}>
-            {formatPeso(share.net_from_estate.centavos)}
+            {formatPesoPdf(share.net_from_estate.centavos)}
           </Text>
         </View>
       ))}

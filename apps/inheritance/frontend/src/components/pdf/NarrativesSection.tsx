@@ -4,6 +4,7 @@
  */
 import { View, Text, StyleSheet } from '@react-pdf/renderer';
 import type { HeirNarrative } from '../../types';
+import { toPdfSafeText } from './pdf-text';
 
 export interface NarrativesSectionProps {
   narratives: HeirNarrative[];
@@ -41,7 +42,7 @@ export function NarrativesSection({ narratives }: NarrativesSectionProps) {
       {narratives.map((n) => (
         <View key={n.heir_id} style={styles.narrative}>
           <Text style={styles.heirName}>{n.heir_name}</Text>
-          <Text style={styles.text}>{n.text}</Text>
+          <Text style={styles.text}>{toPdfSafeText(n.text)}</Text>
         </View>
       ))}
     </View>

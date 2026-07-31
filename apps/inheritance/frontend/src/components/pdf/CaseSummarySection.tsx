@@ -4,7 +4,8 @@
  */
 import { View, Text, StyleSheet } from '@react-pdf/renderer';
 import type { EngineInput, EngineOutput } from '../../types';
-import { formatPeso, SUCCESSION_TYPE_LABELS } from '../../types';
+import { SUCCESSION_TYPE_LABELS } from '../../types';
+import { formatPesoPdf } from './pdf-text';
 
 export interface CaseSummarySectionProps {
   input: EngineInput;
@@ -45,7 +46,7 @@ export function CaseSummarySection({ input, output }: CaseSummarySectionProps) {
         Succession Type: {SUCCESSION_TYPE_LABELS[output.succession_type]}
       </Text>
       <Text style={styles.subtitle}>
-        Net Distributable Estate: {formatPeso(input.net_distributable_estate.centavos)}
+        Net Distributable Estate: {formatPesoPdf(input.net_distributable_estate.centavos)}
       </Text>
     </View>
   );
