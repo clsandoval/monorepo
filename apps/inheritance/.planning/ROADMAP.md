@@ -19,7 +19,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 5: Engine Observability Restored** - Turn `warnings` and the legitime/free-portion split back on (7/7 plans executed 2026-07-31; NOT complete — gate G3 is red and OBS-05/OBS-06 are BLOCKED on one product decision, see `.planning/phases/05-engine-observability-restored/05-05-SUMMARY.md`)
 - [x] **Phase 6: Property-Test Coverage Depth** - Make the generator reach the heir shapes that currently break the engine (5/5 plans executed 2026-07-31; COV-01…COV-05 all gate-proven. Gates G12 and G13 added at orders 4 and 5; the full runner passes G5, G6, G7, G12, G13, G1, G2 and then still fails at G3 for Phase 5's unresolved OBS-05/OBS-06 decision, which this phase did not touch)
 - [x] **Phase 7: Intestate Order & Representation Root-Cause Fixes** - Fix the one line that causes four critical defects (4/4 plans executed 2026-07-31; LAW-01…LAW-04 all closed by named vectors `test_law01`…`test_law04` in `engine/tests/integration.rs`. `cargo test` 527 passed / 0 failed. Twelve of thirteen gates pass — G5, G6, G7, G12, G13, G1, G2 in the runner, plus G4, G8, G9, G10, G11 run directly past the halt. The runner still stops at G3 (gate 8/13) on the same five OBS-05/OBS-06 tests Phases 5 and 6 recorded, byte-identical; the frontend failure set did not grow. `engine/defect-baseline.json` shrank from 3 entries to 2)
-- [ ] **Phase 8: Remaining Unblocked Legal & Tax-Bridge Defects** - Preterition, medical deduction, vanishing deduction, tax-bridge, reserva troncal
+- [ ] **Phase 8: Remaining Unblocked Legal & Tax-Bridge Defects** - Preterition, medical deduction, vanishing deduction, tax-bridge, reserva troncal (8 plans across 5 waves, planned 2026-07-31)
 - [ ] **Phase 9: Single Source of Truth — Dedup Classifiers & Money Types** - Delete the two wrong scenario classifiers and dead mock output before wizard gates exist
 - [ ] **Phase 10: Journey Gate Infrastructure — Seeding, Rubric, Artifacts** - Build the seams every per-step screenshot gate depends on
 - [ ] **Phase 11: Account, Org & Case Journey Gates** - Signup, login, org, invites, case intake, RLS isolation
@@ -217,7 +217,21 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. The vanishing-deduction reduction ratio includes Transfers for Public Use in both the TRAIN and pre-TRAIN branches.
   4. `tax-bridge.ts` passes the correct distributable estate — not net taxable estate minus tax — into the succession engine, verified against the ₱30M worked example in `LEGAL-CONFORMANCE.md` §6.
   5. A reserva troncal fact pattern produces a loud flag or an explicit "unsupported" refusal, never a silent, unencumbered distribution.
-**Plans**: TBD
+**Plans**: 8 plans, 5 waves (each wave pairs one engine plan with one tax-engine plan whose file sets are disjoint; the pairs serialize because 08-01 and 08-03 share `step6_validation.rs`, 08-02 and 08-04 share `specs/estate-tax-engine-spec.md`, 08-05 and 08-07 share `engine/tests/integration.rs`, and 08-06 consumes the corrected tax numbers)
+  - **Wave 1** — `08-01` A collated donation *inter vivos* defeats preterition; the Art. 1062 exempted case is flagged and recorded as `LAWYER-09` (LAW-05) · `08-02` The TRAIN-repealed medical deduction is no longer granted, recommended or certified by spec TV-02 (LAW-08)
+  - **Wave 2** *(blocked on Wave 1: `08-03` edits the same `step6_validation.rs`, `08-04` edits the same spec file)* — `08-03` Preterition preserves non-inofficious legacies and flags the dispositions the engine cannot value (LAW-05) · `08-04` Transfers for public use enter the vanishing-deduction ratio in both regimes (LAW-09)
+  - **Wave 3** *(blocked on Wave 2: `08-05` asserts the behaviour `08-03` produces, `08-06` consumes the deduction figures `08-04` corrects)* — `08-05` Four named LAW-05 regression vectors plus a corpus re-measurement (LAW-05) · `08-06` The bridge hands the succession engine the Art. 908 distributable estate, not net taxable estate minus tax (LAW-10)
+  - **Wave 4** *(blocked on Wave 3: shares `engine/tests/integration.rs` with `08-05`)* — `08-07` Reserva troncal is enterable, flagged, and expressly declared uncomputed (LAW-11)
+  - **Wave 5** *(blocked on Waves 3-4: rebuilds the WASM from every engine change and measures the frontend against it)* — `08-08` WASM rebuild, frontend ledger comparison, full gate run, requirement closeout (LAW-05, LAW-08, LAW-09, LAW-10, LAW-11)
+
+  Cross-cutting constraints (appear in 2+ plans):
+  - Every commit stages explicit file paths via `bash scripts/safe-commit.sh`; `git add -A`, `git add .`, and `git commit -a` are prohibited (concurrent auto-committer on this monorepo)
+  - No test, assertion or gate may be deleted, skipped, weakened or loosened; a gate that cannot legitimately pass is reported BLOCKED with the real pasted command output. Where a committed test asserts a repealed rule (the six medical-deduction expectations), the expectation is **corrected to the statute** and the file gains tests rather than losing them
+  - `cd engine && cargo test` must report 0 failed at the end of every task, rising from the measured 527 baseline to at least 543
+  - `cd frontend && npx tsc -b --force`, never bare `tsc -b` — the committed `tsconfig.tsbuildinfo` can otherwise mask errors
+  - `frontend/test-baseline.json`, `gate-skips.lock`, `engine/defect-baseline.json` and `assertion-baseline.json` may only shrink and are edited by no plan; a newly failing frontend test is a BLOCKED condition, never a reason to append a ledger entry
+  - No gate is added, removed, reordered or given a new command. `bash scripts/ci-gates.sh` still halts at `G3` for Phase 5's unresolved OBS-05/OBS-06 decision, so `ALL GATES PASSED (13/13)` is not achievable in this phase and must not be claimed
+  - Exactly one point of Philippine law arises and it is *recorded, never decided*: whether a donation the Code exempts from collation (Arts. 1062, 1066-1068, 1070) nevertheless defeats preterition under *Morales*' total-omission test. Plan 08-01 ships it as `LAWYER-09` with `**Status:** awaiting-answer`, adds it to `REQUIRED_IDS` in `scripts/check-lawyer-agenda.mjs`, and makes the engine emit a `preterition_exempt_donation` flag on exactly that shape. `grep -c "\[x\]" .planning/LAWYER-AGENDA.md` returning 0 is an acceptance criterion in three plans
 
 ### Phase 9: Single Source of Truth — Dedup Classifiers & Money Types
 **Goal**: Exactly one implementation of scenario classification and exactly one money representation survive, closing off the failure mode where a screenshot gate could faithfully certify a wrong "Predicted:" badge.
@@ -316,7 +330,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 5. Engine Observability Restored | 7/7 | Blocked    | 2026-07-31 |
 | 6. Property-Test Coverage Depth | 0/5 | Planned | - |
 | 7. Intestate Order & Representation Root-Cause Fixes | 0/4 | Planned | - |
-| 8. Remaining Unblocked Legal & Tax-Bridge Defects | 0/TBD | Not started | - |
+| 8. Remaining Unblocked Legal & Tax-Bridge Defects | 0/8 | Planned | - |
 | 9. Single Source of Truth — Dedup Classifiers & Money Types | 0/TBD | Not started | - |
 | 10. Journey Gate Infrastructure | 0/TBD | Not started | - |
 | 11. Account, Org & Case Journey Gates | 0/TBD | Not started | - |

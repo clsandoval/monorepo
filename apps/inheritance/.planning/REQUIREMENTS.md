@@ -223,11 +223,11 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | LAW-02 | Phase 7 | Complete |
 | LAW-03 | Phase 7 | Complete |
 | LAW-04 | Phase 7 | Complete |
-| LAW-05 | Phase 8 | Pending |
-| LAW-08 | Phase 8 | Pending |
-| LAW-09 | Phase 8 | Pending |
-| LAW-10 | Phase 8 | Pending |
-| LAW-11 | Phase 8 | Pending |
+| LAW-05 | Phase 8 | Planned |
+| LAW-08 | Phase 8 | Planned |
+| LAW-09 | Phase 8 | Planned |
+| LAW-10 | Phase 8 | Planned |
+| LAW-11 | Phase 8 | Planned |
 | EXT-01 | Phase 9 | Pending |
 | EXT-02 | Phase 9 | Pending |
 | EXT-03 | Phase 9 | Pending |
