@@ -334,7 +334,37 @@ Cross-cutting constraints:
   3. The results view and family-tree visualizer are verified, including a deterministic assertion that every displayed peso figure matches engine output exactly.
   4. The public share-link view is verified, including an assertion that it exposes only the fields it should.
   5. Landing, blog, and SEO routes have a smoke gate checking render success, absence of console errors, and absence of 404s.
-**Plans**: TBD
+**Plans**: 9 plans in 4 waves.
+
+**Wave 1** *(no dependencies; three disjoint file sets)*
+  - `12-01` — back the succession wizard's "Predicted:" badge with the real engine, deleting the live duplicate classifier in `ReviewStep.tsx`, and strengthen its three tests to exact engine-measured codes [EXT-01, EXT-04]
+  - `12-02` — widen the journey registry's two frozen requirement lists, add `journey/engine.mjs` as the single harness-side engine loader, and add the `case-alpha-no-output` and `case-alpha-computed` resets [JRNY-05, JRNY-06, JRNY-07, JRNY-08]
+  - `12-05` — the SEO smoke: fourteen committed public routes, each asserted to render an `h1`, log no console error, and fetch nothing answering HTTP 400 or above [JRNY-11]
+
+**Wave 2** *(blocked on Wave 1 completion)*
+  - `12-03` — six succession-wizard screens, each reached by `?step=` alone; the review rubric pins the badge to `I2` [JRNY-05]
+  - `12-04` — eight estate-tax tabs, each reached by `?tab=` alone; each rubric pairs the selected tab button with the panel it renders [JRNY-06]
+  - `12-06` — the results view and the family-tree visualizer, reached by clicking the real compute button, plus seven per-heir `data-testid` hooks [JRNY-07]
+  - `12-07` — three share-link states plus `journey/share-exposure.mjs`, asserting the anonymous RPC's exact six-column set and nine forbidden names [JRNY-08]
+
+**Wave 3** *(blocked on Wave 2 completion)*
+  - `12-08` — `journey/money-parity.mjs`: every displayed peso figure compared as an exact centavo integer against an engine computation performed during the same run [JRNY-07]
+
+**Wave 4** *(blocked on Wave 3 completion)*
+  - `12-09` — register **G19** money parity (order 14), **G20** share exposure (order 15) and **G21** SEO smoke (order 16); `GATES.md` section 14; the `JOURNEY.md` wizard and output sections; raise the CI timeout to 60 minutes [JRNY-05, JRNY-06, JRNY-07, JRNY-08, JRNY-11]
+
+Cross-cutting constraints (appear in 2+ plans):
+  - A reference is approved only after that step's rubric has already passed; `maxDiffPixels` stays `0` on every sidecar and `node journey/approve.mjs <stepId>` remains the only writer into `journey/references/`
+  - No rubric assertion carries a peso figure. Every money claim in the phase is made by G19 against a live recomputation, never by a committed expected figure
+  - `frontend/supabase/seed.sql` and `frontend/supabase/fixtures.json` are not edited anywhere in the phase. `scripts/check-seed-fixture.mjs` rejects a seeded engine result with `SEED WRITES OUTPUT`, so the results view is reached by the product computing in the browser
+  - Every commit stages explicit file paths via `bash scripts/safe-commit.sh`; `git add -A`, `git add .` and `git commit -a` are prohibited
+  - No test, assertion, rubric or gate may be weakened to pass; `allowConsoleErrors` is `false` on all twenty-eight new steps and a gate that cannot legitimately pass is reported BLOCKED with the real command output
+  - The five shrink-only ledgers (`frontend/test-baseline.json`, `gate-skips.lock`, `engine/defect-baseline.json`, `assertion-baseline.json`, `coverage-zero.lock`) are read-only; a newly failing test is a BLOCKED condition, never a ledger append
+  - Every new gate prints `GATE-SKIPS total=<n> skipped=<n>` on both its pass and its fail path and uses the three-valued exit contract 0/1/2
+  - `G14` stays reserved and unused for Phase 9's `09-06`; the new ids are G19, G20 and G21, `G9` stays last, and `bash scripts/ci-gates.sh` must print `ALL GATES PASSED (20/20)`
+  - The four Phase 11 steps withheld as BLOCKED (`auth-signed-out` and the three onboarding screens) stay withheld — they belong to JRNY-02 and JRNY-03
+  - No point of Philippine law arises anywhere in this phase; the one legal value asserted, the scenario code `I2`, is read out of the engine's own output by running a command
+  - **Unmeasured:** this project's CI has still never executed, so whether twenty gates fit inside the raised 60-minute timeout on a GitHub-hosted runner is a recorded risk, not a claim
 **UI hint**: yes
 
 ### Phase 13: PDF Verification
@@ -391,7 +421,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 9. Single Source of Truth — Dedup Classifiers & Money Types | 0/TBD | Not started | - |
 | 10. Journey Gate Infrastructure | 0/TBD | Not started | - |
 | 11. Account, Org & Case Journey Gates | 0/8 | Planned | - |
-| 12. Wizard & Output Journey Gates | 0/TBD | Not started | - |
+| 12. Wizard & Output Journey Gates | 0/9 | Planned | - |
 | 13. PDF Verification | 0/TBD | Not started | - |
 | 14. Lawyer-Blocked Legal Fixes & Legal Traceability | 0/TBD | Not started | - |
 | 15. Extendability & Documentation Closeout | 0/TBD | Not started | - |

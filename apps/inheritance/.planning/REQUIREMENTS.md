@@ -228,10 +228,10 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | LAW-09 | Phase 8 | Complete |
 | LAW-10 | Phase 8 | Complete |
 | LAW-11 | Phase 8 | Complete |
-| EXT-01 | Phase 9 | Blocked (09-01 plan defect; see 09-01-SUMMARY.md) |
+| EXT-01 | Phase 9 | Blocked (09-01 plan defect; see 09-01-SUMMARY.md). Its LIVE half is re-planned as Phase 12 plan 12-01, which backs the ReviewStep badge with the existing `compute()` bridge — no `classify_json` and no `succession_type` claim, so neither Phase 9 blocker applies |
 | EXT-02 | Phase 9 | Partial (one duplicate converter deleted by 09-05; registry gate G14 blocked on 09-04) |
 | EXT-03 | Phase 9 | Complete (09-03, 09-05) |
-| EXT-04 | Phase 9 | Blocked (09-02 exposed an engine defect out of plan scope; 09-04 blocked on 09-01) |
+| EXT-04 | Phase 9 | Blocked (09-02 exposed an engine defect out of plan scope; 09-04 blocked on 09-01). Phase 12 plan 12-01 removes the live `ReviewStep.predictScenario`; the dead `bridge.ts` copies stay Phase 9's |
 | JRNY-01 | Phase 10 | Planned (10-05) |
 | JRNY-09 | Phase 10 | Planned (10-02) |
 | JRNY-10 | Phase 10 | Planned (10-03) |
@@ -240,11 +240,11 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | JRNY-03 | Phase 11 | PARTIAL (11-02, 11-06) — invite acceptance and refusal gated by G16/G17; **org creation BLOCKED** on two product defects found by driving it (a 406 from `.single()` over an empty result, and a 400/23502 that makes `saveFirmProfile` silently discard the attorney profile) |
 | JRNY-04 | Phase 11 | Complete (11-07) — eight steps gated by G16/G17 |
 | COV-06 | Phase 11 | Complete (11-01, 11-04) — gated by G18, fourteen cases over four surfaces |
-| JRNY-05 | Phase 12 | Pending |
-| JRNY-06 | Phase 12 | Pending |
-| JRNY-07 | Phase 12 | Pending |
-| JRNY-08 | Phase 12 | Pending |
-| JRNY-11 | Phase 12 | Pending |
+| JRNY-05 | Phase 12 | Planned (12-01, 12-03, 12-09) |
+| JRNY-06 | Phase 12 | Planned (12-04, 12-09) |
+| JRNY-07 | Phase 12 | Planned (12-02, 12-06, 12-08, 12-09) |
+| JRNY-08 | Phase 12 | Planned (12-02, 12-07, 12-09) |
+| JRNY-11 | Phase 12 | Planned (12-05, 12-09) |
 | PDF-01 | Phase 13 | Pending |
 | PDF-02 | Phase 13 | Pending |
 | PDF-03 | Phase 13 | Pending |
