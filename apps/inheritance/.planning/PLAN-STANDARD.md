@@ -177,10 +177,19 @@ from an environment failure without re-running anything.
 
 ### Where a legal question goes
 
-A point of law is appended to `.planning/LAWYER-AGENDA.md`. If that file does not exist, create it
-with the single heading line `# Lawyer Review Agenda` and append below it. Phase 4 owns that file's
-full structure — an append made here is a placeholder that the Phase 4 pass absorbs, so match its
-format if it already exists and do not restructure it.
+A point of law is appended to `.planning/LAWYER-AGENDA.md`. That file exists and has a fixed
+structure: eight recorded decisions, each carrying the same headings, described in the agenda's own
+`## Entry format` section. Do not restructure it.
+
+An appended question uses that same eight-heading structure and takes the next free `LAWYER-<NN>`
+id, and a matching object is added to `.planning/lawyer-decisions.json` using the fourteen-key schema
+the existing entries follow.
+
+Gate **G10**, `node scripts/check-lawyer-agenda.mjs`, fails the build when the two files disagree —
+so appending to one without the other is caught rather than silently accepted.
+
+The full procedure, including how an answer later becomes a named test vector and a fix, is
+`.planning/LEGAL-CORRECTION-WORKFLOW.md`.
 
 ### The prohibition
 
