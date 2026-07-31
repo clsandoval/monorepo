@@ -45,13 +45,13 @@ Each item is a defect reproduced by running the engine, documented in `LEGAL-CON
 - [x] **LAW-02**: Collateral succession through predeceased siblings produces no duplicate heirs and conserves the estate (Arts. 972 ¶2, 974–975, 1005–1008)
 - [x] **LAW-03**: Total repudiation by the nearest degree passes the estate to the next degree in their own right, not to the State (Art. 969)
 - [x] **LAW-04**: Representation never operates in the ascending line (Art. 972 ¶1)
-- [ ] **LAW-05**: Preterition preserves devises and legacies insofar as they are not inofficious, and does not fire on an heir who received advances on their legitime (Art. 854, *Morales v. Olondriz*)
+- [x] **LAW-05**: Preterition preserves devises and legacies insofar as they are not inofficious, and does not fire on an heir who received advances on their legitime (Art. 854, *Morales v. Olondriz*)
 - [ ] **LAW-06**: A donation *inter vivos* never causes distributed shares to exceed the estate; an heir's excess entitlement is modelled as a reduction claim against a named donee (Arts. 771, 911)
 - [ ] **LAW-07**: Art. 992's iron curtain is implemented for the collateral line, per the answer to LAWYER-04
-- [ ] **LAW-08**: The TRAIN-repealed ₱500,000 medical-expense deduction is not granted for deaths on or after 2018-01-01, and the spec's golden test TV-02 is corrected
-- [ ] **LAW-09**: The vanishing-deduction reduction ratio includes Transfers for Public Use in both the TRAIN and pre-TRAIN branches (NIRC Sec. 86(A)(5), RR 12-2018 Sec. 6(5))
-- [ ] **LAW-10**: `tax-bridge.ts` passes the correct distributable estate to the succession engine, not net taxable estate minus tax
-- [ ] **LAW-11**: Reserva troncal (Art. 891) either fails loudly with a flag or is expressly declared unsupported — never silently omitted while the spec advertises a flag for it
+- [x] **LAW-08**: The TRAIN-repealed ₱500,000 medical-expense deduction is not granted for deaths on or after 2018-01-01, and the spec's golden test TV-02 is corrected
+- [x] **LAW-09**: The vanishing-deduction reduction ratio includes Transfers for Public Use in both the TRAIN and pre-TRAIN branches (NIRC Sec. 86(A)(5), RR 12-2018 Sec. 6(5))
+- [x] **LAW-10**: `tax-bridge.ts` passes the correct distributable estate to the succession engine, not net taxable estate minus tax
+- [x] **LAW-11**: Reserva troncal (Art. 891) either fails loudly with a flag or is expressly declared unsupported — never silently omitted while the spec advertises a flag for it
 - [ ] **LAW-12**: The RA 11642 adoption regime is either implemented or made to refuse computation, replacing the currently inert `retroactive_ra_11642` flag and the repealed RA 8552 citations
 - [ ] **LAW-13**: The spec's four misstatements of law are corrected (Art. 992 pre-*Aquino* framing, Art. 900 ¶2 three-month trigger, Art. 972 ¶1 omission, vanishing-deduction paragraph list)
 - [ ] **LAW-14**: Every legal rule the engine implements is traceable to exactly one named test vector citing its article number
@@ -223,11 +223,11 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | LAW-02 | Phase 7 | Complete |
 | LAW-03 | Phase 7 | Complete |
 | LAW-04 | Phase 7 | Complete |
-| LAW-05 | Phase 8 | Planned |
-| LAW-08 | Phase 8 | Planned |
-| LAW-09 | Phase 8 | Planned |
-| LAW-10 | Phase 8 | Planned |
-| LAW-11 | Phase 8 | Planned |
+| LAW-05 | Phase 8 | Complete |
+| LAW-08 | Phase 8 | Complete |
+| LAW-09 | Phase 8 | Complete |
+| LAW-10 | Phase 8 | Complete |
+| LAW-11 | Phase 8 | Complete |
 | EXT-01 | Phase 9 | Pending |
 | EXT-02 | Phase 9 | Pending |
 | EXT-03 | Phase 9 | Pending |
@@ -277,4 +277,4 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 
 ---
 *Requirements defined: 2026-07-27*
-*Last updated: 2026-07-31 after Phase 7 execution and verification (LAW-01..04 Complete; the single `degree_from_decedent == 1` anchor filter is replaced by per-category anchoring and four named regression vectors)*
+*Last updated: 2026-07-31 after Phase 8 execution and verification (LAW-05, LAW-08, LAW-09, LAW-10, LAW-11 Complete; preterition preserves non-inofficious legacies and yields to a collated donation, the TRAIN-repealed medical deduction is gone, transfers for public use enter the vanishing-deduction ratio, the tax bridge hands over the Art. 908 base, and reserva troncal is enterable and flagged)*
