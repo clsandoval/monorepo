@@ -10,7 +10,7 @@ use std::fs;
 use std::io::{self, Read};
 use std::process;
 
-use inheritance_engine::pipeline::run_pipeline;
+use inheritance_engine::pipeline::run_pipeline_checked;
 use inheritance_engine::types::EngineInput;
 
 fn main() {
@@ -36,7 +36,17 @@ fn main() {
         process::exit(1);
     });
 
-    let output = run_pipeline(&input);
+    // Exit codes: 0 success, 1 read/parse/write failure, 2 the computed output
+    // failed the runtime conservation / uniqueness check.
+    let output = match run_pipeline_checked(&input) {
+        Ok(output) => output,
+        Err(defects) => {
+            for defect in &defects {
+                eprintln!("engine output check failed: {defect}");
+            }
+            process::exit(2);
+        }
+    };
 
     serde_json::to_writer_pretty(io::stdout(), &output).unwrap_or_else(|e| {
         eprintln!("Error writing output JSON: {e}");

@@ -5,6 +5,7 @@
 
 use crate::flags::detect_spec_flags;
 use crate::fraction::money_to_frac;
+use crate::output_check::{check_output, OutputDefect};
 use crate::step1_classify::{step1_classify, Step1Input};
 use crate::step2_lines::{step2_build_lines, Step2Input};
 use crate::step3_scenario::{step3_determine_scenario, Step3Input};
@@ -16,6 +17,24 @@ use crate::step8_collation::{step8_collation_adjustment, Step8Input};
 use crate::step9_vacancy::{step9_resolve_vacancies, Step9Input, Step9Output};
 use crate::step10_finalize::{step10_finalize, NarrativeConfig, Step10Input};
 use crate::types::*;
+
+/// Run the full pipeline and reject a corrupt result.
+///
+/// **This is the entry point every production caller uses** — `wasm.rs`'s
+/// `compute_json` and the `main.rs` CLI both go through it. It runs
+/// [`run_pipeline`] and then [`check_output`], returning the distribution only if
+/// it conserves the estate and carries no duplicate `heir_id`.
+///
+/// [`run_pipeline`] remains available unchecked, deliberately: the fuzz harness in
+/// `engine/tests/fuzz_invariants.rs` runs the pipeline over adversarial input
+/// inside `catch_unwind` and needs the raw, infallible form.
+pub fn run_pipeline_checked(input: &EngineInput) -> Result<EngineOutput, Vec<OutputDefect>> {
+    let output = run_pipeline(input);
+    match check_output(&output, &input.net_distributable_estate) {
+        Ok(()) => Ok(output),
+        Err(defects) => Err(defects),
+    }
+}
 
 /// Run the full pipeline (Steps 1-10) on an EngineInput, returning EngineOutput.
 pub fn run_pipeline(input: &EngineInput) -> EngineOutput {
@@ -401,4 +420,62 @@ fn run_pipeline_with_restart(
         warnings: pipeline_warnings,
         step_logs,
     })
+}
+
+// ── Tests ───────────────────────────────────────────────────────────
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// The checked entry point accepts a real, well-formed case. The Err half is
+    /// covered by `output_check`'s five tests, which drive the check with a
+    /// hand-corrupted output — the only way to observe the failure without
+    /// breaking the engine to see it.
+    #[test]
+    fn test_run_pipeline_checked_returns_ok_on_a_real_case() {
+        let input = EngineInput {
+            net_distributable_estate: Money::from_pesos(5_000_000),
+            decedent: Decedent {
+                id: "d1".to_string(),
+                name: "Juan Cruz".to_string(),
+                date_of_death: "2024-01-01".to_string(),
+                is_married: false,
+                date_of_marriage: None,
+                marriage_solemnized_in_articulo_mortis: false,
+                was_ill_at_marriage: false,
+                illness_caused_death: false,
+                years_of_cohabitation: 0,
+                has_legal_separation: false,
+                is_illegitimate: false,
+            },
+            family_tree: vec![Person {
+                id: "lc1".to_string(),
+                name: "Maria Cruz".to_string(),
+                is_alive_at_succession: true,
+                relationship_to_decedent: Relationship::LegitimateChild,
+                degree: 1,
+                line: None,
+                children: vec![],
+                filiation_proved: true,
+                filiation_proof_type: None,
+                is_guilty_party_in_legal_separation: false,
+                adoption: None,
+                is_unworthy: false,
+                unworthiness_condoned: false,
+                has_renounced: false,
+                blood_type: None,
+            }],
+            will: None,
+            donations: vec![],
+            config: EngineConfig::default(),
+        };
+
+        let result = run_pipeline_checked(&input);
+        assert!(
+            result.is_ok(),
+            "a well-formed intestate case must pass the runtime check, got {:?}",
+            result.err()
+        );
+    }
 }

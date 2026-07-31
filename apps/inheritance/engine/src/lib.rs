@@ -5,6 +5,7 @@
 
 pub mod flags;
 pub mod fraction;
+pub mod output_check;
 pub mod pipeline;
 pub mod step1_classify;
 pub mod step2_lines;
