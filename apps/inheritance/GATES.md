@@ -21,10 +21,28 @@ a gate can only stop running by being removed from the manifest, and that is rej
 | G5 | 1 | gate manifest integrity | `node scripts/check-gate-manifest.mjs` | The frozen gate set has not shrunk, had a locked command changed, or stopped blocking. |
 | G6 | 2 | plan closed-world lint | `node scripts/check-plan-closed-world.mjs` | Every plan file is closed-world by the nine rules in `.planning/PLAN-STANDARD.md`. |
 | G7 | 3 | commit discipline audit | `node scripts/check-commit-discipline.mjs` | No commit since project init mixes `apps/inheritance/` with paths outside it. |
-| G1 | 4 | engine tests | `cd engine && cargo test` | The Rust succession engine's 442 unit, integration, and fuzz-invariant tests pass. |
-| G2 | 5 | wasm build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`, verified by existence, a 100 KB size floor, and the `0061736d` magic number. |
-| G3 | 6 | frontend suite vs ledger | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. |
-| G4 | 7 | typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors, with `--force` so a stale `tsconfig.tsbuildinfo` cannot mask them. |
+| G12 | 4 | engine coverage report | `bash scripts/coverage-report.sh && node scripts/check-coverage.mjs` | A per-module coverage report is producible for every engine module, no module has vanished from it, and the set of modules no test enters at all has not grown. Section 10. |
+| G13 | 5 | assertion discipline | `node scripts/check-assertion-discipline.mjs` | No frontend test asserts nothing, and no test whose only matcher is `toBeDefined` or `toBeTruthy` exists outside the shrink-only ledger. Section 11. |
+| G1 | 6 | engine tests | `cd engine && cargo test` | The Rust succession engine's unit, integration, property-invariant and defect-ledger tests pass. |
+| G2 | 7 | wasm build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`, verified by existence, a 100 KB size floor, and the `0061736d` magic number. |
+| G3 | 8 | frontend suite vs ledger | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. |
+| G4 | 9 | typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors, with `--force` so a stale `tsconfig.tsbuildinfo` cannot mask them. |
+| G10 | 10 | lawyer decision registry | `node scripts/check-lawyer-agenda.mjs` | Every recorded interpretive choice exists in both the agenda and the registry and cannot have its status advanced without a recorded answer. Section 8. |
+| G11 | 11 | engine observability | `node scripts/check-observability.mjs` | The engine still emits warnings, the legitime/free-portion split and a structured boundary error. Section 9. |
+| G8 | 12 | gate skip accounting | `node scripts/check-gate-skips.mjs` | Every gate reports how many of its own assertions it skipped, and every skip is declared in `gate-skips.lock`. Section 5. |
+| G9 | 13 | published gate results | `node scripts/check-gate-results.mjs` | `gate-results.json` describes the current run and covers every manifest gate. Section 6. |
+
+**The gate set is now thirteen.** Phase 6 added **G12** (engine coverage, section 10) and **G13**
+(assertion discipline, section 11) and placed them at `order` **4 and 5, ahead of G1**, shifting
+every gate from G1 down by two. Both are static or engine-only checks that do not depend on the
+frontend suite. The reason for the placement is that `scripts/ci-gates.sh` currently halts at **G3**,
+which is red for Phase 5's unresolved OBS-05/OBS-06 product decision, so a gate ordered after G3
+would never execute at all.
+
+State this plainly, because the distinction matters: **this is a placement decision about two static
+checks, not a way of routing around a red gate.** G3 still runs, still fails, and still stops the
+run. Nothing was added to `frontend/test-baseline.json`, no failing test was edited, and
+`ALL GATES PASSED (13/13)` is not achievable until that product decision is answered.
 
 The three meta-gates run **first** on purpose. They finish in seconds, while G1–G4 take minutes, and
 a tampered manifest or an open-world plan should be caught before a full Rust, WASM and Vitest run
@@ -729,3 +747,87 @@ weakening. **G9 remains the highest order and stays last**, for the reason secti
 
 One consequence worth stating plainly: because G12 builds the engine under instrumentation, a Rust
 compile error now surfaces as `GATE FAILED: G12` **before** G1 is reached.
+
+---
+
+## 11. Assertion discipline
+
+**Gate G13** — `node scripts/check-assertion-discipline.mjs`, `order: 5`, blocking.
+Requirement **COV-05**.
+
+### What it proves
+
+Two things:
+
+1. **No frontend test asserts nothing.** A test with no assertion cannot fail. In a product where a
+   wrong number becomes a wrong pleading, a suite padded with such tests is worse than a smaller
+   honest one, because it reports coverage it does not have.
+2. **No test whose only matcher is `toBeDefined` or `toBeTruthy`** exists outside the shrink-only
+   `assertion-baseline.json` ledger. Both matchers pass on almost any value — `toBeDefined` fails
+   only on `undefined`, `toBeTruthy` only on the six falsy values — so neither states what the code
+   should have produced.
+
+### It is a static source scan
+
+The gate reads test files and **never runs Vitest**. It therefore passes independently of **G3**,
+which Phase 5 leaves red. That independence is why G13 can sit at order 5, ahead of G1, and still be
+meaningful.
+
+### Measured starting numbers
+
+| Metric | Value |
+|---|---:|
+| Test files scanned | 112 |
+| `it` / `test` blocks | 2383 |
+| Assertion-free | **0** |
+| Weak-only | **15** |
+
+Re-measured live while executing plan 06-05 and identical to the planning measurement, down to the
+matcher set of each of the fifteen.
+
+### The four verdicts
+
+| Marker | Meaning |
+|---|---|
+| `ASSERTION-FREE TEST` | A block with no matcher and none of `expect(`, `assert`, `toMatchSnapshot`, `toMatchInlineSnapshot`. **There is no ledger for this verdict and there never will be** — the count today is zero and a test that cannot fail is never acceptable. |
+| `UNDECLARED WEAK ASSERTION` | A block whose every matcher is weak, with no ledger entry. |
+| `STALE WEAK DECLARATION` | A ledger entry matching no weak-only block any more. |
+| `ASSERTION SCAN UNREADABLE` | The ledger or the root is missing or unparseable. Exits 1 at once; the gate never exits 0 on its own internal error. |
+
+All four were observed firing before the gate was registered. `ASSERTION-FREE TEST` and
+`UNDECLARED WEAK ASSERTION` came from the committed fixtures in `scripts/fixtures/`
+(`assert-none.test.ts`, `assert-weak-only.test.ts`), alongside a negative control
+(`assert-strong.test.ts`, including a nested `describe`) that produces no violation.
+`STALE WEAK DECLARATION` was driven against a scratch copy of the ledger outside the repository, and
+`ASSERTION SCAN UNREADABLE` by pointing `--ledger` at a nonexistent path. The fixtures end in
+`.test.ts` but live **outside `frontend/src`**, so Vitest never collects them.
+
+### Why the fifteen are ledgered rather than rewritten
+
+Rewriting them would require, per test, deciding what the stronger assertion should be — and several
+of those are genuine **product** questions rather than test fixes. What a money input should do with
+the text `abc` (reject the keystroke, clear the field, show an error) is one. Three more, all in
+`src/wasm/__tests__/wasm-real.test.ts`, sit directly on top of Phase 5's unresolved OBS-05/OBS-06
+decision recorded in `.planning/phases/05-engine-observability-restored/05-05-SUMMARY.md`; whoever
+answers that question clears those three ledger rows at the same time.
+
+Fifteen judgment calls handed to a cheap executing agent is the precise failure mode this project
+exists to prevent. So the gate ships red-proof rather than red: the ledger records exactly the
+fifteen that exist, a **sixteenth fails the build**, and a ledger entry that no longer matches a real
+weak-only test also fails the build, which is what forces the ledger down as these are strengthened.
+This is the identical mechanism, key shape and prohibition language Phase 1 chose for
+`frontend/test-baseline.json`, for the identical reason.
+
+### Keyed by file plus full test name, never by line number
+
+Line numbers move whenever anything above a test is edited. A line-keyed ledger would produce false
+failures on unrelated changes — noise that trains a reader to ignore the gate, which is how a gate
+stops being a gate. `file` is relative to `frontend/`; `fullName` is the block's own name string
+exactly as it appears in the source.
+
+### No suppression flag
+
+`scripts/check-assertion-discipline.mjs` has no `--fix`, `--update`, `--accept`, `--regenerate` or
+waiver flag, and no script anywhere writes `assertion-baseline.json`. Its only two flags, `--root`
+and `--ledger`, are read-only path overrides that exist so the fixtures can drive the failure paths.
+A check that can rewrite its own baseline is not a check.

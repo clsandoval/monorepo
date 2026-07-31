@@ -61,6 +61,11 @@
       "id": "G12",
       "command": "bash scripts/coverage-report.sh && node scripts/check-coverage.mjs",
       "blocking": true
+    },
+    {
+      "id": "G13",
+      "command": "node scripts/check-assertion-discipline.mjs",
+      "blocking": true
     }
   ]
 }

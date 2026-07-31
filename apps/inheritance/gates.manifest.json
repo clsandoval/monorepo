@@ -162,6 +162,19 @@
       "requirements": [
         "COV-04"
       ]
+    },
+    {
+      "id": "G13",
+      "name": "assertion discipline",
+      "order": 5,
+      "command": "node scripts/check-assertion-discipline.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f assertion-baseline.json",
+      "blocking": true,
+      "proves": "No frontend test asserts nothing, and no test whose only matcher is toBeDefined or toBeTruthy exists outside the shrink-only assertion-baseline.json ledger. See GATES.md section 11.",
+      "requirements": [
+        "COV-05"
+      ]
     }
   ]
 }

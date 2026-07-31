@@ -1,0 +1,96 @@
+{
+  "$comment": "OWNER-OWNED FILE. This ledger records the frontend tests whose ONLY matcher is toBeDefined or toBeTruthy, as they exist today. It records reality; it is NOT permission to assert weakly. IT MAY ONLY SHRINK. Appending an entry here to make gate G13 pass is prohibited — the correct response to a new weak-only test is to give it a real assertion that says what the code should have produced, not to declare that it does not have one. scripts/check-assertion-discipline.mjs enforces both directions: an observed weak-only test that is not declared here fails with UNDECLARED WEAK ASSERTION, and a declaration matching no weak-only test any more fails with STALE WEAK DECLARATION, so the ledger cannot accumulate dead entries either and is forced down as these fifteen are strengthened. That script has no flag that writes this file, by design — a check that can rewrite its own baseline is not a check. Entries are keyed by file plus full test name and NEVER by line number, because line numbers move whenever anything above a test is edited and a line-keyed ledger would produce false failures on unrelated changes. Note what is NOT ledgered: a test that asserts nothing at all has no ledger and never will. The measured count of those today is zero, and a test that cannot fail is never acceptable. Same direction as frontend/test-baseline.json and gate-skips.lock, which may only shrink; the exact inverse of gates.manifest.lock, which may only grow. These fifteen are ledgered rather than rewritten because rewriting each one requires deciding what the stronger assertion should be, and several of those are genuine product questions — what a money input should do with the text 'abc' is one — which is not a decision an executing agent may make.",
+  "generated": "2026-07-31",
+  "weak_only": [
+    {
+      "file": "src/__tests__/dashboard.test.tsx",
+      "fullName": "\"Sign in to Save\" text concept exists for unauthenticated results",
+      "matchers": ["toBeTruthy"],
+      "note": "Asserts a string literal is truthy; the behaviour it describes is covered at route level."
+    },
+    {
+      "file": "src/__tests__/router.test.tsx",
+      "fullName": "renders the shared case page at /share/:token",
+      "matchers": ["toBeTruthy"],
+      "note": "Asserts the route resolves to something truthy rather than asserting which component or what it renders."
+    },
+    {
+      "file": "src/__tests__/smoke.test.tsx",
+      "fullName": "React is importable and functional",
+      "matchers": ["toBeDefined"],
+      "note": "Asserts the React import is defined; it cannot fail unless the module system itself is broken."
+    },
+    {
+      "file": "src/components/case/__tests__/timeline-report.test.tsx",
+      "fullName": "stage has estimatedDate for non-complete stages",
+      "matchers": ["toBeTruthy"],
+      "note": "Asserts an estimatedDate is truthy without asserting the date it should be."
+    },
+    {
+      "file": "src/components/case/__tests__/timeline-report.test.tsx",
+      "fullName": "renders without auth (no auth-dependent props)",
+      "matchers": ["toBeTruthy"],
+      "note": "Asserts something rendered rather than asserting what an unauthenticated viewer sees."
+    },
+    {
+      "file": "src/components/shared/__tests__/DateInput.test.tsx",
+      "fullName": "renders with maxDate attribute when provided",
+      "matchers": ["toBeTruthy"],
+      "note": "Asserts the attribute is present without asserting its value equals the maxDate passed in."
+    },
+    {
+      "file": "src/components/shared/__tests__/DateInput.test.tsx",
+      "fullName": "renders with minDate attribute when provided",
+      "matchers": ["toBeTruthy"],
+      "note": "Asserts the attribute is present without asserting its value equals the minDate passed in."
+    },
+    {
+      "file": "src/components/shared/__tests__/MoneyInput.test.tsx",
+      "fullName": "rejects non-numeric input",
+      "matchers": ["toBeTruthy"],
+      "note": "Asserts something truthy after typing non-numeric text. Strengthening it requires deciding what a money input SHOULD do with the text 'abc' — reject the keystroke, clear the field, or show an error — which is a product decision, not a test fix."
+    },
+    {
+      "file": "src/data/__tests__/document-templates.test.ts",
+      "fullName": "every template has required fields",
+      "matchers": ["toBeTruthy"],
+      "note": "Asserts each required field is truthy rather than asserting its type, shape or value."
+    },
+    {
+      "file": "src/lib/__tests__/comparison.test.ts",
+      "fullName": "throws on Supabase error",
+      "matchers": ["toBeDefined"],
+      "note": "Asserts a caught error is defined without asserting its message or type, so any throw at all passes."
+    },
+    {
+      "file": "src/lib/__tests__/tax-bridge.test.ts",
+      "fullName": "throws on Supabase error",
+      "matchers": ["toBeDefined"],
+      "note": "Asserts a caught error is defined without asserting its message or type, so any throw at all passes."
+    },
+    {
+      "file": "src/lib/estate-tax-engine/__tests__/advisor.test.ts",
+      "fullName": "death before 2022-06-01, amnesty not elected → suggestion produced",
+      "matchers": ["toBeDefined"],
+      "note": "Asserts a suggestion object exists without asserting which suggestion, so the advisor could return the wrong advice and still pass."
+    },
+    {
+      "file": "src/wasm/__tests__/wasm-real.test.ts",
+      "fullName": "handles negative estate centavos without crashing",
+      "matchers": ["toBeDefined", "toBeTruthy"],
+      "note": "Asserts only that something came back from a negative-estate input. This sits on top of Phase 5's unresolved OBS-05 and OBS-06 product decision, recorded in .planning/phases/05-engine-observability-restored/05-05-SUMMARY.md: should computeWasm reject a non-distributable input, or return a best-effort distribution? Whoever answers that question clears this ledger row at the same time."
+    },
+    {
+      "file": "src/wasm/__tests__/wasm-real.test.ts",
+      "fullName": "handles duplicate person IDs without crashing",
+      "matchers": ["toBeDefined"],
+      "note": "Asserts only that something came back from a duplicate-id input. This sits on top of Phase 5's unresolved OBS-05 and OBS-06 product decision, recorded in .planning/phases/05-engine-observability-restored/05-05-SUMMARY.md; whoever answers that question clears this ledger row at the same time."
+    },
+    {
+      "file": "src/wasm/__tests__/wasm-real.test.ts",
+      "fullName": "handles multiple SurvivingSpouse without crashing",
+      "matchers": ["toBeDefined"],
+      "note": "Asserts only that something came back from a two-spouse input. This sits alongside Phase 5's unresolved OBS-05 and OBS-06 product decision, recorded in .planning/phases/05-engine-observability-restored/05-05-SUMMARY.md; whoever answers that question clears this ledger row at the same time."
+    }
+  ]
+}
