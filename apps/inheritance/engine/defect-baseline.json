@@ -1,0 +1,50 @@
+{
+  "$comment": "OWNER-OWNED FILE. This ledger records the engine defects that committed inputs in engine/examples/defect-cases/ reproduce TODAY. It records reality; it is not permission to fail. IT MAY ONLY SHRINK. Appending an entry here to turn a red check green is prohibited — the fix is to fix the engine and delete the entry, not to declare a new defect. The defect-ledger test in engine/tests/ enforces both directions: a defect case that violates an invariant NOT listed here fails with an unknown-violation error (the defect got worse), and a ledgered invariant that a case has STOPPED violating fails with STALE DEFECT DECLARATION until the entry is deleted (so landing the fix forces the ledger down). No script writes this file, by design — a check that can rewrite its own baseline is not a check. Same direction as frontend/test-baseline.json and gate-skips.lock, which may only shrink; the exact inverse of gates.manifest.lock, which may only grow. Every 'observed' block below was measured by running the named case through engine/target/release/inheritance-engine, which calls run_pipeline_checked and exits 2. No entry here decides any point of Philippine law: each names the requirement that already owns the fix, and where that requirement is blocked on a lawyer's answer it cites the recorded decision id without stating which reading is correct.",
+  "frozen_at": "2026-07-31",
+  "known_violations": [
+    {
+      "case": "01-collateral-halfblood-nephews.json",
+      "invariants_violated": ["INV1", "INV13"],
+      "observed": {
+        "rows": 5,
+        "sum_net_from_estate": 480000000,
+        "estate": 600000000,
+        "duplicate_heir_ids": ["n1", "n2"]
+      },
+      "requirement": "LAW-02",
+      "fixed_by_phase": 7,
+      "source": ".planning/research/LEGAL-CONFORMANCE.md collateral succession row",
+      "note": "The trigger is blood_type set on the NephewNiece rows. The identical family with blood_type null on the nephews conserves the estate and produces three clean rows — that variant is in examples/coverage-cases/ and stays green."
+    },
+    {
+      "case": "02-heir-donation-above-estate.json",
+      "invariants_violated": ["INV1"],
+      "observed": {
+        "rows": 2,
+        "sum_net_from_estate": 125000000,
+        "estate": 100000000,
+        "duplicate_heir_ids": []
+      },
+      "requirement": "LAW-06",
+      "fixed_by_phase": 14,
+      "blocked_on": "LAWYER-06",
+      "source": ".planning/research/LEGAL-CONFORMANCE.md donation inter vivos row",
+      "note": "Donation to heir lc1 at 1.5x the estate. LAW-06 is blocked on the recorded decision LAWYER-06, whose status in .planning/lawyer-decisions.json is awaiting-answer. This ledger records the arithmetic only and takes no position on which reading is correct."
+    },
+    {
+      "case": "03-stranger-donee.json",
+      "invariants_violated": ["INV1"],
+      "observed": {
+        "rows": 2,
+        "sum_net_from_estate": 110000000,
+        "estate": 100000000,
+        "duplicate_heir_ids": []
+      },
+      "requirement": "LAW-06",
+      "fixed_by_phase": 14,
+      "blocked_on": "LAWYER-06",
+      "source": ".planning/research/LEGAL-CONFORMANCE.md donation inter vivos row",
+      "note": "Donation to a STRANGER at only 0.1x the estate. The ratio is deliberately small: the breach does not need a large donation, which is itself the finding. LAW-06 is blocked on the recorded decision LAWYER-06, status awaiting-answer."
+    }
+  ]
+}
