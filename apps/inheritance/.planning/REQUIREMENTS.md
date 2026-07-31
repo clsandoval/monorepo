@@ -17,11 +17,11 @@ The precondition for everything else. Until these hold, any report of "tests pas
 - [x] **GATE-02**: `npx tsc -b` typechecks the frontend with zero errors
 - [x] **GATE-03**: The WASM artifact builds reproducibly from `engine/` into `frontend/src/wasm/pkg/` via a single documented command
 - [x] **GATE-04**: CI runs engine tests, WASM build, frontend tests, and typecheck on every push and pull request, and fails the build on any failure
-- [ ] **GATE-05**: A developer can bring up a working local environment (dependencies, WASM, local Supabase, seed data) from a clean checkout by following one documented sequence
-- [ ] **GATE-06**: `supabase/seed.sql` exists and seeds a known org, user, and case fixture that gates can rely on
-- [ ] **GATE-07**: The `firm-logos` storage bucket and any other runtime-required bucket are created by migration, not by hand
-- [ ] **GATE-08**: A gate run publishes machine-readable per-gate results that a status page can consume
-- [ ] **GATE-09**: Every gate reports which of its assertions were skipped, so a partially-loaded suite can never be read as a pass
+- [x] **GATE-05**: A developer can bring up a working local environment (dependencies, WASM, local Supabase, seed data) from a clean checkout by following one documented sequence
+- [x] **GATE-06**: `supabase/seed.sql` exists and seeds a known org, user, and case fixture that gates can rely on
+- [x] **GATE-07**: The `firm-logos` storage bucket and any other runtime-required bucket are created by migration, not by hand
+- [x] **GATE-08**: A gate run publishes machine-readable per-gate results that a status page can consume
+- [x] **GATE-09**: Every gate reports which of its assertions were skipped, so a partially-loaded suite can never be read as a pass
 
 ### Engine Observability
 
@@ -184,11 +184,11 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | GATE-02 | Phase 1 | Complete |
 | GATE-03 | Phase 1 | Complete |
 | GATE-04 | Phase 1 | Complete |
-| GATE-05 | Phase 3 | Planned |
-| GATE-06 | Phase 3 | Planned |
-| GATE-07 | Phase 3 | Planned |
-| GATE-08 | Phase 3 | Planned |
-| GATE-09 | Phase 3 | Planned |
+| GATE-05 | Phase 3 | Complete |
+| GATE-06 | Phase 3 | Complete |
+| GATE-07 | Phase 3 | Complete |
+| GATE-08 | Phase 3 | Complete |
+| GATE-09 | Phase 3 | Complete |
 | LOOP-01 | Phase 2 | Complete |
 | LOOP-02 | Phase 2 | Complete |
 | LOOP-03 | Phase 2 | Complete |
@@ -277,4 +277,4 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 
 ---
 *Requirements defined: 2026-07-27*
-*Last updated: 2026-07-31 after Phase 3 planning (GATE-05..09 marked Planned across 5 plans)*
+*Last updated: 2026-07-31 after Phase 3 execution and verification (GATE-05..09 Complete; the gate set grew from 7 to 9)*
