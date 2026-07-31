@@ -86,7 +86,22 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. The `firm-logos` bucket and every other runtime-required storage bucket are created by a migration file, not by a manual dashboard action.
   4. A gate run emits a machine-readable results file that a status page could consume for per-gate pass/fail.
   5. Every gate's output distinguishes "skipped" from "passed," so a partially-loaded suite can never be misread as a clean pass.
-**Plans**: TBD
+**Plans**: 5 plans, 5 waves (strictly sequential — waves 2 and 3 share one database, waves 4 and 5 share the same four gate-infrastructure files)
+  - **Wave 1** — `03-01` Pinned Supabase CLI, a dedicated port block, one-command bring-up, read-only env verdict (GATE-05)
+  - **Wave 2** *(blocked on Wave 1: the live half of its verification needs a running stack)* — `03-02` `firm-logos` bucket by migration, plus code-versus-migration bucket parity (GATE-07)
+  - **Wave 3** *(blocked on Wave 2: both run `supabase db reset` against the same database, and this wave asserts the bucket survives a reseed)* — `03-03` Two-tenant `seed.sql` with a published id registry (GATE-06)
+  - **Wave 4** *(blocked on Waves 1–3: edits `scripts/ci-gates.sh`, `gates.manifest.json`, `gates.manifest.lock` and `GATES.md`)* — `03-04` Per-gate skip accounting and a shrink-only declared-skip ledger, gate G8 (GATE-09)
+  - **Wave 5** *(blocked on Wave 4: edits the same four files and consumes its skip report)* — `03-05` Published `gate-results.json`, gate G9, README bring-up sequence (GATE-05, GATE-08)
+
+  Cross-cutting constraints (appear in 2+ plans):
+  - Every commit stages explicit file paths via `bash scripts/safe-commit.sh`; `git add -A`, `git add .`, and `git commit -a` are prohibited (concurrent auto-committer on this monorepo)
+  - No gate, test, or assertion may be weakened to pass; a gate that cannot legitimately pass is reported BLOCKED with the real command output
+  - No locked gate `command` string may change. Gates G8 and G9 are added by appending to `gates.manifest.json` and `gates.manifest.lock` together — the gate set may only grow
+  - No check may rewrite its own input — no `--update`, `--fix`, `--accept`, `--regenerate`, or waiver flag on any artifact in this phase
+  - Every failure path of every check must be observed firing against a committed fixture; a gate nobody has seen fail is not known to be a gate
+  - Every new check is dependency-free Node ESM or Bash using only `node:` builtins; no package.json is created at the app root and no dependency is installed
+  - No Docker container whose name does not end in `_inheritance` may be stopped, restarted, or reset — ports 54321–54324 belong to a sibling monorepo app
+  - No point of Philippine law arises anywhere in this phase; the one place it could have (the seeded family tree) is removed by copying `engine/examples/cases/02-married-3lc.json` verbatim
 
 ### Phase 4: Lawyer Review Agenda Recorded
 **Goal**: The eight interpretive choices already made by the engine are written down as recorded decisions the lawyer can confirm or overturn — sent out now, since the lawyer is sitting the bar exam and may be unreachable for weeks, so the unblocked engineering work in later phases is never waiting on an answer that hasn't arrived yet.
@@ -239,7 +254,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 |-------|----------------|--------|-----------|
 | 1. Gate Foundations | 4/4 | Complete | 2026-07-31 |
 | 2. Loop Durability & Commit Discipline | 6/6 | Complete   | 2026-07-31 |
-| 3. Reproducible Environment & Gate Reporting | 0/TBD | Not started | - |
+| 3. Reproducible Environment & Gate Reporting | 0/5 | Planned | - |
 | 4. Lawyer Review Agenda Recorded | 0/TBD | Not started | - |
 | 5. Engine Observability Restored | 0/TBD | Not started | - |
 | 6. Property-Test Coverage Depth | 0/TBD | Not started | - |

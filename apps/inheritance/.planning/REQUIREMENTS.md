@@ -184,11 +184,11 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | GATE-02 | Phase 1 | Complete |
 | GATE-03 | Phase 1 | Complete |
 | GATE-04 | Phase 1 | Complete |
-| GATE-05 | Phase 3 | Pending |
-| GATE-06 | Phase 3 | Pending |
-| GATE-07 | Phase 3 | Pending |
-| GATE-08 | Phase 3 | Pending |
-| GATE-09 | Phase 3 | Pending |
+| GATE-05 | Phase 3 | Planned |
+| GATE-06 | Phase 3 | Planned |
+| GATE-07 | Phase 3 | Planned |
+| GATE-08 | Phase 3 | Planned |
+| GATE-09 | Phase 3 | Planned |
 | LOOP-01 | Phase 2 | Complete |
 | LOOP-02 | Phase 2 | Complete |
 | LOOP-03 | Phase 2 | Complete |
@@ -277,4 +277,4 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 
 ---
 *Requirements defined: 2026-07-27*
-*Last updated: 2026-07-27 after roadmap creation (15 phases, 80/80 requirements mapped)*
+*Last updated: 2026-07-31 after Phase 3 planning (GATE-05..09 marked Planned across 5 plans)*
