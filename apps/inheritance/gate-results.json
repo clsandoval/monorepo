@@ -1,14 +1,14 @@
 {
   "schema": 1,
-  "generated_at": "2026-07-31T07:48:00Z",
+  "generated_at": "2026-07-31T18:55:05Z",
   "run": {
-    "started_at": "2026-07-31T07:47:15Z",
-    "ended_at": "2026-07-31T07:48:00Z",
+    "started_at": "2026-07-31T18:53:03Z",
+    "ended_at": "2026-07-31T18:55:05Z",
     "outcome": "pass",
     "failure_signature": "",
     "manifest_version": 1,
-    "gates_total": 9,
-    "gates_run": 9
+    "gates_total": 17,
+    "gates_run": 17
   },
   "gates": [
     {
@@ -22,10 +22,10 @@
       ],
       "status": "pass",
       "exit_code": 0,
-      "started_at": "2026-07-31T07:47:15Z",
-      "ended_at": "2026-07-31T07:47:15Z",
+      "started_at": "2026-07-31T18:53:03Z",
+      "ended_at": "2026-07-31T18:53:03Z",
       "duration_seconds": 0,
-      "assertions_total": 9,
+      "assertions_total": 17,
       "assertions_skipped": 0
     },
     {
@@ -39,10 +39,10 @@
       ],
       "status": "pass",
       "exit_code": 0,
-      "started_at": "2026-07-31T07:47:15Z",
-      "ended_at": "2026-07-31T07:47:15Z",
+      "started_at": "2026-07-31T18:53:03Z",
+      "ended_at": "2026-07-31T18:53:03Z",
       "duration_seconds": 0,
-      "assertions_total": 15,
+      "assertions_total": 64,
       "assertions_skipped": 0
     },
     {
@@ -56,31 +56,104 @@
       ],
       "status": "pass",
       "exit_code": 0,
-      "started_at": "2026-07-31T07:47:15Z",
-      "ended_at": "2026-07-31T07:47:16Z",
+      "started_at": "2026-07-31T18:53:03Z",
+      "ended_at": "2026-07-31T18:53:04Z",
       "duration_seconds": 1,
-      "assertions_total": 62,
+      "assertions_total": 157,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G12",
+      "name": "engine coverage report",
+      "order": 4,
+      "blocking": true,
+      "proves": "A per-module coverage report is producible for every engine module, no module has vanished from it, and the set of modules no test enters at all has not grown. See GATES.md section 10.",
+      "requirements": [
+        "COV-04"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T18:53:04Z",
+      "ended_at": "2026-07-31T18:53:14Z",
+      "duration_seconds": 10,
+      "assertions_total": 17,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G13",
+      "name": "assertion discipline",
+      "order": 5,
+      "blocking": true,
+      "proves": "No frontend test asserts nothing, and no test whose only matcher is toBeDefined or toBeTruthy exists outside the shrink-only assertion-baseline.json ledger. See GATES.md section 11.",
+      "requirements": [
+        "COV-05"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T18:53:14Z",
+      "ended_at": "2026-07-31T18:53:15Z",
+      "duration_seconds": 1,
+      "assertions_total": 2394,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G15",
+      "name": "journey harness self-test",
+      "order": 6,
+      "blocking": true,
+      "proves": "The journey harness still works: a rubric returns structured per-assertion output and rejects an unknown kind, a perceptual diff separates a reference miss from a size mismatch from a pixel failure, a failing step writes five durable artifacts naming both failing mechanisms, and the database-free seeding seams reach a page before first paint. See GATES.md section 12.",
+      "requirements": [
+        "JRNY-01",
+        "JRNY-09",
+        "JRNY-10",
+        "JRNY-12"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T18:53:15Z",
+      "ended_at": "2026-07-31T18:53:16Z",
+      "duration_seconds": 1,
+      "assertions_total": 11,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G16",
+      "name": "journey registry integrity",
+      "order": 7,
+      "blocking": true,
+      "proves": "Every declared journey step has a rubric built from the closed eight-kind assertion set and an approved reference with a tolerance sidecar, and no reference exists without a step. Static: needs no Docker, no Supabase, no build and no browser. See GATES.md section 13.",
+      "requirements": [
+        "JRNY-02",
+        "JRNY-03",
+        "JRNY-04"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T18:53:16Z",
+      "ended_at": "2026-07-31T18:53:16Z",
+      "duration_seconds": 0,
+      "assertions_total": 210,
       "assertions_skipped": 0
     },
     {
       "id": "G1",
       "name": "engine tests",
-      "order": 4,
+      "order": 8,
       "blocking": true,
       "proves": "The Rust succession engine's 442 unit, integration, and fuzz-invariant tests pass.",
       "requirements": [],
       "status": "pass",
       "exit_code": 0,
-      "started_at": "2026-07-31T07:47:16Z",
-      "ended_at": "2026-07-31T07:47:16Z",
-      "duration_seconds": 0,
+      "started_at": "2026-07-31T18:53:16Z",
+      "ended_at": "2026-07-31T18:53:17Z",
+      "duration_seconds": 1,
       "assertions_total": null,
       "assertions_skipped": null
     },
     {
       "id": "G2",
       "name": "wasm build",
-      "order": 5,
+      "order": 9,
       "blocking": true,
       "proves": "The engine compiles to WebAssembly and lands a real binary in frontend/src/wasm/pkg/. The script verifies existence, a 100 KB size floor, and the 0061736d WebAssembly magic number — wasm-pack exiting 0 is not accepted as proof on its own.",
       "requirements": [
@@ -88,16 +161,16 @@
       ],
       "status": "pass",
       "exit_code": 0,
-      "started_at": "2026-07-31T07:47:16Z",
-      "ended_at": "2026-07-31T07:47:25Z",
-      "duration_seconds": 9,
+      "started_at": "2026-07-31T18:53:17Z",
+      "ended_at": "2026-07-31T18:53:27Z",
+      "duration_seconds": 10,
       "assertions_total": 3,
       "assertions_skipped": 0
     },
     {
       "id": "G3",
       "name": "frontend suite vs ledger",
-      "order": 6,
+      "order": 10,
       "blocking": true,
       "proves": "The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger.",
       "requirements": [
@@ -105,16 +178,16 @@
       ],
       "status": "pass",
       "exit_code": 0,
-      "started_at": "2026-07-31T07:47:25Z",
-      "ended_at": "2026-07-31T07:47:53Z",
-      "duration_seconds": 28,
-      "assertions_total": 2416,
+      "started_at": "2026-07-31T18:53:27Z",
+      "ended_at": "2026-07-31T18:53:52Z",
+      "duration_seconds": 25,
+      "assertions_total": 2449,
       "assertions_skipped": 0
     },
     {
       "id": "G4",
       "name": "typecheck",
-      "order": 7,
+      "order": 11,
       "blocking": true,
       "proves": "Zero TypeScript errors. --force is required, not optional: tsconfig.tsbuildinfo was historically committed, and an incremental run can no-op against a stale cache and report clean on a tree that has type errors.",
       "requirements": [
@@ -122,16 +195,92 @@
       ],
       "status": "pass",
       "exit_code": 0,
-      "started_at": "2026-07-31T07:47:53Z",
-      "ended_at": "2026-07-31T07:48:00Z",
-      "duration_seconds": 7,
+      "started_at": "2026-07-31T18:53:53Z",
+      "ended_at": "2026-07-31T18:53:59Z",
+      "duration_seconds": 6,
       "assertions_total": null,
       "assertions_skipped": null
     },
     {
+      "id": "G18",
+      "name": "tenant isolation",
+      "order": 12,
+      "blocking": true,
+      "proves": "Against a real local Supabase, a user in org A reads zero of org B's cases, PDFs and share tokens, changes zero of org B's rows, and is refused a cross-tenant insert — each paired with a positive control on the same table so a denial cannot be mistaken for an empty table. See GATES.md section 13.",
+      "requirements": [
+        "COV-06"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T18:53:59Z",
+      "ended_at": "2026-07-31T18:54:00Z",
+      "duration_seconds": 1,
+      "assertions_total": 14,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G17",
+      "name": "live journey run",
+      "order": 13,
+      "blocking": true,
+      "proves": "Every declared account, organization and case-intake screen is driven in a real headless browser against the built application and a real local Supabase, and each is checked twice — a fixed list of yes/no DOM assertions and a zero-tolerance perceptual diff against an approved reference. See GATES.md section 13.",
+      "requirements": [
+        "JRNY-02",
+        "JRNY-03",
+        "JRNY-04"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T18:54:00Z",
+      "ended_at": "2026-07-31T18:55:04Z",
+      "duration_seconds": 64,
+      "assertions_total": 15,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G10",
+      "name": "lawyer decision registry",
+      "order": 14,
+      "blocking": true,
+      "proves": "Every recorded interpretive choice exists in both the agenda and the registry, still resolves to the rule it governs, and cannot have its status advanced without a recorded answer.",
+      "requirements": [
+        "LAWYER-09"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T18:55:04Z",
+      "ended_at": "2026-07-31T18:55:04Z",
+      "duration_seconds": 0,
+      "assertions_total": 9,
+      "assertions_skipped": 0
+    },
+    {
+      "id": "G11",
+      "name": "engine observability",
+      "order": 15,
+      "blocking": true,
+      "proves": "The engine still emits warnings, the legitime and free-portion split, and a structured boundary error. All ten spec-defined manual review flag codes are declared and exercised, and neither hardcoded line that suppressed observability has returned.",
+      "requirements": [
+        "OBS-01",
+        "OBS-02",
+        "OBS-03",
+        "OBS-04",
+        "OBS-05",
+        "OBS-06",
+        "OBS-07"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T18:55:04Z",
+      "ended_at": "2026-07-31T18:55:04Z",
+      "duration_seconds": 0,
+      "assertions_total": 5,
+      "assertions_skipped": 0
+    },
+    {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 8,
+      "order": 16,
       "blocking": true,
       "proves": "Every gate reports how many of its own assertions it skipped, and every skip is declared in the shrink-only gate-skips.lock ledger.",
       "requirements": [
@@ -139,16 +288,16 @@
       ],
       "status": "pass",
       "exit_code": 0,
-      "started_at": "2026-07-31T07:48:00Z",
-      "ended_at": "2026-07-31T07:48:00Z",
-      "duration_seconds": 0,
-      "assertions_total": 9,
+      "started_at": "2026-07-31T18:55:04Z",
+      "ended_at": "2026-07-31T18:55:05Z",
+      "duration_seconds": 1,
+      "assertions_total": 17,
       "assertions_skipped": 0
     },
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 9,
+      "order": 17,
       "blocking": true,
       "proves": "gate-results.json describes the current run, covers every manifest gate, and never reports a status outside pass, fail, cannot-run and not-run.",
       "requirements": [
@@ -156,10 +305,10 @@
       ],
       "status": "pass",
       "exit_code": 0,
-      "started_at": "2026-07-31T07:48:00Z",
-      "ended_at": "2026-07-31T07:48:00Z",
+      "started_at": "2026-07-31T18:55:05Z",
+      "ended_at": "2026-07-31T18:55:05Z",
       "duration_seconds": 0,
-      "assertions_total": 9,
+      "assertions_total": 17,
       "assertions_skipped": 0
     }
   ],
@@ -186,6 +335,72 @@
       "status": "pass"
     },
     {
+      "id": "COV-04",
+      "gates": [
+        "G12"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "COV-05",
+      "gates": [
+        "G13"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "JRNY-01",
+      "gates": [
+        "G15"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "JRNY-09",
+      "gates": [
+        "G15"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "JRNY-10",
+      "gates": [
+        "G15"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "JRNY-12",
+      "gates": [
+        "G15"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "JRNY-02",
+      "gates": [
+        "G16",
+        "G17"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "JRNY-03",
+      "gates": [
+        "G16",
+        "G17"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "JRNY-04",
+      "gates": [
+        "G16",
+        "G17"
+      ],
+      "status": "pass"
+    },
+    {
       "id": "GATE-03",
       "gates": [
         "G2"
@@ -203,6 +418,69 @@
       "id": "GATE-02",
       "gates": [
         "G4"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "COV-06",
+      "gates": [
+        "G18"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "LAWYER-09",
+      "gates": [
+        "G10"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "OBS-01",
+      "gates": [
+        "G11"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "OBS-02",
+      "gates": [
+        "G11"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "OBS-03",
+      "gates": [
+        "G11"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "OBS-04",
+      "gates": [
+        "G11"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "OBS-05",
+      "gates": [
+        "G11"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "OBS-06",
+      "gates": [
+        "G11"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "OBS-07",
+      "gates": [
+        "G11"
       ],
       "status": "pass"
     },

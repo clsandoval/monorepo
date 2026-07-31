@@ -1,5 +1,5 @@
 {
-  "$comment": "OWNER-OWNED FILE. This manifest is the single source of truth for which gates exist and what each one runs. An executing agent may ADD a gate, but may never remove a gate, change a locked command string, rename a gate id, or turn a blocking gate non-blocking. gates.manifest.lock is the freeze record of {id, command, blocking} and scripts/check-gate-manifest.mjs enforces the difference. The gate set may only grow. If a gate will not pass, the correct response is to report BLOCKED with the real command output — never to edit this file.",
+  "$comment": "OWNER-OWNED FILE. This manifest is the single source of truth for which gates exist and what each one runs. An executing agent may ADD a gate, but may never remove a gate, change a locked command string, rename a gate id, or turn a blocking gate non-blocking. gates.manifest.lock is the freeze record of {id, command, blocking} and scripts/check-gate-manifest.mjs enforces the difference. The gate set may only grow. If a gate will not pass, the correct response is to report BLOCKED with the real command output \u2014 never to edit this file.",
   "version": 1,
   "frozen_at": "2026-07-31",
   "gates": [
@@ -45,7 +45,7 @@
     {
       "id": "G1",
       "name": "engine tests",
-      "order": 7,
+      "order": 8,
       "command": "cd engine && cargo test",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/Cargo.toml",
@@ -56,12 +56,12 @@
     {
       "id": "G2",
       "name": "wasm build",
-      "order": 8,
+      "order": 9,
       "command": "bash engine/build-wasm.sh",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/build-wasm.sh",
       "blocking": true,
-      "proves": "The engine compiles to WebAssembly and lands a real binary in frontend/src/wasm/pkg/. The script verifies existence, a 100 KB size floor, and the 0061736d WebAssembly magic number — wasm-pack exiting 0 is not accepted as proof on its own.",
+      "proves": "The engine compiles to WebAssembly and lands a real binary in frontend/src/wasm/pkg/. The script verifies existence, a 100 KB size floor, and the 0061736d WebAssembly magic number \u2014 wasm-pack exiting 0 is not accepted as proof on its own.",
       "requirements": [
         "GATE-03"
       ]
@@ -69,7 +69,7 @@
     {
       "id": "G3",
       "name": "frontend suite vs ledger",
-      "order": 9,
+      "order": 10,
       "command": "cd frontend && npm run test:gate",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
@@ -82,7 +82,7 @@
     {
       "id": "G4",
       "name": "typecheck",
-      "order": 10,
+      "order": 11,
       "command": "cd frontend && npx tsc -b --force",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 13,
+      "order": 16,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 14,
+      "order": 17,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -121,7 +121,7 @@
     {
       "id": "G10",
       "name": "lawyer decision registry",
-      "order": 11,
+      "order": 14,
       "command": "node scripts/check-lawyer-agenda.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/lawyer-decisions.json",
@@ -134,7 +134,7 @@
     {
       "id": "G11",
       "name": "engine observability",
-      "order": 12,
+      "order": 15,
       "command": "node scripts/check-observability.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/src/step10_finalize.rs",
@@ -190,6 +190,49 @@
         "JRNY-09",
         "JRNY-10",
         "JRNY-12"
+      ]
+    },
+    {
+      "id": "G16",
+      "name": "journey registry integrity",
+      "order": 7,
+      "command": "node scripts/check-journey-registry.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -d frontend/journey/steps",
+      "blocking": true,
+      "proves": "Every declared journey step has a rubric built from the closed eight-kind assertion set and an approved reference with a tolerance sidecar, and no reference exists without a step. Static: needs no Docker, no Supabase, no build and no browser. See GATES.md section 13.",
+      "requirements": [
+        "JRNY-02",
+        "JRNY-03",
+        "JRNY-04"
+      ]
+    },
+    {
+      "id": "G18",
+      "name": "tenant isolation",
+      "order": 12,
+      "command": "cd frontend && node journey/rls-isolation.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f frontend/supabase/fixtures.json",
+      "blocking": true,
+      "proves": "Against a real local Supabase, a user in org A reads zero of org B's cases, PDFs and share tokens, changes zero of org B's rows, and is refused a cross-tenant insert \u2014 each paired with a positive control on the same table so a denial cannot be mistaken for an empty table. See GATES.md section 13.",
+      "requirements": [
+        "COV-06"
+      ]
+    },
+    {
+      "id": "G17",
+      "name": "live journey run",
+      "order": 13,
+      "command": "cd frontend && node journey/run.mjs --all",
+      "cwd": "apps/inheritance",
+      "precondition": "test -d frontend/node_modules",
+      "blocking": true,
+      "proves": "Every declared account, organization and case-intake screen is driven in a real headless browser against the built application and a real local Supabase, and each is checked twice \u2014 a fixed list of yes/no DOM assertions and a zero-tolerance perceptual diff against an approved reference. See GATES.md section 13.",
+      "requirements": [
+        "JRNY-02",
+        "JRNY-03",
+        "JRNY-04"
       ]
     }
   ]

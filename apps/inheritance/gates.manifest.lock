@@ -71,6 +71,21 @@
       "id": "G15",
       "command": "cd frontend && node journey/selftest.mjs",
       "blocking": true
+    },
+    {
+      "id": "G16",
+      "command": "node scripts/check-journey-registry.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G18",
+      "command": "cd frontend && node journey/rls-isolation.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G17",
+      "command": "cd frontend && node journey/run.mjs --all",
+      "blocking": true
     }
   ]
 }
