@@ -1105,3 +1105,164 @@ copy edit — on the one part of the product where no peso figure appears. Its r
 data rather than a scan of `src/routes/`, so a route that stops being covered is a visible deletion
 in a diff; the price is that a *new* public route is covered only once someone adds it to
 `frontend/journey/seo-routes.json`, and no check enforces that.
+
+## 15. The PDF gates
+
+Four gates, added by Phase 13, covering the estate report a lawyer actually receives. Until this
+phase nothing verified the generated PDF at all: `.planning/codebase/TESTING.md` describes a
+`frontend/src/__tests__/print-layout.test.ts` that asserted substrings of a stylesheet through
+`readFileSync`, but **that file does not exist in the tree and has no git history**. So none of these
+gates replaces a weak check; each closes a verification that was simply absent.
+
+**They run in this order for a reason.** `G22` is first and needs no Docker, no Supabase, no browser
+and no application build, so a missing PDF toolchain reports itself in seconds rather than as three
+slow, mysterious browser-gate failures forty minutes later.
+
+### The toolchain, and why its version is part of the contract
+
+All four gates read the PDF through `frontend/journey/pdf.mjs`, the single seam in this repository
+that spawns a PDF tool. Observed locally:
+
+| Package | Observed version |
+|---|---|
+| `poppler-utils` | `22.02.0-2ubuntu0.13` (`pdftotext version 22.02.0`) |
+| `fonts-urw-base35` | `20200910-1` |
+
+`fonts-urw-base35` is **not** an incidental dependency. The generated PDF's three fonts are PDF
+base-14 (`Times-Roman`, `Times-Bold`, `Helvetica`) and **none of them is embedded** — `pdffonts`
+confirms it. Poppler therefore substitutes from the system font package when rasterising, so a
+different poppler version or a different substitution font package **will** produce different pixels
+and `G24` will go red for a reason that has nothing to do with the product. The workflow installs
+both packages explicitly. Whether a hosted runner rasterises identically to the versions above is
+**unmeasured**: this project's continuous integration has still never executed.
+
+### Why the currency token in the PDF is `PHP `, not the peso sign
+
+Measured during Phase 13 planning, not assumed. WinAnsi — the encoding those non-embedded fonts use —
+has no peso sign, so U+20B1 is written into the content stream as the single byte `0xB1`. That byte
+extracts as U+00B1 and rasterises at near-zero advance width, **overprinting the first digit of the
+amount it prefixes**. Every figure in an exported report carried a corrupted currency mark, and text
+extraction split the amount onto its own line, which made any deterministic assertion impossible.
+`frontend/src/components/pdf/pdf-text.ts` converts at the PDF boundary only;
+`formatPeso` in `src/types/index.ts` is untouched, so every screen in the web interface still renders
+the peso sign.
+
+### Gate G22 — pdf toolchain
+
+`cd frontend && node journey/pdf-probe.mjs`, `order: 17`, blocking. Requirement **PDF-01**.
+
+Generates a two-page A4 document at run time with `@react-pdf/renderer` — **no binary fixture is
+committed**, so nothing can go stale against the renderer — and runs seven checks over it, every one
+evaluated even after an earlier one fails: the bytes are a PDF, all five probe strings extract, the
+money token extracts as **one uninterrupted substring**, neither U+00B1 nor U+20B1 appears, `pdfinfo`
+reports 2 pages at 595×842 points, `pdftoppm` returns two PNGs, and a **second rasterisation of the
+same document has identical SHA-256 digests page for page**. That last check is the precondition
+`G24`'s zero-tolerance comparison depends on.
+
+Exit contract: `0` passed, `1` a check failed, `2` the toolchain is missing
+(`PDF PROBE CANNOT RUN:` on stderr). A missing binary is never reported as an empty result — an
+`extractPdfText` that returned `''` when `pdftotext` was absent would let `G23` certify a blank
+document as conforming.
+
+**Reading a failure:** each failing check prints its own name and what was observed. `PROBE TEXT
+CONTIGUOUS` and `PROBE NO CORRUPT GLYPH` firing together means an unrepresentable character is back
+in the document.
+
+### Gate G23 — pdf structure
+
+`cd frontend && node journey/pdf-structure.mjs`, `order: 18`, blocking. Requirements **PDF-01**,
+**PDF-02**, **PDF-03**.
+
+Inspects the PDF **the product's own Export PDF button produced during this run**, reached by
+resetting the seeded case, clicking the real compute button and clicking the real export button in a
+real browser. A PDF the harness rendered for itself would prove the harness works, not that the
+product's lazy `import('@react-pdf/renderer')`, its `profile: null` argument and its blob download
+all work.
+
+Four verdict families:
+
+- **`SECTION MISSING`** — the required-section list is **derived from the run**, not committed:
+  `WarningsSection` returns `null` when the engine emits no warning and `NarrativesSection` returns
+  `null` when there are none, so a fixed list of headings would raise a false failure on a case that
+  legitimately has no warnings. `FirmHeaderSection` is deliberately **excluded** — `ActionsBar` calls
+  `downloadPDF(input, output, null)`, so no PDF a user can obtain carries a firm header.
+- **`PDF AMOUNT UNEXPECTED`** — every `PHP` token the document prints must parse to a centavo value
+  the engine produced. This direction is what catches a figure the PDF invented.
+- **`PDF AMOUNT MISSING`** — every structured engine amount must appear in the document.
+- **`HEIR EVIDENCE MISSING`** — every heir with a positive share must have their name, at least one
+  of their own `legal_basis` entries, and a narrative body after the `Heir Narratives` heading.
+
+**No expected peso figure is committed anywhere** — not in the script, not in a JSON file, not in a
+comment. Every expected amount comes from `computeEngineOutput` during the run, the discipline
+`G19` established and `scripts/check-seed-fixture.mjs` enforces from the other side.
+
+**Every comparison is `BigInt` and there is no tolerance of any kind.** `Number(`, `toFixed`,
+`Math.abs`, `epsilon` and `tolerance` appear nowhere in the file. The gate **parses and never
+formats**: `parsePdfPesoText` is the inverse of `formatPesoPdf`, so the gate agrees with the product
+rather than with a second formatter of its own. A one-centavo injection was observed turning it red.
+
+**Citations are asserted present and matching the engine's own `legal_basis` — never asserted
+correct.** Whether `Art. 996` is the right article for a family is a point of Philippine law and
+nothing in this gate decides it.
+
+### Gate G24 — pdf visual
+
+`cd frontend && node journey/pdf-visual.mjs`, `order: 19`, blocking. Requirement **PDF-04**.
+
+Rasterises every page and compares it pixel for pixel against an approved reference, reusing
+`compareToReference` from `journey/diff.mjs` and its five frozen markers.
+
+**The page count is checked first, before any pixel comparison.** A page appearing or disappearing is
+a structural change; reporting it as a pile of per-page diffs — page 2 now looking like page 3, and a
+missing reference at the end — would bury the one fact that matters.
+
+**The rasterisation parameters are part of the reference contract: `pdftoppm -png` at 100 dots per
+inch.** Changing either **invalidates every approved image** and requires a human to re-approve every
+page, exactly as `journey/browser.mjs` states for its viewport.
+
+**References live in `frontend/journey/pdf-references/`, not `frontend/journey/references/.`**
+`scripts/check-journey-registry.mjs` (`G16`) raises `ORPHAN REFERENCE` for any image in the latter
+that is not a declared browser step, and a PDF page has no `url`, no `session` and no `rubric`.
+Putting them there would either break `G16` or force PDF pages to masquerade as browser steps
+carrying fields they do not have.
+
+**`journey/pdf-approve.mjs` is the only writer into that directory, and no gate invokes it.**
+`pdf-visual.mjs` has no write path into it at all — its only writes are under `.journey-runs/`. A gate
+that could approve its own reference would turn any failure green by rewriting its own expectation and
+nobody would see the change. Approval is whole-document rather than per-page, because approving one
+page of a two-page report while leaving the other at an older revision would describe a document that
+never existed. Every sidecar carries `maxDiffPixels: 0`; raising it to clear a red gate is prohibited
+by `journey/REFERENCES.md`.
+
+**Reading a failure:** `PDF PAGE COUNT` names both integers and no pixel comparison was attempted.
+`DIFF FAILURE` names the page and the differing-pixel count; the actual, reference and diff images are
+written to `.journey-runs/<stamp>/pdf/page-<n>/`. `REFERENCE MISSING` means that page has no approved
+image or no sidecar — an unapproved page is a real failure, exit `1`, not an environment problem.
+
+### Gate G25 — print layout
+
+`cd frontend && node journey/print-layout.mjs`, `order: 20`, blocking. Requirement **PDF-05**.
+
+Verifies the print stylesheet **by its rendered effect, never by its source text**. A stylesheet's
+text says nothing about what a browser did with it: a rule can be overridden by specificity, dropped
+by a parse error, scoped to a media query that never matches, or shipped in a bundle the page never
+loads — and a check that greps the source file passes in every one of those cases. `grep -c "css"`
+and `grep -c "readFileSync"` over this file both print `0`.
+
+Seven checks, each read from `getComputedStyle` under `page.emulateMedia({ media: 'print' })` or from
+the bytes `page.pdf()` produced: the print typeface, the body size, navigation and `.no-print`
+elements proven hidden, `.print-header` elements proven shown **and proven hidden on screen first**
+(otherwise a stylesheet that did nothing at all would pass), the page size read as A4 out of the
+printed document, and the top and left margins measured as **the distance from the paper edge to the
+first non-white pixel**.
+
+`page.pdf` is called with `preferCSSPageSize: true` and **no `margin` option**, so the paper size and
+the margins come from the document's own `@page` rule rather than from an argument the check supplied
+itself — supplying one would make the check agree with its own input.
+
+The two margin thresholds are fixed integers: **90 px from the top and 70 px from the left at 100 dots
+per inch**. The basis is arithmetic — 25 mm is 98.4 px and 20 mm is 78.7 px at that resolution — and
+each sits a few pixels inside its nominal value to absorb glyph bearing while remaining far above the
+near-zero offset a page ignoring `@page` would produce. Neither is ever adjusted to make a run pass.
+Removing the `@page` margin was observed moving first ink from 126/97 px to 33/34 px and turning the
+gate red.

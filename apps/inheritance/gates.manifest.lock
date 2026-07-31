@@ -101,6 +101,26 @@
       "id": "G21",
       "command": "cd frontend && node journey/seo-smoke.mjs",
       "blocking": true
+    },
+    {
+      "id": "G22",
+      "command": "cd frontend && node journey/pdf-probe.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G23",
+      "command": "cd frontend && node journey/pdf-structure.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G24",
+      "command": "cd frontend && node journey/pdf-visual.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G25",
+      "command": "cd frontend && node journey/print-layout.mjs",
+      "blocking": true
     }
   ]
 }

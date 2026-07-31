@@ -38,6 +38,13 @@ jobs:
     # as a risk rather than a claim: no CI run has ever executed for this
     # project, so whether twenty gates fit inside sixty minutes on a
     # GitHub-hosted runner is not known from that machine.
+    #
+    # Phase 13 added G22, G23, G24 and G25, which cost three more application
+    # builds and three more browser sessions on top of that. The whole
+    # twenty-four-gate set was measured at 5m25s on the owner's machine.
+    # timeout-minutes stays at 60. Still UNMEASURED for the same reason:
+    # whether twenty-four gates fit inside sixty minutes on a hosted runner is
+    # not known from this machine, because CI has still never executed.
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
@@ -62,6 +69,16 @@ jobs:
           node-version: 20
           cache: npm
           cache-dependency-path: apps/inheritance/frontend/package-lock.json
+
+      # Gates G22 through G25 read the generated PDF with poppler: pdftotext for
+      # its text, pdfinfo for its page size, pdftoppm for its page images.
+      # fonts-urw-base35 supplies the substitution fonts poppler uses, because the
+      # PDF's base-14 fonts are not embedded — so this package is part of the
+      # rasterisation contract G24's reference images were approved against, not
+      # an incidental dependency. Observed locally: poppler-utils 22.02.0 and
+      # fonts-urw-base35 20200910-1.
+      - name: Install PDF toolchain
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils fonts-urw-base35
 
       # npm ci, strictly from the committed package-lock.json (lockfileVersion 3),
       # which is the only lockfile this tree has.

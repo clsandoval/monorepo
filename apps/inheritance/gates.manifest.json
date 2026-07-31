@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 19,
+      "order": 23,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 20,
+      "order": 24,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -121,7 +121,7 @@
     {
       "id": "G10",
       "name": "lawyer decision registry",
-      "order": 17,
+      "order": 21,
       "command": "node scripts/check-lawyer-agenda.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/lawyer-decisions.json",
@@ -134,7 +134,7 @@
     {
       "id": "G11",
       "name": "engine observability",
-      "order": 18,
+      "order": 22,
       "command": "node scripts/check-observability.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/src/step10_finalize.rs",
@@ -272,6 +272,60 @@
       "proves": "All fourteen public landing, blog and marketing routes load in a real browser, each rendering a non-empty h1, logging no console error, and fetching nothing that answers HTTP 400 or above. See GATES.md section 14.",
       "requirements": [
         "JRNY-11"
+      ]
+    },
+    {
+      "id": "G22",
+      "name": "pdf toolchain",
+      "order": 17,
+      "command": "cd frontend && node journey/pdf-probe.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f frontend/journey/pdf.mjs",
+      "blocking": true,
+      "proves": "A PDF's text, page count, page dimensions and page images are all readable by the harness, a generated document extracts its money token as one uninterrupted string with no corrupted glyph, and rasterising the same document twice produces identical images. Needs no Docker, no Supabase, no browser and no build. See GATES.md section 15.",
+      "requirements": [
+        "PDF-01"
+      ]
+    },
+    {
+      "id": "G23",
+      "name": "pdf structure",
+      "order": 18,
+      "command": "cd frontend && node journey/pdf-structure.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f frontend/src/wasm/pkg/inheritance_engine_bg.wasm",
+      "blocking": true,
+      "proves": "The PDF the product's own export button produced contains every section it renders, every amount it prints equals as an exact integer number of centavos an amount the compiled engine produced in the same run, no amount appears that the engine did not produce, and every heir with a share has a named narrative and a matching article citation. No expected figure is committed anywhere. See GATES.md section 15.",
+      "requirements": [
+        "PDF-01",
+        "PDF-02",
+        "PDF-03"
+      ]
+    },
+    {
+      "id": "G24",
+      "name": "pdf visual",
+      "order": 19,
+      "command": "cd frontend && node journey/pdf-visual.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -d frontend/journey/pdf-references",
+      "blocking": true,
+      "proves": "Every page of the produced PDF is compared pixel for pixel against an approved reference at a tolerance of zero, and a page appearing or disappearing fails on page count before any pixel is compared. The gate has no write path into the reference directory. See GATES.md section 15.",
+      "requirements": [
+        "PDF-04"
+      ]
+    },
+    {
+      "id": "G25",
+      "name": "print layout",
+      "order": 20,
+      "command": "cd frontend && node journey/print-layout.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f frontend/src/styles/print.css",
+      "blocking": true,
+      "proves": "The print stylesheet's effect is read from what the browser computed and printed: the print typeface and body size from computed style under print media, navigation and no-print elements proven hidden and print-only elements proven shown, the page size read as A4 out of the browser's own printed document, and the margins measured as the distance from the paper edge to the first ink. The check opens no stylesheet. See GATES.md section 15.",
+      "requirements": [
+        "PDF-05"
       ]
     }
   ]

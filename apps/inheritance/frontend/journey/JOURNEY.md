@@ -385,3 +385,57 @@ turned red — never because someone read the schema. Merely *opening* the wizar
 write two of them; pressing Compute writes the third. A step that leaves a column dirty makes some
 later step's result depend on registry ordering, which is indistinguishable from a product defect
 until someone spends an hour on it.
+
+## The PDF journey
+
+Phase 13 added four gates over the estate report a lawyer actually receives — `G22` toolchain,
+`G23` structure, `G24` visual, `G25` print layout. **None of them adds a step record.** A PDF page is
+not a browser step: it has no `url`, no `session` and no `rubric`, so it is not in
+`journey/steps/` and its reference images are not in `journey/references/`. See `GATES.md`
+section 15 for what each gate proves and `journey/pdf-references/README.md` for the reference
+contract.
+
+The document under inspection is the one **the product's own Export PDF button produced**, obtained
+by resetting the seeded case, clicking the real Compute button and clicking the real Export button in
+a real browser. A PDF the harness rendered for itself would prove the harness works.
+
+`journey/pdf-capture.mjs` pins the page clock to `2026-06-15T00:00:00Z` with
+`page.clock.setFixedTime` — never `clock.install`, which fakes timers and stalls React scheduling and
+the debounced autosave. `CaseSummarySection` prints `Report Generated:` from `new Date()`, so without
+this a zero-tolerance page reference approved today would fail tomorrow. Two independent captures were
+observed producing byte-identical extracted text.
+
+### What is covered
+
+- every section the product actually renders, with the list **derived from the run** because two
+  sections are conditional on engine output
+- every peso amount, in **both directions** and as exact `BigInt` centavos with no tolerance: every
+  amount the document prints must be one the engine produced, and every structured engine amount must
+  appear in the document
+- a name, a matching `legal_basis` citation and a narrative body for every heir awarded a share
+- every page of the document, diffed pixel for pixel against an approved image at a tolerance of zero
+- the print stylesheet's effect, read from computed style under print media and from the browser's own
+  printed bytes — never from the stylesheet's text
+
+### What is deliberately not covered
+
+1. **The firm header section has no coverage, because no PDF a user can obtain has one.**
+   `ActionsBar.tsx` calls `downloadPDF(input, output, null)` — the profile argument is always `null`
+   on the export path, so `EstatePDF`'s `options.includeFirmHeader && profile` guard never renders
+   `FirmHeaderSection`. Requiring it in `G23` would assert a section the product never produces.
+   Whether the export *should* pass the firm profile is a product question, not a gate defect, and it
+   is written down here so it is not mistaken for an oversight.
+
+2. **The literal `**` markdown markers the engine writes into `narratives[].text` reach the page
+   verbatim, and no gate objects.** The engine emits `**Ana (legitimate child)** receives
+   **PHP 1,500,000**`, `@react-pdf/renderer` does not parse markdown, and `toPdfSafeText` converts the
+   currency mark and nothing else — by design; it strips no markdown and touches no other code point.
+   The asterisks are therefore visible in the exported report. Removing them is a presentation change
+   with **no requirement behind it** in PDF-01 through PDF-05, so Phase 13 did not make it. It is
+   recorded here so it is not mistaken for something nobody noticed. It is now pinned by `G24`'s
+   approved images, so if it ever changes, it changes as a reviewable diff.
+
+Two further cosmetic observations from the approved page images, in the same category — visible,
+deliberate not to fix, now pinned: citations render as `Art. 996: Art. 996` because
+`NCC_ARTICLE_DESCRIPTIONS` has no entry for that key and `PerHeirBreakdownSection` falls back to the
+key, and `Legitime Fraction:` renders a bare `0`.

@@ -89,11 +89,11 @@ Screenshot plus vision, per step, for the money path. `.planning/codebase/ARCHIT
 
 Most PDF breakage is structural and catchable without a model in the loop.
 
-- [ ] **PDF-01**: The PDF renders in CI and every required section is present in its extracted text
-- [ ] **PDF-02**: Every peso figure in the PDF matches the engine output exactly, asserted deterministically
-- [ ] **PDF-03**: Article citations and per-heir narratives appear for every heir
-- [ ] **PDF-04**: Rendered pages are perceptually diffed against approved references
-- [ ] **PDF-05**: Print layout is verified from rendered output, not by asserting on CSS source text
+- [x] **PDF-01**: The PDF renders in CI and every required section is present in its extracted text
+- [x] **PDF-02**: Every peso figure in the PDF matches the engine output exactly, asserted deterministically
+- [x] **PDF-03**: Article citations and per-heir narratives appear for every heir
+- [x] **PDF-04**: Rendered pages are perceptually diffed against approved references
+- [x] **PDF-05**: Print layout is verified from rendered output, not by asserting on CSS source text
 
 ### Extendability
 
@@ -245,11 +245,11 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | JRNY-07 | Phase 12 | Complete (12-02, 12-06, 12-08, 12-09) — results view and family tree gated by G16/G17, proved by `node journey/run.mjs --all` (steps `results-view`, `results-family-tree`); every displayed peso figure proved equal to a same-run engine computation by G19, `node journey/money-parity.mjs` |
 | JRNY-08 | Phase 12 | Complete (12-02, 12-07, 12-09) — three share states gated by G16/G17, proved by `node journey/run.mjs --all` (steps `share-populated`, `share-uncomputed`, `share-disabled`); the anonymous RPC's exact six-column set proved by G20, `node journey/share-exposure.mjs` |
 | JRNY-11 | Phase 12 | Complete (12-05, 12-09) — fourteen public routes gated by G21, proved by `node journey/seo-smoke.mjs`: each renders a non-empty `h1`, logs no console error, and fetches nothing answering HTTP 400 or above |
-| PDF-01 | Phase 13 | Planned (13-02, 13-03, 13-05, 13-07) — gates G22 and G23; the section list is derived from the engine output of the same run, so the two conditional sections are not asserted when the engine emits none |
-| PDF-02 | Phase 13 | Planned (13-01, 13-05, 13-07) — gate G23; the PDF's currency token is first made representable by its own non-embedded WinAnsi fonts, then every printed amount is compared as an exact centavo integer in both directions |
-| PDF-03 | Phase 13 | Planned (13-05, 13-07) — gate G23; every heir with a positive share must have a name, a matching `legal_basis` citation and a narrative in the document. Citations are asserted present and matching engine output, never asserted correct |
-| PDF-04 | Phase 13 | Planned (13-06, 13-07) — gate G24; every page rasterised at 100 dots per inch and compared at `maxDiffPixels` 0 against a reference only `journey/pdf-approve.mjs` can write |
-| PDF-05 | Phase 13 | Planned (13-04, 13-07) — gate G25; every claim read from computed style under print media or from the bytes `page.pdf` produced, and the check opens no stylesheet |
+| PDF-01 | Phase 13 | Complete (13-02, 13-03, 13-05, 13-07) — gates G22 and G23; the section list is derived from the engine output of the same run, so the two conditional sections are not asserted when the engine emits none |
+| PDF-02 | Phase 13 | Complete (13-01, 13-05, 13-07) — gate G23; the PDF's currency token is first made representable by its own non-embedded WinAnsi fonts, then every printed amount is compared as an exact centavo integer in both directions |
+| PDF-03 | Phase 13 | Complete (13-05, 13-07) — gate G23; every heir with a positive share must have a name, a matching `legal_basis` citation and a narrative in the document. Citations are asserted present and matching engine output, never asserted correct |
+| PDF-04 | Phase 13 | Complete (13-06, 13-07) — gate G24; every page rasterised at 100 dots per inch and compared at `maxDiffPixels` 0 against a reference only `journey/pdf-approve.mjs` can write |
+| PDF-05 | Phase 13 | Complete (13-04, 13-07) — gate G25; every claim read from computed style under print media or from the bytes `page.pdf` produced, and the check opens no stylesheet |
 | LAW-06 | Phase 14 | Pending |
 | LAW-07 | Phase 14 | Pending |
 | LAW-12 | Phase 14 | Pending |
