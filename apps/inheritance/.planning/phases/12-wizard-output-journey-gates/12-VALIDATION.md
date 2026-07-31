@@ -1,7 +1,7 @@
 ---
 phase: 12
 slug: wizard-output-journey-gates
-status: draft
+status: executed
 nyquist_compliant: true
 wave_0_complete: true
 created: 2026-07-31
@@ -21,7 +21,7 @@ created: 2026-07-31
 | **Config file** | `frontend/vitest.config.ts`; the journey harness has no config file by design — a step record is data under `frontend/journey/steps/` |
 | **Quick run command** | `cd frontend && node journey/run.mjs --step <stepId>` |
 | **Full suite command** | `bash scripts/ci-gates.sh` |
-| **Estimated runtime** | single step ~20 s including build; full gate run ~8 min |
+| **Estimated runtime** | single step ~20 s including build; full gate run **measured at 4 m 12 s**, twice, on the owner's machine |
 
 ---
 
@@ -108,3 +108,47 @@ Every other phase behavior has an automated verification command in the table ab
 - [x] `nyquist_compliant: true` set in frontmatter
 
 **Approval:** pending
+
+
+---
+
+## Execution record — filled in after the phase ran
+
+Measured, not estimated. Every line below was observed on this machine.
+
+| What | Command | Result |
+|---|---|---|
+| Whole gate set, run 1 | `bash scripts/ci-gates.sh` | `ALL GATES PASSED (20/20)`, exit 0, `real 4m12.161s` |
+| Whole gate set, run 2 | `bash scripts/ci-gates.sh` | `ALL GATES PASSED (20/20)`, exit 0, `real 4m12.811s` |
+| Per-gate status | `node -e` over `gate-results.json` | `total=20 nonpass=0` |
+| Journey suite | `cd frontend && node journey/run.mjs --all` | `JOURNEY PASS steps=33 failed=0`, twice consecutively |
+| Registry | `node scripts/check-journey-registry.mjs` | `JOURNEY REGISTRY ok steps=33 references=33` |
+| Manifest | `node scripts/check-gate-manifest.mjs` | `MANIFEST OK — 20 gates, 20 locked` |
+| Frontend ledger | `cd frontend && npm run test:gate` | `GATE OK`, 2403 passed, ledger unchanged at 46 |
+| Money parity | `cd frontend && node journey/money-parity.mjs` | `MONEY PARITY PASS heirs=4 centavos=600000000` |
+| Share exposure | `cd frontend && node journey/share-exposure.mjs` | `SHARE EXPOSURE PASS fields=6 forbidden=0` |
+| SEO smoke | `cd frontend && node journey/seo-smoke.mjs` | `SEO SMOKE PASS routes=14 failed=0` |
+| Requirement coverage | `node scripts/gate-coverage.mjs` | `REQUIREMENT COVERAGE 29/94 gated`, `COVERAGE OK` |
+
+The two consecutive whole-set runs are the load-bearing evidence: this phase added the first steps in
+the project that write to the database *through the product*, so a second run that differed from the
+first would mean a gate mutates state it does not restore. Three such defects were in fact found and
+fixed during execution — see the deviations in the 12-03, 12-06 and 12-07 summaries.
+
+**Every negative path was observed firing**, never assumed:
+
+| Gate / rubric | Injection | Observed |
+|---|---|---|
+| `wizard-review` | badge forced to the deleted classifier's `I1` | `RUBRIC FAILURE`, `expected 'I2' \| actual 'I1'`, exit 1 |
+| `tax-tab-0` | `tab-selected` pointed at `tab-3` | `RUBRIC FAILURE`, `expected 'true' \| actual 'false'`, exit 1 |
+| `results-view` | `heir-row-count` expect 5 | `RUBRIC FAILURE`, `expected 5 \| actual 4`, exit 1 |
+| G19 | +1 centavo on each heir cell | `HEIR AMOUNT MISMATCH … (difference 1)`, exit 1 |
+| G19 | first heir row dropped | `HEIR ROW SET MISMATCH — displayed [c2, c3, s], engine [c1, c2, c3, s]`, exit 1 |
+| G19 | +100 centavos on the total | `TOTAL ESTATE MISMATCH … (difference 100)`, exit 1 |
+| G20 | seventh column added to the live RPC | `SHARE FIELD SET` + `SHARE FIELD LEAKED — org_id`, exit 1 |
+| G21 | route rendering no `h1` | `SEO RENDER FAILURE`, exit 1 |
+| G21 | a fetch answering 404 | `SEO BAD STATUS — HTTP 404`, exit 1 |
+| G21 | `console.error` in a component | `SEO CONSOLE ERROR`, exit 1 |
+| Registry | step naming `JRNY-99` | `STEP FIELD INVALID` (exit 1) and `JOURNEY CANNOT RUN: STEPS INVALID` (exit 2) |
+
+Every injection was restored and the restored tree re-run green before anything was committed.
