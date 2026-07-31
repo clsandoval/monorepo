@@ -1,9 +1,10 @@
-import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { Control, Controller, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import type { EngineInput } from '../../types';
 import { MoneyInput } from '../shared/MoneyInput';
 import { Separator } from '@/components/ui/separator';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export interface EstateStepProps {
   control: Control<EngineInput>;
@@ -83,6 +84,37 @@ export function EstateStep({
             Will & dispositions will be configured in a later step.
           </p>
         )}
+      </fieldset>
+
+      <Separator />
+
+      <fieldset className="space-y-3" data-testid="reserva-troncal-field">
+        <legend className="text-sm font-medium leading-none">Reserva Troncal (Art. 891)</legend>
+        <Controller
+          name="config.manual_review_facts.reserva_troncal_property_present"
+          control={control}
+          defaultValue={false}
+          render={({ field }) => (
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  id="reserva-troncal"
+                  checked={field.value === true}
+                  onCheckedChange={(v) => field.onChange(v === true)}
+                />
+                <Label htmlFor="reserva-troncal" className="cursor-pointer font-normal">
+                  Estate includes property acquired by gratuitous title from an ascendant, brother or sister
+                </Label>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Art. 891 may reserve such property for relatives within the third degree belonging to
+                the line it came from. This engine does <strong>not</strong> compute the reservation:
+                it carries no asset inventory and no provenance for any item of property. Ticking this
+                box raises a manual-review flag on the computation so a person can decide.
+              </p>
+            </div>
+          )}
+        />
       </fieldset>
     </div>
   );

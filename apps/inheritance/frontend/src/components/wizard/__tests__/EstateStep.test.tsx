@@ -291,4 +291,42 @@ describe('wizard-step1 > EstateStep', () => {
       expect(onValues.mock.calls[0][0].will).toBeNull();
     });
   });
+
+  describe('Reserva Troncal (Art. 891) — LAW-11', () => {
+    it('renders the reserva troncal field, unchecked by default', () => {
+      render(<EstateStepWrapper />);
+
+      expect(screen.getByTestId('reserva-troncal-field')).toBeInTheDocument();
+      const box = screen.getByRole('checkbox', {
+        name: /property acquired by gratuitous title from an ascendant, brother or sister/i,
+      });
+      expect(box).not.toBeChecked();
+    });
+
+    it('ticking the box sets config.manual_review_facts.reserva_troncal_property_present to true', async () => {
+      const user = userEvent.setup();
+      const onValues = vi.fn();
+
+      render(<EstateStepWrapper onValues={onValues} />);
+
+      const input = screen.getByLabelText(/Net Distributable Estate/i);
+      await user.clear(input);
+      await user.type(input, '1000');
+      fireEvent.blur(input);
+
+      await user.click(
+        screen.getByRole('checkbox', {
+          name: /property acquired by gratuitous title from an ascendant, brother or sister/i,
+        }),
+      );
+
+      await user.click(screen.getByText('Submit'));
+
+      await waitFor(() => {
+        expect(onValues).toHaveBeenCalled();
+      });
+      const data = onValues.mock.calls[0][0];
+      expect(data.config.manual_review_facts.reserva_troncal_property_present).toBe(true);
+    });
+  });
 });

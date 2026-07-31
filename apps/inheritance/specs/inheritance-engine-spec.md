@@ -2310,7 +2310,7 @@ The engine produces deterministic output for all computable scenarios. These 10 
 |-----------|---------|-------------|
 | `GRANDPARENT_OF_ILLEGITIMATE` | Art. 903 says "parents" not "ascendants" | Art. 903 |
 | `CROSS_CLASS_ACCRETION` | IC renounces when concurring with LCs | Arts. 1018 vs 968 |
-| `RESERVA_TRONCAL` | Property subject to Art. 891 reservation | Art. 891 |
+| `RESERVA_TRONCAL` | The case author asserts that the estate holds property acquired by gratuitous title from an ascendant, brother or sister | Art. 891 |
 | `COLLATION_DISPUTE` | Heirs disagree about collatability/value | Art. 1077 |
 | `RA_11642_RETROACTIVITY` | Pre-2022 adoption with Sec. 41 question | RA 8552/11642 |
 | `ARTICULO_MORTIS` | Art. 900 ¶2 conditions detected | Art. 900 ¶2 |
@@ -2318,6 +2318,28 @@ The engine produces deterministic output for all computable scenarios. These 10 
 | `DUAL_LINE_ASCENDANT` | Same person in both paternal/maternal lines | Art. 890 |
 | `POSTHUMOUS_DISINHERITANCE` | Will disinherits unborn child | Arts. 915-923 |
 | `CONTRADICTORY_DISPOSITIONS` | Will has conflicting instructions | Court resolution |
+
+#### Art. 891 reserva troncal is flagged, never computed
+
+Art. 891 attaches to **specific property**, according to how the propositus acquired it and from which
+line it came, and reserves it for relatives within the third degree belonging to that line.
+
+`EngineInput` carries a single scalar `net_distributable_estate` with no asset inventory and no
+provenance fields. No input to this engine can express the facts Art. 891 turns on.
+
+The engine therefore **does not compute** the reservation. It does not encumber any share, and it does
+not identify a reservista or a reservatario.
+
+When the case author asserts the fact through
+`config.manual_review_facts.reserva_troncal_property_present`, the engine emits the `RESERVA_TRONCAL`
+manual-review flag and changes no peso figure. The flag is the engine saying a human must decide; it is
+not a conclusion the engine derived.
+
+The `RESERVATION` narrative section type listed in section 12 exists for a future implementation and is
+not populated today.
+
+The doctrine remains live law, applied in *Mendoza v. Delos Santos*, G.R. No. 176422 (2013), so its
+absence here is a scope limitation and not an obsolescence.
 
 ### 13.2 Key Edge Cases (82 Total)
 

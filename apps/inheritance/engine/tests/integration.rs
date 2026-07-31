@@ -2324,6 +2324,65 @@ fn test_law05b_exempt_donation_still_preterites_and_flags() {
 }
 
 // ══════════════════════════════════════════════════════════════════════
+// LAW-11: reserva troncal is FLAGGED, never computed (Art. 891)
+//
+// Closes the `.planning/research/LEGAL-CONFORMANCE.md` §4 row.
+//
+// Art. 891 reserves property the propositus acquired by gratuitous title from
+// an ascendant, brother or sister for relatives within the third degree
+// belonging to the line it came from. `EngineInput` carries a single scalar
+// `net_distributable_estate` with no asset inventory and no provenance field,
+// so the reservation is structurally not computable here and is NOT computed.
+//
+// The flag is the engine saying a human must decide. It alters no distribution,
+// which is exactly what the paired false-case assertion below proves.
+//
+// The doctrine remains live law — applied in *Mendoza v. Delos Santos*,
+// G.R. No. 176422 (2013) — so its absence is a scope limitation, not an
+// obsolescence.
+// ══════════════════════════════════════════════════════════════════════
+
+fn law11_input(reserva_present: bool) -> EngineInput {
+    let mut config = default_config();
+    config.manual_review_facts.reserva_troncal_property_present = reserva_present;
+    EngineInput {
+        net_distributable_estate: Money::from_pesos(10_000_000),
+        decedent: default_decedent("Dolores Aguinaldo", false),
+        family_tree: vec![parent("mo", "Modesta", LineOfDescent::Maternal)],
+        will: None,
+        donations: vec![],
+        config,
+    }
+}
+
+#[test]
+fn test_law11_reserva_troncal_fact_raises_a_flag() {
+    let input = law11_input(true);
+    let output = run_pipeline(&input);
+
+    check_sum_invariant(&output, &input.net_distributable_estate);
+    assert_total_centavos(find_share(&output, "mo"), 1000000000, "LAW-11 mo");
+    assert!(
+        output.warnings.iter().any(|w| w.category == "RESERVA_TRONCAL"),
+        "LAW-11: the asserted reserva fact must raise a manual-review flag"
+    );
+
+    // Paired false case: the flag is driven by the asserted fact, and raising
+    // it changes no peso figure.
+    let off = law11_input(false);
+    let off_output = run_pipeline(&off);
+    check_sum_invariant(&off_output, &off.net_distributable_estate);
+    assert!(
+        off_output
+            .warnings
+            .iter()
+            .all(|w| w.category != "RESERVA_TRONCAL"),
+        "LAW-11: no flag when the fact is not asserted"
+    );
+    assert_total_centavos(find_share(&off_output, "mo"), 1000000000, "LAW-11 mo (fact off)");
+}
+
+// ══════════════════════════════════════════════════════════════════════
 // Cross-cutting invariant tests
 // ══════════════════════════════════════════════════════════════════════
 
