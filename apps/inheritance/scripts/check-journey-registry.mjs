@@ -55,8 +55,11 @@ const RUBRICS_DIR = path.join(APP_DIR, 'frontend', 'journey', 'rubrics');
 const REFERENCES_DIR = path.join(APP_DIR, 'frontend', 'journey', 'references');
 const FIXTURES_PATH = path.join(APP_DIR, 'frontend', 'supabase', 'fixtures.json');
 
-/** The requirement ids a Phase 11 journey step may claim. */
-const REQUIREMENTS = ['JRNY-02', 'JRNY-03', 'JRNY-04'];
+/** The account, organization, intake, wizard and output requirement ids a step may claim. */
+const REQUIREMENTS = [
+  'JRNY-02', 'JRNY-03', 'JRNY-04',
+  'JRNY-05', 'JRNY-06', 'JRNY-07', 'JRNY-08',
+];
 /** The session identities journey/session.mjs can produce. */
 const SESSION_KINDS = ['none', 'alpha', 'beta', 'orphan'];
 /** Exactly the fields a step record may carry. */
@@ -65,7 +68,10 @@ const STEP_FIELDS = [
   'reset', 'actions', 'settleMs', 'rubric', 'allowConsoleErrors',
 ];
 /** The reset names journey/resets.mjs exports. */
-const RESET_NAMES = ['noop', 'orphan-no-org', 'orphan-invitation-pending'];
+const RESET_NAMES = [
+  'noop', 'orphan-no-org', 'orphan-invitation-pending',
+  'case-alpha-no-output', 'case-alpha-computed',
+];
 
 /**
  * The one uuid a step url may carry that is deliberately NOT a fixture: the

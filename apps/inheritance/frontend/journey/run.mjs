@@ -53,8 +53,11 @@ const RUBRICS_DIR = path.join(HERE, 'rubrics');
 const REFERENCES_DIR = path.join(HERE, 'references');
 const FIXTURES_DIR = path.join(HERE, 'fixtures');
 
-/** The requirement ids a step in this phase's registry may claim. */
-const REQUIREMENTS = Object.freeze(['JRNY-02', 'JRNY-03', 'JRNY-04']);
+/** The account, organization, intake, wizard and output requirement ids a step may claim. */
+const REQUIREMENTS = Object.freeze([
+  'JRNY-02', 'JRNY-03', 'JRNY-04',
+  'JRNY-05', 'JRNY-06', 'JRNY-07', 'JRNY-08',
+]);
 
 /** Exactly the fields a step record may carry. An extra field is rejected. */
 const STEP_FIELDS = Object.freeze([

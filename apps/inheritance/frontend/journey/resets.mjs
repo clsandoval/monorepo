@@ -15,6 +15,7 @@
  */
 
 import { readFixtures } from './seed.mjs';
+import { computeEngineOutput } from './engine.mjs';
 
 /*
  * A RESET ONLY DELETES OR REVERTS ROWS REACHABLE FROM fixtures.json. It never
@@ -26,6 +27,13 @@ import { readFixtures } from './seed.mjs';
  * the onboarding step creates one whose id the runner did not choose and cannot
  * know. Excluding the two seeded org ids is what keeps that delete from reaching
  * anything else while still converging to the seeded state.
+ *
+ * `case-alpha-no-output` and `case-alpha-computed` put the single seeded Alpha
+ * case into, respectively, the wizard state a results step must start from and
+ * the computed state the share-populated step must render. The computed one asks
+ * the compiled engine at run time through engine.mjs rather than storing a peso
+ * figure: scripts/check-seed-fixture.mjs rejects a seeded output_json with
+ * `SEED WRITES OUTPUT`, so no engine result is ever committed as SQL.
  *
  * Every id below is read through readFixtures(); no uuid is written literally.
  */
@@ -67,6 +75,54 @@ export const RESETS = Object.freeze({
       .from('organization_invitations')
       .update({ status: 'pending', accepted_at: null, expires_at: expires })
       .eq('id', fixtures.orphan.invitation_id);
+  },
+
+  /**
+   * Return the Alpha case to the state a lawyer is in before pressing Compute:
+   * input present, no engine result. A results step must start here, or run two
+   * would assert against run one's leftover output instead of a fresh one.
+   */
+  'case-alpha-no-output': async (admin) => {
+    const caseId = readFixtures().orgs.alpha.case_id;
+    const { error } = await admin
+      .from('cases')
+      .update({ output_json: null })
+      .eq('id', caseId);
+    // Throw rather than swallow: a failed reset must surface as STEP ERROR, not
+    // as a rubric failure that looks like a product defect.
+    if (error) {
+      throw new Error(`RESET FAILED case-alpha-no-output: ${error.message}`);
+    }
+  },
+
+  /**
+   * Drive the Alpha case to a computed state by running the real engine on its
+   * own committed input_json. The share-populated step needs a computed case and
+   * has no browser in which to press Compute.
+   */
+  'case-alpha-computed': async (admin) => {
+    const caseId = readFixtures().orgs.alpha.case_id;
+    const { data, error: selectError } = await admin
+      .from('cases')
+      .select('input_json')
+      .eq('id', caseId)
+      .single();
+    if (selectError) {
+      throw new Error(`RESET FAILED case-alpha-computed (select): ${selectError.message}`);
+    }
+    if (!data || data.input_json == null) {
+      throw new Error(
+        `RESET FAILED case-alpha-computed: case ${caseId} has a null input_json, so there is nothing to compute`,
+      );
+    }
+    const output = await computeEngineOutput(data.input_json);
+    const { error: updateError } = await admin
+      .from('cases')
+      .update({ output_json: output })
+      .eq('id', caseId);
+    if (updateError) {
+      throw new Error(`RESET FAILED case-alpha-computed (update): ${updateError.message}`);
+    }
   },
 });
 
