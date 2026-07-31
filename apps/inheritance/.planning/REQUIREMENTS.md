@@ -28,7 +28,7 @@ The precondition for everything else. Until these hold, any report of "tests pas
 Two hardcoded lines currently make every defect below invisible. Nothing else is verifiable until these are fixed.
 
 - [x] **OBS-01**: Engine `warnings` reach output — `step10_finalize.rs:619` no longer hardcodes an empty array
-- [ ] **OBS-02**: All ten flag categories the spec defines are constructed and emitted, not the current six
+- [x] **OBS-02**: All ten flag categories the spec defines are constructed and emitted, not the current six
 - [x] **OBS-03**: `from_legitime`, `from_free_portion`, and `from_intestate` carry the values step 7 already computes, instead of being zeroed at `step10_finalize.rs:538-542`
 - [x] **OBS-04**: `legitime_fraction` is populated, so a lawyer can see which pesos are protected legitime under Arts. 904–905
 - [ ] **OBS-05**: A runtime conservation check asserts that per-heir shares sum exactly to the distributable estate, and rejects the output if not

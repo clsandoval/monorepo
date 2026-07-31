@@ -286,7 +286,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 2. Loop Durability & Commit Discipline | 6/6 | Complete   | 2026-07-31 |
 | 3. Reproducible Environment & Gate Reporting | 5/5 | Complete    | 2026-07-31 |
 | 4. Lawyer Review Agenda Recorded | 5/5 | Complete    | 2026-07-31 |
-| 5. Engine Observability Restored | 3/7 | In Progress|  |
+| 5. Engine Observability Restored | 4/7 | In Progress|  |
 | 6. Property-Test Coverage Depth | 0/TBD | Not started | - |
 | 7. Intestate Order & Representation Root-Cause Fixes | 0/TBD | Not started | - |
 | 8. Remaining Unblocked Legal & Tax-Bridge Defects | 0/TBD | Not started | - |
