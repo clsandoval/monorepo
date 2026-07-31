@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 6 PLANNED. `06-RESEARCH.md`, `06-VALIDATION.md` and five `PLAN.md` files across 4 waves (wave 1 = 06-01 corpus and 06-03 vector tightening in parallel; wave 2 = 06-02 invariant split; waves 3 and 4 serialize on the four gate-infrastructure files). COV-01..05 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 32 plan file(s), 117 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` plus `verify.plan-structure` report valid with zero errors on each of the five new plans. Every number in the research was measured live in this tree, including a bisection that reproduced the collateral duplicate-heir defect to the centavo. The phase ends at 13 gates; a full `ci-gates.sh` run will still halt at G3 until Phase 5's product decision is answered. Next step is `/gsd:execute-phase 6`."
-last_updated: "2026-07-31T14:17:24.684Z"
-last_activity: 2026-07-31 -- Phase 7 planning complete
+stopped_at: "Phase 7 COMPLETE. All four plans executed and committed: 07-01 (ascendant tier, b980e851b), 07-02 (collateral tier, d8023da65), 07-03 (descendant tier, 70e9f95c0), 07-04 (regression vectors and closeout, a3712b2ac). The single `degree_from_decedent == 1` anchor filter in step2_lines.rs is replaced by a per-category `anchor_ids_for_category`. cargo test: 527 passed, 0 failed. Four named vectors test_law01..04 pin exact centavo values. engine/defect-baseline.json shrank 3 -> 2 entries and the fixed input moved to examples/coverage-cases/031. Twelve of thirteen gates pass; ci-gates.sh still halts at G3 (gate 8/13) on the same five OBS-05/OBS-06 tests Phases 5 and 6 recorded, verbatim — the frontend failure set did not grow. ALL GATES PASSED (13/13) is not achievable and is not claimed. Next step is /gsd:plan-phase 8."
+last_updated: "2026-07-31T14:19:09.775Z"
+last_activity: 2026-07-31 -- Phase 07 complete (LAW-01..04 closed)
 progress:
   total_phases: 15
-  completed_phases: 6
+  completed_phases: 7
   total_plans: 36
-  completed_plans: 32
-  percent: 40
+  completed_plans: 36
+  percent: 47
 ---
 
 # Project State
@@ -21,17 +21,17 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-27)
 
 **Core value:** A change to this codebase must be cheap and safe to make — a passing gate set genuinely implies a working app, and a wrong legal number can never reach a lawyer silently.
-**Current focus:** Phase 06 — property-test-coverage-depth
+**Current focus:** Phase 08 — remaining unblocked legal & tax-bridge defects
 
 ## Current Position
 
-Phase: 06 (property-test-coverage-depth) — COMPLETE
-Plan: 5 of 5 executed
-Status: Ready to execute
-Carried forward: Phase 05 remains BLOCKED on one product decision (OBS-05/OBS-06). Gate G3 is still red and `bash scripts/ci-gates.sh` still halts there, now at gate 8 of 13. Phase 6 did not touch it and did not hide it: both new gates (G12 order 4, G13 order 5) sit ahead of G3 and run on every invocation, and the same five tests fail with the same messages as before.
-Last activity: 2026-07-31 -- Phase 7 planning complete
+Phase: 07 (intestate-order-representation-root-cause-fixes) — COMPLETE
+Plan: 4 of 4 executed
+Status: Ready to plan Phase 08
+Carried forward: Phase 05 remains BLOCKED on one product decision (OBS-05/OBS-06). Gate G3 is still red and `bash scripts/ci-gates.sh` still halts there at gate 8 of 13. Phase 7 did not touch it and did not hide it: the five UNKNOWN FAILURES it reports are byte-identical to the set recorded in 05-05, 05-06 and 06-05, and the WASM binary was rebuilt from the fixed engine before the frontend suite was measured, so that comparison is against the new engine and not the old one. The five gates the runner never reaches (G4, G8, G9, G10, G11) were run directly and all exit 0.
+Last activity: 2026-07-31 -- Phase 07 complete (LAW-01..04 closed)
 
-Progress: [█░░░░░░░░░] 7%
+Progress: [████░░░░░░] 47%
 
 ## Performance Metrics
 
@@ -116,7 +116,7 @@ Recent decisions affecting current work:
 - Phase 5: emitting a `ManualFlag` decides nothing — it is the engine saying a human must decide. Every detector is a field comparison transcribed from the spec table, and the five new input members are facts the person entering the case asserts, never conclusions the engine derives. **No point of Philippine law arises in this phase and nothing was added to the lawyer review agenda.**
 - Phase 5: two anti-regression mechanisms rather than one. `engine/tests/observability.rs` (under existing gate G1) catches a behavioral regression across the whole 140-case corpus; new gate `G11` (`node scripts/check-observability.mjs`) catches a source regression — the reappearance of the empty-warnings literal or a re-zeroed sub-component on a path no test happens to cover. Both hardcoded lines survived unnoticed for the codebase's entire life, which is what justifies a grep-level guard alongside a behavioral one.
 - Phase 5: G11 takes `order` 9, pushing G8 to 10 and G9 to 11 — the same constraint Phase 4 discovered, that `scripts/check-gate-results.mjs` fails with `RESULTS INCOMPLETE` on any gate it sees as `not-run`, so G9 must stay last. The phase ends at 11 gates.
-- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** Ready to execute
+- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** Executing Phase 07
 
 - Phase 6: measured, not assumed — `LEGAL-CONFORMANCE.md:76`'s three claims all reproduce. Across all 140 committed inputs, `NephewNiece` appears in **0** files, `recipient_is_stranger: true` in **0** files, and the maximum donation/estate ratio is **0.5524**. Five of eleven `Relationship` variants appear nowhere at all.
 - Phase 6: two of COV-01's three shapes BREAK sum conservation today. A donation to an heir at ratio > 1.0 and a donation to a **stranger at any ratio** (measured at 0.1) both make the per-heir sum exceed the estate. Both are the documented LAW-06 defect, lawyer-blocked on LAWYER-06 and owned by Phase 14.
