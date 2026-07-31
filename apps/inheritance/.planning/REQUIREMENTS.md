@@ -232,10 +232,10 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | EXT-02 | Phase 9 | Partial (one duplicate converter deleted by 09-05; registry gate G14 blocked on 09-04) |
 | EXT-03 | Phase 9 | Complete (09-03, 09-05) |
 | EXT-04 | Phase 9 | Blocked (09-02 exposed an engine defect out of plan scope; 09-04 blocked on 09-01) |
-| JRNY-01 | Phase 10 | Pending |
-| JRNY-09 | Phase 10 | Pending |
-| JRNY-10 | Phase 10 | Pending |
-| JRNY-12 | Phase 10 | Pending |
+| JRNY-01 | Phase 10 | Planned (10-05) |
+| JRNY-09 | Phase 10 | Planned (10-02) |
+| JRNY-10 | Phase 10 | Planned (10-03) |
+| JRNY-12 | Phase 10 | Planned (10-01, 10-04) |
 | JRNY-02 | Phase 11 | Pending |
 | JRNY-03 | Phase 11 | Pending |
 | JRNY-04 | Phase 11 | Pending |

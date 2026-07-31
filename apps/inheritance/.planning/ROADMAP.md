@@ -265,7 +265,29 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. A vision rubric used by any gate is a fixed list of yes/no assertions returning structured output, never free-form judgment.
   3. A gate failure report clearly distinguishes a perceptual-diff failure from a rubric failure, and a documented flow exists for re-approving a reference image.
   4. Every gate failure writes the screenshot, the diff image, and the failing assertion text to a durable, inspectable location.
-**Plans**: TBD
+**Plans**:
+
+**Wave 1**
+  - 10-01 — pin playwright/pixelmatch/pngjs, the fixed-determinism browser launch helper, and two committed HTML fixtures
+
+**Wave 2** *(blocked on Wave 1 completion)*
+  - 10-02 — the deterministic rubric evaluator: eight assertion kinds, structured per-assertion output, unknown kinds rejected
+  - 10-03 — perceptual diff, the five named failure markers, and the separate reference re-approval command
+
+**Wave 3** *(blocked on Wave 2 completion)*
+  - 10-04 — durable failure artifacts: screenshot, reference, diff image, assertions.json and FAILURE.txt, gitignored and pruned
+  - 10-05 — URL-addressable wizard steps plus the seeding helpers, with a live-database smoke script
+
+**Wave 4** *(blocked on Wave 3 completion)*
+  - 10-06 — gate G15 registration at order 6, GATES.md section 12, and the JOURNEY.md seams document
+
+Cross-cutting constraints:
+  - The harness is plain `.mjs` under `frontend/journey/`, so `frontend/tsconfig.json` is untouched and gate G4 is unaffected
+  - No golden reference image of the real application is committed in this phase; cross-platform rasterisation is unmeasured until CI runs, and Phases 11-12 own real references
+  - Only `approve.mjs` may write into `frontend/journey/references/`; no gate may approve its own reference
+  - The gate id is **G15**, not G14 — Phase 9's unstarted `09-06` reserves G14. G15 takes `order` 6, ahead of the inherited G3 halt, and G9 stays last
+  - `ALL GATES PASSED (14/14)` is NOT achievable in this phase and must not be claimed
+  - No point of Philippine law arises anywhere in this phase; nothing is added to `.planning/LAWYER-AGENDA.md`
 
 ### Phase 11: Account, Org & Case Journey Gates
 **Goal**: The account-level and case-intake money-path steps are verified end to end against a real local Supabase, including tenant isolation.
