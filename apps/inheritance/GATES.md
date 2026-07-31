@@ -173,3 +173,62 @@ nonzero result into a success. When any is set, the runner prints `INJECTED FAIL
 
 The last two rows are the whole point: the same gate, one case exiting 2 because the command never
 ran and one case exiting 1 because it ran and failed.
+
+## 3. Coverage against the manifest
+
+`scripts/gate-coverage.mjs` runs as the closeout of every full green gate run, **before** the
+`ALL GATES PASSED` line. It exists to close the one failure mode that survives every other check in
+this file: a run that legitimately passes everything it *executed*, while quietly executing less than
+the manifest requires. From the outside that is indistinguishable from success — exit 0, a green CI
+check, `ALL GATES PASSED`.
+
+### The two reports
+
+**Gate execution coverage.** One row per manifest gate, in `order`, showing id, order, whether it is
+blocking, its name, its status from the run record, and its exit code. A manifest gate that does not
+appear in the record at all is shown as `MISSING FROM RECORD` and treated exactly like `not-run`. The
+table ends with `GATE COVERAGE <executed>/<total>`, where *executed* counts the gates that were
+actually reached (`pass`, `fail` or `cannot-run`).
+
+The report also flags `UNKNOWN GATE IN RECORD`: a gate id in the run record that the manifest does
+not describe. That is drift in the opposite direction — the runner executing something unfrozen —
+and it exits 1.
+
+**Requirement coverage.** Every requirement id in `.planning/REQUIREMENTS.md` mapped to the manifest
+gates that claim it via their `requirements` field, or reported as `UNGATED` when no gate claims it.
+Ends with `REQUIREMENT COVERAGE <gated>/<total> gated`. Currently **6 of 94**: `GATE-01→G3`,
+`GATE-02→G4`, `GATE-03→G2`, `LOOP-01→G6`, `LOOP-03→G5`, `LOOP-05→G7`. Every other id is `UNGATED`.
+
+### The enforcement rule
+
+> Fail with `SCOPE NARROWED` when the run's `outcome` is `pass` **and** any **blocking** manifest
+> gate has status `not-run` (or `MISSING FROM RECORD`).
+
+That is the whole rule. Three deliberate exemptions follow from it:
+
+- **A failed run does not fail coverage.** The runner exits at the first failing gate, so later gates
+  are legitimately unreached.
+- **A halted run does not fail coverage.** Same reasoning, and stronger: a halt reaches fewer gates
+  *by design*. Treating that as a narrowing would punish the halt behavior section 2 exists to
+  create, and operators would disable the check within a week. `scripts/fixtures/run-halted.json` is
+  the committed regression test — 2 of 7 gates reached, exit **0**.
+- **An ungated requirement never fails the build.** Most v1 requirements are legitimately ungated
+  until their phases land. Failing on that would make the loop unable to move at all, so requirement
+  coverage is reported as information and referenced by no enforcement rule.
+
+Coverage is also skipped on `--only` runs, which print `Coverage is not evaluated on a partial run`.
+A partial run legitimately reaches one gate, and reporting a narrowing on every developer iteration
+would train operators to ignore the signal.
+
+### Why this check cannot be gamed by editing one file
+
+Coverage is computed by joining **two independent sources**:
+
+| Source | Role | Protected by |
+|---|---|---|
+| `gates.manifest.json` | the **expectation** — what should have run | gate G5 (`GATE REMOVED`, `GATE COMMAND CHANGED`, `GATE WEAKENED`) |
+| `.gate-runs/latest.json` | the **observation** — what did run | written by the runner from a `trap … EXIT` on every path |
+
+Narrowing the run alone trips `SCOPE NARROWED`. Narrowing the manifest to match trips `GATE REMOVED`
+in G5, which runs first. That is what makes coverage the one check in this file that cannot be
+satisfied by editing the thing being measured.

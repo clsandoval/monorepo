@@ -309,6 +309,37 @@ done <<< "$GATE_LINES"
 OUTCOME="pass"
 FAILURE_SIGNATURE=""
 
+# --- Coverage closeout ------------------------------------------------------
+# Reaching here means every gate this run executed passed. That is NOT the same
+# as "every gate in the frozen manifest ran". scripts/gate-coverage.mjs joins the
+# manifest (the expectation) against the run record (the observation) and exits 1
+# with SCOPE NARROWED when a passing run skipped a blocking gate. It runs BEFORE
+# the success line, so a narrowed run can never print a whole-run success message.
+#
+# Skipped on --only: a partial run legitimately reaches one gate, and reporting a
+# narrowing on every developer iteration would train operators to ignore it.
+# The gate-failure and halt paths already exited above, so this is the full green
+# path only.
+
+if [ -n "$ONLY" ]; then
+  echo ""
+  echo "Coverage is not evaluated on a partial run (--only $ONLY)."
+else
+  echo ""
+  write_run_record
+  set +e
+  node "$APP_DIR/scripts/gate-coverage.mjs" --run "$RUN_FILE"
+  COVERAGE_RC=$?
+  set -e
+  if [ "$COVERAGE_RC" -ne 0 ]; then
+    OUTCOME="fail"
+    FAILURE_SIGNATURE="coverage:$COVERAGE_RC"
+    echo "" >&2
+    echo "GATE FAILED: coverage (exit $COVERAGE_RC)" >&2
+    exit 1
+  fi
+fi
+
 echo ""
 if [ -n "$ONLY" ]; then
   echo "GATE $ONLY PASSED (ran with --only $ONLY; this is NOT a full gate run)"

@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "started_at": "2026-07-31T06:06:14Z",
+  "ended_at": "2026-07-31T06:06:58Z",
+  "outcome": "pass",
+  "failure_signature": "",
+  "manifest_version": 1,
+  "gates_total": 7,
+  "only": "",
+  "gates": [
+    {
+      "id": "G5",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T06:06:14Z",
+      "ended_at": "2026-07-31T06:06:14Z"
+    },
+    {
+      "id": "G6",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T06:06:14Z",
+      "ended_at": "2026-07-31T06:06:14Z"
+    },
+    {
+      "id": "G7",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T06:06:14Z",
+      "ended_at": "2026-07-31T06:06:14Z"
+    },
+    {
+      "id": "G1",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T06:06:14Z",
+      "ended_at": "2026-07-31T06:06:14Z"
+    },
+    {
+      "id": "G2",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T06:06:14Z",
+      "ended_at": "2026-07-31T06:06:24Z"
+    },
+    {
+      "id": "G3",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T06:06:24Z",
+      "ended_at": "2026-07-31T06:06:51Z"
+    },
+    {
+      "id": "G4",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T06:06:51Z",
+      "ended_at": "2026-07-31T06:06:58Z"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "started_at": "2026-07-31T06:06:14Z",
+  "ended_at": "2026-07-31T06:06:58Z",
+  "outcome": "cannot-run",
+  "failure_signature": "CANNOT_RUN:G6",
+  "manifest_version": 1,
+  "gates_total": 7,
+  "only": "",
+  "gates": [
+    {
+      "id": "G5",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-07-31T06:06:14Z",
+      "ended_at": "2026-07-31T06:06:14Z"
+    },
+    {
+      "id": "G6",
+      "status": "cannot-run",
+      "exit_code": null,
+      "started_at": "2026-07-31T06:06:14Z",
+      "ended_at": "2026-07-31T06:06:14Z"
+    },
+    {
+      "id": "G7",
+      "status": "not-run",
+      "exit_code": null,
+      "started_at": null,
+      "ended_at": null
+    },
+    {
+      "id": "G1",
+      "status": "not-run",
+      "exit_code": null,
+      "started_at": null,
+      "ended_at": null
+    },
+    {
+      "id": "G2",
+      "status": "not-run",
+      "exit_code": null,
+      "started_at": null,
+      "ended_at": null
+    },
+    {
+      "id": "G3",
+      "status": "not-run",
+      "exit_code": null,
+      "started_at": null,
+      "ended_at": null
+    },
+    {
+      "id": "G4",
+      "status": "not-run",
+      "exit_code": null,
+      "started_at": null,
+      "ended_at": null
+    }
+  ]
+}
