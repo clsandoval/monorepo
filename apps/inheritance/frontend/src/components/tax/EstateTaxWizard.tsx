@@ -40,6 +40,29 @@ const TAB_FULL_NAMES: readonly string[] = [
   'Filing',
 ];
 
+/**
+ * Read the wizard's starting tab out of the URL, once, at mount.
+ *
+ * This seam exists so a journey gate can land directly on a tab without clicking
+ * through every tab before it — a real browser cannot reach into a component tree,
+ * it can only set a URL. It is deliberately additive: with no `tab` search param
+ * present the result is `0`, byte-identical to the previous default, so every
+ * committed test is unaffected.
+ *
+ * The value is clamped. An out-of-range tab index would render nothing, which a
+ * screenshot gate could then approve as a reference.
+ */
+function readInitialTab(): TabIndex {
+  if (typeof window === 'undefined') return 0;
+
+  const raw = new URLSearchParams(window.location.search).get('tab');
+  const parsed = raw === null ? Number.NaN : Number.parseInt(raw, 10);
+  if (Number.isInteger(parsed) && parsed >= 0 && parsed <= TAB_COUNT - 1) {
+    return parsed as TabIndex;
+  }
+  return 0;
+}
+
 export function EstateTaxWizard({
   state,
   onChange,
@@ -48,7 +71,7 @@ export function EstateTaxWizard({
   onBack,
   onCompute,
 }: EstateTaxWizardProps) {
-  const [activeTab, setActiveTab] = useState<TabIndex>(0);
+  const [activeTab, setActiveTab] = useState<TabIndex>(readInitialTab);
 
   const handleTabChange = useCallback((tab: TabIndex) => {
     setActiveTab(tab);

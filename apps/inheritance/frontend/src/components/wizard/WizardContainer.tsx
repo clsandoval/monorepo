@@ -67,14 +67,46 @@ const DEFAULT_ENGINE_INPUT: EngineInput = {
   },
 };
 
+/**
+ * Read the wizard's starting position out of the URL, once, at mount.
+ *
+ * This seam exists so a journey gate can land directly on a step without clicking
+ * through every step before it — a real browser cannot reach into a component tree,
+ * it can only set a URL. It is deliberately additive: with no `step` or `hasWill`
+ * search param present the result is `{ stepIndex: 0, hasWill: false }`, which is
+ * byte-identical to the previous defaults, so every committed test is unaffected.
+ *
+ * Every value is clamped. An out-of-range index would make
+ * `visibleSteps[currentStepIndex]` `undefined` and render a blank card, which a
+ * screenshot gate could then approve as a reference.
+ */
+function readInitialWizardState(): { stepIndex: number; hasWill: boolean } {
+  if (typeof window === 'undefined') return { stepIndex: 0, hasWill: false };
+
+  const params = new URLSearchParams(window.location.search);
+  const hasWill = params.get('hasWill') === '1';
+
+  // Exactly one WIZARD_STEPS entry carries `conditional: true`, so the last visible
+  // index is length-1 with a will and length-2 without one.
+  const lastIndex = hasWill ? WIZARD_STEPS.length - 1 : WIZARD_STEPS.length - 2;
+
+  const raw = params.get('step');
+  const parsed = raw === null ? Number.NaN : Number.parseInt(raw, 10);
+  const stepIndex =
+    Number.isInteger(parsed) && parsed >= 0 && parsed <= lastIndex ? parsed : 0;
+
+  return { stepIndex, hasWill };
+}
+
 export interface WizardContainerProps {
   onSubmit?: (data: EngineInput) => void;
   defaultValues?: Partial<EngineInput>;
 }
 
 export function WizardContainer({ onSubmit, defaultValues }: WizardContainerProps) {
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [hasWill, setHasWill] = useState(false);
+  const initial = readInitialWizardState();
+  const [currentStepIndex, setCurrentStepIndex] = useState(initial.stepIndex);
+  const [hasWill, setHasWill] = useState(initial.hasWill);
 
   const methods = useForm<EngineInput>({
     defaultValues: { ...DEFAULT_ENGINE_INPUT, ...defaultValues },
