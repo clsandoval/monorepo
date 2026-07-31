@@ -66,6 +66,11 @@
       "id": "G13",
       "command": "node scripts/check-assertion-discipline.mjs",
       "blocking": true
+    },
+    {
+      "id": "G15",
+      "command": "cd frontend && node journey/selftest.mjs",
+      "blocking": true
     }
   ]
 }

@@ -45,7 +45,7 @@
     {
       "id": "G1",
       "name": "engine tests",
-      "order": 6,
+      "order": 7,
       "command": "cd engine && cargo test",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/Cargo.toml",
@@ -56,7 +56,7 @@
     {
       "id": "G2",
       "name": "wasm build",
-      "order": 7,
+      "order": 8,
       "command": "bash engine/build-wasm.sh",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/build-wasm.sh",
@@ -69,7 +69,7 @@
     {
       "id": "G3",
       "name": "frontend suite vs ledger",
-      "order": 8,
+      "order": 9,
       "command": "cd frontend && npm run test:gate",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
@@ -82,7 +82,7 @@
     {
       "id": "G4",
       "name": "typecheck",
-      "order": 9,
+      "order": 10,
       "command": "cd frontend && npx tsc -b --force",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 12,
+      "order": 13,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 13,
+      "order": 14,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -121,7 +121,7 @@
     {
       "id": "G10",
       "name": "lawyer decision registry",
-      "order": 10,
+      "order": 11,
       "command": "node scripts/check-lawyer-agenda.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/lawyer-decisions.json",
@@ -134,7 +134,7 @@
     {
       "id": "G11",
       "name": "engine observability",
-      "order": 11,
+      "order": 12,
       "command": "node scripts/check-observability.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/src/step10_finalize.rs",
@@ -174,6 +174,22 @@
       "proves": "No frontend test asserts nothing, and no test whose only matcher is toBeDefined or toBeTruthy exists outside the shrink-only assertion-baseline.json ledger. See GATES.md section 11.",
       "requirements": [
         "COV-05"
+      ]
+    },
+    {
+      "id": "G15",
+      "name": "journey harness self-test",
+      "order": 6,
+      "command": "cd frontend && node journey/selftest.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -d frontend/node_modules",
+      "blocking": true,
+      "proves": "The journey harness still works: a rubric returns structured per-assertion output and rejects an unknown kind, a perceptual diff separates a reference miss from a size mismatch from a pixel failure, a failing step writes five durable artifacts naming both failing mechanisms, and the database-free seeding seams reach a page before first paint. See GATES.md section 12.",
+      "requirements": [
+        "JRNY-01",
+        "JRNY-09",
+        "JRNY-10",
+        "JRNY-12"
       ]
     }
   ]

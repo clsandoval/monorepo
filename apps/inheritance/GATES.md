@@ -23,26 +23,38 @@ a gate can only stop running by being removed from the manifest, and that is rej
 | G7 | 3 | commit discipline audit | `node scripts/check-commit-discipline.mjs` | No commit since project init mixes `apps/inheritance/` with paths outside it. |
 | G12 | 4 | engine coverage report | `bash scripts/coverage-report.sh && node scripts/check-coverage.mjs` | A per-module coverage report is producible for every engine module, no module has vanished from it, and the set of modules no test enters at all has not grown. Section 10. |
 | G13 | 5 | assertion discipline | `node scripts/check-assertion-discipline.mjs` | No frontend test asserts nothing, and no test whose only matcher is `toBeDefined` or `toBeTruthy` exists outside the shrink-only ledger. Section 11. |
-| G1 | 6 | engine tests | `cd engine && cargo test` | The Rust succession engine's unit, integration, property-invariant and defect-ledger tests pass. |
-| G2 | 7 | wasm build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`, verified by existence, a 100 KB size floor, and the `0061736d` magic number. |
-| G3 | 8 | frontend suite vs ledger | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. |
-| G4 | 9 | typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors, with `--force` so a stale `tsconfig.tsbuildinfo` cannot mask them. |
-| G10 | 10 | lawyer decision registry | `node scripts/check-lawyer-agenda.mjs` | Every recorded interpretive choice exists in both the agenda and the registry and cannot have its status advanced without a recorded answer. Section 8. |
-| G11 | 11 | engine observability | `node scripts/check-observability.mjs` | The engine still emits warnings, the legitime/free-portion split and a structured boundary error. Section 9. |
-| G8 | 12 | gate skip accounting | `node scripts/check-gate-skips.mjs` | Every gate reports how many of its own assertions it skipped, and every skip is declared in `gate-skips.lock`. Section 5. |
-| G9 | 13 | published gate results | `node scripts/check-gate-results.mjs` | `gate-results.json` describes the current run and covers every manifest gate. Section 6. |
+| G15 | 6 | journey harness self-test | `cd frontend && node journey/selftest.mjs` | The journey harness still works: a rubric returns structured per-assertion output and rejects an unknown kind, a perceptual diff separates a reference miss from a size mismatch from a pixel failure, a failing step writes five durable artifacts naming both failing mechanisms, and the database-free seeding seams reach a page before first paint. Section 12. |
+| G1 | 7 | engine tests | `cd engine && cargo test` | The Rust succession engine's unit, integration, property-invariant and defect-ledger tests pass. |
+| G2 | 8 | wasm build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`, verified by existence, a 100 KB size floor, and the `0061736d` magic number. |
+| G3 | 9 | frontend suite vs ledger | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. |
+| G4 | 10 | typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors, with `--force` so a stale `tsconfig.tsbuildinfo` cannot mask them. |
+| G10 | 11 | lawyer decision registry | `node scripts/check-lawyer-agenda.mjs` | Every recorded interpretive choice exists in both the agenda and the registry and cannot have its status advanced without a recorded answer. Section 8. |
+| G11 | 12 | engine observability | `node scripts/check-observability.mjs` | The engine still emits warnings, the legitime/free-portion split and a structured boundary error. Section 9. |
+| G8 | 13 | gate skip accounting | `node scripts/check-gate-skips.mjs` | Every gate reports how many of its own assertions it skipped, and every skip is declared in `gate-skips.lock`. Section 5. |
+| G9 | 14 | published gate results | `node scripts/check-gate-results.mjs` | `gate-results.json` describes the current run and covers every manifest gate. Section 6. |
 
-**The gate set is now thirteen.** Phase 6 added **G12** (engine coverage, section 10) and **G13**
+**The gate set is now fourteen.** Phase 6 added **G12** (engine coverage, section 10) and **G13**
 (assertion discipline, section 11) and placed them at `order` **4 and 5, ahead of G1**, shifting
-every gate from G1 down by two. Both are static or engine-only checks that do not depend on the
-frontend suite. The reason for the placement is that `scripts/ci-gates.sh` currently halts at **G3**,
-which is red for Phase 5's unresolved OBS-05/OBS-06 product decision, so a gate ordered after G3
-would never execute at all.
+every gate from G1 down by two. Phase 10 then added **G15** (journey harness self-test, section 12)
+at `order` **6**, shifting every gate from G1 down by one more. All three are static, engine-only or
+fixture-only checks that do not depend on the frontend suite. The reason for those placements was
+that `scripts/ci-gates.sh` halted at **G3** through Phases 5 to 9, red for Phase 5's then-unresolved
+OBS-05/OBS-06 product decision, so a gate ordered after G3 would never have executed at all.
 
-State this plainly, because the distinction matters: **this is a placement decision about two static
-checks, not a way of routing around a red gate.** G3 still runs, still fails, and still stops the
-run. Nothing was added to `frontend/test-baseline.json`, no failing test was edited, and
-`ALL GATES PASSED (13/13)` is not achievable until that product decision is answered.
+State this plainly, because the distinction matters: **these were placement decisions about static,
+dependency-free checks, not a way of routing around a red gate.** G3 always still ran, still failed,
+and still stopped the run. Nothing was ever added to `frontend/test-baseline.json` and no failing
+test was edited to clear it.
+
+**That halt is now gone.** The owner ruled OBS-05/OBS-06 in commit `d71f9150e` — the engine rejects
+inputs it cannot distribute conservatively rather than returning a best-effort distribution — and the
+five tests that encoded the old silent behaviour were rewritten to assert the rejection. As of the
+Phase 10 run, `bash scripts/ci-gates.sh` exits **0** and prints `ALL GATES PASSED (14/14)`, with G15
+green at order 6 and G3 green at order 9.
+
+**`G14` is deliberately absent.** It is reserved for Phase 9's unstarted `09-06` plan (single-source-
+of-truth rules), which is BLOCKED rather than abandoned. Phase 10 took `G15` precisely so that a
+Phase 9 replan can still claim its reserved id. The gap in the numbering is not an error.
 
 The three meta-gates run **first** on purpose. They finish in seconds, while G1–G4 take minutes, and
 a tampered manifest or an open-world plan should be caught before a full Rust, WASM and Vitest run
@@ -831,3 +843,67 @@ exactly as it appears in the source.
 waiver flag, and no script anywhere writes `assertion-baseline.json`. Its only two flags, `--root`
 and `--ledger`, are read-only path overrides that exist so the fixtures can drive the failure paths.
 A check that can rewrite its own baseline is not a check.
+
+---
+
+## 12. Journey harness self-test
+
+**Gate G15** — `cd frontend && node journey/selftest.mjs`, `order: 6`, blocking.
+Requirements **JRNY-01**, **JRNY-09**, **JRNY-10**, **JRNY-12**.
+
+### What it proves
+
+Four mechanisms, in eleven named cases:
+
+1. **The rubric evaluator** returns structured per-assertion output, passes 8/8 on the committed
+   basic fixture, fails the *named* three assertions on the mutated one, and **throws**
+   `RUBRIC INVALID:` on a kind outside its closed eight-kind set. The eleven cases cover **all eight
+   rubric kinds**.
+2. **The perceptual comparator** separates `REFERENCE MISSING` from `REFERENCE SIZE MISMATCH` from
+   `DIFF FAILURE` from a pass — **all four diff outcomes** — and reports exactly zero differing pixels
+   when an image is compared with itself, which is the determinism claim the whole diff mechanism
+   rests on.
+3. **The artifact writer** leaves five non-empty files for a failing step, and `FAILURE.txt`'s first
+   line names **both** `RUBRIC FAILURE` and `DIFF FAILURE` when both fired. That is the JRNY-10
+   distinction surviving into the durable record.
+4. **The seeding seams** — a `localStorage` draft, a `sessionStorage` flag and a search param all
+   reach a real page on its **first paint**, with no reload.
+
+### It needs no Docker, no Supabase, no built application and no network
+
+Every case runs against the committed HTML fixtures in `frontend/journey/fixtures/`. That boundary is
+deliberate: G15 has to be runnable on a bare CI runner, and a gate that silently depends on a database
+is a gate that reports environment problems as product failures. The gates that drive the **real**
+application belong to Phases 11 and 12.
+
+For the same reason `frontend/journey/seed-smoke.mjs` — which proves the live-database seeding half —
+is **not registered as a gate**. It needs Docker and a running local Supabase stack, and exits 2
+(cannot-run), not 1, when the stack is down. Phase 3 set that precedent with
+`scripts/check-env-ready.mjs`.
+
+### Three-valued exit contract
+
+| Exit | Meaning |
+|---:|---|
+| 0 | Every self-test case passed; the `GATE-SKIPS` line was printed |
+| 1 | A self-test case failed; each failing case is named on stdout as `SELFTEST FAILED <caseName>: <message>` |
+| 2 | The harness **could not run** — chromium is not installed; run `npx playwright install chromium` |
+
+Exit 2 on a missing browser matters: a machine that has never run `npx playwright install chromium`
+has an environment problem, not a broken harness, and conflating the two is what section 2 exists to
+prevent. The `GATE-SKIPS total=11 skipped=0` line prints on **both** the pass and the fail path,
+because G8 reads it from the gate's log regardless of outcome.
+
+### The gate cannot approve its own expectation
+
+G15 never invokes `journey/approve.mjs` for an approval — its single reference to that command is the
+case asserting it **refuses** when no artifact exists. Every case needing a reference directory uses a
+temp directory, so `frontend/journey/references/` still holds only `.gitkeep` after a gate run. A gate
+that could write its own reference would go green by rewriting its own expectation.
+
+### The harness documents itself
+
+- [`frontend/journey/JOURNEY.md`](./frontend/journey/JOURNEY.md) — every seeding seam, the eight rubric
+  kinds, the artifact layout, and the known will-step limitation.
+- [`frontend/journey/REFERENCES.md`](./frontend/journey/REFERENCES.md) — the five failure markers, the
+  reference re-approval flow, and why raising `maxDiffPixels` to clear a red gate is prohibited.
