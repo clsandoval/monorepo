@@ -8,6 +8,9 @@
  * All monetary values in centavos (integer).
  */
 
+import { pesosToCentavos, asPesos } from '../../types/money-units';
+import type { Pesos, Centavos } from '../../types/money-units';
+
 import type {
   EngineInput,
   EstateTaxFullOutput,
@@ -106,11 +109,16 @@ function zeroTaxComputation(): TaxComputationResult {
  * Adapter: maps wizard state types → engine input types.
  * Wizard stores monetary values in pesos; engine uses centavos.
  * All monetary fields are multiplied by 100 at this boundary.
+ *
+ * The multiplication itself now lives in `frontend/src/types/money-units.ts`, the
+ * single implementation of peso↔centavo conversion in the frontend; this function is
+ * the only place in the frontend permitted to cross between the two units.
  */
 export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): EngineInput {
   const ws = wizardState;
-  /** Convert pesos → centavos */
-  const toCentavos = (pesos: number | null | undefined): number => Math.round((pesos ?? 0) * 100);
+  /** Convert pesos → centavos, through the one shared implementation. */
+  const toCentavos = (pesos: Pesos | null | undefined): Centavos =>
+    pesosToCentavos(pesos ?? asPesos(0));
 
   // Decedent
   const isMarried = ws.decedent.maritalStatus === 'married';
@@ -288,7 +296,7 @@ export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): Eng
       : [];
 
   // Foreign tax credits
-  const foreignTaxCredits: (ForeignTaxCreditEntry & { foreignPropertyFMV?: number })[] =
+  const foreignTaxCredits: (ForeignTaxCreditEntry & { foreignPropertyFMV?: Centavos })[] =
     ws.specialDeductions.foreignTaxCreditClaims.map((ftc) => ({
       country: ftc.country,
       taxPaid: toCentavos(ftc.foreignTaxPaid),

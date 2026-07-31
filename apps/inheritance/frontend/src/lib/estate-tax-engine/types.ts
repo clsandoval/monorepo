@@ -2,7 +2,11 @@
  * Estate Tax Engine — Types
  *
  * All monetary values are in centavos (integer) throughout the engine.
+ * The engine-input money fields the wizard adapter writes into are typed
+ * `Centavos` so a peso figure cannot reach them without a compile error.
  */
+
+import type { Centavos } from '../../types/money-units';
 
 // ── Primitive value types ────────────────────────────────────────────────────
 
@@ -236,9 +240,9 @@ export interface RealProperty {
   location: string;
   ownershipType: 'exclusive' | 'conjugal';
   /** FMV per tax declaration (centavos). Engine computes fmv = max(fmvTaxDeclaration, fmvBir). */
-  fmvTaxDeclaration: number;
+  fmvTaxDeclaration: Centavos;
   /** Zonal value per BIR (centavos). */
-  fmvBir: number;
+  fmvBir: Centavos;
   /** Pre-computed FMV override; if provided, engine uses this instead of max(fmvTaxDeclaration, fmvBir). */
   fmv?: number; // centavos, optional override
   isDesignatedFamilyHome: boolean;
@@ -247,20 +251,20 @@ export interface RealProperty {
 export interface PersonalPropertyFinancial {
   description: string;
   ownershipType: 'exclusive' | 'conjugal';
-  fmv: number; // centavos
+  fmv: Centavos; // centavos
 }
 
 export interface PersonalPropertyTangible {
   description: string;
   ownershipType: 'exclusive' | 'conjugal';
-  fmv: number; // centavos
+  fmv: Centavos; // centavos
 }
 
 export interface TaxableTransfer {
   description: string;
   transferType: string;
   /** FMV at date of death (centavos). */
-  fmvAtDeath: number;
+  fmvAtDeath: Centavos;
   /** Consideration received (centavos). Engine computes taxableAmount = max(0, fmvAtDeath - considerationReceived). */
   considerationReceived: number;
   /** Pre-computed FMV override (optional). */
@@ -273,7 +277,7 @@ export interface BusinessInterest {
   description: string;
   ownershipType: 'exclusive' | 'conjugal';
   /** Net equity (centavos). Engine floors at 0. */
-  netEquity: number;
+  netEquity: Centavos;
   /** Pre-computed FMV override (optional). */
   fmv?: number; // centavos, optional
 }
@@ -281,7 +285,7 @@ export interface BusinessInterest {
 export interface Sec87ExemptAsset {
   description: string;
   exemptionType: string;
-  fmv: number; // centavos
+  fmv: Centavos; // centavos
 }
 
 /** Individual deduction entries */
@@ -289,67 +293,67 @@ export interface Sec87ExemptAsset {
 export interface ClaimAgainstEstate {
   description: string;
   ownershipType: 'exclusive' | 'conjugal';
-  amount: number; // centavos
+  amount: Centavos; // centavos
 }
 
 export interface ClaimVsInsolvent {
   description: string;
-  amount: number; // centavos
+  amount: Centavos; // centavos
 }
 
 export interface UnpaidMortgage {
   description: string;
   ownershipType: 'exclusive' | 'conjugal';
-  amount: number; // centavos
+  amount: Centavos; // centavos
 }
 
 export interface UnpaidTax {
   description: string;
-  amount: number; // centavos
+  amount: Centavos; // centavos
 }
 
 export interface CasualtyLoss {
   description: string;
-  amount: number; // centavos
+  amount: Centavos; // centavos
 }
 
 export interface VanishingDeductionProperty {
   description: string;
-  fmvAtDeath: number; // centavos
-  fmvAtPriorTransfer: number; // centavos
+  fmvAtDeath: Centavos; // centavos
+  fmvAtPriorTransfer: Centavos; // centavos
   priorTransferDate: string; // ISO date
   priorTaxesPaid: number; // centavos
-  encumbrances: number; // centavos
+  encumbrances: Centavos; // centavos
 }
 
 export interface PublicUseTransfer {
   description: string;
-  amount: number; // centavos
+  amount: Centavos; // centavos
 }
 
 export interface FuneralExpense {
   description: string;
-  amount: number; // centavos
+  amount: Centavos; // centavos
 }
 
 export interface JudicialAdminExpense {
   description: string;
-  amount: number; // centavos
+  amount: Centavos; // centavos
 }
 
 export interface MedicalExpense {
   description: string;
-  amount: number; // centavos
+  amount: Centavos; // centavos
 }
 
 export interface Ra4917Benefit {
   description: string;
-  amount: number; // centavos
+  amount: Centavos; // centavos
 }
 
 export interface ForeignTaxCreditEntry {
   country: string;
-  taxPaid: number; // centavos
+  taxPaid: Centavos; // centavos
 }
 
 /** Decedent info */
@@ -362,7 +366,7 @@ export interface DecedentInfo {
   isNRA: boolean; // non-resident alien
   isMarried: boolean;
   /** Required when isNRA = true; total worldwide gross estate in centavos. */
-  worldwideGrossEstate?: number | null;
+  worldwideGrossEstate?: Centavos | null;
 }
 
 /** Executor info */
@@ -381,7 +385,7 @@ export interface EstateFlags {
   /** Track B amnesty: a prior estate tax return was filed. */
   priorReturnFiled?: boolean;
   /** Required when priorReturnFiled = true; centavos. */
-  previouslyDeclaredNetEstate?: number | null;
+  previouslyDeclaredNetEstate?: Centavos | null;
   /** RA 11213 exclusions */
   taxFullyPaidBeforeMay2022?: boolean;
   subjectToPCGGJurisdiction?: boolean;

@@ -1,7 +1,16 @@
 /**
  * Estate Tax Inputs Wizard types (§4.23)
  * Source: docs/plans/inheritance-premium-spec.md §4.23
+ *
+ * MONEY UNITS: every money-typed field in this module is denominated in **pesos**.
+ * The estate-tax engine's own input types, in `src/lib/estate-tax-engine/types.ts`,
+ * are denominated in **centavos**. `wizardStateToEngineInput` in
+ * `src/lib/estate-tax-engine/pipeline.ts` is the single adapter permitted to convert
+ * between the two, and it does so through the one shared implementation in
+ * `src/types/money-units.ts`.
  */
+
+import type { Pesos } from './money-units';
 
 // ============================================================================
 // Enums / Literal Unions
@@ -69,12 +78,12 @@ export const TAXABLE_TRANSFER_TYPES: readonly TaxableTransferType[] = [
 // ============================================================================
 
 export interface WorldwideELIT {
-  claimsAgainstEstate: number;
-  claimsVsInsolvent: number;
-  unpaidMortgages: number;
-  casualtyLosses: number;
-  funeralExpenses: number;
-  judicialAdminExpenses: number;
+  claimsAgainstEstate: Pesos;
+  claimsVsInsolvent: Pesos;
+  unpaidMortgages: Pesos;
+  casualtyLosses: Pesos;
+  funeralExpenses: Pesos;
+  judicialAdminExpenses: Pesos;
 }
 
 export interface DecedentDetails {
@@ -85,7 +94,7 @@ export interface DecedentDetails {
   address: string;
   maritalStatus: MaritalStatus;
   propertyRegime: PropertyRegime | null;
-  worldwideGrossEstate: number | null;
+  worldwideGrossEstate: Pesos | null;
   worldwideELIT: WorldwideELIT | null;
 }
 
@@ -112,8 +121,8 @@ export interface RealPropertyItem {
   lotArea: number | null;
   improvementArea: number | null;
   classification: PropertyClassification;
-  fmvTaxDec: number;
-  fmvBirZonal: number;
+  fmvTaxDec: Pesos;
+  fmvBirZonal: Pesos;
   ownership: PropertyOwnership;
   isFamilyHome: boolean;
   hasBarangayCert: boolean;
@@ -127,7 +136,7 @@ export interface PersonalPropertyItem {
   id: string;
   subtype: PersonalPropertySubtype;
   description: string;
-  fmv: number;
+  fmv: Pesos;
   ownership: PropertyOwnership;
 }
 
@@ -139,20 +148,20 @@ export interface TaxableTransfer {
   id: string;
   type: TaxableTransferType;
   description: string;
-  fmv: number;
+  fmv: Pesos;
 }
 
 export interface BusinessInterest {
   id: string;
   businessName: string;
   description: string;
-  fmv: number;
+  fmv: Pesos;
 }
 
 export interface ExemptAsset {
   id: string;
   description: string;
-  fmv: number;
+  fmv: Pesos;
   legalBasis: string;
 }
 
@@ -169,7 +178,7 @@ export interface OtherAssets {
 export interface DeductionItem {
   id: string;
   description: string;
-  amount: number;
+  amount: Pesos;
 }
 
 export interface VanishingDeductionProperty {
@@ -177,9 +186,9 @@ export interface VanishingDeductionProperty {
   description: string;
   priorTransferType: 'INHERITANCE' | 'GIFT';
   priorTransferDate: string;
-  priorFMV: number;
-  currentFMV: number;
-  mortgageOnProperty: number;
+  priorFMV: Pesos;
+  currentFMV: Pesos;
+  mortgageOnProperty: Pesos;
   priorTaxWasPaid: boolean;
   ownership: PropertyOwnership;
   isPhilippineSitus: boolean;
@@ -193,8 +202,8 @@ export interface OrdinaryDeductions {
   casualtyLosses: DeductionItem[];
   vanishingDeductionProperties: VanishingDeductionProperty[];
   publicUseTransfers: DeductionItem[];
-  funeralExpenses: number | null;
-  judicialAdminExpenses: number | null;
+  funeralExpenses: Pesos | null;
+  judicialAdminExpenses: Pesos | null;
 }
 
 // ============================================================================
@@ -204,16 +213,16 @@ export interface OrdinaryDeductions {
 export interface ForeignTaxCreditClaim {
   id: string;
   country: string;
-  foreignTaxPaid: number;
-  foreignPropertyFMV: number;
+  foreignTaxPaid: Pesos;
+  foreignPropertyFMV: Pesos;
 }
 
 export interface SpecialDeductions {
-  medicalExpenses: number;
-  ra4917Benefits: number;
+  medicalExpenses: Pesos;
+  ra4917Benefits: Pesos;
   foreignTaxCreditClaims: ForeignTaxCreditClaim[];
-  standardDeduction: number;
-  familyHomeDeduction: number;
+  standardDeduction: Pesos;
+  familyHomeDeduction: Pesos;
 }
 
 // ============================================================================
@@ -232,7 +241,7 @@ export interface FilingData {
   hasRa9160Violation: boolean;
   taxFullyPaidBeforeMay2022: boolean;
   priorReturnFiled: boolean;
-  previouslyDeclaredNetEstate: number | null;
+  previouslyDeclaredNetEstate: Pesos | null;
   hasPendingCourtCasePreAmnestyAct: boolean;
   hasUnexplainedWealthCases: boolean;
   hasPendingRPCFelonies: boolean;
