@@ -214,11 +214,11 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | OBS-07 | Phase 5 | Complete |
 | OBS-08 | Phase 5 | Complete |
 | OBS-09 | Phase 5 | Complete |
-| COV-01 | Phase 6 | Pending |
-| COV-02 | Phase 6 | Pending |
-| COV-03 | Phase 6 | Pending |
-| COV-04 | Phase 6 | Pending |
-| COV-05 | Phase 6 | Pending |
+| COV-01 | Phase 6 | Planned |
+| COV-02 | Phase 6 | Planned |
+| COV-03 | Phase 6 | Planned |
+| COV-04 | Phase 6 | Planned |
+| COV-05 | Phase 6 | Planned |
 | LAW-01 | Phase 7 | Pending |
 | LAW-02 | Phase 7 | Pending |
 | LAW-03 | Phase 7 | Pending |

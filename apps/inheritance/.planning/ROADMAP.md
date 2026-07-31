@@ -166,7 +166,21 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Every legal test vector asserts the exact expected scenario code and exact per-heir centavo amounts; none is left asserting a prefix or a range.
   4. A coverage report identifies, per engine module, which branches no test currently exercises.
   5. A CI check fails the build if any test asserts nothing, or asserts only `toBeDefined`/`toBeTruthy` as its sole check.
-**Plans**: TBD
+**Plans**: 5 plans, 4 waves (wave 1 is two independent artifacts — one corpus, one test file; waves 2–4 are constrained by shared files, since 06-04 and 06-05 both edit the four gate-infrastructure files)
+  - **Wave 1** — `06-01` Second generator, thirty green coverage cases, three defect cases, shrink-only defect ledger (COV-01) · `06-03` Every legal vector pinned to an exact scenario code, succession type, row count and per-heir centavos (COV-03)
+  - **Wave 2** *(blocked on Wave 1: the invariant suite reads the corpora `06-01` creates)* — `06-02` One cargo test per named invariant, plus the bidirectional defect-ledger test (COV-01, COV-02)
+  - **Wave 3** *(blocked on Wave 2 and Wave 1's sibling: coverage is measured over the test set `06-02` and `06-03` produce)* — `06-04` Per-module engine coverage report, shrink-only zero-coverage ledger, gate G12 at order 4 (COV-04)
+  - **Wave 4** *(blocked on Wave 3: edits the same `gates.manifest.json`, `gates.manifest.lock`, `GATES.md` and `README.md`)* — `06-05` Assertion-discipline scanner, shrink-only ledger of the fifteen weak-only tests, gate G13 at order 5 (COV-05)
+
+  Cross-cutting constraints (appear in 2+ plans):
+  - Every commit stages explicit file paths via `bash scripts/safe-commit.sh`; `git add -A`, `git add .`, and `git commit -a` are prohibited (concurrent auto-committer on this monorepo)
+  - No gate, test or assertion may be weakened to pass; a gate that cannot legitimately pass is reported BLOCKED with the real command output
+  - No locked gate `command` string may change. Gates G12 and G13 are added by appending to `gates.manifest.json` and `gates.manifest.lock` together; `order` is unlocked, so both take orders 4 and 5 ahead of G1 and G9 stays last
+  - Both new gates run ahead of G3, which stays red for Phase 5's unresolved OBS-05/OBS-06 product decision. `ALL GATES PASSED (13/13)` is NOT achievable in this phase and must not be claimed; Phase 6 neither edits the five failing tests nor appends to `frontend/test-baseline.json` or `gate-skips.lock`
+  - No check may rewrite its own input — no `--update`, `--fix`, `--accept`, `--regenerate` or waiver flag on any artifact in this phase; the three new ledgers (`engine/defect-baseline.json`, `coverage-zero.lock`, `assertion-baseline.json`) are all shrink-only and no script writes them
+  - Every failure path of every new check must be observed firing against a committed fixture or a scratch copy
+  - Every new check is dependency-free Node ESM or Bash using only `node:` builtins; the only new dependency in the phase is the rustup component `llvm-tools-preview`, and neither `engine/Cargo.toml`, `engine/Cargo.lock` nor `frontend/package.json` is touched
+  - No point of Philippine law arises anywhere in this phase. Every scenario-code expectation is transcribed from `specs/inheritance-engine-spec.md` §14.2, every peso figure is either the spec's own stated amount or a measured value pinned as a labelled characterization, and the two vectors governed by open questions cite LAWYER-03 and LAWYER-04 rather than answering them
 
 ### Phase 7: Intestate Order & Representation Root-Cause Fixes
 **Goal**: The single hardcoded `degree_from_decedent == 1` anchor filter — the root cause of four critical defects — is fixed, restoring the correct intestate order above the parent tier and correct representation/vacancy handling around it.
@@ -287,7 +301,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 3. Reproducible Environment & Gate Reporting | 5/5 | Complete    | 2026-07-31 |
 | 4. Lawyer Review Agenda Recorded | 5/5 | Complete    | 2026-07-31 |
 | 5. Engine Observability Restored | 7/7 | Blocked    | 2026-07-31 |
-| 6. Property-Test Coverage Depth | 0/TBD | Not started | - |
+| 6. Property-Test Coverage Depth | 0/5 | Planned | - |
 | 7. Intestate Order & Representation Root-Cause Fixes | 0/TBD | Not started | - |
 | 8. Remaining Unblocked Legal & Tax-Bridge Defects | 0/TBD | Not started | - |
 | 9. Single Source of Truth — Dedup Classifiers & Money Types | 0/TBD | Not started | - |
