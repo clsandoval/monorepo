@@ -91,14 +91,14 @@ when it is not. It is strictly read-only: it never starts, resets, installs or r
 bash scripts/ci-gates.sh
 ```
 
-This prints `ALL GATES PASSED (9/9)` on success. It is the exact command CI executes, so a green
+This prints `ALL GATES PASSED (10/10)` on success. It is the exact command CI executes, so a green
 result locally is what the CI check verifies — nothing is reproducible only on a push.
 
 You do not need to build the WASM artifact separately: gate G2 does it. Note that
 `frontend/src/wasm/pkg/inheritance_engine_bg.wasm` is a build artifact and is gitignored, so a clean
 checkout has no WASM binary until a build runs.
 
-## The nine gates
+## The ten gates
 
 The gate list is not hardcoded in the runner. It lives in `gates.manifest.json`, and
 `scripts/ci-gates.sh` iterates it in `order`. The three cheap meta-gates run first, so a tampered
@@ -114,6 +114,7 @@ manifest or an open-world plan is caught in seconds rather than after a five-min
 | G2. WASM build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`. The script verifies existence, a 100 KB size floor, and the `0061736d` WebAssembly magic number — `wasm-pack` exiting 0 is not accepted as proof on its own. |
 | G3. Frontend suite | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. See below. |
 | G4. Typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors. `--force` is required, not optional: `tsconfig.tsbuildinfo` was historically committed, and an incremental run can no-op against a stale cache and report clean on a tree that has type errors. |
+| G10. Lawyer decision registry | `node scripts/check-lawyer-agenda.mjs` | Every recorded interpretive choice exists in both the agenda and the registry, still resolves to the rule it governs, and cannot have its status advanced without a recorded answer. See [`GATES.md`](./GATES.md) section 8. |
 | G8. Gate skip accounting | `node scripts/check-gate-skips.mjs` | Every gate reports how many of its own assertions it skipped, and every skip is declared in the shrink-only `gate-skips.lock` ledger. See [`GATES.md`](./GATES.md) section 5. |
 | G9. Published gate results | `node scripts/check-gate-results.mjs` | `gate-results.json` describes the current run, covers every manifest gate, and never reports a status outside `pass`, `fail`, `cannot-run` and `not-run`. See [`GATES.md`](./GATES.md) section 6. |
 

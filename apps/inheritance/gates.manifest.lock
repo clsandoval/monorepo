@@ -46,6 +46,11 @@
       "id": "G9",
       "command": "node scripts/check-gate-results.mjs",
       "blocking": true
+    },
+    {
+      "id": "G10",
+      "command": "node scripts/check-lawyer-agenda.mjs",
+      "blocking": true
     }
   ]
 }

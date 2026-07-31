@@ -474,9 +474,77 @@ One table, the whole set, rendered from `gates.manifest.json`.
 | 5 | G2 wasm build | `bash engine/build-wasm.sh` | GATE-03 |
 | 6 | G3 frontend suite vs ledger | `cd frontend && npm run test:gate` | GATE-01 |
 | 7 | G4 typecheck | `cd frontend && npx tsc -b --force` | GATE-02 |
-| 8 | G8 gate skip accounting | `node scripts/check-gate-skips.mjs` | GATE-09 |
-| 9 | G9 published gate results | `node scripts/check-gate-results.mjs` | GATE-08 |
+| 8 | G10 lawyer decision registry | `node scripts/check-lawyer-agenda.mjs` | LAWYER-09 |
+| 9 | G8 gate skip accounting | `node scripts/check-gate-skips.mjs` | GATE-09 |
+| 10 | G9 published gate results | `node scripts/check-gate-results.mjs` | GATE-08 |
 
 The three cheap meta-gates run first, so a tampered manifest or an open-world plan is caught in
 seconds rather than after a five-minute build. G8 and G9 run last, because both read artifacts the
 preceding gates produce.
+
+## 8. The lawyer decision registry
+
+**What LAWYER-09 requires.** Every interpretive choice the engine has already made must be
+machine-readable and linked from the specific rule it governs, so no agent re-decides it later.
+
+**The failure being closed.** A recorded decision that nothing checks stops governing anything the
+first time a function is renamed. The decision does not become wrong — it becomes *unattached*, and
+nothing says so. The next agent to open that file sees code with no decision on it and invents one.
+
+**Two files, two audiences.**
+
+- `.planning/LAWYER-AGENDA.md` is what the lawyer answers. Prose, eight entries, three checkboxes
+  each.
+- `.planning/lawyer-decisions.json` is what the gate checks. Eight objects, fourteen fixed keys.
+
+They are deliberately separate: a single file cannot disagree with itself, and the disagreement is
+the signal. Gate **G10** (`node scripts/check-lawyer-agenda.mjs`) fails the build when they diverge.
+
+**The seven verdicts.**
+
+| Marker | Fires when |
+|---|---|
+| `AGENDA ENTRY MISSING` | One of `LAWYER-01`…`LAWYER-08` has no registry entry, or no `## <id>` heading in the agenda. |
+| `DECISION FIELD MISSING` | A registry entry lacks one of the fourteen required keys, or carries a key outside the schema. |
+| `DECISION STATUS INVALID` | `status` is outside `awaiting-answer` / `confirmed` / `changed`, **or** a status advanced with no answer attached. |
+| `DECISION ANCHOR BROKEN` | An anchor's file is gone, or its pattern occurs in that file a number of times other than exactly one. |
+| `DECISION MARKER MISSING` | An anchored file carries no `LAWYER-DECISION: <id>` comment. |
+| `AGENDA DRIFT` | The agenda and the registry disagree on the id set, on `**Engine implements:**` vs `reading_implemented`, or on `**Status:**` vs `status`. |
+| `AGENDA SCAN UNREADABLE` | An input is missing or unparseable. Exits 1 immediately; never exits 0 on an internal error. |
+
+Each verdict has a committed fixture under `scripts/fixtures/` that was observed making it fire. A
+check nobody has seen fail is not known to be a check.
+
+**The rule: no agent may advance a status without a recorded answer.**
+
+A `status` other than `awaiting-answer` requires `answered_by`, `answered_on` **and** `answer` to all
+be present. `DECISION STATUS INVALID` enforces it. This is the load-bearing verdict of the whole
+gate, because three requirements — **LAW-06**, **LAW-07** and **LAW-12** — are hard-blocked on a
+lawyer's answer, and the cheapest way for a future agent to unblock itself is to edit one word of
+JSON. It cannot: advancing a status now requires writing a person, a date and a sentence into the
+diff, where a human reviewing it sees them. The fixture
+`scripts/fixtures/lawyer-status-invalid.json` is exactly that edit, and it exits 1.
+
+The gate never evaluates whether a legal reading is *correct*. It checks structural agreement, anchor
+liveness and marker presence, and nothing else. Deciding a contested point of Philippine law is not
+an agent's to do, and it is not a gate's either.
+
+**Why anchors are grep patterns, not line numbers.** Phases 5, 7 and 8 rewrite the exact files the
+registry points at, and plan 04-03's own marker insertion already shifted every line below nine
+sites. A line number would have been stale the same day. A pattern matching **zero** times means the
+rule moved or was renamed; a pattern matching **more than once** means the anchor no longer
+identifies a single location. Both are failures, for different reasons, and the gate reports the
+observed count either way. Patterns are matched **literally, never as a regular expression** — they
+contain `(`, `)`, `+`, `*` and `.`, and treating them as a regex would silently change what is being
+matched.
+
+**Ordering note — do not move G9 off the end.** `scripts/check-gate-results.mjs` (G9) fails with
+`RESULTS INCOMPLETE` when any gate other than itself is `not-run` in `gate-results.json`, and
+`scripts/ci-gates.sh` republishes results after every gate. A gate ordered after G9 would therefore
+fail G9 on every run. G10 takes `order: 8`, G8 moves to 9, and G9 stays last at 10. `order` is
+deliberately unlocked (see section 1), so this is a reordering, not a weakening. Placing G10 ahead of
+G8 is also strictly stronger: G10's own `GATE-SKIPS` line gets checked by the skip-accounting gate
+rather than being emitted after it and ignored.
+
+**Changing a status.** `.planning/LEGAL-CORRECTION-WORKFLOW.md` is the only procedure by which a
+recorded decision's status changes. Editing the registry or the agenda directly is not it.

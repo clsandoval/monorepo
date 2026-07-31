@@ -1,0 +1,223 @@
+{
+  "$comment": "Machine-readable form of .planning/LAWYER-AGENDA.md. Gate G10 (node scripts/check-lawyer-agenda.mjs) fails the build when the two disagree, when an anchor pattern stops resolving to exactly one match in its file, or when a status advances without an answer attached. A status other than awaiting-answer requires answered_by, answered_on and answer to all be non-null. No agent may set a status without a recorded answer from the lawyer; the only sanctioned route is .planning/LEGAL-CORRECTION-WORKFLOW.md.",
+  "schema": 1,
+  "decisions": [
+    {
+      "id": "LAWYER-01",
+      "question": "Q1",
+      "title": "One legitimate child plus surviving spouse, intestate",
+      "articles": [
+        "Art. 996",
+        "Art. 888",
+        "Art. 892 ¶1"
+      ],
+      "authority": [
+        "Santillon v. Miranda, G.R. No. L-19281 (1965)"
+      ],
+      "reading_implemented": "A",
+      "status": "awaiting-answer",
+      "blocks": [],
+      "agenda_section": "LAWYER-01",
+      "anchors": [
+        {
+          "file": "engine/src/step7_distribute.rs",
+          "pattern": "I2: n LC + Spouse (Art. 996) — spouse = one child-line's share."
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
+    },
+    {
+      "id": "LAWYER-02",
+      "question": "Q2",
+      "title": "One legitimate child plus spouse plus illegitimate children, testate",
+      "articles": [
+        "Art. 892 ¶1",
+        "Art. 897"
+      ],
+      "authority": [],
+      "reading_implemented": "A",
+      "status": "awaiting-answer",
+      "blocks": [],
+      "agenda_section": "LAWYER-02",
+      "anchors": [
+        {
+          "file": "engine/src/step5_legitimes.rs",
+          "pattern": "1 LC + Spouse (Arts. 888, 892 ¶1): LC = E/2, Spouse = E/4"
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
+    },
+    {
+      "id": "LAWYER-03",
+      "question": "Q3",
+      "title": "Nephews and nieces alone surviving, per capita under Art. 975 ¶2",
+      "articles": [
+        "Art. 975 ¶2",
+        "Art. 1006",
+        "Art. 1008"
+      ],
+      "authority": [
+        "Tolentino",
+        "Jurado"
+      ],
+      "reading_implemented": "neither",
+      "status": "awaiting-answer",
+      "blocks": [],
+      "agenda_section": "LAWYER-03",
+      "anchors": [
+        {
+          "file": "engine/src/step7_distribute.rs",
+          "pattern": "Branch 3: Nephews/nieces only — per capita (Art. 975)"
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
+    },
+    {
+      "id": "LAWYER-04",
+      "question": "Q4",
+      "title": "How far Aquino v. Aquino reaches into the collateral line",
+      "articles": [
+        "Art. 992"
+      ],
+      "authority": [
+        "Aquino v. Aquino, G.R. Nos. 208912 and 209018, En Banc, 7 December 2021",
+        "Diaz v. IAC"
+      ],
+      "reading_implemented": "neither",
+      "status": "confirmed",
+      "blocks": [
+        "LAW-07"
+      ],
+      "agenda_section": "LAWYER-04",
+      "anchors": [
+        {
+          "file": "engine/src/step1_classify.rs",
+          "pattern": "pub fn check_eligibility"
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
+    },
+    {
+      "id": "LAWYER-05",
+      "question": "Q5",
+      "title": "Art. 907 reduction, self-executing or a claim the heir must assert",
+      "articles": [
+        "Art. 906",
+        "Art. 907"
+      ],
+      "authority": [],
+      "reading_implemented": "A",
+      "status": "awaiting-answer",
+      "blocks": [],
+      "agenda_section": "LAWYER-05",
+      "anchors": [
+        {
+          "file": "engine/src/step6_validation.rs",
+          "pattern": "pub fn reduce_inofficious"
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
+    },
+    {
+      "id": "LAWYER-06",
+      "question": "Q6",
+      "title": "An heir's entitlement exceeding the estate because of a donation inter vivos",
+      "articles": [
+        "Art. 771"
+      ],
+      "authority": [],
+      "reading_implemented": "A",
+      "status": "awaiting-answer",
+      "blocks": [
+        "LAW-06"
+      ],
+      "agenda_section": "LAWYER-06",
+      "anchors": [
+        {
+          "file": "engine/src/step4_estate_base.rs",
+          "pattern": "pub fn step4_compute_estate_base"
+        },
+        {
+          "file": "engine/src/step8_collation.rs",
+          "pattern": "pub fn step8_collation_adjustment"
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
+    },
+    {
+      "id": "LAWYER-07",
+      "question": "Q7",
+      "title": "Family home deduction on a conjugal home, half of FMV or full FMV",
+      "articles": [
+        "RR 12-2018 §7.2.3"
+      ],
+      "authority": [],
+      "reading_implemented": "A",
+      "status": "awaiting-answer",
+      "blocks": [],
+      "agenda_section": "LAWYER-07",
+      "anchors": [
+        {
+          "file": "frontend/src/lib/estate-tax-engine/special-deductions.ts",
+          "pattern": "familyHome.ownershipType === 'conjugal'"
+        },
+        {
+          "file": "specs/estate-tax-engine-spec.md",
+          "pattern": "min(fmv * 0.5, cap)"
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
+    },
+    {
+      "id": "LAWYER-08",
+      "question": "Q8",
+      "title": "RA 11642 Sec. 41 retroactivity to adoption decrees issued before 2022",
+      "articles": [
+        "RA 11642 Sec. 41",
+        "RA 11642 Sec. 43",
+        "RA 11642 Sec. 62",
+        "RA 8552 Sec. 20"
+      ],
+      "authority": [
+        "Sayson v. CA, G.R. No. 89224 (1992)"
+      ],
+      "reading_implemented": "neither",
+      "status": "awaiting-answer",
+      "blocks": [
+        "LAW-12"
+      ],
+      "agenda_section": "LAWYER-08",
+      "anchors": [
+        {
+          "file": "engine/src/types.rs",
+          "pattern": "pub retroactive_ra_11642: bool"
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
+    }
+  ]
+}

@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 8,
+      "order": 9,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 9,
+      "order": 10,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -116,6 +116,19 @@
       "proves": "gate-results.json describes the current run, covers every manifest gate, and never reports a status outside pass, fail, cannot-run and not-run.",
       "requirements": [
         "GATE-08"
+      ]
+    },
+    {
+      "id": "G10",
+      "name": "lawyer decision registry",
+      "order": 8,
+      "command": "node scripts/check-lawyer-agenda.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f .planning/lawyer-decisions.json",
+      "blocking": true,
+      "proves": "Every recorded interpretive choice exists in both the agenda and the registry, still resolves to the rule it governs, and cannot have its status advanced without a recorded answer.",
+      "requirements": [
+        "LAWYER-09"
       ]
     }
   ]
