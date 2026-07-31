@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import type { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import { useController } from 'react-hook-form';
 import { AlertTriangle, AlertCircle, Info, X } from 'lucide-react';
@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
+import { compute } from '../../wasm/bridge';
 
 export interface ReviewStepProps {
   control: Control<EngineInput>;
@@ -30,37 +31,6 @@ interface Warning {
 
 const LC_GROUP: Relationship[] = ['LegitimateChild', 'LegitimatedChild', 'AdoptedChild'];
 const ASCENDANT_GROUP: Relationship[] = ['LegitimateParent', 'LegitimateAscendant'];
-
-function predictScenario(
-  hasWill: boolean,
-  familyTree: Person[],
-): ScenarioCode {
-  const alive = familyTree.filter((p) => p.is_alive_at_succession);
-  const hasLC = alive.some((p) => LC_GROUP.includes(p.relationship_to_decedent));
-  const hasIC = alive.some((p) => p.relationship_to_decedent === 'IllegitimateChild');
-  const hasSS = alive.some((p) => p.relationship_to_decedent === 'SurvivingSpouse');
-  const hasAscendant = alive.some((p) => ASCENDANT_GROUP.includes(p.relationship_to_decedent));
-  const hasCollateral = alive.some((p) =>
-    ['Sibling', 'NephewNiece', 'OtherCollateral'].includes(p.relationship_to_decedent),
-  );
-
-  const prefix = hasWill ? 'T' : 'I';
-
-  if (alive.length === 0) return `${prefix}15` as ScenarioCode;
-
-  if (hasLC && hasSS && hasIC) return `${prefix}4` as ScenarioCode;
-  if (hasLC && hasSS) return `${prefix}1` as ScenarioCode;
-  if (hasLC && hasIC) return `${prefix}3` as ScenarioCode;
-  if (hasLC) return `${prefix}2` as ScenarioCode;
-  if (hasIC && hasSS) return `${prefix}5a` as ScenarioCode;
-  if (hasIC) return `${prefix}6` as ScenarioCode;
-  if (hasSS && hasAscendant) return `${prefix}7` as ScenarioCode;
-  if (hasSS) return `${prefix}8` as ScenarioCode;
-  if (hasAscendant) return `${prefix}9` as ScenarioCode;
-  if (hasCollateral) return `${prefix}10` as ScenarioCode;
-
-  return `${prefix}15` as ScenarioCode;
-}
 
 function computeWarnings(
   formValues: EngineInput,
@@ -219,10 +189,28 @@ export function ReviewStep({
   const will = formValues.will;
   const estate = formValues.net_distributable_estate;
 
-  const scenario = useMemo(
-    () => predictScenario(hasWill, familyTree),
-    [hasWill, familyTree],
-  );
+  // The scenario code is the engine's, never this component's. A second
+  // classifier here would be free to disagree with the compiled engine, and a
+  // screenshot gate would then freeze the disagreement.
+  const [scenario, setScenario] = useState<ScenarioCode | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    compute(formValues)
+      .then((output) => {
+        if (!cancelled) setScenario(output.scenario_code);
+      })
+      .catch(() => {
+        // A half-filled wizard form is not distributable, and the engine
+        // rejecting it is the normal state. Render the empty badge and log
+        // nothing: a console error here would fail every wizard screenshot
+        // gate's no_console_error assertion.
+        if (!cancelled) setScenario(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [formValues]);
 
   const warnings = useMemo(
     () => computeWarnings(formValues, hasWill),
@@ -285,8 +273,11 @@ export function ReviewStep({
       {/* Predicted scenario badge */}
       <div className="flex items-center justify-center py-4 px-6 bg-primary/5 border border-primary/20 rounded-lg">
         <span className="font-medium text-sm mr-3">Predicted: </span>
-        <Badge className="bg-accent text-white text-base px-4 py-1 font-mono">
-          {scenario}
+        <Badge
+          data-testid="predicted-scenario"
+          className="bg-accent text-white text-base px-4 py-1 font-mono"
+        >
+          {scenario ?? '—'}
         </Badge>
       </div>
 
@@ -381,6 +372,7 @@ export function ReviewStep({
       {/* Compute button */}
       <Button
         type="button"
+        data-testid="compute-distribution"
         onClick={onSubmit}
         size="lg"
         className="w-full py-6 text-base font-semibold bg-accent hover:bg-accent/90 text-white"

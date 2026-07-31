@@ -279,7 +279,7 @@ describe('wizard-step6 > ReviewStep', () => {
       expect(screen.getByText(/Predicted/i)).toBeInTheDocument();
     });
 
-    it('shows I-prefix scenario for intestate with LC + spouse', () => {
+    it('shows the engine scenario code for intestate with LC + spouse', async () => {
       render(
         <ReviewStepWrapper
           hasWill={false}
@@ -288,11 +288,15 @@ describe('wizard-step6 > ReviewStep', () => {
           }}
         />
       );
-      // Should predict an I-prefix scenario code
-      expect(screen.getByText(/I\d/)).toBeInTheDocument();
+      // Measured, not chosen. From apps/inheritance/engine, on a JSON file
+      // transcribed field-for-field from this test's merged defaults:
+      //   ./target/release/inheritance-engine < 12-01-intestate.json \
+      //     | python3 -c "import json,sys; print(json.load(sys.stdin)['scenario_code'])"
+      //   -> I2
+      expect(await screen.findByTestId('predicted-scenario')).toHaveTextContent('I2');
     });
 
-    it('shows T-prefix scenario for testate', () => {
+    it('shows the engine scenario code for testate', async () => {
       render(
         <ReviewStepWrapper
           hasWill={true}
@@ -300,7 +304,8 @@ describe('wizard-step6 > ReviewStep', () => {
             will: createDefaultWill({
               institutions: [
                 {
-                  heir_reference: { person_id: 'lc1', name: 'Juan Cruz', is_collective: false, class_designation: null },
+                  id: 'inst1',
+                  heir: { person_id: 'lc1', name: 'Juan Cruz', is_collective: false, class_designation: null },
                   share: 'EntireFreePort',
                   conditions: [],
                   substitutes: [],
@@ -312,7 +317,11 @@ describe('wizard-step6 > ReviewStep', () => {
           }}
         />
       );
-      expect(screen.getByText(/T\d/)).toBeInTheDocument();
+      // Measured, not chosen. Same command, on the testate transcription:
+      //   ./target/release/inheritance-engine < 12-01-testate.json \
+      //     | python3 -c "import json,sys; print(json.load(sys.stdin)['scenario_code'])"
+      //   -> T2
+      expect(await screen.findByTestId('predicted-scenario')).toHaveTextContent('T2');
     });
   });
 
