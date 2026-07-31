@@ -1,0 +1,35 @@
+{
+  "rubricId": "results-family-tree",
+  "assertions": [
+    {
+      "id": "tree-tab-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"family-tree-tab\"]"
+    },
+    {
+      "id": "tree-container-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"tree-container\"]"
+    },
+    {
+      "id": "tree-controls-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"tree-controls\"]"
+    },
+    {
+      "id": "tree-legend-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"tree-legend\"]"
+    },
+    {
+      "id": "tree-node-count",
+      "kind": "element_count",
+      "selector": "[data-testid^=\"tree-node-\"]",
+      "expect": 4
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}

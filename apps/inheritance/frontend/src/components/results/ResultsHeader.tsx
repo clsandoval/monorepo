@@ -63,7 +63,7 @@ export function ResultsHeader({ scenarioCode, successionType, netDistributableEs
         <Separator orientation="vertical" className="h-5 hidden sm:block" />
         <span className="text-base sm:text-lg">
           <span className="text-muted-foreground">Total Estate: </span>
-          <span className="font-semibold text-foreground">{formatPeso(netDistributableEstate.centavos)}</span>
+          <span className="font-semibold text-foreground" data-testid="total-estate">{formatPeso(netDistributableEstate.centavos)}</span>
         </span>
       </div>
 

@@ -1,0 +1,56 @@
+{
+  "rubricId": "results-view",
+  "assertions": [
+    {
+      "id": "results-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"results-view\"]"
+    },
+    {
+      "id": "wizard-absent",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"review-step\"]"
+    },
+    {
+      "id": "scenario-code",
+      "kind": "text_equals",
+      "selector": "[data-testid=\"scenario-badge\"]",
+      "expect": "I2"
+    },
+    {
+      "id": "heir-table-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"heir-table\"]"
+    },
+    {
+      "id": "heir-row-count",
+      "kind": "element_count",
+      "selector": "[data-testid^=\"heir-row-\"]",
+      "expect": 4
+    },
+    {
+      "id": "spouse-row-present",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"heir-row-s\"]"
+    },
+    {
+      "id": "total-estate-present",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"total-estate\"]"
+    },
+    {
+      "id": "narrative-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"narrative-panel\"]"
+    },
+    {
+      "id": "computation-log-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"computation-log\"]"
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}

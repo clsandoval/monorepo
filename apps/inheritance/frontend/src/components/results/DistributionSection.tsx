@@ -104,8 +104,8 @@ function HeirTable({ shares, showDonations, showRepresentation, persons, layout 
             const units = bloodType === 'Full' ? 2 : bloodType === 'Half' ? 1 : null;
             const representedName = getRepresentedName(share, persons ?? []);
             return (
-              <TableRow key={share.heir_id}>
-                <TableCell className="font-medium">
+              <TableRow key={share.heir_id} data-testid={`heir-row-${share.heir_id}`}>
+                <TableCell className="font-medium" data-testid={`heir-name-${share.heir_id}`}>
                   {share.heir_name}
                   {representedName && (
                     <span className="block text-sm text-muted-foreground">
@@ -126,12 +126,12 @@ function HeirTable({ shares, showDonations, showRepresentation, persons, layout 
                   </TableCell>
                 )}
                 {showDonations && (
-                  <TableCell>{formatPeso(share.gross_entitlement.centavos)}</TableCell>
+                  <TableCell data-testid={`heir-gross-${share.heir_id}`}>{formatPeso(share.gross_entitlement.centavos)}</TableCell>
                 )}
                 {showDonations && (
-                  <TableCell className="text-muted-foreground">- {formatPeso(share.donations_imputed.centavos)}</TableCell>
+                  <TableCell className="text-muted-foreground" data-testid={`heir-donations-${share.heir_id}`}>- {formatPeso(share.donations_imputed.centavos)}</TableCell>
                 )}
-                <TableCell className="font-semibold">{formatPeso(share.net_from_estate.centavos)}</TableCell>
+                <TableCell className="font-semibold" data-testid={`heir-net-${share.heir_id}`}>{formatPeso(share.net_from_estate.centavos)}</TableCell>
                 <TableCell>
                   <div className="flex flex-wrap gap-1">
                     {share.legal_basis.map((art) => (

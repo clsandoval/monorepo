@@ -91,12 +91,26 @@ export const RESETS = Object.freeze({
    * CaseCard.tsx:29 renders `decedent_name ?? title`: one wizard screenshot run
    * silently rewrites every later run's dashboard from "Seeded Case Alpha" to
    * "Pedro". It was caught by auth-session-persisted, a Phase 11 step, going red.
+   *
+   * status is restored to 'draft' for the same class of reason: the results steps
+   * press Compute for real, and updateCaseOutput (lib/cases.ts:21,81) sets
+   * status 'computed'. The dashboard card renders that word, so without this the
+   * same Phase 11 step went red a second time at diffPixels=196.
+   *
+   * THE RULE THIS ENCODES: a reset must restore every column any step can write,
+   * not merely the one its name mentions. Each of these three was found by a
+   * previously-green gate turning red, never by reading the schema.
    */
   'case-alpha-no-output': async (admin) => {
     const caseId = readFixtures().orgs.alpha.case_id;
     const { error } = await admin
       .from('cases')
-      .update({ output_json: null, decedent_name: null, date_of_death: null })
+      .update({
+        output_json: null,
+        decedent_name: null,
+        date_of_death: null,
+        status: 'draft',
+      })
       .eq('id', caseId);
     // Throw rather than swallow: a failed reset must surface as STEP ERROR, not
     // as a rubric failure that looks like a product defect.

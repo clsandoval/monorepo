@@ -1,0 +1,61 @@
+{
+  "$comment": "The committed registry of the output screens (JRNY-07, plan 12-06). Both records CLICK THE REAL COMPUTE BUTTON rather than reading a seeded engine result: scripts/check-seed-fixture.mjs rejects a seeded output_json with the marker SEED WRITES OUTPUT -- 'a seeded engine result is a per-heir peso figure nothing computed' -- so the only honest way to reach a results view is to make the product compute one in the browser. Both declare reset case-alpha-no-output so each run starts from a wizard-phase case and computes fresh; a step that inherited the previous run's stored result would assert against a result nothing recomputed. settleMs is 4000, well above the registry's usual 1200, for a MEASURED reason: $caseId.tsx races compute() against a 30s timeout, FamilyTreeTab is a React.lazy chunk, AND the Recharts pie in DistributionSection animates for its 1500ms default -- browser.mjs's determinism stylesheet kills CSS animation but not a JS/rAF-driven SVG one. At settleMs 1500 the capture landed on the animation boundary and results-family-tree failed at diffPixels=147, every differing pixel on a pie-slice edge. Waiting longer is the correct fix; raising maxDiffPixels to paper over it is not, and REFERENCES.md does not permit it. NO RUBRIC HERE CARRIES A PESO FIGURE: money is asserted by gate G19 (plan 12-08) against a live recomputation, never by a committed expected figure.",
+  "steps": [
+    {
+      "id": "results-view",
+      "requirement": "JRNY-07",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004?step=4",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"review-step\"]"
+        },
+        {
+          "kind": "click",
+          "selector": "[data-testid=\"compute-distribution\"]"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"results-view\"]"
+        }
+      ],
+      "settleMs": 4000,
+      "rubric": "results-view.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "results-family-tree",
+      "requirement": "JRNY-07",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004?step=4",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"review-step\"]"
+        },
+        {
+          "kind": "click",
+          "selector": "[data-testid=\"compute-distribution\"]"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"results-view\"]"
+        },
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"tree-container\"]"
+        }
+      ],
+      "settleMs": 4000,
+      "rubric": "results-family-tree.json",
+      "allowConsoleErrors": false
+    }
+  ]
+}

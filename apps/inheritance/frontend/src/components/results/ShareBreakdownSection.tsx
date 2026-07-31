@@ -42,7 +42,7 @@ export function ShareBreakdownSection({ shares }: ShareBreakdownSectionProps) {
               className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-muted/50 transition-colors"
             >
               <span className="font-medium">{share.heir_name}</span>
-              <span className="text-muted-foreground text-sm">
+              <span className="text-muted-foreground text-sm" data-testid={`breakdown-net-${share.heir_id}`}>
                 {formatPeso(share.net_from_estate.centavos)}
               </span>
             </button>
