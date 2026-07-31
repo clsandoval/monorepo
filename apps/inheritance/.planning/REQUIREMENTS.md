@@ -66,7 +66,7 @@ The existing suite's failure is a generator problem, not an assertion-count prob
 - [x] **COV-03**: Every legal test vector asserts the exact expected scenario code and exact per-heir centavo amounts, never a prefix or a range
 - [x] **COV-04**: A coverage report shows, per engine module, which branches no test exercises
 - [x] **COV-05**: The test suite fails if any test asserts nothing, or asserts only `toBeDefined`/`toBeTruthy` as its sole check
-- [ ] **COV-06**: RLS and org isolation are exercised against a real local Supabase: a user in org A cannot read, write, or enumerate org B's cases, PDFs, or shared links
+- [x] **COV-06**: RLS and org isolation are exercised against a real local Supabase: a user in org A cannot read, write, or enumerate org B's cases, PDFs, or shared links
 
 ### Journey Verification
 
@@ -75,7 +75,7 @@ Screenshot plus vision, per step, for the money path. `.planning/codebase/ARCHIT
 - [ ] **JRNY-01**: Any UI state can be seeded directly (DB row, `localStorage` draft, route param, context) without clicking through preceding steps, and the seams are documented
 - [ ] **JRNY-02**: Signup, email verification, login, logout, and session persistence each produce a screenshot verified against an approved reference and a rubric
 - [ ] **JRNY-03**: Org creation and invite acceptance are verified the same way
-- [ ] **JRNY-04**: Case intake, including the `localStorage` draft-recovery path, is verified step by step
+- [x] **JRNY-04**: Case intake, including the `localStorage` draft-recovery path, is verified step by step
 - [ ] **JRNY-05**: Every step of the succession wizard is verified step by step
 - [ ] **JRNY-06**: Every tab of the estate-tax wizard is verified tab by tab
 - [ ] **JRNY-07**: The results view and family-tree visualizer are verified, including that displayed peso figures match engine output exactly
@@ -236,10 +236,10 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | JRNY-09 | Phase 10 | Planned (10-02) |
 | JRNY-10 | Phase 10 | Planned (10-03) |
 | JRNY-12 | Phase 10 | Planned (10-01, 10-04) |
-| JRNY-02 | Phase 11 | Planned (11-03, 11-05) |
-| JRNY-03 | Phase 11 | Planned (11-02, 11-06) |
-| JRNY-04 | Phase 11 | Planned (11-07) |
-| COV-06 | Phase 11 | Planned (11-01, 11-04) |
+| JRNY-02 | Phase 11 | PARTIAL (11-03, 11-05) — signup, both verification-route states, login and session persistence gated by G16/G17; **logout BLOCKED**, sign-out does not reach the sign-in card the rubric asserts and whether it should is an open product decision |
+| JRNY-03 | Phase 11 | PARTIAL (11-02, 11-06) — invite acceptance and refusal gated by G16/G17; **org creation BLOCKED** on two product defects found by driving it (a 406 from `.single()` over an empty result, and a 400/23502 that makes `saveFirmProfile` silently discard the attorney profile) |
+| JRNY-04 | Phase 11 | Complete (11-07) — eight steps gated by G16/G17 |
+| COV-06 | Phase 11 | Complete (11-01, 11-04) — gated by G18, fourteen cases over four surfaces |
 | JRNY-05 | Phase 12 | Pending |
 | JRNY-06 | Phase 12 | Pending |
 | JRNY-07 | Phase 12 | Pending |

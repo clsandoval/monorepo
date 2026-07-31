@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 10 PLANNED. `10-RESEARCH.md`, `10-VALIDATION.md` and six `PLAN.md` files across 4 waves (wave 1 = 10-01 alone, the Wave 0 harness; wave 2 = 10-02 rubric and 10-03 diff in parallel, disjoint file sets; wave 3 = 10-04 artifacts and 10-05 seeding in parallel, disjoint file sets; wave 4 = 10-06 gate registration). JRNY-01, JRNY-09, JRNY-10, JRNY-12 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK -- 56 plan file(s), 204 task(s) checked`, `gsd-sdk query verify.plan-structure` reports valid with zero errors and zero warnings on each of the six, `frontmatter.validate --schema plan` reports valid on each, and an intra-wave file-conflict scan found zero collisions. Planning measurements taken live in this tree: the repo has NO browser tooling at all (the one `@vitest/browser-playwright` hit is an unwired transitive lockfile entry); npm is reachable and `playwright@1.56.1` + `pixelmatch@7.2.0` + `pngjs@7.0.0` were installed in a scratch dir and driven end to end -- chromium launched headless, screenshotted, and pixelmatch reported `DIFF pixels = 69` with an 11,448-byte diff image, `PROBE_EXIT=0`; the local Supabase stack is UP (ports 55321-55324, 55327 bound) and Docker is reachable; port 4173 is free; both wizards hold step state in local `useState` with no URL encoding (`WizardContainer.tsx:76`, `EstateTaxWizard.tsx:51`), which is the one real seeding gap and what 10-05 closes. Three decisions were made in the plans so no executor faces them: the rubric backend is a deterministic DOM predicate rather than a model call (no model secret exists in the workflow, and a model verdict IS the free-form judgment JRNY-09 excludes); approval of a reference image is a separate command a gate may not invoke; and the gate id is **G15**, not G14, because Phase 9's unstarted 09-06 reserves G14. G15 takes `order` 6, ahead of the inherited G3 halt, and G9 stays last. The phase ends at 14 gates. `ALL GATES PASSED (14/14)` is NOT achievable this phase -- a full runner invocation is expected to halt at G3 (now order 9) on Phase 5's unresolved OBS-05/OBS-06 product decision. No point of Philippine law arose; nothing added to LAWYER-AGENDA.md. Next step is `/gsd:execute-phase 10`."
-last_updated: "2026-07-31T17:58:13.468Z"
-last_activity: 2026-07-31 -- Phase 11 planning complete
+stopped_at: "Phase 11 EXECUTED, NOT COMPLETE. 8/8 plans executed and committed. bash scripts/ci-gates.sh exits 0 with ALL GATES PASSED (17/17) — G16 journey registry integrity (static, order 7), G18 tenant isolation (order 12), G17 live journey run (order 13) all registered and green, lock grown by exactly three with no entry changed. COV-06 and JRNY-04 are COMPLETE and gate-proven. JRNY-02 and JRNY-03 are PARTIAL: four steps were withheld from the registry rather than passed by weakening. (1) auth-signed-out — sign-out clears the session correctly but stays on / rendering the anonymous landing page, not the sign-in card the rubric asserts; whether logout should redirect to /auth is an open PRODUCT DECISION. (2,3,4) the three onboarding steps — driving them found two REAL defects: getUserOrganization uses .single() on a legitimately-empty query (HTTP 406 on every /onboarding load), and saveFirmProfile omits the NOT NULL email column so its upsert fails for EVERY user with PG 23502, swallowed by an empty catch in onboarding.tsx so the user sees 'You are all set!' while the attorney profile is silently discarded (confirmed: counsel_name empty after a completed run). Both need an owner decision or a source fix; plan 11-06 forbade editing app source and forbade weakening the assertion. All four withheld steps keep their rubrics committed but have NO step record and NO approved reference, so G16 cannot claim coverage that does not exist. Positive result worth keeping: the createOrganization argument-order fix is proven in the running app — an organization created through the real onboarding form is named 'Journey Test Firm', not a uuid. 15 steps registered, 15 references, every sidecar at maxDiffPixels 0, --all green twice in a row. Next step is an owner decision on the logout redirect and a fix plan for the two onboarding defects."
+last_updated: "2026-07-31T19:00:26.648Z"
+last_activity: 2026-07-31 -- Phase 11 execution started
 progress:
   total_phases: 15
-  completed_phases: 10
+  completed_phases: 11
   total_plans: 64
-  completed_plans: 56
-  percent: 67
+  completed_plans: 64
+  percent: 73
 ---
 
 # Project State
@@ -21,22 +21,68 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-27)
 
 **Core value:** A change to this codebase must be cheap and safe to make — a passing gate set genuinely implies a working app, and a wrong legal number can never reach a lawyer silently.
-**Current focus:** Phase 10 — journey gate infrastructure: seeding, rubric, artifacts
+**Current focus:** Phase 11 — account-org-case-journey-gates
 
 ## Current Position
 
-Phase: 10 (journey-gate-infrastructure-seeding-rubric-artifacts) — EXECUTED, NOT COMPLETE
-Plan: 6 plans across 4 waves, all 6 executed and committed
-Status: Ready to execute
-Also open: Phase 09 remains PARTIAL — 2 of 6 executed (09-03, 09-05 complete; 09-01, 09-02, 09-04, 09-06 BLOCKED and awaiting `/gsd:plan-phase 9 --gaps`). Phase 10 does not depend on any of the four, and takes gate id **G15** precisely so a Phase 9 replan can still claim its reserved G14.
-Resolved since Phase 9: the OBS-05/OBS-06 product decision was answered by the owner in commit `d71f9150e` ("the engine rejects inputs it cannot distribute conservatively rather than returning a best-effort distribution"), which rewrote the five tests that encoded the old silent behaviour. The G3 halt inherited by Phases 5, 7, 8 and 9 is gone. `bash scripts/ci-gates.sh` now exits **0** and prints `ALL GATES PASSED (14/14)` — measured twice during Phase 10, with the full per-gate table pasted in `10-06-SUMMARY.md`. Every Phase 10 plan was written on the premise that a G3 halt was unavoidable; that premise was already false when the phase ran, and `GATES.md` was corrected rather than left asserting it.
+Phase: 11 (account-org-case-journey-gates) — EXECUTED, NOT COMPLETE
+Plan: 8 plans across 4 waves, all 8 executed and committed
+Status: Awaiting an owner decision on one product question, and a fix plan for two product defects
 
-New blocker recorded by Phase 10 (JRNY-01, live-database half): the local Supabase stack grants **no** SELECT/INSERT/UPDATE/DELETE on any `public` table to `anon`, `authenticated` or `service_role`. `journey/seed-smoke.mjs` and a raw REST call both get PG `42501` / HTTP 403; the rows themselves are correct and present. Cause measured: `pg_default_acl` defines the grants for objects created by `supabase_admin`, but every `public` table is owned by `postgres`, so the default ACLs never applied. No migration contains a REVOKE. Fixing it is a schema/security decision (which roles get which privileges) that plan 10-05 does not contain and that affects the deployed product, so it was reported rather than guessed. **Phase 11's DB-touching journey gates will hit this same wall.** Note also that `scripts/check-env-ready.mjs` reports `ENV READY` and exits 0 despite this, because it checks that the stack is up, not that its tables are reachable through PostgREST.
+`bash scripts/ci-gates.sh` exits **0** and prints `ALL GATES PASSED (17/17)`, measured twice. Three
+gates were registered: **G16** journey registry integrity (static, order 7), **G18** tenant isolation
+(order 12) and **G17** live journey run (order 13). `gates.manifest.lock` grew by exactly three with
+no existing entry changed, and `G9` is still last.
 
-Historical: Phase 05 was BLOCKED on one product decision (OBS-05/OBS-06), now answered. Gate G3 is still red and `bash scripts/ci-gates.sh` still halts there at gate 8 of 13. Phase 8 did not touch it and did not hide it: the five UNKNOWN FAILURES are byte-identical to the set recorded in 05-05, 05-06, 06-05 and Phase 7, and the WASM binary was rebuilt (616398 bytes, mtime newer than the newest `engine/src/` edit) before the frontend suite was measured, so that comparison is against the new engine and not the old one. Of the gates the runner never reaches, G4, G10 and G11 were run directly and all exit 0; G8 and G9 exit 1 purely as a cascade of the halt (G8 reports SKIP REPORT MISSING for gates that wrote no log, G9 reports RESULTS INCOMPLETE for gates published as not-run).
-Last activity: 2026-07-31 -- Phase 11 planning complete
+**Complete and gate-proven:** COV-06 (fourteen isolation cases over four surfaces against a real
+local Supabase, every negative paired with a positive control; observed going red when
+`cases_org_member` was widened to `USING (true)` and green again after a reset) and JRNY-04 (all
+seven guided-intake steps plus the `localStorage` draft-recovery path).
 
-Progress: [██████░░░░] 60%
+**PARTIAL — four steps withheld rather than passed by weakening.** Each keeps its rubric committed
+but has **no step record and no approved reference**, so G16 cannot certify coverage that does not
+exist:
+
+1. **`auth-signed-out` (JRNY-02).** Sign-out works and works safely — the `sb-*` session key is
+   removed from `localStorage`, the signed-in chrome disappears, zero console errors — but the app
+   stays on `/` rendering the anonymous marketing page rather than navigating to `/auth`. The rubric
+   asserts the sign-in card. **Whether logout should redirect to `/auth` or remain on the public page
+   is a product decision no plan contains**, and research never measured this state. Not a point of
+   law.
+
+2-4. **The three onboarding steps (JRNY-03).** All three fail `no_console_error` on **two real
+   defects**, both reproduced directly:
+   - `getUserOrganization` (`src/lib/organizations.ts:32`) calls `.single()` on a query that
+     legitimately matches zero rows for an org-less user, so PostgREST answers **406** on every
+     `/onboarding` load. `.maybeSingle()` is the query that expresses "zero or one row".
+   - `saveFirmProfile` (`src/lib/firm-profile.ts:97`) builds its upsert payload from supplied fields
+     only and never includes `email`, which is `NOT NULL` with no default, so the upsert fails **for
+     every user** with `23502`. `src/routes/onboarding.tsx:72` swallows it in an empty `catch` and
+     advances anyway, so the user sees `You're all set!` while nothing was saved — confirmed:
+     `counsel_name` is empty after a completed run. **Silent data loss on a screen reporting
+     success.**
+
+   Plan 11-06 forbade editing application source and forbade weakening the assertion, and
+   `allowConsoleErrors` was rejected on principle — that flag exists for a console error that is
+   *correct* behaviour, and using it here would hide exactly what the gate had just found.
+
+**Proven in the running application, which no unit test covers:** the `createOrganization`
+argument-order fix took effect — an organization created through the real onboarding form is named
+`Journey Test Firm`, not the user's uuid. The `/invite/<refused token>` fix is also held in place by
+a green gate: it renders `Invitation expired, revoked, or not found` instead of silently redirecting
+to `/settings/team`.
+
+Registry: 15 steps, 15 references, every sidecar at `maxDiffPixels` `0`, `--all` green twice in a row.
+
+Also open: Phase 09 remains PARTIAL — 09-01, 09-02, 09-04, 09-06 BLOCKED. `G14` is still reserved
+and unused for Phase 9's `09-06`.
+
+**Unmeasured:** this project's CI has still never executed, so whether `supabase start` succeeds on a
+GitHub-hosted runner is a recorded risk in the workflow file, not a claim.
+
+Last activity: 2026-07-31 -- Phase 11 executed
+
+Progress: [███████░░░] 73%
 
 ## Performance Metrics
 
@@ -121,7 +167,7 @@ Recent decisions affecting current work:
 - Phase 5: emitting a `ManualFlag` decides nothing — it is the engine saying a human must decide. Every detector is a field comparison transcribed from the spec table, and the five new input members are facts the person entering the case asserts, never conclusions the engine derives. **No point of Philippine law arises in this phase and nothing was added to the lawyer review agenda.**
 - Phase 5: two anti-regression mechanisms rather than one. `engine/tests/observability.rs` (under existing gate G1) catches a behavioral regression across the whole 140-case corpus; new gate `G11` (`node scripts/check-observability.mjs`) catches a source regression — the reappearance of the empty-warnings literal or a re-zeroed sub-component on a path no test happens to cover. Both hardcoded lines survived unnoticed for the codebase's entire life, which is what justifies a grep-level guard alongside a behavioral one.
 - Phase 5: G11 takes `order` 9, pushing G8 to 10 and G9 to 11 — the same constraint Phase 4 discovered, that `scripts/check-gate-results.mjs` fails with `RESULTS INCOMPLETE` on any gate it sees as `not-run`, so G9 must stay last. The phase ends at 11 gates.
-- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** Ready to execute
+- Phase 4: eight points of Philippine law arise and all eight are *recorded, never decided*. Every agenda entry ships `**Status:** Executing Phase 11
 
 - Phase 6: measured, not assumed — `LEGAL-CONFORMANCE.md:76`'s three claims all reproduce. Across all 140 committed inputs, `NephewNiece` appears in **0** files, `recipient_is_stranger: true` in **0** files, and the maximum donation/estate ratio is **0.5524**. Five of eleven `Relationship` variants appear nowhere at all.
 - Phase 6: two of COV-01's three shapes BREAK sum conservation today. A donation to an heir at ratio > 1.0 and a donation to a **stranger at any ratio** (measured at 0.1) both make the per-heir sum exceed the estate. Both are the documented LAW-06 defect, lawyer-blocked on LAWYER-06 and owned by Phase 14.
@@ -208,8 +254,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-07-31T16:56:00Z
-Stopped at: Phase 10 PLANNED. `10-RESEARCH.md`, `10-VALIDATION.md` and six `PLAN.md` files across 4 waves (wave 1 = 10-01 alone, the Wave 0 harness; wave 2 = 10-02 rubric and 10-03 diff in parallel, disjoint file sets; wave 3 = 10-04 artifacts and 10-05 seeding in parallel, disjoint file sets; wave 4 = 10-06 gate registration). JRNY-01, JRNY-09, JRNY-10, JRNY-12 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK -- 56 plan file(s), 204 task(s) checked`, `gsd-sdk query verify.plan-structure` reports valid with zero errors and zero warnings on each of the six, `frontmatter.validate --schema plan` reports valid on each, and an intra-wave file-conflict scan found zero collisions. Planning measurements taken live in this tree: the repo has NO browser tooling at all (the one `@vitest/browser-playwright` hit is an unwired transitive lockfile entry); npm is reachable and `playwright@1.56.1` + `pixelmatch@7.2.0` + `pngjs@7.0.0` were installed in a scratch dir and driven end to end -- chromium launched headless, screenshotted, and pixelmatch reported `DIFF pixels = 69` with an 11,448-byte diff image, `PROBE_EXIT=0`; the local Supabase stack is UP (ports 55321-55324, 55327 bound) and Docker is reachable; port 4173 is free; both wizards hold step state in local `useState` with no URL encoding (`WizardContainer.tsx:76`, `EstateTaxWizard.tsx:51`), which is the one real seeding gap and what 10-05 closes. Three decisions were made in the plans so no executor faces them: the rubric backend is a deterministic DOM predicate rather than a model call (no model secret exists in the workflow, and a model verdict IS the free-form judgment JRNY-09 excludes); approval of a reference image is a separate command a gate may not invoke; and the gate id is **G15**, not G14, because Phase 9's unstarted 09-06 reserves G14. G15 takes `order` 6, ahead of the inherited G3 halt, and G9 stays last. The phase ends at 14 gates. `ALL GATES PASSED (14/14)` is NOT achievable this phase -- a full runner invocation is expected to halt at G3 (now order 9) on Phase 5's unresolved OBS-05/OBS-06 product decision. No point of Philippine law arose; nothing added to LAWYER-AGENDA.md. Next step is `/gsd:execute-phase 10`.
+Last session: 2026-07-31T19:00:26.640Z
+Stopped at: Phase 11 EXECUTED, NOT COMPLETE. 8/8 plans executed and committed. bash scripts/ci-gates.sh exits 0 with ALL GATES PASSED (17/17) — G16 journey registry integrity (static, order 7), G18 tenant isolation (order 12), G17 live journey run (order 13) all registered and green, lock grown by exactly three with no entry changed. COV-06 and JRNY-04 are COMPLETE and gate-proven. JRNY-02 and JRNY-03 are PARTIAL: four steps were withheld from the registry rather than passed by weakening. (1) auth-signed-out — sign-out clears the session correctly but stays on / rendering the anonymous landing page, not the sign-in card the rubric asserts; whether logout should redirect to /auth is an open PRODUCT DECISION. (2,3,4) the three onboarding steps — driving them found two REAL defects: getUserOrganization uses .single() on a legitimately-empty query (HTTP 406 on every /onboarding load), and saveFirmProfile omits the NOT NULL email column so its upsert fails for EVERY user with PG 23502, swallowed by an empty catch in onboarding.tsx so the user sees 'You are all set!' while the attorney profile is silently discarded (confirmed: counsel_name empty after a completed run). Both need an owner decision or a source fix; plan 11-06 forbade editing app source and forbade weakening the assertion. All four withheld steps keep their rubrics committed but have NO step record and NO approved reference, so G16 cannot claim coverage that does not exist. Positive result worth keeping: the createOrganization argument-order fix is proven in the running app — an organization created through the real onboarding form is named 'Journey Test Firm', not a uuid. 15 steps registered, 15 references, every sidecar at maxDiffPixels 0, --all green twice in a row. Next step is an owner decision on the logout redirect and a fix plan for the two onboarding defects.
 Previously stopped at: Phase 8 EXECUTED (8/8 plans, 8 commits: 3583786fa, 6a4361db0, 85319b6b9, 6de15f5cc, 6dde94c9f, 7489bbe90, 780b36a9f, a47d289e5). LAW-05, LAW-08, LAW-09, LAW-10, LAW-11 all Complete. cargo test 543/0 (from 527). Frontend UNKNOWN FAILURE set identical to Phase 5's five, total 2449 tests. Twelve of thirteen gates pass; ci-gates.sh halts at G3 (8/13) on OBS-05/OBS-06. LAWYER-09 recorded awaiting-answer. Next step: /gsd:plan-phase 9.
 Previously stopped at: Phase 6 PLANNED. `06-RESEARCH.md`, `06-VALIDATION.md` and five `PLAN.md` files across 4 waves (wave 1 = 06-01 corpus and 06-03 vector tightening in parallel; wave 2 = 06-02 invariant split; waves 3 and 4 serialize on the four gate-infrastructure files). COV-01..05 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 32 plan file(s), 117 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` plus `verify.plan-structure` report valid with zero errors on each of the five new plans. Every number in the research was measured live in this tree, including a bisection that reproduced the collateral duplicate-heir defect to the centavo. The phase ends at 13 gates; a full `ci-gates.sh` run will still halt at G3 until Phase 5's product decision is answered. Next step is `/gsd:execute-phase 6`.
 Previously stopped at: Phase 5 EXECUTED (7/7 plans, 14 commits) but NOT VERIFIED. OBS-01,02,03,04,07,08,09 complete and gate-proven. OBS-05/OBS-06 BLOCKED: the runtime conservation + duplicate-heir rejection is implemented and correct per the requirement text, but 5 committed frontend tests across integration.test.tsx, bridge.test.ts and wasm-real.test.ts assert the OLD silent-pass behavior for a negative distributable estate and for duplicate person IDs, so gate G3 (frontend known-failure ledger) exits 1 and scripts/ci-gates.sh halts at gate 6 of 11. Nothing was weakened to hide this: no test edited/skipped/deleted, test-baseline.json and gate-skips.lock untouched, no carve-out added to check_output. ONE product decision unblocks it, stated in 05-05-SUMMARY.md: should computeWasm reject a non-distributable input (A, current, what OBS-05/06 require) or return a best-effort distribution (B, what those 5 tests assert)? If A, those 5 tests must be rewritten to assert the rejection. Verified by direct measurement: cargo test 481 passing 0 failed across 6 binaries; 564/564 rows carry a legitime_fraction (was 0); nonzero from_legitime 105, from_free_portion 25, from_intestate 457 (all were 0); 42/140 cases emit a warning (was 0); computation_log.steps is 10 on every corpus case (was 1); 0 sub-component sum mismatches; all ten spec flag detectors have a passing test; G4/G10/G11 each exit 0 run directly; G8/G9 fail only as a cascade of the G3 halt. No point of Philippine law arose; nothing added to LAWYER-AGENDA.md. Next step: answer the OBS-05/06 question, then re-run bash scripts/ci-gates.sh.
