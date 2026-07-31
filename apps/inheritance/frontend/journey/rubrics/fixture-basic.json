@@ -1,0 +1,50 @@
+{
+  "rubricId": "fixture-basic",
+  "assertions": [
+    {
+      "id": "heir-name-exact",
+      "kind": "text_equals",
+      "selector": "[data-testid=\"heir-name\"]",
+      "expect": "Maria Santos"
+    },
+    {
+      "id": "heir-share-shows-one-million",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"heir-share\"]",
+      "expect": "PHP 1,000,000.00"
+    },
+    {
+      "id": "heir-share-not-one-point-five-million",
+      "kind": "text_absent",
+      "selector": "[data-testid=\"heir-share\"]",
+      "expect": "PHP 1,500,000.00"
+    },
+    {
+      "id": "warning-banner-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"warning-banner\"]"
+    },
+    {
+      "id": "no-error-banner",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"error-banner\"]"
+    },
+    {
+      "id": "three-heir-rows",
+      "kind": "element_count",
+      "selector": "[data-testid=\"heir-row\"]",
+      "expect": 3
+    },
+    {
+      "id": "case-link-href",
+      "kind": "attribute_equals",
+      "selector": "[data-testid=\"case-link\"]",
+      "attr": "href",
+      "expect": "/cases/a0000000-0000-4000-8000-000000000004"
+    },
+    {
+      "id": "no-console-errors",
+      "kind": "no_console_error"
+    }
+  ]
+}
