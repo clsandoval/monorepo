@@ -1,0 +1,30 @@
+{
+  "rubricId": "wizard-decedent",
+  "assertions": [
+    {
+      "id": "step-root-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"decedent-step\"]"
+    },
+    {
+      "id": "wrong-step-absent",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"estate-step\"]"
+    },
+    {
+      "id": "decedent-heading",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"decedent-step\"]",
+      "expect": "Decedent Information"
+    },
+    {
+      "id": "decedent-name-input",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"decedent-step\"] input[type=\"text\"]"
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}

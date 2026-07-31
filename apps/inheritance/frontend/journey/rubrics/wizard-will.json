@@ -1,0 +1,25 @@
+{
+  "rubricId": "wizard-will",
+  "assertions": [
+    {
+      "id": "step-root-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"will-step\"]"
+    },
+    {
+      "id": "wrong-step-absent",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"donations-step\"]"
+    },
+    {
+      "id": "will-heading",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"will-step\"]",
+      "expect": "Last Will & Testament"
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}

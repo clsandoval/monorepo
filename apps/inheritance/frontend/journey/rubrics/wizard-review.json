@@ -1,0 +1,36 @@
+{
+  "rubricId": "wizard-review",
+  "assertions": [
+    {
+      "id": "step-root-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"review-step\"]"
+    },
+    {
+      "id": "wrong-step-absent",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"donations-step\"]"
+    },
+    {
+      "id": "predicted-label",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"review-step\"]",
+      "expect": "Predicted"
+    },
+    {
+      "id": "predicted-scenario",
+      "kind": "text_equals",
+      "selector": "[data-testid=\"predicted-scenario\"]",
+      "expect": "I2"
+    },
+    {
+      "id": "compute-button",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"compute-distribution\"]"
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}

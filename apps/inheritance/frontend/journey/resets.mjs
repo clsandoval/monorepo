@@ -81,12 +81,22 @@ export const RESETS = Object.freeze({
    * Return the Alpha case to the state a lawyer is in before pressing Compute:
    * input present, no engine result. A results step must start here, or run two
    * would assert against run one's leftover output instead of a fresh one.
+   *
+   * decedent_name and date_of_death are nulled alongside output_json because
+   * seed.sql inserts the case WITHOUT them, while merely OPENING the wizard on
+   * this case fills them in: useAutoSave debounces at 1.5s and calls
+   * updateCaseInput (lib/cases.ts:53), which writes input_json, decedent_name
+   * AND date_of_death. That is enough time to elapse inside a 1200ms settle plus
+   * a full-page screenshot. The visible consequence is on the dashboard, where
+   * CaseCard.tsx:29 renders `decedent_name ?? title`: one wizard screenshot run
+   * silently rewrites every later run's dashboard from "Seeded Case Alpha" to
+   * "Pedro". It was caught by auth-session-persisted, a Phase 11 step, going red.
    */
   'case-alpha-no-output': async (admin) => {
     const caseId = readFixtures().orgs.alpha.case_id;
     const { error } = await admin
       .from('cases')
-      .update({ output_json: null })
+      .update({ output_json: null, decedent_name: null, date_of_death: null })
       .eq('id', caseId);
     // Throw rather than swallow: a failed reset must surface as STEP ERROR, not
     // as a rubric failure that looks like a product defect.

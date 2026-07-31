@@ -1,5 +1,5 @@
 {
-  "$comment": "The committed registry of every account-level screen this project screenshots. A step is DATA, never code: run.mjs reads every *.json in journey/steps/ in alphabetical file order and concatenates their steps arrays. A record carrying an unknown field, an out-of-set enumerated value (requirement, session, reset, action kind), a duplicate id, an id not matching ^[a-z0-9-]+$, a missing rubric file, or a settleMs that is not a non-negative integer is REJECTED as STEPS INVALID rather than ignored \u2014 an ignored record is a screen nobody screenshots and nobody notices. Gate G16 (plan 11-08) reads this file statically. Sibling files: org.json (plan 11-06), intake.json (plan 11-07). BLOCKED, NOT REGISTERED: auth-signed-out. Its rubric file exists but no step names it and no reference was approved, because signing out does not reach the sign-in card that the rubric asserts - see journey/JOURNEY.md.",
+  "$comment": "The committed registry of every account-level screen this project screenshots. A step is DATA, never code: run.mjs reads every *.json in journey/steps/ in alphabetical file order and concatenates their steps arrays. A record carrying an unknown field, an out-of-set enumerated value (requirement, session, reset, action kind), a duplicate id, an id not matching ^[a-z0-9-]+$, a missing rubric file, or a settleMs that is not a non-negative integer is REJECTED as STEPS INVALID rather than ignored \u2014 an ignored record is a screen nobody screenshots and nobody notices. Gate G16 (plan 11-08) reads this file statically. Sibling files: org.json (plan 11-06), intake.json (plan 11-07). BLOCKED, NOT REGISTERED: auth-signed-out. Its rubric file exists but no step names it and no reference was approved, because signing out does not reach the sign-in card that the rubric asserts - see journey/JOURNEY.md. UPDATED BY PLAN 12-03: auth-session-persisted now declares reset case-alpha-no-output. Its rubric asserts the dashboard shows the seeded case title, and CaseCard.tsx:29 renders `decedent_name ?? title`. seed.sql leaves decedent_name NULL, but merely opening the wizard on that case makes useAutoSave write it (lib/cases.ts:53), so the plan 12-03 wizard steps -- which sort after account.json -- left the row dirty for the NEXT run and this step went red on run two. The reset makes the step independent of execution order rather than dependent on whatever ran before it.",
   "steps": [
     {
       "id": "auth-signin",
@@ -80,7 +80,7 @@
       "session": "alpha",
       "localStorage": {},
       "sessionStorage": {},
-      "reset": null,
+      "reset": "case-alpha-no-output",
       "actions": [
         {
           "kind": "waitForSelector",

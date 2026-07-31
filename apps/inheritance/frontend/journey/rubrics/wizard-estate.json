@@ -1,0 +1,25 @@
+{
+  "rubricId": "wizard-estate",
+  "assertions": [
+    {
+      "id": "step-root-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"estate-step\"]"
+    },
+    {
+      "id": "wrong-step-absent",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"review-step\"]"
+    },
+    {
+      "id": "estate-heading",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"estate-step\"]",
+      "expect": "Estate Information"
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}

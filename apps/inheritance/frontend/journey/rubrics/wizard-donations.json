@@ -1,0 +1,25 @@
+{
+  "rubricId": "wizard-donations",
+  "assertions": [
+    {
+      "id": "step-root-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"donations-step\"]"
+    },
+    {
+      "id": "wrong-step-absent",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"family-tree-step\"]"
+    },
+    {
+      "id": "donations-heading",
+      "kind": "text_contains",
+      "selector": "[data-testid=\"donations-step\"]",
+      "expect": "Donations"
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}

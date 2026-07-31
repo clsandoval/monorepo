@@ -1,0 +1,25 @@
+{
+  "rubricId": "wizard-family-tree",
+  "assertions": [
+    {
+      "id": "step-root-visible",
+      "kind": "element_visible",
+      "selector": "[data-testid=\"family-tree-step\"]"
+    },
+    {
+      "id": "wrong-step-absent",
+      "kind": "element_absent",
+      "selector": "[data-testid=\"decedent-step\"]"
+    },
+    {
+      "id": "person-card-count",
+      "kind": "element_count",
+      "selector": "[data-testid=\"person-card\"]",
+      "expect": 4
+    },
+    {
+      "id": "no-console-error",
+      "kind": "no_console_error"
+    }
+  ]
+}

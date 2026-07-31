@@ -1,0 +1,95 @@
+{
+  "$comment": "The committed registry of the succession-wizard screens (JRNY-05, plan 12-03). A step is DATA, never code. Every record declares reset case-alpha-no-output: plan 12-06 leaves an output_json behind on this same case, and $caseId.tsx routes a case that has one to the results view instead of the wizard, so without the reset run two would screenshot a different screen than run one. Every url carries ?step= alone, which readInitialWizardState() in WizardContainer.tsx reads once at mount; $caseId.tsx declares no validateSearch, so the router does not strip it. The wizard-review rubric pins predicted-scenario to I2 with text_equals -- the code the release binary prints for engine/examples/cases/02-married-3lc.json, which seed.sql:15 states is a verbatim copy of this case's input_json. Before plan 12-01 that badge read I1, computed by a second classifier in ReviewStep.tsx. If a duplicate classifier is ever reintroduced this assertion goes red instead of a reference silently freezing a wrong legal answer. BLOCKED, NOT REGISTERED: wizard-will. Its rubric file exists but no step names it and no reference was approved. ?hasWill=1 sets WizardContainer's hasWill boolean but never constructs the will object that EstateStep's handleSuccessionChange constructs, and the seeded case has will: null, so WillStep.tsx:28 returns an empty <div data-testid=\"will-step\" /> and waitForSelector times out on a zero-size element. See the 12-03 summary.",
+  "steps": [
+    {
+      "id": "wizard-estate",
+      "requirement": "JRNY-05",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004?step=0",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"estate-step\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "wizard-estate.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "wizard-decedent",
+      "requirement": "JRNY-05",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004?step=1",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"decedent-step\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "wizard-decedent.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "wizard-family-tree",
+      "requirement": "JRNY-05",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004?step=2",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"family-tree-step\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "wizard-family-tree.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "wizard-donations",
+      "requirement": "JRNY-05",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004?step=3",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"donations-step\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "wizard-donations.json",
+      "allowConsoleErrors": false
+    },
+    {
+      "id": "wizard-review",
+      "requirement": "JRNY-05",
+      "url": "/cases/a0000000-0000-4000-8000-000000000004?step=4",
+      "session": "alpha",
+      "localStorage": {},
+      "sessionStorage": {},
+      "reset": "case-alpha-no-output",
+      "actions": [
+        {
+          "kind": "waitForSelector",
+          "selector": "[data-testid=\"review-step\"]"
+        }
+      ],
+      "settleMs": 1200,
+      "rubric": "wizard-review.json",
+      "allowConsoleErrors": false
+    }
+  ]
+}
