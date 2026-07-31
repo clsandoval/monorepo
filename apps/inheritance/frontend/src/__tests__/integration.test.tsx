@@ -7,7 +7,7 @@
 import React, { useState } from 'react';
 import { render, screen, within, fireEvent, waitFor, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { compute } from '../wasm/bridge';
+import { compute, EngineError } from '../wasm/bridge';
 import { ResultsView } from '../components/results/ResultsView';
 import { EngineInputSchema, EngineOutputSchema } from '../schemas';
 import type {
@@ -283,7 +283,7 @@ describe('integration > compute handles invalid input gracefully', () => {
     expect(output).toHaveProperty('scenario_code');
   });
 
-  it('compute() handles duplicate person IDs', async () => {
+  it('compute() rejects duplicate person IDs', async () => {
     const input = makeIntestateInput();
     input.family_tree[1] = makePerson({
       id: 'lc1', // duplicate
@@ -291,8 +291,16 @@ describe('integration > compute handles invalid input gracefully', () => {
       relationship_to_decedent: 'LegitimateChild',
     });
 
-    const output = await compute(input);
-    expect(output).toHaveProperty('scenario_code');
+    // OBS-06: a duplicate heir_id is rejected at runtime rather than
+    // silently distributed.
+    let caught: unknown;
+    try {
+      await compute(input);
+    } catch (e) {
+      caught = e;
+    }
+    expect(caught).toBeInstanceOf(EngineError);
+    expect((caught as EngineError).kind).toBe('output_check');
   });
 });
 

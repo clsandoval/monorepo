@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { compute } from "../bridge";
+import { compute, EngineError } from "../bridge";
 import { EngineOutputSchema } from "../../schemas";
 import { formatPeso } from "../../types";
 import type {
@@ -404,8 +404,8 @@ describe("wasm bridge", () => {
   // Invalid input rejection
   // --------------------------------------------------------------------------
   describe("invalid input", () => {
-    it("handles negative centavos without crashing", async () => {
-      // Real WASM engine handles invalid inputs gracefully (no throw)
+    it("rejects a negative distributable estate", async () => {
+      // OBS-05: rejected at runtime rather than silently distributed.
       const invalidInput = {
         net_distributable_estate: { centavos: -100 },
         decedent: makeDecedent(),
@@ -415,18 +415,31 @@ describe("wasm bridge", () => {
         config: makeConfig(),
       } as EngineInput;
 
-      const output = await compute(invalidInput);
-      expect(output).toHaveProperty("scenario_code");
+      let caught: unknown;
+      try {
+        await compute(invalidInput);
+      } catch (e) {
+        caught = e;
+      }
+      expect(caught).toBeInstanceOf(EngineError);
+      expect((caught as EngineError).kind).toBe("output_check");
     });
 
-    it("handles duplicate person IDs without crashing", async () => {
+    it("rejects duplicate person IDs", async () => {
+      // OBS-06: a duplicate heir_id is rejected at runtime.
       const invalidInput = makeIntestateInput([
         makePerson({ id: "lc1", name: "Maria Cruz" }),
         makePerson({ id: "lc1", name: "Pedro Cruz" }), // duplicate
       ]);
 
-      const output = await compute(invalidInput);
-      expect(output).toHaveProperty("scenario_code");
+      let caught: unknown;
+      try {
+        await compute(invalidInput);
+      } catch (e) {
+        caught = e;
+      }
+      expect(caught).toBeInstanceOf(EngineError);
+      expect((caught as EngineError).kind).toBe("output_check");
     });
 
     it("handles multiple SurvivingSpouse without crashing", async () => {

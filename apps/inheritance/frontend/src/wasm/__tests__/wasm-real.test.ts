@@ -11,7 +11,7 @@
  */
 
 import { describe, it, expect } from "vitest";
-import { computeWasm } from "../bridge";
+import { computeWasm, EngineError } from "../bridge";
 import type {
   EngineInput,
   EngineOutput,
@@ -377,27 +377,42 @@ describe("wasm-real engine", () => {
   // computeWasm() with invalid input throws/rejects
   // --------------------------------------------------------------------------
   describe("computeWasm() with invalid input throws/rejects", () => {
-    it("handles negative estate centavos without crashing", async () => {
+    it("rejects a negative distributable estate with kind output_check", async () => {
       const input = makeIntestateInput(
         [makePerson({ id: "lc1", name: "Maria" })],
         -100
       );
 
-      // Real engine accepts negative centavos at serde level and handles in pipeline
-      const output = await computeWasm(input);
-      expect(output).toBeDefined();
-      expect(output.scenario_code).toBeTruthy();
+      // OBS-05: an estate the engine cannot distribute conservatively is
+      // rejected at runtime rather than silently distributed. Superseded the
+      // pre-Phase-5 "handles ... without crashing" contract.
+      let caught: unknown;
+      try {
+        await computeWasm(input);
+      } catch (e) {
+        caught = e;
+      }
+      expect(caught).toBeInstanceOf(EngineError);
+      expect((caught as EngineError).kind).toBe("output_check");
+      expect((caught as EngineError).detail.length).toBeGreaterThan(0);
     });
 
-    it("handles duplicate person IDs without crashing", async () => {
+    it("rejects duplicate person IDs with kind output_check", async () => {
       const input = makeIntestateInput([
         makePerson({ id: "lc1", name: "Maria" }),
         makePerson({ id: "lc1", name: "Jose" }),
       ]);
 
-      // Real engine accepts duplicate IDs at serde level and handles in pipeline
-      const output = await computeWasm(input);
-      expect(output).toBeDefined();
+      // OBS-06: a duplicate heir_id is rejected at runtime.
+      let caught: unknown;
+      try {
+        await computeWasm(input);
+      } catch (e) {
+        caught = e;
+      }
+      expect(caught).toBeInstanceOf(EngineError);
+      expect((caught as EngineError).kind).toBe("output_check");
+      expect((caught as EngineError).detail.length).toBeGreaterThan(0);
     });
 
     it("handles multiple SurvivingSpouse without crashing", async () => {

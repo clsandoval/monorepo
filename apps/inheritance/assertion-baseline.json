@@ -76,21 +76,9 @@
     },
     {
       "file": "src/wasm/__tests__/wasm-real.test.ts",
-      "fullName": "handles negative estate centavos without crashing",
-      "matchers": ["toBeDefined", "toBeTruthy"],
-      "note": "Asserts only that something came back from a negative-estate input. This sits on top of Phase 5's unresolved OBS-05 and OBS-06 product decision, recorded in .planning/phases/05-engine-observability-restored/05-05-SUMMARY.md: should computeWasm reject a non-distributable input, or return a best-effort distribution? Whoever answers that question clears this ledger row at the same time."
-    },
-    {
-      "file": "src/wasm/__tests__/wasm-real.test.ts",
-      "fullName": "handles duplicate person IDs without crashing",
-      "matchers": ["toBeDefined"],
-      "note": "Asserts only that something came back from a duplicate-id input. This sits on top of Phase 5's unresolved OBS-05 and OBS-06 product decision, recorded in .planning/phases/05-engine-observability-restored/05-05-SUMMARY.md; whoever answers that question clears this ledger row at the same time."
-    },
-    {
-      "file": "src/wasm/__tests__/wasm-real.test.ts",
       "fullName": "handles multiple SurvivingSpouse without crashing",
       "matchers": ["toBeDefined"],
-      "note": "Asserts only that something came back from a two-spouse input. This sits alongside Phase 5's unresolved OBS-05 and OBS-06 product decision, recorded in .planning/phases/05-engine-observability-restored/05-05-SUMMARY.md; whoever answers that question clears this ledger row at the same time."
+      "note": "Asserts only that something came back from a two-spouse input. The sibling OBS-05/OBS-06 rows were cleared when the owner ruled that the engine rejects non-distributable and duplicate-id inputs (recorded in .planning/phases/05-engine-observability-restored/05-05-SUMMARY.md); this row was NOT covered by that ruling, because two SurvivingSpouse entries are a distinct input class the engine still accepts. It needs its own decision."
     }
   ]
 }
