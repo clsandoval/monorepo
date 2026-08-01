@@ -134,7 +134,24 @@ describe('useAutoSave hook', () => {
     expect(typeof result.current.save).toBe('function');
   });
 
-  it('cancels pending save on unmount', () => {
+  /*
+   * AUTHORISATION FOR THE INVERTED ASSERTION BELOW.
+   *
+   * This case was named `cancels pending save on unmount` and asserted
+   * `expect(mockUpdateCaseInput).not.toHaveBeenCalled()`. That assertion pinned a data-loss
+   * behaviour, and the owner instructed in writing that the behaviour must change. ROADMAP Phase 19
+   * success criterion 3, quoted verbatim (the roadmap sets the verb in markdown bold; the words are
+   * unchanged):
+   *
+   *   "Unmounting the wizard with a save pending flushes it instead of clearing it, proven by a test
+   *    that unmounts inside the debounce window."
+   *
+   * The case is therefore RENAMED and its assertion INVERTED to the stronger `toHaveBeenCalledWith`
+   * form. It is not deleted, not skipped and not marked todo. The safety property it protected — that
+   * an unmount with nothing pending writes nothing — is preserved by the new case
+   * `does not flush on unmount when nothing is pending`.
+   */
+  it('flushes pending save on unmount', () => {
     const modifiedInput = { ...baseInput, net_distributable_estate: { centavos: 5000000 } };
     const { rerender, unmount } = renderHook(
       ({ caseId, input }) => useAutoSave(caseId, input),
@@ -145,6 +162,122 @@ describe('useAutoSave hook', () => {
     unmount();
     vi.advanceTimersByTime(2000);
 
+    expect(mockUpdateCaseInput).toHaveBeenCalledTimes(1);
+    expect(mockUpdateCaseInput).toHaveBeenCalledWith('case-1', modifiedInput);
+  });
+
+  it('adopts the first value without saving', () => {
+    const { rerender } = renderHook(
+      ({ caseId, input }) => useAutoSave(caseId, input),
+      { initialProps: { caseId: 'case-1' as string | null, input: baseInput } },
+    );
+
+    rerender({ caseId: 'case-1', input: baseInput });
+    vi.advanceTimersByTime(2000);
+
     expect(mockUpdateCaseInput).not.toHaveBeenCalled();
+  });
+
+  it('saves when the same object is mutated in place', async () => {
+    mockUpdateCaseInput.mockResolvedValue(undefined);
+
+    const mutable: EngineInput = {
+      ...baseInput,
+      net_distributable_estate: { centavos: 1000000 },
+    };
+    const { rerender } = renderHook(
+      ({ caseId, input }) => useAutoSave(caseId, input),
+      { initialProps: { caseId: 'case-1' as string | null, input: mutable } },
+    );
+
+    mutable.net_distributable_estate.centavos = 7777777;
+    rerender({ caseId: 'case-1', input: mutable });
+
+    await act(async () => {
+      vi.advanceTimersByTime(1500);
+    });
+
+    expect(mockUpdateCaseInput).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not save when a rerender changes nothing', () => {
+    const identicalValues = JSON.parse(JSON.stringify(baseInput)) as EngineInput;
+    const { rerender } = renderHook(
+      ({ caseId, input }) => useAutoSave(caseId, input),
+      { initialProps: { caseId: 'case-1' as string | null, input: baseInput } },
+    );
+
+    // Different object reference, identical values.
+    rerender({ caseId: 'case-1', input: identicalValues });
+    vi.advanceTimersByTime(2000);
+
+    expect(mockUpdateCaseInput).not.toHaveBeenCalled();
+  });
+
+  it('does not flush on unmount when nothing is pending', () => {
+    const { unmount } = renderHook(
+      ({ caseId, input }) => useAutoSave(caseId, input),
+      { initialProps: { caseId: 'case-1' as string | null, input: baseInput } },
+    );
+
+    vi.advanceTimersByTime(2000);
+    unmount();
+    vi.advanceTimersByTime(2000);
+
+    expect(mockUpdateCaseInput).not.toHaveBeenCalled();
+  });
+
+  it('flushes the latest value, not the value that started the debounce', () => {
+    const valueA = { ...baseInput, net_distributable_estate: { centavos: 1111111 } };
+    const valueB = { ...baseInput, net_distributable_estate: { centavos: 2222222 } };
+
+    const { rerender, unmount } = renderHook(
+      ({ caseId, input }) => useAutoSave(caseId, input),
+      { initialProps: { caseId: 'case-1' as string | null, input: baseInput } },
+    );
+
+    rerender({ caseId: 'case-1', input: valueA });
+    vi.advanceTimersByTime(500);
+    rerender({ caseId: 'case-1', input: valueB });
+    vi.advanceTimersByTime(500);
+    unmount();
+
+    expect(mockUpdateCaseInput).toHaveBeenCalledTimes(1);
+    expect(mockUpdateCaseInput).toHaveBeenCalledWith('case-1', valueB);
+  });
+
+  it('flushes against the previous case when caseId changes mid-debounce', () => {
+    const caseOneInput = { ...baseInput, net_distributable_estate: { centavos: 3333333 } };
+    const caseTwoInput = { ...baseInput, net_distributable_estate: { centavos: 4444444 } };
+
+    const { rerender } = renderHook(
+      ({ caseId, input }) => useAutoSave(caseId, input),
+      { initialProps: { caseId: 'case-1' as string | null, input: baseInput } },
+    );
+
+    rerender({ caseId: 'case-1', input: caseOneInput });
+    vi.advanceTimersByTime(500);
+    rerender({ caseId: 'case-2', input: caseTwoInput });
+
+    expect(mockUpdateCaseInput.mock.calls[0]).toEqual(['case-1', caseOneInput]);
+  });
+
+  it('reports error and never reports saved when the save rejects', async () => {
+    mockUpdateCaseInput.mockRejectedValue(new Error('Network error'));
+
+    const edited = { ...baseInput, net_distributable_estate: { centavos: 6666666 } };
+    const { result, rerender } = renderHook(
+      ({ caseId, input }) => useAutoSave(caseId, input),
+      { initialProps: { caseId: 'case-1' as string | null, input: baseInput } },
+    );
+
+    rerender({ caseId: 'case-1', input: edited });
+
+    await act(async () => {
+      vi.advanceTimersByTime(1500);
+    });
+
+    expect(result.current.status).toBe('error');
+    expect(result.current.status).not.toBe('saved');
   });
 });
