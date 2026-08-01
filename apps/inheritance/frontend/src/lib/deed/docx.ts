@@ -75,7 +75,7 @@ function toParagraph(line: string): string {
 }
 
 /** Build the whole package. Returns bytes; writes no file and touches no DOM. */
-export function buildDeedClauseDocx(schedule: DeedSchedule): Uint8Array {
+export function buildDeedClauseDocx(schedule: DeedSchedule): Uint8Array<ArrayBuffer> {
   const text = buildDeedClauseText(schedule);
   const paragraphs = text.split('\n').map(toParagraph).join('');
   const documentXml =

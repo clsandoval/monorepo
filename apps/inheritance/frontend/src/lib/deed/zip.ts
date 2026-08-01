@@ -115,7 +115,7 @@ function assertSafeName(name: string): void {
  * array is retained, so mutating an input after the call cannot change an
  * archive already produced.
  */
-export function buildStoredZip(entries: ZipEntry[]): Uint8Array {
+export function buildStoredZip(entries: ZipEntry[]): Uint8Array<ArrayBuffer> {
   if (entries.length === 0) {
     throw new Error('ZIP NO ENTRIES');
   }

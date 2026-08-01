@@ -12,6 +12,7 @@ import { DonationsSummaryPanel } from './DonationsSummaryPanel';
 import { NarrativePanel } from './NarrativePanel';
 import { WarningsPanel } from './WarningsPanel';
 import { ComputationLog } from './ComputationLog';
+import { DeedClauseSection } from './DeedClauseSection';
 import { ActionsBar } from './ActionsBar';
 import { PrintHeader } from '../shared/PrintHeader';
 import { Skeleton } from '../ui/skeleton';
@@ -86,6 +87,8 @@ export function ResultsView({ input, output, onEditInput }: ResultsViewProps) {
       <Suspense fallback={<Skeleton className="h-[500px] w-full rounded-lg" />}>
         <FamilyTreeTab input={input} output={output} />
       </Suspense>
+
+      <DeedClauseSection input={input} output={output} />
 
       <ActionsBar
         input={input}

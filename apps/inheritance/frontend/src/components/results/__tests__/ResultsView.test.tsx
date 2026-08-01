@@ -243,7 +243,14 @@ describe('results > ResultsView', () => {
           ],
         }),
       });
-      expect(screen.getByText(/Manual Review Required/i)).toBeInTheDocument();
+      // Scoped to the warnings panel: DeedClauseSection also prints a
+      // manual-review heading inside the same results view, so an unscoped
+      // query is ambiguous. The assertion is unchanged in strength — the panel
+      // must still show the heading — and now also proves the panel carries the
+      // engine's own warning text.
+      const panel = within(screen.getByTestId('warnings-panel'));
+      expect(panel.getByText(/Manual Review Required/i)).toBeInTheDocument();
+      expect(panel.getByText(/Heir omitted/i)).toBeInTheDocument();
     });
   });
 
