@@ -27,32 +27,44 @@ a gate can only stop running by being removed from the manifest, and that is rej
 | G16 | 7 | journey registry integrity | `node scripts/check-journey-registry.mjs` | Every declared journey step has a rubric built from the closed eight-kind assertion set and an approved reference with a tolerance sidecar, and no reference exists without a step. Static. Section 13. |
 | G1 | 8 | engine tests | `cd engine && cargo test` | The Rust succession engine's unit, integration, property-invariant and defect-ledger tests pass. |
 | G2 | 9 | wasm build | `bash engine/build-wasm.sh` | The engine compiles to WebAssembly and lands a real binary in `frontend/src/wasm/pkg/`, verified by existence, a 100 KB size floor, and the `0061736d` magic number. |
-| G3 | 10 | frontend suite vs ledger | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. |
-| G4 | 11 | typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors, with `--force` so a stale `tsconfig.tsbuildinfo` cannot mask them. |
-| G18 | 12 | tenant isolation | `cd frontend && node journey/rls-isolation.mjs` | Against a real local Supabase, a user in org A reads zero of org B's cases, PDFs and share tokens, changes zero of org B's rows, and is refused a cross-tenant insert — each paired with a positive control. Section 13. |
-| G17 | 13 | live journey run | `cd frontend && node journey/run.mjs --all` | Every declared account, organization and case-intake screen is driven in a real headless browser against the built application and a real local Supabase, checked by both a DOM rubric and a zero-tolerance perceptual diff. Section 13. |
-| G19 | 14 | money parity | `cd frontend && node journey/money-parity.mjs` | Every peso figure the results view displays equals, as an exact integer number of centavos, a distribution the compiled engine computed during the same run — and the row the product stored equals it too. No expected figure is committed anywhere. Section 14. |
-| G20 | 15 | share exposure | `cd frontend && node journey/share-exposure.mjs` | The product's one anonymous data path returns exactly the six columns migration 015 enumerates and none of nine forbidden ones; a disabled share and an unknown token each return zero rows. Section 14. |
-| G21 | 16 | seo smoke | `cd frontend && node journey/seo-smoke.mjs` | All fourteen public landing, blog and marketing routes load in a real browser, each rendering a non-empty `h1`, logging no console error, and fetching nothing answering HTTP 400 or above. Section 14. |
-| G22 | 17 | pdf toolchain | `cd frontend && node journey/pdf-probe.mjs` | A PDF's text, page count, page dimensions and page images are all readable by the harness, a generated document extracts its money token as one uninterrupted string with no corrupted glyph, and rasterising the same document twice produces identical images. Section 15. |
-| G23 | 18 | pdf structure | `cd frontend && node journey/pdf-structure.mjs` | The generated estate report carries every required section and every peso figure it shows equals a figure the engine computed in the same run. Section 15. |
-| G24 | 19 | pdf visual | `cd frontend && node journey/pdf-visual.mjs` | The rendered pages match approved reference images pixel for pixel, so a corrupted glyph or a collapsed layout is caught perceptually and not only structurally. Section 15. |
-| G25 | 20 | print layout | `cd frontend && node journey/print-layout.mjs` | The print stylesheet is measured in a real browser under print emulation: typeface, body size, hidden chrome, shown print headers, A4 paper and the top and left margins read as the distance to first ink. Section 15. |
-| G26 | 21 | blocked requirements | `node scripts/check-blocked-requirements.mjs` | LAW-06, LAW-07 and LAW-12 are recorded against the decision each waits on, the record agrees with `.planning/lawyer-decisions.json`, none is marked complete while blocked, and an arriving answer raises `ANSWER ARRIVED` rather than passing. Section 16. |
-| G27 | 22 | spec legal text | `node scripts/check-spec-legal-text.mjs` | The four passages of law named in `.planning/research/LEGAL-CONFORMANCE.md` section 2b read correctly, checked as literal strings at named anchors, with the superseded wording proven absent. Section 17. |
-| G28 | 23 | legal traceability | `node scripts/check-legal-traceability.mjs` | Every Civil Code article the engine's production code cites is mapped to exactly one named test function carrying its `LEGAL-VECTOR` marker, or declared in the shrink-only `engine/legal-traceability.lock`. Section 18. |
-| G29 | 24 | bugs ledger | `node scripts/check-bugs-ledger.mjs` | `engine/BUGS.md` keeps its fixed entry shape, every open entry keeps a runnable reproduction, every closed entry keeps a stated reason, and every legal claim stays attributed. Section 19. |
-| G10 | 25 | lawyer decision registry | `node scripts/check-lawyer-agenda.mjs` | Every recorded interpretive choice exists in both the agenda and the registry and cannot have its status advanced without a recorded answer. Section 8. |
-| G11 | 26 | engine observability | `node scripts/check-observability.mjs` | The engine still emits warnings, the legitime/free-portion split and a structured boundary error. Section 9. |
-| G8 | 27 | gate skip accounting | `node scripts/check-gate-skips.mjs` | Every gate reports how many of its own assertions it skipped, and every skip is declared in `gate-skips.lock`. Section 5. |
-| G9 | 28 | published gate results | `node scripts/check-gate-results.mjs` | `gate-results.json` describes the current run and covers every manifest gate. Section 6. |
+| G14 | 10 | citation integrity | `node scripts/check-citation-integrity.mjs` | The engine is the single attribution authority: across every committed corpus input the narrative's `legal_basis` equals the table's for every heir, the narrative prose asserts no governing article, every article the engine emits resolves to a description, no display layer hardcodes an article literal, and `predictScenario` and `computeMock` do not exist. Section 24. |
+| G3 | 11 | frontend suite vs ledger | `cd frontend && npm run test:gate` | The complete, unmodified 2,416-test Vitest suite runs and its failure set exactly equals the known-failure ledger. |
+| G4 | 12 | typecheck | `cd frontend && npx tsc -b --force` | Zero TypeScript errors, with `--force` so a stale `tsconfig.tsbuildinfo` cannot mask them. |
+| G18 | 13 | tenant isolation | `cd frontend && node journey/rls-isolation.mjs` | Against a real local Supabase, a user in org A reads zero of org B's cases, PDFs and share tokens, changes zero of org B's rows, and is refused a cross-tenant insert — each paired with a positive control. Section 13. |
+| G17 | 14 | live journey run | `cd frontend && node journey/run.mjs --all` | Every declared account, organization and case-intake screen is driven in a real headless browser against the built application and a real local Supabase, checked by both a DOM rubric and a zero-tolerance perceptual diff. Section 13. |
+| G19 | 15 | money parity | `cd frontend && node journey/money-parity.mjs` | Every peso figure the results view displays equals, as an exact integer number of centavos, a distribution the compiled engine computed during the same run — and the row the product stored equals it too. No expected figure is committed anywhere. Section 14. |
+| G20 | 16 | share exposure | `cd frontend && node journey/share-exposure.mjs` | The product's one anonymous data path returns exactly the six columns migration 015 enumerates and none of nine forbidden ones; a disabled share and an unknown token each return zero rows. Section 14. |
+| G21 | 17 | seo smoke | `cd frontend && node journey/seo-smoke.mjs` | All fourteen public landing, blog and marketing routes load in a real browser, each rendering a non-empty `h1`, logging no console error, and fetching nothing answering HTTP 400 or above. Section 14. |
+| G22 | 18 | pdf toolchain | `cd frontend && node journey/pdf-probe.mjs` | A PDF's text, page count, page dimensions and page images are all readable by the harness, a generated document extracts its money token as one uninterrupted string with no corrupted glyph, and rasterising the same document twice produces identical images. Section 15. |
+| G23 | 19 | pdf structure | `cd frontend && node journey/pdf-structure.mjs` | The generated estate report carries every required section and every peso figure it shows equals a figure the engine computed in the same run. Section 15. |
+| G24 | 20 | pdf visual | `cd frontend && node journey/pdf-visual.mjs` | The rendered pages match approved reference images pixel for pixel, so a corrupted glyph or a collapsed layout is caught perceptually and not only structurally. Section 15. |
+| G25 | 21 | print layout | `cd frontend && node journey/print-layout.mjs` | The print stylesheet is measured in a real browser under print emulation: typeface, body size, hidden chrome, shown print headers, A4 paper and the top and left margins read as the distance to first ink. Section 15. |
+| G26 | 22 | blocked requirements | `node scripts/check-blocked-requirements.mjs` | LAW-06, LAW-07 and LAW-12 are recorded against the decision each waits on, the record agrees with `.planning/lawyer-decisions.json`, none is marked complete while blocked, and an arriving answer raises `ANSWER ARRIVED` rather than passing. Section 16. |
+| G27 | 23 | spec legal text | `node scripts/check-spec-legal-text.mjs` | The four passages of law named in `.planning/research/LEGAL-CONFORMANCE.md` section 2b read correctly, checked as literal strings at named anchors, with the superseded wording proven absent. Section 17. |
+| G28 | 24 | legal traceability | `node scripts/check-legal-traceability.mjs` | Every Civil Code article the engine's production code cites is mapped to exactly one named test function carrying its `LEGAL-VECTOR` marker, or declared in the shrink-only `engine/legal-traceability.lock`. Section 18. |
+| G29 | 25 | bugs ledger | `node scripts/check-bugs-ledger.mjs` | `engine/BUGS.md` keeps its fixed entry shape, every open entry keeps a runnable reproduction, every closed entry keeps a stated reason, and every legal claim stays attributed. Section 19. |
+| G10 | 30 | lawyer decision registry | `node scripts/check-lawyer-agenda.mjs` | Every recorded interpretive choice exists in both the agenda and the registry and cannot have its status advanced without a recorded answer. Section 8. |
+| G11 | 31 | engine observability | `node scripts/check-observability.mjs` | The engine still emits warnings, the legitime/free-portion split and a structured boundary error. Section 9. |
+| G8 | 32 | gate skip accounting | `node scripts/check-gate-skips.mjs` | Every gate reports how many of its own assertions it skipped, and every skip is declared in `gate-skips.lock`. Section 5. |
+| G9 | 33 | published gate results | `node scripts/check-gate-results.mjs` | `gate-results.json` describes the current run and covers every manifest gate. Section 6. |
 
-**The gate set is now twenty-eight.** Phase 13 added **G22**–**G25** (the PDF gates, section 15) at
-`order` **17–20**, and Phase 14 added **G26**–**G29** (section 16 through section 19) at `order`
-**21–24**, shifting G10, G11, G8 and G9 to **25, 26, 27 and 28** with **G9 still last**. The four
-Phase 14 gates are static, dependency-free Node checks that read committed files, so they sit after
-the container-and-browser block and before the bookkeeping gates. `order` was the only field that
-moved on any pre-existing gate; `gates.manifest.lock` gained four entries and lost none.
+**The gate set is now thirty-three.** Phase 17 added **G14** (citation integrity, section 24) at
+`order` **10**, shifting every gate at order 10 or higher up by one and leaving **G9 still last** at
+**33**. G14 sits deliberately between **G2** (`order` 9), which builds the WASM artifact it reads,
+and **G3** (`order` 11), which is where the suite currently halts on this branch — placing it after
+G3 would mean a gate that never once executes here. `order` was the only field that moved on any
+pre-existing gate; `gates.manifest.lock` gained one entry and lost none.
+
+Earlier: Phase 13 added **G22**–**G25** (the PDF gates, section 15) and Phase 14 added
+**G26**–**G29** (section 16 through section 19). Those are static, dependency-free Node checks that
+read committed files, so they sit after the container-and-browser block and before the bookkeeping
+gates.
+
+> **Known documentation gap, pre-existing and not introduced by Phase 17:** the table above lists 29
+> of the 33 registered gates. **G30, G31, G32 and G33 are registered in `gates.manifest.json` and
+> run, but have no row here.** The `order` column was re-derived from the manifest by Phase 17 and
+> every number in it is now true; the four missing rows remain outstanding. `gates.manifest.json` is
+> the authority on the gate set, not this table.
 
 Phase 6 added **G12** (engine coverage, section 10) and **G13**
 (assertion discipline, section 11) and placed them at `order` **4 and 5, ahead of G1**, shifting
@@ -1643,3 +1655,60 @@ phase is exempt.
 
 **When it fires.** Update the document the message names. Never edit this gate, and never delete a
 phase directory or a summary file to make a count match.
+
+---
+
+## 24. Citation integrity (G14)
+
+**Command.** `node scripts/check-citation-integrity.mjs`
+**Precondition.** `test -f frontend/src/wasm/pkg/inheritance_engine_bg.wasm`
+**Order.** 10 — after **G2** builds the artifact it reads, before **G3**.
+
+This product's claim is that every line carries the Civil Code article that governs it. Contradicting
+your own citation on screen is therefore not a defect, it is a refutation of the whole claim. Phase 17
+made the engine the **single attribution authority** — the engine emits the article, and no other
+layer derives one — and this gate is what keeps that true afterwards.
+
+Before Phase 17, measured across all 171 computable committed corpus inputs and 652 heir rows: **615
+rows (94.3%) carried a narrative article absent from that row's `legal_basis`**, and **0 of the 24
+distinct `legal_basis` strings the engine emits resolved** to a description. Both are now 0 and 24.
+
+**What it scans.** Every committed corpus input under `engine/examples/{cases,coverage-cases,testate-cases,defect-cases,fuzz-cases}`,
+computed through the same compiled WASM artifact the product loads, via `scripts/citation-corpus.mjs`.
+
+**Violation markers.**
+
+| Marker | Assertion |
+|---|---|
+| `NARRATIVE DISAGREES` | for every heir, `narrative.legal_basis` equals `share.legal_basis` element-for-element |
+| `PROSE CITES ARTICLE` | `narrative.text` contains no occurrence of the literal `of the Civil Code` |
+| `CITATION UNRESOLVED` | every string in every `share.legal_basis` resolves through the `parseArticleKey` normalisation plus `NCC_ARTICLE_DESCRIPTIONS` |
+| `LAYER DERIVES ARTICLE` | none of the four display-layer source files contains a token matching `/Art\.\s*\d/` |
+| `DUPLICATE RULE PRESENT` | `frontend/src/wasm/bridge.ts` contains neither `predictScenario` nor `computeMock` |
+| `CORPUS EMPTY` | the run examined zero heir rows — **a green run on zero rows is a failure by construction** |
+| `CITATION SCAN UNREADABLE` | an input is missing or unparseable |
+
+The four display layers scanned by `LAYER DERIVES ARTICLE` are a `const` array at the top of the
+script: `DistributionSection.tsx`, `NarrativePanel.tsx`, `StatuteCitationsSection.tsx` and
+`PerHeirBreakdownSection.tsx`.
+
+**No exception list, no mutating flag.** The script holds no allow-list, no tolerated-disagreement
+table and no baseline file, and it has no flag that writes, repairs, regenerates, accepts, updates or
+waives anything. Its only two flags — `--corpus <dir>` and `--articles <path>` — are read-only path
+overrides that exist so the committed fixtures can drive the failure paths. A gate carrying a list of
+tolerated disagreements acquires an entry the first time it is inconvenient, and that entry is
+invisible in every green run that follows.
+
+**Its failure paths are proven, not trusted.** Two committed fixtures drive it red:
+
+- `scripts/fixtures/citation-narrative-disagrees.json` — table `Art. 996`, narrative `Art. 887`, and
+  the audit's exact `of the Civil Code` prose. Fires `NARRATIVE DISAGREES` and `PROSE CITES ARTICLE`.
+- `scripts/fixtures/citation-unresolved-article.json` — an unresolvable `Art. 9999`, with the table
+  and narrative agreeing and the prose clean. Fires `CITATION UNRESOLVED` alone.
+
+Both are hand-written `EngineOutput`-shaped documents with invented heir names. They are **not**
+engine inputs and must never be added to `engine/examples/`.
+
+**When it fires.** Fix the layer that disagrees with the engine. Never edit this gate, never add an
+exception, and never edit a baseline. If one of the five assertions cannot legitimately pass, that is
+a finding to report as BLOCKED with the pasted output — not an obstacle to route around.

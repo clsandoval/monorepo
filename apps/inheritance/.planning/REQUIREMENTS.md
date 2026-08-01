@@ -100,7 +100,7 @@ Most PDF breakage is structural and catchable without a model in the loop.
 What makes it "functionally impossible to screw up."
 
 - [x] **EXT-01**: Exactly one implementation of scenario classification exists — the engine — with the dead copy in `bridge.ts` and the live wrong copy in `ReviewStep.tsx:34-63` deleted
-- [ ] **EXT-02**: No legal rule is implemented in more than one place, enforced by a documented rule and a check
+- [x] **EXT-02**: No legal rule is implemented in more than one place, enforced by a documented rule and a check
 - [x] **EXT-03**: Money units are type-enforced so pesos cannot be assigned where centavos are expected, at every boundary
 - [x] **EXT-04**: Dead code that could produce legally meaningless numbers if imported is deleted, including the `computeMock` path
 - [x] **EXT-05**: `CLAUDE.md` states the invariants an implementing agent must not violate — unit conventions, single-source-of-truth rules, what requires a lawyer
@@ -148,11 +148,11 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 
 ### Citation Integrity (Phase 17)
 
-- [ ] **CITE-01**: The engine is the single attribution authority — it emits the governing article per heir row and no other layer computes, maps or infers one
-- [ ] **CITE-02**: Narrative and table agree about the governing article for the same heirs on every committed corpus input
-- [ ] **CITE-03**: The citation pill resolves for every article the engine emits; the `Art. 996` / `Art.996` key mismatch in `frontend/src/data/ncc-articles.ts` is gone and an unresolvable key fails loudly
-- [ ] **CITE-04**: `predictScenario` and `computeMock` are deleted from `frontend/src/wasm/bridge.ts`, closing the duplicate legal rule named by CLAUDE.md invariant 5 and the reserved gate `G14` (also closes `EXT-02`)
-- [ ] **CITE-05**: A blocking gate fails when the table, the narrative, the citation pill and the PDF disagree about the article for the same heir
+- [x] **CITE-01**: The engine is the single attribution authority — it emits the governing article per heir row and no other layer computes, maps or infers one
+- [x] **CITE-02**: Narrative and table agree about the governing article for the same heirs on every committed corpus input
+- [x] **CITE-03**: The citation pill resolves for every article the engine emits; the `Art. 996` / `Art.996` key mismatch in `frontend/src/data/ncc-articles.ts` is gone and an unresolvable key fails loudly
+- [x] **CITE-04**: `predictScenario` and `computeMock` are deleted from `frontend/src/wasm/bridge.ts`, closing the duplicate legal rule named by CLAUDE.md invariant 5 and the reserved gate `G14` (also closes `EXT-02`)
+- [x] **CITE-05**: A blocking gate fails when the table, the narrative, the citation pill and the PDF disagree about the article for the same heir
 
 ### One Fact Set (Phase 18)
 
@@ -325,7 +325,7 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 | LAW-10 | Phase 8 | Complete |
 | LAW-11 | Phase 8 | Complete |
 | EXT-01 | Phase 9 | Blocked (09-01 plan defect; see 09-01-SUMMARY.md). Its LIVE half is re-planned as Phase 12 plan 12-01, which backs the ReviewStep badge with the existing `compute()` bridge — no `classify_json` and no `succession_type` claim, so neither Phase 9 blocker applies |
-| EXT-02 | Phase 9 | Partial (one duplicate converter deleted by 09-05; registry gate G14 blocked on 09-04) |
+| EXT-02 | Phase 9 + Phase 17 | Complete — one duplicate converter deleted by 09-05; the surviving `predictScenario`/`computeMock` duplicate deleted by 17-04, and the reserved gate `G14` is registered blocking at order 10 by 17-06 |
 | EXT-03 | Phase 9 | Complete (09-03, 09-05) |
 | EXT-04 | Phase 9 | Blocked (09-02 exposed an engine defect out of plan scope; 09-04 blocked on 09-01). Phase 12 plan 12-01 removes the live `ReviewStep.predictScenario`; the dead `bridge.ts` copies stay Phase 9's |
 | JRNY-01 | Phase 10 | Planned (10-05) |
@@ -360,11 +360,11 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 | CUT-02 | Phase 16 | Complete (already satisfied since `181ae68c5`; closed by measurement, not by new code) |
 | CUT-03 | Phase 16 | Complete (14 approved after per-pixel inspection; 10 refused and reported for human review) |
 | CUT-04 | Phase 16 | **BLOCKED-ON-OWNER** — `ci-gates.sh` exits 1 at G3 (`ran 2073, floor 2119`); needs (A) the floor lowered and (B) G20/G21 retired, whose scripts `4ccf06270` deleted |
-| CITE-01 | Phase 17 | Planned |
-| CITE-02 | Phase 17 | Planned |
-| CITE-03 | Phase 17 | Planned |
-| CITE-04 | Phase 17 | Planned — supersedes the `EXT-02` remainder and the reserved gate `G14` |
-| CITE-05 | Phase 17 | Planned |
+| CITE-01 | Phase 17 | Complete |
+| CITE-02 | Phase 17 | Complete |
+| CITE-03 | Phase 17 | Complete |
+| CITE-04 | Phase 17 | Complete — supersedes the `EXT-02` remainder and closes the reserved gate `G14` |
+| CITE-05 | Phase 17 | Complete |
 | FACT-01 | Phase 18 | Planned |
 | FACT-02 | Phase 18 | Planned |
 | FACT-03 | Phase 18 | Planned |

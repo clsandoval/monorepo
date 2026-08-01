@@ -8,10 +8,10 @@ last_updated: "2026-08-01T18:00:00.000Z"
 last_activity: 2026-08-01
 progress:
   total_phases: 17
-  completed_phases: 16
+  completed_phases: 17
   total_plans: 103
-  completed_plans: 97
-  percent: 94
+  completed_plans: 103
+  percent: 100
 ---
 
 # Project State
@@ -54,7 +54,7 @@ therefore produce no `warnings` array at all — that is the runtime check worki
 
 ### The honest headline
 
-The **verification foundation is real and it works**. 32 blocking gates, a manifest that may only
+The **verification foundation is real and it works**. 33 blocking gates, a manifest that may only
 grow, five shrink-only ledgers, 33 screenshot-plus-rubric journey gates against a live database, and
 a legal-traceability registry mapping 63 of 79 cited articles to a named passing test. Nothing was
 weakened across 15 phases: the frontend debt ledger has stood at exactly 46 since Phase 1 and every
@@ -92,7 +92,9 @@ Phase 16 exists to get back to green: the guided-intake cuts are unfinished, ~1,
 trace to one missing jsdom global (`ResizeObserver`), and 24 journey references are failing. Do not
 quote the 32/32 figure as current.
 
-Milestone v1.0 closed at 32 gates with requirement coverage 44/94; adding the v2.0 requirements moves
+Milestone v1.0 closed at 32 gates; the set now holds **33 gates**, Phase 17 having added **G14**
+(citation integrity) at order 10, which registers the id `EXT-02` reserved and never used. With
+requirement coverage 44/94; adding the v2.0 requirements moves
 that denominator, and the informational coverage number in `node scripts/gate-coverage.mjs` will
 report the larger set. Start at `.planning/ORIENTATION.md`.
 
@@ -341,7 +343,7 @@ GitHub-hosted runner is a recorded risk in the workflow file, not a claim.
 
 Last activity: 2026-08-01
 
-Progress: [█████████░] 94%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 

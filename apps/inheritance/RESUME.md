@@ -45,8 +45,15 @@ The only genuinely durable option is CI, and it is not wired for it yet. See
 `/home/clsandoval/.claude/projects/-home-clsandoval-cs-monorepo/ba0262ab-dc9f-47d8-83a3-ddf973495452/subagents/workflows/wf_c44e9af1-807/`.
 
 Full gate suite, any time: `bash apps/inheritance/scripts/ci-gates.sh` from the
-monorepo root. It should print `ALL GATES PASSED (32/32)` — the count is the
+monorepo root. It should print `ALL GATES PASSED (33/33)` — the count is the
 length of `gates.manifest.json`'s `gates` array, and it grows as phases land.
+
+**On this branch it does not print that.** `bash scripts/ci-gates.sh` currently
+exits **1**, halting at **G3**, on the two owner decisions recorded in
+`.planning/phases/16-stabilise-the-deletion-milestone/16-FLOOR-BLOCKED.md` — the
+`min_total_tests` floor in `frontend/test-baseline.json`, and the registered-but-
+deleted `G20`/`G21`. The line above is what a green run prints, not a claim that
+this branch produces one.
 
 ## State
 

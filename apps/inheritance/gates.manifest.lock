@@ -161,6 +161,11 @@
       "id": "G33",
       "command": "node scripts/check-planning-truth.mjs",
       "blocking": true
+    },
+    {
+      "id": "G14",
+      "command": "node scripts/check-citation-integrity.mjs",
+      "blocking": true
     }
   ]
 }
