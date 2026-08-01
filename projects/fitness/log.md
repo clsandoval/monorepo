@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-01
+- **Weight:** — (not logged)
+- **Cals / Protein:** ~775 / ~51g so far (1 slice cheese pizza ~285/12g [7/29 precedent]; 50g soft goat cheese ~150/9g; David's protein bar ~150/28g [label]; 1 L fresh coconut water ~190/2g [7/27 precedent])
+- **Carbs / Sodium:** ~78g so far (pizza ~35g; goat cheese ~1g; David bar ~4g; coconut water ~38g. Sodium: pizza + goat cheese only ~1–1.5g — **short, salt the evening meal**. Coconut water adds ~2.5g potassium)
+- **Trained:** —
+- **Notes:** ~1225 cal and ~109g protein left — the widest protein hole of the week, and nothing eaten so far is dense (day averages 15 cal/g). Bar is the only good buy (150 for 28g). Closing it needs near-pure protein, not another mixed plate: **3 scoops in water (~420/72g) + ~200g grilled chicken breast (~330/62g)** = ~1525 / ~185g, under both ceilings with room for a fruit + vegetables (fiber). Carbs 78g are well under the 130g training-day minimum, so if he trains, the banana/oats go in too.
+
 ## 2026-07-31
 - **Weight:** 95.2 kg (fasted AM)
 - **Cals / Protein:** ~1485 / ~99g so far (Cyma salmon pasta, shirataki swap: ~200g salmon in cream/olive oil sauce ~450/32g + shirataki noodles ~25/0g; very sweet latte 16 oz ~300/8g; tagliata di manzo beef tenderloin olive oil garlic ~500/42g; 50g focaccia ~155/4g; Giovanni protein pack ~80/15g [label]; 200g grilled ribeye, lean-trimmed ~550/50g [7/29 precedent 580/50, trimmed a bit leaner])
