@@ -69,7 +69,7 @@
     {
       "id": "G3",
       "name": "frontend suite vs ledger",
-      "order": 11,
+      "order": 12,
       "command": "cd frontend && npm run test:gate",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
@@ -82,7 +82,7 @@
     {
       "id": "G4",
       "name": "typecheck",
-      "order": 12,
+      "order": 13,
       "command": "cd frontend && npx tsc -b --force",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 32,
+      "order": 33,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 33,
+      "order": 34,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -121,7 +121,7 @@
     {
       "id": "G10",
       "name": "lawyer decision registry",
-      "order": 30,
+      "order": 31,
       "command": "node scripts/check-lawyer-agenda.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/lawyer-decisions.json",
@@ -134,7 +134,7 @@
     {
       "id": "G11",
       "name": "engine observability",
-      "order": 31,
+      "order": 32,
       "command": "node scripts/check-observability.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/src/step10_finalize.rs",
@@ -210,7 +210,7 @@
     {
       "id": "G18",
       "name": "tenant isolation",
-      "order": 13,
+      "order": 14,
       "command": "cd frontend && node journey/rls-isolation.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/supabase/fixtures.json",
@@ -223,7 +223,7 @@
     {
       "id": "G17",
       "name": "live journey run",
-      "order": 14,
+      "order": 15,
       "command": "cd frontend && node journey/run.mjs --all",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/node_modules",
@@ -238,7 +238,7 @@
     {
       "id": "G19",
       "name": "money parity",
-      "order": 15,
+      "order": 16,
       "command": "cd frontend && node journey/money-parity.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/src/wasm/pkg/inheritance_engine_bg.wasm",
@@ -251,7 +251,7 @@
     {
       "id": "G20",
       "name": "share exposure",
-      "order": 16,
+      "order": 17,
       "command": "cd frontend && node journey/share-exposure.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/supabase/fixtures.json",
@@ -264,7 +264,7 @@
     {
       "id": "G21",
       "name": "seo smoke",
-      "order": 17,
+      "order": 18,
       "command": "cd frontend && node journey/seo-smoke.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/journey/seo-routes.json",
@@ -277,7 +277,7 @@
     {
       "id": "G22",
       "name": "pdf toolchain",
-      "order": 18,
+      "order": 19,
       "command": "cd frontend && node journey/pdf-probe.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/journey/pdf.mjs",
@@ -290,7 +290,7 @@
     {
       "id": "G23",
       "name": "pdf structure",
-      "order": 19,
+      "order": 20,
       "command": "cd frontend && node journey/pdf-structure.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/src/wasm/pkg/inheritance_engine_bg.wasm",
@@ -305,7 +305,7 @@
     {
       "id": "G24",
       "name": "pdf visual",
-      "order": 20,
+      "order": 21,
       "command": "cd frontend && node journey/pdf-visual.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/journey/pdf-references",
@@ -318,7 +318,7 @@
     {
       "id": "G25",
       "name": "print layout",
-      "order": 21,
+      "order": 22,
       "command": "cd frontend && node journey/print-layout.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/src/styles/print.css",
@@ -331,7 +331,7 @@
     {
       "id": "G26",
       "name": "blocked requirements",
-      "order": 22,
+      "order": 23,
       "command": "node scripts/check-blocked-requirements.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/BLOCKED-REQUIREMENTS.md",
@@ -346,7 +346,7 @@
     {
       "id": "G27",
       "name": "spec legal text",
-      "order": 23,
+      "order": 24,
       "command": "node scripts/check-spec-legal-text.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f specs/inheritance-engine-spec.md",
@@ -359,7 +359,7 @@
     {
       "id": "G28",
       "name": "legal traceability",
-      "order": 24,
+      "order": 25,
       "command": "node scripts/check-legal-traceability.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/legal-rules.json",
@@ -372,7 +372,7 @@
     {
       "id": "G29",
       "name": "bugs ledger",
-      "order": 25,
+      "order": 26,
       "command": "node scripts/check-bugs-ledger.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/BUGS.md",
@@ -385,7 +385,7 @@
     {
       "id": "G30",
       "name": "claude invariants",
-      "order": 26,
+      "order": 27,
       "command": "node scripts/check-claude-invariants.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f CLAUDE.md",
@@ -398,7 +398,7 @@
     {
       "id": "G31",
       "name": "new rule procedure",
-      "order": 27,
+      "order": 28,
       "command": "node scripts/check-new-rule-procedure.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/NEW-LEGAL-RULE.md",
@@ -411,7 +411,7 @@
     {
       "id": "G32",
       "name": "doc claims",
-      "order": 28,
+      "order": 29,
       "command": "node scripts/check-doc-claims.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/DOC-DEBT.md",
@@ -424,7 +424,7 @@
     {
       "id": "G33",
       "name": "planning truth",
-      "order": 29,
+      "order": 30,
       "command": "node scripts/check-planning-truth.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/ORIENTATION.md",
@@ -449,6 +449,22 @@
         "CITE-03",
         "CITE-04",
         "CITE-05"
+      ]
+    },
+    {
+      "id": "G34",
+      "name": "one fact set",
+      "order": 11,
+      "command": "cd frontend && npx tsx scripts/check-one-fact-set.ts",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f frontend/scripts/check-one-fact-set.ts",
+      "blocking": true,
+      "proves": "Date of death is entered once, both engines read that one value, and a case whose two stored fact sets disagree refuses to compute and prints both.",
+      "requirements": [
+        "FACT-01",
+        "FACT-02",
+        "FACT-03",
+        "FACT-04"
       ]
     }
   ]

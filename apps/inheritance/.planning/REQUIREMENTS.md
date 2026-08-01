@@ -156,10 +156,10 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 
 ### One Fact Set (Phase 18)
 
-- [ ] **FACT-01**: Date of death is entered exactly once per case and neither engine offers a second independently-editable field for it
-- [ ] **FACT-02**: Both engines read the one shared date of death; the fact set crossing the boundary carries more than `decedent_name`
-- [ ] **FACT-03**: The rules the date drives — TRAIN versus pre-TRAIN, the repealed medical deduction, RA 11642 retroactivity — read the shared value
-- [ ] **FACT-04**: A case whose two fact sets disagree about the date of death fails a blocking check that prints both values, rather than computing
+- [x] **FACT-01**: Date of death is entered exactly once per case and neither engine offers a second independently-editable field for it
+- [x] **FACT-02**: Both engines read the one shared date of death; the fact set crossing the boundary carries more than `decedent_name`
+- [x] **FACT-03**: The rules the date drives — TRAIN versus pre-TRAIN, the repealed medical deduction, RA 11642 retroactivity — read the shared value
+- [x] **FACT-04**: A case whose two fact sets disagree about the date of death fails a blocking check that prints both values, rather than computing
 
 ### Wizard Persistence (Phase 19)
 
@@ -365,10 +365,10 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 | CITE-03 | Phase 17 | Complete |
 | CITE-04 | Phase 17 | Complete — supersedes the `EXT-02` remainder and closes the reserved gate `G14` |
 | CITE-05 | Phase 17 | Complete |
-| FACT-01 | Phase 18 | Planned |
-| FACT-02 | Phase 18 | Planned |
-| FACT-03 | Phase 18 | Planned |
-| FACT-04 | Phase 18 | Planned |
+| FACT-01 | Phase 18 | Complete |
+| FACT-02 | Phase 18 | Complete |
+| FACT-03 | Phase 18 | Complete |
+| FACT-04 | Phase 18 | Complete |
 | SAVE-01 | Phase 19 | Planned |
 | SAVE-02 | Phase 19 | Planned |
 | SAVE-03 | Phase 19 | Planned |

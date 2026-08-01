@@ -28,7 +28,7 @@ code, duration. This is the file to read when you want to know what actually ran
 this before touching any gate.
 
 `gates.manifest.json` — the frozen gate set itself, paired with a lock file that may only grow.
-The gate set holds 33 gates.
+The gate set holds 34 gates.
 
 Run the whole suite with `bash scripts/ci-gates.sh` from the monorepo root.
 

@@ -166,6 +166,11 @@
       "id": "G14",
       "command": "node scripts/check-citation-integrity.mjs",
       "blocking": true
+    },
+    {
+      "id": "G34",
+      "command": "cd frontend && npx tsx scripts/check-one-fact-set.ts",
+      "blocking": true
     }
   ]
 }
