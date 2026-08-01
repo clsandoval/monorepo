@@ -18,17 +18,13 @@ vi.mock('@/lib/supabase', () => ({
 }));
 
 import { GuidedIntakeForm, type GuidedIntakeFormProps } from '../GuidedIntakeForm';
-import { ConflictCheckStep, type ConflictCheckStepProps } from '../ConflictCheckStep';
-import { ClientDetailsStep, type ClientDetailsStepProps } from '../ClientDetailsStep';
 import { DecedentInfoStep, type DecedentInfoStepProps } from '../DecedentInfoStep';
 import { FamilyCompositionStep, type FamilyCompositionStepProps } from '../FamilyCompositionStep';
 import { AssetSummaryStep, type AssetSummaryStepProps } from '../AssetSummaryStep';
-import { SettlementTrackStep, type SettlementTrackStepProps } from '../SettlementTrackStep';
 import { IntakeReviewStep, type IntakeReviewStepProps } from '../IntakeReviewStep';
 import {
   INTAKE_STEPS,
   INTAKE_STEP_COUNT,
-  CLIENT_RELATIONSHIPS,
   PROPERTY_REGIMES,
 } from '@/types/intake';
 
@@ -63,7 +59,7 @@ describe('intake > GuidedIntakeForm', () => {
     expect(screen.getByTestId('guided-intake-form')).toBeInTheDocument();
   });
 
-  it('starts at step 0 (Conflict Check)', () => {
+  it('starts at step 0 (Decedent Info)', () => {
     renderForm();
     // The first step should be visible
     expect(screen.getByTestId('guided-intake-form')).toBeInTheDocument();
@@ -88,29 +84,16 @@ describe('intake > GuidedIntakeForm', () => {
 // ==========================================================================
 
 describe('intake > INTAKE_STEPS constants', () => {
-  it('has 7 steps', () => {
-    expect(INTAKE_STEP_COUNT).toBe(7);
-    expect(INTAKE_STEPS).toHaveLength(7);
+  it('has 4 steps', () => {
+    expect(INTAKE_STEP_COUNT).toBe(4);
+    expect(INTAKE_STEPS).toHaveLength(4);
   });
 
   it('steps are in correct order', () => {
-    expect(INTAKE_STEPS[0]).toBe('Conflict Check');
-    expect(INTAKE_STEPS[1]).toBe('Client Details');
-    expect(INTAKE_STEPS[2]).toBe('Decedent Info');
-    expect(INTAKE_STEPS[3]).toBe('Family Composition');
-    expect(INTAKE_STEPS[4]).toBe('Asset Summary');
-    expect(INTAKE_STEPS[5]).toBe('Settlement Track');
-    expect(INTAKE_STEPS[6]).toBe('Review & Save');
-  });
-
-  it('CLIENT_RELATIONSHIPS has 6 options', () => {
-    expect(CLIENT_RELATIONSHIPS).toHaveLength(6);
-    expect(CLIENT_RELATIONSHIPS).toContain('surviving_spouse');
-    expect(CLIENT_RELATIONSHIPS).toContain('child');
-    expect(CLIENT_RELATIONSHIPS).toContain('executor');
-    expect(CLIENT_RELATIONSHIPS).toContain('administrator');
-    expect(CLIENT_RELATIONSHIPS).toContain('other_heir');
-    expect(CLIENT_RELATIONSHIPS).toContain('third_party_buyer');
+    expect(INTAKE_STEPS[0]).toBe('Decedent Info');
+    expect(INTAKE_STEPS[1]).toBe('Family Composition');
+    expect(INTAKE_STEPS[2]).toBe('Asset Summary');
+    expect(INTAKE_STEPS[3]).toBe('Review & Save');
   });
 
   it('PROPERTY_REGIMES has 3 options', () => {
@@ -118,82 +101,6 @@ describe('intake > INTAKE_STEPS constants', () => {
     expect(PROPERTY_REGIMES).toContain('ACP');
     expect(PROPERTY_REGIMES).toContain('CPG');
     expect(PROPERTY_REGIMES).toContain('complete_separation');
-  });
-});
-
-// ==========================================================================
-// TESTS — ConflictCheckStep (step component)
-// ==========================================================================
-
-describe('intake > ConflictCheckStep', () => {
-  const user = userEvent.setup();
-
-  const defaultState = {
-    outcome: null as null,
-    checkedName: '',
-    checkedTin: null as null,
-    notes: '',
-  };
-
-  const defaultProps: ConflictCheckStepProps = {
-    state: defaultState,
-    onStateChange: vi.fn(),
-    onNext: vi.fn(),
-    onSkip: vi.fn(),
-  };
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it('renders conflict check step', () => {
-    render(<ConflictCheckStep {...defaultProps} />);
-    expect(screen.getByTestId('conflict-check-step')).toBeInTheDocument();
-  });
-
-  it('gates progress — onNext should not be callable until conflict resolved', () => {
-    const onNext = vi.fn();
-    render(<ConflictCheckStep {...defaultProps} onNext={onNext} />);
-    // With null outcome, next should not be directly callable
-    // The component controls this internally
-    expect(screen.getByTestId('conflict-check-step')).toBeInTheDocument();
-  });
-});
-
-// ==========================================================================
-// TESTS — ClientDetailsStep (step component)
-// ==========================================================================
-
-describe('intake > ClientDetailsStep', () => {
-  const defaultState = {
-    full_name: '',
-    nickname: '',
-    date_of_birth: '',
-    email: '',
-    phone: '',
-    address: '',
-    tin: '',
-    gov_id_type: null as null,
-    gov_id_number: '',
-    civil_status: null as null,
-    referral_source: '',
-    relationship_to_decedent: null as null,
-  };
-
-  const defaultProps: ClientDetailsStepProps = {
-    state: defaultState,
-    onStateChange: vi.fn(),
-    onNext: vi.fn(),
-    onBack: vi.fn(),
-  };
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it('renders client details step', () => {
-    render(<ClientDetailsStep {...defaultProps} />);
-    expect(screen.getByTestId('client-details-step')).toBeInTheDocument();
   });
 });
 
@@ -288,58 +195,12 @@ describe('intake > AssetSummaryStep', () => {
 });
 
 // ==========================================================================
-// TESTS — SettlementTrackStep (step component)
-// ==========================================================================
-
-describe('intake > SettlementTrackStep', () => {
-  const defaultState = {
-    track: null as null,
-  };
-
-  const defaultProps: SettlementTrackStepProps = {
-    state: defaultState,
-    onStateChange: vi.fn(),
-    onNext: vi.fn(),
-    onBack: vi.fn(),
-  };
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it('renders settlement track step', () => {
-    render(<SettlementTrackStep {...defaultProps} />);
-    expect(screen.getByTestId('settlement-track-step')).toBeInTheDocument();
-  });
-});
-
-// ==========================================================================
 // TESTS — IntakeReviewStep (step component)
 // ==========================================================================
 
 describe('intake > IntakeReviewStep', () => {
   const fullState: IntakeFormState = {
-    currentStep: 6,
-    conflictCheck: {
-      outcome: 'clear',
-      checkedName: 'Maria Santos',
-      checkedTin: null,
-      notes: '',
-    },
-    clientDetails: {
-      full_name: 'Maria Santos',
-      nickname: 'Mia',
-      date_of_birth: '1985-06-15',
-      email: 'maria@example.com',
-      phone: '09171234567',
-      address: '123 Rizal St, Manila',
-      tin: '123-456-789',
-      gov_id_type: 'philsys_id',
-      gov_id_number: 'PSN-1234567890',
-      civil_status: 'married',
-      referral_source: 'Referral',
-      relationship_to_decedent: 'surviving_spouse',
-    },
+    currentStep: 3,
     decedentInfo: {
       full_name: 'Juan dela Cruz',
       date_of_death: '2024-03-15',
@@ -363,9 +224,6 @@ describe('intake > IntakeReviewStep', () => {
       has_cash: true,
       has_vehicles: false,
       vehicle_count: 0,
-    },
-    settlementTrack: {
-      track: 'ejs',
     },
   };
 

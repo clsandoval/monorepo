@@ -5,9 +5,7 @@ import {
   mapFamilyToPersons,
   mapHeirEntryToPerson,
   mapIntakeToEngineInput,
-  mapIntakeToClientData,
   mapIntakeToIntakeData,
-  getSettlementMilestones,
   createInitialIntakeState,
   isStepComplete,
 } from '../intake';
@@ -20,27 +18,7 @@ function createFullIntakeState(
   overrides: Partial<IntakeFormState> = {},
 ): IntakeFormState {
   return {
-    currentStep: 6, // review step
-    conflictCheck: {
-      outcome: 'clear',
-      checkedName: 'Maria Santos',
-      checkedTin: null,
-      notes: '',
-    },
-    clientDetails: {
-      full_name: 'Maria Santos',
-      nickname: 'Mia',
-      date_of_birth: '1985-06-15',
-      email: 'maria@example.com',
-      phone: '09171234567',
-      address: '123 Rizal St, Manila',
-      tin: '123-456-789',
-      gov_id_type: 'philsys_id',
-      gov_id_number: 'PSN-1234567890',
-      civil_status: 'married',
-      referral_source: 'Referral from Atty. Reyes',
-      relationship_to_decedent: 'surviving_spouse',
-    },
+    currentStep: 3, // review step
     decedentInfo: {
       full_name: 'Juan dela Cruz',
       date_of_death: '2024-03-15',
@@ -66,9 +44,6 @@ function createFullIntakeState(
       has_cash: true,
       has_vehicles: true,
       vehicle_count: 1,
-    },
-    settlementTrack: {
-      track: 'ejs',
     },
     ...overrides,
   };
@@ -101,19 +76,6 @@ describe('intake > createInitialIntakeState', () => {
     expect(state.currentStep).toBe(0);
   });
 
-  it('returns conflictCheck with null outcome', () => {
-    const state = createInitialIntakeState();
-    expect(state.conflictCheck.outcome).toBeNull();
-    expect(state.conflictCheck.checkedName).toBe('');
-    expect(state.conflictCheck.notes).toBe('');
-  });
-
-  it('returns empty clientDetails', () => {
-    const state = createInitialIntakeState();
-    expect(state.clientDetails.full_name).toBe('');
-    expect(state.clientDetails.relationship_to_decedent).toBeNull();
-  });
-
   it('returns empty decedentInfo with Filipino citizenship default', () => {
     const state = createInitialIntakeState();
     expect(state.decedentInfo.full_name).toBe('');
@@ -133,11 +95,6 @@ describe('intake > createInitialIntakeState', () => {
     expect(state.assetSummary.real_property_count).toBe(0);
     expect(state.assetSummary.has_cash).toBe(false);
     expect(state.assetSummary.has_vehicles).toBe(false);
-  });
-
-  it('returns null settlement track', () => {
-    const state = createInitialIntakeState();
-    expect(state.settlementTrack.track).toBeNull();
   });
 });
 
@@ -394,82 +351,6 @@ describe('intake > mapIntakeToEngineInput', () => {
 });
 
 // ==========================================================================
-// TESTS — mapIntakeToClientData
-// ==========================================================================
-
-describe('intake > mapIntakeToClientData', () => {
-  it('maps full_name from client details', () => {
-    const state = createFullIntakeState();
-    const clientData = mapIntakeToClientData(state, 'org-1', 'user-1');
-    expect(clientData.full_name).toBe('Maria Santos');
-  });
-
-  it('maps org_id and created_by', () => {
-    const state = createFullIntakeState();
-    const clientData = mapIntakeToClientData(state, 'org-1', 'user-1');
-    expect(clientData.org_id).toBe('org-1');
-    expect(clientData.created_by).toBe('user-1');
-  });
-
-  it('maps TIN', () => {
-    const state = createFullIntakeState();
-    const clientData = mapIntakeToClientData(state, 'org-1', 'user-1');
-    expect(clientData.tin).toBe('123-456-789');
-  });
-
-  it('maps email', () => {
-    const state = createFullIntakeState();
-    const clientData = mapIntakeToClientData(state, 'org-1', 'user-1');
-    expect(clientData.email).toBe('maria@example.com');
-  });
-
-  it('maps phone', () => {
-    const state = createFullIntakeState();
-    const clientData = mapIntakeToClientData(state, 'org-1', 'user-1');
-    expect(clientData.phone).toBe('09171234567');
-  });
-
-  it('maps address', () => {
-    const state = createFullIntakeState();
-    const clientData = mapIntakeToClientData(state, 'org-1', 'user-1');
-    expect(clientData.address).toBe('123 Rizal St, Manila');
-  });
-
-  it('maps civil_status', () => {
-    const state = createFullIntakeState();
-    const clientData = mapIntakeToClientData(state, 'org-1', 'user-1');
-    expect(clientData.civil_status).toBe('married');
-  });
-
-  it('maps gov_id_type and gov_id_number', () => {
-    const state = createFullIntakeState();
-    const clientData = mapIntakeToClientData(state, 'org-1', 'user-1');
-    expect(clientData.gov_id_type).toBe('philsys_id');
-    expect(clientData.gov_id_number).toBe('PSN-1234567890');
-  });
-
-  it('sets intake_date to today', () => {
-    const state = createFullIntakeState();
-    const clientData = mapIntakeToClientData(state, 'org-1', 'user-1');
-    expect(clientData.intake_date).toBeDefined();
-    // Should be ISO date string
-    expect(clientData.intake_date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-  });
-
-  it('maps nickname', () => {
-    const state = createFullIntakeState();
-    const clientData = mapIntakeToClientData(state, 'org-1', 'user-1');
-    expect(clientData.nickname).toBe('Mia');
-  });
-
-  it('maps referral_source', () => {
-    const state = createFullIntakeState();
-    const clientData = mapIntakeToClientData(state, 'org-1', 'user-1');
-    expect(clientData.referral_source).toBe('Referral from Atty. Reyes');
-  });
-});
-
-// ==========================================================================
 // TESTS — mapIntakeToIntakeData
 // ==========================================================================
 
@@ -507,18 +388,6 @@ describe('intake > mapIntakeToIntakeData', () => {
     expect(intakeData.will_status).toBe('testate');
   });
 
-  it('maps settlement_track', () => {
-    const state = createFullIntakeState();
-    const intakeData = mapIntakeToIntakeData(state);
-    expect(intakeData.settlement_track).toBe('ejs');
-  });
-
-  it('maps relationship_to_decedent', () => {
-    const state = createFullIntakeState();
-    const intakeData = mapIntakeToIntakeData(state);
-    expect(intakeData.relationship_to_decedent).toBe('surviving_spouse');
-  });
-
   it('sets has_real_property = false when count is 0', () => {
     const state = createFullIntakeState({
       assetSummary: {
@@ -535,164 +404,55 @@ describe('intake > mapIntakeToIntakeData', () => {
 });
 
 // ==========================================================================
-// TESTS — getSettlementMilestones
-// ==========================================================================
-
-describe('intake > getSettlementMilestones', () => {
-  it('returns 9 milestones for EJS track', () => {
-    const milestones = getSettlementMilestones('ejs');
-    expect(milestones).toHaveLength(9);
-  });
-
-  it('returns 4 milestones for Judicial/Probate track', () => {
-    const milestones = getSettlementMilestones('judicial');
-    expect(milestones).toHaveLength(4);
-  });
-
-  it('EJS milestones have labels', () => {
-    const milestones = getSettlementMilestones('ejs');
-    milestones.forEach((m) => {
-      expect(m.label).toBeDefined();
-      expect(m.label.length).toBeGreaterThan(0);
-    });
-  });
-
-  it('EJS milestones have non-negative offset_days', () => {
-    const milestones = getSettlementMilestones('ejs');
-    milestones.forEach((m) => {
-      expect(m.offset_days).toBeGreaterThanOrEqual(0);
-    });
-  });
-
-  it('Judicial milestones have non-negative offset_days', () => {
-    const milestones = getSettlementMilestones('judicial');
-    milestones.forEach((m) => {
-      expect(m.offset_days).toBeGreaterThanOrEqual(0);
-    });
-  });
-
-  it('EJS milestones are in ascending offset order', () => {
-    const milestones = getSettlementMilestones('ejs');
-    for (let i = 1; i < milestones.length; i++) {
-      expect(milestones[i].offset_days).toBeGreaterThanOrEqual(
-        milestones[i - 1].offset_days,
-      );
-    }
-  });
-
-  it('Judicial milestones are in ascending offset order', () => {
-    const milestones = getSettlementMilestones('judicial');
-    for (let i = 1; i < milestones.length; i++) {
-      expect(milestones[i].offset_days).toBeGreaterThanOrEqual(
-        milestones[i - 1].offset_days,
-      );
-    }
-  });
-
-  it('each milestone has a description', () => {
-    const ejsMilestones = getSettlementMilestones('ejs');
-    const judicialMilestones = getSettlementMilestones('judicial');
-    [...ejsMilestones, ...judicialMilestones].forEach((m) => {
-      expect(m.description).toBeDefined();
-      expect(m.description.length).toBeGreaterThan(0);
-    });
-  });
-});
-
-// ==========================================================================
 // TESTS — isStepComplete
 // ==========================================================================
 
 describe('intake > isStepComplete', () => {
-  it('step 0 (conflict check) is complete when outcome is not null', () => {
+  it('step 0 (decedent info) is complete when required fields set', () => {
     const state = createFullIntakeState();
     expect(isStepComplete(state, 0)).toBe(true);
   });
 
-  it('step 0 is incomplete when outcome is null', () => {
+  it('step 0 is incomplete when decedent full_name is empty', () => {
     const state = createFullIntakeState({
-      conflictCheck: {
-        outcome: null,
-        checkedName: '',
-        checkedTin: null,
-        notes: '',
-      },
+      decedentInfo: createDecedentInfoState({ full_name: '' }),
     });
     expect(isStepComplete(state, 0)).toBe(false);
   });
 
-  it('step 1 (client details) is complete when full_name and relationship set', () => {
+  it('step 0 is incomplete when date_of_death is empty', () => {
+    const state = createFullIntakeState({
+      decedentInfo: createDecedentInfoState({ date_of_death: '' }),
+    });
+    expect(isStepComplete(state, 0)).toBe(false);
+  });
+
+  it('step 0 is incomplete when civil_status is null', () => {
+    const state = createFullIntakeState({
+      decedentInfo: createDecedentInfoState({ civil_status: null }),
+    });
+    expect(isStepComplete(state, 0)).toBe(false);
+  });
+
+  it('step 1 (family composition) is complete when at least 1 heir', () => {
     const state = createFullIntakeState();
     expect(isStepComplete(state, 1)).toBe(true);
   });
 
-  it('step 1 is incomplete when full_name is empty', () => {
+  it('step 1 is incomplete when no heirs', () => {
     const state = createFullIntakeState({
-      clientDetails: {
-        ...createFullIntakeState().clientDetails,
-        full_name: '',
-      },
+      familyComposition: { heirs: [] },
     });
     expect(isStepComplete(state, 1)).toBe(false);
   });
 
-  it('step 2 (decedent info) is complete when required fields set', () => {
-    const state = createFullIntakeState();
+  it('step 2 (asset summary) is always complete (all fields have defaults)', () => {
+    const state = createInitialIntakeState();
     expect(isStepComplete(state, 2)).toBe(true);
   });
 
-  it('step 2 is incomplete when decedent full_name is empty', () => {
-    const state = createFullIntakeState({
-      decedentInfo: createDecedentInfoState({ full_name: '' }),
-    });
-    expect(isStepComplete(state, 2)).toBe(false);
-  });
-
-  it('step 2 is incomplete when date_of_death is empty', () => {
-    const state = createFullIntakeState({
-      decedentInfo: createDecedentInfoState({ date_of_death: '' }),
-    });
-    expect(isStepComplete(state, 2)).toBe(false);
-  });
-
-  it('step 2 is incomplete when civil_status is null', () => {
-    const state = createFullIntakeState({
-      decedentInfo: createDecedentInfoState({ civil_status: null }),
-    });
-    expect(isStepComplete(state, 2)).toBe(false);
-  });
-
-  it('step 3 (family composition) is complete when at least 1 heir', () => {
+  it('step 3 (review) is always complete (review step has no input)', () => {
     const state = createFullIntakeState();
     expect(isStepComplete(state, 3)).toBe(true);
-  });
-
-  it('step 3 is incomplete when no heirs', () => {
-    const state = createFullIntakeState({
-      familyComposition: { heirs: [] },
-    });
-    expect(isStepComplete(state, 3)).toBe(false);
-  });
-
-  it('step 4 (asset summary) is always complete (all fields have defaults)', () => {
-    const state = createInitialIntakeState();
-    expect(isStepComplete(state, 4)).toBe(true);
-  });
-
-  it('step 5 (settlement track) is complete when track is selected', () => {
-    const state = createFullIntakeState();
-    expect(isStepComplete(state, 5)).toBe(true);
-  });
-
-  it('step 5 is incomplete when track is null', () => {
-    const state = createFullIntakeState({
-      settlementTrack: { track: null },
-    });
-    expect(isStepComplete(state, 5)).toBe(false);
-  });
-
-  it('step 6 (review) is always complete (review step has no input)', () => {
-    const state = createFullIntakeState();
-    expect(isStepComplete(state, 6)).toBe(true);
   });
 });
