@@ -22,6 +22,9 @@ import {
   type SensitivityResult,
 } from '@/lib/estate-tax-engine';
 import { saveTaxOutput, runTaxBridge } from '@/lib/tax-bridge';
+import { factSetFromCaseRow, assertOneFactSet, applyFactSet } from '@/lib/fact-set';
+import type { CaseFactSet, FactSetVerdict } from '@/lib/fact-set';
+import { FactSetConflictBanner } from '@/components/tax/FactSetConflictBanner';
 
 export const caseTaxRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -38,7 +41,8 @@ function CaseTaxPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [decedentName, setDecedentName] = useState('');
+  const [factSet, setFactSet] = useState<CaseFactSet>({ decedentName: '', dateOfDeath: '' });
+  const [verdict, setVerdict] = useState<FactSetVerdict | null>(null);
   const [taxState, setTaxState] = useState<EstateTaxWizardState>(createDefaultEstateTaxState());
   const [autoSaveStatus, setAutoSaveStatus] = useState<AutoSaveStatus>('idle');
   const [taxOutput, setTaxOutput] = useState<EstateTaxFullOutput | null>(null);
@@ -53,10 +57,17 @@ function CaseTaxPage() {
       try {
         const row = await loadCase(caseId);
         if (cancelled) return;
-        setDecedentName(row.decedent_name ?? 'Decedent');
-        if (row.tax_input_json) {
-          setTaxState(row.tax_input_json as EstateTaxWizardState);
-        }
+        // One fact set. The spine is `input_json.decedent.date_of_death`; the
+        // stored tax state adopts it only when the two stored copies agree.
+        // A disagreement is left exactly as the database holds it, so the
+        // banner and the tab show the evidence rather than a reconciliation.
+        const fs = factSetFromCaseRow(row);
+        const v = assertOneFactSet(row);
+        setFactSet(fs);
+        setVerdict(v);
+        const stored =
+          (row.tax_input_json as EstateTaxWizardState | null) ?? createDefaultEstateTaxState();
+        setTaxState(v.kind === 'ok' ? applyFactSet(stored, fs) : stored);
       } catch (err) {
         if (!cancelled) setError(err instanceof Error ? err.message : 'Failed to load case');
       } finally {
@@ -117,14 +128,16 @@ function CaseTaxPage() {
   }, [caseId]);
 
   const handleCompute = useCallback(async () => {
+    if (!verdict || verdict.kind !== 'ok') return;
     try {
       await runCompute(taxState);
     } catch (err) {
       toast.error('Failed to compute estate tax: ' + (err instanceof Error ? err.message : String(err)));
     }
-  }, [taxState, runCompute]);
+  }, [taxState, runCompute, verdict]);
 
   const handleApply = useCallback(async (patch: Partial<EstateTaxWizardState>) => {
+    if (!verdict || verdict.kind !== 'ok') return;
     setPreviousState(taxState);
     const newState = { ...taxState, ...patch };
     setTaxState(newState);
@@ -134,9 +147,10 @@ function CaseTaxPage() {
     } catch (err) {
       toast.error('Failed to re-compute after applying suggestion: ' + (err instanceof Error ? err.message : String(err)));
     }
-  }, [taxState, caseId, runCompute]);
+  }, [taxState, caseId, runCompute, verdict]);
 
   const handleRevert = useCallback(async () => {
+    if (!verdict || verdict.kind !== 'ok') return;
     if (!previousState) return;
     const stateToRestore = previousState;
     setPreviousState(null);
@@ -147,7 +161,7 @@ function CaseTaxPage() {
     } catch (err) {
       toast.error('Failed to re-compute after revert: ' + (err instanceof Error ? err.message : String(err)));
     }
-  }, [previousState, caseId, runCompute]);
+  }, [previousState, caseId, runCompute, verdict]);
 
   const handleWhatIfCompute = useCallback(
     (state: EstateTaxWizardState): EstateTaxFullOutput => {
@@ -178,6 +192,7 @@ function CaseTaxPage() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
+      <FactSetConflictBanner verdict={verdict} />
       {taxOutput ? (
         <div>
           <button
@@ -194,9 +209,9 @@ function CaseTaxPage() {
               state={taxState}
               onChange={handleChange}
               autoSaveStatus={autoSaveStatus}
-              decedentName={decedentName}
+              decedentName={factSet.decedentName || 'Decedent'}
               onBack={handleBack}
-              onCompute={handleCompute}
+              onCompute={verdict?.kind === 'ok' ? handleCompute : undefined}
             />
           )}
 
@@ -215,9 +230,9 @@ function CaseTaxPage() {
           state={taxState}
           onChange={handleChange}
           autoSaveStatus={autoSaveStatus}
-          decedentName={decedentName}
+          decedentName={factSet.decedentName || 'Decedent'}
           onBack={handleBack}
-          onCompute={handleCompute}
+          onCompute={verdict?.kind === 'ok' ? handleCompute : undefined}
         />
       )}
     </div>
