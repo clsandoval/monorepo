@@ -230,6 +230,16 @@ export interface SpecialDeductions {
 // ============================================================================
 
 export interface FilingData {
+  /**
+   * ISO `YYYY-MM-DD` — the date the return is assumed to be filed on.
+   *
+   * `''` means the lawyer has not stated it. In that case the engine reports
+   * the lateness as `undetermined` and declines to compute anything from it.
+   * The engine never substitutes today's date: a computation that changes with
+   * the calendar is not reproducible, and reproducibility is the whole claim
+   * this engine makes about itself.
+   */
+  assumedFilingDate: string;
   userElectsAmnesty: boolean;
   amnestyDeductionMode: AmnestyDeductionMode;
   isAmended: boolean;
@@ -330,6 +340,7 @@ export function createDefaultEstateTaxState(): EstateTaxWizardState {
       familyHomeDeduction: 0,
     },
     filing: {
+      assumedFilingDate: '',
       userElectsAmnesty: false,
       amnestyDeductionMode: 'standard',
       isAmended: false,

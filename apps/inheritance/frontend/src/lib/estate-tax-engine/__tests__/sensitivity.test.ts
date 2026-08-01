@@ -194,6 +194,7 @@ describe('sensitivity: amnesty lever', () => {
         },
       ],
       filing: {
+        assumedFilingDate: '',
         userElectsAmnesty: false,
         amnestyDeductionMode: 'standard',
         isAmended: false,

@@ -157,6 +157,7 @@ describe('advisor: amnesty-eligible', () => {
         },
       ],
       filing: {
+        assumedFilingDate: '',
         userElectsAmnesty: false, // not elected
         amnestyDeductionMode: 'standard',
         isAmended: false,
@@ -196,6 +197,7 @@ describe('advisor: amnesty-eligible', () => {
         worldwideELIT: null,
       },
       filing: {
+        assumedFilingDate: '',
         userElectsAmnesty: true, // already elected
         amnestyDeductionMode: 'standard',
         isAmended: false,
@@ -235,6 +237,7 @@ describe('advisor: amnesty-eligible', () => {
         worldwideELIT: null,
       },
       filing: {
+        assumedFilingDate: '',
         userElectsAmnesty: false,
         amnestyDeductionMode: 'standard',
         isAmended: false,
@@ -466,6 +469,7 @@ describe('advisor: sorting', () => {
         familyHomeDeduction: 0,
       },
       filing: {
+        assumedFilingDate: '',
         userElectsAmnesty: false,
         amnestyDeductionMode: 'standard',
         isAmended: false,

@@ -415,8 +415,16 @@ describe('estate-tax schemas > filingDataSchema', () => {
     expect(result.success).toBe(true);
   });
 
+  it('rejects a filing object missing the assumed filing date', () => {
+    const { assumedFilingDate: _omitted, ...withoutFilingDate } =
+      createDefaultEstateTaxState().filing;
+    const result = filingDataSchema.safeParse(withoutFilingDate);
+    expect(result.success).toBe(false);
+  });
+
   it('accepts all flags set to true', () => {
     const result = filingDataSchema.safeParse({
+      assumedFilingDate: '',
       userElectsAmnesty: true,
       amnestyDeductionMode: 'narrow',
       isAmended: true,

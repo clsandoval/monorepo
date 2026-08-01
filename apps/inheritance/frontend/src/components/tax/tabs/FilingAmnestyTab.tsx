@@ -32,6 +32,37 @@ export function FilingAmnestyTab({ data, onChange, onCompute }: FilingAmnestyTab
         </p>
       </div>
 
+      {/* Filing Date */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base">Filing Date</CardTitle>
+          <CardDescription>
+            The statutory deadline for this return, and how late it is, are computed from this date
+            and the date of death.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="assumed-filing-date">Assumed filing date</Label>
+            <Input
+              id="assumed-filing-date"
+              data-testid="assumed-filing-date"
+              type="date"
+              value={data.assumedFilingDate}
+              onChange={(e) => update({ assumedFilingDate: e.target.value })}
+            />
+            <p
+              data-testid="assumed-filing-date-note"
+              className="text-xs text-muted-foreground"
+            >
+              Left blank until you state it. The engine does not assume today&apos;s date, because a
+              computation that changes with the calendar is not reproducible. While this is blank,
+              the return reports the filing deadline and the lateness as undetermined.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Estate Tax Amnesty */}
       <Card>
         <CardHeader className="pb-3">

@@ -173,6 +173,12 @@ export const specialDeductionsSchema = z.object({
 // ============================================================================
 
 export const filingDataSchema = z.object({
+  // A bare string, deliberately. The ISO-shape rule lives at exactly one site,
+  // `statutoryFilingDeadline` in lib/estate-tax-engine/penalties.ts; a regex
+  // here would be a second implementation of it, which CLAUDE.md invariant 5
+  // forbids. The schema's job is that the key exists and is a string; the
+  // engine's job is deciding whether the string is a usable date.
+  assumedFilingDate: z.string(),
   userElectsAmnesty: z.boolean(),
   amnestyDeductionMode: z.enum(['standard', 'narrow']),
   isAmended: z.boolean(),

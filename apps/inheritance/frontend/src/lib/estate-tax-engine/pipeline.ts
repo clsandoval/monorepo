@@ -303,9 +303,19 @@ export function wizardStateToEngineInput(wizardState: EstateTaxWizardState): Eng
       foreignPropertyFMV: toCentavos(ftc.foreignPropertyFMV),
     }));
 
-  // Filing info
+  // Filing info.
+  //
+  // Until Phase 20 this field was set from the wall clock — a `Date`
+  // constructed with no argument, sliced to ten characters — and nothing read
+  // it. A wall-clock
+  // read makes the same fact set compute differently on a different day, which
+  // contradicts the spec's first claim about this engine (fully deterministic)
+  // and makes Phase 24's input hash impossible. The value is now the date the
+  // lawyer entered on the Filing tab; `''` means absent, and the lateness is
+  // then reported as undetermined rather than guessed. Phase 24's input hash
+  // depends on this staying gone.
   const filing: FilingInfo = {
-    filingDate: new Date().toISOString().slice(0, 10),
+    filingDate: ws.filing.assumedFilingDate.trim(),
     rdoCode: '',
   };
 

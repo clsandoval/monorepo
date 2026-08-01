@@ -398,7 +398,13 @@ export interface EstateFlags {
 
 /** Filing info */
 export interface FilingInfo {
-  filingDate: string; // ISO date
+  /**
+   * The entered assumed filing date, ISO `YYYY-MM-DD`. `''` means absent.
+   *
+   * This is never the wall clock. It is the value the lawyer entered on the
+   * Filing tab of the estate-tax wizard.
+   */
+  filingDate: string;
   rdoCode: string;
 }
 
