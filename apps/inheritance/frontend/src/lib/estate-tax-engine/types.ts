@@ -84,12 +84,26 @@ export interface OrdinaryDeductionsResult {
 
 // ── Special deductions ───────────────────────────────────────────────────────
 
-/** Items 37A–37D special deductions + total (centavos). */
+/**
+ * All six special-deduction components summed into `total` (centavos):
+ * standard deduction, family home, funeral, judicial/administrative, medical
+ * and RA 4917.
+ *
+ * The `item37a`..`item37d` prefixes on four of the field names are HISTORICAL
+ * and disagree with spec section 17's item assignment, which reads
+ * 37A standard deduction, 37B family home, 37C medical, 37D RA 4917. The
+ * disagreement is resolved at the display boundary by `form1801-lines.ts`
+ * rather than by renaming engine fields.
+ */
 export interface SpecialDeductionsResult {
+  /** Item 37A per spec section 17 — the standard deduction (centavos). */
+  standardDeduction: number;
   item37a_family_home: number;
   item37b_funeral_expenses: number;
   item37c_judicial_admin_expenses: number;
   item37d_medical_expenses: number;
+  /** Item 37D per spec section 17 — the RA 4917 retirement benefit (centavos). */
+  ra4917: number;
   total: number;
 }
 

@@ -44,6 +44,10 @@ export interface FamilyHomeInput {
 
 // ── Extended result with standardDeduction exposed ────────────────────────────
 
+// Since `SpecialDeductionsResult` was widened to declare `standardDeduction`
+// and `ra4917` (21-01), this interface is structurally IDENTICAL to its base.
+// It is retained rather than deleted because its exported symbol has importers
+// outside the enumeration of the plan that widened the base type.
 export interface SpecialDeductionsResultExtended extends SpecialDeductionsResult {
   standardDeduction: number;
   ra4917: number;

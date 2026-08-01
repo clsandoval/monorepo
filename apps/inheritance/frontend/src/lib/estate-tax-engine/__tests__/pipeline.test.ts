@@ -587,3 +587,92 @@ describe('computeEstateTax - filing lateness', () => {
     expect(result.penalties.complete).toBe(false);
   });
 });
+
+// ── Test 21-01: The standard deduction is readable through the declared type ──
+//
+// Before 21-01, `EstateTaxFullOutput.specialDeductions` was declared as a shape
+// carrying only items 37A–37D plus total, while the engine had always produced
+// `standardDeduction` and `ra4917` by object shorthand. Every assertion in this
+// block reads those two values through the DECLARED type with no cast — which is
+// precisely what was impossible to write before the widening.
+
+describe('computeEstateTax - special deductions are readable (21-01)', () => {
+  function makeNineMillionState() {
+    return makeWizardState({
+      decedent: {
+        ...createDefaultEstateTaxState().decedent,
+        name: 'Test Decedent',
+        dateOfDeath: '2020-06-15',
+        address: '123 Test St',
+      },
+      realProperties: [
+        {
+          id: 'rp1',
+          titleNumber: 'T-123456',
+          taxDecNumber: 'TD-1',
+          location: 'Quezon City',
+          lotArea: 250,
+          improvementArea: null,
+          classification: 'residential',
+          fmvTaxDec: 8_000_000,
+          fmvBirZonal: 9_000_000,
+          ownership: 'exclusive',
+          isFamilyHome: false,
+          hasBarangayCert: false,
+        },
+      ],
+    });
+  }
+
+  it('exposes the ₱5,000,000 TRAIN standard deduction as a typed field', () => {
+    const result = computeEstateTax(makeNineMillionState());
+
+    expect(result.specialDeductions.standardDeduction).toBe(500_000_000);
+  });
+
+  it('exposes the RA 4917 deduction as a typed field', () => {
+    const result = computeEstateTax(makeNineMillionState());
+
+    expect(result.specialDeductions.ra4917).toBe(0);
+  });
+
+  it('the four named item37 fields fall short of the total by exactly ₱5,000,000', () => {
+    const sd = computeEstateTax(makeNineMillionState()).specialDeductions;
+
+    // Guard first: a shortfall assertion is trivially satisfiable on an all-zero
+    // fact set, so the total must be proven non-zero before the gap is measured.
+    expect(sd.total).toBe(500_000_000);
+
+    const namedFieldSum =
+      sd.item37a_family_home +
+      sd.item37b_funeral_expenses +
+      sd.item37c_judicial_admin_expenses +
+      sd.item37d_medical_expenses;
+
+    expect(namedFieldSum).not.toBe(sd.total);
+    expect(sd.total - namedFieldSum).toBe(500_000_000);
+  });
+
+  it('the arithmetic control: no tax figure moved', () => {
+    const result = computeEstateTax(makeNineMillionState());
+
+    expect(result.taxComputation.netTaxableEstate).toBe(400_000_000);
+    expect(result.taxComputation.estateTaxDue).toBe(24_000_000);
+  });
+
+  it('a refused input emits both fields as zero, not as absent', () => {
+    const state = makeWizardState({
+      decedent: {
+        ...createDefaultEstateTaxState().decedent,
+        name: 'Test',
+        dateOfDeath: '',
+        address: '123 St',
+      },
+    });
+
+    const result = computeEstateTax(state);
+
+    expect(result.specialDeductions.standardDeduction).toBe(0);
+    expect(result.specialDeductions.ra4917).toBe(0);
+  });
+});

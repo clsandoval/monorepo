@@ -667,11 +667,16 @@ function makeErrorOutput(warnings: string[]): EstateTaxFullOutput {
     grossEstate: zeroGrossEstate(),
     ordinaryDeductions: zeroOrdinaryDeductions(),
     estateAfterOrdinary: 0,
+    // Zero here means NO DEDUCTION WAS APPLIED: this is the shape returned when
+    // validation refused the input, so the engine never reached the deduction
+    // phase. It is not a missing value and not a stub.
     specialDeductions: {
+      standardDeduction: 0,
       item37a_family_home: 0,
       item37b_funeral_expenses: 0,
       item37c_judicial_admin_expenses: 0,
       item37d_medical_expenses: 0,
+      ra4917: 0,
       total: 0,
     },
     netEstate: 0,
