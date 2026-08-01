@@ -1,0 +1,786 @@
+{
+  "$comment": "This file records WHERE each Civil Code article the engine's production code cites is TESTED. It never records what an article requires. That distinction is deliberate and load-bearing: no agent may decide a point of Philippine law, and naming the test function that already carries an article's citation decides nothing. Each element's `vector` is the single test function whose body carries the matching `// LEGAL-VECTOR: Art. NNN` marker, or null when no such function exists yet. The null-vector remainder is declared in `engine/legal-traceability.lock`, which is a SHRINK-ONLY ledger: the correct response to a newly untraced article is to write a vector, never to append a declaration. `node scripts/check-legal-traceability.mjs` RECOMPUTES `implemented_in` from `engine/src/` on every run using two fixed rules — the production region of a file is its content up to but not including the first `#[cfg(test)]`, and `implemented_in` is the sorted list of every engine/src file whose production region contains the article's citation string — so a hand-edit of this file that disagrees with the code FAILS rather than passes. No script writes this file.",
+  "frozen_at": "2026-07-31",
+  "rules": [
+    {
+      "article": "Art. 172",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step1_classify.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_filiation_description_birth_certificate"
+      }
+    },
+    {
+      "article": "Art. 176",
+      "implemented_in": [
+        "src/step10_finalize.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_raw_label_illegitimate_child"
+      }
+    },
+    {
+      "article": "Art. 179",
+      "implemented_in": [
+        "src/step10_finalize.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_raw_label_legitimated_child"
+      }
+    },
+    {
+      "article": "Art. 854",
+      "implemented_in": [
+        "src/step6_validation.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law03_total_repudiation_promotes_the_following_degree"
+      }
+    },
+    {
+      "article": "Art. 855",
+      "implemented_in": [
+        "src/step6_validation.rs"
+      ],
+      "vector": {
+        "file": "src/step6_validation.rs",
+        "fn": "test_disinheritance_valid_no_spouse_representation"
+      }
+    },
+    {
+      "article": "Art. 859",
+      "implemented_in": [
+        "src/step9_vacancy.rs"
+      ],
+      "vector": {
+        "file": "src/step9_vacancy.rs",
+        "fn": "test_total_renunciation_still_fires_with_no_following_degree"
+      }
+    },
+    {
+      "article": "Art. 872",
+      "implemented_in": [
+        "src/step6_validation.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_tv20_iron_curtain"
+      }
+    },
+    {
+      "article": "Art. 887",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step1_classify.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_assemble_narrative_joins_with_spaces"
+      }
+    },
+    {
+      "article": "Art. 889",
+      "implemented_in": [
+        "src/step5_legitimes.rs"
+      ],
+      "vector": {
+        "file": "src/step3_scenario.rs",
+        "fn": "test_t5b_multiple_lc_ic_spouse"
+      }
+    },
+    {
+      "article": "Art. 890",
+      "implemented_in": [
+        "src/flags.rs",
+        "src/step5_legitimes.rs",
+        "src/types.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 891",
+      "implemented_in": [
+        "src/flags.rs",
+        "src/types.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law05b_exempt_donation_still_preterites_and_flags"
+      }
+    },
+    {
+      "article": "Art. 892",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step5_legitimes.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_spouse_article_testate_with_ic"
+      }
+    },
+    {
+      "article": "Art. 893",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step5_legitimes.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_spouse_article_testate_with_ascendants"
+      }
+    },
+    {
+      "article": "Art. 894",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step5_legitimes.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_spouse_article_testate_t11"
+      }
+    },
+    {
+      "article": "Art. 895",
+      "implemented_in": [
+        "src/step5_legitimes.rs",
+        "src/step6_validation.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 896",
+      "implemented_in": [
+        "src/step5_legitimes.rs"
+      ],
+      "vector": {
+        "file": "src/step5_legitimes.rs",
+        "fn": "test_t8_ascendants_plus_ics"
+      }
+    },
+    {
+      "article": "Art. 899",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step5_legitimes.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_spouse_article_testate_spouse_only"
+      }
+    },
+    {
+      "article": "Art. 900",
+      "implemented_in": [
+        "src/flags.rs",
+        "src/step10_finalize.rs",
+        "src/step1_classify.rs",
+        "src/step5_legitimes.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_spouse_article_testate_t12_t13"
+      }
+    },
+    {
+      "article": "Art. 901",
+      "implemented_in": [
+        "src/step5_legitimes.rs"
+      ],
+      "vector": {
+        "file": "src/step3_scenario.rs",
+        "fn": "test_t10_ic_plus_spouse"
+      }
+    },
+    {
+      "article": "Art. 903",
+      "implemented_in": [
+        "src/flags.rs",
+        "src/step3_scenario.rs",
+        "src/step5_legitimes.rs"
+      ],
+      "vector": {
+        "file": "src/step3_scenario.rs",
+        "fn": "test_i13_over_i14_when_siblings"
+      }
+    },
+    {
+      "article": "Art. 908",
+      "implemented_in": [
+        "src/step4_estate_base.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 909",
+      "implemented_in": [
+        "src/step4_estate_base.rs"
+      ],
+      "vector": {
+        "file": "src/step4_estate_base.rs",
+        "fn": "test_standard_donation_to_lc_charged_to_legitime"
+      }
+    },
+    {
+      "article": "Art. 911",
+      "implemented_in": [
+        "src/flags.rs",
+        "src/step6_validation.rs",
+        "src/step7_distribute.rs",
+        "src/step8_collation.rs",
+        "src/types.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law05a_inofficious_legacy_is_reduced_not_dropped"
+      }
+    },
+    {
+      "article": "Art. 912",
+      "implemented_in": [
+        "src/step6_validation.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 916",
+      "implemented_in": [
+        "src/step6_validation.rs"
+      ],
+      "vector": {
+        "file": "src/step6_validation.rs",
+        "fn": "test_disinheritance_invalid_cause_not_specified"
+      }
+    },
+    {
+      "article": "Art. 917",
+      "implemented_in": [
+        "src/step6_validation.rs"
+      ],
+      "vector": {
+        "file": "src/step6_validation.rs",
+        "fn": "test_disinheritance_invalid_cause_not_proven"
+      }
+    },
+    {
+      "article": "Art. 918",
+      "implemented_in": [
+        "src/step6_validation.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 919",
+      "implemented_in": [
+        "src/types.rs"
+      ],
+      "vector": {
+        "file": "src/step6_validation.rs",
+        "fn": "test_disinheritance_valid_tv08"
+      }
+    },
+    {
+      "article": "Art. 920",
+      "implemented_in": [
+        "src/types.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 921",
+      "implemented_in": [
+        "src/types.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 922",
+      "implemented_in": [
+        "src/step6_validation.rs"
+      ],
+      "vector": {
+        "file": "src/step6_validation.rs",
+        "fn": "test_disinheritance_invalid_reconciliation"
+      }
+    },
+    {
+      "article": "Art. 923",
+      "implemented_in": [
+        "src/step6_validation.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "src/step6_validation.rs",
+        "fn": "test_disinheritance_valid_all_checks_pass"
+      }
+    },
+    {
+      "article": "Art. 960",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 969",
+      "implemented_in": [
+        "src/step1_classify.rs",
+        "src/step2_lines.rs",
+        "src/step7_distribute.rs",
+        "src/step9_vacancy.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law02_collateral_representation_conserves_the_estate"
+      }
+    },
+    {
+      "article": "Art. 970",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 972",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step2_lines.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law01_grandparents_inherit_under_regime_b"
+      }
+    },
+    {
+      "article": "Art. 975",
+      "implemented_in": [
+        "src/step2_lines.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "src/step2_lines.rs",
+        "fn": "test_descendant_anchors_are_unchanged_by_this_plan"
+      }
+    },
+    {
+      "article": "Art. 977",
+      "implemented_in": [
+        "src/step2_lines.rs",
+        "src/step9_vacancy.rs",
+        "src/types.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law02_collateral_representation_conserves_the_estate"
+      }
+    },
+    {
+      "article": "Art. 980",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law03_total_repudiation_promotes_the_following_degree"
+      }
+    },
+    {
+      "article": "Art. 983",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 985",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law01_grandparents_inherit_under_regime_b"
+      }
+    },
+    {
+      "article": "Art. 987",
+      "implemented_in": [
+        "src/step2_lines.rs",
+        "src/step5_legitimes.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_tv23_ascendant_only"
+      }
+    },
+    {
+      "article": "Art. 988",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_tv17_ic_only_equal_shares"
+      }
+    },
+    {
+      "article": "Art. 991",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "src/step3_scenario.rs",
+        "fn": "test_i8_ic_plus_spouse"
+      }
+    },
+    {
+      "article": "Art. 992",
+      "implemented_in": [
+        "src/step1_classify.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_tv19_total_renunciation_restart"
+      }
+    },
+    {
+      "article": "Art. 995",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_spouse_article_intestate_i11"
+      }
+    },
+    {
+      "article": "Art. 996",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_tv01_single_lc_entire_estate"
+      }
+    },
+    {
+      "article": "Art. 997",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_tv05_parents_and_spouse"
+      }
+    },
+    {
+      "article": "Art. 998",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_spouse_article_intestate_i8"
+      }
+    },
+    {
+      "article": "Art. 999",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 1000",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_spouse_article_intestate_i10"
+      }
+    },
+    {
+      "article": "Art. 1001",
+      "implemented_in": [
+        "src/step10_finalize.rs",
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "src/step10_finalize.rs",
+        "fn": "test_spouse_article_intestate_i12"
+      }
+    },
+    {
+      "article": "Art. 1002",
+      "implemented_in": [
+        "src/step1_classify.rs"
+      ],
+      "vector": {
+        "file": "src/step1_classify.rs",
+        "fn": "test_surviving_spouse_guilty_legal_separation_ineligible"
+      }
+    },
+    {
+      "article": "Art. 1004",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 1005",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law04_no_representation_in_the_ascending_line"
+      }
+    },
+    {
+      "article": "Art. 1006",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law04_no_representation_in_the_ascending_line"
+      }
+    },
+    {
+      "article": "Art. 1008",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law04_no_representation_in_the_ascending_line"
+      }
+    },
+    {
+      "article": "Art. 1009",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 1011",
+      "implemented_in": [
+        "src/step7_distribute.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_tv18_escheat_to_state"
+      }
+    },
+    {
+      "article": "Art. 1018",
+      "implemented_in": [
+        "src/step9_vacancy.rs"
+      ],
+      "vector": {
+        "file": "src/step9_vacancy.rs",
+        "fn": "test_accretion_intestate_always_applies"
+      }
+    },
+    {
+      "article": "Art. 1019",
+      "implemented_in": [
+        "src/step9_vacancy.rs"
+      ],
+      "vector": {
+        "file": "src/step9_vacancy.rs",
+        "fn": "test_accretion_free_portion_proportional"
+      }
+    },
+    {
+      "article": "Art. 1020",
+      "implemented_in": [
+        "src/step9_vacancy.rs"
+      ],
+      "vector": {
+        "file": "src/step9_vacancy.rs",
+        "fn": "test_step9_art1020_charges_follow_accreting_share"
+      }
+    },
+    {
+      "article": "Art. 1021",
+      "implemented_in": [
+        "src/step9_vacancy.rs"
+      ],
+      "vector": {
+        "file": "src/step9_vacancy.rs",
+        "fn": "test_accretion_legitime_triggers_restart"
+      }
+    },
+    {
+      "article": "Art. 1022",
+      "implemented_in": [
+        "src/step9_vacancy.rs"
+      ],
+      "vector": {
+        "file": "src/step9_vacancy.rs",
+        "fn": "test_step9_intestate_fallback_testate_last_resort"
+      }
+    },
+    {
+      "article": "Art. 1032",
+      "implemented_in": [
+        "src/step1_classify.rs",
+        "src/step9_vacancy.rs"
+      ],
+      "vector": {
+        "file": "src/step1_classify.rs",
+        "fn": "test_unworthy_heir_ineligible"
+      }
+    },
+    {
+      "article": "Art. 1033",
+      "implemented_in": [
+        "src/step1_classify.rs"
+      ],
+      "vector": {
+        "file": "src/step1_classify.rs",
+        "fn": "test_unworthy_heir_condoned_eligible"
+      }
+    },
+    {
+      "article": "Art. 1061",
+      "implemented_in": [
+        "src/step4_estate_base.rs",
+        "src/step6_validation.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law05a_inofficious_legacy_is_reduced_not_dropped"
+      }
+    },
+    {
+      "article": "Art. 1062",
+      "implemented_in": [
+        "src/step4_estate_base.rs",
+        "src/step6_validation.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_law05b_collated_donation_defeats_preterition"
+      }
+    },
+    {
+      "article": "Art. 1064",
+      "implemented_in": [
+        "src/step8_collation.rs"
+      ],
+      "vector": {
+        "file": "tests/integration.rs",
+        "fn": "test_tv21_fideicommissary"
+      }
+    },
+    {
+      "article": "Art. 1066",
+      "implemented_in": [
+        "src/step4_estate_base.rs",
+        "src/step6_validation.rs"
+      ],
+      "vector": {
+        "file": "src/step4_estate_base.rs",
+        "fn": "test_joint_gift_to_child_and_spouse_half_collatable"
+      }
+    },
+    {
+      "article": "Art. 1067",
+      "implemented_in": [
+        "src/step4_estate_base.rs",
+        "src/step6_validation.rs"
+      ],
+      "vector": {
+        "file": "src/step4_estate_base.rs",
+        "fn": "test_customary_gift_exempt"
+      }
+    },
+    {
+      "article": "Art. 1068",
+      "implemented_in": [
+        "src/step4_estate_base.rs",
+        "src/step6_validation.rs"
+      ],
+      "vector": {
+        "file": "src/step4_estate_base.rs",
+        "fn": "test_professional_education_default_exempt"
+      }
+    },
+    {
+      "article": "Art. 1069",
+      "implemented_in": [
+        "src/step4_estate_base.rs"
+      ],
+      "vector": {
+        "file": "src/step4_estate_base.rs",
+        "fn": "test_debt_payment_collatable"
+      }
+    },
+    {
+      "article": "Art. 1070",
+      "implemented_in": [
+        "src/step4_estate_base.rs",
+        "src/step6_validation.rs"
+      ],
+      "vector": {
+        "file": "src/step4_estate_base.rs",
+        "fn": "test_wedding_gift_not_collatable_for_estate_base"
+      }
+    },
+    {
+      "article": "Art. 1071",
+      "implemented_in": [
+        "src/step8_collation.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 1072",
+      "implemented_in": [
+        "src/step4_estate_base.rs"
+      ],
+      "vector": {
+        "file": "src/step4_estate_base.rs",
+        "fn": "test_joint_from_both_parents_half_collatable"
+      }
+    },
+    {
+      "article": "Art. 1073",
+      "implemented_in": [
+        "src/step8_collation.rs"
+      ],
+      "vector": null
+    },
+    {
+      "article": "Art. 1077",
+      "implemented_in": [
+        "src/flags.rs",
+        "src/types.rs"
+      ],
+      "vector": null
+    }
+  ]
+}

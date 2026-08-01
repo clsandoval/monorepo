@@ -1,0 +1,22 @@
+{
+  "$comment": "OWNER-OWNED FILE. This ledger declares the Civil Code articles that the engine's production code cites but that NO test function yet traces — the articles with a null `vector` in engine/legal-rules.json. IT MAY ONLY SHRINK. Appending an article here to turn a red check green is prohibited: the fix for an untraced article is a named test vector carrying a `// LEGAL-VECTOR: Art. NNN` marker, not a declaration that the gap is acceptable. `node scripts/check-legal-traceability.mjs` enforces both directions — an undeclared untraced article fails with UNTRACED NOT DECLARED, and an article declared here that has since acquired a vector fails with STALE UNTRACED DECLARATION until this entry is deleted, so landing a vector forces the ledger down: this ledger may only shrink. Same direction as gate-skips.lock and engine/defect-baseline.json, the exact inverse of gates.manifest.lock, which may only grow. No script writes this file, by design: a check that can rewrite its own baseline is not a check.",
+  "frozen_at": "2026-07-31",
+  "untraced_articles": [
+    "Art. 890",
+    "Art. 895",
+    "Art. 908",
+    "Art. 912",
+    "Art. 918",
+    "Art. 920",
+    "Art. 921",
+    "Art. 960",
+    "Art. 970",
+    "Art. 983",
+    "Art. 999",
+    "Art. 1004",
+    "Art. 1009",
+    "Art. 1071",
+    "Art. 1073",
+    "Art. 1077"
+  ]
+}
