@@ -169,7 +169,7 @@ export function FamilyTreeStep({
         </p>
       )}
 
-      <Button type="button" onClick={handleAddPerson}>
+      <Button type="button" data-testid="add-person" onClick={handleAddPerson}>
         <UserPlus className="h-4 w-4" />
         Add Person
       </Button>

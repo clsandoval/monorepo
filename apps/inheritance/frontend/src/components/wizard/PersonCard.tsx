@@ -161,6 +161,7 @@ export function PersonCard({
             <span className="text-sm font-medium leading-none">Full Name</span>
             <Input
               type="text"
+              data-testid={`person-name-${index}`}
               value={name ?? ''}
               onChange={(e) => setValue(`family_tree.${index}.name` as any, e.target.value)}
             />

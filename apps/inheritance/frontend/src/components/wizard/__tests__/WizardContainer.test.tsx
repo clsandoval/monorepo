@@ -161,4 +161,127 @@ describe('wizard-step1 > WizardContainer', () => {
       });
     });
   });
+
+  // ------------------------------------------------------------------------
+  // The onChange subscription is the only path by which wizard state reaches
+  // the database before Compute is pressed. Each case below pins one way a
+  // value can change, plus the two properties that keep it safe: it must not
+  // fire at mount (that would resurrect the redundant load-time write-back
+  // 19-02 removed), and it must stop firing once the form is gone.
+  // ------------------------------------------------------------------------
+  describe('onChange subscription', () => {
+    async function gotoFamilyTree(user: ReturnType<typeof userEvent.setup>) {
+      await user.click(screen.getByRole('button', { name: /next/i })); // → Decedent
+      await user.click(screen.getByRole('button', { name: /next/i })); // → Family Tree
+    }
+
+    it('does not fire at mount', () => {
+      const onChange = vi.fn();
+      render(<WizardContainer onChange={onChange} />);
+      expect(onChange).toHaveBeenCalledTimes(0);
+    });
+
+    it('fires when a text field changes', async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      render(<WizardContainer onChange={onChange} />);
+
+      await user.type(screen.getByLabelText(/Net Distributable Estate/i), '5');
+
+      expect(onChange.mock.calls.length).toBeGreaterThan(0);
+    });
+
+    it('hands the whole EngineInput, not a field delta', async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      render(<WizardContainer onChange={onChange} />);
+
+      await user.type(screen.getByLabelText(/Net Distributable Estate/i), '7');
+
+      const latest = onChange.mock.calls[onChange.mock.calls.length - 1]![0];
+      expect(latest).toHaveProperty('net_distributable_estate');
+      expect(latest).toHaveProperty('decedent');
+      expect(latest).toHaveProperty('family_tree');
+      expect(latest).toHaveProperty('will');
+      expect(latest).toHaveProperty('donations');
+      expect(latest).toHaveProperty('config');
+    });
+
+    it('fires when a person is appended', async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      render(<WizardContainer onChange={onChange} />);
+      await gotoFamilyTree(user);
+
+      const callsBefore = onChange.mock.calls.length;
+      const lengthBefore =
+        callsBefore === 0
+          ? 0
+          : (onChange.mock.calls[callsBefore - 1]![0].family_tree ?? []).length;
+
+      await user.click(screen.getByTestId('add-person'));
+
+      expect(onChange.mock.calls.length).toBeGreaterThan(callsBefore);
+      const latest = onChange.mock.calls[onChange.mock.calls.length - 1]![0];
+      expect(latest.family_tree).toHaveLength(lengthBefore + 1);
+    });
+
+    it('fires when a person name is typed', async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      render(<WizardContainer onChange={onChange} />);
+      await gotoFamilyTree(user);
+      await user.click(screen.getByTestId('add-person'));
+
+      await user.type(screen.getByTestId('person-name-0'), 'Ana');
+
+      await waitFor(() => {
+        const latest = onChange.mock.calls[onChange.mock.calls.length - 1]![0];
+        expect(latest.family_tree[0].name.endsWith('Ana')).toBe(true);
+      });
+    });
+
+    it('stops firing after unmount', async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      const { unmount } = render(<WizardContainer onChange={onChange} />);
+
+      await user.type(screen.getByLabelText(/Net Distributable Estate/i), '3');
+      const callsAtUnmount = onChange.mock.calls.length;
+
+      unmount();
+
+      await waitFor(() => {
+        expect(onChange.mock.calls.length).toBe(callsAtUnmount);
+      });
+    });
+
+    it('renders without an onChange prop', async () => {
+      const user = userEvent.setup();
+      render(<WizardContainer />);
+
+      await user.type(screen.getByLabelText(/Net Distributable Estate/i), '9');
+
+      expect(screen.getByTestId('estate-step')).toBeInTheDocument();
+    });
+
+    // Regression test for the one way a watch subscription can break a form: a caller that
+    // re-rendered the wizard on every notification would remount the input and drop focus mid-word.
+    it('keeps focus across ten consecutive keystrokes', async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      render(<WizardContainer onChange={onChange} />);
+      await gotoFamilyTree(user);
+      await user.click(screen.getByTestId('add-person'));
+
+      const nameInput = screen.getByTestId('person-name-0');
+      await user.click(nameInput);
+      for (const character of 'Juana Cruz') {
+        await user.type(nameInput, character);
+      }
+
+      expect(nameInput).toHaveValue('Juana Cruz');
+      expect(document.activeElement).toBe(nameInput);
+    });
+  });
 });

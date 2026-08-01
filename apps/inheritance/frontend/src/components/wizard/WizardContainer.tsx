@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Check } from 'lucide-react';
 import type { EngineInput } from '../../types';
@@ -100,10 +100,11 @@ function readInitialWizardState(): { stepIndex: number; hasWill: boolean } {
 
 export interface WizardContainerProps {
   onSubmit?: (data: EngineInput) => void;
+  onChange?: (input: EngineInput) => void;
   defaultValues?: Partial<EngineInput>;
 }
 
-export function WizardContainer({ onSubmit, defaultValues }: WizardContainerProps) {
+export function WizardContainer({ onSubmit, onChange, defaultValues }: WizardContainerProps) {
   const initial = readInitialWizardState();
   const [currentStepIndex, setCurrentStepIndex] = useState(initial.stepIndex);
   const [hasWill, setHasWill] = useState(initial.hasWill);
@@ -111,6 +112,21 @@ export function WizardContainer({ onSubmit, defaultValues }: WizardContainerProp
   const methods = useForm<EngineInput>({
     defaultValues: { ...DEFAULT_ENGINE_INPUT, ...defaultValues },
   });
+
+  // This subscription is the ONLY path by which succession-wizard state reaches the database before
+  // Compute is pressed. Without it `useAutoSave` observes nothing but the value the route loaded, and
+  // twenty minutes of a nine-heir family tree dies on a refresh.
+  //
+  // `watch(callback)` in react-hook-form 7 fires on change and NOT at mount, so attaching it does not
+  // resurrect the redundant load-time write-back that plan 19-02 removed.
+  //
+  // The prop is optional because every committed wizard test and every registered journey step renders
+  // this component without one; with no `onChange` no subscription is created at all.
+  useEffect(() => {
+    if (!onChange) return;
+    const subscription = methods.watch((value) => onChange(value as EngineInput));
+    return () => subscription.unsubscribe();
+  }, [methods, onChange]);
 
   // Visible steps: filter out conditional Will step when hasWill=false
   const visibleSteps = useMemo(
