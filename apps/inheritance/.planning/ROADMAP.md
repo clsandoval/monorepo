@@ -718,11 +718,12 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 (milestone v1.0, complete) → 16 → 17 → 18 → 19 → 20 → 21 → 22 → 23 → 24 → 25 → 26 → 27
 (milestone v2.0, Launch Readiness, roadmapped 2026-08-01)
 
-**Why phases 16–27 have no row in the table below.** Gate G33
+**Why phases 17–27 have no row in the table below.** Gate G33
 (`node scripts/check-planning-truth.mjs`) derives every row from `.planning/phases/<NN>-<slug>/`, and
-raises `ROADMAP PLAN COUNT` for a row whose phase directory does not exist. None of the twelve has
+raises `ROADMAP PLAN COUNT` for a row whose phase directory does not exist. None of the eleven has
 been planned, so none has a directory. Each gains its row when `/gsd-plan-phase <N>` creates it. This
-is the same rule that keeps the table honest for phases 1–15; it is not an omission.
+is the same rule that keeps the table honest for phases 1–15; it is not an omission. Phase 16 was
+planned on 2026-08-01 and therefore has a row, reading `0/6` and `Planned`.
 
 > **Read the `Status` column narrowly.** It is machine-derived by gate G33
 > (`node scripts/check-planning-truth.mjs`) from one fact only: every `*-PLAN.md` in the phase
@@ -749,6 +750,7 @@ is the same rule that keeps the table honest for phases 1–15; it is not an omi
 | 13. PDF Verification | 7/7 | Complete | 2026-07-31 | none — PDF-01..05 all gate-proven |
 | 14. Lawyer-Blocked Legal Fixes & Legal Traceability | 6/6 | Complete | - | **LAW-06, LAW-07, LAW-12 BLOCKED-ON-LAWYER** — LAWYER-06/04/08 are all `awaiting-answer`. No reading was adopted, defaulted or stubbed |
 | 15. Extendability & Documentation Closeout | 5/5 | Complete | 2026-08-01 | EXT-05..08 gate-proven; the stale-doc sweep covered `CLAUDE.md` + `.planning/codebase/*.md` only — 14 other `.planning/*.md` files were never audited |
+| 16. Stabilise the Deletion Milestone | 0/6 | Planned | - | CUT-01..04 all open. Planning measured two blockers no agent may clear: **G20 and G21 are registered blocking gates whose scripts commit `4ccf06270` deleted**, and the intake cut necessarily trips `min_total_tests: 2119` in `frontend/test-baseline.json`. Both need owner action, so **CUT-04 (`ci-gates.sh` exits 0) is unreachable in this phase**. CUT-02 was found already satisfied — the jsdom polyfills have been present since `181ae68c5` and G3 passes at exit 0, so the inherited "~1,465 failures" figure does not match the tree |
 
 **Withheld journey steps, measured 2026-08-01:** the registry holds **33** steps and **33** approved
 references. Five rubrics are committed with no registered step and no reference, so no gate certifies
