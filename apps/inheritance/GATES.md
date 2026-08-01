@@ -1689,14 +1689,25 @@ computed through the same compiled WASM artifact the product loads, via `scripts
 | `NARRATIVE DISAGREES` | for every heir, `narrative.legal_basis` equals `share.legal_basis` element-for-element |
 | `PROSE CITES ARTICLE` | `narrative.text` contains no occurrence of the literal `of the Civil Code` |
 | `CITATION UNRESOLVED` | every string in every `share.legal_basis` resolves through the `parseArticleKey` normalisation plus `NCC_ARTICLE_DESCRIPTIONS` |
-| `LAYER DERIVES ARTICLE` | none of the four display-layer source files contains a token matching `/Art\.\s*\d/` |
+| `LAYER DERIVES ARTICLE` | no display-layer source file listed in `DISPLAY_LAYERS` contains a token matching `/Art\.\s*\d/` |
 | `DUPLICATE RULE PRESENT` | `frontend/src/wasm/bridge.ts` contains neither `predictScenario` nor `computeMock` |
 | `CORPUS EMPTY` | the run examined zero heir rows — **a green run on zero rows is a failure by construction** |
 | `CITATION SCAN UNREADABLE` | an input is missing or unparseable |
 
-The four display layers scanned by `LAYER DERIVES ARTICLE` are a `const` array at the top of the
-script: `DistributionSection.tsx`, `NarrativePanel.tsx`, `StatuteCitationsSection.tsx` and
-`PerHeirBreakdownSection.tsx`.
+The display layers scanned by `LAYER DERIVES ARTICLE` are a `const` array at the top of the script,
+and the array **only grows**. It began as the four succession renderers — `DistributionSection.tsx`,
+`NarrativePanel.tsx`, `StatuteCitationsSection.tsx` and `PerHeirBreakdownSection.tsx` — and has grown
+twice since:
+
+- **4 -> 7**, when the estate-tax return acquired its three renderers:
+  `frontend/src/components/tax/results/Form1801View.tsx`, `frontend/src/lib/form1801-csv.ts` and
+  `frontend/src/components/pdf/Form1801PDF.tsx`.
+- **7 -> 11**, in **Phase 22**, when the Deed of Extrajudicial Settlement schedule-of-shares clause
+  became a third output surface: `frontend/src/lib/deed/schedule-lines.ts`,
+  `frontend/src/lib/deed/clause-text.ts`, `frontend/src/lib/deed/docx.ts` and
+  `frontend/src/components/results/DeedClauseSection.tsx`. `schedule-lines.ts` is listed because it
+  is the one site that **copies** `legal_basis` out of the engine, and is therefore precisely the
+  site that must be proven never to author an article of its own.
 
 **No exception list, no mutating flag.** The script holds no allow-list, no tolerated-disagreement
 table and no baseline file, and it has no flag that writes, repairs, regenerates, accepts, updates or

@@ -277,6 +277,27 @@
       "answered_by": null,
       "answered_on": null,
       "answer": null
+    },
+    {
+      "id": "LAWYER-13",
+      "question": "Q13",
+      "title": "Whether a schedule of shares may state peso amounts rather than identify specific property",
+      "articles": [],
+      "authority": [],
+      "reading_implemented": "neither",
+      "status": "awaiting-answer",
+      "blocks": [],
+      "agenda_section": "LAWYER-13",
+      "anchors": [
+        {
+          "file": "frontend/src/lib/deed/schedule-lines.ts",
+          "pattern": "DEED_WORDING_OPEN_QUESTION ="
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
     }
   ]
 }

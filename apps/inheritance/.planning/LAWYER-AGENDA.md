@@ -725,6 +725,67 @@ Notes:
 
 ---
 
+## LAWYER-13 — Q13: Whether a schedule of shares may state peso amounts rather than identify specific property
+
+**Status:** awaiting-answer
+**Engine implements:** neither
+**Blocks:** nothing scheduled
+**Governing code:** `frontend/src/lib/deed/schedule-lines.ts` — `DEED_WORDING_OPEN_QUESTION`, the notice printed on every generated clause
+
+### The question
+
+A Deed of Extrajudicial Settlement is ordinarily read as adjudicating identified property to
+identified heirs — a parcel covered by TCT No. T-123456, Registry of Deeds of Quezon City,
+containing an area of 250 sq.m. A schedule that says only *"Heir A — PHP 2,500,000.00"* names no
+property at all. Is a peso-amount schedule sufficient for the schedule clause of a Deed intended
+for registration? If it is not, what is the minimum property identification such a deed requires?
+
+### Reading A
+
+A peso-amount schedule per heir is sufficient for the schedule clause. Identifying which specific
+property satisfies which heir's share is a later conveyancing step, outside this document.
+
+### Reading B
+
+The schedule clause must identify each property adjudicated to each heir. A peso-only schedule is
+therefore not usable, and this product must decline to generate one until it holds an asset
+schedule from which property can be named.
+
+### What the engine does today
+
+Neither. The succession engine's only money input is
+`EngineInput.net_distributable_estate.centavos` — a single scalar — and no asset schedule exists
+anywhere on the succession path, so a per-property adjudication cannot be expressed by this engine
+at all. The generated clause consequently states peso amounts, and prints
+`DEED_WORDING_OPEN_QUESTION`, which discloses this question by id on the face of every clause
+rather than resolving it silently in either direction.
+
+ROADMAP Phase 22 criterion 6 already confines the output to the schedule clause: no parties
+clause, no publication clause, no bond clause, no undertaking, no acknowledgment and no signature
+block is generated, and the clause says so on its own face.
+
+### What I need from you
+
+1. Tick exactly one box below.
+2. If you tick Reading B, state the minimum property identification a registrable deed requires,
+   so that a later phase can decide what the product must hold before it generates a schedule.
+3. If you tick Reading A, confirm that printing the disclosure notice on every clause is the right
+   thing to do, or say what it should say instead.
+
+### Answer
+
+- [ ] Confirm Reading A
+- [ ] Change to Reading B
+- [ ] Neither — see notes
+
+Answered by:
+Date:
+Notes:
+
+*Source: Phase 22 planning, `.planning/phases/22-deed-of-extrajudicial-settlement-schedule-of-shares/22-RESEARCH.md` section 6; recorded under `.planning/NEW-LEGAL-RULE.md` Step 1.*
+
+---
+
 ## Status at a glance
 
 | Decision | Question | Engine implements | Blocks | Status |
@@ -741,8 +802,9 @@ Notes:
 | `LAWYER-10` | Q10 — the NIRC Sec. 248 surcharge on a late estate-tax return | neither | PEN-01 | awaiting-answer |
 | `LAWYER-11` | Q11 — the NIRC Sec. 249 interest on late-paid estate tax | neither | PEN-02 | awaiting-answer |
 | `LAWYER-12` | Q12 — whether a compromise penalty may be computed by an engine at all | neither | PEN-03 | awaiting-answer |
+| `LAWYER-13` | Q13 — peso-amount schedule versus per-property identification | neither | nothing scheduled | awaiting-answer |
 
-Twelve of twelve decisions are awaiting an answer.
+Thirteen of thirteen decisions are awaiting an answer.
 
 `.planning/lawyer-decisions.json` is the machine-readable form of this table, and gate `G10` fails
 the build when the two disagree.

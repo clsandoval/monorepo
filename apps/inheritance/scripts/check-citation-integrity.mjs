@@ -69,6 +69,13 @@ const BRIDGE_PATH = path.join(APP_DIR, 'frontend', 'src', 'wasm', 'bridge.ts');
  * held in `frontend/src/lib/estate-tax-engine/form1801-lines.ts` and are proven
  * un-derived by the `AUTHORITY MISSING` check in G37, which compares every
  * rendered authority against the engine's own on all three surfaces.
+ *
+ * Phase 22 extended the list to a THIRD output surface: the schedule of shares
+ * in the Deed of Extrajudicial Settlement, whose four files are the line model,
+ * the clause text, the DOCX exporter and the on-screen section. `schedule-lines.ts`
+ * is listed because it is the site that COPIES `legal_basis` out of the engine,
+ * and is therefore precisely the site that must be proven never to author an
+ * article of its own.
  */
 const DISPLAY_LAYERS = [
   'frontend/src/components/results/DistributionSection.tsx',
@@ -78,6 +85,10 @@ const DISPLAY_LAYERS = [
   'frontend/src/components/tax/results/Form1801View.tsx',
   'frontend/src/lib/form1801-csv.ts',
   'frontend/src/components/pdf/Form1801PDF.tsx',
+  'frontend/src/lib/deed/schedule-lines.ts',
+  'frontend/src/lib/deed/clause-text.ts',
+  'frontend/src/lib/deed/docx.ts',
+  'frontend/src/components/results/DeedClauseSection.tsx',
 ];
 
 /** An article literal appearing in a display layer's source. */
