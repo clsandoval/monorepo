@@ -12,19 +12,12 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
-## 2026-08-01
-- **Weight:** — (not logged)
-- **Cals / Protein:** ~775 / ~51g so far (1 slice cheese pizza ~285/12g [7/29 precedent]; 50g soft goat cheese ~150/9g; David's protein bar ~150/28g [label]; 1 L fresh coconut water ~190/2g [7/27 precedent])
-- **Carbs / Sodium:** ~78g so far (pizza ~35g; goat cheese ~1g; David bar ~4g; coconut water ~38g. Sodium: pizza + goat cheese only ~1–1.5g — **short, salt the evening meal**. Coconut water adds ~2.5g potassium)
-- **Trained:** —
-- **Notes:** ~1225 cal and ~109g protein left — the widest protein hole of the week, and nothing eaten so far is dense (day averages 15 cal/g). Bar is the only good buy (150 for 28g). Closing it needs near-pure protein, not another mixed plate: **3 scoops in water (~420/72g) + ~200g grilled chicken breast (~330/62g)** = ~1525 / ~185g, under both ceilings with room for a fruit + vegetables (fiber). Carbs 78g are well under the 130g training-day minimum, so if he trains, the banana/oats go in too.
-
 ## 2026-07-31
 - **Weight:** 95.2 kg (fasted AM)
-- **Cals / Protein:** ~1485 / ~99g so far (Cyma salmon pasta, shirataki swap: ~200g salmon in cream/olive oil sauce ~450/32g + shirataki noodles ~25/0g; very sweet latte 16 oz ~300/8g; tagliata di manzo beef tenderloin olive oil garlic ~500/42g; 50g focaccia ~155/4g; Giovanni protein pack ~80/15g [label]; 200g grilled ribeye, lean-trimmed ~550/50g [7/29 precedent 580/50, trimmed a bit leaner])
-- **Carbs / Sodium:** ~112g so far (shirataki ~6g mostly fiber + cream sauce ~5g; latte ~42g; tagliata ~3g; focaccia ~22g. Sodium: salted restaurant dishes + bread carry it)
+- **Cals / Protein:** **~2835 / ~202g (day closed)** — Cyma salmon pasta, shirataki swap: ~200g salmon in cream/olive oil sauce ~450/32g + shirataki noodles ~25/0g; very sweet latte 16 oz ~300/8g; tagliata di manzo beef tenderloin olive oil garlic ~500/42g; 50g focaccia ~155/4g; Giovanni protein pack ~80/15g [label]; 200g grilled ribeye, lean-trimmed ~550/50g [7/29 precedent 580/50, trimmed a bit leaner]; **late round (logged 8/01 before sleep, counts to 7/31):** 1 slice cheese pizza ~285/12g [7/29 precedent] + 50g soft goat cheese ~150/9g + David's protein bar ~150/28g [label] + 1 L fresh coconut water ~190/2g [7/27 precedent]
+- **Carbs / Sodium:** ~190g / ~3g (shirataki ~6g mostly fiber + cream sauce ~5g; latte ~42g; tagliata ~3g; focaccia ~22g; pizza ~35g; goat cheese ~1g; David bar ~4g; coconut water ~38g. Sodium: salted restaurant dishes + bread + pizza + cheese. Coconut water adds ~2.5g potassium)
 - **Trained:** light — pull-ups 3 sets + forearm work; ~15k steps (well above usual)
-- **Notes:** down 0.8 off 7/29's 96.0 (7/30 unweighed). Matches 7/21 exactly — back to the pre-trip level after the post-trip water bump (97.4 peak on 7/25). 1.2 under the 7/03 baseline (96.4); 0.9 above the 7/22 all-time low (94.3). Trend intact: ~0.7–0.8 kg/wk since 7/03.
+- **Notes:** **the earlier ~1485/~99g header was stale — it never summed the tagliata, focaccia, protein pack or ribeye.** Corrected: the pre-midnight items alone are ~2060/~151g, and the late round adds ~775/~51g → **~2835 / ~202g, ~835 over the ceiling and only ~-135 under a 2700 TDEE. Effectively a maintenance day, the first non-deficit day since 7/28.** Protein is the redeeming line (202g, 42 over the floor). The damage was the late round's density: 775 cal for 51g (15 cal/g), and 625 of that (pizza + goat cheese + coconut water) bought only 23g. Coconut water is a 190-cal drink — fine for potassium on a sweat day, expensive on a day already at 2060. Weight: down 0.8 off 7/29's 96.0 (7/30 unweighed). Matches 7/21 exactly — back to the pre-trip level after the post-trip water bump (97.4 peak on 7/25). 1.2 under the 7/03 baseline (96.4); 0.9 above the 7/22 all-time low (94.3). Trend intact: ~0.7–0.8 kg/wk since 7/03; expect 8/01's scale to read flat or up off this day.
 ## 2026-07-30
 - **Weight:** — (not logged)
 - **Cals / Protein:** ~1445 / ~85g so far (cold brew black ~5/0g; chicken BBQ salad: grilled chicken ~150g ~250/32g + lettuce + tomatoes ~25/1g + BBQ drizzle 2 tbsp ~70/0g + ranch 3 tbsp ~195/1.5g + nacho chips ~50g ~250/3g + corn ~75g ~65/2g + beans ~75g ~85/5g; Mediterranean wrap ~500/40g [as given])
