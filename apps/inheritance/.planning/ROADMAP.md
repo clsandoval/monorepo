@@ -507,20 +507,34 @@ Cross-cutting constraints (appear in 2+ plans):
 **Execution Order:**
 Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Gate Foundations | 4/4 | Complete | 2026-07-31 |
-| 2. Loop Durability & Commit Discipline | 6/6 | Complete | 2026-07-31 |
-| 3. Reproducible Environment & Gate Reporting | 5/5 | Complete | 2026-07-31 |
-| 4. Lawyer Review Agenda Recorded | 5/5 | Complete | 2026-07-31 |
-| 5. Engine Observability Restored | 7/7 | Complete | 2026-07-31 |
-| 6. Property-Test Coverage Depth | 5/5 | Complete | - |
-| 7. Intestate Order & Representation Root-Cause Fixes | 4/4 | Complete | - |
-| 8. Remaining Unblocked Legal & Tax-Bridge Defects | 8/8 | Complete | - |
-| 9. Single Source of Truth — Dedup Classifiers & Money Types | 6/6 | Complete | - |
-| 10. Journey Gate Infrastructure | 6/6 | Complete | - |
-| 11. Account, Org & Case Journey Gates | 8/8 | Complete | - |
-| 12. Wizard & Output Journey Gates | 9/9 | Complete | 2026-07-31 |
-| 13. PDF Verification | 7/7 | Complete | 2026-07-31 |
-| 14. Lawyer-Blocked Legal Fixes & Legal Traceability | 6/6 | Complete | - |
-| 15. Extendability & Documentation Closeout | 5/5 | Complete | 2026-08-01 |
+> **Read the `Status` column narrowly.** It is machine-derived by gate G33
+> (`node scripts/check-planning-truth.mjs`) from one fact only: every `*-PLAN.md` in the phase
+> directory has a matching `*-SUMMARY.md`. `Complete` therefore means **"every plan in this phase
+> was executed and written up"** — it does **not** mean every requirement the phase owns is closed.
+> G33 forbids any other value in that cell, by design, so requirement-level truth lives in the
+> `Open requirements` column beside it and in `.planning/REQUIREMENTS.md`. A phase can read
+> `Complete` and still own blocked work. Six of the fifteen below do.
+
+| Phase | Plans Complete | Status | Completed | Open requirements (requirement-level truth) |
+|-------|----------------|--------|-----------|---------------------------------------------|
+| 1. Gate Foundations | 4/4 | Complete | 2026-07-31 | GATE-04 **unobserved** — the CI workflow is committed and structurally verified but has never executed on GitHub; 223 commits are unpushed |
+| 2. Loop Durability & Commit Discipline | 6/6 | Complete | 2026-07-31 | none — LOOP-01..06 all gate-proven |
+| 3. Reproducible Environment & Gate Reporting | 5/5 | Complete | 2026-07-31 | none gated in CI — GATE-05/06/07 pass locally but their checks need Docker and are not in `gates.manifest.json` |
+| 4. Lawyer Review Agenda Recorded | 5/5 | Complete | 2026-07-31 | none — the agenda is recorded; the *answers* are Phase 14's block, not this one's |
+| 5. Engine Observability Restored | 7/7 | Complete | 2026-07-31 | none — OBS-05/OBS-06 were unblocked by the owner in `d71f9150e`; `.planning/REQUIREMENTS.md` still reads `Blocked` for both and is **stale** |
+| 6. Property-Test Coverage Depth | 5/5 | Complete | - | none — COV-01..05 all gate-proven |
+| 7. Intestate Order & Representation Root-Cause Fixes | 4/4 | Complete | - | none — LAW-01..04 all gate-proven |
+| 8. Remaining Unblocked Legal & Tax-Bridge Defects | 8/8 | Complete | - | none — LAW-05/08/09/10/11 all gate-proven |
+| 9. Single Source of Truth — Dedup Classifiers & Money Types | 6/6 | Complete | - | **EXT-02 PARTIAL** — gate `G14` is still reserved and unregistered (`grep -c '"G14"' gates.manifest.json` = 0); the dead `predictScenario`/`computeMock` duplicate in `frontend/src/wasm/bridge.ts` survives. EXT-01/EXT-04 were closed later by Phase 12 |
+| 10. Journey Gate Infrastructure | 6/6 | Complete | - | none — JRNY-01's DB half was unblocked by Phase 11 migration 014. `.planning/REQUIREMENTS.md` still reads `Planned` for JRNY-01/09/10/12 and is **stale** |
+| 11. Account, Org & Case Journey Gates | 8/8 | Complete | - | **JRNY-02 PARTIAL** (logout step withheld) and **JRNY-03 PARTIAL** (three onboarding steps withheld on two real product defects — a `.single()` 406 and a silent `23502` that discards the attorney profile) |
+| 12. Wizard & Output Journey Gates | 9/9 | Complete | 2026-07-31 | **JRNY-05 PARTIAL** — 5 of 6 succession-wizard screens gated; `wizard-will` withheld because `?hasWill=1` never constructs the `will` object |
+| 13. PDF Verification | 7/7 | Complete | 2026-07-31 | none — PDF-01..05 all gate-proven |
+| 14. Lawyer-Blocked Legal Fixes & Legal Traceability | 6/6 | Complete | - | **LAW-06, LAW-07, LAW-12 BLOCKED-ON-LAWYER** — LAWYER-06/04/08 are all `awaiting-answer`. No reading was adopted, defaulted or stubbed |
+| 15. Extendability & Documentation Closeout | 5/5 | Complete | 2026-08-01 | EXT-05..08 gate-proven; the stale-doc sweep covered `CLAUDE.md` + `.planning/codebase/*.md` only — 14 other `.planning/*.md` files were never audited |
+
+**Withheld journey steps, measured 2026-08-01:** the registry holds **33** steps and **33** approved
+references. Five rubrics are committed with no registered step and no reference, so no gate certifies
+them: `auth-signed-out`, `org-onboarding-firm`, `org-onboarding-profile`, `org-onboarding-done`,
+`wizard-will`. That withholding is deliberate — each one failed on a real defect or an undecided
+product question, and registering it would have required weakening its rubric.

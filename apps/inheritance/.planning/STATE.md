@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 15 EXECUTED. All five plans have committed summaries. `bash scripts/ci-gates.sh` prints `ALL GATES PASSED (32/32)` and exits 0, observed three times, twice against the committed tree. Four gates registered at orders 25-28: G30 CLAUDE.md invariants, G31 new-legal-rule procedure, G32 doc claims + shrink-only DOC-DEBT ledger, G33 planning truth; G10/G11/G8/G9 shifted to 29-32 with G9 still last and G14 still reserved for Phase 9 plan 09-06. Requirement coverage rose 40/94 -> 44/94; EXT-05, EXT-06, EXT-07 and EXT-08 are closed with a named gate each. LAW-06, LAW-07 and LAW-12 remain BLOCKED-ON-LAWYER and no lawyer decision moved. Next step: /gsd:complete-milestone or a new phase."
+stopped_at: "All 15 planned phases EXECUTED; 91 of 91 plans have committed summaries. INDEPENDENTLY SPOT-CHECKED 2026-08-01 by a closeout pass that re-ran the gates rather than trusting the per-phase ledger: the frontend suite really runs (2470 tests, 2424 passed, 46 known failures, 0 skipped, exit 0), `npx tsc -b` and `tsc -b --force` are both clean at exit 0, and Phase 5's observability is real (across all 171 committed corpus inputs: 105 rows with nonzero `from_legitime`, 37 with nonzero `from_free_portion`, 530 with nonzero `from_intestate`, 45 cases emitting warnings across 5 distinct categories, `computation_log.steps` length 10 in every case — the pre-Phase-5 baseline for all six was 0/0/0/0/0 and steps length 1). NOT DONE, and this is what the phase ledger's `Complete` rows hide: LAW-06/LAW-07/LAW-12 are BLOCKED-ON-LAWYER with LAWYER-06/04/08 all `awaiting-answer`; JRNY-02, JRNY-03 and JRNY-05 are PARTIAL with 5 journey rubrics committed but deliberately unregistered; EXT-02 is PARTIAL with gate G14 still unregistered; GATE-04 has never been observed because CI has never run and 223 commits are unpushed; and two real product defects found in Phase 11 (a `.single()` 406 in `getUserOrganization`, and a `23502` in `saveFirmProfile` that silently discards the attorney profile behind a screen reading 'You're all set!') are still unfixed. Next step: push the branch so CI executes for the first time — that is the one claim in this project that has never been observed."
 last_updated: "2026-08-01T04:00:00.000Z"
 last_activity: 2026-08-01
 progress:
@@ -15,6 +15,56 @@ progress:
 ---
 
 # Project State
+
+## Independent closeout verification — 2026-08-01
+
+The owner was absent for the whole 15-phase run. This section was written by a closeout pass whose
+job was to **distrust the per-phase ledger and re-measure**. Every number below came from a command
+run in that session, not from a phase summary.
+
+### What the spot-check confirmed
+
+| Claim under test | Result | Evidence |
+|---|---|---|
+| The frontend suite genuinely executes | **TRUE** | `cd frontend && npm run test:gate` → exit 0. `Test Files 11 failed \| 102 passed (113)`, `Tests 46 failed \| 2424 passed (2470)`, `GATE-SKIPS total=2470 skipped=0`, `GATE OK — test baseline matches exactly`, `LEDGER SIZE (debt) 46`. All 46 failures are ledgered; none is skipped. |
+| `npx tsc -b` passes clean | **TRUE** | `npx tsc -b` → exit 0, zero output. `npx tsc -b --force` → exit 0, zero output. Both run from `frontend/`. |
+| Phase 5's observability is real, not cosmetic | **TRUE** | Release binary run over all **171** committed corpus inputs (`cases` + `fuzz-cases` + `testate-cases` + `coverage-cases`), all exiting 0. Of **652** per-heir rows: **105** nonzero `from_legitime`, **37** nonzero `from_free_portion`, **530** nonzero `from_intestate`. **45 of 171** cases emit a non-empty `warnings` array across five categories — `preterition` 36, `inofficiousness` 6, `RA_11642_RETROACTIVITY` 4, `preterition_exempt_donation` 3, `ARTICULO_MORTIS` 1 — each carrying an article citation (e.g. `"Art. 854: compulsory heir totally omitted — all institutions annulled"`). `computation_log.steps` has length **10** in every one of the 171. The pre-Phase-5 baseline recorded in `05-VALIDATION.md` was 0 / 0 / 0 / 0 of 140 / steps length 1. |
+
+The two `engine/examples/defect-cases/` inputs behave as OBS-05 requires: both exit **2** with a
+structured message (`sum conservation violated: per-heir net_from_estate totals 125000000 centavos,
+distributable estate is 100000000 centavos`) rather than emitting a silently-wrong distribution. They
+therefore produce no `warnings` array at all — that is the runtime check working, not a gap.
+
+### What the spot-check contradicted
+
+1. **`.planning/REQUIREMENTS.md` is stale in both directions.** Its traceability table still reads
+   `Blocked` for **OBS-05** and **OBS-06**, but the owner resolved both in commit `d71f9150e`
+   ("Owner ruled OBS-05/OBS-06: the engine rejects inputs it cannot distribute conservatively"),
+   which rewrote the five offending tests to assert rejection — a strengthening. G3 has been green
+   since. The same table still reads `Planned` for **JRNY-01, JRNY-09, JRNY-10 and JRNY-12**, all of
+   which Phases 10 and 11 closed, and `Blocked` for **EXT-01** and **EXT-04**, which Phase 12 closed.
+   Six rows understate reality and two overstate it. **This file was not corrected by this pass** —
+   it is outside the closeout's assigned scope — but it should not be read as authoritative.
+
+2. **The ROADMAP `Status` column reads `Complete` for six phases that own open requirements.** This
+   is not a lie inserted by an agent; it is a designed property of gate G33, which derives that cell
+   from plan-file/summary-file counts and rejects any other value. The nuance was preserved in prose
+   but was invisible to anyone skimming the table. An `Open requirements` column has been added
+   beside it so the table itself now carries requirement-level truth.
+
+### The honest headline
+
+The **verification foundation is real and it works**. 32 blocking gates, a manifest that may only
+grow, five shrink-only ledgers, 33 screenshot-plus-rubric journey gates against a live database, and
+a legal-traceability registry mapping 63 of 79 cited articles to a named passing test. Nothing was
+weakened across 15 phases: the frontend debt ledger has stood at exactly 46 since Phase 1 and every
+shrink-only ledger is intact.
+
+The **product underneath it is not finished, and the gates are what proved that**. Three legal
+requirements wait on a lawyer. Five journey steps were withheld rather than passed by deleting an
+assertion. Two real product defects — including silent data loss on a screen that reports success —
+are documented, reproduced and unfixed. And the single most-repeated caveat in this project is still
+true: **CI has never executed.** Every `ALL GATES PASSED` in this file is a local result.
 
 ## Project Reference
 
