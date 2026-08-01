@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 13 PLANNED. `13-RESEARCH.md`, `13-VALIDATION.md` and seven `PLAN.md` files across 4 waves (wave 1 = 13-01 currency formatter and 13-02 poppler seam in parallel; wave 2 = 13-03 capture and 13-04 print layout; wave 3 = 13-05 structure and 13-06 visual; wave 4 = 13-07 gate registration). PDF-01..05 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 80 plan file(s), 302 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` reports valid with zero missing keys on each of the seven new plans. Every number in the research was measured live in this tree: `@react-pdf/renderer` rendering a PDF in plain Node, `pdffonts` showing three non-embedded WinAnsi base-14 fonts, `pdftotext` extracting the peso sign as `M-BM-1` (U+00B1), a crop image showing the glyph overprinting the leading digit, the same probe extracting cleanly with `PHP `, `pdftoppm` producing identical `md5sum` twice, `pdfinfo` reporting `595.28 x 841.89 pts (A4)`, and the release engine returning 4 heirs at 150000000 centavos each with `legal_basis` `["Art. 996"]` and 4 narratives containing `₱`. The phase ends at 24 gates. Note for the executor: `gsd-sdk query verify.plan-structure` reports `Task missing <name> element` on all seven, exactly as it does on every one of the 73 pre-existing plans, because this project uses the `<task id="1" name="...">` attribute form throughout; the authoritative check is gate G6, which passes. Next step is `/gsd:execute-phase 13`."
-last_updated: "2026-07-31T23:40:00.291Z"
-last_activity: 2026-07-31
+stopped_at: "Phase 14 EXECUTED, status PARTIAL. 6/6 plans executed with committed summaries; `bash scripts/ci-gates.sh` prints `ALL GATES PASSED (28/28)` and exits 0, observed three times (5m28.9s / 5m26.4s / 5m25.6s) including once against the committed tree. LAW-13, LAW-14 and LAW-15 are gate-proven by new gates G27, G28 and G29. LAW-06, LAW-07 and LAW-12 are BLOCKED-ON-LAWYER on LAWYER-06, LAWYER-04 and LAWYER-08 — all three still `awaiting-answer` with null answer fields — and are recorded, not guessed, in `.planning/BLOCKED-REQUIREMENTS.md` behind gate G26, which raises `ANSWER ARRIVED` and fails the build on the first run after any of those statuses changes. Requirement coverage 34/94 -> 40/94; gate set 24 -> 28. `cargo test` 543 -> 546 passed / 0 failed; `npm run test:gate` ledger unchanged at 46. Two real defects recorded rather than hidden: BUG-002 at `engine/src/step7_distribute.rs:421` (an institution of the entire free portion is reduced by the heir's legitime, moving free-portion pesos to uninstituted heirs while the sum invariant still holds) is filed with a runnable reproduction and OWNED BY NO REQUIREMENT; and an Art. 900 ¶2 spec-to-code divergence is recorded under `KNOWN DIVERGENCE: engine/src/step5_legitimes.rs`. Next step is `/gsd:plan-phase 15`."
+last_updated: "2026-08-01T00:35:00.000Z"
+last_activity: 2026-08-01
 progress:
   total_phases: 15
   completed_phases: 13
   total_plans: 86
-  completed_plans: 80
-  percent: 87
+  completed_plans: 86
+  percent: 93
 ---
 
 # Project State
@@ -21,13 +21,79 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-27)
 
 **Core value:** A change to this codebase must be cheap and safe to make — a passing gate set genuinely implies a working app, and a wrong legal number can never reach a lawyer silently.
-**Current focus:** Phase 14 — lawyer blocked legal fixes & legal traceability
+**Current focus:** Phase 15 — extendability & documentation closeout
 
 ## Current Position
 
-Phase: 14 (Lawyer-Blocked Legal Fixes & Legal Traceability) — not started
-Plan: Not started
-Status: Ready to execute
+Phase: 14 (Lawyer-Blocked Legal Fixes & Legal Traceability) — executed, PARTIAL
+Plan: 6 of 6 executed
+Status: Ready to plan Phase 15
+
+## Phase 14 — Lawyer-Blocked Legal Fixes & Legal Traceability, PARTIAL
+
+6 of 6 plans executed with committed summaries. `bash scripts/ci-gates.sh` prints
+**`ALL GATES PASSED (28/28)`** and exits 0 — observed on three runs at ~5m26s each, one of them
+against the committed tree so G6 and G7 were seen passing after this phase's commits. Requirement
+coverage rose 34/94 → **40/94**; the gate set grew 24 → **28**.
+
+**Three of six requirements are gate-proven. Three are BLOCKED-ON-LAWYER and were deliberately not
+implemented.**
+
+`.planning/lawyer-decisions.json` still shows **LAWYER-04, LAWYER-06 and LAWYER-08** as
+`awaiting-answer` with `answered_by`, `answered_on` and `answer` all `null` — the lawyer is sitting
+the bar exam. So **LAW-06** (Q6, donation-excess remedy shape), **LAW-07** (Q4, Art. 992 in the
+collateral line) and **LAW-12** (Q8, RA 11642 Sec. 41 retroactivity) produced a *record*, not a fix:
+`.planning/BLOCKED-REQUIREMENTS.md` quotes each question verbatim and gate **G26** holds that record
+to the registry. **No reading of Art. 771, Art. 911, Art. 992 or RA 11642 Sec. 41 was adopted,
+implemented, defaulted or stubbed anywhere in the tree**, and neither lawyer file was touched.
+
+**G26 is the one gate in the set that turns red on good news.** The first run after any of those three
+statuses stops being `awaiting-answer` raises `ANSWER ARRIVED` and fails the build, because the answer
+arriving is exactly when the work must start and a silent pass would let the unattended loop walk past
+it. The remedy is the five steps of `.planning/LEGAL-CORRECTION-WORKFLOW.md`, never a gate edit.
+
+Four gates added at the planned orders: **G26** blocked requirements (21), **G27** spec legal text
+(22), **G28** legal traceability (23), **G29** bugs ledger (24). G10, G11, G8 and G9 shifted to 25–28
+with G9 still last; `order` was the only field that moved and `gates.manifest.lock` gained exactly
+four entries. `G14` remains reserved and unregistered for Phase 9's `09-06`.
+
+**LAW-13** — the Art. 992 pre-*Aquino* framing, the Art. 900 ¶2 three-month trigger and the Art. 972 ¶1
+omission are corrected across both succession specs and `frontend/src/data/ncc-articles.ts`. The
+repository had **zero** mentions of *Aquino v. Aquino* before this phase. The collateral-line question
+is stated as **open** and attributed to `LAWYER-04`; no spec asserts an answer to it.
+
+**LAW-14** — 63 `// LEGAL-VECTOR: Art. NNN` markers inserted comment-only into already-passing tests
+(`cargo test` byte-identical at 543 before and after), then `engine/legal-rules.json` mapping **63 of
+79** cited articles to exactly one named test function, with the remaining **16** declared in the new
+shrink-only `engine/legal-traceability.lock`. `implemented_in` is recomputed from source on every run,
+so a hand-edited registry fails rather than passes.
+
+**LAW-15** — BUG-001 **closed as non-reproducing** (its own committed JSON sums to exactly
+₱30,000,000 with both disinherited children at ₱0), and BUG-002 filed. `cargo test` 543 → **546
+passed / 0 failed**. `npm run test:gate` ledger unchanged at 46. Nothing was deleted, skipped or
+weakened anywhere in the phase, and every failure path of every new check was observed firing —
+28 script markers plus 6 Rust markers, including a one-centavo injection that turned `ACTUAL DRIFTED`
+red and was then restored byte-identically.
+
+### Carried forward from Phase 14, recorded not hidden
+
+1. **BUG-002 is a real, open, unowned defect in a legal number.** At
+   `engine/src/step7_distribute.rs:421` the excess of an institution over the instituted heir's
+   legitime is computed unconditionally, so `ShareSpec::EntireFreePort` clamps to zero and
+   ₱3,750,000 of free portion emerges as `from_intestate` on an heir the will never instituted. The
+   sum invariant still holds, which is why no conservation check sees it. **No requirement owns the
+   fix**, stated in the entry's own `### Owning requirement` section.
+
+2. **An Art. 900 ¶2 spec-to-code divergence.** The spec now states the statutory three-month window;
+   `is_articulo_mortis` in `engine/src/step5_legitimes.rs` never differences `date_of_marriage`
+   against `date_of_death`. Recorded under the literal marker
+   `KNOWN DIVERGENCE: engine/src/step5_legitimes.rs`. No engine source was edited, because changing
+   that predicate changes legal numbers and no requirement owns it.
+
+3. **CI has still never executed on GitHub.** Unchanged by this phase. 28 gates take ~5m26s locally.
+
+4. **The runner dirties four tracked artifacts every run** — `LOOP-STATUS.md`, `gate-results.json`,
+   `loop-history.jsonl`, `engine/COVERAGE.md`. Loop-owned output; not committed by this phase.
 
 ## Phase 13 — PDF Verification, COMPLETE
 
