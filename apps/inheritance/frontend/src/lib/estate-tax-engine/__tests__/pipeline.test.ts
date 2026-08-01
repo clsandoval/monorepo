@@ -173,7 +173,13 @@ describe('wizardStateToEngineInput', () => {
 // ── Test 3: Bridge output fields ────────────────────────────────────────────
 
 describe('computeEstateTax - Bridge output fields', () => {
-  it('includes item40_gross_estate (NTE), item44_total_deductions, surcharges=0, interest=0', () => {
+  // ROADMAP Phase 20, success criterion 1, verbatim:
+  //   "No hardcoded zero survives on the total's inputs"
+  // That criterion is the authorisation for changing the meaning of the four
+  // assertions below. Each was STRENGTHENED in place — a `toBe(0)` became a
+  // `toBeNull()` plus new assertions on the line's status and its governing
+  // section. None was deleted, skipped or given a looser matcher.
+  it('declines the Sec. 248 and Sec. 249 lines and publishes no total', () => {
     const state = makeWizardState({
       realProperties: [
         {
@@ -201,13 +207,22 @@ describe('computeEstateTax - Bridge output fields', () => {
     // item44_total_deductions is the net estate tax due
     expect(result.item44_total_deductions).toBe(result.taxComputation.netEstateTaxDue);
 
-    // Zero-filled surcharge fields
-    expect(result.surcharges).toBe(0);
-    expect(result.interest).toBe(0);
-    expect(result.compromise_penalty).toBe(0);
+    // Declined, not zeroed. A zero is a claim that nothing is owed.
+    expect(result.surcharges).toBeNull();
+    expect(result.interest).toBeNull();
+    expect(result.compromise_penalty).toBeNull();
 
-    // total_amount_due = tax_due
-    expect(result.total_amount_due).toBe(result.tax_due);
+    for (const line of result.penalties.lines) {
+      expect(line.status).toBe('declined');
+      expect(line.lawyerDecision).not.toBeNull();
+    }
+    expect(result.penalties.lines[0].authority).toBe('NIRC Sec. 248');
+    expect(result.penalties.lines[1].authority).toBe('NIRC Sec. 249');
+    expect(result.penalties.lines[2].authority.trim().length).toBeGreaterThan(0);
+
+    // No total while any line is declined — and the base tax still survives.
+    expect(result.total_amount_due).toBeNull();
+    expect(typeof result.tax_due).toBe('number');
 
     // schedules exist
     expect(result.schedules).toBeDefined();
@@ -293,7 +308,9 @@ describe('computeEstateTax - Zero estate', () => {
     expect(result.taxComputation.netTaxableEstate).toBe(0);
     expect(result.taxComputation.estateTaxDue).toBe(0);
     expect(result.tax_due).toBe(0);
-    expect(result.total_amount_due).toBe(0);
+    // A zero-tax estate is still an estate whose penalties are unknown. The two
+    // facts are different and the test must say both.
+    expect(result.total_amount_due).toBeNull();
   });
 });
 
@@ -479,10 +496,15 @@ describe('end-to-end test vectors', () => {
     expect(typeof result.item44_total_deductions).toBe('number');
     expect(typeof result.tax_due).toBe('number');
 
-    // Surcharge fields default to zero
-    expect(result.surcharges).toBe(0);
-    expect(result.interest).toBe(0);
-    expect(result.compromise_penalty).toBe(0);
+    // Surcharge fields are declined, never defaulted to zero.
+    expect(result.surcharges).toBeNull();
+    expect(result.interest).toBeNull();
+    expect(result.compromise_penalty).toBeNull();
+
+    // The manual-review flag reaches the engine's own warnings array.
+    expect(
+      result.warnings.some((w) => w.startsWith('MANUAL REVIEW — PENALTIES NOT COMPUTED:')),
+    ).toBe(true);
 
     // Schedules object exists
     expect(result.schedules).toBeDefined();
@@ -504,5 +526,64 @@ describe('end-to-end test vectors', () => {
     expect(result.warnings.length).toBeGreaterThan(0);
     const hasErrorCode = result.warnings.some((w) => w.includes('ERR_'));
     expect(hasErrorCode).toBe(true);
+  });
+});
+
+// ── The lateness moves with the date of death ────────────────────────────────
+//
+// ROADMAP Phase 20 criterion 1's observable claim is that the statutory
+// deadline and the day count are real functions of the date of death. These
+// cases prove it at the ENGINE level rather than only at the module level:
+// wizardStateToEngineInput is exactly where the wall-clock defect was hiding,
+// so a unit test on penalties.ts alone would not have caught it.
+
+describe('computeEstateTax - filing lateness', () => {
+  it('a TRAIN death filed 2025-06-15 is 1461 days past a 2021-06-15 deadline', () => {
+    const state = makeWizardState({
+      decedent: { ...createDefaultEstateTaxState().decedent, dateOfDeath: '2020-06-15' },
+      filing: { ...createDefaultEstateTaxState().filing, assumedFilingDate: '2025-06-15' },
+    });
+
+    const { lateness } = computeEstateTax(state).penalties;
+    expect(lateness.kind).toBe('determined');
+    if (lateness.kind !== 'determined') throw new Error('expected determined');
+    expect(lateness.lateness.statutoryDeadline).toBe('2021-06-15');
+    expect(lateness.lateness.daysLate).toBe(1461);
+    expect(lateness.lateness.isLate).toBe(true);
+  });
+
+  it('a pre-TRAIN death filed the same day is later, against a 2015-09-30 deadline', () => {
+    const train = makeWizardState({
+      decedent: { ...createDefaultEstateTaxState().decedent, dateOfDeath: '2020-06-15' },
+      filing: { ...createDefaultEstateTaxState().filing, assumedFilingDate: '2025-06-15' },
+    });
+    const preTrain = makeWizardState({
+      decedent: { ...createDefaultEstateTaxState().decedent, dateOfDeath: '2015-03-31' },
+      filing: { ...createDefaultEstateTaxState().filing, assumedFilingDate: '2025-06-15' },
+    });
+
+    const a = computeEstateTax(train).penalties.lateness;
+    const b = computeEstateTax(preTrain).penalties.lateness;
+    if (a.kind !== 'determined') throw new Error('expected determined');
+    if (b.kind !== 'determined') throw new Error('expected determined');
+
+    // The month-end clamp: 6 months from 2015-03-31 is 2015-09-30, not October.
+    expect(b.lateness.statutoryDeadline).toBe('2015-09-30');
+    expect(b.lateness.deadlineMonths).toBe(6);
+    expect(a.lateness.deadlineMonths).toBe(12);
+    expect(b.lateness.daysLate).toBeGreaterThan(a.lateness.daysLate);
+    expect(b.lateness.statutoryDeadline).not.toBe(a.lateness.statutoryDeadline);
+  });
+
+  it('a blank filing date leaves the lateness undetermined and the total absent', () => {
+    const state = makeWizardState({
+      decedent: { ...createDefaultEstateTaxState().decedent, dateOfDeath: '2020-06-15' },
+      filing: { ...createDefaultEstateTaxState().filing, assumedFilingDate: '' },
+    });
+
+    const result = computeEstateTax(state);
+    expect(result.penalties.lateness.kind).toBe('undetermined');
+    expect(result.total_amount_due).toBeNull();
+    expect(result.penalties.complete).toBe(false);
   });
 });

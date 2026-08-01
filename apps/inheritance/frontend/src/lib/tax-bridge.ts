@@ -26,10 +26,15 @@ export interface EstateTaxEngineOutput {
   item40_gross_estate: number; // centavos — HISTORICAL name, holds net taxable estate
   item44_total_deductions: number; // centavos — HISTORICAL name, holds net estate tax due
   tax_due: number; // centavos
-  surcharges: number; // centavos
-  interest: number; // centavos
-  compromise_penalty: number; // centavos
-  total_amount_due: number; // centavos
+  // The four nullable fields below MUST stay in step with `EstateTaxFullOutput`
+  // in `lib/estate-tax-engine/types.ts`. That engine is the authority; this
+  // declaration is a mirror of it, not a second definition. `null` means the
+  // line is declined and the engine does not know the amount — it is never to
+  // be read as zero.
+  surcharges: number | null; // centavos, or null when declined
+  interest: number | null; // centavos, or null when declined
+  compromise_penalty: number | null; // centavos, or null when declined
+  total_amount_due: number | null; // centavos, or null while any line is declined
   schedules: EstateTaxScheduleSummary;
 }
 

@@ -483,13 +483,19 @@ describe('tax-bridge > EstateTaxEngineOutput type', () => {
     expect(typeof output.item44_total_deductions).toBe('number');
   });
 
-  it('has tax computation fields', () => {
+  it('has tax computation fields, each a number or an explicit null', () => {
     const output = createTaxOutput();
     expect(output).toHaveProperty('tax_due');
-    expect(output).toHaveProperty('surcharges');
-    expect(output).toHaveProperty('interest');
-    expect(output).toHaveProperty('compromise_penalty');
-    expect(output).toHaveProperty('total_amount_due');
+    expect(typeof output.tax_due).toBe('number');
+    // `toHaveProperty` alone passes on a property holding `undefined`, so a
+    // field rename would leave these green. Assert the value's shape instead:
+    // centavos when the line is determined, an explicit `null` when declined.
+    for (const key of ['surcharges', 'interest', 'compromise_penalty', 'total_amount_due'] as const) {
+      expect(output).toHaveProperty(key);
+      const value = output[key];
+      expect(value === null || typeof value === 'number').toBe(true);
+      expect(value).not.toBeUndefined();
+    }
   });
 
   it('has schedule summary', () => {

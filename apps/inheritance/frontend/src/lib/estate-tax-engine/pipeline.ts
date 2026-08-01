@@ -53,6 +53,7 @@ import { computeSpecialDeductions, type FamilyHomeInput } from './special-deduct
 import { computeSpouseShare } from './spouse-share';
 import { computeTax } from './tax-rate';
 import { computeForeignTaxCredit } from './foreign-tax-credit';
+import { assessPenalties, penaltyManualReviewWarning } from './penalties';
 import { computeAmnesty, computeDualPathComparison } from './amnesty';
 import { computeNRAFactor } from './nra-proportional';
 import { generateExplainer } from './explainer';
@@ -577,6 +578,21 @@ function computeEstateTaxFromInput(input: EngineInput): EstateTaxFullOutput {
     );
   }
 
+  // ── Penalties: NIRC Sec. 248 and Sec. 249 ─────────────────────────────
+  //
+  // penalties.ts is the ONE site of every rule here. The three money lines are
+  // declined, not zeroed: no rate, base or accrual window for either section is
+  // stated in specs/estate-tax-engine-spec.md, which places both out of scope,
+  // and the questions are recorded as LAWYER-10, LAWYER-11 and LAWYER-12.
+  const penalties = assessPenalties(
+    input.decedent.dateOfDeath,
+    input.filing.filingDate,
+    taxComputation.estateTaxDue,
+  );
+  if (!penalties.complete) {
+    warnings.push(penaltyManualReviewWarning(penalties));
+  }
+
   // ── Assemble schedules ────────────────────────────────────────────────
   const schedules: EstateTaxScheduleSummary = {
     schedule1_real_properties: grossEstate.realProperty.total + grossEstate.familyHome.total,
@@ -621,10 +637,11 @@ function computeEstateTaxFromInput(input: EngineInput): EstateTaxFullOutput {
     item40_gross_estate: netTaxableEstate, // NTE, NOT gross estate (backward compat)
     item44_total_deductions: taxComputation.netEstateTaxDue, // Net estate tax due
     tax_due: taxComputation.estateTaxDue,
-    surcharges: 0,
-    interest: 0,
-    compromise_penalty: 0,
-    total_amount_due: taxComputation.estateTaxDue, // No surcharges
+    surcharges: penalties.lines[0].centavos,
+    interest: penalties.lines[1].centavos,
+    compromise_penalty: penalties.lines[2].centavos,
+    total_amount_due: penalties.totalAmountDue,
+    penalties,
     schedules,
   };
 }
@@ -632,6 +649,10 @@ function computeEstateTaxFromInput(input: EngineInput): EstateTaxFullOutput {
 // ── Error output ────────────────────────────────────────────────────────────
 
 function makeErrorOutput(warnings: string[]): EstateTaxFullOutput {
+  // The error path refuses in exactly the same shape a real computation does.
+  // Returning zeros here would reintroduce the false total through the back
+  // door on precisely the outputs a lawyer is most likely to misread.
+  const penalties = assessPenalties('', '', 0);
   return {
     regimeDetection: {
       regime: 'TRAIN',
@@ -672,10 +693,11 @@ function makeErrorOutput(warnings: string[]): EstateTaxFullOutput {
     item40_gross_estate: 0,
     item44_total_deductions: 0,
     tax_due: 0,
-    surcharges: 0,
-    interest: 0,
-    compromise_penalty: 0,
-    total_amount_due: 0,
+    surcharges: penalties.lines[0].centavos,
+    interest: penalties.lines[1].centavos,
+    compromise_penalty: penalties.lines[2].centavos,
+    total_amount_due: penalties.totalAmountDue,
+    penalties,
     schedules: {
       schedule1_real_properties: 0,
       schedule2_personal_properties: 0,

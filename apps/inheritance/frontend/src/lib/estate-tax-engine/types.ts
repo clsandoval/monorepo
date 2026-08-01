@@ -7,6 +7,7 @@
  */
 
 import type { Centavos } from '../../types/money-units';
+import type { PenaltyAssessment } from './penalties';
 
 // ── Primitive value types ────────────────────────────────────────────────────
 
@@ -224,10 +225,41 @@ export interface EstateTaxFullOutput {
   item40_gross_estate: number; // centavos
   item44_total_deductions: number; // centavos
   tax_due: number; // centavos
-  surcharges: number; // always 0, centavos
-  interest: number; // always 0, centavos
-  compromise_penalty: number; // always 0, centavos
-  total_amount_due: number; // centavos
+
+  /**
+   * Centavos when the NIRC Sec. 248 surcharge line is determined, `null` when
+   * it is declined. `null` is never to be read as zero: zero is a claim that
+   * nothing is owed, `null` is an admission that the engine does not know.
+   */
+  surcharges: number | null;
+  /**
+   * Centavos when the NIRC Sec. 249 interest line is determined, `null` when it
+   * is declined. `null` is never to be read as zero.
+   */
+  interest: number | null;
+  /**
+   * Centavos when the compromise-penalty line is determined, `null` when it is
+   * declined. `null` is never to be read as zero.
+   */
+  compromise_penalty: number | null;
+  /**
+   * The exact integer sum of the estate tax due and all three penalty lines,
+   * in centavos, when every line is determined — and `null` whenever any line
+   * is declined. A total that silently omits a line it cannot compute is a
+   * wrong number, not a partial one, and on a filed return it understates what
+   * the client owes.
+   */
+  total_amount_due: number | null;
+
+  /**
+   * The whole penalty block. `lib/estate-tax-engine/penalties.ts` is the single
+   * site of every rule behind it — the statutory deadline, the day count, the
+   * three declined lines, the sum rule and the refusal text.
+   *
+   * The three flat fields above are a PROJECTION of `penalties.lines`, retained
+   * so `cases.tax_output_json` rows written before Phase 20 still parse.
+   */
+  penalties: PenaltyAssessment;
   schedules: EstateTaxScheduleSummary;
 }
 
