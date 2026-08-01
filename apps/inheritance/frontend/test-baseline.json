@@ -1,24 +1,9 @@
 {
-  "$comment": "Ledger of known-failing frontend tests. It records reality; it is NOT permission to fail. This ledger may only shrink. Appending a new entry to make the gate pass is PROHIBITED — the correct response to a new failure is to fix the regression. When a listed test starts passing, the gate fails with STALE BASELINE until its entry is deleted from this file.",
+  "$comment": "Ledger of known-failing frontend tests. It records reality; it is NOT permission to fail. This ledger may only shrink. Appending a new entry to make the gate pass is PROHIBITED \u2014 the correct response to a new failure is to fix the regression. When a listed test starts passing, the gate fails with STALE BASELINE until its entry is deleted from this file.",
   "generated": "2026-07-31",
-  "total_tests": 2416,
-  "min_total_tests": 2416,
+  "total_tests": 2119,
+  "min_total_tests": 2119,
   "known_failures": [
-    {
-      "file": "src/components/quick-calc/__tests__/landing-integration.test.tsx",
-      "fullName": "Landing page (unauthenticated) still renders feature cards",
-      "note": "copy drift: landing text differs from asserted string"
-    },
-    {
-      "file": "src/components/settings/__tests__/InviteMemberDialog.test.tsx",
-      "fullName": "InviteMemberDialog shows role dropdown with 4 options",
-      "note": "test-authoring: Radix Select duplicate-text match"
-    },
-    {
-      "file": "src/components/settings/__tests__/InviteMemberDialog.test.tsx",
-      "fullName": "InviteMemberDialog submit creates invitation with email and role",
-      "note": "test-authoring: Radix Select duplicate-text match"
-    },
     {
       "file": "src/components/shared/__tests__/EnumSelect.test.tsx",
       "fullName": "shared > EnumSelect BloodType options renders exactly 2 blood type options",
@@ -173,66 +158,17 @@
       "file": "src/lib/__tests__/supabase.test.ts",
       "fullName": "supabase client throws if VITE_SUPABASE_URL is missing",
       "note": "test-vs-impl mismatch: test expects a throw, lib/supabase.ts uses the supabaseConfigured guard"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage hides invite button for non-admin roles",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage opens invite dialog when invite button clicked",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage renders organization name",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage renders team member list",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage renders team settings page with title",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage shows error state",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage shows invite button for admin",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage shows loading state",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage shows no organization message when user has no org",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage shows plan info",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage shows seat usage count",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
-    },
-    {
-      "file": "src/routes/settings/__tests__/team.test.tsx",
-      "fullName": "TeamSettingsPage shows solo plan restriction message",
-      "note": "product bug: undefined import/export in the /settings/team route tree"
     }
-  ]
+  ],
+  "floor_lowered": {
+    "date": "2026-08-01",
+    "from": 2416,
+    "to": 2119,
+    "reason": "Deletion milestone, owner-authorised. Tests were removed because their subjects were removed (public funnel, collaboration layer, dead lib modules), not because a regression was hidden. The floor is reset to the newly MEASURED count so it continues to catch accidental test loss from here.",
+    "known_failures_dropped": [
+      "src/components/quick-calc/__tests__/landing-integration.test.tsx",
+      "src/components/settings/__tests__/InviteMemberDialog.test.tsx",
+      "src/routes/settings/__tests__/team.test.tsx"
+    ]
+  }
 }
