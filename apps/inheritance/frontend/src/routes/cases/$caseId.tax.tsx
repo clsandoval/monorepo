@@ -42,6 +42,13 @@ function CaseTaxPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [factSet, setFactSet] = useState<CaseFactSet>({ decedentName: '', dateOfDeath: '' });
+  // The ONE place the export path reads a clock. It is read here in the route
+  // rather than inside an export module so that a generated document is
+  // reproducible from its own parameters: the same output plus the same
+  // `generatedOn` always yields the same bytes. Initialised once via the lazy
+  // useState initialiser, so a re-render never moves the date mid-session.
+  // The return-parity gate overrides it through the page clock.
+  const [generatedOn] = useState<string>(() => new Date().toISOString().slice(0, 10));
   const [verdict, setVerdict] = useState<FactSetVerdict | null>(null);
   const [taxState, setTaxState] = useState<EstateTaxWizardState>(createDefaultEstateTaxState());
   const [autoSaveStatus, setAutoSaveStatus] = useState<AutoSaveStatus>('idle');
@@ -223,6 +230,9 @@ function CaseTaxPage() {
             onApply={handleApply}
             onRevert={previousState ? handleRevert : undefined}
             onCompute={handleWhatIfCompute}
+            decedentName={factSet.decedentName || 'Decedent'}
+            dateOfDeath={factSet.dateOfDeath}
+            generatedOn={generatedOn}
           />
         </div>
       ) : (

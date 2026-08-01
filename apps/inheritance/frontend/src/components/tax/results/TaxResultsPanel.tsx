@@ -8,6 +8,7 @@ import type { EstateTaxWizardState } from '@/types/estate-tax';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { WarningsBanner } from './WarningsBanner';
 import { Form1801View } from './Form1801View';
+import { Form1801ActionsBar } from './Form1801ActionsBar';
 import { ExplainerView } from './ExplainerView';
 import { OptimizerView } from './OptimizerView';
 import { ComparisonView } from './ComparisonView';
@@ -20,6 +21,9 @@ export interface TaxResultsPanelProps {
   onApply: (patch: Partial<EstateTaxWizardState>) => void;
   onRevert?: () => void;
   onCompute: (state: EstateTaxWizardState) => EstateTaxFullOutput;
+  decedentName: string;
+  dateOfDeath: string;
+  generatedOn: string;
 }
 
 export function TaxResultsPanel({
@@ -30,6 +34,9 @@ export function TaxResultsPanel({
   onApply,
   onRevert,
   onCompute,
+  decedentName,
+  dateOfDeath,
+  generatedOn,
 }: TaxResultsPanelProps) {
   const hasComparison = output.dualPathComparison !== null;
 
@@ -47,7 +54,13 @@ export function TaxResultsPanel({
           )}
         </TabsList>
 
-        <TabsContent value="form1801" className="mt-4">
+        <TabsContent value="form1801" className="mt-4 space-y-4">
+          <Form1801ActionsBar
+            output={output}
+            decedentName={decedentName}
+            dateOfDeath={dateOfDeath}
+            generatedOn={generatedOn}
+          />
           <Form1801View output={output} />
         </TabsContent>
 
