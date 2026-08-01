@@ -1,0 +1,38 @@
+{
+  "$comment": "FIXTURE — drives check-citation-integrity.mjs red on NARRATIVE DISAGREES and PROSE CITES ARTICLE together. This is a hand-written EngineOutput-shaped document with an invented heir name; it is NOT a committed engine input and must never be added to engine/examples/. The table says Art. 996, the narrative says Art. 887, and the prose states a governing article — exactly the defect the vision audit found on 02-married-3lc.json.",
+  "per_heir_shares": [
+    {
+      "heir_id": "fixture-heir",
+      "heir_name": "Fixture Heir",
+      "heir_category": "LegitimateChildGroup",
+      "inherits_by": "OwnRight",
+      "represents": null,
+      "from_legitime": { "centavos": 100000000 },
+      "from_free_portion": { "centavos": 0 },
+      "from_intestate": { "centavos": 0 },
+      "total": { "centavos": 100000000 },
+      "legitime_fraction": "1/1",
+      "legal_basis": ["Art. 996"],
+      "donations_imputed": { "centavos": 0 },
+      "gross_entitlement": { "centavos": 100000000 },
+      "net_from_estate": { "centavos": 100000000 }
+    }
+  ],
+  "narratives": [
+    {
+      "heir_id": "fixture-heir",
+      "heir_name": "Fixture Heir",
+      "heir_category_label": "legitimate child",
+      "text": "**Fixture Heir (legitimate child)** receives **P1,000,000**. As a legitimate child (Art. 887 of the Civil Code), Fixture Heir is a compulsory heir.",
+      "legal_basis": ["Art. 887"]
+    }
+  ],
+  "computation_log": {
+    "steps": [],
+    "total_restarts": 0,
+    "final_scenario": "I1"
+  },
+  "warnings": [],
+  "succession_type": "Intestate",
+  "scenario_code": "I1"
+}
