@@ -150,14 +150,11 @@ export interface MilestoneSeed {
   legal_basis: string | null;
 }
 
-/** The 7 intake steps */
+/** The 4 intake steps */
 export const INTAKE_STEPS = [
-  'Conflict Check',
-  'Client Details',
   'Decedent Info',
   'Family Composition',
   'Asset Summary',
-  'Settlement Track',
   'Review & Save',
 ] as const;
 

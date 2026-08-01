@@ -1,23 +1,22 @@
 /**
- * GuidedIntakeForm — 7-step guided intake form container (§4.18)
+ * GuidedIntakeForm — 4-step guided intake form container (§4.18)
  *
- * Multi-step guided interview that pre-populates the case wizard
- * and creates the client record simultaneously.
+ * Multi-step guided interview that pre-populates the case wizard.
  *
- * Steps: Conflict Check → Client Details → Decedent Info →
- *        Settlement Track → Family Composition → Asset Summary → Review & Save
+ * Steps: Decedent Info → Family Composition → Asset Summary → Review & Save
+ *
+ * The conflict-check, client-details and settlement-track steps were removed
+ * under CUT-01: all three collected facts outside (date of death, family graph,
+ * asset schedule) and so had no bearing on the schedule of shares or Form 1801.
  */
 
 import { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { INTAKE_STEPS, INTAKE_STEP_COUNT, type IntakeFormState } from '@/types/intake';
 import { createInitialIntakeState, isStepComplete } from '@/lib/intake';
-import { ConflictCheckStep } from './ConflictCheckStep';
-import { ClientDetailsStep } from './ClientDetailsStep';
 import { DecedentInfoStep } from './DecedentInfoStep';
 import { FamilyCompositionStep } from './FamilyCompositionStep';
 import { AssetSummaryStep } from './AssetSummaryStep';
-import { SettlementTrackStep } from './SettlementTrackStep';
 import { IntakeReviewStep } from './IntakeReviewStep';
 import { toast } from 'sonner';
 
@@ -94,34 +93,6 @@ export function GuidedIntakeForm({
     switch (currentStep) {
       case 0:
         return (
-          <ConflictCheckStep
-            state={state.conflictCheck}
-            onStateChange={(conflictCheck) =>
-              setState((prev) => ({ ...prev, conflictCheck }))
-            }
-            onNext={goNext}
-            onSkip={() => {
-              setState((prev) => ({
-                ...prev,
-                conflictCheck: { ...prev.conflictCheck, outcome: 'skipped' },
-              }));
-              goNext();
-            }}
-          />
-        );
-      case 1:
-        return (
-          <ClientDetailsStep
-            state={state.clientDetails}
-            onStateChange={(clientDetails) =>
-              setState((prev) => ({ ...prev, clientDetails }))
-            }
-            onNext={goNext}
-            onBack={goBack}
-          />
-        );
-      case 2:
-        return (
           <DecedentInfoStep
             state={state.decedentInfo}
             onStateChange={(decedentInfo) =>
@@ -131,7 +102,7 @@ export function GuidedIntakeForm({
             onBack={goBack}
           />
         );
-      case 3:
+      case 1:
         return (
           <FamilyCompositionStep
             state={state.familyComposition}
@@ -142,7 +113,7 @@ export function GuidedIntakeForm({
             onBack={goBack}
           />
         );
-      case 4:
+      case 2:
         return (
           <AssetSummaryStep
             state={state.assetSummary}
@@ -153,18 +124,7 @@ export function GuidedIntakeForm({
             onBack={goBack}
           />
         );
-      case 5:
-        return (
-          <SettlementTrackStep
-            state={state.settlementTrack}
-            onStateChange={(settlementTrack) =>
-              setState((prev) => ({ ...prev, settlementTrack }))
-            }
-            onNext={goNext}
-            onBack={goBack}
-          />
-        );
-      case 6:
+      case 3:
         return (
           <IntakeReviewStep
             state={state}
