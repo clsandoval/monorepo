@@ -25,9 +25,12 @@ See: .planning/PROJECT.md (updated 2026-07-27)
 
 ## Current Position
 
-Phase: 14 (Lawyer-Blocked Legal Fixes & Legal Traceability) — executed, PARTIAL
-Plan: 6 of 6 executed
+Phase: 15 (Extendability & Documentation Closeout) — planned, 0 of 5 executed
+Plan: 0 of 5 executed
 Status: Ready to execute
+
+Phase 14 remains EXECUTED, PARTIAL — LAW-13/14/15 gate-proven, LAW-06/07/12 BLOCKED-ON-LAWYER. Its
+detail is preserved in the section below.
 
 ## Phase 14 — Lawyer-Blocked Legal Fixes & Legal Traceability, PARTIAL
 
