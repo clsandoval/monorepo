@@ -45,15 +45,18 @@ The only genuinely durable option is CI, and it is not wired for it yet. See
 `/home/clsandoval/.claude/projects/-home-clsandoval-cs-monorepo/ba0262ab-dc9f-47d8-83a3-ddf973495452/subagents/workflows/wf_c44e9af1-807/`.
 
 Full gate suite, any time: `bash apps/inheritance/scripts/ci-gates.sh` from the
-monorepo root. It should print `ALL GATES PASSED (13/13)`.
+monorepo root. It should print `ALL GATES PASSED (28/28)` — the count is the
+length of `gates.manifest.json`'s `gates` array, and it grows as phases land.
 
-## State as of 2026-07-31
+## State
 
-Phases 1-9 attempted; 1, 2, 3, 4, 6 complete, 5/7/8/9 partial. Phase 10 running.
+Phase 15 (Extendability & Documentation Closeout) is executing; phases 1-14 have
+a committed summary for every committed plan. This section is a snapshot and will
+age. The page that stays current is `.planning/ORIENTATION.md` — start there, and
+read `.planning/STATE.md` for the exact position.
 
-The long-standing G3 halt — inherited by every phase from 5 onward — is fixed.
-The suite went fully green for the first time (`ALL GATES PASSED (13/13)`) after
-two commits:
+The long-standing G3 halt — inherited by every phase from 5 onward — was fixed
+during Phase 10. The suite went fully green for the first time after two commits:
 
 - `d71f9150e` — the five tests that encoded the pre-Phase-5 silent behavior now
   assert `EngineError` / `kind: output_check`, per the owner's OBS-05/OBS-06

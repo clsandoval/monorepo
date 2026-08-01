@@ -521,6 +521,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 10. Journey Gate Infrastructure | 6/6 | Complete | - |
 | 11. Account, Org & Case Journey Gates | 8/8 | Complete | - |
 | 12. Wizard & Output Journey Gates | 9/9 | Complete | 2026-07-31 |
-| 13. PDF Verification | 7/7 | Complete | 2026-07-31 |
+| 13. PDF Verification | 7/7 | Not started | 2026-07-31 |
 | 14. Lawyer-Blocked Legal Fixes & Legal Traceability | 6/6 | Complete | - |
 | 15. Extendability & Documentation Closeout | 3/5 | Executed | - |
