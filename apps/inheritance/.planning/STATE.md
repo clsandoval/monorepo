@@ -1,10 +1,10 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: executing
-stopped_at: "All 15 planned phases EXECUTED; 91 of 91 plans have committed summaries. INDEPENDENTLY SPOT-CHECKED 2026-08-01 by a closeout pass that re-ran the gates rather than trusting the per-phase ledger: the frontend suite really runs (2470 tests, 2424 passed, 46 known failures, 0 skipped, exit 0), `npx tsc -b` and `tsc -b --force` are both clean at exit 0, and Phase 5's observability is real (across all 171 committed corpus inputs: 105 rows with nonzero `from_legitime`, 37 with nonzero `from_free_portion`, 530 with nonzero `from_intestate`, 45 cases emitting warnings across 5 distinct categories, `computation_log.steps` length 10 in every case — the pre-Phase-5 baseline for all six was 0/0/0/0/0 and steps length 1). NOT DONE, and this is what the phase ledger's `Complete` rows hide: LAW-06/LAW-07/LAW-12 are BLOCKED-ON-LAWYER with LAWYER-06/04/08 all `awaiting-answer`; JRNY-02, JRNY-03 and JRNY-05 are PARTIAL with 5 journey rubrics committed but deliberately unregistered; EXT-02 is PARTIAL with gate G14 still unregistered; GATE-04 has never been observed because CI has never run and 223 commits are unpushed; and two real product defects found in Phase 11 (a `.single()` 406 in `getUserOrganization`, and a `23502` in `saveFirmProfile` that silently discards the attorney profile behind a screen reading 'You're all set!') are still unfixed. Next step: push the branch so CI executes for the first time — that is the one claim in this project that has never been observed."
-last_updated: "2026-08-01T04:00:00.000Z"
+milestone: v2.0
+milestone_name: Launch Readiness
+status: planning
+stopped_at: "Milestone v2.0 (Launch Readiness) roadmapped 2026-08-01: twelve phases, 16 through 27, recorded in .planning/ROADMAP.md with requirements CUT-* through CLOSE-* in .planning/REQUIREMENTS.md. NONE of the twelve is planned or executed — no phase directory exists for any of them, which is why the Progress table below still ends at phase 15. Next step: `/gsd-plan-phase 16`. Phase 16 is not new work, it is repair: the deletion milestone (commits 81984437e..4ccf06270, branch gsd/deletion-milestone) left the guided-intake cuts unfinished, ~1,465 frontend failures traceable to one missing jsdom global (ResizeObserver), and 24 failing journey references, so `bash scripts/ci-gates.sh` does NOT currently exit 0. The v1.0 record below is unchanged and still true. --- v1.0 closeout: All 15 planned phases EXECUTED; 91 of 91 plans have committed summaries. INDEPENDENTLY SPOT-CHECKED 2026-08-01 by a closeout pass that re-ran the gates rather than trusting the per-phase ledger: the frontend suite really runs (2470 tests, 2424 passed, 46 known failures, 0 skipped, exit 0), `npx tsc -b` and `tsc -b --force` are both clean at exit 0, and Phase 5's observability is real (across all 171 committed corpus inputs: 105 rows with nonzero `from_legitime`, 37 with nonzero `from_free_portion`, 530 with nonzero `from_intestate`, 45 cases emitting warnings across 5 distinct categories, `computation_log.steps` length 10 in every case — the pre-Phase-5 baseline for all six was 0/0/0/0/0 and steps length 1). NOT DONE, and this is what the phase ledger's `Complete` rows hide: LAW-06/LAW-07/LAW-12 are BLOCKED-ON-LAWYER with LAWYER-06/04/08 all `awaiting-answer`; JRNY-02, JRNY-03 and JRNY-05 are PARTIAL with 5 journey rubrics committed but deliberately unregistered; EXT-02 is PARTIAL with gate G14 still unregistered; GATE-04 has never been observed because CI has never run and 223 commits are unpushed; and two real product defects found in Phase 11 (a `.single()` 406 in `getUserOrganization`, and a `23502` in `saveFirmProfile` that silently discards the attorney profile behind a screen reading 'You're all set!') are still unfixed. Next step: push the branch so CI executes for the first time — that is the one claim in this project that has never been observed."
+last_updated: "2026-08-01T12:00:00.000Z"
 last_activity: 2026-08-01
 progress:
   total_phases: 15
@@ -75,15 +75,60 @@ See: .planning/PROJECT.md (updated 2026-07-27)
 
 ## Current Position
 
-Phase: 15 (Extendability & Documentation Closeout) — executed, 5 of 5
-Plan: 5 of 5 executed
-Status: Phase complete; milestone v1.0 has no further planned phase
+Phase: 16 (Stabilise the Deletion Milestone) — roadmapped, NOT started
+Plan: none — no plan file exists for any phase 16–27
+Status: Milestone v2.0 (Launch Readiness) defined; next action is `/gsd-plan-phase 16`
 
-`bash scripts/ci-gates.sh` prints **`ALL GATES PASSED (32/32)`** and exits 0. Requirement coverage
-40/94 → **44/94**. Start at `.planning/ORIENTATION.md`.
+**Read the `progress:` counters narrowly.** They are derived by gate G33
+(`node scripts/check-planning-truth.mjs`) from `.planning/phases/` alone, so they describe the fifteen
+executed v1.0 phases and nothing else. `percent: 100` means "every phase directory that exists holds
+one summary per plan" — it does **not** mean the project is 100% done. Twelve phases of milestone
+v2.0 are roadmapped and unplanned; each gains a Progress-table row and moves those counters when
+`/gsd-plan-phase <N>` creates its directory.
+
+**`bash scripts/ci-gates.sh` does NOT currently exit 0.** The last observed
+`ALL GATES PASSED (32/32)` predates the deletion milestone's four `cut(NN)` commits on this branch.
+Phase 16 exists to get back to green: the guided-intake cuts are unfinished, ~1,465 frontend failures
+trace to one missing jsdom global (`ResizeObserver`), and 24 journey references are failing. Do not
+quote the 32/32 figure as current.
+
+Milestone v1.0 closed at 32 gates with requirement coverage 44/94; adding the v2.0 requirements moves
+that denominator, and the informational coverage number in `node scripts/gate-coverage.mjs` will
+report the larger set. Start at `.planning/ORIENTATION.md`.
 
 Phase 14 remains EXECUTED, PARTIAL — LAW-13/14/15 gate-proven, LAW-06/07/12 BLOCKED-ON-LAWYER. Its
 detail is preserved in the section below.
+
+## Milestone v2.0 — Launch Readiness, ROADMAPPED 2026-08-01
+
+Twelve phases, recorded from the vision audit. Nothing is planned and nothing is executed. Detail,
+including per-phase goals, dependencies, requirement ids and success criteria, is in
+`.planning/ROADMAP.md` under `# Milestone v2.0 — Launch Readiness`.
+
+| Phase | Name | Requirements |
+|-------|------|--------------|
+| 16 | Stabilise the Deletion Milestone | CUT-01…04 |
+| 17 | Citation Integrity — One Attribution Authority | CITE-01…05 |
+| 18 | One Fact Set, Keyed on Date of Death | FACT-01…04 |
+| 19 | Wizard Persistence That Actually Persists | SAVE-01…05 |
+| 20 | NIRC §§248/249 Surcharge and Interest | PEN-01…05 |
+| 21 | BIR Form 1801 Exit | RET-01…05 |
+| 22 | Deed of Extrajudicial Settlement — Schedule of Shares | DEED-01…05 |
+| 23 | The Instrument — Letterhead, Attribution, Warnings in the PDF | INST-01…05 |
+| 24 | Signed Computation Identity | REPRO-01…04 |
+| 25 | Loud Refusal Where the Lawyer Has Not Ruled | REFUSE-01…04 |
+| 26 | Scope Lock | SCOPE-01…03 |
+| 27 | Launch Readiness Closeout | CLOSE-01…04 |
+
+The order is the audit's dependency ranking, not a value ranking. Citation integrity (17) and the
+shared fact set (18) precede everything that prints a document, because a citation-first product that
+contradicts its own citation is refuted rather than merely buggy.
+
+**Three points of Philippine law stay open across the whole milestone and none may be decided by an
+agent:** `LAWYER-04` (Art. 992's iron curtain, blocking `LAW-07`), `LAWYER-06` (a donation *inter
+vivos* exceeding the estate, blocking `LAW-06`) and `LAWYER-08` (RA 11642, blocking `LAW-12`). All
+three are `awaiting-answer`. Phase 25 implements the **refusal**, never the rule; gate G26 turns red
+the first run after an answer arrives, which is the signal to start the work, not a gate to edit.
 
 ## Phase 15 — Extendability & Documentation Closeout, COMPLETE
 

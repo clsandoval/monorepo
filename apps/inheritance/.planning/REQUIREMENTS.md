@@ -134,7 +134,103 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 
 ---
 
-## v2 Requirements
+## Milestone v2.0 Requirements — Launch Readiness
+
+**Defined:** 2026-08-01, from the vision audit. Owning phases 16–27. Every id below is stable and is
+referenced by exactly one phase in `.planning/ROADMAP.md`.
+
+### Deletion Milestone Stabilisation (Phase 16)
+
+- [ ] **CUT-01**: The guided intake contains no conflict-check, client-details or settlement-track step, and `frontend/src/lib/conflict-check.ts` plus the intake types those cuts orphaned do not exist
+- [ ] **CUT-02**: `frontend/src/test-setup.ts` supplies the missing jsdom globals — a `ResizeObserver` polyfill plus `scrollIntoView` and `hasPointerCapture` shims — and the failure count drop is measured before and after
+- [ ] **CUT-03**: Every failing journey reference is either passing or explicitly reported for human review; a reference is re-approved only when its diff is confined to the deleted sidebar navigation region, recorded `--by deletion-milestone-nav-change`
+- [ ] **CUT-04**: `bash scripts/ci-gates.sh` exits 0 with nothing weakened, skipped or ledgered to get there
+
+### Citation Integrity (Phase 17)
+
+- [ ] **CITE-01**: The engine is the single attribution authority — it emits the governing article per heir row and no other layer computes, maps or infers one
+- [ ] **CITE-02**: Narrative and table agree about the governing article for the same heirs on every committed corpus input
+- [ ] **CITE-03**: The citation pill resolves for every article the engine emits; the `Art. 996` / `Art.996` key mismatch in `frontend/src/data/ncc-articles.ts` is gone and an unresolvable key fails loudly
+- [ ] **CITE-04**: `predictScenario` and `computeMock` are deleted from `frontend/src/wasm/bridge.ts`, closing the duplicate legal rule named by CLAUDE.md invariant 5 and the reserved gate `G14` (also closes `EXT-02`)
+- [ ] **CITE-05**: A blocking gate fails when the table, the narrative, the citation pill and the PDF disagree about the article for the same heir
+
+### One Fact Set (Phase 18)
+
+- [ ] **FACT-01**: Date of death is entered exactly once per case and neither engine offers a second independently-editable field for it
+- [ ] **FACT-02**: Both engines read the one shared date of death; the fact set crossing the boundary carries more than `decedent_name`
+- [ ] **FACT-03**: The rules the date drives — TRAIN versus pre-TRAIN, the repealed medical deduction, RA 11642 retroactivity — read the shared value
+- [ ] **FACT-04**: A case whose two fact sets disagree about the date of death fails a blocking check that prints both values, rather than computing
+
+### Wizard Persistence (Phase 19)
+
+- [ ] **SAVE-01**: A `methods.watch()` subscription reaches `useAutoSave` through an `onChange` prop, so wizard edits schedule a save without pressing Compute
+- [ ] **SAVE-02**: The `prevInputRef` reference-equality guard is replaced by a value comparison, so the debounce fires on a changed value
+- [ ] **SAVE-03**: Unmounting the wizard flushes a pending save instead of clearing it
+- [ ] **SAVE-04**: Save status is visible to the lawyer, and a failed save is never rendered as success
+- [ ] **SAVE-05**: A nine-heir family tree survives a page reload, proven by a journey step against the live database
+
+### NIRC §§248/249 Penalties (Phase 20)
+
+- [ ] **PEN-01**: Surcharge is computed from the date of death per NIRC §248, replacing the hardcoded `surcharges: 0`
+- [ ] **PEN-02**: Interest is computed from the date of death per NIRC §249, replacing the hardcoded `interest: 0`
+- [ ] **PEN-03**: `total_amount_due` is the sum of estate tax, surcharge, interest and compromise penalty, and moves when the date of death moves
+- [ ] **PEN-04**: Every penalty line cites the section that governs it
+- [ ] **PEN-05**: Where the statute is ambiguous the engine refuses loudly and the question is recorded as a new `LAWYER-<NN>` entry with status `awaiting-answer`; no reading is adopted, defaulted or stubbed
+
+### BIR Form 1801 Exit (Phase 21)
+
+- [ ] **RET-01**: Every displayed deduction row equals the amount the computation applied — Item 35A no longer shows `0.00` against ₱5,000,000 applied
+- [ ] **RET-02**: The return exports as a PDF
+- [ ] **RET-03**: The return exports as a CSV carrying the same centavo integers
+- [ ] **RET-04**: Every line of both exports carries the NIRC section or RR provision that governs it, read from the engine
+- [ ] **RET-05**: A blocking gate compares displayed, PDF and CSV figures against a same-run engine computation, in both directions
+
+### Deed Schedule of Shares (Phase 22)
+
+- [ ] **DEED-01**: The schedule-of-shares clause is obtainable as pasteable text from a computed case
+- [ ] **DEED-02**: The same clause is obtainable as DOCX
+- [ ] **DEED-03**: Every heir line in the clause carries the Civil Code article the engine emitted for that heir
+- [ ] **DEED-04**: Where a share cannot be expressed without a lawyer's judgement, the clause says so and names what must be decided, rather than inventing wording
+- [ ] **DEED-05**: Every peso figure in the clause equals the engine's centavo value exactly, proven against a same-run computation
+
+### The Instrument (Phase 23)
+
+- [ ] **INST-01**: `ActionsBar` loads the firm profile and passes it to `downloadPDF`, so a configured letterhead renders in an obtainable PDF
+- [ ] **INST-02**: The PDF carries an attorney attribution block — name, Roll number, IBP, PTR, MCLE
+- [ ] **INST-03**: Every engine warning shown on screen is printed in the PDF
+- [ ] **INST-04**: No raw markdown asterisk reaches the page and the duplicated `Art. 996: Art. 996` line renders once
+- [ ] **INST-05**: Gate G24's perceptual references are re-approved deliberately, each diff inspected and each approval attributed
+
+### Reproducibility (Phase 24)
+
+- [ ] **REPRO-01**: Every computation is stamped immutably with engine version, ruleset-as-of date, input hash and timestamp
+- [ ] **REPRO-02**: A computation is never overwritten in place; the previous record stays retrievable after a re-run
+- [ ] **REPRO-03**: Re-running a stored input on the same engine version reproduces the same output hash, proven by a gate
+- [ ] **REPRO-04**: The stamp appears in the PDF, the return exports and the deed clause, and no public verification portal or hash-addressable public route is built
+
+### Loud Refusal (Phase 25)
+
+- [ ] **REFUSE-01**: A fact pattern engaging Art. 992's iron curtain raises a manual-review flag and the engine declines to distribute — the refusal, not the rule (`LAW-07` stays open on `LAWYER-04`)
+- [ ] **REFUSE-02**: A donation *inter vivos* exceeding the estate raises a manual-review flag and the engine declines to compute (`LAW-06` stays open on `LAWYER-06`)
+- [ ] **REFUSE-03**: Each refusal names and quotes the open question it is waiting on
+- [ ] **REFUSE-04**: The refusal is visible on every surface the computation would have reached — screen, PDF, deed clause and exported return
+
+### Scope Lock (Phase 26)
+
+- [ ] **SCOPE-01**: `scripts/check-scope.mjs` and a committed lock file pin route count, exported component count, runtime dependency count, migration count and public engine exports
+- [ ] **SCOPE-02**: Growing any of the five fails a blocking gate registered in `gates.manifest.json`
+- [ ] **SCOPE-03**: Adding to the lock is owner action; the check has no fix, update, accept, regenerate or waiver flag, and every failure path has been observed firing against a committed fixture
+
+### Launch Readiness Closeout (Phase 27)
+
+- [ ] **CLOSE-01**: `CLAUDE.md`'s invariants read as final truth, each naming the command and gate id that enforces it
+- [ ] **CLOSE-02**: `.planning/STATE.md` and `.planning/ROADMAP.md` agree with the filesystem and the gate set, proven by gate G33
+- [ ] **CLOSE-03**: `LAUNCH-READINESS.md` states what works end to end, what is blocked on the lawyer and on which question, and what a returning owner must do first
+- [ ] **CLOSE-04**: If the product is not launchable `LAUNCH-READINESS.md` says so and says why; every claim is paired with the command that proves it or is explicitly labelled unmeasured
+
+---
+
+## v3 Requirements (deferred beyond Launch Readiness)
 
 ### Payments
 
@@ -260,6 +356,59 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | EXT-06 | Phase 15 | Complete — proven by G31, `node scripts/check-new-rule-procedure.mjs` |
 | EXT-07 | Phase 15 | Complete — proven by G32, `node scripts/check-doc-claims.mjs` |
 | EXT-08 | Phase 15 | Complete — proven by G33, `node scripts/check-planning-truth.mjs` |
+| CUT-01 | Phase 16 | Planned |
+| CUT-02 | Phase 16 | Planned |
+| CUT-03 | Phase 16 | Planned |
+| CUT-04 | Phase 16 | Planned |
+| CITE-01 | Phase 17 | Planned |
+| CITE-02 | Phase 17 | Planned |
+| CITE-03 | Phase 17 | Planned |
+| CITE-04 | Phase 17 | Planned — supersedes the `EXT-02` remainder and the reserved gate `G14` |
+| CITE-05 | Phase 17 | Planned |
+| FACT-01 | Phase 18 | Planned |
+| FACT-02 | Phase 18 | Planned |
+| FACT-03 | Phase 18 | Planned |
+| FACT-04 | Phase 18 | Planned |
+| SAVE-01 | Phase 19 | Planned |
+| SAVE-02 | Phase 19 | Planned |
+| SAVE-03 | Phase 19 | Planned |
+| SAVE-04 | Phase 19 | Planned |
+| SAVE-05 | Phase 19 | Planned |
+| PEN-01 | Phase 20 | Planned |
+| PEN-02 | Phase 20 | Planned |
+| PEN-03 | Phase 20 | Planned |
+| PEN-04 | Phase 20 | Planned |
+| PEN-05 | Phase 20 | Planned |
+| RET-01 | Phase 21 | Planned |
+| RET-02 | Phase 21 | Planned |
+| RET-03 | Phase 21 | Planned |
+| RET-04 | Phase 21 | Planned |
+| RET-05 | Phase 21 | Planned |
+| DEED-01 | Phase 22 | Planned |
+| DEED-02 | Phase 22 | Planned |
+| DEED-03 | Phase 22 | Planned |
+| DEED-04 | Phase 22 | Planned |
+| DEED-05 | Phase 22 | Planned |
+| INST-01 | Phase 23 | Planned |
+| INST-02 | Phase 23 | Planned |
+| INST-03 | Phase 23 | Planned |
+| INST-04 | Phase 23 | Planned |
+| INST-05 | Phase 23 | Planned |
+| REPRO-01 | Phase 24 | Planned |
+| REPRO-02 | Phase 24 | Planned |
+| REPRO-03 | Phase 24 | Planned |
+| REPRO-04 | Phase 24 | Planned |
+| REFUSE-01 | Phase 25 | Planned — the refusal only; `LAW-07` stays BLOCKED on `LAWYER-04` |
+| REFUSE-02 | Phase 25 | Planned — the refusal only; `LAW-06` stays BLOCKED on `LAWYER-06` |
+| REFUSE-03 | Phase 25 | Planned |
+| REFUSE-04 | Phase 25 | Planned |
+| SCOPE-01 | Phase 26 | Planned |
+| SCOPE-02 | Phase 26 | Planned |
+| SCOPE-03 | Phase 26 | Planned |
+| CLOSE-01 | Phase 27 | Planned |
+| CLOSE-02 | Phase 27 | Planned |
+| CLOSE-03 | Phase 27 | Planned |
+| CLOSE-04 | Phase 27 | Planned |
 
 **Coverage:**
 - v1 requirements: **80** total (GATE 9, OBS 9, LAW 15, COV 6, JRNY 12, PDF 5, EXT 8, LAWYER 10, LOOP 6)
@@ -277,4 +426,5 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 
 ---
 *Requirements defined: 2026-07-27*
-*Last updated: 2026-07-31 after Phase 8 execution and verification (LAW-05, LAW-08, LAW-09, LAW-10, LAW-11 Complete; preterition preserves non-inofficious legacies and yields to a collated donation, the TRAIN-repealed medical deduction is gone, transfers for public use enter the vanishing-deduction ratio, the tax bridge hands over the Art. 908 base, and reserva troncal is enterable and flagged)*
+*Last updated: 2026-08-01 — milestone v2.0 (Launch Readiness) requirements added, `CUT-*` through `CLOSE-*`, owning phases 16–27. The v1.0 rows below were last revised 2026-07-31 after Phase 8 and are known stale in both directions; see `.planning/STATE.md` "What the spot-check contradicted".*
+*Previously updated: 2026-07-31 after Phase 8 execution and verification (LAW-05, LAW-08, LAW-09, LAW-10, LAW-11 Complete; preterition preserves non-inofficious legacies and yields to a collated donation, the TRAIN-repealed medical deduction is gone, transfers for public use enter the vanishing-deduction ratio, the tax bridge hands over the Art. 908 base, and reserva troncal is enterable and flagged)*

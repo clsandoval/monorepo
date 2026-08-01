@@ -28,6 +28,21 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 14: Lawyer-Blocked Legal Fixes & Legal Traceability** - Apply the lawyer's answers; trace every rule to a named vector (6/6 plans executed 2026-08-01; NOT complete. **LAW-13, LAW-14 and LAW-15 are gate-proven**; **LAW-06, LAW-07 and LAW-12 remain BLOCKED-ON-LAWYER** on LAWYER-06, LAWYER-04 and LAWYER-08 respectively — all three statuses in `.planning/lawyer-decisions.json` are still `awaiting-answer` with `answered_by`/`answered_on`/`answer` null, because the lawyer is sitting the bar exam. No reading of Art. 771, Art. 911, Art. 992 or RA 11642 Sec. 41 was adopted, implemented, defaulted or stubbed anywhere in the tree; each question is quoted verbatim in `.planning/BLOCKED-REQUIREMENTS.md`. Four gates added at the planned orders: **G26** blocked requirements (21), **G27** spec legal text (22), **G28** legal traceability (23), **G29** bugs ledger (24); G10, G11, G8 and G9 shifted to 25–28 with G9 still last, `order` the only field that moved and `gates.manifest.lock` gaining exactly four entries. `bash scripts/ci-gates.sh` prints **`ALL GATES PASSED (28/28)`** and exits 0, observed on three runs at ~5m28s each including once against the committed tree; requirement coverage rose 34/94 → **40/94**. LAW-13: the Art. 992 pre-*Aquino* framing, the Art. 900 ¶2 three-month trigger and the Art. 972 ¶1 omission corrected across both succession specs and `frontend/src/data/ncc-articles.ts` (the repository had **zero** mentions of *Aquino* before this phase), the vanishing-deduction list verified intact from Phase 8, and the resulting Art. 900 ¶2 spec-to-code divergence recorded under the literal marker `KNOWN DIVERGENCE: engine/src/step5_legitimes.rs` rather than silently closed. LAW-14: 63 `// LEGAL-VECTOR: Art. NNN` markers inserted comment-only into already-passing tests with `cargo test` byte-identical at 543, then `engine/legal-rules.json` mapping **63 of 79** cited articles to exactly one named test function and **16** declared in the new shrink-only `engine/legal-traceability.lock`. LAW-15: BUG-001 **closed as non-reproducing** — its own committed JSON now sums to exactly ₱30,000,000 with both disinherited children at ₱0 — and **BUG-002 filed** against the real open defect at `engine/src/step7_distribute.rs:421` (the audit's `:313` moved after the Phase 7 and 8 fixes), where an institution of the entire free portion is reduced by the instituted heir's legitime so ₱3,750,000 of free portion emerges as `from_intestate` on an uninstituted heir while the sum invariant still holds. **BUG-002 is documented, not fixed, and no requirement owns it** — recorded in its own `### Owning requirement` section. `cargo test` 546 passed / 0 failed, up from 543)
 - [x] **Phase 15: Extendability & Documentation Closeout** - Invariants a cheap agent must not violate, and a planning dir a stranger can read
 
+**Milestone v2.0 — Launch Readiness (Phases 16–27).** Roadmapped 2026-08-01, none planned yet.
+
+- [ ] **Phase 16: Stabilise the Deletion Milestone** - Finish the deferred cuts and get `ci-gates.sh` back to exit 0
+- [ ] **Phase 17: Citation Integrity — One Attribution Authority** - The engine emits the article; no other layer may derive one
+- [ ] **Phase 18: One Fact Set, Keyed on Date of Death** - One date of death, shared, with a blocking equality check
+- [ ] **Phase 19: Wizard Persistence That Actually Persists** - A nine-heir family tree survives a refresh
+- [ ] **Phase 20: NIRC §§248/249 Surcharge and Interest** - The return states what a late estate actually owes
+- [ ] **Phase 21: BIR Form 1801 Exit** - Reconcile the deduction rows, then give the return a PDF and a CSV
+- [ ] **Phase 22: Deed of Extrajudicial Settlement — Schedule of Shares** - The schedule clause as pasteable text and DOCX, nothing else of the deed
+- [ ] **Phase 23: The Instrument — Letterhead, Attribution, Warnings in the PDF** - Make the output an instrument instead of a printout
+- [ ] **Phase 24: Signed Computation Identity** - Every computation immutably stamped and reproducible
+- [ ] **Phase 25: Loud Refusal Where the Lawyer Has Not Ruled** - Art. 992 and the over-estate donation refuse to compute
+- [ ] **Phase 26: Scope Lock** - A lock file that stops the deleted 28% from growing back
+- [ ] **Phase 27: Launch Readiness Closeout** - Final truth in the docs, and an honest `LAUNCH-READINESS.md`
+
 ## Phase Details
 
 ### Phase 1: Gate Foundations — Suites Execute At All
@@ -502,10 +517,212 @@ Cross-cutting constraints (appear in 2+ plans):
   - `G14` stays reserved and unregistered for Phase 9's `09-06`; the new ids are G30–G33 at orders 25–28, G10/G11/G8/G9 shift to 29–32 with `G9` still last, and `bash scripts/ci-gates.sh` must print `ALL GATES PASSED (32/32)`
   - No point of Philippine law arises anywhere in this phase; `specs/` legal prose is explicitly out of scope because gate G27 already owns it, and the new-rule procedure *routes* a legal question to `.planning/LAWYER-AGENDA.md` rather than answering one
 
+---
+
+# Milestone v2.0 — Launch Readiness
+
+## Overview
+
+Milestone v1.0 built the verification foundation and the deletion milestone narrowed the surface by
+roughly 28%. The vision audit's finding about what remains is one sentence: **the engines are
+excellent and the product has no output tray.** It abandons the lawyer at the two moments their name
+goes on something — the schedule of shares inside the Deed of Extrajudicial Settlement, and BIR Form
+1801.
+
+The product identity every phase below serves:
+
+> Inheritance produces the estate computation of record: from one fact set — date of death, family,
+> asset schedule — a per-heir schedule of shares and a BIR Form 1801, every line carrying the Civil
+> Code article or NIRC section that governs it, defensible enough to paste into the Deed of
+> Extrajudicial Settlement and to file.
+
+The twelve phases run in the audit's dependency ranking, not in order of visible value. Phase 16
+repairs the deletion milestone, because nothing can be measured against a red suite. Phases 17 and 18
+come before anything that prints a document: a product whose claim is defensibility cannot ship an
+instrument while its own layers contradict each other about which article governs a heir (Phase 17)
+or while two engines hold two independently-editable dates of death (Phase 18). Phase 19 is here
+early for a blunt reason — a lawyer who loses a nine-heir family tree to a refresh does not come
+back, so nothing downstream matters if they do not. Phases 20–23 build the output tray in the order
+its parts depend on each other: the penalty clock, the return's exit, the deed clause, then the
+instrument dressing that makes all three signable. Phase 24 makes any of it reproducible. Phase 25 is
+sequenced late deliberately — implementing refusal is most tempting to convert into implementing the
+rule, and it is the one place where guessing is unrecoverable. Phase 26 locks the surface so the
+deleted 28% cannot grow back, and Phase 27 tells the truth about whether this is launchable.
+
+**Three questions of Philippine law are open across this milestone and none may be decided by an
+agent:** Q4 / `LAWYER-04` (Art. 992's iron curtain, blocking `LAW-07`), Q6 / `LAWYER-06` (a donation
+*inter vivos* exceeding the estate, blocking `LAW-06`) and Q8 / `LAWYER-08` (RA 11642 adoptee rights,
+blocking `LAW-12`). All three are `awaiting-answer` in `.planning/lawyer-decisions.json` and the
+lawyer is unreachable. Phase 25 implements the **refusal**, never the rule. Gate G26 turns red the
+first run after any answer arrives, which is the signal to start the work, not a gate to edit.
+
+### Phase 16: Stabilise the Deletion Milestone
+**Goal**: The deletion milestone's deferred cuts land cleanly and the gate suite is green again, so every later phase starts from a build that is measurably passing rather than one carrying ~1,465 environment failures and 24 unapproved journey references.
+**Depends on**: Nothing — first phase of v2.0. It finishes what commits `81984437e`…`4ccf06270` left open.
+**Requirements**: CUT-01, CUT-02, CUT-03, CUT-04
+**Success Criteria** (what must be TRUE):
+  1. The guided intake contains no conflict-check step, no client-details step and no settlement-track step; `frontend/src/lib/conflict-check.ts` and the intake types orphaned by those cuts do not exist; `cd frontend && npx tsc -b --force` exits 0.
+  2. `frontend/src/test-setup.ts` provides the missing jsdom globals — a `ResizeObserver` polyfill plus `scrollIntoView` and `hasPointerCapture` shims — and the frontend failure count falls by the failures attributable to them, **measured before and after**, not estimated.
+  3. Every journey step either passes or is explicitly reported for human review. Every re-approved reference was approved with `node journey/approve.mjs <stepId> --by deletion-milestone-nav-change`, and its diff was inspected and found confined to the deleted sidebar navigation region.
+  4. `bash scripts/ci-gates.sh` exits 0.
+  5. No test, assertion, gate or baseline floor was weakened, and no entry was appended to `gate-skips.lock`, `assertion-baseline.json` or `test-baseline.json` to turn a red run green.
+**Cross-cutting constraints**:
+  - The wizard is edited **step by step with a typecheck between edits**. A regex sweep over `GuidedIntakeForm.tsx` is prohibited: a previous attempt did exactly that, mangled the file, and was reverted.
+  - A journey reference may be re-approved **only** when its visual diff is confined to the deleted sidebar navigation region. A diff touching a wizard field, a money figure, a table or a citation is left failing and reported for human review. Approving a diff nobody inspected is the exact failure `journey/approve.mjs` exists to prevent.
+  - Every commit stages explicit file paths via `bash scripts/safe-commit.sh`; `git add -A`, `git add .` and `git commit -a` are prohibited.
+  - No point of Philippine law arises anywhere in this phase.
+
+### Phase 17: Citation Integrity — One Attribution Authority
+**Goal**: The engine emits the governing article for each heir row and no other layer derives one, enforced by a blocking gate — because in a citation-first product, contradicting your own citation on screen is not a defect, it is a refutation.
+**Depends on**: Phase 16 (a green suite is the precondition for adding a blocking gate)
+**Requirements**: CITE-01, CITE-02, CITE-03, CITE-04, CITE-05
+**Success Criteria** (what must be TRUE):
+  1. Exactly one layer produces the governing article for a heir row — the engine. The table, the narrative, the citation pill and the PDF all read that value; none computes, maps or infers its own.
+  2. No narrative cites Art. 887 for heirs whose table row cites Art. 996. Table and narrative agree per heir across every committed corpus input.
+  3. The citation pill resolves for every article the engine emits: the `Art. 996` versus `Art.996` key mismatch in `frontend/src/data/ncc-articles.ts` is gone, and an unresolvable key fails loudly rather than rendering a dead pill.
+  4. `predictScenario` and `computeMock` no longer exist in `frontend/src/wasm/bridge.ts` — the surviving duplicate named by CLAUDE.md invariant 5 and owned by `EXT-02`, whose reserved gate `G14` this phase closes.
+  5. A new **blocking** gate fails when the table, the narrative, the pill and the PDF disagree about the article for the same heir, and has been observed going red on an injected disagreement and green again after the injection was reverted.
+**Cross-cutting constraints**:
+  - No article string is corrected on its own authority. A citation that disagrees with the engine is made to **read** the engine; a citation the engine itself gets wrong is a legal question and goes to `.planning/LAWYER-AGENDA.md`.
+  - The gate is added by appending to `gates.manifest.json` and `gates.manifest.lock` together; the gate set may only grow and `G9` stays last.
+  - No test, assertion or gate may be weakened to pass; a gate that cannot legitimately pass is reported BLOCKED with the real pasted output.
+
+### Phase 18: One Fact Set, Keyed on Date of Death
+**Goal**: Date of death is entered once and shared by both engines, with a blocking check that they can never silently disagree about it — closing the seam where the product's entire defensibility claim rests on two spines that can drift.
+**Depends on**: Phase 16, Phase 17
+**Requirements**: FACT-01, FACT-02, FACT-03, FACT-04
+**Success Criteria** (what must be TRUE):
+  1. A lawyer enters the date of death exactly once per case. Neither the succession path nor the estate-tax path offers a second, independently editable field for it.
+  2. Both engines read that one value. Today only `decedent_name` crosses; after this phase the fact set crossing the boundary carries the date of death as its keyed spine.
+  3. The three rules the date drives read the shared value: TRAIN versus pre-TRAIN, the TRAIN-repealed medical deduction, and RA 11642 retroactivity.
+  4. A stored case whose two fact sets disagree about the date of death **fails a blocking check** that prints both values, rather than computing on either.
+  5. Changing the date of death once changes both engines' output, proven on a real case rather than in a unit test alone.
+**Cross-cutting constraints**:
+  - RA 11642 retroactivity stays BLOCKED on `LAWYER-08`. This phase routes the date to that rule; it does not decide the rule, and `config.retroactive_ra_11642` stays inert.
+  - No peso figure and no legal outcome may change as a side effect of unifying the field. If one moves, that is a finding to report, not a result to accept.
+
+### Phase 19: Wizard Persistence That Actually Persists
+**Goal**: Work in the succession wizard survives a page reload, because `useAutoSave` is currently dead code and a lawyer who loses a nine-heir family tree does not open the app a second time.
+**Depends on**: Phase 16
+**Requirements**: SAVE-01, SAVE-02, SAVE-03, SAVE-04, SAVE-05
+**Success Criteria** (what must be TRUE):
+  1. Editing any field in the succession wizard schedules a save without pressing Compute: a `methods.watch()` subscription reaches `useAutoSave` through an `onChange` prop, so `setAutoSaveInput` is no longer called only inside the load effect.
+  2. The debounce actually fires on a changed value — the `prevInputRef` reference-equality guard is replaced by a value comparison, observed firing on an edit that preserves object identity.
+  3. Unmounting the wizard with a save pending **flushes** it instead of clearing it, proven by a test that unmounts inside the debounce window.
+  4. The lawyer can see save state on screen — saving, saved, or failed — and a failed save is never rendered as success.
+  5. A nine-heir family tree entered and then reloaded comes back, proven by a journey step against the live database, not by a unit test alone.
+
+### Phase 20: NIRC §§248/249 Surcharge and Interest
+**Goal**: The return states what a late estate actually owes. `pipeline.ts` hardcodes `surcharges: 0, interest: 0, compromise_penalty: 0` with `total_amount_due = estateTaxDue`, so for the years-late estates that walk into a small firm the product currently **understates the liability**.
+**Depends on**: Phase 18 (the surcharge clock is a function of the shared date of death)
+**Requirements**: PEN-01, PEN-02, PEN-03, PEN-04, PEN-05
+**Success Criteria** (what must be TRUE):
+  1. `surcharges`, `interest` and `total_amount_due` in `frontend/src/lib/estate-tax-engine/pipeline.ts` are computed from the date of death and the filing date. No hardcoded zero survives on the total's inputs.
+  2. Surcharge is computed per NIRC §248 and interest per NIRC §249, on separate lines, each line carrying the section that governs it.
+  3. `total_amount_due` equals estate tax plus surcharge plus interest plus compromise penalty, and a test proves the total moves when the date of death moves.
+  4. Where the statute is ambiguous, the engine **refuses loudly**: it raises a manual-review flag, declines that line, and the question is recorded as a new `LAWYER-<NN>` entry in `.planning/LAWYER-AGENDA.md` with a matching object in `.planning/lawyer-decisions.json`, status `awaiting-answer`. No reading is adopted, defaulted or stubbed.
+  5. The compromise penalty is either computed from a cited schedule or **expressly declared outside the engine's competence** on the face of the return. It is not left silently at 0 while the total claims to be complete.
+**Cross-cutting constraints**:
+  - `grep -c "\[x\]" .planning/LAWYER-AGENDA.md` still returns 0 at the end of the phase.
+  - Every penalty figure is an exact centavo integer; no float, no tolerance, no `toFixed` in any comparison path.
+
+### Phase 21: BIR Form 1801 Exit
+**Goal**: The estate-tax surface, which today has zero export of any kind, produces a filable return — and its displayed deduction rows stop contradicting its own arithmetic.
+**Depends on**: Phase 17 (attribution authority), Phase 20 (the total the export prints)
+**Requirements**: RET-01, RET-02, RET-03, RET-04, RET-05
+**Success Criteria** (what must be TRUE):
+  1. Every deduction row displayed on Form 1801 equals the amount the computation applied — Item 35A no longer shows `0.00` against ₱5,000,000 applied — proven by an exact centavo comparison in both directions.
+  2. A lawyer can export the return as a PDF from the estate-tax surface.
+  3. A lawyer can export the return as a CSV carrying the same centavo integers.
+  4. Every line of both exports carries the NIRC section or RR provision that governs it, read from the engine and never derived in the export layer.
+  5. A blocking gate compares the displayed figures, the exported PDF figures and the exported CSV figures against a **same-run** engine computation, and has been observed failing on a one-centavo injection in each direction.
+**Cross-cutting constraints**:
+  - Reconciliation lands **before** the exports. A return whose display contradicts its own arithmetic must not be given an exit.
+  - No expected peso figure is committed. Every expected amount is produced by an engine run during the gate, the discipline gate G19 established.
+
+### Phase 22: Deed of Extrajudicial Settlement — Schedule of Shares
+**Goal**: The largest gap in the product closes — the numbers' only real destination becomes reachable. Today the Deed exists in this codebase only as a checklist label the deletion milestone removed, while the app computes to the centavo the exact figures whose sole purpose is that document.
+**Depends on**: Phase 17 (every heir line carries its article), Phase 18 (one fact set)
+**Requirements**: DEED-01, DEED-02, DEED-03, DEED-04, DEED-05
+**Success Criteria** (what must be TRUE):
+  1. From a computed case a lawyer obtains the schedule-of-shares clause as pasteable text.
+  2. The same clause is obtainable as DOCX.
+  3. Every heir line in the clause carries the Civil Code article the engine emitted for that heir.
+  4. Where a share cannot be expressed without a lawyer's judgement, the clause **says so in place of that line** and names what must be decided. It never invents wording.
+  5. Every peso figure in the clause equals the engine's centavo value exactly, proven by a gate against a same-run computation.
+  6. Nothing else of the deed ships: no parties clause, no publication clause, no bond clause, no undertaking. Only the clause the engine can defend.
+**Cross-cutting constraints**:
+  - No clause wording asserts a legal conclusion the engine did not produce. Where the wording itself is a legal question, it is recorded for the lawyer and the clause refuses that line.
+
+### Phase 23: The Instrument — Letterhead, Attribution, Warnings in the PDF
+**Goal**: The exported document stops being a printout and becomes an instrument. `ActionsBar.tsx` calls `downloadPDF(input, output, null)` — the third argument is the firm profile, and `EstatePDF` gates the letterhead on it, so the letterhead the app captures and stores can never render.
+**Depends on**: Phase 17, Phase 21, Phase 22
+**Requirements**: INST-01, INST-02, INST-03, INST-04, INST-05
+**Success Criteria** (what must be TRUE):
+  1. `ActionsBar` loads the firm profile and passes it to `downloadPDF`, so a configured letterhead renders in a PDF a user can actually obtain.
+  2. The PDF carries an attorney attribution block: name, Roll of Attorneys number, IBP number, PTR number and MCLE compliance.
+  3. Every engine warning shown on screen is printed **in** the PDF. The refusal to guess is a headline feature and currently exists only in an on-screen panel.
+  4. No raw markdown asterisk reaches the page, and the duplicated `Art. 996: Art. 996` line renders once.
+  5. Gate G24's perceptual references are re-approved deliberately for these changes, each diff inspected and each approval attributed.
+
+### Phase 24: Signed Computation Identity
+**Goal**: A computation can be reproduced and compared. `output_json` is overwritten in place today, so the document a lawyer filed last quarter cannot be re-derived.
+**Depends on**: Phase 22, Phase 23 (the stamp must appear on the artifacts those phases produce)
+**Requirements**: REPRO-01, REPRO-02, REPRO-03, REPRO-04
+**Success Criteria** (what must be TRUE):
+  1. Every computation is stamped immutably with engine version, ruleset-as-of date, input hash and timestamp, and the stamp appears in the PDF, the return exports and the deed clause.
+  2. A computation is never overwritten in place: re-running a case produces a new stamped record and the previous record stays retrievable.
+  3. Re-running a stored input on the same engine version reproduces the same output hash, proven by a gate.
+  4. The lawyer-facing framing is **reproducibility**. No public verification portal, no anonymous re-run endpoint and no hash-addressable public route is built — the primary consumer of independent re-runnability is an adversary.
+
+### Phase 25: Loud Refusal Where the Lawyer Has Not Ruled
+**Goal**: The two fact patterns the engine currently gets silently wrong stop computing. Art. 992's iron curtain is not merely omitted — the engine distributes as though it did not exist — and a donation exceeding the estate reproduced a ₱30M distribution out of a ₱10M estate.
+**Depends on**: Phase 17, Phase 22, Phase 23 (the refusal must be visible on every surface the computation would have reached)
+**Requirements**: REFUSE-01, REFUSE-02, REFUSE-03, REFUSE-04
+**Success Criteria** (what must be TRUE):
+  1. A fact pattern engaging Art. 992's iron curtain raises a manual-review flag and the engine **declines to produce a distribution**, instead of distributing as though the article did not exist.
+  2. A donation *inter vivos* exceeding the estate raises a manual-review flag and the engine **declines to compute**, instead of distributing more than the estate holds.
+  3. Each refusal names and quotes the open question it is waiting on — `LAWYER-04` for Art. 992, `LAWYER-06` for the donation excess.
+  4. The refusal is visible everywhere the computation would have gone: the results screen, the PDF, the deed clause and the exported return. A refusal that appears in one surface and not another is a failure of this phase.
+**Cross-cutting constraints**:
+  - **This is the phase where guessing would be most tempting and most damaging. Implement the refusal, not the rule.** `LAW-06` and `LAW-07` stay open; no reading of Art. 771, Art. 911 or Art. 992 is adopted, implemented, defaulted or stubbed.
+  - `.planning/lawyer-decisions.json` and `.planning/LAWYER-AGENDA.md` are not edited to change any status. Gate G26 must still pass on `awaiting-answer` at the end of the phase.
+  - "Refuse to compute" is itself a reading of what the product should do, not of what the law says — that distinction is what makes this phase permissible at all, and it must not be stretched.
+
+### Phase 26: Scope Lock
+**Goal**: The surface the deletion milestone narrowed cannot grow back silently. This is what makes the rest of the milestone affordable for one person with scarce recurring attention.
+**Depends on**: Phase 16 (lock the post-deletion tree), Phases 21–25 (the surface those phases legitimately add is in the lock before it closes)
+**Requirements**: SCOPE-01, SCOPE-02, SCOPE-03
+**Success Criteria** (what must be TRUE):
+  1. `scripts/check-scope.mjs` exists and a committed lock file pins five numbers per `.planning/PHASE-16-BRIEF.md`: route count, exported component count, runtime dependency count, migration count and public engine exports.
+  2. Growing any of the five fails a **blocking** gate registered in `gates.manifest.json`.
+  3. Adding to the lock is **owner action**, exactly like the gate manifest under CLAUDE.md invariant 2. The check has no `--fix`, `--update`, `--accept`, `--regenerate` or waiver flag of any kind, and cannot rewrite its own input.
+  4. Every failure path has been observed firing against a committed fixture — a gate nobody has seen fail is not known to be a gate.
+  5. The lock's committed values are measured from the tree, never hand-written.
+
+### Phase 27: Launch Readiness Closeout
+**Goal**: A returning owner, or the lawyer collaborator arriving after the bar, can determine from the planning directory alone what works, what is blocked and on whom, and what to do first — with no optimism anywhere in it.
+**Depends on**: All prior phases (it states their final truth)
+**Requirements**: CLOSE-01, CLOSE-02, CLOSE-03, CLOSE-04
+**Success Criteria** (what must be TRUE):
+  1. `CLAUDE.md`'s invariants read as final truth, including any invariant this milestone added, each naming the command and gate id that enforces it.
+  2. `.planning/STATE.md` and `.planning/ROADMAP.md` agree with the filesystem and with the gate set, proven by gate G33.
+  3. `LAUNCH-READINESS.md` exists and states plainly: what works end to end, what is still blocked on the lawyer and which question blocks it, and what a returning owner must do first.
+  4. If the product is not launchable, `LAUNCH-READINESS.md` **says so and says why**. No claim of readiness survives a reading against the gate output.
+  5. Every claim in `LAUNCH-READINESS.md` is either paired with the command that proves it or is explicitly labelled unmeasured — including the longest-standing one, that CI has never executed.
+
 ## Progress
 
 **Execution Order:**
 Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15
+(milestone v1.0, complete) → 16 → 17 → 18 → 19 → 20 → 21 → 22 → 23 → 24 → 25 → 26 → 27
+(milestone v2.0, Launch Readiness, roadmapped 2026-08-01)
+
+**Why phases 16–27 have no row in the table below.** Gate G33
+(`node scripts/check-planning-truth.mjs`) derives every row from `.planning/phases/<NN>-<slug>/`, and
+raises `ROADMAP PLAN COUNT` for a row whose phase directory does not exist. None of the twelve has
+been planned, so none has a directory. Each gains its row when `/gsd-plan-phase <N>` creates it. This
+is the same rule that keeps the table honest for phases 1–15; it is not an omission.
 
 > **Read the `Status` column narrowly.** It is machine-derived by gate G33
 > (`node scripts/check-planning-truth.mjs`) from one fact only: every `*-PLAN.md` in the phase

@@ -103,6 +103,41 @@ Inferred from the codebase map (`.planning/codebase/`) and verified by running c
 - **Tech stack**: Rust + wasm-pack + WASM engine; React 19, TanStack Router, Vite, vitest, Tailwind; Supabase (Postgres, auth, RLS, storage). Established and not up for revision.
 - **Repo**: Lives inside the `monorepo` worktree alongside an active auto-committer; planning files track to the outer repo.
 
+## Current Milestone: v2.0 Launch Readiness
+
+**Started:** 2026-08-01. Twelve phases, 16–27, in `.planning/ROADMAP.md`. Requirements `CUT-*`
+through `CLOSE-*` in `.planning/REQUIREMENTS.md`.
+
+**Goal:** Give the product an output tray. Milestone v1.0 built the verification foundation and the
+deletion milestone cut roughly 28% of the surface; the vision audit's finding is that the engines are
+excellent and the product abandons the lawyer at the two moments their name goes on something — the
+schedule of shares inside the Deed of Extrajudicial Settlement, and BIR Form 1801.
+
+**The product identity every phase serves:**
+
+> Inheritance produces the estate computation of record: from one fact set — date of death, family,
+> asset schedule — a per-heir schedule of shares and a BIR Form 1801, every line carrying the Civil
+> Code article or NIRC section that governs it, defensible enough to paste into the Deed of
+> Extrajudicial Settlement and to file.
+
+**Target features (in the audit's dependency order, which is the execution order):**
+- Stabilise the deletion milestone; `ci-gates.sh` back to exit 0 (Phase 16)
+- One attribution authority — the engine emits the article, nothing else derives one (Phase 17)
+- One fact set, keyed on date of death, with a blocking equality check (Phase 18)
+- Wizard persistence that actually persists (Phase 19)
+- NIRC §§248/249 surcharge and interest (Phase 20)
+- A BIR Form 1801 exit — reconciled rows, PDF and CSV (Phase 21)
+- The Deed's schedule-of-shares clause as text and DOCX (Phase 22)
+- Letterhead, attorney attribution and engine warnings in the PDF (Phase 23)
+- Signed, reproducible computation identity (Phase 24)
+- Loud refusal where the lawyer has not ruled (Phase 25)
+- Scope lock so the deleted 28% cannot grow back (Phase 26)
+- An honest `LAUNCH-READINESS.md` (Phase 27)
+
+**Key constraint carried into this milestone:** three points of Philippine law are open and none may
+be decided by an agent — Q4 / `LAWYER-04` (Art. 992), Q6 / `LAWYER-06` (donation exceeding the
+estate), Q8 / `LAWYER-08` (RA 11642). Phase 25 implements the **refusal**, never the rule.
+
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
@@ -117,6 +152,10 @@ Inferred from the codebase map (`.planning/codebase/`) and verified by running c
 | Turn observability on **first**, before the legal fixes | With `warnings: []` hardcoded, no legal fix is verifiable; every other fix is unobservable until this is done | — Pending |
 | Deduplicate rather than gate the three scenario classifiers | No quantity of tests fixes a second implementation; deletion does. Subtraction over addition | — Pending |
 | Untrack `engine/target` rather than rewrite history | 880MB on disk stops dirtying the tree on every `cargo test`; a history rewrite is disruptive and buys little | ✓ Good |
+| v2.0 orders phases by the audit's dependency ranking, not by visible value | Citation integrity and the shared fact set come before anything that prints a document: a product whose claim is defensibility cannot ship an instrument while its own layers contradict each other about which article governs a heir | — Pending |
+| Phase 25 implements refusal, not the rule | Art. 992, the over-estate donation and RA 11642 are all blocked on a lawyer who is unreachable. Refusing to compute is a product decision; reading the statute is not an agent's to make | — Pending |
+| No public verification portal in Phase 24 | Reproducibility is what a lawyer buys; the primary consumer of independent re-runnability is an adversary | — Pending |
+| Phase 22 ships only the schedule-of-shares clause, not the deed | The clause is the part the engine can defend line by line. The rest of the deed is drafting, and drafting is what the lawyer sells | — Pending |
 
 ## Evolution
 
@@ -136,4 +175,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-07-27 after initialization*
+*Last updated: 2026-08-01 — milestone v2.0 (Launch Readiness) recorded; twelve phases roadmapped, none planned or executed*
