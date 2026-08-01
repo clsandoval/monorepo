@@ -10,7 +10,7 @@
 - Files: `stepN_<name>.rs`, one file per pipeline stage (`step1_classify.rs` … `step10_finalize.rs`), plus `types.rs`, `fraction.rs`, `pipeline.rs`, `wasm.rs`, `main.rs`, `lib.rs`.
 - Types: `PascalCase` structs/enums (`EngineInput`, `HeirLegitime`, `ScenarioCode`).
 - Functions: `snake_case`, verbish and step-scoped (`step6_validate_will`, `effective_category`, `run_pipeline`).
-- Test functions: `test_<condition>` for unit tests (`test_legitimate_child_maps_to_lc_group`, `engine/src/step1_classify.rs:304`); integration tests use spec vector IDs `test_tv01_...` through `test_tv23_...` (`engine/tests/integration.rs:528`); ad hoc debugging tests use `probe_*` (`engine/tests/zz_probe.rs`) and `sweep_*` (`engine/tests/zz_sweep.rs`).
+- Test functions: `test_<condition>` for unit tests (`test_legitimate_child_maps_to_lc_group`, `engine/src/step1_classify.rs`); integration tests use spec vector IDs `test_tv01_...` through `test_tv23_...` in `engine/tests/integration.rs`. The non-asserting `probe_*` / `sweep_*` debug harnesses are gone; `engine/tests/` now holds `integration.rs`, `fuzz_invariants.rs`, `observability.rs`, `defect_ledger.rs`, `bugs_ledger.rs` and a shared `common/`.
 - Constants: `SCREAMING_SNAKE_CASE` module-level (e.g. `FUZZ_DIR` in `engine/tests/fuzz_invariants.rs:16`).
 
 **TypeScript (`frontend/src/`):**
@@ -53,12 +53,12 @@
   - `Step6Output.warnings: Vec<Warning>` — validation problems (preterition, inofficiousness, disinheritance failure) become warnings attached to the output rather than propagated as `Err`.
   - `SuccessionType::IntestateByPreterition` and similar variants encode "the will was invalid, fall back to intestate" as a typed outcome, not an error.
 - `unwrap()`/`expect()`/`panic!()` appear in source (highest concentration: `step5_legitimes.rs` has 40 occurrences, `step9_vacancy.rs` has 8, `step1_classify.rs` has 15) — used for internal invariants the authors believe cannot fail (e.g., converting a `BigInt` known to fit into `i64`), not for handling malformed input. New step code should follow this pattern: validate/normalize at the boundary (Step 1/6), then treat internal arithmetic as infallible.
-- Fuzz/property tests (`engine/tests/fuzz_invariants.rs:53`, `engine/tests/zz_sweep.rs:197`) explicitly wrap `run_pipeline` in `std::panic::catch_unwind` because panics are an expected failure mode to detect, confirming the engine does not have a `Result`-based error channel.
+- Fuzz/property tests in `engine/tests/fuzz_invariants.rs` explicitly wrap `run_pipeline` in `std::panic::catch_unwind` because panics are an expected failure mode to detect, confirming the engine does not have a `Result`-based error channel.
 
 **TypeScript (`frontend/`):**
 - Supabase calls follow a uniform `{ data, error } = await supabase.X(...); if (error) throw error;` pattern — see `frontend/src/lib/auth.ts:5-8,11-17,21-23`. Every wrapper function in `lib/auth.ts`, and by convention other `lib/*.ts` Supabase wrappers, re-throws rather than swallowing errors.
 - Zod (`EngineInputSchema.safeParse`) is used for input validation at the WASM boundary — see `frontend/src/wasm/bridge.ts:221-226` — failures are converted to a thrown `Error` with a joined message from `parseResult.error.issues`.
-- No app-wide error boundary or centralized error-reporting utility was found; error handling is local to each call site.
+- `frontend/src/components/ErrorBoundary.tsx` is the app-wide error boundary and is mounted in `frontend/src/main.tsx`, so an uncaught throw inside a route component renders a visible fallback rather than a blank page. There is still no centralized error-reporting utility; per-call-site handling remains the pattern below it.
 
 ## Comments
 
@@ -87,7 +87,7 @@
 
 ## How New Tests Are Conventionally Written Here
 
-- **No shared fixture/factory module.** Every test file defines its own local `make*`/`build*` helper functions at the top (e.g. `makeDecedent`, `makePerson`, `makeInput` repeated near-identically in `frontend/src/wasm/__tests__/bridge.test.ts`, `frontend/src/wasm/__tests__/wasm-live.test.ts`, `frontend/src/__tests__/integration.test.tsx`, and the Rust equivalents `person()`/`decedent()` in `engine/tests/integration.rs:277-341`, `engine/tests/zz_probe.rs:9-79`, `engine/tests/zz_sweep.rs:10-65`). A new test file is expected to write its own minimal-valid-object builders rather than import shared ones — this is the dominant pattern, not an exception.
+- **No shared fixture/factory module.** Every test file defines its own local `make*`/`build*` helper functions at the top (e.g. `makeDecedent`, `makePerson`, `makeInput` repeated near-identically in `frontend/src/wasm/__tests__/bridge.test.ts`, `frontend/src/wasm/__tests__/wasm-live.test.ts`, `frontend/src/__tests__/integration.test.tsx`, and the Rust equivalents `person()`/`decedent()` in `engine/tests/integration.rs` and the shared `engine/tests/common/` helpers). A new test file is expected to write its own minimal-valid-object builders rather than import shared ones — this is the dominant pattern, not an exception.
 - **Rust unit tests live inline** at the bottom of the module they test, behind `#[cfg(test)] mod tests { use super::*; ... }` (every `stepN_*.rs` file, e.g. `engine/src/step1_classify.rs:237`). Cross-module/end-to-end behavior goes in `engine/tests/integration.rs` instead.
 - **Rust integration tests are one function per spec test-vector**, named `test_tvNN_<description>`, that runs the full 10-step pipeline manually inline (not via `pipeline::run_pipeline`) and asserts against shared helper assertions `check_sum_invariant`, `check_adoption_equality`, `check_scenario_consistency` (`engine/tests/integration.rs:436-483`).
 - **TypeScript unit tests for pure logic** (`lib/estate-tax-engine/__tests__/*.ts`, `schemas/__tests__/*.ts`, `types/__tests__/*.ts`) call exported functions directly with literal fixture objects, no mocking.

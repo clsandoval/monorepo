@@ -25,15 +25,13 @@ This document is an evidence-based inventory for a verification-first QA design 
 ```
 cd engine && cargo test
 ```
-Result: **411 + 0 + 1 + 30 + 7 + 1 + 0(doctests) = 450 tests, all passing**, broken down by binary:
+Result at the time of this mapping pass: **all passing**, broken down by binary. The counts below are a snapshot, not a contract — run `cd engine && cargo test` for the current numbers, and note that the two non-asserting `zz_*` debug harnesses have since been deleted and four real binaries added:
 | Binary | Tests | Result |
 |---|---|---|
 | `unittests src/lib.rs` (inline `#[cfg(test)]` across all `stepN_*.rs` + `fraction.rs`) | 411 | ok |
 | `unittests src/main.rs` | 0 | ok (no tests in the CLI binary) |
 | `tests/fuzz_invariants.rs` | 1 | ok (0.06s) |
 | `tests/integration.rs` | 30 | ok |
-| `tests/zz_probe.rs` | 7 | ok |
-| `tests/zz_sweep.rs` | 1 | ok (3.14s) |
 | Doc-tests | 0 | ok |
 
 The whole `cargo test` suite passes on a clean checkout (Rust toolchain: `cargo 1.96.0`, `rustc 1.96.0`, both present on this machine). This is the **only** part of the QA surface that is currently, verifiably green.
@@ -46,12 +44,12 @@ The whole `cargo test` suite passes on a clean checkout (Rust toolchain: `cargo 
 
 ## CI Reality
 
-Only one workflow in the monorepo touches this app: `/home/clsandoval/cs/monorepo/.github/workflows/inheritance.yml` ("Inheritance Forward Loops").
+**Corrected in Phase 1.** Two workflows now touch this app. `/home/clsandoval/cs/monorepo/.github/workflows/inheritance-ci.yml` is the gate workflow: it triggers on **every push and pull request** touching `apps/inheritance/**` and runs `bash scripts/ci-gates.sh`, which fails the check when any gate fails. The paragraphs below describe the older agent-loop workflow `/home/clsandoval/cs/monorepo/.github/workflows/inheritance.yml` ("Inheritance Forward Loops"), which is still `workflow_dispatch`-only and still runs no tests.
 
 - **Trigger:** `workflow_dispatch` only (manual, with a `loop` input defaulting to `"all"`). **There is no `push` or `pull_request` trigger.** Nothing runs tests automatically on commit or PR.
 - **What it does:** discovers active "forward loop" entries in `apps/inheritance/loops/_registry.yaml`, then for each one runs a matrix job that repeatedly invokes `claude --model claude-opus-4-6 --print --dangerously-skip-permissions` against `PROMPT.md` in a loop directory (`inheritance.yml:117-119`), auto-committing and pushing whatever the agent produces, until a `status/converged.txt` marker appears or 3 consecutive failures occur.
 - **Test commands present in this workflow: none.** There is no `cargo test`, `npm test`, `npm run build`, `npm ci`, or `wasm-pack build` invocation anywhere in `inheritance.yml`, even though it installs the Rust toolchain, `wasm-pack`, Node 20, and `pnpm` as setup steps (`inheritance.yml:66-80`) — those tools are installed for the *agent* to use inside its own loop iterations, not run by the workflow itself as a gate.
-- **Conclusion: no CI gate exists today that runs any test in this app on any trigger.** Whatever testing happens is either done ad hoc by a developer/agent locally, or not done at all before merge. If "all gates pass ⇒ the app works" is the goal, the gates first have to be created — none currently run automatically.
+- **Conclusion, as of the mapping pass:** no CI gate ran any test in this app on any trigger. That was closed in Phase 1 by `.github/workflows/inheritance-ci.yml`, which runs `bash scripts/ci-gates.sh` on push and pull request. See `GATES.md` for the current gate set.
 
 ## Fixture and Seeding Story
 
@@ -66,7 +64,7 @@ Only one workflow in the monorepo touches this app: `/home/clsandoval/cs/monorep
 - No `fixtures/` directory, no `*.fixture.ts`, no shared factory module exists anywhere under `frontend/src`. Every one of the 110 test files builds its own inline `make*`/`build*`/`valid*()` helper objects (e.g. `frontend/src/lib/__tests__/pdf-export.test.ts:20-70`, `frontend/src/schemas/__tests__/schemas.test.ts:44-58`).
 
 **Supabase / database:**
-- `frontend/supabase/config.toml` exists — a real local-Supabase-CLI config (Postgres 17, API port 54321, DB port 54322, `[db.seed] enabled = true` pointing at `./seed.sql`).
+- `frontend/supabase/config.toml` exists — a real local-Supabase-CLI config (Postgres 17, `project_id = "inheritance"`, API port 55321, DB port 55322, `[db.seed] enabled = true` pointing at `./seed.sql`). The port block was moved up in Phase 3 so it cannot collide with a sibling monorepo app already holding the default range.
 - `frontend/supabase/migrations/` has 9 SQL files defining schema + RLS policies, including `010_rls_org_scope.sql` and `004_shared_case_rpc.sql` — i.e., **RLS policy logic exists and is nontrivial**, but:
 - **`supabase/seed.sql` does not exist** despite being referenced by `config.toml`. There is no seed data file in the repo.
 - **No test anywhere spins up local Postgres/Supabase.** Every test that touches `@supabase/supabase-js` mocks the entire client with `vi.mock('@supabase/supabase-js', () => ({ createClient: vi.fn(() => mockSupabaseClient) }))` (e.g. `frontend/src/lib/__tests__/supabase.test.ts:8-14`, and the same pattern repeats in `organizations.test.ts`, `cases.test.ts`, `case-notes.test.ts`, `share.test.ts`, `firm-profile.test.ts`). **No RLS policy is exercised by any test in this repo** — RLS correctness depends entirely on the SQL migrations being correct by inspection; nothing in `cargo test` or `vitest run` would catch a broken policy.
@@ -89,8 +87,8 @@ Only one workflow in the monorepo touches this app: `/home/clsandoval/cs/monorep
 
 These are tests that will pass regardless of whether the underlying logic is correct — worse than no test, because a "green" run does not indicate correctness.
 
-1. **`engine/tests/zz_sweep.rs:188-239`** (`sweep_inv1`) — generates thousands of pipeline cases (5 estate amounts × 4 LC counts × 3 IC counts × 2 spouse states × 3 parent counts × 3 sibling counts × 9 will variants) and checks for panics, invariant-1 violations, and negative shares — **but only ever `eprintln!`s the results (lines 233-238); it never calls `panic!`, `assert!`, or returns an error.** The test passes even if every single generated case violates every invariant. Its own header (`zz_sweep.rs:1`) says "TEMPORARY sweep harness — delete after investigation," confirming this was meant as a debug tool, not a real gate, yet it still runs on every `cargo test` and is counted as "1 passing test."
-2. **`engine/tests/zz_probe.rs`** (all 7 tests, e.g. `probe_inofficious_donation_breaks_sum:104-118`, `probe_odd_estate_3lc:121-136`) — each calls a `report()` helper (`zz_probe.rs:81-101`) that `eprintln!`s a warning line ("`***** INV1 VIOLATED`") if the sum invariant fails, but **never asserts**. Same "TEMPORARY... delete after investigation" header (`zz_probe.rs:1`). All 7 currently pass unconditionally.
+1. *(Resolved — the two non-asserting Rust debug harnesses that occupied entries 1 and 2 here have been deleted from `engine/tests/`. That directory now holds `integration.rs`, `fuzz_invariants.rs`, `observability.rs`, `defect_ledger.rs`, `bugs_ledger.rs` and a shared `common/`, all asserting.)*
+2. *(Resolved — see entry 1.)*
 3. **`frontend/src/lib/__tests__/pdf-export.test.ts:206-215`** — `generatePDF` "test" only checks `typeof mod.generatePDF === 'function'`; it is a type check on an export, not a test of PDF generation. Named explicitly in Coverage Gaps above too.
 4. **`frontend/src/wasm/__tests__/bridge.test.ts:162`** and **`:340`** — `expect(output.scenario_code).toMatch(/^I/)` and `expect(output.scenario_code).toMatch(/^T/)` assert only that the scenario code starts with the letter for "Intestate"/"Testate" (there are 15+ distinct `I`-prefixed and many `T`-prefixed scenario codes in `types.ts`'s `ScenarioCode` enum) — this passes for *any* intestate/testate scenario, correct or not, and does not verify the engine picked the *specific* expected scenario for the given family structure.
 5. **`frontend/src/wasm/__tests__/wasm-real.test.ts:307`** and **`:316`** — identical `/^I/` / `/^T/` pattern, same weakness, against the real WASM output this time (when the wasm binary is present).
@@ -124,8 +122,9 @@ These are tests that will pass regardless of whether the underlying logic is cor
 |---|---|---|---|---|
 | `engine/tests/integration.rs` | 1882 | 30 | Rust integration | Full 10-step pipeline run per spec test-vector (`test_tv01`…`test_tv23`+variants); checks sum-conservation, adoption equality, and scenario-code consistency via shared helpers (`integration.rs:436-483`) |
 | `engine/tests/fuzz_invariants.rs` | 270 | 1 | Rust property/invariant | Loads all 100 files in `examples/fuzz-cases/`, runs the pipeline, checks 10 spec invariants (§14.2) per case, and **does** `panic!` with a full failure report if any invariant is violated (`fuzz_invariants.rs:264-269`) — this one is a real gate, unlike the `zz_*` files below |
-| `engine/tests/zz_sweep.rs` | 239 | 1 | Rust — **non-asserting debug harness** | See Vacuous Tests #1 |
-| `engine/tests/zz_probe.rs` | 236 | 7 | Rust — **non-asserting debug harness** | See Vacuous Tests #2 |
+| `engine/tests/observability.rs` | — | — | Rust integration | Asserts the engine's warning and legitime/free-portion observability surface (added Phase 5) |
+| `engine/tests/defect_ledger.rs` | — | — | Rust integration | Holds `engine/defect-baseline.json` to reality; the ledger may only shrink |
+| `engine/tests/bugs_ledger.rs` | — | — | Rust integration | Holds `engine/BUGS.md` to reality (added Phase 14) |
 
 ### TypeScript — full file list (110 files, 35,293 lines total)
 

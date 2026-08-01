@@ -65,7 +65,7 @@
 - Docker: `apps/inheritance/frontend/Dockerfile` — static nginx image (no server-side app, no wasm-pack/cargo build inside the Dockerfile itself, implying the WASM artifact and JS bundle must be built and placed into `dist/` *before* the Docker build runs — the Dockerfile only does `COPY dist /usr/share/nginx/html`).
 
 **CI Pipeline — actual behavior (verified by reading the workflow file, not assumed):**
-- Root-level workflow `/.github/workflows/inheritance.yml` is the **only** workflow that references `apps/inheritance`.
+- Two root-level workflows reference `apps/inheritance`: `/.github/workflows/inheritance-ci.yml`, the gate workflow that runs `bash scripts/ci-gates.sh` on every push and pull request touching `apps/inheritance/**`, and the older agent-loop workflow `/.github/workflows/inheritance.yml`.
 - **Trigger: `workflow_dispatch` only** (manual trigger with an optional `loop` input). **There is no `push` or `pull_request` trigger anywhere in this workflow, and none of the other 5 workflows in `.github/workflows/` reference `apps/inheritance` either.**
 - **This means: no CI currently runs automatically on commits or PRs against `apps/inheritance`.** Nothing gates merges. Any "CI check" work must be newly added — it does not exist today.
 - What the existing workflow *does* run (when manually dispatched): it is a "Ralph loop" runner — it discovers active entries in `apps/inheritance/loops/_registry.yaml` with `type: forward` and `status: active`, then for each it repeatedly invokes Claude Code (`claude --model claude-opus-4-6 --print --dangerously-skip-permissions`) against a `PROMPT.md` in a loop directory (`apps/inheritance/loops/<loop>/`) until a `status/converged.txt` file appears or 3 consecutive failures occur, committing/pushing after each iteration. This is an autonomous development loop, not a test/build verification gate.
@@ -76,7 +76,7 @@
 ## Environment Configuration
 
 **Required env vars (frontend, `VITE_`-prefixed, read via `import.meta.env`):**
-- `VITE_SUPABASE_URL` — required, Supabase project URL (local default `http://localhost:54321`)
+- `VITE_SUPABASE_URL` — required, Supabase project URL (local default `http://localhost:55321`; the port block was moved up in Phase 3 so it cannot collide with a sibling monorepo app already holding the default range)
 - `VITE_SUPABASE_ANON_KEY` — required, Supabase anon/public key
 - `VITE_APP_URL` — required, used for share links, QR codes, and password-reset email links (local default `http://localhost:3000`)
 - `VITE_BILLING_URL` — optional, commented out by default, only used as a CTA link

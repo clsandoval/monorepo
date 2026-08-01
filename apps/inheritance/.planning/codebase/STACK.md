@@ -17,11 +17,11 @@
 **Environment (observed in this tree):**
 - Rust: `rustc 1.96.0` / `cargo 1.96.0` (installed via rustup, toolchain `stable-x86_64-unknown-linux-gnu`)
 - Node.js: `v20.19.5` present; `npm 10.8.2` present
-- No `.nvmrc` / `.node-version` file in `apps/inheritance/frontend/` — Node version is not pinned in-repo. CI (`.github/workflows/inheritance.yml`) explicitly installs `node-version: 20` via `actions/setup-node@v4`.
+- No `.nvmrc` / `.node-version` file in `apps/inheritance/frontend/` — Node version is not pinned in-repo. Both workflows install Node explicitly via `actions/setup-node@v4`: the gate workflow `.github/workflows/inheritance-ci.yml`, which runs `bash scripts/ci-gates.sh` on every push and pull request touching `apps/inheritance/**`, and the older agent-loop workflow `.github/workflows/inheritance.yml`.
 
 **Package Manager:**
 - **npm** is the actual package manager for the frontend: `apps/inheritance/frontend/package-lock.json` (460KB, committed) is present; no `pnpm-lock.yaml` or `yarn.lock` exists anywhere under `apps/inheritance/`.
-- **Discrepancy:** `.github/workflows/inheritance.yml` installs `pnpm` globally (`npm install -g pnpm`) but the loop scripts it triggers never actually invoke `pnpm install` against this frontend in a way that matches the npm lockfile — the lockfile in the tree is npm's. Any gate that installs deps should use `npm ci` in `apps/inheritance/frontend/`, not pnpm.
+- **Discrepancy (agent-loop workflow only):** `.github/workflows/inheritance.yml` installs `pnpm` globally (`npm install -g pnpm`) but the loop scripts it triggers never actually invoke `pnpm install` against this frontend in a way that matches the npm lockfile — the lockfile in the tree is npm's. The gate workflow `.github/workflows/inheritance-ci.yml` does the right thing and uses `npm ci` in `apps/inheritance/frontend/`, via `bash scripts/setup-env.sh`.
 - Rust: `Cargo.lock` is committed at `apps/inheritance/engine/Cargo.lock`.
 
 **Toolchain prerequisites to build every artifact:**
@@ -29,8 +29,8 @@
 | Artifact | Requires | Observed state in this tree |
 |---|---|---|
 | Rust engine native binary/tests (`cargo test`, `cargo build`) | `rustc`/`cargo` 1.96+, no extra target | **Works.** `engine/target/debug/` already has build artifacts from a prior native build. |
-| Rust engine WASM binary (`inheritance_engine_bg.wasm`) | `rustup target add wasm32-unknown-unknown` + `wasm-pack` (installed via `curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf \| sh` or `cargo install wasm-pack`) | **NOT built.** `rustup target list --installed` shows only `x86_64-unknown-linux-gnu` — `wasm32-unknown-unknown` is available to add but not installed. `wasm-pack` is **not installed** (`which wasm-pack` → not found). `apps/inheritance/frontend/src/wasm/pkg/` contains only the tracked glue files `inheritance_engine.js` and `inheritance_engine.d.ts` — **no `.wasm` binary file exists in that directory.** Any gate relying on real WASM output must run `rustup target add wasm32-unknown-unknown && cargo install wasm-pack && wasm-pack build --target web` inside `engine/` first. |
-| Frontend dev/build/test (`npm run dev`/`build`/`test`) | Node 20, npm, `npm ci` in `frontend/` | **NOT runnable as-is.** `apps/inheritance/frontend/node_modules/` is **absent**. `npx tsc -b` fails with "This is not the tsc command you are looking for" (no local install, npx falls through). Must run `npm ci` (or `npm install`) in `frontend/` before any command works. |
+| Rust engine WASM binary (`inheritance_engine_bg.wasm`) | `rustup target add wasm32-unknown-unknown` + `wasm-pack`, both installed by `bash scripts/setup-env.sh` | **Built by `bash engine/build-wasm.sh`**, which is gate G2's command. It emits `frontend/src/wasm/pkg/inheritance_engine_bg.wasm` alongside the tracked glue files `inheritance_engine.js` and `inheritance_engine.d.ts`. The binary is a build artifact and is gitignored, so a fresh checkout runs `bash engine/build-wasm.sh` before any WASM-dependent test. |
+| Frontend dev/build/test (`npm run dev`/`build`/`test`) | Node 20, npm, `npm ci` in `frontend/` | **Runnable.** `npm ci` in `frontend/` is performed by `bash scripts/setup-env.sh`; `frontend/node_modules/` is populated and `npx tsc -b --force` resolves the local TypeScript. |
 | wasm-bindgen version pin | wasm-bindgen CLI bundled inside wasm-pack must match `Cargo.toml`/`Cargo.lock` version | `Cargo.lock` pins `wasm-bindgen = 0.2.114`. `engine/Cargo.toml` specifies `wasm-bindgen = "0.2"` (unpinned minor). A wasm-pack install with a mismatched bundled wasm-bindgen version will fail the build (documented risk in `loops/reverse/v2/analysis/wasm-export.md`). |
 
 ## Frameworks
@@ -44,7 +44,7 @@
 **Testing:**
 - Vitest 4.0.18 (frontend) — config `apps/inheritance/frontend/vitest.config.ts` (jsdom environment, setup file `src/test-setup.ts`, 10s test/hook timeout)
 - `@testing-library/react` 16.3.2, `@testing-library/jest-dom` 6.9.1, `@testing-library/user-event` 14.6.1
-- Rust built-in test harness (`#[test]`) — 450 `#[test]` functions total across `engine/src/*.rs` (unit tests) + `engine/tests/integration.rs`, `zz_probe.rs`, `zz_sweep.rs`, `fuzz_invariants.rs`
+- Rust built-in test harness (`#[test]`) — inline unit tests in `engine/src/*.rs` plus the integration crates now in `engine/tests/`: `integration.rs`, `fuzz_invariants.rs`, `observability.rs`, `defect_ledger.rs`, `bugs_ledger.rs` and the shared `common/` helpers. `cd engine && cargo test` reports the current count; no number is written here, because a pinned count goes stale on the next test added.
 
 **Build/Dev:**
 - Vite 7.3.1 — `apps/inheritance/frontend/vite.config.ts`, plugins: `@tailwindcss/vite`, `@vitejs/plugin-react`, `vite-plugin-wasm`, `vite-plugin-top-level-await`; build target `esnext`; path alias `@` → `src/`
@@ -91,9 +91,9 @@
 ## Platform Requirements
 
 **Development:**
-- Rust stable toolchain + `wasm32-unknown-unknown` target + `wasm-pack` (none of the WASM-specific pieces are currently installed in this environment)
-- Node.js 20.x + npm (frontend `node_modules` must be installed fresh — currently absent)
-- Local Supabase stack via Supabase CLI (`apps/inheritance/frontend/supabase/config.toml`, project id `"app"`, API port 54321, DB port 54322, Studio, Inbucket for local email testing)
+- Rust stable toolchain + `wasm32-unknown-unknown` target + `wasm-pack`, all installed by `bash scripts/setup-env.sh` and exercised by `bash engine/build-wasm.sh`
+- Node.js 20.x + npm; `bash scripts/setup-env.sh` runs `npm ci` in `frontend/` so `node_modules` is populated
+- Local Supabase stack via Supabase CLI (`apps/inheritance/frontend/supabase/config.toml`, `project_id = "inheritance"`, API port 55321, DB port 55322, Studio, Inbucket for local email testing). The whole port block was moved up in Phase 3 so it cannot collide with a sibling monorepo app already holding the default range.
 
 **Production:**
 - Frontend deployed as a static build served by nginx in a Docker container on Fly.io:
@@ -106,16 +106,16 @@
 
 | Command | Where | What it does | Currently works in this tree? |
 |---|---|---|---|
-| `npm run dev` | `frontend/` | `vite` dev server | No — `node_modules` absent, needs `npm ci` first |
-| `npm run build` | `frontend/` | `tsc -b && vite build`, then `postbuild` runs `tsx scripts/generate-sitemap.ts` | No — same reason; also needs the WASM `.wasm` binary present in `src/wasm/pkg/` for a real (non-mock) build, though Vite may still bundle if code only imports the glue JS without the binary present |
-| `npm run test` | `frontend/` | `vitest run` | No — `node_modules` absent |
-| `npm run test:watch` | `frontend/` | `vitest` watch mode | No — same |
+| `npm run dev` | `frontend/` | `vite` dev server | Yes — after `bash scripts/setup-env.sh`, which runs `npm ci` in `frontend/` |
+| `npm run build` | `frontend/` | `tsc -b && vite build`, then `postbuild` runs `tsx scripts/generate-sitemap.ts` | Yes — after `bash scripts/setup-env.sh` and `bash engine/build-wasm.sh`, which puts the real `.wasm` binary in `src/wasm/pkg/` |
+| `npm run test` | `frontend/` | `vitest run` | Yes — after `bash scripts/setup-env.sh` |
+| `npm run test:watch` | `frontend/` | `vitest` watch mode | Yes — same precondition |
 | `npm run preview` | `frontend/` | `vite preview` (serves `dist/`) | No — requires prior successful build |
 | *(no lint script)* | `frontend/` | — | N/A — no lint tooling configured |
-| `cargo test` / `cargo test --lib` | `engine/` | Runs Rust unit + doc tests | **Yes — verified: 411 tests pass** (`cargo test --lib`) |
-| `cargo test --test integration` | `engine/` | Runs `engine/tests/integration.rs` (TV-series scenario tests) | **Yes — verified: 30 tests pass** |
+| `cargo test` / `cargo test --lib` | `engine/` | Runs Rust unit + doc tests | **Yes.** Run `cd engine && cargo test` for the current pass/fail count; no count is written here, because a pinned number goes stale on the next test added. |
+| `cargo test --test integration` | `engine/` | Runs `engine/tests/integration.rs` (TV-series scenario tests) | **Yes.** Run `cd engine && cargo test` for the current count. |
 | `cargo build` / `cargo build --release` | `engine/` | Native build (`rlib`+`cdylib`, but no wasm target) | Yes — native debug artifacts already present in `engine/target/debug/` |
-| `wasm-pack build --target web` | `engine/` | Produces `inheritance_engine_bg.wasm` + JS glue into `pkg/` (copy step needed to sync into `frontend/src/wasm/pkg/`) | **No — `wasm-pack` not installed, `wasm32-unknown-unknown` target not installed.** Must install both before this can run. |
+| `bash engine/build-wasm.sh` | app root | Wraps `wasm-pack build --target web`, emitting `inheritance_engine_bg.wasm` + JS glue straight into `frontend/src/wasm/pkg/` | **Yes** — this is gate G2's command. The toolchain it needs (`wasm32-unknown-unknown`, `wasm-pack`) is installed by `bash scripts/setup-env.sh`. |
 | `bash examples/generate-test-cases.sh` | `engine/` | Builds release binary, generates/validates JSON test cases into `examples/cases/`, writes `examples/test-results.md` | Not verified in this pass; requires `cargo build --release` |
 
 ---
