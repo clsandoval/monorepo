@@ -443,6 +443,8 @@ export interface HeirNarrative {
   heir_name: string;
   heir_category_label: string;
   text: string;
+  /** The engine's own article array for this heir, cloned from the share. No display layer may compute one. */
+  legal_basis: string[];
 }
 
 export interface ComputationLog {

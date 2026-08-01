@@ -173,21 +173,24 @@ pub fn category_label(heir: &Heir) -> String {
 pub fn raw_label(heir: &Heir) -> String {
     match heir.raw_category {
         HeirCategory::LegitimateChild => "legitimate child".to_string(),
-        HeirCategory::AdoptedChild => {
-            "adopted child (RA 8552 Sec. 17: same rights as legitimate)".to_string()
-        }
-        HeirCategory::LegitimatedChild => {
-            "legitimated child (Art. 179, Family Code: same rights as legitimate)".to_string()
-        }
-        HeirCategory::IllegitimateChild => {
-            "illegitimate child (Art. 176, Family Code)".to_string()
-        }
+        // RA 8552 Sec. 17: same rights as legitimate. The governing article for the
+        // heir ROW is emitted once, in InheritanceShare.legal_basis; this label names
+        // the classification only.
+        HeirCategory::AdoptedChild => "adopted child".to_string(),
+        // Art. 179, Family Code: same rights as legitimate. Row attribution lives in
+        // InheritanceShare.legal_basis.
+        HeirCategory::LegitimatedChild => "legitimated child".to_string(),
+        // Art. 176, Family Code. Row attribution lives in InheritanceShare.legal_basis.
+        HeirCategory::IllegitimateChild => "illegitimate child".to_string(),
         HeirCategory::SurvivingSpouse => "surviving spouse".to_string(),
         HeirCategory::LegitimateParent => "legitimate parent".to_string(),
         HeirCategory::LegitimateAscendant => "legitimate ascendant".to_string(),
-        HeirCategory::Sibling => "sibling (Arts. 1003-1008)".to_string(),
-        HeirCategory::NephewNiece => "nephew/niece (Art. 972)".to_string(),
-        HeirCategory::OtherCollateral => "collateral relative (Arts. 1009-1010)".to_string(),
+        // Arts. 1003-1008. Row attribution lives in InheritanceShare.legal_basis.
+        HeirCategory::Sibling => "sibling".to_string(),
+        // Art. 972. Row attribution lives in InheritanceShare.legal_basis.
+        HeirCategory::NephewNiece => "nephew/niece".to_string(),
+        // Arts. 1009-1010. Row attribution lives in InheritanceShare.legal_basis.
+        HeirCategory::OtherCollateral => "collateral relative".to_string(),
     }
 }
 
@@ -497,7 +500,9 @@ pub fn generate_heir_narrative(
     let rl = raw_label(heir);
     let category_text = if heir.is_compulsory {
         format!(
-            "As a {} (Art. 887 of the Civil Code), {} is a compulsory heir.",
+            // Art. 887 enumerates the compulsory heirs. The prose no longer states it:
+            // the row attribution is emitted once, in InheritanceShare.legal_basis.
+            "As a {}, {} is a compulsory heir.",
             rl, heir.name,
         )
     } else {
@@ -515,7 +520,8 @@ pub fn generate_heir_narrative(
             sections.push(NarrativeSection {
                 section_type: NarrativeSectionType::Representation,
                 text: format!(
-                    "{} inherits by right of representation (Art. 970 of the Civil Code) in place of {}.",
+                    // Art. 970. Row attribution is emitted in InheritanceShare.legal_basis.
+                    "{} inherits by right of representation in place of {}.",
                     heir.name, ancestor,
                 ),
                 legal_basis: vec!["Art. 970".to_string()],
@@ -695,6 +701,7 @@ pub fn step10_finalize(input: &Step10Input) -> Step10Output {
                 heir_name: share.heir_name.clone(),
                 heir_category_label: category_label(heir),
                 text,
+                legal_basis: share.legal_basis.clone(),
             });
         } else {
             // Non-heir beneficiary (stranger, charity, etc.) — generate basic narrative
@@ -708,6 +715,7 @@ pub fn step10_finalize(input: &Step10Input) -> Step10Output {
                 heir_name: share.heir_name.clone(),
                 heir_category_label: "beneficiary".to_string(),
                 text,
+                legal_basis: share.legal_basis.clone(),
             });
         }
     }
@@ -1004,7 +1012,7 @@ mod tests {
         );
         assert_eq!(
             raw_label(&heir),
-            "adopted child (RA 8552 Sec. 17: same rights as legitimate)"
+            "adopted child"
         );
     }
 
@@ -1019,7 +1027,7 @@ mod tests {
         );
         assert_eq!(
             raw_label(&heir),
-            "legitimated child (Art. 179, Family Code: same rights as legitimate)"
+            "legitimated child"
         );
     }
 
@@ -1034,7 +1042,7 @@ mod tests {
         );
         assert_eq!(
             raw_label(&heir),
-            "illegitimate child (Art. 176, Family Code)"
+            "illegitimate child"
         );
     }
 
@@ -1302,7 +1310,7 @@ mod tests {
             },
             NarrativeSection {
                 section_type: NarrativeSectionType::Category,
-                text: "As the surviving spouse (Art. 887(3) of the Civil Code), Rosa is a compulsory heir.".to_string(),
+                text: "As the surviving spouse, Rosa is a compulsory heir.".to_string(),
                 legal_basis: vec!["Art. 887(3)".to_string()],
             },
         ];

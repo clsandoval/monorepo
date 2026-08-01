@@ -585,6 +585,11 @@ pub struct HeirNarrative {
     pub heir_name: String,
     pub heir_category_label: String,
     pub text: String,
+    /// The governing articles for THIS heir's row, cloned verbatim from
+    /// `InheritanceShare.legal_basis`. The engine is the single attribution
+    /// authority: this field is a copy, never a derivation, so no display layer
+    /// can present an article the table does not also present.
+    pub legal_basis: Vec<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
