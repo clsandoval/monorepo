@@ -11,10 +11,7 @@ import { casesNewRoute } from './routes/cases/new';
 import { caseIdRoute } from './routes/cases/$caseId';
 import { caseTaxRoute } from './routes/cases/$caseId.tax';
 import { settingsRoute } from './routes/settings/index';
-import { settingsTeamRoute } from './routes/settings/team';
-import { shareTokenRoute } from './routes/share/$token';
 import { onboardingRoute } from './routes/onboarding';
-import { inviteTokenRoute } from './routes/invite/$token';
 
 const routeTree = rootRoute.addChildren([
   publicRootRoute.addChildren([
@@ -22,9 +19,7 @@ const routeTree = rootRoute.addChildren([
     authCallbackRoute,
     authResetRoute,
     authResetConfirmRoute,
-    shareTokenRoute,
     onboardingRoute,
-    inviteTokenRoute,
   ]),
   indexRoute,
   casesIndexRoute,
@@ -32,7 +27,6 @@ const routeTree = rootRoute.addChildren([
   caseIdRoute,
   caseTaxRoute,
   settingsRoute,
-  settingsTeamRoute,
 ]);
 
 export const router = createRouter({

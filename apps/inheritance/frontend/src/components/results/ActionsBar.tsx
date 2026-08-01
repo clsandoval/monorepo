@@ -2,21 +2,19 @@
  * ActionsBar — Edit Input, Export JSON, Copy Narratives, Share.
  */
 import { useState } from 'react';
-import { Pencil, Download, Copy, Share2, FileText, Loader2 } from 'lucide-react';
+import { Pencil, Download, Copy, FileText, Loader2 } from 'lucide-react';
 import type { EngineInput, EngineOutput } from '../../types';
 import { stripMarkdownBold } from './utils';
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
-import { ShareDialog } from '../case/ShareDialog';
 
 export interface ActionsBarProps {
   input: EngineInput;
   output: EngineOutput;
   onEditInput: () => void;
-  caseId?: string;
-  shareToken?: string;
-  shareEnabled?: boolean;
-  onToggleShare?: (enabled: boolean) => Promise<void>;
+
+
+
 }
 
 function downloadJson(data: unknown, filename: string) {
@@ -30,8 +28,7 @@ function downloadJson(data: unknown, filename: string) {
   URL.revokeObjectURL(url);
 }
 
-export function ActionsBar({ input, output, onEditInput, caseId, shareToken, shareEnabled, onToggleShare }: ActionsBarProps) {
-  const [shareOpen, setShareOpen] = useState(false);
+export function ActionsBar({ input, output, onEditInput, }: ActionsBarProps) {
   const [pdfLoading, setPdfLoading] = useState(false);
 
   const handleExport = () => {
@@ -98,21 +95,7 @@ export function ActionsBar({ input, output, onEditInput, caseId, shareToken, sha
           <Copy className="size-4" />
           Copy Narratives
         </Button>
-        {caseId && shareToken !== undefined && (
-          <Button type="button" variant="outline" onClick={() => setShareOpen(true)}>
-            <Share2 className="size-4 mr-2" />Share
-          </Button>
-        )}
       </div>
-      {caseId && shareToken !== undefined && onToggleShare && (
-        <ShareDialog
-          open={shareOpen}
-          onOpenChange={setShareOpen}
-          shareToken={shareToken ?? ''}
-          shareEnabled={shareEnabled ?? false}
-          onToggleShare={onToggleShare}
-        />
-      )}
     </div>
   );
 }

@@ -1,15 +1,13 @@
-import { createRoute, useNavigate } from '@tanstack/react-router';
+import { createRoute } from '@tanstack/react-router';
 import { rootRoute } from '../__root';
 import { Settings, Loader2 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { FirmProfileProvider, useFirmProfile } from '@/contexts/FirmProfileContext';
 import { FirmProfileForm } from '@/components/settings/FirmProfileForm';
 import { LogoUpload } from '@/components/settings/LogoUpload';
-import { ColorPickers } from '@/components/settings/ColorPickers';
 import { uploadLogo, deleteLogo } from '@/lib/firm-profile';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { useDebouncedCallback } from 'use-debounce';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 export const settingsRoute = createRoute({
@@ -57,7 +55,6 @@ function SettingsPage() {
 function SettingsContent() {
   const { profile, loading, updateProfile } = useFirmProfile();
   const [saving, setSaving] = useState(false);
-  const navigate = useNavigate();
 
   const handleSave = async (updates: Parameters<typeof updateProfile>[0]) => {
     setSaving(true);
@@ -85,15 +82,7 @@ function SettingsContent() {
     await updateProfile({ logoUrl: null });
   };
 
-  const handleLetterheadChange = useDebouncedCallback(
-    (color: string) => updateProfile({ letterheadColor: color }),
-    600,
-  );
 
-  const handleSecondaryChange = useDebouncedCallback(
-    (color: string) => updateProfile({ secondaryColor: color }),
-    600,
-  );
 
   if (loading) {
     return (
@@ -117,7 +106,6 @@ function SettingsContent() {
       <Tabs defaultValue="profile">
         <TabsList className="mb-6">
           <TabsTrigger value="profile">Firm Profile</TabsTrigger>
-          <TabsTrigger value="team" onClick={() => navigate({ to: '/settings/team' })}>Team</TabsTrigger>
         </TabsList>
 
         <TabsContent value="profile">
@@ -136,15 +124,6 @@ function SettingsContent() {
               />
             </section>
 
-            <section>
-              <h2 className="text-lg font-semibold mb-4">Brand Colors</h2>
-              <ColorPickers
-                letterheadColor={profile.letterheadColor}
-                secondaryColor={profile.secondaryColor}
-                onLetterheadChange={handleLetterheadChange}
-                onSecondaryChange={handleSecondaryChange}
-              />
-            </section>
           </div>
         </TabsContent>
       </Tabs>

@@ -2,15 +2,9 @@ import { createRoute, redirect, Link } from '@tanstack/react-router';
 import { rootRoute } from '../__root';
 import { useState, useEffect } from 'react';
 import { Loader2, AlertCircle } from 'lucide-react';
-import type { EngineInput, EngineOutput, CaseRow, CaseNote, CaseDeadline } from '@/types';
+import type { EngineInput, EngineOutput, CaseRow } from '@/types';
 import { loadCase, updateCaseInput, updateCaseOutput } from '@/lib/cases';
-import { toggleShare } from '@/lib/share';
-import { listNotes } from '@/lib/case-notes';
-import { listDeadlines, markDeadlineComplete, addCustomDeadline } from '@/lib/deadlines';
 import { ResultsView } from '@/components/results/ResultsView';
-import { CaseNotesPanel } from '@/components/case/CaseNotesPanel';
-import { DeadlineTimeline } from '@/components/case/DeadlineTimeline';
-import { DocumentChecklist } from '@/components/case/DocumentChecklist';
 import { WizardContainer } from '@/components/wizard';
 import { compute } from '@/wasm/bridge';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
@@ -37,14 +31,10 @@ type PageState =
 
 function CaseEditorPage() {
   const { caseId } = caseIdRoute.useParams();
-  const { user } = useAuth();
+  const { user: _user } = useAuth();
   const [state, setState] = useState<PageState>({ phase: 'loading' });
   const [caseRow, setCaseRow] = useState<CaseRow | null>(null);
-  const [shareToken, setShareToken] = useState<string>('');
-  const [shareEnabled, setShareEnabled] = useState<boolean>(false);
   const [autoSaveInput, setAutoSaveInput] = useState<EngineInput | null>(null);
-  const [notes, setNotes] = useState<CaseNote[]>([]);
-  const [deadlines, setDeadlines] = useState<CaseDeadline[]>([]);
 
   useAutoSave(autoSaveInput ? caseId : null, autoSaveInput as EngineInput);
 
@@ -56,8 +46,6 @@ function CaseEditorPage() {
         const row = await loadCase(caseId);
         if (cancelled) return;
         setCaseRow(row);
-        setShareToken(row.share_token ?? '');
-        setShareEnabled(row.share_enabled ?? false);
 
         if (row.output_json) {
           const input = row.input_json as EngineInput;
@@ -89,25 +77,14 @@ function CaseEditorPage() {
   }, [caseId]);
 
   useEffect(() => {
-    listNotes(caseId).then(setNotes).catch(() => {});
   }, [caseId]);
 
   useEffect(() => {
     if (state.phase === 'results') {
-      listDeadlines(caseId).then(setDeadlines).catch(() => {});
     }
   }, [caseId, state.phase]);
 
-  const handleMarkDone = async (deadlineId: string, completedDate: string) => {
-    await markDeadlineComplete(deadlineId, completedDate);
-    listDeadlines(caseId).then(setDeadlines).catch(() => {});
-  };
 
-  const handleAddCustom = async (data: { label: string; due_date: string; description: string; legal_basis?: string }) => {
-    if (!user) return;
-    await addCustomDeadline(caseId, user.id, data);
-    listDeadlines(caseId).then(setDeadlines).catch(() => {});
-  };
 
   const handleSubmit = async (data: EngineInput) => {
     setState({ phase: 'computing', input: data });
@@ -132,11 +109,6 @@ function CaseEditorPage() {
     setState({ phase: 'wizard', input });
   };
 
-  const handleToggleShare = async (enabled: boolean) => {
-    const result = await toggleShare(caseId, enabled);
-    setShareEnabled(result.shareEnabled);
-    setShareToken(result.shareToken);
-  };
 
   return (
     <div className="max-w-3xl mx-auto py-6 sm:py-8 px-4 sm:px-6">
@@ -191,35 +163,7 @@ function CaseEditorPage() {
             input={state.input}
             output={state.output}
             onEditInput={handleEditInput}
-            caseId={caseId}
-            shareToken={shareToken}
-            shareEnabled={shareEnabled}
-            onToggleShare={handleToggleShare}
           />
-          {deadlines.length > 0 && (
-            <div className="mt-8 border-t pt-6">
-              <DeadlineTimeline
-                deadlines={deadlines}
-                onMarkDone={handleMarkDone}
-                onAddCustom={handleAddCustom}
-              />
-            </div>
-          )}
-          {user && (
-            <div className="mt-8 border-t pt-6">
-              <DocumentChecklist caseId={caseId} userId={user.id} />
-            </div>
-          )}
-          {user && (
-            <div className="mt-8 border-t pt-6">
-              <CaseNotesPanel
-                caseId={caseId}
-                userId={user.id}
-                notes={notes}
-                onNotesChange={setNotes}
-              />
-            </div>
-          )}
         </>
       )}
 

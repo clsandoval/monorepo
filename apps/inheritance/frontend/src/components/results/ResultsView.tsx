@@ -24,13 +24,9 @@ export interface ResultsViewProps {
   input: EngineInput;
   output: EngineOutput;
   onEditInput: () => void;
-  caseId?: string;
-  shareToken?: string;
-  shareEnabled?: boolean;
-  onToggleShare?: (enabled: boolean) => Promise<void>;
 }
 
-export function ResultsView({ input, output, onEditInput, caseId, shareToken, shareEnabled, onToggleShare }: ResultsViewProps) {
+export function ResultsView({ input, output, onEditInput }: ResultsViewProps) {
   const totalCentavos = typeof input.net_distributable_estate.centavos === 'string'
     ? parseInt(input.net_distributable_estate.centavos, 10)
     : input.net_distributable_estate.centavos;
@@ -64,7 +60,7 @@ export function ResultsView({ input, output, onEditInput, caseId, shareToken, sh
       <ShareBreakdownSection shares={output.per_heir_shares} />
 
       {isTestate && (
-        <ComparisonPanel input={input} output={output} caseId={caseId} />
+        <ComparisonPanel input={input} output={output} />
       )}
 
       {hasDonations && (
@@ -95,10 +91,6 @@ export function ResultsView({ input, output, onEditInput, caseId, shareToken, sh
         input={input}
         output={output}
         onEditInput={onEditInput}
-        caseId={caseId}
-        shareToken={shareToken}
-        shareEnabled={shareEnabled}
-        onToggleShare={onToggleShare}
       />
     </div>
   );
