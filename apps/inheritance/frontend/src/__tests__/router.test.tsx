@@ -17,8 +17,6 @@ import { authRoute } from '../routes/auth';
 import { casesNewRoute } from '../routes/cases/new';
 import { caseIdRoute } from '../routes/cases/$caseId';
 import { settingsRoute } from '../routes/settings/index';
-import { blogIndexRoute } from '../routes/blog/index';
-import { shareTokenRoute } from '../routes/share/$token';
 
 // Mock supabase — share/$token imports share lib which imports supabase
 vi.mock('../lib/supabase', () => ({
@@ -42,11 +40,6 @@ vi.mock('../lib/supabase', () => ({
   },
 }));
 
-// Mock share lib — share/$token uses getSharedCase
-vi.mock('../lib/share', () => ({
-  getSharedCase: vi.fn().mockResolvedValue(null),
-  toggleShare: vi.fn(),
-}));
 
 // Mock the WASM bridge — /cases/new imports compute()
 vi.mock('../wasm/bridge', () => ({
@@ -130,11 +123,10 @@ vi.mock('../lib/firm-profile', () => ({
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
-  publicRootRoute.addChildren([authRoute, shareTokenRoute]),
+  publicRootRoute.addChildren([authRoute]),
   casesNewRoute,
   caseIdRoute,
   settingsRoute,
-  blogIndexRoute,
 ]);
 
 async function renderRoute(path: string) {
@@ -209,33 +201,6 @@ describe('router > /auth renders login page', () => {
     expect(
       screen.getByText(/sign in to save cases and access premium features/i),
     ).toBeInTheDocument();
-  });
-});
-
-describe('router > /share/:token renders without auth', () => {
-  it('renders the shared case page at /share/:token', async () => {
-    await renderRoute('/share/abc-123-test');
-
-    // Route renders — shows loading or not-found state (mock returns null)
-    await waitFor(() => {
-      const loading = screen.queryByTestId('shared-case-loading');
-      const notFound = screen.queryByTestId('shared-case-not-found');
-      expect(loading ?? notFound).toBeTruthy();
-    });
-  });
-
-  it('does not require authentication for shared view', async () => {
-    // The share route should render directly without redirect
-    await renderRoute('/share/some-token-value');
-
-    // Should show the shared case content, not the auth page
-    expect(screen.queryByText('Sign In')).not.toBeInTheDocument();
-    // Route renders without auth gate — shows loading or not-found
-    await waitFor(() => {
-      const loading = screen.queryByTestId('shared-case-loading');
-      const notFound = screen.queryByTestId('shared-case-not-found');
-      expect(loading ?? notFound).toBeTruthy();
-    });
   });
 });
 
