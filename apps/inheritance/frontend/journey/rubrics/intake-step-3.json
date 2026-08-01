@@ -10,13 +10,13 @@
       "id": "position",
       "kind": "text_contains",
       "selector": "[data-testid=\"guided-intake-form\"]",
-      "expect": "Step 4 of 7"
+      "expect": "Step 4 of 4"
     },
     {
       "id": "step-name",
       "kind": "text_contains",
       "selector": "[data-testid=\"guided-intake-form\"]",
-      "expect": "Step 4: Family Composition"
+      "expect": "Step 4: Review & Save"
     },
     {
       "id": "no-crash",

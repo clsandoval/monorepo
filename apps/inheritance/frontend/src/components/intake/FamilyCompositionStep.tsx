@@ -1,5 +1,5 @@
 /**
- * FamilyCompositionStep — Step 4: Family Composition / Heirs (§4.18)
+ * FamilyCompositionStep — Step 2: Family Composition / Heirs (§4.18)
  *
  * Add heir rows with name, relationship, and alive/predeceased status.
  * This pre-populates EngineInput.family_tree.
@@ -64,7 +64,7 @@ export function FamilyCompositionStep({
   return (
     <div data-testid="family-composition-step" className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Step 4: Family Composition</h2>
+        <h2 className="text-lg font-semibold">Step 2: Family Composition</h2>
         <p className="text-sm text-muted-foreground mt-1">
           Add the heirs of the decedent. This will pre-populate the inheritance calculator.
         </p>

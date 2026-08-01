@@ -1,5 +1,5 @@
 {
-  "$comment": "The eight JRNY-04 guided-intake steps. Every one is reached by SEEDING A COMPLETE IntakeFormState draft into localStorage before first paint, never by clicking through the steps before it - GuidedIntakeForm initialises its whole state, currentStep included, from localStorage['inheritance-intake-draft']. EVERY FIXTURE IS A COMPLETE STATE ON PURPOSE: seeding a partial draft such as {\"currentStep\":2,\"conflictCheck\":{\"outcome\":\"skipped\"}} crashes the application into its error boundary with \"Something went wrong! Show Error\" and \"TypeError: Cannot read properties of undefined (reading 'full_name')\", which is why every intake rubric also carries a no-crash assertion. No step here submits the form, so no cases or clients row is created and no reset is needed.",
+  "$comment": "The five JRNY-04 guided-intake steps (the wizard went 7 screens -> 4; the conflict-check, client-details and settlement-track steps were deleted with their screens). Every one is reached by SEEDING A COMPLETE IntakeFormState draft into localStorage before first paint, never by clicking through the steps before it - GuidedIntakeForm initialises its whole state, currentStep included, from localStorage['inheritance-intake-draft-v2']. EVERY FIXTURE IS A COMPLETE STATE ON PURPOSE: seeding a partial draft such as {\"currentStep\":2} crashes the application into its error boundary with \"Something went wrong! Show Error\" and \"TypeError: Cannot read properties of undefined (reading 'full_name')\", which is why every intake rubric also carries a no-crash assertion. No step here submits the form, so no cases or clients row is created and no reset is needed.",
   "steps": [
     {
       "id": "intake-step-0",
@@ -7,7 +7,7 @@
       "url": "/cases/new",
       "session": "alpha",
       "localStorage": {
-        "inheritance-intake-draft": "@file:intake-draft-step-0.json"
+        "inheritance-intake-draft-v2": "@file:intake-draft-step-0.json"
       },
       "sessionStorage": {},
       "reset": null,
@@ -27,7 +27,7 @@
       "url": "/cases/new",
       "session": "alpha",
       "localStorage": {
-        "inheritance-intake-draft": "@file:intake-draft-step-1.json"
+        "inheritance-intake-draft-v2": "@file:intake-draft-step-1.json"
       },
       "sessionStorage": {},
       "reset": null,
@@ -47,7 +47,7 @@
       "url": "/cases/new",
       "session": "alpha",
       "localStorage": {
-        "inheritance-intake-draft": "@file:intake-draft-step-2.json"
+        "inheritance-intake-draft-v2": "@file:intake-draft-step-2.json"
       },
       "sessionStorage": {},
       "reset": null,
@@ -67,7 +67,7 @@
       "url": "/cases/new",
       "session": "alpha",
       "localStorage": {
-        "inheritance-intake-draft": "@file:intake-draft-step-3.json"
+        "inheritance-intake-draft-v2": "@file:intake-draft-step-3.json"
       },
       "sessionStorage": {},
       "reset": null,
@@ -82,72 +82,12 @@
       "allowConsoleErrors": false
     },
     {
-      "id": "intake-step-4",
-      "requirement": "JRNY-04",
-      "url": "/cases/new",
-      "session": "alpha",
-      "localStorage": {
-        "inheritance-intake-draft": "@file:intake-draft-step-4.json"
-      },
-      "sessionStorage": {},
-      "reset": null,
-      "actions": [
-        {
-          "kind": "waitForSelector",
-          "selector": "[data-testid=\"guided-intake-form\"]"
-        }
-      ],
-      "settleMs": 1200,
-      "rubric": "intake-step-4.json",
-      "allowConsoleErrors": false
-    },
-    {
-      "id": "intake-step-5",
-      "requirement": "JRNY-04",
-      "url": "/cases/new",
-      "session": "alpha",
-      "localStorage": {
-        "inheritance-intake-draft": "@file:intake-draft-step-5.json"
-      },
-      "sessionStorage": {},
-      "reset": null,
-      "actions": [
-        {
-          "kind": "waitForSelector",
-          "selector": "[data-testid=\"guided-intake-form\"]"
-        }
-      ],
-      "settleMs": 1200,
-      "rubric": "intake-step-5.json",
-      "allowConsoleErrors": false
-    },
-    {
-      "id": "intake-step-6",
-      "requirement": "JRNY-04",
-      "url": "/cases/new",
-      "session": "alpha",
-      "localStorage": {
-        "inheritance-intake-draft": "@file:intake-draft-step-6.json"
-      },
-      "sessionStorage": {},
-      "reset": null,
-      "actions": [
-        {
-          "kind": "waitForSelector",
-          "selector": "[data-testid=\"guided-intake-form\"]"
-        }
-      ],
-      "settleMs": 1200,
-      "rubric": "intake-step-6.json",
-      "allowConsoleErrors": false
-    },
-    {
       "id": "intake-draft-recovered",
       "requirement": "JRNY-04",
       "url": "/cases/new",
       "session": "alpha",
       "localStorage": {
-        "inheritance-intake-draft": "@file:intake-draft-recovered.json"
+        "inheritance-intake-draft-v2": "@file:intake-draft-recovered.json"
       },
       "sessionStorage": {},
       "reset": null,

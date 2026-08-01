@@ -10,12 +10,12 @@
       "id": "position",
       "kind": "text_contains",
       "selector": "[data-testid=\"guided-intake-form\"]",
-      "expect": "Step 2 of 7"
+      "expect": "Step 1 of 4"
     },
     {
       "id": "recovered-name",
       "kind": "attribute_equals",
-      "selector": "#client-name",
+      "selector": "#decedent-name",
       "attr": "value",
       "expect": "Recovered Client"
     },

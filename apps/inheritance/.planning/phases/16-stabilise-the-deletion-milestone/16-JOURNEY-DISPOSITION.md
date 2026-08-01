@@ -126,14 +126,87 @@ exists; three of its seven screens went, not the surface.
 Producing a first reference for a rebuilt screen is a visual judgement that belongs to a human, so
 all eight are reported rather than re-baselined by this phase.
 
+## A product defect the intake repair uncovered
+
+Bringing the rubrics to post-cut truth required reading the real DOM, and that surfaced a defect the
+cut left behind. `16-03` renumbered **one** step heading — `IntakeReviewStep.tsx`, "Step 7: Review &
+Save" → "Step 4: Review & Save" — and missed the other three. The wizard was rendering a progress
+line and a heading that contradicted each other on the same screen:
+
+| Screen | Progress line | Heading (before) | Heading (after) |
+|---|---|---|---|
+| Decedent Info | Step 1 of 4 | **Step 3: About the Decedent** | Step 1: About the Decedent |
+| Family Composition | Step 2 of 4 | **Step 4: Family Composition** | Step 2: Family Composition |
+| Asset Summary | Step 3 of 4 | **Step 5: Asset Summary** | Step 3: Asset Summary |
+| Review & Save | Step 4 of 4 | Step 4: Review & Save | unchanged — `16-03` had already fixed it |
+
+Fixed in `DecedentInfoStep.tsx`, `FamilyCompositionStep.tsx` and `AssetSummaryStep.tsx` (heading and
+the file's own doc comment). `npx tsc -b --force` exits 0. This is CUT-01 work that the cut left
+undone, not new surface.
+
+## The intake registry, brought to post-cut truth (not approved)
+
+The wizard went 7 screens → 4, so three step records described surfaces that no longer exist. The
+remap is **screen-preserving**: each surviving record, its rubric and its already-approved reference
+image travel together to the id matching the screen's new position. No reference image was written,
+regenerated or approved — the bytes are the previously approved ones, only the filename changed, and
+every remapped step still **fails**, so no step can go falsely green off the rename.
+
+| Old id | Screen | New id |
+|---|---|---|
+| `intake-step-0` | Conflict Check | **deleted** — surface gone |
+| `intake-step-1` | Client Details | **deleted** — surface gone |
+| `intake-step-2` | About the Decedent | `intake-step-0` |
+| `intake-step-3` | Family Composition | `intake-step-1` |
+| `intake-step-4` | Asset Summary | `intake-step-2` |
+| `intake-step-5` | Settlement Track | **deleted** — surface gone |
+| `intake-step-6` | Review & Save | `intake-step-3` |
+| `intake-draft-recovered` | draft recovery | unchanged id, re-pointed |
+
+Three further repairs, none of which changes an assertion's strength:
+
+- The step records seeded `localStorage['inheritance-intake-draft']`; `16-03` moved the key to
+  `inheritance-intake-draft-v2`. All five records updated.
+- Every fixture carried the seven-key `IntakeFormState`. All five rewritten to the four-key post-cut
+  shape (`currentStep`, `decedentInfo`, `familyComposition`, `assetSummary`), values preserved, each
+  still a **complete** state — the step file records that a partial draft crashes the app into its
+  error boundary.
+- `intake-draft-recovered` seeded the deleted Client Details screen and asserted `#client-name`.
+  Re-pointed at the surviving Decedent Info screen and `#decedent-name`, carrying the same
+  `Recovered Client` value.
+
+Assertion shape is byte-for-byte unchanged per surviving step — same assertion ids, same kinds, same
+counts (5 per intake step, 6 for draft-recovery), including the `no-crash` and `no_console_error`
+assertions. Only what they point at moved.
+
+**Proof the remap is correct rather than merely consistent:** all five intake steps now pass their
+rubrics against the live DOM (`intake-step-0` 5/5, `intake-draft-recovered` 6/6), where before they
+failed at the rubric. A wrong screen-to-id mapping would have failed these. The captured DOM reads
+`Step 1 of 4 … 1 Decedent Info 2 Family Composition 3 Asset Summary 4 Review & Save … Step 1: About
+the Decedent`.
+
+They still fail on `REFERENCE SIZE MISMATCH` / `DIFF FAILURE`, because their reference images show
+the old seven-step chrome. **That is the reported state, and it is deliberate:** producing a first
+reference for a rebuilt screen is a visual judgement, and this phase approves none of them.
+
+`node scripts/check-journey-registry.mjs` → exit 0, `JOURNEY REGISTRY ok steps=25 references=25`.
+
 ## Summary
+
+`node journey/run.mjs --all`: **failed=24 → 10 → 7**.
 
 | Disposition | Count | Steps |
 |---|---|---|
-| Approved (nav-confined, inspected) | 14 | `auth-session-persisted`, `tax-tab-0`…`tax-tab-7`, the five `wizard-*` |
+| Approved (nav-confined, measured and viewed) | 14 | `auth-session-persisted`, `tax-tab-0`…`tax-tab-7`, the five `wizard-*` |
 | Human review — content changed outside the nav region | 2 | `results-view`, `results-family-tree` |
-| Human review — rubric asserts a deleted surface | 8 | the eight `intake-*` |
+| Human review — rubric now green, reference needs a human re-baseline | 5 | `intake-step-0`…`intake-step-3`, `intake-draft-recovered` |
+| Retired with their deleted screens | 3 | old `intake-step-0`, `intake-step-1`, `intake-step-5` |
 | Already passing (unauthenticated, no sidebar) | 4 | `auth-signin`, `auth-signup`, `auth-verify-nocode`, `auth-verify-badcode` |
 
-No step is left in an undecided state, which is what CUT-03 asks for. Ten steps remain red on
-purpose and are listed above with the specific element that disqualified each.
+No step is left in an undecided state, which is what CUT-03 asks for. Seven steps remain red on
+purpose, each listed above with the specific reason.
+
+**What a human must decide** (neither is an agent's call):
+1. `results-view` / `results-family-tree` — confirm the `Share` button, `Documents` and `Case Notes`
+   removals are intended, then re-approve those two references.
+2. The five intake steps — look at the rebuilt four-step wizard and approve its first references.

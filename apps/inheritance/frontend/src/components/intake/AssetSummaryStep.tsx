@@ -1,5 +1,5 @@
 /**
- * AssetSummaryStep — Step 5: Asset Summary (§4.18)
+ * AssetSummaryStep — Step 3: Asset Summary (§4.18)
  *
  * Collects high-level asset information: real properties count/total,
  * cash accounts, vehicles. Drives document checklist seeding (§4.22).
@@ -30,7 +30,7 @@ export function AssetSummaryStep({
   return (
     <div data-testid="asset-summary-step" className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Step 5: Asset Summary</h2>
+        <h2 className="text-lg font-semibold">Step 3: Asset Summary</h2>
         <p className="text-sm text-muted-foreground mt-1">
           High-level overview of the decedent's assets. Detailed values will be
           entered in the case wizard.

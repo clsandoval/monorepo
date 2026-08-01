@@ -10,13 +10,13 @@
       "id": "position",
       "kind": "text_contains",
       "selector": "[data-testid=\"guided-intake-form\"]",
-      "expect": "Step 3 of 7"
+      "expect": "Step 3 of 4"
     },
     {
       "id": "step-name",
       "kind": "text_contains",
       "selector": "[data-testid=\"guided-intake-form\"]",
-      "expect": "Step 3: About the Decedent"
+      "expect": "Step 3: Asset Summary"
     },
     {
       "id": "no-crash",

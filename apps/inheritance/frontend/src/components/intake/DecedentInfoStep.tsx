@@ -1,5 +1,5 @@
 /**
- * DecedentInfoStep — Step 3: About the Decedent (§4.18)
+ * DecedentInfoStep — Step 1: About the Decedent (§4.18)
  *
  * Collects decedent information: name, DOD, citizenship, civil status,
  * property regime, has-will flag. This data pre-populates EngineInput.decedent.
@@ -46,7 +46,7 @@ export function DecedentInfoStep({
   return (
     <div data-testid="decedent-info-step" className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold">Step 3: About the Decedent</h2>
+        <h2 className="text-lg font-semibold">Step 1: About the Decedent</h2>
         <p className="text-sm text-muted-foreground mt-1">
           Information about the deceased person whose estate will be settled.
         </p>

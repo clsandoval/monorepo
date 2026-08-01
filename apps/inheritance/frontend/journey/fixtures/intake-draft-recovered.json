@@ -1,27 +1,7 @@
 {
-  "currentStep": 1,
-  "conflictCheck": {
-    "outcome": null,
-    "checkedName": "",
-    "checkedTin": null,
-    "notes": ""
-  },
-  "clientDetails": {
-    "full_name": "Recovered Client",
-    "nickname": "",
-    "date_of_birth": "",
-    "email": "recovered@example.test",
-    "phone": "09171234567",
-    "address": "",
-    "tin": "",
-    "gov_id_type": null,
-    "gov_id_number": "",
-    "civil_status": null,
-    "referral_source": "",
-    "relationship_to_decedent": null
-  },
+  "currentStep": 0,
   "decedentInfo": {
-    "full_name": "",
+    "full_name": "Recovered Client",
     "date_of_death": "",
     "place_of_death": "",
     "last_known_address": "",
@@ -40,8 +20,5 @@
     "has_cash": false,
     "has_vehicles": false,
     "vehicle_count": 0
-  },
-  "settlementTrack": {
-    "track": null
   }
 }
