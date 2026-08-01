@@ -1931,3 +1931,74 @@ quietly repaired.
 **When it fires.** Make the surfaces agree with the engine. Never edit this gate, never add an
 exception list, never add a tolerance term and never edit a baseline. If a check cannot legitimately
 pass, that is a finding to report as BLOCKED with the pasted output — not an obstacle to route around.
+
+---
+
+## 28. Deed parity (G38)
+
+**Command.** `cd frontend && npx tsx journey/deed-parity.ts`
+**Precondition.** `test -f frontend/journey/deed-parity.ts`
+**Order.** 35 — after **G37**, before **G8**.
+
+The schedule of shares inside the Deed of Extrajudicial Settlement is one of the two numeric
+artifacts this product exists to manufacture. Before Phase 22 the deed existed here only as a
+checklist label: the app computed to the centavo the exact figures whose only destination is that
+deed, and then made the lawyer retype them into Word. Phase 22 built the exit — a pasteable clause
+and a DOCX — and this gate is what keeps the two surfaces honest afterwards.
+
+**What it proves**, each assertion carrying its own literal marker so a failure says *which* rule
+broke:
+
+| Marker | Assertion |
+|---|---|
+| `DOCX PART SET MISMATCH` | the downloaded archive holds exactly `[Content_Types].xml`, `_rels/.rels` and `word/document.xml`, in that order |
+| `DOCX TEXT MISMATCH` | the paragraphs of `word/document.xml`, rejoined, equal the clause the screen shows, character for character |
+| `CLAUSE TEXT MISMATCH` | the clause the screen shows equals the clause built from the same-run engine output |
+| `HEIR LINE MISSING` / `HEIR LINE INVENTED` | the clause prints exactly one block per `per_heir_shares` entry — the comparison runs in **both** directions |
+| `DEED HEIR NAME MISMATCH` | block *k* names the engine's heir *k*; blocks are aligned **by index**, never by scanning for something that looks like a share |
+| `DEED AMOUNT MISMATCH` | the parsed peso amount equals `net_from_estate.centavos` as an exact `BigInt` |
+| `DEED AUTHORITY MISMATCH` | the printed article list equals the engine's `legal_basis`, as an ordered list |
+| `REFUSAL SET MISMATCH` / `REFUSED LINE CARRIES AMOUNT` | the refused blocks are exactly the ones the refusal rules refuse, and a refused block prints no peso token |
+| `PESO TOKEN MULTISET MISMATCH` | the multiset of every `PHP x,xxx.xx` token in the clause equals the engine's — so an amount printed **outside** a heir block cannot escape the block grammar |
+| `DEED PARITY COMPARED NOTHING` | the run compared at least one block; **a run that measured nothing is a failure** |
+
+**Why the browser leg is not optional.** `scripts/check-seed-fixture.mjs` rejects a seeded
+`output_json` with `SEED WRITES OUTPUT`, because a seeded engine result is a per-heir peso figure
+nothing computed. The only honest route to a results view is therefore to make the product compute
+one: the gate resets the Alpha case with `case-alpha-no-output`, drives a real Chromium to the
+review step, clicks the product's own Compute control, and then clicks the product's own Download
+DOCX control and reads the bytes the browser actually wrote to disk. The product's blob and download
+path is what is certified, not the harness's.
+
+**Why the expectation is computed and never stored.** This is the discipline G19 established. No
+peso figure is committed anywhere in this gate; the expectation is a `computeEngineOutput` run
+performed in the same process, moments before the browser launches. A committed expected figure
+becomes a record of the bug the day the bug ships.
+
+**Why order 35.** `bash scripts/ci-gates.sh` halts at **G17** (order 15) on the current branch, for
+reasons Phase 22 does not own. A gate registered before that halt would move the halt earlier and
+cost the run the gates it reaches today — the trap that blocked Phase 20's G36 registration. G38
+therefore sits after the halt, exactly as G37 does, which means **the suite does not reach it today**
+and it must be run directly. Its green result in the Phase 22 record comes from a direct run.
+
+**Its failure paths are proven, not trusted.** Four injections were applied to the product source
+one at a time, each observed turning the gate red, each reverted before the next. Two of them are
+one centavo in opposite directions. The exact patches, the exit codes and the verbatim output are in
+`.planning/phases/22-deed-of-extrajudicial-settlement-schedule-of-shares/22-GATE-OBSERVATIONS.md`.
+
+**No exception list, no baseline, no mutating flag.** The script reads no argv. It holds no
+tolerance term, no epsilon and no absolute-difference comparison, and it cannot write, repair,
+regenerate, accept, update or waive anything.
+
+**What it does not prove.** It **does not prove the DOCX opens in Microsoft Word** — no OOXML
+consumer exists anywhere in this repository, so nothing here can open the archive the way Word does.
+The gate proves the package is a well-formed stored ZIP holding exactly the three declared parts and
+that the body re-extracts to the clause exactly; opening the file in Word is recorded as a
+manual-only verification in `22-VALIDATION.md`. It also does not prove the engine's figures are
+legally correct, only that the surfaces reproduce one engine run faithfully. And the Alpha fixture
+raises no manual-review flag, so the two refusal markers are structurally present but were not driven
+red in a browser; the refusal rules themselves are proven by unit tests.
+
+**When it fires.** Make the clause agree with the engine. Never edit this gate, never add an
+exception, never add a tolerance term. If a check cannot legitimately pass, that is a finding to
+report as BLOCKED with the pasted output — not an obstacle to route around.
