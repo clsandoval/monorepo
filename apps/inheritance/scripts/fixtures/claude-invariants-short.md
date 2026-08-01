@@ -342,13 +342,6 @@ of them depends on an agent remembering to be careful.
    is recorded in `.planning/DOC-DEBT.md` and owned by requirement `EXT-02`. It is not fixed here.
    Enforced by `node scripts/check-legal-traceability.mjs` (G28), which raises `MARKER NOT UNIQUE`
    when one article's `// LEGAL-VECTOR:` marker occurs at more than one site.
-6. **What requires a lawyer.** No agent decides a contested point of Philippine law — without
-   exception, and regardless of how clear the answer looks. The executor reports **BLOCKED** per
-   `.planning/PLAN-STANDARD.md` section 3. The question is recorded in `.planning/LAWYER-AGENDA.md`
-   together with a matching object in `.planning/lawyer-decisions.json`. Correcting an existing rule
-   follows `.planning/LEGAL-CORRECTION-WORKFLOW.md`; adding a brand-new rule follows
-   `.planning/NEW-LEGAL-RULE.md`. Enforced by `node scripts/check-lawyer-agenda.mjs` (G10), which
-   fails the build when the agenda and the registry disagree.
 
 <!-- GSD:workflow-start source:GSD defaults -->
 ## GSD Workflow Enforcement

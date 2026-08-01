@@ -328,7 +328,7 @@ of them depends on an agent remembering to be careful.
    `.planning/PLAN-STANDARD.md` for the report format and where a legal question is recorded.
    Enforced by `node scripts/check-plan-closed-world.mjs` (G6), which fails a plan that leaves a
    decision to the executor.
-4. **Money units.** A money value crossing a wizard boundary carries a branded unit from
+4. **Numbers.** A money value crossing a wizard boundary carries a branded unit from
    `frontend/src/types/money-units.ts` — `Pesos` or `Centavos` — and the two are mutually
    unassignable by construction. The succession engine's wire type is `Money { centavos }`. The
    engine computes in `BigRational` throughout and converts to centavos exactly once, in

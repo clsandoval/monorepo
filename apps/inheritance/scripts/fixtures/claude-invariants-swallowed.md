@@ -23,6 +23,48 @@ Note the ordering this implies: correctness is not the top-line goal, *low cost 
 <!-- GSD:project-end -->
 
 <!-- GSD:stack-start source:codebase/STACK.md -->
+## Invariants an implementing agent must not violate
+
+Six rules an implementing agent must not violate. Each names the command that enforces it, so none
+of them depends on an agent remembering to be careful.
+
+1. **Commit scope.** Every commit stages explicit paths. `git add -A`, `git add .` and
+   `git commit -a` are prohibited, because a concurrent auto-committer runs on this monorepo and a
+   broad stage absorbs its in-flight work — or lets its next commit absorb yours. Commit with
+   `bash scripts/safe-commit.sh -m "<message>" <path> ...`. Enforced by
+   `node scripts/check-commit-discipline.mjs` (G7), which fails on any commit mixing
+   `apps/inheritance/` with paths outside it.
+2. **Gate immutability.** The gate set in `gates.manifest.json` may only grow. Removing a gate,
+   changing a locked command string, or setting a blocking gate non-blocking requires owner action,
+   never agent action. Enforced by `node scripts/check-gate-manifest.mjs` (G5); see `GATES.md`.
+3. **Halt over guess.** When a gate cannot run, when a plan does not contain a decision the task
+   needs, or when any point of Philippine law arises, stop and report **BLOCKED** with the real,
+   pasted command output. Do not guess, and do not pick whichever reading looks defensible. See
+   `.planning/PLAN-STANDARD.md` for the report format and where a legal question is recorded.
+   Enforced by `node scripts/check-plan-closed-world.mjs` (G6), which fails a plan that leaves a
+   decision to the executor.
+4. **Money units.** A money value crossing a wizard boundary carries a branded unit from
+   `frontend/src/types/money-units.ts` — `Pesos` or `Centavos` — and the two are mutually
+   unassignable by construction. The succession engine's wire type is `Money { centavos }`. The
+   engine computes in `BigRational` throughout and converts to centavos exactly once, in
+   `engine/src/step10_finalize.rs`. A unit error is fixed with the correct conversion — never with
+   `as any`, never with `as unknown as`, and never by widening a branded field back to `number`.
+   Enforced by `cd frontend && npx tsc -b --force` (G4).
+5. **One implementation per legal rule.** A legal rule is implemented at exactly one site. A second
+   implementation is a defect, not a convenience: two copies drift, and the copy that drifts is the
+   one nobody is testing. The surviving known duplicate — the dead `predictScenario` and
+   `computeMock` in `frontend/src/wasm/bridge.ts`, a hand-copy of `engine/src/step3_scenario.rs` —
+   is recorded in `.planning/DOC-DEBT.md` and owned by requirement `EXT-02`. It is not fixed here.
+   Enforced by `node scripts/check-legal-traceability.mjs` (G28), which raises `MARKER NOT UNIQUE`
+   when one article's `// LEGAL-VECTOR:` marker occurs at more than one site.
+6. **What requires a lawyer.** No agent decides a contested point of Philippine law — without
+   exception, and regardless of how clear the answer looks. The executor reports **BLOCKED** per
+   `.planning/PLAN-STANDARD.md` section 3. The question is recorded in `.planning/LAWYER-AGENDA.md`
+   together with a matching object in `.planning/lawyer-decisions.json`. Correcting an existing rule
+   follows `.planning/LEGAL-CORRECTION-WORKFLOW.md`; adding a brand-new rule follows
+   `.planning/NEW-LEGAL-RULE.md`. Enforced by `node scripts/check-lawyer-agenda.mjs` (G10), which
+   fails the build when the agenda and the registry disagree.
+
 ## Technology Stack
 
 ## Languages
@@ -307,48 +349,6 @@ Note the ordering this implies: correctness is not the top-line goal, *low cost 
 
 No project skills found. Add skills to any of: `.claude/skills/`, `.agents/skills/`, `.cursor/skills/`, `.github/skills/`, or `.codex/skills/` with a `SKILL.md` index file.
 <!-- GSD:skills-end -->
-
-## Invariants an implementing agent must not violate
-
-Six rules an implementing agent must not violate. Each names the command that enforces it, so none
-of them depends on an agent remembering to be careful.
-
-1. **Commit scope.** Every commit stages explicit paths. `git add -A`, `git add .` and
-   `git commit -a` are prohibited, because a concurrent auto-committer runs on this monorepo and a
-   broad stage absorbs its in-flight work — or lets its next commit absorb yours. Commit with
-   `bash scripts/safe-commit.sh -m "<message>" <path> ...`. Enforced by
-   `node scripts/check-commit-discipline.mjs` (G7), which fails on any commit mixing
-   `apps/inheritance/` with paths outside it.
-2. **Gate immutability.** The gate set in `gates.manifest.json` may only grow. Removing a gate,
-   changing a locked command string, or setting a blocking gate non-blocking requires owner action,
-   never agent action. Enforced by `node scripts/check-gate-manifest.mjs` (G5); see `GATES.md`.
-3. **Halt over guess.** When a gate cannot run, when a plan does not contain a decision the task
-   needs, or when any point of Philippine law arises, stop and report **BLOCKED** with the real,
-   pasted command output. Do not guess, and do not pick whichever reading looks defensible. See
-   `.planning/PLAN-STANDARD.md` for the report format and where a legal question is recorded.
-   Enforced by `node scripts/check-plan-closed-world.mjs` (G6), which fails a plan that leaves a
-   decision to the executor.
-4. **Money units.** A money value crossing a wizard boundary carries a branded unit from
-   `frontend/src/types/money-units.ts` — `Pesos` or `Centavos` — and the two are mutually
-   unassignable by construction. The succession engine's wire type is `Money { centavos }`. The
-   engine computes in `BigRational` throughout and converts to centavos exactly once, in
-   `engine/src/step10_finalize.rs`. A unit error is fixed with the correct conversion — never with
-   `as any`, never with `as unknown as`, and never by widening a branded field back to `number`.
-   Enforced by `cd frontend && npx tsc -b --force` (G4).
-5. **One implementation per legal rule.** A legal rule is implemented at exactly one site. A second
-   implementation is a defect, not a convenience: two copies drift, and the copy that drifts is the
-   one nobody is testing. The surviving known duplicate — the dead `predictScenario` and
-   `computeMock` in `frontend/src/wasm/bridge.ts`, a hand-copy of `engine/src/step3_scenario.rs` —
-   is recorded in `.planning/DOC-DEBT.md` and owned by requirement `EXT-02`. It is not fixed here.
-   Enforced by `node scripts/check-legal-traceability.mjs` (G28), which raises `MARKER NOT UNIQUE`
-   when one article's `// LEGAL-VECTOR:` marker occurs at more than one site.
-6. **What requires a lawyer.** No agent decides a contested point of Philippine law — without
-   exception, and regardless of how clear the answer looks. The executor reports **BLOCKED** per
-   `.planning/PLAN-STANDARD.md` section 3. The question is recorded in `.planning/LAWYER-AGENDA.md`
-   together with a matching object in `.planning/lawyer-decisions.json`. Correcting an existing rule
-   follows `.planning/LEGAL-CORRECTION-WORKFLOW.md`; adding a brand-new rule follows
-   `.planning/NEW-LEGAL-RULE.md`. Enforced by `node scripts/check-lawyer-agenda.mjs` (G10), which
-   fails the build when the agenda and the registry disagree.
 
 <!-- GSD:workflow-start source:GSD defaults -->
 ## GSD Workflow Enforcement

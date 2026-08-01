@@ -308,7 +308,6 @@ Note the ordering this implies: correctness is not the top-line goal, *low cost 
 No project skills found. Add skills to any of: `.claude/skills/`, `.agents/skills/`, `.cursor/skills/`, `.github/skills/`, or `.codex/skills/` with a `SKILL.md` index file.
 <!-- GSD:skills-end -->
 
-## Invariants an implementing agent must not violate
 
 Six rules an implementing agent must not violate. Each names the command that enforces it, so none
 of them depends on an agent remembering to be careful.

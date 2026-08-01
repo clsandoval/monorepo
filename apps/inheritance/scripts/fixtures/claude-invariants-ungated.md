@@ -317,7 +317,7 @@ of them depends on an agent remembering to be careful.
    `git commit -a` are prohibited, because a concurrent auto-committer runs on this monorepo and a
    broad stage absorbs its in-flight work — or lets its next commit absorb yours. Commit with
    `bash scripts/safe-commit.sh -m "<message>" <path> ...`. Enforced by
-   `node scripts/check-commit-discipline.mjs` (G7), which fails on any commit mixing
+   `node scripts/check-nothing-at-all.mjs` (G7), which fails on any commit mixing
    `apps/inheritance/` with paths outside it.
 2. **Gate immutability.** The gate set in `gates.manifest.json` may only grow. Removing a gate,
    changing a locked command string, or setting a blocking gate non-blocking requires owner action,
