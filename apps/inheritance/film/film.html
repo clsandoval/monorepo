@@ -1,0 +1,245 @@
+<meta charset="utf-8">
+<title>Inheritance — The Split</title>
+<style>
+  @font-face { font-family:'LoraF'; src:url('lora.woff2') format('woff2'); font-weight:400 700; }
+  @font-face { font-family:'InterF'; src:url('inter.woff2') format('woff2'); font-weight:100 900; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1920px; height:1080px; overflow:hidden; background:#0b1420; }
+  #stage { position:relative; width:1920px; height:1080px; background:#0b1420; overflow:hidden; }
+  .abs { position:absolute; }
+  .serif { font-family:'LoraF',Georgia,serif; }
+  .sans  { font-family:'InterF',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1; }
+  #lightbg { position:absolute; inset:0; background:#f8fafc; opacity:0; }
+  #grain { position:absolute; inset:0; pointer-events:none; opacity:.05; }
+</style>
+
+<div id="stage">
+  <div id="lightbg"></div>
+
+  <!-- BEAT 1 — the claim -->
+  <div class="abs serif" id="claim" style="left:0;top:430px;width:1920px;text-align:center;
+       font-size:76px;font-weight:600;color:#f2f5f8;letter-spacing:-.02em;">
+    Every peso traced to <span id="claimHi" style="color:#c5a44e;">its article</span>.
+  </div>
+  <div class="abs sans" id="claimSub" style="left:0;top:548px;width:1920px;text-align:center;
+       font-size:23px;font-weight:400;color:#7b8ea3;letter-spacing:.16em;text-transform:uppercase;">
+    Philippine Succession Law
+  </div>
+
+  <!-- BEAT 2 — the estate -->
+  <div class="abs sans" id="caseLabel" style="left:0;top:236px;width:1920px;text-align:center;
+       font-size:21px;font-weight:500;color:#7b8ea3;letter-spacing:.2em;text-transform:uppercase;">
+    Estate of Pedro &nbsp;·&nbsp; 15 Jan 2026 &nbsp;·&nbsp; Intestate
+  </div>
+  <div class="abs sans" id="total" style="left:0;top:286px;width:1920px;text-align:center;
+       font-size:112px;font-weight:600;color:#f2f5f8;letter-spacing:-.03em;">₱0</div>
+
+  <!-- the four segments: bar -> row markers -->
+  <div class="abs" id="s0"></div><div class="abs" id="s1"></div>
+  <div class="abs" id="s2"></div><div class="abs" id="s3"></div>
+
+  <!-- heir rows -->
+  <div id="rows"></div>
+
+  <!-- BEAT 6 — conservation -->
+  <div class="abs sans" id="proof" style="left:0;top:874px;width:1920px;text-align:center;
+       font-size:30px;font-weight:400;color:#7b8ea3;letter-spacing:.01em;">
+    ₱1,500,000 &nbsp;×&nbsp; 4 &nbsp;=&nbsp; <span style="color:#c5a44e;font-weight:600;">₱6,000,000</span>
+  </div>
+  <div class="abs" id="proofRule" style="left:660px;top:856px;height:1px;background:#c5a44e;width:0;"></div>
+
+  <!-- BEAT 7 — evidence -->
+  <img id="evidence" class="abs" src="evidence.png"
+       style="left:305px;top:74px;width:1310px;border-radius:12px;opacity:0;
+              box-shadow:0 48px 100px rgba(6,12,20,.42);">
+  <div class="abs sans" id="evLabel" style="left:0;top:940px;width:1920px;text-align:center;
+       font-size:23px;font-weight:600;color:#3f5266;letter-spacing:.15em;text-transform:uppercase;opacity:0;">
+    Every row carries its Civil Code article
+  </div>
+
+  <!-- BEAT 8 — end card -->
+  <div class="abs serif" id="endTitle" style="left:0;top:466px;width:1920px;text-align:center;
+       font-size:88px;font-weight:600;color:#f2f5f8;letter-spacing:-.02em;opacity:0;">Inheritance</div>
+  <div class="abs sans" id="endSub" style="left:0;top:588px;width:1920px;text-align:center;
+       font-size:25px;font-weight:400;color:#c5a44e;letter-spacing:.2em;text-transform:uppercase;opacity:0;">
+    From family facts to citable peso amounts
+  </div>
+
+  <canvas id="grain" width="1920" height="1080"></canvas>
+</div>
+
+<script>
+// ---------------------------------------------------------------- determinism
+// Frame N is a pure function of N. No Math.random, no Date.now, no CSS
+// transitions, no repeat/yoyo. seek(t) fully specifies the frame.
+const HEIRS = [
+  { name:'Ana',    cat:'Legitimate Child', amt:'₱1,500,000', art:'Art. 996' },
+  { name:'Ben',    cat:'Legitimate Child', amt:'₱1,500,000', art:'Art. 996' },
+  { name:'Carlos', cat:'Legitimate Child', amt:'₱1,500,000', art:'Art. 996' },
+  { name:'Rosa',   cat:'Surviving Spouse', amt:'₱1,500,000', art:'Art. 996' },
+];
+
+// build rows once
+const rowsEl = document.getElementById('rows');
+HEIRS.forEach((h,i)=>{
+  const r = document.createElement('div');
+  r.className = 'abs'; r.id = 'r'+i;
+  r.style.cssText = 'left:560px;width:800px;height:44px;';
+  r.innerHTML =
+    `<span class="sans" id="rn${i}" style="position:absolute;left:34px;top:2px;font-size:32px;font-weight:600;color:#f2f5f8;">${h.name}</span>`+
+    `<span class="sans" id="rc${i}" style="position:absolute;left:190px;top:9px;font-size:19px;font-weight:400;color:#7b8ea3;letter-spacing:.03em;">${h.cat}</span>`+
+    `<span class="sans" id="ra${i}" style="position:absolute;left:430px;top:0px;width:260px;text-align:right;font-size:34px;font-weight:600;color:#f2f5f8;">${h.amt}</span>`+
+    `<span class="sans" id="rt${i}" style="position:absolute;left:716px;top:7px;font-size:17px;font-weight:600;color:#c5a44e;border:1px solid rgba(197,164,78,.55);border-radius:4px;padding:4px 0;width:96px;text-align:center;white-space:nowrap;display:inline-block;">${h.art}</span>`;
+  rowsEl.appendChild(r);
+});
+
+// static grain — seeded by pixel index, not random
+(function(){
+  const c=document.getElementById('grain'), x=c.getContext('2d');
+  const im=x.createImageData(1920,1080), d=im.data;
+  let s=1234567;
+  for(let i=0;i<d.length;i+=4){ s=(s*1103515245+12345)&0x7fffffff; const v=(s>>16)&255;
+    d[i]=d[i+1]=d[i+2]=v; d[i+3]=255; }
+  x.putImageData(im,0,0);
+})();
+
+// ---------------------------------------------------------------- easing
+const cl=(v)=>v<0?0:v>1?1:v;
+const outExpo=(p)=>p>=1?1:1-Math.pow(2,-10*p);
+const outCubic=(p)=>1-Math.pow(1-p,3);
+const inOutCubic=(p)=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+const outBack=(p)=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(p-1,3)+c1*Math.pow(p-1,2);};
+// progress of a segment starting at `st` lasting `du`
+const seg=(t,st,du)=>cl((t-st)/du);
+const lerp=(a,b,p)=>a+(b-a)*p;
+const px=(n)=>n.toFixed(2)+'px';
+const S=(id)=>document.getElementById(id);
+const peso=(n)=>'₱'+Math.round(n).toLocaleString('en-US');
+
+// bar geometry
+const BAR_W=1180, BAR_H=76, BAR_X=(1920-BAR_W)/2, BAR_Y=470;
+const GAP=16, SEG_W=(BAR_W-GAP*3)/4;
+const ROW_X=560, ROW_Y=[430,520,610,700], MARK_W=7, MARK_H=44;
+
+function setOpacityRise(el, p, rise){
+  el.style.opacity = p;
+  el.style.transform = 'translateY('+px(lerp(rise,0,p))+')';
+}
+
+// ---------------------------------------------------------------- the timeline
+function seek(t){
+  // ---- BEAT 1 · claim (0 -> 4.4)
+  const c1=outCubic(seg(t,0.35,1.5));
+  const cOut=outCubic(seg(t,3.9,0.55));
+  setOpacityRise(S('claim'), c1*(1-cOut), 26);
+  const cs=outCubic(seg(t,0.95,1.3));
+  setOpacityRise(S('claimSub'), cs*(1-cOut), 16);
+  S('claimHi').style.opacity = outCubic(seg(t,1.25,1.1));
+
+  // ---- BEAT 2 · estate (4.4 -> 9.2)
+  const lab=outCubic(seg(t,4.5,0.9));
+  const labOut=outCubic(seg(t,20.6,0.6));
+  setOpacityRise(S('caseLabel'), lab*(1-labOut), 14);
+
+  const cnt=outExpo(seg(t,4.9,2.1));
+  const totV=6000000*cnt;
+  const totEl=S('total');
+  totEl.textContent = peso(totV);
+  const totIn=outCubic(seg(t,4.7,0.7));
+  // total shrinks and lifts once the rows take over
+  const shrink=inOutCubic(seg(t,11.6,1.1));
+  const totOut=outCubic(seg(t,26.9,0.7));
+  totEl.style.opacity = totIn*(1-totOut);
+  totEl.style.transform =
+    'translateY('+px(lerp(18,0,totIn)+lerp(0,-52,shrink))+') scale('+lerp(1,0.42,shrink)+')';
+
+  // ---- BEAT 3/4 · the split, then travel to rows
+  // split: gaps open 9.2 -> 11.2 ; travel: 11.6 -> 14.2
+  const anticip=inOutCubic(seg(t,8.7,0.5));          // slight compress before the split
+  const split=outBack(seg(t,9.35,1.5));
+  const barIn=outCubic(seg(t,5.6,1.2));
+  const travel=inOutCubic(seg(t,11.7,1.7));
+
+  for(let i=0;i<4;i++){
+    const el=S('s'+i);
+    // bar-phase geometry
+    const compress=lerp(1,0.972,anticip);
+    const bw=SEG_W*compress;
+    const bx=BAR_X + i*(SEG_W+GAP*split) + (BAR_W-(SEG_W*4+GAP*3*split))/2 - (BAR_X-BAR_X);
+    const barX=BAR_X + i*(SEG_W + GAP*split) - (GAP*3*split)/2 + (1-compress)*SEG_W*0.5;
+    const barY=BAR_Y;
+    // row-phase geometry
+    const rowX=ROW_X, rowY=ROW_Y[i];
+    // interpolate
+    const x=lerp(barX,rowX,travel), y=lerp(barY,rowY,travel);
+    const w=lerp(bw,MARK_W,travel), h=lerp(BAR_H,MARK_H,travel);
+    // reveal width from centre on entry
+    const rev=barIn;
+    el.style.cssText='position:absolute;'+
+      'left:'+px(x+(w*(1-rev))/2)+';top:'+px(y)+';width:'+px(w*rev)+';height:'+px(h)+';'+
+      'background:linear-gradient(180deg,#d8bb6a,#c5a44e);border-radius:'+px(lerp(4,2,travel))+';'+
+      'box-shadow:0 0 '+px(lerp(46,10,travel))+' rgba(197,164,78,'+lerp(.30,.14,travel).toFixed(3)+');'+
+      'opacity:'+(barIn*(1-outCubic(seg(t,27.0,0.6))));
+  }
+
+  // ---- BEAT 4 · row content, staggered
+  for(let i=0;i<4;i++){
+    const st=12.9+i*0.34;
+    const p=outCubic(seg(t,st,0.85));
+    const out=outCubic(seg(t,27.0,0.6));
+    const row=S('r'+i);
+    row.style.top=px(ROW_Y[i]);
+    row.style.opacity=1;
+    S('rn'+i).style.opacity=p*(1-out);
+    S('rn'+i).style.transform='translateX('+px(lerp(-22,0,p))+')';
+    S('rc'+i).style.opacity=p*0.95*(1-out);
+    S('ra'+i).style.opacity=p*(1-out);
+    S('ra'+i).style.transform='translateX('+px(lerp(26,0,p))+')';
+
+    // ---- BEAT 5 · the article chip lands (the claim, paid off)
+    const ap=outBack(seg(t,20.9+i*0.26,0.7));
+    const chip=S('rt'+i);
+    chip.style.opacity=cl(ap)*(1-out);
+    chip.style.transform='scale('+lerp(0.82,1,cl(ap))+')';
+  }
+
+  // ---- BEAT 6 · conservation proof
+  const pr=outCubic(seg(t,24.6,0.9));
+  const prOut=outCubic(seg(t,27.0,0.6));
+  setOpacityRise(S('proof'), pr*(1-prOut), 16);
+  const rule=outCubic(seg(t,24.35,1.0));
+  const rEl=S('proofRule');
+  rEl.style.width=px(600*rule);
+  rEl.style.left=px(960-300*rule);
+  rEl.style.opacity=(0.55*rule)*(1-prOut);
+  // the four amounts pulse gold once as the sum is asserted — single, resolved
+  const pulse=seg(t,25.0,1.0);
+  const glow=Math.sin(Math.PI*pulse);
+  for(let i=0;i<4;i++){
+    const a=S('ra'+i);
+    a.style.color = pulse>0&&pulse<1
+      ? 'rgb('+Math.round(lerp(242,197,glow))+','+Math.round(lerp(245,164,glow))+','+Math.round(lerp(248,78,glow))+')'
+      : '#f2f5f8';
+  }
+
+  // ---- BEAT 7 · evidence (28.0 -> 32.6)
+  const ev=outCubic(seg(t,28.1,1.3));
+  const evOut=outCubic(seg(t,32.6,0.7));
+  S('lightbg').style.opacity=ev*(1-evOut);
+  const evEl=S('evidence');
+  evEl.style.opacity=ev*(1-evOut);
+  evEl.style.transform='translateY('+px(lerp(34,0,ev))+') scale('+lerp(0.965,1,ev)+')';
+  const evl=outCubic(seg(t,29.2,0.9));
+  S('evLabel').style.opacity=evl*(1-evOut);
+
+  // ---- BEAT 8 · end card (33.2 -> 37)
+  const e1=outCubic(seg(t,33.3,1.1));
+  setOpacityRise(S('endTitle'), e1, 22);
+  const e2=outCubic(seg(t,33.9,1.1));
+  setOpacityRise(S('endSub'), e2, 16);
+}
+
+window.__seek=(t)=>{ seek(t); return true; };
+window.__duration=37.0;
+seek(0);
+</script>
