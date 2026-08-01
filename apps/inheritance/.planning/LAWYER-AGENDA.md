@@ -1,7 +1,12 @@
 # Lawyer Review Agenda
 
-This file holds eight interpretive choices the engine has **already made**. Each one needs a
-lawyer's signature, not a bug fix.
+This file holds twelve interpretive choices the engine has **already made**, or has
+deliberately declined to make. Each one needs a lawyer's signature, not a bug fix.
+
+The stated count was already stale by one before Phase 20: the file said eight while the
+registry held nine. Phase 20 appended `LAWYER-10`, `LAWYER-11` and `LAWYER-12`, the three
+penalty questions, bringing the real total to twelve. The correction is recorded here rather
+than absorbed silently.
 
 None of the eight is a defect. Each current reading is defensible, and several are the mainstream
 one. What is missing is a *recorded* decision — a named person saying "yes, that is how I would
@@ -536,6 +541,190 @@ Notes:
 
 ---
 
+## LAWYER-10 — Q10: The NIRC Sec. 248 surcharge on a late estate-tax return
+
+**Status:** awaiting-answer
+**Engine implements:** neither
+**Blocks:** PEN-01
+**Governing code:** `frontend/src/lib/estate-tax-engine/penalties.ts` — `SURCHARGE_DECLINED_REASON`, the declined surcharge line
+
+### The question
+
+Most estates that walk into a small firm are years late; *"how much will this cost me now that we
+are four years late"* is the first-consult question. The engine computes the base estate tax and
+then stops. Should this engine compute a NIRC Sec. 248 surcharge at all, and if so, which four
+inputs govern it: the rate, the amount the rate applies to, the date the surcharge begins to run,
+and the date it stops running?
+
+### Reading A
+
+The engine computes the surcharge from the rate, the base and the accrual window you supply in the
+answer block below, and prints it as a line on Form 1801 citing NIRC Sec. 248.
+
+### Reading B
+
+The engine declines the line permanently. The return prints the section, the statutory filing
+deadline and the day count, states that the surcharge is not computed here, and leaves the figure to
+counsel.
+
+### What the engine does today
+
+Neither. Before Phase 20 the field was hardcoded to zero and the total amount due was set equal to
+the base estate tax, so the return silently understated the liability — the one failure mode this
+project ranks worse than a loud stop, on a page a lawyer signs. Phase 20 replaced both with a
+declined line carrying `centavos: null` and an absent total, and put the refusal on the face of the
+return.
+
+`**Engine implements:** neither` here means what the entry format says it means: the engine
+implements no rule on the point at all. The qualification worth recording is that the engine used to
+produce a *number* on this point by omission, and no longer does.
+
+Two sentences in `specs/estate-tax-engine-spec.md` place the point outside this engine.
+Section 1, under *What the engine does NOT do*: *"Compute surcharges, interest, or penalties for
+late filing"*. Section 2, under *Out of Scope*: *"Surcharges, interest, compromise penalties"*.
+No rate, base or accrual rule for the section is stated anywhere in this repository, which is why no
+agent may write one.
+
+### What I need from you
+
+1. Tick exactly one box below.
+2. If you tick Reading A, give the rate, the base the rate applies to, the date accrual starts and
+   the date accrual stops, and name the provision each one comes from.
+3. If you tick Reading B, confirm that the printed refusal — section, deadline, day count, and a
+   statement that the amount is not computed here — is the correct output for a filing lawyer.
+
+### Answer
+
+- [ ] Confirm Reading A
+- [ ] Change to Reading B
+- [ ] Neither — see notes
+
+Answered by:
+Date:
+Notes:
+
+*Source: Phase 20 planning, `.planning/phases/20-nirc-248-249-surcharge-and-interest/20-RESEARCH.md` section 0; recorded under `.planning/NEW-LEGAL-RULE.md` Step 1.*
+
+---
+
+## LAWYER-11 — Q11: The NIRC Sec. 249 interest on late-paid estate tax
+
+**Status:** awaiting-answer
+**Engine implements:** neither
+**Blocks:** PEN-02
+**Governing code:** `frontend/src/lib/estate-tax-engine/penalties.ts` — `INTEREST_DECLINED_REASON`, the declined interest line
+
+### The question
+
+Should this engine compute interest under NIRC Sec. 249 on estate tax paid late, and if so, which
+four inputs govern it: the rate, the amount the rate applies to, the date interest begins to run,
+and the date it stops running?
+
+A second question the engine cannot avoid: may interest and the Sec. 248 surcharge run on the same
+liability at the same time? The engine cannot print two lines without knowing whether printing both
+is correct, and it will not decide that by inference.
+
+### Reading A
+
+The engine computes the interest from the rate, the base and the accrual window you supply in the
+answer block below, and prints it as a line on Form 1801 citing NIRC Sec. 249.
+
+### Reading B
+
+The engine declines the line permanently. The return prints the section, the statutory filing
+deadline and the day count, states that the interest is not computed here, and leaves the figure to
+counsel.
+
+### What the engine does today
+
+Neither. Before Phase 20 the field was hardcoded to zero and the total amount due was set equal to
+the base estate tax. Phase 20 replaced both with a declined line carrying `centavos: null` and an
+absent total.
+
+The same two spec sentences quoted in `LAWYER-10` place interest outside this engine:
+section 1 *"Compute surcharges, interest, or penalties for late filing"* under *What the engine does
+NOT do*, and section 2 *"Surcharges, interest, compromise penalties"* under *Out of Scope*. No rate,
+base or accrual rule for the section is stated anywhere in this repository.
+
+### What I need from you
+
+1. Tick exactly one box below.
+2. If you tick Reading A, give the rate, the base the rate applies to, the date accrual starts and
+   the date accrual stops, and name the provision each one comes from. Say also whether interest and
+   the surcharge may run together on the same liability.
+3. If you tick Reading B, confirm that the printed refusal — section, deadline, day count, and a
+   statement that the amount is not computed here — is the correct output for a filing lawyer.
+
+### Answer
+
+- [ ] Confirm Reading A
+- [ ] Change to Reading B
+- [ ] Neither — see notes
+
+Answered by:
+Date:
+Notes:
+
+*Source: Phase 20 planning, `.planning/phases/20-nirc-248-249-surcharge-and-interest/20-RESEARCH.md` section 0; recorded under `.planning/NEW-LEGAL-RULE.md` Step 1.*
+
+---
+
+## LAWYER-12 — Q12: Whether a compromise penalty may be computed by an engine at all
+
+**Status:** awaiting-answer
+**Engine implements:** neither
+**Blocks:** PEN-03
+**Governing code:** `frontend/src/lib/estate-tax-engine/penalties.ts` — `COMPROMISE_PENALTY_DECLINED_REASON`, the declined compromise-penalty line
+
+### The question
+
+A compromise penalty is a negotiated figure rather than an arithmetic one, and no schedule for it is
+stated in either `specs/estate-tax-engine-spec.md` or `specs/succession-engine-spec.md`. Should the
+engine ever print an amount for it? If it should, which schedule governs, and what makes that
+schedule binding on a return this product generates?
+
+### Reading A
+
+The engine computes the compromise penalty from a schedule you name in the answer block below, and
+prints it as a line on Form 1801 citing that schedule.
+
+### Reading B
+
+The line is declared outside the engine's competence on the face of the return, and no amount is
+ever printed for it. The lawyer supplies the figure after negotiation.
+
+### What the engine does today
+
+Neither. Before Phase 20 the field was hardcoded to zero and the total amount due was set equal to
+the base estate tax, so a return silently asserted that no compromise penalty was owed. Phase 20
+replaced that with a declined line carrying `centavos: null`, an absent total, and a printed
+statement that the point is outside this engine.
+
+`specs/estate-tax-engine-spec.md` section 2 lists *"Surcharges, interest, compromise penalties"*
+under *Out of Scope*. No schedule is stated anywhere in this repository.
+
+### What I need from you
+
+1. Tick exactly one box below.
+2. If you tick Reading A, name the schedule, say what makes it binding, and give the inputs the
+   engine would need to apply it.
+3. If you tick Reading B, confirm that declaring the line outside the engine's competence on the
+   face of the return is the correct output for a filing lawyer.
+
+### Answer
+
+- [ ] Confirm Reading A
+- [ ] Change to Reading B
+- [ ] Neither — see notes
+
+Answered by:
+Date:
+Notes:
+
+*Source: Phase 20 planning, `.planning/phases/20-nirc-248-249-surcharge-and-interest/20-RESEARCH.md` section 0; recorded under `.planning/NEW-LEGAL-RULE.md` Step 1.*
+
+---
+
 ## Status at a glance
 
 | Decision | Question | Engine implements | Blocks | Status |
@@ -549,8 +738,11 @@ Notes:
 | `LAWYER-07` | Q7 — family home deduction on a conjugal home | A | nothing scheduled | awaiting-answer |
 | `LAWYER-08` | Q8 — RA 11642 Sec. 41 retroactivity to pre-2022 decrees | neither | LAW-12 | awaiting-answer |
 | `LAWYER-09` | Q9 — does a donation exempt from collation defeat preterition | A | nothing scheduled | awaiting-answer |
+| `LAWYER-10` | Q10 — the NIRC Sec. 248 surcharge on a late estate-tax return | neither | PEN-01 | awaiting-answer |
+| `LAWYER-11` | Q11 — the NIRC Sec. 249 interest on late-paid estate tax | neither | PEN-02 | awaiting-answer |
+| `LAWYER-12` | Q12 — whether a compromise penalty may be computed by an engine at all | neither | PEN-03 | awaiting-answer |
 
-Nine of nine decisions are awaiting an answer.
+Twelve of twelve decisions are awaiting an answer.
 
 `.planning/lawyer-decisions.json` is the machine-readable form of this table, and gate `G10` fails
 the build when the two disagree.

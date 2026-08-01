@@ -51,11 +51,16 @@ const DEFAULT_REGISTRY = path.join(APP_DIR, '.planning', 'lawyer-decisions.json'
 const DEFAULT_AGENDA = path.join(APP_DIR, '.planning', 'LAWYER-AGENDA.md');
 
 /** The expected set, hardcoded so it is auditable here rather than inferred
- *  from whichever file is being checked. */
+ *  from whichever file is being checked. Ids 10 through 12 were added by
+ *  Phase 20 and are the three penalty questions — the NIRC Sec. 248 surcharge,
+ *  the NIRC Sec. 249 interest, and whether a compromise penalty may be
+ *  computed by an engine at all. Listing them here makes the pair of records
+ *  undeletable: dropping either half now fails with a missing-id violation
+ *  instead of passing silently. */
 const REQUIRED_IDS = [
   'LAWYER-01', 'LAWYER-02', 'LAWYER-03', 'LAWYER-04',
   'LAWYER-05', 'LAWYER-06', 'LAWYER-07', 'LAWYER-08',
-  'LAWYER-09',
+  'LAWYER-09', 'LAWYER-10', 'LAWYER-11', 'LAWYER-12',
 ];
 
 const REQUIRED_KEYS = [

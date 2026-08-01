@@ -214,6 +214,69 @@
       "answered_by": null,
       "answered_on": null,
       "answer": null
+    },
+    {
+      "id": "LAWYER-10",
+      "question": "Q10",
+      "title": "The NIRC Sec. 248 surcharge on a late estate-tax return",
+      "articles": ["NIRC Sec. 248"],
+      "authority": [],
+      "reading_implemented": "neither",
+      "status": "awaiting-answer",
+      "blocks": ["PEN-01"],
+      "agenda_section": "LAWYER-10",
+      "anchors": [
+        {
+          "file": "frontend/src/lib/estate-tax-engine/penalties.ts",
+          "pattern": "SURCHARGE_DECLINED_REASON ="
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
+    },
+    {
+      "id": "LAWYER-11",
+      "question": "Q11",
+      "title": "The NIRC Sec. 249 interest on late-paid estate tax",
+      "articles": ["NIRC Sec. 249"],
+      "authority": [],
+      "reading_implemented": "neither",
+      "status": "awaiting-answer",
+      "blocks": ["PEN-02"],
+      "agenda_section": "LAWYER-11",
+      "anchors": [
+        {
+          "file": "frontend/src/lib/estate-tax-engine/penalties.ts",
+          "pattern": "INTEREST_DECLINED_REASON ="
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
+    },
+    {
+      "id": "LAWYER-12",
+      "question": "Q12",
+      "title": "Whether a compromise penalty may be computed by an engine at all",
+      "articles": [],
+      "authority": [],
+      "reading_implemented": "neither",
+      "status": "awaiting-answer",
+      "blocks": ["PEN-03"],
+      "agenda_section": "LAWYER-12",
+      "anchors": [
+        {
+          "file": "frontend/src/lib/estate-tax-engine/penalties.ts",
+          "pattern": "COMPROMISE_PENALTY_DECLINED_REASON ="
+        }
+      ],
+      "vectors": [],
+      "answered_by": null,
+      "answered_on": null,
+      "answer": null
     }
   ]
 }
