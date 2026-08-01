@@ -7,7 +7,6 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "build:wasm": "bash ../engine/build-wasm.sh",
-    "postbuild": "tsx scripts/generate-sitemap.ts",
     "preview": "vite preview",
     "test": "vitest run",
     "test:gate": "node scripts/check-test-baseline.mjs",

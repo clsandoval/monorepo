@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { rootRoute } from './__root';
 import { LayoutDashboard, FilePlus, FolderOpen, Building2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { QuickCalcWidget } from '@/components/quick-calc/QuickCalcWidget';
 import { Skeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/empty-state';
 import { CaseCard } from '@/components/dashboard/CaseCard';
@@ -46,41 +45,13 @@ export function DashboardPage() {
           </p>
         </div>
 
-        {/* Quick Calc Widget */}
+        {/* Sign-in CTA — the anonymous calculator was removed: it published an
+            un-provenanced peso figure with no lawyer's name attached. */}
         <div className="max-w-md mx-auto">
-          <QuickCalcWidget />
-        </div>
-
-        {/* Links to content pages */}
-        <div className="mt-16 border-t pt-10 max-w-md mx-auto">
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-4 text-center">
-            Learn More
-          </p>
-          <div className="grid grid-cols-2 gap-3 text-sm">
-            <a href="/intestate-succession-calculator" className="rounded-lg border p-3 hover:border-primary/30 transition-colors text-foreground">
-              Intestate Calculator
-            </a>
-            <a href="/legitimate-share-calculator" className="rounded-lg border p-3 hover:border-primary/30 transition-colors text-foreground">
-              Legitime Calculator
-            </a>
-            <a href="/spouse-and-children-inheritance" className="rounded-lg border p-3 hover:border-primary/30 transition-colors text-foreground">
-              Spouse &amp; Children
-            </a>
-            <a href="/illegitimate-child-inheritance" className="rounded-lg border p-3 hover:border-primary/30 transition-colors text-foreground">
-              Illegitimate Children
-            </a>
-            <a href="/parents-inheritance-share" className="rounded-lg border p-3 hover:border-primary/30 transition-colors text-foreground">
-              Parents' Share
-            </a>
-            <a href="/no-will-inheritance-philippines" className="rounded-lg border p-3 hover:border-primary/30 transition-colors text-foreground">
-              No Will?
-            </a>
-          </div>
-          <div className="mt-6 text-center">
-            <a href="/blog" className="text-sm text-primary hover:underline font-medium">
-              Read our blog on Philippine inheritance law →
-            </a>
-          </div>
+          <a href="/auth?mode=signin"
+             className="block w-full rounded-lg bg-primary px-4 py-3 text-center text-sm font-medium text-primary-foreground hover:bg-primary/90">
+            Sign in to compute a case
+          </a>
         </div>
       </div>
     );

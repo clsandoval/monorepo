@@ -15,19 +15,6 @@ import { settingsTeamRoute } from './routes/settings/team';
 import { shareTokenRoute } from './routes/share/$token';
 import { onboardingRoute } from './routes/onboarding';
 import { inviteTokenRoute } from './routes/invite/$token';
-import { intestateSuccessionCalculatorRoute } from './routes/landing/intestate-succession-calculator';
-import { legitimateShareCalculatorRoute } from './routes/landing/legitimate-share-calculator';
-import { spouseAndChildrenInheritanceRoute } from './routes/landing/spouse-and-children-inheritance';
-import { illegitimateChildInheritanceRoute } from './routes/landing/illegitimate-child-inheritance';
-import { parentsInheritanceShareRoute } from './routes/landing/parents-inheritance-share';
-import { noWillInheritanceRoute } from './routes/landing/no-will-inheritance-philippines';
-import { blogIndexRoute } from './routes/blog/index';
-import { blogIntestateVsTestateRoute } from './routes/blog/intestate-vs-testate';
-import { blogHowToComputeLegitimeRoute } from './routes/blog/how-to-compute-legitime';
-import { blogIllegitimateChildrenRightsRoute } from './routes/blog/illegitimate-children-rights';
-import { blogNoWillRoute } from './routes/blog/no-will-philippines';
-import { blogPreteritionRoute } from './routes/blog/preterition-explained';
-import { blogParentsInheritanceRoute } from './routes/blog/parents-inheritance-share';
 
 const routeTree = rootRoute.addChildren([
   publicRootRoute.addChildren([
@@ -38,12 +25,6 @@ const routeTree = rootRoute.addChildren([
     shareTokenRoute,
     onboardingRoute,
     inviteTokenRoute,
-    intestateSuccessionCalculatorRoute,
-    legitimateShareCalculatorRoute,
-    spouseAndChildrenInheritanceRoute,
-    illegitimateChildInheritanceRoute,
-    parentsInheritanceShareRoute,
-    noWillInheritanceRoute,
   ]),
   indexRoute,
   casesIndexRoute,
@@ -52,13 +33,6 @@ const routeTree = rootRoute.addChildren([
   caseTaxRoute,
   settingsRoute,
   settingsTeamRoute,
-  blogIndexRoute,
-  blogIntestateVsTestateRoute,
-  blogHowToComputeLegitimeRoute,
-  blogIllegitimateChildrenRightsRoute,
-  blogNoWillRoute,
-  blogPreteritionRoute,
-  blogParentsInheritanceRoute,
 ]);
 
 export const router = createRouter({
