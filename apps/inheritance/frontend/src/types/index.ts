@@ -676,7 +676,6 @@ export interface DocumentSeedingContext {
   has_bank_account: boolean;
   has_business_interest: boolean;
   has_overseas_heir: boolean;
-  settlement_track: 'ejs' | 'judicial';
 }
 
 export interface DocumentProgress {

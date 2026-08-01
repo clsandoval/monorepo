@@ -20,7 +20,12 @@ import { AssetSummaryStep } from './AssetSummaryStep';
 import { IntakeReviewStep } from './IntakeReviewStep';
 import { toast } from 'sonner';
 
-const INTAKE_STORAGE_KEY = 'inheritance-intake-draft';
+// Bumped to -v2 by CUT-01. A pre-cut draft carries seven keys and a currentStep
+// of up to 6; parsed into the four-key IntakeFormState it would index a step
+// list that shrank and crash the wizard into its error boundary. Changing the
+// key means an old draft simply does not load — one lost in-progress draft,
+// which is strictly better than crashing a part-finished case.
+const INTAKE_STORAGE_KEY = 'inheritance-intake-draft-v2';
 
 export interface GuidedIntakeFormProps {
   orgId: string;

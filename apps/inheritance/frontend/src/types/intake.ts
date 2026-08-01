@@ -4,38 +4,7 @@
  */
 
 import type { Relationship } from './index';
-import type { CivilStatus, GovIdType } from './client';
-import type { ConflictOutcome } from '@/lib/conflict-check';
-
-/** Settlement track for the case */
-export type SettlementTrack = 'ejs' | 'judicial';
-
-/** Relationship of client to decedent */
-export type ClientRelationship =
-  | 'surviving_spouse'
-  | 'child'
-  | 'executor'
-  | 'administrator'
-  | 'other_heir'
-  | 'third_party_buyer';
-
-export const CLIENT_RELATIONSHIPS: readonly ClientRelationship[] = [
-  'surviving_spouse',
-  'child',
-  'executor',
-  'administrator',
-  'other_heir',
-  'third_party_buyer',
-];
-
-export const CLIENT_RELATIONSHIP_LABELS: Record<ClientRelationship, string> = {
-  surviving_spouse: 'Surviving Spouse',
-  child: 'Child',
-  executor: 'Executor',
-  administrator: 'Administrator',
-  other_heir: 'Other Heir',
-  third_party_buyer: 'Third-Party Buyer',
-};
+import type { CivilStatus } from './client';
 
 /** Property regime options */
 export type PropertyRegime = 'ACP' | 'CPG' | 'complete_separation';
@@ -57,30 +26,6 @@ export interface IntakeHeirEntry {
   name: string;
   relationship: Relationship;
   is_alive: boolean;
-}
-
-/** Conflict check step state */
-export interface ConflictCheckStepState {
-  outcome: ConflictOutcome | null;
-  checkedName: string;
-  checkedTin: string | null;
-  notes: string;
-}
-
-/** Client details step state */
-export interface ClientDetailsStepState {
-  full_name: string;
-  nickname: string;
-  date_of_birth: string;
-  email: string;
-  phone: string;
-  address: string;
-  tin: string;
-  gov_id_type: GovIdType | null;
-  gov_id_number: string;
-  civil_status: CivilStatus | null;
-  referral_source: string;
-  relationship_to_decedent: ClientRelationship | null;
 }
 
 /** Decedent info step state */
@@ -110,20 +55,12 @@ export interface AssetSummaryStepState {
   vehicle_count: number;
 }
 
-/** Settlement track step state */
-export interface SettlementTrackStepState {
-  track: SettlementTrack | null;
-}
-
-/** The overall intake form state across all 7 steps */
+/** The overall intake form state across all 4 steps */
 export interface IntakeFormState {
   currentStep: number;
-  conflictCheck: ConflictCheckStepState;
-  clientDetails: ClientDetailsStepState;
   decedentInfo: DecedentInfoStepState;
   familyComposition: FamilyCompositionStepState;
   assetSummary: AssetSummaryStepState;
-  settlementTrack: SettlementTrackStepState;
 }
 
 /** Data stored in cases.intake_data JSONB column */
@@ -138,8 +75,6 @@ export interface IntakeData {
     vehicle_count: number;
   };
   will_status: 'intestate' | 'testate';
-  settlement_track: SettlementTrack;
-  relationship_to_decedent: ClientRelationship | null;
 }
 
 /** Milestone seed data for deadline generation */
