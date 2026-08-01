@@ -1,0 +1,78 @@
+{
+  "$comment": "FACTS ONLY — this file holds an EstateTaxWizardState exactly as the wizard itself would have written it. It contains NO computed amount, NO total and NO tax figure. scripts/check-seed-fixture.mjs rejects a seeded ENGINE RESULT with SEED WRITES OUTPUT; a seeded INPUT is not that, because the product must still press Compute to produce every figure the return-parity gate compares. The location carries two commas on purpose, so the CSV escaping rule is exercised end to end and not only by its unit test. dateOfDeath is 2026-01-15 to MATCH THE SUCCESSION SPINE in the Alpha case input_json: lib/fact-set.ts refuses to compute a case holding two different dates of death, so a fixture disagreeing with the spine would hide the Compute control and the gate could never reach a return. The spine, not this file, is the authority for the date.",
+  "decedent": {
+    "name": "Pedro Santos",
+    "dateOfDeath": "2026-01-15",
+    "citizenship": "Filipino",
+    "isNonResidentAlien": false,
+    "address": "",
+    "maritalStatus": "single",
+    "propertyRegime": null,
+    "worldwideGrossEstate": null,
+    "worldwideELIT": null
+  },
+  "executor": {
+    "name": "",
+    "tin": "",
+    "contact": "",
+    "email": ""
+  },
+  "realProperties": [
+    {
+      "id": "rp-alpha-1",
+      "titleNumber": "T-123456",
+      "taxDecNumber": "TD-1",
+      "location": "Lot 4, Block 12, Quezon City",
+      "lotArea": 250,
+      "improvementArea": null,
+      "classification": "residential",
+      "fmvTaxDec": 8000000,
+      "fmvBirZonal": 9000000,
+      "ownership": "exclusive",
+      "isFamilyHome": false,
+      "hasBarangayCert": false
+    }
+  ],
+  "personalProperties": [],
+  "otherAssets": {
+    "taxableTransfers": [],
+    "businessInterests": [],
+    "exemptAssets": []
+  },
+  "ordinaryDeductions": {
+    "claimsAgainstEstate": [],
+    "claimsAgainstInsolvent": [],
+    "unpaidMortgages": [],
+    "unpaidTaxes": [],
+    "casualtyLosses": [],
+    "vanishingDeductionProperties": [],
+    "publicUseTransfers": [],
+    "funeralExpenses": null,
+    "judicialAdminExpenses": null
+  },
+  "specialDeductions": {
+    "medicalExpenses": 0,
+    "ra4917Benefits": 0,
+    "foreignTaxCreditClaims": [],
+    "standardDeduction": 5000000,
+    "familyHomeDeduction": 0
+  },
+  "filing": {
+    "assumedFilingDate": "",
+    "userElectsAmnesty": false,
+    "amnestyDeductionMode": "standard",
+    "isAmended": false,
+    "hasExtension": false,
+    "isInstallment": false,
+    "isJudicialSettlement": false,
+    "hasPcggViolation": false,
+    "hasRa3019Violation": false,
+    "hasRa9160Violation": false,
+    "taxFullyPaidBeforeMay2022": false,
+    "priorReturnFiled": false,
+    "previouslyDeclaredNetEstate": null,
+    "hasPendingCourtCasePreAmnestyAct": false,
+    "hasUnexplainedWealthCases": false,
+    "hasPendingRPCFelonies": false
+  }
+}

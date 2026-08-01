@@ -14,6 +14,8 @@
  * organization resets that its five org steps need.
  */
 
+import { readFileSync } from 'node:fs';
+
 import { readFixtures } from './seed.mjs';
 import { computeEngineOutput } from './engine.mjs';
 
@@ -160,6 +162,48 @@ export const RESETS = Object.freeze({
       .eq('id', caseId);
     if (updateError) {
       throw new Error(`RESET FAILED case-alpha-computed (update): ${updateError.message}`);
+    }
+  },
+
+  /**
+   * Put the Alpha case into the estate-tax wizard state the return-parity gate
+   * must start from: a committed asset schedule and NO computed result.
+   *
+   * tax_output_json is nulled so the gate has to make the PRODUCT compute,
+   * rather than redisplay a result some earlier run left behind. A redisplayed
+   * result would let all three surfaces agree with each other about a figure
+   * nothing in this run produced.
+   *
+   * output_json, decedent_name, date_of_death and status are nulled or restored
+   * for the same reason case-alpha-no-output nulls them: merely opening a wizard
+   * on this case fills decedent_name and date_of_death in through the debounced
+   * autosave, and pressing Compute sets status to 'computed'. Following the rule
+   * that reset encodes — a reset restores every column any consumer can write,
+   * not merely the one its name mentions.
+   *
+   * tax_input_json is set from a COMMITTED FIXTURE OF FACTS
+   * (journey/fixtures/tax-input-alpha.json), which holds an asset schedule and
+   * no computed amount. Seeding an input is what the wizard itself would have
+   * written; it is not the seeded engine result check-seed-fixture.mjs rejects.
+   */
+  'case-alpha-tax-input': async (admin) => {
+    const caseId = readFixtures().orgs.alpha.case_id;
+    const taxInput = JSON.parse(
+      readFileSync(new URL('./fixtures/tax-input-alpha.json', import.meta.url), 'utf8'),
+    );
+    const { error } = await admin
+      .from('cases')
+      .update({
+        tax_input_json: taxInput,
+        tax_output_json: null,
+        output_json: null,
+        decedent_name: null,
+        date_of_death: null,
+        status: 'draft',
+      })
+      .eq('id', caseId);
+    if (error) {
+      throw new Error(`RESET FAILED case-alpha-tax-input: ${error.message}`);
     }
   },
 });
