@@ -57,12 +57,27 @@ const BRIDGE_PATH = path.join(APP_DIR, 'frontend', 'src', 'wasm', 'bridge.ts');
  *
  * Kept as one auditable const array, in the same style as the phrase lists in
  * `scripts/check-plan-closed-world.mjs`. Adding a display layer means adding it here.
+ *
+ * The list now spans BOTH output surfaces: the succession schedule of shares and
+ * the estate-tax return. The three Form 1801 renderers are the screen, the CSV
+ * and the PDF, and all three render the engine's line model without composing a
+ * line of their own.
+ *
+ * What this rule does and does not cover on the tax renderers: the
+ * `LAYER DERIVES ARTICLE` check matches a CIVIL CODE article literal, so on those
+ * three files it proves they state no Civil Code article. Their NIRC sections are
+ * held in `frontend/src/lib/estate-tax-engine/form1801-lines.ts` and are proven
+ * un-derived by the `AUTHORITY MISSING` check in G37, which compares every
+ * rendered authority against the engine's own on all three surfaces.
  */
 const DISPLAY_LAYERS = [
   'frontend/src/components/results/DistributionSection.tsx',
   'frontend/src/components/results/NarrativePanel.tsx',
   'frontend/src/components/results/StatuteCitationsSection.tsx',
   'frontend/src/components/pdf/PerHeirBreakdownSection.tsx',
+  'frontend/src/components/tax/results/Form1801View.tsx',
+  'frontend/src/lib/form1801-csv.ts',
+  'frontend/src/components/pdf/Form1801PDF.tsx',
 ];
 
 /** An article literal appearing in a display layer's source. */

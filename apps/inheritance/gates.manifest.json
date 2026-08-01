@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 34,
+      "order": 35,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 35,
+      "order": 36,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -478,6 +478,19 @@
         "FACT-02",
         "FACT-03",
         "FACT-04"
+      ]
+    },
+    {
+      "id": "G37",
+      "name": "return parity",
+      "order": 34,
+      "command": "cd frontend && npx tsx journey/return-parity.ts",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f frontend/journey/return-parity.ts",
+      "blocking": true,
+      "proves": "The figures displayed on BIR Form 1801, the figures in the exported PDF and the figures in the exported CSV are each compared as exact centavo integers, in both directions, against a computeEstateTax run performed in the same run; no tolerance term exists anywhere in the gate. Both exported artifacts are obtained by clicking the product's own controls in a real browser, so the product's lazy import, blob and download path are what is certified rather than the harness's. Every line's governing section is compared against the engine's on all three surfaces, and the line set is anchored to the frozen FORM1801_LINE_IDS constant so a row dropped from the shared model cannot shrink the expectation with it. No expected figure is committed: the fixture holds an asset schedule and every amount is computed during the run. See GATES.md section 27.",
+      "requirements": [
+        "RET-05"
       ]
     }
   ]

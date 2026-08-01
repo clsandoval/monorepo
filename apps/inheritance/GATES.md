@@ -1866,3 +1866,57 @@ red, then green again on each of three separately injected regressions:
 **When it fires.** Restore the persistence path. Never edit this gate, never add an exception, and
 never edit a baseline. If one of the seven checks cannot legitimately pass, that is a finding to report
 as BLOCKED with the pasted output — not an obstacle to route around.
+
+---
+
+## 27. Return parity (G37)
+
+`cd frontend && npx tsx journey/return-parity.ts`, blocking, order 34.
+
+**What it checks.** BIR Form 1801 has three surfaces — the screen, the exported PDF and the exported
+CSV — and this gate asserts all three agree with the engine and therefore with each other. For every
+line of the return it compares the amount and the governing section on each surface against a
+`computeEstateTax` run performed **in the same run**, on the committed fact set
+`frontend/journey/fixtures/tax-input-alpha.json`.
+
+**Exact integers, both directions, no tolerance.** Every comparison is BigInt centavos. There is no
+rounding helper, no slack term and no absolute-difference comparison anywhere in the gate, because a
+figure that is close is a wrong figure on a return a lawyer signs. Each surface is checked in both
+directions: every amount the engine produced must appear, and every amount the surface prints must be
+one the engine produced. A one-directional check passes a surface that invented a line.
+
+**The artifacts are obtained the way a user obtains them** — by clicking the product's own
+`export-form1801-pdf` and `export-form1801-csv` controls in a real browser and taking the bytes the
+download produced. A document the harness rendered for itself would prove the harness can call
+`@react-pdf/renderer`, not that the product's lazy import, blob and download path work.
+
+**No expected figure is committed.** The seeded fixture holds an asset schedule and nothing else; every
+amount the gate compares is computed during the run. A stored expectation silently becomes a record of
+the bug the day the bug ships.
+
+**The line set is anchored to a frozen constant.** Because the gate's expectation and all three
+surfaces are built from `buildForm1801Lines`, a line dropped from that shared model would shrink the
+expectation and the surfaces together — and did: the gate passed a deliberately dropped Item 37A at 32
+rows before `LINE SET MISMATCH (model)` was added, comparing the model against the frozen
+`FORM1801_LINE_IDS`. That constant is not derived from any computation and is the one anchor a model
+regression cannot move.
+
+**Failure markers.** `LINE SET MISMATCH`, `DISPLAY DISAGREES`, `PDF DISAGREES`, `CSV DISAGREES`,
+`AUTHORITY MISSING`, `CORPUS EMPTY`. A run that compares zero rows exits 1 with `CORPUS EMPTY`: passing
+because it measured nothing is the most dangerous outcome available to this design.
+
+**Exit contract**, the project's three-valued one: `0` passed, `1` failed, `2` could not run with
+`RETURN PARITY CANNOT RUN:` on stderr. A stopped Supabase stack, an absent `pdftotext`, a download that
+never arrives and bytes that do not begin `%PDF-` are all exit 2. **None of them is a pass.**
+
+**Its failure paths are proven, not trusted.** Four separately injected regressions, each followed by a
+clean re-run at exit 0, are recorded with pasted output in
+`.planning/phases/21-bir-form-1801-exit/21-GATE-OBSERVATIONS.md`: a display row plus one centavo
+(`DISPLAY DISAGREES`), a PDF row minus one centavo (`PDF DISAGREES`), a CSV row plus one centavo
+(`CSV DISAGREES`) and a dropped row (`LINE SET MISMATCH`). Two of those injections initially PASSED and
+the gate was strengthened before they were accepted; both holes are recorded in that file rather than
+quietly repaired.
+
+**When it fires.** Make the surfaces agree with the engine. Never edit this gate, never add an
+exception list, never add a tolerance term and never edit a baseline. If a check cannot legitimately
+pass, that is a finding to report as BLOCKED with the pasted output — not an obstacle to route around.

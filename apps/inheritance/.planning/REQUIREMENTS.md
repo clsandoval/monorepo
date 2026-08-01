@@ -179,11 +179,11 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 
 ### BIR Form 1801 Exit (Phase 21)
 
-- [ ] **RET-01**: Every displayed deduction row equals the amount the computation applied — Item 35A no longer shows `0.00` against ₱5,000,000 applied
-- [ ] **RET-02**: The return exports as a PDF
-- [ ] **RET-03**: The return exports as a CSV carrying the same centavo integers
-- [ ] **RET-04**: Every line of both exports carries the NIRC section or RR provision that governs it, read from the engine
-- [ ] **RET-05**: A blocking gate compares displayed, PDF and CSV figures against a same-run engine computation, in both directions
+- [x] **RET-01**: Every displayed deduction row equals the amount the computation applied — Item 35A no longer shows `0.00` against ₱5,000,000 applied
+- [x] **RET-02**: The return exports as a PDF
+- [x] **RET-03**: The return exports as a CSV carrying the same centavo integers
+- [x] **RET-04**: Every line of both exports carries the NIRC section or RR provision that governs it, read from the engine
+- [x] **RET-05**: A blocking gate compares displayed, PDF and CSV figures against a same-run engine computation, in both directions
 
 ### Deed Schedule of Shares (Phase 22)
 
@@ -379,11 +379,11 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 | PEN-03 | Phase 20 | Partial, blocked on LAWYER-10 through LAWYER-12. `sumTotalAmountDue` is implemented and unit-tested in BOTH branches — exact integer sum over determined lines, `null` over any set holding a declined one — and `total_amount_due` is `null` while any line is declined. A total that MOVES waits on all three answers. Proven by `penalties.test.ts` and `check-penalty-refusal.ts` marker `TOTAL CLAIMS COMPLETENESS`. |
 | PEN-04 | Phase 20 | Done. Every penalty line carries the section that governs it, and the display READS it from the engine rather than authoring one — `grep -c "'NIRC Sec. 24"` over `Form1801View.tsx` prints 0. Proven by `Form1801View.test.tsx` and `check-penalty-refusal.ts` marker `LINE MISSING ITS SECTION`. |
 | PEN-05 | Phase 20 | Done. LAWYER-10, LAWYER-11 and LAWYER-12 recorded with status `awaiting-answer` and all three answer fields `null`; nothing adopted, defaulted or stubbed, and no rate exists anywhere in the tree. Proven by `node scripts/check-lawyer-agenda.mjs` (12 decisions, 12 awaiting-answer) and `check-penalty-refusal.ts` markers `RATE INVENTED` and `DECLINED LINE UNRECORDED`. |
-| RET-01 | Phase 21 | Planned |
-| RET-02 | Phase 21 | Planned |
-| RET-03 | Phase 21 | Planned |
-| RET-04 | Phase 21 | Planned |
-| RET-05 | Phase 21 | Planned |
+| RET-01 | Phase 21 | Closed — proved by `npx vitest run src/lib/estate-tax-engine/__tests__/form1801-lines.test.ts` (the six `sp-` rows sum to `specialDeductions.total` = 500000000) and `npx vitest run src/components/tax/__tests__/Form1801View.test.tsx` (Item 37A Col C is exactly `5,000,000.00`) |
+| RET-02 | Phase 21 | Closed — proved by `npx vitest run src/components/pdf/__tests__/form1801-pdf.test.tsx` (9 cases) and by `npx tsx journey/return-parity.ts` obtaining the PDF from the product's own button |
+| RET-03 | Phase 21 | Closed — proved by `npx vitest run src/lib/__tests__/form1801-csv.test.ts` (16 cases, the standard-deduction cell is the bare integer `500000000`) |
+| RET-04 | Phase 21 | Closed — proved by `node scripts/check-citation-integrity.mjs` with seven `DISPLAY_LAYERS`, and by G37's `AUTHORITY MISSING` check on all three surfaces |
+| RET-05 | Phase 21 | Closed — proved by `npx tsx journey/return-parity.ts` -> `RETURN PARITY PASS screen=33 pdf=33 csv=33`, observed failing on four injections in `21-GATE-OBSERVATIONS.md` |
 | DEED-01 | Phase 22 | Planned |
 | DEED-02 | Phase 22 | Planned |
 | DEED-03 | Phase 22 | Planned |

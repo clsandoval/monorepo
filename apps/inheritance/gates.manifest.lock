@@ -176,6 +176,11 @@
       "id": "G35",
       "command": "cd frontend && node journey/persistence.mjs",
       "blocking": true
+    },
+    {
+      "id": "G37",
+      "command": "cd frontend && npx tsx journey/return-parity.ts",
+      "blocking": true
     }
   ]
 }
