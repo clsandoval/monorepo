@@ -45,7 +45,7 @@ The only genuinely durable option is CI, and it is not wired for it yet. See
 `/home/clsandoval/.claude/projects/-home-clsandoval-cs-monorepo/ba0262ab-dc9f-47d8-83a3-ddf973495452/subagents/workflows/wf_c44e9af1-807/`.
 
 Full gate suite, any time: `bash apps/inheritance/scripts/ci-gates.sh` from the
-monorepo root. It should print `ALL GATES PASSED (28/28)` — the count is the
+monorepo root. It should print `ALL GATES PASSED (32/32)` — the count is the
 length of `gates.manifest.json`'s `gates` array, and it grows as phases land.
 
 ## State

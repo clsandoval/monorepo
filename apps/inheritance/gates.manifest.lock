@@ -141,6 +141,26 @@
       "id": "G29",
       "command": "node scripts/check-bugs-ledger.mjs",
       "blocking": true
+    },
+    {
+      "id": "G30",
+      "command": "node scripts/check-claude-invariants.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G31",
+      "command": "node scripts/check-new-rule-procedure.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G32",
+      "command": "node scripts/check-doc-claims.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G33",
+      "command": "node scripts/check-planning-truth.mjs",
+      "blocking": true
     }
   ]
 }

@@ -1452,3 +1452,194 @@ rather than left implicit.
 **What this gate does not check.** It never evaluates whether a legal statement in the ledger is
 correct — only that every such statement carries its attribution, so no agent can slip an unsourced
 reading of Philippine law into a bug entry. Whether a bug is *important* is also outside its scope.
+
+## 20. The CLAUDE.md invariants (G30)
+
+```
+node scripts/check-claude-invariants.mjs
+```
+
+`CLAUDE.md` is the first file an implementing agent reads, and its `## Invariants an implementing
+agent must not violate` section is where the rules that no test would otherwise catch live: commit
+scope, gate immutability, halting over guessing, money units, one implementation per legal rule, and
+what requires a lawyer. Each of the six names the command that enforces it, so none depends on an
+agent remembering to be careful.
+
+A section of prose with nothing checking it rots in three distinct ways, and this gate covers all
+three. **It disappears** — `CLAUDE.md`'s middle is regenerated from `.planning/codebase/`, delimited
+by `<!-- GSD:*-start -->` / `<!-- GSD:*-end -->` marker pairs, and a section that drifts inside a
+span is destroyed by the next regeneration without a word. **It shrinks** — an invariant deleted or
+renamed is an invariant nobody is following. **It lies** — an invariant citing a command that no gate
+runs reads like enforcement while enforcing nothing, which is the worst of the three, because it buys
+false confidence.
+
+The generated spans are computed from the file on every run, never hardcoded, so adding a new
+generated block to `CLAUDE.md` is covered automatically.
+
+| Marker | Fires when | Driven by |
+|---|---|---|
+| `INVARIANT SECTION MISSING` | no `## Invariants an implementing agent must not violate` line | `scripts/fixtures/claude-invariants-missing.md` |
+| `INVARIANT INSIDE GENERATED BLOCK` | the heading sits inside a `<!-- GSD:*-start/end -->` span | `scripts/fixtures/claude-invariants-swallowed.md` |
+| `INVARIANT COUNT` | the section holds a number of invariants other than six | `scripts/fixtures/claude-invariants-short.md` |
+| `INVARIANT TITLE MISSING` | an invariant's bolded title differs from the expected one at that position | `scripts/fixtures/claude-invariants-untitled.md` |
+| `INVARIANT COMMAND UNGATED` | a cited command is not a `command` value in `gates.manifest.json` | `scripts/fixtures/claude-invariants-ungated.md` |
+| `CLAUDE MD UNREADABLE` | an input file is missing or unparseable — **exit 2**, cannot-run | a nonexistent `--claude` path |
+
+**When it fires.** Restore or correct the section in `CLAUDE.md`. If `INVARIANT INSIDE GENERATED
+BLOCK` fires, move the section back outside every marker pair — do not add a marker around it. If
+`INVARIANT COMMAND UNGATED` fires, either register the cited command as a gate or cite the command
+that actually runs. The remedy is never to weaken the check, and never to delete an invariant so the
+count matches.
+
+## 21. The new-legal-rule procedure (G31)
+
+```
+node scripts/check-new-rule-procedure.mjs
+```
+
+`.planning/NEW-LEGAL-RULE.md` is the single route by which a rule the engine does not yet implement
+becomes code: article → vector → failing run → one-site implementation → registration. Its
+neighbouring document, `.planning/LEGAL-CORRECTION-WORKFLOW.md`, covers correcting a rule that
+already exists; the two are deliberately not interchangeable.
+
+The load-bearing part of this gate is that it does more than count headings. It **re-resolves the
+document's worked example against the tree on every run**: the example names one real article, one
+real engine file and one real test function, and if that function is renamed, moved, or loses its
+`// LEGAL-VECTOR:` marker, the procedure goes red and says which of the four resolutions failed. The
+example is anchored by article, file path and function *name*, never by a line number — Phases 5, 7
+and 8 each rewrote files that a registry pointed at, so a line-number anchor is a guaranteed future
+false alarm. The marker-to-function association mirrors `scripts/check-legal-traceability.mjs`
+exactly: a marker belongs to the nearest **preceding** `fn` line.
+
+| Marker | Fires when | Driven by |
+|---|---|---|
+| `PROCEDURE MISSING` | the `# Adding a new legal rule` heading is absent | observed against a scratchpad copy with the heading deleted |
+| `STEP MISSING` | there are not exactly five `## Step N — ` headings, or a title differs | `scripts/fixtures/rule-proc-step-missing.md` |
+| `STEP ORDER` | the five step headings are not in ascending numeric order | `scripts/fixtures/rule-proc-step-order.md` |
+| `ARTIFACT NOT NAMED` | one of the seven required artifact strings is absent | `scripts/fixtures/rule-proc-artifact-dropped.md` |
+| `WORKED EXAMPLE BROKEN` | the example's article, file or function no longer resolves | `scripts/fixtures/rule-proc-example-broken.md` |
+| `PROCEDURE UNREADABLE` | an input file is missing or unparseable — **exit 2**, cannot-run | a nonexistent `--procedure` path |
+
+**When it fires.** Repair the document. If `WORKED EXAMPLE BROKEN` fires, re-anchor the example to a
+vector that still exists — pick the lowest-numbered article in `engine/legal-rules.json` with a
+non-null vector, which is the same deterministic rule the example was chosen by. Never delete a step
+to clear `STEP MISSING`, and never remove an artifact name to clear `ARTIFACT NOT NAMED`.
+`engine/legal-traceability.lock` is **shrink-only**; appending an article to it to clear a marker is
+prohibited.
+
+## 22. Documentation claims and the debt ledger (G32)
+
+```
+node scripts/check-doc-claims.mjs
+```
+
+`CLAUDE.md`'s stack, conventions and architecture sections are copies of `.planning/codebase/*.md`,
+frozen on 2026-07-27 — before any phase ran. Eleven of their claims were measurably contradicted by
+the tree: the WASM binary described as not built, `wasm-pack` as not installed, `node_modules` as
+absent, the Supabase project id and API port from before Phase 3 moved them, two pinned engine test
+counts, "no app-wide error boundary", the wizard step index as not URL-addressable, two deleted debug
+harnesses, untyped WASM errors, and a CI workflow that is no longer the only one.
+
+The design decision that keeps this gate from rotting into a list of strings someone once believed:
+**no expected value is hardcoded.** Every claim is a pair — literal strings that must be absent or
+present, and a **probe measured from the tree at run time** that establishes why. A claim counts as
+stale only while its probe says the code contradicts it.
+
+The corpus is exactly `CLAUDE.md` plus `.planning/codebase/*.md`. Other root-level documents are
+deliberately excluded: `README.md` states that this app "deliberately does **not** use 54321", a
+correct sentence that a forbidden string would match, and a gate that turns a correct sentence red is
+worse than no gate.
+
+`.planning/DOC-DEBT.md` is the accepted-debt ledger — every contradiction Phase 15 chose not to fix,
+each with an owning requirement or the explicit sentence `No requirement owns this.` It is
+**shrink-only**, in the same direction as `gate-skips.lock` and `engine/legal-traceability.lock`, and
+this gate holds it in both directions.
+
+| Marker | Fires when | Driven by |
+|---|---|---|
+| `STALE CLAIM` | a forbidden string is present while its probe is true | `scripts/fixtures/docclaims-stale/` |
+| `CLAIM UNSUPPORTED` | a required string is absent while its probe is true | `scripts/fixtures/docclaims-stale/` |
+| `PROBE FLIPPED` | a probe returns false — the **code** moved back, not the document | observed by temporarily renaming `frontend/src/components/ErrorBoundary.tsx` |
+| `DEBT ENTRY MISSING` | one of `D1` … `D7` has no `## D<N>` heading in the ledger | `scripts/fixtures/docclaims-debt-short/` |
+| `DEBT ENTRY STALE` | a debt entry's claim anchor no longer appears; the entry must be deleted | `scripts/fixtures/docclaims-debt-stale/` |
+| `DOC SCAN UNREADABLE` | a scanned document or the ledger is missing — **exit 2**, cannot-run | a nonexistent `--docroot` path |
+
+**`PROBE FLIPPED` is the one that surprises people.** It is not a document error. It means the tree
+once again matches the *old* claim — someone deleted `node_modules`, or removed the error boundary,
+or reverted the wizard's URL addressability. The operator **re-measures before editing any document**,
+because correcting a doc to say something false is the exact failure this gate exists to prevent.
+
+**When `DEBT ENTRY STALE` fires**, delete the entry: its claim has been corrected, and the ledger may
+only shrink. Appending a new entry to `.planning/DOC-DEBT.md` to turn a red check green is prohibited
+— the fix for a stale claim is to correct the claim.
+
+## 23. Planning-directory truth (G33)
+
+```
+node scripts/check-planning-truth.mjs
+```
+
+EXT-08 asks that a returning owner can determine current state, what is verified and what is next
+from the planning directory alone. The reason they could not was measurable: every number in that
+directory was written by hand at a phase boundary and never touched again. `RESUME.md` went stale
+within four days of being written; the ROADMAP Progress table drifted on seven of its fifteen rows,
+reporting Phase 14 as `0/TBD Not started` against six committed plans and six committed summaries;
+`.planning/STATE.md`'s frontmatter said `percent: 93` while its own body printed `73%`.
+
+So a hand-written orientation page cannot be the fix on its own. This gate is the other half: it
+counts `*-PLAN.md` and `*-SUMMARY.md` files under `.planning/phases/`, reads the length of
+`gates.manifest.json`'s `gates` array, and compares those derived values against the four documents a
+returning owner actually reads. Nothing is hardcoded — not the phase count, not the plan count, not
+the gate count.
+
+**Phase status is derived by counting files, never judged:**
+
+| plans | summaries | Derived status |
+|---|---|---|
+| 0 | 0 | `Not started` |
+| > 0 | 0 | `Planned` |
+| > 0 | equal to plans | `Complete` |
+| > 0 | > 0 and not equal to plans | `Executed` |
+
+A checkbox is `[x]` exactly when the derived status is `Complete`. Note what this means: a phase whose
+requirements are blocked on the lawyer still reads `Complete` here, because every one of its plans has
+a committed summary. The nuance is not lost — it lives in each phase's untouched prose description, in
+`.planning/BLOCKED-REQUIREMENTS.md` and in `.planning/STATE.md`'s narrative. This gate deliberately
+holds no opinion about whether a phase went well.
+
+**This gate is red-on-drift by design.** When the next phase lands and the roadmap table is not
+updated, the build goes red and the message names the row. The remedy is to update the row, never to
+edit the gate.
+
+**The one exemption, and why it is asymmetric.** The phase currently under execution — identified from
+`.planning/STATE.md`'s `Phase: <N>` line, never guessed — necessarily moves its own row while it runs,
+because each landing summary changes the numerator.
+
+| Field | Every other phase | The in-flight phase |
+|---|---|---|
+| denominator (`/<plans>`) | exact equality with the `*-PLAN.md` count | exact equality with the `*-PLAN.md` count |
+| numerator | exact equality with the `*-SUMMARY.md` count | may be lower than the summary count; may never exceed it |
+| `Status` cell | equal to the derived status | one of the four legal values |
+| checkbox | `[x]` exactly when derived status is `Complete` | `[ ]` unless numerator equals denominator |
+
+Under-reporting the phase you are standing in is harmless — the summaries are on disk and the next
+closeout corrects the row. Over-reporting is not harmless: it is a claim of work that does not exist,
+which is the exact failure this check exists to catch, so `ROADMAP OVER CLAIMS` is never relaxed. The
+exemption is **printed on every run**, pass or fail, as
+`IN-FLIGHT PHASE <N> — numerator relaxed, denominator and over-claim still checked`, so it is never
+silent. If `.planning/STATE.md` carries no `Phase:` line the gate exits 2 rather than guessing which
+phase is exempt.
+
+| Marker | Fires when | Driven by |
+|---|---|---|
+| `ROADMAP PLAN COUNT` | a Progress-table row's counts differ from its phase directory | `scripts/fixtures/truth-roadmap-count.md` |
+| `ROADMAP OVER CLAIMS` | the in-flight row reports more completed plans than there are summaries | observed against scratchpad copies naming phase 13 in-flight with a `9/7` cell |
+| `ROADMAP STATUS DISAGREES` | a row's status or checkbox differs from the derived status | `scripts/fixtures/truth-roadmap-status.md` |
+| `STATE PLAN COUNT` | a `progress:` counter differs from the derived value | `scripts/fixtures/truth-state-counts.md` |
+| `STATE PERCENT DRIFT` | `percent` or the body's progress-bar percentage disagrees | `scripts/fixtures/truth-state-counts.md` |
+| `ORIENTATION POINTER BROKEN` | a named path does not resolve, or a required path is absent | `scripts/fixtures/truth-orientation-pointer.md` |
+| `ORIENTATION GATE COUNT` | a stated gate count differs from `gates.manifest.json` | `scripts/fixtures/truth-orientation-gates.md` |
+| `PLANNING TRUTH UNREADABLE` | an input is missing or unparseable — **exit 2**, cannot-run | a nonexistent `--roadmap` path |
+
+**When it fires.** Update the document the message names. Never edit this gate, and never delete a
+phase directory or a summary file to make a count match.

@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 27,
+      "order": 31,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 28,
+      "order": 32,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -121,7 +121,7 @@
     {
       "id": "G10",
       "name": "lawyer decision registry",
-      "order": 25,
+      "order": 29,
       "command": "node scripts/check-lawyer-agenda.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/lawyer-decisions.json",
@@ -134,7 +134,7 @@
     {
       "id": "G11",
       "name": "engine observability",
-      "order": 26,
+      "order": 30,
       "command": "node scripts/check-observability.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/src/step10_finalize.rs",
@@ -380,6 +380,58 @@
       "proves": "engine/BUGS.md keeps its fixed entry shape, every open entry keeps a runnable reproduction, every closed entry keeps a stated reason, and every legal claim stays attributed to .planning/research/LEGAL-CONFORMANCE.md. The behavioural half lives in engine/tests/bugs_ledger.rs under gate G1. See GATES.md section 19.",
       "requirements": [
         "LAW-15"
+      ]
+    },
+    {
+      "id": "G30",
+      "name": "claude invariants",
+      "order": 25,
+      "command": "node scripts/check-claude-invariants.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f CLAUDE.md",
+      "blocking": true,
+      "proves": "CLAUDE.md states six invariants covering commit scope, gate immutability, halting, money units, single-source-of-truth and what requires a lawyer; every cited command is a live gate command in gates.manifest.json; the section sits outside every <!-- GSD:*-start/end --> generated block so a regeneration cannot silently delete it. See GATES.md section 20.",
+      "requirements": [
+        "EXT-05"
+      ]
+    },
+    {
+      "id": "G31",
+      "name": "new rule procedure",
+      "order": 26,
+      "command": "node scripts/check-new-rule-procedure.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f .planning/NEW-LEGAL-RULE.md",
+      "blocking": true,
+      "proves": ".planning/NEW-LEGAL-RULE.md documents article, vector, failing run, one-site implementation and registration in five ordered steps, names every artifact each step needs, and its worked example still resolves to a real article in engine/legal-rules.json, a real engine file and a real test function carrying that article's // LEGAL-VECTOR: marker. See GATES.md section 21.",
+      "requirements": [
+        "EXT-06"
+      ]
+    },
+    {
+      "id": "G32",
+      "name": "doc claims",
+      "order": 27,
+      "command": "node scripts/check-doc-claims.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f .planning/DOC-DEBT.md",
+      "blocking": true,
+      "proves": "Eleven documentation claims are re-probed from the tree on every run rather than compared against a frozen expectation, so a stale claim in CLAUDE.md or .planning/codebase/*.md fails and a code regression surfaces as PROBE FLIPPED; every surviving contradiction is declared in the shrink-only .planning/DOC-DEBT.md, which is held in both directions. See GATES.md section 22.",
+      "requirements": [
+        "EXT-07"
+      ]
+    },
+    {
+      "id": "G33",
+      "name": "planning truth",
+      "order": 28,
+      "command": "node scripts/check-planning-truth.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f .planning/ORIENTATION.md",
+      "blocking": true,
+      "proves": "The ROADMAP Progress table, .planning/STATE.md's counters, .planning/ORIENTATION.md's pointers and RESUME.md's gate count all agree with the filesystem and the frozen manifest; phase status is derived by counting *-PLAN.md against *-SUMMARY.md and never judged. Red-on-drift by design. See GATES.md section 23.",
+      "requirements": [
+        "EXT-08"
       ]
     }
   ]

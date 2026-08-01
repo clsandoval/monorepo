@@ -139,6 +139,17 @@ opposite situations:
 Exit 2 is a halt: report BLOCKED with the real command output rather than editing a gate to clear
 it. Full detail, including the `.gate-runs/latest.json` run record, is in [`GATES.md`](./GATES.md).
 
+## Where to start reading
+
+`.planning/ORIENTATION.md` is the page a returning reader opens first. It answers three questions —
+where am I, what is verified, what is next — purely by naming the file that holds each answer, so it
+cannot go stale the way a page that restates facts does. Gate G33,
+`node scripts/check-planning-truth.mjs`, fails the build when any pointer on it stops resolving.
+
+`.planning/DOC-DEBT.md` is the ledger of documentation claims the code contradicts that were accepted
+as debt rather than fixed, each with an owning requirement or an explicit statement that none exists.
+It is shrink-only and is held by gate G32, `node scripts/check-doc-claims.mjs`.
+
 ## Legal decisions
 
 `.planning/LAWYER-AGENDA.md` is the lawyer-facing review agenda: eight interpretive choices the
@@ -150,11 +161,17 @@ G10 checks — a status cannot advance without `answered_by`, `answered_on` and 
 or says an output is wrong: record the claim, name a `TV-L<NN>` vector, watch it fail, fix in one
 place, close the loop.
 
+`.planning/NEW-LEGAL-RULE.md` is the neighbouring procedure, for adding a rule the engine does **not
+yet implement**: article, vector, failing run, one-site implementation, registration. The two are not
+interchangeable — a correction starts from the lawyer's words, a new rule starts from a spec section
+that already states the article.
+
 | Document | Audience | Enforced by |
 |---|---|---|
 | `.planning/LAWYER-AGENDA.md` | the lawyer — this is what gets answered | G10, `node scripts/check-lawyer-agenda.mjs` |
 | `.planning/lawyer-decisions.json` | the gate — the machine-readable copy | G10, `node scripts/check-lawyer-agenda.mjs` |
-| `.planning/LEGAL-CORRECTION-WORKFLOW.md` | whoever is holding a correction | procedure, not a gate |
+| `.planning/LEGAL-CORRECTION-WORKFLOW.md` | whoever is holding a correction to an existing rule | procedure, not a gate |
+| `.planning/NEW-LEGAL-RULE.md` | whoever is adding a rule the engine does not yet implement | G31, `node scripts/check-new-rule-procedure.mjs` |
 
 No agent may decide a contested point of Philippine law. See [`GATES.md`](./GATES.md) section 8.
 

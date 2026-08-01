@@ -103,10 +103,10 @@ What makes it "functionally impossible to screw up."
 - [ ] **EXT-02**: No legal rule is implemented in more than one place, enforced by a documented rule and a check
 - [x] **EXT-03**: Money units are type-enforced so pesos cannot be assigned where centavos are expected, at every boundary
 - [x] **EXT-04**: Dead code that could produce legally meaningless numbers if imported is deleted, including the `computeMock` path
-- [ ] **EXT-05**: `CLAUDE.md` states the invariants an implementing agent must not violate — unit conventions, single-source-of-truth rules, what requires a lawyer
-- [ ] **EXT-06**: Adding a new legal rule has a documented procedure: article, vector, implementation, gate
-- [ ] **EXT-07**: Planning docs and specs contain no stale claims contradicted by the code
-- [ ] **EXT-08**: A returning owner can determine current state, what is verified, and what is next from the planning directory alone
+- [x] **EXT-05**: `CLAUDE.md` states the invariants an implementing agent must not violate — unit conventions, single-source-of-truth rules, what requires a lawyer
+- [x] **EXT-06**: Adding a new legal rule has a documented procedure: article, vector, implementation, gate
+- [x] **EXT-07**: Planning docs and specs contain no stale claims contradicted by the code
+- [x] **EXT-08**: A returning owner can determine current state, what is verified, and what is next from the planning directory alone
 
 ### Lawyer Readiness
 
@@ -256,10 +256,10 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | LAW-13 | Phase 14 | Complete (14-04, 14-06) — gate G27; C1/C2/C3 corrected and C4 verified intact from Phase 8, checked as literal strings at 11 named anchors across 4 files. The collateral-line question is stated as open and attributed to `LAWYER-04`; no spec asserts an answer to it |
 | LAW-14 | Phase 14 | Complete (14-01, 14-05, 14-06) — gate G28; 63 of 79 articles mapped to exactly one named passing test function carrying a `// LEGAL-VECTOR: Art. NNN` marker, 16 declared in the shrink-only `engine/legal-traceability.lock`. `implemented_in` is recomputed from source on every run |
 | LAW-15 | Phase 14 | Complete (14-02, 14-06) — gate G29 plus `engine/tests/bugs_ledger.rs` under G1; BUG-001 closed as non-reproducing with measured numbers, BUG-002 filed against `engine/src/step7_distribute.rs:421` with a runnable reproduction. The line number moved from the audit's `:313` after the Phase 7 and 8 fixes |
-| EXT-05 | Phase 15 | Pending |
-| EXT-06 | Phase 15 | Pending |
-| EXT-07 | Phase 15 | Pending |
-| EXT-08 | Phase 15 | Pending |
+| EXT-05 | Phase 15 | Complete — proven by G30, `node scripts/check-claude-invariants.mjs` |
+| EXT-06 | Phase 15 | Complete — proven by G31, `node scripts/check-new-rule-procedure.mjs` |
+| EXT-07 | Phase 15 | Complete — proven by G32, `node scripts/check-doc-claims.mjs` |
+| EXT-08 | Phase 15 | Complete — proven by G33, `node scripts/check-planning-truth.mjs` |
 
 **Coverage:**
 - v1 requirements: **80** total (GATE 9, OBS 9, LAW 15, COV 6, JRNY 12, PDF 5, EXT 8, LAWYER 10, LOOP 6)
