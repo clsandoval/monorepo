@@ -141,9 +141,9 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 
 ### Deletion Milestone Stabilisation (Phase 16)
 
-- [ ] **CUT-01**: The guided intake contains no conflict-check, client-details or settlement-track step, and `frontend/src/lib/conflict-check.ts` plus the intake types those cuts orphaned do not exist
-- [ ] **CUT-02**: `frontend/src/test-setup.ts` supplies the missing jsdom globals — a `ResizeObserver` polyfill plus `scrollIntoView` and `hasPointerCapture` shims — and the failure count drop is measured before and after
-- [ ] **CUT-03**: Every failing journey reference is either passing or explicitly reported for human review; a reference is re-approved only when its diff is confined to the deleted sidebar navigation region, recorded `--by deletion-milestone-nav-change`
+- [x] **CUT-01**: The guided intake contains no conflict-check, client-details or settlement-track step, and `frontend/src/lib/conflict-check.ts` plus the intake types those cuts orphaned do not exist
+- [x] **CUT-02**: `frontend/src/test-setup.ts` supplies the missing jsdom globals — a `ResizeObserver` polyfill plus `scrollIntoView` and `hasPointerCapture` shims — and the failure count drop is measured before and after
+- [x] **CUT-03**: Every failing journey reference is either passing or explicitly reported for human review; a reference is re-approved only when its diff is confined to the deleted sidebar navigation region, recorded `--by deletion-milestone-nav-change`
 - [ ] **CUT-04**: `bash scripts/ci-gates.sh` exits 0 with nothing weakened, skipped or ledgered to get there
 
 ### Citation Integrity (Phase 17)
@@ -356,10 +356,10 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 | EXT-06 | Phase 15 | Complete — proven by G31, `node scripts/check-new-rule-procedure.mjs` |
 | EXT-07 | Phase 15 | Complete — proven by G32, `node scripts/check-doc-claims.mjs` |
 | EXT-08 | Phase 15 | Complete — proven by G33, `node scripts/check-planning-truth.mjs` |
-| CUT-01 | Phase 16 | Planned |
-| CUT-02 | Phase 16 | Planned |
-| CUT-03 | Phase 16 | Planned |
-| CUT-04 | Phase 16 | Planned |
+| CUT-01 | Phase 16 | Complete |
+| CUT-02 | Phase 16 | Complete (already satisfied since `181ae68c5`; closed by measurement, not by new code) |
+| CUT-03 | Phase 16 | Complete (14 approved after per-pixel inspection; 10 refused and reported for human review) |
+| CUT-04 | Phase 16 | **BLOCKED-ON-OWNER** — `ci-gates.sh` exits 1 at G3 (`ran 2073, floor 2119`); needs (A) the floor lowered and (B) G20/G21 retired, whose scripts `4ccf06270` deleted |
 | CITE-01 | Phase 17 | Planned |
 | CITE-02 | Phase 17 | Planned |
 | CITE-03 | Phase 17 | Planned |
