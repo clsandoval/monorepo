@@ -1,9 +1,11 @@
 # Blocked requirements
 
-Three requirements in this project cannot be implemented by any agent, because each one requires a
-point of Philippine law that only the lawyer collaborator may decide, and none of the three questions
-has been answered — the lawyer is sitting the bar examination. This file is the committed record of
-what each requirement waits on, quoted in the lawyer's own requested wording.
+Six requirements in this project cannot be implemented by any agent, because each one requires a
+point of Philippine law that only the lawyer collaborator may decide, and none of the six questions
+has been answered — the lawyer is sitting the bar examination. Three of the six are estate-tax
+penalty lines added by Phase 20: the NIRC Sec. 248 surcharge, the NIRC Sec. 249 interest, and the
+compromise penalty. This file is the committed record of what each requirement waits on, quoted in
+the lawyer's own requested wording.
 
 `node scripts/check-blocked-requirements.mjs` holds this file to the registry in
 `.planning/lawyer-decisions.json`. It fails when an entry drifts from the registry, when a
@@ -19,6 +21,9 @@ Nothing in this file states, adopts, defaults to, or implies a reading of any co
 | LAW-06 | LAWYER-06 | Q6 — an heir's entitlement exceeding the estate because of a donation *inter vivos* | awaiting-answer |
 | LAW-07 | LAWYER-04 | Q4 — how far *Aquino v. Aquino* reaches into the collateral line | awaiting-answer |
 | LAW-12 | LAWYER-08 | Q8 — RA 11642 Sec. 41 retroactivity to adoption decrees issued before 2022 | awaiting-answer |
+| PEN-01 | LAWYER-10 | Q10 — the NIRC Sec. 248 surcharge on a late estate-tax return | awaiting-answer |
+| PEN-02 | LAWYER-11 | Q11 — the NIRC Sec. 249 interest on late-paid estate tax | awaiting-answer |
+| PEN-03 | LAWYER-12 | Q12 — whether a compromise penalty may be computed by an engine at all | awaiting-answer |
 
 ## LAW-06 — blocked on LAWYER-06
 
@@ -126,3 +131,106 @@ step 1 record the claim and change no code, quoting the lawyer and never paraphr
 test vector, formatted `TV-L<NN>` with `NN` zero-padded from `01`, allocated in order and never
 reused; step 3 watch it fail before any fix; step 4 fix in exactly one place; step 5 close the loop by
 setting the decision's `status` and filling `answered_by`, `answered_on` and `answer`.
+
+## PEN-01 — blocked on LAWYER-10
+
+**Requirement:** The surcharge on a late estate-tax return is computed from the date of death and the filing date, and the line carries NIRC Sec. 248
+
+**Blocking decision:** LAWYER-10 — Q10: The NIRC Sec. 248 surcharge on a late estate-tax return (articles: NIRC Sec. 248)
+
+**Registry status:** awaiting-answer
+
+**Exact question awaiting an answer:**
+
+> Should this engine compute a Sec. 248 surcharge at all, and if so, which four inputs govern it: the
+> rate, the amount the rate applies to, the date it begins to run, and the date it stops running?
+
+**What already exists in the tree:** the delivered half is real and testable. The hardcoded
+`surcharges: 0` is gone from both output sites in
+`frontend/src/lib/estate-tax-engine/pipeline.ts`. The surcharge line carries `authority`
+`NIRC Sec. 248`, `status` `declined`, `centavos` `null` and `lawyerDecision` `LAWYER-10`. The
+statutory filing deadline and the whole-day lateness ARE computed from the date of death and the
+entered filing date — a 2020-06-15 death filed 2025-06-15 is 1461 days past a 2021-06-15 deadline —
+because `specs/estate-tax-engine-spec.md` section 21 states the deadline and transcribing a spec
+sentence is not deciding a point of law. `Form1801View` prints the section and the words
+`NOT COMPUTED` rather than a peso figure. The blocked half is the FIGURE itself.
+
+**Why no agent may proceed:** `specs/estate-tax-engine-spec.md` section 1 lists *"Compute surcharges,
+interest, or penalties for late filing"* under **What the engine does NOT do**, and section 2 lists
+*"Surcharges, interest, compromise penalties"* under **Out of Scope**. No rate, base or accrual rule
+for the section is stated anywhere in this repository, so writing one is authoring a statement of
+Philippine law under `.planning/NEW-LEGAL-RULE.md` Step 1, which `CLAUDE.md` invariant 6 forbids
+without exception and regardless of how clear the answer looks.
+
+**Unblock procedure:** run the five steps of `.planning/LEGAL-CORRECTION-WORKFLOW.md` in order —
+step 1 record the lawyer's answer verbatim and change no code; step 2 name a test vector; step 3
+watch it fail before any fix; step 4 fix in exactly one place, which for this requirement is
+`declinedPenaltyLines` in `frontend/src/lib/estate-tax-engine/penalties.ts` and nowhere else; step 5
+close the loop by setting `LAWYER-10`'s `status` and filling `answered_by`, `answered_on` and
+`answer`. The summing rule the new figure feeds is already implemented and unit-tested as
+`sumTotalAmountDue`, so no arithmetic needs inventing at that point.
+
+## PEN-02 — blocked on LAWYER-11
+
+**Requirement:** The interest on late-paid estate tax is computed from the date of death and the filing date, and the line carries NIRC Sec. 249
+
+**Blocking decision:** LAWYER-11 — Q11: The NIRC Sec. 249 interest on late-paid estate tax (articles: NIRC Sec. 249)
+
+**Registry status:** awaiting-answer
+
+**Exact question awaiting an answer:**
+
+> Should this engine compute interest under Sec. 249, and if so, which four inputs govern it: the
+> rate, the amount the rate applies to, the date it begins to run, and the date it stops running? May
+> interest and the Sec. 248 surcharge run on the same liability at the same time?
+
+**What already exists in the tree:** the hardcoded `interest: 0` is gone from both output sites in
+`pipeline.ts`. The interest line carries `authority` `NIRC Sec. 249`, `status` `declined`, `centavos`
+`null` and `lawyerDecision` `LAWYER-11`, and the same real statutory deadline and day count computed
+for `PEN-01` are printed alongside it. `Form1801View` prints the section and the words
+`NOT COMPUTED`. The blocked half is the figure, and additionally whether the line may be printed at
+the same time as the surcharge line at all — the engine will not infer that.
+
+**Why no agent may proceed:** the same two spec sentences quoted under `PEN-01` place interest out of
+scope, and no rate, base or accrual rule for the section is stated anywhere in this repository.
+Supplying one is the prohibited act under `.planning/NEW-LEGAL-RULE.md` Step 1 and `CLAUDE.md`
+invariant 6.
+
+**Unblock procedure:** the five steps of `.planning/LEGAL-CORRECTION-WORKFLOW.md`, with step 4's
+single site being `declinedPenaltyLines` in `frontend/src/lib/estate-tax-engine/penalties.ts`, and
+step 5 closing `LAWYER-11`.
+
+## PEN-03 — blocked on LAWYER-12
+
+**Requirement:** The return publishes a total amount due that includes every penalty line, or no total at all
+
+**Blocking decision:** LAWYER-12 — Q12: Whether a compromise penalty may be computed by an engine at all
+
+**Registry status:** awaiting-answer
+
+**Exact question awaiting an answer:**
+
+> A compromise penalty is a negotiated figure rather than an arithmetic one, and no schedule for it
+> is stated in either spec. Should the engine ever print an amount for it? If it should, which
+> schedule governs, and what makes that schedule binding on a return this product generates?
+
+**What already exists in the tree:** more of this requirement is delivered than of the other two.
+`total_amount_due: taxComputation.estateTaxDue` is gone; the field is `null` on every computation
+while any line is declined, and the return prints `NOT A TOTAL — SEE NOTE BELOW` with the engine's
+own refusal underneath. The SUMMING RULE IS IMPLEMENTED AND UNIT-TESTED IN BOTH BRANCHES:
+`sumTotalAmountDue` returns the exact integer sum of the base tax and three determined lines, and
+`null` over any set containing a declined line. It was written and tested before any line was
+determined precisely so that the total is a rule that was reviewed rather than one invented later
+under pressure. The compromise-penalty line carries `authority`
+`specs/estate-tax-engine-spec.md §2 Out of Scope`, `status` `declined` and `lawyerDecision`
+`LAWYER-12`. A total that MOVES waits on all three of `LAWYER-10`, `LAWYER-11` and `LAWYER-12`.
+
+**Why no agent may proceed:** `specs/estate-tax-engine-spec.md` section 2 lists compromise penalties
+out of scope and no schedule for one is stated anywhere in this repository. The `articles` array for
+`LAWYER-12` in `.planning/lawyer-decisions.json` is deliberately EMPTY for the same reason: naming a
+provision would itself be the prohibited act.
+
+**Unblock procedure:** the five steps of `.planning/LEGAL-CORRECTION-WORKFLOW.md`. Step 4 has exactly
+one site, `declinedPenaltyLines` in `frontend/src/lib/estate-tax-engine/penalties.ts`; nothing in
+`pipeline.ts` or `Form1801View.tsx` needs editing, because both already read the object and both
+branches — declined and determined — are implemented and covered by tests today.

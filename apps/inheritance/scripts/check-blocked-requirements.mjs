@@ -61,7 +61,13 @@ const DEFAULT_REQUIREMENTS = path.join(APP_DIR, '.planning', 'REQUIREMENTS.md');
 /** The expected set, hardcoded so it is auditable HERE rather than inferred from
  *  whichever file is being checked — the same decision check-observability.mjs
  *  made for its ten flag codes. LAW-06, LAW-07, LAW-12. */
-const BLOCKED_REQUIREMENTS = ['LAW-06', 'LAW-07', 'LAW-12'];
+const BLOCKED_REQUIREMENTS = [
+  'LAW-06', 'LAW-07', 'LAW-12',
+  // Added by Phase 20: the three estate-tax penalty lines. Each waits on a
+  // recorded question rather than on effort — no rate, base or accrual rule
+  // for NIRC Sec. 248 or Sec. 249 is stated in any spec in this repository.
+  'PEN-01', 'PEN-02', 'PEN-03',
+];
 
 /** The seven bold field lines every entry carries, in order. */
 const REQUIRED_FIELDS = [
@@ -172,7 +178,7 @@ function parseLedger(text) {
   const lines = text.split('\n');
   let current = null;
   for (const line of lines) {
-    const heading = /^##\s+(LAW-\d{2})\s+—\s+blocked on\s+(LAWYER-\d{2})\s*$/.exec(line);
+    const heading = /^##\s+((?:LAW|PEN)-\d{2})\s+—\s+blocked on\s+(LAWYER-\d{2})\s*$/.exec(line);
     if (heading) {
       current = {
         id: heading[1],

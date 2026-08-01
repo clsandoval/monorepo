@@ -174,8 +174,8 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 - [ ] **PEN-01**: Surcharge is computed from the date of death per NIRC §248, replacing the hardcoded `surcharges: 0`
 - [ ] **PEN-02**: Interest is computed from the date of death per NIRC §249, replacing the hardcoded `interest: 0`
 - [ ] **PEN-03**: `total_amount_due` is the sum of estate tax, surcharge, interest and compromise penalty, and moves when the date of death moves
-- [ ] **PEN-04**: Every penalty line cites the section that governs it
-- [ ] **PEN-05**: Where the statute is ambiguous the engine refuses loudly and the question is recorded as a new `LAWYER-<NN>` entry with status `awaiting-answer`; no reading is adopted, defaulted or stubbed
+- [x] **PEN-04**: Every penalty line cites the section that governs it
+- [x] **PEN-05**: Where the statute is ambiguous the engine refuses loudly and the question is recorded as a new `LAWYER-<NN>` entry with status `awaiting-answer`; no reading is adopted, defaulted or stubbed
 
 ### BIR Form 1801 Exit (Phase 21)
 
@@ -374,11 +374,11 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 | SAVE-03 | Phase 19 | Done — unmount cleanup flushes; proven by `useAutoSave.test.tsx` `flushes pending save on unmount` and gate G35 marker `UNMOUNT LOST` |
 | SAVE-04 | Phase 19 | Done — `SaveStatusBadge`; proven by `SaveStatusBadge.test.tsx` (6 cases, incl. success copy absent in error state) and G35 marker `STATUS NOT SHOWN` |
 | SAVE-05 | Phase 19 | Done — gate G35 `frontend/journey/persistence.mjs`, observed `PERSISTENCE PASS heirs=9 checks=7` |
-| PEN-01 | Phase 20 | Planned |
-| PEN-02 | Phase 20 | Planned |
-| PEN-03 | Phase 20 | Planned |
-| PEN-04 | Phase 20 | Planned |
-| PEN-05 | Phase 20 | Planned |
+| PEN-01 | Phase 20 | Partial, blocked on LAWYER-10. `surcharges: 0` is gone from both output sites; the line carries `NIRC Sec. 248`, `status: declined`, `centavos: null`, and a statutory deadline computed from the date of death (2020-06-15 death, 2025-06-15 filing → deadline 2021-06-15, 1461 days late). The FIGURE waits on the lawyer. Proven by `penalties.test.ts`, `pipeline.test.ts` and `check-penalty-refusal.ts` markers `SILENT ZERO SURVIVES` and `WALL CLOCK IN ENGINE`. |
+| PEN-02 | Phase 20 | Partial, blocked on LAWYER-11. `interest: 0` is gone from both output sites; the line carries `NIRC Sec. 249`, `status: declined`, `centavos: null`, and the same real day count. The FIGURE waits on the lawyer. Proven by `penalties.test.ts`, `pipeline.test.ts` and `check-penalty-refusal.ts` markers `SILENT ZERO SURVIVES` and `WALL CLOCK IN ENGINE`. |
+| PEN-03 | Phase 20 | Partial, blocked on LAWYER-10 through LAWYER-12. `sumTotalAmountDue` is implemented and unit-tested in BOTH branches — exact integer sum over determined lines, `null` over any set holding a declined one — and `total_amount_due` is `null` while any line is declined. A total that MOVES waits on all three answers. Proven by `penalties.test.ts` and `check-penalty-refusal.ts` marker `TOTAL CLAIMS COMPLETENESS`. |
+| PEN-04 | Phase 20 | Done. Every penalty line carries the section that governs it, and the display READS it from the engine rather than authoring one — `grep -c "'NIRC Sec. 24"` over `Form1801View.tsx` prints 0. Proven by `Form1801View.test.tsx` and `check-penalty-refusal.ts` marker `LINE MISSING ITS SECTION`. |
+| PEN-05 | Phase 20 | Done. LAWYER-10, LAWYER-11 and LAWYER-12 recorded with status `awaiting-answer` and all three answer fields `null`; nothing adopted, defaulted or stubbed, and no rate exists anywhere in the tree. Proven by `node scripts/check-lawyer-agenda.mjs` (12 decisions, 12 awaiting-answer) and `check-penalty-refusal.ts` markers `RATE INVENTED` and `DECLINED LINE UNRECORDED`. |
 | RET-01 | Phase 21 | Planned |
 | RET-02 | Phase 21 | Planned |
 | RET-03 | Phase 21 | Planned |
