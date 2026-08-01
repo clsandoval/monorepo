@@ -12,6 +12,13 @@ Append-only. Newest at top. One line per day.
 - **Notes:** optional
 
 ---
+## 2026-08-01
+- **Weight:** — (not logged)
+- **Cals / Protein:** ~1455 / ~110g so far (½ koji-marinated chicken w/ cabbage ~600/73g [7/29 ½ peri-peri precedent 580/72g; koji marinade + cabbage ~25/1g]; Mediterranean wrap ~500/30g [as given]; ½ onion tart ~250/5g [puff pastry + caramelized onion]; ½ of a 50g flatbread w/ butter ~105/2g [25g bread ~70/2g + ~5g butter ~35/0g])
+- **Carbs / Sodium:** ~80g so far (cabbage ~5g; wrap tortilla + fillings ~40g; onion tart pastry ~22g; flatbread ~13g. Sodium: koji marinade + wrap sauce/feta + buttered bread carry it)
+- **Trained:** —
+- **Notes:** chicken was the buy of the day (600 cal for 73g = 8.2 cal/g); the tart + flatbread added ~355 cal for 7g. ~545 cal / ~50g protein left — only near-pure protein closes that: **2 scoops in water (~280/48g) + 100g cottage cheese (~82/12g) → ~1817 / ~170g**, clears both floors under the ceiling. Carbs ~80g are well under the 130–150g training-day minimum — if training today, a banana or two goes in before the shake.
+
 ## 2026-07-31
 - **Weight:** 95.2 kg (fasted AM)
 - **Cals / Protein:** ~1485 / ~99g so far (Cyma salmon pasta, shirataki swap: ~200g salmon in cream/olive oil sauce ~450/32g + shirataki noodles ~25/0g; very sweet latte 16 oz ~300/8g; tagliata di manzo beef tenderloin olive oil garlic ~500/42g; 50g focaccia ~155/4g; Giovanni protein pack ~80/15g [label]; 200g grilled ribeye, lean-trimmed ~550/50g [7/29 precedent 580/50, trimmed a bit leaner])
