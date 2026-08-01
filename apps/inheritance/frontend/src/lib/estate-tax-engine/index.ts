@@ -42,5 +42,12 @@ export type {
   PenaltyLine,
   PenaltyLineId,
 } from './penalties';
+export {
+  FORM1801_LINE_IDS,
+  FORM1801_RECONCILE_PREFIX,
+  buildForm1801Lines,
+  reconcileForm1801Lines,
+} from './form1801-lines';
+export type { Form1801Line, Form1801LineGroup, Form1801LineModel } from './form1801-lines';
 export type { Suggestion } from './advisor';
 export type { SensitivityResult } from './sensitivity';
