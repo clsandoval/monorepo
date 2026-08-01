@@ -34,12 +34,27 @@ a gate can only stop running by being removed from the manifest, and that is rej
 | G19 | 14 | money parity | `cd frontend && node journey/money-parity.mjs` | Every peso figure the results view displays equals, as an exact integer number of centavos, a distribution the compiled engine computed during the same run — and the row the product stored equals it too. No expected figure is committed anywhere. Section 14. |
 | G20 | 15 | share exposure | `cd frontend && node journey/share-exposure.mjs` | The product's one anonymous data path returns exactly the six columns migration 015 enumerates and none of nine forbidden ones; a disabled share and an unknown token each return zero rows. Section 14. |
 | G21 | 16 | seo smoke | `cd frontend && node journey/seo-smoke.mjs` | All fourteen public landing, blog and marketing routes load in a real browser, each rendering a non-empty `h1`, logging no console error, and fetching nothing answering HTTP 400 or above. Section 14. |
-| G10 | 17 | lawyer decision registry | `node scripts/check-lawyer-agenda.mjs` | Every recorded interpretive choice exists in both the agenda and the registry and cannot have its status advanced without a recorded answer. Section 8. |
-| G11 | 18 | engine observability | `node scripts/check-observability.mjs` | The engine still emits warnings, the legitime/free-portion split and a structured boundary error. Section 9. |
-| G8 | 19 | gate skip accounting | `node scripts/check-gate-skips.mjs` | Every gate reports how many of its own assertions it skipped, and every skip is declared in `gate-skips.lock`. Section 5. |
-| G9 | 20 | published gate results | `node scripts/check-gate-results.mjs` | `gate-results.json` describes the current run and covers every manifest gate. Section 6. |
+| G22 | 17 | pdf toolchain | `cd frontend && node journey/pdf-probe.mjs` | A PDF's text, page count, page dimensions and page images are all readable by the harness, a generated document extracts its money token as one uninterrupted string with no corrupted glyph, and rasterising the same document twice produces identical images. Section 15. |
+| G23 | 18 | pdf structure | `cd frontend && node journey/pdf-structure.mjs` | The generated estate report carries every required section and every peso figure it shows equals a figure the engine computed in the same run. Section 15. |
+| G24 | 19 | pdf visual | `cd frontend && node journey/pdf-visual.mjs` | The rendered pages match approved reference images pixel for pixel, so a corrupted glyph or a collapsed layout is caught perceptually and not only structurally. Section 15. |
+| G25 | 20 | print layout | `cd frontend && node journey/print-layout.mjs` | The print stylesheet is measured in a real browser under print emulation: typeface, body size, hidden chrome, shown print headers, A4 paper and the top and left margins read as the distance to first ink. Section 15. |
+| G26 | 21 | blocked requirements | `node scripts/check-blocked-requirements.mjs` | LAW-06, LAW-07 and LAW-12 are recorded against the decision each waits on, the record agrees with `.planning/lawyer-decisions.json`, none is marked complete while blocked, and an arriving answer raises `ANSWER ARRIVED` rather than passing. Section 16. |
+| G27 | 22 | spec legal text | `node scripts/check-spec-legal-text.mjs` | The four passages of law named in `.planning/research/LEGAL-CONFORMANCE.md` section 2b read correctly, checked as literal strings at named anchors, with the superseded wording proven absent. Section 17. |
+| G28 | 23 | legal traceability | `node scripts/check-legal-traceability.mjs` | Every Civil Code article the engine's production code cites is mapped to exactly one named test function carrying its `LEGAL-VECTOR` marker, or declared in the shrink-only `engine/legal-traceability.lock`. Section 18. |
+| G29 | 24 | bugs ledger | `node scripts/check-bugs-ledger.mjs` | `engine/BUGS.md` keeps its fixed entry shape, every open entry keeps a runnable reproduction, every closed entry keeps a stated reason, and every legal claim stays attributed. Section 19. |
+| G10 | 25 | lawyer decision registry | `node scripts/check-lawyer-agenda.mjs` | Every recorded interpretive choice exists in both the agenda and the registry and cannot have its status advanced without a recorded answer. Section 8. |
+| G11 | 26 | engine observability | `node scripts/check-observability.mjs` | The engine still emits warnings, the legitime/free-portion split and a structured boundary error. Section 9. |
+| G8 | 27 | gate skip accounting | `node scripts/check-gate-skips.mjs` | Every gate reports how many of its own assertions it skipped, and every skip is declared in `gate-skips.lock`. Section 5. |
+| G9 | 28 | published gate results | `node scripts/check-gate-results.mjs` | `gate-results.json` describes the current run and covers every manifest gate. Section 6. |
 
-**The gate set is now twenty.** Phase 6 added **G12** (engine coverage, section 10) and **G13**
+**The gate set is now twenty-eight.** Phase 13 added **G22**–**G25** (the PDF gates, section 15) at
+`order` **17–20**, and Phase 14 added **G26**–**G29** (section 16 through section 19) at `order`
+**21–24**, shifting G10, G11, G8 and G9 to **25, 26, 27 and 28** with **G9 still last**. The four
+Phase 14 gates are static, dependency-free Node checks that read committed files, so they sit after
+the container-and-browser block and before the bookkeeping gates. `order` was the only field that
+moved on any pre-existing gate; `gates.manifest.lock` gained four entries and lost none.
+
+Phase 6 added **G12** (engine coverage, section 10) and **G13**
 (assertion discipline, section 11) and placed them at `order` **4 and 5, ahead of G1**, shifting
 every gate from G1 down by two. Phase 10 then added **G15** (journey harness self-test, section 12)
 at `order` **6**, shifting every gate from G1 down by one more. Phase 11 added three more
@@ -1266,3 +1281,174 @@ each sits a few pixels inside its nominal value to absorb glyph bearing while re
 near-zero offset a page ignoring `@page` would produce. Neither is ever adjusted to make a run pass.
 Removing the `@page` margin was observed moving first ink from 126/97 px to 33/34 px and turning the
 gate red.
+
+---
+
+## 16. Blocked requirements (G26)
+
+```
+node scripts/check-blocked-requirements.mjs
+```
+
+Three requirements in this project cannot be implemented by any agent. LAW-06 waits on **LAWYER-06**,
+LAW-07 on **LAWYER-04**, LAW-12 on **LAWYER-08**, and all three decisions are `awaiting-answer`
+because the lawyer collaborator is sitting the bar examination. `.planning/PLAN-STANDARD.md` section 3
+forbids an agent from adopting a reading in the meantime, so the deliverable for those three is
+`.planning/BLOCKED-REQUIREMENTS.md`: a record, not an implementation. This gate keeps that record
+honest.
+
+**This is the one gate in the set that can turn red on good news.** When a blocking decision stops
+being `awaiting-answer` while its requirement is still unchecked in `.planning/REQUIREMENTS.md`, the
+check raises `ANSWER ARRIVED` and exits 1. That is deliberate. The answer arriving is exactly the
+moment the work must start, and a silent pass would let a month-long unattended loop walk straight
+past it. **The remedy is to run the five steps of `.planning/LEGAL-CORRECTION-WORKFLOW.md` — record
+the claim, name a `TV-L<NN>` vector, watch it fail, fix in one place, close the loop — never to edit
+this gate.**
+
+| Marker | Fires when | Driven by |
+|---|---|---|
+| `BLOCKED ENTRY MISSING` | a required requirement has no `## LAW-NN — blocked on LAWYER-NN` heading | `scripts/fixtures/blocked-entry-missing.md` |
+| `WRONG BLOCKING DECISION` | a heading names a decision whose `blocks` array omits that requirement | `scripts/fixtures/blocked-wrong-decision.md` |
+| `MISSING FIELD` | an entry lacks one of the seven bold field lines | observed against a scratchpad copy with one field stripped |
+| `STATUS DRIFT` | an entry's `**Registry status:**` differs from the registry's `status` | `scripts/fixtures/blocked-status-drift.md` |
+| `REQUIREMENT CLAIMED COMPLETE` | `.planning/REQUIREMENTS.md` marks a blocked requirement `[x]` while its decision is open | observed against a scratchpad `REQUIREMENTS.md` with LAW-06 ticked |
+| `ANSWER ARRIVED` | a blocking decision is no longer `awaiting-answer` while its requirement is open | `scripts/fixtures/blocked-answered-decisions.json` |
+| `BLOCKED LEDGER UNREADABLE` | any of the three inputs is missing or unparseable | a nonexistent `--ledger` path |
+
+**What this gate does not check.** It never evaluates whether a legal reading is correct, and never
+states one. It checks that the record agrees with the registry and that nobody quietly closed a
+blocked requirement. The three questions themselves are quoted verbatim in
+`.planning/BLOCKED-REQUIREMENTS.md`; a paraphrase of a legal question is already an interpretation,
+so none appears there.
+
+---
+
+## 17. The spec's legal text (G27)
+
+```
+node scripts/check-spec-legal-text.mjs
+```
+
+A wrong spec is worse than a wrong line of code, because the spec is what a lawyer reads to sign off
+and what a later agent diffs code against. `.planning/research/LEGAL-CONFORMANCE.md` section 2b named
+four passages in this repository's specs that misstate the law. Phase 14 corrected three of them and
+Phase 8 had already corrected the fourth; this gate pins all four.
+
+| # | Correction |
+|---|---|
+| C1 | Art. 992 is stated post-*Aquino v. Aquino* (2021) in the direct line, with the collateral question recorded as the **open** decision `LAWYER-04` rather than answered |
+| C2 | Art. 900 ¶2 states the statutory three-month window and the five-year cohabitation defeater, and the resulting spec-to-code divergence is recorded under `KNOWN DIVERGENCE: engine/src/step5_legitimes.rs` |
+| C3 | Art. 972 ¶1's prohibition on representation in the ascending line is stated, naming `test_law04_no_representation_in_the_ascending_line` as its committed vector |
+| C4 | the vanishing-deduction reduction ratio includes `5F Transfers for Public Use` (corrected in Phase 8 under LAW-09) |
+
+Eleven locations across four files. **All matching is literal `String.prototype.includes`, never a
+regular expression**, because every searched string contains `*`, `(`, `)`, `.`, `¶` or `|`. An anchor
+must occur **exactly once** in its file: an anchor matching two places does not identify a location,
+so it is reported as a defect rather than silently resolved to the first hit. Two of the anchors
+needed extending for that reason — `**Articulo mortis** (Art. 900 ¶2)` and `**Ordering constraint**`
+each occur twice — and both are documented beside the constants.
+
+| Marker | Fires when | Driven by |
+|---|---|---|
+| `SPEC ANCHOR MISSING` | an anchor is absent from its file, or occurs more than once | `scripts/fixtures/spec-anchor-missing.md` |
+| `CORRECTION MISSING` | a required literal is absent from the anchor's window | `scripts/fixtures/spec-correction-missing.md` |
+| `MISSTATEMENT PRESENT` | a superseded literal is still present anywhere in the file | `scripts/fixtures/spec-misstatement-present.md` |
+| `SPEC SCAN UNREADABLE` | a named file is missing or unreadable | `--root` pointed at an empty directory |
+
+**What this gate does not check.** It never evaluates whether a legal reading is correct. It checks
+that specific literal strings are present at specific places and that specific superseded strings are
+absent. In particular it does **not** assert anything about the collateral line: C1's required text
+includes the literal `LAWYER-04`, precisely because that question is open.
+
+---
+
+## 18. Legal-rule traceability (G28)
+
+```
+node scripts/check-legal-traceability.mjs
+```
+
+LAW-14 asks that every implemented legal rule have exactly one named test vector citing its governing
+article, checkable by grep. A hand-written map cannot deliver that, because it decays the moment
+someone adds an article to production code — and it decays silently. This gate makes the decay loud.
+
+Two derivation rules, both **recomputed from source on every run**, so a hand-edit of
+`engine/legal-rules.json` that disagrees with the code fails rather than passes:
+
+1. **Production region.** For each file under `engine/src/`, the production region is its content up
+   to but not including the first `#[cfg(test)]`. Citations after that point belong to tests.
+2. **`implemented_in`.** For an article, the sorted list of every `engine/src/` file whose production
+   region contains that article's citation string.
+
+Current coverage: **63 of 79 articles traced, 16 declared untraced.**
+
+`engine/legal-traceability.lock` is a **shrink-only** ledger — it **may only shrink**, the same
+direction as `gate-skips.lock` and `engine/defect-baseline.json`, and the exact inverse of
+`gates.manifest.lock`, which may only grow. This project now carries three shrink-only ledgers
+alongside the frontend's `test-baseline.json` and the assertion-discipline ledger. It currently holds
+**16** articles and that number may only fall. Appending an article to turn a red check green is
+prohibited: the fix for an untraced article is a named test vector, not a declaration.
+`STALE UNTRACED DECLARATION` is the direction that enforces it — the moment an article acquires a
+vector, its lock entry becomes a hard failure until it is deleted.
+
+| Marker | Fires when | Driven by |
+|---|---|---|
+| `ARTICLE NOT REGISTERED` | an article cited in a production region has no registry element | `scripts/fixtures/legal-rules-unregistered.json` |
+| `REGISTERED ARTICLE ABSENT` | a registry article no longer appears in any production region | observed against a scratchpad registry carrying a fictitious `Art. 9999` |
+| `IMPLEMENTED_IN DRIFTED` | a declared `implemented_in` differs from the recomputed list | observed against a scratchpad registry with `Art. 888` repointed |
+| `VECTOR MISSING` | a vector names a function that does not occur exactly once in its file | `scripts/fixtures/legal-rules-vector-missing.json` |
+| `VECTOR NOT MARKED` | the `LEGAL-VECTOR` line is not inside the named function's body | observed against a scratchpad registry pointing `Art. 888` at another function |
+| `MARKER NOT UNIQUE` | one article's marker line occurs more than once across `engine/` | observed against a scratchpad **copy** of `engine/` with a duplicate marker |
+| `UNTRACED NOT DECLARED` | a null-vector article is absent from the lock | `scripts/fixtures/legal-rules-undeclared-untraced.json` |
+| `STALE UNTRACED DECLARATION` | a lock article now has a vector | `scripts/fixtures/legal-traceability-stale.lock` |
+| `TRACEABILITY SCAN UNREADABLE` | an input is missing or unparseable | a nonexistent `--rules` path |
+
+**What this gate does not check.** It records **where** a rule is tested, never **what** a rule
+requires. That distinction is what keeps it free of legal judgment: naming the existing passing test
+function that already cites an article decides nothing. It also does not assert that a traced article
+is *correctly* implemented — only that a named, passing test carries its marker.
+
+---
+
+## 19. The bugs ledger (G29)
+
+```
+node scripts/check-bugs-ledger.mjs
+```
+
+`engine/BUGS.md` is a document about numbers, and a document about numbers rots silently. Two
+independent checks hold it to reality, the same split this project uses for observability:
+
+- **`engine/tests/bugs_ledger.rs`** (behavioural, runs under gate **G1**) re-runs every entry's
+  committed reproduction JSON through the current engine and fails when a recorded figure drifts by
+  one centavo, and re-proves that every closed entry still conserves the estate. Its markers are
+  `MISSING REPRODUCTION`, `UNKNOWN STATUS`, `HEIR SET DRIFTED`, `ACTUAL DRIFTED`,
+  `OUTPUT CHECK REJECTED` and `CLOSURE INVALIDATED`.
+- **this gate** (structural) validates the document's shape.
+
+Either half alone can be satisfied by a document that lies in the other's direction, which is why
+there are two.
+
+Phase 14 reconciled the file: **BUG-001 was closed as non-reproducing** (its own committed JSON now
+sums to exactly ₱30,000,000 with both disinherited children at ₱0, which is what its `### Expected`
+section always asked for), and **BUG-002 was filed** against the still-open defect at
+`engine/src/step7_distribute.rs:421`, where the excess of an institution over the instituted heir's
+legitime is computed unconditionally — including for `ShareSpec::EntireFreePort` — so free-portion
+pesos are redistributed intestate while the sum invariant still holds. **BUG-002 is documented, not
+fixed, and no requirement owns its fix**; that is stated in its own `### Owning requirement` section
+rather than left implicit.
+
+| Marker | Fires when | Driven by |
+|---|---|---|
+| `ENTRY HEADING MALFORMED` | a `## BUG-` heading is not `## BUG-<three digits>: <title>` | observed against a scratchpad copy with a two-digit id |
+| `DUPLICATE ENTRY ID` | the same BUG id appears twice | observed against a scratchpad copy with a repeated id |
+| `MISSING HEADING` | an entry lacks a heading or bold field its status requires | `scripts/fixtures/bugs-missing-heading.md` |
+| `UNKNOWN STATUS` | a `**Status:**` value outside `Open` and `Closed — does not reproduce` | `scripts/fixtures/bugs-unknown-status.md` |
+| `OPEN WITHOUT REPRODUCTION` | an Open entry has no fenced `json` block under `### Reproduction` | `scripts/fixtures/bugs-open-without-repro.md` |
+| `CLOSED WITHOUT REASON` | a closed entry has no `### Why it was closed` section | observed against a scratchpad copy with the section removed |
+| `UNATTRIBUTED LEGAL CLAIM` | an `### Expected` section lacks `Quoted from .planning/research/LEGAL-CONFORMANCE.md` | observed against a scratchpad copy with the attribution replaced |
+| `BUGS LEDGER UNREADABLE` | the input is missing or unreadable | a nonexistent `--file` path |
+
+**What this gate does not check.** It never evaluates whether a legal statement in the ledger is
+correct — only that every such statement carries its attribution, so no agent can slip an unsourced
+reading of Philippine law into a bug entry. Whether a bug is *important* is also outside its scope.

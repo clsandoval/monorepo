@@ -121,6 +121,26 @@
       "id": "G25",
       "command": "cd frontend && node journey/print-layout.mjs",
       "blocking": true
+    },
+    {
+      "id": "G26",
+      "command": "node scripts/check-blocked-requirements.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G27",
+      "command": "node scripts/check-spec-legal-text.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G28",
+      "command": "node scripts/check-legal-traceability.mjs",
+      "blocking": true
+    },
+    {
+      "id": "G29",
+      "command": "node scripts/check-bugs-ledger.mjs",
+      "blocking": true
     }
   ]
 }

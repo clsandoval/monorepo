@@ -53,9 +53,9 @@ Each item is a defect reproduced by running the engine, documented in `LEGAL-CON
 - [x] **LAW-10**: `tax-bridge.ts` passes the correct distributable estate to the succession engine, not net taxable estate minus tax
 - [x] **LAW-11**: Reserva troncal (Art. 891) either fails loudly with a flag or is expressly declared unsupported — never silently omitted while the spec advertises a flag for it
 - [ ] **LAW-12**: The RA 11642 adoption regime is either implemented or made to refuse computation, replacing the currently inert `retroactive_ra_11642` flag and the repealed RA 8552 citations
-- [ ] **LAW-13**: The spec's four misstatements of law are corrected (Art. 992 pre-*Aquino* framing, Art. 900 ¶2 three-month trigger, Art. 972 ¶1 omission, vanishing-deduction paragraph list)
-- [ ] **LAW-14**: Every legal rule the engine implements is traceable to exactly one named test vector citing its article number
-- [ ] **LAW-15**: `engine/BUGS.md` reflects reality — BUG-001 closed as non-reproducing, re-filed against `step7_distribute.rs:313`
+- [x] **LAW-13**: The spec's four misstatements of law are corrected (Art. 992 pre-*Aquino* framing, Art. 900 ¶2 three-month trigger, Art. 972 ¶1 omission, vanishing-deduction paragraph list)
+- [x] **LAW-14**: Every legal rule the engine implements is traceable to exactly one named test vector citing its article number
+- [x] **LAW-15**: `engine/BUGS.md` reflects reality — BUG-001 closed as non-reproducing, re-filed against `step7_distribute.rs:313`
 
 ### Test Coverage Depth
 
@@ -250,12 +250,12 @@ Directly serves the constraint that the agent loop must not drift or narrow.
 | PDF-03 | Phase 13 | Complete (13-05, 13-07) — gate G23; every heir with a positive share must have a name, a matching `legal_basis` citation and a narrative in the document. Citations are asserted present and matching engine output, never asserted correct |
 | PDF-04 | Phase 13 | Complete (13-06, 13-07) — gate G24; every page rasterised at 100 dots per inch and compared at `maxDiffPixels` 0 against a reference only `journey/pdf-approve.mjs` can write |
 | PDF-05 | Phase 13 | Complete (13-04, 13-07) — gate G25; every claim read from computed style under print media or from the bytes `page.pdf` produced, and the check opens no stylesheet |
-| LAW-06 | Phase 14 | Pending |
-| LAW-07 | Phase 14 | Pending |
-| LAW-12 | Phase 14 | Pending |
-| LAW-13 | Phase 14 | Pending |
-| LAW-14 | Phase 14 | Pending |
-| LAW-15 | Phase 14 | Pending |
+| LAW-06 | Phase 14 | **Blocked on LAWYER-06** — the recorded decision's status in `.planning/lawyer-decisions.json` is `awaiting-answer`. Recorded, with the lawyer's question quoted verbatim, in `.planning/BLOCKED-REQUIREMENTS.md`; gate G26 holds that record to the registry and raises `ANSWER ARRIVED` the moment the answer lands. No reading of Art. 771 or Art. 911 was adopted, implemented, defaulted or stubbed |
+| LAW-07 | Phase 14 | **Blocked on LAWYER-04** — status `awaiting-answer`. Recorded in `.planning/BLOCKED-REQUIREMENTS.md` and gated by G26. `grep -rn "IronCurtain\|iron_curtain" engine/src` still returns zero hits; no reading of Art. 992 was adopted |
+| LAW-12 | Phase 14 | **Blocked on LAWYER-08** — status `awaiting-answer`. Recorded in `.planning/BLOCKED-REQUIREMENTS.md` and gated by G26. `config.retroactive_ra_11642` remains inert and no RA 11642 Sec. 41 reading was adopted — including "refuse to compute", which is an available answer but not an agent's to select |
+| LAW-13 | Phase 14 | Complete (14-04, 14-06) — gate G27; C1/C2/C3 corrected and C4 verified intact from Phase 8, checked as literal strings at 11 named anchors across 4 files. The collateral-line question is stated as open and attributed to `LAWYER-04`; no spec asserts an answer to it |
+| LAW-14 | Phase 14 | Complete (14-01, 14-05, 14-06) — gate G28; 63 of 79 articles mapped to exactly one named passing test function carrying a `// LEGAL-VECTOR: Art. NNN` marker, 16 declared in the shrink-only `engine/legal-traceability.lock`. `implemented_in` is recomputed from source on every run |
+| LAW-15 | Phase 14 | Complete (14-02, 14-06) — gate G29 plus `engine/tests/bugs_ledger.rs` under G1; BUG-001 closed as non-reproducing with measured numbers, BUG-002 filed against `engine/src/step7_distribute.rs:421` with a runnable reproduction. The line number moved from the audit's `:313` after the Phase 7 and 8 fixes |
 | EXT-05 | Phase 15 | Pending |
 | EXT-06 | Phase 15 | Pending |
 | EXT-07 | Phase 15 | Pending |

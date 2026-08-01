@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 23,
+      "order": 27,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 24,
+      "order": 28,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -121,7 +121,7 @@
     {
       "id": "G10",
       "name": "lawyer decision registry",
-      "order": 21,
+      "order": 25,
       "command": "node scripts/check-lawyer-agenda.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/lawyer-decisions.json",
@@ -134,7 +134,7 @@
     {
       "id": "G11",
       "name": "engine observability",
-      "order": 22,
+      "order": 26,
       "command": "node scripts/check-observability.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/src/step10_finalize.rs",
@@ -326,6 +326,60 @@
       "proves": "The print stylesheet's effect is read from what the browser computed and printed: the print typeface and body size from computed style under print media, navigation and no-print elements proven hidden and print-only elements proven shown, the page size read as A4 out of the browser's own printed document, and the margins measured as the distance from the paper edge to the first ink. The check opens no stylesheet. See GATES.md section 15.",
       "requirements": [
         "PDF-05"
+      ]
+    },
+    {
+      "id": "G26",
+      "name": "blocked requirements",
+      "order": 21,
+      "command": "node scripts/check-blocked-requirements.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f .planning/BLOCKED-REQUIREMENTS.md",
+      "blocking": true,
+      "proves": "The three lawyer-blocked requirements LAW-06, LAW-07 and LAW-12 are recorded against the decision each waits on, the record agrees with .planning/lawyer-decisions.json, none of them is marked complete while its decision is still awaiting-answer, and an arriving answer raises ANSWER ARRIVED and fails the build rather than passing silently. See GATES.md section 16.",
+      "requirements": [
+        "LAW-06",
+        "LAW-07",
+        "LAW-12"
+      ]
+    },
+    {
+      "id": "G27",
+      "name": "spec legal text",
+      "order": 22,
+      "command": "node scripts/check-spec-legal-text.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f specs/inheritance-engine-spec.md",
+      "blocking": true,
+      "proves": "The four passages of law named in .planning/research/LEGAL-CONFORMANCE.md section 2b read correctly, checked as literal strings at named anchors in named files, with the superseded wording proven absent. See GATES.md section 17.",
+      "requirements": [
+        "LAW-13"
+      ]
+    },
+    {
+      "id": "G28",
+      "name": "legal traceability",
+      "order": 23,
+      "command": "node scripts/check-legal-traceability.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f engine/legal-rules.json",
+      "blocking": true,
+      "proves": "Every Civil Code article cited by the engine's production code is either mapped to exactly one named test function carrying its LEGAL-VECTOR marker or declared in the shrink-only engine/legal-traceability.lock, with implemented_in recomputed from source on every run so a hand-edited registry fails rather than passes. See GATES.md section 18.",
+      "requirements": [
+        "LAW-14"
+      ]
+    },
+    {
+      "id": "G29",
+      "name": "bugs ledger",
+      "order": 24,
+      "command": "node scripts/check-bugs-ledger.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f engine/BUGS.md",
+      "blocking": true,
+      "proves": "engine/BUGS.md keeps its fixed entry shape, every open entry keeps a runnable reproduction, every closed entry keeps a stated reason, and every legal claim stays attributed to .planning/research/LEGAL-CONFORMANCE.md. The behavioural half lives in engine/tests/bugs_ledger.rs under gate G1. See GATES.md section 19.",
+      "requirements": [
+        "LAW-15"
       ]
     }
   ]
