@@ -5,7 +5,7 @@
 import { View, Text, StyleSheet } from '@react-pdf/renderer';
 import type { InheritanceShare, Person } from '../../types';
 import { formatPesoPdf } from './pdf-text';
-import { NCC_ARTICLE_DESCRIPTIONS } from '../../data/ncc-articles';
+import { resolveArticle } from '../../data/ncc-articles';
 
 export interface PerHeirBreakdownSectionProps {
   shares: InheritanceShare[];
@@ -93,11 +93,17 @@ export function PerHeirBreakdownSection({ shares }: PerHeirBreakdownSectionProps
             {share.legal_basis.length > 0 && (
               <>
                 <Text style={styles.citationHeading}>Legal Basis:</Text>
-                {share.legal_basis.map((key, i) => (
-                  <Text key={i} style={styles.citation}>
-                    {key}: {NCC_ARTICLE_DESCRIPTIONS[key] || key}
-                  </Text>
-                ))}
+                {share.legal_basis.map((key, i) => {
+                  // One resolver. react-pdf primitives carry no DOM attributes, so
+                  // the loud state here is the literal text — which is the correct
+                  // behaviour for a document that gets printed and filed.
+                  const { raw, description, resolved } = resolveArticle(key);
+                  return (
+                    <Text key={i} style={styles.citation}>
+                      {raw}: {resolved ? description : 'CITATION NOT RESOLVED'}
+                    </Text>
+                  );
+                })}
               </>
             )}
           </View>

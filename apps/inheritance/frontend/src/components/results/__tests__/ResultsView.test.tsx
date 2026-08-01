@@ -116,12 +116,14 @@ function createOutput(overrides: Partial<EngineOutput> = {}): EngineOutput {
         heir_name: 'Juan Cruz',
         heir_category_label: 'legitimate child',
         text: '**Juan Cruz (Legitimate Child)** receives **₱2,500,000**.',
+        legal_basis: ['Art. 996'],
       },
       {
         heir_id: 'sp',
         heir_name: 'Maria Cruz',
         heir_category_label: 'surviving spouse',
         text: '**Maria Cruz (Surviving Spouse)** receives **₱2,500,000**.',
+        legal_basis: ['Art. 996'],
       },
     ],
     computation_log: {

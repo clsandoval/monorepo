@@ -38,6 +38,7 @@ export const NCC_ARTICLE_DESCRIPTIONS: Record<string, string> = {
   "Art.980": "Children of the deceased shall always inherit from him (Art. 980 NCC)",
   "Art.981": "Grandchildren and descendants shall inherit by right of representation (Art. 981 NCC)",
   "Art.982": "Grandchildren represent predeceased legitimate children",
+  "Art.983": "Legitimate and illegitimate children concurring in intestate succession: 2:1 unit ratio, no cap (spec §I3)",
   "Art.985": "In the absence of legitimate children, ascending line inherits (Art. 985 NCC)",
   "Art.987": "Relatives of same degree inherit in equal shares",
   "Art.988": "Surviving spouse in intestate succession (Art. 988 NCC)",
@@ -47,6 +48,7 @@ export const NCC_ARTICLE_DESCRIPTIONS: Record<string, string> = {
   "Art.996": "Surviving spouse with legitimate children (Art. 996 NCC)",
   "Art.997": "Surviving spouse with legitimate ascendants: each takes 1/2 of estate",
   "Art.998": "Surviving spouse with illegitimate children: spouse = 1/3, IC collectively = 1/3",
+  "Art.999": "Surviving spouse concurring with legitimate and illegitimate children in intestate succession: spouse takes one legitimate child's share (spec §I4)",
   "Art.1000": "Illegitimate children with legitimate ascendants: 1/2 each",
   "Art.1001": "Surviving spouse with legitimate parents (Art. 1001 NCC)",
   "Art.1002": "Guilty spouse in legal separation not entitled to intestate share",
@@ -122,7 +124,11 @@ export function parseArticleKey(legalBasis: string): string | null {
   }
 
   // Match "Art.NNN" or "Art. NNN"
-  const artMatch = legalBasis.match(/^Art\.\s*(\d+)$/);
+  // The engine emits paragraph-level citations such as "Art. 892 ¶2". The
+  // description map is keyed at article level, so the paragraph suffix is
+  // dropped for LOOKUP only — every caller still displays the engine's raw
+  // string, so nothing on screen claims the paragraph itself was resolved.
+  const artMatch = legalBasis.match(/^Art\.\s*(\d+)\s*(?:¶\s*\d+)?$/);
   if (artMatch) {
     return `Art.${artMatch[1]}`;
   }
@@ -137,4 +143,31 @@ export function parseArticleKey(legalBasis: string): string | null {
  */
 export function getArticleDescription(key: string): string {
   return NCC_ARTICLE_DESCRIPTIONS[key] ?? key;
+}
+
+export interface ResolvedArticle {
+  /** The engine's own string, displayed verbatim on the chip. */
+  raw: string;
+  /** The normalised map key, or null when the string is not article-shaped. */
+  key: string | null;
+  /** The description, or null when nothing resolved. */
+  description: string | null;
+  /** False when this citation could not be resolved — render it loudly. */
+  resolved: boolean;
+}
+
+/**
+ * The ONE place a legal_basis string becomes a description.
+ *
+ * The engine is the single attribution authority: it emits the article, and this
+ * function only looks up prose for it. No caller may index
+ * NCC_ARTICLE_DESCRIPTIONS directly, because a second lookup is a second place
+ * that can silently miss — which is exactly the dead pill this replaces.
+ */
+export function resolveArticle(rawBasis: string): ResolvedArticle {
+  const key = parseArticleKey(rawBasis);
+  if (key === null) return { raw: rawBasis, key: null, description: null, resolved: false };
+  const description = NCC_ARTICLE_DESCRIPTIONS[key];
+  if (description === undefined) return { raw: rawBasis, key, description: null, resolved: false };
+  return { raw: rawBasis, key, description, resolved: true };
 }

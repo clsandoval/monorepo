@@ -8,7 +8,7 @@
  */
 
 import { useState } from 'react';
-import { getArticleDescription } from '../../data/ncc-articles';
+import { resolveArticle } from '../../data/ncc-articles';
 
 export interface StatuteCitationsSectionProps {
   legalBasis: string[];
@@ -47,31 +47,50 @@ export function StatuteCitationsSection({
         Statutory Basis for {heirName}
       </p>
       <div className="flex flex-wrap gap-2">
-        {legalBasis.map((key) => (
-          <button
-            key={key}
-            type="button"
-            onClick={() => toggleKey(key)}
-            className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors cursor-pointer ${
-              isExpanded(key)
-                ? 'bg-primary text-primary-foreground border-primary'
-                : 'bg-muted text-muted-foreground border-border hover:bg-accent'
-            }`}
-          >
-            {key}
-          </button>
-        ))}
+        {legalBasis.map((key) => {
+          const { resolved } = resolveArticle(key);
+          return (
+            <button
+              key={key}
+              type="button"
+              onClick={() => toggleKey(key)}
+              {...(resolved ? {} : { 'data-citation-unresolved': 'true' })}
+              className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors cursor-pointer ${
+                isExpanded(key)
+                  ? 'bg-primary text-primary-foreground border-primary'
+                  : 'bg-muted text-muted-foreground border-border hover:bg-accent'
+              }`}
+            >
+              {key}
+            </button>
+          );
+        })}
       </div>
       {legalBasis
         .filter((key) => isExpanded(key))
         .map((key) => {
-          const description = getArticleDescription(key);
-          // Skip description panel for unknown articles (description === key)
-          // since the chip already displays the key
-          if (description === key) return null;
+          // One resolver. A citation that cannot be resolved is NEVER rendered as
+          // though it resolved, and is never silently dropped — the previous
+          // early-return on a self-equal description made a miss
+          // indistinguishable from a panel that was merely collapsed.
+          const { description, resolved } = resolveArticle(key);
+          if (!resolved) {
+            return (
+              <div
+                key={`desc-${key}`}
+                data-citation-unresolved="true"
+                className="rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm"
+              >
+                <p className="text-destructive font-medium">
+                  Citation not resolved: {key}
+                </p>
+              </div>
+            );
+          }
           return (
             <div
               key={`desc-${key}`}
+              data-citation-resolved="true"
               className="rounded-md border bg-muted/50 px-3 py-2 text-sm"
             >
               <p className="text-muted-foreground">{description}</p>

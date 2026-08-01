@@ -5,6 +5,7 @@ import React from 'react';
 import { Copy } from 'lucide-react';
 import type { HeirNarrative } from '../../types';
 import { stripMarkdownBold } from './utils';
+import { StatuteCitationsSection } from './StatuteCitationsSection';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import {
@@ -82,6 +83,15 @@ export function NarrativePanel({ narratives, decedentName, dateOfDeath }: Narrat
               <div className="font-serif text-sm text-muted-foreground leading-relaxed">
                 {parseNarrativeToNodes(narrative.text)}
               </div>
+              {/*
+                The narrative's citation is the engine's OWN array for this heir —
+                the same value the table renders, through the same component and
+                the same resolver. It is not derived here.
+              */}
+              <StatuteCitationsSection
+                legalBasis={narrative.legal_basis}
+                heirName={narrative.heir_name}
+              />
             </AccordionContent>
           </AccordionItem>
         ))}

@@ -241,9 +241,23 @@ describe('results > DistributionSection', () => {
       renderDistribution({
         scenarioCode: 'I15',
         successionType: 'Intestate',
-        shares: [],
+        // The real engine emits exactly this on engine/examples/cases/12-escheat.json:
+        // one STATE share carrying legal_basis ["Art. 1011"]. The citation on this
+        // screen now comes from the engine rather than from banner prose, so the
+        // fixture must carry what the engine actually returns.
+        shares: [
+          createShare({
+            heir_id: 'STATE',
+            heir_name: 'STATE',
+            legal_basis: ['Art. 1011'],
+          }),
+        ],
       });
-      expect(screen.getByText(/Art\. 1011/i)).toBeInTheDocument();
+      // The citation now renders twice by design — once as the chip carrying the
+      // engine's raw string, and once inside its resolved description panel. Assert
+      // the chip specifically: that is the engine-sourced value.
+      expect(screen.getByRole('button', { name: 'Art. 1011' })).toBeInTheDocument();
+      expect(screen.getByText(/Escheat to the State/i)).toBeInTheDocument();
     });
 
     it('does not show distribution table for escheat', () => {
@@ -285,7 +299,7 @@ describe('results > DistributionSection', () => {
       expect(screen.getByText(/Units/i)).toBeInTheDocument();
     });
 
-    it('shows Art. 1004 legend banner for collateral-weighted layout', () => {
+    it('shows the full/half blood legend banner for collateral-weighted layout', () => {
       renderDistribution({
         scenarioCode: 'I12',
         successionType: 'Intestate',
@@ -296,7 +310,9 @@ describe('results > DistributionSection', () => {
           createPerson({ relationship_to_decedent: 'Sibling', blood_type: 'Full' }),
         ],
       });
-      expect(screen.getByText(/Art\. 1004/i)).toBeInTheDocument();
+      // The banner no longer states an article of its own — the citation for each
+      // sibling row comes from the engine's legal_basis in HeirTable below it.
+      expect(screen.getByText('Full and Half Blood Siblings')).toBeInTheDocument();
     });
   });
 

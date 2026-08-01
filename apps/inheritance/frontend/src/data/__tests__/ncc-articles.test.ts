@@ -3,6 +3,7 @@ import {
   NCC_ARTICLE_DESCRIPTIONS,
   parseArticleKey,
   getArticleDescription,
+  resolveArticle,
 } from '../ncc-articles';
 
 // --------------------------------------------------------------------------
@@ -154,5 +155,47 @@ describe('ncc-article > getArticleDescription', () => {
   it('returns raw key for non-article string', () => {
     const desc = getArticleDescription('SomeUnknown');
     expect(desc).toBe('SomeUnknown');
+  });
+});
+
+// --------------------------------------------------------------------------
+// Tests — resolveArticle, the ONE resolver
+// --------------------------------------------------------------------------
+
+describe('ncc-article > resolveArticle', () => {
+  it('resolves the spaced engine form "Art. 996" the raw lookup used to miss', () => {
+    const r = resolveArticle('Art. 996');
+    expect(r.resolved).toBe(true);
+    expect(r.key).toBe('Art.996');
+    expect(r.raw).toBe('Art. 996');
+    expect(r.description).toBe(NCC_ARTICLE_DESCRIPTIONS['Art.996']);
+  });
+
+  it('drops a paragraph suffix for lookup while preserving the raw string', () => {
+    const r = resolveArticle('Art. 892 ¶2');
+    expect(r.resolved).toBe(true);
+    expect(r.key).toBe('Art.892');
+    expect(r.raw).toBe('Art. 892 ¶2');
+  });
+
+  it('resolves Art. 983, which previously had no map entry', () => {
+    expect(resolveArticle('Art. 983').resolved).toBe(true);
+  });
+
+  it('resolves Art. 999, which previously had no map entry', () => {
+    expect(resolveArticle('Art. 999').resolved).toBe(true);
+  });
+
+  it('reports an article-shaped string with no entry as unresolved, never as resolved', () => {
+    const r = resolveArticle('Art. 9999');
+    expect(r.resolved).toBe(false);
+    expect(r.description).toBeNull();
+    expect(r.key).toBe('Art.9999');
+  });
+
+  it('reports a non-article string as unresolved with a null key', () => {
+    const r = resolveArticle('random text');
+    expect(r.key).toBeNull();
+    expect(r.resolved).toBe(false);
   });
 });

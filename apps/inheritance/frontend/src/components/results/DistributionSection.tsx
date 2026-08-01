@@ -8,6 +8,7 @@ import { formatPeso } from '../../types';
 import { getResultsLayout, CATEGORY_BADGE_STYLE } from './utils';
 import type { ResultsLayout } from './utils';
 import { getRepresentedName } from './representation';
+import { StatuteCitationsSection } from './StatuteCitationsSection';
 import { Badge } from '../ui/badge';
 import { Alert, AlertTitle, AlertDescription } from '../ui/alert';
 import {
@@ -220,9 +221,21 @@ export function DistributionSection({
           <AlertTitle className="text-lg font-semibold">Estate Escheats to the State</AlertTitle>
           <AlertDescription className="text-amber-700">
             No surviving heirs were found. The entire estate passes to the Republic
-            of the Philippines under Art. 1011 of the Civil Code.
+            of the Philippines.
           </AlertDescription>
         </Alert>
+        {/*
+          The citation comes from the engine, not from this banner's prose. The
+          escheat layout returns before any table, so this is the only citation on
+          the screen — it must be the engine's own legal_basis.
+        */}
+        {shares.length > 0 && (
+          <StatuteCitationsSection
+            legalBasis={shares[0]!.legal_basis}
+            heirName="the State"
+            forcedExpanded
+          />
+        )}
       </div>
     );
   }
@@ -251,7 +264,7 @@ export function DistributionSection({
       <div data-testid="distribution-section">
         <Alert className="mb-6 border-border bg-muted/50 text-foreground">
           <Scale className="size-4 text-muted-foreground" />
-          <AlertTitle className="text-sm font-semibold">Art. 1004 / 1006</AlertTitle>
+          <AlertTitle className="text-sm font-semibold">Full and Half Blood Siblings</AlertTitle>
           <AlertDescription className="text-muted-foreground">
             Full blood siblings receive twice the share of half blood siblings.
             Full blood = 2 shares | Half blood = 1 share

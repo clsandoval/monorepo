@@ -15,6 +15,9 @@ function createNarrative(overrides: Partial<HeirNarrative> = {}): HeirNarrative 
     heir_name: 'Juan Cruz',
     heir_category_label: 'legitimate child',
     text: '**Juan Cruz (Legitimate Child)** receives **₱2,500,000**. As a legitimate child, Juan Cruz is entitled to a share of the estate.',
+    // The engine emits legal_basis on EVERY narrative (step10_finalize.rs clones it
+    // from the share). A fixture without it does not represent any real output.
+    legal_basis: ['Art. 996'],
     ...overrides,
   };
 }
