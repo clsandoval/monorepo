@@ -84,14 +84,23 @@ export function DecedentTab({ data, onChange }: DecedentTabProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="decedent-dod">Date of Death</Label>
+            <Label htmlFor="decedent-dod">Date of Death (from the case fact set)</Label>
             <Input
               id="decedent-dod"
               data-testid="decedent-dod"
               type="date"
               value={data.dateOfDeath}
-              onChange={(e) => update({ dateOfDeath: e.target.value })}
+              readOnly
+              aria-readonly="true"
+              className="bg-muted"
             />
+            <p
+              data-testid="decedent-dod-source"
+              className="text-xs text-muted-foreground"
+            >
+              Entered once on the Decedent step of the succession wizard. This return reads it from
+              there.
+            </p>
           </div>
 
           <div className="space-y-2">
