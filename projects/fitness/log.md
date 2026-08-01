@@ -14,10 +14,10 @@ Append-only. Newest at top. One line per day.
 ---
 ## 2026-08-01
 - **Weight:** 95.5 kg (fasted AM)
-- **Cals / Protein:** ~1455 / ~110g so far (½ koji-marinated chicken w/ cabbage ~600/73g [7/29 ½ peri-peri precedent 580/72g; koji marinade + cabbage ~25/1g]; Mediterranean wrap ~500/30g [as given]; ½ onion tart ~250/5g [puff pastry + caramelized onion]; ½ of a 50g flatbread w/ butter ~105/2g [25g bread ~70/2g + ~5g butter ~35/0g])
-- **Carbs / Sodium:** ~80g so far (cabbage ~5g; wrap tortilla + fillings ~40g; onion tart pastry ~22g; flatbread ~13g. Sodium: koji marinade + wrap sauce/feta + buttered bread carry it)
+- **Cals / Protein:** ~1650 / ~113g so far (slightly sweetened cold brew ~70/1g [~1 tbsp syrup/sugar]; ½ cookie ~125/2g [assumes a ~50g bakery cookie]; ½ koji-marinated chicken w/ cabbage ~600/73g [7/29 ½ peri-peri precedent 580/72g; koji marinade + cabbage ~25/1g]; Mediterranean wrap ~500/30g [as given]; ½ onion tart ~250/5g [puff pastry + caramelized onion]; ½ of a 50g flatbread w/ butter ~105/2g [25g bread ~70/2g + ~5g butter ~35/0g])
+- **Carbs / Sodium:** ~111g so far (cold brew ~16g; ½ cookie ~16g; cabbage ~5g; wrap tortilla + fillings ~40g; onion tart pastry ~22g; flatbread ~13g. Sodium: koji marinade + wrap sauce/feta + buttered bread carry it)
 - **Trained:** —
-- **Notes:** +0.3 off 7/31 (95.2 → 95.5) — noise, and 7/31 carried ~15k steps plus salted restaurant food, so a small water tick up is expected. Still 0.9 under the 7/03 baseline (96.4); ~−0.77 kg/wk trend intact. chicken was the buy of the day (600 cal for 73g = 8.2 cal/g); the tart + flatbread added ~355 cal for 7g. ~545 cal / ~50g protein left — only near-pure protein closes that: **2 scoops in water (~280/48g) + 100g cottage cheese (~82/12g) → ~1817 / ~170g**, clears both floors under the ceiling. Carbs ~80g are well under the 130–150g training-day minimum — if training today, a banana or two goes in before the shake.
+- **Notes:** +0.3 off 7/31 (95.2 → 95.5) — noise, and 7/31 carried ~15k steps plus salted restaurant food, so a small water tick up is expected. Still 0.9 under the 7/03 baseline (96.4); ~−0.77 kg/wk trend intact. chicken was the buy of the day (600 cal for 73g = 8.2 cal/g); the tart + flatbread + cold brew + cookie added ~550 cal for 10g. **Cold brew and cookie ate the buffer**: ~350 cal left to the ceiling with a 47g protein hole, so the earlier shake+cottage-cheese plan now overshoots. Call: **2 scoops in water (~280/48g) → ~1930 / ~161g** — clears the floor, stays under the ceiling, nothing solid after. Carbs ~111g still under the 130–150g training-day minimum; if training, a banana before the shake and accept ~2030.
 
 ## 2026-07-31
 - **Weight:** 95.2 kg (fasted AM)
