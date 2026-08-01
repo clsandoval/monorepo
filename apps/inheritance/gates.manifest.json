@@ -95,7 +95,7 @@
     {
       "id": "G8",
       "name": "gate skip accounting",
-      "order": 33,
+      "order": 34,
       "command": "node scripts/check-gate-skips.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gate-skips.lock",
@@ -108,7 +108,7 @@
     {
       "id": "G9",
       "name": "published gate results",
-      "order": 34,
+      "order": 35,
       "command": "node scripts/check-gate-results.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f gates.manifest.json",
@@ -121,7 +121,7 @@
     {
       "id": "G10",
       "name": "lawyer decision registry",
-      "order": 31,
+      "order": 32,
       "command": "node scripts/check-lawyer-agenda.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/lawyer-decisions.json",
@@ -134,7 +134,7 @@
     {
       "id": "G11",
       "name": "engine observability",
-      "order": 32,
+      "order": 33,
       "command": "node scripts/check-observability.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/src/step10_finalize.rs",
@@ -249,9 +249,22 @@
       ]
     },
     {
+      "id": "G35",
+      "name": "wizard persistence",
+      "order": 17,
+      "command": "cd frontend && node journey/persistence.mjs",
+      "cwd": "apps/inheritance",
+      "precondition": "test -f frontend/journey/persistence.mjs",
+      "blocking": true,
+      "proves": "Nine heirs entered in a real browser through the real succession wizard, without ever pressing Compute, reach Postgres and survive a page reload — and a client-side navigation inside the debounce window flushes the pending save rather than discarding it. Asserts structure and identity only, never a peso figure. See GATES.md section 26.",
+      "requirements": [
+        "SAVE-05"
+      ]
+    },
+    {
       "id": "G20",
       "name": "share exposure",
-      "order": 17,
+      "order": 18,
       "command": "cd frontend && node journey/share-exposure.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/supabase/fixtures.json",
@@ -264,7 +277,7 @@
     {
       "id": "G21",
       "name": "seo smoke",
-      "order": 18,
+      "order": 19,
       "command": "cd frontend && node journey/seo-smoke.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/journey/seo-routes.json",
@@ -277,7 +290,7 @@
     {
       "id": "G22",
       "name": "pdf toolchain",
-      "order": 19,
+      "order": 20,
       "command": "cd frontend && node journey/pdf-probe.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/journey/pdf.mjs",
@@ -290,7 +303,7 @@
     {
       "id": "G23",
       "name": "pdf structure",
-      "order": 20,
+      "order": 21,
       "command": "cd frontend && node journey/pdf-structure.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/src/wasm/pkg/inheritance_engine_bg.wasm",
@@ -305,7 +318,7 @@
     {
       "id": "G24",
       "name": "pdf visual",
-      "order": 21,
+      "order": 22,
       "command": "cd frontend && node journey/pdf-visual.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -d frontend/journey/pdf-references",
@@ -318,7 +331,7 @@
     {
       "id": "G25",
       "name": "print layout",
-      "order": 22,
+      "order": 23,
       "command": "cd frontend && node journey/print-layout.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f frontend/src/styles/print.css",
@@ -331,7 +344,7 @@
     {
       "id": "G26",
       "name": "blocked requirements",
-      "order": 23,
+      "order": 24,
       "command": "node scripts/check-blocked-requirements.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/BLOCKED-REQUIREMENTS.md",
@@ -346,7 +359,7 @@
     {
       "id": "G27",
       "name": "spec legal text",
-      "order": 24,
+      "order": 25,
       "command": "node scripts/check-spec-legal-text.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f specs/inheritance-engine-spec.md",
@@ -359,7 +372,7 @@
     {
       "id": "G28",
       "name": "legal traceability",
-      "order": 25,
+      "order": 26,
       "command": "node scripts/check-legal-traceability.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/legal-rules.json",
@@ -372,7 +385,7 @@
     {
       "id": "G29",
       "name": "bugs ledger",
-      "order": 26,
+      "order": 27,
       "command": "node scripts/check-bugs-ledger.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f engine/BUGS.md",
@@ -385,7 +398,7 @@
     {
       "id": "G30",
       "name": "claude invariants",
-      "order": 27,
+      "order": 28,
       "command": "node scripts/check-claude-invariants.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f CLAUDE.md",
@@ -398,7 +411,7 @@
     {
       "id": "G31",
       "name": "new rule procedure",
-      "order": 28,
+      "order": 29,
       "command": "node scripts/check-new-rule-procedure.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/NEW-LEGAL-RULE.md",
@@ -411,7 +424,7 @@
     {
       "id": "G32",
       "name": "doc claims",
-      "order": 29,
+      "order": 30,
       "command": "node scripts/check-doc-claims.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/DOC-DEBT.md",
@@ -424,7 +437,7 @@
     {
       "id": "G33",
       "name": "planning truth",
-      "order": 30,
+      "order": 31,
       "command": "node scripts/check-planning-truth.mjs",
       "cwd": "apps/inheritance",
       "precondition": "test -f .planning/ORIENTATION.md",

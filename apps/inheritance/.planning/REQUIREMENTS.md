@@ -163,11 +163,11 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 
 ### Wizard Persistence (Phase 19)
 
-- [ ] **SAVE-01**: A `methods.watch()` subscription reaches `useAutoSave` through an `onChange` prop, so wizard edits schedule a save without pressing Compute
-- [ ] **SAVE-02**: The `prevInputRef` reference-equality guard is replaced by a value comparison, so the debounce fires on a changed value
-- [ ] **SAVE-03**: Unmounting the wizard flushes a pending save instead of clearing it
-- [ ] **SAVE-04**: Save status is visible to the lawyer, and a failed save is never rendered as success
-- [ ] **SAVE-05**: A nine-heir family tree survives a page reload, proven by a journey step against the live database
+- [x] **SAVE-01**: A `methods.watch()` subscription reaches `useAutoSave` through an `onChange` prop, so wizard edits schedule a save without pressing Compute
+- [x] **SAVE-02**: The `prevInputRef` reference-equality guard is replaced by a value comparison, so the debounce fires on a changed value
+- [x] **SAVE-03**: Unmounting the wizard flushes a pending save instead of clearing it
+- [x] **SAVE-04**: Save status is visible to the lawyer, and a failed save is never rendered as success
+- [x] **SAVE-05**: A nine-heir family tree survives a page reload, proven by a journey step against the live database
 
 ### NIRC §§248/249 Penalties (Phase 20)
 
@@ -369,11 +369,11 @@ referenced by exactly one phase in `.planning/ROADMAP.md`.
 | FACT-02 | Phase 18 | Complete |
 | FACT-03 | Phase 18 | Complete |
 | FACT-04 | Phase 18 | Complete |
-| SAVE-01 | Phase 19 | Planned |
-| SAVE-02 | Phase 19 | Planned |
-| SAVE-03 | Phase 19 | Planned |
-| SAVE-04 | Phase 19 | Planned |
-| SAVE-05 | Phase 19 | Planned |
+| SAVE-01 | Phase 19 | Done — `WizardContainer` `onChange` prop + `methods.watch()`; proven by `WizardContainer.test.tsx` (25 cases) and gate G35 |
+| SAVE-02 | Phase 19 | Done — `stableStringify` value comparison in `useAutoSave.ts`; proven by `useAutoSave.test.tsx` `saves when the same object is mutated in place` |
+| SAVE-03 | Phase 19 | Done — unmount cleanup flushes; proven by `useAutoSave.test.tsx` `flushes pending save on unmount` and gate G35 marker `UNMOUNT LOST` |
+| SAVE-04 | Phase 19 | Done — `SaveStatusBadge`; proven by `SaveStatusBadge.test.tsx` (6 cases, incl. success copy absent in error state) and G35 marker `STATUS NOT SHOWN` |
+| SAVE-05 | Phase 19 | Done — gate G35 `frontend/journey/persistence.mjs`, observed `PERSISTENCE PASS heirs=9 checks=7` |
 | PEN-01 | Phase 20 | Planned |
 | PEN-02 | Phase 20 | Planned |
 | PEN-03 | Phase 20 | Planned |

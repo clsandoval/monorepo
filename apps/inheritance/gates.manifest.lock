@@ -171,6 +171,11 @@
       "id": "G34",
       "command": "cd frontend && npx tsx scripts/check-one-fact-set.ts",
       "blocking": true
+    },
+    {
+      "id": "G35",
+      "command": "cd frontend && node journey/persistence.mjs",
+      "blocking": true
     }
   ]
 }

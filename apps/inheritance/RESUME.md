@@ -45,15 +45,23 @@ The only genuinely durable option is CI, and it is not wired for it yet. See
 `/home/clsandoval/.claude/projects/-home-clsandoval-cs-monorepo/ba0262ab-dc9f-47d8-83a3-ddf973495452/subagents/workflows/wf_c44e9af1-807/`.
 
 Full gate suite, any time: `bash apps/inheritance/scripts/ci-gates.sh` from the
-monorepo root. It should print `ALL GATES PASSED (34/34)` — the count is the
+monorepo root. It should print `ALL GATES PASSED (35/35)` — the count is the
 length of `gates.manifest.json`'s `gates` array, and it grows as phases land.
 
 **On this branch it does not print that.** `bash scripts/ci-gates.sh` currently
-exits **1**, halting at **G3**, on the two owner decisions recorded in
-`.planning/phases/16-stabilise-the-deletion-milestone/16-FLOOR-BLOCKED.md` — the
-`min_total_tests` floor in `frontend/test-baseline.json`, and the registered-but-
-deleted `G20`/`G21`. The line above is what a green run prints, not a claim that
+exits **1**, halting at **G17** (`JOURNEY FAIL steps=25 failed=15`), having run
+**15 of 35** gates. The line above is what a green run prints, not a claim that
 this branch produces one.
+
+Phase 19 cleared the older **G3** halt without editing any baseline: adding 29
+passing test cases moved the suite from 2109 to **2138** against the unchanged
+`min_total_tests` floor of **2119**, so `G3` now reports
+`GATE OK — test baseline matches exactly`. Two owner decisions remain, both
+recorded in
+`.planning/phases/16-stabilise-the-deletion-milestone/16-FLOOR-BLOCKED.md`: the
+registered-but-deleted `G20`/`G21`, and the 15 journey steps withheld for human
+review by Phases 16-19 (intake, results and tax; **no** `wizard-*` step fails).
+Retiring a gate and approving a first reference image are both owner actions.
 
 ## State
 

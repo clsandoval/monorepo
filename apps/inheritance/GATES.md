@@ -1792,3 +1792,77 @@ implemented in the runner would be a second implementation of a legal rule, whic
 **When it fires.** Restore the one fact set. Never edit this gate, never add an exception, and never
 edit a baseline. If one of the five assertions cannot legitimately pass, that is a finding to report
 as BLOCKED with the pasted output — not an obstacle to route around.
+
+---
+
+## 26. Wizard persistence (G35)
+
+**Command.** `cd frontend && node journey/persistence.mjs`
+**Precondition.** `test -f frontend/journey/persistence.mjs`
+**Order.** 17 — immediately after **G19** money parity, preserving the manifest's cost ordering: like
+**G17**, **G18** and **G19** this gate needs Docker, a running Supabase stack, a built application and
+a browser, and is heavier than every gate before it.
+**Requirement.** `SAVE-05`.
+
+A lawyer who loses a nine-heir family tree to a page refresh does not open the app a second time.
+Before Phase 19 that is exactly what happened: `useAutoSave` was fed by a variable written at only two
+sites, both inside the case-**load** effect, so the only value the hook ever observed was the value the
+route had just read back out of the database. Nothing typed between page load and pressing Compute
+reached Postgres. This gate is what keeps that fixed.
+
+**Why it drives a real browser.** Every unit test in this area passed for months against a hook the
+application could not reach — a mocked `@/lib/cases`, a `renderHook` harness and fake timers cannot
+detect a missing prop, and cannot reload a page. The requirement is only met when a browser enters the
+heirs and a reload brings them back.
+
+**Seven checks, each with its own literal marker**, so a failure says *which* property broke:
+
+- `NOT PERSISTED` — the row's `input_json.family_tree` does not hold nine entries after typing.
+- `COMPUTE LEAKED` — `output_json` is not `null`, meaning the row was written by a computation rather
+  than by autosave, and a passing run would prove nothing about persistence.
+- `NAME LOST` — a stored or reloaded heir name is not the literal `Heir <n>` that was typed.
+- `RELOAD LOST` — the reloaded wizard does not render nine person cards.
+- `STATUS NOT SHOWN` — the save indicator never reached `Saved`, so the lawyer cannot tell whether
+  their work is safe.
+- `UNMOUNT LOST` — navigating away client-side inside the debounce window discarded the pending save
+  instead of flushing it.
+- `FIXTURE MUTATED` — the seeded Alpha case's `input_json` changed during the run.
+
+**Exit contract**, the project's three-valued one: **0** passed, **1** failed, **2** could not run,
+with `PERSISTENCE CANNOT RUN:` on stderr. An environment that cannot run the gate is reported BLOCKED,
+never as a pass.
+
+**It creates and deletes its own case row.** The `case-alpha-no-output` reset in `journey/resets.mjs`
+nulls `output_json`, `decedent_name` and `date_of_death` and sets `status` to `draft` — it does **not**
+restore `input_json`. A gate that typed nine heirs into the seeded Alpha case would leave them there
+permanently, silently redefining the fact pattern **G19** money parity computes against. So this gate
+inserts its own row, deletes it in a teardown that runs on every exit path including the failure and
+cannot-run paths, and check 7 asserts Alpha's `input_json` is byte-identical before and after.
+
+**It has no reference image, by design.** `scripts/check-journey-registry.mjs` fails `REFERENCE MISSING`
+for any registry step without an approved reference PNG, and producing a *first* reference is a human
+visual judgement no agent may make. This is therefore a standalone gate script — the shape
+`journey/money-parity.mjs` and `journey/rls-isolation.mjs` already use — with no step, no rubric, no
+perceptual diff and no approval step.
+
+**It asserts structure and identity, never a peso figure.** It performs no engine computation and reads
+no committed expected amount, so it cannot drift from the engine and cannot fail for a reason that
+belongs to **G19**.
+
+**Its failure paths are proven, not trusted.** Before registration the gate was observed green, then
+red, then green again on each of three separately injected regressions:
+
+- Deleting `onChange={setAutoSaveInput}` from `<WizardContainer>` — exit **1**,
+  `NOT PERSISTED: the database holds 4 family_tree entries, expected 9`. Reverted → exit 0.
+- Making the unmount cleanup discard `pendingRef` instead of flushing it — exit **1**,
+  `UNMOUNT LOST: family_tree[0].name is "Heir 1" ... expected "Flushed Heir"`. Reverted → exit 0.
+- Restoring the reference-equality guard in place of the serialized comparison — **exit 0, the gate
+  stayed green.** This is recorded rather than hidden: through the real wizard `react-hook-form` emits
+  a *new* object on every notification, so reference inequality and value inequality coincide and the
+  browser path cannot distinguish them. That defect is covered instead at the unit layer by
+  `useAutoSave.test.tsx` → `saves when the same object is mutated in place`, which does fail under that
+  injection. **This gate makes no coverage claim for the value-comparison rule.**
+
+**When it fires.** Restore the persistence path. Never edit this gate, never add an exception, and
+never edit a baseline. If one of the seven checks cannot legitimately pass, that is a finding to report
+as BLOCKED with the pasted output — not an obstacle to route around.
