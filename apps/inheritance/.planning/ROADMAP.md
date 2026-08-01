@@ -455,7 +455,52 @@ Cross-cutting constraints (appear in 2+ plans):
   2. A documented procedure exists for adding a new legal rule: article → vector → implementation → gate.
   3. A pass over `.planning/` and `specs/` finds no remaining claim contradicted by the current code, or each surviving one is explicitly listed as accepted debt.
   4. A returning owner can open the planning directory alone and determine current state, what is verified, and what is next.
-**Plans**: TBD
+**Plans**: 5 plans in 4 waves.
+
+  Planning measured the ground truth for all four requirements, and two measurements shape the phase.
+  First, `CLAUDE.md`'s stack, conventions and architecture sections are **copies** of
+  `.planning/codebase/*.md` dated 2026-07-27, before any phase ran — so eleven measured stale claims
+  must be corrected in both places or the next regeneration reinstates them. Second, EXT-08's failure
+  is countable rather than impressionistic: `.planning/ROADMAP.md`'s own Progress table disagrees with
+  the filesystem on **7 of 15 rows**, reporting Phase 14 as `0/TBD  Not started` against six committed
+  plans and six committed summaries, while the checkbox list above it marks phases 6, 7 and 8 `[x]`.
+  A hand-written orientation page decays the same way — `RESUME.md` went stale within four days — so
+  every number Phase 15 writes is re-derived from the filesystem by a gate on every run.
+
+**Wave 1** *(no dependencies; two disjoint file sets)*
+  - `15-01` — grow `CLAUDE.md`'s invariants section from three rules to six, adding money units,
+    single-source-of-truth and what requires a lawyer, each naming its enforcing gate command;
+    `scripts/check-claude-invariants.mjs` holds the section and fails if a regeneration swallows it
+    [EXT-05]
+  - `15-02` — `.planning/NEW-LEGAL-RULE.md`: article → vector → failing run → one-site implementation
+    → registration, with a worked example re-resolved against `engine/legal-rules.json` and the real
+    engine tree on every run [EXT-06]
+
+**Wave 2** *(blocked on Wave 1: `15-03` edits the same `CLAUDE.md`)*
+  - `15-03` — correct eleven measured stale claims in `CLAUDE.md` and the five `.planning/codebase/*.md`
+    files it is generated from; open the shrink-only `.planning/DOC-DEBT.md` with the seven surviving
+    contradictions; `scripts/check-doc-claims.mjs` probes the tree at run time rather than pinning an
+    expected value [EXT-07]
+
+**Wave 3** *(blocked on Wave 2: `.planning/ORIENTATION.md` points at both `15-02`'s and `15-03`'s artifacts)*
+  - `15-04` — `.planning/ORIENTATION.md`, the reconciled ROADMAP Progress table, `STATE.md`'s
+    counters and `RESUME.md`'s gate count; `scripts/check-planning-truth.mjs` re-derives every number
+    from `.planning/phases/` and the frozen manifest [EXT-08]
+
+**Wave 4** *(blocked on Waves 1–3: registers the four gates the earlier plans built)*
+  - `15-05` — register **G30** claude invariants (order 25), **G31** new rule procedure (26),
+    **G32** doc claims (27) and **G33** planning truth (28); `GATES.md` sections 20–23; `README.md`
+    pointers; close EXT-05…EXT-08 [EXT-05, EXT-06, EXT-07, EXT-08]
+
+  Cross-cutting constraints (appear in 2+ plans):
+  - Every commit stages explicit file paths via `bash scripts/safe-commit.sh`; `git add -A`, `git add .` and `git commit -a` are prohibited (concurrent auto-committer on this monorepo)
+  - No test, assertion or gate may be weakened, deleted, skipped or loosened to make anything pass; a check that cannot legitimately pass is reported BLOCKED with the real pasted command output
+  - Every failure path of every new check is observed firing against a committed fixture, and no new check has a `--fix`, `--update`, `--accept`, `--regenerate` or waiver flag — the only flags are read-only path overrides so fixtures can drive each path
+  - Every new check is dependency-free Node ESM using `node:` builtins only, prints exactly one `GATE-SKIPS total=<n> skipped=0` line on every exit path, and uses the three-valued exit contract 0/1/2 with a missing input always exit 2
+  - No expected value is hardcoded in a documentation check. Every claim is paired with a probe measured from the tree at run time, and no check pins a test count, a peso figure or a line number — all three move for legitimate reasons and would produce false red
+  - The five shrink-only ledgers plus `engine/legal-traceability.lock` and the new `.planning/DOC-DEBT.md` are read-only outside the plan that creates them; appending an entry to turn a check green is prohibited
+  - `G14` stays reserved and unregistered for Phase 9's `09-06`; the new ids are G30–G33 at orders 25–28, G10/G11/G8/G9 shift to 29–32 with `G9` still last, and `bash scripts/ci-gates.sh` must print `ALL GATES PASSED (32/32)`
+  - No point of Philippine law arises anywhere in this phase; `specs/` legal prose is explicitly out of scope because gate G27 already owns it, and the new-rule procedure *routes* a legal question to `.planning/LAWYER-AGENDA.md` rather than answering one
 
 ## Progress
 
@@ -478,4 +523,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 12. Wizard & Output Journey Gates | 9/9 | Complete   | 2026-07-31 |
 | 13. PDF Verification | 7/7 | Complete    | 2026-07-31 |
 | 14. Lawyer-Blocked Legal Fixes & Legal Traceability | 0/TBD | Not started | - |
-| 15. Extendability & Documentation Closeout | 0/TBD | Not started | - |
+| 15. Extendability & Documentation Closeout | 0/5 | Planned | - |

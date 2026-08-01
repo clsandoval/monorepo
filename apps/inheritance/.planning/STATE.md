@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 14 EXECUTED, status PARTIAL. 6/6 plans executed with committed summaries; `bash scripts/ci-gates.sh` prints `ALL GATES PASSED (28/28)` and exits 0, observed three times (5m28.9s / 5m26.4s / 5m25.6s) including once against the committed tree. LAW-13, LAW-14 and LAW-15 are gate-proven by new gates G27, G28 and G29. LAW-06, LAW-07 and LAW-12 are BLOCKED-ON-LAWYER on LAWYER-06, LAWYER-04 and LAWYER-08 — all three still `awaiting-answer` with null answer fields — and are recorded, not guessed, in `.planning/BLOCKED-REQUIREMENTS.md` behind gate G26, which raises `ANSWER ARRIVED` and fails the build on the first run after any of those statuses changes. Requirement coverage 34/94 -> 40/94; gate set 24 -> 28. `cargo test` 543 -> 546 passed / 0 failed; `npm run test:gate` ledger unchanged at 46. Two real defects recorded rather than hidden: BUG-002 at `engine/src/step7_distribute.rs:421` (an institution of the entire free portion is reduced by the heir's legitime, moving free-portion pesos to uninstituted heirs while the sum invariant still holds) is filed with a runnable reproduction and OWNED BY NO REQUIREMENT; and an Art. 900 ¶2 spec-to-code divergence is recorded under `KNOWN DIVERGENCE: engine/src/step5_legitimes.rs`. Next step is `/gsd:plan-phase 15`."
-last_updated: "2026-08-01T00:35:00.000Z"
+stopped_at: "Phase 13 PLANNED. `13-RESEARCH.md`, `13-VALIDATION.md` and seven `PLAN.md` files across 4 waves (wave 1 = 13-01 currency formatter and 13-02 poppler seam in parallel; wave 2 = 13-03 capture and 13-04 print layout; wave 3 = 13-05 structure and 13-06 visual; wave 4 = 13-07 gate registration). PDF-01..05 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 80 plan file(s), 302 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` reports valid with zero missing keys on each of the seven new plans. Every number in the research was measured live in this tree: `@react-pdf/renderer` rendering a PDF in plain Node, `pdffonts` showing three non-embedded WinAnsi base-14 fonts, `pdftotext` extracting the peso sign as `M-BM-1` (U+00B1), a crop image showing the glyph overprinting the leading digit, the same probe extracting cleanly with `PHP `, `pdftoppm` producing identical `md5sum` twice, `pdfinfo` reporting `595.28 x 841.89 pts (A4)`, and the release engine returning 4 heirs at 150000000 centavos each with `legal_basis` `["Art. 996"]` and 4 narratives containing `₱`. The phase ends at 24 gates. Note for the executor: `gsd-sdk query verify.plan-structure` reports `Task missing <name> element` on all seven, exactly as it does on every one of the 73 pre-existing plans, because this project uses the `<task id="1" name="...">` attribute form throughout; the authoritative check is gate G6, which passes. Next step is `/gsd:execute-phase 13`."
+last_updated: "2026-08-01T00:55:02.010Z"
 last_activity: 2026-08-01
 progress:
   total_phases: 15
-  completed_phases: 13
-  total_plans: 86
+  completed_phases: 14
+  total_plans: 91
   completed_plans: 86
   percent: 93
 ---
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-07-27)
 
 Phase: 14 (Lawyer-Blocked Legal Fixes & Legal Traceability) — executed, PARTIAL
 Plan: 6 of 6 executed
-Status: Ready to plan Phase 15
+Status: Ready to execute
 
 ## Phase 14 — Lawyer-Blocked Legal Fixes & Legal Traceability, PARTIAL
 
@@ -210,7 +210,7 @@ and unused for Phase 9's `09-06`.
 **Unmeasured:** this project's CI has still never executed, so whether `supabase start` succeeds on a
 GitHub-hosted runner is a recorded risk in the workflow file, not a claim.
 
-Last activity: 2026-07-31
+Last activity: 2026-08-01
 
 Progress: [███████░░░] 73%
 
