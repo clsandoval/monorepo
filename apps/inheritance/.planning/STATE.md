@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Phase 13 PLANNED. `13-RESEARCH.md`, `13-VALIDATION.md` and seven `PLAN.md` files across 4 waves (wave 1 = 13-01 currency formatter and 13-02 poppler seam in parallel; wave 2 = 13-03 capture and 13-04 print layout; wave 3 = 13-05 structure and 13-06 visual; wave 4 = 13-07 gate registration). PDF-01..05 all covered and marked Planned in REQUIREMENTS.md. Verified rather than claimed: `node scripts/check-plan-closed-world.mjs` exits 0 with `PLANS OK — 80 plan file(s), 302 task(s) checked`, and `gsd-sdk query frontmatter.validate --schema plan` reports valid with zero missing keys on each of the seven new plans. Every number in the research was measured live in this tree: `@react-pdf/renderer` rendering a PDF in plain Node, `pdffonts` showing three non-embedded WinAnsi base-14 fonts, `pdftotext` extracting the peso sign as `M-BM-1` (U+00B1), a crop image showing the glyph overprinting the leading digit, the same probe extracting cleanly with `PHP `, `pdftoppm` producing identical `md5sum` twice, `pdfinfo` reporting `595.28 x 841.89 pts (A4)`, and the release engine returning 4 heirs at 150000000 centavos each with `legal_basis` `["Art. 996"]` and 4 narratives containing `₱`. The phase ends at 24 gates. Note for the executor: `gsd-sdk query verify.plan-structure` reports `Task missing <name> element` on all seven, exactly as it does on every one of the 73 pre-existing plans, because this project uses the `<task id="1" name="...">` attribute form throughout; the authoritative check is gate G6, which passes. Next step is `/gsd:execute-phase 13`."
-last_updated: "2026-08-01T00:55:02.010Z"
+stopped_at: "Phase 15 EXECUTED. All five plans have committed summaries. `bash scripts/ci-gates.sh` prints `ALL GATES PASSED (32/32)` and exits 0, observed three times, twice against the committed tree. Four gates registered at orders 25-28: G30 CLAUDE.md invariants, G31 new-legal-rule procedure, G32 doc claims + shrink-only DOC-DEBT ledger, G33 planning truth; G10/G11/G8/G9 shifted to 29-32 with G9 still last and G14 still reserved for Phase 9 plan 09-06. Requirement coverage rose 40/94 -> 44/94; EXT-05, EXT-06, EXT-07 and EXT-08 are closed with a named gate each. LAW-06, LAW-07 and LAW-12 remain BLOCKED-ON-LAWYER and no lawyer decision moved. Next step: /gsd:complete-milestone or a new phase."
+last_updated: "2026-08-01T04:00:00.000Z"
 last_activity: 2026-08-01
 progress:
   total_phases: 15
-  completed_phases: 14
+  completed_phases: 15
   total_plans: 91
-  completed_plans: 90
-  percent: 93
+  completed_plans: 91
+  percent: 100
 ---
 
 # Project State
@@ -25,12 +25,43 @@ See: .planning/PROJECT.md (updated 2026-07-27)
 
 ## Current Position
 
-Phase: 15 (Extendability & Documentation Closeout) — planned, 0 of 5 executed
-Plan: 0 of 5 executed
-Status: Ready to execute
+Phase: 15 (Extendability & Documentation Closeout) — executed, 5 of 5
+Plan: 5 of 5 executed
+Status: Phase complete; milestone v1.0 has no further planned phase
+
+`bash scripts/ci-gates.sh` prints **`ALL GATES PASSED (32/32)`** and exits 0. Requirement coverage
+40/94 → **44/94**. Start at `.planning/ORIENTATION.md`.
 
 Phase 14 remains EXECUTED, PARTIAL — LAW-13/14/15 gate-proven, LAW-06/07/12 BLOCKED-ON-LAWYER. Its
 detail is preserved in the section below.
+
+## Phase 15 — Extendability & Documentation Closeout, COMPLETE
+
+5 of 5 plans executed with committed summaries. **EXT-05, EXT-06, EXT-07 and EXT-08 are all
+gate-proven.** The gate set grew 28 → **32**; requirement coverage rose 40/94 → **44/94**.
+
+- **EXT-05 / G30** — `CLAUDE.md`'s invariants grew from three rules to six, adding money units,
+  one-implementation-per-legal-rule and what-requires-a-lawyer. Each names the command and gate id
+  that enforces it, and `INVARIANT INSIDE GENERATED BLOCK` fires if a future regeneration ever
+  swallows the section.
+- **EXT-06 / G31** — `.planning/NEW-LEGAL-RULE.md` documents adding a rule the engine does not yet
+  implement, in five fixed steps, with a worked example re-resolved against `engine/legal-rules.json`
+  and the real engine source on every run. Step 1 states the authority boundary: an article no spec
+  already states is a new legal claim, and the output is BLOCKED plus a `LAWYER-<NN>` entry.
+- **EXT-07 / G32** — eleven measured stale claims corrected in `CLAUDE.md` **and** the five
+  `.planning/codebase/*.md` files it is regenerated from, so the next regeneration cannot reinstate
+  them. Seven survivors are declared in the new shrink-only `.planning/DOC-DEBT.md`. No expected
+  value is hardcoded: every claim pairs with a probe measured from the tree, so a code regression
+  surfaces as `PROBE FLIPPED` rather than a doc passing by luck.
+- **EXT-08 / G33** — `.planning/ORIENTATION.md` answers "where am I / what is verified / what is
+  next" purely by pointer. The ROADMAP Progress table, which disagreed with the filesystem on 7 of
+  15 rows, `STATE.md`'s self-contradicting counters and `RESUME.md`'s `13/13` claim are all
+  reconciled and re-derived on every gate run.
+
+Every failure path of all four checks was observed firing — 26 markers across five committed fixture
+sets plus three scratch runs and one temporary rename that was reverted. Nothing was weakened,
+skipped or deleted, no shrink-only ledger was appended to, and no point of Philippine law was
+decided.
 
 ## Phase 14 — Lawyer-Blocked Legal Fixes & Legal Traceability, PARTIAL
 
@@ -215,7 +246,7 @@ GitHub-hosted runner is a recorded risk in the workflow file, not a claim.
 
 Last activity: 2026-08-01
 
-Progress: [█████████░] 93%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
