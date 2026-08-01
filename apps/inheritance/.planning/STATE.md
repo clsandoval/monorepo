@@ -7,11 +7,11 @@ stopped_at: "PHASE 20 (NIRC §§248/249 Surcharge and Interest) IS NOW PLANNED 2
 last_updated: "2026-08-02T00:30:00.000Z"
 last_activity: 2026-08-01
 progress:
-  total_phases: 21
+  total_phases: 22
   completed_phases: 20
-  total_plans: 130
+  total_plans: 138
   completed_plans: 123
-  percent: 95
+  percent: 91
 ---
 
 # Project State
@@ -75,9 +75,9 @@ See: .planning/PROJECT.md (updated 2026-07-27)
 
 ## Current Position
 
-Phase: 20 (NIRC §§248/249 Surcharge and Interest) — PLANNED 2026-08-01, seven plans across five waves, zero executed
-Plan: 20-01..20-07 in .planning/phases/20-nirc-248-249-surcharge-and-interest/, alongside 20-RESEARCH.md and 20-VALIDATION.md
-Status: Phase 19 executed (SAVE-01..05 closed, G35 registered at order 17, the Phase-16 test-floor blocker cleared with no baseline edited); Phase 20 planned and ready to execute; next action is `/gsd-execute-phase 20`
+Phase: 22 (Deed of Extrajudicial Settlement — Schedule of Shares) — PLANNED 2026-08-01, eight plans across six waves, zero executed
+Plan: 22-01..22-08 in .planning/phases/22-deed-of-extrajudicial-settlement-schedule-of-shares/, alongside 22-RESEARCH.md and 22-VALIDATION.md
+Status: Phase 21 executed and complete (RET-01..05 closed, G37 registered at order 34). Phase 20 remains PLANNED with zero summaries — its seven plans are written and unexecuted, and its ROADMAP row reads 0/7. Phase 22 is planned and ready to execute; next action is `/gsd-execute-phase 22`
 
 **Read the `progress:` counters narrowly.** They are derived by gate G33
 (`node scripts/check-planning-truth.mjs`) from `.planning/phases/` alone, so they describe the fifteen
@@ -343,7 +343,7 @@ GitHub-hosted runner is a recorded risk in the workflow file, not a claim.
 
 Last activity: 2026-08-01
 
-Progress: [██████████] 95%
+Progress: [█████████░] 91%
 
 ## Performance Metrics
 
