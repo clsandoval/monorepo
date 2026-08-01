@@ -6,6 +6,7 @@ import type { EngineInput, EngineOutput, CaseRow } from '@/types';
 import { loadCase, updateCaseInput, updateCaseOutput } from '@/lib/cases';
 import { ResultsView } from '@/components/results/ResultsView';
 import { WizardContainer } from '@/components/wizard';
+import { SaveStatusBadge } from '@/components/case/SaveStatusBadge';
 import { compute } from '@/wasm/bridge';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -36,7 +37,10 @@ function CaseEditorPage() {
   const [caseRow, setCaseRow] = useState<CaseRow | null>(null);
   const [autoSaveInput, setAutoSaveInput] = useState<EngineInput | null>(null);
 
-  useAutoSave(autoSaveInput ? caseId : null, autoSaveInput as EngineInput);
+  const { status: autoSaveStatus } = useAutoSave(
+    autoSaveInput ? caseId : null,
+    autoSaveInput as EngineInput,
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -137,7 +141,21 @@ function CaseEditorPage() {
               </Button>
             </div>
           )}
-          <WizardContainer onSubmit={handleSubmit} defaultValues={state.input ?? undefined} />
+          {autoSaveStatus !== 'idle' && (
+            <div className="mb-4 flex justify-end">
+              <SaveStatusBadge status={autoSaveStatus} />
+            </div>
+          )}
+          {/* Third call site of the autosave setter, and the FIRST one outside the case-load effect.
+              Before this line the hook only ever observed the value the route had just read back out
+              of the database, so nothing a lawyer typed reached it. The setter comes from useState and
+              is therefore referentially stable, which keeps WizardContainer's watch() subscription
+              from tearing down and rebuilding on every render. */}
+          <WizardContainer
+            onSubmit={handleSubmit}
+            onChange={setAutoSaveInput}
+            defaultValues={state.input ?? undefined}
+          />
         </>
       )}
 
