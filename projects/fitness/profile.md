@@ -47,8 +47,28 @@ Keep it current — when weight/targets/equipment change, edit here.
 
 ## Targets (the decision rule)
 
-- **Calories ≤ 2000/day** — this is a **CEILING**.
-- **Protein ≥ 160 g/day** — this is a **FLOOR** (180 g is optimal but not realistic, don't push it).
+> **REVISED 2026-08-02 — the old 2000/160 pair was arithmetically unsatisfiable.** His logged food
+> ratio eating out in Manila is **~15–18 cal per gram of protein** (7/28 17.9 · 8/01 14.8 · 7/29 13.8;
+> only 7/27 hit 10.4 and that day was half shake). 160g from food therefore costs 2400–2900 kcal,
+> so 2000/160 demanded 12.5 cal/g — better than any non-shake day he has ever logged. He was failing
+> an impossible constraint and reading it as a discipline failure. The three numbers below replace it.
+> **Adherence beats optimality:** July ran a 2000 ceiling and delivered 0.9 kg; this delivers ~0.5 kg/wk
+> because he can actually hit it.
+
+- **Calories — an activity-linked CEILING (revised 2026-08-02):**
+  - **≤ 2200/day baseline** (rest day) → ~500 deficit at the validated ~2700 TDEE.
+  - **≤ 2500/day on an "earned" day** = 12k+ steps **or** any logged session → active TDEE ~3000–3100,
+    so still a ~550 deficit. Same deficit, more food.
+  - This is the point of training for him: not the burn itself, but that it buys back the ~300 kcal
+    that make the protein floor reachable. A big food day isn't a failure — it's a day that owes steps.
+- **Protein ≥ 145 g/day — a FLOOR (revised down from 160, 2026-08-02).** At ~68 kg lean mass the
+  evidence range for retention in a deficit is 1.6–2.2 g/kg lean = 110–150 g. **160 was already above
+  the top of useful** — aspirational, not protective. 145 costs him nothing and saves ~220 kcal/day
+  at his food ratio.
+- **2 scoops daily = infrastructure, not a rescue (added 2026-08-02).** 280 kcal / 48 g at 5.8 cal/g.
+  Booked at the start of the day, not bolted on at 11pm to patch a hole. That leaves **97 g from food
+  on ~1920 kcal = 19.8 cal/g** — looser than any day he has logged, i.e. a normal restaurant order
+  clears it. The nightly 3-scoop emergency shake (7/28, 7/30, 8/02) is the symptom this removes.
 - **Sodium ~3–5 g/day** — a FLOOR for him (added 2026-07-05 after confirmed depletion: lower-carb
   eating dumps sodium + daily rope sweat + unsalted staples). Salt cooked meals (1 tsp salt ≈ 2.3g
   Na); Liquid IV (~0.5g Na, 45 kcal; sugar-free version = 0 kcal, same Na — prefer it on the cut) =
@@ -59,20 +79,23 @@ Keep it current — when weight/targets/equipment change, edit here.
 - Carbs/fat: flexible, fill whatever's left under the ceiling — but **~130–150g carbs is the
   practical training-day minimum** (fog/flat lifts below that, see 7/05).
 - **Calories ≥ ~1700/day — a FLOOR** (added 2026-07-06). Repeated ~1400 days caused the
-  constipation → straining → vasovagal → diarrhea episode of 7/06. The deficit at 2000 is already
-  ~800; deeper buys nothing.
+  constipation → straining → vasovagal → diarrhea episode of 7/06. The deficit is already
+  ~500–550 at the revised ceiling; deeper buys nothing.
 - **Fiber daily — a FLOOR** (added 2026-07-06): his staples (shake, yogurt, lean meat) are
   near-zero fiber. Practical rule: 2 fruit + a fist of vegetables + oats/potatoes daily (~25g,
   no tracking needed). A zero-fiber week is how 7/06 happened.
 
-**TDEE estimate:** Mifflin BMR ≈ 2010, light daily training (×1.4) ≈ **~2800 kcal/day**.
-At the 2000 ceiling that's a **~800 kcal deficit ≈ ~0.7 kg/week** fat loss. Reasonable, sustainable.
+**TDEE estimate:** Mifflin BMR ≈ 2010, light daily training (×1.4) ≈ ~2800 — but the 7/27 reconciliation
+put the **measured TDEE at ~2687, so use ~2700**. Rest day ~2700; an earned day (12k+ steps or a session)
+runs ~3000–3100. At the revised ceilings that's a steady **~500–550 kcal deficit ≈ ~0.5 kg/week**.
 
 **How to answer any food/macro question:**
-1. Protein under 160 g? → add protein. (Shake is the default gap-filler: 24g / 140 kcal per scoop.)
-2. Calories under 2000 with room? → adding the shake/food is fine.
-3. Calories at/over 2000? → ceiling wins; skip extra unless protein floor is badly missed,
-   then pick the leanest protein source.
+1. Which ceiling is live today — 2200, or 2500 because he moved? Establish this first.
+2. Protein under 145 g? → add protein. Cheapest sources by cal per gram of protein:
+   **David's bar 5.4 · scoop 5.8 · cottage cheese 6.8** — all far under his ~15–18 food ratio.
+3. Under the live ceiling with room? → adding food is fine.
+4. At/over the live ceiling? → ceiling wins; skip extra unless the protein floor is badly missed,
+   then pick the leanest source.
 Floor beats ceiling when both are in tension (hitting protein matters more than a small cal overshoot).
 
 **Accounting convention for unlogged days (his call, 2026-07-27):** a day with no macros logged counts
