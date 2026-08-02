@@ -180,6 +180,19 @@ post-trip flush low or a water-rebound high manufactures a phantom gap.
   - **Rows are barbell, not cable** (locked 2026-07-27, his call — and what he's actually been logging since 7/03). Free barbell, floor-start. Working load 45/side (135 lb) × 10; progress to 55/side × 8 when 3×10 is clean.
 - **Intensity:** trains at **70–80% deliberately**. 8 yrs judo + overtraining history —
   will not and should not max out. Don't prescribe failure sets / all-out work.
+- **THE COMPENSATION INSTINCT — refuse it (added 2026-08-02).** He asked whether 2 sessions/week is
+  fine "if I really push hard — even better?" **No.** Cutting frequency creates no debt that intensity
+  repays. Give him this discrimination every time it comes up:
+  - **"Hard" = keep the load heavy.** Don't let 2×/week drift into light weights. Maintaining the load
+    he already lifts is most of muscle retention in a deficit — this matters *more* at low frequency.
+  - **"Hard" = grind to failure.** Near-zero extra retention, real recovery cost. His own pull-up rule
+    already encodes the fix: **add sets, not strain.**
+  - **The decisive argument is the walk, not the injury.** Walking is now the calorie engine; a brutal
+    session buys 2 days of soreness and the daily incline walk silently doesn't happen. Trading ~400
+    kcal/day of adherent activity for one hard session is a losing trade on arithmetic alone.
+  - Also: recovery is already blunted at a 500–600 deficit, and post-layoff strength returns faster than
+    connective tissue — he will feel capable of more than his tendons are ready for. Same instinct as the
+    missed-day "make-up" urge; answer it the same way.
 
 ### Rep scheme for hard, low-rep lifts (pull-ups, chin-ups, leg raises)
 
