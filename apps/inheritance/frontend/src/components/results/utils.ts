@@ -45,20 +45,11 @@ export function stripMarkdownBold(text: string): string {
   return text.replace(/\*\*(.+?)\*\*/g, '$1');
 }
 
-/**
- * Determine warning severity from category.
- */
-export function getWarningSeverity(category: string): 'error' | 'warning' | 'info' {
-  const severity: Record<string, 'error' | 'warning' | 'info'> = {
-    preterition: 'error',
-    max_restarts: 'error',
-    inofficiousness: 'warning',
-    disinheritance: 'warning',
-    vacancy_unresolved: 'warning',
-    unknown_donee: 'info',
-  };
-  return severity[category] ?? 'info';
-}
+// Warning severity moved to `@/lib/warnings-lines`, which is the one module
+// that decides what an engine warning says, so exactly one copy of the map
+// exists and the screen and the PDF cannot classify the same warning
+// differently. Re-exported here so every existing importer keeps compiling.
+export { getWarningSeverity } from '@/lib/warnings-lines';
 
 /**
  * Badge color by succession type.
