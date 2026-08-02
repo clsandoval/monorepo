@@ -7,11 +7,11 @@ stopped_at: "PHASE 20 (NIRC §§248/249 Surcharge and Interest) IS NOW PLANNED 2
 last_updated: "2026-08-02T00:30:00.000Z"
 last_activity: 2026-08-01
 progress:
-  total_phases: 22
+  total_phases: 23
   completed_phases: 21
-  total_plans: 138
+  total_plans: 146
   completed_plans: 131
-  percent: 95
+  percent: 91
 ---
 
 # Project State
@@ -75,7 +75,7 @@ See: .planning/PROJECT.md (updated 2026-07-27)
 
 ## Current Position
 
-Phase: 22 (Deed of Extrajudicial Settlement — Schedule of Shares) — PLANNED 2026-08-01, eight plans across six waves, zero executed
+Phase: 23 (The Instrument — Letterhead, Attribution, Warnings in the PDF) — PLANNED 2026-08-02, eight plans across five waves, zero executed
 Plan: 22-01..22-08 in .planning/phases/22-deed-of-extrajudicial-settlement-schedule-of-shares/, alongside 22-RESEARCH.md and 22-VALIDATION.md
 Status: Phase 21 executed and complete (RET-01..05 closed, G37 registered at order 34). Phase 20 remains PLANNED with zero summaries — its seven plans are written and unexecuted, and its ROADMAP row reads 0/7. Phase 22 is planned and ready to execute; next action is `/gsd-execute-phase 22`
 
@@ -343,7 +343,7 @@ GitHub-hosted runner is a recorded risk in the workflow file, not a claim.
 
 Last activity: 2026-08-01
 
-Progress: [██████████] 95%
+Progress: [█████████░] 91%
 
 ## Performance Metrics
 
