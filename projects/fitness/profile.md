@@ -154,11 +154,29 @@ post-trip flush low or a water-rebound high manufactures a phantom gap.
   - Missed days are never repaid — pick up the rotation where it left off (see consistency rule above).
   - **Training is the second lever.** Fat loss is stuck on the calorie ceiling, not on training volume;
     lifts exist to hold the muscle Phase 2 builds from. A sub-2000 week beats a perfect gym week.
-- **Daily session:** 30–40 min = **5 min jump rope** + **4 lifts**, always full body (push + pull + hinge/squat + core).
-- **3-day rotation** — cycle A → B → C → repeat:
+- **PROGRAM CHANGE — walking is the engine, lifting is the insurance (2026-08-02, his proposal, adopted
+  with one amendment).** He proposed dropping the lift program for daily incline walks + steps to raise
+  the calorie allowance. Approved, **except lifting does not go to zero.**
+  - **Daily: incline treadmill walk 30–45 min** (10–12% grade, ~5 km/h ≈ **400–450 kcal** at his weight)
+    + organic steps. Rationale: it's the one modality that survives his actual day — **he can walk *to*
+    the coffee shop**, so it stops competing with the morning pull instead of losing to it. Walking also
+    has the smallest hunger rebound of any cardio; he doesn't eat it back the way he would after intervals.
+  - **Lifting: 2×/week, alternating Day A / Day B. Drop Day C.** Two full-body sessions retain ~90% of
+    the muscle-preservation benefit of four. This is *less* lifting than the old daily rotation — that's
+    the point, it's the version he'll actually run.
+  - **Why lifting can't go to zero:** in a deficit at 29% BF, resistance work is the signal to burn fat
+    rather than lean mass. Losing lean costs him twice — it lowers TDEE (permanently worsening the exact
+    calorie-allowance problem he's solving) and eats into the ~74 kg lean mass Phase 2 targets. Given the
+    115 kg judo base, walking off dormant muscle is the one genuinely expensive mistake available here.
+  - **Effect on the ceiling:** daily walking makes the 2500 "earned" day the *normal* day at a ~600 kcal
+    deficit — better than the old plan on paper and far better in practice.
+- **Legacy daily-session spec (pre-2026-08-02, superseded by the program change above; kept for the
+  lift prescriptions):** 30–40 min = **5 min jump rope** + **4 lifts**, always full body
+  (push + pull + hinge/squat + core).
+- **3-day rotation** — now run as A / B only, 2×/week:
   - **Day A:** Smith incline bench 3×8 · **barbell rows 3×10** · RDLs 3×8 · leg extensions 3×10 (no flat bench — incline only, both press days)
   - **Day B:** OHP 3×8 · pull-ups (strict-then-assisted) · leg curl 3×10 · leg raises 2×12
-  - **Day C:** Smith incline bench 3×8 · **barbell rows 3×10** · goblet squat 3×10 · bicep curls 3×10 + cable lateral raises 3×12
+  - ~~**Day C:**~~ Smith incline bench 3×8 · **barbell rows 3×10** · goblet squat 3×10 · bicep curls 3×10 + cable lateral raises 3×12 — **dropped 2026-08-02** (A/B only). Keep as the substitute if he wants squat/arm work in place of a Day A.
   - **Rows are barbell, not cable** (locked 2026-07-27, his call — and what he's actually been logging since 7/03). Free barbell, floor-start. Working load 45/side (135 lb) × 10; progress to 55/side × 8 when 3×10 is clean.
 - **Intensity:** trains at **70–80% deliberately**. 8 yrs judo + overtraining history —
   will not and should not max out. Don't prescribe failure sets / all-out work.
