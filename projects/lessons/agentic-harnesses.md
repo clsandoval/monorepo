@@ -16,19 +16,18 @@ level: EXPERT practitioner. Diagnostic was strong across the board — defined t
 hours_estimate: 45    # 25 critic track + ~20 builder extension (rungs 10–14, added 7/31 at his
   request — he wants to author a specialized harness, not just referee them). Weighted toward
   Rung 12 (verifier design). Moving target (field ships weekly).
-hours_done: 1.7
-next_up: Rung 5 — skills & self-improvement (Hermes skill docs, Anthropic Skills, learned reuse, where
-  it breaks). He enters with BOTH halves of Daimon's memory architecture self-derived (read gate lazy /
-  write gate reviewed, 7/29) and the Hermes referee done — so the rung should go fast; spend the time on
-  what he lacks: the skill LIFECYCLE at the frontier (when is a skill written, by whom, staleness/decay,
-  wrong-generalization, and skill-collision — which is Rung 4's union/composition problem again: skills
-  from different authors collide like tools from different vendors). Warm-up (currency gap persists —
-  one cold framework grading per session): describe Amp or Devin mechanically, have him grade it on the
-  FULL axis set including the new Rung-4 spectrum (structured calls → injected capabilities → bash →
-  pixels). ALSO: open by making him NAME his own axes cold — on 7/31 he said "I don't know what axes
-  you're talking about" about his own coined lenses. The vocab lag is the one gap that isn't closing on
-  its own; one naming rep per session until it does. Rotation: Rung 2 leftovers (loop-shape reps) and
-  multi-agent belong to Rung 6; don't reopen 3 or 4.
+hours_done: 2.5
+next_up: Rung 6 mid-rung — resume on the OPEN QUESTION he paused on: the move that partly breaks the
+  value/cost identity of delegation (shared addressable context / progressive disclosure across the
+  agent boundary — he ships it for tools already), and what it costs (staleness, concurrent writes,
+  the subagent still has to KNOW to look). Then the rest of Rung 6: orchestrator topologies
+  (supervisor vs peer vs pipeline), who holds the plan when N agents run, and skill COLLISION
+  (deferred twice now — it's the union problem, fold it in here). NAMING REP IS RETIRED — he pushed
+  back hard on cold decontextualized recall ("weird thing to have to remember, there's no context")
+  and he's right: attach names IN USE while he grades something, never as a quiz. Cold framework
+  grade for next session: pick one from Devin/Amp neighbors — Cursor agents or Factory/Droid — or go
+  straight to Rung 7 material. Note: timer showed 70 min wall-clock, async gaps again; logged honest
+  20 min. This is now the norm for his sessions — always discount wall-clock.
 ---
 
 # Frontier of agentic harnesses & agent frameworks
@@ -53,7 +52,10 @@ analytical spine — the axes along which harnesses vary — and uses live frame
       deferral/progressive disclosure (ships it in Daimon), CodeAct = compiled plan, SEE/BOUND
       tradeoff, capability injection convergence, bash = CodeAct minus safety, computer-use = bash
       for screens.
-- [ ] Rung 5 — Skills & self-improvement: Hermes-style skill docs, learned reuse, where it breaks (~4h)
+- [x] Rung 5 — Skills & self-improvement (~4h) — CLEARED 7/31 pt2. Spine: skill = conditional with
+      erased antecedent; three write-triggers (superstition / unverified necessity / curation=compaction);
+      verifier design: write-time ablation, skill ships its check, CI-for-skills, checks-union = verified
+      scope. Skill COLLISION deferred → fold into Rung 6 or 9.
 - [ ] Rung 6 — Multi-agent orchestration: subagents, fan-out, delegation — when it helps vs hurts
       (the Daimon/Multica lens) (~5h)
 - [ ] Rung 7 — Execution & safety: sandboxing, worktrees, permissions, VMs (~4h)
@@ -80,6 +82,91 @@ loop; everything else is commodity. ~20h, weighted toward Rung 12.)
       harness, hold the model constant, measure; sits on Rung 8 (~4h)
 
 ## Sessions (newest at top)
+### 2026-08-01 · 20 min (honest; timer showed 70 min wall-clock, async gaps) · Rung 6 — multi-agent (opened) + Amp cold
+- **He killed the naming rep, correctly.** Verbatim: "why are you asking me what questions I asked...
+  there's no context, what the fuck are you asking me." Cold decontextualized recall is the wrong
+  exercise for a vocab-attachment gap — the names have to land while he's USING them on a live object.
+  Rep retired; gave him the three names outright (SEE/BOUND, verifier-bounds-loop-length,
+  authorship+review-decide-eager-lazy) and moved to application. Do not reinstate.
+- **Amp cold (never used).** Oracle bet, self-produced and right: the loop fails at REPLAN time, not
+  action time — "the executor has the reason and ends up making divergent decisions mid-execution."
+  That's his own Rung 2 heuristic (when may it revise?) one level down; the Oracle makes replanning
+  explicit, expensive and out-of-band vs ReAct's implicit-every-turn-for-free. Gifted two he missed:
+  (1) no hands = you can afford to trust it less (advice is defeasible, actions aren't — same gradient
+  as checkless-skills-are-advisories from Rung 5); (2) **the Oracle gets a CLEAN WINDOW** — part of
+  what "call the smarter model" buys is the fresh context, not the model. Testable ablation: same
+  model, curated question, polluted vs clean window. Harness-side explanation for a model-side myth.
+- **Subagent SEE:** he got the core — summary is lossy, what survives depends on what you chose to
+  persist, "if you write into a file you can't return it because it's summarized." Named for him:
+  **A SUBAGENT IS A COMPACTION WITH A DIFFERENT LABEL** — every Rung 3 pathology applies across the
+  agent boundary (drift, biased erosion, tense bug, and laundering). Parent can't distinguish "I
+  verified" from "I inferred." His 7/29 provenance line is the diagnosis: a subagent report is
+  INJECTED, so provenance is erased by construction. His file instinct is the fix = output should be
+  an ARTIFACT not a message (parent holds a pointer, raw work stays addressable) — his own eager/lazy
+  rule one layer up. Design question it becomes: does a subagent return conclusions or citations?
+- **Delegation loss case — he answered "its exact context" in three words, which is the right answer.**
+  Payload delivered on top: **the value of delegation and the cost of delegation are the same
+  quantity** (the saving IS the untransferred context, so there's no free-isolation dial); the parent
+  is the wrong author for the handoff (lossy compression written by the one party that can't tell
+  what's load-bearing — rhymes with his 7/29 model-compression counterpoint); **pruning doesn't
+  transfer** (subagent rediscovers approach B the parent killed; fan-out re-explores pruned branches
+  N times); **integration can't arbitrate** (N coherent contradictory reports, parent watched none of
+  the work, picks the confident one — assertion-vs-citation as a selection bug). Rule landed:
+  **fan-out wins when subtasks are context-poor and verifier-rich; loses when context-rich and
+  verifier-poor.**
+- Stopped at: mid-rung, on the open question (shared addressable context as the partial fix). His
+  call — jumped to the PyMC track.
+- Next: that open question, then orchestrator topologies + skill collision.
+
+### 2026-07-31 (pt 2) · 28 min (honest est; timer showed 6.4h wall-clock, async gaps) · Rung 5 — skills (CLEARED) + Devin warm-up
+- **Naming rep: 3 of 6.** Got reversibility-vs-containment, perimeter-vs-working-set, permissions
+  (≈action-surface half). MISSED SEE/BOUND — his first coined lens, failed two sessions running —
+  plus verifier-bounds-loop-length and authorship-decides-eager-lazy. Keep the rep; demand SEE/BOUND.
+- **Warm-up, Devin cold** (never used; described mechanically). Spectrum: "full person at a computer"
+  — right bet-read; sharpened to spans-bash-AND-pixels, timeline-replay = compensating SEE mechanism
+  (flight recorder when you can't bound). Codex comparison: found network-on as the dial, produced
+  keeper line "the boundary isn't what you define, it's what's accessible by the internet, which is
+  anything." Gifted browser-vs-curl (rendered composite of unenumerated third-party content; ingress
+  of instructions + egress of data in one tool). Knowledge-vs-Playbooks: passed Playbooks correctly,
+  wrongly passed Knowledge on "human-gated" — missed that thumbs-up-at-write-time ≠ review, and
+  auto-injection violates his own authorship rule.
+- **Antecedent erasure (rung core):** asked what the confirmed note is missing — gave "temporal
+  context" + "identity" (two instances); named the general form for him: the ANTECEDENT/validity
+  condition. Skill = induction from n=1 stored as universal. Staleness = condition was true, world
+  changed; wrong-generalization = condition never held but context looks similar. Key mechanism:
+  retrieval fires on surface similarity but validity depends on antecedent → lookalike contexts are
+  when the wrong skill looks most relevant (grounds his 7/29 "lazy fixes noise not wrongness").
+- **Three write-triggers:** #1 at-friction — he reused antecedent point; gifted the distinct failure:
+  SUPERSTITION (writes last-thing-tried at moment of max relief / min understanding; store fills with
+  failure-shaped knowledge only). #2 at-success — he claimed "strictly better than #1" (success ⊇
+  overcome frictions); refereed: fails on credit assignment. #3 offline curation — he gestured
+  (bias, noise, "result leaks into predictors"); delivered the payload: CURATION IS COMPACTION of the
+  skill store — merge erases antecedents (n conditionals → one unconditional), biased erosion drops
+  specifics which ARE the antecedents, merging launders citations (undoes his cited-proposals move),
+  plus delay.
+- **HE PUSHED BACK TWICE and built the last third of the rung doing it (catches #6, #7):**
+  - #6: "a good distiller can tell which steps mattered, come on, be realistic" — conceded the
+    strawman half (proximate legible chains attribute fine), held the core: A SINGLE TRAJECTORY
+    CONTAINS ZERO COUNTERFACTUALS; necessity needs ablations never run; distiller substitutes prior
+    for experiment (= his PyMC omitted-confounder setup, cross-track rhyme flagged). Sharpened claim:
+    attribution reliability inversely correlated with skill value (skills worth storing are the
+    surprising ones = where the prior is wrong).
+  - He doubled down: "Fable will run the ablation, it's a smart model" — flipped it: run it WHERE?
+    Transcript has no environment; ablation needs repro env + checkpointed state + pass/fail check =
+    A VERIFIER LOOP. "Smart model" is a model-side answer to a harness-side problem (course thesis).
+    In losing the argument he answered the open verifier question.
+  - #7: "ship the check inside the skill — if the skill is general enough that makes no sense" —
+    correct; forced the refinement: A SKILL'S VERIFIED SCOPE IS THE UNION OF ITS CHECKS; beyond that
+    is prior, not knowledge. Gradient: narrow skills get check-per-skill; general skills are EARNED
+    (born narrow, generalization = accumulated independent instances each with check+citation =
+    merge with preserved antecedents); checkless skills are advisories (defeasible, lazy, human-gated).
+- **Verifier design (rung summit, assembled):** (1) write-time ablation — necessity demonstrated not
+  asserted; (2) skill ships its check = antecedent made executable; (3) staleness = re-run the check,
+  CI for the skill store, skills retire themselves; (4) telemetry for the checkless residue. His
+  7/29 (a)/(b) split appeared 3× today.
+- Stopped at: Rung 5 summit clean. Skill collision NOT covered (deferred).
+- Next: Rung 6 multi-agent (his home turf — Daimon lens), Amp as cold grade, SEE/BOUND naming rep.
+
 ### 2026-07-31 · 22 min · Rung 4 — tool interface (CLEARED) + OpenCode warm-up
 - **Warm-up, OpenCode cold** (never used; described mechanically). Graded 1 & 2 correctly — "liberal,
   nothing assumed, dials not assumptions" = the Claude-Code-family bet. **Missed plan mode** even though
