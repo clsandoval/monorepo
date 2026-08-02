@@ -57,7 +57,7 @@ export function EstatePDF({ input, output, profile, options }: EstatePDFProps) {
         />
         <NarrativesSection narratives={output.narratives} />
         <ComputationLogSection log={output.computation_log} />
-        <WarningsSection warnings={output.warnings} />
+        <WarningsSection warnings={output.warnings} shares={output.per_heir_shares} />
         {/* Unconditional by design: a report with no attribution must say so on
             its own face, so an unsigned export is distinguishable from a signed
             one. It receives the same profile the letterhead is gated on. */}

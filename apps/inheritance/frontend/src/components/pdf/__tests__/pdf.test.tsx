@@ -869,13 +869,20 @@ describe('pdf', () => {
   // WarningsSection
   // ===========================================================================
 
+  // The heading was renamed from 'Warnings' to 'Manual Review Required' — the
+  // words the results screen already used — so both surfaces name the section
+  // the same thing. These three cases are the same assertions pointed at their
+  // renamed subject, each strengthened with the severity token the PDF did not
+  // print before.
+
   describe('WarningsSection', () => {
-    it('renders warnings with category and description', () => {
+    it('renders warnings with severity, category and description', () => {
       const warnings = [
         createWarning({ category: 'preterition', description: 'A compulsory heir was preterited.' }),
       ];
-      const { container } = render(<WarningsSection warnings={warnings} />);
-      expect(container.textContent).toContain('Warnings');
+      const { container } = render(<WarningsSection warnings={warnings} shares={[]} />);
+      expect(container.textContent).toContain('Manual Review Required');
+      expect(container.textContent).toContain('[error]');
       expect(container.textContent).toContain('[preterition]');
       expect(container.textContent).toContain('A compulsory heir was preterited.');
     });
@@ -885,13 +892,13 @@ describe('pdf', () => {
         createWarning({ category: 'preterition', description: 'Warning 1' }),
         createWarning({ category: 'inofficiousness', description: 'Warning 2' }),
       ];
-      const { container } = render(<WarningsSection warnings={warnings} />);
-      expect(container.textContent).toContain('[preterition] Warning 1');
-      expect(container.textContent).toContain('[inofficiousness] Warning 2');
+      const { container } = render(<WarningsSection warnings={warnings} shares={[]} />);
+      expect(container.textContent).toContain('[error] [preterition] Warning 1');
+      expect(container.textContent).toContain('[warning] [inofficiousness] Warning 2');
     });
 
     it('returns null when warnings array is empty', () => {
-      const { container } = render(<WarningsSection warnings={[]} />);
+      const { container } = render(<WarningsSection warnings={[]} shares={[]} />);
       expect(container.textContent).toBe('');
     });
   });

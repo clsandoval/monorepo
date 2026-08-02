@@ -1,14 +1,21 @@
 /**
  * WarningsPanel — manual flag cards (forward-compatible).
- * Hidden when warnings array is empty.
+ * Hidden when there is nothing to show.
+ *
+ * This panel renders the array `@/lib/warnings-lines` builds, and the exported
+ * PDF (`components/pdf/WarningsSection.tsx`) renders the same one, so the screen
+ * and the document cannot disagree about a warning's severity, its category, its
+ * text or the heir it names. It composes no warning text of its own: it neither
+ * classifies severity nor resolves an heir id.
  */
 import { AlertTriangle, AlertCircle, Info } from 'lucide-react';
 import type { ManualFlag, InheritanceShare } from '../../types';
-import { getWarningSeverity } from './utils';
+import { buildWarningLines, WARNINGS_HEADING, RELATED_HEIR_LABEL } from '@/lib/warnings-lines';
 import { Alert, AlertTitle, AlertDescription } from '../ui/alert';
 
 export interface WarningsPanelProps {
   warnings: ManualFlag[];
+  /** What the line model resolves a flag's `related_heir_id` against. */
   shares: InheritanceShare[];
 }
 
@@ -25,39 +32,36 @@ const SEVERITY_ALERT_CLASSES: Record<'error' | 'warning' | 'info', string> = {
 };
 
 export function WarningsPanel({ warnings, shares }: WarningsPanelProps) {
-  if (warnings.length === 0) {
+  const lines = buildWarningLines(warnings, shares);
+
+  if (lines.length === 0) {
     return <div data-testid="warnings-panel" />;
   }
 
   return (
     <div data-testid="warnings-panel">
-      <h2 className="font-serif text-lg font-semibold text-primary mb-4">Manual Review Required</h2>
+      <h2 className="font-serif text-lg font-semibold text-primary mb-4">{WARNINGS_HEADING}</h2>
       <div className="space-y-3">
-        {warnings.map((warning, index) => {
-          const severity = getWarningSeverity(warning.category);
-          const relatedHeir = warning.related_heir_id
-            ? shares.find((s) => s.heir_id === warning.related_heir_id)
-            : null;
-
-          return (
-            <Alert
-              key={index}
-              data-testid={`warning-card-${index}`}
-              className={SEVERITY_ALERT_CLASSES[severity]}
-            >
-              {SEVERITY_ICON[severity]}
-              <AlertTitle className="text-xs font-semibold uppercase tracking-wide">
-                {severity}
-              </AlertTitle>
-              <AlertDescription>
-                <p>{warning.description}</p>
-                {relatedHeir && (
-                  <p className="text-sm mt-1 opacity-80">Related heir: {relatedHeir.heir_name}</p>
-                )}
-              </AlertDescription>
-            </Alert>
-          );
-        })}
+        {lines.map((line, index) => (
+          <Alert
+            key={index}
+            data-testid={`warning-card-${index}`}
+            className={SEVERITY_ALERT_CLASSES[line.severity]}
+          >
+            {SEVERITY_ICON[line.severity]}
+            <AlertTitle className="text-xs font-semibold uppercase tracking-wide">
+              {line.severity}
+            </AlertTitle>
+            <AlertDescription>
+              <p>{line.description}</p>
+              {line.relatedHeirName !== null && (
+                <p className="text-sm mt-1 opacity-80">
+                  {RELATED_HEIR_LABEL} {line.relatedHeirName}
+                </p>
+              )}
+            </AlertDescription>
+          </Alert>
+        ))}
       </div>
     </div>
   );

@@ -189,7 +189,10 @@ async function main() {
     requiredSections.push('Heir Narratives');
   }
   if (expected.warnings.length > 0) {
-    requiredSections.push('Warnings');
+    // The PDF warnings heading was renamed to the words the results screen
+    // already used, so both surfaces name the section the same thing. This is
+    // the same assertion pointed at its renamed subject.
+    requiredSections.push('Manual Review Required');
   }
 
   for (const section of requiredSections) {
