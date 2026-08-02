@@ -13,30 +13,55 @@ level: Strong structural intuition (prior, hierarchy, generative thinking — ha
 hours_estimate: 200   # Phase 1 literacy REVISED DOWN to ~15h (crushing it — 6 rungs in 1.4h; only
   needs vocab mapped onto owned structure). Phase 2 ~185h = agentic modeling of Mama Sita's, where the
   real unknown is his director/critic pace (no read yet — he hasn't specified+refereed a live model).
-hours_done: 8.0
-next_up: **Dictation drill #2 (3rd exposure to the count-model skeleton). 8/01 read: dictation is
-  IMPROVING but not fluent — he assembled the full lam line and hierarchy himself by the end, but
-  only after heavy scaffolding (didn't know lam or log_rate as words, asked "why are there exps",
-  put the trend outside the exp, tried to put mu+sigma inside the exp, tried Normal(0, sigma_a) for
-  mu's prior). He now OWNS two sorting rules — hand them back to him as the scaffold and expect him
-  to do the rest: (1) "learned-additive goes INSIDE the exp, counted-data multiplies OUTSIDE";
-  (2) hierarchy recipe = "what varies per unit? → subscript; subscripted? → parent center + spread."**
-  (A) **Next session: dictation #2, NEW domain (high-variance rule), LESS scaffolding.** Success bar:
-  he writes all 7 lines given only the problem statement + the two rules above as reminders. No
-  skeleton with blanks this time — the skeleton was the crutch. Restate the WHOLE problem (standing
-  rule). If he stalls >2 rounds on a line, give the bear/camera version of that line and move on.
-  (B) **Warm-up bank (END of session, ≤5 min, 2 max):**
-  (1) **"Tight prior hides a ridge" — NOW 0/3** (declined 7/30, name-swapped 8/01: said "prior
-  predictive" for the did-the-data-move check, the exact 7/31 conflation AGAIN). Prose has failed
-  3×, so per the twice-failed rule: RENDER IT next time — plot posterior-on-prior overlay for
-  HalfNormal(0.001) vs HalfNormal(0.01) (identical posteriors chasing the prior), send to Telegram,
-  then retest. The two tests to elicit: did-the-posterior-move; refit-10×-wider.
-  (2) **exp anchors** — 8/01: produced "reduced by factor of exp(−0.7)" COLD (structure owned, big
-  step from 7/31's "what's exp") but "no clue" on the number. Flashcard the two anchors:
-  ±0.7 ≈ 2×/half, ±2.3 ≈ 10×/tenth. Quick cold check next session.
-  (3) **Rung 2 MMM core** (adstock knob / within-channel saturation / equal marginal slopes) — not
+hours_done: 8.3
+next_up: **REVERSE THE 8/01 DECISION — the blanks-skeleton is LOAD-BEARING, not a crutch. 8/02
+  dictation #2 ran with NO skeleton and production collapsed completely: he never wrote a single
+  correct line unaided. 8/01 (skeleton with blanks) he assembled the whole lam line + hierarchy.
+  Same learner, one week apart — the difference was the skeleton. Ratchet the blanks DOWN one line
+  at a time; do not remove them wholesale again.**
+  (A) **Next session — do NOT run dictation #3 first. Run a discrimination drill.** Three errors
+  repeated so often on 8/02 that dictation can't land until they're fixed, and all three are
+  FAULT-FINDING shaped (his strength), not production shaped:
+  (1) **Exposure placement — wrong 3× in one session.** Put `flights` inside the exp as a fitted
+  coefficient, then re-multiplied by it a 2nd time after being handed `lam = exp(log_rate)*flights`.
+  The 8/01 rule ("counted-data multiplies OUTSIDE") does NOT discriminate for him. **REPLACED with:
+  "do I need to LEARN how much this column matters? yes→inside w/ coefficient, no, I know it
+  exactly→outside × 1."** Drill as a table fill-in: hand a column list, he marks each
+  inside/outside/observed. Cheap, mechanical, targets it head-on.
+  (2) **NEW ERROR, serious: outcome variable on the RHS.** Wrote `exp(...) + strikes + flights` and
+  later `strikes = lam × flights`. Cleared only by the forecasting test ("it's next January — which
+  columns do you actually have?"). Retest as a BUG HUNT: hand him a model with the outcome on the
+  right-hand side, ask him to find the bug. Referee framing, not production framing.
+  (3) **No likelihood line, ever.** Never produced `pm.Poisson(..., observed=)` across the whole
+  session. He tried `strikes = lam`, i.e. expected value == observed count, no noise layer. Tie it
+  to the lam-vs-posterior-predictive distinction (also confused 8/02: asked "is lam the posterior
+  for bird strikes?").
+  (B) **Shrinkage: direction NOT owned — retest cold, this was 8/02's clean miss.** He got the
+  easy half (B: partial pooling pulls the sparse unit toward the group ✓, unaided) but then said
+  **`mu_a`** controls pull strength (it's `sigma_a`), and on the transfer question — 30 clinics,
+  `sigma=0.03`, 3 bad outcomes — said **"dangerous"** when the answer is *shrugged off*. He has the
+  mechanism and inverts the knob. Retest both cold: which knob, and which direction.
+  Payload delivered that he should own next time: **small sigma = strong pull = outliers flattened;
+  a model that learns a tiny sigma CANNOT flag a genuinely bad unit** (referee catch: check sigma
+  before believing "found nothing anomalous").
+  (C) **NEW SCAFFOLD, his own pushback earned it — the sigma→percent card.** He correctly refused
+  `sigma=0.03` as unreadable ("what am I supposed to do with .03, I'm not a calculator") — a
+  legitimate critic move, and my miss: a sigma is only small relative to a scale. Delivered the
+  card, now merge warm-up item (2) into it and flashcard as ONE thing:
+  **σ 0.03→±3% · 0.1→±10% · 0.3→±35% · 0.7→2× · 2.3→10×** (under ~0.3, read log-scale sigma as a
+  plain percentage). Cold check next session.
+  (D) **NAME RETENTION is a real gap, not deferral.** Four definition questions on 8/02 — `lam`,
+  `log_rate`, `mu`/`sigma` — and `lam`/`log_rate` were BOTH already defined on 8/01. The words are
+  not sticking between sessions even when the mechanism does. Open every session with a 30-second
+  cold vocab ping on the count-model names before any drill.
+  (E) **Warm-up bank (END of session, ≤5 min, 2 max):**
+  (1) **"Tight prior hides a ridge" — NOW 0/4** (declined 7/30, name-swapped 8/01, not reached 8/02).
+  Prose has failed 3×, so per the twice-failed rule: RENDER IT next time — plot posterior-on-prior
+  overlay for HalfNormal(0.001) vs HalfNormal(0.01) (identical posteriors chasing the prior), send to
+  Telegram, then retest. The two tests to elicit: did-the-posterior-move; refit-10×-wider.
+  (2) **Rung 2 MMM core** (adstock knob / within-channel saturation / equal marginal slopes) — not
   directly retested since the 7/29 decay; keep cycling it.
-  **WATCH (new, 8/01): questions-as-deferral.** His referee questions mid-drill were excellent
+  **WATCH (8/01, WORSE on 8/02): questions-as-deferral.** His referee questions mid-drill were excellent
   (incl. an unprompted mediator catch — "do cameras affect traffic?") but they also postponed the
   writing indefinitely. Had to declare "last concept question" to force production. Answer the good
   ones briefly, then immediately re-demand the pending line. Production first, curiosity second.
@@ -165,6 +190,70 @@ teaching:
    w/ exogenous shock).
 
 ## Sessions (newest at top)
+
+### 2026-08-02 · 18 min · Dictation drill #2 (no skeleton) — **production collapsed; skeleton was load-bearing**
+
+Ran the 8/01 plan as written: new domain (bird strikes vs laser deterrents — 14 airports, 36 months,
+`flights` as exposure, `lasers`, `t`, count outcome), the two sorting rules as the only scaffold, no
+blanks skeleton. **The success bar was 7 lines from the problem statement alone. He wrote zero correct
+lines unaided.** This is a sharp regression from 8/01, where the blanks skeleton got him the full `lam`
+line and the hierarchy. Conclusion: **removing the skeleton was the wrong call — it's load-bearing at
+this stage.** Reverting; ratchet blanks down one line at a time instead.
+
+**What was his (unaided):**
+- **The trend term, cold.** Read "bird populations have been drifting" off the problem statement and
+  produced *"decline rate × time"* — correct term, correct column, unprompted. 8/01 he'd put the trend
+  *outside* the exp; this time he placed it right.
+- **exp with additive terms inside it** — knew that shape exists and reached for it first.
+- **Asked whether `beta_lasers` should allow negatives** — right question, right instinct (symmetric
+  prior at 0, let the data pick the sign).
+- **Partial-pooling direction (B)** — sparse desert airport gets pulled toward the group average, not
+  left at its own 2 quiet months. Unaided, multiple-choice.
+- **Refused an unreadable number.** *"what am I supposed to do with .03 to know, I'm not a calculator"*
+  — legitimate critic move and my error, not his: a sigma is only small relative to a scale. Earned
+  the sigma→percent card.
+
+**What failed:**
+- **Exposure placement, wrong 3×.** Put `flights` inside the exp as a fitted coefficient; after the
+  numeric refutation (tune β so 10→20 doubles, then 40 gives 4× and 80 gives 16× — exp turns doubling
+  into squaring) he put it back inside again, then after being *handed* `lam = exp(log_rate)*flights`
+  re-multiplied by flights a second time. **The 8/01 rule "counted-data multiplies OUTSIDE" does not
+  discriminate for him.** Replaced it with *"do I need to LEARN how much this column matters?"* — yes
+  → inside with a coefficient, no, I know it exactly → outside × 1. Untested; that's next session's
+  drill.
+- **Outcome variable on the RHS — new error, serious.** Wrote `exp(airport, laser) + strikes + flights`,
+  and later `strikes = lam × flights`. Cleared only by the forecasting test: *"it's next January, the
+  airport just installed 4 lasers — which columns do you actually have?"* `flights`✓ `lasers`✓ `t`✓
+  `strikes`✗. Data-as-input needs a cold bug-hunt retest.
+- **No likelihood line, ever.** Never produced `pm.Poisson(..., observed=)`. His attempt was
+  `strikes = lam` — expected value equals observed count, no noise layer at all.
+- **No hierarchy produced.** Gestured at "priors for the distribution of risk per airport" with a flat
+  `Normal(0, 3)`, never wrote `mu_a`/`sigma_a`/`a[idx]` — despite rule 2 being nominally his. Had to
+  hand the whole model, then take the hierarchy back as a separate exercise.
+- **Shrinkage knob inverted.** After getting B right, said **`mu_a`** controls pull strength (it's
+  `sigma_a`); needed a 2×2 table varying both to separate destination from strength. Then the transfer
+  question — 30 clinics, `sigma=0.03`, 3 bad outcomes — he said **"dangerous"**; answer is *shrugged
+  off*. He owns the mechanism and inverts the knob.
+- **Four definition questions, two of them repeats from 8/01** (`lam`, `log_rate`, then `mu`/`sigma`),
+  plus *"is lam the posterior for bird strikes?"* Names are not surviving between sessions even where
+  the mechanism does. Had to declare "last concept question" (2nd session running) and he still asked
+  two more.
+
+**Delivered (payload to retest, not credit):** `lam` = expected count per row, PyMC keyword is `mu`;
+`log_rate` = the additive sum on the log scale, `log(0.5)=−0.69`; lam vs posterior-vs-posterior-
+predictive (parameters → lam → Poisson noise → observed); the full 9-line bird-strike model with a
+per-column role table; **the sigma→percent card (0.03→±3%, 0.1→±10%, 0.3→±35%, 0.7→2×, 2.3→10×)**;
+and the referee catch — *a model that learns a tiny sigma is structurally incapable of flagging a
+genuinely bad unit, so check sigma before believing "nothing anomalous."*
+
+- **Stopped at:** the clinic transfer question, answered wrong, corrected with the strength-of-evidence
+  table.
+- **Next:** discrimination drill (column role table + outcome-on-RHS bug hunt + likelihood line), then
+  dictation #3 *with* a blanks skeleton. Cold retests: which shrinkage knob + which direction, the
+  sigma→percent card, count-model vocab ping.
+- **Housekeeping:** reconciled the lesson file — this branch (`gsd/deletion-milestone`) was 65 lines
+  behind `main` and missing the 8/01 session entirely; took main's copy. Also cleared a dead
+  `session_start` left over from the 8/01 run.
 ### 2026-08-01 · 30 min (timer) · Dictation drill #1 — red-light cameras, full model dictated (with scaffolding)
 - Domain: 40 intersections, staggered red-light-camera rollout (worst first), monthly accident counts,
   traffic as exposure (50k–2M vehicles/mo), citywide decline from safer cars. Flawed flat-Poisson with
