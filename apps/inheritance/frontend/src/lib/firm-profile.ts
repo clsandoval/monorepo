@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabase, supabaseConfigured } from './supabase';
 
 export interface FirmProfile {
   firmName: string | null;
@@ -100,6 +100,45 @@ export async function loadFirmProfile(userId: string): Promise<FirmProfile> {
   }
 
   return rowToFirmProfile(data as Record<string, unknown>);
+}
+
+/**
+ * Load the signed-in user's firm profile, or `null` when there is no session.
+ *
+ * THIS IS THE LOADER THE PDF EXPORT USES. `FirmProfileProvider` is mounted at
+ * exactly one place — `routes/settings/index.tsx` — so `useFirmProfile()` is
+ * unreachable from the results view and the export has to resolve the profile
+ * itself.
+ *
+ * IT NEVER THROWS. It runs inside a click handler, where a rejection would
+ * abandon a download the user asked for. It returns `null` when Supabase is not
+ * configured, when there is no signed-in user, when the auth call errors, and
+ * when anything rejects.
+ *
+ * A `null` RESULT IS NOT SILENT. `AttributionSection` prints
+ * `ATTORNEY ATTRIBUTION UNAVAILABLE` on the face of the document, so an
+ * unbranded export states why it is unbranded rather than merely looking plain.
+ *
+ * The user id comes from `supabase.auth.getUser()`, never from a prop, a route
+ * parameter or a case row, so a caller cannot name someone else's profile.
+ */
+export async function loadCurrentFirmProfile(): Promise<FirmProfile | null> {
+  // `supabase` is exported as `null as any` when the env vars are absent, so
+  // any property access without this guard would throw a TypeError.
+  if (!supabaseConfigured) return null;
+
+  try {
+    const { data, error } = await supabase.auth.getUser();
+    if (error) return null;
+    if (!data || !data.user) return null;
+
+    const userId = data.user.id;
+    if (typeof userId !== 'string' || userId === '') return null;
+
+    return await loadFirmProfile(userId);
+  } catch {
+    return null;
+  }
 }
 
 /** Save firm profile fields (upsert) */

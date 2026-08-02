@@ -2,8 +2,36 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+
+// --------------------------------------------------------------------------
+// Mocks for the two modules the Export PDF handler dynamically imports.
+// --------------------------------------------------------------------------
+const { mockDownloadPDF, mockLoadCurrentFirmProfile } = vi.hoisted(() => ({
+  mockDownloadPDF: vi.fn(),
+  mockLoadCurrentFirmProfile: vi.fn(),
+}));
+
+vi.mock('../../../lib/pdf-export', () => ({
+  downloadPDF: mockDownloadPDF,
+}));
+
+// firm-profile imports the supabase client, which validates env vars on load.
+vi.mock('../../../lib/supabase', () => ({
+  supabaseConfigured: false,
+  supabase: { from: vi.fn(), storage: { from: vi.fn() }, auth: { getUser: vi.fn() } },
+}));
+
+// Keep the real defaultFirmProfile so a field added to FirmProfile cannot make
+// this file's fixture silently stale; replace only the loader.
+vi.mock('../../../lib/firm-profile', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('../../../lib/firm-profile')>()),
+  loadCurrentFirmProfile: mockLoadCurrentFirmProfile,
+}));
+
 import { ActionsBar } from '../ActionsBar';
 import type { EngineInput, EngineOutput, Money } from '../../../types';
+import type { FirmProfile } from '../../../lib/firm-profile';
+import { defaultFirmProfile } from '../../../lib/firm-profile';
 
 // --------------------------------------------------------------------------
 // Test helpers
@@ -277,6 +305,103 @@ describe('results > ActionsBar', () => {
       // Narratives should be separated
       expect(copiedText).toMatch(/First narrative\.\n\nSecond narrative\./);
       writeText.mockRestore();
+    });
+  });
+  // ------------------------------------------------------------------------
+  // export PDF — the audit's blocker 7
+  //
+  // ActionsBar.tsx passed a literal null as downloadPDF's third argument. That
+  // parameter is the firm profile and EstatePDF gates the letterhead on it, so
+  // that literal made the stored letterhead unrenderable no matter what was
+  // configured at /settings. ActionsBar is the only production caller of
+  // downloadPDF, so this one argument was the whole defect.
+  // ------------------------------------------------------------------------
+
+  describe('export PDF', () => {
+    beforeEach(() => {
+      mockDownloadPDF.mockReset().mockResolvedValue(undefined);
+      mockLoadCurrentFirmProfile.mockReset().mockResolvedValue(null);
+    });
+
+    it('passes the loaded firm profile as downloadPDF\'s third argument', async () => {
+      const profile: FirmProfile = {
+        ...defaultFirmProfile(),
+        firmName: 'Test Firm Alpha Law Offices',
+      };
+      mockLoadCurrentFirmProfile.mockResolvedValue(profile);
+
+      const user = userEvent.setup();
+      renderActions();
+      await user.click(screen.getByTestId('export-pdf'));
+
+      // The handler dynamically imports two modules, so the call lands a few
+      // microtasks after the click resolves.
+      await vi.waitFor(() => expect(mockDownloadPDF).toHaveBeenCalledTimes(1));
+      const third = mockDownloadPDF.mock.calls[0]![2];
+      expect(third).toBe(profile);
+      expect(third.firmName).toBe('Test Firm Alpha Law Offices');
+    });
+
+    // THE REGRESSION GUARD. This is the case that turns red if anyone restores
+    // the literal null the audit named.
+    it('does not pass null when a profile is configured', async () => {
+      mockLoadCurrentFirmProfile.mockResolvedValue({
+        ...defaultFirmProfile(),
+        firmName: 'Test Firm Alpha Law Offices',
+      });
+
+      const user = userEvent.setup();
+      renderActions();
+      await user.click(screen.getByTestId('export-pdf'));
+
+      await vi.waitFor(() => expect(mockDownloadPDF).toHaveBeenCalledTimes(1));
+      expect(mockDownloadPDF.mock.calls[0]![2]).not.toBeNull();
+    });
+
+    it('still exports when there is no session, passing null', async () => {
+      mockLoadCurrentFirmProfile.mockResolvedValue(null);
+
+      const user = userEvent.setup();
+      renderActions();
+      await user.click(screen.getByTestId('export-pdf'));
+
+      // The export is NOT abandoned: the document prints
+      // ATTORNEY ATTRIBUTION UNAVAILABLE on its own face instead.
+      await vi.waitFor(() => expect(mockDownloadPDF).toHaveBeenCalledTimes(1));
+      expect(mockDownloadPDF.mock.calls[0]![2]).toBeNull();
+    });
+
+    it('re-enables the button when downloadPDF rejects', async () => {
+      // handleExportPDF is try/finally with NO catch — pre-existing behaviour
+      // this plan does not change — so a failed export escapes as an unhandled
+      // rejection. It is suppressed here for the duration of this one test
+      // rather than swallowed in production code, where silently discarding a
+      // real export failure would be the wrong fix.
+      const priorListeners = process.listeners('unhandledRejection');
+      for (const l of priorListeners) process.off('unhandledRejection', l);
+      const swallow = () => {};
+      process.on('unhandledRejection', swallow);
+
+      try {
+        mockDownloadPDF.mockRejectedValue(new Error('render failed'));
+
+        const user = userEvent.setup();
+        renderActions();
+        await user.click(screen.getByTestId('export-pdf'));
+
+        // The existing `finally` cleared the loading state, so the button is
+        // usable again rather than stuck disabled.
+        await vi.waitFor(() => {
+          expect(screen.getByTestId('export-pdf')).not.toBeDisabled();
+        });
+        // Let the rejection settle while our suppressor is still installed.
+        await new Promise((r) => setTimeout(r, 0));
+      } finally {
+        process.off('unhandledRejection', swallow);
+        for (const l of priorListeners) {
+          process.on('unhandledRejection', l as NodeJS.UnhandledRejectionListener);
+        }
+      }
     });
   });
 });

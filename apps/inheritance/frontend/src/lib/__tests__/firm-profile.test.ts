@@ -1,13 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // ── Mocks ──────────────────────────────────────────────────────────
-const { mockFrom, mockStorage } = vi.hoisted(() => {
+const { mockFrom, mockStorage, mockGetUser } = vi.hoisted(() => {
   const mockUpload = vi.fn();
   const mockRemove = vi.fn();
   const mockGetPublicUrl = vi.fn();
   const mockList = vi.fn();
 
   return {
+    mockGetUser: vi.fn(),
     mockFrom: vi.fn().mockReturnValue({
       select: vi.fn().mockReturnValue({
         eq: vi.fn().mockReturnValue({
@@ -32,9 +33,11 @@ const { mockFrom, mockStorage } = vi.hoisted(() => {
 });
 
 vi.mock('@/lib/supabase', () => ({
+  supabaseConfigured: true,
   supabase: {
     from: mockFrom,
     storage: { from: mockStorage.from },
+    auth: { getUser: mockGetUser },
   },
 }));
 
@@ -44,6 +47,7 @@ import {
   rowToFirmProfile,
   firmProfileToRow,
   loadFirmProfile,
+  loadCurrentFirmProfile,
   saveFirmProfile,
   uploadLogo,
   deleteLogo,
@@ -385,6 +389,49 @@ describe('firm-branding > firm-profile lib', () => {
       mockFrom.mockReturnValue({ upsert: mockUpsert });
 
       await expect(saveFirmProfile('user-1', { firmName: 'Test' })).rejects.toThrow();
+    });
+  });
+
+  // ── loadCurrentFirmProfile ────────────────────────────────────
+  //
+  // The loader the PDF export uses. It runs inside a click handler, so every
+  // absence path must resolve rather than reject: a rejection there would
+  // abandon a download the user asked for.
+
+  describe('loadCurrentFirmProfile', () => {
+    it('resolves the signed-in user profile', async () => {
+      mockGetUser.mockResolvedValue({ data: { user: { id: 'u1' } }, error: null });
+      const mockSingle = vi.fn().mockResolvedValue({
+        data: makeFirmRow({ firm_name: 'Test Firm Alpha Law Offices' }),
+        error: null,
+      });
+      const mockEq = vi.fn().mockReturnValue({ single: mockSingle });
+      const mockSelect = vi.fn().mockReturnValue({ eq: mockEq });
+      mockFrom.mockReturnValue({ select: mockSelect });
+
+      const profile = await loadCurrentFirmProfile();
+      expect(profile).not.toBeNull();
+      expect(profile!.firmName).toBe('Test Firm Alpha Law Offices');
+      expect(mockEq).toHaveBeenCalledWith('id', 'u1');
+    });
+
+    it('resolves null with no session, and never queries the profile row', async () => {
+      mockGetUser.mockResolvedValue({ data: { user: null }, error: null });
+      const mockSelect = vi.fn();
+      mockFrom.mockReturnValue({ select: mockSelect });
+
+      expect(await loadCurrentFirmProfile()).toBeNull();
+      expect(mockSelect).not.toHaveBeenCalled();
+    });
+
+    it('resolves null on an auth error', async () => {
+      mockGetUser.mockResolvedValue({ data: null, error: { message: 'boom' } });
+      expect(await loadCurrentFirmProfile()).toBeNull();
+    });
+
+    it('resolves null rather than rejecting when the auth call throws', async () => {
+      mockGetUser.mockRejectedValue(new Error('network down'));
+      await expect(loadCurrentFirmProfile()).resolves.toBeNull();
     });
   });
 

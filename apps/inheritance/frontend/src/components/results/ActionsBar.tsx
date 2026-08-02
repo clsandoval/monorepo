@@ -43,7 +43,18 @@ export function ActionsBar({ input, output, onEditInput, }: ActionsBarProps) {
     setPdfLoading(true);
     try {
       const { downloadPDF } = await import('../../lib/pdf-export');
-      await downloadPDF(input, output, null);
+      // downloadPDF's third parameter is the firm profile, and EstatePDF gates
+      // the letterhead on it. This call passed the literal `null`, which made
+      // the stored letterhead unrenderable no matter what was configured at
+      // /settings — the letterhead the app captures could never appear in any
+      // PDF a user could obtain. The import is dynamic for the same reason the
+      // one above it is: the PDF path is code-split, and a static import would
+      // pull the supabase client into every bundle that renders the results
+      // view. A null profile does not abandon the export — the document prints
+      // ATTORNEY ATTRIBUTION UNAVAILABLE on its own face instead.
+      const { loadCurrentFirmProfile } = await import('../../lib/firm-profile');
+      const profile = await loadCurrentFirmProfile();
+      await downloadPDF(input, output, profile);
     } finally {
       setPdfLoading(false);
     }
